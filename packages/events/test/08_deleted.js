@@ -12,7 +12,7 @@ mysql = require( 'mysql' );
 
 describe( 'events - functional (server): deleted', function() {
 
-  this.timeout( 5000 );
+  this.timeout( 30000 );
 
   beforeEach( done => {
 

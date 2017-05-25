@@ -2,17 +2,19 @@
 
 const utils = require( 'utils' ),
 
-w = require( 'when' ),
+  w = require( 'when' ),
 
-map = require( './databaseFieldMap' ),
+  getConfig = require( './getConfig' ),
 
-dbParse = require( 'mysql-utils/mapper' )( map ),
+  map = require( './databaseFieldMap' ),
 
-validate = require( './validate' ),
+  dbParse = require( 'mysql-utils/mapper' )( map ),
 
-sUtils = require( 'service-utils' ),
+  validate = require( './validate' ),
 
-logger = require( 'basic-logger' );
+  sUtils = require( 'service-utils' ),
+
+  logger = require( 'basic-logger' );
 
 module.exports = utils.extend( get, { init } );
 
@@ -31,34 +33,39 @@ function get( identifiers, options, cb ) {
     identifiers,
     internal: false,
     includeImagePath: false,
+    useDefaultImage: false,
     private: false
   }, options, {
-    entry: null, 
+    entry: null,
     data: null,
     filtered: null
   } ) )
 
-  .then( sUtils.identifiers.clean() )
+    .then( sUtils.identifiers.clean() )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _transform )
+    .then( _transform )
 
-  .then( _filterInternals )
+    .then( _filterInternals )
 
-  .done( v => {
+    .done( v => {
 
-    if ( !v.filtered ) return cb( null, null );
+      if ( !v.filtered ) return cb( null, null );
 
-    if ( v.includeImagePath && v.filtered.image ) {
+      if ( v.includeImagePath && v.filtered.image ) {
 
-      v.filtered.image = imagePath + v.filtered.image;
+        v.filtered.image = imagePath + v.filtered.image;
 
-    }
+      } else if ( v.useDefaultImage && !v.filtered.image ) {
 
-    cb( null, v.filtered );    
+        v.filtered.image = getConfig().defaultImagePath;
 
-  }, cb );
+      }
+
+      cb( null, v.filtered );
+
+    }, cb );
 
 
 }
@@ -68,11 +75,11 @@ function _get( v ) {
 
   let query = knex( schemas.event )
 
-  .select( dbParse.fields( 'db', v.internal, [ 'id' ] ) )
+    .select( dbParse.fields( 'db', v.internal, [ 'id' ] ) )
 
-  .where( v.identifiers )
+    .where( v.identifiers )
 
-  .whereNull( 'deleted_at' );
+    .whereNull( 'deleted_at' );
 
   if ( v.private !== null ) {
 

@@ -10,7 +10,7 @@ mysql = require( 'mysql' );
 
 describe( 'events - functional (server): stats', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 30000 );
 
   beforeEach( done => {
 

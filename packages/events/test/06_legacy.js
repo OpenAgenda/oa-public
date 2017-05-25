@@ -8,9 +8,9 @@ should = require( 'should' ),
 
 mysql = require( 'mysql' );
 
-describe( 'events - functional (server): legacy bridge', function() {
+describe.only( 'events - functional (server): legacy bridge', function() {
 
-  this.timeout( 30000 );
+  this.timeout( 60000 );
 
   beforeEach( done => {
 

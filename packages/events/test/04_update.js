@@ -10,7 +10,7 @@ mysql = require( 'mysql' );
 
 describe( 'events - functional (server): update', function() {
 
-  this.timeout( 5000 );
+  this.timeout( 30000 );
 
   let id = 146173;
 

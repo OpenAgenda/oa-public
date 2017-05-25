@@ -18,13 +18,13 @@ describe( 'events - functional (server): list', function() {
 
   this.timeout( 50000 );
 
-  beforeEach( done => {
+  before( done => {
 
     svc.initAndLoad( config, done );
 
   } );
 
-  afterEach( svc.shutdown );
+  after( svc.shutdown );
 
   it( 'simple list', done => {
 

@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 
 const w = require( 'when' );
 
+const VError = require( 'verror' );
+
 const logger = require( 'basic-logger' );
 
 const map = require( './databaseFieldMap' );
@@ -29,7 +31,8 @@ function list( query, offset, limit, options, cb ) {
     options: {
       total: false,
       internal: false,
-      detailed: false
+      detailed: false,
+      useDefaultImage: false
     }
   } );
 
@@ -41,17 +44,17 @@ function list( query, offset, limit, options, cb ) {
     knexQuery: knex( schemas.event )
   } ) )
 
-  .then( _search )
+    .then( _search )
 
-  .then( _total )
+    .then( _total )
 
-  .then( _order( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ] ) )
+    .then( _order( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ] ) )
 
-  .then( _list )
+    .then( _list )
 
-  .then( params.options.detailed ? _detailed : v => v )
+    .then( params.options.detailed ? _detailed : v => v )
 
-  .done( v => params.cb( null, v.events, v.total ), params.cb );
+    .done( v => params.cb( null, v.events, v.total ), params.cb );
 
 }
 
@@ -92,19 +95,38 @@ function _list( v ) {
 
   } )
 
-  .then( events => {
+    .then( events => {
 
-    v.events = events.map( dbParse.toObj );
+      v.events = events.map( dbParse.toObj )
+        .map( event => {
 
-    return v;
+          if ( event.image && event.image.filename ) {
 
-  } );
+            event.image.path = config.imagePath + event.image.filename;
+
+          } else if ( v.options.useDefaultImage && (!event.image || !event.image.filename) ) {
+
+            event.image.path = config.defaultImagePath;
+
+          } else {
+
+            event.image.path = null;
+
+          }
+
+          return event;
+
+        } );
+
+      return v;
+
+    } );
 
 }
 
 
 function _detailed( v ) {
-  
+
   if ( !config.interfaces.getOriginAgendas || !config.interfaces.getLocations ) {
 
     log( 'error', 'cannot fetched detailed info: service interfaces are missing' );
@@ -131,12 +153,12 @@ function _detailed( v ) {
 
         if ( err ) {
 
-          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.query ) ) );          
+          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.query ) ) );
 
         }
 
         v.events = v.events.map( e => _.extend( e, {
-          location: _.find( locations, l => l.uid === e.locationUid ) || null,
+          location: _.find( locations, l => l.uid === e.locationUid ) || null,
           agenda: _.find( agendas, a => a.uid === e.agendaUid ) || null
         } ) );
 
@@ -184,6 +206,12 @@ function _search( v ) {
 
   }
 
+  if ( v.query.ownerUid !== null ) {
+
+    wheres.owner_uid = v.query.ownerUid;
+
+  }
+
   if ( Object.keys( wheres ).length ) {
 
     v.knexQuery.where( wheres );
@@ -191,7 +219,7 @@ function _search( v ) {
   }
 
   v.knexQuery.whereNull( 'deleted_at' );
-  
+
   return v;
 
 }
@@ -201,15 +229,15 @@ function _total( v ) {
 
   if ( !v.options.total ) return v;
 
-  return knex.transaction( trx => v.knexQuery.clone().count( 'id' ).transacting( trx ) )
+  return knex.transaction( trx => v.knexQuery.clone().count( 'id as total' ).transacting( trx ) )
 
-  .then( result => {
+    .then( result => {
 
-    v.total = result[ 0 ].id;
+      v.total = result[ 0 ].total;
 
-    return v;
+      return v;
 
-  } );
+    } );
 
 }
 

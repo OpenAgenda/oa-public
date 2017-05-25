@@ -10,7 +10,7 @@ const svc = require( './service' ),
 
 describe( 'events - functional (server): remove', function() {
 
-  this.timeout( 5000 );
+  this.timeout( 30000 );
 
   beforeEach( done => {
 

@@ -2,11 +2,11 @@
 
 module.exports = {
 
-  mysql : {
-    host : '127.0.0.1',
-    database : 'oatest_event',
-    password : 'grut',
-    user : 'root'
+  mysql: {
+    host: '127.0.0.1',
+    database: 'oatest_event',
+    password: 'grut',
+    user: 'root'
   },
 
   schemas: {
@@ -14,8 +14,9 @@ module.exports = {
   },
 
   imagePath: '//openagendatst.s3.amazonaws.com/',
+  defaultImagePath: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
 
-  files: {
+  files: {
     tmpPath: __dirname + '/test/tmp',
     bucket: 'openagendatst',
     accessKeyId: '-----',
@@ -23,11 +24,11 @@ module.exports = {
   },
 
   legacy: {
-    mysql : {
-      host : '127.0.0.1',
-      database : 'oatest_event',
-      password : 'grut',
-      user : 'root'
+    mysql: {
+      host: '127.0.0.1',
+      database: 'oatest_event',
+      password: 'grut',
+      user: 'root'
     },
     schemas: {
       event: 'legacy_event',
@@ -49,9 +50,34 @@ module.exports = {
 
     onUpdate: ( before, after ) => {},
 
-    beforeRemove: ( event, cb ) => { cb() },
+    beforeRemove: ( event, cb ) => {
+      cb()
+    },
 
-    onRemove: event => {}
+    onRemove: event => {},
+
+    getOriginAgendas: ( uids, cb ) => {
+
+      cb( null, uids.map( uid => ( {
+        uid,
+        title: 'La Gargouille',
+        image: null,
+        offical: true
+      } ) ) );
+
+    },
+
+    getLocations: ( uids, cb ) => {
+
+      cb( null, uids.map( uid => ( {
+        name: 'La case de Janine',
+        uid,
+        latitude: 48.8674277,
+        longitude: 2.350881,
+        address: '1 passage du ponceau, Paris'
+      } ) ) );
+
+    }
 
   }
 

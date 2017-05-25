@@ -4,23 +4,23 @@ process.env.NODE_ENV = 'test';
 
 const svc = require( './service' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-should = require( 'should' ),
+  should = require( 'should' ),
 
-mysql = require( 'mysql' );
+  mysql = require( 'mysql' );
 
-describe( 'events - functional (server): get', function() {
+describe( 'events - functional (server): get', function () {
 
-  this.timeout( 5000 );
+  this.timeout( 30000 ); // #machineDe(La)Guerre
 
-  beforeEach( done => {
+  before( done => {
 
     svc.initAndLoad( config, done );
 
   } );
 
-  afterEach( svc.shutdown );
+  after( svc.shutdown );
 
   it( 'simple get', done => {
 
@@ -121,7 +121,7 @@ describe( 'events - functional (server): get', function() {
 
   it( 'a erroneous json get gives back an error', done => {
 
-    svc.get( 146318, ( err, event ) => {
+    svc.get( 146318, { internal: true }, ( err, event ) => {
 
       should( err ).not.equal( null );
 
