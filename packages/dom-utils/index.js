@@ -295,7 +295,7 @@ function nl2br( str, is_xhtml, esc ) {
     esc = false;
 
   }
-  
+
   return ( esc ? utils.escape( str + '' ) : str ).replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 
 }

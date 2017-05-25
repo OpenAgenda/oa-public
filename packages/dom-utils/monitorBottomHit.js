@@ -34,3 +34,9 @@ function _monitor() {
   onHit();
 
 }
+
+module.exports.stop = function() {
+
+  onHit = null;
+
+}
