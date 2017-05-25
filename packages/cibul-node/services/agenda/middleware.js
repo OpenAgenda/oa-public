@@ -233,7 +233,7 @@ function loadAdminLayout( req, res, next ) {
           return _.extend( {}, tab, {
             badge: badge || undefined,
             label
-          } )
+          } );
 
         } );
 

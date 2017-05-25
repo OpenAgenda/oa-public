@@ -10,7 +10,9 @@ const src = require( './' ),
 
   utils = require( 'utils' ),
 
-  config = require( '../../config' );
+  config = require( '../../config' ),
+
+  moment = require( 'moment-timezone' );
 
 
 /**
@@ -65,9 +67,9 @@ module.exports = function( req, res ) {
         lat: exp.latitude,
         long: exp.longitude,
         custom_elements: [ {
-          'ev:startdate' : exp.timings[ 0 ].start
+          'ev:startdate' : moment.tz( exp.timings[ 0 ].start, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
         }, {
-          'ev:enddate' : exp.timings[ exp.timings.length - 1 ].end
+          'ev:enddate' : moment.tz( exp.timings[ exp.timings.length - 1 ].end, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
         }, {
           'ev:location' : exp.location.name + ' - ' + exp.location.address
         } ]
