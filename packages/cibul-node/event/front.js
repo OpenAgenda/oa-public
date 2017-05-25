@@ -120,18 +120,25 @@ const modLib = require( '../lib/moduleLib' ),
     eventShow: [ 'get', '/events/:eventSlug', [
       cmn.https,
       ( req, res, next ) => {
-        if ( Number.isInteger( parseInt( req.params.eventSlug ) ) ) {
+
+        let integer = parseInt( req.params.eventSlug );
+
+        if ( Number.isInteger( integer ) && ( ( integer + '' ).length === req.params.eventSlug.length ) ) {
+
           return next( 'route' );
+
         }
 
         next();
       },
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       ( req, res, next ) => {
+
         if ( req.event.origin ) {
           req.agenda = req.event.origin;
           return redirect( req, res, next );
         }
+
         next();
       },
       eventSvc.mw.format,
