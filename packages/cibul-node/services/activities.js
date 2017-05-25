@@ -1,5 +1,7 @@
 "use strict";
 
+const logger = require( 'logger' );
+
 const activities = require( 'activities' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' );
@@ -44,7 +46,8 @@ module.exports.init = ( config, cb ) => {
         cb( null, true );
 
       }
-    } ]
+    } ],
+    logger
   }, cb );
 
 }

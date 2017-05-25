@@ -135,7 +135,7 @@ const routes = {
       const { queued } = req.result;
       const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
 
-      if ( errors.length ) return next( { errors } );
+      if ( errors && errors.length ) return next( { errors } );
 
       const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
         let emailRejected;
