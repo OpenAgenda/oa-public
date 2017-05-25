@@ -77,7 +77,8 @@ function matchApp( req, res, next ) {
           events: {
             list: req.genUrl( 'homeEventsList' ),
             show: req.genUrl.getPath( 'agendaEventShow' ),
-            showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' )
+            showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' ),
+            showWithoutAgenda: req.genUrl.getPath( 'eventShow' )
           },
           messages: req.genUrl( 'homeMessages' ),
           notifs: req.genUrl( 'homeNotifications' ),
