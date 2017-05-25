@@ -12,7 +12,7 @@ module.exports = event => {
 
     if ( err ) return log( 'error', err );
 
-    if ( user.is_new ) {
+    if ( user && user.is_new ) {
 
       users.setNewFlag( { uid: event.creatorUid }, false, ( err ) => {
 

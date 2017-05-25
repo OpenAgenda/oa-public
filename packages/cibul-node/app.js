@@ -218,6 +218,13 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './activities/task' )();
 
+        /*require( 'events-service').tasks.transferLegacyData( err => {
+
+          console.log( 'done!' );
+          console.log( err );
+
+        } );*/
+
       }
 
       server = app.listen( config.port, () => {
