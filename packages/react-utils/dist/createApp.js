@@ -22,10 +22,18 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
   var store = createStore(browserHistory, client, state);
   var history = (0, _reactRouterRedux.syncHistoryWithStore)(browserHistory, store);
 
+  var _bindActionCreators = (0, _redux.bindActionCreators)({ replace: _reactRouterRedux.replace }, store.dispatch),
+      redirect = _bindActionCreators.replace;
+
   var renderRouter = function renderRouter(props) {
-    return _react2.default.createElement(_reduxConnect.ReduxAsyncConnect, _extends({}, props, { helpers: { client: client }, filter: function filter(item) {
+    return _react2.default.createElement(_reduxConnect.ReduxAsyncConnect, _extends({}, props, {
+      helpers: { client: client, redirect: redirect },
+      filter: function filter(item) {
         return !item.deferred;
-      }, history: history }));
+      },
+      history: history,
+      render: (0, _reactRouter.applyRouterMiddleware)((0, _reactRouterScroll.useScroll)())
+    }));
   };
 
   if (typeof window !== 'undefined') {
@@ -36,7 +44,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
     var devToolsDest = document.createElement('div');
     window.document.body.insertBefore(devToolsDest, null);
     var DevTools = require('./ReduxDevTools');
-    _server2.default.render(_react2.default.createElement(
+    _reactDom2.default.render(_react2.default.createElement(
       _reactRedux.Provider,
       { store: store, key: 'provider' },
       _react2.default.createElement(DevTools, null)
@@ -45,30 +53,50 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
 
   if (fn) fn({ client: client, store: store, history: history });
 
-  return _react2.default.createElement(
+  var routes = getRoutes(store);
+
+  var match = function match(elem) {
+    (0, _reactRouter.match)({ history: history, routes: routes }, function (error, redirectLocation, renderProps) {
+      _reactDom2.default.render(_react2.default.createElement(
+        _reactRedux.Provider,
+        { store: store, key: 'provider' },
+        _react2.default.createElement(
+          _reactRouter.Router,
+          _extends({}, renderProps, { history: history, render: renderRouter }),
+          routes
+        )
+      ), elem);
+    });
+  };
+
+  return Object.assign({}, _react2.default.createElement(
     _reactRedux.Provider,
     { store: store, key: 'provider' },
     _react2.default.createElement(
       _reactRouter.Router,
       { history: history, render: renderRouter },
-      getRoutes(store)
+      routes
     )
-  );
+  ), { match: match });
 };
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _server = require('react-dom/server');
+var _reactDom = require('react-dom');
 
-var _server2 = _interopRequireDefault(_server);
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _redux = require('redux');
 
 var _reactRedux = require('react-redux');
 
 var _reactRouterRedux = require('react-router-redux');
 
 var _reactRouter = require('react-router');
+
+var _reactRouterScroll = require('react-router-scroll');
 
 var _createBrowserHistory = require('history/lib/createBrowserHistory');
 

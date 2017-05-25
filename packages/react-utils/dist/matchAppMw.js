@@ -45,7 +45,9 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
           console.error('ROUTER ERROR:', error);
           next(error);
         } else if (renderProps) {
-          (0, _reduxConnect.loadOnServer)(Object.assign({}, renderProps, { store: store, helpers: { client: client } })).then(function () {
+          var redirect = res.redirect.bind(res);
+
+          (0, _reduxConnect.loadOnServer)(Object.assign({}, renderProps, { store: store, helpers: { client: client, redirect: redirect } })).then(function () {
 
             var component = (0, _react.createElement)(_reactRedux.Provider, { store: store, key: 'provider' }, (0, _react.createElement)(_reduxConnect.ReduxAsyncConnect, renderProps));
 

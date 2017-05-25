@@ -29,7 +29,9 @@ export default function matchAppMw( createStore, getRoutes, ApiClient ) {
           console.error( 'ROUTER ERROR:', error );
           next( error );
         } else if ( renderProps ) {
-          loadOnServer( Object.assign( {}, renderProps, { store, helpers: { client } } ) ).then( () => {
+          const redirect = ::res.redirect;
+
+          loadOnServer( Object.assign( {}, renderProps, { store, helpers: { client, redirect } } ) ).then( () => {
 
             const component = createElement(
               Provider,
