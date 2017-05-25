@@ -193,7 +193,7 @@ function _defineDraft( v ) {
 
   v.data.draft = true;
 
-  if ( v.entries.event.is_published && eventUtils.isComplete( v.data ) ) {
+  if ( eventUtils.isComplete( v.data ) ) {
 
     v.data.draft = false;
 
