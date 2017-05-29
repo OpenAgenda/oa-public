@@ -69,8 +69,11 @@ var Modal = (_temp = _class = function (_Component) {
     key: 'addClickEvents',
     value: function addClickEvents() {
 
-      _reactDom2.default.findDOMNode(this.modalRef).addEventListener('click', this.handleModalClick);
-      _reactDom2.default.findDOMNode(this.overlayRef).addEventListener('click', this.handleOverlayClick);
+      var modalDomNode = _reactDom2.default.findDOMNode(this.modalRef);
+      var overlayDomNode = _reactDom2.default.findDOMNode(this.overlayRef);
+
+      if (modalDomNode) modalDomNode.addEventListener('click', this.handleModalClick);
+      if (overlayDomNode) overlayDomNode.addEventListener('click', this.handleOverlayClick);
 
       document.addEventListener('keydown', this.handleEsc);
     }
@@ -78,8 +81,11 @@ var Modal = (_temp = _class = function (_Component) {
     key: 'removeClickEvents',
     value: function removeClickEvents() {
 
-      _reactDom2.default.findDOMNode(this.modalRef).removeEventListener('click', this.handleModalClick);
-      _reactDom2.default.findDOMNode(this.overlayRef).removeEventListener('click', this.handleOverlayClick);
+      var modalDomNode = _reactDom2.default.findDOMNode(this.modalRef);
+      var overlayDomNode = _reactDom2.default.findDOMNode(this.overlayRef);
+
+      if (modalDomNode) modalDomNode.removeEventListener('click', this.handleModalClick);
+      if (overlayDomNode) overlayDomNode.removeEventListener('click', this.handleOverlayClick);
 
       document.removeEventListener('keydown', this.handleEsc);
     }

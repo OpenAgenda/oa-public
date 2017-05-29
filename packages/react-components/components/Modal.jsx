@@ -53,8 +53,11 @@ export default class Modal extends Component {
 
   addClickEvents() {
 
-    ReactDOM.findDOMNode( this.modalRef ).addEventListener( 'click', this.handleModalClick );
-    ReactDOM.findDOMNode( this.overlayRef ).addEventListener( 'click', this.handleOverlayClick );
+    const modalDomNode = ReactDOM.findDOMNode( this.modalRef );
+    const overlayDomNode = ReactDOM.findDOMNode( this.overlayRef );
+
+    if ( modalDomNode ) modalDomNode.addEventListener( 'click', this.handleModalClick );
+    if ( overlayDomNode ) overlayDomNode.addEventListener( 'click', this.handleOverlayClick );
 
     document.addEventListener( 'keydown', this.handleEsc );
 
@@ -62,8 +65,11 @@ export default class Modal extends Component {
 
   removeClickEvents() {
 
-    ReactDOM.findDOMNode( this.modalRef ).removeEventListener( 'click', this.handleModalClick );
-    ReactDOM.findDOMNode( this.overlayRef ).removeEventListener( 'click', this.handleOverlayClick );
+    const modalDomNode = ReactDOM.findDOMNode( this.modalRef );
+    const overlayDomNode = ReactDOM.findDOMNode( this.overlayRef );
+
+    if ( modalDomNode ) modalDomNode.removeEventListener( 'click', this.handleModalClick );
+    if ( overlayDomNode ) overlayDomNode.removeEventListener( 'click', this.handleOverlayClick );
 
     document.removeEventListener( 'keydown', this.handleEsc );
 
