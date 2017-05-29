@@ -73,6 +73,10 @@ function _wrapComponent(id) {
   };
 }
 
+var ucfirst = function ucfirst(txt) {
+  return txt.charAt(0).toUpperCase() + txt.slice(1);
+};
+
 var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
@@ -166,7 +170,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                 _react3.default.createElement(
                   'h2',
                   null,
-                  getLabel('myAgendas')
+                  getLabel('my' + ucfirst(tab))
                 ),
                 _react3.default.createElement(
                   'div',

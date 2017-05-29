@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import { Menu } from '../../components';
 
+const ucfirst = txt => txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
+
 @connect(
   state => ({
     res: state.res,
@@ -61,7 +63,7 @@ export default class App extends Component {
           <div className="col-sm-3 col-sm-push-9">
             <div className="visible-xs-block"> {/* small screen version */}
               <div className="row header">
-                <h2>{getLabel( 'myAgendas' )}</h2>
+                <h2>{getLabel( 'my' + ucfirst( tab ) )}</h2>
                 <div className="pull-right">
                   <button className="btn btn-default btn-collapse-nav" type="button"
                     onClick={() => this.setState( { menuOpen: !this.state.menuOpen } )}
