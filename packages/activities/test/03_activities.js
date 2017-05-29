@@ -389,6 +389,25 @@ describe( 'activities - activities', function () {
 
     } );
 
+    it( 'add an activity in a feed that doesn\'t exist', () => {
+
+      return service.feed( { entityType: 'user', entityUid: 75 } ).activities.add( {
+        actor: 'user:78978978',
+        verb: 'event.create',
+        object: 'event:56488589',
+        target: 'agenda:78625845',
+        store: {
+          labels: {
+            actor: 'Jacky',
+            object: 'Réunion des junkies anonymes 2',
+            target: 'La fumette'
+          }
+        }
+      } )
+        .should.rejectedWith( Error, { message: 'One or more feeds doesn\'t exist' } );
+
+    } );
+
     it( 'add an activity - without following', () => {
 
       return service.feed( { entityType: 'user', entityUid: 45 } ).activities.add( {

@@ -155,6 +155,8 @@ function add() {
 
         if ( !feeds.length ) throw new Error( 'You should choose at least one feed for add activity' );
 
+        if ( feeds.filter( v => !v ).length ) throw new Error( 'One or more feeds doesn\'t exist' );
+
         return knex( config.schemas.activity ).insert( fields )
           .then( ( [ activityId ] ) => {
 
