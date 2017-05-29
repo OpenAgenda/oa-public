@@ -71,6 +71,8 @@ function follow() {
     } )
     .then( ( { targetFeed, originFeed } ) => {
 
+      if ( targetFeed === null || originFeed === null ) return 0;
+
       return knex( config.schemas.feed_follow )
         .select()
         .where( { target_feed: targetFeed.id, origin_feed: originFeed.id } )
@@ -85,6 +87,8 @@ function follow() {
 
     } )
     .then( ( { targetFeed, originFeed } ) => {
+
+      if ( !targetFeed || !originFeed ) return 0;
 
       return knex( config.schemas.feed_follow )
         .insert( { target_feed: targetFeed.id, origin_feed: originFeed.id, store: JSON.stringify( store || {} ) } )

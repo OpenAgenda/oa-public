@@ -192,6 +192,13 @@ describe( 'activities - feed', function () {
 
       } );
 
+      it( 'follow feed that does not exists', () => {
+
+        return service.feed( { id: 2 } ).follow( { id: 75 } )
+          .should.fulfilledWith( 0 );
+
+      } );
+
       it( 'follow feed with a store', () => {
 
         return service.feed( { id: 2 } ).follow( { id: 6 }, { blabla: 'car' } )
