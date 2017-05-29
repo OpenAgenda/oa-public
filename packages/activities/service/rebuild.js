@@ -218,6 +218,11 @@ function rebuild( args, options, logger ) {
       entityType: 'agenda',
       entityUid: ra.reviewUid
     } ).follow( { entityType: 'event', entityUid: ra.eventUid } )
+      .then( result => {
+
+        return result ? result : Promise.reject( new Error( 'Feed doesn\'t exists' ) );
+
+      } )
       .then( () => next() )
       .catch( err => {
 
