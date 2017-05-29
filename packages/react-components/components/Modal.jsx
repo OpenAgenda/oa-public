@@ -125,7 +125,7 @@ export default class Modal extends Component {
 
   render() {
 
-    const { title, children } = this.props;
+    const { title, children, visible } = this.props;
 
     if ( !visible ) {
       return null;

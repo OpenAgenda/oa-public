@@ -147,7 +147,8 @@ var Modal = (_temp = _class = function (_Component) {
 
       var _props = this.props,
           title = _props.title,
-          children = _props.children;
+          children = _props.children,
+          visible = _props.visible;
 
 
       if (!visible) {
