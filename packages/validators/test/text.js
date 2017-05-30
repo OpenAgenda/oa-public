@@ -9,8 +9,8 @@ describe( 'text validator', () => {
   describe( 'required', () => {
 
     var validate = validators.text( {
-      field: 'text', 
-      min: 3, 
+      field: 'text',
+      min: 3,
       max: 10,
       optional: false
     } );
@@ -177,6 +177,56 @@ describe( 'text validator', () => {
 
   } );
 
-  
+  describe( 'other types', () => {
+
+    it( 'validates a number such as a text', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        optional: false
+      } );
+
+      let errors = [];
+
+      try {
+
+        validate( 42 );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+    } );
+
+    it( 'validates an object such as a text', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        optional: false
+      } );
+
+      let errors = [];
+
+      try {
+
+        validate( {} );
+
+      } catch( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
+
+    } );
+
+  } );
+
+
 
 } );

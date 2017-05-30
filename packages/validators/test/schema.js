@@ -96,7 +96,7 @@ describe( 'schema validator', () => {
         field: 'title',
         code: 'required',
         message: 'a string is required',
-        origin: undefined 
+        origin: undefined
       } ] );
 
     } );
@@ -121,7 +121,7 @@ describe( 'schema validator', () => {
       try {
 
         validate.default.should.eql( {
-          title: 'default text', 
+          title: 'default text',
           url: null,
         } );
 
@@ -187,10 +187,10 @@ describe( 'schema validator', () => {
     it( 'validates another deep schema object', () => {
 
       let validate = schema( {
-        title: { 
-          type: 'text', 
-          min: 2, 
-          max: 255, 
+        title: {
+          type: 'text',
+          min: 2,
+          max: 255,
           optional: false
         },
         description: {
@@ -267,7 +267,7 @@ describe( 'schema validator', () => {
       errors = [];
 
       try {
-        
+
         clean = validate( {} );
 
       } catch( e ) { errors = e; }
@@ -278,7 +278,7 @@ describe( 'schema validator', () => {
         contribution: {
           type: 0,
           message: null
-        } 
+        }
       } );
 
     } );
@@ -288,7 +288,7 @@ describe( 'schema validator', () => {
 
       let errors = [],
 
-      validate = schema( { 
+      validate = schema( {
         subobj: {
           somefield: {
             type: 'text',
@@ -335,7 +335,7 @@ describe( 'schema validator', () => {
         field: 'sub.description',
         code: 'required',
         message: 'a string is required',
-        origin: undefined 
+        origin: undefined
       } ] );
 
     } );
@@ -346,10 +346,10 @@ describe( 'schema validator', () => {
       let errors,
 
       validate = schema( {
-        title: { 
-          type: 'text', 
-          min: 2, 
-          max: 255, 
+        title: {
+          type: 'text',
+          min: 2,
+          max: 255,
           optional: false
         },
         description: {
@@ -377,7 +377,7 @@ describe( 'schema validator', () => {
       } );
 
       try {
-        
+
         let cleanObject = validate( {
           description: 'P',
           url: 'notalink',
@@ -398,7 +398,7 @@ describe( 'schema validator', () => {
         field: 'title',
         code: 'required',
         message: 'a string is required',
-        origin: undefined 
+        origin: undefined
       }, {
         field: 'url',
         code: 'link.invalid',
@@ -515,11 +515,11 @@ describe( 'schema validator', () => {
       try {
 
         validate.default.should.eql( {
-          title: null, 
-          url: null, 
-          settings: { 
-            someSetting: null 
-          } 
+          title: null,
+          url: null,
+          settings: {
+            someSetting: null
+          }
         } );
 
       } catch( e ) { console.log( e ); }
@@ -554,7 +554,7 @@ describe( 'schema validator', () => {
           fields: {
             message: {
               type: 'text'
-            }  
+            }
           }
         }
       } );
@@ -621,11 +621,11 @@ describe( 'schema validator', () => {
 
       errors.length.should.equal( 1 );
 
-      errors.should.eql( [ { 
+      errors.should.eql( [ {
         field: 'aListOfTexts',
         code: 'list.tooshort',
         message: 'list is too short',
-        origin: [ 'ladida' ] 
+        origin: [ 'ladida' ]
       } ] );
 
     } );
@@ -655,7 +655,7 @@ describe( 'schema validator', () => {
 
       errors.length.should.equal( 1 );
 
-      errors.should.eql( [ { 
+      errors.should.eql( [ {
         field: 'aListOfTexts',
         code: 'list.toolong',
         message: 'list is too long',
@@ -722,12 +722,12 @@ describe( 'schema validator', () => {
 
       errors.length.should.equal( 0 );
 
-      clean.should.eql( { 
-        aListOfObjects: [ 
-          { message: 'One' }, 
-          { message: 'Two' }, 
-          { message: 'Three' } 
-        ] 
+      clean.should.eql( {
+        aListOfObjects: [
+          { message: 'One' },
+          { message: 'Two' },
+          { message: 'Three' }
+        ]
       } );
 
     } );
@@ -789,7 +789,7 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.should.eql( [ { 
+      errors.should.eql( [ {
         field: 'aListOfObjects',
         code: 'list.tooshort',
         message: 'list is too short',
@@ -799,7 +799,7 @@ describe( 'schema validator', () => {
           message: 'Two'
         }, {
           message: 'Three'
-        } ] } 
+        } ] }
       ] );
 
     } );
@@ -1019,7 +1019,7 @@ describe( 'schema validator', () => {
 
     it( 'validates a schema with object named type', () => {
 
-      let errors = [], clean, 
+      let errors = [], clean,
 
       validator = schema( {
         contribution: {
@@ -1068,7 +1068,7 @@ describe( 'schema validator', () => {
       try {
 
         clean = validator( { updatedAt: new Date() } );
-        
+
       } catch( e ) {
 
         errors = e;
@@ -1157,7 +1157,7 @@ describe( 'schema validator', () => {
 
       let errors = [],
 
-      clean, 
+      clean,
 
       validate = schema( {
         description: {
@@ -1179,6 +1179,56 @@ describe( 'schema validator', () => {
       }
 
       errors[ 0 ].field.should.equal( 'description.fr' );
+
+    } );
+
+    it( 'An object in place of a text should give an error', () => {
+
+      let errors = [],
+
+        validate = schema( {
+          description: {
+            type: 'text',
+            optional: false
+          }
+        } );
+
+      try {
+
+        validate( { description: { hmm: 'caca-lô' } } );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors[ 0 ].field.should.equal( 'description' );
+
+    } );
+
+    it( 'An number in place of a text should give an error', () => {
+
+      let errors = [],
+
+        validate = schema( {
+          description: {
+            type: 'text',
+            optional: false
+          }
+        } );
+
+      try {
+
+        validate( { description: 42 } );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors[ 0 ].field.should.equal( 'description' );
 
     } );
 
