@@ -47,6 +47,50 @@ describe( 'link validator', () => {
 
     } );
 
+    it( 'redos! - your processor did not sink', () => {
+
+      [ 
+        'http://www.scenesetcines.fr/index.php?id=68&no_cache=1&tx_xmloparser_pi1%5Bitem%5D=30002746&tx_xmloparser_pi1%5BbackPid%5D=2&PHPSESSID=11a611c62b026547e8de23e6d6576907, http://www.artefact-lab.com/',
+        'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5'
+      ].forEach( l => {
+
+        console.log( 'redos-able: %s', l );
+
+        try {
+
+          validate( l );
+
+        } catch( e ) {
+
+
+        }
+
+      } );
+      
+    } );
+
+    it( 'links with invalid uri components are rejected', () => {
+
+      let errors = [];
+
+      try {
+
+        validate( 'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5' )
+
+      } catch ( e ) {
+
+        errors = e;        
+
+      }
+
+      errors.should.eql( [ { 
+        origin: 'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5',
+        field: 'link',
+        code: 'link.invalid',
+        message: 'URI malformed' 
+      } ] );
+
+    } );
 
     it( 'http is added if missing', () => {
 
@@ -57,8 +101,6 @@ describe( 'link validator', () => {
     } );
 
     
-
-
     it( 'are links', () => {
 
       let errors = false,
@@ -102,7 +144,9 @@ describe( 'link validator', () => {
 
       links = [
         'fdsqfdssfds',
-        'openagenda.com.'
+        'openagenda.com.',
+        'http://www/:a-url.com',
+        'http://www.bourg-en-gironde.fr;www.remut.fr/actualite/4477'
       ],
 
       areLinks = links.filter( l => {

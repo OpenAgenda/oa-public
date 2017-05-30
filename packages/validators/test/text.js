@@ -145,7 +145,6 @@ describe( 'text validator', () => {
 
   } );
 
-
   describe( 'as list of texts', () => {
 
     it( 'validates list of text when list bool is set to true', () => {
@@ -158,7 +157,7 @@ describe( 'text validator', () => {
 
       should( validate( [ 'fsqfsdqs', 'fds' ] ) )
 
-      .eql( [ 'fsqfsdqs', 'fds' ] );
+        .eql( [ 'fsqfsdqs', 'fds' ] );
 
     } );
 
@@ -171,62 +170,71 @@ describe( 'text validator', () => {
 
       should( validate() )
 
-      .eql( [] );
+        .eql( [] );
+
+    } );
+
+    it( 'cleans a single value as a single list item', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        list: true
+      } );
+
+      validate( 'a text' ).should.eql( [ 'a text' ] );
+
+    } )
+
+    describe( 'other types', () => {
+
+      it( 'validates a number such as a text', () => {
+
+        let validate = validators.text( {
+          field: 'text',
+          optional: false
+        } );
+
+        let errors = [];
+
+        try {
+
+          validate( 42 );
+
+        } catch ( e ) {
+
+          errors = e;
+
+        }
+
+        errors.length.should.equal( 1 );
+
+      } );
+
+      it( 'validates an object such as a text', () => {
+
+        let validate = validators.text( {
+          field: 'text',
+          optional: false
+        } );
+
+        let errors = [];
+
+        try {
+
+          validate( {} );
+
+        } catch ( e ) {
+
+          errors = e;
+
+        }
+
+        errors.length.should.equal( 1 );
+
+      } );
 
     } );
 
   } );
-
-  describe( 'other types', () => {
-
-    it( 'validates a number such as a text', () => {
-
-      let validate = validators.text( {
-        field: 'text',
-        optional: false
-      } );
-
-      let errors = [];
-
-      try {
-
-        validate( 42 );
-
-      } catch( e ) {
-
-        errors = e;
-
-      }
-
-      errors.length.should.equal( 1 );
-
-    } );
-
-    it( 'validates an object such as a text', () => {
-
-      let validate = validators.text( {
-        field: 'text',
-        optional: false
-      } );
-
-      let errors = [];
-
-      try {
-
-        validate( {} );
-
-      } catch( e ) {
-
-        errors = e;
-
-      }
-
-      errors.length.should.equal( 1 );
-
-    } );
-
-  } );
-
-
 
 } );

@@ -58,4 +58,12 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'validates a list of integers', () => {
+
+    validators.integer( { list: true } )( [ 1, 2, 3 ] )
+
+    .should.eql( [ 1, 2, 3 ] );
+
+  } );
+
 } );

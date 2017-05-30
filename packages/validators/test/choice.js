@@ -114,7 +114,46 @@ describe( 'choice validator', () => {
 
       clean.should.equal( 2 );
 
-    } )
+    } );
+
+    it( 'default unique output is null by default', () => {
+
+      let clean;
+
+      const validate = validators.choice( {
+        options: [ 2, 4 ],
+        unique: true
+      } );
+
+      try {
+
+        clean = validate();
+
+      } catch( e ) {}
+
+      should( clean ).equal( null );
+
+    } );
+
+    it( 'default unique output can be specified', () => {
+
+      let clean;
+
+      const validate = validators.choice( {
+        options: [ 22, 44 ],
+        default: 22,
+        unique: true
+      } );
+
+      try {
+
+        clean = validate();
+
+      } catch( e ) {}
+
+      clean.should.equal( 22 );
+
+    } );
 
   } );
 

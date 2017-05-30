@@ -42,7 +42,7 @@ export default config => {
 
     if ( params.unique ) {
 
-      return clean.length >= 1 ? clean[ 0 ] : clean;
+      return clean.length >= 1 ? clean[ 0 ] : params.default;
 
     }
 

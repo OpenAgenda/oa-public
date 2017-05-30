@@ -35,12 +35,14 @@ module.exports = function (validator, options) {
 
     if (!(0, _isArray2['default'])(value)) {
 
-      throw [{
+      /*throw [ {
         field: validator.field,
         code: 'list.wrongtype',
         message: 'value should be a list',
         origin: value
-      }];
+      } ];*/
+
+      value = [value];
     }
 
     value.forEach(function (item, i) {

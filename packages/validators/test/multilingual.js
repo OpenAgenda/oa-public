@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-multilingual = require( '../multilingual' );
+multilingual = require( '../src/multilingual' );
 
 describe( 'multilingual validator', () => {
 
@@ -84,6 +84,45 @@ describe( 'multilingual validator', () => {
     } );
 
   } );
+
+  it( 'list option to true makes validator treat each language as a list of strings', () => {
+
+    let validate = multilingual( {
+      list: true
+    } ),
+
+    clean = false;
+
+    try {
+
+      clean = validate( {
+        en: [],
+        fr: [ 'Texte en français' ],
+        es: [ 'Una pequena palabra' ]
+      } );
+
+    } catch( e ) {
+    }
+
+    clean.should.eql( {
+      en: [],
+      fr: [ 'Texte en français' ],
+      es: [ 'Una pequena palabra' ]
+    } );
+
+  } );
+
+
+  it( 'default value can be null', () => {
+
+    let validate = multilingual( {
+      default: null
+    } );
+
+    should( validate() ).equal( null );
+
+  } );
+
 
   it( 'null or undefined keyed value filtered out', () => {
 

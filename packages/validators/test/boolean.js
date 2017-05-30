@@ -22,6 +22,17 @@ describe( 'boolean validator', () => {
 
   } );
 
+  it( 'returns default value if default value is given', () => {
+
+    let optionalValidate = validators.boolean( {
+      optional: true,
+      default: null
+    } );
+
+    should( optionalValidate( null ) ).equal( null );
+
+  } );
+
   it( 'puts a default value if nothing is specified', () => {
 
     let validate = validators.number( {

@@ -1,21 +1,30 @@
 "use strict";
 
-import _ from 'lodash/core';
 import numberValidator from './number';
+import extend from 'lodash/extend';
+import listify from './listify';
 
 export default config => {
 
-  const params = _.extend( {
+  const params = extend( {
     field: false,
     optional: true,
     min: null,
     max: null,
-    default: null
-  }, config || {} );
+    default: null,
+    list: false
+  }, config || {} ),
 
-  const validateNumber = numberValidator( params );
+  validateNumber = numberValidator( params ),
 
-  return _.extend( value => {
+  integerValidator = extend( validate, {
+    type: 'integer',
+    field: params.field
+  } );
+
+  return params.list ? listify( integerValidator, params ) : integerValidator;
+
+  function validate( value ) {
 
     let clean = null, errors = [];
 
@@ -48,7 +57,7 @@ export default config => {
 
     if ( parseInt( clean ) !== parseFloat( clean ) ) {
 
-      throw [ _.extend( {
+      throw [ extend( {
         code: 'integer.invalid',
         message: 'not an integer',
         origin: value
@@ -58,9 +67,6 @@ export default config => {
 
     return clean;
 
-  }, {
-    type: 'integer',
-    field: params.field
-  } );
+  }
 
 }

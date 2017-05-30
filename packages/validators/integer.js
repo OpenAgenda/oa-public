@@ -4,29 +4,39 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _core = require('lodash/core');
-
-var _core2 = _interopRequireDefault(_core);
-
 var _number = require('./number');
 
 var _number2 = _interopRequireDefault(_number);
+
+var _extend = require('lodash/extend');
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _listify = require('./listify');
+
+var _listify2 = _interopRequireDefault(_listify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = function (config) {
 
-  var params = _core2['default'].extend({
+  var params = (0, _extend2['default'])({
     field: false,
     optional: true,
     min: null,
     max: null,
-    'default': null
-  }, config || {});
+    'default': null,
+    list: false
+  }, config || {}),
+      validateNumber = (0, _number2['default'])(params),
+      integerValidator = (0, _extend2['default'])(validate, {
+    type: 'integer',
+    field: params.field
+  });
 
-  var validateNumber = (0, _number2['default'])(params);
+  return params.list ? (0, _listify2['default'])(integerValidator, params) : integerValidator;
 
-  return _core2['default'].extend(function (value) {
+  function validate(value) {
 
     var clean = null,
         errors = [];
@@ -55,7 +65,7 @@ exports['default'] = function (config) {
 
     if (parseInt(clean) !== parseFloat(clean)) {
 
-      throw [_core2['default'].extend({
+      throw [(0, _extend2['default'])({
         code: 'integer.invalid',
         message: 'not an integer',
         origin: value
@@ -63,10 +73,7 @@ exports['default'] = function (config) {
     }
 
     return clean;
-  }, {
-    type: 'integer',
-    field: params.field
-  });
+  }
 };
 
 module.exports = exports['default'];

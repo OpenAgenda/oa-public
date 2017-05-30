@@ -46,7 +46,7 @@ exports['default'] = function (config) {
 
     if (params.unique) {
 
-      return clean.length >= 1 ? clean[0] : clean;
+      return clean.length >= 1 ? clean[0] : params['default'];
     }
 
     if (params.min && clean.length < params.min) {

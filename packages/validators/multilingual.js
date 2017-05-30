@@ -44,6 +44,11 @@ module.exports = function (config) {
       }];
     }
 
+    if (!Object.keys(value).length && typeof params['default'] !== 'undefined') {
+
+      return params['default'];
+    }
+
     Object.keys(value).forEach(function (l) {
 
       var langValue = value[l];

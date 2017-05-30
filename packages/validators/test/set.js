@@ -96,37 +96,6 @@ describe( 'set validator', () => {
     } );
 
 
-    it.skip( 'ommitted input is caught by validator', () => {
-
-      let errors = [];
-
-      try {
-
-        validate( [ {
-          field: 'name',
-          value: 'Toto'
-        }, {
-          field: 'user_phone',
-          value: '04 03 02 01'
-        } ] )
-
-      } catch( e ) {
-
-        errors = e;
-
-      }
-
-      errors.length.should.equal( 1 );
-
-      errors[ 0 ].should.eql( {
-        field: 'user_email',
-        code: 'email.invalid',
-        message: 'email is not valid',
-        origin: undefined
-      } );
-
-    } );
-
     it( 'returns clean values without issue', () => {
 
       let errors = null, clean = null;

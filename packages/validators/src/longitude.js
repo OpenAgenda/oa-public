@@ -16,6 +16,12 @@ module.exports = function( config ) {
 
   function validate( value ) {
 
+    if ( value === undefined && params.optional ) {
+
+      return null;
+
+    }
+
     var clean = parseFloat( value );
 
     if ( isNaN( clean ) ) {

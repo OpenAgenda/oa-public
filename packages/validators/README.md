@@ -7,7 +7,7 @@ configurable validators that couple up validation with data sanitizing. A config
 
 Run:
 
-    npm run watch
+    npm test
 
 
 # Validating a single value

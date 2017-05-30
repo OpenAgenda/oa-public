@@ -28,12 +28,14 @@ module.exports = ( validator, options ) => {
 
     if ( !isArray( value ) ) {
 
-      throw [ {
+      /*throw [ {
         field: validator.field,
         code: 'list.wrongtype',
         message: 'value should be a list',
         origin: value
-      } ];
+      } ];*/
+
+      value = [ value ];
 
     }
 

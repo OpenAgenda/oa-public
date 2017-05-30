@@ -95,4 +95,12 @@ describe( 'latitude validator', () => {
 
   } );
 
+  it( 'optional returns null when given nothing', () => {
+
+    let result = validate();
+
+    should( result ).equal( null );
+
+  } );
+
 } );
