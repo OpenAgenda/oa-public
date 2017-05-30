@@ -185,7 +185,7 @@ export default class Events extends Component {
                       <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
                     </div>
                   </div>}
-                  {!!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div>}
+                  {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
                 </div>
                 <div className="actions">
                   {event.location && event.location.name}

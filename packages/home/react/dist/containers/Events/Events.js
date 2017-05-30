@@ -329,11 +329,6 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                         getLabel('privateEvent')
                       )
                     )
-                  ),
-                  !!event.draft && _react3.default.createElement(
-                    'div',
-                    { className: 'badge badge-sm badge-default' },
-                    getLabel('draft')
                   )
                 ),
                 _react3.default.createElement(
