@@ -69,6 +69,16 @@ module.exports = function ( templateName, data, cb ) {
 
     }
 
+    if ( data.jsVersion ) {
+
+      Object.keys( data.js || {} ).forEach( k => {
+
+        data.js[ k ] = data.js[ k ] + ( data.js[ k ].indexOf( '?' ) === -1 ? '?' : '&' ) + 'v=' + data.jsVersion;
+
+      } );
+
+    }
+
     if ( results.helpers ) cn.extend( data, results.helpers );
 
     data._esc = _escape;
