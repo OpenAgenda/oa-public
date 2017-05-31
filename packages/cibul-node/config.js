@@ -4,6 +4,7 @@ var deepExtend = require( 'deep-extend' ),
     all: {
       env: 'production',
       corpoLastUpdate: '2016-02-28T11:07:29.000Z',
+      jsVersion: 1,
       versions: {
         members: [ {
           version: 2,

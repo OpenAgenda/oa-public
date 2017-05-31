@@ -560,6 +560,8 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.env = process.env.NODE_ENV;
 
+  compiledData.jsVersion = config.jsVersion;
+
   templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, function ( err, result ) {
 
     if ( err && req.xhr ) { // xhr request has no corresponding partial
