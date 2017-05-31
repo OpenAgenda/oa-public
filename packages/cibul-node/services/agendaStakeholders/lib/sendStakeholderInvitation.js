@@ -18,37 +18,56 @@ let log = console.log;
 
 module.exports = ( invitation, stakeholder, context, agenda ) => {
 
-  users.get( context.invitationSender.userId, ( err, user ) => {
+  if ( !stakeholder.userId ) {
 
-    if ( err ) return log( 'error', err );
+    users.get( context.invitationSender.userId, ( err, user ) => {
 
-    activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
-      actor: 'user:' + user.uid,
-      verb: 'agenda.sendInvitation',
-      object: stakeholder.custom.email,
-      target: 'agenda:' + agenda.uid,
-      store: {
-        labels: {
-          actor: context.invitationSender.name || user.full_name,
-          // object: stakeholder.custom.email,
-          target: agenda.title
-        },
-        credential: stakeholder.credential
-      }
+      if ( err ) return log( 'error', err );
+
+      activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+        actor: 'user:' + user.uid,
+        verb: 'agenda.sendInvitation',
+        object: stakeholder.custom.email,
+        target: 'agenda:' + agenda.uid,
+        store: {
+          labels: {
+            actor: context.invitationSender.name || user.full_name,
+            // object: stakeholder.custom.email,
+            target: agenda.title
+          },
+          credential: stakeholder.credential
+        }
+      } )
+        .catch( err => {
+
+          log( 'error', err );
+
+        } );
+
     } );
 
-  } );
+  }
 
-  let lang = ( context && context.lang ) || 'fr';
+  const lang = ( context && context.lang ) || 'fr';
 
-  let signupUrl = genUrl( 'signup', {
-    invitation: invitation.token,
-    email: stakeholder.custom.email,
+  const signupUrl = stakeholder.userId ?
+    genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } ) :
+    genUrl( 'signup', {
+      invitation: invitation.token,
+      email: stakeholder.custom.email,
+      lang
+    }, { abs: true, protocol: 'https://' } );
+
+  const credentialLabel = getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang );
+
+  const titleLabel = getInvitationLabel(
+    stakeholder.userId ? 'emailTitleForExistantUser' : 'emailTitle',
+    {
+      title: agenda.title,
+      credential: credentialLabel
+    },
     lang
-  }, {
-    abs: true,
-    protocol: 'https://'
-  } );
+  );
 
   mailer( {
     recipient: stakeholder.custom.email,
@@ -56,16 +75,16 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
     data: {
       logo: agenda.image || 'https://openagenda.com/images/openagenda.png',
       title: {
-        text: getInvitationLabel( 'emailTitle', { title: agenda.title }, lang ),
+        text: titleLabel,
         link: signupUrl
       },
       action: {
-        label: getInvitationLabel( 'emailAction', lang ),
+        label: getInvitationLabel( stakeholder.userId ? 'emailShowAgenda' : 'emailInscription', lang ),
         link: signupUrl
       },
       description: context.message ? context.message : getInvitationLabel( 'emailDescription', {
         title: agenda.title,
-        credential: getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang )
+        credential: credentialLabel
       }, lang )
     }
   } );

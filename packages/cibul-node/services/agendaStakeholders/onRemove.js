@@ -18,6 +18,8 @@ module.exports = function ( stakeholder ) {
 
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
+    if ( !stakeholder.userId ) return;
+
     users.get( stakeholder.userId, ( err, user ) => {
 
       if ( err ) return log( 'error', err );

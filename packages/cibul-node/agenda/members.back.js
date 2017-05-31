@@ -58,16 +58,15 @@ const routes = {
     } ),
     ( req, res, next ) => {
       if ( req.stakeholder.userId === req.agenda.ownerId ) {
-        return next( new Error( 'You don\'t have right to remove the owner of this agenda' ) );
+        return res.status( 400 ).json( { error: 'You don\'t have right to remove the owner of this agenda' } );
       }
       if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-        return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
+        return res.status( 400 ).json( { error: 'You don\'t have right to remove this stakeholder' } );
       }
       next();
     },
     stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
     ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result ),
-    ( err, req, res, next ) => res.status( 500 ).json( err )
   ] ],
 
   membersUpdate: [ 'post', '/update/:id', [
@@ -95,7 +94,7 @@ const routes = {
       if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
         return next();
       }
-      next( new Error( 'You don\'t have right to update this stakeholder' ) );
+      return res.status( 400 ).json( { error: 'You don\'t have right to update this stakeholder' } );
     },
     stakeholdersMw.agenda( 'agendaInstance.data' ).update( {
       namespaces: {
@@ -112,7 +111,7 @@ const routes = {
       if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.body.credential ) ) {
         return next();
       }
-      next( new Error( 'You don\'t have right to invite members with this role' ) );
+      return res.status( 400 ).json( { error: 'You don\'t have right to invite members with this role' } );
     },
     ( req, res, next ) => {
       req.context = _.merge( {
@@ -135,7 +134,9 @@ const routes = {
       const { queued } = req.result;
       const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
 
-      if ( errors && errors.length ) return next( { errors } );
+      if ( errors && errors.length ) {
+        return res.status( 400 ).json( { errors } );
+      }
 
       const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
         let emailRejected;
@@ -163,7 +164,7 @@ const routes = {
 
       if ( !req.agendaInstance.data.credentials.invitationMessage ) {
 
-        return next( new Error( 'You don\'t have right to send message to all members' ) );
+        return res.status( 400 ).json( { error: 'You don\'t have right to send message to all members' } );
 
       }
 

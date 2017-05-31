@@ -47,13 +47,17 @@ module.exports = function ( stakeholder, context ) {
 
           if ( !senderUser ) return log( 'error', 'sender user ( id %s ) not found', context.invitationSender.userId );
 
+          sendStakeholderInvitation( null, stakeholder, context, agenda );
+
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
-            .then( () => {
+            .then( result => {
+
+              if ( !result ) return;
 
               activities.feed( {
                 entityType: 'agenda',
-                entityUid: agenda.uid 
+                entityUid: agenda.uid
               } ).activities.add( {
                 actor: 'user:' + senderUser.uid,
                 verb: 'agenda.addMember',
@@ -67,7 +71,12 @@ module.exports = function ( stakeholder, context ) {
                   },
                   credential: stakeholder.credential
                 }
-              } );
+              } )
+                .catch( err => {
+
+                  log( 'error', err );
+
+                } );
 
             } );
 

@@ -20,6 +20,8 @@ module.exports.init = ( config, cb ) => {
   // set interface log functions
   Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces' + k ) ) );
 
+  require( './lib/sendStakeholderInvitation' ).setLog( logger( 'agendaStakeholders/sendStakeholderInvitation' ) );
+
   agendaStakeholders.init( {
     queue: {
       names: {

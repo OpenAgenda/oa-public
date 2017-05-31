@@ -53,7 +53,12 @@ module.exports = function ( before, stakeholder, context ) {
                   },
                   credential: stakeholder.credential
                 }
-              } );
+              } )
+                .catch( err => {
+
+                  log( 'error', err );
+
+                } );
 
             } );
 
@@ -89,7 +94,12 @@ module.exports = function ( before, stakeholder, context ) {
                       beforeCredential: before.credential,
                       credential: stakeholder.credential
                     }
-                  } );
+                  } )
+                    .catch( err => {
+
+                      log( 'error', err );
+
+                    } );
 
                 } );
 
