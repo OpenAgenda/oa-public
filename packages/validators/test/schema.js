@@ -2,7 +2,7 @@
 
 require( 'source-map-support' ).install();
 
-const validators = require( '../' ),
+const validators = require( '../src' ),
 
 schema = require( '../src/schema' ),
 
@@ -1207,14 +1207,15 @@ describe( 'schema validator', () => {
 
     } );
 
-    it( 'An number in place of a text should give an error', () => {
+    it( 'An number in place of a text should give an error (with strict option)', () => {
 
       let errors = [],
 
         validate = schema( {
           description: {
             type: 'text',
-            optional: false
+            optional: false,
+            strict: true
           }
         } );
 

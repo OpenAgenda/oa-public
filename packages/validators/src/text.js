@@ -12,7 +12,8 @@ export default config => {
     trim: true,
     optional: true,
     default: null,
-    list: false
+    list: false,
+    strict: false
   }, config || {} ),
 
   validator = extend( validate, {
@@ -36,6 +37,17 @@ export default config => {
         message: 'not a string',
         origin: value
       } ]
+
+    }
+
+    if ( typeof value !== 'undefined' && typeof value !== 'string' && params.strict ) {
+
+      throw [ {
+        field: validate.field,
+        code: 'string.invalidtype',
+        message: 'not a string',
+        origin: value
+      } ];
 
     }
 

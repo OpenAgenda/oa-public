@@ -185,53 +185,65 @@ describe( 'text validator', () => {
 
     } )
 
-    describe( 'other types', () => {
+  } );
 
-      it( 'validates a number such as a text', () => {
+  describe( 'other types', () => {
 
-        let validate = validators.text( {
-          field: 'text',
-          optional: false
-        } );
+    it( 'validates a number such as a text', () => {
 
-        let errors = [];
-
-        try {
-
-          validate( 42 );
-
-        } catch ( e ) {
-
-          errors = e;
-
-        }
-
-        errors.length.should.equal( 1 );
-
+      let validate = validators.text( {
+        field: 'text',
+        optional: false
       } );
 
-      it( 'validates an object such as a text', () => {
+      validate( 42 ).should.equal( '42' );
 
-        let validate = validators.text( {
-          field: 'text',
-          optional: false
-        } );
+    } );
 
-        let errors = [];
+    it( 'does not validate non text when strict', () => {
 
-        try {
-
-          validate( {} );
-
-        } catch ( e ) {
-
-          errors = e;
-
-        }
-
-        errors.length.should.equal( 1 );
-
+      let validate = validators.text( {
+        field: 'text',
+        strict: true
       } );
+
+      try {
+
+        validate( 42 );
+
+      } catch ( e ) {
+
+        e.should.eql( [ { 
+          field: 'text',
+          code: 'string.invalidtype',
+          message: 'not a string',
+          origin: 42 
+        } ] );
+
+      }
+
+    } );
+
+    it( 'validates an object such as a text', () => {
+
+      let validate = validators.text( {
+        field: 'text',
+        optional: false
+      } );
+
+      let errors = [];
+
+      try {
+
+        validate( {} );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors.length.should.equal( 1 );
 
     } );
 

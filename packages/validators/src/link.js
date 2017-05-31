@@ -22,7 +22,6 @@ module.exports = config => {
     optional: true
   }, config || {} ),
 
-  // this causes the redos
   shouldntMatch = [
     /\s/,
     /\/:/,

@@ -12,7 +12,11 @@ function clean( schema ) {
 
   }
 
-  let cleanSchema = { fields: {}, list: false, type: 'schema' },
+  let cleanSchema = { 
+    fields: {}, 
+    list: false,
+    type: 'schema'
+  },
 
   schemaFields;
 
