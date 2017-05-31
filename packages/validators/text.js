@@ -25,7 +25,8 @@ exports['default'] = function (config) {
     trim: true,
     optional: true,
     'default': null,
-    list: false
+    list: false,
+    strict: false
   }, config || {}),
       validator = (0, _extend2['default'])(validate, {
     type: 'text',
@@ -41,6 +42,16 @@ exports['default'] = function (config) {
     if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) == 'object' && clean) {
 
       // there is something there and it is not a string
+
+      throw [{
+        field: validate.field,
+        code: 'string.invalidtype',
+        message: 'not a string',
+        origin: value
+      }];
+    }
+
+    if (typeof value !== 'undefined' && typeof value !== 'string' && params.strict) {
 
       throw [{
         field: validate.field,

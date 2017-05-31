@@ -76,6 +76,34 @@ describe( 'email validator', () => {
 
   } );
 
+  it.only( 'invalid emails', () => {
+
+    let errors = [],
+
+      validate = validators.email(),
+
+      notEmails = [
+        'momo@bertho@gmail.com'
+      ];
+
+    notEmails.forEach( notEmail => {
+
+      try {
+
+        validate( notEmail );
+
+      } catch ( e ) {
+
+        errors.push( e );
+
+      }
+
+    } );
+
+    notEmails.length.should.equal( errors.length );
+
+  } );
+
   it( 'validate lists of emails for non optional validator', () => {
 
     let emails = [

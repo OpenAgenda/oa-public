@@ -18,10 +18,7 @@ module.exports = function (config) {
     type: 'link',
     optional: true
   }, config || {}),
-
-
-  // this causes the redos
-  shouldntMatch = [/\s/, /\/:/, /;/],
+      shouldntMatch = [/\s/, /\/:/, /;/],
       validator = function validator(value) {
 
     var templateError = {

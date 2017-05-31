@@ -17,7 +17,11 @@ function clean(schema) {
     return _utils2['default'].extend({}, schema);
   }
 
-  var cleanSchema = { fields: {}, list: false, type: 'schema' },
+  var cleanSchema = {
+    fields: {},
+    list: false,
+    type: 'schema'
+  },
       schemaFields = void 0;
 
   if (_isNormalized(schema)) {

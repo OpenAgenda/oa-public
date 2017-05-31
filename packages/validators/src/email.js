@@ -45,6 +45,17 @@ export default config => {
 
     } 
 
+    if ( clean.split( '@' ).length > 2 ) {
+
+      throw [ {
+        field: params.field,
+        code: params.error.code,
+        message: params.error.message,
+        origin: value
+      } ];
+
+    }
+
     return clean;
 
   }
