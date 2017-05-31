@@ -76,7 +76,7 @@ describe( 'email validator', () => {
 
   } );
 
-  it.only( 'invalid emails', () => {
+  it( 'invalid emails', () => {
 
     let errors = [],
 
