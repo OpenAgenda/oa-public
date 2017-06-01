@@ -629,9 +629,9 @@ function _associateSameCategory( v ) {
 
   .then( category => {
 
-    log( 'checking category %s', category.label );
-
     if ( !category ) return v;
+
+    log( 'checking category %s', category.label );
 
     let matchingAggregatorCategory = v.aggregatorCategories.filter( ac => ac.label === category.label );
 
