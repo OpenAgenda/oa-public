@@ -259,14 +259,16 @@ function agenda( namespace = 'agenda' ) {
 
   function list( options ) {
 
-    let { namespaces, limit, showSlugs } = _.merge( {
+    let { namespaces, limit, showSlugs, detailed, total } = _.merge( {
       namespaces: {
         query: 'query',
         stakeholders: 'stakeholders',
         total: 'total'
       },
+      detailed: false,
       limit: 20,
-      showSlugs: false
+      showSlugs: false,
+      total: false
     }, options || {} );
 
     return ( req, res, next ) => {
@@ -274,8 +276,8 @@ function agenda( namespace = 'agenda' ) {
       const offset = ( ( _.get( req, namespaces.query ).page || 1 ) - 1 ) * limit;
 
       service.agenda( _.get( req, namespace ).id ).list( _.get( req, namespaces.query ), offset, limit, {
-        total: true,
-        detailed: true,
+        total,
+        detailed,
         showSlugs
       }, ( err, items, total ) => {
 
