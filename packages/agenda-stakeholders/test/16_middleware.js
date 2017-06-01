@@ -85,11 +85,12 @@ describe( 'agenda-stakeholders - functional (server): middleware', function () {
 
         res = {}; // not modified with load middleware
 
-      stakeholderMw.agenda().list()( req, res, next );
+      stakeholderMw.agenda().list( { total: true } )( req, res, next );
 
       function next() {
 
         req.stakeholders.length.should.equal( 20 );
+
         req.total.should.equal( 564 );
 
         done();
