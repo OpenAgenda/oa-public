@@ -228,6 +228,13 @@ function eventAdd( req, res ) {
 
       }
 
+      req.log( 'info', {
+        message: 'eventAdd added to agenda',
+        user: req.user,
+        eventUid: req.event.uid,
+        agendaUid: req.agenda.uid
+      } );
+
       return _onActionComplete( req, res, true, getActionLabel( contributionSettings.defaultState === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang ) );
 
     } );
