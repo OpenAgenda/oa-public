@@ -256,6 +256,36 @@ describe( 'events - functional (server): legacy bridge', function() {
   } );
 
 
+  it( 'transfer of an event updates the ownerUid', done => {
+
+    svc.legacy.transfer( 147580, ( err, result ) => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      // change owner
+      con.query( 'update legacy_event set owner_id = ?, updated_at = ? where id = ?', [ 2537, new Date(), 147580 ], ( err, rows ) => {
+
+        svc.legacy.transfer( 147580, ( err, result ) => {    
+
+          con.query( 'select * from event where id = ?', 147580, ( err, rows ) => {
+
+            rows[ 0 ].owner_uid.should.equal( 21815784 );
+
+            con.end();
+
+            done();
+
+          } );
+
+        } );
+
+      } );
+
+    } );
+
+  } );  
+
+
   it( 'transfer adds a record in new schema', done => {
 
     svc.legacy.transfer( 147621, ( err, result ) => {

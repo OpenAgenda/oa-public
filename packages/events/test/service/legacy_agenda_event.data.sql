@@ -18,6 +18,9 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
 INSERT INTO `${schema}` (`id`, `review_id`, `user_id`, `event_id`, `content`, `created_at`, `updated_at`, `category`, `store`, `is_published`, `category_id`, `facebook_id`, `state`, `featured`) VALUES
 (803307, 6488, 27071, 145552, NULL, '2016-09-26 09:06:04', '2016-09-26 09:06:04', NULL, '{"firstPublicationFlag":true}', 1, NULL, NULL, 1, 0),
 (803439, 6865, 2, 145552, NULL, '2016-09-26 10:24:22', '2016-09-26 10:24:22', NULL, '{"sources":[6488]}', 1, NULL, NULL, NULL, 0),
+
+(1225817, 8822, 23807, 196601, NULL, '2017-05-29 15:58:17', '2017-05-29 15:58:17', NULL, NULL, 0, NULL, NULL, NULL, 0),
+
 (803440, 7048, 9281, 145552, NULL, '2016-09-26 10:24:23', '2016-09-26 10:24:23', NULL, '{"sources":[6488]}', 1, NULL, NULL, NULL, 0),
 (881904, 7160, 9281, 145552, NULL, '2016-10-07 14:26:55', '2016-10-07 14:26:55', NULL, '{"sources":[6865]}', 1, NULL, NULL, NULL, 0),
 (803308, 6488, 26731, 145553, NULL, '2016-09-26 09:07:04', '2016-09-26 09:07:04', NULL, '{"firstPublicationFlag":true}', 1, NULL, NULL, 1, 0),

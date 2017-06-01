@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
 --
 
 INSERT INTO `${schema}` (`event_id`, `location_id`, `created_at`, `updated_at`, `ticket_link`, `id`) VALUES
+(196601, 293903, '2017-05-29 15:58:16', '2017-05-29 15:58:16', 'Inscription nécessaire auprès de la Maison du Patrimoine du Havre ( 02 35 22 31 22)', 210789),
 (147621, 208308, '2016-10-14 15:01:00', '2016-10-14 15:01:00', 'email@website.com, 0123456789', 160178),
 (147620, 208308, '2016-10-14 14:48:53', '2016-10-14 14:48:53', NULL, 160177),
 (147619, 202637, '2016-10-14 14:29:55', '2016-10-14 14:29:55', NULL, 160176),

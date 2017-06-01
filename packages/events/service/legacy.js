@@ -67,7 +67,7 @@ function transfer( identifiers, options, cb ) {
     }
 
     // event already exists, if has been updated later than legacy, transfer is not made
-    if ( !v.force && v.event && v.event.updatedAt >= v.legacy.event.updatedAt ) {
+    if ( !v.force && v.event && v.event.updatedAt > v.legacy.event.updatedAt ) {
 
       return cb( null, {
         success: true,
@@ -86,11 +86,12 @@ function transfer( identifiers, options, cb ) {
 
       set = service.update.bind( null, v.identifiers );
 
+      // creatorUid never changes
       v.legacy.event.creatorUid = v.event.creatorUid;
 
     }
 
-    set( v.legacy.event, { draft: v.legacy.event.draft }, ( err, r ) => {
+    set( v.legacy.event, { draft: v.legacy.event.draft, protected: false }, ( err, r ) => {
 
       if ( err ) return cb( err );
 
@@ -363,7 +364,7 @@ function _getOccurrences( v ) {
 
 function _getServiceEvent( v ) {
 
-  return wn.call( service.get, v.identifiers, { private: null } )
+  return wn.call( service.get, v.identifiers, { private: null, internal: true } )
 
   .then( event => {
 
