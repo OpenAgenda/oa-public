@@ -36,6 +36,7 @@ module.exports = {
     beforeTransferEvent: ( eventUid, ownerId, nextOwnerId, cb ) => {
       cb();
     },
+    onTransferEvent: ( eventUid ) => {},
     onMessage: ( stakeholder, message, cb ) => { cb() }
   },
   queue: {

@@ -63,7 +63,13 @@ module.exports = function ( agendaId ) {
 
       .then( _updateOwnership )
 
-      .done( () => {
+      .done( v => {
+
+        if ( interfaces && interfaces.onTransferEvent ) {
+
+          interfaces.onTransferEvent( v.transferedEvent.uid );
+
+        }
 
         cb();
 
@@ -148,7 +154,8 @@ function _updateOwnership( v ) {
       } )
 
       .update( {
-        owner_id: v.stakeholder.userId
+        owner_id: v.stakeholder.userId,
+        updated_at: new Date()
       } )
 
   } )
