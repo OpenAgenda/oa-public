@@ -9,6 +9,7 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
     onRemove: require( './onRemove' ),
+    onTransferEvent: require( './onTransferEvent' ),
     beforeTransferEvent: require( './beforeTransferEvent' ),
     getUser: require( './getUser' ),
     getExistingCredentials: require( './getExistingCredentials' ),
@@ -18,7 +19,7 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 module.exports.init = ( config, cb ) => {
 
   // set interface log functions
-  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces' + k ) ) );
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces/' + k ) ) );
 
   require( './lib/sendStakeholderInvitation' ).setLog( logger( 'agendaStakeholders/sendStakeholderInvitation' ) );
 
