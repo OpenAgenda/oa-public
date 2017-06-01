@@ -629,7 +629,7 @@ function _associateSameCategory( v ) {
 
   .then( category => {
 
-    if ( !category ) return v;
+    if ( !category ) return;
 
     log( 'checking category %s', category.label );
 
