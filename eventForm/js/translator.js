@@ -115,7 +115,7 @@ function translate( cb ) {
 
     fields.forEach( field => {
 
-      context.onChange( field )( newState[ field ] );
+      context.onChange( field )( newState[ field ] || {} );
 
     } );
 
