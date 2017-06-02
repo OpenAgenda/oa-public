@@ -12816,6 +12816,120 @@ i.mce-i-backcolor {
     background-color: #fac3c0; }
   #corpo .pricing .price-danger .price-body ul, #corpo .pricing .pricing .price-danger .price-foot {
     border-top: 1px solid #f9ada8; }
+  #corpo .pricing-v2 ul, #corpo .pricing-v2 ul:hover {
+    list-style: none;
+    padding: 0; }
+    #corpo .pricing-v2 ul li, #corpo .pricing-v2 ul:hover li {
+      color: #413a42; }
+  #corpo .pricing-v2 > ul {
+    display: table;
+    margin: 4em auto 0;
+    text-align: center; }
+  #corpo .pricing-v2 .without-border {
+    border: none !important; }
+  #corpo .pricing-v2 .unit {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    min-width: 250px;
+    text-align: center;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px; }
+    #corpo .pricing-v2 .unit.active {
+      top: 5px;
+      z-index: 1;
+      margin-right: -36px;
+      margin-left: -36px;
+      -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6); }
+      #corpo .pricing-v2 .unit.active .price-title h3 {
+        font-size: 40px; }
+  @media screen and (max-width: 768px) {
+    #corpo .pricing-v2 .unit {
+      margin-bottom: 20px;
+      width: 250px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block; }
+      #corpo .pricing-v2 .unit.active {
+        top: 0;
+        margin-right: 0;
+        margin-left: 0; }
+      #corpo .pricing-v2 .unit.active .price-title h3 {
+        font-size: 30px; }
+      #corpo .pricing-v2 .unit .price-body {
+        min-height: 0; } }
+  #corpo .pricing-v2 .price-title {
+    display: flex;
+    min-height: 87px;
+    padding: 20px 20px 15px;
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    -webkit-border-top-left-radius: 4px;
+    -moz-border-radius-topleft: 4px;
+    -webkit-border-top-right-radius: 4px;
+    -moz-border-radius-topright: 4px; }
+  #corpo .pricing-v2 .price-title h3, #corpo .pricing-v2 .pricing .price-title h3 > p {
+    margin: auto; }
+  #corpo .pricing-v2 .price-body {
+    padding: 20px 20px 10px;
+    min-height: 340px; }
+  #corpo .pricing-v2 .price-body ul {
+    padding-top: 10px;
+    min-height: 0; }
+  #corpo .pricing-v2 .price-body li {
+    margin-bottom: 10px; }
+  #corpo .pricing-v2 .price-body h4 {
+    margin: 0; }
+  #corpo .pricing-v2 .price-foot {
+    padding: 20px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    margin: 0 20px; }
+  #corpo .pricing-v2 .price-primary a, #corpo .pricing-v2 .price-success a {
+    text-decoration: none; }
+  #corpo .pricing-v2 .price-primary .price-body, #corpo .pricing-v2 .price-success .price-body {
+    color: #413a42; }
+  #corpo .pricing-v2 .price-primary {
+    background-color: #d7f1fa; }
+    #corpo .pricing-v2 .price-primary:hover {
+      background-color: #ceeef9; }
+    #corpo .pricing-v2 .price-primary .price-title {
+      background-color: #4fc1e9; }
+  #corpo .pricing-v2 .price-primary .price-body ul,
+  #corpo .pricing-v2 .pricing .price-primary .price-foot {
+    border-top: 1px solid #aae1f4; }
+  #corpo .pricing-v2 .price-success {
+    background-color: #ebf6df; }
+    #corpo .pricing-v2 .price-success:hover {
+      background-color: #e6f4d7; }
+    #corpo .pricing-v2 .price-success .price-title {
+      background-color: #a0d468; }
+    #corpo .pricing-v2 .price-success .price-body ul,
+    #corpo .pricing-v2 .price-success .price-foot {
+      border-top: 1px solid #d2ebb7; }
+  #corpo .pricing-v2 .price-warning .price-title {
+    background-color: #ff8b4c; }
+  #corpo .pricing-v2 .price-warning {
+    background-color: #ffeee5; }
+  #corpo .pricing-v2 .price-warning .price-body ul, #corpo .pricing-v2 .pricing .price-warning .price-foot {
+    border-top: 1px solid #ffdecc; }
+  #corpo .pricing-v2 .price-danger .price-title {
+    background-color: #f03d31; }
+  #corpo .pricing-v2 .price-danger {
+    background-color: #fac3c0; }
+  #corpo .pricing-v2 .price-danger .price-body ul, #corpo .pricing-v2 .pricing .price-danger .price-foot {
+    border-top: 1px solid #f9ada8; }
   #corpo .typed {
     display: inline-block; }
   #corpo .typed-cursor {
