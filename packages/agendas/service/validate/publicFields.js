@@ -2,6 +2,8 @@
 
 const c = require( './contributionTypes' );
 
+const s = require( './eventStates' );
+
 module.exports = {
   title: { 
     type: 'text', 
@@ -38,11 +40,11 @@ module.exports = {
         options: [ c.MEMBERS_ONLY, c.CLOSED, c.OPEN ]
       },
       defaultState: {
-        default: 2,
-        type: 'integer',
+        default: s.PUBLISHED,
+        type: 'choice',
         optional: false,
-        min: 0, // to be controlled
-        max: 2  // published
+        unique: true,
+        options: [ s.NOT_VALIDATED, s.VALIDATED, s.PUBLISHED ]
       },
       message: {
         type: 'text'
