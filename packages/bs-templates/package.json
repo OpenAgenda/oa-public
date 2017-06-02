@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "install": "node scripts/build.js",
+    "precommit": "npm run build",
     "build": "node scripts/build.js"
   },
   "dependencies": {
@@ -24,6 +24,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "husky": "^0.13.4",
     "node-watch": "^0.3.5"
   }
 }

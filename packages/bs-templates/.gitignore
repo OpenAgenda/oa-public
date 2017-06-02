@@ -1,7 +1,5 @@
 *.html
-*.css
 node_modules/*
 npm-debug.log
 .idea/
-!templates/tinymce/skins/**/*
 yarn.lock
