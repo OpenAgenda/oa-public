@@ -10,7 +10,8 @@ schema.register( {
   link: require( 'validators/link' ),
   integer: require( 'validators/integer' ),
   date: require( 'validators/date' ),
-  slug: require( '../slugs/validator' )
+  slug: require( '../slugs/validator' ),
+  choice: require( 'validators/choice' )
 } );
 
 module.exports = schema( utils.extend( {},

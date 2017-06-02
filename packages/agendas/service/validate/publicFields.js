@@ -1,5 +1,7 @@
 "use strict";
 
+const c = require( './contributionTypes' );
+
 module.exports = {
   title: { 
     type: 'text', 
@@ -29,11 +31,11 @@ module.exports = {
   settings: {
     contribution: {
       type: {
-        default: 2,
-        type: 'integer',
+        default: c.MEMBERS_ONLY,
+        type: 'choice',
         optional: false,
-        min: 0, // no contribution
-        max: 2  // contribution on invitation only
+        unique: true,
+        options: [ c.MEMBERS_ONLY, c.CLOSED, c.OPEN ]
       },
       defaultState: {
         default: 2,
