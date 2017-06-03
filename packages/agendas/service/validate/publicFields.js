@@ -85,7 +85,9 @@ module.exports = {
               default: [ 'en', 'es', 'it', 'de' ]
             },
             checked: {
-              list: { min: 0 },
+              list: {
+                min: 0
+              },
               type: 'text',
               min: 2,
               max: 2,
