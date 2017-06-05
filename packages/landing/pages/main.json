@@ -1,0 +1,19 @@
+{
+  "keys" : [ {
+    "lang" : "en",
+    "key" : "corpov2en"
+  }, {
+    "lang" : "fr",
+    "key" : "corpov2fr"
+  } ],
+  "head" : {
+    "title" : "basicOfferHeadTitle",
+    "description" : "basicOfferHeadDescription"
+  },
+  "title" : "basicOfferTitle",
+  "description": "basicOfferDescription",
+  "layout": "layoutPrimary",
+  "segments": [ {
+    "key": "prices"
+  }, "getstarted", "footer" ]
+}
