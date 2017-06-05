@@ -302,6 +302,7 @@ function widget( elem, options ) {
 
   }
 
+
   function _render() {
 
     log( 'rendering a%s widget', enabled ? 'n enabled' : ' disabled' );
@@ -309,7 +310,9 @@ function widget( elem, options ) {
     var data = {
       enabled : enabled,
       tags : []
-    };
+    }, 
+
+    previousGroup = 0;
 
     cn.forEach( tags, function( tag ) {
 
@@ -326,6 +329,18 @@ function widget( elem, options ) {
       if ( selected ) classes.push( 'selected' );
 
       if ( !count ) classes.push( 'no-current-match' );
+
+      if ( typeof tag.g !== 'undefined' ) {
+
+        if ( tag.g !== previousGroup ) {
+
+          classes.push( 'oa-group-last-tag' );
+
+        }
+
+        previousGroup = tag.g;
+
+      }
 
       data.tags.push( {
         label : tag.t,
