@@ -7840,6 +7840,9 @@ button.close {
 .padding-left-xl {
   padding-left: 50px; }
 
+.text-line-bg {
+  line-height: 2em; }
+
 .agenda-header {
   background-color: #413a42;
   background-size: cover;

@@ -6376,6 +6376,9 @@ tbody.collapse.in {
 .padding-left-xl {
   padding-left: 50px; }
 
+.text-line-bg {
+  line-height: 2em; }
+
 /**
  * phase out lightbox - remove with deprecation of flash message script in cibul-templates
  */

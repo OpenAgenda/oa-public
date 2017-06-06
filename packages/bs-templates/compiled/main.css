@@ -6376,6 +6376,9 @@ tbody.collapse.in {
 .padding-left-xl {
   padding-left: 50px; }
 
+.text-line-bg {
+  line-height: 2em; }
+
 /**
  * phase out lightbox - remove with deprecation of flash message script in cibul-templates
  */
@@ -12821,6 +12824,9 @@ i.mce-i-backcolor {
     padding: 0; }
     #corpo .pricing-v2 ul li, #corpo .pricing-v2 ul:hover li {
       color: #413a42; }
+  #corpo .pricing-v2 .price-canvas {
+    display: inline-block;
+    vertical-align: top; }
   #corpo .pricing-v2 > ul {
     display: table;
     margin: 4em auto 0;
@@ -12866,6 +12872,7 @@ i.mce-i-backcolor {
         min-height: 0; } }
   #corpo .pricing-v2 .price-title {
     display: flex;
+    flex-direction: column;
     min-height: 87px;
     padding: 20px 20px 15px;
     color: #fff;
@@ -12875,16 +12882,26 @@ i.mce-i-backcolor {
     -moz-border-radius-topleft: 4px;
     -webkit-border-top-right-radius: 4px;
     -moz-border-radius-topright: 4px; }
+    #corpo .pricing-v2 .price-title h3 {
+      font-size: 2em; }
+    #corpo .pricing-v2 .price-title p {
+      margin: 20px 0 0; }
+    #corpo .pricing-v2 .price-title small {
+      margin: 10px 0 0;
+      color: #fff;
+      font-size: 0.95em; }
+    #corpo .pricing-v2 .price-title.title-only {
+      padding-bottom: 82px; }
   #corpo .pricing-v2 .price-title h3, #corpo .pricing-v2 .pricing .price-title h3 > p {
     margin: auto; }
   #corpo .pricing-v2 .price-body {
-    padding: 20px 20px 10px;
+    padding-top: 20px;
     min-height: 340px; }
   #corpo .pricing-v2 .price-body ul {
     padding-top: 10px;
     min-height: 0; }
   #corpo .pricing-v2 .price-body li {
-    margin-bottom: 10px; }
+    padding: 15px 20px; }
   #corpo .pricing-v2 .price-body h4 {
     margin: 0; }
   #corpo .pricing-v2 .price-foot {
@@ -12896,6 +12913,8 @@ i.mce-i-backcolor {
     -webkit-border-bottom-right-radius: 4px;
     -moz-border-radius-bottomright: 4px;
     margin: 0 20px; }
+  #corpo .pricing-v2 .price-underfoot {
+    padding: 2em 0; }
   #corpo .pricing-v2 .price-primary a, #corpo .pricing-v2 .price-success a {
     text-decoration: none; }
   #corpo .pricing-v2 .price-primary .price-body, #corpo .pricing-v2 .price-success .price-body {
@@ -12906,7 +12925,11 @@ i.mce-i-backcolor {
       background-color: #ceeef9; }
     #corpo .pricing-v2 .price-primary .price-title {
       background-color: #4fc1e9; }
-  #corpo .pricing-v2 .price-primary .price-body ul,
+      #corpo .pricing-v2 .price-primary .price-title h2 {
+        display: block; }
+      #corpo .pricing-v2 .price-primary .price-title .price-subtitle {
+        display: block; }
+  #corpo .pricing-v2 .price-primary .price-body li,
   #corpo .pricing-v2 .pricing .price-primary .price-foot {
     border-top: 1px solid #aae1f4; }
   #corpo .pricing-v2 .price-success {
@@ -12961,6 +12984,36 @@ i.mce-i-backcolor {
     opacity: 0; }
   100% {
     opacity: 1; } }
+  #corpo .big-events {
+    width: 400px;
+    height: 400px;
+    list-style-type: none;
+    position: relative;
+    padding: 20px;
+    margin-right: 40px; }
+    #corpo .big-events li {
+      position: absolute; }
+      #corpo .big-events li a {
+        background: url("//s3.eu-central-1.amazonaws.com/oastatic/landing/bigevents.png");
+        background-position-y: 0;
+        background-position-x: 0;
+        height: 180px;
+        width: 180px;
+        display: block; }
+      #corpo .big-events li.be-chv {
+        top: 230px; }
+        #corpo .big-events li.be-chv a {
+          background-position-x: -180px;
+          height: 176px; }
+      #corpo .big-events li.be-sdi {
+        left: 210px; }
+        #corpo .big-events li.be-sdi a {
+          background-position-x: -367px; }
+      #corpo .big-events li.be-cpd {
+        left: 210px;
+        top: 230px; }
+        #corpo .big-events li.be-cpd a {
+          background-position-x: -735px; }
   #corpo .odometer.odometer-auto-theme, #corpo .odometer.odometer-theme-default {
     display: inline-block;
     vertical-align: middle;
@@ -13064,6 +13117,14 @@ i.mce-i-backcolor {
   #corpo .spaced {
     padding-bottom: 4em;
     padding-top: 4em; }
+  #corpo .counters span {
+    display: inline-block;
+    padding: 0 1em;
+    font-size: 1.2em; }
+    #corpo .counters span:last-child {
+      padding-right: 0; }
+    #corpo .counters span:first-child {
+      padding-left: 0; }
   #corpo .row > h2 {
     margin-bottom: 1em; }
   #corpo p {
@@ -13515,6 +13576,8 @@ i.mce-i-backcolor {
   display: none; }
   #agenda .side-content .list-group {
     padding-left: 10px; }
+    #agenda .side-content .list-group .oa-group-last-tag {
+      padding-bottom: 3em; }
   @media (min-width: 768px) {
     #agenda .side-content {
       display: block; } }
