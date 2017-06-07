@@ -1,0 +1,13 @@
+div(class='background-' + ( background || 'white' ))
+  .container
+    .media
+      article.media-body.media-middle
+        h2.margin-bottom-lg.text-line-bg!=title
+        .margin-top-lg
+          if typeof text !== 'undefined'
+            p!=text
+          if typeof points !== 'undefined'
+            ul
+              each p in points
+                li 
+                  p!=p

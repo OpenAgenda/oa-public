@@ -1,0 +1,68 @@
+{
+  "keys" : [ {
+    "lang" : "en", "key" : "agenda-pricing"
+  }, {
+    "lang" : "fr", "key" : "tarifs-agenda"
+  } ],
+  "head" : {
+    "title" : "agendaPricingTitle",
+    "description" : "agendaPricingDescripton"
+  },
+  "title" : "agendaPricingTitle",
+  "description" : "agendaPricingDescription",
+  "layout" : "layout",
+  "segments" : [ {
+    "key" : "network",
+    "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda.jpg",
+    "title" : "Un agenda avec pleeein de fonctions pratiques",
+    "points" : [
+      "Même qu'on peut faire ceci",
+      "ou cela",
+      "et d'autres super trucs"
+    ]
+  }, {
+    "key" : "pricingDetail",
+    "background" : "gray",
+    "offers" : [ {
+      "title" : "agendaPricingFreeTitle",
+      "price" : "agendaPricingFreePrice",
+      "features" : [
+        "agendaPricingFreeFeature1",
+        "agendaPricingFreeFeature2",
+        "agendaPricingFreeFeature5",
+        "agendaPricingFreeFeature10",
+        "agendaPricingFreeFeature3",
+        "agendaPricingFreeFeature4",
+        "agendaPricingFreeFeature6",
+        "agendaPricingFreeFeature7",
+        "agendaPricingFreeFeature8",
+        "agendaPricingFreeFeature9"
+      ],
+      "action" : {
+        "label" : "agendaPricingFreeAction",
+        "link" : "/signup"
+      }
+    }, {
+      "title" : "agendaPricingCustomTitle",
+      "price" : "agendaPricingCustomPrice",
+      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "features" : [
+        true,
+        true,
+        true,
+        true,
+        "agendaPriceCustomFeature1",
+        "agendaPriceCustomFeature2",
+        "agendaPriceCustomFeature4",
+        "agendaPriceCustomFeature5",
+        "agendaPriceCustomFeature6",
+        "agendaPriceCustomFeature7",
+        "agendaPriceCustomFeature8"
+      ],
+      "action" : {
+        "label" : "agendaPricingCustomAction",
+        "link" : "#contactus"
+      }
+    } ]
+  }, "testimony", "footer" ]
+}

@@ -1,0 +1,76 @@
+{
+  "keys" : [ {
+    "lang" : "en", "key" : "network-pricing"
+  }, {
+    "lang" : "fr", "key" : "tarifs-reseaux"
+  } ],
+  "head" : {
+    "title" : "networkPricingTitle",
+    "description" : "networkPricingDescripton"
+  },
+  "title" : "networkPricingTitle",
+  "description" : "networkPricingDescription",
+  "layout" : "layout",
+  "segments" : [ {
+    "key" : "network",
+    "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
+    "title" : "Un truc qui dit ce que c'est",
+    "points" : [
+      "un peu de détail",
+      "un exemple par exemple"
+    ],
+    "background" : "white"
+  }, {
+    "key" : "pricingDetail",
+    "offerMargin" : "sm",
+    "background" : "gray",
+    "offers" : [ {
+      "title" : "networkPricingFree",
+      "count" : "networkPricingFreeCount",
+      "price" : "networkPricingFreePricing",
+      "features" : [
+        "networkPricingFreeFeature1",
+        "networkPricingFreeFeature2",
+        "networkPricingFreeFeature3",
+        "networkPricingFreeSupport"
+      ],
+      "under" : "networkPricingFreeSupport",
+      "action" : {
+        "label" : "agendaPricingCustomAction",
+        "link" : "/signup"
+      }
+    }, {
+      "title" : "networkPricingSmall",
+      "count" : "networkPricingSmallCount",
+      "countDetail" : "networkPricingSmallCountDetail",
+      "price" : "networkPricingSmallPricing",
+      "features" : [ true, true, true, "networkPricingCustomized" ],
+      "under" : "networkCustomizedSupport",
+      "action" : {
+        "label" : "agendaPricingCustomAction",
+        "link" : "#contactus"
+      }
+    }, {
+      "title" : "networkPricingMedium",
+      "count" : "networkPricingMediumCount",
+      "countDetail" : "networkPricingMediumCountDetail",
+      "price" : "networkPricingMediumPricing",
+      "features" : [ true, true, true, "networkPricingCustomized" ],
+      "under" : "networkCustomizedSupport",
+      "action" : {
+        "label" : "agendaPricingCustomAction",
+        "link" : "#contactus"
+      }
+    }, {
+      "title" : "networkPricingLarge",
+      "count" : "networkPricingLargeCount",
+      "price" : "networkPricingLargePricing",
+      "features" : [ true, true, true, "networkPricingCustomized" ],
+      "under" : "networkCustomizedSupport",
+      "action" : {
+        "label" : "agendaPricingCustomAction",
+        "link" : "#contactus"
+      }
+    } ]
+  }, "karine", "footer" ]
+}

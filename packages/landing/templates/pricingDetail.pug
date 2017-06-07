@@ -1,0 +1,32 @@
+div(class='background-' + ( background || 'white' ))
+  .container
+    .spaced
+      .pricing-v2
+        ul
+          each offer in offers
+            li(class='price-canvas margin-h-' + ( offerMargin || 'lg' ) )
+              .unit.price-primary
+                div(class=typeof offer.count !== 'undefined'?'price-title':'price-title title-only')
+                  h3!=offer.title
+                  if typeof offer.count !== 'undefined'
+                    p!=offer.count
+                  if typeof offer.countDetail !== 'undefined'
+                    small!=offer.countDetail
+                .price-body
+                  if typeof offer.priceDetail !== 'undefined'
+                    p!=offer.price
+                      br
+                      small!=offer.priceDetail
+                  else
+                    p.padding-v-sm!=offer.price
+                  ul
+                    each feature in offer.features
+                      if feature === true
+                        li
+                          i.fa.fa-check
+                      else
+                        li!=feature
+                .price-foot
+                  a.btn.btn-primary( href=offer.action.link, rel='nofollow' )!=offer.action.label
+              if typeof offer.under !== 'undefined'
+                p.price-underfoot!=offer.under

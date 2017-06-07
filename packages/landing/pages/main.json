@@ -1,19 +1,68 @@
 {
   "keys" : [ {
     "lang" : "en",
-    "key" : "corpov2en"
+    "key" : "en"
   }, {
     "lang" : "fr",
-    "key" : "corpov2fr"
+    "key" : "root"
   } ],
   "head" : {
-    "title" : "basicOfferHeadTitle",
-    "description" : "basicOfferHeadDescription"
+    "title" : "OpenAgenda",
+    "description" : "mainTitle"
   },
-  "title" : "basicOfferTitle",
-  "description": "basicOfferDescription",
+  "title" : "mainTitle",
+  "subtitle" : "mainSubtitle",
+  "today" : "mainToday",
+  "eventCount" : "mainEventCount",
+  "agendaCount" : "mainAgendaCount",
+  "contributorCount" : "mainContributorCount",
+  "agendaSearch" : "mainAgendaSearch",
+  "agendaCreate" : "mainAgendaCreate",
   "layout": "layoutPrimary",
-  "segments": [ {
-    "key": "prices"
-  }, "getstarted", "footer" ]
+  "segments": [ 
+    "presentation",
+    {
+      "key" : "network",
+      "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/organisation.jpg",
+      "background" : "white"
+    },
+    {
+      "key" : "bigevent",
+      "background" : "gray",
+      "title" : "mainBETitle",
+      "points" : [
+        "mainBEPoint1",
+        "mainBEPoint2",
+        "mainBEPoint3",
+        "mainBEPoint4",
+        "mainBEPoint5",
+        "mainBEPoint6"
+      ]
+    },
+    {
+      "key" : "pricing",
+      "title" : "mainPricingTitle",
+      "agendaTitle" : "mainPricingAgendaTitle",
+      "networkTitle" : "mainPricingNetworkTitle",
+      "agendaPoints" : [
+        "mainPricingAgendaPoint1",
+        "mainPricingAgendaPoint2",
+        "mainPricingAgendaPoint3"
+      ],
+      "networkPoints" : [
+        "mainPricingNetworkPoint1",
+        "mainPricingNetworkPoint2",
+        "mainPricingNetworkPoint3"
+      ],
+      "agendaAction" : {
+        "label" : "mainPricingDiscover",
+        "link" : "#agenda-pricing"
+      },
+      "networkAction" : {
+        "label" : "mainPricingDiscover",
+        "link" : "#network-pricing"
+      }
+    },
+    "footer" 
+  ]
 }

@@ -25,15 +25,29 @@ app.get( /css$/, ( req, res, next ) => {
 
 app.get( /ico$/, ( req, res, next ) => { res.send( 'favicon' ) } );
 
-app.get( '/:page', ( req, res, next ) => {
+app.get( '/', ( req, res, next ) => {
+
+  req.optionalData = {
+    events: '12 345',
+    agendas: '83 929',
+    contributors: '98 908'
+  }
+
+  next();
+
+} );
+
+app.get( [ '/:page', '/' ], ( req, res, next ) => {
 
   let p = pages( 'http://' + req.hostname + ':' + port ); // reload the thing  
 
-  console.log( 'ip %s requesting page %s', req.ip, req.params.page );
+  let page = req.params.page || null;
 
-  req.content = p( req.params.page ).render();
+  console.log( 'ip %s requesting page %s', req.ip, page );
 
-  req.headPart = p( req.params.page ).getHeadPart();
+  req.content = p( page ).render( req.optionalData );
+
+  req.headPart = p( page ).getHeadPart();
 
   next();
 

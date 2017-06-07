@@ -28,6 +28,12 @@ module.exports = config => {
 
   return page => {
 
+    if ( !page ) {
+
+      page = 'root';
+
+    }
+
     let pageParams = params.pages.filter( _matchPageKey( page ) );
 
     if ( !pageParams.length ) {
@@ -125,7 +131,7 @@ module.exports = config => {
 
     let data = _reduceLabels( pageParams, renderParams.lang, params.labels );
 
-    return pug.render( params.templates[ pageParams.layout ], _.assign( { content }, data ) );
+    return pug.render( params.templates[ pageParams.layout ], _.assign( { content }, data, renderParams ) );
 
   }
 
@@ -241,9 +247,9 @@ function _buildLinks( render, params, lang = false ) {
 
     }
 
-    let rgx = new RegExp( '#(' + srcKeys.join( '|' ) + ')', 'g' );
+    let rgx = new RegExp( '\"#(' + srcKeys.join( '|' ) + ')\"', 'g' );
 
-    withLinks = withLinks.replace( rgx, _getBasePath( params.basePath, lang ) + '/' + destKey );
+    withLinks = withLinks.replace( rgx, '"' + _getBasePath( params.basePath, lang ) + '/' + destKey + '"' );
 
   } );
 

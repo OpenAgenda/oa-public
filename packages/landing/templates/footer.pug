@@ -6,7 +6,7 @@ footer.footer
         ul.list-unstyled
           each o in offers.list
             li
-              a(href=o.link)=o.label
+              a(href=o.link)!=o.label
       .col-sm-4
         h2 #{more.title}
         ul.list-unstyled

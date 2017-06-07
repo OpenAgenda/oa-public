@@ -3,17 +3,11 @@
   "offers": {
     "title": "footerOffers",
     "list": [ {
-      "link": "#basic",
-      "label": "footerBasic"
+      "link": "#agenda-pricing",
+      "label": "footerAgendaPricing"
     }, {
-      "link": "#premium",
-      "label": "footerPremium"
-    }, {
-      "link": "#network",
-      "label": "footerNetwork"
-    }, {
-      "link": "#tailored",
-      "label": "footerTailored"
+      "link": "#network-pricing",
+      "label": "footerNetworkPricing"
     } ]
   },
   "more": {
