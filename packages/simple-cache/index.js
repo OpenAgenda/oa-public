@@ -10,7 +10,7 @@ module.exports = _.extend( cache, {
   init: c => config.set( c )
 } );
 
-function cache( namespace, identifier ) {
+function cache( namespace, identifier = null ) {
 
   if ( !config.client ) throw new VError( 'simple cache needs to be initialized' );
 
@@ -55,7 +55,15 @@ function cache( namespace, identifier ) {
 
   function _key( key ) {
 
-    return config.prefix + namespace + ':' + identifier + ':' + key;
+    let parts = [ config.prefix + namespace, key ];
+
+    if ( identifier !== null ) {
+
+      parts.splice( 1, 0, identifier );
+
+    }
+
+    return parts.join( ':' );
 
   }
 
