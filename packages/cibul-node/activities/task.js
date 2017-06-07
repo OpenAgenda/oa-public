@@ -4,6 +4,7 @@ const async = require( 'async' );
 const activitiesSvc = require( 'activities' );
 const agendasSvc = require( 'agendas' );
 const usersSvc = require( 'users' );
+const VError = require( 'verror' );
 const eventSvc = require( '../services/event' );
 const coms = require( '../lib/coms' );
 const config = require( '../config' );
@@ -75,6 +76,10 @@ function _onEventActivity( action ) {
                 target: agenda.title
               }
             }
+          }, err => {
+
+            log( 'error', new VError( err, 'could not add activity' ) );
+
           } );
 
         } );
