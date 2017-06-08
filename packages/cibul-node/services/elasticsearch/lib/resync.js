@@ -12,7 +12,7 @@ logger = require( 'logger' ), log,
 
 loadDetailedLocation = require( './loadDetailedLocation' );
 
-module.exports = function( options, cb ) {
+module.exports = ( options, cb ) => {
 
   var params, operations = [];
 
@@ -30,7 +30,8 @@ module.exports = function( options, cb ) {
     agendaId: false,
     isPublished: null,
     interval: 0,
-    reset: false
+    reset: false,
+    showAll: true
   }, options );
 
   if ( params.reset ) {
@@ -128,7 +129,28 @@ function _update( type, query ) {
 
   }
 
+  function _isIndexableEvent( event ) {
+
+    if ( !event.locations ) return false;
+
+    if ( !event.locations[ 0 ].timings.length ) return false;
+
+    return true;
+
+  }
+
   function _doUpdate( type, obj, count, cb ) {
+
+    if ( type === 'events' && !_isIndexableEvent( obj ) ) {
+
+      log( 'info', 'event cannot be indexed: %s', obj.uid );
+
+      count.processed++;
+      count.errors++;
+
+      return cb();
+
+    }
 
     lib[ type ]().update( obj, function( err ) {
 
