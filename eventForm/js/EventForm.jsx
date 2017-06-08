@@ -643,6 +643,8 @@ function EventFormFactory() {
 
             <Registration 
               lang={this.props.lang}
+              label={ this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels ) }
+              placeholder={ this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels ) }
               value={this.state.ticketLink}
               onChange={this.onChange( 'ticketLink' )} />
 
