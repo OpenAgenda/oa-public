@@ -9,14 +9,25 @@ schema.register( {
   choice: require( 'validators/choice' ),
   integer: require( 'validators/integer' ),
   text: require( 'validators/text' ),
-  link: require( 'validators/link' )
+  link: require( 'validators/link' ),
+  date: require( 'validators/date' )
 } );
 
 const writableFields = {
   flash: {
     type: 'text',
     max: 1000
-  }
+  },
+  notifications: {
+    updatedAt: {
+      type: 'date',
+      default: null
+    },
+    count: {
+      type: 'integer',
+      default: null
+    }
+  },
 }
 
 const fields = {

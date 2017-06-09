@@ -12,6 +12,10 @@ let cookies = require( 'cookies-js' );
 
 module.exports = {
   getUser,
+  notifications: {
+    getCount: getNotificationCount,
+    setCount: setNotificationCount
+  },
   isLogged,
   flash,
   test: {
@@ -30,6 +34,45 @@ function getUser() {
 function isLogged() {
 
   return !!getUser();
+
+}
+
+function getNotificationCount( now = null ) {
+
+  let session = _getWritable() || {};
+
+  if ( now === null ) {
+
+    now = new Date();
+
+  }
+
+  if ( !session.notifications || !session.notifications.updatedAt ) {
+
+    return null;
+
+  }
+
+  if ( session.notifications.updatedAt.getTime() + config.notificationMaxAge < now.getTime() ) {
+
+    return null;
+
+  }
+
+  return session.notifications.count;
+
+}
+
+function setNotificationCount( count ) {
+
+  let writable = _getWritable() || {};
+
+  writable.notifications = {
+    updatedAt: new Date(),
+    count
+  }
+
+  _setWritable( writable );
 
 }
 

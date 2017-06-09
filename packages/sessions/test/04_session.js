@@ -92,6 +92,66 @@ describe( 'session - functional (client): session', () => {
 
   } );
 
+
+  describe.only( '.notifications', () => {
+
+    it( 'returns null if nothing is set', done => {
+
+      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+
+        // this is for test env only
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        should( clientSession.notifications.getCount() ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'returns the set count if fresh and exists', done => {
+
+      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+
+        // this is for test env only
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        clientSession.notifications.setCount( 36 );
+
+        clientSession.notifications.getCount().should.equal( 36 );
+
+        done();
+
+      } );
+
+    } );
+
+    it( '10 minutes in the future, count returns null', done => {
+
+      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+
+        // this is for test env only
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        clientSession.notifications.setCount( 36 );
+
+        // time is given to getter only to force different 'now'
+        // for testing count invalidation
+        let in10mn = new Date();
+
+        in10mn.setTime( in10mn.getTime() + 1000 * 60 * 10 );
+
+        should( clientSession.notifications.getCount( in10mn ) ).equal( null );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
   describe( '.flash', () => {
 
     it( 'returns null if no flash message is defined', done => {
