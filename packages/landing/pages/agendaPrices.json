@@ -14,11 +14,11 @@
   "segments" : [ {
     "key" : "network",
     "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda.jpg",
-    "title" : "Un agenda avec pleeein de fonctions pratiques",
+    "title" : "Gérez simplement du plus petit au plus grand agenda participatif",
     "points" : [
-      "Même qu'on peut faire ceci",
-      "ou cela",
-      "et d'autres super trucs"
+      "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères",
+      "Seul ? En équipe de quelques dizaines ? De dizaines de milliers ?<br>Votre agenda s'adapte à votre contexte",
+      "Votre agenda est synchronisable avec tous vos supports et diffusable par tous"
     ]
   }, {
     "key" : "pricingDetail",

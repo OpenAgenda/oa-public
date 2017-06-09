@@ -21,6 +21,7 @@
   "layout": "layoutPrimary",
   "segments": [ 
     "presentation",
+    "presentationDetail",
     {
       "key" : "network",
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/organisation.jpg",

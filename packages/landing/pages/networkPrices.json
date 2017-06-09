@@ -14,11 +14,9 @@
   "segments" : [ {
     "key" : "network",
     "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
-    "title" : "Un truc qui dit ce que c'est",
-    "points" : [
-      "un peu de détail",
-      "un exemple par exemple"
-    ],
+    "title" : "Déployez votre réseau d'agendas",
+    "text" : "Vous animez une fédération ? Un territoire ?<br>Déployez un réseau d'agendas et agrégez en temps réel tous les événements",
+    "points" : [],
     "background" : "white"
   }, {
     "key" : "pricingDetail",

@@ -1,11 +1,5 @@
 {
   "template": "largeText",
   "title": "mainDescription",
-  "text": "mainConnectWith",
-  "background" : "dark-purple",
-  "points": [
-    "mainConnectMedia",
-    "mainConnectServices",
-    "mainConnectPersonal"
-  ]
+  "background" : "dark-purple"
 }
