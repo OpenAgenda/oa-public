@@ -2,6 +2,8 @@
 
 const sessions = require( 'sessions' ),
 
+  agendaStakeholders = require( 'agenda-stakeholders' ),
+
   __ = require( 'labels' )( require( 'labels/agendas/errors' ) ),
 
   modLib = require( '../lib/moduleLib' ),
@@ -44,10 +46,13 @@ const sessions = require( 'sessions' ),
       eventSvc.mw.load( 'eventUid', 'uid' ),
       _getRedirect,
       cmn.checkStakeholder,
+      _isContributorSharer,
       eventRemove
     ] ]
 
   };
+
+
 
 module.exports = function( p ) {
 
@@ -262,6 +267,47 @@ function eventRemove( req, res ) {
     }
 
   });
+
+}
+
+
+function _isContributorSharer( req, res, next ) {
+
+  agendaStakeholders.agenda( req.agenda.id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
+
+    if ( err ) return next( err );
+
+    if ( !stakeholder ) return _unauthorized( req, res );
+
+    const role = agendaStakeholders.types.codes.get( stakeholder.credential );
+
+    // if user is moderator or admin, we can proceed
+    if ( [ 'administrator', 'moderator' ].includes( role ) ) {
+
+      return next();
+
+    }
+
+    // user can remove only if he added the event.
+    model.lib.query( 'select user_id from review_article where event_id = ? and review_id = ? limit 1', [ req.event.id, req.agenda.id ], ( err, rows ) => {
+
+      if ( err ) return next( err );
+
+      if ( !rows.length ) return _unauthorized( req, res );
+
+      if ( rows[ 0 ].user_id !== req.user.id ) return _unauthorized( req, res );
+
+      next();
+
+    } );
+
+  } ); 
+
+}
+
+function _unauthorized( req, res ) {
+
+  _onActionComplete( req, res, false, getActionLabel( 'agendaShareRemoveUnauthorized', { agenda: req.agenda.title } , req.lang ) )
 
 }
 
