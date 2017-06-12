@@ -6,7 +6,8 @@ module.exports = {
     keys: [ 'k', 'e', 'y', 's' ],
     maxAge: 1000 * 60 * 60 * 48, // 2 days
     signed: true,
-    secure: false
+    secure: false,
+    httpOnly: false // make cookie available to client Javascript
   },
   writableCookie: {
     maxAge: 1000 * 60 * 60 * 48,
