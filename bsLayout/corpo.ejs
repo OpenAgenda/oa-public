@@ -57,25 +57,22 @@
                         </a>
                     </p>
                 </li>
-                <li class="language-menu">
-                    <a href="#" data-toggle="dropdown"><%= lang %> <i class="fa fa-angle-down"></i></a>
-                    <ul class="dropdown-menu">
-                        <% [ 'fr', 'en' ].forEach( function( l ) { %>
+                <li>                   
+                    <% [ 'fr', 'en' ].forEach( function( l, i ) { %>
                         <% if ( lang == l ) { %>
-                        <li>
-                            <a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
-                                <%= langLabels[ l ] %> - <%= l.toUpperCase() %>
-                            </a>
-                        </li>
+                        <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
+                            <%= l.toUpperCase() %>
+                        </a></li>
+
                         <% } else { %>
-                        <li>
-                            <a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>">
-                                <%= langLabels[ l ] %> - <%= l.toUpperCase() %>
-                            </a>
-                        </li>
+                        <li><a rel="alternate" href="?lang=<%= l %>" hreflang="<%= l %>">
+                            <%= l.toUpperCase() %>
+                        </a></li>
                         <% } %>
-                        <% } ); %>
-                    </ul>
+                        <% if ( i === 0 ) { %>
+                        <li><a>|</a></li>
+                        <% } %>
+                    <% } ); %>
                 </li>
             </ul>
         </div>
