@@ -206,13 +206,14 @@ async function getStats() {
 
 function getTotalAgendas() {
 
-  const con = model.lib.getConnection();
-
   return new Promise( ( resolve, reject ) => {
 
-    con.query( 'SELECT COUNT(*) AS reviews FROM review', function ( err, rows ) {
-      if ( err ) reject( err );
+    model.lib.query( 'SELECT COUNT(*) AS reviews FROM review', function ( err, rows ) {
+      
+      if ( err ) return reject( err );
+
       resolve( rows[ 0 ].reviews );
+
     } );
 
   } );
@@ -221,13 +222,13 @@ function getTotalAgendas() {
 
 function getTotalContributors() {
 
-  const con = model.lib.getConnection();
-
   return new Promise( ( resolve, reject ) => {
 
-    con.query( 'SELECT COUNT(*) AS reviewers FROM reviewer', function ( err, rows ) {
-      if ( err ) reject( err );
+    model.lib.query( 'SELECT COUNT(*) AS reviewers FROM reviewer', function ( err, rows ) {
+
+      if ( err ) return reject( err );
       resolve( rows[ 0 ].reviewers );
+
     } );
 
   } );
@@ -236,13 +237,14 @@ function getTotalContributors() {
 
 function getTotalEvents() {
 
-  const con = model.lib.getConnection();
-
   return new Promise( ( resolve, reject ) => {
 
-    con.query( 'SELECT COUNT(*) AS events FROM event', function ( err, rows ) {
-      if ( err ) reject( err );
+    model.lib.query( 'SELECT COUNT(*) AS events FROM event', function ( err, rows ) {
+
+      if ( err ) return reject( err );
+
       resolve( rows[ 0 ].events );
+
     } );
 
   } );
