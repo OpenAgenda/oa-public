@@ -14,8 +14,8 @@
   "segments" : [ {
     "key" : "network",
     "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
-    "title" : "Déployez votre réseau d'agendas",
-    "text" : "Vous animez une fédération ? Un territoire ?<br>Déployez un réseau d'agendas et agrégez en temps réel tous les événements",
+    "title" : "networkPricingPresTitle",
+    "text" : "networkPricingPresText",
     "points" : [],
     "background" : "white"
   }, {

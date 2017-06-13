@@ -20,7 +20,6 @@
   "agendaCreate" : "mainAgendaCreate",
   "layout": "layoutPrimary",
   "segments": [ 
-    "presentation",
     {
       "key" : "network",
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/organisation.jpg",
@@ -42,12 +41,12 @@
     {
       "key" : "broadcast",
       "background" : "white",
-      "title" : "La programmation de votre agenda ou réseau est rediffusée",
-      "text" : "Vos événement sont rediffusés sur les agendas de la plateforme ainsi que chez nos partenaires",
+      "title" : "mainBroadcastTitle",
+      "text" : "mainBroadcastText",
       "points" : [
-        "vos événements sont **structurés** selon un standard international",
-        "ils sont agrégeables par d'autres agendas de la plateforme",
-        "elles sont redifusées par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet"
+        "mainBroadcastPoint1",
+        "mainBroadcastPoint2",
+        "mainBroadcastPoint3"
       ],
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
     },

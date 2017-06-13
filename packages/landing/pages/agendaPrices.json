@@ -14,11 +14,11 @@
   "segments" : [ {
     "key" : "network",
     "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda.jpg",
-    "title" : "Gérez simplement du plus petit au plus grand agenda participatif",
+    "title" : "agendaPricingPresTitle",
     "points" : [
-      "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères",
-      "Seul ? En équipe de quelques dizaines ? De dizaines de milliers ?<br>Votre agenda s'adapte à votre contexte",
-      "Votre agenda est synchronisable avec tous vos supports et diffusable par tous"
+      "agendaPricingPresPoint1",
+      "agendaPricingPresPoint2",
+      "agendaPricingPresPoint3"
     ]
   }, {
     "key" : "pricingDetail",
@@ -31,12 +31,12 @@
         "agendaPricingFreeFeature2",
         "agendaPricingFreeFeature5",
         "agendaPricingFreeFeature10",
+        "agendaPricingFreeFeature9",
         "agendaPricingFreeFeature3",
         "agendaPricingFreeFeature4",
         "agendaPricingFreeFeature6",
         "agendaPricingFreeFeature7",
-        "agendaPricingFreeFeature8",
-        "agendaPricingFreeFeature9"
+        "agendaPricingFreeFeature8"
       ],
       "action" : {
         "label" : "agendaPricingFreeAction",
@@ -51,12 +51,12 @@
         true,
         true,
         true,
+        true,
         "agendaPriceCustomFeature1",
         "agendaPriceCustomFeature2",
         "agendaPriceCustomFeature4",
         "agendaPriceCustomFeature5",
         "agendaPriceCustomFeature6",
-        "agendaPriceCustomFeature7",
         "agendaPriceCustomFeature8"
       ],
       "action" : {
