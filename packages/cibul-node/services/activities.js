@@ -32,8 +32,6 @@ module.exports.init = ( config, cb ) => {
       verb: 'agenda.setMemberRole',
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
-        agendaStakeholders.type.get( 'moderator' );
-
         if (
           !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
           || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has become an administrator
