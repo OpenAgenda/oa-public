@@ -121,6 +121,7 @@ function list( q, off, l, op, c ) {
   query = _.extend( {
     ids: null,
     search: null,
+    updatedAtGreaterThan: null,
     order: ''
   }, query );
 
@@ -202,6 +203,12 @@ function _search( v ) {
   if ( v.query.ids ) {
 
     v.knex = v.knex.whereIn( 'id', v.query.ids );
+
+  }
+
+  if ( v.query.updatedAtGreaterThan ) {
+
+    v.knex.where( 'updated_at', '>', v.query.updatedAtGreaterThan );
 
   }
 

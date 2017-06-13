@@ -105,6 +105,19 @@ describe( 'agendas - functional (server): get', function() {
 
   } );
 
+
+  it( 'get gets an agenda with restricted details', done => {
+
+    svc.get( 4848, { detailed: true, includeRestricted: true }, ( err, agenda ) => {
+
+      agenda.totalEvents.should.equal( 19 );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'get gets an agenda by slug', done => {
 
     svc.get( { slug: 'epn-espace-torcy' }, ( err, agenda ) => {

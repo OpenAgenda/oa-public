@@ -65,7 +65,8 @@ function get( identifiers, options, cb ) {
     instanciate: false,
     includeImagePath: false,
     useDefaultImage: false,
-    private: false
+    private: false,
+    includeRestricted: false
   }, options, {
     entry: null, 
     data: null,
@@ -173,7 +174,7 @@ function _detailed( v ) {
 
   let d = w.defer();
 
-  details.load( v.data, ( err, data ) => {
+  details.load( v.data, { includeRestricted: v.includeRestricted }, ( err, data ) => {
 
     if ( err ) return d.reject( err );
 

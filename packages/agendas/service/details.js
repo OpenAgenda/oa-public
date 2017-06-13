@@ -20,9 +20,18 @@ module.exports.load = loadAgendaDetails;
 
 module.exports.init = ( s, k ) => { schemas = s; knex = k; }
 
-function loadAgendaDetails( agenda, cb ) {
+function loadAgendaDetails( agenda, options, cb ) {
 
-  getAgendaDetails( agenda.id, ( err, details ) => {
+  if ( arguments.length === 2 ) {
+
+    cb = options;
+    options = {};
+
+  }
+
+  
+
+  getAgendaDetails( agenda.id,  ( err, details ) => {
 
     if ( err ) return cb( err );
 
@@ -42,13 +51,16 @@ function getAgendaDetails( agendaId, cb ) {
     agendaId: agendaId,
     details: {
       publishedEvents: 0,
-      upcomingPublishedEvents: 0
+      upcomingPublishedEvents: 0,
+      totalEvents: 0
     }
   } )
 
   .then( _getPublishedEvents )
 
   .then( _getUpcomingPublishedEvents )
+
+  .then( _getTotalEvents )
 
   .done( v => {
 
@@ -92,6 +104,31 @@ function _getUpcomingPublishedEvents( v ) {
   .then( result => {
 
     v.details.upcomingPublishedEvents = result[ 0 ].published_count;
+
+    return v;
+
+  } );
+
+}
+
+
+function _getTotalEvents( v ) {
+
+  return knex.transaction( trx => {
+
+    return trx
+
+    .count( 'id as total_count' )
+
+    .from( schemas.agendaEvent )
+
+    .where( 'review_id', '=', v.agendaId )
+
+  } )
+
+  .then( result => {
+
+    v.details.totalEvents = result[ 0 ].total_count;
 
     return v;
 

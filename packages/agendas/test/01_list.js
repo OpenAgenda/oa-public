@@ -146,6 +146,25 @@ describe( 'agendas - functional (server): list', function () {
   } );
 
 
+  it( 'list with updatedAtGreaterThan limits agendas to those updated after a given timestamp', done => {
+
+    svc.list( {
+      updatedAtGreaterThan: new Date( '2016-01-29T07:55:09.000Z' )
+    }, 0, 10, { private: null }, ( err, agendas ) => {
+
+      agendas.forEach( a => {
+
+        ( a.updatedAt > new Date( '2016-01-29T07:55:09.000Z' ) ).should.equal( true );
+
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'list ordered by createdAt.desc gets newest agenda listed first', done => {
 
     svc.list( { order: 'createdAt.desc' }, 0, 10, ( err, agendas ) => {
