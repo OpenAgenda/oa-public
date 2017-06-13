@@ -464,7 +464,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
 function catchError( req, res, jsonResponse ) {
 
-  return function ( err ) {
+  return err => {
 
     log( 'error', 'caught error: %s', typeof err == 'object' && err.message ? err.message : JSON.stringify( err ) );
 

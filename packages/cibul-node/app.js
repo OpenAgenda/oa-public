@@ -196,6 +196,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( 'agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
+        tfy( require( 'agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
+
         require( './general/mainLogger.task' )();
 
         require( './event/oembed.task' )();

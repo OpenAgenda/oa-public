@@ -21,6 +21,7 @@
     "agenda-settings": "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git",
     "agenda-stakeholders": "git+ssh://git@bitbucket.org:openagenda/agenda-stakeholders.git",
     "agenda-tags": "git+ssh://git@bitbucket.org:openagenda/agenda-tags.git",
+    "agenda-monitor": "git+ssh://git@bitbucket.org:openagenda/agenda-monitor.git",
     "agendas": "git+ssh://git@bitbucket.org:openagenda/agendas.git",
     "aggregator-sources": "git+ssh://git@bitbucket.org:openagenda/aggregator-sources.git",
     "async": "^2.3.0",
