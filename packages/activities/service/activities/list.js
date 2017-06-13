@@ -98,12 +98,14 @@ function list( identifiers ) {
         request.where( 'created_at', '=', createdAt );
       }
 
-      if ( feed ) {
+      if ( feed !== undefined ) {
+
         request.join(
           config.schemas.feed_activity,
           config.schemas.feed_activity + '.activity_id',
           config.schemas.activity + '.id'
-        ).where( config.schemas.feed_activity + '.feed_id', feed.id );
+        ).where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 );
+
       }
 
       return request

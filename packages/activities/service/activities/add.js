@@ -144,7 +144,7 @@ function add() {
     }, {} );
 
     const feedsToGet = (identifiers ? [ identifiers ] : []).concat( feedsIdentifiers || [] );
-
+    
     return nodefn.call( async.mapSeries,
       feedsToGet,
       ( item, mcb ) => service.feed( item ).get( {
