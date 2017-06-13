@@ -51,18 +51,17 @@
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
     },
     {
-      "background" : "gray",
       "key" : "pricing",
       "title" : "mainPricingTitle",
       "agendaTitle" : "mainPricingAgendaTitle",
       "networkTitle" : "mainPricingNetworkTitle",
+      "agendaSub" : "mainPricingAgendaPoint1",
       "agendaPoints" : [
-        "mainPricingAgendaPoint1",
         "mainPricingAgendaPoint2",
         "mainPricingAgendaPoint3"
       ],
+      "networkSub" : "mainPricingNetworkPoint1",
       "networkPoints" : [
-        "mainPricingNetworkPoint1",
         "mainPricingNetworkPoint2",
         "mainPricingNetworkPoint3"
       ],

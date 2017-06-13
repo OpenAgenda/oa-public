@@ -1,4 +1,4 @@
-div(class='background-' + ( background || 'white' ))
+div.background-blue.price-summary
   .container
     .spaced
       h2.text-center!=title
@@ -6,17 +6,25 @@ div(class='background-' + ( background || 'white' ))
         .col-lg-6
           .margin-h-md.margin-v-lg
             figure.text-center
-              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda.png', width=300)
+              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/agenda-white.png', width=300)
             h3!=agendaTitle
-            each p in agendaPoints  
-              p!=p
+            div.separator
+            p.sub!=agendaSub
+            ul
+              each p in agendaPoints 
+                li 
+                  p!=p
             a.btn.btn-primary.btn-lg.margin-top-md(href=agendaAction.link)!=agendaAction.label
 
         .col-lg-6
           .margin-h-md.margin-v-lg
             figure.text-center
-              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/network.png', width=300)
+              img.big(src='//s3.eu-central-1.amazonaws.com/oastatic/landing/network-white.png', width=300)
             h3!=networkTitle
-            each p in networkPoints  
-              p!=p
+            div.separator
+            p.sub!=networkSub
+            ul
+              each p in networkPoints
+                li
+                  p!=p
             a.btn.btn-primary.btn-lg.margin-top-md(href=networkAction.link)!=networkAction.label

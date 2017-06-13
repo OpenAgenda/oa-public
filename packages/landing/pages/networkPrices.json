@@ -20,6 +20,7 @@
     "background" : "white"
   }, {
     "key" : "pricingDetail",
+    "classes" : "thin",
     "offerMargin" : "sm",
     "background" : "gray",
     "offers" : [ {
