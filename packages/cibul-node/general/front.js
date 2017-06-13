@@ -32,6 +32,8 @@ const landing = require( 'landing' ),
 
   modLib = require( '../lib/moduleLib' ),
 
+  cache = require( 'simple-cache' )( 'landing' ),
+
   model = require( '../services/model' ),
 
   metaLabels = require( 'labels' )( require( 'labels/corpo/metas' ) ),
@@ -39,10 +41,14 @@ const landing = require( 'landing' ),
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 
   routes = {
-    corpoHome: [ 'get', '/', [
+    corpoHome: [ 'get', '/(|en)', [
+      cmn.https,
+      _corpoBrowserCache,
+      _cache,
       cmn.loadBaseData( 'oasfmain.css' ),
       sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
-      _corpoBrowserCache,
+      _setLang,
+      _counters,
       corpo
     ] ],
     signout: [ 'get', '/signout', [
@@ -56,18 +62,22 @@ const landing = require( 'landing' ),
     emailUnsubscribeSubmit: [ 'post', '/emailunsubscribe', unsubscribeSubmit ],
     start: [ 'get', '/start', start ],
     decouvrir: [ 'get', '/decouvrir/:page', [
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.https,
       _corpoBrowserCache,
+      _cache,
+      cmn.loadBaseData( 'oasfmain.css' ),
       _redirectLang,
       _redirectLegacyLinks,
-      discover 
+      corpo 
     ] ],
     discover: [ 'get', '/discover/:page', [ 
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.https,
       _corpoBrowserCache,
+      _cache,
+      cmn.loadBaseData( 'oasfmain.css' ),
       _redirectLang,
       _redirectLegacyLinks,
-      discover 
+      corpo 
     ] ],
   };
 
@@ -88,53 +98,108 @@ module.exports = path => {
 }
 
 
+function _cache( req, res, next ) {
+
+  cache.get( req.url, ( err, cached ) => {
+
+    if ( err ) return next( err );
+
+    if ( !cached ) return next();
+
+    res.set( 'Content-Type', 'text/html' );
+
+    res.send( cached );
+
+  } );
+
+}
+
+
 function _corpoBrowserCache( req, res, next ) {
 
   mwHelpers.compareModifiedSince( config.corpoLastUpdate, req, res, next );
 
 }
 
+function _counters( req, res, next ) {
 
-function corpo( req, res, next ) {
+  getStats().then( stats => {
 
-  cmn.https( req, res, () => {
+    req.stats = {
+      agendas: stats[ 0 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
+      events: stats[ 1 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
+      contributors: stats[ 2 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' )
+    }
 
-    getStats()
-      .then( ( [ agendas, contributors, events ] ) => {
-
-        const lang = req.lang || 'fr';
-
-        cmn.render( req, res, 'corpo/index', {
-          metas: {
-            title: metaLabels( 'title', lang ),
-            description: metaLabels( 'description', lang ),
-            keywords: metaLabels( 'keywords', lang ),
-            robots: 'index, follow'
-          },
-          scriptParams: {
-            lang,
-            stats: {
-              agendas,
-              contributors,
-              events
-            }
-          },
-          lang
-        } );
-
-      }, err => next( err ) );
+    next();
 
   } );
 
 }
 
-function getStats() {
 
-  return Promise.all( [
-    getTotalAgendas(),
-    getTotalContributors(),
-    getTotalEvents()
-  ] );
+function _setLang( req, res, next ) {
+
+  req.lang = req.url === '/' ? 'fr' : 'en';
+
+  next();
+
+}
+
+
+function corpo( req, res, next ) {
+
+  const pageName = req.params.page || ( req.lang === 'fr' ? '' : 'en' );
+
+  let page = landingPages( pageName );
+
+  if ( !page ) {
+
+    req.log( 'error', 'unknown page %s', pageName );
+
+    return res.redirect( req.genUrl( 'corpoHome', { lang: req.lang } ) );
+
+  }
+
+  if ( req.query.lang && page.getLang() !== req.query.lang) {
+
+    return res.redirect( page.getAlternateUrl( req.lang ) );
+
+  }
+
+  cmn.renderTemplate( req, 'corpo/empty', {}, ( err, layout ) => {
+
+    let content = layout.replace( '<!--content-->', page.render( req.stats ) );
+
+    content = content.replace( '<!--metas-->', page.getHeadPart() );
+
+    cache.set( req.url, content, 60*60, err => {
+
+      if ( err ) req.log( 'error', 'could not cache %s', err );
+
+    } );
+
+    res.send( content );
+
+    req.log( 'info', {
+      landing: page.getAlternateUrl( 'fr' ).split( '/' ).pop(),
+      lang: req.lang,
+      message: 'discover page: ' + req.params.page,
+      userAgent: req.headers[ 'user-agent' ]
+    } );
+
+  } );
+
+}
+
+
+async function getStats() {
+
+  return [
+    await getTotalAgendas(),
+    await getTotalContributors(),
+    await getTotalEvents()
+  ]
 
 }
 

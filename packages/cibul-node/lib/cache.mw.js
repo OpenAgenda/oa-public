@@ -8,7 +8,8 @@ const cacheMiddleware = require( 'simple-cache/middleware' ),
 
 module.exports = {
   set,
-  send
+  send,
+  cache: sCache
 }
 
 function send( namespace, path, responseType = 'json' ) {
