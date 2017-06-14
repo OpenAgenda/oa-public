@@ -181,6 +181,9 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       value: '2',
                       format: function format(v) {
                         return v.toString();
+                      },
+                      parse: function parse(value) {
+                        return value === undefined ? undefined : parseInt(value);
                       }
                     }),
                     getLabel('contribTypeChoosen')
@@ -196,6 +199,9 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       value: '1',
                       format: function format(v) {
                         return v.toString();
+                      },
+                      parse: function parse(value) {
+                        return value === undefined ? undefined : parseInt(value);
                       }
                     }),
                     getLabel('contribTypeAll')
@@ -290,6 +296,9 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       value: '2',
                       format: function format(v) {
                         return v.toString();
+                      },
+                      parse: function parse(value) {
+                        return value === undefined ? undefined : parseInt(value);
                       }
                     }),
                     getLabel('contribDefaultStatePublished'),
@@ -313,6 +322,9 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       value: '0',
                       format: function format(v) {
                         return v.toString();
+                      },
+                      parse: function parse(value) {
+                        return value === undefined ? undefined : parseInt(value);
                       }
                     }),
                     getLabel('contribDefaultStateUnpublished'),
