@@ -33,7 +33,7 @@ const componentPropTypes = PropTypes.oneOfType( [
   },
   agendasActions
 )
-@reduxForm()
+@reduxForm( {} )
 export default class AgendasSearch extends Component {
 
   static propTypes = {
@@ -137,7 +137,7 @@ export default class AgendasSearch extends Component {
         </div>}
 
         {(!agendas || !agendas.length) && createButtonIfEmpty && <div className="text-center text-muted margin-top-md">
-          <a  className="btn btn-primary" href={res.agendas.create}>{getLabel( 'createAgenda' )}</a>
+          <a className="btn btn-primary" href={res.agendas.create}>{getLabel( 'createAgenda' )}</a>
         </div>}
 
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>

@@ -98,7 +98,7 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
     search: selector(state, 'search'),
     perPageLimit: state.settings.perPageLimit
   };
-}, agendasActions), _dec2 = (0, _reduxForm.reduxForm)(), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
+}, agendasActions), _dec2 = (0, _reduxForm.reduxForm)({}), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(AgendasSearch, _Component);
 
   function AgendasSearch() {
