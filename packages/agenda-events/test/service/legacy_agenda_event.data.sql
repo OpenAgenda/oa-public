@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `${schema}` (
-`id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL,
   `review_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `event_id` bigint(20) NOT NULL,

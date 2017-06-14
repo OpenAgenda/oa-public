@@ -2,49 +2,42 @@
 
 process.env.NODE_ENV = 'test';
 
+const svc = require( './service' );
+
 const should = require( 'should' );
 
 const config = require( '../testconfig.js' );
 
 const mysql = require( 'mysql' );
 
-const svc = require( '../' );
-
-const fixtures = require( './fixtures' );
-
 
 describe( 'transferLegacyData - sample', function() {
 
   this.timeout( 40000 );
 
-  before( () => {
-
-    svc.init( config );
-
-  } );
-
   beforeEach( done => {
 
-    fixtures( config, [ 'legacy_agenda_event', 'agenda_event_empty' ], done );
+    svc.initAndLoad( config, [
+      'legacy_agenda_event',
+      'legacy_agenda',
+      'legacy_event',
+      'agenda_event_empty'
+    ], {}, done )
 
   } );
-
-  /* it( 'transfer all fixtures', done => {
-
-    svc.tasks.transferLegacyData( { total: null }, ( err, result ) => {
-
-      done();
-
-    } );
-
-  } ); */
-
 
   it( 'transfer 20 events in empty target db reports 20 creates', done => {
 
     svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
 
       result.creates.should.equal( 20 );
+
+      result.should.eql( {
+        creates: 20,
+        updates: 0,
+        removes: 0,
+        errors: 0
+      } );
 
       done();
 

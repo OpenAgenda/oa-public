@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' );
 
-const w = require( 'when' );
+const VError = require( 'verror' ),
 
-const utils = require( 'utils' );
+  validate = require( '../iso/validate' );
 
 let config, knex;
 
@@ -12,66 +12,41 @@ module.exports = _.extend( list, {
   init: ( c, k ) => { config = c; knex = k }
 } );
 
-function list( agendaId, offset, limit, cb ) {
+async function list( agendaUid, offset, limit ) {
 
-  if ( !knex ) return cb( 'service not initialized' );
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  w( {
-    agendaId,
-    offset,
-    limit,
-    items: [],
-    total: null
-  } )
-
-  .then( _total )
-
-  .then( _list )
-
-  .done( v => {
-
-    cb( null, v.items, v.total );
-
-  }, cb );
+  return {
+    items: ( await _list( agendaUid, offset, limit ) ).map( validate ),
+    total: await _total( agendaUid )
+  }
 
 }
 
-function _total( v ) {
+function _total( agendaUid ) {
 
   return knex( config.schemas.agendaEvent )
 
-    .where( 'agenda_id', v.agendaId )
+    .where( 'agenda_uid', agendaUid )
 
-    .count( 'id' )
+    .count( 'id as total' )
 
-    .then( rows => {
-
-      v.total = rows[ 0 ][ 'count(`id`)' ];
-
-      return v;
-
-    } );
+    .then( rows => rows[ 0 ][ 'total' ] );
 
 }
 
-function _list( v ) {
+function _list( agendaUid, offset, limit ) {
 
   return knex( config.schemas.agendaEvent )
 
-    .select( '*' )
+    .select( [ 'agenda_uid', 'event_uid', 'state', 'featured' ] )
 
-    .where( 'agenda_id', v.agendaId )
+    .where( 'agenda_uid', agendaUid )
 
-    .limit( v.limit )
+    .limit( limit )
 
-    .offset( v.offset )
+    .offset( offset )
 
-  .then( rows => {
-
-    v.items = rows.map( utils.toCamelCase );
-
-    return v;
-
-  } );
+  .then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) )
 
 }

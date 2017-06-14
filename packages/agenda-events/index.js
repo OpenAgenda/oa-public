@@ -6,8 +6,10 @@ const knex = require( 'knex' );
 const endpoints = {
   list: require( './service/list' ),
   get: require( './service/get' ),
-  set: require( './service/set' ),
-  remove: require( './service/remove' )
+  create: require( './service/create' ),
+  update: require( './service/update' ),
+  remove: require( './service/remove' ),
+  validate: require( './iso/validate' )
 }
 
 module.exports = agendaId => _.mapValues( endpoints, e => e.bind( null, agendaId ) );

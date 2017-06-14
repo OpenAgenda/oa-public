@@ -12,81 +12,32 @@ module.exports = _.extend( remove, {
   init: ( c, k ) => { config = c; knex = k }
 } );
 
-function remove( agendaId, eventId, cb ) {
+async function remove( agendaUid, eventUid ) {
 
-  if ( !knex ) return cb( 'service not initialized' );
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  w( {
-    agendaId,
-    eventId,
-    success: false,
-    agendaEvent: null,
-    result: null
-  } )
+  let current = await get( agendaUid, eventUid );
 
-  .then( _get )
+  if ( current === null ) {
 
-  .then( _remove )
-
-  .done( v => {
-
-    if ( v.success && config.interfaces && config.interfaces.onRemove ) {
-
-      config.interfaces.onRemove( v.agendaEvent );
-
+    return {
+      success: false,
+      code: 'not_found'
     }
 
-    cb( null, {
-      success: v.success,
-      found: !!v.agendaEvent,
-      removed: v.success ? v.agendaEvent : null
-    } )
+  }
 
-  }, cb );
-
-}
-
-function _get( v ) {
-
-  let { agendaId, eventId } = v;
-
-  let d = w.defer();
-
-  get( agendaId, eventId, ( err, agendaEvent ) => {
-
-    if ( err ) return d.reject( err );
-
-    v.agendaEvent = agendaEvent;
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-function _remove( v ) {
-
-  let { agendaId, eventId, agendaEvent } = v;
-
-  if ( !agendaEvent ) return v;
-
-  return knex( config.schemas.agendaEvent )
+  let removedRows = await knex( config.schemas.agendaEvent )
 
     .del()
 
     .where( {
-      event_id: v.eventId,
-      agenda_id: v.agendaId
-    } )
+      event_uid: eventUid,
+      agenda_uid: agendaUid
+    } );
 
-  .then( removedRows => {
-
-    v.success = !!removedRows;
-
-    return v;
-
-  } );
+  return {
+    success: removedRows === 1
+  }
 
 }

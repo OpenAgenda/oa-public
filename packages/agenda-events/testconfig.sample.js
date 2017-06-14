@@ -21,8 +21,17 @@ module.exports = {
       user : 'root'
     },
     schemas: {
-      agendaEvent: 'legacy_agenda_event'
+      agendaEvent: 'legacy_agenda_event',
+      event: 'legacy_event',
+      agenda: 'legacy_agenda'
     }
+  },
+
+  // given by agenda service
+  eventStates: {
+    NOT_VALIDATED: 0,
+    VALIDATED: 1,
+    PUBLISHED: 2
   },
 
   interfaces: {

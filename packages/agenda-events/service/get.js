@@ -1,10 +1,8 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require( 'lodash' ),
 
-const utils = require( 'utils' );
-
-const w = require( 'when' );
+  validate = require( '../iso/validate' );
 
 let config, knex;
 
@@ -12,47 +10,19 @@ module.exports = _.extend( get, {
   init: ( c, k ) => { config = c; knex = k }
 } );
 
-function get( agendaId, eventId, cb ) {
+async function get( agendaUid, eventUid ) {
 
-  if ( !config ) return cb( 'service not initialized' );
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  w( {
-    agendaId,
-    eventId
-  } )
-
-  .then( _get )
-
-  .done( v => {
-
-    cb( null, v.agendaEvent );
-
-  }, cb );
-
-}
-
-
-function _get( v ) {
-
-  let { agendaId, eventId } = v;
-
-  return knex( config.schemas.agendaEvent )
-
-    .select( '*' )
-
+  let ref = await knex( config.schemas.agendaEvent )
+    .first( [ 'agenda_uid', 'event_uid', 'state', 'featured', 'created_at', 'updated_at' ] )
     .where( {
-      'agenda_id' : agendaId,
-      'event_id' : eventId
-    } )
-
-    .limit( 1 )
-
-    .then( rows => {
-
-      v.agendaEvent = rows.length ? utils.toCamelCase( rows[ 0 ] ) : null
-
-      return v;
-
+      'agenda_uid' : agendaUid,
+      'event_uid' : eventUid
     } );
+
+  if ( !ref ) return null;
+
+  return validate( _.mapKeys( ref, ( v, k ) => _.camelCase( k ) ) );
 
 }
