@@ -4,7 +4,7 @@ let should = require( 'should' ),
 
 utils = require( '../' );
 
-describe.only( 'utils - deep', () => {
+describe( 'utils - deep', () => {
 
   it( 'should set deep value in object', () => {
 
