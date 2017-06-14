@@ -42,10 +42,10 @@ const landing = require( 'landing' ),
 
   _homeMw = [
     cmn.https,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
     _corpoBrowserCache,
     _cache,
     cmn.loadBaseData( 'oasfmain.css' ),
-    sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
     _setLang,
     _counters,
     corpo
