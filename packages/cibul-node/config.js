@@ -3,8 +3,8 @@ var deepExtend = require( 'deep-extend' ),
   config = {
     all: {
       env: 'production',
-      corpoLastUpdate: '2016-02-28T11:07:29.000Z',
-      jsVersion: 3,
+      corpoLastUpdate: '2017-06-14T11:07:29.000Z',
+      jsVersion: 4,
       versions: {
         members: [ {
           version: 2,

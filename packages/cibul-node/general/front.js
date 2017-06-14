@@ -40,17 +40,20 @@ const landing = require( 'landing' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 
+  _homeMw = [
+    cmn.https,
+    _corpoBrowserCache,
+    _cache,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
+    _setLang,
+    _counters,
+    corpo
+  ],
+
   routes = {
-    corpoHome: [ 'get', '/(|en)', [
-      cmn.https,
-      _corpoBrowserCache,
-      _cache,
-      cmn.loadBaseData( 'oasfmain.css' ),
-      sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
-      _setLang,
-      _counters,
-      corpo
-    ] ],
+    corpoHome: [ 'get', '/', _homeMw ],
+    corpoHomeEn: [ 'get', '/en', _homeMw ],
     signout: [ 'get', '/signout', [
       sessions.middleware.ifUnlogged( cmn.redirectTo() ),
       sessions.middleware.close(),
@@ -127,8 +130,8 @@ function _counters( req, res, next ) {
 
     req.stats = {
       agendas: stats[ 0 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
-      events: stats[ 1 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
-      contributors: stats[ 2 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' )
+      contributors: stats[ 1 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
+      events: stats[ 2 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' )
     }
 
     next();
