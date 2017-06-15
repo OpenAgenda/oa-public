@@ -56,7 +56,7 @@ async function legacyTransfer( originRefId ) {
 
 }
 
-function _getLegacyState( state, isIublished ) {
+function _getLegacyState( state, isPublished ) {
 
   if ( state === null ) {
 
