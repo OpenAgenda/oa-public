@@ -20,9 +20,14 @@ module.exports = _.extend( legacyTransfer, {
   init: ( c, k ) => { config = c; knex = k; }
 } );
 
-async function legacyTransfer( originRefId ) {
+async function legacyTransfer( origin ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+
+  let where = typeof origin === 'object' ? {
+    'ra.review_id': origin.agendaId,
+    'ra.event_id': origin.eventId 
+  } : { 'ra.id': origin };
 
   let data = await knex( config.legacy.schemas.agendaEvent )
     .first( [ 
@@ -37,7 +42,7 @@ async function legacyTransfer( originRefId ) {
     .from( config.legacy.schemas.agendaEvent + ' as ra' )
     .leftJoin( config.legacy.schemas.agenda + ' as a', 'ra.review_id', 'a.id' )
     .leftJoin( config.legacy.schemas.event + ' as e', 'ra.event_id', 'e.id' )
-    .where( 'ra.id', originRefId ),
+    .where( where ),
 
     result = null;
 
