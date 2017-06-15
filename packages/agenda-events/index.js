@@ -18,6 +18,8 @@ module.exports.states = require( './iso/states' );
 
 module.exports.tasks = require( './tasks' );
 
+module.exports.legacyTransfer = require( './service/legacyTransfer' );
+
 module.exports.init = config => {
 
   let client = knex( {
@@ -29,4 +31,5 @@ module.exports.init = config => {
 
   Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
 
+  module.exports.legacyTransfer.init( config, client );
 }

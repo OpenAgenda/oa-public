@@ -26,6 +26,14 @@ describe( 'transferLegacyData - sample', function() {
 
   } );
 
+  it( 'transfer of 1 event gives back type of operation', async () => {
+
+    let result = await svc.legacyTransfer( 436064 );
+
+    result.operation.should.equal( 'create' );
+
+  } );
+
   it( 'transfer 20 events in empty target db reports 20 creates', done => {
 
     svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
