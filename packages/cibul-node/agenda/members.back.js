@@ -57,7 +57,7 @@ const routes = {
       }
     } ),
     ( req, res, next ) => {
-      if ( req.stakeholder.userId === req.agenda.ownerId ) {
+      if ( req.stakeholderToUse.userId === req.agenda.ownerId ) {
         return res.status( 400 ).json( { error: 'You don\'t have right to remove the owner of this agenda' } );
       }
       if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
@@ -138,7 +138,7 @@ const routes = {
         return res.status( 400 ).json( { errors } );
       }
 
-      const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
+      const emailsRejected = _.compact( (results || []).reduce( ( prev, nextResult, i ) => {
         let emailRejected;
         if ( nextResult.errors && nextResult.errors.length ) {
           emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
