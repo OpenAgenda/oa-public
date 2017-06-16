@@ -204,13 +204,25 @@ function _set( { con, report }, row ) {
 
 function _getLegacyState( row ) {
 
-  if ( row.state === null ) {
+  if ( row.is_published ) {
 
-    return row.is_published ? svc.states.PUBLISHED : svc.states.TOCONTROL;
+    return svc.states.PUBLISHED;
 
   }
 
   return row.state;
+
+}
+
+function _getLegacyState( state, isPublished ) {
+
+  if ( isPublished ) {
+
+    return states.PUBLISHED;
+
+  }
+
+  return state;
 
 }
 
