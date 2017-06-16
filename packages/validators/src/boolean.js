@@ -7,7 +7,8 @@ export default config => {
   let params = utils.extend( {
     field: false,
     default: undefined,
-    optional: true
+    optional: true,
+    allowNull: false
   }, config );
 
   return utils.extend( validate, {
@@ -40,7 +41,7 @@ export default config => {
 
     }
 
-    if ( value === null && params.default === null ) {
+    if ( value === null && ( params.default === null || params.allowNull ) ) {
 
       return null;
 

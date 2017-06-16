@@ -15,7 +15,8 @@ exports['default'] = function (config) {
   var params = _utils2['default'].extend({
     field: false,
     'default': undefined,
-    optional: true
+    optional: true,
+    allowNull: false
   }, config);
 
   return _utils2['default'].extend(validate, {
@@ -45,7 +46,7 @@ exports['default'] = function (config) {
       return null;
     }
 
-    if (value === null && params['default'] === null) {
+    if (value === null && (params['default'] === null || params.allowNull)) {
 
       return null;
     }

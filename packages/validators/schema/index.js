@@ -64,7 +64,8 @@ function schema(options) {
     'default': defaultValue,
     fields: params.fields,
     type: 'schema',
-    struct: params.root ? options : params.fields });
+    struct: params.root ? options : params.fields // legacy
+  });
 
   function validate(value) {
 

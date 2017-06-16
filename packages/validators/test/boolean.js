@@ -113,4 +113,25 @@ describe( 'boolean validator', () => {
 
   } );
 
+  it( 'if given value is null and default is not set, cleans as false', () => {
+
+    let validate = validators.boolean( {
+      field: 'meh'
+    } );
+
+    validate( null ).should.equal( false );
+
+  } );
+
+  it( 'if given value is null and allowNull option is true, cleans as null', () => {
+
+    let validate = validators.boolean( {
+      field: 'mnieeeh',
+      allowNull: true
+    } );
+
+    should( validate( null ) ).equal( null );
+
+  } );
+
 } );
