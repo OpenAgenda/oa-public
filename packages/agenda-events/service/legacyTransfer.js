@@ -81,9 +81,9 @@ async function legacyTransfer( origin ) {
 
 function _getLegacyState( state, isPublished ) {
 
-  if ( state === null ) {
+  if ( isPublished ) {
 
-    return isPublished ? states.PUBLISHED : states.TOCONTROL;
+    return states.PUBLISHED;
 
   }
 
