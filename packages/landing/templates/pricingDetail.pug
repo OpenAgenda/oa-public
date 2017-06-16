@@ -8,6 +8,8 @@ div(class='background-' + ( background || 'white' ))
               div(class='unit price-primary ' + ( typeof classes !== 'undefined' ? classes : '' ) )
                 div(class=typeof offer.count !== 'undefined'?'price-title':'price-title')
                   h3!=offer.title
+                  if typeof offer.small !== 'undefined'
+                    small.margin-top-md!=offer.small
                   if typeof offer.count !== 'undefined'
                     p!=offer.count
                   if typeof offer.countDetail !== 'undefined'

@@ -26,6 +26,7 @@
     "offers" : [ {
       "title" : "networkPricingFree",
       "count" : "networkPricingFreeCount",
+      "small" : "networkUpTo",
       "price" : "networkPricingFreePricing",
       "features" : [
         "networkPricingFreeFeature1",
@@ -41,6 +42,7 @@
     }, {
       "title" : "networkPricingSmall",
       "count" : "networkPricingSmallCount",
+      "small" : "networkUpTo",
       "countDetail" : "networkPricingSmallCountDetail",
       "price" : "networkPricingSmallPricing",
       "features" : [ true, true, true, "networkPricingCustomized" ],
@@ -52,6 +54,7 @@
     }, {
       "title" : "networkPricingMedium",
       "count" : "networkPricingMediumCount",
+      "small" : "networkUpTo",
       "countDetail" : "networkPricingMediumCountDetail",
       "price" : "networkPricingMediumPricing",
       "features" : [ true, true, true, "networkPricingCustomized" ],
@@ -64,6 +67,7 @@
       "title" : "networkPricingLarge",
       "count" : "networkPricingLargeCount",
       "price" : "networkPricingLargePricing",
+      "countDetail" : "",
       "features" : [ true, true, true, "networkPricingCustomized" ],
       "under" : "networkCustomizedSupport",
       "action" : {
