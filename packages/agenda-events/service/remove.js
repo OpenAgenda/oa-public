@@ -22,7 +22,24 @@ async function remove( agendaUid, eventUid ) {
 
 }
 
-async function byLegacyId( agendaId, eventId ) {
+async function byLegacyId( agendaId = null, eventId = null ) {
+
+  if ( !agendaId && !eventId ) {
+
+    throw new Error( 'Invalid request' );
+
+  }
+
+  if ( agendaId === null || eventId === null ) {
+
+    let removedRows = await knex( config.schemas.agendaEvent ).del()
+      .where( 'legacy_id', 'like', '%' + ( agendaId || '' ) + '.' + ( eventId || '' ) + '%' );
+
+    return {
+      success: removedRows >= 1
+    }
+
+  }
 
   return await _remove( {
     legacy_id: [ agendaId, eventId ].join( '.' )

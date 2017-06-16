@@ -52,4 +52,20 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   } );
 
+  it( 'remove by legacyId with eventId only', async () => {
+
+    let before = await svc( 62792452 ).get( 10974548 );
+
+    let result = await remove.byLegacyId( null, 24 );
+
+    let after = await svc( 62792452 ).get( 10974548 );
+
+    result.success.should.equal( true );
+
+    before.should.not.equal( null );
+
+    should( after ).equal( null ); 
+
+  } );
+
 } );

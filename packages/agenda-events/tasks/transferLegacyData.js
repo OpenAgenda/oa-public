@@ -214,18 +214,6 @@ function _getLegacyState( row ) {
 
 }
 
-function _getLegacyState( state, isPublished ) {
-
-  if ( isPublished ) {
-
-    return states.PUBLISHED;
-
-  }
-
-  return state;
-
-}
-
 
 /**
  * remove references that are not found in legacy data:
