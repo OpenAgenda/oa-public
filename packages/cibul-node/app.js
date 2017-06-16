@@ -251,8 +251,6 @@ module.exports = ( enabledTypes, cb ) => {
 
           console.error( e.stack );
 
-          process.exit( 1 );
-
         }
 
       } );
