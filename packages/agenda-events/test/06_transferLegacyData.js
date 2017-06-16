@@ -34,6 +34,14 @@ describe( 'transferLegacyData - sample', function() {
 
   } );
 
+  it( 'transfer of 1 event by event & agenda id works as well', async () => {
+
+    let result = await svc.legacyTransfer( { agendaId: 4608, eventId: 81631 } );
+
+    result.operation.should.equal( 'create' );
+
+  } );
+
   it( 'transfer 20 events in empty target db reports 20 creates', done => {
 
     svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {

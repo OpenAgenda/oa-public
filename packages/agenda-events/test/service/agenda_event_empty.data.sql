@@ -6,5 +6,6 @@ create table if not exists `${schema}` (
   featured tinyint(1) not null default 0,
   created_at datetime not null,
   updated_at datetime not null,
+  legacy_id varchar(30),
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;

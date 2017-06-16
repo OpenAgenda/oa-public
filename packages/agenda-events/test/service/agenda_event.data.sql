@@ -6,11 +6,14 @@ create table if not exists `${schema}` (
   featured tinyint(1) not null default 0,
   created_at datetime not null,
   updated_at datetime not null,
+  legacy_id varchar(30),
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;
 
+INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+(435378, '42.24', 62792452, 10974548, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
+
 INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
-(435378, 62792452, 10974548, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18'),
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59'),
 (436091, 62792452, 16425580, 1, 0, '2016-01-19 16:04:30', '2016-01-19 16:04:30'),
 (436099, 62792452, 34285341, 0, 0, '2016-01-19 16:14:36', '2016-01-19 16:14:36'),

@@ -10,6 +10,8 @@ const _ = require( 'lodash' ),
 
   update = require( './update' ),
 
+  remove = require( './remove' ),
+
   VError = require( 'verror' ),
 
   states = require( '../iso/states' );
@@ -33,6 +35,8 @@ async function legacyTransfer( origin ) {
     .first( [ 
       'a.uid as agendaUid', 
       'e.uid as eventUid', 
+      'a.id as agendaId',
+      'e.id as eventId',
       'ra.is_published as isPublished', 
       'ra.state as state',
       'ra.featured as featured',
@@ -46,16 +50,30 @@ async function legacyTransfer( origin ) {
 
     result = null;
 
-  if ( !data ) throw new Error( 'origin reference not found' );
+  let current = await get.byLegacyId( origin.agendaId, origin.eventId );
 
-  let shouldUpdate = !!( await get( data.agendaUid, data.eventUid ) );
+  if ( !data && current ) {
 
-  result = await ( shouldUpdate ? update : create )( data.agendaUid, data.eventUid, {
-    state: _getLegacyState( data.state, data.isPublished ),
-    featured: data.featured
-  } );
+    result = await remove.byLegacyId( origin.agendaId, origin.eventId );
 
-  result.operation = shouldUpdate ? 'update' : 'create';
+    result.operation = 'delete';
+
+  } else if ( data ) {
+
+    result = await ( current ? update : create )( data.agendaUid, data.eventUid, {
+      state: _getLegacyState( data.state, data.isPublished ),
+      featured: data.featured,
+      legacyId: data.agendaId + '.' + data.eventId
+    } );
+
+    result.operation = current ? 'update' : 'create';
+
+  } else {
+
+    result = { operation: null }
+
+  }
+
 
   return result;
 

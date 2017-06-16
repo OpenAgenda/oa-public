@@ -4,6 +4,8 @@ process.env.NODE_ENV = 'test';
 
 const svc = require( './service' );
 
+const get = require( '../service/get' );
+
 const config = require( '../testconfig' );
 
 const _ = require( 'lodash' );
@@ -28,8 +30,25 @@ describe( 'agendaEvents - functional (server): get', function() {
       agendaUid: 62792452,
       eventUid: 10974548,
       state: config.eventStates.VALIDATED,
-      featured: false
+      featured: false,
+      legacyId: '42.24'
     } );
+
+  } );
+
+
+  it( 'get by legacy id', async () => {
+
+    let ref = await get.byLegacyId( 42, 24 );
+
+    _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
+      eventUid: 10974548,
+      agendaUid: 62792452,
+      featured: false,
+      state: config.eventStates.VALIDATED,
+      legacyId: '42.24'
+    } );
+
 
   } );
 

@@ -9,14 +9,30 @@ const get = require( './get' );
 let config, knex;
 
 module.exports = _.extend( remove, { 
-  init: ( c, k ) => { config = c; knex = k }
+  init: ( c, k ) => { config = c; knex = k },
+  byLegacyId
 } );
 
 async function remove( agendaUid, eventUid ) {
 
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+  return await _remove( {
+    event_uid: eventUid,
+    agenda_uid: agendaUid
+  }, await get( agendaUid, eventUid ) );
 
-  let current = await get( agendaUid, eventUid );
+}
+
+async function byLegacyId( agendaId, eventId ) {
+
+  return await _remove( {
+    legacy_id: [ agendaId, eventId ].join( '.' )
+  }, await get.byLegacyId(  agendaId, eventId ) );
+
+}
+
+async function _remove( where, current ) {
+
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   if ( current === null ) {
 
@@ -31,10 +47,7 @@ async function remove( agendaUid, eventUid ) {
 
     .del()
 
-    .where( {
-      event_uid: eventUid,
-      agenda_uid: agendaUid
-    } );
+    .where( where );
 
   return {
     success: removedRows === 1

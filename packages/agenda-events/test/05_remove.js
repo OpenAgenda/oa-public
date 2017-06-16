@@ -4,6 +4,8 @@ process.env.NODE_ENV = 'test';
 
 const svc = require( './service' );
 
+const remove = require( '../service/remove' );
+
 const config = require( '../testconfig' );
 
 const should = require( 'should' );
@@ -12,7 +14,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   this.timeout( 5000 );
 
-  before( done => {
+  beforeEach( done => {
 
     svc.initAndLoad( config, done );
 
@@ -31,6 +33,22 @@ describe( 'agendaEvents - functional (server): remove', function() {
     before.should.not.equal( null );
 
     should( after ).equal( null );
+
+  } );
+
+  it( 'remove by legacyId', async () => {
+
+    let before = await svc( 62792452 ).get( 10974548 );
+
+    let result = await remove.byLegacyId( 42, 24 );
+
+    let after = await svc( 62792452 ).get( 10974548 );
+
+    result.success.should.equal( true );
+
+    before.should.not.equal( null );
+
+    should( after ).equal( null );    
 
   } );
 

@@ -11,7 +11,8 @@ schema.register( {
   integer: require( 'validators/integer' ),
   boolean: require( 'validators/boolean' ),
   choice: require( 'validators/choice' ),
-  date: require( 'validators/date' )
+  date: require( 'validators/date' ),
+  text: require( 'validators/text' )
 } );
 
 let validate;
@@ -45,6 +46,10 @@ function init( { eventStates } ) {
       unique: true,
       optional: false,
       options: _.keys( eventStates ).map( k => eventStates[ k ] )
+    },
+    legacyId: {
+      type: 'text',
+      optional: true
     },
     createdAt: {
       type: 'date'
