@@ -49,12 +49,14 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 
 async function _remove( where, current ) {
 
+  let success = false;
+
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   if ( current === null ) {
 
     return {
-      success: false,
+      success,
       code: 'not_found'
     }
 
@@ -66,8 +68,16 @@ async function _remove( where, current ) {
 
     .where( where );
 
+  success = removedRows === 1;
+
+  if ( success && config.interfaces.onRemove ) {
+
+    config.interfaces.onRemove( current );
+
+  }
+
   return {
-    success: removedRows === 1
+    success
   }
 
 }

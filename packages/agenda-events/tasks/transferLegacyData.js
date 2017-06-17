@@ -78,7 +78,9 @@ function _setReferences( v ) {
 
   async.whilst( () => !trasversed, wcb => {
 
-    v.con.query( `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at, ra.created_at
+
+
+    v.con.query( `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt
      from ${v.config.legacy.schemas.agendaEvent} as ra 
      left join ${v.config.legacy.schemas.agenda} as a on a.id=ra.review_id
      left join ${v.config.legacy.schemas.event} as e on e.id=ra.event_id
@@ -153,18 +155,36 @@ function _set( { con, report }, row ) {
       return svc( row.agendaUid ).create( row.eventUid, {
         featured: row.featured,
         state: _getLegacyState( row ),
-        legacyId: row.agendaId + '.' + row.eventId
+        legacyId: row.agendaId + '.' + row.eventId,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt
+      }, { protected: false } ).then( result => {
+
+        return _sleep( config.legacy.interval ).then( () => result );
+
+      } );
+
+    } else if ( ref.updatedAt.getTime() === row.updatedAt.getTime() ) {
+
+      operation = 'ignored.sameUpdatedAt';
+
+    } else {
+
+      operation = 'update';
+
+      return svc( row.agendaUid ).update( row.eventUid, {
+        featured: row.featured,
+        state: _getLegacyState( row ),
+        legacyId: row.agendaId + '.' + row.eventId,
+        createdAt: row.createdAt,
+        updatedAt: row.updatedAt
+      }, { protected: false } ).then( result => {
+
+        return _sleep( config.legacy.interval ).then( () => result );
+
       } );
 
     }
-
-    operation = 'update';
-
-    return svc( row.agendaUid ).update( row.eventUid, {
-      featured: row.featured,
-      state: _getLegacyState( row ),
-      legacyId: row.agendaId + '.' + row.eventId
-    } );
 
   } )
 
@@ -181,6 +201,10 @@ function _set( { con, report }, row ) {
       log( 'agenda/event ref %s updated', row.agendaUid + '/' + row.eventUid );
 
       report.updates++;
+
+    } else if ( operation === 'ignored.sameUpdatedAt' ) {
+
+      log( 'agenda/event ref %s ignored: same updatedAt', row.agendaUid + '/' + row.eventUid );
 
     } else {
 
@@ -283,3 +307,16 @@ function _removeReferences( v ) {
   return d.promise;
 
 } 
+
+
+function _sleep( ms ) {
+
+  return new Promise( rs => {
+
+    log( 'sleeping %s ms', ms );
+
+    setTimeout( () => { rs() }, ms );
+
+  } );
+
+}

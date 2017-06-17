@@ -4,6 +4,8 @@ const _ = require( 'lodash' ),
 
   validate = require( '../iso/validate' ),
 
+  validateOptions = require( './lib/validateOptions' ),
+
   get = require( './get' );
 
 let config, knex;
@@ -12,20 +14,38 @@ module.exports = _.extend( create, {
   init: ( c, k ) => { config = c; knex = k; }
 } );
 
-async function create( agendaUid, eventUid, data ) {
+async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  let clean,
+  let params = validateOptions( options ),
 
-    insertIds;
+    clean,
+
+    insertIds,
+
+    success = false,
+
+    created = null;
 
   try {
 
-    clean = validate( _.extend( { eventUid, agendaUid }, data || {}, {
+    let values = _.extend( { eventUid, agendaUid }, data || {}, {
       createdAt: new Date(),
       updatedAt: new Date()
-    } ) );
+    } );
+
+    if ( !params.protected ) {
+
+      [ 'updatedAt', 'createdAt' ].forEach( f => {
+
+        if ( data[ f ] ) values[ f ] = data[ f ];
+
+      } );
+
+    }
+
+    clean = validate( values );
 
   } catch ( validationErrors ) {
 
@@ -51,10 +71,24 @@ async function create( agendaUid, eventUid, data ) {
 
     .insert( _.mapKeys( clean, ( v, k ) => _.snakeCase( k ) ) );
 
+  success = insertIds.length === 1;
+
+  if ( success ) {
+
+    created = await get( clean.agendaUid, clean.eventUid );
+
+  }
+
+  if ( success && config.interfaces.onCreate ) {
+
+    config.interfaces.onCreate( created );
+
+  }
+
   return {
-    success: insertIds.length === 1,
+    success,
     insertId: insertIds.length ? insertIds[ 0 ] : null,
-    reference: clean
+    created
   }
 
 }

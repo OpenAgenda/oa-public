@@ -4,7 +4,9 @@ const _ = require( 'lodash' ),
 
   validate = require( '../iso/validate' ),
 
-  get = require( './get' );
+  get = require( './get' ),
+
+  validateOptions = require( './lib/validateOptions' );
 
 let config, knex;
 
@@ -12,18 +14,24 @@ module.exports = _.extend( update, {
   init: ( c, k ) => { config = c; knex = k; }
 } );
 
-async function update( agendaUid, eventUid, data ) {
+async function update( agendaUid, eventUid, data, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  let clean, result, entryValues,
+  let params = validateOptions( options ),
 
-    current = await get( agendaUid, eventUid );
+    clean, result, entryValues,
+
+    current = await get( agendaUid, eventUid ),
+
+    success = false,
+
+    updated = null;
 
   if ( current === null ) {
 
     return {
-      success: false,
+      success,
       code: 'not_found'
     }
 
@@ -31,10 +39,22 @@ async function update( agendaUid, eventUid, data ) {
 
   try {
 
-    clean = validate( _.extend( current, data || {}, {
+    let values = _.extend( current, data || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt
-    } ) );
+    } );
+
+    if ( !params.protected ) {
+
+      [ 'updatedAt', 'createdAt' ].forEach( f => {
+
+        if ( data[ f ] ) values[ f ] = data[ f ];
+
+      } );
+
+    }
+
+    clean = validate( values );
 
   } catch ( validationErrors ) {
 
@@ -46,7 +66,7 @@ async function update( agendaUid, eventUid, data ) {
 
   }
 
-  entryValues = _.mapKeys( _.omit( clean,  [ 'createdAt', 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
+  entryValues = _.mapKeys( _.omit( clean, [ 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
 
   result = await knex( config.schemas.agendaEvent )
 
@@ -57,9 +77,23 @@ async function update( agendaUid, eventUid, data ) {
       event_uid: eventUid
     } );
 
+  success = !!result;
+
+  if ( success ) {
+
+    updated = await get( clean.agendaUid, clean.eventUid );
+
+  }
+
+  if ( success && config.interfaces.onUpdate ) {
+
+    config.interfaces.onUpdate( current, updated );
+
+  }
+
   return {
-    success: !!result,
-    reference: clean
+    success,
+    updated
   }
 
 }

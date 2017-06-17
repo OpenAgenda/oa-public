@@ -10,6 +10,8 @@ const config = require( '../testconfig.js' );
 
 const mysql = require( 'mysql' );
 
+const _ = require( 'lodash' );
+
 
 describe( 'transferLegacyData - sample', function() {
 
@@ -17,7 +19,10 @@ describe( 'transferLegacyData - sample', function() {
 
   beforeEach( done => {
 
-    svc.initAndLoad( config, [
+    svc.initAndLoad( _.extend( {}, config, {
+      legacy: _.extend( {}, config.legacy, {
+        interval: 1
+      } ) } ), [
       'legacy_agenda_event',
       'legacy_agenda',
       'legacy_event',
@@ -103,7 +108,7 @@ describe( 'transferLegacyData - sample', function() {
 
           result.should.eql( {
             creates: 1,
-            updates: 19,
+            updates: 0,
             removes: 1,
             errors: 0
           } );

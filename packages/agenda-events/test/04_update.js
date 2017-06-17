@@ -30,4 +30,23 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  it( 'simple update forcing timestamp values', async () => {
+
+    let createdAt = new Date( '2017-02-28T08:00:00.000Z' );
+
+    let updatedAt = new Date( '2017-03-28T08:00:00.000Z' ); 
+
+    let result = await svc( 62792452 ).update( 10974548, {
+      featured: true,
+      state: 2,
+      createdAt,
+      updatedAt
+    }, { protected: false } );
+
+    result.updated.createdAt.toString().should.equal( createdAt.toString() );
+
+    result.updated.updatedAt.toString().should.equal( updatedAt.toString() );
+
+  } );
+
 } );

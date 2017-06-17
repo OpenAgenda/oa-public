@@ -50,7 +50,15 @@ async function legacyTransfer( origin ) {
 
     result = null;
 
-  let current = await get.byLegacyId( origin.agendaId, origin.eventId );
+  let current = await get.byLegacyId( origin.agendaId, origin.eventId ),
+
+    values = {
+      state: _getLegacyState( data.state, data.isPublished ),
+      featured: data.featured,
+      legacyId: data.agendaId + '.' + data.eventId,
+      createdAt: data.createdAt,
+      updatedAt: data.updatedAt
+    };
 
   if ( !data && current ) {
 
@@ -58,15 +66,17 @@ async function legacyTransfer( origin ) {
 
     result.operation = 'delete';
 
-  } else if ( data ) {
+  } else if ( data && !current ) {
 
-    result = await ( current ? update : create )( data.agendaUid, data.eventUid, {
-      state: _getLegacyState( data.state, data.isPublished ),
-      featured: data.featured,
-      legacyId: data.agendaId + '.' + data.eventId
-    } );
+    result = await create( data.agendaUid, data.eventUid, values, { protected: false } );
 
-    result.operation = current ? 'update' : 'create';
+    result.operation = 'create';
+
+  } else if ( data && ( current.updatedAt !== new Date( data.updatedAt ) ) ) {
+
+    result = await update( data.agendaUid, data.eventUid, values, { protected: false } );
+
+    result.operation = 'update';
 
   } else {
 
