@@ -228,6 +228,16 @@ module.exports = ( enabledTypes, cb ) => {
 
         } );*/
 
+        /*require( 'agenda-events').tasks.transferLegacyData( err => {
+
+          console.log( 'done!' );
+          console.log( err );
+
+        } );*/
+
+
+        require( './services/agendaEvents/legacy' ).task();
+
       }
 
       server = app.listen( config.port, () => {

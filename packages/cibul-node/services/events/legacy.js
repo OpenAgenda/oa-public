@@ -1,8 +1,6 @@
 "use strict";
 
-const events = require( 'events-service' ),
-
-  logger = require( 'logger' );
+const events = require( 'events-service' );
 
 let log = console.log;
 
