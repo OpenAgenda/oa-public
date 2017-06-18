@@ -36,6 +36,7 @@ const modLib = require( '../lib/moduleLib' ),
       agendaSvc.mw.decorateEvent( false ),
       _formatSocialLinks,
       _formatFavoriteLink,
+      _addInterfaceLanguage,
       _formatEmbedHeadLinks,
       cmn.useEmbedGoogleAnalytics,
       embedSvc.mw.renderEvent,
@@ -511,6 +512,14 @@ function _appendEventTransferCredential( req, res, next ) {
 function _formatFavoriteLink( req, res, next ) {
 
   req.formatted.favorite = cmn.favoriteLinkHTML( req.event.uid );
+
+  next();
+
+}
+
+function _addInterfaceLanguage( req, res, next ) {
+
+  req.formatted.interfaceLang = req.lang;
 
   next();
 

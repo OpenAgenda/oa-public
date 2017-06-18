@@ -490,6 +490,7 @@ function _formatEventItem( event, req, cb ) {
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
     ticketLabel: getEventLabel( 'ticketingLink', req.lang ),
+    interfaceLang: req.lang,
     actionLink: req.genUrl( 'agendaEventActionShow', {
       slug: req.agenda.slug,
       eventSlug: event.slug
@@ -560,6 +561,8 @@ function _formatEmbedHeadLinks( req, res, next ) {
     url: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
     label: getLabel( 'export', req.lang )
   };
+
+  req.actionLabel = getLabel( 'export', req.lang );
 
   next();
 

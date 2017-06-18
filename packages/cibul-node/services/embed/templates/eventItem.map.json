@@ -17,6 +17,10 @@
       "name": "Link"
     },
     {
+    "name" : "InterfaceLanguage",
+    "mapTo" : "interfaceLang"
+    },
+    {
       "mapTo": "image",
       "name": "ImageUrl"
     },

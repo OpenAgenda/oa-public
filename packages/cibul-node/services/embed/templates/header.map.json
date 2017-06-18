@@ -5,5 +5,8 @@
   }, {
     "name" : "ShareLabel",
     "mapTo" : "actionLabel"
+  }, {
+    "name" : "InterfaceLanguage",
+    "mapTo" : "lang"
   } ]
 }

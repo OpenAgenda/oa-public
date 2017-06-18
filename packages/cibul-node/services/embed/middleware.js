@@ -108,7 +108,8 @@ function renderHeader( req, res, next ) {
   
   req.renders.header = parser.render( {
     actionLink: req.actionLink.url,
-    actionLabel: req.actionLink.label
+    actionLabel: req.actionLink.label,
+    lang: req.lang
   } );
 
   next();

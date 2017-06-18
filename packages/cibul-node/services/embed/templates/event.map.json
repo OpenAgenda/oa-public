@@ -1,5 +1,8 @@
 {
-  "attributes" : [ { 
+  "attributes" : [ {
+    "name" : "InterfaceLanguage",
+    "mapTo" : "interfaceLang"
+  }, { 
     "name" : "Title", 
     "mapTo" : "title" 
   }, {
