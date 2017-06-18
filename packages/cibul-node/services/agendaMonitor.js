@@ -68,11 +68,11 @@ function agendaSearchStats( agendaUid ) {
 
       if ( !agenda ) return rj( new Error( 'agenda %s was not found', agendaUid ) );
 
-      es.agendas( agenda ).search( {}, ( err, result ) => {
+      es.agendas( agenda ).search( { passed: 1 }, ( err, result ) => {
 
         searchResult.publishedEvents = result.total;
 
-        es.agendas( agenda ).search( { showAll: true }, ( err, result ) => {
+        es.agendas( agenda ).search( { passed: 1 }, { showAll: true }, ( err, result ) => {
 
           searchResult.totalEvents = result.total;
 
