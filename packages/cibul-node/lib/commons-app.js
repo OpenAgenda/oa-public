@@ -17,6 +17,8 @@ module.exports = {
 
   loadLogger,
 
+  favoriteLinkHTML,
+
   render,                       // render and serve response
   renderJson,                   // render and serve json
   renderTemplate,               // render and serve template
@@ -928,6 +930,13 @@ function renderJson( req, res, data, options ) {
   res.end();
 
   req.log( 'info', 'sent json response >>>' );
+
+}
+
+
+function favoriteLinkHTML( uid ) {
+
+  return '<span class="fav js_fav_item" data-event-uid="' + uid + '"></span>';
 
 }
 

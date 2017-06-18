@@ -35,6 +35,7 @@ const modLib = require( '../lib/moduleLib' ),
     customEmbedEventShow: [
       agendaSvc.mw.decorateEvent( false ),
       _formatSocialLinks,
+      _formatFavoriteLink,
       _formatEmbedHeadLinks,
       cmn.useEmbedGoogleAnalytics,
       embedSvc.mw.renderEvent,
@@ -227,7 +228,12 @@ function redirect( req, res, next ) {
 function agendaEmbedEventShow( req, res ) {
 
   cmn.render( req, res, 'event/embedShow', {
-    eventRender: req.render
+    eventRender: req.render,
+    scriptParams: {
+      res: {
+        actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+      }
+    }
   } );
 
 }
@@ -498,6 +504,15 @@ function _appendEventTransferCredential( req, res, next ) {
     next();
 
   } );
+
+}
+
+
+function _formatFavoriteLink( req, res, next ) {
+
+  req.formatted.favorite = cmn.favoriteLinkHTML( req.event.uid );
+
+  next();
 
 }
 

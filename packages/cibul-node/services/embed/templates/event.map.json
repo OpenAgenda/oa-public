@@ -99,6 +99,9 @@
     "name" : "ExportUrl",
     "mapTo" : "actionLink"
   }, {
+    "name" : "Favorite",
+    "mapTo" : "favorite"
+  }, {
     "name" : "ExportLabel",
     "mapTo" : "actionLabel"
   }, {

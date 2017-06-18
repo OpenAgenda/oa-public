@@ -500,7 +500,7 @@ function _formatEventItem( event, req, cb ) {
       organization: organization ? organization.label : null
     },
     category: false,
-    favorite: '<span class="fav js_fav_item" data-event-uid="' + inst.uid + '"></span>'
+    favorite: cmn.favoriteLinkHTML( inst.uid )
   } );
 
   inst.getAgendaCategory( function( err, c ) {
