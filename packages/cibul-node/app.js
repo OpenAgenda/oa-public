@@ -228,12 +228,12 @@ module.exports = ( enabledTypes, cb ) => {
 
         } );*/
 
-        /*require( 'agenda-events').tasks.transferLegacyData( err => {
+        /* require( 'agenda-events').tasks.transferLegacyData( err => {
 
           console.log( 'done!' );
           console.log( err );
 
-        } );*/
+        } ); */
 
 
         require( './services/agendaEvents/legacy' ).task();

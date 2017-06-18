@@ -41,7 +41,7 @@ function init( config ) {
         event: config.schemas.event,
         agenda: config.schemas.agenda
       },
-      interval: 1
+      interval: 1000
     },
     eventStates,
     interfaces
