@@ -54,7 +54,18 @@ describe( 'event search - functional: create', function() {
         fr: 'Une desc courte',
         en: 'A short description'
       },
-      locationUid: 1,
+      location: {
+        name : 'La boutique',
+        address : '29 passage du Ponceau, Paris"',
+        latitude : 48.8675959,
+        longitude : 2.3516408,
+        district : 'Paris 02',
+        city : 'Paris',
+        department : 'Paris',
+        region : 'Ile-de-France',
+        countryCode : 'FR',
+        timezone : 'Europe/Paris'
+      },
       timings: [ {
         begin: new Date( '2017-04-20T12:00:00+0100' ),
         end: new Date( '2017-04-20T13:00:00+0100' )

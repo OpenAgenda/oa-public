@@ -51,13 +51,13 @@ function checkList( namespace ) {
 
       if ( err ) {
 
-        return d.reject( new VError( err, 'provided list failed' ) );
+        return d.reject( new VError( err, 'provided list failed: %s', namespace ) );
 
       }
 
       if ( !_.isArray( events ) ) {
 
-        return d.reject( 'list function is not giving a list' );
+        return d.reject( 'list function is not giving a list: %s', namespace );
 
       }
 

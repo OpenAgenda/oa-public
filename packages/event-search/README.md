@@ -29,7 +29,30 @@ The service allows you to handle an aliased event index through its main interfa
  * **search( 'alias_name' ).remove**: remove an event from index.
 
 
+# Handling event operations on multiple indices
 
+When a user updates or removes an event, all agendas where it was published are impacted. On OpenAgenda we will have an event.onRemove hook that will be called which will in turn call the event-search service to be called as well. How does the event-search service know which indices will be impacted?
+
+Same goes for an update, multiple indices can be impacted for an event update, one should be refreshed directly, the others can wait. But the service must know one way or another how indices should be impacted.
+
+// these should exist.
+ * search.create // creates an aliased index
+ * search.remove // deletes an aliased index
+ * search.add // adds an event to multiple indices... the event should be decorated for each index following the specifics ( state, custom fields ) of that index.
+
+
+ **The update of a single index can take in whatever extra info it requires. Maybe the mapping could be stored in an additional type to avoid constant db calls.**
+
+ Core event updates could be distinguished from reference updates ( like custom fields )
+ to avoid update loops. Like a custom field that is updated does not impact event updated_at reference.
+ 
+ So a core event update still calls for a search.update that still needs to update event data in its primary ( origin ) index and then its secondary indices ( through a queue & task )
+
+ A decoration update for an event will need to impact only one index.
+
+ Do I need this for a first deploy? One single index for entire db means ( can be queued ) that only core event updates should be considered. All should be indexed? Not private events nor draft events.
+
+ Next step: integration of event service. Then, integration of search.
 
 
 
@@ -42,7 +65,7 @@ sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.1.2 && sudo -H 
 
 
 
-FormSchema can be built from current custom fields ? 
+FormSchema can be built from current custom fields ?
 
 FormSchema can decorate mapping
 
@@ -61,6 +84,20 @@ This is neat but a first step could be to setup up a single unified index for th
 search index administration can be handled in event-search, through dedicated endpoint that would
 react on event lifecycle happenings; lookup stakeholders, update main index and then queue others ( alias names and event create / update / remove info can be queued )
 
+
+
+rebuild can take an alternative mapping... although rebuild should not require mapping, it should fetch the one from the previous index if existing.
+
+A mapping load logic is required prior to rebuild.
+
+1. comes from the outside - at rebuild
+2. comes from previous index
+3. comes from default service mapping
+
+mapping from the outside is a "decoration" mapping. So the service mapping is always used.
+
+
+mapping FormSchema-handled types to ES should be possible ( a default mapping ) with reservations
 
 
 

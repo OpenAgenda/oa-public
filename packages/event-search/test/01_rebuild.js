@@ -60,7 +60,7 @@ describe( 'event-search - functional: rebuild', function() {
     describe( 'index generation', () => {
 
       function eventsList( offset, limit, cb ) {
-
+        
         events.list( offset, limit, {
           internal: true,
           detailed: true,

@@ -37,8 +37,6 @@ function add( alias, event, options, cb ) {
     }
   } )
 
-  .then( _loadLocation )
-
   .then( _clean )
 
   .then( _index )
@@ -54,36 +52,12 @@ function add( alias, event, options, cb ) {
 
 function _clean( v ) {
 
-  v.clean = clean( _.extend( {}, v.in.event, { location: v.location } ) );
+  v.clean = clean( v.in.event );
 
   return v;
 
 }
 
-
-function _loadLocation( v ) {
-
-  let d = w.defer();
-
-  v.interfaces.locationsList( { uids: [ v.in.event.locationUid ] }, 0, 1, ( err, locations ) => {
-
-    if ( err ) return d.reject( err );
-
-    if ( !locations.length ) {
-
-      return d.reject( new VError( err, 'create: location %s not found for event %s', v.in.event.locationUid, v.in.event.uid ) );
-
-    }
-
-    v.location = locations[ 0 ];
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
 
 function _index( v ) {
 

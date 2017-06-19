@@ -30,8 +30,6 @@ module.exports = ( alias, lists, cb ) => {
 
   .then( h.checkList( 'in.lists.eventsList' ) )
 
-  .then( h.checkList( 'interfaces.locationsList' ) )
-
   .then( h.createUniqueIndex.bind( null, indexSettings ) )
 
   .then( v => _loopBulk( v, h.indexBulk.bind( null, v ) ) )
@@ -84,65 +82,19 @@ function _loopBulk( v, ecb ) {
 
       if ( err ) return wcb( err );
 
-      v.interfaces.locationsList( { 
-        uids: _.uniq( events.map( e => e.locationUid ) ) 
-      }, 0, limit, ( err, locations ) => {
-
-        if ( err ) return wcb( err );
-
-        offset += limit;
-
-        if ( !events.length ) {
-
-          hasMore = false;
-
-          return wcb();
-
-        }
-
-        ecb( events.map( _insertLocation.bind( null, locations ) ), wcb );
-
-      } );
-
-    } );
-
-  }, () => hasMore, err => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-function _loop( v, ecb ) {
-
-  let d = w.defer();
-
-  let offset = 0,
-    limit = 5,
-    hasMore = true;
-
-  async.doWhilst( wcb => {
-
-    v.in.lists.eventsList( offset, limit, ( err, events ) => {
-
-      if ( err ) return wcb( err );
-
-      offset += limit;
-
       if ( !events.length ) {
 
         hasMore = false;
 
-        return wcb();
+        wcb();
+
+      } else {
+
+        offset+=limit;
+
+        ecb( events, wcb );
 
       }
-
-      async.eachSeries( events, ecb, wcb );
 
     } );
 
@@ -155,16 +107,5 @@ function _loop( v, ecb ) {
   } );
 
   return d.promise;
-
-}
-
-
-function _insertLocation( locations, event ) {
-
-  const l = locations.filter( l => l.uid === event.locationUid );
-
-  return _.extend( {}, event, {
-    location: l.length ? l[ 0 ] : null
-  } );
 
 }
