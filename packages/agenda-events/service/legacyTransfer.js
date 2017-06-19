@@ -26,6 +26,14 @@ async function legacyTransfer( origin ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
+  if ( typeof origin === 'object' ) {
+
+    if ( !origin.agendaId ) throw new Error( 'agendaId must be defined for legacy transfer' );
+
+    if ( !origin.eventId ) throw new Error( 'eventId must be defined for legacy transfer' );
+
+  }
+
   let where = typeof origin === 'object' ? {
     'ra.review_id': origin.agendaId,
     'ra.event_id': origin.eventId 
