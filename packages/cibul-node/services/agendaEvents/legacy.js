@@ -8,6 +8,8 @@ const coms = require( '../../lib/coms' );
 
 const config = require( '../../config' );
 
+const VError = require( 'verror' );
+
 let log = console.log;
 
 module.exports = {
@@ -28,26 +30,34 @@ function task() {
 
     let result = null;
 
-    if ( action.name === 'review.article_create' ) {
-      
-      result = await agendaEvents.legacyTransfer( action.values.id );
+    try {
 
-    } else if ( action.name === 'event.update' ) {
+      if ( action.name === 'review.article_create' ) {
+        
+        result = await agendaEvents.legacyTransfer( action.values.id );
 
-      result = await agendaEvents.legacyTransfer( { 
-        eventId: action.values.id,
-        agendaId: action.values.agendaId || action.values.review_id
-      } );
+      } else if ( action.name === 'event.update' ) {
 
-    } else if ( action.name === 'event.remove' ) {
+        result = await agendaEvents.legacyTransfer( { 
+          eventId: action.values.id,
+          agendaId: action.values.agendaId || action.values.review_id
+        } );
 
-      result = await remove.byLegacyId( null, action.values.id );
+      } else if ( action.name === 'event.remove' ) {
 
-    }
+        result = await remove.byLegacyId( null, action.values.id );
 
-    if ( result ) {
+      }
 
-      log( 'transfer result: %s', JSON.stringify( result ) );
+      if ( result ) {
+
+        log( 'transfer result: %s', JSON.stringify( result ) );
+
+      }
+
+    } catch ( e ) {
+
+      throw new VError( e, 'legacyTransfer failed for action with values %s', JSON.stringify( action ) );
 
     }
 
