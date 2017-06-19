@@ -137,7 +137,7 @@ function _doCreate( v ) {
 
       if ( !v.success ) return v;
 
-      log( 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
+      log( 'event of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
 
       v.identifiers = {
         id: result[ 0 ]
