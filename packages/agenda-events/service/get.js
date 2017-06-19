@@ -36,6 +36,7 @@ async function _get( where ) {
     .first( [ 
       'agenda_uid',
       'event_uid',
+      'user_uid',
       'state',
       'featured',
       'created_at',

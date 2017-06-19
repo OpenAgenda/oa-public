@@ -26,6 +26,7 @@ describe( 'transferLegacyData - sample', function() {
       'legacy_agenda_event',
       'legacy_agenda',
       'legacy_event',
+      'legacy_user',
       'agenda_event_empty'
     ], {}, done )
 
@@ -36,6 +37,14 @@ describe( 'transferLegacyData - sample', function() {
     let result = await svc.legacyTransfer( 436064 );
 
     result.operation.should.equal( 'create' );
+
+  } );
+
+  it( 'transfer of 1 event stores user uid', async () => {
+
+    let result = await svc.legacyTransfer( 436064 );
+
+    result.created.userUid.should.equal( 40960233 )
 
   } );
 

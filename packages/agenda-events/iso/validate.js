@@ -36,6 +36,9 @@ function init( { eventStates } ) {
       type: 'integer',
       optional: false
     },
+    userUid: {
+      type: 'integer'
+    },
     featured: {
       type: 'boolean',
       default: false

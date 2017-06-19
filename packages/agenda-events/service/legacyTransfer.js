@@ -49,11 +49,13 @@ async function legacyTransfer( origin ) {
       'ra.state as state',
       'ra.featured as featured',
       'ra.updated_at as updatedAt',
-      'ra.created_at as createdAt'
+      'ra.created_at as createdAt',
+      'u.uid as userUid'
     ] )
     .from( config.legacy.schemas.agendaEvent + ' as ra' )
     .leftJoin( config.legacy.schemas.agenda + ' as a', 'ra.review_id', 'a.id' )
     .leftJoin( config.legacy.schemas.event + ' as e', 'ra.event_id', 'e.id' )
+    .leftJoin( config.legacy.schemas.user + ' as u', 'ra.user_id', 'u.id' )
     .where( where ),
 
     result = null;
@@ -65,6 +67,7 @@ async function legacyTransfer( origin ) {
       featured: data.featured,
       legacyId: data.agendaId + '.' + data.eventId,
       createdAt: data.createdAt,
+      userUid: data.userUid,
       updatedAt: data.updatedAt
     };
 

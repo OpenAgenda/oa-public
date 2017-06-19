@@ -29,6 +29,7 @@ describe( 'agendaEvents - functional (server): get', function() {
     _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
       agendaUid: 62792452,
       eventUid: 10974548,
+      userUid: 12312312,
       state: config.eventStates.VALIDATED,
       featured: false,
       legacyId: '42.24'
@@ -44,6 +45,7 @@ describe( 'agendaEvents - functional (server): get', function() {
     _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
       eventUid: 10974548,
       agendaUid: 62792452,
+      userUid: 12312312,
       featured: false,
       state: config.eventStates.VALIDATED,
       legacyId: '42.24'

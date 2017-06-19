@@ -60,6 +60,9 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
   }, {
     table: 'legacy_event',
     src: __dirname + '/legacy_event.data.sql'
+  }, {
+    table: 'legacy_user',
+    src: __dirname + '/legacy_user.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) );
 
   fixtures( fx, options, cb );

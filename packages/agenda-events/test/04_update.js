@@ -30,6 +30,16 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  it( 'update userUid is possible through second argument', async () => {
+
+    let result = await svc( 62792452 ).update( 10974548, {
+      userUid: 989898
+    } );
+
+    result.updated.userUid.should.equal( 989898 );
+
+  } );
+
   it( 'simple update forcing timestamp values', async () => {
 
     let createdAt = new Date( '2017-02-28T08:00:00.000Z' );

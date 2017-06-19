@@ -39,7 +39,7 @@ function _list( agendaUid, offset, limit ) {
 
   return knex( config.schemas.agendaEvent )
 
-    .select( [ 'agenda_uid', 'event_uid', 'state', 'featured', 'legacy_id' ] )
+    .select( [ 'agenda_uid', 'event_uid', 'user_uid', 'state', 'featured', 'legacy_id' ] )
 
     .where( 'agenda_uid', agendaUid )
 

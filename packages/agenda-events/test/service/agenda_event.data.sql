@@ -2,6 +2,7 @@ create table if not exists `${schema}` (
   id bigint(20) not null auto_increment,
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,
+  user_uid bigint(20),
   state tinyint(1) not null default 0,
   featured tinyint(1) not null default 0,
   created_at datetime not null,
@@ -10,8 +11,8 @@ create table if not exists `${schema}` (
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;
 
-INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
-(435378, '42.24', 62792452, 10974548, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
+INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+(435378, '42.24', 62792452, 10974548, 12312312, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
 
 INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59'),

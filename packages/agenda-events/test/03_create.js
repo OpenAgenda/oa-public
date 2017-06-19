@@ -64,4 +64,15 @@ describe( 'agendaEvents - functional (server): create', function() {
 
   } );
 
+
+  it( 'set userUid value in second create argument', async () => {
+
+    let result = await svc( 1212 ).create( 3434, {
+      userUid: 5656
+    } );
+
+    result.created.userUid.should.equal( 5656 );
+
+  } );
+
 } );

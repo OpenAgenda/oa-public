@@ -2,6 +2,7 @@ create table if not exists `${schema}` (
   id bigint(20) not null auto_increment,
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,
+  user_uid bigint(20),
   state tinyint(1) not null default 0,
   featured tinyint(1) not null default 0,
   created_at datetime not null,

@@ -41,6 +41,7 @@ describe( 'agendaEvents - functional (server): list', function() {
     Object.keys( result.items[ 0 ] ).should.eql([ 
       'eventUid',
       'agendaUid',
+      'userUid',
       'featured',
       'state',
       'legacyId',

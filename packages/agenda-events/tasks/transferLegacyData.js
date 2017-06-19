@@ -80,10 +80,11 @@ function _setReferences( v ) {
 
 
 
-    v.con.query( `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt
+    v.con.query( `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt, u.uid as userUid
      from ${v.config.legacy.schemas.agendaEvent} as ra 
      left join ${v.config.legacy.schemas.agenda} as a on a.id=ra.review_id
      left join ${v.config.legacy.schemas.event} as e on e.id=ra.event_id
+     left join ${v.config.legacy.schemas.user} as u on u.id=ra.user_id
      limit ?, ?`, [ offset, limit ], ( err, rows ) => {
 
       if ( offset % 100 === 0 ) {
@@ -156,6 +157,7 @@ function _set( { con, report }, row ) {
         featured: row.featured,
         state: _getLegacyState( row ),
         legacyId: row.agendaId + '.' + row.eventId,
+        userUid: row.userUid,
         createdAt: row.createdAt,
         updatedAt: row.updatedAt
       }, { protected: false } ).then( result => {
