@@ -39,7 +39,8 @@ function init( config ) {
       schemas: {
         agendaEvent: config.schemas.agendaEvent,
         event: config.schemas.event,
-        agenda: config.schemas.agenda
+        agenda: config.schemas.agenda,
+        user: config.schemas.user
       },
       interval: 1000
     },
