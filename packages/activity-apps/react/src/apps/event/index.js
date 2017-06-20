@@ -3,7 +3,7 @@
 import React from 'react';
 // import makeGetterLabel from 'labels';
 import labels from 'labels/activities/event';
-import activityFormatMaker from 'activities/format';
+import activityFormatMaker from 'activities/formatActivity';
 import moment from 'moment';
 
 import 'moment/locale/fr';

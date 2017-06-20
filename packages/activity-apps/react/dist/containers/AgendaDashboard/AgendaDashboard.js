@@ -44,9 +44,9 @@ var _monitorBottomHit = require('dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _format = require('activities/format');
+var _formatActivity = require('activities/formatActivity');
 
-var _format2 = _interopRequireDefault(_format);
+var _formatActivity2 = _interopRequireDefault(_formatActivity);
 
 var _agenda = require('labels/activities/agenda');
 
@@ -87,7 +87,7 @@ function _wrapComponent(id) {
   };
 }
 
-var formatActivity = (0, _format2.default)({}, _agenda2.default);
+var formatActivity = (0, _formatActivity2.default)({}, _agenda2.default);
 
 var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {

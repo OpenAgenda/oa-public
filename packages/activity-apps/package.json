@@ -21,7 +21,7 @@
   "dependencies": {
     "activities": "git+ssh://git@bitbucket.org/openagenda/activities.git",
     "async": "^2.1.4",
-    "basic-logger": "^0.4.4",
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
     "body-parser": "^1.16.0",
     "bootstrap-daterangepicker": "^2.1.25",
     "classnames": "^2.2.5",
@@ -39,7 +39,9 @@
     "react-select": "^1.0.0-rc.4",
     "react-utils": "git+ssh://git@bitbucket.org/openagenda/react-utils.git",
     "redux-connect": "^5.0.0",
-    "redux-form": "^6.6.2"
+    "redux-form": "^6.6.2",
+    "sessions": "git+ssh://git@bitbucket.org/openagenda/sessions.git",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -56,6 +58,7 @@
     "babel-preset-react": "^6.16.0",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "iscroll": "^5.2.0",
     "morgan": "^1.7.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

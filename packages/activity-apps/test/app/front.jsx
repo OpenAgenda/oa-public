@@ -4,6 +4,11 @@ import du from 'dom-utils';
 import dl from 'dom-utils/documentLocation';
 import adminApp from '../../react/dist/apps/admin';
 import agendaApp from '../../react/dist/apps/agenda';
+import notifsApp from '../../react/dist/apps/notifications';
+import notificationsHandler from '../../notifications';
+
+// required also in main.js
+window.IScroll = require( 'iscroll/build/iscroll' );
 
 window.onload = () => {
 
@@ -17,7 +22,22 @@ window.onload = () => {
       return renderApp( agendaApp );
     case 'admin':
       return renderApp( adminApp );
+    case 'notifications':
+      ReactDom.render( <div className="container">
+        <div className="navbar-collapse collapse">
+          <ul className="nav navbar-nav navbar-right">
+            <li className="notifications js_notifications hide">
+              <a className="js_notifications_opener">
+                <i className="fa fa-bell" aria-hidden="true"></i>
+                <span className="label label-danger hide"></span>
+              </a>
+              <div className="js_notifications_panel hide"></div>
+            </li>
+          </ul>
+        </div>
+      </div>, du.el( '.js_canvas' ) );
 
+      notificationsHandler();
   }
 
 };

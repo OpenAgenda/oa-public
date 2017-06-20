@@ -7,6 +7,8 @@ const express = require( 'express' );
 const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
+const sessions = require( 'sessions' );
+const sessionsMw = require( 'sessions/middleware' );
 const config = require( '../../testconfig.js' );
 const activitiesSvc = require( 'activities/test/service' );
 const mw = require( '../../middleware' );
@@ -25,6 +27,7 @@ const app = require( 'test-app' )( {
 const port = process.env.PORT || 3000;
 
 fixtures.init( config );
+sessions.init( config.services.sessions );
 
 async.waterfall( [
   wcb => activitiesSvc.initAndLoad( config, [], wcb ),
@@ -41,20 +44,29 @@ async.waterfall( [
   }, {
     table: config.schemas.feed_follow,
     src: __dirname + '/../fixtures/feed_follow.data.sql'
+  }, {
+    table: config.schemas.feed_notification,
+    src: __dirname + '/../fixtures/feed_notification.data.sql'
   } ], { reset: false }, wcb )
 ], () => {
 
   app.use( ( req, res, next ) => {
 
-    if ( req.query._app == 'agenda' ) {
-      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
-    } else {
-      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
+    switch ( req.query._app ) {
+
+      case 'agenda':
+      case 'notifications':
+        app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
+      default:
+        app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
+
     }
 
     next();
 
   } );
+
+  app.use( sessionsMw );
 
   app.use( bodyParser.urlencoded( { extended: false } ) );
   app.use( bodyParser.json() );
@@ -62,13 +74,23 @@ async.waterfall( [
 
   app.use( ( req, res, next ) => {
     req.user = {
+      uid: 99999999,
       id: 2,
       lang: req.query.lang || 'fr'
     }; // 2 == administrator, 4387 == contributor
+    req.userIdentifier = req.user;
     req.identifiers = { userId: req.user.id };
     req.agenda = { id: 4608, uid: 36282888 };
     next();
   } );
+
+  app.use( sessionsMw.open() );
+
+  app.get( '/notifications/count', mw.notifications.count );
+  app.get( '/notifications/list', mw.notifications.list );
+  app.get( '/notifications/remove/:notifId', mw.notifications.remove );
+  app.get( '/notifications/mark-read/:notifId', mw.notifications.markRead );
+  app.get( '/notifications/mark-all-read', mw.notifications.markAllRead );
 
   app.get( '/list', mw.list );
   app.get( '/:uid/list', mw.list );
@@ -92,22 +114,23 @@ function matchApp( req, res, next ) {
   };
 
   // Specific state for apps
-  if ( req.query._app == 'agenda' ) {
-
-    _.merge( state, {
-      res: {
-        list: `/list`
-      }
-    } );
-
-  } else {
-
-    _.merge( state, {
-      res: {
-        list: '/list'
-      }
-    } );
-
+  switch ( req.query._app ) {
+    case 'agenda':
+      _.merge( state, {
+        res: {
+          list: `/list`
+        }
+      } );
+      break;
+    case 'admin':
+      _.merge( state, {
+        res: {
+          list: '/list'
+        }
+      } );
+      break;
+    case 'notifications':
+      return getApp( req, res, next );
   }
 
   if ( process.env.NO_SSR ) {
@@ -115,22 +138,21 @@ function matchApp( req, res, next ) {
   }
 
   // Match apps
-  if ( req.query._app == 'agenda' ) {
-
-    mw.matchAgendaApp(
-      { state },
-      prefix,
-      getApp
-    )( req, res, next );
-
-  } else {
-
-    mw.matchAdminApp(
-      { state },
-      prefix,
-      getApp
-    )( req, res, next );
-
+  switch ( req.query._app ) {
+    case 'agenda':
+      mw.matchAgendaApp(
+        { state },
+        prefix,
+        getApp
+      )( req, res, next );
+      break;
+    case 'admin':
+      mw.matchAdminApp(
+        { state },
+        prefix,
+        getApp
+      )( req, res, next );
+      break;
   }
 
 };

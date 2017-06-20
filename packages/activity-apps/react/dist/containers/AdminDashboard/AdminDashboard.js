@@ -64,9 +64,9 @@ var _admin = require('labels/activities/admin');
 
 var _admin2 = _interopRequireDefault(_admin);
 
-var _format = require('activities/format');
+var _formatActivity = require('activities/formatActivity');
 
-var _format2 = _interopRequireDefault(_format);
+var _formatActivity2 = _interopRequireDefault(_formatActivity);
 
 var _activities = require('../../redux/modules/activities');
 
@@ -111,7 +111,7 @@ function _wrapComponent(id) {
 
 _moment2.default.locale('fr');
 
-var formatActivity = (0, _format2.default)({}, _admin2.default);
+var formatActivity = (0, _formatActivity2.default)({}, _admin2.default);
 
 var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('activityAppsAdminDashboard');
 

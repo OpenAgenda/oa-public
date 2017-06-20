@@ -10,7 +10,7 @@ import Spinner from 'react-form-components/build/Spinner';
 import moment from 'moment';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityLabels from 'labels/activities/admin';
-import activityFormatMaker from 'activities/format';
+import activityFormatMaker from 'activities/formatActivity';
 import * as activitiesActions from '../../redux/modules/activities';
 import { renderField, renderSelect, renderInput } from '../../utils/form';
 import { DateTimePicker } from '../../components';

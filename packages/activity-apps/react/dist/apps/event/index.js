@@ -42,9 +42,9 @@ var _event = require('labels/activities/event');
 
 var _event2 = _interopRequireDefault(_event);
 
-var _format = require('activities/format');
+var _formatActivity = require('activities/formatActivity');
 
-var _format2 = _interopRequireDefault(_format);
+var _formatActivity2 = _interopRequireDefault(_formatActivity);
 
 var _moment = require('moment');
 
@@ -57,6 +57,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // const getLabel = ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang );
 
 // import makeGetterLabel from 'labels';
-var formatActivity = (0, _format2.default)({}, _event2.default);
+var formatActivity = (0, _formatActivity2.default)({}, _event2.default);
 
 module.exports = exports['default'];

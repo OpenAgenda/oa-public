@@ -5,7 +5,7 @@ import moment from 'moment';
 import throttle from 'lodash/throttle';
 import Spinner from 'react-form-components/build/Spinner';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
-import activityFormatMaker from 'activities/format';
+import activityFormatMaker from 'activities/formatActivity';
 import activityLabels from 'labels/activities/agenda';
 import * as activitiesActions from '../../redux/modules/activities';
 

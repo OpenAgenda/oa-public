@@ -1,6 +1,9 @@
 const logger = require( 'basic-logger' );
 
 const _ = require( 'lodash' );
+const async = require( 'async' );
+
+const ReactDOMServer = require( 'react-dom/server' );
 
 const matchAppMw = require( 'react-utils/dist/matchAppMw' );
 const createStore = require( 'react-utils/dist/createStore' );
@@ -9,6 +12,8 @@ const ApiClient = require( 'react-utils/dist/ApiClient' );
 const getAdminRoutes = require( './react/dist/apps/admin/routes' );
 const getAgendaRoutes = require( './react/dist/apps/agenda/routes' );
 const reducer = require( './react/dist/redux/reducer' );
+
+const notificationsApp = require( './react/dist/apps/notifications' );
 
 const activitiesSvc = require( 'activities' );
 
@@ -19,7 +24,14 @@ module.exports = {
   matchAdminApp: matchAppMw( createStore( reducer ), getAdminRoutes, ApiClient ),
   matchAgendaApp: matchAppMw( createStore( reducer ), getAgendaRoutes, ApiClient ),
   init,
-  list
+  list,
+  notifications: {
+    count: notificationsCount,
+    list: notificationsList,
+    markRead: notificationsMarkRead,
+    markAllRead: notificationsMarkAllRead,
+    remove: notificationsRemove
+  }
 };
 
 function init( c, cb ) {
@@ -32,7 +44,7 @@ function init( c, cb ) {
 
   }
 
-  log = logger( 'activity-apps' );
+  log = logger( 'activity-apps/middleware' );
 
   if ( cb ) cb();
 
@@ -64,6 +76,152 @@ function list( req, res ) {
     } )
     .catch( err => {
       res.status( 400 ).send( err );
+    } );
+
+}
+
+function notificationsCount( req, res ) {
+
+  activitiesSvc.feed( {
+    entityType: 'user',
+    entityUid: req.user.uid
+  } ).notifications.count( { state: 0 } )
+    .then( counter => {
+
+      res.json( { counter } );
+
+    } )
+    .catch( err => {
+
+      res.status( 400 ).json( { error: err } );
+
+    } );
+
+}
+
+function notificationsList( req, res ) {
+
+  const limit = req.query.justOne ? 1 : 5;
+
+  activitiesSvc.feed( {
+    entityType: 'user',
+    entityUid: req.user.uid
+  } ).notifications.list( req.query.fromId, limit )
+    .then( notifications => {
+
+      const app = notificationsApp( { notifications, lang: req.lang || 'fr', userUid: req.user.uid } );
+
+      return activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: req.user.uid
+      } ).notifications.markAs( { ids: notifications.map( v => v.id ) }, 1, { allowRegress: false } )
+        .then( notifications => {
+
+          return activitiesSvc.feed( {
+            entityType: 'user',
+            entityUid: req.user.uid
+          } ).notifications.count( { state: 0 } )
+            .then( counter => {
+
+              res.json( {
+                counter,
+                notifications,
+                html: ReactDOMServer.renderToStaticMarkup( app ),
+                lastPage: notifications.length < limit
+              } );
+
+            } );
+
+        } );
+
+    } )
+    .catch( err => {
+
+      log( 'error', err );
+
+      res.status( 400 ).json( { error: err } );
+
+    } );
+
+}
+
+function notificationsMarkRead( req, res ) {
+
+  activitiesSvc.feed( {
+    entityType: 'user',
+    entityUid: req.user.uid
+  } ).notifications.markAs( { ids: [ req.params.notifId ] }, 2 )
+    .then( notifications => {
+
+      res.json( { notification: notifications.length ? notifications[ 0 ] : null } );
+
+    } )
+    .catch( err => {
+
+      res.status( 400 ).json( { error: err } );
+
+    } );
+
+}
+
+function notificationsMarkAllRead( req, res ) {
+
+  let rowsCount = 0;
+  let rowsAffected = 0;
+  let fromId;
+
+  async.doWhilst(
+    dcb => {
+
+      activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: req.user.uid
+      } ).notifications.list( { stateNot: 2 }, fromId, 100 )
+        .then( notifs => {
+
+          rowsCount = notifs.length;
+          rowsAffected += notifs.length;
+
+          if ( !notifs.length ) return dcb();
+
+          fromId = _.last( notifs ).id;
+
+          activitiesSvc.feed( {
+            entityType: 'user',
+            entityUid: req.user.uid
+          } ).notifications.markAs( { ids: notifs.map( v => v.id ) }, 2 )
+            .then( () => dcb(), dcb );
+
+        } );
+
+    },
+    () => rowsCount > 0,
+    err => {
+
+      if ( err ) return res.status( 400 ).json( { error: err } );
+
+      res.json( { rowsAffected } );
+
+    }
+  );
+
+}
+
+function notificationsRemove( req, res ) {
+
+  activitiesSvc.feed( {
+    entityType: 'user',
+    entityUid: req.user.uid
+  } ).notifications.remove( { ids: [ req.params.notifId ] } )
+    .then( notifications => {
+
+      res.json( { notification: notifications.length ? notifications[ 0 ] : null } );
+
+    } )
+    .catch( err => {
+
+      res.status( 400 ).json( { error: err } );
+
     } );
 
 }
