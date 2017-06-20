@@ -32,7 +32,11 @@ du.addEvent( window, 'load', function() {
 
   _init();
 
-  if ( params.env == 'development' || window.env == 'development' ) debug.enable( '*' );
+  if ( params.env == 'development' || window.env == 'tpl' ) {
+
+    debug.enable( '*' );
+
+  }
 
   du.forEach( hooks, function( hook ) {
 

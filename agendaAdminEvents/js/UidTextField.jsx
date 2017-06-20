@@ -76,6 +76,8 @@ module.exports = function( textName, uidName ) {
 
         onChange={this.onChange}
 
+        onBlur={this.props.onBlur}
+
         onKeyUp={this.props.onKeyUp} />
 
     }

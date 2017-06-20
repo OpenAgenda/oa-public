@@ -420,6 +420,16 @@
           "en" : "This is a custom placeholder"
         }
       }, {
+        "name" : "registration",
+        "label" : {
+          "fr" : "label peronnalisé",
+          "en" : "customized label"
+        },
+        "placeholder" : {
+          "fr" : "placeholder personnalisé",
+          "en" : "customized placeholder"
+        }
+      }, {
         "name" : "description",
         "fixed" : {
           "fr" : "This is a fixed value"

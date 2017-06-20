@@ -22,6 +22,8 @@ var React = require( 'react' ),
 
   Select = require( 'react-select' ),
 
+  Spinner = require( 'react-components/build/Spinner' ),
+
   utils = require( 'utils' ),
 
   UidTextField = require( './UidTextField.jsx' ),
@@ -75,7 +77,9 @@ var React = require( 'react' ),
 
         temporary: {},
 
-        term: term
+        term: term,
+
+        loading: false
 
       };
 
@@ -163,9 +167,19 @@ var React = require( 'react' ),
 
         temporary[ uidName ] = undefined;
 
-        console.log( temporary );
-
         self.setState( { temporary: temporary } );
+
+      }
+
+    },
+
+    onBlur: function ( field ) {
+
+      var self = this;
+
+      return function ( e ) {
+
+        self.setQueryParts( self.state.temporary );
 
       }
 
@@ -218,6 +232,8 @@ var React = require( 'react' ),
       return (
 
         <div className="row admin-events-header">
+
+          { this.state.loading ? <Spinner page={true} message={getLabel( 'loading', this.props.lang )}/> : null }
 
           <div className="col col-sm-2">
 
@@ -274,6 +290,8 @@ var React = require( 'react' ),
                   onChange={ this.onUidFieldChange( 'locationUid', 'locationName' ) }
 
                   onKeyUp={this.onKeyUp( 'locationName' )}
+
+                  onBlur={this.onBlur( 'locationName' )}
 
                   placeholder={getLabel( 'locationName', this.props.lang )} />
 
@@ -381,6 +399,8 @@ var React = require( 'react' ),
 
 
     setQuery: function ( q ) {
+
+      this.setState( { loading: true } );
 
       var href = window.location.href.split( '#' )[ 0 ].split( '?' )[ 0 ];
 

@@ -15,5 +15,6 @@
   "sessions",
   "agenda-stakeholders",
   "activities/format",
-  "activity-apps/notifications"
+  "activity-apps/notifications",
+  "dom-utils"
 ]

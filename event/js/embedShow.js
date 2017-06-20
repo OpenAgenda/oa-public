@@ -1,14 +1,16 @@
 "use strict";
 
-var embedded = require( '../../widgets/lib/embeddedPage' ),
+let embedded = require( '../../widgets/lib/embeddedPage' ),
 
-facebookEmbedded = require( '../../widgets/lib/facebookPage' ),
+  facebookEmbedded = require( '../../widgets/lib/facebookPage' ),
 
-hours = require( './hours' ),
+  hours = require( './hours' ),
 
-du = require( '../../js/lib/domUtils' ),
+  du = require( '../../js/lib/domUtils' ),
 
-utils = require( 'utils' );
+  favorites = require( '../../agenda/js/favorites' ),
+
+  utils = require( 'utils' );
 
 window.asap( function( options ) {
 
@@ -27,6 +29,14 @@ window.asap( function( options ) {
   }
 
   hours( { onToggle: embed.contentChange } );
+
+  favorites.init( {
+    agendaUid: parseInt( options.agendaUid ),
+    res: options.res,
+    bottomBar: false
+  } );
+
+  favorites.sweep();
 
 } );
 
