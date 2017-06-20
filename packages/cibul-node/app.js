@@ -198,7 +198,6 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( 'agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
         
-
         require( './general/mainLogger.task' )();
 
         require( './event/oembed.task' )();
@@ -228,19 +227,19 @@ module.exports = ( enabledTypes, cb ) => {
 
         } );*/
 
-        /* require( 'agenda-events').tasks.transferLegacyData( err => {
+        require( 'agenda-events').tasks.transferLegacyData( err => {
 
           console.log( 'done!' );
           console.log( err );
 
-        } ); */
+        } );
 
-        require( 'agenda-events').tasks.transferUserUids().then( report => {
+        /*require( 'agenda-events').tasks.transferUserUids().then( report => {
 
           console.log( 'done!' );
           console.log( report );
 
-        } ); 
+        } ); */
 
 
         require( './services/agendaEvents/legacy' ).task();
