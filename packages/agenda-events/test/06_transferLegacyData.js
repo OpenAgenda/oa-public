@@ -75,7 +75,6 @@ describe( 'transferLegacyData - sample', function() {
 
   } );
 
-
   it( 'transfer 20 events in empty target db effectively creates 20 records', done => {
 
     let con = mysql.createConnection( config.mysql );
@@ -102,7 +101,6 @@ describe( 'transferLegacyData - sample', function() {
 
   } );
 
-
   it( 'removed events in legacy data are removed in service data by transfer script', done => {
 
     svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
@@ -125,6 +123,40 @@ describe( 'transferLegacyData - sample', function() {
           con.end();
 
           done();
+
+        } );
+
+      } );
+
+    } );
+
+  } );
+
+  describe( 'transferUserUids', function() {
+
+    it( 'set userUid on 20 events', done => {
+
+      svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+
+        let con = mysql.createConnection( config.mysql );
+
+        con.query( `update ${config.schemas.agendaEvent} set user_uid = null limit 10`, err => {
+
+          svc.tasks.transferUserUids().then( report => {
+
+            report.updated.should.equal( 10 );
+
+            con.query( `select count( event_uid ) as null_count from ${config.schemas.agendaEvent} where user_uid is null`, ( err, rows ) => {
+
+              rows[ 0 ].null_count.should.equal( 0 );
+
+              con.end();
+
+              done();
+              
+            } );
+
+          } );
 
         } );
 

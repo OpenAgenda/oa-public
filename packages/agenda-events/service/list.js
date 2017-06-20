@@ -9,7 +9,8 @@ const VError = require( 'verror' ),
 let config, knex;
 
 module.exports = _.extend( list, { 
-  init: ( c, k ) => { config = c; knex = k }
+  init: ( c, k ) => { config = c; knex = k },
+  byUserUid: listByUserUid
 } );
 
 async function list( agendaUid, offset, limit ) {
@@ -17,36 +18,61 @@ async function list( agendaUid, offset, limit ) {
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   return {
-    items: ( await _list( agendaUid, offset, limit ) ).map( validate ),
-    total: await _total( agendaUid )
+    items: ( await _list( { agendaUid }, offset, limit ) ).map( validate ),
+    total: await _total( { agendaUid } )
   }
 
 }
 
-function _total( agendaUid ) {
+async function listByUserUid( userUid, offset, limit ) {
 
-  return knex( config.schemas.agendaEvent )
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-    .where( 'agenda_uid', agendaUid )
+  return {
+    items: ( await _list( { userUid }, offset, limit ) ).map( validate ),
+    total: await _total( { userUid } )
+  }
 
-    .count( 'id as total' )
+}
+
+function _total( query ) {
+
+  let k = knex( config.schemas.agendaEvent );
+
+  _query( k, query );
+
+  return k.count( 'id as total' )
 
     .then( rows => rows[ 0 ][ 'total' ] );
 
 }
 
-function _list( agendaUid, offset, limit ) {
+function _list( query, offset, limit ) {
 
-  return knex( config.schemas.agendaEvent )
+  let k = knex( config.schemas.agendaEvent )
 
     .select( [ 'agenda_uid', 'event_uid', 'user_uid', 'state', 'featured', 'legacy_id' ] )
 
-    .where( 'agenda_uid', agendaUid )
-
     .limit( limit )
 
-    .offset( offset )
+    .offset( offset );
 
-  .then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) )
+  _query( k, query );
+
+  return k.then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) );
+
+}
+
+function _query( k, query ) {
+
+  if ( query.agendaUid !== undefined ) {
+
+    k.where( 'agenda_uid', query.agendaUid );
+
+  } else if ( query.userUid !== undefined ) {
+
+    k.where( 'user_uid', query.userUid );
+
+  }
 
 }
