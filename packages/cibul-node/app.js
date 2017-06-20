@@ -235,6 +235,13 @@ module.exports = ( enabledTypes, cb ) => {
 
         } ); */
 
+        require( 'agenda-events').tasks.transferUserUids().then( report => {
+
+          console.log( 'done!' );
+          console.log( report );
+
+        } ); 
+
 
         require( './services/agendaEvents/legacy' ).task();
 
