@@ -42,6 +42,8 @@ function run( options, cb ) {
     con,
     config,
     remaining: taskParams.total,
+    offset: 0,
+    limit: 100,
     report: {
       creates: 0,
       updates: 0,
@@ -49,6 +51,8 @@ function run( options, cb ) {
       errors: 0
     }
   } )
+
+  .then( _reachReferences )
 
   .then( _setReferences )
 
@@ -70,6 +74,52 @@ function run( options, cb ) {
 
 }
 
+function _reachReferences( v ) {
+
+  let found = false;
+
+  let d = w.defer();
+
+  async.whilst( () => !found, wcb => {
+
+    v.con.query( `select review_id, event_id from ${v.config.legacy.schemas.agendaEvent} limit ?, ?`, [ v.offset, v.limit ], ( err, rows ) => {
+
+      if ( err ) return wcb( err );
+
+      v.con.query( `select legacy_id from ${v.config.schemas.agendaEvent} where legacy_id in ('${rows.map( r => r.review_id + '.' + r.event_id ).join( '\', \'' )}')`, ( err, newRows ) => {
+
+        if ( err ) return wcb( err );
+
+        if ( !rows.length || ( rows.length !== newRows.length ) ) {
+
+          found = true;
+
+        } else {
+
+          v.offset += v.limit;
+
+          log( 'info', 'jumping %s rows to %s', v.limit, v.offset );
+
+        }
+
+        wcb();
+
+      } );
+
+    } );
+
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
 function _setReferences( v ) {
 
   let trasversed = false, offset = 0, limit = 20;
@@ -78,16 +128,14 @@ function _setReferences( v ) {
 
   async.whilst( () => !trasversed, wcb => {
 
-
-
     v.con.query( `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt, u.uid as userUid
      from ${v.config.legacy.schemas.agendaEvent} as ra 
      left join ${v.config.legacy.schemas.agenda} as a on a.id=ra.review_id
      left join ${v.config.legacy.schemas.event} as e on e.id=ra.event_id
      left join ${v.config.legacy.schemas.user} as u on u.id=ra.user_id
-     limit ?, ?`, [ offset, limit ], ( err, rows ) => {
+     limit ?, ?`, [ v.offset, v.limit ], ( err, rows ) => {
 
-      if ( offset % 100 === 0 ) {
+      if ( v.offset % 100 === 0 ) {
 
         log( 'info', 'evaluated %s agenda event references', offset );
 
@@ -103,7 +151,7 @@ function _setReferences( v ) {
 
       }
 
-      offset += limit;
+      v.offset += v.limit;
 
       async.eachSeries( rows, ( row, ecb ) => {
 
