@@ -65,14 +65,14 @@ $tumblr-color: #32506d;
 //@import "assets/stylesheets/bootstrap/breadcrumbs";
 @import "assets/stylesheets/bootstrap/pagination";
 @import "assets/stylesheets/bootstrap/pager";
-//@import "assets/stylesheets/bootstrap/labels";
+@import "assets/stylesheets/bootstrap/labels";
 //@import "assets/stylesheets/bootstrap/badges";
 @import "assets/stylesheets/bootstrap/jumbotron";
 //@import "assets/stylesheets/bootstrap/thumbnails";
 @import "assets/stylesheets/bootstrap/alerts";
 //@import "assets/stylesheets/bootstrap/progress-bars";
 @import "assets/stylesheets/bootstrap/media";
-//@import "assets/stylesheets/bootstrap/list-group";
+@import "assets/stylesheets/bootstrap/list-group";
 @import "assets/stylesheets/bootstrap/panels";
 //@import "assets/stylesheets/bootstrap/responsive-embed";
 //@import "assets/stylesheets/bootstrap/wells";
@@ -228,13 +228,33 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
 
 }
 
+ul.nav.navbar-nav.navbar-right > li.notifications {
+
+  position: relative;
+
+  .js_notifications_opener {
+
+    cursor: pointer;
+
+  }
+
+  .label {
+
+    position: absolute;
+    bottom: 10px;
+    left: 24px;
+    padding: 2px;
+
+  }
+
+}
 
 /*
   little help <i> element to encase in a <a> with the class .help
  */
 
 .help {
-  
+
   i {
 
     color: $oa-blue;
@@ -242,7 +262,7 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
 
     &:hover {
 
-      color: darken( $oa-blue, 5 );
+      color: darken($oa-blue, 5);
 
     }
 

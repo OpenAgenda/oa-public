@@ -4,7 +4,6 @@
   z-index: 2002;
   padding-bottom: 0;
 
-
   .collapse {
     display: none;
     visibility: hidden;
@@ -27,7 +26,7 @@
 
   .language-menu {
 
-    &>a {
+    & > a {
       text-transform: uppercase;
     }
 
@@ -50,9 +49,17 @@
 
   }
 
+  .js_header_links {
+
+    position: relative;
+
+  }
+
   .profile {
 
-    &>a {
+    position: static;
+
+    & > a {
       padding-top: 15px;
       padding-bottom: 15px;
       display: inline-block;
@@ -64,7 +71,7 @@
         margin-bottom: -5px;
         width: 30px;
         max-height: 30px;
-        
+
       }
 
     }
@@ -109,9 +116,7 @@
 
     }
 
-
   }
-
 
   /**
    * mobile menu adjustments - hack over bootstrap, isolated from the rest.
@@ -122,7 +127,7 @@
     padding-left: 15px;
     padding-right: 15px;
 
-    .navbar-nav>li, .navbar-nav {
+    .navbar-nav > li, .navbar-nav {
       float: left !important;
     }
 
@@ -150,9 +155,9 @@
     .language-menu {
 
       display: block;
-      float: none!important;
+      float: none !important;
 
-      &>a {
+      & > a {
         display: none;
       }
 
@@ -181,7 +186,7 @@
 
     .profile {
 
-      &>a {
+      & > a {
         display: none;
       }
 
