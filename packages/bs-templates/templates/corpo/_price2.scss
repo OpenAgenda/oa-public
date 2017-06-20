@@ -7,6 +7,58 @@ $b: '.price';
 $price-warning: #FF6A19;
 $price-danger: #DE1D10;
 
+
+
+.price-summary {
+
+  h2, h3 {
+
+    font-weight: bold;
+
+  }
+
+  h3 {
+
+    padding-top: 40px;
+    font-size: 2em;
+
+  }
+
+  figure {
+
+    height: 320px;
+
+  }
+
+  ul {
+
+    padding-left: 20px;
+
+    li {
+
+      padding: 0 0 1em 0;
+
+    }
+
+  }
+
+  .separator {
+
+    border-top: 1px solid $oa-white;
+    margin: 20px 0 40px;
+    width: 100px;
+
+  }
+
+  .sub {
+
+    padding: 0 0 20px 0;
+    font-size: 1.4em;
+
+  }
+
+}
+
 .pricing-v2 {
 
   ul, ul:hover {
@@ -46,9 +98,15 @@ $price-danger: #DE1D10;
     position: relative;
     display: inline-block;
     vertical-align: top;
-    min-width: 250px;
+    min-width: 360px;
     text-align: center;
     border-radius: 4px;
+
+    &.thin {
+
+      min-width: 260px;
+
+    }
     
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
     -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
@@ -100,7 +158,7 @@ $price-danger: #DE1D10;
 
     display: flex;
     flex-direction: column;
-    min-height: 87px;
+    min-height: 145px;
     padding: 20px 20px 15px;
     color: $oa-white;
     border-top-left-radius: 4px;
@@ -116,17 +174,17 @@ $price-danger: #DE1D10;
 
     }
 
-    p {
+    small {
 
-      margin: 20px 0 0;
+      color: $oa-white;
+      font-size: 0.95em;
+      margin: 0.7em 0 0.4em;
 
     }
 
-    small {
+    p {
 
-      margin: 10px 0 0;
-      color: $oa-white;
-      font-size: 0.95em;
+      margin: 0;
 
     }
 
@@ -164,7 +222,6 @@ $price-danger: #DE1D10;
 
   .price-foot {
     padding: 20px;
-    //background-color: #e6e9ed;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
     -webkit-border-bottom-left-radius: 4px;
@@ -198,7 +255,7 @@ $price-danger: #DE1D10;
 
   .price-primary {
 
-    background-color: #d7f1fa;
+    background-color: $oa-white;
 
     &:hover {
 

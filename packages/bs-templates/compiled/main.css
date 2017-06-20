@@ -10509,7 +10509,8 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 
 .target-age .Select {
   display: inline-block;
-  vertical-align: middle; }
+  vertical-align: middle;
+  z-index: 3; }
 
 .mce-content-body .mce-reset {
   margin: 0;
@@ -13046,6 +13047,24 @@ i.mce-i-backcolor {
     background-color: #fac3c0; }
   #corpo .pricing .price-danger .price-body ul, #corpo .pricing .pricing .price-danger .price-foot {
     border-top: 1px solid #f9ada8; }
+  #corpo .price-summary h2, #corpo .price-summary h3 {
+    font-weight: bold; }
+  #corpo .price-summary h3 {
+    padding-top: 40px;
+    font-size: 2em; }
+  #corpo .price-summary figure {
+    height: 320px; }
+  #corpo .price-summary ul {
+    padding-left: 20px; }
+    #corpo .price-summary ul li {
+      padding: 0 0 1em 0; }
+  #corpo .price-summary .separator {
+    border-top: 1px solid #fff;
+    margin: 20px 0 40px;
+    width: 100px; }
+  #corpo .price-summary .sub {
+    padding: 0 0 20px 0;
+    font-size: 1.4em; }
   #corpo .pricing-v2 ul, #corpo .pricing-v2 ul:hover {
     list-style: none;
     padding: 0; }
@@ -13064,7 +13083,7 @@ i.mce-i-backcolor {
     position: relative;
     display: inline-block;
     vertical-align: top;
-    min-width: 250px;
+    min-width: 360px;
     text-align: center;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -13072,6 +13091,8 @@ i.mce-i-backcolor {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px; }
+    #corpo .pricing-v2 .unit.thin {
+      min-width: 260px; }
     #corpo .pricing-v2 .unit.active {
       top: 5px;
       z-index: 1;
@@ -13100,7 +13121,7 @@ i.mce-i-backcolor {
   #corpo .pricing-v2 .price-title {
     display: flex;
     flex-direction: column;
-    min-height: 87px;
+    min-height: 145px;
     padding: 20px 20px 15px;
     color: #fff;
     border-top-left-radius: 4px;
@@ -13111,12 +13132,12 @@ i.mce-i-backcolor {
     -moz-border-radius-topright: 4px; }
     #corpo .pricing-v2 .price-title h3 {
       font-size: 2em; }
-    #corpo .pricing-v2 .price-title p {
-      margin: 20px 0 0; }
     #corpo .pricing-v2 .price-title small {
-      margin: 10px 0 0;
       color: #fff;
-      font-size: 0.95em; }
+      font-size: 0.95em;
+      margin: 0.7em 0 0.4em; }
+    #corpo .pricing-v2 .price-title p {
+      margin: 0; }
     #corpo .pricing-v2 .price-title.title-only {
       padding-bottom: 82px; }
   #corpo .pricing-v2 .price-title h3, #corpo .pricing-v2 .pricing .price-title h3 > p {
@@ -13147,7 +13168,7 @@ i.mce-i-backcolor {
   #corpo .pricing-v2 .price-primary .price-body, #corpo .pricing-v2 .price-success .price-body {
     color: #413a42; }
   #corpo .pricing-v2 .price-primary {
-    background-color: #d7f1fa; }
+    background-color: #fff; }
     #corpo .pricing-v2 .price-primary:hover {
       background-color: #ceeef9; }
     #corpo .pricing-v2 .price-primary .price-title {
@@ -13212,7 +13233,7 @@ i.mce-i-backcolor {
   100% {
     opacity: 1; } }
   #corpo .big-events {
-    width: 400px;
+    width: 600px;
     height: 400px;
     list-style-type: none;
     position: relative;
@@ -13233,14 +13254,24 @@ i.mce-i-backcolor {
           background-position-x: -180px;
           height: 176px; }
       #corpo .big-events li.be-sdi {
-        left: 210px; }
+        left: 225px; }
         #corpo .big-events li.be-sdi a {
           background-position-x: -367px; }
       #corpo .big-events li.be-cpd {
-        left: 210px;
+        left: 225px;
         top: 230px; }
         #corpo .big-events li.be-cpd a {
           background-position-x: -735px; }
+      #corpo .big-events li.be-slt {
+        left: 430px; }
+        #corpo .big-events li.be-slt a {
+          background-position-x: -930px; }
+      #corpo .big-events li.be-fen {
+        left: 430px;
+        top: 220px; }
+        #corpo .big-events li.be-fen a {
+          background-position-x: -1110px;
+          width: 172px; }
   #corpo .odometer.odometer-auto-theme, #corpo .odometer.odometer-theme-default {
     display: inline-block;
     vertical-align: middle;
@@ -13332,15 +13363,17 @@ i.mce-i-backcolor {
     #corpo .footer a {
       color: #ccc; }
       #corpo .footer a:hover {
-        color: #fff; }
+        color: #fff;
+        text-decoration: underline; }
+    #corpo .footer .text-left {
+      text-align: center; }
     @media (max-width: 480px) {
       #corpo .footer {
         text-align: center; }
         #corpo .footer h2 {
           margin: 2em 0 1em; } }
-    @media (min-width: 480px) and (max-width: 768px) {
-      #corpo .footer li form {
-        margin: 0; } }
+  #corpo .hook {
+    font-weight: 400; }
   #corpo .spaced {
     padding-bottom: 4em;
     padding-top: 4em; }
@@ -13391,11 +13424,17 @@ i.mce-i-backcolor {
       box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3); }
   #corpo .background-blue {
     background: #41acdd; }
-    #corpo .background-blue h1, #corpo .background-blue h2 {
+    #corpo .background-blue h1, #corpo .background-blue h2, #corpo .background-blue h3, #corpo .background-blue p, #corpo .background-blue ul {
       color: #fff; }
+    #corpo .background-blue .btn {
+      border-color: #fff; }
   #corpo .background-dark-purple {
     background: #413a42; }
     #corpo .background-dark-purple h1, #corpo .background-dark-purple h2, #corpo .background-dark-purple p, #corpo .background-dark-purple li {
+      color: #fff; }
+  #corpo .background-orange {
+    background: #FF813D; }
+    #corpo .background-orange h1, #corpo .background-orange h2, #corpo .background-orange p, #corpo .background-orange li {
       color: #fff; }
   #corpo #presentation {
     position: relative;
@@ -13934,13 +13973,13 @@ i.mce-i-backcolor {
       #sub-nav .share a.gp:hover {
         color: #D44032; }
 
-#agenda .fav {
+#agenda .fav, #event .fav {
   float: right;
   padding: 20px;
   font-size: 1.4em; }
-  #agenda .fav i {
+  #agenda .fav i, #event .fav i {
     color: gray; }
-  #agenda .fav i.active {
+  #agenda .fav i.active, #event .fav i.active {
     color: #41acdd; }
 
 .small-map {

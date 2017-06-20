@@ -19,10 +19,18 @@
   // Footer
   @import "footer";
 
+  .hook {
+
+    font-weight: 400;
+
+  }
+
   .spaced {
     padding-bottom: 4em;
     padding-top: 4em;
   }
+
+  
 
   .counters {
 
@@ -114,8 +122,14 @@
 
     background: $oa-blue;
 
-    h1, h2 {
+    h1, h2, h3, p, ul {
       color: $oa-white;
+    }
+
+    .btn {
+
+      border-color: $oa-white;
+
     }
 
   }
@@ -123,6 +137,16 @@
   .background-dark-purple {
 
     background: $oa-dark-purple;
+
+    h1, h2, p, li {
+      color: $oa-white;
+    }
+
+  }
+
+  .background-orange {
+
+    background: $oa-orange;
 
     h1, h2, p, li {
       color: $oa-white;

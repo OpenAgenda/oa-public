@@ -1,6 +1,6 @@
 .big-events {
 
-  width: 400px;
+  width: 600px;
   height: 400px;
   list-style-type: none;
   position: relative;
@@ -43,7 +43,7 @@
 
     &.be-sdi {
 
-      left: 210px;
+      left: 225px;
 
       a {
 
@@ -55,12 +55,38 @@
 
     &.be-cpd {
 
-      left: 210px;
+      left: 225px;
       top: 230px;
 
       a {
 
         background-position-x: -735px;
+
+      }
+
+    }
+
+    &.be-slt {
+
+      left: 430px;
+
+      a {
+
+        background-position-x: -930px;
+
+      }
+
+    }
+
+    &.be-fen {
+
+      left: 430px;
+      top: 220px;
+
+      a {
+
+        background-position-x: -1110px;
+        width: 172px;
 
       }
 

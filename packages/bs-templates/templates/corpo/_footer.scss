@@ -5,7 +5,7 @@
 $b: '.footer';
 
 #{$b} {
-  background: $oa-black;
+  background: $oa-dark-purple;
 
   .row {
     border: 0;
@@ -34,7 +34,14 @@ $b: '.footer';
 
     &:hover {
       color: $oa-white;
+      text-decoration: underline;
     }
+  }
+
+  .text-left {
+
+    text-align: center;
+
   }
 
   @media (max-width: $screen-xs) {
@@ -45,9 +52,4 @@ $b: '.footer';
     }
   }
 
-  @media (min-width: $screen-xs) and (max-width: $screen-sm) {
-    li form {
-      margin: 0;
-    }
-  }
 }
