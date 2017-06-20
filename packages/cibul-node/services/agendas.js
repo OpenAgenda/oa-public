@@ -160,6 +160,13 @@ function onUpdate( channel, before, after, context ) {
 
     updateType = 'credentials';
 
+  } else if ( !_.isEqual(
+      _.omit( before, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] ),
+      _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] )
+    ) ) {
+
+    updateType = 'profile';
+
   }
 
   // set stakeholder field requirements
@@ -184,15 +191,6 @@ function onUpdate( channel, before, after, context ) {
       type: updateType
     }
   } );
-
-  if ( !_.isEqual(
-      _.omit( before, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] ),
-      _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] )
-    ) ) {
-
-    updateType = 'profile';
-
-  }
 
   if ( context && context.user ) {
 

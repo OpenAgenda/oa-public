@@ -205,6 +205,7 @@ module.exports = path => {
       private: null
     } ),
     ( req, res, next ) => {
+      if ( !req.agendaInstance ) return next( { code: 404 } );
       req.identifiers = { userId: req.user.id };
       next();
     },

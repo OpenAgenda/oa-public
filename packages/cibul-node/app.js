@@ -88,7 +88,8 @@ module.exports = ( enabledTypes, cb ) => {
             require( './agenda/actions.front' )( '/:slug/actions' ),
             require( './agenda/exports.front' )( '/agendas/:uid' ),
             require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' )
+            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
+            require( './activities/notifications.back' )( '/notifications' )
           ],
           webAndTask: [
             require( './legacy/back' )( '/legacy' )
@@ -197,7 +198,11 @@ module.exports = ( enabledTypes, cb ) => {
         tfy( require( 'agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
         tfy( require( 'agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
-        
+
+        tfy( require( 'activities' ).tasks.notifications.prepareSummary, { period: 'daily', time: '05:00' } );
+
+        tfy( require( 'activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } );
+
         require( './general/mainLogger.task' )();
 
         require( './event/oembed.task' )();
@@ -219,6 +224,8 @@ module.exports = ( enabledTypes, cb ) => {
         require( 'agenda-stakeholders' ).tasks.message();
 
         require( './activities/task' )();
+
+        require( 'activities' ).tasks.notifications.addActivity();
 
         /*require( 'events-service').tasks.transferLegacyData( err => {
 
@@ -262,11 +269,11 @@ module.exports = ( enabledTypes, cb ) => {
 
         } catch ( e ) {
 
-          log( 'error', 'uncaughtException: %s', e.message );
+          log( 'error', 'uncaughtException: %s', e.message || e );
 
-          console.error( ( new Date ).toUTCString() + ' uncaught: %s', e.message );
+          console.error( ( new Date ).toUTCString() + ' uncaught: %s', e.message || e );
 
-          console.error( e.stack );
+          if ( e.stack ) console.error( e.stack );
 
         }
 
@@ -280,11 +287,11 @@ module.exports = ( enabledTypes, cb ) => {
 
         } catch ( e ) {
 
-          log( 'error', 'unhandledRejection: %s', e.message );
+          log( 'error', 'unhandledRejection: %s', e.message || e );
 
-          console.error( ( new Date ).toUTCString() + ' unhandled: %s', e.message );
+          console.error( ( new Date ).toUTCString() + ' unhandled: %s', e.message || e );
 
-          console.error( e.stack );
+          if ( e.stack ) console.error( e.stack );
 
         }
 

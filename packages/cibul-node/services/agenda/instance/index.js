@@ -239,18 +239,13 @@ function instanciate( data ) {
 
           if ( err ) return cb( err );
 
-          activitiesSvc.feed( { entityType: 'agenda', entityUid: instance.uid } )
-            .unfollow( { entityType: 'event', entityUid: event.uid }, () => {
+          announceEventUpdate( v.event, {
+            type: 'event.remove',
+            refresh: v.refresh,
+            userId: (v.stakeholder && v.stakeholder.id) || null
+          } );
 
-              announceEventUpdate( v.event, {
-                type: 'event.remove',
-                refresh: v.refresh,
-                userId: (v.stakeholder && v.stakeholder.id) || null
-              } );
-
-              cb();
-
-            } );
+          cb();
 
         } );
 

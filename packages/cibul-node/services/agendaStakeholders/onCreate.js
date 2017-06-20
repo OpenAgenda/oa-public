@@ -41,17 +41,17 @@ module.exports = function ( stakeholder, context ) {
 
         }
 
-        users.get( context.invitationSender.userId, ( err, senderUser ) => {
+        activities.feed( { entityType: 'user', entityUid: user.uid } )
+          .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
+          .then( result => {
 
-          if ( err ) return log( 'error', err );
+            users.get( context.invitationSender.userId, ( err, senderUser ) => {
 
-          if ( !senderUser ) return log( 'error', 'sender user ( id %s ) not found', context.invitationSender.userId );
+              if ( err ) return log( 'error', err );
 
-          sendStakeholderInvitation( null, stakeholder, context, agenda );
+              if ( !senderUser ) return log( 'error', 'sender user ( id %s ) not found', context.invitationSender.userId );
 
-          activities.feed( { entityType: 'user', entityUid: user.uid } )
-            .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
-            .then( result => {
+              sendStakeholderInvitation( null, stakeholder, context, agenda );
 
               if ( !result ) return;
 
@@ -80,7 +80,12 @@ module.exports = function ( stakeholder, context ) {
 
             } );
 
-        } );
+          } )
+          .catch( err => {
+
+            log( 'error', err );
+
+          } );
 
       } );
 

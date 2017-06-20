@@ -110,6 +110,21 @@ function _onEventActivity( action ) {
                 target: agenda.title
               }
             }
+          }, err => {
+
+            if ( err ) return log( 'error', 'Error to add activity agenda.removeEvent in feed event:%s', event.uid );
+
+            activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } )
+              .unfollow( { entityType: 'event', entityUid: event.uid }, err => {
+
+                if ( err ) {
+                  return log( 'error',
+                    'Error when feed agenda:%s have tried to unfollow feed event:%s', agenda.uid, event.uid
+                  );
+                }
+
+              } );
+
           } );
 
         } );

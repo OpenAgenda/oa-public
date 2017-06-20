@@ -27,12 +27,12 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
       activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
         actor: 'user:' + user.uid,
         verb: 'agenda.sendInvitation',
-        object: stakeholder.custom.email,
+        object: 'email:' + stakeholder.custom.email,
         target: 'agenda:' + agenda.uid,
         store: {
           labels: {
             actor: context.invitationSender.name || user.full_name,
-            // object: stakeholder.custom.email,
+            object: stakeholder.custom.email,
             target: agenda.title
           },
           credential: stakeholder.credential

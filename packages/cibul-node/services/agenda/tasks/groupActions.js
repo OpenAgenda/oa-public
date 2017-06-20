@@ -154,7 +154,7 @@ function changeEventState( agendaId, eventId, oldState, newState, cb ) {
 
     } else {
 
-      log( 'changeEventState for agenda %s, event %s: changing state to ', agendaId, eventId, newState );
+      log( 'changeEventState for agenda %s, event %s: changing state to %s', agendaId, eventId, newState );
 
       v.event.setState( newState, cb );
 

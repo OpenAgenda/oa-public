@@ -91,9 +91,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
       stateModifiers[ TYPES.VALIDATED ] = _validate;
       stateModifiers[ TYPES.NOTVALIDATED ] = _unvalidate;
 
-      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED ].indexOf( parseInt( newState, 10 ) ) == -1 ) {
+      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED ].indexOf( parseInt( newState ) ) == -1 ) {
 
-        cb( 'this state is unknown' );
+        return cb( 'this state is unknown' );
 
       }
 

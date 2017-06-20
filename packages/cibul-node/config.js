@@ -47,7 +47,17 @@ var deepExtend = require( 'deep-extend' ),
           ]
         }, {
           version: 1
-        } ]
+        } ],
+        notifications: {
+          userUids: [
+            31046551,
+            75052324,
+            99999999,
+            7339049,
+            71438739,
+            6178397
+          ]
+        }
       },
       port: 8901,
       multiCore: true,
@@ -58,7 +68,9 @@ var deepExtend = require( 'deep-extend' ),
         groupActions: 'groupactions',
         controlData: 'agendaControlDataQueue',
         stakeholderCreate: 'stakeholderCreate',
-        stakeholderMessage: 'stakeholderMessage'
+        stakeholderMessage: 'stakeholderMessage',
+        notificationAddActivity: 'notificationAddActivity',
+        notificationSendSummary: 'notificationSendSummary'
       },
       legacyQueue: 'bgestack',
       tmpFolderPath: '/var/tmp/',
