@@ -217,8 +217,11 @@ function add() {
                           } )
                             .asCallback( err => {
 
-                              if ( !err ) feedContainsActivity.push( follower );
-                              ecb( err );
+                              if ( err ) return ecb( err );
+
+                              feedContainsActivity.push( follower );
+
+                              service.feed( follower.targetFeed ).notifications.addActivity( activity, () => ecb() );
 
                             } );
 

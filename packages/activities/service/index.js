@@ -8,6 +8,10 @@ const feeds = require( './feeds' );
 const activities = require( './activities' );
 const notifications = require( './notifications' );
 
+const addActivityTask = require( './notifications/tasks/addActivity' );
+const prepareSummaryTask = require( './notifications/tasks/prepareSummary' );
+const { task: sendSummaryTask } = require( './notifications/tasks/sendSummary' );
+
 let config;
 let knex;
 
@@ -16,7 +20,13 @@ module.exports = {
   feed,
   feeds,
   activities,
-  notifications
+  tasks: {
+    notifications: {
+      addActivity: addActivityTask,
+      prepareSummary: prepareSummaryTask,
+      sendSummary: sendSummaryTask
+    }
+  }
 };
 
 function init( c, cb ) {
@@ -37,10 +47,10 @@ function init( c, cb ) {
   return knex.migrate.latest()
     .then( () => {
 
-      feed.init( { config, knex, service: module.exports } );
-      feeds.init( { config, knex, service: module.exports } );
-      activities.init( { config, knex, service: module.exports } );
-      notifications.init( { config, knex, service: module.exports } );
+      feed.init( { config, knex, logger, service: module.exports } );
+      feeds.init( { config, knex, logger, service: module.exports } );
+      activities.init( { config, knex, logger, service: module.exports } );
+      notifications.init( { config, knex, logger, service: module.exports } );
 
       if ( cb ) cb();
 

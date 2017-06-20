@@ -103,7 +103,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'agenda.sendInvitation', {
           user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          email: '<strong>' + activity.object + '</strong>',
+          email: '<strong>' + escape( activity.store.labels.object ) + '</strong>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );

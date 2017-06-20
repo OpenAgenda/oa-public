@@ -21,7 +21,7 @@ schema.register( {
 } );
 
 
-module.exports = Object.assign( get, { init } );
+module.exports = Object.assign( count, { init } );
 
 function init( { config: c, knex: k, service: s } ) {
 
@@ -29,16 +29,15 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/notifications/get' );
+  log = logger( 'activities/notifications/count' );
 
 }
 
-function parseArguments( identifiers, query, options, cb ) {
+function parseArguments( identifiers, query, cb ) {
 
   const result = {
     identifiers,
     query,
-    options,
     cb
   };
 
@@ -48,13 +47,12 @@ function parseArguments( identifiers, query, options, cb ) {
     args.push( null );
   }
 
-  if ( args.length === 3 ) {
+  if ( args.length === 2 ) {
 
     Object.assign( result, {
       identifiers: args[ 0 ],
-      query: args[ 1 ],
-      options: {},
-      cb: args[ 2 ]
+      query: { state: 0 },
+      cb: args[ 1 ]
     } );
 
   }
@@ -63,18 +61,13 @@ function parseArguments( identifiers, query, options, cb ) {
 
 }
 
-function get() {
+function count() {
 
   let {
     identifiers,
     query,
-    options,
     cb
   } = parseArguments.apply( null, arguments );
-
-  const params = _.merge( {
-    excludeIds: []
-  }, options );
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 
@@ -83,20 +76,6 @@ function get() {
   }
 
   const validateQuery = schema( {
-    feedId: {
-      type: 'number',
-      optional: true
-    },
-    verb: {
-      type: 'text',
-      max: 255,
-      optional: false
-    },
-    groupBy: {
-      type: 'text',
-      max: 255,
-      optional: true
-    },
     state: {
       type: 'choice',
       options: notificationStates.codes,
@@ -105,21 +84,13 @@ function get() {
     }
   } );
 
-  if ( typeof query !== 'number' ) {
+  try {
 
-    try {
+    validateQuery( query );
 
-      validateQuery( query );
+  } catch ( errors ) {
 
-    } catch ( errors ) {
-
-      return promisePlusCb( Promise.reject( new VError( { info: { errors } }, 'Query validation failed' ) ), cb );
-
-    }
-
-  } else {
-
-    query = { id: query };
+    return promisePlusCb( Promise.reject( new VError( { info: { errors } }, 'Query validation failed' ) ), cb );
 
   }
 
@@ -134,25 +105,10 @@ function get() {
         return Promise.reject( new VError( 'The notifications concern only feeds users' ) );
       }
 
-      const request = knex( config.schemas.feed_notification ).first()
+      return knex( config.schemas.feed_notification ).first().count( 'id as count' )
         .where( where )
-        .where( 'feed_id', feed.id );
-
-      if ( params.excludeIds ) {
-        request.whereNotIn( 'id', params.excludeIds );
-      }
-
-      return request
-        .then( result => {
-
-          if ( result ) {
-            result = _.mapKeys( result, ( value, key ) => _.camelCase( key ) );
-            result.store = JSON.parse( result.store || '{}' );
-          }
-
-          return result;
-
-        } );
+        .where( 'feed_id', feed.id )
+        .then( ( { count } ) => count );
 
     } );
 

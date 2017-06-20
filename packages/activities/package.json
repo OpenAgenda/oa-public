@@ -23,8 +23,12 @@
     "knex": "^0.12.7",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "lodash": "^4.17.4",
+    "queue": "git+ssh://git@bitbucket.org/openagenda/queue.git",
     "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
+    "users": "git+ssh://git@bitbucket.org/openagenda/users.git",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
+    "verror": "^1.10.0",
     "when": "^3.7.8"
   },
   "devDependencies": {

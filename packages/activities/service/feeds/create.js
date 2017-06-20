@@ -27,7 +27,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities - create' );
+  log = logger( 'activities/create' );
 
 }
 

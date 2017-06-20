@@ -19,7 +19,7 @@ describe( 'activities - activities', function () {
       connection: config.mysql
     } );
 
-    service.initAndLoad( config, [ 'feed', 'feed_follow', 'activity', 'feed_activity' ], {}, done );
+    service.initAndLoad( config, done );
 
   } );
 
@@ -459,7 +459,7 @@ describe( 'activities - activities', function () {
 
     it( 'add an activity to multiple feeds', () => {
 
-      service.activities.add( {
+      return service.activities.add( {
         actor: 'user:66666666',
         verb: 'event.create',
         object: 'event:56488589',
@@ -519,7 +519,7 @@ describe( 'activities - activities', function () {
           verb: 'event.publish',
           getFeeds: true,
           filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-            cb( null, targetFeed.id !== 8  );
+            cb( null, targetFeed.id !== 8 );
           }
         } ]
       } ), () => {

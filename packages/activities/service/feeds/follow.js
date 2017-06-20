@@ -19,7 +19,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities - follow' );
+  log = logger( 'activities/follow' );
 
 }
 

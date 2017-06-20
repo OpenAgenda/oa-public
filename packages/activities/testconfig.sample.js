@@ -27,11 +27,30 @@ module.exports = {
     rebuild_user: 'rebuild_user',
     rebuild_aggregator: 'rebuild_aggregator',
   },
+  notificationsForUids: [
+    42,
+    31046551,
+    75052324,
+    99999999,
+    7339049,
+    71438739,
+    6178397
+  ],
   filterFollows: [ {
     verb: 'event.publish',
     getFeeds: true,
     filter: ( activity, originFeed, targetFeed, follow, cb ) => {
       cb( null, true );
     }
-  } ]
+  } ],
+  queue: {
+    names: {
+      addActivity: 'notificationAddActivityTest',
+      sendSummary: 'notificationSendSummaryTest'
+    },
+    redis: {
+      host: 'localhost',
+      port: 6379
+    }
+  }
 };
