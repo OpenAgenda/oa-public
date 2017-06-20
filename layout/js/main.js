@@ -28,6 +28,8 @@ var utils = require( 'utils' ),
 
   flash = require( './handleFlashMessage.js' ),
 
+  notifications = require( 'activity-apps/notifications' ),
+
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 
   LE = require( 'le_js' ),
@@ -39,6 +41,8 @@ var utils = require( 'utils' ),
   hooks = [], asaps = [],
 
   params = {};
+
+window.IScroll = require( 'iscroll/build/iscroll' );
 
 du.asapReady( function () {
 
@@ -63,6 +67,8 @@ du.asapReady( function () {
   toggle();
 
   flash();
+
+  notifications();
 
   du.forEach( asaps, function ( asapHook ) {
 

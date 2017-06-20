@@ -24,7 +24,8 @@ const session = require( 'sessions/client' ),
       headerLinks: '.js_header_links',
       signinLink: '.js_signin_link',
       profile: '.js_profile',
-      dropdown: '.js_profile_dropdown'
+      dropdown: '.js_profile_dropdown',
+      notifications: '.js_notifications',
     },
     classes: {
       displayNone: 'display-none'
@@ -54,9 +55,9 @@ module.exports = options => {
 
   let user = session.getUser();
 
-  if ( languageMenu ) languageMenu.parentNode.removeChild( languageMenu );
+  if ( languageMenu ) languageMenu.remove();
 
-  signinLink.parentNode.removeChild( signinLink );
+  signinLink.remove();
 
   ul.innerHTML = ( window.templates === 'bs' ? bsTemplate : template )( {
     __ : getLabelFactory( labels, user.culture ),
@@ -66,7 +67,7 @@ module.exports = options => {
 
   li = du.el( ul, 'li' );
 
-  du.el( params.selectors.headerLinks ).insertAdjacentElement( 'beforeend', li );
+  du.el( params.selectors.notifications ).insertAdjacentElement( 'beforebegin', li );
 
   toggle( li );
 

@@ -66,6 +66,7 @@
     "image-upload": "git+ssh://git@bitbucket.org/openagenda/image-upload.git",
     "imagesloaded": "^4.1",
     "immutability-helper": "^2.2.0",
+    "iscroll": "^5.2.0",
     "json-loader": "^0.5.4",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "languages": "0.1.3",
