@@ -34,7 +34,16 @@ var deepExtend = require( 'deep-extend' ),
             19678829,
             49562322, // jerusalem
             61327284, // toujours jerusalem
-            77097167 // Fête de la musique
+            77097167, // Fête de la musique
+            27437914,
+            30456419,
+            71115381,
+            20168566,
+            22946799,
+            9343334,
+            11919999,
+            85229066,
+            30453876
           ]
         }, {
           version: 1
