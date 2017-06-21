@@ -403,7 +403,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 { className: 'badge badge-info' },
                 eventCount,
                 ' ',
-                getLabel('events')
+                getLabel(eventCount && eventCount > 1 ? 'events' : 'event')
               )
             ),
             (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(

@@ -233,7 +233,9 @@ export default class Dashboard extends Component {
               href={res.showContributor.replace( ':contributorId', id )}
               className="text-muted"
             >
-              <span className="badge badge-info">{eventCount} {getLabel( 'events' )}</span>
+              <span className="badge badge-info">
+                {eventCount} {getLabel( eventCount && eventCount > 1 ? 'events' : 'event' )}
+                </span>
             </a>
             {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"
