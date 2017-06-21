@@ -287,7 +287,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
     log( 'info', 'fetching in index %s offset %s', type, offset );
 
-    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit }, showAll: true }, params ), function( err, result ) {
+    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
 
       if ( err ) return wcb( err );
 
