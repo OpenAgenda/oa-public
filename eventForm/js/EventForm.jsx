@@ -617,7 +617,7 @@ function EventFormFactory() {
                 optional={true}
                 languages={this.state.languages}
                 onChange={this.onChange( 'keywords' )}
-                label={this.props.labels.keywords}
+                label={this.props.configuration.field( 'keywords' ).getLabel( false, this.props.labels )}
                 error={formErrors.keywords}
                 placeholder={this.props.labels.keywordPlaceholder}
                 lang={this.props.lang} /> 
