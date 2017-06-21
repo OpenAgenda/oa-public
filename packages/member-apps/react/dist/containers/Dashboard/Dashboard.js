@@ -354,8 +354,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                     'badge-warning': stakeholderType === 'deleted'
                   })
                 },
-                stakeholderType === 'active' && getLabel('active'),
-                stakeholderType === 'inactive' && getLabel('inactive'),
                 stakeholderType === 'invited' && getLabel('invited'),
                 stakeholderType === 'deleted' && getLabel('deleted')
               )
@@ -398,10 +396,15 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               'a',
               {
                 href: res.showContributor.replace(':contributorId', id),
-                className: 'text-muted' },
-              eventCount,
-              ' ',
-              getLabel('events')
+                className: 'text-muted'
+              },
+              _react3.default.createElement(
+                'span',
+                { className: 'badge badge-info' },
+                eventCount,
+                ' ',
+                getLabel('events')
+              )
             ),
             (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
