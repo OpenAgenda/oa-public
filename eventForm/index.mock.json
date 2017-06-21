@@ -474,7 +474,7 @@
         {
           "uid": 84735921, 
           "nonemptytags": [ "theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes" ],
-          "tags" : [],
+          "tags" : [ "la-bellevilloise", "comedie-de-paris" ],
           "category": "expositions"
         }
       ]
@@ -484,7 +484,7 @@
       "tagSet" : {
         "groups" : [ {
           "required" : true,
-          "unique" : false,
+          "unique" : true,
           "info" : "Some info text",
           "tags" : [
             { "slug":"la-bellevilloise","label":"la bellevilloise" },
@@ -501,7 +501,11 @@
             { "slug":"ecologie","label":"\u00e9cologie" },
             { "slug":"l-entrepot","label":"l'entrep\u00f4t" },
             { "slug":"vente","label":"vente" },
-            { "slug":"reine-blanche","label":"reine blanche" },
+            { "slug":"reine-blanche","label":"reine blanche" }
+          ]
+        }, {
+          "unique" : false,
+          "tags" : [
             { "slug":"peinture","label":"peinture" },
             { "slug":"photo","label":"photo" },
             { "slug":"photographie","label":"photographie" },
