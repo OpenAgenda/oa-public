@@ -27,7 +27,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/create' );
+  log = logger( 'activities/feeds/create' );
 
 }
 
@@ -151,7 +151,7 @@ function create() {
       } )
       .then( feed => {
 
-        log( 'info', { message: 'Feed created', feed } );
+        log( 'info', 'Feed created (type %s, uid %s)', feed.entityType, feed.entityUid );
 
         return feed;
 

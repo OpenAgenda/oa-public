@@ -17,7 +17,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/unfollow' );
+  log = logger( 'activities/feeds/unfollow' );
 
 }
 
@@ -48,11 +48,7 @@ function unfollow( identifiers, followedFeedIdentifiers, cb ) {
           } )
             .then( result => {
 
-              log( 'info', {
-                originFeed: followedFeed,
-                targetFeed: feed,
-                message: 'Feed n° %s unfollow feed n° %s'
-              }, feed.id, followedFeed.id );
+              log( 'info', 'Feed n° %s unfollow feed n° %s', feed.id, followedFeed.id );
 
               return result;
 

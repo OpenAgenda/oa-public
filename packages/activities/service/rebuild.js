@@ -63,6 +63,16 @@ function rebuild( args, options, logger ) {
     },
     migrations: {
       tableName: options.migrationTable
+    },
+    queue: {
+      names: {
+        addActivity: 'notificationAddActivityRebuild',
+        sendSummary: 'notificationSendSummaryRebuild'
+      },
+      redis: {
+        host: 'localhost',
+        port: 6379
+      }
     }
   } )
     .then( () => {
@@ -282,7 +292,7 @@ function rebuild( args, options, logger ) {
     return nodefn.call(
       _traverseTable,
       options.userTable,
-      q => q,
+      q => q.orderBy( 'id', 'desc' ),
       eachCb
     );
 

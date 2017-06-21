@@ -17,7 +17,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/remove' );
+  log = logger( 'activities/feeds/remove' );
 
 }
 
@@ -35,7 +35,7 @@ function remove( identifiers, cb ) {
       return knex( config.schemas.feed ).delete().where( { id: feed.id } )
         .then( result => {
 
-          log( 'info', { feed, message: 'Feed removed' } );
+          log( 'info', 'Feed removed (type %s, uid: %s)', feed.entityType, feed.entityUid );
 
           return result;
 

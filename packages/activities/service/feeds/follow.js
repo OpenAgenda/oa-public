@@ -19,7 +19,7 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/follow' );
+  log = logger( 'activities/feeds/follow' );
 
 }
 
@@ -95,11 +95,7 @@ function follow() {
         .then( ( [ feedFollowId ] ) => feedFollowId )
         .then( result => {
 
-          log( 'info', {
-            originFeed,
-            targetFeed,
-            message: 'Feed n° %s follow feed n° %s'
-          }, targetFeed.id, originFeed.id );
+          log( 'info', 'Feed n° %s follow feed n° %s', targetFeed.id, originFeed.id );
 
           return result;
 

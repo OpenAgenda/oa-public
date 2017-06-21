@@ -24,8 +24,9 @@ describe.skip( 'activities - rebuid', function () {
     service.initAndLoad( config, [
       'feed',
       'feed_follow',
-      'activity',
       'feed_activity',
+      'feed_notification',
+      'activity',
       'rebuild_agenda',
       'rebuild_event',
       'rebuild_review_article',
