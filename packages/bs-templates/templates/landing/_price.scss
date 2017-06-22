@@ -59,7 +59,7 @@ $price-danger: #DE1D10;
 
 }
 
-.pricing-v2 {
+.pricing {
 
   ul, ul:hover {
     list-style: none;
@@ -80,6 +80,11 @@ $price-danger: #DE1D10;
 
   }
 
+  small {
+
+    font-size: 0.95em;
+
+  }
 
   > ul {
 
@@ -177,14 +182,6 @@ $price-danger: #DE1D10;
     small {
 
       color: $oa-white;
-      font-size: 0.95em;
-      margin: 0.7em 0 0.4em;
-
-    }
-
-    p {
-
-      margin: 0;
 
     }
 
@@ -202,22 +199,35 @@ $price-danger: #DE1D10;
 
   .price-body {
     
-    padding-top: 20px;
     min-height: 340px;
 
-  }
+    h4 {
 
-  .price-body ul {
-    padding-top: 10px;
-    min-height: 0;
-  }
+      margin: 0;
+    
+    }
 
-  .price-body li {
-    padding: 15px 20px;
-  }
+    ul {
 
-  .price-body h4 {
-    margin: 0;
+      min-height: 0;
+
+      li {
+
+        padding: 15px 20px;
+      
+      }
+    
+    }
+
+    .price-body-head {
+
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+    }
+
   }
 
   .price-foot {
@@ -267,9 +277,10 @@ $price-danger: #DE1D10;
 
       background-color: #4fc1e9;
 
-      h2 {
+      h2, h3 {
 
         display: block;
+        font-weight: 500;
 
       }
 

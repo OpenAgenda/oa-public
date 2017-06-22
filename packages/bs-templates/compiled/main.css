@@ -12693,7 +12693,7 @@ i.mce-i-backcolor {
 /**
  * if its in the corpo folder, then it is a corpo style.
  */
-#corpo {
+.landing {
   font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   /**
  * used in corpo id only
@@ -12701,7 +12701,7 @@ i.mce-i-backcolor {
   /**
  * deprecating style by id
  */ }
-  #corpo .corpo-header {
+  .landing .landing-header {
     margin-bottom: 0;
     /* .collapsing {
     ul li {
@@ -12727,20 +12727,20 @@ i.mce-i-backcolor {
     /**
    * mobile menu adjustments - hack over bootstrap, isolated from the rest.
    */ }
-    #corpo .corpo-header .navbar-header .logo {
+    .landing .landing-header .navbar-header .logo {
       width: 185px;
       height: 32px;
       background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-white-185.png");
       background-size: cover; }
-    #corpo .corpo-header .collapsing, #corpo .corpo-header .collapse {
+    .landing .landing-header .collapsing, .landing .landing-header .collapse {
       transition: height 0.2s; }
-    #corpo .corpo-header .language-menu > a {
+    .landing .landing-header .language-menu > a {
       text-transform: uppercase; }
-    #corpo .corpo-header .navbar-nav .tel a {
+    .landing .landing-header .navbar-nav .tel a {
       border-radius: 16px;
       background-color: transparent; }
     @media (min-width: 768px) {
-      #corpo .corpo-header {
+      .landing .landing-header {
         background-color: transparent;
         position: absolute;
         width: 100%;
@@ -12749,20 +12749,20 @@ i.mce-i-backcolor {
         padding-bottom: 0;
         min-height: 75px;
         border: none; }
-        #corpo .corpo-header .navbar-nav .navbar-btn {
+        .landing .landing-header .navbar-nav .navbar-btn {
           margin: 23px 15px 24px; }
-        #corpo .corpo-header .navbar-nav .tel a {
+        .landing .landing-header .navbar-nav .tel a {
           color: #fff;
           border-color: #f2f2f2; }
-          #corpo .corpo-header .navbar-nav .tel a:hover, #corpo .corpo-header .navbar-nav .tel a:focus {
+          .landing .landing-header .navbar-nav .tel a:hover, .landing .landing-header .navbar-nav .tel a:focus {
             color: #e6e6e6;
             border-color: #d9d9d9; }
-        #corpo .corpo-header .navbar-nav > li > a {
+        .landing .landing-header .navbar-nav > li > a {
           padding: 30px 15px;
           color: #fff; }
-          #corpo .corpo-header .navbar-nav > li > a:hover, #corpo .corpo-header .navbar-nav > li > a:focus {
+          .landing .landing-header .navbar-nav > li > a:hover, .landing .landing-header .navbar-nav > li > a:focus {
             color: #d9d9d9; }
-        #corpo .corpo-header .navbar-nav > li.signup > a {
+        .landing .landing-header .navbar-nav > li.signup > a {
           color: #41acdd;
           font-weight: bold;
           -webkit-transition: color 200ms ease;
@@ -12770,99 +12770,99 @@ i.mce-i-backcolor {
           -ms-transition: color 200ms ease;
           -o-transition: color 200ms ease;
           transition: color 200ms ease; }
-          #corpo .corpo-header .navbar-nav > li.signup > a:hover {
+          .landing .landing-header .navbar-nav > li.signup > a:hover {
             color: #6cbfe5; }
-        #corpo .corpo-header .navbar-brand {
+        .landing .landing-header .navbar-brand {
           padding: 22px 15px;
           height: 80px; }
-        #corpo .corpo-header .navbar-header {
+        .landing .landing-header .navbar-header {
           padding-left: 10px; }
-        #corpo .corpo-header .language-menu.open > a, #corpo .corpo-header .language-menu.open > a:hover, #corpo .corpo-header .language-menu.open > a:focus {
+        .landing .landing-header .language-menu.open > a, .landing .landing-header .language-menu.open > a:hover, .landing .landing-header .language-menu.open > a:focus {
           background-color: transparent;
           color: #d9d9d9; }
-        #corpo .corpo-header .language-menu > ul.dropdown-menu {
+        .landing .landing-header .language-menu > ul.dropdown-menu {
           top: 21px;
           right: 0;
           text-align: right;
           min-width: 0; }
-        #corpo .corpo-header .language-menu .selected {
+        .landing .landing-header .language-menu .selected {
           background-color: #eee;
           color: #413a42; }
-          #corpo .corpo-header .language-menu .selected:hover {
+          .landing .landing-header .language-menu .selected:hover {
             background-color: #d5d5d5; }
-        #corpo .corpo-header .search-form {
+        .landing .landing-header .search-form {
           float: left;
           margin: 0 0 0 1em; }
-          #corpo .corpo-header .search-form .search-input {
+          .landing .landing-header .search-form .search-input {
             width: 210px; }
-        #corpo .corpo-header .profile > a {
+        .landing .landing-header .profile > a {
           padding-top: 15px;
           padding-bottom: 15px;
           display: inline-block;
           cursor: pointer; }
-          #corpo .corpo-header .profile > a img {
+          .landing .landing-header .profile > a img {
             width: 30px;
             max-height: 30px; }
-        #corpo .corpo-header .profile .dropdown-menu {
+        .landing .landing-header .profile .dropdown-menu {
           min-width: 400px;
           margin: 0;
           padding: 0; }
-          #corpo .corpo-header .profile .dropdown-menu .row li {
+          .landing .landing-header .profile .dropdown-menu .row li {
             padding: 0 10px; }
-            #corpo .corpo-header .profile .dropdown-menu .row li img {
+            .landing .landing-header .profile .dropdown-menu .row li img {
               width: 24px; }
-            #corpo .corpo-header .profile .dropdown-menu .row li a {
+            .landing .landing-header .profile .dropdown-menu .row li a {
               color: #333;
               padding: 10px 0;
               display: block; }
-            #corpo .corpo-header .profile .dropdown-menu .row li:hover {
+            .landing .landing-header .profile .dropdown-menu .row li:hover {
               background: #f5f5f5; }
-              #corpo .corpo-header .profile .dropdown-menu .row li:hover a {
+              .landing .landing-header .profile .dropdown-menu .row li:hover a {
                 text-decoration: none; } }
     @media (max-width: 768px) {
-      #corpo .corpo-header {
+      .landing .landing-header {
         padding: 0 15px; }
-        #corpo .corpo-header .navbar-header .logo {
+        .landing .landing-header .navbar-header .logo {
           background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png"); }
-        #corpo .corpo-header .navbar-nav .navbar-btn {
+        .landing .landing-header .navbar-nav .navbar-btn {
           margin-left: 15px; } }
     @media (min-width: 768px) and (max-width: 992px) {
-      #corpo .corpo-header {
+      .landing .landing-header {
         padding: 0; }
-        #corpo .corpo-header .container {
+        .landing .landing-header .container {
           width: 100%; } }
-  #corpo .carousel-inner > .item img {
+  .landing .carousel-inner > .item img {
     margin: 0; }
-  #corpo .carousel-control {
+  .landing .carousel-control {
     background-image: none;
     opacity: 1;
     text-shadow: none; }
-    #corpo .carousel-control .fa {
+    .landing .carousel-control .fa {
       transform: translateY(-50%);
       position: absolute;
       top: 50%;
       color: #41acdd;
       opacity: 1;
       font-size: 7em; }
-      #corpo .carousel-control .fa:active {
+      .landing .carousel-control .fa:active {
         opacity: .85; }
-      #corpo .carousel-control .fa:hover {
+      .landing .carousel-control .fa:hover {
         opacity: .6; }
-      #corpo .carousel-control .fa:focus {
+      .landing .carousel-control .fa:focus {
         opacity: .6; }
-    #corpo .carousel-control.left i {
+    .landing .carousel-control.left i {
       left: -50%; }
-    #corpo .carousel-control.right i {
+    .landing .carousel-control.right i {
       right: -50%; }
-  #corpo .carousel-indicators {
+  .landing .carousel-indicators {
     bottom: 0; }
-  #corpo .carousel-caption {
+  .landing .carousel-caption {
     width: 100%;
     left: 0;
     right: 0;
     bottom: 0;
     text-shadow: none; }
-    #corpo .carousel-caption:before {
+    .landing .carousel-caption:before {
       content: "";
       background-color: #413a42;
       opacity: 0.6;
@@ -12876,210 +12876,97 @@ i.mce-i-backcolor {
       height: 100%;
       width: 100%; }
   @media (max-width: 768px) {
-    #corpo .carousel-control .fa {
+    .landing .carousel-control .fa {
       font-size: 3em; }
-    #corpo .carousel-control.right i {
+    .landing .carousel-control.right i {
       right: -25%; }
-    #corpo .carousel-control.left i {
+    .landing .carousel-control.left i {
       left: -25%; } }
-  #corpo .media {
+  .landing .media {
     padding: 3em 0;
     line-height: 1.5; }
-    #corpo .media-right img {
+    .landing .media-right img {
       margin-left: 20em;
       margin-right: 1em; }
-      #corpo .media-right img.big {
+      .landing .media-right img.big {
         margin-left: 10em; }
-    #corpo .media-left img {
+    .landing .media-left img {
       margin-right: 20em;
       margin-left: 1em; }
-      #corpo .media-left img.big {
+      .landing .media-left img.big {
         margin-right: 10em; }
-    #corpo .media-heading {
+    .landing .media-heading {
       font-size: 2.5em;
       margin-bottom: 0.8em; }
-      #corpo .media-heading em {
+      .landing .media-heading em {
         color: #41acdd;
         font-style: normal; }
-    #corpo .media p {
+    .landing .media p {
       margin: 1em 0;
       font-size: 18px;
       font-weight: 200;
       line-height: 1.6; }
     @media (max-width: 992px) {
-      #corpo .media {
+      .landing .media {
         padding: 4em 2em; }
-        #corpo .media img {
+        .landing .media img {
           max-width: 256px; }
-        #corpo .media-right img, #corpo .media-right img.big {
+        .landing .media-right img, .landing .media-right img.big {
           margin-left: 2em; }
-        #corpo .media-left img, #corpo .media-left img.big {
+        .landing .media-left img, .landing .media-left img.big {
           margin-right: 2em; } }
     @media (max-width: 768px) {
-      #corpo .media-middle {
+      .landing .media-middle {
         display: block;
         padding: 0;
         width: auto; }
-      #corpo .media-right img {
+      .landing .media-right img {
         margin-left: 0;
         margin-top: 1em; }
-      #corpo .media-left img {
+      .landing .media-left img {
         margin-right: 0;
         margin-bottom: 1em; }
-      #corpo .media .col-xs-4 {
+      .landing .media .col-xs-4 {
         padding: 0; }
-        #corpo .media .col-xs-4 img {
+        .landing .media .col-xs-4 img {
           max-width: 128px; }
-        #corpo .media .col-xs-4 p {
+        .landing .media .col-xs-4 p {
           font-size: 1em; } }
-  #corpo .pricing ul, #corpo .pricing ul:hover {
-    list-style: none;
-    padding: 0; }
-    #corpo .pricing ul li, #corpo .pricing ul:hover li {
-      color: #413a42; }
-  #corpo .pricing > ul {
-    display: table;
-    margin: 4em auto 0;
-    text-align: center; }
-  #corpo .pricing .without-border {
-    border: none !important; }
-  #corpo .pricing .unit {
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-    min-width: 250px;
-    text-align: center;
-    border-radius: 4px;
-    margin: 5px;
-    -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px; }
-    #corpo .pricing .unit.active {
-      top: 5px;
-      z-index: 1;
-      margin-right: -36px;
-      margin-left: -36px;
-      -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-      -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6); }
-      #corpo .pricing .unit.active .price-title h3 {
-        font-size: 40px; }
-  @media screen and (max-width: 768px) {
-    #corpo .pricing .unit {
-      margin-bottom: 20px;
-      width: 250px;
-      margin-left: auto;
-      margin-right: auto;
-      display: block; }
-      #corpo .pricing .unit.active {
-        top: 0;
-        margin-right: 0;
-        margin-left: 0; }
-      #corpo .pricing .unit.active .price-title h3 {
-        font-size: 30px; }
-      #corpo .pricing .unit .price-body {
-        min-height: 0; } }
-  #corpo .pricing .price-title {
-    display: flex;
-    min-height: 87px;
-    padding: 20px 20px 15px;
-    color: #fff;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    -webkit-border-top-left-radius: 4px;
-    -moz-border-radius-topleft: 4px;
-    -webkit-border-top-right-radius: 4px;
-    -moz-border-radius-topright: 4px; }
-  #corpo .pricing .price-title h3, #corpo .pricing .pricing .price-title h3 > p {
-    margin: auto; }
-  #corpo .pricing .price-body {
-    padding: 20px 20px 10px;
-    min-height: 340px; }
-  #corpo .pricing .price-body ul {
-    padding-top: 10px;
-    min-height: 0; }
-  #corpo .pricing .price-body li {
-    margin-bottom: 10px; }
-  #corpo .pricing .price-body h4 {
-    margin: 0; }
-  #corpo .pricing .price-foot {
-    padding: 20px;
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    -webkit-border-bottom-left-radius: 4px;
-    -moz-border-radius-bottomleft: 4px;
-    -webkit-border-bottom-right-radius: 4px;
-    -moz-border-radius-bottomright: 4px;
-    margin: 0 20px; }
-  #corpo .pricing .price-primary a, #corpo .pricing .price-success a {
-    text-decoration: none; }
-  #corpo .pricing .price-primary .price-body, #corpo .pricing .price-success .price-body {
-    color: #413a42; }
-  #corpo .pricing .price-primary {
-    background-color: #d7f1fa; }
-    #corpo .pricing .price-primary:hover {
-      background-color: #ceeef9; }
-    #corpo .pricing .price-primary .price-title {
-      background-color: #4fc1e9; }
-  #corpo .pricing .price-primary .price-body ul,
-  #corpo .pricing .pricing .price-primary .price-foot {
-    border-top: 1px solid #aae1f4; }
-  #corpo .pricing .price-success {
-    background-color: #ebf6df; }
-    #corpo .pricing .price-success:hover {
-      background-color: #e6f4d7; }
-    #corpo .pricing .price-success .price-title {
-      background-color: #a0d468; }
-    #corpo .pricing .price-success .price-body ul,
-    #corpo .pricing .price-success .price-foot {
-      border-top: 1px solid #d2ebb7; }
-  #corpo .pricing .price-warning .price-title {
-    background-color: #ff8b4c; }
-  #corpo .pricing .price-warning {
-    background-color: #ffeee5; }
-  #corpo .pricing .price-warning .price-body ul, #corpo .pricing .pricing .price-warning .price-foot {
-    border-top: 1px solid #ffdecc; }
-  #corpo .pricing .price-danger .price-title {
-    background-color: #f03d31; }
-  #corpo .pricing .price-danger {
-    background-color: #fac3c0; }
-  #corpo .pricing .price-danger .price-body ul, #corpo .pricing .pricing .price-danger .price-foot {
-    border-top: 1px solid #f9ada8; }
-  #corpo .price-summary h2, #corpo .price-summary h3 {
+  .landing .price-summary h2, .landing .price-summary h3 {
     font-weight: bold; }
-  #corpo .price-summary h3 {
+  .landing .price-summary h3 {
     padding-top: 40px;
     font-size: 2em; }
-  #corpo .price-summary figure {
+  .landing .price-summary figure {
     height: 320px; }
-  #corpo .price-summary ul {
+  .landing .price-summary ul {
     padding-left: 20px; }
-    #corpo .price-summary ul li {
+    .landing .price-summary ul li {
       padding: 0 0 1em 0; }
-  #corpo .price-summary .separator {
+  .landing .price-summary .separator {
     border-top: 1px solid #fff;
     margin: 20px 0 40px;
     width: 100px; }
-  #corpo .price-summary .sub {
+  .landing .price-summary .sub {
     padding: 0 0 20px 0;
     font-size: 1.4em; }
-  #corpo .pricing-v2 ul, #corpo .pricing-v2 ul:hover {
+  .landing .pricing ul, .landing .pricing ul:hover {
     list-style: none;
     padding: 0; }
-    #corpo .pricing-v2 ul li, #corpo .pricing-v2 ul:hover li {
+    .landing .pricing ul li, .landing .pricing ul:hover li {
       color: #413a42; }
-  #corpo .pricing-v2 .price-canvas {
+  .landing .pricing .price-canvas {
     display: inline-block;
     vertical-align: top; }
-  #corpo .pricing-v2 > ul {
+  .landing .pricing small {
+    font-size: 0.95em; }
+  .landing .pricing > ul {
     display: table;
     margin: 4em auto 0;
     text-align: center; }
-  #corpo .pricing-v2 .without-border {
+  .landing .pricing .without-border {
     border: none !important; }
-  #corpo .pricing-v2 .unit {
+  .landing .pricing .unit {
     position: relative;
     display: inline-block;
     vertical-align: top;
@@ -13091,9 +12978,9 @@ i.mce-i-backcolor {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px; }
-    #corpo .pricing-v2 .unit.thin {
+    .landing .pricing .unit.thin {
       min-width: 260px; }
-    #corpo .pricing-v2 .unit.active {
+    .landing .pricing .unit.active {
       top: 5px;
       z-index: 1;
       margin-right: -36px;
@@ -13101,24 +12988,24 @@ i.mce-i-backcolor {
       -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
       -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.6); }
-      #corpo .pricing-v2 .unit.active .price-title h3 {
+      .landing .pricing .unit.active .price-title h3 {
         font-size: 40px; }
   @media screen and (max-width: 768px) {
-    #corpo .pricing-v2 .unit {
+    .landing .pricing .unit {
       margin-bottom: 20px;
       width: 250px;
       margin-left: auto;
       margin-right: auto;
       display: block; }
-      #corpo .pricing-v2 .unit.active {
+      .landing .pricing .unit.active {
         top: 0;
         margin-right: 0;
         margin-left: 0; }
-      #corpo .pricing-v2 .unit.active .price-title h3 {
+      .landing .pricing .unit.active .price-title h3 {
         font-size: 30px; }
-      #corpo .pricing-v2 .unit .price-body {
+      .landing .pricing .unit .price-body {
         min-height: 0; } }
-  #corpo .pricing-v2 .price-title {
+  .landing .pricing .price-title {
     display: flex;
     flex-direction: column;
     min-height: 145px;
@@ -13130,29 +13017,28 @@ i.mce-i-backcolor {
     -moz-border-radius-topleft: 4px;
     -webkit-border-top-right-radius: 4px;
     -moz-border-radius-topright: 4px; }
-    #corpo .pricing-v2 .price-title h3 {
+    .landing .pricing .price-title h3 {
       font-size: 2em; }
-    #corpo .pricing-v2 .price-title small {
-      color: #fff;
-      font-size: 0.95em;
-      margin: 0.7em 0 0.4em; }
-    #corpo .pricing-v2 .price-title p {
-      margin: 0; }
-    #corpo .pricing-v2 .price-title.title-only {
+    .landing .pricing .price-title small {
+      color: #fff; }
+    .landing .pricing .price-title.title-only {
       padding-bottom: 82px; }
-  #corpo .pricing-v2 .price-title h3, #corpo .pricing-v2 .pricing .price-title h3 > p {
+  .landing .pricing .price-title h3, .landing .pricing .pricing .price-title h3 > p {
     margin: auto; }
-  #corpo .pricing-v2 .price-body {
-    padding-top: 20px;
+  .landing .pricing .price-body {
     min-height: 340px; }
-  #corpo .pricing-v2 .price-body ul {
-    padding-top: 10px;
-    min-height: 0; }
-  #corpo .pricing-v2 .price-body li {
-    padding: 15px 20px; }
-  #corpo .pricing-v2 .price-body h4 {
-    margin: 0; }
-  #corpo .pricing-v2 .price-foot {
+    .landing .pricing .price-body h4 {
+      margin: 0; }
+    .landing .pricing .price-body ul {
+      min-height: 0; }
+      .landing .pricing .price-body ul li {
+        padding: 15px 20px; }
+    .landing .pricing .price-body .price-body-head {
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; }
+  .landing .pricing .price-foot {
     padding: 20px;
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
@@ -13161,49 +13047,50 @@ i.mce-i-backcolor {
     -webkit-border-bottom-right-radius: 4px;
     -moz-border-radius-bottomright: 4px;
     margin: 0 20px; }
-  #corpo .pricing-v2 .price-underfoot {
+  .landing .pricing .price-underfoot {
     padding: 2em 0; }
-  #corpo .pricing-v2 .price-primary a, #corpo .pricing-v2 .price-success a {
+  .landing .pricing .price-primary a, .landing .pricing .price-success a {
     text-decoration: none; }
-  #corpo .pricing-v2 .price-primary .price-body, #corpo .pricing-v2 .price-success .price-body {
+  .landing .pricing .price-primary .price-body, .landing .pricing .price-success .price-body {
     color: #413a42; }
-  #corpo .pricing-v2 .price-primary {
+  .landing .pricing .price-primary {
     background-color: #fff; }
-    #corpo .pricing-v2 .price-primary:hover {
+    .landing .pricing .price-primary:hover {
       background-color: #ceeef9; }
-    #corpo .pricing-v2 .price-primary .price-title {
+    .landing .pricing .price-primary .price-title {
       background-color: #4fc1e9; }
-      #corpo .pricing-v2 .price-primary .price-title h2 {
+      .landing .pricing .price-primary .price-title h2, .landing .pricing .price-primary .price-title h3 {
+        display: block;
+        font-weight: 500; }
+      .landing .pricing .price-primary .price-title .price-subtitle {
         display: block; }
-      #corpo .pricing-v2 .price-primary .price-title .price-subtitle {
-        display: block; }
-  #corpo .pricing-v2 .price-primary .price-body li,
-  #corpo .pricing-v2 .pricing .price-primary .price-foot {
+  .landing .pricing .price-primary .price-body li,
+  .landing .pricing .pricing .price-primary .price-foot {
     border-top: 1px solid #aae1f4; }
-  #corpo .pricing-v2 .price-success {
+  .landing .pricing .price-success {
     background-color: #ebf6df; }
-    #corpo .pricing-v2 .price-success:hover {
+    .landing .pricing .price-success:hover {
       background-color: #e6f4d7; }
-    #corpo .pricing-v2 .price-success .price-title {
+    .landing .pricing .price-success .price-title {
       background-color: #a0d468; }
-    #corpo .pricing-v2 .price-success .price-body ul,
-    #corpo .pricing-v2 .price-success .price-foot {
+    .landing .pricing .price-success .price-body ul,
+    .landing .pricing .price-success .price-foot {
       border-top: 1px solid #d2ebb7; }
-  #corpo .pricing-v2 .price-warning .price-title {
+  .landing .pricing .price-warning .price-title {
     background-color: #ff8b4c; }
-  #corpo .pricing-v2 .price-warning {
+  .landing .pricing .price-warning {
     background-color: #ffeee5; }
-  #corpo .pricing-v2 .price-warning .price-body ul, #corpo .pricing-v2 .pricing .price-warning .price-foot {
+  .landing .pricing .price-warning .price-body ul, .landing .pricing .pricing .price-warning .price-foot {
     border-top: 1px solid #ffdecc; }
-  #corpo .pricing-v2 .price-danger .price-title {
+  .landing .pricing .price-danger .price-title {
     background-color: #f03d31; }
-  #corpo .pricing-v2 .price-danger {
+  .landing .pricing .price-danger {
     background-color: #fac3c0; }
-  #corpo .pricing-v2 .price-danger .price-body ul, #corpo .pricing-v2 .pricing .price-danger .price-foot {
+  .landing .pricing .price-danger .price-body ul, .landing .pricing .pricing .price-danger .price-foot {
     border-top: 1px solid #f9ada8; }
-  #corpo .typed {
+  .landing .typed {
     display: inline-block; }
-  #corpo .typed-cursor {
+  .landing .typed-cursor {
     opacity: 1;
     -webkit-animation: blink 0.7s infinite;
     -moz-animation: blink 0.7s infinite;
@@ -13232,68 +13119,68 @@ i.mce-i-backcolor {
     opacity: 0; }
   100% {
     opacity: 1; } }
-  #corpo .big-events {
+  .landing .big-events {
     width: 600px;
     height: 400px;
     list-style-type: none;
     position: relative;
     padding: 20px;
     margin-right: 40px; }
-    #corpo .big-events li {
+    .landing .big-events li {
       position: absolute; }
-      #corpo .big-events li a {
+      .landing .big-events li a {
         background: url("//s3.eu-central-1.amazonaws.com/oastatic/landing/bigevents.png");
         background-position-y: 0;
         background-position-x: 0;
         height: 180px;
         width: 180px;
         display: block; }
-      #corpo .big-events li.be-chv {
+      .landing .big-events li.be-chv {
         top: 230px; }
-        #corpo .big-events li.be-chv a {
+        .landing .big-events li.be-chv a {
           background-position-x: -180px;
           height: 176px; }
-      #corpo .big-events li.be-sdi {
+      .landing .big-events li.be-sdi {
         left: 225px; }
-        #corpo .big-events li.be-sdi a {
+        .landing .big-events li.be-sdi a {
           background-position-x: -367px; }
-      #corpo .big-events li.be-cpd {
+      .landing .big-events li.be-cpd {
         left: 225px;
         top: 230px; }
-        #corpo .big-events li.be-cpd a {
+        .landing .big-events li.be-cpd a {
           background-position-x: -735px; }
-      #corpo .big-events li.be-slt {
+      .landing .big-events li.be-slt {
         left: 430px; }
-        #corpo .big-events li.be-slt a {
+        .landing .big-events li.be-slt a {
           background-position-x: -930px; }
-      #corpo .big-events li.be-fen {
+      .landing .big-events li.be-fen {
         left: 430px;
         top: 220px; }
-        #corpo .big-events li.be-fen a {
+        .landing .big-events li.be-fen a {
           background-position-x: -1110px;
           width: 172px; }
-  #corpo .odometer.odometer-auto-theme, #corpo .odometer.odometer-theme-default {
+  .landing .odometer.odometer-auto-theme, .landing .odometer.odometer-theme-default {
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
     *zoom: 1;
     *display: inline;
     position: relative; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit, #corpo .odometer.odometer-theme-default .odometer-digit {
+  .landing .odometer.odometer-auto-theme .odometer-digit, .landing .odometer.odometer-theme-default .odometer-digit {
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
     *zoom: 1;
     *display: inline;
     position: relative; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer, .landing .odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
     display: inline-block;
     vertical-align: middle;
     *vertical-align: auto;
     *zoom: 1;
     *display: inline;
     visibility: hidden; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-digit-inner {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner, .landing .odometer.odometer-theme-default .odometer-digit .odometer-digit-inner {
     text-align: left;
     display: block;
     position: absolute;
@@ -13302,35 +13189,35 @@ i.mce-i-backcolor {
     right: 0;
     bottom: 0;
     overflow: hidden; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-ribbon {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon, .landing .odometer.odometer-theme-default .odometer-digit .odometer-ribbon {
     display: block; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-ribbon-inner, .landing .odometer.odometer-theme-default .odometer-digit .odometer-ribbon-inner {
     display: block;
     -webkit-backface-visibility: hidden; }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-value, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-value {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-value, .landing .odometer.odometer-theme-default .odometer-digit .odometer-value {
     display: block;
     -webkit-transform: translateZ(0); }
-  #corpo .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value, #corpo .odometer.odometer-theme-default .odometer-digit .odometer-value.odometer-last-value {
+  .landing .odometer.odometer-auto-theme .odometer-digit .odometer-value.odometer-last-value, .landing .odometer.odometer-theme-default .odometer-digit .odometer-value.odometer-last-value {
     position: absolute; }
-  #corpo .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner, #corpo .odometer.odometer-theme-default.odometer-animating-up .odometer-ribbon-inner {
+  .landing .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner, .landing .odometer.odometer-theme-default.odometer-animating-up .odometer-ribbon-inner {
     -webkit-transition: -webkit-transform 2s;
     -moz-transition: -moz-transform 2s;
     -ms-transition: -ms-transform 2s;
     -o-transition: -o-transform 2s;
     transition: transform 2s; }
-  #corpo .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner, #corpo .odometer.odometer-theme-default.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
+  .landing .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner, .landing .odometer.odometer-theme-default.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
     -webkit-transform: translateY(-100%);
     -moz-transform: translateY(-100%);
     -ms-transform: translateY(-100%);
     -o-transform: translateY(-100%);
     transform: translateY(-100%); }
-  #corpo .odometer.odometer-auto-theme.odometer-animating-down .odometer-ribbon-inner, #corpo .odometer.odometer-theme-default.odometer-animating-down .odometer-ribbon-inner {
+  .landing .odometer.odometer-auto-theme.odometer-animating-down .odometer-ribbon-inner, .landing .odometer.odometer-theme-default.odometer-animating-down .odometer-ribbon-inner {
     -webkit-transform: translateY(-100%);
     -moz-transform: translateY(-100%);
     -ms-transform: translateY(-100%);
     -o-transform: translateY(-100%);
     transform: translateY(-100%); }
-  #corpo .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner, #corpo .odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
+  .landing .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner, .landing .odometer.odometer-theme-default.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
     -webkit-transition: -webkit-transform 2s;
     -moz-transition: -moz-transform 2s;
     -ms-transition: -ms-transform 2s;
@@ -13341,105 +13228,108 @@ i.mce-i-backcolor {
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
     transform: translateY(0); }
-  #corpo .odometer.odometer-auto-theme, #corpo .odometer.odometer-theme-default {
+  .landing .odometer.odometer-auto-theme, .landing .odometer.odometer-theme-default {
     font-family: "Helvetica Neue", sans-serif;
     line-height: 1.1em; }
-  #corpo .odometer.odometer-auto-theme .odometer-value, #corpo .odometer.odometer-theme-default .odometer-value {
+  .landing .odometer.odometer-auto-theme .odometer-value, .landing .odometer.odometer-theme-default .odometer-value {
     text-align: center; }
-  #corpo .footer {
+  .landing .footer {
     background: #413a42; }
-    #corpo .footer .row {
+    .landing .footer .row {
       border: 0; }
-    #corpo .footer h2 {
+    .landing .footer h2 {
       color: gray;
       margin: 0 0 1em; }
-    #corpo .footer li {
+    .landing .footer li {
       margin: 1em 0; }
-      #corpo .footer li li {
+      .landing .footer li li {
         margin: 0 0 1em; }
-      #corpo .footer li form {
+      .landing .footer li form {
         margin: auto;
         max-width: 400px; }
-    #corpo .footer a {
+    .landing .footer a {
       color: #ccc; }
-      #corpo .footer a:hover {
+      .landing .footer a:hover {
         color: #fff;
         text-decoration: underline; }
-    #corpo .footer .text-left {
+    .landing .footer .text-left {
       text-align: center; }
     @media (max-width: 480px) {
-      #corpo .footer {
+      .landing .footer {
         text-align: center; }
-        #corpo .footer h2 {
+        .landing .footer h2 {
           margin: 2em 0 1em; } }
-  #corpo .hook {
+  .landing .hook {
     font-weight: 400; }
-  #corpo .spaced {
+  .landing .spaced {
     padding-bottom: 4em;
     padding-top: 4em; }
-  #corpo .counters span {
+  .landing .font-size-11 {
+    font-size: 1.1em; }
+  .landing .font-size-15 {
+    font-size: 1.5em; }
+  .landing .counters span {
     display: inline-block;
     padding: 0 1em;
     font-size: 1.2em; }
-    #corpo .counters span:last-child {
+    .landing .counters span:last-child {
       padding-right: 0; }
-    #corpo .counters span:first-child {
+    .landing .counters span:first-child {
       padding-left: 0; }
-  #corpo .row > h2 {
+  .landing .row > h2 {
     margin-bottom: 1em; }
-  #corpo p {
+  .landing p {
     font-size: 18px;
     font-weight: 200; }
-  #corpo strong.h1 {
+  .landing strong.h1 {
     color: #41acdd;
     display: block; }
-  #corpo blockquote footer:before {
+  .landing blockquote footer:before {
     content: none; }
-  #corpo blockquote img {
+  .landing blockquote img {
     float: left;
     margin-right: 10px; }
-  #corpo blockquote strong {
+  .landing blockquote strong {
     color: #413a42; }
-  #corpo hr {
+  .landing hr {
     margin-top: 0;
     margin-bottom: 0;
     border: 0;
     border-top: 2px solid #eeeeee; }
-  #corpo small {
+  .landing small {
     font-weight: 400;
     line-height: 1;
-    color: #777;
-    font-size: 65%; }
-  #corpo .background-white {
+    color: #777; }
+  .landing .background-white {
     background: #fff; }
-    #corpo .background-white .shadow {
+    .landing .background-white .shadow {
       -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
       -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4);
       box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.4); }
-  #corpo .background-gray {
+  .landing .background-gray {
     background: #eee; }
-    #corpo .background-gray .shadow {
+    .landing .background-gray .shadow {
       -webkit-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
       -moz-box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3);
       box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.3); }
-  #corpo .background-blue {
+  .landing .background-blue {
     background: #41acdd; }
-    #corpo .background-blue h1, #corpo .background-blue h2, #corpo .background-blue h3, #corpo .background-blue p, #corpo .background-blue ul {
+    .landing .background-blue h1, .landing .background-blue h2, .landing .background-blue h3, .landing .background-blue p, .landing .background-blue ul {
       color: #fff; }
-    #corpo .background-blue .btn {
+    .landing .background-blue .btn {
       border-color: #fff; }
-  #corpo .background-dark-purple {
+  .landing .background-dark-purple {
     background: #413a42; }
-    #corpo .background-dark-purple h1, #corpo .background-dark-purple h2, #corpo .background-dark-purple p, #corpo .background-dark-purple li {
+    .landing .background-dark-purple h1, .landing .background-dark-purple h2, .landing .background-dark-purple p, .landing .background-dark-purple li {
       color: #fff; }
-  #corpo .background-orange {
+  .landing .background-orange {
     background: #FF813D; }
-    #corpo .background-orange h1, #corpo .background-orange h2, #corpo .background-orange p, #corpo .background-orange li {
+    .landing .background-orange h1, .landing .background-orange h2, .landing .background-orange p, .landing .background-orange li {
       color: #fff; }
-  #corpo #presentation {
+  .landing #presentation {
     position: relative;
     color: antiquewhite; }
-    #corpo #presentation:before {
+    .landing #presentation:before {
       content: "";
       position: absolute;
       top: 0;
@@ -13447,7 +13337,7 @@ i.mce-i-backcolor {
       background-size: cover;
       height: 100%;
       width: 100%; }
-    #corpo #presentation:after {
+    .landing #presentation:after {
       content: "";
       position: absolute;
       top: 0;
@@ -13456,94 +13346,94 @@ i.mce-i-backcolor {
       background-size: cover;
       height: 100%;
       width: 100%; }
-    #corpo #presentation .container {
+    .landing #presentation .container {
       position: relative;
       z-index: 1; }
-    #corpo #presentation .hook {
+    .landing #presentation .hook {
       font-size: 65px; }
-    #corpo #presentation .under-hook {
+    .landing #presentation .under-hook {
       margin-top: 75px;
       font-size: 35px; }
-    #corpo #presentation .hook-action {
+    .landing #presentation .hook-action {
       margin-top: 100px; }
-      #corpo #presentation .hook-action .search input {
+      .landing #presentation .hook-action .search input {
         outline: none;
         box-shadow: none;
         border-color: initial;
         font-size: 17px; }
-      #corpo #presentation .hook-action .search button {
+      .landing #presentation .hook-action .search button {
         right: 4px; }
-        #corpo #presentation .hook-action .search button i {
+        .landing #presentation .hook-action .search button i {
           color: #413a42;
           font-size: 20px; }
-    #corpo #presentation .hook-secondary-action {
+    .landing #presentation .hook-secondary-action {
       padding-top: 0.5em; }
-      #corpo #presentation .hook-secondary-action a {
+      .landing #presentation .hook-secondary-action a {
         color: #fff;
         font-size: 0.9em;
         font-weight: 500; }
-      #corpo #presentation .hook-secondary-action .btn {
+      .landing #presentation .hook-secondary-action .btn {
         padding: 10px 35px; }
-    #corpo #presentation.secondary .hook {
+    .landing #presentation.secondary .hook {
       margin-top: 50px; }
-    #corpo #presentation.secondary:after {
+    .landing #presentation.secondary:after {
       opacity: 0.7; }
-    #corpo #presentation.primary {
+    .landing #presentation.primary {
       height: 750px; }
-      #corpo #presentation.primary .hook {
+      .landing #presentation.primary .hook {
         margin-top: 110px; }
-      #corpo #presentation.primary:after {
+      .landing #presentation.primary:after {
         opacity: 0.5; }
     @media (max-width: 768px) {
-      #corpo #presentation .hook {
+      .landing #presentation .hook {
         margin-top: 20px;
         font-size: 55px; } }
-  #corpo #functions figure .rounded {
+  .landing #functions figure .rounded {
     width: 256px;
     line-height: 256px;
     border-radius: 128px;
     background: #41acdd;
     margin-left: 20em;
     margin-right: 1em; }
-    #corpo #functions figure .rounded img {
+    .landing #functions figure .rounded img {
       margin: 0;
       transform: scale(0.7); }
-  #corpo #functions .media-heading a {
+  .landing #functions .media-heading a {
     color: inherit; }
-    #corpo #functions .media-heading a:hover, #corpo #functions .media-heading a:hover em {
+    .landing #functions .media-heading a:hover, .landing #functions .media-heading a:hover em {
       text-decoration: none;
       color: #6cbfe5; }
-  #corpo #functions .media ul {
+  .landing #functions .media ul {
     padding-left: 25px;
     margin: 1em 0; }
-    #corpo #functions .media ul li {
+    .landing #functions .media ul li {
       margin-bottom: 1em; }
-    #corpo #functions .media ul strong {
+    .landing #functions .media ul strong {
       font-weight: 400; }
   @media (max-width: 768px) {
-    #corpo #functions .media {
+    .landing #functions .media {
       text-align: center; }
-      #corpo #functions .media .media-right img {
+      .landing #functions .media .media-right img {
         margin-left: 0;
         margin-right: 0;
         margin-top: 2.5em; }
-      #corpo #functions .media .media-left img {
+      .landing #functions .media .media-left img {
         margin-left: 0;
         margin-right: 0;
         margin-bottom: 2.5em; } }
-  #corpo .testimonials h2 {
+  .landing .testimonials h2 {
     margin-bottom: 40px; }
-  #corpo .testimonials blockquote {
+  .landing .testimonials blockquote {
     border-left: none;
     padding: 0;
     quotes: "\201C" "\201D" "\2018" "\2019"; }
-    #corpo .testimonials blockquote .quote {
+    .landing .testimonials blockquote .quote {
       position: relative;
       padding: 15px;
       margin-bottom: 25px;
       background: #e6e6e6;
       border-radius: 8px; }
-      #corpo .testimonials blockquote .quote:after {
+      .landing .testimonials blockquote .quote:after {
         content: '';
         position: absolute;
         border-style: solid;
@@ -13554,7 +13444,7 @@ i.mce-i-backcolor {
         z-index: 1;
         bottom: -16px;
         left: 10px; }
-      #corpo .testimonials blockquote .quote p:before {
+      .landing .testimonials blockquote .quote p:before {
         font-family: Georgia, "Times New Roman", Times, serif;
         content: open-quote;
         font-weight: bold;
@@ -13563,72 +13453,72 @@ i.mce-i-backcolor {
         color: #41acdd;
         vertical-align: -0.1em;
         padding-right: 8px; }
-      #corpo .testimonials blockquote .quote p:after {
+      .landing .testimonials blockquote .quote p:after {
         content: close-quote;
         visibility: hidden;
         line-height: 0; }
-    #corpo .testimonials blockquote footer {
+    .landing .testimonials blockquote footer {
       padding: 0; }
-  #corpo .background-gray.testimonials .quote {
+  .landing .background-gray.testimonials .quote {
     background: #fff; }
-    #corpo .background-gray.testimonials .quote:after {
+    .landing .background-gray.testimonials .quote:after {
       border-color: #fff transparent; }
-  #corpo .contact {
+  .landing .contact {
     display: inline-block;
     text-align: left; }
-    #corpo .contact ul {
+    .landing .contact ul {
       padding-left: 0;
       margin: 2em 0; }
-    #corpo .contact li {
+    .landing .contact li {
       padding: 0.5em 0; }
-    #corpo .contact i {
+    .landing .contact i {
       padding-right: 0.5em; }
-    #corpo .contact a {
+    .landing .contact a {
       font-size: 18px;
       color: gray;
       font-weight: 200;
       text-decoration: none; }
-    #corpo .contact a:hover {
+    .landing .contact a:hover {
       color: #41acdd; }
-  #corpo #trio-actions .summary-head i, #corpo .summary .summary-head i {
+  .landing #trio-actions .summary-head i, .landing .summary .summary-head i {
     color: #41acdd;
     width: 140px;
     line-height: 140px;
     border-radius: 70px;
     background: #e6e6e6;
     margin: auto auto 12px; }
-  #corpo #trio-actions p, #corpo .summary p {
+  .landing #trio-actions p, .landing .summary p {
     margin: 0; }
-  #corpo #trio-actions .features, #corpo .summary .features {
+  .landing #trio-actions .features, .landing .summary .features {
     margin: 0 auto;
     display: inline-block; }
-    #corpo #trio-actions .features li, #corpo .summary .features li {
+    .landing #trio-actions .features li, .landing .summary .features li {
       margin-bottom: 10px; }
-      #corpo #trio-actions .features li.already-included, #corpo .summary .features li.already-included {
+      .landing #trio-actions .features li.already-included, .landing .summary .features li.already-included {
         color: #ccc; }
-        #corpo #trio-actions .features li.already-included i, #corpo .summary .features li.already-included i {
+        .landing #trio-actions .features li.already-included i, .landing .summary .features li.already-included i {
           padding-right: 0.4em; }
-  #corpo #references {
+  .landing #references {
     background-color: #413a42; }
-    #corpo #references h2 {
+    .landing #references h2 {
       color: #fff;
       margin: 0 0 40px; }
-    #corpo #references #carousel-screens {
+    .landing #references #carousel-screens {
       width: 80%;
       margin: auto; }
-  #corpo #ready h2 {
+  .landing #ready h2 {
     margin: 0 0 30px; }
-  #corpo #ready a.btn {
+  .landing #ready a.btn {
     padding: 10px 35px; }
   @media (max-width: 768px) {
-    #corpo #presentation .hook {
+    .landing #presentation .hook {
       margin-top: 20px;
       font-size: 55px; }
-    #corpo #trio-actions:nth-child(n+2) ul li {
+    .landing #trio-actions:nth-child(n+2) ul li {
       margin-bottom: 20px; }
-    #corpo #references #carousel-screens {
+    .landing #references #carousel-screens {
       width: 100%; }
-    #corpo .pricing > ul {
+    .landing .pricing > ul {
       display: block; } }
 
 .search-field .input-spinner {
