@@ -29,12 +29,12 @@
       "small" : "networkUpTo",
       "price" : "networkPricingFreePricing",
       "features" : [
+        "networkPricingFreeSupport",
         "networkPricingFreeFeature1",
         "networkPricingFreeFeature2",
         "networkPricingFreeFeature3",
         "networkPricingFreeSupport"
       ],
-      "under" : "networkPricingFreeSupport",
       "action" : {
         "label" : "agendaPricingCustomAction",
         "link" : "/signup"
@@ -45,8 +45,8 @@
       "small" : "networkUpTo",
       "countDetail" : "networkPricingSmallCountDetail",
       "price" : "networkPricingSmallPricing",
-      "features" : [ true, true, true, "networkPricingCustomized" ],
-      "under" : "networkCustomizedSupport",
+      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {
         "label" : "agendaPricingCustomAction",
         "link" : "#contactus"
@@ -57,8 +57,8 @@
       "small" : "networkUpTo",
       "countDetail" : "networkPricingMediumCountDetail",
       "price" : "networkPricingMediumPricing",
-      "features" : [ true, true, true, "networkPricingCustomized" ],
-      "under" : "networkCustomizedSupport",
+      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {
         "label" : "agendaPricingCustomAction",
         "link" : "#contactus"
@@ -67,9 +67,9 @@
       "title" : "networkPricingLarge",
       "count" : "networkPricingLargeCount",
       "price" : "networkPricingLargePricing",
+      "priceDetail" :"agendaPricingCustomYearlyPrice",
       "countDetail" : "",
-      "features" : [ true, true, true, "networkPricingCustomized" ],
-      "under" : "networkCustomizedSupport",
+      "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {
         "label" : "agendaPricingCustomAction",
         "link" : "#contactus"

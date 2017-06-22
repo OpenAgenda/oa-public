@@ -64,5 +64,18 @@
         "link" : "#contactus"
       }
     } ]
-  }, "testimony", "footer" ]
+  }, {
+    "key" : "network",
+    "title" : "agendaPricingNetwork",
+    "text" : "agendaPricingNetworkDetail",
+    "points" : [],
+    "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/network300.jpg",
+    "action" : {
+      "label" : "mainPricingDiscover",
+      "link" : "#network-pricing"
+    }
+  }, {
+    "background" : "gray",
+    "key" : "testimony"
+  }, "footer" ]
 }

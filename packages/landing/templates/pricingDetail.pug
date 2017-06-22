@@ -1,26 +1,25 @@
 div(class='background-' + ( background || 'white' ))
   .container
     .spaced
-      .pricing-v2
+      .pricing
         ul
           each offer in offers
             li(class='price-canvas margin-h-' + ( offerMargin || 'lg' ) )
               div(class='unit price-primary ' + ( typeof classes !== 'undefined' ? classes : '' ) )
                 div(class=typeof offer.count !== 'undefined'?'price-title':'price-title')
-                  h3!=offer.title
-                  if typeof offer.small !== 'undefined'
-                    small.margin-top-md!=offer.small
-                  if typeof offer.count !== 'undefined'
-                    p!=offer.count
-                  if typeof offer.countDetail !== 'undefined'
-                    small!=offer.countDetail
+                  h3(class=typeof offer.priceDetail ? '' : 'padding-bottom-sm')!=offer.title
+                  p!=offer.price
+                  if offer.priceDetail
+                    small!=offer.priceDetail
                 .price-body
-                  if typeof offer.priceDetail !== 'undefined'
-                    p!=offer.price
-                      br
-                      small!=offer.priceDetail
-                  else
-                    p.padding-v-sm!=offer.price
+                  if offer.small || offer.count || offer.countDetail
+                    div.price-body-head
+                      if offer.small
+                        small.margin-bottom-sm!=offer.small
+                      if offer.count
+                        p!=offer.count
+                      if offer.countDetail
+                        small!=offer.countDetail
                   ul
                     each feature in offer.features
                       if feature === true
