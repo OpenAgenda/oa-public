@@ -27,7 +27,7 @@ function deep( obj, address ) {
 
 function deepSet( obj, address, value ) {
 
-  if ( typeof obj !== 'object' || obj === null ) return;
+  if ( typeof obj !== 'object' || obj === null ) return;
 
   var v = obj, parts = address.split( '.' ), leaf = parts.pop();
 
