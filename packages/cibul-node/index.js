@@ -7,15 +7,18 @@ module.exports = {
     agenda: require( './services/agenda' ),
     embed: require( './services/embed' ),
     nominatim: require( './services/nominatim' ),
-    images: require( 'images' ),
-    files: require( 'files' ),
-    tags: require( 'agenda-tags' ),
-    locations: require( 'agenda-locations' ),
+    agendas: require( 'agendas' ),
     categories: require( 'agenda-categories' ),
-    users: require( 'users' ),
-    stakeholders: require( 'agenda-stakeholders' )
+    locations: require( 'agenda-locations' ),
+    agendaSearch: require( 'agenda-search' ),
+    stakeholders: require( 'agenda-stakeholders' ),
+    tags: require( 'agenda-tags' ),
+    files: require( 'files' ),
+    images: require( 'images' ),
+    mailer: require( 'mailer' ),
+    users: require( 'users' )
   },
   config: require( './config' ),
-  init: require( './lib/init' ),
+  init: require( './services/init' ),
   modelLib: require( './services/model' )
 };
