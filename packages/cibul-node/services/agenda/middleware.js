@@ -2,29 +2,29 @@
 
 var svc,
 
-csv = require( 'fast-csv' ),
+  csv = require( 'fast-csv' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-pdf = require( 'pdf' ),
+  pdf = require( 'pdf' ),
 
-xlsx = require( 'xlsx-writestream' ),
+  xlsx = require( 'xlsx-writestream' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-svcConfig = require( './config' ),
+  svcConfig = require( './config' ),
 
-eventSvc = require( '../event' ),
+  eventSvc = require( '../event' ),
 
-config = require( '../../config' ),
+  config = require( '../../config' ),
 
-version = require( './helpers/version' ),
+  version = require( './helpers/version' ),
 
-tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
+  tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
 
-_ = require( 'lodash' ),
+  _ = require( 'lodash' ),
 
-mwh = require( '../lib/middlewareHelpers' );
+  mwh = require( '../lib/middlewareHelpers' );
 
 module.exports = function( agendaService ) {
 
@@ -422,7 +422,7 @@ function buildPdf( req, res, next ) {
     'Content-Type': 'application/pdf',
     'content-disposition': [
       'attachment; filename=\"',
-      req.agenda.title,
+      req.agenda.slug,
       '.', _stringifiedNow(),
       '.pdf\"' ].join('')
   } );
