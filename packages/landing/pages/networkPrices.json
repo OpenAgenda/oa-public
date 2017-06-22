@@ -45,7 +45,7 @@
       "small" : "networkUpTo",
       "countDetail" : "networkPricingSmallCountDetail",
       "price" : "networkPricingSmallPricing",
-      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "priceDetail" :"networkPricingSmallPricingDetail",
       "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {
         "label" : "agendaPricingCustomAction",
@@ -57,7 +57,7 @@
       "small" : "networkUpTo",
       "countDetail" : "networkPricingMediumCountDetail",
       "price" : "networkPricingMediumPricing",
-      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "priceDetail" :"networkPricingMediumPricingDetail",
       "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {
         "label" : "agendaPricingCustomAction",
@@ -67,7 +67,6 @@
       "title" : "networkPricingLarge",
       "count" : "networkPricingLargeCount",
       "price" : "networkPricingLargePricing",
-      "priceDetail" :"agendaPricingCustomYearlyPrice",
       "countDetail" : "",
       "features" : [ "networkCustomizedSupport", true, true, true, "networkPricingCustomized" ],
       "action" : {

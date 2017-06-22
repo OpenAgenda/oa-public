@@ -4,7 +4,7 @@ div(class='background-' + ( background || 'white' ))
       .pricing
         ul
           each offer in offers
-            li(class='price-canvas margin-h-' + ( offerMargin || 'lg' ) )
+            li(class='price-canvas margin-v-md margin-h-' + ( offerMargin || 'lg' ) )
               div(class='unit price-primary ' + ( typeof classes !== 'undefined' ? classes : '' ) )
                 div(class=typeof offer.count !== 'undefined'?'price-title':'price-title')
                   h3(class=typeof offer.priceDetail ? '' : 'padding-bottom-sm')!=offer.title

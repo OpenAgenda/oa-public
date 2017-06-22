@@ -74,5 +74,6 @@
         "button" : "footerContactSubscribe"
       }
     } ]
-  }
+  },
+  "bottom" : [ "footerPriceComment" ]
 }
