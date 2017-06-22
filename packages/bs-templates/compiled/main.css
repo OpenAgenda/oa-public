@@ -13259,6 +13259,10 @@ i.mce-i-backcolor {
         text-align: center; }
         .landing .footer h2 {
           margin: 2em 0 1em; } }
+    .landing .footer .bottom {
+      color: #ccc; }
+      .landing .footer .bottom p {
+        font-size: 1em; }
   .landing .hook {
     font-weight: 400; }
   .landing .spaced {
