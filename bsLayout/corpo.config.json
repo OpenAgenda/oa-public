@@ -13,7 +13,7 @@
         "robots": "index, follow"
       }
     },
-    "pageClass": false,
+    "pageClass": "landing",
     "pageId": false,
     "searchRes": "searchEvents",
     "search": "",
