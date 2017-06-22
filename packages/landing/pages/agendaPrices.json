@@ -9,7 +9,6 @@
     "description" : "agendaPricingDescripton"
   },
   "title" : "agendaPricingTitle",
-  "description" : "agendaPricingDescription",
   "layout" : "layout",
   "segments" : [ {
     "key" : "network",

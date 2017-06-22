@@ -9,7 +9,6 @@
     "description" : "networkPricingDescripton"
   },
   "title" : "networkPricingTitle",
-  "description" : "networkPricingDescription",
   "layout" : "layout",
   "segments" : [ {
     "key" : "network",
