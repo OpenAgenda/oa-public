@@ -28,12 +28,76 @@ const routes = {
 
   /**********/
 
-  membersList: [ 'get', '/stakeholders.json', list() ],
-  membersStats: [ 'get', '/stats', stats() ],
-  membersRemove: [ 'get', '/remove/:id', remove() ],
-  membersUpdate: [ 'post', '/update/:id', update() ],
-  membersInvite: [ 'post', '/invite', invite() ],
-  membersSendMessage: [ 'post', '/send-message', sendMessage() ]
+  membersList: [ 'get', '/stakeholders.json', [
+    stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
+    _parseListResult(),
+    ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
+  ] ],
+
+  membersStats: [ 'get', '/stats', [
+    stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
+    ( { stats }, res ) => res.json( { stats } )
+  ] ],
+
+  membersRemove: [ 'get', '/remove/:id', [
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
+    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
+      namespaces: {
+        stakeholder: 'stakeholderToUse',
+        instance: 'stakeholderInstanceToUse'
+      }
+    } ),
+    _protectDeletion(),
+    stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
+    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
+  ] ],
+
+  membersUpdate: [ 'post', '/update/:id', [
+    ( req, res, next ) => {
+      req.identifiers = { id: req.params.id };
+      next();
+    },
+    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
+      namespaces: {
+        stakeholder: 'stakeholderToUse',
+        instance: 'stakeholderInstanceToUse'
+      }
+    } ),
+    _setUpdateContext(),
+    _protectUpdate(),
+    stakeholdersMw.agenda( 'agendaInstance.data' ).update( {
+      namespaces: {
+        data: 'body'
+      },
+      credential: true,
+      allowPartial: true
+    } ),
+    ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
+  ] ],
+
+  membersInvite: [ 'post', '/invite', [
+    _protectInvite(),
+    _setInviteContext(),
+    stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {
+      namespaces: {
+        data: 'body'
+      },
+      allowPartial: true
+    } ),
+    _parseInviteResult(),
+    ( { result }, res ) => {
+      const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
+      res.status( status ).json( result )
+    }
+  ] ],
+
+  membersSendMessage: [ 'post', '/send-message', [
+    _sendMessage,
+    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+  ] ]
 
 };
 
@@ -144,101 +208,6 @@ function matchApp( req, res, next ) {
 }
 
 
-function list() {
-
-  return async.applyEachSeries( [
-    stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
-    _parseListResult(),
-    ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-  ] );
-
-}
-
-function stats() {
-
-  return async.applyEachSeries( [
-    stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
-    ( { stats }, res ) => res.json( { stats } )
-  ] );
-
-}
-
-function remove() {
-
-  return async.applyEachSeries( [
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    _protectDeletion(),
-    stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
-    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
-  ] );
-
-}
-
-function update() {
-
-  return async.applyEachSeries( [
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    _setUpdateContext(),
-    _protectUpdate(),
-    stakeholdersMw.agenda( 'agendaInstance.data' ).update( {
-      namespaces: {
-        data: 'body'
-      },
-      credential: true,
-      allowPartial: true
-    } ),
-    ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
-  ] );
-
-}
-
-function invite() {
-
-  return async.applyEachSeries( [
-    _protectInvite(),
-    _setInviteContext(),
-    stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {
-      namespaces: {
-        data: 'body'
-      },
-      allowPartial: true
-    } ),
-    _parseInviteResult(),
-    ( { result }, res ) => {
-      const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
-      res.status( status ).json( result )
-    }
-  ] );
-
-}
-
-function sendMessage() {
-
-  return async.applyEachSeries( [
-    _sendMessage,
-    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  ] );
-
-}
-
 function _parseListResult() {
 
   return ( req, res, next ) => {
@@ -346,6 +315,7 @@ function _parseInviteResult() {
   };
 
 }
+
 
 function _sendMessage() {
 
