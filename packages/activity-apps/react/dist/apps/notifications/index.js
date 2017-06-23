@@ -19,6 +19,12 @@ exports.default = function (options) {
   var formatNotification = (0, _formatNotification2.default)(null, _notifications2.default, userUid);
 
   var getLabel = (0, _labels2.default)(_notifications2.default, lang);
+  var date = (0, _moment2.default)(notification.createdAt);
+  var now = (0, _moment2.default)();
+
+  if (date.diff(now) > 0) {
+    date = now;
+  }
 
   return _react2.default.createElement(
     'div',
@@ -80,7 +86,7 @@ exports.default = function (options) {
           _react2.default.createElement(
             'div',
             { className: 'datetime text-muted' },
-            ucfirst((0, _moment2.default)(notification.createdAt).locale(lang).fromNow())
+            ucfirst(date.locale(lang).fromNow())
           )
         );
       }),

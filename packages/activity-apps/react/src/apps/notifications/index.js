@@ -21,6 +21,12 @@ export default function ( options ) {
   const formatNotification = notificationFormatMaker( null, labels, userUid );
 
   const getLabel = makeLabelGetter( labels, lang );
+  let date = moment( notification.createdAt );
+  let now = moment();
+
+  if ( date.diff( now ) > 0 ) {
+    date = now;
+  }
 
   return (
     <div className="notifications-body">
@@ -52,7 +58,7 @@ export default function ( options ) {
               </div>
               <div dangerouslySetInnerHTML={{ __html: content }} />
               <div className="datetime text-muted">
-                {ucfirst( moment( notification.createdAt ).locale( lang ).fromNow() )}
+                {ucfirst( date.locale( lang ).fromNow() )}
               </div>
             </a>
           ) )}
