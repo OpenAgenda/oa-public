@@ -16,7 +16,7 @@ exports.default = function (options) {
       notifications = _Object$assign.notifications,
       userUid = _Object$assign.userUid;
 
-  var formatNotification = (0, _formatNotification2.default)({}, _notifications2.default, userUid);
+  var formatNotification = (0, _formatNotification2.default)(null, _notifications2.default, userUid);
 
   var getLabel = (0, _labels2.default)(_notifications2.default, lang);
 

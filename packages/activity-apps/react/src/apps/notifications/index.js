@@ -18,7 +18,7 @@ export default function ( options ) {
     userUid: null,
     lang: 'fr'
   }, options );
-  const formatNotification = notificationFormatMaker( {}, labels, userUid );
+  const formatNotification = notificationFormatMaker( null, labels, userUid );
 
   const getLabel = makeLabelGetter( labels, lang );
 
