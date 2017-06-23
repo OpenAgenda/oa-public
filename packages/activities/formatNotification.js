@@ -20,73 +20,88 @@ const eventStateCodeToLabel = code => [
   'published'
 ][ code ];
 
-module.exports = ( urls, labels, userUid = null, defaultLang = 'fr' ) => {
+const defaultGetUrl = ( notification, subjects, userUid, labelSuffix ) => {
 
-  urls = merge( {
+  if (
+    [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notification.verb )
+    && userUid && notification.store.objects.includes( `user:${userUid}` )
+  ) {
+
+    if ( credentialTypes.isSuperiorTo( notification.store.credential, credentialTypes.get( 'contributor' ) ) ) {
+
+      return '/agendas/:agenda/admin/members';
+
+    }
+
+    return '/agendas/:agenda';
+
+  }
+
+  const urls = {
     'agenda.sendInvitation': {
       singSing: '/agendas/:agenda/admin/members',
       singPlur: '/agendas/:agenda/admin/members',
       plurSing: '/agendas/:agenda/admin/members',
       plurPlur: '/agendas/:agenda/admin/members'
     },
-    'agenda.acceptInvitation' : {
+    'agenda.acceptInvitation': {
       singSing: '/agendas/:agenda/admin/members',
       singPlur: '/agendas/:agenda/admin/members',
       plurSing: '/agendas/:agenda/admin/members',
       plurPlur: '/agendas/:agenda/admin/members'
     },
-    'agenda.addMember' : {
+    'agenda.addMember': {
       singSing: '/agendas/:agenda/admin/members',
       singPlur: '/agendas/:agenda/admin/members',
       plurSing: '/agendas/:agenda/admin/members',
       plurPlur: '/agendas/:agenda/admin/members'
     },
-    'agenda.setMemberRole' : {
-      singSing: '/agendas/:agenda/admin/members',
+    'agenda.setMemberRole': {
+      singSing: '/agendas/:agenda',
       singPlur: '/agendas/:agenda/admin/members',
       plurSing: '/agendas/:agenda/admin/members',
       plurPlur: '/agendas/:agenda/admin/members'
     },
-    'agenda.create' : {
+    'agenda.create': {
       sing: '/agendas/:agenda'
     },
-    'agenda.updateContribution' : {
+    'agenda.updateContribution': {
       sing: '/agendas/:agenda/admin/settings/contribution',
       plur: '/agendas/:agenda/admin/settings/contribution'
     },
-    'agenda.updateProfile' : {
+    'agenda.updateProfile': {
       sing: '/agendas/:agenda/admin/settings/profile',
       plur: '/agendas/:agenda/admin/settings/profile'
     },
-    'agenda.rename' : {
+    'agenda.rename': {
       sing: '/agendas/:agenda',
       plur: '/agendas/:agenda'
     },
-    'agenda.setOfficial' : {
+    'agenda.setOfficial': {
       '': '/agendas/:agenda'
     },
-    'agenda.setUnofficial' : {
+    'agenda.setUnofficial': {
       '': '/agendas/:agenda'
     },
-    'agenda.changeEventState' : {
+    'agenda.changeEventState': {
       singSing: '/agendas/:agenda/events/:event',
       singPlur: '/agendas/:agenda',
       plurSing: '/agendas/:agenda/events/:event',
       plurPlur: '/agendas/:agenda'
     },
-    'agenda.publishEvent' : {
+    'agenda.publishEvent': {
       singSing: '/agendas/:agenda/events/:event',
       singPlur: '/agendas/:agenda',
       plurSing: '/agendas/:agenda/events/:event',
       plurPlur: '/agendas/:agenda'
     },
-    'agenda.unpublishEvent' : {
+    'agenda.unpublishEvent': {
       singSing: '/agendas/:agenda/events/:event',
       singPlur: '/agendas/:agenda',
       plurSing: '/agendas/:agenda/events/:event',
       plurPlur: '/agendas/:agenda'
     },
-    'agenda.removeEvent' : {
+    'agenda.removeEvent': {
       singSing: '/agendas/:agenda',
       singPlur: '/agendas/:agenda',
       plurSing: '/agendas/:agenda',
@@ -103,7 +118,15 @@ module.exports = ( urls, labels, userUid = null, defaultLang = 'fr' ) => {
       plurSing: '/agendas/:agenda/events/:event', // multiple users, one event
       plurPlur: '/agendas/:agenda' // multiple users, multiple events
     }
-  }, urls );
+  };
+
+  return urls[ notification.verb ] && urls[ notification.verb ][ lowerFirstLetter( labelSuffix ) ] || null;
+
+};
+
+module.exports = ( getUrl, labels, userUid = null, defaultLang = 'fr' ) => {
+
+  if ( !getUrl ) getUrl = defaultGetUrl;
 
   return ( notification, lang = defaultLang ) => {
 
@@ -167,7 +190,7 @@ module.exports = ( urls, labels, userUid = null, defaultLang = 'fr' ) => {
 
     Object.assign( subjects, additionalSubjects );
 
-    let url = urls[ notification.verb ] && urls[ notification.verb ][ lowerFirstLetter( labelSuffix ) ] || null;
+    let url = getUrl( notification, subjects, userUid, lowerFirstLetter( labelSuffix ) ) || null;
 
     if ( url ) {
       url = Object.keys( firstUids ).reduce( ( prev, next ) => prev.replace( `:${next}`, firstUids[ next ] ), url );

@@ -62,7 +62,7 @@ async function _sendSummary( { user, notifications } ) {
 
   const lang = user.culture || 'fr';
 
-  const formatNotification = notificationFormatMaker( {}, notiflabels, user.uid );
+  const formatNotification = notificationFormatMaker( null, notiflabels, user.uid );
   const getLabel = makeLabelGetter( emailLabels, lang );
 
   const message = notifications.map(
