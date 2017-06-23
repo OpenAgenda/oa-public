@@ -73,12 +73,15 @@ module.exports.init = ( config, cb ) => {
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
+        if ( targetFeed.entityType === 'user' && targetFeed.entityUid === parseInt( activity.object.split( ':' )[ 1 ] ) ) {
+
+          return cb( null, true );
+
+        }
+
         if (
-          (
-            !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-            || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
-          )
-          && !(targetFeed.entityType === 'user' && targetFeed.entityUid === activity.object.split( ':' )[ 1 ])
+          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
+          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
         ) {
 
           return cb( null, false );
@@ -93,12 +96,15 @@ module.exports.init = ( config, cb ) => {
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
+        if ( targetFeed.entityType === 'user' && targetFeed.entityUid === parseInt( activity.object.split( ':' )[ 1 ] ) ) {
+
+          return cb( null, true );
+
+        }
+
         if (
-          (
-            !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-            || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
-          )
-          && !(targetFeed.entityType === 'user' && targetFeed.entityUid === activity.object.split( ':' )[ 1 ])
+          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
+          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
         ) {
 
           return cb( null, false );
