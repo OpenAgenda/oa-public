@@ -73,7 +73,7 @@ export default class ProfileEdition extends Component {
   }
 
   render() {
-    const { handleSubmit, agenda, modal, imageUploaded, res, setModal, remove } = this.props;
+    const { handleSubmit, agenda, modal, imageUploaded, imageChanged, res, setModal, remove } = this.props;
     const { getLabel, lang } = this.context;
 
     const removeModal = {
@@ -104,7 +104,7 @@ export default class ProfileEdition extends Component {
               handleUpdate={imageUploaded}
               upload={res.uploadImage.replace( ':slug', agenda.slug )}
               remove={res.clearImage.replace( ':slug', agenda.slug )}
-              rand={false}
+              rand={!!imageChanged}
             />
             <form onSubmit={handleSubmit}>
               <Field

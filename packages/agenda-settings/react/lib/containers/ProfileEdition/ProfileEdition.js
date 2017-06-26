@@ -170,6 +170,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
           agenda = _props2.agenda,
           modal = _props2.modal,
           imageUploaded = _props2.imageUploaded,
+          imageChanged = _props2.imageChanged,
           res = _props2.res,
           setModal = _props2.setModal,
           remove = _props2.remove;
@@ -232,7 +233,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
               handleUpdate: imageUploaded,
               upload: res.uploadImage.replace(':slug', agenda.slug),
               remove: res.clearImage.replace(':slug', agenda.slug),
-              rand: false
+              rand: !!imageChanged
             }),
             _react3.default.createElement(
               'form',
