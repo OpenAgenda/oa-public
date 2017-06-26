@@ -44,6 +44,7 @@ Translation.propTypes = {
 };
 
 var TranslationComponent = (0, _createReactClass2.default)({
+  displayName: 'TranslationComponent',
   getDefaultProps: function getDefaultProps() {
 
     return {

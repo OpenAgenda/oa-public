@@ -247,7 +247,11 @@ Wrapper = createReactClass( {
       <LanguageBar
         enabled={[ 'fr' ]}
         languages= {[ 'fr', 'en', 'es' ]}
-        onChange={function(){}} />
+        onChange={function(){
+
+          console.log( arguments );
+
+        }} />
 
 
       <p>not editable</p>

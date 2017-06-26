@@ -222,9 +222,9 @@ var LanguageItem = createReactClass( {
 
   },
 
-  onChange: function( code ) {
+  onChange: function( language ) {
 
-    this.props.onChange( this.props.code, code );
+    this.props.onChange( this.props.code, language.value );
 
   },
 

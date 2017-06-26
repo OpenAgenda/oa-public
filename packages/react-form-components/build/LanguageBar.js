@@ -171,6 +171,8 @@ module.exports = createReactClass({
 });
 
 var LanguageItem = createReactClass({
+  displayName: 'LanguageItem',
+
 
   onRemove: function onRemove() {
 
@@ -196,9 +198,9 @@ var LanguageItem = createReactClass({
   },
 
 
-  onChange: function onChange(code) {
+  onChange: function onChange(language) {
 
-    this.props.onChange(this.props.code, code);
+    this.props.onChange(this.props.code, language.value);
   },
 
   render: function render() {
