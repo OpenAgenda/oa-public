@@ -19,12 +19,6 @@ exports.default = function (options) {
   var formatNotification = (0, _formatNotification2.default)(null, _notifications2.default, userUid);
 
   var getLabel = (0, _labels2.default)(_notifications2.default, lang);
-  var date = (0, _moment2.default)(notification.createdAt);
-  var now = (0, _moment2.default)();
-
-  if (date.diff(now) > 0) {
-    date = now;
-  }
 
   return _react2.default.createElement(
     'div',
@@ -55,41 +49,8 @@ exports.default = function (options) {
         )
       ),
       notifications.map(function (v) {
-        return _extends({ notification: v }, formatNotification(v, lang));
-      }).map(function (_ref) {
-        var notification = _ref.notification,
-            content = _ref.content,
-            url = _ref.url;
-        return _react2.default.createElement(
-          'a',
-          {
-            href: url,
-            className: (0, _classnames2.default)('list-group-item', { read: notification.state === 2 }),
-            key: notification.id,
-            'data-id': notification.id
-          },
-          _react2.default.createElement(
-            'div',
-            { className: 'pull-right' },
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-link remove' },
-              _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
-            ),
-            _react2.default.createElement(
-              'button',
-              { className: 'btn btn-link mark-read' },
-              _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
-            )
-          ),
-          _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: content } }),
-          _react2.default.createElement(
-            'div',
-            { className: 'datetime text-muted' },
-            ucfirst(date.locale(lang).fromNow())
-          )
-        );
-      }),
+        return _extends({ notification: v }, formatNotification(v, lang), { lang: lang });
+      }).map(renderNotification),
       notifications && notifications.length > 0 && _react2.default.createElement(
         'div',
         { className: 'list-group-item next-item' },
@@ -139,4 +100,48 @@ var ucfirst = function ucfirst(s) {
   return s.substr(0, 1).toUpperCase() + s.substring(1);
 };
 
+function renderNotification(_ref) {
+  var notification = _ref.notification,
+      content = _ref.content,
+      url = _ref.url,
+      lang = _ref.lang;
+
+
+  var date = (0, _moment2.default)(notification.createdAt);
+  var now = (0, _moment2.default)();
+
+  if (date.diff(now) > 0) {
+    date = now;
+  }
+
+  return _react2.default.createElement(
+    'a',
+    {
+      href: url,
+      className: (0, _classnames2.default)('list-group-item', { read: notification.state === 2 }),
+      key: notification.id,
+      'data-id': notification.id
+    },
+    _react2.default.createElement(
+      'div',
+      { className: 'pull-right' },
+      _react2.default.createElement(
+        'button',
+        { className: 'btn btn-link remove' },
+        _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
+      ),
+      _react2.default.createElement(
+        'button',
+        { className: 'btn btn-link mark-read' },
+        _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
+      )
+    ),
+    _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: content } }),
+    _react2.default.createElement(
+      'div',
+      { className: 'datetime text-muted' },
+      ucfirst(date.locale(lang).fromNow())
+    )
+  );
+}
 module.exports = exports['default'];

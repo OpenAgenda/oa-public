@@ -157,6 +157,7 @@ function onRemoveClick( elem ) {
   return e => {
 
     du.preventDefault( e );
+    e.stopPropagation();
 
     const notifElem = elem.parentNode.parentNode;
     const id = notifElem.getAttribute( 'data-id' );
@@ -178,6 +179,8 @@ function onRemoveClick( elem ) {
 
     } );
 
+    return false;
+
   };
 
 }
@@ -187,6 +190,7 @@ function onMarkReadClick( elem ) {
   return e => {
 
     du.preventDefault( e );
+    e.stopPropagation();
 
     const notifElem = elem.parentNode.parentNode;
     const id = notifElem.getAttribute( 'data-id' );
@@ -198,6 +202,8 @@ function onMarkReadClick( elem ) {
       if ( !du.hasClass( notifElem, 'read' ) ) du.addClass( notifElem, 'read' );
 
     } );
+
+    return false;
 
   };
 
