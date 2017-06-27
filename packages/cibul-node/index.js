@@ -1,5 +1,8 @@
 "use strict";
 
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+
 module.exports = {
   services: {
     location: require( './services/location' ),
