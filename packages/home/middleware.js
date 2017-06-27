@@ -108,7 +108,7 @@ function eventsList( req, res, next ) {
       events = events.map( event => {
 
         const timings = (event.timings || []).map( t => ({ start: new Date( t.begin ), end: new Date( t.end ) }) );
-        const timerange = range( timings, req.lang || 'fr', event.timezone || 'Europe/Paris' );
+        const timerange = range( timings.reverse(), req.lang || 'fr', event.timezone || 'Europe/Paris' );
 
         return Object.assign( {}, event, { timerange } );
 
