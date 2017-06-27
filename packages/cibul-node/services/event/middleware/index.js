@@ -158,7 +158,7 @@ function search( limit ) {
 
 function cleanEvents( req, res, next ) {
 
-  svc.exports.cleanEvents( req.events, ( err, clean ) => {
+  svc.exports.cleanEvents( req.events, { includeEmbedded: !!req.query.include_embedded }, ( err, clean ) => {
 
     if ( err ) return next( err );
 

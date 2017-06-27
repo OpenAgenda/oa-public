@@ -1,20 +1,22 @@
 "use strict";
 
-var log = require( 'logger' )( 'services/event/oembed' ),
+const log = require( 'logger' )( 'services/event/oembed' ),
 
-lib = require( '../../lib/lib' ),
+  lib = require( '../../lib/lib' ),
 
-coms = require( '../../lib/coms' ),
+  coms = require( '../../lib/coms' ),
 
-config = require( '../../config' ),
+  config = require( '../../config' ),
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-cbm = require( '../model' ),
+  cbm = require( '../model' ),
 
-https = require( 'https' ),
+  https = require( 'https' ),
 
-processing = false;
+  validateEmail = require( 'validators/email' )();
+
+let processing = false;
 
 module.exports = {
   addJob,    // queue job on job stack
@@ -103,6 +105,10 @@ function _processLink( links ) {
       linksItem = lib.getByAttr( links, { link: processedLink.link } );
 
       linksItem.code = '<img src="' + processedLink.link + '"/>';
+
+      return cb();
+
+    } else if ( _isEmail( processedLink.link ) ) {
 
       return cb();
 
@@ -216,6 +222,22 @@ function _getAndParse( url, cb ) {
 function _isImage( link ) {
 
   return /\.(png|jpg|bmp|jpeg|gif)$/.test( link );
+
+}
+
+function _isEmail( link ) {
+
+  try {
+
+    validateEmail( link );
+
+  } catch( e ) {
+
+    return false;
+
+  }
+
+  return true;
 
 }
 

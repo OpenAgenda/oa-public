@@ -140,6 +140,7 @@ const sessions = require( 'sessions' ),
 
     agendaSearch: [ 'get', '/agendas', [
       cmn.https,
+      _redirectSlashed,
       _modifiedSince1am,
       agendaSearch.mw.list,
       cmn.loadBaseData( 'oasfmain.css' ),
@@ -756,6 +757,19 @@ function _error( req, res ) {
     cmn.errorResponse( req, res, err );
 
   };
+
+}
+
+
+function _redirectSlashed( req, res, next ) {
+
+  if ( req.url.slice( -1 ) === '/' ) {
+
+    return res.redirect( 301, req.genUrl( 'agendaSearch' ) );
+
+  }
+
+  next();
 
 }
 

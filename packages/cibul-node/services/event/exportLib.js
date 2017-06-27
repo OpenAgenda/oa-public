@@ -75,7 +75,15 @@ module.exports = service => {
 
 }
 
-function cleanEvent( eInst, cb ) {
+function cleanEvent( eInst, options, cb ) {
+
+  if ( arguments.length === 2 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
 
   var dateRange = eInst.getDateRange( true ),
 
@@ -87,7 +95,7 @@ function cleanEvent( eInst, cb ) {
     description: eInst.description,
     longDescription: eInst.freeText,
     keywords: _extractKeywords( eInst ),
-    html: eInst.getEnrichedFreeText( true ),
+    html: eInst.getEnrichedFreeText( { allLanguages: true, includeLinks: options.includeEmbedded } ),
     image: eInst.getImage(),
     thumbnail: eInst.getThumbnail(),
     originalImage: eInst.getFullImage(),
@@ -192,11 +200,18 @@ function _inject( c, l, map ) {
 }
 
 
-function cleanEvents( events, cb ) {
+function cleanEvents( events, options, cb ) {
+
+  if ( arguments.length === 2 ) {
+
+    cb = options;
+    options = {};
+
+  }
 
   async.map( events, function( e, mcb ) {
 
-    cleanEvent( svc.instanciate( e ), mcb );
+    cleanEvent( svc.instanciate( e ), options, mcb );
 
   }, cb );
 

@@ -243,7 +243,17 @@ function eventDelete( req, res, next ) {
 
         req.event.remove( err => {
 
-          log( 'info', 'event %s removed', req.event.id );
+          if ( err ) {
+
+            log( 'error', 'event %s could not be removed: %s', req.event.id, err );
+
+            console.log( err );
+
+          } else {
+
+            log( 'info', 'event %s removed', req.event.id );
+
+          }
 
         } );
 

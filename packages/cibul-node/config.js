@@ -4,12 +4,12 @@ var deepExtend = require( 'deep-extend' ),
     all: {
       env: 'production',
       corpoLastUpdate: '2017-06-21T12:07:29.000Z',
-      jsVersion: 7,
+      jsVersion: 9,
       versions: {
         members: [ {
           version: 2,
           createdAt: '2016-05-22T00:00:00.000Z',
-          agendaUids: [ 
+          agendaUids: [
             47863189, // reed expo
             48959239, // la gargouille
             93961830, // jerusalem
