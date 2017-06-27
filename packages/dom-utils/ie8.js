@@ -190,3 +190,18 @@ if ( !Array.prototype.includes ) {
     }
   } );
 }
+
+if ( !String.prototype.includes ) {
+  String.prototype.includes = function () {
+    'use strict';
+    return String.prototype.indexOf.apply( this, arguments ) !== -1;
+  };
+}
+
+if ( !('remove' in Element.prototype) ) {
+  Element.prototype.remove = function () {
+    if ( this.parentNode ) {
+      this.parentNode.removeChild( this );
+    }
+  };
+}
