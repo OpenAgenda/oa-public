@@ -11,7 +11,9 @@
     "build": "rm -rf react/dist && babel react/src -d react/dist",
     "preserve": "npm run build",
     "serve": "node test/app",
-    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'"
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",
@@ -64,6 +66,7 @@
     "events-service": "git+ssh://git@bitbucket.org/openagenda/events-service.git",
     "express": "^4.14.0",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "husky": "^0.14.1",
     "morgan": "^1.7.0",
     "react": "^15.5.4",
     "react-transform-catch-errors": "^1.0.2",

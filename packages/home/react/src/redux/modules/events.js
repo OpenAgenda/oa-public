@@ -41,7 +41,7 @@ export default function reducer( state = initialState, action ) {
     case LIST:
       return {
         ...state,
-        loading: true
+        listLoading: true
       };
     case LIST_SUCCESS:
       return {
@@ -50,7 +50,7 @@ export default function reducer( state = initialState, action ) {
         total: action.result.total,
         page: 1,
         error: null,
-        loading: false
+        listLoading: false
       };
     case LIST_FAIL:
       return {
@@ -59,7 +59,7 @@ export default function reducer( state = initialState, action ) {
         total: null,
         page: 1,
         error: action.error,
-        loading: false
+        listLoading: false
       };
     case NEXT_PAGE:
       return {

@@ -30,6 +30,10 @@ var _reduxConnect = require('redux-connect');
 
 var _reactRedux = require('react-redux');
 
+var _Spinner = require('react-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 var _agendas = require('../../redux/modules/agendas');
 
 var agendasActions = _interopRequireWildcard(_agendas);
@@ -66,6 +70,7 @@ function _wrapComponent(id) {
 }
 
 var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)([{
+  deferred: !__CLIENT__,
   promise: function promise(_ref) {
     var _ref$store = _ref.store,
         dispatch = _ref$store.dispatch,
@@ -73,15 +78,19 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
 
     var state = getState();
     var query = state.routing.locationBeforeTransitions.query;
+    var promises = [];
 
     if (!agendasActions.isLoaded('homeAgendas', state)) {
-      return dispatch(agendasActions.load('homeAgendas', query));
+      promises.push(dispatch(agendasActions.load('homeAgendas', query)));
     }
+
+    return Promise.all(__CLIENT__ ? [] : promises);
   }
 }]), _dec2 = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
-    isNew: state.settings.isNew
+    isNew: state.settings.isNew,
+    loading: state.agendas['homeAgendas'] ? state.agendas['homeAgendas'].loading : true
   };
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
   _inherits(Agendas, _Component);
@@ -155,12 +164,21 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
 
       var _props = this.props,
           isNew = _props.isNew,
+          loading = _props.loading,
           query = _props.location.query,
           res = _props.res;
 
 
       if (isNew) {
         return _react3.default.createElement(_components2.Welcome, null);
+      }
+
+      if (loading) {
+        return _react3.default.createElement(
+          'div',
+          { className: 'padding-v-md', style: { position: 'relative' } },
+          _react3.default.createElement(_Spinner2.default, null)
+        );
       }
 
       return _react3.default.createElement(

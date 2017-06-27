@@ -18,6 +18,7 @@ const selector = formValueSelector( 'homeEvents' );
 
 
 @asyncConnect( [ {
+  deferred: !__CLIENT__,
   promise: ( { store: { dispatch, getState }, helpers: { redirect } } ) => {
     const state = getState();
     const query = state.routing.locationBeforeTransitions.query;
@@ -31,7 +32,7 @@ const selector = formValueSelector( 'homeEvents' );
       promises.push( dispatch( eventsActions.load( query ) ) );
     }
 
-    return Promise.all( promises );
+    return Promise.all( __CLIENT__ ? [] : promises );
   }
 } ] )
 @connect(
@@ -64,6 +65,7 @@ export default class Events extends Component {
     page: PropTypes.number,
     total: PropTypes.number,
     loading: PropTypes.bool,
+    listLoading: PropTypes.bool,
     nextLoading: PropTypes.bool,
     search: PropTypes.string,
     perPageLimit: PropTypes.number,
@@ -88,8 +90,8 @@ export default class Events extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, loading, nextLoading, events, perPageLimit } = this.props;
-    if ( !events || !events.length || loading || nextLoading || page * perPageLimit >= total ) return;
+    const { page, total, search, listLoading, nextLoading, events, perPageLimit } = this.props;
+    if ( !events || !events.length || listLoading || nextLoading || page * perPageLimit >= total ) return;
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
@@ -121,13 +123,21 @@ export default class Events extends Component {
 
   render() {
     const {
-      res, handleSubmit, events, loading, nextLoading,
+      res, handleSubmit, events, loading, listLoading, nextLoading,
       search, perPageLimit, total, location: { query },
       showModal, closeModal, modals, agendasLoad
     } = this.props;
-    const { getLabel, lang } = this.context;
+    const { getLabel } = this.context;
 
     const selectAgendasModal = modals.selectAgenda || {};
+
+    if ( loading ) {
+      return (
+        <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
+      );
+    }
 
     return (
       <div>
@@ -153,7 +163,7 @@ export default class Events extends Component {
             className="form-control"
             placeholder={getLabel( 'searchEvent' )}
             action={this.debouncedSearch}
-            loading={loading}
+            loading={listLoading}
             visible={search || query.search || total > perPageLimit}
           />
         </form>

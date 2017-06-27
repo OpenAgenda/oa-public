@@ -102,6 +102,7 @@ function _wrapComponent(id) {
 var selector = (0, _reduxForm.formValueSelector)('homeEvents');
 
 var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
+  deferred: !__CLIENT__,
   promise: function promise(_ref) {
     var _ref$store = _ref.store,
         dispatch = _ref$store.dispatch,
@@ -120,7 +121,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       promises.push(dispatch(eventsActions.load(query)));
     }
 
-    return Promise.all(promises);
+    return Promise.all(__CLIENT__ ? [] : promises);
   }
 }]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
   return {
@@ -164,12 +165,12 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
           page = _this$props.page,
           total = _this$props.total,
           search = _this$props.search,
-          loading = _this$props.loading,
+          listLoading = _this$props.listLoading,
           nextLoading = _this$props.nextLoading,
           events = _this$props.events,
           perPageLimit = _this$props.perPageLimit;
 
-      if (!events || !events.length || loading || nextLoading || page * perPageLimit >= total) return;
+      if (!events || !events.length || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -213,6 +214,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
           handleSubmit = _props.handleSubmit,
           events = _props.events,
           loading = _props.loading,
+          listLoading = _props.listLoading,
           nextLoading = _props.nextLoading,
           search = _props.search,
           perPageLimit = _props.perPageLimit,
@@ -222,12 +224,18 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
           closeModal = _props.closeModal,
           modals = _props.modals,
           agendasLoad = _props.agendasLoad;
-      var _context = this.context,
-          getLabel = _context.getLabel,
-          lang = _context.lang;
+      var getLabel = this.context.getLabel;
 
 
       var selectAgendasModal = modals.selectAgenda || {};
+
+      if (loading) {
+        return _react3.default.createElement(
+          'div',
+          { className: 'padding-v-md', style: { position: 'relative' } },
+          _react3.default.createElement(_Spinner2.default, null)
+        );
+      }
 
       return _react3.default.createElement(
         'div',
@@ -269,7 +277,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
             className: 'form-control',
             placeholder: getLabel('searchEvent'),
             action: this.debouncedSearch,
-            loading: loading,
+            loading: listLoading,
             visible: search || query.search || total > perPageLimit
           })
         ),
@@ -393,6 +401,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
   page: _propTypes2.default.number,
   total: _propTypes2.default.number,
   loading: _propTypes2.default.bool,
+  listLoading: _propTypes2.default.bool,
   nextLoading: _propTypes2.default.bool,
   search: _propTypes2.default.string,
   perPageLimit: _propTypes2.default.number,
