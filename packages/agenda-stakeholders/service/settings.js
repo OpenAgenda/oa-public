@@ -20,7 +20,7 @@ const utils = require( 'utils' ),
 
   legacyLib = require( './legacy' );
 
-var knex, schemas, log, store;
+let knex, schemas, log, store;
 
 module.exports = Object.assign( settings, { init } );
 
@@ -238,9 +238,10 @@ function init( config ) {
 
   knex = config.knex;
 
-  storeLib( utils.extend( {
+  storeLib( {
     table: config.schemas.stakeholderSettings,
-  }, config.mysql ), ( err, s ) => {
+    promisedQuery: ( query, values ) => knex.raw( query, values ).then( result => result[ 0 ] )
+  }, ( err, s ) => {
 
     if ( err ) return d.reject( err );
 
