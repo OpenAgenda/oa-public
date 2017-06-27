@@ -1,3 +1,5 @@
+const testApp = require( 'test-app' );
+
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const morgan = require( 'morgan' );
@@ -12,7 +14,7 @@ const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' );
 
 const helpers = require( 'test-app/helpers' );
-const app = require( 'test-app' )( {
+const app = testApp( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
