@@ -43,7 +43,8 @@ var deepExtend = require( 'deep-extend' ),
             9343334,
             11919999,
             85229066,
-            30453876
+            30453876,
+            61665301 // ficepparis
           ]
         }, {
           version: 1
