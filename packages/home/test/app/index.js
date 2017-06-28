@@ -29,7 +29,7 @@ const port = process.env.PORT || 3000;
 homeMw.init( config );
 fixtures.init( config );
 agendasSvc.init( _.merge( {}, config, config.services.agendas ) );
-stakeholdersSvc.init( _.merge( {}, config, config.services.agendaStakeholders ) );
+// stakeholdersSvc.init( _.merge( {}, config, config.services.agendaStakeholders ) );
 // eventsSvc.init( _.merge( {}, config, config.services.events ) );
 
 app.use( morgan( 'combined' ) );
@@ -43,6 +43,7 @@ app.use( ( req, res, next ) => {
 } );
 
 async.waterfall( [
+  wcb => stakeholdersSvc.init( _.merge( {}, config, config.services.agendaStakeholders ), wcb ),
   wcb => fixtures( [ {
     table: 'review',
     src: __dirname + '/../fixtures/review.sql'

@@ -50,7 +50,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         [ action.key ]: {
           ...state[ action.key ],
-          loading: true
+          listLoading: true
         }
       };
     case LIST_SUCCESS:
@@ -62,7 +62,7 @@ export default function reducer( state = initialState, action ) {
           total: action.result.total,
           page: 1,
           error: null,
-          loading: false
+          listLoading: false
         }
       };
     case LIST_FAIL:
@@ -74,7 +74,7 @@ export default function reducer( state = initialState, action ) {
           total: null,
           page: 1,
           error: action.error,
-          loading: false
+          listLoading: false
         }
       };
     case NEXT_PAGE:

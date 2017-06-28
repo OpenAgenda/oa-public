@@ -27,6 +27,8 @@ const componentPropTypes = PropTypes.oneOfType( [
       page: state.agendas[ props.id ].page,
       total: state.agendas[ props.id ].total,
       loading: state.agendas[ props.id ].loading,
+      listLoading: state.agendas[ props.id ].listLoading,
+      nextLoading: state.agendas[ props.id ].nextLoading,
       search: selector( state, 'search' ),
       perPageLimit: state.settings.perPageLimit
     };
@@ -47,6 +49,7 @@ export default class AgendasSearch extends Component {
     page: PropTypes.number,
     total: PropTypes.number,
     loading: PropTypes.bool,
+    listLoading: PropTypes.bool,
     nextLoading: PropTypes.bool,
     search: PropTypes.string,
     perPageLimit: PropTypes.number,
@@ -74,8 +77,8 @@ export default class AgendasSearch extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, loading, nextLoading, agendas, perPageLimit } = this.props;
-    if ( !agendas || !agendas.length || loading || nextLoading || page * perPageLimit >= total ) return;
+    const { page, total, search, loading, listLoading, nextLoading, agendas, perPageLimit } = this.props;
+    if ( !agendas || !agendas.length || loading || listLoading || nextLoading || page * perPageLimit >= total ) return;
     this.props.nextPage( this.props.id, { search }, (page || 1) + 1 );
   };
 
@@ -105,7 +108,7 @@ export default class AgendasSearch extends Component {
   render() {
     const {
       Header, getTitleLink,
-      res, handleSubmit, agendas, loading, nextLoading, createButtonIfEmpty,
+      res, handleSubmit, agendas, listLoading, nextLoading, createButtonIfEmpty,
       search, perPageLimit, total, fieldIsVisible, AgendaActionsComponent
     } = this.props;
     const { getLabel } = this.context;
@@ -122,7 +125,7 @@ export default class AgendasSearch extends Component {
             className="form-control"
             placeholder={getLabel( 'searchAgenda' )}
             action={this.debouncedSearch}
-            loading={loading}
+            loading={listLoading}
             visible={search || fieldIsVisible() || total > perPageLimit}
           />
         </form>

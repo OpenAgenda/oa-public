@@ -48,7 +48,7 @@ var _monitorBottomHit = require('dom-utils/monitorBottomHit2');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -133,6 +133,8 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
     page: state.events.page,
     total: state.events.total,
     loading: state.events.loading,
+    listLoading: state.events.listLoading,
+    nextLoading: state.events.nextLoading,
     search: selector(state, 'search'),
     perPageLimit: state.settings.perPageLimit,
     lang: state.settings.lang,
@@ -165,12 +167,13 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
           page = _this$props.page,
           total = _this$props.total,
           search = _this$props.search,
+          loading = _this$props.loading,
           listLoading = _this$props.listLoading,
           nextLoading = _this$props.nextLoading,
           events = _this$props.events,
           perPageLimit = _this$props.perPageLimit;
 
-      if (!events || !events.length || listLoading || nextLoading || page * perPageLimit >= total) return;
+      if (!events || !events.length || loading || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -230,11 +233,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       var selectAgendasModal = modals.selectAgenda || {};
 
       if (loading) {
-        return _react3.default.createElement(
-          'div',
-          { className: 'padding-v-md', style: { position: 'relative' } },
-          _react3.default.createElement(_Spinner2.default, null)
-        );
+        return _react3.default.createElement(_Spinner2.default, null);
       }
 
       return _react3.default.createElement(

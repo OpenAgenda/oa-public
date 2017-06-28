@@ -79,33 +79,27 @@ export default class Agendas extends Component {
     }
 
     if ( loading ) {
-      return (
-        <div className="padding-v-md" style={{ position: 'relative' }}>
-          <Spinner />
-        </div>
-      );
+      return <Spinner />;
     }
 
     return (
-      <div>
-        <AgendasSearch
-          id="homeAgendas"
-          destroyOnUnmount={false}
-          initialValues={{ search: query.search || '' }}
-          fieldIsVisible={() => query.search}
-          onSearch={values => {
-            this.context.router.push( {
-              ...this.props.location,
-              query: { ...this.props.location.query, search: values.search || undefined }
-            } );
-          }}
-          getTitleLink={agenda =>
-            (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
-          }
-          Header={this.renderHeader}
-          AgendaActionsComponent={this.renderAgendaActions}
-        />
-      </div>
+      <AgendasSearch
+        id="homeAgendas"
+        destroyOnUnmount={false}
+        initialValues={{ search: query.search || '' }}
+        fieldIsVisible={() => query.search}
+        onSearch={values => {
+          this.context.router.push( {
+            ...this.props.location,
+            query: { ...this.props.location.query, search: values.search || undefined }
+          } );
+        }}
+        getTitleLink={agenda =>
+          (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
+        }
+        Header={this.renderHeader}
+        AgendaActionsComponent={this.renderAgendaActions}
+      />
     );
   }
 

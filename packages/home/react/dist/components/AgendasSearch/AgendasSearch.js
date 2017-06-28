@@ -95,6 +95,8 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
     page: state.agendas[props.id].page,
     total: state.agendas[props.id].total,
     loading: state.agendas[props.id].loading,
+    listLoading: state.agendas[props.id].listLoading,
+    nextLoading: state.agendas[props.id].nextLoading,
     search: selector(state, 'search'),
     perPageLimit: state.settings.perPageLimit
   };
@@ -122,11 +124,12 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
           total = _this$props.total,
           search = _this$props.search,
           loading = _this$props.loading,
+          listLoading = _this$props.listLoading,
           nextLoading = _this$props.nextLoading,
           agendas = _this$props.agendas,
           perPageLimit = _this$props.perPageLimit;
 
-      if (!agendas || !agendas.length || loading || nextLoading || page * perPageLimit >= total) return;
+      if (!agendas || !agendas.length || loading || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage(_this.props.id, { search: search }, (page || 1) + 1);
     }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -160,7 +163,7 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
           res = _props.res,
           handleSubmit = _props.handleSubmit,
           agendas = _props.agendas,
-          loading = _props.loading,
+          listLoading = _props.listLoading,
           nextLoading = _props.nextLoading,
           createButtonIfEmpty = _props.createButtonIfEmpty,
           search = _props.search,
@@ -186,7 +189,7 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
             className: 'form-control',
             placeholder: getLabel('searchAgenda'),
             action: this.debouncedSearch,
-            loading: loading,
+            loading: listLoading,
             visible: search || fieldIsVisible() || total > perPageLimit
           })
         ),
@@ -230,6 +233,7 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
   page: _propTypes2.default.number,
   total: _propTypes2.default.number,
   loading: _propTypes2.default.bool,
+  listLoading: _propTypes2.default.bool,
   nextLoading: _propTypes2.default.bool,
   search: _propTypes2.default.string,
   perPageLimit: _propTypes2.default.number,

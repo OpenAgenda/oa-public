@@ -7,7 +7,7 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import monitorBottomHit from 'dom-utils/monitorBottomHit2';
-import Spinner from 'react-form-components/build/Spinner';
+import Spinner from 'react-components/build/Spinner';
 import Modal from 'react-components/build/Modal';
 import * as agendasActions from '../../redux/modules/agendas';
 import * as eventsActions from '../../redux/modules/events';
@@ -45,6 +45,8 @@ const selector = formValueSelector( 'homeEvents' );
     page: state.events.page,
     total: state.events.total,
     loading: state.events.loading,
+    listLoading: state.events.listLoading,
+    nextLoading: state.events.nextLoading,
     search: selector( state, 'search' ),
     perPageLimit: state.settings.perPageLimit,
     lang: state.settings.lang,
@@ -90,8 +92,8 @@ export default class Events extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, listLoading, nextLoading, events, perPageLimit } = this.props;
-    if ( !events || !events.length || listLoading || nextLoading || page * perPageLimit >= total ) return;
+    const { page, total, search, loading, listLoading, nextLoading, events, perPageLimit } = this.props;
+    if ( !events || !events.length || loading || listLoading || nextLoading || page * perPageLimit >= total ) return;
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
@@ -132,11 +134,7 @@ export default class Events extends Component {
     const selectAgendasModal = modals.selectAgenda || {};
 
     if ( loading ) {
-      return (
-        <div className="padding-v-md" style={{ position: 'relative' }}>
-          <Spinner />
-        </div>
-      );
+      return <Spinner />;
     }
 
     return (

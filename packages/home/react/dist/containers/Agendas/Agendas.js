@@ -174,35 +174,27 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
       }
 
       if (loading) {
-        return _react3.default.createElement(
-          'div',
-          { className: 'padding-v-md', style: { position: 'relative' } },
-          _react3.default.createElement(_Spinner2.default, null)
-        );
+        return _react3.default.createElement(_Spinner2.default, null);
       }
 
-      return _react3.default.createElement(
-        'div',
-        null,
-        _react3.default.createElement(_components2.AgendasSearch, {
-          id: 'homeAgendas',
-          destroyOnUnmount: false,
-          initialValues: { search: query.search || '' },
-          fieldIsVisible: function fieldIsVisible() {
-            return query.search;
-          },
-          onSearch: function onSearch(values) {
-            _this2.context.router.push(_extends({}, _this2.props.location, {
-              query: _extends({}, _this2.props.location.query, { search: values.search || undefined })
-            }));
-          },
-          getTitleLink: function getTitleLink(agenda) {
-            return res.agendas[agenda.private ? 'showPrivate' : 'show'].replace(':slug', agenda.slug);
-          },
-          Header: this.renderHeader,
-          AgendaActionsComponent: this.renderAgendaActions
-        })
-      );
+      return _react3.default.createElement(_components2.AgendasSearch, {
+        id: 'homeAgendas',
+        destroyOnUnmount: false,
+        initialValues: { search: query.search || '' },
+        fieldIsVisible: function fieldIsVisible() {
+          return query.search;
+        },
+        onSearch: function onSearch(values) {
+          _this2.context.router.push(_extends({}, _this2.props.location, {
+            query: _extends({}, _this2.props.location.query, { search: values.search || undefined })
+          }));
+        },
+        getTitleLink: function getTitleLink(agenda) {
+          return res.agendas[agenda.private ? 'showPrivate' : 'show'].replace(':slug', agenda.slug);
+        },
+        Header: this.renderHeader,
+        AgendaActionsComponent: this.renderAgendaActions
+      });
     }
   }]);
 

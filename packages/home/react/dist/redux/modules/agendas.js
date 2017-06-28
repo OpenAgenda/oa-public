@@ -56,7 +56,7 @@ function reducer() {
       })));
     case LIST:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
-        loading: true
+        listLoading: true
       })));
     case LIST_SUCCESS:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
@@ -64,7 +64,7 @@ function reducer() {
         total: action.result.total,
         page: 1,
         error: null,
-        loading: false
+        listLoading: false
       })));
     case LIST_FAIL:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
@@ -72,7 +72,7 @@ function reducer() {
         total: null,
         page: 1,
         error: action.error,
-        loading: false
+        listLoading: false
       })));
     case NEXT_PAGE:
       return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
