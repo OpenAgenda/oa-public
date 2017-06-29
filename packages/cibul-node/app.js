@@ -227,7 +227,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( 'activities' ).tasks.notifications.addActivity();
 
-        /*require( 'events-service').tasks.transferLegacyData( err => {
+        /*require( 'events-service').tasks.transferLegacyData( { force: true }, err => {
 
           console.log( 'done!' );
           console.log( err );

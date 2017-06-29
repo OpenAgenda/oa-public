@@ -39,6 +39,7 @@ jobHandlers = {
   'event.publish' : _publish( 'events' ),
   'event.create' : _publish( 'events' ),
   'event.delete' : _delete( 'events' ),
+  'event.remove' : _delete( 'events' ),
   'search.update' : _update( 'events' ),
   'event.update' : _update( 'events' ),
   'review.publish' : _publish( 'reviews' ),
