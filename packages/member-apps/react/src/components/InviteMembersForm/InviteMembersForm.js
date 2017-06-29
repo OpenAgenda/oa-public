@@ -2,14 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
+import classNames from 'classnames';
 import validate from './validate';
 import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
+import Spinner from 'react-components/build/Spinner';
 
 @connect(
   state => ({
     roles: state.agenda.roles,
     invitationMessage: state.agenda.credentials.invitationMessage,
-    userCredential: state.stakeholder.credential
+    userCredential: state.stakeholder.credential,
+    inviteLoading: state.members.inviteLoading
   })
 )
 @reduxForm( {
@@ -32,7 +35,7 @@ export default class InviteMembersForm extends Component {
 
   render() {
 
-    const { handleSubmit, userCredential, invitationMessage } = this.props;
+    const { handleSubmit, userCredential, invitationMessage, inviteLoading } = this.props;
     const { getLabel } = this.context;
 
     const haveRole = value => this.props.roles.some( role => role.value === value );
@@ -77,10 +80,12 @@ export default class InviteMembersForm extends Component {
         />}
 
         <div className="text-center">
-          <button className="btn btn-primary" role="submit">
+          <button className={classNames( 'btn btn-primary', { disabled: inviteLoading } )} role="submit">
             {getLabel( 'inviteMembers' )}
           </button>
         </div>
+
+        {inviteLoading && <Spinner />}
       </form>
     );
 

@@ -190,9 +190,11 @@ async.waterfall( [
       const { queued } = req.result;
       const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
 
-      if ( errors.length ) return next( { errors } );
+      if ( errors && errors.length ) {
+        return res.status( 400 ).json( { errors } );
+      }
 
-      const emailsRejected = _.compact( results.reduce( ( prev, nextResult, i ) => {
+      const emailsRejected = _.compact( (results || []).reduce( ( prev, nextResult, i ) => {
         let emailRejected;
         if ( nextResult.errors && nextResult.errors.length ) {
           emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {

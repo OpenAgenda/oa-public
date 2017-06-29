@@ -181,8 +181,9 @@ export default class Dashboard extends Component {
     const { getLabel } = this.context;
 
     const stakeholderType = (() => {
-      if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
-      if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
+      // if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
+      // if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
+      if ( credential === 1 && eventCount === 0 ) return 'noContrib';
       if ( invited && !deletedUser ) return 'invited';
       if ( deletedUser && !invited ) return 'deleted';
     })();
@@ -207,11 +208,11 @@ export default class Dashboard extends Component {
                   'badge-info': stakeholderType === 'invited',
                   'badge-default': stakeholderType === 'inactive',
                   'badge-success': stakeholderType === 'active',
-                  'badge-warning': stakeholderType === 'deleted'
+                  'badge-warning': [ 'deleted', 'noContrib' ].includes( stakeholderType )
                 } )}
               >
                 {/*{stakeholderType === 'active' && getLabel( 'active' )}*/}
-                {/*{stakeholderType === 'inactive' && getLabel( 'inactive' )}*/}
+                {stakeholderType === 'noContrib' && getLabel( 'noContrib' )}
                 {stakeholderType === 'invited' && getLabel( 'invited' )}
                 {stakeholderType === 'deleted' && getLabel( 'deleted' )}
               </span>
@@ -233,9 +234,9 @@ export default class Dashboard extends Component {
               href={res.showContributor.replace( ':contributorId', id )}
               className="text-muted"
             >
-              <span className="badge badge-info">
-                {eventCount} {getLabel( eventCount && eventCount > 1 ? 'events' : 'event' )}
-                </span>
+              {/*<span className="badge badge-info">*/}
+              {eventCount} {getLabel( eventCount && eventCount > 1 ? 'events' : 'event' )}
+              {/*</span>*/}
             </a>
             {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
               role="button"

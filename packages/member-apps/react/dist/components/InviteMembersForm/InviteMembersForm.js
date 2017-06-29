@@ -28,11 +28,19 @@ var _reactRedux = require('react-redux');
 
 var _reduxForm = require('redux-form');
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _validate = require('./validate');
 
 var _validate2 = _interopRequireDefault(_validate);
 
 var _form = require('../../utils/form');
+
+var _Spinner = require('react-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -65,7 +73,8 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
   return {
     roles: state.agenda.roles,
     invitationMessage: state.agenda.credentials.invitationMessage,
-    userCredential: state.stakeholder.credential
+    userCredential: state.stakeholder.credential,
+    inviteLoading: state.members.inviteLoading
   };
 }), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'inviteMembers',
@@ -93,7 +102,8 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
       var _props = this.props,
           handleSubmit = _props.handleSubmit,
           userCredential = _props.userCredential,
-          invitationMessage = _props.invitationMessage;
+          invitationMessage = _props.invitationMessage,
+          inviteLoading = _props.inviteLoading;
       var getLabel = this.context.getLabel;
 
 
@@ -179,10 +189,11 @@ var InviteMembersForm = _wrapComponent('InviteMembersForm')((_dec = (0, _reactRe
           { className: 'text-center' },
           _react3.default.createElement(
             'button',
-            { className: 'btn btn-primary', role: 'submit' },
+            { className: (0, _classnames2.default)('btn btn-primary', { disabled: inviteLoading }), role: 'submit' },
             getLabel('inviteMembers')
           )
-        )
+        ),
+        inviteLoading && _react3.default.createElement(_Spinner2.default, null)
       );
     }
   }]);

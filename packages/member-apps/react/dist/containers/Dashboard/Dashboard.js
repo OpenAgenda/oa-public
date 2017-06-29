@@ -311,8 +311,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
 
       var stakeholderType = function () {
-        if (actionsCounter > 0 && !deletedUser && !invited) return 'active';
-        if (actionsCounter === 0 && !deletedUser && !invited) return 'inactive';
+        // if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
+        // if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
+        if (credential === 1 && eventCount === 0) return 'noContrib';
         if (invited && !deletedUser) return 'invited';
         if (deletedUser && !invited) return 'deleted';
       }();
@@ -351,9 +352,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                     'badge-info': stakeholderType === 'invited',
                     'badge-default': stakeholderType === 'inactive',
                     'badge-success': stakeholderType === 'active',
-                    'badge-warning': stakeholderType === 'deleted'
+                    'badge-warning': ['deleted', 'noContrib'].includes(stakeholderType)
                   })
                 },
+                stakeholderType === 'noContrib' && getLabel('noContrib'),
                 stakeholderType === 'invited' && getLabel('invited'),
                 stakeholderType === 'deleted' && getLabel('deleted')
               )
@@ -398,13 +400,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 href: res.showContributor.replace(':contributorId', id),
                 className: 'text-muted'
               },
-              _react3.default.createElement(
-                'span',
-                { className: 'badge badge-info' },
-                eventCount,
-                ' ',
-                getLabel(eventCount && eventCount > 1 ? 'events' : 'event')
-              )
+              eventCount,
+              ' ',
+              getLabel(eventCount && eventCount > 1 ? 'events' : 'event')
             ),
             (userCredential !== 3 || ![2, 3].includes(credential)) && _react3.default.createElement(
               'a',
