@@ -5,10 +5,9 @@ var du = require('dom-utils');
 module.exports = {
   enable: enable,
   disable: disable
-};
 
-// remove overflow:hidden from body
-function enable() {
+  // remove overflow:hidden from body
+};function enable() {
 
   var bodyElem = du.el('body');
 

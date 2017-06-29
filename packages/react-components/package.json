@@ -8,7 +8,9 @@
     "build": "npm run-script babelify",
     "preserve": "npm run-script babelify",
     "serve": "node test/app",
-    "start": "nodemon --exec 'npm' --ignore build --ext js,jsx run-script serve"
+    "start": "nodemon --exec 'npm' --ignore build --ext js,jsx run-script serve",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",

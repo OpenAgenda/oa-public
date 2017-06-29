@@ -48,6 +48,8 @@ export default class MoreInfo extends Component {
 
     const { children, id, title, content, placement } = this.props;
 
+    if (!content) return children;
+
     const popover = (
       <Popover id={id} title={title}>
         {content}

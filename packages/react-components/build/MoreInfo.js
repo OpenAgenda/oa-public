@@ -78,6 +78,8 @@ var MoreInfo = (_temp = _class = function (_Component) {
           placement = _props2.placement;
 
 
+      if (!content) return children;
+
       var popover = _react2.default.createElement(
         _Popover2.default,
         { id: id, title: title },

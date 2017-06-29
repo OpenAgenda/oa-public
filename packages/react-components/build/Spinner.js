@@ -45,6 +45,7 @@ Spinner.propTypes = {
 };
 
 var SpinnerComponent = (0, _createReactClass2.default)({
+  displayName: 'SpinnerComponent',
   getDefaultProps: function getDefaultProps() {
 
     return {
