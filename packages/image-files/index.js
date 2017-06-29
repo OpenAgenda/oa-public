@@ -57,7 +57,7 @@ function init( c ) {
 
   log = logger( 'image-files' );
 
-  files.init( Object.assign( c.files, { logger } ) );
+  files.init( Object.assign( {}, c.files, { logger } ) );
 
   images.init( { 
     tmpPath: config.files.tmpPath, 
