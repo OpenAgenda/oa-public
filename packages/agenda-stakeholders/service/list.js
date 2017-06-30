@@ -10,6 +10,8 @@ const parseListArguments = require( 'service-utils/parseListArguments' ),
 
   w = require( 'when' ),
 
+  credentialTypes = require( '../iso/credentialTypes' ),
+
   validators = require( '../iso/validators' ),
 
   evaluateCredentialFilter = require( './lib/evaluateCredentialFilter' );
@@ -97,6 +99,8 @@ function _total( v ) {
 
 function _list( v ) {
 
+  let detailClone;
+
   v.knex.where( format.objToDb( v.query, true ) );
 
   if ( v.query.search !== null ) {
@@ -129,14 +133,22 @@ function _list( v ) {
 
   }
 
-  return v.knex.clone()
+  detailClone = v.knex.clone()
     .select( 'id', 'credential', 'user_id', 'review_id', 'store', 'organization', 'updated_at', 'created_at', 'deleted_user', 'actions_counter' )
     .limit( v.limit )
-    .offset( v.offset )
-    .orderBy( 'actions_counter', 'desc' )
-    .orderBy( 'id', 'asc' )
+    .offset( v.offset );
 
-  .then( dbStakeholders => {
+  if ( v.query.order && v.query.order === 'credential' ) {
+
+    detailClone.orderBy( knex.raw( 'field( credential,' + credentialTypes.types.map( c => c.value ).reverse().join( ',' ) + ')' ) );
+
+  } else {
+
+    detailClone.orderBy( 'actions_counter', 'desc' );
+
+  }
+
+  return detailClone.then( dbStakeholders => {
 
     v.result.stakeholders = dbStakeholders.map( s => format.dbToObj( s, { showSlugs: v.options.showSlugs } ) );
 

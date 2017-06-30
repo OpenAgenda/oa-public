@@ -28,6 +28,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       validators.listQuery().should.eql( {
         search: null,
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,
@@ -50,6 +51,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       } ).should.eql( {
         search: null,
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,
@@ -66,6 +68,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: 'billy@grut.com',
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,
@@ -86,6 +89,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: 'grut',
         invited: false,
+        order: null,
         credentials: [ 1, 2 ],
         agendaId: null,
         userId: null,
@@ -104,6 +108,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: null,
         invited: null,
+        order: null,
         credentials: [ 4, 1 ],
         userId: null,
         agendaId: null,
@@ -124,6 +129,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: 'Melon',
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,
@@ -140,6 +146,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: null,
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,
@@ -156,6 +163,7 @@ describe( 'agenda-stakeholders - unit (iso): validators', () => {
       .should.eql( {
         search: null,
         invited: null,
+        order: null,
         credentials: [],
         agendaId: null,
         userId: null,

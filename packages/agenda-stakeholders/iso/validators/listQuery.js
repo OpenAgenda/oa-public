@@ -77,5 +77,11 @@ const listQuerySchema = schema( {
     type: 'boolean',
     optional: true,
     default: null
+  },
+  order: {
+    type: 'choice',
+    optional: true,
+    options: [ 'credential' ],
+    unique: true
   }
 } )

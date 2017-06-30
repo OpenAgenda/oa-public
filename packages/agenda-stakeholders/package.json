@@ -23,7 +23,7 @@
     "slug": "^0.9.1",
     "superagent": "^3.3.1",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git",
-    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.1.11",
+    "validators": "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.2.11",
     "verror": "^1.9.0",
     "when": "^3.7.7"
   },

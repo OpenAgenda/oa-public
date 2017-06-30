@@ -50,6 +50,32 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
     } );
 
+
+    it( 'list can be sorted by descending roles (credential)', done => {
+
+      service.agenda( 4608 ).list( { order: 'credential' }, 0, 100, ( err, stakeholders, total ) => {
+
+        let i = 0;
+
+        let credValues = creds.types.map( c => c.value ).reverse();
+
+        stakeholders.forEach( s => {
+
+          if ( s.credential !== credValues[ i ] ) {
+
+            s.credential.should.equal( credValues[ ++i ] );
+
+          }
+
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+
     it( 'by default, total value is not fetched', done => {
 
       service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {
@@ -111,7 +137,7 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
 
       service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 10, { total: true }, ( err, stakeholders, total ) => {
 
-        stakeholders[ 0 ].custom.organization.should.equal( 'Mairie de Chinon' );
+        stakeholders[ 0 ].custom.organization.should.equal( 'Mairie de Tarascon' );
 
         stakeholders.length.should.equal( 9 );
 
@@ -128,8 +154,8 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
       service.agenda( 4608 ).list( { search: 'Mairie' }, 0, 1, { showSlugs: true }, ( err, stakeholders ) => {
 
         stakeholders[ 0 ].custom.organization.should.eql( {
-          slug: 'mairie-de-chinon',
-          label: 'Mairie de Chinon'
+          slug: 'mairie-de-tarascon',
+          label: 'Mairie de Tarascon'
         } );
 
         done();
