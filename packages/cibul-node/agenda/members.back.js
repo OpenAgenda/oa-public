@@ -95,7 +95,7 @@ const routes = {
   ] ],
 
   membersSendMessage: [ 'post', '/send-message', [
-    _sendMessage,
+    _sendMessage(),
     ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
   ] ]
 
