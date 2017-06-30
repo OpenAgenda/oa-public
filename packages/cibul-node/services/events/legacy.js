@@ -11,7 +11,7 @@ module.exports = {
   setLog: l => log = l
 }
 
-function _transfer( event ) {
+function _transfer( event, cb ) {
 
   events.legacy.transfer( event, ( err, result ) => {
 
@@ -19,9 +19,13 @@ function _transfer( event ) {
 
       return log( 'error', 'event %s transfer failed: %s', event.uid, err );
 
+    } else {
+
+      log( 'info', 'event %s successfully transfered: %s', result.event.uid, result.created ? 'creation' : 'update' );
+
     }
 
-    log( 'info', 'event %s successfully transfered: %s', result.event.uid, result.created ? 'creation' : 'update' );
+    if ( cb ) cb( err );
 
   } );
 

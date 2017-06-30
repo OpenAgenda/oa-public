@@ -248,6 +248,16 @@ module.exports = ( enabledTypes, cb ) => {
 
         } ); */
 
+        /*require( 'async' ).eachSeries( [ 5582059, 69863067, 81532949, 78197229, 36260439, 59357109, 21401295, 90305432, 83268716, 96006953,  6792279, 35267431, 90716457 ], ( uid, ecb ) => {
+
+          require( './services/events' ).legacy.onUpdate( { uid }, ecb );
+
+        }, err => {
+
+          console.log( err );
+
+        } );*/
+
 
         require( './services/agendaEvents/legacy' ).task();
 
