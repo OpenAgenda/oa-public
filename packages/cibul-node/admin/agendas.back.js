@@ -33,6 +33,8 @@ var config = require( '../config' ),
 
         req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
 
+        req.query.order = 'credential';
+
         next();
 
       },
