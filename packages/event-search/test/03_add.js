@@ -19,31 +19,27 @@ describe( 'event search - functional: create', function() {
 
   } );
 
-  before( done => {
+  before( async () => {
 
     service.init( config );
 
-    // list must be prepared to give all needed data
-    // for index
-    function list( offset, limit, cb ) {
+    await service( 'test_index' ).rebuild( {
+      eventsList: function( offset, limit, cb ) {
 
-      events.list( offset, limit, {
-        internal: true,
-        detailed: true
-      }, cb );
+        events.list( offset, limit, {
+          internal: true,
+          detailed: true
+        }, cb );
 
-    }
-
-    service( 'test_index' ).rebuild( {
-      eventsList: list
-    }, done );
+      }
+    } );
 
   } );
 
 
-  it( 'add an event to an index', done => {
+  it( 'add an event to an index', async () => {
 
-    service( 'test_index' ).add( {
+    let result = await service( 'test_index' ).add( {
       id: 679689,
       uid: 74367684,
       title: {
@@ -71,24 +67,32 @@ describe( 'event search - functional: create', function() {
         end: new Date( '2017-04-20T13:00:00+0100' )
       } ],
       timezone: 'Europe/Paris'
-    }, { refresh: true }, ( err, result ) => {
+    }, { refresh: true } );
 
-      result.success.should.equal( true );
+    result.success.should.equal( true );
 
-      service( 'test_index' ).search( { uid: 74367684 }, ( err, events, total ) => {
+    
+    await _timeout( 1000 );
+    
 
-        total.should.equal( 1 );
+    let { events, total } = await service( 'test_index' ).search( { uid: 74367684 } );
 
-        events[ 0 ].uid.should.equal( 74367684 );
+    total.should.equal( 1 );
 
-        done();
+    events[ 0 ].uid.should.equal( 74367684 );
 
-      } );
-
-    } );
-
-  } )
+  } );
 
 
 
 } );
+
+async function _timeout( ms ) {
+
+  return new Promise( rs => {
+
+    setTimeout( rs, ms );
+
+  } );
+
+}

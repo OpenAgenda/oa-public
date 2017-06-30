@@ -1,93 +1,44 @@
 "use strict";
 
 const config = require( './config' );
-const h = require( './helpers' );
-const w = require( 'when' );
-const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const preParse = require( './index/preParse' );
 const clean = require( './helpers/clean' );
+const _ = require( 'lodash' );
 
 module.exports = add;
 
 
-function add( alias, event, options, cb ) {
+async function add( alias, event, options = {} ) {
 
-  if ( arguments.length === 3 ) {
+  const params = _.extend( {
+    refresh: false
+  }, options );
 
-    cb = options;
-    options = {};
+  const { client, type } = config;
+
+  const cleanEvent = clean( event );
+
+  let result;
+
+  try {
+
+    result = await client.index( {
+      index: alias,
+      refresh: params.refresh,
+      type,
+      id: cleanEvent.uid,
+      body: preParse( cleanEvent )
+    } );
+
+  } catch ( err ) {
+
+    throw new VError( err, 'failed to add event to index' );
 
   }
 
-  w( {
-    in: {
-      alias,
-      event,
-      params:  _.extend( {
-        refresh: false
-      }, options )
-    },
-    client: config.client,
-    interfaces: config.interfaces,
-    location: null,
-    clean: null,
-    out: {
-      success: null
-    }
-  } )
-
-  .then( _clean )
-
-  .then( _index )
-
-  .done( v => {
-
-    cb( null, v.out );
-
-  }, cb );
-
-}
-
-
-function _clean( v ) {
-
-  v.clean = clean( v.in.event );
-
-  return v;
-
-}
-
-
-function _index( v ) {
-
-  let d = w.defer();
-
-  // index as is
-  v.client.index({
-    index: v.in.alias,
-    refresh: v.in.params.refresh,
-    type: 'event',
-    id: v.clean.uid,
-    body: preParse( v.clean )
-  }, ( err, result ) => {
-
-    if ( err ) {
-
-      return d.reject( new VError( 'failed to add event to index', err ) );
-
-    }
-
-    if ( result.created ) {
-
-      v.out.success = true;
-
-    }
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
+  return {
+    success: !!result.created
+  }
 
 }

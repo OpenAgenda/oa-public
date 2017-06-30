@@ -8,9 +8,6 @@ const _ = require( 'lodash' );
  * fields are indexed
  */
 
-// this could be cleaner, with a validator for the full indexed event-location
-// that can and is extended with FormSchema fields.
-
 module.exports = event => {
 
   let clean = _.extend( {}, event );
@@ -30,6 +27,12 @@ module.exports = event => {
       'countryCode',
       'timezone'
     ] ); 
+
+  }
+
+  if ( event.custom ) {
+
+    clean.custom = event.custom;
 
   }
 

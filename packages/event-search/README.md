@@ -23,37 +23,75 @@ The service needs to be initialized before use. See the `testconfig.sample.js` f
 The service allows you to handle an aliased event index through its main interface, a function taking the name of the handled alias:
 
  * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
+ * **search( 'alias_name' ).delete**: delete the index
  * **search( 'alias_name' ).search**: search an index. See tests for more details
  * **search( 'alias_name' ).add**: add an event to an index. See tests for more details
  * **search( 'alias_name' ).update**: update an event ( partial update ).
  * **search( 'alias_name' ).remove**: remove an event from index.
 
 
-# Handling event operations on multiple indices
+# Usage of the service in an integrated environment
 
-When a user updates or removes an event, all agendas where it was published are impacted. On OpenAgenda we will have an event.onRemove hook that will be called which will in turn call the event-search service to be called as well. How does the event-search service know which indices will be impacted?
+The service is only concerned with indexing and retrieving events in and from alias indices. At the creation of an index, it can take custom schemas to add mapping specifics for the created index;
 
-Same goes for an update, multiple indices can be impacted for an event update, one should be refreshed directly, the others can wait. But the service must know one way or another how indices should be impacted.
+An alias name can easily be derived from the uid of an agenda: **agendas/{uid}**
 
-// these should exist.
- * search.create // creates an aliased index
- * search.remove // deletes an aliased index
- * search.add // adds an event to multiple indices... the event should be decorated for each index following the specifics ( state, custom fields ) of that index.
+The integrating application's concern is to know which indices to update when an event is updated. The service itself can provide an endpoint for multiple index update on an event action. Options could differ per index:
+
+    search.update( identifier, data, [ {
+      name: 'alias_name',
+      options: { queue: true, refresh: false }
+    }, ... ]
+
+This way the integrating app keeps control over which indices have to be updated right away and which can be queued. 
+
+But depending on the index, the custom data can differ. The update of event core data must be **partial** and exclude .contributor and .custom parts.
 
 
- **The update of a single index can take in whatever extra info it requires. Maybe the mapping could be stored in an additional type to avoid constant db calls.**
 
- Core event updates could be distinguished from reference updates ( like custom fields )
- to avoid update loops. Like a custom field that is updated does not impact event updated_at reference.
- 
- So a core event update still calls for a search.update that still needs to update event data in its primary ( origin ) index and then its secondary indices ( through a queue & task )
+# Extended mappings
 
- A decoration update for an event will need to impact only one index.
+Custom fields can be added appended to event schema depending on the index.
 
- Do I need this for a first deploy? One single index for entire db means ( can be queued ) that only core event updates should be considered. All should be indexed? Not private events nor draft events.
+By default, the mapping used is the one defined in the service settings, under the mapping key. As a mapping is associated to an index at rebuild, it is at that moment that the mapping extension can be given in its own key:
 
- Next step: integration of event service. Then, integration of search.
+    service( 'test_alias' ).rebuild( {
+      eventsList, // this function should provide extended data for each event
+      extensions: {
+        custom: {
+          some_extra_text_field: {
+            type: 'text'
+          },
+          some_extra_number_field: {
+            type: 'integer'
+          }
+        }
+      }
+    } );
 
+A parsing function converts a form schema definition into a property set understandable by Elasticsearch.
+
+What about private data? Not indexed to begin with.
+
+When I have my parser, I can define a new index with custom fields. 
+But I still need to pump data in there.
+The data is assembled at the integrated app level
+and provided by the eventList function.
+
+eventList will base itself on agenda-events, load base event data for each page, decorate with extended event data and return decorated data for indexing.
+
+How does the event search lifecycle go?
+
+ * an event update: the event.onUpdate interface func is called. There an event-search endPoint triggers
+   the update of all impacted indices. How does the service know which indices are impacted? By asking an
+   interface function... which will in turn indicate which is the main indice and which are the secondary ones.
+   The interface function will base itself on an agendaEvents call as well as the origin agenda ref of the event
+   ( agendaUid ).
+ * an event reference update: simple - only one index is impacted.
+
+ Stakeholder data? these are not handled at all right now. Plus, a stakeholder update may impact a multitude of events in an index. Like a tag label update. These are handled in a transverse way in an index. As a task.
+
+ Stakeholder data needs to be added to mapping at rebuild. And needs to be updated in a transverse way, with 
 
 
 # Running Elasticearch 5.1 for development
@@ -61,45 +99,6 @@ Same goes for an update, multiple indices can be impacted for an event update, o
 This is only useful if you are already running another version of elasticsearch as a service and need to launch elasticsearch manually
 
 sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.1.2 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
-
-
-
-
-FormSchema can be built from current custom fields ?
-
-FormSchema can decorate mapping
-
-A clean interface must be made available for event lifecycle
-
-
-
-How are indexes managed?
-
-when an event is updated, it needs to be updated in every index where it is set.
-
-It first needs to be updated in the origin index, then the others. Others can be tasked.
-
-This is neat but a first step could be to setup up a single unified index for the whole db.
-
-search index administration can be handled in event-search, through dedicated endpoint that would
-react on event lifecycle happenings; lookup stakeholders, update main index and then queue others ( alias names and event create / update / remove info can be queued )
-
-
-
-rebuild can take an alternative mapping... although rebuild should not require mapping, it should fetch the one from the previous index if existing.
-
-A mapping load logic is required prior to rebuild.
-
-1. comes from the outside - at rebuild
-2. comes from previous index
-3. comes from default service mapping
-
-mapping from the outside is a "decoration" mapping. So the service mapping is always used.
-
-
-mapping FormSchema-handled types to ES should be possible ( a default mapping ) with reservations
-
-
 
 
 
@@ -127,16 +126,8 @@ For example here, events will be presented in the following order when listed: 0
 Sorting tests demonstrate how this is achieved with Elasticsearch DSL.
 
 
-# Filtering timings
 
-Do this next:
+# Elasticsearch administration
 
-https://www.elastic.co/guide/en/elasticsearch/reference/5.x/query-dsl-range-query.html
-https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-nested-query.html
-
-
-# Templates
-
-Elasticsearch templates will not be used for the time being. They may be at some point if they improve readability of the code and do not cause a loss in query building flexibility
-
-https://www.elastic.co/guide/en/elasticsearch/reference/5.x/search-template.html
+To remove all indices:
+curl -XDELETE 'http://localhost:9205/_all'

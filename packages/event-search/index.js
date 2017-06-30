@@ -6,11 +6,14 @@ const configStore = require( './service/config' );
 const add = require( './service/add' );
 const update = require( './service/update' );
 const remove = require( './service/remove' );
+const deleteIndex = require( './service/deleteIndex' );
 
 module.exports = alias => {
 
   return {
     rebuild: rebuild.bind( null, alias ),
+    deleteIndex: deleteIndex.bind( null, alias ),
+
     search: search.bind( null, alias ),
     add: add.bind( null, alias ),
     update: update.bind( null, alias ),

@@ -7,11 +7,7 @@ module.exports = {
     //log: 'trace'
   },
 
-
-  interfaces: {
-    locationsList: require( './test/service/locationsList' )
-  },
-
+  interfaces: {},
 
   // for testing - not to be used in deployment / integration
   eventService: {
@@ -25,6 +21,20 @@ module.exports = {
 
     schemas: {
       event: 'event'
+    },
+
+    interfaces: {
+      getOriginAgendas: ( uids, cb ) => {
+
+        cb( null, uids.map( uid => ( {
+          uid,
+          title: 'La Gargouille',
+          image: null,
+          offical: true
+        } ) ) );
+
+      },
+      getLocations: require( './test/service/locationsList' )
     },
 
     imagePath: '//openagendatst.s3.amazonaws.com/',

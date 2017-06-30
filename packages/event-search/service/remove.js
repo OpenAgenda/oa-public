@@ -1,69 +1,38 @@
 "use strict";
 
-const config = require( './config' );
-const w = require( 'when' );
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const config = require( './config' ),
 
-module.exports = remove;
+  _ = require( 'lodash' ),
 
-function remove( alias, identifiers, options, cb ) {
+  VError = require( 'verror' );
 
-  if ( arguments.length === 3 ) {
+module.exports = async function( alias, identifiers, options = {} ) {
 
-    cb = options;
-    options = {};
+  const params = _.extend( {
+    refresh: false
+  }, options );
+
+  const { client, type } = config;
+
+  let res;
+
+  try {
+
+    res = await client.delete( {
+      index: alias,
+      type: type,
+      id: identifiers.uid,
+      refresh: params.refresh
+    } );
+
+  } catch ( err ) {
+
+    throw new VError( err, 'failed to remove event from index of alias %s', alias );
 
   }
 
-  w( {
-    in: {
-      alias,
-      params: _.extend( {
-        refresh: false
-      }, options )
-    },
-    uid: identifiers.uid, // nothing else for now
-    client: config.client,
-    type: config.type,
-    out: {
-      success: null
-    }
-  } )
-
-  .then( _remove )
-
-  .done( v => {
-
-    cb( null, v.out );
-
-  }, cb );
+  return {
+    success: res.result === 'deleted'
+  }
 
 }
-
-
-function _remove( v ) {
-
-  let d = w.defer();
-
-  v.client.delete( {
-    index: v.in.alias,
-    type: v.type,
-    id: v.uid,
-    refresh: v.in.params.refresh
-  }, ( err, res ) => {
-
-    if ( err ) return d.reject( new VError( err, 'could not remove event %s from index of alias %s', v.uid, v.in.alias ) );
-
-    v.out.success = res.result === 'deleted';
-
-    v.out.response = res;
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-

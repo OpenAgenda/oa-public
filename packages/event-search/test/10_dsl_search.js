@@ -24,13 +24,13 @@ describe( 'event-search - unit: dsl search', function() {
 
     } );
 
-    before( done => {
+    before( async () => {
 
       service.init( config );
 
       // list must be prepared to give all needed data
       // for index
-      function list( offset, limit, cb ) {
+      function eventsList( offset, limit, cb ) {
 
         events.list( offset, limit, {
           internal: true,
@@ -39,17 +39,13 @@ describe( 'event-search - unit: dsl search', function() {
 
       }
 
-      service( 'simple_search' ).rebuild( {
-        eventsList: list
-      }, err => {
-
-        done();
-
+      await service( 'simple_search' ).rebuild( {
+        eventsList
       } );
 
     } );
 
-    it( 'an event can be retrieved by uid', done => {
+    it( 'an event can be retrieved by uid', async () => {
 
       let dsl = {
         query: {
@@ -59,19 +55,15 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-        done();
-
-      } );
+      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
 
     } );
 
-    it( 'several events can be retrieved by uid at once', done => {
+    it( 'several events can be retrieved by uid at once', async () => {
 
       let dsl = {
         query: {
@@ -81,19 +73,18 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 2 );
+      total.should.equal( 2 );
 
-        events.map( e => e.slug ).should.eql( [ 'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 'serres-la-claranda-cafe-citoyen' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 
+        'serres-la-claranda-cafe-citoyen'
+      ] );
 
     } );
 
-    it( 'simple title search', done => {
+    it( 'simple title search', async () => {
 
       let dsl = {
         query: {
@@ -106,19 +97,15 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-        done();
-
-      } );
+      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
 
     } );
 
-    it( 'simple english title search', done => {
+    it( 'simple english title search', async () => {
 
       let dsl = {
         query: {
@@ -131,20 +118,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-        done();
-
-      } );
+      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
 
     } );
 
 
-    it( 'sorting can show in order upcoming first and past second, then nearest from now first', done => {
+    it( 'sorting can show in order upcoming first and past second, then nearest from now first', async () => {
 
       let dsl = {
         query: {
@@ -169,26 +152,22 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 5 );
+      total.should.equal( 5 );
 
-        events.map( e => e.slug ).should.eql( [
-          'nearest_in_the_future_0',
-          'almost_furthest_in_the_future_1',
-          'furthest_in_the_future_2',
-          'nearest_past_event_3',
-          'furthest_past_event_4'
-        ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [
+        'nearest_in_the_future_0',
+        'almost_furthest_in_the_future_1',
+        'furthest_in_the_future_2',
+        'nearest_past_event_3',
+        'furthest_past_event_4'
+      ] );
 
     } );
 
 
-    it( 'match on title, description and keywords fields', done => {
+    it( 'match on title, description and keywords fields', async () => {
 
       let dsl = {
         query: {
@@ -199,19 +178,15 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        events.map( e => e.slug ).should.eql( [ 'multi_2', 'multi_1', 'multi_3' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'multi_2', 'multi_1', 'multi_3' ] );
 
     } );
 
 
 
-    it( 'filtering by timing to show only events starting within a certain time bracket ( independant of date )', done => {
+    it( 'filtering by timing to show only events starting within a certain time bracket ( independant of date )', async () => {
 
       let dsl = {
         query: {
@@ -244,20 +219,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'one_timing_fits_within bracket' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'one_timing_fits_within bracket' ] );
 
     } );
 
 
-    it( 'date range is displayed in local time', done => {
+    it( 'date range is displayed in local time', async () => {
 
       let dsl = {
         query: {
@@ -267,21 +238,17 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
       
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        events[ 0 ].dateRange.should.eql( { 
-          fr: '24 octobre 2016, 08h00', 
-          en: '24 october 2016, 08:00' 
-        } );
-
-        done();
-
+      events[ 0 ].dateRange.should.eql( { 
+        fr: '24 octobre 2016, 08h00', 
+        en: '24 october 2016, 08:00' 
       } );
 
     } );
 
 
-    it( 'filtering by timing for a different timezone', done => {
+    it( 'filtering by timing for a different timezone', async () => {
 
       // new york event happens at 2016-10-24T12:00:00.000Z
       // so thats -4 hours, should be 8 in the morning
@@ -317,20 +284,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'new_york_event' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'new_york_event' ] );
 
     } );
 
 
-    it( 'filtering by region ( same for location.department, city, countryCode )', done => {
+    it( 'filtering by region ( same for location.department, city, countryCode )', async () => {
 
       let dsl = {
         query: {
@@ -340,20 +303,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'rhone_region_event' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'rhone_region_event' ] );
 
     } );
     
 
-    it( 'filtering by geolocation', done => {
+    it( 'filtering by geolocation', async () => {
 
       let dsl = {
         query: {
@@ -372,20 +331,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl )
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'verdun_bound_box' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'verdun_bound_box' ] );
 
     } );
 
 
-    it( 'filtering by language', done => {
+    it( 'filtering by language', async () => {
 
       let dsl = {
         query: {
@@ -395,20 +350,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'german_event' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'german_event' ] );
 
     } );
 
 
-    it( 'filtering by keyword', done => {
+    it( 'filtering by keyword', async () => {
 
       let dsl = {
         query: {
@@ -418,19 +369,15 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'keyword_event' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'keyword_event' ] );
 
     } );
 
-    it( 'filtering by multiple keywords', done => {
+    it( 'filtering by multiple keywords', async () => {
 
       let dsl = {
         query: {
@@ -448,20 +395,16 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        total.should.equal( 1 );
+      total.should.equal( 1 );
 
-        events.map( e => e.slug ).should.eql( [ 'keyword_event_2' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'keyword_event_2' ] );
 
     } );
 
 
-    it( 'filtering to keep events in between a timestamp bracket', done => {
+    it( 'filtering to keep events in between a timestamp bracket', async () => {
 
       let dsl = {
         query: {
@@ -485,18 +428,14 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
-        events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
-
-        done();
-
-      } );
+      events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
 
     } );
 
 
-    it( 'trasverse using scroll', done => {
+    it( 'trasverse using scroll', async () => {
 
       let dsl = {
         query: {
@@ -508,33 +447,25 @@ describe( 'event-search - unit: dsl search', function() {
 
       let cacheFor = '1m';
 
-      dslSearch( 'simple_search', dsl, { scroll: cacheFor }, ( err, events, total, scrollId ) => {
+      let { events, scrollId } = await dslSearch( 'simple_search', dsl, { scroll: cacheFor } );
 
-        fetchedCount += events.length;
+      fetchedCount += events.length;
 
-        scroll( scrollId, cacheFor, ( err, events, total ) => {
+      events = ( await scroll( scrollId, cacheFor ) ).events;
 
-          fetchedCount += events.length;
+      fetchedCount += events.length;
 
-          scroll( scrollId, cacheFor, ( err, events, total ) => {
+      let result = await scroll( scrollId, cacheFor );
 
-            fetchedCount += events.length;
+      fetchedCount += result.events.length;
 
-            fetchedCount.should.equal( total );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
+      fetchedCount.should.equal( result.total );
         
     } );
 
 
 
-    it( 'search_after fails when nested sort is done on date ( BIGINT ERROR )', done => {
+    it( 'search_after fails when nested sort is done on date ( BIGINT ERROR )', async () => {
 
       // minutes from beginning of time would suffice.
 
@@ -556,24 +487,24 @@ describe( 'event-search - unit: dsl search', function() {
         } ]
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total, searchAfter ) => {
+      let { events, total, searchAfter } = await dslSearch( 'simple_search', dsl );
 
-        dsl[ 'search_after' ] = searchAfter;
+      dsl[ 'search_after' ] = searchAfter;
 
-        dslSearch( 'simple_search', dsl, ( err, events, total, searchAfter ) => {
+      try {
 
-          err.message.should.equal( '[illegal_state_exception] No matching token for number_type [BIG_INTEGER]' );
+        await dslSearch( 'simple_search', dsl );
 
-          done();
+      } catch ( err ) {
 
-        } );
+        err.message.should.equal( '[illegal_state_exception] No matching token for number_type [BIG_INTEGER]' );
 
-      } );
+      }
 
     } );
 
 
-    it( 'from/size navigation works fine', done => {
+    it( 'from/size navigation works fine', async () => {
 
       let dsl = {
         from: 0,
@@ -595,21 +526,15 @@ describe( 'event-search - unit: dsl search', function() {
         } ]
       }
 
-      dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+      let { events } = await dslSearch( 'simple_search', dsl );
 
-        let fourth = events[ 3 ].uid;
+      let fourth = events[ 3 ].uid;
 
-        dsl.from = 3;
+      dsl.from = 3;
 
-        dslSearch( 'simple_search', dsl, ( err, events, total ) => {
+       events = ( await dslSearch( 'simple_search', dsl ) ).events;
 
-          events[ 0 ].uid.should.equal( fourth );
-
-          done();
-
-        } );
-
-      } );
+      events[ 0 ].uid.should.equal( fourth );
 
     } );
 

@@ -3,7 +3,7 @@
 const set = require( 'lodash/set' );
 const isArray = require( 'lodash/isArray' );
 
-module.exports = ( cleanQuery, nav = null ) => {
+module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
   let mustParts = [],
 
@@ -36,6 +36,15 @@ module.exports = ( cleanQuery, nav = null ) => {
 
   }
 
+  if ( includes !== null ) {
+
+    dsl._source.includes = includes;
+
+  }
+
+
+  // build parts: terms
+
 
   // add term constraints
   [ 
@@ -47,7 +56,8 @@ module.exports = ( cleanQuery, nav = null ) => {
     [ 'city', 'location.city' ],
     [ 'region', 'location.region' ],
     [ 'department', 'location.department' ],
-    [ 'countryCode', 'location.countryCode' ]
+    [ 'countryCode', 'location.countryCode' ],
+    [ 'contributorUid', 'contributor.uid' ]
   ].forEach( field => {
 
     let fromField = isArray( field ) ? field[ 0 ] : field,
@@ -106,6 +116,22 @@ module.exports = ( cleanQuery, nav = null ) => {
 
   }
 
+
+  // add custom ( all is match )
+  
+  if ( custom ) {
+
+    Object.keys( custom ).forEach( customFieldName => {
+
+      mustParts.push( _mustPart( 'match', 'custom.' + customFieldName, custom[ customFieldName ] ) );
+
+    } );
+
+  }
+
+
+  // assemble and return dsl
+  
 
   if ( mustParts.length === 1 ) {
 

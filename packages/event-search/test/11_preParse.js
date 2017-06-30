@@ -17,7 +17,10 @@ describe( 'event-search - unit: preParse', function() {
         fr: 'Un titre',
         en: 'A title'
       },
-      search_internals_title: [ 'Un titre', 'A title' ]
+      search_internals_title: [
+        'Un titre',
+        'A title'
+      ]
     } );
 
   } );

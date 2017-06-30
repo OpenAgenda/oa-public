@@ -2,6 +2,8 @@
 
 const validate = require( './validate' ),
 
+  validateCustom = require( './validateCustom' ),
+
   set = require( 'lodash/set' ),
 
   extend = require( 'lodash/extend' ),
@@ -10,13 +12,15 @@ const validate = require( './validate' ),
 
 module.exports = extend( queryToDsl, { pre } );
 
-function queryToDsl( query, nav ) {
+function queryToDsl( query, nav, includes = null ) {
 
   let preParsed = pre( query );
 
   let clean = validate( preParsed );
 
-  return buildDsl( clean, nav );
+  let custom = validateCustom( preParsed.custom );
+
+  return buildDsl( clean, custom, nav, includes );
 
 }
 

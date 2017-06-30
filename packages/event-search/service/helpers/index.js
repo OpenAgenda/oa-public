@@ -8,65 +8,56 @@ module.exports = {
   checkList,
   createIndexName: require( './createIndexName' ),
   createUniqueIndex: require( './createUniqueIndex' ),
-  readIndexName: require( './readIndexName' ),
-  removeIndex: require( './removeIndex' ),
-  reassociateAlias: require( './reassociateAlias' ),
-  indexBulk
+  indexBulk,
+  extendMapping: require( './extendMapping' )
 }
 
 let count = 0;
 
-function indexBulk( v, events, cb ) {
 
-  const body = _.flatten( events.map( e => [ {
+async function indexBulk( client, indexName, type, parsedEvents ) {
+
+  let body = _.flatten( parsedEvents.map( e => [ {
     index: {
-      _index: v.process.indexName,
-      _type: v.type,
+      _index: indexName,
+      _type: type,
       _id: e.uid
     }
-  }, v.preParse( e ) ] ) );
+  }, e ] ) );
 
-  v.client.bulk( {
-    body
-  }, cb );
+  return await client.bulk( { body } );
 
 }
 
 
-function checkList( namespace ) {
+function checkList( listFunc ) {
 
-  return v => {
+  if ( typeof listFunc !== 'function' ) {
 
-    const listFunc = _.get( v, namespace );
+    throw new Error( 'list is not a function' ) 
 
-    if ( typeof listFunc !== 'function' ) {
+  }
 
-      throw new Error( namespace.split( '.' ).pop() + ' is not a function' ) 
+  let d = w.defer();
+
+  listFunc( 0, 1, ( err, events ) => {
+
+    if ( err ) {
+
+      return d.reject( new VError( err, 'provided list failed' ) );
 
     }
 
-    let d = w.defer();
+    if ( !_.isArray( events ) ) {
 
-    listFunc( 0, 1, ( err, events ) => {
+      return d.reject( 'list function is not giving a list' );
 
-      if ( err ) {
+    }
 
-        return d.reject( new VError( err, 'provided list failed: %s', namespace ) );
+    return d.resolve();
 
-      }
+  } );
 
-      if ( !_.isArray( events ) ) {
-
-        return d.reject( 'list function is not giving a list: %s', namespace );
-
-      }
-
-      return d.resolve( v );
-
-    } );
-
-    return d.promise;
-
-  }
+  return d.promise;
 
 }

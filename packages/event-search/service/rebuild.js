@@ -2,110 +2,98 @@
 
 const config = require( './config' );
 const h = require( './helpers' );
-const w = require( 'when' );
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const preParse = require( './index/preParse' );
+const parseExtension = require( './extensions/parse' );
+const contributorExtension = require( './extensions/contributor.fields.js' );
+
 const indexSettings = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/index/settings.json', 'utf-8' ) );
 
-module.exports = ( alias, lists, cb ) => {
+module.exports = async ( alias, options ) => {
 
-  w( {
-    in: {
-      alias,
-      lists
-    },
-    type: config.type,
-    client: config.client,
-    interfaces: config.interfaces,
-    preParse,
-    process: {
-      // index used before rebuild
-      previousIndex: null,
-      // created index name
-      indexName: null,
-    },
-    out: {}
-  } )
+  const params = _.extend( {
+    eventsList: null,
+    extensions: {}
+  }, options );
 
-  .then( h.checkList( 'in.lists.eventsList' ) )
+  params.extensions.contributor = contributorExtension;
 
-  .then( h.createUniqueIndex.bind( null, indexSettings ) )
+  let offset = 0, 
 
-  .then( v => _loopBulk( v, h.indexBulk.bind( null, v ) ) )
+    limit = 5, 
 
-  .then( h.readIndexName.bind( null, 'in.alias', 'process.previousIndex' ) )
+    extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) ),
 
-  .then( h.reassociateAlias.bind( null, 'in.alias', 'process.indexName' ) )
+    events = [], 
 
-  .then( h.removeIndex.bind( null, 'process.previousIndex' ) )
+    counts = { indexed: 0 };
 
-  .then( _refresh )
+  // Prepare: check list func and create new index
 
-  // force a sync here
+  await h.checkList( params.eventsList );
 
-  .done( v => {
 
-    cb( null, v.out, v.process );
+  const index = await h.createUniqueIndex( config.client, alias, extendedSettings );
 
-  }, cb );
 
-}
+  // Populate: use list func to populate new index
 
-function _refresh( v ) {
+  while ( ( events = await _fetchEvents( params.eventsList, offset, limit ) ).length ) {
 
-  let d = w.defer();
+    let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ) );
 
-  v.client.indices.refresh( { index: v.process.indexName }, ( err, result ) => {
+    counts.indexed += bulkResult.items.length;
 
-    if ( err ) return d.reject( err );
+    offset += limit;
 
-    d.resolve( v );
+  }
 
+
+  // Wrap up: re-assign alias, remove previous indices, refresh new index
+
+  let previousIndices = [];
+
+  if ( await config.client.indices.existsAlias( { name: alias } ) ) {
+
+    previousIndices = Object.keys( await config.client.indices.getAlias( { name: alias } ) );
+
+  }
+
+  await config.client.indices.putAlias( {
+    index,
+    name: alias
   } );
 
-  return d.promise;
+  while( previousIndices.length ) {
+
+    await config.client.indices.delete( { index: previousIndices.pop() } );
+
+  }
+
+  await config.client.indices.refresh( { index } );
+
+  return {
+    success: true,
+    counts,
+    detail: {
+      index
+    }
+  }
 
 }
 
-function _loopBulk( v, ecb ) {
+function _fetchEvents( fn, offset, limit ) {
 
-  let d = w.defer();
+  return new Promise( ( rs, rj ) => {
 
-  let offset = 0,
-    limit = 5,
-    hasMore = true;
+    fn( offset, limit, ( err, events ) => {
 
-  async.doWhilst( wcb => {
+      if ( err ) return rj( err );
 
-    v.in.lists.eventsList( offset, limit, ( err, events ) => {
-
-      if ( err ) return wcb( err );
-
-      if ( !events.length ) {
-
-        hasMore = false;
-
-        wcb();
-
-      } else {
-
-        offset+=limit;
-
-        ecb( events, wcb );
-
-      }
+      rs( events );
 
     } );
 
-  }, () => hasMore, err => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
   } );
-
-  return d.promise;
 
 }

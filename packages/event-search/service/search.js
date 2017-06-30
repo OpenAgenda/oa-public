@@ -2,7 +2,6 @@
 
 const config = require( './config' );
 const h = require( './helpers' );
-const w = require( 'when' );
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const validateNav = require( './query/validateNav' );
@@ -15,27 +14,19 @@ module.exports = _.extend( search, {
 } );
 
 
-function scroll( scrollId, scroll, cb ) {
+async function scroll( scrollId, scroll ) {
 
-  config.client.scroll( { scrollId, scroll }, ( err, res ) => {
+  const res = await config.client.scroll( { scrollId, scroll } );
 
-    if ( err ) return cb( err );
-
-    cb( null, res.hits.hits.map( h => h[ '_source' ] ), res.hits.total );
-
-  } );
+  return {
+    events: res.hits.hits.map( h => h[ '_source' ] ),
+    total: res.hits.total
+  }
 
 }
 
 
-function dsl( alias, dsl, options, cb ) {
-
-  if ( arguments.length === 3 ) {
-
-    cb = options;    
-    options = {};
-
-  }
+async function dsl( alias, dsl, options = {} ) {
 
   const search = {
     type: config.type,
@@ -49,28 +40,20 @@ function dsl( alias, dsl, options, cb ) {
 
   } );
 
-  config.client.search( search, ( err, res ) => {
+  const res = await config.client.search( search );
 
-    if ( err ) return cb( err );
-
-    let next = res[ '_scroll_id' ] || ( dsl.sort && res.hits.hits.length ? res.hits.hits[ res.hits.hits.length - 1 ].sort : null );
-
-    cb( null, res.hits.hits.map( h => h[ '_source' ] ), res.hits.total, next );
-
-  } );
+  return {
+    events: res.hits.hits.map( h => h[ '_source' ] ),
+    total: res.hits.total,
+    scrollId: res[ '_scroll_id' ],
+    searchAfter: dsl.sort && res.hits.hits.length ? res.hits.hits[ res.hits.hits.length - 1 ].sort : null
+  }
 
 }
 
-function search( alias, query, nav, cb ) {
+async function search( alias, query, options = {}, nav = {} ) {
 
   let cleanNav = {};
-
-  if ( arguments.length === 3 ) {
-
-    cb = nav;
-    nav = {};
-
-  }
 
   try {
 
@@ -78,13 +61,12 @@ function search( alias, query, nav, cb ) {
 
   } catch( e ) {
 
-    return cb( new VError( 'nav is not valid', e ) );
+    return cb( new VError( e, 'nav is not valid' ) );
 
   }
 
-  dsl( alias, 
-    parseQuery( query, cleanNav.size ? cleanNav : {} ), 
-    cleanNav.scroll ? cleanNav : {}
-  , cb );
+  return await dsl( alias, 
+    parseQuery( query, cleanNav.size ? cleanNav : {}, options.detailed ? null : config.baseSearchIncludes ), 
+    cleanNav.scroll ? cleanNav : {} );
 
 }

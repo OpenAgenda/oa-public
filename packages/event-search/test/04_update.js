@@ -18,13 +18,13 @@ describe( 'event search - functional: update', function() {
 
   } );
 
-  before( done => {
+  before( async () => {
 
     service.init( config );
 
     // list must be prepared to give all needed data
     // for index
-    function list( offset, limit, cb ) {
+    function eventsList( offset, limit, cb ) {
 
       events.list( offset, limit, {
         internal: true,
@@ -33,59 +33,44 @@ describe( 'event search - functional: update', function() {
 
     }
 
-    service( 'test_index' ).rebuild( {
-      eventsList: list
-    }, done );
-
-  } );
-
-  it( 'udpate the title of an event', done => {
-
-    service( 'test_index' ).update( { uid: 1 }, {
-      title: {
-        fr: 'Look at me. I am the title now.'
-      }
-    }, { refresh: true }, ( err, result ) => {
-
-      should( err ).equal( null );
-
-      service( 'test_index' ).search( { uid: 1 }, ( err, events, total ) => {
-
-        events[ 0 ].title.should.eql( {
-          fr: 'Look at me. I am the title now.'
-        } );
-
-        done();
-
-      } );
-
+    await service( 'test_index' ).rebuild( {
+      eventsList
     } );
 
   } );
 
-  it( 'updating the title means change can be searched after update', done => {
+  it( 'udpate the title of an event', async () => {
 
-    service( 'test_index' ).update( { uid: 2 }, {
+    let result = await service( 'test_index' ).update( { uid: 1 }, {
+      title: {
+        fr: 'Look at me. I am the title now.'
+      }
+    }, { refresh: true } );
+
+      
+    let { events, total } = await service( 'test_index' ).search( { uid: 1 } );
+
+    events[ 0 ].title.should.eql( {
+      fr: 'Look at me. I am the title now.'
+    } );
+
+  } );
+
+  it( 'updating the title means change can be searched after update', async () => {
+
+    let result = await service( 'test_index' ).update( { uid: 2 }, {
       title: {
         en: 'Witness me!'
       }
-    }, { refresh: true }, ( err, result ) => {
+    }, { refresh: true } );
 
-      should( err ).equal( null );
+    let { events, total } = await service( 'test_index' ).search( { search: 'Witness' } );
 
-      service( 'test_index' ).search( { search: 'Witness' }, ( err, events, total ) => {
+    total.should.equal( 1 );
 
-        total.should.equal( 1 );
-
-        events[ 0 ].title.should.eql( {
-          en: 'Witness me!', 
-          fr: 'Trié: Presque le plus dans le futur' 
-        } );
-
-        done();
-
-      } );
-
+    events[ 0 ].title.should.eql( {
+      en: 'Witness me!', 
+      fr: 'Trié: Presque le plus dans le futur' 
     } );
 
   } );

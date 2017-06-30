@@ -11,7 +11,7 @@ describe( 'event-search - unit: query.validate', function() {
    * oaq.search
    * oaq.keyword
    * oaq.lang
-   * oaq.location_uid ( one or more )
+   * oaq.locationuid ( one or more )
    * oaq.region ( one or more )
    * oaq.department ( one or more )
    * oaq.city ( one or more )
@@ -24,6 +24,7 @@ describe( 'event-search - unit: query.validate', function() {
    * oaq.localTime.lte ( HHMMSS )
    * oaq.date.gte ( YYYY-MM-DDTHHmmss+tz )
    * oaq.date.lte ( YYYY-MM-DDTHHmmss+tz )
+   * oaq.contributorUid
    */
   
   it( 'simple uid search dsl', () => {
@@ -64,6 +65,49 @@ describe( 'event-search - unit: query.validate', function() {
   
 
   } );
+
+
+  it( 'simple custom field search', () => {
+
+    let dsl = query( { 'custom.stand' : 'Hall A, S 123' } );
+
+    dsl.should.eql( {
+      "sort": [
+        {
+          "timings.end": {
+            "mode": "min",
+            "order": "asc",
+            "nested_path": "timings",
+            "nested_filter": {
+              "range": {
+                "timings.end": {
+                  "gte": "now"
+                }
+              }
+            }
+          }
+        },
+        {
+          "search_internals_last_timing": {
+            "order": "desc"
+          }
+        }
+      ],
+      "_source": {
+        "excludes": [
+          "search_internals_*",
+          "timings.search_internals_*"
+        ]
+      },
+      "query": {
+        "match": {
+          "custom.stand": "Hall A, S 123"
+        }
+      }
+    } );
+
+  } );
+
 
   it( 'returns a deep version of query', () => {
 

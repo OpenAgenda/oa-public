@@ -52,6 +52,10 @@ module.exports = schema( {
     max: 2,
     list: true
   },
+  contributorUid: {
+    type: 'integer',
+    list: true
+  },
   geo: {
     fields: {
       northEast: {

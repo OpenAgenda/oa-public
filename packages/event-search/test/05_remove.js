@@ -18,13 +18,11 @@ describe( 'event search - functional: remove', function() {
 
   } );
 
-  before( done => {
+  before( async () => {
 
     service.init( config );
 
-    // list must be prepared to give all needed data
-    // for index
-    function list( offset, limit, cb ) {
+    function eventsList( offset, limit, cb ) {
 
       events.list( offset, limit, {
         internal: true,
@@ -33,23 +31,15 @@ describe( 'event search - functional: remove', function() {
 
     }
 
-    service( 'test_index' ).rebuild( {
-      eventsList: list
-    }, done );
+    await service( 'test_index' ).rebuild( { eventsList } );
 
   } );
 
-  it( 'remove an event from index by uid', done => {
+  it( 'remove an event from index by uid', async () => {
 
-    service( 'test_index' ).remove( { uid: 1 }, { refresh: true }, ( err, result ) => {
+    let result = await service( 'test_index' ).remove( { uid: 1 }, { refresh: true } );
 
-      should( err ).equal( null );
-
-      result.success.should.equal( true );
-
-      done();
-
-    } );
+    result.success.should.equal( true );
 
   } );
 

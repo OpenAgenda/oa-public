@@ -14,7 +14,12 @@ module.exports.init = c => {
 
   extend( config, c, {
     client: _createClient( c.elasticsearch ),
-    type: 'event'
+    type: 'event',
+    baseSearchIncludes: [
+      'uid',
+      'title',
+      'slug'
+    ]
   } );
 
 };

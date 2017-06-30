@@ -9,36 +9,16 @@ const w = require( 'when' ),
 /**
  * create index name and test uniqueness
  */
-module.exports = function( indexSettings, v ) {
+module.exports = async function( client, alias, settings ) {
 
-  let d = w.defer();
+  const indexName = await _createUniqueIndexName( client, alias );
 
-  _createUniqueIndexName( v.client, v.in.alias, ( err, indexName ) => {
-
-    if ( err ) return d.reject( err );
-
-    v.process.indexName = indexName;
-
-    v.client.indices.create( {
-      index: indexName,
-      body: indexSettings
-    }, err => {
-
-      if ( err ) return d.reject( err );
-
-      d.resolve( v );  
-
-    } );
-
-  } );
-
-  return d.promise;
+  return await _createIndex( client, indexName, settings );
 
 }
 
 
-
-function _createUniqueIndexName( client, alias, cb ) {
+async function _createUniqueIndexName( client, alias, cb ) {
 
   let alreadyExists = null,
 
@@ -46,7 +26,7 @@ function _createUniqueIndexName( client, alias, cb ) {
 
     indexName;
 
-  async.doWhilst( wcb => {
+  while ( alreadyExists === null || alreadyExists ) {
 
     indexName = name;
 
@@ -56,24 +36,47 @@ function _createUniqueIndexName( client, alias, cb ) {
 
     }
 
-    client.indices.exists( {
-      index: indexName
-    }, ( err, exists ) => {
+    alreadyExists = await _exists( client, indexName );
 
-      if ( err ) return wcb( err );
+  }
 
-      alreadyExists = exists;
+  return indexName;
 
-      wcb();
+}
 
-    } );
 
-  }, () => alreadyExists, err => {
+function _exists( client, index ) {
 
-    if ( err ) return cb( err );
+  let d = w.defer();
 
-    cb( null, indexName );
+  client.indices.exists( { index }, ( err, exists ) => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( exists );
 
   } );
+
+  return d.promise;
+
+}
+
+
+function _createIndex( client, indexName, settings ) {
+
+  let d = w.defer();
+
+  client.indices.create( {
+    index: indexName,
+    body: settings
+  }, err => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( indexName );  
+
+  } );
+
+  return d.promise;
 
 }
