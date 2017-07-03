@@ -3,7 +3,7 @@
 module.exports = {
   mysql : {
     host : '127.0.0.1',
-    database : 'openagenda_admintest',
+    database : 'oa_test_admin_agendas',
     password : 'grut',
     user : 'root'
   },

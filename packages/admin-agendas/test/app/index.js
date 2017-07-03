@@ -25,13 +25,11 @@ app.get( '/get', mw.agendas.get );
 app.post( '/set/:uid', mw.agendas.set );
 app.get( '/stakeholders', mw.stakeholders.list );
 
+fixtures.init( config );
+agendasSvc.init( config );
 
 async.waterfall( [
-  wcb => {
-    fixtures.init( config );
-    agendasSvc.init( config );
-    agendaStakeholdersSvc.init( config, wcb );
-  },
+  wcb => agendaStakeholdersSvc.init( config, wcb ),
   wcb => fixtures( [ {
     table: config.schemas.event,
     src: __dirname + '/../fixtures/event.data.sql'
