@@ -1,9 +1,13 @@
 "use strict";
 
 module.exports = {
-  setTo: ( target, field ) => v => {
+  setTo: ( target, field, override = true ) => v => {
 
-    v[ target ][ field ] = new Date();
+    if ( override || !( v[ target ][ field ] instanceof Date ) ) {
+
+      v[ target ][ field ] = new Date();
+
+    }
 
     return v;
 

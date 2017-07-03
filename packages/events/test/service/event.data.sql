@@ -1,6 +1,6 @@
 CREATE TABLE `${schema}` (
   id bigint(20) AUTO_INCREMENT,
-  uid BIGINT UNIQUE,
+  uid BIGINT NOT NULL UNIQUE,
   owner_uid bigint(20),
   creator_uid bigint(20),
   agenda_uid bigint(20),

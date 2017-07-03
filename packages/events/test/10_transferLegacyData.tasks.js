@@ -34,7 +34,7 @@ describe( 'events - functional (server): transfer legacy data', function() {
 
   afterEach( svc.shutdown );
 
-  it( 'transfer gives detailed report', done => {
+  /*it( 'transfer gives detailed report', done => {
 
     svc.tasks.transferLegacyData( ( err, result ) => {
 
@@ -52,7 +52,7 @@ describe( 'events - functional (server): transfer legacy data', function() {
 
     } );
 
-  } );
+  } ); */
 
 
 

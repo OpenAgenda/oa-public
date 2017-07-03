@@ -74,6 +74,24 @@ describe( 'events - functional (server): list', function() {
   } );
 
 
+  it( 'gives a promise if no callback is defined', async () => {
+
+    const result = await svc.list( { search: 'Pierre' }, 0, 2 );
+
+    result.events.length.should.equal( 2 );
+
+  } );
+
+
+  it( 'search by uids', async () => {
+
+    const result = await svc.list( { uid: [ 68645096, 74935370, 18957259 ] }, 0, 20 );
+
+    result.events.map( e => e.uid ).should.eql( [ 18957259, 68645096, 74935370 ] );
+
+  } );
+
+
   it( 'list with private to true gets private events only', done => {
 
     svc.list( { private: true }, 0, 20, ( err, events ) => {
@@ -88,7 +106,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'list with private to null gets both private and non private events', done => {
 
-    svc.list( { private: null }, 0, 20, ( err, events ) => {
+    svc.list( { private: null, uid: [ 3564473, 64549836, 48641508 ] }, 0, 20, ( err, events ) => {
 
       events.filter( e => !e.private ).length.should.not.equal( 0 );
 
@@ -128,7 +146,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'keywords appear as lists', done => {
 
-    svc.list( 0, 1, ( err, events ) => {
+    svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
 
       events[ 0 ].keywords.should.eql( { 
         fr: [ 'famille', 'animation', 'enfant', 'monument' ] 
@@ -175,7 +193,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'if detailed option is set, additional information is fetched for location and origin agenda', done => {
 
-    svc.list( 3, 1, { detailed: true }, ( err, events ) => {
+    svc.list( { uid: [ 1517683 ] }, 0, 1, { detailed: true }, ( err, events ) => {
 
       _.pick( events[ 0 ], [ 'location', 'agenda' ] ).should.eql( { 
         location: { 
@@ -228,7 +246,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'list does not give deleted events', done => {
 
-    svc.list( 0, 20, ( err, events ) => {
+    svc.list( { uid: [ 31638453, 1517683, 68645096 ] }, 0, 20, ( err, events ) => {
 
       events.filter( e => e.uid === 31638453 ).length.should.equal( 0 );
 

@@ -45,6 +45,19 @@ describe( 'events - functional (server): update', function() {
   } );
 
 
+  it( 'update the event title using async/await', async () => {
+
+    let result = await svc.update( id, {
+      title: { fr: 'Titre toujours à jour' }
+    } );
+
+    result.event.title.should.eql( {
+      fr: 'Titre toujours à jour'
+    } );    
+
+  } );
+
+
   it( 'absent title is considered invalid for non draft event', done => {
 
     svc.update( id, { title: {} }, { draft: false }, ( err, result ) => {
@@ -132,6 +145,19 @@ describe( 'events - functional (server): update', function() {
       done();
 
     } );
+
+  } );
+
+
+  it( 'unprotected update with updatedAt value updates updatedAt value', async () => {
+
+    const updatedAt = new Date( '1979-07-08' );
+
+    const result = await svc.update( id, {
+      updatedAt
+    }, { protected: false } );
+
+    result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
 
   } );
 

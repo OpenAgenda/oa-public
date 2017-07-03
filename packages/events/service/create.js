@@ -27,78 +27,85 @@ let schemas, service, knex, config, log;
 
 module.exports = _.extend( function( data, options, cb ) {
 
-  if ( cb === undefined ) {
+  if ( cb === undefined && typeof options === 'function' ) {
 
     cb = options;
     options = {};
 
   }
 
-  const params = _.extend( {
-    internal: false,
-    includeImagePath: false,
-    draft: false
-  }, options );
+  let p = new Promise( ( rs, rj ) => {
+
+    const params = _.extend( {
+      internal: false,
+      protected: true,
+      includeImagePath: false,
+      draft: false
+    }, options );
 
 
-  w( _.extend( {}, params, {
-    id: false,
-    data,
-    clean: null,
-    created: null,
-    errors: [],
-    identifiers: null,
-    success: false
-  } ) )
+    w( _.extend( {}, params, {
+      id: false,
+      data,
+      clean: null,
+      created: null,
+      errors: [],
+      identifiers: null,
+      success: false
+    } ) )
 
-  .then( _verifyUniqueUidIfSet )
+    .then( _verifyUniqueUidIfSet )
 
-  .then( _createUid )
+    .then( _createUid )
 
-  .then( _createSlugIfNotSet )
+    .then( _createSlugIfNotSet )
 
-  .then( unique.verify( {
-    mysql: config.mysql, 
-    table: schemas.event, 
-    field: 'slug', 
-    log 
-  } ) )
+    .then( unique.verify( {
+      mysql: config.mysql, 
+      table: schemas.event, 
+      field: 'slug', 
+      log 
+    } ) )
 
-  .then( now.setTo( 'data', 'updatedAt' ) )
+    .then( now.setTo( 'data', 'updatedAt', params.protected ) )
 
-  .then( now.setTo( 'data', 'createdAt' ) )
+    .then( now.setTo( 'data', 'createdAt', params.protected ) )
 
-  .then( draft( 'data' ) )
+    .then( draft( 'data' ) )
 
-  .then( validate( { target: 'data', log } ) )
+    .then( validate( { target: 'data', log } ) )
 
-  .then( _doCreate )
+    .then( _doCreate )
 
-  .then( get( {
-    log,
-    get: service.get,
-    target: 'created', 
-    internal: true, 
-    prerequisite: v => v.success && !v.errors.length,
-    includeImagePath: params.includeImagePath
-  } ) )
+    .then( get( {
+      log,
+      get: service.get,
+      target: 'created', 
+      internal: true, 
+      prerequisite: v => v.success && !v.errors.length,
+      includeImagePath: params.includeImagePath
+    } ) )
 
-  .done( v => {
+    .done( v => {
 
-    if ( v.success && config.interfaces ) {
+      if ( v.success && config.interfaces ) {
 
-      config.interfaces.onCreate( v.created );
+        config.interfaces.onCreate( v.created );
 
-    }
+      }
 
-    cb( null, {
-      event: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
-      valid: !v.errors.length,
-      success: v.success,
-      errors: v.errors
-    } );
+      rs( {
+        event: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
+        valid: !v.errors.length,
+        success: v.success,
+        errors: v.errors
+      } );
 
-  }, cb );
+    }, rj );
+
+  } );
+
+  return cb ? p.catch( cb ).then( result => cb( null, result ) ) : p;
 
 }, {
   init: ( svc, c ) => {

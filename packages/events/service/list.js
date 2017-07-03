@@ -37,23 +37,35 @@ function list( query, offset, limit, options, cb ) {
 
   if ( !knex ) return cb( 'events service was not initialized' );
 
-  w( _.assign( {}, params, {
-    events: [],
-    total: null,
-    knexQuery: knex( schemas.event )
-  } ) )
+  const p = new Promise( ( rs, rj ) => {
 
-    .then( _clean )
+    w( _.assign( {}, params, {
+      events: [],
+      total: null,
+      knexQuery: knex( schemas.event )
+    } ) )
 
-    .then( _search )
+      .then( _clean )
 
-    .then( _total )
+      .then( _search )
 
-    .then( _list )
+      .then( _total )
 
-    .then( params.options.detailed ? _detailed : v => v )
+      .then( _list )
 
-    .done( v => params.cb( null, v.events, v.total ), params.cb );
+      .then( params.options.detailed ? _detailed : v => v )
+
+      .done( v => {
+
+        rs( _.pick( v, v.total ? [ 'events', 'total' ] : [ 'events' ] ) );
+
+      }, rj );
+
+    } );
+
+  if ( !params.cb ) return p;
+
+  w( p ).done( result => params.cb( null, result.events, result.total ), params.cb );
 
 }
 
@@ -92,6 +104,12 @@ function _list( v ) {
     if ( v.cleanQuery[ f ] === null || v.cleanQuery[ f ] === true ) listFields.push( f );
 
   } );
+
+  if ( v.cleanQuery.uid && v.cleanQuery.uid.length ) {
+
+    v.knexQuery.where( 'uid', 'in', v.cleanQuery.uid );
+
+  }
 
   if ( v.cleanQuery.order ) {
 

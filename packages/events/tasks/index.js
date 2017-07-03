@@ -3,14 +3,14 @@
 const init = require( '../service/init' );
 
 const makeValidatorFields = require( './makeValidatorFields' );
-const transferLegacyData = require( './transferLegacyData' );
+const slowTransfer = require( './slowTransfer' );
 
 module.exports = { 
   makeValidatorFields,
-  transferLegacyData,
+  slowTransfer,
   init: ( svc, c ) => {
 
-    transferLegacyData.init( svc, c );
+    slowTransfer.init( svc, c );
 
   }
 }

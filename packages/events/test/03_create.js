@@ -148,7 +148,6 @@ describe( 'events - functional (server): create', function() {
 
   } );
 
-
   it( 'create the most complete event', done => {
 
     svc.create( {
@@ -265,7 +264,6 @@ describe( 'events - functional (server): create', function() {
     } );
 
   } );
-
 
   it( 'create the most complete event and include internal data in result', done => {
 
@@ -387,6 +385,31 @@ describe( 'events - functional (server): create', function() {
       done();
 
     } );
+
+  } );
+
+  it( 'can return a promise if no callback is fed', async () => {
+
+    let result = await svc.create( {}, { draft: true } );
+
+    result.event.draft.should.equal( 1 );
+
+  } );
+
+  it( 'when create is not protected, updatedAt and createdAt timestamps can be explicited', async () => {
+
+    let createdAt = new Date( '1981-02-28T03:00:00.000Z' ),
+
+      updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
+
+    let result = await svc.create( {
+      createdAt,
+      updatedAt
+    }, { draft: true, protected: false } );
+
+    result.event.createdAt.getTime().should.equal( createdAt.getTime() );
+
+    result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
 
   } );
 

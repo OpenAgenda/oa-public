@@ -336,11 +336,11 @@ function _getOccurrences( v ) {
 
       if ( new Date( a.date + 'T' + a.time_start ) < new Date( a.date + 'T' + a.time_end ) ) {
 
-        return -1;
+        return 1;
 
       } else {
 
-        return 1;
+        return -1;
 
       }
 
