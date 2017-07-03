@@ -105,7 +105,7 @@ module.exports = _.extend( function( data, options, cb ) {
 
   } );
 
-  return cb ? p.catch( cb ).then( result => cb( null, result ) ) : p;
+  return cb ? w( p ).done( result => cb( null, result ), cb ) : p
 
 }, {
   init: ( svc, c ) => {

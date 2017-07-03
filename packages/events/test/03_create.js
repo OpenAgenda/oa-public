@@ -77,6 +77,42 @@ describe( 'events - functional (server): create', function() {
 
   } );
 
+
+  it( 'created event always lists timings in chronological order', async () => {
+
+    let times = {
+      monday: new Date( '2017-07-03T11:00' ),
+      tuesday: new Date( '2017-07-04T12:00' ),
+      wednesday: new Date( '2017-07-05T12:00' )
+    };
+
+    let result = await svc.create( {
+      title: {
+        fr: 'Un événement'
+      },
+      timings: [ {
+        begin: times.wednesday,
+        end: times.wednesday
+      }, {
+        begin: times.monday,
+        end: times.monday
+      }, {
+        begin: times.tuesday,
+        end: times.tuesday
+      } ]
+    } );
+
+    ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
+
+      .should.equal( times.monday.getTime() );
+
+    ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
+
+      .should.equal( times.wednesday.getTime() );
+
+  } );
+
+
   it( 'create the simplest published event', done => {
 
     // svc.set( { - deprecated

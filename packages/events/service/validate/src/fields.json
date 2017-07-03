@@ -1,10 +1,10 @@
 {
   "id" : {
-    "type" : "number",
+    "type" : "integer",
     "server" : true
   },
   "uid" : {
-    "type" : "number",
+    "type" : "integer",
     "optional" : false,
     "server" : true
   },
@@ -14,19 +14,20 @@
     "min" : 1
   },
   "ownerUid" : {
-    "type" : "number",
+    "type" : "integer",
     "server" : true
   },
   "creatorUid" : {
-    "type" : "number",
+    "type" : "integer",
     "server" : true
   },
   "agendaUid" : {
-    "type" : "number",
+    "type" : "integer",
     "server" : true
   },
   "locationUid" : {
-    "type" : "number"
+    "type" : "integer",
+    "default" : null
   },
   "title" : {
     "type" : "multilingual",
