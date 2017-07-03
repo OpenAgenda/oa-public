@@ -77,8 +77,8 @@ function rebuild( args, options, logger ) {
   } )
     .then( () => {
 
-      return knex( options.feedTable ).delete()
-        .then( () => knex( options.activityTable ).delete() )
+      return knex( options.feedTable ).del()
+        .then( () => knex( options.activityTable ).del() )
         .then( () => {
 
           return eachUsers( onEachUser )
@@ -111,7 +111,10 @@ function rebuild( args, options, logger ) {
       .then( () => next() )
       .catch( err => {
 
-        console.error( err );
+        if ( err && err.message === 'Feed already exists' ) {
+          return next();
+        }
+
         next( err );
 
       } );
