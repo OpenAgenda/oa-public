@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import makeGetterLabel from 'labels';
-import labels from 'labels/activities/agenda';
+import labels from 'labels/activities/user';
 
 @connect(
   state => ({
@@ -29,8 +29,10 @@ export default class AgendaApp extends Component {
   render() {
 
     return (
-      <div className="activity-agenda-admin">
-        {this.props.children}
+      <div className="container activity-user top-margined">
+        <div className="wsq">
+          {this.props.children}
+        </div>
       </div>
     );
 

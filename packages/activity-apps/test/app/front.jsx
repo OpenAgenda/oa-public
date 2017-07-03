@@ -4,7 +4,7 @@ import du from 'dom-utils';
 import dl from 'dom-utils/documentLocation';
 import adminApp from '../../react/dist/apps/admin';
 import agendaApp from '../../react/dist/apps/agenda';
-import notifsApp from '../../react/dist/apps/notifications';
+import userApp from '../../react/dist/apps/user';
 import notificationsHandler from '../../notifications';
 
 // required also in main.js
@@ -22,6 +22,8 @@ window.onload = () => {
       return renderApp( agendaApp );
     case 'admin':
       return renderApp( adminApp );
+    case 'user':
+      return renderApp( userApp );
     case 'notifications':
       ReactDom.render( <div className="container">
         <div className="navbar-collapse collapse">

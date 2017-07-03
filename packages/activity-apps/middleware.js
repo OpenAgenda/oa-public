@@ -11,6 +11,7 @@ const ApiClient = require( 'react-utils/dist/ApiClient' );
 
 const getAdminRoutes = require( './react/dist/apps/admin/routes' );
 const getAgendaRoutes = require( './react/dist/apps/agenda/routes' );
+const getUserRoutes = require( './react/dist/apps/user/routes' );
 const reducer = require( './react/dist/redux/reducer' );
 
 const notificationsApp = require( './react/dist/apps/notifications' );
@@ -23,6 +24,7 @@ let log;
 module.exports = {
   matchAdminApp: matchAppMw( createStore( reducer ), getAdminRoutes, ApiClient ),
   matchAgendaApp: matchAppMw( createStore( reducer ), getAgendaRoutes, ApiClient ),
+  matchUserApp: matchAppMw( createStore( reducer ), getUserRoutes, ApiClient ),
   init,
   list,
   notifications: {
@@ -50,33 +52,34 @@ function init( c, cb ) {
 
 }
 
-function list( req, res ) {
+function list( options ) {
 
-  const query = _.pick( req.query, [ 'actor', 'verb', 'object', 'target' ] );
-  const limit = config.limit;
+  return ( req, res ) => {
 
-  const { datetimeRange, fromId } = req.query;
+    const query = _.pick( req.query, [ 'actor', 'verb', 'object', 'target' ] );
+    const limit = config.limit;
 
-  if ( datetimeRange ) {
-    const [ afterAt, beforeAt ] = datetimeRange.split( '|' );
-    query.createdAt = {
-      $lte: new Date( beforeAt ),
-      $gte: new Date( afterAt )
-    };
-  }
+    const { datetimeRange, fromId } = req.query;
 
-  const svc = (req.agenda && req.agenda.uid) ? activitiesSvc.feed( {
-    entityType: 'agenda',
-    entityUid: req.agenda.uid
-  } ) : activitiesSvc;
+    if ( datetimeRange ) {
+      const [ afterAt, beforeAt ] = datetimeRange.split( '|' );
+      query.createdAt = {
+        $lte: new Date( beforeAt ),
+        $gte: new Date( afterAt )
+      };
+    }
 
-  svc.activities.list( query, fromId || 0, limit )
-    .then( activities => {
-      res.send( { activities } );
-    } )
-    .catch( err => {
-      res.status( 400 ).send( err );
-    } );
+    const svc = options ? activitiesSvc.feed( options ) : activitiesSvc;
+
+    svc.activities.list( query, fromId || 0, limit )
+      .then( activities => {
+        res.send( { activities } );
+      } )
+      .catch( err => {
+        res.status( 400 ).send( err );
+      } );
+
+  };
 
 }
 

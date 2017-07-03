@@ -31,6 +31,15 @@ exports.default = function (options) {
         { className: 'list-group-item read-all-item' },
         _react2.default.createElement(
           'div',
+          { className: 'pull-left' },
+          _react2.default.createElement(
+            'button',
+            { className: 'btn btn-link see-activities' },
+            getLabel('viewAllActivities')
+          )
+        ),
+        _react2.default.createElement(
+          'div',
           { className: 'text-right' },
           _react2.default.createElement(
             'button',
@@ -46,6 +55,11 @@ exports.default = function (options) {
           'div',
           { className: 'text-center padding-all-sm' },
           getLabel('noNotif')
+        ),
+        _react2.default.createElement(
+          'button',
+          { className: 'btn btn-link see-activities center-block' },
+          getLabel('viewAllActivities')
         )
       ),
       notifications.map(function (v) {

@@ -55,6 +55,7 @@ async.waterfall( [
     switch ( req.query._app ) {
 
       case 'agenda':
+      case 'user':
       case 'notifications':
         app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
       default:
@@ -92,8 +93,17 @@ async.waterfall( [
   app.get( '/notifications/mark-read/:notifId', mw.notifications.markRead );
   app.get( '/notifications/mark-all-read', mw.notifications.markAllRead );
 
-  app.get( '/list', mw.list );
-  app.get( '/:uid/list', mw.list );
+  // for admin
+  app.get( '/list', mw.list() );
+
+  // for agenda and user
+  app.get(
+    '/:uid/list',
+    ( req, res ) => mw.list( {
+      entityType: req.query._app,
+      entityUid: req[ req.query._app ].uid
+    } )( req, res )
+  );
 
   app.getAndListen( '*', port, matchApp );
 
@@ -116,12 +126,7 @@ function matchApp( req, res, next ) {
   // Specific state for apps
   switch ( req.query._app ) {
     case 'agenda':
-      _.merge( state, {
-        res: {
-          list: `/list`
-        }
-      } );
-      break;
+    case 'user':
     case 'admin':
       _.merge( state, {
         res: {
@@ -141,6 +146,13 @@ function matchApp( req, res, next ) {
   switch ( req.query._app ) {
     case 'agenda':
       mw.matchAgendaApp(
+        { state },
+        prefix,
+        getApp
+      )( req, res, next );
+      break;
+    case 'user':
+      mw.matchUserApp(
         { state },
         prefix,
         getApp
@@ -170,7 +182,13 @@ function getApp( req, res, next, { store, component } = {} ) {
 
 function getHtmlBody( req ) {
 
-  if ( req.query._app == 'agenda' ) {
+  if ( req.query._app == 'user' ) {
+
+    return (
+      `<div class="js_canvas">{content}</div>`
+    );
+
+  } else if ( req.query._app == 'agenda' ) {
 
     return (
       `<div class="container agenda-admin top-margined">

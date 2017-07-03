@@ -26,16 +26,23 @@ export default function ( options ) {
     <div className="notifications-body">
       <div className="list-group">
         {(notifications && notifications.length > 0) && <div className="list-group-item read-all-item">
+          <div className="pull-left">
+            <button className="btn btn-link see-activities">{getLabel( 'viewAllActivities' )}</button>
+          </div>
           <div className="text-right">
             <button className="btn btn-link read-all">{getLabel( 'markAllAsRead' )}</button>
           </div>
         </div>}
+
         {!notifications || !notifications.length && <div className="list-group-item no-notif">
           <div className="text-center padding-all-sm">{getLabel( 'noNotif' )}</div>
+          <button className="btn btn-link see-activities center-block">{getLabel( 'viewAllActivities' )}</button>
         </div>}
+
         {notifications
           .map( v => ({ notification: v, ...formatNotification( v, lang ), lang }) )
           .map( renderNotification )}
+
         {(notifications && notifications.length > 0) && <div className="list-group-item next-item">
           <div className="text-center">
             <button className="btn btn-link next">{getLabel( 'next' )}</button>

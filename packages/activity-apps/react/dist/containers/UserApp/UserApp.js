@@ -30,9 +30,9 @@ var _labels = require('labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _agenda = require('labels/activities/agenda');
+var _user = require('labels/activities/user');
 
-var _agenda2 = _interopRequireDefault(_agenda);
+var _user2 = _interopRequireDefault(_user);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,7 +49,7 @@ var _components = {
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/AgendaApp/AgendaApp.js',
+  filename: 'react/src/containers/UserApp/UserApp.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -85,7 +85,7 @@ var AgendaApp = _wrapComponent('AgendaApp')((_dec = (0, _reactRedux.connect)(fun
         lang: lang,
         getLabel: function getLabel(label) {
           var values = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-          return (0, _labels2.default)(_agenda2.default)(label, values, lang);
+          return (0, _labels2.default)(_user2.default)(label, values, lang);
         }
       };
     }
@@ -95,8 +95,12 @@ var AgendaApp = _wrapComponent('AgendaApp')((_dec = (0, _reactRedux.connect)(fun
 
       return _react3.default.createElement(
         'div',
-        { className: 'activity-agenda-admin' },
-        this.props.children
+        { className: 'container activity-user top-margined' },
+        _react3.default.createElement(
+          'div',
+          { className: 'wsq' },
+          this.props.children
+        )
       );
     }
   }]);

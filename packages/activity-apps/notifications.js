@@ -41,6 +41,7 @@ module.exports = options => {
       notificationsBody: '.notifications-body',
       next: '.js_notifications .next',
       readAll: '.js_notifications .read-all',
+      seeActivities: '.js_notifications .see-activities',
     },
     classes: {
       hide: 'hide'
@@ -51,6 +52,7 @@ module.exports = options => {
       remove: '/notifications/remove/:notifId',
       markRead: '/notifications/mark-read/:notifId',
       markAllRead: '/notifications/mark-all-read',
+      seeActivities: '/home/activities',
     }
   }, options );
 
@@ -249,6 +251,18 @@ function onReadAllClick() {
 
 }
 
+function onSeeActivitiesClick() {
+
+  return e => {
+
+    du.preventDefault( e );
+
+    window.location.href = params.res.seeActivities;
+
+  };
+
+}
+
 function appendNotifications( result ) {
 
   notifications = notifications.concat( result.notifications );
@@ -387,6 +401,8 @@ function setListeners() {
   du.addEvent( document.querySelector( params.selectors.next ), 'click', onNextClick() );
 
   du.addEvent( document.querySelector( params.selectors.readAll ), 'click', onReadAllClick() );
+
+  du.addEvent( document.querySelector( params.selectors.seeActivities ), 'click', onSeeActivitiesClick() );
 
   Array.from( panelElem.querySelectorAll( '.list-group-item' ) )
     .map( el => {
