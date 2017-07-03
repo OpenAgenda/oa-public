@@ -1,3 +1,5 @@
+"use strict";
+
 const logger = require( 'basic-logger' );
 
 const _ = require( 'lodash' );
