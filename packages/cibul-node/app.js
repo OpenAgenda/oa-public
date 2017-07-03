@@ -227,7 +227,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( 'activities' ).tasks.notifications.addActivity();
 
-        require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
+        //require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
 
         /*require( 'agenda-events').tasks.transferLegacyData( err => {
 
