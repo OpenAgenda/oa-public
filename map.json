@@ -1,5 +1,6 @@
 [
   "activities/agenda",
+  "activities/user",
   "admin/activities",
   "admin/agendas",
   "admin/index",
