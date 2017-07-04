@@ -20,6 +20,8 @@ module.exports.tasks = require( './tasks' );
 
 module.exports.legacyTransfer = require( './service/legacyTransfer' );
 
+module.exports.remove = require( './service/remove' ).byEventUid;
+
 module.exports.init = config => {
 
   let client = knex( {

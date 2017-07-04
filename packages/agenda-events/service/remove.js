@@ -12,7 +12,8 @@ let config, knex;
 
 module.exports = _.extend( remove, { 
   init: ( c, k ) => { config = c; knex = k },
-  byLegacyId
+  byLegacyId,
+  byEventUid
 } );
 
 async function remove( agendaUid, eventUid, options = {} ) {
@@ -21,6 +22,21 @@ async function remove( agendaUid, eventUid, options = {} ) {
     event_uid: eventUid,
     agenda_uid: agendaUid,
   }, await get( agendaUid, eventUid ), validateOptions( options ) );
+
+}
+
+async function byEventUid( eventUid ) {
+
+  let removedRows = await knex( config.schemas.agendaEvent )
+
+    .del()
+
+    .where( { event_uid: eventUid } );
+
+  return {
+    success: removedRows >= 1,
+    removed: removedRows
+  }
 
 }
 
@@ -49,7 +65,7 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 
 }
 
-async function _remove( where, current, params = null ) {
+async function _remove( where, current = null, params = null ) {
 
   let success = false;
 
@@ -70,7 +86,7 @@ async function _remove( where, current, params = null ) {
 
     .where( where );
 
-  success = removedRows === 1;
+  success = removedRows == 1;
 
   if ( success && config.interfaces.onRemove ) {
 

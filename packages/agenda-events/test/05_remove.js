@@ -70,6 +70,19 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   } );
 
+
+  it( 'all references of given event can be removed in one call', async () => {
+
+    let result = await svc.remove( 15205357 );
+
+    result.should.eql( {
+      success: true,
+      removed: 2
+    } );
+
+  } );
+
+
   it( 'context can be passed in options to be transfered to onRemove interface', done => {
 
     svc.init( im( config, {
