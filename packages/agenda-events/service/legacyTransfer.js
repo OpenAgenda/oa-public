@@ -83,7 +83,7 @@ async function legacyTransfer( origin ) {
 
     result.operation = 'create';
 
-  } else if ( data && ( current.updatedAt !== new Date( data.updatedAt ) ) ) {
+  } else if ( data && ( current.updatedAt < new Date( data.updatedAt ) ) ) {
 
     result = await update( data.agendaUid, data.eventUid, values, { protected: false } );
 
