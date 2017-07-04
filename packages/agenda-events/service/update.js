@@ -39,7 +39,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   try {
 
-    let values = _.extend( current, data || {}, {
+    let values = _.extend( {}, current, data || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt
     } );
