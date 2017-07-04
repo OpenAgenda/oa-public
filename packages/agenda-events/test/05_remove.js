@@ -10,6 +10,8 @@ const config = require( '../testconfig' );
 
 const should = require( 'should' );
 
+const im = require( 'immutability-helper' );
+
 describe( 'agendaEvents - functional (server): remove', function() {
 
   this.timeout( 5000 );
@@ -65,6 +67,32 @@ describe( 'agendaEvents - functional (server): remove', function() {
     before.should.not.equal( null );
 
     should( after ).equal( null ); 
+
+  } );
+
+  it( 'context can be passed in options to be transfered to onRemove interface', done => {
+
+    svc.init( im( config, {
+      interfaces: {
+        onRemove: {
+          $set: ( removed, context ) => {
+
+            context.should.eql( {
+              userUid: 111
+            } );
+
+            done();
+
+          }
+        }
+      }
+    } ) );
+
+    svc( 62792452 ).remove( 10974548, {
+      context: {
+        userUid: 111
+      }
+    } );
 
   } );
 

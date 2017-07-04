@@ -10,6 +10,8 @@ const mysql = require( 'mysql' );
 
 const _ = require( 'lodash' );
 
+const im = require( 'immutability-helper' );
+
 const should = require( 'should' );
 
 describe( 'agendaEvents - functional (server): create', function() {
@@ -19,6 +21,12 @@ describe( 'agendaEvents - functional (server): create', function() {
   before( done => {
 
     svc.initAndLoad( config, done );
+
+  } );
+
+  afterEach( () => {
+
+    svc.init( config );
 
   } );
 
@@ -72,6 +80,50 @@ describe( 'agendaEvents - functional (server): create', function() {
     } );
 
     result.created.userUid.should.equal( 5656 );
+
+  } );
+
+  it( 'context can be passed in options to be transfered to onCreate interface', done => {
+
+    svc.init( im( config, {
+      interfaces: {
+        onCreate: {
+          $set: ( created, context ) => {
+
+            context.should.eql( {
+              userUid: 111
+            } );
+
+          }
+        }
+      }
+    } ) );
+
+    svc( 1212 ).create( 3445, {}, {
+      context: {
+        userUid: 111
+      }
+    } ).then( () => done() );
+
+  } );
+
+  it( 'when no context is passed, default context values are given', done => {
+
+    svc.init( im( config, {
+      interfaces: {
+        onCreate: {
+          $set: ( created, context ) => {
+
+            context.should.eql( {
+              userUid: null
+            } );
+
+          }
+        }
+      }
+    } ) )
+
+    svc( 1212 ).create( 3445 ).then( () => done() );
 
   } );
 

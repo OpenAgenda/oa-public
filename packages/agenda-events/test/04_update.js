@@ -12,6 +12,8 @@ const _ = require( 'lodash' );
 
 const should = require( 'should' );
 
+const im = require( 'immutability-helper' );
+
 describe( 'agendaEvents - functional (server): update', function() {
 
   this.timeout( 5000 );
@@ -19,6 +21,12 @@ describe( 'agendaEvents - functional (server): update', function() {
   before( done => {
 
     svc.initAndLoad( config, done );
+
+  } );
+
+  afterEach( () => {
+
+    svc.init( config );
 
   } );
 
@@ -56,6 +64,33 @@ describe( 'agendaEvents - functional (server): update', function() {
     result.updated.createdAt.toString().should.equal( createdAt.toString() );
 
     result.updated.updatedAt.toString().should.equal( updatedAt.toString() );
+
+  } );
+
+
+  it( 'context can be passed in options to be transfered to onUpdate interface', done => {
+
+    svc.init( im( config, {
+      interfaces: {
+        onUpdate: {
+          $set: ( before, after, context ) => {
+
+            context.should.eql( {
+              userUid: 111
+            } );
+
+            done();
+
+          }
+        }
+      }
+    } ) );
+
+    svc( 62792452 ).update( 10974548, { featured: true }, {
+      context: {
+        userUid: 111
+      }
+    } );
 
   } );
 

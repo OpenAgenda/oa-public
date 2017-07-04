@@ -6,6 +6,8 @@ const w = require( 'when' );
 
 const get = require( './get' );
 
+const validateOptions = require( './lib/validateOptions' );
+
 let config, knex;
 
 module.exports = _.extend( remove, { 
@@ -13,12 +15,12 @@ module.exports = _.extend( remove, {
   byLegacyId
 } );
 
-async function remove( agendaUid, eventUid ) {
+async function remove( agendaUid, eventUid, options = {} ) {
 
   return await _remove( {
     event_uid: eventUid,
-    agenda_uid: agendaUid
-  }, await get( agendaUid, eventUid ) );
+    agenda_uid: agendaUid,
+  }, await get( agendaUid, eventUid ), validateOptions( options ) );
 
 }
 
@@ -47,7 +49,7 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 
 }
 
-async function _remove( where, current ) {
+async function _remove( where, current, params = null ) {
 
   let success = false;
 
@@ -72,7 +74,7 @@ async function _remove( where, current ) {
 
   if ( success && config.interfaces.onRemove ) {
 
-    config.interfaces.onRemove( current );
+    config.interfaces.onRemove( current, params !== null ? params.context : null );
 
   }
 

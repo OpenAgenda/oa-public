@@ -11,7 +11,13 @@ const _ = require( 'lodash' ),
 let config, knex;
 
 module.exports = _.extend( create, {
-  init: ( c, k ) => { config = c; knex = k; }
+  init: ( c, k ) => {
+
+    config = c;
+
+    knex = k;
+
+  }
 } );
 
 async function create( agendaUid, eventUid, data = {}, options = {} ) {
@@ -81,7 +87,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( success && config.interfaces.onCreate ) {
 
-    config.interfaces.onCreate( created );
+    config.interfaces.onCreate( created, params.context );
 
   }
 
