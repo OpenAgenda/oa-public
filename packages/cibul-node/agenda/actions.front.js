@@ -14,6 +14,8 @@ const sessions = require( 'sessions' ),
 
   eventSvc = require( '../services/event' ),
 
+  agendaEvents = require( 'agenda-events' ),
+
   agendaSvc = require( '../services/agenda' ),
 
   model = require( '../services/model' ),
@@ -232,6 +234,12 @@ function eventAdd( req, res ) {
         return _onActionComplete( req, res, false, getActionLabel( 'agendaShareError', { agenda: req.agenda.title }, req.lang ) );
 
       }
+
+      agendaEvents( req.agenda.uid ).create( req.event.uid, {
+        state: contributionSettings.defaultState
+      }, {
+        userUid: req.user.uid
+      } );
 
       req.log( 'info', {
         message: 'eventAdd added to agenda',
