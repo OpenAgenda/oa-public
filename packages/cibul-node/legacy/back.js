@@ -32,6 +32,8 @@ const sessions = require( 'sessions' ),
 
   activitiesSvc = require( 'activities' ),
 
+  agendaEvents = require( 'agenda-events' ),
+
   usersSvc = require( 'users' ),
 
   legacyEvents = require( '../services/events' ).legacy,
@@ -224,7 +226,9 @@ function eventDelete( req, res, next ) {
 
   res.send( 'ok' );
 
-  legacyEvents.onRemove( req.event );
+  let userUid = req.query.user_uid || null;
+
+  legacyEvents.onRemove( req.event, { userUid } );
 
   req.event.getAgendaReferences( ( err, agendas ) => {
 

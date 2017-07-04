@@ -490,8 +490,8 @@ var deepExtend = require( 'deep-extend' ),
           //enable: 'oa:search task*',
           //enable: 'oa:events/interfaces/legacy'
           //enable: 'oa:agendaEvents/interfaces/legacy',
-          //enable: 'oa:agendaEvents/interfaces/onCreate, oa:agendaEvents/interfaces/onUpdate, oa:agendaEvents/interfaces/onRemove'
-          enable: 'oa:*'
+          enable: 'oa:agendaEvents/interfaces/onCreate, oa:agendaEvents/interfaces/onUpdate, oa:agendaEvents/interfaces/onRemove'
+          //enable: 'oa:*'
         },
         token: false // no need to log dev things
         //token: 'a2923436-55dc-4eba-8668-44824d11c089'

@@ -256,6 +256,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/agendaEvents/legacy' ).task();
 
+        require( 'agenda-events' ).tasks.interfaces( { interval: 10 } );
+
       }
 
       server = app.listen( config.port, () => {

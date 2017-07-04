@@ -13,9 +13,6 @@ const VError = require( 'verror' );
 let log = console.log;
 
 module.exports = {
-  //onCreate: () => {},
-  //onUpdate: () => {},
-  //onRemove: () => {},
   task,
   setLog: l => log = l
 }
@@ -36,7 +33,7 @@ function task() {
         
         result = await agendaEvents.legacyTransfer( action.values.id );
 
-      } else if ( action.name === 'event.update' ) {
+      } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 
         result = await agendaEvents.legacyTransfer( { 
           eventId: action.values.id,

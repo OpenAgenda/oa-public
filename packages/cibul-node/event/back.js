@@ -12,6 +12,7 @@ const eventReferences = require( 'agenda-event-references' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
 const contributorLabels = require( 'labels/event/contributors' );
 const w = require( 'when' );
+const agendaEvents = require( 'agenda-events' );
 
 const activitiesSvc = require( 'activities' );
 const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' )
@@ -290,6 +291,14 @@ function _changeState( req, res, next ) {
 
   req.log( 'updating state to %s', req.params.type );
 
+  agendaEvents( req.agenda.uid ).update( req.event.uid, {
+    state: req.params.type
+  }, {
+    context: {
+      userUid: req.user.uid
+    }
+  } );
+
   req.event.setState( req.params.type, function ( err, result, { oldState, newState } ) {
 
     if ( err ) {
@@ -359,11 +368,15 @@ function _changeState( req, res, next ) {
 function _changeFeatured( req, res, next ) {
 
   var funcs = {
-    'featured': req.agenda.setEventFeatured,
-    'notfeatured': req.agenda.setEventUnfeatured
+    featured: req.agenda.setEventFeatured,
+    notfeatured: req.agenda.setEventUnfeatured
   };
 
   req.log( 'updating featured to %s', req.params.type );
+
+  agendaEvents( req.agenda.uid ).update( req.event.uid, {
+    featured: req.params.type === 'featured'
+  }, { context: { userUid: req.user.uid } } );
 
   funcs[ req.params.type ]( req.event, err => {
 
