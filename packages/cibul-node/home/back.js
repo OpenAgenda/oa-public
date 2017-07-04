@@ -7,6 +7,7 @@ const modLib = require( "../lib/moduleLib.js" );
 const cmn = require( '../lib/commons-app' );
 const homeMw = require( 'home/middleware' );
 const sessions = require( 'sessions' );
+const activitiesMw = require( 'activity-apps/middleware' );
 
 
 module.exports = path => {
@@ -20,9 +21,17 @@ module.exports = path => {
       cmn.loadBaseData( 'oasfmain.css' ),
       matchApp
     ] ],
+    homeActivities: [ 'get', '/activities', [
+      cmn.loadBaseData( 'oasfmain.css' ),
+      matchUserActivitiesApp
+    ] ],
 
     homeShowList: [ 'get', '/agendas', homeMw.agendas.list ],
-    homeEventsList: [ 'get', '/events.json', homeMw.events.list ]
+    homeEventsList: [ 'get', '/events.json', homeMw.events.list ],
+    homeActivitiesList: [
+      'get', '/activities/list',
+      ( req, res ) => activitiesMw.list( { entityType: 'user', entityUid: req.user.uid } )( req, res )
+    ]
   };
 
   const router = modLib.Router( routes );
@@ -89,6 +98,42 @@ function matchApp( req, res, next ) {
     },
     prefix,
     getApp
+  )( req, res, next );
+
+}
+
+function getUserActivitiesApp( req, res, next, { store, component } = {} ) {
+
+  const state = store ? store.getState() : {};
+  const lang = req.lang || 'fr';
+
+  const content = component ? ReactDOM.renderToString( component ) : '';
+
+  cmn.render( req, res, 'activities/user', { scriptParams: { state }, lang, content } );
+
+}
+
+function matchUserActivitiesApp( req, res, next ) {
+
+  const prefix = req.genUrl( 'homeActivities' ).split( '?' )[ 0 ];
+  const lang = req.lang || 'fr';
+
+  activitiesMw.matchUserApp(
+    {
+      state: {
+        settings: {
+          prefix,
+          lang,
+          apiRoot: `http://localhost:${config.port}`,
+          perPageLimit: homeMw.getConfig().mw.limit
+        },
+        res: {
+          list: req.genUrl( 'homeActivitiesList' )
+        }
+      }
+    },
+    prefix,
+    getUserActivitiesApp
   )( req, res, next );
 
 }

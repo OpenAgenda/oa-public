@@ -22,7 +22,7 @@ const routes = {
 
   /**********/
 
-  adminActivitiesList: [ 'get', '/list', mw.list ]
+  adminActivitiesList: [ 'get', '/list', mw.list() ]
 
 };
 

@@ -25,7 +25,10 @@ module.exports = path => {
 
     /**********/
 
-    agendaAdminActivitiesList: [ 'get', '/list', mw.list ]
+    agendaAdminActivitiesList: [
+      'get', '/list',
+      ( req, res ) => mw.list( { entityType: 'agenda', entityUid: req.agenda.uid } )( req, res )
+    ]
 
   };
 
