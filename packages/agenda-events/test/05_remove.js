@@ -12,6 +12,8 @@ const should = require( 'should' );
 
 const im = require( 'immutability-helper' );
 
+const queue = require( 'queue' );
+
 describe( 'agendaEvents - functional (server): remove', function() {
 
   this.timeout( 5000 );
@@ -19,6 +21,12 @@ describe( 'agendaEvents - functional (server): remove', function() {
   beforeEach( done => {
 
     svc.initAndLoad( config, done );
+
+  } );
+ 
+  beforeEach( done => {
+
+    queue( 'agendaEventInterfaces', { redis: config.redis } ).test.clear( done );
 
   } );
 
@@ -79,6 +87,37 @@ describe( 'agendaEvents - functional (server): remove', function() {
       success: true,
       removed: 2
     } );
+
+  } );
+
+
+  it( 'when several references are removed', done => {
+
+    let count = 0;
+
+    svc.init( im( config, {
+      interfaces: {
+        onRemove: {
+          $set: ( removed, context ) => {
+
+            count++;
+
+            removed.eventUid.should.equal( 15205357 );
+
+            if ( count === 2 ) {
+
+              done();
+
+            }
+
+          }
+        }
+      }
+    } ) );
+
+    svc.remove( 15205357 );
+
+    svc.tasks.interfaces();
 
   } );
 

@@ -2,5 +2,6 @@
 
 module.exports = {
   transferLegacyData: require( './transferLegacyData' ),
-  transferUserUids: require( './transferUserUids' )
+  transferUserUids: require( './transferUserUids' ),
+  interfaces: require( './interfaces' )
 };

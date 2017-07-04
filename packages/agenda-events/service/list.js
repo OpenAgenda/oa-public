@@ -10,7 +10,8 @@ let config, knex;
 
 module.exports = _.extend( list, { 
   init: ( c, k ) => { config = c; knex = k },
-  byUserUid: listByUserUid
+  byUserUid: listByUserUid,
+  byEventUid: listByEventUid
 } );
 
 async function list( agendaUid, offset, limit ) {
@@ -31,6 +32,17 @@ async function listByUserUid( userUid, offset, limit ) {
   return {
     items: ( await _list( { userUid }, offset, limit ) ).map( validate ),
     total: await _total( { userUid } )
+  }
+
+}
+
+async function listByEventUid( eventUid, offset, limit ) {
+
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+
+  return {
+    items: ( await _list( { eventUid }, offset, limit ) ).map( validate ),
+    total: await _total( { eventUid } )
   }
 
 }
@@ -72,6 +84,10 @@ function _query( k, query ) {
   } else if ( query.userUid !== undefined ) {
 
     k.where( 'user_uid', query.userUid );
+
+  } else {
+
+    k.where( 'event_uid', query.eventUid );
 
   }
 

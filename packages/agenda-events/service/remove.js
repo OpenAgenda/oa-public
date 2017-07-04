@@ -6,15 +6,24 @@ const w = require( 'when' );
 
 const get = require( './get' );
 
+const listByEventUid = require( './list' ).byEventUid;
+
 const validateOptions = require( './lib/validateOptions' );
 
-let config, knex;
+let config, knex, queue;
 
 module.exports = _.extend( remove, { 
-  init: ( c, k ) => { config = c; knex = k },
+  init: ( c, k ) => {
+
+    config = c;
+    knex = k;
+    queue = config.queues.interfaces;
+
+  },
   byLegacyId,
   byEventUid
 } );
+
 
 async function remove( agendaUid, eventUid, options = {} ) {
 
@@ -25,7 +34,18 @@ async function remove( agendaUid, eventUid, options = {} ) {
 
 }
 
+
 async function byEventUid( eventUid ) {
+
+  let events = [], offset = 0, limit = 20;
+
+  while ( ( events = ( await listByEventUid( eventUid, offset, limit ) ).items ).length ) {
+
+    events.forEach( e => queue( [ 'onRemove', e ] ) );
+
+    offset += limit;
+
+  }
 
   let removedRows = await knex( config.schemas.agendaEvent )
 
@@ -39,6 +59,7 @@ async function byEventUid( eventUid ) {
   }
 
 }
+
 
 async function byLegacyId( agendaId = null, eventId = null ) {
 
@@ -64,6 +85,7 @@ async function byLegacyId( agendaId = null, eventId = null ) {
   }, await get.byLegacyId(  agendaId, eventId ) );
 
 }
+
 
 async function _remove( where, current = null, params = null ) {
 

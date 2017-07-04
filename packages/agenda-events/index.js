@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
+const queueLib = require( 'queue' );
 
 const endpoints = {
   list: require( './service/list' ),
@@ -22,7 +23,17 @@ module.exports.legacyTransfer = require( './service/legacyTransfer' );
 
 module.exports.remove = require( './service/remove' ).byEventUid;
 
-module.exports.init = config => {
+module.exports.init = c => {
+
+  const config = _.extend( {
+    queueNames: {
+      interfaces: 'agendaEventInterfaces'
+    }
+  }, c );
+
+  config.queues = {
+    interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
+  };
 
   let client = knex( {
     client: 'mysql',
