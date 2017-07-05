@@ -1,10 +1,15 @@
 {
   "name": "call-to-action",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel react/src -d react/dist",
+    "preserve": "npm run build",
+    "serve": "node test/app",
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",
@@ -13,5 +18,39 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/call-to-action#readme"
+  "homepage": "https://bitbucket.org/openagenda/call-to-action#readme",
+  "directories": {
+    "test": "test"
+  },
+  "description": "",
+  "dependencies": {
+    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
+    "body-parser": "^1.16.0",
+    "history": "^3.3.0",
+    "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
+    "lodash": "^4.17.4",
+    "mailer": "git+ssh://git@bitbucket.org/openagenda/mailer.git",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-export-extensions": "^6.8.0",
+    "babel-plugin-transform-function-bind": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-plugin-transform-react-display-name": "^6.8.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
+    "husky": "^0.14.2",
+    "morgan": "^1.8.2",
+    "react-transform-catch-errors": "^1.0.2",
+    "redbox-react": "^1.3.3",
+    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
+  }
 }
