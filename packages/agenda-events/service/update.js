@@ -6,12 +6,22 @@ const _ = require( 'lodash' ),
 
   get = require( './get' ),
 
-  validateOptions = require( './lib/validateOptions' );
+  validateOptions = require( './lib/validateOptions' ),
 
-let config, knex;
+  logger = require( 'basic-logger' );
+
+let config, knex, log = console.log;
 
 module.exports = _.extend( update, {
-  init: ( c, k ) => { config = c; knex = k; }
+  init: ( c, k ) => {
+
+    config = c;
+
+    knex = k;
+
+    log = logger( 'agenda-events/update' );
+
+  }
 } );
 
 async function update( agendaUid, eventUid, data, options = {} ) {

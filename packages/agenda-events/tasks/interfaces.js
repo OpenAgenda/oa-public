@@ -11,6 +11,7 @@ module.exports = _.extend( run, {
     queue = c.queues.interfaces;
     interfaces = c.interfaces;
     svc = s;
+    
     log = logger( 'agenda-events/tasks/interfaces' );
 
   }
