@@ -85,7 +85,7 @@ function _before( v ) {
 
 function _get( v ) {
 
-  return wn.call( service.get, v.identifiers, { internal: true } )
+  return wn.call( service.get, v.identifiers, { internal: true, private: null } )
 
   .then( event => {
 
