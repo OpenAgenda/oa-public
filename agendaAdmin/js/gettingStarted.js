@@ -5,7 +5,8 @@ import deepExtend from 'deep-extend';
 import makeGetterLabel from 'labels';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import ImageUpload from 'image-upload';
-import labels from 'labels/agenda-admin/gettingStarted.js';
+import labels from 'labels/agenda-admin/gettingStarted';
+import openRequestForm from 'call-to-action/react/dist/openRequestForm';
 
 
 const defaults = {
@@ -101,8 +102,12 @@ class GettingStarted extends Component {
           </span>
           <div className="row">
             <div className="input-group margin-top-md col-md-8 margin-left-sm">
-              <input type="text" className="form-control" defaultValue={window.location.origin + res.agenda || ''}
-                readOnly />
+              <input
+                type="text"
+                className="form-control"
+                defaultValue={window.location.origin + res.agenda || ''}
+                readOnly
+              />
               <span className="input-group-btn">
                 <CopyToClipboard text={window.location.origin + res.agenda || ''} onCopy={this.onCopied}>
                   <button className="btn btn-primary btn-block" title={getLabel( 'copyLink' )}>
@@ -120,6 +125,17 @@ class GettingStarted extends Component {
             <a className="btn btn-primary" href={res.createEmbed}>
               {getLabel( 'createEmbedded' )}
             </a>
+          </div>
+        </div>
+
+        <div className="margin-v-lg">
+          <p><b>{getLabel( 'needPrivate' )}</b></p>
+          <div className="margin-v-md">
+            <button className="btn btn-primary" href={res.createEmbed} onClick={() => openRequestForm( {
+              subject: 'privateAgenda'
+            } )}>
+              {getLabel( 'makeRequest' )}
+            </button>
           </div>
         </div>
       </div>
