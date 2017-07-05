@@ -50,7 +50,10 @@ function create( data, cb ) {
 
     if ( err ) return cb( err )
 
-    coms.publish( config.mainChannel, { name: 'event.publish', values: { id: created.id } } );
+    coms.publish( config.mainChannel, {
+      name: 'event.publish',
+      values: { id: created.id }
+    } );
 
     get( { id: created.id }, cb );
 
