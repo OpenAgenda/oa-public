@@ -8,6 +8,8 @@ const knexLib = require( 'knex' );
 
 const utils = require( 'utils' );
 
+const logger = require( 'basic-logger' );
+
 const eventUtils = require( '../utils' );
 
 const _ = require( 'lodash' );
@@ -18,7 +20,7 @@ const sUtils = require( 'service-utils' );
 
 const moment = require( 'moment-timezone' );
 
-let knex, schemas, service;
+let knex, schemas, service, log = console.log;
 
 module.exports = Object.assign( { 
   init,
@@ -28,6 +30,8 @@ module.exports = Object.assign( {
 
 
 function transfer( identifiers, options, cb ) {
+
+  log( 'transferring event of identifiers %s', JSON.stringify( identifiers ) );
 
   if ( arguments.length === 2 ) {
 
@@ -660,6 +664,8 @@ function init( svc, c ) {
   schemas = c.legacy.schemas;
 
   service = svc;
+
+  log = logger( 'event-service/legacy' );
 
 }
 

@@ -9,6 +9,11 @@ module.exports = {
     user: 'root'
   },
 
+  redis: {
+    host: 'localhost',
+    port: 6379
+  },
+
   schemas: {
     event: 'event'
   },

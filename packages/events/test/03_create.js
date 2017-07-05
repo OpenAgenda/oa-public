@@ -28,7 +28,7 @@ describe( 'events - functional (server): create', function() {
 
       should( err ).equal( null );
 
-      result.should.eql( { 
+      result.should.eql( {
         event: {
           slug: 'false',
           uid: result.event.uid,
