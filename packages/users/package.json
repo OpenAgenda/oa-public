@@ -7,7 +7,9 @@
     "test": "mocha --compilers js:babel-core/register",
     "start": "node test/app",
     "watch": "nodemon --watch test --watch middleware --watch service --exec 'npm run start'",
-    "build": "babel react/src -d react/build"
+    "build": "babel react/src -d react/build",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",

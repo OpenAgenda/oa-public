@@ -108,7 +108,7 @@ var EmailSettings = createReactClass({
                 type: 'password',
                 className: 'form-control',
                 name: 'password',
-                autoComplete: 'off'
+                autoComplete: 'new-email'
               }, domOnlyProps(password))),
               password.touched && password.error && React.createElement(
                 'div',

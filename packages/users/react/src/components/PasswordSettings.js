@@ -56,7 +56,7 @@ const PasswordSettings = createReactClass( {
               <div className="form-group">
                 <label htmlFor="old_password">{getLabels( 'actualPassword' )} *</label>
                 <input type="password" className="form-control" name="old_password"
-                  autoComplete="off" {...domOnlyProps( old_password )} />
+                  autoComplete="new-password" {...domOnlyProps( old_password )} />
                 {old_password.touched && old_password.error &&
                 <div className="text-danger">{capitalize( getLabels( old_password.error ) )}</div>}
               </div>
@@ -64,7 +64,7 @@ const PasswordSettings = createReactClass( {
               <div className="form-group">
                 <label htmlFor="new_password">{getLabels( 'newPassword' )} *</label>
                 <input type="password" className="form-control" name="new_password"
-                  autoComplete="off" {...domOnlyProps( new_password )} />
+                  autoComplete="new-password" {...domOnlyProps( new_password )} />
                 {new_password.touched && new_password.error &&
                 <div className="text-danger">{capitalize( getLabels( new_password.error ) )}</div>}
               </div>
@@ -72,7 +72,7 @@ const PasswordSettings = createReactClass( {
               <div className="form-group">
                 <label htmlFor="confirmation">{getLabels( 'confirmation' )} *</label>
                 <input type="password" className="form-control" name="confirmation"
-                  autoComplete="off" {...domOnlyProps( confirmation )} />
+                  autoComplete="new-password" {...domOnlyProps( confirmation )} />
                 {confirmation.touched && confirmation.error &&
                 <div className="text-danger">{capitalize( getLabels( confirmation.error ) )}</div>}
               </div>

@@ -90,7 +90,7 @@ var PasswordSettings = createReactClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'old_password',
-                autoComplete: 'off' }, domOnlyProps(old_password))),
+                autoComplete: 'new-password' }, domOnlyProps(old_password))),
               old_password.touched && old_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -107,7 +107,7 @@ var PasswordSettings = createReactClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'new_password',
-                autoComplete: 'off' }, domOnlyProps(new_password))),
+                autoComplete: 'new-password' }, domOnlyProps(new_password))),
               new_password.touched && new_password.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
@@ -124,7 +124,7 @@ var PasswordSettings = createReactClass({
                 ' *'
               ),
               React.createElement('input', _extends({ type: 'password', className: 'form-control', name: 'confirmation',
-                autoComplete: 'off' }, domOnlyProps(confirmation))),
+                autoComplete: 'new-password' }, domOnlyProps(confirmation))),
               confirmation.touched && confirmation.error && React.createElement(
                 'div',
                 { className: 'text-danger' },
