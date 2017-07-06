@@ -18,6 +18,8 @@ sessions = require( 'sessions' ),
 
 userSvc = require( '../services/user' ),
 
+callToActionMw = require( 'call-to-action/middleware' ),
+
 routes = {
 
   featureRequest: [ 'post', '/featurerequest', [
@@ -26,6 +28,14 @@ routes = {
     sessions.middleware.load( { detailed: true } ),
     _loadUser,
     featureRequest 
+  ] ],
+
+  request: [ 'post', '/request', [
+    cmn.loadLogger( 'request' ),
+    bodyParser.json(),
+    sessions.middleware.load( { detailed: true } ),
+    _loadUser,
+    callToActionMw.request()
   ] ],
 
   snsMailReports: [ 'post', '/aws/sns', [

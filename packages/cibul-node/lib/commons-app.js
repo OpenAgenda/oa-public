@@ -101,7 +101,9 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
     unauthorized: require( 'labels/errors/unauthorized' )
   },
 
-  qs = require( 'qs' );
+  qs = require( 'qs' ),
+
+  CircularJSON = require( 'circular-json' );
 
 
 function loadEvent( paramName, fieldName ) {
@@ -120,7 +122,7 @@ function loadEvent( paramName, fieldName ) {
 
     }
 
-    log( 'retrieving event for %s', JSON.stringify( identifier ) );
+    log( 'retrieving event for %s', JSON.stringify( identifiers ) );
 
     wn.call( model.events().get, identifiers )
 
@@ -468,7 +470,11 @@ function catchError( req, res, jsonResponse ) {
 
   return err => {
 
-    log( 'error', 'caught error: %s', typeof err == 'object' && err.message ? err.message : JSON.stringify( err ) );
+    log(
+      'error',
+      'caught error: %s',
+      typeof err == 'object' && err.message ? err.message : CircularJSON.stringify( err )
+    );
 
     if ( err.code == 404 ) {
 
