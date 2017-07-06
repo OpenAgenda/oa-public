@@ -156,7 +156,7 @@ function _processOperation( data, cb ) {
           updatedAt: ae.updatedAt
         }, { protected: false } );
 
-      } else if ( ref.updatedAt.getTime() === ae.updatedAt.getTime() ) {
+      } else if ( ref.updatedAt.getTime() === ( new Date( ae.updatedAt ) ).getTime() ) {
 
         operation = 'ignored.sameUpdatedAt';
 
@@ -255,12 +255,6 @@ function _getLegacyState( row ) {
 
 function _sleep( ms ) {
 
-  return new Promise( rs => {
-
-    log( 'sleeping %s ms', ms );
-
-    setTimeout( rs, ms );
-
-  } );
+  return new Promise( rs => setTimeout( rs, ms ) );
 
 }
