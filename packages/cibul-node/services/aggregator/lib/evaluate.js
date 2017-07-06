@@ -345,9 +345,7 @@ function _addNewSourceReference( v ) {
 
   log( 'adding source agenda %s reference to event %s', v.sourceAgenda.id, v.event.id );
 
-  v.event.addSource( {
-    sourceId: v.sourceAgenda.id
-  }, err => {
+  v.event.loadAgendaContext( v.aggregatingAgendaId, err => {
 
     if ( err ) {
 
@@ -355,13 +353,25 @@ function _addNewSourceReference( v ) {
 
     }
 
-    log( 'source agenda id added to event %s', v.event.id );
+    v.event.addSource( {
+      sourceId: v.sourceAgenda.id
+    }, err => {
 
-    v.referencedOrAdded = true;
+      if ( err ) {
 
-    d.resolve( v );
+        return d.reject( err );
 
-  });
+      }
+
+      log( 'source agenda id added to event %s', v.event.id );
+
+      v.referencedOrAdded = true;
+
+      d.resolve( v );
+
+    });
+
+  } );
 
   return d.promise;
 
