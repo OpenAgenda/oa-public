@@ -27,7 +27,7 @@ exports.default = function (options) {
             { className: 'pull-left margin-right-sm small' },
             (0, _moment2.default)(activity.createdAt).locale(lang).format('LLL')
           ),
-          _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
+          _react2.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
         );
       })
     )

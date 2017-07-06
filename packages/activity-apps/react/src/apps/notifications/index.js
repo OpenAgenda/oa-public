@@ -78,7 +78,7 @@ function renderNotification( { notification, content, url, lang } ) {
           <i className="fa fa-check-circle" aria-hidden="true"></i>
         </button>
       </div>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <div className="notif-item" dangerouslySetInnerHTML={{ __html: content }} />
       <div className="datetime text-muted">
         {ucfirst( date.locale( lang ).fromNow() )}
       </div>

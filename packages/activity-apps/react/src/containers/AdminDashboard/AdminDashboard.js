@@ -240,7 +240,7 @@ export default class AdminDashboard extends Component {
                   <label className="pull-left margin-right-sm small">
                     {moment( activity.createdAt ).format( 'LLL' )}
                   </label>
-                  <p dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
+                  <p className="activity-item" dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
                 </li>
               ) )}
             </ul>}

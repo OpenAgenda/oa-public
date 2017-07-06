@@ -446,7 +446,7 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
                     { className: 'pull-left margin-right-sm small' },
                     (0, _moment2.default)(activity.createdAt).format('LLL')
                   ),
-                  _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
+                  _react3.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
                 );
               })
             ),

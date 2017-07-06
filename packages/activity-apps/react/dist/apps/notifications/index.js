@@ -150,7 +150,7 @@ function renderNotification(_ref) {
         _react2.default.createElement('i', { className: 'fa fa-check-circle', 'aria-hidden': 'true' })
       )
     ),
-    _react2.default.createElement('div', { dangerouslySetInnerHTML: { __html: content } }),
+    _react2.default.createElement('div', { className: 'notif-item', dangerouslySetInnerHTML: { __html: content } }),
     _react2.default.createElement(
       'div',
       { className: 'datetime text-muted' },

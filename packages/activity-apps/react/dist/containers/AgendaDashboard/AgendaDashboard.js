@@ -189,7 +189,7 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
                   { className: 'pull-left margin-right-sm small' },
                   (0, _moment2.default)(activity.createdAt).format('LLL')
                 ),
-                _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
+                _react3.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
               );
             })
           ),

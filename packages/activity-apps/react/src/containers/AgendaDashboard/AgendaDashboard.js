@@ -88,7 +88,7 @@ export default class AgendaDashboard extends Component {
                 <label className="pull-left margin-right-sm small">
                   {moment( activity.createdAt ).format( 'LLL' )}
                 </label>
-                <p dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
+                <p className="activity-item" dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
               </li>
             ) )}
           </ul>}
