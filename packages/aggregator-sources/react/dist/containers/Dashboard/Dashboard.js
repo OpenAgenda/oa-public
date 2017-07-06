@@ -337,7 +337,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         ),
         _react3.default.createElement(
           'div',
-          { className: 'row' },
+          null,
           agendas && agendas.map(function (agendaItem) {
             return _react3.default.createElement(
               'div',

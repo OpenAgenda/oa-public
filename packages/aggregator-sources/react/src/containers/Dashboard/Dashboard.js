@@ -193,7 +193,7 @@ export default class Dashboard extends Component {
             />
           </form>
         </div>
-        <div className="row">
+        <div>
           {agendas && agendas.map( agendaItem => (
             <div className="agenda-item media" key={agendaItem.uid}>
               <div className="media-left">

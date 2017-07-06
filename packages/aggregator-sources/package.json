@@ -8,7 +8,9 @@
     "build": "babel react/src -d react/dist",
     "preserve": "npm run build",
     "serve": "node test/app",
-    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'"
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",
@@ -53,6 +55,7 @@
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "express": "^4.14.0",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "husky": "^0.14.3",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "morgan": "^1.7.0",
     "react": "^15.5.4",

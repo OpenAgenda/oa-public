@@ -108,7 +108,7 @@ function getApp( req, res, next, { store, component } = {} ) {
 function getHtmlBody() {
 
   return (
-    `<div class="container aggregator-sources top-margined">
+    `<div class="container agenda-admin top-margined">
         <div class="row wsq">
           <div class="col col-sm-3 nav">
             <ul class="list-unstyled">
