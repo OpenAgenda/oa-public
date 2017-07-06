@@ -12,8 +12,12 @@ const mysql = require( 'mysql' );
 
 const _ = require( 'lodash' );
 
+const queue = require( 'queue' );
+
 
 describe( 'transferLegacyData - sample', function() {
+
+  let q;
 
   this.timeout( 40000 );
 
@@ -29,6 +33,14 @@ describe( 'transferLegacyData - sample', function() {
       'legacy_user',
       'agenda_event_empty'
     ], {}, done )
+
+  } );
+
+  beforeEach( done => {
+
+    q = queue( 'agendaEventTransfer', { redis: config.redis } );
+
+    q.test.clear( done );
 
   } );
 
@@ -58,20 +70,17 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer 20 events in empty target db reports 20 creates', done => {
 
-    svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+    svc.tasks.transferLegacyData( { total: 20, interval: 0, queueOnly: true } ).then( () => {
 
-      result.creates.should.equal( 20 );
+      q.test.flush( ( err, items ) => {
 
-      result.should.eql( {
-        creates: 20,
-        updates: 0,
-        removes: 0,
-        errors: 0
+        items.length.should.equal( 20 );
+
+        done();
+
       } );
 
-      done();
-
-    } );
+    } );  
 
   } );
 
@@ -83,7 +92,9 @@ describe( 'transferLegacyData - sample', function() {
 
       rows[ 0 ][ 'count(id)' ].should.equal( 0 );
 
-      svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+      svc.tasks.transferLegacyData( { total: 20, interval: 0 } );
+
+      setTimeout( () => {
 
         con.query( `select count(id) from ${config.schemas.agendaEvent}`, ( err, rows ) => {
 
@@ -95,7 +106,7 @@ describe( 'transferLegacyData - sample', function() {
 
         } );
 
-      } );
+      }, 1000 );
 
     } );
 
@@ -103,32 +114,21 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'removed events in legacy data are removed in service data by transfer script', done => {
 
-    svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+    svc.tasks.transferLegacyData( { total: 20, interval: 0 } );
+
+    setTimeout( () => {
 
       let con = mysql.createConnection( config.mysql );
-
+      
       con.query( `delete from ${config.legacy.schemas.agendaEvent} limit 1`, err => {
 
-        svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+        svc.tasks.transferLegacyData( { total: 19, interval: 0 } );
 
-          should( err ).equal( null );
-
-          result.should.eql( {
-            creates: 1,
-            updates: 0,
-            removes: 1,
-            errors: 0
-          } );
-
-          con.end();
-
-          done();
-
-        } );
+        setTimeout( () => done(), 500 );
 
       } );
 
-    } );
+    }, 500 );
 
   } );
 
@@ -136,7 +136,9 @@ describe( 'transferLegacyData - sample', function() {
 
     it( 'set userUid on 20 events', done => {
 
-      svc.tasks.transferLegacyData( { total: 20 }, ( err, result ) => {
+      svc.tasks.transferLegacyData( { total: 20, interval: 0 } );
+
+      setTimeout( () => {
 
         let con = mysql.createConnection( config.mysql );
 
@@ -160,7 +162,7 @@ describe( 'transferLegacyData - sample', function() {
 
         } );
 
-      } );
+      }, 500 );
 
     } );
 
