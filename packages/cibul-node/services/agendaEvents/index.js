@@ -32,6 +32,7 @@ function init( config ) {
   agendaEvents.init( {
     mysql: config.db,
     redis: config.redis,
+    logger,
     schemas: {
       agendaEvent: config.schemas.agendaEventService
     },
