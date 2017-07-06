@@ -102,8 +102,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.sendInvitation', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          email: '<strong>' + escape( activity.store.labels.object ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          email: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
@@ -113,8 +113,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.acceptInvitation', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          originMember: '<strong>' + escape( activity.store.labels.object ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
@@ -124,8 +124,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.addMember', {
-          originMember: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          user: '<strong>' + escape( activity.store.labels.object ) + '</strong>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
@@ -135,8 +135,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.setMemberRole', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          originMember: '<strong>' + escape( activity.store.labels.object ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           beforeCredential: getCredentialLabel( credentialTypes.codes.get( activity.store.beforeCredential ) ).toLowerCase(),
           agenda: agendaUrl
@@ -147,7 +147,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.create', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           agenda: agendaUrl
         } );
 
@@ -156,7 +156,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.updateContribution', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           agenda: agendaUrl
         } );
 
@@ -165,14 +165,14 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.updateProfile', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           agenda: agendaUrl
         } );
 
       case 'agenda.rename':
 
         return getLabel( 'agenda.rename', {
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           before: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.beforeTitle ),
           after: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.afterTitle )
         } );
@@ -195,7 +195,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'agenda.changeEventState', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           event: eventUrl,
           before: getStateLabel( eventStateCodeToLabel( activity.store.oldState ) ),
           after: getStateLabel( eventStateCodeToLabel( activity.store.newState ) )
@@ -211,7 +211,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'agenda.publishEvent', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           event: eventUrl
         } );
 
@@ -225,7 +225,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'agenda.unpublishEvent', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           event: eventUrl
         } );
 
@@ -235,8 +235,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'agenda.removeEvent', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
-          event: '<strong>' + getEventTitle( activity.store.labels.object ) + '</strong>'
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + '</span>'
         } );
 
       case 'event.create':
@@ -249,7 +249,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'event.create', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           event: eventUrl
         } );
 
@@ -263,7 +263,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
         return getLabel( 'event.update', {
           agenda: agendaUrl,
-          user: '<strong>' + escape( activity.store.labels.actor ) + '</strong>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
           event: eventUrl
         } );
 

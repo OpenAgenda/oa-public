@@ -220,7 +220,7 @@ module.exports = ( getUrl, labels, userUid = null, defaultLang = 'fr' ) => {
     }
 
     return {
-      content: getLabel( labelName, mapValues( subjects, v => `<b>${v}</b>` ) ),
+      content: getLabel( labelName, mapValues( subjects, v => `<span class="notif-highlight">${v}</span>` ) ),
       url
     };
 
