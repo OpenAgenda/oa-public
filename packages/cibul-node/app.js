@@ -229,13 +229,6 @@ module.exports = ( enabledTypes, cb ) => {
 
         //require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
 
-        /*require( 'agenda-events').tasks.transferLegacyData( err => {
-
-          console.log( 'done!' );
-          console.log( err );
-
-        } );*/
-
         /*require( 'agenda-events').tasks.transferUserUids().then( report => {
 
           console.log( 'done!' );
