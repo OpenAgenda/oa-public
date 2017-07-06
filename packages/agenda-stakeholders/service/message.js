@@ -10,7 +10,9 @@ const logger = require( 'basic-logger' ),
 
   get = require( './get' ),
 
-  _ = require( 'lodash' );
+  _ = require( 'lodash' ),
+
+  contextValidator = require( '../iso/contextValidator' );
 
 module.exports = _.extend( queueMessage, {
   task,
@@ -27,12 +29,24 @@ function queueMessage( base, query, message, context, cb ) {
 
   log( 'queuing message %s', message );
 
+  let cleanContext;
+
+  try {
+
+    cleanContext = contextValidator( context );
+
+  } catch ( errs ) {
+
+    return cb( errs );
+
+  }
+
   q( { 
     type: 'list',
     base,
     query,
     message,
-    context
+    context: cleanContext
   }, err => {
 
     log( 'queued message %s', message );

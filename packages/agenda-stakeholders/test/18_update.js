@@ -234,6 +234,7 @@ describe( 'agenda-stakeholders - functional (server): update', function() {
             context.should.eql( {
               lang: 'fr',
               message: null,
+              replyTo: null,
               invitationSender: {
                 name: null,
                 userId: null

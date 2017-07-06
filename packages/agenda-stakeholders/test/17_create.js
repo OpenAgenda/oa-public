@@ -301,6 +301,7 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
 
             context.should.eql( {
               message: 'Lolipops',
+              replyTo: null,
               lang: 'fr',
               invitationSender: {
                 name: null,
@@ -320,6 +321,7 @@ describe( 'agenda-stakeholders - functional (server): create', function() {
         allowPartial: true,
         context: {
           message: 'Lolipops',
+          replyTo: null,
           lang: 'fr'
         }
       }, ( err, result ) => {

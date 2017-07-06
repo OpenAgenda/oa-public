@@ -5,7 +5,8 @@ const schema = require( 'validators/schema' );
 schema.register( {
   text: require( 'validators/text' ),
   number: require( 'validators/number' ),
-  choice: require( 'validators/choice' )
+  choice: require( 'validators/choice' ),
+  email: require( 'validators/email' )
 } );
 
 /**
@@ -24,6 +25,10 @@ module.exports = schema( {
     optional: true,
     type: 'text',
     max: 2000
+  },
+  replyTo: {
+    optional: true,
+    type: 'email'
   },
   invitationSender: {
     userId: {
