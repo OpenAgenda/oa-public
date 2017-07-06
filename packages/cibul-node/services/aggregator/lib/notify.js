@@ -162,9 +162,11 @@ function _retrieveAgendaIdsFromSources( v ) {
 
         .filter( r => r.sourceIds && r.sourceIds.indexOf( v.agendaId ) !== -1 )
 
+        .filter( r => r.id !== v.agendaId )
+
         .map( r => r.id );
 
-      log( 'got %s aggregator ids', v.aggregatorAgendaIds.length );
+      log( 'got %s aggregator ids: %s', v.aggregatorAgendaIds.length, JSON.stringify( v.aggregatorAgendaIds ) );
 
       rs( v );
 
