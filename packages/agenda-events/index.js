@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
 const queueLib = require( 'queue' );
+const logger = require( 'basic-logger' );
 
 const endpoints = {
   list: require( './service/list' ),
@@ -30,6 +31,12 @@ module.exports.init = c => {
       interfaces: 'agendaEventInterfaces'
     }
   }, c );
+
+  if ( c.logger ) {
+
+    logger.setLogger( c.logger );
+
+  }
 
   config.queues = {
     interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
