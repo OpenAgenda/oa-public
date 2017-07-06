@@ -1,7 +1,8 @@
 import schema from 'validators/schema';
 
 schema.register( {
-  text: require( 'validators/text' )
+  text: require( 'validators/text' ),
+  email: require( 'validators/email' )
 } );
 
 export default function validate( values ) {
@@ -14,6 +15,10 @@ export default function validate( values ) {
       message: {
         type: 'text',
         optional: false
+      },
+      replyTo: {
+        type: 'email',
+        optional: true
       }
     } )( values );
 

@@ -217,6 +217,13 @@ async.waterfall( [
 
   app.post(
     '/send-message',
+    ( req, res, next ) => {
+      req.context = {
+        lang: req.user.lang,
+        replyTo: req.body.replyTo
+      };
+      next();
+    },
     ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
       namespaces: {
         message: 'body.message'

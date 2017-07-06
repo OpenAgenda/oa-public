@@ -16,7 +16,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 _schema2.default.register({
-  text: require('validators/text')
+  text: require('validators/text'),
+  email: require('validators/email')
 });
 
 function validate(values) {
@@ -29,6 +30,10 @@ function validate(values) {
       message: {
         type: 'text',
         optional: false
+      },
+      replyTo: {
+        type: 'email',
+        optional: true
       }
     })(values);
   } catch (e) {

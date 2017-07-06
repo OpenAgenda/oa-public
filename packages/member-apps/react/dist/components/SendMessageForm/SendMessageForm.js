@@ -24,8 +24,6 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = require('react-redux');
-
 var _reduxForm = require('redux-form');
 
 var _validate = require('./validate');
@@ -73,6 +71,7 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
     var _this = _possibleConstructorReturn(this, (SendMessageForm.__proto__ || Object.getPrototypeOf(SendMessageForm)).call(this, props));
 
     _this.renderField = _form.renderField.bind(_this);
+    _this.renderInput = _form.renderInput.bind(_this);
     _this.renderTextarea = _form.renderTextarea.bind(_this);
     _this.renderSelect = _form.renderSelect.bind(_this);
     _this.renderMarkdownInput = _form.renderMarkdownInput.bind(_this);
@@ -89,6 +88,14 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
       return _react3.default.createElement(
         'form',
         { onSubmit: handleSubmit, className: 'invite-members-form' },
+        _react3.default.createElement(_reduxForm.Field, {
+          label: getLabel('replyTo'),
+          component: this.renderInput,
+          name: 'replyTo',
+          type: 'text',
+          classNameGroup: 'margin-v-md',
+          className: 'form-control'
+        }),
         _react3.default.createElement(_reduxForm.Field, {
           label: getLabel('message'),
           component: this.renderMarkdownInput,

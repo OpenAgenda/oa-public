@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
-import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
+import { renderField, renderInput, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
 
 @reduxForm( {
   form: 'writeToMembers',
@@ -14,6 +13,7 @@ export default class SendMessageForm extends Component {
   constructor( props ) {
     super( props );
     this.renderField = this::renderField;
+    this.renderInput = this::renderInput;
     this.renderTextarea = this::renderTextarea;
     this.renderSelect = this::renderSelect;
     this.renderMarkdownInput = this::renderMarkdownInput;
@@ -30,6 +30,14 @@ export default class SendMessageForm extends Component {
 
     return (
       <form onSubmit={handleSubmit} className="invite-members-form">
+        <Field
+          label={getLabel( 'replyTo' )}
+          component={this.renderInput}
+          name="replyTo"
+          type="text"
+          classNameGroup="margin-v-md"
+          className="form-control"
+        />
         <Field
           label={getLabel( 'message' )}
           component={this.renderMarkdownInput}
