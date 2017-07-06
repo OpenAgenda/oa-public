@@ -16,7 +16,6 @@ Elle ne doit être appelée qu'une seule fois dans le layout.
 
 C'est la méthode à appeler pour ouvrir un formulaire de demande, elle peut s'utiliser de plusieurs manières:
 
-  - En direct: il suffit d'appeler `window.openRequestForm( { subject, agenda } )` (*agenda* est optionnel)
   - Sur des élements contenants la classe `.js_call_to_action`, avec au moins l'attribut `data-subject`, et optionnelement l'attribut `data-agenda`
   - Sur un *onClick*, d'une des deux manières suivantes:
     - `onclick={openRequestForm}` avec les attributs `data-subject` et `data-agenda` sur l'élément, ils seront récupérés grâce à l'`Event.target` du *onClick*
