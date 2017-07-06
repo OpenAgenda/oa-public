@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
-import { renderField, renderMarkdownInput } from '../../utils/form';
+import { renderField, renderTextarea } from '../../utils/form';
 
 @reduxForm( {
   form: 'request'
@@ -15,7 +15,7 @@ export default class RequestForm extends Component {
   constructor( props ) {
     super( props );
     this.renderField = this::renderField;
-    this.renderMarkdownInput = this::renderMarkdownInput;
+    this.renderTextarea = this::renderTextarea;
   }
 
   render() {
@@ -41,10 +41,11 @@ export default class RequestForm extends Component {
         />
         <Field
           label={getLabel( 'message' )}
-          component={this.renderMarkdownInput}
+          component={this.renderTextarea}
           name="message"
+          className="form-control"
           classNameGroup="margin-top-md margin-bottom-lg"
-          displayFeedback={false}
+          rows="8"
         />
 
         <button type="submit" className="btn btn-primary center-block">{getLabel( 'send' )}</button>

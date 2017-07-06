@@ -66,7 +66,7 @@ var RequestForm = _wrapComponent('RequestForm')((_dec = (0, _reduxForm.reduxForm
     var _this = _possibleConstructorReturn(this, (RequestForm.__proto__ || Object.getPrototypeOf(RequestForm)).call(this, props));
 
     _this.renderField = _form.renderField.bind(_this);
-    _this.renderMarkdownInput = _form.renderMarkdownInput.bind(_this);
+    _this.renderTextarea = _form.renderTextarea.bind(_this);
     return _this;
   }
 
@@ -97,10 +97,11 @@ var RequestForm = _wrapComponent('RequestForm')((_dec = (0, _reduxForm.reduxForm
         }),
         _react3.default.createElement(_reduxForm.Field, {
           label: getLabel('message'),
-          component: this.renderMarkdownInput,
+          component: this.renderTextarea,
           name: 'message',
+          className: 'form-control',
           classNameGroup: 'margin-top-md margin-bottom-lg',
-          displayFeedback: false
+          rows: '8'
         }),
         _react3.default.createElement(
           'button',
