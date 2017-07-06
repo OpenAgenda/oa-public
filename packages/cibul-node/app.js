@@ -254,9 +254,13 @@ module.exports = ( enabledTypes, cb ) => {
         } );*/
 
 
+        // plug legacy plateform lifecycle event to agenda event service
         require( './services/agendaEvents/legacy' ).task();
 
+        // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
         require( 'agenda-events' ).tasks.interfaces( { interval: 10 } );
+
+        require( 'agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
       }
 
