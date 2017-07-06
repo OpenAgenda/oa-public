@@ -327,7 +327,7 @@ function _sendMessage() {
 
     }
 
-    req.context = { lang: req.lang };
+    req.context = { lang: req.lang, user: req.user, replyTo: req.body.replyTo };
 
     stakeholdersMw.agenda( 'agendaInstance.data' ).message( {
       namespaces: {

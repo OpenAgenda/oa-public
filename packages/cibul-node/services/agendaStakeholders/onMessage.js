@@ -2,7 +2,7 @@
 
 const makeLabelGetter = require( 'labels' ),
 
-  getMessageLabel = makeLabelGetter( require( 'labels/agenda-stakeholders/message' ) ), 
+  getMessageLabel = makeLabelGetter( require( 'labels/agenda-stakeholders/message' ) ),
 
   getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) ),
 
@@ -20,6 +20,8 @@ let log = console.log;
 
 module.exports = ( stakeholder, message, context, cb ) => {
 
+  console.log( 'context', context );
+
   if ( stakeholder.deletedUser ) return cb();
 
   agendas.get( stakeholder.agendaId, { includeImagePath: true }, ( err, agenda ) => {
@@ -32,12 +34,15 @@ module.exports = ( stakeholder, message, context, cb ) => {
       const lang = context.lang || 'fr';
 
       _sendMessageEmail(
-        agenda,
-        genUrl( 'agendaShow', { slug: agenda.slug } ),
-        getMessageLabel( 'seeAgenda', lang ),
-        message,
-        stakeholder.custom.email,
-        lang,
+        {
+          agenda,
+          url: genUrl( 'agendaShow', { slug: agenda.slug } ),
+          linkLabel: getMessageLabel( 'emailShowAgenda', lang ),
+          message,
+          recipient: stakeholder.custom.email,
+          replyTo: context.replyTo,
+          lang
+        },
         cb
       );
 
@@ -51,12 +56,15 @@ module.exports = ( stakeholder, message, context, cb ) => {
         const lang = context.lang || 'fr';
 
         _sendMessageEmail(
-          agenda,
-          genUrl( 'agendaShow', { slug: agenda.slug } ),
-          getMessageLabel( 'seeAgenda', lang ),
-          message,
-          user.email,
-          lang,
+          {
+            agenda,
+            url: genUrl( 'agendaShow', { slug: agenda.slug } ),
+            linkLabel: getMessageLabel( 'emailShowAgenda', lang ),
+            message,
+            recipient: user.email,
+            replyTo: context.replyTo,
+            lang
+          },
           cb
         );
 
@@ -79,7 +87,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 
           const lang = ( contextInvitation && contextInvitation.lang ) || 'fr';
 
-          const signupUrl = genUrl( 'signup', {
+          const url = genUrl( 'signup', {
             invitation: invitation.token,
             email: stakeholder.custom.email,
             lang
@@ -89,12 +97,15 @@ module.exports = ( stakeholder, message, context, cb ) => {
           } );
 
           _sendMessageEmail(
-            agenda,
-            signupUrl,
-            getInvitationLabel( 'emailAction', lang ),
-            message,
-            stakeholder.custom.email,
-            lang,
+            {
+              agenda,
+              url,
+              linkLabel: getInvitationLabel( 'emailSignup', lang ),
+              message,
+              recipient: stakeholder.custom.email,
+              replyTo: context.replyTo,
+              lang
+            },
             cb
           );
 
@@ -109,10 +120,11 @@ module.exports = ( stakeholder, message, context, cb ) => {
 module.exports.setLog = l => log = l;
 
 
-function _sendMessageEmail( agenda, url, linkLabel, message, emailAddress, lang, cb ) {
+function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, replyTo }, cb ) {
 
   mailer( {
-    recipient: emailAddress,
+    recipient,
+    replyTo,
     subject: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
       logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',
