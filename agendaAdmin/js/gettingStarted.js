@@ -134,7 +134,7 @@ class GettingStarted extends Component {
             <button className="btn btn-primary" href={res.createEmbed} onClick={() => openRequestForm( {
               subject: 'privateAgenda'
             } )}>
-              {getLabel( 'makeRequest' )}
+              {getLabel( 'requestPrivate' )}
             </button>
           </div>
         </div>
