@@ -67,12 +67,12 @@ async function _sendSummary( { user, notifications } ) {
 
   const message = notifications.map(
     v => {
-      const formatted = formatNotification( v, lang )
-        .replace( /class="notif-highlighted"/g, 'style="color: #413a42"' );
+      const formatted = formatNotification( v, lang );
 
-      return '<span style="color: gray; font-size: 12px">' +
+      return '<span style="color: gray"><span style="font-size: 12px">' +
         ucfirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
-        formatted.content;
+        formatted.content.replace( /class="notif-highlight"/g, 'style="color: #413a42"' ) +
+        '</span>';
     }
   ).join( '\n***\n' );
 
