@@ -11,7 +11,9 @@
     "build": "babel components/src -d components/lib",
     "preserve": "npm run-script build",
     "serve": "node test/app",
-    "start": "nodemon --exec 'npm' --ignore components --ext js,jsx run-script serve"
+    "start": "nodemon --exec 'npm' --ignore components --ext js,jsx run-script serve",
+    "precommit": "npm run build && git add -A",
+    "postmerge": "npm run build && git add -A"
   },
   "repository": {
     "type": "git",
@@ -49,6 +51,8 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
+    "fixtures": "bitbucket:OpenAgenda/fixtures",
+    "husky": "^0.14.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "should": "^8.2.0",
