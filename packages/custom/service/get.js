@@ -10,7 +10,7 @@ module.exports = async ( formSchemaId, identifier ) => {
 
   if ( !knex ) throw new Error( 'db connector needs to be specified at service init' );
 
-  await data = knex( schemas.custom ).first().where( {
+  let data = await knex( schemas.custom ).first().where( {
     form_schema_id: formSchemaId,
     identifier
   } );

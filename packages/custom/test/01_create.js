@@ -49,6 +49,8 @@ describe( 'extended events - functional (server): create', function() {
       contender: 'steve'
     } );
 
+    console.log( result );
+
   } );
 
 } );

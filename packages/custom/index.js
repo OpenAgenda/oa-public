@@ -1,6 +1,7 @@
 "use strict";
 
 const endpoints = {
+  get: require( './service/get' ),
   create: require( './service/create' )
 },
 

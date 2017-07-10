@@ -2,6 +2,8 @@
 
 const config = require( './config' );
 
+const get = require( './get' );
+
 module.exports = async ( formSchemaId, identifier, data ) => {
 
   const { knex, schemas, interfaces } = config;
@@ -46,6 +48,26 @@ module.exports = async ( formSchemaId, identifier, data ) => {
 
   // insert
   
-  let insertId = await knex( schemas.
+  try {
+
+    let insertId = await knex( schemas.custom ).insert( {
+      form_schema_id: formSchemaId,
+      identifier,
+      created_at: new Date(),
+      updated_at: new Date(),
+      store: JSON.stringify( clean )
+    } );
+
+    return {
+      success: true,
+      insertId,
+      custom: clean
+    }
+
+  } catch ( e ) {
+
+    throw new VError( e, 'could not insert for %s / %s', formSchemaId, identifier );
+
+  }
 
 }
