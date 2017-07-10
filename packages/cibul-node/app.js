@@ -253,7 +253,7 @@ module.exports = ( enabledTypes, cb ) => {
         // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
         require( 'agenda-events' ).tasks.interfaces( { interval: 10 } );
 
-        require( 'agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
+        //require( 'agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
       }
 

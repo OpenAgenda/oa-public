@@ -492,7 +492,7 @@ function buildXlsx( includePrivateData ) {
         'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'content-disposition': [
           'attachment; filename=\"',
-          req.agenda.title,
+          req.agenda.slug,
           '.', _stringifiedNow(),
           '.xlsx\"' ].join('')
       } ); 
@@ -599,7 +599,7 @@ function buildCsv( includePrivateData ) {
         'Content-Type': 'text/csv',
         'content-disposition': [
           'attachment; filename=\"',
-          req.agenda.title,
+          req.agenda.slug,
           '.', _stringifiedNow(),
           '.csv\"' ].join('')
       } ); 
