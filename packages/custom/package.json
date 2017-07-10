@@ -1,0 +1,28 @@
+{
+  "name": "custom",
+  "version": "1.0.0",
+  "description": "Stores event extended data and associated event and form_schema references. Form schema dictates the structure of the extended data, the event is the one to which the data is associated.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "devDependencies": {
+    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
+    "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators",
+    "knex": "^0.13.0",
+    "should": "^11.2.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "immutability-helper": "^2.2.3",
+    "lodash": "^4.17.4",
+    "mysql": "^2.13.0",
+    "verror": "^1.10.0"
+  }
+}

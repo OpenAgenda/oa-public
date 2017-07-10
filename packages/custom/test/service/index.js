@@ -1,0 +1,36 @@
+"use strict";
+
+const svc = require( '../../' ),
+
+  _ = require( 'lodash' ),
+
+  fixtures = require( 'fixtures' );
+
+module.exports = svc;
+
+module.exports.initAndLoad = async ( config, files = [ 'custom' ], options = {} ) => {
+
+  const params = _.extend( {
+    reset: true
+  }, options );
+
+  svc.init( config );
+
+  fixtures.init( { mysql: config.mysql } );
+
+  return new Promise( ( rs, rj ) => {
+
+    fixtures( [ {
+      table: 'custom',
+      src: __dirname + '/../../custom.sql'
+    } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), params, err => {
+
+      if ( err ) return rj( err );
+
+      rs();
+
+    } );
+
+  } );
+
+}

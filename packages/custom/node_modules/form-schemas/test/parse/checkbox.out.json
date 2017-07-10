@@ -1,0 +1,165 @@
+{
+  "nextOptionId": 17,
+  "fields": [
+    {
+      "field": "organizertype",
+      "label": {
+        "fr": "Type d'organisateurs",
+        "en": "Organizers type"
+      },
+      "info": null,
+      "write": "contributor",
+      "read": null,
+      "optional": false,
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "association",
+          "label": {
+            "fr": "Association / Fondation",
+            "en": "Association / Foundation"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 2,
+          "value": "cci",
+          "label": {
+            "fr": "CCI / Chambre des Métiers et de l'Artisanat",
+            "en": "Chamber of professions and craftsmanship"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 3,
+          "value": "recherche",
+          "label": {
+            "fr": "Centre de recherche",
+            "en": "Research center"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 4,
+          "value": "technique",
+          "label": {
+            "fr": "Centre technique",
+            "en": "Technical center"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 5,
+          "value": "direccte",
+          "label": {
+            "fr": "DIRECCTE",
+            "en": "DIRECCTE"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 6,
+          "value": "enseignementscolaire",
+          "label": {
+            "fr": "Etablissement d'enseignement scolaire",
+            "en": "Teaching establishment"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 7,
+          "value": "enseignementsuperieur",
+          "label": {
+            "fr": "Etablissement d'enseignement supérieur",
+            "en": "Superior studies establishment"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 8,
+          "value": "formation",
+          "label": {
+            "fr": "Etablissement de formation professionnelle (lycées professionnels)",
+            "en": "Professionnal training establishment"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 9,
+          "value": "entreprise",
+          "label": {
+            "fr": "Entreprise",
+            "en": "Company"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 10,
+          "value": "orgpro",
+          "label": {
+            "fr": "Organisation professionnelle",
+            "en": "Professionnal organization"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 11,
+          "value": "syndicat",
+          "label": {
+            "fr": "Organisation syndicale",
+            "en": "Syndicate"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 12,
+          "value": "polecompet",
+          "label": {
+            "fr": "Pôle de compétitivité",
+            "en": "Competitiveness Pole"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 13,
+          "value": "poledev",
+          "label": {
+            "fr": "Pôle de développement, de compétence",
+            "en": "Development and skills pole"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 14,
+          "value": "poleemploi",
+          "label": {
+            "fr": "Pôle Emploi",
+            "en": "Pôle Emploi ( employment agency )"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 15,
+          "value": "prefecture",
+          "label": {
+            "fr": "Préfecture",
+            "en": "Prefecture"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 16,
+          "value": "other",
+          "label": {
+            "fr": "Autre",
+            "en": "Other"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox"
+    }
+  ]
+}
