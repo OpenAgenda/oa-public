@@ -2,8 +2,6 @@
 
 const makeLabelGetter = require( 'labels' ),
 
-  getMessageLabel = makeLabelGetter( require( 'labels/agenda-stakeholders/message' ) ),
-
   getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) ),
 
   agendas = require( 'agendas' ),
@@ -37,7 +35,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
         {
           agenda,
           url: genUrl( 'agendaShow', { slug: agenda.slug } ),
-          linkLabel: getMessageLabel( 'emailShowAgenda', lang ),
+          linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
           message,
           recipient: stakeholder.custom.email,
           replyTo: context.replyTo,
@@ -59,7 +57,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
           {
             agenda,
             url: genUrl( 'agendaShow', { slug: agenda.slug } ),
-            linkLabel: getMessageLabel( 'emailShowAgenda', lang ),
+            linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
             message,
             recipient: user.email,
             replyTo: context.replyTo,
@@ -125,11 +123,11 @@ function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, 
   mailer( {
     recipient,
     replyTo,
-    subject: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
+    subject: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
       logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',
       title: {
-        text: getMessageLabel( 'newMessage', { agenda: agenda.title }, lang ),
+        text: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
         link: url
       },
       action: {
