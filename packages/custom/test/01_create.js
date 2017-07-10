@@ -42,14 +42,37 @@ describe( 'extended events - functional (server): create', function() {
 
   } );
 
-  it( 'create the simplest extended event', async () => {
+  it( 'create the simplest extended event gives a success response', async () => {
 
     let result = await svc( 3819893 ).create( 123, {
       edition: 12,
       contender: 'steve'
     } );
 
-    console.log( result );
+    result.success.should.equal( true );
+
+  } );
+
+  it( 'create adds a record in db', done => {
+
+    svc( 12345 ).create( 678, {
+      edition: 14,
+      contender: 'Jeff'
+    } ).then( () => {
+
+      let con = mysql.createConnection( config.mysql );
+
+      con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12345, 678 ], ( err, rows ) => {
+
+        con.end();
+
+        rows.length.should.equal( 1 );
+
+        done();
+
+      } );
+
+    } );
 
   } );
 
