@@ -128,6 +128,18 @@ function rebuild( args, options, logger ) {
     if ( !event.uid ) return next();
 
     service.feed( { entityType: 'event', entityUid: event.uid } ).create( { internal: true } )
+      .catch( err => {
+
+        if ( err && err.message === 'Feed already exists' ) {
+          return service.feed( {
+            entityType: 'event',
+            entityUid: event.uid
+          } ).get( { internal: true } );
+        }
+
+        return Promise.reject( err );
+
+      } )
       .then( eventFeed => {
 
         if ( event.userRemoved ) return Promise.resolve();
