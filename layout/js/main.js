@@ -30,6 +30,8 @@ var utils = require( 'utils' ),
 
   notifications = require( 'activity-apps/notifications' ),
 
+  callToAction = require( 'call-to-action/react/dist' ),
+
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 
   LE = require( 'le_js' ),
@@ -69,6 +71,8 @@ du.asapReady( function () {
   flash();
 
   notifications();
+
+  callToAction();
 
   du.forEach( asaps, function ( asapHook ) {
 
