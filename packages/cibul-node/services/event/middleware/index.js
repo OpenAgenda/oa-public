@@ -293,6 +293,14 @@ function layoutData( req, res ) {
     lang: req.lang
   };
 
+  if ( req.agenda ) {
+
+    var settings = req.agenda.getSettings( true );
+
+    data.scriptParams.moderatorCanPublish = !!( settings.moderators && settings.moderators.canPublish );
+
+  }
+
   return data;
 
 }
