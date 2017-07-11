@@ -64,6 +64,8 @@ window.hook( function( options ) {
 window.asap( options => {
 
   var params = utils.extend( {
+    agendaUid: null,
+    moderatorCanPublish: false,
     hasCustomFields: false,
     hasOwnershipTransfer: false,
     res: {
@@ -79,6 +81,7 @@ window.asap( options => {
 
   }
 
+
   _defineRoles( params, ( err, roles ) => {
 
     log( 'roles: [%s]', roles.join( ',' ) );
@@ -89,6 +92,13 @@ window.asap( options => {
     } );
 
     var prv = privateData();
+
+
+    if ( params.moderatorCanPublish ) {
+
+      du.addClass( du.el( '.js_moderator_can_publish' ), 'js_role_agenda_moderator' );
+
+    }
 
     displayReferences( params.agendaUid, params.uid );
 

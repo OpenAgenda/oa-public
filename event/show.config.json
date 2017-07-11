@@ -50,7 +50,7 @@
         "label": "published",
         "type": 2,
         "agendaOnly": false,
-        "classNames": "js_role_event_editor js_role_agenda_admin"
+        "classNames": "js_role_event_editor js_role_agenda_admin js_moderator_can_publish"
       }
     }
   },
