@@ -4,7 +4,7 @@
   "description": "Handle event data structure configuration storage",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "dependencies": {
     "knex": "^0.13.0",

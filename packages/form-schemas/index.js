@@ -17,6 +17,7 @@ let client, log, config;
 module.exports = {
   init,
   get,
+  getValidator,
   create,
   update,
   remove,
@@ -39,6 +40,22 @@ async function get( id ) {
     .then( rows => rows.length ? rows[ 0 ].store : null );
 
   return JSON.parse( store );
+
+}
+
+async function getValidator( id ) {
+
+  let data = await get( id );
+
+  if ( data === null ) {
+
+    return null;
+
+  }
+
+  let fs = new FormSchema( data );
+
+  return fs.getValidate();
 
 }
 

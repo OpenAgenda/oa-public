@@ -12,9 +12,21 @@ const fs = require( 'fs' );
 
 describe( 'get', () => {
 
+  let id,
+
+    formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.out.json', 'utf-8' ) );
+
   before( done => {
 
-    svc.initAndLoad( config, err => done() )
+    svc.initAndLoad( config, err => done() );
+
+  } );
+
+  before( async () => {
+
+    let result = await svc.create( formSchema );
+
+    id = result.id;
 
   } );
 
@@ -22,11 +34,20 @@ describe( 'get', () => {
 
   it( 'simple get', async () => {
 
-    let formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.out.json', 'utf-8' ) );
-
-    let { id } = await svc.create( formSchema );
-
     ( await svc.get( id ) ).should.eql( formSchema );
+
+  } );
+
+  it( 'simple getValidator', async () => {
+
+    let validate = ( await svc.getValidator( id ) );
+
+    validate( {
+      participants: 1,
+      someIgnoredField: 'lol'
+    } ).should.eql( {
+      participants: 1
+    } );
 
   } );
 
