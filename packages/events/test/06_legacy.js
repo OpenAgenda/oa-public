@@ -111,11 +111,11 @@ describe( 'events - functional (server): legacy bridge', function() {
 
   } );
 
-  it( 'legacy event with multilingual field including null values is cleaned and transfered', done => {
+  it( 'legacy event with multilingual field including null values is cleaned and transferred', done => {
 
     svc.legacy.transfer( { uid: 31937842 }, ( err, result ) => {
 
-      result.transfered.should.equal( true );
+      result.transferred.should.equal( true );
 
       result.errors.length.should.equal( 0 );
 
@@ -162,7 +162,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
       should( err ).equal( null );
 
-      result.transfered.should.equal( true );
+      result.transferred.should.equal( true );
 
       done();
 
@@ -176,7 +176,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( { uid: 27434489 }, ( err, result ) => {
 
-      result.transfered.should.equal( true );
+      result.transferred.should.equal( true );
 
       result.event.uid.should.equal( 27434489 );
 
@@ -290,7 +290,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      result.transfered.should.equal( true );
+      result.transferred.should.equal( true );
       result.valid.should.equal( true );
 
       let con = mysql.createConnection( config.mysql );
@@ -328,7 +328,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
           svc.legacy.transfer( 147621, { force: true }, ( err, result ) => {
 
-            result.transfered.should.equal( true );
+            result.transferred.should.equal( true );
 
             result.created.should.equal( false );
 
@@ -388,7 +388,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
             result.success.should.equal( true );
 
-            result.transfered.should.equal( false );
+            result.transferred.should.equal( false );
 
             result.created.should.equal( false );
 

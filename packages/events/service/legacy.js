@@ -49,7 +49,7 @@ function transfer( identifiers, options, cb ) {
       event: null,
       entries: null
     },
-    transfered: false,
+    transferred: false,
     getOptions: options
   } )
 
@@ -63,7 +63,7 @@ function transfer( identifiers, options, cb ) {
 
       return cb( null, {
         success: false,
-        transfered: false,
+        transferred: false,
         legacy: v.legacy,
         event: v.event
       } );
@@ -75,7 +75,7 @@ function transfer( identifiers, options, cb ) {
 
       return cb( null, {
         success: true,
-        transfered: false,
+        transferred: false,
         created: false,
         legacy: v.legacy,
         event: v.event
@@ -101,7 +101,7 @@ function transfer( identifiers, options, cb ) {
 
       cb( null, _.extend( {
         success: r.success,
-        transfered: r.success,
+        transferred: r.success,
         legacy: v.legacy,
         created: !v.event
       }, r ) );
