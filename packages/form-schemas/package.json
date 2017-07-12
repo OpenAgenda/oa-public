@@ -11,6 +11,7 @@
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "lodash": "^4.16.6",
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
+    "mysql-table-store": "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git"
   },
   "devDependencies": {
