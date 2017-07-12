@@ -18,6 +18,7 @@ module.exports = ( formSchema, tagSet ) => {
 
   } );
 
+
   return validate( fs.getData() );
 
 }

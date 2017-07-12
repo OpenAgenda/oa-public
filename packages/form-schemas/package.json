@@ -12,6 +12,7 @@
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "lodash": "^4.16.6",
     "mysql-table-store": "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git",
+    "slug": "^0.9.1",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
     "verror": "^1.10.0"
   },
