@@ -17,7 +17,11 @@ function _transfer( event, cb ) {
 
     if ( err ) {
 
-      return log( 'error', 'event %s transfer failed: %s', event.uid, err );
+      log( 'error', 'event %s transfer failed: %s', event.uid, err );
+
+    } else if ( !result.transfered ) {
+
+      log( 'error', 'event %s could not be transfered', event.uid );
 
     } else {
 

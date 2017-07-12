@@ -170,7 +170,7 @@ function _remove( data, cb ) {
 
     cb();
 
-  } );
+  }, cb );
 
 }
 
