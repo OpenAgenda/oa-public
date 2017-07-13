@@ -102,8 +102,8 @@ module.exports.head = function( agenda, lang ) {
     'VERSION:2.0',
     'PRODID:-//' + esc( agenda.title )  + '//agenda::' + lang,
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:' + esc( agenda.title ),
-    'X-WR-CALDESC:' + esc( agenda.description ),
+    'X-WR-CALNAME:' + _esc( agenda.title ),
+    'X-WR-CALDESC:' + _esc( agenda.description ),
     'X-WR-RELCALID:' + agenda.uid,
   ].join( '\r\n' );
 
