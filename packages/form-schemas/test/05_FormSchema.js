@@ -64,7 +64,7 @@ describe( 'FormSchema', () => {
 
       }
 
-      error.should.equal( 'This field name is taken!' );
+      error.should.equal( 'This field name is taken! : atextfield' );
 
     } );
 

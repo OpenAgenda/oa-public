@@ -33,7 +33,7 @@ module.exports = class {
 
     if ( !this.isFieldNameAvailable( clean.field ) ) {
 
-      throw 'This field name is taken!';
+      throw 'This field name is taken! : ' + clean.field;
 
     }
 
@@ -111,7 +111,7 @@ module.exports = class {
 
   _popField( index ) {
 
-    return this.data.fields.splice( index, 1 )[ 0 ]
+    return this.data.fields.splice( index, 1 )[ 0 ];
 
   }
 

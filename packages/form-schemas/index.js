@@ -108,6 +108,7 @@ async function update( id, data ) {
   } catch ( errors ) {
 
     return {
+      id,
       success: false,
       errors
     }
@@ -123,6 +124,7 @@ async function update( id, data ) {
     .where( { id } );
 
   return {
+    id,
     success: updatedId === id,
     formSchema: clean
   }

@@ -8,16 +8,15 @@ const FormSchema = require( '../iso/FormSchema' ),
 
   _ = require( 'lodash' );
 
-module.exports = ( formSchema, tagSet ) => {
+module.exports = ( formSchema, tagSet, type = 'tag' ) => {
 
   let fs = new FormSchema( formSchema );
 
-  tagSet.groups.forEach( g => {
+  tagSet.groups.forEach( ( g, i ) => {
 
-    fs.addField( _parseGroup( g ) );
+    fs.addField( _parseGroup( g, i, type ) );
 
   } );
-
 
   return validate( fs.getData() );
 
@@ -31,18 +30,20 @@ module.exports.categories = ( formSchema, c ) => {
     unique: true,
     required: c.required,
     tags: c.categories
-  } ] } );
+  } ] }, 'category' );
 
 }
 
 
-function _parseGroup( g ) {
+function _parseGroup( g, i, type = 'tag' ) {
+
+  const field = g.name ? slug( g.name, { lower: true } ) : type + '-group' + ( i ? '-' + i : '' );
 
   return _.extend( {
-    field: slug( g.name, { lower: true } ),
+    field,
     optional: !g.required,
     label: {
-      fr: g.name
+      fr: g.name || 'Tags'
     },
     info: g.info ? {
       fr: g.info
