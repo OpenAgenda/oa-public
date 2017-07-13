@@ -25,7 +25,7 @@ module.exports.init = ( config, cb ) => {
       redis: config.redis
     },
     filterFollows: [ {
-      verb: [ 'event.publish', 'event.unpublish' ],
+      verb: [ 'agenda.publishEvent', 'agenda.unpublishEvent' ],
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
