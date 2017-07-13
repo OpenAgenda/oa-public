@@ -254,40 +254,56 @@ describe( 'FormSchema', () => {
 
   describe( 'deriving validator', () => {
 
-    it( '.getValidate() returns the validator defined by the FormSchema fields', () => {
-
-      const fs = new FormSchema( {
-        fields: [ {
-          field: 'atextfield',
-          label: { fr: 'Un champ texte' },
-          fieldType: 'text'
+    const fs = new FormSchema( {
+      fields: [ {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text'
+      }, {
+        field: 'anotherfield',
+        label: { fr: 'Un nombre' },
+        fieldType: 'number',
+        min: 2
+      }, {
+        field: 'andanotherfield',
+        label: { fr: 'Un choix' },
+        fieldType: 'radio',
+        options: [ {
+          id: 1,
+          value: 'option-1',
+          label: { fr: 'Option 1' }
         }, {
-          field: 'anotherfield',
-          label: { fr: 'Un nombre' },
-          fieldType: 'number',
-          min: 2
-        }, {
-          field: 'andanotherfield',
-          label: { fr: 'Un choix' },
-          fieldType: 'radio',
-          options: [ {
-            id: 1,
-            value: 'option-1',
-            label: { fr: 'Option 1' }
-          }, {
-            id: 2,
-            value: 'option-2',
-            label: { fr: 'Option 2' }
-          } ]
+          id: 2,
+          value: 'option-2',
+          label: { fr: 'Option 2' }
         } ]
-      } );
+      } ]
+    } );
 
-      const validate = fs.getValidate();
+    const validate = fs.getValidate();
+
+
+    it( '.getValidate() returns the validator defined by the FormSchema fields', () => {
 
       validate.default.should.eql( {
         atextfield: null,
         anotherfield: null,
         andanotherfield: null
+      } );
+
+    } );
+
+
+    it( '.getValidate() validates choice fields correctly', () => {
+
+      validate( {
+        andanotherfield: 1
+      } )
+
+      .should.eql( {
+        atextfield: null,
+        anotherfield: null,
+        andanotherfield: 1
       } );
 
     } );

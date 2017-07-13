@@ -41,7 +41,13 @@ module.exports = fields => {
 
       if ( validatable[ f ] === null ) omits.push( f );
 
-    } )
+    } );
+
+    if ( type === 'choice' ) {
+
+      validatable.options = validatable.options.map( o => o.id );
+
+    }
 
     return _.omit( validatable, omits );
 

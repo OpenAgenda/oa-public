@@ -113,7 +113,7 @@ async function transfer( agendaId ) {
 
   if ( operation === 'update' ) {
 
-    result = await service.update( agendaId, formSchema );
+    result = await service.update( agenda[ 'form_schema_id' ], formSchema );
 
   } else {
 

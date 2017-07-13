@@ -30,7 +30,7 @@ describe( 'form-schemas - functional (server): create', () => {
 
   } );
 
-  it.only( 'simple update', async () => {
+  it( 'simple update', async () => {
 
     let { id } = await svc.create( { data: true } );
 
