@@ -28,6 +28,8 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     nextUrl = result.nextUrl;
 
+    if ( !nextUrl ) return _removeButton();
+
     _loadMore();
 
   } );
@@ -58,6 +60,10 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
           nextUrl = result.nextUrl;
 
+        } else {
+
+          _removeButton();
+
         }
 
       } );
@@ -72,7 +78,14 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
   }
 
+  function _removeButton() {
+
+    buttonCanvas.parentNode.removeChild( buttonCanvas );
+
+  }
+  
 }
+
 
 function _displayActivities( canvas, html, title ) {
 
