@@ -506,7 +506,8 @@ var deepExtend = require( 'deep-extend' ),
         user: 'dev',
         */
         password: 'grut',
-        cache: true
+        cache: true,
+        //debug: true
       },
       auth: {
         local: {
