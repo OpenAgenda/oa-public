@@ -23,7 +23,7 @@ The service needs to be initialized before use. See the `testconfig.sample.js` f
 The service allows you to handle an aliased event index through its main interface, a function taking the name of the handled alias:
 
  * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
- * **search( 'alias_name' ).delete**: delete the index
+ * **search( 'alias_name' ).delete**:  delete the index
  * **search( 'alias_name' ).search**: search an index. See tests for more details
  * **search( 'alias_name' ).add**: add an event to an index. See tests for more details
  * **search( 'alias_name' ).update**: update an event ( partial update ).
@@ -46,6 +46,8 @@ The integrating application's concern is to know which indices to update when an
 This way the integrating app keeps control over which indices have to be updated right away and which can be queued. 
 
 But depending on the index, the custom data can differ. The update of event core data must be **partial** and exclude .contributor and .custom parts.
+
+To begin with, ES can be used with only one alias defined at integration. ES could be installed on a small instance.
 
 
 
@@ -94,11 +96,37 @@ How does the event search lifecycle go?
  Stakeholder data needs to be added to mapping at rebuild. And needs to be updated in a transverse way, with 
 
 
-# Running Elasticearch 5.1 for development
+
+# Elasticsearch
+
+# Installing an additional version on the same computer
+
+ * Download it in tar or zip format: https://www.elastic.co/downloads/elasticsearch
+ * Unzip/tar in /usr/share
+ * In your /usr/share/elasticsearch-X.X folder, give ownership of config folder ( and contents ) to elasticsearch user
+ * In the config folder edit the elasticsearch.yml as per subsections below
+ * Create the data & log folders if they do not yet exist, give rw access to elasticsearch user
+
+
+## elasticsearch.yml file
+
+```
+path.data: /var/lib/elasticsearch-5.3.0
+path.logs: /var/log/elasticsearch-5.3.0
+
+http.port: 9205
+transport.tcp.port: 9305
+
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+```
+
+
+# Running Elasticearch for development
 
 This is only useful if you are already running another version of elasticsearch as a service and need to launch elasticsearch manually
 
-sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.1.2 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
+sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.3.0 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
 
 
 
