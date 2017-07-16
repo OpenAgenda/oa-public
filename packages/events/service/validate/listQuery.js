@@ -35,8 +35,7 @@ module.exports = schema( {
   },
   uid: {
     type: 'integer',
-    list: true,
-    default: null
+    list: { default: null }
   },
   ownerUid: {
     type: 'integer',

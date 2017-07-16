@@ -189,7 +189,9 @@ Legacy events have an is_published field as part of their schema. The new schema
 New event service does soft remove, so the correct count verification query should be the following:
 
 Check that events in legacy are also in new service:
-  select e.uid, count(e2.uid) as matches from event as e left join event_2 as e2 on e2.uid =e.uid group by e.uid having matches=0;
+  
+    select e.uid, count(e2.uid) as matches from event as e left join event_2 as e2 on e2.uid =e.uid group by e.uid having matches=0;
 
 Check that non-deleted events of new service are also in legacy event table
-  select e2.uid, count(e.uid) as matches from event_2 as e2 left join event as e on e2.uid=e.uid where e2.deleted_at is null group by e2.uid having matches=0;
+  
+    select e2.uid, count(e.uid) as matches from event_2 as e2 left join event as e on e2.uid=e.uid where e2.deleted_at is null group by e2.uid having matches=0;

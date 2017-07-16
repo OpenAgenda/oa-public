@@ -105,9 +105,9 @@ function _list( v ) {
 
   } );
 
-  if ( v.cleanQuery.uid && v.cleanQuery.uid.length ) {
+  if ( v.cleanQuery.uid ) {
 
-    v.knexQuery.where( 'uid', 'in', v.cleanQuery.uid );
+    v.knexQuery.where( 'uid', 'in', v.cleanQuery.uid.concat( -1 ) );
 
   }
 

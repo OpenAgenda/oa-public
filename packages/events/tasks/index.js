@@ -10,6 +10,8 @@ module.exports = {
   slowTransfer,
   init: ( svc, c ) => {
 
+    if ( !c.redis ) return;
+
     slowTransfer.init( svc, c );
 
   }
