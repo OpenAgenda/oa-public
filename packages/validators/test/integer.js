@@ -34,6 +34,12 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( '...event when default is null', () => {
+
+    should( validators.integer( { default: null } )() ).equal( null );
+
+  } );
+
   it( 'does not validate a number that is not an integer', () => {
 
     let errors = [];
@@ -63,6 +69,20 @@ describe( 'integer validator', () => {
     validators.integer( { list: true } )( [ 1, 2, 3 ] )
 
     .should.eql( [ 1, 2, 3 ] );
+
+  } );
+
+  it( 'if no value is provided to list validator, empty list is returned', () => {
+
+    validators.integer( { list: true } )()
+
+    .should.eql( [] );
+
+  } );
+
+  it( 'if no value is provided to list validator with predefined default, default is returned', () => {
+
+    should( validators.integer( { list: { default: null } } )() ).equal( null );
 
   } );
 

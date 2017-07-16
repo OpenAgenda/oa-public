@@ -26,6 +26,12 @@ module.exports = ( validator, options ) => {
 
     value = v === undefined ? [] : v;
 
+    if ( v === undefined && ( params.default !== undefined ) ) {
+
+      return params.default;
+
+    }
+
     if ( !isArray( value ) ) {
 
       /*throw [ {

@@ -33,6 +33,11 @@ module.exports = function (validator, options) {
         errors = [],
         value = v === undefined ? [] : v;
 
+    if (v === undefined && params['default'] !== undefined) {
+
+      return params['default'];
+    }
+
     if (!(0, _isArray2['default'])(value)) {
 
       /*throw [ {

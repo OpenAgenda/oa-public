@@ -89,7 +89,7 @@ describe( 'choice validator', () => {
 
       try {
 
-        clean = validate()
+        clean = validate();
 
       } catch( e ) {}
 
