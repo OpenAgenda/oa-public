@@ -176,19 +176,28 @@ function _detailed( v ) {
 
       }
 
+      v.events = v.events.map( e => _.extend( e, {
+        agenda: _.find( agendas, a => a.uid === e.agendaUid ) || null
+      } ) );
+
       let locationUids = v.events.map( e => e.locationUid ).filter( uid => uid );
+
+      if ( !locationUids.length ) {
+
+        return rs( v );
+
+      }
 
       config.interfaces.getLocations( locationUids, ( err, locations ) => {
 
         if ( err ) {
 
-          return rj( new VError( e, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
+          return rj( new VError( err, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
 
         }
 
         v.events = v.events.map( e => _.extend( e, {
-          location: _.find( locations, l => l.uid === e.locationUid ) || null,
-          agenda: _.find( agendas, a => a.uid === e.agendaUid ) || null
+          location: _.find( locations, l => l.uid === e.locationUid ) || null
         } ) );
 
         rs( v );

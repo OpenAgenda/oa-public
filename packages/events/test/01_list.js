@@ -181,8 +181,8 @@ describe( 'events - functional (server): list', function() {
         'accessibility',
         'age',
         'registration',
-        'location',
-        'agenda'
+        'agenda',
+        'location'
       ] );
 
       done();
