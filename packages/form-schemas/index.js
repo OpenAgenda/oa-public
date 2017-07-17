@@ -64,13 +64,13 @@ async function create( data ) {
 
   let clean;
 
-  log( 'creating form-schema' );
-
   try {
 
     clean = FormSchema.validate( data );
 
   } catch ( errors ) {
+
+    log( 'failed creating form-schema', JSON.stringify( data ) );
 
     return {
       success: false,
@@ -87,6 +87,8 @@ async function create( data ) {
 
     .then( ids => ids[ 0 ] );
 
+  log( 'created form-schema %s', id );
+
   return {
     success: true,
     id,
@@ -99,13 +101,13 @@ async function update( id, data ) {
 
   let clean;
 
-  log( 'creating form-schema' );
-
   try {
 
     clean = FormSchema.validate( data );
 
   } catch ( errors ) {
+
+    log( 'failed updating form-schema %s', id, JSON.stringify( data ) );
 
     return {
       id,
@@ -122,6 +124,8 @@ async function update( id, data ) {
     } )
 
     .where( { id } );
+
+  log( 'updated form-schema %s', id );
 
   return {
     id,
@@ -157,7 +161,7 @@ function init( c ) {
 
   log = logger( 'form-schema' );
 
-  client = knex( {
+  client = c.knex || knex( {
     client: 'mysql',
     connection: c.mysql
   } );

@@ -142,7 +142,7 @@ function init( c, svc ) {
 
   service = svc;
 
-  client = knex( {
+  client = c.legacy.knex || knex( {
     client: 'mysql',
     connection: c.legacy
   } );
