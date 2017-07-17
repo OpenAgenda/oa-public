@@ -135,6 +135,7 @@ module.exports = function( path ) {
 
   router.pre( [
     sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) ),
+    sessions.middleware.load(),
     agendaSvc.mw.load( 'slug' )
   ] );
 
