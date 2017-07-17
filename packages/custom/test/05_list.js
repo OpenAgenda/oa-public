@@ -66,13 +66,13 @@ describe( 'extended events - functional (server): get', function() {
         contender: entry[ 2 ]
       } );
 
-    }    
+    }
 
   } )
 
   it( 'list custom data by form schema id', async () => {
 
-    ( await svc( 29 ).list( 3, 5 ) ).items.should.eql( [ 
+    ( await svc( 29 ).list( {}, 3, 5 ) ).items.should.eql( [ 
       { edition: 3, contender: 'bill' },
       { edition: 4, contender: 'john' },
       { edition: 5, contender: 'bobby' },
@@ -84,7 +84,16 @@ describe( 'extended events - functional (server): get', function() {
 
   it( 'list gives total', async () => {
 
-    ( await svc( 29 ).list( 30, 5 ) ).total.should.equal( 14 );
+    ( await svc( 29 ).list( {}, 30, 5 ) ).total.should.equal( 14 );
+
+  } );
+
+  it( 'list can target specific identifiers', async () => {
+
+    ( await svc( 29 ).list( { identifier: [ 123, 837 ] }, 0, 20 ) ).items.should.eql( [
+      { edition: 9, contender: 'pinky' },
+      { edition: 10, contender: 'sugar' }
+    ] );
 
   } );
 

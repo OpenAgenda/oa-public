@@ -526,6 +526,25 @@ describe( 'schema validator', () => {
 
     } );
 
+
+
+    /*it.only( 'if default is specified for sub object, it is given if no value is fed and is optional', () => {
+
+      let validate = schema( {
+        sub: {
+          default: null,
+          optional: true,
+          someField: {
+            type: 'number'
+          }
+        }
+      } );
+
+      console.log(validate( {} ));
+
+    } );*/
+
+
   } );
 
 

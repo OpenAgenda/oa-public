@@ -12,7 +12,7 @@
   "devDependencies": {
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.12",
     "knex": "^0.13.0",
     "should": "^11.2.1"
   },
