@@ -24,12 +24,12 @@ describe( 'event search - functional: update', function() {
 
     // list must be prepared to give all needed data
     // for index
-    function eventsList( offset, limit, cb ) {
+    function eventsList( offset, limit ) {
 
-      events.list( offset, limit, {
+      return events.list( offset, limit, {
         internal: true,
         detailed: true
-      }, cb );
+      } ).then( r => r.events );
 
     }
 

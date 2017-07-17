@@ -24,12 +24,12 @@ describe( 'event search - functional: create', function() {
     service.init( config );
 
     await service( 'test_index' ).rebuild( {
-      eventsList: function( offset, limit, cb ) {
+      eventsList: function( offset, limit ) {
 
-        events.list( offset, limit, {
+        return events.list( offset, limit, {
           internal: true,
           detailed: true
-        }, cb );
+        } ).then( result => result.events );
 
       }
     } );
@@ -71,10 +71,8 @@ describe( 'event search - functional: create', function() {
 
     result.success.should.equal( true );
 
-    
     await _timeout( 1000 );
     
-
     let { events, total } = await service( 'test_index' ).search( { uid: 74367684 } );
 
     total.should.equal( 1 );

@@ -33,24 +33,20 @@ describe( 'event search - functional: search', function() {
 
       // list must be prepared to give all needed data
       // for index
-      function eventsList( offset, limit, cb ) {
+      function eventsList( offset, limit ) {
 
-        events.list( offset, limit, {
+        return events.list( offset, limit, {
           internal: true,
           detailed: true
-        }, ( err, events ) => {
+        } ).then( r => r.events.map( e => {
 
-          cb( null, events.map( e => {
+          e.contributor = contributors[ i ];
 
-            e.contributor = contributors[ i ];
+          e.contributor.uid = i++;
 
-            e.contributor.uid = i++;
+          return e;
 
-            return e;
-
-          } ) );
-
-        } );
+        } ) );
 
       }
 
@@ -317,26 +313,22 @@ describe( 'event search - functional: search', function() {
       // for index
       function eventsList( offset, limit, cb ) {
 
-        events.list( offset, limit, {
+        return events.list( offset, limit, {
           internal: true,
           detailed: true
-        }, ( err, events ) => {
+        } ).then( r => r.events.map( e => {
 
-          cb( null, events.map( e => {
+          e.custom = _.pick( custom[ i ], [
+            'organizeremail', 'totalnumberofvisitors', 'authortestimony'
+          ] );
 
-            e.custom = _.pick( custom[ i ], [
-              'organizeremail', 'totalnumberofvisitors', 'authortestimony'
-            ] );
+          e.contributor = contributors[ i ];
 
-            e.contributor = contributors[ i ];
+          e.contributor.uid = i++;
 
-            e.contributor.uid = i++;
+          return e;
 
-            return e;
-
-          } ) );
-
-        } );
+        } ) );
 
       }
 

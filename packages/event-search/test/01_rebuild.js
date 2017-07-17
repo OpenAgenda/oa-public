@@ -11,13 +11,13 @@ describe( 'event-search - functional: rebuild', function() {
 
     this.timeout( 10000 );
 
-    function eventsList( offset, limit, cb ) {
+    async function eventsList( offset, limit ) {
         
-      events.list( offset, limit, {
+      return events.list( offset, limit, {
         internal: true,
         detailed: true,
         private: null
-      }, cb );
+      } ).then( r => r.events );
 
     }
 
@@ -38,6 +38,7 @@ describe( 'event-search - functional: rebuild', function() {
 
     describe( 'list evaluation', () => {
 
+
       it( 'if a input list is not provided, errors', async () => {
 
         try {
@@ -52,6 +53,7 @@ describe( 'event-search - functional: rebuild', function() {
 
       } );
 
+
       it( 'if list returns an error, it is encapsulated', async () => {
 
         let err;
@@ -59,7 +61,7 @@ describe( 'event-search - functional: rebuild', function() {
         try {
 
           await service( 'test_alias' ).rebuild( {
-            eventsList: ( offset, limit, cb ) => cb( 'crash!' )
+            eventsList: ( offset, limit) => new Promise( ( rs, rj ) => rj( new Error( 'crash!' ) ) )
           } );
 
         } catch( e ) {
@@ -68,7 +70,7 @@ describe( 'event-search - functional: rebuild', function() {
 
         }
 
-        err.message.should.equal( 'crash!' );
+        err.message.should.equal( 'provided list failed: crash!' );
 
       } );
 
@@ -114,13 +116,13 @@ describe( 'event-search - functional: rebuild', function() {
 
     this.timeout( 10000 );
 
-    function eventsList( offset, limit, cb ) {
+    function eventsList( offset, limit ) {
         
-      events.list( offset, limit, {
+      return events.list( offset, limit, {
         internal: true,
         detailed: true,
         private: null
-      }, cb );
+      } ).then( r => r.events );
 
     }
 

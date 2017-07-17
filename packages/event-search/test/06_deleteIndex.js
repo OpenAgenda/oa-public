@@ -33,12 +33,12 @@ describe( 'event search - functional: deleteIndex', function() {
     it( 'indices and alias are effectively removed', async () => {
 
       await service( 'simple_search' ).rebuild( { 
-        eventsList: function( offset, limit, cb ) {
+        eventsList: function( offset, limit ) {
 
-          events.list( offset, limit, {
+          return events.list( offset, limit, {
             internal: true,
             detailed: true
-          }, cb );
+          } ).then( r => r.events );
 
         }
       } );

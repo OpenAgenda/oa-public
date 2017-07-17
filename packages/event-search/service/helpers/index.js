@@ -38,26 +38,22 @@ function checkList( listFunc ) {
 
   }
 
-  let d = w.defer();
+  return listFunc( 0, 1 )
 
-  listFunc( 0, 1, ( err, events ) => {
+  .catch( err => {
 
-    if ( err ) {
+    throw new VError( err, 'provided list failed' );
 
-      return d.reject( new VError( err, 'provided list failed' ) );
+  } )
 
-    }
+  .then( events => {
 
     if ( !_.isArray( events ) ) {
 
-      return d.reject( 'list function is not giving a list' );
+      throw new VError( 'list function is not giving a list' );
 
     }
 
-    return d.resolve();
-
   } );
-
-  return d.promise;
 
 }

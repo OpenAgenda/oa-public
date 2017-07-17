@@ -32,13 +32,12 @@ module.exports = async ( alias, options ) => {
 
   await h.checkList( params.eventsList );
 
-
   const index = await h.createUniqueIndex( config.client, alias, extendedSettings );
 
 
   // Populate: use list func to populate new index
 
-  while ( ( events = await _fetchEvents( params.eventsList, offset, limit ) ).length ) {
+  while ( ( events = await params.eventsList( offset, limit ) ).length ) {
 
     let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ) );
 
@@ -79,21 +78,5 @@ module.exports = async ( alias, options ) => {
       index
     }
   }
-
-}
-
-function _fetchEvents( fn, offset, limit ) {
-
-  return new Promise( ( rs, rj ) => {
-
-    fn( offset, limit, ( err, events ) => {
-
-      if ( err ) return rj( err );
-
-      rs( events );
-
-    } );
-
-  } );
 
 }

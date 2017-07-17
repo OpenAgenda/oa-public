@@ -22,12 +22,12 @@ describe( 'event search - functional: remove', function() {
 
     service.init( config );
 
-    function eventsList( offset, limit, cb ) {
+    function eventsList( offset, limit ) {
 
-      events.list( offset, limit, {
+      return events.list( offset, limit, {
         internal: true,
         detailed: true
-      }, cb );
+      } ).then( r => r.events );
 
     }
 
