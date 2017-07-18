@@ -257,12 +257,22 @@ var deepExtend = require( 'deep-extend' ),
         //key: '32d62d210e9dcf24c0134e',
         key: '05acdb65a8a86f5d0d792d',
         platforms: [
-          'youtube', 'dailymotion', 'vimeo',
-          'soundcloud', 'twitter', 'flickr',
-          'instagram', 'tumblr', 'prezi',
-          'google', 'ted', 'ina.fr', 'youtu',
-          'calameo', 'allocine'
-        ]
+          "youtube",
+          "dailymotion",
+          "vimeo",
+          "soundcloud",
+          "twitter\.com\/.+\/status\/[0-9]+$",
+          "flickr",
+          "instagram",
+          "tumblr",
+          "prezi",
+          "google",
+          "ted",
+          "ina\.fr",
+          "youtu",
+          "calameo",
+          "allocine",
+        ],
       },
       newsletter: {
         featuredLimit: 10,  // maximum number of featured events displayable in the same newsletter campaign
@@ -668,6 +678,7 @@ currentConfig.loadEnv = _loadEnv;
 currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
   database: 'emailStrategie' + ( process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '' )
 } );
+
 
 module.exports = currentConfig;
 

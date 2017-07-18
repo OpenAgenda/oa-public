@@ -250,7 +250,7 @@ function _isOembeddable( link ) {
 
     if ( is ) return;
 
-    if ( link.indexOf( platform ) !== -1 ) {
+    if ( ( new RegExp( platform ) ).test( link ) ) {
 
       is = true;
 
