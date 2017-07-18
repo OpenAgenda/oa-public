@@ -13,11 +13,12 @@ module.exports = function( res, data, cb ) {
   xhr( {
     uri: res,
     method: 'post',
+    json: true,
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify( data ),
+    body: data,
     responseType: 'json'
   }, function( err, result ) {
 
