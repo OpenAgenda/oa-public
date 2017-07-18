@@ -185,6 +185,7 @@ function init( c, cb ) {
     knex = knexLib( {
       client: 'mysql',
       connection: c.mysql
+      //debug: true
     } );
 
   } )

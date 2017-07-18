@@ -76,6 +76,25 @@ describe( 'agenda-stakeholders - functional (server): list', function() {
     } );
 
 
+    it( 'list can be filtered to show only specific users by there id', done => {
+
+      service.agenda( 4608 ).list( { userId: [ 7445, 7447, 7450, 7448 ] }, 0, 100, ( err, stakeholders ) => {
+
+        stakeholders.length.should.equal( 4 );
+
+        stakeholders.forEach( s => {
+
+          [ 7445, 7447, 7450, 7448 ].includes( s.userId ).should.equal( true );        
+
+        } );
+
+        done();
+
+      } );
+
+    } );
+
+
     it( 'by default, total value is not fetched', done => {
 
       service.agenda( 4608 ).list( 0, 10, ( err, stakeholders, total ) => {

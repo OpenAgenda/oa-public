@@ -37,13 +37,14 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
     files = defautFiles;
 
   }
-
-  svc.init( config, err => {
+  
+  fixtures( config, files, options, err => {
 
     if ( err ) return cb( err );
 
-    fixtures( config, files, options, cb );
+    svc.init( config, cb );
 
   } );
+
 
 }

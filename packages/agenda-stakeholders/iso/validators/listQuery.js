@@ -62,7 +62,7 @@ const listQuerySchema = schema( {
   },
   userId: {
     type: 'integer',
-    optional: true
+    list: { default: null }
   },
   agendaId: {
     type: 'integer',
