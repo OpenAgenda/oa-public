@@ -16,5 +16,6 @@
   "agenda-stakeholders",
   "activities/format",
   "activity-apps/notifications",
-  "dom-utils"
+  "dom-utils",
+  "translators"
 ]
