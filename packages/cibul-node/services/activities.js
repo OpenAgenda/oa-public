@@ -25,11 +25,11 @@ module.exports.init = ( config, cb ) => {
       redis: config.redis
     },
     filterFollows: [ {
-      verb: [ 'agenda.publishEvent', 'agenda.unpublishEvent' ],
+      verb: [ 'event.create', 'event.update', 'agenda.unpublishEvent' ],
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
-        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== activity.target.split( ':' )[ 1 ] ) {
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt( activity.target.split( ':' )[ 1 ] ) ) {
           return cb( null, false );
         }
 
@@ -37,7 +37,7 @@ module.exports.init = ( config, cb ) => {
 
       }
     }, {
-      verb: 'agenda.sendInvitation',
+      verb: [ 'agenda.sendInvitation', 'agenda.acceptInvitation' ],
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
         if (
@@ -53,46 +53,7 @@ module.exports.init = ( config, cb ) => {
 
       }
     }, {
-      verb: 'agenda.acceptInvitation',
-      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-
-        if (
-          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
-        ) {
-
-          return cb( null, false );
-
-        }
-
-        cb( null, true );
-
-      }
-    }, {
-      verb: 'agenda.addMember',
-      getFeeds: true,
-      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
-
-        if ( targetFeed.entityType === 'user' && targetFeed.entityUid === parseInt( activity.object.split( ':' )[ 1 ] ) ) {
-
-          return cb( null, true );
-
-        }
-
-        if (
-          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
-        ) {
-
-          return cb( null, false );
-
-        }
-
-        cb( null, true );
-
-      }
-    }, {
-      verb: 'agenda.setMemberRole',
+      verb: [ 'agenda.addMember', 'agenda.setMemberRole' ],
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
