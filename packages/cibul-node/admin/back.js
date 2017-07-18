@@ -352,22 +352,27 @@ function _searchUsers( req, res ) {
 
     where = ' where is_removed = 0',
 
+    entries = [],
+
     total = 0;
 
   if ( req.query.search ) {
 
-    where += ' and email like \'%' + req.query.search + '%\''
-      + ' or full_name like \'%' + req.query.search + '%\'';
+    where += ' and email like ? or full_name like ?';
+    entries.push( `%${req.query.search}%`, `%${req.query.search}%` );
 
   }
 
-  model.lib.query( 'select count(id) as total from user' + where, function ( err, rows ) {
+  model.lib.query(
+    'select count(id) as total from user' + where,
+    entries,
+    function ( err, rows ) {
 
     if ( err ) return cmn.catchError( req, res )( err );
 
     total = rows[ 0 ].total;
 
-    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, function ( err, rows ) {
+    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, entries, function ( err, rows ) {
 
       if ( err ) return cmn.catchError( req, res )( err );
 
