@@ -111,7 +111,7 @@ window.asap( options => {
     }
 
     // ugly hack to display state if state control is not presented
-    if ( roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN ) ) {
+    if ( !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN ) ) {
 
       du.removeClass( du.el( '.js_current_state' ), 'display-none' );
 
