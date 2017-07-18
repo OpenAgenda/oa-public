@@ -205,8 +205,6 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './general/mainLogger.task' )();
 
-        require( './event/oembed.task' )();
-
         require( './services/agenda/task' )();
 
         require( './services/aggregator' ).task();
@@ -224,6 +222,8 @@ module.exports = ( enabledTypes, cb ) => {
         require( 'agenda-stakeholders' ).tasks.message();
 
         require( './activities/task' )();
+
+        require( './services/event/oembed' ).task();
 
         require( 'activities' ).tasks.notifications.addActivity();
 

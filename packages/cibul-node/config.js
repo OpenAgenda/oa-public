@@ -67,6 +67,7 @@ var deepExtend = require( 'deep-extend' ),
       queues: {
         aggregator: 'aggregator',
         groupActions: 'groupactions',
+        oembed: 'oembed',
         controlData: 'agendaControlDataQueue',
         stakeholderCreate: 'stakeholderCreate',
         stakeholderMessage: 'stakeholderMessage',

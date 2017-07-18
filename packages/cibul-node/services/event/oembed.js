@@ -14,77 +14,76 @@ const log = require( 'logger' )( 'services/event/oembed' ),
 
   https = require( 'https' ),
 
-  validateEmail = require( 'validators/email' )();
+  validateEmail = require( 'validators/email' )(),
 
-let processing = false;
+  q = require( 'queue' )( config.queues.oembed, { redis: config.redis } );
+
 
 module.exports = {
-  addJob,    // queue job on job stack
-  process,  // process job ( fetch data from service )
-  setComs   // for testing
+  task
 }
 
 
-function process( values, cb ) {
 
-  var links;
+function task() {
 
-  if ( processing ) {
+  coms.subscribe( config.mainChannel, function( err, action ) {
 
-    // requeue
+    if ( err ) return;
 
-    setTimeout( function() { addJob( values ); }, 1000 );
-
-    cb();
-
-    return;
-
-  }
-
-  processing = true;
-
-  cbm.events().get( { id: values.id }, function( err, event ) {
-
-    if ( err || !event ) {
-
-      log( 'error', err || 'no event could be loaded' );
-
-      processing = false;
-
-      cb( err || 'no event could be loaded' );
+    if ( [ 'event.update', 'event.publish', 'event.create' ].indexOf( action.name ) == -1 ) {
 
       return;
 
     }
 
-    links = cbm.events().instance( event ).getLinks();
+    q( action.values.id );
 
-    async.eachSeries( links, _processLink( links ), function( err ) {
+  } );
 
-      if ( err ) return cb( true );
 
-      cbm.events().instance( event ).updateLinks( links, true, function( err ) {
+  q.setConsumer( _processLinks );
 
-        processing = false;
+  q.launch( { interval: 10 } );
+
+}
+
+
+function _processLinks( id, cb ) {
+
+  cbm.events().get( { id }, function( err, event ) {
+
+    if ( err || !event ) {
+
+      log( 'error', err || 'no event could be loaded' );
+
+      return cb( err || 'no event could be loaded' );
+
+    }
+
+    let links = cbm.events().instance( event ).getLinks();
+
+    async.eachSeries( links, _processLink( links ), err => {
+
+      if ( err ) {
+
+        log( 'error', err );
+
+        return cb();
+
+      }
+
+      cbm.events().instance( event ).updateLinks( links, true, err => {
+
+        if ( err ) log( 'error', err );
 
         cb();
 
-      });
-
+      } );
 
     } );
 
   });
-
-}
-
-function addJob( eventId, cb ) {
-
-  coms.queue( 'jobs', {
-    type: 'event/oembed',
-    action: 'process',
-    id: eventId
-  }, cb );
 
 }
 
