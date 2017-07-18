@@ -245,6 +245,8 @@ function onReadAllClick() {
 
       } );
 
+      setCounter( 0 );
+
     } );
 
   };
