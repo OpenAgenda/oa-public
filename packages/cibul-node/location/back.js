@@ -64,7 +64,7 @@ const modLib = require( '../lib/moduleLib' ),
       cmn.checkAdminOrModerator,
       ( req, res, next ) => {
 
-        req.agendaId = req.agenda.id; 
+        req.agendaId = req.agenda.id;
         req.stakeholderId = req.params.stakeholderId;
         
         next();
