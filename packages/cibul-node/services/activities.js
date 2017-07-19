@@ -37,6 +37,24 @@ module.exports.init = ( config, cb ) => {
 
       }
     }, {
+      verb: [ 'event.create', 'event.update', 'agenda.publishEvent', 'agenda.unpublishEvent' ],
+      getFeeds: true,
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        if (
+          originFeed.entityType === 'agenda'
+          && targetFeed.entityType === 'user'
+          && !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
+        ) {
+
+          return cb( null, false );
+
+        }
+
+        cb( null, true );
+
+      }
+    }, {
       verb: [ 'agenda.sendInvitation', 'agenda.acceptInvitation' ],
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
