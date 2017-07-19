@@ -6,6 +6,13 @@
 
 .home {
 
+  > .row.wsq {
+
+    display: flex;
+    flex-direction: row;
+
+  }
+
   .btn-collapse-nav i {
     color: #7B8B8C;
   }
@@ -68,6 +75,12 @@
   }
 
   @media (max-width: $screen-sm) {
+
+    & > .row.wsq {
+
+      flex-direction: column;
+
+    }
 
     h2 {
       margin: 0;
@@ -164,6 +177,16 @@
         }
 
       }
+
+    }
+
+  }
+
+  @media (max-width: $screen-sm) {
+
+    & > .row.wsq {
+
+      flex-direction: column;
 
     }
 

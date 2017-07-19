@@ -10,6 +10,32 @@
 
 }
 
+.activity-user, .activity-admin, .activity-agenda-admin, .js_activities .event-content {
+
+  ul {
+
+    label.small {
+
+      line-height: 20px;
+
+    }
+
+    .activity-item {
+
+      color: $oa-gray;
+
+      .activity-highlight {
+
+        color: $oa-black;
+
+      }
+
+    }
+
+  }
+
+}
+
 .notifications-body {
 
   width: 470px;
@@ -36,18 +62,18 @@
 
     > .next-item, > .read-all-item {
 
-      padding: 6px 12px;
+      padding: 6px 12px !important;
 
       &:first-child {
 
-        border-top-right-radius: 0;
-        border-top-left-radius: 0;
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important;
 
       }
 
       button.btn.btn-link {
 
-        padding: 0;
+        padding: 0 !important;
         color: $oa-blue;
 
       }
@@ -56,8 +82,20 @@
 
     .datetime {
 
-      padding-top: 4px;
+      padding-top: 4px !important;
       font-size: 12px;
+
+    }
+
+    .notif-item {
+
+      color: $oa-gray;
+
+      .notif-highlight {
+
+        color: $oa-black;
+
+      }
 
     }
 
@@ -67,13 +105,13 @@
 
       &:not(.read) {
 
-        background-color: lighten($oa-blue, 41);
+        background-color: lighten($oa-blue, 41) !important;
 
       }
 
       &:hover {
 
-        background-color: lighten($oa-gray-lighter, 3);
+        background-color: lighten($oa-gray-lighter, 3) !important;
 
         &.read button.btn.btn-link.mark-read {
 
@@ -92,8 +130,8 @@
       button.btn.btn-link {
 
         visibility: hidden;
-        padding: 0;
-        margin: 8px 0 8px 14px;
+        padding: 0 !important;
+        margin: 8px 0 8px 14px !important;
         color: $oa-blue;
 
         &:first-child {

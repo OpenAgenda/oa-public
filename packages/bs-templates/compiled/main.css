@@ -14031,6 +14031,10 @@ i.mce-i-backcolor {
     .tooltip-icon.big .tooltip .tooltip-arrow {
       border-right-color: #fff; }
 
+.home > .row.wsq {
+  display: flex;
+  flex-direction: row; }
+
 .home .btn-collapse-nav i {
   color: #7B8B8C; }
 
@@ -14067,6 +14071,8 @@ i.mce-i-backcolor {
   display: block; }
 
 @media (max-width: 768px) {
+  .home > .row.wsq {
+    flex-direction: column; }
   .home h2 {
     margin: 0; }
   .home .search {
@@ -14103,6 +14109,10 @@ i.mce-i-backcolor {
       width: 40px;
       height: 40px; }
 
+@media (max-width: 768px) {
+  .home.home-events > .row.wsq {
+    flex-direction: column; } }
+
 @media (min-width: 768px) {
   .home.home-events .event-item .media-body {
     padding-right: 40px; } }
@@ -14111,7 +14121,7 @@ i.mce-i-backcolor {
   width: 50%; }
 
 .aggregator-sources .agenda-item, .aggregator-sources .event-item {
-  padding: 1em 1em; }
+  padding: 1em 20px; }
   .aggregator-sources .agenda-item a, .aggregator-sources .event-item a {
     display: inline-block; }
   .aggregator-sources .agenda-item .actions a + a, .aggregator-sources .event-item .actions a + a {
@@ -14504,6 +14514,14 @@ i.mce-i-backcolor {
 .activity-admin .spin-canvas {
   background-color: transparent; }
 
+.activity-user ul label.small, .activity-admin ul label.small, .activity-agenda-admin ul label.small, .js_activities .event-content ul label.small {
+  line-height: 20px; }
+
+.activity-user ul .activity-item, .activity-admin ul .activity-item, .activity-agenda-admin ul .activity-item, .js_activities .event-content ul .activity-item {
+  color: gray; }
+  .activity-user ul .activity-item .activity-highlight, .activity-admin ul .activity-item .activity-highlight, .activity-agenda-admin ul .activity-item .activity-highlight, .js_activities .event-content ul .activity-item .activity-highlight {
+    color: #413a42; }
+
 .notifications-body {
   width: 470px;
   position: absolute;
@@ -14521,30 +14539,34 @@ i.mce-i-backcolor {
   .notifications-body .list-group {
     margin-bottom: 0; }
     .notifications-body .list-group > .next-item, .notifications-body .list-group > .read-all-item {
-      padding: 6px 12px; }
+      padding: 6px 12px !important; }
       .notifications-body .list-group > .next-item:first-child, .notifications-body .list-group > .read-all-item:first-child {
-        border-top-right-radius: 0;
-        border-top-left-radius: 0; }
+        border-top-right-radius: 0 !important;
+        border-top-left-radius: 0 !important; }
       .notifications-body .list-group > .next-item button.btn.btn-link, .notifications-body .list-group > .read-all-item button.btn.btn-link {
-        padding: 0;
+        padding: 0 !important;
         color: #41acdd; }
     .notifications-body .list-group .datetime {
-      padding-top: 4px;
+      padding-top: 4px !important;
       font-size: 12px; }
+    .notifications-body .list-group .notif-item {
+      color: gray; }
+      .notifications-body .list-group .notif-item .notif-highlight {
+        color: #413a42; }
     .notifications-body .list-group a.list-group-item {
       position: relative; }
       .notifications-body .list-group a.list-group-item:not(.read) {
-        background-color: #f2f9fd; }
+        background-color: #f2f9fd !important; }
       .notifications-body .list-group a.list-group-item:hover {
-        background-color: #f6f6f6; }
+        background-color: #f6f6f6 !important; }
         .notifications-body .list-group a.list-group-item:hover.read button.btn.btn-link.mark-read {
           visibility: hidden; }
         .notifications-body .list-group a.list-group-item:hover button.btn.btn-link {
           visibility: visible; }
       .notifications-body .list-group a.list-group-item button.btn.btn-link {
         visibility: hidden;
-        padding: 0;
-        margin: 8px 0 8px 14px;
+        padding: 0 !important;
+        margin: 8px 0 8px 14px !important;
         color: #41acdd; }
         .notifications-body .list-group a.list-group-item button.btn.btn-link:first-child {
           margin-top: 0; }
