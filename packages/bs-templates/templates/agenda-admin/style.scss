@@ -18,26 +18,37 @@
 
   }
 
+  &.getting-started {
+
+    .image-upload form {
+      border-radius: 50%;
+      
+      min-height: 250px;
+      height: 250px;
+      max-width: 250px;
+
+      img {
+        border-radius: 50%;
+      }
+    }
+
+  }
+
   .body {
 
     padding: 0 30px 2em;
 
   }
 
-}
+  &.redirect {
 
-.agenda-admin.getting-started {
+    .body {
 
-  .image-upload form {
-    border-radius: 50%;
-    
-    min-height: 250px;
-    height: 250px;
-    max-width: 250px;
+      text-align: center;
+      padding: 16em 0;
 
-    img {
-      border-radius: 50%;
     }
+
   }
 
 }

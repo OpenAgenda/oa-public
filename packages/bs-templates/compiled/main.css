@@ -8929,16 +8929,18 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     padding: 20px; }
     .agenda-admin .header .agenda-logo img {
       max-width: 100%; }
+  .agenda-admin.getting-started .image-upload form {
+    border-radius: 50%;
+    min-height: 250px;
+    height: 250px;
+    max-width: 250px; }
+    .agenda-admin.getting-started .image-upload form img {
+      border-radius: 50%; }
   .agenda-admin .body {
     padding: 0 30px 2em; }
-
-.agenda-admin.getting-started .image-upload form {
-  border-radius: 50%;
-  min-height: 250px;
-  height: 250px;
-  max-width: 250px; }
-  .agenda-admin.getting-started .image-upload form img {
-    border-radius: 50%; }
+  .agenda-admin.redirect .body {
+    text-align: center;
+    padding: 16em 0; }
 
 .tc-selector {
   margin-bottom: 2em; }
