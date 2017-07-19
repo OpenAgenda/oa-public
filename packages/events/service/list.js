@@ -168,7 +168,7 @@ function _detailed( v ) {
 
     let originAgendaUids = v.events.map( e => e.agendaUid ).filter( uid => uid );
 
-    config.interfaces.getOriginAgendas( originAgendaUids, ( err, agendas ) => {
+    config.interfaces.getOriginAgendas( originAgendaUids, _.pick( v.options, [ 'internal' ] ), ( err, agendas ) => {
 
       if ( err ) {
 
@@ -188,7 +188,7 @@ function _detailed( v ) {
 
       }
 
-      config.interfaces.getLocations( locationUids, ( err, locations ) => {
+      config.interfaces.getLocations( locationUids, _.pick( v.options, [ 'internal' ] ), ( err, locations ) => {
 
         if ( err ) {
 
