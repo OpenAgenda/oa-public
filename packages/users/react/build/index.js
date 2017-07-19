@@ -1,5 +1,11 @@
 "use strict";
 
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var React = require('react'),
     ReactDom = require('react-dom'),
     du = require('dom-utils'),
@@ -46,7 +52,7 @@ module.exports = function (options) {
     }
   }, options);
 
-  var settings = Object.assign(params, du.parseJsonAttribute('body', params.dataTag));
+  var settings = (0, _assign2.default)(params, du.parseJsonAttribute('body', params.dataTag));
 
   var browserHistory = useRouterHistory(createHistory)();
   var store = createStore(browserHistory);

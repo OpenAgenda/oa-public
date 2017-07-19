@@ -1,6 +1,26 @@
 "use strict";
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _getIterator2 = require('babel-runtime/core-js/get-iterator');
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var React = require('react'),
     createReactClass = require('create-react-class'),
@@ -144,7 +164,7 @@ function mapStateToProps(_ref) {
       userSettings = _ref.userSettings;
 
 
-  return _extends({
+  return (0, _extends3.default)({
     loading: loading,
     appSettings: appSettings
   }, userSettings);
@@ -171,7 +191,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
     removeUnsubscription: removeUnsubscription
   };
 
-  return Object.assign({}, ownProps, stateProps, mapDispatchToProps);
+  return (0, _assign2.default)({}, ownProps, stateProps, mapDispatchToProps);
 
   function setLoading(value) {
 
@@ -181,7 +201,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   function getMe() {
     dispatch(actions.getMe('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
 
       get(getUrl('getMe'), function (err, result) {
         if (err) {
@@ -209,12 +229,12 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
     dispatch(actions.updateUser('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
       get(getUrl('updateProfile'), { full_name: full_name, culture: culture }, function (err, result) {
         if (!err) {
           var errors = getFormFirstErrors(result.errors);
 
-          if (Object.keys(errors).length) {
+          if ((0, _keys2.default)(errors).length) {
             reject(errors);
           } else {
             dispatch(actions.displayMessage('updateProfile', true));
@@ -246,13 +266,13 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
     dispatch(actions.changeEmail('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
 
       get(getUrl('changeEmail'), { email: email, password: password }, function (err, result) {
         if (!err) {
           var errors = getFormFirstErrors(result.errors);
 
-          if (Object.keys(errors).length) {
+          if ((0, _keys2.default)(errors).length) {
             reject(errors);
           } else {
             dispatch(actions.displayMessage('changeEmail', true));
@@ -277,13 +297,13 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
     dispatch(actions.changePassword('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
 
       get(getUrl('changePassword'), { old_password: old_password, new_password: new_password, confirmation: confirmation }, function (err, result) {
         if (!err) {
           var errors = getFormFirstErrors(result.errors);
 
-          if (Object.keys(errors).length) {
+          if ((0, _keys2.default)(errors).length) {
             reject(errors);
           } else {
             dispatch(actions.displayMessage('changePassword', true));
@@ -309,8 +329,8 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
       if (!err) {
         var errors = getFormFirstErrors(result.body.errors);
 
-        if (!Object.keys(errors).length) {
-          dispatch(actions.generateApiKey('response', _extends({}, result.body, { secret: secret })));
+        if (!(0, _keys2.default)(errors).length) {
+          dispatch(actions.generateApiKey('response', (0, _extends3.default)({}, result.body, { secret: secret })));
           dispatch(changeFieldValue('apiKeySettings', secret ? 'apiSecret' : 'apiKey', result.body.key));
         }
       }
@@ -336,7 +356,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   function listUnsubscriptions() {
     dispatch(actions.listUnsubscriptions('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
 
       request.get(appSettings.urls['listUnsubscriptions'].replace(':userUid', stateProps.user.uid)).end(function (err, result) {
         if (err) return reject(err);
@@ -349,7 +369,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   function removeUnsubscription(unsubscription) {
     dispatch(actions.removeUnsubscription('request'));
 
-    return new Promise(function (resolve, reject) {
+    return new _promise2.default(function (resolve, reject) {
 
       var url = appSettings.urls['removeUnsubscription'].replace(':userUid', stateProps.user.uid).replace(':subject', unsubscription.subject).replace(':identifier', unsubscription.identifier).replace(':type', unsubscription.type);
 
@@ -359,7 +379,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
       request.get(url).end(function (err, result) {
         if (err) return reject(err);
-        dispatch(actions.removeUnsubscription('response', Object.assign(result.body, { unsubscription: unsubscription })));
+        dispatch(actions.removeUnsubscription('response', (0, _assign2.default)(result.body, { unsubscription: unsubscription })));
         resolve(result.body);
       });
     });
@@ -384,7 +404,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = oneErrorPerField[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = (0, _getIterator3.default)(oneErrorPerField), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var error = _step.value;
 
           errors[error.field] = error.code;

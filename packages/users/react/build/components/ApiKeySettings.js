@@ -1,8 +1,14 @@
 "use strict";
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var React = require('react'),
     createReactClass = require('create-react-class'),
@@ -26,8 +32,7 @@ var domOnlyProps = function domOnlyProps(_ref) {
       touched = _ref.touched,
       visited = _ref.visited,
       autofilled = _ref.autofilled,
-      domProps = _objectWithoutProperties(_ref, ['initialValue', 'autofill', 'onUpdate', 'valid', 'invalid', 'dirty', 'pristine', 'active', 'touched', 'visited', 'autofilled']);
-
+      domProps = (0, _objectWithoutProperties3.default)(_ref, ['initialValue', 'autofill', 'onUpdate', 'valid', 'invalid', 'dirty', 'pristine', 'active', 'touched', 'visited', 'autofilled']);
   return domProps;
 };
 
@@ -117,7 +122,7 @@ var ApiKeySettings = createReactClass({
             React.createElement(
               'div',
               { className: 'input-group' },
-              React.createElement('input', _extends({ type: 'text', className: 'form-control', name: 'api_key', readOnly: true }, domOnlyProps(apiKey))),
+              React.createElement('input', (0, _extends3.default)({ type: 'text', className: 'form-control', name: 'api_key', readOnly: true }, domOnlyProps(apiKey))),
               React.createElement(
                 'span',
                 { className: 'input-group-btn' },
@@ -143,7 +148,7 @@ var ApiKeySettings = createReactClass({
             React.createElement(
               'div',
               { className: 'input-group' },
-              React.createElement('input', _extends({ type: 'text', className: 'form-control', name: 'api_secret', readOnly: true }, domOnlyProps(apiSecret))),
+              React.createElement('input', (0, _extends3.default)({ type: 'text', className: 'form-control', name: 'api_secret', readOnly: true }, domOnlyProps(apiSecret))),
               React.createElement(
                 'span',
                 { className: 'input-group-btn' },

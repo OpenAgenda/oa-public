@@ -2,15 +2,10 @@
 
 process.env.NODE_ENV = 'test';
 
-const config = require( '../testconfig' ),
-
-  should = require( 'should' ),
-
-  fixtures = require( 'fixtures' ),
-
-  service = require( '../service' ),
-
-  mysql = require( 'mysql' );
+const config = require( '../testconfig' );
+const should = require( 'should' );
+const fixtures = require( 'fixtures' );
+const service = require( '../service' );
 
 
 describe( '.list', function () {
@@ -31,30 +26,77 @@ describe( '.list', function () {
 
   } );
 
-  before( done => {
+  before( async () => {
 
-    service.init( config, done );
+    await service.init( config );
 
   } );
 
-  it( 'list', done => {
+  it( 'list', async () => {
 
-    service.list( 0, 10, ( err, users ) => {
+    const { users } = await service.list( 0, 10 );
+    const { users: offsetUsers } = await service.list( 4, 1 );
+
+    users.length.should.equal( 10 );
+    offsetUsers.length.should.equal( 1 );
+    users[ 4 ].id.should.equal( offsetUsers[ 0 ].id );
+
+  } );
+
+  it( 'list with cb', done => {
+
+    service.list( 0, 10, { detailed: true, total: true }, ( err, users, total ) => {
 
       should( err ).equal( null );
+      users.length.should.equal( 10 );
+      total.should.equal( 26 );
 
-      service.list( 4, 1, ( err, offsetUsers ) => {
-
-        should( err ).equal( null );
-        users.length.should.equal( 10 );
-        offsetUsers.length.should.equal( 1 );
-        users[ 4 ].id.should.equal( offsetUsers[ 0 ].id );
-
-        done();
-
-      } );
+      done();
 
     } );
+
+  } );
+
+  it( 'list with search query', async () => {
+
+    const { users } = await service.list( { search: 'latouche' } );
+
+    users.length.should.equal( 1 );
+
+  } );
+
+  it( 'list with uid query', async () => {
+
+    const { users } = await service.list( { uid: [ 54505079, 27639980 ] } );
+
+    users.length.should.equal( 2 );
+    users.map( v => v.uid ).should.eql( [ 54505079, 27639980 ] );
+
+  } );
+
+  it( 'list with total option', async () => {
+
+    const { users, total } = await service.list( 0, 10, { total: true } );
+
+    users.length.should.equal( 10 );
+    total.should.equal( 26 );
+
+  } );
+
+  it( 'list with detailed option', async () => {
+
+    const { users } = await service.list( { search: 'latouche' }, { detailed: true } );
+
+    users[ 0 ].isActivated.should.eql( 1 );
+    users[ 0 ].isRemoved.should.eql( 0 );
+
+  } );
+
+  it( 'list with removed option', async () => {
+
+    const { users } = await service.list( {}, { removed: true } );
+
+    users.length.should.equal( 0 );
 
   } );
 

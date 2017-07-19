@@ -31,9 +31,9 @@ describe( '.remove', function () {
 
   } );
 
-  before( done => {
+  before( async () => {
 
-    service.init( config, done );
+    await service.init( config );
 
   } );
 

@@ -90,7 +90,7 @@ app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
 } );
 
 async.waterfall( [
-  wcb => service.initAndLoad( config, wcb ),
+  wcb => service.initAndLoad( config ).catch( wcb ).then( () => wcb() ),
   wcb => unsubscribedSvc.initAndLoad( config, { reset: false }, wcb )
 ], err => {
 

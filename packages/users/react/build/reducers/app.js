@@ -1,5 +1,11 @@
 "use strict";
 
+var _assign = require("babel-runtime/core-js/object/assign");
+
+var _assign2 = _interopRequireDefault(_assign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 var types = require('../actions/actionsTypes');
 
 var initialState = {
@@ -14,9 +20,9 @@ function app() {
 
   switch (action.type) {
     case types.SET_APP_SETTINGS:
-      return Object.assign({}, state, { appSettings: action.settings });
+      return (0, _assign2.default)({}, state, { appSettings: action.settings });
     case types.SET_LOADING:
-      return Object.assign({}, state, { loading: action.loading });
+      return (0, _assign2.default)({}, state, { loading: action.loading });
     default:
       return state;
   }

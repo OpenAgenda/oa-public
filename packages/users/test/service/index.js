@@ -9,30 +9,24 @@ module.exports = _.extend( svc, {
   initAndLoad
 } );
 
-function initAndLoad( config, files, options, cb ) {
+async function initAndLoad( config, files, options ) {
 
   const defautFiles = [
     'user',
     'api_key_set'
   ]
 
-  if ( arguments.length === 3 && Array.isArray( arguments[ 1 ] ) ) {
-
-    cb = options;
+  if ( arguments.length === 2 && Array.isArray( arguments[ 1 ] ) ) {
 
     options = { reset: true };
 
-  } else if ( arguments.length === 3 ) {
-
-    cb = options;
+  } else if ( arguments.length === 2 ) {
 
     options = files;
 
     files = defautFiles;
 
-  } else if ( arguments.length === 2 ) {
-
-    cb = files;
+  } else if ( arguments.length === 1 ) {
 
     options = { reset: true };
 
@@ -44,26 +38,30 @@ function initAndLoad( config, files, options, cb ) {
     reset: true
   }, options );
 
-  svc.init( config, err => {
-
-    if ( err ) return cb( err );
-
-    fix( config, files, params, cb );
-
-  } );
+  await svc.init( config );
+  await fix( config, files, params );
 
 }
 
-function fix( config, files, options, cb ) {
+async function fix( config, files, options ) {
 
-  fixtures.init( { mysql: config.mysql } );
+  return new Promise( ( resolve, reject ) => {
 
-  fixtures( [ {
-    table: config.schemas.user,
-    src: path.dirname( __dirname ) + '/fixtures/user.data.sql'
-  }, {
-    table: config.schemas.apiKeySet,
-    src: path.dirname( __dirname ) + '/fixtures/api_key_set.data.sql'
-  } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
+    fixtures.init( { mysql: config.mysql } );
+
+    fixtures( [ {
+      table: config.schemas.user,
+      src: path.dirname( __dirname ) + '/fixtures/user.data.sql'
+    }, {
+      table: config.schemas.apiKeySet,
+      src: path.dirname( __dirname ) + '/fixtures/api_key_set.data.sql'
+    } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, err => {
+
+      if ( err ) return reject( err );
+      resolve();
+
+    } );
+
+  } );
 
 }

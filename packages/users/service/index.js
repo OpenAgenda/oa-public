@@ -1,28 +1,18 @@
 "use strict";
 
-const knexLib = require( 'knex' ),
-
-  w = require( 'when' ),
-
-  wn = require( 'when/node' ),
-
-  logger = require( 'basic-logger' ),
-
-  mailer = require( 'mailer' ),
-
-  validators = require( './validators' ),
-
-  utils = require( 'utils' ),
-
-  crypto = require( './crypto' ),
-
-  defineUnique = require( 'mysql-utils/defineUnique' ),
-
-  mw = require( '../middleware' ),
-
-  update = require( './update' ),
-
-  _ = require( 'lodash' );
+const _ = require( 'lodash' );
+const knexLib = require( 'knex' );
+const w = require( 'when' );
+const wn = require( 'when/node' );
+const logger = require( 'basic-logger' );
+const mailer = require( 'mailer' );
+const validators = require( './validators' );
+const utils = require( 'utils' );
+const crypto = require( './crypto' );
+const defineUnique = require( 'mysql-utils/defineUnique' );
+const mw = require( '../middleware' );
+const update = require( './update' );
+const list = require( './list' );
 
 
 var config, knex, schemas;
@@ -51,7 +41,7 @@ module.exports = {
 };
 
 
-function init( c, cb ) {
+async function init( c ) {
 
   schemas = c.schemas;
 
@@ -64,76 +54,20 @@ function init( c, cb ) {
     }
   }, c );
 
-  w( c )
 
-    .then( () => {
-
-      if ( c.logger ) {
-
-        logger.setLogger( c.logger );
-
-      }
-
-    } )
-
-    .then( () => {
-
-      knex = knexLib( {
-        client: 'mysql',
-        connection: c.mysql
-      } );
-
-    } )
-
-    .then( () => {
-
-      mw.init( module.exports, c );
-      update.init( config, knex, module.exports );
-
-    } )
-
-    .done( () => cb ? cb() : null, cb ? cb : null );
-
-}
-
-function list( query, offset, limit, cb ) {
-
-  if ( !config ) throw new Error( 'service not initialized' );
-
-  if ( arguments.length === 3 ) {
-
-    cb = limit;
-    limit = offset;
-    offset = query;
-    query = {};
-
+  if ( c.logger ) {
+    logger.setLogger( c.logger );
   }
 
-  query = Object.assign( {
-    total: false,
-    search: null,
-    detailed: false,
-    removed: false
-  }, query );
+  knex = c.knex ? c.knex.clone() : knexLib( {
+    client: 'mysql',
+    connection: c.mysql
+  } );
 
-  w( {
-    offset,
-    limit,
-    query,
-    users: [],
-    total: null,
-    knex: knex( schemas.user )
-  } )
+  mw.init( module.exports, c );
 
-    .then( _search )
-
-    .then( _filterRemoved )
-
-    .then( _total )
-
-    .then( _list )
-
-    .done( v => cb( null, v.users, v.total ) );
+  update.init( config, knex, module.exports );
+  list.init( config, knex, module.exports );
 
 }
 
@@ -448,76 +382,6 @@ function setNewFlag( query, flag, options, cb ) {
     } ) )
 
     .done( v => cb( null, v.success ), err => cb( err ) );
-
-}
-
-
-function _search( v ) {
-
-  if ( !v.query.search ) return v;
-
-  v.knex.where( 'full_name', 'like', `%${v.query.search}%` )
-    .orWhere( 'email', 'like', `%${v.query.search}%` );
-
-  return v;
-
-}
-
-function _filterRemoved( v ) {
-
-  if ( v.query.removed ) return v;
-
-  v.knex = v.knex.where( 'is_removed', 0 );
-
-  return v;
-
-}
-
-function _total( v ) {
-
-  if ( !v.query.total ) return v;
-
-  return knex.transaction( trx => {
-
-    return v.knex.clone()
-      .count( 'id as users' )
-      .transacting( trx );
-
-  } )
-
-    .then( result => {
-
-      v.total = result[ 0 ].users;
-
-      return v;
-
-    } );
-
-}
-
-function _list( v ) {
-
-  const detailed = v.query.detailed;
-
-  return knex.transaction( trx => {
-
-    return v.knex
-      .column( detailed ? detailedFields : basicFields.concat( v.query.removed ? 'is_removed' : [] ) )
-      .select()
-      .orderBy( 'email', 'asc' )
-      .limit( v.limit )
-      .offset( v.offset )
-      .transacting( trx );
-
-  } )
-
-    .then( users => {
-
-      v.users = users;
-
-      return v;
-
-    } );
 
 }
 

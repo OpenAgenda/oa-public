@@ -1,6 +1,14 @@
 "use strict";
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _require = require('redux'),
     createStore = _require.createStore,
@@ -51,17 +59,17 @@ function promiseMiddleware() {
         return next(action);
       }
 
-      var _types = _slicedToArray(types, 3),
+      var _types = (0, _slicedToArray3.default)(types, 3),
           REQUEST = _types[0],
           SUCCESS = _types[1],
           FAILURE = _types[2];
 
-      next(Object.assign({}, rest, { type: REQUEST }));
+      next((0, _assign2.default)({}, rest, { type: REQUEST }));
 
       return promise.then(function (result) {
-        return next(Object.assign({}, rest, { result: result, type: SUCCESS }));
+        return next((0, _assign2.default)({}, rest, { result: result, type: SUCCESS }));
       }, function (error) {
-        return next(Object.assign({}, rest, { error: error, type: FAILURE }));
+        return next((0, _assign2.default)({}, rest, { error: error, type: FAILURE }));
       });
     };
   };

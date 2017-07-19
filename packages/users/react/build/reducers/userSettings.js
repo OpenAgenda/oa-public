@@ -1,8 +1,14 @@
 "use strict";
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var types = require('../actions/actionsTypes');
 
@@ -29,14 +35,14 @@ function userSettings() {
     case types.GENERATE_APIKEY:
       return generateApiKey(state, action.status, action.data);
     case types.DISPLAY_MODAL:
-      return _extends({}, state, { modal: action.data });
+      return (0, _extends5.default)({}, state, { modal: action.data });
     case types.DISPLAY_DELETE_ACCOUNT_CONFIRMATION:
-      return _extends({}, state, { deleteAccountConfirmationIsOpen: action.visible });
+      return (0, _extends5.default)({}, state, { deleteAccountConfirmationIsOpen: action.visible });
     case types.DELETE_ACCOUNT:
       return deleteAccount(state, action.status);
     case types.DISPLAY_MESSAGE:
-      return _extends({}, state, {
-        successMessagesDisplayed: _extends({}, state.successMessagesDisplayed, _defineProperty({}, action.name, action.visible))
+      return (0, _extends5.default)({}, state, {
+        successMessagesDisplayed: (0, _extends5.default)({}, state.successMessagesDisplayed, (0, _defineProperty3.default)({}, action.name, action.visible))
       });
     case types.LIST_UNSUBSCRIPTIONS:
       return listUnsubscriptions(state, action.status, action.data);
@@ -52,7 +58,7 @@ function removeUnsubscription(state, status) {
 
   switch (status) {
     case 'response':
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         unsubscriptions: state.unsubscriptions.filter(function (v) {
           return v.id !== data.unsubscription.id;
         })
@@ -67,7 +73,7 @@ function listUnsubscriptions(state, status) {
 
   switch (status) {
     case 'response':
-      return _extends({}, state, { unsubscriptions: data.unsubscriptions });
+      return (0, _extends5.default)({}, state, { unsubscriptions: data.unsubscriptions });
     default:
       return state;
   }
@@ -78,7 +84,7 @@ function getMe(state, status) {
 
   switch (status) {
     case 'response':
-      return _extends({}, state, { user: data.user });
+      return (0, _extends5.default)({}, state, { user: data.user });
     default:
       return state;
   }
@@ -89,7 +95,7 @@ function updateUser(state, status) {
 
   switch (status) {
     case 'response':
-      return _extends({}, state, { user: _extends({}, state.user, user) });
+      return (0, _extends5.default)({}, state, { user: (0, _extends5.default)({}, state.user, user) });
     default:
       return state;
   }
@@ -100,7 +106,7 @@ function generateApiKey(state, status) {
 
   switch (status) {
     case 'response':
-      return _extends({}, state, { user: _extends({}, state.user, _defineProperty({}, data.secret ? 'api_secret' : 'api_key', data.key)) });
+      return (0, _extends5.default)({}, state, { user: (0, _extends5.default)({}, state.user, (0, _defineProperty3.default)({}, data.secret ? 'api_secret' : 'api_key', data.key)) });
     default:
       return state;
   }
@@ -109,7 +115,7 @@ function generateApiKey(state, status) {
 function deleteAccount(state, status) {
   switch (status) {
     case 'response':
-      return _extends({}, state, { user: null });
+      return (0, _extends5.default)({}, state, { user: null });
     default:
       return state;
   }
