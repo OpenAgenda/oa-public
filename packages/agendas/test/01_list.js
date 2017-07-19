@@ -56,6 +56,31 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
+  it( 'list with { internal: false } does not include internal fields', done => {
+
+    svc.list( {}, 0, 1, {
+      internal: false
+    }, ( err, agendas ) => {
+
+      Object.keys( agendas[ 0 ] ).should.eql( [
+        'slug',
+        'uid',
+        'official',
+        'title',
+        'description',
+        'url',
+        'image',
+        'updatedAt',
+        'createdAt',
+        'private'
+      ] );
+
+      done();
+
+    } );
+
+  } );
+
 
   it( 'DEPRECATE - list with { detailed: true } gets agendas with detailed info', done => {
 

@@ -129,6 +129,7 @@ function list( q, off, l, op, c ) {
     private: false,
     total: false,
     detailed: false,
+    internal: null, // this should be false by default but was not existing until now
     includeImagePath: false,
     useDefaultImage: false
   }, options );
@@ -273,7 +274,29 @@ function _total( v ) {
 
 function _list( v ) {
 
-  let listFields = map.filter( f => typeof f === 'string' || f.list === true || f.list === undefined ).map( f => typeof f === 'string' ? f : f.db );
+  let listFields = map.filter( field => {
+
+    if ( typeof field === 'string' ) {
+
+      return true;
+
+    }
+
+    if ( field.list === false ) {
+
+      return false;
+
+    }
+
+    if ( field.internal && v.options.internal === false ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  } ).map( f => typeof f === 'string' ? f : f.db );
 
   return knex.transaction( trx => {
 
