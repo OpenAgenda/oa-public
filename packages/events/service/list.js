@@ -172,7 +172,7 @@ function _detailed( v ) {
 
       if ( err ) {
 
-        return rj( new VError( e, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
+        return rj( new VError( err, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
 
       }
 
