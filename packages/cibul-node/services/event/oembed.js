@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( 'logger' )( 'services/event/oembed' ),
+const logger = require( 'logger' ),
 
   lib = require( '../../lib/lib' ),
 
@@ -19,6 +19,9 @@ const log = require( 'logger' )( 'services/event/oembed' ),
   q = require( 'queue' )( config.queues.oembed, { redis: config.redis } );
 
 
+let log;
+
+
 module.exports = {
   task
 }
@@ -26,6 +29,8 @@ module.exports = {
 
 
 function task() {
+
+  log = logger( 'services/event/oembed' );
 
   coms.subscribe( config.mainChannel, function( err, action ) {
 
@@ -50,6 +55,8 @@ function task() {
 
 
 function _processLinks( id, cb ) {
+
+  log( 'processing links for event id %s', id );
 
   cbm.events().get( { id }, function( err, event ) {
 
@@ -134,6 +141,8 @@ function _processLink( links ) {
         return cb();
 
       }
+
+      log( 'retrieved %s', JSON.stringify( data ) );
 
       linksItem = lib.getByAttr( links, { link: processedLink.link } );
 
@@ -249,7 +258,11 @@ function _isOembeddable( link ) {
 
     if ( is ) return;
 
+    log( 'evaluating link %s for platform %s', link, platform );
+
     if ( ( new RegExp( platform ) ).test( link ) ) {
+
+      log( 'link %s matches platform %s', link, platform );
 
       is = true;
 

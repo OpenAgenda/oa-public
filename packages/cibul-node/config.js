@@ -502,6 +502,7 @@ var deepExtend = require( 'deep-extend' ),
           //enable: 'oa:events/interfaces/legacy'
           //enable: 'oa:agendaEvents/interfaces/legacy',
           //enable: 'oa:agendaEvents*, oa:events*'
+          //enable: 'oa:services/event/oembed',
           enable: 'oa:*'
         },
         token: false // no need to log dev things
