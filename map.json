@@ -46,12 +46,6 @@
   },
   
   "newsletter/show",
-  "newsletter/admin/index",
-  "newsletter/admin/campaignForm",
-  "newsletter/admin/campaignLayoutForm",
-  "newsletter/admin/campaignFeaturedForm",
-  "newsletter/admin/contactListForm",
-  "newsletter/admin/contactListShow",
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
 
@@ -62,7 +56,9 @@
 
   "swapcard/index",
 
-  "categories/index",
+  "customized/index",
+
+  "adminRedirect/index",
 
   "locations/index",
 

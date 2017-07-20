@@ -1,10 +1,8 @@
 {
   "layout" : "agendaAdmin/bsLayout",
-  "oaCss" : {
-    "categorytags" : "css/style.scss",
-    "tag-editor" : "../node_modules/bs-templates/templates/agenda-tags/_editor.scss",
-    "popup-overlay" : "../agenda/css/popup-overlay.scss",
-    "feature-request" : "css/feature-request.scss"
+  
+  "bsCss" : {
+    "main" : "/node_modules/bs-templates/compiled/main.css"
   },
 
   "helpers" : {
@@ -14,7 +12,7 @@
   "base" : {
     "mainClass" : "agenda-admin",
     "pageId" : false,
-    "tab" : "categories"
+    "tab" : "customized"
   },
 
   "js" : true

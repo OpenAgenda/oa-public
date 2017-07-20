@@ -1,35 +1,22 @@
 "use strict";
 
-var React = require( 'react' ),
+import openRequestForm from 'call-to-action/react/dist/openRequestForm'
 
-createReactClass = require( 'create-react-class' ),
+const React = require( 'react' ),
 
-TagEditor = require( 'agenda-tags/lib/TagEditor.jsx' ),
+  createReactClass = require( 'create-react-class' ),
 
-CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
+  TagEditor = require( 'agenda-tags/lib/TagEditor.jsx' ),
 
-SyncButton = require( 'sync-button' ),
+  CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
 
-Spinner = require( 'sync-button/Spinner.jsx' ),
+  SyncButton = require( 'sync-button' ),
 
-FeatureRequest = require( './FeatureRequest.jsx' ),
+  Spinner = require( 'sync-button/Spinner.jsx' ),
 
-labels = {
-  tagFeatureTitle: {
-    fr: 'Essayez les tags d\'agenda',
-    en: 'Try agenda tags'
-  },
-  tagFeatureDescription: {
-    fr: 'Organisez vos événements via un ou plusieurs groupes de tags; nommez vos groupes, organisez et ordonnez-les pour offrir à vos utilisateurs des filtres plus adaptés à vos événements!',
-    en: 'Organize your events with one or more tag groups; organize and sort your tags to give the best possible selection of filters for your events!'
-  },
-  tagFeatureTeaser: {
-    fr: 'Faites plus avec des groupes de tags',
-    en: 'Do more with tag groups'
-  }
-},
+  tplEnv = window.env=='tpl',
 
-tplEnv = window.env=='tpl';
+  labels =  require( 'labels/agenda-tags/editor' );
 
 module.exports = createReactClass( {
 
@@ -79,25 +66,12 @@ module.exports = createReactClass( {
 
   },
 
-  renderFeatureRequest: function() {
-
-    return <FeatureRequest
-      lang={this.props.lang}
-      labels={{
-        title: labels.tagFeatureTitle,
-        teaser: labels.tagFeatureTeaser,
-        description: labels.tagFeatureDescription
-      }}
-      res={ tplEnv ? "#featurerequest" : "/featurerequest" } />
-
-  },
-
   renderTagSection: function() {
 
     return <TagEditor
       lang={this.props.lang}
       set={this.state.tagSet}
-      onSetUpdate={this.onSetUpdate( 'tagSet' )} />
+      onSetUpdate={this.onSetUpdate( 'tagSet' )}/>
 
   },
 
@@ -105,6 +79,14 @@ module.exports = createReactClass( {
 
     return <div>
       <div className="tc-edge">
+        <button
+          className="btn btn-default pull-right"
+          onClick={() => openRequestForm( { 
+            subject: 'customFields'
+          } )}
+        >
+          {labels.customFieldsFeature[this.props.lang]}
+        </button>
         <SyncButton
           lang={this.props.lang}
           res={this.props.uploadRes}
@@ -122,7 +104,7 @@ module.exports = createReactClass( {
         lang={this.props.lang}
         set={this.state.categorySet}
         onSetUpdate={this.onSetUpdate( 'categorySet' )} />
-      {this.props.extraFeatures?this.renderTagSection():''}
+      { this.props.extraFeatures?this.renderTagSection() : '' }
       <div className="tc-edge">
         <SyncButton
           lang={this.props.lang}
@@ -135,10 +117,8 @@ module.exports = createReactClass( {
             tagSet: this.state.tagSet,
             categorySet: this.state.categorySet 
           } } />
-        { this.props.extraFeatures ? '' : this.renderFeatureRequest() }
       </div>
-      <Spinner
-        loading={this.state.loading} />
+      <Spinner loading={this.state.loading} />
     </div>;
 
   }
