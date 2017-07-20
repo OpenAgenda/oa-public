@@ -73,13 +73,14 @@ function createApp(options) {
   var browserHistory = (0, _createBrowserHistory2.default)();
   var store = (0, _createStore2.default)(_reducer2.default)(browserHistory, client, params.state);
 
-  var openRequestForm = (0, _redux.bindActionCreators)(function (data, options) {
+  var openRequestForm = (0, _redux.bindActionCreators)(function (data) {
     if (data instanceof Event) {
+      data.lang = data.target.getAttribute('data-lang');
       data.subject = data.target.getAttribute('data-subject');
       data.agenda = data.target.getAttribute('data-agenda');
     }
 
-    return actions.openRequestForm(data, options);
+    return actions.openRequestForm(data);
   }, store.dispatch);
 
   window.openRequestForm = openRequestForm;

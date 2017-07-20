@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { renderField, renderTextarea } from '../../utils/form';
 
+const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
+
 @reduxForm( {
   form: 'request'
 } )
@@ -19,7 +21,7 @@ export default class RequestForm extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, subject } = this.props;
     const { getLabel } = this.context;
 
     return (
@@ -40,7 +42,7 @@ export default class RequestForm extends Component {
           type="hidden"
         />
         <Field
-          label={getLabel( 'message' )}
+          label={subject && getLabel( 'requestInputLabel' + ucfirst( subject ) )}
           component={this.renderTextarea}
           name="message"
           className="form-control"

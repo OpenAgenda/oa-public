@@ -15,9 +15,9 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         opened: true,
+        lang: action.lang,
         subject: action.subject,
-        agenda: action.agenda,
-        options: action.options
+        agenda: action.agenda
       };
     case CLOSE_REQUEST_FORM:
       return {
@@ -25,7 +25,7 @@ export default function reducer( state = initialState, action ) {
         opened: false,
         subject: null,
         agenda: null,
-        options: null
+        lang: null
       }
     default:
       return state;
@@ -33,12 +33,12 @@ export default function reducer( state = initialState, action ) {
 
 };
 
-export function openRequestForm( { subject, agenda }, options ) {
+export function openRequestForm( { lang, subject, agenda } ) {
   return {
     type: OPEN_REQUEST_FORM,
     subject,
     agenda,
-    options
+    lang
   };
 }
 

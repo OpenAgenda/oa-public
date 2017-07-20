@@ -55,6 +55,10 @@ function _wrapComponent(id) {
   };
 }
 
+var ucfirst = function ucfirst(str) {
+  return str.substr(0, 1).toUpperCase() + str.substr(1);
+};
+
 var RequestForm = _wrapComponent('RequestForm')((_dec = (0, _reduxForm.reduxForm)({
   form: 'request'
 }), _dec(_class = (_temp = _class2 = function (_Component) {
@@ -73,7 +77,9 @@ var RequestForm = _wrapComponent('RequestForm')((_dec = (0, _reduxForm.reduxForm
   _createClass(RequestForm, [{
     key: 'render',
     value: function render() {
-      var handleSubmit = this.props.handleSubmit;
+      var _props = this.props,
+          handleSubmit = _props.handleSubmit,
+          subject = _props.subject;
       var getLabel = this.context.getLabel;
 
 
@@ -96,7 +102,7 @@ var RequestForm = _wrapComponent('RequestForm')((_dec = (0, _reduxForm.reduxForm
           type: 'hidden'
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: getLabel('message'),
+          label: subject && getLabel('requestInputLabel' + ucfirst(subject)),
           component: this.renderTextarea,
           name: 'message',
           className: 'form-control',

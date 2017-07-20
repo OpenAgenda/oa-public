@@ -11,7 +11,7 @@ const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
 
 @connect(
   state => ({
-    lang: state.settings.lang,
+    lang: state.callToAction.lang,
     opened: state.callToAction.opened,
     subject: state.callToAction.subject,
     agenda: state.callToAction.agenda,
@@ -77,6 +77,7 @@ export default class Request extends Component {
       >
         {modalDescription && <p dangerouslySetInnerHTML={{ __html: modalDescription.replace( /\n/g, '<br />' ) }}></p>}
         <RequestForm
+          subject={subject}
           initialValues={{ subject, agenda, url: window.location.href }}
           onSubmit={ values => sendRequestForm( values )
             .then( () => this.close() )

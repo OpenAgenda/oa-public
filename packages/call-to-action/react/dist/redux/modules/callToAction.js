@@ -29,31 +29,32 @@ function reducer() {
     case OPEN_REQUEST_FORM:
       return _extends({}, state, {
         opened: true,
+        lang: action.lang,
         subject: action.subject,
-        agenda: action.agenda,
-        options: action.options
+        agenda: action.agenda
       });
     case CLOSE_REQUEST_FORM:
       return _extends({}, state, {
         opened: false,
         subject: null,
         agenda: null,
-        options: null
+        lang: null
       });
     default:
       return state;
   }
 };
 
-function openRequestForm(_ref, options) {
-  var subject = _ref.subject,
+function openRequestForm(_ref) {
+  var lang = _ref.lang,
+      subject = _ref.subject,
       agenda = _ref.agenda;
 
   return {
     type: OPEN_REQUEST_FORM,
     subject: subject,
     agenda: agenda,
-    options: options
+    lang: lang
   };
 }
 

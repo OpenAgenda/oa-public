@@ -32,13 +32,14 @@ export default function createApp( options ) {
   const browserHistory = createHistory();
   const store = createStore( reducer )( browserHistory, client, params.state );
 
-  const openRequestForm = bindActionCreators( ( data, options ) => {
+  const openRequestForm = bindActionCreators( data => {
     if ( data instanceof Event ) {
+      data.lang = data.target.getAttribute( 'data-lang' );
       data.subject = data.target.getAttribute( 'data-subject' );
       data.agenda = data.target.getAttribute( 'data-agenda' );
     }
 
-    return actions.openRequestForm( data, options );
+    return actions.openRequestForm( data );
   }, store.dispatch );
 
   window.openRequestForm = openRequestForm;

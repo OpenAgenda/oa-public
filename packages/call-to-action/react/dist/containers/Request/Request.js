@@ -79,7 +79,7 @@ var ucfirst = function ucfirst(str) {
 
 var Request = _wrapComponent('Request')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    lang: state.settings.lang,
+    lang: state.callToAction.lang,
     opened: state.callToAction.opened,
     subject: state.callToAction.subject,
     agenda: state.callToAction.agenda,
@@ -177,6 +177,7 @@ var Request = _wrapComponent('Request')((_dec = (0, _reactRedux.connect)(functio
         },
         modalDescription && _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: modalDescription.replace(/\n/g, '<br />') } }),
         _react3.default.createElement(_index.RequestForm, {
+          subject: subject,
           initialValues: { subject: subject, agenda: agenda, url: window.location.href },
           onSubmit: function onSubmit(values) {
             return sendRequestForm(values).then(function () {
