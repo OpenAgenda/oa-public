@@ -21,9 +21,25 @@ schema.register( {
   choice: require( 'validators/choice' )
 } );
 
-module.exports = fields => {
+module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
 
-  const validationFields = fields.map( f => {
+  const params = _.extend( {
+    includeUnspecified: true
+  }, options );
+
+  accessLevel = accessLevel === null ? [] : [].concat( accessLevel );
+
+  const validationFields = fields.filter( f => {
+
+    if ( accessType === null ) return true;
+
+    if ( f[ accessType ] === null && params.includeUnspecified ) return true;
+
+    if ( accessLevel.includes( f[ accessType ] ) ) return true;
+
+    return false;
+
+  } ).map( f => {
 
     let type = types[ f.fieldType ].split( '.' )[ 0 ];
 

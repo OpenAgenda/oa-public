@@ -132,14 +132,16 @@ types.forEach( type => {
       type: 'choice',
       // potential groups with write access
       options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true
+      unique: true,
+      optional: true
     },
 
     read: {
       type: 'choice',
       // potential groups with read access
       options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true
+      unique: true,
+      optional: true
     },
 
     optional: {

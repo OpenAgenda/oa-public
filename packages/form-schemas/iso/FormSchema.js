@@ -93,9 +93,9 @@ module.exports = class {
 
   }
 
-  getValidate() {
+  getValidate( accessType = null, accessLevel = null, options = {}) {
 
-    return getSchema( this.data.fields );
+    return getSchema( this.data.fields, accessType, accessLevel, options );
 
   }
 
