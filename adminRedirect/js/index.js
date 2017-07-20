@@ -17,6 +17,6 @@ window.asap( function( options ) {
 
     window.location.href = options.redirect;
 
-  }, 3000 );
+  }, 5000 );
 
 } );

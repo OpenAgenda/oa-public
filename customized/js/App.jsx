@@ -82,7 +82,8 @@ module.exports = createReactClass( {
         <button
           className="btn btn-default pull-right"
           onClick={() => openRequestForm( { 
-            subject: 'customFields'
+            subject: 'customFields',
+            lang: this.props.lang
           } )}
         >
           {labels.customFieldsFeature[this.props.lang]}
