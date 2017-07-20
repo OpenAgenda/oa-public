@@ -11,6 +11,6 @@ export default function nl2br( str ) {
   }
 
   return str.split( newlineRegex ).map( ( line, index ) =>
-    line.match( newlineRegex ? React.createElement( 'br', { key: index } ) : line ) );
+    line.match( newlineRegex ) ? React.createElement( 'br', { key: index } ) : line );
 
 }

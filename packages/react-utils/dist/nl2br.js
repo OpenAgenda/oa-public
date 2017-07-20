@@ -22,7 +22,7 @@ function nl2br(str) {
   }
 
   return str.split(newlineRegex).map(function (line, index) {
-    return line.match(newlineRegex ? _react2.default.createElement('br', { key: index }) : line);
+    return line.match(newlineRegex) ? _react2.default.createElement('br', { key: index }) : line;
   });
 }
 module.exports = exports['default'];
