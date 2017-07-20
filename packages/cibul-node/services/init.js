@@ -1,12 +1,10 @@
 "use strict";
 
 const VError = require( 'verror' );
-
-const fs = require( 'fs' ),
-
-  async = require( 'async' ),
-
-  logger = require( 'logger' );
+const w = require( 'when' );
+const fs = require( 'fs' );
+const async = require( 'async' );
+const logger = require( 'logger' );
 
 let log;
 
@@ -84,12 +82,12 @@ function _init( config, fileOrFolderName, cb ) {
 
   if ( service.init.length === 1 ) {
 
-    service.init( config );
+    const cb2 = err => {
+      log( 'info', '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
+      cb( err );
+    }
 
-    log( 'info', '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
-
-    // avoid async on sync
-    setTimeout( () => cb(), 0 );
+    w( service.init( config ) ).done( () => cb2(), cb2 );
 
   } else {
 

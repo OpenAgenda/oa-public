@@ -12,11 +12,11 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 
 let log = console.log;
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
   log = logger( 'users interface' );
 
-  users.init( {
+  await users.init( {
     mysql: config.db,
     schemas: config.schemas,
     files: {
@@ -29,7 +29,7 @@ module.exports.init = ( config, cb ) => {
       beforeRemove
     },
     logger
-  }, cb );
+  } );
 
 }
 

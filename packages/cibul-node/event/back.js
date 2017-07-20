@@ -15,8 +15,7 @@ const w = require( 'when' );
 const agendaEvents = require( 'agenda-events' );
 
 const activitiesSvc = require( 'activities' );
-const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' )
-const usersSvc = require( 'users' );
+const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' );
 
 const routes = {
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
