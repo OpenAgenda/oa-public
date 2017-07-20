@@ -1,6 +1,10 @@
 "use strict";
 
-const sessions = require( 'sessions' );
+const sessions = require( 'sessions' ),
+
+  config = require( '../config' ),
+
+  labels = require( 'labels/agenda-tags/editor' );
 
 var modLib = require( '../lib/moduleLib' ),
 
@@ -9,10 +13,6 @@ cmn = require( '../lib/commons-app' ),
 coms = require( '../lib/coms' ),
 
 agendaSvc = require( '../services/agenda' ),
-
-utils = require( 'utils' ),
-
-config = require( '../config' ),
 
 genUrl = require( '../services/genUrl' ),
 
@@ -99,8 +99,8 @@ function show( req, res ) {
 function deprecatedShow( req, res ) {
 
   cmn.render( req, res, 'adminRedirect/index', {
-    main: 'Cette page a bougé',
-    sub: 'On va vous rediriger',
+    main: labels.redirectMain[ req.lang ],
+    sub: labels.redirectSub[ req.lang ],
     tab: 'customized',
     scriptParams: {
       redirect: req.genUrl( 'customizedShow', { slug: req.agenda.slug } )
