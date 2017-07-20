@@ -399,10 +399,6 @@ var deepExtend = require( 'deep-extend' ),
             method: 'get',
             uri: '/:slug/admin/dataviz'
           },
-          'agendaAdminCategories': {
-            method: 'get',
-            uri: '/:slug/admin/categories'
-          },
           'agendaAdminWeb': {
             method: 'get',
             uri: '/:slug/admin/webembed'

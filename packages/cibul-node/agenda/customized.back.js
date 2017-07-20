@@ -27,22 +27,30 @@ routes = {
   categoryTagShow: [ 'get', '/:slug/admin/tagcat', [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    deprecatedShow
+  ] ],
+
+  customizedShow: [ 'get', '/:slug/admin/settings/customize', [
+    agendaSvc.mw.load( 'slug' ),
+    cmn.checkAdministrator(),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
     agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oa.css' ),
+    cmn.loadBaseData( 'oasfmain.css' ),
     show
   ] ],
 
-  categoryTagUpdate: [ 'post', '/:slug/admin/tagcat', [
+  customizedUpdate: [ 'post', '/:slug/admin/settings/customize', [
     bodyParser.json(),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     tagMw.set,
     categoryMw.set,
     updateResponse
-  ] ]
+  ] ]  
 
 }
 
@@ -75,13 +83,27 @@ function updateResponse( req, res ) {
 
 function show( req, res ) {
 
-  cmn.render( req, res, 'categories/index', {
+  cmn.render( req, res, 'customized/index', {
     scriptParams: {
-      updateRes: req.genUrl( 'categoryTagUpdate', { slug: req.agenda.slug } ),
+      updateRes: req.genUrl( 'customizedUpdate', { slug: req.agenda.slug } ),
       tagSet: req.tagSet,
       categorySet: req.categorySet,
       lang: req.lang,
       useTags: req.hasTagsCred
+    }
+  } );
+
+}
+
+
+function deprecatedShow( req, res ) {
+
+  cmn.render( req, res, 'adminRedirect/index', {
+    main: 'Cette page a bougé',
+    sub: 'On va vous rediriger',
+    tab: 'customized',
+    scriptParams: {
+      redirect: req.genUrl( 'customizedShow', { slug: req.agenda.slug } )
     }
   } );
 

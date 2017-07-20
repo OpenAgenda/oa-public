@@ -45,7 +45,7 @@ module.exports = {
     key : 'categories',
     label : 'Categories and Tags',
     access: 'administrator',
-    uri : 'agendaAdminCategories'
+    uri : 'categoryTagShow'
   }, {
     section : 'manage',
     key : 'sources',
@@ -108,6 +108,12 @@ module.exports = {
     access: 'administrator',
     uri : 'agendaSettingsEditApp',
     suffix : '/contribution'
+  }, {
+    section : 'settings',
+    key : 'customized',
+    label : 'Customized',
+    access: 'administrator',
+    uri : 'customizedShow'
   } ]
 
 }

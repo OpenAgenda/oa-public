@@ -86,7 +86,7 @@ module.exports = ( enabledTypes, cb ) => {
             require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
             require( './agenda/back' )( '' ),
             require( './agenda/facebook.back' )( '' ),
-            require( './agenda/tagcat.back' )( '' ),
+            require( './agenda/customized.back' )( '' ),
             require( './agenda/actions.front' )( '/:slug/actions' ),
             require( './agenda/exports.front' )( '/agendas/:uid' ),
             require( './activities/notifications.back' )( '/notifications' )
