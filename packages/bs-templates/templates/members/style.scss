@@ -10,6 +10,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    position: relative;
 
     & > li {
 
@@ -41,7 +42,40 @@
       }
 
       & > a:hover {
+
         background-color: lighten($oa-blue, 8);
+
+      }
+
+    }
+
+    & > li.locked {
+
+      position: absolute;
+      right: 0;
+
+      & > a {
+
+        border: #eee 1px solid;
+
+      }
+
+    }
+
+  }
+
+  ul.dropdown-menu[aria-labelledby="dropdown-actions"] {
+
+    li[role=presentation] {
+
+      position: relative;
+
+      .fa.fa-unlock-alt {
+
+        position: absolute;
+        right: 6px;
+        top: 50%;
+        transform: translateY(-50%);
 
       }
 

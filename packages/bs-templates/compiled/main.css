@@ -9135,6 +9135,15 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   .agenda-settings-edit > .profile .image-upload form img {
     border-radius: 50%; }
 
+.agenda-settings-edit .advanced table.table > tbody > tr.inactive:hover {
+  background-color: #f5f5f5; }
+
+.agenda-settings-edit .advanced table.table > tbody > tr > td:nth-of-type(2n) {
+  padding: 8px 15px; }
+
+.agenda-settings-edit .advanced input[readonly] {
+  background-color: #fff; }
+
 .social-shares {
   margin: 0;
   padding: 0; }
@@ -14160,7 +14169,8 @@ i.mce-i-backcolor {
 .members-admin .nav-pills {
   display: flex;
   justify-content: flex-start;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  position: relative; }
   .members-admin .nav-pills > li {
     margin-top: 12px; }
     .members-admin .nav-pills > li > a, .members-admin .nav-pills > li > a:focus {
@@ -14174,6 +14184,19 @@ i.mce-i-backcolor {
     background-color: #41acdd; }
   .members-admin .nav-pills > li.active > a:hover {
     background-color: #64bbe3; }
+  .members-admin .nav-pills > li.locked {
+    position: absolute;
+    right: 0; }
+    .members-admin .nav-pills > li.locked > a {
+      border: #eee 1px solid; }
+
+.members-admin ul.dropdown-menu[aria-labelledby="dropdown-actions"] li[role=presentation] {
+  position: relative; }
+  .members-admin ul.dropdown-menu[aria-labelledby="dropdown-actions"] li[role=presentation] .fa.fa-unlock-alt {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%); }
 
 .members-admin .bo-list-item {
   padding: 1em 0; }
@@ -14200,6 +14223,9 @@ i.mce-i-backcolor {
 
 .user-settings table.table > tbody > tr.inactive:hover {
   background-color: #f5f5f5; }
+
+.user-settings table.table > tbody > tr > td:first-of-type {
+  font-weight: bold; }
 
 .daterangepicker {
   position: absolute;
@@ -14580,7 +14606,7 @@ i.mce-i-backcolor {
         margin: 8px 0 8px 14px !important;
         color: #41acdd; }
         .notifications-body .list-group a.list-group-item button.btn.btn-link:first-child {
-          margin-top: 0; }
+          margin-top: 0 !important; }
         .notifications-body .list-group a.list-group-item button.btn.btn-link:last-child {
           position: absolute;
           bottom: 0;
