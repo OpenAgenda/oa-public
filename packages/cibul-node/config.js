@@ -107,6 +107,11 @@ var deepExtend = require( 'deep-extend' ),
         agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
       },
       adminEmail: 'admin@openagenda.com',
+      callToActionEmails: [
+        'romain.lange@openagenda.com',
+        'yacine.bensalem@openagenda.com',
+        'guilhem.laveissiere@openagenda.com'
+      ],
       contactResource: 'https://pipedrivewebforms.com/form/dd36e7d663fe7c77e3ac65b3bada24e0',
       mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
       geocodeFarm: {

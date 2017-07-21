@@ -94,11 +94,10 @@ module.exports.init = ( config, cb ) => {
 
       }
     }, {
-      verb: 'agenda.updateContribution',
-      getFeeds: true,
+      verb: [ 'agenda.updateProfile', 'agenda.updateContribution' ],
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
-        if ( !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) ) { // less than moderator
+        if ( !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'administrator' ), true ) ) { // less than administrator
 
           return cb( null, false );
 
