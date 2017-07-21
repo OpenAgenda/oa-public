@@ -25,7 +25,7 @@ module.exports = {
   shutdown
 }
 
-async function get( id ) {
+async function get( id, options = {} ) {
 
   if ( !client ) {
 
@@ -39,7 +39,17 @@ async function get( id ) {
 
     .then( rows => rows.length ? rows[ 0 ].store : null );
 
-  return JSON.parse( store );
+  if ( store === null ) return null;
+
+  let parsed = JSON.parse( store );
+
+  if ( options.instanciate ) {
+
+    return new FormSchema( _.extend( parsed, { id } ) );
+
+  }
+
+  return parsed;
 
 }
 

@@ -38,6 +38,14 @@ describe( 'get', () => {
 
   } );
 
+  it( 'get instanciated', async () => {
+
+    const fs = await svc.get( id, { instanciate: true } );
+
+    fs.isNew().should.equal( false );
+
+  } );
+
   it( 'simple getValidator', async () => {
 
     let validate = ( await svc.getValidator( id ) );
