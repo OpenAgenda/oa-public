@@ -206,7 +206,7 @@ describe( 'activities - notifications', function () {
               object: 'Réunion des junkies anonymes 2',
               target: 'La fumette'
             },
-            newState: 2,
+            newState: 2
           },
           state: 0,
           sent: 0
@@ -249,7 +249,8 @@ describe( 'activities - notifications', function () {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
               target: 'La fumette'
-            }
+            },
+            newState: 2
           },
           state: 0,
           sent: 0
@@ -718,7 +719,8 @@ describe( 'activities - notifications', function () {
               actor: 'Jacky',
               object: 'Réunion des junkies anonymes 2',
               target: 'La fumette'
-            }
+            },
+            newState: 2
           },
           state: 0,
           sent: 0

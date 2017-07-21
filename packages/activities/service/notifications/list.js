@@ -137,11 +137,12 @@ function list( identifiers ) {
       const request = knex( config.schemas.feed_notification ).select()
         .where( query )
         .where( 'feed_id', feed.id )
-        .orderBy( 'id', 'desc' )
-        .limit( limit );
+        .orderBy( 'id', 'desc' );
 
       if ( ids ) {
         request.whereIn( 'id', ids );
+      } else {
+        request.limit( limit );
       }
 
       if ( stateNot !== undefined ) {

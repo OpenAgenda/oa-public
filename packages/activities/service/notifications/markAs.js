@@ -72,7 +72,8 @@ function markAs() {
   }
 
   const params = _.merge( {
-    allowRegress: true
+    allowRegress: true,
+    listArgs: []
   }, options );
 
   if ( typeof newState === 'string' ) newState = notificationStates.reverse[ newState ];
@@ -88,7 +89,7 @@ function markAs() {
         return Promise.reject( new VError( 'The notifications concern only user feeds' ) );
       }
 
-      return service.feed( feed ).notifications.list( query )
+      return service.feed( feed ).notifications.list.apply( null, [ query ].concat( params.listArgs ) )
         .then( notifs => {
 
           const request = knex( config.schemas.feed_notification )
@@ -102,7 +103,7 @@ function markAs() {
           return request.update( {
             state: newState
           } )
-            .then( () => service.feed( feed ).notifications.list( query ) );
+            .then( () => service.feed( feed ).notifications.list.apply( null, [ query ].concat( params.listArgs ) ) );
 
         } );
 
