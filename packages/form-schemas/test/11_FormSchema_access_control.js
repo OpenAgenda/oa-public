@@ -30,6 +30,21 @@ describe( 'FormSchema - access control', () => {
 
   } );
 
+
+  it( 'validator with access type specified but no level returns open fields only', () => {
+
+    let v = s.getValidate( 'read' );
+
+    v( {
+      anopenfield: 'Absolom',
+      alimitedfield: 2022,
+      anotherlimitedfield: 8.5
+    } ).should.eql( {
+      anopenfield: 'Absolom'
+    } );
+
+  } );
+
   it( 'validator is used to clean data to specified read access', () => {
 
     let v = s.getValidate( 'read', 'administrator' );
