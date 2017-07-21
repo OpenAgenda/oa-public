@@ -226,10 +226,17 @@ module.exports = path => {
             set: '/:slug/admin/settings/edit',
             uploadImage: '/:slug/admin/settings/setImage',
             clearImage: '/:slug/admin/settings/clearImage',
-            remove: '/:slug/admin/settings/remove'
+            remove: '/:slug/admin/settings/remove',
+            keys: {
+              create: '/:slug/admin/settings/keys/create',
+              list: '/:slug/admin/settings/keys/list',
+              update: '/:slug/admin/settings/keys/update',
+              remove: '/:slug/admin/settings/keys/remove'
+            }
           },
           agenda: {
-            uid: req.agenda.uid
+            uid: req.agenda.uid,
+            slug: req.agenda.slug
           }
         }
       },
