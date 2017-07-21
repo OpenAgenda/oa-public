@@ -9,7 +9,7 @@ import merge from 'lodash/merge';
 import { bindActionCreators } from 'redux';
 import reducer from './redux/reducer';
 import * as actions from './redux/modules/callToAction';
-import { Request } from './components';
+import { Request } from './containers';
 import { onReady } from './openRequestForm';
 
 export default function createApp( options ) {

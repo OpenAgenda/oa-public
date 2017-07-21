@@ -37,8 +37,7 @@ function reducer() {
       return _extends({}, state, {
         opened: false,
         subject: null,
-        agenda: null,
-        lang: null
+        agenda: null
       });
     default:
       return state;

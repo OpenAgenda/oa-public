@@ -45,7 +45,7 @@ var _callToAction = require('./redux/modules/callToAction');
 
 var actions = _interopRequireWildcard(_callToAction);
 
-var _components2 = require('./components');
+var _containers = require('./containers');
 
 var _openRequestForm = require('./openRequestForm');
 
@@ -100,7 +100,7 @@ function createApp(options) {
   return _reactDom2.default.render(_react2.default.createElement(
     _reactRedux.Provider,
     { store: store, key: 'provider' },
-    _react2.default.createElement(_components2.Request, null)
+    _react2.default.createElement(_containers.Request, null)
   ), _domUtils2.default.el('.js_call_to_action_canvas'));
 };
 module.exports = exports['default'];

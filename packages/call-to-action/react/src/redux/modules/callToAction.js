@@ -24,8 +24,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         opened: false,
         subject: null,
-        agenda: null,
-        lang: null
+        agenda: null
       }
     default:
       return state;
