@@ -20,6 +20,10 @@ var _modal = require('./modules/modal');
 
 var _modal2 = _interopRequireDefault(_modal);
 
+var _keys = require('./modules/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _redux.combineReducers)({
@@ -37,6 +41,7 @@ exports.default = (0, _redux.combineReducers)({
     return s;
   },
   agenda: _agenda2.default,
-  modal: _modal2.default
+  modal: _modal2.default,
+  keys: _keys2.default
 });
 module.exports = exports['default'];

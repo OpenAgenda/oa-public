@@ -1,3 +1,4 @@
+export AdvancedEdition from './AdvancedEdition/AdvancedEdition';
 export AgendaCreation from './AgendaCreation/AgendaCreation';
 export ContributionEdition from './ContributionEdition/ContributionEdition';
 export CreationApp from './CreationApp/CreationApp';

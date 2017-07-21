@@ -21,10 +21,6 @@ var _reactRouterRedux = require('react-router-redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var normalizePrefix = function normalizePrefix(prefix) {
-  return prefix.substr(-1) === '/' ? prefix.slice(0, -1) : prefix;
-};
-
 function editApp(options) {
 
   var setMenuLinks = function setMenuLinks(_ref) {
@@ -33,23 +29,23 @@ function editApp(options) {
 
     if (typeof document === 'undefined') return;
 
-    var state = store.getState();
-    var prefix = normalizePrefix(state.settings.prefix);
-
     var tabs = [{
-      className: 'settings_profile',
-      to: prefix + '/profile'
+      className: 'settings_profile'
     }, {
-      className: 'settings_contribution',
-      to: prefix + '/contribution'
+      className: 'settings_contribution'
+    }, {
+      className: 'settings_advanced'
     }];
 
     tabs.forEach(function (t) {
 
-      _domUtils2.default.addEvent(_domUtils2.default.el('.js_menu_item_' + t.className), 'click', function (e) {
+      var elem = _domUtils2.default.el('.js_menu_item_' + t.className);
 
-        e.preventDefault();
-        store.dispatch((0, _reactRouterRedux.push)(t.to));
+      _domUtils2.default.addEvent(elem, 'click', function (e) {
+
+        _domUtils2.default.preventDefault(e);
+
+        store.dispatch((0, _reactRouterRedux.push)(elem.querySelector('a').getAttribute('href')));
       });
     });
   };

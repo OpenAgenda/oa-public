@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import du from 'dom-utils';
 import dl from 'dom-utils/documentLocation';
+import callToAction from 'call-to-action/react/dist';
 import createApp from '../../react/src/createApp';
 import editApp from '../../react/src/editApp';
 
@@ -13,5 +14,7 @@ window.onload = () => {
   const app = typeApp == 'edition' && editApp( { state: options.state } ) || createApp( { state: options.state } );
 
   ReactDom.render( app, du.el( '.js_canvas' ) );
+
+  callToAction();
 
 };

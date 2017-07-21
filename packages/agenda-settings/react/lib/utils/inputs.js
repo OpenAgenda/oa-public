@@ -20,6 +20,10 @@ var _MarkdownComponent = require('react-form-components/build/MarkdownComponent'
 
 var _MarkdownComponent2 = _interopRequireDefault(_MarkdownComponent);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -29,10 +33,13 @@ function renderField(_ref) {
       _ref$input = _ref.input,
       name = _ref$input.name,
       value = _ref$input.value,
+      type = _ref$input.type,
       label = _ref.label,
       subLabel = _ref.subLabel,
       max = _ref.max,
       displayError = _ref.displayError,
+      _ref$formGroupClass = _ref.formGroupClass,
+      formGroupClass = _ref$formGroupClass === undefined ? true : _ref$formGroupClass,
       meta = _ref.meta,
       _ref$meta = _ref.meta,
       error = _ref$meta.error,
@@ -41,7 +48,12 @@ function renderField(_ref) {
   var errorDisplayed = displayError ? displayError(meta) : touched;
   return _react2.default.createElement(
     'div',
-    { className: 'form-group ' + (errorDisplayed && error ? 'has-error has-feedback' : '') },
+    {
+      className: (0, _classnames2.default)({
+        'form-group': type !== 'hidden' || !formGroupClass,
+        'has-error has-feedback': errorDisplayed && error
+      })
+    },
     label && _react2.default.createElement(
       'label',
       { htmlFor: name },

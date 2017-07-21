@@ -3,7 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ProfileEdition = exports.EditionApp = exports.DevTools = exports.CreationApp = exports.ContributionEdition = exports.AgendaCreation = undefined;
+exports.ProfileEdition = exports.EditionApp = exports.DevTools = exports.CreationApp = exports.ContributionEdition = exports.AgendaCreation = exports.AdvancedEdition = undefined;
+
+var _AdvancedEdition2 = require('./AdvancedEdition/AdvancedEdition');
+
+var _AdvancedEdition3 = _interopRequireDefault(_AdvancedEdition2);
 
 var _AgendaCreation2 = require('./AgendaCreation/AgendaCreation');
 
@@ -31,6 +35,7 @@ var _ProfileEdition3 = _interopRequireDefault(_ProfileEdition2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+exports.AdvancedEdition = _AdvancedEdition3.default;
 exports.AgendaCreation = _AgendaCreation3.default;
 exports.ContributionEdition = _ContributionEdition3.default;
 exports.CreationApp = _CreationApp3.default;

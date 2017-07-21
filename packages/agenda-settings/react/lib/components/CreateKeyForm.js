@@ -18,33 +18,15 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _class, _class2, _temp;
+var _dec, _class, _class2, _temp;
 
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactRedux = require('react-redux');
+var _reduxForm = require('redux-form');
 
-var _reduxConnect = require('redux-connect');
-
-var _labels = require('labels');
-
-var _labels2 = _interopRequireDefault(_labels);
-
-var _agendaEdition = require('labels/agenda-settings/agendaEdition');
-
-var _agendaEdition2 = _interopRequireDefault(_agendaEdition);
-
-var _agenda = require('../../redux/modules/agenda');
-
-var agendaActions = _interopRequireWildcard(_agenda);
-
-var _keys = require('../../redux/modules/keys');
-
-var keysActions = _interopRequireWildcard(_keys);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _inputs = require('../utils/inputs');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -55,13 +37,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
-  App: {
-    displayName: 'App'
+  CreateKeyForm: {
+    displayName: 'CreateKeyForm'
   }
 };
 
 var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
-  filename: 'react/src/containers/EditionApp/EditionApp.js',
+  filename: 'react/src/components/CreateKeyForm.js',
   components: _components,
   locals: [],
   imports: [_react3.default, _redboxReact3.default]
@@ -73,66 +55,65 @@ function _wrapComponent(id) {
   };
 }
 
-var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
-  promise: function promise(_ref) {
-    var _ref$store = _ref.store,
-        dispatch = _ref$store.dispatch,
-        getState = _ref$store.getState;
+var displayInputError = function displayInputError(_ref) {
+  var dirty = _ref.dirty,
+      touched = _ref.touched;
+  return touched && dirty;
+};
 
-    var promises = [];
+var CreateKeyForm = _wrapComponent('CreateKeyForm')((_dec = (0, _reduxForm.reduxForm)({}), _dec(_class = (_temp = _class2 = function (_Component) {
+  _inherits(CreateKeyForm, _Component);
 
-    if (!agendaActions.isLoaded(getState())) {
-      promises.push(dispatch(agendaActions.load()));
-    }
+  function CreateKeyForm() {
+    _classCallCheck(this, CreateKeyForm);
 
-    if (!keysActions.isLoaded(getState())) {
-      promises.push(dispatch(keysActions.load()));
-    }
+    var _this = _possibleConstructorReturn(this, (CreateKeyForm.__proto__ || Object.getPrototypeOf(CreateKeyForm)).call(this));
 
-    return Promise.all(promises);
-  }
-}]), _dec2 = (0, _reactRedux.connect)(function (state) {
-  return {
-    lang: state.settings.lang
-  };
-}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
-  _inherits(App, _Component);
-
-  function App() {
-    _classCallCheck(this, App);
-
-    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+    _this.renderField = _inputs.renderField.bind(_this);
+    _this.renderInput = _inputs.renderInput.bind(_this);
+    _this.renderTextarea = _inputs.renderTextarea.bind(_this);
+    _this.renderInputGroup = _inputs.renderInputGroup.bind(_this);
+    return _this;
   }
 
-  _createClass(App, [{
-    key: 'getChildContext',
-    value: function getChildContext() {
-      var lang = this.props.lang;
+  /* componentWillMount() {
+    this.props.initialize( { label: this.getDefautKeyName() } )
+  }
+   getDefautKeyName() {
+    const { keys } = this.props;
+    const { getLabel } = this.context;
+     const nbr = keys.reduce( ( result, item ) => {
+      const match = item.label.match( new RegExp( getLabel( 'keyNbr', { nbr: '(\\d)' } ), 'i' ) );
+      return match && match[ 1 ] > result ? parseInt( match[ 1 ] ) + 1 : result;
+    }, 1 );
+     return getLabel( 'keyNbr', { nbr } );
+  } */
 
-
-      return {
-        lang: lang,
-        getLabel: function getLabel(label, values) {
-          return (0, _labels2.default)(_agendaEdition2.default, lang)(label, values);
-        }
-      };
-    }
-  }, {
+  _createClass(CreateKeyForm, [{
     key: 'render',
     value: function render() {
+      var handleSubmit = this.props.handleSubmit;
+      var getLabel = this.context.getLabel;
+
+
       return _react3.default.createElement(
-        'div',
-        { className: 'agenda-settings-edit' },
-        this.props.children
+        'form',
+        { onSubmit: handleSubmit },
+        _react3.default.createElement(_reduxForm.Field, { name: 'label', type: 'hidden' }),
+        _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-default' },
+          getLabel('generateKey')
+        )
       );
     }
   }]);
 
-  return App;
-}(_react2.Component), _class2.childContextTypes = {
-  lang: _propTypes2.default.string,
-  getLabel: _propTypes2.default.func
-}, _temp)) || _class) || _class));
+  return CreateKeyForm;
+}(_react2.Component), _class2.contextTypes = {
+  getLabel: _propTypes2.default.func,
+  lang: _propTypes2.default.string
+}, _temp)) || _class));
 
-exports.default = App;
+exports.default = CreateKeyForm;
 module.exports = exports['default'];

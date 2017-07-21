@@ -40,6 +40,10 @@ var agendaActions = _interopRequireWildcard(_agenda);
 
 var _inputs = require('../../utils/inputs');
 
+var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
+
+var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -71,7 +75,8 @@ function _wrapComponent(id) {
 
 var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } }
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
+    agenda: state.agenda.data
   };
 }, { onSubmit: agendaActions.edit }), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'contributionEdition',
@@ -131,8 +136,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
       var _props2 = this.props,
           handleSubmit = _props2.handleSubmit,
           fields = _props2.fields,
-          errors = _props2.errors;
-      var getLabel = this.context.getLabel;
+          errors = _props2.errors,
+          agenda = _props2.agenda;
+      var _context = this.context,
+          getLabel = _context.getLabel,
+          lang = _context.lang;
 
 
       var getError = function getError(fieldname) {
@@ -337,6 +345,54 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                       ')'
                     )
                   )
+                )
+              ),
+              _react3.default.createElement(
+                'div',
+                { className: 'form-group' },
+                _react3.default.createElement(
+                  'p',
+                  null,
+                  _react3.default.createElement(
+                    'b',
+                    null,
+                    getLabel('limitDates')
+                  )
+                ),
+                _react3.default.createElement(
+                  'a',
+                  {
+                    className: 'margin-right-sm',
+                    style: { cursor: 'pointer' },
+                    onClick: function onClick() {
+                      return (0, _openRequestForm2.default)({ lang: lang, agenda: agenda.slug, subject: 'limitDates' });
+                    }
+                  },
+                  getLabel('requestLimitDates')
+                )
+              ),
+              _react3.default.createElement(
+                'div',
+                { className: 'form-group' },
+                _react3.default.createElement(
+                  'p',
+                  null,
+                  _react3.default.createElement(
+                    'b',
+                    null,
+                    getLabel('customMessage')
+                  )
+                ),
+                _react3.default.createElement(
+                  'a',
+                  {
+                    className: 'margin-right-sm',
+                    style: { cursor: 'pointer' },
+                    onClick: function onClick() {
+                      return (0, _openRequestForm2.default)({ lang: lang, agenda: agenda.slug, subject: 'customMessage' });
+                    }
+                  },
+                  getLabel('requestCustomMessage')
                 )
               ),
               _react3.default.createElement(

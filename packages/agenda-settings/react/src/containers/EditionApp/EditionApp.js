@@ -5,12 +5,21 @@ import { asyncConnect } from 'redux-connect';
 import makeGetterLabel from 'labels';
 import labels from 'labels/agenda-settings/agendaEdition';
 import * as agendaActions from '../../redux/modules/agenda';
+import * as keysActions from '../../redux/modules/keys';
 
 @asyncConnect( [ {
   promise: ( { store: { dispatch, getState } } ) => {
+    const promises = [];
+
     if ( !agendaActions.isLoaded( getState() ) ) {
-      return dispatch( agendaActions.load() );
+      promises.push( dispatch( agendaActions.load() ) );
     }
+
+    if ( !keysActions.isLoaded( getState() ) ) {
+      promises.push( dispatch( keysActions.load() ) );
+    }
+
+    return Promise.all( promises );
   }
 } ] )
 @connect(
@@ -30,7 +39,7 @@ export default class App extends Component {
 
     return {
       lang,
-      getLabel: label => makeGetterLabel( labels )( label, lang )
+      getLabel: ( label, values ) => makeGetterLabel( labels, lang )( label, values )
     };
   }
 

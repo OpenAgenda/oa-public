@@ -1,13 +1,19 @@
 import React from 'react';
 import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
+import classNames from 'classnames';
 
 export function renderField( {
-  content, input: { name, value }, label, subLabel, max,
-  displayError, meta, meta: { error, touched }
-} ) {
+                               content, input: { name, value, type }, label, subLabel, max,
+                               displayError, formGroupClass = true, meta, meta: { error, touched }
+                             } ) {
   const errorDisplayed = displayError ? displayError( meta ) : touched;
   return (
-    <div className={`form-group ${errorDisplayed && error ? 'has-error has-feedback' : ''}`}>
+    <div
+      className={classNames( {
+        'form-group': type !== 'hidden' || !formGroupClass,
+        'has-error has-feedback': errorDisplayed && error
+      } )}
+    >
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
       {content}

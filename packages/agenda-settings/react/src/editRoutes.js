@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { EditionApp, ProfileEdition, ContributionEdition } from './containers';
+import { EditionApp, ProfileEdition, ContributionEdition, AdvancedEdition } from './containers';
 import du from 'dom-utils';
 
 function selectItem( item ) {
@@ -33,6 +33,7 @@ export default function editRoutes( store ) {
       <IndexRoute component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
       <Route path="profile" component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
       <Route path="contribution" component={ContributionEdition} onEnter={selectItem( 'settings_contribution' )} />
+      <Route path="advanced" component={AdvancedEdition} onEnter={selectItem( 'settings_advanced' )} />
     </Route>
   );
 

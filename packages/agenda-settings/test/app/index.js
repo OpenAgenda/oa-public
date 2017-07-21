@@ -6,6 +6,8 @@ const config = require( '../../testconfig.js' );
 const service = require( '../../service' );
 const agendasSvc = require( 'agendas/service/test' );
 const mw = service.mw;
+const keysSvc = require( 'keys' );
+const keysMw = require( 'keys/middleware' );
 
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
@@ -29,6 +31,10 @@ app.use( '/js', express.static( __dirname + '/js' ) );
 
 app.use( ( req, res, next ) => {
   req.user = { id: 2 };
+  req.agenda = {
+    uid: 17026855,
+    slug: 'proces-d-assises-2016'
+  }
   next();
 } );
 
@@ -51,6 +57,86 @@ app.post( '/:slug/remove', [
   }
 ] );
 
+/*******/
+
+app.post( '/:slug/keys/create',
+  ( req, res, next ) => {
+    req.identifiers = {
+      type: 'agendaPrivate',
+      identifier: req.agenda.uid
+    };
+    next();
+  },
+  keysMw.create(),
+  ( req, res, next ) => res.send( req.result )
+);
+
+app.get( '/:slug/keys/get',
+  ( req, res, next ) => {
+    req.identifiers = {
+      type: 'agendaPrivate',
+      identifier: req.agenda.uid,
+      key: req.query.key
+    };
+    next();
+  },
+  keysMw.get(),
+  (req, res, next) => res.send( req.result )
+);
+
+app.get( '/:slug/keys/list',
+  ( req, res, next ) => {
+    req.identifiers = {
+      type: 'agendaPrivate',
+      identifier: req.agenda.uid
+    };
+    req.options = { total: true };
+    next();
+  },
+  keysMw.list(),
+  (req, res, next) => res.send( req.result )
+);
+
+app.patch( '/:slug/keys/update',
+  ( req, res, next ) => {
+    req.identifiers = {
+      type: 'agendaPrivate',
+      identifier: req.agenda.uid,
+      key: req.query.key
+    };
+    next();
+  },
+  keysMw.update(),
+  (req, res, next) => res.send( req.result )
+);
+
+app.delete( '/:slug/keys/remove',
+  ( req, res, next ) => {
+    req.identifiers = {
+      type: 'agendaPrivate',
+      identifier: req.agenda.uid,
+      key: req.query.key
+    };
+    next();
+  },
+  keysMw.remove(),
+  (req, res, next) => res.send( req.result )
+);
+
+
+app.use( ( err, req, res, next ) => {
+
+  if ( err.json ) {
+
+    return res.status( err.code || 400 ).send( err.json );
+
+  }
+
+  res.status( 500 ).send();
+
+} );
+
+/*******/
 
 function matchApp( req, res, next ) {
 
@@ -70,10 +156,17 @@ function matchApp( req, res, next ) {
             slugAvailable: '/slugs/available',
             uploadImage: '/:slug/setImage',
             clearImage: '/:slug/clearImage',
-            remove: '/:slug/remove'
+            remove: '/:slug/remove',
+            keys: {
+              create: '/:slug/keys/create',
+              list: '/:slug/keys/list',
+              update: '/:slug/keys/update',
+              remove: '/:slug/keys/remove'
+            }
           },
           agenda: {
-            uid: '17026855'
+            uid: 17026855,
+            slug: 'proces-d-assises-2016'
           }
         }
       },
@@ -133,6 +226,11 @@ function getHtmlBody( req ) {
                   <span>Contribution</span>
                 </a>
               </li>
+              <li class="menu-item js_menu_item js_menu_item_settings_advanced">
+                <a href="/advanced?_app=edition">
+                  <span>Avancé</span>
+                </a>
+              </li>
             </ul>
           </div>
           <div class="col-sm-9 body">
@@ -154,30 +252,24 @@ function getHtmlBody( req ) {
 agendasSvc.init( config );
 
 
-if ( ( process.argv || [] ).indexOf( 'fixtures' ) !== -1 ) {
+agendasSvc.test.fixtures( err => {
 
-  agendasSvc.test.fixtures( err => {
+  if ( err ) return console.error( err );
 
-    if ( err ) return console.error( err );
+  run().catch( console.error );
 
-    run();
-
-  } );
-
-} else {
-
-  run();
-
-}
+} );
 
 
-function run() {
+async function run() {
 
   service.init( Object.assign( config, {
     services: {
       agendas: agendasSvc
     }
   } ) );
+
+  await keysSvc.init( config );
 
   app.getAndListen( '*', port, matchApp );
 

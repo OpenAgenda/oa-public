@@ -5,10 +5,12 @@ import { reduxForm, Field } from 'redux-form';
 import get from 'lodash.get';
 import * as agendaActions from '../../redux/modules/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
+import openFormRequest from 'call-to-action/react/dist/openRequestForm';
 
 @connect(
   state => ({
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } }
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
+    agenda: state.agenda.data
   }),
   { onSubmit: agendaActions.edit }
 )
@@ -51,8 +53,8 @@ export default class ContributionEdition extends Component {
   }
 
   render() {
-    const { handleSubmit, fields, errors } = this.props;
-    const { getLabel } = this.context;
+    const { handleSubmit, fields, errors, agenda } = this.props;
+    const { getLabel, lang } = this.context;
 
     const getError = fieldname => {
       return get( fields, fieldname ) && get( fields, fieldname, {} ).touched && errors && errors[ fieldname ];
@@ -91,6 +93,7 @@ export default class ContributionEdition extends Component {
                   </label>
                 </div>
               </div>
+
               <Field
                 name="settings.contribution.message"
                 component={this.renderMarkdownInput}
@@ -98,6 +101,7 @@ export default class ContributionEdition extends Component {
                 subLabel={<p>{getLabel( 'consigneSubLabel' )}</p>}
                 lang={this.context.lang}
               />
+
               <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.useFields' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribUseFields' )}</b></p>
@@ -125,6 +129,7 @@ export default class ContributionEdition extends Component {
                   </label>
                 </div>
               </div>
+
               <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.defaultState' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribDefaultState' )}</b></p>
@@ -154,6 +159,29 @@ export default class ContributionEdition extends Component {
                   </label>
                 </div>
               </div>
+
+              <div className="form-group">
+                <p><b>{getLabel( 'limitDates' )}</b></p>
+                <a
+                  className="margin-right-sm"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'limitDates' } )}
+                >
+                  {getLabel( 'requestLimitDates' )}
+                </a>
+              </div>
+
+              <div className="form-group">
+                <p><b>{getLabel( 'customMessage' )}</b></p>
+                <a
+                  className="margin-right-sm"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'customMessage' } )}
+                >
+                  {getLabel( 'requestCustomMessage' )}
+                </a>
+              </div>
+
               <div className="text-right">
                 {this.renderSubmitBtn()}
               </div>
