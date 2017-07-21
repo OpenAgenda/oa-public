@@ -175,6 +175,13 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( err, req, res, next ) => {
 
+        // For send directly a json error with next( err ), can be added on top of cmn.catchError
+        if ( err.json ) {
+
+          return res.status( err.code || 400 ).send( err.json );
+
+        }
+
         cmn.catchError( req, res )( err );
 
       } );

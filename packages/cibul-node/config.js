@@ -147,7 +147,8 @@ var deepExtend = require( 'deep-extend' ),
         feed: 'activity_feed',
         feed_activity: 'activity_feed_activity',
         feed_follow: 'activity_feed_follow',
-        feed_notification: 'activity_feed_notification'
+        feed_notification: 'activity_feed_notification',
+        key: 'key'
       },
       auth: {
         local: {

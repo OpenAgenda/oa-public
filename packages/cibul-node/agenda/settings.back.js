@@ -10,6 +10,7 @@ const agendaSettings = require( 'agenda-settings' );
 const mw = agendaSettings.mw;
 const agendaSvc = require( '../services/agenda' );
 const sessions = require( 'sessions' );
+const keysMw = require( 'keys/middleware' );
 
 const labels = require( 'labels/agenda-settings/agendaEdition' );
 const getLabel = require( 'labels' )( labels );
@@ -59,7 +60,7 @@ module.exports = path => {
     agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
-      (req, res, next) => {
+      ( req, res, next ) => {
         req.context = { user: req.user };
         next();
       },
@@ -86,6 +87,78 @@ module.exports = path => {
         sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
         res.json( { redirectTo: req.genUrl( 'homeShow' ) } );
       }
+    ] ],
+
+    /**********/
+
+    agendaSettingsKeysCreate: [ 'post', '/:slug/admin/settings/keys/create', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      ( req, res, next ) => {
+        req.identifiers = {
+          type: 'agendaPrivate',
+          identifier: req.agenda.uid
+        };
+        next();
+      },
+      keysMw.create(),
+      (req, res, next) => res.send( req.result )
+    ] ],
+    agendaSettingsKeysGet: [ 'get', '/:slug/admin/settings/keys/get', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      ( req, res, next ) => {
+        req.identifiers = {
+          type: 'agendaPrivate',
+          identifier: req.agenda.uid,
+          key: req.query.key
+        };
+        next();
+      },
+      keysMw.get(),
+      (req, res, next) => res.send( req.result )
+    ] ],
+    agendaSettingsKeysList: [ 'get', '/:slug/admin/settings/keys/list', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      ( req, res, next ) => {
+        req.identifiers = {
+          type: 'agendaPrivate',
+          identifier: req.agenda.uid
+        };
+        req.options = { total: true };
+        next();
+      },
+      keysMw.list(),
+      (req, res, next) => res.send( req.result )
+    ] ],
+    agendaSettingsKeysUpdate: [ 'patch', '/:slug/admin/settings/keys/update', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      ( req, res, next ) => {
+        req.identifiers = {
+          type: 'agendaPrivate',
+          identifier: req.agenda.uid,
+          key: req.query.key
+        };
+        next();
+      },
+      keysMw.update(),
+      (req, res, next) => res.send( req.result )
+    ] ],
+    agendaSettingsKeysRemove: [ 'delete', '/:slug/admin/settings/keys/remove', [
+      agendaSvc.mw.load( 'slug' ),
+      cmn.checkAdministrator(),
+      ( req, res, next ) => {
+        req.identifiers = {
+          type: 'agendaPrivate',
+          identifier: req.agenda.uid,
+          key: req.query.key
+        };
+        next();
+      },
+      keysMw.remove(),
+      (req, res, next) => res.send( req.result )
     ] ]
   };
 
