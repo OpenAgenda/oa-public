@@ -132,9 +132,24 @@ class GettingStarted extends Component {
           <p><b>{getLabel( 'needPrivate' )}</b></p>
           <div className="margin-v-md">
             <button className="btn btn-primary" href={res.createEmbed} onClick={() => openRequestForm( {
-              subject: 'privateAgenda'
+              lang,
+              subject: 'privateAgenda',
+              agenda: res.agenda
             } )}>
               {getLabel( 'requestPrivate' )}
+            </button>
+          </div>
+        </div>
+
+        <div className="margin-v-lg">
+          <p><b>{getLabel( 'needOfficial' )}</b></p>
+          <div className="margin-v-md">
+            <button className="btn btn-primary" href={res.createEmbed} onClick={() => openRequestForm( {
+              lang,
+              subject: 'officialAgenda',
+              agenda: res.agenda
+            } )}>
+              {getLabel( 'requestOfficial' )}
             </button>
           </div>
         </div>
