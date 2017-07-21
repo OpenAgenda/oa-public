@@ -3,6 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 exports.default = validate;
 
 var _schema = require('validators/schema');
@@ -10,10 +27,6 @@ var _schema = require('validators/schema');
 var _schema2 = _interopRequireDefault(_schema);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 _schema2.default.register({
   text: require('validators/text'),
@@ -38,12 +51,12 @@ function validate(values) {
     })(values);
   } catch (e) {
 
-    Object.assign.apply(Object, [errors].concat(_toConsumableArray(e.map(function (v) {
-      return _defineProperty({}, v.field, v.code);
+    _assign2.default.apply(Object, [errors].concat((0, _toConsumableArray3.default)(e.map(function (v) {
+      return (0, _defineProperty3.default)({}, v.field, v.code);
     }))));
   }
 
-  if (Object.keys(errors).length) {
+  if ((0, _keys2.default)(errors).length) {
     return errors;
   }
 

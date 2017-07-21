@@ -4,6 +4,34 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -15,10 +43,6 @@ var _react3 = _interopRequireDefault(_react2);
 var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _dec, _dec2, _dec3, _class, _class2, _temp;
 
@@ -66,6 +90,10 @@ var _Spinner2 = _interopRequireDefault(_Spinner);
 
 var _reactBootstrap = require('react-bootstrap');
 
+var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
+
+var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
+
 var _InviteMembersForm = require('../../components/InviteMembersForm/InviteMembersForm');
 
 var _InviteMembersForm2 = _interopRequireDefault(_InviteMembersForm);
@@ -91,12 +119,6 @@ var _form = require('../../utils/form');
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
   Dashboard: {
@@ -140,7 +162,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       promises.push(dispatch(membersActions.load(query)));
     }
 
-    return Promise.all(promises);
+    return _promise2.default.all(promises);
   }
 }]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
   return {
@@ -162,17 +184,18 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     search: dashboardValuesSelector(state, 'search'),
     agenda: state.agenda,
     perPageLimit: state.settings.perPageLimit,
-    modals: state.modals
+    modals: state.modals,
+    roles: state.agenda.roles
   };
-}, _extends({}, membersActions, modalsActions)), _dec3 = (0, _reduxForm.reduxForm)({
+}, (0, _extends3.default)({}, membersActions, modalsActions)), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'membersDashboard'
 }), _dec(_class = _dec2(_class = _dec3(_class = (_temp = _class2 = function (_Component) {
-  _inherits(Dashboard, _Component);
+  (0, _inherits3.default)(Dashboard, _Component);
 
   function Dashboard(props) {
-    _classCallCheck(this, Dashboard);
+    (0, _classCallCheck3.default)(this, Dashboard);
 
-    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Dashboard.__proto__ || (0, _getPrototypeOf2.default)(Dashboard)).call(this, props));
 
     _this.search = function (_ref2) {
       var search = _ref2.search;
@@ -185,7 +208,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var query = { search: search || undefined, credentials: credFilters };
 
       return list(query).then(function () {
-        return _this.context.router.push(_extends({}, location, { query: query }));
+        return _this.context.router.push((0, _extends3.default)({}, location, { query: query }));
       });
     };
 
@@ -214,7 +237,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     return _this;
   }
 
-  _createClass(Dashboard, [{
+  (0, _createClass3.default)(Dashboard, [{
     key: 'addFilter',
     value: function addFilter(e, key) {
       var _this2 = this;
@@ -456,12 +479,28 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   }, {
     key: 'renderFilter',
     value: function renderFilter(nbr, key) {
-      var credFilters = this.props.credFilters;
+      var _props5 = this.props,
+          credFilters = _props5.credFilters,
+          credentials = _props5.credentials,
+          agenda = _props5.agenda;
       var getLabel = this.context.getLabel;
 
 
-      var toggleFilter = credFilters.includes(key) ? this.removeFilter : this.addFilter;
       var label = key + (nbr > 1 ? 's' : '');
+      var toggleFilter = credFilters.includes(key) ? this.removeFilter : this.addFilter;
+
+      /* if ( key === 'moderator' && !credentials.moderators ) {
+         return (
+          <li role="presentation" className="locked">
+            <a href="#" onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}>
+              {nbr && <strong>{nbr || 0}</strong>}{' '}{getLabel( label )}{' '}
+              <i className="fa fa-unlock-alt" aria-hidden="true"></i>
+            </a>
+          </li>
+        );
+       } */
+
+      if (!nbr) return null;
 
       return _react3.default.createElement(
         'li',
@@ -474,7 +513,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           _react3.default.createElement(
             'strong',
             null,
-            nbr
+            nbr || 0
           ),
           ' ',
           getLabel(label),
@@ -491,27 +530,30 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     value: function render() {
       var _this5 = this;
 
-      var _props5 = this.props,
-          res = _props5.res,
-          handleSubmit = _props5.handleSubmit,
-          stakeholders = _props5.stakeholders,
-          total = _props5.total,
-          loading = _props5.loading,
-          nextLoading = _props5.nextLoading,
-          stats = _props5.stats,
-          showModal = _props5.showModal,
-          closeModal = _props5.closeModal,
-          setModal = _props5.setModal,
-          modals = _props5.modals,
-          update = _props5.update,
-          invite = _props5.invite,
-          remove = _props5.remove,
-          sendMessage = _props5.sendMessage,
-          showInviteResult = _props5.showInviteResult,
-          cleanInviteResult = _props5.cleanInviteResult,
-          inviteError = _props5.inviteError,
-          credentials = _props5.credentials;
-      var getLabel = this.context.getLabel;
+      var _props6 = this.props,
+          res = _props6.res,
+          handleSubmit = _props6.handleSubmit,
+          stakeholders = _props6.stakeholders,
+          total = _props6.total,
+          loading = _props6.loading,
+          nextLoading = _props6.nextLoading,
+          stats = _props6.stats,
+          showModal = _props6.showModal,
+          closeModal = _props6.closeModal,
+          setModal = _props6.setModal,
+          modals = _props6.modals,
+          update = _props6.update,
+          invite = _props6.invite,
+          remove = _props6.remove,
+          sendMessage = _props6.sendMessage,
+          showInviteResult = _props6.showInviteResult,
+          cleanInviteResult = _props6.cleanInviteResult,
+          inviteError = _props6.inviteError,
+          credentials = _props6.credentials,
+          agenda = _props6.agenda;
+      var _context = this.context,
+          getLabel = _context.getLabel,
+          lang = _context.lang;
       var _stats$credentialTota = stats.credentialTotals,
           totalAdministrator = _stats$credentialTota.administrator,
           totalModerator = _stats$credentialTota.moderator,
@@ -560,6 +602,30 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                   } },
                 getLabel('sendMessageToInactives')
               ),
+              !credentials.invitationMessage && _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                {
+                  className: 'icon-hoverable',
+                  onClick: function onClick() {
+                    return (0, _openRequestForm2.default)({ lang: lang, subject: 'writeToAll', agenda: agenda.slug });
+                  }
+                },
+                _react3.default.createElement('i', { className: 'golden-icon' }),
+                ' ',
+                getLabel('sendMessageToAll')
+              ),
+              !credentials.invitationMessage && _react3.default.createElement(
+                _reactBootstrap.MenuItem,
+                {
+                  className: 'icon-hoverable',
+                  onClick: function onClick() {
+                    return (0, _openRequestForm2.default)({ lang: lang, subject: 'moderators', agenda: agenda.slug });
+                  }
+                },
+                _react3.default.createElement('i', { className: 'golden-icon' }),
+                ' ',
+                getLabel('nameModerators')
+              ),
               _react3.default.createElement(_reactBootstrap.MenuItem, { divider: true }),
               _react3.default.createElement(
                 _reactBootstrap.MenuItem,
@@ -588,10 +654,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         _react3.default.createElement(
           'ul',
           { className: 'nav nav-pills', role: 'tablist' },
-          totalAdministrator > 0 && this.renderFilter(totalAdministrator || 0, 'administrator'),
-          totalModerator > 0 && this.renderFilter(totalModerator || 0, 'moderator'),
-          totalContributor > 0 && this.renderFilter(totalContributor || 0, 'contributor'),
-          totalReader > 0 && this.renderFilter(totalReader || 0, 'reader')
+          this.renderFilter(totalAdministrator, 'administrator'),
+          this.renderFilter(totalModerator, 'moderator'),
+          this.renderFilter(totalContributor, 'contributor'),
+          this.renderFilter(totalReader, 'reader')
         ),
         _react3.default.createElement(
           'form',
@@ -821,7 +887,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       );
     }
   }]);
-
   return Dashboard;
 }(_react2.Component), _class2.propTypes = {
   list: _propTypes2.default.func,
@@ -848,7 +913,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
   stopSubmit: _propTypes2.default.func
 }, _class2.contextTypes = {
   router: _propTypes2.default.object,
-  getLabel: _propTypes2.default.func
+  getLabel: _propTypes2.default.func,
+  lang: _propTypes2.default.string
 }, _temp)) || _class) || _class) || _class));
 
 exports.default = Dashboard;

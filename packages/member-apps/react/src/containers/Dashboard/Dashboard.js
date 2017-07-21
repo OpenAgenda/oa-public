@@ -12,6 +12,7 @@ import Modal from 'react-components/build/Modal';
 import MoreInfo from 'react-components/build/MoreInfo';
 import Spinner from 'react-form-components/build/Spinner';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import openRequestForm from 'call-to-action/react/dist/openRequestForm';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
@@ -61,7 +62,8 @@ const base64encode = str => {
     search: dashboardValuesSelector( state, 'search' ),
     agenda: state.agenda,
     perPageLimit: state.settings.perPageLimit,
-    modals: state.modals
+    modals: state.modals,
+    roles: state.agenda.roles
   }),
   { ...membersActions, ...modalsActions }
 )
@@ -97,7 +99,8 @@ export default class Dashboard extends Component {
 
   static contextTypes = {
     router: PropTypes.object,
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   constructor( props ) {
@@ -274,16 +277,31 @@ export default class Dashboard extends Component {
   }
 
   renderFilter( nbr, key ) {
-    const { credFilters } = this.props;
+    const { credFilters, credentials, agenda } = this.props;
     const { getLabel } = this.context;
 
-    const toggleFilter = credFilters.includes( key ) ? this.removeFilter : this.addFilter;
     const label = key + (nbr > 1 ? 's' : '');
+    const toggleFilter = credFilters.includes( key ) ? this.removeFilter : this.addFilter;
+
+    /* if ( key === 'moderator' && !credentials.moderators ) {
+
+      return (
+        <li role="presentation" className="locked">
+          <a href="#" onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}>
+            {nbr && <strong>{nbr || 0}</strong>}{' '}{getLabel( label )}{' '}
+            <i className="fa fa-unlock-alt" aria-hidden="true"></i>
+          </a>
+        </li>
+      );
+
+    } */
+
+    if ( !nbr ) return null;
 
     return (
       <li role="presentation" className={classNames( { active: credFilters.includes( key ) } )}>
         <a href="#" onClick={e => toggleFilter( e, key )}>
-          <strong>{nbr}</strong> {getLabel( label )}{' '}
+          <strong>{nbr || 0}</strong> {getLabel( label )}{' '}
           <i
             className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )}
             aria-hidden="true"
@@ -297,9 +315,9 @@ export default class Dashboard extends Component {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage,
-      showInviteResult, cleanInviteResult, inviteError, credentials
+      showInviteResult, cleanInviteResult, inviteError, credentials, agenda
     } = this.props;
-    const { getLabel } = this.context;
+    const { getLabel, lang } = this.context;
 
     const {
       administrator: totalAdministrator,
@@ -324,13 +342,32 @@ export default class Dashboard extends Component {
               <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
               {/* <MenuItem>Importer des contributeurs</MenuItem> */}
               {credentials.invitationMessage && <MenuItem divider />}
-              {credentials.invitationMessage && <MenuItem onClick={() => showModal( 'writeToMembers' )}>
+
+              {credentials.invitationMessage &&
+              <MenuItem onClick={() => showModal( 'writeToMembers' )}>
                 {getLabel( 'sendMessageToAll' )}
               </MenuItem>}
               {credentials.invitationMessage &&
               <MenuItem onClick={() => showModal( 'writeToMembers', { inactive: true } )}>
                 {getLabel( 'sendMessageToInactives' )}
               </MenuItem>}
+
+              {!credentials.invitationMessage &&
+              <MenuItem
+                className="icon-hoverable"
+                onClick={() => openRequestForm( { lang, subject: 'writeToAll', agenda: agenda.slug } )}
+              >
+                <i className="golden-icon"></i>{' '}{getLabel( 'sendMessageToAll' )}
+              </MenuItem>}
+
+              {!credentials.invitationMessage &&
+              <MenuItem
+                className="icon-hoverable"
+                onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}
+              >
+                <i className="golden-icon"></i>{' '}{getLabel( 'nameModerators' )}
+              </MenuItem>}
+
               <MenuItem divider />
               <MenuItem href={res.exportToXlsx}>{getLabel( 'exportToXlsx' )}</MenuItem>
               <MenuItem href={res.exportToCsv}>{getLabel( 'exportToCsv' )}</MenuItem>
@@ -349,10 +386,10 @@ export default class Dashboard extends Component {
               <i className={classNames( 'fa fa-times', { invisible: credFilters.length } )} aria-hidden="true"></i>
             </a>
           </li> */}
-          {totalAdministrator > 0 && this.renderFilter( totalAdministrator || 0, 'administrator' )}
-          {totalModerator > 0 && this.renderFilter( totalModerator || 0, 'moderator' )}
-          {totalContributor > 0 && this.renderFilter( totalContributor || 0, 'contributor' )}
-          {totalReader > 0 && this.renderFilter( totalReader || 0, 'reader' )}
+          {this.renderFilter( totalAdministrator, 'administrator' )}
+          {this.renderFilter( totalModerator, 'moderator' )}
+          {this.renderFilter( totalContributor, 'contributor' )}
+          {this.renderFilter( totalReader, 'reader' )}
         </ul>
 
         <form onSubmit={handleSubmit( this.search )}>

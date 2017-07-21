@@ -4,7 +4,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
 
 exports.default = reducer;
 exports.isLoaded = isLoaded;
@@ -39,10 +53,6 @@ var _lodash2 = _interopRequireDefault(_lodash);
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var LOAD = 'member-apps/members/LOAD';
 var LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
@@ -88,11 +98,11 @@ function reducer() {
 
   switch (action.type) {
     case LOAD:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         loading: true
       });
     case LOAD_SUCCESS:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         loaded: true,
         data: action.result.stakeholders,
         total: action.result.total,
@@ -102,7 +112,7 @@ function reducer() {
         loading: false
       });
     case LOAD_FAIL:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         data: null,
         total: null,
         page: 1,
@@ -110,15 +120,15 @@ function reducer() {
         loading: false
       });
     case GET_STATS_SUCCESS:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         stats: action.result.stats
       });
     case LIST:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         loading: true
       });
     case LIST_SUCCESS:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         data: action.result.stakeholders,
         total: action.result.total,
         page: 1,
@@ -126,7 +136,7 @@ function reducer() {
         loading: false
       });
     case LIST_FAIL:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         data: null,
         total: null,
         page: 1,
@@ -134,55 +144,55 @@ function reducer() {
         loading: false
       });
     case NEXT_PAGE:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         nextLoading: true
       });
     case NEXT_PAGE_SUCCESS:
-      return _extends({}, state, {
-        data: [].concat(_toConsumableArray(state.data), _toConsumableArray(action.result.stakeholders)),
+      return (0, _extends5.default)({}, state, {
+        data: [].concat((0, _toConsumableArray3.default)(state.data), (0, _toConsumableArray3.default)(action.result.stakeholders)),
         total: action.result.total,
         page: action.page,
         error: null,
         nextLoading: false
       });
     case NEXT_PAGE_FAIL:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         error: action.error,
         nextLoading: false
       });
     case UPDATE:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         updateLoading: true
       });
     case UPDATE_SUCCESS:
       var data = state.data.map(function (sh) {
-        return sh.id === action.id ? _extends({}, sh, {
+        return sh.id === action.id ? (0, _extends5.default)({}, sh, {
           credential: action.result.credential || sh.credential,
-          custom: _extends({}, sh.custom, action.result.fieldValues)
+          custom: (0, _extends5.default)({}, sh.custom, action.result.fieldValues)
         }) : sh;
       });
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         data: data,
         updateError: null,
         updateLoading: false
       });
     case UPDATE_FAIL:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         updateError: action.error,
         updateLoading: false
       });
     case INVITE:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         inviteLoading: true
       });
     case INVITE_SUCCESS:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         inviteError: null,
         inviteLoading: false,
         showInviteResult: true
       });
     case INVITE_FAIL:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         inviteError: action.error,
         inviteLoading: false,
         showInviteResult: true
@@ -193,31 +203,31 @@ function reducer() {
       });
       var stakeholder = state.data[index];
       var credential = credentialsTypes.codes.get(stakeholder.credential);
-      return _extends({}, state, {
-        data: [].concat(_toConsumableArray(state.data.slice(0, index)), _toConsumableArray(state.data.slice(index + 1))),
+      return (0, _extends5.default)({}, state, {
+        data: [].concat((0, _toConsumableArray3.default)(state.data.slice(0, index)), (0, _toConsumableArray3.default)(state.data.slice(index + 1))),
         total: state.total - 1,
-        stats: _extends({}, state.stats, {
+        stats: (0, _extends5.default)({}, state.stats, {
           total: state.stats.total - 1,
-          credentialTotals: _extends({}, state.stats.credentialTotals, _defineProperty({}, credential, state.stats.credentialTotals[credential] - 1))
+          credentialTotals: (0, _extends5.default)({}, state.stats.credentialTotals, (0, _defineProperty3.default)({}, credential, state.stats.credentialTotals[credential] - 1))
         })
       });
     case CLEAN_INVITE_RESULT:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         inviteError: false,
         showInviteResult: false
       });
     case ADD_CRED_FILTER:
-      return _extends({}, state, {
-        credFilters: [].concat(_toConsumableArray(state.credFilters), [action.credential])
+      return (0, _extends5.default)({}, state, {
+        credFilters: [].concat((0, _toConsumableArray3.default)(state.credFilters), [action.credential])
       });
     case REMOVE_CRED_FILTER:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         credFilters: state.credFilters.filter(function (credential) {
           return credential !== action.credential;
         })
       });
     case CLEAN_CRED_FILTERS:
-      return _extends({}, state, {
+      return (0, _extends5.default)({}, state, {
         credFilters: []
       });
     default:
@@ -268,7 +278,7 @@ function nextPage(query, page) {
     promise: function promise(client, _ref4) {
       var res = _ref4.res;
       return client.get(res.list, {
-        query: _extends({}, query, {
+        query: (0, _extends5.default)({}, query, {
           page: page
         })
       });
@@ -290,17 +300,17 @@ function update(id, values) {
 
       var flatErrors = function flatErrors(e) {
         return e.reduce(function (prev, next) {
-          return _extends({}, prev, _defineProperty({}, next.field, next.code));
+          return (0, _extends5.default)({}, prev, (0, _defineProperty3.default)({}, next.field, next.code));
         }, {});
       };
 
       var errors = stakeholder.getErrors(true);
 
       if (errors.length) {
-        return Promise.reject(new _reduxForm.SubmissionError(flatErrors(errors)));
+        return _promise2.default.reject(new _reduxForm.SubmissionError(flatErrors(errors)));
       }
 
-      return new Promise(function (resolve, reject) {
+      return new _promise2.default(function (resolve, reject) {
         stakeholder.commit(true, function (err, result) {
           if (err) return reject(err);
           if (result.errors && result.errors.length) {

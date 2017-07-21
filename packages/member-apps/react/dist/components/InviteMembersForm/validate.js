@@ -4,7 +4,25 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 exports.default = validate;
 
@@ -13,10 +31,6 @@ var _schema = require('validators/schema');
 var _schema2 = _interopRequireDefault(_schema);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 _schema2.default.register({
   number: require('validators/number'),
@@ -27,7 +41,7 @@ function validate(values) {
 
   var errors = {};
 
-  values = _extends({}, values);
+  values = (0, _extends3.default)({}, values);
   values.emails = values.emails && values.emails.split(',').map(function (v) {
     return v.trim();
   }).filter(function (v) {
@@ -53,8 +67,8 @@ function validate(values) {
     })(values);
   } catch (e) {
 
-    Object.assign.apply(Object, [errors].concat(_toConsumableArray(e.map(function (v) {
-      return _defineProperty({}, v.field, v.code);
+    _assign2.default.apply(Object, [errors].concat((0, _toConsumableArray3.default)(e.map(function (v) {
+      return (0, _defineProperty3.default)({}, v.field, v.code);
     }))));
   }
 
@@ -63,7 +77,7 @@ function validate(values) {
     errors.emails = 'emails.invalid';
   }
 
-  if (Object.keys(errors).length) {
+  if ((0, _keys2.default)(errors).length) {
     return errors;
   }
 

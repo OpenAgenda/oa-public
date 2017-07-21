@@ -266,9 +266,12 @@ function matchApp( req, res, next ) {
       title: req.agenda.data.title,
       ownerId: req.agenda.data.ownerId,
       roles: req.agendaRoles,
-      credentials: {
-        invitationMessage: true
-      }
+      credentials: Object.assign(
+        req.agenda.data.credentials,
+        {
+          invitationMessage: false
+        }
+      )
     },
     stakeholder: req.stakeholder
   };
