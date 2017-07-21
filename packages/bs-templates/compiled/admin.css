@@ -8870,6 +8870,17 @@ a.text-success {
     .official.big .tooltip .tooltip-arrow {
       border-right-color: #fff; }
 
+i.golden-icon {
+  background: url("https://s3.eu-central-1.amazonaws.com/oastatic/oa-golden-icon.png") no-repeat scroll 0 0 transparent;
+  width: 12px;
+  height: 14px;
+  display: inline-block; }
+  i.golden-icon:hover {
+    background-position: -12px 0; }
+
+.icon-hoverable:hover .golden-icon {
+  background-position: -12px 0; }
+
 .form-page .form-head {
   padding: 0 0 2em; }
 
