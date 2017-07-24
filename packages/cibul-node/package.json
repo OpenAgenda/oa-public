@@ -46,6 +46,7 @@
     "date-range": "git+ssh://git@bitbucket.org:openagenda/date-range.git",
     "debug": "~2.2",
     "deep-extend": "~0.2",
+    "dom-utils": "bitbucket:OpenAgenda/dom-utils",
     "emailStrategie": "git+ssh://git@bitbucket.org:openagenda/emailStrategie.git",
     "events-service": "git+ssh://git@bitbucket.org:openagenda/events-service.git",
     "express": "~4.13",

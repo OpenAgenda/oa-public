@@ -1,22 +1,15 @@
 "use strict";
 
 const config = require( '../config' );
-
 const agendas = require( 'agendas' );
-
-const agendaStakeholders = require( 'agenda-stakeholders' ),
-
-  activities = require( 'activities' ),
-
-  users = require( 'users' ),
-
-  model = require( './model' ),
-
-  coms = require( '../lib/coms' ),
-
-  logger = require( 'logger' ),
-
-  _ = require( 'lodash' );
+const agendaStakeholders = require( 'agenda-stakeholders' );
+const activities = require( 'activities' );
+const users = require( 'users' );
+const model = require( './model' );
+const coms = require( '../lib/coms' );
+const logger = require( 'logger' );
+const _ = require( 'lodash' );
+const keys = require( 'keys' );
 
 let log = console.log;
 
@@ -120,6 +113,13 @@ function onCreate( channel, agenda ) {
           } );
 
       } );
+
+      keys( { type: 'agendaPrivate', identifier: agenda.uid } ).create()
+        .catch( err => {
+
+          log( 'error', err );
+
+        } );
 
     } );
 
