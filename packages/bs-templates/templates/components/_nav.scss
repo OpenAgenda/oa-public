@@ -23,11 +23,22 @@
 
       }
 
+      &.badge {
+
+        color: $oa-white;
+        margin-left: 0.5em;
+
+      }
+
+
     }
 
-    a.badge {
-      color: $oa-white;
-      margin-left: 0.5em;
+    &.disabled, 
+    .disabled, 
+    .disabled a {
+
+      color: $oa-gray-light;
+
     }
 
     &.selected {

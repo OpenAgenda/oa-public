@@ -8855,9 +8855,13 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     .nav .menu-item a:hover {
       color: #41acdd;
       text-decoration: none; }
-  .nav .menu-item a.badge {
-    color: #fff;
-    margin-left: 0.5em; }
+    .nav .menu-item a.badge {
+      color: #fff;
+      margin-left: 0.5em; }
+  .nav .menu-item.disabled,
+  .nav .menu-item .disabled,
+  .nav .menu-item .disabled a {
+    color: #ccc; }
   .nav .menu-item.selected a {
     font-weight: bold;
     color: #41acdd; }
