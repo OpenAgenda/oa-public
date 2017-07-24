@@ -53,7 +53,7 @@ function getApp( req, res, next, { store, component } = {} ) {
 
   const content = component ? ReactDOM.renderToString( component ) : '';
 
-  cmn.render( req, res, 'admin/activities', { scriptParams: { state }, lang, content } );
+  cmn.render( req, res, 'admin/activities', { scriptParams: { state }, lang, content, key: 'activities' } );
 
 }
 
