@@ -60,6 +60,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   .then( _addFeatured )
 
+
   .then( _addCustomFields )
 
   .then( _addReferences )

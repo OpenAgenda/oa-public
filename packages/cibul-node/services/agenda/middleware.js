@@ -512,7 +512,7 @@ function buildXlsx( includePrivateData ) {
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
             includePrivateData: !!includePrivateData,
-            protocol: 'https:'
+            protocol: 'https:',
           }, function( err, clean ) {
 
             processing--;
@@ -717,6 +717,8 @@ function _cleanXlsxRow( row ) {
     if ( typeof row[ c ] == 'string' ) {
 
       clean[ c ] = row[ c ].replace( /\v/g, ' ' );
+
+      clean[ c ] = row[ c ].replace( /\n/g, '\r\n' );
 
     } else if ( utils.isArray( row[ c ] ) ) {
 
