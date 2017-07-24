@@ -1,4 +1,4 @@
-<li class="menu-item js_menu_item <%= 'js_menu_item_' + t.key %> <% if ( tab==t.key ) { %> selected<% } %>">
+<li class="menu-item js_menu_item <%= 'js_menu_item_' + t.key %> <% if ( tab==t.key ) { %> selected<% } %> <% if ( typeof t.className !== 'undefined' ) { %><%= t.className %><% } %>">
   <a class="<% if ( tab==t.key ) { %> active<% } %>" href="<%= genUrl( t.uri, { slug: agenda.slug } ) + (t.suffix || '') %>">
 <% if ( t.key === 'locations' ) { %>
     <span><%= t.label %></span>
