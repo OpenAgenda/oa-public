@@ -77,12 +77,12 @@ export default class ContributionEdition extends Component {
           <table className="table">
             <tbody>
 
-            {this.renderTableRow(
+            {/* this.renderTableRow(
               'keys',
               <b>{getLabel( 'accessKeys' )}</b>,
               getLabel( 'manageKeys' ),
               <KeysManager />
-            )}
+            ) */}
 
             {this.renderTableRow(
               'official',

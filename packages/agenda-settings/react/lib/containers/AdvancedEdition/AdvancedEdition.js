@@ -172,11 +172,6 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
             _react3.default.createElement(
               'tbody',
               null,
-              this.renderTableRow('keys', _react3.default.createElement(
-                'b',
-                null,
-                getLabel('accessKeys')
-              ), getLabel('manageKeys'), _react3.default.createElement(_components2.KeysManager, null)),
               this.renderTableRow('official', _react3.default.createElement(
                 'b',
                 null,
