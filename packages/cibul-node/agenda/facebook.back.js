@@ -24,7 +24,7 @@ const sessions = require( 'sessions' ),
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
       agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData(),
+      cmn.loadBaseData( 'oasfmain.css' ),
       show
     ] ],
 
