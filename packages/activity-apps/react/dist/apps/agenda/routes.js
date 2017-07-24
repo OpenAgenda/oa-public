@@ -12,8 +12,8 @@ exports.default = function (store) {
   return _react2.default.createElement(
     _reactRouter.Route,
     { path: basename, component: _containers.AgendaApp },
-    _react2.default.createElement(_reactRouter.IndexRoute, { component: _containers.AgendaDashboard, onEnter: selectItem('settings_activities') }),
-    _react2.default.createElement(_reactRouter.Route, { path: 'activities', component: _containers.AgendaDashboard, onEnter: selectItem('settings_activities') })
+    _react2.default.createElement(_reactRouter.IndexRoute, { component: _containers.AgendaDashboard, onEnter: selectItem('activities') }),
+    _react2.default.createElement(_reactRouter.Route, { path: 'activities', component: _containers.AgendaDashboard, onEnter: selectItem('activities') })
   );
 };
 

@@ -31,8 +31,8 @@ export default function ( store ) {
 
   return (
     <Route path={basename} component={AgendaApp}>
-      <IndexRoute component={AgendaDashboard} onEnter={selectItem( 'settings_activities' )} />
-      <Route path="activities" component={AgendaDashboard} onEnter={selectItem( 'settings_activities' )} />
+      <IndexRoute component={AgendaDashboard} onEnter={selectItem( 'activities' )} />
+      <Route path="activities" component={AgendaDashboard} onEnter={selectItem( 'activities' )} />
     </Route>
   );
 

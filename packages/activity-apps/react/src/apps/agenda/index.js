@@ -25,7 +25,7 @@ const setMenuLinks = ( { store } ) => {
   const prefix = normalizePrefix( state.settings.prefix );
 
   const tabs = [ {
-    className: 'settings_activities',
+    className: 'activities',
     to: `${prefix}/activities`
   } ];
 

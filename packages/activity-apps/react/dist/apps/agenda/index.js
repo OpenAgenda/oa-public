@@ -56,7 +56,7 @@ var setMenuLinks = function setMenuLinks(_ref) {
   var prefix = normalizePrefix(state.settings.prefix);
 
   var tabs = [{
-    className: 'settings_activities',
+    className: 'activities',
     to: prefix + '/activities'
   }];
 

@@ -195,7 +195,7 @@ function getHtmlBody( req ) {
         <div class="row wsq">
           <div class="col col-sm-3 nav">
             <ul class="list-unstyled">
-              <li class="menu-item js_menu_item js_menu_item_settings_activities selected">
+              <li class="menu-item js_menu_item js_menu_item_activities selected">
                 <a class="active" href="/activities?_app=agenda">
                   <span>Activités</span>
                 </a>
