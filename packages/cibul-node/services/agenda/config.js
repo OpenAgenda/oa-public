@@ -50,6 +50,7 @@ module.exports = {
     section : 'manage',
     key : 'categories',
     label : 'Categories and Tags',
+    className: 'disabled',
     access: 'administrator',
     uri : 'categoryTagShow'
   }, {
@@ -120,6 +121,17 @@ module.exports = {
     label : 'Customized',
     access: 'administrator',
     uri : 'customizedShow'
+  }, {
+    section : 'settings',
+    key: 'settings_advanced',
+    label : 'Advanced',
+    access : 'administrator',
+    uri : 'agendaSettingsEditApp',
+    suffix : '/advanced',
+    badge: {
+      link: '#',
+      label: 'newTab'
+    }
   } ]
 
 }

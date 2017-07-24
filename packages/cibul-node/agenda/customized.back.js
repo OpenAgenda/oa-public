@@ -101,7 +101,7 @@ function deprecatedShow( req, res ) {
   cmn.render( req, res, 'adminRedirect/index', {
     main: labels.redirectMain[ req.lang ],
     sub: labels.redirectSub[ req.lang ],
-    tab: 'customized',
+    tab: 'categories',
     scriptParams: {
       redirect: req.genUrl( 'customizedShow', { slug: req.agenda.slug } )
     }
