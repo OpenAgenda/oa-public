@@ -63,6 +63,8 @@ app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
 
       return async.eachOfSeries( req.result.unsubscriptions, ( item, key, cb ) => {
 
+        if ( item.subject !== 'agenda' ) return cb();
+
         _getAgenda( item.identifier, ( err, agenda ) => {
 
           if ( err ) return cb( err );

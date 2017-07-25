@@ -71,6 +71,10 @@ function _wrapComponent(id) {
   };
 }
 
+var ucfirst = function ucfirst(str) {
+  return str.slice(0, 1).toUpperCase() + str.slice(1);
+};
+
 var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
     unsubscriptions: state.userSettings.unsubscriptions,
@@ -142,7 +146,7 @@ var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _r
                     },
                     '\xD7'
                   ),
-                  unsubscription.agenda.title,
+                  unsubscription.agenda ? unsubscription.agenda.title : ucfirst(unsubscription.subject),
                   ':',
                   ' ',
                   _react3.default.createElement(

@@ -47,7 +47,7 @@ const SettingsContainer = createReactClass( {
 
   componentWillMount() {
 
-    this.props.getMe() // TODO load unsubscribed list here (getUnsubscriptions)
+    this.props.getMe()
       .then( () => this.props.listUnsubscriptions() )
       .then(
         () => this.props.setLoading( false ),

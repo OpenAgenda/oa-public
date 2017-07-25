@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import camelCase from 'lodash/camelCase';
 
+const ucfirst = str => str.slice( 0, 1 ).toUpperCase() + str.slice( 1 );
+
 @connect(
   state => ({
     unsubscriptions: state.userSettings.unsubscriptions,
@@ -49,7 +51,7 @@ export default class UnsubscribedSettings extends Component {
                     aria-hidden="true"
                     onClick={() => removeUnsubscription( unsubscription )}
                   >×</span>
-                  {unsubscription.agenda.title}:{' '}
+                  {unsubscription.agenda ? unsubscription.agenda.title : ucfirst( unsubscription.subject )}:{' '}
                   <b>{getLabels( camelCase( unsubscription.type ) ) || getLabels( 'allNotifications' )}</b>
                 </div>
               ) )}
