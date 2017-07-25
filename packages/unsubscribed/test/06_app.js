@@ -62,6 +62,18 @@ describe( 'unsubscribed - functional: express app', function () {
 
     } );
 
+    it( 'generate link without identifier', () => {
+
+      service.app.genUrl( 'add', {
+        userUid: 123,
+        subject: 'notifications',
+        type: 'summary'
+      } )
+
+        .should.equal( '/unsubscribe/u/123/s/notifications/t/summary' )
+
+    } );
+
   } );
 
   describe( 'http calls', () => {
@@ -184,6 +196,41 @@ describe( 'unsubscribed - functional: express app', function () {
           res.text.should.equal( 'ok' );
 
           done();
+
+        } );
+
+    } );
+
+
+    it( 'identifierless add', done => {
+
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/notifications/t/summary' )
+
+        .end( ( err, res ) => {
+
+          res.text.should.equal( 'ok' )
+
+          done();
+
+        } );
+
+    } );
+
+    it( 'identifierless remove', done => {
+
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/notifications/t/summary' )
+
+        .end( err => {
+
+          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/notifications/t/summary/remove' )
+
+            .end( ( err, res ) => {
+
+              res.text.should.equal( 'ok' );
+
+              done();
+
+            } );
 
         } );
 

@@ -28,39 +28,41 @@ describe( 'unsubscribed - functional: .list', function () {
 
       should( err ).equal( null );
 
-      result.unsubscriptions.should.eql( [
-        {
-          id: 8,
-          userUid: 75052324,
-          type: 'agenda_event_update',
-          subject: 'agenda',
-          identifier: 85870128,
-          createdAt: new Date( '2017-03-03T14:04:17.000Z' )
-        },
-        {
-          id: 7,
-          userUid: 75052324,
-          type: 'agenda_event_submit_moderation',
-          subject: 'agenda',
-          identifier: 85870128,
-          createdAt: new Date( '2017-03-03T12:22:44.000Z' )
-        },
-        {
-          id: 3,
-          userUid: 75052324,
-          type: 'agenda_event_submit_moderation',
-          subject: 'agenda',
-          identifier: 97998826,
-          createdAt: new Date( '2017-03-03T08:24:05.000Z' )
-        },
-        {
-          id: 2,
-          userUid: 75052324,
-          type: 'agenda_event_update',
-          subject: 'agenda',
-          identifier: 97998826,
-          createdAt: new Date( '2017-03-03T07:47:25.000Z' )
-        } ] );
+      result.unsubscriptions.should.eql( [ {
+        id: 8,
+        userUid: 75052324,
+        type: 'agenda_event_update',
+        subject: 'agenda',
+        identifier: 85870128,
+        createdAt: new Date( '2017-03-03T14:04:17.000Z' )
+      }, {
+        id: 7,
+        userUid: 75052324,
+        type: 'agenda_event_submit_moderation',
+        subject: 'agenda',
+        identifier: 85870128,
+        createdAt: new Date( '2017-03-03T12:22:44.000Z' )
+      }, {
+        id: 4,
+        userUid: 75052324,
+        type: 'notifications_summary',
+        subject: 'notifications',
+        createdAt: new Date( '2017-03-03T08:24:05.000Z' )
+      }, {
+        id: 3,
+        userUid: 75052324,
+        type: 'agenda_event_submit_moderation',
+        subject: 'agenda',
+        identifier: 97998826,
+        createdAt: new Date( '2017-03-03T08:24:05.000Z' )
+      }, {
+        id: 2,
+        userUid: 75052324,
+        type: 'agenda_event_update',
+        subject: 'agenda',
+        identifier: 97998826,
+        createdAt: new Date( '2017-03-03T07:47:25.000Z' )
+      } ] );
 
       done();
 

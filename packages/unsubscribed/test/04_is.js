@@ -50,6 +50,37 @@ describe( 'unsubscribed - functional: .is', function() {
 
   } );
 
+
+  it( 'simple .is without identifier', done => {
+
+    let userUid = 12345678,
+
+      values = {
+        type: 'notifications_summary',
+        subject: 'notifications'
+      };
+
+    service( userUid ).is( values, ( err, is ) => {
+
+      is.should.equal( false );
+
+      service( userUid ).add( values, err => {
+
+        service( userUid ).is( values, ( err, is ) => {
+
+          is.should.equal( true );
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+  } );
+
+
   it( 'simple .is without type', done => {
 
     let userUid = 12345678,

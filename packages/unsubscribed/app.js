@@ -23,23 +23,36 @@ module.exports = service => {
 
   app.get( routes.add, serviceEndpoint( 'add' ) );
 
-  app.get( routes.list, serviceEndpoint( 'list', false, false ) );
+  app.get( routes.list, serviceEndpoint( 'list', false, false, false ) );
 
-  app.get( _typeless( routes.add ), serviceEndpoint( 'add', false ) );
+  app.get( _typeless( routes.add ), serviceEndpoint( 'add', true, false, true ) );
+
+  app.get( _identifierless( routes.add ), serviceEndpoint( 'add', true, true, false ) );
 
   app.get( routes.remove, serviceEndpoint( 'remove' ) );
 
-  app.get( _typeless( routes.remove ), serviceEndpoint( 'remove', false ) );
+  app.get( _typeless( routes.remove ), serviceEndpoint( 'remove', true, false ) );
+
+  app.get( _identifierless( routes.remove ), serviceEndpoint( 'remove', true, true, false ) );
 
   return _.extend( {}, app, { genUrl, useBy, routes } );
 
-  function serviceEndpoint( name, useType = true, withData = true ) {
+  function serviceEndpoint( name, useSubject = true, useType = true, useIdentifier = true ) {
 
     return ( req, res, next ) => {
 
-      const data = {
-        subject: req.params.subject,
-        identifier: req.params.identifier
+      const data = {}
+
+      if ( useSubject ) {
+
+        data.subject = req.params.subject;
+
+      }
+
+      if ( useIdentifier ) {
+
+        data.identifier = req.params.identifier;
+
       }
 
       if ( useType ) {
@@ -58,7 +71,7 @@ module.exports = service => {
 
       };
 
-      service( req.params.userUid )[ name ].apply( null, withData ? [ data, cb ] : [ cb ] );
+      service( req.params.userUid )[ name ].apply( null, Object.keys( data ).length ? [ data, cb ] : [ cb ] );
 
     }
 
@@ -90,9 +103,25 @@ module.exports = service => {
 
     } );
 
-    return specificPath.indexOf( '/t/:type' ) !== -1 ? _typeless( specificPath ) : specificPath;
+    if ( specificPath.indexOf( '/t/:type' ) !== -1 ) {
+
+      return _typeless( specificPath );
+
+    } else if ( specificPath.indexOf( '.:identifier' ) !== -1 ) {
+
+      return _identifierless( specificPath );
+
+    }
+
+    return specificPath;
 
   }
+
+}
+
+function _identifierless( path ) {
+
+  return path.replace( '.:identifier', '' );
 
 }
 

@@ -13,7 +13,7 @@ module.exports = ( userUid, cb ) => {
     .then( rows => rows.map( row => _.mapKeys( row, ( v, k ) => _.camelCase( k ) ) ) )
     .then( unsubscriptions => ({
       success: true,
-      unsubscriptions
+      unsubscriptions: unsubscriptions.map( u => _.pickBy( u, v => v !== null ) )
     }) );
 
   return promisePlusCb( promise, cb );

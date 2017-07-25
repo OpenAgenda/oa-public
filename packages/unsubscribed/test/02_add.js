@@ -30,7 +30,7 @@ describe( 'unsubscribed - functional: .add', function() {
 
       const con = mysql.createConnection( config.mysql );
 
-      con.query( 'select * from unsubscribed limit 4, 1', ( err, rows ) => {
+      con.query( 'select * from unsubscribed limit 5, 1', ( err, rows ) => {
 
         con.end();
 
@@ -61,7 +61,7 @@ describe( 'unsubscribed - functional: .add', function() {
 
       const con = mysql.createConnection( config.mysql );
 
-      con.query( 'select * from unsubscribed limit 4, 1', ( err, rows ) => {
+      con.query( 'select * from unsubscribed limit 5, 1', ( err, rows ) => {
 
         con.end();
 
@@ -78,7 +78,38 @@ describe( 'unsubscribed - functional: .add', function() {
 
       } );
 
-    } )
+    } );
+
+  } );
+
+
+  it( 'simple add without identifier', done => {
+
+    service( 1237021 ).add( {
+      subject: 'notifications',
+      type: 'summary'
+    }, ( err, result ) => {
+
+      const con = mysql.createConnection( config.mysql );
+
+      con.query( 'select * from unsubscribed where subject = ? and type = ?', [ 'notifications', 'summary' ], ( err, rows ) => {
+
+        con.end();
+
+        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+
+        .should.eql( {
+          subject: 'notifications',
+          type: 'summary',
+          identifier: null,
+          user_uid: 1237021
+        } );
+
+        done();
+
+      } );
+
+    } );
 
   } );
 
