@@ -76,8 +76,37 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   }
 
-  return await dsl( alias, 
+  let { events, total } = await dsl( alias, 
     parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes : config.baseSearchIncludes ).concat( cleanOptions.extensions ) ), 
     cleanNav.scroll ? cleanNav : {} );
+
+  if ( !cleanOptions.merge ) return { events, total };
+
+  return {
+    total,
+    events: events.map( _merge.bind( null, cleanOptions.merge ) )
+  }
+
+}
+
+function _merge( rules, event ) {
+
+  let merged = {}, clean = {}, mergedFields = [];
+
+  Object.keys( rules ).forEach( r => {
+
+    merged[ r ] = {};
+
+    rules[ r ].forEach( fieldToBeMerged => {
+
+      mergedFields.push( fieldToBeMerged );
+
+      _.assign( merged[ r ], event[ fieldToBeMerged ] );
+
+    } );
+
+  } );
+
+  return _.extend( _.omit( event, mergedFields ), merged );
 
 }

@@ -25,7 +25,7 @@ module.exports.init = c => {
       'image', 'uid', 'slug', 'agenda', 'creatorUid', 'locationUid',
       'location', 'country', 'timezone', 'registration',
       'timings', 'createdAt', 'updatedAt',
-      'accessibility', 'private', 'contributor', 'draft', 'age'
+      'accessibility', 'private', 'draft', 'age'
     ]
   } );
 

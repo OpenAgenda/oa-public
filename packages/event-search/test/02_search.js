@@ -20,7 +20,7 @@ describe( 'event search - functional: search', function() {
 
       events.initAndLoad( config.eventService, [ {
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
+        src: __dirname + '/service/event.data.sql'
       } ], { reset: true }, done );
 
     } );
@@ -92,7 +92,6 @@ describe( 'event search - functional: search', function() {
         'uid',
         'createdAt',
         'creatorUid',
-        'contributor',
         'draft',
         'timings',
         'registration',
@@ -378,15 +377,37 @@ describe( 'event search - functional: search', function() {
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
 
+      _.keys( events[ 0 ] ).includes( 'contributor' ).should.equal( false );
+
     } );
 
     it( 'extension data is part of result only if explicitely requested in options', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { detailed: true, extensions: [ 'custom' ] } );
+      }, {}, { detailed: true, extensions: [ 'custom', 'contributor' ] } );
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
+
+    } );
+
+    it( 'extension data can be merged into new object as specified in options', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        'custom.organizeremail' : 'cannes@reedexpo.fr'
+      }, {}, { 
+        detailed: true, 
+        extensions: [ 'custom', 'contributor' ], 
+        merge: {
+          mergedExtended: [ 'custom', 'contributor' ]
+        }
+      } );
+
+      _.keys( events[ 0 ] ).includes( 'mergedExtended' ).should.equal( true );
+
+      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
+
+      _.keys( events[ 0 ] ).includes( 'contributor' ).should.equal( false );
 
     } );
 
