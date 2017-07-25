@@ -19,6 +19,13 @@ module.exports.init = c => {
       'uid',
       'title',
       'slug'
+    ],
+    detailedSearchIncludes: [
+      'title', 'description', 'keywords', 'dateRange', 'longDescription',
+      'image', 'uid', 'slug', 'agenda', 'creatorUid', 'locationUid',
+      'location', 'country', 'timezone', 'registration',
+      'timings', 'createdAt', 'updatedAt',
+      'accessibility', 'private', 'contributor', 'draft', 'age'
     ]
   } );
 

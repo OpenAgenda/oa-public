@@ -5,6 +5,7 @@ const h = require( './helpers' );
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const validateNav = require( './query/validateNav' );
+const validateOptions = require( './query/validateOptions' );
 const parseQuery = require( './query' );
 
 
@@ -51,9 +52,9 @@ async function dsl( alias, dsl, options = {} ) {
 
 }
 
-async function search( alias, query, options = {}, nav = {} ) {
+async function search( alias, query, nav = {}, options = {} ) {
 
-  let cleanNav = {};
+  let cleanNav = {}, cleanOptions = {};
 
   try {
 
@@ -61,12 +62,22 @@ async function search( alias, query, options = {}, nav = {} ) {
 
   } catch( e ) {
 
-    return cb( new VError( e, 'nav is not valid' ) );
+    throw new VError( e, 'nav is not valid' );
+
+  }
+
+  try {
+
+    cleanOptions = validateOptions( options );
+
+  } catch ( e ) {
+
+    throw new VError( e, 'options are not valid' );
 
   }
 
   return await dsl( alias, 
-    parseQuery( query, cleanNav.size ? cleanNav : {}, options.detailed ? null : config.baseSearchIncludes ), 
+    parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes : config.baseSearchIncludes ).concat( cleanOptions.extensions ) ), 
     cleanNav.scroll ? cleanNav : {} );
 
 }

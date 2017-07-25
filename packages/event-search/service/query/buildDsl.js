@@ -23,7 +23,10 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
       search_internals_last_timing: { order: 'desc' }
     } ],
     _source: {
-      excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+      excludes: [ 
+        'search_internals_*', 
+        'timings.search_internals_*' 
+      ]
     }
   };
 

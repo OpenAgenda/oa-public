@@ -74,11 +74,12 @@ describe( 'event search - functional: search', function() {
 
     it( 'all fields are returned when detailed option is true', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, { detailed: true } );
+      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
 
       Object.keys( events[ 0 ] ).should.eql( [ 
         'longDescription',
         'country',
+        'image',
         'private',
         'keywords',
         'accessibility',
@@ -86,24 +87,19 @@ describe( 'event search - functional: search', function() {
         'timezone',
         'description',
         'title',
+        'agenda',
+        'locationUid',
         'uid',
         'createdAt',
+        'creatorUid',
         'contributor',
         'draft',
         'timings',
-        'id',
-        'slug',
-        'updatedAt',
-        'image',
-        'agendaUid',
-        'agenda',
-        'locationUid',
-        'creatorUid',
-        'deletedAt',
         'registration',
         'location',
-        'ownerUid',
-        'age'
+        'slug',
+        'age',
+        'updatedAt'
       ] );
 
     } );
@@ -269,7 +265,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'navigate using from & size returns expected number of events', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {}, {}, { from: 0, size: 4 } );
+      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
 
       events.length.should.equal( 4 );
 
@@ -278,11 +274,11 @@ describe( 'event search - functional: search', function() {
 
     it( 'navigate using from & size maintains order', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {}, {}, { from: 0, size: 4 } );
+      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
 
       let fourth = events[ 3 ].uid;
 
-      events = ( await service( 'simple_search' ).search( {}, {}, { from: 3, size: 4 } ) ).events;
+      events = ( await service( 'simple_search' ).search( {}, { from: 3, size: 4 } ) ).events;
 
       events[ 0 ].uid.should.equal( fourth );
 
@@ -371,6 +367,26 @@ describe( 'event search - functional: search', function() {
       } );
 
       total.should.equal( 1 );
+
+    } );
+
+    it( 'extension data is not part of detailed result by default', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        'custom.organizeremail' : 'cannes@reedexpo.fr'
+      }, {}, { detailed: true } );
+
+      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
+
+    } );
+
+    it( 'extension data is part of result only if explicitely requested in options', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        'custom.organizeremail' : 'cannes@reedexpo.fr'
+      }, {}, { detailed: true, extensions: [ 'custom' ] } );
+
+      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
 
     } );
 

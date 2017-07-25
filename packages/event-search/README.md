@@ -2,7 +2,6 @@
 
 The event search service. For searching events.
 
-
 # Initialization
 
 The service needs to be initialized before use. See the `testconfig.sample.js` file for a configuration sample:
