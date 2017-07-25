@@ -78,10 +78,10 @@ const defaultGetUrl = ( notification, subjects, userUid, labelSuffix ) => {
       plur: '/agendas/:agenda'
     },
     'agenda.setOfficial': {
-      '': '/agendas/:agenda'
+      sing: '/agendas/:agenda'
     },
     'agenda.setUnofficial': {
-      '': '/agendas/:agenda'
+      sing: '/agendas/:agenda'
     },
     'agenda.changeEventState': {
       singSing: '/agendas/:agenda/events/:event',

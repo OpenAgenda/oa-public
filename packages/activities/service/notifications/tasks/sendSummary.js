@@ -7,6 +7,7 @@ const mailer = require( 'mailer' );
 const notiflabels = require( 'labels/activities/notifications' );
 const emailLabels = require( 'labels/activities/summaryEmail' );
 const makeLabelGetter = require( 'labels' );
+const unsubscribed = require( 'unsubscribed' );
 const notificationFormatMaker = require( '../../../formatNotification' );
 
 require( 'moment/locale/fr' );
@@ -78,6 +79,7 @@ async function _sendSummary( { user, notifications } ) {
 
   mailer( {
     recipient: user.email,
+    source: '"OpenAgenda" <no-reply@openagenda.com>',
     subject: getLabel( 'subject', lang ),
     data: {
       logo: 'https://openagenda.com/images/openagenda.png',
@@ -89,7 +91,15 @@ async function _sendSummary( { user, notifications } ) {
         label: getLabel( 'goToOA', lang ),
         link: 'https://openagenda.com/'
       },
-      description: message
+      description: message,
+      footerActions: [ {
+        link: config.root + unsubscribed.app.genUrl( 'add', {
+          userUid: user.uid,
+          subject: 'notifications',
+          type: 'notifications_summary'
+        } ),
+        text: getLabel( 'unsubsribe', lang )
+      } ]
     }
   }, ( err, result ) => {
 

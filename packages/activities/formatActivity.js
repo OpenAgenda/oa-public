@@ -71,7 +71,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
     }
   }, urls );
 
-  return ( activity, lang = defaultLang ) => {
+  return ( activity, lang = defaultLang, withFilterIcons = false ) => {
 
     const getLabel = makeLabelGetter( labels, lang );
     const getCredentialLabel = makeLabelGetter( credentialLabels, lang );
@@ -82,14 +82,21 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
       return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
     }
 
-    const makeUrl = ( entityType, values, label ) => {
+    const getIcon = ( activity, type ) => {
+      if ( !withFilterIcons ) return '';
+      return `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${activity.store.labels[ type ]}" data-filtertype="${type}" data-filtervalue="${activity[ type ]}"></i>`;
+    };
+
+    const makeUrl = ( entityType, values, label, filterType ) => {
       if ( !urls[ activity.verb ] || !urls[ activity.verb ][ entityType ] ) return escape( label );
 
       const url = Object.keys( values ).reduce( ( prev, next ) => {
         return prev.replace( `:${next}`, values[ next ] );
       }, urls[ activity.verb ][ entityType ] );
 
-      return `<a href="${url}">${escape( label )}</a>`;
+      const icon = `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${label}" data-filtertype="${filterType}" data-filtervalue="${entityType}:${values[ entityType ]}"></i>`;
+
+      return `<span class="activity-highlight"><a href="${url}">${escape( label )}</a>${withFilterIcons ? icon : ''}</span>`;
     };
 
     let agendaUrl;
@@ -99,33 +106,33 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
       case 'agenda.sendInvitation':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.sendInvitation', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
-          email: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          email: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
 
       case 'agenda.acceptInvitation':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.acceptInvitation', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
 
       case 'agenda.addMember':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.addMember', {
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           agenda: agendaUrl
         } );
@@ -135,8 +142,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
 
         return getLabel( 'agenda.setMemberRole', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
           credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
           beforeCredential: getCredentialLabel( credentialTypes.codes.get( activity.store.beforeCredential ) ).toLowerCase(),
           agenda: agendaUrl
@@ -144,42 +151,42 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
       case 'agenda.create':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.create', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           agenda: agendaUrl
         } );
 
       case 'agenda.updateContribution':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.updateContribution', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           agenda: agendaUrl
         } );
 
       case 'agenda.updateProfile':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.updateProfile', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           agenda: agendaUrl
         } );
 
       case 'agenda.rename':
 
         return getLabel( 'agenda.rename', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           before: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.beforeTitle ),
           after: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.afterTitle )
         } );
 
       case 'agenda.setOfficial':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.' + (activity.store.officialized ? 'setOfficial' : 'setUnofficial'), {
           agenda: agendaUrl
@@ -187,15 +194,15 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
       case 'agenda.changeEventState':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
         eventUrl = makeUrl( 'event', {
           agenda: getUid( activity.target ),
           event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ) );
+        }, getEventTitle( activity.store.labels.object ), 'object' );
 
         return getLabel( 'agenda.changeEventState', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl,
           before: getStateLabel( eventStateCodeToLabel( activity.store.oldState ) ),
           after: getStateLabel( eventStateCodeToLabel( activity.store.newState ) )
@@ -203,67 +210,67 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
       case 'agenda.publishEvent':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
         eventUrl = makeUrl( 'event', {
           agenda: getUid( activity.target ),
           event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ) );
+        }, getEventTitle( activity.store.labels.object ), 'object' );
 
         return getLabel( 'agenda.publishEvent', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl
         } );
 
       case 'agenda.unpublishEvent':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
         eventUrl = makeUrl( 'event', {
           agenda: getUid( activity.target ),
           event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ) );
+        }, getEventTitle( activity.store.labels.object ), 'object' );
 
         return getLabel( 'agenda.unpublishEvent', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl
         } );
 
       case 'agenda.removeEvent':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
 
         return getLabel( 'agenda.removeEvent', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
-          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + '</span>'
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>'
         } );
 
       case 'event.create':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
         eventUrl = makeUrl( 'event', {
           agenda: getUid( activity.target ),
           event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ) );
+        }, getEventTitle( activity.store.labels.object ), 'object' );
 
         return getLabel( 'event.create', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl
         } );
 
       case 'event.update':
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
         eventUrl = makeUrl( 'event', {
           agenda: getUid( activity.target ),
           event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ) );
+        }, getEventTitle( activity.store.labels.object ), 'object' );
 
         return getLabel( 'event.update', {
           agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + '</span>',
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl
         } );
 

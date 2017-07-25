@@ -5,6 +5,7 @@ const nodefn = require( 'when/node' );
 const async = require( 'async' );
 const logger = require( 'basic-logger' );
 const usersSvc = require( 'users' );
+const unsubscribed = require( 'unsubscribed' );
 const sendSummary = require( './sendSummary' );
 
 
@@ -59,9 +60,15 @@ async function prepareSummary() {
 
       const user = await nodefn.call( usersSvc.get, { uid: item.entity_uid }, { detailed: true } );
 
-      sendSummary( { user, notifications } );
+      unsubscribed( user.uid ).is( { subject: 'notifications', type: 'notifications_summary' }, ( err, is ) => {
 
-      cb();
+        if ( err ) return cb( err );
+
+        if ( !is ) sendSummary( { user, notifications } );
+
+        cb();
+
+      } );
 
     },
     ( err, rowsAffected ) => {

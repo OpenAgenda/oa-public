@@ -3,6 +3,7 @@
 const path = require( 'path' );
 
 module.exports = {
+  root: 'http://localhost:3000/',
   mysql: {
     host: '127.0.0.1',
     database: 'oa_test_activities',
