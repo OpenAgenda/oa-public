@@ -55,6 +55,14 @@ app.get( unsubscribedSvc.app.routes.remove, ( req, res ) => {
 
 } );
 
+app.get( unsubscribedSvc.app.routes.remove.replace( '.:identifier', '' ), ( req, res ) => {
+
+  if ( req.result ) return res.json( req.result );
+
+  res.status( 400 ).json( null );
+
+} );
+
 app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
 
   if ( req.result ) {

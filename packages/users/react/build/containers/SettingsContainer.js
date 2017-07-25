@@ -370,7 +370,7 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 
     return new _promise2.default(function (resolve, reject) {
 
-      var url = appSettings.urls['removeUnsubscription'].replace(':userUid', stateProps.user.uid).replace(':subject', unsubscription.subject).replace(':identifier', unsubscription.identifier).replace(':type', unsubscription.type);
+      var url = appSettings.urls['removeUnsubscription'].replace(':userUid', stateProps.user.uid).replace(':subject', unsubscription.subject).replace('.:identifier', unsubscription.identifier ? '.' + unsubscription.identifier : '').replace(':type', unsubscription.type);
 
       if (unsubscription.type === null) {
         url = url.replace('/t/null', '');

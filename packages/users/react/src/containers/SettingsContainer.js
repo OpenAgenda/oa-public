@@ -355,7 +355,7 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
       let url = appSettings.urls[ 'removeUnsubscription' ]
         .replace( ':userUid', stateProps.user.uid )
         .replace( ':subject', unsubscription.subject )
-        .replace( ':identifier', unsubscription.identifier )
+        .replace( '.:identifier', unsubscription.identifier ? '.' + unsubscription.identifier : '' )
         .replace( ':type', unsubscription.type );
 
       if ( unsubscription.type === null ) {
