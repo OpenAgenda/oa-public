@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import pick from 'lodash/pick';
@@ -20,26 +20,30 @@ moment.locale( 'fr' );
 
 const formatActivity = activityFormatMaker( {}, activityLabels );
 
-const dashboardValuesSelector = formValueSelector( 'activityAppsAdminDashboard' );
+const dashboardValuesSelector = getFormValues( 'activityAppsAdminDashboard' );
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
       const state = getState();
       const query = state.routing.locationBeforeTransitions.query;
+      const promises = [];
 
       if ( !activitiesActions.isLoaded( state ) ) {
-        return dispatch( activitiesActions.load( query ) );
+        promises.push( dispatch( activitiesActions.load( query ) ) );
       }
+
+      promises.push( dispatch( initialize( 'activityAppsAdminDashboard', {
+        actor: query.actor || undefined,
+        verb: query.verb || undefined,
+        object: query.object || undefined,
+        target: query.target || undefined,
+        datetimeRange: query.datetimeRange || undefined
+      } ) ) )
+
+      return Promise.all( promises );
     }
   } ],
   ( state, props ) => ({
-    initialValues: {
-      actor: props.location.query.actor || undefined,
-      verb: props.location.query.verb || undefined,
-      object: props.location.query.object || undefined,
-      target: props.location.query.target || undefined,
-      datetimeRange: props.location.query.datetimeRange || undefined
-    },
     res: state.res,
     activities: state.activities.data,
     fromId: state.activities.fromId,

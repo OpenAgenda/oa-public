@@ -58,6 +58,7 @@ async.waterfall( [
       case 'user':
       case 'notifications':
         app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
+        break;
       default:
         app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
 
@@ -82,6 +83,9 @@ async.waterfall( [
     req.userIdentifier = req.user;
     req.identifiers = { userId: req.user.id };
     req.agenda = { id: 4608, uid: 36282888 };
+
+    if ( !req.query._app ) req.query._app = 'admin';
+
     next();
   } );
 

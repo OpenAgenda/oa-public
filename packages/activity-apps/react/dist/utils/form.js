@@ -4,7 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
 exports.renderField = renderField;
 exports.renderInput = renderInput;
@@ -26,8 +32,6 @@ var _MarkdownComponent = require('react-form-components/build/MarkdownComponent'
 var _MarkdownComponent2 = _interopRequireDefault(_MarkdownComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var searchSpinner = {
   width: 1,
@@ -90,13 +94,14 @@ function renderInput(_ref2) {
   var placeholder = _ref2.placeholder,
       className = _ref2.className,
       spellCheck = _ref2.spellCheck,
-      props = _objectWithoutProperties(_ref2, ['placeholder', 'className', 'spellCheck']);
+      props = (0, _objectWithoutProperties3.default)(_ref2, ['placeholder', 'className', 'spellCheck']);
+
 
   var inputAttrs = { placeholder: placeholder, className: className, spellCheck: spellCheck };
 
-  var content = _react2.default.createElement('input', _extends({}, props.input, inputAttrs));
+  var content = _react2.default.createElement('input', (0, _extends3.default)({}, props.input, inputAttrs));
 
-  return renderField.call(this, _extends({ content: content }, props));
+  return renderField.call(this, (0, _extends3.default)({ content: content }, props));
 }
 
 function renderTextarea(_ref3) {
@@ -105,33 +110,35 @@ function renderTextarea(_ref3) {
       rows = _ref3.rows,
       cols = _ref3.cols,
       spellCheck = _ref3.spellCheck,
-      props = _objectWithoutProperties(_ref3, ['placeholder', 'className', 'rows', 'cols', 'spellCheck']);
+      props = (0, _objectWithoutProperties3.default)(_ref3, ['placeholder', 'className', 'rows', 'cols', 'spellCheck']);
+
 
   var inputAttrs = { placeholder: placeholder, className: className, rows: rows, cols: cols, spellCheck: spellCheck };
 
   var content = _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement('textarea', _extends({}, props.input, inputAttrs))
+    _react2.default.createElement('textarea', (0, _extends3.default)({}, props.input, inputAttrs))
   );
 
-  return renderField.call(this, _extends({ content: content }, props));
+  return renderField.call(this, (0, _extends3.default)({ content: content }, props));
 }
 
 function renderSelect(_ref4) {
   var className = _ref4.className,
       children = _ref4.children,
-      props = _objectWithoutProperties(_ref4, ['className', 'children']);
+      props = (0, _objectWithoutProperties3.default)(_ref4, ['className', 'children']);
+
 
   var inputAttrs = { className: className };
 
   var content = _react2.default.createElement(
     'select',
-    _extends({}, props.input, inputAttrs),
+    (0, _extends3.default)({}, props.input, inputAttrs),
     children
   );
 
-  return renderField.call(this, _extends({ content: content }, props));
+  return renderField.call(this, (0, _extends3.default)({ content: content }, props));
 }
 
 function renderSearchInput(_ref5) {
@@ -141,7 +148,8 @@ function renderSearchInput(_ref5) {
       spellCheck = _ref5.spellCheck,
       action = _ref5.action,
       loading = _ref5.loading,
-      props = _objectWithoutProperties(_ref5, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
+      props = (0, _objectWithoutProperties3.default)(_ref5, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
+
 
   var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
   var onChange = function onChange(e) {
@@ -152,7 +160,7 @@ function renderSearchInput(_ref5) {
   var content = _react2.default.createElement(
     'div',
     { className: 'input-icon-right' },
-    _react2.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
+    _react2.default.createElement('input', (0, _extends3.default)({}, props.input, inputAttrs, { onChange: onChange })),
     _react2.default.createElement(
       'button',
       { type: 'submit', className: 'btn' },
@@ -160,7 +168,7 @@ function renderSearchInput(_ref5) {
     )
   );
 
-  return renderField.call(this, _extends({ content: content }, props));
+  return renderField.call(this, (0, _extends3.default)({ content: content }, props));
 };
 
 function renderMarkdownInput(_ref6) {
@@ -169,11 +177,12 @@ function renderMarkdownInput(_ref6) {
       label = _ref6.label,
       placeholder = _ref6.placeholder,
       className = _ref6.className,
-      props = _objectWithoutProperties(_ref6, ['lang', 'label', 'placeholder', 'className']);
+      props = (0, _objectWithoutProperties3.default)(_ref6, ['lang', 'label', 'placeholder', 'className']);
+
 
   var inputAttrs = { lang: lang, placeholder: placeholder, label: label, className: className };
 
-  var content = _react2.default.createElement(_MarkdownComponent2.default, _extends({}, props.input, inputAttrs));
+  var content = _react2.default.createElement(_MarkdownComponent2.default, (0, _extends3.default)({}, props.input, inputAttrs));
 
-  return renderField.call(this, _extends({ content: content }, props));
+  return renderField.call(this, (0, _extends3.default)({ content: content }, props));
 };

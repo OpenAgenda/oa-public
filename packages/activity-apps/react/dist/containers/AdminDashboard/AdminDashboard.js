@@ -4,6 +4,42 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -15,12 +51,6 @@ var _react3 = _interopRequireDefault(_react2);
 var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _dec, _dec2, _class, _class2, _temp;
 
@@ -82,14 +112,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var _components = {
   AdminDashboard: {
     displayName: 'AdminDashboard'
@@ -113,7 +135,7 @@ _moment2.default.locale('fr');
 
 var formatActivity = (0, _formatActivity2.default)({}, _admin2.default);
 
-var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('activityAppsAdminDashboard');
+var dashboardValuesSelector = (0, _reduxForm.getFormValues)('activityAppsAdminDashboard');
 
 var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
@@ -123,20 +145,24 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
 
     var state = getState();
     var query = state.routing.locationBeforeTransitions.query;
+    var promises = [];
 
     if (!activitiesActions.isLoaded(state)) {
-      return dispatch(activitiesActions.load(query));
+      promises.push(dispatch(activitiesActions.load(query)));
     }
+
+    promises.push(dispatch((0, _reduxForm.initialize)('activityAppsAdminDashboard', {
+      actor: query.actor || undefined,
+      verb: query.verb || undefined,
+      object: query.object || undefined,
+      target: query.target || undefined,
+      datetimeRange: query.datetimeRange || undefined
+    })));
+
+    return _promise2.default.all(promises);
   }
 }], function (state, props) {
   return {
-    initialValues: {
-      actor: props.location.query.actor || undefined,
-      verb: props.location.query.verb || undefined,
-      object: props.location.query.object || undefined,
-      target: props.location.query.target || undefined,
-      datetimeRange: props.location.query.datetimeRange || undefined
-    },
     res: state.res,
     activities: state.activities.data,
     fromId: state.activities.fromId,
@@ -145,21 +171,21 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
     lastPage: state.activities.lastPage,
     query: dashboardValuesSelector(state, 'actor', 'verb', 'object', 'target', 'datetimeRange')
   };
-}, _extends({}, activitiesActions)), _dec2 = (0, _reduxForm.reduxForm)({
+}, (0, _extends3.default)({}, activitiesActions)), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'activityAppsAdminDashboard'
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
-  _inherits(AdminDashboard, _Component);
+  (0, _inherits3.default)(AdminDashboard, _Component);
 
   function AdminDashboard(props) {
-    _classCallCheck(this, AdminDashboard);
+    (0, _classCallCheck3.default)(this, AdminDashboard);
 
-    var _this = _possibleConstructorReturn(this, (AdminDashboard.__proto__ || Object.getPrototypeOf(AdminDashboard)).call(this, props));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (AdminDashboard.__proto__ || (0, _getPrototypeOf2.default)(AdminDashboard)).call(this, props));
 
     _this.search = function (values) {
       return _this.props.list(values).then(function () {
         var newQuery = (0, _pick2.default)(values, ['actor', 'verb', 'object', 'target', 'datetimeRange']);
-        _this.context.router.push(_extends({}, _this.props.location, {
-          query: _extends({}, _this.props.location.query, {
+        _this.context.router.push((0, _extends3.default)({}, _this.props.location, {
+          query: (0, _extends3.default)({}, _this.props.location.query, {
             actor: undefined,
             verb: undefined,
             object: undefined,
@@ -193,20 +219,21 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
     return _this;
   }
 
-  _createClass(AdminDashboard, [{
+  (0, _createClass3.default)(AdminDashboard, [{
     key: 'renderReactSelect',
     value: function renderReactSelect(_ref2) {
       var className = _ref2.className,
           placeholder = _ref2.placeholder,
           options = _ref2.options,
           instanceId = _ref2.instanceId,
-          props = _objectWithoutProperties(_ref2, ['className', 'placeholder', 'options', 'instanceId']);
+          props = (0, _objectWithoutProperties3.default)(_ref2, ['className', 'placeholder', 'options', 'instanceId']);
+
 
       var inputAttrs = { className: className, options: options, placeholder: placeholder, instanceId: instanceId };
 
-      var content = _react3.default.createElement(_reactSelect2.default, _extends({}, props.input, inputAttrs));
+      var content = _react3.default.createElement(_reactSelect2.default, (0, _extends3.default)({}, props.input, inputAttrs));
 
-      return this.renderField(_extends({ content: content }, props));
+      return this.renderField((0, _extends3.default)({ content: content }, props));
     }
   }, {
     key: 'renderDateTimeRangePicker',
@@ -220,7 +247,7 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
       };
 
       var _split = (field.input.value || '').split('|'),
-          _split2 = _slicedToArray(_split, 2),
+          _split2 = (0, _slicedToArray3.default)(_split, 2),
           _split2$ = _split2[0],
           startValue = _split2$ === undefined ? '' : _split2$,
           _split2$2 = _split2[1],
@@ -465,7 +492,6 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
       );
     }
   }]);
-
   return AdminDashboard;
 }(_react2.Component), _class2.propTypes = {
   list: _propTypes2.default.func,

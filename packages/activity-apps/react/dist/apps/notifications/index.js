@@ -4,10 +4,16 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _assign = require('babel-runtime/core-js/object/assign');
+
+var _assign2 = _interopRequireDefault(_assign);
 
 exports.default = function (options) {
-  var _Object$assign = Object.assign({
+  var _Object$assign = (0, _assign2.default)({
     notifications: [],
     userUid: null,
     lang: 'fr'
@@ -63,7 +69,7 @@ exports.default = function (options) {
         )
       ),
       notifications.map(function (v) {
-        return _extends({ notification: v }, formatNotification(v, lang), { lang: lang });
+        return (0, _extends3.default)({ notification: v }, formatNotification(v, lang), { lang: lang });
       }).map(renderNotification),
       notifications && notifications.length > 0 && _react2.default.createElement(
         'div',

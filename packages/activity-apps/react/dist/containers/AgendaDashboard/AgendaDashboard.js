@@ -4,6 +4,38 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _values = require('babel-runtime/core-js/object/values');
+
+var _values2 = _interopRequireDefault(_values);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends6 = require('babel-runtime/helpers/extends');
+
+var _extends7 = _interopRequireDefault(_extends6);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -16,11 +48,7 @@ var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _dec, _class, _class2, _temp2;
+var _dec, _class, _class2, _temp;
 
 var _propTypes = require('prop-types');
 
@@ -32,9 +60,21 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _pick = require('lodash/pick');
+
+var _pick2 = _interopRequireDefault(_pick);
+
 var _throttle = require('lodash/throttle');
 
 var _throttle2 = _interopRequireDefault(_throttle);
+
+var _mapValues = require('lodash/mapValues');
+
+var _mapValues2 = _interopRequireDefault(_mapValues);
+
+var _immutabilityHelper = require('immutability-helper');
+
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
 
 var _Spinner = require('react-form-components/build/Spinner');
 
@@ -61,12 +101,6 @@ require('moment/locale/fr');
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
   AgendaDashboard: {
@@ -109,37 +143,31 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
     fromId: state.activities.fromId,
     loading: state.activities.loading,
     nextLoading: state.activities.nextLoading,
-    lastPage: state.activities.lastPage
+    lastPage: state.activities.lastPage,
+    query: (0, _pick2.default)(props.location.query, ['actor', 'verb', 'object', 'target'])
   };
-}, _extends({}, activitiesActions)), _dec(_class = (_temp2 = _class2 = function (_Component) {
-  _inherits(AgendaDashboard, _Component);
+}, (0, _extends7.default)({}, activitiesActions)), _dec(_class = (_temp = _class2 = function (_Component) {
+  (0, _inherits3.default)(AgendaDashboard, _Component);
 
-  function AgendaDashboard() {
-    var _ref2;
+  function AgendaDashboard(props) {
+    (0, _classCallCheck3.default)(this, AgendaDashboard);
 
-    var _temp, _this, _ret;
+    var _this = (0, _possibleConstructorReturn3.default)(this, (AgendaDashboard.__proto__ || (0, _getPrototypeOf2.default)(AgendaDashboard)).call(this, props));
 
-    _classCallCheck(this, AgendaDashboard);
+    _this.state = {
+      filters: _this.getFilters((0, _pick2.default)(_this.props.location.query, ['actor', 'verb', 'object', 'target']))
+    };
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = AgendaDashboard.__proto__ || Object.getPrototypeOf(AgendaDashboard)).call.apply(_ref2, [this].concat(args))), _this), _this.nextPage = function () {
-      var _this$props = _this.props,
-          loading = _this$props.loading,
-          nextLoading = _this$props.nextLoading,
-          activities = _this$props.activities,
-          query = _this$props.query,
-          nextPage = _this$props.nextPage,
-          lastPage = _this$props.lastPage;
-
-      if (!activities || !activities.length || loading || nextLoading || lastPage) return;
-      nextPage(query, activities[activities.length - 1].id);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    _this.onActivityClick = _this.onActivityClick.bind(_this);
+    _this.nextPage = _this.nextPage.bind(_this);
+    _this.getFilters = _this.getFilters.bind(_this);
+    _this.removeFilter = _this.removeFilter.bind(_this);
+    _this.updateMonitorBottomHit = _this.updateMonitorBottomHit.bind(_this);
+    return _this;
   }
 
-  _createClass(AgendaDashboard, [{
+  (0, _createClass3.default)(AgendaDashboard, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       var lang = this.context.lang;
@@ -156,11 +184,120 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
       _monitorBottomHit2.default.stop();
     }
   }, {
+    key: 'updateMonitorBottomHit',
+    value: function updateMonitorBottomHit() {
+      _monitorBottomHit2.default.stop();
+      (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400, { trailing: false }));
+    }
+  }, {
+    key: 'getFilters',
+    value: function getFilters(values) {
+      var activities = this.props.activities;
+
+
+      var usefullActivities = {
+        actor: activities.find(function (v) {
+          return v.actor === values.actor;
+        }),
+        verb: activities.find(function (v) {
+          return v.verb === values.verb;
+        }),
+        object: activities.find(function (v) {
+          return v.object === values.object;
+        }),
+        target: activities.find(function (v) {
+          return v.target === values.target;
+        })
+      };
+
+      return (0, _mapValues2.default)(usefullActivities, function (v, k) {
+        return v ? {
+          label: v.store.labels[k],
+          value: v[k]
+        } : undefined;
+      });
+    }
+  }, {
+    key: 'removeFilter',
+    value: function removeFilter(type) {
+      var _this2 = this;
+
+      var _props = this.props,
+          list = _props.list,
+          location = _props.location,
+          query = _props.query;
+      var router = this.context.router;
+
+
+      this.setState((0, _immutabilityHelper2.default)(this.state, {
+        filters: {
+          $unset: [type]
+        }
+      }), function () {
+        list((0, _extends7.default)({}, query, (0, _defineProperty3.default)({}, type, undefined))).then(_this2.updateMonitorBottomHit);
+      });
+
+      router.replace((0, _extends7.default)({}, location, {
+        query: (0, _extends7.default)({}, location.query, (0, _defineProperty3.default)({}, type, undefined))
+      }));
+    }
+  }, {
+    key: 'nextPage',
+    value: function nextPage() {
+      var _props2 = this.props,
+          loading = _props2.loading,
+          nextLoading = _props2.nextLoading,
+          activities = _props2.activities,
+          query = _props2.query,
+          nextPage = _props2.nextPage,
+          lastPage = _props2.lastPage;
+
+      if (!activities || !activities.length || loading || nextLoading || lastPage) return;
+      nextPage(query, activities[activities.length - 1].id);
+    }
+  }, {
+    key: 'onActivityClick',
+    value: function onActivityClick(e) {
+      var _this3 = this;
+
+      var _props3 = this.props,
+          location = _props3.location,
+          query = _props3.query,
+          list = _props3.list;
+      var router = this.context.router;
+
+
+      if (!e.target.hasAttribute('data-filtertype') || !e.target.hasAttribute('data-filterlabel') || !e.target.hasAttribute('data-filtervalue')) {
+        return;
+      }
+
+      var type = e.target.getAttribute('data-filtertype');
+      var label = e.target.getAttribute('data-filterlabel');
+      var value = e.target.getAttribute('data-filtervalue');
+
+      this.setState((0, _immutabilityHelper2.default)(this.state, {
+        filters: (0, _defineProperty3.default)({}, type, {
+          $set: {
+            label: label,
+            value: value
+          }
+        })
+      }), function () {
+        list((0, _extends7.default)({}, query, (0, _defineProperty3.default)({}, type, value))).then(_this3.updateMonitorBottomHit);
+      });
+
+      router.replace((0, _extends7.default)({}, location, {
+        query: (0, _extends7.default)({}, location.query, (0, _defineProperty3.default)({}, type, value))
+      }));
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          activities = _props.activities,
-          nextLoading = _props.nextLoading;
+      var _this4 = this;
+
+      var _props4 = this.props,
+          activities = _props4.activities,
+          nextLoading = _props4.nextLoading;
       var _context = this.context,
           getLabel = _context.getLabel,
           lang = _context.lang;
@@ -173,6 +310,27 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
           'h2',
           null,
           getLabel('activities')
+        ),
+        _react3.default.createElement(
+          'div',
+          { className: 'margin-v-md' },
+          _react3.default.createElement(
+            'ul',
+            { className: 'nav nav-pills filters' },
+            (0, _values2.default)((0, _mapValues2.default)(this.state.filters, function (v, k) {
+              return v && _react3.default.createElement(
+                'li',
+                { key: k, onClick: function onClick() {
+                    return _this4.removeFilter(k);
+                  }, className: 'active margin-right-sm' },
+                _react3.default.createElement(
+                  'a',
+                  { href: '#' },
+                  v.label
+                )
+              );
+            }))
+          )
         ),
         _react3.default.createElement(
           'div',
@@ -189,7 +347,8 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
                   { className: 'pull-left margin-right-sm small' },
                   (0, _moment2.default)(activity.createdAt).format('LLL')
                 ),
-                _react3.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
+                _react3.default.createElement('p', { onClick: _this4.onActivityClick, className: 'activity-item',
+                  dangerouslySetInnerHTML: { __html: formatActivity(activity, lang, true) } })
               );
             })
           ),
@@ -207,7 +366,6 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
       );
     }
   }]);
-
   return AgendaDashboard;
 }(_react2.Component), _class2.propTypes = {
   list: _propTypes2.default.func,
@@ -222,7 +380,7 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
   router: _propTypes2.default.object,
   lang: _propTypes2.default.string,
   getLabel: _propTypes2.default.func
-}, _temp2)) || _class));
+}, _temp)) || _class));
 
 exports.default = AgendaDashboard;
 ;

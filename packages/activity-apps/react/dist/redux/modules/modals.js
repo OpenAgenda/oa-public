@@ -4,13 +4,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends4 = require('babel-runtime/helpers/extends');
+
+var _extends5 = _interopRequireDefault(_extends4);
 
 exports.default = reducer;
 exports.showModal = showModal;
 exports.closeModal = closeModal;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var SHOW = 'activity-apps/modals/SHOW';
 var CLOSE = 'activity-apps/modals/CLOSE';
@@ -23,11 +29,11 @@ function reducer() {
 
   switch (action.type) {
     case SHOW:
-      return _extends({}, state, _defineProperty({}, action.name, _extends({}, action.options, {
+      return (0, _extends5.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends5.default)({}, action.options, {
         visible: true
       })));
     case CLOSE:
-      return _extends({}, state, _defineProperty({}, action.name, _extends({}, state[action.name], {
+      return (0, _extends5.default)({}, state, (0, _defineProperty3.default)({}, action.name, (0, _extends5.default)({}, state[action.name], {
         visible: false
       })));
     default:
