@@ -28,7 +28,6 @@
       "features" : [
         "agendaPricingFreeFeature1",
         "agendaPricingFreeFeature2",
-        "agendaPricingFreeFeature5",
         "agendaPricingFreeFeature10",
         "agendaPricingFreeFeature9",
         "agendaPricingFreeFeature3",
@@ -46,7 +45,6 @@
       "price" : "agendaPricingCustomPrice",
       "priceDetail" :"agendaPricingCustomYearlyPrice",
       "features" : [
-        true,
         true,
         true,
         true,
