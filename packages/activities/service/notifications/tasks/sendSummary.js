@@ -9,6 +9,7 @@ const emailLabels = require( 'labels/activities/summaryEmail' );
 const makeLabelGetter = require( 'labels' );
 const unsubscribed = require( 'unsubscribed' );
 const notificationFormatMaker = require( '../../../formatNotification' );
+const { defaultGetUrl } = require( '../../../formatNotification' );
 
 require( 'moment/locale/fr' );
 
@@ -63,7 +64,10 @@ async function _sendSummary( { user, notifications } ) {
 
   const lang = user.culture || 'fr';
 
-  const formatNotification = notificationFormatMaker( null, notiflabels, user.uid );
+  const formatNotification = notificationFormatMaker( ( ...args ) => {
+    const url = defaultGetUrl( ...args );
+    return url ? config.root + url : null
+  }, notiflabels, user.uid );
   const getLabel = makeLabelGetter( emailLabels, lang );
 
   const message = notifications.map(
@@ -72,19 +76,23 @@ async function _sendSummary( { user, notifications } ) {
 
       return '<span style="color: gray"><span style="font-size: 12px">' +
         ucfirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
+        '<a href="' + formatted.url + '" style="color: gray">' +
         formatted.content.replace( /class="notif-highlight"/g, 'style="color: #413a42"' ) +
-        '</span>';
+        '</a></span>';
     }
   ).join( '\n***\n' );
 
   mailer( {
     recipient: user.email,
     source: '"OpenAgenda" <no-reply@openagenda.com>',
-    subject: getLabel( 'subject', lang ),
+    subject: getLabel( 'subject', {
+      nbr: notifications.length,
+      date: moment( notifications[ notifications.length - 1 ].createdAt ).locale( lang ).format( 'LLL' )
+    }, lang ),
     data: {
       logo: 'https://openagenda.com/images/openagenda.png',
       title: {
-        text: getLabel( 'subject', lang ),
+        text: getLabel( 'dailySummary', lang ),
         link: 'https://openagenda.com/'
       },
       action: {

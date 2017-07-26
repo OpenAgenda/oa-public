@@ -228,6 +228,8 @@ module.exports = ( getUrl, labels, userUid = null, defaultLang = 'fr' ) => {
 
 };
 
+module.exports.defaultGetUrl = defaultGetUrl;
+
 function lowerFirstLetter( string ) {
   return string.charAt( 0 ).toLowerCase() + string.slice( 1 );
 }
