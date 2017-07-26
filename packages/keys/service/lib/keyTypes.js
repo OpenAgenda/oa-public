@@ -1,3 +1,6 @@
 "use strict";
 
-module.exports = [ 'userPublic', 'userPrivate', 'agendaPrivate' ];
+module.exports = [
+  'userPublic', 'userPrivate', 'agendaPrivate',
+  'agendaFullRead'
+];
