@@ -48,6 +48,10 @@ var _keys = require('../redux/modules/keys');
 
 var keysActions = _interopRequireWildcard(_keys);
 
+var _modals = require('../redux/modules/modals');
+
+var modalsActions = _interopRequireWildcard(_modals);
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -82,7 +86,7 @@ var KeysManager = _wrapComponent('KeysManager')((_dec = (0, _reactRedux.connect)
     keys: state.keys.data.items,
     total: state.keys.data.total
   };
-}, _extends({}, keysActions)), _dec(_class = (_temp = _class2 = function (_Component) {
+}, _extends({}, keysActions, modalsActions)), _dec(_class = (_temp = _class2 = function (_Component) {
   _inherits(KeysManager, _Component);
 
   function KeysManager() {
@@ -133,7 +137,9 @@ var KeysManager = _wrapComponent('KeysManager')((_dec = (0, _reactRedux.connect)
     value: function renderKey(item, index) {
       var _this3 = this;
 
-      var updateKey = this.props.update;
+      var _props = this.props,
+          updateKey = _props.update,
+          showModal = _props.showModal;
       var getLabel = this.context.getLabel;
       var _state = this.state,
           copied = _state.copied,
@@ -214,6 +220,16 @@ var KeysManager = _wrapComponent('KeysManager')((_dec = (0, _reactRedux.connect)
                     _react3.default.createElement('i', { className: 'fa fa-clipboard', 'aria-hidden': 'true' })
                   )
                 )
+              ),
+              _react3.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-default',
+                  onClick: function onClick() {
+                    return showModal('removeKey', { key: item.key });
+                  }
+                },
+                _react3.default.createElement('i', { className: 'fa fa-trash text-danger', 'aria-hidden': 'true' })
               )
             )
           )
@@ -223,9 +239,9 @@ var KeysManager = _wrapComponent('KeysManager')((_dec = (0, _reactRedux.connect)
   }, {
     key: 'render',
     value: function render() {
-      var _props = this.props,
-          keys = _props.keys,
-          create = _props.create;
+      var _props2 = this.props,
+          keys = _props2.keys,
+          create = _props2.create;
       var getLabel = this.context.getLabel;
 
 

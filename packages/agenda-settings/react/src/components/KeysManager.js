@@ -6,13 +6,14 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import MoreInfo from 'react-components/build/MoreInfo';
 import EditKeyForm from './EditKeyForm';
 import * as keysActions from '../redux/modules/keys';
+import * as modalsActions from '../redux/modules/modals';
 
 @connect(
   state => ({
     keys: state.keys.data.items,
     total: state.keys.data.total
   }),
-  { ...keysActions }
+  { ...keysActions, ...modalsActions }
 )
 export default class KeysManager extends Component {
 
@@ -49,7 +50,7 @@ export default class KeysManager extends Component {
   }
 
   renderKey( item, index ) {
-    const { update: updateKey } = this.props;
+    const { update: updateKey, showModal } = this.props;
     const { getLabel } = this.context;
     const { copied, inEdition } = this.state;
 
@@ -82,6 +83,7 @@ export default class KeysManager extends Component {
               </span>
             </div>}
         </div>
+
         <div className="col-md-8">
           <div className="input-group">
             <input
@@ -101,6 +103,12 @@ export default class KeysManager extends Component {
                   </button>
                 </CopyToClipboard>
               </MoreInfo>
+                <button
+                  className="btn btn-default"
+                  onClick={() => showModal( 'removeKey', { key: item.key } )}
+                >
+                  <i className="fa fa-trash text-danger" aria-hidden="true"></i>
+                </button>
             </span>
           </div>
         </div>
@@ -121,7 +129,7 @@ export default class KeysManager extends Component {
           onClick={() => create()}
         >
           {getLabel( 'generateKey' )}
-          </a>
+        </a>
       </div>
     );
 

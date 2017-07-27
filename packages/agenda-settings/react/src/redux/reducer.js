@@ -4,6 +4,7 @@ import { reducer as reduxAsyncConnect } from 'redux-connect';
 import { reducer as form } from 'redux-form';
 import agenda, { formPlugin as agendaPlugin } from './modules/agenda';
 import modal from './modules/modal';
+import modals from './modules/modals';
 import keys from './modules/keys';
 
 export default combineReducers( {
@@ -15,6 +16,7 @@ export default combineReducers( {
   res: ( s = {} ) => s,
   settings: ( s = {} ) => s,
   agenda,
+  modals,
   modal,
   keys
 } );

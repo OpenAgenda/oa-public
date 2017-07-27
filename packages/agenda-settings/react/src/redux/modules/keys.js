@@ -7,12 +7,17 @@ const CREATE_FAIL = 'agenda-settings/keys/CREATE_FAIL';
 const UPDATE = 'agenda-settings/keys/UPDATE';
 const UPDATE_SUCCESS = 'agenda-settings/keys/UPDATE_SUCCESS';
 const UPDATE_FAIL = 'agenda-settings/keys/UPDATE_FAIL';
+const REMOVE = 'agenda-settings/keys/REMOVE';
+const REMOVE_SUCCESS = 'agenda-settings/keys/REMOVE_SUCCESS';
+const REMOVE_FAIL = 'agenda-settings/keys/REMOVE_FAIL';
 
 const initialState = {
   loaded: false
 };
 
 export default function reducer( state = initialState, action ) {
+
+  let index;
 
   switch ( action.type ) {
 
@@ -67,7 +72,7 @@ export default function reducer( state = initialState, action ) {
         updateError: null
       };
     case UPDATE_SUCCESS:
-      const index = state.data.items.findIndex( v => v.key === action.key );
+      index = state.data.items.findIndex( v => v.key === action.key );
       return {
         ...state,
         updateLoading: false,
@@ -86,6 +91,32 @@ export default function reducer( state = initialState, action ) {
         ...state,
         updateLoading: false,
         updateError: action.error
+      };
+    case REMOVE:
+      return {
+        ...state,
+        removeLoading: true,
+        removeError: null
+      };
+    case REMOVE_SUCCESS:
+      index = state.data.items.findIndex( v => v.key === action.key );
+      return {
+        ...state,
+        removeLoading: false,
+        removeError: null,
+        data: {
+          ...state.data,
+          items: [
+            ...state.data.items.slice( 0, index ),
+            ...state.data.items.slice( index + 1 )
+          ]
+        }
+      };
+    case REMOVE_FAIL:
+      return {
+        ...state,
+        removeLoading: false,
+        removeError: action.error
       };
     default:
       return state;
@@ -123,4 +154,14 @@ export function update( key, values ) {
       data: values
     } )
   }
+}
+
+export function remove( key ) {
+  return {
+    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
+    key,
+    promise: ( client, { res, agenda } ) => client.del( res.keys.remove.replace( ':slug', agenda.slug ), {
+      query: { key }
+    } )
+  };
 }

@@ -6,7 +6,7 @@ import { updateSyncErrors } from 'redux-form/lib/actions';
 import ImageUpload from 'image-upload';
 import Modal from 'react-components/build/Modal';
 import * as agendaActions from '../../redux/modules/agenda';
-import * as modalActions from '../../redux/modules/modal';
+import * as modalsActions from '../../redux/modules/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
@@ -19,11 +19,11 @@ const displayInputError = ( { dirty, touched } ) => touched && dirty;
       initialValues: { uid, title, description, url, slug },
       res: state.res,
       agenda: state.agenda.data,
-      modal: state.modal,
+      modals: state.modals,
       imageChanged: state.agenda.imageChanged
     };
   },
-  { ...agendaActions, ...modalActions, onSubmit: agendaActions.edit }
+  { ...agendaActions, ...modalsActions, onSubmit: agendaActions.edit }
 )
 @reduxForm( {
   form: 'profileEdition',
@@ -73,24 +73,11 @@ export default class ProfileEdition extends Component {
   }
 
   render() {
-    const { handleSubmit, agenda, modal, imageUploaded, imageChanged, res, setModal, remove } = this.props;
+    const {
+      handleSubmit, agenda, modals, imageUploaded,
+      imageChanged, res, showModal, closeModal, remove
+    } = this.props;
     const { getLabel, lang } = this.context;
-
-    const removeModal = {
-      visible: true,
-      title: getLabel( 'removeAgenda' ),
-      content: <div>
-        <p>{getLabel( 'removeAgendaWarning' )}</p>
-        <button className="btn btn-primary" onClick={() => setModal( { visible: false } )}>
-          {getLabel( 'close' )}
-        </button>
-        <button className="btn btn-danger pull-right"
-          onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
-        >
-          {getLabel( 'remove' )}
-        </button>
-      </div>
-    };
 
     return (
       <div className="profile">
@@ -146,7 +133,7 @@ export default class ProfileEdition extends Component {
                 displayError={displayInputError}
                 spellCheck={false}
               />
-              <a role="button" className="text-danger" onClick={() => setModal( removeModal )}>
+              <a role="button" className="text-danger" onClick={() => showModal( 'removeAgenda' )}>
                 {getLabel( 'removeAgenda' )}
               </a>
               <div className="pull-right">
@@ -156,10 +143,21 @@ export default class ProfileEdition extends Component {
           </div>
         </div>
 
-        <Modal visible={modal.visible || false}
-          onClose={() => setModal( { visible: false } )}
-          title={modal.title || ''}>
-          {modal.content || ''}
+        <Modal
+          visible={modals[ 'removeAgenda' ] ? modals[ 'removeAgenda' ].visible : false}
+          onClose={() => closeModal( 'removeAgenda' )}
+          title={getLabel( 'removeAgenda' )}
+        >
+          <p>{getLabel( 'removeAgendaWarning' )}</p>
+          <button className="btn btn-primary" onClick={() => closeModal( 'removeAgenda' )}>
+            {getLabel( 'close' )}
+          </button>
+          <button
+            className="btn btn-danger pull-right"
+            onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
+          >
+            {getLabel( 'remove' )}
+          </button>
         </Modal>
       </div>
     );

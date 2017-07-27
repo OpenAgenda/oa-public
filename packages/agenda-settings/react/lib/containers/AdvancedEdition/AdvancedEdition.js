@@ -18,6 +18,8 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _dec, _class, _class2, _temp2;
 
 var _propTypes = require('prop-types');
@@ -34,7 +36,21 @@ var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
 
 var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
 
+var _Modal = require('react-components/build/Modal');
+
+var _Modal2 = _interopRequireDefault(_Modal);
+
 var _components2 = require('../../components');
+
+var _modals = require('../../redux/modules/modals');
+
+var modalsActions = _interopRequireWildcard(_modals);
+
+var _keys = require('../../redux/modules/keys');
+
+var keysActions = _interopRequireWildcard(_keys);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -70,9 +86,10 @@ var zendeskRes = {
 
 var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    agenda: state.agenda.data
+    agenda: state.agenda.data,
+    modals: state.modals
   };
-}), _dec(_class = (_temp2 = _class2 = function (_Component) {
+}, _extends({}, modalsActions, { removeKey: keysActions.remove })), _dec(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(ContributionEdition, _Component);
 
   function ContributionEdition() {
@@ -149,11 +166,17 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
   }, {
     key: 'render',
     value: function render() {
-      var agenda = this.props.agenda;
+      var _props = this.props,
+          agenda = _props.agenda,
+          modals = _props.modals,
+          closeModal = _props.closeModal,
+          removeKey = _props.removeKey;
       var _context = this.context,
           getLabel = _context.getLabel,
           lang = _context.lang;
 
+
+      var removeModal = modals['removeKey'] || {};
 
       return _react3.default.createElement(
         'div',
@@ -172,6 +195,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
             _react3.default.createElement(
               'tbody',
               null,
+              this.renderTableRow('keys', _react3.default.createElement(
+                'b',
+                null,
+                getLabel('accessKeys')
+              ), getLabel('manageKeys'), _react3.default.createElement(_components2.KeysManager, null)),
               this.renderTableRow('official', _react3.default.createElement(
                 'b',
                 null,
@@ -280,6 +308,41 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                 )
               ))
             )
+          )
+        ),
+        removeModal.visible && _react3.default.createElement(
+          _Modal2.default,
+          {
+            onClose: function onClose() {
+              return closeModal('removeKey');
+            },
+            title: getLabel('removeKey')
+          },
+          _react3.default.createElement(
+            'p',
+            null,
+            getLabel('removeKeyWarning')
+          ),
+          _react3.default.createElement(
+            'button',
+            { className: 'btn btn-primary', onClick: function onClick() {
+                return closeModal('removeKey');
+              } },
+            getLabel('close')
+          ),
+          _react3.default.createElement(
+            'button',
+            {
+              className: 'btn btn-danger pull-right',
+              onClick: function onClick() {
+                return removeKey(removeModal.options.key).then(function () {
+                  return closeModal('removeKey');
+                }).catch(function () {
+                  return closeModal('removeKey');
+                });
+              }
+            },
+            getLabel('remove')
           )
         )
       );

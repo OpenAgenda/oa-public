@@ -11,6 +11,7 @@ exports.isLoaded = isLoaded;
 exports.load = load;
 exports.create = create;
 exports.update = update;
+exports.remove = remove;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
@@ -23,6 +24,9 @@ var CREATE_FAIL = 'agenda-settings/keys/CREATE_FAIL';
 var UPDATE = 'agenda-settings/keys/UPDATE';
 var UPDATE_SUCCESS = 'agenda-settings/keys/UPDATE_SUCCESS';
 var UPDATE_FAIL = 'agenda-settings/keys/UPDATE_FAIL';
+var REMOVE = 'agenda-settings/keys/REMOVE';
+var REMOVE_SUCCESS = 'agenda-settings/keys/REMOVE_SUCCESS';
+var REMOVE_FAIL = 'agenda-settings/keys/REMOVE_FAIL';
 
 var initialState = {
   loaded: false
@@ -32,6 +36,8 @@ function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
   var action = arguments[1];
 
+
+  var index = void 0;
 
   switch (action.type) {
 
@@ -78,7 +84,7 @@ function reducer() {
         updateError: null
       });
     case UPDATE_SUCCESS:
-      var index = state.data.items.findIndex(function (v) {
+      index = state.data.items.findIndex(function (v) {
         return v.key === action.key;
       });
       return _extends({}, state, {
@@ -92,6 +98,27 @@ function reducer() {
       return _extends({}, state, {
         updateLoading: false,
         updateError: action.error
+      });
+    case REMOVE:
+      return _extends({}, state, {
+        removeLoading: true,
+        removeError: null
+      });
+    case REMOVE_SUCCESS:
+      index = state.data.items.findIndex(function (v) {
+        return v.key === action.key;
+      });
+      return _extends({}, state, {
+        removeLoading: false,
+        removeError: null,
+        data: _extends({}, state.data, {
+          items: [].concat(_toConsumableArray(state.data.items.slice(0, index)), _toConsumableArray(state.data.items.slice(index + 1)))
+        })
+      });
+    case REMOVE_FAIL:
+      return _extends({}, state, {
+        removeLoading: false,
+        removeError: action.error
       });
     default:
       return state;
@@ -137,6 +164,20 @@ function update(key, values) {
       return client.patch(res.keys.update.replace(':slug', agenda.slug), {
         query: { key: key },
         data: values
+      });
+    }
+  };
+}
+
+function remove(key) {
+  return {
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
+    key: key,
+    promise: function promise(client, _ref4) {
+      var res = _ref4.res,
+          agenda = _ref4.agenda;
+      return client.del(res.keys.remove.replace(':slug', agenda.slug), {
+        query: { key: key }
       });
     }
   };

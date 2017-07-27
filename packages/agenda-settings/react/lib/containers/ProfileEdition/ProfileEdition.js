@@ -44,9 +44,9 @@ var _agenda = require('../../redux/modules/agenda');
 
 var agendaActions = _interopRequireWildcard(_agenda);
 
-var _modal = require('../../redux/modules/modal');
+var _modals = require('../../redux/modules/modals');
 
-var modalActions = _interopRequireWildcard(_modal);
+var modalsActions = _interopRequireWildcard(_modals);
 
 var _validate = require('./validate');
 
@@ -99,10 +99,10 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
     initialValues: { uid: uid, title: title, description: description, url: url, slug: slug },
     res: state.res,
     agenda: state.agenda.data,
-    modal: state.modal,
+    modals: state.modals,
     imageChanged: state.agenda.imageChanged
   };
-}, _extends({}, agendaActions, modalActions, { onSubmit: agendaActions.edit })), _dec2 = (0, _reduxForm.reduxForm)({
+}, _extends({}, agendaActions, modalsActions, { onSubmit: agendaActions.edit })), _dec2 = (0, _reduxForm.reduxForm)({
   form: 'profileEdition',
   validate: _validate.validate,
   asyncValidate: _validate.asyncValidate,
@@ -168,49 +168,17 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
       var _props2 = this.props,
           handleSubmit = _props2.handleSubmit,
           agenda = _props2.agenda,
-          modal = _props2.modal,
+          modals = _props2.modals,
           imageUploaded = _props2.imageUploaded,
           imageChanged = _props2.imageChanged,
           res = _props2.res,
-          setModal = _props2.setModal,
+          showModal = _props2.showModal,
+          closeModal = _props2.closeModal,
           remove = _props2.remove;
       var _context = this.context,
           getLabel = _context.getLabel,
           lang = _context.lang;
 
-
-      var removeModal = {
-        visible: true,
-        title: getLabel('removeAgenda'),
-        content: _react3.default.createElement(
-          'div',
-          null,
-          _react3.default.createElement(
-            'p',
-            null,
-            getLabel('removeAgendaWarning')
-          ),
-          _react3.default.createElement(
-            'button',
-            { className: 'btn btn-primary', onClick: function onClick() {
-                return setModal({ visible: false });
-              } },
-            getLabel('close')
-          ),
-          _react3.default.createElement(
-            'button',
-            { className: 'btn btn-danger pull-right',
-              onClick: function onClick() {
-                return remove().then(function (_ref2) {
-                  var result = _ref2.result;
-                  return window.location.href = result.redirectTo || '/';
-                });
-              }
-            },
-            getLabel('remove')
-          )
-        )
-      };
 
       return _react3.default.createElement(
         'div',
@@ -284,7 +252,7 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
               _react3.default.createElement(
                 'a',
                 { role: 'button', className: 'text-danger', onClick: function onClick() {
-                    return setModal(removeModal);
+                    return showModal('removeAgenda');
                   } },
                 getLabel('removeAgenda')
               ),
@@ -298,12 +266,38 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
         ),
         _react3.default.createElement(
           _Modal2.default,
-          { visible: modal.visible || false,
+          {
+            visible: modals['removeAgenda'] ? modals['removeAgenda'].visible : false,
             onClose: function onClose() {
-              return setModal({ visible: false });
+              return closeModal('removeAgenda');
             },
-            title: modal.title || '' },
-          modal.content || ''
+            title: getLabel('removeAgenda')
+          },
+          _react3.default.createElement(
+            'p',
+            null,
+            getLabel('removeAgendaWarning')
+          ),
+          _react3.default.createElement(
+            'button',
+            { className: 'btn btn-primary', onClick: function onClick() {
+                return closeModal('removeAgenda');
+              } },
+            getLabel('close')
+          ),
+          _react3.default.createElement(
+            'button',
+            {
+              className: 'btn btn-danger pull-right',
+              onClick: function onClick() {
+                return remove().then(function (_ref2) {
+                  var result = _ref2.result;
+                  return window.location.href = result.redirectTo || '/';
+                });
+              }
+            },
+            getLabel('remove')
+          )
         )
       );
     }

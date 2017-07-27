@@ -81,7 +81,7 @@ app.get( '/:slug/keys/get',
     next();
   },
   keysMw.get(),
-  (req, res, next) => res.send( req.result )
+  ( req, res, next ) => res.send( req.result )
 );
 
 app.get( '/:slug/keys/list',
@@ -94,7 +94,7 @@ app.get( '/:slug/keys/list',
     next();
   },
   keysMw.list(),
-  (req, res, next) => res.send( req.result )
+  ( req, res, next ) => res.send( req.result )
 );
 
 app.patch( '/:slug/keys/update',
@@ -107,7 +107,7 @@ app.patch( '/:slug/keys/update',
     next();
   },
   keysMw.update(),
-  (req, res, next) => res.send( req.result )
+  ( req, res, next ) => res.send( req.result )
 );
 
 app.delete( '/:slug/keys/remove',
@@ -120,7 +120,7 @@ app.delete( '/:slug/keys/remove',
     next();
   },
   keysMw.remove(),
-  (req, res, next) => res.send( req.result )
+  ( req, res, next ) => res.send( { rowAffected: req.result } )
 );
 
 

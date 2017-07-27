@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 import openFormRequest from 'call-to-action/react/dist/openRequestForm';
+import Modal from 'react-components/build/Modal';
 import { KeysManager } from '../../components';
+import * as  modalsActions from '../../redux/modules/modals';
+import * as  keysActions from '../../redux/modules/keys';
 
 const zendeskRes = {
   official: 'https://openagenda.zendesk.com/hc/articles/115001581185',
@@ -12,8 +15,10 @@ const zendeskRes = {
 
 @connect(
   state => ({
-    agenda: state.agenda.data
-  })
+    agenda: state.agenda.data,
+    modals: state.modals
+  }),
+  { ...modalsActions, removeKey: keysActions.remove }
 )
 export default class ContributionEdition extends Component {
 
@@ -66,8 +71,10 @@ export default class ContributionEdition extends Component {
   }
 
   render() {
-    const { agenda } = this.props;
+    const { agenda, modals, closeModal, removeKey } = this.props;
     const { getLabel, lang } = this.context;
+
+    const removeModal = modals[ 'removeKey' ] || {};
 
     return (
       <div className="advanced">
@@ -77,12 +84,12 @@ export default class ContributionEdition extends Component {
           <table className="table">
             <tbody>
 
-            {/* this.renderTableRow(
+            {this.renderTableRow(
               'keys',
               <b>{getLabel( 'accessKeys' )}</b>,
               getLabel( 'manageKeys' ),
               <KeysManager />
-            ) */}
+            )}
 
             {this.renderTableRow(
               'official',
@@ -165,6 +172,24 @@ export default class ContributionEdition extends Component {
             </tbody>
           </table>
         </div>
+
+        {removeModal.visible &&
+        <Modal
+          onClose={() => closeModal( 'removeKey' )}
+          title={getLabel( 'removeKey' )}
+        >
+          <p>{getLabel( 'removeKeyWarning' )}</p>
+          <button className="btn btn-primary" onClick={() => closeModal( 'removeKey' )}>
+            {getLabel( 'close' )}
+          </button>
+          <button
+            className="btn btn-danger pull-right"
+            onClick={() => removeKey( removeModal.options.key )
+              .then( () => closeModal( 'removeKey' ) ).catch( () => closeModal( 'removeKey' ) )}
+          >
+            {getLabel( 'remove' )}
+          </button>
+        </Modal>}
       </div>
     );
   }
