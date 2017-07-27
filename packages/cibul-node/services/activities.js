@@ -24,6 +24,7 @@ module.exports.init = ( config, cb ) => {
       },
       redis: config.redis
     },
+    root: config.root,
     filterFollows: [ {
       verb: [ 'event.create', 'event.update', 'agenda.unpublishEvent' ],
       getFeeds: true,
@@ -37,7 +38,14 @@ module.exports.init = ( config, cb ) => {
 
       }
     }, {
-      verb: [ 'event.create', 'event.update', 'agenda.publishEvent', 'agenda.unpublishEvent' ],
+      verb: [
+        'event.create',
+        'event.update',
+        'agenda.publishEvent',
+        'agenda.unpublishEvent',
+        'agenda.removeEvent',
+        'agenda.changeEventState'
+      ],
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 

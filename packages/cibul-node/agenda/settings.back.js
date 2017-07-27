@@ -96,7 +96,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       ( req, res, next ) => {
         req.identifiers = {
-          type: 'agendaPrivate',
+          type: 'agendaFullRead',
           identifier: req.agenda.uid
         };
         next();
@@ -109,7 +109,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       ( req, res, next ) => {
         req.identifiers = {
-          type: 'agendaPrivate',
+          type: 'agendaFullRead',
           identifier: req.agenda.uid,
           key: req.query.key
         };
@@ -123,7 +123,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       ( req, res, next ) => {
         req.identifiers = {
-          type: 'agendaPrivate',
+          type: 'agendaFullRead',
           identifier: req.agenda.uid
         };
         req.options = { total: true };
@@ -137,7 +137,7 @@ module.exports = path => {
       cmn.checkAdministrator(),
       ( req, res, next ) => {
         req.identifiers = {
-          type: 'agendaPrivate',
+          type: 'agendaFullRead',
           identifier: req.agenda.uid,
           key: req.query.key
         };
@@ -151,14 +151,14 @@ module.exports = path => {
       cmn.checkAdministrator(),
       ( req, res, next ) => {
         req.identifiers = {
-          type: 'agendaPrivate',
+          type: 'agendaFullRead',
           identifier: req.agenda.uid,
           key: req.query.key
         };
         next();
       },
       keysMw.remove(),
-      (req, res, next) => res.send( req.result )
+      (req, res, next) => res.send( { rowAffected: req.result } )
     ] ]
   };
 

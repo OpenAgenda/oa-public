@@ -114,7 +114,7 @@ function onCreate( channel, agenda ) {
 
       } );
 
-      keys( { type: 'agendaPrivate', identifier: agenda.uid } ).create()
+      keys( { type: 'agendaFullRead', identifier: agenda.uid } ).create()
         .catch( err => {
 
           log( 'error', err );

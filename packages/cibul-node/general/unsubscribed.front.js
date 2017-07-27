@@ -40,6 +40,8 @@ module.exports = ( parentApp, path ) => {
 
         return async.eachOfSeries( req.result.unsubscriptions, ( item, key, cb ) => {
 
+          if ( item.subject !== 'agenda' ) return cb();
+
           agendasSvc.get( { uid: item.identifier }, ( err, agenda ) => {
 
             if ( err ) return cb( err );
@@ -75,6 +77,14 @@ module.exports = ( parentApp, path ) => {
   } );
 
   parentApp.get( path + unsubscribed.app.routes.remove.replace( '/t/:type', '' ), ( req, res ) => {
+
+    if ( req.result ) return res.json( req.result );
+
+    res.status( 400 ).json( null );
+
+  } );
+
+  parentApp.get( path + unsubscribed.app.routes.remove.replace( '.:identifier', '' ), ( req, res ) => {
 
     if ( req.result ) return res.json( req.result );
 

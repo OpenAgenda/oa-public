@@ -4,14 +4,12 @@
  * common web app module middleware and initialization functions
  */
 
+const _ = require( 'lodash' );
+const sessions = require( 'sessions' );
+const keys = require( 'keys' );
+const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
 
-const sessions = require( 'sessions' ),
-
-  _ = require( 'lodash' ),
-
-  detailedSessionLoad = sessions.middleware.load( { detailed: true } ),
-
-  getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
+const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
 module.exports = {
 
@@ -316,11 +314,18 @@ function checkStakeholder( req, res, next ) {
 
 function checkAdminOrModeratorOrKey( req, res, next ) {
 
-  checkAdminOrModerator( req, res, err => {
+  checkAdminOrModerator( req, res, async err => {
 
-    if ( !err ) return next();
+    if ( !err ) return next(); // If admin or moderator
 
-    if ( !req.agenda.isKeyValid( req.query.key ) ) {
+    let key;
+
+    try {
+      key = await keys( { type: 'agendaFullRead', identifier: req.agenda.uid, key: req.query.key } ).get();
+    } catch ( e ) {
+    }
+
+    if ( !key ) {
 
       return next( {
         message: 'the key is invalid',
@@ -398,7 +403,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     req.log( 'error', 'received error: %s', JSON.stringify( error ) );
 
-    console.error( ( new Date ).toUTCString() +  ' caught: %s', JSON.stringify( error ) );
+    console.error( ( new Date ).toUTCString() + ' caught: %s', JSON.stringify( error ) );
 
     console.error( error.stack ? error.stack : 'no stack' );
 
