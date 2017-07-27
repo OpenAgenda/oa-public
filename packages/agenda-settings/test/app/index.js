@@ -62,7 +62,7 @@ app.post( '/:slug/remove', [
 app.post( '/:slug/keys/create',
   ( req, res, next ) => {
     req.identifiers = {
-      type: 'agendaPrivate',
+      type: 'agendaFullRead',
       identifier: req.agenda.uid
     };
     next();
@@ -74,7 +74,7 @@ app.post( '/:slug/keys/create',
 app.get( '/:slug/keys/get',
   ( req, res, next ) => {
     req.identifiers = {
-      type: 'agendaPrivate',
+      type: 'agendaFullRead',
       identifier: req.agenda.uid,
       key: req.query.key
     };
@@ -87,7 +87,7 @@ app.get( '/:slug/keys/get',
 app.get( '/:slug/keys/list',
   ( req, res, next ) => {
     req.identifiers = {
-      type: 'agendaPrivate',
+      type: 'agendaFullRead',
       identifier: req.agenda.uid
     };
     req.options = { total: true };
@@ -100,7 +100,7 @@ app.get( '/:slug/keys/list',
 app.patch( '/:slug/keys/update',
   ( req, res, next ) => {
     req.identifiers = {
-      type: 'agendaPrivate',
+      type: 'agendaFullRead',
       identifier: req.agenda.uid,
       key: req.query.key
     };
@@ -113,7 +113,7 @@ app.patch( '/:slug/keys/update',
 app.delete( '/:slug/keys/remove',
   ( req, res, next ) => {
     req.identifiers = {
-      type: 'agendaPrivate',
+      type: 'agendaFullRead',
       identifier: req.agenda.uid,
       key: req.query.key
     };
