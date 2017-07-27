@@ -19,11 +19,18 @@ const logger = require( 'logger' ),
   q = require( 'queue' )( config.queues.oembed, { redis: config.redis } );
 
 
-let log;
+let log = console.log;
 
 
 module.exports = {
-  task
+  task,
+  process: function( v, cb ) { 
+
+    log( 'info', 'dud process for %s', JSON.stringify( v ) );
+
+    cb(); 
+
+  }
 }
 
 

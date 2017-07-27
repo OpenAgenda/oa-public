@@ -54,7 +54,7 @@ function task() {
 
     } catch ( e ) {
 
-      throw new VError( e, 'legacyTransfer failed for action with values %s', JSON.stringify( action ) );
+      log( 'error', 'legacyTransfer failed for action with values %s', JSON.stringify( action ) );
 
     }
 
