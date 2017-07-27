@@ -31,6 +31,7 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
     aggregatorAgendaId,
     upcomingOnly,
     preexisting: null,
+    loop: false,
     added: false
   } )
 
@@ -40,9 +41,11 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 
   .then( _checkNoSource )
 
-  .then( p.ife( { preexisting: false }, _createSource ) )
+  .then( p.ife( { preexisting: false }, _checkNoLoop ) )
 
-  .then( _dispatchProcessJob )
+  .then( p.ife( { preexisting: false, loop: false }, _createSource ) )
+
+  .then( p.ife( { added: true }, _dispatchProcessJob ) )
 
   .done( v => {
 
@@ -56,15 +59,16 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
         upcomingOnly: upcomingOnly
       }, sourceId, aggregatorAgendaId );
 
+      notify.newSource( {
+        sourceId, 
+        aggregatorAgendaId
+      } );
+
     }
 
-    notify.newSource( {
-      sourceId, 
-      aggregatorAgendaId
-    } );
-
     cb( null, {
-      added: v.added
+      added: v.added,
+      loop: v.loop
     } );
 
   }, cb );
@@ -197,6 +201,25 @@ function _checkNoSource( v ) {
 
 }
 
+
+function _checkNoLoop( v ) {
+
+  return new Promise( ( rs, rj ) => {
+
+    // if source is an aggregator, check its sources to verify that they are not final agregators
+    aggUtils.getAllAggregatorIds( v.aggregatorAgenda.id, ( err, ids ) => {
+
+      if ( err ) return rj( err );
+
+      v.loop = ids.includes( v.sourceAgenda.id );
+
+      rs( v );
+
+    } );
+
+  } );
+
+}
 
 function _streamEvaluates( v ) {
 

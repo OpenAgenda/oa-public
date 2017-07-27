@@ -148,16 +148,26 @@ function json( req, res ) {
 
 function addSource( req, res, next ) {
 
-  req.aggregatorAgenda.sources.add( req.agenda, function( err ) {
+  req.aggregatorAgenda.sources.add( req.agenda, ( err, result ) => {
 
     if ( err ) return next( err );
 
-    sessions.setFlash( req, res, getAggLabel( 'sourceAdded', {
-      source : '<strong>' + req.agenda.title + '</strong>',
-      agg : '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    }, req.lang ) );
+    if ( result.added ) {
 
-    res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
+      sessions.setFlash( req, res, getAggLabel( 'sourceAdded', {
+        source : '<strong>' + req.agenda.title + '</strong>',
+        agg : '<strong>' + req.aggregatorAgenda.title + '</strong>'
+      }, req.lang ) );
+
+    } else if ( result.loop ) {
+
+      sessions.setFlash( req, res, getAggLabel( 'aggregationLoop', req.lang ) );
+
+    }
+
+    res.redirect( 302, req.genUrl( 'agendaShow', { 
+      slug: req.agenda.slug
+    } ) );
 
   } );
 
