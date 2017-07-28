@@ -87,4 +87,48 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
 
   } );
 
+
+  it( 'call message for one user', done => {
+
+    let i = 0;
+
+    // for testing: overload interface function onMessage
+    service.init( _.extend( {}, config, {
+      queue: queueTestConfig,
+      interfaces: _.extend( {}, config.interfaces, {
+        onMessage: ( stakeholder, message, context, cb ) => {
+
+          i++;
+
+          stakeholder.userId.should.equal( 7412 );
+
+          message.should.equal( '**remember how she said that we would meet again**' );
+
+          cb();
+
+          if ( i === 1 ) {
+
+            done();
+
+          }
+
+        }
+      } )
+    } ), () => {
+
+      service.agenda( 4608 ).message(
+        { userId: 7412 },
+        '**remember how she said that we would meet again**',
+        { lang: 'fr' },
+        () => {}
+      );
+
+      // run task
+      service.tasks.message();
+
+    } );
+
+
+  } );
+
 } );
