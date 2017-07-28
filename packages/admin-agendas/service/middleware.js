@@ -110,7 +110,7 @@ function agendaStakeholdersList( req, res, next ) {
 
   var agendaId = req.query.agendaId,
 
-    query = {},
+    query = { order: 'credential' },
 
     offset = 0,
 
