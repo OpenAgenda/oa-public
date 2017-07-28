@@ -108,6 +108,22 @@ describe( 'event-search - functional: rebuild', function() {
 
       } );
 
+      it( '.exists endpoint indicates when an index does not exist', async () => {
+
+        let exists = await service( 'this_alias_does_not_exist' ).exists();
+
+        exists.should.equal( false );
+
+      } );
+
+      it( '.exists endpoint indicates when an alias/index exists', async () => {
+
+        let exists = await service( 'test_alias' ).exists();
+
+        exists.should.equal( true );
+
+      } );
+
     } );
 
   } );

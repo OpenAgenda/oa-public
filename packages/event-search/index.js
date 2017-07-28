@@ -11,6 +11,7 @@ const deleteIndex = require( './service/deleteIndex' );
 module.exports = alias => {
 
   return {
+    exists: _exists.bind( null, alias ),
     rebuild: rebuild.bind( null, alias ),
     deleteIndex: deleteIndex.bind( null, alias ),
 
@@ -25,3 +26,12 @@ module.exports = alias => {
 module.exports.init = configStore.init;
 
 module.exports.getConfig = () => configStore;
+
+
+async function _exists( alias ) {
+
+  return configStore.client.indices.existsAlias( {
+    name: alias
+  } );
+
+}
