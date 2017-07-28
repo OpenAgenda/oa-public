@@ -46,9 +46,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
     window.document.body.insertBefore( devToolsDest, null );
     const DevTools = require( './ReduxDevTools' );
     ReactDOM.render(
-      <Provider store={store} key="provider">
-        <DevTools />
-      </Provider>,
+      <DevTools store={store} />,
       devToolsDest
     );
   }

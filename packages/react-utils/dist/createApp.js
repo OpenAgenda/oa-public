@@ -44,11 +44,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
     var devToolsDest = document.createElement('div');
     window.document.body.insertBefore(devToolsDest, null);
     var DevTools = require('./ReduxDevTools');
-    _reactDom2.default.render(_react2.default.createElement(
-      _reactRedux.Provider,
-      { store: store, key: 'provider' },
-      _react2.default.createElement(DevTools, null)
-    ), devToolsDest);
+    _reactDom2.default.render(_react2.default.createElement(DevTools, { store: store }), devToolsDest);
   }
 
   if (fn) fn({ client: client, store: store, history: history });
