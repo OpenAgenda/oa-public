@@ -94,7 +94,7 @@ export default class ContributionEdition extends Component {
             {this.renderTableRow(
               'official',
               <b>{getLabel( 'labeling' )}</b>,
-              getLabel( agenda.official ? 'officialAgenda' : 'nonOfficialAgenda' ),
+              <b className="text-muted">{getLabel( agenda.official ? 'officialAgenda' : 'nonOfficialAgenda' )}</b>,
               <div>
                 {agenda.official
                   ? <a href={zendeskRes.official} target="_blank">{getLabel( 'learnMore' )}</a>
@@ -119,7 +119,7 @@ export default class ContributionEdition extends Component {
             {this.renderTableRow(
               'private',
               <b>{getLabel( 'visibility' )}</b>,
-              getLabel( agenda.private ? 'privateAgenda' : 'publicAgenda' ),
+              <b className="text-muted">{getLabel( agenda.private ? 'privateAgenda' : 'publicAgenda' )}</b>,
               <div>
                 {agenda.private
                   ? <div>

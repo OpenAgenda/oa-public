@@ -204,7 +204,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                 'b',
                 null,
                 getLabel('labeling')
-              ), getLabel(agenda.official ? 'officialAgenda' : 'nonOfficialAgenda'), _react3.default.createElement(
+              ), _react3.default.createElement(
+                'b',
+                { className: 'text-muted' },
+                getLabel(agenda.official ? 'officialAgenda' : 'nonOfficialAgenda')
+              ), _react3.default.createElement(
                 'div',
                 null,
                 agenda.official ? _react3.default.createElement(
@@ -239,7 +243,11 @@ var ContributionEdition = _wrapComponent('ContributionEdition')((_dec = (0, _rea
                 'b',
                 null,
                 getLabel('visibility')
-              ), getLabel(agenda.private ? 'privateAgenda' : 'publicAgenda'), _react3.default.createElement(
+              ), _react3.default.createElement(
+                'b',
+                { className: 'text-muted' },
+                getLabel(agenda.private ? 'privateAgenda' : 'publicAgenda')
+              ), _react3.default.createElement(
                 'div',
                 null,
                 agenda.private ? _react3.default.createElement(
