@@ -8,6 +8,7 @@ const _ = require( 'lodash' );
 const sessions = require( 'sessions' );
 const keys = require( 'keys' );
 const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
+const hsts = require( 'hsts' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
@@ -807,7 +808,14 @@ function https( req, res, next ) {
 
   req.log( 'forcing https: redirecting to %s', redirectTo );
 
-  res.redirect( 301, redirectTo );
+  hsts({
+    maxAge: 15552000,
+    includeSubDomains: false
+  })( req, res, () => {
+
+    res.redirect( 301, redirectTo );
+
+  } );
 
 }
 
