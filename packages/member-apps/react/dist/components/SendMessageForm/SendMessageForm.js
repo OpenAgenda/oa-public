@@ -50,6 +50,10 @@ var _validate2 = _interopRequireDefault(_validate);
 
 var _form = require('../../utils/form');
 
+var _Spinner = require('react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _components = {
@@ -94,7 +98,9 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
     key: 'render',
     value: function render() {
       var handleSubmit = this.props.handleSubmit;
-      var getLabel = this.context.getLabel;
+      var _context = this.context,
+          getLabel = _context.getLabel,
+          lang = _context.lang;
 
 
       return _react3.default.createElement(
@@ -106,14 +112,20 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
           name: 'replyTo',
           type: 'text',
           classNameGroup: 'margin-v-md',
-          className: 'form-control'
+          className: 'form-control',
+          placeholder: lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'
         }),
         _react3.default.createElement(_reduxForm.Field, {
           label: getLabel('message'),
           component: this.renderMarkdownInput,
           name: 'message',
           classNameGroup: 'margin-top-md margin-bottom-lg',
-          displayFeedback: false
+          displayFeedback: false,
+          loadComponent: _react3.default.createElement(
+            'div',
+            { style: { height: '200px', position: 'relative' } },
+            _react3.default.createElement(_Spinner2.default, null)
+          )
         }),
         _react3.default.createElement(
           'div',
@@ -129,7 +141,8 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
   }]);
   return SendMessageForm;
 }(_react2.Component), _class2.contextTypes = {
-  getLabel: _propTypes2.default.func
+  getLabel: _propTypes2.default.func,
+  lang: _propTypes2.default.string
 }, _temp)) || _class));
 
 exports.default = SendMessageForm;

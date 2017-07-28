@@ -90,9 +90,9 @@ export function renderSearchInput( { type, placeholder, className, spellCheck, a
 
 };
 
-export function renderMarkdownInput( { lang = 'fr', label, placeholder, className, ...props } ) {
+export function renderMarkdownInput( { lang = 'fr', label, placeholder, className, loadComponent, ...props } ) {
 
-  const inputAttrs = { lang, placeholder, label, className };
+  const inputAttrs = { lang, placeholder, label, className, loadComponent };
 
   const content = <MarkdownComponent
     {...props.input}

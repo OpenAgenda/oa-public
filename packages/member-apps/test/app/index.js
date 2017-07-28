@@ -269,7 +269,7 @@ function matchApp( req, res, next ) {
       credentials: Object.assign(
         req.agenda.data.credentials,
         {
-          invitationMessage: false
+          invitationMessage: true
         }
       )
     },

@@ -177,10 +177,11 @@ function renderMarkdownInput(_ref6) {
       label = _ref6.label,
       placeholder = _ref6.placeholder,
       className = _ref6.className,
-      props = (0, _objectWithoutProperties3.default)(_ref6, ['lang', 'label', 'placeholder', 'className']);
+      loadComponent = _ref6.loadComponent,
+      props = (0, _objectWithoutProperties3.default)(_ref6, ['lang', 'label', 'placeholder', 'className', 'loadComponent']);
 
 
-  var inputAttrs = { lang: lang, placeholder: placeholder, label: label, className: className };
+  var inputAttrs = { lang: lang, placeholder: placeholder, label: label, className: className, loadComponent: loadComponent };
 
   var content = _react2.default.createElement(_MarkdownComponent2.default, (0, _extends3.default)({}, props.input, inputAttrs));
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import validate from './validate';
 import { renderField, renderInput, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
+import Spinner from 'react-form-components/build/Spinner';
 
 @reduxForm( {
   form: 'writeToMembers',
@@ -20,13 +21,14 @@ export default class SendMessageForm extends Component {
   }
 
   static contextTypes = {
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+    lang: PropTypes.string
   };
 
   render() {
 
     const { handleSubmit } = this.props;
-    const { getLabel } = this.context;
+    const { getLabel, lang } = this.context;
 
     return (
       <form onSubmit={handleSubmit} className="invite-members-form">
@@ -37,6 +39,7 @@ export default class SendMessageForm extends Component {
           type="text"
           classNameGroup="margin-v-md"
           className="form-control"
+          placeholder={lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'}
         />
         <Field
           label={getLabel( 'message' )}
@@ -44,6 +47,11 @@ export default class SendMessageForm extends Component {
           name="message"
           classNameGroup="margin-top-md margin-bottom-lg"
           displayFeedback={false}
+          loadComponent={
+            <div style={{ height: '200px', position: 'relative' }}>
+              <Spinner />
+            </div>
+          }
         />
 
         <div className="text-center">
