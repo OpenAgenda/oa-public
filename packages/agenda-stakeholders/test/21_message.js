@@ -44,7 +44,7 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
 
   it( '.tasks.message calls onMessage interface for targeted users', done => {
 
-    let i = 0, expected = 4, t; // there are 4 non-zero counter stakeholders in fixtures
+    let i = 0; // there are 4 non-zero counter stakeholders in fixtures
 
     // for testing: overload interface function onMessage
     service.init( _.extend( {}, config, {
@@ -76,14 +76,14 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
         { actionsCounterEqualZero: false },
         '**remember how she said that we would meet again**',
         { lang: 'fr' },
-        () => {}
+        () => {
+        }
       );
 
       // run task
       service.tasks.message();
 
     } );
-
 
   } );
 
@@ -106,11 +106,7 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
 
           cb();
 
-          if ( i === 1 ) {
-
-            done();
-
-          }
+          done();
 
         }
       } )
@@ -120,7 +116,8 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
         { userId: 7412 },
         '**remember how she said that we would meet again**',
         { lang: 'fr' },
-        () => {}
+        () => {
+        }
       );
 
       // run task
@@ -128,6 +125,45 @@ describe( 'agenda-stakeholders - functional (server): message forwarding', funct
 
     } );
 
+  } );
+
+
+  it( 'call message with a stakeholder id', done => {
+
+    let i = 0;
+
+    // for testing: overload interface function onMessage
+    service.init( _.extend( {}, config, {
+      queue: queueTestConfig,
+      interfaces: _.extend( {}, config.interfaces, {
+        onMessage: ( stakeholder, message, context, cb ) => {
+
+          i++;
+
+          stakeholder.id.should.equal( 7035 );
+
+          message.should.equal( '**remember how she said that we would meet again**' );
+
+          cb();
+
+          done();
+
+        }
+      } )
+    } ), () => {
+
+      service.agenda( 4608 ).message(
+        { id: 7035 },
+        '**remember how she said that we would meet again**',
+        { lang: 'fr' },
+        () => {
+        }
+      );
+
+      // run task
+      service.tasks.message();
+
+    } );
 
   } );
 

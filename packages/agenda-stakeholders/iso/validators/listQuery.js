@@ -60,6 +60,10 @@ const listQuerySchema = schema( {
     optional: true,
     options: creds.types.map( c => c.value )
   },
+  id: {
+    type: 'integer',
+    list: { default: null }
+  },
   userId: {
     type: 'integer',
     list: { default: null }

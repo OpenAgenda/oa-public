@@ -102,11 +102,17 @@ function _list( v ) {
   let detailClone;
 
   // not very clear
-  v.knex.where( format.objToDb( _.omit( v.query, [ 'userId' ] ), true ) );
+  v.knex.where( format.objToDb( _.omit( v.query, [ 'id', 'userId' ] ), true ) );
 
   if ( v.query.search !== null ) {
 
     v.knex.andWhere( 'store', 'like', '%' + v.query.search + '%' );
+
+  }
+
+  if ( v.query.id !== null ) {
+
+    v.knex.andWhere( 'id', 'in', v.query.id );
 
   }
 
