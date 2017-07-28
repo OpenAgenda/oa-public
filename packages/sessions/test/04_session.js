@@ -93,7 +93,7 @@ describe( 'session - functional (client): session', () => {
   } );
 
 
-  describe.only( '.notifications', () => {
+  describe( '.notifications', () => {
 
     it( 'returns null if nothing is set', done => {
 

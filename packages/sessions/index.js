@@ -5,12 +5,15 @@ const isoConfig = require( './iso/config' );
 const validate = require( './service/validate' );
 const expressCookie = require( './service/expressCookie' );
 const cookieValidate = require( './iso/cookie.validate' );
+const logger = require( 'basic-logger' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
 const redis = require( 'redis' );
 const parseListArguments = require( 'service-utils/parseListArguments' );
 
 let config, interfaces;
+
+let log = console.log;
 
 module.exports = {
   init,
@@ -239,6 +242,8 @@ function _loadStore( storeNamespace, v ) {
     }
 
     let cli = redis.createClient( config.redis.port, config.redis.host );
+
+    log( 'storing in hash %s and key %s', config.redis.hash, user.uid );
 
     cli.hset( config.redis.hash, user.uid, JSON.stringify( v.result.data ), ( err, result ) => {
 
@@ -515,6 +520,14 @@ function init( c ) {
   config.writableCookie = _.extend( {}, c.writableCookie, {
     name: isoConfig.cookies.writable
   } );
+
+  if ( c.logger ) {
+
+    logger.setLogger( c.logger );
+
+  }
+
+  log = logger( 'sessions' );
 
   interfaces = c.interfaces;
 

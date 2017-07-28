@@ -422,14 +422,20 @@ describe( 'session - functional (server): open, close, get & update', () => {
 
       sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-        sessions.close( request, ( err, result ) => {
+        h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
 
-          h.redisHGet( config.redis.hash, config.redis.prefix + 'therandomsessioncode', ( err, result ) => {
+          JSON.parse( result ).email.should.equal( 'gaetan@cibul.net' );
 
-            should( err ).equal( null );
-            should( result ).equal( null );
+          sessions.close( request, ( err, result ) => {
 
-            done();
+            h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
+
+              should( err ).equal( null );
+              should( result ).equal( null );
+
+              done();
+
+            } );
 
           } );
 
