@@ -37,23 +37,47 @@ removeExtraActivityFeeds( c )
 
 function removeExtraActivityFeeds( { schemas } ) {
 
+  let preOffset = 0;
   let deleted = 0;
-  const itemsToRemove = [];
+  const itemsToRemove = {};
 
   return _traverseTable(
     schemas.feed_activity,
     q => q.join( schemas.activity, `${schemas.feed_activity}.activity_id`, `${schemas.activity}.id` )
+      .join( schemas.feed, `${schemas.feed_activity}.feed_id`, `${schemas.feed}.id` )
       .whereIn( `${schemas.activity}.verb`, [ 'agenda.changeEventState', 'agenda.removeEvent' ] ),
-    offset => offset - deleted,
+    offset => offset - deleted + preOffset,
     async ( item, index, next ) => {
 
       console.log( '=============', index );
 
+      // If it's another agenda
+      if ( item.entity_type === 'agenda' ) {
+
+        if ( item.entity_uid !== parseInt( item.target.split( ':' )[ 1 ] ) ) {
+
+          if ( !itemsToRemove[ item.activity_id ] ) {
+
+            itemsToRemove[ item.activity_id ] = [ item.feed_id ];
+
+          } else {
+
+            itemsToRemove[ item.activity_id ].push( item.feed_id );
+
+          }
+
+        }
+
+        return next();
+
+      }
+
+      // If it's a contributor
       const originFeed = await knex( schemas.feed ).select().first()
         .where( 'entity_type', 'agenda' )
         .where( 'entity_uid', item.target.split( ':' )[ 1 ] );
 
-      if ( !originFeed || item.feed_id === originFeed.id ) {
+      if ( !originFeed ) {
         return next();
       }
 
@@ -69,11 +93,19 @@ function removeExtraActivityFeeds( { schemas } ) {
 
       if ( follow.store.credential === 1 ) {
 
-        itemsToRemove.push( { feed_id: item.feed_id, activity_id: item.activity_id } );
+        if ( !itemsToRemove[ item.activity_id ] ) {
+
+          itemsToRemove[ item.activity_id ] = [ item.feed_id ];
+
+        } else {
+
+          itemsToRemove[ item.activity_id ].push( item.feed_id );
+
+        }
 
       }
 
-      /* if ( index === 100000 ) {
+      /* if ( index >= 100000 ) {
 
         return next( 'Stop to 100000 entries' );
 
@@ -85,34 +117,30 @@ function removeExtraActivityFeeds( { schemas } ) {
   )
     .then( async result => {
 
-      const groupedItems = _.groupBy( itemsToRemove, 'activity_id' );
-
-      for ( const activity_id in groupedItems ) {
+      for ( const activity_id in itemsToRemove ) {
 
         await knex( schemas.feed_activity ).del()
           .where( 'activity_id', activity_id )
-          .whereIn( 'feed_id', groupedItems[ activity_id ].map( v => v.feed_id ) );
+          .whereIn( 'feed_id', itemsToRemove[ activity_id ] );
 
       }
 
-      console.log( itemsToRemove.length, 'shits deleted !' );
+      console.log( _.sumBy( _.values( itemsToRemove ), v => v.length ), 'shits deleted !' );
 
       return result;
 
     } )
     .catch( async err => {
 
-      const groupedItems = _.groupBy( itemsToRemove, 'activity_id' );
-
-      for ( const activity_id in groupedItems ) {
+      for ( const activity_id in itemsToRemove ) {
 
         await knex( schemas.feed_activity ).del()
           .where( 'activity_id', activity_id )
-          .whereIn( 'feed_id', groupedItems[ activity_id ].map( v => v.feed_id ) );
+          .whereIn( 'feed_id', itemsToRemove[ activity_id ] );
 
       }
 
-      console.log( itemsToRemove.length, 'shits deleted !' );
+      console.log( _.sumBy( _.values( itemsToRemove ), v => v.length ), 'shits deleted !' );
 
       return Promise.reject( err );
 
@@ -132,7 +160,7 @@ function _traverseTable( table, queryModifier, offsetModifier, eachCb ) {
       dcb => {
 
         const offset = offsetModifier( rowsAffected );
-        const query = knex( table ).offset( offset ).limit( 100 );
+        const query = knex( table ).offset( offset ).limit( 500 );
 
         queryModifier( query )
           .then( rows => {
