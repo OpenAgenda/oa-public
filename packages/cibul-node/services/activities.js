@@ -26,7 +26,13 @@ module.exports.init = ( config, cb ) => {
     },
     root: config.root,
     filterFollows: [ {
-      verb: [ 'event.create', 'event.update', 'agenda.unpublishEvent' ],
+      verb: [
+        'event.create',
+        'event.update',
+        'agenda.unpublishEvent',
+        'agenda.removeEvent',
+        'agenda.changeEventState'
+      ],
       getFeeds: true,
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 

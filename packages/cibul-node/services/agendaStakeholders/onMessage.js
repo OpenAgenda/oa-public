@@ -18,8 +18,6 @@ let log = console.log;
 
 module.exports = ( stakeholder, message, context, cb ) => {
 
-  console.log( 'context', context );
-
   if ( stakeholder.deletedUser ) return cb();
 
   agendas.get( stakeholder.agendaId, { includeImagePath: true }, ( err, agenda ) => {
@@ -122,7 +120,7 @@ function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, 
 
   mailer( {
     recipient,
-    replyTo,
+    replyTo: replyTo || (lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'),
     subject: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
       logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',
