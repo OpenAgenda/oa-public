@@ -1,6 +1,6 @@
 {
   "name": "sessions",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
   "main": "service/index.js",
   "dependencies": {
@@ -18,6 +18,7 @@
   "devDependencies": {
     "async": "^2.1.4",
     "express": "^4.14.0",
+    "immutability-helper": "^2.3.0",
     "jsdom": "^9.9.1",
     "should": "^11.1.2",
     "superagent": "^3.3.1"

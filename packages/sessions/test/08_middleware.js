@@ -10,6 +10,7 @@ const helpers = require( './lib/helpers' );
 const base64 = require( 'utils/base64' );
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const ih = require( 'immutability-helper' );
 
 const mw = sessions.middleware;
 
@@ -52,19 +53,21 @@ describe( 'session - functional (server): middleware', () => {
 
             // change test getUser to send different
             // data.
-            sessions.init( _.extend( {}, config, {
+            sessions.init( ih( config, {
               interfaces: {
-                getUser: ( query, cb ) => {
+                getUser: {
+                  $set: ( query, cb ) => {
 
-                  cb( null, {
-                    id: 1,
-                    uid: 1234,
-                    email: 'blorg@cibul.net',
-                    culture: 'en',
-                    name: 'Gaetanne',
-                    thumbnail: null
-                  } );
+                    cb( null, {
+                      id: 1,
+                      uid: 1234,
+                      email: 'blorg@cibul.net',
+                      culture: 'en',
+                      name: 'Gaetanne',
+                      thumbnail: null
+                    } );
 
+                  }
                 }
               }
             } ) );
@@ -122,7 +125,7 @@ describe( 'session - functional (server): middleware', () => {
         'get:/land' : helpers.roundTrip,
         'post:/signin': ( req, res, next ) => {
 
-          sessions.open( req, { uid: 123 }, ( err, result ) => {
+          sessions.open( req, { uid: 12345678 }, ( err, result ) => {
 
             res.send( 'ok' );
 
@@ -137,7 +140,10 @@ describe( 'session - functional (server): middleware', () => {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
-              thumbnail: '//graph.facebook.com/100002280111541/picture'
+              thumbnail: '//graph.facebook.com/100002280111541/picture',
+              id: 1,
+              email: 'gaetan@cibul.net',
+              latestActivity: session.latestActivity
             } );
 
             res.send( 'ok' );
@@ -194,7 +200,10 @@ describe( 'session - functional (server): middleware', () => {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
-              thumbnail: '//graph.facebook.com/100002280111541/picture'
+              thumbnail: '//graph.facebook.com/100002280111541/picture',
+              id: 1,
+              email: 'gaetan@cibul.net',
+              latestActivity: session.latestActivity
             } );
 
             res.send( 'ok' )
@@ -461,7 +470,10 @@ describe( 'session - functional (server): middleware', () => {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
-              thumbnail: '//graph.facebook.com/100002280111541/picture'
+              thumbnail: '//graph.facebook.com/100002280111541/picture',
+              id: 1,
+              email: 'gaetan@cibul.net',
+              latestActivity: req.user.latestActivity
             } );
 
             res.send( 'ok' );

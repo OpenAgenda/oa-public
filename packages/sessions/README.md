@@ -26,6 +26,11 @@ Server-stored info are an extension of the cookie values when the user is logged
  * latestActivity
 
 Relies on cookie-parser for the cookie encryption part.
+
+
+# Signed cookie invalidation
+
+This was flagged as a security concern by the audit carried out by the city of Geneva. The cookie alone should not be used as a reference to define the state of a session.
  
  
 # Core service features

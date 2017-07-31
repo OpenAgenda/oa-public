@@ -10,7 +10,7 @@ describe( 'session - functional (server): initialization', () => {
 
     sessions.open( {}, { uid: 123 }, ( err, result ) => {
 
-      err.should.equal( 'service has not been initialized' );
+      err.message.should.equal( 'service has not been initialized' );
 
       done();
 

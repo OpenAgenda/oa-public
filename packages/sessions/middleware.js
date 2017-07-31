@@ -58,9 +58,17 @@ function ifLoggedState( state, fn ) {
 
   return ( req, res, next ) => {
 
-    if ( state === sessions.isLogged( req ) ) return fn( req, res, next );
+    sessions.isLogged( req )
 
-    next();
+      .catch( next )
+
+      .then( is => {
+
+        if ( state === is ) return fn( req, res, next );
+
+        next();
+
+      } )
 
   }
 

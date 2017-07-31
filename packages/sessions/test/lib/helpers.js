@@ -4,7 +4,6 @@ const redis = require( 'redis' );
 const async = require( 'async' );
 const express = require( 'express' );
 
-
 let config;
 
 module.exports = {
@@ -14,6 +13,8 @@ module.exports = {
   roundTrip,
   launchTestApp
 }
+
+
 
 function _readAgentSequencePart( s ) {
 
