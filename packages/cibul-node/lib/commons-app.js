@@ -9,6 +9,7 @@ const sessions = require( 'sessions' );
 const keys = require( 'keys' );
 const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
 const hsts = require( 'hsts' );
+const circularJSON = require( 'circular-json' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
@@ -402,9 +403,9 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     req.log.load( { errorStack: error.stack } );
 
-    req.log( 'error', 'received error: %s', JSON.stringify( error ) );
+    req.log( 'error', 'received error: %s', circularJSON.stringify( error ) );
 
-    console.error( ( new Date ).toUTCString() + ' caught: %s', JSON.stringify( error ) );
+    console.error( ( new Date ).toUTCString() + ' caught: %s', circularJSON.stringify( error ) );
 
     console.error( error.stack ? error.stack : 'no stack' );
 
