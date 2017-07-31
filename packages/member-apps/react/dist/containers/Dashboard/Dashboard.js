@@ -322,14 +322,12 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           eventCount = stakeholder.eventCount,
           user = stakeholder.user,
           deletedUser = stakeholder.deletedUser,
-          actionsCounter = stakeholder.actionsCounter,
           owner = stakeholder.owner;
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
           userCredential = _props4.userCredential,
-          resendInvitation = _props4.resendInvitation,
-          agenda = _props4.agenda;
+          resendInvitation = _props4.resendInvitation;
       var getLabel = this.context.getLabel;
 
 
@@ -452,10 +450,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             user && _react3.default.createElement(
               'a',
               {
-                href: res.writeToMember.replace(':uid', user.uid).replace(':redirect', base64encode(res.app)),
-                className: 'text-muted'
+                role: 'button',
+                className: 'text-muted',
+                onClick: function onClick() {
+                  return showModal('sendAMessage', { stakeholder: stakeholder });
+                }
               },
-              getLabel('writeToHim')
+              getLabel('sendAMessage')
             ),
             invited && _react3.default.createElement(
               'a',
@@ -546,6 +547,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           invite = _props6.invite,
           remove = _props6.remove,
           sendMessage = _props6.sendMessage,
+          sendAMessage = _props6.sendAMessage,
           showInviteResult = _props6.showInviteResult,
           cleanInviteResult = _props6.cleanInviteResult,
           inviteError = _props6.inviteError,
@@ -566,6 +568,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var inviteMembersModal = modals.inviteMembers || {};
       var memberReinvitedModal = modals.memberReinvited || {};
       var writeToMembersModal = modals.writeToMembers || {};
+      var sendAMessageModal = modals.sendAMessage || {};
 
       return _react3.default.createElement(
         'div',
@@ -844,6 +847,44 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             'div',
             null,
             getLabel('invitationNotResended')
+          )
+        ),
+        sendAMessageModal && _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: getLabel('sendAMessage'),
+            visible: sendAMessageModal.visible || false,
+            onClose: function onClose() {
+              return closeModal('sendAMessage');
+            }
+          },
+          !sendAMessageModal.confirmation ? _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
+              return sendAMessage(data, sendAMessageModal.stakeholder).then(function (result) {
+                if (result.error && result.error instanceof _reduxForm.SubmissionError) {
+                  throw new _reduxForm.SubmissionError(result.error.errors);
+                }
+                return result;
+              }).then(function () {
+                return setModal('sendAMessage', { confirmation: true });
+              });
+            } }) : _react3.default.createElement(
+            'div',
+            { className: 'text-center' },
+            _react3.default.createElement(
+              'div',
+              { className: 'margin-v-sm' },
+              getLabel('messageSent')
+            ),
+            _react3.default.createElement(
+              'button',
+              {
+                onClick: function onClick() {
+                  return closeModal('sendAMessage');
+                },
+                className: 'btn btn-danger'
+              },
+              getLabel('close')
+            )
           )
         ),
         writeToMembersModal.visible && _react3.default.createElement(

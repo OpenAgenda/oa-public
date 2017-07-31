@@ -179,8 +179,8 @@ export default class Dashboard extends Component {
   }
 
   renderStakeholder( stakeholder ) {
-    const { id, credential, invited, custom, eventCount, user, deletedUser, actionsCounter, owner } = stakeholder;
-    const { res, showModal, userCredential, resendInvitation, agenda } = this.props;
+    const { id, credential, invited, custom, eventCount, user, deletedUser, owner } = stakeholder;
+    const { res, showModal, userCredential, resendInvitation } = this.props;
     const { getLabel } = this.context;
 
     const stakeholderType = (() => {
@@ -256,10 +256,11 @@ export default class Dashboard extends Component {
               {getLabel( 'removeMember' )}
             </a>}
             {user && <a
-              href={res.writeToMember.replace( ':uid', user.uid ).replace( ':redirect', base64encode( res.app ) )}
+              role="button"
               className="text-muted"
+              onClick={() => showModal( 'sendAMessage', { stakeholder } )}
             >
-              {getLabel( 'writeToHim' )}
+              {getLabel( 'sendAMessage' )}
             </a>}
             {invited && <a
               role="button"
@@ -315,7 +316,7 @@ export default class Dashboard extends Component {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage,
-      showInviteResult, cleanInviteResult, inviteError, credentials, agenda
+      sendAMessage, showInviteResult, cleanInviteResult, inviteError, credentials, agenda
     } = this.props;
     const { getLabel, lang } = this.context;
 
@@ -331,6 +332,7 @@ export default class Dashboard extends Component {
     const inviteMembersModal = modals.inviteMembers || {};
     const memberReinvitedModal = modals.memberReinvited || {};
     const writeToMembersModal = modals.writeToMembers || {};
+    const sendAMessageModal = modals.sendAMessage || {};
 
     return (
       <div>
@@ -513,13 +515,42 @@ export default class Dashboard extends Component {
             <div>{getLabel( 'invitationNotResended' )}</div>}
         </Modal>}
 
+        {sendAMessageModal && <Modal
+          title={getLabel( 'sendAMessage' )}
+          visible={sendAMessageModal.visible || false}
+          onClose={() => closeModal( 'sendAMessage' )}
+        >
+          {!sendAMessageModal.confirmation
+            ? <SendMessageForm onSubmit={data => sendAMessage( data, sendAMessageModal.stakeholder )
+              .then( result => {
+                if ( result.error && result.error instanceof SubmissionError ) {
+                  throw new SubmissionError( result.error.errors );
+                }
+                return result;
+              } )
+              .then( () => setModal( 'sendAMessage', { confirmation: true } ) )
+            } />
+            : <div className="text-center">
+              <div className="margin-v-sm">
+                {getLabel( 'messageSent' )}
+              </div>
+
+              <button
+                onClick={() => closeModal( 'sendAMessage' )}
+                className="btn btn-danger"
+              >
+                {getLabel( 'close' )}
+              </button>
+            </div>}
+        </Modal>}
+
         {writeToMembersModal.visible && <Modal
           title={getLabel( writeToMembersModal.inactive ? 'sendMessageToInactives' : 'sendMessageToAll' )}
           visible={writeToMembersModal.visible || false}
           onClose={() => closeModal( 'writeToMembers' )}
         >
-          {!writeToMembersModal.confirmation ?
-            <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
+          {!writeToMembersModal.confirmation
+            ? <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
               .then( result => {
                 if ( result.error && result.error instanceof SubmissionError ) {
                   throw new SubmissionError( result.error.errors );
@@ -527,9 +558,8 @@ export default class Dashboard extends Component {
                 return result;
               } )
               .then( () => setModal( 'writeToMembers', { confirmation: true } ) )
-            } /> :
-
-            <div className="text-center">
+            } />
+            : <div className="text-center">
               <div className="margin-v-sm">
                 {getLabel( 'messageSent' )}
               </div>

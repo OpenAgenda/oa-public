@@ -34,6 +34,9 @@ const CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
 const SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
 const SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
 const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
+const SEND_A_MESSAGE = 'member-apps/members/SEND_A_MESSAGE';
+const SEND_A_MESSAGE_SUCCESS = 'member-apps/members/SEND_A_MESSAGE_SUCCESS';
+const SEND_A_MESSAGE_FAIL = 'member-apps/members/SEND_A_MESSAGE_FAIL';
 
 
 const initialState = {
@@ -318,6 +321,13 @@ export function sendMessage( data, inactive ) {
   return {
     types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
     promise: ( client, { res } ) => client.post( res.sendMessage, { data, query: { inactive } } )
+  };
+}
+
+export function sendAMessage( data, stakeholder ) {
+  return {
+    types: [ SEND_A_MESSAGE, SEND_A_MESSAGE_SUCCESS, SEND_A_MESSAGE_FAIL ],
+    promise: ( client, { res } ) => client.post( res.sendAMessage.replace( ':id', stakeholder.id ), { data } )
   };
 }
 

@@ -32,6 +32,7 @@ exports.resendInvitation = resendInvitation;
 exports.cleanInviteResult = cleanInviteResult;
 exports.remove = remove;
 exports.sendMessage = sendMessage;
+exports.sendAMessage = sendAMessage;
 exports.addCredFilter = addCredFilter;
 exports.removeCredFilter = removeCredFilter;
 exports.cleanCredFilters = cleanCredFilters;
@@ -85,6 +86,9 @@ var CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
 var SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
 var SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
 var SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
+var SEND_A_MESSAGE = 'member-apps/members/SEND_A_MESSAGE';
+var SEND_A_MESSAGE_SUCCESS = 'member-apps/members/SEND_A_MESSAGE_SUCCESS';
+var SEND_A_MESSAGE_FAIL = 'member-apps/members/SEND_A_MESSAGE_FAIL';
 
 var initialState = {
   loaded: false,
@@ -381,6 +385,16 @@ function sendMessage(data, inactive) {
     promise: function promise(client, _ref9) {
       var res = _ref9.res;
       return client.post(res.sendMessage, { data: data, query: { inactive: inactive } });
+    }
+  };
+}
+
+function sendAMessage(data, stakeholder) {
+  return {
+    types: [SEND_A_MESSAGE, SEND_A_MESSAGE_SUCCESS, SEND_A_MESSAGE_FAIL],
+    promise: function promise(client, _ref10) {
+      var res = _ref10.res;
+      return client.post(res.sendAMessage.replace(':id', stakeholder.id), { data: data });
     }
   };
 }

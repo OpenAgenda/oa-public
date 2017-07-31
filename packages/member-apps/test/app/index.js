@@ -233,6 +233,24 @@ async.waterfall( [
     ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
   );
 
+  app.post(
+    '/send-a-message/:id',
+    ( req, res, next ) => {
+      req.context = {
+        lang: req.user.lang,
+        replyTo: req.body.replyTo
+      };
+      next();
+    },
+    ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
+      namespaces: {
+        message: 'body.message'
+      },
+      id: parseInt( req.params.id ) || 0
+    } )( req, res, next ),
+    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+  );
+
   app.getAndListen( '*', port, matchApp );
 
 } );
@@ -258,7 +276,8 @@ function matchApp( req, res, next ) {
       stats: '/stats',
       showContributor: '#',
       writeToMember: '#', // old chat
-      sendMessage: '/send-message'
+      sendMessage: '/send-message',
+      sendAMessage: '/send-a-message/:id'
     },
     agenda: {
       uid: req.agenda.data.uid,
