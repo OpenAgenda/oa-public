@@ -9,7 +9,7 @@ import bodyScroll from './body-scroll';
 export default class Modal extends Component {
 
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.element,
     visible: PropTypes.bool,
     onClose: PropTypes.func,
     disableBodyScroll: PropTypes.bool
