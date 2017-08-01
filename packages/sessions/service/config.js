@@ -21,7 +21,8 @@ function init( c ) {
     'sessionCookie', 
     'writableCookie',
     'redis',
-    'interfaces'
+    'interfaces',
+    'expire'
   ] ) );
 
   _.extend( config.sessionCookie, {

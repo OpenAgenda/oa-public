@@ -57,8 +57,10 @@ async function open( request, identifier ) {
   }
 
   // store session in redis
-  
-  await redisCommand( 'hset', [ config.redis.hash, sessionUser.uid, JSON.stringify( sessionUser ) ] );
+
+  await redisCommand( 'set', [ [ config.redis.prefix, sessionUser.uid ].join( ':' ), JSON.stringify( sessionUser ) ] );
+
+  await redisCommand( 'expire', [ [ config.redis.prefix, sessionUser.uid ].join( ':' ), config.expire ] );
 
   // store session in cookie
 

@@ -18,9 +18,7 @@ describe( 'session - functional (server): scan', () => {
 
   let request;
 
-
   beforeEach( h.clearRedis );
-
 
   beforeEach( () => {
 
@@ -39,7 +37,10 @@ describe( 'session - functional (server): scan', () => {
 
   beforeEach( () => {
 
-    request = { cookies: {}, session: {} };
+    request = {
+      cookies: {},
+      session: {}
+    };
 
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
@@ -67,15 +68,23 @@ describe( 'session - functional (server): scan', () => {
 
   it( 'scans through open sessions', done => {
 
-    sessions.scan( 0, 5, ( err, sessions, nextCursor ) => {
+    sessions.scan( 0, 2, ( err, sessions, nextCursor ) => {
 
-      should( err ).equal( null );
+      try {
 
-      nextCursor.should.not.equal( 0 );
+        should( err ).equal( null );
 
-      sessions.length.should.not.equal( 0 );
+        nextCursor.should.not.equal( 0 );
 
-      done();
+        should( sessions.length ).not.lessThan( 2 );
+
+        done();        
+
+      } catch( e ) { 
+
+        return done( e );
+
+      }
 
     } );
 

@@ -57,7 +57,7 @@ async function _getFromRequest( request, options = {} ) {
 
 async function _getFromUid( uid, options = {} ) {
 
-  let result = await redisCommand( 'hget', [  config.redis.hash, uid ] );
+  let result = await redisCommand( 'get', [  config.redis.prefix, uid ].join( ':' ) );
 
   if ( !result ) return null;
 

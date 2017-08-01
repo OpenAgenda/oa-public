@@ -9,6 +9,7 @@ const isoConfig = require( '../iso/config' );
 const h = require( './lib/helpers' );
 const _ = require( 'lodash' );
 const async = require( 'async' );
+const ih = require( 'immutability-helper' );
 
 const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
 
@@ -53,7 +54,7 @@ describe( 'session - functional (server): open', () => {
 
     sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-      h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
+      h.redisGet( [ config.redis.prefix, 12345678 ].join( ':' ), ( err, result ) => {
 
         let parsed = JSON.parse( result );
 
@@ -116,5 +117,37 @@ describe( 'session - functional (server): open', () => {
     } );
 
   } );  
+
+  it( 'open sets an expiration on session', done => {
+
+    sessions.init( ih( config, {
+      expire: {
+        $set: 1
+      }
+    } ) );
+
+    sessions.open( request, { uid: 1234 }, ( err, result ) => {
+
+      sessions.get( request, ( err, user ) => {
+
+        should( user ).not.equal( null );
+
+        setTimeout( () => {
+
+          sessions.get( request, ( err, user ) => {
+
+            should( user ).equal( null );
+
+            done();
+
+          } );
+
+        }, 1500 );
+
+      } );
+
+    } );
+
+  } );
 
 } );

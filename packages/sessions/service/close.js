@@ -32,7 +32,7 @@ async function close( request ) {
 
   }
 
-  let result = await redisCommand( 'hdel', [  config.redis.hash, cookieUser.uid ] );
+  let result = await redisCommand( 'del', [ config.redis.prefix, cookieUser.uid ].join( ':' ) );
 
   request.session = null;
 

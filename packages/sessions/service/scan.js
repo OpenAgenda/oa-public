@@ -38,15 +38,37 @@ module.exports.init = () => {
 
 }
 
-async function scan( cursor, count, options = {} ) {
+async function scan( cursor, limit, options = {} ) {
 
-  let result = await redisCommand( 'hscan', [ config.redis.hash, cursor, 'count', count ] );
+  let iterationFetches = [], updatedCursor = -1;
+
+  while ( iterationFetches.length < limit && updatedCursor !== 0 ) {
+
+    if ( updatedCursor === -1 ) {
+
+      updatedCursor = cursor;
+
+    }
+
+    let result = await redisCommand( 'scan', [ updatedCursor, 'match', config.redis.prefix + '*', 'count', limit ] );
+
+    updatedCursor = parseInt( result[ 0 ] );
+
+    iterationFetches = iterationFetches.concat( result[ 1 ] );
+
+  }
+
+  let fetchedSessions = [];
+
+  for ( let key of iterationFetches ) {
+
+    fetchedSessions.push( JSON.parse( await redisCommand( 'get', key ) ) );
+
+  }
 
   return {
-    sessions: result[ 1 ]
-      .filter( ( r, i ) => i % 2 !== 0 )
-      .map( JSON.parse ),
-    cursor: parseInt( result[ 0 ] )
+    sessions: fetchedSessions,
+    cursor: updatedCursor
   }
 
 }

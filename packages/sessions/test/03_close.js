@@ -66,13 +66,13 @@ describe( 'session - functional (server): close', () => {
 
     sessions.open( request, { uid: 12345678 }, ( err, result ) => {
 
-      h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
+      h.redisGet( [ config.redis.prefix, 12345678 ].join( ':' ), ( err, result ) => {
 
         JSON.parse( result ).email.should.equal( 'gaetan@cibul.net' );
 
         sessions.close( request, ( err, result ) => {
 
-          h.redisHGet( config.redis.hash, 12345678, ( err, result ) => {
+          h.redisGet( [ config.redis.prefix, 12345678 ].join( ':' ), ( err, result ) => {
 
             should( err ).equal( null );
             should( result ).equal( null );
