@@ -10,13 +10,14 @@ module.exports.init = config => {
     redis: {
       host: config.redis.host,
       port: config.redis.port,
-      hash: config.session.namespace
+      prefix: config.session.namespace
     },
     sessionCookie: config.session,
     writableCookie: {
       maxAge: config.session.maxAge,
       name: config.session.writableName // overriden by iso configuration
     },
+    expire: config.session.maxAge / 1000,
     interfaces: {
       getUser: getUser.bind( null, config.aws.imageBucketPath )
     }
