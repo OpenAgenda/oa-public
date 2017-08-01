@@ -55,8 +55,12 @@ const ProfileSettings = createReactClass( {
         onClick={!activeTab ? this.props.dispatch.bind( this, push( prefix + '/profile' ) ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? this.props.dispatch.bind( this, push( prefix + '/' ) ) : null}
-            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'userProfile' )}
+        <td
+          onClick={activeTab ? this.props.dispatch.bind( this, push( prefix + '/' ) ) : null}
+          className="col-md-3"
+          style={{cursor: 'pointer'}}
+        >
+          {getLabels( 'userProfile' )}
         </td>
         {activeTab ? <td>
           <div style={{padding: '0 5px'}}>
@@ -93,7 +97,7 @@ const ProfileSettings = createReactClass( {
               </div>
             </form>
           </div>
-        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'modify' )}</td>}
+        </td> : <td style={{cursor: 'pointer'}}><b className="text-muted">{full_name.value}</b></td>}
       </tr>
     );
 

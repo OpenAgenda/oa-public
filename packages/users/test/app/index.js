@@ -9,9 +9,8 @@ const async = require( 'async' );
 const fixtures = require( 'fixtures' );
 const unsubscribedSvc = require( 'unsubscribed/test/service' );
 const service = require( '../service/index' );
+const mw = require( '../../middleware' );
 const config = require( '../../testconfig.js' );
-
-const mw = service.mw;
 
 const app = require( 'test-app' )( {
   frontWrapper: __dirname + '/front.js',

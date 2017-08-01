@@ -47,8 +47,12 @@ const EmailSettings = createReactClass( {
         onClick={!activeTab ? dispatch.bind( this, push( prefix + '/email' ) ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
-          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'email' )}
+        <td
+          onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
+          className="col-md-3"
+          style={{ cursor: 'pointer' }}
+        >
+          {getLabels( 'email' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
@@ -82,7 +86,7 @@ const EmailSettings = createReactClass( {
               </div>
             </form>
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'modify' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{email.value}</b></td>}
       </tr>
     );
 

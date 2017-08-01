@@ -89,7 +89,8 @@ const SettingsContainer = createReactClass( {
               successMessageDisplayed={profileMessageDisplayed}
             />
 
-            <ImageSettings activeTab={activeTab == 'image'}
+            <ImageSettings
+              activeTab={activeTab == 'image'}
               routerActions={routerActions}
               onUpdate={onChangeProfileImage}
               uploadImageRes={getUrl( 'uploadProfileImageRes' )}
@@ -97,12 +98,14 @@ const SettingsContainer = createReactClass( {
               image={user && user.image || ''}
             />
 
-            <EmailSettings activeTab={activeTab == 'email'}
+            <EmailSettings
+              activeTab={activeTab == 'email'}
               onSubmit={changeEmail}
               successMessageDisplayed={emailMessageDisplayed}
             />
 
-            <PasswordSettings activeTab={activeTab == 'password'}
+            <PasswordSettings
+              activeTab={activeTab == 'password'}
               onSubmit={changePassword}
               successMessageDisplayed={passwordMessageDisplayed}
             />

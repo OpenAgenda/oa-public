@@ -42,8 +42,10 @@ var ProfileSettings = createReactClass({
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? routerActions.push.bind(null, prefix + '/') : null,
-          className: 'col-md-3', style: { cursor: 'pointer' } },
+        {
+          onClick: activeTab ? routerActions.push.bind(null, prefix + '/') : null,
+          className: 'col-md-3', style: { cursor: 'pointer' }
+        },
         getLabels('profileImage')
       ),
       activeTab ? React.createElement(

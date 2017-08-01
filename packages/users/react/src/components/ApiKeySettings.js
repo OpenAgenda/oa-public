@@ -51,8 +51,12 @@ const ApiKeySettings = createReactClass( {
         onClick={!activeTab ? dispatch.bind( this, push( prefix + '/apiKey' ) ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
-          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'apiKeys' )}
+        <td
+          onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
+          className="col-md-3"
+          style={{ cursor: 'pointer' }}
+        >
+          {getLabels( 'apiKeys' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>

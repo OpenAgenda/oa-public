@@ -87,8 +87,11 @@ var ApiKeySettings = createReactClass({
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
-          className: 'col-md-3', style: { cursor: 'pointer' } },
+        {
+          onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
+          className: 'col-md-3',
+          style: { cursor: 'pointer' }
+        },
         getLabels('apiKeys')
       ),
       activeTab ? React.createElement(

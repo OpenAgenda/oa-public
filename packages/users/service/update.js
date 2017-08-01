@@ -5,11 +5,8 @@ const w = require( 'when' );
 const validators = require( 'validators' );
 const schema = require( 'validators/schema' );
 const { text, link, number, email, date, boolean } = require( 'validators' );
-
-let config;
-let knex;
-let service;
-
+const config = require( '../config' );
+const get = require( './get' );
 
 schema.register( {
   text,
@@ -30,18 +27,7 @@ const protectedFields = [ 'is_activated' ];
 const storeFields = [ 'enable_secret' ];
 
 
-module.exports = Object.assign( update, {
-  init
-} );
-
-
-function init( c, k, s ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = update;
 
 function update( identifier, data, options, cb ) {
 
@@ -78,7 +64,7 @@ function update( identifier, data, options, cb ) {
     .then( _update() )
     .then( v => new Promise( ( resolve, reject ) => {
 
-      service.get( v.identifier, v.params, ( err, user ) => {
+      get( v.identifier, v.params, ( err, user ) => {
 
         if ( err ) return reject( err );
 
@@ -124,6 +110,8 @@ function _parseIdentifier( namespaces ) {
 
 function _get( namespaces ) {
 
+  const { knex, schemas } = config;
+
   namespaces = Object.assign( {
     identifier: 'identifier',
     user: 'result.user',
@@ -132,7 +120,7 @@ function _get( namespaces ) {
 
   return v => {
 
-    return knex( config.schemas.user )
+    return knex( schemas.user )
       .column( basicFields.concat( 'store' ) )
       .select()
       .where( _.get( v, namespaces.identifier ) )
@@ -300,6 +288,8 @@ function _formatStore( namespaces ) {
 
 function _update( namespaces ) {
 
+  const { knex, schemas } = config;
+
   namespaces = Object.assign( {
     identifier: 'identifier',
     params: 'params',
@@ -322,7 +312,7 @@ function _update( namespaces ) {
     const dataToUpdate = _.pick( data, basicFields.concat( params.protected ? protectedFields : [] ) );
     dataToUpdate.store = _.get( v, namespaces.store );
 
-    return knex( config.schemas.user ).update( dataToUpdate ).where( _.get( v, namespaces.identifier ) )
+    return knex( schemas.user ).update( dataToUpdate ).where( _.get( v, namespaces.identifier ) )
       .then( () => v );
 
   };

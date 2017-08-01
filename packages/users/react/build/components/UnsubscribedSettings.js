@@ -110,10 +110,13 @@ var UnsubscribedSettings = _wrapComponent('UnsubscribedSettings')((_dec = (0, _r
         },
         _react3.default.createElement(
           'td',
-          { onClick: activeTab ? function () {
+          {
+            onClick: activeTab ? function () {
               return push(prefix + '/');
             } : null,
-            className: 'col-md-3', style: { cursor: 'pointer' } },
+            className: 'col-md-3',
+            style: { cursor: 'pointer' }
+          },
           getLabels('emailUnsubscription')
         ),
         activeTab ? _react3.default.createElement(

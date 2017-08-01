@@ -1,33 +1,20 @@
 "use strict";
 
-var logger = require( 'basic-logger' ),
-
-  fs = require( 'fs' ),
-
-  path = require( 'path' ),
-
-  w = require( 'when' ),
-
-  validators = require( 'validators' ),
-
-  csurf = require( 'csurf' ),
-
-  utils = require( 'utils' ),
-
-  service, config, log,
-
-  mwUploadImage = require( 'image-upload/lib/middleware' ),
-
-  images = require( 'images' ),
-
-  files = require( 'files' ),
-
-  _ = require( 'lodash' );
+const log = require( 'basic-logger' )( 'users - middleware' );
+const fs = require( 'fs' );
+const path = require( 'path' );
+const w = require( 'when' );
+const csurf = require( 'csurf' );
+const mwUploadImage = require( 'image-upload/lib/middleware' );
+const images = require( 'images' );
+const files = require( 'files' );
+const _ = require( 'lodash' );
+const config = require( '../config' );
+const service = require( '../' );
 
 const csrf = csurf( { cookie: true } );
 
 module.exports = {
-  init,
   csrf,
   csrfProtection,
   load,
@@ -41,40 +28,6 @@ module.exports = {
   generateApiKey,
   deleteAccount
 };
-
-
-function init( s, c ) {
-
-  service = s;
-
-  config = utils.extend( {
-    limit: {
-      default: 20,
-      max: 100
-    }
-  }, c || {} );
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-
-  }
-
-  images.init( {
-    tmpPath: config.files.tmpPath,
-    logger: logger
-  } );
-
-  files.init( {
-    bucket: config.files.bucket,
-    accessKeyId: config.files.accessKeyId, // required
-    secretAccessKey: config.files.secretAccessKey, // required too
-    logger: logger
-  } );
-
-  log = logger( 'users' );
-
-}
 
 
 function load( uidNamespace, toNamespace ) {

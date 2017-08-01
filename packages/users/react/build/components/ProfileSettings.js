@@ -84,8 +84,11 @@ var ProfileSettings = createReactClass({
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? this.props.dispatch.bind(this, push(prefix + '/')) : null,
-          className: 'col-md-3', style: { cursor: 'pointer' } },
+        {
+          onClick: activeTab ? this.props.dispatch.bind(this, push(prefix + '/')) : null,
+          className: 'col-md-3',
+          style: { cursor: 'pointer' }
+        },
         getLabels('userProfile')
       ),
       activeTab ? React.createElement(
@@ -176,7 +179,11 @@ var ProfileSettings = createReactClass({
       ) : React.createElement(
         'td',
         { style: { cursor: 'pointer' } },
-        getLabels('modify')
+        React.createElement(
+          'b',
+          { className: 'text-muted' },
+          full_name.value
+        )
       )
     );
   }

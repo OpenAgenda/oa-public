@@ -2,19 +2,12 @@
 
 const verror = require( 'verror' );
 const _ = require( 'lodash' );
-const w = require( 'when' );
 const parseListArguments = require( 'service-utils/parseListArguments' );
 const schema = require( 'validators/schema' );
-const logger = require( 'basic-logger' );
+const log = require( 'basic-logger' )( 'users/list' );
+const config = require( '../config' );
 
-let config;
-let knex;
-let service;
-let log
-
-module.exports = Object.assign( list, {
-  init
-} );
+module.exports = list;
 
 schema.register( {
   text: require( 'validators/text' ),
@@ -23,16 +16,6 @@ schema.register( {
   integer: require( 'validators/integer' ),
   pass: require( 'validators/pass' ),
 } );
-
-function init( c, k, s ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-  log = logger( 'users/list' );
-
-}
 
 function validate( args ) {
 
@@ -86,6 +69,8 @@ const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image',
   'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' ];
 
 async function list( query, offset, limit, options, cb ) {
+
+  const { knex } = config;
 
   let result;
   let error;

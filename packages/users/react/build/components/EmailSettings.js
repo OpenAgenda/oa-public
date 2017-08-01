@@ -71,8 +71,11 @@ var EmailSettings = createReactClass({
       },
       React.createElement(
         'td',
-        { onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
-          className: 'col-md-3', style: { cursor: 'pointer' } },
+        {
+          onClick: activeTab ? dispatch.bind(this, push(prefix + '/')) : null,
+          className: 'col-md-3',
+          style: { cursor: 'pointer' }
+        },
         getLabels('email')
       ),
       activeTab ? React.createElement(
@@ -144,7 +147,11 @@ var EmailSettings = createReactClass({
       ) : React.createElement(
         'td',
         { style: { cursor: 'pointer' } },
-        getLabels('modify')
+        React.createElement(
+          'b',
+          { className: 'text-muted' },
+          email.value
+        )
       )
     );
   }

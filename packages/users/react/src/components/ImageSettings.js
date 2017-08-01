@@ -35,11 +35,14 @@ const ProfileSettings = createReactClass( {
         onClick={!activeTab ? routerActions.push.bind( null, prefix + '/image' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? routerActions.push.bind( null, prefix + '/' ) : null}
-            className="col-md-3" style={{cursor: 'pointer'}}>{getLabels( 'profileImage' )}
+        <td
+          onClick={activeTab ? routerActions.push.bind( null, prefix + '/' ) : null}
+          className="col-md-3" style={{ cursor: 'pointer' }}
+        >
+          {getLabels( 'profileImage' )}
         </td>
         {activeTab ? <td>
-          <div style={{padding: '0 5px'}}>
+          <div style={{ padding: '0 5px' }}>
             <ImageUpload
               lang={lang}
               value={image}
@@ -48,7 +51,7 @@ const ProfileSettings = createReactClass( {
               remove={removeImageRes}
             />
           </div>
-        </td> : <td style={{cursor: 'pointer'}}>{getLabels( 'modify' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'modify' )}</td>}
       </tr>
     );
 

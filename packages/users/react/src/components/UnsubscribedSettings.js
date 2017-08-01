@@ -35,8 +35,12 @@ export default class UnsubscribedSettings extends Component {
         onClick={!activeTab ? () => push( prefix + '/unsubscribed' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
-        <td onClick={activeTab ? () => push( prefix + '/' ) : null}
-          className="col-md-3" style={{ cursor: 'pointer' }}>{getLabels( 'emailUnsubscription' )}
+        <td
+          onClick={activeTab ? () => push( prefix + '/' ) : null}
+          className="col-md-3"
+          style={{ cursor: 'pointer' }}
+        >
+          {getLabels( 'emailUnsubscription' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>

@@ -104,18 +104,21 @@ var SettingsContainer = createReactClass({
             displayModal: displayModal,
             successMessageDisplayed: profileMessageDisplayed
           }),
-          React.createElement(ImageSettings, { activeTab: activeTab == 'image',
+          React.createElement(ImageSettings, {
+            activeTab: activeTab == 'image',
             routerActions: routerActions,
             onUpdate: onChangeProfileImage,
             uploadImageRes: getUrl('uploadProfileImageRes'),
             removeImageRes: getUrl('removeProfileImageRes'),
             image: user && user.image || ''
           }),
-          React.createElement(EmailSettings, { activeTab: activeTab == 'email',
+          React.createElement(EmailSettings, {
+            activeTab: activeTab == 'email',
             onSubmit: changeEmail,
             successMessageDisplayed: emailMessageDisplayed
           }),
-          React.createElement(PasswordSettings, { activeTab: activeTab == 'password',
+          React.createElement(PasswordSettings, {
+            activeTab: activeTab == 'password',
             onSubmit: changePassword,
             successMessageDisplayed: passwordMessageDisplayed
           }),
