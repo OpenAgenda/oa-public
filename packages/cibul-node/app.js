@@ -164,6 +164,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         // delegate more to repo-ed services
         require( './general/unsubscribed.front' )( app, '/unsubscribe' );
+        require( './agenda/new.front' )( app, '/' );
 
       }
 

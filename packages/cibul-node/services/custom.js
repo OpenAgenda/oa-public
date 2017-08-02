@@ -1,0 +1,19 @@
+"use strict";
+
+const custom = require( 'custom' );
+
+const formSchemas = require( 'form-schemas' );
+
+module.exports.init = config => {
+
+  custom.init( {
+    knex: config.knex,
+    schemas: {
+      custom: 'custom'
+    },
+    interfaces: {
+      getValidator: formSchemas.getValidator
+    }
+  } );
+
+}

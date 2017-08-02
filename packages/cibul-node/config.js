@@ -1,6 +1,10 @@
-var deepExtend = require( 'deep-extend' ),
+"use strict";
 
-  config = {
+const deepExtend = require( 'deep-extend' ),
+
+  knexLib = require( 'knex' );
+
+let config = {
     all: {
       env: 'production',
       corpoLastUpdate: '2017-06-22T12:07:29.000Z',
@@ -129,9 +133,12 @@ var deepExtend = require( 'deep-extend' ),
         activity: 'activity',
         agenda: 'review',
         agendaEvent: 'review_article',
+        agendaTag: 'review_tag',
+        agendaEventTag: 'review_tag_article',
         aggregator: 'aggregator',
         aggregatorSource: 'aggregator_source',
         apiKeySet: 'api_key_set',
+        categorySet: 'category_set',
         conversationReviewerRequestInfo: 'conversation_reviewer_request_info',
         event: 'event',
         eventReferences: 'agenda_event_reference',
@@ -145,6 +152,7 @@ var deepExtend = require( 'deep-extend' ),
         occurrence: 'occurrence',
         stakeholder: 'reviewer',
         stakeholderSettings: 'stakeholder_settings',
+        tagSet: 'tag_set',
         user: 'user',
         legacyCredentialSet: 'review_credential',
         invitation: 'invitation_2', // new invitation
@@ -681,6 +689,12 @@ currentConfig.loadEnv = _loadEnv;
 
 currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
   database: 'emailStrategie' + ( process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '' )
+} );
+
+
+currentConfig.knex = knexLib( {
+  client: 'mysql',
+  connection: currentConfig.db
 } );
 
 

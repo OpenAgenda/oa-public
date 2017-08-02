@@ -1,9 +1,16 @@
 "use strict";
 
-const locations = require( 'agenda-locations' );
+const locations = require( 'agenda-locations' ),
+
+ _ = require( 'lodash' );
 
 let log = console.log;
 
-module.exports = ( uids, options, cb ) => locations.list( { uids }, 0, 50, options, cb );
+module.exports = ( uids, options, cb ) => {
+
+  // internal data is not always required
+  locations.list( { uid: uids }, 0, uids.length, _.extend( { fromDb: true }, options ), cb );
+
+}
 
 module.exports.setLog = l => log = l;
