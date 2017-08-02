@@ -68,7 +68,7 @@ describe( 'event search - functional: search', function() {
 
       let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
-      Object.keys( events[ 0 ] ).should.eql( service.getConfig().baseSearchIncludes );
+      Object.keys( events[ 0 ] ).should.eql( [ 'uid', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'slug' ] );
 
     } );
 
@@ -92,6 +92,7 @@ describe( 'event search - functional: search', function() {
         'uid',
         'createdAt',
         'creatorUid',
+        'contributor',
         'draft',
         'timings',
         'registration',
@@ -376,8 +377,6 @@ describe( 'event search - functional: search', function() {
       }, {}, { detailed: true } );
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
-
-      _.keys( events[ 0 ] ).includes( 'contributor' ).should.equal( false );
 
     } );
 

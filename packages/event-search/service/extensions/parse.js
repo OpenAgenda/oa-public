@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 /**
  * map a validators-type schema to an elasticsearch mapping
  */
@@ -23,7 +25,7 @@ module.exports = fields => {
 
   let parsed = {};
 
-  Object.keys( fields ).forEach( f => {
+  Object.keys( _.isObject( fields ) ? fields : {} ).forEach( f => {
 
     parsed[ f ] = fieldMap[ fields[ f ].type ];
 

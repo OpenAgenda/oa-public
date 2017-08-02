@@ -134,7 +134,6 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
 
   // assemble and return dsl
-  
 
   if ( mustParts.length === 1 ) {
 

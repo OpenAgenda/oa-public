@@ -4,7 +4,7 @@ const ih = require( 'immutability-helper' );
 
 module.exports = ( settings, extensions ) => {
 
-  let extended = {}
+  let extended = {};
 
   Object.keys( extensions ).forEach( namespace => {
 
@@ -20,6 +20,6 @@ module.exports = ( settings, extensions ) => {
         properties: extended
       }
     }
-  } )
+  } );
 
 }

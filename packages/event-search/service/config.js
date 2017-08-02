@@ -18,14 +18,20 @@ module.exports.init = c => {
     baseSearchIncludes: [
       'uid',
       'title',
-      'slug'
+      'dateRange',
+      'keywords',
+      'slug',
+      'location.name',
+      'location.address',
+      'contributor.organization'
     ],
     detailedSearchIncludes: [
       'title', 'description', 'keywords', 'dateRange', 'longDescription',
       'image', 'uid', 'slug', 'agenda', 'creatorUid', 'locationUid',
       'location', 'country', 'timezone', 'registration',
       'timings', 'createdAt', 'updatedAt',
-      'accessibility', 'private', 'draft', 'age'
+      'accessibility', 'private', 'draft', 'age',
+      'contributor'
     ]
   } );
 

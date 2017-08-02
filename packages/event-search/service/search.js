@@ -77,7 +77,7 @@ async function search( alias, query, nav = {}, options = {} ) {
   }
 
   let { events, total } = await dsl( alias, 
-    parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes : config.baseSearchIncludes ).concat( cleanOptions.extensions ) ), 
+    parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes ) ), 
     cleanNav.scroll ? cleanNav : {} );
 
   if ( !cleanOptions.merge ) return { events, total };

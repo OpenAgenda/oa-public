@@ -188,7 +188,6 @@ describe( 'event-search - functional: rebuild', function() {
         inquiryEmail: { type: 'keyword' } 
       } } );
 
-
     } );
 
   } );

@@ -18,6 +18,8 @@ module.exports = ( event, part = false ) => {
 
     if ( k === 'location' ) {
 
+      if ( !event.location ) return;
+
       let countryLabels = _.omit( countries.getLabel( event.location.countryCode ), [ 'code' ] );
 
       _.extend( parsed, {

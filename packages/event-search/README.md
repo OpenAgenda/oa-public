@@ -131,6 +131,7 @@ sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.3.0 && sudo -H 
 
 https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index
 
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-16-04
 
 
 
