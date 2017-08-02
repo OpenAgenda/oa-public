@@ -138,11 +138,15 @@ function _addTagGroups( v ) {
     // keep group tags used by event
     .map( g => ( {
       name: g.name,
-      tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug } } )
+      tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
     } ) )
 
     // remove empty groups
     .filter( g => g.tags.length );
+
+
+    // reuse tag group order with tags
+    v.decorated.tags = v.decorated.tagGroups.reduce( ( carry, group ) => carry.concat( group.tags ), [] );
 
     d.resolve( v );
 

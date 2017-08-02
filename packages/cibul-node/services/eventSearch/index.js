@@ -9,8 +9,7 @@ module.exports.init = config => {
   eventSearch.init( {
 
     elasticsearch: {
-      //host: 'localhost:9206',
-      host: 'https://search-events-pd273bmnqmghxp47oqreuzzlfi.eu-west-1.es.amazonaws.com',
+      host: 'http://ns397902.ip-151-80-41.eu:9200/',
       apiVersion: '5.3'
     },
 
