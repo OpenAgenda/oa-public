@@ -7,7 +7,8 @@
 const ih = require( 'immutability-helper' );
 
 const _ = {
-  isArray: require( 'lodash/isArray' )
+  isArray: require( 'lodash/isArray' ),
+  omit: require( 'lodash/omit' )
 }
 
 module.exports = fields => {
@@ -55,6 +56,6 @@ function _decorate( options, id ) {
 
   if ( !matches.length ) return null;
 
-  return matches[ 0 ];
+  return _.omit( matches[ 0 ], [ 'legacyId' ] );
 
 }
