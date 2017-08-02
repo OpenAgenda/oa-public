@@ -20,11 +20,9 @@ const sessions = require( 'sessions' ),
 
   mailer = require( 'mailer' ),
 
-  templater = require( 'cibulTemplates' ),
-
   users = require( 'users' ),
 
-  mw = users.mw,
+  usersMw = require( 'users/middleware' ),
 
   matchApp = require( 'users/middleware/matchApp' ),
 
@@ -36,11 +34,11 @@ const sessions = require( 'sessions' ),
 module.exports = path => {
 
   const routes = {
-      userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, mw.getMe ] ],
+      userSettingsGetMe: [ 'get', '/getMe', [ logged, loadSession, usersMw.getMe ] ],
       userSettingsUpdateProfile: [ 'get', '/updateProfile', [
         loadSession, // obliged to load detailed session as users.get does not take uid as alternative identifier
         logged,
-        mw.updateProfile,
+        usersMw.updateProfile,
         ( req, res, next ) => {
 
           if ( req.result.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
@@ -53,21 +51,21 @@ module.exports = path => {
       userSettingsChangeEmail: [ 'get', '/changeEmail', [
         logged,
         loadSession,
-        mw.requestChangeEmail,
+        usersMw.requestChangeEmail,
         sendEmail
       ] ],
       userSettingsChangeEmailConfirmation: [ 'get', '/changeEmail/confirm', [
         logged,
         loadSession,
-        mw.confirmChangeEmail.bind( null, { /**defaultOptions**/ } ),
+        usersMw.confirmChangeEmail.bind( null, { /**defaultOptions**/ } ),
         changeEmailConfirm
       ] ],
-      userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, mw.changePassword ] ],
-      userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, mw.generateApiKey ] ],
+      userSettingsChangePassword: [ 'get', '/changePassword', [ logged, loadSession, usersMw.changePassword ] ],
+      userSettingsGenerateApiKey: [ 'get', '/generateApiKey', [ logged, loadSession, usersMw.generateApiKey ] ],
       userSettingsDeleteAccount: [ 'post', '/deleteAccount', [
         logged,
         loadSession,
-        mw.deleteAccount,
+        usersMw.deleteAccount,
         ( req, res ) => {
 
           sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
@@ -75,8 +73,8 @@ module.exports = path => {
           res.json( { redirectTo: req.genUrl( 'signout' ) } );
 
         } ] ],
-      userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, mw.uploadProfileImage ] ],
-      userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, mw.removeProfileImage ] ],
+      userSettingsUploadProfileImage: [ 'post', '/uploadProfileImage', [ logged, loadSession, usersMw.uploadProfileImage ] ],
+      userSettingsRemoveProfileImage: [ 'post', '/removeProfileImage', [ logged, loadSession, usersMw.removeProfileImage ] ],
 
       userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp( {
         state: {
@@ -105,7 +103,7 @@ module.exports = path => {
 
     const lang = req.lang || 'fr';
 
-    mw.csrf( req, res, () => {
+    usersMw.csrf( req, res, () => {
 
       const scriptParams = {
         prefix: path,
