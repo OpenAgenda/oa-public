@@ -6,28 +6,33 @@ var _assign2 = _interopRequireDefault(_assign);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var React = require('react'),
-    ReactDom = require('react-dom'),
-    du = require('dom-utils'),
-    utils = require('utils'),
-    _require = require('react-redux'),
-    Provider = _require.Provider,
-    _require2 = require('react-router-redux'),
-    syncHistoryWithStore = _require2.syncHistoryWithStore,
-    _require3 = require('react-router'),
+var React = require('react');
+var ReactDom = require('react-dom');
+var du = require('dom-utils');
+var utils = require('utils');
+
+var _require = require('react-redux'),
+    Provider = _require.Provider;
+
+var _require2 = require('react-router-redux'),
+    syncHistoryWithStore = _require2.syncHistoryWithStore;
+
+var _require3 = require('react-router'),
     Router = _require3.Router,
-    useRouterHistory = _require3.useRouterHistory,
-    _require4 = require('history'),
-    createHistory = _require4.createHistory,
-    routes = require('./routes'),
-    createStore = require('./create'),
-    labels = require('labels/users/settings'),
-    getLabels = require('labels')(labels),
-    actions = require('./actions'),
-    RelayContainer = require('./containers/RelayContainer'),
-    App = require('./containers/App'),
-    SettingsContainer = require('./containers/SettingsContainer'),
-    DevTools = require('./containers/DevTools');
+    useRouterHistory = _require3.useRouterHistory;
+
+var _require4 = require('history'),
+    createHistory = _require4.createHistory;
+
+var routes = require('./routes');
+var createStore = require('./create');
+var labels = require('labels/users/settings');
+var getLabels = require('labels')(labels);
+var actions = require('./actions');
+var RelayContainer = require('./containers/RelayContainer');
+var App = require('./containers/App');
+var SettingsContainer = require('./containers/SettingsContainer');
+var DevTools = require('./containers/DevTools');
 
 require('dom-utils/ie8');
 

@@ -8,7 +8,7 @@ const config = require( '../testconfig' ),
 
   fixtures = require( 'fixtures' ),
 
-  service = require( '../service' ),
+  service = require( './service' ),
 
   mysql = require( 'mysql' );
 
@@ -17,23 +17,21 @@ describe( '.get', function () {
 
   this.timeout( 20000 );
 
+  before( async () => {
+
+    await service.initAndLoad( config );
+    await require( 'keys' ).init( config );
+
+  } );
+
   before( done => {
 
     fixtures.init( config );
 
     fixtures( [ {
-      table: config.schemas.user,
-      src: __dirname + '/fixtures/user.data.sql'
-    }, {
-      table: config.schemas.apiKeySet,
-      src: __dirname + '/fixtures/api_key_set.data.sql'
-    } ], done );
-
-  } );
-
-  before( async () => {
-
-    await service.init( config );
+      table: config.schemas.key,
+      src: __dirname + '/fixtures/key.data.sql'
+    } ], { reset: false }, done );
 
   } );
 

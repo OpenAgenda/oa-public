@@ -32,7 +32,7 @@ module.exports = function generateApiKey( query, options, cb ) {
 
     .then( _generateApiKey )
 
-    .then( _updateOrInsertApiKeySet )
+    .then( _updateOrInsertApiKeySet ) // legacy bridge TODO remove this
 
     .done( v => cb( null, {
       success: v.success,
@@ -42,7 +42,9 @@ module.exports = function generateApiKey( query, options, cb ) {
 
 };
 
-function _generateApiKey( v ) {
+async function _generateApiKey( v ) {
+
+  const { interfaces: { keys } } = config;
 
   if ( !v.user ) {
     v.errors.push( {
@@ -54,7 +56,18 @@ function _generateApiKey( v ) {
     return v;
   }
 
-  v.query[ v.params.secret ? 'api_secret' : 'api_key' ] = crypto.randomHash();
+  await keys.remove( {
+    type: v.params.secret ? 'userPrivate' : 'userPublic',
+    identifier: v.user.uid
+  } );
+
+  const result = await keys.create( {
+    type: v.params.secret ? 'userPrivate' : 'userPublic',
+    identifier: v.user.uid
+  } );
+
+  v.query[ v.params.secret ? 'api_secret' : 'api_key' ] = result.key;
+  v.success = true;
 
   return v;
 

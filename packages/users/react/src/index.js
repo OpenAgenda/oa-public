@@ -1,38 +1,22 @@
 "use strict";
 
-const React = require( 'react' ),
-
-  ReactDom = require( 'react-dom' ),
-
-  du = require( 'dom-utils' ),
-
-  utils = require( 'utils' ),
-
-  { Provider } = require( 'react-redux' ),
-
-  { syncHistoryWithStore } = require( 'react-router-redux' ),
-
-  { Router, useRouterHistory } = require( 'react-router' ),
-
-  { createHistory } = require( 'history' ),
-
-  routes = require( './routes' ),
-
-  createStore = require( './create' ),
-
-  labels = require( 'labels/users/settings' ),
-
-  getLabels = require( 'labels' )( labels ),
-
-  actions = require( './actions' ),
-
-  RelayContainer = require( './containers/RelayContainer' ),
-
-  App = require( './containers/App' ),
-
-  SettingsContainer = require( './containers/SettingsContainer' ),
-  
-  DevTools = require( './containers/DevTools' );
+const React = require( 'react' );
+const ReactDom = require( 'react-dom' );
+const du = require( 'dom-utils' );
+const utils = require( 'utils' );
+const { Provider } = require( 'react-redux' );
+const { syncHistoryWithStore } = require( 'react-router-redux' );
+const { Router, useRouterHistory } = require( 'react-router' );
+const { createHistory } = require( 'history' );
+const routes = require( './routes' );
+const createStore = require( './create' );
+const labels = require( 'labels/users/settings' );
+const getLabels = require( 'labels' )( labels );
+const actions = require( './actions' );
+const RelayContainer = require( './containers/RelayContainer' );
+const App = require( './containers/App' );
+const SettingsContainer = require( './containers/SettingsContainer' );
+const DevTools = require( './containers/DevTools' );
 
 
 require( 'dom-utils/ie8' );

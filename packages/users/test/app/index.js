@@ -8,6 +8,7 @@ const path = require( 'path' );
 const async = require( 'async' );
 const fixtures = require( 'fixtures' );
 const unsubscribedSvc = require( 'unsubscribed/test/service' );
+const keysSvc = require( 'keys' );
 const service = require( '../service/index' );
 const mw = require( '../../middleware' );
 const config = require( '../../testconfig.js' );
@@ -20,7 +21,7 @@ const app = require( 'test-app' )( {
   ],
   decorateCanvas: false,
   webpack: true,
-  babelServer: true
+  // babelServer: true
 } );
 
 app.use( ( req, res, next ) => {
@@ -98,7 +99,7 @@ app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
 
 } );
 
-async.waterfall( [
+/* async.waterfall( [
   wcb => service.initAndLoad( config ).catch( wcb ).then( () => wcb() ),
   wcb => unsubscribedSvc.initAndLoad( config, { reset: false }, wcb )
 ], err => {
@@ -107,7 +108,23 @@ async.waterfall( [
 
   app.getAndListen( '*', 3000, [ mw.csrfProtection ] );
 
-} );
+} ); */
+
+run().catch( console.error );
+
+async function run() {
+
+  await service.initAndLoad( config );
+
+  await new Promise( ( rs, rj ) =>
+    unsubscribedSvc.initAndLoad( config, { reset: false }, err => err ? rj( err ) : rs() )
+  );
+
+  await keysSvc.init( config );
+
+  app.getAndListen( '*', 3000, [ mw.csrfProtection ] );
+
+}
 
 
 function sendEmail( req, res ) {

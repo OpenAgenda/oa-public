@@ -1,18 +1,21 @@
 "use strict";
 
-const log = require( 'basic-logger' )( 'users - middleware' );
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const path = require( 'path' );
 const w = require( 'when' );
 const csurf = require( 'csurf' );
+const log = require( 'basic-logger' )( 'users - middleware' );
 const mwUploadImage = require( 'image-upload/lib/middleware' );
 const images = require( 'images' );
 const files = require( 'files' );
-const _ = require( 'lodash' );
+const keys = require( 'keys' );
 const config = require( '../config' );
 const service = require( '../' );
 
 const csrf = csurf( { cookie: true } );
+
+const cbify = fn => ( req, res, next ) => w( fn( req, res, w.resolve ) ).done( next, next );
 
 module.exports = {
   csrf,
@@ -28,7 +31,6 @@ module.exports = {
   generateApiKey,
   deleteAccount
 };
-
 
 function load( uidNamespace, toNamespace ) {
 
@@ -287,7 +289,7 @@ function generateApiKey( req, res, next ) {
     service.generateApiKey( {
       id: req.user.id,
       uid: req.user.uid
-    }, { secret: req.query.secret === '1' }, ( err, result ) => {
+    }, { secret: parseInt( req.query.secret ) === 1 }, ( err, result ) => {
 
       if ( err ) return next( err );
 

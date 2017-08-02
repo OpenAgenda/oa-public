@@ -74,6 +74,7 @@
     "cookie-parser": "^1.4.3",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
     "husky": "^0.14.3",
+    "keys": "bitbucket:openagenda/keys",
     "react": "^15.5.4",
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.2.6",

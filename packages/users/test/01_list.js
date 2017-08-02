@@ -5,30 +5,28 @@ process.env.NODE_ENV = 'test';
 const config = require( '../testconfig' );
 const should = require( 'should' );
 const fixtures = require( 'fixtures' );
-const service = require( '../service' );
+const service = require( './service' );
 
 
 describe( '.list', function () {
 
   this.timeout( 20000 );
 
+  before( async () => {
+
+    await service.initAndLoad( config );
+    await require( 'keys' ).init( config );
+
+  } );
+
   before( done => {
 
     fixtures.init( config );
 
     fixtures( [ {
-      table: config.schemas.user,
-      src: __dirname + '/fixtures/user.data.sql'
-    }, {
-      table: config.schemas.apiKeySet,
-      src: __dirname + '/fixtures/api_key_set.data.sql'
-    } ], done );
-
-  } );
-
-  before( async () => {
-
-    await service.init( config );
+      table: config.schemas.key,
+      src: __dirname + '/fixtures/key.data.sql'
+    } ], { reset: false }, done );
 
   } );
 
