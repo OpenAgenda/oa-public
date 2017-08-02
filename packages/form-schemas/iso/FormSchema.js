@@ -142,7 +142,7 @@ function validate( data, client = false ) {
 
       clean.fields.push( validateField( f ) );
 
-    } catch ( e ) { 
+    } catch ( e ) {
 
       errors = errors.concat( e );
 
