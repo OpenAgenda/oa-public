@@ -12,7 +12,7 @@ module.exports = async identifiers => {
   if ( !knex ) throw new VError( 'Db connector needs to be specified at service init' );
 
   try {
-    identifiers = _.pickBy( validateIdentifiers( identifiers, { requireKey: true } ), v => v !== undefined );
+    identifiers = _.pickBy( validateIdentifiers( identifiers, { optionnalyByKey: true } ), v => v !== undefined );
   } catch ( e ) {
     throw new VError( {
       name: 'ValidationError',

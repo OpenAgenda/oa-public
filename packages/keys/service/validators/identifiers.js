@@ -13,7 +13,8 @@ module.exports = ( identifiers, options ) => {
 
   const params = Object.assign( {
     allowId: true,
-    requireKey: false
+    requireKey: false,
+    optionnalyByKey: false
   }, options );
 
   if ( params.allowId && typeof identifiers === 'number' ) {
@@ -35,17 +36,19 @@ module.exports = ( identifiers, options ) => {
       options: keyTypes,
       unique: true
     },
-    identifier: {
-      type: 'number',
-      optional: false
+    key: {
+      type: 'text',
+      optional: !params.requireKey,
+      default: params.requireKey ? null : undefined
     }
   };
 
-  if ( params.requireKey ) {
+  if ( !params.optionnalyByKey ) {
 
-    validateSchema.key = {
-      type: 'text',
-      optional: false
+    validateSchema.identifier = {
+      type: 'number',
+      optional: params.optionnalyByKey,
+      default: params.optionnalyByKey ? null : undefined
     };
 
   }
