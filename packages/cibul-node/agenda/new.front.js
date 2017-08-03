@@ -86,7 +86,11 @@ app.get( '/agendas/:agendaUid/index', [
 
     formSchemas.get( req.agenda.formSchemaId ).then( formSchema => {
 
-      req.decorate = getDecorate( formSchema.fields );
+      if ( formSchema ) {
+
+        req.decorate = getDecorate( formSchema.fields );
+
+      }
 
       next();
 
@@ -127,7 +131,7 @@ app.get( '/agendas/:agendaUid/index', [
         if ( e.custom ) {
 
           return _.extend( e, {
-            custom: req.decorate( e.custom )
+            custom: req.decorate ? req.decorate( e.custom ) : e.custom
           } );
 
         }
