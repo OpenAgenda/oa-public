@@ -113,3 +113,4 @@ var MoreInfo = (_temp = _class = function (_Component) {
 }, _temp);
 exports.default = MoreInfo;
 module.exports = exports['default'];
+//# sourceMappingURL=MoreInfo.js.map

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "babelify": "babel components -d build",
+    "babelify": "babel components -d build -s",
     "build": "npm run-script babelify",
     "preserve": "npm run-script babelify",
     "serve": "node test/app",

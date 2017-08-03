@@ -135,3 +135,4 @@ var SpinnerComponent = (0, _createReactClass2.default)({
   }
 });
 module.exports = exports['default'];
+//# sourceMappingURL=Spinner.js.map

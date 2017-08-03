@@ -213,3 +213,4 @@ var Modal = (_temp = _class = function (_Component) {
 }, _temp);
 exports.default = Modal;
 module.exports = exports['default'];
+//# sourceMappingURL=Modal.js.map
