@@ -359,6 +359,7 @@ describe( 'event search - functional: search', function() {
       total.should.equal( 1 );
 
     } );
+    
 
     it( 'flat form works as well', async () => {
 
@@ -370,8 +371,9 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'extension data is not part of detailed result by default', async () => {
 
+    it( 'extension data is not part of detailed result by default', async () => {
+ 
       let { events, total } = await service( 'simple_search' ).search( {
         'custom.organizeremail' : 'cannes@reedexpo.fr'
       }, {}, { detailed: true } );
@@ -379,6 +381,7 @@ describe( 'event search - functional: search', function() {
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
 
     } );
+
 
     it( 'extension data is part of result only if explicitely requested in options', async () => {
 
@@ -389,6 +392,7 @@ describe( 'event search - functional: search', function() {
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
 
     } );
+
 
     it( 'extension data can be merged into new object as specified in options', async () => {
 

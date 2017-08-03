@@ -127,7 +127,8 @@ This is only useful if you are already running another version of elasticsearch 
 
 sudo service elasticsearch stop && cd /usr/share/elasticsearch-5.3.0 && sudo -H -u elasticsearch bash -c './bin/elasticsearch'
 
-
+Start is as a process:
+sudo -H -u elasticsearch bash -c './bin/elasticsearch -d -p /tmp/pid'
 
 https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/api-reference.html#api-index
 
