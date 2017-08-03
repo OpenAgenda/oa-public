@@ -6,11 +6,11 @@ const activities = require( 'activities' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' );
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
   const getRole = agendaStakeholders.types.get;
 
-  return activities.init( {
+  await activities.init( {
     mysql: config.db,
     schemas: config.schemas,
     migrations: {
@@ -122,6 +122,6 @@ module.exports.init = ( config, cb ) => {
       }
     } ],
     logger
-  }, cb );
+  } );
 
 }
