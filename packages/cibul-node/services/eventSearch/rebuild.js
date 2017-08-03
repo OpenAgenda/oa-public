@@ -111,7 +111,6 @@ async function _eventsList( agendaUid, formSchemaId, customValidators = null, of
 
     }
 
-
     // add contributor info to event item
     let aesMatches = aes.filter( ae => ae.eventUid === i.uid );
 

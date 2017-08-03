@@ -21,7 +21,7 @@ function _transfer( event, cb ) {
 
     } else if ( !result.transfered ) {
 
-      log( 'error', 'event %s could not be transfered', event.uid );
+      log( 'error', 'event %s could not be transfered: %s', event.uid, err );
 
     } else {
 

@@ -10,6 +10,8 @@ const search = require( 'event-search' );
 
 const formSchemas = require( 'form-schemas' );
 
+const getDecorate = require( 'form-schemas/iso/getDecorate' );
+
 const events = require( 'events-service' );
 
 const custom = require( 'custom' );
@@ -82,6 +84,17 @@ app.get( '/agendas/:agendaUid/index', [
   },
   ( req, res, next ) => {
 
+    formSchemas.get( req.agenda.formSchemaId ).then( formSchema => {
+
+      req.decorate = getDecorate( formSchema.fields );
+
+      next();
+
+    } );
+
+  },
+  ( req, res, next ) => {
+
   // show content, unless not existing
   
   let options = { detailed: req.query.detailed, extensions: [ 'contributor', 'custom' ] };
@@ -111,7 +124,15 @@ app.get( '/agendas/:agendaUid/index', [
       total: result.total,
       events: _.map( result.events, e => {
 
-        return e;
+        if ( e.custom ) {
+
+          return _.extend( e, {
+            custom: req.decorate( e.custom )
+          } );
+
+        }
+
+        return e; 
 
       } )
     } );
