@@ -16,9 +16,9 @@ describe( 'activities - notifications', function () {
 
   describe( 'get', () => {
 
-    before( done => {
+    before( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 
@@ -123,9 +123,9 @@ describe( 'activities - notifications', function () {
 
     } );
 
-    beforeEach( done => {
+    beforeEach( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 
@@ -396,9 +396,9 @@ describe( 'activities - notifications', function () {
 
   describe( 'count', () => {
 
-    before( done => {
+    before( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 
@@ -431,9 +431,9 @@ describe( 'activities - notifications', function () {
 
   describe( 'markAs', () => {
 
-    beforeEach( done => {
+    beforeEach( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 
@@ -686,9 +686,9 @@ describe( 'activities - notifications', function () {
 
   describe( 'list', () => {
 
-    before( done => {
+    before( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 
@@ -904,9 +904,9 @@ describe( 'activities - notifications', function () {
 
   describe( 'remove', () => {
 
-    beforeEach( done => {
+    beforeEach( async () => {
 
-      service.initAndLoad( config, done );
+      await service.initAndLoad( config );
 
     } );
 

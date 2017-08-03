@@ -12,14 +12,14 @@ describe( 'activities - activities', function () {
 
   let knex;
 
-  before( done => {
+  before( async () => {
 
     knex = knexLib( {
       client: 'mysql',
       connection: config.mysql
     } );
 
-    service.initAndLoad( config, done );
+    await service.initAndLoad( config );
 
   } );
 
@@ -491,24 +491,24 @@ describe( 'activities - activities', function () {
 
         } )
         .should.fulfilledWith( {
-        actor: 'user:66666666',
-        verb: 'event.create',
-        object: 'event:56488589',
-        target: 'agenda:78625845',
-        store: {
-          labels: {
-            actor: 'Jacky',
-            object: 'Réunion des junkies anonymes - ep3',
-            target: 'Extasy party'
+          actor: 'user:66666666',
+          verb: 'event.create',
+          object: 'event:56488589',
+          target: 'agenda:78625845',
+          store: {
+            labels: {
+              actor: 'Jacky',
+              object: 'Réunion des junkies anonymes - ep3',
+              target: 'Extasy party'
+            }
           }
-        }
-      } );
+        } );
 
     } );
 
-    it( 'add an activity that passes through the followFilters', done => {
+    it( 'add an activity that passes through the followFilters', async () => {
 
-      service.init( Object.assign( {}, config, {
+      await service.init( Object.assign( {}, config, {
         filterFollows: [ {
           verb: 'event.publish',
           getFeeds: true,
@@ -522,61 +522,64 @@ describe( 'activities - activities', function () {
             cb( null, targetFeed.id !== 8 );
           }
         } ]
-      } ), () => {
+      } ) );
 
-        service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
-          actor: 'user:12312312',
-          verb: 'event.publish',
-          object: 'event:78978978',
-          target: 'agenda:66666666',
-          store: {
-            labels: {
-              actor: 'Jacky',
-              object: 'Réunion des junkies anonymes 2',
-              target: 'La fumette'
-            }
+      return service.feed( { entityType: 'user', entityUid: 46 } ).activities.add( {
+        actor: 'user:12312312',
+        verb: 'event.publish',
+        object: 'event:78978978',
+        target: 'agenda:66666666',
+        store: {
+          labels: {
+            actor: 'Jacky',
+            object: 'Réunion des junkies anonymes 2',
+            target: 'La fumette'
           }
+        }
+      } )
+        .then( activity => {
+
+          console.log( activity );
+
+          activity.createdAt.should.Date();
+          return _.omit( activity, 'createdAt', 'updatedAt' );
+
         } )
-          .then( activity => {
+        .then( activity => {
 
-            activity.createdAt.should.Date();
-            return _.omit( activity, 'createdAt', 'updatedAt' );
+          return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
+            .then( rows => {
 
-          } )
-          .then( activity => {
+              rows.map( v => v.feed_id ).should.eql( [ 6, 4, 7 ] );
 
-            return knex( config.schemas.feed_activity ).select().where( { activity_id: activity.id } )
-              .then( rows => {
+              return _.omit( activity, 'id' );
 
-                rows.map( v => v.feed_id ).should.eql( [ 6, 4, 7 ] );
-
-                return _.omit( activity, 'id' );
-
-              } );
-
-          } )
-          .then( activity => {
-
-            activity.should.eql( {
-              actor: 'user:12312312',
-              verb: 'event.publish',
-              object: 'event:78978978',
-              target: 'agenda:66666666',
-              store: {
-                labels: {
-                  actor: 'Jacky',
-                  object: 'Réunion des junkies anonymes 2',
-                  target: 'La fumette'
-                }
-              }
             } );
 
-            service.init( config, done );
+        } )
+        .then( activity => {
 
-          } )
-          .catch( err => service.init( config, () => done( err ) ) );
+          activity.should.eql( {
+            actor: 'user:12312312',
+            verb: 'event.publish',
+            object: 'event:78978978',
+            target: 'agenda:66666666',
+            store: {
+              labels: {
+                actor: 'Jacky',
+                object: 'Réunion des junkies anonymes 2',
+                target: 'La fumette'
+              }
+            }
+          } );
 
-      } );
+          return service.init( config );
+
+        } )
+        .catch( async err => {
+          await service.init( config );
+          return Promise.reject( err );
+        } );
 
     } );
 

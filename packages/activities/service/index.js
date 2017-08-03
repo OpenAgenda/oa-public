@@ -29,31 +29,33 @@ module.exports = {
   }
 };
 
-function init( c, cb ) {
+async function init( c ) {
 
   config = c;
 
   if ( c.logger ) logger.setLogger( c.logger );
 
-  knex = knexLib( {
+  knex = c.knex ? c.knex.clone() : knexLib( {
     client: 'mysql',
-    connection: c.mysql,
-    migrations: Object.assign( {}, config.migrations, {
-      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
-    } ),
-    schemas: config.schemas
+    connection: c.mysql
   } );
 
-  return knex.migrate.latest()
-    .then( () => {
-
-      feed.init( { config, knex, logger, service: module.exports } );
-      feeds.init( { config, knex, logger, service: module.exports } );
-      activities.init( { config, knex, logger, service: module.exports } );
-      notifications.init( { config, knex, logger, service: module.exports } );
-
-      if ( cb ) cb();
-
+  if ( c.migrations !== null ) {
+    Object.assign( knex.client.config, {
+      migrations: Object.assign( {}, c.migrations, {
+        directory: path.resolve( path.dirname( __dirname ), 'migrations' )
+      } ),
+      schemas: config.schemas
     } );
+  }
+
+  if ( knex.client.config.migrations ) {
+    await knex.migrate.latest();
+  }
+
+  feed.init( { config, knex, logger, service: module.exports } );
+  feeds.init( { config, knex, logger, service: module.exports } );
+  activities.init( { config, knex, logger, service: module.exports } );
+  notifications.init( { config, knex, logger, service: module.exports } );
 
 }

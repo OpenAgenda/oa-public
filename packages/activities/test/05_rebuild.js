@@ -14,14 +14,14 @@ describe.skip( 'activities - rebuid', function () {
 
   let knex;
 
-  before( done => {
+  before( async () => {
 
     knex = knexLib( {
       client: 'mysql',
       connection: config.mysql
     } );
 
-    service.initAndLoad( config, [
+    await service.initAndLoad( config, [
       'feed',
       'feed_follow',
       'feed_activity',
@@ -33,7 +33,7 @@ describe.skip( 'activities - rebuid', function () {
       'rebuild_reviewer',
       'rebuild_user',
       'rebuild_aggregator',
-    ], done );
+    ] );
 
   } );
 
