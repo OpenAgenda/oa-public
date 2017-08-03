@@ -22,18 +22,22 @@ async function init( c ) {
   } );
 
   // add migrations config to the knex client
-  Object.assign( config.knex.client.config, {
-    migrations: Object.assign( {}, c.migrations, {
-      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
-    } ),
-    schemas: c.schemas
-  } );
+  if ( c.migrations !== null ) {
+    Object.assign( config.knex.client.config, {
+      migrations: Object.assign( {}, c.migrations, {
+        directory: path.resolve( path.dirname( __dirname ), 'migrations' )
+      } ),
+      schemas: c.schemas
+    } );
+  }
 
   _.extend( config, _.pick( c, [
     'mysql',
     'schemas'
   ] ) );
 
-  await config.knex.migrate.latest();
+  if ( config.knex.client.config.migrations ) {
+    await config.knex.migrate.latest();
+  }
 
 }
