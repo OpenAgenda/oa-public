@@ -44,6 +44,22 @@ module.exports.init = async config => {
 
       }
     }, {
+      verb: 'agenda.publishEvent',
+      getFeeds: true,
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid === activity.store.originAgendaUid ) {
+          return cb( null, true );
+        }
+
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt( activity.target.split( ':' )[ 1 ] ) ) {
+          return cb( null, false );
+        }
+
+        cb( null, true );
+
+      }
+    }, {
       verb: [
         'event.create',
         'event.update',

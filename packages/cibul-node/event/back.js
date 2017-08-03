@@ -327,7 +327,8 @@ function _changeState( req, res, next ) {
             actor: req.user.name,
             object: req.event.title,
             target: req.agenda.title
-          }
+          },
+          originAgendaUid: req.event.origin.uid
         }
       }, () => {
 
