@@ -8,6 +8,10 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 
   logger = require( 'logger' ),
 
+  keys = require( 'keys' ),
+
+  agendas = require( 'agendas' ),
+
   activities = require( 'activities' );
 
 let log = console.log;
@@ -26,7 +30,13 @@ module.exports.init = async config => {
       tmpPath: config.tmpFolderPath
     },
     interfaces: {
-      beforeRemove
+      beforeRemove,
+      getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
+      keys: {
+        get: identifiers => keys( identifiers ).get(),
+        create: ( identifiers, data ) => keys( identifiers ).create( data ),
+        remove: identifiers => keys( identifiers ).remove()
+      }
     },
     logger
   } );
