@@ -165,3 +165,4 @@ function renderNotification(_ref) {
   );
 }
 module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

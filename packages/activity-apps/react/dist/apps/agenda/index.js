@@ -70,3 +70,4 @@ var setMenuLinks = function setMenuLinks(_ref) {
   });
 };
 module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

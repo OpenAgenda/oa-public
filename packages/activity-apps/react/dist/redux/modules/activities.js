@@ -159,3 +159,4 @@ function nextPage(query, fromId) {
     };
   };
 }
+//# sourceMappingURL=activities.js.map

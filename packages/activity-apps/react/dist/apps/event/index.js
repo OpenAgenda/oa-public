@@ -64,3 +64,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var formatActivity = (0, _formatActivity2.default)({}, _event2.default);
 
 module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

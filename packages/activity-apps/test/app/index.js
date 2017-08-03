@@ -1,10 +1,10 @@
+"use strict";
+
+if ( !require( 'piping' )( { hook: true } ) ) return;
+
 const React = require( 'react' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
-const path = require( 'path' );
-const async = require( 'async' );
-const express = require( 'express' );
-const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
 const sessions = require( 'sessions' );
@@ -15,104 +15,90 @@ const mw = require( '../../middleware' );
 
 const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
-  frontWrapper: __dirname + '/front.jsx',
+  entryPoint: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
   ],
-  decorateCanvas: false,
-  webpack: true
+  decorateCanvas: false
 } );
 
 const port = process.env.PORT || 3000;
 
-fixtures.init( config );
-sessions.init( config.services.sessions );
+app.use( ( req, res, next ) => {
 
-async.waterfall( [
-  wcb => activitiesSvc.initAndLoad( config, [], wcb ),
-  wcb => mw.init( { limit: config.mw.limit }, wcb ),
-  wcb => fixtures( [ {
-    table: config.schemas.activity,
-    src: __dirname + '/../fixtures/activity.data.sql'
-  }, {
-    table: config.schemas.feed,
-    src: __dirname + '/../fixtures/feed.data.sql'
-  }, {
-    table: config.schemas.feed_activity,
-    src: __dirname + '/../fixtures/feed_activity.data.sql'
-  }, {
-    table: config.schemas.feed_follow,
-    src: __dirname + '/../fixtures/feed_follow.data.sql'
-  }, {
-    table: config.schemas.feed_notification,
-    src: __dirname + '/../fixtures/feed_notification.data.sql'
-  } ], { reset: false }, wcb )
-], () => {
+  switch ( req.query._app ) {
 
-  app.use( ( req, res, next ) => {
+    case 'agenda':
+    case 'user':
+    case 'notifications':
+      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
+      break;
+    default:
+      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
 
-    switch ( req.query._app ) {
+  }
 
-      case 'agenda':
-      case 'user':
-      case 'notifications':
-        app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
-        break;
-      default:
-        app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
-
-    }
-
-    next();
-
-  } );
-
-  app.use( sessionsMw );
-
-  app.use( bodyParser.urlencoded( { extended: false } ) );
-  app.use( bodyParser.json() );
-  app.use( morgan( 'combined' ) );
-
-  app.use( ( req, res, next ) => {
-    req.user = {
-      uid: 99999999,
-      id: 2,
-      lang: req.query.lang || 'fr'
-    }; // 2 == administrator, 4387 == contributor
-    req.userIdentifier = req.user;
-    req.identifiers = { userId: req.user.id };
-    req.agenda = { id: 4608, uid: 36282888 };
-
-    if ( !req.query._app ) req.query._app = 'admin';
-
-    next();
-  } );
-
-  app.use( sessionsMw.open() );
-
-  app.get( '/notifications/count', mw.notifications.count );
-  app.get( '/notifications/list', mw.notifications.list );
-  app.get( '/notifications/remove/:notifId', mw.notifications.remove );
-  app.get( '/notifications/mark-read/:notifId', mw.notifications.markRead );
-  app.get( '/notifications/mark-all-read', mw.notifications.markAllRead );
-
-  // for admin
-  app.get( '/list', mw.list() );
-
-  // for agenda and user
-  app.get(
-    '/:uid/list',
-    ( req, res ) => mw.list( {
-      entityType: req.query._app,
-      entityUid: req[ req.query._app ].uid
-    } )( req, res )
-  );
-
-  app.getAndListen( '*', port, matchApp );
+  next();
 
 } );
 
+app.use( sessionsMw );
+
+app.use( bodyParser.urlencoded( { extended: false } ) );
+app.use( bodyParser.json() );
+app.use( morgan( 'combined' ) );
+
+app.use( ( req, res, next ) => {
+  req.user = {
+    uid: 99999999,
+    id: 2,
+    lang: req.query.lang || 'fr'
+  }; // 2 == administrator, 4387 == contributor
+  req.userIdentifier = req.user;
+  req.identifiers = { userId: req.user.id };
+  req.agenda = { id: 4608, uid: 36282888 };
+
+  if ( !req.query._app ) req.query._app = 'admin';
+
+  next();
+} );
+
+app.use( sessionsMw.open() );
+
+app.get( '/notifications/count', mw.notifications.count );
+app.get( '/notifications/list', mw.notifications.list );
+app.get( '/notifications/remove/:notifId', mw.notifications.remove );
+app.get( '/notifications/mark-read/:notifId', mw.notifications.markRead );
+app.get( '/notifications/mark-all-read', mw.notifications.markAllRead );
+
+// for admin
+app.get( '/list', mw.list() );
+
+// for agenda and user
+app.get(
+  '/:uid/list',
+  ( req, res ) => mw.list( {
+    entityType: req.query._app,
+    entityUid: req[ req.query._app ].uid
+  } )( req, res )
+);
+
+run().catch( console.error );
+
+async function run() {
+
+  sessions.init( config.services.sessions );
+
+  mw.init( { limit: config.mw.limit } );
+
+  await activitiesSvc.init( Object.assign( config, { migrations: null } ) );
+
+  app.getAndListen( '*', port, matchApp );
+
+}
+
+/*******/
 
 function matchApp( req, res, next ) {
 

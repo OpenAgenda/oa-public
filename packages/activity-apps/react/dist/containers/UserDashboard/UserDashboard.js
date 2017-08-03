@@ -236,3 +236,4 @@ var UserDashboard = _wrapComponent('UserDashboard')((_dec = (0, _reduxConnect.as
 exports.default = UserDashboard;
 ;
 module.exports = exports['default'];
+//# sourceMappingURL=UserDashboard.js.map

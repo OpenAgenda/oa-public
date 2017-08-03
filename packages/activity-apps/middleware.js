@@ -38,7 +38,7 @@ module.exports = {
   }
 };
 
-function init( c, cb ) {
+function init( c ) {
 
   config = c;
 
@@ -49,8 +49,6 @@ function init( c, cb ) {
   }
 
   log = logger( 'activity-apps/middleware' );
-
-  if ( cb ) cb();
 
 }
 

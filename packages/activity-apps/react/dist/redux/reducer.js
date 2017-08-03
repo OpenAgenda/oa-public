@@ -32,3 +32,4 @@ exports.default = (0, _createReducer2.default)({
   activities: _activities2.default
 });
 module.exports = exports['default'];
+//# sourceMappingURL=reducer.js.map

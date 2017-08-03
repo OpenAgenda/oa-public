@@ -119,3 +119,4 @@ var AgendaApp = _wrapComponent('AgendaApp')((_dec = (0, _reactRedux.connect)(fun
 
 exports.default = AgendaApp;
 module.exports = exports['default'];
+//# sourceMappingURL=AgendaApp.js.map
