@@ -26,7 +26,12 @@ module.exports = {
     } : {
       slug: 'semaineindustrie2017',
       title: 'Semaine de l\'Industrie 2017'
-    } )
+    } ),
+    keys: {
+      get: identifiers => keysSvc( identifiers ).get(),
+      create: ( identifiers, data ) => keysSvc( identifiers ).create( data ),
+      remove: identifiers => keysSvc( identifiers ).remove()
+    }
   },
   debug: true
 };
