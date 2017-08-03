@@ -10,7 +10,8 @@ module.exports = {
   schemas: {
     user: 'user',
     apiKeySet: 'api_key_set',
-    unsubscribed: 'unsubscribed'
+    unsubscribed: 'unsubscribed',
+    key: 'key'
   },
   files: {
     tmpPath: '/var/tmp',
