@@ -50,3 +50,4 @@ exports.default = (0, _redux.combineReducers)({
   keys: _keys2.default
 });
 module.exports = exports['default'];
+//# sourceMappingURL=reducer.js.map

@@ -53,3 +53,4 @@ function editApp(options) {
   return (0, _app2.default)(options, _editRoutes2.default, setMenuLinks);
 }
 module.exports = exports['default'];
+//# sourceMappingURL=editApp.js.map

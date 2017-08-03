@@ -1,5 +1,7 @@
 "use strict";
 
+if ( !require( 'piping' )( { hook: true } ) ) return;
+
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../../testconfig.js' );
@@ -16,13 +18,12 @@ const morgan = require( 'morgan' );
 
 const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
-  frontWrapper: __dirname + '/front.jsx',
+  frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../node_modules/bs-templates/compiled/main.css'
   ],
-  decorateCanvas: false,
-  webpack: true
+  decorateCanvas: false
 } );
 
 const port = process.env.PORT || 3000;
@@ -123,7 +124,6 @@ app.delete( '/:slug/keys/remove',
   ( req, res, next ) => res.send( { rowAffected: req.result } )
 );
 
-
 app.use( ( err, req, res, next ) => {
 
   if ( err.json ) {
@@ -135,6 +135,25 @@ app.use( ( err, req, res, next ) => {
   res.status( 500 ).send();
 
 } );
+
+run().catch( console.error );
+
+async function run() {
+
+  agendasSvc.init( config );
+
+  service.init( Object.assign( config, {
+    services: {
+      agendas: agendasSvc
+    }
+  } ) );
+
+  // avoid migrations and do it in fixtures.js
+  await keysSvc.init( Object.assign( config, { migrations: null } ) );
+
+  app.getAndListen( '*', port, matchApp );
+
+}
 
 /*******/
 
@@ -245,32 +264,5 @@ function getHtmlBody( req ) {
     return '<div class="js_canvas">{content}</div>';
 
   }
-
-}
-
-
-agendasSvc.init( config );
-
-
-agendasSvc.test.fixtures( err => {
-
-  if ( err ) return console.error( err );
-
-  run().catch( console.error );
-
-} );
-
-
-async function run() {
-
-  service.init( Object.assign( config, {
-    services: {
-      agendas: agendasSvc
-    }
-  } ) );
-
-  await keysSvc.init( config );
-
-  app.getAndListen( '*', port, matchApp );
 
 }

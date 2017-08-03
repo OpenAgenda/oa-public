@@ -20,3 +20,4 @@ function createApp(options) {
   return (0, _app2.default)(options, _createRoutes2.default);
 }
 module.exports = exports['default'];
+//# sourceMappingURL=createApp.js.map

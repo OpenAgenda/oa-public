@@ -311,3 +311,4 @@ var ProfileEdition = _wrapComponent('ProfileEdition')((_dec = (0, _reactRedux.co
 
 exports.default = ProfileEdition;
 module.exports = exports['default'];
+//# sourceMappingURL=ProfileEdition.js.map

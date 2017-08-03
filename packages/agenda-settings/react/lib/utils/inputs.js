@@ -140,3 +140,4 @@ function renderMarkdownInput(_ref5) {
   var content = _react2.default.createElement(_MarkdownComponent2.default, _extends({}, props.input, inputAttrs));
   return renderField.bind(this)(_extends({ content: content }, props));
 }
+//# sourceMappingURL=inputs.js.map

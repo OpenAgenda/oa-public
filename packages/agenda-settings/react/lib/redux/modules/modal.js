@@ -33,3 +33,4 @@ function setModal(options) {
     options: options
   };
 }
+//# sourceMappingURL=modal.js.map

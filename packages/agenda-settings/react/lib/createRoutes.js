@@ -26,3 +26,4 @@ function createRoutes(store) {
   );
 }
 module.exports = exports['default'];
+//# sourceMappingURL=createRoutes.js.map

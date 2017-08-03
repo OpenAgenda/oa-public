@@ -2,3 +2,4 @@
 node_modules
 testconfig.js
 npm-debug.log
+.tmp

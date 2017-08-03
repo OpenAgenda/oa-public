@@ -21,3 +21,4 @@ module.exports = (0, _reduxDevtools.createDevTools)(_react2.default.createElemen
   { toggleVisibilityKey: 'ctrl-h', changePositionKey: 'ctrl-p', defaultPosition: 'bottom' },
   _react2.default.createElement(_reduxDevtoolsLogMonitor2.default, null)
 ));
+//# sourceMappingURL=DevTools.js.map

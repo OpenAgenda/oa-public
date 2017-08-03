@@ -90,3 +90,4 @@ function removeObjectProperties(obj, keys) {
   return target;
 }
 module.exports = exports['default'];
+//# sourceMappingURL=create.js.map

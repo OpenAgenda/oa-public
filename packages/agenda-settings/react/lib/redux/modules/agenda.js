@@ -193,3 +193,4 @@ function remove() {
     }
   };
 }
+//# sourceMappingURL=agenda.js.map
