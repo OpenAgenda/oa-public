@@ -84,7 +84,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
     const getIcon = ( activity, type ) => {
       if ( !withFilterIcons ) return '';
-      return `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${activity.store.labels[ type ]}" data-filtertype="${type}" data-filtervalue="${activity[ type ]}"></i>`;
+      return `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${escape( activity.store.labels[ type ] )}" data-filtertype="${type}" data-filtervalue="${activity[ type ]}"></i>`;
     };
 
     const makeUrl = ( entityType, values, label, filterType ) => {
@@ -94,7 +94,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         return prev.replace( `:${next}`, values[ next ] );
       }, urls[ activity.verb ][ entityType ] );
 
-      const icon = `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${label}" data-filtertype="${filterType}" data-filtervalue="${entityType}:${values[ entityType ]}"></i>`;
+      const icon = `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${escape( label )}" data-filtertype="${escape( filterType )}" data-filtervalue="${entityType}:${values[ entityType ]}"></i>`;
 
       return `<span class="activity-highlight"><a href="${url}">${escape( label )}</a>${withFilterIcons ? icon : ''}</span>`;
     };
