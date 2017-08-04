@@ -124,27 +124,33 @@ function actionShow( req, res ) {
       uri: req.eventUri,
       params: req.eventUriParams
     },
-    agenda: req.agenda ? req.agenda : false,
-    logged: sessions.isLogged( req )
+    agenda: req.agenda ? req.agenda : false
   };
 
-  if ( req.query.back ) {
+  sessions.isLogged( req ).then( is => {
 
-    req.templateData.back = req.query.back;
+    req.templateData.logged = is;
 
-  }
+    if ( req.query.back ) {
 
-  async.eachSeries( actions, ( action, scb ) => {
+      req.templateData.back = req.query.back;
 
-    loaders[ action ]( req, res, scb );
+    }
 
-  }, err => {
+    async.eachSeries( actions, ( action, scb ) => {
 
-    if ( err ) return next( err );
+      loaders[ action ]( req, res, scb );
 
-    return cmn.render( req, res, 'event/action', req.templateData );
+    }, err => {
+
+      if ( err ) return next( err );
+
+      return cmn.render( req, res, 'event/action', req.templateData );
+
+    } );
 
   } );
+
 
 }
 
@@ -290,15 +296,9 @@ function _calendarAction( req, res, next ) {
 
 function _agendasAction( req, res, next ) {
 
-  if ( !sessions.isLogged( req ) ) {
-
-    return next();
-
-  }
-
   sessions.get( req, { detailed: true }, ( err, session ) => {
 
-    if ( err ) {
+    if ( err || !session ) {
 
       return next( err );
 

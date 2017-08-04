@@ -342,7 +342,7 @@ function _loadUserAgendaCreds( v ) {
 
   v.req.log( 'loading user agenda creds' );
 
-  if ( !sessions.isLogged( v.req ) ) {
+  if ( !v.req.user ) {
 
     v.req.log( 'user is not logged' );
 

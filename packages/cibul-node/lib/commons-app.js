@@ -164,7 +164,7 @@ function checkAdministrator( options ) {
 
       if ( err ) return next( err );
 
-      if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+      if ( !req.user ) return next( { code: 403 } );
 
       wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
 
@@ -208,7 +208,7 @@ function checkModerator( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+    if ( !req.user ) return next( { code: 403 } );
 
     wn.call( req.agenda.isModerator, { id: req.user.id } )
 
@@ -237,7 +237,7 @@ function checkContributor( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+    if ( !req.user ) return next( { code: 403 } );
 
     async.parallel( [
       async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
@@ -269,7 +269,7 @@ function checkAdminOrModerator( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !sessions.isLogged( req ) ) return next( { code: 403 } );
+    if ( !req.user ) return next( { code: 403 } );
 
     async.parallel( [
       async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
@@ -296,7 +296,7 @@ function checkStakeholder( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !sessions.isLogged( req ) ) {
+    if ( !req.user ) {
 
       return next( { code: 403 } );
 

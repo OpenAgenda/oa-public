@@ -103,6 +103,8 @@ function actionShow( req, res ) {
 
     return sessions.isLogged( req ).then( is => {
 
+      values.logged = is;
+
       if ( !is ) {
 
         return values;
@@ -165,12 +167,9 @@ function actionShow( req, res ) {
 
   .then( function( values ) {
 
-    if ( !sessions.isLogged( req ) ) return values;
+    if ( !values.logged ) return values;
 
-    // get current aggregating agendas
-    // and cross reference with users admined agendas
-
-    return w.promise( function( resolve, reject ) {
+    return w.promise( ( rs, rj ) => {
 
       req.agenda.getAggregators( function( err, result ) {
 
@@ -192,13 +191,13 @@ function actionShow( req, res ) {
 
         });
 
-        resolve( values );
+        rs( values );
 
       })
 
     });
 
-  })
+  } )
 
   .done( function( values ) {
 
