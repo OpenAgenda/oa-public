@@ -34,7 +34,7 @@ function query( sql, arr = [], cb ) {
   log( 'running cibul model query \'%s\' with values [%s]', sql, [].concat( arr ).join( ',' ) );
 
   const p = config.knex.raw( sql, arr );
-
+  
   p.catch( cb );
 
   p.then( result => {

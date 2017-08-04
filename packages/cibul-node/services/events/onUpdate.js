@@ -2,9 +2,9 @@
 
 let log = console.log;
 
-module.exports = ( before, after ) => {
+module.exports = ( before, after, context ) => {
 
-  log( 'updated event %s', after.uid );
+  log( 'updated event %s with context %s', after.uid, JSON.stringify( context ) );
 
 }
 

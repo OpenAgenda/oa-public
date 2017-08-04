@@ -11,21 +11,21 @@ module.exports = {
   setLog: l => log = l
 }
 
-function _transfer( event, cb ) {
+function _transfer( event, context, cb ) {
 
-  events.legacy.transfer( event, ( err, result ) => {
+  events.legacy.transfer( event, { context }, ( err, result ) => {
 
     if ( err ) {
 
       log( 'error', 'event %s transfer failed: %s', event.uid, err );
 
-    } else if ( !result.transfered ) {
+    } else if ( !result.transferred ) {
 
-      log( 'error', 'event %s could not be transfered: %s', event.uid, err );
+      log( 'error', 'event %s could not be transferred: %s', event.uid, err );
 
     } else {
 
-      log( 'info', 'event %s successfully transfered: %s', result.event.uid, result.created ? 'creation' : 'update' );
+      log( 'info', 'event %s successfully transferred: %s', result.event.uid, result.created ? 'creation' : 'update' );
 
     }
 
@@ -35,9 +35,9 @@ function _transfer( event, cb ) {
 
 }
 
-function _legacyRemove( event ) {
+function _legacyRemove( event, context ) {
 
-  events.remove( { uid: event.uid }, ( err, result ) => {
+  events.remove( { uid: event.uid }, { context }, ( err, result ) => {
 
     if ( err ) {
 

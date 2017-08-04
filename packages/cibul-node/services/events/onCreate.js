@@ -4,9 +4,9 @@ const users = require( 'users' );
 
 let log = console.log;
 
-module.exports = event => {
+module.exports = ( event, context ) => {
 
-  log( 'created event %s', event.uid );
+  log( 'created event %s with context %s', event.uid, JSON.stringify( context ) );
 
   users.get( { uid: event.creatorUid }, ( err, user ) => {
 
