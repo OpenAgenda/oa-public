@@ -199,8 +199,7 @@ module.exports = function( path ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    cmn.loadLogger( 'agenda front' ),
-    cmn.lang,
+    cmn.loadLogger( 'agenda front' )
   ] );
 
   return {

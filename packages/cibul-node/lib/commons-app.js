@@ -389,87 +389,90 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   }
 
-  if ( !req.lang ) lang( req );
+  lang( req, res, () => {
 
-  req.log( 'preparing error response' );
+    req.log( 'preparing error response' );
 
-  if ( jsonResponse === undefined ) {
+    if ( jsonResponse === undefined ) {
 
-    jsonResponse = /\.json$/.test( req.path );
+      jsonResponse = /\.json$/.test( req.path );
 
-  }
+    }
 
-  if ( [ 401, 403, 404, 413 ].indexOf( error.code ) == -1 ) {
+    if ( [ 401, 403, 404, 413 ].indexOf( error.code ) == -1 ) {
 
-    req.log.load( { errorStack: error.stack } );
+      req.log.load( { errorStack: error.stack } );
 
-    req.log( 'error', 'received error: %s', circularJSON.stringify( error ) );
+      req.log( 'error', 'received error: %s', circularJSON.stringify( error ) );
 
-    console.error( ( new Date ).toUTCString() + ' caught: %s', circularJSON.stringify( error ) );
+      console.error( ( new Date ).toUTCString() + ' caught: %s', circularJSON.stringify( error ) );
 
-    console.error( error.stack ? error.stack : 'no stack' );
+      console.error( error.stack ? error.stack : 'no stack' );
 
-    errorTemplate = 'error/show';
+      errorTemplate = 'error/show';
 
-    res.code = 500;
+      res.code = 500;
 
-  } else {
+    } else {
 
-    errorTemplate = 'error/show';
+      errorTemplate = 'error/show';
 
-    res.code = error.code;
+      res.code = error.code;
 
-  }
+    }
 
-  error = typeof error == 'string' ? { message: error } : error;
+    error = typeof error == 'string' ? { message: error } : error;
 
-  if ( !req.genUrl ) {
+    if ( !req.genUrl ) {
 
-    req.genUrl = genUrl;
+      req.genUrl = genUrl;
 
-  }
-
-
-  if ( res.code === 413 ) {
-
-    error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
-      '%max%': Math.ceil( error.limit / 1000 ),
-      '%sub%': Math.ceil( error.length / 1000 )
-    }, req.lang );
-
-  } else if ( error.message ) {
-
-    error.message = i18n( error.message, {}, req.lang );
-
-  }
+    }
 
 
-  if ( jsonResponse ) {
+    if ( res.code === 413 ) {
 
-    renderJson( req, res, {
-      success: false,
-      message: error.message ? error.message : 'There was a problem during the handling of the request'
-    } );
+      error.message = i18n( 'Your submission is too large: maximum allowed is %max%kb, you submitted %sub%kb', {
+        '%max%': Math.ceil( error.limit / 1000 ),
+        '%sub%': Math.ceil( error.length / 1000 )
+      }, req.lang );
 
-    return;
+    } else if ( error.message ) {
 
-  }
+      error.message = i18n( error.message, {}, req.lang );
 
-  if ( req.baseData ) {
+    }
 
-    req.baseData.head.css.main = '/css/compiled.css';
 
-    render( req, res, errorTemplate, error );
+    if ( jsonResponse ) {
 
-  } else {
+      renderJson( req, res, {
+        success: false,
+        message: error.message ? error.message : 'There was a problem during the handling of the request'
+      } );
 
-    loadBaseData()( req, res, function () {
+      return;
+
+    }
+
+    if ( req.baseData ) {
+
+      req.baseData.head.css.main = '/css/compiled.css';
 
       render( req, res, errorTemplate, error );
 
-    } );
+    } else {
 
-  }
+      loadBaseData()( req, res, function () {
+
+        render( req, res, errorTemplate, error );
+
+      } );
+
+    }
+
+  } );
+
 
 }
 
@@ -1086,29 +1089,46 @@ function _logRequest( req, res, next ) {
 
 function lang( req, res, next ) {
 
-  if ( req.query.lang ) {
+  ( new Promise( ( rs, rj ) => {
 
-    req.lang = _cleanLang( req.query.lang );
+    if ( req.query.lang ) {
 
-  } else if ( sessions.isLogged( req ) ) {
+      req.lang = _cleanLang( req.query.lang );
 
-    req.lang = sessions.getCulture( req );
+      rs();
 
-  } else {
+    } else {
 
-    // pages are in french unless explicited otherwise or unless user is logged
-    req.lang = 'fr';
-    //req.lang = req.acceptsLanguages( [ 'fr', 'en' ] ) || 'fr';
+      return sessions.isLogged( req ).then( is => {
 
-  }
+        if ( is ) {
 
-  if ( req.lang !== 'fr' ) {
+          req.lang = sessions.getCulture( req );
 
-    req.genUrl.preload( { lang: req.lang } );
+        } else {
 
-  }
+          req.lang = 'fr';
 
-  if ( next ) next();
+        }
+
+        rs();
+
+      } )
+
+    }
+
+  } ) ).then( () => {
+
+    if ( req.lang !== 'fr' ) {
+
+      req.genUrl.preload( { lang: req.lang } );
+
+    }
+
+    if ( next ) next();
+
+  } );
+
 
 }
 
