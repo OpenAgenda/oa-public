@@ -8,6 +8,14 @@ var _values = require('babel-runtime/core-js/object/values');
 
 var _values2 = _interopRequireDefault(_values);
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
 var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -291,6 +299,19 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
       }));
     }
   }, {
+    key: 'getEventTitle',
+    value: function getEventTitle(labels) {
+
+      if ((typeof labels === 'undefined' ? 'undefined' : (0, _typeof3.default)(labels)) !== 'object') return labels;
+
+      var lang = this.props.lang;
+
+      var keys = (0, _keys2.default)(labels);
+      return keys.find(function (v) {
+        return v === lang;
+      }) ? labels[lang] : labels[keys[0]];
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
@@ -325,8 +346,8 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
                   }, className: 'active margin-right-sm' },
                 _react3.default.createElement(
                   'a',
-                  { href: '#' },
-                  v.label
+                  { role: 'button' },
+                  _this4.getEventTitle(v.label)
                 )
               );
             }))

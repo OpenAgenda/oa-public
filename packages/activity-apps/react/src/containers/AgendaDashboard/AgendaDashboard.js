@@ -172,6 +172,16 @@ export default class AgendaDashboard extends Component {
     } );
   };
 
+  getEventTitle( labels ) {
+
+    if ( typeof labels !== 'object' ) return labels;
+
+    const { lang } = this.props;
+    const keys = Object.keys( labels );
+    return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
+
+  }
+
   render() {
     const { activities, nextLoading } = this.props;
     const { getLabel, lang } = this.context;
@@ -184,7 +194,7 @@ export default class AgendaDashboard extends Component {
           <ul className="nav nav-pills filters">
             {Object.values( mapValues( this.state.filters, ( v, k ) =>
               v && <li key={k} onClick={() => this.removeFilter( k )} className="active margin-right-sm">
-                <a href="#">{v.label}</a>
+                <a role="button">{this.getEventTitle( v.label )}</a>
               </li>
             ) )}
           </ul>

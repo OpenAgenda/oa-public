@@ -13,9 +13,8 @@ const config = require( '../../testconfig.js' );
 const activitiesSvc = require( 'activities/test/service' );
 const mw = require( '../../middleware' );
 
-const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
-  entryPoint: __dirname + '/../../.tmp/testapp-client.js',
+  frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
@@ -94,7 +93,13 @@ async function run() {
 
   await activitiesSvc.init( Object.assign( config, { migrations: null } ) );
 
-  app.getAndListen( '*', port, matchApp );
+  app.get( '*', matchApp );
+
+  app.listen( port, () => {
+
+    console.log( '==> App listening on port', port );
+
+  } );
 
 }
 
@@ -166,7 +171,9 @@ function getApp( req, res, next, { store, component } = {} ) {
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';
 
-  helpers.renderCanvas( true, false, getHtmlBody( req ) )( req, res );
+  app.renderCanvas( {
+    htmlContent: getHtmlBody( req )
+  } )( req, res );
 
 }
 
