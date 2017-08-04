@@ -16,7 +16,6 @@ const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
 const morgan = require( 'morgan' );
 
-const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
   frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
@@ -151,7 +150,13 @@ async function run() {
   // avoid migrations and do it in fixtures.js
   await keysSvc.init( Object.assign( config, { migrations: null } ) );
 
-  app.getAndListen( '*', port, matchApp );
+  app.get( '*', matchApp );
+
+  app.listen( port, () => {
+
+    console.log( '==> App listening on port', port );
+
+  } );
 
 }
 
@@ -222,7 +227,9 @@ function getApp( req, res, next, { store, component } = {} ) {
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';
 
-  helpers.renderCanvas( true, false, getHtmlBody( req ) )( req, res );
+  app.renderCanvas( {
+    htmlContent: getHtmlBody( req )
+  } )( req, res );
 
 }
 
