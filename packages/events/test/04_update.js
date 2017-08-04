@@ -1,12 +1,16 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 const svc = require( './service' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-should = require( 'should' ),
+  should = require( 'should' ),
 
-mysql = require( 'mysql' );
+  mysql = require( 'mysql' ),
+
+  ih = require( 'immutability-helper' );
 
 describe( 'events - functional (server): update', function() {
 
@@ -158,6 +162,39 @@ describe( 'events - functional (server): update', function() {
     }, { protected: false } );
 
     result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
+
+  } );
+
+
+  describe( 'interfaces', () => {
+
+    beforeEach( () => {
+
+      svc.init( config );
+
+    } );
+
+    it( 'if a userUid is specified in context, it is given in interfaces', done => {
+
+      svc.init( ih( config, {
+        interfaces: {
+          onUpdate: {
+            $set: ( before, after, context ) => {
+
+              context.should.eql( { userUid: 12 } );  
+
+              done();
+
+            }
+          }
+        }
+      } ) );
+
+      svc.update( id, {
+        "conditions" : "Its free!"
+      }, { context: { userUid: 12 } }, ( err, result ) => {} );
+
+    } );
 
   } );
 

@@ -18,40 +18,38 @@ const _ = require( 'lodash' ),
 
   validate = require( './lib/validate.w' ),
 
+  cleanUpdateArgs = require( './lib/cleanUpdateArgs' ),
+
+  cleanUpdateOptions = require( './validate/updateOptions' ),
+
   dbParse = require( 'mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 
-module.exports = _.extend( function( identifiers, data, options, cb ) {
+module.exports = _.extend( function( i, d, o, c ) {
 
-  if ( cb === undefined && typeof options === 'function' ) {
+  const { identifiers, data, options, cb } = cleanUpdateArgs( i, d, o, c );
 
-    cb = options;
-    options = {};
+  let cleanOptions = {};
 
-  }
+  try {
 
-  let p = new Promise( ( rs, rj ) => {
+    cleanOptions = cleanUpdateOptions( options );
 
-    const params = _.defaults( options, {
-      protected: true,
-      internal: false,
-      includeImagePath: false,
-      draft: false
-    } );
+  } catch ( e ) {}
 
-    w( _.assign( {}, params, {
-      identifiers,
-      data,
-      id: false,
-      filteredData: null, // filtered out data as per 'protected' option
-      current: false, // as currently is 
-      merged: false, // merge of db and input prior to validation
-      clean: null, // validated clean data after merge
-      updated: null, // get from db after update
-      errors: [],  // eventual validation errors
-      success: false
-    } ) )
+  const p = w( _.extend( {}, cleanOptions, {
+    identifiers,
+    data,
+    id: false,
+    filteredData: null, // filtered out data as per 'protected' option
+    current: false, // as currently is 
+    merged: false, // merge of db and input prior to validation
+    clean: null, // validated clean data after merge
+    updated: null, // get from db after update
+    errors: [],  // eventual validation errors
+    success: false
+  } ) )
 
     .then( get( {
       log,
@@ -62,7 +60,7 @@ module.exports = _.extend( function( identifiers, data, options, cb ) {
 
     .then( _merge )
 
-    .then( now.setTo( 'merged', 'updatedAt', params.protected ) )
+    .then( now.setTo( 'merged', 'updatedAt', cleanOptions.protected ) )
 
     .then( draft( 'merged' ) )
 
@@ -85,29 +83,16 @@ module.exports = _.extend( function( identifiers, data, options, cb ) {
       target: 'updated',
       internal: true,
       prerequisite: v => v.success && !v.errors.length,
-      includeImagePath: params.includeImagePath
+      includeImagePath: cleanOptions.includeImagePath
     } ) )
 
-    .done( v => {
+    .then( _cleanResult );
 
-      if ( v.success && config.interfaces ) {
+  if ( cb === null ) return p;
 
-        config.interfaces.onUpdate( v.current, v.updated );
+  p.catch( cb );
 
-      }
-
-      rs( {
-        event: params.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
-        valid: !v.errors.length,
-        success: v.success,
-        errors: v.errors
-      } );
-
-    }, rj );
-
-  } );
-
-  return cb ? p.catch( cb ).then( result => cb( null, result ) ) : p;
+  p.then( cb.bind( null, null ) );
 
 }, {
   init: ( svc, c ) => {
@@ -131,6 +116,24 @@ function _merge( v ) {
   v.merged = _.extend( {}, v.current, v.data );
 
   return v;
+
+}
+
+
+function _cleanResult( v ) {
+
+  if ( v.success && config.interfaces ) {
+
+    config.interfaces.onUpdate( v.current, v.updated, v.context );
+
+  }
+
+  return {
+    event: v.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
+    valid: !v.errors.length,
+    success: v.success,
+    errors: v.errors
+  };
 
 }
 

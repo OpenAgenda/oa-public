@@ -8,41 +8,56 @@ const w = require( 'when' );
 
 const wn = require( 'when/node' );
 
+const cleanArgs = require( './lib/cleanArgs' );
+
+const cleanOptions = require( './validate/removeOptions' );
+
 const sUtils = require( 'service-utils' );
 
 let schemas, service, knex, config, log;
 
 module.exports = Object.assign( remove, { init } );
 
-function remove( identifiers, cb ) {
 
-  w( {
+function remove( i, o, c ) {
+
+  const { identifiers, options, cb } = cleanArgs( i, o, c );
+
+  const p = w( {
     identifiers,
+    options: cleanOptions( options ),
     event: null,
     success: null
   } )
 
-  .then( sUtils.identifiers.clean() )
+    .then( sUtils.identifiers.clean() )
 
-  .then( _get )
+    .then( _get )
 
-  .then( _before )
+    .then( _before )
 
-  .then( _doRemove )
+    .then( _doRemove )
 
-  .done( v => {
+    .then( _callInterface )
 
-    if ( v.success && config.interfaces && config.interfaces.onRemove ) {
+  if ( cb === null ) return p;
 
-      config.interfaces.onRemove( v.event );
+  p.catch( cb );
 
-    }
+  p.then( cb.bind( null, null ) );
 
-    cb( null, {
-      success: v.success
-    } );
+}
 
-  }, cb );
+
+function _callInterface( v ) {
+
+  if ( v.success && config.interfaces && config.interfaces.onRemove ) {
+
+    config.interfaces.onRemove( v.event, v.options.context );
+
+  }  
+
+  return v;
 
 }
 

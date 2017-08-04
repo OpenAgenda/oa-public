@@ -8,6 +8,10 @@ const utils = require( 'utils' ),
 
   map = require( './databaseFieldMap' ),
 
+  cleanArgs = require( './lib/cleanArgs' ),
+
+  cleanGetOptions = require( './validate/getOptions' ),
+
   dbParse = require( 'mysql-utils/mapper' )( map ),
 
   validate = require( './validate' ),
@@ -20,22 +24,26 @@ module.exports = utils.extend( get, { init } );
 
 let knex, schemas, service, log;
 
-function get( identifiers, options, cb ) {
+function get( i, o, c ) {
 
-  if ( arguments.length === 2 ) {
+  const { identifiers, options, cb } = cleanArgs( i, o, c );
 
-    cb = options;
-    options = {};
+  let cleanOptions = {};
 
-  }
+  try {
 
-  w( utils.extend( {
+    cleanOptions = cleanGetOptions( options );
+
+  } catch( e ) {};
+
+
+  const p = w( utils.extend( {
     identifiers,
     internal: false,
     includeImagePath: false,
     useDefaultImage: false,
     private: false
-  }, options, {
+  }, cleanOptions, {
     entry: null,
     data: null,
     filtered: null
@@ -49,24 +57,37 @@ function get( identifiers, options, cb ) {
 
     .then( _filterInternals )
 
-    .done( v => {
+    .then( _cleanResult );
 
-      if ( !v.filtered ) return cb( null, null );
 
-      if ( v.includeImagePath && v.filtered.image ) {
+  if ( cb === null ) return p;
 
-        v.filtered.image = imagePath + v.filtered.image;
+  p.catch( cb );
 
-      } else if ( v.useDefaultImage && !v.filtered.image ) {
+  p.then( cb.bind( null, null ) );
 
-        v.filtered.image = getConfig().defaultImagePath;
+}
 
-      }
 
-      cb( null, v.filtered );
+function _cleanResult( v ) {
 
-    }, cb );
+  if ( !v.filtered ) {
 
+    return null;
+
+  }
+
+  if ( v.includeImagePath && v.filtered.image ) {
+
+    v.filtered.image = imagePath + v.filtered.image;
+
+  } else if ( v.useDefaultImage && !v.filtered.image ) {
+
+    v.filtered.image = getConfig().defaultImagePath;
+
+  }
+
+  return v.filtered;  
 
 }
 

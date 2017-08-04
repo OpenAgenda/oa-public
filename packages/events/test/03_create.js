@@ -4,11 +4,13 @@ process.env.NODE_ENV = 'test';
 
 const svc = require( './service' ),
 
-config = require( '../testconfig' ),
+  config = require( '../testconfig' ),
 
-should = require( 'should' ),
+  should = require( 'should' ),
 
-mysql = require( 'mysql' );
+  mysql = require( 'mysql' ),
+
+  ih = require( 'immutability-helper' );
 
 describe( 'events - functional (server): create', function() {
 
@@ -446,6 +448,45 @@ describe( 'events - functional (server): create', function() {
     result.event.createdAt.getTime().should.equal( createdAt.getTime() );
 
     result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
+
+  } );
+
+
+  describe( 'interfaces', () => {
+
+    beforeEach( () => {
+
+      svc.init( config );
+
+    } );
+
+    it( 'if a userUid is specified in context, it is given in interfaces', done => {
+
+      svc.init( ih( config, {
+        interfaces: {
+          onCreate: {
+            $set: ( event, context ) => {
+
+              context.userUid.should.equal( 12 );
+
+              done();
+
+            }
+          }
+        }
+      } ) );
+
+      svc.create( {
+        title: {
+          fr: 'My first event'
+        },
+        timings: [ {
+          begin: new Date(),
+          end: new Date()
+        } ]
+      }, { context: { userUid: 12 } } );
+
+    } );
 
   } );
 

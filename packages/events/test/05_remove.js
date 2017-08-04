@@ -6,7 +6,9 @@ const svc = require( './service' ),
 
   should = require( 'should' ),
 
-  mysql = require( 'mysql' );
+  mysql = require( 'mysql' ),
+
+  ih = require( 'immutability-helper' )
 
 describe( 'events - functional (server): remove', function() {
 
@@ -64,5 +66,62 @@ describe( 'events - functional (server): remove', function() {
     } );
 
   } );
+
+  it( 'remove works as a promise', async () => {
+
+    let result = await svc.remove( 145599 );
+
+    result.success.should.equal( true );
+
+  } );
+
+  describe( 'interfaces', () => {
+
+    beforeEach( () => svc.init( config ) );
+
+    it( 'if userUid is specified in options, it is given back in onRemove interface', done => {
+
+      svc.init( ih( config, {
+        interfaces: {
+          onRemove: {
+            $set: ( event, context ) => {
+
+              context.should.eql( { userUid: 12345678 } );
+
+              done();
+
+            }
+          }
+        }
+      } ) );
+
+      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {} );
+
+    } );
+
+    it( 'if nothing is specified in context, userUid is null', done => {
+
+      svc.init( ih( config, {
+        interfaces: {
+          onRemove: {
+            $set: ( event, context ) => {
+
+              should( context.userUid ).equal( null );
+
+              done();
+
+            }
+          }
+        }
+      } ) );
+
+      svc.remove( 145599, () => {} );      
+
+    } );
+
+
+  } );
+
+
 
 } );

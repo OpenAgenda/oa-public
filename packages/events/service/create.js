@@ -21,38 +21,35 @@ const w = require( 'when' ),
 
   validate = require( './lib/validate.w' ),
 
+  cleanCreateArgs = require( './lib/cleanCreateArgs' ),
+
+  cleanCreateOptions = require( './validate/createOptions' ),
+
   dbParse = require( 'mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 
-module.exports = _.extend( function( data, options, cb ) {
+module.exports = _.extend( function( d, o, c ) {
 
-  if ( cb === undefined && typeof options === 'function' ) {
+  const { data, options, cb } = cleanCreateArgs( d, o, c );
 
-    cb = options;
-    options = {};
+  let cleanOptions = {};
 
-  }
+  try {
 
-  let p = new Promise( ( rs, rj ) => {
+    cleanOptions = cleanCreateOptions( options );
 
-    const params = _.extend( {
-      internal: false,
-      protected: true,
-      includeImagePath: false,
-      draft: false
-    }, options );
+  } catch ( e ) {};
 
-
-    w( _.extend( {}, params, {
-      id: false,
-      data,
-      clean: null,
-      created: null,
-      errors: [],
-      identifiers: null,
-      success: false
-    } ) )
+  const p = w( _.extend( {}, cleanOptions, {
+    id: false,
+    data,
+    clean: null,
+    created: null,
+    errors: [],
+    identifiers: null,
+    success: false
+  } ) )
 
     .then( _verifyUniqueUidIfSet )
 
@@ -67,9 +64,9 @@ module.exports = _.extend( function( data, options, cb ) {
       log 
     } ) )
 
-    .then( now.setTo( 'data', 'updatedAt', params.protected ) )
+    .then( now.setTo( 'data', 'updatedAt', cleanOptions.protected ) )
 
-    .then( now.setTo( 'data', 'createdAt', params.protected ) )
+    .then( now.setTo( 'data', 'createdAt', cleanOptions.protected ) )
 
     .then( draft( 'data' ) )
 
@@ -83,29 +80,16 @@ module.exports = _.extend( function( data, options, cb ) {
       target: 'created', 
       internal: true, 
       prerequisite: v => v.success && !v.errors.length,
-      includeImagePath: params.includeImagePath
+      includeImagePath: cleanOptions.includeImagePath
     } ) )
 
-    .done( v => {
+    .then( _cleanResult );
 
-      if ( v.success && config.interfaces ) {
+  if ( cb === null ) return p;
 
-        config.interfaces.onCreate( v.created );
+  p.catch( cb );
 
-      }
-
-      rs( {
-        event: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
-        valid: !v.errors.length,
-        success: v.success,
-        errors: v.errors
-      } );
-
-    }, rj );
-
-  } );
-
-  return cb ? w( p ).done( result => cb( null, result ), cb ) : p
+  p.then( cb.bind( null, null ) );
 
 }, {
   init: ( svc, c ) => {
@@ -122,6 +106,24 @@ module.exports = _.extend( function( data, options, cb ) {
 
   }
 } );
+
+
+function _cleanResult( v ) {
+
+  if ( v.success && config.interfaces ) {
+
+    config.interfaces.onCreate( v.created, v.context );
+
+  }
+
+  return {
+    event: v.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
+    valid: !v.errors.length,
+    success: v.success,
+    errors: v.errors
+  }
+
+}
 
 
 function _doCreate( v ) {

@@ -35,9 +35,13 @@ function list( query, offset, limit, options, cb ) {
     }
   } );
 
-  if ( !knex ) return cb( 'events service was not initialized' );
-
   const p = new Promise( ( rs, rj ) => {
+
+    if ( !knex ) {
+
+      return rj( 'events service was not initialized' );
+
+    }
 
     w( _.assign( {}, params, {
       events: [],
