@@ -95,62 +95,71 @@ function actionShow( req, res ) {
       uid: req.agenda.uid,
       lang: req.lang
     },
-    search: req.query.oaq
+    search: req.query.oaq,
+    logged: false
   } )
 
   .then( function( values ) {
 
-    if ( !sessions.isLogged( req ) ) return values;
+    return sessions.isLogged( req ).then( is => {
 
-    return w.promise( ( rs, rj ) => {
+      if ( !is ) {
 
-      values.agendas = [];
+        return values;
 
-      var aIds = [];
+      }
 
-      // list agendas which have the aggregator feature and of which user is admin
+      return w.promise( ( rs, rj ) => {
 
-      async.each( [
-        { aggregator: true, adminId: req.user.id, limit: false },
-        { aggregator: true, ownerId: req.user.id, limit: false }
-      ], ( query, ecb ) => {
+        values.agendas = [];
 
-        model.reviews().list( query, ( err, agendas ) => {
+        var aIds = [];
 
-          if ( err ) return rj( err );
+        // list agendas which have the aggregator feature and of which user is admin
 
-          agendas.forEach( ( a ) => {
+        async.each( [
+          { aggregator: true, adminId: req.user.id, limit: false },
+          { aggregator: true, ownerId: req.user.id, limit: false }
+        ], ( query, ecb ) => {
 
-            if ( a.id == req.agenda.id ) return;
+          model.reviews().list( query, ( err, agendas ) => {
 
-            if ( aIds.indexOf( a.id ) !== -1 ) return;
+            if ( err ) return rj( err );
 
-            aIds.push( a.id );
+            agendas.forEach( ( a ) => {
 
-            values.agendas.push( {
-              id: a.id,
-              title: a.title,
-              aggUid: a.uid,
-              aggregates: false
+              if ( a.id == req.agenda.id ) return;
+
+              if ( aIds.indexOf( a.id ) !== -1 ) return;
+
+              aIds.push( a.id );
+
+              values.agendas.push( {
+                id: a.id,
+                title: a.title,
+                aggUid: a.uid,
+                aggregates: false
+              } );
+
             } );
+
+            ecb();
 
           } );
 
-          ecb();
+        }, ( err, result ) => {
+
+          if ( err ) return rj( err );
+
+          if ( values.agendas.length ) values.hasAggregator = true;
+
+          rs( values );
 
         } );
 
-      }, ( err, result ) => {
+      });   
 
-        if ( err ) return rj( err );
-
-        if ( values.agendas.length ) values.hasAggregator = true;
-
-        rs( values );
-
-      } );
-
-    });    
+    } );
 
   })
 
