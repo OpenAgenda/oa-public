@@ -46,7 +46,7 @@ app.use( sessionsMw );
 
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
-app.use( morgan( 'combined' ) );
+app.use( morgan( 'dev' ) );
 
 app.use( ( req, res, next ) => {
   req.user = {
@@ -83,6 +83,11 @@ app.get(
   } )( req, res )
 );
 
+app.get( '*', matchApp );
+
+app.prettifyError();
+
+
 run().catch( console.error );
 
 async function run() {
@@ -92,8 +97,6 @@ async function run() {
   mw.init( { limit: config.mw.limit } );
 
   await activitiesSvc.init( Object.assign( config, { migrations: null } ) );
-
-  app.get( '*', matchApp );
 
   app.listen( port, () => {
 
