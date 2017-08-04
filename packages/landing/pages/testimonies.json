@@ -63,8 +63,8 @@
     "testimony" : "xavierMasclauxTestimony",
     "organization" : {
       "name" : "xavierMasclauxOrganization",
-      "link" : "http://www.pole-numerique.fr",
-      "logo" : "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/pole-numerique.jpg"
+      "link" : "https://digital-valenceromans.fr",
+      "logo" : "//s3.eu-central-1.amazonaws.com/oastatic/testimonies/french-tech-in-the-alps.jpg"
     }
   }, "footer" ]
 }
