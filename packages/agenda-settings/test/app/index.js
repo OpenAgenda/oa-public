@@ -42,7 +42,7 @@ app.use( bodyParser.urlencoded( { extended: true } ) );
 app.use( bodyParser.json() );
 app.use( cookieParser() );
 
-app.use( morgan( ':method :url :status ":user-agent" :response-time ms - :res[content-length]' ) );
+app.use( morgan( 'dev' ) );
 
 app.post( '/', mw.create );
 app.get( '/:uid/agenda.json', mw.get );
@@ -122,6 +122,8 @@ app.delete( '/:slug/keys/remove',
   keysMw.remove(),
   ( req, res, next ) => res.send( { rowAffected: req.result } )
 );
+
+app.prettifyError( false );
 
 app.use( ( err, req, res, next ) => {
 
