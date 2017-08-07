@@ -54,6 +54,21 @@ A conversation needs to be identifiable by a unique identifier ( to stick it to 
 
 The integrating controller can figure out if the user is a involved in the conversation, the service only registers the identifier of the user of a message when it is added to a conversation.
 
+### Types
+
+Every conversation has a type. A type is defined at initialization, bundled with its set of actions, title formatting rules and whatnot.
+
+For example:
+
+ * an 'event' conversation needs a url and a title to generate a linked conversation. It has no action.
+ * a 'contact' conversation needs the name of the user writing a message for the title label
+ * a 'contributioninvitationrequest' needs 2 actions: 'accept' or 'reject'; it also needs the name of the requesting user for the title label
+
+
+### Resolution
+
+Conversations with actions are marked as 'resolved' when an action has been taken. Conversations without any action are marked as resolved when a user other than the conversation creator ( author of the first message ) submits a message ( or a default resolve action could be used for action-less conversations? )
+
 
 ### Messages
 
@@ -71,11 +86,11 @@ This is the same as:
 
 Often, a message author will write on behalf of another entity, his organization ( or agenda ) in OA use cases:
 
-    await conversation.addMessage( 'Le mec d\'UPS.', { author: 19209283, onBehalf: { type: 'transporter', uid: 921983 } } );
+    await conversation.addMessage( 'Le mec d\'UPS.', { author: 19209283, onBehalf: { type: 'transporter', uid: 921983 } } );
 
 Types are relevent to identify what kind of identifier is being used. A default type can be specified at init of the service. The service does not care what all possible types are.
 
-    await conversation.addMessage( 'Je signe où?', { author: 19209283, onBehalf: { type: 'organization', uid: 930390103 } } );
+    await conversation.addMessage( 'Je signe où?', { author: 19209283, onBehalf: { type: 'organization', uid: 930390103 } } );
 
 A default type could also be defined at service initialization for the onBehalf option, to make it shorter to add messages:
 
@@ -96,4 +111,4 @@ Adding a message would be then easier:
 
 ### Actions
 
-Here be actions.
+Actions are 
