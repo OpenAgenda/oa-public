@@ -1,8 +1,11 @@
 # Overview
 
-An inbox contains a list of conversations
 
-A conversation contains a list of messages
+## Inbox
+
+ * An inbox contains a list of conversations
+
+ * A conversation contains a list of messages
 
 An inbox does not know what an agenda member is. The service does not handle access control. It just shows a list of conversations:
 
@@ -28,7 +31,7 @@ We can start with saying that the idOfTheInbox is the uid of the host agenda. Th
 
 Then if one day we need to create an inbox for something else than an agenda, we say that:
 
-    inbox( 'agenda', uidOfAgenda )
+    inbox( { type: 'agenda', uid: 12930103 } )
 
 Is the long version of
 
@@ -36,9 +39,61 @@ Is the long version of
 
 And for a network inbox - which may never be required - we just write
 
-    inbox( 'network', uidOfNetwork );
+    inbox( { type: 'network', uid: uidOfNetwork } );
 
 
-A conversation needs to be identifiable by a unique hash ( to stick it to a 'reply-to' in a mail: 'reply-to: 192014.user-abdc21fdqjhjglkqsfdq.conversations@openagenda.com' )
+## Conversation
 
-The integrating controller can figure out if the user is a involved in the conversation.
+A conversation needs to be identifiable by a unique identifier ( to stick it to a 'reply-to' in a mail: 'reply-to: 192014.user-12908331.conversations@openagenda.com' ). Messages appended sequentially to a conversation, using an .addMessage method.
+
+    // fetch a conversation like this
+    const conversation = await inbox( 12345678 ).get( 12908331 );
+
+    // or like this
+    const conversation = await inbox( 12345678 ).get( { uid: 12908331 } );
+
+The integrating controller can figure out if the user is a involved in the conversation, the service only registers the identifier of the user of a message when it is added to a conversation.
+
+
+### Messages
+
+An anonymous message could be:
+
+    await conversation.addMessage( 'J\'ai un colis pour le 21, je peux le laisser ici?' );
+
+Specify an author will make it less anonymous ( allowing us to display more user info with the message )
+
+    await conversation.addMessage( 'Oui, on a l\'habitude', { author: 12345678 } );
+
+This is the same as:
+
+    await conversation.addMessage( 'Uiiiii, vous êtes quiiii', { author: { uid: 12345678, type: 'user' } } );
+
+Often, a message author will write on behalf of another entity, his organization ( or agenda ) in OA use cases:
+
+    await conversation.addMessage( 'Le mec d\'UPS.', { author: 19209283, onBehalf: { type: 'transporter', uid: 921983 } } );
+
+Types are relevent to identify what kind of identifier is being used. A default type can be specified at init of the service. The service does not care what all possible types are.
+
+    await conversation.addMessage( 'Je signe où?', { author: 19209283, onBehalf: { type: 'organization', uid: 930390103 } } );
+
+A default type could also be defined at service initialization for the onBehalf option, to make it shorter to add messages:
+
+service.init( {
+  // ...
+  defaultTypes: {
+    inbox: 'agenda'
+    author: 'user',
+    onBehalf: 'agenda'
+  }
+  // ...
+} );
+
+Adding a message would be then easier:
+
+    await conversation.addMessage( 'Ici.', { author: 19209283, onBehalf: 921983 } );
+
+
+### Actions
+
+Here be actions.
