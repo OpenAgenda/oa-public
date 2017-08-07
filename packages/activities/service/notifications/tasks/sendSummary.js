@@ -84,7 +84,7 @@ async function _sendSummary( { user, notifications } ) {
 
   mailer( {
     recipient: user.email,
-    source: '"OpenAgenda" <no-reply@openagenda.com>',
+    source: `"OpenAgenda" <${lang === 'fr' ? 'ne-pas-repondre' : 'no-reply'}@openagenda.com>`,
     subject: getLabel( 'subject', {
       nbr: notifications.length,
       date: moment( notifications[ notifications.length - 1 ].createdAt ).locale( lang ).format( 'LLL' )
@@ -111,7 +111,7 @@ async function _sendSummary( { user, notifications } ) {
     }
   }, ( err, result ) => {
 
-    if ( err ) return log( 'error', 'Error to send daily notification email to the user %s', user.uid );
+    if ( err ) return log( 'error', 'Error to send daily notification email to the user %s: %s', user.uid, err.message || err );
 
   } );
 
