@@ -32,11 +32,19 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
   var i = 0;
 
-  async.eachSeries( events, ( event, ecb ) => {
+  agendaTags.get( agenda.id, ( err, tagSet ) => {
 
-    decorateEvent( agenda, event, toDecorate[ i++ ], options, ecb );
+    if ( err ) return cb( err );
 
-  }, cb );
+    agenda.tagSet = tagSet;
+
+    async.eachSeries( events, ( event, ecb ) => {
+
+      decorateEvent( agenda, event, toDecorate[ i++ ], options, ecb );
+
+    }, cb );
+
+  } );
 
 }
 
@@ -106,11 +114,10 @@ function _addFreeTextSuffixes( v ) {
 }
 
 
+
 function _addTagGroups( v ) {
 
-  let d = w.defer(),
-  
-  tagSlugs = [];
+  let tagSlugs = [];
 
   v.decorated.tagGroups = [];
 
@@ -126,33 +133,27 @@ function _addTagGroups( v ) {
 
   if ( !tagSlugs || !tagSlugs.length ) return v;
 
-  agendaTags.get( v.agenda.id, ( err, tagSet ) => {
+  let tagSet = v.agenda.tagSet;
 
-    if ( err ) return d.reject( err );
+  v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
 
-    v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
+  // keep groups containing tags used by event
+  .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).length )
 
-    // keep groups containing tags used by event
-    .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).length )
+  // keep group tags used by event
+  .map( g => ( {
+    name: g.name,
+    tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
+  } ) )
 
-    // keep group tags used by event
-    .map( g => ( {
-      name: g.name,
-      tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
-    } ) )
-
-    // remove empty groups
-    .filter( g => g.tags.length );
+  // remove empty groups
+  .filter( g => g.tags.length );
 
 
-    // reuse tag group order with tags
-    v.decorated.tags = v.decorated.tagGroups.reduce( ( carry, group ) => carry.concat( group.tags ), [] );
+  // reuse tag group order with tags
+  v.decorated.tags = v.decorated.tagGroups.reduce( ( carry, group ) => carry.concat( group.tags ), [] );
 
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
+  return v;
 
 }
 

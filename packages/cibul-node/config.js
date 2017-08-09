@@ -697,7 +697,7 @@ currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
 
 currentConfig.knex = knexLib( {
   client: 'mysql',
-  connection: currentConfig.db
+  connection: currentConfig.db,
 } );
 
 
