@@ -147,3 +147,4 @@ var SendMessageForm = _wrapComponent('SendMessageForm')((_dec = (0, _reduxForm.r
 
 exports.default = SendMessageForm;
 module.exports = exports['default'];
+//# sourceMappingURL=SendMessageForm.js.map

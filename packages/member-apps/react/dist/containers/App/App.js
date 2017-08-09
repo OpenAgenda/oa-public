@@ -130,3 +130,4 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
 
 exports.default = App;
 module.exports = exports['default'];
+//# sourceMappingURL=App.js.map

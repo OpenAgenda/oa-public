@@ -34,3 +34,4 @@ exports.default = (0, _createReducer2.default)({
   modals: _modals2.default
 });
 module.exports = exports['default'];
+//# sourceMappingURL=reducer.js.map

@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "build": "babel react/src -d react/dist",
-    "preserve": "npm run build",
-    "serve": "node test/app",
-    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
+    "build": "babel react/src -d react/dist -s",
+    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
+    "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
+    "fixtures": "node test/app/fixtures",
     "precommit": "npm run build && git add -A",
     "postmerge": "npm run build && git add -A"
   },
@@ -57,12 +57,14 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
+    "concurrently": "^3.5.0",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
     "husky": "^0.13.4",
     "morgan": "^1.7.0",
+    "piping": "^1.0.0-rc.4",
     "react-dom": "^15.5.4",
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.3.3",
-    "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
+    "test-app": "bitbucket:openagenda/test-app#next"
   }
 }

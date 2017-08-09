@@ -1,30 +1,33 @@
+"use strict";
+
+if ( !require( 'piping' )( { hook: true } ) ) return;
+
 const React = require( 'react' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
 const path = require( 'path' );
-const async = require( 'async' );
 const express = require( 'express' );
-const fixtures = require( 'fixtures' );
 const morgan = require( 'morgan' );
 const agendasSvc = require( 'agendas/service/test' );
 const { middleware: agendasMw } = require( 'agendas' );
 const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
 const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
-const bodyParser = require( 'body-parser' );
+const bodyParser = require( 'body-parser' ); //
 const config = require( '../../testconfig.js' );
 
 const mw = require( '../../middleware' );
 
 const helpers = require( 'test-app/helpers' );
 const app = require( 'test-app' )( {
-  frontWrapper: __dirname + '/front.jsx',
+  frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../node_modules/bs-templates/compiled/main.css'
   ],
-  decorateCanvas: false,
-  webpack: true
+  decorateCanvas: false
 } );
+
+const port = process.env.PORT || 3000;
 
 app.use( '/js', express.static( path.dirname( require.resolve( 'react-form-components/test/app' ) ) + '/js' ) );
 
@@ -33,9 +36,6 @@ app.use( bodyParser.urlencoded( { extended: false } ) );
 // parse application/json
 app.use( bodyParser.json() );
 
-const port = process.env.PORT || 3000;
-
-fixtures.init( config );
 agendasSvc.init( config );
 stakeholdersSvc.init( config, () => {
 
@@ -43,218 +43,208 @@ stakeholdersSvc.init( config, () => {
 
 } );
 
-async.waterfall( [
-  // wcb => agendasSvc.test.fixtures( [
-  //   'occurrence',
-  //   'legacy_credential_set'
-  // ], { reset: true }, wcb ),
-  // wcb => stakeholdersSvc.initAndLoad( config, { reset: false }, wcb ),
-  // wcb => fixtures( [ {
-  //   table: 'user',
-  //   src: path.resolve( __dirname, '../fixtures/user.data.sql' )
-  // }, {
-  //   table: 'api_key_set',
-  //   src: path.resolve( __dirname, '../fixtures/api_key_set.data.sql' )
-  // } ], { reset: false }, wcb )
-], () => {
+app.use( morgan( 'dev' ) );
 
-  app.use( morgan( 'combined' ) );
+app.use( ( req, res, next ) => {
+  req.user = {
+    id: 2,
+    lang: req.query.lang || 'fr'
+  }; // 2 == administrator, 4387 == contributor
+  req.identifiers = { userId: req.user.id };
+  req.agenda = { id: 4608 };
+  next();
+} );
 
-  app.use( ( req, res, next ) => {
-    req.user = {
-      id: 2,
-      lang: req.query.lang || 'fr'
-    }; // 2 == administrator, 4387 == contributor
-    req.identifiers = { userId: req.user.id };
-    req.agenda = { id: 4608 };
+app.use( agendasMw.load( {
+  namespaces: {
+    identifiers: {
+      id: 'agenda.id' // slug with req.params.slug in real world
+    }
+  },
+  instanciate: true,
+  internal: true
+} ) );
+
+app.use( stakeholdersMw.agenda( 'agenda.data' ).get( {
+  namespaces: {
+    stakeholder: 'stakeholder',
+    instance: 'stakeholderInstance'
+  }
+} ) );
+
+app.use( agendasMw.loadRoles( {
+  namespaces: {
+    agenda: 'agenda', // slug with req.params.slug in real world
+    result: 'agendaRoles'
+  }
+} ) );
+
+app.get(
+  '/members.json',
+  stakeholdersMw.agenda( 'agenda.data' ).list( { total: true, detailed: true } ),
+  ( req, res, next ) => {
+    req.stakeholders = req.stakeholders.map( s => {
+      s.invited = !s.userId && !s.deletedUser;
+      s.owner = s.userId === req.user.id;
+      return _.omit( s, 'userId', 'user.id' );
+    } );
     next();
-  } );
+  },
+  ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
+);
 
-  app.use( agendasMw.load( {
+app.get(
+  '/stats',
+  stakeholdersMw.agenda( 'agenda.data' ).stats(),
+  ( { stats }, res ) => res.json( { stats } )
+);
+
+app.get(
+  '/remove/:id',
+  ( req, res, next ) => {
+    req.identifiers = { id: req.params.id };
+    next();
+  },
+  stakeholdersMw.agenda( 'agenda.data' ).get( {
     namespaces: {
-      identifiers: {
-        id: 'agenda.id' // slug with req.params.slug in real world
-      }
-    },
-    instanciate: true,
-    internal: true
-  } ) );
+      stakeholder: 'stakeholderToUse',
+      instance: 'stakeholderInstanceToUse'
+    }
+  } ),
+  ( req, res, next ) => {
+    if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
+      return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
+    }
+    next();
+  },
+  stakeholdersMw.agenda( 'agenda.data' ).remove(),
+  ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
+);
 
-  app.use( stakeholdersMw.agenda( 'agenda.data' ).get( {
+app.post(
+  '/update/:id',
+  ( req, res, next ) => {
+    req.identifiers = { id: req.params.id };
+    next();
+  },
+  stakeholdersMw.agenda( 'agenda.data' ).get( {
     namespaces: {
-      stakeholder: 'stakeholder',
-      instance: 'stakeholderInstance'
+      stakeholder: 'stakeholderToUse',
+      instance: 'stakeholderInstanceToUse'
     }
-  } ) );
-
-  app.use( agendasMw.loadRoles( {
+  } ),
+  ( req, res, next ) => {
+    if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
+      return next();
+    }
+    next( new Error( 'You don\'t have right to update this stakeholder' ) );
+  },
+  stakeholdersMw.agenda( 'agenda.data' ).update( {
     namespaces: {
-      agenda: 'agenda', // slug with req.params.slug in real world
-      result: 'agendaRoles'
+      data: 'body'
+    },
+    credential: true,
+    allowPartial: true
+  } ),
+  ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
+);
+
+app.post(
+  '/invite',
+  ( req, res, next ) => {
+    if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.body.credential ) ) {
+      return next();
     }
-  } ) );
-
-  app.get(
-    '/members.json',
-    stakeholdersMw.agenda( 'agenda.data' ).list( { total: true, detailed: true } ),
-    ( req, res, next ) => {
-      req.stakeholders = req.stakeholders.map( s => {
-        s.invited = !s.userId && !s.deletedUser;
-        s.owner = s.userId === req.user.id;
-        return _.omit( s, 'userId', 'user.id' );
-      } );
-      next();
-    },
-    ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-  );
-
-  app.get(
-    '/stats',
-    stakeholdersMw.agenda( 'agenda.data' ).stats(),
-    ( { stats }, res ) => res.json( { stats } )
-  );
-
-  app.get(
-    '/remove/:id',
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agenda.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    ( req, res, next ) => {
-      if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-        return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
-      }
-      next();
-    },
-    stakeholdersMw.agenda( 'agenda.data' ).remove(),
-    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
-  );
-
-  app.post(
-    '/update/:id',
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agenda.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    ( req, res, next ) => {
-      if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-        return next();
-      }
-      next( new Error( 'You don\'t have right to update this stakeholder' ) );
-    },
-    stakeholdersMw.agenda( 'agenda.data' ).update( {
-      namespaces: {
-        data: 'body'
-      },
-      credential: true,
-      allowPartial: true
-    } ),
-    ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
-  );
-
-  app.post(
-    '/invite',
-    ( req, res, next ) => {
-      if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.body.credential ) ) {
-        return next();
-      }
-      next( new Error( 'You don\'t have right to invite members with this role' ) );
-    },
-    ( req, res, next ) => {
-      req.context = {
-        lang: req.user.lang
-      }
-      next();
-    },
-    stakeholdersMw.agenda( 'agenda.data' ).bulk( {
-      namespaces: {
-        data: 'body',
-        context: 'context'
-      },
-      allowPartial: true
-    } ),
-    ( req, res, next ) => {
-
-      const { queued } = req.result;
-      const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
-
-      if ( errors && errors.length ) {
-        return res.status( 400 ).json( { errors } );
-      }
-
-      const emailsRejected = _.compact( (results || []).reduce( ( prev, nextResult, i ) => {
-        let emailRejected;
-        if ( nextResult.errors && nextResult.errors.length ) {
-          emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
-            return (nextError.code && req.body.stakeholders[ i ].email) || null;
-          }, null );
-        }
-        return prev.concat( emailRejected );
-      }, [] ) );
-
-      req.result = { queued, emailsRejected, success: !emailsRejected.length };
-
-      next();
-
-    },
-    ( { result }, res ) => {
-      const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
-      res.status( status ).json( result );
+    next( new Error( 'You don\'t have right to invite members with this role' ) );
+  },
+  ( req, res, next ) => {
+    req.context = {
+      lang: req.user.lang
     }
-  );
-
-  app.post(
-    '/send-message',
-    ( req, res, next ) => {
-      req.context = {
-        lang: req.user.lang,
-        replyTo: req.body.replyTo
-      };
-      next();
+    next();
+  },
+  stakeholdersMw.agenda( 'agenda.data' ).bulk( {
+    namespaces: {
+      data: 'body',
+      context: 'context'
     },
-    ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
-      namespaces: {
-        message: 'body.message'
-      },
-      actionsCounterEqualZero: req.query.inactive ? true : null
-    } )( req, res, next ),
-    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  );
+    allowPartial: true
+  } ),
+  ( req, res, next ) => {
 
-  app.post(
-    '/send-a-message/:id',
-    ( req, res, next ) => {
-      req.context = {
-        lang: req.user.lang,
-        replyTo: req.body.replyTo
-      };
-      next();
+    const { queued } = req.result;
+    const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
+
+    if ( errors && errors.length ) {
+      return res.status( 400 ).json( { errors } );
+    }
+
+    const emailsRejected = _.compact( (results || []).reduce( ( prev, nextResult, i ) => {
+      let emailRejected;
+      if ( nextResult.errors && nextResult.errors.length ) {
+        emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
+          return (nextError.code && req.body.stakeholders[ i ].email) || null;
+        }, null );
+      }
+      return prev.concat( emailRejected );
+    }, [] ) );
+
+    req.result = { queued, emailsRejected, success: !emailsRejected.length };
+
+    next();
+
+  },
+  ( { result }, res ) => {
+    const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
+    res.status( status ).json( result );
+  }
+);
+
+app.post(
+  '/send-message',
+  ( req, res, next ) => {
+    req.context = {
+      lang: req.user.lang,
+      replyTo: req.body.replyTo
+    };
+    next();
+  },
+  ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
+    namespaces: {
+      message: 'body.message'
     },
-    ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
-      namespaces: {
-        message: 'body.message'
-      },
-      id: parseInt( req.params.id ) || 0
-    } )( req, res, next ),
-    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  );
+    actionsCounterEqualZero: req.query.inactive ? true : null
+  } )( req, res, next ),
+  ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+);
 
-  app.getAndListen( '*', port, matchApp );
+app.post(
+  '/send-a-message/:id',
+  ( req, res, next ) => {
+    req.context = {
+      lang: req.user.lang,
+      replyTo: req.body.replyTo
+    };
+    next();
+  },
+  ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
+    namespaces: {
+      message: 'body.message'
+    },
+    id: parseInt( req.params.id ) || 0
+  } )( req, res, next ),
+  ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+);
+
+app.get( '*', matchApp );
+
+app.listen( port, () => {
+
+  console.log( '==> App listening on port', port );
 
 } );
 
+/*******/
 
 function matchApp( req, res, next ) {
 
@@ -288,7 +278,7 @@ function matchApp( req, res, next ) {
       credentials: Object.assign(
         req.agenda.data.credentials,
         {
-          invitationMessage: true
+          invitationMessage: false
         }
       )
     },
@@ -316,7 +306,11 @@ function getApp( req, res, next, { store, component } = {} ) {
   req.data = { state };
   req.content = component ? ReactDOM.renderToString( component ) : '';
 
-  helpers.renderCanvas( true, false, getHtmlBody() )( req, res );
+  helpers.renderCanvas( {
+    excludeDefaultStyles: true,
+    decorateCanvas: false,
+    htmlContent: getHtmlBody()
+  } )( req, res );
 
 }
 

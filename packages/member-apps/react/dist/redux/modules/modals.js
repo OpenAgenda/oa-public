@@ -71,3 +71,4 @@ function closeModal(name) {
     name: name
   };
 }
+//# sourceMappingURL=modals.js.map

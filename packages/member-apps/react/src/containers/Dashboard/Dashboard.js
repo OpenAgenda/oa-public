@@ -303,10 +303,7 @@ export default class Dashboard extends Component {
       <li role="presentation" className={classNames( { active: credFilters.includes( key ) } )}>
         <a href="#" onClick={e => toggleFilter( e, key )}>
           <strong>{nbr || 0}</strong> {getLabel( label )}{' '}
-          <i
-            className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )}
-            aria-hidden="true"
-          ></i>
+          <i className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )} />
         </a>
       </li>
     );

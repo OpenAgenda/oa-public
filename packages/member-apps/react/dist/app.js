@@ -36,3 +36,4 @@ require('dom-utils/ie9');
 
 ;
 module.exports = exports['default'];
+//# sourceMappingURL=app.js.map

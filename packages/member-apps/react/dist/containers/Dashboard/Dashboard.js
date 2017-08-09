@@ -519,10 +519,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           ' ',
           getLabel(label),
           ' ',
-          _react3.default.createElement('i', {
-            className: (0, _classnames2.default)('fa fa-times', { invisible: !credFilters.includes(key) }),
-            'aria-hidden': 'true'
-          })
+          _react3.default.createElement('i', { className: (0, _classnames2.default)('fa fa-times', { invisible: !credFilters.includes(key) }) })
         )
       );
     }
@@ -961,3 +958,4 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 exports.default = Dashboard;
 ;
 module.exports = exports['default'];
+//# sourceMappingURL=Dashboard.js.map

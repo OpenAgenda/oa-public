@@ -17,3 +17,4 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.App = _App3.default;
 exports.Dashboard = _Dashboard3.default;
+//# sourceMappingURL=index.js.map
