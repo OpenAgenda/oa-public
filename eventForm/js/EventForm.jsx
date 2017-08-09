@@ -57,7 +57,6 @@ const React = require( 'react' ),
   flattenLabels = require( 'labels/flatten' );
 
 
-
 let formErrors = {},
 
   EventForm = EventFormFactory();
@@ -66,13 +65,14 @@ module.exports = EventForm;
 
 module.exports.actionables = {
 
-  beforeSubmit: function( cb ) {
+  beforeSubmit: function ( cb ) {
 
     translator( cb );
 
   },
 
-  onSubmit: function() {}
+  onSubmit: function () {
+  }
 
 }
 
@@ -84,7 +84,7 @@ function EventFormFactory() {
       configuration: PropTypes.object
     },
 
-    getDefaultProps: function() {
+    getDefaultProps: function () {
 
       return {
         configuration: {
@@ -101,7 +101,7 @@ function EventFormFactory() {
 
     },
 
-    getInitialState: function() {
+    getInitialState: function () {
 
       var state = this.props.initData;
 
@@ -140,19 +140,19 @@ function EventFormFactory() {
 
     },
 
-    onSubmitSpin: function() {
+    onSubmitSpin: function () {
 
       this.setState( { submitSpin: true } );
 
     },
 
-    getLabel: function( name ) {
+    getLabel: function ( name ) {
 
       return this.props.labels[ name ][ this.props.lang ];
 
     },
 
-    onChange: function( field ) {
+    onChange: function ( field ) {
 
       return ( value, errorMessage, changedLanguages = [] ) => {
 
@@ -168,9 +168,11 @@ function EventFormFactory() {
 
           this.state.translation.sets.forEach( ( s, i ) => {
 
-            updatedTranslation.sets[ i ] = { checked: {
-              $set: s.checked.filter( l => changedLanguages.indexOf( l ) == -1 )
-            } }
+            updatedTranslation.sets[ i ] = {
+              checked: {
+                $set: s.checked.filter( l => changedLanguages.indexOf( l ) == -1 )
+              }
+            }
 
           } );
 
@@ -180,17 +182,17 @@ function EventFormFactory() {
 
         this.setState( updated );
 
-        this.props.onTextChange( field, value, this.listErrorDetails( ) );
+        this.props.onTextChange( field, value, this.listErrorDetails() );
 
       }
 
     },
 
-    onSwappedLanguage: function( languages, swapFrom, swapTo ) {
+    onSwappedLanguage: function ( languages, swapFrom, swapTo ) {
 
       var updated = {}, self = this;
 
-      textFields.forEach( function( field ) {
+      textFields.forEach( function ( field ) {
 
         updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
@@ -204,39 +206,39 @@ function EventFormFactory() {
 
       this.setState( updated );
 
-      textFields.forEach( function( field ) {
+      textFields.forEach( function ( field ) {
 
-        self.props.onTextChange( field, updated[ field ], self.listErrorDetails( ) );
+        self.props.onTextChange( field, updated[ field ], self.listErrorDetails() );
 
       } );
 
     },
 
-    onChangedLanguage: function( languages, changedLanguage, change ) {
+    onChangedLanguage: function ( languages, changedLanguage, change ) {
 
       var updated = {}, self = this;
 
-      textFields.forEach( function( field ) {
+      textFields.forEach( function ( field ) {
 
         updated[ field ] = JSON.parse( JSON.stringify( self.state[ field ] || {} ) );
 
         updated[ field ][ changedLanguage ] = change;
 
-      } ); 
+      } );
 
       updated.languages = languages;
 
       this.setState( updated );
 
-      textFields.forEach( function( field ) {
+      textFields.forEach( function ( field ) {
 
-        self.props.onTextChange( field, updated[ field ], self.listErrorDetails( ) );
+        self.props.onTextChange( field, updated[ field ], self.listErrorDetails() );
 
       } );
 
     },
 
-    changeCustom: function( field, value, errorMessage ) {
+    changeCustom: function ( field, value, errorMessage ) {
 
       var updated = {
         custom: JSON.parse( JSON.stringify( this.state.custom ) )
@@ -248,7 +250,7 @@ function EventFormFactory() {
 
       this.setState( updated );
 
-      this.props.onCustomChange( updated.custom , this.listErrorDetails( ) );
+      this.props.onCustomChange( updated.custom, this.listErrorDetails() );
 
     },
 
@@ -256,15 +258,15 @@ function EventFormFactory() {
     /**
      * generate events as list including for each error the message, the label of the field and its name
      */
-    listErrorDetails: function() {
+    listErrorDetails: function () {
 
       var errors = [], self = this;
 
-      for( var i in formErrors ) {
+      for ( var i in formErrors ) {
 
         if ( utils.isArray( formErrors[ i ] ) ) {
 
-          errors = errors.concat( formErrors[ i ].map( function( e ) {
+          errors = errors.concat( formErrors[ i ].map( function ( e ) {
 
             return {
               field: e.field,
@@ -279,8 +281,8 @@ function EventFormFactory() {
           errors.push( {
             field: i,
             label: this.getErrorFieldLabel( i )[ this.props.lang ],
-            message: formErrors[ i ]  
-          });
+            message: formErrors[ i ]
+          } );
 
         }
 
@@ -290,15 +292,15 @@ function EventFormFactory() {
 
     },
 
-    getErrorFieldLabel: function( field ) {
+    getErrorFieldLabel: function ( field ) {
 
       if ( this.props.custom ) {
 
-        var customPossibles = this.props.custom.filter( function( customField ) {
+        var customPossibles = this.props.custom.filter( function ( customField ) {
 
           return customField.name == field;
 
-        });
+        } );
 
         if ( customPossibles.length ) return customPossibles[ 0 ].label;
 
@@ -312,7 +314,7 @@ function EventFormFactory() {
 
     },
 
-    onTimingsChange: function( values, errorMessage ) {
+    onTimingsChange: function ( values, errorMessage ) {
 
       var updated = {};
 
@@ -322,11 +324,11 @@ function EventFormFactory() {
 
       this.setState( updated );
 
-      this.props.onTimingsChange( values, this.listErrorDetails( ) );
+      this.props.onTimingsChange( values, this.listErrorDetails() );
 
     },
 
-    onLocationModeChange: function( newMode, initLocation ) {
+    onLocationModeChange: function ( newMode, initLocation ) {
 
       this.setState( {
         locationMode: newMode,
@@ -335,7 +337,7 @@ function EventFormFactory() {
 
     },
 
-    onLocationChange: function( newLocation, newMode ) {
+    onLocationChange: function ( newLocation, newMode ) {
 
       this.setState( {
         location: newLocation,
@@ -346,22 +348,22 @@ function EventFormFactory() {
 
     },
 
-    onTagsCategoryChange: function( type ) {
+    onTagsCategoryChange: function ( type ) {
 
       var self = this;
 
-      return function( newData, errors ) {
+      return function ( newData, errors ) {
 
-        var agendaIndex = self.getAgendaIndex(), 
+        var agendaIndex = self.getAgendaIndex(),
 
-        agendas = {};
+          agendas = {};
 
         formErrors[ type ] = errors;
 
         if ( agendaIndex == -1 ) {
 
           agendas = [ {
-            uid:self.props.agendaUid,
+            uid: self.props.agendaUid,
             tags: type == 'tags' ? newData : [],
             category: type == 'category' ? newData : undefined
           } ];
@@ -372,7 +374,7 @@ function EventFormFactory() {
 
           agendas[ agendaIndex ] = {};
 
-          agendas[ agendaIndex ][ type ] = { $set : newData };
+          agendas[ agendaIndex ][ type ] = { $set: newData };
 
           self.setState( {
             agendas: update( self.state.agendas, agendas )
@@ -391,13 +393,15 @@ function EventFormFactory() {
 
     },
 
-    stringifySlugs: function( data ) {
+    stringifySlugs: function ( data ) {
 
       if ( !data ) return;
 
       if ( utils.isArray( data ) ) {
 
-        return data.map( function( d ) { return typeof d == 'object' ? d.slug : d } );
+        return data.map( function ( d ) {
+          return typeof d == 'object' ? d.slug : d
+        } );
 
       } else {
 
@@ -407,7 +411,7 @@ function EventFormFactory() {
 
     },
 
-    getSelectedCategory: function() {
+    getSelectedCategory: function () {
 
       var aIndex = this.getAgendaIndex();
 
@@ -423,7 +427,7 @@ function EventFormFactory() {
 
     },
 
-    getSelectedTags: function() {
+    getSelectedTags: function () {
 
       var aIndex = this.getAgendaIndex();
 
@@ -435,7 +439,9 @@ function EventFormFactory() {
 
       if ( typeof tags[ 0 ] == 'string' ) {
 
-        return tags.map( function( t ) { return { slug: t } } );
+        return tags.map( function ( t ) {
+          return { slug: t }
+        } );
 
       }
 
@@ -443,15 +449,15 @@ function EventFormFactory() {
 
     },
 
-    getAgendaIndex: function() {
+    getAgendaIndex: function () {
 
       var self = this,
 
-      agendaIndex = -1;
+        agendaIndex = -1;
 
       if ( !this.state.agendas ) return agendaIndex;
 
-      this.state.agendas.forEach( function( agenda, i ) {
+      this.state.agendas.forEach( function ( agenda, i ) {
 
         if ( agenda.uid == self.props.agendaUid ) agendaIndex = i;
 
@@ -461,7 +467,7 @@ function EventFormFactory() {
 
     },
 
-    changeLanguages: function( languages ) {
+    changeLanguages: function ( languages ) {
 
       var swapIndex, removedLanguage, addedLanguage, swapFrom, swapTo, self = this;
 
@@ -488,7 +494,7 @@ function EventFormFactory() {
 
         // a language was removed
 
-        removedLanguage = this.state.languages.filter( function( l ) {
+        removedLanguage = this.state.languages.filter( function ( l ) {
 
           return languages.indexOf( l ) == -1;
 
@@ -500,7 +506,7 @@ function EventFormFactory() {
 
 
       // a language was added  
-      addedLanguage = languages.filter( function( l ) {
+      addedLanguage = languages.filter( function ( l ) {
 
         return self.state.languages.indexOf( l ) == -1;
 
@@ -510,23 +516,23 @@ function EventFormFactory() {
 
     },
 
-    renderMarkdownField: function() {
+    renderMarkdownField: function () {
 
       return <div className="multilingual-input-field">
         <WysiwygMarkdown
-          label={ this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels ) }
-          placeholder={ this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels ) }
+          label={this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels )}
+          placeholder={this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels )}
           name='long_description'
           markdown={this.state.freeText}
           languages={this.state.languages}
           onChange={this.onChange( 'freeText' )}
           labels={this.props.labels}
           lang={this.props.lang} />
-        </div>
+      </div>
 
     },
 
-    renderLocationSelector: function() {
+    renderLocationSelector: function () {
 
       return <div className="form-section">
         <LocationSelector
@@ -542,75 +548,77 @@ function EventFormFactory() {
 
     },
 
-    render: function() {
+    render: function () {
 
       return <div>
 
         <div>
 
-          { ( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ? <CategorySelector
-            lang={this.props.lang}
-            set={this.props.categorySet}
-            categories={this.props.categories}
-            selection={this.getSelectedCategory()}
-            onChange={this.onTagsCategoryChange( 'category' )}
-            labels={this.props.labels} /> : '' }
+          {( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ?
+            <CategorySelector
+              lang={this.props.lang}
+              set={this.props.categorySet}
+              categories={this.props.categories}
+              selection={this.getSelectedCategory()}
+              onChange={this.onTagsCategoryChange( 'category' )}
+              labels={this.props.labels} /> : ''}
 
-          { ( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ? <TagSelector
-            lang={this.props.lang}
-            set={this.props.tagSet}
-            tags={this.props.tags}
-            selection={this.getSelectedTags()}
-            onChange={this.onTagsCategoryChange( 'tags' )}
-            labels={this.props.labels} /> : '' }
+          {( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ?
+            <TagSelector
+              lang={this.props.lang}
+              set={this.props.tagSet}
+              tags={this.props.tags}
+              selection={this.getSelectedTags()}
+              onChange={this.onTagsCategoryChange( 'tags' )}
+              labels={this.props.labels} /> : ''}
 
           <div className="js_event_image_canvas"></div>
 
           <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
 
-          <LanguageBar 
-            languages={ this.state.languages } 
-            onChange={ this.changeLanguages }
-            getLabel={ this.getLabel } />
+          <LanguageBar
+            languages={this.state.languages}
+            onChange={this.changeLanguages}
+            getLabel={this.getLabel} />
 
           <div className="multilingual-input-field">
 
             <MultilingualTextField
-              constraints={{max: 140}}
+              constraints={{ max: 140 }}
               counter={true}
               optional={false}
               label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
               name='title'
               type='text'
               value={this.state.title}
-              error={formErrors.title }
+              error={formErrors.title}
               languages={this.state.languages}
               onChange={this.onChange( 'title' )}
               lang={this.props.lang} />
 
           </div>
 
-          { !this.props.configuration.field( 'description' ).fixed() ? 
-          <div className="multilingual-input-field">
-            <MultilingualTextField
-              constraints={{max: 200}}
-              counter={true}
-              optional={false}
-              label={this.props.configuration.field( 'description' ).getLabel( false, this.props.labels )}
-              name='description'
-              type='text'
-              value={this.state.description}
-              error={formErrors.description }
-              languages={this.state.languages}
-              onChange={this.onChange( 'description' )}
-              lang={this.props.lang} />
-          </div>
-          : null }
+          {!this.props.configuration.field( 'description' ).fixed() ?
+            <div className="multilingual-input-field">
+              <MultilingualTextField
+                constraints={{ max: 200 }}
+                counter={true}
+                optional={false}
+                label={this.props.configuration.field( 'description' ).getLabel( false, this.props.labels )}
+                name='description'
+                type='text'
+                value={this.state.description}
+                error={formErrors.description}
+                languages={this.state.languages}
+                onChange={this.onChange( 'description' )}
+                lang={this.props.lang} />
+            </div>
+            : null}
 
-            { this.props.configuration.field( 'keywords' ).display() ?
+          {this.props.configuration.field( 'keywords' ).display() ?
             <div className="multilingual-input-field">
               <EventKeywordsField
-                constraints={{max: 255}}
+                constraints={{ max: 255 }}
                 counter={true}
                 value={this.state.keywords}
                 name='keywords'
@@ -620,115 +628,117 @@ function EventFormFactory() {
                 label={this.props.configuration.field( 'keywords' ).getLabel( false, this.props.labels )}
                 error={formErrors.keywords}
                 placeholder={this.props.labels.keywordPlaceholder}
-                lang={this.props.lang} /> 
-            </div> : null }
+                lang={this.props.lang} />
+            </div> : null}
 
-            { this.renderMarkdownField() }
+          {this.renderMarkdownField()}
 
-            <div className="multilingual-input-field">
-              <MultilingualTextField
-                constraints={{max: 255}}
-                counter={true}
-                label={ this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels ) }
-                placeholder={ this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels ) }
-                name='conditions'
-                type='text'
-                optional={true}
-                value={this.state.conditions}
-                error={formErrors.conditions }
-                languages={this.state.languages}
-                onChange={this.onChange( 'conditions' )}
-                lang={this.props.lang} />  
+          {this.props.configuration.field( 'conditions' ).display() ? <div className="multilingual-input-field">
+            <MultilingualTextField
+              constraints={{ max: 255 }}
+              counter={true}
+              label={this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels )}
+              placeholder={this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels )}
+              name='conditions'
+              type='text'
+              optional={true}
+              value={this.state.conditions}
+              error={formErrors.conditions}
+              languages={this.state.languages}
+              onChange={this.onChange( 'conditions' )}
+              lang={this.props.lang} />
+          </div> : null}
+
+          {this.props.configuration.field( 'registration' ).display() ? <Registration
+            lang={this.props.lang}
+            label={this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels )}
+            placeholder={this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels )}
+            value={this.state.ticketLink}
+            onChange={this.onChange( 'ticketLink' )} /> : null}
+
+          {this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
+            value={this.state.accessibility || []}
+            label={this.props.labels.accessibility}
+            onChange={this.onChange( 'accessibility' )}
+            labelsLang={this.props.lang} /> : null}
+
+          {this.props.configuration.field( 'age' ).display() ? <AgeFields
+            value={this.state.age}
+            label={this.props.labels.age}
+            onChange={this.onChange( 'age' )}
+            labelsLang={this.props.lang} /> : null}
+
             </div>
 
-            <Registration 
-              lang={this.props.lang}
-              label={ this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels ) }
-              placeholder={ this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels ) }
-              value={this.state.ticketLink}
-              onChange={this.onChange( 'ticketLink' )} />
+            {this.props.custom ? <CustomFields
+                fields={this.props.custom}
+                values={this.state.custom}
+                errors={formErrors}
+                languages={this.state.languages}
+                onChange={this.changeCustom}
+                labels={this.props.labels}
+                res={this.props.customRes}
+                lang={this.props.lang} />
+              : ''}
 
-            <AccessibilityFields
-              value={this.state.accessibility || []}
-              label={this.props.labels.accessibility}
-              onChange={this.onChange( 'accessibility' )} 
-              labelsLang={this.props.lang} />
+            {this.props.configuration.field( 'references' ).display( false ) ? <References
+              initUids={this.state.references}
+              res={this.props.referenceRes}
+              onChange={this.props.onReferencesChange}
+            /> : null}
 
-            { this.props.configuration.field( 'age' ).display() ? <AgeFields
-              value={ this.state.age }
-              label={ this.props.labels.age }
-              onChange={ this.onChange( 'age' ) }
-              labelsLang={ this.props.lang } /> : null }
+            <div className="margin-v-lg">
+            <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
+          {this.state.locationMode === 'create' ?
+            <Modal disableBodyScroll={true} classNames={{
+            overlay: 'popup-overlay big'
+          }} onClose={() => {
+            this.onLocationModeChange( 'search' );
+          }} >
+            <h2>{this.getLabel( 'locationCreate' )}</h2>
+            {this.renderLocationSelector()}
+            </Modal>
+            : this.renderLocationSelector()}
+            </div>
 
-          </div>
-
-          { this.props.custom ? <CustomFields
-            fields={ this.props.custom }
-            values={ this.state.custom }
-            errors={ formErrors }
-            languages={ this.state.languages }
-            onChange={ this.changeCustom }
-            labels={ this.props.labels }     
-            res={ this.props.customRes }   
-            lang={ this.props.lang } />
-          : '' }
-
-          { this.props.configuration.field( 'references' ).display( false ) ? <References 
-            initUids={ this.state.references }
-            res={ this.props.referenceRes }
-            onChange={ this.props.onReferencesChange }
-          /> : null }
-
-          <div className="margin-v-lg">
-            <h2>{ this.props.labels.locationSection[ this.props.lang ] }</h2>
-            { this.state.locationMode === 'create' ? 
-              <Modal disableBodyScroll={true} classNames={{
-                overlay: 'popup-overlay big'
-              }} onClose={ ()=>{ this.onLocationModeChange( 'search' ); } } >
-                <h2>{this.getLabel( 'locationCreate' )}</h2>
-                {this.renderLocationSelector()}
-              </Modal>
-            : this.renderLocationSelector() }
-          </div>
-          
-          <div className="margin-v-lg">
+            <div className="margin-v-lg">
             <TimingsPicker
-              labels={this.props.labels}
-              lang={this.props.lang}
-              error={formErrors.timings}
-              timings={this.state.timings}
-              configuration={this.props.configuration.field( 'timings' ) }
-              onChange={this.onTimingsChange} />
-          </div>
+            labels={this.props.labels}
+            lang={this.props.lang}
+            error={formErrors.timings}
+            timings={this.state.timings}
+            configuration={this.props.configuration.field( 'timings' )}
+            onChange={this.onTimingsChange} />
+            </div>
 
-          { this.state.translation ?  
-          <div className="margin-v-lg">
+          {this.state.translation ?
+            <div className="margin-v-lg">
             <Translation
-              source={this.state.translation.source}
-              sets={this.state.translation.sets}
-              check={translator.change.bind( null, true )}
-              uncheck={translator.change.bind( null, false )}
-              sourceChange={translator.sourceChange.bind( null )}
-              labels= {flattenLabels( translationLabels, this.props.lang )}
-            /> 
-          </div>
-          : null }
+            source={this.state.translation.source}
+            sets={this.state.translation.sets}
+            check={translator.change.bind( null, true )}
+            uncheck={translator.change.bind( null, false )}
+            sourceChange={translator.sourceChange.bind( null )}
+            labels= {flattenLabels( translationLabels, this.props.lang )}
+            />
+            </div>
+            : null}
 
 
-          <div className="js_form_canvas_below"></div>
+            <div className="js_form_canvas_below"></div>
 
-          {this.state.translation && this.state.translation.translating ? 
-            <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} /> 
-          : null }
+          {this.state.translation && this.state.translation.translating ?
+            <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />
+            : null}
 
-          {this.state.submitSpin ? 
-            <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null } /> 
-          : null }
+          {this.state.submitSpin ?
+            <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null} />
+            : null}
 
-        </div>
+            </div>
 
-    }
+            }
 
-  } );
+          } );
 
-}
+          }
