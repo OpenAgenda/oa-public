@@ -44,6 +44,7 @@ function transfer( identifiers, options, cb ) {
     identifiers,
     event: null,
     force: options.force || false,
+    context: options && options.context ? options.context : null,
     legacy: {
       valid: null,
       event: null,
@@ -95,7 +96,11 @@ function transfer( identifiers, options, cb ) {
 
     }
 
-    set( v.legacy.event, { draft: v.legacy.event.draft, protected: false }, ( err, r ) => {
+    set( v.legacy.event, {
+      draft: v.legacy.event.draft, 
+      protected: false, 
+      context: v.context
+    }, ( err, r ) => {
 
       if ( err ) return cb( err );
 
