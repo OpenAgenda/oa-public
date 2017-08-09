@@ -2,15 +2,17 @@
 
 var config = require( '../../config' ),
 
-cache = require( '../cache' ),
+  cache = require( '../cache' ),
 
-modelLib = require( 'cibulModel' ),
+  modelLib = require( 'cibulModel' ),
 
-model = modelLib( config.db, {
-  imagePath: config.aws.imageBucketPath, 
-  cache: cache,
-  query
-} );
+  model = modelLib( config.db, {
+    imagePath: config.aws.imageBucketPath,
+    cache: cache,
+    query
+  } );
+
+const w = require( 'when' );
 
 const logger = require( 'logger' );
 
@@ -33,14 +35,8 @@ function query( sql, arr = [], cb ) {
 
   log( 'running cibul model query \'%s\' with values [%s]', sql, [].concat( arr ).join( ',' ) );
 
-  const p = config.knex.raw( sql, arr );
-  
-  p.catch( cb );
+  const p = config.knex.raw.apply( null, arr.length ? [ sql, arr ] : [ sql ] );
 
-  p.then( result => {
-
-    cb( null, result[ 0 ] );
-
-  } );
+  w( p ).done( result => cb( null, result[ 0 ] ), cb );
 
 }

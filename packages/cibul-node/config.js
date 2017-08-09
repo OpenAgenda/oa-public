@@ -514,8 +514,8 @@ let config = {
           //enable: 'oa:agendaEvents*, oa:events*'
           //enable: 'oa:services/event/oembed',
           //enable: 'oa:services/model',
-          //enable: 'oa:events/interfaces*'
-          //enable: 'oa:events*,oa:legacy*'
+          //enable: 'oa:events/interfaces*',
+          //enable: 'oa:events*,oa:legacy*',
           enable: 'oa:*'
         },
         token: false // no need to log dev things
