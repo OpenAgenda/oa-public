@@ -70,7 +70,7 @@ export default class Request extends Component {
 
     return (
       <Modal
-        title={modalTitle || getLabel( 'activationRequest' )}
+        title={<div><i className="golden-icon no-hover"></i> {modalTitle || getLabel( 'activationRequest' )}</div>}
         visible={opened}
         onClose={() => this.props.closeRequestForm()}
         classNames={{ overlay: 'popup-overlay big' }}

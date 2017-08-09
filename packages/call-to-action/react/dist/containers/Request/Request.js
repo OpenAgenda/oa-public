@@ -168,7 +168,13 @@ var Request = _wrapComponent('Request')((_dec = (0, _reactRedux.connect)(functio
       return _react3.default.createElement(
         _Modal2.default,
         {
-          title: modalTitle || getLabel('activationRequest'),
+          title: _react3.default.createElement(
+            'div',
+            null,
+            _react3.default.createElement('i', { className: 'golden-icon no-hover' }),
+            ' ',
+            modalTitle || getLabel('activationRequest')
+          ),
           visible: opened,
           onClose: function onClose() {
             return _this2.props.closeRequestForm();
@@ -199,3 +205,4 @@ var Request = _wrapComponent('Request')((_dec = (0, _reactRedux.connect)(functio
 
 exports.default = Request;
 module.exports = exports['default'];
+//# sourceMappingURL=Request.js.map

@@ -12,3 +12,4 @@ var _Request3 = _interopRequireDefault(_Request2);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.Request = _Request3.default;
+//# sourceMappingURL=index.js.map

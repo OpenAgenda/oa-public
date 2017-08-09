@@ -104,3 +104,4 @@ function createApp(options) {
   ), _domUtils2.default.el('.js_call_to_action_canvas'));
 };
 module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

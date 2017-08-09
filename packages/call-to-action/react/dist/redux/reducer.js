@@ -26,3 +26,4 @@ exports.default = (0, _redux.combineReducers)({
   callToAction: _callToAction2.default
 });
 module.exports = exports['default'];
+//# sourceMappingURL=reducer.js.map
