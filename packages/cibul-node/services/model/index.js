@@ -6,6 +6,8 @@ var config = require( '../../config' ),
 
   modelLib = require( 'cibulModel' ),
 
+  _ = require( 'lodash' ),
+
   model = modelLib( config.db, {
     imagePath: config.aws.imageBucketPath,
     cache: cache,
@@ -31,7 +33,9 @@ module.exports.init = c => {
 }
 
 
-function query( sql, arr = [], cb ) {
+function query( sql, dirtyArgs = [], cb ) {
+
+  let arr = _.isArray( dirtyArgs ) ? dirtyArgs : [ dirtyArgs ];
 
   log( 'running cibul model query \'%s\' with values [%s]', sql, [].concat( arr ).join( ',' ) );
 
