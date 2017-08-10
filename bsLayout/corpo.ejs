@@ -56,9 +56,8 @@
                             <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;+33 1 42 33 05 09
                         </a>
                     </p>
-                </li>
-                <li>                   
-                    <% [ 'fr', 'en' ].forEach( function( l, i ) { %>
+                </li>          
+<% [ 'fr', 'en' ].forEach( function( l, i ) { %>
                         <% if ( lang == l ) { %>
                         <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
                             <%= l.toUpperCase() %>
@@ -72,8 +71,7 @@
                         <% if ( i === 0 ) { %>
                         <li><a>|</a></li>
                         <% } %>
-                    <% } ); %>
-                </li>
+<% } ); %>
             </ul>
         </div>
     </div>
