@@ -1,12 +1,13 @@
 {
-  "name" : "utils",
-  "version" : "0.0.91",
+  "name": "utils",
+  "version": "0.0.91",
   "description": "minimalistic utilities lib",
   "devDependencies": {
     "should": "7.1.1"
   },
   "dependencies": {
     "qs": "^6.1.0",
+    "when": "^3.7.8",
     "xhr": "^2.2.2"
   }
 }

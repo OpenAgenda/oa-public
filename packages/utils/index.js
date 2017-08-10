@@ -1,20 +1,20 @@
 "use strict";
 
 module.exports = {
-  extend: extend,
-  filterByAttr: filterByAttr,
-  isArray: isArray,
-  size: size,
-  fZ: fZ,
-  unique: unique,
-  forEach: forEach, // for some older browsers
-  toCamelCase: toCamelCase,
-  toUnderscore: toUnderscore,
-  escape: escape,
-  truncate: truncate,
-  capitalize: capitalize,
-  uncapitalize: uncapitalize,
-  cleanString: cleanString ,
+  extend,
+  filterByAttr,
+  isArray,
+  size,
+  fZ,
+  unique,
+  forEach, // for some older browsers
+  toCamelCase,
+  toUnderscore,
+  escape,
+  truncate,
+  capitalize,
+  uncapitalize,
+  cleanString,
   deep: require( './deep' )
 };
 
@@ -53,7 +53,7 @@ function truncate( str, len, append ) {
   }
 
   return str;
-  
+
 }
 
 function escape( str, escapeApostrophe ) {
@@ -67,13 +67,13 @@ function escape( str, escapeApostrophe ) {
   }
 
   var escaped = String( str )
-  
+
   .replace( /&/g, '&amp;' )
-  
+
   .replace( /</g, '&lt;' )
-  
+
   .replace( />/g, '&gt;' )
-  
+
   .replace( /"/g, '&quot;' );
 
   if ( escapeApostrophe ) {
@@ -205,7 +205,7 @@ function extend() {
     }
 
   }
-        
+
   return arguments[ 0 ];
 
 }
@@ -226,7 +226,7 @@ function fZ( n, size ) {
 
   while ( s.length < size ) s = '0' + s;
 
-  return sign + s; 
+  return sign + s;
 }
 
 function cleanString( str ) {
