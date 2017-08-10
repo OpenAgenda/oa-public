@@ -28,6 +28,7 @@ const modLib = require( '../lib/moduleLib' ),
 
     agendaJsonEvents: [ 'get', '/events.json', [
       cacheMw.send( 'agendas', 'params.uid' ),
+      _sleep.bind( null, 400 ),
       agendaSvc.mw.load( 'uid' ),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       agendaSvc.mw.search( perPage ),
@@ -131,6 +132,19 @@ module.exports = function( path ) {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
+
+}
+
+
+function _sleep( ms, req, res, next ) {
+
+  req.log( 'sleeping for %s milliseconds', ms );
+
+  setTimeout( () => {
+
+    next();
+
+  }, ms );
 
 }
 
