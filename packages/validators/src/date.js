@@ -49,6 +49,8 @@ module.exports = config => {
 
     } else if ( typeof value === 'undefined' || value === null ) {
 
+      console.log( value );
+
       if ( !params.default && !params.optional ) {
 
         throw [ utils.extend( {
@@ -61,6 +63,10 @@ module.exports = config => {
       if ( params.default === 'now' ) {
 
         clean = new Date();
+
+      } else if ( params.default === null ) {
+
+        clean = null;
 
       } else if ( params.default ) {
 

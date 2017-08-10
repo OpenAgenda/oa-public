@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-dateValidator = require( '../date' );
+  dateValidator = require( '../src/date' );
 
 describe( 'date validator', () => {
 
@@ -31,6 +31,14 @@ describe( 'date validator', () => {
     let validate = dateValidator();
 
     should( validate( null ) ).equal( null );
+
+  } );
+
+  it( 'returns null if input is undefined and default is null', () => {
+
+    let validate = dateValidator( { default: null } );
+
+    should( validate() ).equal( null );
 
   } );
 
