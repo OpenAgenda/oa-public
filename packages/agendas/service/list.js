@@ -18,9 +18,7 @@ const _ = require( 'lodash' ),
 
 let service, schemas, imagePath, knex;
 
-module.exports = _.extend( list, {
-  init
-} );
+module.exports = _.extend( list, { init } );
 
 
 function list( q, off, l, op, c ) {

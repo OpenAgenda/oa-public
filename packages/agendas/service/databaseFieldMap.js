@@ -45,6 +45,12 @@ module.exports = [
     obj: 'createdAt'
   },
   {
+    db: 'officialized_at',
+    obj: 'officializedAt',
+    internal: true,
+    protected: true
+  },
+  {
     db: 'settings',
     obj: 'settings',
     type: 'json',

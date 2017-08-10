@@ -151,6 +151,7 @@ describe( 'agendas - unit (server): validate', () => {
         slug: 'la-gargouille',
         uid: 122312,
         official: false,
+        officializedAt: null,
         private: false,
         ownerId: 1,
         formSchemaId: null,

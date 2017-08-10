@@ -26,6 +26,11 @@ module.exports = {
     type: 'integer',
     optional: true
   },
+
+  officializedAt: {
+    type: 'date',
+    default: null
+  },
   
   image: {
     type: 'text'

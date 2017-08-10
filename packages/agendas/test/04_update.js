@@ -84,6 +84,23 @@ describe( 'agendas - functional (server): set (update)', function() {
   } );
 
 
+  it( 'setting official timestamps offialized_at', done => {
+
+    let now = new Date();
+
+    svc.set( 4875, {
+      official: true
+    }, { protected: false, internal: true }, ( err, result ) => {
+
+      ( result.agenda.officializedAt.getTime() - now.getTime() ).should.lessThan( 1000 );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'set without internal option returns an updated agenda that excludes internal fields', done => {
 
     svc.set( 4875, { title: 'Booyah' }, ( err, result ) => {
@@ -190,6 +207,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,
+          officializedAt: null,
           private: 0,
           title: 'Agenda culturel Auvergne',
           description: 'test ! :)',

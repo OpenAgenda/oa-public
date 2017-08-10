@@ -224,6 +224,7 @@ describe( 'agendas - functional (server): set (create)', function() {
           url: null,
           image: null,
           official: 0,
+          officializedAt: null,
           private: 0,
           settings: {
             contribution: {

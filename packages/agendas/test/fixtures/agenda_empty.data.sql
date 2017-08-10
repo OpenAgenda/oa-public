@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   uid BIGINT UNIQUE, 
   main TINYINT(1) DEFAULT '0' NOT NULL, 
   official TINYINT(1) DEFAULT '0' NOT NULL,
+  officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
   title VARCHAR(255) NOT NULL,
   owner_id BIGINT NOT NULL,

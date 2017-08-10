@@ -242,6 +242,7 @@ describe( 'agendas - functional (server): get', function() {
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
         official: 0,
+        officializedAt: null, 
         private: 0
       } );
 

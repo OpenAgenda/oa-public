@@ -83,6 +83,8 @@ function _update( identifiers, data, options, cb ) {
 
   .then( _setToNow( 'merged', 'updatedAt' ) )
 
+  .then( _timestampOfficial )
+
   .then( _validate( 'merged' ) )
 
   // filter must happen after validate to avoid
@@ -519,6 +521,19 @@ function _get( options ) {
     return d.promise;
 
   }
+
+}
+
+
+function _timestampOfficial( v ) {
+
+  if ( !v.current.official && v.merged.official ) {
+
+    v.merged.officializedAt = new Date();
+
+  }
+
+  return v;
 
 }
 
