@@ -120,6 +120,7 @@ function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, 
 
   mailer( {
     recipient,
+    source: replyTo || (lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'),
     replyTo: replyTo || (lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'),
     subject: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
