@@ -60,6 +60,9 @@ module.exports = function (config) {
       if (params['default'] === 'now') {
 
         clean = new Date();
+      } else if (params['default'] === null) {
+
+        clean = null;
       } else if (params['default']) {
 
         clean = new Date(params['default'].getTime());

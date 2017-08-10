@@ -49,8 +49,6 @@ module.exports = config => {
 
     } else if ( typeof value === 'undefined' || value === null ) {
 
-      console.log( value );
-
       if ( !params.default && !params.optional ) {
 
         throw [ utils.extend( {
