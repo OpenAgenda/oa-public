@@ -1,8 +1,12 @@
 "use strict";
 
-const agendaSearch = require( 'agenda-search' );
+const agendaSearch = require( 'agenda-search' ),
 
-const agendas = require( 'agendas' ),
+  agendas = require( 'agendas' ),
+
+  agendaLocations = require( 'agenda-locations' ),
+
+  async = require( 'async' ),
 
   logger = require( 'logger' );
 
@@ -27,11 +31,29 @@ module.exports.init = config => {
     interfaces: {
       agendasList: ( offset, limit, cb ) => {
 
-        agendas.list( { detailed: true }, offset, limit, ( err, agendas ) => {
-        
-          if ( err ) return cb( err );
+        agendas.list( offset, limit, { detailed: true }, ( err, agendas ) => {
 
-          cb( null, agendas );
+          async.eachSeries( agendas, ( agenda, ecb ) => {
+
+            agenda.keywords = [];
+
+            async.eachSeries( [ 'region', 'department', 'city' ], ( term, ecb2 ) => {
+
+              agendaLocations.list.terms( [ term ], { agendaId: agenda.id }, ( err, result ) => {
+
+                agenda.keywords = agenda.keywords.concat( result.map( r => r[ term ] ) );
+
+                ecb2();
+
+              } );
+
+            }, ecb );            
+
+          }, err => {
+
+            cb( null, agendas );
+
+          } );        
 
         } ); 
 
