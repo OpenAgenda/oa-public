@@ -2,24 +2,20 @@
 
 const w = require( 'when' );
 
+const isPromise = obj =>
+  !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+
 module.exports = function cbify( fn ) {
 
   return ( ...params ) => {
-    let cbCalled = false;
+
     const cb = params[ params.length - 1 ];
 
-    const _cb = ( ...result ) => {
-      cbCalled = true;
-      return cb( ...result );
-    }
-
-    w( fn( ...params.slice( 0, -1 ), _cb ) )
+    w( fn( ...params.slice( 0, -1 ), cb ) )
       .done( res => {
-        if ( cbCalled ) return;
-        return cb( null, res );
+        if ( isPromise( res ) ) cb( null, res );
       }, err => {
-        if ( cbCalled ) return;
-        return cb( err );
+        if ( isPromise( err ) ) cb( err );
       } );
 
   };
