@@ -56,7 +56,7 @@ export default function ( options ) {
 
 function renderNotification( { notification, content, url, lang } ) {
 
-  let date = moment( notification.createdAt );
+  let date = moment( notification.updatedAt );
   let now = moment();
 
   if ( date.diff( now ) > 0 ) {

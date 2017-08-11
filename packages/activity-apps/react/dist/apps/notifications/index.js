@@ -127,7 +127,7 @@ function renderNotification(_ref) {
       lang = _ref.lang;
 
 
-  var date = (0, _moment2.default)(notification.createdAt);
+  var date = (0, _moment2.default)(notification.updatedAt);
   var now = (0, _moment2.default)();
 
   if (date.diff(now) > 0) {
