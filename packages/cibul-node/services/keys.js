@@ -10,6 +10,12 @@ module.exports.init = async config => {
     migrations: {
       tableName: 'key_migrations'
     },
+    redis: {
+      connection: config.redis
+    },
+    cache: {
+      duration: 60
+    }
   } );
 
 }

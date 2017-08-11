@@ -1,33 +1,25 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const async = require( 'async' );
+const w = require( 'when' );
+const sessions = require( 'sessions' );
+const agendaStakeholders = require( 'agenda-stakeholders' );
+const keysSvc = require( 'keys' );
+const __ = require( 'labels' )( require( 'labels/agendas/errors' ) );
+const getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) );
+const modLib = require( '../lib/moduleLib' );
+const cmn = require( '../lib/commons-app' );
+const eventSvc = require( '../services/event' );
+const agendaEvents = require( 'agenda-events' );
+const agendaSvc = require( '../services/agenda' );
+const model = require( '../services/model' );
+const cbify = require( 'utils/cbify' );
 
-  agendaStakeholders = require( 'agenda-stakeholders' ),
+const routes = {
 
-  __ = require( 'labels' )( require( 'labels/agendas/errors' ) ),
-
-  modLib = require( '../lib/moduleLib' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  w = require( 'when' ),
-
-  eventSvc = require( '../services/event' ),
-
-  agendaEvents = require( 'agenda-events' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  model = require( '../services/model' ),
-
-  async = require( 'async' ),
-
-  getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) ),
-
-  routes = {
-
-    agendaActionShow: [ 'get', '/', [ 
+    agendaActionShow: [ 'get', '/', [
       sessions.middleware.load( { detailed: true } ),
+      loadKey(),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       actionShow 
     ] ],
@@ -61,13 +53,39 @@ module.exports = function( p ) {
   var router = modLib.Router( routes );
 
   router.pre( [
-    agendaSvc.mw.load( 'slug' )
+    agendaSvc.mw.load( 'slug' ),
+    cmn.loadLogger( 'actions front' )
   ] );
 
   return {
     load: router.load( p ),
     paths: modLib.getPaths( p, routes )
   };
+
+}
+
+
+function loadKey() {
+
+  return cbify( async ( req, res, next ) => {
+
+    if ( req.user ) {
+
+      try {
+
+        req.userKey = await keysSvc( { identifier: req.user.uid, type: 'userPublic' } ).get();
+
+      } catch ( e ) {
+
+        req.log( 'user public key not found for user', req.user.uid || req.user, 'error:', e );
+
+      }
+
+    }
+
+    next();
+
+  } );
 
 }
 
@@ -87,6 +105,7 @@ function actionShow( req, res ) {
       image: req.agenda.getImage(),
       private: req.agenda.private
     },
+    key: req.userKey ? req.userKey.key : undefined,
     hasAggregator: false,
     agendas: [],
     xhr: req.xhr,
