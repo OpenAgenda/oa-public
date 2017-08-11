@@ -99,7 +99,7 @@ module.exports = function( obj, service, config ) {
 
 function _populate( v ) {
 
-  log( 'populating index' );
+  log( 'info', 'populating index' );
 
   if ( !v.interfaces|| !v.interfaces.agendasList ) {
 
@@ -121,7 +121,7 @@ function _populate( v ) {
 
   async.doWhilst( wcb => {
 
-    log( 'listing agendas from %s to %s', offset, offset + limit );
+    log( 'info', 'listing agendas from %s to %s', offset, offset + limit );
 
     ( v.interfaces && v.interfaces.agendasList ? v.interfaces.agendasList : v.service.list.bind( null, { detailed: true } ) )( offset, limit, ( err, items ) => {
 
