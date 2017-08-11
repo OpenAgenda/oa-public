@@ -10,10 +10,19 @@ module.exports = {
     user: 'root'
   },
   migrations: {
-    tableName: 'keys_migrations',
+    tableName: 'key_migrations',
     directory: path.resolve( __dirname, 'migrations' )
   },
   schemas: {
-    keys: 'keys'
+    key: 'key'
+  },
+  redis: {
+    connection: {
+      host: 'localhost',
+      port: 6379
+    }
+  },
+  cache: {
+    duration: 60
   }
 };

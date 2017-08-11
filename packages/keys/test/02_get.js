@@ -1,17 +1,61 @@
 "use strict";
 
+const util = require( 'util' );
+const winston = require( 'winston' );
+const debug = require( 'debug' );
+
+const isEmptyObject = obj => Object.keys( obj ).length === 0 && obj.constructor === Object;
+
+class CustomLogger extends winston.Transport {
+
+  constructor( options ) {
+    super( options );
+    this.name = 'OA Logger';
+    const params = Object.assign( { namespace: '', prefix: '', level: 'debug' }, options );
+    this.level = params.level;
+    this.namespace = params.namespace;
+    this.debug = debug( params.prefix + params.namespace );
+  }
+
+  log( level, msg, meta, callback ) {
+    this.debug.apply( null, [ msg ].concat( isEmptyObject( meta ) ? [] : [ meta ] ) );
+    callback( null, true );
+  }
+
+  setPrefix( prefix ) {
+    this.debug = debug( prefix + this.namespace );
+  }
+
+}
+
+module.exports = CustomLogger;
+
+
+/*
 const _ = require( 'lodash' );
 const should = require( 'should' );
+const sinon = require( 'sinon' );
 const service = require( './service' );
-const config = require( '../testconfig' );
+const testconfig = require( '../testconfig' );
+const config = require( '../service/config' );
 
-describe( 'keys - get', function () {
+describe.only( 'keys - get', function () {
 
   this.timeout( 30000 );
 
   before( async () => {
 
-    await service.initAndLoad( config );
+    await service.initAndLoad( testconfig );
+
+  } );
+
+  afterEach( async () => {
+
+    const { client, prefix } = config.redis;
+
+    const keys = await client.keysAsync( prefix + '*' );
+
+    if ( keys && keys.length ) await client.delAsync.apply( null, keys );
 
   } );
 
@@ -30,7 +74,11 @@ describe( 'keys - get', function () {
 
   it( 'get a key', async () => {
 
-    const result = await service( { type: 'userPublic', identifier: 98596585, key: '2733c8183cca49dcbfbaefd6c957f5b6' } )
+    const result = await service( {
+      type: 'userPublic',
+      identifier: 98596585,
+      key: '2733c8183cca49dcbfbaefd6c957f5b6'
+    } )
       .get();
 
     _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
@@ -42,5 +90,68 @@ describe( 'keys - get', function () {
 
   } );
 
+  it( 'get by key', async () => {
+
+    const result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } )
+      .get();
+
+    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( {
+      id: 2,
+      type: 'userPublic',
+      identifier: 98596585,
+      label: null
+    } );
+
+  } );
+
+  it( 'get by key - without cache', async () => {
+
+    const exceptedResult = {
+      id: 2,
+      type: 'userPublic',
+      identifier: 98596585,
+      label: null
+    };
+
+    const spy = sinon.spy( config, 'knex' );
+    spy.callCount.should.equal( 0 );
+
+    let result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get();
+
+    spy.callCount.should.equal( 1 );
+    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+
+    result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get();
+
+    spy.callCount.should.equal( 2 );
+    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+
+  } );
+
+  it( 'get by key - with cache', async () => {
+
+    const exceptedResult = {
+      id: 2,
+      type: 'userPublic',
+      identifier: 98596585,
+      label: null
+    };
+
+    const spy = sinon.spy( config, 'knex' );
+    spy.callCount.should.equal( 0 );
+
+    let result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get( { cache: true } );
+
+    spy.callCount.should.equal( 1 );
+    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+
+    result = await service( { key: '2733c8183cca49dcbfbaefd6c957f5b6' } ).get( { cache: true } );
+
+    spy.callCount.should.equal( 1 );
+    _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
+
+  } );
+
 } );
 
+*/

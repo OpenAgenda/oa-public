@@ -59,6 +59,14 @@ module.exports = ( identifiers, options ) => {
 
     if ( typeof identifiers.key !== 'undefined' ) {
 
+      validateSchema.type = {
+        type: 'choice',
+        optional: true,
+        options: keyTypes,
+        unique: true,
+        default: undefined
+      };
+
       validateSchema.key = {
         type: 'text',
         optional: false

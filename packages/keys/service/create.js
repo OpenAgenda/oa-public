@@ -1,5 +1,6 @@
 "use strict";
 
+const wn = require( 'when/node' );
 const VError = require( 'verror' );
 const uuid = require( 'uuid' );
 const defineUnique = require( 'mysql-utils/defineUnique' );
@@ -52,19 +53,14 @@ module.exports = async ( identifiers, data ) => {
 
 function getUuid() {
 
-  return new Promise( ( resolve, reject ) => {
-
-    defineUnique( {
+  return wn.call(
+    defineUnique,
+    {
       table: config.schemas.key,
-      field: 'identifier',
+      field: 'key',
       mysql: config.mysql
-    }, () => uuid().replace( /-/g, '' ), ( err, uniqueValue ) => {
-
-      if ( err ) return reject( err );
-      resolve( uniqueValue );
-
-    } );
-
-  } );
+    },
+    () => uuid().replace( /-/g, '' )
+  );
 
 }

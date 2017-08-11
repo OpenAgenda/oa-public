@@ -3,10 +3,15 @@
 const _ = require( 'lodash' );
 const path = require( 'path' );
 const knexLib = require( 'knex' );
+const redis = require( 'redis' );
 const logger = require( 'basic-logger' );
+const promisifyRedis = require( 'service-utils/promisifyRedis' );
 
 const config = {
-  knex: null
+  knex: null,
+  redis: {
+    prefix: 'keys'
+  }
 };
 
 module.exports = _.extend( config, { init } );
@@ -14,6 +19,13 @@ module.exports = _.extend( config, { init } );
 async function init( c ) {
 
   if ( c.logger ) logger.setLogger( c.logger );
+
+  _.merge( config, _.pick( c, [
+    'mysql',
+    'schemas',
+    'redis',
+    'cache'
+  ] ) );
 
   // clone or create a knex client
   config.knex = c.knex ? c.knex.clone() : knexLib( {
@@ -31,10 +43,9 @@ async function init( c ) {
     } );
   }
 
-  _.extend( config, _.pick( c, [
-    'mysql',
-    'schemas'
-  ] ) );
+  config.redis.client = c.redis.client || redis.createClient( c.redis.connection );
+
+  promisifyRedis( config.redis.client );
 
   if ( config.knex.client.config.migrations ) {
     await config.knex.migrate.latest();

@@ -15,18 +15,20 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/keys#readme",
   "dependencies": {
-    "basic-logger": "bitbucket:OpenAgenda/basic-logger",
+    "basic-logger": "bitbucket:openagenda/basic-logger",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
-    "mysql-utils": "bitbucket:OpenAgenda/mysql-utils",
-    "service-utils": "bitbucket:OpenAgenda/service-utils",
+    "mysql-utils": "bitbucket:openagenda/mysql-utils",
+    "redis": "^2.8.0",
+    "service-utils": "bitbucket:openagenda/service-utils",
     "uuid": "^3.1.0",
-    "validators": "bitbucket:OpenAgenda/validators",
+    "validators": "bitbucket:openagenda/validators",
     "verror": "^1.10.0",
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "fixtures": "bitbucket:OpenAgenda/fixtures",
-    "should": "^11.2.1"
+    "fixtures": "bitbucket:openagenda/fixtures",
+    "should": "^11.2.1",
+    "sinon": "^3.2.0"
   }
 }

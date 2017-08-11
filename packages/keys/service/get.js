@@ -3,9 +3,14 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const config = require( './config' );
+const redis = require( './lib/redis' );
 const validateIdentifiers = require( './validators/identifiers' );
 
-module.exports = async identifiers => {
+module.exports = async ( identifiers, options ) => {
+
+  const params = _.merge( {
+    cache: false
+  }, options );
 
   const { knex, schemas } = config;
 
@@ -22,9 +27,25 @@ module.exports = async identifiers => {
     }, 'Validation failed' );
   }
 
-  const row = await knex( schemas.key ).first().where( identifiers ) || null;
+  let cached;
 
-  return parse( row );
+  if ( params.cache && identifiers.key ) {
+
+    cached = JSON.parse( await redis.get( identifiers.key ) );
+
+    if ( cached ) return cached;
+
+  }
+
+  const row = parse( await knex( schemas.key ).first().where( identifiers ) || null );
+
+  if ( params.cache && identifiers.key ) {
+
+    await redis.set( identifiers.key, JSON.stringify( row ) );
+
+  }
+
+  return row;
 
 };
 
