@@ -310,6 +310,7 @@ function _loadAgendaContext( v ) {
 
   return w.promise( function( rs, rj ) {
 
+
     v.event.loadAgendaContext( v.req.agenda.id, function( err ) {
 
       if ( err ) return rj( err );
@@ -389,23 +390,27 @@ function _loadUserCreds( v ) {
 
   v.user.logged = sessions.isLogged( v.req );
 
-  if ( !v.user.logged ) return v;
-
   return w.promise( ( rs, rj ) => {
 
-    sessions.get( v.req, { detailed: true }, ( err, user ) => {
+    sessions.isLogged( v.req ).then( is => {
 
-      v.req.user = user;
+      if ( !is ) return rs( v );
 
-      v.event.isEditor( v.req.user.id, ( err, is ) => {
+      sessions.get( v.req, ( err, user ) => {
 
-        if ( err ) return rj( err );
+        v.req.user = user;
 
-        v.user.editor = is;
+        v.event.isEditor( v.req.user.id, ( err, is ) => {
 
-        rs( v );
+          if ( err ) return rj( err );
 
-      });
+          v.user.editor = is;
+
+          rs( v );
+
+        });
+
+      } );
 
     } );
 

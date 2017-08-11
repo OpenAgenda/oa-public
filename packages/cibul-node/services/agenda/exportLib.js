@@ -49,6 +49,27 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
 }
 
 
+function _loadTagSet( v ) {
+
+  if ( !v.loadTagSet ) return v;
+
+  const d = w.defer();
+
+  agendaTags.get( v.agenda.id, ( err, tagSet ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.agenda.tagSet = tagSet;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
 function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
@@ -59,6 +80,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
   w( utils.extend( {
     agenda: agenda,
     event: event,
+    loadTagSet: false,
     decorated: toDecorate,
     lang: false,                // given by options
     includePrivateData: false   // given by options
@@ -68,6 +90,7 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
   .then( _addFeatured )
 
+  .then( _loadTagSet )
 
   .then( _addCustomFields )
 

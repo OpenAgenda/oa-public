@@ -362,7 +362,8 @@ function decorateEvent( includePrivateData ) {
 
     svc.exports.decorateEvent( req.agenda, req.event, req.formatted, {
       includePrivateData: false,
-      lang: req.lang
+      lang: req.lang,
+      loadTagSet: true
     }, next );
 
   }
