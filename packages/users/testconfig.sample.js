@@ -36,5 +36,14 @@ module.exports = {
       remove: identifiers => keysSvc( identifiers ).remove()
     }
   },
-  debug: true
+  debug: true,
+  redis: {
+    connection: {
+      host: 'localhost',
+      port: 6379
+    }
+  },
+  cache: {
+    duration: 60
+  }
 };
