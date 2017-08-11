@@ -19,7 +19,7 @@
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid }) %>">CSV</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid } ) %>">Excel ( xlsx )</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid }) %>">PDF</a>
-            <a class="btn btn-default js_fav_export" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid } ) %>">JSON *</a>
+            <a class="btn btn-default js_fav_export" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, key } ) %>">JSON *</a>
           </div>
         </div>
         <div class="js_favorite_menu_empty">
@@ -36,7 +36,7 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: search }) %>">CSV</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: search } ) %>">Excel ( xlsx )</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: search }) %>">PDF</a>
-          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, oaq: search } ) %>">JSON *</a>
+          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, oaq: search, key } ) %>">JSON *</a>
         </div>
 
         <p class="legend"><%= __( 'Export / Download everything' ) %></p>
@@ -48,7 +48,7 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">CSV</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">Excel ( xlsx )</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">PDF</a>
-          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 } } ) %>">JSON *</a>
+          <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 }, key } ) %>">JSON *</a>
         </div>
 
 
