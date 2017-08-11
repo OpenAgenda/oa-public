@@ -2,6 +2,8 @@
 
 const sessions = require( 'sessions' ),
 
+  qs = require( 'qs' ),
+
   _ = require( 'lodash' ),
 
   modLib = require( '../lib/moduleLib' ),
@@ -74,6 +76,10 @@ const sessions = require( 'sessions' ),
       eventUpdate
     ] ],
 
+    legacyApi: [ 'get', '/api', [
+      api
+    ] ],
+
 
     /**
      * process a save for event references
@@ -134,6 +140,9 @@ const sessions = require( 'sessions' ),
 
   };
 
+
+let apiLog;
+
 module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
@@ -142,6 +151,8 @@ module.exports = function ( path ) {
     cmn.loadLogger( 'legacy' ),
     _checkLocalhost
   ] );
+
+  apiLog = require( 'logger' )( 'legacyApi' );
 
   return {
     load: router.load( path ),
@@ -205,6 +216,35 @@ function referencesSave( req, res, next ) {
     } );
 
   } );
+
+}
+
+
+function api( req, res ) {
+
+  res.send( 'ok' );
+
+  if ( req.query.uri ) {
+
+    let parts = req.query.uri.split( '?' );
+
+    let path = parts.shift();
+
+    let query = {};
+
+    if ( parts.length ) {
+
+      query = qs.parse( parts[ 0 ] );
+
+    }
+
+    apiLog(_.extend( {
+      message: req.query.uri,
+      uri: req.query.uri,
+      path
+    }, query ) );
+
+  }
 
 }
 
