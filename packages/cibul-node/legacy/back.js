@@ -238,7 +238,7 @@ function api( req, res ) {
 
     }
 
-    apiLog(_.extend( {
+    apiLog( 'info', _.extend( {
       message: req.query.uri,
       uri: req.query.uri,
       path
