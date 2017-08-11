@@ -1,9 +1,10 @@
 const _ = require( 'lodash' );
 const Program = require( 'caporal/lib/program' );
 const knexLib = require( 'knex' );
-const async = require( 'async' );
 const nodefn = require( 'when/node' );
 const service = require( './index' );
+const traverseTable = require( '../utils/traverseTable' );
+
 const prog = new Program();
 
 let knex;
@@ -305,7 +306,8 @@ function rebuild( args, options, logger ) {
   function eachUsers( eachCb ) {
 
     return nodefn.call(
-      _traverseTable,
+      traverseTable,
+      knex,
       options.userTable,
       q => q.orderBy( 'id', 'desc' ),
       eachCb
@@ -316,7 +318,8 @@ function rebuild( args, options, logger ) {
   function eachAgendas( eachCb ) {
 
     return nodefn.call(
-      _traverseTable,
+      traverseTable,
+      knex,
       options.reviewTable,
       q => q.select( [
         options.reviewTable + '.*',
@@ -335,7 +338,8 @@ function rebuild( args, options, logger ) {
   function eachEvents( eachCb ) {
 
     return nodefn.call(
-      _traverseTable,
+      traverseTable,
+      knex,
       options.eventTable,
       q => q.select( [
         options.eventTable + '.*',
@@ -351,7 +355,8 @@ function rebuild( args, options, logger ) {
   function eachReviewArticles( agenda, eachCb ) {
 
     return nodefn.call(
-      _traverseTable,
+      traverseTable,
+      knex,
       options.reviewArticleTable,
       q => q.select( [
         options.reviewArticleTable + '.*',
@@ -369,7 +374,8 @@ function rebuild( args, options, logger ) {
   function eachStakeholders( agenda, eachCb ) {
 
     return nodefn.call(
-      _traverseTable,
+      traverseTable,
+      knex,
       options.reviewerTable,
       q => q.select( [
         options.reviewerTable + '.*',
@@ -381,43 +387,6 @@ function rebuild( args, options, logger ) {
         .join( options.userTable, options.reviewerTable + '.user_id', options.userTable + '.id' )
         .where( 'review_id', agenda.id ),
       eachCb
-    );
-
-  }
-
-  function _traverseTable( table, queryModifier, eachCb, cb ) {
-
-    let rowsCount = 0;
-    let rowsAffected = 0;
-
-    async.doWhilst(
-      dcb => {
-
-        const query = knex( table ).offset( rowsAffected ).limit( 100 );
-
-        queryModifier( query )
-          .then( rows => {
-
-            rowsCount = rows.length;
-            rowsAffected += rows.length;
-
-            if ( !rows.length ) return dcb();
-
-            async.eachOfSeries( rows, ( item, i, ecb ) => {
-              setTimeout( () => {
-                eachCb( item, rowsAffected - rows.length + Number.parseInt( i ), ecb );
-              }, options.interval );
-            }, dcb );
-
-          } );
-
-      },
-      () => rowsCount > 0,
-      err => {
-
-        cb( err, rowsAffected );
-
-      }
     );
 
   }

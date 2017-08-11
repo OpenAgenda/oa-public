@@ -168,7 +168,7 @@ function list( identifiers ) {
     } )
     .catch( err => {
 
-      console.log( err );
+      log.error( err );
 
       return Promise.reject( err );
 

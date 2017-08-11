@@ -10,6 +10,8 @@ const config = require( '../testconfig' );
 
 let q;
 
+console.log( module );
+
 describe( 'activities - notifications', function () {
 
   this.timeout( 30000 );
@@ -47,7 +49,8 @@ describe( 'activities - notifications', function () {
         .then( notif => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -146,7 +149,8 @@ describe( 'activities - notifications', function () {
       } ).then( notif => {
 
         notif.createdAt.should.Date();
-        return _.omit( notif, 'createdAt' );
+        notif.updatedAt.should.Date();
+        return _.omit( notif, 'createdAt', 'updatedAt' );
 
       } )
         .should.fulfilledWith( {
@@ -189,7 +193,8 @@ describe( 'activities - notifications', function () {
         .then( notif => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -233,7 +238,8 @@ describe( 'activities - notifications', function () {
         .then( notif => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -276,7 +282,8 @@ describe( 'activities - notifications', function () {
         .then( notif => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -351,7 +358,8 @@ describe( 'activities - notifications', function () {
         should( err ).equal( null );
 
         notif.createdAt.should.Date();
-        notif = _.omit( notif, 'createdAt' );
+        notif.updatedAt.should.Date();
+        notif = _.omit( notif, 'createdAt', 'updatedAt' );
 
         notif.should.eql( {
           id: 6,
@@ -444,7 +452,8 @@ describe( 'activities - notifications', function () {
         .then( ( [ notif ] ) => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -477,7 +486,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 
@@ -529,7 +539,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 
@@ -581,7 +592,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 
@@ -631,7 +643,8 @@ describe( 'activities - notifications', function () {
         .then( ( [ notif ] ) => {
 
           notif.createdAt.should.Date();
-          return _.omit( notif, 'createdAt' );
+          notif.updatedAt.should.Date();
+          return _.omit( notif, 'createdAt', 'updatedAt' );
 
         } )
         .should.fulfilledWith( {
@@ -701,7 +714,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 
@@ -805,7 +819,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 
@@ -857,7 +872,8 @@ describe( 'activities - notifications', function () {
           return notifs.map( notif => {
 
             notif.createdAt.should.Date();
-            return _.omit( notif, 'createdAt' );
+            notif.updatedAt.should.Date();
+            return _.omit( notif, 'createdAt', 'updatedAt' );
 
           } );
 

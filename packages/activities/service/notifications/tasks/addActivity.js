@@ -164,7 +164,8 @@ function addActivity() {
               feed_id: feed.id,
               verb: activity.verb,
               group_by: groupedBy,
-              store: JSON.stringify( _.merge( store, additionalProps.store ) )
+              store: JSON.stringify( _.merge( store, additionalProps.store ) ),
+              updated_at: new Date()
             } )
               .then( ids => service.feed( feed ).notifications.get( ids[ 0 ] ) );
 
@@ -203,7 +204,8 @@ function addActivity() {
             }
 
             return knex( config.schemas.feed_notification ).where( { id: notif.id } ).update( {
-              store: JSON.stringify( store )
+              store: JSON.stringify( store ),
+              updated_at: new Date()
             } )
               .then( () => service.feed( feed ).notifications.get( notif.id ) );
 

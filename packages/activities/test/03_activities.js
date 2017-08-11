@@ -539,8 +539,6 @@ describe( 'activities - activities', function () {
       } )
         .then( activity => {
 
-          console.log( activity );
-
           activity.createdAt.should.Date();
           return _.omit( activity, 'createdAt', 'updatedAt' );
 
