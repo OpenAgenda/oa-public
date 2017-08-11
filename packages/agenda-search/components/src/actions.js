@@ -1,6 +1,6 @@
 "use strict";
 
-var update = require( 'react-addons-update' );
+var update = require( 'immutability-helper' );
 
 /**
  * any general state change goes through here

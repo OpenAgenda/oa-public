@@ -16,7 +16,14 @@ module.exports = {
   init,
   list,
   rebuild,
-  mw
+  mw,
+  getClient: () => {
+
+    if ( !search ) return null;
+
+    return search.getClient();
+
+  }
 }
 
 

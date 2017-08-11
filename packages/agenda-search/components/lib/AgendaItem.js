@@ -2,15 +2,17 @@
 
 var React = require('react'),
     getLabel = require('labels')(require('labels/agenda-search')),
+    PropTypes = require('prop-types'),
+    createReactClass = require('create-react-class'),
     url = require('../../service/url');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'AgendaItem',
 
   propTypes: {
-    agenda: React.PropTypes.object,
-    lang: React.PropTypes.string
+    agenda: PropTypes.object,
+    lang: PropTypes.string
   },
 
   render: function render() {

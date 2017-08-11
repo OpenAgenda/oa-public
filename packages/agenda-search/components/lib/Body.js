@@ -1,6 +1,8 @@
 "use strict";
 
 var React = require('react'),
+    PropTypes = require('prop-types'),
+    createReactClass = require('create-react-class'),
     AgendaItem = require('./AgendaItem'),
     SearchField = require('react-form-components/build/SearchField'),
     Spinner = require('react-form-components/build/Spinner'),
@@ -13,16 +15,16 @@ var React = require('react'),
     monitorField = require('./monitorField'),
     validateQuery = require('../../validators/query');
 
-module.exports = React.createClass({
+module.exports = createReactClass({
 
   displayName: 'Body',
 
   propTypes: {
-    res: React.PropTypes.string,
-    agendas: React.PropTypes.array,
-    page: React.PropTypes.number,
-    lang: React.PropTypes.string,
-    query: React.PropTypes.object
+    res: PropTypes.string,
+    agendas: PropTypes.array,
+    page: PropTypes.number,
+    lang: PropTypes.string,
+    query: PropTypes.object
   },
 
   getDefaultProps: function getDefaultProps() {

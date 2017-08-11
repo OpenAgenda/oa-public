@@ -12,7 +12,7 @@ agendaTestService = require( './app/agendaTestService' );
 
 describe( 'search', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   before( () => {
 
@@ -26,7 +26,7 @@ describe( 'search', function() {
 
     search.list( {}, 0, 10, ( err, agendas, total ) => {
 
-      total.should.equal( 978 );
+      total.should.equal( 980 );
 
       done();
 

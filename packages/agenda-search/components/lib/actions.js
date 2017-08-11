@@ -1,6 +1,6 @@
 "use strict";
 
-var update = require('react-addons-update');
+var update = require('immutability-helper');
 
 /**
  * any general state change goes through here
@@ -9,12 +9,11 @@ var update = require('react-addons-update');
 module.exports = {
   addPageItems: addPageItems,
   resetPageItems: resetPageItems
-};
 
-/**
- * append new items to top or bottom of list
- */
-function addPageItems(current, next, data) {
+  /**
+   * append new items to top or bottom of list
+   */
+};function addPageItems(current, next, data) {
 
   var changes = {};
 

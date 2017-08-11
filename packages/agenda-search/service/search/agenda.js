@@ -2,30 +2,32 @@
 
 const utils = require( 'utils' ),
 
-validate = require( '../../validators/query' ),
+  _ = require( 'lodash' ),
 
-obj = {
+  validate = require( '../../validators/query' ),
 
-  // index name
-  alias: 'agenda',
+  obj = {
 
-  type: 'agenda',
+    // index name
+    alias: 'agenda',
 
-  // used at index creation
-  indexBody: getIndexSettings(),
+    type: 'agenda',
 
-  // prepare dsl query
-  query,
+    // used at index creation
+    indexBody: getIndexSettings(),
 
-  // clean items before being put to index
-  clean,
+    // prepare dsl query
+    query,
 
-  // process items read from index
-  parse,
+    // clean items before being put to index
+    clean,
 
-  mappings: getMappings()
+    // process items read from index
+    parse,
 
-}
+    mappings: getMappings()
+
+  }
 
 
 
@@ -42,7 +44,7 @@ module.exports.init = function( cfg ) {
  */
 function query( q, offset, limit ) {
 
-  let clean = {};
+  let clean = {}, mustPart = [], filteredPart = [];
 
   try {
 
@@ -50,59 +52,61 @@ function query( q, offset, limit ) {
 
   } catch( e ) {}
 
-  let isFiltered = _isFilteredQuery( clean ),
-
-  dsl = {
+  let dsl = {
     from: offset,
     size: limit,
     sort: getSortDsl( clean ),
-    _source: { exclude: ['*_es'] }
-  },
-
-  dslQuery = {};
+    _source: { exclude: ['*_es'] },
+    query: {
+      bool: {}
+    }
+  };
 
   // when a text search is made, look into title and description
   if ( clean.search !== null ) {
 
-    dslQuery.multi_match = {
-      query: q.search,
-      type: 'cross_fields',
-      operator: 'and',
-      fields: [
-        'title', 'description'
-      ]
-    }
+    mustPart.push( {
+      multi_match: {
+        query: q.search,
+        type: 'cross_fields',
+        operator: 'and',
+        fields: [
+          'title', 'description', 'keywords'
+        ]
+      }
+    } );
 
   }
-
-
-  // when a text search is made, make sure 
-  if ( !utils.size( dslQuery ) ) {
-
-    dslQuery = { match_all: {} };
-
-  }
-
-  dsl.query = dslQuery;
-
-  if ( !isFiltered ) {
-
-    return dsl;
-
-  }
-
-  
-  dsl.filter = {};
 
   if ( clean.official !== null ) {
 
-    dsl.filter.bool = {
-      must: {
-        term: {
-          official: clean.official
-        }
+    filteredPart.push( {
+      term: {
+        official: clean.official
       }
-    }
+    } );
+
+  }
+
+  if ( !mustPart.length && !filteredPart.length ) {
+
+    return _.extend( dsl, {
+      query: {
+        match_all: {}
+      }
+    } );
+
+  }
+
+  if ( mustPart.length ) {
+
+    dsl.query.bool.must = mustPart;
+
+  }
+
+  if ( filteredPart.length ) {
+
+    dsl.query.bool.filter = filteredPart;
 
   }
 
@@ -144,7 +148,17 @@ function getSortDsl( query ) {
       }
     } ];
 
-  } 
+  }
+
+  if ( query.official ) {
+
+    return [ {
+      officializedAt: {
+        order: 'desc'
+      }
+    } ]
+
+  }
 
 
   // the default sort
@@ -194,8 +208,7 @@ function getMappings() {
         },
 
         slug: {
-          type: 'string',
-          index: 'not_analyzed'
+          type: 'keyword'
         },
 
         title: {
@@ -223,6 +236,14 @@ function getMappings() {
 
         official: {
           type: 'boolean'
+        },
+
+        officializedAt: {
+          type: 'date'
+        },
+
+        keywords: {
+          type: 'keyword'
         }
 
       }
@@ -277,6 +298,8 @@ function clean( a, config ) {
     'image', 
     'publishedEvents',
     'upcomingPublishedEvents',
+    'keywords',
+    'officializedAt',
     'updatedAt',
     'createdAt' 
   ].forEach( k => {
@@ -290,16 +313,5 @@ function clean( a, config ) {
   c.hasUpcomingPublished = !!c.upcomingPublishedEvents;
   
   return c;
-
-}
-
-
-function _isFilteredQuery( q ) {
-
-  let filteringKeys = [ 'official' ],
-
-  setKeys = Object.keys( q ).filter( k => q[ k ] !== null );
-
-  return !!filteringKeys.filter( filteringKey => setKeys.indexOf( filteringKey ) !== -1 ).length;
 
 }

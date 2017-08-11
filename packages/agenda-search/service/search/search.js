@@ -1,14 +1,18 @@
 "use strict";
 
-var w = require( 'when' ),
+const w = require( 'when' ),
 
-elastic = require( 'elasticsearch' ),
+  _ = require( 'lodash' ),
 
-utils = require( 'utils' ),
+  elastic = require( 'elasticsearch' ),
 
-async = require( 'async' ),
+  utils = require( 'utils' ),
 
-logger = require( 'basic-logger' ), log;
+  async = require( 'async' ),
+
+  logger = require( 'basic-logger' );
+
+let log, esClient;
 
 module.exports = function( obj, service, config ) {
 
@@ -20,7 +24,9 @@ module.exports = function( obj, service, config ) {
     list,
 
     // create new index and update alias
-    rebuild
+    rebuild,
+
+    getClient
 
   }
 
@@ -29,14 +35,13 @@ module.exports = function( obj, service, config ) {
 
     var dsl = obj.query( query, offset, limit ),
 
-    client = _createClient( config.elasticsearch );
+    client = getClient( config.elasticsearch );
 
     client.search( {
       index: obj.alias,
+      type: obj.type,
       body: dsl
     }, ( err, result ) => {
-
-      client.close();
 
       if ( err ) return cb( err );
 
@@ -52,6 +57,7 @@ module.exports = function( obj, service, config ) {
     log( 'rebuild' );
 
     w( {
+      interfaces: config.interfaces,
       config: config.elasticsearch,
       image: config.image,
       obj: obj,
@@ -95,23 +101,29 @@ function _populate( v ) {
 
   log( 'populating index' );
 
-  var d = w.defer(),
+  if ( !v.interfaces|| !v.interfaces.agendasList ) {
 
-  pageCount = 0,
+    console.log( 'DEPRECATED: use interfaces for agendas rebuild' );
 
-  offset = 0, 
+  }
 
-  limit = 20,
+  let d = w.defer(),
 
-  indexedCount = 0,
+    pageCount = 0,
 
-  query = {};
+    offset = 0, 
+
+    limit = 20,
+
+    indexedCount = 0,
+
+    query = {};
 
   async.doWhilst( wcb => {
 
     log( 'listing agendas from %s to %s', offset, offset + limit );
 
-    v.service.list( { detailed: true }, offset, limit, ( err, items ) => {
+    ( v.interfaces && v.interfaces.agendasList ? v.interfaces.agendasList : v.service.list.bind( null, { detailed: true } ) )( offset, limit, ( err, items ) => {
 
       if ( err ) {
 
@@ -177,7 +189,7 @@ function _bulkInsert( v, items, cb ) {
 
   var bulked = [],
 
-  client = _createClient( v.config );
+  client = getClient( v.config );
 
   items.forEach( item => { 
 
@@ -194,8 +206,6 @@ function _bulkInsert( v, items, cb ) {
 
   if ( !bulked.length ) {
 
-    client.close();
-
     return cb( null, { items: [] } );
 
   }
@@ -203,8 +213,6 @@ function _bulkInsert( v, items, cb ) {
   client.bulk( {
     body: bulked
   }, ( err, result ) => {
-
-    client.close();
 
     cb( err, result );
 
@@ -219,15 +227,13 @@ function _bulkInsert( v, items, cb ) {
 
 function _refresh( v ) {
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
   client.indices.refresh( {
     index: v.index
   }, ( err, result ) => {
-
-    client.close();
 
     if ( err ) {
 
@@ -250,7 +256,7 @@ function _refresh( v ) {
 
 function _applyAlias( v ) {
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
@@ -258,8 +264,6 @@ function _applyAlias( v ) {
     index: v.index,
     name: v.obj.alias
   }, ( err, result ) => {
-
-    client.close();
 
     if ( err ) return d.reject( err );
 
@@ -279,7 +283,7 @@ function _getPreviousIndices( v ) {
 
   log( 'retrieving previous indices' );
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
@@ -292,8 +296,6 @@ function _getPreviousIndices( v ) {
       return d.reject( err );
 
     }
-
-    client.close();
 
     // if err at this point, means alias not set
     v.previousIndices = err ? [] : Object.keys( result );
@@ -320,15 +322,13 @@ function _removePreviousIndices( v ) {
 
   }
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
   client.indices.delete( {
     index: v.previousIndices.join( ',' )
   }, ( err, result ) => {
-
-    client.close();
 
     if ( err ) {
 
@@ -349,7 +349,7 @@ function _createIndex( v ) {
 
   log( 'creating index' );
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
@@ -358,8 +358,6 @@ function _createIndex( v ) {
     timeout: v.config.timeout,
     body: v.obj.indexBody
   }, ( err, result ) => {
-
-    client.close();
 
     if ( err ) return d.reject( err );
 
@@ -376,7 +374,7 @@ function _createIndex( v ) {
 
 function _setMapping( v ) {
 
-  var client = _createClient( v.config ),
+  var client = getClient( v.config ),
 
   d = w.defer();
 
@@ -385,8 +383,6 @@ function _setMapping( v ) {
     type: v.obj.type,
     body: v.obj.mappings
   }, ( err, result ) => {
-
-    client.close();
 
     if ( err ) return d.reject( err );
 
@@ -399,11 +395,15 @@ function _setMapping( v ) {
 }
 
 
-function _createClient( config ) {
+function getClient( config ) {
 
-  return new elastic.Client( {
-    host: config.host
-  } );
+  if ( !esClient ) {
+
+    esClient = new elastic.Client( _.pick( config, [ 'host', 'apiVersion' ] ) );
+
+  }
+
+  return esClient;
 
 }
 
