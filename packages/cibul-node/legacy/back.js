@@ -257,50 +257,77 @@ function api( req, res ) {
 
 function apiGetCached( req, res, next ) {
 
-  if ( !_isAgendaEventsApiUri( req.query.uri ) ) {
+  let cleanUri = _cleanApiUri( req );
+  
+  if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
-    return res.send( null );
+    sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
+
+      if ( content ) {
+
+        req.log( 'providing cached response for uri %s: stored as %s', req.query.uri, cleanUri );
+
+        res.send( content );
+
+      } else {
+
+        res.send( null );
+
+      }
+
+    } );
+    
+  } else {
+
+    sCache( 'legacyApi', '*' ).get( cleanUri, ( err, content ) => {
+
+      if ( content ) {
+
+        req.log( 'providing cached response for uri %s: stored as %s', req.query.uri, cleanUri );
+
+        res.send( content );
+
+      } else {
+
+        res.send( null );
+
+      }
+
+    } );
 
   }
 
-  let cleanUri = _cleanApiUri( req );
 
-  sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
-
-    if ( content ) {
-
-      req.log( 'providing cached response for uri %s: stored as %s', req.query.uri, cleanUri );
-
-      res.send( content );
-
-    } else {
-
-      res.send( null );
-
-    }
-
-  } );
 
 }
 
 
 function apiPostCached( req, res, next ) {
 
-  if ( !_isAgendaEventsApiUri( req.query.uri ) ) {
+  let cleanUri = _cleanApiUri( req ), ttl = 60*60;
 
-    return res.send( null );
+  if ( _isAgendaEventsApiUri( req.query.uri ) ) {
+
+    sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).set( cleanUri, req.body.toCache, ttl, err => {
+
+      req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
+
+      res.send( null );
+
+    } );
+
+  } else {
+
+    sCache( 'legacyApi', '*' ).set( cleanUri, JSON.stringify( req.body.toCache ), ttl, err => {
+
+      req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
+
+      return res.send( null );
+
+    } );
 
   }
 
-  let cleanUri = _cleanApiUri( req );
-
-  sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).set( cleanUri, req.body.toCache, 60*60, err => {
-
-    req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
-
-    res.send( null );
-
-  } );
 
 }
 
