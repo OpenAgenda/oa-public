@@ -8,6 +8,15 @@ module.exports = ( event, context ) => {
 
   log( 'created event %s with context %s', event.uid, JSON.stringify( context ) );
 
+  _unsetNewUser( event );
+
+}
+
+module.exports.setLog = l => log = l;
+
+
+function _unsetNewUser( event ) {
+
   users.get( { uid: event.creatorUid }, ( err, user ) => {
 
     if ( err ) return log( 'error', err );
@@ -25,5 +34,3 @@ module.exports = ( event, context ) => {
   } );
 
 }
-
-module.exports.setLog = l => log = l;

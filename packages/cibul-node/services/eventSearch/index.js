@@ -4,6 +4,8 @@ const eventSearch = require( 'event-search' );
 
 const rebuild = require( './rebuild' );
 
+const assemble = require( './assemble' );
+
 module.exports.init = config => {
 
   eventSearch.init( {
@@ -17,6 +19,6 @@ module.exports.init = config => {
 
   } );
 
-  rebuild.init( config );
+  assemble.init( config );
 
 }

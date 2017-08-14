@@ -22,7 +22,11 @@ module.exports = ( enabledTypes, cb ) => {
 
       const log = logger( 'app' );
 
-      if ( err ) return log( 'error', 'could not load app: %s', err );
+      if ( err ) {
+
+        return log( 'error', 'could not load app: %s', err );
+
+      }
 
       const tfy = require( './lib/taskify' ),
 
