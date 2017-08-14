@@ -14,6 +14,8 @@ const sessions = require( 'sessions' ),
 
   userSvc = require( '../services/user' ),
 
+  sCache = require( 'simple-cache' ),
+
   VError = require( 'verror' ),
 
   aggregatorSvc = require( '../services/aggregator' ),
@@ -79,6 +81,10 @@ const sessions = require( 'sessions' ),
     legacyApi: [ 'get', '/api', [
       api
     ] ],
+
+    legacyApiGetCached: [ 'get', '/api/cache', [ apiGetCached ] ],
+
+    legacyApiPostCached: [ 'post', '/api/cache', [ bodyParser.json(), apiPostCached ] ],
 
 
     /**
@@ -247,6 +253,87 @@ function api( req, res ) {
   }
 
 }
+
+
+function apiGetCached( req, res, next ) {
+
+  if ( !_isAgendaEventsApiUri( req.query.uri ) ) {
+
+    return res.send( null );
+
+  }
+
+  let cleanUri = _cleanApiUri( req );
+
+  sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
+
+    if ( content ) {
+
+      req.log( 'providing cached response for uri %s: stored as %s', req.query.uri, cleanUri );
+
+      res.send( content );
+
+    } else {
+
+      res.send( null );
+
+    }
+
+  } );
+
+}
+
+
+function apiPostCached( req, res, next ) {
+
+  if ( !_isAgendaEventsApiUri( req.query.uri ) ) {
+
+    return res.send( null );
+
+  }
+
+  let cleanUri = _cleanApiUri( req );
+
+  sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).set( cleanUri, req.body.toCache, 60*60, err => {
+
+    req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
+
+    res.send( null );
+
+  } );
+
+}
+
+function _cleanApiUri( req ) {
+
+  const parts = req.query.uri.split( '?' );
+
+  let path = parts.shift();
+
+  let query = {}
+
+  if ( parts.length ) {
+
+    query = _.omit( qs.parse( parts[ 0 ] ), [ 'key' ] );
+
+  }
+
+  return path + '?' + qs.stringify( query );
+
+}
+
+function _isAgendaEventsApiUri( uri ) {
+
+  return !!uri.split( '?' )[ 0 ].match( /\/v1\/agendas\/[0-9]+\/events$/ );
+
+}
+
+function _getAgendaUidFromAgendaEventsApiUri( uri ) {
+
+  return parseInt( uri.split( '?' )[ 0 ].match( /[^\/][0-9]+[^\/]/ ) );
+
+}
+
 
 
 function session( req, res, next ) {
