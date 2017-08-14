@@ -341,7 +341,7 @@ function _cleanApiUri( req ) {
 
   if ( parts.length ) {
 
-    query = _.omit( qs.parse( parts[ 0 ] ), [ 'key' ] );
+    query = _.omit( qs.parse( parts[ 0 ] ), [ 'key', 'callback' ] );
 
   }
 
