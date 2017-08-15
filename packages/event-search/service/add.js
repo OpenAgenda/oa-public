@@ -1,9 +1,9 @@
 "use strict";
 
 const config = require( './config' );
-const VError = require( 'verror' );
 const preParse = require( './index/preParse' );
 const clean = require( './helpers/clean' );
+const handleError = require( './helpers/handleError' );
 const _ = require( 'lodash' );
 
 module.exports = add;
@@ -33,7 +33,7 @@ async function add( alias, event, options = {} ) {
 
   } catch ( err ) {
 
-    throw new VError( err, 'failed to add event to index' );
+    return handleError( err, 'failed to add event to index' );
 
   }
 

@@ -4,7 +4,7 @@ const config = require( './config' ),
 
   _ = require( 'lodash' ),
 
-  VError = require( 'verror' );
+  handleError = require( './helpers/handleError' );
 
 module.exports = async function( alias, identifiers, options = {} ) {
 
@@ -27,7 +27,7 @@ module.exports = async function( alias, identifiers, options = {} ) {
 
   } catch ( err ) {
 
-    throw new VError( err, 'failed to remove event from index of alias %s', alias );
+    return handleError( err, 'failed to remove event from index of alias %s', alias );
 
   }
 

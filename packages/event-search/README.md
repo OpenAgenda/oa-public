@@ -116,9 +116,13 @@ path.logs: /var/log/elasticsearch-5.3.0
 http.port: 9205
 transport.tcp.port: 9305
 
+action.auto_create_index: false
+
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 ```
+
+The 'auto_create_index' option allows the creation of an index on the fly when a document is added. We do not want that.
 
 
 # Running Elasticearch for development

@@ -4,7 +4,7 @@ const config = require( './config' ),
   
   _ = require( 'lodash' ),
   
-  VError = require( 'verror' ),
+  handleError = require( './helpers/handleError' ),
   
   parseQuery = require( './query' ),
   
@@ -34,7 +34,7 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
 
   } catch ( err ) {
 
-    throw new VError( err, 'failed to update event %s in index of alias %s', identifiers.uid, alias );
+    return handleError( err, 'failed to update event %s in index of alias %s', identifiers.uid, alias );
 
   }
 
