@@ -511,12 +511,12 @@ let config = {
           //enable: 'oa:search task*',
           //enable: 'oa:events/interfaces/legacy'
           //enable: 'oa:agendaEvents/interfaces/legacy',
-          enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*'
+          //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*'
           //enable: 'oa:services/event/oembed',
           //enable: 'oa:services/model',
           //enable: 'oa:events/interfaces*',
           //enable: 'oa:events*,oa:legacy*',
-          //enable: 'oa:*'
+          enable: 'oa:*'
         },
         token: false // no need to log dev things
         //token: 'a2923436-55dc-4eba-8668-44824d11c089'
