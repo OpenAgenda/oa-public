@@ -24,6 +24,8 @@ module.exports.legacyTransfer = require( './service/legacyTransfer' );
 
 module.exports.remove = require( './service/remove' ).byEventUid;
 
+module.exports.list = require( './service/list' );
+
 module.exports.init = c => {
 
   const config = _.extend( {
