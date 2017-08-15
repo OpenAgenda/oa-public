@@ -19,6 +19,7 @@ module.exports.init = config => {
     queueName: 'agenda-monitor',
     listLimit: 20,
     resyncInterval: 5000,
+    evaluateLimit: 5000,
     interfaces: {
       agendasList,
       agendaStats,
