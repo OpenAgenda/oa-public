@@ -34,6 +34,7 @@ function init( config ) {
   events.init( {
     mysql: config.db,
     redis: config.redis,
+    logger,
     schemas: {
       event: config.schemas.eventService
     },

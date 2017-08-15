@@ -6,7 +6,7 @@ const agendas = require( 'agendas' );
 
 const searchRebuild = require( '../services/eventSearch/rebuild' );
 
-const search = require( 'event-search' );
+const search = require( '../services/eventSearch' );
 
 const formSchemas = require( 'form-schemas' );
 
@@ -15,6 +15,8 @@ const getDecorate = require( 'form-schemas/iso/getDecorate' );
 const events = require( 'events-service' );
 
 const custom = require( 'custom' );
+
+const qs = require( 'qs' );
 
 const agendaEvents = require( 'agenda-events' );
 
@@ -73,7 +75,7 @@ app.get( '/agendas/:agendaUid/index/rebuild', async ( req, res, next ) => {
 app.get( '/agendas/:agendaUid/index', [
   ( req, res, next ) => {
 
-    search( `agendas:${req.agenda.uid}` ).exists().catch( next ).then( exists => {
+    search.agendas( req.agenda ).exists().catch( next ).then( exists => {
 
       if ( !exists ) return res.status( 404 ).json( { message: 'index does not exist' } );
 
@@ -113,8 +115,8 @@ app.get( '/agendas/:agendaUid/index', [
     } );
 
   }
-  
-  search( `agendas:${req.agenda.uid}` ).search( {}, {
+
+  search.agendas( req.agenda ).search( qs.parse( req.query ), {
     from: req.query.offset, 
     size: req.query.limit 
   }, options )

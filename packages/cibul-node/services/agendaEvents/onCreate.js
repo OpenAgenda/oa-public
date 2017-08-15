@@ -1,19 +1,14 @@
 let log = console.log;
 
+const eventSearch = require( '../eventSearch' );
+
 module.exports = ( ae, context ) => {
 
   log( 'created agenda-event %s with context %s', JSON.stringify( ae ), JSON.stringify( context ) );
 
-  _updateSearch( ae );
+  eventSearch.agendas( { uid: ae.agendaUid } ).add( ae.eventUid );
 
   // use context.userUid. will be null when nothing was specified at create
-
-}
-
-
-async function _updateSearch( ae ) {
-
-  // get the form schema id, the ustom 
 
 }
 

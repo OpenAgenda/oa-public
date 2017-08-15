@@ -380,9 +380,10 @@ function eventDelete( req, res, next ) {
 
   res.send( 'ok' );
 
-  let userUid = req.query.userUid || null;
+  const userUid = req.query.userUid || null;
+  const agendaUid = req.query.agendaUid || null;
 
-  legacyEvents.onRemove( req.event, { userUid } );
+  legacyEvents.onRemove( req.event, { userUid, agendaUid } );
 
   req.event.getAgendaReferences( ( err, agendas ) => {
 
@@ -436,7 +437,7 @@ function eventUpdate( req, res, next ) {
 
   req.log( 'event %s ( %s ) was updated', req.event.uid, req.event.slug );
 
-  legacyEvents.onUpdate( req.event, { userUid: req.query.userUid || null } );
+  legacyEvents.onUpdate( req.event, { userUid: req.query.userUid || null, agendaUid: req.query.agendaUid || null } );
 
 }
 
@@ -447,7 +448,7 @@ function eventCreate( req, res, next ) {
 
   res.send( 'ok' );
 
-  legacyEvents.onCreate( req.event, { userUid: req.query.userUid || null } );
+  legacyEvents.onCreate( req.event, { userUid: req.query.userUid || null, agendaUid: req.query.agendaUid || null } );
 
   if ( !req.agenda ) return;
 

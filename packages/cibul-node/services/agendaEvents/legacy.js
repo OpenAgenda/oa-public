@@ -31,18 +31,26 @@ function task() {
 
       if ( action.name === 'review.article_create' ) {
         
-        result = await agendaEvents.legacyTransfer( action.values.id );
+        result = await agendaEvents.legacyTransfer( action.values.id, { context: { userUid: action.values.user_uid } } );
 
       } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 
         result = await agendaEvents.legacyTransfer( { 
           eventId: action.values.id,
           agendaId: action.values.agendaId || action.values.review_id
+        }, { 
+          context: { 
+            userUid: action.values.user_uid 
+          } 
         } );
 
       } else if ( action.name === 'event.remove' ) {
 
         result = await remove.byLegacyId( null, action.values.id );
+
+      } else {
+
+        log( 'not acting on action %s', action.name );
 
       }
 
@@ -54,7 +62,7 @@ function task() {
 
     } catch ( e ) {
 
-      log( 'error', 'legacyTransfer failed for action with values %s', JSON.stringify( action ) );
+      log( 'error', 'legacyTransfer failed for action with values %s: %s', JSON.stringify( action ), e );
 
     }
 

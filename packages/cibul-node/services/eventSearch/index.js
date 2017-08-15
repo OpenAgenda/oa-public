@@ -6,7 +6,19 @@ const rebuild = require( './rebuild' );
 
 const assemble = require( './assemble' );
 
-module.exports.init = config => {
+const agendaIndices = require( './agendaIndices' );
+
+const eventTransverseOperations = require( './eventTransverseOperations' );
+
+module.exports = {
+  init,
+  agendas: agendaIndices,
+  events: eventTransverseOperations,
+  task: require( './task' )
+}
+
+
+function init( config ) {
 
   eventSearch.init( {
 
@@ -20,5 +32,9 @@ module.exports.init = config => {
   } );
 
   assemble.init( config );
+
+  agendaIndices.init( config );
+
+  eventTransverseOperations.init( config );
 
 }

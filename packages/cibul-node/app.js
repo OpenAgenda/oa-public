@@ -266,6 +266,8 @@ module.exports = ( enabledTypes, cb ) => {
         require( 'agenda-events' ).tasks.interfaces( { interval: 10 } );
 
         //require( 'agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
+        
+        require( './services/eventSearch' ).task();
 
       }
 

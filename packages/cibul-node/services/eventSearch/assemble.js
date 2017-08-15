@@ -34,14 +34,7 @@ let knex, log;
 
 module.exports = {
   list,
-  item: async agendaEvent => { return _item( {
-    agendaEvent,
-    event: _getEvent( agendaEvent ),
-    formSchemaId: await _getAgenda( agendaEvent.agendaUid, 'formSchemaId' ),
-    validators: await getCustomValidators( formSchemaId ),
-    member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
-    custom: await _getCustomData( formSchemaId, agendaEvent )
-  } ) },
+  item,
   getCustomValidators,
   init: c => {
 
@@ -93,14 +86,27 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
         custom: custom ? custom.custom : null,
       } );
 
-      //console.log( assembledItem );
-
       return assembledItem;
 
     } );
 
 }
 
+
+async function item( agendaEvent ) {
+
+  const formSchemaId = await _getAgenda( agendaEvent.agendaUid, 'formSchemaId' );
+
+  return _item( {
+    agendaEvent,
+    event: _getEvent( agendaEvent ),
+    formSchemaId,
+    validators: await getCustomValidators( formSchemaId ),
+    member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
+    custom: await _getCustomData( formSchemaId, agendaEvent )
+  } );
+
+}
 
 
 function _item( { event, validators, member, custom } ) {
@@ -138,7 +144,7 @@ function _getAgenda( agendaUid, field = null ) {
 
       if ( !agenda ) return rs( null );
 
-      if ( field !== null ) return rs( agenda );
+      if ( field === null ) return rs( agenda );
 
       rs( agenda[ field ] );
 
