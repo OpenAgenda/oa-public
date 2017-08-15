@@ -39,8 +39,6 @@ async function run( options = {} ) {
     queueOnly: false
   }, options );
 
-  let con = mysql.createConnection( config.mysql );
-
   if ( !params.queueOnly ) {
 
     q.setConsumer( _processOperation );

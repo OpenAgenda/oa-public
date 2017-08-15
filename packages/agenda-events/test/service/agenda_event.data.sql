@@ -8,6 +8,9 @@ create table if not exists `${schema}` (
   created_at datetime not null,
   updated_at datetime not null,
   legacy_id varchar(30),
+  index agenda_uid_idx (agenda_uid),
+  index event_uid_idx (event_uid),
+  index legacy_id_idx (legacy_id),
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;
 

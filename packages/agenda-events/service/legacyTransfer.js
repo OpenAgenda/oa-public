@@ -22,7 +22,7 @@ module.exports = _.extend( legacyTransfer, {
   init: ( c, k ) => { config = c; knex = k; }
 } );
 
-async function legacyTransfer( origin ) {
+async function legacyTransfer( origin, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
@@ -40,7 +40,7 @@ async function legacyTransfer( origin ) {
   } : { 'ra.id': origin };
 
   let data = await knex( config.legacy.schemas.agendaEvent )
-    .first( [ 
+    .first( [
       'a.uid as agendaUid', 
       'e.uid as eventUid', 
       'a.id as agendaId',
@@ -79,13 +79,13 @@ async function legacyTransfer( origin ) {
 
   } else if ( data && !current ) {
 
-    result = await create( data.agendaUid, data.eventUid, values, { protected: false } );
+    result = await create( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
 
     result.operation = 'create';
 
   } else if ( data && ( current.updatedAt < new Date( data.updatedAt ) ) ) {
 
-    result = await update( data.agendaUid, data.eventUid, values, { protected: false } );
+    result = await update( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
 
     result.operation = 'update';
 
