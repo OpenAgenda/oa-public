@@ -11,6 +11,7 @@ const deleteIndex = require( './service/deleteIndex' );
 module.exports = alias => {
 
   return {
+    name: alias,
     exists: _exists.bind( null, alias ),
     rebuild: rebuild.bind( null, alias ),
     deleteIndex: deleteIndex.bind( null, alias ),
