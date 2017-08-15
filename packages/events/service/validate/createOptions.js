@@ -29,6 +29,11 @@ module.exports = schema( {
       type: 'integer',
       optional: true,
       default: null
+    },
+    agendaUid: {
+      type: 'integer',
+      optional: true,
+      default: null
     }
   }
 } );

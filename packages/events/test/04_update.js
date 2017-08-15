@@ -181,7 +181,7 @@ describe( 'events - functional (server): update', function() {
           onUpdate: {
             $set: ( before, after, context ) => {
 
-              context.should.eql( { userUid: 12 } );  
+              context.should.eql( { userUid: 12, agendaUid: null } );  
 
               done();
 

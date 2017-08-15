@@ -86,7 +86,7 @@ describe( 'events - functional (server): remove', function() {
           onRemove: {
             $set: ( event, context ) => {
 
-              context.should.eql( { userUid: 12345678 } );
+              context.should.eql( { userUid: 12345678, agendaUid: null } );
 
               done();
 
