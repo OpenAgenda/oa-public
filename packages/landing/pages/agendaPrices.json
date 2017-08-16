@@ -42,8 +42,8 @@
       }
     }, {
       "title" : "agendaPricingCustomTitle",
-      "price" : "agendaPricingCustomPrice",
-      "priceDetail" :"agendaPricingCustomYearlyPrice",
+      "price" : "agendaPricingCustomYearlyPrice",
+      "priceDetail" :"agendaPricingCustomPrice",
       "features" : [
         true,
         true,
