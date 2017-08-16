@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const knexLib = require( 'knex' );
-const logger = require( 'basic-logger' );
+const logger = require( 'logger' );
 const feed = require( './feed' );
 const feeds = require( './feeds' );
 const activities = require( './activities' );
@@ -33,7 +33,7 @@ async function init( c ) {
 
   config = c;
 
-  if ( c.logger ) logger.setLogger( c.logger );
+  logger.setModuleConfig( c.logger );
 
   knex = c.knex ? c.knex.clone() : knexLib( {
     client: 'mysql',
@@ -53,9 +53,9 @@ async function init( c ) {
     await knex.migrate.latest();
   }
 
-  feed.init( { config, knex, logger, service: module.exports } );
-  feeds.init( { config, knex, logger, service: module.exports } );
-  activities.init( { config, knex, logger, service: module.exports } );
-  notifications.init( { config, knex, logger, service: module.exports } );
+  feed.init( { config, knex, service: module.exports } );
+  feeds.init( { config, knex, service: module.exports } );
+  activities.init( { config, knex, service: module.exports } );
+  notifications.init( { config, knex, service: module.exports } );
 
 }

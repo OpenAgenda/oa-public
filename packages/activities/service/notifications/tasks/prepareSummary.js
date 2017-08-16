@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const nodefn = require( 'when/node' );
 const async = require( 'async' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/notifications/tasks/prepareSummary' );
 const usersSvc = require( 'users' );
 const unsubscribed = require( 'unsubscribed' );
 const sendSummary = require( './sendSummary' );
@@ -12,7 +12,6 @@ const sendSummary = require( './sendSummary' );
 let config;
 let knex;
 let service;
-let log;
 
 module.exports = Object.assign( prepareSummary, { init } );
 
@@ -21,14 +20,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger )
-
-  }
-
-  log = logger( 'activities/notifications/tasks/prepareSummary' );
 
 }
 

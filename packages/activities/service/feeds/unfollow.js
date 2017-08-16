@@ -1,13 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const log = require( 'logger' )( 'activities/feeds/unfollow' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const logger = require( 'basic-logger' );
 
 let config;
 let knex;
 let service;
-let log;
 
 module.exports = Object.assign( unfollow, { init } );
 
@@ -16,8 +14,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/feeds/unfollow' );
 
 }
 
@@ -48,7 +44,7 @@ function unfollow( identifiers, followedFeedIdentifiers, cb ) {
           } )
             .then( result => {
 
-              log( 'info', 'Feed n° %s unfollow feed n° %s', feed.id, followedFeed.id );
+              log( 'Feed n° %s unfollow feed n° %s', feed.id, followedFeed.id );
 
               return result;
 

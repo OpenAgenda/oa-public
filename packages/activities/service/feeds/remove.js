@@ -1,13 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/feeds/remove' );
 
 let config;
 let knex;
 let service;
-let log;
 
 module.exports = Object.assign( remove, { init } );
 
@@ -16,8 +14,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/feeds/remove' );
 
 }
 
@@ -35,7 +31,7 @@ function remove( identifiers, cb ) {
       return knex( config.schemas.feed ).delete().where( { id: feed.id } )
         .then( result => {
 
-          log( 'info', 'Feed removed (type %s, uid: %s)', feed.entityType, feed.entityUid );
+          log( 'Feed removed (type %s, uid: %s)', feed.entityType, feed.entityUid );
 
           return result;
 

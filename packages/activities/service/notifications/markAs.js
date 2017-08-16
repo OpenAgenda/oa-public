@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const logger = require( 'basic-logger' );
 const VError = require( 'verror' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const notificationStates = require( '../notificationStates' );
@@ -9,7 +8,6 @@ const notificationStates = require( '../notificationStates' );
 let config;
 let knex;
 let service;
-let log;
 
 module.exports = Object.assign( markAs, { init } );
 
@@ -18,8 +16,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/notifications/markAs' );
 
 }
 

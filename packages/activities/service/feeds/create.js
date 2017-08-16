@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/feeds/create' );
 const method = require( '../../utils/method' );
 
 const FEED_TYPES = require( '../feedTypes' );
@@ -12,7 +12,6 @@ const FEED_TYPES = require( '../feedTypes' );
 let config;
 let knex;
 let service;
-let log;
 
 schema.register( {
   choice: validators.choice,
@@ -26,8 +25,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/feeds/create' );
 
 }
 
@@ -151,7 +148,7 @@ function create() {
       } )
       .then( feed => {
 
-        log( 'info', 'Feed created (type %s, uid %s)', feed.entityType, feed.entityUid );
+        log( 'Feed created (type %s, uid %s)', feed.entityType, feed.entityUid );
 
         return feed;
 

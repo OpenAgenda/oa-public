@@ -5,14 +5,13 @@ const parseListArguments = require( 'service-utils/parseListArguments' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/notifications/list' );
 const VError = require( 'verror' );
 const notificationStates = require( '../notificationStates' );
 
 let config;
 let knex;
 let service;
-let log;
 
 schema.register( {
   text: validators.text,
@@ -27,8 +26,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/notifications/list' );
 
 }
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/notifications/tasks/addActivity' );
 const VError = require( 'verror' );
 const queue = require( 'queue' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
@@ -10,7 +10,6 @@ const groupBy = require( '../lib/groupBy' );
 let config;
 let knex;
 let service;
-let log;
 let q;
 
 module.exports = Object.assign( task, { init, addActivity } );
@@ -21,7 +20,6 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/notifications/tasks/addActivity' );
   q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
 
 }

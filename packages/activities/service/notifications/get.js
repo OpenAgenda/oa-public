@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
-const logger = require( 'basic-logger' );
 const VError = require( 'verror' );
 const notificationStates = require( '../notificationStates' );
 
@@ -12,7 +11,6 @@ const notificationStates = require( '../notificationStates' );
 let config;
 let knex;
 let service;
-let log;
 
 
 schema.register( {
@@ -28,8 +26,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/notifications/get' );
 
 }
 

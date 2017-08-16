@@ -1,7 +1,7 @@
 "use strict";
 
 const moment = require( 'moment' );
-const logger = require( 'basic-logger' );
+const log = require( 'logger' )( 'activities/notifications/tasks/sendSummary' );
 const queue = require( 'queue' );
 const mailer = require( 'mailer' );
 const notiflabels = require( 'labels/activities/notifications' );
@@ -16,7 +16,6 @@ require( 'moment/locale/fr' );
 let config;
 let knex;
 let service;
-let log;
 let q;
 
 const ucfirst = s => s.substr( 0, 1 ).toUpperCase() + s.substring( 1 );
@@ -30,7 +29,6 @@ function init( { config: c, knex: k, service: s } ) {
   knex = k;
   service = s;
 
-  log = logger( 'activities/notifications/tasks/sendSummary' );
   q = queue( config.queue.names.sendSummary, { redis: config.queue.redis } );
 
 }

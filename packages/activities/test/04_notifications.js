@@ -10,8 +10,6 @@ const config = require( '../testconfig' );
 
 let q;
 
-console.log( module );
-
 describe( 'activities - notifications', function () {
 
   this.timeout( 30000 );

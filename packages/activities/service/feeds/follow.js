@@ -1,15 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const log = require( 'logger' )( 'activities/feeds/follow' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const schema = require( 'validators/schema' );
-const validators = require( 'validators' );
-const logger = require( 'basic-logger' );
 
 let config;
 let knex;
 let service;
-let log;
 
 module.exports = Object.assign( follow, { init } );
 
@@ -18,8 +14,6 @@ function init( { config: c, knex: k, service: s } ) {
   config = c;
   knex = k;
   service = s;
-
-  log = logger( 'activities/feeds/follow' );
 
 }
 
@@ -95,7 +89,7 @@ function follow() {
         .then( ( [ feedFollowId ] ) => feedFollowId )
         .then( result => {
 
-          log( 'info', 'Feed n° %s follow feed n° %s', targetFeed.id, originFeed.id );
+          log( 'Feed n° %d follow feed n° %d', targetFeed.id, originFeed.id );
 
           return result;
 
