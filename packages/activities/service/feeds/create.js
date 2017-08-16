@@ -148,7 +148,7 @@ function create() {
       } )
       .then( feed => {
 
-        log( 'Feed created (type %s, uid %s)', feed.entityType, feed.entityUid );
+        log.info( 'Feed created (type %s, uid %s)', feed.entityType, feed.entityUid );
 
         return feed;
 
