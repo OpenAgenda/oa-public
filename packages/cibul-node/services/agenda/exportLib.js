@@ -12,6 +12,8 @@ agendaTags = require( 'agenda-tags' ),
 
 agendaCategories = require( 'agenda-categories' ),
 
+_ = require( 'lodash' ),
+
 config = require( '../../config' ),
 
 w = require( 'when' );
@@ -78,6 +80,8 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
   }, { protocol: 'https://' } );
 
   w( utils.extend( {
+    multiLang: true,
+    longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
     agenda: agenda,
     event: event,
     loadTagSet: false,
@@ -119,17 +123,59 @@ function _addFreeTextSuffixes( v ) {
 
   let suffixes = v.agenda.getEventFreeTextSuffixes( false ),
 
-  markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
+    markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
 
-  for ( let l in v.decorated.longDescription ) {
+  if ( !v.multiLang ) {
 
-    if ( suffixes[ l ] ) {
+    let separator = '\n\n';
 
-      v.decorated.longDescription[ l ] += '\n\n' + suffixes[ l ];
-      v.decorated.html[ l ] += '\n\n' + markedSuffixes[ l ];
+    if ( v.decorated[ v.longDescriptionField ] === null ) {
+
+      v.decorated[ v.longDescriptionField ] = '';
+      v.decorated.html = '';
+
+      separator = '';
 
     }
 
+    if ( suffixes[ v.lang ] ) {
+
+      v.decorated[ v.longDescriptionField ] += '\n\n' + ( v.longDescriptionField === 'freeText' ? markedSuffixes : suffixes )[ v.lang ];
+
+      if ( v.decorated.html ) v.decorated[ v.longDescriptionField ] += '\n\n' + markedSuffixes[ v.lang ];
+
+    }
+
+  } else {
+
+    Object.keys( suffixes ).forEach( l => {
+
+      let separator = '\n\n';
+
+      if ( !v.decorated[ v.longDescriptionField ] ) {
+
+        v.decorated[ v.longDescriptionField ] = {};
+
+      }
+
+      if ( !v.decorated[ v.longDescriptionField ][ l ] ) {
+
+        separator = '';
+
+        v.decorated[ v.longDescriptionField ][ l ] = '';
+
+        v.decorated.html[ l ] = '';
+
+      }
+
+
+      v.decorated[ v.longDescriptionField ][ l ] += separator + ( v.longDescriptionField === 'freeText' ? markedSuffixes : suffixes )[ l ];
+
+      v.decorated.html[ l ] += separator + markedSuffixes[ l ];
+
+    } );
+
+    
   }
 
   return v;
