@@ -143,6 +143,7 @@ function _timings( v ) {
   let d = w.defer();
 
   templater( 'event/hours', {
+    lang: v.req.lang,
     event: {
       dates: v.req.formatted.dates
     }
