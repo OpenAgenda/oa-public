@@ -8,6 +8,10 @@ const eventSearch = require( 'event-search' );
 
 const assemble = require( './assemble' );
 
+const search = require( './search' );
+
+const rebuild = require( './rebuild' );
+
 const schema = require( 'validators/schema' );
 
 schema.register( { boolean: require( 'validators/boolean' ) } )
@@ -21,13 +25,15 @@ const validateOptions = schema( {
 
 let log;
 
-module.exports = ( { uid } ) => {
+module.exports = agendaUid => {
 
-  const searchIndex = eventSearch( `agendas:${uid}` );
+  const searchIndex = eventSearch( `agendas:${agendaUid}` );
 
   return _.extend( {}, searchIndex, {
-    add: _add.bind( null, searchIndex, uid ),
-    update: _update.bind( null, searchIndex, uid ),
+    search: search.bind( null, searchIndex, agendaUid ),
+    rebuild: rebuild.bind( null, searchIndex, agendaUid ),
+    add: _add.bind( null, searchIndex, agendaUid ),
+    update: _update.bind( null, searchIndex, agendaUid ),
     remove: _remove.bind( null, searchIndex )
   } );
 
@@ -36,6 +42,10 @@ module.exports = ( { uid } ) => {
 module.exports.init = c => {
 
   log = logger( 'services/eventSearch/agendaIndices' );
+
+  assemble.init( c );
+
+  search.init( c );
 
 }
 

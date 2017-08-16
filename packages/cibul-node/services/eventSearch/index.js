@@ -2,10 +2,6 @@
 
 const eventSearch = require( 'event-search' );
 
-const rebuild = require( './rebuild' );
-
-const assemble = require( './assemble' );
-
 const agendaIndices = require( './agendaIndices' );
 
 const eventTransverseOperations = require( './eventTransverseOperations' );
@@ -27,11 +23,9 @@ function init( config ) {
       apiVersion: '5.3'
     },
 
-    interfaces: {}
+    interfaces: {},
 
   } );
-
-  assemble.init( config );
 
   agendaIndices.init( config );
 

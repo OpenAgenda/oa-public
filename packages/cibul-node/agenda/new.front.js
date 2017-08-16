@@ -4,23 +4,10 @@ const app = require( 'express' )();
 
 const agendas = require( 'agendas' );
 
-const searchRebuild = require( '../services/eventSearch/rebuild' );
-
 const search = require( '../services/eventSearch' );
-
-const formSchemas = require( 'form-schemas' );
-
-const getDecorate = require( 'form-schemas/iso/getDecorate' );
-
-const events = require( 'events-service' );
-
-const custom = require( 'custom' );
 
 const qs = require( 'qs' );
 
-const agendaEvents = require( 'agenda-events' );
-
-const _ = require( 'lodash' );
 
 module.exports = ( parentApp, path ) => {
 
@@ -42,107 +29,29 @@ app.get( '/:agendaSlug/index', ( req, res, next ) => {
 
 } );
 
-app.get( '/agendas/:agendaUid/index*', agendas.middleware.load( { 
-  internal: true,
-  namespaces: { 
-    identifiers: { 
-      uid: 'params.agendaUid' 
-    } 
-  } 
-} ) );
-
 
 app.get( '/agendas/:agendaUid/index/rebuild', async ( req, res, next ) => {
 
-  let customFields;
+  search.agendas( req.params.agendaUid ).rebuild().then( r => console.log( 'fini!' ) );
 
-  // that guy
-  if ( req.agenda.formSchemaId ) {
-
-    let validator = await formSchemas.getValidator( req.agenda.formSchemaId );
-
-    customFields = validator.fields;
-
-  }
-
-  searchRebuild( req.agenda ).then( r => console.log( 'fini!' ) );
-
-  res.send( 'rebuilding index of ' + req.agenda.title );
+  res.send( 'rebuilding index of agenda' );
 
 } );
 
 
-app.get( '/agendas/:agendaUid/index', [
-  ( req, res, next ) => {
+app.get( '/agendas/:agendaUid/index', ( req, res, next ) => {
 
-    search.agendas( req.agenda ).exists().catch( next ).then( exists => {
-
-      if ( !exists ) return res.status( 404 ).json( { message: 'index does not exist' } );
-
-      next();
-
-    } );
-
-  },
-  ( req, res, next ) => {
-
-    formSchemas.get( req.agenda.formSchemaId ).then( formSchema => {
-
-      if ( formSchema ) {
-
-        req.decorate = getDecorate( formSchema.fields );
-
-      }
-
-      next();
-
-    } );
-
-  },
-  ( req, res, next ) => {
-
-  // show content, unless not existing
-  
-  let options = { detailed: req.query.detailed, extensions: [ 'contributor', 'custom' ] };
-
-  if ( req.query.private ) {
-
-    _.extend( options, {
-      extensions: [ 'contributor', 'custom', 'customModerator', 'customAdministrator' ],
-      merge: {
-        custom: [ 'custom', 'customModerator', 'customAdministrator' ]
-      }
-    } );
-
-  }
-
-  search.agendas( req.agenda ).search( qs.parse( req.query ), {
+  search.agendas( req.params.agendaUid ).search( qs.parse( req.query ), {
     from: req.query.offset, 
     size: req.query.limit 
-  }, options )
-
-  .then( result => {
-
-    // an agenda can have 
-
-    res.json( {
-      agendas: _.pick( req.agenda, [ 'uid', 'slug', 'title' ] ),
-      total: result.total,
-      events: _.map( result.events, e => {
-
-        if ( e.custom ) {
-
-          return _.extend( e, {
-            custom: req.decorate ? req.decorate( e.custom ) : e.custom
-          } );
-
-        }
-
-        return e; 
-
-      } )
-    } );
-
+  }, {
+    detailed: req.query.detailed,
+    private: req.query.private,
+    includeCustom: req.query.includeCustom
   } )
 
-} ] )
+  .then( result => res.json( result ) )
+
+  .catch( err => next( err ) );
+
+} );
