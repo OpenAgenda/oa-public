@@ -25,7 +25,7 @@ module.exports = async ( searchIndex, uid ) => {
       custom: validators.custom ? validators.custom.fields : null,
       customAdministrator: validators.customAdministrator ? validators.customAdministrator.fields : null,
       customModerator: validators.customModerator ? validators.customModerator.fields : null
-    } )
+    } );
 
   }
 
