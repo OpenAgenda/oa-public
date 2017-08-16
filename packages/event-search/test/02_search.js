@@ -72,6 +72,14 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    it( 'by default, event timings are converted to local timezone', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
+
+      events[ 0 ].timings[ 0 ].begin.should.equal( '2016-10-24T14:00:00+02:00' );
+
+    } );
+
     it( 'all fields are returned when detailed option is true', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );

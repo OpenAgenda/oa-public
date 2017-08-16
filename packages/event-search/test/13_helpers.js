@@ -35,6 +35,30 @@ describe( 'event-search - unit: helpers', function() {
 
     } );
 
-  } )
+  } );
+
+  describe( 'convertToLocalTimezone', () => {
+
+    it( 'when timings and local timezone are available in event, timings are converted', () => {
+
+      helpers.convertToLocalTimezone( {
+        timings: [ {
+          begin: '2016-10-24T12:00:00.000Z',
+          end: '2016-10-24T13:00:00.000Z'
+        } ],
+        timezone: 'Europe/Paris'
+      } )
+
+      .should.eql( {
+        timings: [ {
+          begin: '2016-10-24T14:00:00+02:00',
+          end: '2016-10-24T15:00:00+02:00'
+        } ],
+        timezone: 'Europe/Paris'
+      } );
+
+    } );
+
+  } );
 
 } );

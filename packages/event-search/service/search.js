@@ -80,11 +80,27 @@ async function search( alias, query, nav = {}, options = {} ) {
     parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes ) ), 
     cleanNav.scroll ? cleanNav : {} );
 
-  if ( !cleanOptions.merge ) return { events, total };
+  let parsers = [ h.convertToLocalTimezone ];
+
+  if ( cleanOptions.merge ) {
+
+    parsers.push( _merge.bind( null, cleanOptions.merge ) );
+
+  }
 
   return {
     total,
-    events: events.map( _merge.bind( null, cleanOptions.merge ) )
+    events: events.map( e => {
+
+      parsers.forEach( p => {
+
+        e = p( e );
+
+      } );
+
+      return e;
+
+    } )
   }
 
 }

@@ -16,7 +16,7 @@
     "elasticsearch": "^13.2.0",
     "immutability-helper": "^2.2.2",
     "lodash": "^4.17.4",
-    "moment-timezone": "^0.5.7",
+    "moment-timezone": "^0.5.13",
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.4",
     "verror": "^1.9.0",
     "when": "^3.7.8"
