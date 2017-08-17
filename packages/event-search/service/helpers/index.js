@@ -25,7 +25,7 @@ async function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
       _index: indexName,
       _type: type,
       _id: e.uid,
-      _ttl: expire && e.timings ? lastTimingEndsIn( e.timings ) + 'd' : undefined
+      _ttl: expire && e.timings ? lastTimingEndsIn( e.timings ) + 'd': undefined
     }
   }, e ] ) );
 

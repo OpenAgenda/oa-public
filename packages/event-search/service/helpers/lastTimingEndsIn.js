@@ -4,7 +4,7 @@ module.exports = event => {
 
   if ( !event.timings || !event.timings.length ) {
 
-    return '0d';
+    return 0;
 
   }
 
