@@ -62,7 +62,7 @@ function getLogger( options ) {
   };
 
   const customMethods = _.mapValues(
-    _.pick( logger, 'log', 'loadMetadata' ),
+    _.pick( logger, 'log', 'loadMetadata', 'configure' ),
     v => v.bind( logger )
   );
 
