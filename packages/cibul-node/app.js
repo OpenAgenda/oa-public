@@ -158,6 +158,8 @@ module.exports = ( enabledTypes, cb ) => {
       // run 'web' type modules
       if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
 
+        require( './event/search.front' )( app, '/events/search' );
+
         webModules.web.forEach( m => m.load( app ) );
 
       }

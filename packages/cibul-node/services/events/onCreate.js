@@ -2,6 +2,8 @@
 
 const users = require( 'users' );
 
+const eventSearch = require( '../eventSearch' );
+
 let log = console.log;
 
 module.exports = ( event, context ) => {
@@ -9,6 +11,8 @@ module.exports = ( event, context ) => {
   log( 'created event %s with context %s', event.uid, JSON.stringify( context ) );
 
   _unsetNewUser( event );
+
+  eventSearch.events.add( event.uid, { queue: true } );
 
 }
 

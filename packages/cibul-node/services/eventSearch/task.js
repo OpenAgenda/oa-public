@@ -4,6 +4,8 @@ const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).
 
 const agendaIndices = require( './agendaIndices' );
 
+const events = require( './eventTransverseOperations' );
+
 const logger = require( 'logger' );
 
 module.exports = () => {
@@ -12,9 +14,13 @@ module.exports = () => {
 
   q.setConsumer( data => {
 
-    if ( data.method === 'update' ) {
+    if ( data.args.agendaUid ) {
 
-      return agendaIndices( { uid: data.args.agendaUid } ).update( data.args.eventUid, { refresh: false } );
+      return agendaIndices( data.args.agendaUid )[ data.method ]( data.args.eventUid, { refresh: false } );
+
+    } else if ( [ 'update', 'remove', 'add' ].includes( data.method ) ) {
+
+      return events[ data.method ]( data.args.eventUid, { refresh: false } );
 
     } else {
 

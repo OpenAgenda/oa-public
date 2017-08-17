@@ -2,6 +2,8 @@
 
 const agendaEvents = require( 'agenda-events' );
 
+const events = require( 'events-service' );
+
 const remove = require( 'agenda-events/service/remove' );
 
 const coms = require( '../../lib/coms' );
@@ -9,6 +11,8 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 
 const VError = require( 'verror' );
+
+const q = require( 'queue' )( 'agendaEventsLegacy', { redis: config.redis } );
 
 let log = console.log;
 
@@ -19,53 +23,84 @@ module.exports = {
 
 function task() {
 
-  coms.subscribe( config.mainChannel, async ( err, action ) => {
+  coms.subscribe( config.mainChannel, evaluate );
 
-    if ( err ) return log( 'error', 'coms subscribe error', err );
+  q.setConsumer( evaluate.bind( null, null ) );
 
-    log( 'evaluating action %s', action.name );
+  q.launch( { interval: 1000 } );
 
-    let result = null;
+}
 
-    try {
+async function evaluate( err, action ) {
 
-      if ( action.name === 'review.article_create' ) {
-        
-        result = await agendaEvents.legacyTransfer( action.values.id, { context: { userUid: action.values.user_uid } } );
+  if ( err ) return log( 'error', 'coms subscribe error', err );
 
-      } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
+  log( 'evaluating action %s', action.name );
 
-        result = await agendaEvents.legacyTransfer( { 
-          eventId: action.values.id,
-          agendaId: action.values.agendaId || action.values.review_id
-        }, { 
-          context: { 
-            userUid: action.values.user_uid 
-          } 
-        } );
+  let result = null;
 
-      } else if ( action.name === 'event.remove' ) {
+  try {
 
-        result = await remove.byLegacyId( null, action.values.id );
+    // if event is not present in events service, do nothing.
+    if ( action.name === 'review.article_create' && !await _eventExists( action.values.id ) ) {
 
-      } else {
+      log( 'info', 'new event was not yet created for event id %s', action.values.id );
 
-        log( 'not acting on action %s', action.name );
+      q( action );
 
-      }
+      result = { queued: true, action };
 
-      if ( result ) {
+    } else if ( action.name === 'review.article_create' ) {
+      
+      result = await agendaEvents.legacyTransfer( action.values.id, { context: { userUid: action.values.user_uid } } );
 
-        log( 'transfer result: %s', JSON.stringify( result ) );
+    } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 
-      }
+      result = await agendaEvents.legacyTransfer( { 
+        eventId: action.values.id,
+        agendaId: action.values.agendaId || action.values.review_id
+      }, { 
+        context: { 
+          userUid: action.values.user_uid 
+        } 
+      } );
 
-    } catch ( e ) {
+    } else if ( action.name === 'event.remove' ) {
 
-      log( 'error', 'legacyTransfer failed for action with values %s: %s', JSON.stringify( action ), e );
+      result = await remove.byLegacyId( null, action.values.id );
+
+    } else {
+
+      log( 'not acting on action %s', action.name );
 
     }
 
-  } );
+    if ( result ) {
+
+      log( 'transfer result: %s', JSON.stringify( result ) );
+
+    }
+
+  } catch ( e ) {
+
+    log( 'error', 'legacyTransfer failed for action with values %s: %s', JSON.stringify( action ), e );
+
+  }
+
+}
+
+
+async function _eventExists( articleId ) {
+
+
+  const event = await config.knex( 'event as e' ).first( [ 'uid' ] )
+    .leftJoin( 'review_article as ra', 'ra.event_id', 'e.id' )
+    .where( { 'ra.id': articleId } );
+
+  if ( !event ) return false;
+
+  const newEvent = await events.get( { uid: event.uid }, { private: null } );
+
+  return !!newEvent;
 
 }

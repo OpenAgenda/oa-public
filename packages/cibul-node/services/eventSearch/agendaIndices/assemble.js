@@ -97,9 +97,17 @@ async function item( agendaEvent ) {
 
   const formSchemaId = await _getAgenda( agendaEvent.agendaUid, 'formSchemaId' );
 
+  const event = await _getEvent( agendaEvent );
+
+  if ( !event ) {
+
+    throw new VError( 'event was not found for agendeEvent ref %s.%s', agendaEvent.agendaUid, agendaEvent.eventUid );
+
+  }
+
   return _item( {
     agendaEvent,
-    event: _getEvent( agendaEvent ),
+    event,
     formSchemaId,
     validators: await getCustomValidators( formSchemaId ),
     member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
