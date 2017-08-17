@@ -18,7 +18,7 @@ const reducer = require( './react/dist/redux/reducer' );
 
 const notificationsApp = require( './react/dist/apps/notifications' );
 
-const activitiesSvc = require( 'activities' );
+let activitiesSvc;
 
 let config;
 let log;
@@ -41,6 +41,8 @@ module.exports = {
 function init( c ) {
 
   config = c;
+
+  activitiesSvc = c.services.activities;
 
   if ( c.logger ) {
 

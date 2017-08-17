@@ -94,7 +94,7 @@ async function run() {
 
   sessions.init( config.services.sessions );
 
-  mw.init( { limit: config.mw.limit } );
+  mw.init( { limit: config.mw.limit, services: { activities: activitiesSvc } } );
 
   await activitiesSvc.init( Object.assign( config, { migrations: null } ) );
 
