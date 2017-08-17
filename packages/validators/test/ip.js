@@ -4,7 +4,7 @@ const should = require( 'should' ),
 
   validators = require( '../src' );
 
-describe.only( 'ip validator', () => {
+describe( 'ip validator', () => {
 
   const validate = validators.ip( { field: 'ip' } );
 
