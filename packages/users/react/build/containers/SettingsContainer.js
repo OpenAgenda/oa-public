@@ -434,3 +434,4 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
 module.exports = connect(mapStateToProps, function (dispatch) {
   return { dispatch: dispatch };
 }, mergeProps)(SettingsContainer);
+//# sourceMappingURL=SettingsContainer.js.map

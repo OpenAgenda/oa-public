@@ -175,3 +175,4 @@ module.exports = reduxForm({
 })(connect(function (state) {
   return { prefix: state.app.appSettings.prefix };
 })(PasswordSettings));
+//# sourceMappingURL=PasswordSettings.js.map

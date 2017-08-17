@@ -59,3 +59,4 @@ function mapStateToProps(_ref) {
 }
 
 module.exports = connect(mapStateToProps)(App);
+//# sourceMappingURL=App.js.map

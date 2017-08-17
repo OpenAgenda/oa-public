@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const fs = require( 'fs' );
 const path = require( 'path' );
 const w = require( 'when' );
 const csurf = require( 'csurf' );
@@ -9,13 +8,9 @@ const log = require( 'basic-logger' )( 'users - middleware' );
 const mwUploadImage = require( 'image-upload/lib/middleware' );
 const images = require( 'images' );
 const files = require( 'files' );
-const keys = require( 'keys' );
-const config = require( '../config' );
 const service = require( '../' );
 
 const csrf = csurf( { cookie: true } );
-
-const cbify = fn => ( req, res, next ) => w( fn( req, res, w.resolve ) ).done( next, next );
 
 module.exports = {
   csrf,

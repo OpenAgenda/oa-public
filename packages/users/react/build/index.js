@@ -89,3 +89,4 @@ module.exports = function (options) {
       lang: params.lang });
   }
 };
+//# sourceMappingURL=index.js.map

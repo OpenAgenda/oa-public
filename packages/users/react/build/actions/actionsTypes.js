@@ -19,3 +19,4 @@ var TYPES = {
 };
 
 module.exports = TYPES;
+//# sourceMappingURL=actionsTypes.js.map

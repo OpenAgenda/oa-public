@@ -1,18 +1,13 @@
 "use strict";
 
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  { reduxForm } = require( 'redux-form' ),
-
-  { capitalize } = require( 'utils' ),
-
-  { push } = require( 'react-router-redux' ),
-
-  { connect } = require( 'react-redux' );
+const React = require( 'react' );
+const createReactClass = require( 'create-react-class' );
+const PropTypes = require( 'prop-types' );
+const { reduxForm } = require( 'redux-form' );
+const { capitalize } = require( 'utils' );
+const { push } = require( 'react-router-redux' );
+const { connect } = require( 'react-redux' );
+const nl2br = require( 'react-utils/dist/nl2br' );
 
 const domOnlyProps = ( {
                          initialValue, autofill, onUpdate, valid, invalid, dirty,
@@ -44,8 +39,8 @@ const ProfileSettings = createReactClass( {
 
     const deleteModal = {
       visible: true,
-      title: getLabels( 'deleteMyAccount' ),
-      content: <p>{getLabels( 'deleteModalText' )}</p>,
+      title: getLabels( 'areYouSure' ),
+      content: <p>{nl2br( getLabels( 'deleteModalText' ) )}</p>,
       action: deleteAccount,
       actionText: getLabels( 'deleteModalButton' )
     };

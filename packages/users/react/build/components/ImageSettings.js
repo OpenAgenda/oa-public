@@ -75,3 +75,4 @@ var ProfileSettings = createReactClass({
 module.exports = connect(function (state) {
   return { prefix: state.app.appSettings.prefix };
 })(ProfileSettings);
+//# sourceMappingURL=ImageSettings.js.map

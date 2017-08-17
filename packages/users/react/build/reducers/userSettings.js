@@ -122,3 +122,4 @@ function deleteAccount(state, status) {
 }
 
 module.exports = userSettings;
+//# sourceMappingURL=userSettings.js.map

@@ -1,27 +1,23 @@
 "use strict";
 
-const _ = require( 'lodash' );
+if ( !require( 'piping' )( { hook: true } ) ) return;
+
 const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
-const csurf = require( 'csurf' );
-const path = require( 'path' );
 const async = require( 'async' );
-const fixtures = require( 'fixtures' );
 const unsubscribedSvc = require( 'unsubscribed/test/service' );
 const keysSvc = require( 'keys' );
-const service = require( '../service/index' );
+const service = require( '../service' );
 const mw = require( '../../middleware' );
 const config = require( '../../testconfig.js' );
 
 const app = require( 'test-app' )( {
-  frontWrapper: __dirname + '/front.js',
+  frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../node_modules/bs-templates/compiled/main.css'
   ],
-  decorateCanvas: false,
-  webpack: true,
-  // babelServer: true
+  decorateCanvas: false
 } );
 
 app.use( ( req, res, next ) => {
@@ -99,26 +95,13 @@ app.get( unsubscribedSvc.app.routes.list, ( req, res, next ) => {
 
 } );
 
-/* async.waterfall( [
-  wcb => service.initAndLoad( config ).catch( wcb ).then( () => wcb() ),
-  wcb => unsubscribedSvc.initAndLoad( config, { reset: false }, wcb )
-], err => {
-
-  if ( err ) return console.error( err );
-
-  app.getAndListen( '*', 3000, [ mw.csrfProtection ] );
-
-} ); */
-
 run().catch( console.error );
 
 async function run() {
 
-  await service.initAndLoad( config );
+  await service.init( config );
 
-  await new Promise( ( rs, rj ) =>
-    unsubscribedSvc.initAndLoad( config, { reset: false }, err => err ? rj( err ) : rs() )
-  );
+  unsubscribedSvc.init( config );
 
   await keysSvc.init( config );
 

@@ -164,3 +164,4 @@ module.exports = reduxForm({
 })(connect(function (state) {
   return { prefix: state.app.appSettings.prefix };
 })(EmailSettings));
+//# sourceMappingURL=EmailSettings.js.map

@@ -11,3 +11,4 @@ module.exports = createDevTools(React.createElement(
   { toggleVisibilityKey: 'ctrl-h', changePositionKey: 'ctrl-p', defaultPosition: 'bottom' },
   React.createElement(LogMonitor, null)
 ));
+//# sourceMappingURL=DevTools.js.map

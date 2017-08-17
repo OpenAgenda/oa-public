@@ -10,17 +10,23 @@ var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var React = require('react'),
-    createReactClass = require('create-react-class'),
-    PropTypes = require('prop-types'),
-    _require = require('redux-form'),
-    reduxForm = _require.reduxForm,
-    _require2 = require('utils'),
-    capitalize = _require2.capitalize,
-    _require3 = require('react-router-redux'),
-    push = _require3.push,
-    _require4 = require('react-redux'),
+var React = require('react');
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
+
+var _require = require('redux-form'),
+    reduxForm = _require.reduxForm;
+
+var _require2 = require('utils'),
+    capitalize = _require2.capitalize;
+
+var _require3 = require('react-router-redux'),
+    push = _require3.push;
+
+var _require4 = require('react-redux'),
     connect = _require4.connect;
+
+var nl2br = require('react-utils/dist/nl2br');
 
 var domOnlyProps = function domOnlyProps(_ref) {
   var initialValue = _ref.initialValue,
@@ -66,11 +72,11 @@ var ProfileSettings = createReactClass({
 
     var deleteModal = {
       visible: true,
-      title: getLabels('deleteMyAccount'),
+      title: getLabels('areYouSure'),
       content: React.createElement(
         'p',
         null,
-        getLabels('deleteModalText')
+        nl2br(getLabels('deleteModalText'))
       ),
       action: deleteAccount,
       actionText: getLabels('deleteModalButton')
@@ -196,3 +202,4 @@ module.exports = reduxForm({
 })(connect(function (state) {
   return { prefix: state.app.appSettings.prefix };
 })(ProfileSettings));
+//# sourceMappingURL=ProfileSettings.js.map

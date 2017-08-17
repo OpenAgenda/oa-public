@@ -25,3 +25,4 @@ module.exports = function (store) {
     React.createElement(Route, { path: 'unsubscribed', component: SettingsContainer, activeTab: 'unsubscribed' })
   );
 };
+//# sourceMappingURL=routes.js.map

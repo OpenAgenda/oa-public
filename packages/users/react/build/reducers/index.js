@@ -15,3 +15,4 @@ module.exports = combineReducers({
   app: app,
   userSettings: userSettings
 });
+//# sourceMappingURL=index.js.map
