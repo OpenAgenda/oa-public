@@ -22,7 +22,7 @@ exports['default'] = function (config) {
 
   var params = (0, _extend2['default'])({
     field: false,
-    optional: false,
+    optional: true,
     'default': undefined,
     list: false
   }, config || {}),

@@ -8,7 +8,7 @@ export default config => {
 
   const params = extend( {
     field: false,
-    optional: false,
+    optional: true,
     default: undefined,
     list: false
   }, config || {} ),

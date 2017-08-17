@@ -39,17 +39,27 @@ describe( 'ip validator', () => {
 
   } );
 
-  it( 'is a list of ips', () => {
+  describe( 'lists', () => {
 
-    let validate = validators.ip( { field: 'ip', list: true } );
+    const validate = validators.ip( { field: 'ip', list: true } );
 
-    validate( [
-      '192.3.1.2',
-      '192.12.0.1'
-    ] ).should.eql( [
-      '192.3.1.2',
-      '192.12.0.1'
-    ] );
+    it( 'is a list of ips', () => {
+
+      validate( [
+        '192.3.1.2',
+        '192.12.0.1'
+      ] ).should.eql( [
+        '192.3.1.2',
+        '192.12.0.1'
+      ] );
+
+    } );
+
+    it( 'nothing given to list returns an empty list', () => {
+
+      validate().should.eql( [] );
+
+    } );
 
   } );
 
