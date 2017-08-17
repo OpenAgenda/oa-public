@@ -3,6 +3,7 @@
 module.exports = {
   text: require( './text' ),
   link: require( './link' ),
+  ip: require( './ip' ),
   email: require( './email' ),
   phone: require( './phone' ),
   list: require( './list' ),
