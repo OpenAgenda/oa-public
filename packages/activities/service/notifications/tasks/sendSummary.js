@@ -1,7 +1,7 @@
 "use strict";
 
 const moment = require( 'moment' );
-const log = require( 'logger' )( 'activities/notifications/tasks/sendSummary' );
+const log = require( 'logs' )( 'activities/notifications/tasks/sendSummary' );
 const queue = require( 'queue' );
 const mailer = require( 'mailer' );
 const notiflabels = require( 'labels/activities/notifications' );

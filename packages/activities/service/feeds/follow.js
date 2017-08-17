@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( 'logger' )( 'activities/feeds/follow' );
+const log = require( 'logs' )( 'activities/feeds/follow' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 
 let config;

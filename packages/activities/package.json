@@ -22,7 +22,7 @@
     "knex": "^0.12.7",
     "labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
     "lodash": "^4.17.4",
-    "logger": "bitbucket:openagenda/logger#next",
+    "logs": "bitbucket:openagenda/logs",
     "queue": "git+ssh://git@bitbucket.org/openagenda/queue.git",
     "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
     "unsubscribed": "bitbucket:OpenAgenda/unsubscribed",

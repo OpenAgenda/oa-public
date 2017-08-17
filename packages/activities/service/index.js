@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const knexLib = require( 'knex' );
-const logger = require( 'logger' );
+const logger = require( 'logs' );
 const feed = require( './feed' );
 const feeds = require( './feeds' );
 const activities = require( './activities' );

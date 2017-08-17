@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const schema = require( 'validators/schema' );
 const validators = require( 'validators' );
-const log = require( 'logger' )( 'activities/feeds/create' );
+const log = require( 'logs' )( 'activities/feeds/create' );
 const method = require( '../../utils/method' );
 
 const FEED_TYPES = require( '../feedTypes' );

@@ -1,7 +1,7 @@
 "use strict";
 
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const log = require( 'logger' )( 'activities/feeds/remove' );
+const log = require( 'logs' )( 'activities/feeds/remove' );
 
 let config;
 let knex;

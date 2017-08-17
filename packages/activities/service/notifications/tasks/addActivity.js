@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const log = require( 'logger' )( 'activities/notifications/tasks/addActivity' );
+const log = require( 'logs' )( 'activities/notifications/tasks/addActivity' );
 const VError = require( 'verror' );
 const queue = require( 'queue' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
