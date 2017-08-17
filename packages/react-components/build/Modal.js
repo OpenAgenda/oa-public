@@ -199,7 +199,7 @@ var Modal = (_temp = _class = function (_Component) {
 
   return Modal;
 }(_react.Component), _class.propTypes = {
-  title: _propTypes2.default.element,
+  title: _propTypes2.default.node,
   visible: _propTypes2.default.bool,
   onClose: _propTypes2.default.func,
   disableBodyScroll: _propTypes2.default.bool
