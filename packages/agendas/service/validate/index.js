@@ -11,7 +11,8 @@ schema.register( {
   integer: require( 'validators/integer' ),
   date: require( 'validators/date' ),
   slug: require( '../slugs/validator' ),
-  choice: require( 'validators/choice' )
+  choice: require( 'validators/choice' ),
+  ip: require( 'validators/ip' )
 } );
 
 module.exports = schema( utils.extend( {},

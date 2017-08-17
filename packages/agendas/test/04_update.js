@@ -44,7 +44,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             defaultState: 2,
             message: null,
             type: 2,
-            useFields: false
+            useFields: false,
+            authorizedIpAddresses: []
           },
           translation: {
             enabled: false,
@@ -218,7 +219,8 @@ describe( 'agendas - functional (server): set (update)', function() {
               defaultState: 2,
               message: null,
               type: 2,
-              useFields: false
+              useFields: false,
+              authorizedIpAddresses: []
             },
             translation: {
               enabled: false,

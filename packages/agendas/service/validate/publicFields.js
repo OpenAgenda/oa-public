@@ -52,6 +52,11 @@ module.exports = {
       useFields: {
         type: 'boolean',
         default: false
+      },
+      authorizedIpAddresses: {
+        type: 'ip',
+        list: true,
+        default: []
       }
     },
     translation: {
