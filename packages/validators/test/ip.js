@@ -61,6 +61,12 @@ describe( 'ip validator', () => {
 
     } );
 
+    it( 'null given to list returns an empty list', () => {
+
+      validate( null ).should.eql( [] );
+
+    } );
+
   } );
 
 } );

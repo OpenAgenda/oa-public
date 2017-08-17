@@ -46,7 +46,7 @@ exports['default'] = function (config) {
       return params['default'];
     } else if (value === undefined) {
 
-      return [(0, _extend2['default'])(error, {
+      throw [(0, _extend2['default'])(error, {
         code: 'ip.required',
         message: 'an ip address is required'
       })];

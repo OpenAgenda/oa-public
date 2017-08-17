@@ -24,7 +24,7 @@ module.exports = ( validator, options ) => {
 
     let clean = [], errors = [],
 
-    value = v === undefined ? [] : v;
+    value = [ undefined, null ].includes( v ) ? [] : v;
 
     if ( v === undefined && ( params.default !== undefined ) ) {
 
@@ -33,13 +33,6 @@ module.exports = ( validator, options ) => {
     }
 
     if ( !isArray( value ) ) {
-
-      /*throw [ {
-        field: validator.field,
-        code: 'list.wrongtype',
-        message: 'value should be a list',
-        origin: value
-      } ];*/
 
       value = [ value ];
 

@@ -31,7 +31,7 @@ module.exports = function (validator, options) {
 
     var clean = [],
         errors = [],
-        value = v === undefined ? [] : v;
+        value = [undefined, null].includes(v) ? [] : v;
 
     if (v === undefined && params['default'] !== undefined) {
 
@@ -39,13 +39,6 @@ module.exports = function (validator, options) {
     }
 
     if (!(0, _isArray2['default'])(value)) {
-
-      /*throw [ {
-        field: validator.field,
-        code: 'list.wrongtype',
-        message: 'value should be a list',
-        origin: value
-      } ];*/
 
       value = [value];
     }

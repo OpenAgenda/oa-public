@@ -35,7 +35,7 @@ export default config => {
 
     } else if ( value === undefined ) {
 
-      return [ extend( error, { 
+      throw [ extend( error, { 
         code: 'ip.required',
         message: 'an ip address is required'
       } ) ];
