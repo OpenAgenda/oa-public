@@ -18,6 +18,6 @@ module.exports = ( ...args ) => {
 
   }
 
-  throw new VError.apply( null, [ err ].concat( args ) );  
+  throw new VError( ...[ err ].concat( args ) );
 
 }

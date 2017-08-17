@@ -34,8 +34,8 @@ describe( 'event search - functional: create', function() {
       timezone : 'Europe/Paris'
     },
     timings: [ {
-      begin: new Date( '2017-04-20T12:00:00+0100' ),
-      end: new Date( '2017-04-20T13:00:00+0100' )
+      begin: new Date( '2027-04-20T12:00:00+0100' ),
+      end: new Date( '2027-04-20T13:00:00+0100' )
     } ],
     timezone: 'Europe/Paris'
   }
@@ -93,6 +93,25 @@ describe( 'event search - functional: create', function() {
       status: 404,
       message: 'index not found'
     } );
+
+  } );
+
+
+  it( 'add an expiring event to an index', async () => {
+
+    eventData.uid++; // avoid conflict with previous test
+
+    eventData.timings = [ {
+      begin: ( new Date() ).setDate( ( new Date() ).getDate() + 1 ),
+      end: ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
+    } ];
+
+    let result = await service( 'test_index' ).add( eventData, { 
+      refresh: true,
+      expire: true
+    } );
+
+    result.ttl.should.equal( '1d' );
 
   } );
 

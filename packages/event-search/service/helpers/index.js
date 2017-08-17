@@ -10,7 +10,8 @@ module.exports = {
   createUniqueIndex: require( './createUniqueIndex' ),
   indexBulk,
   extendMapping: require( './extendMapping' ),
-  convertToLocalTimezone: require( './convertToLocalTimezone' )
+  convertToLocalTimezone: require( './convertToLocalTimezone' ),
+  lastTimingEndsIn: require( './lastTimingEndsIn' )
 }
 
 let count = 0;

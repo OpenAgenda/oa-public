@@ -61,4 +61,32 @@ describe( 'event-search - unit: helpers', function() {
 
   } );
 
+  describe( 'lastTimingEndsIn', () => {
+
+    it( 'gives the number of days between now and the time the last timing ends', () => {
+
+      let timings = [ {
+        start: _dateStrFromNow( 4 ),
+        end: _dateStrFromNow( 5 )
+      }, {
+        start: _dateStrFromNow( 2 ),
+        end: _dateStrFromNow( 2 )
+      } ];
+
+      helpers.lastTimingEndsIn( { timings } ).should.equal( 5 );
+
+    } );
+
+  } );
+
 } );
+
+function _dateStrFromNow( count = 0 ) {
+
+  let d = new Date();
+
+  d.setDate( d.getDate() + count );
+
+  return JSON.stringify( d ).replace( /"/g, '' );
+
+}

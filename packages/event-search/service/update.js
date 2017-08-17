@@ -6,6 +6,8 @@ const config = require( './config' ),
   
   handleError = require( './helpers/handleError' ),
   
+  lastTimingEndsIn = require( './helpers/lastTimingEndsIn' ),
+
   parseQuery = require( './query' ),
   
   parseDoc = require( './index/preParse' );
@@ -13,11 +15,14 @@ const config = require( './config' ),
 module.exports = async function( alias, identifiers, eventPart, options = {} ) {
 
   const params = _.extend( {
-    refresh: false
-  }, options );
+    refresh: false,
+    expire: false
+  }, options ),
 
-  const { client, type } = config;
+    { client, type } = config,
 
+    ttl = params.expire && eventPart.timings ? lastTimingEndsIn( eventPart ) + 'd' : undefined;
+  
   let res;
 
   try {
@@ -29,7 +34,8 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
         doc: parseDoc( eventPart, true )
       },
       id: identifiers.uid,
-      refresh: params.refresh
+      refresh: params.refresh,
+      ttl
     } );
 
   } catch ( err ) {
@@ -39,7 +45,8 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
   }
 
   return {
-    success: res.result === 'updated'
+    success: res.result === 'updated',
+    ttl
   }
 
 }
