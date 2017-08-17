@@ -92,6 +92,20 @@ describe( 'events - functional (server): list', function() {
   } );
 
 
+  it( 'retrieve events created after a given date', async () => {
+
+    const result = await svc.list( { 
+      createdAt: new Date( '2017-01-01' ),
+      uid: [ 68645096, 74935370, 18957259 ]
+    }, 0, 20 );
+
+    result.events.length.should.equal( 1 );
+
+    result.events[ 0 ].uid.should.equal( 18957259 );
+
+  } );
+
+
   it( 'list with private to true gets private events only', done => {
 
     svc.list( { private: true }, 0, 20, ( err, events ) => {

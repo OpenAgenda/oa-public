@@ -6,7 +6,8 @@ schema.register( {
   boolean: require( 'validators/boolean' ),
   text: require( 'validators/text' ),
   integer: require( 'validators/integer' ),
-  choice: require( 'validators/choice' )
+  choice: require( 'validators/choice' ),
+  date: require( 'validators/date' )
 } );
 
 module.exports = schema( {
@@ -39,6 +40,14 @@ module.exports = schema( {
   },
   ownerUid: {
     type: 'integer',
+    default: null
+  },
+  createdAt: {
+    type: 'date',
+    default: null
+  },
+  updatedAt: {
+    type: 'date',
     default: null
   }
 } );

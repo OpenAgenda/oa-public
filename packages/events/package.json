@@ -28,7 +28,7 @@
     "mysql-utils": "git+ssh://git@bitbucket.org:openagenda/mysql-utils.git",
     "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
     "slugs": "git+ssh://git@bitbucket.org:openagenda/slugs.git",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.12",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.13",
     "verror": "^1.10.0",
     "when": "^3.7.7"
   },

@@ -238,12 +238,23 @@ function _search( v ) {
 
   }
 
-
   if ( Object.keys( wheres ).length ) {
 
     v.knexQuery.where( wheres );
 
   }
+
+  if ( v.cleanQuery.createdAt !== null ) {
+
+    v.knexQuery.where( 'created_at', '>=', v.cleanQuery.createdAt );
+
+  }
+
+  if ( v.cleanQuery.updatedAt !== null ) {
+
+    v.knexQuery.where( 'updated_at', '>=', v.cleanQuery.updatedAt );
+
+  }  
 
   if ( v.cleanQuery.search !== null ) {
 
