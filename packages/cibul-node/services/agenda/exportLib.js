@@ -53,7 +53,7 @@ function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
 function _loadTagSet( v ) {
 
-  if ( !v.loadTagSet ) return v;
+  if ( !v.loadTagSet || v.agenda.tagSet ) return v;
 
   const d = w.defer();
 
