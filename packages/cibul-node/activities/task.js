@@ -1,6 +1,4 @@
 const logger = require( 'logger' );
-const utils = require( 'utils' );
-const async = require( 'async' );
 const activitiesSvc = require( 'activities' );
 const agendasSvc = require( 'agendas' );
 const usersSvc = require( 'users' );
