@@ -694,14 +694,16 @@ currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
   database: 'emailStrategie' + ( process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '' )
 } );
 
-
 currentConfig.knex = knexLib( {
   client: 'mysql',
   connection: currentConfig.db,
 } );
 
+currentConfig.logger.debug.enable += process.env.DEBUG ? ',' + process.env.DEBUG : '';
+
 
 module.exports = currentConfig;
+
 
 function _loadEnv( env ) {
 

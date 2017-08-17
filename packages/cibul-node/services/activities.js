@@ -1,9 +1,7 @@
 "use strict";
 
-const logger = require( 'logger' );
-
+const _ = require( 'lodash' );
 const activities = require( 'activities' );
-
 const agendaStakeholders = require( 'agenda-stakeholders' );
 
 module.exports.init = async config => {
@@ -137,7 +135,11 @@ module.exports.init = async config => {
 
       }
     } ],
-    logger
+    logger: _.merge( {}, config.logger, {
+      errorsTracking: {
+        logentriesKey: '5b8a8f02-3009-4b94-9eb7-81f70c3871cf'
+      }
+    } )
   } );
 
 }

@@ -5,6 +5,7 @@ const w = require( 'when' );
 const fs = require( 'fs' );
 const async = require( 'async' );
 const logger = require( 'logger' );
+const logs = require( 'logs' );
 
 let log;
 
@@ -29,6 +30,7 @@ module.exports = function ( config, cb ) {
   // init logger
 
   logger.init( config.logger );
+  logs.init( config.logger );
 
   log = logger( 'init' );
 
