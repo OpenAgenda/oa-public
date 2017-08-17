@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const w = require( 'when' );
+const lastTimingEndsIn = require( './lastTimingEndsIn' );
 
 module.exports = {
   checkList,
@@ -11,19 +12,20 @@ module.exports = {
   indexBulk,
   extendMapping: require( './extendMapping' ),
   convertToLocalTimezone: require( './convertToLocalTimezone' ),
-  lastTimingEndsIn: require( './lastTimingEndsIn' )
+  lastTimingEndsIn
 }
 
 let count = 0;
 
 
-async function indexBulk( client, indexName, type, parsedEvents ) {
+async function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 
-  let body = _.flatten( parsedEvents.map( e => [ {
+  const body = _.flatten( parsedEvents.map( e => [ {
     index: {
       _index: indexName,
       _type: type,
-      _id: e.uid
+      _id: e.uid,
+      _ttl: expire && e.timings ? lastTimingEndsIn( e.timings ) + 'd' : undefined
     }
   }, e ] ) );
 

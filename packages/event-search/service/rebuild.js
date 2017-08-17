@@ -13,7 +13,8 @@ module.exports = async ( alias, options ) => {
 
   const params = _.extend( {
     eventsList: null,
-    extensions: {}
+    extensions: {},
+    expire: false
   }, options );
 
   params.extensions.contributor = contributorExtension;
@@ -39,7 +40,7 @@ module.exports = async ( alias, options ) => {
 
   while ( ( events = await params.eventsList( offset, limit ) ).length ) {
 
-    let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ) );
+    let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
 
     counts.indexed += bulkResult.items.length;
 

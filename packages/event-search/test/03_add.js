@@ -115,8 +115,6 @@ describe( 'event search - functional: create', function() {
 
   } );
 
-
-
 } );
 
 async function _timeout( ms ) {
