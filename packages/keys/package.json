@@ -16,6 +16,7 @@
   "homepage": "https://bitbucket.org/openagenda/keys#readme",
   "dependencies": {
     "basic-logger": "bitbucket:openagenda/basic-logger",
+    "hiredis": "^0.5.0",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
     "mysql-utils": "bitbucket:openagenda/mysql-utils",
