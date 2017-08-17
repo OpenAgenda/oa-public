@@ -1,112 +1,150 @@
 "use strict";
 
-process.env.DEBUG_FD=1; // log to stdout instead of stderr
+const path = require( 'path' );
+const _ = require( 'lodash' );
+const winston = require( 'winston' );
+const debug = require( 'debug' );
+const DebugTransport = require( './DebugTransport' );
+const { getCallerFile, getModule } = require( './utils/caller' );
 
-var config,
+require( 'le_node' );
 
-u = require( './lib/utilities.js' ),
+let config;
+const levels = Object.keys( winston.config.npm.levels );
 
-LE = require( 'le_node' ),
+const loggers = [];
+const loggerConfigs = {};
+const basicLogger = getLogger();
 
-logger,
+module.exports = Object.assign( createLogger, {
+  init,
+  setModuleConfig,
+  log: basicLogger.log.bind( basicLogger )
+}, _.pick( basicLogger, levels ) );
 
-baseLogVars = {},
-
-debugPrefix = '',
-
-debug = require( 'debug' );
-
-module.exports = function( namespace, preloaded ) {
-
-  var logVars = {
-    namespace: namespace
-  },
-
-  debugLog = debug( debugPrefix + namespace );
-
-  log.load = load;
-
-  if ( preloaded ) load( preloaded );
-
-  return log;
-
-  function log( level, message, args ) {
-
-    var args = Array.prototype.slice.call( arguments ),
-
-    level = u.getLogLevel.apply( null, args ),
-
-    message,
-
-    entry,
-
-    obj = {};
-
-    if ( args[ 0 ] == level ) args.shift();
-
-    message = u.compileMessage.apply( null, args );
-
-    if ( typeof args[ 0 ] == 'object' ) obj = args[ 0 ];
-
-    entry = u.extend(
-      { level: level }, baseLogVars, logVars, obj, 
-      message ? { message: message } : {}
-    );
-
-    if ( logger && level !== 'debug' ) logger.log( entry );
-
-    if ( _hasLogLevel( level ) ) {
-
-      debugLog( message );
-
-    }
-
-    return config ? entry : null;
-
+function createLogger( namespace, ...args ) {
+  if ( levels.includes( namespace ) && args.length ) {
+    return basicLogger[ namespace ]( ...args );
   }
 
-  function load( values ) {
-
-    u.extend( logVars, values );
-
-  }
-  
+  return getLogger( { namespace } );
 }
 
-module.exports.enable = debug.enable;
+function getLogger( options ) {
 
-module.exports.init = function( c ) {
+  const callerFile = getCallerFile( 2 );
+  const callerModule = getModule( path.resolve( callerFile ) );
 
-  config = c;
-
-  if ( c.token ) logger = new LE( { 
-    token: c.token
+  const logger = new winston.Logger( {
+    transports: getTransports( _.merge( {}, options, loggerConfigs[ callerModule ] ) )
   } );
 
-  if ( c.base ) {
+  logger.options = options;
+  logger.callerFile = callerFile;
+  logger.callerModule = callerModule;
 
-    baseLogVars = c.base;
+  logger.loadMetadata = metadata => {
 
-  }
-
-  if ( logger ) logger.on( 'error', function( error ) {
-
-    console.log( 'logentries error: %s', error );
-
-  });
-
-  if ( c.debug ) {
-
-    debugPrefix = c.debug.prefix ? c.debug.prefix : '';
-
-    debug.enable( c.debug.enable );
+    logger.rewriters.push( ( level, msg, meta ) => Object.assign( {}, metadata, meta ) );
 
   }
+
+  loggers.push( logger );
+
+  const levellessLog = ( level, ...args ) => {
+
+    if ( levels.includes( level ) && args.length ) {
+      return logger[ level ]( ...args );
+    }
+
+    return logger[ 'debug' ]( level, ...args );
+
+  };
+
+  const customMethods = _.mapValues(
+    _.pick( logger, 'log', 'loadMetadata' ),
+    v => v.bind( logger )
+  );
+
+  return Object.assign( levellessLog, logger, customMethods );
 
 }
 
-function _hasLogLevel( level ) {
+function getTransports( options ) {
 
-  return u.TYPES.indexOf( level ) >= u.TYPES.indexOf( process.env.LOG_LEVEL );
+  const params = _.merge( {
+    namespace: '',
+    debug: {
+      prefix: 'oa:'
+    },
+    errorsTracking: {}
+  }, config, options );
 
+  const transports = [];
+
+  const env = getEnv();
+
+  if ( env === 'development' ) {
+
+    transports.push( new DebugTransport( {
+      level: 'debug',
+      namespace: params.namespace,
+      prefix: params.debug.prefix
+    } ) );
+
+  }
+
+  if ( env === 'production' ) {
+
+    if ( params && params.errorsTracking && params.errorsTracking.logentriesKey ) {
+      transports.push( new winston.transports.Logentries( {
+        level: 'info',
+        token: params.errorsTracking.logentriesKey,
+        json: true
+      } ) );
+    }
+
+  }
+
+  return transports;
+
+}
+
+function init( c ) {
+
+  config = _.merge( {
+    namespace: '',
+    debug: {
+      prefix: 'oa:'
+    }
+  }, c );
+
+  if ( config.debug && config.debug.enable ) {
+    debug.enable( c.debug.enable );
+  }
+
+  basicLogger.configure( {
+    transports: getTransports( config )
+  } );
+
+}
+
+function setModuleConfig( conf ) {
+
+  const callerModule = getModule( path.resolve( getCallerFile( 2 ) ) );
+
+  loggerConfigs[ callerModule ] = conf;
+
+  loggers.filter( logger => logger.callerModule === callerModule ).map( logger => {
+
+    logger.configure( {
+      transports: getTransports( _.merge( logger.options, conf ) )
+    } );
+
+  } );
+
+}
+
+function getEnv() {
+  return process.env.NODE_ENV || 'development';
 }
