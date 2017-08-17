@@ -10,6 +10,12 @@ const _ = require( 'lodash' );
 
 module.exports = event => {
 
+  if ( !event ) {
+
+    throw new Error( 'data is unavailable for indexing' );
+
+  }
+
   let clean = _.extend( {}, event );
 
   if ( clean.location ) {

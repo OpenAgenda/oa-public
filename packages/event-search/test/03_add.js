@@ -97,6 +97,21 @@ describe( 'event search - functional: create', function() {
   } );
 
 
+  it( 'add nothing throws an error', async () => {
+
+    try {
+
+      await service( 'test_index' ).add();
+
+    } catch ( e ) {
+
+      e.message.should.equal( 'data is unavailable for indexing' );
+
+    }
+
+  } );
+
+
   it( 'add an expiring event to an index', async () => {
 
     eventData.uid++; // avoid conflict with previous test
