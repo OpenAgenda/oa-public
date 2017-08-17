@@ -294,9 +294,9 @@ describe( 'activities - notifications', function () {
             objects: [ 'event:98798765', 'event:12312345' ],
             targets: [ 'agenda:48648352' ],
             labels: {
-              actor: 'Sonny',
-              object: 'Réunion des junkies anonymes',
-              target: 'Apéro du matin'
+              actor: 'Jacky',
+              object: 'Réunion des junkies anonymes 2',
+              target: 'La fumette'
             }
           },
           state: 0,

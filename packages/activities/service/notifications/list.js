@@ -134,6 +134,7 @@ function list( identifiers ) {
       const request = knex( config.schemas.feed_notification ).select()
         .where( query )
         .where( 'feed_id', feed.id )
+        .orderBy( 'updated_at', 'desc' )
         .orderBy( 'id', 'desc' );
 
       if ( ids ) {

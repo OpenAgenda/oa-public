@@ -32,13 +32,13 @@ async function prepareSummary() {
       config.schemas.feed + '.entity_type',
       config.schemas.feed + '.entity_uid'
     )
-      .where( { state: 0, sent: 0 } ).groupBy( 'feed_id' ).orderBy( 'created_at', 'desc' )
+      .where( { state: 0, sent: 0 } ).groupBy( 'feed_id' ).orderBy( 'updated_at', 'desc' )
       .join( config.schemas.feed, config.schemas.feed_notification + '.feed_id', config.schemas.feed + '.id' ),
     async ( item, index, cb ) => {
 
       let notifications = await knex( config.schemas.feed_notification ).select()
         .where( { feed_id: item.feed_id, state: 0, sent: 0 } ).andWhere( 'id', '>=', item.id )
-        .orderBy( 'created_at', 'desc' );
+        .orderBy( 'updated_at', 'desc' );
 
       notifications = notifications.map( notif => {
 

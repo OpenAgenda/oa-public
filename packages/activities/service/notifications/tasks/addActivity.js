@@ -180,11 +180,15 @@ function addActivity() {
               return values.concat( activity[ key ] );
             };
 
-            const store = Object.assign( notif.store, {
+            const store = Object.assign( {}, notif.store, {
               actors: createNewStoreKey( 'actor' ),
               objects: createNewStoreKey( 'object' ),
               targets: createNewStoreKey( 'target' ),
-              labels: notif.store.labels
+              labels: {
+                actor: activity.store && activity.store.labels && activity.store.labels.actor,
+                object: activity.store && activity.store.labels && activity.store.labels.object,
+                target: activity.store && activity.store.labels && activity.store.labels.target
+              }
             } );
 
             if (
