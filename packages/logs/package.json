@@ -1,5 +1,5 @@
 {
-  "name": "logger",
+  "name": "logs",
   "version": "0.0.1",
   "dependencies": {
     "debug": "^2.2.0",
