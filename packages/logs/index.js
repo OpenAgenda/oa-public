@@ -27,7 +27,11 @@ function createLogger( namespace, ...args ) {
     return basicLogger[ namespace ]( ...args );
   }
 
-  return getLogger( { namespace } );
+  const logger = getLogger( { namespace } );
+
+  if ( args[ 0 ] ) logger.loadMetadata( args[ 0 ] );
+
+  return logger;
 }
 
 function getLogger( options ) {
