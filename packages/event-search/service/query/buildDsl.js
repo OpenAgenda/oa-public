@@ -60,7 +60,8 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
     [ 'region', 'location.region' ],
     [ 'department', 'location.department' ],
     [ 'countryCode', 'location.countryCode' ],
-    [ 'contributorUid', 'contributor.uid' ]
+    [ 'contributorUid', 'contributor.uid' ],
+    [ 'agendaUid', 'agenda.uid' ]
   ].forEach( field => {
 
     let fromField = isArray( field ) ? field[ 0 ] : field,

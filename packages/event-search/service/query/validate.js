@@ -56,6 +56,10 @@ module.exports = schema( {
     type: 'integer',
     list: true
   },
+  agendaUid: {
+    type: 'integer',
+    list: true
+  },
   geo: {
     fields: {
       northEast: {

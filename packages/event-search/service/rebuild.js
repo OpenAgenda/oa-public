@@ -5,7 +5,10 @@ const h = require( './helpers' );
 const _ = require( 'lodash' );
 const preParse = require( './index/preParse' );
 const parseExtension = require( './extensions/parse' );
-const contributorExtension = require( './extensions/contributor.fields.js' );
+
+const defaultExtensions = {
+  contributor: require( './extensions/contributor.fields.js' ),
+}
 
 const indexSettings = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/index/settings.json', 'utf-8' ) );
 
@@ -17,7 +20,7 @@ module.exports = async ( alias, options ) => {
     expire: false
   }, options );
 
-  params.extensions.contributor = contributorExtension;
+  _.extend( params.extensions, defaultExtensions );
 
   let offset = 0, 
 

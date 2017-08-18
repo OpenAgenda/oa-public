@@ -4,8 +4,10 @@ const should = require( 'should' );
 const fs = require( 'fs' );
 
 const config = require( '../testconfig' );
+
 const events = require( 'events-service/test/service' );
 const contributors = require( './service/contributors' );
+
 const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
 const service = require( '../' );
 const _ = require( 'lodash' );
@@ -398,6 +400,17 @@ describe( 'event search - functional: search', function() {
       }, {}, { detailed: true, extensions: [ 'custom', 'contributor' ] } );
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
+
+    } );
+
+
+    it( 'events from a specific agenda can be retrieved based on the agenda uid', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        agendaUid : 7678675
+      }, {}, { detailed: true } );
+
+      events[ 0 ].agenda.uid.should.equal( 7678675 );
 
     } );
 
