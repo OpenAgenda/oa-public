@@ -12,6 +12,8 @@ const config = require( '../../config' );
 
 const VError = require( 'verror' );
 
+const _ = require( 'lodash' );
+
 const q = require( 'queue' )( 'agendaEventsLegacy', { redis: config.redis } );
 
 let log = console.log;
@@ -29,6 +31,7 @@ function task() {
 
   q.launch( { interval: 1000 } );
 
+  q( { name: 'review.article_create', values: { id: 123478977978 } } );
 }
 
 async function evaluate( err, action ) {
@@ -44,9 +47,19 @@ async function evaluate( err, action ) {
     // if event is not present in events service, do nothing.
     if ( action.name === 'review.article_create' && !await _eventExists( action.values.id ) ) {
 
-      log( 'info', 'new event was not yet created for event id %s', action.values.id );
+      action.increment = ( action.increment || 0 );
 
-      q( action );
+      log( 'info', 'new event was not yet created for article id %s', action.values.id );
+
+      if ( action.increment < 10 ) {
+
+        q( _.extend( action, { increment: action.increment + 1 } ) );
+
+      } else {
+
+        log( 'info', 'retried too many times. Leaving it be' );
+
+      }
 
       result = { queued: true, action };
 
@@ -67,7 +80,7 @@ async function evaluate( err, action ) {
 
     } else if ( action.name === 'event.remove' ) {
 
-      result = await remove.byLegacyId( null, action.values.id );
+      log( 'not acting on remove through legacy transfer. remove should be done through event interface' )
 
     } else {
 

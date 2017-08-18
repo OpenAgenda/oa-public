@@ -9,8 +9,8 @@ let log = console.log;
 module.exports = ( event, context ) => {
 
   log( 'removed event %s with context %s', event.uid, JSON.stringify( context ) );
-
-  agendaEvents.remove( event.uid );
+  
+  agendaEvents.remove( event.uid, { context } );
 
   eventSearch.events.batch.remove( event, context ); // context should have agendaUid
 
