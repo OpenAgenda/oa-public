@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
+const VError = require( 'verror' );
 const promisePlusCb = require( 'service-utils/promisePlusCb' );
 const method = require( '../../utils/method' );
 const schema = require( 'validators/schema' );
@@ -153,9 +154,13 @@ function add() {
       }, mcb ) )
       .then( feeds => {
 
-        if ( !feeds.length ) throw new Error( 'You should choose at least one feed for add activity' );
+        if ( !feeds.length ) {
+          throw new Error( 'You should choose at least one feed for add activity' );
+        }
 
-        if ( feeds.filter( v => !v ).length ) throw new Error( 'One or more feeds doesn\'t exist' );
+        if ( feeds.filter( v => !v ).length ) {
+          throw new VError( 'One or more feeds doesn\'t exist in feeds %j', feedsToGet );
+        }
 
         return knex( config.schemas.activity ).insert( fields )
           .then( ( [ activityId ] ) => {

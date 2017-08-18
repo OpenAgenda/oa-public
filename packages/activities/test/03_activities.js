@@ -404,7 +404,10 @@ describe( 'activities - activities', function () {
           }
         }
       } )
-        .should.rejectedWith( Error, { message: 'One or more feeds doesn\'t exist' } );
+        .should.rejectedWith(
+          Error,
+          { message: 'One or more feeds doesn\'t exist in feeds [ { entityType: \'user\', entityUid: 75 } ]' }
+        );
 
     } );
 
