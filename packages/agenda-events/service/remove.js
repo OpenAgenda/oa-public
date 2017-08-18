@@ -27,6 +27,7 @@ module.exports = _.extend( remove, {
 
 async function remove( agendaUid, eventUid, options = {} ) {
 
+
   return await _remove( {
     event_uid: eventUid,
     agenda_uid: agendaUid,
@@ -35,13 +36,13 @@ async function remove( agendaUid, eventUid, options = {} ) {
 }
 
 
-async function byEventUid( eventUid ) {
+async function byEventUid( eventUid, options ) {
 
   let events = [], offset = 0, limit = 20;
 
   while ( ( events = ( await listByEventUid( eventUid, offset, limit ) ).items ).length ) {
 
-    events.forEach( e => queue( [ 'onRemove', e ] ) );
+    events.forEach( e => queue( [ 'onRemove', e, options ? options.context : undefined ] ) );
 
     offset += limit;
 
