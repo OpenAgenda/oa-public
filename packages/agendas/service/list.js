@@ -14,7 +14,9 @@ const _ = require( 'lodash' ),
 
  details = require( './details' ),
 
- parseListArguments = require( 'service-utils/parseListArguments' );
+ parseListArguments = require( 'service-utils/parseListArguments' ),
+
+ validateQuery = require( './validate/listQuery' );
 
 let service, schemas, imagePath, knex;
 
@@ -23,14 +25,19 @@ module.exports = _.extend( list, { init } );
 
 function list( q, off, l, op, c ) {
 
-  let { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
+  let { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments ),
 
-  query = _.extend( {
-    ids: null,
-    search: null,
-    updatedAtGreaterThan: null,
-    order: ''
-  }, query );
+    cleanQuery;
+
+  try {
+
+    cleanQuery = validateQuery( query );
+
+  } catch ( errors  ) {
+
+    return cb( new Error( 'invalid query' ) );
+
+  } 
 
   const finalOptions = _.extend( {
     private: false,
@@ -64,7 +71,7 @@ function list( q, off, l, op, c ) {
   w( {
     offset,
     limit,
-    query,
+    query: cleanQuery,
     options: finalOptions,
     knex: knex( schemas.agenda ),
     result: {
@@ -96,9 +103,23 @@ function _search( v ) {
 
   }
 
-  if ( v.query.ids ) {
+  if ( v.query.ids || v.query.id ) {
 
-    v.knex = v.knex.whereIn( 'id', v.query.ids );
+    let ids = v.query.id || v.query.ids;
+
+    if ( v.query.ids ) {
+
+      console.log( 'agendas.list: use of ids is DEPRECATED. Use id instead' );
+
+    }
+
+    v.knex = v.knex.whereIn( 'id', ids );
+
+  }
+
+  if ( v.query.uid ) {
+
+    v.knex = v.knex.whereIn( 'uid', v.query.uid );
 
   }
 
@@ -133,15 +154,11 @@ function _search( v ) {
 
 function _order( v ) {
 
-  if ( [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ]
+  if ( v.query.order ) {
 
-      .indexOf( v.query.order ) == -1 ) {
-
-    return v;
-
+    v.knex.orderBy.apply( v.knex, v.query.order.split( '.' ).map( _.snakeCase ) );
+    
   }
-
-  v.knex.orderBy.apply( v.knex, v.query.order.split( '.' ).map( _.snakeCase ) );
 
   return v;
 
