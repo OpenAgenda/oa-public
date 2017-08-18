@@ -30,9 +30,9 @@ module.exports = _.extend( search, {
 
 const index = eventSearch( 'events' );
 
-async function search( query = null, nav = null ) {
+async function search( query = null, nav = null, options = null ) {
 
-  return await index.search( query, nav );
+  return await index.search( query, nav, options );
 
 }
 
@@ -64,7 +64,7 @@ async function rebuild() {
 
   let createdAt = new Date();
 
-  createdAt.setDate( createdAt.getDate() - 30 );
+  createdAt.setDate( createdAt.getDate() - 90 );
 
   const max = 1000;
 

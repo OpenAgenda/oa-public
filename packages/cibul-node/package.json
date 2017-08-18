@@ -106,7 +106,7 @@
     "unsubscribed": "bitbucket:openagenda/unsubscribed",
     "users": "bitbucket:openagenda/users",
     "utils": "bitbucket:openagenda/utils",
-    "validator": "3.40.0",
+    "validator": "^7.0.0",
     "validators": "bitbucket:openagenda/validators",
     "verror": "^1.9.0",
     "when": "~3.4",

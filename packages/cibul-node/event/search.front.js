@@ -21,7 +21,7 @@ app.get( '/*', [ 
 
 app.get( '/', ( req, res, next ) => {
 
-  const p = search( req.query, req.query );
+  const p = search( req.query, req.query, req.query );
 
   p.catch( next );
 

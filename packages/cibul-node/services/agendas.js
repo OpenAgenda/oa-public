@@ -92,7 +92,9 @@ function onCreate( channel, agenda ) {
       }, ( err, stakeholder ) => {
 
         if ( err ) {
+
           return log( 'error', 'could not name agenda %s owner administrator, err: %s', agenda.id, err.message || err );
+          
         }
 
         activities.feed( agendaFeed ).activities.add( {

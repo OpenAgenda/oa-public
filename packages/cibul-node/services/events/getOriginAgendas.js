@@ -6,7 +6,7 @@ let log = console.log;
 
 module.exports = ( uids, options, cb ) => {
 
-  agendas.list( { uids }, options, cb );
+  agendas.list( { uid: uids }, options, cb );
 
 }
 

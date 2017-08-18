@@ -4,6 +4,8 @@ const eventSearch = require( 'event-search' );
 
 const agendaIndices = require( './agendaIndices' );
 
+const agendas = require( 'agendas' );
+
 const eventTransverseOperations = require( './eventTransverseOperations' );
 
 module.exports = {
