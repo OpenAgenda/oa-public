@@ -5,6 +5,7 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const isoConfig = require( '../iso/config' );
 const h = require( './lib/helpers' );
+const serviceHelpers = require( '../service/helpers' );
 const extend = require( 'lodash/extend' );
 const _ = require( 'lodash' );
 const async = require( 'async' );
@@ -62,6 +63,18 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
       req.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
       ( await sessions.isLogged( req ) ).should.equal( false );
+
+    } );
+
+  } );
+
+  describe( 'helpers', () => {
+
+    it( 'helpers.cleanSession does not remove keys from session object', () => {
+
+      let session = { somekey: '123' };
+
+      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123' } );
 
     } );
 

@@ -62,9 +62,7 @@ function cleanSession( session = {}, data = {} ) {
 
   let filtered = _.pick( session, Object.keys( session ) ),
 
-  clean = {};
-
-  Object.keys( session ).forEach( k => session[ k ] = undefined );
+    clean = {};
 
   try {
 
