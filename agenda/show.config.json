@@ -16,7 +16,7 @@
   },
   "base" : {
     "theme" : false,
-    "pageId" : "agenda",
+    "pageId" : false,
     "queryLang" : false,
     "isEmbed" : false,
     "passedIncluded" : false,

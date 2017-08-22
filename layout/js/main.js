@@ -136,6 +136,7 @@ window.asap = function ( cb ) {
 window.hook( () => {
 
   if ( !window.errorsTrackingConfig ) return;
+  
   const errorsTrackingConfig = window.errorsTrackingConfig;
 
   try {
