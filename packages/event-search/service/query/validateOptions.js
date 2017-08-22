@@ -25,16 +25,6 @@ module.exports = schema( {
   },
   aggregations: {
     list: { default: null },
-    fields: {
-      type: {
-        type: 'choice',
-        options: [ 'terms', 'timings' ],
-        unique: true,
-        default: 'terms'
-      },
-      field: {
-        type: 'text'
-      }
-    }
+    type: 'pass' // aggregations are cleaned separately - see aggregation/index
   }
 } );

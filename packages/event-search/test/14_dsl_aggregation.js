@@ -36,6 +36,46 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     } );
 
+
+    it( 'in fact, default aggregation is terms aggregation', () => {
+
+      buildAggregationDsl( [ 'location.region' ] )
+
+         .should.eql( { 
+          'location.region': { terms: { field: 'location.region' } } 
+        } );
+
+    } );
+
+
+    it( 'aggregation configurations can be predefined', () => {
+
+      buildAggregationDsl( [ 'keywords' ], {
+        keywords: { 
+          type: 'terms',
+          field: 'search_internals_keywords',
+          destination: 'keywords'
+        }
+      } ).should.eql( { keywords: { terms: { field: 'search_internals_keywords' } } } );
+
+    } )
+
+
+    it( 'destination aggregation keys can be different from aggregated field name', () => {
+
+      buildAggregationDsl( [ {
+        type: 'terms',
+        field: 'location.region',
+        destination: 'locationRegion'
+      } ] )
+
+        .should.eql( {
+          'locationRegion': { terms: { field: 'location.region' } } 
+        } );
+
+    } );
+
+
     it( 'define a timings aggregation', () => {
 
       buildAggregationDsl( [ {
@@ -87,6 +127,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
       } )
 
     } );
+
 
     it( 'parse result of timings aggregation', () => {
 

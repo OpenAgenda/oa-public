@@ -20,35 +20,34 @@ module.exports = _.extend( buildDsl, {
   parseResult
 } );
 
-function buildDsl( aggregators = [] ) {
+
+function buildDsl( aggregators = [], predefined = {} ) {
 
   let dsl = {};
 
-  aggregators.forEach( a => {
+  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined ) )
 
-    let clean = types[ a.type ].validate( a );
+    .forEach( ( { type, field, destination, data } ) => {
 
-    // simple template
+      // simple template
 
-    dsl[ clean.field ] = JSON.parse( types[ a.type ].template( clean ) );
+      dsl[ destination ] = JSON.parse( types[ type ].template( data ) );
 
-  } );
+    } );
 
   return dsl;
 
 }
 
-function parseResult( aggregators, result ) {
+function parseResult( aggregators, result, predefined = {} ) {
 
   let parsed = {};
 
-  aggregators.forEach( a => {
+  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined ) ).forEach( ( { type, field, destination, data } ) => {
 
-    const fieldName = types[ a.type ].validate( a ).field,
+    const parse = types[ type ].parse || _defaultParse.bind( null, destination );
 
-      parse = types[ a.type ].parse || _defaultParse.bind( null, fieldName );
-
-    parsed[ fieldName ] =  parse( result[ fieldName ] );
+    parsed[ destination ] =  parse( result[ destination ] );
 
   } );
 
@@ -59,5 +58,44 @@ function parseResult( aggregators, result ) {
 function _defaultParse( fieldName, result ) {
 
    return result.buckets.map( b => ( { key: b.key, count: b.doc_count } ) );
+
+}
+
+
+function _cleanAggregatorConfiguration( predefined = {}, a ) {
+
+  let aObj, type, field, destination, data;
+
+  if ( typeof a !== 'string' ) {
+
+    aObj = a;
+
+  } else if ( predefined[ a ] !== undefined ) {
+
+    aObj = predefined[ a ];
+
+  } else {
+
+    aObj = {
+      type: 'terms',
+      field: a,
+      destination: a,
+      data: { type: a, field: a }
+    }
+
+  }
+
+  type = aObj.type || 'terms';
+
+  field = aObj.field || aObj.type;
+
+  destination = aObj.destination || aObj.field || aObj.type;
+
+  return { 
+    type,
+    field,
+    destination,
+    data: types[ type ].validate( _.extend( {}, aObj, { type, field } ) )
+  };
 
 }
