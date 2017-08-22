@@ -6,6 +6,8 @@ const search = require( '../services/eventSearch' ).events;
 
 const cmn = require( '../lib/commons-app' );
 
+const ih = require( 'immutability-helper' );
+
 const sessions = require( 'sessions' );
 
 module.exports = ( parentApp, path ) => {
@@ -22,6 +24,16 @@ app.get( '/*', [ 
 app.get( '/', ( req, res, next ) => {
 
   const p = search( req.query, req.query, req.query );
+
+  p.catch( next );
+
+  p.then( result => res.json( result ) );
+
+} );
+
+app.get( '/aggs', ( req, res, next ) => {
+
+  const p = search( req.query, { size: 0 }, ih( req.query, { aggregations: { $set: [ 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } ) );
 
   p.catch( next );
 

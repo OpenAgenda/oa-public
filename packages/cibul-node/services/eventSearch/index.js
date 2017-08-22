@@ -25,6 +25,23 @@ function init( config ) {
       apiVersion: '5.3'
     },
 
+    predefinedAggregations: {
+      
+      keywords: { 
+        type: 'terms',
+        field: 'search_internals_keywords',
+        destination: 'keywords'
+      },
+
+      timingsByMonth: {
+        type: 'timings',
+        format: 'YYYY-MM',
+        interval: 'month',
+        destination: 'timingsByMonth'
+      }
+      
+    },
+
     interfaces: {},
 
   } );

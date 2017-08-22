@@ -147,7 +147,7 @@ function _processSignin( req, res, next ) {
 
     .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) )
 
-    .then( auth.ifUserLoaded( false, _attemptTwitterCreate ))
+    .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
 
