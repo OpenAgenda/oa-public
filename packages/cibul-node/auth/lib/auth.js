@@ -558,10 +558,14 @@ function redirectToComplete( values ) {
 
 function layoutData( req ) {
 
-  return {
+  const data = {
     optionals: loadOptionals( req ),
     agenda: req.agenda ? req.agenda : false
-  }
+  };
+
+  cmn.addZendeskHelpButton( data );
+
+  return data;
 
 }
 

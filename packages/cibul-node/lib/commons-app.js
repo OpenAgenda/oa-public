@@ -51,6 +51,8 @@ module.exports = {
   redirectLegacySearch,
   loadLegacyRoutes,
 
+  addZendeskHelpButton,
+
   redirectTo,
   redirectToSignin,
 
@@ -141,6 +143,17 @@ function loadEvent( paramName, fieldName ) {
       .catch( catchError( req, res ) );
 
   }
+
+}
+
+
+function addZendeskHelpButton( layoutData ) {
+
+  if( !layoutData.bottom ) layoutData.bottom = {};
+
+  if ( !layoutData.bottom.scripts ) layoutData.bottom.scripts = [];
+
+  layoutData.bottom.scripts.push( config.externalScripts.zendesk );
 
 }
 

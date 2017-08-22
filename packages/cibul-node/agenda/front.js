@@ -319,6 +319,8 @@ function agendaSearchPage( req, res, next ) {
 
   if ( req.xhr ) return next();
 
+  cmn.addZendeskHelpButton( req.baseData );
+
   cmn.render( req, res, 'agendaSearch/index', {
     search: req.query && req.query.search ? req.query.search : '',
     content: req.content,
@@ -711,6 +713,12 @@ function _layoutData( req, res ) {
     data.bottom = {
       scripts: [ 'window.controlData = \'' + req.genUrl( 'controlDataPrivate', { uid: req.agenda.uid } ) + '\'' ]
     }
+
+  }
+
+  if ( !req.embed ) {
+
+    cmn.addZendeskHelpButton( data );
 
   }
 
