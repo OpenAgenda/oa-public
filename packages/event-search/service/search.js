@@ -7,6 +7,8 @@ const VError = require( 'verror' );
 const validateNav = require( './query/validateNav' );
 const validateOptions = require( './query/validateOptions' );
 const parseQuery = require( './query' );
+const buildAggregationDsl = require( './aggregation' );
+const parseAggregationResult = require( './aggregation' ).parseResult;
 
 
 module.exports = _.extend( search, {
@@ -43,18 +45,20 @@ async function dsl( alias, dsl, options = {} ) {
 
   const res = await config.client.search( search );
 
-  return {
+  return _.extend( {
     events: res.hits.hits.map( h => h[ '_source' ] ),
     total: res.hits.total,
     scrollId: res[ '_scroll_id' ],
     searchAfter: dsl.sort && res.hits.hits.length ? res.hits.hits[ res.hits.hits.length - 1 ].sort : null
-  }
+  }, dsl.aggregations ? {
+    aggregations: res.aggregations
+  } : {} )
 
 }
 
 async function search( alias, query, nav = {}, options = {} ) {
 
-  let cleanNav = {}, cleanOptions = {};
+  let cleanNav = {}, cleanOptions = {}, cleanDsl;
 
   try {
 
@@ -76,9 +80,20 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   }
 
-  let { events, total } = await dsl( alias, 
-    parseQuery( query, cleanNav.size ? cleanNav : {}, ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes ) ), 
-    cleanNav.scroll ? cleanNav : {} );
+  cleanDsl = parseQuery( 
+    query, 
+    cleanNav.size !== undefined ? cleanNav : {}, 
+    ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes )
+  );
+
+
+  if ( cleanOptions.aggregations ) {
+
+    cleanDsl.aggregations = buildAggregationDsl( cleanOptions.aggregations );
+
+  }
+
+  let { events, total, aggregations } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
 
   let parsers = [ h.convertToLocalTimezone ];
 
@@ -88,7 +103,13 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   }
 
-  return {
+  if ( cleanOptions.aggregations ) {
+
+    aggregations = parseAggregationResult( cleanOptions.aggregations, aggregations );
+
+  }
+
+  return _.extend( {
     total,
     events: events.map( e => {
 
@@ -101,7 +122,7 @@ async function search( alias, query, nav = {}, options = {} ) {
       return e;
 
     } )
-  }
+  }, aggregations ? { aggregations } : {} );
 
 }
 

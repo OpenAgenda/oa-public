@@ -16,7 +16,7 @@ describe( 'event search - functional: search', function() {
 
   describe( 'simple', function() {
 
-    this.timeout( 10000 );
+    this.timeout( 20000 );
 
     before( done => {
 
@@ -232,6 +232,36 @@ describe( 'event search - functional: search', function() {
       events.map( e => e.slug ).should.eql( [ 'new_york_event', 'rhone_region_event' ] );
 
     } );
+
+
+    it( 'keyword search, with aggregation', async () => {
+
+      let { aggregations } = await service( 'simple_search' ).search( { 
+        keyword: 'word' 
+      }, { size: 0 }, {
+        aggregations: [ {
+          type: 'terms',
+          field: 'search_internals_keywords'
+        }, {
+          type: 'timings'
+        } ]
+      } );
+
+      aggregations.should.eql( { 
+        search_internals_keywords: [ 
+          { key: 'clé', count: 1 },
+          { key: 'key', count: 1 },
+          { key: 'mot', count: 1 },
+          { key: 'word', count: 1 }
+        ],
+        timings: [ { 
+          key: '2010-04-01', count: 2 
+        } ] 
+      } );
+
+    } );
+
+
 
 
     it( 'geolocation filtering', async () => {

@@ -1,0 +1,54 @@
+"use strict";
+
+module.exports = [ {
+  uid: 1111,
+  timezone: 'Europe/Paris',
+  timings: [ {
+    begin: '2017-08-03T09:00:00Z',
+    end: '2017-08-03T19:00:00Z'
+  }, {
+    begin: '2017-08-02T09:00:00Z',
+    end: '2017-08-02T19:00:00Z'
+  } ],
+  location: {
+    uid: 1,
+    name: 'la boutique',
+    latitude : 48.8675959,
+    longitude : 2.3516408,
+    department: 'Paris'
+  }
+}, {
+  uid: 2222,
+  timezone: 'Europe/Paris',
+  timings: [ {
+    begin: '2017-08-05T09:00:00Z',
+    end: '2017-08-05T19:00:00Z'
+  }, {
+    begin: '2017-08-05T09:00:00Z',
+    end: '2017-08-05T19:00:00Z'
+  } ],
+  location: {
+    uid: 2,
+    name: 'Café de la Gaité',
+    latitude : 48.866964,
+    longitude : 2.353406,
+    department: 'Paris'
+  }
+}, {
+  uid: 3333,
+  timezone: 'Europe/Paris',
+  timings: [ {
+    begin: '2017-08-07T09:00:00Z',
+    end: '2017-08-07T19:00:00Z'
+  }, {
+    begin: '2017-08-08T09:00:00Z',
+    end: '2017-08-08T19:00:00Z'
+  } ],
+  location: {
+    uid: 3,
+    name: 'Monument A La Victoire',
+    latitude : 49.16075,
+    longitude : 5.38461,
+    department: 'Meuse'
+  }
+} ];

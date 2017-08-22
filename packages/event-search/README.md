@@ -164,3 +164,14 @@ Sorting tests demonstrate how this is achieved with Elasticsearch DSL.
 
 To remove all indices:
 curl -XDELETE 'http://localhost:9205/_all'
+
+#  Aggregation
+
+Aggregation can be requested at the time of the search:
+
+    let { aggregations } = await service( 'indexName' ).search( /*search*/, /*nav*/, {
+      aggregations: [ {
+        type: 'terms',
+        field: 'location.department'
+      } ]
+    } );

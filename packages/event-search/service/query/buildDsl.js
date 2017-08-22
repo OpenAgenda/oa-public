@@ -32,7 +32,7 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
 
   // from / size?
-  if ( nav && nav.size ) {
+  if ( nav && nav.size !== undefined ) {
 
     dsl.from = nav.from;
     dsl.size = nav.size;
