@@ -8871,16 +8871,24 @@ a.text-success {
       border-right-color: #fff; }
 
 i.golden-icon {
-  background: url("https://s3.eu-central-1.amazonaws.com/oastatic/oa-golden-icon.png") no-repeat scroll 0 0 transparent;
-  width: 11px;
-  height: 14px;
+  background: url("https://s3.eu-central-1.amazonaws.com/oastatic/oa-white.svg") no-repeat scroll 0 0.05em #FFC235;
+  background-size: cover;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
   display: inline-block;
   vertical-align: text-bottom; }
-  i.golden-icon:hover {
-    background-position: -11px 0; }
+  i.golden-icon.gi-20 {
+    width: 20px;
+    height: 20px; }
+  i.golden-icon.gi-40 {
+    width: 40px;
+    height: 40px; }
+  i.golden-icon:not(.no-hover):hover {
+    opacity: 0.6; }
 
 .icon-hoverable:hover .golden-icon {
-  background-position: -11px 0; }
+  opacity: 0.6; }
 
 .form-page .form-head {
   padding: 0 0 2em; }
@@ -9164,6 +9172,17 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   font-size: 1.3em; }
   .help i:hover {
     color: #2ba3d9; }
+
+.js_call_to_action_canvas .popup-overlay .popup-title {
+  position: relative;
+  padding-left: 50px; }
+  .js_call_to_action_canvas .popup-overlay .popup-title i.golden-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 40px;
+    width: 40px;
+    border-radius: 0; }
 
 /**
  * React Select
@@ -9865,6 +9884,43 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   color: gray; }
   .activity-user ul .activity-item .activity-highlight, .activity-admin ul .activity-item .activity-highlight, .activity-agenda-admin ul .activity-item .activity-highlight, .js_activities .event-content ul .activity-item .activity-highlight {
     color: #413a42; }
+
+.activity-agenda-admin ul.filters li.active {
+  border: 1px solid #ccc;
+  border-radius: 4px; }
+  .activity-agenda-admin ul.filters li.active a {
+    background: #fff;
+    color: #413a42;
+    padding-right: 30px; }
+    .activity-agenda-admin ul.filters li.active a:after {
+      content: "\f00c";
+      font-family: FontAwesome;
+      height: 20px;
+      line-height: 40px;
+      position: absolute;
+      right: 2px;
+      top: -1px;
+      width: 20px; }
+    .activity-agenda-admin ul.filters li.active a:hover {
+      background: #da4453;
+      color: #fff; }
+      .activity-agenda-admin ul.filters li.active a:hover:after {
+        content: "\f00d"; }
+
+.activity-agenda-admin .activity-item .activity-highlight {
+  position: relative; }
+  .activity-agenda-admin .activity-item .activity-highlight:hover .fa.fa-filter {
+    display: inline-block; }
+  .activity-agenda-admin .activity-item .activity-highlight .fa.fa-filter {
+    display: none;
+    position: absolute;
+    right: -6px;
+    top: -4px;
+    vertical-align: super;
+    font-size: smaller;
+    color: #41acdd;
+    cursor: pointer;
+    padding: 0 0 6px 6px; }
 
 .notifications-body {
   width: 470px;

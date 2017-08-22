@@ -454,7 +454,7 @@ $dayInWeek: 7;
         content: " ";
         display: block;
         height: 0;
-        margin-top: -ceil(2.5px);
+        margin-top: ceil(2.5px);
         position: absolute;
         right: 10px;
         top: 15px;
@@ -489,9 +489,7 @@ $dayInWeek: 7;
 
       text-align: right;
       display: block;
-      padding-left: $timetableWidth;
-      padding-right: 15px;
-      
+      padding: 0px 15px 2px $timetableWidth;
 
       .rc-day-name {
 
@@ -499,16 +497,14 @@ $dayInWeek: 7;
 
         div {
 
-          padding: 15px 0;
+          padding: 0px 0px 4px 0;
           display: block;
           
           @include text-overflow(ellipsis);
           text-align: center;
           white-space: nowrap;
-          line-height: $dayHeaderHeight;
-          height: $dayHeaderHeight;
+          line-height: 16px;
           border-left: 1px solid white;
-
 
         }
 

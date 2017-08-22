@@ -22,6 +22,12 @@
 
   }
 
+  input[placeholder] {
+
+    text-overflow: ellipsis;
+
+  }
+
   .suggestion-nav {
 
     position: absolute;
@@ -336,7 +342,6 @@
         }
 
       }
-
 
     }
 

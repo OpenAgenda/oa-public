@@ -36,6 +36,81 @@
 
 }
 
+.activity-agenda-admin {
+
+  ul.filters {
+
+    li.active {
+
+      border: 1px solid $oa-gray-light;
+      border-radius: 4px;
+
+      a {
+
+        background: $oa-white;
+        color: #413a42;
+        padding-right: 30px;
+
+        &:after {
+
+          content: "\f00c";
+          font-family: FontAwesome;
+          height: 20px;
+          line-height: 40px;
+          position: absolute;
+          right: 2px;
+          top: -1px;
+          width: 20px;
+
+        }
+
+        &:hover {
+
+          background: $oa-red;
+          color: $oa-white;
+
+          &:after {
+
+            content: "\f00d";
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .activity-item .activity-highlight {
+
+    position: relative;
+
+    &:hover .fa.fa-filter {
+
+      display: inline-block;
+
+    }
+
+    .fa.fa-filter {
+
+      display: none;
+      position: absolute;
+      right: -6px;
+      top: -4px;
+      vertical-align: super;
+      font-size: smaller;
+      color: $oa-blue;
+      cursor: pointer;
+      padding: 0 0 6px 6px;
+
+    }
+
+  }
+
+}
+
 .notifications-body {
 
   width: 470px;
