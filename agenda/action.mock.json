@@ -18,6 +18,8 @@
       "lang" : "fr"
     },
 
+    "key" : null,
+
     "oaq" : { "passed" : 1 }
 
   },
