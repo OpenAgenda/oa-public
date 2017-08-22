@@ -14653,7 +14653,12 @@ i.mce-i-backcolor {
       .notifications-body .list-group .notif-item .notif-highlight {
         color: #413a42; }
     .notifications-body .list-group a.list-group-item {
-      position: relative; }
+      position: relative;
+      /* see #note1 */
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      /* see #note1 */ }
       .notifications-body .list-group a.list-group-item:not(.read) {
         background-color: #f2f9fd !important; }
       .notifications-body .list-group a.list-group-item:hover {
@@ -14674,7 +14679,10 @@ i.mce-i-backcolor {
           bottom: 0;
           right: 14px; }
 
-@media screen and (max-width: 991px) {
+/* #note1 */
+@media screen and (max-width: 768px) {
   .notifications-body {
     margin-left: auto;
     margin-right: auto; } }
+
+/* #note1 force style and variable values for compatibility with oaCss styles of cibul-template projects ( see .config files with oaCss keys ) */
