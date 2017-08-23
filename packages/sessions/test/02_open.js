@@ -17,7 +17,7 @@ describe( 'session - functional (server): open', () => {
 
   h.init( config );
 
-  let request;
+  let request, response;
 
   beforeEach( h.clearRedis );
 
@@ -26,6 +26,11 @@ describe( 'session - functional (server): open', () => {
   beforeEach( () => {
 
     request = { cookies: {}, session: {} };
+
+    response = {
+      writable: {},
+      cookie: function( name, value ) { this.writable[ name ] = value; }
+    }
 
     request.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
@@ -149,5 +154,19 @@ describe( 'session - functional (server): open', () => {
     } );
 
   } );
+
+
+  it( 'if given a response object, open clears writable cookie', done => {
+
+    sessions.open( request, response, { uid: 1234 }, ( err, result ) => {
+
+      ( new Buffer( response.writable[ config.writableCookie.name ], 'base64' ) ).toString( 'utf-8' ).should.equal( '{}' );
+
+      done();
+
+    } );
+
+
+  } )
 
 } );

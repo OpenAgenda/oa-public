@@ -28,7 +28,7 @@ describe( 'session - functional (server): initialization', () => {
 
       done();
 
-    });
+    } );
 
   } );
 

@@ -8,7 +8,16 @@ module.exports = ( name, request, response ) => {
 
   return {
     set,
+    clear,
     get: () => values
+  }
+
+  function clear() {
+
+    if ( typeof response.cookie !== 'function' ) return;
+
+    response.cookie( name, ( new Buffer( JSON.stringify( {} ) ) ).toString( 'base64' ), { maxAge: 1 } );
+
   }
 
   function set( key, update ) {

@@ -43,4 +43,24 @@ describe( 'session - unit (server): express cookies', () => {
 
   } );
 
+  it( 'expressCookie clear removes all values from cookie', () => {
+
+    let responseCookie = {};
+
+    let ec = expressCookie( 'grut', 
+      /* request obj */ {
+        cookies: {
+          grut: base64.encode( JSON.stringify( { the: 'content' } ) )
+        }
+      },
+      /* response obj */ {
+        cookie: ( name, values, options ) => responseCookie[ name ] = values
+      } );
+
+    ec.clear();
+
+    responseCookie.grut.should.equal( base64.encode( JSON.stringify( {} ) ) );
+
+  } );
+
 } ); 

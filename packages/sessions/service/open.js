@@ -5,13 +5,22 @@ const { cleanSession, callbackify, redisCommand, interfaces } = require( './help
 const cookieValidate = require( '../iso/cookie.validate' );
 const logger = require( 'basic-logger' );
 const validate = require( './validate' );
+const expressCookie = require( './expressCookie' );
 const _ = require( 'lodash' );
 
 let log = console.log;
 
-module.exports = ( request, identifier, cb ) => {
+module.exports = ( request, response, identifier, cb ) => {
 
-  callbackify( open( request, identifier ), cb );
+  if ( !cb ) {
+
+    cb = identifier;
+    identifier = response;
+    response = null;
+
+  }
+
+  callbackify( open( request, response, identifier ), cb );
 
 }
 
@@ -23,7 +32,7 @@ module.exports.init = () => {
 
 module.exports.promise = open;
 
-async function open( request, identifier ) {
+async function open( request, response, identifier ) {
 
   if ( !config.initialized ) throw new Error( 'service has not been initialized' );
 
@@ -67,6 +76,13 @@ async function open( request, identifier ) {
   cookieData = cookieValidate( { user: sessionUser } );
 
   cleanSession( request.session, cookieData );
+
+  // clear writable cookie
+  if ( response ) {
+    
+    expressCookie( config.writableCookie.name, request, response ).clear();
+
+  }
 
   return {
     success: true,
