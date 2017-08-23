@@ -6,6 +6,7 @@ const sessions = require( 'sessions' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
 const keysSvc = require( 'keys' );
 const __ = require( 'labels' )( require( 'labels/agendas/errors' ) );
+const _ = require( 'lodash' );
 const getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) );
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
@@ -14,6 +15,7 @@ const agendaEvents = require( 'agenda-events' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
 const cbify = require( 'utils/cbify' );
+const agendas = require( 'agendas' );
 
 const routes = {
 
@@ -25,6 +27,7 @@ const routes = {
     ] ],
 
     agendaEventAdd: [ 'get', '/add/:eventUid', [
+      _verifyIP,
       sessions.middleware.load(),
       sessions.middleware.ifUnlogged( cmn.redirectTo() ),
       eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
@@ -35,6 +38,7 @@ const routes = {
     ] ],
 
     agendaEventRemove: [ 'get', '/remove/:eventUid', [
+      _verifyIP,
       sessions.middleware.load(),
       sessions.middleware.ifUnlogged( cmn.redirectTo() ),
       eventSvc.mw.load( 'eventUid', 'uid' ),
@@ -302,6 +306,27 @@ function eventRemove( req, res ) {
     }
 
   });
+
+}
+
+
+function _verifyIP( req, res, next ) {
+
+  agendas.get( req.agenda.id, { private: null }, ( err, agenda ) => {
+
+    if ( err ) return next( err );
+
+    if ( !agenda ) return next( 'agenda not found' );
+
+    if ( !agenda.settings.contribution.authorizedIpAddresses ) return next();
+
+    if ( !agenda.settings.contribution.authorizedIpAddresses.length ) return next();
+
+    if ( agenda.settings.contribution.authorizedIpAddresses.includes( req.header( 'x-forwarded-for' ) ) ) return next();
+
+    res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agenda.slug } ) );
+
+  } );
 
 }
 

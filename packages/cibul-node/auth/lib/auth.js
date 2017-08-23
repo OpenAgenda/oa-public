@@ -292,7 +292,7 @@ function signin( values ) {
 
   values.req.log( 'info', 'signing in user %s', user.email );
 
-  sessions.open( req, user, ( err, session ) => {
+  sessions.open( req, res, user, ( err, session ) => {
     
     var redirectUrl;
 

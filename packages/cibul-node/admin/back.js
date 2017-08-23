@@ -311,7 +311,7 @@ function userUpdate( req, res, next ) {
 
 function userSignin( req, res ) {
 
-  sessions.open( req, req.loadedUser, () => {
+  sessions.open( req, res, req.loadedUser, () => {
 
     if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
 
