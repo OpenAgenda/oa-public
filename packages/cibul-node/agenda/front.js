@@ -14,6 +14,8 @@ const sessions = require( 'sessions' ),
 
   getEventLabel = require( 'labels' )( require( 'labels/event/show' ) ),
 
+  unauthorizedIpLabel = require( 'labels' )( require( 'labels/agendas/unauthorizedIp' ) ),
+
   agendaSvc = require( '../services/agenda' ),
 
   // newer dedicated service
@@ -190,6 +192,12 @@ const sessions = require( 'sessions' ),
     agendaResync: [ 'get', '/:slug/resync', [
       agendaSvc.mw.load( 'slug', { cache: true } ),
       resync
+    ] ],
+
+    agendaUnauthorized: [ 'get', '/:slug/unauthorized/ip', [
+      cmn.loadBaseData( 'oasfmain.css' ),
+      agendaSvc.mw.load( 'slug', { cache: true } ),
+      unauthorizedIP 
     ] ]
 
   };
@@ -739,6 +747,30 @@ function _layoutData( req, res ) {
   });
 
   return data;
+
+}
+
+
+function unauthorizedIP( req, res ) {
+
+  cmn.render( req, res, 'dialog/index', {
+    agenda: req.agenda,
+    title: unauthorizedIpLabel( 'title', req.lang ),
+    content: unauthorizedIpLabel( 'content', req.lang ),
+    actions: [ {
+      type: 'primary',
+      href: req.genUrl( 'conversationAgendaContact', {
+        uid: req.agenda.uid,
+      } ),
+      label: unauthorizedIpLabel( 'contact', req.lang )
+    }, {
+      type: 'default',
+      href: req.genUrl( 'agendaShow', {
+        slug: req.agenda.slug,
+      } ),
+      label: unauthorizedIpLabel( 'back', req.lang )
+    } ]
+  } );
 
 }
 
