@@ -92,7 +92,7 @@ export default class MarkdownComponent extends Component {
           value={ marked( value ) }
           style={{ minHeight: '200px', visibility: 'hidden' }}
           onChange={() => {
-            console.log('?');
+            
           }}
         >
         </textarea>

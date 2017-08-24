@@ -78,8 +78,6 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
     key: 'render',
     value: function render() {
 
-      console.log('????');
-
       if (!this.state.tinyMceReady) return null;
 
       if (!this.state.editorId) {
@@ -112,9 +110,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
           className: this.state.uniqueClassName,
           value: (0, _marked2.default)(value),
           style: { minHeight: '200px', visibility: 'hidden' },
-          onChange: function onChange() {
-            console.log('?');
-          }
+          onChange: function onChange() {}
         })
       );
     }
