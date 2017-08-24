@@ -6,7 +6,7 @@ cn = require(  '../../js/lib/common/common.mod.js' ),
 
 config = require( './config' ),
 
-UID = 0,
+UID = 0, LANG = 1,
 
 env = window.env ? window.env : 'production',
 
@@ -202,6 +202,8 @@ function _init() {
 
     json = ( config.res[ env ]  ? config.res[ env ].json : config.res.all.json ).replace( '{uid}', arr[ UID ] );
 
+    if ( arr.length === 2 ) lang = arr[ LANG ];
+
     if ( !link ) {
 
       throw 'href link is missing in oa preview widget body ( first <a> tag in widget body should have an href attribute. Check that your page html is valid )';
@@ -217,6 +219,7 @@ function _init() {
     widget( elem, {
       uid: arr[ UID ],
       link: link,
+      lang: lang,
       json: json,
       eventPart: link.indexOf( 'openagenda.com' ) !== -1 ? res.eventPart : res.embedEventPart,
       useStyle: !elem.hasAttribute( config.attributes.noDefaultStyle ),
