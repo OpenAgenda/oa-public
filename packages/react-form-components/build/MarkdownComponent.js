@@ -56,7 +56,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
     });
 
     _this.state = {
-      tinyMceReady: false,
+      tinyMceReady: typeof tinymce !== 'undefined',
       editorId: null,
       uniqueClassName: _this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     };
@@ -77,6 +77,8 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
+
+      console.log('????');
 
       if (!this.state.tinyMceReady) return null;
 
@@ -196,6 +198,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
       (0, _uniqueLoad2.default)(this.props.tinyMceUrl, function (err, script) {
 
+        console.log('?');
         _this3.setState({
           tinyMceReady: true
         });

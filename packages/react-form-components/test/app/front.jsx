@@ -129,9 +129,18 @@ var React = require( 'react' ),
 
     removeFirstMarkdownComponent: function() {
 
-      let change = { multiMd: { $splice: [[ 0, 1 ]] } };
+      this.setState( update( this.state, { multiMd: { $splice: [[ 0, 1 ]] } } ) );
 
-      this.setState( update( this.state, change ) );
+    },
+
+    addFirstMarkdownComponent: function() {
+
+      this.setState( update( this.state, { multiMd: { $push: [ {
+        lang: 'it',
+        label: 'one more time',
+        placeholder: 'nippingsnout',
+        markdown: 'Nippinipppiniinp pinnipinini'
+      } ] } } ) );
 
     },
 
@@ -212,6 +221,8 @@ var React = require( 'react' ),
           onChange={this.onMultiMarkdownChange.bind( null, i )} 
           value={c.markdown}
         /> ) }
+
+        <button onClick={this.addFirstMarkdownComponent}>ajouter</button>
 
         <p>{this.state.markdown}</p>
 

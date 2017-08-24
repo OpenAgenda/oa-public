@@ -47,7 +47,7 @@ export default class MarkdownComponent extends Component {
     } );
 
     this.state = {
-      tinyMceReady: false,
+      tinyMceReady: typeof tinymce !== 'undefined',
       editorId: null,
       uniqueClassName: this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     }
@@ -182,6 +182,7 @@ export default class MarkdownComponent extends Component {
 
     uniqueLoad( this.props.tinyMceUrl, ( err, script ) => {
 
+      console.log( '?' );
       this.setState( {
         tinyMceReady: true
       } );
