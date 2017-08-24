@@ -88,12 +88,12 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
         setTimeout(this.updateTinyMceEditor);
       }
 
-      // this is not normal, it is executed every time a component is rendered.
+      if (typeof document !== 'undefined') setTimeout(this.initializeTinyMce);
 
       var _props = this.props,
           className = _props.className,
-          label = _props.label,
           placeholder = _props.placeholder,
+          label = _props.label,
           value = _props.value;
 
 
@@ -109,6 +109,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
           placeholder: placeholder,
           className: this.state.uniqueClassName,
           value: (0, _marked2.default)(value),
+          style: { minHeight: '200px', visibility: 'hidden' },
           onChange: function onChange() {
             console.log('?');
           }
@@ -212,7 +213,8 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   onChange: _propTypes2.default.func,
   tinyMceOptions: _propTypes2.default.object,
   uniqueClassName: _propTypes2.default.string,
-  lang: _propTypes2.default.string
+  lang: _propTypes2.default.string,
+  loadComponent: _propTypes2.default.node
 }, _class.defaultProps = {
   className: 'form-group',
   value: '',
@@ -221,7 +223,8 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
   placeholder: null,
   onChange: function onChange() {},
   uniqueClassName: null,
-  lang: 'fr'
+  lang: 'fr',
+  loadComponent: null
 }, _temp);
 exports.default = MarkdownComponent;
 

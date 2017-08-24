@@ -19,7 +19,8 @@ export default class MarkdownComponent extends Component {
     onChange: PropTypes.func,
     tinyMceOptions: PropTypes.object,
     uniqueClassName: PropTypes.string,
-    lang: PropTypes.string
+    lang: PropTypes.string,
+    loadComponent: PropTypes.node
   };
 
   static defaultProps = {
@@ -31,7 +32,8 @@ export default class MarkdownComponent extends Component {
     onChange: () => {
     },
     uniqueClassName: null,
-    lang: 'fr'
+    lang: 'fr',
+    loadComponent: null
   };
 
   constructor( props ) {
@@ -76,17 +78,19 @@ export default class MarkdownComponent extends Component {
 
     }
 
-    // this is not normal, it is executed every time a component is rendered.
 
-    const { className, label, placeholder, value } = this.props;
+    if ( typeof document !== 'undefined' ) setTimeout( this.initializeTinyMce );
+
+    const { className, placeholder, label, value } = this.props;
 
     return (
       <div className={className}>
-        { label && <label>{label}</label> }
+        {label && <label>{label}</label>}
         <textarea
           placeholder={placeholder}
           className={this.state.uniqueClassName}
           value={ marked( value ) }
+          style={{ minHeight: '200px', visibility: 'hidden' }}
           onChange={() => {
             console.log('?');
           }}
