@@ -88,8 +88,6 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
         setTimeout(this.updateTinyMceEditor);
       }
 
-      if (typeof document !== 'undefined') setTimeout(this.initializeTinyMce);
-
       var _props = this.props,
           className = _props.className,
           placeholder = _props.placeholder,

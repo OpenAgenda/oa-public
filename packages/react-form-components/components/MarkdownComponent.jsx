@@ -78,9 +78,6 @@ export default class MarkdownComponent extends Component {
 
     }
 
-
-    if ( typeof document !== 'undefined' ) setTimeout( this.initializeTinyMce );
-
     const { className, placeholder, label, value } = this.props;
 
     return (
