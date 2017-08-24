@@ -3,9 +3,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import utils from 'utils';
-import load from 'load-script';
+import uniqueLoad from '../lib/uniqueLoad';
 import toMarkdown from 'to-markdown';
 import marked from 'marked';
+
 
 export default class MarkdownComponent extends Component {
 
@@ -39,23 +40,43 @@ export default class MarkdownComponent extends Component {
 
     utils.extend( this, {
       loadTinyMce: this.loadTinyMce.bind( this ),
-      initializeTinyMce: this.initializeTinyMce.bind( this )
+      initializeTinyMceEditor: this.initializeTinyMceEditor.bind( this ),
+      updateTinyMceEditor: this.updateTinyMceEditor.bind( this )
     } );
 
     this.state = {
-      tinyMceIsLoaded: false,
+      tinyMceReady: false,
+      editorId: null,
       uniqueClassName: this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     }
 
-    if ( typeof document !== 'undefined' ) this.loadTinyMce();
+    if ( !this.state.tinyMceReady ) this.loadTinyMce();
+
+  }
+
+  componentWillUnmount() {
+
+    if ( !this.state.editorId ) return console.log( 'not loaded' );
+
+    tinymce.get(this.state.editorId).remove();
 
   }
 
   render() {
 
-    if ( !this.state.tinyMceIsLoaded ) return null;
+    if ( !this.state.tinyMceReady ) return null;
 
-    if ( typeof document !== 'undefined' ) setTimeout( this.initializeTinyMce );
+    if ( !this.state.editorId ) {
+
+      setTimeout( this.initializeTinyMceEditor )
+
+    } else {
+
+      setTimeout( this.updateTinyMceEditor );
+
+    }
+
+    // this is not normal, it is executed every time a component is rendered.
 
     const { className, label, placeholder, value } = this.props;
 
@@ -67,6 +88,7 @@ export default class MarkdownComponent extends Component {
           className={this.state.uniqueClassName}
           value={ marked( value ) }
           onChange={() => {
+            console.log('?');
           }}
         >
         </textarea>
@@ -75,7 +97,22 @@ export default class MarkdownComponent extends Component {
 
   }
 
-  initializeTinyMce() {
+  updateTinyMceEditor() {
+
+    const editor = tinymce.get( this.state.editorId );
+
+    if ( !editor ) return;
+
+    if ( this.state.editorMarkdown !== this.props.value ) {
+
+      // value in editor has diverged from value given in props. Needs to be updated
+      tinymce.get( this.state.editorId ).setContent( marked( this.props.value ) );
+
+    }    
+
+  }
+
+  initializeTinyMceEditor() {
 
     tinymce.init( {
       selector: '.' + this.state.uniqueClassName,
@@ -97,11 +134,16 @@ export default class MarkdownComponent extends Component {
 
       setup: editor => {
 
+        this.setState( {
+          editorId: editor.id,
+          editorMarkdown: this.props.value
+        } );
+
         makeUrlConverter( editor );
 
         editor.on( 'change', e => {
 
-          this.props.onChange( toMarkdown( e.target.getContent() ) );
+          this.onTinyMCEChange( e.target.getContent() );
 
         } );
 
@@ -119,11 +161,26 @@ export default class MarkdownComponent extends Component {
 
   }
 
+  onTinyMCEChange( html ) {
+
+    const editorMarkdown = toMarkdown( html );
+
+    this.setState( {
+      editorMarkdown
+    } );
+
+    this.props.onChange( editorMarkdown );
+
+
+  }
+
   loadTinyMce() {
 
-    load( this.props.tinyMceUrl, ( err, script ) => {
+    uniqueLoad( this.props.tinyMceUrl, ( err, script ) => {
 
-      this.setState( { tinyMceIsLoaded: true } );
+      this.setState( {
+        tinyMceReady: true
+      } );
 
     } );
 

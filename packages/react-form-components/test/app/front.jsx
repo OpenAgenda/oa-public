@@ -45,6 +45,17 @@ Wrapper = createReactClass( {
 
     return {
       markdown: '',
+      multiMd: [ {
+        lang: 'fr',
+        label: 'eh ouais',
+        placeholder: 'gros',
+        markdown: 'Le truc pas évident est de pouvoir manipuler plusieurs éditeurs sur une même page.'
+      }, {
+        lang: 'en',
+        label: 'ou non',
+        placeholder: 'meh',
+        markdown: 'En particulier pour la suppression.'
+      } ],
       translation: {
         source: 'en',
         sets: [ {
@@ -117,6 +128,14 @@ Wrapper = createReactClass( {
 
   },
 
+  removeFirstMarkdownComponent: function() {
+
+    let change = { multiMd: { $splice: [[ 0, 1 ]] } };
+
+    this.setState( update( this.state, change ) );
+
+  },
+
   onChange: function( name, value ) {
 
     var change = { values: {} };
@@ -130,6 +149,18 @@ Wrapper = createReactClass( {
   onMarkdownChange: function( value ) {
 
     this.setState( { markdown: value } );
+
+  },
+
+  onMultiMarkdownChange: function( i, value ) {
+
+    let updated = { multiMd: {} };
+
+    updated.multiMd[ i ] = {};
+
+    updated.multiMd[ i ].markdown = { $set: value };
+
+    this.setState( update( this.state, updated ) );
 
   },
 
@@ -172,12 +203,16 @@ Wrapper = createReactClass( {
 
       <h2>Wysiwyg component</h2>
 
-      <MarkdownComponent 
-        lang="fr"
-        label="eh ouais"
-        placeholder="gros"
-        onChange={this.onMarkdownChange} 
-        value={this.state.markdown} />
+      <button onClick={this.removeFirstMarkdownComponent}>supprimer le premier</button>
+
+      { this.state.multiMd.map( ( c, i ) => <MarkdownComponent
+        key={i}
+        lang={c.lang}
+        label={c.label}
+        placeholder={c.placeholder}
+        onChange={this.onMultiMarkdownChange.bind( null, i )} 
+        value={c.markdown}
+      /> ) }
 
       <p>{this.state.markdown}</p>
 

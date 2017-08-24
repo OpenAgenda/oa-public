@@ -21,9 +21,9 @@ var _utils = require('utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _loadScript = require('load-script');
+var _uniqueLoad = require('../lib/uniqueLoad');
 
-var _loadScript2 = _interopRequireDefault(_loadScript);
+var _uniqueLoad2 = _interopRequireDefault(_uniqueLoad);
 
 var _toMarkdown = require('to-markdown');
 
@@ -51,26 +51,44 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
     _utils2.default.extend(_this, {
       loadTinyMce: _this.loadTinyMce.bind(_this),
-      initializeTinyMce: _this.initializeTinyMce.bind(_this)
+      initializeTinyMceEditor: _this.initializeTinyMceEditor.bind(_this),
+      updateTinyMceEditor: _this.updateTinyMceEditor.bind(_this)
     });
 
     _this.state = {
-      tinyMceIsLoaded: false,
+      tinyMceReady: false,
+      editorId: null,
       uniqueClassName: _this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     };
 
-    if (typeof document !== 'undefined') _this.loadTinyMce();
+    if (!_this.state.tinyMceReady) _this.loadTinyMce();
 
     return _this;
   }
 
   _createClass(MarkdownComponent, [{
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+
+      if (!this.state.editorId) return console.log('not loaded');
+
+      tinymce.get(this.state.editorId).remove();
+    }
+  }, {
     key: 'render',
     value: function render() {
 
-      if (!this.state.tinyMceIsLoaded) return null;
+      if (!this.state.tinyMceReady) return null;
 
-      if (typeof document !== 'undefined') setTimeout(this.initializeTinyMce);
+      if (!this.state.editorId) {
+
+        setTimeout(this.initializeTinyMceEditor);
+      } else {
+
+        setTimeout(this.updateTinyMceEditor);
+      }
+
+      // this is not normal, it is executed every time a component is rendered.
 
       var _props = this.props,
           className = _props.className,
@@ -91,13 +109,29 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
           placeholder: placeholder,
           className: this.state.uniqueClassName,
           value: (0, _marked2.default)(value),
-          onChange: function onChange() {}
+          onChange: function onChange() {
+            console.log('?');
+          }
         })
       );
     }
   }, {
-    key: 'initializeTinyMce',
-    value: function initializeTinyMce() {
+    key: 'updateTinyMceEditor',
+    value: function updateTinyMceEditor() {
+
+      var editor = tinymce.get(this.state.editorId);
+
+      if (!editor) return;
+
+      if (this.state.editorMarkdown !== this.props.value) {
+
+        // value in editor has diverged from value given in props. Needs to be updated
+        tinymce.get(this.state.editorId).setContent((0, _marked2.default)(this.props.value));
+      }
+    }
+  }, {
+    key: 'initializeTinyMceEditor',
+    value: function initializeTinyMceEditor() {
       var _this2 = this;
 
       tinymce.init({
@@ -120,11 +154,16 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
         setup: function setup(editor) {
 
+          _this2.setState({
+            editorId: editor.id,
+            editorMarkdown: _this2.props.value
+          });
+
           makeUrlConverter(editor);
 
           editor.on('change', function (e) {
 
-            _this2.props.onChange((0, _toMarkdown2.default)(e.target.getContent()));
+            _this2.onTinyMCEChange(e.target.getContent());
           });
         },
 
@@ -138,13 +177,27 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
       });
     }
   }, {
+    key: 'onTinyMCEChange',
+    value: function onTinyMCEChange(html) {
+
+      var editorMarkdown = (0, _toMarkdown2.default)(html);
+
+      this.setState({
+        editorMarkdown: editorMarkdown
+      });
+
+      this.props.onChange(editorMarkdown);
+    }
+  }, {
     key: 'loadTinyMce',
     value: function loadTinyMce() {
       var _this3 = this;
 
-      (0, _loadScript2.default)(this.props.tinyMceUrl, function (err, script) {
+      (0, _uniqueLoad2.default)(this.props.tinyMceUrl, function (err, script) {
 
-        _this3.setState({ tinyMceIsLoaded: true });
+        _this3.setState({
+          tinyMceReady: true
+        });
       });
     }
   }]);
