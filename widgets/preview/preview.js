@@ -202,7 +202,7 @@ function _init() {
 
     json = ( config.res[ env ]  ? config.res[ env ].json : config.res.all.json ).replace( '{uid}', arr[ UID ] );
 
-    if ( arr.length === 2 ) lang = arr[ LANG ];
+    if ( arr.length === 2 ) lang = arr[ LANG ].toLowerCase();
 
     if ( !link ) {
 
