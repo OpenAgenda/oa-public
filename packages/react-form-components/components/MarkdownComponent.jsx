@@ -179,7 +179,6 @@ export default class MarkdownComponent extends Component {
 
     uniqueLoad( this.props.tinyMceUrl, ( err, script ) => {
 
-      console.log( '?' );
       this.setState( {
         tinyMceReady: true
       } );

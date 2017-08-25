@@ -192,7 +192,6 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
 
       (0, _uniqueLoad2.default)(this.props.tinyMceUrl, function (err, script) {
 
-        console.log('?');
         _this3.setState({
           tinyMceReady: true
         });

@@ -1,8 +1,14 @@
-const load = require( 'load-script' );
+"use strict";
 
-let loads = {}
+/**
+ * ES5 as is not transpiled
+ */
 
-module.exports = ( res, cb ) => {
+var load = require( 'load-script' );
+
+var loads = {};
+
+module.exports = function( res, cb ) {
 
   if ( loads[ res ] ) {
 
@@ -18,13 +24,17 @@ module.exports = ( res, cb ) => {
 
 function _loader( res, cb ) {
 
-  let loaded = null, cbs = [];
+  var loaded = null, cbs = [];
 
-  load( res, ( err, script ) => {
+  load( res, function ( err, script ) {
 
     loaded = { err, script };
 
-    cbs.forEach( cb => cb( err, script ) );
+    cbs.forEach( function( cb ) {
+
+      cb( err, script );
+
+    } );
 
   } );
 
