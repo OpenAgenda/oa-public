@@ -1,8 +1,8 @@
-import load from 'load-script';
+const load = require( 'load-script' );
 
 let loads = {}
 
-export default ( res, cb ) => {
+module.exports = ( res, cb ) => {
 
   if ( loads[ res ] ) {
 
