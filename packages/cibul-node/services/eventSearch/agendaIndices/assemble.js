@@ -176,7 +176,7 @@ function _getMemberMap( agendaEvents = [] ) {
 
       if ( err ) return rj( new VError( err, 'could not get agenda %s', agendaUid ) );
 
-      if ( !agenda ) return rj( new Error( 'could not find agenda ' + agendaUid ) );
+      if ( !agenda ) return rj( new VError( 'could not find agenda %s of first agendaEvent %s', agendaUid, JSON.stringify( agendaEvents[ 0 ] ) ) );
 
       let users = await _getUsersByUid( agendaEvents.map( ae => ae.userUid ).filter( uid => !!uid ) );
 
