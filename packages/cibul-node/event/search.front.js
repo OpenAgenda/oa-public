@@ -23,7 +23,9 @@ app.get( '/*', [ 
 
 app.get( '/', ( req, res, next ) => {
 
-  const p = search( req.query, req.query, req.query );
+  const options = _defineOptions( req.query ); // this is cleaned in search.
+
+  const p = search( req.query, req.query, options );
 
   p.catch( next );
 
@@ -33,7 +35,9 @@ app.get( '/', ( req, res, next ) => {
 
 app.get( '/aggs', ( req, res, next ) => {
 
-  const p = search( req.query, { size: 0 }, ih( req.query, { aggregations: { $set: [ 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } ) );
+  const options = _defineOptions( req.query, true );
+
+  const p = search( req.query, { size: 0 }, options );
 
   p.catch( next );
 
@@ -48,3 +52,16 @@ app.get( '/rebuild', ( req, res, next ) => {
   res.send( 'rebuilding' );
 
 } );
+
+
+function _defineOptions( query, forceAggs = false ) {
+
+  if ( forceAggs || query.aggs ) {
+
+    return ih( query, { aggregations: { $set: [ 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } )
+
+  }
+
+  return query;
+
+}
