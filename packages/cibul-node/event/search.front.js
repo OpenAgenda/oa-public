@@ -27,7 +27,7 @@ app.get( '/', ( req, res, next ) => {
 
   p.catch( next );
 
-  p.then( result => res.json( result ) );
+  p.then( result => cmn.renderJson( req, res, result ) );
 
 } );
 
@@ -37,7 +37,7 @@ app.get( '/aggs', ( req, res, next ) => {
 
   p.catch( next );
 
-  p.then( result => res.json( result ) );
+  p.then( result => cmn.renderJson( req, res, result ) );
 
 } );
 
