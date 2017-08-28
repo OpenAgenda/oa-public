@@ -613,9 +613,19 @@ function logController( req, res, next ) {
 
     try {
 
-      log( utils.extend( {
-        origin: 'symfony',
-      }, req.body ) );
+      if ( req.body.level === 'info' ) {
+
+        log( 'info', utils.extend( {
+          origin: 'symfony',
+        }, req.body ) );
+
+      } else {
+
+        log( utils.extend( {
+          origin: 'symfony',
+        }, req.body ) );
+
+      }
 
     } catch ( e ) {
 
