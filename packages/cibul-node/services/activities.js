@@ -137,7 +137,7 @@ module.exports.init = async config => {
     } ],
     logger: _.merge( {}, config.logger, {
       errorsTracking: {
-        logentriesKey: '5b8a8f02-3009-4b94-9eb7-81f70c3871cf'
+        logentriesKey: process.env.NODE_ENV === 'production' ? '8d66d66a-58ce-42b6-ab21-7805b075ba48' : null
       }
     } )
   } );
