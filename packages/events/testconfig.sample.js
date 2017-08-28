@@ -63,7 +63,7 @@ module.exports = {
 
     onRemove: event => {},
 
-    getOriginAgendas: ( uids, cb ) => {
+    getOriginAgendas: ( uids, options, cb ) => {
 
       cb( null, uids.map( uid => ( {
         uid,
@@ -74,7 +74,7 @@ module.exports = {
 
     },
 
-    getLocations: ( uids, cb ) => {
+    getLocations: ( uids, options, cb ) => {
 
       cb( null, uids.map( uid => ( {
         name: 'La case de Janine',

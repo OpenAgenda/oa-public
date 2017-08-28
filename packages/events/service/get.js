@@ -98,9 +98,17 @@ function _get( v ) {
 
     .select( dbParse.fields( 'db', v.internal, [ 'id' ] ) )
 
-    .where( v.identifiers )
+    .where( v.identifiers );
 
-    .whereNull( 'deleted_at' );
+  if ( v.deleted === true ) {
+
+    query.whereNotNull( 'deleted_at' );
+
+  } else if ( v.deleted === false ) {
+
+    query.whereNull( 'deleted_at' );
+
+  }
 
   if ( v.private !== null ) {
 

@@ -133,4 +133,32 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+  it( 'get a deleted event without deleted option', done => {
+
+    svc.get( { uid: 10932458 }, ( err, event ) => {
+
+      should( err ).equal( null );
+
+      should( event ).equal( null );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get a deleted event', done => {
+
+    svc.get( { uid: 10932458 }, { deleted: true }, ( err, event ) => {
+
+      should( err ).equal( null );
+
+      event.slug.should.equal( 'bourbriac_19' );
+
+      done();
+
+    } );
+
+  } );
+
 } );

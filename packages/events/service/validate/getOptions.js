@@ -12,6 +12,11 @@ module.exports = schema( {
     default: false,
     allowNull: true
   },
+  deleted: {
+    type: 'boolean',
+    default: false,
+    allowNull: true
+  },
   internal: {
     type: 'boolean',
     default: false
