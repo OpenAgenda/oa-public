@@ -55,8 +55,10 @@ module.exports = {
 
     onUpdate: ( before, after ) => {},
 
-    beforeRemove: ( event, cb ) => {
-      cb()
+    beforeRemove: ( event, context, cb ) => {
+
+      cb();
+      
     },
 
     onRemove: event => {},

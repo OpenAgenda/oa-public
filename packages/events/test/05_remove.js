@@ -79,6 +79,33 @@ describe( 'events - functional (server): remove', function() {
 
     beforeEach( () => svc.init( config ) );
 
+    it( 'if userUid is specified in options, it is given back in beforeRemove interface', done => {
+
+      svc.init( ih( config, {
+        interfaces: {
+          beforeRemove: {
+            $set: ( event, context, cb ) => {
+
+              context.should.eql( {
+                userUid: 12345678,
+                agendaUid: null
+              } );
+
+              cb();
+
+            }
+          }
+        }
+      } ) );
+
+      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {
+
+        done();
+
+      } );
+
+    } );
+
     it( 'if userUid is specified in options, it is given back in onRemove interface', done => {
 
       svc.init( ih( config, {
@@ -86,7 +113,10 @@ describe( 'events - functional (server): remove', function() {
           onRemove: {
             $set: ( event, context ) => {
 
-              context.should.eql( { userUid: 12345678, agendaUid: null } );
+              context.should.eql( {
+                userUid: 12345678,
+                agendaUid: null
+              } );
 
               done();
 

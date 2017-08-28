@@ -91,7 +91,7 @@ function _before( v ) {
 
   }
 
-  return wn.call( config.interfaces.beforeRemove, v.event )
+  return wn.call( config.interfaces.beforeRemove, v.event, v.options.context )
 
   .then( () => v );
 
