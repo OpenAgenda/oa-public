@@ -109,6 +109,14 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   }
 
+  parsers.push( h.appendNextAndLastTiming );
+
+  if ( !cleanOptions.detailed ) {
+
+    parsers.push( h.removeTimings );
+
+  }
+
   return _.extend( {
     total,
     events: events.map( e => {

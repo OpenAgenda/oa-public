@@ -66,11 +66,11 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'by default, only few fields are returned', async () => {
+    it( 'by default, only fields defined in service/config base fields are returned', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
-      Object.keys( events[ 0 ] ).should.eql( [ 'uid', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'slug' ] );
+      Object.keys( events[ 0 ] ).should.eql( [ 'uid', 'image', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'agenda', 'slug', 'lastTiming', 'nextTiming' ] );
 
     } );
 
@@ -109,7 +109,9 @@ describe( 'event search - functional: search', function() {
         'location',
         'slug',
         'age',
-        'updatedAt'
+        'updatedAt',
+        'lastTiming',
+        'nextTiming'
       ] );
 
     } );

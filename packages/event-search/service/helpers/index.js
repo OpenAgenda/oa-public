@@ -12,7 +12,9 @@ module.exports = {
   indexBulk,
   extendMapping: require( './extendMapping' ),
   convertToLocalTimezone: require( './convertToLocalTimezone' ),
-  lastTimingEndsIn
+  lastTimingEndsIn,
+  appendNextAndLastTiming: require( './appendNextAndLastTiming' ),
+  removeTimings: require( './removeTimings' )
 }
 
 let count = 0;

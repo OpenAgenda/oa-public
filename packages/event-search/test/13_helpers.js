@@ -37,6 +37,42 @@ describe( 'event-search - unit: helpers', function() {
 
   } );
 
+
+  describe( 'appendNextAndLastTiming', () => {
+
+    it( 'returns object decorated with next and last timing', () => {
+
+      const next = {
+        begin: _dateStrFromNow( 1 ),
+        end: _dateStrFromNow( 1 ),
+      },
+
+      last = {
+        begin: _dateStrFromNow( 3 ),
+        end: _dateStrFromNow( 3 )
+      }
+
+      const { nextTiming, lastTiming } = helpers.appendNextAndLastTiming( {
+        timings: [ {
+          begin: _dateStrFromNow( -2 ),
+          end: _dateStrFromNow( -2 ),
+        }, {
+          begin: _dateStrFromNow( -1 ),
+          end: _dateStrFromNow( -1 ),
+        }, next, {
+          begin: _dateStrFromNow( 2 ),
+          end: _dateStrFromNow( 2 ),
+        }, last ]
+      } );
+
+      nextTiming.should.eql( next );
+
+      lastTiming.should.eql( last );
+
+    } );
+
+  } );
+
   describe( 'convertToLocalTimezone', () => {
 
     it( 'when timings and local timezone are available in event, timings are converted', () => {

@@ -19,8 +19,11 @@ module.exports.init = c => {
       'uid',
       'title',
       'dateRange',
+      'image',
       'keywords',
       'slug',
+      'agenda',
+      'timings',
       'location.name',
       'location.address',
       'contributor.organization'
