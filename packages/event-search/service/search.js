@@ -113,7 +113,7 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   if ( !cleanOptions.detailed ) {
 
-    parsers.push( h.removeTimings );
+    parsers.push( h.removeTimingsAndTimezone );
 
   }
 

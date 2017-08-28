@@ -14,7 +14,7 @@ module.exports = {
   convertToLocalTimezone: require( './convertToLocalTimezone' ),
   lastTimingEndsIn,
   appendNextAndLastTiming: require( './appendNextAndLastTiming' ),
-  removeTimings: require( './removeTimings' )
+  removeTimingsAndTimezone: require( './removeTimingsAndTimezone' )
 }
 
 let count = 0;

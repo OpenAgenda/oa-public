@@ -26,7 +26,8 @@ module.exports.init = c => {
       'timings',
       'location.name',
       'location.address',
-      'contributor.organization'
+      'contributor.organization',
+      'timezone'
     ],
     detailedSearchIncludes: [
       'title', 'description', 'keywords', 'dateRange', 'longDescription',

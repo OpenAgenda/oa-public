@@ -7,7 +7,7 @@ const ih = require( 'immutability-helper' );
 module.exports = event => {
 
   return ih( event, { 
-    $unset: [ 'timings' ]
+    $unset: [ 'timings', 'timezone' ]
   } );
 
 }
