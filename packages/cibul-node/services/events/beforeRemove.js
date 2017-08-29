@@ -6,7 +6,7 @@ let log = console.log;
 
 module.exports = async ( event, context, cb ) => {
 
-  log( 'will remove event %s', event.uid );
+  log( 'will remove event %s with context %s', event.uid, JSON.stringify( context ) );
 
   try {
 
