@@ -135,11 +135,14 @@ function _list( v ) {
 
           if ( event.image && event.image.filename ) {
 
-            event.image.path = config.imagePath + event.image.filename;
+            event.image.base = config.imagePath;
 
           } else if ( v.options.useDefaultImage && (!event.image || !event.image.filename) ) {
 
-            event.image.path = config.defaultImagePath;
+            const defaultImage = config.defaultImagePath.split( '/' );
+
+            event.image.filename = defaultImage.pop();
+            event.image.base = defaultImage.join( '/' );
 
           } else {
 
