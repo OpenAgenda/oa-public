@@ -10,6 +10,8 @@ const utils = require( 'utils' ),
 
   cleanArgs = require( './lib/cleanArgs' ),
 
+  decorateImage = require( './lib/decorateImage' ),
+
   cleanGetOptions = require( './validate/getOptions' ),
 
   dbParse = require( 'mysql-utils/mapper' )( map ),
@@ -22,7 +24,7 @@ const utils = require( 'utils' ),
 
 module.exports = utils.extend( get, { init } );
 
-let knex, schemas, service, log;
+let knex, schemas, service, log, config;
 
 function get( i, o, c ) {
 
@@ -77,15 +79,11 @@ function _cleanResult( v ) {
 
   }
 
-  if ( v.includeImagePath && v.filtered.image ) {
-
-    v.filtered.image = imagePath + v.filtered.image;
-
-  } else if ( v.useDefaultImage && !v.filtered.image ) {
-
-    v.filtered.image = getConfig().defaultImagePath;
-
-  }
+  v.filtered.image = decorateImage( v.filtered.image, {
+    imagePath: config.imagePath,
+    useDefaultPath: v.useDefaultImage,
+    defaultPath: config.defaultImagePath
+  } );
 
   return v.filtered;  
 
@@ -175,6 +173,8 @@ function _filterInternals( v ) {
 
 
 function init( svc, c ) {
+
+  config = c;
 
   knex = c.knex;
 

@@ -16,6 +16,8 @@ const dbParse = require( 'mysql-utils/mapper' )( map );
 
 const svcUtils = require( 'service-utils' );
 
+const decorateImage = require( './lib/decorateImage' );
+
 let schemas, service, knex, config, log;
 
 module.exports = Object.assign( list, { init } );
@@ -133,22 +135,11 @@ function _list( v ) {
       v.events = events.map( dbParse.toObj )
         .map( event => {
 
-          if ( event.image && event.image.filename ) {
-
-            event.image.base = config.imagePath;
-
-          } else if ( v.options.useDefaultImage && (!event.image || !event.image.filename) ) {
-
-            const defaultImage = config.defaultImagePath.split( '/' );
-
-            event.image.filename = defaultImage.pop();
-            event.image.base = defaultImage.join( '/' );
-
-          } else {
-
-            event.image.path = null;
-
-          }
+          event.image = decorateImage( event.image, { 
+            imagePath: config.imagePath,
+            useDefaultPath: v.options.useDefaultImage,
+            defaultPath: config.defaultImagePath 
+          } );
 
           return event;
 

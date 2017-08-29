@@ -232,6 +232,19 @@ describe( 'events - functional (server): list', function() {
   } );
 
 
+  it( 'if image is provided, image path is placed in base key', done => {
+
+    svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
+
+      events[ 0 ].image.base.should.equal( config.imagePath );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'if draft is specified in query, it is added to fields', done => {
 
     svc.list( { draft: null }, 0, 1, ( err, events ) => {

@@ -42,10 +42,11 @@ describe( 'events - functional (server): create', function() {
           image: {
             filename: null,
             credits: null,
+            base: '//openagendatst.s3.amazonaws.com/',
             size: {
               width: null,
               height: null
-            }, variants: []
+            }, variants: [],
           },
           draft: 1,
           private: 0,
@@ -146,6 +147,7 @@ describe( 'events - functional (server): create', function() {
           image: {
             filename: null,
             credits: null,
+            base: '//openagendatst.s3.amazonaws.com/',
             size: {
               height: null,
               width: null
@@ -216,6 +218,7 @@ describe( 'events - functional (server): create', function() {
       image: {
         filename: 'image.jpg',
         credits: 'Cé moi kai pri la foto',
+        base: '//openagendatst.s3.amazonaws.com/',
         size: {
           height: null,
           width: null
@@ -262,6 +265,7 @@ describe( 'events - functional (server): create', function() {
         image: {
           filename: 'image.jpg',
           credits: 'Cé moi kai pri la foto',
+          base: '//openagendatst.s3.amazonaws.com/',
           size: {
             height: null,
             width: null
@@ -335,6 +339,7 @@ describe( 'events - functional (server): create', function() {
       image: {
         filename: 'image.jpg',
         credits: 'Cé moi kai pri la foto',
+        base: '//openagendatst.s3.amazonaws.com/',
         size: {
           height: null,
           width: null
@@ -385,6 +390,7 @@ describe( 'events - functional (server): create', function() {
         image: {
           filename: 'image.jpg',
           credits: 'Cé moi kai pri la foto',
+          base: '//openagendatst.s3.amazonaws.com/',
           size: {
             height: null,
             width: null
