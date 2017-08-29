@@ -23,5 +23,11 @@ module.exports = {
     secretAccessKey: 'ezfrgfe/dsqdqs+dsqdqs'
   },
   imagePath: '//openagendatst.s3.amazonaws.com/',
-  debug: true
+  debug: true,
+  redis: {
+    connection: {
+      host: 'localhost',
+      port: 6379
+    }
+  }
 };
