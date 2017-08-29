@@ -14,7 +14,8 @@ describe( 'session - unit (server): validate', () => {
       culture: 'fr',
       name: 'Gaetan Latouche',
       thumbnail: '//graph.facebook.com/100002280111541/picture',
-      latestActivity: new Date( '1981-02-28T03:00:00+0100' )
+      latestActivity: new Date( '1981-02-28T03:00:00+0100' ),
+      isNew: false
     };
 
     validate( sessionData ).should.eql( sessionData );

@@ -64,7 +64,8 @@ describe( 'session - functional (server): middleware', () => {
                       email: 'blorg@cibul.net',
                       culture: 'en',
                       name: 'Gaetanne',
-                      thumbnail: null
+                      thumbnail: null,
+                      isNew: false
                     } );
 
                   }
@@ -143,7 +144,8 @@ describe( 'session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity
+              latestActivity: session.latestActivity,
+              isNew: false
             } );
 
             res.send( 'ok' );
@@ -203,7 +205,8 @@ describe( 'session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity
+              latestActivity: session.latestActivity,
+              isNew: false
             } );
 
             res.send( 'ok' )
@@ -473,7 +476,8 @@ describe( 'session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: req.user.latestActivity
+              latestActivity: req.user.latestActivity,
+              isNew: false
             } );
 
             res.send( 'ok' );
@@ -510,7 +514,8 @@ describe( 'session - functional (server): middleware', () => {
               uid: 12345678,
               name: 'Gaetan Latouche',
               thumbnail: '//graph.facebook.com/100002280111541/picture',
-              email: 'gaetan@cibul.net'
+              email: 'gaetan@cibul.net',
+              isNew: false
             } );
 
             res.send( 'ok' );

@@ -45,7 +45,8 @@ describe( 'session - functional (server): get', () => {
           'thumbnail',
           'id',
           'email',
-          'latestActivity'
+          'latestActivity',
+          'isNew'
         ] );
 
         _.omit( session, [ 'latestActivity' ] )
@@ -56,7 +57,8 @@ describe( 'session - functional (server): get', () => {
           email: 'gaetan@cibul.net',
           culture: 'fr',
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture'
+          thumbnail: '//graph.facebook.com/100002280111541/picture',
+          isNew: false
         } );
 
         done();
@@ -83,7 +85,8 @@ describe( 'session - functional (server): get', () => {
           uid: 12345678,
           culture: 'fr',
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture'
+          thumbnail: '//graph.facebook.com/100002280111541/picture',
+          isNew: false
         } );
 
         done();

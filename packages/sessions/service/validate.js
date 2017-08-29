@@ -5,6 +5,7 @@ const cookieUserFields = require( '../iso/cookie.validate' ).validateLogged.fiel
 const extend = require( 'lodash/extend' );
 
 schema.register( {
+  boolean: require( 'validators/boolean' ),
   choice: require( 'validators/choice' ),
   integer: require( 'validators/integer' ),
   email: require( 'validators/email' ),
@@ -23,5 +24,8 @@ module.exports = schema( extend( {
   },
   latestActivity: {
     type: 'date'
+  },
+  isNew: {
+    type: 'boolean'
   }
 }, cookieUserFields ) );

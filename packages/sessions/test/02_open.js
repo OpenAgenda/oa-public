@@ -63,7 +63,7 @@ describe( 'session - functional (server): open', () => {
 
         let parsed = JSON.parse( result );
 
-        Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'culture', 'uid', 'name', 'thumbnail' ] );
+        Object.keys( parsed ).should.eql( [ 'id', 'email', 'latestActivity', 'isNew', 'culture', 'uid', 'name', 'thumbnail' ] );
 
         done();
 
