@@ -52,7 +52,7 @@ export default class MarkdownComponent extends Component {
       uniqueClassName: this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     }
 
-    if ( !this.state.tinyMceReady ) this.loadTinyMce();
+    if ( !this.state.tinyMceReady && typeof document !== 'undefined' ) this.loadTinyMce();
 
   }
 

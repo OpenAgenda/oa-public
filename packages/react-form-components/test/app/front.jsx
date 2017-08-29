@@ -133,7 +133,7 @@ var React = require( 'react' ),
 
     },
 
-    addFirstMarkdownComponent: function() {
+    addMarkdownComponent: function() {
 
       this.setState( update( this.state, { multiMd: { $push: [ {
         lang: 'it',
@@ -218,11 +218,11 @@ var React = require( 'react' ),
           lang={c.lang}
           label={c.label}
           placeholder={c.placeholder}
-          onChange={this.onMultiMarkdownChange.bind( null, i )} 
+          onChange={this.onMultiMarkdownChange.bind( null, i )}
           value={c.markdown}
         /> ) }
 
-        <button onClick={this.addFirstMarkdownComponent}>ajouter</button>
+        <button onClick={this.addMarkdownComponent}>ajouter</button>
 
         <p>{this.state.markdown}</p>
 

@@ -61,7 +61,7 @@ var MarkdownComponent = (_temp = _class = function (_Component) {
       uniqueClassName: _this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     };
 
-    if (!_this.state.tinyMceReady) _this.loadTinyMce();
+    if (!_this.state.tinyMceReady && typeof document !== 'undefined') _this.loadTinyMce();
 
     return _this;
   }
