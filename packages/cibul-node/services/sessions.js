@@ -37,7 +37,8 @@ function getUser( imageBucketPath, query, cb ) {
       name: u.full_name,
       thumbnail: u.image ? imageBucketPath + u.image : null,
       email: u.email,
-      culture: u.culture
+      culture: u.culture,
+      isNew: !!u.is_new
     } );
 
   } );

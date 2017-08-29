@@ -38,7 +38,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'home' ),
-    sessions.middleware.load( { detailed: true } ),
+    sessions.middleware.load(),
     sessions.middleware.ifUnlogged( cmn.redirectTo() )
   ] );
 
@@ -73,7 +73,8 @@ function matchApp( req, res, next ) {
           prefix,
           lang,
           apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: homeMw.getConfig().mw.limit
+          perPageLimit: homeMw.getConfig().mw.limit,
+          isNew: req.user.isNew
         },
         res: {
           agendas: {
