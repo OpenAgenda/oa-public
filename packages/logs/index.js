@@ -16,65 +16,55 @@ const loggers = [];
 const loggerConfigs = {};
 const basicLogger = getLogger();
 
-module.exports = Object.assign( createLogger, {
-  init,
-  setModuleConfig,
-  log: basicLogger.log.bind( basicLogger )
-}, _.pick( basicLogger, levels ) );
+module.exports = Object.assign(
+  createLogger,
+  {
+    init,
+    setModuleConfig
+  },
+  basicLogger,
+  _.pick( basicLogger, levels ),
+  getCustomProperties( basicLogger )
+);
+
 
 function createLogger( namespace, ...args ) {
   if ( levels.includes( namespace ) && args.length ) {
     return basicLogger[ namespace ]( ...args );
   }
 
-  const logger = getLogger( { namespace } );
+  const logger = getLogger( { namespace, $callerModule: args[ 0 ] ? args[ 0 ].$callerModule : undefined } );
 
-  if ( args[ 0 ] ) logger.loadMetadata( args[ 0 ] );
+  if ( args[ 0 ] ) logger.loadMetadata( _.omit( args[ 0 ], '$callerModule' ) );
 
   return logger;
 }
 
-function getLogger( options ) {
+function getLogger( options = {} ) {
 
   const callerFile = getCallerFile( 2 );
-  const callerModule = getModule( path.resolve( callerFile ) );
+  const callerModule = options.$callerModule || getModule( path.resolve( callerFile ) );
 
   const logger = new winston.Logger( {
-    transports: getTransports( _.merge( {}, options, loggerConfigs[ callerModule ] ) )
+    transports: getTransporters( _.merge( {}, options, loggerConfigs[ callerModule ] ) )
   } );
 
   logger.options = options;
   logger.callerFile = callerFile;
   logger.callerModule = callerModule;
 
-  logger.loadMetadata = metadata => {
-
-    logger.rewriters.push( ( level, msg, meta ) => Object.assign( {}, metadata, meta ) );
-
-  }
+  logger.loadMetadata = loadMetadata( logger );
+  logger.clearMetadata = clearMetadata( logger );
+  logger.setConfig = setConfig( logger );
+  logger.getTransports = getTransports( logger );
 
   loggers.push( logger );
 
-  const levellessLog = ( level, ...args ) => {
-
-    if ( levels.includes( level ) && args.length ) {
-      return logger[ level ]( ...args );
-    }
-
-    return logger[ 'debug' ]( level, ...args );
-
-  };
-
-  const customMethods = _.mapValues(
-    _.pick( logger, 'log', 'loadMetadata', 'configure' ),
-    v => v.bind( logger )
-  );
-
-  return Object.assign( levellessLog, logger, customMethods );
+  return Object.assign( levellessLog( logger ), logger, getCustomProperties( logger ) );
 
 }
 
-function getTransports( options ) {
+function getTransporters( options ) {
 
   const params = _.merge( {
     namespace: '',
@@ -86,9 +76,7 @@ function getTransports( options ) {
 
   const transports = [];
 
-  const env = getEnv();
-
-  if ( env === 'development' ) {
+  if ( params && params.debug && params.debug.enable ) {
 
     transports.push( new DebugTransport( {
       level: 'debug',
@@ -98,21 +86,70 @@ function getTransports( options ) {
 
   }
 
-  if ( env === 'production' ) {
+  if ( params && params.errorsTracking && params.errorsTracking.logentriesKey ) {
 
-    if ( params && params.errorsTracking && params.errorsTracking.logentriesKey ) {
-      transports.push( new winston.transports.Logentries( {
-        level: 'info',
-        token: params.errorsTracking.logentriesKey,
-        json: true
-      } ) );
-    }
+    transports.push( new winston.transports.Logentries( {
+      level: 'info',
+      token: params.errorsTracking.logentriesKey,
+      json: true
+    } ) );
 
   }
 
   return transports;
 
 }
+
+
+function levellessLog( logger ) {
+
+  return ( level, ...args ) =>
+    levels.includes( level ) && args.length ? logger[ level ]( ...args ) : logger[ 'debug' ]( level, ...args );
+
+}
+
+function getCustomProperties( logger ) {
+
+  return Object.assign( _.mapValues(
+    _.pick( logger, 'log', 'configure', 'loadMetadata', 'clearMetadata', 'setConfig', 'getTransports' ),
+    v => v.bind( logger )
+  ) );
+
+}
+
+
+/**********/
+
+
+function loadMetadata( logger ) {
+
+  return function load( metadata ) {
+    logger.rewriters.push( ( level, msg, meta ) => Object.assign( {}, metadata, meta ) );
+  };
+
+}
+
+function clearMetadata( logger ) {
+
+  return () => logger.rewriters = logger.rewriters.filter( v => v.name === 'load' );
+
+}
+
+function setConfig( logger ) {
+
+  return conf => logger.configure( { transports: getTransporters( conf ) } );
+
+}
+
+function getTransports( logger ) {
+
+  return () => logger.transports;
+
+}
+
+
+/**********/
+
 
 function init( c ) {
 
@@ -128,27 +165,22 @@ function init( c ) {
   }
 
   basicLogger.configure( {
-    transports: getTransports( config )
+    transports: getTransporters( config )
   } );
 
 }
 
-function setModuleConfig( conf ) {
 
-  const callerModule = getModule( path.resolve( getCallerFile( 2 ) ) );
+function setModuleConfig( conf, module ) {
+
+  const callerModule = module || getModule( path.resolve( getCallerFile( 2 ) ) );
 
   loggerConfigs[ callerModule ] = conf;
 
-  loggers.filter( logger => logger.callerModule === callerModule ).map( logger => {
+  loggers.filter( logger => logger.callerModule === callerModule ).forEach( logger => {
 
-    logger.configure( {
-      transports: getTransports( _.merge( logger.options, conf ) )
-    } );
+    logger.setConfig( _.merge( logger.options, conf ) );
 
   } );
 
-}
-
-function getEnv() {
-  return process.env.NODE_ENV || 'development';
 }

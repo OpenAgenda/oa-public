@@ -12,10 +12,11 @@ class DebugTransport extends winston.Transport {
 
     const params = Object.assign( { namespace: '', prefix: '', level: 'debug' }, options );
 
-    this.name = 'OA Logger';
+    this.name = 'debug';
     this.level = params.level;
+    this.prefix = params.prefix;
     this.namespace = params.namespace;
-    this.debug = debug( params.prefix + params.namespace );
+    this.debug = debug( (params.prefix || '') + (params.namespace || '') );
   }
 
   log( level, msg, meta, cb ) {
