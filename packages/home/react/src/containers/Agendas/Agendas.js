@@ -1,29 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
 import Spinner from 'react-components/build/Spinner';
-import * as agendasActions from '../../redux/modules/agendas';
 import { AgendasSearch, Welcome } from '../../components';
 
-@asyncConnect( [ {
-  deferred: !__CLIENT__,
-  promise: ( { store: { dispatch, getState } } ) => {
-    const state = getState();
-    const query = state.routing.locationBeforeTransitions.query;
-    const promises = [];
-
-    if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
-      promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
-    }
-
-    return Promise.all( __CLIENT__ ? [] : promises );
-  }
-} ] )
 @connect( state => ({
   res: state.res,
   isNew: state.settings.isNew,
-  loading: state.agendas[ 'homeAgendas' ] ? state.agendas[ 'homeAgendas' ].loading : true
+  loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
+  total: state.agendas.homeAgendas.total
 }) )
 export default class Agendas extends Component {
 
@@ -72,9 +57,9 @@ export default class Agendas extends Component {
   }
 
   render() {
-    const { isNew, loading, location: { query }, res } = this.props;
+    const { isNew, loading, location: { query }, res, total } = this.props;
 
-    if ( isNew ) {
+    if ( isNew && !total ) {
       return <Welcome />
     }
 

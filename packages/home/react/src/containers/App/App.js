@@ -1,21 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-connect';
 import makeGetterLabel from 'labels';
 import labels from 'labels/home';
 import classNames from 'classnames';
 import Collapse from 'react-bootstrap/lib/Collapse';
 import { Menu } from '../../components';
+import * as agendasActions from '../../redux/modules/agendas';
 
 const ucfirst = txt => txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
 
+@asyncConnect( [ {
+  deferred: !__CLIENT__,
+  promise: ( { store: { dispatch, getState } } ) => {
+    const state = getState();
+    const query = state.routing.locationBeforeTransitions.query;
+    const promises = [];
+
+    if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
+      promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
+    }
+
+    return Promise.all( __CLIENT__ ? [] : promises );
+  }
+} ] )
 @connect(
   state => ({
     res: state.res,
     lang: state.settings.lang,
     isNew: state.settings.isNew,
     prefix: state.settings.prefix,
-    tab: state.menu.tab
+    tab: state.menu.tab,
+    totalAgendas: state.agendas.homeAgendas.total
   })
 )
 export default class App extends Component {
@@ -40,10 +57,10 @@ export default class App extends Component {
 
   render() {
 
-    const { res, tab, isNew, prefix } = this.props;
+    const { res, tab, isNew, prefix, total } = this.props;
     const { getLabel } = this.getChildContext();
 
-    if ( isNew ) {
+    if ( isNew && !total ) {
       return (
         <div className="container top-margined home">
           <div className="col-sm-8 col-sm-offset-2">

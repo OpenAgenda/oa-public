@@ -18,13 +18,15 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _class, _class2, _temp2;
+var _dec, _dec2, _class, _class2, _temp2;
 
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
+
+var _reduxConnect = require('redux-connect');
 
 var _labels = require('labels');
 
@@ -43,6 +45,12 @@ var _Collapse = require('react-bootstrap/lib/Collapse');
 var _Collapse2 = _interopRequireDefault(_Collapse);
 
 var _components2 = require('../../components');
+
+var _agendas = require('../../redux/modules/agendas');
+
+var agendasActions = _interopRequireWildcard(_agendas);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -77,19 +85,37 @@ var ucfirst = function ucfirst(txt) {
   return txt.charAt(0).toUpperCase() + txt.slice(1);
 };
 
-var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state) {
+var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
+  deferred: !__CLIENT__,
+  promise: function promise(_ref) {
+    var _ref$store = _ref.store,
+        dispatch = _ref$store.dispatch,
+        getState = _ref$store.getState;
+
+    var state = getState();
+    var query = state.routing.locationBeforeTransitions.query;
+    var promises = [];
+
+    if (!agendasActions.isLoaded('homeAgendas', state)) {
+      promises.push(dispatch(agendasActions.load('homeAgendas', query)));
+    }
+
+    return Promise.all(__CLIENT__ ? [] : promises);
+  }
+}]), _dec2 = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
     lang: state.settings.lang,
     isNew: state.settings.isNew,
     prefix: state.settings.prefix,
-    tab: state.menu.tab
+    tab: state.menu.tab,
+    totalAgendas: state.agendas.homeAgendas.total
   };
-}), _dec(_class = (_temp2 = _class2 = function (_Component) {
+}), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(App, _Component);
 
   function App() {
-    var _ref;
+    var _ref2;
 
     var _temp, _this, _ret;
 
@@ -99,7 +125,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = App.__proto__ || Object.getPrototypeOf(App)).call.apply(_ref2, [this].concat(args))), _this), _this.state = {
       menuOpen: false
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -126,12 +152,13 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
           res = _props.res,
           tab = _props.tab,
           isNew = _props.isNew,
-          prefix = _props.prefix;
+          prefix = _props.prefix,
+          total = _props.total;
 
       var _getChildContext = this.getChildContext(),
           getLabel = _getChildContext.getLabel;
 
-      if (isNew) {
+      if (isNew && !total) {
         return _react3.default.createElement(
           'div',
           { className: 'container top-margined home' },
@@ -229,7 +256,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
 }(_react2.Component), _class2.childContextTypes = {
   lang: _propTypes2.default.string,
   getLabel: _propTypes2.default.func
-}, _temp2)) || _class));
+}, _temp2)) || _class) || _class));
 
 exports.default = App;
 module.exports = exports['default'];

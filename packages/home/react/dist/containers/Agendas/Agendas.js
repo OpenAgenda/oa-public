@@ -20,13 +20,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _class, _class2, _temp;
+var _dec, _class, _class2, _temp;
 
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reduxConnect = require('redux-connect');
 
 var _reactRedux = require('react-redux');
 
@@ -34,13 +32,7 @@ var _Spinner = require('react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _agendas = require('../../redux/modules/agendas');
-
-var agendasActions = _interopRequireWildcard(_agendas);
-
 var _components2 = require('../../components');
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69,30 +61,14 @@ function _wrapComponent(id) {
   };
 }
 
-var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)([{
-  deferred: !__CLIENT__,
-  promise: function promise(_ref) {
-    var _ref$store = _ref.store,
-        dispatch = _ref$store.dispatch,
-        getState = _ref$store.getState;
-
-    var state = getState();
-    var query = state.routing.locationBeforeTransitions.query;
-    var promises = [];
-
-    if (!agendasActions.isLoaded('homeAgendas', state)) {
-      promises.push(dispatch(agendasActions.load('homeAgendas', query)));
-    }
-
-    return Promise.all(__CLIENT__ ? [] : promises);
-  }
-}]), _dec2 = (0, _reactRedux.connect)(function (state) {
+var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
     res: state.res,
     isNew: state.settings.isNew,
-    loading: state.agendas['homeAgendas'] ? state.agendas['homeAgendas'].loading : true
+    loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
+    total: state.agendas.homeAgendas.total
   };
-}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
+}), _dec(_class = (_temp = _class2 = function (_Component) {
   _inherits(Agendas, _Component);
 
   function Agendas(props) {
@@ -133,8 +109,8 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
     }
   }, {
     key: 'renderAgendaActions',
-    value: function renderAgendaActions(_ref2) {
-      var agenda = _ref2.agenda;
+    value: function renderAgendaActions(_ref) {
+      var agenda = _ref.agenda;
       var res = this.props.res;
       var getLabel = this.context.getLabel;
 
@@ -166,10 +142,11 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
           isNew = _props.isNew,
           loading = _props.loading,
           query = _props.location.query,
-          res = _props.res;
+          res = _props.res,
+          total = _props.total;
 
 
-      if (isNew) {
+      if (isNew && !total) {
         return _react3.default.createElement(_components2.Welcome, null);
       }
 
@@ -202,7 +179,7 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reduxConnect.asyncConnect)(
 }(_react2.Component), _class2.contextTypes = {
   getLabel: _propTypes2.default.func,
   router: _propTypes2.default.object
-}, _temp)) || _class) || _class));
+}, _temp)) || _class));
 
 exports.default = Agendas;
 ;
