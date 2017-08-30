@@ -8805,7 +8805,7 @@ button.close {
     display: inline-block;
     background: transparent;
     vertical-align: middle; }
-    .spin-canvas.spin-inline > div {
+    .spin-canvas.spin-inline > span {
       display: inline-block; }
     .spin-canvas.spin-inline .spinner {
       left: 5px !important;
