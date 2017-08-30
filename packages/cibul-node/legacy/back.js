@@ -10,6 +10,8 @@ const sessions = require( 'sessions' ),
 
   agendaSvc = require( '../services/agenda' ),
 
+  agendas = require( 'agendas' ),
+
   eventSvc = require( '../services/event' ),
 
   userSvc = require( '../services/user' ),
@@ -133,6 +135,39 @@ const sessions = require( 'sessions' ),
           if ( err ) return next( err );
 
           mails.forEach( mailer );
+
+        } );
+
+      }
+    ] ],
+
+    verifyContributorIP: [ 'post', '/contributor/ip', [
+      bodyParser.json(),
+      ( req, res, next ) => {
+
+        agendas.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {
+
+          if ( err ) return next( err );
+
+          if ( !agenda ) return next( new Error( 'Agenda not found: ' + req.body.agendaUid ) );
+
+          const authorizedIPs = agenda.settings.contribution.authorizedIPAddresses;
+
+          if ( !authorizedIPs || !authorizedIPs.length ) {
+
+            return res.json( { authorized: true } );
+
+          }
+
+          if ( authorizedIPs.filter( ip => req.body.ip === ip ).length ) {
+
+            return res.json( { authorized: true } );
+
+          }
+
+          res.json( {
+            authorized: false
+          } );
 
         } );
 
