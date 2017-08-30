@@ -36,6 +36,16 @@ module.exports = function ( before, stakeholder, context ) {
         // new user
         if ( stakeholder.userId && before.userId !== stakeholder.userId ) {
 
+          if ( user.is_new ) {
+
+            users.setNewFlag( { id: stakeholder.userId }, false, ( err ) => {
+
+              if ( err ) return log( 'error', err );
+
+            } );
+
+          }
+
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
             .then( () => {

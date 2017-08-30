@@ -4,8 +4,8 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const fs = require( 'fs' );
 const async = require( 'async' );
-const logger = require( 'logger' );
 const logs = require( 'logs' );
+const logger = require( 'logger' );
 
 let log;
 
