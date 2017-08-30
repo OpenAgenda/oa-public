@@ -30,8 +30,6 @@ function task() {
   q.setConsumer( evaluate.bind( null, null ) );
 
   q.launch( { interval: 1000 } );
-
-  q( { name: 'review.article_create', values: { id: 123478977978 } } );
 }
 
 async function evaluate( err, action ) {

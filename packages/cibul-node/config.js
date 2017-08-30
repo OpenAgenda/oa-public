@@ -511,7 +511,7 @@ let config = {
           //enable: 'oa:search task*',
           //enable: 'oa:events/interfaces/legacy'
           //enable: 'oa:agendaEvents/interfaces/legacy',
-          //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*'
+          //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*, oa:groupactions*'
           //enable: 'oa:services/event/oembed',
           //enable: 'oa:services/model',
           //enable: 'oa:events/interfaces*',

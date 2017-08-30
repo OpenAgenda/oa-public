@@ -1,18 +1,24 @@
 "use strict";
 
-var config = require( '../../../config' ),
+const config = require( '../../../config' ),
 
-q = require( 'queue' )( config.queues.groupActions, { redis: config.redis } ),
+  q = require( 'queue' )( config.queues.groupActions, { redis: config.redis } ),
 
-svc = require( '../' ),
+  svc = require( '../' ),
 
-eventSvc = require( '../../event' ),
+  eventSvc = require( '../../event' ),
 
-utils = require( 'utils' ),
+  agendaEvents = require( 'agenda-events' ),
 
-log = require( 'logger' )( 'groupactions - tasks' ),
+  async = require( 'async' ),
 
-w = require( 'when' );
+  utils = require( 'utils' ),
+
+  log = require( 'logger' )( 'groupactions - tasks' ),
+
+  w = require( 'when' ),
+
+  model = require( '../../model' );
 
 q.setConsumer( process );
 
@@ -70,38 +76,56 @@ function process( data, cb ) {
 
 
 
-function dispatchChangeEventStates( agendaId, oldState, newState, cb ) {
+function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) {
 
-  log( 'dispatchChangeEventStates: agenda %s from state %s to state %s', agendaId, oldState, newState );
+  log( 'dispatchChangeEventStates: agenda %s from state %s to state %s with options %s', agendaId, oldState, newState, JSON.stringify( options ) );
 
   svc.get( { id: agendaId }, function( err, agenda ) {
 
-    var count = 0;
+    let count = 0, offset = 0, hasMore = true;
 
     if ( err ) return cb( err );
 
-    log( 'dispatchChangeEventStates: starting event stream' );
+    log( 'dispatchChangeEventStates: starting dispatch' );
 
-    var stream = agenda.searchStream( { passed: 1 }, { showAll: 1 } );
+    // a stream is wasteful; a query on review_article is sufficient.
+    
+    async.whilst( () => hasMore, wcb => {
 
-    stream.on( 'data', function( eventData ) {
+      model.lib.query( 'select * from review_article where state = ? and review_id=? limit ?, 100', [ oldState, agendaId, offset ], ( err, ras ) => {
 
-      stream.pause();
+        if ( err ) return wcb( err );
 
-      q( {
-        method: 'changeEventState',
-        args: [ agendaId, eventData.eventId, oldState, newState ]
-      }, function() {
+        if ( !ras.length ) {
 
-        count++;
+          hasMore = false;
 
-        stream.resume();
+          return wcb();
 
-      } );
+        }
 
-    } );
+        offset += 100;
 
-    stream.on( 'end', function() {
+        async.eachSeries( ras, ( ra, ecb ) => {
+
+          count++;
+
+          q( {
+            method: 'changeEventState',
+            args: [ ra.review_id, ra.event_id, oldState, newState, options ]
+          }, ecb );
+
+        }, wcb );
+
+      } );      
+
+    }, err => {
+
+      if ( err ) {
+
+        log( 'error', 'dispatchChangeEventStates: failed - %s', err );
+
+      }
 
       log( 'dispatchChangeEventStates: dispatched %s jobs', count );
 
@@ -113,7 +137,7 @@ function dispatchChangeEventStates( agendaId, oldState, newState, cb ) {
 
 }
 
-function changeEventState( agendaId, eventId, oldState, newState, cb ) {
+function changeEventState( agendaId, eventId, oldState, newState, options, cb ) {
 
   if ( arguments.length === 4 ) {
 
@@ -128,10 +152,10 @@ function changeEventState( agendaId, eventId, oldState, newState, cb ) {
   log( 'changeEventState for agenda %s, event %s', agendaId, eventId );
 
   w( {
-    agendaId: agendaId,
-    eventId: eventId,
-    oldState: oldState,
-    newState: newState,
+    agendaId,
+    eventId,
+    oldState,
+    newState,
     agenda: false,
     event: false,
     currentState: false,
@@ -156,7 +180,23 @@ function changeEventState( agendaId, eventId, oldState, newState, cb ) {
 
       log( 'changeEventState for agenda %s, event %s: changing state to %s', agendaId, eventId, newState );
 
-      v.event.setState( newState, cb );
+      v.event.setState( newState, async ( err, result, states ) => {
+
+        if ( err ) return cb( err );
+
+        try {
+
+          await agendaEvents( v.agenda.uid ).update( v.event.uid, { state: newState }, options );
+
+        } catch ( e ) {
+
+          log( 'error', 'failed to sync with agendaEvent %s.%s', v.agenda.uid, v.event.uid );
+
+        }
+
+        cb( null, result, states );
+
+      } );
 
     }
 

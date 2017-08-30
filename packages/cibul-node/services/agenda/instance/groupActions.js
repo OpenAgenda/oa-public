@@ -16,7 +16,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     changeEventStates: changeEventStates
   }
 
-  function changeEventStates( oldState, newState, cb ) {
+  function changeEventStates( oldState, newState, options, cb ) {
 
     var types = [];
 
@@ -33,7 +33,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     }
 
     q( {
-      args: [ instance.id, oldState, newState ],
+      args: [ instance.id, oldState, newState, options ],
       method: 'dispatchChangeEventStates'
     } );
 

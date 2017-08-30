@@ -64,7 +64,7 @@ async function rebuild() {
 
   let createdAt = new Date();
 
-  createdAt.setDate( createdAt.getDate() - 90 );
+  createdAt.setDate( createdAt.getDate() - 120 );
 
   const max = 1000;
 
