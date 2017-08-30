@@ -114,10 +114,10 @@ var SpinnerComponent = (0, _createReactClass2.default)({
     if (this.props.page || this.props.mode === 'page') classes.push('spin-page');
 
     return _react2.default.createElement(
-      'div',
+      'span',
       { className: classes.join(' ') },
       _react2.default.createElement(
-        'div',
+        'span',
         { ref: 'canvas', style: this.props.mode !== 'inline' ? {
             position: 'absolute',
             width: 0,

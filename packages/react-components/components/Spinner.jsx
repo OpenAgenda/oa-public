@@ -104,8 +104,8 @@ const SpinnerComponent = createReactClass( {
 
     if ( this.props.page || this.props.mode === 'page' ) classes.push( 'spin-page' );
 
-    return <div className={classes.join( ' ' )}>
-      <div ref="canvas" style={ this.props.mode !== 'inline' ? {
+    return <span className={classes.join( ' ' )}>
+      <span ref="canvas" style={ this.props.mode !== 'inline' ? {
         position: 'absolute',
         width: 0,
         zIndex: 2000000000,
@@ -113,8 +113,8 @@ const SpinnerComponent = createReactClass( {
         top: '50%'
       } : {} }>
         { this.props.message ? <span className="spin-message">{this.props.message}</span> : null }
-      </div>
-    </div>
+      </span>
+    </span>
 
   }
 
