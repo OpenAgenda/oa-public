@@ -14,11 +14,10 @@ module.exports = ( enabledTypes, cb ) => {
 
   supervisor( loadTasks => {
 
-    let logger = require( 'logger' ),
-
-      config = require( './config' );
-
     require( './services/init' )( err => {
+
+      const logger = require( 'logger' );
+      const config = require( './config' );
 
       const log = logger( 'app' );
 
