@@ -48,7 +48,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               message: null,
               type: 2,
               useFields: false,
-              authorizedIpAddresses: []
+              authorizedIPAddresses: []
             },
             translation: {
               enabled: false,
@@ -133,7 +133,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               message: null,
               type: 2,
               useFields: false,
-              authorizedIpAddresses: []
+              authorizedIPAddresses: []
             },
             translation: {
               enabled: false,
@@ -234,7 +234,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               message: null,
               type: 2,
               useFields: false,
-              authorizedIpAddresses: []
+              authorizedIPAddresses: []
             },
             translation: {
               enabled: false,

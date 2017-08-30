@@ -53,7 +53,7 @@ module.exports = {
         type: 'boolean',
         default: false
       },
-      authorizedIpAddresses: {
+      authorizedIPAddresses: {
         type: 'ip',
         list: true,
         default: []
