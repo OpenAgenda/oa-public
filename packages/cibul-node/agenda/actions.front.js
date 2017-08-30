@@ -291,7 +291,7 @@ function eventAdd( req, res ) {
 
 function eventRemove( req, res ) {
 
-  req.agenda.removeEvent( req.event, req.user, function( err ) {
+  req.agenda.removeEvent( req.event, req.user, async function( err ) {
 
     if ( err ) {
 
@@ -300,6 +300,16 @@ function eventRemove( req, res ) {
       _onActionComplete( req, res, false, getActionLabel( 'agendaShareRemoveError', { agenda: req.agenda.title } , req.lang ) );
 
     } else {
+
+      try {
+
+        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { userUid: req.user.uid } } );
+
+      } catch ( e ) {
+
+        req.log( 'error', { message: 'could not remove agenda-events reference', error: e } );
+
+      }
 
       _onActionComplete( req, res, true, getActionLabel( 'agendaShareRemoved', { agenda: req.agenda.title }, req.lang ) );
 
