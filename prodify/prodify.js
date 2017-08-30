@@ -530,17 +530,15 @@ var ugly = require( 'uglify-js' ),
 
       if ( err ) cb( err );
 
-      console.log( stats.toString( 'errors-only' ) );
-
-      var msg = stats.toString( {
-          hash: false,
-          chunks: false,
-          colors: true
-        } ),
-
-        shownMsg = ~msg.indexOf( 'WARNING' ) ? msg.substring( 0, msg.indexOf( 'WARNING' ) - 11 ) : msg;
-
-      log( shownMsg );
+      log( stats.toString( {
+        hash: false,
+        chunks: false,
+        colors: true,
+        reasons: true,
+        modules: false,
+        errorDetails: true,
+        warnings: false
+      } ) );
 
       cb();
 
