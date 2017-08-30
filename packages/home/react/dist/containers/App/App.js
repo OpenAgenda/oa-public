@@ -109,7 +109,7 @@ var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
     isNew: state.settings.isNew,
     prefix: state.settings.prefix,
     tab: state.menu.tab,
-    totalAgendas: state.agendas.homeAgendas.total
+    total: state.agendas.homeAgendas.total
   };
 }), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
   _inherits(App, _Component);

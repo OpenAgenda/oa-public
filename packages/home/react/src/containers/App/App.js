@@ -32,7 +32,7 @@ const ucfirst = txt => txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
     isNew: state.settings.isNew,
     prefix: state.settings.prefix,
     tab: state.menu.tab,
-    totalAgendas: state.agendas.homeAgendas.total
+    total: state.agendas.homeAgendas.total
   })
 )
 export default class App extends Component {
