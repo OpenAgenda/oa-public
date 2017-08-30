@@ -175,7 +175,7 @@ export default class Events extends Component {
                 >
                   <img
                     className="media-object ill avatar"
-                    src={event.image.path}
+                    src={event.image.base + event.image.filename}
                     alt={this.getMultilangLabel( event.title )}
                   />
                 </a>

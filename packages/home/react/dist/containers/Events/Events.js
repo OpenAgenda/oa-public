@@ -297,7 +297,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                   },
                   _react3.default.createElement('img', {
                     className: 'media-object ill avatar',
-                    src: event.image.path,
+                    src: event.image.base + event.image.filename,
                     alt: _this2.getMultilangLabel(event.title)
                   })
                 )
