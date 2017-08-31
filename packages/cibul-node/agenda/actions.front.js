@@ -303,7 +303,7 @@ function eventRemove( req, res ) {
 
       try {
 
-        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { userUid: req.user.uid } } );
+        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { userUid: req.user.uid, agendaUid: req.agenda.uid } } );
 
       } catch ( e ) {
 

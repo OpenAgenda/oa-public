@@ -81,7 +81,12 @@ function changeStates( req, res, next ) {
 
   }
 
-  req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], { context: { userUid: req.user.uid } }, err => {
+  req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], { 
+    context: {
+      userUid: req.user.uid,
+      agendaUid: req.agenda.uid
+    } 
+  }, err => {
 
     if ( err ) return next( err );
 
