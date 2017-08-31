@@ -1,52 +1,50 @@
 "use strict";
 
-const path = require( 'path' ),
-
-  webpack = require( 'webpack' ),
-
-  strip = require( 'strip-loader' ),
-
-  ourOwnModules = require( './ourOwnModules.json' );
+const path = require( 'path' );
+const webpack = require( 'webpack' );
+const ourOwnModules = require( './ourOwnModules.json' );
 
 module.exports = paths => {
 
   return {
-    //devtool: 'source-map',
     entry: path.join( __dirname, paths.src.path, paths.src.name ),
     output: {
       path: paths.dest.path,
       filename: paths.dest.name
     },
     module: {
-      loaders: [
+      rules: [
         {
           test: /\.jsx?$/,
-          loaders: [ 'babel' ],
+          enforce: "pre",
+          loader: 'source-map-loader'
+        },
+        {
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
           exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' )
         },
         {
-          test: /\.json$/,
-          loader: 'json'
-        },
-        {
           test: /\.ejs$/,
-          loader: 'ejs-compiled'
+          loader: 'ejs-compiled-loader',
         },
         {
           test: /\.(css|html|tblr)$/,
-          loader: 'raw'
+          loader: 'raw-loader',
         }
       ]
     },
-    progress: true,
     resolve: {
-      extensions: [ '', '.js', '.jsx' ],
-      moduleDirectories: [ './node_modules' ],
-      fallback: path.join( path.dirname(__dirname), 'node_modules' ),
+      symlinks: false,
+      extensions: [ '.js', '.jsx' ],
       alias: {
-        react: path.join( path.dirname(__dirname), 'node_modules/react' ),
-        'react-dom': path.join( path.dirname(__dirname), 'node_modules/react-dom' )
+        'react': path.join( path.dirname( __dirname ), 'node_modules/react' ),
+        'react/addons': path.join( path.dirname( __dirname ), 'node_modules/react/addons' )
       }
+    },
+    performance: {
+      hints: false,
+      maxAssetSize: 2000000
     },
     plugins: [
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
@@ -60,7 +58,6 @@ module.exports = paths => {
         __DEVTOOLS__: false
       } ),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.UglifyJsPlugin( {
         compress: {
           warnings: false
