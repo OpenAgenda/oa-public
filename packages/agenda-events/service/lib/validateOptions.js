@@ -19,6 +19,10 @@ module.exports = schema( {
       userUid: {
         type: 'integer',
         default: null
+      },
+      agendaUid: {
+        type: 'integer',
+        default: null
       }
     }
   }

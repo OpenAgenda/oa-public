@@ -27,7 +27,6 @@ module.exports = _.extend( remove, {
 
 async function remove( agendaUid, eventUid, options = {} ) {
 
-
   return await _remove( {
     event_uid: eventUid,
     agenda_uid: agendaUid,
