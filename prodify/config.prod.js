@@ -36,7 +36,11 @@ module.exports = paths => {
     },
     resolve: {
       symlinks: false,
-      extensions: [ '.js', '.jsx' ]
+      extensions: [ '.js', '.jsx' ],
+      alias: {
+        'react': path.join( path.dirname( __dirname ), 'node_modules/react' ),
+        'react/addons': path.join( path.dirname( __dirname ), 'node_modules/react/addons' )
+      }
     },
     performance: {
       hints: false,
