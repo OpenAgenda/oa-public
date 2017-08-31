@@ -76,7 +76,8 @@ describe( 'agendaEvents - functional (server): update', function() {
           $set: ( before, after, context ) => {
 
             context.should.eql( {
-              userUid: 111
+              userUid: 111,
+              agendaUid: null
             } );
 
             done();
@@ -88,7 +89,8 @@ describe( 'agendaEvents - functional (server): update', function() {
 
     svc( 62792452 ).update( 10974548, { featured: true }, {
       context: {
-        userUid: 111
+        userUid: 111,
+        agendaUid: null
       }
     } );
 

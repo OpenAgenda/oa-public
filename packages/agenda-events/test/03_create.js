@@ -91,7 +91,8 @@ describe( 'agendaEvents - functional (server): create', function() {
           $set: ( created, context ) => {
 
             context.should.eql( {
-              userUid: 111
+              userUid: 111,
+              agendaUid: null
             } );
 
           }
@@ -115,7 +116,8 @@ describe( 'agendaEvents - functional (server): create', function() {
           $set: ( created, context ) => {
 
             context.should.eql( {
-              userUid: null
+              userUid: null,
+              agendaUid: null
             } );
 
           }

@@ -102,6 +102,12 @@ async function _remove( where, current = null, params = null ) {
 
   }
 
+  if ( config.interfaces.beforeRemove ) {
+
+    await config.interfaces.beforeRemove( current, params !== null ? params.context : null );
+
+  }
+
   let removedRows = await knex( config.schemas.agendaEvent )
 
     .del()

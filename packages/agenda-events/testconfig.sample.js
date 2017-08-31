@@ -45,7 +45,9 @@ module.exports = {
 
     onUpdate: agendaEvent => {},
 
-    onRemove: agendaEvent => {}
+    beforeRemove: async agendaEvent => {}
+
+    onRemove: agendaEvent => {},
 
   }
 

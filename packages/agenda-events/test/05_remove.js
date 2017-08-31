@@ -130,7 +130,8 @@ describe( 'agendaEvents - functional (server): remove', function() {
           $set: ( removed, context ) => {
 
             context.should.eql( {
-              userUid: 111
+              userUid: 111,
+              agendaUid: null
             } );
 
             done();
