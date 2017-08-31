@@ -74,6 +74,8 @@ function _init( config, fileOrFolderName, cb ) {
 
   }
 
+  log( 'info', 'initializing %s', name );
+
   if ( !service.init ) {
 
     log( 'error', '%s: >>>>>>>>>>>>>>>>>>>>>> init missing! <<<<<<<<<<<<<<<<<<<<<<<', name );

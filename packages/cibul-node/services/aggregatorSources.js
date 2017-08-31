@@ -2,6 +2,8 @@
 
 const aggregatorSources = require( 'aggregator-sources' );
 
+const agendas = require( 'agendas' );
+
 module.exports.init = ( config, cb ) => {
 
   aggregatorSources.init( {
@@ -13,6 +15,13 @@ module.exports.init = ( config, cb ) => {
     },
     mw: {
       limit: 20
+    },
+    interfaces: {
+      getAgenda: ( identifiers, cb ) => {
+
+        agendas.get( identifiers, { internal: true }, cb );
+
+      }
     }
   }, cb );
 
