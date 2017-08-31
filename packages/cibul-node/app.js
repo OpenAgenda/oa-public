@@ -27,6 +27,10 @@ module.exports = ( enabledTypes, cb ) => {
 
       }
 
+      if ( process.env.NODE_ENV === 'development' ) {
+        require( 'source-map-support' ).install( { hookRequire: true } );
+      }
+
       const tfy = require( './lib/taskify' ),
 
         cmn = require( './lib/commons-app' ),
@@ -267,7 +271,7 @@ module.exports = ( enabledTypes, cb ) => {
         require( 'agenda-events' ).tasks.interfaces( { interval: 10 } );
 
         //require( 'agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
-        
+
         require( './services/eventSearch' ).task();
 
       }

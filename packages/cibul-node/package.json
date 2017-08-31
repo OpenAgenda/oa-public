@@ -119,6 +119,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.2.6",
     "should": "^8.2.2",
+    "source-map-support": "^0.4.16",
     "zombie": "4.1.0"
   }
 }
