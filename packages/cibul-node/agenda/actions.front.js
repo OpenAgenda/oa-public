@@ -269,7 +269,10 @@ function eventAdd( req, res ) {
       agendaEvents( req.agenda.uid ).create( req.event.uid, {
         state: contributionSettings.defaultState
       }, {
-        userUid: req.user.uid
+        context: {
+          userUid: req.user.uid,
+          agendaUid: req.query.sourceAgendaUid
+        }
       } );
 
       req.log( 'info', {
@@ -303,7 +306,10 @@ function eventRemove( req, res ) {
 
       try {
 
-        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { userUid: req.user.uid, agendaUid: req.agenda.uid } } );
+        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { 
+          userUid: req.user.uid, 
+          agendaUid: req.query.sourceAgendaUid
+        } } );
 
       } catch ( e ) {
 
