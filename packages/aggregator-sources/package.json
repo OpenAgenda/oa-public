@@ -19,7 +19,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "agendas": "git+ssh://git@bitbucket.org/openagenda/agendas.git",
     "async": "^2.1.4",
     "basic-logger": "^0.4.4",
     "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",

@@ -1,6 +1,7 @@
+"use strict";
+
 const w = require( 'when' );
 const { parseListArguments, identifiers: { clean: cleanIdentifiers }, promisePlusCb } = require( 'service-utils' );
-const agendasSvc = require( 'agendas' );
 
 let config;
 let knex;
@@ -126,7 +127,7 @@ function _populate( v ) {
 
   return w.promise( ( resolve, reject ) => {
 
-    agendasSvc.get( v.identifiers, { internal: true }, ( err, result ) => {
+    config.interfaces.getAgenda( v.identifiers, ( err, result ) => {
 
       if ( err ) return reject( err );
 

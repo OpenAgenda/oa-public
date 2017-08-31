@@ -20,6 +20,16 @@ module.exports = {
     path: '//cibul.s3.amazonaws.com/',
     default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
   },
+  interfaces: {
+    getAgenda: ( identifiers, cb ) => {
+
+      cb( null, Object.assign( {}, {
+        title: 'An agenda',
+        description: 'Ladida'
+      }, identifiers ) );
+
+    }
+  },
   mw : {
     limit: 20
   }
