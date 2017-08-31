@@ -1,23 +1,39 @@
 "use strict";
 
-var React = require('react'),
-    PropTypes = require('prop-types'),
-    createReactClass = require('create-react-class'),
-    List = require('react-components/build/List'),
-    Switch = require('rc-switch');
+var _react = require('react');
 
-module.exports = createReactClass({
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
+var _List = require('react-components/build/List');
+
+var _List2 = _interopRequireDefault(_List);
+
+var _rcSwitch = require('rc-switch');
+
+var _rcSwitch2 = _interopRequireDefault(_rcSwitch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = (0, _createReactClass2.default)({
 
   displayName: 'Details',
 
   propTypes: {
-    agenda: PropTypes.object,
-    stakeholders: PropTypes.array,
-    pageRange: PropTypes.array,
-    total: PropTypes.number,
-    getStakeholdersPage: PropTypes.func,
-    setAgenda: PropTypes.func,
-    limit: PropTypes.number
+    agenda: _propTypes2.default.object,
+    stakeholders: _propTypes2.default.array,
+    pageRange: _propTypes2.default.array,
+    total: _propTypes2.default.number,
+    getStakeholdersPage: _propTypes2.default.func,
+    setAgenda: _propTypes2.default.func,
+    limit: _propTypes2.default.number
   },
 
   getDefaultProps: function getDefaultProps() {
@@ -46,80 +62,78 @@ module.exports = createReactClass({
     var setAgenda = this.props.setAgenda;
 
 
-    return React.createElement(
+    return _react2.default.createElement(
       'header',
       { className: 'agenda-header' },
-      React.createElement(
+      _react2.default.createElement(
         'div',
         { className: 'container-fluid profile notheme' },
-        React.createElement(
+        _react2.default.createElement(
           'div',
           { className: 'row' },
-          this.props.agenda.image ? React.createElement(
+          this.props.agenda.image ? _react2.default.createElement(
             'div',
             { className: 'col-sm-2 avatar-container' },
-            React.createElement(
+            _react2.default.createElement(
               'a',
               { href: '/' + this.props.agenda.slug },
               ' ',
-              React.createElement('img', { className: 'avatar',
+              _react2.default.createElement('img', { className: 'avatar',
                 src: 'https://cibul.s3.amazonaws.com/' + this.props.agenda.image,
                 alt: this.props.agenda.title }),
               ' '
             )
           ) : null,
-          React.createElement(
+          _react2.default.createElement(
             'div',
             { className: this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' },
-            React.createElement(
+            _react2.default.createElement(
               'a',
               { href: '/' + this.props.agenda.slug },
-              React.createElement(
+              _react2.default.createElement(
                 'h1',
                 null,
                 this.props.agenda.title
               ),
-              React.createElement(
+              _react2.default.createElement(
                 'p',
                 null,
                 this.props.agenda.description
               )
             ),
             ' ',
-            this.props.agenda.url ? React.createElement(
+            this.props.agenda.url ? _react2.default.createElement(
               'p',
               null,
-              React.createElement(
+              _react2.default.createElement(
                 'a',
                 { target: '_blank', href: this.props.agenda.url },
                 this.props.agenda.url
               )
             ) : null,
-            this.props.agenda.uid ? React.createElement(
+            this.props.agenda.uid ? _react2.default.createElement(
               'div',
               null,
-              React.createElement(
+              _react2.default.createElement(
                 'div',
                 null,
                 'Agenda officiel ',
-                React.createElement(Switch, {
-                  ref: 'switch',
+                _react2.default.createElement(_rcSwitch2.default, {
                   className: 'rc-switch',
-                  checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-                  unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+                  checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+                  unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
                   onChange: this.setOfficial,
                   checked: !!this.props.agenda.official
                 })
               ),
-              React.createElement(
+              _react2.default.createElement(
                 'div',
                 null,
                 'Agenda priv\xE9 ',
-                React.createElement(Switch, {
-                  ref: 'switch',
+                _react2.default.createElement(_rcSwitch2.default, {
                   className: 'rc-switch',
-                  checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-                  unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+                  checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+                  unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
                   onChange: this.setPrivate,
                   checked: !!this.props.agenda.private
                 })
@@ -132,60 +146,60 @@ module.exports = createReactClass({
   },
   renderStakeholdersTable: function renderStakeholdersTable() {
 
-    return React.createElement(
+    return _react2.default.createElement(
       'table',
       { className: 'table table-striped table-hover' },
-      React.createElement(
+      _react2.default.createElement(
         'thead',
         null,
-        React.createElement(
+        _react2.default.createElement(
           'tr',
           null,
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             '#'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Type'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Nom complet'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Nom d\'utilisateur'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Email'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Depuis'
           ),
-          React.createElement(
+          _react2.default.createElement(
             'th',
             null,
             'Actions'
           )
         )
       ),
-      React.createElement(List, {
+      _react2.default.createElement(_List2.default, {
         items: this.props.stakeholders || [],
         renderItem: this.renderStakeholderItem,
         renderEmpty: function renderEmpty() {
-          return React.createElement(
+          return _react2.default.createElement(
             'tr',
             null,
-            React.createElement(
+            _react2.default.createElement(
               'td',
               { colSpan: '7', className: 'text-center' },
               'Y\'a personne !'
@@ -204,10 +218,10 @@ module.exports = createReactClass({
   renderStakeholderItem: function renderStakeholderItem(stakeholder) {
 
     if (!stakeholder.user) {
-      return React.createElement(
+      return _react2.default.createElement(
         'tr',
         { key: stakeholder.id },
-        React.createElement(
+        _react2.default.createElement(
           'td',
           { className: 'text-danger text-center', colSpan: 6 },
           'User deleted'
@@ -215,47 +229,47 @@ module.exports = createReactClass({
       );
     }
 
-    return React.createElement(
+    return _react2.default.createElement(
       'tr',
       { key: stakeholder.id },
-      React.createElement(
+      _react2.default.createElement(
         'td',
         { className: 'text-primary' },
         stakeholder.user.uid
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
         credentialsToString(stakeholder.credential)
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
         stakeholder.user.full_name
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
         stakeholder.user.username
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
         stakeholder.user.email
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
         'le ',
         stakeholder.user.created_at
       ),
-      React.createElement(
+      _react2.default.createElement(
         'td',
         null,
-        React.createElement(
+        _react2.default.createElement(
           'a',
           { href: '/admin/users/signin?uid=' + stakeholder.user.uid },
-          React.createElement('i', { className: 'fa fa-sign-in', 'aria-hidden': 'true' })
+          _react2.default.createElement('i', { className: 'fa fa-sign-in', 'aria-hidden': 'true' })
         )
       )
     );
@@ -263,13 +277,13 @@ module.exports = createReactClass({
   renderPrev: function renderPrev() {
 
     if (this.hasPrevPage()) {
-      return React.createElement(
+      return _react2.default.createElement(
         'tr',
         null,
-        React.createElement(
+        _react2.default.createElement(
           'td',
           { colSpan: '6', className: 'text-center' },
-          React.createElement(
+          _react2.default.createElement(
             'button',
             { className: 'btn btn-default',
               onClick: this.props.getStakeholdersPage.bind(null, false) },
@@ -282,13 +296,13 @@ module.exports = createReactClass({
   renderNext: function renderNext() {
 
     if (this.hasNextPage()) {
-      return React.createElement(
+      return _react2.default.createElement(
         'tr',
         null,
-        React.createElement(
+        _react2.default.createElement(
           'td',
           { colSpan: '6', className: 'text-center' },
-          React.createElement(
+          _react2.default.createElement(
             'button',
             { className: 'btn btn-default',
               onClick: this.props.getStakeholdersPage.bind(null, true) },
@@ -314,17 +328,17 @@ module.exports = createReactClass({
         setAgenda = _props.setAgenda;
 
 
-    return agenda.credentials && React.createElement(
+    return agenda.credentials && _react2.default.createElement(
       'div',
       null,
-      React.createElement('p', null),
-      React.createElement(
+      _react2.default.createElement('p', null),
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { moderators: checked } });
           },
@@ -332,13 +346,13 @@ module.exports = createReactClass({
         }),
         ' Moderators'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { aggregator: checked } });
           },
@@ -346,13 +360,13 @@ module.exports = createReactClass({
         }),
         ' Aggregator'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { tags: checked } });
           },
@@ -360,13 +374,13 @@ module.exports = createReactClass({
         }),
         ' Agenda tags'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { embedsHead: checked } });
           },
@@ -375,13 +389,13 @@ module.exports = createReactClass({
         ' Add lines inside embed ',
         '<head>'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { embedsTemplates: checked } });
           },
@@ -389,13 +403,13 @@ module.exports = createReactClass({
         }),
         ' Customize embed templates'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { indesign: checked } });
           },
@@ -403,13 +417,13 @@ module.exports = createReactClass({
         }),
         ' Old indesign tab'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { activatingInvitations: checked } });
           },
@@ -417,13 +431,13 @@ module.exports = createReactClass({
         }),
         ' Invitations that trigger instant account verification ( no activation email required )'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { emailstrategie: checked } });
           },
@@ -431,13 +445,13 @@ module.exports = createReactClass({
         }),
         ' Emailstrategie tab'
       ),
-      React.createElement(
+      _react2.default.createElement(
         'p',
         null,
-        React.createElement(Switch, {
+        _react2.default.createElement(_rcSwitch2.default, {
           className: 'rc-switch',
-          checkedChildren: React.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: React.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
             return setAgenda({ credentials: { invitationMessage: checked } });
           },
@@ -457,35 +471,35 @@ module.exports = createReactClass({
     var tab = this.state.tab;
 
 
-    return React.createElement(
+    return _react2.default.createElement(
       'div',
       { className: 'col-md-9' },
-      React.createElement(
+      _react2.default.createElement(
         'div',
         { className: 'row' },
         this.props.agenda ? this.renderAgendaHeader() : '',
-        React.createElement(
+        _react2.default.createElement(
           'div',
           { className: 'nav nav-tabs' },
-          React.createElement(
+          _react2.default.createElement(
             'li',
             { role: 'presentation', className: tab == 'stakeholders' ? 'active' : '',
               onClick: function onClick() {
                 return _this.setTab('stakeholders');
               } },
-            React.createElement(
+            _react2.default.createElement(
               'a',
               { href: '#' },
               'Stakeholders'
             )
           ),
-          React.createElement(
+          _react2.default.createElement(
             'li',
             { role: 'presentation', className: tab == 'features' ? 'active' : '',
               onClick: function onClick() {
                 return _this.setTab('features');
               } },
-            React.createElement(
+            _react2.default.createElement(
               'a',
               { href: '#' },
               'Features'

@@ -57,9 +57,5 @@
     "react-dom": "^15.5.4",
     "should": "^8.2.0",
     "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
-  },
-  "peerDependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
   }
 }

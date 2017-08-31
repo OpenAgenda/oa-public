@@ -1,14 +1,10 @@
 "use strict";
 
-var React = require( 'react' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  List = require( 'react-components/build/List' ),
-
-  Switch = require( 'rc-switch' );
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import List from 'react-components/build/List';
+import Switch from 'rc-switch';
 
 
 module.exports = createReactClass( {
@@ -77,7 +73,6 @@ module.exports = createReactClass( {
               <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
               {this.props.agenda.uid ? <div>
                 <div>Agenda officiel <Switch
-                  ref="switch"
                   className="rc-switch"
                   checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
                   unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
@@ -85,7 +80,6 @@ module.exports = createReactClass( {
                   checked={!!this.props.agenda.official}
                 /></div>
                 <div>Agenda privé <Switch
-                  ref="switch"
                   className="rc-switch"
                   checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
                   unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
