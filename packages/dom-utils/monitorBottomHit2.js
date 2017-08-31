@@ -32,7 +32,9 @@ module.exports = function ( elem, cb ) {
 
   monitor();
 
-  return () => elem.removeEventListener( 'scroll', monitor );
+  return function () {
+    elem.removeEventListener( 'scroll', monitor );
+  }
 }
 
 function viewportHeight() {
