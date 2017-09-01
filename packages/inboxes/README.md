@@ -63,15 +63,15 @@ A conversation is always displayed in the context of an Inbox. This drives how m
 
 To illustrate this, say we have a [Conversation] going on between InboxConversationUser1 of Inbox1 and InboxConversationUser2 of Inbox2
 
-     [Inbox1]                                    [Inbox2]
-        |                                            |
-        |----------------[Conversation]--------------|
-        |                      |                     |
-    [Inbox1User1]              |                [Inbox2User1]
-        |                      |                     |
-        |                  [Message1]----------------|
-        |------------------[Message2]                |
-                           [Message3]----------------|
+    [Inbox1]-------------[Conversation]-------------[Inbox2]
+      |                        |                       |
+      |                        |                       |
+      |                        |                       |
+    [Inbox1User1]              |                  [Inbox2User1]
+       |                       |                       |
+       |                   [Message1]------------------|
+       |-------------------[Message2]                  |
+                           [Message3]------------------|
 
 
 ## Conversation list display context
@@ -176,7 +176,88 @@ A user with one identifier can be linked to several inboxes. It is possible to l
 
     const conversations = inboxes.users( { identifier } ).conversations( {filters}, offset, limit, {options} );
 
-See Model section for details.
+See Model section for details on listing conversations
+
+# Messages
+
+The next examples show a conversation happening between two inboxes. A first one 'Boutique OpenAgenda' and the second one 'Passage Ponceau'. One InboxUser of the first is named 'Kevin' - another could be 'Guilhem' -, the second inbox has an InboxUser named 'Janine' ( the names of the second inbox and inboxuser are the same. ).
+
+    const idOfTheInbox = 1;
+
+    const conversation = await inbox( idOfTheInbox ).conversations.get( conversationId );
+
+    // we don't bother with pagination here. Conversations will not span years.
+    const messages = await conversation.messages();
+
+Messages in hand should contain information decorated with whatever info was required for display and fetched through interfaces. 
+
+Without decoration, messages could look like this:
+
+    [ {
+      authorInboxId: 12
+      authorInboxUserId: 190,
+      createdAt: Date,
+      message: 'Heh les enfants! Ya du courrier pour vous!'
+    }, {
+      authorInboxId: 1,
+      authoriInboxUserId: 920,
+      createAt: LaterDate,
+      message: 'Ah oui merci.'
+    } ]
+
+With decoration, the same messages will have been completed with info fetched from service interfaces
+
+    [ {
+      authorInboxId: 12
+      authorInboxUserId: 190,
+      author: { // depending on context, author is either authorInbox or authorInboxUser. 
+        name: 'Janine',
+        thumbnail: '//bucketmachin/uncaddy.jpg'
+      },
+      createdAt: Date,
+      message: 'Heh les enfants! Ya du courrier pour vous!'
+    }, {
+      authorInboxId: 1,
+      authorInboxUserId: 920,
+      author: {
+        name: 'Boutique OpenAgenda',
+        thumbnail: '//bucketmachin/lavitrine.jpg'
+      },
+      createdAt: LaterDate,
+      message: 'Gnein?'
+    } ]
+
+## Context
+
+Fetched decorating information is function of the context. Displaying messages of the conversation of the previous example from a different endpoint
+
+    const janineUserUid = 83; ( this comes from the integrating application )
+
+    const conversation = await inboxes.users( { identifier: janineUserUid } ).conversations.get( conversationId );
+
+Decorated messages would look like this:
+
+    [ {
+      authorInboxId: 12
+      authorInboxUserId: 190,
+      author: { // depending on context, author is either authorInbox or authorInboxUser. 
+        name: 'Le passage Ponceau',
+        thumbnail: '//bucketmachin/photodupassage.jpg'
+      },
+      createdAt: Date,
+      message: 'Heh les enfants! Ya du courrier pour vous!'
+    }, {
+      authorInboxId: 1,
+      authorInboxUserId: 920,
+      author: {
+        name: 'Kevin',
+        thumbnail: '//bucketmachin/latetedekevin.jpg'
+      },
+      createdAt: LaterDate,
+      message: 'Gnein?'
+    } ]
+
+
 
 ## Types and Actions
 
