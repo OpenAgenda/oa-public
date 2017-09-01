@@ -68,13 +68,11 @@ async function rebuild() {
 
   createdAt.setDate( createdAt.getDate() - 120 );
 
-  const max = 1000;
-
   return index.rebuild( {
     expire: true,
     eventsList: async function( offset, limit ) {
 
-      if ( offset > max ) return [];
+      if ( offset > rebuildLimit ) return [];
 
       log( 'info', 'rebuilding event index, offset %s', offset );
 
@@ -99,7 +97,7 @@ async function batch( method, event, context = {}) {
   _queue( method, event.uid );
 
   // secondary agendas
-  ( await agendaEvents.list.byEventUid( event.uid, 0, rebuildLimit ) ).items
+  ( await agendaEvents.list.byEventUid( event.uid, 0, 1000 ) ).items
 
     .map( i => i.agendaUid )
 
