@@ -184,7 +184,7 @@ The next examples show a conversation happening between two inboxes. A first one
 
     const idOfTheInbox = 1;
 
-    const conversation = await inbox( idOfTheInbox ).conversations.get( conversationId );
+    const conversation = await inboxes( idOfTheInbox ).conversations.get( conversationId );
 
     // we don't bother with pagination here. Conversations will not span years.
     const messages = await conversation.messages();
@@ -211,8 +211,8 @@ With decoration, the same messages will have been completed with info fetched fr
       authorInboxId: 12
       authorInboxUserId: 190,
       author: { // depending on context, author is either authorInbox or authorInboxUser. 
-        name: 'Janine',
-        thumbnail: '//bucketmachin/uncaddy.jpg'
+        name: 'Le passage Ponceau',
+        thumbnail: '//bucketmachin/photodupassage.jpg'
       },
       createdAt: Date,
       message: 'Heh les enfants! Ya du courrier pour vous!'
@@ -220,8 +220,8 @@ With decoration, the same messages will have been completed with info fetched fr
       authorInboxId: 1,
       authorInboxUserId: 920,
       author: {
-        name: 'Boutique OpenAgenda',
-        thumbnail: '//bucketmachin/lavitrine.jpg'
+        name: 'Kevin',
+        thumbnail: '//bucketmachin/latetedekevin.jpg'
       },
       createdAt: LaterDate,
       message: 'Gnein?'
@@ -241,8 +241,8 @@ Decorated messages would look like this:
       authorInboxId: 12
       authorInboxUserId: 190,
       author: { // depending on context, author is either authorInbox or authorInboxUser. 
-        name: 'Le passage Ponceau',
-        thumbnail: '//bucketmachin/photodupassage.jpg'
+        name: 'Janine',
+        thumbnail: '//bucketmachin/uncaddy.jpg'
       },
       createdAt: Date,
       message: 'Heh les enfants! Ya du courrier pour vous!'
@@ -250,13 +250,12 @@ Decorated messages would look like this:
       authorInboxId: 1,
       authorInboxUserId: 920,
       author: {
-        name: 'Kevin',
-        thumbnail: '//bucketmachin/latetedekevin.jpg'
+        name: 'Boutique OpenAgenda',
+        thumbnail: '//bucketmachin/lavitrine.jpg'
       },
       createdAt: LaterDate,
       message: 'Gnein?'
     } ]
-
 
 
 ## Types and Actions
@@ -269,9 +268,9 @@ Conversations have typologies that define configuration that can format:
 
 Types are defined at the initialization of the service. An example:
 
-    const inbox = require( 'inbox' );
+    const inboxes = require( 'inboxes' );
 
-    inbox.init( {
+    inboxes.init( {
       types: {
         contribution_request: {
           title: {
@@ -318,8 +317,8 @@ Types are defined at the initialization of the service. An example:
 
 To build on the previous example, all data is set on the conversation at the time of its creation:
 
-    // this conversation will link inbox of inboxUserId1 and inboxId2
-    await conversations.create( inboxUserId1, inboxId2, 'contribution_request', {
+    // this conversation would link inbox of inboxUserId1 and destinationInboxId
+    inboxes.users( inboxUserId1 ).conversations.create( destinationInboxId, 'contribution_request', {
       title: {
         user: Gaetan,
       },
@@ -330,6 +329,9 @@ To build on the previous example, all data is set on the conversation at the tim
       },
       message: 'Pourquoi personne m\'a invité? Rhôô.'
     }
+
+    // a conversation can be created like this
+    inboxes( originInboxId1 ).conversations.create( destinationInboxId, inboxUserId1, 'contribution_request', { ...
 
 ## Messages
 
