@@ -38,6 +38,12 @@ function init( config ) {
         format: 'YYYY-MM',
         interval: 'month',
         destination: 'timingsByMonth'
+      },
+
+      agendas: {
+        type: 'objectsAsTerms',
+        field: 'search_internals_agenda',
+        destination: 'agendas'
       }
       
     },

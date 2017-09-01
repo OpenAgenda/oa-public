@@ -14,6 +14,8 @@ const agendaIndices = require( './agendaIndices' );
 
 const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
 
+const rebuildLimit = 10000;
+
 let log;
 
 module.exports = _.extend( search, {
@@ -97,7 +99,7 @@ async function batch( method, event, context = {}) {
   _queue( method, event.uid );
 
   // secondary agendas
-  ( await agendaEvents.list.byEventUid( event.uid, 0, 1000 ) ).items
+  ( await agendaEvents.list.byEventUid( event.uid, 0, rebuildLimit ) ).items
 
     .map( i => i.agendaUid )
 

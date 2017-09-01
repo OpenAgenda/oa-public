@@ -58,7 +58,7 @@ function _defineOptions( query, forceAggs = false ) {
 
   if ( forceAggs || query.aggs ) {
 
-    return ih( query, { aggregations: { $set: [ 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } )
+    return ih( query, { aggregations: { $set: [ 'agendas', 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } )
 
   }
 

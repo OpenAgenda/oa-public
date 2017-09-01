@@ -9,7 +9,8 @@ const agendaEvents = require( 'agenda-events' ),
   interfaces = {
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
-    onRemove: require( './onRemove' )
+    onRemove: require( './onRemove' ),
+    beforeRemove: require( './beforeRemove' )
   },
 
   legacy = require( './legacy' );
