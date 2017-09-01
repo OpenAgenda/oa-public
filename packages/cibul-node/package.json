@@ -40,7 +40,6 @@
     "call-to-action": "bitbucket:openagenda/call-to-action",
     "cibulModel": "bitbucket:openagenda/cibulmodel",
     "cibulTemplates": "bitbucket:openagenda/cibul-templates",
-    "circular-json": "^0.3.1",
     "cookie-parser": "~1.3",
     "cookie-session": "1.2.0",
     "custom": "bitbucket:openagenda/custom",

@@ -9,7 +9,6 @@ const sessions = require( 'sessions' );
 const keys = require( 'keys' );
 const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
 const hsts = require( 'hsts' );
-const circularJSON = require( 'circular-json' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
@@ -103,9 +102,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
     unauthorized: require( 'labels/errors/unauthorized' )
   },
 
-  qs = require( 'qs' ),
-
-  CircularJSON = require( 'circular-json' );
+  qs = require( 'qs' );
 
 
 function loadEvent( paramName, fieldName ) {
@@ -416,9 +413,9 @@ function errorResponse( req, res, error, jsonResponse ) {
 
       req.log.load( { errorStack: error.stack } );
 
-      req.log( 'error', 'received error: %s', circularJSON.stringify( error ) );
+      req.log( 'error', 'received error: %j', error );
 
-      console.error( ( new Date ).toUTCString() + ' caught: %s', circularJSON.stringify( error ) );
+      console.error( ( new Date ).toUTCString() + ' caught: %j', error );
 
       console.error( error.stack ? error.stack : 'no stack' );
 
@@ -493,11 +490,22 @@ function catchError( req, res, jsonResponse ) {
 
   return err => {
 
-    log(
-      'error',
-      'caught error: %s',
-      typeof err == 'object' && err.message ? err.message : CircularJSON.stringify( err )
-    );
+    if ( typeof err == 'object' && err.message ) {
+
+      log( 'error', 'caught error: %s', err.message );
+
+    } else {
+
+      log( 'error', 'caught error: %j', err );
+
+    }
+
+    // For send directly a json error with next( err )
+    if ( err.json ) {
+
+      return res.status( err.code || 400 ).send( err.json );
+
+    }
 
     if ( err.code == 404 ) {
 

@@ -4,7 +4,7 @@ const supervisor = require( './lib/supervisor' );
 
 module.exports = ( enabledTypes, cb ) => {
 
-  if ( !cb && ( typeof enabledTypes == 'function' ) ) {
+  if ( !cb && typeof enabledTypes === 'function' ) {
 
     cb = enabledTypes;
 
@@ -16,92 +16,84 @@ module.exports = ( enabledTypes, cb ) => {
 
     require( './services/init' )( err => {
 
+      const _ = require( 'lodash' );
+      const http = require( 'http' );
+      const express = require( 'express' );
+      const bodyParser = require( 'body-parser' );
+      const sessions = require( 'sessions' );
       const logger = require( 'logger' );
+      const tfy = require( './lib/taskify' );
+      const cmn = require( './lib/commons-app' );
       const config = require( './config' );
 
       const log = logger( 'app' );
 
       if ( err ) {
-
         return log( 'error', 'could not load app: %s', err );
-
       }
 
       if ( process.env.NODE_ENV === 'development' ) {
         require( 'source-map-support' ).install( { hookRequire: true } );
       }
 
-      const tfy = require( './lib/taskify' ),
-
-        cmn = require( './lib/commons-app' ),
-
-        express = require( 'express' ),
-
-        bodyParser = require( 'body-parser' ),
-
-        sessions = require( 'sessions' ),
-
-        _ = require( 'lodash' );
-
       log( 'info', 'running server' );
 
-      let app = express(),
+      const app = express();
+      const server = http.createServer( app );
 
-        server,
+      const genUrl = require( './services/genUrl' ).getSingleton();
 
-        genUrl = require( './services/genUrl' ).getSingleton(),
-
-        webModules = {
-          admin: [ // for admins only
-            require( './admin/back' )( '/admin' ),
-            require( './admin/agendas.back' )( '/admin/agendas' ),
-            require( './admin/activities.back' )( '/admin/activities' )
-          ],
-          web: [ // open to the public
-            require( './home/back' )( '/home' ),
-            require( './user/settings.back' )( '/settings' ),
-            require( './newsletter/back' )( '/:slug/admin/newsletters' ),
-            require( './newsletter/front' )( '/:slug/newsletters' ),
-            require( './general/front' )( '' ),
-            require( './general/session.back' )( '/session' ),
-            require( './general/back' )( '' ),
-            require( './search/front' )( '' ),
-            require( './event/form.back' )( '' ),
-            require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
-            require( './event/front' )( '' ),
-            require( './event/actions.front' )( '' ),
-            require( './event/back' )( '' ),
-            require( './auth/comexposium.front' )( '' ),
-            require( './auth/facebook.front' )( '' ),
-            require( './auth/twitter.front' )( '' ),
-            require( './auth/google.front' )( '' ),
-            require( './auth/local.front' )( '' ),
-            require( './auth/reset.front' )( '/password' ),
-            require( './agenda/stakeholders.back' )( '/:slug/admin' ),
-            require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
-            require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
-            require( './location/front' )( '/locations' ),
-            require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
-            require( './location/back' )( '' ),
-            require( './agenda/settings.back' )( '' ),
-            require( './agenda/sources.back' )( '/:slug/admin' ),
-            require( './agenda/members.back' )( '/:slug/admin/members' ),
-            require( './agenda/activities.back' )( '/:slug/admin/activities' ),
-            require( './agenda/shares.front' )( '' ),
-            require( './agenda/front' )( '' ),
-            require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-            require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
-            require( './agenda/back' )( '' ),
-            require( './agenda/facebook.back' )( '' ),
-            require( './agenda/customized.back' )( '' ),
-            require( './agenda/actions.front' )( '/:slug/actions' ),
-            require( './agenda/exports.front' )( '/agendas/:uid' ),
-            require( './activities/notifications.back' )( '/notifications' )
-          ],
-          webAndTask: [
-            require( './legacy/back' )( '/legacy' )
-          ]
-        };
+      const webModules = {
+        admin: [ // for admins only
+          require( './admin/back' )( '/admin' ),
+          require( './admin/agendas.back' )( '/admin/agendas' ),
+          require( './admin/activities.back' )( '/admin/activities' )
+        ],
+        web: [ // open to the public
+          require( './home/back' )( '/home' ),
+          require( './user/settings.back' )( '/settings' ),
+          require( './newsletter/back' )( '/:slug/admin/newsletters' ),
+          require( './newsletter/front' )( '/:slug/newsletters' ),
+          require( './general/front' )( '' ),
+          require( './general/session.back' )( '/session' ),
+          require( './general/back' )( '' ),
+          require( './search/front' )( '' ),
+          require( './event/form.back' )( '' ),
+          require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
+          require( './event/front' )( '' ),
+          require( './event/actions.front' )( '' ),
+          require( './event/back' )( '' ),
+          require( './auth/comexposium.front' )( '' ),
+          require( './auth/facebook.front' )( '' ),
+          require( './auth/twitter.front' )( '' ),
+          require( './auth/google.front' )( '' ),
+          require( './auth/local.front' )( '' ),
+          require( './auth/reset.front' )( '/password' ),
+          require( './agenda/stakeholders.back' )( '/:slug/admin' ),
+          require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
+          require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
+          require( './location/front' )( '/locations' ),
+          require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
+          require( './location/back' )( '' ),
+          require( './agenda/settings.back' )( '' ),
+          require( './agenda/sources.back' )( '/:slug/admin' ),
+          require( './agenda/members.back' )( '/:slug/admin/members' ),
+          require( './agenda/activities.back' )( '/:slug/admin/activities' ),
+          require( './agenda/shares.front' )( '' ),
+          require( './agenda/front' )( '' ),
+          require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
+          require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
+          require( './agenda/back' )( '' ),
+          require( './agenda/facebook.back' )( '' ),
+          require( './agenda/customized.back' )( '' ),
+          require( './agenda/actions.front' )( '/:slug/actions' ),
+          require( './agenda/exports.front' )( '/agendas/:uid' ),
+          require( './activities/notifications.back' )( '/notifications' )
+        ],
+        webAndTask: [
+          require( './legacy/back' )( '/legacy' )
+        ]
+      };
 
 
       app.set( 'trust proxy', 'loopback' );
@@ -152,14 +144,14 @@ module.exports = ( enabledTypes, cb ) => {
       } );
 
       // run 'admin' type modules
-      if ( enabledTypes.indexOf( 'admin' ) !== -1 ) {
+      if ( enabledTypes.includes( 'admin' ) ) {
 
         webModules.admin.forEach( m => m.load( app ) );
 
       }
 
       // run 'web' type modules
-      if ( enabledTypes.indexOf( 'web' ) !== -1 ) {
+      if ( enabledTypes.includes( 'web' ) ) {
 
         require( './event/search.front' )( app, '/events/search' );
 
@@ -185,13 +177,6 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( err, req, res, next ) => {
 
-        // For send directly a json error with next( err ), can be added on top of cmn.catchError
-        if ( err.json ) {
-
-          return res.status( err.code || 400 ).send( err.json );
-
-        }
-
         cmn.catchError( req, res )( err );
 
       } );
@@ -200,7 +185,7 @@ module.exports = ( enabledTypes, cb ) => {
       // only one process runs background tasks. supervisor handles that.
       // only 'task' types run tasks
 
-      if ( loadTasks && ( enabledTypes.indexOf( 'task' ) !== -1 ) ) {
+      if ( loadTasks && enabledTypes.includes( 'task' ) ) {
 
         tfy( require( './search/task' ), { bootOffset: 1000 } );
 
@@ -276,7 +261,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       }
 
-      server = app.listen( config.port, () => {
+      server.listen( config.port, () => {
 
         log( 'info', '-- Server listening on port %s --', config.port );
 
@@ -284,41 +269,31 @@ module.exports = ( enabledTypes, cb ) => {
 
       if ( cb ) cb( null, server );
 
-      process.on( 'uncaughtException', err => {
+      process.on( 'uncaughtException', errorHandler( 'uncaughtException', 'uncaught' ) );
 
-        try {
+      process.on( 'unhandledRejection', errorHandler( 'unhandledRejection', 'unhandled' ) );
 
-          throw err;
+      function errorHandler( name, shortname ) {
 
-        } catch ( e ) {
+        return err => {
 
-          log( 'error', 'uncaughtException: %s', e.message || e );
+          try {
 
-          console.error( ( new Date ).toUTCString() + ' uncaught: %s', e.message || e );
+            throw err;
 
-          if ( e.stack ) console.error( e.stack );
+          } catch ( e ) {
 
-        }
+            log( 'error', '%s: %s', name, e.message || e );
 
-      } );
+            console.error( '%s %s: %s', new Date().toUTCString(), shortname, e.message || e );
 
-      process.on( 'unhandledRejection', err => {
+            if ( e.stack ) console.error( e.stack );
 
-        try {
+          }
 
-          throw err;
+        };
 
-        } catch ( e ) {
-
-          log( 'error', 'unhandledRejection: %s', e.message || e );
-
-          console.error( ( new Date ).toUTCString() + ' unhandled: %s', e.message || e );
-
-          if ( e.stack ) console.error( e.stack );
-
-        }
-
-      } );
+      }
 
     } );
 
