@@ -4,15 +4,22 @@ const _ = require( 'lodash' );
 
 const fs = require( 'fs' );
 
+const termsTemplate = _.template( fs.readFileSync( __dirname + '/terms.tpl', 'utf-8' ) );
+
 const types = {
   terms: {
     validate: require( './terms.validator' ),
-    template: _.template( fs.readFileSync( __dirname + '/terms.tpl', 'utf-8' ) )
+    template: termsTemplate
   },
   timings: {
     parse: require( './timings.parse' ),
     validate: require( './timings.validator' ),
     template: _.template( fs.readFileSync( __dirname + '/timings.tpl', 'utf-8' ) )
+  },
+  objectsAsTerms: {
+    validate: require( './terms.validator' ),
+    template: termsTemplate,
+    parse: require( './objectsAsTerms.parse' )
   }
 }
 

@@ -115,6 +115,68 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+
+    it( 'search using predefined aggregation on agenda sub-object', async () => {
+
+      service.init( ih( config, { 
+        predefinedAggregations: {
+          $set: {
+            agendas: { 
+              type: 'objectsAsTerms',
+              field: 'search_internals_agenda',
+              destination: 'agendas'
+            }
+          }
+        }
+      } ) );
+
+      let { aggregations } = await service( 'simple_search' ).search( {
+        'agendaUid' : [ '21475128', '796789' ]
+      }, { size: 0 }, {
+        aggregations: 'agendas'
+      } );
+
+      aggregations.agendas.should.eql( [
+        {
+          "key": "796789",
+          "count": 6,
+          "agenda": {
+            "uid": "796789",
+            "title": "LA DAME DE CANTON",
+            "image": ""
+          }
+        },
+        {
+          "key": "21475128",
+          "count": 1,
+          "agenda": {
+            "uid": "21475128",
+            "title": "Le Batofar",
+            "image": ""
+          }
+        },
+        {
+          "key": "21475128",
+          "count": 1,
+          "agenda": {
+            "uid": "21475128",
+            "title": "New Morning",
+            "image": ""
+          }
+        },
+        {
+          "key": "796789",
+          "count": 1,
+          "agenda": {
+            "uid": "796789",
+            "title": "La Gargouille",
+            "image": ""
+          }
+        }
+      ] );
+
+    } )
+
   } );
 
 } );

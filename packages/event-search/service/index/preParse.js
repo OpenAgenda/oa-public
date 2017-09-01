@@ -59,6 +59,14 @@ module.exports = ( event, part = false ) => {
 
       parsed.search_internals_keywords_text = _flatten( event.keywords );
 
+    } else if ( k === 'agenda' ) {
+
+      if ( event.agenda ) {
+
+        parsed.search_internals_agenda = _.toPairs( _.pick( event.agenda, [ 'uid', 'title', 'image' ] ) ).map( pair => pair.join( ':' ) ).join( '|' );
+
+      }
+
     }
     
   } );

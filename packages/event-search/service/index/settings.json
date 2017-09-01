@@ -47,6 +47,9 @@
             }
           }
         },
+        "search_internals_agenda" : {
+          "type" : "keyword"
+        },
         "search_internals_title" : {
           "type" : "text"
         },
