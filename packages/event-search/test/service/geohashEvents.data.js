@@ -51,4 +51,21 @@ module.exports = [ {
     longitude : 5.38461,
     department: 'Meuse'
   }
+}, {
+  uid: 4444,
+  timezone: 'Europe/Paris',
+  timings: [ {
+    begin: '2017-08-05T10:00:00Z',
+    end: '2017-08-05T12:00:00Z'
+  }, {
+    begin: '2017-08-05T15:00:00Z',
+    end: '2017-08-05T19:00:00Z'
+  } ],
+  location: {
+    uid: 3,
+    name: 'Monument A La Victoire',
+    latitude : 49.16075,
+    longitude : 5.38461,
+    department: 'Meuse'
+  }
 } ];

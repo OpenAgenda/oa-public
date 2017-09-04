@@ -180,6 +180,63 @@ describe( 'event-search - unit: dsl aggregation', function() {
     } );
 
 
+    it( 'group events by date range, with sample', async () => {
+
+      /**
+       * here timings are nested. I need an aggregation giving me the documents 
+       * matching the nested timings in a histogram ( not necessarily though )
+       */
+
+      let dsl = {
+        query: {},
+        aggregations: {
+          days: {
+            nested: {
+              path: 'timings'
+            },
+            aggs: {
+              day: {
+                date_histogram: {
+                  field: 'timings.begin',
+                  interval: 'day',
+                  format: 'YYYY-MM-dd'
+                },
+                aggs: {
+                  day_to_event: {
+                    reverse_nested: {},
+                    aggs: {
+                      top: {
+                        "top_hits": {
+                          "size" : 3,
+                          "sort": [
+                            {
+                              "timings.begin": {
+                                "order": "asc",
+                                "mode": "max",
+                                "nested_path": "timings"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      let { events, aggregations } = await dslSearch( 'simple_search', dsl );
+
+      aggregations.days.day.buckets.map( b => b.day_to_event.top.hits.total ).should.eql( [ 1, 1, 0, 2, 0, 1, 1 ] );
+
+      aggregations.days.day.buckets[ 3 ].day_to_event.top.hits.hits.map( h => h._source.uid ).should.eql( [ 2222, 4444 ] );
+
+    } );
+
+
     it( 'group events by date range, bounded', async () => {
 
       let dsl = {
@@ -209,7 +266,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
         { key_as_string: '2017-08-02', key: 1501632000000, doc_count: 1 },
         { key_as_string: '2017-08-03', key: 1501718400000, doc_count: 1 },
         { key_as_string: '2017-08-04', key: 1501804800000, doc_count: 0 },
-        { key_as_string: '2017-08-05', key: 1501891200000, doc_count: 2 },
+        { key_as_string: '2017-08-05', key: 1501891200000, doc_count: 4 },
         { key_as_string: '2017-08-06', key: 1501977600000, doc_count: 0 },
         { key_as_string: '2017-08-07', key: 1502064000000, doc_count: 1 },
         { key_as_string: '2017-08-08', key: 1502150400000, doc_count: 1 }
@@ -233,12 +290,12 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
       aggregations.departmentthingie.buckets.should.eql( [ 
         {
-          key: 'Paris',
+          key: 'Meuse',
           doc_count: 2
         },
         {
-          key: 'Meuse',
-          doc_count: 1
+          key: 'Paris',
+          doc_count: 2
         } 
       ] );
 
@@ -263,7 +320,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
       aggregations.ceteunpeupenible.should.eql( { 
         buckets: [ 
-          { key: 'u0ez', doc_count: 1 },
+          { key: 'u0ez', doc_count: 2 },
           { key: 'u09w', doc_count: 1 },
           { key: 'u09t', doc_count: 1 } 
         ] 
