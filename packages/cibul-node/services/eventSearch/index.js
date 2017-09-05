@@ -40,6 +40,13 @@ function init( config ) {
         destination: 'timingsByMonth'
       },
 
+      eventsByDay: {
+        type: 'timingsReverseHits',
+        format: 'YYYY-MM-dd',
+        interval: 'day',
+        destination: 'days'
+      },
+
       agendas: {
         type: 'objectsAsTerms',
         field: 'search_internals_agenda',

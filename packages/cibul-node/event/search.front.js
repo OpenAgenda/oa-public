@@ -37,6 +37,8 @@ app.get( '/aggs', ( req, res, next ) => {
 
   const options = _defineOptions( req.query, true );
 
+  const query = _defineQuery( req.query, req.cal );
+
   const p = search( req.query, { size: 0 }, options );
 
   p.catch( next );
@@ -54,11 +56,27 @@ app.get( '/rebuild', ( req, res, next ) => {
 } );
 
 
+function _defineQuery( query, eventsByDivision = false ) {
+
+  if ( !eventsByDivision ) return query;
+
+  return query;
+
+}
+
 function _defineOptions( query, forceAggs = false ) {
 
-  if ( forceAggs || query.aggs ) {
+  if ( forceAggs || query.aggs || query.cal ) {
 
-    return ih( query, { aggregations: { $set: [ 'agendas', 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } } )
+    const update = { aggregations: { $set: [ 'agendas', 'keywords', 'timingsByMonth', 'location.region', 'location.city' ] } };
+
+    if ( query.cal ) {
+
+      update.aggregations[ '$set' ].push( 'eventsByDay' );
+
+    }
+
+    return ih( query, update );
 
   }
 

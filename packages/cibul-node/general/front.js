@@ -169,6 +169,10 @@ function corpo( req, res, next ) {
 
   }
 
+  req.baseData.head.js.slaask = '//cdn.slaask.com/chat.js';
+
+  req.baseData.bottom.scripts.push( 'setTimeout( function() { _slaask.init( \'6b2ef2b1830ad6e1c43bbc726c8a9f98\' ); }, 5000 );' );
+
   cmn.renderTemplate( req, 'corpo/empty', {}, ( err, layout ) => {
 
     let content = layout.replace( '<!--content-->', page.render( req.stats ) );
@@ -386,8 +390,6 @@ function start( req, res, next ) {
     action: action,
     userAgent: req.headers[ 'user-agent' ]
   } );
-
-  console.log( action + ': ' + req.headers[ 'user-agent' ] );
 
   if ( actions[ action ] === 'ok' ) {
 
