@@ -180,7 +180,7 @@ describe( 'event-search - unit: dsl search', function() {
 
       let { events, total } = await dslSearch( 'simple_search', dsl );
 
-      events.map( e => e.slug ).should.eql( [ 'multi_2', 'multi_1', 'multi_3' ] );
+      events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_2', 'multi_3' ] );
 
     } );
 

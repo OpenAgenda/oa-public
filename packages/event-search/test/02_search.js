@@ -235,49 +235,188 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    describe( 'local time', async () => {
 
-    it( 'keyword search, with aggregation', async () => {
+      it( 'not filtered', async () => {
 
-      let { aggregations } = await service( 'simple_search' ).search( { 
-        keyword: 'word' 
-      }, { size: 0 }, {
-        aggregations: [ {
-          type: 'terms',
-          field: 'search_internals_keywords'
-        }, {
-          type: 'timings'
-        } ]
+        const query = {
+          // subset of fixtures for local time tests
+          keyword: 'local_time'
+        }
+
+        let { total } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 2 );
+
       } );
 
-      aggregations.should.eql( { 
-        search_internals_keywords: [ 
-          { key: 'clé', count: 1 },
-          { key: 'key', count: 1 },
-          { key: 'mot', count: 1 },
-          { key: 'word', count: 1 }
-        ],
-        timings: [ { 
-          key: '2010-04-01', count: 2 
-        } ] 
+      it( 'before 11am', async () => {
+
+        const query = {
+          keyword: 'local_time',
+          localTime: {
+            lte: 11*60*60
+          }
+        };
+
+        let { total } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 0 );
+
+      } );
+
+      it( 'after 11am', async () => {
+
+        const query = {
+          keyword: 'local_time',
+          localTime: {
+            gte: 11*60*60
+          }
+        };
+
+        let { total } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 2 );
+
+      } );
+
+      it( 'after 11am, before 12am', async () => {
+
+        const query = {
+          keyword: 'local_time',
+          localTime: {
+            gte: 11*60*60,
+            lte: 12*60*60
+          }
+        };
+
+        let { total, events } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'local_time_1' );
+
+      } );
+
+      it( 'after 12am', async () => {
+
+        const query = {
+          keyword: 'local_time',
+          localTime: {
+            gte: 12*60*60
+          }
+        };
+
+        let { total, events } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'local_time_2' );
+
+      } );
+
+    } );
+
+
+    describe( 'date', () => {
+
+      it( 'not filtered', async () => {
+
+        const query = {
+          // subset of fixtures for local time tests
+          keyword: 'date_event'
+        }
+
+        let { total } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 2 );
+
+      } );
+
+      it( 'after 2000', async () => {
+
+        const query = {
+          // subset of fixtures for local time tests
+          keyword: 'date_event',
+          date: {
+            gte: '2000-01-01T00:00:00.000Z'
+          }
+        }
+
+        let { total, events } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'date_2' );
+
+      } );
+
+      it( 'before 2000', async () => {
+
+        const query = {
+          // subset of fixtures for local time tests
+          keyword: 'date_event',
+          date: {
+            lte: '2000-01-01T00:00:00.000Z'
+          }
+        }
+
+        let { total, events } = await service( 'simple_search' ).search( query );
+
+        total.should.equal( 1 );
+
+        events[ 0 ].slug.should.equal( 'date_1' ); 
+
       } );
 
     } );
 
 
-    it( 'keyword search with results by timing aggregation', async () => {
+    describe( 'aggregation', () => {
 
-      let { aggregations } = await service( 'simple_search' ).search( {
-        keyword: 'word'
-      }, { size: 0 }, {
-        aggregations: [ {
-          type: 'timingsReverseHits'
-        } ]
+      it( 'keyword search, with aggregation', async () => {
+
+        let { aggregations } = await service( 'simple_search' ).search( { 
+          keyword: 'word' 
+        }, { size: 0 }, {
+          aggregations: [ {
+            type: 'terms',
+            field: 'search_internals_keywords'
+          }, {
+            type: 'timings'
+          } ]
+        } );
+
+        aggregations.should.eql( { 
+          search_internals_keywords: [ 
+            { key: 'clé', count: 1 },
+            { key: 'key', count: 1 },
+            { key: 'mot', count: 1 },
+            { key: 'word', count: 1 }
+          ],
+          timings: [ { 
+            key: '2010-04-01', count: 2 
+          } ] 
+        } );
+
       } );
 
-      aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
+
+      it( 'keyword search with results by timing aggregation', async () => {
+
+        let { aggregations } = await service( 'simple_search' ).search( {
+          keyword: 'word'
+        }, { size: 0 }, {
+          aggregations: [ {
+            type: 'timingsReverseHits'
+          } ]
+        } );
+
+        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
+
+      } );
 
     } );
-
 
     it( 'geolocation filtering', async () => {
 

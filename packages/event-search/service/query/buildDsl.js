@@ -120,6 +120,12 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
   }
 
+  if ( cleanQuery.date.gte || cleanQuery.date.lte ) {
+
+    filterParts.push( _dateExcludingOngoing( cleanQuery.date ) );
+
+  }
+
 
   // add custom ( all is match )
   
@@ -136,11 +142,11 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
   // assemble and return dsl
 
-  if ( mustParts.length === 1 ) {
+  if ( mustParts.length === 1 && !filterParts.length ) {
 
     set( dsl, 'query', mustParts[ 0 ] );
 
-  } else if ( mustParts.length > 1 ) {
+  } else if ( mustParts.length > 1 || ( filterParts.length && mustParts.length ) ) {
 
     set( dsl, 'query.bool.must', mustParts );
 
@@ -158,21 +164,37 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 }
 
 
+function _dateExcludingOngoing( d ) {
+
+  let range = {};
+
+  if ( d.gte ) range.gte = d.gte;
+
+  if ( d.lte ) range.lte = d.lte;
+
+
+  return {
+    nested: {
+      path: 'timings',
+      score_mode: 'min',
+      query: {
+        range: {
+          'timings.begin' : range
+        }
+      }
+    }
+  }
+
+}
+
+
 function _localTime( t ) {
 
   let range = {};
 
-  if ( t.gte ) {
+  if ( t.gte ) range.gte = t.gte;
 
-    range.gte = t.gte;
-
-  }
-
-  if ( t.lte ) {
-
-    range.lte = t.lte;
-
-  }
+  if ( t.lte ) range.lte = t.lte;
 
   return {
     nested: {

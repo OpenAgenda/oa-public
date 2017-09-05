@@ -307,4 +307,38 @@ INSERT INTO `${schema}` (
   '2016-11-04 09:18:42', 
   '2016-11-04 09:18:42',
   NULL
-);
+),
+
+(
+  30, 30, 789114, 7678678, 1,
+  'local_time_1',
+  '{"fr":"Un événement à 11h18 à Paris"}','{"fr":"Un événement à 11h18"}','{"fr":"Un événement à 11h18"}','{"fr":["local_time"]}',
+  NULL, '{}', 0, 0, 'Europe/Paris',
+  '[{"begin":"2017-09-05T09:18:00.000Z", "end":"2017-09-05T09:30:00.000Z"}]',
+  '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
+),
+
+(
+  31, 31, 789114, 7678678, 1,
+  'local_time_2',
+  '{"fr":"Un événement à 13h01 à Paris"}','{"fr":"Un événement à 13h01"}','{"fr":"Un événement à 13h01"}','{"fr":["local_time"]}',
+  NULL, '{}', 0, 0, 'Europe/Paris',
+  '[{"begin":"2017-09-05T11:01:00.000Z", "end":"2017-09-05T11:30:00.000Z"}]',
+  '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
+),
+
+( 40, 40, 789114, 7678678, 1,
+  'date_1',
+  '{"fr":"Un événement le 28 février 1981 à Reykjavik"}','{"fr":"Un événement le 28 février 1981 à Reykjavik"}','{"fr":"Un événement le 28 février 1981 à Reykjavik"}', '{"fr":["date_event"]}',
+  NULL, '{}', 0, 0, 'Atlantic/Reykjavik',
+  '[{"begin":"1981-02-28T03:03:00.000Z", "end":"1981-02-28T03:05:00.000Z"}]',
+  '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
+),
+
+( 41, 41, 789114, 7678678, 1,
+  'date_2',
+  '{"fr":"Un événement le 14 juillet à Paris"}','{"fr":"Un événement le 14 juillet à Paris"}','{"fr":"Un événement le 14 juillet à Paris"}', '{"fr":["date_event"]}',
+  NULL, '{}', 0, 0, 'Europe/Paris',
+  '[{"begin":"2017-07-14T11:03:00.000Z", "end":"2017-07-14T11:03:00.000Z"}]',
+  '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
+)

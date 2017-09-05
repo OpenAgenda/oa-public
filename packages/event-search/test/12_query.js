@@ -20,8 +20,8 @@ describe( 'event-search - unit: query.validate', function() {
    * oaq.geo.topLeft.lng
    * oaq.geo.bottomRight.lat
    * oaq.geo.bottomRight.lng
-   * oaq.localTime.gte ( HHMMSS )
-   * oaq.localTime.lte ( HHMMSS )
+   * oaq.localTime.gte ( seconds from midnight )
+   * oaq.localTime.lte ( seconds from midnight )
    * oaq.date.gte ( YYYY-MM-DDTHHmmss+tz )
    * oaq.date.lte ( YYYY-MM-DDTHHmmss+tz )
    * oaq.contributorUid

@@ -139,9 +139,36 @@ describe( 'event search - functional: search', function() {
       aggregations.agendas.should.eql( [
         {
           "key": "796789",
-          "count": 6,
+          "count": 3,
           "agenda": {
             "uid": "796789",
+            "title": "LA DAME DE CANTON",
+            "image": ""
+          }
+        },
+        {
+          "key": "796789",
+          "count": 2,
+          "agenda": {
+            "uid": "796789",
+            "title": "Le Batofar",
+            "image": ""
+          }
+        },
+        {
+          "key": "796789",
+          "count": 2,
+          "agenda": {
+            "uid": "796789",
+            "title": "Petit Bain",
+            "image": ""
+          }
+        },
+        {
+          "key": "21475128",
+          "count": 1,
+          "agenda": {
+            "uid": "21475128",
             "title": "LA DAME DE CANTON",
             "image": ""
           }
@@ -152,24 +179,6 @@ describe( 'event search - functional: search', function() {
           "agenda": {
             "uid": "21475128",
             "title": "Le Batofar",
-            "image": ""
-          }
-        },
-        {
-          "key": "21475128",
-          "count": 1,
-          "agenda": {
-            "uid": "21475128",
-            "title": "New Morning",
-            "image": ""
-          }
-        },
-        {
-          "key": "796789",
-          "count": 1,
-          "agenda": {
-            "uid": "796789",
-            "title": "La Gargouille",
             "image": ""
           }
         }

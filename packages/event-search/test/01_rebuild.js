@@ -92,7 +92,7 @@ describe( 'event-search - functional: rebuild', function() {
 
         let result = await service( 'test_alias' ).rebuild( { eventsList } );
 
-        result.counts.indexed.should.equal( 25 );
+        result.counts.indexed.should.equal( 29 );
 
       } );
 
