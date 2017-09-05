@@ -1,16 +1,18 @@
 "use strict";
 
-var lib,
+const async = require( 'async' ),
 
-async = require( 'async' ),
+  model = require( '../../model' ),
 
-model = require( '../../model' ),
+  utils = require( 'utils' ),
 
-utils = require( 'utils' ),
+  logger = require( 'logger' ),
 
-logger = require( 'logger' ), log,
+  loadDetailedLocation = require( './loadDetailedLocation' ),
 
-loadDetailedLocation = require( './loadDetailedLocation' );
+  loadEventReferences = require( './loadEventReferences' );
+
+let lib, log;
 
 module.exports = ( options, cb ) => {
 
@@ -113,7 +115,13 @@ function _update( type, query ) {
 
         if ( err ) log( 'error', 'could not load detailed location data in event %s', dbRef.id );
 
-        _doUpdate( type, dbRef, count, next );
+        loadEventReferences( dbRef, err => {
+
+          if ( err ) log( 'error', 'could not load reference data in event %s', dbRef.id );
+
+          _doUpdate( type, dbRef, count, next );
+
+        } )
 
       } );
 
