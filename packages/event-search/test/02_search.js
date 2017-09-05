@@ -264,6 +264,19 @@ describe( 'event search - functional: search', function() {
     } );
 
 
+    it( 'keyword search with results by timing aggregation', async () => {
+
+      let { aggregations } = await service( 'simple_search' ).search( {
+        keyword: 'word'
+      }, { size: 0 }, {
+        aggregations: [ {
+          type: 'timingsReverseHits'
+        } ]
+      } );
+
+      aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
+
+    } );
 
 
     it( 'geolocation filtering', async () => {

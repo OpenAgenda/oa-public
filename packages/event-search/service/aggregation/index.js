@@ -16,6 +16,11 @@ const types = {
     validate: require( './timings.validator' ),
     template: _.template( fs.readFileSync( __dirname + '/timings.tpl', 'utf-8' ) )
   },
+  timingsReverseHits: {
+    parse: require( './timingsReverseHits.parse' ),
+    validate: require( './timingsReverseHits.validator' ),
+    template: _.template( fs.readFileSync( __dirname + '/timingsReverseHits.tpl', 'utf-8' ) )
+  },
   objectsAsTerms: {
     validate: require( './terms.validator' ),
     template: termsTemplate,
@@ -46,7 +51,7 @@ function buildDsl( aggregators = [], predefined = {} ) {
 
 }
 
-function parseResult( aggregators, result, predefined = {} ) {
+function parseResult( aggregators, result, predefined = {}, parseEvents = null ) {
 
   let parsed = {};
 
@@ -55,6 +60,10 @@ function parseResult( aggregators, result, predefined = {} ) {
     const parse = types[ type ].parse || _defaultParse.bind( null, destination );
 
     parsed[ destination ] =  parse( result[ destination ] );
+
+    if ( !parsed[ destination ].sampleEvents || !parseEvents ) return;
+
+    parsed[ destination ].sampleEvents = parseEvents( parsed[ destination ].sampleEvents );
 
   } );
 

@@ -95,44 +95,63 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   let { events, total, aggregations } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
 
-  let parsers = [ h.convertToLocalTimezone ];
+  const eventParsers = _buildEventParsers( cleanOptions, aggregations );
 
-  if ( cleanOptions.merge ) {
+  const parsedEvents = _parseEvents( eventParsers, events );
 
-    parsers.push( _merge.bind( null, cleanOptions.merge ) );
+  if ( options.aggregations ) {
 
-  }
-
-  if ( cleanOptions.aggregations ) {
-
-    aggregations = parseAggregationResult( cleanOptions.aggregations, aggregations, config.predefinedAggregations );
-
-  }
-
-  parsers.push( h.appendNextAndLastTiming );
-
-  if ( !cleanOptions.detailed ) {
-
-    parsers.push( h.removeTimingsAndTimezone );
+    aggregations = parseAggregationResult( options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
 
   }
 
   return _.extend( {
     total,
-    events: events.map( e => {
-
-      parsers.forEach( p => {
-
-        e = p( e );
-
-      } );
-
-      return e;
-
-    } )
+    events: parsedEvents
   }, aggregations ? { aggregations } : {} );
 
 }
+
+
+function _parseEvents( parsers, events ) {
+
+  return events.map( e => {
+
+    parsers.forEach( p => {
+
+      e = p( e );
+
+    } );
+
+    return e;
+
+  } );
+
+}
+
+
+function _buildEventParsers( options, aggregations ) {
+
+  let parsers = [ h.convertToLocalTimezone ];
+
+  if ( options.merge ) {
+
+    parsers.push( _merge.bind( null, options.merge ) );
+
+  }
+
+  parsers.push( h.appendNextAndLastTiming );
+
+  if ( !options.detailed ) {
+
+    parsers.push( h.removeTimingsAndTimezone );
+
+  }
+
+  return parsers;
+
+}
+
 
 function _merge( rules, event ) {
 
