@@ -387,6 +387,7 @@ describe( 'event search - functional: search', function() {
           } ]
         } );
 
+
         aggregations.should.eql( { 
           search_internals_keywords: [ 
             { key: 'clé', count: 1 },
@@ -399,12 +400,13 @@ describe( 'event search - functional: search', function() {
           } ] 
         } );
 
+
       } );
 
 
       it( 'keyword search with results by timing aggregation', async () => {
 
-        let { aggregations } = await service( 'simple_search' ).search( {
+        let { aggregations, events } = await service( 'simple_search' ).search( {
           keyword: 'word'
         }, { size: 0 }, {
           aggregations: [ {
@@ -413,6 +415,24 @@ describe( 'event search - functional: search', function() {
         } );
 
         aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
+
+      } );
+
+      it( 'reverse timing aggregation parses sample events', async () => {
+
+        let { aggregations, events } = await service( 'simple_search' ).search( {
+          keyword: 'word'
+        }, { size: 0 }, {
+          aggregations: [ {
+            type: 'timingsReverseHits'
+          } ]
+        } );
+
+        const sampleEvent = aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ];
+
+        should( sampleEvent.timings ).equal( undefined );
+
+        sampleEvent.lastTiming.begin.should.equal( '2010-04-02T00:00:00+02:00' );
 
       } );
 

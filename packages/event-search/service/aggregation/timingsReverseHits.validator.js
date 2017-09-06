@@ -1,5 +1,7 @@
 "use strict";
 
+const config = require( '../config' );
+
 const schema = require( 'validators/schema' );
 
 schema.register( {
@@ -7,7 +9,7 @@ schema.register( {
   text: require( 'validators/text' )
 } );
 
-module.exports = schema( {
+const validate = schema( {
   field: {
     type: 'text',
     default: 'timings'
@@ -25,3 +27,14 @@ module.exports = schema( {
     default: 'YYYY-MM-dd'
   }
 } );
+
+module.exports = values => {
+
+  const clean = validate( values );
+
+  // config is not available at require, needs to be included at eval
+  clean.includes = JSON.stringify( config.baseSearchIncludes );
+
+  return clean;
+
+}

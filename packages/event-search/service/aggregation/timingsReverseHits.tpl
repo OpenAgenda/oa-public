@@ -19,7 +19,8 @@
                   "excludes" : [
                     "search_internals_*",
                     "timings.search_internals_*"
-                  ]
+                  ],
+                  "includes" : ${ includes }
                 }
               }
             }

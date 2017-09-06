@@ -61,9 +61,13 @@ function parseResult( aggregators, result, predefined = {}, parseEvents = null )
 
     parsed[ destination ] =  parse( result[ destination ] );
 
-    if ( !parsed[ destination ].sampleEvents || !parseEvents ) return;
+    if ( !parsed[ destination ].length || !parsed[ destination ][ 0 ].sampleEvents || !parseEvents ) return;
 
-    parsed[ destination ].sampleEvents = parseEvents( parsed[ destination ].sampleEvents );
+    parsed[ destination ].forEach( b => {
+
+      b.sampleEvents = parseEvents( b.sampleEvents );
+
+    } );
 
   } );
 
