@@ -2,17 +2,19 @@
 
 var cn = require('../../js/lib/common/common.mod.js'),
 
-controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
+  ejs = require( 'ejs' ),
 
-total,
+  controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
 
-selectedSlugs = [],
+  total,
 
-UID = 0, TAGS = 1,
+  selectedSlugs = [],
 
-canvas,
+  UID = 0, TAGS = 1,
 
-config,
+  canvas,
+
+  config,
 
 params = {
   selectors: {
@@ -141,7 +143,7 @@ function _createCanvas() {
 
   cn.el(params.selectors.elem).innerHTML = params.templates.canvas;
 
-  canvas = childObject(cn.el(params.selectors.elem), 0);
+  canvas = cn.childObject(cn.el(params.selectors.elem), 0);
 
   if (params.classes.canvas) canvas.className = params.classes.canvas;
 
@@ -152,9 +154,9 @@ function _createOption( tag ) {
 
   var ul = document.createElement('ul');
 
-  ul.innerHTML = new EJS({text: params.templates.option }).render(tag);
+  ul.innerHTML = ejs.render( params.templates.option, tag );
 
-  var li = cn.el(ul, 'li');
+  var li = cn.el( ul, 'li' );
 
   cn.addEvent(li, 'click', function(e) {
 

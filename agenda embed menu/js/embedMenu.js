@@ -1,18 +1,20 @@
-var cn = require('../../js/lib/common/common.mod.js'),
+"use strict";
 
-selectForm = require('../../js/lib/selectForm/selectForm.mod.js'),
+const cn = require( '../../js/lib/common/common.mod.js' ),
 
-tagOptions = require('./tagOptions.js'),
+  selectForm = require( '../../js/lib/selectForm/selectForm.mod.js' ),
 
-codeLang = require('./codeLang.js'),
+  tagOptions = require( './tagOptions.js' ),
 
-debug = require('debug'),
+  codeLang = require( './codeLang.js' ),
 
-log = debug('embedMenu'),
+  debug = require( 'debug' ),
 
-deepExtend = require('deep-extend'),
+  log = debug( 'embedMenu' ),
 
-params = {
+  deepExtend = require( 'deep-extend' );
+
+let params = {
   selectForm: {
     selectors: {
       title: '.js_title',
