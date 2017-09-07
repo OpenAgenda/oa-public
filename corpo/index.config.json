@@ -23,8 +23,7 @@
         "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/dropdown.js",
         "//s3.eu-central-1.amazonaws.com/oastatic/bootstrap/carousel.js",
         "//s3.eu-central-1.amazonaws.com/oastatic/typed.min.js",
-        "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js",
-        "//cdn.slaask.com/chat.js"
+        "//s3.eu-central-1.amazonaws.com/oastatic/odometer.min.js"
       ]
     },
     "pageClass": "ct",

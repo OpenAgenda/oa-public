@@ -47,13 +47,7 @@ window.hook( options => {
 
     checkOdometers(elems);
 
-    du.addEvent( document, "scroll", () => checkOdometers( elems ) );
-
-    setTimeout( () => {
-
-      _slaask.init( '6b2ef2b1830ad6e1c43bbc726c8a9f98' );
-
-    }, 5000 );
+    du.addEvent( document, "scroll", () => checkOdometers( elems ) );    
 
     $( '.typed' ).typed( {
       strings: labels,
