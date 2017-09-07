@@ -10,26 +10,10 @@ module.exports = {
     uri : 'agendaAdminShow'
   }, {
     section : 'manage',
-    key : 'contributors',
-    label : 'Contributors',
-    access: 'moderator',
-    uri : 'agendaAdminContributors',
-    version: 'members:1'
-  }, {
-    section : 'manage',
-    key : 'moderators',
-    label : 'Moderators',
-    uri : 'agendaAdminModerators',
-    access: 'administrator',
-    requiredCred: 'moderator',
-    version: 'members:1'
-  }, {
-    section : 'manage',
     key : 'members',
     label : 'Members',
     uri : 'agendaAdminMembers',
-    access: 'moderator',
-    version: 'members:2'
+    access: 'moderator'
   }, {
     section : 'manage',
     key : 'activities',
@@ -94,13 +78,6 @@ module.exports = {
     uri: 'agendaAdminEmailStrategie',
     access: 'administrator',
     requiredCred: 'emailstrategie'
-  }, {
-    section : 'settings',
-    key : 'administrators',
-    label : 'Administrators',
-    access: 'administrator',
-    uri : 'agendaAdminAdministrators',
-    version: 'members:1'
   }, {
     section : 'settings',
     key : 'settings_profile',

@@ -65,7 +65,8 @@ function _defineOptions( query, forceAggs = false ) {
       'keywords',
       'timingsByMonth',
       'location.region', 
-      'location.city'
+      'location.city',
+      'location.name',
     ] } };
 
     if ( query.cal ) {

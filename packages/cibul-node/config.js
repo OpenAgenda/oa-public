@@ -10,6 +10,7 @@ let config = {
       corpoLastUpdate: '2017-06-22T12:07:29.000Z',
       jsVersion: 14,
       versions: {
+        // unused for now
         members: [ {
           version: 2,
           createdAt: '2016-05-22T00:00:00.000Z',

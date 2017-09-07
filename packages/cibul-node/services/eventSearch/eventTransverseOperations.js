@@ -14,7 +14,7 @@ const agendaIndices = require( './agendaIndices' );
 
 const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
 
-const rebuildLimit = process.env.NODE_ENV === 'production' ? 16000 : 30000;
+const rebuildLimit = process.env.NODE_ENV === 'production' ? 16000 : 2000;
 
 let log;
 
