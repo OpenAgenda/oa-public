@@ -89,7 +89,7 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   if ( cleanOptions.aggregations ) {
 
-    cleanDsl.aggregations = buildAggregationDsl( cleanOptions.aggregations, config.predefinedAggregations );
+    cleanDsl.aggregations = buildAggregationDsl( cleanOptions.aggregations, config.predefinedAggregations, query );
 
   }
 

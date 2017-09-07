@@ -387,7 +387,6 @@ describe( 'event search - functional: search', function() {
           } ]
         } );
 
-
         aggregations.should.eql( { 
           search_internals_keywords: [ 
             { key: 'clé', count: 1 },
@@ -400,13 +399,12 @@ describe( 'event search - functional: search', function() {
           } ] 
         } );
 
-
       } );
 
 
-      it( 'keyword search with results by timing aggregation', async () => {
+      it( 'timing aggregation: search is bounded by current month', async () => {
 
-        let { aggregations, events } = await service( 'simple_search' ).search( {
+        let { aggregations, total } = await service( 'simple_search' ).search( {
           keyword: 'word'
         }, { size: 0 }, {
           aggregations: [ {
@@ -414,13 +412,46 @@ describe( 'event search - functional: search', function() {
           } ]
         } );
 
-        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
+        total.should.equal( 1 );
+
+        // one day for each
+        aggregations.timingsReverseHits.length.should.equal( 30 );
+
+        aggregations.timingsReverseHits.filter( h => h.count !== 0 ).length.should.equal( 0 );
 
       } );
+
+
+      it( 'timing aggregation: keyword search with results', async () => {
+
+        let { aggregations, events } = await service( 'simple_search' ).search( {
+          date: {
+            gte: new Date( '2010-04-01' ),
+            lte: new Date( '2010-04-30' )
+          },
+          keyword: 'word'
+        }, { size: 0 }, {
+          aggregations: [ {
+            type: 'timingsReverseHits'
+          } ]
+        } );
+
+        aggregations.timingsReverseHits.length.should.equal( 30 );
+
+        aggregations.timingsReverseHits[ 0 ].count.should.equal( 1 );
+
+        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 ); 
+
+      } );
+      
 
       it( 'reverse timing aggregation parses sample events', async () => {
 
         let { aggregations, events } = await service( 'simple_search' ).search( {
+          date: {
+            gte: new Date( '2010-04-01' ),
+            lte: new Date( '2010-04-30' )
+          },
           keyword: 'word'
         }, { size: 0 }, {
           aggregations: [ {

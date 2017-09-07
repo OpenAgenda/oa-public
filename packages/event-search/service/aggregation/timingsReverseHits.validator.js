@@ -4,6 +4,8 @@ const config = require( '../config' );
 
 const schema = require( 'validators/schema' );
 
+const _ = require( 'lodash' );
+
 schema.register( {
   choice: require( 'validators/choice' ),
   text: require( 'validators/text' )
@@ -20,6 +22,17 @@ const validate = schema( {
     options: [ 'hour', 'day', 'week', 'month', 'year' ],
     default: 'day'
   },
+  ranges: {
+    list: true,
+    fields: {
+      from: {
+        type: 'string'
+      },
+      to: {
+        type: 'string'
+      }
+    }
+  },
   format: {
     type: 'choice',
     unique: true,
@@ -33,8 +46,74 @@ module.exports = values => {
   const clean = validate( values );
 
   // config is not available at require, needs to be included at eval
-  clean.includes = JSON.stringify( config.baseSearchIncludes );
+  clean.includes = config.baseSearchIncludes;
+
+  // range needs to be specified here
+  clean.ranges = _ranges( 
+    _.get( values, 'query.date.gte', null ),
+    _.get( values, 'query.date.lte', null )
+  );
 
   return clean;
+
+}
+
+
+function _ranges( fromDate = null, toDate = null ) {
+
+  let cursor = fromDate || new Date(),
+
+    lastDate = toDate,
+
+    ranges = [];
+
+  if ( !fromDate ) {
+
+    cursor.setDate( 1 );    
+
+  }
+
+  if ( !toDate ) {
+
+    lastDate = new Date( cursor );
+
+    lastDate.setMonth( lastDate.getMonth() + 1 );
+
+    lastDate.setDate( 0 );
+
+  }
+
+  while ( _stringifyDate( cursor ) <= _stringifyDate( lastDate ) ) {
+
+    ranges.push( { from: _stringifyDate( cursor ) } );
+
+    cursor.setDate( cursor.getDate() + 1 );
+
+    ranges[ ranges.length - 1 ].to = _stringifyDate( cursor );
+
+  }
+
+  return ranges;
+
+}
+
+
+function _stringifyDate( d ) {
+
+  if ( !d ) d = new Date();
+
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+
+}
+
+function _fZ( str ) {
+
+  if ( ( str + '' ).length == 1 ) {
+
+    return '0' + str;
+
+  }
+
+  return str;
 
 }

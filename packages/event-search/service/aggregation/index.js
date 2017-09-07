@@ -33,16 +33,15 @@ module.exports = _.extend( buildDsl, {
 } );
 
 
-function buildDsl( aggregators = [], predefined = {} ) {
+function buildDsl( aggregators = [], predefined = {}, query = {} ) {
 
   let dsl = {};
 
-  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined ) )
+  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined, query ) )
 
     .forEach( ( { type, field, destination, data } ) => {
 
       // simple template
-
       dsl[ destination ] = JSON.parse( types[ type ].template( data ) );
 
     } );
@@ -55,7 +54,7 @@ function parseResult( aggregators, result, predefined = {}, parseEvents = null )
 
   let parsed = {};
 
-  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined ) ).forEach( ( { type, field, destination, data } ) => {
+  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined, {} ) ).forEach( ( { type, field, destination, data } ) => {
 
     const parse = types[ type ].parse || _defaultParse.bind( null, destination );
 
@@ -82,7 +81,7 @@ function _defaultParse( fieldName, result ) {
 }
 
 
-function _cleanAggregatorConfiguration( predefined = {}, a ) {
+function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
 
   let aObj, type, field, destination, data;
 
@@ -115,7 +114,8 @@ function _cleanAggregatorConfiguration( predefined = {}, a ) {
     type,
     field,
     destination,
-    data: types[ type ].validate( _.extend( {}, aObj, { type, field } ) )
+    data: types[ type ].validate( _.extend( {}, aObj, { type, field, query } ) ),
+    query
   };
 
 }

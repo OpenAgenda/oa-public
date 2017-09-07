@@ -4,10 +4,11 @@
   },
   "aggregations" : {
     "timings" : {
-      "date_histogram" : {
+      "date_range" : {
         "field" : "timings.begin",
-        "interval" : "${ interval }",
-        "format" : "${ format }"
+        "format" : "${ format }",
+        "ranges" : ${ JSON.stringify( ranges ) },
+        "time_zone": "Europe/Paris"
       },
       "aggregations" : {
         "timing_to_event" : {
@@ -20,7 +21,7 @@
                     "search_internals_*",
                     "timings.search_internals_*"
                   ],
-                  "includes" : ${ includes }
+                  "includes" : ${ JSON.stringify( includes ) }
                 }
               }
             }
