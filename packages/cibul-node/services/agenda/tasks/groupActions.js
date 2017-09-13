@@ -149,6 +149,14 @@ function changeEventState( agendaId, eventId, oldState, newState, options, cb ) 
 
   }
 
+  if ( arguments.length === 5 ) {
+
+    cb = options;
+
+    options = {};
+
+  }
+
   log( 'changeEventState for agenda %s, event %s', agendaId, eventId );
 
   w( {
