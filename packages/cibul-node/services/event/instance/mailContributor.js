@@ -2,56 +2,59 @@
 
 var p = require( '../../../lib/promises' ), w = p.w,
 
-async = require( 'async' ),
+  async = require( 'async' ),
 
-genUrl = require( '../../genUrl' ),
+  genUrl = require( '../../genUrl' ),
 
-i18n = require( '../../../i18n/i18n' ),
+  i18n = require( '../../../i18n/i18n' ),
 
-utils = require( 'utils' ),
+  utils = require( 'utils' ),
 
-templater = require( 'cibulTemplates' ),
+  templater = require( 'cibulTemplates' ),
 
-mailer = require( 'mailer' ),
+  mailer = require( 'mailer' ),
 
-log = require( 'logger' )( 'services/event/mailContributor' ),
+  log = require( 'logger' )( 'services/event/mailContributor' ),
 
-agendaSvc;
+  agendaSvc;
 
 /**
  * temp solution before streams arrive
  */
 
-module.exports = function( instance, agenda ) {
+module.exports = function ( instance, agenda ) {
 
   log( 'mail contributor on event %s publication', instance.slug );
 
   if ( !agendaSvc ) agendaSvc = require( '../../agenda' ); // circular ref if up.
 
   w( {
-    instance: instance,
-    agenda: agenda,
+    instance,
+    agenda,
     contributor: false,
     isAdministrator: false,
     message: false,
     firstPublicationFlag: true
   } )
 
-  .then( _loadAgenda )
+    .then( _loadAgenda )
 
-  .then( _checkFirstPublicationFlag )
+    .then( _checkFirstPublicationFlag )
 
-  .then( p.ife( { firstPublicationFlag : false }, _retrieveContributor ) )
+    .then( p.ife( { firstPublicationFlag: false }, _retrieveContributor ) )
 
-  .then( p.ife( { firstPublicationFlag : false }, _checkAdmin ) )
+    .then( p.ife( { firstPublicationFlag: false }, _checkAdmin ) )
 
-  .then( p.ife( { firstPublicationFlag : false }, _retrieveAgendaCustomMessage ) )
+    .then( p.ife( { firstPublicationFlag: false }, _retrieveAgendaCustomMessage ) )
 
-  .then( p.ife( { firstPublicationFlag : false }, _sendPublicationMail ) )
+    .then( p.ife( { firstPublicationFlag: false }, _sendPublicationMail ) )
 
-  .then( p.ife( { firstPublicationFlag : false }, _setFirstPublicationFlag ) )
+    .then( p.ife( { firstPublicationFlag: false }, _setFirstPublicationFlag ) )
 
-  .done( () => {}, err => { log( 'error', err ); } );
+    .done( () => {
+    }, err => {
+      log( 'error', err );
+    } );
 
 }
 
@@ -64,24 +67,24 @@ function _sendPublicationMail( v ) {
 
   var d = w.defer(),
 
-  data = {
-    lang: v.contributor.lang,
-    env: process.env.NODE_ENV,
-    title: {
-      text: 'The agenda %title% published your event %event%',
-      values: {
-        '%title%' : v.agenda.title,
-        '%event%' : v.instance.getTitle()
+    data = {
+      lang: v.contributor.lang,
+      env: process.env.NODE_ENV,
+      title: {
+        text: 'The agenda %title% published your event %event%',
+        values: {
+          '%title%': v.agenda.title,
+          '%event%': v.instance.getTitle()
+        },
+        link: genUrl( 'agendaEventShow', {
+          slug: v.agenda.slug,
+          eventSlug: v.instance.slug
+        }, { abs: true } )
       },
-      link: genUrl( 'agendaEventShow', {
-        slug: v.agenda.slug,
-        eventSlug: v.instance.slug
-      }, { abs: true } )
+      description: v.message
     },
-    description: v.message
-  },
 
-  renders = {};
+    renders = {};
 
   async.each( [ 'html', 'text' ], ( type, ecb ) => {
 
@@ -99,16 +102,16 @@ function _sendPublicationMail( v ) {
 
     if ( err ) return d.reject( err );
 
-    mailer({
+    mailer( {
       recipient: v.contributor.email,
       subject: i18n( data.title.text, data.title.values, v.contributor.lang ),
       text: renders.text,
       html: renders.html
-    });
+    } );
 
     d.resolve( v );
 
-  });
+  } );
 
   return d.promise;
 
@@ -118,9 +121,13 @@ function _loadAgenda( v ) {
 
   log( 'loading agenda' );
 
+  if ( v.agenda.title && v.agenda.slug && v.agenda.isAdministrator && v.agenda.getStore ) {
+    return v;
+  }
+
   var d = w.defer();
 
-  agendaSvc.get( { id: v.agenda.id }, ( err, agenda ) => {
+  agendaSvc.get( v.agenda.id ? { id: v.agenda.id } : v.agenda, ( err, agenda ) => {
 
     log( 'agenda loaded' );
 
@@ -130,7 +137,7 @@ function _loadAgenda( v ) {
 
     d.resolve( v );
 
-  });
+  } );
 
   return d.promise;
 
@@ -152,7 +159,7 @@ function _checkAdmin( v ) {
 
     d.resolve( v );
 
-  });
+  } );
 
   return d.promise;
 
@@ -175,7 +182,7 @@ function _retrieveContributor( v ) {
 
     d.resolve( v );
 
-  });
+  } );
 
   return d.promise;
 
@@ -216,11 +223,10 @@ function _setFirstPublicationFlag( v ) {
 }
 
 
-
 function _retrieveAgendaCustomMessage( v ) {
 
   v.message = v.agenda.getStore( 'publicationMessage' );
-  
+
   return v;
 
 }
