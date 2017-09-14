@@ -1,10 +1,8 @@
 "use strict";
 
-var React = require( 'react' ),
-
-RadioTypeField = require( './RadioTypeField.jsx' ),
-
-Select = require( 'react-select' );
+import React from 'react';
+import RadioTypeField from './RadioTypeField.jsx';
+import Select from 'react-select';
 
 module.exports = RadioTypeField( {
 

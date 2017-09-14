@@ -1,16 +1,12 @@
 "use strict";
 
-var Select = require( 'react-select' ),
+import React from 'react';
+import ReactDom from 'react-dom';
+import createReactClass from 'create-react-class';
+import Select from 'react-select';
+import rUtils from './reactUtils.js';
 
-React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-ReactDom = require( 'react-dom' ),
-
-rUtils = require( './reactUtils.js' ),
-
-defaults = {
+const defaults = {
   canvas: '.js_form_canvas',
   events: {
     send: 'etypesend'

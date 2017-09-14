@@ -1,32 +1,20 @@
 "use strict";
 
-require( 'dom-utils/ie8' );
+import 'dom-utils/ie8';
+import 'dom-utils/ie9';
 
-require( 'dom-utils/ie9' );
+import formUtils from './formUtils';
+import rUtils from './reactUtils';
+import EventForm from './EventForm.jsx';
+import deepExtend from 'deep-extend';
+import React from 'react';
+import ReactDom from 'react-dom';
+import formConfiguration from './formConfiguration';
+import labels from 'labels/event/form';
 
-var formUtils = require( './formUtils' ),
+const fieldErrors = [];
 
-rUtils = require( './reactUtils' ),
-
-du = require( '../../js/lib/domUtils' ),
-
-deepExtend = require( 'deep-extend' ),
-
-EventForm = require( './EventForm.jsx' ),
-
-deepExtend = require( 'deep-extend' ),
-
-React = require( 'react' ),
-
-ReactDom = require( 'react-dom' ),
-
-formConfiguration = require( './formConfiguration' ),
-
-labels = require( 'labels/event/form' ),
-
-fieldErrors = [], customErrors = [],
-
-defaults = {
+const defaults = {
   configuration: false,
   language: 'fr',
   canvas: '.js_form_canvas',
@@ -91,7 +79,7 @@ window.oaEventForm = function( options ) {
       tags={params.tags}
       tagSet={params.tagSet}
       labels= {params.labels}
-      initTranslation= {params.translation} />, 
+      initTranslation= {params.translation} />,
       rUtils.el( params.canvas )
     );
 

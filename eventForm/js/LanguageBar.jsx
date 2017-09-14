@@ -1,12 +1,9 @@
 "use strict";
 
-var React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-languages = require( 'languages' ),
-
-Select = require( 'react-select' );
+import React from 'react';
+import createReactClass from 'create-react-class';
+import languages from 'languages';
+import Select from 'react-select';
 
 module.exports = createReactClass( {
 

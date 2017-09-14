@@ -1,60 +1,32 @@
 "use strict";
 
-const React = require( 'react' ),
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import LanguageBar from 'react-form-components/build/LanguageBar';
+import Translation from 'react-form-components/build/Translation';
+import MultilingualTextField from './MultilingualTextField.jsx';
+import EventKeywordsField from './EventKeywordsField.jsx';
+import WysiwygMarkdown from './WysiwygMarkdown.jsx';
+import CustomFields from './CustomFields.jsx';
+import AccessibilityFields from './AccessibilityFields.jsx';
+import AgeFields from './AgeFields.jsx';
+import TimingsPicker from './TimingsPicker.jsx';
+import TagSelector from 'agenda-tags/lib/TagSelector.jsx';
+import LocationSelector from 'agenda-locations/components/build/LocationSelector';
+import CategorySelector from 'agenda-categories/lib/CategorySelector.jsx';
+import Registration from 'registration/lib/Registration.js';
+import References from 'agenda-event-references/react/build/Editor';
+import utils from 'utils';
+import update from 'immutability-helper';
+import languageUtils from './legacy/languageUtils';
+import Modal from 'react-components/build/Modal';
+import Spinner from 'react-components/build/Spinner';
+import translator from './translator.js';
+import translationLabels from 'labels/event/translation';
+import flattenLabels from 'labels/flatten';
 
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  LanguageBar = require( 'react-form-components/build/LanguageBar' ),
-
-  Translation = require( 'react-form-components/build/Translation' ),
-
-  TextField = require( './TextField.jsx' ),
-
-  MultilingualTextField = require( './MultilingualTextField.jsx' ),
-
-  EventKeywordsField = require( './EventKeywordsField.jsx' ),
-
-  WysiwygMarkdown = require( './WysiwygMarkdown.jsx' ),
-
-  CustomFields = require( './CustomFields.jsx' ),
-
-  AccessibilityFields = require( './AccessibilityFields.jsx' ),
-
-  AgeFields = require( './AgeFields.jsx' ),
-
-  TimingsPicker = require( './TimingsPicker.jsx' ),
-
-  TagSelector = require( 'agenda-tags/lib/TagSelector.jsx' ),
-
-  LocationSelector = require( 'agenda-locations/components/build/LocationSelector' ),
-
-  CategorySelector = require( 'agenda-categories/lib/CategorySelector.jsx' ),
-
-  Registration = require( 'registration/lib/Registration.js' ),
-
-  References = require( 'agenda-event-references/react/build/Editor' ),
-
-  utils = require( 'utils' ),
-
-  update = require( 'immutability-helper' ),
-
-  languageUtils = require( './legacy/languageUtils' ),
-
-  Modal = require( 'react-components/build/Modal' ),
-
-  Spinner = require( 'react-components/build/Spinner' ),
-
-  textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ],
-
-  translator = require( './translator.js' ),
-
-  translationLabels = require( 'labels/event/translation' ),
-
-  eventFormLabels = require( 'labels/event/form' ),
-
-  flattenLabels = require( 'labels/flatten' );
+const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
 
 
 let formErrors = {},
@@ -668,77 +640,78 @@ function EventFormFactory() {
             onChange={this.onChange( 'age' )}
             labelsLang={this.props.lang} /> : null}
 
-            </div>
+        </div>
 
-            {this.props.custom ? <CustomFields
-                fields={this.props.custom}
-                values={this.state.custom}
-                errors={formErrors}
-                languages={this.state.languages}
-                onChange={this.changeCustom}
-                labels={this.props.labels}
-                res={this.props.customRes}
-                lang={this.props.lang} />
-              : ''}
+        {this.props.custom ? <CustomFields
+            fields={this.props.custom}
+            values={this.state.custom}
+            errors={formErrors}
+            languages={this.state.languages}
+            onChange={this.changeCustom}
+            labels={this.props.labels}
+            res={this.props.customRes}
+            lang={this.props.lang} />
+          : ''}
 
-            {this.props.configuration.field( 'references' ).display( false ) ? <References
-              initUids={this.state.references}
-              res={this.props.referenceRes}
-              onChange={this.props.onReferencesChange}
-            /> : null}
+        {this.props.configuration.field( 'references' ).display( false ) ? <References
+          initUids={this.state.references}
+          res={this.props.referenceRes}
+          onChange={this.props.onReferencesChange}
+        /> : null}
 
-            <div className="margin-v-lg">
-            <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
+        <div className="margin-v-lg">
+          <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
           {this.state.locationMode === 'create' ?
             <Modal disableBodyScroll={true} classNames={{
-            overlay: 'popup-overlay big'
-          }} onClose={() => {
-            this.onLocationModeChange( 'search' );
-          }} >
-            <h2>{this.getLabel( 'locationCreate' )}</h2>
-            {this.renderLocationSelector()}
+              overlay: 'popup-overlay big'
+            }} onClose={() => {
+              this.onLocationModeChange( 'search' );
+            }}>
+              <h2>{this.getLabel( 'locationCreate' )}</h2>
+              {this.renderLocationSelector()}
             </Modal>
             : this.renderLocationSelector()}
-            </div>
+        </div>
 
-            <div className="margin-v-lg">
-            <TimingsPicker
+        <div className="margin-v-lg">
+          <TimingsPicker
             labels={this.props.labels}
             lang={this.props.lang}
             error={formErrors.timings}
             timings={this.state.timings}
             configuration={this.props.configuration.field( 'timings' )}
             onChange={this.onTimingsChange} />
-            </div>
+        </div>
 
-          {this.state.translation ?
-            <div className="margin-v-lg">
+        {this.state.translation ?
+          <div className="margin-v-lg">
             <Translation
-            source={this.state.translation.source}
-            sets={this.state.translation.sets}
-            check={translator.change.bind( null, true )}
-            uncheck={translator.change.bind( null, false )}
-            sourceChange={translator.sourceChange.bind( null )}
-            labels= {flattenLabels( translationLabels, this.props.lang )}
+              source={this.state.translation.source}
+              sets={this.state.translation.sets}
+              check={translator.change.bind( null, true )}
+              uncheck={translator.change.bind( null, false )}
+              sourceChange={translator.sourceChange.bind( null )}
+              labels={flattenLabels( translationLabels, this.props.lang )}
             />
-            </div>
-            : null}
+          </div>
+          : null}
 
 
-            <div className="js_form_canvas_below"></div>
+        <div className="js_form_canvas_below"></div>
 
-          {this.state.translation && this.state.translation.translating ?
-            <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />
-            : null}
+        {this.state.translation && this.state.translation.translating ?
+          <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />
+          : null}
 
-          {this.state.submitSpin ?
-            <Spinner page={true} message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null} />
-            : null}
+        {this.state.submitSpin ?
+          <Spinner page={true}
+            message={this.state.translation && this.state.translation.timeouts ? translationLabels.savingPartialTranslation[ this.props.lang ] : null} />
+          : null}
 
-            </div>
+      </div>
 
-            }
+    }
 
-          } );
+  } );
 
-          }
+}

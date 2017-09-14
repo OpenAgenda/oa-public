@@ -1,14 +1,9 @@
 "use strict";
 
-var React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-Picker = require( 'react-timings-picker' ),
-
-utils = require( 'utils' ),
-
-transform = require( './timingsTransform' );
+import React from 'react';
+import createReactClass from 'create-react-class';
+import Picker from 'react-timings-picker';
+import transform from './timingsTransform';
 
 module.exports = createReactClass( {
 
@@ -38,8 +33,8 @@ module.exports = createReactClass( {
 
     var processed = transform.toEventFormFormat( timings, this.props.day.start, this.props.day.end );
 
-    this.props.onChange( 
-      processed, 
+    this.props.onChange(
+      processed,
       timings.length ? false : this.props.labels.noDates[ this.props.lang ]
     );
 

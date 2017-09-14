@@ -1,14 +1,11 @@
 "use strict";
 
-var Select = require( 'react-select' ),
+import React from 'react';
+import Select from 'react-select';
+import createReactClass from 'create-react-class';
+import labels from 'labels/cibul-templates/age-fields';
 
-React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-labels = require( 'labels/cibul-templates/age-fields' ),
-
-limits = {
+const limits = {
   min: 0,
   max: 120
 };
