@@ -1,18 +1,12 @@
 "use strict";
 
-var React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-PropTypes = require( 'prop-types' ),
-
-languages = require( 'languages' ),
-
-Select = require( 'react-select' ),
-
-labels = require( '../labels' ),
-
-makeLabelGetter = require( '../lib/makeLabelGetter' );
+import React from 'react';
+import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import languages from 'languages';
+import Select from 'react-select';
+import labels from '../labels';
+import makeLabelGetter from '../lib/makeLabelGetter';
 
 module.exports = createReactClass( {
 

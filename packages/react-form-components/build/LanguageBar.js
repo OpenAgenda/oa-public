@@ -1,29 +1,51 @@
 "use strict";
 
-var React = require('react'),
-    createReactClass = require('create-react-class'),
-    PropTypes = require('prop-types'),
-    languages = require('languages'),
-    Select = require('react-select'),
-    labels = require('../labels'),
-    makeLabelGetter = require('../lib/makeLabelGetter');
+var _react = require('react');
 
-module.exports = createReactClass({
+var _react2 = _interopRequireDefault(_react);
+
+var _createReactClass = require('create-react-class');
+
+var _createReactClass2 = _interopRequireDefault(_createReactClass);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _languages = require('languages');
+
+var _languages2 = _interopRequireDefault(_languages);
+
+var _reactSelect = require('react-select');
+
+var _reactSelect2 = _interopRequireDefault(_reactSelect);
+
+var _labels = require('../labels');
+
+var _labels2 = _interopRequireDefault(_labels);
+
+var _makeLabelGetter = require('../lib/makeLabelGetter');
+
+var _makeLabelGetter2 = _interopRequireDefault(_makeLabelGetter);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = (0, _createReactClass2.default)({
 
   displayName: 'LanguageBar',
 
   propTypes: {
 
-    enabled: PropTypes.array,
+    enabled: _propTypes2.default.array,
 
     // if languages can be added removed or changed
-    editable: PropTypes.bool,
+    editable: _propTypes2.default.bool,
 
     // used by component to load labels
-    getLabel: PropTypes.func,
+    getLabel: _propTypes2.default.func,
 
     // notify parent of new language selection
-    onChange: PropTypes.func
+    onChange: _propTypes2.default.func
 
   },
 
@@ -39,7 +61,7 @@ module.exports = createReactClass({
 
     return {
       editable: true,
-      getLabel: makeLabelGetter(labels)
+      getLabel: (0, _makeLabelGetter2.default)(_labels2.default)
     };
   },
   onRemove: function onRemove(code) {
@@ -57,11 +79,11 @@ module.exports = createReactClass({
   },
   sortLanguageCodes: function sortLanguageCodes() {
 
-    return languages.getAllLanguageCode().map(function (c) {
+    return _languages2.default.getAllLanguageCode().map(function (c) {
 
       return {
         code: c,
-        label: languages.getLanguageInfo(c).nativeName
+        label: _languages2.default.getLanguageInfo(c).nativeName
       };
     }).sort(function (a, b) {
 
@@ -86,7 +108,7 @@ module.exports = createReactClass({
 
       return {
         value: c,
-        label: languages.getLanguageInfo(c).nativeName
+        label: _languages2.default.getLanguageInfo(c).nativeName
       };
     });
   },
@@ -131,7 +153,7 @@ module.exports = createReactClass({
 
     var languageItem = function languageItem(l) {
 
-      return React.createElement(LanguageItem, {
+      return _react2.default.createElement(LanguageItem, {
         enabled: _this2.isEnabled(l),
         editable: _this2.props.editable,
         code: l,
@@ -144,23 +166,23 @@ module.exports = createReactClass({
         onEdit: _this2.languageEdit.bind(null, l) });
     };
 
-    return React.createElement(
+    return _react2.default.createElement(
       'div',
       { className: 'language-bar' },
-      React.createElement(
+      _react2.default.createElement(
         'ul',
         null,
         this.props.languages.map(function (l) {
           return languageItem(l);
         })
       ),
-      this.props.editable ? React.createElement(
+      this.props.editable ? _react2.default.createElement(
         'span',
         { className: 'language-add cform' },
-        this.state.displaySelect ? React.createElement(Select, {
+        this.state.displaySelect ? _react2.default.createElement(_reactSelect2.default, {
           options: this.getRemainingLanguages(),
           onChange: this.languageAdd,
-          clearable: false }) : React.createElement(
+          clearable: false }) : _react2.default.createElement(
           'a',
           { className: 'url', onClick: this.showSelect },
           this.props.getLabel('addLanguage')
@@ -170,7 +192,7 @@ module.exports = createReactClass({
   }
 });
 
-var LanguageItem = createReactClass({
+var LanguageItem = (0, _createReactClass2.default)({
   displayName: 'LanguageItem',
 
 
@@ -190,7 +212,7 @@ var LanguageItem = createReactClass({
   },
   renderCross: function renderCross() {
 
-    return React.createElement(
+    return _react2.default.createElement(
       'span',
       { onClick: this.onRemove, className: 'remove' },
       '\u2715'
@@ -205,14 +227,14 @@ var LanguageItem = createReactClass({
 
   render: function render() {
 
-    var lInfo = languages.getLanguageInfo(this.props.code);
+    var lInfo = _languages2.default.getLanguageInfo(this.props.code);
 
     if (this.props.edited) {
 
-      return React.createElement(
+      return _react2.default.createElement(
         'li',
         null,
-        React.createElement(Select, {
+        _react2.default.createElement(_reactSelect2.default, {
           value: lInfo.nativeName,
           options: this.props.getRemainingLanguages(),
           onChange: this.onChange,
@@ -220,13 +242,13 @@ var LanguageItem = createReactClass({
       );
     } else {
 
-      return React.createElement(
+      return _react2.default.createElement(
         'li',
         { className: this.props.enabled ? '' : 'disabled' },
-        React.createElement(
+        _react2.default.createElement(
           'div',
           { className: 'language-item' },
-          React.createElement(
+          _react2.default.createElement(
             'span',
             { onClick: this.props.onEdit },
             lInfo.nativeName
@@ -236,10 +258,10 @@ var LanguageItem = createReactClass({
       );
     }
 
-    return React.createElement(
+    return _react2.default.createElement(
       'li',
       null,
-      this.props.edited ? 'edited' : React.createElement(
+      this.props.edited ? 'edited' : _react2.default.createElement(
         'span',
         { onClick: this.props.onEdit },
         lInfo.nativeName
