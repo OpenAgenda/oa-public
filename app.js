@@ -218,7 +218,7 @@ function _jsIncludeMainPath( uri ) {
       name: name
     },
     dest: {
-      path: 'build/browserified',
+      path: path.join( __dirname, 'build/browserified' ),
       name: cn.toCamelCase( uri.replace( '/', '_' ) ) + '.js'
     }
   };
@@ -567,7 +567,7 @@ function _jsIncludePath( name ) {
 
     var paths = {
         src: {},
-        dest: { path: 'build/browserified' }
+        dest: { path: path.join( __dirname, 'build/browserified' ) }
       },
 
       templatePath = name.split( '/' ),
