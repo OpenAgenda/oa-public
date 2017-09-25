@@ -24,15 +24,15 @@ categoryMw = require( 'agenda-categories' ).mw( 'agenda.id', 'categorySet' ),
 
 routes = {
 
-  categoryTagShow: [ 'get', '/:slug/admin/tagcat', [
+  categoryTagShow: [ 'get', '/:slug/admin/tagcat', cmn.verifyIPMiddleware.concat( [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
     deprecatedShow
-  ] ],
+  ] ) ],
 
-  customizedShow: [ 'get', '/:slug/admin/settings/customize', [
+  customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
@@ -41,16 +41,16 @@ routes = {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
     show
-  ] ],
+  ] ) ],
 
-  customizedUpdate: [ 'post', '/:slug/admin/settings/customize', [
+  customizedUpdate: [ 'post', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
     bodyParser.json(),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     tagMw.set,
     categoryMw.set,
     updateResponse
-  ] ]  
+  ] ) ]  
 
 }
 

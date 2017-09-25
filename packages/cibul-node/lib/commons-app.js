@@ -12,6 +12,24 @@ const hsts = require( 'hsts' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
+const agendas = require( 'agendas' );
+
+const verifyIPMiddleware = [
+  agendas.middleware.load( {
+    namespaces: {
+      identifiers: { slug: 'params.slug' },
+      result: 'agendaFromService'
+    },
+    private: null
+  } ),
+  agendas.middleware.evaluateIPAddress( {
+    namespaces: {
+      agenda: 'agendaFromService'
+    },
+    onUnauthorizedIPAddress: ( req, res, next ) => res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) )
+  } )
+];
+
 module.exports = {
 
   loadLogger,
@@ -38,6 +56,8 @@ module.exports = {
   checkAdminOrModeratorOrKey,
   checkStakeholder,
   renderUnauthorized,
+
+  verifyIPMiddleware,
 
   useEmbedGoogleAnalytics,
 
@@ -103,7 +123,6 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
   },
 
   qs = require( 'qs' );
-
 
 function loadEvent( paramName, fieldName ) {
 

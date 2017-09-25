@@ -25,21 +25,21 @@ module.exports = path => {
       getNewApp
     ] ],
 
-    agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', [
+    agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', cmn.verifyIPMiddleware.concat( [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
       agendaSvc.mw.loadAdminLayout,
       cmn.loadBaseData( 'oasfmain.css' ),
       matchEditApp
-    ] ],
+    ] ) ],
 
-    agendaSettingsEditSub: [ 'get', '/:slug/admin/settings/?*?', [
+    agendaSettingsEditSub: [ 'get', '/:slug/admin/settings/?*?', cmn.verifyIPMiddleware.concat( [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
       agendaSvc.mw.loadAdminLayout,
       cmn.loadBaseData( 'oasfmain.css' ),
       matchEditApp
-    ] ],
+    ] ) ],
 
     /**********/
 

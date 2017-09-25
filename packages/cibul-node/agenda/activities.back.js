@@ -8,10 +8,28 @@ const mw = require( 'activity-apps/middleware' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
+
+// to be deprecated
 const agendaSvc = require( '../services/agenda' );
+
+const agendas = require( 'agendas' );
 
 const appMw = [
   agendaSvc.mw.loadAdminLayout,
+  agendas.middleware.load( {
+    namespaces: {
+      identifiers: { slug: 'params.slug' },
+      result: 'agendaFromService'
+    },
+    private: null
+  } ),
+  agendas.middleware.evaluateIPAddress( {
+    private: null,
+    namespaces: {
+      agenda: 'agendaFromService'
+    },
+    onUnauthorizedIPAddress: ( req, res, next ) => res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) )
+  } ),
   cmn.loadBaseData( 'oasfmain.css' ),
   matchApp
 ];

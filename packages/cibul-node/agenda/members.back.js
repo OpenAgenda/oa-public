@@ -146,6 +146,16 @@ module.exports = path => {
     } ),
     oldAgendaLoad( 'slug' ),
     cmn.checkAdminOrModerator,
+    agendasMw.evaluateIPAddress( {
+      namespaces: {
+        agenda: 'agendaInstance'
+      },
+      onUnauthorizedIPAddress: ( req, res, next ) => {
+
+        res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaInstance.data.slug } ) );
+
+      }
+    } )
   ] );
 
   return {

@@ -6,7 +6,10 @@ const modLib = require( '../lib/moduleLib' ),
 
   bodyParser = require( 'body-parser' ),
 
+  // to be deprecated
   agendaSvc = require( '../services/agenda' ),
+
+  agendas = require( 'agendas' ),
 
   mw = require( 'agenda-locations' ).mw(),
 
@@ -20,14 +23,14 @@ const modLib = require( '../lib/moduleLib' ),
       showList
     ] ],
 
-    agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
+    agendaAdminLocations: [ 'get', '/:slug/admin/locations', cmn.verifyIPMiddleware.concat( [
       cmn.checkAdminOrModerator,
       agendaSvc.mw.loadAdminLayout,
       cmn.loadBaseData( 'oasfmain.css' ),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.loadSettings(),
       show
-    ] ],
+    ] ) ],
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
       bodyParser.json(),
@@ -36,31 +39,31 @@ const modLib = require( '../lib/moduleLib' ),
       mw.setToValidate
     ] ],
 
-    agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
+    agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', cmn.verifyIPMiddleware.concat( [
       bodyParser.json(),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.set
-    ] ],
+    ] ) ],
 
-    agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
+    agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', cmn.verifyIPMiddleware.concat( [
       cmn.checkAdminOrModerator,
       bodyParser.json(),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.remove
-    ] ],
+    ] ) ],
 
-    agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
+    agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', cmn.verifyIPMiddleware.concat( [
       cmn.checkAdminOrModerator,
       bodyParser.json(),
       mw.merge
-    ] ],
+    ] ) ],
 
-    agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
+    agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', cmn.verifyIPMiddleware.concat( [
       cmn.checkAdminOrModerator,
       mw.list.terms
-    ] ],
+    ] ) ],
 
-    locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
+    locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', cmn.verifyIPMiddleware.concat( [
       cmn.checkAdminOrModerator,
       ( req, res, next ) => {
 
@@ -71,7 +74,7 @@ const modLib = require( '../lib/moduleLib' ),
 
       },
       mw.getStakeholder
-    ] ],
+    ] ) ],
 
     locationGeocode: [ 'get', '/:slug/locations/geocode', [
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -83,10 +86,10 @@ const modLib = require( '../lib/moduleLib' ),
       mw.reverseGeocode
     ] ],
 
-    locationResync: [ 'get', '/:slug/admin/locations/resync', [
+    locationResync: [ 'get', '/:slug/admin/locations/resync', cmn.verifyIPMiddleware.concat( [
       mw.resync,
       _resyncSuccess
-    ] ],
+    ] ) ],
 
     locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
       cmn.checkAdminOrModerator,
