@@ -7,7 +7,39 @@ let service, config;
 module.exports = {
   init,
   load,
+  evaluateIPAddress,
   loadRoles
+}
+
+function evaluateIPAddress( options ) {
+
+  const params = _.merge( {
+    namespaces: {
+      agenda: 'agenda' // loaded agenda
+    },
+    onUnauthorizedIPAddress: ( req, res, next ) => { next( { code: 403 } ) }
+  }, options || {} );
+
+  return ( req, res, next ) => {
+
+    const authorizedIPs = req.agenda.settings.contribution.authorizedIPAddresses;
+
+    if ( !authorizedIPs || !authorizedIPs.length ) {
+
+      return next();
+
+    }
+
+    if ( authorizedIPs.includes( req.header( 'x-forwarded-for' ) ) ) {
+
+      return next();
+
+    }
+
+    params.onUnauthorizedIPAddress( req, res, next );
+
+  }
+
 }
 
 function load( options ) {
