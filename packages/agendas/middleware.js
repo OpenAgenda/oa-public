@@ -22,7 +22,10 @@ function evaluateIPAddress( options ) {
 
   return ( req, res, next ) => {
 
-    const authorizedIPs = req[ params.namespaces.agenda ].settings.contribution.authorizedIPAddresses;
+    // annoying. when evaluating an instance, data is in .data
+    const data = req[ params.namespaces.agenda ].data || req[ params.namespaces.agenda ];
+
+    const authorizedIPs = data.settings.contribution.authorizedIPAddresses;
 
     if ( !authorizedIPs || !authorizedIPs.length ) {
 
