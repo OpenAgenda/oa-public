@@ -16,6 +16,7 @@ const open = require( './service/open' );
 const close = require( './service/close' );
 const scan = require( './service/scan' );
 const sync = require( './service/sync' );
+const helpers = require( './service/helpers' );
 
 let config, interfaces;
 
@@ -23,6 +24,7 @@ let log = console.log;
 
 module.exports = {
   init,
+  shutdown,
   open,
   get,
   scan,
@@ -85,7 +87,7 @@ function init( c ) {
 
   }
 
-  require( './service/helpers' ).init();
+  helpers.init();
 
   [ get, open, close, sync, scan ].forEach( end => end.init() );
 
@@ -96,5 +98,11 @@ function init( c ) {
   middleware.init( config, module.exports );
 
   expressCookie.init( config );
+
+}
+
+function shutdown( c ) {
+
+  helpers.shutdown();
 
 }

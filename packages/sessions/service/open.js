@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, redisCommand, interfaces } = require( './helpers' );
+const { cleanSession, callbackify, interfaces, redisCommand } = require( './helpers' );
 const cookieValidate = require( '../iso/cookie.validate' );
 const logger = require( 'basic-logger' );
 const validate = require( './validate' );

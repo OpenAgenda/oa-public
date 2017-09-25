@@ -22,6 +22,8 @@ describe( 'session - functional (server): sync', () => {
 
   beforeEach( () => sessions.init( config ) );
 
+  afterEach( () => sessions.shutdown() );
+
   beforeEach( () => {
 
     request = { cookies: {}, session: {} };

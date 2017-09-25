@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, redisCommand, callbackify } = require( './helpers' );
+const { cleanSession, callbackify, redisCommand } = require( './helpers' );
 const logger = require( 'basic-logger' );
 const _ = require( 'lodash' );
 

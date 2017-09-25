@@ -26,6 +26,8 @@ describe( 'session - functional (server): middleware', () => {
 
   } );
 
+  afterEach( () => sessions.shutdown() );
+
   describe( '.sync', () => {
 
     let server;
@@ -141,11 +143,11 @@ describe( 'session - functional (server): middleware', () => {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
+              isNew: false,
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity,
-              isNew: false
+              latestActivity: session.latestActivity
             } );
 
             res.send( 'ok' );
@@ -204,9 +206,9 @@ describe( 'session - functional (server): middleware', () => {
               name: 'Gaetan Latouche',
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
+              isNew: false,
               email: 'gaetan@cibul.net',
-              latestActivity: session.latestActivity,
-              isNew: false
+              latestActivity: session.latestActivity
             } );
 
             res.send( 'ok' )
@@ -476,8 +478,8 @@ describe( 'session - functional (server): middleware', () => {
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               id: 1,
               email: 'gaetan@cibul.net',
-              latestActivity: req.user.latestActivity,
-              isNew: false
+              isNew: false,
+              latestActivity: req.user.latestActivity
             } );
 
             res.send( 'ok' );
@@ -513,6 +515,7 @@ describe( 'session - functional (server): middleware', () => {
               culture: 'fr',
               uid: 12345678,
               name: 'Gaetan Latouche',
+              isNew: false,
               thumbnail: '//graph.facebook.com/100002280111541/picture',
               email: 'gaetan@cibul.net',
               isNew: false

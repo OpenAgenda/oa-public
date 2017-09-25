@@ -22,6 +22,8 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
   before( () => sessions.init( config ) );
 
+  afterEach( () => sessions.shutdown() );
+
   beforeEach( () => {
 
     request = { cookies: {}, session: {} };
@@ -42,7 +44,11 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       let req = {
         session: {
-          user: { name: 'gaetan', uid: 12345678, culture: 'fr' }
+          user: {
+            name: 'gaetan',
+            uid: 12345678,
+            culture: 'fr'
+          }
         },
         cookies: {}
       };

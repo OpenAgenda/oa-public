@@ -34,6 +34,7 @@ describe( 'session - functional (server): scan', () => {
 
   } );
 
+  afterEach( () => sessions.shutdown() );
 
   beforeEach( () => {
 

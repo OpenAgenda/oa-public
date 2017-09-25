@@ -30,6 +30,8 @@ describe( 'session - functional (server): get', () => {
 
   } );
 
+  afterEach( () => sessions.shutdown() );
+
   it( 'get takes request and calls back with session data', done => {
 
     sessions.open( request, { uid: 1234 }, ( err, result ) => {
@@ -56,6 +58,7 @@ describe( 'session - functional (server): get', () => {
           uid: 12345678,
           email: 'gaetan@cibul.net',
           culture: 'fr',
+          isNew: false,
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture',
           isNew: false
@@ -83,6 +86,7 @@ describe( 'session - functional (server): get', () => {
           id: 1,
           email: 'gaetan@cibul.net',
           uid: 12345678,
+          isNew: false,
           culture: 'fr',
           name: 'Gaetan Latouche',
           thumbnail: '//graph.facebook.com/100002280111541/picture',

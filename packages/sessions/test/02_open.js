@@ -23,6 +23,8 @@ describe( 'session - functional (server): open', () => {
 
   beforeEach( () => sessions.init( config ) );
 
+  afterEach( () => sessions.shutdown() );
+
   beforeEach( () => {
 
     request = { cookies: {}, session: {} };
