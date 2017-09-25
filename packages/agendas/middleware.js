@@ -22,7 +22,7 @@ function evaluateIPAddress( options ) {
 
   return ( req, res, next ) => {
 
-    const authorizedIPs = req.agenda.settings.contribution.authorizedIPAddresses;
+    const authorizedIPs = req[ params.namespaces.agenda ].settings.contribution.authorizedIPAddresses;
 
     if ( !authorizedIPs || !authorizedIPs.length ) {
 
