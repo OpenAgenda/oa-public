@@ -92,9 +92,10 @@ const sessions = require( 'sessions' ),
     /**
      * process a save for event references
      */
-    eventReferencesSave: [ 'get', '/:slug/events/:eventUid/references', [
+    eventReferencesSave: [ 'post', '/:slug/events/:eventUid/references', [
       agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       _loadEventByUid,
+      bodyParser.json(),
       referencesSave
     ] ],
 
@@ -238,9 +239,9 @@ function _loadEventByUid( req, res, next ) {
 
 function referencesSave( req, res, next ) {
 
-  req.log( 'received request to save references for uids %s', req.query.uids );
+  req.log( 'received request to save references for uids %s', req.body.uids );
 
-  req.agenda.search( { uids: req.query.uids || [] }, { showAll: true }, ( err, result ) => {
+  req.agenda.search( { uids: req.body.uids || [] }, { showAll: true, limit: 100 }, ( err, result ) => {
 
     if ( err ) return next( err );
 

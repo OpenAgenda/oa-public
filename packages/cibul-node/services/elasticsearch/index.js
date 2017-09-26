@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 var config = require( '../../config' ),
 
 legacyLib = require( 'ES' )( config.es ),
@@ -322,7 +324,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope', 'uids' ].forEach( k => {
+  [ 'what', 'type', 'age', 'scope' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 
@@ -350,6 +352,35 @@ function _clean( query, params ) {
     clean.passed = true;
 
   }
+
+
+  if ( query.uids ) {
+
+    let uids = [];
+
+    // large arrays seem to be considered as objects. They must be reconverted to arrays
+    if ( _.isArray( query.uids ) ) {
+
+      uids = query.uids;
+
+    } else if ( _.isObject( query.uids ) ) {
+
+      Object.keys( query.uids ).forEach( k => {
+
+        uids.push( query.uids[ k ] );
+
+      } );
+
+    } else {
+
+      uids = [ query.uids ];
+
+    }
+
+    clean.uids = uids.map( uid => parseInt( uid ) );
+
+  }
+
 
   if ( query.featured !== undefined ) {
 
