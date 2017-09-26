@@ -82,7 +82,7 @@ function eventSearch( agendaId, query, options, cb ) {
 
     if ( !query.uids ) return true;
 
-    return query.uids.map( parseInt ).indexOf( e.uid ) !== -1;
+    return query.uids.map( uid => parseInt( uid ) ).indexOf( e.uid ) !== -1;
 
   } ) );
 
