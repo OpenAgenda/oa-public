@@ -33,6 +33,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var getLabel = (0, _labels2.default)(_references2.default);
 
 exports.default = (0, _createReactClass2.default)({
+  displayName: 'Show',
+
 
   propTypes: {
     events: _propTypes2.default.array,

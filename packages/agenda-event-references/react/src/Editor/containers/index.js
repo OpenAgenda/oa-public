@@ -14,6 +14,7 @@ export default connect(
     search: state.search,
     events: state.events,
     loading: state.loading,
+    info: state.info,
     getLabel: makeLabelsGetter( labels, props.lang || 'fr' )
 
   } ),

@@ -15,6 +15,8 @@ var _createReactClass2 = _interopRequireDefault(_createReactClass);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = (0, _createReactClass2.default)({
+  displayName: 'exports',
+
 
   propTypes: {
     event: _propTypes2.default.object,

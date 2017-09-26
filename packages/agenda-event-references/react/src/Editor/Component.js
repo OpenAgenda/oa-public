@@ -36,13 +36,15 @@ const EditorComponent = createReactClass( {
 
   render() {
 
-    let { onShow, onSearch, onEventRemove, onEventAdd, search, events, loading, getLabel } = this.props;
+    let { onShow, onSearch, onEventRemove, onEventAdd, search, events, loading, getLabel, info } = this.props;
 
     return <div className="event-references">
 
       <div className="configure">
         
         <h2>{getLabel( 'editorTitle' )}</h2>
+
+        { info ? <span>{ info }</span> : null }
 
         <ul className="list-unstyled references">
           { loading ? <Spinner/> : ( 

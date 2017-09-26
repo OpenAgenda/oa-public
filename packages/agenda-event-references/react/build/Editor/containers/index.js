@@ -33,6 +33,7 @@ function (state, props) {
     search: state.search,
     events: state.events,
     loading: state.loading,
+    info: state.info,
     getLabel: (0, _labels2.default)(_references2.default, props.lang || 'fr')
 
   };

@@ -45,6 +45,7 @@ Editor.propTypes = {
 };
 
 var EditorComponent = (0, _createReactClass2.default)({
+  displayName: 'EditorComponent',
   componentDidMount: function componentDidMount() {
 
     _clickTracker2.default.switchOn('search');
@@ -62,7 +63,8 @@ var EditorComponent = (0, _createReactClass2.default)({
         search = _props.search,
         events = _props.events,
         loading = _props.loading,
-        getLabel = _props.getLabel;
+        getLabel = _props.getLabel,
+        info = _props.info;
 
 
     return _react2.default.createElement(
@@ -76,6 +78,11 @@ var EditorComponent = (0, _createReactClass2.default)({
           null,
           getLabel('editorTitle')
         ),
+        info ? _react2.default.createElement(
+          'span',
+          null,
+          info
+        ) : null,
         _react2.default.createElement(
           'ul',
           { className: 'list-unstyled references' },

@@ -25,6 +25,7 @@ export default options => {
       },
       loading: false,
       error: false,
+      info: null,
       events: [],
       search: {
         display: false
