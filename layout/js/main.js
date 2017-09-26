@@ -101,6 +101,16 @@ du.addEvent( window, 'load', function () {
 
   } );
 
+  if ( typeof zE !== 'undefined' && params.lang ) {
+
+    zE( function() {
+
+      zE.setLocale( params.lang );
+
+    } );
+
+  }
+
   ran = true;
 
 } );
