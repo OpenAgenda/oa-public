@@ -405,19 +405,43 @@
     "configuration" : {
       "fields" : [ {
         "name" : "references",
-        "display" : true
+        "display" : true,
+        "info" : {
+          "fr" : "Une info en plus",
+          "en" : "An additionnal info"
+        }
       }, {
       }, {
         "name" : "title",
         "label" : {
           "fr" : "Titre custo",
           "en" : "Custom title"
+        },
+        "placeholder" : {
+          "fr" : "placeholder custo",
+          "en" : "custom placeholder"
         }
       }, {
         "name" : "longDescription",
         "placeholder" : {
           "fr" : "Ceci est un placeholder personnalisé",
           "en" : "This is a custom placeholder"
+        }
+      }, {
+        "name" : "keywords",
+        "label" : {
+          "fr" : "keywords custo",
+          "en" : "custom keywords"
+        },
+        "placeholder" : {
+          "fr" : "Placeholder custo",
+          "en" : "Custom placeholder"
+        }
+      }, {
+        "name" : "accessibility",
+        "info" : {
+          "fr" : "Info custo",
+          "en" : "Custom info"
         }
       }, {
         "name" : "registration",
@@ -433,6 +457,9 @@
         "name" : "description",
         "fixed" : {
           "fr" : "This is a fixed value"
+        },
+        "placeholder" : {
+          "fr" : "Placeholder custo"
         }
       }, {
         "name" : "image",
@@ -441,7 +468,17 @@
           "en" : "This is a customized message"
         }
       }, {
+        "name" : "age",
+        "info" : {
+          "fr" : "une info",
+          "en" : "an info"
+        }
+      }, {
         "name" : "timings",
+        "info" : {
+          "fr" : "une info",
+          "en" : "an info"
+        },
         "activeDays" :  [ {
           "startDate": "2016-01-27",
           "endDate": "2016-01-31"
@@ -451,7 +488,11 @@
         } ]
       }, {
         "name" : "location",
-        "disableChange" : true
+        "disableChange" : true,
+        "info" : {
+          "fr" : "Une info en plus",
+          "en" : "One more info"
+        }
       }, {
         "name" : "keywords",
         "display" : false

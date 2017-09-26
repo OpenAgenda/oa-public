@@ -19,6 +19,7 @@ module.exports = function( formConfiguration, options ) {
     return utils.extend( {}, configuration, {
       getLabel: getLabel,
       getPlaceholder: getPlaceholder,
+      getInfo: getInfo,
       display: display,
       fixed: fixed 
     } );
@@ -60,6 +61,20 @@ module.exports = function( formConfiguration, options ) {
       }
 
       return translated ? defaults[ name + 'Placeholder' ][ this.props.lang ] : defaults[ name + 'Placeholder' ];
+
+    }
+
+    function getInfo( translated, defaults ) {
+
+      if ( configuration && configuration.info ) {
+
+        return translated ? configuration.info[ params.lang ] : configuration.info;
+
+      }
+
+      if ( !defaults ) return null;
+
+      return translated ? defaults[ name + 'Info' ][ this.props.lang ] : defaults[ name + 'Info' ];
 
     }
 

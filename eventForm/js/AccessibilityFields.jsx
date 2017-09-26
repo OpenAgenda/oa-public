@@ -90,10 +90,13 @@ module.exports = createReactClass({
 
     var self = this;
 
+    console.log( this.props.info );
+
     return (
       <div className="accessibility">
         <div onClick={self.onEnabled} className="checkbox">
           <label><input type="checkbox" name="accessibility" checked={self.state.enabled} /> {this.props.label[ this.props.labelsLang ]}</label>
+          {this.props.info ? <span className="info">{this.props.info[ this.props.labelsLang ]}</span> : null }
         </div>
         <ul className="list-unstyled">
           {this.types.map( (type, idx) => {

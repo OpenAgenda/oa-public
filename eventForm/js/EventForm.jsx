@@ -507,6 +507,8 @@ function EventFormFactory() {
     renderLocationSelector: function () {
 
       return <div className="form-section">
+        { this.props.configuration.field( 'location' ).info ?
+        <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
           settings={this.props.configuration.field( 'location' ).settings}
           mode={this.state.locationMode}
@@ -560,6 +562,7 @@ function EventFormFactory() {
               counter={true}
               optional={false}
               label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
+              placeholder={this.props.configuration.field( 'title' ).getPlaceholder( false, this.props.labels )}
               name='title'
               type='text'
               value={this.state.title}
@@ -577,6 +580,7 @@ function EventFormFactory() {
                 counter={true}
                 optional={false}
                 label={this.props.configuration.field( 'description' ).getLabel( false, this.props.labels )}
+                placeholder={this.props.configuration.field( 'description' ).getPlaceholder( false, this.props.labels )}
                 name='description'
                 type='text'
                 value={this.state.description}
@@ -599,7 +603,7 @@ function EventFormFactory() {
                 onChange={this.onChange( 'keywords' )}
                 label={this.props.configuration.field( 'keywords' ).getLabel( false, this.props.labels )}
                 error={formErrors.keywords}
-                placeholder={this.props.labels.keywordPlaceholder}
+                placeholder={this.props.configuration.field( 'keywords' ).getPlaceholder( false, this.props.labels )}
                 lang={this.props.lang} />
             </div> : null}
 
@@ -631,12 +635,14 @@ function EventFormFactory() {
           {this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
             value={this.state.accessibility || []}
             label={this.props.labels.accessibility}
+            info={this.props.configuration.field( 'accessibility' ).getInfo( false, false )}
             onChange={this.onChange( 'accessibility' )}
             labelsLang={this.props.lang} /> : null}
 
           {this.props.configuration.field( 'age' ).display() ? <AgeFields
             value={this.state.age}
             label={this.props.labels.age}
+            info={this.props.configuration.field( 'age' ).getInfo( true, false )}
             onChange={this.onChange( 'age' )}
             labelsLang={this.props.lang} /> : null}
 
@@ -650,12 +656,12 @@ function EventFormFactory() {
             onChange={this.changeCustom}
             labels={this.props.labels}
             res={this.props.customRes}
-            lang={this.props.lang} />
-          : ''}
+            lang={this.props.lang} /> : '' }
 
         {this.props.configuration.field( 'references' ).display( false ) ? <References
           initUids={this.state.references}
           res={this.props.referenceRes}
+          info={this.props.configuration.field( 'references' ).getInfo( true, false )}
           onChange={this.props.onReferencesChange}
         /> : null}
 
@@ -676,6 +682,7 @@ function EventFormFactory() {
         <div className="margin-v-lg">
           <TimingsPicker
             labels={this.props.labels}
+            info={this.props.configuration.field( 'timings' ).getInfo( true, false )}
             lang={this.props.lang}
             error={formErrors.timings}
             timings={this.state.timings}

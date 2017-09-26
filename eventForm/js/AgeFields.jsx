@@ -167,29 +167,32 @@ module.exports = createReactClass({
         <label onClick={this.onEnabled()}>
           <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} /> 
           <span>{this.props.label[this.props.labelsLang]}</span>
-        </label> - 
-        <label onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label>
-        <Select
-          name="minage"
-          value={min}
-          options={this.getSelectOptions()}
-          clearable={false}
-          onChange={this.onChange( 'min' )}
-          onFocus={this.onEnabled(true)}
-          onBlur={this.onChange( 'min' )}
-          placeholder={labels.select[this.props.labelsLang]}
-        />
-        <label htmlFor="maxage">{labels.max[this.props.labelsLang]}</label>
-        <Select
-          name="maxage"
-          value={max}
-          options={this.getSelectOptions( this.props.value ? min : false )}
-          clearable={false}
-          onChange={this.onChange( 'max' )}
-          onBlur={this.onChange( 'max' )}
-          onFocus={this.onEnabled(true)}
-          placeholder={labels.select[this.props.labelsLang]}
-        />
+          {this.props.info ? <span> - {this.props.info}</span> : null }
+        </label>
+        <div>
+          <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label> 
+          <Select
+            name="minage"
+            value={min}
+            options={this.getSelectOptions()}
+            clearable={false}
+            onChange={this.onChange( 'min' )}
+            onFocus={this.onEnabled(true)}
+            onBlur={this.onChange( 'min' )}
+            placeholder={labels.select[this.props.labelsLang]}
+          />
+          <label className="margin-h-sm" htmlFor="maxage">{labels.max[this.props.labelsLang]}</label> 
+          <Select
+            name="maxage"
+            value={max}
+            options={this.getSelectOptions( this.props.value ? min : false )}
+            clearable={false}
+            onChange={this.onChange( 'max' )}
+            onBlur={this.onChange( 'max' )}
+            onFocus={this.onEnabled(true)}
+            placeholder={labels.select[this.props.labelsLang]}
+          />
+        </div>
       </div>
     );
 

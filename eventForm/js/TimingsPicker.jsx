@@ -55,6 +55,7 @@ module.exports = createReactClass( {
         </a>
       </p>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
+      {this.props.info ? <span>{this.props.info}</span> : null }
       <Picker
         startTime={this.props.day.start}
         endTime={this.props.day.end}
