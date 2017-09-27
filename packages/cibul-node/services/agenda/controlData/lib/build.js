@@ -123,7 +123,7 @@ function _insert( data, cb ) {
 
     }
 
-    log( 'event %s was inserted in agenda %s control data', v.event.id, v.agenda.id );
+    log( 'event %s was inserted in agenda %s control data', data.eventId, data.id );
 
     cb();
 
