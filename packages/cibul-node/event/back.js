@@ -328,11 +328,12 @@ function _changeState( req, res, next ) {
             object: req.event.title,
             target: req.agenda.title
           },
-          originAgendaUid: req.event.origin.uid
+          // origin is not always set. When the event was created by script for example.
+          originAgendaUid: req.event.origin ? req.event.origin.uid : null
         }
       }, () => {
 
-        next()
+        next();
 
       } );
 
