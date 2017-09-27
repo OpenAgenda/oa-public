@@ -80,7 +80,7 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
 
   log( 'dispatchChangeEventStates: agenda %s from state %s to state %s with options %s', agendaId, oldState, newState, JSON.stringify( options ) );
 
-  svc.get( { id: agendaId }, function( err, agenda ) {
+  svc.get( { id: agendaId }, ( err, agenda ) => {
 
     let count = 0, offset = 0, hasMore = true;
 
@@ -92,7 +92,22 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
     
     async.whilst( () => hasMore, wcb => {
 
-      model.lib.query( 'select * from review_article where state = ? and review_id=? limit ?, 100', [ oldState, agendaId, offset ], ( err, ras ) => {
+      let query = {
+        str: 'select * from review_article where state = ? and review_id=? limit ?, 100',
+        params: [ oldState, agendaId, offset ]
+      }
+
+      // to be completed state includes null states with is_published to 0
+      if ( oldState === 0 ) {
+
+        query = {
+          str: 'select * from review_article where ( state = 0 or ( state is null and is_published=0 ) ) and review_id = ? limit ?, 100',
+          params: [ agendaId, offset ]
+        }
+
+      }
+
+      model.lib.query( query.str, query.params, ( err, ras ) => {
 
         if ( err ) return wcb( err );
 
