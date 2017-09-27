@@ -6,7 +6,9 @@ const allowedUids = [
   99999999,
   7339049,
   71438739,
-  6178397
+  6178397,
+  91236547,
+  74295965
 ];
 
 const du = require( 'dom-utils' );
