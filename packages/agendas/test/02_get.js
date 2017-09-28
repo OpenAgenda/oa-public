@@ -240,7 +240,8 @@ describe( 'agendas - functional (server): get', function() {
           moderators: false,
           tags: false,
           aggregator: false,
-          invitationMessage: false
+          prioritizedAggregator: false,
+          invitationMessage: false,
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,

@@ -108,6 +108,7 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         indesign: !!test.credRowBefore.indesign,
         invitationMessage: false,
         activatingInvitations: !!test.credRowBefore.activating_invitation,
+        prioritizedAggregator: false,
         emailstrategie: !!test.credRowBefore.emailstrategie,
         aggregator: !!test.credRowBefore.aggregator
       } );

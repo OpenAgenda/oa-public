@@ -186,6 +186,7 @@ describe( 'agendas - unit (server): validate', () => {
           tags: false,
           embedsHead: false,
           embedsTemplates: false,
+          prioritizedAggregator: false,
           aggregator: false
         }
       } );

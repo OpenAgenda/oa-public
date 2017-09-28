@@ -253,6 +253,7 @@ describe( 'agendas - functional (server): set (create)', function() {
             embedsHead: false,
             embedsTemplates: false,
             aggregator: false,
+            prioritizedAggregator: false,
             invitationMessage: false
           },
           createdAt: result.agenda.createdAt,

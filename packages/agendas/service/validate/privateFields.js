@@ -95,6 +95,11 @@ module.exports = {
     invitationMessage: {
       type: 'boolean',
       default: false
+    },
+
+    prioritizedAggregator: {
+      type: 'boolean',
+      default: false
     }
 
   }
