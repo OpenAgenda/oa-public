@@ -65,7 +65,7 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
   var log = debug( 'frameLink ( parent script )' ),
 
-  frameSrc, handShakeComplete = false;
+  frameSrc, handShakeComplete = false, repostDelay = 1000;
 
   cn.addEvent( elem, 'load', function() {
     
@@ -90,7 +90,25 @@ function frameLink( elem, onLinkEstablished, onReceive ) {
 
     window.addEventListener( 'message', _onFrameMessageReceived, frameSrc );
 
+    _postInit();
+
+  }
+
+
+  function _postInit() {
+
+    if ( handShakeComplete ) {
+
+      return log( 'handshake is complete, no need to post init to frame' );
+
+    }
+
     elem.contentWindow.postMessage( true, frameSrc );
+
+    // repost in case handshake failed
+    repostDelay = repostDelay * 1.2;
+
+    setTimeout( () => _postInit(), repostDelay );
 
   }
 
