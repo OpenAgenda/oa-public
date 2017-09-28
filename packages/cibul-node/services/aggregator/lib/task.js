@@ -1,18 +1,16 @@
 "use strict"
 
-var q,
+const utils = require( 'utils' ),
 
-utils = require( 'utils' ),
+  libs = {
+    notify: require( './notify' ),
+    evaluate: require( './evaluate' ),
+    sources: require( './sources' )
+  },
 
-libs = {
-  notify: require( './notify' ),
-  evaluate: require( './evaluate' ),
-  sources: require( './sources' )
-},
+  logger = require( 'logger' );
 
-logger = require( 'logger' ), log,
-
-onProcessed; // for testing
+let q, pQ, log, onProcessed;
 
 module.exports = utils.extend( launch, {
   set,
@@ -27,11 +25,15 @@ function launch() {
 
   log = logger( 'services/aggregator/task' );
 
-  if ( !q ) return _err( 'aggregator has not been initialized' );
+  if ( !q || !pQ ) return _err( 'aggregator has not been initialized' );
 
   q.setConsumer( _process );
 
-  q.launch();
+  q.launch( { interval: 100 } );
+
+  pQ.setConsumer( _process );
+
+  pQ.launch();
 
   log( 'launched aggregator task' );
 
@@ -39,7 +41,7 @@ function launch() {
 
 function shutdown() {
 
-  if ( !q ) return _err( 'aggregator has not been initialized' );
+  if ( !q || !pQ ) return _err( 'aggregator has not been initialized' );
 
   q.shutdown();
 
@@ -48,6 +50,8 @@ function shutdown() {
 function set( config ) {
 
   q = config.q;
+
+  pQ = config.pQ
 
 }
 

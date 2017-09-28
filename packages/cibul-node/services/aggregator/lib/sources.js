@@ -1,14 +1,14 @@
 "use strict";
 
-var aggUtils = require( './aggUtils' ),
+const aggUtils = require( './aggUtils' ),
 
-p = require( '../../../lib/promises' ),
+  p = require( '../../../lib/promises' ),
 
-notify = require( '../../notification' ).notify,
+  notify = require( '../../notification' ).notify,
 
-logger = require( 'logger' ), log,
+  logger = require( 'logger' );
 
-q;
+let log, q, pQ;
 
 module.exports = {
   add,
@@ -171,6 +171,8 @@ function complete( agendaId, cb ) {
 function set( config ) {
 
   q = config.q;
+
+  pQ = config.pQ;
 
 }
 

@@ -12,7 +12,14 @@ const config = require( '../../config' ),
 
   isAggregator = require( './lib/isAggregator' ),
 
-  q = require( 'queue' )( config.queues.aggregator, { 
+  queue = require( 'queue' ),
+
+  q = queue( config.queues.aggregator, { 
+    redis: config.redis,
+    schedulable: true
+  } ),
+
+  pQ = queue( config.queues.aggregator + ':priority', {
     redis: config.redis,
     schedulable: true
   } );
@@ -33,8 +40,8 @@ module.exports = {
   initless: true
 }
 
-notify.set( { q } );
+notify.set( { q, pQ } );
 
-sources.set( { q } );
+sources.set( { q, pQ } );
 
-task.set( { q } );
+task.set( { q, pQ } );

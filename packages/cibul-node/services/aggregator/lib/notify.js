@@ -4,7 +4,7 @@ var p = require( '../../../lib/promises' ),
 
 aggUtils = require( './aggUtils' ),
 
-q,
+q, pQ,
 
 logger = require( 'logger' ), log;
 
@@ -41,7 +41,7 @@ function unpublish( eventId, agendaId, cb ) {
     agendaId: agendaId,
     eventId: eventId,
     event: false,
-    aggregatorAgendaIds: []
+    aggregatorAgendas: []
   } )
 
   .then( aggUtils.loadEvent )
@@ -52,9 +52,9 @@ function unpublish( eventId, agendaId, cb ) {
 
   .done( v => {
 
-    log( 'unpublish - dispatched %s evaluates', v.aggregatorAgendaIds.length );
+    log( 'unpublish - dispatched %s evaluates', v.aggregatorAgendas.length );
 
-    cb( null, v.aggregatorAgendaIds.length );
+    cb( null, v.aggregatorAgendas.length );
 
   }, cb );
 
@@ -90,7 +90,7 @@ function publish( eventId, agendaId, mute, cb ) {
     agendaId,
     eventId,
     agenda: false,
-    aggregatorAgendaIds: []
+    aggregatorAgendas: []
   } )
 
   .then( aggUtils.loadAgenda( 'agenda', 'agendaId' ) )
@@ -101,9 +101,9 @@ function publish( eventId, agendaId, mute, cb ) {
 
   .done( v => {
 
-    log( 'publish - dispatched %s evaluates', v.aggregatorAgendaIds.length )
+    log( 'publish - dispatched %s evaluates', v.aggregatorAgendas.length )
 
-    cb( null, v.aggregatorAgendaIds.length );
+    cb( null, v.aggregatorAgendas.length );
 
   }, cb );
 
@@ -113,6 +113,8 @@ function set( config ) {
 
   q = config.q;
 
+  pQ = config.pQ;
+
 }
 
 
@@ -120,13 +122,27 @@ function _dispatch( method ) {
 
   return v => {
 
-    return p.w.map( v.aggregatorAgendaIds, function( aggAgendaId ) {
+    return p.w.map( v.aggregatorAgendas, function( aggAgenda ) {
 
       return p.w.promise( ( rs, rj ) => {
 
-        q( {
+        let queueFunc = q;
+
+        if ( aggAgenda.credentials && aggAgenda.credentials.prioritizedAggregator ) {
+
+          log( 'info', 'aggregator agenda %s is prioritized for event %s evaluation', aggAgenda.id, v.eventId );
+
+          queueFunc = pQ;
+
+        } else {
+
+          log( 'aggregator agenda %s for event %s evaluation is standard-queued', aggAgenda.id, v.eventId );
+
+        }
+
+        queueFunc( {
           method: method,
-          args: [ v.eventId, v.agendaId, aggAgendaId, v.mute ]
+          args: [ v.eventId, v.agendaId, aggAgenda.id, v.mute ]
         }, function( err ) {
 
           if ( err ) return rj( err );
@@ -158,15 +174,13 @@ function _retrieveAgendaIdsFromSources( v ) {
 
       log( 'retrieved %s agenda references for event %s', refs.length, v.event.id );
 
-      v.aggregatorAgendaIds = refs
+      v.aggregatorAgendas = refs
 
         .filter( r => r.sourceIds && r.sourceIds.indexOf( v.agendaId ) !== -1 )
 
-        .filter( r => r.id !== v.agendaId )
+        .filter( r => r.id !== v.agendaId );
 
-        .map( r => r.id );
-
-      log( 'got %s aggregator ids: %s', v.aggregatorAgendaIds.length, JSON.stringify( v.aggregatorAgendaIds ) );
+      log( 'got %s aggregator ids: %s', v.aggregatorAgendas.length, JSON.stringify( v.aggregatorAgendas.map( a => a.id ) ) );
 
       rs( v );
 
@@ -186,7 +200,7 @@ function _loadAggregatorAgendaIds( v ) {
 
       if ( err ) return rj( err );
 
-      v.aggregatorAgendaIds = agendas.map( function( a ) { return a.id } );
+      v.aggregatorAgendas = agendas;
 
       rs( v );
 
