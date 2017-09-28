@@ -368,6 +368,20 @@ module.exports = (0, _createReactClass2.default)({
           checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
           unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
           onChange: function onChange(checked) {
+            return setAgenda({ credentials: { prioritizedAggregator: checked } });
+          },
+          checked: !!agenda.credentials.prioritizedAggregator
+        }),
+        ' Prioritized aggregation'
+      ),
+      _react2.default.createElement(
+        'p',
+        null,
+        _react2.default.createElement(_rcSwitch2.default, {
+          className: 'rc-switch',
+          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+          onChange: function onChange(checked) {
             return setAgenda({ credentials: { tags: checked } });
           },
           checked: !!agenda.credentials.tags

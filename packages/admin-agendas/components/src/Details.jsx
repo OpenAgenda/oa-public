@@ -231,6 +231,16 @@ module.exports = createReactClass( {
             className="rc-switch"
             checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
             unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+            onChange={checked => setAgenda( { credentials: { prioritizedAggregator: checked } } )}
+            checked={!!agenda.credentials.prioritizedAggregator}
+          /> Prioritized aggregation
+        </p>
+
+        <p>
+          <Switch
+            className="rc-switch"
+            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
             onChange={checked => setAgenda( { credentials: { tags: checked } } )}
             checked={!!agenda.credentials.tags}
           /> Agenda tags
