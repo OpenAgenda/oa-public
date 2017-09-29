@@ -62,11 +62,6 @@ function renderField(_ref) {
     subLabel,
     content,
     errorDisplayed && error && _react2.default.createElement(
-      'span',
-      { className: 'form-control-feedback' },
-      _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' })
-    ),
-    errorDisplayed && error && _react2.default.createElement(
       'div',
       { className: 'text-danger ' + (max && 'pull-left' || '') },
       this.context.getLabel(error)

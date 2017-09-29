@@ -17,9 +17,6 @@ export function renderField( {
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
       {content}
-      {errorDisplayed && error && <span className="form-control-feedback">
-          <i className="fa fa-times" aria-hidden="true"></i>
-        </span>}
       {errorDisplayed && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
         {this.context.getLabel( error )}
       </div>}
