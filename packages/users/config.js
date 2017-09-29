@@ -17,11 +17,7 @@ async function init( c ) {
 
   if ( c.logger ) logger.setLogger( c.logger );
 
-  // clone or create a knex client
-  config.knex = c.knex ? c.knex.clone() : knexLib( {
-    client: 'mysql',
-    connection: c.mysql
-  } );
+  config.knex = knexLib( getKnexConfig( c ) );
 
   _.extend( config, _.pick( c, [
     'mysql',
@@ -42,4 +38,23 @@ async function init( c ) {
     logger: logger
   } );
 
+}
+
+function getKnexConfig( c ) {
+  let knexConfig;
+
+  if ( c.knex ) {
+    knexConfig = Object.assign( {}, c.knex.client.config, {
+      pool: c.knex.client.pool,
+      schemas: Object.assign( {}, c.knex.client.config.schemas, c.schemas )
+    } );
+  } else {
+    knexConfig = {
+      client: 'mysql',
+      connection: c.mysql,
+      schemas: c.schemas
+    };
+  }
+
+  return knexConfig;
 }

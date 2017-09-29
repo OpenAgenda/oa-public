@@ -39,7 +39,7 @@
     "history": "^3.3.0",
     "image-upload": "bitbucket:openagenda/image-upload",
     "images": "bitbucket:openagenda/images",
-    "knex": "^0.10.0",
+    "knex": "^0.13.0",
     "labels": "bitbucket:openagenda/labels",
     "lodash": "^4.17.4",
     "mailer": "bitbucket:openagenda/mailer",
