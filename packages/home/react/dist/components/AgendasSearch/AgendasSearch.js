@@ -20,10 +20,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _dec, _dec2, _class, _class2, _temp2;
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -40,9 +36,9 @@ var _throttle = require('lodash/throttle');
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit2');
+var _reactWaypoint = require('react-waypoint');
 
-var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
+var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
 
 var _Spinner = require('react-form-components/build/Spinner');
 
@@ -135,26 +131,6 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
   }
 
   _createClass(AgendasSearch, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (typeof document === 'undefined' || this.props.isNew) return;
-
-      this.stopMonitorBottomHit = (0, _monitorBottomHit2.default)(this.throttledNextPage);
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate(prevProps) {
-      if (!prevProps.refForLoadNextPage && this.props.refForLoadNextPage) {
-
-        this.stopMonitorBottomHit = (0, _monitorBottomHit2.default)(_reactDom2.default.findDOMNode(this.props.refForLoadNextPage), this.throttledNextPage);
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      if (this.stopMonitorBottomHit) this.stopMonitorBottomHit();
-    }
-  }, {
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -216,7 +192,8 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
           'div',
           { className: 'padding-v-md', style: { position: 'relative' } },
           _react3.default.createElement(_Spinner2.default, null)
-        )
+        ),
+        _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage })
       );
     }
   }]);

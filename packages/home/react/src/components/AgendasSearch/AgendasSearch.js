@@ -1,11 +1,10 @@
 import React, { Component, createElement } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import monitorBottomHit from 'dom-utils/monitorBottomHit2';
+import Waypoint from 'react-waypoint';
 import Spinner from 'react-form-components/build/Spinner';
 import * as agendasActions from '../../redux/modules/agendas';
 import { AgendasList, SearchInput } from '../';
@@ -84,27 +83,6 @@ export default class AgendasSearch extends Component {
 
   throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
 
-  componentDidMount() {
-    if ( typeof document === 'undefined' || this.props.isNew ) return;
-
-    this.stopMonitorBottomHit = monitorBottomHit( this.throttledNextPage );
-  }
-
-  componentDidUpdate( prevProps ) {
-    if ( !prevProps.refForLoadNextPage && this.props.refForLoadNextPage ) {
-
-      this.stopMonitorBottomHit = monitorBottomHit(
-        ReactDOM.findDOMNode( this.props.refForLoadNextPage ),
-        this.throttledNextPage
-      );
-
-    }
-  }
-
-  componentWillUnmount() {
-    if ( this.stopMonitorBottomHit ) this.stopMonitorBottomHit();
-  }
-
   render() {
     const {
       Header, getTitleLink,
@@ -146,6 +124,8 @@ export default class AgendasSearch extends Component {
         {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
           <Spinner />
         </div>}
+
+        <Waypoint onEnter={this.throttledNextPage} />
       </div>
     );
   }

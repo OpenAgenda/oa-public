@@ -36,10 +36,10 @@ app.use( morgan( 'combined' ) );
 
 app.use( ( req, res, next ) => {
   req.user = {
-    id: 27696,
-    uid: 15723194
-    // id: 2,
-    // uid: 99999999
+    // id: 27696,
+    // uid: 15723194
+    id: 2,
+    uid: 99999999
   };
   next();
 } );

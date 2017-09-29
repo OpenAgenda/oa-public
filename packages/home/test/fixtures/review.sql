@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `settings` text,
   `contribution` text,
   `credentials` text,
+  `officialized_at` datetime,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
   UNIQUE KEY `uid` (`uid`),

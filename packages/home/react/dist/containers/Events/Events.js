@@ -44,9 +44,9 @@ var _throttle = require('lodash/throttle');
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit2');
+var _reactWaypoint = require('react-waypoint');
 
-var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
+var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
 
 var _Spinner = require('react-components/build/Spinner');
 
@@ -175,21 +175,10 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
 
       if (!events || !events.length || loading || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
-    }, _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Events, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (typeof document === 'undefined' || this.props.isNew) return;
-      this.stopMonitorBottomHit = (0, _monitorBottomHit2.default)((0, _throttle2.default)(this.nextPage, 400, { trailing: false }));
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.stopMonitorBottomHit();
-    }
-  }, {
     key: 'getMultilangLabel',
     value: function getMultilangLabel(field) {
       if (field === null || (typeof field === 'undefined' ? 'undefined' : _typeof(field)) !== 'object') return field;
@@ -361,6 +350,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
             { className: 'padding-v-md', style: { position: 'relative' } },
             _react3.default.createElement(_Spinner2.default, null)
           ),
+          _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage }),
           selectAgendasModal.visible && _react3.default.createElement(
             _Modal2.default,
             {
@@ -371,15 +361,10 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
               classNames: {
                 overlay: 'popup-overlay big'
               },
-              modalRef: function modalRef(ref) {
-                _this2.selectAgendasModalRef = ref;
-                _this2.forceUpdate();
-              },
               disableBodyScroll: true
             },
             _react3.default.createElement(_components2.AgendasSearch, {
               id: 'selectAgendasForCreateEvent',
-              refForLoadNextPage: this.selectAgendasModalRef,
               getTitleLink: function getTitleLink(agenda) {
                 return res.agendas.addEvent.replace(':slug', agenda.slug);
               },

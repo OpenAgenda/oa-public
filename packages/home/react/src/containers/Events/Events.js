@@ -6,7 +6,7 @@ import { replace } from 'react-router-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import monitorBottomHit from 'dom-utils/monitorBottomHit2';
+import Waypoint from 'react-waypoint';
 import Spinner from 'react-components/build/Spinner';
 import Modal from 'react-components/build/Modal';
 import * as agendasActions from '../../redux/modules/agendas';
@@ -97,14 +97,7 @@ export default class Events extends Component {
     this.props.nextPage( { search }, (page || 1) + 1 );
   };
 
-  componentDidMount() {
-    if ( typeof document === 'undefined' || this.props.isNew ) return;
-    this.stopMonitorBottomHit = monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
-  }
-
-  componentWillUnmount() {
-    this.stopMonitorBottomHit();
-  }
+  throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
 
   getMultilangLabel( field ) {
     if ( field === null || typeof field !== 'object' ) return field;
@@ -213,21 +206,18 @@ export default class Events extends Component {
             <Spinner />
           </div>}
 
+          <Waypoint onEnter={this.throttledNextPage} />
+
           {selectAgendasModal.visible && <Modal
             title={getLabel( 'selectAgenda' )}
             onClose={() => closeModal( 'selectAgenda' )}
             classNames={{
               overlay: 'popup-overlay big'
             }}
-            modalRef={ref => {
-              this.selectAgendasModalRef = ref;
-              this.forceUpdate();
-            }}
             disableBodyScroll
           >
             <AgendasSearch
               id="selectAgendasForCreateEvent"
-              refForLoadNextPage={this.selectAgendasModalRef}
               getTitleLink={agenda => res.agendas.addEvent.replace( ':slug', agenda.slug )}
               createButtonIfEmpty
             />
