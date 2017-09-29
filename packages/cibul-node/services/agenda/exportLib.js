@@ -1,5 +1,7 @@
 "use strict";
 
+const slugs = require( 'slugs' );
+
 var svc,
 
 utils = require( 'utils' ),
@@ -212,6 +214,7 @@ function _addTagGroups( v ) {
   // keep group tags used by event
   .map( g => ( {
     name: g.name,
+    slug: slugs.generate( g.name ),
     tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
   } ) )
 

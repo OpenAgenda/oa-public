@@ -23,6 +23,7 @@
     "agenda-stakeholders": "bitbucket:openagenda/agenda-stakeholders",
     "agenda-tags": "bitbucket:openagenda/agenda-tags",
     "agendas": "bitbucket:openagenda/agendas",
+    "slugs": "bitbucket:openagenda/slugs",
     "aggregator-sources": "bitbucket:openagenda/aggregator-sources",
     "async": "^2.3.0",
     "aws-sdk": "~2.0",

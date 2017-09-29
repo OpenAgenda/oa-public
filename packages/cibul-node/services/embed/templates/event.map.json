@@ -175,6 +175,12 @@
     "attributes" : [ {
       "name" : "Name",
       "mapTo" : "name"
+    }, {
+      "name" : "GroupName",
+      "mapTo" : "name"
+    }, {
+      "name" : "GroupSlug",
+      "mapTo" : "slug"
     } ],
     "children" : [ {
       "name" : "Tags",
