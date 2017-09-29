@@ -40,6 +40,9 @@ describe( 'agendas - functional (server): set (update)', function() {
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         url: 'http://www.salon-fromage.com/',
         settings: {
+          mailing: {
+            eventAggregation: false
+          },
           contribution: {
             defaultState: 2,
             message: null,
@@ -215,6 +218,9 @@ describe( 'agendas - functional (server): set (update)', function() {
           url: '',
           image: null,
           settings: {
+            mailing: {
+              eventAggregation: false
+            },
             contribution: {
               defaultState: 2,
               message: null,

@@ -40,6 +40,9 @@ describe( 'agendas - unit (server): validate', () => {
         slug: 'title-of-the-agenda',
         official: false,
         settings: {
+          mailing: {
+            eventAggregation: false
+          },
           contribution: {
             defaultState: 2,
             message: null,
@@ -157,6 +160,9 @@ describe( 'agendas - unit (server): validate', () => {
         ownerId: 1,
         formSchemaId: null,
         settings: {
+          mailing: {
+            eventAggregation: false
+          },
           contribution: {
             defaultState: 2,
             message: null,

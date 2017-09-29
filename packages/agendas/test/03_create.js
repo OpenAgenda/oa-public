@@ -43,6 +43,9 @@ describe( 'agendas - functional (server): set (create)', function() {
           description: 'This is necessary',
           url: null,
           settings: {
+            mailing: {
+              eventAggregation: false
+            },
             contribution: {
               defaultState: 2,
               message: null,
@@ -128,6 +131,9 @@ describe( 'agendas - functional (server): set (create)', function() {
           description: 'Que faire à Courbevoie',
           url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
           settings: {
+            mailing: {
+              eventAggregation: false
+            },
             contribution: {
               defaultState: 2,
               message: null,
@@ -229,6 +235,9 @@ describe( 'agendas - functional (server): set (create)', function() {
           officializedAt: null,
           private: 0,
           settings: {
+            mailing: {
+              eventAggregation: false
+            },
             contribution: {
               defaultState: 2,
               message: null,
