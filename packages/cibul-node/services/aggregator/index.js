@@ -37,7 +37,11 @@ module.exports = {
     process: sources.process
   },
   task: task,
-  initless: true
+  init: config => {
+
+    require( './interfaces/onEventRemove' ).init();
+
+  }
 }
 
 notify.set( { q, pQ } );

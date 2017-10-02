@@ -10,6 +10,10 @@ const agendaSvc = require( '../../agenda' ),
 
   agendaCategories = require( 'agenda-categories' ),
 
+  interfaces = {
+    onEventRemove: require( '../interfaces/onEventRemove' )
+  },
+
   logger = require( 'logger' ),
 
   w = require( 'when' ),
@@ -190,6 +194,10 @@ function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     if ( !v.removed ) {
 
       log( 'unpublish - did nothing for event %s of source %s and aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
+
+    } else {
+
+      interfaces.onEventRemove( v.event.uid, v.sourceAgenda.uid, v.aggregatingAgenda.uid );
 
     }
 
@@ -420,7 +428,7 @@ function _removeSourceReference( v ) {
 function _removeFromAggregator( v ) {
 
   return p.w.promise( function( rs, rj ) {
-
+    
     v.aggregatingAgenda.removeEvent( v.event, {
       refresh: !v.mute
     }, ( err, result ) => {
@@ -669,7 +677,8 @@ function _associateSameCategory( v ) {
 function _announceUpdate( v ) {
 
   v.aggregatingAgenda.announceEventUpdate( v.event, {
-    refresh: !v.mute
+    refresh: !v.mute,
+    sourceAgendaUid: v.sourceAgenda.uid
   } );
 
   return v;

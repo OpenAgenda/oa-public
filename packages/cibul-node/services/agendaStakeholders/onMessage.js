@@ -4,6 +4,8 @@ const makeLabelGetter = require( 'labels' ),
 
   getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) ),
 
+  getMailerLabel = makeLabelGetter( require( 'labels/components/mailer' ) ),
+
   agendas = require( 'agendas' ),
 
   genUrl = require( '../genUrl' ),
@@ -120,8 +122,8 @@ function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, 
 
   mailer( {
     recipient,
-    source: replyTo || (lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'),
-    replyTo: replyTo || (lang === 'fr' ? 'ne-pas-repondre@openagenda.com' : 'no-reply@openagenda.com'),
+    source: replyTo || getMailerLabel( 'noReply', lang ),
+    replyTo: replyTo || getMailerLabel( 'noReply', lang ),
     subject: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
     data: {
       logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',

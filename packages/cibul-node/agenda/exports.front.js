@@ -2,7 +2,7 @@
 
 const sessions = require( 'sessions' );
 const tagSvc = require( 'agenda-tags' );
-const getAggLabel = require( 'labels' )( require( 'labels/aggregator-sources' ) );
+const getAggLabel = require( 'labels' )( require( 'labels/aggregators/sources' ) );
 const categorySvc = require( 'agenda-categories' );
 const locationMw = require( 'agenda-locations' ).mw();
 const utils = require( 'utils' );

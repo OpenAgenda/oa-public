@@ -214,12 +214,12 @@ function _addTagGroups( v ) {
   // keep group tags used by event
   .map( g => ( {
     name: g.name,
-    slug: slugs.generate( g.name ),
+    slug: g.name ? slugs.generate( g.name ) : null,
     tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
   } ) )
 
-  // remove empty groups
-  .filter( g => g.tags.length );
+    // remove empty groups
+    .filter( g => g.tags.length );
 
 
   // reuse tag group order with tags

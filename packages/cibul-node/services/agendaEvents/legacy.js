@@ -72,13 +72,14 @@ async function evaluate( err, action ) {
         agendaId: action.values.agendaId || action.values.review_id
       }, { 
         context: { 
-          userUid: action.values.user_uid 
+          userUid: action.values.user_uid,
+          agendaUid: action.values.sourceAgendaUid || null
         } 
       } );
 
     } else if ( action.name === 'event.remove' ) {
 
-      log( 'not acting on remove through legacy transfer. remove should be done through event interface' )
+      log( 'not acting on remove through legacy transfer. remove should be done through event interface' );
 
     } else {
 

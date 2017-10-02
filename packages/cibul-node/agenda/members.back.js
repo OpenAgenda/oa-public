@@ -152,6 +152,8 @@ module.exports = path => {
       },
       onUnauthorizedIPAddress: ( req, res, next ) => {
 
+        if ( process.env.NODE_ENV === 'development' ) return next();
+
         res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaInstance.data.slug } ) );
 
       }

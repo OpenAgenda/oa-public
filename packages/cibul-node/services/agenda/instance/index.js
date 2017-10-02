@@ -228,6 +228,7 @@ function instanciate( data ) {
       agenda: instance,
       event,
       stakeholder: null,
+      sourceAgendaUid: null,
       refresh: true
     }, options ) )
 
@@ -242,7 +243,8 @@ function instanciate( data ) {
           announceEventUpdate( v.event, {
             type: 'event.remove',
             refresh: v.refresh,
-            userId: (v.stakeholder && v.stakeholder.id) || null
+            userId: ( v.stakeholder && v.stakeholder.id ) || null,
+            sourceAgendaUid: v.sourceAgendaUid
           } );
 
           cb();

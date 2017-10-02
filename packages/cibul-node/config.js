@@ -223,6 +223,10 @@ let config = {
         mailDefault: {
           source: 'no-reply@openagenda.com',
           replyTo: 'admin@openagenda.com'
+        },
+        noReply: {
+          fr: 'ne-pas-repondre@openagenda.com',
+          en: 'no-reply@openagenda.com'
         }
       },
       mailerServices: {
@@ -513,11 +517,13 @@ let config = {
           //enable: 'oa:events/interfaces/legacy'
           //enable: 'oa:agendaEvents/interfaces/legacy',
           //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*, oa:groupactions*'
+          //enable: 'oa:agendaEvents',
           //enable: 'oa:services/event/oembed',
           //enable: 'oa:services/model',
           //enable: 'oa:events/interfaces*',
           //enable: 'oa:events*,oa:legacy*',
-          enable: 'oa:*'
+          enable: 'oa:mailer/task/eventAggregation*',
+          //enable: 'oa:*'
         },
         token: false // no need to log dev things
         //token: 'a2923436-55dc-4eba-8668-44824d11c089'

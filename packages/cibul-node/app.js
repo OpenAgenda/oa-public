@@ -213,7 +213,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( 'emailStrategie' ).task();
 
-        require( 'mailer' ).task();
+        require( './services/mailer' ).task();
 
         require( './services/agenda/controlData' ).task();
 

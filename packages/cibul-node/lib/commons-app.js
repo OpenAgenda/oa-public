@@ -26,7 +26,13 @@ const verifyIPMiddleware = [
     namespaces: {
       agenda: 'agendaFromService'
     },
-    onUnauthorizedIPAddress: ( req, res, next ) => res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) )
+    onUnauthorizedIPAddress: ( req, res, next ) => {
+
+      // if ( process.env.NODE_ENV === 'development' ) return next();
+
+      res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) );
+
+    }
   } )
 ];
 
