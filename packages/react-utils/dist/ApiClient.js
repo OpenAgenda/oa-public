@@ -45,8 +45,14 @@ var ApiClient = function ApiClient(apiRoot, req) {
           request.query(query);
         }
 
-        if (typeof window === 'undefined' && req && req.get('cookie')) {
-          request.set('cookie', req.get('cookie'));
+        if (typeof window === 'undefined' && req) {
+          if (req.get('cookie')) {
+            request.set('cookie', req.get('cookie'));
+          }
+
+          if (req.get('x-forwarded-for')) {
+            request.set('x-forwarded-for', req.get('x-forwarded-for'));
+          }
         }
 
         if (headers) {
