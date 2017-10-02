@@ -28,6 +28,8 @@ module.exports = async ( ae, context ) => {
   // if reference was created through aggregation, email administrators
   if ( context && context.agendaUid && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
 
+    log( 'info', 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
+
     mailer.queue.eventAggregation( {
       eventUid: event.uid,
       aggregatorAgendaUid: agenda.uid,
