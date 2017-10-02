@@ -66,6 +66,7 @@
     "immutability-helper": "^2.3.1",
     "invitations": "bitbucket:openagenda/invitations",
     "keys": "bitbucket:OpenAgenda/keys",
+    "knex": "^0.13.0",
     "labels": "bitbucket:openagenda/labels",
     "landing": "bitbucket:openagenda/landing",
     "languages": "0.1.3",

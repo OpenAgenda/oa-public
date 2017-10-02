@@ -96,7 +96,7 @@ function _onEventActivity( action ) {
 
     let count = 0;
 
-    if ( err ) return log( 'error', 'could not fetch event %s', event.id );
+    if ( err ) return log( 'error', 'could not fetch event %s', action.values.id );
 
     _forEachRelatedAgenda( event, action.values.agendaId, ( err, agenda, agendaEvent, ecb ) => {
 
