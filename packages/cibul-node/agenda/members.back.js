@@ -154,6 +154,8 @@ module.exports = path => {
 
         if ( process.env.NODE_ENV === 'development' ) return next();
 
+        req.log( 'info', 'IP %s is not authorized for agenda %s', req.header( 'x-forwarded-for' ), req.agendaInstance.data.slug );
+
         res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaInstance.data.slug } ) );
 
       }
