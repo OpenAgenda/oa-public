@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import makeGetterLabel from 'labels';
-import labels from 'labels/aggregator-sources';
+import labels from 'labels/aggregators/sources';
 
 @connect(
   state => ({

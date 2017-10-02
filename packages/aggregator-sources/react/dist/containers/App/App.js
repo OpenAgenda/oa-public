@@ -30,9 +30,9 @@ var _labels = require('labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _aggregatorSources = require('labels/aggregator-sources');
+var _sources = require('labels/aggregators/sources');
 
-var _aggregatorSources2 = _interopRequireDefault(_aggregatorSources);
+var _sources2 = _interopRequireDefault(_sources);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -95,7 +95,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
         lang: lang,
         getLabel: function getLabel(label) {
           var values = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-          return (0, _labels2.default)(_aggregatorSources2.default)(label, values, lang);
+          return (0, _labels2.default)(_sources2.default)(label, values, lang);
         }
       };
     }
