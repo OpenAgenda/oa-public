@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const logger = require( 'basic-logger' );
 const isoConfig = require( '../iso/config' );
 
 
@@ -32,12 +31,6 @@ function init( c ) {
   _.extend( config.writableCookie, {
     name: isoConfig.cookies.writable
   } );
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-
-  }
 
   config.initialized = true;
 

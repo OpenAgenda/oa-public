@@ -1,12 +1,10 @@
 "use strict";
 
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'sync' );
 const get = require( './get' );
 const open = require( './open' );
 
 const { callbackify } = require( './helpers' );
-
-let log = console.log;
 
 module.exports = ( request, cb ) => {
 
@@ -30,11 +28,5 @@ async function sync( request ) {
   }
 
   return await open.promise( request, { uid: user.uid } );
-
-}
-
-module.exports.init = () => {
-
-  log = logger( 'sync' );
 
 }

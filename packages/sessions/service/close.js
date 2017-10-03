@@ -2,20 +2,12 @@
 
 const config = require( './config' );
 const { cleanSession, callbackify, redisCommand } = require( './helpers' );
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'close' );
 const _ = require( 'lodash' );
-
-let log = console.log;
 
 module.exports = ( request, cb ) => {
 
   callbackify( close( request ), cb );
-
-}
-
-module.exports.init = () => {
-
-  log = logger( 'close' );
 
 }
 

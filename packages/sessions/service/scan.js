@@ -2,10 +2,8 @@
 
 const config = require( './config' );
 const { cleanSession, callbackify, redisCommand } = require( './helpers' );
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'scan' );
 const _ = require( 'lodash' );
-
-let log = console.log;
 
 module.exports = function( cursor, count, options, cb ) {
 
@@ -29,12 +27,6 @@ module.exports = function( cursor, count, options, cb ) {
     cb( null, r.sessions, r.cursor );
 
   } );
-
-}
-
-module.exports.init = () => {
-
-  log = logger( 'scan' );
 
 }
 

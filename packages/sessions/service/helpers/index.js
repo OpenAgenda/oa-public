@@ -2,11 +2,9 @@
 
 const _ = require( 'lodash' );
 const cookieValidate = require( '../../iso/cookie.validate' );
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'helpers' );
 const config = require( '../config' );
 const redisCommand = require( './redisCommand' );
-
-let log = console.log;
 
 module.exports = {
   cleanSession,
@@ -71,8 +69,6 @@ function cleanSession( session = {}, data = {} ) {
 
 
 function init() {
-
-  log = logger( 'helpers' );
 
   redisCommand.init();
 

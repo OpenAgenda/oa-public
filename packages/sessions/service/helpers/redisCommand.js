@@ -2,16 +2,14 @@
 
 const _ = require( 'lodash' );
 const redis = require( 'redis' );
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'redisCommand' );
 const config = require( '../config' );
 
-let log = console.log, cli;
+let cli;
 
 module.exports = _.extend( redisCommand, { init, shutdown } );
 
 function init() {
-
-  log = logger( 'redisCommand' );
 
   cli = redis.createClient( {
     host: config.redis.host,

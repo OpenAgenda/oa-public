@@ -5,7 +5,7 @@ const isoConfig = require( './iso/config' );
 const validate = require( './service/validate' );
 const expressCookie = require( './service/expressCookie' );
 const cookieValidate = require( './iso/cookie.validate' );
-const logger = require( 'basic-logger' );
+const logger = require( 'logs' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
 const redis = require( 'redis' );
@@ -83,13 +83,17 @@ function init( c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logger.setModuleConfig( c.logger );
 
   }
 
   helpers.init();
 
-  [ get, open, close, sync, scan ].forEach( end => end.init() );
+  [ get, open, close, sync, scan ].forEach( end => {
+
+    if ( end.init ) end.init();
+
+  } );
 
   log = logger( 'sessions' );
 

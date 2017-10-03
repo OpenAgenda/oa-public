@@ -8,11 +8,12 @@
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",
     "lodash": "^4.17.4",
+    "logs": "git+ssh://git@bitbucket.org:openagenda/logs.git",
     "redis": "^2.6.3",
-    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
-    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
+    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
+    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
+    "verror": "^1.10.0",
     "when": "^3.7.7"
   },
   "devDependencies": {

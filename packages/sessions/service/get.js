@@ -2,10 +2,8 @@
 
 const config = require( './config' );
 const { cleanSession, callbackify, redisCommand } = require( './helpers' );
-const logger = require( 'basic-logger' );
+const log = require( 'logs' )( 'get' );
 const _ = require( 'lodash' );
-
-let log = console.log;
 
 module.exports = ( uidOrRequest, options, cb ) => {
 
@@ -18,12 +16,6 @@ module.exports = ( uidOrRequest, options, cb ) => {
   }
 
   callbackify( get( uidOrRequest, options ), cb );
-
-}
-
-module.exports.init = () => {
-
-  log = logger( 'get' );
 
 }
 
