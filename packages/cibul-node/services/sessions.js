@@ -4,6 +4,8 @@ const sessions = require( 'sessions' );
 
 const userSvc = require( 'users' );
 
+const _ = require( 'lodash' );
+
 module.exports.init = config => {
 
   sessions.init( {
@@ -20,7 +22,12 @@ module.exports.init = config => {
     expire: config.session.maxAge / 1000,
     interfaces: {
       getUser: getUser.bind( null, config.aws.imageBucketPath )
-    }
+    },
+    logger: _.merge( {}, config.logger, {
+      errorsTracking: {
+        logentriesKey: process.env.NODE_ENV === 'production' ? 'f80dde52-e59e-456f-b54c-9475e495b7e0' : null
+      }
+    } )
   } );
 
 }
