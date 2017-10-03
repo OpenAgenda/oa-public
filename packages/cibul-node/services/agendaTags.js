@@ -14,17 +14,20 @@ module.exports.init = ( config, cb ) => {
 
     const query = config.knex.raw( queryStr, values );
 
-    query.then( result => result[ 0 ] ).then( rows => {
+    query
+      .then(
+        result => result[ 0 ],
+        err => {
 
-      process.nextTick( () => cb( null, rows ) );
+          process.nextTick( () => cb( err ) );
 
-    } );
+        }
+      )
+      .then( rows => {
 
-    query.catch( err => {
+        process.nextTick( () => cb( null, rows ) );
 
-      process.nextTick( () => cb( err ) );
-
-    } );
+      } );
 
   }
 
