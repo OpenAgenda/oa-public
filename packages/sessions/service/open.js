@@ -104,6 +104,11 @@ async function open( request, response, identifier ) {
 
   }
 
+  log( 'info', 'session opened', {
+    uid: user.uid,
+    email: user.email
+  } );
+
   return {
     success: true,
     data: sessionUser,
