@@ -152,7 +152,13 @@ function loadEvent( paramName, fieldName ) {
 
       .then( function ( data ) {
 
-        if ( !data ) throw { code: 404 };
+        if ( !data ) {
+
+          req.code = 404;
+
+          throw { code: 404 };
+
+        }
 
         req.event = model.events().instance( data );
 
