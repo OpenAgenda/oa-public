@@ -26,7 +26,7 @@ function setImage( { path, url }, cb ) {
 
     if ( err ) return cb( err );
 
-    this.service.set( { uid: this.data.uid }, { image: formats[ 0 ].name }, err => {
+    this.service.set( { uid: this.data.uid }, { image: formats[ 0 ].name }, { private: this.data.private }, err => {
 
       if ( err ) return cb( err );
 
