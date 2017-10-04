@@ -32,13 +32,6 @@ module.exports = {
     access: 'moderator'
   }, {
     section : 'manage',
-    key : 'categories',
-    label : 'Categories and Tags',
-    className: 'disabled',
-    access: 'administrator',
-    uri : 'categoryTagShow'
-  }, {
-    section : 'manage',
     key : 'sources',
     label : 'Sources',
     uri : 'aggregatorSourcesApp',
