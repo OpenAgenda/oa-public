@@ -28,7 +28,7 @@ const verifyIPMiddleware = [
     },
     onUnauthorizedIPAddress: ( req, res, next ) => {
 
-      // if ( process.env.NODE_ENV === 'development' ) return next();
+      if ( process.env.NODE_ENV === 'development' ) return next();
 
       res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaFromService.slug } ) );
 
