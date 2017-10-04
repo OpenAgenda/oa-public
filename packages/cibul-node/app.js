@@ -269,32 +269,6 @@ module.exports = ( enabledTypes, cb ) => {
 
       if ( cb ) cb( null, server );
 
-      process.on( 'uncaughtException', errorHandler( 'uncaughtException', 'uncaught' ) );
-
-      process.on( 'unhandledRejection', errorHandler( 'unhandledRejection', 'unhandled' ) );
-
-      function errorHandler( name, shortname ) {
-
-        return err => {
-
-          try {
-
-            throw err;
-
-          } catch ( e ) {
-
-            log( 'error', '%s: %s', name, e.message || e );
-
-            console.error( '%s %s: %s', new Date().toUTCString(), shortname, e.message || e );
-
-            if ( e.stack ) console.error( e.stack );
-
-          }
-
-        };
-
-      }
-
     } );
 
   } );

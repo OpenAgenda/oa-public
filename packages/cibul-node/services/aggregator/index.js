@@ -2,6 +2,8 @@
 
 const config = require( '../../config' ),
 
+  onError = require( '../00_errors' ).bind( null, 'aggregator' ),
+
   notify = require( './lib/notify' ),
 
   evaluate = require( './lib/evaluate' ),
@@ -16,12 +18,14 @@ const config = require( '../../config' ),
 
   q = queue( config.queues.aggregator, { 
     redis: config.redis,
-    schedulable: true
+    schedulable: true,
+    onError
   } ),
 
   pQ = queue( config.queues.aggregator + ':priority', {
     redis: config.redis,
-    schedulable: true
+    schedulable: true,
+    onError
   } );
 
 module.exports = {

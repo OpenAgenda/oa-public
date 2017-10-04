@@ -10,15 +10,11 @@ const utils = require( 'utils' ),
 
   logger = require( 'logger' );
 
-let q, pQ, log, onProcessed;
+let q, pQ, log;
 
 module.exports = utils.extend( launch, {
   set,
-  shutdown,
-  test: {
-    setOnProcessed,
-    unsetOnProcessed
-  }
+  shutdown
 });
 
 function launch() {
@@ -110,29 +106,10 @@ function _process( data, cb ) {
 
     if ( err ) log( 'error', err );
 
-    if ( onProcessed ) onProcessed( err, {
-      lib: method[ 0 ], 
-      method: method[ 1 ]
-    });
+    cb( err );
 
-    cb();
-
-  });
+  } );
 
   libs[ method[ 0 ] ][ method[ 1 ] ].apply( null, data.args );
-
-}
-
-function setOnProcessed( cb ) {
-
-  onProcessed = cb;
-
-}
-
-function unsetOnProcessed( cb ) {
-
-  onProcessed = false;
-
-  if ( cb ) cb();
 
 }

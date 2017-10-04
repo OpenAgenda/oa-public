@@ -23,11 +23,11 @@ module.exports.init = config => {
     interfaces: {
       getUser: getUser.bind( null, config.aws.imageBucketPath )
     },
-    logger: _.merge( {}, config.logger, {
+    logger: {
       errorsTracking: {
-        logentriesKey: process.env.NODE_ENV === 'production' ? 'f80dde52-e59e-456f-b54c-9475e495b7e0' : null
+        logentriesKey: process.env.NODE_ENV === 'production' ? '1d8d933d-abb6-4750-b2e1-cefa96f9a0b8' : null
       }
-    } )
+    }
   } );
 
 }

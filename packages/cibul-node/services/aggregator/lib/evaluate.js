@@ -138,13 +138,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
       added: v.added
     } );
 
-  }, err => {
-
-    console.log( err );
-
-    cb( err );
-
-  } );
+  }, cb );
 
 }
 
