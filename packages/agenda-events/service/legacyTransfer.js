@@ -108,6 +108,12 @@ function _getLegacyState( state, isPublished ) {
 
   }
 
+  if ( state === null ) {
+
+    return states.TOCONTROL;
+
+  }
+
   return state;
 
 }
