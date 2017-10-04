@@ -241,7 +241,7 @@ function referencesSave( req, res, next ) {
 
   req.log( 'received request to save references for uids %s', req.body.uids );
 
-  req.agenda.search( { uids: req.body.uids || [] }, { showAll: true, limit: 100 }, ( err, result ) => {
+  req.agenda.search( { uids: req.body.uids || [] }, { showAll: true, limit: 150 }, ( err, result ) => {
 
     if ( err ) return next( err );
 
