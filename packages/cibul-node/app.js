@@ -178,7 +178,12 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( err, req, res, next ) => {
 
-        errorHandler( 'middleware', err );
+        // 404s and co are not to be logged by error handler
+        if ( ![ 401, 403, 404, 413 ].includes( _.get( err, 'code', null ) ) ) {
+        
+          errorHandler( 'middleware', err );
+
+        }
 
         cmn.catchError( req, res )( err );
 
