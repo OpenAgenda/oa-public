@@ -74,7 +74,8 @@ function _references( v ) {
 
     v.req.agenda.events.list( {
       ids: eventIds,
-      isPublished: null
+      isPublished: null,
+      limit: 200
     }, ( err, events ) => {
 
       if ( err ) return d.reject( err );
