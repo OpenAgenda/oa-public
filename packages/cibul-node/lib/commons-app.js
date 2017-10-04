@@ -446,9 +446,10 @@ function errorResponse( req, res, error, jsonResponse ) {
 
       req.log( 'error', 'received error: %j', error );
 
-      console.error( ( new Date ).toUTCString() + ' caught: %j', error );
+      // replaced with 00_errors
+      //console.error( ( new Date ).toUTCString() + ' caught: %j', error );
 
-      console.error( error.stack ? error.stack : 'no stack' );
+      //console.error( error.stack ? error.stack : 'no stack' );
 
       errorTemplate = 'error/show';
 

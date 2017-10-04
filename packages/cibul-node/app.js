@@ -25,6 +25,7 @@ module.exports = ( enabledTypes, cb ) => {
       const tfy = require( './lib/taskify' );
       const cmn = require( './lib/commons-app' );
       const config = require( './config' );
+      const errorHandler = require( './services/00_errors' );
 
       const log = logger( 'app' );
 
@@ -176,6 +177,8 @@ module.exports = ( enabledTypes, cb ) => {
       } );
 
       app.use( ( err, req, res, next ) => {
+
+        errorHandler( 'middleware', err );
 
         cmn.catchError( req, res )( err );
 

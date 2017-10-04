@@ -48,6 +48,7 @@ const sessions = require( 'sessions' ),
       _loadUser( 'post' ),
       userUpdate
     ] ],
+    throwTestError: [ 'get', '/throw', throwTestError ],
     adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
     eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
     eventsDiff: [ 'get', '/eventsdiff', eventsDiff ]
@@ -122,6 +123,13 @@ function index( req, res ) {
 
     } );
 
+
+}
+
+
+function throwTestError( req, res, next ) {
+
+  throw new Error( 'this is a test error' );
 
 }
 
