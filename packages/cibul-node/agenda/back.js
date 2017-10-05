@@ -1,55 +1,95 @@
 "use strict";
 
-const config = require( '../config' );
-const modLib = require( "../lib/moduleLib.js" );
 const cmn = require( '../lib/commons-app' );
-const agendaSvc = require( '../services/agenda' );
+const app = require( 'express' )();
+const config = require( '../config' );
 const sessions = require( 'sessions' );
+const legacyAgendaSvc = require( '../services/agenda' );
+const agendaStatistics = require( '../services/agendaStatistics' );
+
+const agendaLoad = require( 'agendas' ).middleware.load( {
+  private: null,
+  internal: true,
+  namespaces: {
+    identifiers: {
+      slug: 'params.agendaSlug',
+      uid: 'params.agendaUid'
+    }
+  }
+} );
 
 
-module.exports = path => {
+module.exports = parentApp => {
 
-  const routes = {
-    gettingStarted: [ 'get', '/:slug/admin/getting-started',
-      [
-        cmn.checkAdministrator(),
-        ( req, res ) => cmn.render( req, res, 'agendaAdmin/gettingStarted', {
-          agenda: req.agenda,
-          scriptParams: {
-            res: {
-              agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-              setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
-              clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
-              addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
-              createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
-            },
-            lang: req.lang || 'fr'
-          }, lang: req.lang || 'fr'
-        } )
-      ]
-    ],
+  parentApp.use( '/', app );
 
-    agendaAdminUidToSlug: [ 'get', '/agendas/:uid/admin/*?(/*)?', ( req, res ) => {
-      res.redirect( req.originalUrl.replace( `/agendas/${req.agenda.uid}`, `/${req.agenda.slug}` ) );
-    } ]
-  };
+}
 
-  const router = modLib.Router( routes );
 
-  router.pre( [
-    cmn.loadLogger( 'agendaBack' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    ( req, res, next ) => {
-      if ( req.params.uid ) return agendaSvc.mw.load( 'uid', 'uid' )( req, res, next );
-      return agendaSvc.mw.load( 'slug' )( req, res, next );
-    },
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' )
-  ] );
+// All paths of this app are accessible to agenda admins only
+// As app is used on base path of parent app, routes
+// must be explicited in following use.
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+app.use( [
+  '/:agendaSlug/admin/stats',
+  '/:agendaSlug/admin/getting-started',
+  '/agendas/:uid/admin/*?(/*)?'
+], [
+  cmn.loadLogger( 'agendaBack' ),
+  sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+  agendaLoad
+] );
 
-};
+app.use( [
+  '/:agendaSlug/admin/getting-started'
+], [
+  legacyAgendaSvc.mw.loadAdminLayout,
+  cmn.loadBaseData( 'oasfmain.css' )
+] );
+
+
+
+/**
+ * statistics route
+ */
+
+app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
+
+  res.json( await agendaStatistics( req.agenda.uid ) );
+
+} );
+
+
+/**
+ * redirection admin route
+ */
+
+app.get( '/agendas/:agendaUid/admin/*?(/*)?', 
+  ( req, res ) => res.redirect( req.originalUrl.replace( `/agendas/${req.agenda.uid}`, `/${req.agenda.slug}` ) )
+);
+
+
+/**
+ * getting started route
+ */
+
+app.get( '/:agendaSlug/admin/getting-started', [
+  cmn.checkAdministrator( { useLegacy: false } ),
+  ( req, res ) => {
+
+    cmn.render( req, res, 'agendaAdmin/gettingStarted', {
+      agenda: req.agenda,
+      scriptParams: {
+        res: {
+          agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+          setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
+          clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
+          addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
+          createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
+        },
+        lang: req.lang || 'fr'
+      }, lang: req.lang || 'fr'
+    } );
+
+  } 
+] );

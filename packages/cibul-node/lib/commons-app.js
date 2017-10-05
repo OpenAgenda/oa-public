@@ -6,6 +6,7 @@
 
 const _ = require( 'lodash' );
 const sessions = require( 'sessions' );
+const agendaStakeholders = require( 'agenda-stakeholders' );
 const keys = require( 'keys' );
 const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
 const hsts = require( 'hsts' );
@@ -196,10 +197,30 @@ function checkAdministrator( options ) {
   const params = utils.extend( {
     name: 'agenda',
     message: 'You do not have access to the administration of this agenda.',
-    redirect: false
+    redirect: false,
+    useLegagy: true
   }, options ? options : {} );
 
   return function ( req, res, next ) {
+
+    function _resolve( isAdmin ) {
+
+      if ( isAdmin ) return next();
+
+      if ( params.redirect ) {
+
+        sessions.setFlash( req, res, params.message );
+
+        return res.redirect( params.redirect );
+
+      }
+
+      next( {
+        message: params.message,
+        code: 403
+      } );
+
+    }
 
     _prepareSession( req, res, err => {
 
@@ -207,36 +228,25 @@ function checkAdministrator( options ) {
 
       if ( !req.user ) return next( { code: 403 } );
 
-      wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
+      if ( !params.useLegacy ) {
 
-        .then( isAdmin => {
+        // rely on agenda-stakeholders
 
-          if ( !isAdmin ) {
+        return agendaStakeholders( req[ params.name ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
-            if ( params.redirect ) {
+          const role = agendaStakeholders.types.codes.get( stakeholder.credential );
 
-              sessions.setFlash( req, res, params.message );
-
-              return res.redirect( params.redirect );
-
-            }
-
-            throw {
-              message: params.message,
-              code: 403
-            };
-
-          }
-
-          next();
-
-        } )
-
-        .catch( err => {
-
-          errorResponse( req, res, err );
+          _resolve( role === 'administrator' );
 
         } );
+
+      }
+
+      wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
+
+        .then( _resolve )
+
+        .catch( errorResponse.bind( null, req, res ) );
 
     } );
   }
@@ -721,7 +731,7 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    if ( req.agenda && req.agenda.hasChatbox() ) {
+    if ( req.agenda && req.agenda.hasChatbox && req.agenda.hasChatbox() ) {
 
       baseData.bottom.scripts.push( 'CRISP_WEBSITE_ID = "-KC1cwSWCMI3qYiWHBSI";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();' );
 

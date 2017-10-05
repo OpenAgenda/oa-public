@@ -163,7 +163,7 @@ function loadAdminLayout( req, res, next ) {
           title: req.agenda.title,
           description: req.agenda.description,
           url: req.agenda.url,
-          image: req.agenda.getImage( false )
+          image: req.agenda.getImage ? req.agenda.getImage( false ) : req.agenda.image
         },
         bottom: {
           scripts: [
@@ -182,7 +182,7 @@ function loadAdminLayout( req, res, next ) {
     // define tabs to display based on credentials
     wcb => {
 
-      req.agenda.getCredentialList( function( err, credentials ) {
+      _getCredentialList( req.agenda, function( err, credentials ) {
 
         req.log( 'loaded credentials %s', credentials );
 
@@ -246,6 +246,30 @@ function loadAdminLayout( req, res, next ) {
   ], err => {
 
     next( err || undefined );
+
+  } );
+
+}
+
+
+function _getCredentialList( agenda, cb ) {
+
+  // legacy service function
+  if ( agenda.getCredentialList ) {
+
+    return agenda.getCredentialList( ( err, list ) => {
+
+      cb( null, list )
+
+    } );
+
+  }
+
+  // new service
+  
+  setImmediate( () => {
+
+    cb( null, _.keys( _.pickBy( agenda.credentials, v => !!v ) ) );
 
   } );
 

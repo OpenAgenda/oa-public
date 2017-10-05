@@ -84,7 +84,6 @@ module.exports = ( enabledTypes, cb ) => {
           require( './agenda/front' )( '' ),
           require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
           require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
-          require( './agenda/back' )( '' ),
           require( './agenda/facebook.back' )( '' ),
           require( './agenda/customized.back' )( '' ),
           require( './agenda/actions.front' )( '/:slug/actions' ),
@@ -155,6 +154,7 @@ module.exports = ( enabledTypes, cb ) => {
       if ( enabledTypes.includes( 'web' ) ) {
 
         require( './event/search.front' )( app, '/events/search' );
+        require( './agenda/back' )( app );
 
         webModules.web.forEach( m => m.load( app ) );
 
