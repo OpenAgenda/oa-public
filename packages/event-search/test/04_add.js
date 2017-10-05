@@ -130,6 +130,29 @@ describe( 'event search - functional: create', function() {
 
   } );
 
+
+  it( 'add an expiring expired event to an index gives back unsuccessful operation report', async () => {
+
+    eventData.uid++;
+
+    eventData.timings = [ {
+      begin: ( new Date() ).setDate( ( new Date() ).getDate() - 1 ),
+      end: ( new Date() ).setDate( ( new Date() ).getDate() - 1 )
+    } ];
+
+    let result = await service( 'test_index' ).add( eventData, { 
+      refresh: true,
+      expire: true
+    } );
+
+    result.should.eql( {
+      success: false,
+      message: 'negative ttl set',
+      lastTimingEndsInDays: -1
+    } );
+
+  } );
+
 } );
 
 async function _timeout( ms ) {

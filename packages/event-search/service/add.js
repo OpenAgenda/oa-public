@@ -19,9 +19,27 @@ async function add( alias, event, options = {} ) {
 
   const { client, type } = config,
 
-    cleanEvent = clean( event ),
+    cleanEvent = clean( event );
 
-    ttl = params.expire ? lastTimingEndsIn( cleanEvent ) + 'd' : undefined;
+  let ttl, lastTimingEndsInDays;
+
+  if ( params.expire ) {
+
+    lastTimingEndsInDays = lastTimingEndsIn( cleanEvent );
+
+    if ( lastTimingEndsInDays < 0 ) {
+
+      return {
+        success: false,
+        message: 'negative ttl set',
+        lastTimingEndsInDays
+      }
+
+    }
+
+    ttl = lastTimingEndsInDays + 'd';
+
+  }
 
   let result;
 

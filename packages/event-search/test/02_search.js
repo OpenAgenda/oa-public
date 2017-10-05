@@ -414,8 +414,9 @@ describe( 'event search - functional: search', function() {
 
         total.should.equal( 1 );
 
-        // one day for each
-        aggregations.timingsReverseHits.length.should.equal( 30 );
+        // one day for each. Depends of the month
+        aggregations.timingsReverseHits.length.should.aboveOrEqual( 28 );
+        aggregations.timingsReverseHits.length.should.belowOrEqual( 31 );
 
         aggregations.timingsReverseHits.filter( h => h.count !== 0 ).length.should.equal( 0 );
 

@@ -25,11 +25,11 @@ describe( 'event-search - unit: helpers', function() {
 
   describe( 'createIndexName', () => {
 
-    it( 'created index name contains alias name and current datetime ( name_20170321T1128 )', () => {
+    it( 'created index name contains alias name and current datetime ( name_20170321t1128 )', () => {
 
       let aliasName = 'name';
 
-      ( new RegExp( '^' + aliasName + '_20[0-9][0-9][0-1][1-9][0-3][0-9]t[0-2][0-9][0-5][0-9]$' ) )
+      ( new RegExp( '^' + aliasName + '_20[0-9][0-9][0-1][0-9][0-3][0-9]t[0-2][0-9][0-5][0-9]$' ) )
 
         .test( helpers.createIndexName( aliasName ) ).should.equal( true );
 

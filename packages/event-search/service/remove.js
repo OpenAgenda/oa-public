@@ -32,7 +32,8 @@ module.exports = async function( alias, identifiers, options = {} ) {
   }
 
   return {
-    success: res.result === 'deleted'
+    success: res.result === 'deleted',
+    message: res.result === 'deleted' ? 'event was removed' : 'event was not removed'
   }
 
 }

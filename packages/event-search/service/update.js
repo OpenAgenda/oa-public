@@ -9,6 +9,8 @@ const config = require( './config' ),
   lastTimingEndsIn = require( './helpers/lastTimingEndsIn' ),
 
   parseQuery = require( './query' ),
+
+  remove = require( './remove' ),
   
   parseDoc = require( './index/preParse' );
 
@@ -19,11 +21,23 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
     expire: false
   }, options ),
 
-    { client, type } = config,
+    { client, type } = config;
 
-    ttl = params.expire && eventPart.timings ? lastTimingEndsIn( eventPart ) + 'd' : undefined;
-  
-  let res;
+  let ttl, lastTimingEndsInDays, res;
+
+  if ( params.expire && eventPart.timings ) {
+
+    lastTimingEndsInDays = lastTimingEndsIn( eventPart );
+
+    ttl = lastTimingEndsInDays + 'd';
+
+  }
+
+  if ( lastTimingEndsInDays !== undefined && lastTimingEndsInDays < 0 ) {
+
+    return await remove( alias, identifiers, options );
+
+  }
 
   try {
 

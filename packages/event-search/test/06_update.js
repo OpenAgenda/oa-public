@@ -75,4 +75,46 @@ describe( 'event search - functional: update', function() {
 
   } );
 
+
+  describe( 'expiring event', () => {
+    
+
+    it( 'when expiry is set returns includes ttl value', async () => {
+
+      const eventData = {
+        timezone: 'Europe/Paris',
+        timings: [ {
+          begin: ( new Date() ).setDate( ( new Date() ).getDate() + 1 ),
+          end: ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
+        } ]
+      };
+
+      const result = await service( 'test_index' ).update( { uid: 2 }, eventData, { expire: true } );
+
+      result.ttl.should.eql( '1d' );
+
+    } );
+
+
+    it( 'when expiry is set and update sets event in the past, it is removed from index', async () => {
+
+      const eventData = {
+        timezone: 'Europe/Paris',
+        timings: [ {
+          begin: ( new Date() ).setDate( ( new Date() ).getDate() - 1 ),
+          end: ( new Date() ).setDate( ( new Date() ).getDate() - 1 )
+        } ]
+      };
+
+      const result = await service( 'test_index' ).update( { uid: 2 }, eventData, { expire: true } );
+
+      result.should.eql( {
+        success: true,
+        message: 'event was removed'
+      } );
+
+    } );
+
+  } );
+
 } );
