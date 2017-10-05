@@ -23,7 +23,7 @@ module.exports = function( data, cb ) {
       if ( !refIds.length ) return ecb();
 
       // load uids
-      eventSvc.list( { ids: refIds, isPublished: null }, ( err, events ) => {
+      eventSvc.list( { ids: refIds, isPublished: null, limit: 200 }, ( err, events ) => {
 
         if ( err ) return ecb( err );
 
