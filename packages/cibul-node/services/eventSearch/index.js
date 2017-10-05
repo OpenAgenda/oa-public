@@ -1,12 +1,10 @@
 "use strict";
 
 const eventSearch = require( 'event-search' );
-
 const agendaIndices = require( './agendaIndices' );
-
 const agendas = require( 'agendas' );
-
 const eventTransverseOperations = require( './eventTransverseOperations' );
+const onError = require( '../00_errors' ).bind( null, 'eventSearch' );
 
 module.exports = {
   init,
@@ -51,11 +49,19 @@ function init( config ) {
         type: 'objectsAsTerms',
         field: 'search_internals_agenda',
         destination: 'agendas'
+      },
+
+      logger: {
+        errorsTracking: {
+          logentriesKey: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
+        }
       }
       
     },
 
-    interfaces: {},
+    interfaces: {
+      onError
+    },
 
   } );
 
