@@ -8,10 +8,7 @@ const handleError = require( './helpers/handleError' );
 const _ = require( 'lodash' );
 const log = require( 'logs' )( 'add' );
 
-module.exports = add;
-
-
-async function add( alias, event, options = {} ) {
+module.exports = async function( alias, event, options = {} ) {
 
   const params = _.extend( {
     refresh: false,
