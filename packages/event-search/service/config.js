@@ -1,10 +1,9 @@
 "use strict";
 
 const config = {};
-
 const extend = require( 'lodash/extend' );
-
 const elasticsearch = require( 'elasticsearch' );
+const logger = require( 'logs' );
 
 let client;
 
@@ -38,8 +37,15 @@ module.exports.init = c => {
       'timings', 'createdAt', 'updatedAt',
       'accessibility', 'private', 'draft', 'age',
       'contributor'
-    ]
+    ],
+    logger: null
   } );
+
+  if ( c.logger ) {
+
+    logger.setModuleConfig( c.logger );
+
+  }
 
 };
 

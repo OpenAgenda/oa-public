@@ -1,18 +1,14 @@
 "use strict";
 
-const config = require( './config' ),
-  
-  _ = require( 'lodash' ),
-  
-  handleError = require( './helpers/handleError' ),
-  
-  lastTimingEndsIn = require( './helpers/lastTimingEndsIn' ),
+const config = require( './config' );
+const _ = require( 'lodash' );
+const handleError = require( './helpers/handleError' );
+const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
+const parseQuery = require( './query' );
+const remove = require( './remove' );
+const parseDoc = require( './index/preParse' );
+const log = require( 'logs' )( 'update' );
 
-  parseQuery = require( './query' ),
-
-  remove = require( './remove' ),
-  
-  parseDoc = require( './index/preParse' );
 
 module.exports = async function( alias, identifiers, eventPart, options = {} ) {
 
@@ -55,6 +51,24 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
   } catch ( err ) {
 
     return handleError( err, 'failed to update event %s in index of alias %s', identifiers.uid, alias );
+
+  }
+
+  if ( res.result === 'updated' ) {
+
+    log( 'info', 'event %j was updated in alias %s', identifiers, alias, {
+      operation: 'update',
+      alias,
+      identifiers
+    } );
+
+  } else {
+
+    log( 'warn', 'event %j was not updated in alias %s', identifiers, alias, {
+      operation: 'update',
+      alias,
+      identifiers
+    } );
 
   }
 

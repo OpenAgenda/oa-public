@@ -6,6 +6,7 @@ const clean = require( './helpers/clean' );
 const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
 const handleError = require( './helpers/handleError' );
 const _ = require( 'lodash' );
+const log = require( 'logs' )( 'add' );
 
 module.exports = add;
 
@@ -59,6 +60,26 @@ async function add( alias, event, options = {} ) {
     return handleError( err, 'failed to add event to index' );
 
   }
+
+  if ( result.created ) {
+  
+    log( 'info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
+      operation: 'add',
+      alias, 
+      identifiers: { uid: event.uid }
+    } );
+
+  } else {
+
+    log( 'warn', 'event %j was not added to alias %s', event.uid, alias, {
+      operation: 'add',
+      alias,
+      identifiers: { uid: event.uid },
+      result: result
+    } );
+
+  }
+
 
   return {
     success: !!result.created,

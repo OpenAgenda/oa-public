@@ -1,10 +1,9 @@
 "use strict";
 
-const config = require( './config' ),
-
-  _ = require( 'lodash' ),
-
-  handleError = require( './helpers/handleError' );
+const config = require( './config' );
+const _ = require( 'lodash' );
+const handleError = require( './helpers/handleError' );
+const log = require( 'logs' )( 'remove' );
 
 module.exports = async function( alias, identifiers, options = {} ) {
 
@@ -28,6 +27,24 @@ module.exports = async function( alias, identifiers, options = {} ) {
   } catch ( err ) {
 
     return handleError( err, 'failed to remove event from index of alias %s', alias );
+
+  }
+
+  if ( res.result === 'deleted' ) {
+
+    log( 'info', 'event %j was removed from alias %s', identifiers, alias, {
+      operation: 'remove',
+      alias,
+      identifiers
+    } );
+
+  } else {
+
+    log( 'warn', 'event %j was not removed from alias %s', identifiers, alias, {
+      operation: 'remove',
+      alias,
+      identifiers
+    } );
 
   }
 

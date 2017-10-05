@@ -13,6 +13,7 @@
     "async": "^2.2.0",
     "countries": "git+ssh://git@bitbucket.org/openagenda/countries.git",
     "date-range": "git+ssh://git@bitbucket.org:openagenda/date-range.git",
+    "logs": "git+ssh://git@bitbucket.org:openagenda/logs.git",
     "elasticsearch": "^13.2.0",
     "immutability-helper": "^2.2.2",
     "lodash": "^4.17.4",
