@@ -1,19 +1,12 @@
 "use strict";
 
 const agendaEvents = require( 'agenda-events' );
-
 const events = require( 'events-service' );
-
 const remove = require( 'agenda-events/service/remove' );
-
 const coms = require( '../../lib/coms' );
-
 const config = require( '../../config' );
-
 const VError = require( 'verror' );
-
 const _ = require( 'lodash' );
-
 const q = require( 'queue' )( 'agendaEventsLegacy', { redis: config.redis } );
 
 let log = console.log;
@@ -30,6 +23,7 @@ function task() {
   q.setConsumer( evaluate.bind( null, null ) );
 
   q.launch( { interval: 1000 } );
+  
 }
 
 async function evaluate( err, action ) {

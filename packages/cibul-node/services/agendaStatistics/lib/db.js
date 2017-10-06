@@ -3,13 +3,11 @@
 const config = require( '../../../config' );
 const _ = require( 'lodash' );
 
-module.exports = async agendaUid => {
-
-  const agendaId = await config.knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ).then( result => result.id );
+module.exports = async agendaId => {
 
   const totals = await config.knex( 'review_article' )
     .select( 'state', 'is_published', config.knex.raw( 'count( id ) as count' ) )
-    .groupBy( 'state' )
+    .groupBy( [ 'state', 'is_published' ] )
     .where( 'review_id', agendaId );
 
   const result = {
@@ -27,20 +25,20 @@ module.exports = async agendaUid => {
 
 function _toBeCompleted( t ) {
 
-  return t.state === 0;
+  return ( t.state === 0 || t.state === null ) && t.is_published === 0;
 
 }
 
 function _ready( t ) {
 
-  return t.state === 1;
+  return t.state === 1 && t.is_published === 0;
 
 }
 
 // so this guy is different from agenda-event legacy bridge...
 function _published( t ) {
 
-  return ( t.is_published === 1 && t.state === null ) || t.state === 2;
+  return t.is_published === 1;
 
 }
 

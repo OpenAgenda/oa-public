@@ -235,6 +235,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/event/oembed' ).task();
 
+        require( './services/agendaStatistics' ).task();
+
         require( 'activities' ).tasks.notifications.addActivity();
 
         //require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
