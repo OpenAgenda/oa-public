@@ -3,10 +3,9 @@
 process.env.NODE_ENV = 'test';
 
 const svc = require( './service' );
-
 const config = require( '../testconfig' );
-
 const should = require( 'should' );
+const states = require( '../iso/states' );
 
 describe( 'agendaEvents - functional (server): list', function() {
 
@@ -23,6 +22,26 @@ describe( 'agendaEvents - functional (server): list', function() {
     let result = await svc( 62792452 ).list( 100, 10 );
 
     Object.keys( result ).should.eql( [ 'items', 'total' ] );
+
+  } );
+
+  it( 'list filtered by state using code in query', async () => {
+
+    let result = await svc( 62792452 ).list( {
+      state: states.PUBLISHED
+    }, 0, 10 );
+
+    result.total.should.equal( 1 );
+
+  } );
+
+  it( 'list filtered by state using string in query', async () => {
+
+    let result = await svc( 62792452 ).list( {
+      state: 'published'
+    }, 0, 10 );
+
+    result.total.should.equal( 1 );
 
   } );
 

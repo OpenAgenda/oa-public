@@ -36,7 +36,8 @@ async function run( options = {} ) {
     force: false,
     limit: 10,
     total: null,
-    queueOnly: false
+    queueOnly: false,
+    agendaUid: null // focus transfer on one agenda
   }, options );
 
   if ( !params.queueOnly ) {
@@ -49,17 +50,28 @@ async function run( options = {} ) {
 
   if ( await q.len() ) return;
 
-  let offset = 0, agendaEvents = [];
+  let offset = 0, agendaEvents = [],
+
+    legacyQuery = [ 
+      `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt, u.uid as userUid`,
+      `from ${config.legacy.schemas.agendaEvent} as ra`,
+      `left join ${config.legacy.schemas.agenda} as a on a.id=ra.review_id`,
+      `left join ${config.legacy.schemas.event} as e on e.id=ra.event_id`,
+      `left join ${config.legacy.schemas.user} as u on u.id=ra.user_id`
+    ];
+
+  if ( params.agendaUid ) {
+
+    legacyQuery.push( `where a.uid = ${params.agendaUid}` );
+
+  }
+
+  legacyQuery.push( 'limit ?, ?' );
+
 
   // queue transfers to do
 
-  while ( ( agendaEvents = ( await _query( 
-    `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt, u.uid as userUid
-     from ${config.legacy.schemas.agendaEvent} as ra 
-     left join ${config.legacy.schemas.agenda} as a on a.id=ra.review_id
-     left join ${config.legacy.schemas.event} as e on e.id=ra.event_id
-     left join ${config.legacy.schemas.user} as u on u.id=ra.user_id
-     limit ?, ?`, [ offset, params.limit ] ) ) ).length ) {
+  while ( ( agendaEvents = ( await _query( legacyQuery.join( ' ' ), [ offset, params.limit ] ) ) ).length ) {
 
       if ( !( offset % 100 ) ) {
 
@@ -93,7 +105,19 @@ async function run( options = {} ) {
   
   offset = 0;
 
-  while ( ( agendaEvents = ( await _query( `select agenda_uid, event_uid from ${config.schemas.agendaEvent} limit ?, ?`, [ offset, params.limit ] ) ) ).length ) {
+  legacyQuery = [
+    `select agenda_uid, event_uid from ${config.schemas.agendaEvent}`
+  ];
+
+  if ( params.agendaUid ) {
+
+    legacyQuery.push( `where agenda_uid = ${params.agendaUid}` );
+
+  }
+
+  legacyQuery.push( 'limit ?, ?' );
+
+  while ( ( agendaEvents = ( await _query( legacyQuery.join( ' ' ), [ offset, params.limit ] ) ) ).length ) {
 
     let refs = agendaEvents.map( r => ( { agendaUid: r.agenda_uid, eventUid: r.event_uid } ) );
 

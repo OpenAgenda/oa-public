@@ -4,7 +4,9 @@ const _ = require( 'lodash' );
 
 const VError = require( 'verror' ),
 
-  validate = require( '../iso/validate' );
+  validate = require( '../iso/validate' ),
+
+  validateListQuery = require( './lib/validateListQuery' );
 
 let config, knex;
 
@@ -14,13 +16,39 @@ module.exports = _.extend( list, {
   byEventUid: listByEventUid
 } );
 
-async function list( agendaUid, offset, limit ) {
+async function list( agendaUid, query, offset, limit ) {
+
+  const args = {
+    query: {
+      agendaUid: arguments[ 0 ]
+    }
+  };
+
+  if ( arguments.length === 3 ) {
+
+    _.extend( args, {
+      offset: arguments[ 1 ],
+      limit: arguments[ 2 ]
+    } );
+
+  } else {
+
+    args.query = _.extend( {
+      agendaUid: arguments[ 0 ]
+    }, validateListQuery( arguments[ 1 ] ) );
+
+    _.extend( args, {
+      offset: arguments[ 2 ],
+      limit: arguments[ 3 ]
+    } );
+
+  }
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   return {
-    items: ( await _list( { agendaUid }, offset, limit ) ).map( validate ),
-    total: await _total( { agendaUid } )
+    items: ( await _list( args.query, args.offset, args.limit ) ).map( validate ),
+    total: await _total( args.query )
   }
 
 }
@@ -88,6 +116,12 @@ function _query( k, query ) {
   } else {
 
     k.where( 'event_uid', query.eventUid );
+
+  }
+
+  if ( query.state !== undefined ) {
+
+    k.andWhere( 'state', query.state );
 
   }
 
