@@ -16,13 +16,19 @@ module.exports = paths => {
       rules: [
         {
           test: /\.jsx?$/,
-          enforce: "pre",
+          enforce: 'pre',
           loader: 'source-map-loader'
         },
         {
           test: /\.jsx?$/,
-          loader: 'babel-loader',
-          exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' )
+          exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
+          use: {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              forceEnv: 'production'
+            }
+          }
         },
         {
           test: /\.ejs$/,
