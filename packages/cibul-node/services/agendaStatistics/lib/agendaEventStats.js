@@ -13,7 +13,7 @@ module.exports = async agendaUid => {
   };
 
   return _.extend( totals, {
-    checksum: total === totals.published + totals.ready + totals.toBeCompleted
+    checksum: totals.total === totals.published + totals.ready + totals.toBeCompleted
   } );
 
 }

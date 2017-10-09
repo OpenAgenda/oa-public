@@ -5,6 +5,7 @@ const app = require( 'express' )();
 const config = require( '../config' );
 const sessions = require( 'sessions' );
 const legacyAgendaSvc = require( '../services/agenda' );
+const agendasSvc = require( 'agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
 
 const agendaLoad = require( 'agendas' ).middleware.load( {
@@ -33,13 +34,15 @@ module.exports = parentApp => {
 app.use( [
   '/:agendaSlug/admin/stats',
   '/:agendaSlug/admin/stats/resync',
-  '/:agendaSlug/admin/getting-started',
-  '/agendas/:uid/admin/*?(/*)?'
+  '/:agendaSlug/admin/getting-started'
 ], [
   cmn.loadLogger( 'agendaBack' ),
   sessions.middleware.ifUnlogged( cmn.redirectTo() ),
   agendaLoad
 ] );
+
+
+app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
 
 app.use( [
   '/:agendaSlug/admin/getting-started'
@@ -78,9 +81,25 @@ app.get( '/:agendaSlug/admin/stats/resync', ( req, res, next ) => {
  * redirection admin route
  */
 
-app.get( '/agendas/:agendaUid/admin/*?(/*)?', 
-  ( req, res ) => res.redirect( req.originalUrl.replace( `/agendas/${req.agenda.uid}`, `/${req.agenda.slug}` ) )
-);
+function agendaAdminRedirect( req, res, next ) {
+
+  if ( /events\.(json|csv|xlsx)/.test( req.url ) ) {
+
+    return next();
+
+  }
+
+  agendasSvc.get( { uid: req.params.agendaUid }, { private: null }, ( err, agenda ) => {
+
+    if ( err ) return next( err );
+
+    if ( !agenda ) return next( new Error( 'agenda not found ( uid ): ' + req.params.agendaUid ) );
+
+    res.redirect( req.originalUrl.replace( `/agendas/${agenda.uid}`, `/${agenda.slug}` ) );
+
+  } );
+
+}
 
 
 /**
