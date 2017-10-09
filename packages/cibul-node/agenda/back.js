@@ -83,7 +83,7 @@ app.get( '/:agendaSlug/admin/stats/resync', ( req, res, next ) => {
 
 function agendaAdminRedirect( req, res, next ) {
 
-  if ( /events\.(json|csv|xlsx)/.test( req.url ) ) {
+  if ( /events\.(json|csv|xlsx)|settings/.test( req.url ) ) {
 
     return next();
 
