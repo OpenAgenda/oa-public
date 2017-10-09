@@ -296,7 +296,7 @@ function resync( req, res ) {
 
   sessions.setFlash( req, res, 'resync is ongoing' );
 
-  redirect( req, res );
+  return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
 
 }
 
