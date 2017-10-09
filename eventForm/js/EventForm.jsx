@@ -7,7 +7,7 @@ import LanguageBar from 'react-form-components/build/LanguageBar';
 import Translation from 'react-form-components/build/Translation';
 import MultilingualTextField from './MultilingualTextField.jsx';
 import EventKeywordsField from './EventKeywordsField.jsx';
-import WysiwygMarkdown from './WysiwygMarkdown.jsx';
+import Wysiwyg from './Wysiwyg.jsx';
 import CustomFields from './CustomFields.jsx';
 import AccessibilityFields from './AccessibilityFields.jsx';
 import AgeFields from './AgeFields.jsx';
@@ -491,14 +491,14 @@ function EventFormFactory() {
     renderMarkdownField: function () {
 
       return <div className="multilingual-input-field">
-        <WysiwygMarkdown
+        <Wysiwyg
+          markdown={true}
           label={this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels )}
           placeholder={this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels )}
           name='long_description'
-          markdown={this.state.freeText}
+          value={this.state.freeText}
           languages={this.state.languages}
           onChange={this.onChange( 'freeText' )}
-          labels={this.props.labels}
           lang={this.props.lang} />
       </div>
 

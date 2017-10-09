@@ -32,6 +32,14 @@
   <dd>
     <span><%= typeof custom[ i ].label == 'string' ? custom[ i ].label : custom[ i ].label.join( ', ' )  %></span>
   </dd>
+<% } else if ( custom[ i ].label && custom[ i ].fieldType === 'wysiwyg' ) { %>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
+  <dd>
+    <span><%- custom[ i ].value %></span>
+  </dd>
 <% } else { %>
   <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
     <span><%= labels[ custom[ i ].name ] %></span>

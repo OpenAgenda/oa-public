@@ -6,17 +6,19 @@ var React = require( 'react' ),
 
   MarkdownComponent = require( 'react-form-components/build/MarkdownComponent' ),
 
+  HTMLComponent = require( 'react-form-components/build/HTMLComponent' ),
+
   du = require( 'dom-utils' ),
 
   utils = require( 'utils' );
 
 module.exports = createReactClass( {
 
-  onChange: function( l, updatedMarkdown ) {
+  onChange: function( l, updated ) {
 
-    let changed = this.props.markdown ? JSON.parse( JSON.stringify( this.props.markdown ) ) : {}; 
+    let changed = this.props.value ? JSON.parse( JSON.stringify( this.props.value ) ) : {}; 
 
-    changed[ l ] = updatedMarkdown;
+    changed[ l ] = updated;
     
     this.props.onChange( changed, null, [ l ] );
 
@@ -24,12 +26,25 @@ module.exports = createReactClass( {
 
   renderComponent: function( l ) {
 
-    return <MarkdownComponent
-      lang={this.props.lang}
-      placeholder={ du.nl2br( this.props.placeholder[ this.props.lang ] ) }
-      onChange={this.onChange.bind( null, l )}
-      value={this.props.markdown ? ( this.props.markdown[ l ] ? this.props.markdown[ l ] : '' ) : ''}
-    />
+    if ( this.props.markdown ) {
+
+      return <MarkdownComponent
+        lang={this.props.lang}
+        placeholder={ du.nl2br( this.props.placeholder[ this.props.lang ] ) }
+        onChange={this.onChange.bind( null, l )}
+        value={this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '' }
+      />
+
+    } else {
+
+      return <HTMLComponent
+        lang={this.props.lang}
+        placeholder={ du.nl2br( this.props.placeholder[ this.props.lang ] ) }
+        onChange={this.onChange.bind( null, l )}
+        value={this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '' }
+      />
+
+    }
 
   },
 

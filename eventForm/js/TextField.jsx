@@ -1,30 +1,30 @@
 "use strict";
 
-var React = require( 'react' ),
+const React = require( 'react' ),
 
-createReactClass = require( 'create-react-class' ),
-
-validators = require( './validators' ),
-
-renderHelpers = require( './renderHelpers.jsx' ),
-
-errors = require( './errors' ),
-
-utils = require( 'utils' ),
-
-typeValidators = {
-  integer: { func: validators.isInteger, error: 'notInt' },
-  number: { func: validators.isNumber, error: 'notNum' },
-  email: { func: validators.isEmail, error: 'notEmail' },
-  url: { func: validators.isUrl, error: 'notURL' }
-},
-
-typeCleaners = {
-  integer: trim,
-  number: trim,
-  email: trim,
-  url: trim
-}
+  createReactClass = require( 'create-react-class' ),
+  
+  validators = require( './validators' ),
+  
+  renderHelpers = require( './renderHelpers.jsx' ),
+  
+  errors = require( './errors' ),
+  
+  utils = require( 'utils' ),
+  
+  typeValidators = {
+    integer: { func: validators.isInteger, error: 'notInt' },
+    number: { func: validators.isNumber, error: 'notNum' },
+    email: { func: validators.isEmail, error: 'notEmail' },
+    url: { func: validators.isUrl, error: 'notURL' }
+  },
+  
+  typeCleaners = {
+    integer: trim,
+    number: trim,
+    email: trim,
+    url: trim
+  };
 
 function trim( v ) {
 

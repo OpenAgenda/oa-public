@@ -1,22 +1,15 @@
 "use strict";
 
-var React = require( 'react' ),
-
-createReactClass = require( 'create-react-class' ),
-
-TextField = require( './TextField.jsx' ),
-
-MultilingualTextField = require( './MultilingualTextField.jsx' ),
-
-CheckboxField = require( './CheckboxField.jsx' ),
-
-RadioFields = require( './RadioFields.jsx' ),
-
-SelectField = require( './SelectField.jsx' ),
-
-ImageUpload = require( 'image-upload/components/build/ImageUploader' ),
-
-utils = require( 'utils' );
+import React from 'react';
+import createReactClass from 'create-react-class';
+import Wysiwyg from './Wysiwyg.jsx';
+import MultilingualTextField from './MultilingualTextField.jsx';
+import TextField from './TextField.jsx';
+import CheckboxField from './CheckboxField.jsx';
+import RadioFields from './RadioFields.jsx';
+import SelectField from './SelectField.jsx';
+import ImageUpload from 'image-upload/components/build/ImageUploader';
+import HTMLComponent from 'react-form-components/build/HTMLComponent';
 
 module.exports = createReactClass({
 
@@ -85,13 +78,40 @@ module.exports = createReactClass({
               info= { field.info } 
               optional= { field.optional }
               lang= { self.props.lang } 
-              type= { field.fieldType } 
+              type= { field.fieldType }
+              enriched= { !!field.enriched }
               value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
               error= { self.props.errors[ field.name ] || false }
               onChange= { self.onChange( field.name ) } />
           </div>
 
         }
+
+      } else if ( field.fieldType === 'wysiwyg' && field.multilingual ) {
+
+        return <div className="margin-v-md  multilingual-input-field">
+          <Wysiwyg
+            name={field.name}
+            lang={self.props.lang}
+            label={field.label}
+            placeholder={field.info}
+            languages={self.props.languages}
+            value={self.props.values[ field.name ]}
+            onChange={self.onChange( field.name ) }
+          />
+        </div>
+
+      } else if ( field.fieldType === 'wysiwyg' ) {
+
+        return <div className="margin-v-md">
+          <HTMLComponent
+            lang={self.props.lang}
+            label={field.label[ self.props.lang]}
+            placeholder={field.info[ self.props.lang ]}
+            onChange={self.onChange( field.name )}
+            value={self.props.values[ field.name ]}
+          />
+        </div>
 
       } else if ( field.fieldType == 'checkbox' ) {
 
