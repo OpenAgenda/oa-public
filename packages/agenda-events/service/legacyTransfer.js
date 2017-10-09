@@ -1,20 +1,13 @@
 "use strict";
 
-const _ = require( 'lodash' ),
-
-  validate = require( '../iso/validate' ),
-
-  get = require( './get' ),
-
-  create = require( './create' ),
-
-  update = require( './update' ),
-
-  remove = require( './remove' ),
-
-  VError = require( 'verror' ),
-
-  states = require( '../iso/states' );
+const _ = require( 'lodash' );
+const validate = require( '../iso/validate' );
+const get = require( './get' );
+const create = require( './create' );
+const update = require( './update' );
+const remove = require( './remove' );
+const VError = require( 'verror' );
+const getLegacyState = require( './lib/getLegacyState' );
 
 let config, knex;
 
@@ -60,10 +53,11 @@ async function legacyTransfer( origin, options = {} ) {
 
     result = null;
 
+
   let current = await get.byLegacyId( origin.agendaId, origin.eventId ),
 
     values = {
-      state: _getLegacyState( data.state, data.isPublished ),
+      state: getLegacyState( data.state, data.isPublished ),
       featured: data.featured,
       legacyId: data.agendaId + '.' + data.eventId,
       createdAt: data.createdAt,
@@ -97,23 +91,5 @@ async function legacyTransfer( origin, options = {} ) {
 
 
   return result;
-
-}
-
-function _getLegacyState( state, isPublished ) {
-
-  if ( isPublished ) {
-
-    return states.PUBLISHED;
-
-  }
-
-  if ( state === null ) {
-
-    return states.TOCONTROL;
-
-  }
-
-  return state;
 
 }

@@ -1,16 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const w = require( 'when' );
-
 const logger = require( 'basic-logger' );
-
 const async = require( 'async' );
-
 const queue = require( 'queue' );
-
 const mysql = require( 'mysql' );
+const getLegacyState = require( '../service/lib/getLegacyState' );
 
 module.exports = _.extend( run, {
   init: ( c, k, s ) => {
@@ -171,7 +167,7 @@ function _processOperation( data, cb ) {
 
         return svc( ae.agendaUid ).create( ae.eventUid, {
           featured: ae.featured,
-          state: _getLegacyState( ae ),
+          state: getLegacyState( ae.state, ae.is_published ),
           legacyId: ae.agendaId + '.' + ae.eventId,
           userUid: ae.userUid,
           createdAt: ae.createdAt,
@@ -188,7 +184,7 @@ function _processOperation( data, cb ) {
 
         return svc( ae.agendaUid ).update( ae.eventUid, {
           featured: ae.featured,
-          state: _getLegacyState( ae ),
+          state: getLegacyState( ae.state, ae.is_published ),
           legacyId: ae.agendaId + '.' + ae.eventId,
           createdAt: ae.createdAt,
           updatedAt: ae.updatedAt
@@ -259,18 +255,6 @@ function _processOperation( data, cb ) {
     } );
 
   }
-
-}
-
-function _getLegacyState( row ) {
-
-  if ( row.is_published ) {
-
-    return svc.states.PUBLISHED;
-
-  }
-
-  return row.state;
 
 }
 
