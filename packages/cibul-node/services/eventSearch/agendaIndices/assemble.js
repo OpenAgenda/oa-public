@@ -11,24 +11,15 @@
  */
 
 const _ = require( 'lodash' );
-
 const logger = require( 'logger' );
-
-const ih = require( 'immutability-helper' );
-
-const agendas = require( 'agendas' );
-
-const eventSvc = require( 'events-service' );
-
 const VError = require( 'verror' );
-
-const agendaEvents = require( 'agenda-events' );
-
-const agendaStakeholders = require( 'agenda-stakeholders' );
-
 const custom = require( 'custom' );
-
+const agendas = require( 'agendas' );
+const ih = require( 'immutability-helper' );
+const eventSvc = require( 'events-service' );
 const formSchemas = require( 'form-schemas' );
+const agendaEvents = require( 'agenda-events' );
+const agendaStakeholders = require( 'agenda-stakeholders' );
 
 let knex, log;
 
@@ -57,13 +48,17 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
 
   const events = await eventSvc.list( { uid: eventUids }, 0, eventUids.length, { detailed: true } ).then( r => r.events );
 
-  return agendaEvents.map( ae => {
+  const missing = [];
+
+  const assembled = agendaEvents.map( ae => {
 
     const event = _.find( events, e => e.uid === ae.eventUid );
 
     if ( !event ) {
 
       log( 'warning', 'agendaEvent ref %s.%s does not have a matching non-draft event', ae.agendaUid, ae.eventUid );
+
+      missing.push( ae.eventUid );
 
       return null;
 
@@ -84,11 +79,19 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
         validators,
         member: _.find( memberMap, m => m.uid === ae.userUid ),
         custom: custom ? custom.custom : null,
+        state: {
+          code: ae.state
+        }
       } );
 
       return assembledItem;
 
     } );
+
+  return {
+    assembled,
+    missing
+  }
 
 }
 
@@ -111,15 +114,18 @@ async function item( agendaEvent ) {
     formSchemaId,
     validators: await getCustomValidators( formSchemaId ),
     member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
-    custom: await _getCustomData( formSchemaId, agendaEvent )
+    custom: await _getCustomData( formSchemaId, agendaEvent ),
+    state: agendaEvent.state
   } );
 
 }
 
 
-function _item( { event, validators, member, custom } ) {
+function _item( { event, validators, member, custom, state } ) {
 
-  let decoration = {};
+  let decoration = {
+    state: { $set: state }
+  };
 
   if ( member ) {
 

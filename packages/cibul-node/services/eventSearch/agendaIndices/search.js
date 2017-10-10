@@ -46,7 +46,7 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
   let searchOptions = {
     detailed: cleanOptions.detailed,
-    extensions: [ 'contributor' ]
+    extensions: [ 'contributor', 'state' ]
   };
 
   let parseEvent;

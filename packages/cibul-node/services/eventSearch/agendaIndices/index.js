@@ -1,17 +1,11 @@
 "use strict"
 
 const _ = require( 'lodash' );
-
 const logger = require( 'logger' );
-
-const eventSearch = require( 'event-search' );
-
-const assemble = require( './assemble' );
-
 const search = require( './search' );
-
 const rebuild = require( './rebuild' );
-
+const assemble = require( './assemble' );
+const eventSearch = require( 'event-search' );
 const schema = require( 'validators/schema' );
 
 schema.register( { boolean: require( 'validators/boolean' ) } )

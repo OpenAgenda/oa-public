@@ -1,11 +1,14 @@
 "use strict";
 
 const db = require( './lib/db' );
-const config = require( '../../config' );
-const legacySearch = require( './lib/legacySearch' );
-const agendaEventStats = require( './lib/agendaEventStats' );
 const queue = require( 'queue' );
+const config = require( '../../config' );
+const search = require( '../eventSearch' );
 const agendaEvents = require( 'agenda-events' );
+const legacySearch = require( './lib/legacySearch' );
+const searchStats = require( './lib/search' );
+const agendaEventStats = require( './lib/agendaEventStats' );
+const log = require( 'logs' )( 'services/agendaStatistics' );
 
 let q;
 
@@ -17,7 +20,7 @@ module.exports = async agendaUid => {
     db: await db( agendaId ),
     legacySearch: await legacySearch( agendaId ),
     agendaEvents: await agendaEventStats( agendaUid ),
-    search: null
+    search: await searchStats( agendaUid )
   }
 
 }
@@ -50,6 +53,16 @@ module.exports.task = () => {
 
 function _resync( agendaUid ) {
 
-  agendaEvents.tasks.transferLegacyData( { agendaUid } );
+  log( 'resyncing agenda %d - new search index rebuild', agendaUid );
+
+  search.agendas( agendaUid ).rebuild().then( r =>  {
+
+    log( 'info', 'agenda %d, resynced search index', agendaUid, r );
+
+    log( 'resyncing agenda %d - agendaEvents resync', agendaUid );
+
+    //agendaEvents.tasks.transferLegacyData( { agendaUid } );    
+
+  } );
 
 }

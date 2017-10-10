@@ -1,20 +1,36 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const agendas = require( 'agendas' );
+const assemble = require( './assemble' );
+const formSchemas = require( 'form-schemas' );
+const schema = require( 'validators/schema' );
 const agendaEvents = require( 'agenda-events' );
 
-const assemble = require( './assemble' );
-
-const _ = require( 'lodash' );
-
-const formSchemas = require( 'form-schemas' );
-
-const agendas = require( 'agendas' );
+schema.register( {
+  integer: require( 'validators/integer' )
+} );
 
 module.exports = async ( searchIndex, uid ) => {
 
   const agenda = await _getAgenda( uid );
 
-  const validators = {}, extensions = {};
+  const validators = {
+    state: schema( {
+      code: {
+        type: 'integer',
+        default: 0
+      }
+    } )
+  }, 
+
+    extensions = {
+      state: {
+        code: {
+          type: 'integer'
+        }
+      }
+    };
 
   if ( agenda.formSchemaId ) {
 
@@ -29,15 +45,30 @@ module.exports = async ( searchIndex, uid ) => {
 
   }
 
+  // track which events could not be assembled
+  let missingEvents = [];
+
   return searchIndex.rebuild( {
     eventsList: async function( offset, limit ) {
 
       const aes = await agendaEvents( uid ).list( offset, limit ).then( r => r.items );
 
-      return assemble.list( aes, agenda.formSchemaId, validators );
+      return assemble.list( aes, agenda.formSchemaId, validators ).then( ( { assembled, missing } ) => {
+
+        missingEvents = missingEvents.concat( missing );
+
+        return assembled;
+
+      } );
 
     },
     extensions
+  } ).then( result => {
+
+    return _.extend( result, {
+      missingEvents
+    } );
+
   } );
 
 }
