@@ -69,7 +69,7 @@ describe( 'event-search - unit: query.validate', function() {
 
   it( 'simple custom field search', () => {
 
-    let dsl = query( { 'custom.stand' : 'Hall A, S 123' } );
+    let dsl = query( { 'custom.stand' : 'Hall A, S 123' }, {}, [ 'custom' ] );
 
     dsl.should.eql( {
       "sort": [
@@ -111,7 +111,7 @@ describe( 'event-search - unit: query.validate', function() {
 
   it( 'returns a deep version of query', () => {
 
-    query.pre( {
+    query.inflate( {
       uid: 123,
       slug: 'the-slug',
       'date.gte' : '2017-05-21T12:00:00.000Z'

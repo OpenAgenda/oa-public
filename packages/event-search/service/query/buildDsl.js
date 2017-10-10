@@ -1,9 +1,8 @@
 "use strict";
 
-const set = require( 'lodash/set' );
-const isArray = require( 'lodash/isArray' );
+const _ = require( 'lodash' );
 
-module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
+module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = null ) => {
 
   let mustParts = [],
 
@@ -64,11 +63,11 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
     [ 'agendaUid', 'agenda.uid' ]
   ].forEach( field => {
 
-    let fromField = isArray( field ) ? field[ 0 ] : field,
+    let fromField = _.isArray( field ) ? field[ 0 ] : field,
 
-      toField = isArray( field ) ? field[ 1 ] : field,
+      toField = _.isArray( field ) ? field[ 1 ] : field,
 
-      and = isArray( field ) ? field[ 2 ] : false;
+      and = _.isArray( field ) ? field[ 2 ] : false;
 
     if ( cleanQuery[ fromField ].length > 1 && !and ) {
 
@@ -129,13 +128,18 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
   // add custom ( all is match )
   
-  if ( custom ) {
+  if ( extensionQueries && _.keys( extensionQueries ).length ) {
 
-    Object.keys( custom ).forEach( customFieldName => {
+    Object.keys( extensionQueries ).forEach( extension => {
 
-      mustParts.push( _mustPart( 'match', 'custom.' + customFieldName, custom[ customFieldName ] ) );
+      Object.keys( extensionQueries[ extension ] ).forEach( field => {
+
+        mustParts.push( _mustPart( 'match', extension + '.' + field, extensionQueries[ extension ][ field ] ) );
+
+      } );
 
     } );
+
 
   }
 
@@ -144,18 +148,18 @@ module.exports = ( cleanQuery, custom = null, nav = null, includes = null ) => {
 
   if ( mustParts.length === 1 && !filterParts.length ) {
 
-    set( dsl, 'query', mustParts[ 0 ] );
+    _.set( dsl, 'query', mustParts[ 0 ] );
 
   } else if ( mustParts.length > 1 || ( filterParts.length && mustParts.length ) ) {
 
-    set( dsl, 'query.bool.must', mustParts );
+    _.set( dsl, 'query.bool.must', mustParts );
 
   }
 
 
   if ( filterParts.length ) {
 
-    set( dsl, 'query.bool.filter', filterParts );
+    _.set( dsl, 'query.bool.filter', filterParts );
 
   }
 

@@ -82,7 +82,9 @@ async function search( alias, query, nav = {}, options = {} ) {
 
   cleanDsl = parseQuery( 
     query, 
-    cleanNav.size !== undefined ? cleanNav : {}, 
+    cleanNav.size !== undefined ? cleanNav : {},
+    cleanOptions.extensions,
+    // includes
     ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes )
   );
 

@@ -1,47 +1,73 @@
 "use strict";
 
-const validate = require( './validate' ),
+const _ = require( 'lodash' );
+const validate = require( './validate' );
+const buildDsl = require( './buildDsl' );
+const validateExtension = require( './validateExtension' );
 
-  validateCustom = require( './validateCustom' ),
+module.exports = _.extend( queryToDsl, { inflate } );
 
-  set = require( 'lodash/set' ),
 
-  extend = require( 'lodash/extend' ),
+/**
+ * convert query object to elasticsearch dsl
+ * 
+ * @param  {[type]} query    
+ * @param  {[type]} nav     
+ * @param  {[type]} extensions  names of extensions to include in query dsl build
+ * @param  {array}  includes    fields to be included in search result 
+ * @return {[type]}          
+ */
+function queryToDsl( query, nav, extensions = null, includes = null ) {
 
-  buildDsl = require( './buildDsl' );
+  // unflatten
+  let inflated = inflate( query );
 
-module.exports = extend( queryToDsl, { pre } );
+  let clean = validate( inflated );
 
-function queryToDsl( query, nav, includes = null ) {
+  let extensionParts = _extractExtensionParts( inflated, extensions );
 
-  let preParsed = pre( query );
-
-  let clean = validate( preParsed );
-
-  let custom = validateCustom( preParsed.custom );
-
-  return buildDsl( clean, custom, nav, includes );
+  return buildDsl( clean, extensionParts, nav, includes );
 
 }
 
-function pre( query ) {
 
-  let preParsed = {};
+function _extractExtensionParts( query, extensions = null ) {
+
+  if ( extensions === null || !extensions.length ) return {};
+
+  const extensionParts = {};
+
+  extensions.forEach( ext => {
+
+    if ( !query[ ext ] ) return;
+
+    extensionParts[ ext ] = validateExtension( query[ ext ] );
+
+  } );
+
+  return extensionParts;
+
+}
+
+
+function inflate( query ) {
+
+  let inflated = {};
 
   Object.keys( query ).forEach( key => {
 
     if ( key.indexOf( '.' ) !== -1 ) {
 
-      set( preParsed, key, query[ key ] );
+      _.set( inflated, key, query[ key ] );
 
     } else {
 
-      preParsed[ key ] = query[ key ];
+      inflated[ key ] = query[ key ];
 
     }
 
   } );
 
-  return preParsed;
+  return inflated;
 
 }

@@ -600,7 +600,7 @@ describe( 'event search - functional: search', function() {
         custom: {
           organizeremail: 'cannes@reedexpo.fr'
         }
-      } );
+      }, {}, { extensions: 'custom' } );
 
       total.should.equal( 1 );
 
@@ -611,7 +611,7 @@ describe( 'event search - functional: search', function() {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      } );
+      }, {}, { extensions: 'custom' } );
 
       total.should.equal( 1 );
 
@@ -621,7 +621,7 @@ describe( 'event search - functional: search', function() {
     it( 'extension data is not part of detailed result by default', async () => {
  
       let { events, total } = await service( 'simple_search' ).search( {
-        'custom.organizeremail' : 'cannes@reedexpo.fr'
+        'uid' : 15
       }, {}, { detailed: true } );
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
