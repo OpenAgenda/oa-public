@@ -1,8 +1,8 @@
 "use strict";
 
-var al = require( 'agenda-locations' ),
+const utils = require( 'utils' );
+const al = require( 'agenda-locations' );
 
-utils = require( 'utils' );
 
 /**
  * inject detailed location info given by

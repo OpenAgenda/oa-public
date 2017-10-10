@@ -1,24 +1,17 @@
 "use strict";
 
+const w = require( 'when' );
+const _ = require( 'lodash' );
 const slugs = require( 'slugs' );
+const utils = require( 'utils' );
+const async = require( 'async' );
+const genUrl = require( '../genUrl' );
+const config = require( '../../config' );
+const agendaTags = require( 'agenda-tags' );
+const agendaCategories = require( 'agenda-categories' );
+const countryLabels = require( 'labels/agenda-locations/countries' );
 
-var svc,
-
-utils = require( 'utils' ),
-
-async = require( 'async' ),
-
-genUrl = require( '../genUrl' ),
-
-agendaTags = require( 'agenda-tags' ),
-
-agendaCategories = require( 'agenda-categories' ),
-
-_ = require( 'lodash' ),
-
-config = require( '../../config' ),
-
-w = require( 'when' );
+let svc;
 
 module.exports = function( service ) {
 
@@ -103,6 +96,8 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
   .then( _addReferences )
 
   .then( _addContributorInfo )
+
+  .then( _addCountry )
 
   .then( _addCategory )
 
@@ -386,6 +381,16 @@ function _addFeatured( v ) {
   } );
 
   return d.promise;
+
+}
+
+function _addCountry( v ) {
+
+  if ( !_.get( v, 'decorated.location.countryCode', null ) ) return v;
+
+  v.decorated.location.country = countryLabels[ v.decorated.location.countryCode.toUpperCase() ] || null;
+
+  return v;
 
 }
 

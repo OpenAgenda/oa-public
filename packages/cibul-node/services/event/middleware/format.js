@@ -1,14 +1,10 @@
 "use strict";
 
-const w = require( 'when' ),
-
-  _ = require( 'lodash' ),
-
-  timeHelper = require( 'cibulTemplates' ).helpers.time,
-
-  registration = require( 'registration/src/validate' ).getTypesAndValues,
-
-  du = require( 'dom-utils' );
+const w = require( 'when' );
+const _ = require( 'lodash' );
+const du = require( 'dom-utils' );
+const timeHelper = require( 'cibulTemplates' ).helpers.time;
+const registration = require( 'registration/src/validate' ).getTypesAndValues;
 
 /**
  * prepare event data for display or upload
