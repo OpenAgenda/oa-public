@@ -21,6 +21,8 @@ The service needs to be initialized before use. See the `testconfig.sample.js` f
 
 The service allows you to handle an aliased event index through its main interface, a function taking the name of the handled alias:
 
+ * **search( 'alias_name' ).name**: in case you forgot the index name
+ * **search( 'alias_name' ).exists**: says if the index exists
  * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
  * **search( 'alias_name' ).delete**:  delete the index
  * **search( 'alias_name' ).search**: search an index. See tests for more details

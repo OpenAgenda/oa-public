@@ -94,6 +94,7 @@ async function search( alias, query, nav = {}, options = {} ) {
     cleanDsl.aggregations = buildAggregationDsl( cleanOptions.aggregations, config.predefinedAggregations, query );
 
   }
+  
 
   let { events, total, aggregations } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
 

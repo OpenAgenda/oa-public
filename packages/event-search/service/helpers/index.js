@@ -17,9 +17,6 @@ module.exports = {
   removeTimingsAndTimezone: require( './removeTimingsAndTimezone' )
 }
 
-let count = 0;
-
-
 async function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 
   const body = _.flatten( parsedEvents.map( e => [ {

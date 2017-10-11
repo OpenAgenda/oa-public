@@ -15,7 +15,6 @@ module.exports = alias => {
     exists: _exists.bind( null, alias ),
     rebuild: rebuild.bind( null, alias ),
     deleteIndex: deleteIndex.bind( null, alias ),
-
     search: search.bind( null, alias ),
     add: add.bind( null, alias ),
     update: update.bind( null, alias ),
