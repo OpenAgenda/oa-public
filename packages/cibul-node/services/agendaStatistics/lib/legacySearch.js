@@ -15,3 +15,9 @@ module.exports = async agendaId => {
   }
 
 }
+
+module.exports.resync = agendaId => {
+
+  return wn.call( search.agendas( { id: agendaId } ).resync );
+
+}

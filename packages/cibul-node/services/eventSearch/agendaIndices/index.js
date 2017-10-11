@@ -24,6 +24,7 @@ module.exports = agendaUid => {
   const searchIndex = eventSearch( `agendas:${agendaUid}` );
 
   return _.extend( {}, searchIndex, {
+    exists: searchIndex.exists,
     search: search.bind( null, searchIndex, agendaUid ),
     rebuild: rebuild.bind( null, searchIndex, agendaUid ),
     add: _add.bind( null, searchIndex, agendaUid ),
@@ -45,7 +46,15 @@ module.exports.init = c => {
 
 async function _add( searchIndex, agendaUid, eventUid, options = {} ) {
 
-  log( 'adding event %s to agenda index %s', eventUid, searchIndex.name );
+  if ( !await searchIndex.exists() ) {
+
+    log( 'info', 'adding event %s to agenda index %s: index does not exist', eventUid, searchIndex.name );
+
+    return;
+
+  }
+
+  log( 'info', 'adding event %s to agenda index %s', eventUid, searchIndex.name );
 
   const decorated = await assemble.item( { agendaUid, eventUid } );
 
@@ -55,7 +64,15 @@ async function _add( searchIndex, agendaUid, eventUid, options = {} ) {
 
 async function _update( searchIndex, agendaUid, eventUid, options = {} ) {
 
-  log( 'updating event %s on agenda index %s', eventUid, searchIndex.name );
+  if ( !await searchIndex.exists() ) {
+
+    log( 'info', 'updating event %s to agenda index %s: index does not exist', eventUid, searchIndex.name );
+
+    return;
+
+  }
+
+  log( 'info', 'updating event %s on agenda index %s', eventUid, searchIndex.name );
 
   const decorated = await assemble.item( { agendaUid, eventUid } );
 
@@ -65,7 +82,15 @@ async function _update( searchIndex, agendaUid, eventUid, options = {} ) {
 
 async function _remove( searchIndex, eventUid, options = {} ) {
 
-  log( 'removing event %s from agenda index %s', eventUid, searchIndex.name );
+  if ( !await searchIndex.exists() ) {
+
+    log( 'info', 'removing event %s from agenda index %s: index does not exist', eventUid, searchIndex.name );
+
+    return;
+
+  }
+
+  log( 'info', 'removing event %s from agenda index %s', eventUid, searchIndex.name );
 
   return await searchIndex.remove( { uid: eventUid }, validateOptions( options ) );
 

@@ -14,13 +14,18 @@ let q;
 
 module.exports = async agendaUid => {
 
-  const agendaId = await config.knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ).then( result => result.id );
+  const agenda = await config.knex( 'review' ).first( [ 'id', 'slug' ] ).where( 'uid', agendaUid );
 
   return {
-    db: await db( agendaId ),
-    legacySearch: await legacySearch( agendaId ),
+    db: await db( agenda.id ),
+    legacySearch: await legacySearch( agenda.id ),
     agendaEvents: await agendaEventStats( agendaUid ),
-    search: await searchStats( agendaUid )
+    search: await searchStats( agendaUid ),
+    actions: {
+      resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
+      rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
+      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
+    }
   }
 
 }
@@ -31,15 +36,32 @@ module.exports.init = c => {
 
 }
 
-module.exports.resync = agendaUid => q( { operation: 'resync', agendaUid } );
+module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
 
 module.exports.task = () => {
 
   q.setConsumer( ( data, cb ) => {
 
-    if ( data.operation === 'resync' ) {
+    if ( data.operation !== 'resync' ) return cb();
 
-      _resync( data.agendaUid );
+
+    switch ( data.type ) {
+
+      case 'search': 
+
+        _resyncSearch( data.agendaUid );
+        break;
+
+      case 'agendaEvents':
+
+        log( 'resyncing agenda %d - agendaEvents resync', data.agendaUid );
+        agendaEvents.tasks.transferLegacyData( { agendaUid: data.agendaUid } );
+        break;
+
+      case 'legacySearch':
+
+        _resyncLegacySearch( data.agendaUid );
+        break;
 
     }
 
@@ -51,18 +73,24 @@ module.exports.task = () => {
 
 }
 
-function _resync( agendaUid ) {
+async function _resyncLegacySearch( agendaUid ) {
+
+  log( 'resyncing agenda %d - legacy search index rebuild', agendaUid );
+
+  const agendaId = await config.knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ).then( result => result.id );
+
+  const result = await legacySearch.resync( agendaId );
+
+  log( 'info', 'agenda %d, resynced legacy search index', agendaId, r );
+
+}
+
+async function _resyncSearch( agendaUid ) {
 
   log( 'resyncing agenda %d - new search index rebuild', agendaUid );
 
-  search.agendas( agendaUid ).rebuild().then( r =>  {
+  const result = await search.agendas( agendaUid ).rebuild();
 
-    log( 'info', 'agenda %d, resynced search index', agendaUid, r );
-
-    log( 'resyncing agenda %d - agendaEvents resync', agendaUid );
-
-    //agendaEvents.tasks.transferLegacyData( { agendaUid } );    
-
-  } );
+  log( 'info', 'agenda %d, resynced search index', agendaUid, result );
 
 }

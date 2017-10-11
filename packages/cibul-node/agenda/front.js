@@ -189,11 +189,6 @@ const sessions = require( 'sessions' ),
       agendaSvc.mw.browserCache,
     ].concat( middlewares.show ) ],
 
-    agendaResync: [ 'get', '/:slug/resync', [
-      agendaSvc.mw.load( 'slug', { cache: true } ),
-      resync
-    ] ],
-
     agendaUnauthorized: [ 'get', '/:slug/unauthorized/ip', [
       cmn.loadBaseData( 'oasfmain.css' ),
       agendaSvc.mw.load( 'slug', { cache: true } ),
@@ -281,22 +276,6 @@ function redirect( req, res, next ) {
   if ( !req.agenda ) return next( { code: 404 } );
 
   return res.redirect( 301, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
-
-}
-
-function resync( req, res ) {
-
-  req.log( 'info', 'resyncing agenda' );
-
-  req.agenda.resync( err => {
-
-    req.log( 'info', 'agenda resync complete' );
-
-  } );
-
-  sessions.setFlash( req, res, 'resync is ongoing' );
-
-  return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
 
 }
 

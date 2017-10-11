@@ -50,6 +50,8 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
 
   const missing = [];
 
+  let count = 0;
+
   const assembled = agendaEvents.map( ae => {
 
     const event = _.find( events, e => e.uid === ae.eventUid );
@@ -79,9 +81,7 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
         validators,
         member: _.find( memberMap, m => m.uid === ae.userUid ),
         custom: custom ? custom.custom : null,
-        state: {
-          code: ae.state
-        }
+        state: ae.state
       } );
 
       return assembledItem;
@@ -123,9 +123,7 @@ async function item( agendaEvent ) {
 
 function _item( { event, validators, member, custom, state } ) {
 
-  let decoration = {
-    state: { $set: state }
-  };
+  const decoration = {};
 
   if ( member ) {
 
@@ -142,6 +140,8 @@ function _item( { event, validators, member, custom, state } ) {
     } );
 
   }
+
+  decoration.state = { $set: { code: state } };
 
   return ih( event, decoration );
 

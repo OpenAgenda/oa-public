@@ -33,7 +33,7 @@ module.exports = parentApp => {
 
 app.use( [
   '/:agendaSlug/admin/stats',
-  '/:agendaSlug/admin/stats/resync',
+  '/:agendaSlug/admin/stats/resync/:type',
   '/:agendaSlug/admin/getting-started'
 ], [
   cmn.loadLogger( 'agendaBack' ),
@@ -68,11 +68,11 @@ app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
  * resync what can be
  */
 
-app.get( '/:agendaSlug/admin/stats/resync', ( req, res, next ) => {
+app.get( '/:agendaSlug/admin/stats/resync/:type', ( req, res, next ) => {
 
-  agendaStatistics.resync( req.agenda.uid );
+  agendaStatistics.resync( req.agenda.uid, req.params.type );
 
-  res.json( { operation: 'resyncing' } );
+  res.json( { operation: 'resyncing ' + req.params.type } );
 
 } );
 
