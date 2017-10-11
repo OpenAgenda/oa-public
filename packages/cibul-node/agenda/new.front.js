@@ -30,15 +30,6 @@ app.get( '/:agendaSlug/index', ( req, res, next ) => {
 } );
 
 
-app.get( '/agendas/:agendaUid/index/rebuild', async ( req, res, next ) => {
-
-  search.agendas( req.params.agendaUid ).rebuild().then( r => console.log( 'fini!' ) );
-
-  res.send( 'rebuilding index of agenda' );
-
-} );
-
-
 app.get( '/agendas/:agendaUid/index', ( req, res, next ) => {
 
   search.agendas( req.params.agendaUid ).search( qs.parse( req.query ), {
