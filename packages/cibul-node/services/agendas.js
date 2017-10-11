@@ -41,7 +41,7 @@ module.exports.init = config => {
 module.exports.setLog = l => log = l;
 
 
-function onCreate( channel, agenda ) {
+function onCreate( channel, agenda, cb ) {
 
   // legacy elasticsearch needs to index reviews
   coms.publish( channel, {
@@ -96,6 +96,8 @@ function onCreate( channel, agenda ) {
           return log( 'error', 'could not name agenda %s owner administrator, err: %s', agenda.id, err.message || err );
           
         }
+
+        cb( err );
 
         activities.feed( agendaFeed ).activities.add( {
           actor: 'user:' + user.uid,
