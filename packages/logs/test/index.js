@@ -11,7 +11,7 @@ describe( 'logs', () => {
 
     it( 'prefix and namespace', () => {
 
-      logs.init( { debug: { enable: true, prefix: 'oa:' }, namespace: 'basic-logger' } );
+      logs.init( { debug: { prefix: 'oa:' }, namespace: 'basic-logger' } );
 
       const transport = logs.getTransports().debug;
 
@@ -23,7 +23,7 @@ describe( 'logs', () => {
 
     it( 'log with debug', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const transport = logs.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );
@@ -40,7 +40,6 @@ describe( 'logs', () => {
     it( 'log with logentries + debug', () => {
 
       logs.init( {
-        debug: { enable: true },
         token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
       } );
 
@@ -63,7 +62,7 @@ describe( 'logs', () => {
 
     it( 'levels', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const transport = logs.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );
@@ -110,7 +109,7 @@ describe( 'logs', () => {
 
     it( 'format message', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const transport = logs.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );
@@ -128,7 +127,7 @@ describe( 'logs', () => {
 
     it( 'prefix and namespace', () => {
 
-      logs.init( { debug: { enable: true, prefix: 'oa:' } } );
+      logs.init( { debug: { prefix: 'oa:' } } );
 
       const log = logs( 'test-i-cule' );
 
@@ -142,7 +141,7 @@ describe( 'logs', () => {
 
     it( 'log with debug', () => {
 
-      logs.init( { debug: { enable: true, prefix: 'oa:' } } );
+      logs.init( { debug: { prefix: 'oa:' } } );
 
       const log = logs( 'test-i-cule', { preloaded: 'gnééé' } );
 
@@ -161,7 +160,7 @@ describe( 'logs', () => {
     it( 'log with logentries + debug', () => {
 
       logs.init( {
-        debug: { enable: true, prefix: 'oa:' },
+        debug: { prefix: 'oa:' },
         token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
       } );
 
@@ -187,7 +186,7 @@ describe( 'logs', () => {
 
     it( 'levels', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const log = logs( 'test-2' );
 
@@ -236,7 +235,7 @@ describe( 'logs', () => {
 
     it( 'format message', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const log = logs( 'test-3' );
 
@@ -252,7 +251,7 @@ describe( 'logs', () => {
 
     it( 'loadMetadata - preload metadata', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const log = logs( 'test-4' );
 
@@ -275,7 +274,7 @@ describe( 'logs', () => {
 
     it( 'clearMetadata - clear preloaded metadata', () => {
 
-      logs.init( { debug: { enable: true } } );
+      logs.init();
 
       const log = logs( 'test-4' );
 
@@ -301,7 +300,7 @@ describe( 'logs', () => {
 
     it( 'setConfig - set config of a logger', () => {
 
-      logs.init( { debug: { enable: true, prefix: 'oa:' } } );
+      logs.init( { debug: { prefix: 'oa:' } } );
 
       const log = logs( 'test-5' );
 
@@ -321,12 +320,12 @@ describe( 'logs', () => {
 
     it( 'set config of a module', () => {
 
-      logs.init( { debug: { enable: true, prefix: 'oa:' } } );
+      logs.init( { debug: { prefix: 'oa:' } } );
 
       const log = logs( 'test-5', { $callerModule: 'module' } ); // second args only for test
 
       log.callerModule = 'module';
-      logs.setModuleConfig( { debug: { enable: true, prefix: 'prefix:' } }, 'module' ); // second args only for test
+      logs.setModuleConfig( { debug: { prefix: 'prefix:' } }, 'module' ); // second args only for test
 
       const transport = log.getTransports().debug;
 

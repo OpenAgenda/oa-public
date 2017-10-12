@@ -69,22 +69,18 @@ function getTransporters( options ) {
   const params = _.merge( {
     namespace: '',
     debug: {
-      prefix: 'oa:'
+      prefix: ''
     },
     token: null
   }, config, options );
 
   const transports = [];
 
-  if ( params && params.debug && params.debug.enable ) {
-
-    transports.push( new DebugTransport( {
-      level: 'debug',
-      namespace: params.namespace,
-      prefix: params.debug.prefix
-    } ) );
-
-  }
+  transports.push( new DebugTransport( {
+    level: 'debug',
+    namespace: params.namespace,
+    prefix: params.debug.prefix
+  } ) );
 
   if ( params && params.token ) {
 
@@ -156,13 +152,9 @@ function init( c ) {
   config = _.merge( {
     namespace: '',
     debug: {
-      prefix: 'oa:'
+      prefix: ''
     }
   }, c );
-
-  if ( config.debug && config.debug.enable ) {
-    debug.enable( c.debug.enable );
-  }
 
   basicLogger.configure( {
     transports: getTransporters( config )
