@@ -18,10 +18,6 @@ var _reduxDevtoolsInspector = require('redux-devtools-inspector');
 
 var _reduxDevtoolsInspector2 = _interopRequireDefault(_reduxDevtoolsInspector);
 
-var _reduxDevtoolsChartMonitor = require('redux-devtools-chart-monitor');
-
-var _reduxDevtoolsChartMonitor2 = _interopRequireDefault(_reduxDevtoolsChartMonitor);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createElement(
@@ -33,7 +29,6 @@ exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createEleme
     defaultPosition: 'bottom',
     theme: 'nicinabox'
   },
-  _react2.default.createElement(_reduxDevtoolsInspector2.default, { theme: 'nicinabox' }),
-  _react2.default.createElement(_reduxDevtoolsChartMonitor2.default, { theme: 'nicinabox' })
+  _react2.default.createElement(_reduxDevtoolsInspector2.default, { theme: 'nicinabox' })
 ));
 module.exports = exports['default'];

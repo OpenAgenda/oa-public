@@ -41,7 +41,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
     window.React = React;
   }
 
-  if ( process.env.NODE_ENV == 'development' && !window.devToolsExtension ) {
+  if ( process.env.NODE_ENV === 'development' && !window.devToolsExtension ) {
     const devToolsDest = document.createElement( 'div' );
     window.document.body.insertBefore( devToolsDest, null );
     const DevTools = require( './ReduxDevTools' );

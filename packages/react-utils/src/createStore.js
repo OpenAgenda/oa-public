@@ -8,7 +8,7 @@ export default function ( reducers ) {
     let enhancer;
     const middleware = applyMiddleware( routerMiddleware( history ), funcMiddleware(), promiseMiddleware( client ) );
 
-    if ( process.env.NODE_ENV == 'development' && typeof window !== 'undefined' ) {
+    if ( process.env.NODE_ENV === 'development' && typeof window !== 'undefined' ) {
       const { persistState } = require( 'redux-devtools' );
       const DevTools = require( './ReduxDevTools' );
 
