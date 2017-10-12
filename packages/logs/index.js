@@ -133,7 +133,7 @@ function clearMetadata( logger ) {
 
 function setConfig( logger ) {
 
-  return conf => logger.configure( { transports: getTransporters( conf ) } );
+  return conf => logger.configure( { transports: getTransporters( _.merge( {}, logger.options, conf ) ) } );
 
 }
 
