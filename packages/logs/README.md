@@ -16,8 +16,7 @@ config:
   * debug:
     * enable: *(string|false)*
     * prefix: *(string)* the prefix used before all namespaces for the debug logs (eg: `oa:`)
-  * errorsTracking:
-    * logentriesKey: *(string)* aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
+  * token: *(string)* aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
 
 `setModuleConfig( config )`
 

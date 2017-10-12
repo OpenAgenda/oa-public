@@ -71,7 +71,7 @@ function getTransporters( options ) {
     debug: {
       prefix: 'oa:'
     },
-    errorsTracking: {}
+    token: null
   }, config, options );
 
   const transports = [];
@@ -86,11 +86,11 @@ function getTransporters( options ) {
 
   }
 
-  if ( params && params.errorsTracking && params.errorsTracking.logentriesKey ) {
+  if ( params && params.token ) {
 
     transports.push( new winston.transports.Logentries( {
       level: 'info',
-      token: params.errorsTracking.logentriesKey,
+      token: params.token,
       json: true
     } ) );
 

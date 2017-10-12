@@ -41,7 +41,7 @@ describe( 'logs', () => {
 
       logs.init( {
         debug: { enable: true },
-        errorsTracking: { logentriesKey: '2624667a-1903-4d21-8d5d-ea14b86409aa' }
+        token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
       } );
 
       const transportDebug = logs.getTransports().debug;
@@ -162,7 +162,7 @@ describe( 'logs', () => {
 
       logs.init( {
         debug: { enable: true, prefix: 'oa:' },
-        errorsTracking: { logentriesKey: '2624667a-1903-4d21-8d5d-ea14b86409aa' }
+        token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
       } );
 
       const log = logs( 'test' );
