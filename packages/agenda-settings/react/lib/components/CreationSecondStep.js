@@ -130,7 +130,14 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   name: 'settings.contribution.type',
                   component: 'input',
                   type: 'radio',
-                  value: '2' }),
+                  value: '2',
+                  format: function format(v) {
+                    return v.toString();
+                  },
+                  parse: function parse(value) {
+                    return value === undefined ? undefined : parseInt(value);
+                  }
+                }),
                 getLabel('contribTypeChoosen')
               ),
               _react3.default.createElement('br', null),
@@ -141,7 +148,13 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   name: 'settings.contribution.type',
                   component: 'input',
                   type: 'radio',
-                  value: '1'
+                  value: '1',
+                  format: function format(v) {
+                    return v.toString();
+                  },
+                  parse: function parse(value) {
+                    return value === undefined ? undefined : parseInt(value);
+                  }
                 }),
                 getLabel('contribTypeAll')
               )
@@ -169,7 +182,13 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   name: 'settings.contribution.defaultState',
                   component: 'input',
                   type: 'radio',
-                  value: '2'
+                  value: '2',
+                  format: function format(v) {
+                    return v.toString();
+                  },
+                  parse: function parse(value) {
+                    return value === undefined ? undefined : parseInt(value);
+                  }
                 }),
                 getLabel('contribDefaultStatePublished'),
                 _react3.default.createElement('br', null),
@@ -187,7 +206,13 @@ var CreationSecondStep = _wrapComponent('CreationSecondStep')((_dec = (0, _redux
                   name: 'settings.contribution.defaultState',
                   component: 'input',
                   type: 'radio',
-                  value: '0'
+                  value: '0',
+                  format: function format(v) {
+                    return v.toString();
+                  },
+                  parse: function parse(value) {
+                    return value === undefined ? undefined : parseInt(value);
+                  }
                 }),
                 getLabel('contribDefaultStateUnpublished'),
                 _react3.default.createElement('br', null),

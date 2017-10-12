@@ -42,7 +42,10 @@ export default class CreationSecondStep extends Component {
                   name="settings.contribution.type"
                   component="input"
                   type="radio"
-                  value="2" />
+                  value="2"
+                  format={v => v.toString()}
+                  parse={value => value === undefined ? undefined : parseInt( value )}
+                />
                 {getLabel( 'contribTypeChoosen' )}
               </label><br />
               <label>
@@ -51,6 +54,8 @@ export default class CreationSecondStep extends Component {
                   component="input"
                   type="radio"
                   value="1"
+                  format={v => v.toString()}
+                  parse={value => value === undefined ? undefined : parseInt( value )}
                 />
                 {getLabel( 'contribTypeAll' )}
               </label>
@@ -65,6 +70,8 @@ export default class CreationSecondStep extends Component {
                   component="input"
                   type="radio"
                   value="2"
+                  format={v => v.toString()}
+                  parse={value => value === undefined ? undefined : parseInt( value )}
                 />
                 {getLabel( 'contribDefaultStatePublished' )}<br />
                 <span className="text-muted">{getLabel( 'contribDefaultStatePublishedText' )}</span>
@@ -75,6 +82,8 @@ export default class CreationSecondStep extends Component {
                   component="input"
                   type="radio"
                   value="0"
+                  format={v => v.toString()}
+                  parse={value => value === undefined ? undefined : parseInt( value )}
                 />
                 {getLabel( 'contribDefaultStateUnpublished' )}<br />
                 <span className="text-muted">{getLabel( 'contribDefaultStateUnpublishedText' )}</span>
