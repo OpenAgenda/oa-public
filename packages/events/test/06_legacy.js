@@ -243,6 +243,29 @@ describe( 'events - functional (server): legacy bridge', function() {
 
   } );
 
+  it( 'transfer provides draft evaluation in complete key of result object', done => {
+
+    svc.legacy.transfer( 147598, ( err, result ) => {
+
+      result.event.draft.should.equal( 1 );
+
+      result.complete.should.eql( { 
+        isComplete: false,
+        errors: [ {
+          field: 'title',
+          code: 'required',
+          message: 'at least one language entry is required',
+          origin: {} 
+        } ] }
+      );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'transfer of a complete published event sets an undrafted (published) event', done => {
 
     svc.legacy.transfer( 147580, ( err, result ) => {

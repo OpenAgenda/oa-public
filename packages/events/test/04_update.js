@@ -168,11 +168,7 @@ describe( 'events - functional (server): update', function() {
 
   describe( 'interfaces', () => {
 
-    beforeEach( () => {
-
-      svc.init( config );
-
-    } );
+    afterEach( svc.shutdown );
 
     it( 'if a userUid is specified in context, it is given in interfaces', done => {
 

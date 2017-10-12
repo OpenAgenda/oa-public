@@ -77,7 +77,7 @@ describe( 'events - functional (server): remove', function() {
 
   describe( 'interfaces', () => {
 
-    beforeEach( () => svc.init( config ) );
+    afterEach( svc.shutdown );
 
     it( 'if userUid is specified in options, it is given back in beforeRemove interface', done => {
 

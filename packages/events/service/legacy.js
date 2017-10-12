@@ -108,7 +108,8 @@ function transfer( identifiers, options, cb ) {
         success: r.success,
         transferred: r.success,
         legacy: v.legacy,
-        created: !v.event
+        created: !v.event,
+        complete: v.legacy.complete
       }, r ) );
 
     } );
@@ -191,7 +192,8 @@ function get( identifiers, options, cb ) {
     cb( null, v.clean ? v.clean : v.data, {
       entries: v.entries,
       valid: !!v.clean,
-      errors: v.errors
+      errors: v.errors,
+      complete: v.complete
     } );
 
   }, cb );
@@ -203,10 +205,17 @@ function _defineDraft( v ) {
 
   v.data.draft = true;
 
-  if ( eventUtils.isComplete( v.data ) ) {
+  const { complete, errors } = eventUtils.isComplete( v.data, true );
+
+  if ( complete ) {
 
     v.data.draft = false;
 
+  }
+
+  v.complete = {
+    isComplete: complete,
+    errors
   }
 
   return v;
