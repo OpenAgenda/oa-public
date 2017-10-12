@@ -24,9 +24,7 @@ module.exports.init = config => {
       getUser: getUser.bind( null, config.aws.imageBucketPath )
     },
     logger: {
-      errorsTracking: {
-        logentriesKey: process.env.NODE_ENV === 'production' ? '1d8d933d-abb6-4750-b2e1-cefa96f9a0b8' : null
-      }
+      token: process.env.NODE_ENV === 'production' ? '1d8d933d-abb6-4750-b2e1-cefa96f9a0b8' : null
     }
   } );
 

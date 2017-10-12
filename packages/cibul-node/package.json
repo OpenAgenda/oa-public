@@ -23,7 +23,6 @@
     "agenda-stakeholders": "bitbucket:openagenda/agenda-stakeholders",
     "agenda-tags": "bitbucket:openagenda/agenda-tags",
     "agendas": "bitbucket:openagenda/agendas",
-    "slugs": "bitbucket:openagenda/slugs",
     "aggregator-sources": "bitbucket:openagenda/aggregator-sources",
     "async": "^2.3.0",
     "aws-sdk": "~2.0",
@@ -83,6 +82,7 @@
     "node-redis-warlock": "0.1.2",
     "node-sass": "^4.5.3",
     "oauth": "0.9.11",
+    "openagenda-xml-export": "bitbucket:openagenda/xml",
     "passport": "0.2.1",
     "passport-facebook": "1.0.3",
     "passport-google-oauth": "0.1.5",
@@ -102,6 +102,7 @@
     "sessions": "bitbucket:openagenda/sessions",
     "shares": "bitbucket:openagenda/shares",
     "simple-cache": "bitbucket:openagenda/simple-cache",
+    "slugs": "bitbucket:openagenda/slugs",
     "stream-utils": "bitbucket:openagenda/stream-utils",
     "tumblr-parser": "bitbucket:openagenda/tumblr-parser",
     "unsubscribed": "bitbucket:openagenda/unsubscribed",
@@ -120,7 +121,6 @@
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.2.6",
     "should": "^8.2.2",
-    "source-map-support": "^0.4.16",
-    "zombie": "4.1.0"
+    "source-map-support": "^0.4.16"
   }
 }

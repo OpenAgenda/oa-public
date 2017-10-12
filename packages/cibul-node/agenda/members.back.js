@@ -244,6 +244,9 @@ function _parseListResult() {
 function _protectDeletion() {
 
   return ( req, res, next ) => {
+    if ( !req.stakeholderToUse ) {
+      return res.status( 400 ).json( { error: 'This stakeholder canno\'t be found' } );
+    }
     if ( req.stakeholderToUse.userId === req.agenda.ownerId ) {
       return res.status( 400 ).json( { error: 'You don\'t have right to remove the owner of this agenda' } );
     }
