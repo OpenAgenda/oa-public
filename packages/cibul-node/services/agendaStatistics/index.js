@@ -87,7 +87,7 @@ async function _resyncLegacySearch( agendaUid ) {
 
 async function _resyncSearch( agendaUid ) {
 
-  log( 'resyncing agenda %d - new search index rebuild', agendaUid );
+  log( 'info', 'resyncing agenda %d - new search index rebuild', agendaUid );
 
   const result = await search.agendas( agendaUid ).rebuild();
 
