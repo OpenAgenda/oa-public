@@ -1,16 +1,5 @@
 "use strict";
 
-const allowedUids = [
-  31046551,
-  75052324,
-  99999999,
-  7339049,
-  71438739,
-  6178397,
-  91236547,
-  74295965
-];
-
 const du = require( 'dom-utils' );
 const dl = require( 'dom-utils/documentLocation' );
 const get = require( 'utils/get' );
