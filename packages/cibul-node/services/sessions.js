@@ -1,10 +1,10 @@
 "use strict";
 
-const sessions = require( 'sessions' );
-
-const userSvc = require( 'users' );
-
 const _ = require( 'lodash' );
+const userSvc = require( 'users' );
+const sessions = require( 'sessions' );
+const log = require( 'logs' )( 'sessions' );
+
 
 module.exports.init = config => {
 
@@ -32,7 +32,19 @@ module.exports.init = config => {
 
 function getUser( imageBucketPath, query, cb ) {
 
+  log( 'info', 'requested user with %j', query );
+
   userSvc.get( query, { detailed: true }, ( err, u ) => {
+
+    if ( err ) {
+
+      log( 'error', 'failed to retrieve user: %s', JSON.stringify( err ) );
+
+    } else {
+
+      log( 'info', 'retrieved user %j', u );
+
+    }
 
     if ( err || !u ) return cb( err, u );
 
