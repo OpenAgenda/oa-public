@@ -50,7 +50,7 @@ module.exports = options => {
   const lang = dl.getQueryPart( 'lang', 'fr' );
   const user = sessions.getUser();
 
-  if ( !user || !allowedUids.includes( user.uid ) ) return;
+  if ( !user ) return;
 
   params.res = Object.keys( params.res ).reduce( ( prev, next ) => {
     const actualUrl = params.res[ next ];
