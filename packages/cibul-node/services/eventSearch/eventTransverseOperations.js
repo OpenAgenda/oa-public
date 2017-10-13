@@ -1,22 +1,14 @@
 "use strict"
 
 const _ = require( 'lodash' );
-
 const logger = require( 'logger' );
-
-const eventSearch = require( 'event-search' );
-
-const agendaEvents = require( 'agenda-events' );
-
 const events = require( 'events-service' );
-
+const eventSearch = require( 'event-search' );
+const agendaEvents = require( 'agenda-events' );
 const agendaIndices = require( './agendaIndices' );
-
-const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
-
 const rebuildLimit = process.env.NODE_ENV === 'production' ? 16000 : 2000;
-
-let log;
+const log = require( 'logs' )( 'services/eventSearch/eventTransverseOperations' );
+const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
 
 module.exports = _.extend( search, {
   batch: {
@@ -26,7 +18,6 @@ module.exports = _.extend( search, {
   update,
   add,
   remove,
-  init,
   rebuild
 } );
 
@@ -58,6 +49,8 @@ async function add( eventUid, options = {} ) {
 
 async function remove( eventUid ) {
 
+  log( 'info', 'removing event %d from transverse index', eventUid );
+
   return index.remove( { uid: eventUid } );
 
 }
@@ -83,6 +76,11 @@ async function rebuild() {
 
 }
 
+
+/**
+ * unused in normal lifecycle of app. agendaEvent interfaces ensure event
+ * removal from agenda indices
+ */
 async function batch( method, event, context = {}) {
 
   // main agenda
@@ -124,11 +122,5 @@ function _queue( method, eventUid, agendaUid = null ) {
   log( 'queuing index %s for args %s', method, JSON.stringify( args ) );
 
   q( { method, args } );
-
-}
-
-function init( c ) {
-
-  log = logger( 'services/eventSearch/eventTransverseOperations' );
 
 }

@@ -14,7 +14,6 @@ module.exports.init = async config => {
     migrations: {
       tableName: 'activity_migrations'
     },
-    notificationsForUids: config.versions.notifications.userUids,
     queue: {
       names: {
         addActivity: config.queues.notificationAddActivity,

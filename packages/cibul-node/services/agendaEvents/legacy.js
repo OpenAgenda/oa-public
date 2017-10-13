@@ -8,12 +8,10 @@ const config = require( '../../config' );
 const VError = require( 'verror' );
 const _ = require( 'lodash' );
 const q = require( 'queue' )( 'agendaEventsLegacy', { redis: config.redis } );
-
-let log = console.log;
+const log = require( 'logs' )( 'agendaEvents/interfaces/legacy' );
 
 module.exports = {
-  task,
-  setLog: l => log = l
+  task
 }
 
 function task() {

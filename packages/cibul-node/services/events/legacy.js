@@ -1,14 +1,12 @@
 "use strict";
 
 const events = require( 'events-service' );
-
-let log = console.log;
+const log = require( 'logs' )( 'events/interfaces/legacy' );
 
 module.exports = {
   onCreate: _transfer,
   onUpdate: _transfer,
-  onRemove: _legacyRemove,
-  setLog: l => log = l
+  onRemove: _legacyRemove
 }
 
 function _transfer( event, context, cb ) {
@@ -22,6 +20,10 @@ function _transfer( event, context, cb ) {
     } else if ( !result.transferred ) {
 
       log( 'error', 'event %s could not be transferred: %s', event.uid, err );
+
+    } else if ( result.event.draft ) {
+
+      log( 'info', 'event %s transferred as draft', result.event.uid, result.complete );
 
     } else {
 
@@ -41,7 +43,7 @@ function _legacyRemove( event, context ) {
 
     if ( err ) {
 
-      log( 'error', 'event %s remove failed: %s', err );
+      log( 'error', 'event %s remove failed: %j', event.uid, err );
 
     } else if ( result.success ) {
 

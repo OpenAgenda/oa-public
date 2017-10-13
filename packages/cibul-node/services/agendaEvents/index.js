@@ -1,21 +1,16 @@
 "use strict";
 
-const agendaEvents = require( 'agenda-events' ),
+const logger = require( 'logger' );
+const legacy = require( './legacy' );
+const agendaEvents = require( 'agenda-events' );
+const eventStates = require( 'agendas/service/validate/eventStates' );
 
-  logger = require( 'logger' ),
-
-  eventStates = require( 'agendas/service/validate/eventStates' ),
-
-  interfaces = {
-    onCreate: require( './onCreate' ),
-    onUpdate: require( './onUpdate' ),
-    onRemove: require( './onRemove' ),
-    beforeRemove: require( './beforeRemove' )
-  },
-
-  legacy = require( './legacy' );
-
-let log = console.log;
+const interfaces = {
+  onCreate: require( './onCreate' ),
+  onUpdate: require( './onUpdate' ),
+  onRemove: require( './onRemove' ),
+  beforeRemove: require( './beforeRemove' )
+};
 
 module.exports = {
   init,
@@ -23,12 +18,6 @@ module.exports = {
 }
 
 function init( config ) {
-
-  log = logger( 'agendaEvents/interfaces' );
-
-  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaEvents/interfaces/' + k ) ) );
-
-  legacy.setLog( logger( 'agendaEvents/interfaces/legacy' ) );
 
   agendaEvents.init( {
     mysql: config.db,

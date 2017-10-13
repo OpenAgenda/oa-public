@@ -20,8 +20,9 @@ const eventSvc = require( 'events-service' );
 const formSchemas = require( 'form-schemas' );
 const agendaEvents = require( 'agenda-events' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
+const log = require( 'logs' )( 'services/eventSearch/assemble' );
 
-let knex, log;
+let knex;
 
 module.exports = {
   list,
@@ -30,8 +31,6 @@ module.exports = {
   init: c => {
 
     knex = c.knex;
-
-    log = logger( 'services/eventSearch/assemble' );
 
   }
 }

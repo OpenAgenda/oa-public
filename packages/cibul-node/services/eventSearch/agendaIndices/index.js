@@ -1,12 +1,12 @@
 "use strict"
 
 const _ = require( 'lodash' );
-const logger = require( 'logger' );
 const search = require( './search' );
 const rebuild = require( './rebuild' );
 const assemble = require( './assemble' );
 const eventSearch = require( 'event-search' );
 const schema = require( 'validators/schema' );
+const log = require( 'logs' )( 'services/eventSearch/agendaIndices' );
 
 schema.register( { boolean: require( 'validators/boolean' ) } )
 
@@ -16,8 +16,6 @@ const validateOptions = schema( {
     default: true
   }
 } );
-
-let log;
 
 module.exports = agendaUid => {
 
@@ -36,11 +34,7 @@ module.exports = agendaUid => {
 
 module.exports.init = c => {
 
-  log = logger( 'services/eventSearch/agendaIndices' );
-
   assemble.init( c );
-
-  search.init( c );
 
 }
 

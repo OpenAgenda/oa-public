@@ -53,12 +53,9 @@ function init( config ) {
 
       logger: {
         debug: {
-          prefix: 'svc:',
-          enable: process.env.NODE_ENV !== 'production' ? '*' : null
+          prefix: 'svc:'
         },
-        errorsTracking: {
-          logentriesKey: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
-        }
+        token: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
       }
       
     },
@@ -70,7 +67,5 @@ function init( config ) {
   } );
 
   agendaIndices.init( config );
-
-  eventTransverseOperations.init( config );
 
 }

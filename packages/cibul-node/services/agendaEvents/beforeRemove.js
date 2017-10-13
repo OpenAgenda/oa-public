@@ -1,11 +1,9 @@
 "use strict";
 
-let log = console.log;
+const log = require( 'logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
 module.exports = ( ae, context ) => {
 
-  log( 'will remove agenda-event %s with context %s', JSON.stringify( ae ), JSON.stringify( context ) );
+  log( 'will remove agenda-event %', ae, { context } );
 
 }
-
-module.exports.setLog = l => log = l;

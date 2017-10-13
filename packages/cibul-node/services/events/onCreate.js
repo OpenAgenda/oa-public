@@ -1,23 +1,18 @@
 "use strict";
 
 const users = require( 'users' );
-
 const eventSearch = require( '../eventSearch' );
-
-let log = console.log;
+const log = require( 'logs' )( 'events/interfaces/onCreate' );
 
 module.exports = ( event, context ) => {
 
-  log( 'created event %s with context %s', event.uid, JSON.stringify( context ) );
+  log( 'info', 'created event %s with context %j', event.uid, context );
 
   _unsetNewUser( event );
 
   eventSearch.events.add( event.uid, { queue: true } );
 
 }
-
-module.exports.setLog = l => log = l;
-
 
 function _unsetNewUser( event ) {
 

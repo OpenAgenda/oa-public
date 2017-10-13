@@ -1,16 +1,17 @@
-let log = console.log;
+"use strict";
 
 const wn = require( 'when/node' );
-const agendasSvc = require( 'agendas' );
-const eventSearch = require( '../eventSearch' );
-const oldEventSvc = require( '../event' );
-const mailContributor = require( '../event/instance/mailContributor' );
-
 const mailer = require( '../mailer' );
+const agendasSvc = require( 'agendas' );
+const oldEventSvc = require( '../event' );
+const eventSearch = require( '../eventSearch' );
+const mailContributor = require( '../event/instance/mailContributor' );
+const log = require( 'logs' )( 'agendaEvents/interfaces/onCreate' );
+
 
 module.exports = async ( ae, context ) => {
 
-  log( 'created agenda-event %s with context %s', JSON.stringify( ae ), JSON.stringify( context ) );
+  log( 'created agenda-event %j', ae, { context } );
 
   eventSearch.agendas( ae.agendaUid ).add( ae.eventUid );
 
@@ -28,7 +29,7 @@ module.exports = async ( ae, context ) => {
   // if reference was created through aggregation, email administrators
   if ( context && context.agendaUid && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
 
-    log( 'info', 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
+    log( 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
 
     mailer.queue.eventAggregation( {
       eventUid: event.uid,
@@ -40,5 +41,3 @@ module.exports = async ( ae, context ) => {
   }
 
 }
-
-module.exports.setLog = l => log = l;

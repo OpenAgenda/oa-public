@@ -30,9 +30,15 @@ module.exports = function ( config, cb ) {
   // init logger
 
   logger.init( config.logger );
-  logs.init( config.logger );
 
-  log = logger( 'init' );
+  logs.init( {
+    debug: {
+      prefix: 'oa:'
+    },
+    token: process.env.NODE_ENV === 'production' ? '1713c063-cd27-4a2c-9415-cb0b906c755e' : null
+  } );
+
+  log = logs( 'services/init' );
 
 
   // init services

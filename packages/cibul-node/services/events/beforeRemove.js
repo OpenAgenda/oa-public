@@ -1,12 +1,11 @@
 "use strict";
 
 const agendaEvents = require( 'agenda-events' );
-
-let log = console.log;
+const log = require( 'logs' )( 'events/interfaces/beforeRemove' );
 
 module.exports = async ( event, context, cb ) => {
 
-  log( 'will remove event %s with context %s', event.uid, JSON.stringify( context ) );
+  log( 'will remove event %s', event.uid, { context } );
 
   try {
 
@@ -21,5 +20,3 @@ module.exports = async ( event, context, cb ) => {
   cb();
 
 }
-
-module.exports.setLog = l => log = l;

@@ -1,18 +1,12 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
-
-const agendas = require( 'agendas' );
-
 const logger = require( 'logger' );
-
-const formSchemas = require( 'form-schemas' );
-
-const getDecorate = require( 'form-schemas/iso/getDecorate' );
-
+const agendas = require( 'agendas' );
 const ih = require( 'immutability-helper' );
-
-let log = console.log;
+const schema = require( 'validators/schema' );
+const formSchemas = require( 'form-schemas' );
+const getDecorate = require( 'form-schemas/iso/getDecorate' );
+const log = require( 'logs' )( 'services/eventSearch/agendaIndexSearch' );
 
 schema.register( {
   boolean: require( 'validators/boolean' ),
@@ -77,13 +71,6 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
       total,
       events: parseEvent ? events.map( parseEvent ) : events
     } ) );
-
-}
-
-
-module.exports.init = c => {
-
-  log = logger( 'services/eventSearch/agendaIndexSearch' );
 
 }
 
