@@ -114,10 +114,6 @@ function addActivity() {
         return null;
       }
 
-      if ( !config.notificationsForUids.includes( feed.entityUid ) ) {
-        return null;
-      }
-
       const groupedBy = (groupBy[ activity.verb ] || []).map( v => v + ':' + _.get( activity, v ) ).join( '|' );
 
       return service.feed( feed ).notifications.get( {
