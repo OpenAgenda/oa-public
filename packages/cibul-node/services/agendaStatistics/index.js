@@ -75,7 +75,7 @@ module.exports.task = () => {
 
 async function _resyncLegacySearch( agendaUid ) {
 
-  log( 'resyncing agenda %d - legacy search index rebuild', agendaUid );
+  log( 'info', 'resyncing agenda %d - legacy search index rebuild', agendaUid );
 
   const agendaId = await config.knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ).then( result => result.id );
 
