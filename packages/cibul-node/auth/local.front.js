@@ -18,7 +18,9 @@ const modLib = require( '../lib/moduleLib' ),
 
   lib = require( '../lib/lib' ),
 
-  userSvc = require( '../services/user' ),
+  legacyUserSvc = require( '../services/user' ),
+
+  userSvc = require( 'users' ),
 
   __ = require( 'labels' )( require( 'labels/auth/activation' ) ),
 
@@ -45,6 +47,13 @@ const modLib = require( '../lib/moduleLib' ),
     ] ],
 
     signinSubmit: [ 'post', '/signin', [
+      ( req, res, next ) => {
+
+        req.log( 'info', 'signing in user %s', req.body.email );
+
+        next();
+
+      },
       sessions.middleware.ifLogged( cmn.redirectTo() ),
       signinSubmit
     ] ],
@@ -155,11 +164,13 @@ function signinSubmit( req, res, next ) {
       user: user
     } )
 
-      .then( auth.ifUserLoaded( false, function ( values ) {
+      .then( auth.ifUserLoaded( false, v => {
 
-        deepExtend( values.data, values.req.body );
+        v.req.log( 'error', 'user could not be loaded with data %s', JSON.stringify( v.data ) );
 
-        return auth.renderSignin( values );
+        deepExtend( v.data, v.req.body );
+
+        return auth.renderSignin( v );
 
       } ) )
 
@@ -219,7 +230,7 @@ function activateResend( req, res ) {
 
   } else {
 
-    userSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), {
+    legacyUserSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), {
       email: req.query.email,
       agenda: req.agenda
     } ) )
@@ -256,7 +267,7 @@ function activateResend( req, res ) {
 
 function activate( req, res ) {
 
-  userSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function ( err, user ) {
+  legacyUserSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function ( err, user ) {
 
     if ( err ) {
 
@@ -313,9 +324,43 @@ function activate( req, res ) {
 }
 
 
-function _handleSigninRequest( req, email, password, done ) {
+function _handleSigninRequest( req, email, password, cb ) {
 
-  userSvc.auth( email, password, done );
+  // ***********************************************************************
+  // cannot use this as long as refreshLastSignin is not provided by service
+  // ***********************************************************************
+  // 
+  /*userSvc.verifyPassword( { email, password }, ( err, validPassword ) => {
+
+    if ( err ) return cb( err );
+
+    if ( !validPassword ) {
+
+      return cb( null, null, {
+        email,
+        password,
+        user: null,
+        errors: {
+          password: 'This password is incorrect' 
+        } 
+      } );
+
+    }
+
+    userSvc.get( { email }, { internal: true, detailed: true }, ( err, user ) => {
+
+      if ( err ) return cb( err );
+
+      // values of user should be camel-cased
+      user.isActivated = !!user.is_activated;
+
+      cb( null, user, { email, password, user } );
+
+    } );
+
+  } ); */
+
+  legacyUserSvc.auth( email, password, cb );
 
 }
 
@@ -409,7 +454,7 @@ function _attemptCreate( values ) {
 
     if ( values.req.agenda ) options.agenda = values.req.agenda;
 
-    userSvc.create( {
+    legacyUserSvc.create( {
       fullName: values.req.body.full_name,
       email: values.req.body.email,
       password: values.req.body.password,

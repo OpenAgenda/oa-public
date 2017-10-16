@@ -6,7 +6,7 @@ lib = require( '../../../lib/lib' ),
 
 config = require( '../../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( '../../model' ),
 
 mailer = require( 'mailer' ),
 

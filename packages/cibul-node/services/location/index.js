@@ -4,7 +4,7 @@ var log = require( 'logger' )( 'location service' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( '../model' ),
 
 levenshtein = require( 'fast-levenshtein' ),
 

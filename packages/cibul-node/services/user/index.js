@@ -6,7 +6,7 @@ var log = require( 'logger' )( 'user service' ),
 
   config = require( '../../config' ),
 
-  model = require( 'cibulModel' )( config.db ),
+  model = require( '../model' ),
 
   activation = require( './lib/activation' ),
 

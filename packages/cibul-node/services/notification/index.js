@@ -25,7 +25,7 @@ w = require( 'when' ),
 
 config = require( '../../config' ),
 
-model = require( 'cibulModel' )( config.db ),
+model = require( '../model' ),
 
 coms = require( '../../lib/coms' ),
 

@@ -8,7 +8,7 @@ var log = require( 'logger' )( 'user svc - activation' ),
 
   mailer = require( 'mailer' ),
 
-  model = require( 'cibulModel' )( config.db ),
+  model = require( '../../model' ),
 
   genUrl = require( '../../genUrl' ),
 
