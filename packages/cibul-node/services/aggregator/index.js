@@ -45,6 +45,10 @@ module.exports = {
 
     require( './interfaces/onEventRemove' ).init();
 
+    require( './lib/svc' ).init( {
+      knex: config.knex
+    } );
+
   }
 }
 

@@ -1,5 +1,8 @@
 "use strict";
 
+// transitional external aggregator service
+const svc = require( './svc' );
+
 var p = require( '../../../lib/promises' ),
 
 aggUtils = require( './aggUtils' ),
@@ -95,13 +98,19 @@ function publish( eventId, agendaId, mute, cb ) {
 
   .then( aggUtils.loadAgenda( 'agenda', 'agendaId' ) )
 
-  .then( _loadAggregatorAgendaIds )
+  .then( async v => {
+
+    v.aggregatorAgendas = await svc.sources.get( v.agenda.uid ).aggregators.list();
+
+    return v;
+
+  } )
 
   .then( _dispatch( 'evaluate.publish' ) )
 
   .done( v => {
 
-    log( 'publish - dispatched %s evaluates', v.aggregatorAgendas.length )
+    log( 'publish - dispatched %s evaluates', v.aggregatorAgendas.length );
 
     cb( null, v.aggregatorAgendas.length );
 
@@ -190,25 +199,6 @@ function _retrieveAgendaIdsFromSources( v ) {
 
 }
 
-
-
-function _loadAggregatorAgendaIds( v ) {
-
-  return p.w.promise( function( rs, rj ) {
-
-    v.agenda.getAggregators( function( err, agendas ) {
-
-      if ( err ) return rj( err );
-
-      v.aggregatorAgendas = agendas;
-
-      rs( v );
-
-    });
-
-  } );
-
-}
 
 
 function _init() {
