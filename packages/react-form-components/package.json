@@ -20,7 +20,6 @@
     "load-script": "^1.0.0",
     "marked": "^0.3.6",
     "prop-types": "^15.5.8",
-    "react-dom": "^15.5.4",
     "react-select": "^1.0.0-rc.4",
     "react-tagsinput": "^3.16.1",
     "spin.js": "2.3.2",
@@ -30,7 +29,8 @@
     "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git"
   },
   "peerDependencies": {
-    "react": "^15.5.4"
+    "react": "15 || 16",
+    "react-dom": "15 || 16"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
@@ -43,7 +43,8 @@
     "babel-preset-react": "^6.5.0",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "husky": "^0.14.3",
-    "react": "^15.5.4",
+    "react": "16",
+    "react-dom": "16",
     "reactify": "1.1.1",
     "should": "^7.1.1",
     "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
