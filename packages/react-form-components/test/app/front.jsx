@@ -22,6 +22,8 @@ var React = require( 'react' ),
 
   MarkdownComponent = require( '../../components/MarkdownComponent.jsx' ),
 
+  HTMLComponent = require( '../../components/HTMLComponent.jsx' ),
+
   Translation = require( '../../components/Translation' ),
 
   onTranslationCheck = require( '../../lib/onTranslationCheck' ),
@@ -73,6 +75,7 @@ var React = require( 'react' ),
           email: 'billy@poneyland.com',
           contacts: [ 'jony@nointernet.com', '0981189550', 'fdqfdq' ],
           link: 'poneyland.com',
+          html: null,
           tags: [ {
             id: 1,
             label: 'Musée de France'
@@ -226,6 +229,15 @@ var React = require( 'react' ),
 
         <p>{this.state.markdown}</p>
 
+        <h2>HTML component</h2>
+
+        <HTMLComponent
+          lang="fr"
+          label="Ce champ enregistre du html"
+          placeholder="Cet HTML sera sauvegardé en base"
+          onChange={this.onChange.bind( null, 'html')}
+          value={this.state.values.html}
+        />
 
         <div className="separator"></div>
 
