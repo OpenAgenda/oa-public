@@ -26,6 +26,7 @@ The service allows you to handle an aliased event index through its main interfa
  * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
  * **search( 'alias_name' ).delete**:  delete the index
  * **search( 'alias_name' ).search**: search an index. See tests for more details
+ * **search( 'alias_name' ).search.stream**: search an index using a stream. Tests for details
  * **search( 'alias_name' ).add**: add an event to an index. See tests for more details
  * **search( 'alias_name' ).update**: update an event ( partial update ).
  * **search( 'alias_name' ).remove**: remove an event from index.

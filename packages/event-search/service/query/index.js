@@ -17,7 +17,7 @@ module.exports = _.extend( queryToDsl, { inflate } );
  * @param  {array}  includes    fields to be included in search result 
  * @return {[type]}          
  */
-function queryToDsl( query, nav, extensions = null, includes = null ) {
+function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) {
 
   // unflatten
   let inflated = inflate( query );

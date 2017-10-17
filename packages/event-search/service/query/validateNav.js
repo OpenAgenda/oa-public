@@ -14,7 +14,10 @@ module.exports = nav => {
 
   if ( clean.scroll ) {
 
-    return { scroll: clean.scroll }
+    return {
+      scroll: clean.scroll,
+      size: clean.size
+    }
 
   }
 

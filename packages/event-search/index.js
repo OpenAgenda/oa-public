@@ -1,11 +1,12 @@
 "use strict";
 
-const rebuild = require( './service/rebuild' );
-const search = require( './service/search' );
-const configStore = require( './service/config' );
+const _ = require( 'lodash' );
 const add = require( './service/add' );
-const update = require( './service/update' );
+const search = require( './service/search' );
 const remove = require( './service/remove' );
+const update = require( './service/update' );
+const rebuild = require( './service/rebuild' );
+const configStore = require( './service/config' );
 const deleteIndex = require( './service/deleteIndex' );
 
 module.exports = alias => {
@@ -15,7 +16,9 @@ module.exports = alias => {
     exists: _exists.bind( null, alias ),
     rebuild: rebuild.bind( null, alias ),
     deleteIndex: deleteIndex.bind( null, alias ),
-    search: search.bind( null, alias ),
+    search: _.extend( search.bind( null, alias ), {
+      stream: search.stream.bind( null, alias )
+    } ),
     add: add.bind( null, alias ),
     update: update.bind( null, alias ),
     remove: remove.bind( null, alias )

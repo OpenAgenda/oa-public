@@ -470,6 +470,105 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    describe( 'stream', () => {
+
+      it( 'simple streamed search returns all the events matching the search', async () => {
+
+        const { total } = await service( 'simple_search' ).search();
+
+        const stream = service( 'simple_search' ).search.stream();
+
+        let count = 0;
+
+        stream.on( 'data', event => {
+
+          count++;
+
+        } );
+
+        return new Promise( rs => {
+
+          stream.on( 'end', () => {
+
+            count.should.equal( total );
+
+            rs();
+
+          } );
+
+        } );
+
+      } );
+
+      it( 'streamed events appear in the same order as a regular search', async () => {
+
+        const regularEventUids = ( await service( 'simple_search' ).search( {}, { size: 100 } ) ).events.map( e => e.uid );
+
+        const stream = service( 'simple_search' ).search.stream();
+
+        let i = 0;
+
+        stream.on( 'data', event => {
+
+          event.uid.should.equal( regularEventUids[ i++ ] );
+
+        } );
+
+        return new Promise( rs => stream.on( 'end', rs ) );
+
+      } );
+
+
+      it( 'buffer loads from elasticsearch can be tracked with "reloading" event', async () => {
+
+        const stream = service( 'simple_search' ).search.stream();
+
+        stream.on( 'data', event => {} );
+
+        stream.on( 'reloading', data => {
+
+          _.keys( data ).should.eql( [ 'cursor', 'total' ] );
+
+        } );
+
+        return new Promise( rs => stream.on( 'end', rs ) );
+
+      } );
+
+
+      it( 'size of buffer reload chunks can be set in options', async () => {
+
+        const stream = service( 'simple_search' ).search.stream( {}, { size: 1 } );
+
+        stream.on( 'data', event => {} );
+
+        let total, count = 0;
+
+        stream.on( 'reloading', data => {
+
+          total = data.total;
+
+          count++;
+
+        } );
+
+        return new Promise( rs => {
+
+          stream.on( 'end', () => {
+
+            total.should.equal( count + 1 );
+
+            rs();
+
+          } );
+
+        } );
+
+      } );
+
+
+    } );
+
     it( 'geolocation filtering', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( { 

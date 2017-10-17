@@ -52,7 +52,7 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
   }
   
 
-  let { events, total, aggregations } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
+  let { events, total, aggregations, scrollId } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
 
   const eventParsers = _buildEventParsers( cleanOptions, aggregations );
 
@@ -66,7 +66,8 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
 
   return _.extend( {
     total,
-    events: parsedEvents
+    events: parsedEvents,
+    scrollId
   }, aggregations ? { aggregations } : {} );
 
 }
