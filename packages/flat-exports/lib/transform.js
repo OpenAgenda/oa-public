@@ -1,22 +1,25 @@
 "use strict";
 
-const makeTransform = require( 'stream-utils' ).transform;
+const _ = require( 'lodash' );
 const flattener = require( 'flattener' );
+const makeTransform = require( 'stream-utils' ).transform;
 
 const base = [ {
   source: 'uid',
   target: 'uid'
-} ]
+} ];
 
-module.exports = options = {} => {
+module.exports = _.extend( ( options = {} ) => {
 
   const flatten = getFlattener( options );
 
   return makeTransform( flatten );  
 
-}
+}, {
+  getFlattener
+} );
 
-module.exports.getFlattener = function getFlattener( options ) {
+function getFlattener( options ) {
 
   return flattener( base );
 

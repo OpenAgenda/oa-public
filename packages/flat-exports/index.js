@@ -1,5 +1,6 @@
 "use strict";
 
 module.exports = {
-  csv: require( './csv' )
+  csv: require( './csv' ),
+  xlsx: require( './xlsx' )
 }

@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const fastCsv = require( 'fast-csv' );
 const transform = require( './lib/transform' );
 
-module.exports = csvOptions = {} => {
+module.exports = ( csvOptions = {} ) => {
 
   return csv.bind( null, _.extend( {
     headers: true,

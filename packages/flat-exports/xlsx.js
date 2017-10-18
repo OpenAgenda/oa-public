@@ -1,9 +1,9 @@
 "use strict";
 
-const xlsx = require( 'xlsx-writestream' );
+const XlsxStream = require( 'xlsx-writestream' );
 const transform = require( './lib/transform' );
 
-module.exports = xlsxOptions = {} => {
+module.exports = ( xlsxOptions = {} ) => {
 
   return xlsx.bind( null, xlsxOptions );  
 
@@ -11,7 +11,7 @@ module.exports = xlsxOptions = {} => {
 
 function xlsx( xlsxOptions = {}, inStream, options = {} ) {
 
-  const stream = new xlsx();
+  const stream = new XlsxStream();
 
   const transformed = inStream.pipe( transform( options ) )
 
