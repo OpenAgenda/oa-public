@@ -156,13 +156,7 @@ function signinSubmit( req, res, next ) {
     badRequestMessage: 'You must type in an email and a password'
   }, function ( err, user, data ) {
 
-    w( {
-      err: err,
-      req: req,
-      res: res,
-      data: data,
-      user: user
-    } )
+    w( { err, req, res, data, user } )
 
       .then( auth.ifUserLoaded( false, v => {
 

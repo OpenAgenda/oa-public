@@ -53,7 +53,9 @@ create.google = _serviceCreate( 'googleId', true );
 
 function authenticate( email, password, cb ) {
 
-  w( { email: email, password: password } )
+  log( 'info', 'authenticating user %s', email );
+
+  w( { email, password } )
 
     .then( _loadUser )
 
@@ -71,17 +73,31 @@ function authenticate( email, password, cb ) {
 
 function get( params, cb ) {
 
+  log( 'info', 'getting user %s', JSON.stringify( params ) );
+
   if ( !params || !lib.size( params ) ) {
 
     return cb( null, false );
 
   }
 
-  log( 'getting user %s', JSON.stringify( params ) );
-
   model.users().get( params, ( err, user ) => {
 
-    if ( err || !user ) return cb( err, false );
+    if ( err || !user ) {
+
+      if ( err ) {
+
+        log( 'error', 'errored when loading user for params %s: %s', JSON.stringify( params ), JSON.stringify( err ) );
+
+      } else {
+
+        log( 'info', 'did not find any user for params %s', JSON.stringify( params ) );
+
+      }
+
+      return cb( err, false );
+
+    }
 
     cb( null, model.users().instance( user ) );
 
