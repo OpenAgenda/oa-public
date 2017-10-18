@@ -8,6 +8,12 @@ const eventSearch = require( 'event-search' );
 const schema = require( 'validators/schema' );
 const log = require( 'logs' )( 'services/eventSearch/agendaIndices' );
 
+const defaultSearchOptions = {
+  detailed: false,
+  private: false,
+  includeCustom: false
+};
+
 schema.register( { boolean: require( 'validators/boolean' ) } )
 
 const validateOptions = schema( {
@@ -23,7 +29,8 @@ module.exports = agendaUid => {
 
   return _.extend( {}, searchIndex, {
     exists: searchIndex.exists,
-    search: search.bind( null, searchIndex, agendaUid ),
+    stream: _stream.bind( null, searchIndex, agendaUid ),
+    search: _search.bind( null, searchIndex, agendaUid ),
     rebuild: rebuild.bind( null, searchIndex, agendaUid ),
     add: _add.bind( null, searchIndex, agendaUid ),
     update: _update.bind( null, searchIndex, agendaUid ),
@@ -35,6 +42,21 @@ module.exports = agendaUid => {
 module.exports.init = c => {
 
   assemble.init( c );
+
+}
+
+function _stream( searchIndex, agendaUid, query ) {
+
+  return search.stream( searchIndex, agendaUid, query, query );
+
+}
+
+function _search( searchIndex, agendaUid, query ) {
+
+  // clean query here
+  const cleanQuery = query || {};
+
+  return search( searchIndex, agendaUid, query, query, query );
 
 }
 

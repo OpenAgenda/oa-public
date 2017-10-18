@@ -56,6 +56,7 @@
     "fast-levenshtein": "1.0.6",
     "files": "bitbucket:openagenda/files",
     "flattener": "bitbucket:openagenda/flattener",
+    "flat-exports": "bitbucket:openagenda/flat-exports",
     "form-schemas": "bitbucket:openagenda/form-schemas",
     "gm": "1.21.1",
     "home": "bitbucket:openagenda/home",

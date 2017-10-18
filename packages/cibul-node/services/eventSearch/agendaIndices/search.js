@@ -5,6 +5,7 @@ const agendas = require( 'agendas' );
 const ih = require( 'immutability-helper' );
 const schema = require( 'validators/schema' );
 const formSchemas = require( 'form-schemas' );
+const makeTransform = require( 'stream-utils' ).transform;
 const getDecorate = require( 'form-schemas/iso/getDecorate' );
 const log = require( 'logs' )( 'services/eventSearch/agendaIndexSearch' );
 
@@ -36,6 +37,30 @@ const validateOptions = schema( {
 
 module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
+  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
+
+  return searchIndex.search( query, nav, searchOptions )
+
+    .then( ( { events, total } ) => ( {
+      total,
+      events: events.map( parseEvent )
+    } ) );
+
+}
+
+module.exports.stream = async ( searchIndex, agendaUid, query, options = {} ) => {
+
+  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
+
+  const stream = searchIndex.search.stream( query, searchOptions );
+
+  return stream.pipe( makeTransform( parseEvent ) );
+
+}
+
+
+async function _prepare( agendaUid, options ) {
+
   const cleanOptions = validateOptions( options );
 
   let searchOptions = {
@@ -43,7 +68,7 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
     extensions: [ 'contributor', 'state' ]
   };
 
-  let parseEvent;
+  let parseEvent = e => e;
 
   if ( cleanOptions.includeCustom ) {
 
@@ -65,12 +90,7 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
   }
 
-  return searchIndex.search( query, nav, searchOptions )
-
-    .then( ( { events, total } ) => ( {
-      total,
-      events: parseEvent ? events.map( parseEvent ) : events
-    } ) );
+  return { searchOptions, parseEvent };
 
 }
 
