@@ -1,0 +1,20 @@
+{
+  "name": "flat-exports",
+  "version": "1.0.0",
+  "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "flattener": "bitbucket:openagenda/flattener",
+    "validators": "bitbucket:openagenda/validators",
+    "stream-utils": "bitbucket:openagenda/stream-utils",
+    "fast-csv": "^2.4.1",
+    "lodash": "^4.17.4",
+    "xlsx-writestream": "^0.4.0"
+  }
+}

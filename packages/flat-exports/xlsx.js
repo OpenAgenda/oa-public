@@ -1,0 +1,24 @@
+"use strict";
+
+const xlsx = require( 'xlsx-writestream' );
+const transform = require( './lib/transform' );
+
+module.exports = xlsxOptions = {} => {
+
+  return xlsx.bind( null, xlsxOptions );  
+
+}
+
+function xlsx( xlsxOptions = {}, inStream, options = {} ) {
+
+  const stream = new xlsx();
+
+  const transformed = inStream.pipe( transform( options ) )
+
+  transformed.on( 'data', data => stream.addRow( data ) );
+
+  transformed.on( 'end', () => stream.finalize() );
+
+  return stream.getReadStream();  
+
+}
