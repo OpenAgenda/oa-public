@@ -4,6 +4,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import Picker from 'react-timings-picker';
 import transform from './timingsTransform';
+import _get from 'lodash/get';
 
 module.exports = createReactClass( {
 
@@ -13,7 +14,9 @@ module.exports = createReactClass( {
       day: {
         start: '07:00',
         end: '07:00'
-      }
+      },
+      configuration: {},
+      info: null
     }
 
   },
@@ -55,7 +58,6 @@ module.exports = createReactClass( {
         </a>
       </p>
       <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
-      {this.props.info ? <span>{this.props.info}</span> : null }
       <Picker
         startTime={this.props.day.start}
         endTime={this.props.day.end}
@@ -67,6 +69,8 @@ module.exports = createReactClass( {
         readOnly={false}
         timeStep={60}
         timingStep={30}
+        info={ this.props.info }
+        displayRecurrencer={ _get( this.props.configuration, 'recurrencer', true ) }
         lang={this.getLang()} />
     </div>;
 

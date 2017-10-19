@@ -475,10 +475,16 @@
         }
       }, {
         "name" : "timings",
+        "recurrencer" : false,
         "info" : {
           "fr" : "une info",
           "en" : "an info"
         },
+        "info" : {
+          "fr" : "une info custo",
+          "en" : "a custom info"
+        },
+        "displayRecurrencer" : false,
         "activeDays" :  [ {
           "startDate": "2016-01-27",
           "endDate": "2016-01-31"
@@ -488,10 +494,24 @@
         } ]
       }, {
         "name" : "location",
-        "disableChange" : true,
+        "disableChange" : false,
         "info" : {
           "fr" : "Une info en plus",
           "en" : "One more info"
+        },
+        "settings" : {
+          "labels": {
+            "addressPlaceholder": {
+              "en": "Nb and name of the street, city ( ex: 3 rue de Valois, Paris )",
+              "fr": "N° et nom de la voie, ville (ex : 3 rue de Valois Paris)"
+            },
+            "create": {
+              "info": {
+                "fr": "Saisissez le nom du lieu. Mentionnez le n°, le nom de la voie, le nom de la commune (ex: 86 quai Perrache, Lyon). Vérifiez sur la carte que le picto pointe le bon lieu.",
+                "en": "The address will be automatically associated with geographical data retrieved from a geocoding service"
+              }
+            }
+          }
         }
       }, {
         "name" : "keywords",
