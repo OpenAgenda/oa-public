@@ -4,7 +4,7 @@
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,5 +16,13 @@
     "fast-csv": "^2.4.1",
     "lodash": "^4.17.4",
     "xlsx-writestream": "^0.4.0"
+  },
+  "devDependencies": {
+    "labels": "bitbucket:openagenda/labels",
+    "jest": "^21.2.1",
+    "should": "^13.1.2"
+  },
+  "jest" : {
+    "testMatch" : [ "<rootDir>/test/*.js" ]
   }
 }

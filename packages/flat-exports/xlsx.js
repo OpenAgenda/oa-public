@@ -19,6 +19,6 @@ function xlsx( xlsxOptions = {}, inStream, options = {} ) {
 
   transformed.on( 'end', () => stream.finalize() );
 
-  return stream.getReadStream();  
+  return stream.getReadStream(); 
 
 }
