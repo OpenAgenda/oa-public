@@ -1,33 +1,27 @@
 "use strict";
 
-var log = require( 'logger' )( 'user service' ),
+const w = require( 'when' );
+const async = require( 'async' );
+const model = require( '../model' );
+const config = require( '../../config' );
+const log = require( 'logs' )( 'services/user' );
 
-  lib = require( '../../lib/lib' ),
-
-  config = require( '../../config' ),
-
-  model = require( '../model' ),
+let lib = require( '../../lib/lib' ), invitationSvc,
 
   activation = require( './lib/activation' ),
 
   lostPassword = require( './lib/lostPassword' ),
 
-  invitationSvc,
-
   invitation2Svc = require( 'invitations' ),
 
-  activitiesSvc = require( 'activities' ),
-
-  async = require( 'async' ),
-
-  w = require( 'when' );
+  activitiesSvc = require( 'activities' );
 
 module.exports = {
   get,
   auth: authenticate,
   create,
-  onActivation: onActivation,
-  updateTwitterId: updateTwitterId // tmp method required as long as there are twitter accounts with screen_name ref only
+  onActivation,
+  updateTwitterId // tmp method required as long as there are twitter accounts with screen_name ref only
 }
 
 module.exports.activation = activation( module.exports );

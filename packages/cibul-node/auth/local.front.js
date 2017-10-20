@@ -156,6 +156,12 @@ function signinSubmit( req, res, next ) {
     badRequestMessage: 'You must type in an email and a password'
   }, function ( err, user, data ) {
 
+    if ( err ) {
+
+      req.log( 'error', 'passport could nott signing with error %s', JSON.stringify( err ) );
+
+    }
+
     w( { err, req, res, data, user } )
 
       .then( auth.ifUserLoaded( false, v => {
@@ -181,7 +187,7 @@ function signinSubmit( req, res, next ) {
 
 function signupSubmit( req, res ) {
 
-  w( { req: req, res: res, data: req.body } )
+  w( { req, res, data: req.body } )
 
     .then( _passwordMatchCheck )
 

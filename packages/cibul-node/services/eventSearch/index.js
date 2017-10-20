@@ -38,6 +38,12 @@ function init( config ) {
         destination: 'timingsByMonth'
       },
 
+      languages: {
+        type: 'terms',
+        field: 'search_internals_languages',
+        destination: 'languages'
+      },
+
       eventsByDay: {
         type: 'timingsReverseHits',
         format: 'YYYY-MM-dd',

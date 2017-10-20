@@ -31,6 +31,10 @@ const validateOptions = schema( {
   agenda: {
     type: 'pass',
     default: null
+  },
+  aggregations: {
+    type: 'pass',
+    default: null
   }
 } );
 
@@ -41,9 +45,10 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
   return searchIndex.search( query, nav, searchOptions )
 
-    .then( ( { events, total } ) => ( {
+    .then( ( { events, total, aggregations } ) => ( {
       total,
-      events: events.map( parseEvent )
+      events: events.map( parseEvent ),
+      aggregations
     } ) );
 
 }
@@ -65,7 +70,8 @@ async function _prepare( agendaUid, options ) {
 
   let searchOptions = {
     detailed: cleanOptions.detailed,
-    extensions: [ 'contributor', 'state' ]
+    extensions: [ 'contributor', 'state' ],
+    aggregations: cleanOptions.aggregations
   };
 
   let parseEvent = e => e;

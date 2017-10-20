@@ -15,8 +15,15 @@ module.exports = ( parentApp, path ) => {
 
 app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx)', async ( req, res, next ) => {
 
+  const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
+    aggregations: [ 'languages' ]
+  } );
+
   // here options must be separated from 
-  req.stream = await search.agendas( req.params.agendaUid ).stream( req.query );
+  req.stream = await search.agendas( req.params.agendaUid ).stream( req.query, { detailed: true } );
+
+  // this should be loaded from some agenda cache
+  req.languages = result.aggregations.languages.map( b => b.key );
 
   next();
 
@@ -25,8 +32,9 @@ app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx)', async ( req, res, next ) =>
 
 app.get( '/agendas/:agendaUid/events.v2.xlsx', ( req, res, next ) => {
 
-  xlsx( req.stream, {
-    lang: req.query.lang,
+  xlsx( req.stream, { 
+    lang: req.lang,
+    languages: req.languages,
     labels
   } ).pipe( res );
 
@@ -40,7 +48,8 @@ app.get( '/agendas/:agendaUid/events.v2.xlsx', ( req, res, next ) => {
 app.get( '/agendas/:agendaUid/events.v2.csv', ( req, res, next ) => {
 
   csv( req.stream, {
-    lang: req.query.lang,
+    lang: req.lang,
+    languages: req.languages,
     labels
   } ).pipe( res );
 

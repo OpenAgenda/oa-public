@@ -45,18 +45,16 @@ module.exports.init = c => {
 
 }
 
-function _stream( searchIndex, agendaUid, query ) {
+function _stream( searchIndex, agendaUid, query, options ) {
 
-  return search.stream( searchIndex, agendaUid, query, query );
+  return search.stream( searchIndex, agendaUid, query, options );
 
 }
 
-function _search( searchIndex, agendaUid, query ) {
+function _search( searchIndex, agendaUid, query, nav, options ) {
 
-  // clean query here
-  const cleanQuery = query || {};
-
-  return search( searchIndex, agendaUid, query, query, query );
+  // doing a bit of cleaning here could prove useful
+  return search( searchIndex, agendaUid, query, nav, options );
 
 }
 
