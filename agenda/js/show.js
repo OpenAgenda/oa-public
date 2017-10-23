@@ -94,7 +94,7 @@ window.asap( options => {
 
       if ( parseInt( ctl.c ) !== 0 ) {
 
-        _displayAddButton();
+        if ( !ctl.prv || res !== 'reader' ) _displayAddButton();
 
       }
 
