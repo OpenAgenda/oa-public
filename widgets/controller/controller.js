@@ -475,6 +475,8 @@ module.exports = function( uid ) {
 
       currentRequestParams.passed = 1;
 
+      currentRequestParams.order = 'latest';
+
       if ( syncHref ) _updateHrefQuery( currentRequestParams );
 
     }
