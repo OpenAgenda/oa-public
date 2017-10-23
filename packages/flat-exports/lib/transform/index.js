@@ -2,11 +2,13 @@
 
 const _ = require( 'lodash' );
 const flattener = require( 'flattener' );
-const multilingual = require( './multilingual' );
 const getTargetField = require( './getTargetField' );
 const makeTransform = require( 'stream-utils' ).transform;
 const validateOptions = require( './options.validate.js' );
 
+const multilingual = require( './multilingual' );
+const accessibility = require( './accessibility' );
+const timings = require( './timings' );
 
 module.exports = _.extend( ( options = {} ) => {
 
@@ -44,16 +46,26 @@ function getFlattener( options ) {
     source: 'keywords',
     target: getTarget( 'keywords' ),
     type: 'multilingual',
-    post: data => data ? data.join( ' | ' ) : ''
+    postParse: data => data ? data.join( ' | ' ) : ''
   }, {
     source: 'dateRange',
     target: getTarget( 'range' ),
     type: 'multilingual',
     possibleLanguages: labelLanguages
   }, {
-    /*field: 'accessibility',
-    type: 'accessibility'
-  }, { */
+    field: 'timings',
+    type: 'timings',
+    target: getTarget( 'timings' ),
+    isoTarget: getTarget( 'isoTimings' )
+  }, {
+    source: 'conditions',
+    target: getTarget( 'conditions' ),
+    type: 'multilingual'
+  }, {
+    field: 'accessibility',
+    type: 'accessibility',
+    target: getTarget( 'accessibility' )
+  }, {
     source: 'location.uid',
     target: getTarget( 'location.uid' )
   }, {
@@ -67,7 +79,7 @@ function getFlattener( options ) {
     target: getTarget( 'location.city' )
   }, {
     source: 'location.department',
-    target: getTarget( 'range' )
+    target: getTarget( 'location.department' )
   }, {
     source: 'location.region',
     target: getTarget( 'location.region' )
@@ -85,8 +97,9 @@ function getFlattener( options ) {
   } ].map( c => {
 
     return _.get( {
-      //accessibility: accessibility.bind( null, cleanOptions ),
-      multilingual: multilingual.bind( null, cleanOptions )
+      timings: timings.bind( null, cleanOptions ),
+      accessibility: accessibility.bind( null, cleanOptions ),
+      multilingual: multilingual.bind( null, cleanOptions ),
     }, c.type, c => ( {
       source: c.source, 
       target: c.target || c.source

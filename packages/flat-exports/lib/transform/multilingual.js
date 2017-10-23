@@ -1,13 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const getTargetField = require( './getTargetField' );
 
-module.exports = function ( { languages, lang }, { source, target, post, possibleLanguages } ) {
+module.exports = function ( { languages }, { source, target, postParse, possibleLanguages } ) {
 
   const targetLanguages = languages.filter( l => possibleLanguages ? possibleLanguages.includes( l ) : true );
-
-  //const targetField = getTargetField( labels, field, labelKey, lang );
 
   return {
     source,
@@ -15,9 +12,9 @@ module.exports = function ( { languages, lang }, { source, target, post, possibl
     transform: v => targetLanguages
       .map( l => {
 
-        if ( post ) {
+        if ( postParse ) {
 
-          return post( _.get( v, l ) );
+          return postParse( _.get( v, l ) );
 
         }
        

@@ -1,11 +1,151 @@
 "use strict";
 
 const should = require( 'should' );
-
-const multilingual = require( '../lib/transform/multilingual' );
 const flattener = require( 'flattener' );
+const timings = require( '../lib/transform/timings' );
+const multilingual = require( '../lib/transform/multilingual' );
+const accessibility = require( '../lib/transform/accessibility' );
 
 describe( 'flat-exports - unit - transforms', () => {
+
+  describe( 'timings', () => {
+
+    test( 'transformer spreads detailed timings over one ISO column and multiple language-specific columns', () => {
+
+      const map = [ timings( {
+        languages: [ 'fr', 'en' ]
+      }, {} ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        timings: [ {
+          begin: '2017-03-16T09:30:00+01:00',
+          end: '2017-03-16T12:00:00+01:00'
+        } ]
+      } );
+
+      flat.should.eql( { 
+        'ISO': '2017-03-16T09:30:00+01:00 -> 2017-03-16T12:00:00+01:00',
+        'timings - FR': 'jeudi 16 mars 2017 - 09:30',
+        'timings - EN': 'Thursday 16 March 2017 - 09:30'
+      } );
+
+    } );
+
+    test( 'transformer displays times in timezone explicited in source data', () => {
+
+      const map = [ timings( {
+        languages: [ 'fr', 'en' ]
+      }, {} ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        timings: [ {
+          begin: '2017-03-16T09:30:00-01:00',
+          end: '2017-03-16T12:00:00-01:00'
+        } ]
+      } );
+
+      flat.should.eql( { 
+        'ISO': '2017-03-16T09:30:00-01:00 -> 2017-03-16T12:00:00-01:00',
+        'timings - FR': 'jeudi 16 mars 2017 - 09:30',
+        'timings - EN': 'Thursday 16 March 2017 - 09:30'
+      } );      
+
+    } );
+
+    test( 'transformer concatenates timings which occur in the same day', () => {
+
+      const map = [ timings( {
+        languages: [ 'fr' ]
+      }, {} ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        timings: [ {
+          begin: '2017-03-16T09:30:00+06:00',
+          end: '2017-03-16T12:00:00+06:00'
+        }, {
+          begin: '2017-03-16T14:30:00+06:00',
+          end: '2017-03-16T22:00:00+06:00'
+        }, {
+          begin: '2017-03-17T09:30:00+06:00',
+          end: '2017-03-17T12:00:00+06:00'
+        } ]
+      } );
+
+      flat.should.eql( { 
+        'ISO': '2017-03-16T09:30:00+06:00 -> 2017-03-16T12:00:00+06:00 | 2017-03-16T14:30:00+06:00 -> 2017-03-16T22:00:00+06:00 | 2017-03-17T09:30:00+06:00 -> 2017-03-17T12:00:00+06:00',
+        timings: 'jeudi 16 mars 2017 - 09:30, 14:30 | vendredi 17 mars 2017 - 09:30' 
+      } );
+
+    } );
+
+  } );
+
+  describe( 'accessibility', () => {
+
+    test( 'transformer returns single language when language is specified and available in labels', () => {
+
+      const map = [ accessibility( {
+        languages: [ 'fr' ]
+      }, {} ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        accessibility: { hi: true, vi: true, pi: false }
+      } );
+
+      flat.should.eql( {
+        accessibility: 'handicap auditif | handicap visuel'
+      } );
+
+    } );
+
+    test( 'transformer returns language columns when a corresponding label is available', () => {
+
+      const map = [ accessibility( {
+        languages: [ 'fr', 'en', 'de' ]
+      }, {} ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        accessibility: { vi: true, pi: false }
+      } );
+
+      flat.should.eql( {
+        'accessibility - EN': 'visual impairment',
+        'accessibility - FR': 'handicap visuel'
+      } );
+
+    } );
+
+    test( 'transformer puts result in specified target', () => {
+
+      const map = [ accessibility( {
+        languages: [ 'fr' ]
+      }, {
+        target: 'Accessibilité'
+      } ) ];
+
+      const flatten = flattener( map );
+
+      const flat = flatten( {
+        accessibility: { vi: true, pi: false, hi: false }
+      } );
+
+      flat.should.eql( {
+        'Accessibilité' : 'handicap visuel'
+      } );
+
+    } );
+
+  } );
 
   /**
    * these helpers build mapping for flattener
@@ -13,7 +153,7 @@ describe( 'flat-exports - unit - transforms', () => {
 
   describe( 'multilingual', () => {
 
-    test( 'multilingual field returns single value configuration when language is specified', () => {
+    test( 'multilingual field returns single value configuration when one language is specified', () => {
 
       const map = [ multilingual( {
         languages: [ 'fr' ]
@@ -93,7 +233,7 @@ describe( 'flat-exports - unit - transforms', () => {
         languages: [ 'fr', 'en' ]
       }, {
         source: 'some_field',
-        post: v => v.join( '|' )
+        postParse: v => v.join( '|' )
       } ) ];
 
       const flatten = flattener( map );

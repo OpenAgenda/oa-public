@@ -10,11 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "flattener": "bitbucket:openagenda/flattener",
-    "validators": "bitbucket:openagenda/validators",
-    "stream-utils": "bitbucket:openagenda/stream-utils",
     "fast-csv": "^2.4.1",
+    "flattener": "bitbucket:openagenda/flattener",
     "lodash": "^4.17.4",
+    "moment-timezone": "^0.5.13",
+    "stream-utils": "bitbucket:openagenda/stream-utils",
+    "validators": "bitbucket:openagenda/validators",
     "xlsx-writestream": "^0.4.0"
   },
   "devDependencies": {
@@ -22,7 +23,9 @@
     "jest": "^21.2.1",
     "should": "^13.1.2"
   },
-  "jest" : {
-    "testMatch" : [ "<rootDir>/test/*.js" ]
+  "jest": {
+    "testMatch": [
+      "<rootDir>/test/*.js"
+    ]
   }
 }
