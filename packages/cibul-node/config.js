@@ -8,7 +8,7 @@ let config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-06-22T12:07:29.000Z',
-    jsVersion: 17,
+    jsVersion: 18,
     versions: {
       // unused for now
       members: [ {
