@@ -404,7 +404,7 @@ function _clean( query, params ) {
   });
 
 
-  if ( [ 'proximity', 'update', 'upcoming' ].indexOf( query.order ) !== -1 ) {
+  if ( [ 'proximity', 'update', 'upcoming', 'latest' ].indexOf( query.order ) !== -1 ) {
 
     clean.order = query.order;
 
