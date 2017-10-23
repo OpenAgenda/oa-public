@@ -36,21 +36,16 @@ module.exports = {
     label : 'Sources',
     uri : 'aggregatorSourcesApp',
     access: 'administrator',
-    requiredCred: 'aggregator'
+    requiredCred: 'aggregator',
+    call: {
+      subject: 'aggregator'
+    }
   }, {
     section : 'export',
     key : 'facebook',
     label: 'Facebook',
     access: 'administrator',
     uri: 'facebookShow'
-  }, {
-    section : 'export',
-    key : 'swapcard',
-    label : 'Swapcard',
-    uri : 'serviceIndex',
-    uriParams : { service : 'swapcard' },
-    access: 'administrator',
-    requiredCred: 'swapcard'
   }, {
     section : 'export',
     key : 'web',

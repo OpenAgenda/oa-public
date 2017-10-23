@@ -201,7 +201,9 @@ function loadAdminLayout( req, res, next ) {
 
           if ( tab.requiredCred === undefined ) return true;
 
-          return credentials.indexOf( tab.requiredCred ) !== -1;
+          if ( credentials.includes( tab.requiredCred ) ) return true;
+
+          return !!tab.call;
 
         } )
 
@@ -227,6 +229,16 @@ function loadAdminLayout( req, res, next ) {
           if ( tab.badge ) {
 
             badge = _.extend( {}, tab.badge, { label: tabLabels( tab.badge.label, req.lang ) } );
+
+          }
+
+          if ( tab.call ) {
+
+            tab.call.agenda = req.agenda.uid;
+
+            tab.call.lang = req.lang;
+
+            tab.uri = '#';
 
           }
 
