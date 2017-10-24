@@ -232,7 +232,7 @@ function loadAdminLayout( req, res, next ) {
 
           }
 
-          if ( tab.call ) {
+          if ( !credentials.includes( tab.requiredCred ) && tab.call ) {
 
             tab.call.agenda = req.agenda.uid;
 
@@ -244,7 +244,8 @@ function loadAdminLayout( req, res, next ) {
 
           return _.extend( {}, tab, {
             badge: badge || undefined,
-            label
+            label,
+            call: credentials.includes( tab.requiredCred ) ? null : tab.call
           } );
 
         } );
