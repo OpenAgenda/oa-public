@@ -158,7 +158,7 @@ function signinSubmit( req, res, next ) {
 
     if ( err ) {
 
-      req.log( 'error', 'passport could nott signing with error %s', JSON.stringify( err ) );
+      req.log( 'error', 'passport could not complete signing and received error %s', JSON.stringify( err ) );
 
     }
 

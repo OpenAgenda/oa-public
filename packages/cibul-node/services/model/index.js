@@ -7,21 +7,15 @@ const config = require( '../../config' );
 const log = require( 'logs' )( 'legacyModel' );
 const onError = require( '../00_errors' ).bind( null, 'legacyModel' );
 
-let cache = require( '../cache' ),
+const cache = require( '../cache' );
 
-  modelLib = require( 'cibulModel' ),
-
-  model = modelLib( config.db, {
-    imagePath: config.aws.imageBucketPath,
-    cache: cache,
-    query
-  } );
+const model = require( 'cibulModel' )( config.db, {
+  imagePath: config.aws.imageBucketPath,
+  cache: cache,
+  query
+} );
 
 module.exports = model;
-
-module.exports.fixtures = modelLib.fixtures( model );
-
-module.exports.fixtureSets = modelLib.fixtureSets( model );
 
 module.exports.init = c => {}
 
