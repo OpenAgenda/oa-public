@@ -1,0 +1,105 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-admin">
+  <% include ../agenda-admin/_admin-header.ejs %>
+
+  <div class="row wsq">
+    <%- include( '../agenda-admin/_admin-tabs.ejs', { selectedTab: 'inbox' } ) %>
+
+    <div class="col col-xs-9 body">
+      <div class="inbox inbox-agendaAdmin">
+        <h2>Messagerie</h2>
+
+        <form action="#">
+          <div class="form-group input-icon-right search margin-v-md">
+            <input type="text" class="form-control" placeholder="Rechercher un message" />
+            <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+          </div>
+        </form>
+
+        <div class="margin-v-md">
+          Résultat: 12 messages
+        </div>
+
+        <div class="conversations">
+          <div class="media">
+            <div class="media-left media-top">
+              <img
+                      src="https://cibul.s3.amazonaws.com/profile7339049.jpg"
+                      class="media-object img-circle"
+                      style="width:60px"
+              >
+              <img
+                      src="https://cibul.s3.amazonaws.com/agenda63843775.jpg"
+                      class="media-object img-circle belongs"
+                      style="width:25px"
+              >
+            </div>
+            <div class="media-body">
+              <p class="media-heading">
+                <b>Kaoré</b>
+                <span class="small text-muted margin-left-xs">Conférence autour des travaux de restauration</span>
+              </p>
+              <div class="margin-bottom-xs">
+                Encore une fois, c'est mathématiquement une machine à gaz super performante
+              </div>
+              <p class="text-muted">
+                Dernier message posté il y a 10 minutes
+                <a href="#" class="margin-left-xs">Voir toute la conversation</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="media">
+            <div class="media-left media-top">
+              <img
+                      src="https://s3-eu-west-1.amazonaws.com/cibuldev/user.svg"
+                      class="media-object img-circle"
+                      style="width:60px"
+              >
+            </div>
+            <div class="media-body">
+              <p class="media-heading"><b>Papy</b></p>
+              <div class="margin-bottom-xs">JEAN-CLAUDE! EH! JEAN-CLAUDE!</div>
+              <div class="text-muted">
+                Message posté il y a 10 minutes
+                <a href="#" class="margin-left-xs">Voir toute la conversation</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="media">
+            <div class="media-left media-top">
+              <img
+                      src="https://s3-eu-west-1.amazonaws.com/cibuldev/user.svg"
+                      class="media-object img-circle"
+                      style="width:60px"
+              >
+            </div>
+            <div class="media-body">
+              <p class="media-heading">
+                <b>Janine</b>
+                <i class="fa fa-check text-primary margin-left-xs"></i>
+              </p>
+              <div class="margin-bottom-xs">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae expedita illo inventore modi,
+                molestiae optio placeat reiciendis voluptate! A, adipisci aliquid autem expedita fugit itaque minus odio
+                provident quae tenetur!
+                <br>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab culpa cum debitis dolorum ipsa ipsam
+                laboriosam magnam nulla officiis optio pariatur perspiciatis, quasi quisquam repellendus repudiandae
+                sint, sit. Error, nobis!
+              </div>
+              <p class="text-muted">
+                Message posté il y a 10 minutes
+                <a href="#" class="margin-left-xs">Voir toute la conversation</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../layout/_bottom.ejs %>

@@ -1,0 +1,46 @@
+@import '../layout/base';
+@import '../agenda-admin/style';
+@import '../components/nav';
+@import '../form-components/input-with-icon';
+
+.inbox {
+
+  .media {
+
+    overflow: visible;
+
+    .media-left, .media-right {
+
+      position: relative;
+
+      img.belongs {
+
+        border: 3px solid $oa-white;
+        box-sizing: content-box;
+        position: absolute;
+        right: 10px;
+        top: 40px;
+
+      }
+
+    }
+
+    .message-form textarea {
+
+      resize: vertical;
+
+    }
+
+  }
+
+  &.inbox-event {
+
+    .reply {
+
+      padding: 20px;
+
+    }
+
+  }
+
+}

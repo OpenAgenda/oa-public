@@ -8192,6 +8192,170 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     .agenda-header .ctas .btn {
       margin-bottom: 0; } }
 
+.nav h2 {
+  padding: 10px 30px; }
+
+.nav .menu-item {
+  margin: 6px 0;
+  line-height: 40px;
+  padding: 0 30px; }
+  .nav .menu-item a {
+    color: inherit; }
+    .nav .menu-item a:hover {
+      color: #41acdd;
+      text-decoration: none; }
+    .nav .menu-item a.badge {
+      color: #fff;
+      margin-left: 0.5em; }
+  .nav .menu-item.disabled,
+  .nav .menu-item .disabled,
+  .nav .menu-item .disabled a {
+    color: #ccc; }
+  .nav .menu-item.selected a {
+    font-weight: bold;
+    color: #41acdd; }
+  .nav .menu-item.selected a.badge {
+    color: #fff; }
+
+.nav:not(.nav-right) .menu-item {
+  border-left: 4px solid transparent; }
+  .nav:not(.nav-right) .menu-item.selected {
+    border-left: 4px solid #41acdd; }
+  .nav:not(.nav-right) .menu-item:not(.selected):hover {
+    border-left: 1px solid #41acdd;
+    padding-left: 33px; }
+
+.nav.nav-right .menu-item {
+  border-right: 4px solid transparent; }
+  .nav.nav-right .menu-item.selected {
+    border-right: 4px solid #41acdd; }
+  .nav.nav-right .menu-item:not(.selected):hover {
+    border-right: 1px solid #41acdd;
+    padding-right: 33px; }
+
+.image-upload img {
+  max-width: 100%; }
+
+.image-upload .info {
+  display: block; }
+
+.image-upload .upload-group {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  cursor: pointer; }
+  .image-upload .upload-group input[type="file"] {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    padding: 0.5em; }
+    .image-upload .upload-group input[type="file"]::-webkit-file-upload-button {
+      cursor: pointer; }
+  .image-upload .upload-group button  {
+    z-index: -1;
+    margin-left: 0.5em;
+    cursor: pointer; }
+
+.image-upload form {
+  background: #f2f2f2;
+  position: relative;
+  text-align: center; }
+  .image-upload form.empty {
+    min-height: 300px; }
+  .image-upload form .actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.4em; }
+  .image-upload form .error {
+    position: absolute;
+    text-align: center;
+    width: 80%;
+    font-weight: bold;
+    top: 45%;
+    left: 0;
+    background: white;
+    margin: 0 10%;
+    padding: 0.4em;
+    border: 1px solid #ccc; }
+
+.image-upload .spin-wrapper {
+  display: inline-block;
+  vertical-align: middle;
+  width: 20px;
+  position: relative; }
+
+/* Icon in input + spin */
+.input-icon-right, .input-icon-left {
+  position: relative; }
+  .input-icon-right button, .input-icon-left button {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: transparent; }
+    .input-icon-right button:focus, .input-icon-right button:active, .input-icon-right button:focus:active, .input-icon-left button:focus, .input-icon-left button:active, .input-icon-left button:focus:active {
+      outline: none; }
+    .input-icon-right button:active, .input-icon-left button:active {
+      box-shadow: inset 0 0px 5px rgba(0, 0, 0, 0.125); }
+
+.input-icon-right input {
+  padding-right: 34px; }
+
+.input-icon-right button {
+  right: 0; }
+  .input-icon-right button .spin-canvas {
+    left: initial;
+    right: 8px;
+    background-color: transparent; }
+
+.input-icon-left input {
+  padding-left: 34px; }
+
+.input-icon-left button {
+  left: 0; }
+  .input-icon-left button .spin-canvas {
+    left: 8px;
+    right: initial;
+    background-color: transparent; }
+
+.agenda-admin {
+  margin: 60px auto; }
+  .agenda-admin .header {
+    padding: 20px; }
+    .agenda-admin .header .agenda-logo img {
+      max-width: 100%; }
+  .agenda-admin.getting-started .image-upload form {
+    border-radius: 50%;
+    min-height: 250px;
+    height: 250px;
+    max-width: 250px; }
+    .agenda-admin.getting-started .image-upload form img {
+      border-radius: 50%; }
+  .agenda-admin .body {
+    padding: 0 30px 2em; }
+  .agenda-admin.redirect .body {
+    text-align: center;
+    padding: 16em 0; }
+
+.inbox .media {
+  overflow: visible; }
+  .inbox .media .media-left, .inbox .media .media-right {
+    position: relative; }
+    .inbox .media .media-left img.belongs, .inbox .media .media-right img.belongs {
+      border: 3px solid #fff;
+      box-sizing: content-box;
+      position: absolute;
+      right: 10px;
+      top: 40px; }
+  .inbox .media .message-form textarea {
+    resize: vertical; }
+
+.inbox.inbox-event .reply {
+  padding: 20px; }
+
 #event #header .row {
   position: relative; }
 
@@ -8861,121 +9025,6 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 .agenda-search .page-nav {
   text-align: center;
   padding: 1em; }
-
-.nav h2 {
-  padding: 10px 30px; }
-
-.nav .menu-item {
-  margin: 6px 0;
-  line-height: 40px;
-  padding: 0 30px; }
-  .nav .menu-item a {
-    color: inherit; }
-    .nav .menu-item a:hover {
-      color: #41acdd;
-      text-decoration: none; }
-    .nav .menu-item a.badge {
-      color: #fff;
-      margin-left: 0.5em; }
-  .nav .menu-item.disabled,
-  .nav .menu-item .disabled,
-  .nav .menu-item .disabled a {
-    color: #ccc; }
-  .nav .menu-item.selected a {
-    font-weight: bold;
-    color: #41acdd; }
-  .nav .menu-item.selected a.badge {
-    color: #fff; }
-
-.nav:not(.nav-right) .menu-item {
-  border-left: 4px solid transparent; }
-  .nav:not(.nav-right) .menu-item.selected {
-    border-left: 4px solid #41acdd; }
-  .nav:not(.nav-right) .menu-item:not(.selected):hover {
-    border-left: 1px solid #41acdd;
-    padding-left: 33px; }
-
-.nav.nav-right .menu-item {
-  border-right: 4px solid transparent; }
-  .nav.nav-right .menu-item.selected {
-    border-right: 4px solid #41acdd; }
-  .nav.nav-right .menu-item:not(.selected):hover {
-    border-right: 1px solid #41acdd;
-    padding-right: 33px; }
-
-.image-upload img {
-  max-width: 100%; }
-
-.image-upload .info {
-  display: block; }
-
-.image-upload .upload-group {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-  cursor: pointer; }
-  .image-upload .upload-group input[type="file"] {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    opacity: 0;
-    padding: 0.5em; }
-    .image-upload .upload-group input[type="file"]::-webkit-file-upload-button {
-      cursor: pointer; }
-  .image-upload .upload-group button  {
-    z-index: -1;
-    margin-left: 0.5em;
-    cursor: pointer; }
-
-.image-upload form {
-  background: #f2f2f2;
-  position: relative;
-  text-align: center; }
-  .image-upload form.empty {
-    min-height: 300px; }
-  .image-upload form .actions {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.4em; }
-  .image-upload form .error {
-    position: absolute;
-    text-align: center;
-    width: 80%;
-    font-weight: bold;
-    top: 45%;
-    left: 0;
-    background: white;
-    margin: 0 10%;
-    padding: 0.4em;
-    border: 1px solid #ccc; }
-
-.image-upload .spin-wrapper {
-  display: inline-block;
-  vertical-align: middle;
-  width: 20px;
-  position: relative; }
-
-.agenda-admin {
-  margin: 60px auto; }
-  .agenda-admin .header {
-    padding: 20px; }
-    .agenda-admin .header .agenda-logo img {
-      max-width: 100%; }
-  .agenda-admin.getting-started .image-upload form {
-    border-radius: 50%;
-    min-height: 250px;
-    height: 250px;
-    max-width: 250px; }
-    .agenda-admin.getting-started .image-upload form img {
-      border-radius: 50%; }
-  .agenda-admin .body {
-    padding: 0 30px 2em; }
-  .agenda-admin.redirect .body {
-    text-align: center;
-    padding: 16em 0; }
 
 .tc-selector {
   margin-bottom: 2em; }
@@ -13576,39 +13625,6 @@ i.mce-i-backcolor {
   position: relative;
   height: 20px;
   width: 1em; }
-
-/* Icon in input + spin */
-.input-icon-right, .input-icon-left {
-  position: relative; }
-  .input-icon-right button, .input-icon-left button {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: transparent; }
-    .input-icon-right button:focus, .input-icon-right button:active, .input-icon-right button:focus:active, .input-icon-left button:focus, .input-icon-left button:active, .input-icon-left button:focus:active {
-      outline: none; }
-    .input-icon-right button:active, .input-icon-left button:active {
-      box-shadow: inset 0 0px 5px rgba(0, 0, 0, 0.125); }
-
-.input-icon-right input {
-  padding-right: 34px; }
-
-.input-icon-right button {
-  right: 0; }
-  .input-icon-right button .spin-canvas {
-    left: initial;
-    right: 8px;
-    background-color: transparent; }
-
-.input-icon-left input {
-  padding-left: 34px; }
-
-.input-icon-left button {
-  left: 0; }
-  .input-icon-left button .spin-canvas {
-    left: 8px;
-    right: initial;
-    background-color: transparent; }
 
 #agenda #content {
   padding: 15px 0; }

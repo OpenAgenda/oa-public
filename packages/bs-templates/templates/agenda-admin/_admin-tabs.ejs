@@ -1,13 +1,17 @@
+<% if( typeof selectedTab === 'undefined' ) selectedTab = 'events'  %>
+
 <div class="col col-sm-3 nav">
   <ul class="list-unstyled">
     <li>
       <h2>Manage</h2>
     </li>
-    <li class="menu-item selected">
+    <li class="menu-item <%= selectedTab === 'events' ? 'selected' : '' %>">
       Evénements
       <a href="#" class="badge badge-primary">nouveau</a>
     </li>
     <li class="menu-item">Contributeurs</li>
+    <li class="menu-item <%= selectedTab === 'inbox' ? 'selected' : '' %>">
+      Messagerie</li>
   </ul>
   <ul class="list-unstyled">
     <li>
