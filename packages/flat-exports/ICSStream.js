@@ -10,7 +10,7 @@ const {
 
 module.exports = class ICSStream extends Transform {
 
-  constructor( options ) {
+  constructor( options = {} ) {
 
     super( {
       writableObjectMode: true
@@ -18,7 +18,7 @@ module.exports = class ICSStream extends Transform {
 
     this._options = validateStreamOptions( options );
 
-    this.push( head() );
+    this.push( head( this._options ) );
     
   }
 
@@ -30,7 +30,7 @@ module.exports = class ICSStream extends Transform {
 
   _flush( cb ) {
 
-    this.push( '\nEND:VCALENDAR' );
+    this.push( 'END:VCALENDAR' );
 
     cb();
 

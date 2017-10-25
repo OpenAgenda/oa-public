@@ -32,14 +32,15 @@ module.exports = ( { lang, genUrl }, event ) => {
     `TZID: ${e.timezone}`,
     `SUMMARY: ${e.summary}`,
     `DESCRIPTION:${e.description.join( ' - ' + getLabel( 'seeMore', language ) + ': ' )}`,
-    location.length ? `LOCATION:${e.location.join( ' - ' )}` : null,
+    e.location.length ? `LOCATION:${e.location.join( ' - ' )}` : null,
     e.geo.length === 2 ? `GEO:${e.geo.join( ';' )}` : null,
     `ORGANIZER: ${e.organizer}`,
     'STATUS:CONFIRMED',
+    `DTSTAMP:${moment.utc().format( 'YYYYMMDDTHHmm00' ) + 'Z'}`,
     'END:VEVENT'
   ].filter( line => !!line ).join( '\r\n' );
 
-  return event.timings.map( t => before + _createTimingPart( event, t ) + after ).join( '\r\n' );
+  return event.timings.map( t => before + _createTimingPart( event, t ) + after ).join( '\r\n' ) + '\r\n';
 
 }
 
@@ -61,6 +62,6 @@ function _createTimingPart( event, timing ) {
 
 function defaultGenUrl( e ) { 
 
-  return `https://openagenda.com/${e.agenda.slug}/events/${e.slug}`;
+  return `https://openagenda.com/events/${e.slug}`;
 
 }
