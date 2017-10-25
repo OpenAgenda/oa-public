@@ -58,7 +58,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
         }
       } ).should.eql( { keywords: { terms: { field: 'search_internals_keywords' } } } );
 
-    } )
+    } );
 
 
     it( 'destination aggregation keys can be different from aggregated field name', () => {

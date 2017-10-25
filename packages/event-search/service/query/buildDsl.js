@@ -9,18 +9,7 @@ module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = nul
     filterParts = [];
 
   let dsl = {
-    sort: [ {
-      'timings.end' : {
-        mode: 'min',
-        order: 'asc',
-        nested_path: 'timings',
-        nested_filter: {
-          range: { 'timings.end' : { gte: 'now' } }
-        }
-      }
-    }, {
-      search_internals_last_timing: { order: 'desc' }
-    } ],
+    sort: _sort( cleanQuery.sort ),
     _source: {
       excludes: [ 
         'search_internals_*', 
@@ -236,5 +225,31 @@ function _mustPart( queryType, fieldName, value ) {
   q[ queryType ][ fieldName ] = value;
 
   return q;
+
+}
+
+
+function _sort( sort = null ) {
+
+  if ( sort ) {
+
+    const [ field, order ] = sort.split( '.' );
+
+    return [ _.set( {}, field + '.order', order ) ];
+
+  }
+
+  return [ {
+    'timings.end' : {
+      mode: 'min',
+      order: 'asc',
+      nested_path: 'timings',
+      nested_filter: {
+        range: { 'timings.end' : { gte: 'now' } }
+      }
+    }
+  }, {
+    search_internals_last_timing: { order: 'desc' }
+  } ];
 
 }

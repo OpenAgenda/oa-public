@@ -105,5 +105,15 @@ module.exports = schema( {
         type: 'date'
       }
     }
+  },
+  sort: {
+    type: 'choice',
+    options: [ 
+      'updatedAt.desc',
+      'updatedAt.asc'
+    ],
+    optional: true,
+    unique: true,
+    default: null
   }
 } );

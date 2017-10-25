@@ -127,6 +127,37 @@ describe( 'event-search - unit: dsl search', function() {
     } );
 
 
+    it( 'sorting can order by update timestamp', async () => {
+
+      let dsl = {
+        query: {
+          match: {
+            search_internals_title: 'Trié'
+          }
+        },
+        sort: [ {
+          updatedAt: {
+            order: 'desc'
+          }
+        } ]
+      };
+
+      let { events, total } = await dslSearch( 'simple_search', dsl );
+
+      total.should.equal( 5 );
+
+      events.forEach( ( e, i ) => {
+
+        if ( i > 0 ) {
+          events[ i - 1 ].updatedAt.should.greaterThan( events[ i ].updatedAt );
+
+        }
+
+      } );
+
+    } )
+
+
     it( 'sorting can show in order upcoming first and past second, then nearest from now first', async () => {
 
       let dsl = {

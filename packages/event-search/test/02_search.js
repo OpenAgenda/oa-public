@@ -607,6 +607,35 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    it( 'sorting works in updatedAt asc order', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié', sort: 'updatedAt.asc' }, {}, { detailed: true } );
+
+      events.forEach( ( e, i ) => {
+
+        if ( i === 0 ) return;
+
+        e.updatedAt.should.above( events[ i - 1 ].updatedAt );
+
+      } );
+
+    } );
+
+
+    it( 'sorting works in updatedAt desc order', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié', sort: 'updatedAt.desc' }, {}, { detailed: true } );
+
+      events.forEach( ( e, i ) => {
+
+        if ( i === 0 ) return;
+
+        e.updatedAt.should.below( events[ i - 1 ].updatedAt );
+
+      } );
+
+    } );
+
 
     it( 'navigate using from & size returns expected number of events', async () => {
 

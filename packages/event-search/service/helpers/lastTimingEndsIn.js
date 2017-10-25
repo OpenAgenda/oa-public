@@ -12,6 +12,6 @@ module.exports = event => {
 
   let now = new Date();
 
-  return Math.ceil( ( ( new Date( lastEndTime ) ).getTime() - ( new Date() ).getTime() ) / 1000 / 60 / 60 / 24 );
+  return Math.floor( ( ( new Date( lastEndTime ) ).getTime() - ( new Date() ).getTime() ) / 1000 / 60 / 60 / 24 );
 
 }
