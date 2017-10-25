@@ -1,7 +1,7 @@
 "use strict";
 
-const utils = require( 'utils' );
-const du = require( 'dom-utils' );
+const utils = require( '@openagenda/utils' );
+const du = require( './' );
 
 export default utils.extend( create, {
   switchOn, switchOff, handler
