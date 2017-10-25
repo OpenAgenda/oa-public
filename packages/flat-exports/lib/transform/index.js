@@ -62,7 +62,6 @@ function getFlattener( options ) {
     target: getTarget( 'conditions' ),
     type: 'multilingual'
   }, {
-    field: 'accessibility',
     type: 'accessibility',
     target: getTarget( 'accessibility' )
   }, {

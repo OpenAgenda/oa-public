@@ -2,5 +2,6 @@
 
 module.exports = {
   csv: require( './csv' ),
-  xlsx: require( './xlsx' )
+  xlsx: require( './xlsx' ),
+  ICSStream: require( './ICSStream' )
 }
