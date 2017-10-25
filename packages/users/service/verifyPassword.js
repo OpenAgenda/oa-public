@@ -6,13 +6,23 @@ const config = require( '../config' );
 const crypto = require( './lib/crypto' );
 const _get = require( './lib/get' );
 
-module.exports = function verifyPassword( query, cb ) {
+module.exports = function verifyPassword( query, options, cb ) {
+
+  if ( !cb ) {
+    cb = options;
+    options = {};
+  }
 
   if ( !config ) return cb( 'service not initialized' );
 
+  const params = _.merge( {
+    password: true,
+    get: false
+  }, options );
+
   w( {
     identifier: _.pick( query, [ 'id', 'uid', 'email' ] ),
-    params: { password: true },
+    params,
     query,
     success: false
   } )
@@ -21,7 +31,10 @@ module.exports = function verifyPassword( query, cb ) {
 
     .then( _verifyPassword )
 
-    .done( v => cb( null, v.success ), err => cb( err ) );
+    .done( v => cb( null, v.params.get ? {
+      success: v.success,
+      user: v.user
+    } : v.success ), err => cb( err ) );
 
 };
 

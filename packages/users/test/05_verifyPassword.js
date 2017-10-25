@@ -48,4 +48,18 @@ describe( '.verifyPassword', function () {
 
   } );
 
+  it( 'verify password - with get option to true', done => {
+
+    service.verifyPassword( { email: 'gaetan@cibul.net', password: 'cibulon' }, { get: true }, ( err, result ) => {
+
+      should( err ).equal( null );
+      should( result.success ).equal( true );
+      should( result.user.email ).equal( 'gaetan@cibul.net' );
+
+      done();
+
+    } );
+
+  } );
+
 } );

@@ -113,7 +113,7 @@ describe( '.get', function () {
 
   } );
 
-  it( 'get user with detailed options', done => {
+  it( 'get user with detailed option', done => {
 
     service.get( { id: 2 }, { detailed: true }, ( err, user ) => {
 
@@ -121,6 +121,21 @@ describe( '.get', function () {
       should( user ).have.property( 'api_key' );
       should( user ).have.property( 'facebook_uid' );
       should( user ).have.property( 'last_signin' );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'get user with detailed & camel options', done => {
+
+    service.get( { id: 2 }, { detailed: true, camel: true }, ( err, user ) => {
+
+      should( err ).equal( null );
+      should( user ).have.property( 'apiKey' );
+      should( user ).have.property( 'facebookUid' );
+      should( user ).have.property( 'lastSignin' );
 
       done();
 

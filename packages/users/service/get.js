@@ -18,7 +18,8 @@ module.exports = function get( query, options, cb ) {
   const params = Object.assign( {
     fullImagePath: false,
     detailed: false,
-    removed: false
+    removed: false,
+    camel: false
   }, options );
 
   if ( !config ) return cb( 'service not initialized' );
@@ -69,6 +70,12 @@ function _clean( v ) {
     if ( v.params && v.params.store && v.user && v.user.store ) {
 
       v.user.store = JSON.parse( v.user.store || '{}' );
+
+    }
+
+    if ( v.params && v.params.camel ) {
+
+      v.user = _.mapKeys( v.user, ( v, k ) => _.camelCase( k ) );
 
     }
 

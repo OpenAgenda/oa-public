@@ -14,6 +14,7 @@ const confirmChangeEmail = require( './confirmChangeEmail' );
 const generateApiKey = require( './generateApiKey' );
 const remove = require( './remove' );
 const setNewFlag = require( './setNewFlag' );
+const refreshLastSignin = require( './refreshLastSignin' );
 
 
 module.exports = {
@@ -30,5 +31,6 @@ module.exports = {
   confirmChangeEmail,
   generateApiKey,
   remove,
-  setNewFlag
+  setNewFlag,
+  refreshLastSignin
 };

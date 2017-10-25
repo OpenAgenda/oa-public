@@ -4,6 +4,8 @@ const text = require( 'validators/text' ),
 
   email = require( 'validators/email' ),
 
+  date = require( 'validators/date' ),
+
   number = require( 'validators/number' ),
 
   link = require( 'validators/link' ),
@@ -16,12 +18,13 @@ schema.register( {
   text,
   link,
   number,
-  email
+  email,
+  date
 } );
 
 // define the schema
 
-const protectedFields = [ 'is_activated', 'is_new' ];
+const protectedFields = [ 'is_activated', 'is_new', 'last_signin' ];
 
 const schemaValidator = schema( {
   full_name: {
@@ -58,6 +61,9 @@ const schemaValidator = schema( {
   },
   is_new: {
     type: 'number'
+  },
+  last_signin: {
+    type: 'date'
   },
   is_removed: {
     type: 'number'
