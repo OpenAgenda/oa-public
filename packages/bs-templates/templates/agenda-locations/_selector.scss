@@ -53,13 +53,18 @@
 
     &:hover {
 
-      background: lighten( $oa-gray-light, 17 );
+      background: $oa-blue;
+
+      a, span, div {
+
+        color: $oa-white;
+
+      }
 
     }
 
     a {
 
-      color: $oa-blue;
       padding: 0;
 
     }

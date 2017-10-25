@@ -8372,6 +8372,8 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 
 #event .event-content-section {
   padding: 20px; }
+  #event .event-content-section strong {
+    font-weight: 600; }
 
 #event .event-item-info dt {
   padding: 0 0 5px; }
@@ -10492,9 +10494,10 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 .location-selector .search-item {
   cursor: pointer; }
   .location-selector .search-item:hover {
-    background: #f7f7f7; }
+    background: #41acdd; }
+    .location-selector .search-item:hover a, .location-selector .search-item:hover span, .location-selector .search-item:hover div {
+      color: #fff; }
   .location-selector .search-item a {
-    color: #41acdd;
     padding: 0; }
 
 .location-selector .dropdown-menu {
@@ -12359,7 +12362,8 @@ i.mce-i-backcolor {
   padding-right: 1px; }
 
 .mce-tinymce .mce-edit-area label {
-  color: silver !important; }
+  color: silver !important;
+  pointer-events: none; }
 
 .legacy-event-form .info {
   display: block;

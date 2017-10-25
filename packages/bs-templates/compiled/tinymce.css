@@ -9581,4 +9581,5 @@ i.mce-i-backcolor {
   padding-right: 1px; }
 
 .mce-tinymce .mce-edit-area label {
-  color: silver !important; }
+  color: silver !important;
+  pointer-events: none; }

@@ -7,4 +7,5 @@
 
 .mce-tinymce .mce-edit-area label {
   color: $input-color-placeholder!important;
+  pointer-events: none;
 }
