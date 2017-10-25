@@ -101,8 +101,6 @@ describe( 'event-search - unit: helpers', function() {
 
     it( 'gives the number of days between now and the time the last timing ends', () => {
 
-      console.log( _dateStrFromNow( 5 ) );
-
       let timings = [ {
         start: _dateStrFromNow( 4 ),
         end: _dateStrFromNow( 5 )
