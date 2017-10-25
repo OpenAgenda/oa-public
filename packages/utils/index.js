@@ -1,20 +1,20 @@
 "use strict";
 
 module.exports = {
-  extend,
-  filterByAttr,
-  isArray,
-  size,
-  fZ,
-  unique,
-  forEach, // for some older browsers
-  toCamelCase,
-  toUnderscore,
-  escape,
-  truncate,
-  capitalize,
-  uncapitalize,
-  cleanString,
+  extend: extend,
+  filterByAttr: filterByAttr,
+  isArray: isArray,
+  size: size,
+  fZ: fZ,
+  unique: unique,
+  forEach: forEach,
+  toCamelCase: toCamelCase,
+  toUnderscore: toUnderscore,
+  escape: escape,
+  truncate: truncate,
+  capitalize: capitalize,
+  uncapitalize: uncapitalize,
+  cleanString: cleanString,
   deep: require( './deep' )
 };
 
