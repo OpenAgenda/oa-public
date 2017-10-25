@@ -1,10 +1,18 @@
-.idea
+.idea/
+
 .npmignore
-npm-debug.log
-node_modules
+
+node_modules/
+
 package-lock.json
 yarn.lock
+
+npm-debug.log
 yarn-error.log
 
 # sources are useless in npm package
-components
+components/
+.babelrc
+test/
+
+!build
