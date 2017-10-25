@@ -1,4 +1,4 @@
 node_modules/
 .idea/
-yarn.lock
+npm-debug.log
 yarn-error.log
