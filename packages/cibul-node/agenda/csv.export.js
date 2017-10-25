@@ -5,7 +5,7 @@ const csv = require( 'flat-exports' ).csv();
 const xlsx = require( 'flat-exports' ).xlsx();
 const search = require( '../services/eventSearch' );
 const labels = require( 'labels/event/exportFieldNames' );
-
+const ICSStream = require( 'flat-exports' ).ICSStream;
 
 module.exports = ( parentApp, path ) => {
 
@@ -13,7 +13,7 @@ module.exports = ( parentApp, path ) => {
 
 }
 
-app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx)', async ( req, res, next ) => {
+app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics)', async ( req, res, next ) => {
 
   const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
     aggregations: [ 'languages' ]
@@ -57,5 +57,23 @@ app.get( '/agendas/:agendaUid/events.v2.csv', ( req, res, next ) => {
     'Content-Type' : 'text/csv',
     'Content-disposition' : `attachment; filename="agenda.${req.params.agendaUid}.csv"`
   } );
+
+} );
+
+app.get( '/agendas/:agendaUid/events.v2.ics', ( req, res, next ) => {
+
+  res.writeHead( 200, {
+    'Content-Type' : 'text/calendar'
+  } );
+
+  const stream = new ICSStream( {
+    lang: 'fr',
+    slug: 'la-gargouille',
+    identifier: 123,
+    title: 'La Gargouille',
+    description: 'Evénements à Paris' 
+  } );
+
+  req.stream.pipe( stream ).pipe( res );
 
 } );

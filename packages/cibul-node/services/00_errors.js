@@ -13,8 +13,8 @@ module.exports = handler;
 module.exports.init = c => {
 
   log.setConfig( { 
-    errorsTracking: { 
-      logentriesKey: process.env.NODE_ENV === 'production' ? '98b067ad-0fb6-4047-8e61-be29141004b9' : null 
+    logger: { 
+      token: process.env.NODE_ENV === 'production' ? '98b067ad-0fb6-4047-8e61-be29141004b9' : null
     } 
   } );
 

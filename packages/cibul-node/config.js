@@ -513,6 +513,7 @@ let config = {
         //enable: 'oa:events/interfaces*',
         //enable: 'oa:events*,oa:legacy*',
         //enable: 'oa:mailer/task/eventAggregation*',
+        //enable: 'oa:legacy:*'
         enable: 'oa:*'
       },
       token: false // no need to log dev things
