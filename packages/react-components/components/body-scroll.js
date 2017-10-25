@@ -1,6 +1,6 @@
 "use strict";
 
-const du = require( 'dom-utils' );
+const du = require( '@openagenda/dom-utils' );
 
 module.exports = {
   enable,

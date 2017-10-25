@@ -1,6 +1,6 @@
 "use strict";
 
-var du = require('dom-utils');
+var du = require('@openagenda/dom-utils');
 
 module.exports = {
   enable: enable,

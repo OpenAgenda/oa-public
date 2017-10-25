@@ -3,7 +3,7 @@
 var React = require('react'),
     createReactClass = require('create-react-class'),
     PropTypes = require('prop-types'),
-    monitorBottomHit = require('dom-utils/monitorBottomHit');
+    monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var List = createReactClass({
 
