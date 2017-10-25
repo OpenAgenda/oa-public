@@ -1,6 +1,7 @@
 "use strict";
 
 const app = require( 'express' )();
+const agendas = require( 'agendas' );
 const csv = require( 'flat-exports' ).csv();
 const xlsx = require( 'flat-exports' ).xlsx();
 const search = require( '../services/eventSearch' );
@@ -13,14 +14,36 @@ module.exports = ( parentApp, path ) => {
 
 }
 
+app.get( 
+  '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|rss)', 
+  agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.agendaUid' } } } ),
+  ( req, res, next ) => {
+
+    req.searchQuery = req.query;
+    
+    next();
+
+  }
+);
+
+app.get( '/agendas/:agendaUid/events.v2.rss', ( req, res, next ) => {
+
+  if ( req.searchQuery.sort ) return next();
+
+  req.searchQuery.sort = 'updatedAt.desc';
+
+  next();
+
+} );
+
 app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics)', async ( req, res, next ) => {
 
-  const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
+  const result = await search.agendas( req.params.agendaUid ).search( req.searchQuery, { size: 0 }, {
     aggregations: [ 'languages' ]
   } );
 
   // here options must be separated from 
-  req.stream = await search.agendas( req.params.agendaUid ).stream( req.query, { detailed: true } );
+  req.stream = await search.agendas( req.params.agendaUid ).stream( req.searchQuery, { detailed: true } );
 
   // this should be loaded from some agenda cache
   req.languages = result.aggregations.languages.map( b => b.key );
@@ -40,7 +63,7 @@ app.get( '/agendas/:agendaUid/events.v2.xlsx', ( req, res, next ) => {
 
   res.writeHead( 200, {
     'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'Content-disposition' : `attachment; filename="agenda.${req.params.agendaUid}.xlsx"`
+    'Content-disposition' : `attachment; filename="${req.agenda.slug}.agenda.xlsx"`
   } );
 
 } );
@@ -55,7 +78,7 @@ app.get( '/agendas/:agendaUid/events.v2.csv', ( req, res, next ) => {
 
   res.writeHead( 200, {
     'Content-Type' : 'text/csv',
-    'Content-disposition' : `attachment; filename="agenda.${req.params.agendaUid}.csv"`
+    'Content-disposition' : `attachment; filename="${req.agenda.slug}.agenda.csv"`
   } );
 
 } );
@@ -67,13 +90,20 @@ app.get( '/agendas/:agendaUid/events.v2.ics', ( req, res, next ) => {
   } );
 
   const stream = new ICSStream( {
-    lang: 'fr',
-    slug: 'la-gargouille',
-    identifier: 123,
-    title: 'La Gargouille',
-    description: 'Evénements à Paris' 
+    lang: req.lang,
+    slug: req.agenda.slug,
+    identifier: req.agenda.uid,
+    title: req.agenda.title,
+    description: req.agenda.description
   } );
 
   req.stream.pipe( stream ).pipe( res );
+
+} );
+
+
+app.get( '/agendas/:agendaUid/events.v2.rss', ( req, res, next ) => {
+
+  res.send( 'rss data' );
 
 } );
