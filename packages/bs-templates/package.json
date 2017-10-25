@@ -1,5 +1,5 @@
 {
-  "name": "bs-templates",
+  "name": "@openagenda/bs-templates",
   "version": "1.0.0",
   "description": "openagenda bootstrap templates",
   "main": "server.js",
@@ -7,7 +7,13 @@
     "start": "nodemon server.js",
     "build": "node scripts/build.js",
     "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A"
+    "postmerge": "npm run build && git add -A",
+    "version": "npm run build && git add -A compiled",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:prerelease": "npm version prerelease && npm publish --tag pre"
   },
   "dependencies": {
     "async": "^1.5.0",

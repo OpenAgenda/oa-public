@@ -1,5 +1,5 @@
 *.html
-node_modules/*
-npm-debug.log
 .idea/
-yarn.lock
+node_modules/
+npm-debug.log
+yarn-error.log
