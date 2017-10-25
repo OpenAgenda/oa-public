@@ -87,3 +87,4 @@ var ApiClient = function ApiClient(apiRoot, req) {
 };
 
 module.exports = ApiClient;
+//# sourceMappingURL=ApiClient.js.map

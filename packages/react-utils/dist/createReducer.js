@@ -28,3 +28,4 @@ var _reactRouterRedux = require('react-router-redux');
 var _reduxConnect = require('redux-connect');
 
 module.exports = exports['default'];
+//# sourceMappingURL=createReducer.js.map

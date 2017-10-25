@@ -64,3 +64,4 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
   };
 };
 module.exports = exports['default'];
+//# sourceMappingURL=matchAppMw.js.map

@@ -26,3 +26,4 @@ function nl2br(str) {
   });
 }
 module.exports = exports['default'];
+//# sourceMappingURL=nl2br.js.map

@@ -101,3 +101,4 @@ function promiseMiddleware(client) {
   };
 }
 module.exports = exports['default'];
+//# sourceMappingURL=createStore.js.map

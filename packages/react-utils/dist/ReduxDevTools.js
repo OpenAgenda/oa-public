@@ -32,3 +32,4 @@ exports.default = (0, _reduxDevtools.createDevTools)(_react2.default.createEleme
   _react2.default.createElement(_reduxDevtoolsInspector2.default, { theme: 'nicinabox' })
 ));
 module.exports = exports['default'];
+//# sourceMappingURL=ReduxDevTools.js.map
