@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build/* && babel components -d build -s",
+    "build": "rimraf build && babel components -d build -s",
     "preserve": "npm run-script build",
     "serve": "node test/app",
     "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'",
