@@ -84,7 +84,8 @@
     "redux-mock-store": "^1.0.2",
     "should": "^8.3.1",
     "test-app": "bitbucket:openagenda/test-app#next",
-    "unsubscribed": "bitbucket:openagenda/unsubscribed"
+    "unsubscribed": "bitbucket:openagenda/unsubscribed",
+    "keys": "bitbucket:openagenda/keys"
   },
   "peerDependencies": {
     "react": "^15.5.4"

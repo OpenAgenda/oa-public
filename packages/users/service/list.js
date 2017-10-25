@@ -30,6 +30,12 @@ function validate( args ) {
         list: {
           default: null
         }
+      },
+      id: {
+        type: 'integer',
+        list: {
+          default: null
+        }
       }
     },
     offset: {
@@ -124,6 +130,12 @@ async function list( query, offset, limit, options, cb ) {
 
     if ( query.uid ) {
       baseRequest.whereIn( 'uid', query.uid );
+    }
+
+    if ( query.id ) {
+
+      baseRequest.whereIn( 'id', query.id );
+
     }
 
     if ( options.removed === false ) {
