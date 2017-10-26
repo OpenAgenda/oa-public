@@ -1,22 +1,15 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
 const w = require( 'when' );
-
+const _ = require( 'lodash' );
 const VError = require( 'verror' );
-
+const logger = require( 'basic-logger' );
+const map = require( './databaseFieldMap' );
+const svcUtils = require( 'service-utils' );
+const dbParse = require( 'mysql-utils/mapper' )( map );
+const decorateImage = require( './lib/decorateImage' );
 const validateQuery = require( './validate/listQuery' );
 
-const logger = require( 'basic-logger' );
-
-const map = require( './databaseFieldMap' );
-
-const dbParse = require( 'mysql-utils/mapper' )( map );
-
-const svcUtils = require( 'service-utils' );
-
-const decorateImage = require( './lib/decorateImage' );
 
 let schemas, service, knex, config, log;
 
@@ -26,7 +19,6 @@ function list( query, offset, limit, options, cb ) {
 
   const params = _.defaultsDeep( svcUtils.parseListArguments.apply( null, arguments ), {
     query: {},
-    cleanQuery: null,
     offset: 0,
     limit: 20,
     options: {
@@ -37,66 +29,72 @@ function list( query, offset, limit, options, cb ) {
     }
   } );
 
-  const p = new Promise( ( rs, rj ) => {
+  const p = new Promise( async ( rs, rj ) => {
 
-    if ( !knex ) {
+    if ( !knex ) return rj( new Error( 'events service was not initialized' ) );
 
-      return rj( 'events service was not initialized' );
+    let total, events = [];
+
+    try { 
+
+      const cleanQuery = validateQuery( params.query );
+
+      const knexQuery = _addWheres( knex( schemas.event ), cleanQuery );
+
+      if ( params.options.total ) {
+
+        total = ( await knexQuery.clone().first( [ knex.raw( 'count( id ) as total' ) ] ) ).total;
+
+      }
+
+      events = await _list( knexQuery, params.limit, params.offset, { 
+        order: cleanQuery.order, 
+        internal: params.options.internal, 
+        detailed: params.options.detailed, 
+        useDefaultImage: params.options.useDefaultImage,
+        includePrivate: cleanQuery.private || cleanQuery.private === null,
+        includeDraft: cleanQuery.draft || cleanQuery.draft === null
+      } );
+
+      if ( params.options.detailed ) {
+
+        events = await _detailed( events, params.options );
+
+      }
+
+    } catch ( e ) {
+
+      return rj( e );
 
     }
+      
+    rs( _.pick( { events, total }, params.options.total ? [ 'events', 'total' ] : [ 'events' ] ) );
 
-    w( _.assign( {}, params, {
-      events: [],
-      total: null,
-      knexQuery: knex( schemas.event )
-    } ) )
-
-      .then( _clean )
-
-      .then( _search )
-
-      .then( _total )
-
-      .then( _list )
-
-      .then( params.options.detailed ? _detailed : v => v )
-
-      .done( v => {
-
-        rs( _.pick( v, v.total ? [ 'events', 'total' ] : [ 'events' ] ) );
-
-      }, rj );
-
-    } );
+  } );
 
   if ( !params.cb ) return p;
 
-  w( p ).done( result => params.cb( null, result.events, result.total ), params.cb );
+  w( p ).done( result => process.nextTick( () => { 
+
+    params.cb( null, result.events, result.total ); 
+
+  } ), params.cb );
 
 }
 
 
-function _clean( v ) {
+function _list( knex, limit, offset, { order, internal, detailed, useDefaultImage, includePrivate, includeDraft } ) {
 
-  v.cleanQuery = validateQuery( v.query );
-
-  return v;  
-
-}
-
-
-function _list( v ) {
-
-  // get fields which need to be
+  // get fields which need to be in list
   let listFields = map
 
-    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || v.options.detailed )
+    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || detailed )
 
     .filter( f => {
 
       let internalField = typeof f !== 'string' && f.internal,
 
-        displayInternal = v.options.internal;
+        displayInternal = internal;
 
       return !internalField || ( internalField && displayInternal );
 
@@ -104,40 +102,33 @@ function _list( v ) {
 
     .map( f => typeof f === 'string' ? f : f.db );
 
-  // add private / draft info when is requested in options
-  [ 'private', 'draft' ].forEach( f => {
+  if ( includePrivate ) listFields.push( 'private' );
 
-    if ( v.cleanQuery[ f ] === null || v.cleanQuery[ f ] === true ) listFields.push( f );
+  if ( includeDraft ) listFields.push( 'draft' );
+  
 
-  } );
+  if ( order ) {
 
-  if ( v.cleanQuery.uid ) {
+    let orderParts = order.split( '.' );
 
-    v.knexQuery.where( 'uid', 'in', v.cleanQuery.uid.concat( -1 ) );
-
-  }
-
-  if ( v.cleanQuery.order ) {
-
-    let orderParts = v.cleanQuery.order.split( '.' );
-
-    v.knexQuery.orderBy( _.snakeCase( orderParts[ 0 ] ), orderParts[ 1 ] );
+    knex.orderBy( _.snakeCase( orderParts[ 0 ] ), orderParts[ 1 ] );
 
   }
 
-  return v.knexQuery
-    .select.apply( v.knexQuery, listFields )
-    .limit( v.limit || 0 )
-    .offset( v.offset || 0 )
+  return knex
+    .select.apply( knex, listFields )
+    .limit( limit || 0 )
+    .offset( offset || 0 )
      
     .then( events => {
 
-      v.events = events.map( dbParse.toObj )
+      return events.map( dbParse.toObj )
+
         .map( event => {
 
           event.image = decorateImage( event.image, { 
             imagePath: config.imagePath,
-            useDefaultPath: v.options.useDefaultImage,
+            useDefaultPath: useDefaultImage,
             defaultPath: config.defaultImagePath 
           } );
 
@@ -145,48 +136,47 @@ function _list( v ) {
 
         } );
 
-      return v;
-
     } );
 
 }
 
 
-function _detailed( v ) {
+function _detailed( events, options ) {
 
   if ( !config.interfaces.getOriginAgendas || !config.interfaces.getLocations ) {
 
     log( 'error', 'cannot fetched detailed info: service interfaces are missing' );
 
-    return v;
+    return;
 
   }
 
   return new Promise( ( rs, rj ) => {
 
-    let originAgendaUids = v.events.map( e => e.agendaUid ).filter( uid => uid );
+    let originAgendaUids = events.map( e => e.agendaUid ).filter( uid => uid );
 
-    config.interfaces.getOriginAgendas( originAgendaUids, _.pick( v.options, [ 'internal' ] ), ( err, agendas ) => {
+    config.interfaces.getOriginAgendas( originAgendaUids, _.pick( options, [ 'internal' ] ), ( err, agendas ) => {
 
       if ( err ) {
 
-        return rj( new VError( err, 'could not retrieve origin agendas on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
+        return rj( new VError( err, 'could not retrieve origin agendas on detailed list operation' ) );
 
       }
 
-      v.events = v.events.map( e => _.extend( e, {
+      const detailedEvents = events.map( e => _.extend( e, {
         agenda: _.find( agendas, a => a.uid === e.agendaUid ) || null
       } ) );
 
-      let locationUids = v.events.map( e => e.locationUid ).filter( uid => uid );
+      let locationUids = events.map( e => e.locationUid ).filter( uid => uid );
+
 
       if ( !locationUids.length ) {
 
-        return rs( v );
+        return rs( detailedEvents );
 
       }
 
-      config.interfaces.getLocations( locationUids, _.pick( v.options, [ 'internal' ] ), ( err, locations ) => {
+      config.interfaces.getLocations( locationUids, _.pick( options, [ 'internal' ] ), ( err, locations ) => {
 
         if ( err ) {
 
@@ -194,11 +184,9 @@ function _detailed( v ) {
 
         }
 
-        v.events = v.events.map( e => _.extend( e, {
+        rs( detailedEvents.map( e => _.extend( e, {
           location: _.find( locations, l => l.uid === e.locationUid ) || null
-        } ) );
-
-        rs( v );
+        } ) ) );
 
       } );
 
@@ -210,74 +198,65 @@ function _detailed( v ) {
 
 
 
-function _search( v ) {
+function _addWheres( knex, query ) {
 
   let wheres = {};
 
-  if ( v.cleanQuery.private !== null ) {
+  if ( query.private !== null ) {
 
-    wheres.private = v.cleanQuery.private;
-
-  }
-
-  if ( v.cleanQuery.draft !== null ) {
-
-    wheres.draft = v.cleanQuery.draft;
+    wheres.private = query.private;
 
   }
 
-  if ( v.cleanQuery.ownerUid !== null ) {
+  if ( query.draft !== null ) {
 
-    wheres.owner_uid = v.cleanQuery.ownerUid;
+    wheres.draft = query.draft;
+
+  }
+
+  if ( query.ownerUid !== null ) {
+
+    wheres.owner_uid = query.ownerUid;
 
   }
 
   if ( Object.keys( wheres ).length ) {
 
-    v.knexQuery.where( wheres );
+    knex.where( wheres );
 
   }
 
-  if ( v.cleanQuery.createdAt !== null ) {
+  if ( query.createdAt !== null ) {
 
-    v.knexQuery.where( 'created_at', '>=', v.cleanQuery.createdAt );
+    knex.where( 'created_at', '>=', query.createdAt );
 
   }
 
-  if ( v.cleanQuery.updatedAt !== null ) {
+  if ( query.updatedAt !== null ) {
 
-    v.knexQuery.where( 'updated_at', '>=', v.cleanQuery.updatedAt );
+    knex.where( 'updated_at', '>=', query.updatedAt );
 
   }  
 
-  if ( v.cleanQuery.search !== null ) {
+  if ( query.search !== null ) {
 
-    v.knexQuery.where( 'title', 'like', '%' + v.cleanQuery.search + '%' );
+    knex.where( 'title', 'like', '%' + query.search + '%' );
 
   }
 
-  v.knexQuery.whereNull( 'deleted_at' );
+  if ( query.uid ) {
 
-  return v;
+    knex.where( 'uid', 'in', query.uid.concat( -1 ) );
 
-}
+  }
 
+  knex.whereNull( 'deleted_at' );
 
-function _total( v ) {
-
-  if ( !v.options.total ) return v;
-
-  return knex.transaction( trx => v.knexQuery.clone().count( 'id as total' ).transacting( trx ) )
-
-    .then( result => {
-
-      v.total = result[ 0 ].total;
-
-      return v;
-
-    } );
+  return knex;
 
 }
+
+
 
 
 function init( svc, c ) {
