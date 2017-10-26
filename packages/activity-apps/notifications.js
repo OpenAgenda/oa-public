@@ -55,7 +55,7 @@ module.exports = options => {
   params.res = Object.keys( params.res ).reduce( ( prev, next ) => {
     const actualUrl = params.res[ next ];
     return Object.assign( {}, prev, {
-      [ next ]: actualUrl.includes( '?' ) ? `${actualUrl}&lang=${lang}` : `${actualUrl}?lang=${lang}`
+      [ next ]: actualUrl.indexOf( '?' ) !== -1 ? `${actualUrl}&lang=${lang}` : `${actualUrl}?lang=${lang}`
     } );
   }, {} );
 
