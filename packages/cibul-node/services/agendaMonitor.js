@@ -40,7 +40,7 @@ function agendaSearchResync( agendaUid ) {
 
       if ( err ) return rj( new VError( err, 'could not retrieve agenda %s', agendaUid ) );
 
-      if ( !agenda ) return rj( new Error( 'agenda %s was not found', agendaUid ) );
+      if ( !agenda ) return rj( new VError( 'agenda %s was not found', agendaUid ) );
 
       es.agendas( agenda ).resync( err => {
 
