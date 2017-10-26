@@ -1,26 +1,18 @@
 "use strict";
 
-const utils = require( 'utils' ),
-
-  w = require( 'when' ),
-
-  getConfig = require( './getConfig' ),
-
-  map = require( './databaseFieldMap' ),
-
-  cleanArgs = require( './lib/cleanArgs' ),
-
-  decorateImage = require( './lib/decorateImage' ),
-
-  cleanGetOptions = require( './validate/getOptions' ),
-
-  dbParse = require( 'mysql-utils/mapper' )( map ),
-
-  validate = require( './validate' ),
-
-  sUtils = require( 'service-utils' ),
-
-  logger = require( 'basic-logger' );
+const w = require( 'when' );
+const _ = require( 'lodash' );
+const utils = require( 'utils' );
+const validate = require( './validate' );
+const logger = require( 'basic-logger' );
+const sUtils = require( 'service-utils' );
+const getConfig = require( './getConfig' );
+const map = require( './databaseFieldMap' );
+const cleanArgs = require( './lib/cleanArgs' );
+const parseMarkdown = require( './lib/parseMarkdown' );
+const dbParse = require( 'mysql-utils/mapper' )( map );
+const decorateImage = require( './lib/decorateImage' );
+const cleanGetOptions = require( './validate/getOptions' );
 
 module.exports = utils.extend( get, { init } );
 
@@ -134,6 +126,12 @@ function _transform( v ) {
   let parsed = dbParse.toObj( v.entry, false );
 
   v.data = _applyDefaults( parsed );
+
+  if ( v.html ) {
+
+    v.data.html = _.mapValues( v.data.longDescription, parseMarkdown );
+
+  }
 
   return v;
 

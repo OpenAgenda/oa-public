@@ -205,6 +205,20 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
+  it( 'if detailed and html options are set, longDescription is parsed into html and set in html field', done => {
+
+    svc.list( { uid: 3681352 }, 0, 100, { detailed: true, html: true }, ( err, events ) => {
+
+      events[ 0 ].html.should.eql( {
+        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
+      } );
+
+      done();
+
+    } );    
+
+  } );
+
   it( 'if detailed option is set, additional information is fetched for location and origin agenda', done => {
 
     svc.list( { uid: [ 1517683 ] }, 0, 1, { detailed: true }, ( err, events ) => {

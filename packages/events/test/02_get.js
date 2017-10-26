@@ -161,6 +161,22 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+
+  it( 'get with html option gives html content in html field', done => {
+
+    svc.get( { uid: 3681352 }, { html: true }, ( err, event ) => {
+
+      event.html.should.eql( {
+        fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
+      } );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'if image is provided, image path is placed in base key', done => {
 
     svc.get( { uid: 48641508 }, ( err, event ) => {

@@ -8,7 +8,9 @@ const map = require( './databaseFieldMap' );
 const svcUtils = require( 'service-utils' );
 const dbParse = require( 'mysql-utils/mapper' )( map );
 const decorateImage = require( './lib/decorateImage' );
+const parseMarkdown = require( './lib/parseMarkdown' );
 const validateQuery = require( './validate/listQuery' );
+const validateOptions = require( './validate/listOptions' );
 
 
 let schemas, service, knex, config, log;
@@ -33,15 +35,17 @@ function list( query, offset, limit, options, cb ) {
 
     if ( !knex ) return rj( new Error( 'events service was not initialized' ) );
 
-    let total, events = [];
+    let total, events = [], cleanOptions;
 
     try { 
+
+      cleanOptions = validateOptions( params.options );
 
       const cleanQuery = validateQuery( params.query );
 
       const knexQuery = _addWheres( knex( schemas.event ), cleanQuery );
 
-      if ( params.options.total ) {
+      if ( cleanOptions.total ) {
 
         total = ( await knexQuery.clone().first( [ knex.raw( 'count( id ) as total' ) ] ) ).total;
 
@@ -49,16 +53,16 @@ function list( query, offset, limit, options, cb ) {
 
       events = await _list( knexQuery, params.limit, params.offset, { 
         order: cleanQuery.order, 
-        internal: params.options.internal, 
-        detailed: params.options.detailed, 
+        internal: cleanOptions.internal, 
+        detailed: cleanOptions.detailed, 
         useDefaultImage: params.options.useDefaultImage,
         includePrivate: cleanQuery.private || cleanQuery.private === null,
         includeDraft: cleanQuery.draft || cleanQuery.draft === null
       } );
 
-      if ( params.options.detailed ) {
+      if ( cleanOptions.detailed ) {
 
-        events = await _detailed( events, params.options );
+        events = await _detailed( events, cleanOptions );
 
       }
 
@@ -68,7 +72,7 @@ function list( query, offset, limit, options, cb ) {
 
     }
       
-    rs( _.pick( { events, total }, params.options.total ? [ 'events', 'total' ] : [ 'events' ] ) );
+    rs( _.pick( { events, total }, cleanOptions.total ? [ 'events', 'total' ] : [ 'events' ] ) );
 
   } );
 
@@ -180,13 +184,18 @@ function _detailed( events, options ) {
 
         if ( err ) {
 
-          return rj( new VError( err, 'could not retrieve locations on detailed list operation for query %s', JSON.stringify( v.cleanQuery ) ) );
+          return rj( new VError( err, 'could not retrieve locations on detailed list operation' ) );
 
         }
 
-        rs( detailedEvents.map( e => _.extend( e, {
-          location: _.find( locations, l => l.uid === e.locationUid ) || null
-        } ) ) );
+        rs( detailedEvents.map( e => _.extend( e, 
+          {
+            location: _.find( locations, l => l.uid === e.locationUid ) || null,
+          },
+          options.html ? { 
+            html: _.mapValues( e.longDescription, parseMarkdown ) 
+          } : {}
+        ) ) );
 
       } );
 
