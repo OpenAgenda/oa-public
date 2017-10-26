@@ -167,7 +167,7 @@ module.exports = ( enabledTypes, cb ) => {
         // delegate more to repo-ed services
         require( './general/unsubscribed.front' )( app, '/unsubscribe' );
         require( './agenda/json.export' )( app, '/' );
-        require( './agenda/csv.export' )( app, '/' );
+        require( './agenda/exports' )( app, '/' );
 
       }
 

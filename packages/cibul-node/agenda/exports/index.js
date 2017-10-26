@@ -4,9 +4,10 @@ const app = require( 'express' )();
 const agendas = require( 'agendas' );
 const csv = require( 'flat-exports' ).csv();
 const xlsx = require( 'flat-exports' ).xlsx();
-const search = require( '../services/eventSearch' );
+const search = require( '../../services/eventSearch' );
 const labels = require( 'labels/event/exportFieldNames' );
 const ICSStream = require( 'flat-exports' ).ICSStream;
+const rss = require( './rss' );
 
 module.exports = ( parentApp, path ) => {
 
@@ -16,34 +17,21 @@ module.exports = ( parentApp, path ) => {
 
 app.get( 
   '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|rss)', 
-  agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.agendaUid' } } } ),
-  ( req, res, next ) => {
-
-    req.searchQuery = req.query;
-    
-    next();
-
-  }
+  agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.agendaUid' } } } )
 );
 
-app.get( '/agendas/:agendaUid/events.v2.rss', ( req, res, next ) => {
 
-  if ( req.searchQuery.sort ) return next();
+rss( app, '/agendas/:agendaUid/events.v2.rss' );
 
-  req.searchQuery.sort = 'updatedAt.desc';
-
-  next();
-
-} );
 
 app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics)', async ( req, res, next ) => {
 
-  const result = await search.agendas( req.params.agendaUid ).search( req.searchQuery, { size: 0 }, {
+  const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
     aggregations: [ 'languages' ]
   } );
 
   // here options must be separated from 
-  req.stream = await search.agendas( req.params.agendaUid ).stream( req.searchQuery, { detailed: true } );
+  req.stream = await search.agendas( req.params.agendaUid ).stream( req.query, { detailed: true } );
 
   // this should be loaded from some agenda cache
   req.languages = result.aggregations.languages.map( b => b.key );
@@ -103,6 +91,8 @@ app.get( '/agendas/:agendaUid/events.v2.ics', ( req, res, next ) => {
 
 
 app.get( '/agendas/:agendaUid/events.v2.rss', ( req, res, next ) => {
+
+  // get first?
 
   res.send( 'rss data' );
 

@@ -69,7 +69,7 @@ async function rebuild() {
 
       log( 'info', 'rebuilding event index, offset %s', offset );
 
-      return await events.list( { createdAt }, offset, limit, { detailed: true } ).then( r => r.events );
+      return await events.list( { createdAt }, offset, limit, { detailed: true, html: true } ).then( r => r.events );
 
     }
   } );

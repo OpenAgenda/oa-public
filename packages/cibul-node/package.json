@@ -99,7 +99,7 @@
     "react-router-redux": "^4.0.8",
     "redis": "~0.12",
     "registration": "bitbucket:openagenda/registration",
-    "rss": "1.2.0",
+    "rss": "1.2.2",
     "sessions": "bitbucket:openagenda/sessions",
     "shares": "bitbucket:openagenda/shares",
     "simple-cache": "bitbucket:openagenda/simple-cache",

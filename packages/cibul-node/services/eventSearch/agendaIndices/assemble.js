@@ -45,7 +45,7 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
 
   const customMap = await custom( formSchemaId ).list( { identifier: eventUids } ).then( r => r.items );
 
-  const events = await eventSvc.list( { uid: eventUids }, 0, eventUids.length, { detailed: true } ).then( r => r.events );
+  const events = await eventSvc.list( { uid: eventUids }, 0, eventUids.length, { detailed: true, html: true } ).then( r => r.events );
 
   const missing = [];
 
