@@ -31,7 +31,7 @@ module.exports.init = c => {
       'timezone'
     ],
     detailedSearchIncludes: [
-      'title', 'description', 'keywords', 'dateRange', 'longDescription',
+      'title', 'description', 'keywords', 'dateRange', 'longDescription', 'html',
       'image', 'uid', 'slug', 'agenda', 'creatorUid', 'locationUid',
       'location', 'country', 'timezone', 'registration',
       'timings', 'createdAt', 'updatedAt',
