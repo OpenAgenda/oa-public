@@ -5,7 +5,7 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import Waypoint from 'react-waypoint';
-import Spinner from 'react-form-components/build/Spinner';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
 import * as agendasActions from '../../redux/modules/agendas';
 import { AgendasList, SearchInput } from '../';
 

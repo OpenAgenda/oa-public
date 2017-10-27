@@ -131,3 +131,4 @@ function nextPage(query, page) {
     }
   };
 }
+//# sourceMappingURL=events.js.map

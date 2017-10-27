@@ -156,3 +156,4 @@ var AgendasList = _wrapComponent('AgendasList')((_temp = _class = function (_Com
 
 exports.default = AgendasList;
 module.exports = exports['default'];
+//# sourceMappingURL=AgendasList.js.map

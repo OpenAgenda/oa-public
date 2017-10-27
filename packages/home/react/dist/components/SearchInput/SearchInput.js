@@ -10,7 +10,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -57,3 +57,4 @@ var SearchInput = function SearchInput(_ref) {
 
 exports.default = SearchInput;
 module.exports = exports['default'];
+//# sourceMappingURL=SearchInput.js.map

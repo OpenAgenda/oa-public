@@ -1,11 +1,11 @@
-const testApp = require( 'test-app' );
+const testApp = require( '@openagenda/test-app' );
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const morgan = require( 'morgan' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 const homeMw = require( '../../middleware' );
 const agendasSvc = require( 'agendas/service/test' );
 const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
@@ -13,12 +13,12 @@ const eventsSvc = require( 'events-service/test/service' );
 const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' );
 
-const helpers = require( 'test-app/helpers' );
+const helpers = require( '@openagenda/test-app/helpers' );
 const app = testApp( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false,
   webpack: true

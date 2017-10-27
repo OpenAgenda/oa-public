@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createReducer = require('react-utils/dist/createReducer');
+var _createReducer = require('@openagenda/react-utils/dist/createReducer');
 
 var _createReducer2 = _interopRequireDefault(_createReducer);
 
@@ -36,3 +36,4 @@ exports.default = (0, _createReducer2.default)({
   events: _events2.default
 });
 module.exports = exports['default'];
+//# sourceMappingURL=reducer.js.map

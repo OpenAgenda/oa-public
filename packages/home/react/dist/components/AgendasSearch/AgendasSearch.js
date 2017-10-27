@@ -40,7 +40,7 @@ var _reactWaypoint = require('react-waypoint');
 
 var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -234,3 +234,4 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
 
 exports.default = AgendasSearch;
 module.exports = exports['default'];
+//# sourceMappingURL=AgendasSearch.js.map

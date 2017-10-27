@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Spinner from 'react-components/build/Spinner';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import { AgendasSearch, Welcome } from '../../components';
 
 @connect( state => ({
@@ -43,15 +43,18 @@ export default class Agendas extends Component {
 
     return (
       <div className="actions">
-        {agenda.stakeholder.credential > 1 && <a
+        {[ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
           href={res.moderate.replace( ':slug', agenda.slug )}
           className="text-muted"
         >
-          {agenda.stakeholder.credential == 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
+          {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
         </a>}
-        <a href={res[ 'agendas' ].addEvent.replace( ':slug', agenda.slug )} className="text-muted">
+        {[ 1, 2, 3 ].includes( agenda.stakeholder.credential ) && <a
+          href={res[ 'agendas' ].addEvent.replace( ':slug', agenda.slug )}
+          className="text-muted"
+        >
           {getLabel( 'addAnEvent' )}
-        </a>
+        </a>}
       </div>
     );
   }

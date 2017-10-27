@@ -48,11 +48,11 @@ var _reactWaypoint = require('react-waypoint');
 
 var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
 
-var _Spinner = require('react-components/build/Spinner');
+var _Spinner = require('@openagenda/react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -400,3 +400,4 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
 exports.default = Events;
 ;
 module.exports = exports['default'];
+//# sourceMappingURL=Events.js.map

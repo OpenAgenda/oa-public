@@ -28,11 +28,11 @@ var _reactRedux = require('react-redux');
 
 var _reduxConnect = require('redux-connect');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _home = require('labels/home');
+var _home = require('@openagenda/labels/home');
 
 var _home2 = _interopRequireDefault(_home);
 
@@ -260,3 +260,4 @@ var App = _wrapComponent('App')((_dec = (0, _reduxConnect.asyncConnect)([{
 
 exports.default = App;
 module.exports = exports['default'];
+//# sourceMappingURL=App.js.map

@@ -153,3 +153,4 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
 
 exports.default = Menu;
 module.exports = exports['default'];
+//# sourceMappingURL=Menu.js.map

@@ -34,3 +34,4 @@ function setTab(tab) {
     tab: tab
   };
 }
+//# sourceMappingURL=menu.js.map

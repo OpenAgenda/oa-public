@@ -28,7 +28,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
-var _Spinner = require('react-components/build/Spinner');
+var _Spinner = require('@openagenda/react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -118,17 +118,20 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
       return _react3.default.createElement(
         'div',
         { className: 'actions' },
-        agenda.stakeholder.credential > 1 && _react3.default.createElement(
+        [2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
           'a',
           {
             href: res.moderate.replace(':slug', agenda.slug),
             className: 'text-muted'
           },
-          agenda.stakeholder.credential == 2 ? getLabel('manage') : getLabel('moderate')
+          agenda.stakeholder.credential === 2 ? getLabel('manage') : getLabel('moderate')
         ),
-        _react3.default.createElement(
+        [1, 2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
           'a',
-          { href: res['agendas'].addEvent.replace(':slug', agenda.slug), className: 'text-muted' },
+          {
+            href: res['agendas'].addEvent.replace(':slug', agenda.slug),
+            className: 'text-muted'
+          },
           getLabel('addAnEvent')
         )
       );
@@ -184,3 +187,4 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
 exports.default = Agendas;
 ;
 module.exports = exports['default'];
+//# sourceMappingURL=Agendas.js.map

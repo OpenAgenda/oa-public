@@ -124,3 +124,4 @@ var Welcome = _wrapComponent('Welcome')((_dec = (0, _reactRedux.connect)(functio
 
 exports.default = Welcome;
 module.exports = exports['default'];
+//# sourceMappingURL=Welcome.js.map

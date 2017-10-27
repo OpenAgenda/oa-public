@@ -1,9 +1,9 @@
 const logger = require( 'basic-logger' );
 const range = require( 'date-range' );
 
-const matchAppMw = require( 'react-utils/dist/matchAppMw' );
-const createStore = require( 'react-utils/dist/createStore' );
-const ApiClient = require( 'react-utils/dist/ApiClient' );
+const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
+const createStore = require( '@openagenda/react-utils/dist/createStore' );
+const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
 
 const getRoutes = require( './react/dist/routes' );
 const reducer = require( './react/dist/redux/reducer' );
