@@ -2,7 +2,6 @@
 
 const logger = require( 'basic-logger' );
 const _ = require( 'lodash' );
-const mailer = require( 'mailer' );
 
 let config;
 let log;

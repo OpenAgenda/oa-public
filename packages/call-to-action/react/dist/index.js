@@ -13,27 +13,27 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _merge = require('lodash/merge');
+
+var _merge2 = _interopRequireDefault(_merge);
+
 var _createBrowserHistory = require('history/lib/createBrowserHistory');
 
 var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 
 var _reactRedux = require('react-redux');
 
-var _createStore = require('react-utils/dist/createStore');
+var _createStore = require('@openagenda/react-utils/dist/createStore');
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
-var _ApiClient = require('react-utils/dist/ApiClient');
+var _ApiClient = require('@openagenda/react-utils/dist/ApiClient');
 
 var _ApiClient2 = _interopRequireDefault(_ApiClient);
 
-var _domUtils = require('dom-utils');
+var _domUtils = require('@openagenda/dom-utils');
 
 var _domUtils2 = _interopRequireDefault(_domUtils);
-
-var _merge = require('lodash/merge');
-
-var _merge2 = _interopRequireDefault(_merge);
 
 var _redux = require('redux');
 

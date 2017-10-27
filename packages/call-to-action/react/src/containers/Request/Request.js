@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Modal from 'react-components/build/Modal';
+import Modal from '@openagenda/react-components/build/Modal';
 import { connect } from 'react-redux';
-import makeGetterLabel from 'labels';
-import labels from 'labels/call-to-action';
+import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/call-to-action';
 import * as actions from '../../redux/modules/callToAction';
 import { RequestForm } from '../../components/index';
 

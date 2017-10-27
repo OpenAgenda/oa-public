@@ -17,11 +17,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _MarkdownComponent = require('react-form-components/build/MarkdownComponent');
+var _MarkdownComponent = require('@openagenda/react-form-components/build/MarkdownComponent');
 
 var _MarkdownComponent2 = _interopRequireDefault(_MarkdownComponent);
 

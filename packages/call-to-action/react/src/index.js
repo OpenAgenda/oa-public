@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDom from 'react-dom';
+import merge from 'lodash/merge';
 import createHistory from 'history/lib/createBrowserHistory'
 import { Provider } from 'react-redux';
-import createStore from 'react-utils/dist/createStore';
-import ApiClient from 'react-utils/dist/ApiClient';
-import du from 'dom-utils';
-import merge from 'lodash/merge';
+import createStore from '@openagenda/react-utils/dist/createStore';
+import ApiClient from '@openagenda/react-utils/dist/ApiClient';
+import du from '@openagenda/dom-utils';
 import { bindActionCreators } from 'redux';
 import reducer from './redux/reducer';
 import * as actions from './redux/modules/callToAction';

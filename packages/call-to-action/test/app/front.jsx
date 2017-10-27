@@ -1,4 +1,4 @@
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 import app from '../../react/dist';
 import openRequestForm from '../../react/dist/openRequestForm';
 

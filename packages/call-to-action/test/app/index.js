@@ -5,18 +5,18 @@ const logger = require( 'basic-logger' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
-const sessions = require( 'sessions' );
-const sessionsMw = require( 'sessions/middleware' );
-const mailer = require( 'mailer' );
+const sessions = require( '@openagenda/sessions' );
+const sessionsMw = require( '@openagenda/sessions/middleware' );
+const mailer = require( '@openagenda/mailer' );
 const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' )
 
-const helpers = require( 'test-app/helpers' );
-const app = require( 'test-app' )( {
+const helpers = require( '@openagenda/test-app/helpers' );
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false,
   webpack: true
@@ -41,7 +41,7 @@ app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
 app.use( morgan( 'combined' ) );
 
-app.use( '/js', express.static( path.dirname( require.resolve( 'react-form-components/test/app' ) ) + '/js' ) );
+app.use( '/js', express.static( path.dirname( require.resolve( '@openagenda/react-form-components/test/app' ) ) + '/js' ) );
 
 app.use( ( req, res, next ) => {
   req.user = {

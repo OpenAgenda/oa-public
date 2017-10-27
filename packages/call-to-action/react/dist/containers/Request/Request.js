@@ -24,17 +24,17 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
 var _reactRedux = require('react-redux');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _callToAction = require('labels/call-to-action');
+var _callToAction = require('@openagenda/labels/call-to-action');
 
 var _callToAction2 = _interopRequireDefault(_callToAction);
 
