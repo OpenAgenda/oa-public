@@ -33,9 +33,9 @@
     mysql "^2.10.2"
     when "^3.7.7"
 
-"@openagenda/labels@git+ssh://git@bitbucket.org/openagenda/labels.git", "labels@git+ssh://git@bitbucket.org/openagenda/labels.git":
+"@openagenda/labels@^2.0.2":
   version "2.0.2"
-  resolved "git+ssh://git@bitbucket.org/openagenda/labels.git#da275583da3671db678314ea3565fbda200f2221"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.2.tgz#09e36365712ed3874ce6c9080573ff4ac0d1fd9c"
 
 "@openagenda/react-components@^2.0.1":
   version "2.0.1"
@@ -1154,13 +1154,6 @@ basic-auth@~2.0.0:
   resolved "https://registry.npmjs.org/basic-auth/-/basic-auth-2.0.0.tgz#015db3f353e02e56377755f962742e8981e7bbba"
   dependencies:
     safe-buffer "5.1.1"
-
-basic-logger@^0.4.4:
-  version "0.4.4"
-  resolved "https://registry.npmjs.org/basic-logger/-/basic-logger-0.4.4.tgz#11e17eb04fee3fc252e3d6c6be065e5a8988f807"
-  dependencies:
-    pkginfo "0.2.x"
-    underscore "1.2.x"
 
 "basic-logger@git+ssh://git@bitbucket.org/openagenda/basic-logger.git":
   version "1.0.1"
@@ -4179,10 +4172,6 @@ pkg-dir@^1.0.0:
   dependencies:
     find-up "^1.0.0"
 
-pkginfo@0.2.x:
-  version "0.2.3"
-  resolved "https://registry.npmjs.org/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
-
 pool2@^1.1.0:
   version "1.4.1"
   resolved "https://registry.npmjs.org/pool2/-/pool2-1.4.1.tgz#32fbd4f6a37764599002faeab8a0494a2a76a2d0"
@@ -5556,10 +5545,6 @@ uncontrollable@^4.1.0:
   resolved "https://registry.npmjs.org/uncontrollable/-/uncontrollable-4.1.0.tgz#e0358291252e1865222d90939b19f2f49f81c1a9"
   dependencies:
     invariant "^2.1.0"
-
-underscore@1.2.x:
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/underscore/-/underscore-1.2.4.tgz#e8da6241aa06f64df2473bb2590b8c17c84c3c7e"
 
 "unicode@>= 0.3.1":
   version "10.0.0"

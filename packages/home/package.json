@@ -24,12 +24,11 @@
   "homepage": "https://bitbucket.org/openagenda/home#readme",
   "dependencies": {
     "@openagenda/dom-utils": "^2.0.4",
-    "@openagenda/labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
+    "@openagenda/labels": "^2.0.2",
     "@openagenda/react-components": "^2.0.1",
     "@openagenda/react-form-components": "^2.0.0",
     "@openagenda/react-utils": "^2.0.0",
     "async": "^2.4.0",
-    "basic-logger": "^0.4.4",
     "classnames": "^2.2.5",
     "date-range": "git+ssh://git@bitbucket.org/openagenda/date-range.git",
     "knex": "^0.12.6",

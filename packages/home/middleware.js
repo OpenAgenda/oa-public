@@ -1,4 +1,3 @@
-const logger = require( 'basic-logger' );
 const range = require( 'date-range' );
 
 const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
@@ -10,7 +9,7 @@ const reducer = require( './react/dist/redux/reducer' );
 
 require( 'moment/locale/fr' );
 
-let config, log;
+let config;
 
 module.exports = {
   init,
@@ -27,14 +26,6 @@ module.exports = {
 function init( c, cb ) {
 
   config = c;
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-
-  }
-
-  log = logger( 'home' );
 
   if ( cb ) cb();
 
