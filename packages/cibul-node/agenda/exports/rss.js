@@ -1,7 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const rss = require( 'flat-exports/rss' );
 const search = require( '../../services/eventSearch' );
+const config = require( '../../config' );
 
 module.exports = ( app, route ) => {
 
@@ -10,8 +12,22 @@ module.exports = ( app, route ) => {
     const query = _.extend( { sort: 'updatedAt.desc' }, req.query );
 
     const { events, total } = await search.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
+    
+    const feed = rss( {
+      title: req.agenda.title,
+      description: req.agenda.description,
+      feedURL: config.root + req.originalUrl,
+      siteURL: config.root,
+      imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
+      language: req.lang,
+      pubDate: req.agenda.updatedAt
+    } );
 
-    console.log( total );
+    events.forEach( e => feed.addEvent( e ) );
+
+    res.set( 'Content-Type', 'application/rss+xml' );
+
+    res.send( feed.xml() );
 
   } );
 
