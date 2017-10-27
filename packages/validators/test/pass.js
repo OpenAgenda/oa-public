@@ -26,4 +26,14 @@ describe( 'pass validator', () => {
 
   } );
 
+  it( 'passes default if nothing is given and default is defined', () => {
+
+    validators.pass( {
+      default: 'grut'
+    } )()
+
+      .should.equal( 'grut' );
+
+  } );;
+
 } );

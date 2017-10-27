@@ -8,14 +8,27 @@ export default config => {
   const params = extend( {
     field: undefined,
     type: 'pass',
-    list: false
+    list: false,
+    default: undefined
   }, config || {} ),
 
-  validator = extend( v => v, {
+  validator = extend( validate, {
     type: 'pass',
     field: params.field
   } );
 
   return params.list ? listify( validator, params ) : validator;  
+
+  function validate( v ) {
+
+    if ( v === undefined && params.default !== undefined ) {
+
+      return params.default;
+
+    }
+
+    return v;
+
+  }
 
 }
