@@ -15,6 +15,7 @@
     "flattener": "bitbucket:openagenda/flattener",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.13",
+    "rss": "^1.2.2",
     "stream-utils": "bitbucket:openagenda/stream-utils",
     "validators": "bitbucket:openagenda/validators",
     "xlsx-writestream": "^0.4.0"

@@ -1,0 +1,61 @@
+"use strict";
+
+const _ = require( 'lodash' );
+const schema = require( 'validators/schema' );
+
+schema.register( {
+  integer: require( 'validators/integer' ),
+  text: require( 'validators/text' ),
+  link: require( 'validators/link' )
+} );
+
+module.exports = head => {
+
+  return _.extend( validate( head ), {
+    custom_namespaces: {
+      'ev': 'http://purl.org/rss/1.0/modules/event/'
+    },
+    custom_elements: [ {
+      'ev:startdate': 'Event first start date and time'
+    }, {
+      'ev:enddate': 'Event final end date and time'
+    }, {
+      'ev:location' : 'Name and Address of the location of the event'
+    } ]
+  } );
+
+}
+
+const validate = schema( {
+  title: {
+    type: 'text'
+  },
+  description: {
+    type: 'text',
+    optional: true
+  },
+  feedURL: {
+    type: 'link',
+    optional: false
+  },
+  siteURL: {
+    type: 'link',
+    optional: false
+  },
+  generator: {
+    type: 'text',
+    default: 'OpenAgenda'
+  },
+  imageURL: {
+    type: 'link',
+    optional: true
+  },
+  language: {
+    type: 'text',
+    optional: false
+  },
+  ttl: {
+    type: 'integer',
+    default: 120
+  }
+} );

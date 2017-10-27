@@ -31,7 +31,7 @@
         "type": "thumbnail"
       }
     ],
-    "base": "https://cibul.s3.amazonaws.com/"
+    "base": "https://cibuldev.s3.amazonaws.com/"
   },
   "private": 0,
   "keywords": {
@@ -58,18 +58,18 @@
   "agenda": {
     "uid": 49692513,
     "image": "agenda49692513.jpg",
-    "createdAt": "2015-09-10T09:05:52.000Z",
+    "createdAt": "2015-09-10T07:05:52.000Z",
     "private": 0,
     "official": 1,
     "description": "Découvrez l'actualité culturelle et sportive de Boulogne-Billancourt dans l'e-bb !",
     "title": "Sortir à Boulogne-Billancourt",
     "slug": "sortir-a-boulogne-billancourt",
     "url": "http://www.e-bb.fr/",
-    "updatedAt": "2017-10-09T14:06:52.000Z"
+    "updatedAt": "2017-10-09T12:06:52.000Z"
   },
   "locationUid": 43979991,
   "uid": 67651180,
-  "createdAt": "2017-02-07T08:34:22.000Z",
+  "createdAt": "2017-02-07T07:34:22.000Z",
   "contributor": {
     "uid": 75052324,
     "name": "Kaoré - OpenAgenda"
@@ -1405,6 +1405,9 @@
       "end": "2017-12-21T18:00:00+01:00"
     }
   ],
+  "html": {
+    "fr": "<p>Du 4 mars au 22 décembre 2017, le CNJ vous propose un regard ludique sur le monde de la piraterie grâce à sa nouvelle exposition : A l&#39;abordage !</p>\n<p>Nous vous proposons de découvrir un sélection de jeux associés au monde de la piraterie et des corsaires, dont le plus ancien, <em>Pirate and Traveler</em> de Milton Bradley (USA) date de 1911.</p>\n"
+  },
   "registration": [
     "http://www.cnjeu.fr/"
   ],
@@ -1422,7 +1425,7 @@
     "department": "Hauts-de-Seine",
     "slug": "centre-national-du-jeu501",
     "longitude": 2.237134,
-    "updatedAt": "2016-04-02T07:30:10.000Z"
+    "updatedAt": "2016-04-02T05:30:10.000Z"
   },
   "state": {
     "code": 2
@@ -1432,13 +1435,13 @@
     "min": null,
     "max": null
   },
-  "updatedAt": "2017-02-07T08:34:25.000Z",
+  "updatedAt": "2017-02-07T07:34:25.000Z",
   "lastTiming": {
     "begin": "2017-12-21T16:00:00+01:00",
     "end": "2017-12-21T18:00:00+01:00"
   },
   "nextTiming": {
-    "begin": "2017-10-19T16:00:00+02:00",
-    "end": "2017-10-19T18:00:00+02:00"
+    "begin": "2017-10-27T09:30:00+02:00",
+    "end": "2017-10-27T12:00:00+02:00"
   }
 }
