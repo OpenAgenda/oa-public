@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "minimalistic utilities lib",
   "scripts": {
     "postversion": "git push origin && git push origin --tags",
