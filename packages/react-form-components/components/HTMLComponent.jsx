@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import utils from 'utils';
+import utils from '@openagenda/utils';
 import uniqueLoad from '../lib/uniqueLoad';
 
 export default class HTMLComponent extends Component {

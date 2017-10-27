@@ -17,7 +17,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 

@@ -2,6 +2,55 @@
 # yarn lockfile v1
 
 
+"@openagenda/bs-templates@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.2.tgz#1b2b2fa339933a1a1472d8449b9621a099e35857"
+  dependencies:
+    async "^1.5.0"
+    bootstrap "3.3.5"
+    colors "^1.1.2"
+    ejs "^2.4.1"
+    express "^4.13.3"
+    font-awesome "4.3.0"
+    node-sass "^4.5.2"
+    node-sass-import-once "^1.2.0"
+    reload "^1.1.0"
+    walk "^2.3.9"
+
+"@openagenda/test-app@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.3.tgz#a28447d1eb22c2e9b26e67d59fa51ac2e905bc0a"
+  dependencies:
+    "@openagenda/utils" "^1.0.1"
+    babel-plugin-add-module-exports "^0.2.1"
+    babel-plugin-react-transform "^2.0.2"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-react-display-name "^6.8.0"
+    babel-plugin-transform-runtime "^6.9.0"
+    babel-preset-stage-0 "^6.5.0"
+    babel-register "^6.9.0"
+    babelify "^7.3.0"
+    bootstrap "3.3.5"
+    browserify "12.0.1"
+    express "^4.13.3"
+    font-awesome "4.3.0"
+    node-sass "^3.4.2"
+    node-watch "^0.3.5"
+    react-dom "^15.5.4"
+    react-transform-catch-errors "^1.0.2"
+    redbox-react "^1.2.6"
+    tmp "^0.0.28"
+    watchify "^3.7.0"
+    webpack "^1.14.0"
+
+"@openagenda/utils@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.1.tgz#0b606e8209e60d1ba37b4247efe979053511f3ff"
+  dependencies:
+    qs "^6.1.0"
+    when "^3.7.8"
+    xhr "^2.2.2"
+
 JSONStream@^1.0.3:
   version "1.3.1"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.1.tgz#707f761e01dae9e16f1bcf93703b78c70966579a"
@@ -1241,21 +1290,6 @@ browserify@^14.0.0:
     util "~0.10.1"
     vm-browserify "~0.0.1"
     xtend "^4.0.0"
-
-"bs-templates@git+ssh://git@bitbucket.org/openagenda/bs-templates.git":
-  version "2.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/bs-templates.git#7f0fdc2d2fbfb1c2bd367380752459d74427706d"
-  dependencies:
-    async "^1.5.0"
-    bootstrap "3.3.5"
-    colors "^1.1.2"
-    ejs "^2.4.1"
-    express "^4.13.3"
-    font-awesome "4.3.0"
-    node-sass "^4.5.2"
-    node-sass-import-once "^1.2.0"
-    reload "^1.1.0"
-    walk "^2.3.9"
 
 buffer-xor@^1.0.3:
   version "1.0.3"
@@ -2543,8 +2577,8 @@ is-binary-path@^1.0.0:
     binary-extensions "^1.0.0"
 
 is-buffer@^1.1.0, is-buffer@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.5.tgz#1f3b26ef613b214b88cbca23cc6c01d87961eecc"
+  version "1.1.6"
+  resolved "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
 is-builtin-module@^1.0.0:
   version "1.0.0"
@@ -3615,15 +3649,6 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@16:
-  version "16.0.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.0.0.tgz#9cc3079c3dcd70d4c6e01b84aab2a7e34c303f58"
-  dependencies:
-    fbjs "^0.8.16"
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.0"
-
 react-dom@^15.5.4:
   version "15.6.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
@@ -3632,6 +3657,15 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "^15.5.10"
+
+react-dom@^16.0.0:
+  version "16.0.0"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.0.0.tgz#9cc3079c3dcd70d4c6e01b84aab2a7e34c303f58"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react-input-autosize@^2.0.1:
   version "2.0.1"
@@ -3663,7 +3697,7 @@ react-transform-catch-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
 
-react@16:
+react@^16.0.0:
   version "16.0.0"
   resolved "https://registry.npmjs.org/react/-/react-16.0.0.tgz#ce7df8f1941b036f02b2cca9dbd0cb1f0e855e2d"
   dependencies:
@@ -4103,8 +4137,8 @@ sntp@1.x.x:
     hoek "2.x.x"
 
 sntp@2.x.x:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/sntp/-/sntp-2.0.2.tgz#5064110f0af85f7cfdb7d6b67a40028ce52b4b2b"
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/sntp/-/sntp-2.1.0.tgz#2c6cec14fedc2222739caf9b5c3d85d1cc5a2cc8"
   dependencies:
     hoek "4.x.x"
 
@@ -4341,32 +4375,6 @@ tar@^2.0.0, tar@^2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-"test-app@git+ssh://git@bitbucket.org/openagenda/test-app.git":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/test-app.git#5a1bae2a3073905492eb50e5284b8248627d5046"
-  dependencies:
-    babel-plugin-add-module-exports "^0.2.1"
-    babel-plugin-react-transform "^2.0.2"
-    babel-plugin-transform-decorators-legacy "^1.3.4"
-    babel-plugin-transform-react-display-name "^6.8.0"
-    babel-plugin-transform-runtime "^6.9.0"
-    babel-preset-stage-0 "^6.5.0"
-    babel-register "^6.9.0"
-    babelify "^7.3.0"
-    bootstrap "3.3.5"
-    browserify "12.0.1"
-    express "^4.13.3"
-    font-awesome "4.3.0"
-    node-sass "^3.4.2"
-    node-watch "^0.3.5"
-    react-dom "^15.5.4"
-    react-transform-catch-errors "^1.0.2"
-    redbox-react "^1.2.6"
-    tmp "^0.0.28"
-    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    watchify "^3.7.0"
-    webpack "^1.14.0"
-
 through2@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -4563,8 +4571,8 @@ validator@^7.0.0:
   resolved "https://registry.npmjs.org/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
 
 "validators@git+ssh://git@bitbucket.org/openagenda/validators.git":
-  version "1.3.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#a2e6c1bab6203bab811ddf5d216c1c77ba86cb02"
+  version "1.3.2"
+  resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#8a84444eb7a9313d7fa8c1593ec7638ba4059a7a"
   dependencies:
     lodash "^4.17.2"
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"

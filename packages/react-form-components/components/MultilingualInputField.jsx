@@ -10,7 +10,7 @@ makeLabelGetter = require( '../lib/makeLabelGetter' ),
 
 labels = require( '../labels' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 module.exports = createReactClass( {
 
