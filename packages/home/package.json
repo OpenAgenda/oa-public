@@ -1,5 +1,5 @@
 {
-  "name": "home",
+  "name": "@openagenda/home",
   "version": "1.0.0",
   "description": "Oh la home",
   "main": "service/index.js",
@@ -13,7 +13,14 @@
     "serve": "node test/app",
     "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
     "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A"
+    "postmerge": "npm run build && git add -A",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A react/dist",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
   },
   "repository": {
     "type": "git",
