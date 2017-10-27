@@ -13,4 +13,6 @@ yarn-error.log
 # sources are useless in npm package
 components/
 .babelrc
-test/
+
+# test folder are usefull for expose static files in other test apps
+#test/
