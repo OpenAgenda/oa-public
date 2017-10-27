@@ -9,21 +9,29 @@ module.exports = ( app, route ) => {
 
   app.get( route, async ( req, res, next ) => {
 
-    const query = _.extend( { sort: 'updatedAt.desc' }, req.query );
+    try {
 
-    const { events, total } = await search.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
-    
-    const feed = rss( {
-      title: req.agenda.title,
-      description: req.agenda.description,
-      feedURL: config.root + req.originalUrl,
-      siteURL: config.root,
-      imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
-      language: req.lang,
-      pubDate: req.agenda.updatedAt
-    } );
+      const query = _.extend( { sort: 'updatedAt.desc' }, req.query );
 
-    events.forEach( e => feed.addEvent( e ) );
+      const { events, total } = await search.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
+      
+      const feed = rss( {
+        title: req.agenda.title,
+        description: req.agenda.description,
+        feedURL: config.root + req.originalUrl,
+        siteURL: config.root,
+        imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
+        language: req.lang,
+        pubDate: req.agenda.updatedAt
+      } );
+
+      events.forEach( e => feed.addEvent( e ) );
+
+    } catch ( err ) {
+
+      return next( err );
+
+    }
 
     res.set( 'Content-Type', 'application/rss+xml' );
 
