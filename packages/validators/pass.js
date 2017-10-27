@@ -19,16 +19,25 @@ exports['default'] = function (config) {
   var params = (0, _extend2['default'])({
     field: undefined,
     type: 'pass',
-    list: false
+    list: false,
+    'default': undefined
   }, config || {}),
-      validator = (0, _extend2['default'])(function (v) {
-    return v;
-  }, {
+      validator = (0, _extend2['default'])(validate, {
     type: 'pass',
     field: params.field
   });
 
   return params.list ? (0, _listify2['default'])(validator, params) : validator;
+
+  function validate(v) {
+
+    if (v === undefined && params['default'] !== undefined) {
+
+      return params['default'];
+    }
+
+    return v;
+  }
 };
 
 module.exports = exports['default'];
