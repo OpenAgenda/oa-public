@@ -41,3 +41,4 @@ exports['default'] = function (config) {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=pass.js.map

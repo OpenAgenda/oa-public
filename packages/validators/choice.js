@@ -102,3 +102,4 @@ function _getMinMaxError(params, origin, code) {
   }
 }
 module.exports = exports['default'];
+//# sourceMappingURL=choice.js.map

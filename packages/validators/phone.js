@@ -15,3 +15,4 @@ module.exports = function (config) {
     type: 'phone'
   });
 };
+//# sourceMappingURL=phone.js.map

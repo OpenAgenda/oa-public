@@ -103,3 +103,4 @@ module.exports = function (config) {
 
   return validator;
 };
+//# sourceMappingURL=link.js.map

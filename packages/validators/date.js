@@ -1,6 +1,6 @@
 "use strict";
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -111,3 +111,4 @@ module.exports = function (config) {
     return clean;
   }
 };
+//# sourceMappingURL=date.js.map

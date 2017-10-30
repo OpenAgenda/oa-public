@@ -68,3 +68,4 @@ exports['default'] = function (config) {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=email.js.map

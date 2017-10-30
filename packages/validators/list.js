@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('utils');
+var utils = require('@openagenda/utils');
 
 /**
  * processes an array of values of potentially different
@@ -161,3 +161,4 @@ module.exports = function (config, validates) {
     return validateItem(item, true);
   }
 };
+//# sourceMappingURL=list.js.map

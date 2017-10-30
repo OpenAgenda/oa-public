@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('utils'),
+var utils = require('@openagenda/utils'),
     text = require('./text');
 
 module.exports = function (config) {
@@ -77,3 +77,4 @@ module.exports = function (config) {
     return clean;
   }
 };
+//# sourceMappingURL=multilingual.js.map

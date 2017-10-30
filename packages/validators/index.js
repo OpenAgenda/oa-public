@@ -21,3 +21,4 @@ module.exports = {
   regex: require('./regex'),
   choice: require('./choice')
 };
+//# sourceMappingURL=index.js.map

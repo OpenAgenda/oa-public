@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require('utils');
+var utils = require('@openagenda/utils');
 
 module.exports = function (config) {
 
@@ -93,3 +93,4 @@ module.exports = function (config) {
 
   return validator;
 };
+//# sourceMappingURL=regex.js.map

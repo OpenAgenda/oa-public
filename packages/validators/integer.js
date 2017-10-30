@@ -77,3 +77,4 @@ exports['default'] = function (config) {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=integer.js.map

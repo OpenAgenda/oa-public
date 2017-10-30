@@ -2,7 +2,7 @@
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -66,3 +66,4 @@ function _isLeaf(node) {
 
   return is;
 }
+//# sourceMappingURL=clean.js.map

@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -67,3 +67,4 @@ exports['default'] = function (validators, options) {
 };
 
 module.exports = exports['default'];
+//# sourceMappingURL=set.js.map

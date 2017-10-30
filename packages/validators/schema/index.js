@@ -8,7 +8,7 @@ var _isArray = require('lodash/isArray');
 
 var _isArray2 = _interopRequireDefault(_isArray);
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -162,3 +162,4 @@ function register(v) {
 
   _root2['default'].registerValidators(registeredValidators);
 }
+//# sourceMappingURL=index.js.map

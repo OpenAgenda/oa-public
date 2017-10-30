@@ -111,3 +111,4 @@ function setLang(lang) {
 
   presetLang = lang;
 }
+//# sourceMappingURL=labels.js.map
