@@ -105,6 +105,13 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
           params: [ agendaId, offset ]
         }
 
+      } else if ( oldState === 2 ) {
+
+        query = {
+          str: 'select * from review_article where is_published = 1 and review_id = ? limit ?, 100',
+          params: [ agendaId, offset ]
+        }
+
       }
 
       model.lib.query( query.str, query.params, ( err, ras ) => {

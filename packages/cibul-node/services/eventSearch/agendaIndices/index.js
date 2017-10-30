@@ -76,7 +76,7 @@ async function _add( searchIndex, agendaUid, eventUid, state, options = {} ) {
 
 }
 
-async function _update( searchIndex, agendaUid, eventUid, options = {} ) {
+async function _update( searchIndex, agendaUid, eventUid, state, options = {} ) {
 
   if ( !await searchIndex.exists() ) {
 
@@ -88,7 +88,7 @@ async function _update( searchIndex, agendaUid, eventUid, options = {} ) {
 
   log( 'info', 'updating event %s on agenda index %s', eventUid, searchIndex.name );
 
-  const decorated = await assemble.item( { agendaUid, eventUid } );
+  const decorated = await assemble.item( { agendaUid, eventUid, state } );
 
   return await searchIndex.update( { uid: eventUid }, decorated, validateOptions( options ) );
 

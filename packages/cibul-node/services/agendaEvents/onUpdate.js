@@ -9,6 +9,6 @@ module.exports = ( before, after, context ) => {
 
   // use context.userUid. Will be null when nothing was specified at update
   
-  eventSearch.agendas( after.agendaUid ).update( after.eventUid );
+  eventSearch.agendas( after.agendaUid ).update( after.eventUid, after.state );
 
 }
