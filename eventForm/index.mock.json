@@ -523,6 +523,7 @@
           "fr" : "Détail des conditions",
           "en" : "Condition details"
         },
+        "optional": false,
         "placeholder" : {
           "fr" : "Le prix",
           "en" : "The price."

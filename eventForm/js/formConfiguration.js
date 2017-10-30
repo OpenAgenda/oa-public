@@ -46,7 +46,7 @@ module.exports = function( formConfiguration, options ) {
 
     function get( namespace, defaultValue ) {
 
-      return _.get( configuration[ namespace ], defaultValue );
+      return _.get( configuration, namespace, defaultValue );
 
     }
 
