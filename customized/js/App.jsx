@@ -1,6 +1,6 @@
 "use strict";
 
-import openRequestForm from 'call-to-action/react/dist/openRequestForm'
+import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
 
 const React = require( 'react' ),
 

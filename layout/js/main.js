@@ -30,7 +30,7 @@ var utils = require( 'utils' ),
 
   notifications = require( 'activity-apps/notifications' ),
 
-  callToAction = require( 'call-to-action/react/dist' ),
+  callToAction = require( '@openagenda/call-to-action/react/dist' ),
 
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 

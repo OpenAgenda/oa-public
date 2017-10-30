@@ -24,6 +24,7 @@
     }
   },
   "dependencies": {
+    "@openagenda/call-to-action": "^2.0.0",
     "activity-apps": "git+ssh://git@bitbucket.org/openagenda/activity-apps.git",
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org/openagenda/agenda-categories.git",
@@ -53,7 +54,6 @@
     "better-npm-run": "0.0.8",
     "browserify": "6.3.3",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
-    "call-to-action": "git+ssh://git@bitbucket.org/openagenda/call-to-action.git",
     "create-react-class": "^15.5.2",
     "d3": "3.5.6",
     "debug": "2.1.0",
