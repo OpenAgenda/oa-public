@@ -4,7 +4,9 @@ const labels = require( 'labels/auth/messages' ),
 
   getLabel = require( 'labels' )( labels ),
 
-  userSvc = require( '../../services/user' );
+  inAppUserSvc = require( '../../services/user' ),
+
+  userSvc = require( 'users' );
 
 var cmn = require( '../../lib/commons-app' ),
 
@@ -103,7 +105,7 @@ function init( service ) {
 
       }
 
-      userSvc.auth[ service ]( values.profile.id, loadOptionals( values.req ), function( err, user, data ) {
+      inAppUserSvc.auth[ service ]( values.profile.id, loadOptionals( values.req ), function( err, user, data ) {
 
         if ( err ) values.err = err;
 
@@ -176,7 +178,7 @@ function init( service ) {
 
       }
 
-      userSvc.create[ service ]( {
+      inAppUserSvc.create[ service ]( {
         id: values.profile.id,
         email: values.profile.email,
         fullName: fullName,
@@ -296,11 +298,11 @@ function signin( values ) {
     
     var redirectUrl;
 
-    user.refreshLastSignin( ( err ) => {
+    userSvc.refreshLastSignin( { uid: user.uid }, ( err, success ) => {
 
       if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
 
-    });
+    } );
 
     if ( req.query.redirect ) {
 

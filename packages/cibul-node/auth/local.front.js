@@ -326,15 +326,11 @@ function activate( req, res ) {
 
 function _handleSigninRequest( req, email, password, cb ) {
 
-  // ***********************************************************************
-  // cannot use this as long as refreshLastSignin is not provided by service
-  // ***********************************************************************
-  // 
-  /*userSvc.verifyPassword( { email, password }, ( err, validPassword ) => {
+  userSvc.verifyPassword( { email, password }, { get: true }, ( err, result ) => {
 
     if ( err ) return cb( err );
 
-    if ( !validPassword ) {
+    if ( !result.success ) {
 
       return cb( null, null, {
         email,
@@ -347,20 +343,15 @@ function _handleSigninRequest( req, email, password, cb ) {
 
     }
 
-    userSvc.get( { email }, { internal: true, detailed: true }, ( err, user ) => {
+    userSvc.get( { email }, { internal: true, detailed: true, camel: true }, ( err, user ) => {
 
       if ( err ) return cb( err );
-
-      // values of user should be camel-cased
-      user.isActivated = !!user.is_activated;
 
       cb( null, user, { email, password, user } );
 
     } );
 
-  } ); */
-
-  legacyUserSvc.auth( email, password, cb );
+  } );
 
 }
 
