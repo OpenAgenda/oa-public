@@ -1,10 +1,13 @@
 "use strict";
 
-var utils = require( 'utils' );
+const _ = {
+  get: require( 'lodash/get' ),
+  extend: require( 'lodash/extend' )
+};
 
 module.exports = function( formConfiguration, options ) {
 
-  var params = utils.extend( {
+  var params = _.extend( {
     lang: 'en',
   }, options );
 
@@ -16,12 +19,13 @@ module.exports = function( formConfiguration, options ) {
 
     var configuration = getConfiguration();
 
-    return utils.extend( {}, configuration, {
+    return _.extend( {}, configuration, {
       getLabel: getLabel,
       getPlaceholder: getPlaceholder,
       getInfo: getInfo,
       display: display,
-      fixed: fixed 
+      fixed: fixed,
+      get: get
     } );
 
     function getConfiguration() {
@@ -37,6 +41,12 @@ module.exports = function( formConfiguration, options ) {
       if ( !fieldConfiguration.length ) return false;
 
       return fieldConfiguration[ 0 ];
+
+    }
+
+    function get( namespace, defaultValue ) {
+
+      return _.get( configuration[ namespace ], defaultValue );
 
     }
 

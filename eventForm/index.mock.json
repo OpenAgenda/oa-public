@@ -452,7 +452,8 @@
         "placeholder" : {
           "fr" : "placeholder personnalisé",
           "en" : "customized placeholder"
-        }
+        },
+        "optional" : false
       }, {
         "name" : "description",
         "fixed" : {

@@ -88,25 +88,21 @@ module.exports = createReactClass({
 
   render: function() {
 
-    var self = this;
-
-    console.log( this.props.info );
-
     return (
       <div className="accessibility">
-        <div onClick={self.onEnabled} className="checkbox">
-          <label><input type="checkbox" name="accessibility" checked={self.state.enabled} /> {this.props.label[ this.props.labelsLang ]}</label>
+        <div onClick={this.onEnabled} className="checkbox">
+          <label><input type="checkbox" name="accessibility" checked={this.state.enabled} /> {this.props.label[ this.props.labelsLang ]}</label>
           {this.props.info ? <span className="info">{this.props.info[ this.props.labelsLang ]}</span> : null }
         </div>
         <ul className="list-unstyled">
           {this.types.map( (type, idx) => {
             return <AccessibilityItem 
               key={idx}
-              label={type.label[self.props.labelsLang]}
-              checked={self.props.value.indexOf(type.code)!==-1}
+              label={type.label[this.props.labelsLang]}
+              checked={this.props.value.indexOf(type.code)!==-1}
               code={type.code}
-              onClick={self.onClick( type )}
-              enabled={self.state.enabled}
+              onClick={this.onClick( type )}
+              enabled={this.state.enabled}
             />;
           })}
         </ul>
