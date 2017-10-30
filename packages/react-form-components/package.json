@@ -6,12 +6,14 @@
   "author": "",
   "license": "ISC",
   "scripts": {
+    "test": "mocha",
     "build": "rimraf build && babel components -d build",
     "preserve": "npm run build",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore build --ignore test/app/js/tinymce --ext js,jsx run-script serve",
     "precommit": "npm run build && git add -A",
     "postmerge": "npm run build && git add -A",
+    "preversion": "npm test",
     "version": "npm run build && git add -A build",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
@@ -19,9 +21,13 @@
     "release:major": "npm version major && npm publish",
     "release:next": "npm version prerelease && npm publish --tag next"
   },
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "15 || 16",
+    "react-dom": "15 || 16"
+  },
   "dependencies": {
     "@openagenda/utils": "^1.0.1",
+    "@openagenda/validators": "^2.0.0",
     "create-react-class": "^15.5.3",
     "immutability-helper": "^2.2.0",
     "languages": "0.1.3",
@@ -31,9 +37,7 @@
     "react-select": "^1.0.0-rc.4",
     "react-tagsinput": "^3.16.1",
     "spin.js": "2.3.2",
-    "spinner": "git+ssh://git@bitbucket.org/openagenda/spinner.git",
-    "to-markdown": "^3.0.1",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git"
+    "to-markdown": "^3.0.1"
   },
   "devDependencies": {
     "@openagenda/bs-templates": "^2.0.2",

@@ -1,6 +1,6 @@
 "use strict";
 
-var validators = require( 'validators' );
+var validators = require( '@openagenda/validators' );
 
 validators.groupTags = require( './groupTags' );
 

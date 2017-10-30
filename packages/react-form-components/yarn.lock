@@ -51,6 +51,22 @@
     when "^3.7.8"
     xhr "^2.2.2"
 
+"@openagenda/utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.2.tgz#a2299c4c0484f565e640084b6b12cf749dbe60fd"
+  dependencies:
+    qs "^6.1.0"
+    when "^3.7.8"
+    xhr "^2.2.2"
+
+"@openagenda/validators@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/validators/-/validators-2.0.0.tgz#e3365b0bfd347eb901cf390fd53f15af3dff6b90"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    lodash "^4.17.2"
+    validator "^7.0.0"
+
 JSONStream@^1.0.3:
   version "1.3.1"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.1.tgz#707f761e01dae9e16f1bcf93703b78c70966579a"
@@ -4196,15 +4212,6 @@ spin.js@2.3.2:
   version "2.3.2"
   resolved "https://registry.npmjs.org/spin.js/-/spin.js-2.3.2.tgz#6caa56d520673450fd5cfbc6971e6d0772c37a1a"
 
-"spinner@git+ssh://git@bitbucket.org/openagenda/spinner.git":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/spinner.git#5bf688d923f233b2017e12b5e0fb8ffc8ba62236"
-  dependencies:
-    create-react-class "^15.5.3"
-    prop-types "^15.5.8"
-    react-dom "^15.5.4"
-    spin.js "2.3.2"
-
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -4541,14 +4548,6 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-"utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
-  version "1.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/utils.git#3c6d84bbd95139b7cb6412ae951e709513f5131b"
-  dependencies:
-    qs "^6.1.0"
-    when "^3.7.8"
-    xhr "^2.2.2"
-
 uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
@@ -4569,14 +4568,6 @@ validate-npm-package-license@^3.0.1:
 validator@^7.0.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
-
-"validators@git+ssh://git@bitbucket.org/openagenda/validators.git":
-  version "1.3.2"
-  resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#8a84444eb7a9313d7fa8c1593ec7638ba4059a7a"
-  dependencies:
-    lodash "^4.17.2"
-    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    validator "^7.0.0"
 
 vary@~1.1.0, vary@~1.1.2:
   version "1.1.2"
