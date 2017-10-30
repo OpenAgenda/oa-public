@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-labels = require( '../' ).labels;
+labels = require( '../src' ).labels;
 
 describe( 'validator labels', () => {
 

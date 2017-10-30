@@ -1,10 +1,10 @@
 "use strict";
 
-const validators = require( '../' ),
+const validators = require( '../src' ),
 
 should = require( 'should' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 describe( 'object validator', () => {
 

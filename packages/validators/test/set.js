@@ -1,6 +1,6 @@
 "use strict";
 
-var validators = require( '../' ),
+var validators = require( '../src' ),
 
 should = require( 'should' );
 

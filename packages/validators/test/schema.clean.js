@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-clean = require( '../schema/clean' );
+clean = require( '../src/schema/clean' );
 
 describe( 'schema clean', () => {
 

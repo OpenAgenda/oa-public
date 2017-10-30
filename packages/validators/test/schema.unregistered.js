@@ -2,7 +2,7 @@
 
 require( 'source-map-support' ).install();
 
-const validators = require( '../' ),
+const validators = require( '../src' ),
 
   schema = require( '../src/schema' ),
 

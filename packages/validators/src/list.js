@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require( 'utils' );
+var utils = require( '@openagenda/utils' );
 
 /**
  * processes an array of values of potentially different

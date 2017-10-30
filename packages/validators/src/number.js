@@ -1,6 +1,6 @@
 "use strict";
 
-import utils from 'utils';
+import utils from '@openagenda/utils';
 
 /*
 integer: require( 'react-form-components/validators/integer' )

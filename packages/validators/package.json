@@ -1,5 +1,5 @@
 {
-  "name": "validators",
+  "name": "@openagenda/validators",
   "version": "1.3.2",
   "description": "",
   "main": "index.js",
@@ -10,22 +10,28 @@
     }
   },
   "scripts": {
-    "build": "babel src -d ./",
+    "build": "babel src -d ./ -s",
     "test": "mocha --compilers js:babel-core/register",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openagenda/utils": "^1.0.2",
     "lodash": "^4.17.2",
-    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "validator": "^7.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",

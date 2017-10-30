@@ -1,6 +1,6 @@
 "use strict";
 
-import utils from 'utils'
+import utils from '@openagenda/utils'
 
 const defaults = {
   field: false, // optional, name of associated field

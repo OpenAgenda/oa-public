@@ -8,7 +8,7 @@ schema = require( '../src/schema' ),
 
 should = require( 'should' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 describe( 'schema validator', () => {
 

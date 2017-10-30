@@ -1,6 +1,6 @@
 "use strict"; // ES5
 
-var utils = require( 'utils' );
+var utils = require( '@openagenda/utils' );
 
 module.exports = function( config ) {
 

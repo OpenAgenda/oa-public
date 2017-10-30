@@ -1,6 +1,6 @@
 "use strict";
 
-import utils from 'utils';
+import utils from '@openagenda/utils';
 import listify from './listify';
 
 const MODES = {

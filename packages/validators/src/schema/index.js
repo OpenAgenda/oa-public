@@ -2,7 +2,7 @@
 
 import extend from 'lodash/extend';
 import isArray from 'lodash/isArray';
-import utils from 'utils';
+import utils from '@openagenda/utils';
 import listify from '../listify';
 import r from './root';
 import cleanSchema from './clean';
