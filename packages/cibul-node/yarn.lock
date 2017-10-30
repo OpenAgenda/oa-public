@@ -25,7 +25,6 @@
 
 "@openagenda/call-to-action@^2.0.0", "@openagenda/call-to-action@bitbucket:openagenda/call-to-action":
   version "2.0.1"
-  uid "07d70048de7e0532883b9114534cdf791709c745"
   resolved "git+ssh://git@bitbucket.org/openagenda/call-to-action.git#07d70048de7e0532883b9114534cdf791709c745"
   dependencies:
     "@openagenda/dom-utils" "^2.0.4"
@@ -2436,13 +2435,13 @@ chokidar@^1.6.1, chokidar@^1.7.0:
 
 "cibulModel@bitbucket:openagenda/cibulmodel":
   version "0.0.6"
-  resolved "git+ssh://git@bitbucket.org/openagenda/cibulmodel.git#42a8b59122e5531dfe247220c5de2757044706a1"
+  resolved "git+ssh://git@bitbucket.org/openagenda/cibulmodel.git#668b962bbd7047c3f2e300e94986f3a250334256"
   dependencies:
     async "~0.9"
     debug "2.1.3"
     deep-extend "~0.2"
     lodash "^4.17.4"
-    marked "0.3.5"
+    marked "0.3.6"
     moment "2.8.3"
     moment-timezone "^0.5.3"
     mysql "2.6.2"
@@ -2454,7 +2453,7 @@ chokidar@^1.6.1, chokidar@^1.7.0:
     validators "git+ssh://git@bitbucket.org:openagenda/validators.git"
     when "~3.4"
 
-"cibulTemplates@bitbucket:openagenda/cibul-templates", "cibulTemplates@git+ssh://git@bitbucket.org/openagenda/cibul-templates.git":
+"cibulTemplates@bitbucket:openagenda/cibul-templates":
   version "0.0.3"
   resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#5f46c34df62b6df97c4e10cd947a0fda1db80ed8"
   dependencies:
@@ -4378,7 +4377,6 @@ findup-sync@~0.2.0:
 
 "fixtures@git+ssh://git@bitbucket.org/openagenda/fixtures.git":
   version "1.0.0"
-  uid "50598c4d84675d8aa6ad3625b8e8df7ad04ee990"
   resolved "git+ssh://git@bitbucket.org/openagenda/fixtures.git#50598c4d84675d8aa6ad3625b8e8df7ad04ee990"
   dependencies:
     mysql "^2.10.2"
@@ -6350,7 +6348,7 @@ lodash@~2.1.0:
     le_node "^1.7.1"
     should "7.0.4"
 
-"logs@bitbucket:openagenda/logs", "logs@git+ssh://git@bitbucket.org/openagenda/logs.git":
+"logs@bitbucket:openagenda/logs":
   version "0.0.1"
   resolved "git+ssh://git@bitbucket.org/openagenda/logs.git#9f542024db5fc2ac37bd4bbc1261f192a3b230cd"
   dependencies:
@@ -6361,7 +6359,6 @@ lodash@~2.1.0:
 
 "logs@git+ssh://git@bitbucket.org:openagenda/logs.git":
   version "0.0.1"
-  uid "9f542024db5fc2ac37bd4bbc1261f192a3b230cd"
   resolved "git+ssh://git@bitbucket.org:openagenda/logs.git#9f542024db5fc2ac37bd4bbc1261f192a3b230cd"
   dependencies:
     debug "^2.2.0"
@@ -6462,7 +6459,7 @@ marked@0.3.5:
   version "0.3.5"
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.5.tgz#4113a15ac5d7bca158a5aae07224587b9fa15b94"
 
-marked@^0.3.6:
+marked@0.3.6, marked@^0.3.6:
   version "0.3.6"
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
@@ -6850,7 +6847,6 @@ mv@~2:
 
 "mysql-table-store@git+ssh://git@bitbucket.org/openagenda/mysql-table-store.git":
   version "0.0.4"
-  uid e2e2322323918e5b5119166945a635cd3a2d7879
   resolved "git+ssh://git@bitbucket.org/openagenda/mysql-table-store.git#e2e2322323918e5b5119166945a635cd3a2d7879"
   dependencies:
     lodash "^4.17.2"
@@ -6875,7 +6871,6 @@ mv@~2:
 
 "mysql-utils@git+ssh://git@bitbucket.org/openagenda/mysql-utils":
   version "1.0.0"
-  uid b8fd2998a3e45c75d3544dae672a6b8b43a0a3a1
   resolved "git+ssh://git@bitbucket.org/openagenda/mysql-utils#b8fd2998a3e45c75d3544dae672a6b8b43a0a3a1"
   dependencies:
     async "^2.0.1"
@@ -10459,7 +10454,6 @@ validator@^7.0.0:
 
 "validators@bitbucket:OpenAgenda/validators#v1.2.12":
   version "1.2.12"
-  uid "748271b526d36228514f4ed1d7d30e2bbacb9102"
   resolved "git+ssh://git@bitbucket.org/OpenAgenda/validators.git#748271b526d36228514f4ed1d7d30e2bbacb9102"
   dependencies:
     lodash "^4.17.2"
