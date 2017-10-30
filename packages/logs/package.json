@@ -1,6 +1,16 @@
 {
-  "name": "logs",
+  "name": "@openagenda/logs",
   "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
+  },
   "dependencies": {
     "debug": "^2.2.0",
     "le_node": "^1.7.1",
