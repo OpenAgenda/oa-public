@@ -58,7 +58,7 @@ function _search( searchIndex, agendaUid, query, nav, options ) {
 
 }
 
-async function _add( searchIndex, agendaUid, eventUid, options = {} ) {
+async function _add( searchIndex, agendaUid, eventUid, state, options = {} ) {
 
   if ( !await searchIndex.exists() ) {
 
@@ -70,7 +70,7 @@ async function _add( searchIndex, agendaUid, eventUid, options = {} ) {
 
   log( 'info', 'adding event %s to agenda index %s', eventUid, searchIndex.name );
 
-  const decorated = await assemble.item( { agendaUid, eventUid } );
+  const decorated = await assemble.item( { agendaUid, eventUid, state } );
 
   return await searchIndex.add( decorated, validateOptions( options ) );
 

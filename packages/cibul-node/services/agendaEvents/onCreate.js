@@ -13,7 +13,7 @@ module.exports = async ( ae, context ) => {
 
   log( 'created agenda-event %j', ae, { context } );
 
-  eventSearch.agendas( ae.agendaUid ).add( ae.eventUid );
+  eventSearch.agendas( ae.agendaUid ).add( ae.eventUid, ae.state );
 
   // use context.userUid. will be null when nothing was specified at create
 
