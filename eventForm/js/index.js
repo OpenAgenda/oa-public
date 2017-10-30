@@ -1,8 +1,5 @@
 "use strict";
 
-import 'dom-utils/ie8';
-import 'dom-utils/ie9';
-
 import formUtils from './formUtils';
 import rUtils from './reactUtils';
 import EventForm from './EventForm.jsx';

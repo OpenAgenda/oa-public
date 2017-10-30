@@ -469,13 +469,19 @@ module.exports = function( uid ) {
 
     }
 
-    if ( ctl.p && passedAutoLoad && typeof currentRequestParams.passed == 'undefined' && !currentRequestParams.from && !currentRequestParams.to ) {
+    if ( ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to ) {
 
       change = true;
 
       currentRequestParams.passed = 1;
 
-      if ( syncHref ) _updateHrefQuery( currentRequestParams );
+      currentRequestParams.order = 'latest';
+
+      if ( syncHref ) {
+
+        _updateHrefQuery( currentRequestParams );
+
+      }
 
     }
 

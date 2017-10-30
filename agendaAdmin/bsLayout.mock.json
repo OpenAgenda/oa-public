@@ -39,7 +39,12 @@
     "section" : "manage",
     "key" : "sources",
     "label" : "Sources",
-    "uri" : "agendaAdminSources"
+    "uri" : "agendaAdminSources",
+    "call" : {
+      "lang" : "fr",
+      "subject" : "aggregator",
+      "agenda" : 123
+    }
   }, {
     "section" : "export",
     "key" : "swapcard",

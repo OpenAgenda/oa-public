@@ -673,7 +673,6 @@ function EventFormFactory() {
             }} onClose={() => {
               this.onLocationModeChange( 'search' );
             }}>
-              <h2>{this.getLabel( 'locationCreate' )}</h2>
               {this.renderLocationSelector()}
             </Modal>
             : this.renderLocationSelector()}

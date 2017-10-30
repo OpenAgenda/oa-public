@@ -1,8 +1,6 @@
 "use strict";
 
-require( 'dom-utils/ie8' );
-
-require( 'dom-utils/ie9' );
+const openRequestForm = require( 'call-to-action/react/dist/openRequestForm' );
 
 var utils = require( 'utils' ),
 
