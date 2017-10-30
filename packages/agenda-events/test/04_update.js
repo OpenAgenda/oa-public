@@ -38,6 +38,14 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  it( 'simple update cleans state given as string', async () => {
+
+    let result = await svc( 62792452 ).update( 10974548, { featured: true, state: '1' } );
+
+    result.updated.state.should.equal( 1 );
+
+  } );
+
   it( 'update userUid is possible through second argument', async () => {
 
     let result = await svc( 62792452 ).update( 10974548, {

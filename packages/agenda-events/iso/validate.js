@@ -4,7 +4,8 @@ const schema = require( 'validators/schema' );
 
 const _ = {
   extend: require( 'lodash/extend' ),
-  keys: require( 'lodash/keys' )
+  keys: require( 'lodash/keys' ),
+  isObject: require( 'lodash/isObject' )
 }
 
 schema.register( {
@@ -21,7 +22,7 @@ module.exports = _.extend( v => {
 
   if ( !validate ) throw new Error( 'validate not initialized' );
 
-  return validate( v );
+  return validate( _preClean( v ) );
 
 }, { init } );
 
@@ -61,5 +62,30 @@ function init( { eventStates } ) {
       type: 'date'
     }
   } );
+
+}
+
+
+function _preClean( v ) {
+
+  let cleanState;
+
+  if ( !_.isObject( v ) ) return v;
+
+  if ( v.state === undefined ) return v;
+
+  try {
+
+    cleanState = parseInt( v.state );
+
+  } catch ( e ) {
+
+    return v;
+
+  }
+
+  return _.extend( {}, v, {
+    state: cleanState
+  } )
 
 }
