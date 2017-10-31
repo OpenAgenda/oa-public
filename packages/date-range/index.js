@@ -8,6 +8,10 @@ moment = require( 'moment-timezone' ),
 
 utils = require( '@openagenda/utils' );
 
+
+const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
+
+
 module.exports = function( timings, lang, timezone ) {
 
   if ( [ 'fr', 'en' ].indexOf( lang ) == -1 ) {
@@ -22,13 +26,11 @@ module.exports = function( timings, lang, timezone ) {
 
   firstDate, lastDate,
 
-  p = patterns(),
-
-  render;
+  p = patterns();
 
   if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
 
-    return _render( labels.noDates[ lang ] );    
+    return _render( labels.noDates[ lang ] );
 
   }
 
@@ -56,26 +58,61 @@ module.exports = function( timings, lang, timezone ) {
   if ( uniqueDates.length == 1 ) {
 
     return _render( labels.oneDate[ lang ], {
-      day: _renderDate( firstDate, false, true, lang, timezone ),
+      day: _renderDate( {
+        date: firstDate,
+        relativeTo: false,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: true
+      } ),
       times: _getTimes( timings, lang, timezone )
     } )
 
   } else if ( uniqueDates.length == 2 ) {
 
     return _render( labels.twoDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, false, lang, timezone ),
-      lastDate: _renderDate( lastDate, firstDate, true, lang, timezone )
+      firstDate: _renderDate( {
+        date: firstDate,
+        relativeTo: lastDate,
+        isLast: false,
+        lang,
+        timezone,
+        oneDate: false
+      } ),
+      lastDate: _renderDate( {
+        date: lastDate,
+        relativeTo: firstDate,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: false
+      } )
     } );
 
   } else {
 
     return _render( labels.moreDates[ lang ], {
-      firstDate: _renderDate( firstDate, lastDate, false, lang, timezone ),
-      lastDate: _renderDate( lastDate, firstDate, true, lang, timezone )
+      firstDate: _renderDate( {
+        date: firstDate,
+        relativeTo: lastDate,
+        isLast: false,
+        lang,
+        timezone,
+        oneDate: false
+      } ),
+      lastDate: _renderDate( {
+        date: lastDate,
+        relativeTo: firstDate,
+        isLast: true,
+        lang,
+        timezone,
+        oneDate: false
+      } )
     } ) + p.render( ', ' + labels.prefix[ lang ] + ' ', lang );
 
   }
-  
+
 }
 
 
@@ -94,11 +131,11 @@ function _render( template, data ){
 }
 
 
-function _renderDate( date, relativeTo, isLast, lang, timezone ) {
+function _renderDate( { date, relativeTo, isLast, lang, timezone, oneDate } ) {
 
   moment.locale( lang );
 
-  var render = { month: true, year: false },
+  var render = { day: oneDate, month: true, year: false },
 
   now = new Date(),
 
@@ -112,7 +149,7 @@ function _renderDate( date, relativeTo, isLast, lang, timezone ) {
 
   } else {
 
-    render.year = date.getUTCFullYear() !== relativeTo.getUTCFullYear() 
+    render.year = date.getUTCFullYear() !== relativeTo.getUTCFullYear()
 
                 || ( isLast && now.getUTCFullYear() !== date.getUTCFullYear() );
 
@@ -120,19 +157,13 @@ function _renderDate( date, relativeTo, isLast, lang, timezone ) {
 
   }
 
-  if ( render.year ) {
+  let template = 'D';
 
-    return [ momentDate.format( 'D' ), utils.uncapitalize( momentDate.format( 'MMMM' ) ), momentDate.format( 'YYYY' ) ].join( ' ' );;
+  if ( render.day ) template = 'dddd ' + template;
+  if ( render.month ) template = template + ' MMMM';
+  if ( render.year ) template = template + ' YYYY';
 
-  } else if ( render.month ) {
-
-    return [ momentDate.format( 'D' ), utils.uncapitalize( momentDate.format( 'MMMM' ) ) ].join( ' ' );
-
-  }
-
-  return momentDate.format( 'D' );
-
-  return rendered;
+  return ucfirst( momentDate.format( template ) );
 
 }
 
@@ -154,13 +185,13 @@ function _getTimes( timings, lang, timezone ) {
     minutes = timing.start.getUTCMinutes();
 
     if ( timezone ) {
-      
+
       let t = moment( timing.start );
 
       hours = t.tz( timezone ).hours();
 
       minutes = t.tz( timezone ).minutes();
-      
+
     }
 
     return [ hours, minutes ].map( _pad ).join( labels.minuteSeparator[ lang ] );

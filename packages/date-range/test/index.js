@@ -2,9 +2,9 @@
 
 "use strict";
 
-var should = require( 'should' ),
+require( 'should' );
 
-range = require('../'),
+var range = require('../'),
 
 testData = require( './data' );
 
@@ -32,31 +32,31 @@ describe( 'date-range', () => {
 
   describe( 'one date', () => {
 
-    it( 'should displays as "18 december, 07:00, 10:00, 11:00"', function() {
+    it( 'should displays as "Monday 18 December, 07:00, 10:00, 11:00"', function() {
 
       range( testData.oneDate.winterDefault, 'en' )
-      
-      .should.be.equal( '18 december, 07:00, 10:00, 11:00' );
+
+      .should.be.equal( 'Monday 18 December, 07:00, 10:00, 11:00' );
 
     });
 
-    it( 'should display as "18 december, 08:00, 11:00, 12:00"', () => {
+    it( 'should display as "Monday 18 December, 08:00, 11:00, 12:00"', () => {
 
       range( testData.oneDate.winterDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( '18 december, 08:00, 11:00, 12:00' );
+      .should.be.equal( 'Monday 18 December, 08:00, 11:00, 12:00' );
 
     } );
 
-    it( 'should display as "18 april, 09:00, 12:00, 13:00"', () => {
+    it( 'should display as "Tuesday 18 April, 09:00, 12:00, 13:00"', () => {
 
       range( testData.oneDate.summerDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( '18 april, 09:00, 12:00, 13:00' );
+      .should.be.equal( 'Tuesday 18 April, 09:00, 12:00, 13:00' );
 
     } );
 
-    var output2 = '18 december 2014, 07:00, 10:00, 11:00';
+    var output2 = 'Thursday 18 December 2014, 07:00, 10:00, 11:00';
 
     it( 'differentYear should displays as "'+ output2 +'"', () => {
 
@@ -66,7 +66,7 @@ describe( 'date-range', () => {
 
     });
 
-    var output3 = '18 décembre 2014, 07h00, 10h00, 11h00';
+    var output3 = 'Jeudi 18 décembre 2014, 07h00, 10h00, 11h00';
 
     it( 'differentYear, French should displays as "'+ output3 +'"', () => {
 
@@ -80,7 +80,7 @@ describe( 'date-range', () => {
 
   describe( 'Case: two dates', () => {
 
-    var output = '16 and 18 december';
+    var output = '16 and 18 December';
 
     it( 'if two dates, displays as "'+ output +'"', () => {
 
@@ -90,7 +90,7 @@ describe( 'date-range', () => {
 
     } );
 
-    var output2 = '16 and 18 december 2014';
+    var output2 = '16 and 18 December 2014';
 
     it( 'if two dates differentYear, displays as "'+ output2 +'"', () => {
 
@@ -136,7 +136,7 @@ describe( 'date-range', () => {
 
   describe( 'Case: more dates', () => {
 
-    var output = '16 - 19 december';
+    var output = '16 - 19 December';
 
     it( 'case:default should display as"'+ output +'"', () => {
 
@@ -150,7 +150,7 @@ describe( 'date-range', () => {
 
       range( testData.moreDates.multipleMonths, 'en' )
 
-      .should.equal( '16 november - 19 december' );
+      .should.equal( '16 November - 19 December' );
 
     } );
 
@@ -164,7 +164,7 @@ describe( 'date-range', () => {
 
       range( testData.moreDates.default, 'es' )
 
-      .should.be.equal( '16 - 19 december' );
+      .should.be.equal( '16 - 19 December' );
 
     } );
 
@@ -177,7 +177,7 @@ describe( 'date-range', () => {
 
       range( testData.moreDates.tuesdays, 'en' )
 
-      .should.equal( '1 - 22 december 2015, on tuesdays' );
+      .should.equal( '1 - 22 December 2015, on tuesdays' );
 
     } );
 
