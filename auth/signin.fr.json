@@ -23,8 +23,8 @@
   : "Aucun compte ne correspond à cet email",
   "The account matching this email is not yet activated"
   : "Le compte correspondant à cet email n'a pas été activé",
-  "Your password is incorrect. We can help you to %change%"
-  : "Attention, votre mot de passe est incorrect. Nous pouvons vous aider à %change%",
-  "change it"
-  : "le modifier"
+  "Your email or password is incorrect."
+  : "Votre email ou mot de passe est invalide",
+  "Reset your password"
+  : "Réinitialiser votre mot de passe"
 }
