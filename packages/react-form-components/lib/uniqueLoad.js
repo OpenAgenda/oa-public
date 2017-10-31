@@ -1,7 +1,7 @@
 "use strict";
 
 /**
- * ES5 as is not transpiled
+ * >>>>> ES5 AS IS NOT TRANSPILED <<<<<<<<<<<
  */
 
 var load = require( 'load-script' );
@@ -28,7 +28,10 @@ function _loader( res, cb ) {
 
   load( res, function ( err, script ) {
 
-    loaded = { err, script };
+    loaded = {
+      err: err,
+      script: script
+    };
 
     cbs.forEach( function( cb ) {
 
