@@ -1,6 +1,6 @@
 {
   "name": "date-range",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "summarize a list of timings in a single label",
   "main": "index",
   "keywords": [],
