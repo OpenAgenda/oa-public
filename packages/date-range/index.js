@@ -6,7 +6,7 @@ patterns = require( './patterns' ),
 
 moment = require( 'moment-timezone' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 module.exports = function( timings, lang, timezone ) {
 

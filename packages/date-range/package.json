@@ -16,8 +16,8 @@
     "release:next": "npm version prerelease && npm publish --tag next"
   },
   "dependencies": {
-    "moment-timezone": "^0.5.3",
-    "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
+    "@openagenda/utils": "^1.0.2",
+    "moment-timezone": "^0.5.3"
   },
   "devDependencies": {
     "mocha": "^2.3.4",

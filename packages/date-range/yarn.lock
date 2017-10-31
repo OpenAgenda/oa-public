@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@openagenda/utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.2.tgz#a2299c4c0484f565e640084b6b12cf749dbe60fd"
+  dependencies:
+    qs "^6.1.0"
+    when "^3.7.8"
+    xhr "^2.2.2"
+
 commander@0.6.1:
   version "0.6.1"
   resolved "https://registry.npmjs.org/commander/-/commander-0.6.1.tgz#fa68a14f6a945d54dbbe50d8cdb3320e9e3b1a06"
@@ -181,14 +189,6 @@ to-iso-string@0.0.2:
 trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
-
-"utils@git+ssh://git@bitbucket.org:openagenda/utils.git":
-  version "1.0.2"
-  resolved "git+ssh://git@bitbucket.org:openagenda/utils.git#448f874739e5a0f80bc122804c73d1edd08f30fa"
-  dependencies:
-    qs "^6.1.0"
-    when "^3.7.8"
-    xhr "^2.2.2"
 
 when@^3.7.8:
   version "3.7.8"
