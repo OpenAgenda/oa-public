@@ -79,9 +79,11 @@ async function open( request, response, identifier ) {
   // store session in redis
   try {
 
-    await redisCommand( 'set', [ [ config.redis.prefix, sessionUser.uid ].join( ':' ), JSON.stringify( sessionUser ) ] );
+    const sessionKey = [ config.redis.prefix, sessionUser.uid ].join( ':' );
 
-    await redisCommand( 'expire', [ [ config.redis.prefix, sessionUser.uid ].join( ':' ), config.expire ] );
+    await redisCommand( 'set', [ sessionKey, JSON.stringify( sessionUser ) ] );
+
+    await redisCommand( 'expire', [ sessionKey, config.expire ] );
 
   } catch ( e ) {
 
