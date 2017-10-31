@@ -2,10 +2,14 @@
 
 var update = require( 'immutability-helper' );
 
+/**
+ * >>>>> ES5 AS IS NOT TRANSPILED <<<<<<<<<<<
+*/
+
 module.exports = function( tState, check, langCode ) {
 
   var currentSetIndex = tState
-    .sets.map( s => s.source )
+    .sets.map( function( s ) { return s.source; } )
     .indexOf( tState.source ),
 
     currentChecked = tState.sets[ currentSetIndex ].checked;
