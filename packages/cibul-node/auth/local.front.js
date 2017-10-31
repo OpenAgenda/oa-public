@@ -326,7 +326,7 @@ function activate( req, res ) {
 
 function _handleSigninRequest( req, email, password, cb ) {
 
-  userSvc.verifyPassword( { email, password }, { get: true }, ( err, result ) => {
+  userSvc.verifyPassword( { email, password }, { get: true, internal: true, detailed: true, camel: true }, ( err, result ) => {
 
     if ( err ) return cb( err );
 
@@ -343,13 +343,7 @@ function _handleSigninRequest( req, email, password, cb ) {
 
     }
 
-    userSvc.get( { email }, { internal: true, detailed: true, camel: true }, ( err, user ) => {
-
-      if ( err ) return cb( err );
-
-      cb( null, user, { email, password, user } );
-
-    } );
+    cb( null, result.user, { email, password, user: result.user } );
 
   } );
 

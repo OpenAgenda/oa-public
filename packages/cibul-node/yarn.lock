@@ -10332,7 +10332,7 @@ user-home@^1.0.0, user-home@^1.1.1:
 
 "users@bitbucket:openagenda/users":
   version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/users.git#6e05a8d7279b90843c2ff5df5b2d1542cf6cfef8"
+  resolved "git+ssh://git@bitbucket.org/openagenda/users.git#d9c909565c50035dac53c5f221fe7fd7a7ff4e2e"
   dependencies:
     async "^2.3.0"
     babel-loader "^6.2.4"
