@@ -1,6 +1,6 @@
 "use strict";
 
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 
 module.exports = function( config, files, options, cb ) {
 

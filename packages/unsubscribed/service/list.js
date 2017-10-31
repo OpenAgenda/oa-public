@@ -2,8 +2,8 @@
 
 const _ = require( 'lodash' );
 const config = require( './config' );
-const parseListArguments = require( 'service-utils/parseListArguments' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
 module.exports = ( userUid, cb ) => {
 
