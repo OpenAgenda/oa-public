@@ -2,6 +2,9 @@
 
 const openRequestForm = require( 'call-to-action/react/dist/openRequestForm' );
 
+import ie8 from 'dom-utils/ie8'; // useful for ie11 too
+import ie9 from 'dom-utils/ie9'; // useful for ie11 too
+
 var utils = require( 'utils' ),
 
   du = require( '../../js/lib/domUtils' ),
