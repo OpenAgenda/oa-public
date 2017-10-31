@@ -40,7 +40,15 @@ module.exports = function verifyPassword( query, options, cb ) {
 
 function _verifyPassword( v ) {
 
-  v.success = crypto.verifyPassword( v.user.password, v.query.password, v.user.salt );
+  if ( !v.user ) {
+
+    v.success = false;
+
+  } else {
+
+    v.success = crypto.verifyPassword( v.user.password, v.query.password, v.user.salt );
+
+  }
 
   return v;
 

@@ -35,7 +35,7 @@ describe( '.verifyPassword', function () {
 
   } );
 
-  it( 'verify password', done => {
+  it( 'successful verification', done => {
 
     service.verifyPassword( { email: 'gaetan@cibul.net', password: 'cibulon' }, ( err, result ) => {
 
@@ -48,7 +48,23 @@ describe( '.verifyPassword', function () {
 
   } );
 
-  it( 'verify password - with get option to true', done => {
+
+  it( 'non existing account', done => {
+
+    service.verifyPassword( { email: 'bravo.kevin@lol.vd', password: 'doesntmatter' }, ( err, success ) => {
+
+      should( err ).equal( null );
+
+      success.should.equal( false );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'with get option to true', done => {
 
     service.verifyPassword( { email: 'gaetan@cibul.net', password: 'cibulon' }, { get: true }, ( err, result ) => {
 
