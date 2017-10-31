@@ -78,4 +78,23 @@ describe( '.verifyPassword', function () {
 
   } );
 
+
+  it( 'with get, detailed & camel options', done => {
+
+    service.verifyPassword(
+      { email: 'gaetan@cibul.net', password: 'cibulon' },
+      { get: true, detailed: true, camel: true },
+      ( err, result ) => {
+
+        should( err ).equal( null );
+        should( result.success ).equal( true );
+        should( result.user.email ).equal( 'gaetan@cibul.net' );
+        should( result.user.isActivated ).equal( 1 );
+
+        done();
+
+      } );
+
+  } );
+
 } );

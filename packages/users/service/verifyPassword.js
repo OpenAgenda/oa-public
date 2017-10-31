@@ -5,6 +5,7 @@ const w = require( 'when' );
 const config = require( '../config' );
 const crypto = require( './lib/crypto' );
 const _get = require( './lib/get' );
+const _clean = require( './lib/cleanGet' );
 
 module.exports = function verifyPassword( query, options, cb ) {
 
@@ -30,6 +31,8 @@ module.exports = function verifyPassword( query, options, cb ) {
     .then( _get )
 
     .then( _verifyPassword )
+
+    .then( _clean )
 
     .done( v => cb( null, v.params.get ? {
       success: v.success,
