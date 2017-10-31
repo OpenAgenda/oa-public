@@ -55,9 +55,9 @@ module.exports = options => {
 
   let user = session.getUser();
 
-  if ( languageMenu ) languageMenu.remove();
+  if ( languageMenu ) languageMenu.parentNode.removeChild( languageMenu );
 
-  signinLink.remove();
+  signinLink.parentNode.removeChild( signinLink );
 
   ul.innerHTML = ( window.templates === 'bs' ? bsTemplate : template )( {
     __ : getLabelFactory( labels, user.culture ),

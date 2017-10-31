@@ -10,6 +10,10 @@ const onTranslationCheck = require( '@openagenda/react-form-components/lib/onTra
 
 const async = require( 'async' );
 
+const _ = {
+  extend: require( 'lodash/extend' )
+}
+
 const translators = require( 'translators' );
 
 const du = require( 'dom-utils' );
@@ -146,7 +150,7 @@ function init( ctx, options, f ) {
 
       config = JSON.parse( base64.decode( options ) );
 
-      translator = translators.reverso( Object.assign( { timeout: 10000, }, config ) );
+      translator = translators.reverso( _.extend( { timeout: 10000, }, config ) );
 
     } catch( e ) {
 
