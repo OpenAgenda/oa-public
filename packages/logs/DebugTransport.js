@@ -3,7 +3,7 @@
 const winston = require( 'winston' );
 const debug = require( 'debug' );
 
-const isEmptyObject = obj => Object.keys( obj ).length === 0 && obj.constructor === Object;
+const isEmptyObject = obj => obj && Object.keys( obj ).length === 0 && obj.constructor === Object;
 
 class DebugTransport extends winston.Transport {
 
