@@ -126,7 +126,7 @@ describe( 'date-range', () => {
 
       range( testData.twoDates.oneDifferentYear, 'fr' )
 
-      .should.be.equal( '16 décembre 2014 et 18 décembre 2016' );
+      .should.be.equal( '16 décembre 2014 et 18 décembre 2017' );
 
     } );
 

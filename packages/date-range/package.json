@@ -6,12 +6,21 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "mocha": "^2.3.4",
-    "should": "^8.0.2"
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
   },
   "dependencies": {
     "moment-timezone": "^0.5.3",
     "utils": "git+ssh://git@bitbucket.org:openagenda/utils.git"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^8.0.2"
   }
 }

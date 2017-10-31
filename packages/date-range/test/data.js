@@ -1,6 +1,6 @@
 "use strict";
 
-var year = ( new Date().getFullYear() );
+var year = 2017;
 
 module.exports = {
   oneDate:{
