@@ -1,5 +1,5 @@
 {
-  "name": "date-range",
+  "name": "@openagenda/date-range",
   "version": "2.0.0",
   "description": "summarize a list of timings in a single label",
   "main": "index",
