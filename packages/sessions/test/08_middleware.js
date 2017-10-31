@@ -7,7 +7,7 @@ const sa = require( 'superagent' );
 const cookieParser = require( 'cookie-parser' );
 const validate = require( '../iso/cookie.validate' );
 const helpers = require( './lib/helpers' );
-const base64 = require( 'utils/base64' );
+const base64 = require( '@openagenda/utils/base64' );
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const ih = require( 'immutability-helper' );
@@ -517,8 +517,7 @@ describe( 'session - functional (server): middleware', () => {
               name: 'Gaetan Latouche',
               isNew: false,
               thumbnail: '//graph.facebook.com/100002280111541/picture',
-              email: 'gaetan@cibul.net',
-              isNew: false
+              email: 'gaetan@cibul.net'
             } );
 
             res.send( 'ok' );

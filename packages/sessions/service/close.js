@@ -2,7 +2,7 @@
 
 const config = require( './config' );
 const { cleanSession, callbackify, redisCommand } = require( './helpers' );
-const log = require( 'logs' )( 'close' );
+const log = require( '@openagenda/logs' )( 'close' );
 const _ = require( 'lodash' );
 
 module.exports = ( request, cb ) => {

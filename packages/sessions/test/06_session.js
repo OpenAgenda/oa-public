@@ -6,7 +6,7 @@ const isoConfig = require( '../iso/config' );
 const clientSession = require( '../client' );
 const should = require( 'should' );
 const jsdom = require( 'jsdom' );
-const base64 = require( 'utils/base64' );
+const base64 = require( '@openagenda/utils/base64' );
 const cookiesLib = require( 'cookies-js' );
 
 describe( 'session - functional (client): session', () => {

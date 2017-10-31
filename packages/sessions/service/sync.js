@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( 'logs' )( 'sync' );
+const log = require( '@openagenda/logs' )( 'sync' );
 const get = require( './get' );
 const open = require( './open' );
 

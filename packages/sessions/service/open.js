@@ -3,10 +3,11 @@
 const config = require( './config' );
 const { cleanSession, callbackify, interfaces, redisCommand } = require( './helpers' );
 const cookieValidate = require( '../iso/cookie.validate' );
-const log = require( 'logs' )( 'sessions/open' );
+const log = require( '@openagenda/logs' )( 'sessions/open' );
 const validate = require( './validate' );
 const expressCookie = require( './expressCookie' );
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
 
 
 module.exports = ( request, response, identifier, cb ) => {

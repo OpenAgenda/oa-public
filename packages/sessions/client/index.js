@@ -4,7 +4,7 @@ const config = require( '../iso/config' ),
 
   validate = require( '../iso/cookie.validate.js' ),
 
-  base64 = require( 'utils/base64' ),
+  base64 = require( '@openagenda/utils/base64' ),
 
   extend = require( 'lodash/extend' );
 

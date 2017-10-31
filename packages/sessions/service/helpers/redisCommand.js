@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const redis = require( 'redis' );
-const log = require( 'logs' )( 'redisCommand' );
+const log = require( '@openagenda/logs' )( 'redisCommand' );
 const config = require( '../config' );
 
 let cli;

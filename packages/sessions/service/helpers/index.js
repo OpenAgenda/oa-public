@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const cookieValidate = require( '../../iso/cookie.validate' );
-const log = require( 'logs' )( 'helpers' );
+const log = require( '@openagenda/logs' )( 'helpers' );
 const config = require( '../config' );
 const redisCommand = require( './redisCommand' );
 

@@ -1,16 +1,16 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const omit = require( 'lodash/omit' );
 const isObject = require( 'lodash/isObject' );
 const extend = require( 'lodash/extend' );
 
 schema.register( {
-  choice: require( 'validators/choice' ),
-  integer: require( 'validators/integer' ),
-  text: require( 'validators/text' ),
-  link: require( 'validators/link' ),
-  date: require( 'validators/date' )
+  choice: require( '@openagenda/validators/choice' ),
+  integer: require( '@openagenda/validators/integer' ),
+  text: require( '@openagenda/validators/text' ),
+  link: require( '@openagenda/validators/link' ),
+  date: require( '@openagenda/validators/date' )
 } );
 
 const writableFields = {

@@ -3,7 +3,7 @@
 const expressCookie = require( '../service/expressCookie' );
 const should = require( 'should' );
 const config = require( '../testconfig' );
-const base64 = require( 'utils/base64' );
+const base64 = require( '@openagenda/utils/base64' );
 
 describe( 'session - unit (server): express cookies', () => {
 

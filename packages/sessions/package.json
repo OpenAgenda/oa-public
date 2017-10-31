@@ -1,18 +1,30 @@
 {
-  "name": "sessions",
-  "version": "2.0.0",
+  "name": "@openagenda/sessions",
+  "version": "3.0.3",
   "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "main": "service/index.js",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
+  },
   "dependencies": {
+    "@openagenda/logs": "^1.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/utils": "^1.0.1",
+    "@openagenda/validators": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",
     "lodash": "^4.17.4",
-    "logs": "git+ssh://git@bitbucket.org:openagenda/logs.git",
     "redis": "^2.6.3",
-    "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
-    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git",
     "verror": "^1.10.0",
     "when": "^3.7.7"
   },
@@ -23,11 +35,5 @@
     "jsdom": "^9.9.1",
     "should": "^11.1.2",
     "superagent": "^3.3.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }

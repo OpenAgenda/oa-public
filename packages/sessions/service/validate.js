@@ -1,17 +1,17 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const cookieUserFields = require( '../iso/cookie.validate' ).validateLogged.fields.user.fields;
 const extend = require( 'lodash/extend' );
 
 schema.register( {
-  boolean: require( 'validators/boolean' ),
-  choice: require( 'validators/choice' ),
-  integer: require( 'validators/integer' ),
-  email: require( 'validators/email' ),
-  text: require( 'validators/text' ),
-  date: require( 'validators/date' ),
-  link: require( 'validators/link' )
+  boolean: require( '@openagenda/validators/boolean' ),
+  choice: require( '@openagenda/validators/choice' ),
+  integer: require( '@openagenda/validators/integer' ),
+  email: require( '@openagenda/validators/email' ),
+  text: require( '@openagenda/validators/text' ),
+  date: require( '@openagenda/validators/date' ),
+  link: require( '@openagenda/validators/link' )
 } );
 
 module.exports = schema( extend( {
