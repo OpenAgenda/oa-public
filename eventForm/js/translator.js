@@ -6,7 +6,7 @@ const utils = require( 'utils' );
 
 const update = require( 'immutability-helper' );
 
-const onTranslationCheck = require( 'react-form-components/lib/onTranslationCheck' );
+const onTranslationCheck = require( '@openagenda/react-form-components/lib/onTranslationCheck' );
 
 const async = require( 'async' );
 
