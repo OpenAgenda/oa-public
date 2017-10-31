@@ -44,7 +44,7 @@ function _loader( res, cb ) {
   add( cb );
 
   return {
-    add
+    add: add
   }
 
   function add( cb ) {
