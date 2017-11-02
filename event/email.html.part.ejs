@@ -1,7 +1,16 @@
+<% if ( typeof agenda !== 'undefined' && agenda ) { %>
 <% include ../newsletter/sections/top %>
-<% if ( agenda ) { %>
-  <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= genUrl( event.uri, event.uriParams, { protocol: 'https://' } ) %>"><%= agenda.title %></a></h3>
+  <center>
+    <img src="<%= _i( 'rwtb' + agenda.image ) %>" style="<%= css.imageContent %>" class="imageContent"/>
+  </center>
+<% include ../newsletter/sections/bottom %>
+<% include ../newsletter/sections/top %>
+  <center>
+    <h2 target="_blank" style="<%= css.h2 %> text-align: center;"><%= agenda.title %></h2>
+  </center>
+<% include ../newsletter/sections/bottom %>
 <% } %>
+<% include ../newsletter/sections/top %>
   <h1 target="_blank" style="<%= css.h1 %>"><a href="<%= genUrl( event.uri, event.uriParams, { protocol: 'https://' } ) %>" style="<%= css.h1a %>"><%= event.title %></a></h1>
   <h3 target="_blank" style="<%= css.h3 %>"><a href="<%= genUrl( event.uri, event.uriParams, { protocol: 'https://' } ) %>" style="<%= css.h3a %>"><%= event.description %></a></h3>
 <% include ../newsletter/sections/bottom %>

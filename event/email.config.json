@@ -1,6 +1,9 @@
 {
   "layout" : "newsletter/layout",
   "css" : {},
+  "helpers" : {
+    "_i" : "image"
+  },
   "base" : {
     "previewLink" : false,
     "mobileMeta" : false,
