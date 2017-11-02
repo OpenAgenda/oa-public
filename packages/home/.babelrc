@@ -1,7 +1,21 @@
 {
   "presets": [
     "react",
-    "es2015"
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "Firefox >= 24",
+            "Chrome >= 33",
+            "Safari >= 9",
+            "IE >= 10"
+          ],
+          "node": "6"
+        }
+      }
+    ]
   ],
   "plugins": [
     "add-module-exports",
