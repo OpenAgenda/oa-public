@@ -1,15 +1,15 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const creds = require( '../credentialTypes' );
 const isArray = require( 'lodash/isArray' );
 const isObject = require( 'lodash/isObject' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  choice: require( 'validators/choice' ),
-  boolean: require( 'validators/boolean' ),
-  integer: require( 'validators/integer' )
+  text: require( '@openagenda/validators/text' ),
+  choice: require( '@openagenda/validators/choice' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 module.exports = v => {

@@ -1,9 +1,9 @@
 "use strict";
 
-const format = require( './format' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
+const format = require( './format' );
 const validators = require( '../iso/validators' );
 
 // service globals

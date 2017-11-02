@@ -1,6 +1,6 @@
 "use strict";
 
-const validators = require( 'validators' ),
+const validators = require( '@openagenda/validators' ),
 
   _ = require( 'lodash' ),
 
@@ -8,7 +8,7 @@ const validators = require( 'validators' ),
 
   slug = require( 'slug' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   format = require( './format' );
 

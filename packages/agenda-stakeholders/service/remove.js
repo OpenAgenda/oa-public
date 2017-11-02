@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const get = require( './get' );
 
 // service globals

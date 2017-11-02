@@ -4,11 +4,11 @@
  * agenda stakeholder settings; field requirements, mainly.
  */
 
-const utils = require( 'utils' ),
+const utils = require( '@openagenda/utils' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
-  storeLib = require( 'mysql-table-store' ),
+  storeLib = require( '@openagenda/mysql-table-store' ),
 
   w = require( 'when' ),
 

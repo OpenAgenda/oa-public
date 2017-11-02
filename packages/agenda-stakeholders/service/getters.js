@@ -1,14 +1,14 @@
 "use strict";
 
-const utils = require( 'utils' ),
+const w = require( 'when' ),
+
+  utils = require( '@openagenda/utils' ),
+
+  logger = require( '@openagenda/basic-logger' ),
 
   dbUtils = require( './dbUtils' ),
 
   format = require( './format' ),
-
-  logger = require( 'basic-logger' ),
-
-  w = require( 'when' ),
 
   list = require( './list' ),
 

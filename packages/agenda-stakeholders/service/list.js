@@ -1,14 +1,14 @@
 "use strict";
 
-const parseListArguments = require( 'service-utils/parseListArguments' ),
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' ),
+
+  w = require( 'when' ),
 
   _ = require( 'lodash' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   format = require( './format' ),
-
-  w = require( 'when' ),
 
   credentialTypes = require( '../iso/credentialTypes' ),
 

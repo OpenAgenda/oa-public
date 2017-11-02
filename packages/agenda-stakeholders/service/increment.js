@@ -4,7 +4,7 @@ const _ = require( 'lodash' ),
 
   VError = require( 'verror' ),
 
-  logger = require( 'basic-logger' );
+  logger = require( '@openagenda/basic-logger' );
 
 let knex, schemas, log;
 

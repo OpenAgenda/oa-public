@@ -4,7 +4,7 @@ const _ = require( 'lodash' ),
 
   w = require( 'when' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   types = require( '../iso/credentialTypes' ),
 

@@ -2,9 +2,9 @@
 
 const async = require( 'async' ),
 
-  queue = require( 'queue' ),
+  queue = require( '@openagenda/queue' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   _ = require( 'lodash' ),
 

@@ -1,13 +1,13 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const omit = require( 'lodash/omit' );
 const extend = require( 'lodash/extend' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  phone: require( 'validators/phone' ),
-  email: require( 'validators/email' )
+  text: require( '@openagenda/validators/text' ),
+  phone: require( '@openagenda/validators/phone' ),
+  email: require( '@openagenda/validators/email' )
 } );
 
 /**

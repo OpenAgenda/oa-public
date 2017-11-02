@@ -7,7 +7,7 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
 const types = require( '../iso/credentialTypes' );
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 
 describe( 'agenda-stakeholders - functional (server): create.bulk & task', function() {
 

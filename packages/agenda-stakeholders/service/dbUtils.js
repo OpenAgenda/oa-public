@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require( 'utils' ),
+const utils = require( '@openagenda/utils' ),
 
 format = require( './format' );
 
@@ -10,7 +10,7 @@ format = require( './format' );
 
 var knex, schemas,
 
-logger = require( 'basic-logger' ), log;
+logger = require( '@openagenda/basic-logger' ), log;
 
 module.exports = {
   

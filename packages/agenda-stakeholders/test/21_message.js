@@ -4,7 +4,7 @@ const service = require( './service' );
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 
 describe( 'agenda-stakeholders - functional (server): message forwarding', function () {
 

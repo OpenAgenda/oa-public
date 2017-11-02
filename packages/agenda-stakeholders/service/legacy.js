@@ -4,7 +4,7 @@ const defaultFields = require( '../iso/defaults' ).fields,
 
 w = require( 'when' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 defaultSettings = {
   fields: []

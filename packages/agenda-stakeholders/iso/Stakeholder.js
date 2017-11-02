@@ -9,7 +9,7 @@ const defaults = {
 
 const extend = require( 'lodash/extend' );
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 const types = require( './credentialTypes' );
 

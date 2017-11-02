@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' ),
  
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
  
-  Process = require( 'process-service' ),
+  Process = require( '@openagenda/process-service' ),
 
   types = require( '../iso/credentialTypes' ),
 

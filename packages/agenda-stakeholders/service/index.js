@@ -26,7 +26,7 @@ const knexLib = require( 'knex' ),
 
   dbUtils = require( './dbUtils' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   settings = require( './settings' ),
 

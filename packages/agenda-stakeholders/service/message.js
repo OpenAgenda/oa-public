@@ -1,10 +1,10 @@
 "use strict";
 
-const logger = require( 'basic-logger' ),
+const logger = require( '@openagenda/basic-logger' ),
 
   async = require( 'async' ),
 
-  queue = require( 'queue' ),
+  queue = require( '@openagenda/queue' ),
 
   list = require( './list' ),
 

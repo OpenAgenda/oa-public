@@ -7,11 +7,11 @@
 
 var interfaces, knex, schemas,
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   dbUtils = require( './dbUtils' ),
 
-  logger = require( 'basic-logger' ), log,
+  logger = require( '@openagenda/basic-logger' ), log,
 
   w = require( 'when' );
 

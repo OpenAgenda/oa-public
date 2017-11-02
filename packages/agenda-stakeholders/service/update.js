@@ -6,15 +6,15 @@ const
 
   get = require( './get' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
+
+  logger = require( '@openagenda/basic-logger' ),
+
+  Process = require( '@openagenda/process-service' ),
   
   format = require( './format' ),
-  
-  logger = require( 'basic-logger' ),
 
   settings = require( './settings' ),
-
-  Process = require( 'process-service' ),
   
   types = require( '../iso/credentialTypes' ),
   
