@@ -1,5 +1,5 @@
 const agendasSvc = require( 'agendas' );
-const stakeholdersSvc = require( 'agenda-stakeholders' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const eventsSvc = require( 'events-service' );
 
 module.exports = {

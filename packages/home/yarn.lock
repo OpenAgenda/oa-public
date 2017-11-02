@@ -2,6 +2,26 @@
 # yarn lockfile v1
 
 
+"@openagenda/agenda-stakeholders@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.0.tgz#2a9ba07dcdb55c4d377b1fd712c740a6f67a74af"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/mysql-table-store" "^1.0.0"
+    "@openagenda/process-service" "^2.0.0"
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/service-utils" "^2.0.0"
+    "@openagenda/utils" "^1.0.2"
+    "@openagenda/validators" "^2.0.1"
+    async "^1.5.2"
+    knex "^0.10.0"
+    lodash "^4.17.3"
+    mysql "^2.10.2"
+    slug "^0.9.1"
+    superagent "3.3.1"
+    verror "^1.9.0"
+    when "^3.7.7"
+
 "@openagenda/basic-logger@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
@@ -48,6 +68,32 @@
   version "2.0.3"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.3.tgz#b6e4fbf9090f91516fdfbc5837ae889f2af6683a"
 
+"@openagenda/mysql-table-store@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/mysql-table-store/-/mysql-table-store-1.0.0.tgz#a117ce69e4c84f811347b3f415e1a5b7a1829b7c"
+  dependencies:
+    lodash "^4.17.2"
+    mysql "2.9.0"
+    verror "^1.10.0"
+
+"@openagenda/process-service@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/process-service/-/process-service-2.0.0.tgz#3de0f0aa159cd7b3876f1471dc2c633f3a362ef9"
+  dependencies:
+    "@openagenda/service-utils" "^2.0.0"
+    async "^2.1.4"
+    deep-extend "^0.4.1"
+    lodash "^4.17.2"
+
+"@openagenda/queue@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/queue/-/queue-1.0.0.tgz#b08f1e2abeac6353cfaee5363367d83a7154069a"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    async "^1.5.2"
+    debug "2.2.0"
+    redis "~0.12"
+
 "@openagenda/react-components@^2.0.1":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@openagenda/react-components/-/react-components-2.0.2.tgz#d8251e0f2fcabe08da7114b920859d6dacd7d032"
@@ -93,6 +139,13 @@
     redux-form "^6.6.3"
     superagent "3.6.0"
 
+"@openagenda/service-utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/service-utils/-/service-utils-2.0.0.tgz#d4f7c33df754e76632a5e319aeaf9c9a927304e6"
+  dependencies:
+    redis-commands "^1.3.1"
+    when "^3.7.7"
+
 "@openagenda/test-app@^2.0.2":
   version "2.0.3"
   resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.3.tgz#a28447d1eb22c2e9b26e67d59fa51ac2e905bc0a"
@@ -135,6 +188,14 @@
     lodash "^4.17.2"
     validator "^7.0.0"
 
+"@openagenda/validators@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/validators/-/validators-2.0.1.tgz#11ba92bc29231dbb0dd222cb03df47e6394fc4c0"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    lodash "^4.17.2"
+    validator "^7.0.0"
+
 JSONStream@^1.0.3:
   version "1.3.1"
   resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.1.tgz#707f761e01dae9e16f1bcf93703b78c70966579a"
@@ -170,27 +231,6 @@ acorn@^3.0.0:
 acorn@^4.0.3, acorn@^4.0.4:
   version "4.0.13"
   resolved "https://registry.npmjs.org/acorn/-/acorn-4.0.13.tgz#105495ae5361d697bd195c825192e1ad7f253787"
-
-"agenda-stakeholders@git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git":
-  version "1.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git#c4fefc3cd3e065b538ff384903d9bfbdbf251574"
-  dependencies:
-    async "^1.5.2"
-    basic-logger "git+ssh://git@bitbucket.org:openagenda/basic-logger.git"
-    fixtures "git+ssh://git@bitbucket.org:openagenda/fixtures.git"
-    knex "^0.10.0"
-    lodash "^4.17.3"
-    mysql "^2.10.2"
-    mysql-table-store "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git"
-    process-service "git+ssh://git@bitbucket.org:openagenda/process-service.git"
-    queue "git+ssh://git@bitbucket.org:openagenda/queue.git"
-    service-utils "git+ssh://git@bitbucket.org:openagenda/service-utils.git"
-    slug "^0.9.1"
-    superagent "3.3.1"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-    validators "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.2.12"
-    verror "^1.9.0"
-    when "^3.7.7"
 
 "agendas@git+ssh://git@bitbucket.org/openagenda/agendas.git":
   version "1.0.1"
@@ -1172,7 +1212,6 @@ basic-auth@~2.0.0:
 
 "basic-logger@git+ssh://git@bitbucket.org/openagenda/basic-logger.git":
   version "2.0.0"
-  uid "394c10e6c262b2e1f247995d3b27bef15ce64cf7"
   resolved "git+ssh://git@bitbucket.org/openagenda/basic-logger.git#394c10e6c262b2e1f247995d3b27bef15ce64cf7"
 
 "basic-logger@git+ssh://git@bitbucket.org:openagenda/basic-logger.git":
@@ -2409,14 +2448,6 @@ findup-sync@~0.2.0:
   resolved "https://registry.npmjs.org/findup-sync/-/findup-sync-0.2.1.tgz#e0a90a450075c49466ee513732057514b81e878c"
   dependencies:
     glob "~4.3.0"
-
-"fixtures@git+ssh://git@bitbucket.org:openagenda/fixtures.git":
-  version "2.0.1"
-  resolved "git+ssh://git@bitbucket.org:openagenda/fixtures.git#59ddddce2f6f2c34141fa8a80f3920c1f548d9ff"
-  dependencies:
-    "@openagenda/utils" "^1.0.1"
-    mysql "^2.10.2"
-    when "^3.7.7"
 
 flagged-respawn@^0.3.2, flagged-respawn@~0.3.0:
   version "0.3.2"
@@ -3704,14 +3735,6 @@ mumath@^3.0.0:
   dependencies:
     almost-equal "^1.1.0"
 
-"mysql-table-store@git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git":
-  version "0.0.4"
-  resolved "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git#e2e2322323918e5b5119166945a635cd3a2d7879"
-  dependencies:
-    lodash "^4.17.2"
-    mysql "2.9.0"
-    verror "^1.10.0"
-
 "mysql-utils@git+ssh://git@bitbucket.org/openagenda/mysql-utils.git":
   version "2.0.0"
   resolved "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git#4d2e811a82d4a0e1dd34e9f75e69f8bac2ed44f1"
@@ -4197,15 +4220,6 @@ private@^0.1.6, private@^0.1.7:
 process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
-
-"process-service@git+ssh://git@bitbucket.org:openagenda/process-service.git":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:openagenda/process-service.git#f76ce4a12e878502e2cf72c523420f25326e91f7"
-  dependencies:
-    async "^2.1.4"
-    deep-extend "^0.4.1"
-    lodash "^4.17.2"
-    service-utils "git+ssh://git@bitbucket.org/openagenda/service-utils.git"
 
 process@^0.11.0, process@~0.11.0:
   version "0.11.10"
@@ -4963,15 +4977,7 @@ serve-static@~1.11.2:
 
 "service-utils@git+ssh://git@bitbucket.org/openagenda/service-utils.git":
   version "2.0.0"
-  uid c2cff5baaed0ae60f778ff0a3f7e69e5d53ce7d5
   resolved "git+ssh://git@bitbucket.org/openagenda/service-utils.git#c2cff5baaed0ae60f778ff0a3f7e69e5d53ce7d5"
-  dependencies:
-    redis-commands "^1.3.1"
-    when "^3.7.7"
-
-"service-utils@git+ssh://git@bitbucket.org:openagenda/service-utils.git":
-  version "2.0.0"
-  resolved "git+ssh://git@bitbucket.org:openagenda/service-utils.git#c2cff5baaed0ae60f778ff0a3f7e69e5d53ce7d5"
   dependencies:
     redis-commands "^1.3.1"
     when "^3.7.7"
@@ -5577,7 +5583,6 @@ utils-merge@1.0.1:
 
 "utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
   version "1.0.2"
-  uid "448f874739e5a0f80bc122804c73d1edd08f30fa"
   resolved "git+ssh://git@bitbucket.org/openagenda/utils.git#448f874739e5a0f80bc122804c73d1edd08f30fa"
   dependencies:
     qs "^6.1.0"
@@ -5634,14 +5639,6 @@ validator@^7.0.0:
   resolved "git+ssh://git@bitbucket.org:openagenda/validators.git#e1525f3d5e15176a842ad0361297c154561ce7da"
   dependencies:
     utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-
-"validators@git+ssh://git@bitbucket.org:openagenda/validators.git#v1.2.12":
-  version "1.2.12"
-  resolved "git+ssh://git@bitbucket.org:openagenda/validators.git#748271b526d36228514f4ed1d7d30e2bbacb9102"
-  dependencies:
-    lodash "^4.17.2"
-    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    validator "^7.0.0"
 
 vary@~1.1.0, vary@~1.1.2:
   version "1.1.2"

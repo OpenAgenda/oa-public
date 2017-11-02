@@ -56,10 +56,10 @@
     "superagent": "^2.3.0"
   },
   "devDependencies": {
+    "@openagenda/agenda-stakeholders": "^2.0.0",
     "@openagenda/bs-templates": "^2.0.2",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^2.0.2",
-    "agenda-stakeholders": "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git",
     "agendas": "git+ssh://git@bitbucket.org/openagenda/agendas.git",
     "babel-cli": "^6.16.0",
     "babel-plugin-add-module-exports": "^0.2.1",
