@@ -28,7 +28,7 @@
     "lodash": "^4.17.3",
     "mysql": "^2.10.2",
     "slug": "^0.9.1",
-    "superagent": "^3.3.1",
+    "superagent": "3.3.1",
     "verror": "^1.9.0",
     "when": "^3.7.7"
   },
