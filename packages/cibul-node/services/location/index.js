@@ -12,9 +12,9 @@ lib = require( '../../lib/lib' ),
 
 imageSvc = require( 'images' ),
 
-s3Svc = require( 'files' ).s3,
+s3Svc = require( '@openagenda/files' ).s3,
 
-fileSvc = require( 'files' ).file;
+fileSvc = require( '@openagenda/files' ).file;
 
 
 module.exports = {

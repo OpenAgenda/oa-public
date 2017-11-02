@@ -20,9 +20,9 @@ imageSvc = require( 'images' ),
 
 moment = require( 'moment-timezone' ),
 
-s3Svc = require( 'files' ).s3,
+s3Svc = require( '@openagenda/files' ).s3,
 
-fileSvc = require( 'files' ).file,
+fileSvc = require( '@openagenda/files' ).file,
 
 exportable = require( './exportable' ),
 

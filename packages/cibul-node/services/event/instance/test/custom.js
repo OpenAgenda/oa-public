@@ -6,7 +6,7 @@ var cbm = require( '../../../model' ),
 
 https = require( 'https' ),
 
-s3Svc = require( 'files' ).s3,
+s3Svc = require( '@openagenda/files' ).s3,
 
 should = require( 'should' ),
 

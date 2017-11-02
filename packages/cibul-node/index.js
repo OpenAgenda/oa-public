@@ -17,7 +17,7 @@ module.exports = {
     agendaSearch: require( 'agenda-search' ),
     stakeholders: require( 'agenda-stakeholders' ),
     tags: require( 'agenda-tags' ),
-    files: require( 'files' ),
+    files: require( '@openagenda/files' ),
     images: require( 'images' ),
     mailer: require( 'mailer' ),
     users: require( 'users' )

@@ -8,7 +8,7 @@ config = require( '../../../config' ),
 
 imageSvc = require( 'images' ),
 
-s3Svc = require( 'files' ).s3,
+s3Svc = require( '@openagenda/files' ).s3,
 
 async = require( 'async' ),
 

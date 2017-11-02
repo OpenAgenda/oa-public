@@ -1,6 +1,6 @@
 "use strict";
 
-const files = require( 'files' ),
+const files = require( '@openagenda/files' ),
 
   logger = require( 'logger' );
 
