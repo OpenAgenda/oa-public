@@ -3,7 +3,7 @@
 const moment = require( 'moment' );
 const log = require( 'logs' )( 'activities/notifications/tasks/sendSummary' );
 const queue = require( 'queue' );
-const mailer = require( 'mailer' );
+const mailer = require( '@openagenda/mailer' );
 const notiflabels = require( 'labels/activities/notifications' );
 const emailLabels = require( 'labels/activities/summaryEmail' );
 const makeLabelGetter = require( 'labels' );
