@@ -4,7 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
 var _react = require('react');
 
@@ -17,8 +23,6 @@ var _Spinner2 = _interopRequireDefault(_Spinner);
 var _ = require('../');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var searchSpinner = {
   width: 1,
@@ -33,7 +37,7 @@ var SearchInput = function SearchInput(_ref) {
       spellCheck = _ref.spellCheck,
       action = _ref.action,
       loading = _ref.loading,
-      props = _objectWithoutProperties(_ref, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
+      props = (0, _objectWithoutProperties3.default)(_ref, ['type', 'placeholder', 'className', 'spellCheck', 'action', 'loading']);
 
   var inputAttrs = { type: type, placeholder: placeholder, className: className, spellCheck: spellCheck };
   var onChange = function onChange(e) {
@@ -44,7 +48,7 @@ var SearchInput = function SearchInput(_ref) {
   var content = _react2.default.createElement(
     'div',
     { className: 'input-icon-right' },
-    _react2.default.createElement('input', _extends({}, props.input, inputAttrs, { onChange: onChange })),
+    _react2.default.createElement('input', (0, _extends3.default)({}, props.input, inputAttrs, { onChange: onChange })),
     _react2.default.createElement(
       'button',
       { type: 'submit', className: 'btn' },
@@ -52,7 +56,7 @@ var SearchInput = function SearchInput(_ref) {
     )
   );
 
-  return _react2.default.createElement(_.Field, _extends({ content: content }, props));
+  return _react2.default.createElement(_.Field, (0, _extends3.default)({ content: content }, props));
 };
 
 exports.default = SearchInput;

@@ -4,6 +4,42 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
+var _typeof2 = require('babel-runtime/helpers/typeof');
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _promise = require('babel-runtime/core-js/promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -15,12 +51,6 @@ var _react3 = _interopRequireDefault(_react2);
 var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _dec, _dec2, _dec3, _class, _class2, _temp2;
 
@@ -74,12 +104,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var _components = {
   Events: {
     displayName: 'Events'
@@ -121,7 +145,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       promises.push(dispatch(eventsActions.load(query)));
     }
 
-    return Promise.all(__CLIENT__ ? [] : promises);
+    return _promise2.default.all(__CLIENT__ ? [] : promises);
   }
 }]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
   return {
@@ -140,26 +164,26 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
     lang: state.settings.lang,
     modals: state.modals
   };
-}, _extends({}, eventsActions, modalsActions, { agendasLoad: agendasActions.load, replace: _reactRouterRedux.replace })), _dec3 = (0, _reduxForm.reduxForm)({
+}, (0, _extends3.default)({}, eventsActions, modalsActions, { agendasLoad: agendasActions.load, replace: _reactRouterRedux.replace })), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'homeEvents'
 }), _dec(_class = _dec2(_class = _dec3(_class = (_temp2 = _class2 = function (_Component) {
-  _inherits(Events, _Component);
+  (0, _inherits3.default)(Events, _Component);
 
   function Events() {
     var _ref2;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, Events);
+    (0, _classCallCheck3.default)(this, Events);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref2 = Events.__proto__ || Object.getPrototypeOf(Events)).call.apply(_ref2, [this].concat(args))), _this), _this.search = function (values) {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref2 = Events.__proto__ || (0, _getPrototypeOf2.default)(Events)).call.apply(_ref2, [this].concat(args))), _this), _this.search = function (values) {
       return _this.props.list(values).then(function () {
-        _this.context.router.push(_extends({}, _this.props.location, {
-          query: _extends({}, _this.props.location.query, { search: values.search || undefined })
+        _this.context.router.push((0, _extends3.default)({}, _this.props.location, {
+          query: (0, _extends3.default)({}, _this.props.location.query, { search: values.search || undefined })
         }));
       });
     }, _this.debouncedSearch = (0, _debounce2.default)(_this.props.handleSubmit(_this.search), 400), _this.nextPage = function () {
@@ -175,14 +199,14 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
 
       if (!events || !events.length || loading || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage({ search: search }, (page || 1) + 1);
-    }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
-  _createClass(Events, [{
+  (0, _createClass3.default)(Events, [{
     key: 'getMultilangLabel',
     value: function getMultilangLabel(field) {
-      if (field === null || (typeof field === 'undefined' ? 'undefined' : _typeof(field)) !== 'object') return field;
-      return field[this.props.lang] || field[Object.keys(field)[0]];
+      if (field === null || (typeof field === 'undefined' ? 'undefined' : (0, _typeof3.default)(field)) !== 'object') return field;
+      return field[this.props.lang] || field[(0, _keys2.default)(field)[0]];
     }
   }, {
     key: 'getEventShowLink',
@@ -375,7 +399,6 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       );
     }
   }]);
-
   return Events;
 }(_react2.Component), _class2.propTypes = {
   list: _propTypes2.default.func,

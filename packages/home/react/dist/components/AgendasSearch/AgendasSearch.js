@@ -4,6 +4,26 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -15,8 +35,6 @@ var _react3 = _interopRequireDefault(_react2);
 var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
 
 var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _dec, _dec2, _class, _class2, _temp2;
 
@@ -53,12 +71,6 @@ var _ = require('../');
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _components = {
   AgendasSearch: {
@@ -97,20 +109,20 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
     perPageLimit: state.settings.perPageLimit
   };
 }, agendasActions), _dec2 = (0, _reduxForm.reduxForm)({}), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_Component) {
-  _inherits(AgendasSearch, _Component);
+  (0, _inherits3.default)(AgendasSearch, _Component);
 
   function AgendasSearch() {
     var _ref;
 
     var _temp, _this, _ret;
 
-    _classCallCheck(this, AgendasSearch);
+    (0, _classCallCheck3.default)(this, AgendasSearch);
 
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = AgendasSearch.__proto__ || Object.getPrototypeOf(AgendasSearch)).call.apply(_ref, [this].concat(args))), _this), _this.search = function (values) {
+    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = AgendasSearch.__proto__ || (0, _getPrototypeOf2.default)(AgendasSearch)).call.apply(_ref, [this].concat(args))), _this), _this.search = function (values) {
       return _this.props.list(_this.props.id, values).then(function () {
         if (_this.props.onSearch) return _this.props.onSearch(values);
       });
@@ -127,10 +139,10 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
 
       if (!agendas || !agendas.length || loading || listLoading || nextLoading || page * perPageLimit >= total) return;
       _this.props.nextPage(_this.props.id, { search: search }, (page || 1) + 1);
-    }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this.throttledNextPage = (0, _throttle2.default)(_this.nextPage, 400, { trailing: false }), _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
   }
 
-  _createClass(AgendasSearch, [{
+  (0, _createClass3.default)(AgendasSearch, [{
     key: 'render',
     value: function render() {
       var _props = this.props,
@@ -197,7 +209,6 @@ var AgendasSearch = _wrapComponent('AgendasSearch')((_dec = (0, _reactRedux.conn
       );
     }
   }]);
-
   return AgendasSearch;
 }(_react2.Component), _class2.propTypes = {
   id: _propTypes2.default.string.isRequired,

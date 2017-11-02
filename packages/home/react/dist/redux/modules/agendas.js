@@ -4,7 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends11 = require('babel-runtime/helpers/extends');
+
+var _extends12 = _interopRequireDefault(_extends11);
 
 exports.default = reducer;
 exports.isLoaded = isLoaded;
@@ -12,9 +22,7 @@ exports.load = load;
 exports.list = list;
 exports.nextPage = nextPage;
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LOAD = 'home/agendas/LOAD';
 var LOAD_SUCCESS = 'home/agendas/LOAD_SUCCESS';
@@ -34,11 +42,11 @@ function reducer() {
 
   switch (action.type) {
     case LOAD:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         loading: true
       })));
     case LOAD_SUCCESS:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         loaded: true,
         data: action.result.reviews,
         total: action.result.total,
@@ -47,7 +55,7 @@ function reducer() {
         loading: false
       })));
     case LOAD_FAIL:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         data: null,
         total: null,
         page: 1,
@@ -55,11 +63,11 @@ function reducer() {
         loading: false
       })));
     case LIST:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         listLoading: true
       })));
     case LIST_SUCCESS:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         data: action.result.reviews,
         total: action.result.total,
         page: 1,
@@ -67,7 +75,7 @@ function reducer() {
         listLoading: false
       })));
     case LIST_FAIL:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         data: null,
         total: null,
         page: 1,
@@ -75,19 +83,19 @@ function reducer() {
         listLoading: false
       })));
     case NEXT_PAGE:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         nextLoading: true
       })));
     case NEXT_PAGE_SUCCESS:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
-        data: [].concat(_toConsumableArray(state[action.key].data), _toConsumableArray(action.result.reviews)),
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
+        data: [].concat((0, _toConsumableArray3.default)(state[action.key].data), (0, _toConsumableArray3.default)(action.result.reviews)),
         total: action.result.total,
         page: action.page,
         error: null,
         nextLoading: false
       })));
     case NEXT_PAGE_FAIL:
-      return _extends({}, state, _defineProperty({}, action.key, _extends({}, state[action.key], {
+      return (0, _extends12.default)({}, state, (0, _defineProperty3.default)({}, action.key, (0, _extends12.default)({}, state[action.key], {
         error: action.error,
         nextLoading: false
       })));
@@ -130,7 +138,7 @@ function nextPage(key, query, page) {
     promise: function promise(client, _ref3) {
       var res = _ref3.res,
           agendas = _ref3.agendas;
-      return client.get(res.agendas.list, { query: _extends({}, query, { page: page }) });
+      return client.get(res.agendas.list, { query: (0, _extends12.default)({}, query, { page: page }) });
     }
   };
 }
