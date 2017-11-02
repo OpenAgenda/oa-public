@@ -3,7 +3,7 @@
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
 const svc = require( '../../' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 
 module.exports = svc;
 

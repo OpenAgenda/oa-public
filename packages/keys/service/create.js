@@ -3,7 +3,7 @@
 const wn = require( 'when/node' );
 const VError = require( 'verror' );
 const uuid = require( 'uuid' );
-const defineUnique = require( 'mysql-utils/defineUnique' );
+const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 const config = require( './config' );
 const get = require( './get' );
 const validateIdentifiers = require( './validators/identifiers' );

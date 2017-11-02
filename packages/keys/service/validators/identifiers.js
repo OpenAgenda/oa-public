@@ -1,12 +1,12 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const keyTypes = require( '../lib/keyTypes' );
 
 schema.register( {
-  choice: require( 'validators/choice' ),
-  text: require( 'validators/text' ),
-  number: require( 'validators/number' )
+  choice: require( '@openagenda/validators/choice' ),
+  text: require( '@openagenda/validators/text' ),
+  number: require( '@openagenda/validators/number' )
 } );
 
 module.exports = ( identifiers, options ) => {

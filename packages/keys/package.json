@@ -1,5 +1,5 @@
 {
-  "name": "keys",
+  "name": "@openagenda/keys",
   "version": "1.0.0",
   "description": "",
   "main": "service/index.js",
@@ -15,20 +15,20 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/keys#readme",
   "dependencies": {
-    "basic-logger": "bitbucket:openagenda/basic-logger",
+    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/mysql-utils": "^2.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/validators": "^1.2.14",
     "hiredis": "^0.5.0",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
-    "mysql-utils": "bitbucket:openagenda/mysql-utils",
     "redis": "^2.8.0",
-    "service-utils": "bitbucket:openagenda/service-utils",
     "uuid": "^3.1.0",
-    "validators": "bitbucket:openagenda/validators",
     "verror": "^1.10.0",
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "fixtures": "bitbucket:openagenda/fixtures",
+    "@openagenda/fixtures": "^2.0.1",
     "should": "^11.2.1",
     "sinon": "^3.2.0"
   }

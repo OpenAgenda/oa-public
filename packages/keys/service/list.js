@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const parseListArguments = require( 'service-utils/parseListArguments' );
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
 const config = require( './config' );
 const validateArgs = require( './validators/listArguments' );
 

@@ -4,8 +4,8 @@ const _ = require( 'lodash' );
 const path = require( 'path' );
 const knexLib = require( 'knex' );
 const redis = require( 'redis' );
-const logger = require( 'basic-logger' );
-const promisifyRedis = require( 'service-utils/promisifyRedis' );
+const logger = require( '@openagenda/basic-logger' );
+const promisifyRedis = require( '@openagenda/service-utils/promisifyRedis' );
 
 const config = {
   knex: null,
