@@ -2,8 +2,8 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const utils = require( 'utils' );
-const defineUnique = require( 'mysql-utils/defineUnique' );
+const utils = require( '@openagenda/utils' );
+const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 const config = require( '../config' );
 const validators = require( './lib/validators' );
 const _updateOrInsert = require( './lib/updateOrInsert' );

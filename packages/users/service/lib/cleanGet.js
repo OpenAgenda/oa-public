@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const utils = require( 'utils' );
+const utils = require( '@openagenda/utils' );
 
 module.exports = function cleanGet( v ) {
 

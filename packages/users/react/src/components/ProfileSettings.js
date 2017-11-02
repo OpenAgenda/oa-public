@@ -4,10 +4,10 @@ const React = require( 'react' );
 const createReactClass = require( 'create-react-class' );
 const PropTypes = require( 'prop-types' );
 const { reduxForm } = require( 'redux-form' );
-const { capitalize } = require( 'utils' );
+const { capitalize } = require( '@openagenda/utils' );
 const { push } = require( 'react-router-redux' );
 const { connect } = require( 'react-redux' );
-const nl2br = require( 'react-utils/dist/nl2br' );
+const nl2br = require( '@openagenda/react-utils/dist/nl2br' );
 
 const domOnlyProps = ( {
                          initialValue, autofill, onUpdate, valid, invalid, dirty,

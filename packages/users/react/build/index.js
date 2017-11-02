@@ -8,8 +8,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var React = require('react');
 var ReactDom = require('react-dom');
-var du = require('dom-utils');
-var utils = require('utils');
+var du = require('@openagenda/dom-utils');
+var utils = require('@openagenda/utils');
 
 var _require = require('react-redux'),
     Provider = _require.Provider;
@@ -26,15 +26,13 @@ var _require4 = require('history'),
 
 var routes = require('./routes');
 var createStore = require('./create');
-var labels = require('labels/users/settings');
-var getLabels = require('labels')(labels);
+var labels = require('@openagenda/labels/users/settings');
+var getLabels = require('@openagenda/labels')(labels);
 var actions = require('./actions');
 var RelayContainer = require('./containers/RelayContainer');
 var App = require('./containers/App');
 var SettingsContainer = require('./containers/SettingsContainer');
 var DevTools = require('./containers/DevTools');
-
-require('dom-utils/ie8');
 
 module.exports = function (options) {
 

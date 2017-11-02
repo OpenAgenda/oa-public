@@ -5,17 +5,17 @@ if ( !require( 'piping' )( { hook: true } ) ) return;
 const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
 const async = require( 'async' );
-const unsubscribedSvc = require( 'unsubscribed/test/service' );
-const keysSvc = require( 'keys' );
+const unsubscribedSvc = require( '@openagenda/unsubscribed/test/service' );
+const keysSvc = require( '@openagenda/keys' );
 const service = require( '../service' );
 const mw = require( '../../middleware' );
 const config = require( '../../testconfig.js' );
 
-const app = require( 'test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false
 } );

@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const validators = require( 'validators' );
-const schema = require( 'validators/schema' );
-const { text, link, number, email, date, boolean } = require( 'validators' );
+const validators = require( '@openagenda/validators' );
+const schema = require( '@openagenda/validators/schema' );
+const { text, link, number, email, date, boolean } = require( '@openagenda/validators' );
 const config = require( '../config' );
 const get = require( './get' );
 

@@ -6,7 +6,7 @@ const React = require( 'react' ),
 
   PropTypes = require( 'prop-types' ),
 
-  ImageUpload = require( 'image-upload/components/build/ImageUploader' ),
+  ImageUpload = require( '@openagenda/image-upload/components/build/ImageUploader' ),
 
   { connect } = require( 'react-redux' );
 

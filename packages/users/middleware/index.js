@@ -4,10 +4,10 @@ const _ = require( 'lodash' );
 const path = require( 'path' );
 const w = require( 'when' );
 const csurf = require( 'csurf' );
-const log = require( 'basic-logger' )( 'users - middleware' );
-const mwUploadImage = require( 'image-upload/lib/middleware' );
-const images = require( 'images' );
-const files = require( 'files' );
+const log = require( '@openagenda/basic-logger' )( 'users - middleware' );
+const mwUploadImage = require( '@openagenda/image-upload/lib/middleware' );
+const images = require( '@openagenda/images' );
+const files = require( '@openagenda/files' );
 const service = require( '../' );
 
 const csrf = csurf( { cookie: true } );

@@ -1,18 +1,16 @@
 "use strict";
 
-const text = require( 'validators/text' ),
+const text = require( '@openagenda/validators/text' ),
 
-  email = require( 'validators/email' ),
+  email = require( '@openagenda/validators/email' ),
 
-  date = require( 'validators/date' ),
+  date = require( '@openagenda/validators/date' ),
 
-  number = require( 'validators/number' ),
+  number = require( '@openagenda/validators/number' ),
 
-  link = require( 'validators/link' ),
+  link = require( '@openagenda/validators/link' ),
 
-  utils = require( 'utils' ),
-
-  schema = require( 'validators/schema' );
+  schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
   text,

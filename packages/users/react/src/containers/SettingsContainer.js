@@ -14,13 +14,13 @@ const React = require( 'react' ),
 
   { change: changeFieldValue, reset: resetForm } = require( 'redux-form' ),
 
-  get = require( 'utils/get' ),
+  get = require( '@openagenda/utils/get' ),
 
   request = require( 'superagent' ),
 
   actions = require( '../actions' ),
 
-  Spinner = require( 'react-form-components/build/Spinner' ),
+  Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
 
   ProfileSettings = require( '../components/ProfileSettings' ),
 
@@ -34,7 +34,7 @@ const React = require( 'react' ),
 
   UnsubscribedSettings = require( '../components/UnsubscribedSettings' ),
 
-  Modal = require( 'react-components/build/Modal' );
+  Modal = require( '@openagenda/react-components/build/Modal' );
 
 
 const SettingsContainer = createReactClass( {

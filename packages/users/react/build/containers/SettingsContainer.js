@@ -34,17 +34,17 @@ var React = require('react'),
     _require4 = require('redux-form'),
     changeFieldValue = _require4.change,
     resetForm = _require4.reset,
-    get = require('utils/get'),
+    get = require('@openagenda/utils/get'),
     request = require('superagent'),
     actions = require('../actions'),
-    Spinner = require('react-form-components/build/Spinner'),
+    Spinner = require('@openagenda/react-form-components/build/Spinner'),
     ProfileSettings = require('../components/ProfileSettings'),
     ImageSettings = require('../components/ImageSettings'),
     EmailSettings = require('../components/EmailSettings'),
     PasswordSettings = require('../components/PasswordSettings'),
     ApiKeySettings = require('../components/ApiKeySettings'),
     UnsubscribedSettings = require('../components/UnsubscribedSettings'),
-    Modal = require('react-components/build/Modal');
+    Modal = require('@openagenda/react-components/build/Modal');
 
 var SettingsContainer = createReactClass({
 

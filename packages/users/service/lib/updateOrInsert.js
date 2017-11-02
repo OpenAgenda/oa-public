@@ -1,7 +1,7 @@
 "use strict";
 
 const w = require( 'when' );
-const defineUnique = require( 'mysql-utils/defineUnique' );
+const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 const config = require( '../../config' );
 const validators = require( './validators' );
 const get = require( '../get' );

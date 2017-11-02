@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const _ = require( 'lodash' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 const svc = require( '../..' );
 
 module.exports = _.extend( svc, {

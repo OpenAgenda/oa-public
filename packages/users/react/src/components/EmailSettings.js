@@ -8,7 +8,7 @@ const React = require( 'react' ),
 
   { reduxForm } = require( 'redux-form' ),
 
-  { capitalize } = require( 'utils' ),
+  { capitalize } = require( '@openagenda/utils' ),
 
   { push } = require( 'react-router-redux' ),
 

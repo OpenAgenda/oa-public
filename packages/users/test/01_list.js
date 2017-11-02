@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const config = require( '../testconfig' );
 const should = require( 'should' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 const service = require( './service' );
 
 
@@ -15,7 +15,7 @@ describe( '.list', function () {
   before( async () => {
 
     await service.initAndLoad( config );
-    await require( 'keys' ).init( config );
+    await require( '@openagenda/keys' ).init( config );
 
   } );
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const keysSvc = require( 'keys' );
+const keysSvc = require( '@openagenda/keys' );
 
 module.exports = {
   mysql: {

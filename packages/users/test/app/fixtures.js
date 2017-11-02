@@ -1,7 +1,7 @@
 "use strict";
 
 const wn = require( 'when/node' );
-const unsubscribedSvc = require( 'unsubscribed/test/service' );
+const unsubscribedSvc = require( '@openagenda/unsubscribed/test/service' );
 const usersSvc = require( '../service' );
 const config = require( '../../testconfig.js' );
 

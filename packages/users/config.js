@@ -1,11 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const path = require( 'path' );
 const knexLib = require( 'knex' );
-const logger = require( 'basic-logger' );
-const images = require( 'images' );
-const files = require( 'files' );
+const logger = require( '@openagenda/basic-logger' );
+const images = require( '@openagenda/images' );
+const files = require( '@openagenda/files' );
 
 const config = {
   knex: null

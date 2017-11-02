@@ -6,7 +6,7 @@ const config = require( '../testconfig' ),
 
   should = require( 'should' ),
 
-  fixtures = require( 'fixtures' ),
+  fixtures = require( '@openagenda/fixtures' ),
 
   service = require( '../service' ),
 
@@ -20,7 +20,7 @@ describe( '.verifyPassword', function () {
   before( async () => {
 
     await service.initAndLoad( config );
-    await require( 'keys' ).init( config );
+    await require( '@openagenda/keys' ).init( config );
 
   } );
 

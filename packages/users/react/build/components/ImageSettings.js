@@ -3,7 +3,7 @@
 var React = require('react'),
     createReactClass = require('create-react-class'),
     PropTypes = require('prop-types'),
-    ImageUpload = require('image-upload/components/build/ImageUploader'),
+    ImageUpload = require('@openagenda/image-upload/components/build/ImageUploader'),
     _require = require('react-redux'),
     connect = _require.connect;
 

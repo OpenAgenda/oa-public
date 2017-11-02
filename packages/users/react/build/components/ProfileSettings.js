@@ -17,7 +17,7 @@ var PropTypes = require('prop-types');
 var _require = require('redux-form'),
     reduxForm = _require.reduxForm;
 
-var _require2 = require('utils'),
+var _require2 = require('@openagenda/utils'),
     capitalize = _require2.capitalize;
 
 var _require3 = require('react-router-redux'),
@@ -26,7 +26,7 @@ var _require3 = require('react-router-redux'),
 var _require4 = require('react-redux'),
     connect = _require4.connect;
 
-var nl2br = require('react-utils/dist/nl2br');
+var nl2br = require('@openagenda/react-utils/dist/nl2br');
 
 var domOnlyProps = function domOnlyProps(_ref) {
   var initialValue = _ref.initialValue,

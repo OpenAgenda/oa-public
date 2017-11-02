@@ -2,19 +2,19 @@
 
 const verror = require( 'verror' );
 const _ = require( 'lodash' );
-const parseListArguments = require( 'service-utils/parseListArguments' );
-const schema = require( 'validators/schema' );
-const log = require( 'basic-logger' )( 'users/list' );
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
+const schema = require( '@openagenda/validators/schema' );
+const log = require( '@openagenda/basic-logger' )( 'users/list' );
 const config = require( '../config' );
 
 module.exports = list;
 
 schema.register( {
-  text: require( 'validators/text' ),
-  number: require( 'validators/number' ),
-  boolean: require( 'validators/boolean' ),
-  integer: require( 'validators/integer' ),
-  pass: require( 'validators/pass' ),
+  text: require( '@openagenda/validators/text' ),
+  number: require( '@openagenda/validators/number' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  integer: require( '@openagenda/validators/integer' ),
+  pass: require( '@openagenda/validators/pass' ),
 } );
 
 function validate( args ) {

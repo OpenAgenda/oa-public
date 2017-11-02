@@ -2,24 +2,22 @@
 
 const React = require( 'react' );
 const ReactDom = require( 'react-dom' );
-const du = require( 'dom-utils' );
-const utils = require( 'utils' );
+const du = require( '@openagenda/dom-utils' );
+const utils = require( '@openagenda/utils' );
 const { Provider } = require( 'react-redux' );
 const { syncHistoryWithStore } = require( 'react-router-redux' );
 const { Router, useRouterHistory } = require( 'react-router' );
 const { createHistory } = require( 'history' );
 const routes = require( './routes' );
 const createStore = require( './create' );
-const labels = require( 'labels/users/settings' );
-const getLabels = require( 'labels' )( labels );
+const labels = require( '@openagenda/labels/users/settings' );
+const getLabels = require( '@openagenda/labels' )( labels );
 const actions = require( './actions' );
 const RelayContainer = require( './containers/RelayContainer' );
 const App = require( './containers/App' );
 const SettingsContainer = require( './containers/SettingsContainer' );
 const DevTools = require( './containers/DevTools' );
 
-
-require( 'dom-utils/ie8' );
 
 module.exports = function ( options ) {
 
