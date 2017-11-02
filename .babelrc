@@ -1,7 +1,22 @@
 {
   "presets": [
     "react",
-    "es2015"
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "Firefox >= 24",
+            "Chrome >= 33",
+            "Safari >= 9",
+            "IE >= 10"
+          ],
+          "node": "6"
+        },
+        "useBuiltIns": true
+      }
+    ]
   ],
   "plugins": [
     "add-module-exports",
@@ -11,7 +26,8 @@
     "transform-object-rest-spread",
     "transform-class-properties",
     "transform-export-extensions",
-    "transform-function-bind"
+    "transform-function-bind",
+    "transform-runtime"
   ],
   "env": {
     "development": {
