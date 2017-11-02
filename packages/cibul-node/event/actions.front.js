@@ -336,9 +336,20 @@ function _agendasAction( req, res, next ) {
 
 function _emailAction( req, res, next ) {
 
-  req.templateData.mailSendUri = req.genUrl( 'eventMailSend', { 
-    eventSlug: req.event.slug 
-  } );
+  if ( req.agenda ) {
+
+    req.templateData.mailSendUri = req.genUrl( 'agendaEventMailSend', {
+      eventSlug: req.event.slug,
+      slug: req.agenda.slug
+    } );
+
+  } else {
+
+    req.templateData.mailSendUri = req.genUrl( 'eventMailSend', { 
+      eventSlug: req.event.slug 
+    } );
+
+  }
 
   next();
 
