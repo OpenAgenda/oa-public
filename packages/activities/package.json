@@ -15,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/activities#readme",
   "dependencies": {
+    "@openagenda/mailer": "^1.0.2",
     "agenda-stakeholders": "git+ssh://git@bitbucket.org/openagenda/agenda-stakeholders.git",
     "async": "^2.3.0",
     "caporal": "^0.4.1",
