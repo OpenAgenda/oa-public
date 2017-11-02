@@ -9,7 +9,7 @@ import CheckboxField from './CheckboxField.jsx';
 import RadioFields from './RadioFields.jsx';
 import SelectField from './SelectField.jsx';
 import ImageUpload from 'image-upload/components/build/ImageUploader';
-import HTMLComponent from 'react-form-components/build/HTMLComponent';
+import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
 
 module.exports = createReactClass({
 

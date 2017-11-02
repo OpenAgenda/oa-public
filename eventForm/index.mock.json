@@ -452,7 +452,8 @@
         "placeholder" : {
           "fr" : "placeholder personnalisé",
           "en" : "customized placeholder"
-        }
+        },
+        "optional" : false
       }, {
         "name" : "description",
         "fixed" : {
@@ -522,6 +523,7 @@
           "fr" : "Détail des conditions",
           "en" : "Condition details"
         },
+        "optional": false,
         "placeholder" : {
           "fr" : "Le prix",
           "en" : "The price."

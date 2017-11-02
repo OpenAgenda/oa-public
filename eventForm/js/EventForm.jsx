@@ -3,8 +3,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import LanguageBar from 'react-form-components/build/LanguageBar';
-import Translation from 'react-form-components/build/Translation';
+import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
+import Translation from '@openagenda/react-form-components/build/Translation';
 import MultilingualTextField from './MultilingualTextField.jsx';
 import EventKeywordsField from './EventKeywordsField.jsx';
 import Wysiwyg from './Wysiwyg.jsx';
@@ -24,7 +24,12 @@ import Modal from 'react-components/build/Modal';
 import Spinner from 'react-components/build/Spinner';
 import translator from './translator.js';
 import translationLabels from 'labels/event/translation';
+import formLabels from 'labels/event/form';
 import flattenLabels from 'labels/flatten';
+
+const _ = {
+  isArray: require( 'lodash/isArray' )
+}
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
 
@@ -93,7 +98,7 @@ function EventFormFactory() {
 
       }
 
-      if ( !state.custom || utils.isArray( state.custom ) ) state.custom = {};
+      if ( !state.custom || _.isArray( state.custom ) ) state.custom = {};
 
       state.locationMode = state.location ? 'show' : 'search';
 
@@ -104,7 +109,6 @@ function EventFormFactory() {
         translator.init( this, this.props.initTranslation.options, textFields );
 
       }
-
 
       module.exports.actionables.onSubmit = this.onSubmitSpin;
 
@@ -210,6 +214,18 @@ function EventFormFactory() {
 
     },
 
+    onChangeRegistration: function( value, errorMessage ) {
+
+      if ( !this.props.configuration.field( 'registration' ).get( 'optional', true ) && ( value === null || !value.length ) ) {
+
+        errorMessage = formLabels.required[ this.props.lang ];
+
+      }
+
+      this.onChange( 'ticketLink' )( value, errorMessage );
+
+    },
+
     changeCustom: function ( field, value, errorMessage ) {
 
       var updated = {
@@ -236,7 +252,7 @@ function EventFormFactory() {
 
       for ( var i in formErrors ) {
 
-        if ( utils.isArray( formErrors[ i ] ) ) {
+        if ( _.isArray( formErrors[ i ] ) ) {
 
           errors = errors.concat( formErrors[ i ].map( function ( e ) {
 
@@ -369,7 +385,7 @@ function EventFormFactory() {
 
       if ( !data ) return;
 
-      if ( utils.isArray( data ) ) {
+      if ( _.isArray( data ) ) {
 
         return data.map( function ( d ) {
           return typeof d == 'object' ? d.slug : d
@@ -617,7 +633,7 @@ function EventFormFactory() {
               placeholder={this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels )}
               name='conditions'
               type='text'
-              optional={true}
+              optional={this.props.configuration.field( 'conditions' ).get( 'optional', true ) }
               value={this.state.conditions}
               error={formErrors.conditions}
               languages={this.state.languages}
@@ -630,7 +646,7 @@ function EventFormFactory() {
             label={this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels )}
             placeholder={this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels )}
             value={this.state.ticketLink}
-            onChange={this.onChange( 'ticketLink' )} /> : null}
+            onChange={this.onChangeRegistration} /> : null}
 
           {this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
             value={this.state.accessibility || []}

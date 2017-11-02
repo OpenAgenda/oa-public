@@ -6,9 +6,13 @@ const utils = require( 'utils' );
 
 const update = require( 'immutability-helper' );
 
-const onTranslationCheck = require( 'react-form-components/lib/onTranslationCheck' );
+const onTranslationCheck = require( '@openagenda/react-form-components/lib/onTranslationCheck' );
 
 const async = require( 'async' );
+
+const _ = {
+  extend: require( 'lodash/extend' )
+}
 
 const translators = require( 'translators' );
 
@@ -146,7 +150,7 @@ function init( ctx, options, f ) {
 
       config = JSON.parse( base64.decode( options ) );
 
-      translator = translators.reverso( Object.assign( { timeout: 10000, }, config ) );
+      translator = translators.reverso( _.extend( { timeout: 10000, }, config ) );
 
     } catch( e ) {
 

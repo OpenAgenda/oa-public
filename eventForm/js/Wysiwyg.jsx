@@ -4,9 +4,9 @@ var React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  MarkdownComponent = require( 'react-form-components/build/MarkdownComponent' ),
+  MarkdownComponent = require( '@openagenda/react-form-components/build/MarkdownComponent' ),
 
-  HTMLComponent = require( 'react-form-components/build/HTMLComponent' ),
+  HTMLComponent = require( '@openagenda/react-form-components/build/HTMLComponent' ),
 
   du = require( 'dom-utils' ),
 
