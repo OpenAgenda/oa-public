@@ -30,7 +30,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/home#readme",
   "dependencies": {
-    "@openagenda/date-range": "git+ssh://git@bitbucket.org/openagenda/date-range.git",
+    "@openagenda/date-range": "^2.1.0",
     "@openagenda/dom-utils": "^2.0.4",
     "@openagenda/labels": "^2.0.2",
     "@openagenda/react-components": "^2.0.1",
@@ -39,7 +39,6 @@
     "async": "^2.4.0",
     "babel-runtime": "^6.26.0",
     "classnames": "^2.2.5",
-    "date-range": "git+ssh://git@bitbucket.org/openagenda/date-range.git",
     "knex": "^0.12.6",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",

@@ -21,9 +21,9 @@
     reload "^1.1.0"
     walk "^2.3.9"
 
-"@openagenda/date-range@git+ssh://git@bitbucket.org/openagenda/date-range.git", "date-range@git+ssh://git@bitbucket.org/openagenda/date-range.git":
+"@openagenda/date-range@^2.1.0":
   version "2.1.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/date-range.git#a4ccd6366442b45fa4dc3e33171534f036a101df"
+  resolved "https://registry.npmjs.org/@openagenda/date-range/-/date-range-2.1.0.tgz#5d5bad08d94fcc8ee3b499b8cab428937f8155f9"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"

@@ -1,4 +1,4 @@
-const range = require( 'date-range' );
+const range = require( '@openagenda/date-range' );
 
 const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
 const createStore = require( '@openagenda/react-utils/dist/createStore' );
