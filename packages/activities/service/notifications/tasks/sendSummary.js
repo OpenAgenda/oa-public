@@ -1,13 +1,13 @@
 "use strict";
 
 const moment = require( 'moment' );
-const log = require( 'logs' )( 'activities/notifications/tasks/sendSummary' );
-const queue = require( 'queue' );
+const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/sendSummary' );
+const queue = require( '@openagenda/queue' );
 const mailer = require( '@openagenda/mailer' );
-const notiflabels = require( 'labels/activities/notifications' );
-const emailLabels = require( 'labels/activities/summaryEmail' );
-const makeLabelGetter = require( 'labels' );
-const unsubscribed = require( 'unsubscribed' );
+const notiflabels = require( '@openagenda/labels/activities/notifications' );
+const emailLabels = require( '@openagenda/labels/activities/summaryEmail' );
+const makeLabelGetter = require( '@openagenda/labels' );
+const unsubscribed = require( '@openagenda/unsubscribed' );
 const notificationFormatMaker = require( '../../../formatNotification' );
 const { defaultGetUrl } = require( '../../../formatNotification' );
 

@@ -3,9 +3,9 @@
 const _ = require( 'lodash' );
 const nodefn = require( 'when/node' );
 const async = require( 'async' );
-const log = require( 'logs' )( 'activities/notifications/tasks/prepareSummary' );
-const usersSvc = require( 'users' );
-const unsubscribed = require( 'unsubscribed' );
+const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/prepareSummary' );
+const usersSvc = require( '@openagenda/users' );
+const unsubscribed = require( '@openagenda/unsubscribed' );
 const sendSummary = require( './sendSummary' );
 
 

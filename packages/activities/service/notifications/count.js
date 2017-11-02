@@ -1,10 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const schema = require( 'validators/schema' );
-const validators = require( 'validators' );
 const VError = require( 'verror' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
+const schema = require( '@openagenda/validators/schema' );
+const validators = require( '@openagenda/validators' );
 const notificationStates = require( '../notificationStates' );
 
 

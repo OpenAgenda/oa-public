@@ -2,7 +2,7 @@ const _ = require( 'lodash' );
 const w = require( 'when' );
 const async = require( 'async' );
 const isPromise = require( 'is-promise' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const parseMethodArguments = require( './parseMethodArguments' );
 
 module.exports = Object.assign( method, {

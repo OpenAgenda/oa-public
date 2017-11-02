@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const notificationStates = require( '../notificationStates' );
 
 let config;

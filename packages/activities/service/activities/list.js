@@ -1,10 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const parseListArguments = require( 'service-utils/parseListArguments' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const schema = require( 'validators/schema' );
-const validators = require( 'validators' );
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
+const schema = require( '@openagenda/validators/schema' );
+const validators = require( '@openagenda/validators' );
 
 let config;
 let knex;

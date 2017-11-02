@@ -7,10 +7,10 @@ const escape = require( 'lodash/escape' );
 const reduce = require( 'lodash/reduce' );
 const mapValues = require( 'lodash/mapValues' );
 
-const makeLabelGetter = require( 'labels' );
-const credentialLabels = require( 'labels/contributors/credentials' );
-const stateLabels = require( 'labels/event/states' );
-const credentialTypes = require( 'agenda-stakeholders/iso/credentialTypes' );
+const makeLabelGetter = require( '@openagenda/labels' );
+const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
+const stateLabels = require( '@openagenda/labels/event/states' );
+const credentialTypes = require( '@openagenda/agenda-stakeholders/iso/credentialTypes' );
 
 const groupBy = require( './service/notifications/lib/groupBy' );
 

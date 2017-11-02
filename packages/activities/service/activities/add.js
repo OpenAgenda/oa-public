@@ -3,11 +3,11 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const VError = require( 'verror' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
-const method = require( '../../utils/method' );
-const schema = require( 'validators/schema' );
-const validators = require( 'validators' );
 const nodefn = require( 'when/node' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
+const schema = require( '@openagenda/validators/schema' );
+const validators = require( '@openagenda/validators' );
+const method = require( '../../utils/method' );
 
 let config;
 let knex;

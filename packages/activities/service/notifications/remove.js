@@ -1,7 +1,7 @@
 "use strict";
 
 const VError = require( 'verror' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
 let config;
 let knex;

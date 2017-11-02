@@ -2,7 +2,7 @@
 
 const path = require( 'path' );
 const knexLib = require( 'knex' );
-const logger = require( 'logs' );
+const logger = require( '@openagenda/logs' );
 const feed = require( './feed' );
 const feeds = require( './feeds' );
 const activities = require( './activities' );

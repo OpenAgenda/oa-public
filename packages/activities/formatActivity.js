@@ -3,10 +3,10 @@
 const merge = require( 'lodash/merge' );
 const escape = require( 'lodash/escape' );
 
-const makeLabelGetter = require( 'labels' );
-const credentialLabels = require( 'labels/contributors/credentials' );
-const stateLabels = require( 'labels/event/states' );
-const credentialTypes = require( 'agenda-stakeholders/iso/credentialTypes' );
+const makeLabelGetter = require( '@openagenda/labels' );
+const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
+const stateLabels = require( '@openagenda/labels/event/states' );
+const credentialTypes = require( '@openagenda/agenda-stakeholders/iso/credentialTypes' );
 
 const getUid = str => str.split( ':' )[ 1 ];
 

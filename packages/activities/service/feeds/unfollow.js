@@ -1,7 +1,7 @@
 "use strict";
 
-const log = require( 'logs' )( 'activities/feeds/unfollow' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const log = require( '@openagenda/logs' )( 'activities/feeds/unfollow' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
 let config;
 let knex;

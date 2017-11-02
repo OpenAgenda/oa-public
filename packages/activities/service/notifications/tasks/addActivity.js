@@ -1,10 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const log = require( 'logs' )( 'activities/notifications/tasks/addActivity' );
 const VError = require( 'verror' );
-const queue = require( 'queue' );
-const promisePlusCb = require( 'service-utils/promisePlusCb' );
+const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/addActivity' );
+const queue = require( '@openagenda/queue' );
+const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const groupBy = require( '../lib/groupBy' );
 
 let config;
