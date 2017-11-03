@@ -1,6 +1,4 @@
 "use strict";
-
-const logger = require( 'logger' );
 const legacy = require( './legacy' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const eventStates = require( 'agendas/service/validate/eventStates' );
@@ -22,7 +20,6 @@ function init( config ) {
   agendaEvents.init( {
     mysql: config.db,
     redis: config.redis,
-    logger,
     schemas: {
       agendaEvent: config.schemas.agendaEventService
     },
