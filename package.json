@@ -27,7 +27,7 @@
     "@openagenda/call-to-action": "^2.0.2",
     "@openagenda/dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "@openagenda/home": "git+ssh://git@bitbucket.org/openagenda/home.git",
-    "@openagenda/labels": "git+ssh://git@bitbucket.org/openagenda/labels.git",
+    "@openagenda/labels": "^2.0.4",
     "@openagenda/react-components": "git+ssh://git@bitbucket.org/openagenda/react-components.git",
     "@openagenda/react-form-components": "^2.0.7",
     "@openagenda/sessions": "git+ssh://git@bitbucket.org/openagenda/sessions.git",
