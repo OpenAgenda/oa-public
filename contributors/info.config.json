@@ -4,7 +4,7 @@
   "labels" : "contributors/info",
 
   "bsCss" : {
-    "main" : "/node_modules/bs-templates/compiled/main.css"
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
   },
 
   "helpers" : {

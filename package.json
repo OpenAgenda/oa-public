@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "cibulTemplates",
   "version": "0.0.3",
   "description": "cibul templates library",
@@ -24,7 +23,7 @@
     }
   },
   "dependencies": {
-    "@openagenda/bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
+    "@openagenda/bs-templates": "^2.0.3",
     "@openagenda/call-to-action": "^2.0.2",
     "@openagenda/dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "@openagenda/home": "git+ssh://git@bitbucket.org/openagenda/home.git",

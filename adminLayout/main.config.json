@@ -1,6 +1,6 @@
 {
   "adminCss" : {
-    "bootstrap" : "../node_modules/bs-templates/compiled/admin.css"
+    "bootstrap" : "../node_modules/@openagenda/bs-templates/compiled/admin.css"
   },
 
   "base" : {    
