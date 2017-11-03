@@ -4,7 +4,7 @@ const list = require( '../service/list' );
 
 const _ = require( 'lodash' );
 
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 
 const mysql = require( 'mysql' );
 

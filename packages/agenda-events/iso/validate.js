@@ -1,6 +1,6 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 const _ = {
   extend: require( 'lodash/extend' ),
@@ -9,11 +9,11 @@ const _ = {
 }
 
 schema.register( {
-  integer: require( 'validators/integer' ),
-  boolean: require( 'validators/boolean' ),
-  choice: require( 'validators/choice' ),
-  date: require( 'validators/date' ),
-  text: require( 'validators/text' )
+  integer: require( '@openagenda/validators/integer' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  choice: require( '@openagenda/validators/choice' ),
+  date: require( '@openagenda/validators/date' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 let validate;

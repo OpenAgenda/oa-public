@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const async = require( 'async' );
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 const mysql = require( 'mysql' );
 const getLegacyState = require( '../service/lib/getLegacyState' );
 

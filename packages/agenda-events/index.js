@@ -2,8 +2,8 @@
 
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
-const queueLib = require( 'queue' );
-const logger = require( 'basic-logger' );
+const queueLib = require( '@openagenda/queue' );
+const logger = require( '@openagenda/basic-logger' );
 
 const endpoints = {
   list: require( './service/list' ),

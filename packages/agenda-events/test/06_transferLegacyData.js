@@ -12,7 +12,7 @@ const mysql = require( 'mysql' );
 
 const _ = require( 'lodash' );
 
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 
 
 describe( 'transferLegacyData - sample', function() {

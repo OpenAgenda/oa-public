@@ -6,7 +6,7 @@ const svc = require( '../../' ),
 
 _ = require( 'lodash' ),
 
-fixtures = require( 'fixtures' );
+fixtures = require( '@openagenda/fixtures' );
 
 module.exports = svc;
 

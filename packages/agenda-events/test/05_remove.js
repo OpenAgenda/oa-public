@@ -12,7 +12,7 @@ const should = require( 'should' );
 
 const im = require( 'immutability-helper' );
 
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 
 describe( 'agendaEvents - functional (server): remove', function() {
 

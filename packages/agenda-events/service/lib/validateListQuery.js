@@ -1,11 +1,11 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const states = require( '../../iso/states' );
 const _ = require( 'lodash' );
 
 schema.register( {
-  choice: require( 'validators/choice' )
+  choice: require( '@openagenda/validators/choice' )
 } );
 
 const validate = schema( {

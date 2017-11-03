@@ -8,7 +8,7 @@ const _ = require( 'lodash' ),
 
   validateOptions = require( './lib/validateOptions' ),
 
-  logger = require( 'basic-logger' );
+  logger = require( '@openagenda/basic-logger' );
 
 let config, knex, log = console.log;
 
