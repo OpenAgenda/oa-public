@@ -34,6 +34,7 @@ module.exports = {
 
   // given by agenda service
   eventStates: {
+    REFUSED: -1,
     NOT_VALIDATED: 0,
     VALIDATED: 1,
     PUBLISHED: 2

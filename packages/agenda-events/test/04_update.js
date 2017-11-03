@@ -56,6 +56,16 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  it( 'simple update to refused state', async () => {
+
+    const result = await svc( 62792452 ).update( 10974548, {
+      state: -1
+    } );
+
+    result.updated.state.should.equal( -1 );
+
+  } );
+
   it( 'simple update forcing timestamp values', async () => {
 
     let createdAt = new Date( '2017-02-28T08:00:00.000Z' );
