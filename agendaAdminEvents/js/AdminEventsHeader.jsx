@@ -189,6 +189,9 @@ const AdminEventsHeader = createReactClass( {
   getStateOptions: function () {
 
     return [ {
+      label: getStateLabel( 'refused', this.props.lang ),
+      value: 'refused'
+    }, {
       label: getStateLabel( 'tobecontrolled', this.props.lang ),
       value: 'tobecontrolled'
     }, {
