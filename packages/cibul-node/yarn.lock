@@ -339,6 +339,16 @@
     redux-form "^6.6.3"
     superagent "3.6.0"
 
+"@openagenda/registration@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/@openagenda/registration/-/registration-1.1.1.tgz#7db4db004e6d9e6a68a84c0ceec7d1db82464c16"
+  dependencies:
+    "@openagenda/labels" "^2.0.2"
+    "@openagenda/validators" "^2.0.1"
+    create-react-class "^15.5.3"
+    prop-types "^15.5.8"
+    react-tagsinput "^3.16.1"
+
 "@openagenda/service-utils@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/service-utils/-/service-utils-2.0.0.tgz#d4f7c33df754e76632a5e319aeaf9c9a927304e6"
@@ -8922,9 +8932,8 @@ regexpu-core@^2.0.0:
     regjsgen "^0.2.0"
     regjsparser "^0.1.4"
 
-"registration@bitbucket:openagenda/registration", "registration@git+ssh://git@bitbucket.org/openagenda/registration.git":
+"registration@git+ssh://git@bitbucket.org/openagenda/registration.git":
   version "1.0.4"
-  uid "31a7d5ad38f879c997354e9e2d95b5d77f8a8057"
   resolved "git+ssh://git@bitbucket.org/openagenda/registration.git#31a7d5ad38f879c997354e9e2d95b5d77f8a8057"
   dependencies:
     "@openagenda/labels" "^2.0.2"

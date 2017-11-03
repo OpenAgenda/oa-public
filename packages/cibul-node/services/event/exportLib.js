@@ -10,7 +10,7 @@ const _ = require( 'lodash' ),
 
   genUrl = require( '../genUrl' ),
 
-  registration = require( 'registration/src/validate' ).getTypesAndValues,
+  registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues,
 
   timeHelper = require( 'cibulTemplates' ).helpers.time,
 

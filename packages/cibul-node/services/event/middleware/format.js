@@ -4,7 +4,7 @@ const w = require( 'when' );
 const _ = require( 'lodash' );
 const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( 'cibulTemplates' ).helpers.time;
-const registration = require( 'registration/src/validate' ).getTypesAndValues;
+const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
 /**
  * prepare event data for display or upload

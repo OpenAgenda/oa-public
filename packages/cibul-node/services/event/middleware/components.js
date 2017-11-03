@@ -6,7 +6,7 @@ React = require( 'react' ),
 
 ReactDOMServer = require( 'react-dom/server' ),
 
-Registration = React.createFactory( require( 'registration/lib/Display' ) ),
+Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) ),
 
 References = React.createFactory( require( 'agenda-event-references/react/build/Show' ) ),
 
