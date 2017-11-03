@@ -1,25 +1,15 @@
 "use strict";
 
-const list = require( '../service/list' );
-
 const _ = require( 'lodash' );
-
-const logger = require( '@openagenda/basic-logger' );
-
 const mysql = require( 'mysql' );
-
+const list = require( '../service/list' );
 const update = require( '../service/update' );
+const logs = require( '@openagenda/logs' )( 'tasks/transferUserUids' );
 
-let config, log;
+let config;
 
 module.exports = _.extend( run, {
-  init: ( c, k ) => {
-
-    config = c; 
-
-    log = logger( 'agenda-events/tasks/transferUserUids' );
-
-  }
+  init: c => config = c
 } );
 
 async function run( options, cb ) {

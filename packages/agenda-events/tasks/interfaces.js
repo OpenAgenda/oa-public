@@ -1,9 +1,9 @@
 "use strict";
 
-const logger = require( '@openagenda/basic-logger' );
 const _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'tasks/interfaces' );
 
-let interfaces, queue, svc, log;
+let interfaces, queue, svc;
 
 module.exports = _.extend( run, {
   init: ( c, k, s ) => {
@@ -12,8 +12,6 @@ module.exports = _.extend( run, {
     interfaces = c.interfaces;
     svc = s;
     
-    log = logger( 'agenda-events/tasks/interfaces' );
-
   }
 } );
 

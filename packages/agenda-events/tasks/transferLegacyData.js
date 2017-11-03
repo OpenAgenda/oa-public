@@ -1,10 +1,10 @@
 "use strict";
 
-const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( '@openagenda/basic-logger' );
-const async = require( 'async' );
+const _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'tasks/transferLegacyData' );
 const queue = require( '@openagenda/queue' );
+const async = require( 'async' );
 const mysql = require( 'mysql' );
 const getLegacyState = require( '../service/lib/getLegacyState' );
 
@@ -13,7 +13,6 @@ module.exports = _.extend( run, {
 
     config = c; 
     svc = s;
-    log = logger( 'agenda-events/tasks/transferLegacyData' );
 
     q = queue( 'agendaEventTransfer', { redis: config.redis } );
 
@@ -22,7 +21,7 @@ module.exports = _.extend( run, {
   }
 } );
 
-let config, svc, log, q, knex;
+let config, svc, q, knex;
 
 
 async function run( options = {} ) {

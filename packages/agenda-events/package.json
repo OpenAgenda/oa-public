@@ -7,7 +7,7 @@
     "test": "mocha"
   },
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/logs": "^1.0.1",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/validators": "^2.0.1",
     "async": "^2.1.4",

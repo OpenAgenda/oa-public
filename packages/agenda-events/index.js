@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
 const queueLib = require( '@openagenda/queue' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 const endpoints = {
   list: require( './service/list' ),
@@ -36,7 +36,7 @@ module.exports.init = c => {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logger.setModuleConfig( c.logger );
 
   }
 

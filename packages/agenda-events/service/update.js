@@ -1,16 +1,12 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const get = require( './get' );
+const validate = require( '../iso/validate' );
+const log = require( '@openagenda/logs' )( 'update' );
+const validateOptions = require( './lib/validateOptions' );
 
-  validate = require( '../iso/validate' ),
-
-  get = require( './get' ),
-
-  validateOptions = require( './lib/validateOptions' ),
-
-  logger = require( '@openagenda/basic-logger' );
-
-let config, knex, log = console.log;
+let config, knex;
 
 module.exports = _.extend( update, {
   init: ( c, k ) => {
@@ -18,8 +14,6 @@ module.exports = _.extend( update, {
     config = c;
 
     knex = k;
-
-    log = logger( 'agenda-events/update' );
 
   }
 } );
