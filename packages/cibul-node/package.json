@@ -9,8 +9,8 @@
     "background": "nohup npm start >/dev/null 2>&1 &"
   },
   "dependencies": {
-    "@openagenda/agenda-events": "^1.1.0",
     "@openagenda/activities": "^2.0.0",
+    "@openagenda/agenda-events": "^1.1.0",
     "@openagenda/call-to-action": "^2.0.2",
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/dom-utils": "^2.0.4",

@@ -70,6 +70,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     var labels = {};
 
+    labels[ TYPES.REFUSED ] = 'refused';
     labels[ TYPES.NOTVALIDATED ] = 'tocontrol';
     labels[ TYPES.VALIDATED ] = 'controlled';
     labels[ TYPES.PUBLISHED ] = 'published';
@@ -87,11 +88,12 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       var stateModifiers = {};
 
+      stateModifiers[ TYPES.REFUSED ] = _refuse;
       stateModifiers[ TYPES.PUBLISHED ] = _publish;
       stateModifiers[ TYPES.VALIDATED ] = _validate;
       stateModifiers[ TYPES.NOTVALIDATED ] = _unvalidate;
 
-      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED ].indexOf( parseInt( newState ) ) == -1 ) {
+      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED ].indexOf( parseInt( newState ) ) == -1 ) {
 
         return cb( 'this state is unknown' );
 
@@ -138,6 +140,15 @@ function _publish( instance, cb ) {
     async.apply( instance.undraft, true ),
     async.apply( instance.setPublished, true ),
     async.apply( instance.setValidated, true )
+  ], cb );
+
+}
+
+function _refuse( instance, cb ) {
+
+  async.series( [
+    async.apply( instance.setUnpublished, true ),
+    async.apply( instance.setRefused, true )
   ], cb );
 
 }

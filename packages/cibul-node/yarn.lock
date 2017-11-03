@@ -804,9 +804,25 @@ acorn@^5.0.0:
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
     when "3.7.4"
 
-"agendas@bitbucket:openagenda/agendas", "agendas@git+ssh://git@bitbucket.org/openagenda/agendas.git":
+"agendas@bitbucket:openagenda/agendas":
   version "1.0.1"
-  uid "680ee7a22afc0e19b9f31e24bb2ca8b4234bb991"
+  resolved "git+ssh://git@bitbucket.org/openagenda/agendas.git#69fe70518af78aa74f712645b5918da5aa077922"
+  dependencies:
+    async "^1.5.2"
+    basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
+    image-files "git+ssh://git@bitbucket.org/openagenda/image-files.git"
+    knex "^0.10.0"
+    lodash "^4.17.2"
+    mysql "^2.10.2"
+    mysql-utils "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git"
+    service-utils "git+ssh://git@bitbucket.org/openagenda/service-utils.git"
+    slug "^0.9.1"
+    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
+    validators "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.3.1"
+    when "^3.7.7"
+
+"agendas@git+ssh://git@bitbucket.org/openagenda/agendas.git":
+  version "1.0.1"
   resolved "git+ssh://git@bitbucket.org/openagenda/agendas.git#680ee7a22afc0e19b9f31e24bb2ca8b4234bb991"
   dependencies:
     async "^1.5.2"

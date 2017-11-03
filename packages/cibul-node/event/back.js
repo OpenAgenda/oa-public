@@ -30,7 +30,7 @@ const routes = {
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
     agendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED ] ),
+    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
     _changeStateCredential,
     _changeState,
     _xhrResponse,
