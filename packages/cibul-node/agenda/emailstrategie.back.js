@@ -6,7 +6,7 @@ cmn = require( '../lib/commons-app' ),
 
 agendaSvc = require( '../services/agenda' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],

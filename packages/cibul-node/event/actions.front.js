@@ -2,9 +2,9 @@
 
 const modLib = require( '../lib/moduleLib' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -12,11 +12,11 @@ const modLib = require( '../lib/moduleLib' ),
 
   eventSvc = require( '../services/event' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   async = require( 'async' ),
 
-  __ = require( 'labels' )( require( 'labels/event/actions' ) ),
+  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) ),
 
   model = require( '../services/model' ),
 

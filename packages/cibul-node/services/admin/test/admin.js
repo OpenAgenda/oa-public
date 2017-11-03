@@ -6,7 +6,7 @@ var adminSvc = require( '../admin' ),
 
 config = require( '../../../config' ),
 
-es = require( 'ES' )( config.es ),
+es = require( '@openagenda/es-node' )( config.es ),
 
 model = require( 'cibulModel' )( config.db ),
 

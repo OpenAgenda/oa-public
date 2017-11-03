@@ -14,7 +14,7 @@ pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'twitter' ),
 
-sessions = require( 'sessions' ),
+sessions = require( '@openagenda/sessions' ),
 
 deepExtend = require( 'deep-extend' ),
 

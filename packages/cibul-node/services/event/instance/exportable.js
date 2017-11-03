@@ -1,12 +1,12 @@
 "use strict";
 
-const range = require( 'date-range' ),
+const range = require( '@openagenda/date-range' ),
 
   filterTimings = require( './filterTimings' ),
 
   i18n = require( '../../../i18n/i18n' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   genUrl = require( '../../genUrl' ),
 

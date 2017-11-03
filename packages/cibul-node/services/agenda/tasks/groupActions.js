@@ -12,7 +12,7 @@ const config = require( '../../../config' ),
 
   async = require( 'async' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   log = require( 'logger' )( 'groupactions - tasks' ),
 

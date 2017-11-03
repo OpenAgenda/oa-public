@@ -1,8 +1,8 @@
 "use strict";
 
-const users = require( 'users' ),
+const users = require( '@openagenda/users' ),
 
-  activities = require( 'activities' ),
+  activities = require( '@openagenda/activities' ),
 
   VError = require( 'verror' );
 

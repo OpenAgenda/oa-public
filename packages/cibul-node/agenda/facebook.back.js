@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -10,13 +10,13 @@ const sessions = require( 'sessions' ),
 
   fb = require( 'facebook' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   config = require( '../config' ),
 
   genUrl = require( '../services/genUrl' ),
 
-  __ = require( 'labels' )( require( 'labels/agendas/actions' ) ),
+  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
 
   routes = {
 

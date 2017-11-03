@@ -1,7 +1,7 @@
 "use strict";
 
 const events = require( 'events-service' );
-const log = require( 'logs' )( 'events/interfaces/legacy' );
+const log = require( '@openagenda/logs' )( 'events/interfaces/legacy' );
 
 module.exports = {
   onCreate: _transfer,

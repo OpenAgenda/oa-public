@@ -1,6 +1,6 @@
 "use strict";
 
-const images = require( 'images' ),
+const images = require( '@openagenda/images' ),
 
   logger = require( 'logger' );
 

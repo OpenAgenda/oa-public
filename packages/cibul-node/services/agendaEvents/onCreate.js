@@ -6,7 +6,7 @@ const agendasSvc = require( 'agendas' );
 const oldEventSvc = require( '../event' );
 const eventSearch = require( '../eventSearch' );
 const mailContributor = require( '../event/instance/mailContributor' );
-const log = require( 'logs' )( 'agendaEvents/interfaces/onCreate' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 
 
 module.exports = async ( ae, context ) => {

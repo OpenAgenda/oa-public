@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 
 var modLib = require( '../lib/moduleLib' ),
 
@@ -8,7 +8,7 @@ cmn = require( '../lib/commons-app' ),
 
 config = require( '../config' ),
 
-imageUpload = require( 'image-upload/lib/middleware' ),
+imageUpload = require( '@openagenda/image-upload/lib/middleware' ),
 
 agendaSvc = require( '../services/agenda' ),
 

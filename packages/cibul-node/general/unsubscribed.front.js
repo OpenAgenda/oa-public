@@ -1,11 +1,11 @@
 "use strict";
 
 const async = require( 'async' );
-const unsubscribed = require( 'unsubscribed' );
+const unsubscribed = require( '@openagenda/unsubscribed' );
 const cmn = require( '../lib/commons-app' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( 'agendas' );
-const getLabel = require( 'labels' )( require( 'labels/home/notifications' ) );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
 
 const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
 const loadSession = sessions.middleware.load( { detailed: true } );

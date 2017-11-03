@@ -10,7 +10,7 @@ levenshtein = require( 'fast-levenshtein' ),
 
 lib = require( '../../lib/lib' ),
 
-imageSvc = require( 'images' ),
+imageSvc = require( '@openagenda/images' ),
 
 s3Svc = require( '@openagenda/files' ).s3,
 

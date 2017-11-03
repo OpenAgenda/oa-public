@@ -2,7 +2,7 @@
 
 const modLib = require( '../lib/moduleLib' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -20,7 +20,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   _ = require( 'lodash' ),
 
-  getLabel = require( 'labels' )( require( 'labels/event/tagsForm' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) ),
 
   routes = {
 

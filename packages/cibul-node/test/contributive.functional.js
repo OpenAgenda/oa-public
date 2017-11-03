@@ -8,7 +8,7 @@ wn = require( 'when/node' ),
 
 userSvc = require( '../services/invitation' ),
 
-mailer = require( 'mailer' );
+mailer = require( '@openagenda/mailer' );
 
 describe( 'contributive agenda', function () {
 

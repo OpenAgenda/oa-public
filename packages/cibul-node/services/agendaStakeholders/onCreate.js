@@ -2,9 +2,9 @@
 
 const agendas = require( 'agendas' ),
 
-  users = require( 'users' ),
+  users = require( '@openagenda/users' ),
 
-  activities = require( 'activities' ),
+  activities = require( '@openagenda/activities' ),
 
   sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' ),
 

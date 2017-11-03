@@ -3,13 +3,13 @@
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const slugs = require( 'slugs' );
-const utils = require( 'utils' );
+const utils = require( '@openagenda/utils' );
 const async = require( 'async' );
 const genUrl = require( '../genUrl' );
 const config = require( '../../config' );
 const agendaTags = require( 'agenda-tags' );
 const agendaCategories = require( 'agenda-categories' );
-const countryLabels = require( 'labels/agenda-locations/countries' );
+const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 
 let svc;
 

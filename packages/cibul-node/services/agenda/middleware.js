@@ -10,7 +10,7 @@ var svc,
 
   xlsx = require( 'xlsx-writestream' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   svcConfig = require( './config' ),
 
@@ -20,7 +20,7 @@ var svc,
 
   version = require( './helpers/version' ),
 
-  tabLabels = require( 'labels' )( require( 'labels/agenda-admin/tabs' ) ),
+  tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-admin/tabs' ) ),
 
   _ = require( 'lodash' ),
 

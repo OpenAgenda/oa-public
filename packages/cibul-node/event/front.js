@@ -8,7 +8,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   _ = require( 'lodash' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -18,7 +18,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   stakeholderMw = require( 'agenda-stakeholders/middleware' ),
 
-  getLabel = require( 'labels' )( require( 'labels/event/show' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
 
   middlewares = {
     agendaEventShow: [

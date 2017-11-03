@@ -10,7 +10,7 @@ const ih = require( 'immutability-helper' );
 
 const _ = require( 'lodash' );
 
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 
 module.exports = ( parentApp, path ) => {
 

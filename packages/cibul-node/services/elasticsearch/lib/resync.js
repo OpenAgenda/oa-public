@@ -4,7 +4,7 @@ const async = require( 'async' ),
 
   model = require( '../../model' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   logger = require( 'logger' ),
 

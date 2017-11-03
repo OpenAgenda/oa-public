@@ -13,7 +13,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   mw = require( 'agenda-locations' ).mw(),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   routes = {
 

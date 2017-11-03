@@ -2,7 +2,7 @@ var logger = require( 'logger' ), log,
 
 svc = require( './' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 eventSvc = require( '../event' ),
 

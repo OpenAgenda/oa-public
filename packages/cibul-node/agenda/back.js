@@ -3,7 +3,7 @@
 const cmn = require( '../lib/commons-app' );
 const app = require( 'express' )();
 const config = require( '../config' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const agendasSvc = require( 'agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );

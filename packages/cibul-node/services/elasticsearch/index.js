@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 var config = require( '../../config' ),
 
-legacyLib = require( 'ES' )( config.es ),
+legacyLib = require( '@openagenda/es-node' )( config.es ),
 
 lib = require( '../../lib/lib' ),
 

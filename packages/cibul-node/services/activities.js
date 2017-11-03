@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const activities = require( 'activities' );
+const activities = require( '@openagenda/activities' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
 
 module.exports.init = async config => {

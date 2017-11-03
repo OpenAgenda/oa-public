@@ -4,17 +4,17 @@ const React = require( 'react' );
 const ReactDOMServer = require( 'react-dom/server' );
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
-const sessions = require( 'sessions' );
-const __ = require( 'labels' )( require( 'labels/event/states' ) );
+const sessions = require( '@openagenda/sessions' );
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 const eventSvc = require( '../services/event' );
 const agendaSvc = require( '../services/agenda' );
 const eventReferences = require( 'agenda-event-references' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
-const contributorLabels = require( 'labels/event/contributors' );
+const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const w = require( 'when' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
-const activitiesSvc = require( 'activities' );
+const activitiesSvc = require( '@openagenda/activities' );
 const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' );
 
 const routes = {

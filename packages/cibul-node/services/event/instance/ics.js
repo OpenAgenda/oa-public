@@ -4,7 +4,7 @@ const genUrl = require( '../../genUrl' ),
 
 i18n = require( '../../../i18n/i18n' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 moment = require( 'moment' ),
 

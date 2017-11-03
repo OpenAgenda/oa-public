@@ -11,7 +11,7 @@ const aggregatorSvc = require( '../services/aggregator' );
 const model = require( '../services/model' );
 const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 
 
 const routes = {

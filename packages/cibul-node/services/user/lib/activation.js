@@ -6,7 +6,7 @@ var log = require( 'logger' )( 'user svc - activation' ),
 
   config = require( '../../../config' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   model = require( '../../model' ),
 
@@ -16,7 +16,7 @@ var log = require( 'logger' )( 'user svc - activation' ),
 
   templater = require( 'cibulTemplates' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   async = require( 'async' ),
 

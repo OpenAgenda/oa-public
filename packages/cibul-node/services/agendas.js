@@ -3,13 +3,13 @@
 const config = require( '../config' );
 const agendas = require( 'agendas' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
-const activities = require( 'activities' );
-const users = require( 'users' );
+const activities = require( '@openagenda/activities' );
+const users = require( '@openagenda/users' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
 const logger = require( 'logger' );
 const _ = require( 'lodash' );
-const keys = require( 'keys' );
+const keys = require( '@openagenda/keys' );
 
 let log = console.log;
 

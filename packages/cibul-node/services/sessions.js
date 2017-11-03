@@ -1,9 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const userSvc = require( 'users' );
-const sessions = require( 'sessions' );
-const log = require( 'logs' )( 'sessions' );
+const userSvc = require( '@openagenda/users' );
+const sessions = require( '@openagenda/sessions' );
+const log = require( '@openagenda/logs' )( 'sessions' );
 
 
 module.exports.init = config => {

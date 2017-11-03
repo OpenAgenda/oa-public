@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -22,9 +22,9 @@ const sessions = require( 'sessions' ),
   },
 
   l = {
-    a: require( 'labels' )( require( 'labels/agendas/actions' ) ),
-    e: require( 'labels' )( require( 'labels/agendas/errors' ) ),
-    s: require( 'labels' )( require( 'labels/event/states' ) )
+    a: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
+    e: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) ),
+    s: require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) )
   };
 
 module.exports = function( path ) {

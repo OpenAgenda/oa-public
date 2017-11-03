@@ -9,11 +9,11 @@ const bodyParser = require( 'body-parser' );
 const agendaSettings = require( 'agenda-settings' );
 const mw = agendaSettings.mw;
 const agendaSvc = require( '../services/agenda' );
-const sessions = require( 'sessions' );
-const keysMw = require( 'keys/middleware' );
+const sessions = require( '@openagenda/sessions' );
+const keysMw = require( '@openagenda/keys/middleware' );
 
-const labels = require( 'labels/agenda-settings/agendaEdition' );
-const getLabel = require( 'labels' )( labels );
+const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
+const getLabel = require( '@openagenda/labels' )( labels );
 
 
 module.exports = path => {

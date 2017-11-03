@@ -1,14 +1,14 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
 genUrl = require( '../../genUrl' ).abs,
 
 possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ],
 
-accessibilityLabels = require( 'labels/event/accessibility' ),
+accessibilityLabels = require( '@openagenda/labels/event/accessibility' ),
 
-exportFieldLabels = require( 'labels/event/exportFieldNames' ),
+exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' ),
 
 agendaLocations = require( 'agenda-locations' ),
 
@@ -18,7 +18,7 @@ agendaCategories = require( 'agenda-categories' ),
 
 async = require( 'async' ),
 
-stateLabels = require( 'labels/event/states' ),
+stateLabels = require( '@openagenda/labels/event/states' ),
 
 moment = require( 'moment-timezone' );
 

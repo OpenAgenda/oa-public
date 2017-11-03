@@ -8,11 +8,11 @@ var p = require( '../../../lib/promises' ), w = p.w,
 
   i18n = require( '../../../i18n/i18n' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   templater = require( 'cibulTemplates' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   log = require( 'logger' )( 'services/event/mailContributor' ),
 

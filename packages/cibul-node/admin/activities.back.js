@@ -3,7 +3,7 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const bodyParser = require( 'body-parser' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const mw = require( 'activity-apps/middleware' );
 const _ = require( 'lodash' );
 const config = require( '../config' );

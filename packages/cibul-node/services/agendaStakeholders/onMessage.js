@@ -1,10 +1,10 @@
 "use strict";
 
-const makeLabelGetter = require( 'labels' ),
+const makeLabelGetter = require( '@openagenda/labels' ),
 
-  getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) ),
+  getInvitationLabel = makeLabelGetter( require( '@openagenda/labels/members/invitation' ) ),
 
-  getMailerLabel = makeLabelGetter( require( 'labels/components/mailer' ) ),
+  getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) ),
 
   agendas = require( 'agendas' ),
 
@@ -12,9 +12,9 @@ const makeLabelGetter = require( 'labels' ),
 
   invitations = require( 'invitations' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
-  users = require( 'users' );
+  users = require( '@openagenda/users' );
 
 let log = console.log;
 

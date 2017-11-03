@@ -8,7 +8,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const legacySearch = require( './lib/legacySearch' );
 const searchStats = require( './lib/search' );
 const agendaEventStats = require( './lib/agendaEventStats' );
-const log = require( 'logs' )( 'services/agendaStatistics' );
+const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 
 let q;
 

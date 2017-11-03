@@ -2,7 +2,7 @@
 
 var log = require( 'logger' )( 'groupactions - intance' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 config = require( '../../../config' ),
 

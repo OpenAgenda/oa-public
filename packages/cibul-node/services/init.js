@@ -4,7 +4,7 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const fs = require( 'fs' );
 const async = require( 'async' );
-const logs = require( 'logs' );
+const logs = require( '@openagenda/logs' );
 const logger = require( 'logger' );
 
 let log;

@@ -1,6 +1,6 @@
 "use strict";
 
-const users = require( 'users' );
+const users = require( '@openagenda/users' );
 
 const agendaStakeholders = require( 'agenda-stakeholders' ),
 
@@ -8,11 +8,11 @@ const agendaStakeholders = require( 'agenda-stakeholders' ),
 
   logger = require( 'logger' ),
 
-  keys = require( 'keys' ),
+  keys = require( '@openagenda/keys' ),
 
   agendas = require( 'agendas' ),
 
-  activities = require( 'activities' );
+  activities = require( '@openagenda/activities' );
 
 let log = console.log;
 

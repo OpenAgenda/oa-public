@@ -1,7 +1,7 @@
 "use strict";
 
-const callToActionMw = require( 'call-to-action/middleware' );
-const mailer = require( 'mailer' );
+const callToActionMw = require( '@openagenda/call-to-action/middleware' );
+const mailer = require( '@openagenda/mailer' );
 const logger = require( 'logger' );
 
 module.exports.init = config => {

@@ -1,6 +1,6 @@
 "use strict";
 
-const unsubscribed = require( 'unsubscribed' );
+const unsubscribed = require( '@openagenda/unsubscribed' );
 
 module.exports.init = config => {
 

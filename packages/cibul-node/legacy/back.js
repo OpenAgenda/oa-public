@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   qs = require( 'qs' ),
 
@@ -30,17 +30,17 @@ const sessions = require( 'sessions' ),
 
   log = require( 'logger' )( 'legacy' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   bodyParser = require( 'body-parser' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
-  activitiesSvc = require( 'activities' ),
+  activitiesSvc = require( '@openagenda/activities' ),
 
   agendaEvents = require( '@openagenda/agenda-events' ),
 
-  usersSvc = require( 'users' ),
+  usersSvc = require( '@openagenda/users' ),
 
   legacyEvents = require( '../services/events' ).legacy,
 

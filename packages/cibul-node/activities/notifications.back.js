@@ -1,7 +1,7 @@
 "use strict";
 
 const bodyParser = require( 'body-parser' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const mw = require( 'activity-apps/middleware' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );

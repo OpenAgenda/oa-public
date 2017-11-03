@@ -16,7 +16,7 @@ utils = require( '../../../lib/utils' ),
 
 config = require( '../../../config' ),
 
-imageSvc = require( 'images' ),
+imageSvc = require( '@openagenda/images' ),
 
 moment = require( 'moment-timezone' ),
 
@@ -28,7 +28,7 @@ exportable = require( './exportable' ),
 
 onRefresh, // used for testing
 
-range = require( 'date-range' );
+range = require( '@openagenda/date-range' );
 
 module.exports = instanciate;
 

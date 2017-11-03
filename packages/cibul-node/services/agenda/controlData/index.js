@@ -6,7 +6,7 @@ store = require( './lib/store' ),
 
 task = require( './lib/task' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 config = require( '../../../config' ),
 

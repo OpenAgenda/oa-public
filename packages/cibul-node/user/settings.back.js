@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -12,23 +12,23 @@ const sessions = require( 'sessions' ),
 
   log = require( 'logger' )( 'user/settings.back' ),
 
-  modLib = require( "../lib/moduleLib.js" ),
+  modLib = require( '../lib/moduleLib.js' ),
 
   moment = require( 'moment' ),
 
   async = require( 'async' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
-  users = require( 'users' ),
+  users = require( '@openagenda/users' ),
 
-  usersMw = require( 'users/middleware' ),
+  usersMw = require( '@openagenda/users/middleware' ),
 
-  matchApp = require( 'users/middleware/matchApp' ),
+  matchApp = require( '@openagenda/users/middleware/matchApp' ),
 
-  labels = require( 'labels/users/settings' ),
+  labels = require( '@openagenda/labels/users/settings' ),
 
-  getLabels = require( 'labels' )( labels );
+  getLabels = require( '@openagenda/labels' )( labels );
 
 
 module.exports = path => {

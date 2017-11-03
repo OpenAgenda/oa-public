@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -26,7 +26,7 @@ const sessions = require( 'sessions' ),
 
   userOldSvc = require( '../services/user' ),
 
-  usersSvc = require( 'users' ),
+  usersSvc = require( '@openagenda/users' ),
 
   stakeholdersSvc = require( 'agenda-stakeholders' ),
 

@@ -8,7 +8,7 @@ eventSvc = require( '../../event' ),
 
 w = require( 'when' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 storeKey = 'emailstrategie',
 

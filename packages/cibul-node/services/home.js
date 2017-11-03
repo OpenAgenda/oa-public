@@ -1,6 +1,6 @@
 "use strict";
 
-const homeMw = require( 'home/middleware' );
+const homeMw = require( '@openagenda/home/middleware' );
 const agendasSvc = require( 'agendas' );
 const stakeholdersSvc = require( 'agenda-stakeholders' );
 const eventsSvc = require( 'events-service' );

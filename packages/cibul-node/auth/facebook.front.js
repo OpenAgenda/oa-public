@@ -27,7 +27,7 @@ const modLib = require( '../lib/moduleLib' ),
     facebookSignupCallback: [ 'get', '/facebook/signup/callback', auth.process( 'facebook', 'signup' ) ]
   },
 
-  sessions = require( 'sessions' );
+  sessions = require( '@openagenda/sessions' );
 
 module.exports = function( path ) {
 

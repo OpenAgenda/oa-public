@@ -14,7 +14,7 @@ should = require( 'should' ),
 
 bogusComs = require( '../../test/helpers/bogusComs' ),
 
-ES = require( 'ES' )( config.es ),
+ES = require( '@openagenda/es-node' )( config.es ),
 
 task = require( '../task' ),
 

@@ -12,7 +12,7 @@ var config = require( '../config' ),
 
   moment = require( 'moment' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   mw = require( 'admin-agendas' ).mw,
 

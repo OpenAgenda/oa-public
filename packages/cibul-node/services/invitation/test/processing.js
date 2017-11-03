@@ -18,7 +18,7 @@ sets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 svc = require( '../' ),
 
-mailer = require( 'mailer' );
+mailer = require( '@openagenda/mailer' );
 
 require( '../../genUrl' ).init( { domain: config.domain } );
 

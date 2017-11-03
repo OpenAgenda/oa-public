@@ -1,12 +1,12 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
 w = require( 'when' ),
 
 config = require( '../../../config' ),
 
-imageSvc = require( 'images' ),
+imageSvc = require( '@openagenda/images' ),
 
 s3Svc = require( '@openagenda/files' ).s3,
 

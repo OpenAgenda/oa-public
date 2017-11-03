@@ -9,7 +9,7 @@
 
 var log = require( 'logger' )( 'mailer' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 config = require( '../config' ),
 

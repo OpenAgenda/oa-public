@@ -1,7 +1,7 @@
 "use strict";
 
 const logger = require( 'logger' );
-const utils = require( 'utils' );
+const utils = require( '@openagenda/utils' );
 const config = require( '../../../config' );
 const coms = require( '../../../lib/coms' );
 const mailContributor = require( './mailContributor' );

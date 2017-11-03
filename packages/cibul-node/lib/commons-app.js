@@ -5,10 +5,10 @@
  */
 
 const _ = require( 'lodash' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
-const keys = require( 'keys' );
-const getUnauthLabels = require( 'labels' )( require( 'labels/agendas/unauthorized' ) );
+const keys = require( '@openagenda/keys' );
+const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
 const hsts = require( 'hsts' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
@@ -113,7 +113,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
   deepExtend = require( 'deep-extend' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -126,7 +126,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
   userSvc = require( '../services/user' ),
 
   labels = {
-    unauthorized: require( 'labels/errors/unauthorized' )
+    unauthorized: require( '@openagenda/labels/errors/unauthorized' )
   },
 
   qs = require( 'qs' );

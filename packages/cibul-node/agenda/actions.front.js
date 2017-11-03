@@ -2,19 +2,19 @@
 
 const async = require( 'async' );
 const w = require( 'when' );
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
-const keysSvc = require( 'keys' );
-const __ = require( 'labels' )( require( 'labels/agendas/errors' ) );
+const keysSvc = require( '@openagenda/keys' );
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
 const _ = require( 'lodash' );
-const getActionLabel = require( 'labels' )( require( 'labels/event/actions' ) );
+const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
-const cbify = require( 'utils/cbify' );
+const cbify = require( '@openagenda/utils/cbify' );
 const agendas = require( 'agendas' );
 
 const routes = {

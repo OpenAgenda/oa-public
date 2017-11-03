@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( 'logs' )( 'agendaEvents/interfaces/beforeRemove' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
 module.exports = ( ae, context ) => {
 

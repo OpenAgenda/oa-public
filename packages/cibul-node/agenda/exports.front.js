@@ -1,13 +1,13 @@
 "use strict";
 
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 const tagSvc = require( 'agenda-tags' );
-const getAggLabel = require( 'labels' )( require( 'labels/aggregators/sources' ) );
+const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
 const categorySvc = require( 'agenda-categories' );
 const locationMw = require( 'agenda-locations' ).mw();
-const utils = require( 'utils' );
-const cbify = require( 'utils/cbify' );
-const keysSvc = require( 'keys' );
+const utils = require( '@openagenda/utils' );
+const cbify = require( '@openagenda/utils/cbify' );
+const keysSvc = require( '@openagenda/keys' );
 const modLib = require( '../lib/moduleLib' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );

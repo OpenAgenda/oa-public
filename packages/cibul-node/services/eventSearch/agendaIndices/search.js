@@ -1,17 +1,16 @@
 "use strict";
 
-const logger = require( 'logger' );
 const agendas = require( 'agendas' );
 const ih = require( 'immutability-helper' );
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const formSchemas = require( 'form-schemas' );
 const makeTransform = require( 'stream-utils' ).transform;
 const getDecorate = require( 'form-schemas/iso/getDecorate' );
-const log = require( 'logs' )( 'services/eventSearch/agendaIndexSearch' );
+const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndexSearch' );
 
 schema.register( {
-  boolean: require( 'validators/boolean' ),
-  pass: require( 'validators/pass' )
+  boolean: require( '@openagenda/validators/boolean' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 const validateOptions = schema( {

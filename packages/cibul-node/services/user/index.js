@@ -4,7 +4,7 @@ const w = require( 'when' );
 const async = require( 'async' );
 const model = require( '../model' );
 const config = require( '../../config' );
-const log = require( 'logs' )( 'services/user' );
+const log = require( '@openagenda/logs' )( 'services/user' );
 
 let lib = require( '../../lib/lib' ), invitationSvc,
 
@@ -14,7 +14,7 @@ let lib = require( '../../lib/lib' ), invitationSvc,
 
   invitation2Svc = require( 'invitations' ),
 
-  activitiesSvc = require( 'activities' );
+  activitiesSvc = require( '@openagenda/activities' );
 
 module.exports = {
   get,

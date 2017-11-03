@@ -3,10 +3,10 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
-const modLib = require( "../lib/moduleLib.js" );
+const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const homeMw = require( 'home/middleware' );
-const sessions = require( 'sessions' );
+const homeMw = require( '@openagenda/home/middleware' );
+const sessions = require( '@openagenda/sessions' );
 const activitiesMw = require( 'activity-apps/middleware' );
 
 

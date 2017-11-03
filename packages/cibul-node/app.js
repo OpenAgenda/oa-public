@@ -20,7 +20,7 @@ module.exports = ( enabledTypes, cb ) => {
       const http = require( 'http' );
       const express = require( 'express' );
       const bodyParser = require( 'body-parser' );
-      const sessions = require( 'sessions' );
+      const sessions = require( '@openagenda/sessions' );
       const logger = require( 'logger' );
       const tfy = require( './lib/taskify' );
       const cmn = require( './lib/commons-app' );
@@ -210,9 +210,9 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( 'agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 
-        tfy( require( 'activities' ).tasks.notifications.prepareSummary, { period: 'daily', time: '05:00' } );
+        tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, { period: 'daily', time: '05:00' } );
 
-        tfy( require( 'activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } );
+        tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } );
 
         require( './general/mainLogger.task' )();
 
@@ -238,7 +238,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/agendaStatistics' ).task();
 
-        require( 'activities' ).tasks.notifications.addActivity();
+        require( '@openagenda/activities' ).tasks.notifications.addActivity();
 
         //require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
 

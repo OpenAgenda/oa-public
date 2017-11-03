@@ -2,17 +2,17 @@
 
 const agendaStakeholders = require( 'agenda-stakeholders' ),
 
-  users = require( 'users' ),
+  users = require( '@openagenda/users' ),
 
-  makeLabelGetter = require( 'labels' ),
+  makeLabelGetter = require( '@openagenda/labels' ),
 
-  activities = require( 'activities' ),
+  activities = require( '@openagenda/activities' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   genUrl = require( '../../genUrl' ),
 
-  getInvitationLabel = makeLabelGetter( require( 'labels/members/invitation' ) );
+  getInvitationLabel = makeLabelGetter( require( '@openagenda/labels/members/invitation' ) );
 
 let log = console.log;
 

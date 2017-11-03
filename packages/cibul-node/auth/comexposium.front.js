@@ -22,7 +22,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   agendaSvc = require( '../services/agenda' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   routes = {
 

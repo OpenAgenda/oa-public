@@ -1,6 +1,6 @@
 "use strict";
 
-const users = require( 'users' );
+const users = require( '@openagenda/users' );
 
 let log = console.log;
 

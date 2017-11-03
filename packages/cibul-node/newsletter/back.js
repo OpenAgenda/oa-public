@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' );
+const sessions = require( '@openagenda/sessions' );
 
 var modLib = require( '../lib/moduleLib' ),
 

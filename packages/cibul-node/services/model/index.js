@@ -2,9 +2,8 @@
 
 const w = require( 'when' );
 const _ = require( 'lodash' );
-const logger = require( 'logger' );
 const config = require( '../../config' );
-const log = require( 'logs' )( 'legacyModel' );
+const log = require( '@openagenda/logs' )( 'legacyModel' );
 const onError = require( '../00_errors' ).bind( null, 'legacyModel' );
 
 const cache = require( '../cache' );

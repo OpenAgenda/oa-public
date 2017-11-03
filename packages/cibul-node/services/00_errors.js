@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( 'logs' )( 'uncaught' );
+const log = require( '@openagenda/logs' )( 'uncaught' );
 
 const _ = require( 'lodash' );
 

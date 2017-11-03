@@ -16,7 +16,7 @@ lib = require( '../../../lib/lib' ),
 
 log = require( 'debug' )( 'search test helper' ),
 
-ES = require( 'ES' )( config.es ),
+ES = require( '@openagenda/es-node' )( config.es ),
 
 user, review, locations = [], events = [], unpublishedEvent;
 

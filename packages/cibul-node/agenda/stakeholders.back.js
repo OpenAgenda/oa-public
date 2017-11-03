@@ -1,8 +1,8 @@
 "use strict";
 
-const utils = require( 'utils' ),
+const utils = require( '@openagenda/utils' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   streamUtils = require( 'stream-utils' ),
 
@@ -14,13 +14,13 @@ const utils = require( 'utils' ),
 
   xlsx = require( 'xlsx-writestream' ),
 
-  getLabel = require( 'labels' )( require( 'labels/contributors/exportHeaders' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/contributors/exportHeaders' ) ),
 
-  getCredentialLabel = require( 'labels' )( require( 'labels/contributors/credentials' ) ),
+  getCredentialLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/contributors/credentials' ) ),
 
-  getActionLabel = require( 'labels' )( require( 'labels/agendas/actions' ) ),
+  getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
 
-  getInvLabel = require( 'labels' )( require( 'labels/agendas/invitations' ) ),
+  getInvLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/invitations' ) ),
 
   modLib = require( '../lib/moduleLib' ),
 

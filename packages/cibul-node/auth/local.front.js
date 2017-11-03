@@ -20,15 +20,15 @@ const modLib = require( '../lib/moduleLib' ),
 
   legacyUserSvc = require( '../services/user' ),
 
-  userSvc = require( 'users' ),
+  userSvc = require( '@openagenda/users' ),
 
-  __ = require( 'labels' )( require( 'labels/auth/activation' ) ),
+  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) ),
 
   agendaSvc = require( '../services/agenda' ),
 
   pLib = require( './lib/passport' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   invitationsSvc = require( 'invitations' ),
 

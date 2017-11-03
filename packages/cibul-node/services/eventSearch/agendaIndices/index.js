@@ -5,8 +5,8 @@ const search = require( './search' );
 const rebuild = require( './rebuild' );
 const assemble = require( './assemble' );
 const eventSearch = require( 'event-search' );
-const schema = require( 'validators/schema' );
-const log = require( 'logs' )( 'services/eventSearch/agendaIndices' );
+const schema = require( '@openagenda/validators/schema' );
+const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndices' );
 
 const defaultSearchOptions = {
   detailed: false,
@@ -14,7 +14,7 @@ const defaultSearchOptions = {
   includeCustom: false
 };
 
-schema.register( { boolean: require( 'validators/boolean' ) } )
+schema.register( { boolean: require( '@openagenda/validators/boolean' ) } )
 
 const validateOptions = schema( {
   refresh: {

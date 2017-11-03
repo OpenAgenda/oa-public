@@ -2,7 +2,7 @@
 
 const aer = require( 'agenda-event-references' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 eventSvc = require( '../../event' ),
 

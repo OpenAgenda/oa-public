@@ -1,6 +1,6 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -10,11 +10,11 @@ const sessions = require( 'sessions' ),
 
   lib = require( '../lib/lib' ),
 
-  getLabel = require( 'labels' )( require( 'labels/agendas/show' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/show' ) ),
 
-  getEventLabel = require( 'labels' )( require( 'labels/event/show' ) ),
+  getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
 
-  unauthorizedIpLabel = require( 'labels' )( require( 'labels/agendas/unauthorizedIp' ) ),
+  unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -45,7 +45,7 @@ const sessions = require( 'sessions' ),
 
   fb = require( 'facebook' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   middlewares = {
     show: [

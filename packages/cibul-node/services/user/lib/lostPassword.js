@@ -8,7 +8,7 @@ config = require( '../../../config' ),
 
 model = require( '../../model' ),
 
-mailer = require( 'mailer' ),
+mailer = require( '@openagenda/mailer' ),
 
 genUrl = require( '../../genUrl' ),
 
@@ -16,7 +16,7 @@ templater = require( 'cibulTemplates' ),
 
 async = require( 'async' ),
 
-getLabel = require( 'labels' )( require( 'labels/auth/lostPassword' ) ),
+getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/lostPassword' ) ),
 
 w = require( 'when' ),
 

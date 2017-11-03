@@ -1,6 +1,6 @@
 "use strict";
 
-const keys = require( 'keys' );
+const keys = require( '@openagenda/keys' );
 
 module.exports.init = async config => {
 

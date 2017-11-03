@@ -20,7 +20,7 @@ const eventSvc = require( 'events-service' );
 const formSchemas = require( 'form-schemas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
-const log = require( 'logs' )( 'services/eventSearch/assemble' );
+const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
 
 let knex;
 

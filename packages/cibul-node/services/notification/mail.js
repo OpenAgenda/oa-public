@@ -1,15 +1,15 @@
 "use strict";
 
 const config = require( '../../config' );
-const users = require( 'users' );
+const users = require( '@openagenda/users' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
 const logger = require( 'logger' );
 const agendas = require( 'agendas' );
 const events = require( '../event' );
 const genUrl = require( '../genUrl' );
-const getLabel = require( 'labels' )( require( 'labels/home/notifications' ) );
-const unsubscribed = require( 'unsubscribed' );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
+const unsubscribed = require( '@openagenda/unsubscribed' );
 
 const types = {
   10: {

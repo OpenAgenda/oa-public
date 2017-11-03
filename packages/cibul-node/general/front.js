@@ -2,11 +2,11 @@
 
 const landing = require( 'landing' ),
 
-  sessions = require( 'sessions' ),
+  sessions = require( '@openagenda/sessions' ),
 
   config = require( '../config' ),
 
-  __ = require( 'labels' )( require( 'labels/newsletter/subscribe' ) ),
+  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) ),
 
   landingPages = landing( {
     en: config.root + '/discover',
@@ -28,7 +28,7 @@ const landing = require( 'landing' ),
 
   newsletter = require( 'newsletter' ),
 
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -36,7 +36,7 @@ const landing = require( 'landing' ),
 
   model = require( '../services/model' ),
 
-  metaLabels = require( 'labels' )( require( 'labels/corpo/metas' ) ),
+  metaLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/corpo/metas' ) ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
 

@@ -1,10 +1,10 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   log = require( 'logger' )( 'event middleware' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   async = require( 'async' ),
 

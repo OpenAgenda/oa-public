@@ -5,7 +5,7 @@ const agendas = require( 'agendas' );
 const csv = require( 'flat-exports' ).csv();
 const xlsx = require( 'flat-exports' ).xlsx();
 const search = require( '../../services/eventSearch' );
-const labels = require( 'labels/event/exportFieldNames' );
+const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const ICSStream = require( 'flat-exports' ).ICSStream;
 const rss = require( './rss' );
 

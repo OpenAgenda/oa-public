@@ -1,7 +1,7 @@
 const logger = require( 'logger' );
-const activitiesSvc = require( 'activities' );
+const activitiesSvc = require( '@openagenda/activities' );
 const agendasSvc = require( 'agendas' );
-const usersSvc = require( 'users' );
+const usersSvc = require( '@openagenda/users' );
 const VError = require( 'verror' );
 const eventSvc = require( '../services/event' );
 const coms = require( '../lib/coms' );

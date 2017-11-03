@@ -20,7 +20,7 @@ config = require( '../config' ),
 
 model = require( '../services/model' ),
 
-ES = require( 'ES' )( config.es ),
+ES = require( '@openagenda/es-node' )( config.es ),
 
 esSvc = require( '../services/elasticsearch' ),
 

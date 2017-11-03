@@ -27,7 +27,7 @@ const modLib = require( '../lib/moduleLib' ),
     googleSignupCallback: [ 'get', '/google/signup/callback', auth.serviceCallback( auth.process( 'google', 'signup' ) ) ]
   },
 
-  sessions = require( 'sessions' );
+  sessions = require( '@openagenda/sessions' );
 
 module.exports = function( path ) {
 

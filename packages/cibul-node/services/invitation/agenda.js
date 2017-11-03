@@ -20,7 +20,7 @@ w = require( 'when' ),
 
 model = require( '../model' ),
 
-mailer = require( 'mailer' ),
+mailer = require( '@openagenda/mailer' ),
 
 cmn = require( '../../lib/commons-app' ),
 

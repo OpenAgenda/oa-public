@@ -1,7 +1,7 @@
 "use strict";
 
 const agendaEvents = require( '@openagenda/agenda-events' );
-const log = require( 'logs' )( 'events/interfaces/beforeRemove' );
+const log = require( '@openagenda/logs' )( 'events/interfaces/beforeRemove' );
 
 module.exports = async ( event, context, cb ) => {
 

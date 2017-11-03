@@ -4,11 +4,11 @@ const _ = require( 'lodash' );
 const agendas = require( 'agendas' );
 const assemble = require( './assemble' );
 const formSchemas = require( 'form-schemas' );
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 schema.register( {
-  integer: require( 'validators/integer' )
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 module.exports = async ( searchIndex, uid ) => {

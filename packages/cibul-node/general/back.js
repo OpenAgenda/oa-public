@@ -4,21 +4,21 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-mailer = require( 'mailer' ),
+mailer = require( '@openagenda/mailer' ),
 
 config = require( '../config' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 invitationSvc = require( '../services/invitation' ),
 
 bodyParser = require( 'body-parser' ),
 
-sessions = require( 'sessions' ),
+sessions = require( '@openagenda/sessions' ),
 
 userSvc = require( '../services/user' ),
 
-callToActionMw = require( 'call-to-action/middleware' ),
+callToActionMw = require( '@openagenda/call-to-action/middleware' ),
 
 routes = {
 

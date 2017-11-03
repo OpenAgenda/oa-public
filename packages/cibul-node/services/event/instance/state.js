@@ -6,7 +6,7 @@ async = require( 'async' ),
 
 log = require( 'logger' )( 'event state' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 TYPES = model.events().STATETYPES;
 

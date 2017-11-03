@@ -12,7 +12,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   stakeholderMw = require( 'agenda-stakeholders/middleware' ),
 
-  sessions = require( 'sessions' );
+  sessions = require( '@openagenda/sessions' );
 
 let mw = locationSvc.mw();
 

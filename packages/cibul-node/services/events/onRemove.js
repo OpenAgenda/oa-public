@@ -1,7 +1,7 @@
 "use strict";
 
 const eventSearch = require( '../eventSearch' );
-const log = require( 'logs' )( 'events/interfaces/onRemove' );
+const log = require( '@openagenda/logs' )( 'events/interfaces/onRemove' );
 
 module.exports = ( event, context ) => {
 

@@ -1,10 +1,10 @@
 "use strict";
 
-const sessions = require( 'sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   config = require( '../config' ),
 
-  labels = require( 'labels/agenda-tags/editor' );
+  labels = require( '@openagenda/labels/agenda-tags/editor' );
 
 var modLib = require( '../lib/moduleLib' ),
 

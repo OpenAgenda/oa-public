@@ -1,12 +1,12 @@
 "use strict";
 
-const labels = require( 'labels/auth/messages' ),
+const labels = require( '@openagenda/labels/auth/messages' ),
 
-  getLabel = require( 'labels' )( labels ),
+  getLabel = require( '@openagenda/labels' )( labels ),
 
   inAppUserSvc = require( '../../services/user' ),
 
-  userSvc = require( 'users' );
+  userSvc = require( '@openagenda/users' );
 
 var cmn = require( '../../lib/commons-app' ),
 
@@ -18,13 +18,13 @@ w = require( 'when' ),
 
 pLib = require( './passport' ),
 
-emailValidator = require( 'validators/email' )(),
+emailValidator = require( '@openagenda/validators/email' )(),
 
 deepExtend = require( 'deep-extend' ),
 
 loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
 
-sessions = require( 'sessions' ),
+sessions = require( '@openagenda/sessions' ),
 
 exposed = {
   signin,

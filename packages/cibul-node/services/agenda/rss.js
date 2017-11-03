@@ -8,7 +8,7 @@ const src = require( './' ),
 
   async = require( 'async' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   config = require( '../../config' ),
 

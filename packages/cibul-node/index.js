@@ -18,9 +18,9 @@ module.exports = {
     stakeholders: require( 'agenda-stakeholders' ),
     tags: require( 'agenda-tags' ),
     files: require( '@openagenda/files' ),
-    images: require( 'images' ),
-    mailer: require( 'mailer' ),
-    users: require( 'users' )
+    images: require( '@openagenda/images' ),
+    mailer: require( '@openagenda/mailer' ),
+    users: require( '@openagenda/users' )
   },
   config: require( './config' ),
   init: require( './services/init' ),

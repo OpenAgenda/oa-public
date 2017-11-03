@@ -6,25 +6,25 @@ const agendasSvc = require( 'agendas' ),
 
   _ = require( 'lodash' ),
   
-  mailer = require( 'mailer' ),
+  mailer = require( '@openagenda/mailer' ),
 
   genUrl = require( '../../genUrl' ),
   
   stakeholders = require( 'agenda-stakeholders' ),
 
-  makeLabelGetter = require( 'labels' ),
+  makeLabelGetter = require( '@openagenda/labels' ),
 
-  getMailerLabel = makeLabelGetter( require( 'labels/components/mailer' ) ),
+  getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) ),
 
-  getAggregationLabel = makeLabelGetter( require( 'labels/aggregators/mail' ) ),
+  getAggregationLabel = makeLabelGetter( require( '@openagenda/labels/aggregators/mail' ) ),
 
   eventSvc = require( 'events-service' ),
 
-  usersSvc = require( 'users' ),
+  usersSvc = require( '@openagenda/users' ),
 
   agendaEventStates = require( '@openagenda/agenda-events/iso/states' ),
 
-  log = require( 'logs' )( 'mailer/task/eventAggregation' );
+  log = require( '@openagenda/logs' )( 'mailer/task/eventAggregation' );
 
 
 module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state }, cb ) => {

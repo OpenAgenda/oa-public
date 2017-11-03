@@ -1,6 +1,6 @@
 "use strict";
 
-const mailer = require( 'mailer' ),
+const mailer = require( '@openagenda/mailer' ),
 
   logger = require( 'logger' ),
 
@@ -37,7 +37,7 @@ module.exports.queue = _.mapValues( tasks, ( v, k ) => data => {
 
 module.exports.task = () => {
 
-  require( 'mailer' ).task();
+  require( '@openagenda/mailer' ).task();
 
   q.setConsumer( ( data, cb ) => {
 
