@@ -2,7 +2,7 @@
 
 const logger = require( 'logger' );
 const legacy = require( './legacy' );
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 const eventStates = require( 'agendas/service/validate/eventStates' );
 
 const interfaces = {

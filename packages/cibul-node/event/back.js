@@ -12,7 +12,7 @@ const eventReferences = require( 'agenda-event-references' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
 const contributorLabels = require( 'labels/event/contributors' );
 const w = require( 'when' );
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( 'activities' );
 const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' );

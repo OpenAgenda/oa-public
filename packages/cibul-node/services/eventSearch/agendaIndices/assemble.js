@@ -18,7 +18,7 @@ const agendas = require( 'agendas' );
 const ih = require( 'immutability-helper' );
 const eventSvc = require( 'events-service' );
 const formSchemas = require( 'form-schemas' );
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( 'agenda-stakeholders' );
 const log = require( 'logs' )( 'services/eventSearch/assemble' );
 

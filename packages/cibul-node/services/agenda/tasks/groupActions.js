@@ -8,7 +8,7 @@ const config = require( '../../../config' ),
 
   eventSvc = require( '../../event' ),
 
-  agendaEvents = require( 'agenda-events' ),
+  agendaEvents = require( '@openagenda/agenda-events' ),
 
   async = require( 'async' ),
 

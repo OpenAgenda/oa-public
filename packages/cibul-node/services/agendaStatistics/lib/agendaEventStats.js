@@ -1,6 +1,6 @@
 "use strict";
 
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 const _ = require( 'lodash' );
 
 module.exports = async agendaUid => {

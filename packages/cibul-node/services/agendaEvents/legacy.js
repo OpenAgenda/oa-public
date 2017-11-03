@@ -1,8 +1,8 @@
 "use strict";
 
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 const events = require( 'events-service' );
-const remove = require( 'agenda-events/service/remove' );
+const remove = require( '@openagenda/agenda-events/service/remove' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const VError = require( 'verror' );

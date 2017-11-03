@@ -22,7 +22,7 @@ const agendasSvc = require( 'agendas' ),
 
   usersSvc = require( 'users' ),
 
-  agendaEventStates = require( 'agenda-events/iso/states' ),
+  agendaEventStates = require( '@openagenda/agenda-events/iso/states' ),
 
   log = require( 'logs' )( 'mailer/task/eventAggregation' );
 

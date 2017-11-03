@@ -9,6 +9,7 @@
     "background": "nohup npm start >/dev/null 2>&1 &"
   },
   "dependencies": {
+    "@openagenda/agenda-events": "^1.1.0",
     "@openagenda/bs-templates": "bitbucket:openagenda/bs-templates",
     "@openagenda/call-to-action": "bitbucket:openagenda/call-to-action",
     "@openagenda/date-range": "bitbucket:openagenda/date-range",
@@ -32,7 +33,6 @@
     "admin-agendas": "bitbucket:openagenda/admin-agendas",
     "agenda-categories": "bitbucket:openagenda/agenda-categories",
     "agenda-event-references": "bitbucket:openagenda/agenda-event-references",
-    "agenda-events": "bitbucket:openagenda/agenda-events",
     "agenda-locations": "bitbucket:openagenda/agenda-locations",
     "agenda-monitor": "bitbucket:openagenda/agenda-monitor",
     "agenda-search": "bitbucket:openagenda/agenda-search",

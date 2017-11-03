@@ -8,6 +8,20 @@
   dependencies:
     nan "^2.4.0"
 
+"@openagenda/agenda-events@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.0.tgz#5da76f817de14f98cb2d81281cc07d7f498353b3"
+  dependencies:
+    "@openagenda/logs" "^1.0.1"
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/validators" "^2.0.1"
+    async "^2.1.4"
+    knex "^0.12.5"
+    lodash "^4.17.2"
+    mysql "^2.11.1"
+    verror "^1.10.0"
+    when "^3.7.7"
+
 "@openagenda/basic-logger@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
@@ -212,7 +226,7 @@
   uid ff483bab41f253f0b7399c83928ce4c0e0537ad0
   resolved "git+ssh://git@bitbucket.org/openagenda/labels.git#ff483bab41f253f0b7399c83928ce4c0e0537ad0"
 
-"@openagenda/logs@^1.0.0":
+"@openagenda/logs@^1.0.0", "@openagenda/logs@^1.0.1":
   version "1.0.1"
   resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.1.tgz#750157cfacacedd8a784e4db5b67089df910dc15"
   dependencies:
@@ -275,6 +289,15 @@
     "@openagenda/utils" "^1.0.2"
     async "^2.0.1"
     mysql "^2.11"
+
+"@openagenda/queue@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/queue/-/queue-1.0.0.tgz#b08f1e2abeac6353cfaee5363367d83a7154069a"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    async "^1.5.2"
+    debug "2.2.0"
+    redis "~0.12"
 
 "@openagenda/react-components@^2.0.1", "@openagenda/react-components@^2.0.2":
   version "2.0.2"
@@ -457,6 +480,14 @@
 "@openagenda/validators@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/validators/-/validators-2.0.0.tgz#e3365b0bfd347eb901cf390fd53f15af3dff6b90"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    lodash "^4.17.2"
+    validator "^7.0.0"
+
+"@openagenda/validators@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/validators/-/validators-2.0.1.tgz#11ba92bc29231dbb0dd222cb03df47e6394fc4c0"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     lodash "^4.17.2"
@@ -684,20 +715,6 @@ acorn@^5.0.0:
     redux "^3.5.2"
     redux-thunk "^2.1.0"
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    when "^3.7.7"
-
-"agenda-events@bitbucket:openagenda/agenda-events":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/agenda-events.git#314768a0241c1665216ba7a80e76bcdee28efe8b"
-  dependencies:
-    async "^2.1.4"
-    basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
-    knex "^0.12.5"
-    lodash "^4.17.2"
-    mysql "^2.11.1"
-    queue "git+ssh://git@bitbucket.org/openagenda/queue.git"
-    validators "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.10"
-    verror "^1.10.0"
     when "^3.7.7"
 
 "agenda-locations@bitbucket:openagenda/agenda-locations", "agenda-locations@git+ssh://git@bitbucket.org/openagenda/agenda-locations.git":
@@ -2665,7 +2682,7 @@ chokidar@^1.6.1, chokidar@^1.7.0:
     validators "git+ssh://git@bitbucket.org:openagenda/validators.git"
     when "~3.4"
 
-"cibulTemplates@bitbucket:openagenda/cibul-templates", "cibulTemplates@git+ssh://git@bitbucket.org/openagenda/cibul-templates.git":
+"cibulTemplates@bitbucket:openagenda/cibul-templates":
   version "0.0.3"
   uid "531a8698a5383a0968e6ee42ec976d287d4f9e4e"
   resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#531a8698a5383a0968e6ee42ec976d287d4f9e4e"
@@ -2772,7 +2789,6 @@ chokidar@^1.6.1, chokidar@^1.7.0:
 
 "cibulTemplates@git+ssh://git@bitbucket.org:openagenda/cibul-templates.git":
   version "0.0.3"
-  uid "531a8698a5383a0968e6ee42ec976d287d4f9e4e"
   resolved "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git#531a8698a5383a0968e6ee42ec976d287d4f9e4e"
   dependencies:
     "@openagenda/bs-templates" "git+ssh://git@bitbucket.org/openagenda/bs-templates.git"
@@ -10429,14 +10445,6 @@ validator@4.1.0:
 validator@^7.0.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
-
-"validators@git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.10":
-  version "1.2.10"
-  resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#9618600fe97cb36891eecf173eb0ac293f3198a7"
-  dependencies:
-    lodash "^4.17.2"
-    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    validator "^7.0.0"
 
 "validators@git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.13":
   version "1.2.13"

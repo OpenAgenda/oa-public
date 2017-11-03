@@ -5,7 +5,7 @@ const agendas = require( 'agendas' );
 const assemble = require( './assemble' );
 const formSchemas = require( 'form-schemas' );
 const schema = require( 'validators/schema' );
-const agendaEvents = require( 'agenda-events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 
 schema.register( {
   integer: require( 'validators/integer' )

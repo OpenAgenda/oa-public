@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const search = require( '../../eventSearch' );
-const states = require( 'agenda-events' ).states;
+const states = require( '@openagenda/agenda-events' ).states;
 
 module.exports = async agendaUid => {
 

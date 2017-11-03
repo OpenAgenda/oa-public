@@ -38,7 +38,7 @@ const sessions = require( 'sessions' ),
 
   activitiesSvc = require( 'activities' ),
 
-  agendaEvents = require( 'agenda-events' ),
+  agendaEvents = require( '@openagenda/agenda-events' ),
 
   usersSvc = require( 'users' ),
 
