@@ -2,7 +2,7 @@
 
 const request = require( 'request' ),
 
-utils = require( 'utils' ),
+_ = require( 'lodash' ),
 
 p = require( './lib/promises' ), w = p.w, wn = p.wn,
 
@@ -34,7 +34,7 @@ module.exports = Object.assign( processImage, {
 
 function init( cfg ) {
 
-  config = utils.extend( {
+  config = _.extend( {
     tmpPath: '/var/tmp',
     timeout: 10000,
     maxSize: 12000000,
@@ -61,7 +61,7 @@ function processImageMulti( srcOptions, destOptions, cb ) {
 
   log( 'processing multiple images' );
 
-  var srcParams = utils.extend( {
+  var srcParams = _.extend( {
     url: false,
     path: false
   }, srcOptions ),
@@ -79,7 +79,7 @@ function processImageMulti( srcOptions, destOptions, cb ) {
 
     return w.all( destOptions.map( function( options ) {
 
-      return wn.call( processImage, utils.extend( { 
+      return wn.call( processImage, _.extend( { 
         path: values.path,
         clear: false,
         name: false
@@ -117,7 +117,7 @@ function processImage( options, cb ) {
 
   log( 'processing single image' );
 
-  w( utils.extend( {
+  w( _.extend( {
     url: false,
     path: false, // either url or this is required
     name: false, // required

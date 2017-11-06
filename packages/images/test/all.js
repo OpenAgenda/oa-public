@@ -16,7 +16,7 @@ imageSrc = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/Galaxie-ESO-137-001.j
 
 fakeImage = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/notanimage.jpg',
 
-utils = require( 'utils' ),
+_ = require( 'lodash' ),
 
 tmpTestFile = '/var/tmp/testfile',
 
@@ -34,7 +34,7 @@ describe( 'image service - download', function() {
 
   it( 'should send timeout error', function( done ) {
 
-    imageSvc.init( utils.extend( {}, testconfig, { timeout: 1 } ) );
+    imageSvc.init( _.extend( {}, testconfig, { timeout: 1 } ) );
 
     imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
 
@@ -49,7 +49,7 @@ describe( 'image service - download', function() {
 
   it( 'should send max size error', function( done ) {
 
-    imageSvc.init( utils.extend( {}, testconfig, { maxSize: 1 } ) );
+    imageSvc.init( _.extend( {}, testconfig, { maxSize: 1 } ) );
 
     imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
 
