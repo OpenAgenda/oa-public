@@ -1,14 +1,23 @@
 {
-  "name": "images",
-  "version": "1.0.0",
+  "name": "@openagenda/images",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "no license",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
+  },
   "dependencies": {
+    "@openagenda/logs": "^1.0.1",
     "async": "^1.5.0",
-    "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "gm": "^1.21.1",
     "lodash": "^4.17.4",
     "request": "^2.67.0",

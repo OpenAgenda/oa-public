@@ -2,25 +2,16 @@
 
 process.env.NODE_ENV = 'test';
 
-var should = require( 'should' ),
-
-imageSvc = require( '../' ),
-
-fs = require( 'fs' ),
-
-async = require( 'async' ),
-
-gm = require( 'gm' ).subClass( { imageMagick: true } ),
-
-imageSrc = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/Galaxie-ESO-137-001.jpg',
-
-fakeImage = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/notanimage.jpg',
-
-_ = require( 'lodash' ),
-
-tmpTestFile = '/var/tmp/testfile',
-
-testconfig = require( '../testconfig.js' );
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const fs = require( 'fs' );
+const fakeImage = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/notanimage.jpg';
+const gm = require( 'gm' ).subClass( { imageMagick: true } );
+const imageSrc = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/Galaxie-ESO-137-001.jpg';
+const imageSvc = require( '../' );
+const should = require( 'should' );
+const testconfig = require( '../testconfig.js' );
+const tmpTestFile = '/var/tmp/testfile';
 
 describe( 'image service - download', function() {
 

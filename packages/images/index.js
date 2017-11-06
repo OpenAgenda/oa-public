@@ -1,24 +1,19 @@
 "use strict";
 
-const request = require( 'request' ),
+const _ = require( 'lodash' );
+const request = require( 'request' );
+const p = require( './lib/promises' );
+const w = p.w;
+const wn = p.wn;
+const http = require( 'http' );
+const https = require( 'https' );
+const fs = require( 'fs' );
+const url = require( 'url' );
+const gm = require( 'gm' ).subClass( { imageMagick: true } );
+const logger = require( '@openagenda/logs' );
+const log = require( '@openagenda/logs' )( 'images' );
 
-_ = require( 'lodash' ),
-
-p = require( './lib/promises' ), w = p.w, wn = p.wn,
-
-http = require( 'http' ),
-
-https = require( 'https' ),
-
-fs = require( 'fs' ),
-
-url = require( 'url' ),
-
-gm = require( 'gm' ).subClass( { imageMagick: true } ),
-
-logger = require( 'basic-logger' );
-
-let log, config;
+let config;
 
 module.exports = Object.assign( processImage, {
   multi: processImageMulti,
@@ -43,11 +38,9 @@ function init( cfg ) {
 
   if ( config.logger ) {
 
-    logger.setLogger( config.logger );
+    logger.setModuleConfig( config.logger );
 
   }
-
-  log = logger( 'images' );
 
 };
 
