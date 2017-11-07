@@ -13,7 +13,7 @@ window.IScroll = require( 'iscroll/build/iscroll' );
 window.onload = () => {
 
   const renderApp = app => {
-    ReactDom.render( app( du.parseJsonAttribute( 'body', 'data-options' ) ), du.el( '.js_canvas' ) );
+    ReactDom.hydrate( app( du.parseJsonAttribute( 'body', 'data-options' ) ), du.el( '.js_canvas' ) );
   }
 
   switch ( dl.getQueryPart( '_app', 'admin' ) ) {
@@ -25,7 +25,7 @@ window.onload = () => {
     case 'user':
       return renderApp( userApp );
     case 'notifications':
-      ReactDom.render( <div className="container">
+      ReactDom.hydrate( <div className="container">
         <div className="navbar-collapse collapse">
           <ul className="nav navbar-nav navbar-right">
             <li className="notifications js_notifications hide">
