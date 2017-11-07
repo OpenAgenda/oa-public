@@ -8,6 +8,10 @@
     "babelify": "babel react/src -d react/build",
     "build": "npm run-script babelify"
   },
+  "peerDependencies": {
+    "react": "15 || 16",
+    "react-dom": "15 || 16"
+  },
   "dependencies": {
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -29,7 +33,6 @@
     "mysql": "^2.11.1",
     "mysql-utils": "git+ssh://git@bitbucket.org/openagenda/mysql-utils",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
     "react-form-components": "git+ssh://git@bitbucket.org:openagenda/react-form-components.git",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
@@ -41,7 +44,8 @@
     "babel-cli": "^6.24.1",
     "bs-templates": "git+ssh://git@bitbucket.org/openagenda/bs-templates.git",
     "fixtures": "git+ssh://git@bitbucket.org/openagenda/fixtures.git",
-    "react-dom": "^15.5.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "should": "^9.0.2",
     "test-app": "git+ssh://git@bitbucket.org/openagenda/test-app.git"
   },
