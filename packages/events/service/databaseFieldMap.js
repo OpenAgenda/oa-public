@@ -114,5 +114,11 @@ module.exports = [
     db: 'registration',
     obj: 'registration',
     type: 'json'
+  },
+  {
+    db: 'file_key',
+    obj: 'fileKey',
+    protected: true,
+    list: false
   }
 ]

@@ -67,7 +67,8 @@ describe( 'events - functional (server): create', function() {
             min: null,
             max: null
           },
-          registration: []
+          registration: [],
+          fileKey: null
         },
         valid: true,
         success: true,
@@ -164,6 +165,7 @@ describe( 'events - functional (server): create', function() {
           accessibility: {
             hi: false, mi: false, pi: false, sl: false, vi: false
           },
+          fileKey: null,
           age: {
             min: null,
             max: null
@@ -229,6 +231,7 @@ describe( 'events - functional (server): create', function() {
         mi: true,
         hi: true
       },
+      fileKey: null,
       timezone: 'Europe/Paris',
       timings: [ {
         begin: new Date(),
@@ -290,6 +293,7 @@ describe( 'events - functional (server): create', function() {
           vi: false,
           sl: false
         },
+        fileKey: null,
         age: {
           min: 2,
           max: 76
@@ -350,6 +354,7 @@ describe( 'events - functional (server): create', function() {
         mi: true,
         hi: true
       },
+      fileKey: null,
       timezone: 'Europe/Paris',
       timings: [ {
         begin: new Date(),
@@ -415,6 +420,7 @@ describe( 'events - functional (server): create', function() {
           vi: false,
           sl: false
         },
+        fileKey: null,
         age: {
           min: 2,
           max: 76

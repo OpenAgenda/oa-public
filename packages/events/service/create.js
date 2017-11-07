@@ -25,7 +25,7 @@ const w = require( 'when' ),
 
   cleanCreateOptions = require( './validate/createOptions' ),
 
-  dbParse = require( 'mysql-utils/mapper' )( map );
+  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 

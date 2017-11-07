@@ -17,6 +17,10 @@
   "author": "Loooo'd Vaaaeeeda'",
   "homepage": "https://bitbucket.org/openagenda/events#readme",
   "dependencies": {
+    "@openagenda/mysql-utils": "^2.0.0",
+    "@openagenda/queue": "^1.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/validators": "^2.0.1",
     "async": "^2.1.2",
     "basic-logger": "git+ssh://git@bitbucket.org:openagenda/basic-logger.git",
     "image-files": "git+ssh://git@bitbucket.org:openagenda/image-files.git",
@@ -25,11 +29,7 @@
     "marked": "^0.3.6",
     "moment-timezone": "^0.5.7",
     "mysql": "^2.11.1",
-    "mysql-utils": "git+ssh://git@bitbucket.org:openagenda/mysql-utils.git",
-    "queue": "git+ssh://git@bitbucket.org:openagenda/queue.git",
-    "service-utils": "git+ssh://git@bitbucket.org/openagenda/service-utils.git",
     "slugs": "git+ssh://git@bitbucket.org:openagenda/slugs.git",
-    "validators": "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.2.13",
     "verror": "^1.10.0",
     "when": "^3.7.7"
   },

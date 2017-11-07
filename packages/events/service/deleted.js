@@ -6,7 +6,7 @@ const w = require( 'when' );
 
 const map = require( './databaseFieldMap' );
 
-const dbParse = require( 'mysql-utils/mapper' )( map );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex;
 

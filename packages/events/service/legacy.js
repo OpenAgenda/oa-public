@@ -16,7 +16,7 @@ const _ = require( 'lodash' );
 
 const validate = require( './validate' );
 
-const sUtils = require( 'service-utils' );
+const sUtils = require( '@openagenda/service-utils' );
 
 const moment = require( 'moment-timezone' );
 

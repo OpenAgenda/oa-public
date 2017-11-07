@@ -1,16 +1,16 @@
 "use strict";
 
-const verifyUnique = require( 'mysql-utils/verifyUnique' ),
+const verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' ),
 
   w = require( 'when' ),
 
   map = require( '../databaseFieldMap' ),
 
-  dbParse = require( 'mysql-utils/mapper' )( map );
+  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 module.exports = {
   verify,
-  define: require( 'mysql-utils/defineUnique' )
+  define: require( '@openagenda/mysql-utils/defineUnique' )
 }
 
 function verify( { mysql, table, field, log } ) {

@@ -5,12 +5,12 @@ const _ = require( 'lodash' );
 const utils = require( 'utils' );
 const validate = require( './validate' );
 const logger = require( 'basic-logger' );
-const sUtils = require( 'service-utils' );
+const sUtils = require( '@openagenda/service-utils' );
 const getConfig = require( './getConfig' );
 const map = require( './databaseFieldMap' );
 const cleanArgs = require( './lib/cleanArgs' );
 const parseMarkdown = require( './lib/parseMarkdown' );
-const dbParse = require( 'mysql-utils/mapper' )( map );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 const decorateImage = require( './lib/decorateImage' );
 const cleanGetOptions = require( './validate/getOptions' );
 

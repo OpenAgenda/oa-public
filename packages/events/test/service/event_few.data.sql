@@ -22,6 +22,7 @@ CREATE TABLE `${schema}` (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,
+  file_key varchar(32),
   UNIQUE INDEX id_idx (id),
   UNIQUE INDEX uid_idx (uid),
   UNIQUE INDEX slug_idx (slug),

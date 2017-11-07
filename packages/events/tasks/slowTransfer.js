@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 const logger = require( 'basic-logger' );
 
 let service, config, log, q;

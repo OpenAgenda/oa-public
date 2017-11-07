@@ -22,7 +22,7 @@ const _ = require( 'lodash' ),
 
   cleanUpdateOptions = require( './validate/updateOptions' ),
 
-  dbParse = require( 'mysql-utils/mapper' )( map );
+  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 

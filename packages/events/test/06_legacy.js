@@ -91,6 +91,7 @@ describe( 'events - functional (server): legacy bridge', function() {
           sl: true,
           vi: false
         },
+        fileKey: null,
         timezone: 'Europe/Paris',
         timings: [ { 
           begin: event.timings[ 0 ].begin,

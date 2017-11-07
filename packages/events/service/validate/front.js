@@ -1,18 +1,18 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  boolean: require( 'validators/boolean' ),
-  link: require( 'validators/link' ),
-  number: require( 'validators/number' ),
-  date: require( 'validators/date' ),
+  text: require( '@openagenda/validators/text' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  link: require( '@openagenda/validators/link' ),
+  number: require( '@openagenda/validators/number' ),
+  date: require( '@openagenda/validators/date' ),
   slug: require( 'slugs/lib/iso/validator' ),
-  multilingual: require( 'validators/multilingual' ),
-  list: require( 'validators/list' ),
-  phone: require( 'validators/phone' ),
-  email: require( 'validators/email' )
+  multilingual: require( '@openagenda/validators/multilingual' ),
+  list: require( '@openagenda/validators/list' ),
+  phone: require( '@openagenda/validators/phone' ),
+  email: require( '@openagenda/validators/email' )
 } );
 
 module.exports = schema( require( './frontFields' ) );

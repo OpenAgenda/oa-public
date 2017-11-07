@@ -56,6 +56,7 @@ describe( 'events - unit (iso): validation', () => {
         sl: false,
         vi: false
       },
+      fileKey: null,
       image: {
         filename: null,
         credits: null,
@@ -127,6 +128,7 @@ describe( 'events - unit (iso): validation', () => {
         sl: false,
         vi: false
       },
+      fileKey: null,
       draft: true,
       timings: [ {
         begin: d,

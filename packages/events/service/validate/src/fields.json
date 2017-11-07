@@ -171,5 +171,10 @@
   "deletedAt" : {
     "type" : "date",
     "server" : true
+  },
+  "fileKey" : {
+    "type" : "text",
+    "max" : 32,
+    "optional" : true
   }
 }

@@ -195,6 +195,7 @@ describe( 'events - functional (server): list', function() {
         'accessibility',
         'age',
         'registration',
+        'fileKey',
         'agenda',
         'location'
       ] );

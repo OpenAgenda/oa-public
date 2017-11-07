@@ -12,7 +12,7 @@ const cleanArgs = require( './lib/cleanArgs' );
 
 const cleanOptions = require( './validate/removeOptions' );
 
-const sUtils = require( 'service-utils' );
+const sUtils = require( '@openagenda/service-utils' );
 
 let schemas, service, knex, config, log;
 
