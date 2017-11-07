@@ -8,6 +8,6 @@ window.onload = () => {
   const app = createApp( du.parseJsonAttribute( 'body', 'data-options' ) );
 
   app.match( du.el( '.js_canvas' ) );
-  // ReactDom.render( app, du.el( '.js_canvas' ) );
+  // ReactDom.hydrate( app, du.el( '.js_canvas' ) );
 
 };
