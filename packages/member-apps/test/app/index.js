@@ -31,7 +31,7 @@ const port = process.env.PORT || 3000;
 
 app.use( '/js', express.static( path.dirname( require.resolve( 'react-form-components/test/app' ) ) + '/js' ) );
 
-app.use( bodyParser.urlencoded( { extended: false } ) );
+app.use( bodyParser.urlencoded( { extended: true } ) );
 
 // parse application/json
 app.use( bodyParser.json() );

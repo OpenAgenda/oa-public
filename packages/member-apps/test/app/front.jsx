@@ -6,7 +6,7 @@ import app from '../../react/dist/app';
 
 window.onload = () => {
 
-  ReactDom.render( app( du.parseJsonAttribute( 'body', 'data-options' ) ), du.el( '.js_canvas' ) );
+  ReactDom.hydrate( app( du.parseJsonAttribute( 'body', 'data-options' ) ), du.el( '.js_canvas' ) );
 
   callToAction();
 
