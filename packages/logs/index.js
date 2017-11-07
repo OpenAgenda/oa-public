@@ -35,6 +35,14 @@ function createLogger( namespace, ...args ) {
 
   const logger = getLogger( { namespace, $callerModule: args[ 0 ] ? args[ 0 ].$callerModule : undefined } );
 
+  logger.loadMetadata( { namespace } );
+
+  const oldClearer = logger.clearMetadata;
+  logger.clearMetadata = () => {
+    oldClearer();
+    logger.loadMetadata( { namespace } );
+  }
+
   if ( args[ 0 ] ) logger.loadMetadata( _.omit( args[ 0 ], '$callerModule' ) );
 
   return logger;

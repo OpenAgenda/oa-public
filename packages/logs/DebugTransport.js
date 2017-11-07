@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const winston = require( 'winston' );
 const debug = require( 'debug' );
 
@@ -20,7 +21,8 @@ class DebugTransport extends winston.Transport {
   }
 
   log( level, msg, meta, cb ) {
-    this.debug.apply( null, [ msg ].concat( isEmptyObject( meta ) ? [] : [ meta ] ) );
+    meta = isEmptyObject( meta ) ? undefined : meta;
+    this.debug.apply( null, [ msg ].concat( meta ? [ _.omit( meta, 'namespace' ) ] : [] ) );
     cb( null, true );
   }
 
