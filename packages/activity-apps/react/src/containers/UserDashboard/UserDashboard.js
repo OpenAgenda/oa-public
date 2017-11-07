@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
-import Spinner from 'react-form-components/build/Spinner';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityFormatMaker from 'activities/formatActivity';
 import activityLabels from 'labels/activities/user';

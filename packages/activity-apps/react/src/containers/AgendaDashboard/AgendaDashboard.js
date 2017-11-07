@@ -6,7 +6,7 @@ import pick from 'lodash/pick';
 import throttle from 'lodash/throttle';
 import mapValues from 'lodash/mapValues';
 import update from 'immutability-helper';
-import Spinner from 'react-form-components/build/Spinner';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityFormatMaker from 'activities/formatActivity';
 import activityLabels from 'labels/activities/agenda';

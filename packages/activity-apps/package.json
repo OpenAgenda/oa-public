@@ -22,6 +22,7 @@
   "homepage": "https://bitbucket.org/openagenda/activity-apps#readme",
   "peerDependencies": {},
   "dependencies": {
+    "@openagenda/react-form-components": "^2.0.7",
     "activities": "git+ssh://git@bitbucket.org/openagenda/activities.git",
     "async": "^2.1.4",
     "babel-runtime": "^6.23.0",
@@ -38,7 +39,6 @@
     "prop-types": "^15.5.8",
     "react-bootstrap": "^0.31.0",
     "react-bootstrap-datetimerangepicker": "github:bertho-zero/react-bootstrap-datetimerangepicker",
-    "react-form-components": "git+ssh://git@bitbucket.org/openagenda/react-form-components.git",
     "react-router": "^3.0.5",
     "react-router-redux": "^4.0.8",
     "react-select": "^1.0.0-rc.4",

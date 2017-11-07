@@ -1,6 +1,6 @@
 import React from 'react';
-import Spinner from 'react-form-components/build/Spinner';
-import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
+import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 
 const searchSpinner = {
   width: 1,

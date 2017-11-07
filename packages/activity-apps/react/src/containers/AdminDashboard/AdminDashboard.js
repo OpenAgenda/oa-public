@@ -6,7 +6,7 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import pick from 'lodash/pick';
 import Select from 'react-select';
-import Spinner from 'react-form-components/build/Spinner';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
 import moment from 'moment';
 import monitorBottomHit from 'dom-utils/monitorBottomHit';
 import activityLabels from 'labels/activities/admin';
