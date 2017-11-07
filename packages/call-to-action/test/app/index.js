@@ -1,10 +1,10 @@
 "use strict";
 
 const path = require( 'path' );
-const logger = require( 'basic-logger' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
+const logger = require( '@openagenda/basic-logger' );
 const sessions = require( '@openagenda/sessions' );
 const sessionsMw = require( '@openagenda/sessions/middleware' );
 const mailer = require( '@openagenda/mailer' );

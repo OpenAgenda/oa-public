@@ -1,7 +1,7 @@
 "use strict";
 
-const logger = require( 'basic-logger' );
 const _ = require( 'lodash' );
+const logger = require( '@openagenda/basic-logger' );
 
 let config;
 let log;

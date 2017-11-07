@@ -29,7 +29,12 @@
     "test": "test"
   },
   "description": "",
+  "peerDependencies": {
+    "react": "16 || 15",
+    "react-dom": "16 || 15"
+  },
   "dependencies": {
+    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.0.4",
     "@openagenda/labels": "^2.0.2",
     "@openagenda/mailer": "^1.0.2",
@@ -37,13 +42,10 @@
     "@openagenda/react-form-components": "^2.0.1",
     "@openagenda/react-utils": "^2.0.1",
     "@openagenda/sessions": "^3.0.2",
-    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git",
     "body-parser": "^1.16.0",
     "history": "^3.3.0",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-form": "^7.1.2"
@@ -65,7 +67,9 @@
     "babel-preset-react": "^6.16.0",
     "husky": "^0.14.2",
     "morgan": "^1.8.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-transform-catch-errors": "^1.0.2",
-    "redbox-react": "^1.3.3"
+    "redbox-react": "^1.5.0"
   }
 }
