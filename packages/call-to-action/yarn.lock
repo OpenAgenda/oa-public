@@ -81,10 +81,11 @@
     validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
 
 "@openagenda/react-form-components@^2.0.1":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@openagenda/react-form-components/-/react-form-components-2.0.2.tgz#38cf2f988c98377b3e5eaac3580e1110e9bdfe02"
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@openagenda/react-form-components/-/react-form-components-2.0.7.tgz#8663c304acba80f077fd5ed520a9ccbf835887a5"
   dependencies:
     "@openagenda/utils" "^1.0.1"
+    "@openagenda/validators" "^2.0.0"
     create-react-class "^15.5.3"
     immutability-helper "^2.2.0"
     languages "0.1.3"
@@ -94,9 +95,7 @@
     react-select "^1.0.0-rc.4"
     react-tagsinput "^3.16.1"
     spin.js "2.3.2"
-    spinner "git+ssh://git@bitbucket.org/openagenda/spinner.git"
     to-markdown "^3.0.1"
-    validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
 
 "@openagenda/react-utils@^2.0.0", "@openagenda/react-utils@^2.0.1":
   version "2.0.1"
@@ -158,13 +157,21 @@
     watchify "^3.7.0"
     webpack "^1.14.0"
 
-"@openagenda/utils@^1.0.0", "@openagenda/utils@^1.0.1":
+"@openagenda/utils@^1.0.0", "@openagenda/utils@^1.0.1", "@openagenda/utils@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.2.tgz#a2299c4c0484f565e640084b6b12cf749dbe60fd"
   dependencies:
     qs "^6.1.0"
     when "^3.7.8"
     xhr "^2.2.2"
+
+"@openagenda/validators@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/validators/-/validators-2.0.0.tgz#e3365b0bfd347eb901cf390fd53f15af3dff6b90"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    lodash "^4.17.2"
+    validator "^7.0.0"
 
 Base64@~0.2.0:
   version "0.2.1"
