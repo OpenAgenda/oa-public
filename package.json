@@ -30,6 +30,7 @@
     "@openagenda/labels": "^2.0.5",
     "@openagenda/react-form-components": "^2.0.7",
     "@openagenda/registration": "^1.1.1",
+    "@openagenda/sync-button": "^0.0.7",
     "@openagenda/users": "^2.0.1",
     "activity-apps": "git+ssh://git@bitbucket.org/openagenda/activity-apps.git",
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",

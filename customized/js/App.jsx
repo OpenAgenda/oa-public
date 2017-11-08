@@ -10,9 +10,9 @@ const React = require( 'react' ),
 
   CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
 
-  SyncButton = require( 'sync-button' ),
+  SyncButton = require( '@openagenda/sync-button' ),
 
-  Spinner = require( 'sync-button/Spinner.jsx' ),
+  Spinner = require( '@openagenda/sync-button/Spinner' ),
 
   tplEnv = window.env=='tpl',
 
