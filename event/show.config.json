@@ -2,7 +2,7 @@
   "layout": "bsLayout/main",
   "labels": "event/show",
   "bsCss": {
-    "main": "/node_modules/bs-templates/compiled/main.css"
+    "main": "/node_modules/@openagenda/bs-templates/compiled/main.css"
   },
   "helpers": {
     "_t": "time",
@@ -33,6 +33,12 @@
         "agendaOnly": false,
         "hideAction": true,
         "classNames": "js_role_event_editor js_role_agenda_moderator js_role_agenda_admin"
+      },
+      "refused" : {
+        "label" : "refused",
+        "type": -1,
+        "agendaOnly" : true,
+        "classNames" : "js_role_agenda_admin js_role_agenda_moderator"
       },
       "tocontrol": {
         "label": "toComplete",

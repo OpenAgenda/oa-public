@@ -33,5 +33,12 @@
         }
       ]
     }
+  },
+  "standard" : {},
+  "agenda" : {
+    "agenda" : {
+      "image" : "rwtbagenda72167821.jpg",
+      "title" : "Nuit de la lecture"
+    }
   }
 }

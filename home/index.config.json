@@ -1,7 +1,12 @@
 {
   "layout": "bsLayout/main",
+<<<<<<< HEAD
   "bsCss": {
     "main": "/node_modules/bs-templates/compiled/main.css"
+=======
+  "bsCss" : {
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
+>>>>>>> e28019d98f38476a4eaa8c5096fcb0e834e435f0
   },
   "helpers": {
     "_t": "time",

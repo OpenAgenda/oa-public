@@ -176,17 +176,17 @@ function _defineSelected( reqParams, baseValues ) {
 
 function _appendTags( tags, tagsToAppend ) {
 
-  if ( typeof tags == 'string' ) tags = [ tags ];
+  var tArr = [].concat( tags );
 
   if ( typeof tagsToAppend == 'string' ) tagsToAppend = [ tagsToAppend ];
 
   cn.forEach( tagsToAppend ? tagsToAppend : [], function( t ) {
 
-    if ( tags.indexOf( t ) == -1 ) tags.push( t );
+    if ( tArr.indexOf( t ) == -1 ) tArr.push( t );
 
   });
 
-  return tags;
+  return tArr;
 
 }
 
