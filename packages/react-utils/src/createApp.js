@@ -45,7 +45,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
     const devToolsDest = document.createElement( 'div' );
     window.document.body.insertBefore( devToolsDest, null );
     const DevTools = require( './ReduxDevTools' );
-    ReactDOM.render(
+    ReactDOM.hydrate(
       <DevTools store={store} />,
       devToolsDest
     );
@@ -57,7 +57,7 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
 
   const match = elem => {
     _match( { history, routes }, ( error, redirectLocation, renderProps ) => {
-      ReactDOM.render(
+      ReactDOM.hydrate(
         <Provider store={store} key="provider">
           <Router {...renderProps} history={history} render={renderRouter}>
             {routes}

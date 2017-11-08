@@ -44,7 +44,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
     var devToolsDest = document.createElement('div');
     window.document.body.insertBefore(devToolsDest, null);
     var DevTools = require('./ReduxDevTools');
-    _reactDom2.default.render(_react2.default.createElement(DevTools, { store: store }), devToolsDest);
+    _reactDom2.default.hydrate(_react2.default.createElement(DevTools, { store: store }), devToolsDest);
   }
 
   if (fn) fn({ client: client, store: store, history: history });
@@ -53,7 +53,7 @@ exports.default = function (defaultState, createStore, getRoutes, ApiClient, fn)
 
   var match = function match(elem) {
     (0, _reactRouter.match)({ history: history, routes: routes }, function (error, redirectLocation, renderProps) {
-      _reactDom2.default.render(_react2.default.createElement(
+      _reactDom2.default.hydrate(_react2.default.createElement(
         _reactRedux.Provider,
         { store: store, key: 'provider' },
         _react2.default.createElement(
