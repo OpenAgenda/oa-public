@@ -8,7 +8,7 @@ const onError = require( '../00_errors' ).bind( null, 'legacyModel' );
 
 const cache = require( '../cache' );
 
-const model = require( 'cibulModel' )( config.db, {
+const model = require( '@openagenda/cibul-model' )( config.db, {
   imagePath: config.aws.imageBucketPath,
   cache: cache,
   query

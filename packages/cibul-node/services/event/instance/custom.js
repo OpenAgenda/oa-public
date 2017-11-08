@@ -1,18 +1,18 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const config = require( '../../../config' );
+const imageSvc = require( '@openagenda/images' );
+const log = require( 'logs' )( 'services/event/instance/custom' );
+const s3Svc = require( '@openagenda/files' ).s3;
+const w = require( 'when' );
 
-w = require( 'when' ),
 
-config = require( '../../../config' ),
 
-imageSvc = require( '@openagenda/images' ),
 
-s3Svc = require( '@openagenda/files' ).s3,
 
-async = require( 'async' ),
 
-log = require( 'logger' )( 'services/event/instance/custom' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
@@ -21,7 +21,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
   return {
     loadAgendaCustomContext,
     setCustomImage,
-    saveCustomImage,
+    saveCustomImage, // transfers custom image from temporary creation location to final location
     unsetCustomImage,
     evaluateCustomImageDuplication
   }
@@ -75,18 +75,23 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
+
+  /**
+   * transfers custom image from temporary creation location to final location
+   */
+  
   function saveCustomImage( options, cb ) {
 
     log( 'saveCustomImage with %s', JSON.stringify( options ) );
 
-    var params = utils.extend( {
+    var params = _.extend( {
       name: false, // required
       userUid: false // required
     }, options );
 
     if ( !agendaUid ) return cb( 'agenda context missing' );
 
-    w( utils.extend( {
+    w( _.extend( {
       instance: instance,
       agendaUid: agendaUid
     }, params ) )
@@ -125,12 +130,12 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function unsetCustomImage( options, cb ) {
 
-    var params = utils.extend( {
+    var params = _.extend( {
       name: false, // required
-      userUid: false // required 
+      fileKey: false // required 
     }, options );
 
-    w( utils.extend( {
+    w( _.extend( {
       instance: instance,
       agendaUid: agendaUid,
       customFields: customFields,
@@ -164,13 +169,13 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   function setCustomImage( options, cb ) {
 
-    var params = utils.extend( {
+    var params = _.extend( {
       name: false, // required
       path: false, // required
-      userUid: false, // required if new event
+      fileKey: false, // required
     }, options );
 
-    w( utils.extend( {
+    w( _.extend( {
       instance: instance,
       agendaUid: agendaUid,
       customFields: customFields,
@@ -307,9 +312,7 @@ function _checkDestExistence( v ) {
 
   log( 'check image existence' );
 
-  var url = ( v.instance.isNew() ? _newImagePathname( v ) : _existingImagePathname( v ) ).url
-
-  return _checkExistence( v, url );
+  return _checkExistence( v, getImagePathData( v.fileKey, v.name ).url );
 
 }
 
@@ -408,21 +411,7 @@ function _extractProcessConfig( v ) {
 
 function _setDestFileName( v ) {
 
-  var isNew = v.instance.isNew();
-
-  if ( isNew ) {
-
-    log( 'event is new' );
-
-    if ( !v.userUid ) throw 'user uid is required';
-
-  } else {
-
-    log( 'event is existing' );
-
-  }
-
-  var i = ( v.instance.isNew() ? _newImagePathname : _existingImagePathname )( v );
+  let i = getImagePathData( v.fileKey, v.name );
 
   v.bucket = i.bucket;
 
@@ -458,9 +447,9 @@ function _existingImagePathname( v ) {
 
 }
 
-function getImagePathData( agendaUid, eventUid, fieldName ) {
+function getImagePathData( fileKey, fieldName ) {
 
-  let imageName = [ agendaUid, eventUid, fieldName, 'jpg' ].join( '.' );
+  const imageName = [ fileKey, 'event', fieldName, 'jpg' ].join( '.' );
 
   return {
     bucket: config.aws.bucket,

@@ -1,46 +1,35 @@
 "use strict";
 
-const landing = require( 'landing' ),
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
+const config = require( '../config' );
+const files = require( '@openagenda/files' );
+const landing = require( 'landing' );
+const sessions = require( '@openagenda/sessions' );
 
-  sessions = require( '@openagenda/sessions' ),
+const landingPages = landing( {
+  en: config.root + '/discover',
+  fr: config.root + '/decouvrir'
+} );
 
-  config = require( '../config' ),
+const legacyPages = {
+  premium: 'premium-agenda',
+  basic: 'basic-agenda',
+  tailored: 'a-tailored-offer',
+  network: 'network-of-agendas'
+};
 
-  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) ),
+const coms = require( '../lib/coms' );
+const w = require( 'when' );
+const cmn = require( '../lib/commons-app' );
+const newsletter = require( 'newsletter' );
+const mailer = require( '@openagenda/mailer' );
+const modLib = require( '../lib/moduleLib' );
+const cache = require( 'simple-cache' )( 'landing' );
+const model = require( '../services/model' );
+const metaLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/corpo/metas' ) );
+const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
-  landingPages = landing( {
-    en: config.root + '/discover',
-    fr: config.root + '/decouvrir'
-  } ),
-
-  legacyPages = {
-    premium: 'premium-agenda',
-    basic: 'basic-agenda',
-    tailored: 'a-tailored-offer',
-    network: 'network-of-agendas'
-  },
-
-  coms = require( '../lib/coms' ),
-
-  w = require( 'when' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  newsletter = require( 'newsletter' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  modLib = require( '../lib/moduleLib' ),
-
-  cache = require( 'simple-cache' )( 'landing' ),
-
-  model = require( '../services/model' ),
-
-  metaLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/corpo/metas' ) ),
-
-  mwHelpers = require( '../services/lib/middlewareHelpers.js' ),
-
-  _homeMw = [
+const _homeMw = [
     cmn.https,
     sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
     _cache,
@@ -72,6 +61,13 @@ const landing = require( 'landing' ),
       _redirectLegacyLinks,
       corpo 
     ] ],
+    newFileKey: [ 'get', '/filekey/new', async ( req, res, next ) => {
+
+      res.set( 'Content-Type', 'text/plain' );
+
+      res.send( await files.s3.generateUniquePrefix() );
+
+    } ],
     discover: [ 'get', '/discover/:page', [ 
       cmn.https,
       _corpoBrowserCache,

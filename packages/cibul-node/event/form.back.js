@@ -1,6 +1,9 @@
 "use strict";
 
 const sessions = require( '@openagenda/sessions' );
+const agendaSvc = require( '../services/agenda' );
+const eventSvc = require( '../services/event' );
+
 
 var modLib = require( '../lib/moduleLib' ),
 
@@ -10,28 +13,24 @@ config = require( '../config' ),
 
 imageUpload = require( '@openagenda/image-upload/lib/middleware' ),
 
-agendaSvc = require( '../services/agenda' ),
-
-eventSvc = require( '../services/event' ),
-
 routes = {
 
-  agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload', [ 
+  agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload/key/:fileKey', [ 
     sessions.middleware.load(),
     agendaEventNewCustomUpload
   ] ],
 
-  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove', [ 
+  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove/key/:fileKey', [ 
     sessions.middleware.load(),
     agendaEventNewCustomRemove 
   ] ],
 
-  agendaEventCustomUpload: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/upload', [
+  agendaEventCustomUpload: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/upload/key/:fileKey', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     agendaEventCustomUpload
   ] ],
 
-  agendaEventCustomRemove: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/remove', [
+  agendaEventCustomRemove: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/remove/key/:fileKey', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     agendaEventCustomRemove
   ] ]
@@ -68,12 +67,12 @@ function agendaEventNewCustomUpload( req, res, next ) {
       newEvent.loadAgendaCustomContext( {
         uid: req.agenda.uid,
         customFields: req.agenda.getCustomFieldsConfig()
-      });
+      } );
 
       newEvent.setCustomImage( {
         name: req.params.field,
         path: path,
-        userUid: req.user.uid
+        fileKey: req.params.fileKey
       }, cb );
 
     }
@@ -92,7 +91,7 @@ function agendaEventNewCustomRemove( req, res, next ) {
 
   newEvent.unsetCustomImage( {
     name: req.params.field,
-    userUid: req.user.uid
+    fileKey: req.params.fileKey
   }, ( err ) => {
 
     if ( err ) return next( err );
@@ -118,7 +117,8 @@ function agendaEventCustomUpload( req, res, next ) {
 
       req.event.setCustomImage( {
         name: req.params.field,
-        path: path
+        path: path,
+        fileKey: req.params.fileKey
       }, cb );
 
     }
@@ -134,7 +134,8 @@ function agendaEventCustomRemove( req, res, next ) {
   });
 
   req.event.unsetCustomImage( {
-    name: req.params.field
+    name: req.params.field,
+    fileKey: req.params.fileKey
   }, ( err ) => {
 
     if ( err ) return next( err );

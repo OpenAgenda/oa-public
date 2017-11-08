@@ -28,8 +28,6 @@ const sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
-  log = require( 'logger' )( 'legacy' ),
-
   utils = require( '@openagenda/utils' ),
 
   bodyParser = require( 'body-parser' ),
@@ -62,7 +60,7 @@ const sessions = require( '@openagenda/sessions' ),
     /**
      * process a save for a custom image
      */
-    customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/user/:userUid', [
+    customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/key/:fileKey', [
       agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       _loadEventByUid,
       customImageSave
@@ -183,7 +181,7 @@ const sessions = require( '@openagenda/sessions' ),
   };
 
 
-let apiLog;
+let apiLog, log;
 
 module.exports = function ( path ) {
 
@@ -195,6 +193,8 @@ module.exports = function ( path ) {
   ] );
 
   apiLog = require( 'logger' )( 'legacyApi' );
+
+  log = require( 'logs' )( 'legacy' );
 
   return {
     load: router.load( path ),
@@ -536,31 +536,19 @@ function customImageSave( req, res, next ) {
 
   req.log( 'received request to save custom image' );
 
-  userSvc.get( { uid: req.params.userUid }, ( err, user ) => {
+  req.event.loadAgendaCustomContext( {
+    uid: req.agenda.uid,
+    customFields: req.agenda.getCustomFieldsConfig()
+  } );
 
-    if ( err || !user ) {
+  req.event.saveCustomImage( {
+    name: req.params.field,
+    fileKey: req.event.fileKey
+  }, ( err, destUrl ) => {
 
-      req.log( 'error', err || 'no user found for ' + req.params.userUid );
+    req.log( destUrl );
 
-      return next( err || 'no user found' );
-
-    }
-
-    req.event.loadAgendaCustomContext( {
-      uid: req.agenda.uid,
-      customFields: req.agenda.getCustomFieldsConfig()
-    } );
-
-    req.event.saveCustomImage( {
-      name: req.params.field,
-      userUid: user.uid
-    }, ( err, destUrl ) => {
-
-      req.log( destUrl );
-
-      res.send( destUrl );
-
-    } );
+    res.send( destUrl );
 
   } );
 
