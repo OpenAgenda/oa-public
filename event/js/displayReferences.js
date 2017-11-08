@@ -4,11 +4,11 @@
  * display references to other events
  */
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
-du = require( 'dom-utils' ),
+du = require( '@openagenda/dom-utils' ),
 
-get = require( 'utils/get' ),
+get = require( '@openagenda/utils/get' ),
 
 defaults = {
   env: 'production',

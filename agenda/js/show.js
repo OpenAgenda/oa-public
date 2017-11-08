@@ -10,19 +10,19 @@ const controllers = require( '../../widgets/controller/main' ),
   cn = require( '../../js/lib/common/common.mod' ),
 
   // in favor of this
-  du = require( 'dom-utils' ),
+  du = require( '@openagenda/dom-utils' ),
 
   _ = {
     includes: require( 'lodash/includes' )
   },
 
-  get = require( 'utils/get' ),
+  get = require( '@openagenda/utils/get' ),
 
   list = require( './list' ),
 
   timeliner = require( './timeliner' ),
 
-  documentLocation = require( 'dom-utils/documentLocation' ),
+  documentLocation = require( '@openagenda/dom-utils/documentLocation' ),
 
   config = require( './config' ),
 

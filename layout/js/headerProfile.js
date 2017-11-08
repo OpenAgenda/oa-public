@@ -26,6 +26,7 @@ const session = require( 'sessions/client' ),
       profile: '.js_profile',
       dropdown: '.js_profile_dropdown',
       notifications: '.js_notifications',
+      inbox: '.js_inbox',
     },
     classes: {
       displayNone: 'display-none'
@@ -67,7 +68,7 @@ module.exports = options => {
 
   li = du.el( ul, 'li' );
 
-  du.el( params.selectors.notifications ).insertAdjacentElement( 'beforebegin', li );
+  du.el( params.selectors.inbox ).insertAdjacentElement( 'beforebegin', li );
 
   toggle( li );
 

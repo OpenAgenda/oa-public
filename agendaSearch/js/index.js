@@ -8,7 +8,7 @@ const defaults = {
   res: '/agendas'
 },
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 main = require( 'agenda-search/components/lib/main' );
 

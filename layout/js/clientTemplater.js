@@ -1,6 +1,6 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
   remote = require( '../../js/lib/remote/remote.mod' ),
 

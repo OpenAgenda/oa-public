@@ -26,12 +26,14 @@
     "@openagenda/agenda-locations": "^1.0.5",
     "@openagenda/bs-templates": "^2.0.3",
     "@openagenda/call-to-action": "^2.0.2",
+    "@openagenda/dom-utils": "^2.0.4",
     "@openagenda/home": "^2.0.5",
     "@openagenda/labels": "^2.0.5",
     "@openagenda/react-form-components": "^2.0.7",
     "@openagenda/registration": "^1.1.1",
     "@openagenda/sync-button": "^0.0.7",
     "@openagenda/users": "^2.0.1",
+    "@openagenda/utils": "^1.0.2",
     "activity-apps": "git+ssh://git@bitbucket.org/openagenda/activity-apps.git",
     "admin-agendas": "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git",
     "agenda-categories": "git+ssh://git@bitbucket.org/openagenda/agenda-categories.git",
@@ -66,7 +68,6 @@
     "d3": "3.5.6",
     "debug": "2.1.0",
     "deep-extend": "0.2.11",
-    "dom-utils": "git+ssh://git@bitbucket.org/openagenda/dom-utils.git",
     "ejs": "2.4.2",
     "ejs-compiled-loader": "^2.2.0",
     "express": "4.9.5",
@@ -114,21 +115,11 @@
     "translators": "git+ssh://git@bitbucket.org/openagenda/translators.git",
     "tumblr-parser": "git+ssh://git@bitbucket.org/openagenda/tumblr-parser.git",
     "uglify-js": "2.4.24",
-    "utils": "git+ssh://git@bitbucket.org/openagenda/utils.git",
     "webpack": "^3.5.5",
     "when": "~3.4",
     "xhr": "^2.2.0"
   },
   "devDependencies": {
     "should": "^8.2.2"
-  },
-  "browserify": {
-    "transform": "reactify"
-  },
-  "babel": {
-    "presets": [
-      "es2015",
-      "react"
-    ]
   }
 }

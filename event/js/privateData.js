@@ -5,7 +5,7 @@ var _ = {
   keys: require( 'lodash/keys' )
 },
 
-  du = require( 'dom-utils' ),
+  du = require( '@openagenda/dom-utils' ),
 
   activities = require( './activities' ),
 
@@ -52,7 +52,8 @@ module.exports = function( options ) {
 
   return {
     load: load,
-    activities: displayActivities
+    activities: displayActivities,
+    inbox
   }
 
   function load( agendaUid, eventUid ) {
@@ -68,7 +69,7 @@ module.exports = function( options ) {
         return;
 
       }
-      
+
       if ( _.keys( data.custom.custom ).length ) {
 
         du.el( params.selector ).insertAdjacentHTML( 'beforeend', _renderCustom( data.custom ) );
@@ -97,6 +98,10 @@ module.exports = function( options ) {
       lang
     } );
 
+  }
+
+  function inbox() {
+    //
   }
 
   function _fetch( res, cb ) {

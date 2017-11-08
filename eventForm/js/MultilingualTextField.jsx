@@ -6,7 +6,7 @@ createReactClass = require( 'create-react-class' ),
 
 validators = require( './validators' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 renderHelpers = require( './renderHelpers.jsx' );
 

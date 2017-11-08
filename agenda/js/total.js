@@ -12,7 +12,7 @@ const params = {
   }
 },
 
-du = require( 'dom-utils' ),
+du = require( '@openagenda/dom-utils' ),
 
 ejs = require( 'ejs' ),
 

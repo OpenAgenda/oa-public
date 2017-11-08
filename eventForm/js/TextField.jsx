@@ -10,7 +10,7 @@ const React = require( 'react' ),
   
   errors = require( './errors' ),
   
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
   
   typeValidators = {
     integer: { func: validators.isInteger, error: 'notInt' },

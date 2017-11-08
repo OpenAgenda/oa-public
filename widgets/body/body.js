@@ -2,9 +2,9 @@
 
 var UID = 0,
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
-du = require( 'dom-utils' ),
+du = require( '@openagenda/dom-utils' ),
 
 wLib = require( '../lib/widgetLib' ),
 

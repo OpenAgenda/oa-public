@@ -852,7 +852,7 @@ var React = require( 'react' ),
 
 validators = require( './validators' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 ERR = {
   NOTINT: 0,

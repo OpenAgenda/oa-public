@@ -2,11 +2,11 @@
 
 var eventMap = require( './map' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
-du = require( 'dom-utils' ),
+du = require( '@openagenda/dom-utils' ),
 
-get = require( 'utils/get' ),
+get = require( '@openagenda/utils/get' ),
 
 session = require( 'sessions/client' ),
 
@@ -128,6 +128,8 @@ window.asap( options => {
     if ( roles.includes( ROLES.EVENTEDITOR ) ) {
 
       prv.activities( params.agendaUid, params.uid, params.lang );
+
+      prv.inbox( params );
 
     }
 

@@ -8,12 +8,10 @@
   "react-form-components",
   "react-timings-picker",
   "spinner",
-  "sync-button",
   "translators",
   "sessions",
   "agenda-stakeholders",
   "activities/format",
   "activity-apps/notifications",
-  "dom-utils",
   "translators"
 ]

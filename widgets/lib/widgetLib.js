@@ -1,6 +1,6 @@
 var du = require( '../../js/lib/domUtils' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 log = require( 'debug' )( 'widgetLib' );
 

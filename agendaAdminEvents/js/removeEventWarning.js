@@ -1,6 +1,6 @@
 "use strict";
 
-const du = require( 'dom-utils' );
+const du = require( '@openagenda/dom-utils' );
 const React = require( 'react' );
 const ReactDom = require( 'react-dom' );
 const createReactClass = require( 'create-react-class' );

@@ -1,6 +1,6 @@
 var maps = require( './maps.mod' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 L = require( 'leaflet' );
 

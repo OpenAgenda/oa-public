@@ -2,7 +2,7 @@
 
 const Spinner = require( 'spin.js' );
 
-const du = require( 'dom-utils' );
+const du = require( '@openagenda/dom-utils' );
 
 window.asap( function( options ) {
 

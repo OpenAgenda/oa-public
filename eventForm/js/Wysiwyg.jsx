@@ -8,9 +8,9 @@ var React = require( 'react' ),
 
   HTMLComponent = require( '@openagenda/react-form-components/build/HTMLComponent' ),
 
-  du = require( 'dom-utils' ),
+  du = require( '@openagenda/dom-utils' ),
 
-  utils = require( 'utils' );
+  utils = require( '@openagenda/utils' );
 
 module.exports = createReactClass( {
 

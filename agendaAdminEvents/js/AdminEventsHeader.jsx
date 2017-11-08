@@ -5,13 +5,13 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import TermSelectorPicker from '@openagenda/agenda-locations/components/build/TermSelectorPicker';
 import qs from 'qs';
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 import labels from 'labels/agenda-admin-events/filters';
 import stateLabels from 'labels/event/states';
 import makeGetterLabel from 'labels';
 import Select from 'react-select';
 import Spinner from 'react-components/build/Spinner';
-import utils from 'utils';
+import utils from '@openagenda/utils';
 import UidTextField from './UidTextField.jsx';
 
 const getLabel = makeGetterLabel( labels );

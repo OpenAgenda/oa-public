@@ -1,4 +1,4 @@
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
 du = require( '../../../js/lib/domUtils' ),
 

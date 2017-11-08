@@ -6,7 +6,7 @@ const openRequestForm = require( '@openagenda/call-to-action/react/dist/openRequ
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too
 
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
   du = require( '../../js/lib/domUtils' ),
 
@@ -31,6 +31,8 @@ var utils = require( 'utils' ),
   flash = require( './handleFlashMessage.js' ),
 
   notifications = require( 'activity-apps/notifications' ),
+
+  inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
 
   callToAction = require( '@openagenda/call-to-action/react/dist' ),
 
@@ -73,6 +75,8 @@ du.asapReady( function () {
   flash();
 
   notifications();
+
+  inbox();
 
   callToAction();
 

@@ -17,7 +17,7 @@ import LocationSelector from '@openagenda/agenda-locations/components/build/Loca
 import CategorySelector from 'agenda-categories/lib/CategorySelector.jsx';
 import Registration from '@openagenda/registration/lib/Registration.js';
 import References from 'agenda-event-references/react/build/Editor';
-import utils from 'utils';
+import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import languageUtils from './legacy/languageUtils';
 import Modal from 'react-components/build/Modal';

@@ -4,7 +4,7 @@ var deepExtend = require( 'deep-extend' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 domUtils = require( '../../js/lib/domUtils' ),
 

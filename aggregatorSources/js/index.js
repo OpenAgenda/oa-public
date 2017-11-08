@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import App from 'aggregator-sources/react/dist/app';
 import deepExtend from 'deep-extend';
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 
 
 const params = {

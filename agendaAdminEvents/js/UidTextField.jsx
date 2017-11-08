@@ -6,9 +6,9 @@ createReactClass = require( 'create-react-class' ),
 
 PropTypes = require( 'prop-types' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
-get = require( 'utils/get' ); 
+get = require( '@openagenda/utils/get' ); 
 
 module.exports = function( textName, uidName ) {
 

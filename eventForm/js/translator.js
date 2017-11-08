@@ -1,8 +1,8 @@
 "use strict";
 
-const base64 = require( 'utils/base64' );
+const base64 = require( '@openagenda/utils/base64' );
 
-const utils = require( 'utils' );
+const utils = require( '@openagenda/utils' );
 
 const update = require( 'immutability-helper' );
 
@@ -16,7 +16,7 @@ const _ = {
 
 const translators = require( 'translators' );
 
-const du = require( 'dom-utils' );
+const du = require( '@openagenda/dom-utils' );
 
 module.exports = translate;
 

@@ -10,7 +10,7 @@ let embedded = require( '../../widgets/lib/embeddedPage' ),
 
   favorites = require( '../../agenda/js/favorites' ),
 
-  utils = require( 'utils' );
+  utils = require( '@openagenda/utils' );
 
 window.asap( function( options ) {
 

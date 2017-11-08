@@ -1,7 +1,7 @@
 "use strict";
 
-import utils from 'utils'
-import du from 'dom-utils'
+import utils from '@openagenda/utils'
+import du from '@openagenda/dom-utils'
 import React from 'react'
 import ReactDom from 'react-dom'
 import createReactClass from 'create-react-class'

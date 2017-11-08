@@ -1,6 +1,6 @@
 var loadJs = require( '../../js/lib/loadJs/loadJs.mod.js' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 wLib = require( './widgetLib' ),
 

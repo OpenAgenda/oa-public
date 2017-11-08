@@ -6,7 +6,7 @@ Counter = require( './Counter.jsx' ),
 
 du = require( '../../js/lib/domUtils' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 module.exports = {
   multilingual: {

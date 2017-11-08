@@ -12,7 +12,7 @@ ERR = {
   NOTEMPTY: 1
 },
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 module.exports = function( funcs ) {
 

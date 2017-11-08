@@ -303,6 +303,8 @@
 
     <div class="js_activities"></div>
 
+    <div class="js_inbox_event"></div>
+
 <% if ( event.owner ) { %>  
         <div class="signature">
           <p><%= __( 'createdBy', { 'owner' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>

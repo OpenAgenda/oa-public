@@ -8,7 +8,7 @@ LANG = 1,
 
 du = require( '../../js/lib/domUtils' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 remote = require( '../../js/lib/remote/remote.mod.js' ),
 
@@ -22,7 +22,7 @@ history = require( './history' ),
 
 mapLib = require( '../../js/lib/maps/osm.maps.mod' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 templates = {
   main: require( './main.ejs' ),

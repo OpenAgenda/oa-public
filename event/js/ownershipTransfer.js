@@ -4,7 +4,7 @@ var modalPartial = require( '../../bsLayout/js/modalPartial' ),
 
 ownershipForm = require( './ownershipForm.ejs' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 domUtils = require( '../../js/lib/domUtils' ),
 

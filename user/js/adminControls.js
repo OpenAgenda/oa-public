@@ -6,7 +6,7 @@ module.exports.ifAdmin = ifAdmin;
 
 var debug = require( 'debug' ),
 
-u = require( 'utils' ),
+u = require( '@openagenda/utils' ),
 
 du = require( '../../js/lib/domUtils' ),
 

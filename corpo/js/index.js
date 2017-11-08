@@ -1,4 +1,4 @@
-const du = require( 'dom-utils' ),
+const du = require( '@openagenda/dom-utils' ),
 
   layout = require( '../../layout/js/layout' ),
   

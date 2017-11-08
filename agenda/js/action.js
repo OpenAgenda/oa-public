@@ -8,7 +8,7 @@ params = {
   uid: false // agenda uid required
 },
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 gShare = require( './googleCalendarShare' );
 

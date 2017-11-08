@@ -2,7 +2,7 @@ import React from 'react';
 // import ReactDOM from 'react-dom';
 import createApp from '@openagenda/home/react/dist/app';
 import deepExtend from 'deep-extend';
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 
 const defaults = {
   state: {
