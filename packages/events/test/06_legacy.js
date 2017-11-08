@@ -91,7 +91,7 @@ describe( 'events - functional (server): legacy bridge', function() {
           sl: true,
           vi: false
         },
-        fileKey: null,
+        fileKey: 'reai4iufo57yuqo3fdy6qqoi5fy3iqo',
         timezone: 'Europe/Paris',
         timings: [ { 
           begin: event.timings[ 0 ].begin,
@@ -210,6 +210,18 @@ describe( 'events - functional (server): legacy bridge', function() {
     svc.legacy.transfer( 147621, ( err, result ) => {
 
       result.event.private.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'transfer of an event with file_key set sets the fileKey', done => {
+
+    svc.legacy.transfer( 147621, ( err, result ) => {
+
+      result.event.fileKey.should.equal( 'reai4iufo57yuqo3fdy6qqoi5fy3iqo' );
 
       done();
 

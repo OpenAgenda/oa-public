@@ -137,7 +137,8 @@ function get( identifiers, options, cb ) {
         'created_at', 'updated_at', 
         'age_min', 'age_max', 'image', 
         'accessibility', 'is_published',
-        'store', 'owner_id', 'origin_uid'
+        'store', 'owner_id', 'origin_uid',
+        'file_key'
       ],
       eventTranslations: [ 'title', 'description', 'free_text', 'tags', 'lang' ],
       eventLocation: [ 'id', 'location_id', 'ticket_link' ],
@@ -618,8 +619,9 @@ function _getEvent( v ) {
     } );
 
 
-    [ 
+    [
       'id', 'uid', 'slug', 'created_at', 'updated_at',
+      [ 'file_key', 'fileKey' ],
       [ 'origin_uid', 'agendaUid' ],
       [ 'age_min', 'age.min' ],
       [ 'age_max', 'age.max' ]
