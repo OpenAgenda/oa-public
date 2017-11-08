@@ -1,4 +1,4 @@
-var App = require( 'users/react/build' ),
+var App = require( '@openagenda/users/react/build' ),
 
   deepExtend = require( 'deep-extend' ),
 

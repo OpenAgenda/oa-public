@@ -23,6 +23,6 @@ window.hook( options => {
 
   deepExtend( params, options );
 
-  ReactDom.render( App( params ), du.el( '.js_canvas' ) );
+  ReactDom.hydrate( App( params ), du.el( '.js_canvas' ) );
 
 } );

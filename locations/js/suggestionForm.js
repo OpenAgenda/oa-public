@@ -25,7 +25,7 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
-SuggestionForm = require( 'agenda-locations/components/build/SuggestionForm' );
+SuggestionForm = require( '@openagenda/agenda-locations/components/build/SuggestionForm' );
 
 window.hook( function( options ) {
 
@@ -38,7 +38,7 @@ window.hook( function( options ) {
   }
 
   // deploy here.
-  ReactDom.render( <SuggestionForm
+  ReactDom.hydrate( <SuggestionForm
     lang={ params.lang }
     locationUid={ params.locationUid }
     res={ params.res }

@@ -1,4 +1,6 @@
 [
+  "inboxes/user",
+  "inboxes/agendaAdmin",
   "activities/agenda",
   "activities/user",
   "admin/activities",
@@ -146,7 +148,7 @@
     "prod" : "review/embedMenu.js"
   },
   {
-    "js" : "node_modules/agenda-locations/components/build/verifiedLocationsCounter.js",
+    "js" : "node_modules/@openagenda/agenda-locations/components/build/verifiedLocationsCounter.js",
     "prod" : "verifiedLocationsCounter.js"
   }
 ]

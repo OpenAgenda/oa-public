@@ -13,7 +13,7 @@ import AccessibilityFields from './AccessibilityFields.jsx';
 import AgeFields from './AgeFields.jsx';
 import TimingsPicker from './TimingsPicker.jsx';
 import TagSelector from 'agenda-tags/lib/TagSelector.jsx';
-import LocationSelector from 'agenda-locations/components/build/LocationSelector';
+import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 import CategorySelector from 'agenda-categories/lib/CategorySelector.jsx';
 import Registration from 'registration/lib/Registration.js';
 import References from 'agenda-event-references/react/build/Editor';

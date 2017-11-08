@@ -26,7 +26,7 @@ window.hook( options => {
 
   const getLabel = makeGetterLabel( labels, lang );
 
-  ReactDOM.render( <GettingStarted lang={lang} res={res} getLabel={getLabel} />,
+  ReactDOM.hydrate( <GettingStarted lang={lang} res={res} getLabel={getLabel} />,
     document.querySelector( '.js_canvas' ) );
 
 } );

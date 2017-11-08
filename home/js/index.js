@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import createApp from 'home/react/dist/app';
+// import ReactDOM from 'react-dom';
+import createApp from '@openagenda/home/react/dist/app';
 import deepExtend from 'deep-extend';
 import du from 'dom-utils';
 
@@ -32,6 +32,6 @@ window.hook( options => {
   const app = createApp( params );
 
   app.match( du.el( '.js_canvas' ) );
-  // ReactDOM.render( app, du.el( '.js_canvas' ) );
+  // ReactDOM.hydrate( app, du.el( '.js_canvas' ) );
 
 } );

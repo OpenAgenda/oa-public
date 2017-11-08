@@ -245,6 +245,6 @@ window.hook( options => {
 
   let params = utils.extend( {}, defaults, options );
 
-  ReactDom.render( <App {...params} />, du.el( params.canvas ) );
+  ReactDom.hydrate( <App {...params} />, du.el( params.canvas ) );
 
 } );

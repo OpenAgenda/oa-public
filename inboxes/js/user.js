@@ -1,28 +1,22 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from 'activity-apps/react/dist/apps/user';
-import deepExtend from 'deep-extend';
+import App from '@openagenda/inbox-apps/lib/apps/user';
 import du from 'dom-utils';
-
 
 const params = {
   state: {
     settings: {
       lang: 'fr',
-      prefix: '/home',
+      prefix: '/inboxes/user',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
       perPageLimit: 20
-    },
-    res: {
-      list: '/:uid/list'
     }
   }
 };
 
 window.hook( options => {
 
-  deepExtend( params, options );
-
-  ReactDom.hydrate( App( params ), du.el( '.js_canvas' ) );
+  ReactDom.hydrate( App( _.merge( params, options ) ), du.el( '.js_canvas' ) );
 
 } );

@@ -20,13 +20,13 @@ React = require( 'react' ),
 
 ReactDom = require( 'react-dom' ),
 
-LocactionsAdmin = require( 'agenda-locations/components/build/AgendaAdminLocations' );
+LocactionsAdmin = require( '@openagenda/agenda-locations/components/build/AgendaAdminLocations' );
 
 window.hook( function( options ) {
 
   deepExtend( params, options );
 
-  ReactDom.render( <LocactionsAdmin
+  ReactDom.hydrate( <LocactionsAdmin
     agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}

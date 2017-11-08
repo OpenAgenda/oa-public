@@ -14,11 +14,12 @@
           ],
           "node": "6"
         },
-        "useBuiltIns": true
+        "useBuiltIns": "entry"
       }
     ]
   ],
   "plugins": [
+    "lodash",
     "add-module-exports",
     "transform-decorators-legacy",
     "transform-react-display-name",

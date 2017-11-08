@@ -1,5 +1,9 @@
 "use strict";
 
+if ( !window._babelPolyfill ) {
+  require( 'babel-polyfill' );
+}
+
 var cn = require( '../../js/lib/common/common.mod.js' );
 
 module.exports = {

@@ -15,7 +15,7 @@ module.exports = ( canvas, elems, l ) => {
 
   canvas.insertAdjacentElement( 'beforeend', div );
 
-  ReactDom.render( <WarningModal />, div );
+  ReactDom.hydrate( <WarningModal />, div );
 
   lang = l;
 

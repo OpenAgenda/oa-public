@@ -17,7 +17,7 @@ module.exports = function( options ) {
 
   var params = rUtils.extend( {}, defaults, options );
 
-  ReactDom.render(
+  ReactDom.hydrate(
     <TypeField initType={params.code} lang={params.lang} onChange={rUtils.ehUpdate( params.events.send )} />,
     rUtils.createCanvas( rUtils.el( params.canvas ) )
   );

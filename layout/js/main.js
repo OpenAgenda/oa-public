@@ -1,9 +1,10 @@
 "use strict";
 
-const openRequestForm = require( 'call-to-action/react/dist/openRequestForm' );
+const openRequestForm = require( '@openagenda/call-to-action/react/dist/openRequestForm' );
 
-import ie8 from 'dom-utils/ie8'; // useful for ie11 too
-import ie9 from 'dom-utils/ie9'; // useful for ie11 too
+// import ie8 from 'dom-utils/ie8'; // useful for ie11 too
+// import ie9 from 'dom-utils/ie9'; // useful for ie11 too
+
 
 var utils = require( 'utils' ),
 
@@ -104,7 +105,7 @@ du.addEvent( window, 'load', function () {
 
   if ( typeof zE !== 'undefined' && params.lang ) {
 
-    zE( function() {
+    zE( function () {
 
       zE.setLocale( params.lang );
 
@@ -147,14 +148,15 @@ window.asap = function ( cb ) {
 window.hook( () => {
 
   if ( !window.errorsTrackingConfig ) return;
-  
+
   const errorsTrackingConfig = window.errorsTrackingConfig;
 
   try {
 
     LE.init( errorsTrackingConfig.logentriesKey );
-    
-  } catch ( e ) {}
+
+  } catch ( e ) {
+  }
 
   Raven.config( errorsTrackingConfig.sentryDsn, {
     dataCallback( data ) {
@@ -163,7 +165,8 @@ window.hook( () => {
 
         LE.log( data );
 
-      } catch ( e ) {}
+      } catch ( e ) {
+      }
 
       return data;
 
