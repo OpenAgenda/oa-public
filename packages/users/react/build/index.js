@@ -63,7 +63,7 @@ module.exports = function (options) {
 
   store.dispatch(actions.setAppSettings(settings));
 
-  ReactDom.render(React.createElement(
+  ReactDom.hydrate(React.createElement(
     Provider,
     { store: store, key: 'provider' },
     React.createElement(

@@ -48,7 +48,7 @@ module.exports = function ( options ) {
 
   store.dispatch( actions.setAppSettings( settings ) );
 
-  ReactDom.render(
+  ReactDom.hydrate(
     <Provider store={store} key="provider">
       <div>
         <Router history={history} createElement={createElement}>
