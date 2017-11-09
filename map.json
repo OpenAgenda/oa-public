@@ -1,6 +1,4 @@
 [
-  "inboxes/user",
-  "inboxes/agendaAdmin",
   "activities/agenda",
   "activities/user",
   "admin/activities",

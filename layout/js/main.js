@@ -32,7 +32,7 @@ var utils = require( '@openagenda/utils' ),
 
   notifications = require( 'activity-apps/notifications' ),
 
-  inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
+  //inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
 
   callToAction = require( '@openagenda/call-to-action/react/dist' ),
 
@@ -76,7 +76,7 @@ du.asapReady( function () {
 
   notifications();
 
-  inbox();
+  // inbox();
 
   callToAction();
 
