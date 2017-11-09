@@ -57,16 +57,6 @@ const sessions = require( '@openagenda/sessions' ),
     ] ],
 
 
-    /**
-     * process a save for a custom image
-     */
-    customImageSave: [ 'get', '/:slug/events/:eventUid/custom/:field/key/:fileKey', [
-      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-      _loadEventByUid,
-      customImageSave
-    ] ],
-
-
     eventCreate: [ 'get', '/events/:eventUid/create', [
       _loadOptionalAgenda,
       _loadEventByUid,
@@ -526,29 +516,6 @@ function eventCreate( req, res, next ) {
       } );
 
     } );
-
-  } );
-
-}
-
-
-function customImageSave( req, res, next ) {
-
-  req.log( 'received request to save custom image' );
-
-  req.event.loadAgendaCustomContext( {
-    uid: req.agenda.uid,
-    customFields: req.agenda.getCustomFieldsConfig()
-  } );
-
-  req.event.saveCustomImage( {
-    name: req.params.field,
-    fileKey: req.event.fileKey
-  }, ( err, destUrl ) => {
-
-    req.log( destUrl );
-
-    res.send( destUrl );
 
   } );
 

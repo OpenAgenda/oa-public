@@ -9,20 +9,14 @@ const s3Svc = require( '@openagenda/files' ).s3;
 const w = require( 'when' );
 
 
-
-
-
-
-
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
   var customFields, agendaUid;
 
   return {
     loadAgendaCustomContext,
-    setCustomImage,
-    saveCustomImage, // transfers custom image from temporary creation location to final location
-    unsetCustomImage,
+    setCustomFile,
+    unsetCustomFile,
     evaluateCustomImageDuplication
   }
 
@@ -54,9 +48,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         }
 
-        let src = getImagePathData( agendaUid, customImageEventUid, field.name );
+        let src = getFilePathData( agendaUid, customImageEventUid, field.name, 'image' );
 
-        let dst = getImagePathData( agendaUid, instance.uid, field.name );
+        let dst = getFilePathData( agendaUid, instance.uid, field.name, 'image' );
 
         // if the custom image name does not contain the uid of the current event
         // we have a duplicated event, we need to duplicate the image as well.
@@ -74,50 +68,6 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     }, cb );
 
   }
-
-
-  /**
-   * transfers custom image from temporary creation location to final location
-   */
-  
-  function saveCustomImage( options, cb ) {
-
-    log( 'saveCustomImage with %s', JSON.stringify( options ) );
-
-    var params = _.extend( {
-      name: false, // required
-      userUid: false // required
-    }, options );
-
-    if ( !agendaUid ) return cb( 'agenda context missing' );
-
-    w( _.extend( {
-      instance: instance,
-      agendaUid: agendaUid
-    }, params ) )
-
-    .then( _checkSourceExistence )
-
-    .then( _transferImageToPermanent )
-
-    .then( _updateFieldValue )
-
-    .done( ( v ) => {
-
-      log( 'saved image at %s', v.destUrl );
-
-      cb( null, v.destUrl );
-
-    }, ( err ) => {
-
-      log( err );
-
-      cb( err );
-
-    } );
-
-  }
-
   
 
   function loadAgendaCustomContext( ctxt ) {
@@ -128,9 +78,10 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
-  function unsetCustomImage( options, cb ) {
+  function unsetCustomFile( options, cb ) {
 
     var params = _.extend( {
+      type: 'image',
       name: false, // required
       fileKey: false // required 
     }, options );
@@ -167,9 +118,10 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
   }
 
-  function setCustomImage( options, cb ) {
+  function setCustomFile( options, cb ) {
 
     var params = _.extend( {
+      type: 'image',
       name: false, // required
       path: false, // required
       fileKey: false, // required
@@ -179,7 +131,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       instance: instance,
       agendaUid: agendaUid,
       customFields: customFields,
-      processedPath: false,           // processed image local path
+      processedPath: false,           // processed file local path
       bucket: false,                  // destination bucket
       destUrl: false,                    // destination url
       filename: false,
@@ -191,11 +143,17 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .then( _extractProcessConfig )
 
-    .then( _processImage )
+    .then( v => {
+
+      if ( v.type === 'image' ) return _processImage( v );
+
+      return v;
+
+    } )
 
     .then( _upload )
 
-    .done( ( v ) => {
+    .done( v => {
 
       log( 'image set at %s', v.destUrl );
 
@@ -219,30 +177,13 @@ function _remove( v ) {
 
   return w.promise( ( rs, rj ) => {
 
-    log( 'removing image %s from bucket %s', v.filename, v.bucket );
+    log( 'removing file %s from bucket %s', v.filename, v.bucket );
 
-    s3Svc.remove( v.filename, { bucket: v.bucket }, ( err ) => {
+    s3Svc.remove( v.filename, { bucket: v.bucket }, err => {
 
       if ( err ) return rj( err );
 
       log( 'image removed' );
-
-      rs( v );
-
-    } );
-
-  } );
-
-}
-
-
-function _updateFieldValue( v ) {
-
-  return w.promise( ( rs, rj ) => {
-
-    v.instance.setCustomField( v.name, v.savedName, true, ( err ) => {
-
-      if ( err ) return rj( err );
 
       rs( v );
 
@@ -276,43 +217,11 @@ function _clearFieldValue( v ) {
 }
 
 
-function _transferImageToPermanent( v ) {
-
-  return w.promise( ( rs, rj ) => {
-
-    var tmp = _newImagePathname( v ),
-
-    pmnt = _existingImagePathname( v );
-
-    s3Svc.transfer( tmp.bucket, tmp.name, pmnt.bucket, pmnt.name, ( err ) => {
-
-      if ( err ) return rj( err );
-
-      v.destUrl = pmnt.url;
-
-      v.savedName = pmnt.name;
-
-      rs( v );
-
-    } );
-
-  })
-
-}
-
-function _checkSourceExistence( v ) {
-
-  log( 'checking source image existence' );
-
-  return _checkExistence( v, _newImagePathname( v ).url );
-
-}
-
 function _checkDestExistence( v ) {
 
-  log( 'check image existence' );
+  log( 'check file existence' );
 
-  return _checkExistence( v, getImagePathData( v.fileKey, v.name ).url );
+  return _checkExistence( v, getFilePathData( v.fileKey, v.name, v.type ).url );
 
 }
 
@@ -339,14 +248,14 @@ function _checkExistence( v, url ) {
 
 function _upload( v ) {
 
-  log( 'uploading %s to bucket %s', v.processedPath, v.bucket );
+  log( 'uploading %s to bucket %s', v.processedPath || v.path, v.bucket );
 
   return w.promise( ( rs, rj ) => {
 
-    s3Svc.store( v.processedPath, {
+    s3Svc.store( v.processedPath || v.path, {
       bucket: v.bucket,
       clearOrigin: true
-    }, ( err ) => {
+    }, err => {
 
       if ( err ) return rj( err );
 
@@ -411,7 +320,7 @@ function _extractProcessConfig( v ) {
 
 function _setDestFileName( v ) {
 
-  let i = getImagePathData( v.fileKey, v.name );
+  let i = getFilePathData( v.fileKey, v.name, v.type );
 
   v.bucket = i.bucket;
 
@@ -429,27 +338,15 @@ function _setDestFileName( v ) {
 
 }
 
-function _newImagePathname( v ) {
 
-  var name = [ v.agendaUid, v.userUid, v.name, 'jpg' ].join( '.' );
+function getFilePathData( fileKey, fieldName, fileType = 'image' ) {
 
-  return {
-    bucket: config.aws.tmpBucket,
-    name: name,
-    url: config.aws.tmpBucketPath + name
-  }
+  const extension = ( {
+    image: 'jpg',
+    pdf: 'pdf'
+  } )[ fileType ];
 
-}
-
-function _existingImagePathname( v ) {
-
-  return getImagePathData( v.agendaUid, v.instance.uid, v.name );
-
-}
-
-function getImagePathData( fileKey, fieldName ) {
-
-  const imageName = [ fileKey, 'event', fieldName, 'jpg' ].join( '.' );
+  const imageName = [ fileKey, 'event', fieldName, extension ].join( '.' );
 
   return {
     bucket: config.aws.bucket,
