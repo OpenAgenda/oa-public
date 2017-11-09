@@ -70,7 +70,6 @@ function agendaEventNewCustomUpload( req, res, next ) {
       } );
 
       newEvent.setCustomFile( {
-        type: 'image',
         name: req.params.field,
         path: path,
         fileKey: req.params.fileKey
@@ -93,7 +92,6 @@ function agendaEventNewCustomRemove( req, res, next ) {
   newEvent.unsetCustomFile( {
     name: req.params.field,
     fileKey: req.params.fileKey,
-    type: 'image'
   }, ( err ) => {
 
     if ( err ) return next( err );
@@ -117,7 +115,7 @@ function agendaEventCustomUpload( req, res, next ) {
         customFields: req.agenda.getCustomFieldsConfig()
       });
 
-      req.event.setCustomImage( {
+      req.event.setCustomFile( {
         name: req.params.field,
         path: path,
         fileKey: req.params.fileKey
@@ -135,7 +133,7 @@ function agendaEventCustomRemove( req, res, next ) {
     customFields: req.agenda.getCustomFieldsConfig()
   });
 
-  req.event.unsetCustomImage( {
+  req.event.unsetCustomFile( {
     name: req.params.field,
     fileKey: req.params.fileKey
   }, ( err ) => {
