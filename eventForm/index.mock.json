@@ -265,6 +265,7 @@
       "freeText": { "fr":  "", "en":  "Not really much more to tell", "es":  "No hay mucho mas que decir" },
       "tags": { "fr":  "concert, musique, son", "en":  "concert, music, sound", "es":  "concierto, musica, sonido" },
       "image": "1364.jpg",
+      "fileKey": "a65ab5e8ddab44278f95bff8ce9ae8ad",
       "conditions": {
         "fr": "C'est un peu cher",
         "en": "This is a bit pricey"

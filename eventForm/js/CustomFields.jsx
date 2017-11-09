@@ -8,7 +8,7 @@ import TextField from './TextField.jsx';
 import CheckboxField from './CheckboxField.jsx';
 import RadioFields from './RadioFields.jsx';
 import SelectField from './SelectField.jsx';
-import ImageUpload from 'image-upload/components/build/ImageUploader';
+import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
 
 module.exports = createReactClass({
@@ -181,6 +181,7 @@ module.exports = createReactClass({
             label={ field.label }
             info={ field.info }
             buttonLabel={ self.props.labels.uploadButton }
+            copyButton={!!field.copy}
             buttonClass="blue button"
             removeClass="red button"
             handleUpdate={ self.onImageChange( field.name ) } />
