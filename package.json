@@ -26,7 +26,7 @@
     "@openagenda/agenda-locations": "^1.0.5",
     "@openagenda/bs-templates": "^2.0.3",
     "@openagenda/call-to-action": "^2.0.2",
-    "@openagenda/dom-utils": "^2.0.4",
+    "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/home": "^2.0.5",
     "@openagenda/image-upload": "^1.0.5",
     "@openagenda/labels": "^2.0.5",
