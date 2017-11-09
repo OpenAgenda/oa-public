@@ -131,15 +131,7 @@
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"
 
-"@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@openagenda/dom-utils/-/dom-utils-2.0.4.tgz#fe67a29a0eceed8d77589c965bb22e7e9d5a662e"
-  dependencies:
-    "@openagenda/utils" "^1.0.0"
-    es6-promise "^4.1.1"
-    qs "^6.5.1"
-
-"@openagenda/dom-utils@git+ssh://git@bitbucket.org/openagenda/dom-utils.git", "dom-utils@git+ssh://git@bitbucket.org/openagenda/dom-utils.git":
+"@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4", "@openagenda/dom-utils@git+ssh://git@bitbucket.org/openagenda/dom-utils.git", "dom-utils@git+ssh://git@bitbucket.org/openagenda/dom-utils.git":
   version "2.0.4"
   resolved "git+ssh://git@bitbucket.org/openagenda/dom-utils.git#05cb97e4e72e528cfd4e23ee798d6e4b3fe350bf"
   dependencies:
@@ -160,18 +152,7 @@
     moment-timezone "^0.5.11"
     should "~4.0"
 
-"@openagenda/files@^2.0.0", "@openagenda/files@bitbucket:openagenda/files", "files@git+ssh://git@bitbucket.org/openagenda/files.git":
-  name files
-  version "2.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/files.git#7238ac2d3c7b1537cb93da35e206714a5e99251f"
-  dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/utils" "^1.0.2"
-    async "^1.5.0"
-    knox-s3 "^0.9.3"
-    mime "^1.4.1"
-
-"@openagenda/files@^2.0.6":
+"@openagenda/files@^2.0.0", "@openagenda/files@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@openagenda/files/-/files-2.0.6.tgz#f3397a5423234427849fe174b5a3f5d5498122f2"
   dependencies:
@@ -182,6 +163,16 @@
     lodash "^4.17.4"
     mime "^1.4.1"
     uuid "^3.1.0"
+
+"@openagenda/files@bitbucket:openagenda/files", "files@git+ssh://git@bitbucket.org/openagenda/files.git":
+  version "2.0.0"
+  resolved "git+ssh://git@bitbucket.org/openagenda/files.git#7238ac2d3c7b1537cb93da35e206714a5e99251f"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/utils" "^1.0.2"
+    async "^1.5.0"
+    knox-s3 "^0.9.3"
+    mime "^1.4.1"
 
 "@openagenda/home@^2.0.2", "@openagenda/home@git+ssh://git@bitbucket.org/openagenda/home.git", "home@git+ssh://git@bitbucket.org/openagenda/home.git":
   version "2.0.2"
@@ -326,9 +317,19 @@
     debug "2.2.0"
     redis "~0.12"
 
-"@openagenda/react-components@^2.0.1", "@openagenda/react-components@^2.0.2", "@openagenda/react-components@git+ssh://git@bitbucket.org/openagenda/react-components.git", "react-components@git+ssh://git@bitbucket.org/openagenda/react-components.git":
+"@openagenda/react-components@^2.0.1", "@openagenda/react-components@git+ssh://git@bitbucket.org/openagenda/react-components.git", "react-components@git+ssh://git@bitbucket.org/openagenda/react-components.git":
   version "2.0.2"
   resolved "git+ssh://git@bitbucket.org/openagenda/react-components.git#00f81df2e0ef55f78e7038548e05c449b0489019"
+  dependencies:
+    "@openagenda/dom-utils" "^2.0.3"
+    create-react-class "^15.5.3"
+    prop-types "^15.5.8"
+    react-bootstrap "^0.31.0"
+    spin.js "2.3.2"
+
+"@openagenda/react-components@^2.0.2":
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/react-components/-/react-components-2.0.3.tgz#e25a2ce4707208efdc85eccbd2332228c5565d89"
   dependencies:
     "@openagenda/dom-utils" "^2.0.3"
     create-react-class "^15.5.3"
@@ -353,9 +354,27 @@
     spin.js "2.3.2"
     to-markdown "^3.0.1"
 
-"@openagenda/react-utils@^2.0.0", "@openagenda/react-utils@^2.0.1":
+"@openagenda/react-utils@^2.0.0":
   version "2.0.1"
   resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-2.0.1.tgz#0b0c7d7b14f8bc7f8ce4ead305a2027973595882"
+  dependencies:
+    deep-extend "^0.4.1"
+    history "^3.3.0"
+    react-redux "^5.0.4"
+    react-router "^3.0.0"
+    react-router-redux "^4.0.8"
+    react-router-scroll "^0.4.2"
+    redux "^3.6.0"
+    redux-connect "^5.1.0"
+    redux-devtools "^3.4.0"
+    redux-devtools-dock-monitor "^1.1.2"
+    redux-devtools-inspector "^0.11.3"
+    redux-form "^6.6.3"
+    superagent "3.6.0"
+
+"@openagenda/react-utils@^2.0.1":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-2.0.2.tgz#1af1640fd558e0b48d1c4075081da6d92e8d1209"
   dependencies:
     deep-extend "^0.4.1"
     history "^3.3.0"
@@ -424,8 +443,8 @@
     when "^3.7.7"
 
 "@openagenda/users@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@openagenda/users/-/users-2.0.1.tgz#b9b0e726936d9f84bf5999d9ba9589a8d55f84cc"
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/users/-/users-2.0.2.tgz#cc5c695f6b63b56e9ca732ed1292076872dd9fe5"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/dom-utils" "^2.0.4"
@@ -1176,7 +1195,13 @@ async@^1.5.0, async@^1.5.2, async@~1.5.0:
   version "1.5.2"
   resolved "https://registry.npmjs.org/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.0.1, async@^2.1.2, async@^2.1.4, async@^2.2.0, async@^2.3.0, async@^2.4.0, async@^2.5.0:
+async@^2.0.1:
+  version "2.6.0"
+  resolved "https://registry.npmjs.org/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
+  dependencies:
+    lodash "^4.14.0"
+
+async@^2.1.2, async@^2.1.4, async@^2.2.0, async@^2.3.0, async@^2.4.0, async@^2.5.0:
   version "2.5.0"
   resolved "https://registry.npmjs.org/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
   dependencies:
@@ -5451,9 +5476,15 @@ imagesloaded@^4.1:
   dependencies:
     ev-emitter "^1.0.0"
 
-immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1:
+immutability-helper@^2.0.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1:
   version "2.4.0"
   resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.4.0.tgz#00d421e2957c17f0f0781475f05ffd837e73458d"
+  dependencies:
+    invariant "^2.2.0"
+
+immutability-helper@^2.2.0:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.5.0.tgz#01ea7204334997c645bdfa7eb22e8b84c970946e"
   dependencies:
     invariant "^2.2.0"
 
@@ -8526,11 +8557,11 @@ react-router-redux@^4.0.4, react-router-redux@^4.0.5, react-router-redux@^4.0.6,
   resolved "https://registry.npmjs.org/react-router-redux/-/react-router-redux-4.0.8.tgz#227403596b5151e182377dab835b5d45f0f8054e"
 
 react-router-scroll@^0.4.2:
-  version "0.4.3"
-  resolved "https://registry.npmjs.org/react-router-scroll/-/react-router-scroll-0.4.3.tgz#40d8bdac2a7a4fc859e02e3f25fcb7f722a1b728"
+  version "0.4.4"
+  resolved "https://registry.npmjs.org/react-router-scroll/-/react-router-scroll-0.4.4.tgz#4d7b71c75b45ff296e4adca1e029a86e898a155d"
   dependencies:
     prop-types "^15.6.0"
-    scroll-behavior "^0.9.3"
+    scroll-behavior "^0.9.5"
     warning "^3.0.0"
 
 react-router@^3.0.0, react-router@^3.0.5:
@@ -9260,9 +9291,9 @@ scmp@~1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/scmp/-/scmp-1.0.2.tgz#bc4e4e2713252b04210cdff9cef3ade2c8fa7370"
 
-scroll-behavior@^0.9.3:
-  version "0.9.4"
-  resolved "https://registry.npmjs.org/scroll-behavior/-/scroll-behavior-0.9.4.tgz#73b4a0eae3e59c0b8f3b6fc1ff78f054a513e79c"
+scroll-behavior@^0.9.5:
+  version "0.9.5"
+  resolved "https://registry.npmjs.org/scroll-behavior/-/scroll-behavior-0.9.5.tgz#41da30b559da004eb48450f6cff6068c7696ff23"
   dependencies:
     dom-helpers "^3.2.1"
     invariant "^2.2.2"
