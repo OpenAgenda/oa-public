@@ -21,8 +21,11 @@ class DebugTransport extends winston.Transport {
   }
 
   log( level, msg, meta, cb ) {
-    meta = isEmptyObject( meta ) ? undefined : meta;
-    this.debug.apply( null, [ msg ].concat( meta ? [ _.omit( meta, 'namespace' ) ] : [] ) );
+    let displayedMeta = _.omit( meta, 'namespace' );
+    displayedMeta = isEmptyObject( displayedMeta ) ? undefined : displayedMeta;
+
+    this.debug.apply( null, [ msg ].concat( displayedMeta ? [ displayedMeta ] : [] ) );
+
     cb( null, true );
   }
 
