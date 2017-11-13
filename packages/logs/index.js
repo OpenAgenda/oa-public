@@ -3,11 +3,10 @@
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const winston = require( 'winston' );
-const debug = require( 'debug' );
 const DebugTransport = require( './DebugTransport' );
 const { getCallerFile, getModule } = require( './utils/caller' );
 
-require( 'le_node' );
+require( '@openagenda/le_node' );
 
 let config;
 const levels = Object.keys( winston.config.npm.levels );
