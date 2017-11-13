@@ -3,7 +3,7 @@
 import React from 'react';
 import Select from 'react-select';
 import createReactClass from 'create-react-class';
-import labels from 'labels/cibul-templates/age-fields';
+import labels from '@openagenda/labels/cibul-templates/age-fields';
 
 const limits = {
   min: 0,

@@ -10,20 +10,9 @@ import RadioFields from './RadioFields.jsx';
 import SelectField from './SelectField.jsx';
 import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
+import FileUpload from './FileUpload.jsx';
 
 module.exports = createReactClass({
-
-  onChange: function( field ) {
-
-    var self = this;
-
-    return function( value, error ) {
-
-      self.props.onChange( field, value, error );
-
-    }
-
-  },
 
   onImageChange: function( field ) {
 
@@ -65,7 +54,7 @@ module.exports = createReactClass({
               value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : {} }
               error= { self.props.errors[ field.name ] || false }
               languages= { self.props.languages }
-              onChange= { self.onChange( field.name ) } />
+              onChange= { self.props.onChange.bind( null, field.name ) } />
             </div>;
 
         } else {
@@ -82,7 +71,7 @@ module.exports = createReactClass({
               enriched= { !!field.enriched }
               value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
               error= { self.props.errors[ field.name ] || false }
-              onChange= { self.onChange( field.name ) } />
+              onChange= { self.props.onChange.bind( null, field.name ) } />
           </div>
 
         }
@@ -97,7 +86,7 @@ module.exports = createReactClass({
             placeholder={field.info}
             languages={self.props.languages}
             value={self.props.values[ field.name ]}
-            onChange={self.onChange( field.name ) }
+            onChange={ self.props.onChange.bind( null, field.name ) }
           />
         </div>
 
@@ -108,7 +97,7 @@ module.exports = createReactClass({
             lang={self.props.lang}
             label={field.label[ self.props.lang]}
             placeholder={field.info[ self.props.lang ]}
-            onChange={self.onChange( field.name )}
+            onChange={ self.props.onChange.bind( null, field.name ) }
             value={self.props.values[ field.name ]}
           />
         </div>
@@ -122,7 +111,7 @@ module.exports = createReactClass({
           lang= { self.props.lang } 
           value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
           label= { field.label }
-          handleUpdate= { self.onChange( field.name ) } /></div>;
+          handleUpdate= { self.props.onChange.bind( null, field.name ) } /></div>;
 
       } else if ( field.fieldType == 'radio' ) {
 
@@ -136,7 +125,7 @@ module.exports = createReactClass({
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
             error= { self.props.errors[ field.name ] || false }
             label= { field.label }
-            onChange= { self.onChange( field.name ) } />
+            onChange= { self.props.onChange.bind( null, field.name ) } />
         </div>
 
       } else if ( field.fieldType == 'select' ) {
@@ -150,7 +139,7 @@ module.exports = createReactClass({
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
             error= { self.props.errors[ field.name ] || false }
             label= { field.label }
-            onChange= { self.onChange( field.name ) } />
+            onChange= { self.props.onChange.bind( null, field.name ) } />
         </div>
 
       } else if ( field.fieldType == 'multichoice' ) {
@@ -165,7 +154,7 @@ module.exports = createReactClass({
             value= { self.props.values[ field.name ] ? self.props.values[ field.name ] : '' }
             error= { self.props.errors[ field.name ] || false }
             label= { field.label }
-            onChange= { self.onChange( field.name ) } />
+            onChange= { self.props.onChange.bind( null, field.name ) } />
         </div>
 
       } else if ( field.fieldType == 'image' ) {
@@ -185,6 +174,21 @@ module.exports = createReactClass({
             buttonClass="blue button"
             removeClass="red button"
             handleUpdate={ self.onImageChange( field.name ) } />
+        </div>
+
+      } else if ( field.fieldType === 'file' ) {
+
+        return <div className="margin-v-md">
+          <FileUpload
+            name={ field.name }
+            label={ field.label }
+            path={ self.props.res.path }
+            value={ self.props.values[ field.name ] }
+            onChange={ self.props.onChange.bind( null, field.name ) }
+            upload={ self.props.res.upload.replace( '{field}', field.name ) }
+            remove={ self.props.res.remove.replace( '{field}', field.name ) }
+            extension={ field.extension }
+          />  
         </div>
 
       }

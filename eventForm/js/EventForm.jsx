@@ -664,7 +664,7 @@ function EventFormFactory() {
 
         </div>
 
-        {this.props.custom ? <CustomFields
+        { this.props.custom ? <CustomFields
             fields={this.props.custom}
             values={this.state.custom}
             errors={formErrors}

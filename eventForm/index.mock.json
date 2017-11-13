@@ -286,6 +286,12 @@
       "timings": [
         { "date": "2016-10-30", "begin": "07:00", "end" : "06:59" }
       ],
+      "custom" : {
+        "yourfile" : {
+          "name" : "bisounours.pdf",
+          "uploaded" : "fdshjqfkldshqfjkdls.yourfile.event.pdf"
+        }
+      },
       "agendas": [
         {
           "uid": 84735921, 

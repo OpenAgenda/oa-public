@@ -208,6 +208,19 @@ window.addEventListener( 'load', function() {
         "crop" : true,
         "width" : 300,
         "height" : 300
+      }, {
+        "name" : "yourfile",
+        "type" : "public",
+        "fieldType" : "file",
+        "extension" : "pdf",
+        "label" : {
+          "en" : "Upload a pdf here",
+          "fr" : "Chargez votre pdf ici"
+        },
+        "info" : {
+          "en" : "This file should be yeay big",
+          "fr" : "Ce fichier ne doit pas exceder le poids de taaaaamèèèèrrr"
+        }
       } ],
       translation: <%- JSON.stringify( translation ) %>
     } );
