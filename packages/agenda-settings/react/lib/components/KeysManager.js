@@ -36,7 +36,7 @@ var _reactCopyToClipboard = require('react-copy-to-clipboard');
 
 var _reactCopyToClipboard2 = _interopRequireDefault(_reactCopyToClipboard);
 
-var _MoreInfo = require('react-components/build/MoreInfo');
+var _MoreInfo = require('@openagenda/react-components/build/MoreInfo');
 
 var _MoreInfo2 = _interopRequireDefault(_MoreInfo);
 

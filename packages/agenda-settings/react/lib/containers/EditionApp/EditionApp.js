@@ -28,11 +28,11 @@ var _reactRedux = require('react-redux');
 
 var _reduxConnect = require('redux-connect');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _agendaEdition = require('labels/agenda-settings/agendaEdition');
+var _agendaEdition = require('@openagenda/labels/agenda-settings/agendaEdition');
 
 var _agendaEdition2 = _interopRequireDefault(_agendaEdition);
 

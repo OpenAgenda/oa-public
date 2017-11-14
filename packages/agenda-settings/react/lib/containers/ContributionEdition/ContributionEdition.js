@@ -40,7 +40,7 @@ var agendaActions = _interopRequireWildcard(_agenda);
 
 var _inputs = require('../../utils/inputs');
 
-var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
+var _openRequestForm = require('@openagenda/call-to-action/react/dist/openRequestForm');
 
 var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
 

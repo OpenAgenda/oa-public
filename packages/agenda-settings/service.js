@@ -1,4 +1,4 @@
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const mw = require( './middleware' );
 
 let config;

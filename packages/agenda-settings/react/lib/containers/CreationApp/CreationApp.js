@@ -26,11 +26,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _agendaCreation = require('labels/agenda-settings/agendaCreation');
+var _agendaCreation = require('@openagenda/labels/agenda-settings/agendaCreation');
 
 var _agendaCreation2 = _interopRequireDefault(_agendaCreation);
 

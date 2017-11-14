@@ -5,7 +5,7 @@ import { reduxForm, Field } from 'redux-form';
 import get from 'lodash.get';
 import * as agendaActions from '../../redux/modules/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
-import openFormRequest from 'call-to-action/react/dist/openRequestForm';
+import openFormRequest from '@openagenda/call-to-action/react/dist/openRequestForm';
 
 @connect(
   state => ({

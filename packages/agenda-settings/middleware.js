@@ -1,6 +1,6 @@
 const React = require( 'react' );
-const logger = require( 'basic-logger' );
-const mwUploadImage = require( 'image-upload/lib/middleware' );
+const logger = require( '@openagenda/basic-logger' );
+const mwUploadImage = require( '@openagenda/image-upload/lib/middleware' );
 const createHistory = require( 'react-router/lib/createMemoryHistory' );
 const { Provider } = require( 'react-redux' );
 const createStore = require( './react/lib/redux/create' );

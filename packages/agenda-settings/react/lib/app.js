@@ -87,9 +87,6 @@ var _deepExtend2 = _interopRequireDefault(_deepExtend);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-require('dom-utils/ie8');
-require('dom-utils/ie9');
-
 ;
 module.exports = exports['default'];
 //# sourceMappingURL=app.js.map

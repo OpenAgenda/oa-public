@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
-import makeGetterLabel from 'labels';
-import labels from 'labels/agenda-settings/agendaEdition';
+import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/agenda-settings/agendaEdition';
 import * as agendaActions from '../../redux/modules/agenda';
 import * as keysActions from '../../redux/modules/keys';
 

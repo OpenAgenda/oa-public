@@ -26,7 +26,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reduxForm = require('redux-form');
 
-var _MoreInfo = require('react-components/build/MoreInfo');
+var _MoreInfo = require('@openagenda/react-components/build/MoreInfo');
 
 var _MoreInfo2 = _interopRequireDefault(_MoreInfo);
 

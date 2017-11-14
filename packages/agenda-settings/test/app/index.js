@@ -6,21 +6,21 @@ const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../../testconfig.js' );
 const service = require( '../../service' );
-const agendasSvc = require( 'agendas/service/test' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
 const mw = service.mw;
-const keysSvc = require( 'keys' );
-const keysMw = require( 'keys/middleware' );
+const keysSvc = require( '@openagenda/keys' );
+const keysMw = require( '@openagenda/keys/middleware' );
 
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const cookieParser = require( 'cookie-parser' );
 const morgan = require( 'morgan' );
 
-const app = require( 'test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false
 } );

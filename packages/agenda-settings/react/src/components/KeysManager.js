@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import update from 'immutability-helper';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import MoreInfo from 'react-components/build/MoreInfo';
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import EditKeyForm from './EditKeyForm';
 import * as keysActions from '../redux/modules/keys';
 import * as modalsActions from '../redux/modules/modals';

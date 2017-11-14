@@ -1,5 +1,5 @@
 import React from 'react';
-import MarkdownComponent from 'react-form-components/build/MarkdownComponent';
+import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
 import classNames from 'classnames';
 
 export function renderField( {

@@ -7,7 +7,7 @@ exports.schema = undefined;
 exports.validate = validate;
 exports.asyncValidate = asyncValidate;
 
-var _public = require('agendas/service/validate/public');
+var _public = require('@openagenda/agendas/service/validate/public');
 
 var _public2 = _interopRequireDefault(_public);
 

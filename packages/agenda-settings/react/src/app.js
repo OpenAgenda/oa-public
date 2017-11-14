@@ -9,9 +9,6 @@ import createStore from './redux/create';
 import ApiClient from '../../helpers/ApiClient';
 import deepExtend from 'deep-extend';
 
-require( 'dom-utils/ie8' );
-require( 'dom-utils/ie9' );
-
 export default function ( options, routes, fn ) {
 
   const params = deepExtend( {

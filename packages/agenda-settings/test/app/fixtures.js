@@ -1,9 +1,9 @@
 "use strict";
 
 const config = require( '../../testconfig.js' );
-const agendasSvc = require( 'agendas/service/test' );
-const keysSvc = require( 'keys' );
-const fixtures = require( 'fixtures' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
+const keysSvc = require( '@openagenda/keys' );
+const fixtures = require( '@openagenda/fixtures' );
 
 fix().catch( console.error );
 

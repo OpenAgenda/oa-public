@@ -1,6 +1,6 @@
 import app from './app';
 import getRoutes from './editRoutes';
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 import { push } from 'react-router-redux';
 
 export default function editApp( options ) {

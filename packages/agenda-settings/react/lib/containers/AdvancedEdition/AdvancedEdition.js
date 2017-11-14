@@ -32,11 +32,11 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _reactRedux = require('react-redux');
 
-var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
+var _openRequestForm = require('@openagenda/call-to-action/react/dist/openRequestForm');
 
 var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 

@@ -32,11 +32,11 @@ var _reduxForm = require('redux-form');
 
 var _actions = require('redux-form/lib/actions');
 
-var _imageUpload = require('image-upload');
+var _imageUpload = require('@openagenda/image-upload');
 
 var _imageUpload2 = _interopRequireDefault(_imageUpload);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 

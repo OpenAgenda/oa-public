@@ -1,5 +1,5 @@
 import { actionTypes as formActionTypes, SubmissionError } from 'redux-form';
-import { generate as generateSlug } from 'agendas/service/slugs';
+import { generate as generateSlug } from '@openagenda/agendas/service/slugs';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
 const LOAD_SUCCESS = 'agenda-settings/agenda/LOAD_SUCCESS';

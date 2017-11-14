@@ -1,6 +1,6 @@
-.idea
-node_modules
+.idea/
+node_modules/
 testconfig.js
 npm-debug.log
 yarn-error.log
-.tmp
+.tmp/

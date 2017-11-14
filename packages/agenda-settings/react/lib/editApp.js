@@ -13,7 +13,7 @@ var _editRoutes = require('./editRoutes');
 
 var _editRoutes2 = _interopRequireDefault(_editRoutes);
 
-var _domUtils = require('dom-utils');
+var _domUtils = require('@openagenda/dom-utils');
 
 var _domUtils2 = _interopRequireDefault(_domUtils);
 
