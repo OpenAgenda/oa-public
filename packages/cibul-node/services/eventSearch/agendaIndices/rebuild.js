@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const assemble = require( './assemble' );
-const formSchemas = require( 'form-schemas' );
+const formSchemas = require( '@openagenda/form-schemas' );
 const schema = require( '@openagenda/validators/schema' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 

@@ -354,6 +354,20 @@
     mime "^1.4.1"
     uuid "^3.1.0"
 
+"@openagenda/form-schemas@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.0.tgz#8f23d502c2cd76830df4bcd9221c28c3b7ec2a9a"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/mysql-table-store" "^1.0.0"
+    "@openagenda/validators" "^2.0.1"
+    immutability-helper "^2.3.0"
+    knex "^0.13.0"
+    lodash "^4.16.6"
+    slug "^0.9.1"
+    verror "^1.10.0"
+
 "@openagenda/geocode-farm@^1.0.4":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@openagenda/geocode-farm/-/geocode-farm-1.0.4.tgz#6e43a272f54838676b79eb6938bbb84a0ee5f905"
@@ -2305,11 +2319,6 @@ basic-logger@^0.4.4:
 "basic-logger@git+ssh://git@bitbucket.org/openagenda/basic-logger.git":
   version "2.0.0"
   resolved "git+ssh://git@bitbucket.org/openagenda/basic-logger.git#394c10e6c262b2e1f247995d3b27bef15ce64cf7"
-
-"basic-logger@git+ssh://git@bitbucket.org:openagenda/basic-logger.git":
-  version "2.0.0"
-  uid "394c10e6c262b2e1f247995d3b27bef15ce64cf7"
-  resolved "git+ssh://git@bitbucket.org:openagenda/basic-logger.git#394c10e6c262b2e1f247995d3b27bef15ce64cf7"
 
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
@@ -4863,20 +4872,6 @@ form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
-"form-schemas@bitbucket:openagenda/form-schemas":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/form-schemas.git#7c9c81444af0d208effdfcc6258458e68a40040e"
-  dependencies:
-    basic-logger "git+ssh://git@bitbucket.org:openagenda/basic-logger.git"
-    immutability-helper "^2.3.0"
-    knex "^0.13.0"
-    labels "git+ssh://git@bitbucket.org/openagenda/labels.git"
-    lodash "^4.16.6"
-    mysql-table-store "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git"
-    slug "^0.9.1"
-    validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
-    verror "^1.10.0"
-
 form-serialize@0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/form-serialize/-/form-serialize-0.3.0.tgz#0ade9d838fe80548c03251531871db49e3d45149"
@@ -7124,15 +7119,6 @@ mv@~2:
 "mysql-table-store@git+ssh://git@bitbucket.org/openagenda/mysql-table-store.git":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org/openagenda/mysql-table-store.git#ac39dfbe73bd18e5f1e1cf469914d8ca93a74e9d"
-  dependencies:
-    lodash "^4.17.2"
-    mysql "2.9.0"
-    verror "^1.10.0"
-
-"mysql-table-store@git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git":
-  version "1.0.0"
-  uid ac39dfbe73bd18e5f1e1cf469914d8ca93a74e9d
-  resolved "git+ssh://git@bitbucket.org:openagenda/mysql-table-store.git#ac39dfbe73bd18e5f1e1cf469914d8ca93a74e9d"
   dependencies:
     lodash "^4.17.2"
     mysql "2.9.0"

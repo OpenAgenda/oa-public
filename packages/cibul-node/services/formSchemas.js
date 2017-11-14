@@ -1,6 +1,6 @@
 "use strict";
 
-const formSchemas = require( 'form-schemas' );
+const formSchemas = require( '@openagenda/form-schemas' );
 
 module.exports.init = config => {
 
