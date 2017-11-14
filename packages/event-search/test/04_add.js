@@ -126,7 +126,7 @@ describe( 'event search - functional: create', function() {
       expire: true
     } );
 
-    result.ttl.should.equal( '0d' );
+    result.ttl.should.equal( '1d' );
 
   } );
 
