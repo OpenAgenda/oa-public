@@ -1,7 +1,7 @@
 "use strict";
 
-const validateText = require( 'validators/text' )();
-const validateInteger = require( 'validators/integer' )();
+const validateText = require( '@openagenda/validators/text' )();
+const validateInteger = require( '@openagenda/validators/integer' )();
 
 let log = console.log;
 

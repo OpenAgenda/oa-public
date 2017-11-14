@@ -3,7 +3,7 @@
 const config = require( './config' );
 const _ = require( 'lodash' );
 const handleError = require( './helpers/handleError' );
-const log = require( 'logs' )( 'remove' );
+const log = require( '@openagenda/logs' )( 'remove' );
 
 module.exports = async function( alias, identifiers, options = {} ) {
 

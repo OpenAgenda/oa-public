@@ -7,7 +7,7 @@ const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
 const parseQuery = require( './query' );
 const remove = require( './remove' );
 const parseDoc = require( './index/preParse' );
-const log = require( 'logs' )( 'update' );
+const log = require( '@openagenda/logs' )( 'update' );
 
 
 module.exports = async function( alias, identifiers, eventPart, options = {} ) {

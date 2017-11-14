@@ -2,13 +2,13 @@
 
 const config = require( '../config' );
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 const _ = require( 'lodash' );
 
 schema.register( {
-  choice: require( 'validators/choice' ),
-  text: require( 'validators/text' )
+  choice: require( '@openagenda/validators/choice' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 const validate = schema( {

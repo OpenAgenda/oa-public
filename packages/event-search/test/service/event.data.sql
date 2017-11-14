@@ -18,6 +18,7 @@ CREATE TABLE `${schema}` (
   timings TEXT,
   accessibility VARCHAR( 100 ),
   age VARCHAR( 50 ),
+  file_key varchar(32),
   registration VARCHAR(2000),
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,

@@ -1,13 +1,13 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  integer: require( 'validators/integer' ),
-  latitude: require( 'validators/latitude' ),
-  longitude: require( 'validators/longitude' ),
-  date: require( 'validators/date' )
+  text: require( '@openagenda/validators/text' ),
+  integer: require( '@openagenda/validators/integer' ),
+  latitude: require( '@openagenda/validators/latitude' ),
+  longitude: require( '@openagenda/validators/longitude' ),
+  date: require( '@openagenda/validators/date' )
 } );
 
 module.exports = schema( {

@@ -1,10 +1,10 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  integer: require( 'validators/integer' ),
-  regex: require( 'validators/regex' )
+  integer: require( '@openagenda/validators/integer' ),
+  regex: require( '@openagenda/validators/regex' )
 } );
 
 

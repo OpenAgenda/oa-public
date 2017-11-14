@@ -1,12 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
+const countries = require( '@openagenda/countries' );
+const dateRange = require( '@openagenda/date-range' );
 const moment = require( 'moment-timezone' );
-
-const dateRange = require( 'date-range' );
-
-const countries = require( 'countries' );
 
 module.exports = ( event, part = false ) => {
 

@@ -6,7 +6,7 @@ const clean = require( './helpers/clean' );
 const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
 const handleError = require( './helpers/handleError' );
 const _ = require( 'lodash' );
-const log = require( 'logs' )( 'add' );
+const log = require( '@openagenda/logs' )( 'add' );
 
 module.exports = async function( alias, event, options = {} ) {
 

@@ -3,7 +3,7 @@
 const config = {};
 const extend = require( 'lodash/extend' );
 const elasticsearch = require( 'elasticsearch' );
-const logger = require( 'logs' );
+const logger = require( '@openagenda/logs' );
 
 let client;
 
