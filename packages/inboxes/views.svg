@@ -25,16 +25,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="755.75995"
-     inkscape:cy="478.95882"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="307.91457"
+     inkscape:cy="641.68374"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1056"
      inkscape:window-x="0"
-     inkscape:window-y="1104"
+     inkscape:window-y="24"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -136,7 +136,7 @@
          sodipodi:role="line"
          id="tspan3922"
          x="212.06235"
-         y="245.20174">Résultat: 12 messages</tspan></text>
+         y="245.20174">Résultat: 12 conversations</tspan></text>
     <rect
        style="fill:#ffffff;fill-opacity:1;stroke:none"
        id="rect3950"
@@ -298,7 +298,7 @@
          sodipodi:role="line"
          id="tspan3958"
          x="219.76299"
-         y="216.54903">Rechercher un message</tspan></text>
+         y="216.54903">Rechercher une conversation</tspan></text>
     <rect
        style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        id="rect3836"
@@ -794,20 +794,6 @@
        id="image4609"
        x="953.89056"
        y="515.93695" />
-    <text
-       inkscape:export-ydpi="144.99001"
-       inkscape:export-xdpi="144.99001"
-       inkscape:export-filename="/home/kaore/vue admin 3.png"
-       sodipodi:linespacing="125%"
-       id="text3891"
-       y="245.20174"
-       x="320.65375"
-       style="font-size:8px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#cccccc;fill-opacity:1;stroke:none;font-family:Sans"
-       xml:space="preserve"><tspan
-         y="245.20174"
-         x="320.65375"
-         id="tspan3893"
-         sodipodi:role="line">( s'affiche si une recherche a été saisie )</tspan></text>
     <path
        style="fill:#41acdd;fill-opacity:1"
        d="m 287.14304,382.01936 c -0.17666,-0.0875 -3.20784,-3.12663 -3.27146,-3.27998 -0.059,-0.14231 -0.0611,-0.33423 -0.005,-0.46511 0.0234,-0.0546 0.2773,-0.33075 0.56422,-0.61357 0.49599,-0.48892 0.52899,-0.51533 0.67064,-0.53657 0.30363,-0.0455 0.31517,-0.037 1.34734,0.99146 l 0.94207,0.9387 1.99107,-1.99253 c 1.09509,-1.09589 2.03815,-2.02202 2.09567,-2.05806 0.12892,-0.0807 0.40647,-0.0889 0.54378,-0.016 0.14954,0.0794 1.02594,0.98054 1.07946,1.10989 0.0603,0.14593 0.0604,0.30357 1.2e-4,0.44967 -0.0658,0.15938 -5.28837,5.39174 -5.46384,5.47407 -0.16032,0.0752 -0.33972,0.0745 -0.494,-0.002 z"
@@ -991,7 +977,7 @@
            height="75.5"
            x="1299.5"
            y="123.86221" /></flowRegion><flowPara
-         id="flowPara3177"></flowPara></flowRoot>    <text
+         id="flowPara3177" /></flowRoot>    <text
        sodipodi:linespacing="125%"
        id="text3179"
        y="602.72296"
