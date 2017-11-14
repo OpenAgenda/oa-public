@@ -143,7 +143,7 @@ describe( 'queued setItem, removeItem and clear', function() {
 
 describe( 'queued items are processed', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   var account, list;
 

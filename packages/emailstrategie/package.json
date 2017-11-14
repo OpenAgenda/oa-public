@@ -4,7 +4,6 @@
   "description": "interface to EmailStrategie emailing service",
   "scripts": {
     "test": "mocha",
-    "preversion": "npm test",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
