@@ -72,25 +72,25 @@ var _upperFirst = require('lodash/upperFirst');
 
 var _upperFirst2 = _interopRequireDefault(_upperFirst);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+var _reactBootstrap = require('react-bootstrap');
+
+var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _MoreInfo = require('react-components/build/MoreInfo');
+var _MoreInfo = require('@openagenda/react-components/build/MoreInfo');
 
 var _MoreInfo2 = _interopRequireDefault(_MoreInfo);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _reactBootstrap = require('react-bootstrap');
-
-var _openRequestForm = require('call-to-action/react/dist/openRequestForm');
+var _openRequestForm = require('@openagenda/call-to-action/react/dist/openRequestForm');
 
 var _openRequestForm2 = _interopRequireDefault(_openRequestForm);
 
@@ -332,10 +332,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
 
       var stakeholderType = function () {
-        // if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
-        // if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
-        if (credential === 1 && eventCount === 0) return 'noContrib';
         if (invited && !deletedUser) return 'invited';
+        if (credential === 1 && eventCount === 0) return 'noContrib';
         if (deletedUser && !invited) return 'deleted';
       }();
 

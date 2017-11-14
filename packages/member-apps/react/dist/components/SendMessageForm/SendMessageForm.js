@@ -44,15 +44,15 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reduxForm = require('redux-form');
 
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 var _validate = require('./validate');
 
 var _validate2 = _interopRequireDefault(_validate);
 
 var _form = require('../../utils/form');
-
-var _Spinner = require('react-form-components/build/Spinner');
-
-var _Spinner2 = _interopRequireDefault(_Spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

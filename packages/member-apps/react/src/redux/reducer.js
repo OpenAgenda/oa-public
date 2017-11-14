@@ -1,4 +1,4 @@
-import createReducer from 'react-utils/dist/createReducer';
+import createReducer from '@openagenda/react-utils/dist/createReducer';
 import { reducer as form } from 'redux-form';
 import members from './modules/members';
 import modals from './modules/modals';

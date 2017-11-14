@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import classNames from 'classnames';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import validate from './validate';
 import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
-import Spinner from 'react-components/build/Spinner';
 
 @connect(
   state => ({

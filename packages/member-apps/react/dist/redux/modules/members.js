@@ -37,19 +37,19 @@ exports.addCredFilter = addCredFilter;
 exports.removeCredFilter = removeCredFilter;
 exports.cleanCredFilters = cleanCredFilters;
 
-var _Stakeholder = require('agenda-stakeholders/iso/Stakeholder');
-
-var _Stakeholder2 = _interopRequireDefault(_Stakeholder);
-
-var _reduxForm = require('redux-form');
-
-var _credentialTypes = require('agenda-stakeholders/iso/credentialTypes');
-
-var credentialsTypes = _interopRequireWildcard(_credentialTypes);
-
 var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
+
+var _reduxForm = require('redux-form');
+
+var _Stakeholder = require('@openagenda/agenda-stakeholders/iso/Stakeholder');
+
+var _Stakeholder2 = _interopRequireDefault(_Stakeholder);
+
+var _credentialTypes = require('@openagenda/agenda-stakeholders/iso/credentialTypes');
+
+var credentialsTypes = _interopRequireWildcard(_credentialTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 

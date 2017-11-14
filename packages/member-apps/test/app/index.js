@@ -8,28 +8,28 @@ const ReactDOM = require( 'react-dom/server' );
 const path = require( 'path' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
-const agendasSvc = require( 'agendas/service/test' );
-const { middleware: agendasMw } = require( 'agendas' );
-const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
-const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
+const { middleware: agendasMw } = require( '@openagenda/agendas' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders/test/service' );
+const stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' );
 const bodyParser = require( 'body-parser' ); //
 const config = require( '../../testconfig.js' );
 
 const mw = require( '../../middleware' );
 
-const helpers = require( 'test-app/helpers' );
-const app = require( 'test-app' )( {
+const helpers = require( '@openagenda/test-app/helpers' );
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false
 } );
 
 const port = process.env.PORT || 3000;
 
-app.use( '/js', express.static( path.dirname( require.resolve( 'react-form-components/test/app' ) ) + '/js' ) );
+app.use( '/js', express.static( path.dirname( require.resolve( '@openagenda/react-form-components/test/app' ) ) + '/js' ) );
 
 app.use( bodyParser.urlencoded( { extended: true } ) );
 

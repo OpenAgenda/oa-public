@@ -50,15 +50,15 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _Spinner = require('@openagenda/react-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 var _validate = require('./validate');
 
 var _validate2 = _interopRequireDefault(_validate);
 
 var _form = require('../../utils/form');
-
-var _Spinner = require('react-components/build/Spinner');
-
-var _Spinner2 = _interopRequireDefault(_Spinner);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

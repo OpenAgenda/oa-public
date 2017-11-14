@@ -44,11 +44,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _members = require('labels/members');
+var _members = require('@openagenda/labels/members');
 
 var _members2 = _interopRequireDefault(_members);
 

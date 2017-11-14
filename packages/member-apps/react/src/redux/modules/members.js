@@ -1,7 +1,7 @@
-import Stakeholder from 'agenda-stakeholders/iso/Stakeholder';
-import { SubmissionError } from 'redux-form';
-import * as credentialsTypes from 'agenda-stakeholders/iso/credentialTypes';
 import _ from 'lodash';
+import { SubmissionError } from 'redux-form';
+import Stakeholder from '@openagenda/agenda-stakeholders/iso/Stakeholder';
+import * as credentialsTypes from '@openagenda/agenda-stakeholders/iso/credentialTypes';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';

@@ -7,12 +7,12 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import upperFirst from 'lodash/upperFirst';
-import monitorBottomHit from 'dom-utils/monitorBottomHit';
-import Modal from 'react-components/build/Modal';
-import MoreInfo from 'react-components/build/MoreInfo';
-import Spinner from 'react-form-components/build/Spinner';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
-import openRequestForm from 'call-to-action/react/dist/openRequestForm';
+import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
+import Modal from '@openagenda/react-components/build/Modal';
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
+import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
@@ -184,10 +184,8 @@ export default class Dashboard extends Component {
     const { getLabel } = this.context;
 
     const stakeholderType = (() => {
-      // if ( actionsCounter > 0 && !deletedUser && !invited ) return 'active';
-      // if ( actionsCounter === 0 && !deletedUser && !invited ) return 'inactive';
-      if ( credential === 1 && eventCount === 0 ) return 'noContrib';
       if ( invited && !deletedUser ) return 'invited';
+      if ( credential === 1 && eventCount === 0 ) return 'noContrib';
       if ( deletedUser && !invited ) return 'deleted';
     })();
 

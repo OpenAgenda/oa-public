@@ -1,5 +1,5 @@
-const usersSvc = require( 'users' );
-const agendasSvc = require( 'agendas' );
+const usersSvc = require( '@openagenda/users' );
+const agendasSvc = require( '@openagenda/agendas' );
 
 module.exports = {
   queue: {

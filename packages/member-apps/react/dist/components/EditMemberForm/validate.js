@@ -14,7 +14,7 @@ var _extends4 = _interopRequireDefault(_extends3);
 
 exports.default = validate;
 
-var _Stakeholder = require('agenda-stakeholders/iso/Stakeholder');
+var _Stakeholder = require('@openagenda/agenda-stakeholders/iso/Stakeholder');
 
 var _Stakeholder2 = _interopRequireDefault(_Stakeholder);
 

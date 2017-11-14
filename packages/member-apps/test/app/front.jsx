@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import du from 'dom-utils';
-import callToAction from 'call-to-action/react/dist';
+import du from '@openagenda/dom-utils';
+import callToAction from '@openagenda/call-to-action/react/dist';
 import app from '../../react/dist/app';
 
 window.onload = () => {

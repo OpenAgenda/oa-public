@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
 import validate from './validate';
 import { renderField, renderInput, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
-import Spinner from 'react-form-components/build/Spinner';
 
 @reduxForm( {
   form: 'writeToMembers',

@@ -2,10 +2,10 @@
 
 const wn = require( 'when/node' );
 const path = require( 'path' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders/test/service' );
+const fixtures = require( '@openagenda/fixtures' );
 const config = require( '../../testconfig.js' );
-const agendasSvc = require( 'agendas/service/test' );
-const stakeholdersSvc = require( 'agenda-stakeholders/test/service' );
-const fixtures = require( 'fixtures' );
 
 fix().catch( err => {
   console.error( err );
