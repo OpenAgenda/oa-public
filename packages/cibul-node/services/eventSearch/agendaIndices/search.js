@@ -4,7 +4,7 @@ const agendas = require( '@openagenda/agendas' );
 const ih = require( 'immutability-helper' );
 const schema = require( '@openagenda/validators/schema' );
 const formSchemas = require( 'form-schemas' );
-const makeTransform = require( 'stream-utils' ).transform;
+const makeTransform = require( '@openagenda/stream-utils' ).transform;
 const getDecorate = require( 'form-schemas/iso/getDecorate' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndexSearch' );
 

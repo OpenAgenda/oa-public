@@ -656,6 +656,10 @@
     prop-types "^15.5.8"
     spin.js "2.3.2"
 
+"@openagenda/stream-utils@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/stream-utils/-/stream-utils-1.1.0.tgz#052ccf78ce658894a349fea87b0e8487096ea4fd"
+
 "@openagenda/sync-button@^0.0.7":
   version "0.0.7"
   resolved "https://registry.npmjs.org/@openagenda/sync-button/-/sync-button-0.0.7.tgz#9d39f615b8964b617fc0bf147b7cdbcf1c175fa4"
