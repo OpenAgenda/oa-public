@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-event-references",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This service allows adding references within an event to other events in the same agenda.",
   "main": "service/index.js",
   "scripts": {
