@@ -1,6 +1,6 @@
 "use strict";
 
-let aer = require( 'agenda-event-references' ),
+let aer = require( '@openagenda/agenda-event-references' ),
 
 coms = require( '../../lib/coms' ),
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const aer = require( 'agenda-event-references' ),
+const aer = require( '@openagenda/agenda-event-references' ),
 
 utils = require( '@openagenda/utils' ),
 

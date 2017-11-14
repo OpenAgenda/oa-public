@@ -8,9 +8,9 @@ ReactDOMServer = require( 'react-dom/server' ),
 
 Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) ),
 
-References = React.createFactory( require( 'agenda-event-references/react/build/Show' ) ),
+References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) ),
 
-aer = require( 'agenda-event-references' ),
+aer = require( '@openagenda/agenda-event-references' ),
 
 templater = require( 'cibulTemplates' ),
 

@@ -24,7 +24,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   async = require( 'async' ),
 
-  referencesSvc = require( 'agenda-event-references' ),
+  referencesSvc = require( '@openagenda/agenda-event-references' ),
 
   cmn = require( '../lib/commons-app' ),
 
