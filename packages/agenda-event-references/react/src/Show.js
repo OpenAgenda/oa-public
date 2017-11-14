@@ -4,8 +4,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 import EventItem from './components/EventItem'
-import labels from 'labels/event/references'
-import makeLabelsGetter from 'labels'
+import labels from '@openagenda/labels/event/references'
+import makeLabelsGetter from '@openagenda/labels'
 
 let getLabel = makeLabelsGetter( labels );
 

@@ -1,6 +1,6 @@
 "use strict";
 
-import get from 'utils/get'
+import get from '@openagenda/utils/get'
 import clickTracker from '../../clickTracker'
 
 export default {

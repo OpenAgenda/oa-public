@@ -2,6 +2,92 @@
 # yarn lockfile v1
 
 
+"@openagenda/bs-templates@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.5.tgz#cc0b9b48d162ece0bd94bf5779cf0ba53da10bf0"
+  dependencies:
+    async "^1.5.0"
+    bootstrap "3.3.5"
+    colors "^1.1.2"
+    ejs "^2.4.1"
+    express "^4.13.3"
+    font-awesome "4.3.0"
+    node-sass "^4.5.2"
+    node-sass-import-once "^1.2.0"
+    reload "^1.1.0"
+    walk "^2.3.9"
+
+"@openagenda/dom-utils@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/dom-utils/-/dom-utils-2.1.0.tgz#04462a03bb4a08b70900a6a5385879ebcce03e51"
+  dependencies:
+    "@openagenda/utils" "^1.0.0"
+    es6-promise "^4.1.1"
+    qs "^6.5.1"
+
+"@openagenda/fixtures@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/fixtures/-/fixtures-2.0.1.tgz#880f0bd8ba3bcbf2fd0edf33eb9d3682a8b99b61"
+  dependencies:
+    "@openagenda/utils" "^1.0.1"
+    mysql "^2.10.2"
+    when "^3.7.7"
+
+"@openagenda/labels@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.7.tgz#534770acfee4151b388563292212f161c75bf414"
+
+"@openagenda/mysql-utils@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/mysql-utils/-/mysql-utils-2.0.0.tgz#a06c60af803b77a7cfc8aebd1051df21db2f179f"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    async "^2.0.1"
+    mysql "^2.11"
+
+"@openagenda/react-form-components@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/react-form-components/-/react-form-components-2.0.8.tgz#47633e0b60d7d1ad6497f0bb97593afb400101df"
+  dependencies:
+    "@openagenda/utils" "^1.0.1"
+    "@openagenda/validators" "^2.0.0"
+    create-react-class "^15.5.3"
+    immutability-helper "^2.2.0"
+    languages "0.1.3"
+    load-script "^1.0.0"
+    marked "^0.3.6"
+    prop-types "^15.5.8"
+    react-select "^1.0.0-rc.4"
+    react-tagsinput "^3.16.1"
+    spin.js "2.3.2"
+    to-markdown "^3.0.1"
+
+"@openagenda/test-app@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.3.tgz#a28447d1eb22c2e9b26e67d59fa51ac2e905bc0a"
+  dependencies:
+    "@openagenda/utils" "^1.0.1"
+    babel-plugin-add-module-exports "^0.2.1"
+    babel-plugin-react-transform "^2.0.2"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-react-display-name "^6.8.0"
+    babel-plugin-transform-runtime "^6.9.0"
+    babel-preset-stage-0 "^6.5.0"
+    babel-register "^6.9.0"
+    babelify "^7.3.0"
+    bootstrap "3.3.5"
+    browserify "12.0.1"
+    express "^4.13.3"
+    font-awesome "4.3.0"
+    node-sass "^3.4.2"
+    node-watch "^0.3.5"
+    react-dom "^15.5.4"
+    react-transform-catch-errors "^1.0.2"
+    redbox-react "^1.2.6"
+    tmp "^0.0.28"
+    watchify "^3.7.0"
+    webpack "^1.14.0"
+
 "@openagenda/utils@^1.0.0", "@openagenda/utils@^1.0.1", "@openagenda/utils@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.2.tgz#a2299c4c0484f565e640084b6b12cf749dbe60fd"
@@ -999,10 +1085,6 @@ base64-js@^1.0.2:
   version "1.2.1"
   resolved "https://registry.npmjs.org/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
 
-"basic-logger@git+ssh://git@bitbucket.org/openagenda/basic-logger.git":
-  version "2.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/basic-logger.git#394c10e6c262b2e1f247995d3b27bef15ce64cf7"
-
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -1279,21 +1361,6 @@ browserify@^14.0.0:
     vm-browserify "~0.0.1"
     xtend "^4.0.0"
 
-"bs-templates@git+ssh://git@bitbucket.org/openagenda/bs-templates.git":
-  version "2.0.3"
-  resolved "git+ssh://git@bitbucket.org/openagenda/bs-templates.git#2de193f140d58e3fd8073b99ed740e2c84b85ea0"
-  dependencies:
-    async "^1.5.0"
-    bootstrap "3.3.5"
-    colors "^1.1.2"
-    ejs "^2.4.1"
-    express "^4.13.3"
-    font-awesome "4.3.0"
-    node-sass "^4.5.2"
-    node-sass-import-once "^1.2.0"
-    reload "^1.1.0"
-    walk "^2.3.9"
-
 buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
@@ -1431,8 +1498,8 @@ cliui@^3.2.0:
     wrap-ansi "^2.0.0"
 
 clone@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/clone/-/clone-1.0.3.tgz#298d7e2231660f40c003c2ed3140decf3f53085f"
 
 co@^4.6.0:
   version "4.6.0"
@@ -1575,7 +1642,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.0:
+create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3:
   version "15.6.2"
   resolved "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
   dependencies:
@@ -1753,14 +1820,6 @@ diffie-hellman@^5.0.0:
     bn.js "^4.1.0"
     miller-rabin "^4.0.0"
     randombytes "^2.0.0"
-
-"dom-utils@git+ssh://git@bitbucket.org/openagenda/dom-utils.git":
-  version "2.0.4"
-  resolved "git+ssh://git@bitbucket.org/openagenda/dom-utils.git#05cb97e4e72e528cfd4e23ee798d6e4b3fe350bf"
-  dependencies:
-    "@openagenda/utils" "^1.0.0"
-    es6-promise "^4.1.1"
-    qs "^6.5.1"
 
 dom-walk@^0.1.0:
   version "0.1.1"
@@ -2138,14 +2197,6 @@ findup-sync@~0.2.0:
   dependencies:
     glob "~4.3.0"
 
-"fixtures@git+ssh://git@bitbucket.org/openagenda/fixtures.git":
-  version "2.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/fixtures.git#59ddddce2f6f2c34141fa8a80f3920c1f548d9ff"
-  dependencies:
-    "@openagenda/utils" "^1.0.1"
-    mysql "^2.10.2"
-    when "^3.7.7"
-
 flagged-respawn@~0.3.0:
   version "0.3.2"
   resolved "https://registry.npmjs.org/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
@@ -2207,19 +2258,19 @@ fresh@0.5.2:
   resolved "https://registry.npmjs.org/fresh/-/fresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
 
 fs-readdir-recursive@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/fs-readdir-recursive/-/fs-readdir-recursive-1.0.0.tgz#8cd1745c8b4f8a29c8caec392476921ba195f560"
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/fs-readdir-recursive/-/fs-readdir-recursive-1.1.0.tgz#e32fc030a2ccee44a6b5371308da54be0b397d27"
 
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
 
 fsevents@^1.0.0:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-1.1.2.tgz#3282b713fb3ad80ede0e9fcf4611b5aa6fc033f4"
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-1.1.3.tgz#11f82318f5fe7bb2cd22965a108e9306208216d8"
   dependencies:
     nan "^2.3.0"
-    node-pre-gyp "^0.6.36"
+    node-pre-gyp "^0.6.39"
 
 fstream-ignore@^1.0.5:
   version "1.0.5"
@@ -2856,10 +2907,6 @@ labeled-stream-splicer@^2.0.0:
     isarray "~0.0.1"
     stream-splicer "^2.0.0"
 
-"labels@git+ssh://git@bitbucket.org/openagenda/labels.git":
-  version "2.0.5"
-  resolved "git+ssh://git@bitbucket.org/openagenda/labels.git#01f6d95477ffb9e400844c9a2e3b64d3de796eb6"
-
 languages@0.1.3:
   version "0.1.3"
   resolved "https://registry.npmjs.org/languages/-/languages-0.1.3.tgz#f19273bb0e946acd2deb10c07c750ee128bdd4b0"
@@ -3166,14 +3213,6 @@ ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
-"mysql-utils@git+ssh://git@bitbucket.org/openagenda/mysql-utils":
-  version "2.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/mysql-utils#4d2e811a82d4a0e1dd34e9f75e69f8bac2ed44f1"
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    async "^2.0.1"
-    mysql "^2.11"
-
 mysql@^2.10.2, mysql@^2.11, mysql@^2.11.1:
   version "2.15.0"
   resolved "https://registry.npmjs.org/mysql/-/mysql-2.15.0.tgz#ea16841156343e8f2e47fc8985ec41cdd9573b5c"
@@ -3252,7 +3291,7 @@ node-libs-browser@^0.7.0:
     util "^0.10.3"
     vm-browserify "0.0.4"
 
-node-pre-gyp@^0.6.36:
+node-pre-gyp@^0.6.39:
   version "0.6.39"
   resolved "https://registry.npmjs.org/node-pre-gyp/-/node-pre-gyp-0.6.39.tgz#c00e96860b23c0e1420ac7befc5044e1d78d8649"
   dependencies:
@@ -3296,8 +3335,8 @@ node-sass@^3.4.2:
     sass-graph "^2.1.1"
 
 node-sass@^4.5.2:
-  version "4.6.0"
-  resolved "https://registry.npmjs.org/node-sass/-/node-sass-4.6.0.tgz#1a54f5f4502e3cde310a26d6346266fd667271d9"
+  version "4.6.1"
+  resolved "https://registry.npmjs.org/node-sass/-/node-sass-4.6.1.tgz#9b331cf943ee5440f199e858941a90d13bc9bfc5"
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -3640,7 +3679,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -3759,22 +3798,14 @@ react-dom@^15.5.4:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-"react-form-components@git+ssh://git@bitbucket.org:openagenda/react-form-components.git":
-  version "2.0.8"
-  resolved "git+ssh://git@bitbucket.org:openagenda/react-form-components.git#d4a995b11b35a9c3970073008774e841e2e72ac1"
+react-dom@^16.0.0:
+  version "16.1.1"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.1.1.tgz#b2e331b6d752faf1a2d31399969399a41d8d45f8"
   dependencies:
-    "@openagenda/utils" "^1.0.1"
-    "@openagenda/validators" "^2.0.0"
-    create-react-class "^15.5.3"
-    immutability-helper "^2.2.0"
-    languages "0.1.3"
-    load-script "^1.0.0"
-    marked "^0.3.6"
-    prop-types "^15.5.8"
-    react-select "^1.0.0-rc.4"
-    react-tagsinput "^3.16.1"
-    spin.js "2.3.2"
-    to-markdown "^3.0.1"
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 react-input-autosize@^2.0.1:
   version "2.0.1"
@@ -3810,15 +3841,14 @@ react-transform-catch-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
 
-react@^15.5.4:
-  version "15.6.2"
-  resolved "https://registry.npmjs.org/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
+react@^16.0.0:
+  version "16.1.1"
+  resolved "https://registry.npmjs.org/react/-/react-16.1.1.tgz#d5c4ef795507e3012282dd51261ff9c0e824fe1f"
   dependencies:
-    create-react-class "^15.6.0"
-    fbjs "^0.8.9"
+    fbjs "^0.8.16"
     loose-envify "^1.1.0"
-    object-assign "^4.1.0"
-    prop-types "^15.5.10"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
 
 read-only-stream@^2.0.0:
   version "2.0.0"
@@ -4488,32 +4518,6 @@ tar@^2.0.0, tar@^2.2.1:
     fstream "^1.0.2"
     inherits "2"
 
-"test-app@git+ssh://git@bitbucket.org/openagenda/test-app.git":
-  version "2.0.3"
-  resolved "git+ssh://git@bitbucket.org/openagenda/test-app.git#15f847525efcfd359661f2d10bd15e2d4d500a58"
-  dependencies:
-    "@openagenda/utils" "^1.0.1"
-    babel-plugin-add-module-exports "^0.2.1"
-    babel-plugin-react-transform "^2.0.2"
-    babel-plugin-transform-decorators-legacy "^1.3.4"
-    babel-plugin-transform-react-display-name "^6.8.0"
-    babel-plugin-transform-runtime "^6.9.0"
-    babel-preset-stage-0 "^6.5.0"
-    babel-register "^6.9.0"
-    babelify "^7.3.0"
-    bootstrap "3.3.5"
-    browserify "12.0.1"
-    express "^4.13.3"
-    font-awesome "4.3.0"
-    node-sass "^3.4.2"
-    node-watch "^0.3.5"
-    react-dom "^15.5.4"
-    react-transform-catch-errors "^1.0.2"
-    redbox-react "^1.2.6"
-    tmp "^0.0.28"
-    watchify "^3.7.0"
-    webpack "^1.14.0"
-
 through2@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
@@ -4686,14 +4690,6 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
-"utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
-  version "1.0.2"
-  resolved "git+ssh://git@bitbucket.org/openagenda/utils.git#448f874739e5a0f80bc122804c73d1edd08f30fa"
-  dependencies:
-    qs "^6.1.0"
-    when "^3.7.8"
-    xhr "^2.2.2"
-
 uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/uuid/-/uuid-3.1.0.tgz#3dd3d3e790abc24d7b0d3a034ffababe28ebbc04"
@@ -4863,8 +4859,8 @@ wrappy@1:
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
 ws@~1.1.1:
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/ws/-/ws-1.1.5.tgz#cbd9e6e75e09fc5d2c90015f21f0c40875e0dd51"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"

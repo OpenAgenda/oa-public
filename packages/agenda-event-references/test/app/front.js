@@ -2,7 +2,7 @@
 
 const config = require( '../../testconfig' ),
 
-du = require( 'dom-utils' ),
+du = require( '@openagenda/dom-utils' ),
 
 React = require( 'react' ),
 

@@ -4,8 +4,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import createReactClass from 'create-react-class'
 import EventItem from '../components/EventItem'
-import Spinner from 'react-form-components/build/Spinner'
-import SearchField from 'react-form-components/build/SearchField'
+import Spinner from '@openagenda/react-form-components/build/Spinner'
+import SearchField from '@openagenda/react-form-components/build/SearchField'
 import clickTracker from '../clickTracker'
 
 const Editor = props => ( 

@@ -3,8 +3,8 @@
 const should = require( 'should' );
 const db = require( '../service/db' );
 const config = require( '../testconfig' );
-const fixtures = require( 'fixtures' );
-const dropDatabaseIfExists = require( 'mysql-utils/dropDatabaseIfExists' );
+const fixtures = require( '@openagenda/fixtures' );
+const dropDatabaseIfExists = require( '@openagenda/mysql-utils/dropDatabaseIfExists' );
 const mysql = require( 'mysql' );
 
 

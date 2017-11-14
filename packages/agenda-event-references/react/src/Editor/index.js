@@ -4,7 +4,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import editorApp from './reducers'
 import Container from './containers'
-import utils from 'utils'
+import utils from '@openagenda/utils'
 import { createStore } from 'redux';
 
 import actions from './actions'

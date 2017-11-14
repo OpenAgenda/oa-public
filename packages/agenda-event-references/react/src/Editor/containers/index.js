@@ -3,8 +3,8 @@
 import { connect } from 'react-redux'
 import EditorComponent from '../Component'
 import actions from '../actions'
-import labels from 'labels/event/references'
-import makeLabelsGetter from 'labels'
+import labels from '@openagenda/labels/event/references'
+import makeLabelsGetter from '@openagenda/labels'
 
 export default connect(
 

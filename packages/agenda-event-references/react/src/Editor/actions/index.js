@@ -2,7 +2,7 @@
 
 import searchActions from './search';
 import eventActions from './events';
-import utils from 'utils';
+import utils from '@openagenda/utils';
 
 let actions = utils.extend( {}, searchActions, eventActions );
 

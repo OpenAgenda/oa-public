@@ -1,18 +1,18 @@
 "use strict";
 
-const fixtures = require( 'fixtures' ),
+const fixtures = require( '@openagenda/fixtures' ),
 
 svc = require( '../../' ),
 
 config = require( '../../testconfig.js' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
-app = require( 'test-app' )( {
+app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   webpack: true,
   babelServer: true

@@ -1,6 +1,6 @@
 "use strict";
 
-const utils = require( 'utils' );
+const utils = require( '@openagenda/utils' );
 
 let config; // defined at init
 

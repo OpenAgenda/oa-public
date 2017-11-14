@@ -1,6 +1,6 @@
 "use strict";
 
-import get from 'utils/get'
+import get from '@openagenda/utils/get'
 
 export default {
   // loads details for events defined by current references ( used at init )

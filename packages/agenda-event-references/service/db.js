@@ -5,7 +5,7 @@
 // set( agendaId, eventId, referredEventIds, cb )
 
 const knexLib = require( 'knex' );
-const createIfNotExists = require( 'mysql-utils/createIfNotExists' );
+const createIfNotExists = require( '@openagenda/mysql-utils/createIfNotExists' );
 const w = require( 'when' );
 
 

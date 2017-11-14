@@ -3,8 +3,8 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var utils = require('utils');
-var du = require('dom-utils');
+var utils = require('@openagenda/utils');
+var du = require('@openagenda/dom-utils');
 
 exports.default = utils.extend(create, {
   switchOn: switchOn, switchOff: switchOff, handler: handler
