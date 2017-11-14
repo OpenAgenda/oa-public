@@ -2,7 +2,7 @@
 
 var modLib = require( '../lib/moduleLib' ),
 
-log = require( 'logger' )( 'newsletter/front' ),
+log = require( '@openagenda/logger' )( 'newsletter/front' ),
 
 async = require( 'async' ),
 

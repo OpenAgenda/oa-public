@@ -14,7 +14,7 @@ var p = require( '../../../lib/promises' ), w = p.w,
 
   mailer = require( '@openagenda/mailer' ),
 
-  log = require( 'logger' )( 'services/event/mailContributor' ),
+  log = require( '@openagenda/logger' )( 'services/event/mailContributor' ),
 
   agendaSvc;
 

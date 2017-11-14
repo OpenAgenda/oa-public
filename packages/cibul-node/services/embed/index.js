@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'embed service' ),
+var log = require( '@openagenda/logger' )( 'embed service' ),
 
 model = require( '../model' ),
 

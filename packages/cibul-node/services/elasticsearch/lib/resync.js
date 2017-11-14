@@ -6,7 +6,7 @@ const async = require( 'async' ),
 
   utils = require( '@openagenda/utils' ),
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   loadDetailedLocation = require( './loadDetailedLocation' ),
 

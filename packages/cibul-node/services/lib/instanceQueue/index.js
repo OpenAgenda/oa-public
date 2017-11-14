@@ -2,7 +2,7 @@
 
 var q = require( './queue' ),
 
-log = require( 'logger' )( 'services/lib/instanceQueue' );
+log = require( '@openagenda/logger' )( 'services/lib/instanceQueue' );
 
 module.exports = require( '../instanceLoader' )( ( loaded, instance ) => {
 

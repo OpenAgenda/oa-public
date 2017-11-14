@@ -8,7 +8,7 @@ async = require( 'async' ),
 
 stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-logger = require( 'logger' ), log,
+logger = require( '@openagenda/logger' ), log,
 
 svc;
 

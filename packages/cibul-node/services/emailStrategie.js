@@ -2,7 +2,7 @@
 
 const emailStrategie = require( '@openagenda/email-strategie' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 

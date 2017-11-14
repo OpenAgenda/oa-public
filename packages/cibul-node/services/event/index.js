@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'service:event' ),
+var log = require( '@openagenda/logger' )( 'service:event' ),
 
 config = require( '../../config' ),
 

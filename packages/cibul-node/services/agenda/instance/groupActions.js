@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'groupactions - intance' ),
+var log = require( '@openagenda/logger' )( 'groupactions - intance' ),
 
 utils = require( '@openagenda/utils' ),
 

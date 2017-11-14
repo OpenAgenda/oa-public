@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'user svc - activation' ),
+var log = require( '@openagenda/logger' )( 'user svc - activation' ),
 
 lib = require( '../../../lib/lib' ),
 

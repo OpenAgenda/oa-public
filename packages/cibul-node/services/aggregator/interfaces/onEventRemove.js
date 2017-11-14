@@ -2,7 +2,7 @@
 
 const agendaEvents = require( '@openagenda/agenda-events' );
 
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
 let log;
 

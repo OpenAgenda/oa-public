@@ -1,10 +1,10 @@
 "use strict";
 
-const agendaSettings = require( 'agenda-settings' );
+const agendaSettings = require( '@openagenda/agenda-settings' );
 
 const agendas = require( '@openagenda/agendas' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = ( config, cb ) => {
 

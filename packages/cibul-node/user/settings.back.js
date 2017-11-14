@@ -10,7 +10,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   config = require( '../config' ),
 
-  log = require( 'logger' )( 'user/settings.back' ),
+  log = require( '@openagenda/logger' )( 'user/settings.back' ),
 
   modLib = require( '../lib/moduleLib.js' ),
 

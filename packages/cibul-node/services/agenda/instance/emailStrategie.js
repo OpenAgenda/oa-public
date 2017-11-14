@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'EmailStrategie' ),
+var log = require( '@openagenda/logger' )( 'EmailStrategie' ),
 
 emailStrat = require( '@openagenda/email-strategie' ),
 

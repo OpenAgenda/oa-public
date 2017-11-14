@@ -8,7 +8,7 @@ const agendaSearch = require( '@openagenda/agenda-search' ),
 
   async = require( 'async' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 

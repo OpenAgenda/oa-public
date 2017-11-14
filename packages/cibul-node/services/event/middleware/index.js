@@ -2,7 +2,7 @@
 
 const sessions = require( '@openagenda/sessions' ),
 
-  log = require( 'logger' )( 'event middleware' ),
+  log = require( '@openagenda/logger' )( 'event middleware' ),
 
   utils = require( '@openagenda/utils' ),
 

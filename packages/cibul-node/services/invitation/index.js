@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'invitation svc' ),
+var log = require( '@openagenda/logger' )( 'invitation svc' ),
 
 agendaInvitations = require( './agenda' ),
 

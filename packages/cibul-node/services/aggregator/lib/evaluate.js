@@ -14,7 +14,7 @@ const agendaSvc = require( '../../agenda' ),
     onEventRemove: require( '../interfaces/onEventRemove' )
   },
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   w = require( 'when' ),
 

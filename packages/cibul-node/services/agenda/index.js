@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'agenda service' ),
+var log = require( '@openagenda/logger' )( 'agenda service' ),
 
 model = require( '../model' ),
 

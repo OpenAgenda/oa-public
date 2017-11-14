@@ -4,7 +4,7 @@ var utils = require( '../../../lib/utils' ),
 
 lib = require( './lib' ),
 
-log = require( 'logger' )( 'instance cache' );
+log = require( '@openagenda/logger' )( 'instance cache' );
 
 /**
  * @param { string }    type       type of the instance ( ex user, agenda, event )

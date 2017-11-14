@@ -2,7 +2,7 @@
 
 const mailer = require( '@openagenda/mailer' ),
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   queue = require( '@openagenda/queue' ),
 

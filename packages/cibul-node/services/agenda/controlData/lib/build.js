@@ -4,7 +4,7 @@ var utils = require( '@openagenda/utils' ),
 
 store = require( './store' ),
 
-logger = require( 'logger' ), log,
+logger = require( '@openagenda/logger' ), log,
 
 moment = require( 'moment-timezone' ),
 

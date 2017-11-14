@@ -3,7 +3,7 @@
 const async = require( 'async' );
 const config = require( '../../config' );
 const mysql = require( 'mysql' );
-const log = require( 'logger' )( 'services/notification/remove.task' );
+const log = require( '@openagenda/logger' )( 'services/notification/remove.task' );
 
 module.exports = done => {
 

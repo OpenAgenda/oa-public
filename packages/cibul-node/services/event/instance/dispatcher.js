@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 const utils = require( '@openagenda/utils' );
 const config = require( '../../../config' );
 const coms = require( '../../../lib/coms' );

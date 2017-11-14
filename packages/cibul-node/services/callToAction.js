@@ -2,7 +2,7 @@
 
 const callToActionMw = require( '@openagenda/call-to-action/middleware' );
 const mailer = require( '@openagenda/mailer' );
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 

@@ -7,7 +7,7 @@
  */
 
 
-var log = require( 'logger' )( 'mailer' ),
+var log = require( '@openagenda/logger' )( 'mailer' ),
 
 utils = require( '@openagenda/utils' ),
 

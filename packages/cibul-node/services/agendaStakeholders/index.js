@@ -2,7 +2,7 @@
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   interfaces = {
     onMessage: require( './onMessage' ),

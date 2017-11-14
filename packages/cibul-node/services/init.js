@@ -5,7 +5,7 @@ const w = require( 'when' );
 const fs = require( 'fs' );
 const async = require( 'async' );
 const logs = require( '@openagenda/logs' );
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
 let log;
 

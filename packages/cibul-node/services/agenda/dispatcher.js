@@ -6,7 +6,7 @@ controlData,
 
 eventSvc,
 
-logger = require( 'logger' ), log,
+logger = require( '@openagenda/logger' ), log,
 
 async = require( 'async' ),
 

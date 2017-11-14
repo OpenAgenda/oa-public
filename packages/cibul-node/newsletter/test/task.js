@@ -9,7 +9,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require( '../../config' ),
 
-log = require( 'logger' )( 'newsletter task tests' ),
+log = require( '@openagenda/logger' )( 'newsletter task tests' ),
 
 async = require('async'),
 

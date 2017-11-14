@@ -1,8 +1,8 @@
 "use strict";
 
-const adminAgendas = require( 'admin-agendas' );
+const adminAgendas = require( '@openagenda/admin-agendas' );
 
-const logger = require( 'logger' ),
+const logger = require( '@openagenda/logger' ),
 
   agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 

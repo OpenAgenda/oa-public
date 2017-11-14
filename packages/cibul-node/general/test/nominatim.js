@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require( '../../config' ),
 
-log = require( 'logger' )( 'nominatim task tests' ),
+log = require( '@openagenda/logger' )( 'nominatim task tests' ),
 
 async = require( 'async' ),
 

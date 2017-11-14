@@ -1,4 +1,4 @@
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 const activitiesSvc = require( '@openagenda/activities' );
 const agendasSvc = require( '@openagenda/agendas' );
 const usersSvc = require( '@openagenda/users' );

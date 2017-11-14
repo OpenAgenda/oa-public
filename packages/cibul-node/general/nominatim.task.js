@@ -1,4 +1,4 @@
-var log = require( 'logger' )( 'nominatim task' ),
+var log = require( '@openagenda/logger' )( 'nominatim task' ),
 
 lib = require( '../lib/lib' ),
 

@@ -14,7 +14,7 @@ const config = require( '../../../config' ),
 
   utils = require( '@openagenda/utils' ),
 
-  log = require( 'logger' )( 'groupactions - tasks' ),
+  log = require( '@openagenda/logger' )( 'groupactions - tasks' ),
 
   w = require( 'when' ),
 

@@ -17,7 +17,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   https = require( 'https' ),
 
-  log = require( 'logger' )( 'auth/local' ),
+  log = require( '@openagenda/logger' )( 'auth/local' ),
 
   config = require( '../config' ),
 

@@ -4,7 +4,7 @@ var coms = require( '../../lib/coms' ),
 
 config = require( '../../config' ),
 
-logger = require( 'logger' ), log,
+logger = require( '@openagenda/logger' ), log,
 
 eventSvc = require( '../event' ),
 

@@ -33,7 +33,7 @@ var async = require( 'async' ),
 
 lib = require( '../lib/lib' ),
 
-log = require( 'logger' )( 'newsletter/build' ),
+log = require( '@openagenda/logger' )( 'newsletter/build' ),
 
 config = require( '../config' ),
 

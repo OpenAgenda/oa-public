@@ -7,7 +7,7 @@
  */
 
 
-var log = require( 'logger' )( 'jobs' ),
+var log = require( '@openagenda/logger' )( 'jobs' ),
 
 lib = require( '../lib/lib' ),
 

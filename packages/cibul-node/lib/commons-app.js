@@ -95,7 +95,7 @@ module.exports = {
 
 var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   log = logger( 'commons-app' ),
 

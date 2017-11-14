@@ -2,9 +2,9 @@
 
 var config = require( '../config' ),
 
-  log = require( 'logger' )( 'admin/agendas.back' ),
+  log = require( '@openagenda/logger' )( 'admin/agendas.back' ),
 
-  modLib = require( "../lib/moduleLib.js" ),
+  modLib = require( '../lib/moduleLib.js' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -14,7 +14,7 @@ var config = require( '../config' ),
 
   sessions = require( '@openagenda/sessions' ),
 
-  mw = require( 'admin-agendas' ).mw,
+  mw = require( '@openagenda/admin-agendas' ).mw,
 
   routes = {
     adminAgendasIndex: [ 'get', '/', index ],

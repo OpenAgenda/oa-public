@@ -2,7 +2,7 @@
 
 var q = require( './queue' ),
 
-log = require( 'logger' )( 'services/lib/instanceQueue/task' ),
+log = require( '@openagenda/logger' )( 'services/lib/instanceQueue/task' ),
 
 w = require( 'when' ),
 

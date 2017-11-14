@@ -2,7 +2,7 @@
 
 const images = require( '@openagenda/images' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 

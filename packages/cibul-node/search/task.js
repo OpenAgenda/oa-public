@@ -6,7 +6,7 @@
  */
 
 
-var log = require( 'logger' )( 'search task' ),
+var log = require( '@openagenda/logger' )( 'search task' ),
 
 async = require( 'async' ),
 

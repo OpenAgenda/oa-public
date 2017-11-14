@@ -6,7 +6,7 @@ lib, // to be set
 
 async = require( 'async' ),
 
-log = require( 'logger' )( 'services/elasticsearch/refresh' ),
+log = require( '@openagenda/logger' )( 'services/elasticsearch/refresh' ),
 
 model = require( '../../model' );
 

@@ -1,8 +1,8 @@
 "use strict";
 
-const newsletter = require( 'newsletter' ),
+const newsletter = require( '@openagenda/newsletter' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 

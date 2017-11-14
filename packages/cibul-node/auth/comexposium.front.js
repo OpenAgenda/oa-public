@@ -12,7 +12,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   model = require( '../services/model' ),
 
-  log = require( 'logger' )( 'auth/local' ),
+  log = require( '@openagenda/logger' )( 'auth/local' ),
 
   config = require( '../config' ),
 

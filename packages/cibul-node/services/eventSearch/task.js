@@ -6,7 +6,7 @@ const agendaIndices = require( './agendaIndices' );
 
 const events = require( './eventTransverseOperations' );
 
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
 module.exports = () => {
 

@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'swapcard' ),
+var log = require( '@openagenda/logger' )( 'swapcard' ),
 
 https = require( 'https' ),
 

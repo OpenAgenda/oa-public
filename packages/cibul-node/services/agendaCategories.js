@@ -6,7 +6,7 @@ const appServiceAgendas = require( './agenda' ),
 
   _ = require( 'lodash' ),
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 module.exports.init = ( config, cb ) => {
 

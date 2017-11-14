@@ -1,8 +1,8 @@
 "use strict";
 
-const legacy = require( './legacy' );
 const events = require( '@openagenda/events' );
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
+const legacy = require( './legacy' );
 
 const interfaces = {
   onCreate: require( './onCreate' ),

@@ -18,7 +18,7 @@ var model = require( '../../model' ),
 
   async = require( 'async' ),
 
-  logger = require( 'logger' ), log,
+  logger = require( '@openagenda/logger' ), log,
 
   cache = require( '../../cache' ),
 

@@ -4,7 +4,7 @@ var utils = require( '../../../lib/utils' ),
 
 lib = require( './lib' ),
 
-log = require( 'logger' )( 'function cache' );
+log = require( '@openagenda/logger' )( 'function cache' );
 
 module.exports = function( namespace, name, func, expire ) {
 

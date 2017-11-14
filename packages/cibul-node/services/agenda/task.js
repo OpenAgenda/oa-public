@@ -1,4 +1,4 @@
-var logger = require( 'logger' ), log,
+var logger = require( '@openagenda/logger' ), log,
 
 svc = require( './' ),
 

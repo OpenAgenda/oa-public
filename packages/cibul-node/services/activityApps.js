@@ -1,8 +1,8 @@
 "use strict";
 
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
-const activityAppsMw = require( 'activity-apps/middleware' );
+const activityAppsMw = require( '@openagenda/activity-apps/middleware' );
 const activitiesSvc = require( '@openagenda/activities' );
 
 module.exports.init = config => activityAppsMw.init( {

@@ -1,6 +1,6 @@
 var cluster = require( 'cluster' ),
 
-logger = require( 'logger' ),
+logger = require( '@openagenda/logger' ),
 
 config = require( '../config' ),
 

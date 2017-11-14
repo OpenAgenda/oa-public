@@ -4,7 +4,7 @@
 
 "use strict";
 
-var log = require( 'logger')( 'main' ),
+var log = require( '@openagenda/logger')( 'main' ),
 
 config = require( '../config' ),
 

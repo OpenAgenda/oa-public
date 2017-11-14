@@ -1,6 +1,6 @@
 "use strict";
 
-const aggregatorSources = require( 'aggregator-sources' );
+const aggregatorSources = require( '@openagenda/aggregator-sources' );
 
 const agendas = require( '@openagenda/agendas' );
 

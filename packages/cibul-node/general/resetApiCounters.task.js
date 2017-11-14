@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( 'logger' )( 'daily task' ),
+var log = require( '@openagenda/logger' )( 'daily task' ),
 
 config = require( '../config' ),
 

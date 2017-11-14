@@ -9,7 +9,7 @@ aggUtils = require( './aggUtils' ),
 
 q, pQ,
 
-logger = require( 'logger' ), log;
+logger = require( '@openagenda/logger' ), log;
 
 
 /**

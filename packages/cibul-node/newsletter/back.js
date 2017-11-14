@@ -4,7 +4,7 @@ const sessions = require( '@openagenda/sessions' );
 
 var modLib = require( '../lib/moduleLib' ),
 
-log = require( 'logger' )( 'newsletter/back' ),
+log = require( '@openagenda/logger' )( 'newsletter/back' ),
 
 async = require( 'async' ),
 

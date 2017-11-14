@@ -6,7 +6,7 @@ const internalEventSvc = require( './event' ),
 
   agendas = require( '@openagenda/agendas' ),
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   _ = require( 'lodash' );
 

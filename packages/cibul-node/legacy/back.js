@@ -182,7 +182,7 @@ module.exports = function ( path ) {
     _checkLocalhost
   ] );
 
-  apiLog = require( 'logger' )( 'legacyApi' );
+  apiLog = require( '@openagenda/logger' )( 'legacyApi' );
 
   log = require( '@openagenda/logs' )( 'legacy' );
 

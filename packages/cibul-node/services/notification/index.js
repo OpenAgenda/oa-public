@@ -15,7 +15,7 @@
  * 
  */
 
-var log = require( 'logger' )( 'notification-service' ),
+var log = require( '@openagenda/logger' )( 'notification-service' ),
 
 coms = require( '../../lib/coms' ),
 

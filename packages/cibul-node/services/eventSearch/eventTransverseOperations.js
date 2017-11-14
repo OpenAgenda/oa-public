@@ -1,7 +1,7 @@
 "use strict"
 
 const _ = require( 'lodash' );
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 const events = require( '@openagenda/events' );
 const eventSearch = require( '@openagenda/event-search' );
 const agendaEvents = require( '@openagenda/agenda-events' );

@@ -21,7 +21,7 @@ module.exports = ( enabledTypes, cb ) => {
       const express = require( 'express' );
 
       const sessions = require( '@openagenda/sessions' );
-      const logger = require( 'logger' );
+      const logger = require( '@openagenda/logger' );
       const tfy = require( './lib/taskify' );
       const cmn = require( './lib/commons-app' );
       const config = require( './config' );

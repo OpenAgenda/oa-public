@@ -8,7 +8,7 @@ const es = require( './elasticsearch' );
 
 const _ = require( 'lodash' );
 
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 
 const VError = require( 'verror' );
 

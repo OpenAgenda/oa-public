@@ -6,7 +6,7 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
   async = require( 'async' ),
 
-  logger = require( 'logger' ),
+  logger = require( '@openagenda/logger' ),
 
   keys = require( '@openagenda/keys' ),
 

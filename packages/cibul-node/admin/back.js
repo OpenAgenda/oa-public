@@ -16,7 +16,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   async = require( 'async' ),
 
-  log = require( 'logger' )( 'admin/back' ),
+  log = require( '@openagenda/logger' )( 'admin/back' ),
 
   lib = require( '../lib/lib' ),
 

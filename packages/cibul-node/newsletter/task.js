@@ -7,7 +7,7 @@ var TYPE_AUTOMATIC = 1,
 
 TYPE_MANUAL = 0,
 
-log = require( 'logger' )( 'newsletter task' ),
+log = require( '@openagenda/logger' )( 'newsletter task' ),
 
 lib = require( '../lib/lib' ),
 

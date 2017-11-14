@@ -8,7 +8,7 @@ const utils = require( '@openagenda/utils' ),
     sources: require( './sources' )
   },
 
-  logger = require( 'logger' );
+  logger = require( '@openagenda/logger' );
 
 let q, pQ, log;
 

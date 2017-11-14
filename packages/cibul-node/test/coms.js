@@ -6,7 +6,7 @@ process.env.NODE_ENV = 'test';
 
 var config = require('../config'),
 
-log = require( 'logger' )( 'coms tests' ),
+log = require( '@openagenda/logger' )( 'coms tests' ),
 
 should = require( 'should' ),
 

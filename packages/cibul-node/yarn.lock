@@ -29,6 +29,60 @@
     verror "^1.10.0"
     when "^3.7.8"
 
+"@openagenda/activity-apps@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.1.tgz#5e37d1371fbcda576bcf7d40015c1c56e2dd04c4"
+  dependencies:
+    "@openagenda/activities" "^2.0.0"
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/react-bootstrap-datetimerangepicker" "^2.0.5"
+    "@openagenda/react-form-components" "^2.0.7"
+    "@openagenda/react-utils" "^2.0.2"
+    "@openagenda/sessions" "^3.0.3"
+    "@openagenda/utils" "^1.0.2"
+    async "^2.1.4"
+    babel-runtime "^6.23.0"
+    body-parser "^1.16.0"
+    bootstrap-daterangepicker "^2.1.25"
+    classnames "^2.2.5"
+    immutability-helper "^2.3.0"
+    jquery "^3.2.1"
+    lodash "^4.17.4"
+    moment "^2.18.1"
+    prop-types "^15.5.8"
+    react-bootstrap "^0.31.0"
+    react-router "^3.0.5"
+    react-router-redux "^4.0.8"
+    react-select "^1.0.0-rc.4"
+    redux-connect "^5.0.0"
+    redux-form "^6.6.2"
+    when "^3.7.8"
+
+"@openagenda/admin-agendas@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/admin-agendas/-/admin-agendas-1.0.1.tgz#c10d511879fbb4c0b29ca814647f3adaeca7729e"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    "@openagenda/utils" "^1.0.2"
+    "@openagenda/validators" "^2.0.1"
+    async "^2.1.4"
+    babelify "^7.3.0"
+    body-parser "^1.15.2"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.1"
+    immutability-helper "^2.2.0"
+    knex "^0.10.0"
+    mysql "^2.10.2"
+    prop-types "^15.5.8"
+    rc-switch "^1.4.2"
+    when "^3.7.7"
+
 "@openagenda/agenda-categories@^0.1.2":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@openagenda/agenda-categories/-/agenda-categories-0.1.2.tgz#7d9e3119702c5b9136b2dbac7023e1ac390e8b2d"
@@ -129,6 +183,38 @@
     when "^3.7.7"
     xhr "^2.2.0"
 
+"@openagenda/agenda-settings@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-settings/-/agenda-settings-1.0.1.tgz#d8d0997dc11b172049a5baa293cd3d39abbe2f63"
+  dependencies:
+    "@openagenda/agendas" "^1.0.4"
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/call-to-action" "^2.0.3"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/image-upload" "^1.0.7"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    classnames "^2.2.5"
+    deep-extend "^0.4.1"
+    history "^3.3.0"
+    knex "^0.11.10"
+    lodash.get "^4.4.2"
+    mysql "^2.11.1"
+    prop-types "^15.5.8"
+    react-copy-to-clipboard "^5.0.0"
+    react-datepicker "^0.29.0"
+    react-redux "^4.4.5"
+    react-router "^3.0.5"
+    react-router-redux "^4.0.5"
+    redux "^3.6.0"
+    redux-connect "^5.1.0"
+    redux-devtools "^3.3.1"
+    redux-devtools-dock-monitor "^1.1.1"
+    redux-devtools-log-monitor "^1.0.11"
+    redux-form "^6.1.1"
+    superagent "^2.2.0"
+
 "@openagenda/agenda-stakeholders@^2.0.0":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.2.tgz#7c61c5aa80da76056c75f0df439273ffd69e2a5f"
@@ -182,6 +268,28 @@
     lodash "^4.17.2"
     mysql "^2.10.2"
     slug "^0.9.1"
+    when "^3.7.7"
+
+"@openagenda/aggregator-sources@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/aggregator-sources/-/aggregator-sources-1.0.1.tgz#cce3e8b4df9de6a5e294a52664eb943c8163756e"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    "@openagenda/react-utils" "^2.0.2"
+    "@openagenda/service-utils" "^2.0.0"
+    async "^2.1.4"
+    knex "^0.12.6"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+    mysql "^2.12.0"
+    prop-types "^15.5.8"
+    react-redux "^4.4.5"
+    react-router "^3.0.0"
+    redux-connect "^5.0.0"
+    redux-form "^6.2.0"
     when "^3.7.7"
 
 "@openagenda/basic-logger@^2.0.0":
@@ -433,7 +541,7 @@
     "@openagenda/images" "^1.0.3"
     when "^3.7.7"
 
-"@openagenda/image-upload@^1.0.0", "@openagenda/image-upload@^1.0.1", "@openagenda/image-upload@^1.0.5":
+"@openagenda/image-upload@^1.0.0", "@openagenda/image-upload@^1.0.1", "@openagenda/image-upload@^1.0.5", "@openagenda/image-upload@^1.0.7":
   version "1.0.7"
   resolved "https://registry.npmjs.org/@openagenda/image-upload/-/image-upload-1.0.7.tgz#59a86c3e994a7fad258619a1880d649e51d1abe0"
   dependencies:
@@ -517,12 +625,29 @@
     reconnect-core "1.3.0"
     semver "5.1.0"
 
+"@openagenda/logger@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/logger/-/logger-0.0.2.tgz#d070182d40a1a2cb19b0d0ed76eaeb52213fe517"
+  dependencies:
+    debug "2.2.0"
+    le_node "^1.7.1"
+    should "7.0.4"
+
 "@openagenda/logs@^1.0.0", "@openagenda/logs@^1.0.1", "@openagenda/logs@^1.0.4":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.4.tgz#cc543bea495e56b01caf9c24e16e87a0eb093310"
   dependencies:
     "@openagenda/le_node" "^1.7.3"
     debug "^2.2.0"
+    lodash "^4.17.4"
+    winston "^2.3.1"
+
+"@openagenda/logs@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.5.tgz#5ab7116aa61f8baadc0b9b2716819b6fae10d10a"
+  dependencies:
+    debug "^2.2.0"
+    le_node "^1.7.1"
     lodash "^4.17.4"
     winston "^2.3.1"
 
@@ -583,6 +708,16 @@
     "@openagenda/utils" "^1.0.2"
     async "^2.0.1"
     mysql "^2.11"
+
+"@openagenda/newsletter@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/newsletter/-/newsletter-1.0.1.tgz#b8387d15e99a5733e704240d4055d8c3ab671d89"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    deep-extend "^0.4.1"
+    mailin-api-node-js "^1.0.0"
+    sendinblue-api "^1.0.4"
+    should "^8.3.0"
 
 "@openagenda/pdf@^0.1.0":
   version "0.1.0"
@@ -897,9 +1032,8 @@ acorn@^5.0.0:
   version "5.2.1"
   resolved "https://registry.npmjs.org/acorn/-/acorn-5.2.1.tgz#317ac7821826c22c702d66189ab8359675f135d7"
 
-"activity-apps@bitbucket:openagenda/activity-apps", "activity-apps@git+ssh://git@bitbucket.org/openagenda/activity-apps.git":
+"activity-apps@git+ssh://git@bitbucket.org/openagenda/activity-apps.git":
   version "1.0.1"
-  uid "7bb652838c64a18880721502a74fffd84c2cd9b8"
   resolved "git+ssh://git@bitbucket.org/openagenda/activity-apps.git#7bb652838c64a18880721502a74fffd84c2cd9b8"
   dependencies:
     "@openagenda/activities" "^2.0.0"
@@ -929,9 +1063,8 @@ acorn@^5.0.0:
     redux-form "^6.6.2"
     when "^3.7.8"
 
-"admin-agendas@bitbucket:openagenda/admin-agendas", "admin-agendas@git+ssh://git@bitbucket.org/openagenda/admin-agendas.git":
+"admin-agendas@git+ssh://git@bitbucket.org/openagenda/admin-agendas.git":
   version "1.0.0"
-  uid "4634be612397d03a5fb84f4b3a397c5e858352cf"
   resolved "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git#4634be612397d03a5fb84f4b3a397c5e858352cf"
   dependencies:
     async "^2.1.4"
@@ -1026,9 +1159,8 @@ acorn@^5.0.0:
     when "^3.7.7"
     xhr "^2.2.0"
 
-"agenda-settings@bitbucket:openagenda/agenda-settings", "agenda-settings@git+ssh://git@bitbucket.org/openagenda/agenda-settings.git":
+"agenda-settings@git+ssh://git@bitbucket.org/openagenda/agenda-settings.git":
   version "1.0.0"
-  uid c9ef33fb6fe9db9ae968e428c65fb2f4fa4592a5
   resolved "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git#c9ef33fb6fe9db9ae968e428c65fb2f4fa4592a5"
   dependencies:
     agendas "git+ssh://git@bitbucket.org/openagenda/agendas.git"
@@ -1116,9 +1248,8 @@ agentkeepalive@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/agentkeepalive/-/agentkeepalive-2.2.0.tgz#c5d1bd4b129008f1163f236f86e5faea2026e2ef"
 
-"aggregator-sources@bitbucket:openagenda/aggregator-sources", "aggregator-sources@git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git":
+"aggregator-sources@git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git":
   version "1.0.0"
-  uid "906a37f670d1d4342d4c4182aff81c4432cad736"
   resolved "git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git#906a37f670d1d4342d4c4182aff81c4432cad736"
   dependencies:
     async "^2.1.4"
@@ -3267,6 +3398,12 @@ co@~3.0.6:
 code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
+
+codependency@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/codependency/-/codependency-0.1.4.tgz#d1763ab7264bd70c91d9626e98862d3792bf8d4a"
+  dependencies:
+    semver "5.0.1"
 
 collapse-whitespace@1.1.2:
   version "1.1.2"
@@ -6322,6 +6459,17 @@ lcid@^1.0.0:
   version "0.0.3"
   resolved "https://codeload.github.com/rapid7/le_js/tar.gz/e7480de232409cb5a5416cb99e4fd87794c11f0e"
 
+le_node@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.npmjs.org/le_node/-/le_node-1.7.1.tgz#8316409dada82b9f29657ca4060663f8f11551d1"
+  dependencies:
+    babel-runtime "6.6.1"
+    codependency "0.1.4"
+    json-stringify-safe "5.0.1"
+    lodash "3.9.3"
+    reconnect-core "1.3.0"
+    semver "5.1.0"
+
 "leaflet.markercluster@git://github.com/kaore/Leaflet.markercluster.git":
   version "0.4.0"
   resolved "git://github.com/kaore/Leaflet.markercluster.git#4513ad74d28de24d3aaf6c279c4e6f48ff3e7480"
@@ -6626,14 +6774,6 @@ lodash@^4.0.0, lodash@^4.0.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.6, lo
 lodash@~2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/lodash/-/lodash-2.1.0.tgz#0637eaaa36a8a1cfc865c3adfb942189bfb0998d"
-
-"logger@bitbucket:openagenda/logger":
-  version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/logger.git#92e7e54be8cd0f7df50e159262bd41e77e589e51"
-  dependencies:
-    "@openagenda/le_node" "^1.7.3"
-    debug "2.2.0"
-    should "7.0.4"
 
 longest@^1.0.1:
   version "1.0.1"
@@ -7222,16 +7362,6 @@ newrelic@*:
     semver "^5.3.0"
   optionalDependencies:
     "@newrelic/native-metrics" "^2.1.0"
-
-"newsletter@bitbucket:openagenda/newsletter":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/newsletter.git#da54b7eb1960f7280a1aa7f45da2a43e97aa384c"
-  dependencies:
-    basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
-    deep-extend "^0.4.1"
-    mailin-api-node-js "^1.0.0"
-    sendinblue-api "^1.0.4"
-    should "^8.3.0"
 
 next-tick@1:
   version "1.0.0"
@@ -9310,6 +9440,10 @@ scss-tokenizer@^0.2.3:
   version "5.4.1"
   resolved "https://registry.npmjs.org/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
 
+semver@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/semver/-/semver-5.0.1.tgz#9fb3f4004f900d83c47968fe42f7583e05832cc9"
+
 semver@5.1.0:
   version "5.1.0"
   resolved "https://registry.npmjs.org/semver/-/semver-5.1.0.tgz#85f2cf8550465c4df000cf7d86f6b054106ab9e5"
@@ -10830,17 +10964,11 @@ xml@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
 
-"xml@bitbucket:openagenda/xml":
-  version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/xml.git#1a8f3fd7f76efbfe717a47356ef15ff1d7d37028"
-  dependencies:
-    xmlbuilder "^4.0.0"
-
 xmlbuilder@0.4.2:
   version "0.4.2"
   resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-0.4.2.tgz#1776d65f3fdbad470a08d8604cdeb1c4e540ff83"
 
-xmlbuilder@4.2.1, xmlbuilder@^4.0.0, xmlbuilder@^4.1.0:
+xmlbuilder@4.2.1, xmlbuilder@^4.1.0:
   version "4.2.1"
   resolved "https://registry.npmjs.org/xmlbuilder/-/xmlbuilder-4.2.1.tgz#aa58a3041a066f90eaa16c2f5389ff19f3f461a5"
   dependencies:

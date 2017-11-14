@@ -7,7 +7,7 @@ const activities = require( '@openagenda/activities' );
 const users = require( '@openagenda/users' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
-const logger = require( 'logger' );
+const logger = require( '@openagenda/logger' );
 const _ = require( 'lodash' );
 const keys = require( '@openagenda/keys' );
 
