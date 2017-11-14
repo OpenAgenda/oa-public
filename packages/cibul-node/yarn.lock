@@ -256,6 +256,17 @@
     "@openagenda/labels" "^2.0.7"
     lodash "^4.17.4"
 
+"@openagenda/custom@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/custom/-/custom-1.1.0.tgz#b885522889b0f33f968417d4e690974f960ba28a"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/validators" "^2.0.1"
+    immutability-helper "^2.2.3"
+    lodash "^4.17.4"
+    mysql "^2.13.0"
+    verror "^1.10.0"
+
 "@openagenda/date-range@^2.1.0":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@openagenda/date-range/-/date-range-2.1.0.tgz#5d5bad08d94fcc8ee3b499b8cab428937f8155f9"
@@ -3702,15 +3713,6 @@ currently-unhandled@^0.4.1:
   resolved "https://registry.npmjs.org/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
   dependencies:
     array-find-index "^1.0.1"
-
-"custom@bitbucket:openagenda/custom":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/custom.git#364fbbfce0813960aa2fe5cf78ad813d667de78c"
-  dependencies:
-    immutability-helper "^2.2.3"
-    lodash "^4.17.4"
-    mysql "^2.13.0"
-    verror "^1.10.0"
 
 cycle@1.0.x:
   version "1.0.3"

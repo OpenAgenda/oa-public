@@ -1,6 +1,6 @@
 "use strict";
 
-const custom = require( 'custom' );
+const custom = require( '@openagenda/custom' );
 
 const formSchemas = require( 'form-schemas' );
 

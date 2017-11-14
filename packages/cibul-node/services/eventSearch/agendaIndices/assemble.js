@@ -13,7 +13,7 @@
 const _ = require( 'lodash' );
 const logger = require( 'logger' );
 const VError = require( 'verror' );
-const custom = require( 'custom' );
+const custom = require( '@openagenda/custom' );
 const agendas = require( '@openagenda/agendas' );
 const ih = require( 'immutability-helper' );
 const eventSvc = require( '@openagenda/events' );
