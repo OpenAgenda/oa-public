@@ -14,11 +14,11 @@ const should = require( 'should' ),
 
   config = require( '../testconfig' ),
 
-  schema = require( 'validators/schema' );
+  schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  integer: require( 'validators/integer' ),
-  text: require( 'validators/text' )
+  integer: require( '@openagenda/validators/integer' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 describe( 'extended events - functional (server): remove', function() {
