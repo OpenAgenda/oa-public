@@ -1,15 +1,12 @@
-import createApp from 'react-utils/dist/createApp';
-import createStore from 'react-utils/dist/createStore';
-import ApiClient from 'react-utils/dist/ApiClient';
-import du from 'dom-utils';
-import getRoutes from './routes';
+import createApp from '@openagenda/react-utils/dist/createApp';
+import createStore from '@openagenda/react-utils/dist/createStore';
+import ApiClient from '@openagenda/react-utils/dist/ApiClient';
+import du from '@openagenda/dom-utils';
 import { push } from 'react-router-redux';
+import getRoutes from './routes';
 import reducer from '../../redux/reducer';
 
 const normalizePrefix = prefix => prefix.substr( -1 ) === '/' ? prefix.slice( 0, -1 ) : prefix;
-
-require( 'dom-utils/ie8' );
-require( 'dom-utils/ie9' );
 
 export default function ( options ) {
 

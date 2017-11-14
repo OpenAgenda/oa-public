@@ -1,10 +1,10 @@
 "use strict";
 
 import React from 'react';
-// import makeGetterLabel from 'labels';
-import labels from 'labels/activities/event';
-import activityFormatMaker from 'activities/formatActivity';
 import moment from 'moment';
+// import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/activities/event';
+import activityFormatMaker from '@openagenda/activities/formatActivity';
 
 import 'moment/locale/fr';
 

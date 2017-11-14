@@ -88,15 +88,15 @@ var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _formatActivity = require('activities/formatActivity');
+var _formatActivity = require('@openagenda/activities/formatActivity');
 
 var _formatActivity2 = _interopRequireDefault(_formatActivity);
 
-var _agenda = require('labels/activities/agenda');
+var _agenda = require('@openagenda/labels/activities/agenda');
 
 var _agenda2 = _interopRequireDefault(_agenda);
 

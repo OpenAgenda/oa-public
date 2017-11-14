@@ -1,10 +1,10 @@
 "use strict";
 
-const du = require( 'dom-utils' );
-const dl = require( 'dom-utils/documentLocation' );
-const get = require( 'utils/get' );
+const du = require( '@openagenda/dom-utils' );
+const dl = require( '@openagenda/dom-utils/documentLocation' );
+const sessions = require( '@openagenda/sessions/client' );
+const get = require( '@openagenda/utils/get' );
 const merge = require( 'lodash/merge' );
-const sessions = require( 'sessions/client' );
 const Spinner = require( 'spin.js' );
 
 let anchorElem;

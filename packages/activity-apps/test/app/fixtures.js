@@ -1,8 +1,8 @@
 "use strict";
 
 const wn = require( 'when/node' );
-const fixtures = require( 'fixtures' );
-const activitiesSvc = require( 'activities/test/service' );
+const fixtures = require( '@openagenda/fixtures' );
+const activitiesSvc = require( '@openagenda/activities/test/service' );
 const config = require( '../../testconfig.js' );
 
 fix().catch( console.error );

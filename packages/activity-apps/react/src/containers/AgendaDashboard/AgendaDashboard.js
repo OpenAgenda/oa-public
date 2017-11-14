@@ -7,9 +7,9 @@ import throttle from 'lodash/throttle';
 import mapValues from 'lodash/mapValues';
 import update from 'immutability-helper';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import monitorBottomHit from 'dom-utils/monitorBottomHit';
-import activityFormatMaker from 'activities/formatActivity';
-import activityLabels from 'labels/activities/agenda';
+import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
+import activityFormatMaker from '@openagenda/activities/formatActivity';
+import activityLabels from '@openagenda/labels/activities/agenda';
 import * as activitiesActions from '../../redux/modules/activities';
 
 import 'moment/locale/fr';

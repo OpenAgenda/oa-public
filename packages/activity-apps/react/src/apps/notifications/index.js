@@ -2,10 +2,10 @@
 
 import React from 'react';
 import classNames from 'classnames';
-import labels from 'labels/activities/notifications';
-import makeLabelGetter from 'labels';
-import notificationFormatMaker from 'activities/formatNotification';
 import moment from 'moment';
+import labels from '@openagenda/labels/activities/notifications';
+import makeLabelGetter from '@openagenda/labels';
+import notificationFormatMaker from '@openagenda/activities/formatNotification';
 
 import 'moment/locale/fr';
 

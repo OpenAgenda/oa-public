@@ -4,9 +4,9 @@ import { asyncConnect } from 'redux-connect';
 import moment from 'moment';
 import throttle from 'lodash/throttle';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import monitorBottomHit from 'dom-utils/monitorBottomHit';
-import activityFormatMaker from 'activities/formatActivity';
-import activityLabels from 'labels/activities/user';
+import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
+import activityFormatMaker from '@openagenda/activities/formatActivity';
+import activityLabels from '@openagenda/labels/activities/user';
 import * as activitiesActions from '../../redux/modules/activities';
 
 import 'moment/locale/fr';

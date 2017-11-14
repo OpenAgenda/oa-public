@@ -1,15 +1,15 @@
 "use strict";
 
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
 
 const ReactDOMServer = require( 'react-dom/server' );
 
-const matchAppMw = require( 'react-utils/dist/matchAppMw' );
-const createStore = require( 'react-utils/dist/createStore' );
-const ApiClient = require( 'react-utils/dist/ApiClient' );
+const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
+const createStore = require( '@openagenda/react-utils/dist/createStore' );
+const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
 
 const getAdminRoutes = require( './react/dist/apps/admin/routes' );
 const getAgendaRoutes = require( './react/dist/apps/agenda/routes' );

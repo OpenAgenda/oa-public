@@ -78,23 +78,23 @@ var _reactSelect = require('react-select');
 
 var _reactSelect2 = _interopRequireDefault(_reactSelect);
 
-var _Spinner = require('@openagenda/react-form-components/build/Spinner');
-
-var _Spinner2 = _interopRequireDefault(_Spinner);
-
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
+var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _admin = require('labels/activities/admin');
+var _admin = require('@openagenda/labels/activities/admin');
 
 var _admin2 = _interopRequireDefault(_admin);
 
-var _formatActivity = require('activities/formatActivity');
+var _formatActivity = require('@openagenda/activities/formatActivity');
 
 var _formatActivity2 = _interopRequireDefault(_formatActivity);
 

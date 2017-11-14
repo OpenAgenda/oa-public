@@ -42,7 +42,7 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactBootstrapDatetimerangepicker = require('react-bootstrap-datetimerangepicker');
+var _reactBootstrapDatetimerangepicker = require('@openagenda/react-bootstrap-datetimerangepicker');
 
 var _reactBootstrapDatetimerangepicker2 = _interopRequireDefault(_reactBootstrapDatetimerangepicker);
 

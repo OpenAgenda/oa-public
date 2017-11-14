@@ -7,17 +7,17 @@ const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
-const sessions = require( 'sessions' );
-const sessionsMw = require( 'sessions/middleware' );
-const config = require( '../../testconfig.js' );
-const activitiesSvc = require( 'activities/test/service' );
+const sessions = require( '@openagenda/sessions' );
+const sessionsMw = require( '@openagenda/sessions/middleware' );
+const activitiesSvc = require( '@openagenda/activities/test/service' );
 const mw = require( '../../middleware' );
+const config = require( '../../testconfig.js' );
 
-const app = require( 'test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/../../.tmp/testapp-client.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/admin.css'
   ],
   decorateCanvas: false
 } );

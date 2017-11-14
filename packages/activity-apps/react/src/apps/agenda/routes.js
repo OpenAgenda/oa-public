@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { AgendaApp, AgendaDashboard } from '../../containers';
-import du from 'dom-utils';
+import du from '@openagenda/dom-utils';
 
 function selectItem( item ) {
 

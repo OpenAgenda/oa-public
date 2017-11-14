@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import DatetimeRangePicker from 'react-bootstrap-datetimerangepicker';
+import DatetimeRangePicker from '@openagenda/react-bootstrap-datetimerangepicker';
 import moment from 'moment';
 import { Button } from 'react-bootstrap';
 

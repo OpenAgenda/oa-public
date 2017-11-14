@@ -96,21 +96,21 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _notifications = require('labels/activities/notifications');
-
-var _notifications2 = _interopRequireDefault(_notifications);
-
-var _labels = require('labels');
-
-var _labels2 = _interopRequireDefault(_labels);
-
-var _formatNotification = require('activities/formatNotification');
-
-var _formatNotification2 = _interopRequireDefault(_formatNotification);
-
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
+
+var _notifications = require('@openagenda/labels/activities/notifications');
+
+var _notifications2 = _interopRequireDefault(_notifications);
+
+var _labels = require('@openagenda/labels');
+
+var _labels2 = _interopRequireDefault(_labels);
+
+var _formatNotification = require('@openagenda/activities/formatNotification');
+
+var _formatNotification2 = _interopRequireDefault(_formatNotification);
 
 require('moment/locale/fr');
 

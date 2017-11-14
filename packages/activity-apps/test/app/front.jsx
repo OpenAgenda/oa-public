@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
-import du from 'dom-utils';
-import dl from 'dom-utils/documentLocation';
+import du from '@openagenda/dom-utils';
+import dl from '@openagenda/dom-utils/documentLocation';
 import adminApp from '../../react/dist/apps/admin';
 import agendaApp from '../../react/dist/apps/agenda';
 import userApp from '../../react/dist/apps/user';

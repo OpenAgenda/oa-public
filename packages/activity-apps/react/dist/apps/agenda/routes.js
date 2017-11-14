@@ -25,7 +25,7 @@ var _reactRouter = require('react-router');
 
 var _containers = require('../../containers');
 
-var _domUtils = require('dom-utils');
+var _domUtils = require('@openagenda/dom-utils');
 
 var _domUtils2 = _interopRequireDefault(_domUtils);
 

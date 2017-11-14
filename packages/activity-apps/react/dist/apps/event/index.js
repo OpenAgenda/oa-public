@@ -42,26 +42,24 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _event = require('labels/activities/event');
-
-var _event2 = _interopRequireDefault(_event);
-
-var _formatActivity = require('activities/formatActivity');
-
-var _formatActivity2 = _interopRequireDefault(_formatActivity);
-
 var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
+
+var _event = require('@openagenda/labels/activities/event');
+
+var _event2 = _interopRequireDefault(_event);
+
+var _formatActivity = require('@openagenda/activities/formatActivity');
+
+var _formatActivity2 = _interopRequireDefault(_formatActivity);
 
 require('moment/locale/fr');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // const getLabel = ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang );
-
-// import makeGetterLabel from 'labels';
 var formatActivity = (0, _formatActivity2.default)({}, _event2.default);
-
+// import makeGetterLabel from '@openagenda/labels';
 module.exports = exports['default'];
 //# sourceMappingURL=index.js.map
