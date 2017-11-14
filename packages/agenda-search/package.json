@@ -1,5 +1,5 @@
 {
-  "name": "agenda-search",
+  "name": "@openagenda/agenda-search",
   "version": "0.0.1",
   "description": "",
   "main": "service/index.js",
@@ -10,7 +10,13 @@
     "serve": "node test/app",
     "serve-debug": "node debug test/app",
     "debug": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve-debug",
-    "start": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve"
+    "start": "nodemon --exec 'npm' --ignore components/lib --ext js,jsx run-script serve",
+    "preversion": "npm test",
+    "version": "npm run clean && npm run babelify && git add -A components/lib",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "keywords": [],
   "author": "",
