@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const search = require( './search' );
 const rebuild = require( './rebuild' );
 const assemble = require( './assemble' );
-const eventSearch = require( 'event-search' );
+const eventSearch = require( '@openagenda/event-search' );
 const schema = require( '@openagenda/validators/schema' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndices' );
 

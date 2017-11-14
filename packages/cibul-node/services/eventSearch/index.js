@@ -1,6 +1,6 @@
 "use strict";
 
-const eventSearch = require( 'event-search' );
+const eventSearch = require( '@openagenda/event-search' );
 const agendaIndices = require( './agendaIndices' );
 const agendas = require( '@openagenda/agendas' );
 const eventTransverseOperations = require( './eventTransverseOperations' );

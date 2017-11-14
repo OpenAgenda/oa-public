@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const logger = require( 'logger' );
 const events = require( 'events-service' );
-const eventSearch = require( 'event-search' );
+const eventSearch = require( '@openagenda/event-search' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaIndices = require( './agendaIndices' );
 const rebuildLimit = process.env.NODE_ENV === 'production' ? 16000 : 2000;
