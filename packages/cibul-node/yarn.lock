@@ -668,6 +668,13 @@
     spin.js "2.3.2"
     xhr "2.2.0"
 
+"@openagenda/tumblr-parser@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/tumblr-parser/-/tumblr-parser-0.1.0.tgz#93c36263de31667e1206d326634c9ba4ac2cabaf"
+  dependencies:
+    debug "~2.0"
+    should "~4.0"
+
 "@openagenda/unsubscribed@^2.0.1":
   version "2.0.1"
   resolved "https://registry.npmjs.org/@openagenda/unsubscribed/-/unsubscribed-2.0.1.tgz#1e325e39c9b84c2071f1642841ae62fb984969ef"
@@ -10302,9 +10309,8 @@ tty-browserify@0.0.0, tty-browserify@~0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
 
-"tumblr-parser@bitbucket:openagenda/tumblr-parser", "tumblr-parser@git+ssh://git@bitbucket.org/openagenda/tumblr-parser.git":
+"tumblr-parser@git+ssh://git@bitbucket.org/openagenda/tumblr-parser.git":
   version "0.0.3"
-  uid a7cf2b80b44be7fe9c7b6551edb2ac68ec9db4da
   resolved "git+ssh://git@bitbucket.org/openagenda/tumblr-parser.git#a7cf2b80b44be7fe9c7b6551edb2ac68ec9db4da"
   dependencies:
     debug "~2.0"

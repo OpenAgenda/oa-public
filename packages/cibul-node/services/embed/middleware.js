@@ -2,7 +2,7 @@
 
 var svc,
 
-parserLib = require( 'tumblr-parser' ),
+parserLib = require( '@openagenda/tumblr-parser' ),
 
 fs = require( 'fs' ),
 
