@@ -1,10 +1,10 @@
 "use strict";
 
-const files = require( 'files' ),
+const files = require( '@openagenda/files' ),
 
-  images = require( 'images' ),
+  images = require( '@openagenda/images' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   w = require( 'when' );
 

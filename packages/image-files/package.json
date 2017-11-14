@@ -1,5 +1,5 @@
 {
-  "name": "image-files",
+  "name": "@openagenda/image-files",
   "version": "1.0.0",
   "description": "Handle image processing from when an image url or temporary path to the moment it is stored on s3. Does formatting through the 'images' service and file uploading through the 'files' service. Does not handle client to server image uploads.",
   "main": "index.js",
@@ -7,16 +7,22 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "when": "^3.7.7",
-    "images": "git+ssh://git@bitbucket.org/openagenda/images.git",
-    "files": "git+ssh://git@bitbucket.org/openagenda/files.git",
-    "basic-logger": "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
+    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/files": "^2.0.6",
+    "@openagenda/images": "^1.0.3",
+    "when": "^3.7.7"
   },
   "devDependencies": {
     "should": "^11.1.0"
