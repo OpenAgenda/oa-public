@@ -26,7 +26,7 @@ module.exports = function( options ) {
     total: 0
   } );
 
-  ReactDom.render( React.createElement( Body, {
+  ReactDom.hydrate( React.createElement( Body, {
     res: params.res,
     lang: params.lang,
     query: dl.getQuery(),

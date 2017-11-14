@@ -1,4 +1,10 @@
-node_modules/*
+.idea/
+node_modules/
+npm-debug.log
+yarn-error.log
 testconfig.js
+<<<<<<< HEAD
 yarn-error.log
 .idea/
+=======
+>>>>>>> 69ee98af020061ff515706db66a808e776562787
