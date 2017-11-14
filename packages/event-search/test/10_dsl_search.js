@@ -272,8 +272,8 @@ describe( 'event-search - unit: dsl search', function() {
       let { events, total } = await dslSearch( 'simple_search', dsl );
 
       events[ 0 ].dateRange.should.eql( { 
-        fr: '24 octobre 2016, 08h00', 
-        en: '24 october 2016, 08:00' 
+        fr: 'Lundi 24 octobre 2016, 08h00', 
+        en: 'Monday 24 October 2016, 08:00' 
       } );
 
     } );
