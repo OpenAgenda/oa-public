@@ -43,7 +43,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   timeHelper = require( 'cibulTemplates' ).helpers.time,
 
-  fb = require( 'facebook' ),
+  fb = require( '@openagenda/facebook' ),
 
   utils = require( '@openagenda/utils' ),
 

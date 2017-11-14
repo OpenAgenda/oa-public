@@ -450,6 +450,17 @@
     verror "^1.10.0"
     when "^3.7.7"
 
+"@openagenda/facebook@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/facebook/-/facebook-0.1.0.tgz#0a55f240c55687312596592387099d40030bf82a"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+    async "1.2.1"
+    body-parser "1.13.2"
+    express "4.13"
+    mysql "2.8.0"
+    should "~4.0"
+
 "@openagenda/files@^2.0.0", "@openagenda/files@^2.0.5", "@openagenda/files@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@openagenda/files/-/files-2.0.6.tgz#f3397a5423234427849fe174b5a3f5d5498122f2"
@@ -4741,17 +4752,6 @@ extsprintf@1.3.0, extsprintf@^1.2.0:
 eyes@0.1.x:
   version "0.1.8"
   resolved "https://registry.npmjs.org/eyes/-/eyes-0.1.8.tgz#62cf120234c683785d902348a800ef3e0cc20bc0"
-
-"facebook@bitbucket:openagenda/facebook":
-  version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/facebook.git#7d2ebe09d2d7c7e732627c3267118d3eb25cfcc2"
-  dependencies:
-    async "1.2.1"
-    body-parser "1.13.2"
-    express "4.13"
-    mysql "2.8.0"
-    should "~4.0"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
 
 fast-csv@2.0.0:
   version "2.0.0"
@@ -10620,15 +10620,6 @@ utils-merge@1.0.1, utils-merge@1.x.x:
 "utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
   version "1.0.2"
   resolved "git+ssh://git@bitbucket.org/openagenda/utils.git#448f874739e5a0f80bc122804c73d1edd08f30fa"
-  dependencies:
-    qs "^6.1.0"
-    when "^3.7.8"
-    xhr "^2.2.2"
-
-"utils@git+ssh://git@bitbucket.org:openagenda/utils.git":
-  version "1.0.2"
-  uid "448f874739e5a0f80bc122804c73d1edd08f30fa"
-  resolved "git+ssh://git@bitbucket.org:openagenda/utils.git#448f874739e5a0f80bc122804c73d1edd08f30fa"
   dependencies:
     qs "^6.1.0"
     when "^3.7.8"

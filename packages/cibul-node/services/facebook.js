@@ -1,6 +1,6 @@
 "use strict";
 
-const facebook = require( 'facebook' );
+const facebook = require( '@openagenda/facebook' );
 
 module.exports.init = ( config, cb ) => {
 

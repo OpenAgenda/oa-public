@@ -8,7 +8,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   agendaSvc = require( '../services/agenda' ),
 
-  fb = require( 'facebook' ),
+  fb = require( '@openagenda/facebook' ),
 
   utils = require( '@openagenda/utils' ),
 
