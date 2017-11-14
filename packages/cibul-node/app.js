@@ -203,7 +203,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( './services/notification/remove.task' ), { period: 'daily', time: '03:00' } );
 
-        tfy( require( 'agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
+        tfy( require( '@openagenda/agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
         tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 

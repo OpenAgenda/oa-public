@@ -14,7 +14,7 @@ module.exports = {
     agendas: require( '@openagenda/agendas' ),
     categories: require( 'agenda-categories' ),
     locations: require( '@openagenda/agenda-locations' ),
-    agendaSearch: require( 'agenda-search' ),
+    agendaSearch: require( '@openagenda/agenda-search' ),
     stakeholders: require( '@openagenda/agenda-stakeholders' ),
     tags: require( 'agenda-tags' ),
     files: require( '@openagenda/files' ),

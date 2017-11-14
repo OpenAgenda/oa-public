@@ -90,6 +90,29 @@
     redis "^2.7.1"
     verror "^1.10.0"
 
+"@openagenda/agenda-search@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-search/-/agenda-search-0.1.2.tgz#350ecf01d32ac5e5cae8956969be2fbf318c4aa6"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    "@openagenda/utils" "^1.0.2"
+    "@openagenda/validators" "^2.0.1"
+    async "^1.5.2"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.1"
+    elasticsearch "^13.3.1"
+    immutability-helper "^2.3.1"
+    knex "^0.9.0"
+    prop-types "^15.5.8"
+    qs "^6.1.0"
+    rss "^1.2.1"
+    when "^3.7.7"
+    xhr "^2.2.0"
+
 "@openagenda/agenda-stakeholders@^2.0.0":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.2.tgz#7c61c5aa80da76056c75f0df439273ffd69e2a5f"
@@ -336,7 +359,7 @@
     verror "^1.10.0"
     when "^3.7.8"
 
-"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6":
+"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
   version "2.0.7"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.7.tgz#534770acfee4151b388563292212f161c75bf414"
 
@@ -807,9 +830,8 @@ acorn@^5.0.0:
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
     when "^3.7.7"
 
-"agenda-search@bitbucket:openagenda/agenda-search", "agenda-search@git+ssh://git@bitbucket.org/openagenda/agenda-search.git":
+"agenda-search@git+ssh://git@bitbucket.org/openagenda/agenda-search.git":
   version "0.0.1"
-  uid "69ee98af020061ff515706db66a808e776562787"
   resolved "git+ssh://git@bitbucket.org/openagenda/agenda-search.git#69ee98af020061ff515706db66a808e776562787"
   dependencies:
     async "^1.5.2"
