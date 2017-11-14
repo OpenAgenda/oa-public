@@ -2,7 +2,7 @@
 
 const w = require( 'when' );
 const _ = require( 'lodash' );
-const slugs = require( 'slugs' );
+const slugs = require( '@openagenda/slugs' );
 const utils = require( '@openagenda/utils' );
 const async = require( 'async' );
 const genUrl = require( '../genUrl' );

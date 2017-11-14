@@ -8,7 +8,7 @@ embedSvc = require( '../services/embed' ),
 
 config = require( '../config' ),
 
-shares = require( 'shares' )( config.shares.agenda ),
+shares = require( '@openagenda/shares' )( config.shares.agenda ),
 
 cmn = require( '../lib/commons-app' ),
 

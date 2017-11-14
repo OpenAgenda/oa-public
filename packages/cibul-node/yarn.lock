@@ -631,6 +631,12 @@
     verror "^1.10.0"
     when "^3.7.7"
 
+"@openagenda/shares@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/shares/-/shares-0.1.0.tgz#662027602056b4eb023b8fef2db1902379ffe6fe"
+  dependencies:
+    "@openagenda/utils" "^1.0.2"
+
 "@openagenda/simple-cache@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@openagenda/simple-cache/-/simple-cache-1.1.0.tgz#f59304f22c2a2d3e75255a7a27f5ef368f448ef7"
@@ -9544,12 +9550,6 @@ shallow-copy@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/shallow-copy/-/shallow-copy-0.0.1.tgz#415f42702d73d810330292cc5ee86eae1a11a170"
 
-"shares@bitbucket:openagenda/shares":
-  version "0.0.2"
-  resolved "git+ssh://git@bitbucket.org/openagenda/shares.git#57b7e38dabf8c0c5e3b227885b75bd5c59926855"
-  dependencies:
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-
 shasum@^1.0.0:
   version "1.0.2"
   resolved "https://registry.npmjs.org/shasum/-/shasum-1.0.2.tgz#e7012310d8f417f4deb5712150e5678b87ae565f"
@@ -9653,15 +9653,6 @@ slug@0.9.1, slug@^0.9.1:
   resolved "https://registry.npmjs.org/slug/-/slug-0.9.1.tgz#af08f608a7c11516b61778aa800dce84c518cfda"
   dependencies:
     unicode ">= 0.3.1"
-
-"slugs@bitbucket:openagenda/slugs":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/slugs.git#9badc7f0168d8a4321eaa80d04162403f31ccd67"
-  dependencies:
-    knex "^0.12.5"
-    slug "^0.9.1"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-    validators "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.1.0"
 
 smart-buffer@^1.0.13:
   version "1.1.15"
@@ -10589,12 +10580,6 @@ validator@^7.0.0:
     "@openagenda/utils" "^1.0.2"
     lodash "^4.17.2"
     validator "^7.0.0"
-
-"validators@git+ssh://git@bitbucket.org:openagenda/validators.git#v1.1.0":
-  version "1.1.0"
-  resolved "git+ssh://git@bitbucket.org:openagenda/validators.git#e1525f3d5e15176a842ad0361297c154561ce7da"
-  dependencies:
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
 
 vary@~1.0.0, vary@~1.0.1:
   version "1.0.1"
