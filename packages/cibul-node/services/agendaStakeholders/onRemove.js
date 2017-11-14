@@ -6,7 +6,7 @@ const agendas = require( '@openagenda/agendas' ),
 
   activities = require( '@openagenda/activities' ),
 
-  invitations = require( 'invitations' );
+  invitations = require( '@openagenda/invitations' );
 
 let log = console.log;
 

@@ -35,7 +35,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   sessions = require( '@openagenda/sessions' ),
 
-  invitationsSvc = require( 'invitations' ),
+  invitationsSvc = require( '@openagenda/invitations' ),
 
   routes = {
 

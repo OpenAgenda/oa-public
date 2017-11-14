@@ -595,6 +595,18 @@
     redis "^2.8.0"
     verror "^1.10.0"
 
+"@openagenda/invitations@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/invitations/-/invitations-1.0.1.tgz#2fda5ac75055d0cb718f67be1d6f8414440cfbaa"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/mysql-utils" "^2.0.0"
+    "@openagenda/service-utils" "^2.0.0"
+    "@openagenda/validators" "^2.0.1"
+    knex "^0.12.6"
+    lodash "^4.17.4"
+    uuid "^3.0.1"
+
 "@openagenda/keys@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/keys/-/keys-2.0.0.tgz#cc6a5571b66822a45a6bb4d885da7f445f1e7eea"
@@ -5820,18 +5832,6 @@ invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
 
-"invitations@bitbucket:openagenda/invitations":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/invitations.git#05a83940e02d735b1765ffb08b0b6a2f666b5885"
-  dependencies:
-    basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
-    knex "^0.12.6"
-    lodash "^4.17.4"
-    mysql-utils "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git"
-    service-utils "git+ssh://git@bitbucket.org/openagenda/service-utils.git"
-    uuid "^3.0.1"
-    validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
-
 ip@1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/ip/-/ip-1.0.1.tgz#c7e356cdea225ae71b36d70f2e71a92ba4e42590"
@@ -7267,15 +7267,6 @@ mv@~2:
 "mysql-utils@git+ssh://git@bitbucket.org/openagenda/mysql-utils":
   version "2.0.0"
   resolved "git+ssh://git@bitbucket.org/openagenda/mysql-utils#4d2e811a82d4a0e1dd34e9f75e69f8bac2ed44f1"
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    async "^2.0.1"
-    mysql "^2.11"
-
-"mysql-utils@git+ssh://git@bitbucket.org/openagenda/mysql-utils.git":
-  version "2.0.0"
-  uid "4d2e811a82d4a0e1dd34e9f75e69f8bac2ed44f1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git#4d2e811a82d4a0e1dd34e9f75e69f8bac2ed44f1"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "^2.0.1"

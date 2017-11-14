@@ -1,6 +1,6 @@
 "use strict";
 
-const invitations = require( 'invitations' );
+const invitations = require( '@openagenda/invitations' );
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 

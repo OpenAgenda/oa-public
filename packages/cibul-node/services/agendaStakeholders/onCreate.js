@@ -8,7 +8,7 @@ const agendas = require( '@openagenda/agendas' ),
 
   sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' ),
 
-  invitations = require( 'invitations' );
+  invitations = require( '@openagenda/invitations' );
 
 let log = console.log;
 

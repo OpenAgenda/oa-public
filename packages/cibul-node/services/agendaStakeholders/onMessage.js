@@ -10,7 +10,7 @@ const makeLabelGetter = require( '@openagenda/labels' ),
 
   genUrl = require( '../genUrl' ),
 
-  invitations = require( 'invitations' ),
+  invitations = require( '@openagenda/invitations' ),
 
   mailer = require( '@openagenda/mailer' ),
 

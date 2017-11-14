@@ -12,7 +12,7 @@ let lib = require( '../../lib/lib' ), invitationSvc,
 
   lostPassword = require( './lib/lostPassword' ),
 
-  invitation2Svc = require( 'invitations' ),
+  invitation2Svc = require( '@openagenda/invitations' ),
 
   activitiesSvc = require( '@openagenda/activities' );
 
