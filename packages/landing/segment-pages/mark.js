@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const pug = require( 'pug' );
 const marked = require( 'marked' );
-const linkValidate = require( 'validators/link' )();
+const linkValidate = require( '@openagenda/validators/link' )();
 
 const renderer = new marked.Renderer();
 

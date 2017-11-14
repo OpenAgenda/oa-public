@@ -14,7 +14,7 @@ const reload = require( 'reload' );
 
 const port = process.env.PORT || 3000;
 
-const style = fs.readFileSync( __dirname + '/node_modules/bs-templates/compiled/main.css' );
+const style = fs.readFileSync( __dirname + '/node_modules/@openagenda/bs-templates/compiled/main.css' );
 
 app.get( /css$/, ( req, res, next ) => {
 
