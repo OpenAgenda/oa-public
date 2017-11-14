@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const rss = require( 'flat-exports/rss' );
+const rss = require( '@openagenda/flat-exports/rss' );
 const search = require( '../../services/eventSearch' );
 const config = require( '../../config' );
 

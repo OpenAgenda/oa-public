@@ -2,11 +2,11 @@
 
 const app = require( 'express' )();
 const agendas = require( '@openagenda/agendas' );
-const csv = require( 'flat-exports' ).csv();
-const xlsx = require( 'flat-exports' ).xlsx();
+const csv = require( '@openagenda/flat-exports' ).csv();
+const xlsx = require( '@openagenda/flat-exports' ).xlsx();
 const search = require( '../../services/eventSearch' );
 const labels = require( '@openagenda/labels/event/exportFieldNames' );
-const ICSStream = require( 'flat-exports' ).ICSStream;
+const ICSStream = require( '@openagenda/flat-exports' ).ICSStream;
 const rss = require( './rss' );
 
 module.exports = ( parentApp, path ) => {

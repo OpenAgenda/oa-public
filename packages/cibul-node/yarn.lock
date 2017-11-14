@@ -354,6 +354,20 @@
     mime "^1.4.1"
     uuid "^3.1.0"
 
+"@openagenda/flat-exports@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/flat-exports/-/flat-exports-1.1.0.tgz#08466c22a1a1d623576cc9073e5f8e6cd5f53b02"
+  dependencies:
+    "@openagenda/flattener" "^1.1.0"
+    "@openagenda/stream-utils" "^1.1.0"
+    "@openagenda/utils" "^1.0.1"
+    "@openagenda/validators" "^2.0.1"
+    fast-csv "^2.4.1"
+    lodash "^4.17.4"
+    moment-timezone "^0.5.13"
+    rss "^1.2.2"
+    xlsx-writestream "^0.4.0"
+
 "@openagenda/flattener@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@openagenda/flattener/-/flattener-1.1.0.tgz#3efc535c10b6bb7b422cb67ff1544ab4862c0df3"
@@ -4797,26 +4811,6 @@ fizzy-ui-utils@^2.0.0:
 flagged-respawn@^0.3.2, flagged-respawn@~0.3.0:
   version "0.3.2"
   resolved "https://registry.npmjs.org/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
-
-"flat-exports@bitbucket:openagenda/flat-exports":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/flat-exports.git#5b9e30cf8763af5eb08d2a1110cdae8e60232619"
-  dependencies:
-    "@openagenda/utils" "^1.0.1"
-    fast-csv "^2.4.1"
-    flattener "bitbucket:openagenda/flattener"
-    lodash "^4.17.4"
-    moment-timezone "^0.5.13"
-    rss "^1.2.2"
-    stream-utils "bitbucket:openagenda/stream-utils"
-    validators "bitbucket:openagenda/validators"
-    xlsx-writestream "^0.4.0"
-
-"flattener@bitbucket:openagenda/flattener":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/flattener.git#97b0fc3d147b7bb4ca472f12759999f9bb5eefae"
-  dependencies:
-    lodash "^4.17.4"
 
 font-awesome@4.3.0:
   version "4.3.0"
@@ -9898,10 +9892,6 @@ stream-splicer@^2.0.0:
     inherits "^2.0.1"
     readable-stream "^2.0.2"
 
-"stream-utils@bitbucket:openagenda/stream-utils":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/stream-utils.git#ef924e5200f8a9829b9d5a4f19fc1d120d402018"
-
 streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.npmjs.org/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
@@ -10547,9 +10537,8 @@ validator@^7.0.0:
   version "7.2.0"
   resolved "https://registry.npmjs.org/validator/-/validator-7.2.0.tgz#a63dcbaba51d4350bf8df20988e0d5a54d711791"
 
-"validators@bitbucket:openagenda/validators", "validators@git+ssh://git@bitbucket.org/openagenda/validators.git":
+"validators@git+ssh://git@bitbucket.org/openagenda/validators.git":
   version "2.0.1"
-  uid "824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
   resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
   dependencies:
     "@openagenda/utils" "^1.0.2"
