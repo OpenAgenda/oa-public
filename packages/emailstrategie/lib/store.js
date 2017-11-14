@@ -2,7 +2,7 @@
 
 var dbConfig,
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 mysql = require( 'mysql' ),
 

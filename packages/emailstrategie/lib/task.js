@@ -1,8 +1,8 @@
 "use strict";
 
-var queueLib = require( 'queue' ), q,
+var queueLib = require( '@openagenda/queue' ), q,
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 getAccount,
 

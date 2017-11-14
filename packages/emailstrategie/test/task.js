@@ -82,11 +82,17 @@ describe( 'queued setItem, removeItem and clear', function() {
       should( err ).equal( null );
 
       response[ 1 ].should.eql( JSON.stringify( {
-        name: 'setItem',
-        accountId: 1,
-        listId: list.id,
-        id: 1,
-        data: data
+        data: {
+          name: 'setItem',
+          accountId: 1,
+          listId: list.id,
+          id: 1,
+          data
+        },
+        _params: {
+          delay: false,
+          scheduledAt: false
+        }
       } ) );
 
       cli.quit();
@@ -110,10 +116,16 @@ describe( 'queued setItem, removeItem and clear', function() {
       should( err ).equal( null );
 
       response[ 1 ].should.eql( JSON.stringify( {
-        name: 'removeItem',
-        accountId: 1,
-        listId: list.id,
-        id: 1
+        data: {
+          name: 'removeItem',
+          accountId: 1,
+          listId: list.id,
+          id: 1
+        },
+        _params: {
+          delay: false,
+          scheduledAt: false
+        }
       } ) );
 
       cli.quit();

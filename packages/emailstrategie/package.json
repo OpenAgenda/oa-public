@@ -1,15 +1,22 @@
 {
-  "name" : "emailStrategie",
-  "version" : "0.0.2",
-  "private" : true,
-  "description" : "interface to EmailStrategie emailing service",
-  "dependencies" : {
-    "redis" : "~0.12",
-    "should" : "~4.0",
-    "xml2js" : "0.4.9",
-    "mysql" : "2.6.2",
-    "async" : "1.2.1",
-    "queue" : "git+ssh://git@bitbucket.org:openagenda/queue.git",
-    "utils" : "git+ssh://git@bitbucket.org:openagenda/utils.git"
+  "name": "@openagenda/email-strategie",
+  "version": "0.0.2",
+  "description": "interface to EmailStrategie emailing service",
+  "scripts": {
+    "test": "mocha",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
+  },
+  "dependencies": {
+    "@openagenda/queue": "^1.0.0",
+    "@openagenda/utils": "^1.0.2",
+    "async": "1.2.1",
+    "mysql": "2.6.2",
+    "redis": "~0.12",
+    "should": "~4.0",
+    "xml2js": "0.4.9"
   }
 }
