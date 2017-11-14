@@ -5,7 +5,7 @@ const types = Object.keys( require( './types' ) );
 const _ = require( 'lodash/core' );
 
 const labels = {
-  types: require( 'labels/custom/types' )
+  types: require( '@openagenda/labels/custom/types' )
 }
 
 module.exports = {

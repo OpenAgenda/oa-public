@@ -2,7 +2,7 @@
 
 const svc = require( '../../' ),
 
-  fixtures = require( 'fixtures' ),
+  fixtures = require( '@openagenda/fixtures' ),
 
   _ = require( 'lodash' );
 

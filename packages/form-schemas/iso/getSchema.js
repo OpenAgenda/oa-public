@@ -2,7 +2,7 @@
 
 const types = require( './types' );
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 const _ = {
   keyBy: require( 'lodash/keyBy' ),
@@ -11,14 +11,14 @@ const _ = {
 }
 
 schema.register( {
-  text: require( 'validators/text' ),
-  boolean: require( 'validators/boolean' ),
-  link: require( 'validators/link' ),
-  number: require( 'validators/number' ),
-  date: require( 'validators/date' ),
-  multilingual: require( 'validators/multilingual' ),
-  integer: require( 'validators/number' ), // i need an integer validator
-  choice: require( 'validators/choice' )
+  text: require( '@openagenda/validators/text' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  link: require( '@openagenda/validators/link' ),
+  number: require( '@openagenda/validators/number' ),
+  date: require( '@openagenda/validators/date' ),
+  multilingual: require( '@openagenda/validators/multilingual' ),
+  integer: require( '@openagenda/validators/number' ), // i need an integer validator
+  choice: require( '@openagenda/validators/choice' )
 } );
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {

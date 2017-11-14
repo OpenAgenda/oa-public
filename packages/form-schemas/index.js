@@ -1,6 +1,6 @@
 "use strict";
 
-const storeLib = require( 'mysql-table-store' ),
+const storeLib = require( '@openagenda/mysql-table-store' ),
 
   FormSchema = require( './iso/FormSchema' ),
 
@@ -8,7 +8,7 @@ const storeLib = require( 'mysql-table-store' ),
 
   legacy = require( './legacy' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   knex = require( 'knex' );
 
