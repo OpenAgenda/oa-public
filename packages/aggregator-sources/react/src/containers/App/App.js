@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import makeGetterLabel from 'labels';
-import labels from 'labels/aggregators/sources';
+import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/aggregators/sources';
 
 @connect(
   state => ({

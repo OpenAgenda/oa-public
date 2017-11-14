@@ -1,4 +1,4 @@
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const knexLib = require( 'knex' );
 const mw = require( '../middleware' );
 const aggregatorSources = require( './aggregatorSources' );

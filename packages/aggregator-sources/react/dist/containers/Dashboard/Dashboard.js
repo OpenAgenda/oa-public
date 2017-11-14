@@ -40,15 +40,15 @@ var _lodash3 = require('lodash.throttle');
 
 var _lodash4 = _interopRequireDefault(_lodash3);
 
-var _monitorBottomHit = require('dom-utils/monitorBottomHit');
+var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _Modal = require('react-components/build/Modal');
+var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 

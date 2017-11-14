@@ -1,7 +1,11 @@
 "use strict";
 
 const w = require( 'when' );
-const { parseListArguments, identifiers: { clean: cleanIdentifiers }, promisePlusCb } = require( 'service-utils' );
+const {
+  parseListArguments,
+  promisePlusCb,
+  identifiers: { clean: cleanIdentifiers }
+} = require( '@openagenda/service-utils' );
 
 let config;
 let knex;

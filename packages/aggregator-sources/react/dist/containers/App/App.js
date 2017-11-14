@@ -26,11 +26,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = require('react-redux');
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 
-var _sources = require('labels/aggregators/sources');
+var _sources = require('@openagenda/labels/aggregators/sources');
 
 var _sources2 = _interopRequireDefault(_sources);
 

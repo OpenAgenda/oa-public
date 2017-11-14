@@ -1,20 +1,20 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../../testconfig.js' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 const morgan = require( 'morgan' );
 const async = require( 'async' );
 
-const agendasSvc = require( 'agendas/service/test' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
 const aggregatorSourcesSvc = require( '../../service' );
 const mw = require( '../../middleware' );
 
-const helpers = require( 'test-app/helpers' );
-const app = require( 'test-app' )( {
+const helpers = require( '@openagenda/test-app/helpers' );
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false,
   webpack: true
