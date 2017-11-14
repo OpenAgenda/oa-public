@@ -2,7 +2,7 @@
 
 var React = require( 'react' ),
 
-  getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
 
   PropTypes = require( 'prop-types' ),
 

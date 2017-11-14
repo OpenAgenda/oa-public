@@ -1,6 +1,6 @@
 "use strict";
 
-const schemas = require( 'validators/schema' ),
+const schemas = require( '@openagenda/validators/schema' ),
 
 defaults = {
   page: null,
@@ -9,7 +9,7 @@ defaults = {
 };
 
 schemas.register( {
-  number: require( 'validators/number' )
+  number: require( '@openagenda/validators/number' )
 } );
 
 const schema = schemas( {

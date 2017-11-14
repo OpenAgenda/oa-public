@@ -1,6 +1,6 @@
 "use strict";
 
-var logger = require( 'basic-logger' ), log,
+var logger = require( '@openagenda/basic-logger' ), log,
 
 db = require( './db' ),
 

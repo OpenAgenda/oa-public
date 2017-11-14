@@ -2,7 +2,7 @@
 
 var knexLib = require( 'knex' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 knex,
 

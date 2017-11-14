@@ -1,11 +1,11 @@
 "use strict";
 
-const schemas = require( 'validators/schema' );
+const schemas = require( '@openagenda/validators/schema' );
 
 schemas.register( {
-  text: require( 'validators/text' ),
-  regex: require( 'validators/regex' ),
-  boolean: require( 'validators/boolean' )
+  text: require( '@openagenda/validators/text' ),
+  regex: require( '@openagenda/validators/regex' ),
+  boolean: require( '@openagenda/validators/boolean' )
 } );
 
 module.exports = schemas( {

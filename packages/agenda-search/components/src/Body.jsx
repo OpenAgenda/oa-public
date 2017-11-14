@@ -8,21 +8,21 @@ var React = require( 'react' ),
 
   AgendaItem = require( './AgendaItem' ),
 
-  SearchField = require( 'react-form-components/build/SearchField' ),
+  SearchField = require( '@openagenda/react-form-components/build/SearchField' ),
 
-  Spinner = require( 'react-form-components/build/Spinner' ),
+  Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
 
-  List = require( 'react-components/build/List' ),
+  List = require( '@openagenda/react-components/build/List' ),
 
-  get = require( 'utils/get' ),
+  get = require( '@openagenda/utils/get' ),
 
   actions = require( './actions' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
-  getLabel = require( 'labels' )( require( 'labels/agenda-search' ) ),
+  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
 
-  documentLocation = require( 'dom-utils/documentLocation' ),
+  documentLocation = require( '@openagenda/dom-utils/documentLocation' ),
 
   monitorField = require( './monitorField' ),
 

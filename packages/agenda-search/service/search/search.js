@@ -6,11 +6,11 @@ const w = require( 'when' ),
 
   elastic = require( 'elasticsearch' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   async = require( 'async' ),
 
-  logger = require( 'basic-logger' );
+  logger = require( '@openagenda/basic-logger' );
 
 let log, esClient;
 

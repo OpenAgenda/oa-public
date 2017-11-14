@@ -2,11 +2,11 @@
 
 const async = require( 'async' ),
 
-app = require( 'test-app' )( {
+app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.js',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/main.css'
+    __dirname + '@openagenda/bs-templates/compiled/main.css'
   ],
   decorateCanvas: false
 } ),
@@ -15,11 +15,11 @@ config = require( '../../testconfig.js' ),
 
 service = require( '../../service' ),
 
-agendaService = require( 'agendas/service/test' ),
+agendaService = require( '@openagenda/agendas/service/test' ),
 
 mw = service.mw,
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 async.waterfall( [
 

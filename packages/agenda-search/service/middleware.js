@@ -1,8 +1,8 @@
 "use strict";
 
-let logger = require( 'basic-logger' ), log,
+let logger = require( '@openagenda/basic-logger' ), log,
 
-getLabel = require( 'labels' )( require( 'labels/agenda-search/index' ) ),
+getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search/index' ) ),
 
 validators = require( '../validators' ),
 
@@ -10,7 +10,7 @@ service, config,
 
 url = require( './url' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
 React = require( 'react' ),
 
