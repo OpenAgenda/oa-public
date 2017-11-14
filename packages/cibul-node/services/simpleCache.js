@@ -1,6 +1,6 @@
 "use strict";
 
-const simpleCache = require( 'simple-cache' );
+const simpleCache = require( '@openagenda/simple-cache' );
 
 module.exports.init = config => {
 

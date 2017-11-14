@@ -1,8 +1,8 @@
 "use strict";
 
-const cacheMiddleware = require( 'simple-cache/middleware' ),
+const cacheMiddleware = require( '@openagenda/simple-cache/middleware' ),
 
-  sCache = require( 'simple-cache' ),
+  sCache = require( '@openagenda/simple-cache' ),
 
   _ = require( 'lodash' );
 

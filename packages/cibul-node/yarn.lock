@@ -621,6 +621,14 @@
     verror "^1.10.0"
     when "^3.7.7"
 
+"@openagenda/simple-cache@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/simple-cache/-/simple-cache-1.1.0.tgz#f59304f22c2a2d3e75255a7a27f5ef368f448ef7"
+  dependencies:
+    lodash "^4.17.4"
+    redis "^2.7.1"
+    verror "^1.10.0"
+
 "@openagenda/slugs@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@openagenda/slugs/-/slugs-1.1.0.tgz#79c1fcf9586924e575ccae8e74ad0711340aa38c"
@@ -9621,14 +9629,6 @@ signal-exit@^3.0.0:
 simple-backoff@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/simple-backoff/-/simple-backoff-1.0.0.tgz#a4fa290ec01969c07ca136fe8bbfb40e0ef35ac2"
-
-"simple-cache@bitbucket:openagenda/simple-cache":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/simple-cache.git#916ed2a8c910ce6f155de396935da9b4045925c0"
-  dependencies:
-    lodash "^4.17.4"
-    redis "^2.7.1"
-    verror "^1.10.0"
 
 slash@^1.0.0:
   version "1.0.0"

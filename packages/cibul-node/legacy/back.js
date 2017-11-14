@@ -16,7 +16,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   userSvc = require( '../services/user' ),
 
-  sCache = require( 'simple-cache' ),
+  sCache = require( '@openagenda/simple-cache' ),
 
   VError = require( 'verror' ),
 
