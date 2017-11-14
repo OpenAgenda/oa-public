@@ -1,0 +1,62 @@
+{
+  "name": "@openagenda/inboxes",
+  "version": "1.0.0",
+  "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/inboxes.git"
+  },
+  "scripts": {
+    "build": "babel src -d lib -s",
+    "test": "jest --coverage",
+    "test:watch": "npm test -- --watch",
+    "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A lib",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/inboxes#readme",
+  "dependencies": {
+    "@openagenda/logs": "^1.0.4",
+    "@openagenda/service-utils": "^2.0.0",
+    "ajv": "^5.2.2",
+    "ajv-errors": "^1.0.0",
+    "ajv-keywords": "^2.1.0",
+    "babel-runtime": "^6.26.0",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "mysql": "^2.14.1",
+    "redis": "^2.8.0",
+    "verror": "^1.10.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-async-to-bluebird": "^1.1.1",
+    "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-jest-diff": "^1.0.1",
+    "fixtures": "bitbucket:openagenda/fixtures",
+    "jest": "^21.1.0",
+    "mocha": "^3.5.3",
+    "reload": "^2.2.2",
+    "sinon": "^4.0.1"
+  }
+}

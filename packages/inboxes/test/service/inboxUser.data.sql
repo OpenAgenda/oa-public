@@ -1,0 +1,7 @@
+INSERT INTO `${schema}` (`id`, `inbox_id`, `user_uid`, `left_at`) VALUES
+  (NULL, 1, 23456789, NULL),
+  (NULL, 2, 99999999, NULL),
+  (NULL, 4, 56484348, NULL),
+  (NULL, 4, 89216486, '2017-09-28 18:22:04'),
+  (NULL, 5, 99999999, NULL),
+  (NULL, 6, 86286559, '2017-09-30 15:04:08');
