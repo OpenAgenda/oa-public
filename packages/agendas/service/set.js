@@ -174,20 +174,33 @@ function _create( data, options, cb ) {
 
   .done( v => {
 
-    if ( v.success && interfaces ) {
+    const response = {
+      agenda: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
+      valid: !v.errors.length,
+      success: v.success,
+      errors: v.errors
+    };
+
+    if ( v.success && interfaces && interfaces.onCreate && _hasCallback( interfaces.onCreate ) ) {
+
+      return interfaces.onCreate( v.created, () => cb( null, response ) );
+
+    } else if ( v.success && interfaces && interfaces.onCreate ) {
 
       interfaces.onCreate( v.created );
 
     }
 
-    cb( null, {
-      agenda: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
-      valid: !v.errors.length,
-      success: v.success,
-      errors: v.errors
-    } );
+    cb( null, response );
 
   }, cb );
+
+}
+
+
+function _hasCallback( fn ) {
+
+  return fn.length === 2;
 
 }
 

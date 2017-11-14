@@ -1,12 +1,9 @@
 "use strict";
 
-const images = require( '@openagenda/images' ),
-
-files = require( '@openagenda/files' ),
-
-w = require( 'when' ),
-
-imageFiles = require( '@openagenda/image-files' );
+const files = require( '@openagenda/files' );
+const images = require( '@openagenda/images' );
+const imageFiles = require( '@openagenda/image-files' );
+const w = require( 'when' );
 
 module.exports = {
   setImage,

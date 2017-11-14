@@ -45,7 +45,8 @@ function list( q, off, l, op, c ) {
     detailed: false,
     internal: null, // this should be false by default but was not existing until now
     includeImagePath: false,
-    useDefaultImage: false
+    useDefaultImage: false,
+    includeFields: [] // include fields in list results explicitely
   }, options );
 
   // options that were in query are to be DEPRECATED
@@ -193,6 +194,12 @@ function _list( v ) {
   let listFields = map.filter( field => {
 
     if ( typeof field === 'string' ) {
+
+      return true;
+
+    }
+
+    if ( v.options.includeFields.includes( field.obj ) ) {
 
       return true;
 

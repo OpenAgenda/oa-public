@@ -15,7 +15,7 @@ function checkIdentifiers( v ) {
 
   if ( !Object.keys( v.identifiers ).length ) {
 
-    throw 'No known identifiers specified for get';
+    throw new Error( 'No known identifiers specified for get: ' + JSON.stringify( v.identifiers ) );
 
   }
 
