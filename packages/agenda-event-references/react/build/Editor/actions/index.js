@@ -12,7 +12,7 @@ var _events = require('./events');
 
 var _events2 = _interopRequireDefault(_events);
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 

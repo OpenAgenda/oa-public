@@ -14,11 +14,11 @@ var _actions = require('../actions');
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _references = require('labels/event/references');
+var _references = require('@openagenda/labels/event/references');
 
 var _references2 = _interopRequireDefault(_references);
 
-var _labels = require('labels');
+var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
 

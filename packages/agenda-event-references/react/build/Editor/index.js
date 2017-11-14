@@ -18,7 +18,7 @@ var _containers = require('./containers');
 
 var _containers2 = _interopRequireDefault(_containers);
 
-var _utils = require('utils');
+var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 

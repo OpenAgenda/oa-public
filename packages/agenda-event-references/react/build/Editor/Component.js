@@ -20,11 +20,11 @@ var _EventItem = require('../components/EventItem');
 
 var _EventItem2 = _interopRequireDefault(_EventItem);
 
-var _Spinner = require('react-form-components/build/Spinner');
+var _Spinner = require('@openagenda/react-form-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
-var _SearchField = require('react-form-components/build/SearchField');
+var _SearchField = require('@openagenda/react-form-components/build/SearchField');
 
 var _SearchField2 = _interopRequireDefault(_SearchField);
 
