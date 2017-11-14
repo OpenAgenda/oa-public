@@ -11,7 +11,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   agendas = require( 'agendas' ),
 
-  mw = require( 'agenda-locations' ).mw(),
+  mw = require( '@openagenda/agenda-locations' ).mw(),
 
   sessions = require( '@openagenda/sessions' ),
 

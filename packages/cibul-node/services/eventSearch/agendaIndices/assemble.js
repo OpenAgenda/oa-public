@@ -19,7 +19,7 @@ const ih = require( 'immutability-helper' );
 const eventSvc = require( 'events-service' );
 const formSchemas = require( 'form-schemas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
-const agendaStakeholders = require( 'agenda-stakeholders' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
 
 let knex;

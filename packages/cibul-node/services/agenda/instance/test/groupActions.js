@@ -12,7 +12,7 @@ eventSvc = require( '../../../event' ),
 
 config = require( '../../../../config' ),
 
-q = require( 'queue' )( config.queues.groupActions, { 
+q = require( '@openagenda/queue' )( config.queues.groupActions, {
   redis: config.redis
 } );
 

@@ -10,7 +10,7 @@ accessibilityLabels = require( '@openagenda/labels/event/accessibility' ),
 
 exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' ),
 
-agendaLocations = require( 'agenda-locations' ),
+agendaLocations = require( '@openagenda/agenda-locations' ),
 
 agendaTags = require( 'agenda-tags' ),
 

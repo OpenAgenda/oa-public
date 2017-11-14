@@ -14,7 +14,7 @@ const config = require( '../../config' ),
 
   isAggregator = require( './lib/isAggregator' ),
 
-  queue = require( 'queue' ),
+  queue = require( '@openagenda/queue' ),
 
   q = queue( config.queues.aggregator, { 
     redis: config.redis,

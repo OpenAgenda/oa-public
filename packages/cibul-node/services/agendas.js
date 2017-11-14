@@ -2,7 +2,7 @@
 
 const config = require( '../config' );
 const agendas = require( 'agendas' );
-const agendaStakeholders = require( 'agenda-stakeholders' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
 const users = require( '@openagenda/users' );
 const model = require( './model' );

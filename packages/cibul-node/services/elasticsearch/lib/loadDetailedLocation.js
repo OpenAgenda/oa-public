@@ -1,7 +1,7 @@
 "use strict";
 
 const utils = require( '@openagenda/utils' );
-const al = require( 'agenda-locations' );
+const al = require( '@openagenda/agenda-locations' );
 
 
 /**

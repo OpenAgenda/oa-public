@@ -6,7 +6,7 @@ config = require( '../../config' ),
 
 async = require( 'async' ),
 
-stakeholders = require( 'agenda-stakeholders' ),
+stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
 logger = require( 'logger' ), log,
 

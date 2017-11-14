@@ -6,7 +6,7 @@ utils = require( '@openagenda/utils' ),
 
 config = require( '../../../config' ),
 
-q = require( 'queue' )( config.queues.groupActions, { redis: config.redis } ),
+q = require( '@openagenda/queue' )( config.queues.groupActions, { redis: config.redis } ),
 
 eventSvc = require( '../../event' );
 

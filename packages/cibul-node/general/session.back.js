@@ -8,9 +8,9 @@ const sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
-  stakeholders = require( 'agenda-stakeholders' ),
+  stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  credentialTypes = require( 'agenda-stakeholders/iso/credentialTypes' ),
+  credentialTypes = require( '@openagenda/agenda-stakeholders/iso/credentialTypes' ),
 
   routes = {
     session: [ 'get', '/', [

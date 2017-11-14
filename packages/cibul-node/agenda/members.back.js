@@ -2,7 +2,6 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const async = require( 'async' );
 const bodyParser = require( 'body-parser' );
 const _ = require( 'lodash' );
 const { middleware: agendasMw } = require( 'agendas' );
@@ -11,7 +10,7 @@ const sessions = require( '@openagenda/sessions' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const stakeholdersMw = require( 'agenda-stakeholders/middleware' );
+const stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 
 

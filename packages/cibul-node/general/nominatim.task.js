@@ -14,7 +14,7 @@ france = require( '../services/nominatim/franceCleaner' ),
 
 nom = require( '../services/nominatim' ),
 
-geocode = require( 'agenda-locations' ).utils.geocode,
+geocode = require( '@openagenda/agenda-locations' ).utils.geocode,
 
 running = false,
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const locations = require( 'agenda-locations' );
+const locations = require( '@openagenda/agenda-locations' );
 
 module.exports = ( uids, options, cb ) => {
 

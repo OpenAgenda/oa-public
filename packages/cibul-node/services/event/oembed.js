@@ -16,7 +16,7 @@ const logger = require( 'logger' ),
 
   validateEmail = require( '@openagenda/validators/email' )(),
 
-  q = require( 'queue' )( config.queues.oembed, { redis: config.redis } );
+  q = require( '@openagenda/queue' )( config.queues.oembed, { redis: config.redis } );
 
 
 let log = console.log;

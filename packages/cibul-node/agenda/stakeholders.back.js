@@ -34,9 +34,9 @@ const utils = require( '@openagenda/utils' ),
 
   userSvc = require( '../services/user' ),
 
-  stakeholders = require( 'agenda-stakeholders' ),
+  stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  stakeholdersMw = require( 'agenda-stakeholders/middleware' ),
+  stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' ),
 
   routes = {
 

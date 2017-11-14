@@ -2,7 +2,7 @@
 
 const invitations = require( 'invitations' );
 
-const agendaStakeholders = require( 'agenda-stakeholders' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 
 module.exports.init = config => {
 

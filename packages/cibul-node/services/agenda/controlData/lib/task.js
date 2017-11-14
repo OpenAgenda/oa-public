@@ -2,7 +2,7 @@
 
 const build = require( './build' ),
 
-queue = require( 'queue' );
+queue = require( '@openagenda/queue' );
 
 let q;
 

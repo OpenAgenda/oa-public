@@ -10,7 +10,7 @@ const agendasSvc = require( 'agendas' ),
 
   genUrl = require( '../../genUrl' ),
   
-  stakeholders = require( 'agenda-stakeholders' ),
+  stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
   makeLabelGetter = require( '@openagenda/labels' ),
 

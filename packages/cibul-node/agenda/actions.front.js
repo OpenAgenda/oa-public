@@ -3,7 +3,7 @@
 const async = require( 'async' );
 const w = require( 'when' );
 const sessions = require( '@openagenda/sessions' );
-const agendaStakeholders = require( 'agenda-stakeholders' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const keysSvc = require( '@openagenda/keys' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
 const _ = require( 'lodash' );

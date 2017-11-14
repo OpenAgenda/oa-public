@@ -4,7 +4,7 @@ const adminAgendas = require( 'admin-agendas' );
 
 const logger = require( 'logger' ),
 
-  agendaStakeholders = require( 'agenda-stakeholders' ),
+  agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
   agendas = require( 'agendas' );
 

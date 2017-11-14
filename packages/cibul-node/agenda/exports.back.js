@@ -8,7 +8,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   eventSvc = require( '../services/event' ),
 
-  locationMw = require( 'agenda-locations' ).mw(),
+  locationMw = require( '@openagenda/agenda-locations' ).mw(),
 
   perPage = 20,
 

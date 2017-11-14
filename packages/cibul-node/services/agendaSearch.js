@@ -4,7 +4,7 @@ const agendaSearch = require( 'agenda-search' ),
 
   agendas = require( 'agendas' ),
 
-  agendaLocations = require( 'agenda-locations' ),
+  agendaLocations = require( '@openagenda/agenda-locations' ),
 
   async = require( 'async' ),
 

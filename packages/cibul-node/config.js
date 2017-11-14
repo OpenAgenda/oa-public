@@ -152,7 +152,12 @@ let config = {
       feed_activity: 'activity_feed_activity',
       feed_follow: 'activity_feed_follow',
       feed_notification: 'activity_feed_notification',
-      key: 'key'
+      key: 'key',
+      inbox: 'inboxes_inbox',
+      inboxUser: 'inboxes_inbox_user',
+      conversation: 'inboxes_conversation',
+      inboxConversation: 'inboxes_inbox_conversation',
+      message: 'inboxes_message'
     },
     auth: {
       local: {
@@ -483,6 +488,9 @@ let config = {
         'agendaContributorsXlsx': {
           method: 'get',
           uri: '/:slug/admin/contributors.xlsx'
+        },
+        'agendaAdminInbox': {
+          method: '/:slug/admin/inbox'
         }
       },
       defaultGlobalsPrefix: ''

@@ -4,7 +4,7 @@ var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-al = require( 'agenda-locations' ),
+al = require( '@openagenda/agenda-locations' ),
 
 routes = {
 

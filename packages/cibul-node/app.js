@@ -25,7 +25,7 @@ module.exports = ( enabledTypes, cb ) => {
       const tfy = require( './lib/taskify' );
       const cmn = require( './lib/commons-app' );
       const config = require( './config' );
-      const errorHandler = require( './services/00_errors' );
+      const errorLogger = require( './services/00_errors' );
 
       const log = logger( 'app' );
 
@@ -155,6 +155,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './event/search.front' )( app, '/events/search' );
         require( './agenda/back' )( app );
+        // require( './inboxes/front' )( app );
+        // require( './inboxes/back' )( app );
 
         webModules.web.forEach( m => m.load( app ) );
 
@@ -179,14 +181,14 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( err, req, res, next ) => {
 
+        cmn.catchError( req, res )( err );
+
         // 404s and co are not to be logged by error handler
         if ( ![ 401, 403, 404, 413 ].includes( _.get( err, 'code', null ) ) ) {
-        
-          errorHandler( 'middleware', err );
+
+          errorLogger( 'middleware', err );
 
         }
-
-        cmn.catchError( req, res )( err );
 
       } );
 
@@ -228,9 +230,9 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/lib/instanceQueue/task' )();
 
-        require( 'agenda-stakeholders' ).tasks.bulk();
+        require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
 
-        require( 'agenda-stakeholders' ).tasks.message();
+        require( '@openagenda/agenda-stakeholders' ).tasks.message();
 
         require( './activities/task' )();
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const agendaLocations = require( 'agenda-locations' );
+const agendaLocations = require( '@openagenda/agenda-locations' );
 
 const internalEventSvc = require( './event' ),
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
+const q = require( '@openagenda/queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
 
 const agendaIndices = require( './agendaIndices' );
 

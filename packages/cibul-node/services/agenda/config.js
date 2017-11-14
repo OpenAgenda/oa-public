@@ -40,7 +40,13 @@ module.exports = {
     call: {
       subject: 'aggregator'
     }
-  }, {
+  }/* , {
+    section : 'manage',
+    key : 'inbox',
+    label : 'Inbox',
+    uri : 'agendaAdminInbox',
+    access: 'moderator'
+  } */, {
     section : 'export',
     key : 'facebook',
     label: 'Facebook',

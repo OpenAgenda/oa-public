@@ -6,7 +6,7 @@ var t = require( './lib/lib' ),
 
 config = require( '../config' ),
 
-q = require( 'queue' )( config.queues.aggregator, { redis: config.redis } ),
+q = require( '@openagenda/queue' )( config.queues.aggregator, { redis: config.redis } ),
 
 w = require( 'when' );
 

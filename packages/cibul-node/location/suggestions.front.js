@@ -8,9 +8,9 @@ const modLib = require( '../lib/moduleLib' ),
 
   agendaSvc = require( '../services/agenda' ),
 
-  locationSvc = require( 'agenda-locations' ),
+  locationSvc = require( '@openagenda/agenda-locations' ),
 
-  stakeholderMw = require( 'agenda-stakeholders/middleware' ),
+  stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' ),
 
   sessions = require( '@openagenda/sessions' );
 

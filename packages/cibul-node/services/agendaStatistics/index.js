@@ -1,7 +1,7 @@
 "use strict";
 
 const db = require( './lib/db' );
-const queue = require( 'queue' );
+const queue = require( '@openagenda/queue' );
 const config = require( '../../config' );
 const search = require( '../eventSearch' );
 const agendaEvents = require( '@openagenda/agenda-events' );

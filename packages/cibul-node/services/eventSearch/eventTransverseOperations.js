@@ -8,7 +8,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaIndices = require( './agendaIndices' );
 const rebuildLimit = process.env.NODE_ENV === 'production' ? 16000 : 2000;
 const log = require( '@openagenda/logs' )( 'services/eventSearch/eventTransverseOperations' );
-const q = require( 'queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
+const q = require( '@openagenda/queue' )( 'eventSearch', { redis: require( '../../config' ).redis } );
 
 module.exports = _.extend( search, {
   batch: {

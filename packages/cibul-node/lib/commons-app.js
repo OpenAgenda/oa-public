@@ -6,7 +6,7 @@
 
 const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
-const agendaStakeholders = require( 'agenda-stakeholders' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const keys = require( '@openagenda/keys' );
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
 const hsts = require( 'hsts' );
@@ -178,7 +178,7 @@ function loadEvent( paramName, fieldName ) {
 
 function addZendeskHelpButton( layoutData ) {
 
-  if( !layoutData.bottom ) layoutData.bottom = {};
+  if ( !layoutData.bottom ) layoutData.bottom = {};
 
   if ( !layoutData.bottom.scripts ) layoutData.bottom.scripts = [];
 
@@ -428,9 +428,19 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   var errorTemplate;
 
-  if ( error.statusCode && !error.code ) {
+  if ( !error.code ) {
 
-    error.code = error.statusCode;
+    if ( error.statusCode ) {
+
+      error.code = error.statusCode;
+
+    }
+
+    if ( res.statusCode !== 200 ) {
+
+      error.code = res.statusCode;
+
+    }
 
   }
 
@@ -643,7 +653,7 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.jsVersion = config.jsVersion;
 
-  templater( templatePath + ( req.xhr ? '.part' : '' ), compiledData, function ( err, result ) {
+  templater( templatePath + (req.xhr ? '.part' : ''), compiledData, function ( err, result ) {
 
     if ( err && req.xhr ) { // xhr request has no corresponding partial
 
@@ -737,7 +747,7 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    req.baseData = deepExtend( req.baseData ? req.baseData : {}, baseData );
+    req.baseData = deepExtend( req.baseData || {}, baseData );
 
     next();
 
@@ -810,7 +820,7 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
 
         if ( k[ '$base64Route' ] ) {
 
-          v = ( new Buffer( v, 'utf-8' ) ).toString( 'base64' );
+          v = (new Buffer( v, 'utf-8' )).toString( 'base64' );
 
         }
 
@@ -852,7 +862,7 @@ function redirectToSignin( req, res, next ) {
 
   return redirectTo( 'signin', {
     redirect: {
-      $raw: ( new Buffer( req.originalUrl, 'utf-8' ) ).toString( 'base64' )
+      $raw: (new Buffer( req.originalUrl, 'utf-8' )).toString( 'base64' )
     }
   } )( req, res, next );
 
@@ -875,10 +885,10 @@ function https( req, res, next ) {
 
   req.log( 'forcing https: redirecting to %s', redirectTo );
 
-  hsts({
+  hsts( {
     maxAge: 15552000,
     includeSubDomains: false
-  })( req, res, () => {
+  } )( req, res, () => {
 
     res.redirect( 301, redirectTo );
 
@@ -976,7 +986,7 @@ function getRedirect( req, paramName ) {
 
   try {
 
-    redirectValue = ( new Buffer( req.query[ paramName ], 'base64' ) ).toString()
+    redirectValue = (new Buffer( req.query[ paramName ], 'base64' )).toString()
 
   } catch ( e ) {
 
@@ -1094,7 +1104,7 @@ function writeToCookie( req, res, key, value ) {
 
 function _saveCookie( req, res, cookieValues ) {
 
-  var encodedCookieValues = ( new Buffer( JSON.stringify( cookieValues ) ) ).toString( 'base64' );
+  var encodedCookieValues = (new Buffer( JSON.stringify( cookieValues ) )).toString( 'base64' );
 
   // do this both in req and res.
   req.cookies[ config.cookie.name ] = encodedCookieValues;
@@ -1118,7 +1128,7 @@ function _decodeCookie( req ) {
     try {
 
       cookieValues = JSON.parse(
-        ( new Buffer( encodedCookie, 'base64' ) ).toString()
+        (new Buffer( encodedCookie, 'base64' )).toString()
       );
 
       return cookieValues;
@@ -1152,46 +1162,24 @@ function _logRequest( req, res, next ) {
 
 function lang( req, res, next ) {
 
-  ( new Promise( ( rs, rj ) => {
+  req.lang = 'fr';
 
-    if ( req.query.lang ) {
-
-      req.lang = _cleanLang( req.query.lang );
-
-      rs();
-
-    } else {
-
-      return sessions.isLogged( req ).then( is => {
-
-        if ( is ) {
-
-          req.lang = sessions.getCulture( req );
-
-        } else {
-
-          req.lang = 'fr';
-
-        }
-
-        rs();
-
-      } )
-
+  sessions.isLogged( req ).then( isLogged => {
+    if ( isLogged ) {
+      req.lang = sessions.getCulture( req );
     }
 
-  } ) ).then( () => {
+    if ( req.query.lang ) {
+      req.lang = _cleanLang( req.query.lang );
+    }
 
-    if ( req.lang !== 'fr' ) {
-
+    if ( (isLogged && req.lang !== sessions.getCulture( req )) || req.query.lang ) {
       req.genUrl.preload( { lang: req.lang } );
-
     }
 
     if ( next ) next();
 
   } );
-
 
 }
 

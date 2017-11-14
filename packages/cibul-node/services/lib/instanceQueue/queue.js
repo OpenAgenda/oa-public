@@ -2,4 +2,4 @@
 
 var config = require( '../../../config' );
 
-module.exports = require( 'queue' )( 'instancequeue', { redis: config.redis } );
+module.exports = require( '@openagenda/queue' )( 'instancequeue', { redis: config.redis } );

@@ -2,7 +2,7 @@
 
 const config = require( '../../../config' ),
 
-  q = require( 'queue' )( config.queues.groupActions, { redis: config.redis } ),
+  q = require( '@openagenda/queue' )( config.queues.groupActions, { redis: config.redis } ),
 
   svc = require( '../' ),
 

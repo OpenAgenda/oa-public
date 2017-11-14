@@ -42,7 +42,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   legacyEvents = require( '../services/events' ).legacy,
 
-  stakeholdersSvc = require( 'agenda-stakeholders' ),
+  stakeholdersSvc = require( '@openagenda/agenda-stakeholders' ),
 
   notificationMail = require( '../services/notification/mail' ),
 
@@ -184,7 +184,7 @@ module.exports = function ( path ) {
 
   apiLog = require( 'logger' )( 'legacyApi' );
 
-  log = require( 'logs' )( 'legacy' );
+  log = require( '@openagenda/logs' )( 'legacy' );
 
   return {
     load: router.load( path ),

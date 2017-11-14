@@ -12,7 +12,7 @@ config = require( '../../../config' ),
 
 log = require( 'logger' )( 'services/agenda/controlData', { lib: 'index' } ),
 
-q = require( 'queue' )( config.queues.controlData + ':queue', { redis: config.redis } ),
+q = require( '@openagenda/queue' )( config.queues.controlData + ':queue', { redis: config.redis } ),
 
 namespace = 'agendaControlData';
 

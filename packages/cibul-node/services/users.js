@@ -2,7 +2,7 @@
 
 const users = require( '@openagenda/users' );
 
-const agendaStakeholders = require( 'agenda-stakeholders' ),
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
   async = require( 'async' ),
 

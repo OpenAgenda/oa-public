@@ -28,7 +28,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   usersSvc = require( '@openagenda/users' ),
 
-  stakeholdersSvc = require( 'agenda-stakeholders' ),
+  stakeholdersSvc = require( '@openagenda/agenda-stakeholders' ),
 
   agendasSvc = require( 'agendas' ),
 
