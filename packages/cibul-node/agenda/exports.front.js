@@ -1,9 +1,9 @@
 "use strict";
 
 const sessions = require( '@openagenda/sessions' );
-const tagSvc = require( 'agenda-tags' );
+const tagSvc = require( '@openagenda/agenda-tags' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
-const categorySvc = require( 'agenda-categories' );
+const categorySvc = require( '@openagenda/agenda-categories' );
 const locationMw = require( '@openagenda/agenda-locations' ).mw();
 const utils = require( '@openagenda/utils' );
 const cbify = require( '@openagenda/utils/cbify' );

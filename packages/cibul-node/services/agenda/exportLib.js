@@ -7,8 +7,8 @@ const utils = require( '@openagenda/utils' );
 const async = require( 'async' );
 const genUrl = require( '../genUrl' );
 const config = require( '../../config' );
-const agendaTags = require( 'agenda-tags' );
-const agendaCategories = require( 'agenda-categories' );
+const agendaTags = require( '@openagenda/agenda-tags' );
+const agendaCategories = require( '@openagenda/agenda-categories' );
 const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 
 let svc;

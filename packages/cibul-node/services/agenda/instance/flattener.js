@@ -12,9 +12,9 @@ exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' ),
 
 agendaLocations = require( '@openagenda/agenda-locations' ),
 
-agendaTags = require( 'agenda-tags' ),
+agendaTags = require( '@openagenda/agenda-tags' ),
 
-agendaCategories = require( 'agenda-categories' ),
+agendaCategories = require( '@openagenda/agenda-categories' ),
 
 async = require( 'async' ),
 

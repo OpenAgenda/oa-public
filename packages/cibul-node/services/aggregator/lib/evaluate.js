@@ -6,9 +6,9 @@ const agendaSvc = require( '../../agenda' ),
 
   aggUtils = require( './aggUtils' ),
 
-  agendaTags = require( 'agenda-tags' ),
+  agendaTags = require( '@openagenda/agenda-tags' ),
 
-  agendaCategories = require( 'agenda-categories' ),
+  agendaCategories = require( '@openagenda/agenda-categories' ),
 
   interfaces = {
     onEventRemove: require( '../interfaces/onEventRemove' )

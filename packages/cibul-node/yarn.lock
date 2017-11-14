@@ -29,6 +29,22 @@
     verror "^1.10.0"
     when "^3.7.8"
 
+"@openagenda/agenda-categories@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-categories/-/agenda-categories-0.1.2.tgz#7d9e3119702c5b9136b2dbac7023e1ac390e8b2d"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/mysql-table-store" "^1.0.0"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.0"
+    immutability-helper "^2.2.0"
+    lodash "^4.17.4"
+    mysql "2.9.0"
+    prop-types "^15.5.8"
+    slug "0.9.1"
+    when "3.7.4"
+
 "@openagenda/agenda-events@^1.1.0":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.1.tgz#8be4fc2e109552c41752bfcf22c04ff49be560ad"
@@ -132,6 +148,24 @@
     superagent "3.3.1"
     verror "^1.9.0"
     when "^3.7.7"
+
+"@openagenda/agenda-tags@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-0.1.2.tgz#0a83256633e66fc0b8e08354a53c571fe3004bc4"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/mysql-table-store" "^1.0.0"
+    async "^1.5.2"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.0"
+    immutability-helper "^2.2.0"
+    knex "^0.10.0"
+    lodash "^4.17.4"
+    mysql "2.9.0"
+    prop-types "^15.5.8"
+    slug "0.9.1"
+    when "3.7.4"
 
 "@openagenda/agendas@^1.0.4":
   version "1.0.4"
@@ -817,9 +851,8 @@ acorn@^5.0.0:
     validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
     when "^3.7.7"
 
-"agenda-categories@bitbucket:openagenda/agenda-categories", "agenda-categories@git+ssh://git@bitbucket.org/openagenda/agenda-categories.git":
+"agenda-categories@git+ssh://git@bitbucket.org/openagenda/agenda-categories.git":
   version "0.0.3"
-  uid "96752129df14d735329f48b0806a02b3572cc3a5"
   resolved "git+ssh://git@bitbucket.org/openagenda/agenda-categories.git#96752129df14d735329f48b0806a02b3572cc3a5"
   dependencies:
     basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
@@ -928,9 +961,8 @@ acorn@^5.0.0:
     superagent "^2.2.0"
     validators "git+ssh://git@bitbucket.org/openagenda/validators.git"
 
-"agenda-tags@bitbucket:openagenda/agenda-tags", "agenda-tags@git+ssh://git@bitbucket.org/openagenda/agenda-tags.git":
+"agenda-tags@git+ssh://git@bitbucket.org/openagenda/agenda-tags.git":
   version "0.0.1"
-  uid "9fe9eb3a953bf2c6c8bdd5c37ecfc788094e6aac"
   resolved "git+ssh://git@bitbucket.org/openagenda/agenda-tags.git#9fe9eb3a953bf2c6c8bdd5c37ecfc788094e6aac"
   dependencies:
     async "^1.5.2"

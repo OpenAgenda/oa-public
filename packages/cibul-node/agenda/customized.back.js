@@ -18,9 +18,9 @@ genUrl = require( '../services/genUrl' ),
 
 bodyParser = require( 'body-parser' ),
 
-tagMw = require( 'agenda-tags' ).mw( 'agenda.id', 'tagSet' ),
+tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' ),
 
-categoryMw = require( 'agenda-categories' ).mw( 'agenda.id', 'categorySet' ),
+categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' ),
 
 routes = {
 
