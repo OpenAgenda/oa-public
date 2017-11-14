@@ -164,7 +164,10 @@ module.exports = createReactClass({
 
     }
 
-    return <label className="control-label">{labels.tip[ this.props.lang ]}</label>
+    return <div>
+      <label className="control-label margin-v-xs">{labels.or[ this.props.lang ]}</label>
+      <label className="control-label margin-top-xs">{labels.tip[ this.props.lang ]}</label>
+    </div>
 
   }
 
