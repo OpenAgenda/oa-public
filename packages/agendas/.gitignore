@@ -1,6 +1,6 @@
+.idea/
 node_modules/
 npm-debug.log
+yarn-error.log
 testconfig.js
-.idea/
 test/files/tmp.jpg
-yarn.lock
