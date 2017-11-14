@@ -2,7 +2,7 @@
 
 const knexLib = require( 'knex' );
 
-var logger = require( 'basic-logger' ), log,
+var logger = require( '@openagenda/basic-logger' ), log,
 
   mw = require( './middleware' ),
 

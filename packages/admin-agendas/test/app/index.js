@@ -1,21 +1,21 @@
 "use strict";
 
-const app = require( 'test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/bs-templates/compiled/admin.css'
+    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/admin.css'
   ],
   decorateCanvas: false,
   webpack: true
 } );
 const async = require( 'async' );
-const fixtures = require( 'fixtures' );
+const fixtures = require( '@openagenda/fixtures' );
 const config = require( '../../testconfig.js' );
 const service = require( '../../service' );
 const mw = service.mw;
-const agendasSvc = require( 'agendas/service/test' );
-const agendaStakeholdersSvc = require( 'agenda-stakeholders' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
+const agendaStakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const bodyParser = require( 'body-parser' );
 
 app.use( bodyParser.json() );

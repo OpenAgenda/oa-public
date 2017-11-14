@@ -10,15 +10,15 @@ var React = require( 'react' ),
 
   actions = require( './actions' ),
 
-  get = require( 'utils/get' ),
+  get = require( '@openagenda/utils/get' ),
 
-  post = require( 'utils/post' ),
+  post = require( '@openagenda/utils/post' ),
 
   debounce = require( 'lodash/debounce' ),
 
-  _updateHref = require( 'dom-utils/documentLocation' ).setQueryPart,
+  _updateHref = require( '@openagenda/dom-utils/documentLocation' ).setQueryPart,
 
-  getQuery = require( 'dom-utils/documentLocation' ).getQuery;
+  getQuery = require( '@openagenda/dom-utils/documentLocation' ).getQuery;
 
 const searchSpinner = {
   width: 1,

@@ -35,3 +35,4 @@ module.exports = createReactClass({
   }
 
 });
+//# sourceMappingURL=AgendaItem.js.map

@@ -2,9 +2,9 @@
 
 var React = require('react'),
     ReactDom = require('react-dom'),
-    du = require('dom-utils'),
-    dl = require('dom-utils/documentLocation'),
-    utils = require('utils'),
+    du = require('@openagenda/dom-utils'),
+    dl = require('@openagenda/dom-utils/documentLocation'),
+    utils = require('@openagenda/utils'),
     Body = require('./Body');
 
 module.exports = function (options) {
@@ -24,3 +24,4 @@ module.exports = function (options) {
     stakeholdersRes: params.stakeholdersRes
   }), du.el(params.canvas));
 };
+//# sourceMappingURL=main.js.map

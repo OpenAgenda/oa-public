@@ -1,14 +1,14 @@
 "use strict";
 
-var logger = require( 'basic-logger' ), log,
+var logger = require( '@openagenda/basic-logger' ), log,
 
-  validators = require( 'validators' ),
+  validators = require( '@openagenda/validators' ),
 
   service, config,
 
   agendas,
 
-  utils = require( 'utils' );
+  utils = require( '@openagenda/utils' );
 
 module.exports = {
   init,

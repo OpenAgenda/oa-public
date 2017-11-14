@@ -4,11 +4,11 @@ var React = require( 'react' ),
 
   ReactDom = require( 'react-dom' ),
 
-  du = require( 'dom-utils' ),
+  du = require( '@openagenda/dom-utils' ),
 
-  dl = require( 'dom-utils/documentLocation' ),
+  dl = require( '@openagenda/dom-utils/documentLocation' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   Body = require( './Body' );
 

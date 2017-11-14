@@ -3,7 +3,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import List from 'react-components/build/List';
+import List from '@openagenda/react-components/build/List';
 import Switch from 'rc-switch';
 
 

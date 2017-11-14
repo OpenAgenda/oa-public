@@ -3,9 +3,9 @@
 var React = require('react'),
     PropTypes = require('prop-types'),
     createReactClass = require('create-react-class'),
-    SearchField = require('react-form-components/build/SearchField'),
-    List = require('react-components/build/List'),
-    Spinner = require('react-form-components/build/Spinner'),
+    SearchField = require('@openagenda/react-form-components/build/SearchField'),
+    List = require('@openagenda/react-components/build/List'),
+    Spinner = require('@openagenda/react-form-components/build/Spinner'),
     AgendaItem = require('./AgendaItem');
 
 var searchSpinner = {
@@ -99,3 +99,4 @@ module.exports = createReactClass({
     );
   }
 });
+//# sourceMappingURL=Search.js.map

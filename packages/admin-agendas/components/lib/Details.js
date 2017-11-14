@@ -12,7 +12,7 @@ var _createReactClass = require('create-react-class');
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _List = require('react-components/build/List');
+var _List = require('@openagenda/react-components/build/List');
 
 var _List2 = _interopRequireDefault(_List);
 
@@ -539,3 +539,4 @@ function credentialsToString(type) {
       'Inconnu';
   }
 }
+//# sourceMappingURL=Details.js.map

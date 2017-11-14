@@ -6,11 +6,11 @@ var React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  SearchField = require( 'react-form-components/build/SearchField' ),
+  SearchField = require( '@openagenda/react-form-components/build/SearchField' ),
 
-  List = require( 'react-components/build/List' ),
+  List = require( '@openagenda/react-components/build/List' ),
 
-  Spinner = require( 'react-form-components/build/Spinner' ),
+  Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
 
   AgendaItem = require( './AgendaItem' );
 

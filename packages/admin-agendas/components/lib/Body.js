@@ -48,11 +48,11 @@ var React = require('react'),
     Search = require('./Search'),
     Details = require('./Details'),
     actions = require('./actions'),
-    get = require('utils/get'),
-    post = require('utils/post'),
+    get = require('@openagenda/utils/get'),
+    post = require('@openagenda/utils/post'),
     debounce = require('lodash/debounce'),
-    _updateHref = require('dom-utils/documentLocation').setQueryPart,
-    getQuery = require('dom-utils/documentLocation').getQuery;
+    _updateHref = require('@openagenda/dom-utils/documentLocation').setQueryPart,
+    getQuery = require('@openagenda/dom-utils/documentLocation').getQuery;
 
 var searchSpinner = {
   width: 1,
@@ -324,3 +324,4 @@ function updateHref(query) {
 
   _updateHref(q);
 }
+//# sourceMappingURL=Body.js.map
