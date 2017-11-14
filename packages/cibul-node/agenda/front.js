@@ -19,7 +19,7 @@ const sessions = require( '@openagenda/sessions' ),
   agendaSvc = require( '../services/agenda' ),
 
   // newer dedicated service
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   agendaSearch = require( 'agenda-search' ),
 

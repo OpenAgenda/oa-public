@@ -5,10 +5,10 @@ const app = require( 'express' )();
 const config = require( '../config' );
 const sessions = require( '@openagenda/sessions' );
 const legacyAgendaSvc = require( '../services/agenda' );
-const agendasSvc = require( 'agendas' );
+const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
 
-const agendaLoad = require( 'agendas' ).middleware.load( {
+const agendaLoad = require( '@openagenda/agendas' ).middleware.load( {
   private: null,
   internal: true,
   namespaces: {

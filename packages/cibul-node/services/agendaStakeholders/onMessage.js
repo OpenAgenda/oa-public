@@ -6,7 +6,7 @@ const makeLabelGetter = require( '@openagenda/labels' ),
 
   getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   genUrl = require( '../genUrl' ),
 

@@ -19,7 +19,7 @@ module.exports = ( enabledTypes, cb ) => {
       const _ = require( 'lodash' );
       const http = require( 'http' );
       const express = require( 'express' );
-      const bodyParser = require( 'body-parser' );
+
       const sessions = require( '@openagenda/sessions' );
       const logger = require( 'logger' );
       const tfy = require( './lib/taskify' );
@@ -99,11 +99,6 @@ module.exports = ( enabledTypes, cb ) => {
       app.set( 'trust proxy', 'loopback' );
 
       app.use( sessions.middleware );
-
-      app.use( bodyParser.urlencoded( {
-        extended: true,
-        limit: 500000
-      } ) );
 
       app.use( ( req, res, next ) => {
 
@@ -210,7 +205,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( 'agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
-        tfy( require( 'agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
+        tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, { period: 'daily', time: '05:00' } );
 

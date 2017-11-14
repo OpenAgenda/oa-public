@@ -345,7 +345,14 @@ function _addCustomFields( v ) {
 
         v.decorated.customValues[ c.name ] = config.aws.imageBucketPath + c.value;
 
-      } else if ( c.fieldType !== 'image' ) {
+      } else if ( c.fieldType == 'file' && c.value ) {
+
+        v.decorated.customValues[ c.name ] = {
+          name: c.value.name,
+          uploaded: config.aws.imageBucketPath + c.value.uploaded
+        }
+
+      } else if ( ![ 'image', 'file' ].includes( c.fieldType ) ) {
 
         v.decorated.customValues[ c.name ] = c.value;
 

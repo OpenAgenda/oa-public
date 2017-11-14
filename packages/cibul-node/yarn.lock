@@ -80,6 +80,16 @@
     when "3.7.4"
     xhr "^2.2.0"
 
+"@openagenda/agenda-monitor@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-monitor/-/agenda-monitor-1.1.0.tgz#89aa25202a25b0454bbcb992d0c2758e6e4f1b0f"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/validators" "^2.0.1"
+    redis "^2.7.1"
+    verror "^1.10.0"
+
 "@openagenda/agenda-stakeholders@^2.0.0":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.2.tgz#7c61c5aa80da76056c75f0df439273ffd69e2a5f"
@@ -98,6 +108,23 @@
     slug "^0.9.1"
     superagent "3.3.1"
     verror "^1.9.0"
+    when "^3.7.7"
+
+"@openagenda/agendas@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/agendas/-/agendas-1.0.4.tgz#48f00f7acf8c6da4483d8cbd76904b80deeb312b"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/image-files" "^1.0.2"
+    "@openagenda/mysql-utils" "^2.0.0"
+    "@openagenda/service-utils" "^2.0.0"
+    "@openagenda/utils" "^1.0.2"
+    "@openagenda/validators" "^2.0.1"
+    async "^1.5.2"
+    knex "^0.10.0"
+    lodash "^4.17.2"
+    mysql "^2.10.2"
+    slug "^0.9.1"
     when "^3.7.7"
 
 "@openagenda/basic-logger@^2.0.0":
@@ -351,6 +378,29 @@
     queue "git+ssh://git@bitbucket.org/openagenda/queue.git"
     redis "~0.12"
     validator "3.40.0"
+
+"@openagenda/member-apps@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.0.1.tgz#816ca1a68c10826c96985d3372632bb3ea651201"
+  dependencies:
+    "@openagenda/agenda-stakeholders" "^2.0.0"
+    "@openagenda/call-to-action" "^2.0.3"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/labels" "^2.0.6"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    "@openagenda/react-utils" "^2.0.2"
+    async "^2.1.4"
+    basic-logger "^0.4.4"
+    body-parser "^1.16.0"
+    classnames "^2.2.5"
+    lodash "^4.17.4"
+    prop-types "^15.5.8"
+    react-bootstrap "^0.31.0"
+    react-router "^3.0.5"
+    react-router-redux "^4.0.8"
+    redux-connect "^5.0.0"
+    redux-form "^6.5.0"
 
 "@openagenda/mysql-table-store@^1.0.0":
   version "1.0.0"
@@ -757,16 +807,6 @@ acorn@^5.0.0:
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
     when "^3.7.7"
 
-"agenda-monitor@bitbucket:openagenda/agenda-monitor":
-  version "1.1.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/agenda-monitor.git#3bdcdde4407f21f1b7ac6cb71fe13bc379cc90ba"
-  dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/queue" "^1.0.0"
-    "@openagenda/validators" "^2.0.1"
-    redis "^2.7.1"
-    verror "^1.10.0"
-
 "agenda-search@bitbucket:openagenda/agenda-search", "agenda-search@git+ssh://git@bitbucket.org/openagenda/agenda-search.git":
   version "0.0.1"
   uid "69ee98af020061ff515706db66a808e776562787"
@@ -850,22 +890,21 @@ acorn@^5.0.0:
     utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
     when "3.7.4"
 
-"agendas@bitbucket:openagenda/agendas", "agendas@git+ssh://git@bitbucket.org/openagenda/agendas.git":
-  version "1.0.4"
-  uid "1ff8c48b191a624dc5a5b022a8ac819e38176ea8"
-  resolved "git+ssh://git@bitbucket.org/openagenda/agendas.git#1ff8c48b191a624dc5a5b022a8ac819e38176ea8"
+"agendas@git+ssh://git@bitbucket.org/openagenda/agendas.git":
+  version "1.0.1"
+  resolved "git+ssh://git@bitbucket.org/openagenda/agendas.git#69fe70518af78aa74f712645b5918da5aa077922"
   dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/image-files" "^1.0.2"
-    "@openagenda/mysql-utils" "^2.0.0"
-    "@openagenda/service-utils" "^2.0.0"
-    "@openagenda/utils" "^1.0.2"
-    "@openagenda/validators" "^2.0.1"
     async "^1.5.2"
+    basic-logger "git+ssh://git@bitbucket.org/openagenda/basic-logger.git"
+    image-files "git+ssh://git@bitbucket.org/openagenda/image-files.git"
     knex "^0.10.0"
     lodash "^4.17.2"
     mysql "^2.10.2"
+    mysql-utils "git+ssh://git@bitbucket.org/openagenda/mysql-utils.git"
+    service-utils "git+ssh://git@bitbucket.org/openagenda/service-utils.git"
     slug "^0.9.1"
+    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
+    validators "git+ssh://git@bitbucket.org/openagenda/validators.git#v1.3.1"
     when "^3.7.7"
 
 agent-base@2:
@@ -5400,6 +5439,15 @@ ieee754@^1.1.4:
   version "1.1.8"
   resolved "https://registry.npmjs.org/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
 
+"image-files@git+ssh://git@bitbucket.org/openagenda/image-files.git":
+  version "1.0.2"
+  resolved "git+ssh://git@bitbucket.org/openagenda/image-files.git#e15386cae557e651e9661917a5b957293de78af4"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/files" "^2.0.6"
+    "@openagenda/images" "^1.0.3"
+    when "^3.7.7"
+
 "image-files@git+ssh://git@bitbucket.org:openagenda/image-files.git":
   version "1.0.2"
   resolved "git+ssh://git@bitbucket.org:openagenda/image-files.git#e15386cae557e651e9661917a5b957293de78af4"
@@ -6644,9 +6692,8 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-"member-apps@bitbucket:openagenda/member-apps", "member-apps@git+ssh://git@bitbucket.org/openagenda/member-apps.git":
+"member-apps@git+ssh://git@bitbucket.org/openagenda/member-apps.git":
   version "1.0.1"
-  uid "532178314d72020b10992b65ad4502ce8c23e69d"
   resolved "git+ssh://git@bitbucket.org/openagenda/member-apps.git#532178314d72020b10992b65ad4502ce8c23e69d"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.0"
@@ -6983,6 +7030,19 @@ ms@2.0.0:
 multer@1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/multer/-/multer-1.0.5.tgz#adf72db4e97586ce858e73e36918cf4db1cfc522"
+  dependencies:
+    append-field "^0.1.0"
+    busboy "^0.2.11"
+    concat-stream "^1.5.0"
+    mkdirp "^0.5.1"
+    object-assign "^3.0.0"
+    on-finished "^2.3.0"
+    type-is "^1.6.4"
+    xtend "^4.0.0"
+
+multer@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.npmjs.org/multer/-/multer-1.3.0.tgz#092b2670f6846fa4914965efc8cf94c20fec6cd2"
   dependencies:
     append-field "^0.1.0"
     busboy "^0.2.11"

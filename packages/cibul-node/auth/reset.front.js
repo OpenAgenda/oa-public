@@ -1,5 +1,10 @@
 "use strict";
 
+const bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} );
+
 const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
@@ -26,7 +31,8 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadBaseData(),
-    sessions.middleware.ifLogged( cmn.redirectTo() )
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    bodyMw
   ] );
 
   return {

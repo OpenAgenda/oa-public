@@ -30,7 +30,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   stakeholdersSvc = require( '@openagenda/agenda-stakeholders' ),
 
-  agendasSvc = require( 'agendas' ),
+  agendasSvc = require( '@openagenda/agendas' ),
 
   routes = {
     adminIndex: [ 'get', '/', index ],

@@ -11,7 +11,7 @@ module.exports = {
     agenda: require( './services/agenda' ),
     embed: require( './services/embed' ),
     nominatim: require( './services/nominatim' ),
-    agendas: require( 'agendas' ),
+    agendas: require( '@openagenda/agendas' ),
     categories: require( 'agenda-categories' ),
     locations: require( '@openagenda/agenda-locations' ),
     agendaSearch: require( 'agenda-search' ),

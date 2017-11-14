@@ -2,7 +2,7 @@
 
 const aggregatorSources = require( 'aggregator-sources' );
 
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 
 module.exports.init = ( config, cb ) => {
 

@@ -13,7 +13,7 @@ const hsts = require( 'hsts' );
 
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 
 const verifyIPMiddleware = [
   agendas.middleware.load( {

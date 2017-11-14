@@ -1,15 +1,16 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
 const agendaSvc = require( '../services/agenda' );
 const eventSvc = require( '../services/event' );
+const config = require( '../config' );
 
+const multer = require( 'multer' );
 
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
-
-config = require( '../config' ),
 
 imageUpload = require( '@openagenda/image-upload/lib/middleware' ),
 
@@ -17,21 +18,25 @@ routes = {
 
   agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload/key/:fileKey', [ 
     sessions.middleware.load(),
-    agendaEventNewCustomUpload
+    _loadFieldType,
+    agendaEventCustomUpload.bind( null, true )
   ] ],
 
   agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove/key/:fileKey', [ 
     sessions.middleware.load(),
+    _loadFieldType,
     agendaEventNewCustomRemove 
   ] ],
 
   agendaEventCustomUpload: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/upload/key/:fileKey', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    agendaEventCustomUpload
+    _loadFieldType,
+    agendaEventCustomUpload.bind( null, false )
   ] ],
 
   agendaEventCustomRemove: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/remove/key/:fileKey', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _loadFieldType,
     agendaEventCustomRemove
   ] ]
 
@@ -56,27 +61,39 @@ module.exports = function( path ) {
 }
 
 
-function agendaEventNewCustomUpload( req, res, next ) {
+function _loadFieldType( req, res, next ) {
 
-  imageUpload( {
-    dest: config.tmpFolderPath,
-    handler: function( path, info, cb ) {
+  const field = _.head( req.agenda.getCustomFieldsConfig().filter( f => f.name === req.params.field ) );
 
-      var newEvent = req.agenda.events.new();
+  if ( !field ) return next();
 
-      newEvent.loadAgendaCustomContext( {
-        uid: req.agenda.uid,
-        customFields: req.agenda.getCustomFieldsConfig()
-      } );
+  req.fieldType = field.fieldType;
 
-      newEvent.setCustomFile( {
-        name: req.params.field,
-        path: path,
-        fileKey: req.params.fileKey
-      }, cb );
+  req.fieldExtension = field.extension;
 
-    }
-  } )( req, res, next );
+  next();
+
+}
+
+
+function agendaEventCustomUpload( isNew, req, res, next ) {
+
+  const event = isNew ? req.agenda.events.new() : req.event;
+
+  event.loadAgendaCustomContext( {
+    uid: req.agenda.uid,
+    customFields: req.agenda.getCustomFieldsConfig()
+  });
+
+  ( req.fieldType === 'image' ? _processImageFile : _processFile )( req, res, next, ( path, cb ) => {
+
+    event.setCustomFile( {
+      name: req.params.field,
+      path: path,
+      fileKey: req.params.fileKey
+    }, cb );
+
+  } );
 
 }
 
@@ -102,29 +119,6 @@ function agendaEventNewCustomRemove( req, res, next ) {
 
 }
 
-function agendaEventCustomUpload( req, res, next ) {
-
-  req.log( 'processing uploaded image' );
-
-  imageUpload( {
-    dest: config.tmpFolderPath,
-    handler: function( path, info, cb ) {
-
-      req.event.loadAgendaCustomContext( {
-        uid: req.agenda.uid,
-        customFields: req.agenda.getCustomFieldsConfig()
-      });
-
-      req.event.setCustomFile( {
-        name: req.params.field,
-        path: path,
-        fileKey: req.params.fileKey
-      }, cb );
-
-    }
-  } )( req, res, next );
-
-}
 
 function agendaEventCustomRemove( req, res, next ) {
 
@@ -146,6 +140,54 @@ function agendaEventCustomRemove( req, res, next ) {
 
 }
 
+function _processImageFile( req, res, next, set ) {
+
+  imageUpload( {
+    dest: config.tmpFolderPath,
+    handler: function( path, info, cb ) {
+
+      set( path, ( err, result ) => {
+
+        cb( err, err ? null : result.path );
+
+      } );
+
+    }
+  } )( req, res, next );
+
+}
+
+
+function _processFile( req, res, next, set ) {
+
+   multer( {
+    dest: config.tmpFolderPath,
+    fileFilter: ( req, file, cb ) => {
+
+      const expectedType = ( {
+        pdf: 'application/pdf'
+      } )[ req.fieldExtension ];
+
+      cb( null, expectedType === file.mimetype );
+
+    }
+  } ).single( 'file' )( req, res, err => {
+
+    if ( err ) return next( err );
+
+    set( req.file.path, ( err, result ) => {
+
+      if ( err ) return next( err );
+
+      res.json( _.extend( result, {
+        name: req.file.originalname
+      } ) );
+
+    } );
+
+  } );
+
+}
 
 
 function _checkField( req, res, next ) {

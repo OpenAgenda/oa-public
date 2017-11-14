@@ -10,7 +10,7 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
   keys = require( '@openagenda/keys' ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   activities = require( '@openagenda/activities' );
 

@@ -10,7 +10,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   agendaSvc = require( '../services/agenda' ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   eventSvc = require( '../services/event' ),
 

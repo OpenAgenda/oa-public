@@ -1,6 +1,6 @@
 "use strict";
 
-const agendaSvc = require( 'agendas' );
+const agendaSvc = require( '@openagenda/agendas' );
 const wn = require( 'when/node' );
 
 module.exports = {

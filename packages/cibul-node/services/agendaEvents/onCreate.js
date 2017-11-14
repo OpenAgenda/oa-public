@@ -2,7 +2,7 @@
 
 const wn = require( 'when/node' );
 const mailer = require( '../mailer' );
-const agendasSvc = require( 'agendas' );
+const agendasSvc = require( '@openagenda/agendas' );
 const oldEventSvc = require( '../event' );
 const eventSearch = require( '../eventSearch' );
 const mailContributor = require( '../event/instance/mailContributor' );

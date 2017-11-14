@@ -1,6 +1,6 @@
 "use strict";
 
-const agendas = require( 'agendas' ),
+const agendas = require( '@openagenda/agendas' ),
 
   users = require( '@openagenda/users' ),
 

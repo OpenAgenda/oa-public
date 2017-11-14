@@ -9,7 +9,7 @@ const modLib = require( '../lib/moduleLib' ),
   // to be deprecated
   agendaSvc = require( '../services/agenda' ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   mw = require( '@openagenda/agenda-locations' ).mw(),
 

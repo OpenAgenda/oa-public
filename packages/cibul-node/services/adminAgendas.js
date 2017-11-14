@@ -6,7 +6,7 @@ const logger = require( 'logger' ),
 
   agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  agendas = require( 'agendas' );
+  agendas = require( '@openagenda/agendas' );
 
 module.exports.init = ( config, cb ) => {
 

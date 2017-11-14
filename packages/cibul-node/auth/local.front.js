@@ -1,5 +1,10 @@
 "use strict";
 
+const bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -139,7 +144,8 @@ module.exports = function ( path ) {
   router.pre( [
     cmn.https,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' )
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+    bodyMw
   ] );
 
   return {

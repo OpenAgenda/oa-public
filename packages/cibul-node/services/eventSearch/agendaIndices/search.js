@@ -1,6 +1,6 @@
 "use strict";
 
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 const ih = require( 'immutability-helper' );
 const schema = require( '@openagenda/validators/schema' );
 const formSchemas = require( 'form-schemas' );

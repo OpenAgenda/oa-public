@@ -12,7 +12,7 @@ const cmn = require( '../lib/commons-app' );
 // to be deprecated
 const agendaSvc = require( '../services/agenda' );
 
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 
 const appMw = [
   agendaSvc.mw.loadAdminLayout,

@@ -4,7 +4,7 @@ const agendaLocations = require( '@openagenda/agenda-locations' );
 
 const internalEventSvc = require( './event' ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   logger = require( 'logger' ),
 

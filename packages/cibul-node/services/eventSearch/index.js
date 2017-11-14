@@ -2,7 +2,7 @@
 
 const eventSearch = require( 'event-search' );
 const agendaIndices = require( './agendaIndices' );
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 const eventTransverseOperations = require( './eventTransverseOperations' );
 const onError = require( '../00_errors' ).bind( null, 'eventSearch' );
 

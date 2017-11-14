@@ -15,7 +15,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
 const cbify = require( '@openagenda/utils/cbify' );
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 
 const routes = {
 

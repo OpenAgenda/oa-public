@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 const assemble = require( './assemble' );
 const formSchemas = require( 'form-schemas' );
 const schema = require( '@openagenda/validators/schema' );

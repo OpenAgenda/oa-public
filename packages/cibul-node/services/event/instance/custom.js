@@ -4,9 +4,10 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const config = require( '../../../config' );
 const imageSvc = require( '@openagenda/images' );
-const log = require( 'logs' )( 'services/event/instance/custom' );
+const log = require( '@openagenda/logs' )( 'services/event/instance/custom' );
 const s3Svc = require( '@openagenda/files' ).s3;
 const w = require( 'when' );
+const fs = require( 'fs' );
 
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
@@ -48,9 +49,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         }
 
-        let src = getFilePathData( agendaUid, customImageEventUid, field.name, 'image' );
+        let src = getFilePathData( agendaUid, customImageEventUid, field.name, 'jpg' );
 
-        let dst = getFilePathData( agendaUid, instance.uid, field.name, 'image' );
+        let dst = getFilePathData( agendaUid, instance.uid, field.name, 'jpg' );
 
         // if the custom image name does not contain the uid of the current event
         // we have a duplicated event, we need to duplicate the image as well.
@@ -104,7 +105,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .done( ( v ) => {
 
-      log( 'image set at %s', v.destUrl );
+      log( 'file removed from %s', v.destUrl );
 
       cb( null, v.destUrl );
 
@@ -128,6 +129,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
     }, options );
 
     w( _.extend( {
+      field: _getField( customFields, params.name ),
       instance: instance,
       agendaUid: agendaUid,
       customFields: customFields,
@@ -145,9 +147,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .then( v => {
 
-      if ( v.type === 'image' ) return _processImage( v );
+      if ( v.field.fieldType === 'image' ) return _processImage( v );
 
-      return v;
+      return _renameFile( v );
 
     } )
 
@@ -155,11 +157,13 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     .done( v => {
 
-      log( 'image set at %s', v.destUrl );
+      log( 'file set at %s', v.destUrl );
 
-      cb( null, v.destUrl );
+      cb( null, {
+        path: v.destUrl
+      } );
 
-    }, ( err ) => {
+    }, err => {
 
       log( 'error', err );
 
@@ -194,6 +198,23 @@ function _remove( v ) {
 }
 
 
+/*function _updateFieldValue( v ) {
+
+  return w.promise( ( rs, rj ) => {
+
+    v.instance.setCustomField( v.name, v.savedName, true, ( err ) => {
+
+      if ( err ) return rj( err );
+
+      rs( v );
+
+    } );
+
+  } );
+
+} */
+
+
 function _clearFieldValue( v ) {
 
   if ( v.instance.isNew() ) {
@@ -221,9 +242,14 @@ function _checkDestExistence( v ) {
 
   log( 'check file existence' );
 
-  return _checkExistence( v, getFilePathData( v.fileKey, v.name, v.type ).url );
+  const field = _getField( v.customFields, v.name );
+
+  if ( !field ) return false;
+
+  return _checkExistence( v, getFilePathData( v.fileKey, v.name, _getFieldExtension( field ) ).url );
 
 }
+
 
 function _checkExistence( v, url ) {
 
@@ -293,11 +319,34 @@ function _processImage( v ) {
 }
 
 
+function _renameFile( v ) {
+
+  return new Promise( ( rs, rj ) => {
+
+    const pathParts = v.path.split( '/' );
+
+    pathParts.pop();
+
+    pathParts.push( v.filename );
+
+    v.processedPath = pathParts.join( '/' );
+
+    fs.rename( v.path, v.processedPath, err => {
+
+      if ( err ) return rj( err );
+
+      rs( v );
+
+    } );
+
+  } );
+
+}
+
+
 function _extractProcessConfig( v ) {
 
-  var field = v.customFields.filter( ( f ) => { return f.name == v.name; } );
-
-  field = field.length ? field[ 0 ] : false;
+  const field = _getField( v.customFields, v.name );
 
   if ( !field ) {
 
@@ -317,10 +366,25 @@ function _extractProcessConfig( v ) {
   
 }
 
+function _getField( customFields, fieldName ) {
+
+  return _.head( customFields.filter( f => f.name === fieldName ) )
+
+}
+
+
+function _getFieldExtension( field ) {
+
+  return field.fieldType === 'image' ? 'jpg' : field.extension
+
+}
+
 
 function _setDestFileName( v ) {
 
-  let i = getFilePathData( v.fileKey, v.name, v.type );
+  const field = _getField( v.customFields, v.name );
+
+  let i = getFilePathData( v.fileKey, v.name, _getFieldExtension( field ) );
 
   v.bucket = i.bucket;
 
@@ -339,12 +403,7 @@ function _setDestFileName( v ) {
 }
 
 
-function getFilePathData( fileKey, fieldName, fileType = 'image' ) {
-
-  const extension = ( {
-    image: 'jpg',
-    pdf: 'pdf'
-  } )[ fileType ];
+function getFilePathData( fileKey, fieldName, extension ) {
 
   const imageName = [ fileKey, 'event', fieldName, extension ].join( '.' );
 

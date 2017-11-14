@@ -4,7 +4,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
-  agendas = require( 'agendas' ),
+  agendas = require( '@openagenda/agendas' ),
 
   cmn = require( '../lib/commons-app' ),
 

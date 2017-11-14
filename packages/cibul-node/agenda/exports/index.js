@@ -1,7 +1,7 @@
 "use strict";
 
 const app = require( 'express' )();
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 const csv = require( 'flat-exports' ).csv();
 const xlsx = require( 'flat-exports' ).xlsx();
 const search = require( '../../services/eventSearch' );

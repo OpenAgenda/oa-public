@@ -1,6 +1,6 @@
 "use strict";
 
-const agendasSvc = require( 'agendas' ),
+const agendasSvc = require( '@openagenda/agendas' ),
   
   wn = require( 'when/node' ),
 

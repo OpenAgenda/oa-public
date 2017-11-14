@@ -1,8 +1,8 @@
 "use strict";
 
-const agendaMonitor = require( 'agenda-monitor' );
+const agendaMonitor = require( '@openagenda/agenda-monitor' );
 
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 
 const es = require( './elasticsearch' );
 

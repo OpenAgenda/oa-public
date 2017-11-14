@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( '../config' );
-const agendas = require( 'agendas' );
+const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
 const users = require( '@openagenda/users' );

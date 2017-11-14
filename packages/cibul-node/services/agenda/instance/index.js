@@ -6,7 +6,7 @@ var model = require( '../../model' ),
 
   w = require( 'when' ),
 
-  extAgendaSvc = require( 'agendas' ),
+  extAgendaSvc = require( '@openagenda/agendas' ),
 
   activitiesSvc = require( '@openagenda/activities' ),
 
