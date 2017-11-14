@@ -3,7 +3,7 @@
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
 const config = require( '../config' );
 const files = require( '@openagenda/files' );
-const landing = require( 'landing' );
+const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
 
 const landingPages = landing( {

@@ -1,6 +1,6 @@
 "use strict";
 
-const emailStrategie = require( 'emailStrategie' ),
+const emailStrategie = require( '@openagenda/email-strategie' ),
 
   logger = require( 'logger' );
 

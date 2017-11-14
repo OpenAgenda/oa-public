@@ -271,6 +271,18 @@
     es6-promise "^4.1.1"
     qs "^6.5.1"
 
+"@openagenda/email-strategie@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/email-strategie/-/email-strategie-0.1.0.tgz#a4638da2ef9f79f4b0523cc24ae63c96ad8ce4c4"
+  dependencies:
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/utils" "^1.0.2"
+    async "1.2.1"
+    mysql "2.6.2"
+    redis "~0.12"
+    should "~4.0"
+    xml2js "0.4.9"
+
 "@openagenda/es-node@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.0.tgz#f157a49eaff94dbc120f6b4493b170b26d0be489"
@@ -438,6 +450,16 @@
 "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
   version "2.0.7"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.7.tgz#534770acfee4151b388563292212f161c75bf414"
+
+"@openagenda/landing@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/landing/-/landing-1.1.0.tgz#4355e8b6745233a865602c3f1eee8092a1ea932d"
+  dependencies:
+    "@openagenda/validators" "^2.0.1"
+    express "^4.14.0"
+    labels "git+ssh://git@bitbucket.org:openagenda/labels.git"
+    marked "^0.3.6"
+    pug "^2.0.0-beta6"
 
 "@openagenda/le_node@^1.7.3":
   version "1.7.3"
@@ -4108,18 +4130,6 @@ email-templates@^2.5.4:
     juice "^4.1.0"
     lodash "^4.0.1"
 
-"emailStrategie@bitbucket:openagenda/emailStrategie":
-  version "0.0.2"
-  resolved "git+ssh://git@bitbucket.org/openagenda/emailStrategie.git#25ef4da568dadeed96bdcd437bb40b91f01ced68"
-  dependencies:
-    async "1.2.1"
-    mysql "2.6.2"
-    queue "git+ssh://git@bitbucket.org:openagenda/queue.git"
-    redis "~0.12"
-    should "~4.0"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-    xml2js "0.4.9"
-
 emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
@@ -6291,16 +6301,6 @@ labeled-stream-splicer@^2.0.0:
   uid b32134f9f2d43cddee07535964cdfba1cd04e0c0
   resolved "git+ssh://git@bitbucket.org:openagenda/labels.git#b32134f9f2d43cddee07535964cdfba1cd04e0c0"
 
-"landing@bitbucket:openagenda/landing":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/landing.git#b9bcd00725139c554bd854f6964f91c027a24c64"
-  dependencies:
-    express "^4.14.0"
-    labels "git+ssh://git@bitbucket.org:openagenda/labels.git"
-    marked "^0.3.6"
-    pug "^2.0.0-beta6"
-    validators "git+ssh://git@bitbucket.org:openagenda/validators.git"
-
 languages@0.1.3:
   version "0.1.3"
   resolved "https://registry.npmjs.org/languages/-/languages-0.1.3.tgz#f19273bb0e946acd2deb10c07c750ee128bdd4b0"
@@ -8274,16 +8274,6 @@ querystring@0.2.0:
 "queue@git+ssh://git@bitbucket.org/openagenda/queue.git":
   version "1.0.0"
   resolved "git+ssh://git@bitbucket.org/openagenda/queue.git#295eeefe129da3ac4afea23939f56ff93540904f"
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    async "^1.5.2"
-    debug "2.2.0"
-    redis "~0.12"
-
-"queue@git+ssh://git@bitbucket.org:openagenda/queue.git":
-  version "1.0.0"
-  uid "295eeefe129da3ac4afea23939f56ff93540904f"
-  resolved "git+ssh://git@bitbucket.org:openagenda/queue.git#295eeefe129da3ac4afea23939f56ff93540904f"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "^1.5.2"
@@ -10567,15 +10557,6 @@ validator@^7.0.0:
   version "2.0.1"
   uid "824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
   resolved "git+ssh://git@bitbucket.org/openagenda/validators.git#824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    lodash "^4.17.2"
-    validator "^7.0.0"
-
-"validators@git+ssh://git@bitbucket.org:openagenda/validators.git":
-  version "2.0.1"
-  uid "824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
-  resolved "git+ssh://git@bitbucket.org:openagenda/validators.git#824a124657ab3ed77f9bec52d7c80035aa8e5bf8"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     lodash "^4.17.2"

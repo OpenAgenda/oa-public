@@ -2,7 +2,7 @@
 
 var log = require( 'logger' )( 'EmailStrategie' ),
 
-emailStrat = require( 'emailStrategie' ),
+emailStrat = require( '@openagenda/email-strategie' ),
 
 eventSvc = require( '../../event' ),
 

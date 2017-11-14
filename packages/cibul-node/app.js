@@ -217,7 +217,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './services/aggregator' ).task();
 
-        require( 'emailStrategie' ).task();
+        require( '@openagenda/email-strategie' ).task();
 
         require( './services/mailer' ).task();
 
