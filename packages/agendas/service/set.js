@@ -13,16 +13,16 @@ _ = require( 'lodash' ),
 
 slug = require( 'slug' ),
 
-defineUnique = require( 'mysql-utils/defineUnique' ),
-verifyUnique = require( 'mysql-utils/verifyUnique' ),
+defineUnique = require( '@openagenda/mysql-utils/defineUnique' ),
+verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' ),
 
-logger = require( 'basic-logger' ),
+logger = require( '@openagenda/basic-logger' ),
 
 map = require( './databaseFieldMap' );
 
 let knex, schemas, mysqlConfig, log, interfaces,
 
-dbParse = require( 'mysql-utils/mapper' )( map ),
+dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
 
 validate = require( './validate' ),
 

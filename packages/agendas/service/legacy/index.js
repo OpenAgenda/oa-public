@@ -6,9 +6,9 @@ column = require( './column' ),
 
 store = require( './store' ),
 
-utils = require( 'utils' ),
+utils = require( '@openagenda/utils' ),
 
-logger = require( 'basic-logger' );
+logger = require( '@openagenda/basic-logger' );
 
 let schemas, knex, log = () => {};
 

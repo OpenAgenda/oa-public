@@ -1,18 +1,18 @@
 "use strict";
 
-let schema = require( 'validators/schema' ),
+let schema = require( '@openagenda/validators/schema' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  boolean: require( 'validators/boolean' ),
-  link: require( 'validators/link' ),
-  integer: require( 'validators/integer' ),
-  date: require( 'validators/date' ),
+  text: require( '@openagenda/validators/text' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  link: require( '@openagenda/validators/link' ),
+  integer: require( '@openagenda/validators/integer' ),
+  date: require( '@openagenda/validators/date' ),
   slug: require( '../slugs/validator' ),
-  choice: require( 'validators/choice' ),
-  ip: require( 'validators/ip' )
+  choice: require( '@openagenda/validators/choice' ),
+  ip: require( '@openagenda/validators/ip' )
 } );
 
 module.exports = schema( utils.extend( {},

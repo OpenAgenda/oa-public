@@ -4,7 +4,7 @@
  * get general stats on an agenda
  */
 
-const utils = require( 'utils' ),
+const utils = require( '@openagenda/utils' ),
 
 w = require( 'when' );
 

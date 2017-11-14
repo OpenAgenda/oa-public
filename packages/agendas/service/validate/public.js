@@ -1,18 +1,18 @@
 "use strict";
 
 // ES5
-var schema = require( 'validators/schema' );
+var schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  text: require( 'validators/text' ),
-  boolean: require( 'validators/boolean' ),
-  link: require( 'validators/link' ),
-  number: require( 'validators/number' ),
-  integer: require( 'validators/integer' ),
-  date: require( 'validators/date' ),
+  text: require( '@openagenda/validators/text' ),
+  boolean: require( '@openagenda/validators/boolean' ),
+  link: require( '@openagenda/validators/link' ),
+  number: require( '@openagenda/validators/number' ),
+  integer: require( '@openagenda/validators/integer' ),
+  date: require( '@openagenda/validators/date' ),
   slug: require( '../slugs/validator' ),
-  choice: require( 'validators/choice' ),
-  ip: require( 'validators/ip' )
+  choice: require( '@openagenda/validators/choice' ),
+  ip: require( '@openagenda/validators/ip' )
 } );
 
 module.exports = schema( require( './publicFields' ) );

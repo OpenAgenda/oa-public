@@ -4,7 +4,7 @@ const svc = require( './' ),
 
 fixtures = require( '../test/fixtures' ),
 
-utils = require( 'utils' );
+utils = require( '@openagenda/utils' );
 
 module.exports = utils.extend( svc, {
   test: {

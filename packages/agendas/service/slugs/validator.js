@@ -1,8 +1,8 @@
 "use strict";
 
-var utils = require( 'utils' ),
+var utils = require( '@openagenda/utils' ),
 
-rgx = require( 'validators/regex' );
+rgx = require( '@openagenda/validators/regex' );
 
 module.exports = function( config ) {
   

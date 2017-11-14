@@ -2,6 +2,10 @@
 
 const knexLib = require( 'knex' ),
 
+  logger = require( '@openagenda/basic-logger' ),
+
+  imageFiles = require( '@openagenda/image-files' ),
+
   legacy = require( './legacy' ),
 
   list = require( './list' ),
@@ -14,13 +18,9 @@ const knexLib = require( 'knex' ),
 
   remove = require( './remove' ),
 
-  logger = require( 'basic-logger' ),
-
   validate = require( './validate' ),
 
   Agenda = require( './Agenda' ),
-
-  imageFiles = require( 'image-files' ),
 
   slugs = require( './slugs' ),
 

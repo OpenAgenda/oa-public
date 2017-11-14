@@ -6,7 +6,7 @@ const _ = require( 'lodash' ),
 
  map = require( './databaseFieldMap' ),
 
- dbParse = require( 'mysql-utils/mapper' )( map ),
+ dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
 
  guard = require( 'when/guard' ),
 
@@ -14,7 +14,7 @@ const _ = require( 'lodash' ),
 
  details = require( './details' ),
 
- parseListArguments = require( 'service-utils/parseListArguments' ),
+ parseListArguments = require( '@openagenda/service-utils/parseListArguments' ),
 
  validateQuery = require( './validate/listQuery' );
 

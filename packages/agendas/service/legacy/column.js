@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 
 let knex, schemas, log = () => {};
 

@@ -4,7 +4,7 @@ const image = require( './image' ),
 
   _ = require( 'lodash' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   getRoles = require( './getRoles' ),
 

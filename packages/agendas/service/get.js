@@ -4,13 +4,13 @@ const w = require( 'when' ),
 
   _ = require( 'lodash' ),
 
-  utils = require( 'utils' ),
+  utils = require( '@openagenda/utils' ),
 
   details = require( './details' ),
 
   map = require( './databaseFieldMap' ),
 
-  dbParse = require( 'mysql-utils/mapper' )( map ),
+  dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
 
   validate = require( './validate' ),
 
