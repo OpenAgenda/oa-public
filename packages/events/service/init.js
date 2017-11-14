@@ -1,7 +1,7 @@
 "use strict";
 
 const knex = require( 'knex' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const _ = require( 'lodash' );
 
 module.exports = endpoints => {

@@ -8,7 +8,7 @@ schema.register( {
   link: require( '@openagenda/validators/link' ),
   number: require( '@openagenda/validators/number' ),
   date: require( '@openagenda/validators/date' ),
-  slug: require( 'slugs/lib/iso/validator' ),
+  slug: require( '@openagenda/slugs/lib/iso/validator' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
   list: require( '@openagenda/validators/list' ),
   phone: require( '@openagenda/validators/phone' ),

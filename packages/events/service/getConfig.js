@@ -1,7 +1,5 @@
 "use strict";
 
-const utils = require( 'utils' );
-
 let config;
 
 module.exports = () => config;

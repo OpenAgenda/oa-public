@@ -1,18 +1,16 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const w = require( 'when' );
 
 const wn = require( 'when/node' );
 
 const knexLib = require( 'knex' );
 
-const utils = require( 'utils' );
-
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 
 const eventUtils = require( '../utils' );
-
-const _ = require( 'lodash' );
 
 const validate = require( './validate' );
 
@@ -614,7 +612,7 @@ function _getEvent( v ) {
 
     [ 'id', 'uid', 'slug', 'created_at', 'updated_at' ].forEach( field => {
 
-      v.data[ utils.toCamelCase( field ) ] = v.entries.event[ field ];
+      v.data[ _.camelCase( field ) ] = v.entries.event[ field ];
 
     } );
 

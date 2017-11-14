@@ -1,10 +1,8 @@
 "use strict";
 
-const w = require( 'when' );
-
+const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-
-const utils = require( 'utils' );
+const w = require( 'when' );
 
 module.exports = Object.assign( stats, { init } );
 
@@ -34,7 +32,7 @@ function _getTotal( k, schema, target ) {
 
   .then( rows => {
 
-    utils.deep.set( v, target, rows[ 0 ].total );
+    v = _.set( v, target, rows[ 0 ].total );
 
     return v;
 

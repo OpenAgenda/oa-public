@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 
 const w = require( 'when' );
 

@@ -10,7 +10,7 @@ const _ = require( 'lodash' ),
 
   draft = require( './lib/draft.w' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   unique = require( './lib/unique.w' ),
 

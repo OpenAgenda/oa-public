@@ -3,7 +3,7 @@
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const map = require( './databaseFieldMap' );
 const svcUtils = require( '@openagenda/service-utils' );
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );

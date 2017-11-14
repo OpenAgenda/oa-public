@@ -5,13 +5,13 @@ const w = require( 'when' ),
 
   _ = require( 'lodash' ),
 
-  slugs = require( 'slugs' ),
+  slugs = require( '@openagenda/slugs' ),
 
   get = require( './lib/get.w' ),
 
   now = require( './lib/now.w' ),
 
-  logger = require( 'basic-logger' ),
+  logger = require( '@openagenda/basic-logger' ),
 
   draft = require( './lib/draft.w' ),
 

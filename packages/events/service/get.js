@@ -2,9 +2,8 @@
 
 const w = require( 'when' );
 const _ = require( 'lodash' );
-const utils = require( 'utils' );
 const validate = require( './validate' );
-const logger = require( 'basic-logger' );
+const logger = require( '@openagenda/basic-logger' );
 const sUtils = require( '@openagenda/service-utils' );
 const getConfig = require( './getConfig' );
 const map = require( './databaseFieldMap' );
@@ -14,7 +13,7 @@ const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 const decorateImage = require( './lib/decorateImage' );
 const cleanGetOptions = require( './validate/getOptions' );
 
-module.exports = utils.extend( get, { init } );
+module.exports = _.extend( get, { init } );
 
 let knex, schemas, service, log, config;
 
@@ -31,7 +30,7 @@ function get( i, o, c ) {
   } catch( e ) {};
 
 
-  const p = w( utils.extend( {
+  const p = w( _.extend( {
     identifiers,
     internal: false,
     includeImagePath: false,
@@ -140,7 +139,7 @@ function _transform( v ) {
 
 function _applyDefaults( data ) {
 
-  let defaulted = utils.extend( {}, validate.default );
+  let defaulted = _.extend( {}, validate.default );
 
   Object.keys( data ).forEach( k => {
 
