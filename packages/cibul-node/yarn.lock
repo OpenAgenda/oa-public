@@ -354,6 +354,12 @@
     mime "^1.4.1"
     uuid "^3.1.0"
 
+"@openagenda/flattener@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/flattener/-/flattener-1.1.0.tgz#3efc535c10b6bb7b422cb67ff1544ab4862c0df3"
+  dependencies:
+    lodash "^4.17.4"
+
 "@openagenda/form-schemas@^1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.0.tgz#8f23d502c2cd76830df4bcd9221c28c3b7ec2a9a"

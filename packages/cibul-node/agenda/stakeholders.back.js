@@ -6,7 +6,7 @@ const utils = require( '@openagenda/utils' ),
 
   streamUtils = require( '@openagenda/stream-utils' ),
 
-  flattener = require( 'flattener' ),
+  flattener = require( '@openagenda/flattener' ),
 
   validator = require( 'validator' ),
 
