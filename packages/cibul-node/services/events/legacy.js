@@ -1,6 +1,6 @@
 "use strict";
 
-const events = require( 'events-service' );
+const events = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/legacy' );
 
 module.exports = {

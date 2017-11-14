@@ -3,7 +3,7 @@
 const homeMw = require( '@openagenda/home/middleware' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const eventsSvc = require( 'events-service' );
+const eventsSvc = require( '@openagenda/events' );
 
 
 module.exports.init = ( config, cb ) => {

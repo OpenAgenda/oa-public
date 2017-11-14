@@ -237,7 +237,7 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( '@openagenda/activities' ).tasks.notifications.addActivity();
 
-        //require( 'events-service' ).tasks.slowTransfer( { force: true, interval: 500 } );
+        //require( '@openagenda/events' ).tasks.slowTransfer( { force: true, interval: 500 } );
 
         /*require( 'agenda-events').tasks.transferUserUids().then( report => {
 

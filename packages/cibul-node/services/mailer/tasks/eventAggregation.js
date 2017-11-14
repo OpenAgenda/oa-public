@@ -18,7 +18,7 @@ const agendasSvc = require( '@openagenda/agendas' ),
 
   getAggregationLabel = makeLabelGetter( require( '@openagenda/labels/aggregators/mail' ) ),
 
-  eventSvc = require( 'events-service' ),
+  eventSvc = require( '@openagenda/events' ),
 
   usersSvc = require( '@openagenda/users' ),
 

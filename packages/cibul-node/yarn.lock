@@ -266,6 +266,25 @@
     verror "^1.9.0"
     when "^3.7.8"
 
+"@openagenda/events@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.0.tgz#11034cb52e85e00324a1fcda3b866651f3283e99"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/mysql-utils" "^2.0.0"
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/service-utils" "^2.0.0"
+    "@openagenda/slugs" "^1.1.0"
+    "@openagenda/validators" "^2.0.1"
+    async "^2.1.2"
+    knex "^0.12.5"
+    lodash "^4.16.6"
+    marked "^0.3.6"
+    moment-timezone "^0.5.7"
+    mysql "^2.11.1"
+    verror "^1.10.0"
+    when "^3.7.7"
+
 "@openagenda/files@^2.0.0", "@openagenda/files@^2.0.5", "@openagenda/files@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@openagenda/files/-/files-2.0.6.tgz#f3397a5423234427849fe174b5a3f5d5498122f2"
@@ -567,6 +586,15 @@
     redis "^2.6.3"
     verror "^1.10.0"
     when "^3.7.7"
+
+"@openagenda/slugs@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/slugs/-/slugs-1.1.0.tgz#79c1fcf9586924e575ccae8e74ad0711340aa38c"
+  dependencies:
+    "@openagenda/validators" "^2.0.1"
+    knex "^0.12.5"
+    lodash "^4.17.4"
+    slug "^0.9.1"
 
 "@openagenda/spinner@^2.0.1":
   version "2.0.1"
@@ -2805,10 +2833,112 @@ chokidar@^1.6.1, chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-"cibulTemplates@bitbucket:openagenda/cibul-templates", "cibulTemplates@git+ssh://git@bitbucket.org/openagenda/cibul-templates.git":
+"cibulTemplates@bitbucket:openagenda/cibul-templates":
   version "0.0.3"
   uid bcabd6bf04665bcb3af03dd64c2fd74b62ff1e11
   resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#bcabd6bf04665bcb3af03dd64c2fd74b62ff1e11"
+  dependencies:
+    "@openagenda/agenda-locations" "^1.0.5"
+    "@openagenda/bs-templates" "^2.0.3"
+    "@openagenda/call-to-action" "^2.0.2"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/home" "^2.0.5"
+    "@openagenda/image-upload" "^1.0.5"
+    "@openagenda/labels" "^2.0.5"
+    "@openagenda/react-form-components" "^2.0.7"
+    "@openagenda/registration" "^1.1.1"
+    "@openagenda/sync-button" "^0.0.7"
+    "@openagenda/users" "^2.0.1"
+    "@openagenda/utils" "^1.0.2"
+    activity-apps "git+ssh://git@bitbucket.org/openagenda/activity-apps.git"
+    admin-agendas "git+ssh://git@bitbucket.org/openagenda/admin-agendas.git"
+    agenda-categories "git+ssh://git@bitbucket.org/openagenda/agenda-categories.git"
+    agenda-event-references "git+ssh://git@bitbucket.org/openagenda/agenda-event-references.git"
+    agenda-search "git+ssh://git@bitbucket.org/openagenda/agenda-search.git"
+    agenda-settings "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git"
+    agenda-tags "git+ssh://git@bitbucket.org/openagenda/agenda-tags.git"
+    aggregator-sources "git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git"
+    async "0.9.0"
+    babel-core "^6.9.0"
+    babel-loader "^6.2.4"
+    babel-plugin-add-module-exports "^0.2.1"
+    babel-plugin-lodash "^3.2.11"
+    babel-plugin-react-transform "^2.0.2"
+    babel-plugin-transform-class-properties "^6.16.0"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-export-extensions "^6.8.0"
+    babel-plugin-transform-function-bind "^6.8.0"
+    babel-plugin-transform-object-rest-spread "^6.16.0"
+    babel-plugin-transform-react-display-name "^6.8.0"
+    babel-plugin-transform-runtime "^6.9.0"
+    babel-polyfill "^6.26.0"
+    babel-preset-env "^1.6.1"
+    babel-preset-react "^6.5.0"
+    babel-preset-stage-0 "^6.5.0"
+    babel-runtime "^6.9.2"
+    babelify "^7.3.0"
+    better-npm-run "0.0.8"
+    browserify "6.3.3"
+    bs-templates "git+ssh://git@bitbucket.org/openagenda/bs-templates.git"
+    create-react-class "^15.5.2"
+    d3 "3.5.6"
+    debug "2.1.0"
+    deep-extend "0.2.11"
+    ejs "2.4.2"
+    ejs-compiled-loader "^2.2.0"
+    express "4.9.5"
+    form-serialize "0.3.0"
+    imagesloaded "^4.1"
+    immutability-helper "^2.2.0"
+    iscroll "^5.2.0"
+    labels "git+ssh://git@bitbucket.org/openagenda/labels.git"
+    languages "0.1.3"
+    le_js "github:rapid7/le_js"
+    leaflet "0.7.3"
+    leaflet.markercluster "git://github.com/kaore/Leaflet.markercluster.git"
+    lodash "^4.17.4"
+    marked "0.3.5"
+    masonry-layout "4.1.0"
+    member-apps "git+ssh://git@bitbucket.org/openagenda/member-apps.git"
+    moment "2.9.0"
+    moment-timezone "^0.5.3"
+    node-sass "^4.5.2"
+    outdated-browser-rework "^1.0.2"
+    prop-types "^15.5.8"
+    qs "2.3.3"
+    raven-js "^3.9.1"
+    raw-loader "^0.5.1"
+    rc-switch "^1.4.3"
+    react "^16.0.0"
+    react-components "git+ssh://git@bitbucket.org/openagenda/react-components.git"
+    react-copy-to-clipboard "^4.2.3"
+    react-dom "^16.0.0"
+    react-dropzone "^4.2.1"
+    react-select "^1.0.0-rc.4"
+    react-table "^5.0.2"
+    react-tagsinput "^3.7.0"
+    react-timings-picker "git://github.com/Oagenda/react-timings-picker.git"
+    react-transform-catch-errors "^1.0.2"
+    reactify "1.1.1"
+    redbox-react "^1.5.0"
+    sessions "git+ssh://git@bitbucket.org/openagenda/sessions.git"
+    source-map-loader "^0.2.1"
+    spin.js "2.3.2"
+    spinner "git+ssh://git@bitbucket.org/openagenda/spinner.git"
+    st "0.5.2"
+    store "1.3.17"
+    stringify "3.0.0"
+    superagent "^3.8.1"
+    translators "git+ssh://git@bitbucket.org/openagenda/translators.git"
+    tumblr-parser "git+ssh://git@bitbucket.org/openagenda/tumblr-parser.git"
+    uglify-js "2.4.24"
+    webpack "^3.5.5"
+    when "~3.4"
+    xhr "^2.2.0"
+
+"cibulTemplates@git+ssh://git@bitbucket.org:openagenda/cibul-templates.git":
+  version "0.0.3"
+  resolved "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git#bcabd6bf04665bcb3af03dd64c2fd74b62ff1e11"
   dependencies:
     "@openagenda/agenda-locations" "^1.0.5"
     "@openagenda/bs-templates" "^2.0.3"
@@ -4144,26 +4274,6 @@ event-emitter@~0.3.4, event-emitter@~0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-"events-service@bitbucket:openagenda/events-service":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/events-service.git#93c78715c9ed67841ac5cd81e916edac6fdef95d"
-  dependencies:
-    "@openagenda/mysql-utils" "^2.0.0"
-    "@openagenda/queue" "^1.0.0"
-    "@openagenda/service-utils" "^2.0.0"
-    "@openagenda/validators" "^2.0.1"
-    async "^2.1.2"
-    basic-logger "git+ssh://git@bitbucket.org:openagenda/basic-logger.git"
-    image-files "git+ssh://git@bitbucket.org:openagenda/image-files.git"
-    knex "^0.12.5"
-    lodash "^4.16.6"
-    marked "^0.3.6"
-    moment-timezone "^0.5.7"
-    mysql "^2.11.1"
-    slugs "git+ssh://git@bitbucket.org:openagenda/slugs.git"
-    verror "^1.10.0"
-    when "^3.7.7"
-
 events@^1.0.0, events@^1.1.1, events@~1.1.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -5336,15 +5446,6 @@ iconv-lite@0.4.4:
 ieee754@^1.1.4:
   version "1.1.8"
   resolved "https://registry.npmjs.org/ieee754/-/ieee754-1.1.8.tgz#be33d40ac10ef1926701f6f08a2d86fbfd1ad3e4"
-
-"image-files@git+ssh://git@bitbucket.org:openagenda/image-files.git":
-  version "1.0.2"
-  resolved "git+ssh://git@bitbucket.org:openagenda/image-files.git#e15386cae557e651e9661917a5b957293de78af4"
-  dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/files" "^2.0.6"
-    "@openagenda/images" "^1.0.3"
-    when "^3.7.7"
 
 image-size@^0.3.5:
   version "0.3.5"
@@ -8493,7 +8594,6 @@ react-transform-catch-errors@^1.0.2:
 
 "react-utils@bitbucket:OpenAgenda/react-utils":
   version "2.0.2"
-  uid d0e3263e6918720ded06d8efe855ed68db39bf62
   resolved "git+ssh://git@bitbucket.org/OpenAgenda/react-utils.git#d0e3263e6918720ded06d8efe855ed68db39bf62"
   dependencies:
     deep-extend "^0.4.1"
@@ -9514,17 +9614,7 @@ slug@0.9.1, slug@^0.9.1:
 
 "slugs@bitbucket:openagenda/slugs":
   version "1.0.0"
-  uid "9badc7f0168d8a4321eaa80d04162403f31ccd67"
   resolved "git+ssh://git@bitbucket.org/openagenda/slugs.git#9badc7f0168d8a4321eaa80d04162403f31ccd67"
-  dependencies:
-    knex "^0.12.5"
-    slug "^0.9.1"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
-    validators "git+ssh://git@bitbucket.org:openagenda/validators.git#v1.1.0"
-
-"slugs@git+ssh://git@bitbucket.org:openagenda/slugs.git":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org:openagenda/slugs.git#9badc7f0168d8a4321eaa80d04162403f31ccd67"
   dependencies:
     knex "^0.12.5"
     slug "^0.9.1"

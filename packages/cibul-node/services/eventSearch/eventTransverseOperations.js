@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const logger = require( 'logger' );
-const events = require( 'events-service' );
+const events = require( '@openagenda/events' );
 const eventSearch = require( '@openagenda/event-search' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaIndices = require( './agendaIndices' );
