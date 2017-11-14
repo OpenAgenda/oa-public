@@ -517,6 +517,16 @@
     async "^2.0.1"
     mysql "^2.11"
 
+"@openagenda/pdf@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/pdf/-/pdf-0.1.0.tgz#cb076012cbcb3a0a65e1df346eb1d39bedf5efef"
+  dependencies:
+    async "^1.5.0"
+    gm "^1.17.0"
+    lodash "^4.17.4"
+    pdfkit "^0.7.1"
+    request "2.65.0"
+
 "@openagenda/process-service@^2.0.0":
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/process-service/-/process-service-2.0.0.tgz#3de0f0aa159cd7b3876f1471dc2c633f3a362ef9"
@@ -7880,17 +7890,6 @@ pbkdf2@^3.0.3:
     ripemd160 "^2.0.1"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
-
-"pdf@bitbucket:openagenda/pdf":
-  version "0.0.1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/pdf.git#eca798c079dd06fb1b4311803055d346e2d60b63"
-  dependencies:
-    async "^1.5.0"
-    gm "^1.17.0"
-    lodash "^3.10.1"
-    pdfkit "^0.7.1"
-    request "2.65.0"
-    utils "git+ssh://git@bitbucket.org:openagenda/utils.git"
 
 pdfkit@^0.7.1:
   version "0.7.2"

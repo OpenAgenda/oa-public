@@ -6,7 +6,7 @@ var svc,
 
   async = require( 'async' ),
 
-  pdf = require( 'pdf' ),
+  pdf = require( '@openagenda/pdf' ),
 
   xlsx = require( 'xlsx-writestream' ),
 
