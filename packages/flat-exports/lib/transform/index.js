@@ -1,9 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const flattener = require( 'flattener' );
+const flattener = require( '@openagenda/flattener' );
 const getTargetField = require( './getTargetField' );
-const makeTransform = require( 'stream-utils' ).transform;
+const makeTransform = require( '@openagenda/stream-utils' ).transform;
 const validateOptions = require( './options.validate.js' );
 
 const multilingual = require( './multilingual' );

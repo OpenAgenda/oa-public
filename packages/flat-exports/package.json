@@ -1,27 +1,32 @@
 {
-  "name": "flat-exports",
+  "name": "@openagenda/flat-exports",
   "version": "1.0.0",
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@openagenda/flattener": "^1.1.0",
+    "@openagenda/stream-utils": "^1.1.0",
     "@openagenda/utils": "^1.0.1",
+    "@openagenda/validators": "^2.0.1",
     "fast-csv": "^2.4.1",
-    "flattener": "bitbucket:openagenda/flattener",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.13",
     "rss": "^1.2.2",
-    "stream-utils": "bitbucket:openagenda/stream-utils",
-    "validators": "bitbucket:openagenda/validators",
     "xlsx-writestream": "^0.4.0"
   },
   "devDependencies": {
-    "labels": "bitbucket:openagenda/labels",
+    "@openagenda/labels": "^2.0.7",
     "jest": "^21.2.1",
     "should": "^13.1.2"
   },

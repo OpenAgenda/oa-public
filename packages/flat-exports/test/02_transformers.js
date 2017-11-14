@@ -1,7 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
-const flattener = require( 'flattener' );
+const flattener = require( '@openagenda/flattener' );
 const timings = require( '../lib/transform/timings' );
 const multilingual = require( '../lib/transform/multilingual' );
 const accessibility = require( '../lib/transform/accessibility' );

@@ -1,12 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  integer: require( 'validators/integer' ),
-  text: require( 'validators/text' ),
-  link: require( 'validators/link' )
+  integer: require( '@openagenda/validators/integer' ),
+  text: require( '@openagenda/validators/text' ),
+  link: require( '@openagenda/validators/link' )
 } );
 
 module.exports = head => {

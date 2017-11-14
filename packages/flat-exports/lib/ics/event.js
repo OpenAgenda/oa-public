@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const esc = require( './escape' );
 const moment = require( 'moment' );
-const getLabel = require( 'labels' )( require( 'labels/exports' ) );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/exports' ) );
 
 module.exports = ( { lang, genUrl }, event ) => {
 

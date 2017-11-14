@@ -1,7 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
-const labels = require( 'labels/event/exportFieldNames' );
+const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const getFlattener = require( '../lib/transform' ).getFlattener;
 const event = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/sortir-a-boulogne-billancourt.json', 'utf-8' ) );
 

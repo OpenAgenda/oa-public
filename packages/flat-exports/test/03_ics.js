@@ -1,6 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
+const moment = require( 'moment-timezone' );
 const ics = require( '../lib/ics' );
 const event = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/acces-libre.json', 'utf-8' ) );
 
@@ -35,18 +36,21 @@ describe( 'flat-exports - unit - ics', () => {
 
       const result = ics.event( { lang: 'fr' }, event );
 
-      result.should.eql( 
-`BEGIN:VEVENT
-UID:54284894//48919824//2017-10-02//08:00:00
-DTSTART:20171002T080000Z
-DTEND:20171002T100000Z
-TZID: Europe/Paris
-SUMMARY: Accès libre
-DESCRIPTION:Accès libre accompagné - voir plus: https://openagenda.com/mmn13/events/acces-libre_337
-GEO:48.824478;2.365424
-ORGANIZER: OA
-STATUS:CONFIRMED
-END:VEVENT` );
+      result.should.eql( [
+        'BEGIN:VEVENT',
+        'UID:54284894//48919824//2017-10-02//08:00:00',
+        'DTSTART:20171002T080000Z',
+        'DTEND:20171002T100000Z',
+        'TZID: Europe/Paris',
+        'SUMMARY: Accès libre',
+        'DESCRIPTION:Accès libre accompagné - voir plus: https://openagenda.com/events/acces-libre_337',
+        'LOCATION:MMN13 - 47 rue du javelot 75013',
+        'GEO:48.824478;2.365424',
+        'ORGANIZER: OA',
+        'STATUS:CONFIRMED',
+        'DTSTAMP:' + moment.tz().format( 'YYYYMMDDTHHmm00Z' ).replace('+00:00', 'Z' ),
+        'END:VEVENT'
+      ].join( '\r\n' ) + '\r\n' );
 
     } );
 

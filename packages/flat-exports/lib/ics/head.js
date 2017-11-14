@@ -1,11 +1,11 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const esc = require( './escape' );
 const _ = require( 'lodash' );
 
 schema.register( {
-  text: require( 'validators/text' )
+  text: require( '@openagenda/validators/text' )
 } );
 
 const validate = schema( {

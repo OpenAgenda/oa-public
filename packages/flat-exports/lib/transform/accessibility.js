@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const labels = require( 'labels/event/accessibility' );
+const labels = require( '@openagenda/labels/event/accessibility' );
 
 const codes = {
   hi: 'hearingImpairment',

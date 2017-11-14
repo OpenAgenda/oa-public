@@ -2,12 +2,12 @@
 
 const _ = require( 'lodash' );
 const moment = require( 'moment' );
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 const cleanString = require( '@openagenda/utils' ).cleanString;
 
 schema.register( {
-  text: require( 'validators/text' ),
-  pass: require( 'validators/pass' )
+  text: require( '@openagenda/validators/text' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 module.exports = ( event, options = {} ) => {

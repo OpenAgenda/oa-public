@@ -1,11 +1,11 @@
 "use strict";
 
-const schema = require( 'validators/schema' );
+const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  pass: require( 'validators/pass' ),
-  text: require( 'validators/text' ),
-  integer: require( 'validators/integer' )
+  pass: require( '@openagenda/validators/pass' ),
+  text: require( '@openagenda/validators/text' ),
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 module.exports = schema( {
