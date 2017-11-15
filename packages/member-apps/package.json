@@ -40,7 +40,6 @@
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/react-utils": "^2.0.2",
     "async": "^2.1.4",
-    "basic-logger": "^0.4.4",
     "body-parser": "^1.16.0",
     "classnames": "^2.2.5",
     "lodash": "^4.17.4",

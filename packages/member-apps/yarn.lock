@@ -2585,9 +2585,9 @@ ci-info@^1.0.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/ci-info/-/ci-info-1.1.1.tgz#47b44df118c48d2597b56d342e7e25791060171a"
 
-"cibulTemplates@git+ssh://git@bitbucket.org/openagenda/cibul-templates.git":
+"cibulTemplates@git+ssh://git@bitbucket.org:openagenda/cibul-templates.git":
   version "0.0.3"
-  resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#bcabd6bf04665bcb3af03dd64c2fd74b62ff1e11"
+  resolved "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git#bcabd6bf04665bcb3af03dd64c2fd74b62ff1e11"
   dependencies:
     "@openagenda/agenda-locations" "^1.0.5"
     "@openagenda/bs-templates" "^2.0.3"
