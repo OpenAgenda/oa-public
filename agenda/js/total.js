@@ -18,9 +18,9 @@ ejs = require( 'ejs' ),
 
 qs = require( 'qs' ),
 
-getLabelFactory = require( 'labels' ),
+getLabelFactory = require( '@openagenda/labels' ),
 
-labels = require( 'labels/agendas/total' );
+labels = require( '@openagenda/labels/agendas/total' );
 
 module.exports = function( selector, lang ) {
 

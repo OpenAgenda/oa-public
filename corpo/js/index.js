@@ -4,9 +4,9 @@ const du = require( '@openagenda/dom-utils' ),
   
   deepExtend = require( 'deep-extend' ),
 
-  typedLabels = require( 'labels/corpo/typed' ),
+  typedLabels = require( '@openagenda/labels/corpo/typed' ),
 
-  flatten = require( 'labels/flatten' ),
+  flatten = require( '@openagenda/labels/flatten' ),
 
   params = {
     stats: {

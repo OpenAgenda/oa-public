@@ -2,7 +2,7 @@
 
 const lightbox = require('../../js/lib/lightbox/lightbox.mod.js'),
 
-session = require( 'sessions/client' ),
+session = require( '@openagenda/sessions/client' ),
 
 params = {
   classes: {

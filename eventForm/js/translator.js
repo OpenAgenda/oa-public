@@ -14,7 +14,7 @@ const _ = {
   extend: require( 'lodash/extend' )
 }
 
-const translators = require( 'translators' );
+const translators = require( '@openagenda/translators' );
 
 const du = require( '@openagenda/dom-utils' );
 

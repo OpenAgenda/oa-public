@@ -6,9 +6,9 @@ const React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  TagEditor = require( 'agenda-tags/lib/TagEditor.jsx' ),
+  TagEditor = require( '@openagenda/agenda-tags/lib/TagEditor.jsx' ),
 
-  CategoryEditor = require( 'agenda-categories/lib/CategoryEditor.jsx' ),
+  CategoryEditor = require( '@openagenda/agenda-categories/lib/CategoryEditor.jsx' ),
 
   SyncButton = require( '@openagenda/sync-button' ),
 
@@ -16,7 +16,7 @@ const React = require( 'react' ),
 
   tplEnv = window.env=='tpl',
 
-  labels =  require( 'labels/agenda-tags/editor' );
+  labels =  require( '@openagenda/labels/agenda-tags/editor' );
 
 module.exports = createReactClass( {
 

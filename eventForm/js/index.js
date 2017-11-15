@@ -1,13 +1,13 @@
 "use strict";
 
+import React from 'react';
+import ReactDom from 'react-dom';
+import deepExtend from 'deep-extend';
 import formUtils from './formUtils';
 import rUtils from './reactUtils';
 import EventForm from './EventForm.jsx';
-import deepExtend from 'deep-extend';
-import React from 'react';
-import ReactDom from 'react-dom';
+import labels from '@openagenda/labels/event/form';
 import formConfiguration from './formConfiguration';
-import labels from 'labels/event/form';
 
 const fieldErrors = [];
 

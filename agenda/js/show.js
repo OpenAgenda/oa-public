@@ -163,6 +163,21 @@ window.asap( options => {
 
   }
 
+  if ( window.location.href.search("[?&]newContact") != -1 ) {
+
+    du.els( '.js_create_conversation_contact' ).forEach( elem => {
+
+      du.addEvent( elem, 'click', e => {
+
+        du.preventDefault( e );
+        window.openConversationForm( e );
+
+      } );
+
+    } );
+
+  }
+
 } );
 
 

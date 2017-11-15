@@ -4,9 +4,9 @@ const path = require( 'path' );
 
 const fs = require( 'fs' );
 
-const allLabels = require( 'labels/all' );
+const allLabels = require( '@openagenda/labels/all' );
 
-const makeLabelGetter = require( 'labels/makeLabelGetter' );
+const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 
 
 module.exports = function ( templateName, data, cb ) {

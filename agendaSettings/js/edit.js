@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from 'agenda-settings/react/lib/editApp';
 import deepExtend from 'deep-extend';
+import App from '@openagenda/agenda-settings/react/lib/editApp';
 import du from '@openagenda/dom-utils';
 
 

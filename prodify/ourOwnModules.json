@@ -14,6 +14,7 @@
   "activities/format",
   "activity-apps/notifications",
   "translators",
+
   "@openagenda/admin-agendas",
   "@openagenda/agenda-categories",
   "@openagenda/agenda-search",

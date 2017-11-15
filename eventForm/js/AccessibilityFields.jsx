@@ -13,7 +13,7 @@ defaults = {
   }
 },
 
-labels = require( 'labels/event/accessibility' );
+labels = require( '@openagenda/labels/event/accessibility' );
 
 module.exports = createReactClass({
 

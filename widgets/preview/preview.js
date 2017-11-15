@@ -1,6 +1,6 @@
 "use strict";
 
-var parser = require( 'tumblr-parser' ),
+var parser = require( '@openagenda/tumblr-parser' ),
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
 

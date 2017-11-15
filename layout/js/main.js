@@ -30,9 +30,11 @@ var utils = require( '@openagenda/utils' ),
 
   flash = require( './handleFlashMessage.js' ),
 
-  notifications = require( 'activity-apps/notifications' ),
+  notifications = require( '@openagenda/activity-apps/notifications' ),
 
-  //inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
+  // inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
+
+  // inboxConversationForm = require( '@openagenda/inbox-apps/lib/apps/conversationForm' ),
 
   callToAction = require( '@openagenda/call-to-action/react/dist' ),
 
@@ -77,6 +79,8 @@ du.asapReady( function () {
   notifications();
 
   // inbox();
+
+  // inboxConversationForm();
 
   callToAction();
 

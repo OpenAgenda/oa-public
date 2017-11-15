@@ -10,7 +10,7 @@ const defaults = {
 
 utils = require( '@openagenda/utils' ),
 
-main = require( 'agenda-search/components/lib/main' );
+main = require( '@openagenda/agenda-search/components/lib/main' );
 
 window.hook( options => {
 

@@ -2,16 +2,16 @@
   "layout" : "embedLayout/main",
 
   "oaeCss" : {
-    "agenda-base" : "../node_modules/bs-templates/templates/agenda/_base.scss",
+    "agenda-base" : "../node_modules/@openagenda/bs-templates/templates/agenda/_base.scss",
     "agenda-embed" : "css/embed-style.scss",
-    "agenda-favorites" : "../node_modules/bs-templates/templates/agenda/_favorites.scss"
+    "agenda-favorites" : "../node_modules/@openagenda/bs-templates/templates/agenda/_favorites.scss"
   },
 
   "oaetCss" : {
-    "agenda-base" : "../node_modules/bs-templates/templates/agenda/_base.scss",
+    "agenda-base" : "../node_modules/@openagenda/bs-templates/templates/agenda/_base.scss",
     "agenda-embed" : "css/embed-style.scss",
     "agenda-embed-tiled" : "css/embed-tiled-style.scss",
-    "agenda-favorites" : "../node_modules/bs-templates/templates/agenda/_favorites.scss"
+    "agenda-favorites" : "../node_modules/@openagenda/bs-templates/templates/agenda/_favorites.scss"
   },
 
   "helpers" : {

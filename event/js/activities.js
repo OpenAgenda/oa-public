@@ -4,7 +4,7 @@ const du = require( '@openagenda/dom-utils' );
 
 const layout = require( './activities.ejs' );
 
-const labels = require( 'labels/event/show' );
+const labels = require( '@openagenda/labels/event/show' );
 
 module.exports = ( { canvas, fetch, res, lang } ) => {
 

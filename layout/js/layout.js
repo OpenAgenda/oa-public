@@ -1,10 +1,8 @@
 "use strict";
 
-if ( !window._babelPolyfill ) {
+if ( !window._babelPolyfill ) require( 'babel-polyfill' );
+require( '@openagenda/dom-utils/polyfill' );
 
-  require( 'babel-polyfill' );
-
-}
 
 require( '@openagenda/dom-utils/polyfill' );
 
@@ -16,7 +14,7 @@ module.exports = {
 
 function getOptions( selector ) {
 
-  var options = {}, 
+  var options = {},
 
   stringified = cn.el( selector ).getAttribute( 'data-options' );
 

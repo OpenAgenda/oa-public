@@ -3,12 +3,12 @@
   
   "oaeCss" : {
     "event-embed" : "css/embed-style.scss",
-    "event-hours" : "../node_modules/bs-templates/templates/event/_hours.scss"
+    "event-hours" : "../node_modules/@openagenda/bs-templates/templates/event/_hours.scss"
   },
 
   "oaetCss" : {
     "event-embed" : "css/embed-style.scss",
-    "event-hours" : "../node_modules/bs-templates/templates/event/_hours.scss"
+    "event-hours" : "../node_modules/@openagenda/bs-templates/templates/event/_hours.scss"
   },
 
   "helpers" : {

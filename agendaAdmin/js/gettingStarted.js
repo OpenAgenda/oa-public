@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import deepExtend from 'deep-extend';
-import makeGetterLabel from 'labels';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import ImageUpload from 'image-upload';
-import labels from 'labels/agenda-admin/gettingStarted';
+import makeGetterLabel from '@openagenda/labels';
+import ImageUpload from '@openagenda/image-upload';
+import labels from '@openagenda/labels/agenda-admin/gettingStarted';
 import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
 
 

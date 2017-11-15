@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from '@openagenda/inbox-apps/lib/apps/agendaAdmin';
+import App from '@openagenda/inbox-apps/lib/apps/inbox';
 import du from '@openagenda/dom-utils';
 
 const params = {

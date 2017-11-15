@@ -1,6 +1,6 @@
 "use strict";
 
-const session = require( 'sessions/client' ),
+const session = require( '@openagenda/sessions/client' ),
 
   b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
 
@@ -8,9 +8,9 @@ const session = require( 'sessions/client' ),
 
   template = require( '../../user/menu.ejs' ),
 
-  getLabelFactory = require( 'labels' ),
+  getLabelFactory = require( '@openagenda/labels' ),
 
-  labels = require( 'labels/users/profile' ),
+  labels = require( '@openagenda/labels/users/profile' ),
 
   bsTemplate = require( '../../user/bsMenu.ejs' ),
 

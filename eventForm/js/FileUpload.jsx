@@ -3,9 +3,9 @@
 import Dropzone from 'react-dropzone';
 import createReactClass from 'create-react-class';
 import React from 'react';
-import labels from '@openagenda/labels/cibul-templates/file-upload';
 import sa from 'superagent';
-import Spinner from 'react-components/build/Spinner';
+import labels from '@openagenda/labels/cibul-templates/file-upload';
+import Spinner from '@openagenda/react-components/build/Spinner';
 
 module.exports = createReactClass({
 

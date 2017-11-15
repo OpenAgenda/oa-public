@@ -1,42 +1,39 @@
 "use strict";
 
-var _ = {
-  extend: require( 'lodash/extend' ),
-  keys: require( 'lodash/keys' )
-},
+import React from 'react';
+import _ from 'lodash';
+import debug from 'debug';
+import du from '@openagenda/dom-utils';
+// import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
+import activities from './activities';
+import displayContributor from './contributor';
+import remote from '../../js/lib/remote/remote.mod.js';
 
-  du = require( '@openagenda/dom-utils' ),
+const defaults = {
+  uid: false,
+  agendaUid: false,
+  env: 'production',
+  selector: '.js_custom',
+  url: {
+    production: '/agendas/{agendaUid}/events/{eventUid}/private',
+    development: '/agendas/{agendaUid}/events/{eventUid}/private',
+    tpl: '/server/testdata/privateeventdata.json'
+  },
+  activitiesSelector: '.js_activities',
+  contributorsSelector: '.js_contributor',
+  activitiesUrl: {
+    production: '/agendas/{agendaUid}/events/{eventUid}/activities',
+    development: '/agendas/{agendaUid}/events/{eventUid}/activities',
+    tpl: '/server/testdata/eventactivitiesdata.json'
+  },
+  customTemplate: require( '../custom.part.ejs' ),
+  className: 'private'
+};
 
-  activities = require( './activities' ),
+let log;
 
-  displayContributor = require( './contributor' ),
 
-  remote = require( '../../js/lib/remote/remote.mod.js' ),
-
-  debug = require( 'debug' ), log,
-
-  defaults = {
-    uid: false,
-    agendaUid: false,
-    env: 'production',
-    selector: '.js_custom',
-    url: {
-      production: '/agendas/{agendaUid}/events/{eventUid}/private',
-      development: '/agendas/{agendaUid}/events/{eventUid}/private',
-      tpl: '/server/testdata/privateeventdata.json'
-    },
-    activitiesSelector: '.js_activities',
-    contributorsSelector: '.js_contributor',
-    activitiesUrl: {
-      production: '/agendas/{agendaUid}/events/{eventUid}/activities',
-      development: '/agendas/{agendaUid}/events/{eventUid}/activities',
-      tpl: '/server/testdata/eventactivitiesdata.json'
-    },
-    customTemplate: require( '../custom.part.ejs' ),
-    className: 'private'
-  }
-
-module.exports = function( options ) {
+module.exports = function ( options ) {
 
   var params = _.extend( {}, defaults, options ? options : {} );
 
@@ -60,7 +57,7 @@ module.exports = function( options ) {
 
     var res = _defineRes( agendaUid, eventUid );
 
-    _fetch( res, function( err, data ) {
+    _fetch( res, function ( err, data ) {
 
       if ( err ) {
 
@@ -85,7 +82,7 @@ module.exports = function( options ) {
 
       }
 
-    });
+    } );
 
   }
 
@@ -100,15 +97,34 @@ module.exports = function( options ) {
 
   }
 
-  function inbox() {
-    //
+  function inbox( params ) {
+
+    loadInbox( {
+      jsFilePath: '/js/inboxesEvent.js',
+      functionName: 'renderInboxEvent',
+      state: {
+        settings: {
+          TitleComponent: 'h3',
+          Wrapper: ( { children } ) => <div className="event-secondary">{children}</div>,
+          ContentWrapper: ( { children } ) => <div className="event-content">{children}</div>,
+          lang: params.lang
+        },
+        agenda: {
+          uid: params.agendaUid
+        },
+        event: {
+          uid: params.uid
+        }
+      },
+    } );
+
   }
 
   function _fetch( res, cb ) {
 
     log( 'fetching %s', res );
 
-    remote.get( res, { timeout: 30000 }, function( responseType, data ){
+    remote.get( res, { timeout: 30000 }, function ( responseType, data ) {
 
       if ( responseType == 'success' ) {
 
@@ -129,7 +145,7 @@ module.exports = function( options ) {
     var res = params.url[ params.env ];
 
     res = res.replace( '{eventUid}', eventUid )
-       .replace( '{agendaUid}', agendaUid );
+      .replace( '{agendaUid}', agendaUid );
 
     return res;
 

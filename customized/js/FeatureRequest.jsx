@@ -6,7 +6,7 @@ var React = require( 'react' ),
 
 xhr = require( 'xhr' ),
 
-Spinner = require( 'spinner' ),
+Spinner = require( '@openagenda/spinner' ),
 
 labels = {
   request: {

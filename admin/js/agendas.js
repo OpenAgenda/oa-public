@@ -1,4 +1,4 @@
-var App = require( 'admin-agendas/components/lib/main' ),
+var App = require( '@openagenda/admin-agendas/components/lib/main' ),
 
   deepExtend = require( 'deep-extend' ),
 

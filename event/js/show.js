@@ -8,7 +8,7 @@ du = require( '@openagenda/dom-utils' ),
 
 get = require( '@openagenda/utils/get' ),
 
-session = require( 'sessions/client' ),
+session = require( '@openagenda/sessions/client' ),
 
 adminControls = require( '../../user/js/adminControls' ),
 
@@ -121,6 +121,8 @@ window.asap( options => {
 
         prv.load( params.agendaUid, params.uid );
 
+        // prv.inbox( params );
+
       }
 
     }
@@ -128,8 +130,6 @@ window.asap( options => {
     if ( roles.includes( ROLES.EVENTEDITOR ) ) {
 
       prv.activities( params.agendaUid, params.uid, params.lang );
-
-      prv.inbox( params );
 
     }
 

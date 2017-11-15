@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDom from 'react-dom';
-import App from 'activity-apps/react/dist/apps/user';
 import deepExtend from 'deep-extend';
+import App from '@openagenda/activity-apps/react/dist/apps/user';
 import du from '@openagenda/dom-utils';
 
 
