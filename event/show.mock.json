@@ -466,6 +466,15 @@
           "value": "https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg",
           "label": "https://s3-eu-west-1.amazonaws.com/cibulstatic/Reed/Bijorhca.jpg",
           "fieldType": "url"
+        },
+        {
+          "name" : "somepdffile",
+          "value" : {
+            "name" : "bisounours.pdf",
+            "uploaded" : "fdshjqfkldshqfjkdls.yourfile.event.pdf",
+            "embed" : "<iframe height=\"500\" width=\"100%\" src=\"https://www.nyu.edu/classes/bkg/methods/005847ch1.pdf\" frameborder=\"0\" allowfullscreen=\"true\" webkitallowfullscreen=\"true\" mozallowfullscreen=\"true\" />"
+          },
+          "fieldType" : "file"
         }
       ],
       "customLabels": {
