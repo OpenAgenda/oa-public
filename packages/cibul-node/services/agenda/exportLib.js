@@ -347,9 +347,14 @@ function _addCustomFields( v ) {
 
       } else if ( c.fieldType == 'file' && c.value ) {
 
+        const uploaded = config.aws.imageBucketPath + c.value.uploaded;
+
+        c.value.embed = '<iframe height="500" width="100%" src="' + uploaded + '" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" />';
+
         v.decorated.customValues[ c.name ] = {
           name: c.value.name,
-          uploaded: config.aws.imageBucketPath + c.value.uploaded
+          uploaded,
+          embed: c.value.embed
         }
 
       } else if ( ![ 'image', 'file' ].includes( c.fieldType ) ) {
