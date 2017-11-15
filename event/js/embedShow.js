@@ -28,6 +28,8 @@ window.asap( function( options ) {
 
   }
 
+  window.oaPageHandler = handler;
+
   hours( { onToggle: embed.contentChange } );
 
   favorites.init( {
