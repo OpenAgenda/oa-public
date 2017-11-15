@@ -67,6 +67,12 @@
 
       }
 
+      &.refused .sticker {
+
+        background: $oa-red;
+
+      }
+
     }
 
     .edge-info, .edge-link, .edge-selected {

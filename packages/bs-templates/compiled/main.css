@@ -7874,6 +7874,8 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
       background: #fff; }
     .edge-bar .edge-item .state.controlled .sticker {
       background: #F7CA18; }
+    .edge-bar .edge-item .state.refused .sticker {
+      background: #da4453; }
     .edge-bar .edge-item .edge-info, .edge-bar .edge-item .edge-link, .edge-bar .edge-item .edge-selected {
       color: #fff;
       display: block;
@@ -13630,6 +13632,95 @@ i.mce-i-backcolor {
   height: 20px;
   width: 1em; }
 
+/**
+ * some components styles are defined in base
+ */
+/**
+ * ones less widespread are not.
+ */
+.small-map {
+  border-radius: 3px;
+  height: 320px; }
+  .small-map .map-canvas {
+    min-height: 300px; }
+  .small-map .map-sync {
+    text-align: right; }
+    .small-map .map-sync input, .small-map .map-sync label {
+      display: inline-block;
+      margin-bottom: 0;
+      margin-top: 0;
+      vertical-align: middle; }
+  .small-map .leaflet-popup-content-wrapper {
+    -webkit-border-radius: 0;
+    border-radius: 3px;
+    padding: 0;
+    overflow: hidden; }
+  .small-map .leaflet-popup-content p,
+  .small-map .leaflet-popup-content {
+    margin: 0; }
+  .small-map .map-location .count {
+    display: none; }
+  .small-map .map-location .oa-location-image {
+    max-height: 90px;
+    overflow: hidden;
+    position: relative; }
+    .small-map .map-location .oa-location-image img {
+      display: block;
+      width: 100%; }
+  .small-map .map-location .oa-location-details {
+    padding: 5px;
+    display: block; }
+    .small-map .map-location .oa-location-details p {
+      font-weight: bold;
+      display: block; }
+    .small-map .map-location .oa-location-details span {
+      max-width: 160px;
+      display: inline-block; }
+    .small-map .map-location .oa-location-details .map-postalcode,
+    .small-map .map-location .oa-location-details .map-city,
+    .small-map .map-location .oa-location-details .map-department,
+    .small-map .map-location .oa-location-details .map-region {
+      display: none; }
+  .small-map .map-location .leaflet-popup-tip-container {
+    visibility: hidden; }
+
+.file-upload {
+  position: relative;
+  cursor: pointer; }
+  .file-upload .file-dropzone {
+    background: #eee;
+    height: 160px;
+    border-color: #ccc;
+    border-width: 1px;
+    border-style: dashed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+  .file-upload label {
+    margin-bottom: 0;
+    text-align: center;
+    display: block; }
+  .file-upload .fa-check {
+    color: #41acdd; }
+  .file-upload .remove-file {
+    position: absolute;
+    top: 5px;
+    right: 5px; }
+    .file-upload .remove-file i {
+      color: #fff; }
+  .file-upload .loading-file {
+    position: relative; }
+    .file-upload .loading-file label {
+      visibility: hidden; }
+    .file-upload .loading-file .spin-inline {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 0; }
+      .file-upload .loading-file .spin-inline.spin-inline .spinner {
+        left: 0 !important; }
+
 #agenda #content {
   padding: 15px 0; }
 
@@ -13942,52 +14033,6 @@ i.mce-i-backcolor {
     color: gray; }
   #agenda .fav i.active, #event .fav i.active {
     color: #41acdd; }
-
-.small-map {
-  border-radius: 3px;
-  height: 320px; }
-  .small-map .map-canvas {
-    min-height: 300px; }
-  .small-map .map-sync {
-    text-align: right; }
-    .small-map .map-sync input, .small-map .map-sync label {
-      display: inline-block;
-      margin-bottom: 0;
-      margin-top: 0;
-      vertical-align: middle; }
-  .small-map .leaflet-popup-content-wrapper {
-    -webkit-border-radius: 0;
-    border-radius: 3px;
-    padding: 0;
-    overflow: hidden; }
-  .small-map .leaflet-popup-content p,
-  .small-map .leaflet-popup-content {
-    margin: 0; }
-  .small-map .map-location .count {
-    display: none; }
-  .small-map .map-location .oa-location-image {
-    max-height: 90px;
-    overflow: hidden;
-    position: relative; }
-    .small-map .map-location .oa-location-image img {
-      display: block;
-      width: 100%; }
-  .small-map .map-location .oa-location-details {
-    padding: 5px;
-    display: block; }
-    .small-map .map-location .oa-location-details p {
-      font-weight: bold;
-      display: block; }
-    .small-map .map-location .oa-location-details span {
-      max-width: 160px;
-      display: inline-block; }
-    .small-map .map-location .oa-location-details .map-postalcode,
-    .small-map .map-location .oa-location-details .map-city,
-    .small-map .map-location .oa-location-details .map-department,
-    .small-map .map-location .oa-location-details .map-region {
-      display: none; }
-  .small-map .map-location .leaflet-popup-tip-container {
-    visibility: hidden; }
 
 #agenda {
   background-color: #eee; }
