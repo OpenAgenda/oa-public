@@ -11,9 +11,9 @@
     "release:major": "npm version major && npm publish"
   },
   "dependencies": {
+    "@openagenda/labels": "^2.0.7",
     "@openagenda/validators": "^2.0.1",
     "express": "^4.14.0",
-    "labels": "git+ssh://git@bitbucket.org:openagenda/labels.git",
     "marked": "^0.3.6",
     "pug": "^2.0.0-beta6"
   },

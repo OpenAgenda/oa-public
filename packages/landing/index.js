@@ -6,7 +6,7 @@ const fs = require( 'fs' );
 
 const _ = require( 'lodash' );
 
-const labels = require( 'labels/corpo/pages' );
+const labels = require( '@openagenda/labels/corpo/pages' );
 
 module.exports = function( basePath ) {
 
