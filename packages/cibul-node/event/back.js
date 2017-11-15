@@ -15,7 +15,7 @@ const w = require( 'when' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( '@openagenda/activities' );
-const activitiesEventApp = require( 'activity-apps/react/dist/apps/event' );
+const activitiesEventApp = require( '@openagenda/activity-apps/react/dist/apps/event' );
 
 const routes = {
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
