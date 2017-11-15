@@ -1,6 +1,6 @@
 "use strict";
 
-const agendaTags = require( 'agenda-tags' );
+const agendaTags = require( '@openagenda/agenda-tags' );
 
 const appServiceAgendas = require( './agenda' ),
 

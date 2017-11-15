@@ -6,6 +6,8 @@ const sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
+  bodyParser = require( 'body-parser' ),
+
   i18n = require( '../i18n/i18n' ),
 
   agendaSvc = require( '../services/agenda' ),
@@ -34,7 +36,11 @@ module.exports = function( path ) {
   router.pre( [
     cmn.loadLogger( 'group actions' ),
     agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdminOrModerator
+    cmn.checkAdminOrModerator,
+    bodyParser.urlencoded( {
+      extended: true,
+      limit: 500000
+    } )
   ] );
 
   return {
