@@ -26,15 +26,15 @@ var _extends3 = _interopRequireDefault(_extends2);
 
 exports.default = validate;
 
-var _schema = require('validators/schema');
+var _schema = require('@openagenda/validators/schema');
 
 var _schema2 = _interopRequireDefault(_schema);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _schema2.default.register({
-  number: require('validators/number'),
-  email: require('validators/email')
+  number: require('@openagenda/validators/number'),
+  email: require('@openagenda/validators/email')
 });
 
 function validate(values) {

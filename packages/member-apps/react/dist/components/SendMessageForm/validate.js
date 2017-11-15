@@ -22,15 +22,15 @@ var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
 exports.default = validate;
 
-var _schema = require('validators/schema');
+var _schema = require('@openagenda/validators/schema');
 
 var _schema2 = _interopRequireDefault(_schema);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _schema2.default.register({
-  text: require('validators/text'),
-  email: require('validators/email')
+  text: require('@openagenda/validators/text'),
+  email: require('@openagenda/validators/email')
 });
 
 function validate(values) {

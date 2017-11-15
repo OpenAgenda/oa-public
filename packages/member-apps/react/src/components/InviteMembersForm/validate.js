@@ -1,8 +1,8 @@
-import schema from 'validators/schema';
+import schema from '@openagenda/validators/schema';
 
 schema.register( {
-  number: require( 'validators/number' ),
-  email: require( 'validators/email' )
+  number: require( '@openagenda/validators/number' ),
+  email: require( '@openagenda/validators/email' )
 } );
 
 export default function validate( values ) {
