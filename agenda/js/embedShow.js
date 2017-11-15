@@ -57,6 +57,8 @@ window.asap( function( options ) {
 
   }
 
+  window.oaPageHandler = handler;
+
   _copyToSearch();
 
   if ( params.cascading ) {
