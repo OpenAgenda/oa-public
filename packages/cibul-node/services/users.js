@@ -22,6 +22,7 @@ module.exports.init = async config => {
 
   await users.init( {
     knex: config.knex,
+    mysql: config.db,
     schemas: config.schemas,
     files: {
       bucket: config.aws.bucket,
