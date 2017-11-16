@@ -52,7 +52,7 @@
     "@openagenda/sessions": "^3.0.3",
     "@openagenda/spinner": "^2.0.1",
     "@openagenda/sync-button": "^0.0.7",
-    "@openagenda/translators": "^1.0.2",
+    "@openagenda/translators": "^1.0.3",
     "@openagenda/tumblr-parser": "^0.1.0",
     "@openagenda/users": "^2.0.1",
     "@openagenda/utils": "^1.0.2",
