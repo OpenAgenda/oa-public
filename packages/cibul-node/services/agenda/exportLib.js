@@ -349,7 +349,7 @@ function _addCustomFields( v ) {
 
         const uploaded = config.aws.imageBucketPath + c.value.uploaded;
 
-        c.value.embed = '<iframe height="500" width="100%" src="' + uploaded + '" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" />';
+        c.value.embed = '<iframe height="500" width="100%" src="' + uploaded + '" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
 
         v.decorated.customValues[ c.name ] = {
           name: c.value.name,
