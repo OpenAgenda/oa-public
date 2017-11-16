@@ -182,6 +182,7 @@ module.exports = createReactClass({
           <FileUpload
             name={ field.name }
             label={ field.label }
+            optional= { field.optional }
             path={ self.props.res.path }
             value={ self.props.values[ field.name ] }
             onChange={ self.props.onChange.bind( null, field.name ) }
