@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "cibul templates library",
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app",
