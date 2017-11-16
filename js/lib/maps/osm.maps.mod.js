@@ -4,7 +4,7 @@ utils = require( '@openagenda/utils' ),
 
 L = require( 'leaflet' );
 
-require( 'leaflet.markercluster' );
+require( '@openagenda/leaflet.markercluster' );
 
 maps.register('osm', (function(){
 
