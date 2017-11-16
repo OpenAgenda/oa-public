@@ -26,7 +26,7 @@ cmn = require( '../../lib/commons-app' ),
 
 genUrl = require( '../genUrl' ),
 
-templater = require( 'cibulTemplates' ),
+templater = require( '@openagenda/cibul-templates' ),
 
 invitationsService,
 

@@ -10,7 +10,7 @@ const range = require( '@openagenda/date-range' ),
 
   genUrl = require( '../../genUrl' ),
 
-  timeHelper = require( 'cibulTemplates' ).helpers.time,
+  timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
 
   w = require( 'when' ),
 

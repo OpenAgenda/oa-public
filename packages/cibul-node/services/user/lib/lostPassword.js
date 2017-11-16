@@ -12,7 +12,7 @@ mailer = require( '@openagenda/mailer' ),
 
 genUrl = require( '../../genUrl' ),
 
-templater = require( 'cibulTemplates' ),
+templater = require( '@openagenda/cibul-templates' ),
 
 async = require( 'async' ),
 

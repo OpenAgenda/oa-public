@@ -14,7 +14,7 @@ lock = require( '../lib/lock' ),
 
 config = require( '../../../../config' ),
 
-q = require( 'queue' )( 'testtaskqueue:queue', { redis: config.redis } );
+q = require( '@openagenda/queue' )( 'testtaskqueue:queue', { redis: config.redis } );
 
 store.init( {
   redis: config.redis,

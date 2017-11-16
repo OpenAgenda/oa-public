@@ -14,7 +14,7 @@ var log = require( '@openagenda/logger' )( 'user svc - activation' ),
 
   i18n = require( '../../../i18n/i18n' ),
 
-  templater = require( 'cibulTemplates' ),
+  templater = require( '@openagenda/cibul-templates' ),
 
   utils = require( '@openagenda/utils' ),
 

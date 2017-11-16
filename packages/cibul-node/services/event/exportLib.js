@@ -12,7 +12,7 @@ const _ = require( 'lodash' ),
 
   registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues,
 
-  timeHelper = require( 'cibulTemplates' ).helpers.time,
+  timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
 
   config = require( '../../config' ),
 

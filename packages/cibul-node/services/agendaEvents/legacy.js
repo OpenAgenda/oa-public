@@ -7,7 +7,7 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const VError = require( 'verror' );
 const _ = require( 'lodash' );
-const q = require( 'queue' )( 'agendaEventsLegacy', { redis: config.redis } );
+const q = require( '@openagenda/queue' )( 'agendaEventsLegacy', { redis: config.redis } );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/legacy' );
 
 module.exports = {

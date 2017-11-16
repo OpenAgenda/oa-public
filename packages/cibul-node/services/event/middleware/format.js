@@ -3,7 +3,7 @@
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const du = require( '@openagenda/dom-utils' );
-const timeHelper = require( 'cibulTemplates' ).helpers.time;
+const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
 /**

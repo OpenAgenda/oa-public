@@ -12,7 +12,7 @@ References = React.createFactory( require( '@openagenda/agenda-event-references/
 
 aer = require( '@openagenda/agenda-event-references' ),
 
-templater = require( 'cibulTemplates' ),
+templater = require( '@openagenda/cibul-templates' ),
 
 genUrl = require( '../../genUrl' ),
 

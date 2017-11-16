@@ -27,7 +27,7 @@ builder = require('./build'),
 
 genUrl = require( '../services/genUrl' ),
 
-templater = require('cibulTemplates/server/templater'), // this renders the template layout
+templater = require('@openagenda/cibul-templates/server/templater'), // this renders the template layout
 
 running = false,
 

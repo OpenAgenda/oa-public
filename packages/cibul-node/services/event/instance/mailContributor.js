@@ -10,7 +10,7 @@ var p = require( '../../../lib/promises' ), w = p.w,
 
   utils = require( '@openagenda/utils' ),
 
-  templater = require( 'cibulTemplates' ),
+  templater = require( '@openagenda/cibul-templates' ),
 
   mailer = require( '@openagenda/mailer' ),
 

@@ -107,7 +107,7 @@ var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
 
   model = require( '../services/model' ),
 
-  templater = require( 'cibulTemplates' ),
+  templater = require( '@openagenda/cibul-templates' ),
 
   i18n = require( '../i18n/i18n.js' ),
 

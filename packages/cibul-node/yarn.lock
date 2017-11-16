@@ -326,7 +326,7 @@
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
-"@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.5":
+"@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.6.tgz#7e39663121cf4af87947ba804f745d7311858b97"
 
@@ -369,6 +369,106 @@
     should "~4.0"
     validator "4.1.0"
     when "~3.4"
+
+"@openagenda/cibul-templates@^0.0.4":
+  version "0.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-0.0.4.tgz#1659d98aceb285bce3f4200df1baeb108066e20e"
+  dependencies:
+    "@openagenda/activity-apps" "^1.0.1"
+    "@openagenda/admin-agendas" "^1.0.1"
+    "@openagenda/agenda-categories" "^0.1.2"
+    "@openagenda/agenda-event-references" "^1.0.2"
+    "@openagenda/agenda-locations" "^1.0.6"
+    "@openagenda/agenda-search" "^0.1.2"
+    "@openagenda/agenda-settings" "^1.0.1"
+    "@openagenda/agenda-tags" "^0.1.2"
+    "@openagenda/aggregator-sources" "^1.0.1"
+    "@openagenda/bs-templates" "^2.0.6"
+    "@openagenda/call-to-action" "^2.0.2"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/home" "^2.0.5"
+    "@openagenda/image-upload" "^1.0.5"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/le_js" "^0.0.3"
+    "@openagenda/leaflet.markercluster" "^0.4.0"
+    "@openagenda/member-apps" "^1.0.1"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.7"
+    "@openagenda/registration" "^1.1.1"
+    "@openagenda/sessions" "^3.0.3"
+    "@openagenda/spinner" "^2.0.1"
+    "@openagenda/sync-button" "^0.0.7"
+    "@openagenda/translators" "^1.0.2"
+    "@openagenda/tumblr-parser" "^0.1.0"
+    "@openagenda/users" "^2.0.1"
+    "@openagenda/utils" "^1.0.2"
+    async "0.9.0"
+    babel-core "^6.9.0"
+    babel-loader "^6.2.4"
+    babel-plugin-add-module-exports "^0.2.1"
+    babel-plugin-lodash "^3.2.11"
+    babel-plugin-react-transform "^2.0.2"
+    babel-plugin-transform-class-properties "^6.16.0"
+    babel-plugin-transform-decorators-legacy "^1.3.4"
+    babel-plugin-transform-export-extensions "^6.8.0"
+    babel-plugin-transform-function-bind "^6.8.0"
+    babel-plugin-transform-object-rest-spread "^6.16.0"
+    babel-plugin-transform-react-display-name "^6.8.0"
+    babel-plugin-transform-runtime "^6.9.0"
+    babel-polyfill "^6.26.0"
+    babel-preset-env "^1.6.1"
+    babel-preset-react "^6.5.0"
+    babel-preset-stage-0 "^6.5.0"
+    babel-runtime "^6.9.2"
+    babelify "^7.3.0"
+    better-npm-run "0.0.8"
+    browserify "6.3.3"
+    create-react-class "^15.5.2"
+    d3 "3.5.6"
+    debug "2.1.0"
+    deep-extend "0.2.11"
+    ejs "2.4.2"
+    ejs-compiled-loader "^2.2.0"
+    express "4.9.5"
+    form-serialize "0.3.0"
+    imagesloaded "^4.1"
+    immutability-helper "^2.2.0"
+    iscroll "^5.2.0"
+    languages "0.1.3"
+    leaflet "0.7.3"
+    lodash "^4.17.4"
+    marked "0.3.5"
+    masonry-layout "4.1.0"
+    moment "2.9.0"
+    moment-timezone "^0.5.3"
+    node-sass "^4.5.2"
+    outdated-browser-rework "^1.0.2"
+    prop-types "^15.5.8"
+    qs "2.3.3"
+    raven-js "^3.9.1"
+    raw-loader "^0.5.1"
+    rc-switch "^1.4.3"
+    react "^16.0.0"
+    react-copy-to-clipboard "^4.2.3"
+    react-dom "^16.0.0"
+    react-dropzone "^4.2.1"
+    react-select "^1.0.0-rc.4"
+    react-table "^5.0.2"
+    react-tagsinput "^3.7.0"
+    react-timings-picker "^0.2.2"
+    react-transform-catch-errors "^1.0.2"
+    reactify "1.1.1"
+    redbox-react "^1.5.0"
+    source-map-loader "^0.2.1"
+    spin.js "2.3.2"
+    st "0.5.2"
+    store "1.3.17"
+    stringify "3.0.0"
+    superagent "^3.8.1"
+    uglify-js "2.4.24"
+    webpack "^3.5.5"
+    when "~3.4"
+    xhr "^2.2.0"
 
 "@openagenda/countries@^0.1.1":
   version "0.1.1"
@@ -658,6 +758,16 @@
     marked "^0.3.6"
     pug "^2.0.0-beta6"
 
+"@openagenda/le_js@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/le_js/-/le_js-0.0.3.tgz#f85a5b078bc784ec4a8f2b01c503fea34ad255d2"
+
+"@openagenda/leaflet.markercluster@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.npmjs.org/@openagenda/leaflet.markercluster/-/leaflet.markercluster-0.4.0.tgz#d5e3a3106bcd35dcc7180a97d0c5ff548f40c98e"
+  dependencies:
+    leaflet "~0.7.1"
+
 "@openagenda/logger@^0.0.2":
   version "0.0.2"
   resolved "https://registry.npmjs.org/@openagenda/logger/-/logger-0.0.2.tgz#d070182d40a1a2cb19b0d0ed76eaeb52213fe517"
@@ -676,21 +786,20 @@
     winston "^2.3.1"
 
 "@openagenda/mailer@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@openagenda/mailer/-/mailer-1.0.2.tgz#f64d2624d044de3df08da4947ff60ac608a40bad"
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/mailer/-/mailer-1.0.3.tgz#be9f1b5477796e964e211fdf59d49df8f3ad2497"
   dependencies:
+    "@openagenda/cibul-templates" "^0.0.4"
+    "@openagenda/queue" "^1.0.0"
     "@openagenda/utils" "^1.0.1"
     async "^2.1.4"
     aws-sdk "~2.0"
-    cibulTemplates "git+ssh://git@bitbucket.org:openagenda/cibul-templates.git"
     ejs "^2.5.5"
     email-templates "^2.5.4"
     lodash "^4.17.4"
-    node-sass "^4.5.0"
     nodemailer "^3.0.2"
     nodemailer-mailgun-transport "^1.3.4"
     nodemailer-ses-transport "^1.5.0"
-    queue "git+ssh://git@bitbucket.org/openagenda/queue.git"
     redis "~0.12"
     validator "3.40.0"
 
@@ -903,36 +1012,10 @@
     spin.js "2.3.2"
     xhr "2.2.0"
 
-"@openagenda/test-app@^2.0.3":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.4.tgz#ea491e8790f65ef8718ab0e15c35bb914614d62b"
+"@openagenda/translators@^1.0.2", "@openagenda/translators@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/translators/-/translators-1.0.3.tgz#39fec94a1dfe1f0a9b9c698b15ccbeb3c137e7f9"
   dependencies:
-    "@openagenda/utils" "^1.0.1"
-    babel-plugin-add-module-exports "^0.2.1"
-    babel-plugin-react-transform "^2.0.2"
-    babel-plugin-transform-decorators-legacy "^1.3.4"
-    babel-plugin-transform-react-display-name "^6.8.0"
-    babel-plugin-transform-runtime "^6.9.0"
-    babel-preset-stage-0 "^6.5.0"
-    babel-register "^6.9.0"
-    babelify "^7.3.0"
-    bootstrap "3.3.5"
-    browserify "12.0.1"
-    express "^4.13.3"
-    font-awesome "4.3.0"
-    node-sass "^3.4.2"
-    node-watch "^0.3.5"
-    react-transform-catch-errors "^1.0.2"
-    redbox-react "^1.2.6"
-    tmp "^0.0.28"
-    watchify "^3.7.0"
-    webpack "^1.14.0"
-
-"@openagenda/translators@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/@openagenda/translators/-/translators-1.0.2.tgz#3d4df365cd01a4c5bdefac0ace1680322fc18da6"
-  dependencies:
-    "@openagenda/test-app" "^2.0.3"
     async "^2.1.2"
     crypto-js "^3.1.9-1"
     lodash "^4.17.1"
@@ -1081,7 +1164,7 @@ acorn-globals@^3.0.0, acorn-globals@^3.1.0:
   dependencies:
     acorn "^4.0.4"
 
-acorn@^3.0.0, acorn@^3.1.0, acorn@~3.3.0:
+acorn@^3.1.0, acorn@~3.3.0:
   version "3.3.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
@@ -1301,7 +1384,7 @@ assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
-assert@^1.1.1, assert@^1.4.0:
+assert@^1.1.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/assert/-/assert-1.4.1.tgz#99912d591836b5a6f5b345c0f07eefc08fc65d91"
   dependencies:
@@ -1359,11 +1442,7 @@ async@1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/async/-/async-1.2.1.tgz#a4816a17cd5ff516dfa2c7698a453369b9790de0"
 
-async@^0.9.0, async@~0.9:
-  version "0.9.2"
-  resolved "https://registry.npmjs.org/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
-
-async@^1.3.0, async@^1.5.0, async@^1.5.2, async@~1.5.0:
+async@^1.5.0, async@^1.5.2, async@~1.5.0:
   version "1.5.2"
   resolved "https://registry.npmjs.org/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
@@ -1376,6 +1455,10 @@ async@^2.0.1, async@^2.1.2, async@^2.1.4, async@^2.2.0, async@^2.3.0, async@^2.4
 async@~0.2.6:
   version "0.2.10"
   resolved "https://registry.npmjs.org/async/-/async-0.2.10.tgz#b6bbe0b0674b9d719708ca38de8c237cb526c3d1"
+
+async@~0.9:
+  version "0.9.2"
+  resolved "https://registry.npmjs.org/async/-/async-0.9.2.tgz#aea74d5e61c1f899613bf64bda66d4c78f2fd17d"
 
 async@~1.0.0:
   version "1.0.0"
@@ -1390,8 +1473,8 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.150.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.150.0.tgz#f4bc2bc0dd9b2b359e9f33b16fdab017c20d72b6"
+  version "2.151.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.151.0.tgz#5e73d778b76514f36183b91400477778ab5e58d8"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -2165,7 +2248,7 @@ babel-preset-stage-3@^6.24.1:
     babel-plugin-transform-exponentiation-operator "^6.24.1"
     babel-plugin-transform-object-rest-spread "^6.22.0"
 
-babel-register@^6.24.1, babel-register@^6.26.0, babel-register@^6.9.0:
+babel-register@^6.24.1, babel-register@^6.26.0:
   version "6.26.0"
   resolved "https://registry.npmjs.org/babel-register/-/babel-register-6.26.0.tgz#6ed021173e2fcb486d7acb45c6009a856f647071"
   dependencies:
@@ -2431,10 +2514,6 @@ bootstrap-daterangepicker@^2.1.25:
     jquery ">=1.10"
     moment "^2.9.0"
 
-bootstrap@3.3.5:
-  version "3.3.5"
-  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.5.tgz#1777ab79299b128d87dce7cbd86fdc46ac69c0b1"
-
 brace-expansion@^1.0.0, brace-expansion@^1.1.7:
   version "1.1.8"
   resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz#c07b211c7c952ec1f8efd51a77ef0d1d3990a292"
@@ -2475,17 +2554,11 @@ browser-pack@^6.0.1:
     through2 "^2.0.0"
     umd "^3.0.0"
 
-browser-resolve@^1.11.0, browser-resolve@^1.3.0, browser-resolve@^1.7.0, browser-resolve@^1.7.1:
+browser-resolve@^1.3.0, browser-resolve@^1.7.0, browser-resolve@^1.7.1:
   version "1.11.2"
   resolved "https://registry.npmjs.org/browser-resolve/-/browser-resolve-1.11.2.tgz#8ff09b0a2c421718a1051c260b32e48f442938ce"
   dependencies:
     resolve "1.1.7"
-
-browserify-aes@0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/browserify-aes/-/browserify-aes-0.4.0.tgz#067149b668df31c4b58533e02d01e806d8608e2c"
-  dependencies:
-    inherits "^2.0.1"
 
 browserify-aes@^1.0.0, browserify-aes@^1.0.4:
   version "1.1.1"
@@ -2533,17 +2606,17 @@ browserify-sign@^4.0.0:
     inherits "^2.0.1"
     parse-asn1 "^5.0.0"
 
-browserify-zlib@^0.1.4, browserify-zlib@~0.1.2:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/browserify-zlib/-/browserify-zlib-0.1.4.tgz#bb35f8a519f600e0fa6b8485241c979d0141fb2d"
-  dependencies:
-    pako "~0.2.0"
-
-browserify-zlib@~0.2.0:
+browserify-zlib@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/browserify-zlib/-/browserify-zlib-0.2.0.tgz#2869459d9aa3be245fe8fe2ca1f46e2e7f54d73f"
   dependencies:
     pako "~1.0.5"
+
+browserify-zlib@~0.1.2:
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/browserify-zlib/-/browserify-zlib-0.1.4.tgz#bb35f8a519f600e0fa6b8485241c979d0141fb2d"
+  dependencies:
+    pako "~0.2.0"
 
 browserify@12.0.1:
   version "12.0.1"
@@ -2651,58 +2724,6 @@ browserify@6.3.3:
     vm-browserify "~0.0.1"
     xtend "^3.0.0"
 
-browserify@^14.0.0:
-  version "14.5.0"
-  resolved "https://registry.npmjs.org/browserify/-/browserify-14.5.0.tgz#0bbbce521acd6e4d1d54d8e9365008efb85a9cc5"
-  dependencies:
-    JSONStream "^1.0.3"
-    assert "^1.4.0"
-    browser-pack "^6.0.1"
-    browser-resolve "^1.11.0"
-    browserify-zlib "~0.2.0"
-    buffer "^5.0.2"
-    cached-path-relative "^1.0.0"
-    concat-stream "~1.5.1"
-    console-browserify "^1.1.0"
-    constants-browserify "~1.0.0"
-    crypto-browserify "^3.0.0"
-    defined "^1.0.0"
-    deps-sort "^2.0.0"
-    domain-browser "~1.1.0"
-    duplexer2 "~0.1.2"
-    events "~1.1.0"
-    glob "^7.1.0"
-    has "^1.0.0"
-    htmlescape "^1.1.0"
-    https-browserify "^1.0.0"
-    inherits "~2.0.1"
-    insert-module-globals "^7.0.0"
-    labeled-stream-splicer "^2.0.0"
-    module-deps "^4.0.8"
-    os-browserify "~0.3.0"
-    parents "^1.0.1"
-    path-browserify "~0.0.0"
-    process "~0.11.0"
-    punycode "^1.3.2"
-    querystring-es3 "~0.2.0"
-    read-only-stream "^2.0.0"
-    readable-stream "^2.0.2"
-    resolve "^1.1.4"
-    shasum "^1.0.0"
-    shell-quote "^1.6.1"
-    stream-browserify "^2.0.0"
-    stream-http "^2.0.0"
-    string_decoder "~1.0.0"
-    subarg "^1.0.0"
-    syntax-error "^1.1.1"
-    through2 "^2.0.0"
-    timers-browserify "^1.0.1"
-    tty-browserify "~0.0.0"
-    url "~0.11.0"
-    util "~0.10.1"
-    vm-browserify "~0.0.1"
-    xtend "^4.0.0"
-
 browserslist@^2.1.2:
   version "2.9.0"
   resolved "https://registry.npmjs.org/browserslist/-/browserslist-2.9.0.tgz#706aca15c53be15610f466e348cbfa0c00a6a379"
@@ -2714,7 +2735,7 @@ buffer-xor@^1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/buffer-xor/-/buffer-xor-1.0.3.tgz#26e61ed1422fb70dd42e6e36729ed51d855fe8d9"
 
-buffer@4.9.1, buffer@^4.3.0, buffer@^4.9.0:
+buffer@4.9.1, buffer@^4.3.0:
   version "4.9.1"
   resolved "https://registry.npmjs.org/buffer/-/buffer-4.9.1.tgz#6d1bb601b07a4efced97094132093027c95bc298"
   dependencies:
@@ -2737,13 +2758,6 @@ buffer@^3.4.3:
     base64-js "0.0.8"
     ieee754 "^1.1.4"
     isarray "^1.0.0"
-
-buffer@^5.0.2:
-  version "5.0.8"
-  resolved "https://registry.npmjs.org/buffer/-/buffer-5.0.8.tgz#84daa52e7cf2fa8ce4195bc5cf0f7809e0930b24"
-  dependencies:
-    base64-js "^1.0.2"
-    ieee754 "^1.1.4"
 
 builtin-modules@^1.0.0:
   version "1.1.1"
@@ -2832,8 +2846,8 @@ camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000760:
-  version "1.0.30000764"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000764.tgz#97ea7472f9d3e691eede34f21983cfc219ac7842"
+  version "1.0.30000765"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000765.tgz#aa1a75019276b48463c0fca2a5257fb9f26a7c9d"
 
 caporal@^0.4.1:
   version "0.4.1"
@@ -2935,7 +2949,7 @@ cheerio@^0.22.0:
     lodash.reject "^4.4.0"
     lodash.some "^4.4.0"
 
-chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
+chokidar@^1.6.1, chokidar@^1.7.0:
   version "1.7.0"
   resolved "https://registry.npmjs.org/chokidar/-/chokidar-1.7.0.tgz#798e689778151c8076b4b360e5edd28cda2bb468"
   dependencies:
@@ -2950,10 +2964,9 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
   optionalDependencies:
     fsevents "^1.0.0"
 
-"cibulTemplates@bitbucket:openagenda/cibul-templates", "cibulTemplates@git+ssh://git@bitbucket.org/openagenda/cibul-templates.git":
-  version "0.0.3"
-  uid "35c6239ab6dd981b0bca5270261510bddd6e78c1"
-  resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#35c6239ab6dd981b0bca5270261510bddd6e78c1"
+"cibulTemplates@bitbucket:openagenda/cibul-templates":
+  version "0.0.5"
+  resolved "git+ssh://git@bitbucket.org/openagenda/cibul-templates.git#d2ba3a38c043303cc841904cc957f471da7255f2"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -2964,12 +2977,14 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
     "@openagenda/agenda-settings" "^1.0.1"
     "@openagenda/agenda-tags" "^0.1.2"
     "@openagenda/aggregator-sources" "^1.0.1"
-    "@openagenda/bs-templates" "^2.0.5"
+    "@openagenda/bs-templates" "^2.0.6"
     "@openagenda/call-to-action" "^2.0.2"
     "@openagenda/dom-utils" "^2.1.0"
     "@openagenda/home" "^2.0.5"
     "@openagenda/image-upload" "^1.0.5"
     "@openagenda/labels" "^2.0.7"
+    "@openagenda/le_js" "^0.0.3"
+    "@openagenda/leaflet.markercluster" "^0.4.0"
     "@openagenda/member-apps" "^1.0.1"
     "@openagenda/react-components" "^2.0.3"
     "@openagenda/react-form-components" "^2.0.7"
@@ -2977,7 +2992,7 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
     "@openagenda/sessions" "^3.0.3"
     "@openagenda/spinner" "^2.0.1"
     "@openagenda/sync-button" "^0.0.7"
-    "@openagenda/translators" "^1.0.2"
+    "@openagenda/translators" "^1.0.3"
     "@openagenda/tumblr-parser" "^0.1.0"
     "@openagenda/users" "^2.0.1"
     "@openagenda/utils" "^1.0.2"
@@ -3014,9 +3029,7 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
     immutability-helper "^2.2.0"
     iscroll "^5.2.0"
     languages "0.1.3"
-    le_js "github:rapid7/le_js"
     leaflet "0.7.3"
-    leaflet.markercluster "git://github.com/kaore/Leaflet.markercluster.git"
     lodash "^4.17.4"
     marked "0.3.5"
     masonry-layout "4.1.0"
@@ -3036,7 +3049,7 @@ chokidar@^1.0.0, chokidar@^1.6.1, chokidar@^1.7.0:
     react-select "^1.0.0-rc.4"
     react-table "^5.0.2"
     react-tagsinput "^3.7.0"
-    react-timings-picker "git://github.com/Oagenda/react-timings-picker.git"
+    react-timings-picker "^0.2.2"
     react-transform-catch-errors "^1.0.2"
     reactify "1.1.1"
     redbox-react "^1.5.0"
@@ -3128,10 +3141,6 @@ cliui@^3.2.0:
     string-width "^1.0.1"
     strip-ansi "^3.0.1"
     wrap-ansi "^2.0.0"
-
-clone@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/clone/-/clone-1.0.3.tgz#298d7e2231660f40c003c2ed3140decf3f53085f"
 
 co@^4.6.0:
   version "4.6.0"
@@ -3538,15 +3547,6 @@ cryptiles@3.x.x:
 crypto-browserify@1.0.9:
   version "1.0.9"
   resolved "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-1.0.9.tgz#cc5449685dfb85eb11c9828acc7cb87ab5bbfcc0"
-
-crypto-browserify@3.3.0:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-3.3.0.tgz#b9fc75bb4a0ed61dcf1cd5dae96eb30c9c3e506c"
-  dependencies:
-    browserify-aes "0.4.0"
-    pbkdf2-compat "2.0.1"
-    ripemd160 "0.2.0"
-    sha.js "2.2.6"
 
 crypto-browserify@^3.0.0, crypto-browserify@^3.11.0:
   version "3.12.0"
@@ -4051,14 +4051,6 @@ enhanced-resolve@^3.4.0:
     object-assign "^4.0.1"
     tapable "^0.2.7"
 
-enhanced-resolve@~0.9.0:
-  version "0.9.1"
-  resolved "https://registry.npmjs.org/enhanced-resolve/-/enhanced-resolve-0.9.1.tgz#4d6e689b3725f86090927ccc86cd9f1635b89e2e"
-  dependencies:
-    graceful-fs "^4.1.2"
-    memory-fs "^0.2.0"
-    tapable "^0.1.8"
-
 entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
@@ -4340,7 +4332,7 @@ express@4.9.5:
     utils-merge "1.0.0"
     vary "~1.0.0"
 
-express@^4.13.3, express@^4.14.0, express@^4.14.1:
+express@^4.14.0, express@^4.14.1:
   version "4.16.2"
   resolved "https://registry.npmjs.org/express/-/express-4.16.2.tgz#e35c6dfe2d64b7dca0a5cd4f21781be3299e076c"
   dependencies:
@@ -4599,10 +4591,6 @@ flagged-respawn@^0.3.2, flagged-respawn@~0.3.0:
   version "0.3.2"
   resolved "https://registry.npmjs.org/flagged-respawn/-/flagged-respawn-0.3.2.tgz#ff191eddcd7088a675b2610fffc976be9b8074b5"
 
-font-awesome@4.3.0:
-  version "4.3.0"
-  resolved "https://registry.npmjs.org/font-awesome/-/font-awesome-4.3.0.tgz#44eeb790cdf986642786f33fce784764f1841c40"
-
 for-each@^0.3.2:
   version "0.3.2"
   resolved "https://registry.npmjs.org/for-each/-/for-each-0.3.2.tgz#2c40450b9348e97f281322593ba96704b9abd4d4"
@@ -4835,7 +4823,7 @@ glob@3.2.3:
     inherits "2"
     minimatch "~0.2.11"
 
-"glob@>= 3.1.4", glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.0, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1:
+"glob@>= 3.1.4", glob@^7.0.0, glob@^7.0.3, glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@~7.1.1:
   version "7.1.2"
   resolved "https://registry.npmjs.org/glob/-/glob-7.1.2.tgz#c19c9df9a028702d678612384a6552404c636d15"
   dependencies:
@@ -5019,10 +5007,6 @@ has-ansi@^2.0.0:
   resolved "https://registry.npmjs.org/has-ansi/-/has-ansi-2.0.0.tgz#34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
   dependencies:
     ansi-regex "^2.0.0"
-
-has-flag@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/has-flag/-/has-flag-1.0.0.tgz#9d9e793165ce017a00f00418c43f942a7b1d11fa"
 
 has-flag@^2.0.0:
   version "2.0.0"
@@ -5256,13 +5240,13 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
-https-browserify@0.0.1, https-browserify@~0.0.0:
-  version "0.0.1"
-  resolved "https://registry.npmjs.org/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
-
 https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
+
+https-browserify@~0.0.0:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
 https-proxy-agent@1:
   version "1.0.0"
@@ -5440,7 +5424,7 @@ insert-module-globals@^7.0.0:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-interpret@^0.6.4, interpret@^0.6.5:
+interpret@^0.6.5:
   version "0.6.6"
   resolved "https://registry.npmjs.org/interpret/-/interpret-0.6.6.tgz#fecd7a18e7ce5ca6abfb953e1f86213a49f1625b"
 
@@ -6045,10 +6029,6 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-"le_js@github:rapid7/le_js":
-  version "0.0.3"
-  resolved "https://codeload.github.com/rapid7/le_js/tar.gz/e7480de232409cb5a5416cb99e4fd87794c11f0e"
-
 le_node@^1.7.1:
   version "1.7.1"
   resolved "https://registry.npmjs.org/le_node/-/le_node-1.7.1.tgz#8316409dada82b9f29657ca4060663f8f11551d1"
@@ -6059,12 +6039,6 @@ le_node@^1.7.1:
     lodash "3.9.3"
     reconnect-core "1.3.0"
     semver "5.1.0"
-
-"leaflet.markercluster@git://github.com/kaore/Leaflet.markercluster.git":
-  version "0.4.0"
-  resolved "git://github.com/kaore/Leaflet.markercluster.git#4513ad74d28de24d3aaf6c279c4e6f48ff3e7480"
-  dependencies:
-    leaflet "~0.7.1"
 
 leaflet@0.7.3:
   version "0.7.3"
@@ -6140,7 +6114,7 @@ loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npmjs.org/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
 
-loader-utils@^0.2.11, loader-utils@^0.2.16, loader-utils@^0.2.7, loader-utils@~0.2.2:
+loader-utils@^0.2.16, loader-utils@^0.2.7, loader-utils@~0.2.2:
   version "0.2.17"
   resolved "https://registry.npmjs.org/loader-utils/-/loader-utils-0.2.17.tgz#f86e6374d43205a6e6c60e9196f17c0299bfb348"
   dependencies:
@@ -6461,20 +6435,9 @@ mem@^1.1.0:
   dependencies:
     mimic-fn "^1.0.0"
 
-memory-fs@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/memory-fs/-/memory-fs-0.2.0.tgz#f2bb25368bc121e391c2520de92969caee0a0290"
-
 memory-fs@^0.4.0, memory-fs@~0.4.1:
   version "0.4.1"
   resolved "https://registry.npmjs.org/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
-  dependencies:
-    errno "^0.1.3"
-    readable-stream "^2.0.1"
-
-memory-fs@~0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/memory-fs/-/memory-fs-0.3.0.tgz#7bcc6b629e3a43e871d7e29aca6ae8a7f15cbb20"
   dependencies:
     errno "^0.1.3"
     readable-stream "^2.0.1"
@@ -6655,10 +6618,6 @@ minimist@^1.1.0, minimist@^1.1.3, minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
 
-minimist@~0.0.1:
-  version "0.0.10"
-  resolved "https://registry.npmjs.org/minimist/-/minimist-0.0.10.tgz#de3f98543dbf96082be48ad1a0c7cda836301dcf"
-
 minimist@~1.1.0:
   version "1.1.3"
   resolved "https://registry.npmjs.org/minimist/-/minimist-1.1.3.tgz#3bedfd91a92d39016fcfaa1c681e8faa1a1efda8"
@@ -6708,7 +6667,7 @@ module-deps@^3.5.0:
     through2 "^1.0.0"
     xtend "^4.0.0"
 
-module-deps@^4.0.2, module-deps@^4.0.8:
+module-deps@^4.0.2:
   version "4.1.1"
   resolved "https://registry.npmjs.org/module-deps/-/module-deps-4.1.1.tgz#23215833f1da13fd606ccb8087b44852dcb821fd"
   dependencies:
@@ -6886,8 +6845,8 @@ netmask@~1.0.4:
   resolved "https://registry.npmjs.org/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
 
 newrelic@*:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/newrelic/-/newrelic-2.3.2.tgz#201007cb1fb824552c0e0571f4e2dba65ca17bb5"
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/newrelic/-/newrelic-2.4.0.tgz#b54455640d28dbd55a4b8a6944a9513d781e8516"
   dependencies:
     async "^2.1.4"
     concat-stream "^1.5.0"
@@ -6935,57 +6894,29 @@ node-jsx@^0.13.3:
   dependencies:
     jstransform "11"
 
-node-libs-browser@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.npmjs.org/node-libs-browser/-/node-libs-browser-0.7.0.tgz#3e272c0819e308935e26674408d7af0e1491b83b"
-  dependencies:
-    assert "^1.1.1"
-    browserify-zlib "^0.1.4"
-    buffer "^4.9.0"
-    console-browserify "^1.1.0"
-    constants-browserify "^1.0.0"
-    crypto-browserify "3.3.0"
-    domain-browser "^1.1.1"
-    events "^1.0.0"
-    https-browserify "0.0.1"
-    os-browserify "^0.2.0"
-    path-browserify "0.0.0"
-    process "^0.11.0"
-    punycode "^1.2.4"
-    querystring-es3 "^0.2.0"
-    readable-stream "^2.0.5"
-    stream-browserify "^2.0.1"
-    stream-http "^2.3.1"
-    string_decoder "^0.10.25"
-    timers-browserify "^2.0.2"
-    tty-browserify "0.0.0"
-    url "^0.11.0"
-    util "^0.10.3"
-    vm-browserify "0.0.4"
-
 node-libs-browser@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/node-libs-browser/-/node-libs-browser-2.0.0.tgz#a3a59ec97024985b46e958379646f96c4b616646"
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/node-libs-browser/-/node-libs-browser-2.1.0.tgz#5f94263d404f6e44767d726901fff05478d600df"
   dependencies:
     assert "^1.1.1"
-    browserify-zlib "^0.1.4"
+    browserify-zlib "^0.2.0"
     buffer "^4.3.0"
     console-browserify "^1.1.0"
     constants-browserify "^1.0.0"
     crypto-browserify "^3.11.0"
     domain-browser "^1.1.1"
     events "^1.0.0"
-    https-browserify "0.0.1"
-    os-browserify "^0.2.0"
+    https-browserify "^1.0.0"
+    os-browserify "^0.3.0"
     path-browserify "0.0.0"
-    process "^0.11.0"
+    process "^0.11.10"
     punycode "^1.2.4"
     querystring-es3 "^0.2.0"
-    readable-stream "^2.0.5"
+    readable-stream "^2.3.3"
     stream-browserify "^2.0.1"
-    stream-http "^2.3.1"
-    string_decoder "^0.10.25"
-    timers-browserify "^2.0.2"
+    stream-http "^2.7.2"
+    string_decoder "^1.0.0"
+    timers-browserify "^2.0.4"
     tty-browserify "0.0.0"
     url "^0.11.0"
     util "^0.10.3"
@@ -7021,28 +6952,7 @@ node-redis-warlock@0.1.2:
     node-redis-scripty "~0.0.4"
     uuid "2.0.1"
 
-node-sass@^3.4.2:
-  version "3.13.1"
-  resolved "https://registry.npmjs.org/node-sass/-/node-sass-3.13.1.tgz#7240fbbff2396304b4223527ed3020589c004fc2"
-  dependencies:
-    async-foreach "^0.1.3"
-    chalk "^1.1.1"
-    cross-spawn "^3.0.0"
-    gaze "^1.0.0"
-    get-stdin "^4.0.1"
-    glob "^7.0.3"
-    in-publish "^2.0.0"
-    lodash.assign "^4.2.0"
-    lodash.clonedeep "^4.3.2"
-    meow "^3.7.0"
-    mkdirp "^0.5.1"
-    nan "^2.3.2"
-    node-gyp "^3.3.1"
-    npmlog "^4.0.0"
-    request "^2.61.0"
-    sass-graph "^2.1.1"
-
-node-sass@^4.5.0, node-sass@^4.5.2, node-sass@^4.5.3:
+node-sass@^4.5.2, node-sass@^4.5.3:
   version "4.6.1"
   resolved "https://registry.npmjs.org/node-sass/-/node-sass-4.6.1.tgz#9b331cf943ee5440f199e858941a90d13bc9bfc5"
   dependencies:
@@ -7068,10 +6978,6 @@ node-sass@^4.5.0, node-sass@^4.5.2, node-sass@^4.5.3:
 node-uuid@~1.4.0, node-uuid@~1.4.3:
   version "1.4.8"
   resolved "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.8.tgz#b040eb0923968afabf8d32fb1f17f1167fdab907"
-
-node-watch@^0.3.5:
-  version "0.3.5"
-  resolved "https://registry.npmjs.org/node-watch/-/node-watch-0.3.5.tgz#a07f253a4f538de9d4ca522dd7f1996eeec0d97e"
 
 nodemailer-mailgun-transport@^1.3.4:
   version "1.3.5"
@@ -7246,13 +7152,6 @@ optimist@~0.3.5:
   dependencies:
     wordwrap "~0.0.2"
 
-optimist@~0.6.0:
-  version "0.6.1"
-  resolved "https://registry.npmjs.org/optimist/-/optimist-0.6.1.tgz#da3ea74686fa21a19a111c326e90eb15a0196686"
-  dependencies:
-    minimist "~0.0.1"
-    wordwrap "~0.0.2"
-
 optionator@^0.8.1:
   version "0.8.2"
   resolved "https://registry.npmjs.org/optionator/-/optionator-0.8.2.tgz#364c5e409d3f4d6301d6c0b4c05bba50180aeb64"
@@ -7264,17 +7163,13 @@ optionator@^0.8.1:
     type-check "~0.3.2"
     wordwrap "~1.0.0"
 
-os-browserify@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.npmjs.org/os-browserify/-/os-browserify-0.2.1.tgz#63fc4ccee5d2d7763d26bbf8601078e6c2e0044f"
+os-browserify@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/os-browserify/-/os-browserify-0.3.0.tgz#854373c7f5c2315914fc9bfc6bd8238fdda1ec27"
 
 os-browserify@~0.1.1:
   version "0.1.2"
   resolved "https://registry.npmjs.org/os-browserify/-/os-browserify-0.1.2.tgz#49ca0293e0b19590a5f5de10c7f265a617d8fe54"
-
-os-browserify@~0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/os-browserify/-/os-browserify-0.3.0.tgz#854373c7f5c2315914fc9bfc6bd8238fdda1ec27"
 
 os-homedir@^1.0.0, os-homedir@^1.0.1:
   version "1.0.2"
@@ -7322,12 +7217,6 @@ outlayer@^2.1.0:
     ev-emitter "^1.0.0"
     fizzy-ui-utils "^2.0.0"
     get-size "^2.0.2"
-
-outpipe@^1.1.0:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/outpipe/-/outpipe-1.1.1.tgz#50cf8616365e87e031e29a5ec9339a3da4725fa2"
-  dependencies:
-    shell-quote "^1.4.2"
 
 output-file-sync@^1.1.2:
   version "1.1.2"
@@ -7603,10 +7492,6 @@ pause@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
 
-pbkdf2-compat@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
-
 pbkdf2@^3.0.3:
   version "3.0.14"
   resolved "https://registry.npmjs.org/pbkdf2/-/pbkdf2-3.0.14.tgz#a35e13c64799b06ce15320f459c230e68e73bade"
@@ -7716,7 +7601,7 @@ process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.npmjs.org/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
-process@^0.11.0, process@~0.11.0:
+process@^0.11.10, process@~0.11.0:
   version "0.11.10"
   resolved "https://registry.npmjs.org/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
 
@@ -7968,15 +7853,6 @@ querystring-es3@^0.2.0, querystring-es3@~0.2.0:
 querystring@0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
-
-"queue@git+ssh://git@bitbucket.org/openagenda/queue.git":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/queue.git#295eeefe129da3ac4afea23939f56ff93540904f"
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    async "^1.5.2"
-    debug "2.2.0"
-    redis "~0.12"
 
 random-bytes@~1.0.0:
   version "1.0.0"
@@ -8257,9 +8133,9 @@ react-tagsinput@^3.16.1, react-tagsinput@^3.7.0:
   version "3.19.0"
   resolved "https://registry.npmjs.org/react-tagsinput/-/react-tagsinput-3.19.0.tgz#6e3b45595f2d295d4657bf194491988f948caabf"
 
-"react-timings-picker@git://github.com/Oagenda/react-timings-picker.git":
-  version "0.2.1"
-  resolved "git://github.com/Oagenda/react-timings-picker.git#522f0a4d9981ad675d1ff364c8749a1937ab2035"
+react-timings-picker@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/react-timings-picker/-/react-timings-picker-0.2.2.tgz#685f8ecc4169233a68ae671fcb61f9bb7be3ed16"
   dependencies:
     create-react-class "^15.5.3"
     date-format-lite "^0.7.4"
@@ -8348,7 +8224,7 @@ readable-stream@1.1.x, "readable-stream@>=1.1.13-1 <1.2.0-0", readable-stream@^1
     isarray "0.0.1"
     string_decoder "~0.10.x"
 
-readable-stream@2, readable-stream@2.3.3, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.6:
+readable-stream@2, readable-stream@2.3.3, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.4, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.2.6, readable-stream@^2.3.3:
   version "2.3.3"
   resolved "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.3.tgz#368f2512d79f9d46fdfc71349ae7878bbc1eb95c"
   dependencies:
@@ -8647,7 +8523,7 @@ repeating@^2.0.0:
   dependencies:
     is-finite "^1.0.0"
 
-request@2, request@^2.61.0, request@^2.67.0, request@^2.78.0, request@^2.79.0:
+request@2, request@^2.67.0, request@^2.78.0, request@^2.79.0:
   version "2.83.0"
   resolved "https://registry.npmjs.org/request/-/request-2.83.0.tgz#ca0b65da02ed62935887808e6f510381034e3356"
   dependencies:
@@ -8811,10 +8687,6 @@ rimraf@~2.4.0:
   dependencies:
     glob "^6.0.1"
 
-ripemd160@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npmjs.org/ripemd160/-/ripemd160-0.2.0.tgz#2bf198bde167cacfa51c0a928e84b68bbe171fce"
-
 ripemd160@^2.0.0, ripemd160@^2.0.1:
   version "2.0.1"
   resolved "https://registry.npmjs.org/ripemd160/-/ripemd160-2.0.1.tgz#0f4584295c53a3628af7e6d79aca21ce57d1c6e7"
@@ -8868,7 +8740,7 @@ safe-buffer@5.1.1, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, s
   version "5.1.1"
   resolved "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.1.1.tgz#893312af69b2123def71f57889001671eeb2c853"
 
-sass-graph@^2.1.1, sass-graph@^2.2.4:
+sass-graph@^2.2.4:
   version "2.2.4"
   resolved "https://registry.npmjs.org/sass-graph/-/sass-graph-2.2.4.tgz#13fbd63cd1caf0908b9fd93476ad43a51d1e0b49"
   dependencies:
@@ -9073,10 +8945,6 @@ setprototypeof@1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
 
-sha.js@2.2.6:
-  version "2.2.6"
-  resolved "https://registry.npmjs.org/sha.js/-/sha.js-2.2.6.tgz#17ddeddc5f722fb66501658895461977867315ba"
-
 sha.js@^2.4.0, sha.js@^2.4.8, sha.js@~2.4.4:
   version "2.4.9"
   resolved "https://registry.npmjs.org/sha.js/-/sha.js-2.4.9.tgz#98f64880474b74f4a38b8da9d3c0f2d104633e7d"
@@ -9112,7 +8980,7 @@ shebang-regex@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/shebang-regex/-/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
 
-shell-quote@^1.4.2, shell-quote@^1.4.3, shell-quote@^1.6.1:
+shell-quote@^1.4.3:
   version "1.6.1"
   resolved "https://registry.npmjs.org/shell-quote/-/shell-quote-1.6.1.tgz#f4781949cce402697127430ea3b3c5476f481767"
   dependencies:
@@ -9240,10 +9108,6 @@ source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
 
-source-list-map@~0.1.7:
-  version "0.1.8"
-  resolved "https://registry.npmjs.org/source-list-map/-/source-list-map-0.1.8.tgz#c550b2ab5427f6b3f21f5afead88c4f5587b2106"
-
 source-map-loader@^0.2.1:
   version "0.2.3"
   resolved "https://registry.npmjs.org/source-map-loader/-/source-map-loader-0.2.3.tgz#d4b0c8cd47d54edce3e6bfa0f523f452b5b0e521"
@@ -9270,7 +9134,7 @@ source-map@0.1.34:
   dependencies:
     amdefine ">=0.0.4"
 
-source-map@0.4.x, source-map@^0.4.2, source-map@~0.4.0, source-map@~0.4.1, source-map@~0.4.2:
+source-map@0.4.x, source-map@^0.4.2, source-map@~0.4.0, source-map@~0.4.2:
   version "0.4.4"
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.4.4.tgz#eba4f5da9c0dc999de68032d8b4f76173652036b"
   dependencies:
@@ -9423,7 +9287,7 @@ stream-counter@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/stream-counter/-/stream-counter-1.0.0.tgz#91cf2569ce4dc5061febcd7acb26394a5a114751"
 
-stream-http@^2.0.0, stream-http@^2.3.1:
+stream-http@^2.0.0, stream-http@^2.7.2:
   version "2.7.2"
   resolved "https://registry.npmjs.org/stream-http/-/stream-http-2.7.2.tgz#40a050ec8dc3b53b33d9909415c02c0bf1abfbad"
   dependencies:
@@ -9487,15 +9351,15 @@ string-width@^2.0.0:
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^4.0.0"
 
-string_decoder@^0.10.25, string_decoder@~0.10.0, string_decoder@~0.10.x:
-  version "0.10.31"
-  resolved "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
-
-string_decoder@~1.0.0, string_decoder@~1.0.3:
+string_decoder@^1.0.0, string_decoder@~1.0.3:
   version "1.0.3"
   resolved "https://registry.npmjs.org/string_decoder/-/string_decoder-1.0.3.tgz#0fc67d7c141825de94282dd536bec6b9bce860ab"
   dependencies:
     safe-buffer "~5.1.0"
+
+string_decoder@~0.10.0, string_decoder@~0.10.x:
+  version "0.10.31"
+  resolved "https://registry.npmjs.org/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
 
 stringify@3.0.0:
   version "3.0.0"
@@ -9624,12 +9488,6 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-supports-color@^3.1.0:
-  version "3.2.3"
-  resolved "https://registry.npmjs.org/supports-color/-/supports-color-3.2.3.tgz#65ac0504b3954171d8a64946b2ae3cbb8a5f54f6"
-  dependencies:
-    has-flag "^1.0.0"
-
 supports-color@^4.2.1:
   version "4.5.0"
   resolved "https://registry.npmjs.org/supports-color/-/supports-color-4.5.0.tgz#be7a0de484dec5c5cddf8b3d59125044912f635b"
@@ -9669,10 +9527,6 @@ tabtab@^2.2.2:
     mkdirp "^0.5.1"
     npmlog "^2.0.3"
     object-assign "^4.1.0"
-
-tapable@^0.1.8, tapable@~0.1.8:
-  version "0.1.10"
-  resolved "https://registry.npmjs.org/tapable/-/tapable-0.1.10.tgz#29c35707c2b70e50d07482b5d202e8ed446dafd4"
 
 tapable@^0.2.7:
   version "0.2.8"
@@ -9744,7 +9598,7 @@ timers-browserify@^1.0.1:
   dependencies:
     process "~0.11.0"
 
-timers-browserify@^2.0.2:
+timers-browserify@^2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.4.tgz#96ca53f4b794a5e7c0e1bd7cc88a372298fa01e6"
   dependencies:
@@ -9756,12 +9610,6 @@ title-case@^1.0.0:
   dependencies:
     sentence-case "^1.1.1"
     upper-case "^1.0.3"
-
-tmp@^0.0.28:
-  version "0.0.28"
-  resolved "https://registry.npmjs.org/tmp/-/tmp-0.0.28.tgz#172735b7f614ea7af39664fa84cf0de4e515d120"
-  dependencies:
-    os-tmpdir "~1.0.1"
 
 tmp@^0.0.29:
   version "0.0.29"
@@ -9907,15 +9755,6 @@ uglify-js@~2.2:
 uglify-js@~2.6.1:
   version "2.6.4"
   resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-2.6.4.tgz#65ea2fb3059c9394692f15fed87c2b36c16b9adf"
-  dependencies:
-    async "~0.2.6"
-    source-map "~0.5.1"
-    uglify-to-browserify "~1.0.0"
-    yargs "~3.10.0"
-
-uglify-js@~2.7.3:
-  version "2.7.5"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-2.7.5.tgz#4612c0c7baaee2ba7c487de4904ae122079f2ca8"
   dependencies:
     async "~0.2.6"
     source-map "~0.5.1"
@@ -10098,26 +9937,6 @@ warning@3.0.0, warning@^3.0.0:
   dependencies:
     loose-envify "^1.0.0"
 
-watchify@^3.7.0:
-  version "3.9.0"
-  resolved "https://registry.npmjs.org/watchify/-/watchify-3.9.0.tgz#f075fd2e8a86acde84cedba6e5c2a0bedd523d9e"
-  dependencies:
-    anymatch "^1.3.0"
-    browserify "^14.0.0"
-    chokidar "^1.0.0"
-    defined "^1.0.0"
-    outpipe "^1.1.0"
-    through2 "^2.0.0"
-    xtend "^4.0.0"
-
-watchpack@^0.2.1:
-  version "0.2.9"
-  resolved "https://registry.npmjs.org/watchpack/-/watchpack-0.2.9.tgz#62eaa4ab5e5ba35fdfc018275626e3c0f5e3fb0b"
-  dependencies:
-    async "^0.9.0"
-    chokidar "^1.0.0"
-    graceful-fs "^4.1.2"
-
 watchpack@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/watchpack/-/watchpack-1.4.0.tgz#4a1472bcbb952bd0a9bb4036801f954dfb39faac"
@@ -10147,39 +9966,12 @@ webidl-conversions@^4.0.0:
   version "4.0.2"
   resolved "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-core@~0.6.9:
-  version "0.6.9"
-  resolved "https://registry.npmjs.org/webpack-core/-/webpack-core-0.6.9.tgz#fc571588c8558da77be9efb6debdc5a3b172bdc2"
-  dependencies:
-    source-list-map "~0.1.7"
-    source-map "~0.4.1"
-
 webpack-sources@^1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/webpack-sources/-/webpack-sources-1.0.2.tgz#d0148ec083b3b5ccef1035a6b3ec16442983b27a"
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
-
-webpack@^1.14.0:
-  version "1.15.0"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-1.15.0.tgz#4ff31f53db03339e55164a9d468ee0324968fe98"
-  dependencies:
-    acorn "^3.0.0"
-    async "^1.3.0"
-    clone "^1.0.2"
-    enhanced-resolve "~0.9.0"
-    interpret "^0.6.4"
-    loader-utils "^0.2.11"
-    memory-fs "~0.3.0"
-    mkdirp "~0.5.0"
-    node-libs-browser "^0.7.0"
-    optimist "~0.6.0"
-    supports-color "^3.1.0"
-    tapable "~0.1.8"
-    uglify-js "~2.7.3"
-    watchpack "^0.2.1"
-    webpack-core "~0.6.9"
 
 webpack@^3.5.5:
   version "3.8.1"
