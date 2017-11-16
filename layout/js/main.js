@@ -36,13 +36,13 @@ var utils = require( '@openagenda/utils' ),
 
   // inboxConversationForm = require( '@openagenda/inbox-apps/lib/apps/conversationForm' ),
 
+  LE = require( '@openagenda/le_js' ),
+
+  Raven = require( 'raven-js' ),
+
   callToAction = require( '@openagenda/call-to-action/react/dist' ),
 
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
-
-  LE = require( 'le_js' ),
-
-  Raven = require( 'raven-js' ),
 
   ran = false, asapRan = false,
 
