@@ -10,4 +10,5 @@ yarn.lock
 npm-debug.log
 yarn-error.log
 
-build/
+build/browserified/*
+build/sass/*
