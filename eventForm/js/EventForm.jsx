@@ -1,30 +1,35 @@
 "use strict";
 
-import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+import React from 'react';
 import update from 'immutability-helper';
-import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
-import Translation from '@openagenda/react-form-components/build/Translation';
-import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
-import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
+
 import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
-import Registration from '@openagenda/registration/lib/Registration.js';
-import References from '@openagenda/agenda-event-references/react/build/Editor';
-import Modal from '@openagenda/react-components/build/Modal';
-import Spinner from '@openagenda/react-components/build/Spinner';
-import translationLabels from '@openagenda/labels/event/translation';
-import formLabels from '@openagenda/labels/event/form';
 import flattenLabels from '@openagenda/labels/flatten';
-import MultilingualTextField from './MultilingualTextField.jsx';
-import EventKeywordsField from './EventKeywordsField.jsx';
-import Wysiwyg from './Wysiwyg.jsx';
-import CustomFields from './CustomFields.jsx';
+import formLabels from '@openagenda/labels/event/form';
+import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
+import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
+import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
+import Modal from '@openagenda/react-components/build/Modal';
+import References from '@openagenda/agenda-event-references/react/build/Editor';
+import Registration from '@openagenda/registration/lib/Registration.js';
+import Spinner from '@openagenda/react-components/build/Spinner';
+import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
+import Translation from '@openagenda/react-form-components/build/Translation';
+import translationLabels from '@openagenda/labels/event/translation';
+
 import AccessibilityFields from './AccessibilityFields.jsx';
 import AgeFields from './AgeFields.jsx';
-import TimingsPicker from './TimingsPicker.jsx';
+import CustomField from './CustomField.jsx';
+import EventKeywordsField from './EventKeywordsField.jsx';
 import languageUtils from './legacy/languageUtils';
+import MultilingualTextField from './MultilingualTextField.jsx';
+import SelectField from './SelectField.jsx';
+import TextField from './TextField.jsx';
+import TimingsPicker from './TimingsPicker.jsx';
 import translator from './translator.js';
+import Wysiwyg from './Wysiwyg.jsx';
 
 const _ = {
   isArray: require( 'lodash/isArray' )
@@ -72,7 +77,8 @@ function EventFormFactory() {
             settings: false
           } ]
         },
-        initTranslation: false
+        initTranslation: false,
+        custom: []
       }
 
     },
@@ -163,6 +169,18 @@ function EventFormFactory() {
 
     },
 
+    onCustomImageChange: function( field, value, error ) {
+
+      if ( value ) {
+
+        value = value.split( '/' ).pop(); // we just want the file name, not the full url
+
+      }
+
+      this.onCustomChange( field, value, error );
+
+    },
+
     onSwappedLanguage: function ( languages, swapFrom, swapTo ) {
 
       var updated = {}, self = this;
@@ -225,7 +243,7 @@ function EventFormFactory() {
 
     },
 
-    changeCustom: function ( field, value, errorMessage ) {
+    onCustomChange: function ( field, value, errorMessage ) {
 
       var updated = {
         custom: JSON.parse( JSON.stringify( this.state.custom ) )
@@ -663,15 +681,19 @@ function EventFormFactory() {
 
         </div>
 
-        { this.props.custom ? <CustomFields
-            fields={this.props.custom}
-            values={this.state.custom}
-            errors={formErrors}
-            languages={this.state.languages}
-            onChange={this.changeCustom}
-            labels={this.props.labels}
-            res={this.props.customRes}
-            lang={this.props.lang} /> : '' }
+        
+        { this.props.custom.map( field => <CustomField
+          key={field.name}
+          labels={this.props.labels}
+          res={this.props.customRes}
+          field={field}
+          value={this.state.custom[ field.name ]}
+          error={formErrors[ field.name ]}
+          languages={this.state.languages}
+          lang={this.props.lang}
+          onChange={ ( field.fieldType==='image' ? this.onCustomImageChange : this.onCustomChange ).bind( null, field.name ) }
+        /> ) }
+        
 
         {this.props.configuration.field( 'references' ).display( false ) ? <References
           initUids={this.state.references}
