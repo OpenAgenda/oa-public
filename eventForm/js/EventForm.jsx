@@ -682,7 +682,7 @@ function EventFormFactory() {
         </div>
 
         
-        { this.props.custom.map( field => <CustomField
+        { this.props.custom ? this.props.custom.map( field => <CustomField
           key={field.name}
           labels={this.props.labels}
           res={this.props.customRes}
@@ -692,7 +692,7 @@ function EventFormFactory() {
           languages={this.state.languages}
           lang={this.props.lang}
           onChange={ ( field.fieldType==='image' ? this.onCustomImageChange : this.onCustomChange ).bind( null, field.name ) }
-        /> ) }
+        /> ) : null }
         
 
         {this.props.configuration.field( 'references' ).display( false ) ? <References
