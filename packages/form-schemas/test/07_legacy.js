@@ -35,6 +35,25 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
   } );
 
+  it( '.get specifies field origin in origin key', async () => {
+
+    let formData = await svc.legacy.get( 3868 );
+
+    const origins = formData.fields.map( f => f.origin );
+
+    origins.should.eql( [ 
+      'custom',
+      'custom',
+      'custom',
+      'custom',
+      'custom',
+      'tags',
+      'tags',
+      'categories'
+    ] );
+
+  } );
+
   it( '.transfer performs a legacy get followed by a create operation', async () => {
 
     let result = await svc.legacy.transfer( 3868 );

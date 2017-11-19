@@ -29,7 +29,9 @@ module.exports = ( formSchema, customFields ) => {
 
     if ( !parse ) return;
 
-    fs.addField( parse( f ) );
+    fs.addField( _.extend( parse( f ), {
+      origin: 'custom'
+    } ) );
 
   } );
 

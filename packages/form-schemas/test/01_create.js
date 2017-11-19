@@ -32,7 +32,7 @@ describe( 'form-schemas - functional (server): create', () => {
       formSchema: {
         nextOptionId: 1,
         fields: [] 
-      } 
+      }
     } );
 
   } );

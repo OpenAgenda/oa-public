@@ -27,7 +27,8 @@ describe( 'field validation', () => {
         optional: true,
         min: null,
         max: null,
-        fieldType: 'text' 
+        fieldType: 'text',
+        origin: null
       } );
         
     } );
@@ -44,7 +45,8 @@ describe( 'field validation', () => {
         }, {
           value: 2,
           label: { fr: 'Deux' }
-        } ]
+        } ],
+        origin: null
       } )
 
       .should.eql( {
@@ -58,7 +60,8 @@ describe( 'field validation', () => {
           { id: null, legacyId: null, value: '1', label: { fr: 'Un' } },
           { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } } 
         ],
-        fieldType: 'radio'
+        fieldType: 'radio',
+        origin: null
       } );
 
     } );
@@ -72,7 +75,8 @@ describe( 'field validation', () => {
         label: { fr: 'Un champ de texte libre' },
         info: { fr: 'Avec un détail explicatif' },
         min: 3,
-        max: 10
+        max: 10,
+        origin: null
       } )
 
       .should.eql( { 
@@ -84,7 +88,8 @@ describe( 'field validation', () => {
         optional: true,
         min: 3,
         max: 10,
-        fieldType: 'textarea'
+        fieldType: 'textarea',
+        origin: null
       } );
 
     } );

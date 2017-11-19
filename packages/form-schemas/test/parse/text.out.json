@@ -12,6 +12,7 @@
     "min": 3,
     "max": 50,
     "read": null,
-    "write": "contributor"
+    "write": "contributor",
+    "origin" : "custom"
   } ]
 }

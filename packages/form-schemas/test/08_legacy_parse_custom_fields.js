@@ -1,10 +1,11 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const fs = require( 'fs' );
 const should = require( 'should' );
 
 const parseCustomFields = require( '../legacy/parseCustomFields' );
 
-const fs = require( 'fs' );
 
 describe( 'form-schemas - unit (server): legacy custom fields', function() {
 
@@ -28,7 +29,7 @@ describe( 'form-schemas - unit (server): legacy custom fields', function() {
 
     parseCustomFields( { fields: [] }, _get( 'integer.in' ) )
 
-      .should.eql( _get( 'integer.out' ) );
+      .should.eql( _get( 'customInteger.out' ) );
 
   } );
 

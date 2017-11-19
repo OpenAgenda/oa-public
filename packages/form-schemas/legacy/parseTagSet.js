@@ -42,6 +42,7 @@ function _parseGroup( g, i, type = 'tag' ) {
   return _.extend( {
     field,
     optional: !g.required,
+    origin: type === 'tag' ? 'tags' : 'categories',
     label: {
       fr: g.name || 'Tags'
     },

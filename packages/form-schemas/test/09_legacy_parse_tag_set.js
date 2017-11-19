@@ -105,7 +105,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             },
             legacyId: 10127
           } ],
-          fieldType: "checkbox"
+          fieldType: "checkbox",
+          "origin" : "tags"
         },
         {
           "field": "style-musical",
@@ -142,7 +143,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
               legacyId: 10130
             }
           ],
-          "fieldType": "radio"
+          "fieldType": "radio",
+          "origin" : "tags"
         }
       ]
     } );
@@ -209,7 +211,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             "legacyId" : 3030
           }
         ],
-        "fieldType": "radio"
+        "fieldType": "radio",
+        "origin" : "categories"
       } ]
     } );
 

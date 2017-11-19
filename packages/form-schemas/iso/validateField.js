@@ -147,6 +147,14 @@ types.forEach( type => {
     optional: {
       type: 'boolean',
       default: true
+    },
+
+    // when the field was defined elsewhere ( tag, category or custom )
+    origin: {
+      type: 'choice',
+      default: null,
+      unique: true,
+      options: [ 'tags', 'categories', 'custom' ]
     }
 
   }, minMaxedTypes.indexOf( type ) !== -1 ? {

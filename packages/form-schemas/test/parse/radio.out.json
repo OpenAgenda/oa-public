@@ -164,7 +164,8 @@
           "legacyId" : null
         }
       ],
-      "fieldType": "radio"
+      "fieldType": "radio",
+      "origin" : "custom"
     }
   ]
 }
