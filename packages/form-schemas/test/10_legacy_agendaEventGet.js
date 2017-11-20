@@ -63,7 +63,10 @@ describe( 'form-schemas - functional (server): legacy', function() {
         detailedcoms: 'Avec Cetim, Symop, CeA List, Mbway ( soutien Arts et Métiers Alumni)',
         organizertype: 7,
         expectedcount: 75,
-        otherorganizer: 'Expert Robot Start PmE, labellisé Industrie du futur, intervenant dans l\'école Mbway' 
+        otherorganizer: 'Expert Robot Start PmE, labellisé Industrie du futur, intervenant dans l\'école Mbway',
+        internetsite: null,
+        facebookurl: null,
+        twitterurl: null
       } );
 
   } );

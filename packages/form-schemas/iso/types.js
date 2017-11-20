@@ -9,5 +9,6 @@ module.exports = {
   text: 'text',
   textarea: 'text',
   markdown: 'text',
-  image: 'text'
+  image: 'text',
+  file: 'text'
 }

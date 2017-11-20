@@ -17,14 +17,14 @@ module.exports = ( formSchema, customFields ) => {
       integer: parseBasic,
       number: parseBasic,
       textarea: parseBasic,
-      // url,
-      // email,
-      // image,
+      url: parseBasic,
+      email: parseBasic,
+      image: parseBasic,
+      file: parseBasic,
       multichoice: parseChoice,
       // select,
       radio: parseChoice,
-      checkbox: parseCheckbox,
-      // checkbox
+      checkbox: parseCheckbox
     } )[ f.fieldType ];
 
     if ( !parse ) return;
