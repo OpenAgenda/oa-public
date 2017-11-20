@@ -77,7 +77,7 @@ module.exports = function( params ) {
 
   run = function() {
 
-    _createElem();
+    if ( !_createElem() ) return;
 
     _createFrame();
 
@@ -333,12 +333,16 @@ module.exports = function( params ) {
 
   _createElem = function() {
 
+    if ( !du.el( params.canvas ) ) return false;
+
     elem = document.createElement('div');
     elem.className = params.classes.main;
 
     elem.innerHTML = ejs.render( params.templates.main, params.labels );
 
     du.el( params.canvas ).appendChild(elem);
+
+    return true;
 
   };
 

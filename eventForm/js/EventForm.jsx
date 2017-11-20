@@ -16,7 +16,7 @@ import References from '@openagenda/agenda-event-references/react/build/Editor';
 import Registration from '@openagenda/registration/lib/Registration.js';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
-import Translation from '@openagenda/react-form-components/build/Translation';
+import Translation from '@openagenda/react-form-components/build/Translation'; // suspected missing key prop
 import translationLabels from '@openagenda/labels/event/translation';
 
 import AccessibilityFields from './AccessibilityFields.jsx';
@@ -555,58 +555,71 @@ function EventFormFactory() {
 
     },
 
+    renderLanguageBar() {
+
+      
+
+    },
+
     render: function () {
+
+      let displayedLanguageBar = false,
+
+        displayedTags = false,
+
+        displayedCategories = false;
+
+      const renderLanguageBar = () => {
+
+        if ( displayedLanguageBar ) return null;
+
+        displayedLanguageBar = true;
+
+        return <LanguageBar
+          languages={this.state.languages}
+          onChange={this.changeLanguages}
+          getLabel={this.getLabel} />
+
+      }
 
       return <div>
 
-        <div>
+      { this.props.order.map( o => {
 
-          {( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ?
-            <CategorySelector
-              lang={this.props.lang}
-              set={this.props.categorySet}
-              categories={this.props.categories}
-              selection={this.getSelectedCategory()}
-              onChange={this.onTagsCategoryChange( 'category' )}
-              labels={this.props.labels} /> : ''}
+        if ( o.field === 'image' ) {
 
-          {( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ?
-            <TagSelector
-              lang={this.props.lang}
-              set={this.props.tagSet}
-              tags={this.props.tags}
-              selection={this.getSelectedTags()}
-              onChange={this.onTagsCategoryChange( 'tags' )}
-              labels={this.props.labels} /> : ''}
+          return <div className="js_event_image_canvas"></div>;
 
-          <div className="js_event_image_canvas"></div>
+        }
 
-          <h2>{this.props.labels.descriptionSection[ this.props.lang ]}</h2>
+        if ( o.field === 'title' ) {
 
-          <LanguageBar
-            languages={this.state.languages}
-            onChange={this.changeLanguages}
-            getLabel={this.getLabel} />
+          return <div>
+            {renderLanguageBar()}
+            <div className="multilingual-input-field">
+              <MultilingualTextField
+                constraints={{ max: 140 }}
+                counter={true}
+                optional={false}
+                label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
+                placeholder={this.props.configuration.field( 'title' ).getPlaceholder( false, this.props.labels )}
+                name='title'
+                type='text'
+                value={this.state.title}
+                error={formErrors.title}
+                languages={this.state.languages}
+                onChange={this.onChange( 'title' )}
+                lang={this.props.lang} />
+            </div>
+          </div>;
 
-          <div className="multilingual-input-field">
+        }
 
-            <MultilingualTextField
-              constraints={{ max: 140 }}
-              counter={true}
-              optional={false}
-              label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
-              placeholder={this.props.configuration.field( 'title' ).getPlaceholder( false, this.props.labels )}
-              name='title'
-              type='text'
-              value={this.state.title}
-              error={formErrors.title}
-              languages={this.state.languages}
-              onChange={this.onChange( 'title' )}
-              lang={this.props.lang} />
+        if ( o.field === 'description' ) {
 
-          </div>
-
-          {!this.props.configuration.field( 'description' ).fixed() ?
+          return <div>
+            {renderLanguageBar()}
+            {!this.props.configuration.field( 'description' ).fixed() ?
             <div className="multilingual-input-field">
               <MultilingualTextField
                 constraints={{ max: 200 }}
@@ -623,8 +636,24 @@ function EventFormFactory() {
                 lang={this.props.lang} />
             </div>
             : null}
+          </div>;
 
-          {this.props.configuration.field( 'keywords' ).display() ?
+        }
+
+        if ( o.field === 'longDescription' ) {
+
+          return <div>
+            {renderLanguageBar()}
+            {this.renderMarkdownField()}
+          </div>;
+
+        }
+
+        if ( o.field === 'keywords' ) {
+
+          return <div>
+            {renderLanguageBar()}
+            {this.props.configuration.field( 'keywords' ).display() ?
             <div className="multilingual-input-field">
               <EventKeywordsField
                 constraints={{ max: 255 }}
@@ -639,10 +668,15 @@ function EventFormFactory() {
                 placeholder={this.props.configuration.field( 'keywords' ).getPlaceholder( false, this.props.labels )}
                 lang={this.props.lang} />
             </div> : null}
+          </div>;
 
-          {this.renderMarkdownField()}
+        }
 
-          {this.props.configuration.field( 'conditions' ).display() ? <div className="multilingual-input-field">
+        if ( o.field === 'conditions' ) {
+
+          return <div>
+            {renderLanguageBar()}
+            {this.props.configuration.field( 'conditions' ).display() ? <div className="multilingual-input-field">
             <MultilingualTextField
               constraints={{ max: 255 }}
               counter={true}
@@ -656,89 +690,153 @@ function EventFormFactory() {
               languages={this.state.languages}
               onChange={this.onChange( 'conditions' )}
               lang={this.props.lang} />
-          </div> : null}
+            </div> : null}
+          </div>;
 
-          {this.props.configuration.field( 'registration' ).display() ? <Registration
+        }
+
+        if ( o.field === 'registration' ) {
+
+          return <div>{this.props.configuration.field( 'registration' ).display() ? <Registration
             lang={this.props.lang}
             label={this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels )}
             placeholder={this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels )}
             value={this.state.ticketLink}
-            onChange={this.onChangeRegistration} /> : null}
+            onChange={this.onChangeRegistration} /> : null}</div>
 
-          {this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
+        }
+
+        if ( o.field === 'accessibility' ) {
+
+          return <div>{this.props.configuration.field( 'accessibility' ).display() ? <AccessibilityFields
             value={this.state.accessibility || []}
             label={this.props.labels.accessibility}
             info={this.props.configuration.field( 'accessibility' ).getInfo( false, false )}
             onChange={this.onChange( 'accessibility' )}
-            labelsLang={this.props.lang} /> : null}
+            labelsLang={this.props.lang} /> : null}</div>
 
-          {this.props.configuration.field( 'age' ).display() ? <AgeFields
+        }
+
+        if ( o.field === 'age' ) {
+
+          return <div>{this.props.configuration.field( 'age' ).display() ? <AgeFields
             value={this.state.age}
             label={this.props.labels.age}
             info={this.props.configuration.field( 'age' ).getInfo( true, false )}
             onChange={this.onChange( 'age' )}
-            labelsLang={this.props.lang} /> : null}
+            labelsLang={this.props.lang} /> : null}</div>;
 
-        </div>
+        }
 
-        
-        { this.props.custom ? this.props.custom.map( field => <CustomField
-          key={field.name}
-          labels={this.props.labels}
-          res={this.props.customRes}
-          field={field}
-          value={this.state.custom[ field.name ]}
-          error={formErrors[ field.name ]}
-          languages={this.state.languages}
-          lang={this.props.lang}
-          onChange={ ( field.fieldType==='image' ? this.onCustomImageChange : this.onCustomChange ).bind( null, field.name ) }
-        /> ) : null }
-        
+        if ( o.field === 'references' ) {
 
-        {this.props.configuration.field( 'references' ).display( false ) ? <References
-          initUids={this.state.references}
-          res={this.props.referenceRes}
-          info={this.props.configuration.field( 'references' ).getInfo( true, false )}
-          onChange={this.props.onReferencesChange}
-        /> : null}
+          return <div>{this.props.configuration.field( 'references' ).display( false ) ? <References
+            initUids={this.state.references}
+            res={this.props.referenceRes}
+            info={this.props.configuration.field( 'references' ).getInfo( true, false )}
+            onChange={this.props.onReferencesChange}
+          /> : null}</div>
 
-        <div className="margin-v-lg">
-          <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
-          {this.state.locationMode === 'create' ?
-            <Modal disableBodyScroll={true} classNames={{
-              overlay: 'popup-overlay big'
-            }} onClose={() => {
-              this.onLocationModeChange( 'search' );
-            }}>
-              {this.renderLocationSelector()}
-            </Modal>
-            : this.renderLocationSelector()}
-        </div>
+        }
 
-        <div className="margin-v-lg">
-          <TimingsPicker
-            labels={this.props.labels}
-            info={this.props.configuration.field( 'timings' ).getInfo( true, false )}
-            lang={this.props.lang}
-            error={formErrors.timings}
-            timings={this.state.timings}
-            configuration={this.props.configuration.field( 'timings' )}
-            onChange={this.onTimingsChange} />
-        </div>
+        if ( o.field === 'location' ) {
 
-        {this.state.translation ?
-          <div className="margin-v-lg">
-            <Translation
-              source={this.state.translation.source}
-              sets={this.state.translation.sets}
-              check={translator.change.bind( null, true )}
-              uncheck={translator.change.bind( null, false )}
-              sourceChange={translator.sourceChange.bind( null )}
-              labels={flattenLabels( translationLabels, this.props.lang )}
-            />
+          return <div className="margin-v-lg">
+            <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
+            {this.state.locationMode === 'create' ?
+              <Modal disableBodyScroll={true} classNames={{
+                overlay: 'popup-overlay big'
+              }} onClose={() => {
+                this.onLocationModeChange( 'search' );
+              }}>
+                {this.renderLocationSelector()}
+              </Modal>
+              : this.renderLocationSelector()}
           </div>
-          : null}
 
+        }
+
+        if ( o.field === 'timings' ) {
+
+          return <div className="margin-v-lg">
+            <TimingsPicker
+              labels={this.props.labels}
+              info={this.props.configuration.field( 'timings' ).getInfo( true, false )}
+              lang={this.props.lang}
+              error={formErrors.timings}
+              timings={this.state.timings}
+              configuration={this.props.configuration.field( 'timings' )}
+              onChange={this.onTimingsChange} />
+          </div>
+
+        }
+
+        if ( o.origin === 'tags' && !displayedTags ) {
+
+          displayedTags = true;
+
+          return <div>{( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ?
+            <TagSelector
+              lang={this.props.lang}
+              set={this.props.tagSet}
+              tags={this.props.tags}
+              selection={this.getSelectedTags()}
+              onChange={this.onTagsCategoryChange( 'tags' )}
+              labels={this.props.labels} /> : ''}</div>       
+
+        }
+
+        if ( o.origin === 'categories' && !displayedCategories ) {
+
+          displayedCategories = true;
+
+          return <div>{( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ?
+            <CategorySelector
+              lang={this.props.lang}
+              set={this.props.categorySet}
+              categories={this.props.categories}
+              selection={this.getSelectedCategory()}
+              onChange={this.onTagsCategoryChange( 'category' )}
+              labels={this.props.labels} />
+          : ''}</div>
+
+        }
+
+        const index = ( this.props.custom || [] ).map( c => c.name ).indexOf( o.field );
+
+        if ( index !== -1 ) {
+
+          const field = this.props.custom[ index ];
+
+          return <CustomField
+            key={field.name}
+            labels={this.props.labels}
+            res={this.props.customRes}
+            field={field}
+            value={this.state.custom[ field.name ]}
+            error={formErrors[ field.name ]}
+            languages={this.state.languages}
+            lang={this.props.lang}
+            onChange={ ( field.fieldType==='image' ? this.onCustomImageChange : this.onCustomChange ).bind( null, field.name ) }
+          />
+
+        }
+        
+
+        return <div><p>.</p></div>;
+
+      } ) }
+
+        {this.state.translation ? <div className="margin-v-lg">
+          <Translation
+            source={this.state.translation.source}
+            sets={this.state.translation.sets}
+            check={translator.change.bind( null, true )}
+            uncheck={translator.change.bind( null, false )}
+            sourceChange={translator.sourceChange.bind( null )}
+            labels={flattenLabels( translationLabels, this.props.lang )}
+          />
+        </div> : null}
 
         <div className="js_form_canvas_below"></div>
 
