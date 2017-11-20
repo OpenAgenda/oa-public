@@ -555,19 +555,9 @@ function EventFormFactory() {
 
     },
 
-    renderLanguageBar() {
-
-      
-
-    },
-
     render: function () {
 
-      let displayedLanguageBar = false,
-
-        displayedTags = false,
-
-        displayedCategories = false;
+      let displayedLanguageBar = false;
 
       const renderLanguageBar = () => {
 
@@ -771,24 +761,21 @@ function EventFormFactory() {
 
         }
 
-        if ( o.origin === 'tags' && !displayedTags ) {
-
-          displayedTags = true;
+        if ( o.origin === 'tags' ) {
 
           return <div>{( this.props.tags && this.props.tags.length ) || ( this.props.tagSet && this.props.tagSet.groups.length ) ?
             <TagSelector
+              filter={o.field}
               lang={this.props.lang}
               set={this.props.tagSet}
               tags={this.props.tags}
               selection={this.getSelectedTags()}
               onChange={this.onTagsCategoryChange( 'tags' )}
-              labels={this.props.labels} /> : ''}</div>       
+              labels={this.props.labels} /> : ''}</div>
 
         }
 
-        if ( o.origin === 'categories' && !displayedCategories ) {
-
-          displayedCategories = true;
+        if ( o.origin === 'categories' ) {
 
           return <div>{( this.props.categories && this.props.categories.length ) || ( this.props.categorySet && this.props.categorySet.categories.length ) ?
             <CategorySelector
