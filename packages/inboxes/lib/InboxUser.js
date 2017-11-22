@@ -167,11 +167,11 @@ var InboxUser = function () {
                 data = (0, _extends3.default)({}, this.identifiers);
 
 
-                if (!this.identifiers.id && this.inbox && this.inbox.data) {
+                if (this.inbox && this.inbox.data) {
                   data.inboxId = this.inbox.data.id;
                 }
 
-                (0, _validate2.default)(ajv, (0, _inboxUserSchemas.getIdentifiersSchema)(this.identifiers, this.inbox), data);
+                (0, _validate2.default)(ajv, (0, _inboxUserSchemas.getIdentifiersSchema)(this.identifiers), data);
 
                 _context2.next = 9;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxUser).first(_mapper2.default.listFields(_inboxUserFieldsMap2.default, 'select', 'db', params)).where(_mapper2.default.toDb(_inboxUserFieldsMap2.default, 'select', data, params)));

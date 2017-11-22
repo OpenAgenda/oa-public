@@ -4,23 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getIdentifiersSchema = getIdentifiersSchema;
-function getIdentifiersSchema(identifiers, inbox) {
-  if (identifiers && identifiers.id) {
-    return {
-      required: ['id'],
-      additionalProperties: false,
-      properties: {
-        id: {
-          type: 'integer'
-        }
-      }
-    };
-  }
-
+function getIdentifiersSchema(identifiers) {
   return {
-    required: ['inboxId', 'userUid'],
+    required: identifiers && identifiers.id ? ['id'] : ['inboxId', 'userUid'],
     additionalProperties: false,
     properties: {
+      id: {
+        type: 'integer'
+      },
       inboxId: {
         type: 'integer'
       },
