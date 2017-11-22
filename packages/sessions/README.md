@@ -16,6 +16,10 @@ Cookie-stored info are:
  * flash: when set, displays a message on the browser with the given text
  * user.lang: reference for the language of the user
  * user.uid: identifier of the user
+ * notifications: a count of new notifications to be set by third party service
+ * messages: a flag indicating if there are any new messages ( set by third party service )
+
+More about messages and notifications here below
 
 Server-stored info are an extension of the cookie values when the user is logged
 
@@ -39,3 +43,20 @@ This was flagged as a security concern by the audit carried out by the city of G
  * **.close**: Closes a session given its code
  * **.get**: Gets session data given a session code
  * **list**: Lists all current sessions ( usual list features without query bit: offset, limit, ( err, items, total ) => {}
+
+
+# Client cookie methodds
+
+## notifications
+
+The client cookie exposes the following methods in a notifications namespace:
+
+ * **client.notifications.setCount**: set the count of new notifications
+ * **client.notifications.getCount**: get the count
+
+## messages
+
+The client cookie exposes the following methods in a messages namespace:
+
+ * **client.messages.getNewFlag( [ unset = false ] )**: get flag value for new messages. Unset at the same time if the option is set to true.
+ * **client.messages.setNewFlag: set the flag value ( boolean )

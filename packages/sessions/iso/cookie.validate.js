@@ -10,13 +10,20 @@ schema.register( {
   integer: require( '@openagenda/validators/integer' ),
   text: require( '@openagenda/validators/text' ),
   link: require( '@openagenda/validators/link' ),
-  date: require( '@openagenda/validators/date' )
+  date: require( '@openagenda/validators/date' ),
+  boolean: require( '@openagenda/validators/boolean' )
 } );
 
 const writableFields = {
   flash: {
     type: 'text',
     max: 1000
+  },
+  messages: {
+    newFlag: {
+      type: 'boolean',
+      default: false
+    }
   },
   notifications: {
     updatedAt: {

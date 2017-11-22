@@ -93,6 +93,60 @@ describe( 'session - functional (client): session', () => {
   } );
 
 
+  describe( '.messages', () => {
+
+    it( 'getNewFlag - returns false if not flagged', done => {
+
+      jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
+
+        // this is for test env only
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        should( clientSession.messages.getNewFlag() ).equal( false );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'getNewFlag/setNewFlag - returns true if flagged', done => {
+
+      jsdom.env( '<a>boum</a>', ( err, w ) => {
+
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        clientSession.messages.setNewFlag( true )
+
+        clientSession.messages.getNewFlag().should.equal( true );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'getNewFlag - can unset while getting flag', done => {
+
+      jsdom.env( '<a>boum</a>', ( err, w ) => {
+
+        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+
+        clientSession.messages.setNewFlag( true );
+
+        clientSession.messages.getNewFlag( true );
+
+        clientSession.messages.getNewFlag().should.equal( false );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
   describe( '.notifications', () => {
 
     it( 'returns null if nothing is set', done => {

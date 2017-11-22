@@ -1,12 +1,15 @@
 "use strict";
 
-const config = require( '../iso/config' ),
+const _ = {
+  extend: require( 'lodash/extend' ),
+  set: require( 'lodash/set' ),
+  get: require( 'lodash/get' )
+};
 
-  validate = require( '../iso/cookie.validate.js' ),
+const base64 = require( '@openagenda/utils/base64' );
 
-  base64 = require( '@openagenda/utils/base64' ),
-
-  extend = require( 'lodash/extend' );
+const config = require( '../iso/config' );
+const validate = require( '../iso/cookie.validate.js' );
 
 let cookies = require( 'cookies-js' );
 
@@ -15,6 +18,10 @@ module.exports = {
   notifications: {
     getCount: getNotificationCount,
     setCount: setNotificationCount
+  },
+  messages: {
+    setNewFlag: setMessageNewFlag,
+    getNewFlag: getMessageNewFlag
   },
   isLogged,
   flash,
@@ -47,7 +54,7 @@ function getNotificationCount( now = null ) {
 
   }
 
-  if ( !session.notifications || !session.notifications.updatedAt ) {
+  if ( !_.get( session, 'notifications.updatedAt', null ) ) {
 
     return null;
 
@@ -60,6 +67,32 @@ function getNotificationCount( now = null ) {
   }
 
   return session.notifications.count;
+
+}
+
+function setMessageNewFlag( value = true ) {
+
+  let session = _getWritable() || {};
+
+  _.set( session, 'messages.newFlag', !!value );
+
+  _setWritable( session );
+
+}
+
+function getMessageNewFlag( unset = false ) {
+
+  let session = _getWritable() || {};
+
+  const flag = _.get( session, 'messages.newFlag', false );
+
+  if ( !unset ) return flag;
+
+  _.set( session, 'messages.newFlag', false );
+
+  _setWritable( session );
+
+  return flag;
 
 }
 
@@ -82,7 +115,7 @@ function flash() {
 
   flash = values ? values.flash : null;
 
-  _setWritable( extend( values, { flash: null } ) );
+  _setWritable( _.extend( values, { flash: null } ) );
 
   return flash;
 
