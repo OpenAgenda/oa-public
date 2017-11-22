@@ -508,6 +508,20 @@ $dayInWeek: 7;
 
         }
 
+        .rc-day-short {
+
+          display: none;
+
+        }
+
+        @include respond-to( xsmall ) {
+
+          .rc-day-long { display: none; }
+
+          .rc-day-short { display: block; }
+  
+        }
+
       }
 
     }

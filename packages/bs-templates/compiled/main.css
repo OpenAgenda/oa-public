@@ -10021,6 +10021,13 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
           white-space: nowrap;
           line-height: 16px;
           border-left: 1px solid white; }
+        .rc-calendar .rc-header .rc-weekdays .rc-day-name .rc-day-short {
+          display: none; }
+        @media only screen and (max-width: 480px) {
+          .rc-calendar .rc-header .rc-weekdays .rc-day-name .rc-day-long {
+            display: none; }
+          .rc-calendar .rc-header .rc-weekdays .rc-day-name .rc-day-short {
+            display: block; } }
   .rc-calendar .rc-scheduler {
     display: block;
     height: 360px;
