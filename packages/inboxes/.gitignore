@@ -1,6 +1,6 @@
 .idea/
 node_modules/
 npm-debug.log
-yarn.lock
+yarn-error.log
 testconfig.js
 coverage/
