@@ -1,0 +1,133 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _merge2 = require('lodash/merge');
+
+var _merge3 = _interopRequireDefault(_merge2);
+
+var _jsxFileName = 'src/apps/conversationForm/index.js';
+exports.default = createApp;
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require('react-dom');
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _redux = require('redux');
+
+var _reactRedux = require('react-redux');
+
+var _createBrowserHistory = require('history/lib/createBrowserHistory');
+
+var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
+
+var _createStore = require('@openagenda/react-utils/dist/createStore');
+
+var _createStore2 = _interopRequireDefault(_createStore);
+
+var _ApiClient = require('@openagenda/react-utils/dist/ApiClient');
+
+var _ApiClient2 = _interopRequireDefault(_ApiClient);
+
+var _domUtils = require('@openagenda/dom-utils');
+
+var _domUtils2 = _interopRequireDefault(_domUtils);
+
+var _reducer = require('../../redux/reducer');
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
+var _containers = require('../../containers');
+
+var _openConversationForm = require('./openConversationForm');
+
+var _conversationForm = require('../../redux/modules/conversationForm');
+
+var actions = _interopRequireWildcard(_conversationForm);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function createApp(options) {
+
+  var params = (0, _merge3.default)({
+    state: {
+      settings: {
+        lang: 'fr',
+        prefix: '',
+        apiRoot: ''
+      },
+      res: {
+        conversations: {
+          create: '/user/conversations'
+        }
+      }
+    },
+    selector: '.js_conversation_form',
+    appDestClassName: 'js_conversation_form_canvas'
+  }, options);
+
+  var client = new _ApiClient2.default(params.state.settings.apiRoot);
+  var browserHistory = (0, _createBrowserHistory2.default)();
+  var store = (0, _createStore2.default)(_reducer2.default)(browserHistory, client, params.state);
+
+  var openConversationForm = (0, _redux.bindActionCreators)(function (data) {
+    if (data instanceof Event) {
+      return actions.openConversationForm({
+        lang: data.target.getAttribute('data-lang'),
+        destinationInbox: parseJsonField(data.target.getAttribute('data-destination-inbox')),
+        type: data.target.getAttribute('data-type'),
+        typeIdentifier: data.target.getAttribute('data-type-identifier'),
+        params: parseJsonField(data.target.getAttribute('data-params')) || {}
+      });
+    }
+
+    return actions.openConversationForm(data);
+  }, store.dispatch);
+
+  window.openConversationForm = openConversationForm;
+
+  if (params.selector) {
+    _domUtils2.default.els(params.selector).map(function (el) {
+      return _domUtils2.default.addEvent(el, 'click', openConversationForm);
+    });
+  }
+
+  if (_openConversationForm.onReady) openConversationForm(_openConversationForm.onReady);
+
+  var appDest = document.createElement('div');
+  appDest.className = params.appDestClassName;
+  window.document.body.insertAdjacentElement('beforeend', appDest);
+
+  return _reactDom2.default.hydrate(_react2.default.createElement(
+    _reactRedux.Provider,
+    { store: store, key: 'provider', __source: {
+        fileName: _jsxFileName,
+        lineNumber: 65
+      }
+    },
+    _react2.default.createElement(_containers.ConversationFormApp, {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 66
+      }
+    })
+  ), _domUtils2.default.el('.' + params.appDestClassName));
+}
+
+function parseJsonField(value) {
+  try {
+    return JSON.parse(value);
+  } catch (e) {
+    return value;
+  }
+}
+module.exports = exports['default'];
+//# sourceMappingURL=index.js.map

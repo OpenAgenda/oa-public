@@ -1,0 +1,191 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = require('babel-runtime/helpers/possibleConstructorReturn');
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = require('babel-runtime/helpers/inherits');
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _isObject2 = require('lodash/isObject');
+
+var _isObject3 = _interopRequireDefault(_isObject2);
+
+var _redboxReact2 = require('redbox-react');
+
+var _redboxReact3 = _interopRequireDefault(_redboxReact2);
+
+var _react2 = require('react');
+
+var _react3 = _interopRequireDefault(_react2);
+
+var _reactTransformCatchErrors3 = require('react-transform-catch-errors');
+
+var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErrors3);
+
+var _dec,
+    _dec2,
+    _class,
+    _jsxFileName = 'src/components/ConversationForm/ConversationForm.js';
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _recompose = require('recompose');
+
+var _reduxForm = require('redux-form');
+
+var _form = require('../../utils/form');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var _components = {
+  ConversationForm: {
+    displayName: 'ConversationForm'
+  }
+};
+
+var _reactTransformCatchErrors2 = (0, _reactTransformCatchErrors4.default)({
+  filename: 'src/components/ConversationForm/ConversationForm.js',
+  components: _components,
+  locals: [],
+  imports: [_react3.default, _redboxReact3.default]
+});
+
+function _wrapComponent(id) {
+  return function (Component) {
+    return _reactTransformCatchErrors2(Component, id);
+  };
+}
+
+var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm.reduxForm)({
+  form: 'conversation'
+}), _dec2 = (0, _recompose.getContext)({
+  getLabel: _propTypes2.default.func
+}), _dec(_class = _dec2(_class = function (_Component) {
+  (0, _inherits3.default)(ConversationForm, _Component);
+
+  function ConversationForm(props) {
+    (0, _classCallCheck3.default)(this, ConversationForm);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ConversationForm.__proto__ || (0, _getPrototypeOf2.default)(ConversationForm)).call(this, props));
+
+    _this.FormComponent = _this.FormComponent.bind(_this);
+    return _this;
+  }
+
+  (0, _createClass3.default)(ConversationForm, [{
+    key: 'formatJsonValue',
+    value: function formatJsonValue(value) {
+      return (0, _isObject3.default)(value) ? (0, _stringify2.default)(value) : value;
+    }
+  }, {
+    key: 'parseJsonValue',
+    value: function parseJsonValue(value) {
+      try {
+        return JSON.parse(value);
+      } catch (e) {
+        return value;
+      }
+    }
+  }, {
+    key: 'FormComponent',
+    value: function FormComponent(_ref) {
+      var className = _ref.className;
+      var getLabel = this.props.getLabel;
+
+
+      return _react3.default.createElement(
+        'div',
+        { className: className, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 36
+          }
+        },
+        _react3.default.createElement(_reduxForm.Field, {
+          name: 'destinationInbox',
+          component: 'input',
+          type: 'hidden',
+          format: this.formatJsonValue,
+          parse: this.parseJsonValue,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 37
+          }
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          name: 'type',
+          component: 'input',
+          type: 'hidden',
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 44
+          }
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          name: 'params',
+          component: 'input',
+          type: 'hidden',
+          format: this.formatJsonValue,
+          parse: this.parseJsonValue,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 49
+          }
+        }),
+        _react3.default.createElement(_reduxForm.Field, {
+          label: getLabel('message'),
+          component: _form.renderTextarea,
+          name: 'message',
+          className: 'form-control'
+          // classNameGroup="margin-top-md margin-bottom-lg"
+          , rows: '8',
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 56
+          }
+        })
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          handleSubmit = _props.handleSubmit,
+          children = _props.children;
+
+
+      return children({
+        handleSubmit: handleSubmit,
+        FormComponent: this.FormComponent
+      });
+    }
+  }]);
+  return ConversationForm;
+}(_react2.Component)) || _class) || _class));
+
+exports.default = ConversationForm;
+module.exports = exports['default'];
+//# sourceMappingURL=ConversationForm.js.map
