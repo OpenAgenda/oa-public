@@ -29,6 +29,11 @@ const fieldsMap = [
   {
     db: 'unused',
     obj: 'unused'
+  },
+  {
+    db: 'detailed_field',
+    obj: 'detailedField',
+    detailed: true
   }
 ];
 
@@ -44,11 +49,13 @@ describe( 'database mapper util', () => {
         identifier: 48,
         deletedAt: true,
         store: { settings: 42 },
-        notAllowedProperty: 'Scheiße'
+        notAllowedProperty: 'Scheiße',
+        detailedField: 'test'
       } ).should.eql( {
         type: 'agenda',
         identifier: 48,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
+        detailed_field: 'test'
       } );
 
     } );
@@ -60,7 +67,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
+        detailedField: 'test'
       }, {
         protected: false
       } ).should.eql( {
@@ -68,7 +76,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deleted_at: true,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
+        detailed_field: 'test'
       } );
 
     } );
@@ -81,7 +90,8 @@ describe( 'database mapper util', () => {
         identifier: 48,
         deleted_at: true,
         store: '{"settings":42}',
-        notAllowedProperty: 'Scheiße'
+        not_allowed_property: 'Scheiße',
+        detailedField: 'test'
       } ).should.eql( {
         type: 'agenda',
         identifier: 48,
@@ -98,7 +108,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deleted_at: true,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
+        detailed_field: 'test'
       }, {
         internal: true
       } ).should.eql( {
@@ -122,11 +133,13 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
+        detailedField: 'test'
       } ).should.eql( {
         type: 'agenda',
         identifier: 48,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
+        detailed_field: 'test'
       } );
 
     } );
@@ -138,7 +151,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
+        detailedField: 'test'
       }, {
         protected: false
       } ).should.eql( {
@@ -146,7 +160,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deleted_at: true,
-        store: '{"settings":42}'
+        store: '{"settings":42}',
+        detailed_field: 'test'
       } );
 
     } );
@@ -162,7 +177,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
+        detailedField: 'test'
       } ).should.eql( {
         type: 'agenda',
         identifier: 48,
@@ -179,7 +195,8 @@ describe( 'database mapper util', () => {
         type: 'agenda',
         identifier: 48,
         deletedAt: true,
-        store: { settings: 42 }
+        store: { settings: 42 },
+        detailedField: 'test'
       }, {
         internal: true
       } ).should.eql( {
@@ -188,6 +205,27 @@ describe( 'database mapper util', () => {
         identifier: 48,
         deleted_at: true,
         store: '{"settings":42}'
+      } );
+
+    } );
+
+    test( 'toDb select with { detailed: true } options', () => {
+
+      mapper.toDb( fieldsMap, 'select', {
+        id: 12,
+        type: 'agenda',
+        identifier: 48,
+        deletedAt: true,
+        store: { settings: 42 },
+        detailedField: 'test'
+      }, {
+        detailed: true
+      } ).should.eql( {
+        type: 'agenda',
+        identifier: 48,
+        deleted_at: true,
+        store: '{"settings":42}',
+        detailed_field: 'test'
       } );
 
     } );

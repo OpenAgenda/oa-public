@@ -58,6 +58,10 @@ var _validate2 = _interopRequireDefault(_validate);
 
 var _inboxUserSchemas = require('./validators/inboxUserSchemas');
 
+var _populateDetails = require('./db/populateDetails');
+
+var _populateDetails2 = _interopRequireDefault(_populateDetails);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ajv = new _ajv2.default({ allErrors: true, jsonPointers: true, errorDataPath: 'property' });
@@ -141,35 +145,72 @@ var InboxUser = function () {
     key: 'get',
     value: function () {
       var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(options) {
-        var data;
+        var params, data, row, result;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                params = _lodash2.default.merge({
+                  detailed: false,
+                  createOnNull: false
+                }, options);
+
                 if (!this.inbox) {
-                  _context2.next = 3;
+                  _context2.next = 4;
                   break;
                 }
 
-                _context2.next = 3;
+                _context2.next = 4;
                 return (0, _bluebird.resolve)(this._loadInbox());
 
-              case 3:
-
-                (0, _validate2.default)(ajv, (0, _inboxUserSchemas.getIdentifiersSchema)(this.identifiers, this.inbox), this.identifiers);
-
-                _context2.next = 6;
-                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxUser).first(_mapper2.default.listFields(_inboxUserFieldsMap2.default, 'select', 'db', options)).where(_mapper2.default.toDb(_inboxUserFieldsMap2.default, 'select', this.identifiers, options)));
-
-              case 6:
-                data = _context2.sent;
+              case 4:
+                data = (0, _extends3.default)({}, this.identifiers);
 
 
-                this.data = _mapper2.default.toObj(_inboxUserFieldsMap2.default, data, options);
+                if (!this.identifiers.id && this.inbox && this.inbox.data) {
+                  data.inboxId = this.inbox.data.id;
+                }
 
-                return _context2.abrupt('return', this);
+                (0, _validate2.default)(ajv, (0, _inboxUserSchemas.getIdentifiersSchema)(this.identifiers, this.inbox), data);
+
+                _context2.next = 9;
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxUser).first(_mapper2.default.listFields(_inboxUserFieldsMap2.default, 'select', 'db', params)).where(_mapper2.default.toDb(_inboxUserFieldsMap2.default, 'select', data, params)));
 
               case 9:
+                row = _context2.sent;
+                result = _mapper2.default.toObj(_inboxUserFieldsMap2.default, row, params);
+
+                if (!(!result && params.createOnNull)) {
+                  _context2.next = 13;
+                  break;
+                }
+
+                return _context2.abrupt('return', this.create(this.identifiers));
+
+              case 13:
+                if (!(params.detailed && result)) {
+                  _context2.next = 18;
+                  break;
+                }
+
+                _context2.next = 16;
+                return (0, _bluebird.resolve)((0, _populateDetails2.default)({
+                  inboxUser: result,
+                  inboxUserId: result.id
+                }, this.inbox));
+
+              case 16:
+                _context2.next = 19;
+                break;
+
+              case 18:
+                void 0;
+
+              case 19:
+                this.data = result;
+                return _context2.abrupt('return', this);
+
+              case 21:
               case 'end':
                 return _context2.stop();
             }

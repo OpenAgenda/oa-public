@@ -6,7 +6,8 @@ export default {
 
 const defaultOptions = {
   internal: false,
-  protected: true
+  protected: true,
+  detailed: false
 };
 
 export function toObj( fieldsMap, data, options ) {
@@ -64,6 +65,9 @@ function filterFields( fieldsMap, type, options ) {
       }
     } else if ( [ 'select' ].includes( type ) ) {
       if ( field.internal && !options.internal ) {
+        return false;
+      }
+      if ( field.detailed && !options.detailed ) {
         return false;
       }
     }

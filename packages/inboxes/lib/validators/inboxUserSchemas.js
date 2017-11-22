@@ -17,21 +17,6 @@ function getIdentifiersSchema(identifiers, inbox) {
     };
   }
 
-  if (inbox) {
-    return {
-      required: ['userUid'],
-      additionalProperties: false,
-      properties: {
-        inboxId: {
-          type: 'integer'
-        },
-        userUid: {
-          type: 'integer'
-        }
-      }
-    };
-  }
-
   return {
     required: ['inboxId', 'userUid'],
     additionalProperties: false,

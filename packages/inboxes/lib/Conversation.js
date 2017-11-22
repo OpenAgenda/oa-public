@@ -74,6 +74,10 @@ var _Messages = require('./Messages');
 
 var _Messages2 = _interopRequireDefault(_Messages);
 
+var _InboxUser = require('./InboxUser');
+
+var _InboxUser2 = _interopRequireDefault(_InboxUser);
+
 var _populateParticipants = require('./db/populateParticipants');
 
 var _populateParticipants2 = _interopRequireDefault(_populateParticipants);
@@ -108,55 +112,58 @@ var Conversation = function () {
     key: 'create',
     value: function () {
       var _ref = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(data, options) {
-        var inboxUser, destinationInbox, protectedData, _ref2, _ref3, insertedId;
+        var params, inboxUser, destinationInbox, protectedData, _ref2, _ref3, insertedId;
 
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                params = _lodash2.default.merge({
+                  createInboxUserOnNull: false
+                }, options);
+                _context.next = 3;
                 return (0, _bluebird.resolve)(this._loadInbox());
 
-              case 2:
-                _context.next = 4;
-                return (0, _bluebird.resolve)(this._getInboxUser(this.userUid ? { userUid: this.userUid } : data.creatorInboxUser));
+              case 3:
+                _context.next = 5;
+                return (0, _bluebird.resolve)(this._getInboxUser(this.userUid ? { userUid: this.userUid } : data.creatorInboxUser, { inbox: this.inbox, createOnNull: params.createInboxUserOnNull }));
 
-              case 4:
+              case 5:
                 inboxUser = _context.sent;
 
                 if (inboxUser.data) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
                 throw new _verror2.default('Inbox user %j not found', inboxUser.identifiers);
 
-              case 7:
-                _context.next = 9;
+              case 8:
+                _context.next = 10;
                 return (0, _bluebird.resolve)(new _Inbox2.default(data.destinationInbox).get());
 
-              case 9:
+              case 10:
                 destinationInbox = _context.sent;
 
                 if (destinationInbox.data) {
-                  _context.next = 12;
+                  _context.next = 13;
                   break;
                 }
 
                 throw new _verror2.default('Destination Inbox %j not found', destinationInbox.identifiers);
 
-              case 12:
+              case 13:
 
                 (0, _validate2.default)(ajv, _conversationSchemas.createSchema, _lodash2.default.omit(data, 'destinationInbox', 'creatorInboxUser'));
 
                 if (!(!_config.types || !_config.types[data.type])) {
-                  _context.next = 15;
+                  _context.next = 16;
                   break;
                 }
 
                 throw new _verror2.default('Unknow conversation type %s', data.type);
 
-              case 15:
+              case 16:
                 protectedData = (0, _extends3.default)({
                   store: { params: data.params || {} }
                 }, _lodash2.default.pick(data, 'type', 'typeIdentifier'));
@@ -164,12 +171,12 @@ var Conversation = function () {
 
                 data = _lodash2.default.omit(data, 'params', 'destinationInbox', 'creatorInboxUser');
 
-                _context.next = 19;
+                _context.next = 20;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.conversation).insert((0, _extends3.default)({}, _mapper2.default.toDb(_conversationFieldsMap2.default, 'insert', data, options), _mapper2.default.toDb(_conversationFieldsMap2.default, 'insert', protectedData, { protected: false }), {
                   creator_inbox_user_id: inboxUser.data.id
                 })));
 
-              case 19:
+              case 20:
                 _ref2 = _context.sent;
                 _ref3 = (0, _slicedToArray3.default)(_ref2, 1);
                 insertedId = _ref3[0];
@@ -177,35 +184,35 @@ var Conversation = function () {
 
                 this.identifiers = { id: insertedId };
 
-                _context.next = 25;
+                _context.next = 26;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
                   inbox_id: destinationInbox.data.id,
                   conversation_id: this.identifiers.id
                 }));
 
-              case 25:
-                _context.next = 27;
+              case 26:
+                _context.next = 28;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
                   inbox_id: this.inbox.data.id,
                   conversation_id: this.identifiers.id
                 }));
 
-              case 27:
+              case 28:
                 if (!data.message) {
-                  _context.next = 30;
+                  _context.next = 31;
                   break;
                 }
 
-                _context.next = 30;
+                _context.next = 31;
                 return (0, _bluebird.resolve)(this.messages.create({
                   body: data.message,
                   userUid: inboxUser.data.userUid
                 }));
 
-              case 30:
+              case 31:
                 return _context.abrupt('return', this.get(options));
 
-              case 31:
+              case 32:
               case 'end':
                 return _context.stop();
             }
@@ -373,7 +380,7 @@ var Conversation = function () {
 
               case 2:
                 _context4.next = 4;
-                return (0, _bluebird.resolve)(this._getInboxUser(this.userUid ? { userUid: this.userUid } : inboxUser));
+                return (0, _bluebird.resolve)(this._getInboxUser(this.userUid ? { userUid: this.userUid } : inboxUser, { inbox: this.inbox }));
 
               case 4:
                 _inboxUser = _context4.sent;
@@ -537,13 +544,18 @@ var Conversation = function () {
     key: '_getInboxUser',
     value: function () {
       var _ref9 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(identifiers) {
+        var _ref10 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+            inbox = _ref10.inbox,
+            _ref10$createOnNull = _ref10.createOnNull,
+            createOnNull = _ref10$createOnNull === undefined ? false : _ref10$createOnNull;
+
         var inboxUser;
         return _regenerator2.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return (0, _bluebird.resolve)(this.inbox.users.get(identifiers));
+                return (0, _bluebird.resolve)(new _InboxUser2.default(identifiers, { inbox: inbox }).get({ createOnNull: createOnNull }));
 
               case 2:
                 inboxUser = _context7.sent;
@@ -566,7 +578,7 @@ var Conversation = function () {
         }, _callee7, this);
       }));
 
-      function _getInboxUser(_x8) {
+      function _getInboxUser(_x8, _x9) {
         return _ref9.apply(this, arguments);
       }
 

@@ -71,12 +71,14 @@ describe( 'Conversation', () => {
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
+          uid: 99999999
         }, {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
           identifier: 48959239,
           name: 'La gargouille',
           type: 'agenda',
+          uid: 48959239
         } ],
         latestMessage: {
           body: 'Comment qu\'on contribute ?',
@@ -87,7 +89,8 @@ describe( 'Conversation', () => {
             id: 1,
             identifier: 48959239,
             name: 'La gargouille',
-            type: 'agenda'
+            type: 'agenda',
+            uid: 48959239
           },
           inboxUser: {
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
@@ -96,6 +99,7 @@ describe( 'Conversation', () => {
             leftAt: null,
             name: 'Jean-Roger Benbambou',
             userUid: 23456789,
+            uid: 23456789,
           }
         },
         actions: null
@@ -124,12 +128,14 @@ describe( 'Conversation', () => {
           identifier: 48959239,
           name: 'La gargouille',
           type: 'agenda',
+          uid: 48959239
         }, {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
+          uid: 99999999
         } ],
         latestMessage: null,
         actions: null
@@ -158,18 +164,62 @@ describe( 'Conversation', () => {
           identifier: 456,
           name: 'La gargouille',
           type: 'agenda',
+          uid: 456
         }, {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
+          uid: 99999999
         } ],
         latestMessage: null,
         actions: null
       } );
 
     } );
+
+    test(
+      'create a conversation with an inexistant inboxUser and createInboxUserOnNull create the inboxUser',
+      async () => {
+
+        const conversation = await Inboxes( 1 ).conversations.create( {
+          destinationInbox: { type: 'user', identifier: 99999999 },
+          type: 'event',
+          typeIdentifier: 456789,
+          creatorInboxUser: { userUid: 85878525 }
+        }, {
+          createInboxUserOnNull: true
+        } );
+
+        expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt' ) ).eql( {
+          id: 6,
+          type: 'event',
+          typeIdentifier: 456789,
+          creatorInboxUserId: 7,
+          store: { params: {} },
+          inboxContextId: 1,
+          inboxes: [ {
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: 'L\'admin',
+            type: 'user',
+            uid: 99999999
+          }, {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          } ],
+          latestMessage: null,
+          actions: null
+        } );
+
+      }
+    );
 
   } );
 
@@ -194,14 +244,16 @@ describe( 'Conversation', () => {
             id: 4,
             identifier: 7891011,
             name: 'La gargouille',
-            type: 'agenda'
+            type: 'agenda',
+            uid: 7891011,
           },
           {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
             id: 5,
             identifier: 24681012,
             name: 'La gargouille',
-            type: 'agenda'
+            type: 'agenda',
+            uid: 24681012,
           }
         ],
         latestMessage: {
@@ -213,7 +265,8 @@ describe( 'Conversation', () => {
             id: 5,
             identifier: 24681012,
             name: 'La gargouille',
-            type: 'agenda'
+            type: 'agenda',
+            uid: 24681012,
           }
         },
         actions: null
@@ -240,12 +293,14 @@ describe( 'Conversation', () => {
           identifier: 48959239,
           name: 'La gargouille',
           type: 'agenda',
+          uid: 48959239,
         }, {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
+          uid: 99999999,
         } ],
         latestMessage: {
           id: 2,
@@ -257,14 +312,16 @@ describe( 'Conversation', () => {
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            leftAt: null
+            leftAt: null,
+            uid: 99999999,
           },
           inbox: {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999,
           }
         },
         actions: [ {
@@ -337,12 +394,14 @@ describe( 'Conversation', () => {
           identifier: 48959239,
           name: 'La gargouille',
           type: 'agenda',
+          uid: 48959239
         }, {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
+          uid: 99999999
         } ],
         latestMessage: {
           id: 2,
@@ -354,14 +413,16 @@ describe( 'Conversation', () => {
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            leftAt: null
+            leftAt: null,
+            uid: 99999999
           },
           inbox: {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }
         },
         actions: null
@@ -392,13 +453,15 @@ describe( 'Conversation', () => {
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          uid: 48959239
         }, {
           id: 2,
           type: 'user',
           identifier: 99999999,
           name: 'L\'admin',
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          uid: 99999999
         } ],
         latestMessage: {
           id: 2,
@@ -409,7 +472,8 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }
         }
       } ] );
@@ -437,13 +501,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 86286559,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 86286559
           }, {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           } ],
           latestMessage: {
             id: 10,
@@ -454,7 +520,8 @@ describe( 'Conversation', () => {
               type: 'user',
               identifier: 86286559,
               name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
             }
           }
         },
@@ -476,13 +543,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 86286559,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 86286559
           }, {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           } ],
           latestMessage: {
             id: 9,
@@ -493,7 +562,8 @@ describe( 'Conversation', () => {
               type: 'user',
               identifier: 86286559,
               name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
             }
           }
         },
@@ -515,13 +585,15 @@ describe( 'Conversation', () => {
             type: 'agenda',
             identifier: 7891011,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 7891011
           }, {
             id: 5,
             type: 'agenda',
             identifier: 24681012,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 24681012
           } ],
           latestMessage: {
             id: 8,
@@ -532,7 +604,8 @@ describe( 'Conversation', () => {
               type: 'agenda',
               identifier: 24681012,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 24681012
             }
           }
         },
@@ -554,13 +627,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }, {
             id: 4,
             type: 'agenda',
             identifier: 7891011,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 7891011
           } ],
           latestMessage: {
             id: 5,
@@ -571,7 +646,8 @@ describe( 'Conversation', () => {
               type: 'agenda',
               identifier: 7891011,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
             }
           }
         },
@@ -593,13 +669,15 @@ describe( 'Conversation', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 48959239
           }, {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           } ],
           latestMessage: {
             id: 2,
@@ -611,14 +689,16 @@ describe( 'Conversation', () => {
               userUid: 99999999,
               name: 'Jean-Roger Benbambou',
               avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-              leftAt: null
+              leftAt: null,
+              uid: 99999999
             },
             inbox: {
               id: 2,
               type: 'user',
               identifier: 99999999,
               name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 99999999
             }
           }
         }
@@ -647,13 +727,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 86286559,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 86286559
           }, {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           } ],
           latestMessage: {
             id: 9,
@@ -664,7 +746,8 @@ describe( 'Conversation', () => {
               type: 'user',
               identifier: 86286559,
               name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
             }
           }
         },
@@ -686,13 +769,15 @@ describe( 'Conversation', () => {
             type: 'agenda',
             identifier: 7891011,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 7891011
           }, {
             id: 5,
             type: 'agenda',
             identifier: 24681012,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 24681012
           } ],
           latestMessage: {
             id: 8,
@@ -703,7 +788,8 @@ describe( 'Conversation', () => {
               type: 'agenda',
               identifier: 24681012,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 24681012
             }
           }
         },
@@ -725,13 +811,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }, {
             id: 4,
             type: 'agenda',
             identifier: 7891011,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 7891011
           } ],
           latestMessage: {
             id: 5,
@@ -742,7 +830,8 @@ describe( 'Conversation', () => {
               type: 'agenda',
               identifier: 7891011,
               name: 'La gargouille',
-              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+              avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+              uid: 7891011
             }
           }
         }
@@ -772,13 +861,15 @@ describe( 'Conversation', () => {
             type: 'user',
             identifier: 86286559,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 86286559
           }, {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           } ],
           latestMessage: {
             id: 9,
@@ -789,7 +880,8 @@ describe( 'Conversation', () => {
               type: 'user',
               identifier: 86286559,
               name: 'L\'admin',
-              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+              avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+              uid: 86286559
             }
           }
         },
@@ -856,7 +948,7 @@ describe( 'Conversation', () => {
 
       const spy = sinon.spy( config.interfaces, 'onAction' );
 
-      await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } );
+      await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 89216486 } );
 
       sinon.assert.calledOnce( spy );
       sinon.assert.calledWith(

@@ -97,10 +97,10 @@ exports.default = function () {
             inboxesDetails = _context.sent;
             return _context.abrupt('return', result.map(function (entity) {
               var userIndex = usersDetails.findIndex(function (v) {
-                return entity.inboxUser && entity.inboxUser.id === v.id;
+                return entity.inboxUser && entity.inboxUser.userUid === v.uid;
               });
               var inboxIndex = inboxesDetails.findIndex(function (v) {
-                return entity.inbox && entity.inbox.id === v.id;
+                return entity.inbox && entity.inbox.identifier === v.uid;
               });
 
               if (~userIndex) {

@@ -7,6 +7,7 @@ import mapper from './utils/mapper';
 import fieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
 import { getIdentifiersSchema, createSchema } from './validators/inboxUserSchemas';
+import populateDetails from "./db/populateDetails";
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -46,17 +47,42 @@ export default class InboxUser {
   }
 
   async get( options ) {
+    const params = _.merge( {
+      detailed: false,
+      createOnNull: false
+    }, options );
+
     if ( this.inbox ) {
       await this._loadInbox();
     }
 
-    validate( ajv, getIdentifiersSchema( this.identifiers, this.inbox ), this.identifiers );
+    const data = { ...this.identifiers };
 
-    const data = await knex( schemas.inboxUser )
-      .first( mapper.listFields( fieldsMap, 'select', 'db', options ) )
-      .where( mapper.toDb( fieldsMap, 'select', this.identifiers, options ) );
+    if ( this.inbox && this.inbox.data ) {
+      data.inboxId = this.inbox.data.id;
+    }
 
-    this.data = mapper.toObj( fieldsMap, data, options );
+    validate( ajv, getIdentifiersSchema( this.identifiers ), data );
+
+    const row = await knex( schemas.inboxUser )
+      .first( mapper.listFields( fieldsMap, 'select', 'db', params ) )
+      .where( mapper.toDb( fieldsMap, 'select', data, params ) );
+
+    const result = mapper.toObj( fieldsMap, row, params );
+
+    if ( !result && params.createOnNull ) {
+      return this.create( this.identifiers );
+    }
+
+    this.data = do {
+      if ( params.detailed && result ) {
+        await populateDetails( {
+          inboxUser: result,
+          inboxUserId: result.id,
+        }, this.inbox );
+      }
+      result;
+    };
 
     return this;
   }

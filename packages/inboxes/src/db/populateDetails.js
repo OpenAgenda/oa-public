@@ -40,8 +40,8 @@ export default async function populateDetails( entities, inbox ) {
   const inboxesDetails = await interfaces.getInboxesDetails( listsToPopulate.inboxes );
 
   return result.map( entity => {
-    let userIndex = usersDetails.findIndex( v => entity.inboxUser && entity.inboxUser.id === v.id );
-    let inboxIndex = inboxesDetails.findIndex( v => entity.inbox && entity.inbox.id === v.id );
+    let userIndex = usersDetails.findIndex( v => entity.inboxUser && entity.inboxUser.userUid === v.uid );
+    let inboxIndex = inboxesDetails.findIndex( v => entity.inbox && entity.inbox.identifier === v.uid );
 
     if ( ~userIndex ) {
       Object.assign( entity.inboxUser, usersDetails[ userIndex ] );

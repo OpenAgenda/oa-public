@@ -61,14 +61,16 @@ describe( 'Message', () => {
           userUid: 23456789,
           name: 'Jean-Roger Benbambou',
           avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-          leftAt: null
+          leftAt: null,
+          uid: 23456789
         },
         inbox: {
           id: 1,
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          uid: 48959239
         }
       } );
 
@@ -91,14 +93,16 @@ describe( 'Message', () => {
           userUid: 99999999,
           name: 'Jean-Roger Benbambou',
           avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-          leftAt: null
+          leftAt: null,
+          uid: 99999999
         },
         inbox: {
           id: 2,
           type: 'user',
           identifier: 99999999,
           name: 'L\'admin',
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          uid: 99999999
         }
       } );
 
@@ -152,14 +156,16 @@ describe( 'Message', () => {
           userUid: 23456789,
           name: 'Jean-Roger Benbambou',
           avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-          leftAt: null
+          leftAt: null,
+          uid: 23456789
         },
         inbox: {
           id: 1,
           type: 'agenda',
           identifier: 48959239,
           name: 'La gargouille',
-          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          uid: 48959239
         }
       } );
 
@@ -186,7 +192,8 @@ describe( 'Message', () => {
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }
         },
         {
@@ -199,14 +206,16 @@ describe( 'Message', () => {
             userUid: 23456789,
             name: 'Jean-Roger Benbambou',
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            leftAt: null
+            leftAt: null,
+            uid: 23456789
           },
           inbox: {
             id: 1,
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 48959239
           }
         }
       ] );
@@ -231,14 +240,16 @@ describe( 'Message', () => {
             userUid: 99999999,
             name: 'Jean-Roger Benbambou',
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            leftAt: null
+            leftAt: null,
+            uid: 99999999
           },
           inbox: {
             id: 2,
             type: 'user',
             identifier: 99999999,
             name: 'L\'admin',
-            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
           }
         },
         {
@@ -250,7 +261,8 @@ describe( 'Message', () => {
             type: 'agenda',
             identifier: 48959239,
             name: 'La gargouille',
-            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 48959239
           }
         }
       ] );

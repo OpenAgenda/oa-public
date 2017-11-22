@@ -95,6 +95,22 @@ describe( 'InboxUser', () => {
 
       } );
 
+      test( 'get a detailed inbox user', async () => {
+
+        const inboxUser = await Inboxes( 1 ).users.get( 1, { detailed: true } );
+
+        expect( inboxUser.toJSON() ).eql( {
+          id: 1,
+          inboxId: 1,
+          userUid: 23456789,
+          name: 'Jean-Roger Benbambou',
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          leftAt: null,
+          uid: 23456789
+        } );
+
+      } );
+
       test( 'get an inbox user that doesn\'t exist', async () => {
 
         const inboxUser = await Inboxes( 1 ).users.get( 42 );

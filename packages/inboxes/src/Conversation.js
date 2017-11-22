@@ -11,6 +11,7 @@ import validate from './utils/validate';
 import { identifiersSchema, createSchema, updateSchema } from './validators/conversationSchemas';
 import Inbox from './Inbox';
 import Messages from './Messages';
+import InboxUser from './InboxUser';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
 
@@ -33,8 +34,16 @@ export default class Conversation {
   }
 
   async create( data, options ) {
+    const params = _.merge( {
+      createInboxUserOnNull: false
+    }, options );
+
     await this._loadInbox();
-    const inboxUser = await this._getInboxUser( this.userUid ? { userUid: this.userUid } : data.creatorInboxUser );
+
+    const inboxUser = await this._getInboxUser(
+      this.userUid ? { userUid: this.userUid } : data.creatorInboxUser,
+      { inbox: this.inbox, createOnNull: params.createInboxUserOnNull }
+    );
 
     if ( !inboxUser.data ) {
       throw new VError( 'Inbox user %j not found', inboxUser.identifiers );
@@ -200,7 +209,10 @@ export default class Conversation {
   async action( code, inboxUser ) {
     await this._loadConversation();
 
-    const _inboxUser = await this._getInboxUser( this.userUid ? { userUid: this.userUid } : inboxUser );
+    const _inboxUser = await this._getInboxUser(
+      this.userUid ? { userUid: this.userUid } : inboxUser,
+      { inbox: this.inbox }
+    );
     const creatorInboxId = (await this._getInboxUser( this.data.creatorInboxUserId )).data.inboxId;
 
     if ( !_inboxUser.data ) {
@@ -283,8 +295,8 @@ export default class Conversation {
     }
   }
 
-  async _getInboxUser( identifiers ) {
-    const inboxUser = await this.inbox.users.get( identifiers );
+  async _getInboxUser( identifiers, { inbox, createOnNull = false } = {} ) {
+    const inboxUser = await new InboxUser( identifiers, { inbox } ).get( { createOnNull } );
 
     if ( !inboxUser.data ) {
       throw new VError( 'InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers );

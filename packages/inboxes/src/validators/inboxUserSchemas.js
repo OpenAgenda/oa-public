@@ -1,35 +1,11 @@
-export function getIdentifiersSchema( identifiers, inbox ) {
-  if ( identifiers && identifiers.id ) {
-    return {
-      required: [ 'id' ],
-      additionalProperties: false,
-      properties: {
-        id: {
-          type: 'integer',
-        }
-      }
-    };
-  }
-
-  if ( inbox ) {
-    return {
-      required: [ 'userUid' ],
-      additionalProperties: false,
-      properties: {
-        inboxId: {
-          type: 'integer'
-        },
-        userUid: {
-          type: 'integer'
-        }
-      }
-    };
-  }
-
+export function getIdentifiersSchema( identifiers ) {
   return {
-    required: [ 'inboxId', 'userUid' ],
+    required: identifiers && identifiers.id ? [ 'id' ] : [ 'inboxId', 'userUid' ],
     additionalProperties: false,
     properties: {
+      id: {
+        type: 'integer',
+      },
       inboxId: {
         type: 'integer'
       },
