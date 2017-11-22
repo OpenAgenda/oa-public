@@ -1,10 +1,10 @@
 import React, { createElement } from 'react';
-
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { match } from 'react-router';
 import { ReduxAsyncConnect, loadOnServer } from 'redux-connect';
+import VError from 'verror';
 
 
 export default function matchAppMw( createStore, getRoutes, ApiClient ) {
@@ -29,7 +29,9 @@ export default function matchAppMw( createStore, getRoutes, ApiClient ) {
           console.error( 'ROUTER ERROR:', error );
           next( error );
         } else if ( renderProps ) {
-          const redirect = ::res.redirect;
+          const redirect = to => {
+            throw new VError( { name: 'RedirectError', info: { to } } );
+          };
 
           loadOnServer( Object.assign( {}, renderProps, { store, helpers: { client, redirect } } ) ).then( () => {
 
@@ -42,6 +44,10 @@ export default function matchAppMw( createStore, getRoutes, ApiClient ) {
             cb( req, res, next, { store, component } );
 
           } ).catch( mountError => {
+            if ( mountError.name === 'RedirectError' ) {
+              return res.redirect( VError.info( mountError ).to );
+            }
+
             console.error( 'MOUNT ERROR:', mountError );
             next( mountError );
           } );

@@ -21,6 +21,10 @@ var _reactRouter = require('react-router');
 
 var _reduxConnect = require('redux-connect');
 
+var _verror = require('verror');
+
+var _verror2 = _interopRequireDefault(_verror);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function matchAppMw(createStore, getRoutes, ApiClient) {
@@ -45,7 +49,9 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
           console.error('ROUTER ERROR:', error);
           next(error);
         } else if (renderProps) {
-          var redirect = res.redirect.bind(res);
+          var redirect = function redirect(to) {
+            throw new _verror2.default({ name: 'RedirectError', info: { to: to } });
+          };
 
           (0, _reduxConnect.loadOnServer)(Object.assign({}, renderProps, { store: store, helpers: { client: client, redirect: redirect } })).then(function () {
 
@@ -53,6 +59,10 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
 
             cb(req, res, next, { store: store, component: component });
           }).catch(function (mountError) {
+            if (mountError.name === 'RedirectError') {
+              return res.redirect(_verror2.default.info(mountError).to);
+            }
+
             console.error('MOUNT ERROR:', mountError);
             next(mountError);
           });

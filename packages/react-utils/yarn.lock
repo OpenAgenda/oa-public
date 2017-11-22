@@ -2163,7 +2163,7 @@ v8flags@^2.1.1:
   dependencies:
     user-home "^1.1.1"
 
-verror@1.10.0:
+verror@1.10.0, verror@^1.10.0:
   version "1.10.0"
   resolved "https://registry.npmjs.org/verror/-/verror-1.10.0.tgz#3a105ca17053af55d6e270c1f8288682e18da400"
   dependencies:

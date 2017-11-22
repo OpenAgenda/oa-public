@@ -1,39 +1,50 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _ from 'lodash';
 import { bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore, replace } from 'react-router-redux';
 import { Router, useRouterHistory, applyRouterMiddleware, match as _match } from 'react-router';
 import { useScroll } from 'react-router-scroll';
-import createHistory from 'history/lib/createBrowserHistory';
 import { ReduxAsyncConnect } from 'redux-connect';
-import deepExtend from 'deep-extend';
 
-export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) {
+export default function ( options ) {
 
-  const state = deepExtend( {
-    settings: {
-      lang: 'fr',
-      prefix: '',
-      apiRoot: ''
+  const {
+    state,
+    createStore,
+    getRoutes,
+    createHistory,
+    routerScroll,
+    ApiClient,
+    beforeCreate
+  } = _.merge( {
+    routerScroll: true,
+    state: {
+      settings: {
+        lang: 'fr',
+        prefix: '',
+        apiRoot: ''
+      },
+      res: {}
     },
-    res: {}
-  }, defaultState );
+  }, options );
 
   const client = new ApiClient( state.settings.apiRoot );
-  const browserHistory = useRouterHistory( createHistory )( /*{ basename: state.settings.prefix }*/ );
+  const browserHistory = useRouterHistory( createHistory )();
   const store = createStore( browserHistory, client, state );
   const history = syncHistoryWithStore( browserHistory, store );
 
-  const { replace: redirect } = bindActionCreators( { replace }, store.dispatch );
+  const redirect = bindActionCreators( replace, store.dispatch );
 
+  const renderRouterProps = routerScroll ? { render: applyRouterMiddleware( useScroll() ) } : {};
   const renderRouter = props => {
     return <ReduxAsyncConnect
       {...props}
+      {...renderRouterProps}
       helpers={{ client, redirect }}
       filter={item => !item.deferred}
       history={history}
-      render={applyRouterMiddleware( useScroll() )}
     />;
   }
 
@@ -51,12 +62,14 @@ export default function ( defaultState, createStore, getRoutes, ApiClient, fn ) 
     );
   }
 
-  if ( fn ) fn( { client, store, history } );
+  if ( beforeCreate ) {
+    beforeCreate( { client, store, history } );
+  }
 
   const routes = getRoutes( store );
 
   const match = elem => {
-    _match( { history, routes }, ( error, redirectLocation, renderProps ) => {
+    _match( { history, routes, location: state.settings.prefix || '/' }, ( error, redirectLocation, renderProps ) => {
       ReactDOM.hydrate(
         <Provider store={store} key="provider">
           <Router {...renderProps} history={history} render={renderRouter}>
