@@ -8,6 +8,11 @@
 
 .location-form {
 
+  /**
+   * prevent narrow menu in mobile mode
+   */
+  min-width: 340px;
+
   .form-head {
 
     display: block;
