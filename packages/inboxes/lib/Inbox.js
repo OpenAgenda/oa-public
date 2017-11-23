@@ -34,6 +34,10 @@ var _ajvErrors = require('ajv-errors');
 
 var _ajvErrors2 = _interopRequireDefault(_ajvErrors);
 
+var _verror = require('verror');
+
+var _verror2 = _interopRequireDefault(_verror);
+
 var _config = require('./config');
 
 var _mapper = require('./utils/mapper');
@@ -166,28 +170,35 @@ var Inbox = function () {
       return get;
     }()
   }, {
-    key: '_get',
+    key: 'remove',
     value: function () {
-      var _ref5 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(options) {
-        var data;
+      var _ref5 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
         return _regenerator2.default.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                (0, _validate2.default)(ajv, (0, _inboxSchemas.getIdentifiersSchema)(this.identifiers), this.identifiers);
+                _context3.next = 2;
+                return (0, _bluebird.resolve)(this.get());
 
-                _context3.next = 3;
-                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inbox).first(_mapper2.default.listFields(_inboxFieldsMap2.default, 'select', 'db', options)).where(_mapper2.default.toDb(_inboxFieldsMap2.default, 'select', this.identifiers, options)));
+              case 2:
+                if (this.data) {
+                  _context3.next = 4;
+                  break;
+                }
 
-              case 3:
-                data = _context3.sent;
+                throw new _verror2.default('You can not remove a inbox that does not exists: %j', this.identifiers);
 
+              case 4:
+                _context3.next = 6;
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inbox).where('id', this.data.id));
 
-                this.data = _mapper2.default.toObj(_inboxFieldsMap2.default, data, options);
+              case 6:
+
+                this.data = null;
 
                 return _context3.abrupt('return', this);
 
-              case 6:
+              case 8:
               case 'end':
                 return _context3.stop();
             }
@@ -195,8 +206,44 @@ var Inbox = function () {
         }, _callee3, this);
       }));
 
-      function _get(_x4) {
+      function remove() {
         return _ref5.apply(this, arguments);
+      }
+
+      return remove;
+    }()
+  }, {
+    key: '_get',
+    value: function () {
+      var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(options) {
+        var data;
+        return _regenerator2.default.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                (0, _validate2.default)(ajv, (0, _inboxSchemas.getIdentifiersSchema)(this.identifiers), this.identifiers);
+
+                _context4.next = 3;
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inbox).first(_mapper2.default.listFields(_inboxFieldsMap2.default, 'select', 'db', options)).where(_mapper2.default.toDb(_inboxFieldsMap2.default, 'select', this.identifiers, options)));
+
+              case 3:
+                data = _context4.sent;
+
+
+                this.data = _mapper2.default.toObj(_inboxFieldsMap2.default, data, options);
+
+                return _context4.abrupt('return', this);
+
+              case 6:
+              case 'end':
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function _get(_x4) {
+        return _ref6.apply(this, arguments);
       }
 
       return _get;

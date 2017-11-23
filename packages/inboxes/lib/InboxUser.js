@@ -107,17 +107,31 @@ var InboxUser = function () {
                 inboxUser = _context.sent;
 
                 if (!inboxUser.data) {
-                  _context.next = 9;
+                  _context.next = 14;
                   break;
                 }
 
+                this.identifiers = (0, _extends3.default)({}, this.identifiers, { id: inboxUser.data.id });
+
+                if (!inboxUser.data.leftAt) {
+                  _context.next = 13;
+                  break;
+                }
+
+                _context.next = 12;
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxUser).update('left_at', null).where('id', inboxUser.data.id));
+
+              case 12:
+                return _context.abrupt('return', this.get(options));
+
+              case 13:
                 return _context.abrupt('return', inboxUser);
 
-              case 9:
-                _context.next = 11;
+              case 14:
+                _context.next = 16;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxUser).insert(_mapper2.default.toDb(_inboxUserFieldsMap2.default, 'insert', data, { protected: false })));
 
-              case 11:
+              case 16:
                 _ref2 = _context.sent;
                 _ref3 = (0, _slicedToArray3.default)(_ref2, 1);
                 insertedId = _ref3[0];
@@ -127,7 +141,7 @@ var InboxUser = function () {
 
                 return _context.abrupt('return', this.get(options));
 
-              case 16:
+              case 21:
               case 'end':
                 return _context.stop();
             }
