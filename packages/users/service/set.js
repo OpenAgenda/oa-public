@@ -40,6 +40,18 @@ module.exports = function set( query, options, cb ) {
 
     .then( _updateOrInsert )
 
+    .then( async v => {
+
+      if ( v.user && config.interfaces && config.interfaces.onCreate ) {
+
+        await config.interfaces.onCreate( v.user );
+
+      }
+
+      return v;
+
+    } )
+
     .done( v => cb( null, {
       user: v.user,
       valid: v.valid,
