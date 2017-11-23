@@ -25,11 +25,11 @@ module.exports = function ( before, stakeholder, context ) {
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
     // Activities
-    users.get( stakeholder.userId, ( err, user ) => {
+    users.get( stakeholder.userId, { removed: null }, ( err, user ) => {
 
       if ( err ) return log( 'error', err );
 
-      users.get( context.invitationSender.userId, ( err, senderUser ) => {
+      users.get( context.invitationSender.userId, { removed: null }, ( err, senderUser ) => {
 
         if ( err ) return log( 'error', err );
 
@@ -114,6 +114,13 @@ module.exports = function ( before, stakeholder, context ) {
                 } );
 
             } );
+
+        }
+
+        if ( !before.deletedUser && stakeholder.deletedUser ) {
+
+          log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+          new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.remove( { userUid: user.uid } ).then( _.noop );
 
         }
 

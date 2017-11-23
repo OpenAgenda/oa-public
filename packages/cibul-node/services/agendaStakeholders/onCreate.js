@@ -1,14 +1,12 @@
 "use strict";
 
-const agendas = require( '@openagenda/agendas' ),
-
-  users = require( '@openagenda/users' ),
-
-  activities = require( '@openagenda/activities' ),
-
-  sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' ),
-
-  invitations = require( '@openagenda/invitations' );
+const _ = require( 'lodash' );
+const agendas = require( '@openagenda/agendas' );
+const users = require( '@openagenda/users' );
+const activities = require( '@openagenda/activities' );
+const invitations = require( '@openagenda/invitations' );
+const { Inbox } = require( '@openagenda/inboxes' );
+const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
 
 let log = console.log;
 
@@ -40,6 +38,10 @@ module.exports = function ( stakeholder, context ) {
           } );
 
         }
+
+        // Create inboxUser
+        log( 'create inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+        new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.add( { userUid: user.uid } ).then( _.noop );
 
         activities.feed( { entityType: 'user', entityUid: user.uid } )
           .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )

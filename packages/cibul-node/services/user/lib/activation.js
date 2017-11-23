@@ -134,7 +134,6 @@ function activate( user, options, cb ) {
     options = {}
 
   }
-  ;
 
   if ( user.isActivated ) {
 

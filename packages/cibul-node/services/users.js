@@ -1,18 +1,14 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const async = require( 'async' );
 const users = require( '@openagenda/users' );
-
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
-
-  async = require( 'async' ),
-
-  logger = require( '@openagenda/logger' ),
-
-  keys = require( '@openagenda/keys' ),
-
-  agendas = require( '@openagenda/agendas' ),
-
-  activities = require( '@openagenda/activities' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const logger = require( '@openagenda/logger' );
+const keys = require( '@openagenda/keys' );
+const agendas = require( '@openagenda/agendas' );
+const activities = require( '@openagenda/activities' );
+const { Inbox } = require( '@openagenda/inboxes' );
 
 let log = console.log;
 
@@ -32,6 +28,7 @@ module.exports.init = async config => {
     },
     interfaces: {
       beforeRemove,
+      onCreate,
       getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
       keys: {
         get: identifiers => keys( identifiers ).get(),
@@ -41,6 +38,12 @@ module.exports.init = async config => {
     },
     logger
   } );
+
+}
+
+function onCreate( user ) {
+
+  new Inbox().create( { type: 'user', identifier: user.uid } ).then( _.noop );
 
 }
 

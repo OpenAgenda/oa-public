@@ -266,8 +266,8 @@
     when "^3.7.7"
 
 "@openagenda/agenda-tags@^0.1.2", "@openagenda/agenda-tags@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-0.1.3.tgz#5859244c339a8e15bcf08e9ba8ec42311df66e9b"
+  version "0.1.6"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-0.1.6.tgz#7a5052469da53900a2f7c155b2bcd8a5c1e55d0a"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/labels" "^2.0.7"
@@ -327,8 +327,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.6.tgz#7e39663121cf4af87947ba804f745d7311858b97"
+  version "2.0.9"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.9.tgz#310f94ece1ede6fcdca843dc691eaf720f3bf2f1"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -595,7 +595,7 @@
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"
 
-"@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4", "@openagenda/dom-utils@^2.1.0":
+"@openagenda/dom-utils@^2.0.0", "@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4", "@openagenda/dom-utils@^2.1.0":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@openagenda/dom-utils/-/dom-utils-2.1.0.tgz#04462a03bb4a08b70900a6a5385879ebcce03e51"
   dependencies:
@@ -715,8 +715,8 @@
     lodash "^4.17.4"
 
 "@openagenda/form-schemas@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.0.tgz#8f23d502c2cd76830df4bcd9221c28c3b7ec2a9a"
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.2.tgz#78e9eb20706597491d331cdbb11f1775290d43d6"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/labels" "^2.0.7"
@@ -800,9 +800,43 @@
     request "^2.67.0"
     when "^3.7.5"
 
-"@openagenda/inboxes@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.0.tgz#d95b47d2c04466c41dde7f6f31c3c1b5b43b5762"
+"@openagenda/inbox-apps@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.1.tgz#56632f77baf491569ad21804e4cd54096d6146a1"
+  dependencies:
+    "@openagenda/dom-utils" "^2.0.0"
+    "@openagenda/labels" "^2.0.2"
+    "@openagenda/logs" "^1.0.1"
+    "@openagenda/react-components" "^2.0.0"
+    "@openagenda/react-form-components" "^2.0.0"
+    "@openagenda/react-utils" "^3.0.0"
+    "@openagenda/sessions" "^3.0.0"
+    "@openagenda/validators" "^2.0.1"
+    async "^2.5.0"
+    babel-runtime "^6.26.0"
+    bluebird "^3.5.1"
+    body-parser "^1.18.2"
+    classnames "^2.2.5"
+    history "^3.3.0"
+    load-script "^1.0.0"
+    lodash "^4.17.4"
+    moment "^2.19.1"
+    prop-types "^15.6.0"
+    react "^16.0.0"
+    react-dom "^16.0.0"
+    react-redux "^5.0.6"
+    react-router "^3.2.0"
+    react-router-redux "^4.0.8"
+    react-waypoint "^7.3.1"
+    recompose "^0.26.0"
+    redux "^3.7.2"
+    redux-connect "^6.0.0"
+    redux-form "^7.1.0"
+    when "^3.7.8"
+
+"@openagenda/inboxes@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.2.tgz#44e0278b8ae1116a3c76dd5c8b65f4e240a31229"
   dependencies:
     "@openagenda/logs" "^1.0.4"
     "@openagenda/service-utils" "^2.0.0"
@@ -846,6 +880,10 @@
 "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
   version "2.0.7"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.7.tgz#534770acfee4151b388563292212f161c75bf414"
+
+"@openagenda/labels@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.8.tgz#cc23872d9a70d4eacc45e4de91fbc4fdeec843d3"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -986,7 +1024,7 @@
     classnames "^2.2.3"
     prop-types "^15.5.9"
 
-"@openagenda/react-components@^2.0.1", "@openagenda/react-components@^2.0.2", "@openagenda/react-components@^2.0.3":
+"@openagenda/react-components@^2.0.0", "@openagenda/react-components@^2.0.1", "@openagenda/react-components@^2.0.2", "@openagenda/react-components@^2.0.3":
   version "2.0.3"
   resolved "https://registry.npmjs.org/@openagenda/react-components/-/react-components-2.0.3.tgz#e25a2ce4707208efdc85eccbd2332228c5565d89"
   dependencies:
@@ -1031,6 +1069,25 @@
     redux-form "^6.6.3"
     superagent "3.6.0"
 
+"@openagenda/react-utils@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-3.0.0.tgz#46a15c276737f002770d4f166bb7e2fd822e92eb"
+  dependencies:
+    deep-extend "^0.4.1"
+    history "^3.3.0"
+    react-redux "^5.0.4"
+    react-router "^3.0.0"
+    react-router-redux "^4.0.8"
+    react-router-scroll "^0.4.2"
+    redux "^3.6.0"
+    redux-connect "^5.1.0"
+    redux-devtools "^3.4.0"
+    redux-devtools-dock-monitor "^1.1.2"
+    redux-devtools-inspector "^0.11.3"
+    redux-form "^6.6.3"
+    superagent "3.6.0"
+    verror "^1.10.0"
+
 "@openagenda/registration@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@openagenda/registration/-/registration-1.1.1.tgz#7db4db004e6d9e6a68a84c0ceec7d1db82464c16"
@@ -1048,9 +1105,9 @@
     redis-commands "^1.3.1"
     when "^3.7.7"
 
-"@openagenda/sessions@^3.0.2", "@openagenda/sessions@^3.0.3":
-  version "3.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.3.tgz#23348e15d4ffefd3922e875964aebd41131ab5bb"
+"@openagenda/sessions@^3.0.0", "@openagenda/sessions@^3.0.2", "@openagenda/sessions@^3.0.3":
+  version "3.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.4.tgz#837cb0a376aec02e39a4d4e188463662b1efe175"
   dependencies:
     "@openagenda/logs" "^1.0.0"
     "@openagenda/service-utils" "^2.0.0"
@@ -1204,6 +1261,10 @@
     lodash "^4.17.2"
     validator "^7.0.0"
 
+"@types/node@^7.0.48":
+  version "7.0.48"
+  resolved "https://registry.npmjs.org/@types/node/-/node-7.0.48.tgz#24bfdc0aa82e8f6dbd017159c58094a2e06d0abb"
+
 Base64@~0.2.0:
   version "0.2.1"
   resolved "https://registry.npmjs.org/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
@@ -1306,8 +1367,8 @@ ajv@^4.9.1:
     json-stable-stringify "^1.0.1"
 
 ajv@^5.1.0, ajv@^5.1.5, ajv@^5.2.2:
-  version "5.3.0"
-  resolved "https://registry.npmjs.org/ajv/-/ajv-5.3.0.tgz#4414ff74a50879c208ee5fdc826e32c303549eda"
+  version "5.4.0"
+  resolved "https://registry.npmjs.org/ajv/-/ajv-5.4.0.tgz#32d1cf08dbc80c432f426f12e10b2511f6b46474"
   dependencies:
     co "^4.6.0"
     fast-deep-equal "^1.0.0"
@@ -1572,8 +1633,8 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.151.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.151.0.tgz#5e73d778b76514f36183b91400477778ab5e58d8"
+  version "2.156.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.156.0.tgz#409c06f7051d58320cb389a024ca7b61ce31f136"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -2508,8 +2569,8 @@ bignumber.js@4.0.4:
   resolved "https://registry.npmjs.org/bignumber.js/-/bignumber.js-4.0.4.tgz#7c40f5abcd2d6623ab7b99682ee7db81b11889a4"
 
 binary-extensions@^1.0.0:
-  version "1.10.0"
-  resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.10.0.tgz#9aeb9a6c5e88638aad171e167f5900abe24835d0"
+  version "1.11.0"
+  resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
 
 bl@~0.8.0:
   version "0.8.2"
@@ -2537,7 +2598,7 @@ bluebird@^2.9.24:
   version "2.11.0"
   resolved "https://registry.npmjs.org/bluebird/-/bluebird-2.11.0.tgz#534b9033c022c9579c56ba3b3e5a5caafbb650e1"
 
-bluebird@^3.0.0, bluebird@^3.1.1, bluebird@^3.3.4, bluebird@^3.4.6, bluebird@^3.4.7:
+bluebird@^3.0.0, bluebird@^3.1.1, bluebird@^3.3.4, bluebird@^3.4.6, bluebird@^3.4.7, bluebird@^3.5.1:
   version "3.5.1"
   resolved "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
@@ -2560,7 +2621,7 @@ body-parser@1.13.2:
     raw-body "~2.1.2"
     type-is "~1.6.4"
 
-body-parser@1.18.2, body-parser@^1.15.2, body-parser@^1.16.0:
+body-parser@1.18.2, body-parser@^1.15.2, body-parser@^1.16.0, body-parser@^1.18.2:
   version "1.18.2"
   resolved "https://registry.npmjs.org/body-parser/-/body-parser-1.18.2.tgz#87678a19d84b47d859b83199bd59bce222b10454"
   dependencies:
@@ -2949,8 +3010,8 @@ camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000760:
-  version "1.0.30000765"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000765.tgz#aa1a75019276b48463c0fca2a5257fb9f26a7c9d"
+  version "1.0.30000770"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000770.tgz#bc8e7f50b073273390db6ab357378909a14e9bdb"
 
 caporal@^0.4.1:
   version "0.4.1"
@@ -3020,6 +3081,10 @@ change-case@2.1.x:
     title-case "^1.0.0"
     upper-case "^1.0.0"
     upper-case-first "^1.0.0"
+
+change-emitter@^0.1.2:
+  version "0.1.6"
+  resolved "https://registry.npmjs.org/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
 
 character-parser@^2.1.1:
   version "2.2.0"
@@ -3225,7 +3290,7 @@ commander@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.0.0.tgz#d1b86f901f8b64bd941bdeadaf924530393be928"
 
-commander@2.11.x, commander@^2.11.0, commander@^2.2.0, commander@^2.5.0, commander@^2.9.0, commander@~2.11.0:
+commander@2.11.x, commander@~2.11.0:
   version "2.11.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.11.0.tgz#157152fd1e7a6c8d98a5b715cf376df928004563"
 
@@ -3244,6 +3309,12 @@ commander@2.9.0:
   resolved "https://registry.npmjs.org/commander/-/commander-2.9.0.tgz#9c99094176e12240cb22d6c5146098400fe0f7d4"
   dependencies:
     graceful-readlink ">= 1.0.0"
+
+commander@^2.11.0, commander@^2.2.0, commander@^2.5.0, commander@^2.9.0:
+  version "2.12.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-2.12.0.tgz#2f13615c39c687a77926aa68ef25c099db1e72fb"
+  dependencies:
+    "@types/node" "^7.0.48"
 
 commondir@0.0.1:
   version "0.0.1"
@@ -3841,8 +3912,8 @@ detect-indent@^4.0.0:
     repeating "^2.0.0"
 
 detect-libc@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-1.0.2.tgz#71ad5d204bf17a6a6ca8f450c61454066ef461e1"
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/detect-libc/-/detect-libc-1.0.3.tgz#fa137c4bd698edf55cd5cd02ac559f91a4c4ba9b"
 
 detective@^4.0.0, detective@^4.3.1:
   version "4.5.0"
@@ -4450,7 +4521,7 @@ fast-levenshtein@^2.0.6, fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
-fbjs@^0.8.16, fbjs@^0.8.9:
+fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.9:
   version "0.8.16"
   resolved "https://registry.npmjs.org/fbjs/-/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -4856,7 +4927,7 @@ glob@^5.0.15:
     once "^1.3.0"
     path-is-absolute "^1.0.0"
 
-glob@^6.0.0, glob@^6.0.1:
+glob@^6.0.0, glob@^6.0.1, glob@^6.0.4:
   version "6.0.4"
   resolved "https://registry.npmjs.org/glob/-/glob-6.0.4.tgz#0f08860f6a155127b2fadd4f9ce24b1aab6e4d22"
   dependencies:
@@ -4976,7 +5047,7 @@ har-schema@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/har-schema/-/har-schema-2.0.0.tgz#a94c2224ebcac04782a0d9035521f24735b7ec92"
 
-har-validator@~2.0.2:
+har-validator@~2.0.2, har-validator@~2.0.6:
   version "2.0.6"
   resolved "https://registry.npmjs.org/har-validator/-/har-validator-2.0.6.tgz#cdcbc08188265ad119b6a5a7c8ab70eecfb5d27d"
   dependencies:
@@ -5354,8 +5425,8 @@ inherits@2.0.1:
   resolved "https://registry.npmjs.org/inherits/-/inherits-2.0.1.tgz#b17d08d326b4423e568eff719f91b0b1cbdf69f1"
 
 ini@^1.3.4, ini@~1.3.0:
-  version "1.3.4"
-  resolved "https://registry.npmjs.org/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
+  version "1.3.5"
+  resolved "https://registry.npmjs.org/ini/-/ini-1.3.5.tgz#eee25f56db1c9ec6085e0c22778083f596abf927"
 
 inline-source-map@~0.3.0:
   version "0.3.1"
@@ -6554,9 +6625,13 @@ mime@1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/mime/-/mime-1.4.0.tgz#69e9e0db51d44f2a3b56e48b7817d7d137f1a343"
 
-mime@1.4.1, mime@^1.3.4, mime@^1.3.6, mime@^1.4.1:
+mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
+
+mime@^1.3.4, mime@^1.3.6, mime@^1.4.1:
+  version "1.5.0"
+  resolved "https://registry.npmjs.org/mime/-/mime-1.5.0.tgz#59c20e03ae116089edeb7d3b34a6788c5b3cccea"
 
 mimer@^0.2.1:
   version "0.2.1"
@@ -6697,7 +6772,7 @@ moment@2.9.0:
   version "2.9.0"
   resolved "https://registry.npmjs.org/moment/-/moment-2.9.0.tgz#77ec1175fa294f42627f10c8e6de6302c036f6d5"
 
-"moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.18.1, moment@^2.9.0:
+"moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.18.1, moment@^2.19.1, moment@^2.9.0:
   version "2.19.2"
   resolved "https://registry.npmjs.org/moment/-/moment-2.19.2.tgz#8a7f774c95a64550b4c7ebd496683908f9419dbe"
 
@@ -6949,8 +7024,8 @@ node-redis-warlock@0.1.2:
     uuid "2.0.1"
 
 node-sass@^4.5.2, node-sass@^4.5.3:
-  version "4.6.1"
-  resolved "https://registry.npmjs.org/node-sass/-/node-sass-4.6.1.tgz#9b331cf943ee5440f199e858941a90d13bc9bfc5"
+  version "4.7.2"
+  resolved "https://registry.npmjs.org/node-sass/-/node-sass-4.7.2.tgz#9366778ba1469eb01438a9e8592f4262bcb6794e"
   dependencies:
     async-foreach "^0.1.3"
     chalk "^1.1.1"
@@ -6967,9 +7042,10 @@ node-sass@^4.5.2, node-sass@^4.5.3:
     nan "^2.3.2"
     node-gyp "^3.3.1"
     npmlog "^4.0.0"
-    request "^2.79.0"
+    request "~2.79.0"
     sass-graph "^2.2.4"
     stdout-stream "^1.4.0"
+    "true-case-path" "^1.0.2"
 
 node-uuid@~1.4.0, node-uuid@~1.4.3:
   version "1.4.8"
@@ -7831,6 +7907,10 @@ qs@~5.2.0:
   version "5.2.1"
   resolved "https://registry.npmjs.org/qs/-/qs-5.2.1.tgz#801fee030e0b9450d6385adc48a4cc55b44aedfc"
 
+qs@~6.3.0:
+  version "6.3.2"
+  resolved "https://registry.npmjs.org/qs/-/qs-6.3.2.tgz#e75bd5f6e268122a2a0e0bda630b2550c166502c"
+
 qs@~6.4.0:
   version "6.4.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
@@ -7887,8 +7967,8 @@ range-parser@~1.2.0:
   resolved "https://registry.npmjs.org/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
 raven-js@^3.9.1:
-  version "3.20.0"
-  resolved "https://registry.npmjs.org/raven-js/-/raven-js-3.20.0.tgz#b6f92f3db7f168ac32cd466fd5743f40fff4cffe"
+  version "3.20.1"
+  resolved "https://registry.npmjs.org/raven-js/-/raven-js-3.20.1.tgz#3170bdb35c05098ddb8548ee5be0687f9d763330"
 
 raw-body@1.3.0:
   version "1.3.0"
@@ -8010,17 +8090,16 @@ react-dom@^16.0.0:
     prop-types "^15.6.0"
 
 react-dropzone@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.1.tgz#695e80bd0b065f1181e69f2d0f6d1d5cc72664c9"
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.3.tgz#f7bc92aa5fe4253fdb1fd3792114d2d29b47119a"
   dependencies:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
 react-input-autosize@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-2.0.1.tgz#e92190497b4026c2780ad0f2fd703c835ba03e33"
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-2.1.0.tgz#90631c093d66d392ddc995903430ee238bb1f01f"
   dependencies:
-    create-react-class "^15.5.2"
     prop-types "^15.5.8"
 
 react-json-tree@^0.10.5:
@@ -8099,7 +8178,7 @@ react-router-scroll@^0.4.2:
     scroll-behavior "^0.9.5"
     warning "^3.0.0"
 
-react-router@^3.0.0, react-router@^3.0.5:
+react-router@^3.0.0, react-router@^3.0.5, react-router@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/react-router/-/react-router-3.2.0.tgz#62b6279d589b70b34e265113e4c0a9261a02ed36"
   dependencies:
@@ -8152,7 +8231,7 @@ react-transform-catch-errors@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
 
-react-waypoint@^7.1.0:
+react-waypoint@^7.1.0, react-waypoint@^7.3.1:
   version "7.3.1"
   resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-7.3.1.tgz#abb165d9b6c9590f8d82ceafbe61c2c887262a37"
   dependencies:
@@ -8282,6 +8361,15 @@ rechoir@^0.6.2:
   dependencies:
     resolve "^1.1.6"
 
+recompose@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.npmjs.org/recompose/-/recompose-0.26.0.tgz#9babff039cb72ba5bd17366d55d7232fbdfb2d30"
+  dependencies:
+    change-emitter "^0.1.2"
+    fbjs "^0.8.1"
+    hoist-non-react-statics "^2.3.1"
+    symbol-observable "^1.0.4"
+
 reconnect-core@1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/reconnect-core/-/reconnect-core-1.3.0.tgz#fbae52919a7877d844e3246d01a2f26701c833c8"
@@ -8328,7 +8416,7 @@ reduce-reducers@^0.1.0:
   version "0.1.2"
   resolved "https://registry.npmjs.org/reduce-reducers/-/reduce-reducers-0.1.2.tgz#fa1b4718bc5292a71ddd1e5d839c9bea9770f14b"
 
-redux-actions@^2.0.1:
+redux-actions@^2.0.1, redux-actions@^2.2.1:
   version "2.2.1"
   resolved "https://registry.npmjs.org/redux-actions/-/redux-actions-2.2.1.tgz#d64186b25649a13c05478547d7cd7537b892410d"
   dependencies:
@@ -8343,6 +8431,13 @@ redux-connect@^5.0.0, redux-connect@^5.1.0:
   dependencies:
     babel-runtime "^6.20.0"
     redux-actions "^2.0.1"
+
+redux-connect@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/redux-connect/-/redux-connect-6.0.0.tgz#cad1a9e0fa64395eded3f4dc6b6c0c1170519b85"
+  dependencies:
+    babel-runtime "^6.26.0"
+    redux-actions "^2.2.1"
 
 redux-devtools-dock-monitor@^1.1.1, redux-devtools-dock-monitor@^1.1.2:
   version "1.1.2"
@@ -8427,7 +8522,7 @@ redux-form@^6.1.1, redux-form@^6.2.0, redux-form@^6.5.0, redux-form@^6.6.2, redu
     lodash-es "^4.17.3"
     prop-types "^15.5.9"
 
-redux-form@^7.1.2:
+redux-form@^7.1.0, redux-form@^7.1.2:
   version "7.1.2"
   resolved "https://registry.npmjs.org/redux-form/-/redux-form-7.1.2.tgz#6b0f25c57fd8130a05ce00f6435fe1b051f402af"
   dependencies:
@@ -8595,6 +8690,31 @@ request@2.81.0:
     stringstream "~0.0.4"
     tough-cookie "~2.3.0"
     tunnel-agent "^0.6.0"
+    uuid "^3.0.0"
+
+request@~2.79.0:
+  version "2.79.0"
+  resolved "https://registry.npmjs.org/request/-/request-2.79.0.tgz#4dfe5bf6be8b8cdc37fcf93e04b65577722710de"
+  dependencies:
+    aws-sign2 "~0.6.0"
+    aws4 "^1.2.1"
+    caseless "~0.11.0"
+    combined-stream "~1.0.5"
+    extend "~3.0.0"
+    forever-agent "~0.6.1"
+    form-data "~2.1.1"
+    har-validator "~2.0.6"
+    hawk "~3.1.3"
+    http-signature "~1.1.0"
+    is-typedarray "~1.0.0"
+    isstream "~0.1.2"
+    json-stringify-safe "~5.0.1"
+    mime-types "~2.1.7"
+    oauth-sign "~0.8.1"
+    qs "~6.3.0"
+    stringstream "~0.0.4"
+    tough-cookie "~2.3.0"
+    tunnel-agent "~0.4.1"
     uuid "^3.0.0"
 
 require-all@~1.0.0:
@@ -9497,7 +9617,7 @@ swap-case@^1.0.0:
     lower-case "^1.1.1"
     upper-case "^1.1.1"
 
-symbol-observable@^1.0.2, symbol-observable@^1.0.3:
+symbol-observable@^1.0.2, symbol-observable@^1.0.3, symbol-observable@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
@@ -9550,8 +9670,8 @@ tar@^2.0.0, tar@^2.2.1:
     inherits "2"
 
 tether@^1.1.1, tether@^1.3.2:
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/tether/-/tether-1.4.1.tgz#78112ef21adf2aea68cd90e72185f43d9ffc44e8"
+  version "1.4.2"
+  resolved "https://registry.npmjs.org/tether/-/tether-1.4.2.tgz#ab9605b5ecf38f088b3da3d54d2b439207e48d04"
 
 through2@^1.0.0:
   version "1.1.1"
@@ -9666,6 +9786,12 @@ trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
+"true-case-path@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/true-case-path/-/true-case-path-1.0.2.tgz#7ec91130924766c7f573be3020c34f8fdfd00d62"
+  dependencies:
+    glob "^6.0.4"
+
 tsscmp@1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
@@ -9726,8 +9852,8 @@ uglify-js@2.4.24, uglify-js@2.4.x, uglify-js@~2.4.0:
     yargs "~3.5.4"
 
 uglify-js@3.1.x:
-  version "3.1.9"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.1.9.tgz#dffca799308cf327ec3ac77eeacb8e196ce3b452"
+  version "3.1.10"
+  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.1.10.tgz#c4a5f9b5c6276b40cb971c1d97c9eeb26af9509c"
   dependencies:
     commander "~2.11.0"
     source-map "~0.6.1"

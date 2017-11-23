@@ -1,15 +1,16 @@
 "use strict";
 
-const config = require( '../config' );
+const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
 const users = require( '@openagenda/users' );
+const logger = require( '@openagenda/logger' );
+const keys = require( '@openagenda/keys' );
+const { Inbox } = require( '@openagenda/inboxes' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
-const logger = require( '@openagenda/logger' );
-const _ = require( 'lodash' );
-const keys = require( '@openagenda/keys' );
+const config = require( '../config' );
 
 let log = console.log;
 
@@ -66,6 +67,11 @@ function onCreate( channel, agenda, cb ) {
 
   }
 
+  // inbox
+  log( 'create inbox (agenda uid %d)', agenda.uid );
+  new Inbox().create( { type: 'agenda', identifier: agenda.uid } ).then( _.noop );
+
+  // feed / activity
   activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).create( ( err, agendaFeed ) => {
 
     if ( err ) return log( 'error', err );
@@ -145,6 +151,11 @@ function beforeRemove( agenda, cb ) {
 
 function onRemove( agenda ) {
 
+  // inbox
+  log( 'remove inbox (agenda uid %d)', agenda.uid );
+  new Inbox().create( { type: 'agenda', identifier: agenda.uid } ).then( _.noop );
+
+  // feed / activity
   activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).remove();
 
 }

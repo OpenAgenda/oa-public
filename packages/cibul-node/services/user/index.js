@@ -1,20 +1,16 @@
 "use strict";
 
 const w = require( 'when' );
-const async = require( 'async' );
-const model = require( '../model' );
-const config = require( '../../config' );
+const usersSvcConfig = require( '@openagenda/users/config' );
+const invitation2Svc = require( '@openagenda/invitations' );
+const activitiesSvc = require( '@openagenda/activities' );
 const log = require( '@openagenda/logs' )( 'services/user' );
+const model = require( '../model' );
+const lib = require( '../../lib/lib' );
+const activation = require( './lib/activation' );
+const lostPassword = require( './lib/lostPassword' );
 
-let lib = require( '../../lib/lib' ), invitationSvc,
-
-  activation = require( './lib/activation' ),
-
-  lostPassword = require( './lib/lostPassword' ),
-
-  invitation2Svc = require( '@openagenda/invitations' ),
-
-  activitiesSvc = require( '@openagenda/activities' );
+let invitationSvc;
 
 module.exports = {
   get,
@@ -140,7 +136,13 @@ function create( data, options, cb ) {
 
   _createProcess( data, options )
 
-    .done( function ( values ) {
+    .done( values => {
+
+      if ( values.user && usersSvcConfig.interfaces && usersSvcConfig.interfaces.onCreate ) {
+
+        usersSvcConfig.interfaces.onCreate( values.user );
+
+      }
 
       cb( null, values.user, values );
 

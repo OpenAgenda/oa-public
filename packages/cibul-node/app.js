@@ -33,7 +33,7 @@ module.exports = ( enabledTypes, cb ) => {
         return log( 'error', 'could not load app: %s', err );
       }
 
-      if ( process.env.NODE_ENV === 'development' ) {
+      if ( __DEVELOPMENT__ ) {
         require( 'source-map-support' ).install( { hookRequire: true } );
       }
 
@@ -95,7 +95,6 @@ module.exports = ( enabledTypes, cb ) => {
         ]
       };
 
-
       app.set( 'trust proxy', 'loopback' );
 
       app.use( sessions.middleware );
@@ -150,8 +149,8 @@ module.exports = ( enabledTypes, cb ) => {
 
         require( './event/search.front' )( app, '/events/search' );
         require( './agenda/back' )( app );
-        // require( './inboxes/front' )( app );
-        // require( './inboxes/back' )( app );
+        require( './inboxes/back' )( app );
+        require( './inboxes/front' )( app );
 
         webModules.web.forEach( m => m.load( app ) );
 
@@ -170,7 +169,7 @@ module.exports = ( enabledTypes, cb ) => {
 
       app.use( ( req, res, next ) => {
 
-        cmn.catchError( req, res )( { code: 404 } );
+        next( { code: 404 } );
 
       } );
 
@@ -207,7 +206,10 @@ module.exports = ( enabledTypes, cb ) => {
 
         tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 
-        tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, { period: 'daily', time: '05:00' } );
+        tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
+          period: 'daily',
+          time: '05:00'
+        } );
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } );
 
