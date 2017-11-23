@@ -82,9 +82,9 @@
     spin.js "2.3.2"
     to-markdown "^3.0.1"
 
-"@openagenda/react-utils@^2.0.0":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-2.0.1.tgz#0b0c7d7b14f8bc7f8ce4ead305a2027973595882"
+"@openagenda/react-utils@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-3.0.0.tgz#46a15c276737f002770d4f166bb7e2fd822e92eb"
   dependencies:
     deep-extend "^0.4.1"
     history "^3.3.0"
@@ -99,6 +99,7 @@
     redux-devtools-inspector "^0.11.3"
     redux-form "^6.6.3"
     superagent "3.6.0"
+    verror "^1.10.0"
 
 "@openagenda/service-utils@^2.0.0":
   version "2.0.0"
@@ -4173,10 +4174,6 @@ path-key@^2.0.0:
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
-
-path-to-regexp@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/path-to-regexp/-/path-to-regexp-2.1.0.tgz#7e30f9f5b134bd6a28ffc2e3ef1e47075ac5259b"
 
 path-type@^1.0.0:
   version "1.1.0"

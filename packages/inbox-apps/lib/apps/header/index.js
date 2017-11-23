@@ -23,6 +23,10 @@ exports.default = function (options) {
 
   if (!user) return;
 
+  if ([1, 2, 11258, 15453, 34577].indexOf(user.id) === -1) {
+    return;
+  }
+
   var anchorElem = document.querySelector(params.selector);
 
   if (!anchorElem) return;

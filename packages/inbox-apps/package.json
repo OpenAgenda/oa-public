@@ -27,7 +27,7 @@
     "@openagenda/logs": "^1.0.1",
     "@openagenda/react-components": "^2.0.0",
     "@openagenda/react-form-components": "^2.0.0",
-    "@openagenda/react-utils": "^2.0.0",
+    "@openagenda/react-utils": "^3.0.0",
     "@openagenda/sessions": "^3.0.0",
     "@openagenda/validators": "^2.0.1",
     "async": "^2.5.0",
