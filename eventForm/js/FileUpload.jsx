@@ -30,6 +30,7 @@ module.exports = createReactClass({
         fr: 'Charger un %s',
         en: 'Upload a %s'
       },
+      optional: true,
       path: null,
       value: null
     }

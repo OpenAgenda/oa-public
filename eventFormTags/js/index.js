@@ -1,23 +1,25 @@
 "use strict";
 
-import React from 'react'
-import ReactDom from 'react-dom'
-import createReactClass from 'create-react-class'
-import update from 'immutability-helper'
-import omitBy from 'lodash/omitBy'
-import utils from '@openagenda/utils'
-import du from '@openagenda/dom-utils'
-import Spinner from '@openagenda/react-form-components/build/Spinner'
-import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx'
-import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx'
-import genLabelGet from '@openagenda/labels'
-import labels from '@openagenda/labels/event/tagsForm'
-import categorySetLabels from '@openagenda/labels/agenda-categories/selector'
-import tagSetLabels from '@openagenda/labels/agenda-tags/selector'
-import Modal from '@openagenda/react-components/build/Modal'
-import get from '@openagenda/utils/get'
-import post from '@openagenda/utils/post'
-import CustomFields from '../../eventForm/js/CustomFields.jsx'
+import createReactClass from 'create-react-class';
+import omitBy from 'lodash/omitBy';
+import React from 'react';
+import ReactDom from 'react-dom';
+import update from 'immutability-helper';
+
+import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
+import categorySetLabels from '@openagenda/labels/agenda-categories/selector';
+import du from '@openagenda/dom-utils';
+import genLabelGet from '@openagenda/labels';
+import get from '@openagenda/utils/get';
+import labels from '@openagenda/labels/event/tagsForm';
+import Modal from '@openagenda/react-components/build/Modal';
+import post from '@openagenda/utils/post';
+import Spinner from '@openagenda/react-form-components/build/Spinner';
+import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
+import tagSetLabels from '@openagenda/labels/agenda-tags/selector';
+import utils from '@openagenda/utils';
+
+import CustomField from '../../eventForm/js/CustomField.jsx';
 
 const defaults = {
   canvas: '.js_canvas',
@@ -72,6 +74,18 @@ App = createReactClass( {
     let firstLang = Object.keys( this.state.event.title )[ 0 ];
 
     return this.state.event.title[ this.props.lang ] || this.state.event.title[ firstLang ];
+
+  },
+
+  onCustomChange( field, value ) {
+
+    const updated = {};
+
+    updated[ field ] = { $set: value };
+
+    const updatedCustom = update( this.state.event.custom, updated );
+
+    this.onChange( 'custom' )( updatedCustom );
 
   },
 
@@ -201,16 +215,19 @@ App = createReactClass( {
         onChange={ this.onChange( 'tags' ) }
         labels={tagSetLabels}
       /> : null }
-      { this.state.customSet.length ? <CustomFields
-        lang={this.props.lang}
-        fields={this.state.customSet.filter( c => c.fieldType !== 'image' )}
-        values={this.state.event.custom}
-        onChange={ this.onChange( 'custom' ) }
-        labels={labels}
-        res={{upload:'', remove: ''}}
-        languages={this.state.languages}
-        errors={this.state.customSetErrors}
-      /> : null }
+      { this.state.customSet.length ? this.state.customSet.filter( c => c.fieldType !== 'image' ).map( field =>
+        <CustomField
+          key={field.name}
+          labels={labels}
+          res={{upload:'', remove: ''}}
+          field={field}
+          value={this.state.event.custom[ field.name ]}
+          error={this.state.customSetErrors[ field.name ]}
+          languages={this.state.languages}
+          lang={this.props.lang}
+          onChange={ this.onCustomChange.bind( null, field.name ) }
+        /> 
+      ) : null }
       { this.hasValidationErrors() ? <p className="error bg-danger margin-v-md padding-v-sm padding-h-sm">{getLabel( 'invalidError', this.props.lang )}</p> : null }
       <a href="#" className="text-danger" onClick={this.onCancel}>{getLabel( 'cancel', this.props.lang )}</a>
       { this.state.saving ? <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button> : null }

@@ -28,7 +28,7 @@ window.asap( function( options ) {
 
   }
 
-  window.oaPageHandler = handler;
+  window.oaPageHandler = embed;
 
   hours( { onToggle: embed.contentChange } );
 

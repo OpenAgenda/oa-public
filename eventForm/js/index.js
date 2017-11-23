@@ -12,6 +12,9 @@ import formConfiguration from './formConfiguration';
 const fieldErrors = [];
 
 const defaults = {
+  order: [ {
+    field: 'title'
+  } ],
   configuration: false,
   language: 'fr',
   canvas: '.js_form_canvas',
@@ -55,6 +58,7 @@ window.oaEventForm = function( options ) {
     rUtils.eh.trigger( params.events.languageChange, initialLanguages );
 
     ReactDom.hydrate( <EventForm
+      order={ params.order }
       configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
