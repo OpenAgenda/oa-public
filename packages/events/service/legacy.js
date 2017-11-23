@@ -136,7 +136,7 @@ function get( identifiers, options, cb ) {
         'age_min', 'age_max', 'image', 
         'accessibility', 'is_published',
         'store', 'owner_id', 'origin_uid',
-        'file_key'
+        'file_key', 'image_credits'
       ],
       eventTranslations: [ 'title', 'description', 'free_text', 'tags', 'lang' ],
       eventLocation: [ 'id', 'location_id', 'ticket_link' ],
@@ -637,6 +637,7 @@ function _getEvent( v ) {
 
       v.data.image = {
         filename: v.entries.event.image,
+        credits: v.entries.event.image_credits,
         variants: [ {
           type: 'full',
           filename: 'evf' + v.entries.event.image

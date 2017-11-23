@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `image` varchar(255) DEFAULT NULL,
   `background_image` varchar(255) DEFAULT NULL,
   `background_color` varchar(7) DEFAULT NULL,
+  `image_credits` varchar(255) DEFAULT NULL,
   `owner_id` bigint(20) DEFAULT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `is_new` tinyint(1) NOT NULL DEFAULT '1',

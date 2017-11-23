@@ -47,7 +47,7 @@ describe( 'events - functional (server): legacy bridge', function() {
         agendaUid: 48959239,
         image: {
           filename: 'event_indoor-de-paris-cso-pro-1_563851.jpg',
-          credits: null,
+          credits: '@gaetan 2017',
           size: {
             height: null,
             width: null
