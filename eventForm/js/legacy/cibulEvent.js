@@ -28,7 +28,8 @@ module.exports = function( params ) {
       image: {
         fetch: 'eimagefetch',
         remove: 'eimageremove',
-        write: 'eimagesend'
+        write: 'eimagesend',
+        creditsWrite: 'ecreditssend'
       },
       agenda: {
         fetch: 'eagendafetch',
@@ -175,7 +176,7 @@ module.exports = function( params ) {
 
     _on( params.events.image.fetch, function(callback) {
 
-      callback(event.image ? { image: event.image } : false);
+      callback(event.image ? { image: event.image, credits: event.credits } : false);
 
     });
 
@@ -190,6 +191,20 @@ module.exports = function( params ) {
     _on( params.events.image.write, function(data) {
 
       if ( data.image ) event.image = data.image;
+
+      _evaluate();
+
+    });
+
+    _on( params.events.image.creditsFetch, function(callback) {
+
+      callback( event.credits );
+
+    } );
+
+    _on( params.events.image.creditsWrite, function( credits ) {
+
+      event.credits = credits;
 
       _evaluate();
 

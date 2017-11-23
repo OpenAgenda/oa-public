@@ -8,7 +8,6 @@ import update from 'immutability-helper';
 import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
 import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/event/form';
-import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 import Modal from '@openagenda/react-components/build/Modal';
