@@ -47,6 +47,11 @@ const sessions = require( '@openagenda/sessions' ),
 
   utils = require( '@openagenda/utils' ),
 
+  bodyMw = require( 'body-parser' ).urlencoded( {
+    extended: true,
+    limit: 500000
+  } ),
+
   middlewares = {
     show: [
       agendaSvc.mw.search( perPage ),
@@ -96,6 +101,7 @@ const sessions = require( '@openagenda/sessions' ),
     ] ],
 
     agendaFacebook: [ 'post', '/facebook/tab', [
+      bodyMw,
       cmn.redirectLegacySearch,
       cmn.useEmbedGoogleAnalytics,
       fb.tab.loadAgendaId,

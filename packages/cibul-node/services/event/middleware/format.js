@@ -290,6 +290,12 @@ function _image( v ) {
 
   v.formatted.image = img ? img.replace( 'cibuldev', 'cibul' ) : false;
 
+  if ( img ) {
+
+    v.formatted.credits = v.req.event.credits;
+
+  }
+
   return v;
 
 }

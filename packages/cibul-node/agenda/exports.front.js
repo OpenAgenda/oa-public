@@ -27,6 +27,7 @@ const routes = {
     agendaSvc.mw.decorateEvents(),
     agendaSvc.mw.cleanJson,
     cacheMw.set( 'agendas', 'agenda.uid', 30, req => JSON.stringify( {
+      readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
       total: req.total,
       offset: req.offset,
       limit: req.limit,
@@ -175,6 +176,7 @@ function _sleep( ms ) {
 function json( req, res ) {
 
   cmn.renderJson( req, res, {
+    readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
     total: req.total,
     offset: req.offset,
     limit: req.limit,

@@ -29,6 +29,11 @@ const model = require( '../services/model' );
 const metaLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/corpo/metas' ) );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
+const bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} );
+
 const _homeMw = [
     cmn.https,
     sessions.middleware.ifLogged( cmn.redirectTo( 'homeShow' ) ),
@@ -47,10 +52,16 @@ const _homeMw = [
       sessions.middleware.close(),
       cmn.redirectTo()
     ] ],
-    newsletterSubscribe: [ 'post', '/newsletter/subscribe', newsletterSubscribe ],
+    newsletterSubscribe: [ 'post', '/newsletter/subscribe', [
+      bodyMw,
+      newsletterSubscribe 
+    ] ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/emailunsubscribe', unsubscribe ],
-    emailUnsubscribeSubmit: [ 'post', '/emailunsubscribe', unsubscribeSubmit ],
+    emailUnsubscribeSubmit: [ 'post', '/emailunsubscribe', [
+      bodyMw,
+      unsubscribeSubmit
+    ] ],
     start: [ 'get', '/start', start ],
     decouvrir: [ 'get', '/decouvrir/:page', [
       cmn.https,

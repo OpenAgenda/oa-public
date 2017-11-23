@@ -63,6 +63,12 @@ app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
 
 } );
 
+app.get( '/:agendaSlug/admin/stats/transfer-form-schema', async ( req, res ) => {
+
+  res.json( await agendaStatistics.transferFormSchema( req.agenda ) );
+
+} );
+
 
 /**
  * resync what can be

@@ -1,89 +1,87 @@
 "use strict";
 
-const modLib = require( '../lib/moduleLib' ),
+const async = require( 'async' );
+const bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} );
 
-  utils = require( '@openagenda/utils' ),
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
+const mailer = require( '@openagenda/mailer' );
+const sessions = require( '@openagenda/sessions' );
+const utils = require( '@openagenda/utils' );
 
-  sessions = require( '@openagenda/sessions' ),
+const agendaSvc = require( '../services/agenda' );
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const eventSvc = require( '../services/event' );
+const model = require( '../services/model' );
+const modLib = require( '../lib/moduleLib' );
 
-  cmn = require( '../lib/commons-app' ),
+const routes = {
 
-  agendaSvc = require( '../services/agenda' ),
+  eventActionShow: [ 'get', '/events/:eventSlug/action', [
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    actionShow
+  ] ],
+  
+  eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    actionDatesShow
+  ] ],
 
-  eventSvc = require( '../services/event' ),
+  agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
+    agendaSvc.mw.load( 'slug' ),
+    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    actionShow
+  ]],
 
-  mailer = require( '@openagenda/mailer' ),
+  agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
+    agendaSvc.mw.load( 'slug' ),
+    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    actionDatesShow
+  ] ],
 
-  async = require( 'async' ),
+  agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
+    bodyMw,
+    agendaSvc.mw.load( 'slug' ),
+    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    eventMailSend
+  ] ],
 
-  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) ),
+  agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
+    agendaSvc.mw.load( 'slug' ),
+    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.ics
+  ] ],
 
-  model = require( '../services/model' ),
+  eventMailSend: [ 'post', '/events/:eventSlug/email', [
+    bodyMw,
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.loadUris,
+    eventMailSend
+  ] ]
 
-  config = require( '../config' ),
-
-  routes = {
-
-    eventActionShow: [ 'get', '/events/:eventSlug/action', [
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-      actionShow
-    ] ],
-    
-    eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-      actionDatesShow
-    ] ],
-
-    agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-      actionShow
-    ]],
-
-    agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-      actionDatesShow
-    ] ],
-
-    agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      eventMailSend
-    ] ],
-
-    agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.ics
-    ] ],
-
-    eventMailSend: [ 'post', '/events/:eventSlug/email', [
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.loadUris,
-      eventMailSend
-    ] ]
-
-  }
+}
 
 module.exports = function( path ) {
 

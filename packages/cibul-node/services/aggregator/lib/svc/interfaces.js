@@ -23,6 +23,6 @@ async function keepActiveAggregators( agendaIds ) {
 
   const agendas = ( await wn.call( agendaSvc.list, { id: agendaIds }, { private: null, includeFields: [ 'credentials' ] } ) )[ 0 ];
 
-  return agendas.filter( a => a.credentials.aggregator );
+  return agendas.filter( a => a.credentials && a.credentials.aggregator );
 
 }

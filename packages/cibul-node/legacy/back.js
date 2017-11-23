@@ -1,52 +1,33 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const bodyParser = require( 'body-parser' );
+const cmn = require( '../lib/commons-app' );
+const qs = require( 'qs' );
+const VError = require( 'verror' );
 
-  qs = require( 'qs' ),
+const activitiesSvc = require( '@openagenda/activities' );
+const agendas = require( '@openagenda/agendas' );
+const agendaEvents = require( '@openagenda/agenda-events' );
+const mailer = require( '@openagenda/mailer' );
+const sessions = require( '@openagenda/sessions' );
+const referencesSvc = require( '@openagenda/agenda-event-references' );
+const sCache = require( '@openagenda/simple-cache' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const usersSvc = require( '@openagenda/users' );
+const utils = require( '@openagenda/utils' );
 
-  _ = require( 'lodash' ),
+const aggregatorSvc = require( '../services/aggregator' );
+const agendaSvc = require( '../services/agenda' );
+const eventSvc = require( '../services/event' );
+const formOrderMw = require( './formOrder.mw.js' );
+const modLib = require( '../lib/moduleLib' );
+const notificationMail = require( '../services/notification/mail' );
+const userSvc = require( '../services/user' );
+const legacyEvents = require( '../services/events' ).legacy;
 
-  modLib = require( '../lib/moduleLib' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  agendas = require( '@openagenda/agendas' ),
-
-  eventSvc = require( '../services/event' ),
-
-  userSvc = require( '../services/user' ),
-
-  sCache = require( '@openagenda/simple-cache' ),
-
-  VError = require( 'verror' ),
-
-  aggregatorSvc = require( '../services/aggregator' ),
-
-  async = require( 'async' ),
-
-  referencesSvc = require( '@openagenda/agenda-event-references' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  bodyParser = require( 'body-parser' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  activitiesSvc = require( '@openagenda/activities' ),
-
-  agendaEvents = require( '@openagenda/agenda-events' ),
-
-  usersSvc = require( '@openagenda/users' ),
-
-  legacyEvents = require( '../services/events' ).legacy,
-
-  stakeholdersSvc = require( '@openagenda/agenda-stakeholders' ),
-
-  notificationMail = require( '../services/notification/mail' ),
-
-  routes = {
+const routes = {
 
     /**
      * provide to sf the html of the head section of an agenda
@@ -102,6 +83,11 @@ const sessions = require( '@openagenda/sessions' ),
     log: [ 'post', '/log', [
       bodyParser.json(),
       logController
+    ] ],
+
+    formOrder: [ 'get', '/:slug/form-order', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      formOrderMw
     ] ],
 
 

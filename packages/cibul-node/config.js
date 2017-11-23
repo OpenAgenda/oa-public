@@ -8,7 +8,7 @@ let config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-    jsVersion: 19,
+    jsVersion: 21,
     versions: {
       // unused for now
       members: [ {
@@ -523,6 +523,7 @@ let config = {
         //enable: 'oa:mailer/task/eventAggregation*',
         //enable: 'oa:legacy:*'
         enable: 'oa:*'
+        //enable: '*'
       },
       token: false // no need to log dev things
       //token: 'a2923436-55dc-4eba-8668-44824d11c089'

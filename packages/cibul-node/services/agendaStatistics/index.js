@@ -1,30 +1,34 @@
 "use strict";
 
-const db = require( './lib/db' );
-const queue = require( '@openagenda/queue' );
-const config = require( '../../config' );
-const search = require( '../eventSearch' );
 const agendaEvents = require( '@openagenda/agenda-events' );
-const legacySearch = require( './lib/legacySearch' );
-const searchStats = require( './lib/search' );
+const formSchemas = require( '@openagenda/form-schemas' );
+const queue = require( '@openagenda/queue' );
+
 const agendaEventStats = require( './lib/agendaEventStats' );
+const config = require( '../../config' );
+const db = require( './lib/db' );
+const legacySearch = require( './lib/legacySearch' );
+const search = require( '../eventSearch' );
+const searchStats = require( './lib/search' );
+
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 
 let q;
 
 module.exports = async agendaUid => {
 
-  const agenda = await config.knex( 'review' ).first( [ 'id', 'slug' ] ).where( 'uid', agendaUid );
+  const agenda = await config.knex( 'review' ).first( [ 'id', 'slug', 'form_schema_id' ] ).where( 'uid', agendaUid );
 
   return {
     db: await db( agenda.id ),
     legacySearch: await legacySearch( agenda.id ),
     agendaEvents: await agendaEventStats( agendaUid ),
     search: await searchStats( agendaUid ),
+    hasFormSchema: !!agenda.form_schema_id,
     actions: {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
       rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
-      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
+      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`
     }
   }
 
@@ -37,6 +41,14 @@ module.exports.init = c => {
 }
 
 module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
+
+module.exports.transferFormSchema = agenda => {
+
+  log( 'transfering form schema from legacy to form schema db for agenda %d', agenda.uid );
+  
+  return formSchemas.legacy.transfer( agenda.id );
+
+}
 
 module.exports.task = () => {
 

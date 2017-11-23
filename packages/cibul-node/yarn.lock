@@ -470,9 +470,9 @@
     when "~3.4"
     xhr "^2.2.0"
 
-"@openagenda/cibul-templates@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-0.0.7.tgz#755bfe35ba970228cb7f341761596dca54420783"
+"@openagenda/cibul-templates@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-0.0.8.tgz#ee0fbfb56d5158140a5f5d2c5a5b16ec5d074504"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -1632,9 +1632,24 @@ attr-accept@^1.0.3:
   version "1.1.0"
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
-aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.156.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.156.0.tgz#409c06f7051d58320cb389a024ca7b61ce31f136"
+aws-sdk@^2.145.0:
+  version "2.152.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.152.0.tgz#55b8cc861970ade6db4c28cf2f390575d1051e13"
+  dependencies:
+    buffer "4.9.1"
+    crypto-browserify "1.0.9"
+    events "^1.1.1"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.1.0"
+    xml2js "0.4.17"
+    xmlbuilder "4.2.1"
+
+aws-sdk@^2.2.36:
+  version "2.151.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.151.0.tgz#5e73d778b76514f36183b91400477778ab5e58d8"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -3010,8 +3025,8 @@ camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000760:
-  version "1.0.30000770"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000770.tgz#bc8e7f50b073273390db6ab357378909a14e9bdb"
+  version "1.0.30000766"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000766.tgz#8a095cc5eb9923c27008ce4d0db23e65a3e28843"
 
 caporal@^0.4.1:
   version "0.4.1"
@@ -8090,8 +8105,8 @@ react-dom@^16.0.0:
     prop-types "^15.6.0"
 
 react-dropzone@^4.2.1:
-  version "4.2.3"
-  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.3.tgz#f7bc92aa5fe4253fdb1fd3792114d2d29b47119a"
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.2.tgz#6678ffb043196a00134f20bbe2adc97815a21e0e"
   dependencies:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
