@@ -32,9 +32,9 @@ var utils = require( '@openagenda/utils' ),
 
   notifications = require( '@openagenda/activity-apps/notifications' ),
 
-  // inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
+  inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
 
-  // inboxConversationForm = require( '@openagenda/inbox-apps/lib/apps/conversationForm' ),
+  inboxConversationForm = require( '@openagenda/inbox-apps/lib/apps/conversationForm' ),
 
   LE = require( '@openagenda/le_js' ),
 
@@ -78,9 +78,9 @@ du.asapReady( function () {
 
   notifications();
 
-  // inbox();
+  inbox();
 
-  // inboxConversationForm();
+  inboxConversationForm();
 
   callToAction();
 

@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 import debug from 'debug';
 import du from '@openagenda/dom-utils';
-// import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
+import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
@@ -97,17 +97,44 @@ module.exports = function ( options ) {
 
   }
 
-  function inbox( params ) {
+  function inbox( params, { roles, ROLES } ) {
+
+    const simpleUser = !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN );
+    const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
     loadInbox( {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
       state: {
         settings: {
+          prefix: window.location.pathname,
+          focusFistConversation: simpleUser, // force to display the first conversation if exists
+          hideEmptyList: true, // redirect on creation if the list is empty
+          allowCreateConversation: false, // hide creation button
+          defaultQuery: {
+            type: 'event',
+            typeIdentifier: params.uid,
+            destinationInbox: {
+              type: 'agenda',
+              identifier: params.agendaUid
+            }
+          },
           TitleComponent: 'h3',
-          Wrapper: ( { children } ) => <div className="event-secondary">{children}</div>,
-          ContentWrapper: ( { children } ) => <div className="event-content">{children}</div>,
-          lang: params.lang
+          Wrapper: ( { children } ) => <div className="event-secondary inbox">{children}</div>,
+          ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
+          lang: params.lang,
+        },
+        res: {
+          inboxHome: '/',
+          author: resBasePath + '/inbox/author.json',
+          conversations: {
+            list: resBasePath + '/inbox/conversations.json',
+            create: resBasePath + '/inbox/conversations.json'
+          },
+          messages: {
+            list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
+            create: resBasePath + '/inbox/conversations/:conversationId/messages.json'
+          }
         },
         agenda: {
           uid: params.agendaUid
