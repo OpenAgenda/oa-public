@@ -121,8 +121,6 @@ window.asap( options => {
 
         prv.load( params.agendaUid, params.uid );
 
-        // prv.inbox( params );
-
       }
 
     }
@@ -131,6 +129,12 @@ window.asap( options => {
 
       prv.activities( params.agendaUid, params.uid, params.lang );
 
+    }
+
+    const user = session.getUser();
+
+    if ( user && [ 1, 2, 11258, 15453, 34577 ].indexOf( user.id ) !== -1 ) {
+      prv.inbox( params, { roles, ROLES } );
     }
 
   } );

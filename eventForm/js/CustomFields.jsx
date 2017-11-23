@@ -2,14 +2,14 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
+import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
+import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
 import Wysiwyg from './Wysiwyg.jsx';
 import MultilingualTextField from './MultilingualTextField.jsx';
 import TextField from './TextField.jsx';
 import CheckboxField from './CheckboxField.jsx';
 import RadioFields from './RadioFields.jsx';
 import SelectField from './SelectField.jsx';
-import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
-import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
 import FileUpload from './FileUpload.jsx';
 
 module.exports = createReactClass({
