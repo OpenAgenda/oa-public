@@ -1,4 +1,4 @@
-import fixtures from 'fixtures';
+import fixtures from '@openagenda/fixtures';
 import Inbox from '../../src';
 
 export default Inbox;

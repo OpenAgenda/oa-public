@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
+import VError from 'verror';
 import { knex, schemas } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxFieldsMap';
@@ -30,7 +31,7 @@ export default class Inbox {
         userUid,
         inbox: new Inbox( { type: 'user', identifier: userUid } )
       } )
-    }
+    };
   }
 
   async create( data, options ) {
@@ -55,6 +56,21 @@ export default class Inbox {
     if ( !this.data && this.identifiers.type ) {
       return this.create( this.identifiers, options );
     }
+
+    return this;
+  }
+
+  async remove() {
+    await this.get();
+
+    if ( !this.data ) {
+      throw new VError( 'You can not remove a inbox that does not exists: %j', this.identifiers );
+    }
+
+    await knex( schemas.inbox )
+      .where( 'id', this.data.id );
+
+    this.data = null;
 
     return this;
   }

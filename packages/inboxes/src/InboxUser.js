@@ -34,7 +34,18 @@ export default class InboxUser {
     validate( ajv, createSchema, data );
 
     const inboxUser = await new InboxUser( data, { inbox: this.inbox } ).get( options );
+
     if ( inboxUser.data ) {
+      this.identifiers = { ...this.identifiers, id: inboxUser.data.id };
+
+      if ( inboxUser.data.leftAt ) {
+        await knex( schemas.inboxUser )
+          .update( 'left_at', null )
+          .where( 'id', inboxUser.data.id );
+
+        return this.get( options );
+      }
+
       return inboxUser;
     }
 

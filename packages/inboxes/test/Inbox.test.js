@@ -125,6 +125,18 @@ describe( 'Inbox', () => {
 
   } );
 
+  describe( 'remove', () => {
+
+    test( 'remove an inbox', async () => {
+
+      const inbox = await Inboxes( { type: 'agenda', identifier: 48959239 } ).remove();
+
+      expect( inbox.data ).eql( null );
+
+    } );
+
+  } );
+
   describe( 'get', () => {
 
     test( 'get an inbox by identifiers', async () => {

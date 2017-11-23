@@ -41,6 +41,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
+    "@openagenda/fixtures": "^2.0.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.0.2",
@@ -53,7 +54,6 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.1",
-    "fixtures": "bitbucket:openagenda/fixtures",
     "jest": "^21.1.0",
     "mocha": "^3.5.3",
     "reload": "^2.2.2",

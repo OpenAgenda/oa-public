@@ -73,6 +73,22 @@ describe( 'InboxUser', () => {
 
     } );
 
+    test( 're-add an inbox user that have been deleted', async () => {
+
+      try {
+
+        const inboxUser = await Inboxes( 4 ).users.add( { userUid: 89216486 } );
+
+        console.log( 'inboxUser', inboxUser );
+
+      } catch ( e ) {
+
+        console.log( 'ERROR', e, VError.info( e ) );
+
+      }
+
+    } );
+
   } );
 
   describe( 'get', () => {

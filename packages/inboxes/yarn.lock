@@ -8,6 +8,14 @@
   dependencies:
     semver "^5.3.0"
 
+"@openagenda/fixtures@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/fixtures/-/fixtures-2.0.1.tgz#880f0bd8ba3bcbf2fd0edf33eb9d3682a8b99b61"
+  dependencies:
+    "@openagenda/utils" "^1.0.1"
+    mysql "^2.10.2"
+    when "^3.7.7"
+
 "@openagenda/le_node@^1.7.3":
   version "1.7.3"
   resolved "https://registry.npmjs.org/@openagenda/le_node/-/le_node-1.7.3.tgz#78864151fe9d82e55a050f28c5c0ed19814a168e"
@@ -34,6 +42,14 @@
   dependencies:
     redis-commands "^1.3.1"
     when "^3.7.7"
+
+"@openagenda/utils@^1.0.1":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/utils/-/utils-1.0.2.tgz#a2299c4c0484f565e640084b6b12cf749dbe60fd"
+  dependencies:
+    qs "^6.1.0"
+    when "^3.7.8"
+    xhr "^2.2.2"
 
 abab@^1.0.3:
   version "1.0.4"
@@ -1561,14 +1577,6 @@ findup-sync@^0.4.2:
     is-glob "^2.0.1"
     micromatch "^2.3.7"
     resolve-dir "^0.1.0"
-
-"fixtures@bitbucket:openagenda/fixtures":
-  version "1.0.0"
-  resolved "git+ssh://git@bitbucket.org/openagenda/fixtures.git#50598c4d84675d8aa6ad3625b8e8df7ad04ee990"
-  dependencies:
-    mysql "^2.10.2"
-    utils "git+ssh://git@bitbucket.org/openagenda/utils.git"
-    when "^3.7.7"
 
 flagged-respawn@^0.3.2:
   version "0.3.2"
@@ -3842,14 +3850,6 @@ user-home@^1.0.0, user-home@^1.1.1:
 util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
-
-"utils@git+ssh://git@bitbucket.org/openagenda/utils.git":
-  version "0.0.91"
-  resolved "git+ssh://git@bitbucket.org/openagenda/utils.git#b5adef01bc3da1c0d755a042afa353b27580d1eb"
-  dependencies:
-    qs "^6.1.0"
-    when "^3.7.8"
-    xhr "^2.2.2"
 
 uuid@^3.0.0, uuid@^3.1.0:
   version "3.1.0"
