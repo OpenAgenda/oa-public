@@ -164,7 +164,10 @@ const sessions = require( '@openagenda/sessions' ),
 
     agendaRedirect: [ 'get', '/agendas/:uid', [
       cmn.redirectLegacySearch,
-      agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.uid' } } } ),
+      agendas.middleware.load( {
+        private: null,
+        namespaces: { identifiers: { uid: 'params.uid' } }
+      } ),
       redirect
     ] ],
 

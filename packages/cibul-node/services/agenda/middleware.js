@@ -86,14 +86,14 @@ function loadAgenda( paramName, fieldName, options ) {
 
     delete options[ k ];
 
-  });
+  } );
 
   return function( req, res, next ) {
 
     var getParams = {};
 
     getParams[ fieldName ] = req.params[ paramName ];
-
+    
     if ( !loadOptions.required && req.params[ paramName ] === undefined ) {
 
       return next();
