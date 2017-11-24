@@ -1,7 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
-const validate = require( '../service/validate' );
+const validate = require( '../src/service/validate' );
 
 describe( 'session - unit (server): validate', () => {
 

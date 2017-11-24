@@ -1,16 +1,16 @@
 "use strict";
 
-const express = require( 'express' );
-const config = require( '../testconfig' );
-const sessions = require( '../' );
-const sa = require( 'superagent' );
-const cookieParser = require( 'cookie-parser' );
-const validate = require( '../iso/cookie.validate' );
-const helpers = require( './lib/helpers' );
-const base64 = require( '@openagenda/utils/base64' );
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const ih = require( 'immutability-helper' );
+const express = require( 'express' );
+const sa = require( 'superagent' );
+const base64 = require( '@openagenda/utils/base64' );
+const config = require( '../testconfig' );
+const sessions = require( '../src/service' );
+const cookieParser = require( 'cookie-parser' );
+const validate = require( '../src/iso/cookie.validate' );
+const helpers = require( './lib/helpers' );
 
 const mw = sessions.middleware;
 

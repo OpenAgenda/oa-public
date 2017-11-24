@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const isoConfig = require( '../iso/config' );
+const isoConfig = require( '../../iso/config' );
 
 
 const config = {

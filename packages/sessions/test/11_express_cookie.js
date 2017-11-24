@@ -1,9 +1,9 @@
 "use strict";
 
-const expressCookie = require( '../service/expressCookie' );
 const should = require( 'should' );
-const config = require( '../testconfig' );
 const base64 = require( '@openagenda/utils/base64' );
+const expressCookie = require( '../src/service/expressCookie' );
+const config = require( '../testconfig' );
 
 describe( 'session - unit (server): express cookies', () => {
 

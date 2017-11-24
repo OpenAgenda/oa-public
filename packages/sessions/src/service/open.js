@@ -2,7 +2,7 @@
 
 const config = require( './config' );
 const { cleanSession, callbackify, interfaces, redisCommand } = require( './helpers' );
-const cookieValidate = require( '../iso/cookie.validate' );
+const cookieValidate = require( '../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'sessions/open' );
 const validate = require( './validate' );
 const expressCookie = require( './expressCookie' );

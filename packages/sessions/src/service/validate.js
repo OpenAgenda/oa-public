@@ -1,7 +1,7 @@
 "use strict";
 
 const schema = require( '@openagenda/validators/schema' );
-const cookieUserFields = require( '../iso/cookie.validate' ).validateLogged.fields.user.fields;
+const cookieUserFields = require( '../../iso/cookie.validate' ).validateLogged.fields.user.fields;
 const extend = require( 'lodash/extend' );
 
 schema.register( {

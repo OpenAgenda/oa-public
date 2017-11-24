@@ -1,13 +1,13 @@
 "use strict";
 
-const config = require( '../testconfig' );
-const sessions = require( '../' );
-const isoConfig = require( '../iso/config' );
-const clientSession = require( '../client' );
 const should = require( 'should' );
 const jsdom = require( 'jsdom' );
-const base64 = require( '@openagenda/utils/base64' );
 const cookiesLib = require( 'cookies-js' );
+const base64 = require( '@openagenda/utils/base64' );
+const config = require( '../testconfig' );
+const sessions = require( '../src/service' );
+const isoConfig = require( '../src/iso/config' );
+const clientSession = require( '../src/client' );
 
 describe( 'session - functional (client): session', () => {
 

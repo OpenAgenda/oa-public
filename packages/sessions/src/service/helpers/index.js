@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const cookieValidate = require( '../../iso/cookie.validate' );
+const cookieValidate = require( '../../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'helpers' );
 const config = require( '../config' );
 const redisCommand = require( './redisCommand' );

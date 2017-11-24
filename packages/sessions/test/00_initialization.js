@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 const config = require( '../testconfig' );
-const sessions = require( '../' )
+const sessions = require( '../src/service' );
 
 describe( 'session - functional (server): initialization', () => {
 

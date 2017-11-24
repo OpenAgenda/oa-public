@@ -1,14 +1,13 @@
 "use strict";
 
-const sessions = require( '../' );
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const isoConfig = require( '../iso/config' );
-const h = require( './lib/helpers' );
-const serviceHelpers = require( '../service/helpers' );
-const extend = require( 'lodash/extend' );
 const _ = require( 'lodash' );
 const async = require( 'async' );
+const should = require( 'should' );
+const sessions = require( '../src/service' );
+const config = require( '../testconfig' );
+const isoConfig = require( '../src/iso/config' );
+const h = require( './lib/helpers' );
+const serviceHelpers = require( '../src/service/helpers' );
 
 const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
 

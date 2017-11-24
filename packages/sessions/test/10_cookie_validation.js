@@ -1,7 +1,7 @@
 "use strict";
 
 const should = require( 'should' );
-const validate = require( '../iso/cookie.validate.js' );
+const validate = require( '../src/iso/cookie.validate.js' );
 
 describe( 'session - unit (iso): cookie data validate', () => {
 

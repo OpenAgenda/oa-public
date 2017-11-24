@@ -2,13 +2,13 @@
 
 process.env.NODE_ENV = 'test';
 
-const sessions = require( '../' );
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const isoConfig = require( '../iso/config' );
-const h = require( './lib/helpers' );
 const _ = require( 'lodash' );
 const async = require( 'async' );
+const should = require( 'should' );
+const sessions = require( '../src/service' );
+const isoConfig = require( '../src/iso/config' );
+const config = require( '../testconfig' );
+const h = require( './lib/helpers' );
 
 const users = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/lib/users.json', 'utf-8' ) );
 
@@ -60,8 +60,7 @@ describe( 'session - functional (server): get', () => {
           culture: 'fr',
           isNew: false,
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture',
-          isNew: false
+          thumbnail: '//graph.facebook.com/100002280111541/picture'
         } );
 
         done();
@@ -89,8 +88,7 @@ describe( 'session - functional (server): get', () => {
           isNew: false,
           culture: 'fr',
           name: 'Gaetan Latouche',
-          thumbnail: '//graph.facebook.com/100002280111541/picture',
-          isNew: false
+          thumbnail: '//graph.facebook.com/100002280111541/picture'
         } );
 
         done();

@@ -1,22 +1,18 @@
 "use strict";
 
-const middleware = require( './middleware' );
-const isoConfig = require( './iso/config' );
-const validate = require( './service/validate' );
-const expressCookie = require( './service/expressCookie' );
-const cookieValidate = require( './iso/cookie.validate' );
-const logger = require( '@openagenda/logs' );
 const _ = require( 'lodash' );
-const w = require( 'when' );
-const redis = require( 'redis' );
-const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
-const serviceConfig = require( './service/config' );
-const get = require( './service/get' );
-const open = require( './service/open' );
-const close = require( './service/close' );
-const scan = require( './service/scan' );
-const sync = require( './service/sync' );
-const helpers = require( './service/helpers' );
+const logger = require( '@openagenda/logs' );
+const middleware = require( '../middleware' );
+const isoConfig = require( '../../iso/config' );
+const cookieValidate = require( '../../iso/cookie.validate' );
+const expressCookie = require( './expressCookie' );
+const serviceConfig = require( './config' );
+const get = require( './get' );
+const open = require( './open' );
+const close = require( './close' );
+const scan = require( './scan' );
+const sync = require( './sync' );
+const helpers = require( './helpers/index' );
 
 let config, interfaces;
 

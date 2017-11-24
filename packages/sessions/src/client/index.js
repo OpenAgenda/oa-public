@@ -1,15 +1,11 @@
 "use strict";
 
-const _ = {
-  extend: require( 'lodash/extend' ),
-  set: require( 'lodash/set' ),
-  get: require( 'lodash/get' )
-};
+const _ = require( 'lodash' );
 
 const base64 = require( '@openagenda/utils/base64' );
 
-const config = require( '../iso/config' );
-const validate = require( '../iso/cookie.validate.js' );
+const config = require( '../../iso/config' );
+const validate = require( '../../iso/cookie.validate.js' );
 
 let cookies = require( 'cookies-js' );
 
