@@ -23,7 +23,7 @@ exports.default = function (options) {
 
   if (!user) return;
 
-  if ([1, 2, 11258, 15453, 34577].indexOf(user.id) === -1) {
+  if ([75052324, 99999999, 31046551, 7339049, 71438739].indexOf(user.uid) !== -1) {
     return;
   }
 
