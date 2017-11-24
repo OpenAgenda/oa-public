@@ -25,7 +25,7 @@
     "@openagenda/aggregator-sources": "^1.0.1",
     "@openagenda/call-to-action": "^2.0.2",
     "@openagenda/cibul-model": "^0.1.1",
-    "@openagenda/cibul-templates": "^0.0.8",
+    "@openagenda/cibul-templates": "^1.0.0",
     "@openagenda/custom": "^1.1.0",
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/dom-utils": "^2.0.4",
