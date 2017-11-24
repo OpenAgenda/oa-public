@@ -12,8 +12,8 @@
     "release:major": "npm version major && npm publish"
   },
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/labels": "^2.0.7",
+    "@openagenda/logs": "^1.0.5",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",
     "immutability-helper": "^2.3.0",

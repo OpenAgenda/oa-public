@@ -1,12 +1,12 @@
 "use strict";
 
-const FormSchema = require( '../iso/FormSchema' ),
+const _ = require( 'lodash' );
+const slug = require( 'slug' );
 
-  validate = require( '../iso/FormSchema' ).validate,
+const FormSchema = require( '../iso/FormSchema' );
+const validate = require( '../iso/FormSchema' ).validate;
 
-  slug = require( 'slug' ),
-
-  _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'parseTagSet' );
 
 module.exports = ( formSchema, tagSet, type = 'tag' ) => {
 
@@ -14,7 +14,15 @@ module.exports = ( formSchema, tagSet, type = 'tag' ) => {
 
   tagSet.groups.forEach( ( g, i ) => {
 
-    fs.addField( _parseGroup( g, i, type ) );
+    try {
+
+      fs.addField( _parseGroup( g, i, type ) );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not parse %s group', type, e );
+
+    }
 
   } );
 

@@ -1,16 +1,13 @@
 "use strict";
 
-const storeLib = require( '@openagenda/mysql-table-store' ),
+const _ = require( 'lodash' );
+const knex = require( 'knex' );
 
-  FormSchema = require( './iso/FormSchema' ),
+const logger = require( '@openagenda/logs' );
+const storeLib = require( '@openagenda/mysql-table-store' );
 
-  _ = require( 'lodash' ),
-
-  legacy = require( './legacy' ),
-
-  logger = require( '@openagenda/basic-logger' ),
-
-  knex = require( 'knex' );
+const FormSchema = require( './iso/FormSchema' );
+const legacy = require( './legacy' );
 
 let client, log, config;
 
@@ -165,11 +162,11 @@ function init( c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logger.setModuleConfig( c.logger );
 
   }
 
-  log = logger( 'form-schema' );
+  log = logger( 'form-schemas' );
 
   client = c.knex || knex( {
     client: 'mysql',
