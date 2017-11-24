@@ -46,7 +46,7 @@ function _defaultOrder( fields ) {
 
   const defaultOrder = fields.filter( f => f.origin === 'categories' ).map( f => _.pick( f, [ 'field', 'origin' ] ) )
 
-    .concat( fields.filter( f=> f.origin === 'tags' ).map( f => _.pick( f, [ 'field', 'origin' ] ) ) )
+    .concat( fields.filter( f => f.origin === 'tags' ).map( f => _.pick( f, [ 'field', 'origin' ] ) ) )
 
     .concat( standardFields.map( f => ( { field: f } ) ) );
 

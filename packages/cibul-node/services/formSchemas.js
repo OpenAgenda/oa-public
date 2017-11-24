@@ -12,6 +12,12 @@ module.exports.init = config => {
     legacy: {
       knex: config.knex,
       schemas: config.schemas
+    },
+    logger: {
+      debug: {
+        prefix: 'form-schemas:'
+      },
+      token: null
     }
   } );
 

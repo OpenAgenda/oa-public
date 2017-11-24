@@ -1,14 +1,12 @@
 "use strict";
 
-const { promisify } = require( 'util' );
+const wn = require( 'when/node' );
 const _ = require( 'lodash' );
 const inboxes = require( '@openagenda/inboxes' );
 const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
 const userSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const config = require( '../config' );
-
-const agendasList = promisify( agendasSvc.list );
 
 async function getUsersDetails( usersToBeDetailed ) {
 
@@ -33,7 +31,7 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
   const agendasToBeDetailed = inboxesToBeDetailed.filter( v => v.type === 'agenda' );
 
   const users = await getUsersDetails( usersToBeDetailed );
-  const agendas = agendasToBeDetailed.length === 0 ? [] : (await agendasList(
+  const agendas = agendasToBeDetailed.length === 0 ? [] : (await wn.call( agendasSvc.list,
     { uid: agendasToBeDetailed.map( v => v.identifier ) },
     {
       private: null,
