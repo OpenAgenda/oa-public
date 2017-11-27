@@ -419,6 +419,8 @@
           "en" : "An additionnal info"
         }
       }, {
+        "name" : "credits",
+        "display" : false
       }, {
         "name" : "title",
         "label" : {

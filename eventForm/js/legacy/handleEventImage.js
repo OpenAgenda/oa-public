@@ -96,7 +96,7 @@ module.exports = function( params ) {
 
       _displayImage( params.initName );
 
-      _enableImageCredits( params.initCredits );
+      if ( _useImageCredits() ) _enableImageCredits( params.initCredits );
 
     } else {
 
@@ -158,6 +158,12 @@ module.exports = function( params ) {
 
   },
 
+  _useImageCredits = function() {
+
+    return du.el( params.canvas ).getAttribute( 'attr-display-credits' ) === '1';
+
+  },
+
   _enableImageCredits = function( credits = null ) {
 
     du.removeClass( du.el( '.js_image_credits' ), 'display-none' );
@@ -216,7 +222,7 @@ module.exports = function( params ) {
 
       _toggleRemove();
 
-      _enableImageCredits();
+      if ( _useImageCredits() ) _enableImageCredits();
 
       if (params.onSuccess) params.onSuccess(res.name);
     

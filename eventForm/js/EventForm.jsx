@@ -577,7 +577,7 @@ function EventFormFactory() {
 
         if ( o.field === 'image' ) {
 
-          return <div className="js_event_image_canvas"></div>;
+          return <div className="js_event_image_canvas" attr-display-credits={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }></div>;
 
         }
 
