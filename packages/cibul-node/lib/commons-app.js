@@ -355,6 +355,8 @@ function checkStakeholder( req, res, next ) {
 
     req.agenda.isStakeholder( { id: req.user.id }, ( err, is ) => {
 
+      if ( err ) return next( err );
+
       if ( !is ) return next( { code: 403 } );
 
       next();

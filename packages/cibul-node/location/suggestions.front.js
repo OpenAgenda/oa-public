@@ -12,6 +12,11 @@ const modLib = require( '../lib/moduleLib' ),
 
   stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' ),
 
+  bodyMw = bodyParser.urlencoded( {
+    extended: true,
+    limit: 500000
+  } ),
+
   sessions = require( '@openagenda/sessions' );
 
 let mw = locationSvc.mw();
@@ -28,9 +33,14 @@ var routes = {
     mw.setSuggestion
   ] ],
 
-  locationSuggestionImageUpload: [ 'post', '/image', mw.suggestionImageUpload ],
+  locationSuggestionImageUpload: [ 'post', '/image', [
+    bodyMw,
+    mw.suggestionImageUpload 
+  ] ],
 
-  locationSuggestionImageRemove: [ 'post', '/image/remove', mw.suggestionImageRemove ]
+  locationSuggestionImageRemove: [ 'post', '/image/remove', [
+    mw.suggestionImageRemove
+  ] ]
 
 }
 
