@@ -189,6 +189,9 @@
         
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
+<% if ( event.credits ) { %>
+          <div class="credits margin-h-xs"><%= event.credits %></div>
+<% } %>
 <% } %>
           <div class="description event-content-section"><%- event.freeText %></div>
 

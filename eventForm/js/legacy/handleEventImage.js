@@ -1,38 +1,38 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' ),
+const _ = {
+  extend: require( 'lodash/extend' )
+}
+const ejs = require( 'ejs' );
+const Spinner = require( 'spin.js' );
 
-rUtils = require( '../reactUtils' ),
+const du = require( '@openagenda/dom-utils' );
 
-du = require( '../../../js/lib/domUtils' ),
-
-remote = require( '../../../js/lib/remote/remote.mod' ),
-
-ejs = require( 'ejs' ),
-
-Spinner = require( 'spin.js' );
+var rUtils = require( '../reactUtils' );
+const remote = require( '../../../js/lib/remote/remote.mod' );
 
 module.exports = function( params ) {
 
-  params = utils.extend({
+  params = _.extend({
     canvas: false,
     templates: {
-      main: [
-        '<div class="form-section">',
-          '<h2><%= imageSection %></h2>',
-          '<div class="upload-image">',
-            '<button class="btn btn-default"><%= upload %></button>',
-            '<span class="js_loader loader"></span>',
-            '<span class="js_message info"></span>',
-          '</div>',
-          '<div class="canvas js_image_canvas"></div>',
-          '<div class="js_remove remove-action">',
-            '<a class="btn btn-danger" href="#"><%= removeImage %></a>',
-            '<span class="js_remove_loader"></span>',
-            '<span class="js_remove_message info error"></span>',
-          '</div>',
-          '<div class="separator"></div>',
-        '</div>' ].join(''),
+      main: `
+        <div class="form-section">
+          <h2><%= imageSection %></h2>
+          <div class="upload-image">
+            <button class="btn btn-default"><%= upload %></button>
+            <span class="js_loader loader"></span>
+            <span class="js_message info"></span>
+          </div>
+          <div class="canvas js_image_canvas"></div>
+          <input placeholder="<%= imageCreditsPlaceholder %>" name="image_credits" type="text" class="form-control js_image_credits margin-top-sm">
+          <div class="js_remove remove-action">
+            <a class="btn btn-danger" href="#"><%= removeImage %></a>
+            <span class="js_remove_loader"></span>
+            <span class="js_remove_message info error"></span>
+          </div>
+          <div class="separator"></div>
+        </div>`,
       empty: '<div><%= noImage %></div>'
     },
     classes: {
@@ -59,7 +59,8 @@ module.exports = function( params ) {
       imageSection: 'Image',
       removeImage: 'remove image',
       removeMessage: 'There was a problem regarding the removal of the image. Reload the page and try again.',
-      noImage: 'No image is currently associated with this event.'
+      noImage: 'No image is currently associated with this event.',
+      imageCreditsPlaceholder: 'Image credits'
     },
     spinner: { lines: 7, length: 1, width: 2, radius: 3, corners: 0, rotate: 0},
     upload: false,
@@ -87,11 +88,22 @@ module.exports = function( params ) {
 
     _displayMessage();
 
+    _monitorCredits();
+
     if (params.initName) {
+
       imageLoaded = true;
-      _displayImage(params.initName);
+
+      _displayImage( params.initName );
+
+      if ( _useImageCredits() ) _enableImageCredits( params.initCredits );
+
     } else {
+
       _displayEmptyMessage();
+
+      _disableImageCredits();
+
     }
 
     _toggleRemove();
@@ -119,14 +131,14 @@ module.exports = function( params ) {
 
     form.appendChild(fileInput);
 
-    utils.extend(form.style, {
+    _.extend(form.style, {
       width: du.el(elem, params.selectors.button).offsetWidth + 'px',
       height: du.el(elem, params.selectors.button).offsetHeight + 'px',
       position: 'absolute',
       overflow: 'hidden'
     });
 
-    utils.extend(fileInput.style, {
+    _.extend(fileInput.style, {
       opacity: 0,
       filter: 'alpha(opacity=0)',
       cursor: 'pointer',
@@ -135,6 +147,44 @@ module.exports = function( params ) {
     });
 
     du.el(elem, params.selectors.button).insertAdjacentElement('beforebegin', form);
+
+  },
+
+  _disableImageCredits = function() {
+
+    du.addClass( du.el( '.js_image_credits' ), 'display-none' );
+
+    params.onCreditsUpdate( '' );
+
+  },
+
+  _useImageCredits = function() {
+
+    return du.el( params.canvas ).getAttribute( 'attr-display-credits' ) === '1';
+
+  },
+
+  _enableImageCredits = function( credits = null ) {
+
+    du.removeClass( du.el( '.js_image_credits' ), 'display-none' );
+
+    if ( credits ) {
+
+      du.el( '.js_image_credits' ).value = credits;
+
+    }    
+
+    params.onCreditsUpdate( du.el( '.js_image_credits' ).value );
+
+  },
+
+  _monitorCredits = function() {
+
+    du.addEvent( du.el( '.js_image_credits' ), 'keyup', e => {
+
+      params.onCreditsUpdate( e.target.value );
+
+    } );
 
   },
 
@@ -172,6 +222,8 @@ module.exports = function( params ) {
 
       _toggleRemove();
 
+      if ( _useImageCredits() ) _enableImageCredits();
+
       if (params.onSuccess) params.onSuccess(res.name);
     
     } else {
@@ -190,12 +242,14 @@ module.exports = function( params ) {
 
     if (!name) return _displayEmptyMessage();
 
-    var img = document.createElement('img');
+    var img = document.createElement( 'img' );
 
-    img.setAttribute('src', params.path + params.prefix + name + '?' + Math.random());
+    img.setAttribute( 'src', params.path + params.prefix + name + '?' + Math.random() );
 
     du.addEvent(img, 'load', function(){
+
       params.onImageLoad();
+
     });
 
     du.el(elem, params.selectors.imageCanvas).appendChild(img);
@@ -262,6 +316,8 @@ module.exports = function( params ) {
           imageLoaded = false;
 
           if (params.onRemove) params.onRemove();
+
+          _disableImageCredits();
 
           _displayImage(false);
 

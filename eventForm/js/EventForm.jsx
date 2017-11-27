@@ -8,7 +8,6 @@ import update from 'immutability-helper';
 import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
 import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/event/form';
-import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -578,7 +577,7 @@ function EventFormFactory() {
 
         if ( o.field === 'image' ) {
 
-          return <div className="js_event_image_canvas"></div>;
+          return <div className="js_event_image_canvas" attr-display-credits={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }></div>;
 
         }
 

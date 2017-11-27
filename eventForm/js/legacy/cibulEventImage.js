@@ -21,6 +21,7 @@ module.exports = function( params ) {
     events: {
       fetch: 'eimagefetch',
       send: 'eimagesend',
+      creditsSend: 'ecreditssend',
       remove: 'eimageremove',
       heightChange: 'heightchange'
     },
@@ -65,7 +66,13 @@ module.exports = function( params ) {
           eh.trigger(params.events.heightChange);
 
         },
+        onCreditsUpdate: function( credits ) {
+
+          eh.trigger( params.events.creditsSend, credits );
+
+        },
         initName: data.image?data.image:false,
+        initCredits: data.credits,
         path: params.path,
         prefix: params.imagePrefix
       });
