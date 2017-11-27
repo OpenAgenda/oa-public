@@ -957,6 +957,22 @@ describe( 'Conversation', () => {
         sinon.match( { code: 'accept' } )
       );
 
+      spy.restore();
+
+    } );
+
+    it( 'trigger an action', async () => {
+
+      const spy = sinon.spy( config.interfaces, 'onAction' );
+
+      try {
+        await Inboxes( 4 ).conversations.action( 3, 'accept', { userUid: 99999999 } );
+      } catch ( e ) {
+        expect( e.message ).eql( 'InboxUser { userUid: 99999999 } not found in Inbox { id: 4 }' );
+      }
+
+      spy.restore();
+
     } );
 
   } );
