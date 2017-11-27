@@ -21,6 +21,10 @@ const types = {
     validate: require( './timingsReverseHits.validator' ),
     template: _.template( fs.readFileSync( __dirname + '/timingsReverseHits.tpl', 'utf-8' ) )
   },
+  timespan: {
+    parse: require( './timespan.parse' ),
+    template: _.template( fs.readFileSync( __dirname + '/timespan.tpl', 'utf-8' ) )
+  },
   objectsAsTerms: {
     validate: require( './terms.validator' ),
     template: termsTemplate,
@@ -99,7 +103,10 @@ function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
       type: 'terms',
       field: a,
       destination: a,
-      data: { type: a, field: a }
+      data: { 
+        type: a, 
+        field: a
+      }
     }
 
   }
@@ -110,11 +117,13 @@ function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
 
   destination = aObj.destination || aObj.field || aObj.type;
 
+  data = _.extend( {}, aObj, { type, field, query } );
+
   return { 
     type,
     field,
     destination,
-    data: types[ type ].validate( _.extend( {}, aObj, { type, field, query } ) ),
+    data: types[ type ].validate ? types[ type ].validate( data ) : data,
     query
   };
 

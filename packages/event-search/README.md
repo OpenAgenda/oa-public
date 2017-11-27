@@ -166,7 +166,8 @@ Sorting tests demonstrate how this is achieved with Elasticsearch DSL.
 # Elasticsearch administration
 
 To remove all indices:
-curl -XDELETE 'http://localhost:9205/_all'
+
+    curl -XDELETE 'http://localhost:9205/_all'
 
 #  Aggregation
 

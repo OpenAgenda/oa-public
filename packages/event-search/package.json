@@ -29,6 +29,7 @@
   "devDependencies": {
     "events-service": "git+ssh://git@bitbucket.org:openagenda/events-service.git",
     "fixtures": "git+ssh://git@bitbucket.org:openagenda/fixtures.git",
+    "mocha": "^4.0.1",
     "should": "^11.2.1"
   }
 }

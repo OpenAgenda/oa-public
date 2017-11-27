@@ -77,10 +77,24 @@ describe( 'event search - functional: search', function() {
           { key: 'mot', count: 1 },
           { key: 'word', count: 1 }
         ],
-        timings: [ { 
+        timings: [ {
           key: '2010-04-01', count: 2 
         } ] 
       } );
+
+    } );
+
+
+    it( 'keyword search with timespan aggregation', async () => {
+
+      let { aggregations, events } = await service( 'simple_search' ).search( {
+        keyword: 'word'
+      }, { size: 2 }, {
+        detailed: true, // timings is not part of standard, if timespan is 
+        aggregations: [ { type: 'timespan' } ]
+      } );
+
+      JSON.stringify( aggregations ).should.eql( '{"timespan":{"first":"2010-04-01T14:00:00.000Z","last":"2010-04-01T22:00:00.000Z"}}' );
 
     } );
 

@@ -2,6 +2,7 @@
 
 const should = require( 'should' );
 const config = require( '../testconfig' );
+const _ = require( 'lodash' );
 
 const service = require( '../' );
 
@@ -101,6 +102,33 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     } );
 
+
+    it( 'define a timespan aggregation', () => {
+
+      buildAggregationDsl( { type: 'timespan' } )
+
+        .should.eql( {
+          "timespan": {
+            "nested": {
+              "path": "timings"
+            },
+            "aggs": {
+              "first": {
+                "min": {
+                  "field": "timings.begin"
+                }
+              },
+              "last": {
+                "max": {
+                  "field": "timings.begin"
+                }
+              }
+            }
+          }
+        } );
+
+    } );
+
   } );
 
   describe( 'parsing aggregation result', function() {
@@ -176,6 +204,65 @@ describe( 'event-search - unit: dsl aggregation', function() {
       await service( 'simple_search' ).rebuild( {
         eventsList
       } );
+
+    } );
+
+
+    it( 'get min and max dates using stats aggregation', async () => {
+
+      const {
+        aggregations
+      } = await dslSearch( 'simple_search', {
+        query: {}, // whatever
+        aggregations: {
+          minMaxDays: {
+            stats: {
+              field: 'search_internals_last_timing' // the last timing of an event.
+            }
+          }
+        }
+      } );
+
+      _.pick( aggregations.minMaxDays, [
+        'min_as_string',
+        'max_as_string'
+      ] ).should.eql( {                                           
+        min_as_string: '2017-08-03T19:00:00.000Z',                                           
+        max_as_string: '2017-08-08T19:00:00.000Z'
+      } );
+
+    } );
+
+    it( 'get the min & max timings', async () => {
+
+      // I want the first timing and the last
+      const { aggregations } = await dslSearch( 'simple_search', {
+        query: {},
+        size: 0,
+        aggregations: {
+          timing_bounds: {
+            nested: {
+              path: 'timings'
+            },
+            aggs: {
+              first: {
+                min: {
+                  field: 'timings.begin'
+                }
+              },
+              last: {
+                max: {
+                  field: 'timings.begin'
+                }
+              }
+            }
+          }
+        }
+      } );
+
+      _.at( aggregations, [ 'timing_bounds.first.value_as_string', 'timing_bounds.last.value_as_string' ] )
+
+        .should.eql( [ '2017-08-02T09:00:00.000Z', '2017-08-08T09:00:00.000Z' ] );
 
     } );
 
@@ -316,7 +403,10 @@ describe( 'event-search - unit: dsl aggregation', function() {
         }
       };
 
-      let { events, aggregations } = await dslSearch( 'simple_search', dsl );
+      let {
+        events,
+        aggregations
+      } = await dslSearch( 'simple_search', dsl );
 
       aggregations.ceteunpeupenible.should.eql( { 
         buckets: [ 
