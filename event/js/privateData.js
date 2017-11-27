@@ -117,6 +117,9 @@ module.exports = function ( options ) {
             destinationInbox: {
               type: 'agenda',
               identifier: params.agendaUid
+            },
+            params: {
+              eventTitle: params.title
             }
           },
           TitleComponent: 'h3',
@@ -125,7 +128,6 @@ module.exports = function ( options ) {
           lang: params.lang,
         },
         res: {
-          inboxHome: '/',
           author: resBasePath + '/inbox/author.json',
           conversations: {
             list: resBasePath + '/inbox/conversations.json',

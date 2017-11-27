@@ -1,4 +1,5 @@
 [
+  "agendaAdmin/inbox",
   "activities/agenda",
   "activities/user",
   "admin/activities",
