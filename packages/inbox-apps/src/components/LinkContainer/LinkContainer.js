@@ -9,8 +9,8 @@ const LinkContainer = compose(
     prefix: state.settings.prefix
   }) ),
   mapProps( props => ({
-    ..._.omit( props, 'prefix' ),
-    to: removeTrailingSlash( props.prefix ) + props.to
+    ..._.omit( props, 'prefix', 'external' ),
+    to: (props.external ? '' : removeTrailingSlash( props.prefix )) + props.to
   }) )
 )( props => props.children( props.to ) );
 

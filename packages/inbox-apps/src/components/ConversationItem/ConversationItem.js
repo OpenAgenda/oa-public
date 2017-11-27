@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { MessageAvatar, Link } from '../';
+import { connect } from 'react-redux';
+import { MessageAvatar, Link, LinkContainer } from '../';
 
+@connect(
+  state => ({
+    agendaUid: state.agenda && state.agenda.uid
+  })
+)
 export default class ConversationItem extends Component {
 
   static contextTypes = {
@@ -10,33 +16,44 @@ export default class ConversationItem extends Component {
   };
 
   render() {
-    const { conversation } = this.props;
+    const { conversation, agendaUid } = this.props;
     const { getLabel } = this.context;
 
     if ( !conversation.latestMessage ) {
       return null;
     }
 
-    const { latestMessage, resolvedAt } = conversation;
+    const { latestMessage, resolvedAt, store, typeIdentifier } = conversation;
     const creationDate = moment( latestMessage.createdAt );
 
     return (
       <div className="media">
         <div className="media-left media-top">
-          <MessageAvatar message={latestMessage} />
+          <MessageAvatar message={latestMessage}/>
         </div>
 
         <div className="media-body">
           <div className="media-heading">
-            <b>{getMessageSenderName( latestMessage )}</b>{' '}
-            {resolvedAt ? (<div className="tooltip-icon">
+            <b>{getMessageSenderName( latestMessage )}</b>
+            {store && store.params && store.params.eventTitle ? [
+              ' ',
+              <span key="event-title">
+                <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}
+                <Link to={`/agendas/${agendaUid}/events/${typeIdentifier}`} external>
+                  {store.params.eventTitle}
+                </Link>
+              </span>
+            ] : null}
+            {resolvedAt ? [
+              ' ',
+              <div key="resolved-icon" className="tooltip-icon">
                 <i className="fa fa-check" aria-hidden="true"></i>
                 <div className="tooltip right" role="tooltip">
                   <div className="tooltip-arrow"></div>
                   <div className="tooltip-inner">{getLabel( 'resolvedConversation' )}</div>
                 </div>
               </div>
-            ) : null}
+            ] : null}
           </div>
           <div className="margin-bottom-xs">
             {latestMessage.body || null}

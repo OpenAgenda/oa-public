@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const LOAD = 'inbox-apps/inbox/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/inbox/LOAD_SUCCESS';
 const LOAD_FAIL = 'inbox-apps/inbox/LOAD_FAIL';

@@ -13,7 +13,7 @@ export default class MessageAvatar extends Component {
           key={1}
         />,
 
-        message.inbox && message.inbox.avatar
+        message.inbox && message.inbox.avatar && message.inbox.type !== 'user'
           ? <img
             src={message.inbox.avatar}
             className="media-object img-circle belongs"

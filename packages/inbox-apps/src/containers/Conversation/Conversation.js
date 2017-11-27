@@ -157,22 +157,22 @@ export default class Conversation extends Component {
 
   render() {
     const {
-      messages, nextLoading, res, getLabel,
+      messages, nextLoading, getLabel,
       settings: { TitleComponent, ContentWrapper, focusFistConversation }
     } = this.props;
 
     const content = [
       !focusFistConversation && <div key="return-to-inbox">
-        <Link to={res.inboxHome}>{getLabel( 'backToConversations' )}</Link>
+        <Link to="/">{getLabel( 'backToConversations' )}</Link>
       </div>,
 
       this.renderForm(),
 
-      messages && messages.length && <MessageList messages={messages} key="list" />,
+      messages && messages.length ? <MessageList messages={messages} key="list" /> : null,
 
-      !messages || !messages.length && <div className="text-center text-muted margin-v-md" key="zero">
+      !messages || !messages.length ? <div className="text-center text-muted margin-v-md" key="zero">
         {getLabel( 'noResult' )}
-      </div>,
+      </div> : null,
 
       nextLoading && <div className="padding-v-md" style={{ position: 'relative' }} key="spinner">
         <Spinner />

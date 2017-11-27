@@ -33,9 +33,9 @@ var Link = (0, _recompose.compose)((0, _reactRedux.connect)(function (state) {
     prefix: state.settings.prefix
   };
 }), (0, _recompose.mapProps)(function (props) {
-  return (0, _extends3.default)({}, (0, _omit3.default)(props, 'prefix'), {
+  return (0, _extends3.default)({}, (0, _omit3.default)(props, 'prefix', 'external'), {
     dispatch: undefined,
-    to: (0, _removeTrailingSlash2.default)(props.prefix) + props.to
+    to: (props.external ? '' : (0, _removeTrailingSlash2.default)(props.prefix)) + props.to
   });
 }))(_reactRouter.Link);
 

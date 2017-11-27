@@ -12,6 +12,10 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _pick2 = require('lodash/pick');
+
+var _pick3 = _interopRequireDefault(_pick2);
+
 exports.default = reducer;
 exports.isLoaded = isLoaded;
 exports.load = load;
@@ -101,7 +105,7 @@ function load(query) {
             agenda = _ref2.agenda,
             event = _ref2.event;
         return client.get(res.conversations.list.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid), {
-          query: (0, _extends3.default)({}, _.pick(defaultQuery, 'type', 'typeIdentifier'), query)
+          query: (0, _extends3.default)({}, (0, _pick3.default)(defaultQuery, 'type', 'typeIdentifier'), query)
         });
       }
     };

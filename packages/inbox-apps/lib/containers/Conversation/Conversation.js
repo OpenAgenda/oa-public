@@ -405,7 +405,6 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
       var _props3 = this.props,
           messages = _props3.messages,
           nextLoading = _props3.nextLoading,
-          res = _props3.res,
           getLabel = _props3.getLabel,
           _props3$settings = _props3.settings,
           TitleComponent = _props3$settings.TitleComponent,
@@ -422,18 +421,18 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
         },
         _react3.default.createElement(
           _components2.Link,
-          { to: res.inboxHome, __source: {
+          { to: '/', __source: {
               fileName: _jsxFileName,
               lineNumber: 166
             }
           },
           getLabel('backToConversations')
         )
-      ), this.renderForm(), messages && messages.length && _react3.default.createElement(_components2.MessageList, { messages: messages, key: 'list', __source: {
+      ), this.renderForm(), messages && messages.length ? _react3.default.createElement(_components2.MessageList, { messages: messages, key: 'list', __source: {
           fileName: _jsxFileName,
           lineNumber: 171
         }
-      }), !messages || !messages.length && _react3.default.createElement(
+      }) : null, !messages || !messages.length ? _react3.default.createElement(
         'div',
         { className: 'text-center text-muted margin-v-md', key: 'zero', __source: {
             fileName: _jsxFileName,
@@ -441,7 +440,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           }
         },
         getLabel('noResult')
-      ), nextLoading && _react3.default.createElement(
+      ) : null, nextLoading && _react3.default.createElement(
         'div',
         { className: 'padding-v-md', style: { position: 'relative' }, key: 'spinner', __source: {
             fileName: _jsxFileName,

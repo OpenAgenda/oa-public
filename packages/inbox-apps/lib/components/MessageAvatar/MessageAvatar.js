@@ -83,7 +83,7 @@ var MessageAvatar = _wrapComponent('MessageAvatar')(function (_Component) {
             fileName: _jsxFileName,
             lineNumber: 9
           }
-        }), message.inbox && message.inbox.avatar ? _react3.default.createElement('img', {
+        }), message.inbox && message.inbox.avatar && message.inbox.type !== 'user' ? _react3.default.createElement('img', {
           src: message.inbox.avatar,
           className: 'media-object img-circle belongs',
           style: { width: '25px' },

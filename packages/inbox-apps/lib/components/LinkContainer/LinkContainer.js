@@ -31,8 +31,8 @@ var LinkContainer = (0, _recompose.compose)((0, _reactRedux.connect)(function (s
     prefix: state.settings.prefix
   };
 }), (0, _recompose.mapProps)(function (props) {
-  return (0, _extends3.default)({}, (0, _omit3.default)(props, 'prefix'), {
-    to: (0, _removeTrailingSlash2.default)(props.prefix) + props.to
+  return (0, _extends3.default)({}, (0, _omit3.default)(props, 'prefix', 'external'), {
+    to: (props.external ? '' : (0, _removeTrailingSlash2.default)(props.prefix)) + props.to
   });
 }))(function (props) {
   return props.children(props.to);

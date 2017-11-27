@@ -167,7 +167,8 @@ function loadAuthor() {
     types: [LOAD_AUTHOR, LOAD_AUTHOR_SUCCESS, LOAD_AUTHOR_FAIL],
     promise: function promise(client, _ref3) {
       var res = _ref3.res,
-          agenda = _ref3.agenda;
+          agenda = _ref3.agenda,
+          event = _ref3.event;
       return client.get(res.author.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid));
     }
   };

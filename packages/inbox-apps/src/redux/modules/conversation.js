@@ -153,7 +153,7 @@ export function isAuthorLoaded( globalState ) {
 export function loadAuthor() {
   return {
     types: [ LOAD_AUTHOR, LOAD_AUTHOR_SUCCESS, LOAD_AUTHOR_FAIL ],
-    promise: ( client, { res, agenda } ) => client.get(
+    promise: ( client, { res, agenda, event } ) => client.get(
       res.author
         .replace( ':slug', agenda && agenda.slug )
         .replace( ':agendaUid', agenda && agenda.uid )

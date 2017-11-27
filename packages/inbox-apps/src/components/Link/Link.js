@@ -10,9 +10,9 @@ const Link = compose(
     prefix: state.settings.prefix
   }) ),
   mapProps( props => ({
-    ..._.omit( props, 'prefix' ),
+    ..._.omit( props, 'prefix', 'external' ),
     dispatch: undefined,
-    to: removeTrailingSlash( props.prefix ) + props.to
+    to: (props.external ? '' : removeTrailingSlash( props.prefix )) + props.to
   }) )
 )( RouterLink );
 
