@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "main": "lib/index.js",
   "repository": {

@@ -50,22 +50,6 @@ function init(c) {
 function user(namespace) {
   return {
     conversations: {
-      // list( options ) {
-      //   const params = _.merge( {
-      //     limit: 20
-      //   }, options );
-      //
-      //   const limit = getLimit( config.mw.limit, params.limit );
-      //
-      //   return wrap( async ( req, res ) => {
-      //     const conversations = await Inboxes
-      //       .user( _.get( req, namespace ) )
-      //       .conversations.list( (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
-      //
-      //     res.send( { conversations } );
-      //   } );
-      // },
-
       list: function list(options) {
         var _this = this;
 
@@ -455,7 +439,8 @@ var messages = {
         identifier: 'identifier',
         conversationId: 'conversation.id',
         userUid: 'user.uid',
-        body: 'body.body'
+        body: 'body.body',
+        options: 'options'
       }
     }, options),
         namespaces = _$merge7.namespaces;
@@ -479,7 +464,7 @@ var messages = {
                 return (0, _bluebird.resolve)(conversation.messages.create({
                   body: _lodash2.default.get(req, namespaces.body),
                   userUid: _lodash2.default.get(req, namespaces.userUid)
-                }));
+                }, _lodash2.default.get(req, namespaces.options)));
 
               case 5:
                 message = _context7.sent;

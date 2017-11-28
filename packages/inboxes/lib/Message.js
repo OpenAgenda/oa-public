@@ -93,20 +93,23 @@ var Message = function () {
     key: 'create',
     value: function () {
       var _ref = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(data, options) {
-        var inboxUser, _ref2, _ref3, insertedId;
+        var params, inboxUser, _ref2, _ref3, insertedId;
 
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
+                params = _lodash2.default.merge({
+                  createInboxUserOnNull: false
+                }, options);
+                _context.next = 3;
                 return (0, _bluebird.resolve)(this._loadConversation());
 
-              case 2:
-                _context.next = 4;
-                return (0, _bluebird.resolve)(this._getInboxUser(data.userUid));
+              case 3:
+                _context.next = 5;
+                return (0, _bluebird.resolve)(this._getInboxUser(data.userUid, { createOnNull: params.createInboxUserOnNull }));
 
-              case 4:
+              case 5:
                 inboxUser = _context.sent;
 
 
@@ -117,10 +120,10 @@ var Message = function () {
 
                 (0, _validate2.default)(ajv, _messageSchemas.createSchema, data);
 
-                _context.next = 9;
+                _context.next = 10;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.message).insert(_mapper2.default.toDb(_messageFieldsMap2.default, 'insert', data, { protected: false })));
 
-              case 9:
+              case 10:
                 _ref2 = _context.sent;
                 _ref3 = (0, _slicedToArray3.default)(_ref2, 1);
                 insertedId = _ref3[0];
@@ -130,7 +133,7 @@ var Message = function () {
 
                 return _context.abrupt('return', this.get(options));
 
-              case 14:
+              case 15:
               case 'end':
                 return _context.stop();
             }
@@ -247,7 +250,7 @@ var Message = function () {
   }, {
     key: '_getInboxUser',
     value: function () {
-      var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(userUid) {
+      var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(userUid, options) {
         var identifiers, inboxUser;
         return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
@@ -255,7 +258,7 @@ var Message = function () {
               case 0:
                 identifiers = { userUid: this.userUid || userUid };
                 _context4.next = 3;
-                return (0, _bluebird.resolve)(this.inbox.users.get(identifiers));
+                return (0, _bluebird.resolve)(this.inbox.users.get(identifiers, options));
 
               case 3:
                 inboxUser = _context4.sent;
@@ -278,7 +281,7 @@ var Message = function () {
         }, _callee4, this);
       }));
 
-      function _getInboxUser(_x4) {
+      function _getInboxUser(_x4, _x5) {
         return _ref6.apply(this, arguments);
       }
 
