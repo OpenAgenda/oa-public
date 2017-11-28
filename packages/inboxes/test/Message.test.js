@@ -137,6 +137,40 @@ describe( 'Message', () => {
 
     } );
 
+    test( 'create a message - createInboxUserOnNull option create the inexistant inboxUser', async () => {
+
+      const conversation = await Inboxes( 1 ).conversations.get( 1 );
+
+      const message = await conversation.messages.create( {
+        body: 'Salut toi, mets moi admin, et vite !',
+        userUid: 78945621
+      }, { createInboxUserOnNull: true } );
+
+      expect( _.omit( message.toJSON(), 'createdAt' ) ).eql( {
+        id: 11,
+        conversationId: 1,
+        body: 'Salut toi, mets moi admin, et vite !',
+        inboxUser: {
+          id: 7,
+          inboxId: 1,
+          userUid: 78945621,
+          leftAt: null,
+          uid: 78945621,
+          name: 'Jean-Roger Benbambou',
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+        },
+        inbox: {
+          id: 1,
+          type: 'agenda',
+          identifier: 48959239,
+          uid: 48959239,
+          name: 'La gargouille',
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+        }
+      } );
+
+    } );
+
   } );
 
   describe( 'get', () => {

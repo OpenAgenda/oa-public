@@ -15,22 +15,6 @@ export function init( c ) {
 export function user( namespace ) {
   return {
     conversations: {
-      // list( options ) {
-      //   const params = _.merge( {
-      //     limit: 20
-      //   }, options );
-      //
-      //   const limit = getLimit( config.mw.limit, params.limit );
-      //
-      //   return wrap( async ( req, res ) => {
-      //     const conversations = await Inboxes
-      //       .user( _.get( req, namespace ) )
-      //       .conversations.list( (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
-      //
-      //     res.send( { conversations } );
-      //   } );
-      // },
-
       list( options ) {
         const { namespaces, ...params } = _.merge( {
           namespaces: {
@@ -245,7 +229,8 @@ export const messages = {
         identifier: 'identifier',
         conversationId: 'conversation.id',
         userUid: 'user.uid',
-        body: 'body.body'
+        body: 'body.body',
+        options: 'options'
       }
     }, options );
 
@@ -257,10 +242,13 @@ export const messages = {
         .conversations.get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
       const message = await conversation.messages
-        .create( {
-          body: _.get( req, namespaces.body ),
-          userUid: _.get( req, namespaces.userUid )
-        } );
+        .create(
+          {
+            body: _.get( req, namespaces.body ),
+            userUid: _.get( req, namespaces.userUid )
+          },
+          _.get( req, namespaces.options )
+        );
 
       res.send( { message } );
     } );

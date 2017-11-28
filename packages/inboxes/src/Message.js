@@ -28,8 +28,12 @@ export default class Message {
   }
 
   async create( data, options ) {
+    const params = _.merge( {
+      createInboxUserOnNull: false
+    }, options );
+
     await this._loadConversation();
-    const inboxUser = await this._getInboxUser( data.userUid );
+    const inboxUser = await this._getInboxUser( data.userUid, { createOnNull: params.createInboxUserOnNull } );
 
     data = {
       ..._.pick( data, 'body' ),
@@ -114,9 +118,9 @@ export default class Message {
     }
   }
 
-  async _getInboxUser( userUid ) {
+  async _getInboxUser( userUid, options ) {
     const identifiers = { userUid: this.userUid || userUid };
-    const inboxUser = await this.inbox.users.get( identifiers );
+    const inboxUser = await this.inbox.users.get( identifiers, options );
 
     if ( !inboxUser.data ) {
       throw new VError( 'InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers );
