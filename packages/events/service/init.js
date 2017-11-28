@@ -27,7 +27,7 @@ module.exports = endpoints => {
 
     }
 
-    _.keys( endpoints ).forEach( e => {
+    _.keys( endpoints ).filter( e => endpoints[ e ].init ).forEach( e => {
 
       endpoints[ e ].init( endpoints, config );
 
