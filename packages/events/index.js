@@ -6,6 +6,7 @@ module.exports = init( {
   list: require( './service/list' ),
   get: require( './service/get' ),
   set: require( './service/set' ),
+  validate: require( './service/validate' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
   remove: require( './service/remove' ),
