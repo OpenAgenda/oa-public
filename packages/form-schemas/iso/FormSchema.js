@@ -15,6 +15,7 @@ module.exports = class {
 
   constructor( data ) {
 
+
     // { fields, nextOptionId, res, id }
     this.data = validate( data, true );
 
@@ -137,6 +138,8 @@ function validate( data, client = false ) {
 
   // clean each field
   dirty.fields.forEach( f => {
+
+    if ( f.fieldType === 'abstract' ) return;
 
     try {
 

@@ -9,6 +9,7 @@ const _ = require( 'lodash/core' );
 const choice = require( '@openagenda/validators/choice' );
 
 schema.register( {
+  pass: require( '@openagenda/validators/pass' ),
   text: require( '@openagenda/validators/text' ),
   boolean: require( '@openagenda/validators/boolean' ),
   link: require( '@openagenda/validators/link' ),
