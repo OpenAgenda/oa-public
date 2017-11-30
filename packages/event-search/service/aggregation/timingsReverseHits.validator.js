@@ -41,6 +41,8 @@ const validate = schema( {
   }
 } );
 
+const validateDate = require( '@openagenda/validators/date' )( { default: 'now' } );
+
 module.exports = values => {
 
   const clean = validate( values );
@@ -61,9 +63,9 @@ module.exports = values => {
 
 function _ranges( fromDate = null, toDate = null ) {
 
-  let cursor = fromDate || new Date(),
+  let cursor = validateDate( fromDate ),
 
-    lastDate = toDate,
+    lastDate = toDate ? validateDate( toDate ) : null,
 
     ranges = [];
 
@@ -98,9 +100,15 @@ function _ranges( fromDate = null, toDate = null ) {
 }
 
 
-function _stringifyDate( d ) {
+function _stringifyDate( dirtyDate ) {
 
-  if ( !d ) d = new Date();
+  let d = new Date();
+
+  if ( dirtyDate ) {
+
+    d = validateDate( dirtyDate );
+
+  }
 
   return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
 
