@@ -4,7 +4,7 @@ import du from '@openagenda/dom-utils';
 
 export default function ( options ) {
   const params = _.merge( {
-    selector: '.js_inbox',
+    selector: '.js_inbox_header',
     res: {
       haveUnread: '/inbox/have-unread'
     },

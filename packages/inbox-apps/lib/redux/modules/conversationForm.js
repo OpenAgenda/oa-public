@@ -66,10 +66,7 @@ function createConversation(data) {
       var res = _ref.res,
           agenda = _ref.agenda,
           event = _ref.event;
-      return client.post(res.conversations.create.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid), { data: data }).catch(function (err) {
-        console.log(err);
-        throw err;
-      });
+      return client.post(res.conversations.create.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid), { data: data });
     }
   };
 }

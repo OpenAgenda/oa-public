@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -27,6 +23,12 @@ var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorRet
 var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _bluebird = require('bluebird');
 
 var _redboxReact2 = require('redbox-react');
 
@@ -62,6 +64,10 @@ var _conversationForm = require('../../redux/modules/conversationForm');
 
 var conversationFormActions = _interopRequireWildcard(_conversationForm);
 
+var _inbox = require('../../redux/modules/inbox');
+
+var inboxActions = _interopRequireWildcard(_inbox);
+
 var _conversation = require('../../redux/modules/conversation');
 
 var conversationActions = _interopRequireWildcard(_conversation);
@@ -94,17 +100,48 @@ function _wrapComponent(id) {
 }
 
 var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _reduxConnect.asyncConnect)([{
-  promise: function promise(_ref) {
-    var _ref$store = _ref.store,
-        dispatch = _ref$store.dispatch,
-        getState = _ref$store.getState;
+  promise: function () {
+    var _ref = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(_ref2) {
+      var _ref2$store = _ref2.store,
+          dispatch = _ref2$store.dispatch,
+          getState = _ref2$store.getState;
+      var state, focusFistConversation, query;
+      return _regenerator2.default.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              state = getState();
+              focusFistConversation = state.settings.focusFistConversation;
+              query = focusFistConversation ? { limit: 1 } : {};
 
-    var state = getState();
+              if (inboxActions.isLoaded(state)) {
+                _context.next = 6;
+                break;
+              }
 
-    if (!conversationActions.isAuthorLoaded(state)) {
-      return dispatch(conversationActions.loadAuthor());
-    }
-  }
+              _context.next = 6;
+              return (0, _bluebird.resolve)(dispatch(inboxActions.load(query)));
+
+            case 6:
+              if (conversationActions.isAuthorLoaded(state)) {
+                _context.next = 8;
+                break;
+              }
+
+              return _context.abrupt('return', dispatch(conversationActions.loadAuthor()));
+
+            case 8:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, _callee, undefined);
+    }));
+
+    return function promise(_x) {
+      return _ref.apply(this, arguments);
+    };
+  }()
 }]), _dec2 = (0, _reactRedux.connect)(function (state) {
   return {
     initialValues: state.settings.defaultQuery,
@@ -122,19 +159,15 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (ConversationCreate.__proto__ || (0, _getPrototypeOf2.default)(ConversationCreate)).call(this, props));
 
-    _this.state = {
-      defaultValues: _this.props.defaultValues
-    };
-
-    _this.renderForm = _this.renderForm.bind(_this);
+    _this.FromWrapper = _this.FromWrapper.bind(_this);
     return _this;
   }
 
   (0, _createClass3.default)(ConversationCreate, [{
-    key: 'renderForm',
-    value: function renderForm(_ref2) {
-      var FormComponent = _ref2.FormComponent,
-          handleSubmit = _ref2.handleSubmit;
+    key: 'FromWrapper',
+    value: function FromWrapper(_ref3) {
+      var handleSubmit = _ref3.handleSubmit,
+          children = _ref3.children;
       var getLabel = this.props.getLabel;
 
 
@@ -142,19 +175,23 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
         'form',
         { onSubmit: handleSubmit, className: 'conversation-form', __source: {
             fileName: _jsxFileName,
-            lineNumber: 46
+            lineNumber: 50
           }
         },
-        _react3.default.createElement(FormComponent, { className: 'margin-bottom-md', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 47
-          }
-        }),
+        _react3.default.createElement(
+          'div',
+          { className: 'margin-bottom-md', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 51
+            }
+          },
+          children
+        ),
         _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary', __source: {
               fileName: _jsxFileName,
-              lineNumber: 49
+              lineNumber: 55
             }
           },
           getLabel('send')
@@ -172,108 +209,118 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           conversations = _props.conversations,
           author = _props.author,
           router = _props.router;
-      var prefix = settings.prefix,
+      var TitleComponent = settings.TitleComponent,
+          prefix = settings.prefix,
           focusFistConversation = settings.focusFistConversation,
           hideEmptyList = settings.hideEmptyList,
-          TitleComponent = settings.TitleComponent,
           ContentWrapper = settings.ContentWrapper;
 
+      // IF focusFistConversation AND !hideEmptyList AND conversations list not empty
+      // OR lastConversation resolved
 
-      var showBackLink = !focusFistConversation && !(hideEmptyList && conversations && !conversations.length);
+      var showBackLink = !focusFistConversation && !hideEmptyList && conversations && !conversations.length || conversations && conversations.length && conversations[0].resolvedAt;
 
-      // display MessageAvatar with settings.conversationCreator
-
-      var content = [showBackLink && _react3.default.createElement(
-        'div',
-        { key: 'back-to-list', __source: {
+      var content = _react3.default.createElement(
+        _react2.Fragment,
+        {
+          __source: {
             fileName: _jsxFileName,
-            lineNumber: 67
+            lineNumber: 74
           }
         },
         _react3.default.createElement(
-          _components2.Link,
-          { to: '/', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 68
-            }
-          },
-          getLabel('backToConversations')
-        )
-      ), _react3.default.createElement(
-        'div',
-        { className: 'media', key: 'form', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 71
-          }
-        },
-        _react3.default.createElement(
-          'div',
-          { className: 'media-left', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 72
-            }
-          },
-          _react3.default.createElement(_components2.MessageAvatar, { message: author, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 73
-            }
-          })
-        ),
-        _react3.default.createElement(
-          'div',
-          { className: 'media-body', __source: {
+          TitleComponent,
+          {
+            __source: {
               fileName: _jsxFileName,
               lineNumber: 75
             }
           },
+          getLabel('newConversation')
+        ),
+        showBackLink ? _react3.default.createElement(
+          'div',
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 79
+            }
+          },
           _react3.default.createElement(
-            'h4',
-            { className: 'media-heading margin-bottom-sm', __source: {
+            _components2.Link,
+            { to: '/', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 76
+                lineNumber: 80
               }
             },
-            getAuthorName(author)
+            getLabel('backToConversations')
+          )
+        ) : null,
+        _react3.default.createElement(
+          'div',
+          { className: 'media', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 83
+            }
+          },
+          _react3.default.createElement(
+            'div',
+            { className: 'media-left', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 84
+              }
+            },
+            _react3.default.createElement(_components2.MessageAvatar, { message: author, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 85
+              }
+            })
           ),
           _react3.default.createElement(
-            _components2.ConversationForm,
-            {
-              key: 'form',
+            'div',
+            { className: 'media-body', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 87
+              }
+            },
+            _react3.default.createElement(
+              'h4',
+              { className: 'media-heading margin-bottom-sm', __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 88
+                }
+              },
+              getAuthorName(author)
+            ),
+            _react3.default.createElement(_components2.ConversationForm, {
               onSubmit: function onSubmit(data) {
                 return createConversation(data).then(function (result) {
                   var url = (0, _removeTrailingSlash2.default)(prefix) + ('/conversation/' + result.conversation.id);
                   router.push(url);
+                  return result;
                 });
               },
               initialValues: initialValues,
-              className: 'margin-top-md margin-bottom-lg',
+              Wrapper: this.FromWrapper,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 78
+                lineNumber: 90
               }
-            },
-            this.renderForm
+            })
           )
         )
-      )];
+      );
 
-      return [_react3.default.createElement(_components2.Title, {
-        tab: 'createConversation',
-        key: 'title',
-        Component: TitleComponent,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 96
-        }
-      })].concat((0, _toConsumableArray3.default)(ContentWrapper ? [_react3.default.createElement(
+      return ContentWrapper ? _react3.default.createElement(
         ContentWrapper,
-        { key: 'contentWrapper', __source: {
+        {
+          __source: {
             fileName: _jsxFileName,
-            lineNumber: 103
+            lineNumber: 107
           }
         },
         content
-      )] : content));
+      ) : content;
     }
   }]);
   return ConversationCreate;

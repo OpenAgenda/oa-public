@@ -10,7 +10,7 @@ var _merge3 = _interopRequireDefault(_merge2);
 
 exports.default = function (options) {
   var params = (0, _merge3.default)({
-    selector: '.js_inbox',
+    selector: '.js_inbox_header',
     res: {
       haveUnread: '/inbox/have-unread'
     },

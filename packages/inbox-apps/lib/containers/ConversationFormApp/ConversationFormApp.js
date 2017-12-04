@@ -145,24 +145,28 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
       });
     }
   }, {
-    key: 'renderForm',
-    value: function renderForm(_ref2) {
-      var FormComponent = _ref2.FormComponent,
+    key: 'FormWrapper',
+    value: function FormWrapper(_ref2) {
+      var children = _ref2.children,
           handleSubmit = _ref2.handleSubmit;
       var getLabel = this.props.getLabel;
 
       return _react3.default.createElement(
         'form',
-        { onSubmit: handleSubmit, __source: {
+        { onSubmit: handleSubmit, className: 'conversation-form', __source: {
             fileName: _jsxFileName,
             lineNumber: 52
           }
         },
-        _react3.default.createElement(FormComponent, { className: 'margin-v-md', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 53
-          }
-        }),
+        _react3.default.createElement(
+          'div',
+          { className: 'margin-v-md', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 53
+            }
+          },
+          children
+        ),
         _react3.default.createElement(
           'button',
           {
@@ -170,7 +174,7 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
             className: 'btn btn-primary center-block',
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 55
+              lineNumber: 57
             }
           },
           getLabel('send')
@@ -213,14 +217,14 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
             classNames: { overlay: 'popup-overlay big' },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 80
+              lineNumber: 82
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'margin-top-sm text-center', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 88
+                lineNumber: 90
               }
             },
             getLabel(confirmationMessage ? 'creationSuccess' : 'creationFail')
@@ -239,32 +243,29 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
           classNames: { overlay: 'popup-overlay big' },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 96
+            lineNumber: 98
           }
         },
         modalDescription && _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: modalDescription.replace(/\n/g, '<br />') }, __source: {
             fileName: _jsxFileName,
-            lineNumber: 102
+            lineNumber: 104
           }
         }),
-        _react3.default.createElement(
-          _components2.ConversationForm,
-          {
-            initialValues: initialValues,
-            onSubmit: function onSubmit(values) {
-              return createConversation(values).then(function () {
-                return _this2.close();
-              }).catch(function () {
-                return _this2.close(true);
-              });
-            },
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 103
-            }
+        _react3.default.createElement(_components2.ConversationForm, {
+          initialValues: initialValues,
+          onSubmit: function onSubmit(values) {
+            return createConversation(values).then(function () {
+              return _this2.close();
+            }).catch(function () {
+              return _this2.close(true);
+            });
           },
-          this.renderForm
-        )
+          Wrapper: this.FormWrapper,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 105
+          }
+        })
       );
     }
   }]);

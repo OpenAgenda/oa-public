@@ -21,6 +21,10 @@
     "release:major": "npm version major && npm publish",
     "release:next": "npm version prerelease && npm publish --tag next"
   },
+  "peerDependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
   "dependencies": {
     "@openagenda/dom-utils": "^2.0.0",
     "@openagenda/labels": "^2.0.2",
@@ -40,8 +44,8 @@
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router": "^3.2.0",
     "react-router-redux": "^4.0.8",

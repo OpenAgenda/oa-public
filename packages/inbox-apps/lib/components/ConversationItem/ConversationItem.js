@@ -151,68 +151,89 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               },
               getMessageSenderName(latestMessage)
             ),
-            store && store.params && store.params.eventTitle ? [' ', _react3.default.createElement(
-              'span',
-              { key: 'event-title', __source: {
+            store && store.params && store.params.eventTitle ? _react3.default.createElement(
+              _react2.Fragment,
+              {
+                __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 40
+                  lineNumber: 38
                 }
               },
-              _react3.default.createElement(
-                'span',
-                { className: 'text-muted', __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 41
-                  }
-                },
-                getLabel('aboutEvent')
-              ),
               ' ',
               _react3.default.createElement(
-                _.Link,
-                { to: '/agendas/' + agendaUid + '/events/' + typeIdentifier, external: true, __source: {
+                'span',
+                {
+                  __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 42
+                    lineNumber: 40
                   }
                 },
-                store.params.eventTitle
+                _react3.default.createElement(
+                  'span',
+                  { className: 'text-muted', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 41
+                    }
+                  },
+                  getLabel('aboutEvent')
+                ),
+                ' ',
+                _react3.default.createElement(
+                  _.Link,
+                  { to: '/agendas/' + agendaUid + '/events/' + typeIdentifier, external: true, __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 42
+                    }
+                  },
+                  store.params.eventTitle
+                )
               )
-            )] : null,
-            resolvedAt ? [' ', _react3.default.createElement(
-              'div',
-              { key: 'resolved-icon', className: 'tooltip-icon', __source: {
+            ) : null,
+            resolvedAt ? _react3.default.createElement(
+              _react2.Fragment,
+              {
+                __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 49
+                  lineNumber: 47
                 }
               },
-              _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 50
-                }
-              }),
+              ' ',
               _react3.default.createElement(
                 'div',
-                { className: 'tooltip right', role: 'tooltip', __source: {
+                { className: 'tooltip-icon', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 51
+                    lineNumber: 49
                   }
                 },
-                _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
+                _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 52
+                    lineNumber: 50
                   }
                 }),
                 _react3.default.createElement(
                   'div',
-                  { className: 'tooltip-inner', __source: {
+                  { className: 'tooltip right', role: 'tooltip', __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 53
+                      lineNumber: 51
                     }
                   },
-                  getLabel('resolvedConversation')
+                  _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 52
+                    }
+                  }),
+                  _react3.default.createElement(
+                    'div',
+                    { className: 'tooltip-inner', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 53
+                      }
+                    },
+                    getLabel('resolvedConversation')
+                  )
                 )
               )
-            )] : null
+            ) : null
           ),
           _react3.default.createElement(
             'div',

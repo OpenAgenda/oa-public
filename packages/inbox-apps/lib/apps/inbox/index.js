@@ -18,7 +18,9 @@ var _merge3 = _interopRequireDefault(_merge2);
 
 exports.default = function (options) {
 
-  var params = (0, _merge3.default)({ selectMenuItem: false }, options);
+  var params = (0, _merge3.default)({
+    selectMenuItem: false
+  }, options);
 
   var routesGetter = params.selectMenuItem ? (0, _partialRight3.default)(_routes2.default, { selectMenuItem: true }) : _routes2.default;
 

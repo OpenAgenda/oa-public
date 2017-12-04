@@ -12,7 +12,9 @@ const normalizePrefix = prefix => prefix.substr( -1 ) === '/' ? prefix.slice( 0,
 
 export default function ( options ) {
 
-  const params = _.merge( { selectMenuItem: false }, options );
+  const params = _.merge( {
+    selectMenuItem: false
+  }, options );
 
   const routesGetter = params.selectMenuItem ? _.partialRight( getRoutes, { selectMenuItem: true } ) : getRoutes;
 

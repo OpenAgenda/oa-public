@@ -8,4 +8,3 @@ export MessageAvatar from './MessageAvatar/MessageAvatar';
 export MessageForm from './MessageForm/MessageForm';
 export MessageItem from './MessageItem/MessageItem';
 export MessageList from './MessageList/MessageList';
-export Title from './Title/Title';

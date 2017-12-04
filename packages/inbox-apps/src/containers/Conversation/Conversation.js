@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -7,13 +7,21 @@ import { reset as resetForm } from 'redux-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { Title, MessageList, MessageForm, MessageAvatar, ActionsList, Link } from '../../components';
+import { MessageList, MessageForm, MessageAvatar, ActionsList, Link } from '../../components';
 import * as conversationActions from '../../redux/modules/conversation';
+import * as inboxActions from '../../redux/modules/inbox';
 
 @asyncConnect( [ {
   promise: ( { store: { dispatch, getState }, router } ) => {
     const state = getState();
     const promises = [];
+
+    const { focusFistConversation } = state.settings;
+    const query = focusFistConversation ? { limit: 1 } : {};
+
+    // if ( !inboxActions.isLoaded( state ) ) {
+      promises.push( dispatch( inboxActions.load( query ) ) );
+    // }
 
     if ( !conversationActions.isAuthorLoaded( state ) ) {
       promises.push( dispatch( conversationActions.loadAuthor() ) );
@@ -39,6 +47,7 @@ import * as conversationActions from '../../redux/modules/conversation';
   state => ({
     settings: state.settings,
     author: state.conversation.author,
+    conversations: state.inbox.data,
     conversation: state.conversation.data,
     messages: state.conversation.messages,
     loading: state.conversation.loading,
@@ -87,7 +96,7 @@ export default class Conversation extends Component {
     return (
       <div className="media">
         <div className="media-left media-top">
-          <MessageAvatar message={author} />
+          <MessageAvatar message={author}/>
         </div>
 
         <div className="media-body">
@@ -114,7 +123,7 @@ export default class Conversation extends Component {
 
     if ( conversation.resolvedAt ) {
       return (
-        <div className="well text-center margin-top-sm" key="message-form">
+        <div className="conversation-resolved well text-center margin-top-md">
           <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
           {getLabel( 'conversationAreResolved' )}
         </div>
@@ -126,14 +135,13 @@ export default class Conversation extends Component {
         <MessageForm
           form="message"
           onSubmit={this.sendMessage}
-          key="message-form"
           Wrapper={this.FromWrapper}
         />
       );
     }
 
     return (
-      <div className="row" key="message-form">
+      <div className="row">
         <div className="col-sm-10">
           <MessageForm
             form="message"
@@ -157,42 +165,42 @@ export default class Conversation extends Component {
 
   render() {
     const {
-      messages, nextLoading, getLabel,
-      settings: { TitleComponent, ContentWrapper, focusFistConversation }
+      conversations, messages, nextLoading, getLabel,
+      settings: { TitleComponent, ContentWrapper, focusFistConversation, hideEmptyList }
     } = this.props;
 
-    const content = [
-      !focusFistConversation && <div key="return-to-inbox">
-        <Link to="/">{getLabel( 'backToConversations' )}</Link>
-      </div>,
+    const showBackLink = (!focusFistConversation && (!hideEmptyList && conversations && !conversations.length))
+      || (conversations && conversations.length && conversations[ 0 ].resolvedAt);
 
-      this.renderForm(),
+    const content = (
+      <Fragment>
+        <TitleComponent>
+          {getLabel( 'conversation' )}
+        </TitleComponent>
 
-      messages && messages.length ? <MessageList messages={messages} key="list" /> : null,
+        {showBackLink ? <div>
+          <Link to="/">{getLabel( 'backToConversations' )}</Link>
+        </div> : null}
 
-      !messages || !messages.length ? <div className="text-center text-muted margin-v-md" key="zero">
-        {getLabel( 'noResult' )}
-      </div> : null,
+        {this.renderForm()}
 
-      nextLoading && <div className="padding-v-md" style={{ position: 'relative' }} key="spinner">
-        <Spinner />
-      </div>,
+        {messages && messages.length ? <MessageList messages={messages}/> : null}
 
-      <Waypoint onEnter={this.throttledNextPage} key="waypoint" />
-    ];
+        {!messages || !messages.length ? <div className="text-center text-muted margin-v-md">
+          {getLabel( 'noResult' )}
+        </div> : null}
 
-    return [
-      <Title
-        tab="conversation"
-        key="title"
-        Component={TitleComponent}
-      />,
+        {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner/>
+        </div>}
 
-      ...(ContentWrapper
-          ? [ <ContentWrapper key="contentWrapper">{content}</ContentWrapper> ]
-          : content
-      )
-    ];
+        <Waypoint onEnter={this.throttledNextPage}/>
+      </Fragment>
+    );
+
+    return ContentWrapper
+      ? <ContentWrapper>{content}</ContentWrapper>
+      : content;
   }
 }
 

@@ -46,11 +46,13 @@ export default class ConversationModal extends Component {
     } );
   }
 
-  renderForm( { FormComponent, handleSubmit } ) {
+  FormWrapper( { children, handleSubmit } ) {
     const { getLabel } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
-        <FormComponent className="margin-v-md" />
+      <form onSubmit={handleSubmit} className="conversation-form">
+        <div className="margin-v-md">
+          {children}
+        </div>
 
         <button
           type="submit"
@@ -105,9 +107,8 @@ export default class ConversationModal extends Component {
           onSubmit={values => createConversation( values )
             .then( () => this.close() )
             .catch( () => this.close( true ) )}
-        >
-          {this.renderForm}
-        </ConversationForm>
+          Wrapper={this.FormWrapper}
+        />
       </Modal>
     );
   }

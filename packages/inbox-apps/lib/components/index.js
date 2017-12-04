@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Title = exports.MessageList = exports.MessageItem = exports.MessageForm = exports.MessageAvatar = exports.LinkContainer = exports.Link = exports.ConversationList = exports.ConversationItem = exports.ConversationForm = exports.ActionsList = undefined;
+exports.MessageList = exports.MessageItem = exports.MessageForm = exports.MessageAvatar = exports.LinkContainer = exports.Link = exports.ConversationList = exports.ConversationItem = exports.ConversationForm = exports.ActionsList = undefined;
 
 var _ActionsList2 = require('./ActionsList/ActionsList');
 
@@ -45,10 +45,6 @@ var _MessageList2 = require('./MessageList/MessageList');
 
 var _MessageList3 = _interopRequireDefault(_MessageList2);
 
-var _Title2 = require('./Title/Title');
-
-var _Title3 = _interopRequireDefault(_Title2);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.ActionsList = _ActionsList3.default;
@@ -61,5 +57,4 @@ exports.MessageAvatar = _MessageAvatar3.default;
 exports.MessageForm = _MessageForm3.default;
 exports.MessageItem = _MessageItem3.default;
 exports.MessageList = _MessageList3.default;
-exports.Title = _Title3.default;
 //# sourceMappingURL=index.js.map

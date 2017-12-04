@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createElement, Fragment } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { getContext } from 'recompose';
@@ -12,10 +12,16 @@ import { renderTextarea } from '../../utils/form';
   getLabel: PropTypes.func
 } )
 export default class ConversationForm extends Component {
-  constructor( props ) {
-    super( props );
-    this.FormComponent = ::this.FormComponent;
-  }
+  static propTypes = {
+    Wrapper: PropTypes.oneOfType( [
+      PropTypes.func,
+      PropTypes.element
+    ] )
+  };
+
+  static defaultProps = {
+    Wrapper: 'div'
+  };
 
   formatJsonValue( value ) {
     return _.isObject( value ) ? JSON.stringify( value ) : value;
@@ -29,11 +35,13 @@ export default class ConversationForm extends Component {
     }
   }
 
-  FormComponent( { className } ) {
-    const { getLabel } = this.props;
+  render() {
+    const { getLabel, handleSubmit, submitting, Wrapper } = this.props;
 
-    return (
-      <div className={className}>
+    return createElement(
+      Wrapper,
+      { handleSubmit, submitting },
+      <Fragment>
         <Field
           name="destinationInbox"
           component="input"
@@ -61,16 +69,7 @@ export default class ConversationForm extends Component {
           // classNameGroup="margin-top-md margin-bottom-lg"
           rows="8"
         />
-      </div>
+      </Fragment>
     );
-  }
-
-  render() {
-    const { handleSubmit, children } = this.props;
-
-    return children( {
-      handleSubmit,
-      FormComponent: this.FormComponent
-    } )
   }
 }

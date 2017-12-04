@@ -74,25 +74,33 @@ var MessageAvatar = _wrapComponent('MessageAvatar')(function (_Component) {
 
 
       if (message.inboxUser) {
-        return [_react3.default.createElement('img', {
-          src: message.inboxUser.avatar,
-          className: 'media-object img-circle',
-          style: { width: '60px' },
-          key: 1,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 9
-          }
-        }), message.inbox && message.inbox.avatar && message.inbox.type !== 'user' ? _react3.default.createElement('img', {
-          src: message.inbox.avatar,
-          className: 'media-object img-circle belongs',
-          style: { width: '25px' },
-          key: 2,
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 17
-          }
-        }) : null];
+        return _react3.default.createElement(
+          _react2.Fragment,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 8
+            }
+          },
+          _react3.default.createElement('img', {
+            src: message.inboxUser.avatar,
+            className: 'media-object img-circle',
+            style: { width: '60px' },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 9
+            }
+          }),
+          message.inbox && message.inbox.avatar && message.inbox.type !== 'user' ? _react3.default.createElement('img', {
+            src: message.inbox.avatar,
+            className: 'media-object img-circle belongs',
+            style: { width: '25px' },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 16
+            }
+          }) : null
+        );
       }
 
       return _react3.default.createElement('img', {
@@ -101,7 +109,7 @@ var MessageAvatar = _wrapComponent('MessageAvatar')(function (_Component) {
         style: { width: '60px' },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28
+          lineNumber: 26
         }
       });
     }

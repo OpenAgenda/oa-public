@@ -47,6 +47,8 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 var _dec,
     _dec2,
     _class,
+    _class2,
+    _temp,
     _jsxFileName = 'src/components/ConversationForm/ConversationForm.js';
 
 var _propTypes = require('prop-types');
@@ -84,16 +86,12 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
   form: 'conversation'
 }), _dec2 = (0, _recompose.getContext)({
   getLabel: _propTypes2.default.func
-}), _dec(_class = _dec2(_class = function (_Component) {
+}), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
   (0, _inherits3.default)(ConversationForm, _Component);
 
-  function ConversationForm(props) {
+  function ConversationForm() {
     (0, _classCallCheck3.default)(this, ConversationForm);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (ConversationForm.__proto__ || (0, _getPrototypeOf2.default)(ConversationForm)).call(this, props));
-
-    _this.FormComponent = _this.FormComponent.bind(_this);
-    return _this;
+    return (0, _possibleConstructorReturn3.default)(this, (ConversationForm.__proto__ || (0, _getPrototypeOf2.default)(ConversationForm)).apply(this, arguments));
   }
 
   (0, _createClass3.default)(ConversationForm, [{
@@ -111,17 +109,21 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
       }
     }
   }, {
-    key: 'FormComponent',
-    value: function FormComponent(_ref) {
-      var className = _ref.className;
-      var getLabel = this.props.getLabel;
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          getLabel = _props.getLabel,
+          handleSubmit = _props.handleSubmit,
+          submitting = _props.submitting,
+          Wrapper = _props.Wrapper;
 
 
-      return _react3.default.createElement(
-        'div',
-        { className: className, __source: {
+      return (0, _react2.createElement)(Wrapper, { handleSubmit: handleSubmit, submitting: submitting }, _react3.default.createElement(
+        _react2.Fragment,
+        {
+          __source: {
             fileName: _jsxFileName,
-            lineNumber: 36
+            lineNumber: 44
           }
         },
         _react3.default.createElement(_reduxForm.Field, {
@@ -132,7 +134,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           parse: this.parseJsonValue,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 37
+            lineNumber: 45
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
@@ -141,7 +143,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           type: 'hidden',
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 44
+            lineNumber: 52
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
@@ -152,7 +154,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           parse: this.parseJsonValue,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 49
+            lineNumber: 57
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
@@ -164,27 +166,18 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           , rows: '8',
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 56
+            lineNumber: 64
           }
         })
-      );
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          handleSubmit = _props.handleSubmit,
-          children = _props.children;
-
-
-      return children({
-        handleSubmit: handleSubmit,
-        FormComponent: this.FormComponent
-      });
+      ));
     }
   }]);
   return ConversationForm;
-}(_react2.Component)) || _class) || _class));
+}(_react2.Component), _class2.propTypes = {
+  Wrapper: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.element])
+}, _class2.defaultProps = {
+  Wrapper: 'div'
+}, _temp)) || _class) || _class));
 
 exports.default = ConversationForm;
 module.exports = exports['default'];

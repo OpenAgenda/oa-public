@@ -16,7 +16,7 @@ var _loadScript2 = _interopRequireDefault(_loadScript);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function loadApp(options) {
+function loadApp(options, cb) {
 
   var params = (0, _merge3.default)({
     functionName: '',
@@ -40,6 +40,10 @@ function loadApp(options) {
 
     if (window[params.functionName]) {
       window[params.functionName](params);
+    }
+
+    if (cb) {
+      cb();
     }
   });
 }

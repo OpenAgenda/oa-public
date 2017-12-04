@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 const LOAD = 'inbox-apps/conversation/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/conversation/LOAD_SUCCESS';
 const LOAD_FAIL = 'inbox-apps/conversation/LOAD_FAIL';

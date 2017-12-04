@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
@@ -35,25 +35,25 @@ export default class ConversationItem extends Component {
         <div className="media-body">
           <div className="media-heading">
             <b>{getMessageSenderName( latestMessage )}</b>
-            {store && store.params && store.params.eventTitle ? [
-              ' ',
-              <span key="event-title">
+            {store && store.params && store.params.eventTitle ? <Fragment>
+              {' '}
+              <span>
                 <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}
                 <Link to={`/agendas/${agendaUid}/events/${typeIdentifier}`} external>
                   {store.params.eventTitle}
                 </Link>
               </span>
-            ] : null}
-            {resolvedAt ? [
-              ' ',
-              <div key="resolved-icon" className="tooltip-icon">
+            </Fragment> : null}
+            {resolvedAt ? <Fragment>
+              {' '}
+              <div className="tooltip-icon">
                 <i className="fa fa-check" aria-hidden="true"></i>
                 <div className="tooltip right" role="tooltip">
                   <div className="tooltip-arrow"></div>
                   <div className="tooltip-inner">{getLabel( 'resolvedConversation' )}</div>
                 </div>
               </div>
-            ] : null}
+            </Fragment> : null}
           </div>
           <div className="margin-bottom-xs">
             {latestMessage.body || null}

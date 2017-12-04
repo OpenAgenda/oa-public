@@ -52,9 +52,5 @@ export function createConversation( data ) {
           .replace( ':eventUid', event && event.uid ),
         { data }
       )
-        .catch( err => {
-          console.log( err );
-          throw err;
-        } )
   };
 }

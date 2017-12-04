@@ -1,16 +1,24 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { Title, ConversationForm, Link, MessageAvatar } from '../../components';
+import { ConversationForm, Link, MessageAvatar } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
+import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 
 @asyncConnect( [ {
-  promise: ( { store: { dispatch, getState } } ) => {
+  promise: async ( { store: { dispatch, getState } } ) => {
     const state = getState();
+
+    const { focusFistConversation } = state.settings;
+    const query = focusFistConversation ? { limit: 1 } : {};
+
+    if ( !inboxActions.isLoaded( state ) ) {
+      await dispatch( inboxActions.load( query ) );
+    }
 
     if ( !conversationActions.isAuthorLoaded( state ) ) {
       return dispatch( conversationActions.loadAuthor() );
@@ -32,19 +40,17 @@ import removeTrailingSlash from '../../utils/removeTrailingSlash';
 export default class ConversationCreate extends Component {
   constructor( props ) {
     super( props );
-    this.renderForm = ::this.renderForm;
+    this.FromWrapper = ::this.FromWrapper;
   }
 
-  state = {
-    defaultValues: this.props.defaultValues
-  };
-
-  renderForm( { FormComponent, handleSubmit } ) {
+  FromWrapper( { handleSubmit, children } ) {
     const { getLabel } = this.props;
 
     return (
       <form onSubmit={handleSubmit} className="conversation-form">
-        <FormComponent className="margin-bottom-md" />
+        <div className="margin-bottom-md">
+          {children}
+        </div>
 
         <button type="submit" className="btn btn-primary">{getLabel( 'send' )}</button>
       </form>
@@ -57,53 +63,49 @@ export default class ConversationCreate extends Component {
       settings, conversations, author, router
     } = this.props;
 
-    const { prefix, focusFistConversation, hideEmptyList, TitleComponent, ContentWrapper } = settings;
+    const { TitleComponent, prefix, focusFistConversation, hideEmptyList, ContentWrapper } = settings;
 
-    const showBackLink = !focusFistConversation && !(hideEmptyList && (conversations && !conversations.length));
+    // IF focusFistConversation AND !hideEmptyList AND conversations list not empty
+    // OR lastConversation resolved
+    const showBackLink = (!focusFistConversation && (!hideEmptyList && conversations && !conversations.length))
+      || (conversations && conversations.length && conversations[ 0 ].resolvedAt);
 
-    // display MessageAvatar with settings.conversationCreator
+    const content = (
+      <Fragment>
+        <TitleComponent>
+          {getLabel( 'newConversation' )}
+        </TitleComponent>
 
-    const content = [
-      showBackLink && <div key="back-to-list">
-        <Link to="/">{getLabel( 'backToConversations' )}</Link>
-      </div>,
+        {showBackLink ? <div>
+          <Link to="/">{getLabel( 'backToConversations' )}</Link>
+        </div> : null}
 
-      <div className="media" key="form">
-        <div className="media-left">
-          <MessageAvatar message={author} />
+        <div className="media">
+          <div className="media-left">
+            <MessageAvatar message={author}/>
+          </div>
+          <div className="media-body">
+            <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
+
+            <ConversationForm
+              onSubmit={data => createConversation( data )
+                .then( result => {
+                  const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
+                  router.push( url );
+                  return result;
+                } )
+              }
+              initialValues={initialValues}
+              Wrapper={this.FromWrapper}
+            />
+          </div>
         </div>
-        <div className="media-body">
-          <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
+      </Fragment>
+    );
 
-          <ConversationForm
-            key="form"
-            onSubmit={data => createConversation( data )
-              .then( result => {
-                const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
-                router.push( url );
-              } )
-            }
-            initialValues={initialValues}
-            className="margin-top-md margin-bottom-lg"
-          >
-            {this.renderForm}
-          </ConversationForm>
-        </div>
-      </div>
-    ];
-
-    return [
-      <Title
-        tab="createConversation"
-        key="title"
-        Component={TitleComponent}
-      />,
-
-      ...(ContentWrapper
-          ? [ <ContentWrapper key="contentWrapper">{content}</ContentWrapper> ]
-          : content
-      )
-    ];
+    return ContentWrapper
+      ? <ContentWrapper>{content}</ContentWrapper>
+      : content;
   }
 }
 

@@ -4,10 +4,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
 var _getPrototypeOf = require('babel-runtime/core-js/object/get-prototype-of');
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -76,10 +72,6 @@ var _reactWaypoint = require('react-waypoint');
 
 var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
 
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
 var _Spinner = require('@openagenda/react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
@@ -89,6 +81,14 @@ var _components2 = require('../../components');
 var _inbox = require('../../redux/modules/inbox');
 
 var inboxActions = _interopRequireWildcard(_inbox);
+
+var _conversation = require('../../redux/modules/conversation');
+
+var conversationActions = _interopRequireWildcard(_conversation);
+
+var _conversationForm = require('../../redux/modules/conversationForm');
+
+var conversationFormActions = _interopRequireWildcard(_conversationForm);
 
 var _removeTrailingSlash = require('../../utils/removeTrailingSlash');
 
@@ -118,80 +118,118 @@ function _wrapComponent(id) {
 }
 
 var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
-  promise: function () {
-    var _ref = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(_ref2) {
-      var _ref2$store = _ref2.store,
-          dispatch = _ref2$store.dispatch,
-          getState = _ref2$store.getState,
-          redirect = _ref2.helpers.redirect;
+  key: 'inbox', // key is usefull for the redirection
+  promise: function promise(_ref) {
+    var _ref$store = _ref.store,
+        dispatch = _ref$store.dispatch,
+        getState = _ref$store.getState,
+        redirect = _ref.helpers.redirect;
 
-      var state, _state$settings, prefix, focusFistConversation, hideEmptyList, query, result;
+    var state = getState();
 
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              state = getState();
-              _state$settings = state.settings, prefix = _state$settings.prefix, focusFistConversation = _state$settings.focusFistConversation, hideEmptyList = _state$settings.hideEmptyList;
-              query = focusFistConversation ? { limit: 1 } : {};
-              _context.next = 5;
-              return (0, _bluebird.resolve)(dispatch(inboxActions.load(query)));
+    var _state$settings = state.settings,
+        prefix = _state$settings.prefix,
+        focusFistConversation = _state$settings.focusFistConversation,
+        hideEmptyList = _state$settings.hideEmptyList,
+        topListConversation = _state$settings.topListConversation;
 
-            case 5:
-              result = _context.sent;
+    var query = focusFistConversation ? { limit: 1 } : {};
 
-              if (!(hideEmptyList && result.conversations && !result.conversations.length)) {
-                _context.next = 8;
-                break;
-              }
+    return dispatch(inboxActions.load(query)).then(function () {
+      var _ref2 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(result) {
+        return _regenerator2.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(topListConversation && !conversationActions.isAuthorLoaded(state))) {
+                  _context.next = 3;
+                  break;
+                }
 
-              return _context.abrupt('return', redirect((0, _removeTrailingSlash2.default)(prefix) + '/conversation/create'));
+                _context.next = 3;
+                return (0, _bluebird.resolve)(dispatch(conversationActions.loadAuthor()));
 
-            case 8:
-              if (!focusFistConversation) {
-                _context.next = 10;
-                break;
-              }
+              case 3:
+                if (!(hideEmptyList && result.conversations && !result.conversations.length)) {
+                  _context.next = 5;
+                  break;
+                }
 
-              return _context.abrupt('return', redirect((0, _removeTrailingSlash2.default)(prefix) + '/conversation/' + result.conversations[0].id));
+                return _context.abrupt('return', redirect((0, _removeTrailingSlash2.default)(prefix) + '/conversation/create'));
 
-            case 10:
-            case 'end':
-              return _context.stop();
+              case 5:
+                if (!focusFistConversation) {
+                  _context.next = 12;
+                  break;
+                }
+
+                if (!(result.conversations && !result.conversations.length)) {
+                  _context.next = 10;
+                  break;
+                }
+
+                return _context.abrupt('return', redirect((0, _removeTrailingSlash2.default)(prefix) + '/conversation/create'));
+
+              case 10:
+                if (result.conversations[0].resolvedAt) {
+                  _context.next = 12;
+                  break;
+                }
+
+                return _context.abrupt('return', redirect((0, _removeTrailingSlash2.default)(prefix) + '/conversation/' + result.conversations[0].id));
+
+              case 12:
+              case 'end':
+                return _context.stop();
+            }
           }
-        }
-      }, _callee, undefined);
-    }));
+        }, _callee, undefined);
+      }));
 
-    return function promise(_x) {
-      return _ref.apply(this, arguments);
-    };
-  }()
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
+    // const result = await dispatch( inboxActions.load( query ) );
+    //
+    // if ( topListConversation && !conversationActions.isAuthorLoaded( state ) ) {
+    //   await dispatch( conversationActions.loadAuthor() );
+    // }
+    //
+    // if ( (hideEmptyList) && result.conversations && !result.conversations.length ) {
+    //   return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+    // }
+    //
+    // if ( focusFistConversation ) {
+    //   if ( result.conversations && !result.conversations.length ) {
+    //     return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+    //   } else if ( !result.conversations[ 0 ].resolvedAt ) {
+    //     return redirect( `${removeTrailingSlash( prefix )}/conversation/${result.conversations[ 0 ].id}` );
+    //   }
+    // }
+  }
 }]), _dec2 = (0, _reactRedux.connect)(function (state) {
   return {
+    initialValues: state.settings.defaultQuery,
     settings: state.settings,
     conversations: state.inbox.data,
     loading: state.inbox.loading,
     nextLoading: state.inbox.nextLoading,
-    lastPage: state.inbox.lastPage
+    lastPage: state.inbox.lastPage,
+    author: state.conversation.author
   };
-}, (0, _extends3.default)({}, inboxActions, { push: _reactRouterRedux.push })), _dec3 = (0, _recompose.getContext)({
+}, (0, _extends3.default)({}, inboxActions, conversationFormActions, { push: _reactRouterRedux.push })), _dec3 = (0, _recompose.getContext)({
   getLabel: _propTypes2.default.func
 }), _dec(_class = _dec2(_class = _dec3(_class = function (_Component) {
   (0, _inherits3.default)(Inbox, _Component);
 
-  function Inbox() {
-    var _ref3;
-
-    var _temp, _this, _ret;
-
+  function Inbox(props) {
     (0, _classCallCheck3.default)(this, Inbox);
 
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    var _this = (0, _possibleConstructorReturn3.default)(this, (Inbox.__proto__ || (0, _getPrototypeOf2.default)(Inbox)).call(this, props));
 
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref3 = Inbox.__proto__ || (0, _getPrototypeOf2.default)(Inbox)).call.apply(_ref3, [this].concat(args))), _this), _this.nextPage = function () {
+    _this.nextPage = function () {
       var _this$props = _this.props,
           lastPage = _this$props.lastPage,
           loading = _this$props.loading,
@@ -204,108 +242,259 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
       }
 
       _this.props.nextPage();
-    }, _this.throttledNextPage = (0, _throttle3.default)(_this.nextPage, 400, { trailing: false }), _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+    };
+
+    _this.throttledNextPage = (0, _throttle3.default)(_this.nextPage, 400, { trailing: false });
+
+    _this.FromWrapper = _this.FromWrapper.bind(_this);
+    return _this;
   }
 
   (0, _createClass3.default)(Inbox, [{
+    key: 'FromWrapper',
+    value: function FromWrapper(_ref3) {
+      var handleSubmit = _ref3.handleSubmit,
+          children = _ref3.children;
+      var getLabel = this.props.getLabel;
+
+
+      return _react3.default.createElement(
+        'form',
+        { onSubmit: handleSubmit, className: 'conversation-form', __source: {
+            fileName: _jsxFileName,
+            lineNumber: 89
+          }
+        },
+        _react3.default.createElement(
+          'div',
+          { className: 'margin-bottom-md', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 90
+            }
+          },
+          children
+        ),
+        _react3.default.createElement(
+          'button',
+          { type: 'submit', className: 'btn btn-primary', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 94
+            }
+          },
+          getLabel('send')
+        )
+      );
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           conversations = _props.conversations,
           nextLoading = _props.nextLoading,
           push = _props.push,
           getLabel = _props.getLabel,
+          createConversation = _props.createConversation,
+          author = _props.author,
+          initialValues = _props.initialValues,
           _props$settings = _props.settings,
           TitleComponent = _props$settings.TitleComponent,
           ContentWrapper = _props$settings.ContentWrapper,
-          allowCreateConversation = _props$settings.allowCreateConversation;
+          allowCreateConversation = _props$settings.allowCreateConversation,
+          topListConversation = _props$settings.topListConversation,
+          prefix = _props$settings.prefix;
 
 
-      var content = [conversations && conversations.length ? _react3.default.createElement(_components2.ConversationList, { conversations: conversations, key: 'list', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 70
-        }
-      }) : null, !conversations || !conversations.length ? _react3.default.createElement(
-        'div',
+      var allConversationsPast = conversations && conversations.length && conversations[0].resolvedAt;
+
+      var content = _react3.default.createElement(
+        _react2.Fragment,
         {
-          className: 'text-center text-muted padding-v-md',
-          key: 'zero',
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 73
+            lineNumber: 124
           }
         },
-        getLabel('noResult')
-      ) : null, nextLoading && _react3.default.createElement(
-        'div',
-        { className: 'padding-v-md', style: { position: 'relative' }, key: 'spinner', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 81
-          }
-        },
-        _react3.default.createElement(_Spinner2.default, {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 82
-          }
-        })
-      ), _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage, key: 'waypoint', __source: {
-          fileName: _jsxFileName,
-          lineNumber: 85
-        }
-      })];
-
-      return [_react3.default.createElement(_components2.Title, {
-        tab: 'inbox',
-        key: 'title',
-        Component: TitleComponent,
-        className: (0, _classnames2.default)({
-          'pull-left': allowCreateConversation
-        }),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 89
-        }
-      }), allowCreateConversation && _react3.default.createElement(
-        'div',
-        { key: 'button-create', className: 'text-right', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 98
-          }
-        },
-        _react3.default.createElement(
-          _components2.LinkContainer,
-          { to: '/conversation/create', __source: {
+        topListConversation && allConversationsPast ? _react3.default.createElement(
+          _react2.Fragment,
+          {
+            __source: {
               fileName: _jsxFileName,
-              lineNumber: 99
+              lineNumber: 125
             }
           },
-          function (path) {
-            return _react3.default.createElement(
-              'button',
-              {
-                className: 'btn btn-info margin-top-md',
-                onClick: function onClick() {
-                  return push(path);
-                },
-                __source: {
+          _react3.default.createElement(
+            TitleComponent,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 126
+              }
+            },
+            getLabel('newConversation')
+          ),
+          _react3.default.createElement(
+            'div',
+            { className: 'media', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 130
+              }
+            },
+            _react3.default.createElement(
+              'div',
+              { className: 'media-left', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 101
+                  lineNumber: 131
                 }
               },
-              getLabel('createConversation')
-            );
-          }
-        )
-      )].concat((0, _toConsumableArray3.default)(ContentWrapper ? [_react3.default.createElement(
-        ContentWrapper,
-        { key: 'contentWrapper', __source: {
+              _react3.default.createElement(_components2.MessageAvatar, { message: author, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 132
+                }
+              })
+            ),
+            _react3.default.createElement(
+              'div',
+              { className: 'media-body', __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 134
+                }
+              },
+              _react3.default.createElement(
+                'h4',
+                { className: 'media-heading margin-bottom-sm', __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 135
+                  }
+                },
+                getAuthorName(author)
+              ),
+              _react3.default.createElement(_components2.ConversationForm, {
+                onSubmit: function onSubmit(data) {
+                  return createConversation(data).then(function () {
+                    var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(result) {
+                      var url;
+                      return _regenerator2.default.wrap(function _callee2$(_context2) {
+                        while (1) {
+                          switch (_context2.prev = _context2.next) {
+                            case 0:
+                              url = (0, _removeTrailingSlash2.default)(prefix) + ('/conversation/' + result.conversation.id);
+                              _context2.next = 3;
+                              return (0, _bluebird.resolve)(push(url));
+
+                            case 3:
+                              return _context2.abrupt('return', result);
+
+                            case 4:
+                            case 'end':
+                              return _context2.stop();
+                          }
+                        }
+                      }, _callee2, _this2);
+                    }));
+
+                    return function (_x2) {
+                      return _ref4.apply(this, arguments);
+                    };
+                  }());
+                },
+                initialValues: initialValues,
+                Wrapper: this.FromWrapper,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 137
+                }
+              })
+            )
+          )
+        ) : null,
+        allowCreateConversation && !topListConversation && _react3.default.createElement(
+          'div',
+          { className: 'pull-right', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 152
+            }
+          },
+          _react3.default.createElement(
+            _components2.LinkContainer,
+            { to: '/conversation/create', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 153
+              }
+            },
+            function (path) {
+              return _react3.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-info btn-creation',
+                  onClick: function onClick() {
+                    return push(path);
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 155
+                  }
+                },
+                getLabel('createConversation')
+              );
+            }
+          )
+        ),
+        _react3.default.createElement(
+          TitleComponent,
+          { className: 'text-left margin-bottom-md', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 165
+            }
+          },
+          getLabel(allConversationsPast ? 'pastConversations' : 'conversations')
+        ),
+        conversations && conversations.length ? _react3.default.createElement(_components2.ConversationList, { conversations: conversations, __source: {
             fileName: _jsxFileName,
-            lineNumber: 112
+            lineNumber: 169
+          }
+        }) : null,
+        !conversations || !conversations.length ? _react3.default.createElement(
+          'div',
+          { className: 'text-center text-muted padding-v-md', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 172
+            }
+          },
+          getLabel('noResult')
+        ) : null,
+        nextLoading && _react3.default.createElement(
+          'div',
+          { className: 'padding-v-md', style: { position: 'relative' }, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 177
+            }
+          },
+          _react3.default.createElement(_Spinner2.default, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 178
+            }
+          })
+        ),
+        _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 181
+          }
+        })
+      );
+
+      return ContentWrapper ? _react3.default.createElement(
+        ContentWrapper,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 186
           }
         },
         content
-      )] : content));
+      ) : content;
     }
   }]);
   return Inbox;
@@ -313,5 +502,13 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
 
 exports.default = Inbox;
 ;
+
+function getAuthorName(obj) {
+  if (obj.inboxUser) {
+    return obj.inboxUser.name;
+  }
+
+  return obj.inbox.name;
+}
 module.exports = exports['default'];
 //# sourceMappingURL=Inbox.js.map

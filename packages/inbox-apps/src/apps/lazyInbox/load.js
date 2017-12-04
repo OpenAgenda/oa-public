@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import loadScript from 'load-script';
 
-export default function loadApp( options ) {
+export default function loadApp( options, cb ) {
 
   const params = _.merge( {
     functionName: '',
@@ -25,6 +25,10 @@ export default function loadApp( options ) {
 
     if ( window[ params.functionName ] ) {
       window[ params.functionName ]( params );
+    }
+
+    if ( cb ) {
+      cb();
     }
 
   } );
