@@ -110,7 +110,22 @@ Get detailed data on a specific event
 * **includeImagePath**: decorate image values with path
 * **private**: defaults at false. If true, gets event only if it is private, if null gets it either way
 
-## Set
+
+## Create
+
+Create an event.
+
+When successful, returns an object iwith the following keys:
+
+    {
+      event, // updated or created event.. or null
+      valid, // validity of input data
+      success, // true if set was successful
+      errors // validation errors or empty array
+    }
+
+
+## Set - deprecated
 Create or update an event
 
     svc.set( [ identifiers ], data, [ options ], ( err, result ) => {

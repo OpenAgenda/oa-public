@@ -12,7 +12,7 @@ const svc = require( './service' ),
 
 describe( 'events - functional (server): get', function () {
 
-  this.timeout( 30000 ); // #machineDe(La)Guerre
+  this.timeout( 30000 );
 
   before( done => {
 

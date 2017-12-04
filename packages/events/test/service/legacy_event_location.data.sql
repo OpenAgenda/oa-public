@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `ticket_link` varchar(255) DEFAULT NULL,
-`id` bigint(20) NOT NULL
+  `id` bigint(20) NOT NULL,
+  PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -2032,3 +2033,6 @@ INSERT INTO `${schema}` (`event_id`, `location_id`, `created_at`, `updated_at`, 
 (145556, 207224, '2016-09-26 09:19:30', '2016-09-26 09:19:30', NULL, 157934),
 (145554, 207222, '2016-09-26 09:11:48', '2016-09-26 09:11:48', '04 76 55 00 78, mairie-de-la-buisse@labuisse.fr', 157930),
 (145552, 207220, '2016-09-26 09:06:03', '2016-09-26 09:24:23', '', 157928);
+
+
+ALTER TABLE `${schema}` MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=200000;

@@ -13,13 +13,15 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `updated_at` datetime NOT NULL,
   `uid` bigint(20) DEFAULT NULL,
   `origin_uid` bigint(20),
+  `file_key` varchar(32),
   `store` longtext,
   `eve_id` varchar(100) DEFAULT NULL,
   `custom_fields` text,
   `age_min` smallint(6) DEFAULT NULL,
   `age_max` smallint(6) DEFAULT NULL,
   `accessibility` varchar(255) DEFAULT NULL,
-  `type` varchar(2) DEFAULT NULL
+  `type` varchar(2) DEFAULT NULL,
+  PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `slug`, `url`, `image`, `background_image`, `background_color`, `owner_id`, `is_published`, `is_new`, `created_at`, `updated_at`, `uid`, `store`, `eve_id`, `custom_fields`, `age_min`, `age_max`, `accessibility`, `type`) VALUES
@@ -54,3 +56,5 @@ INSERT INTO `${schema}` (`id`, `slug`, `url`, `image`, `background_image`, `back
 (147266, 'la-ville-a-l-etat-gazeux', NULL, 'event_la-ville-a-l-etat-gazeux_107410.jpg', NULL, NULL, 2421, 1, 0, '2016-10-12 08:22:51', '2016-10-12 08:22:52', 17402047, 'a:3:{s:10:"imageThumb";s:45:"evtbevent_la-ville-a-l-etat-gazeux_107410.jpg";s:9:"imageFull";s:44:"evfevent_la-ville-a-l-etat-gazeux_107410.jpg";s:5:"links";s:2:"[]";}', NULL, NULL, NULL, NULL, NULL, NULL),
 (147265, 'bondy-handball-tour-2016', NULL, 'event_bondy-handball-tour-2016_502397.jpg', NULL, NULL, 27158, 0, 0, '2016-10-12 08:20:56', '2016-10-14 10:11:15', 84118669, 'a:3:{s:10:"imageThumb";s:45:"evtbevent_bondy-handball-tour-2016_502397.jpg";s:9:"imageFull";s:44:"evfevent_bondy-handball-tour-2016_502397.jpg";s:5:"links";s:2:"[]";}', NULL, '{"citation":"Possibilit\\u00e9 de gagner des places pour assister \\u00e0 des matchs du mondial\\nRencontrer des joueurs de handball professionnels","quisuisje":"Collectivite","phenomenal":"Stand d''information sur le mondial, Quizz sur le mondial, Affichage et communication mondial 2017","partners":"AS Bondy Handball - Comit\\u00e9 D\\u00e9partemental de handball 93","participants":"100"}', 8, 12, '[]', ''),
 (147264, 'les-nouvelles-aventures-de-pat-et-mat', NULL, 'event_les-nouvelles-aventures-de-pat-et-mat_265312.jpg', NULL, NULL, 7227, 1, 0, '2016-10-12 08:18:39', '2016-10-12 09:21:26', 64981868, 'a:3:{s:10:"imageThumb";s:58:"evtbevent_les-nouvelles-aventures-de-pat-et-mat_265312.jpg";s:9:"imageFull";s:57:"evfevent_les-nouvelles-aventures-de-pat-et-mat_265312.jpg";s:5:"links";s:2:"[]";}', NULL, '', NULL, NULL, '["mi"]', '');
+
+ALTER TABLE `${schema}` MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=200000;

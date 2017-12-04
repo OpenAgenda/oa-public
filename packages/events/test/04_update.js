@@ -94,23 +94,49 @@ describe( 'events - functional (server): update', function() {
 
   } );
 
+  describe( 'timings', () => {
 
-  it( 'updating with timings', done => {
+    it( 'new timings replace previous timings set', async () => {
 
-    svc.update( id, {
-      timings: [ {
-        begin: new Date( '2017-10-24T20:00:00' ),
-        end: new Date( '2017-10-24T22:00:00' )
-      } ]
-    }, ( err, result ) => {
+      const event = await svc.get( id );
 
-      should( err ).equal( null );
+      // there were 2 timings
+      event.timings.length.should.equal( 2 );
+
+      // they were different from the intended change
+      for ( const t of event.timings ) {
+
+        JSON.stringify( t ).should.not.equal( '"2017-10-24T20:00:00.000Z"' );
+
+      }
+
+      const result = await svc.update( id, {
+        timings: [ {
+          begin: new Date( '2017-10-24T20:00:00Z' ),
+          end: new Date( '2017-10-24T22:00:00Z' )
+        } ]
+      } );
 
       result.success.should.equal( true );
 
-      result.event.timings.length.should.equal( 1 );
+      result.event.timings.length.should.equal( 1 );  
 
-      done();
+      JSON.stringify( result.event.timings[ 0 ].begin )
+        .should.equal( '"2017-10-24T20:00:00.000Z"' );
+
+    } );
+
+    it( 'if an empty timing list is specified, for update a validation error should be given', async () => {
+
+      const { errors } = await svc.update( id, {
+        timings: []
+      } );
+
+      errors.length.should.equal( 1 );
+
+      errors[ 0 ].field.should.equal( 'timings' );
+
+      errors[ 0 ].code.should.equal( 'list.required' );
 
     } );
 

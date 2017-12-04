@@ -32,7 +32,7 @@ describe( 'events - functional (server): stats', function() {
       stats.should.eql( {
         total: 456,
         legacy: {
-          total: 2017
+          total: 2016
         }
       } )
 

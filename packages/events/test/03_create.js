@@ -119,7 +119,6 @@ describe( 'events - functional (server): create', function() {
 
   it( 'create the simplest published event', done => {
 
-    // svc.set( { - deprecated
     svc.create( {
       title: {
         fr: 'My first event'

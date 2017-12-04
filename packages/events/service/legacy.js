@@ -12,6 +12,8 @@ const logger = require( '@openagenda/basic-logger' );
 
 const eventUtils = require( '../utils' );
 
+const getEvent = require( './get' );
+
 const validate = require( './validate' );
 
 const sUtils = require( '@openagenda/service-utils' );
@@ -23,8 +25,92 @@ let knex, schemas, service, log = console.log;
 module.exports = Object.assign( { 
   init,
   get,
-  transfer
+  transfer,
+  transferToLegacy
 } );
+
+
+async function transferToLegacy( identifiers, options ) {
+
+  const event = await getEvent( identifiers, _.extend( {}, options, { internal: true } ) );
+
+  if ( !event ) {
+
+    throw new VError( 'event not found' );
+
+  }
+
+  const userId = _.get( await knex( schemas.user ).first( 'id' ).where( 'uid', event.ownerUid ), 'id' );
+
+  const agendaId = _.get( await knex( schemas.agenda ).first( 'id' ).where( 'uid', event.agendaUid ), 'id' );
+
+  const locationId = _.get( await knex( schemas.location ).first( 'id' ).where( 'uid', event.locationUid ), 'id' );
+
+  const legacyEventId = _.get( await knex( schemas.event ).first( 'id' ).where( 'uid', event.uid ), 'id' );
+
+
+
+  const entries = {
+    event: _.extend(
+      // always applies
+      { is_published: true, is_new: false },
+      // fields that directly translate to old schema
+      _.pick( _.mapKeys( event, ( v, k ) => _.snakeCase( k ) ), [ 'uid', 'slug', 'created_at', 'updated_at', 'file_key' ] ),
+      // fields that don't.
+      {
+        image: event.image.filename,
+        image_credits: event.image.credits,
+        age_min: event.age.min,
+        age_max: event.age.max,
+        origin_uid: event.agendaUid,
+        owner_id: userId,
+        accessibility: event.accessibility ? JSON.stringify( event.accessibility ) : null
+      }
+    ),
+    eventTranslations: _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) ).map( lang => ( {
+      id: 'TBD',
+      lang,
+      title: _.get( event.title, lang ),
+      description: _.get( event.description, lang ),
+      free_text: _.get( event.longDescription, lang ),
+      tags: _.get( event.keywords, lang )
+    } ) ),
+    eventLocation: {
+      event_id: 'TBD',
+      location_id: locationId,
+      ticket_link: event.registration.join( ', ' ),
+      created_at: event.createdAt,
+      updated_at: event.updatedAt
+    },
+    eventLocationTranslations: _.keys( event.conditions ).map( lang => ( {
+      lang,
+      pricing_info: event.conditions[ lang ]
+    } ) ),
+    occurrences: event.timings.map( t => {
+
+      return {
+        event_id: 'TBD',
+        location_id: locationId,
+        date: moment.tz( t.begin, event.timezone ).format( 'YYYY-MM-DD' ),
+        time_start: moment.tz( t.begin, event.timezone ).format( 'HH:mm' ),
+        time_end: moment.tz( t.end, event.timezone ).format( 'HH:mm' ),
+        created_at: event.createdAt,
+        updated_at: event.updatedAt
+      }
+    } )
+  }
+
+  if ( legacyEventId ) {
+
+    return _updateLegacy( legacyEventId, entries );
+
+  } else {
+
+    return _createLegacy( entries );
+
+  }
+
+}
 
 
 function transfer( identifiers, options, cb ) {
@@ -668,6 +754,181 @@ function _getEvent( v ) {
     return v;
 
   } );
+
+}
+
+
+async function _updateLegacy( eventId, entries ) {
+
+  const inserted = {
+    eventTranslations: []
+  };
+
+  const updated = {
+    eventTranslations: []
+  };
+
+  const removed = {};
+
+  await knex( schemas.event ).update( entries.event ).where( 'id', eventId );
+
+  const languages = entries.eventTranslations.map( t => t.lang );
+
+  let eventLocation = await _assembleEventLocation( eventId, entries.eventLocation );
+
+  // delete languages that are not anymore set
+
+  removed.eventTranslations = await knex( schemas.eventTranslation )
+    .delete()
+    .where( 'id', eventId )
+    .whereNotIn( 'lang', languages );
+  
+  for ( const entry of entries.eventTranslations ) {
+
+    const insert = _.extend( entry, { id: eventId } );
+
+    if ( await knex( schemas.eventTranslation ).first( 'id' ).where( { id: eventId, lang: entry.lang } ) ) {
+
+      await knex( schemas.eventTranslation ).update( entry ).where( {
+        id: eventId,
+        lang: entry.lang
+      } );
+
+      updated.eventTranslations.push( insert );
+
+    } else {
+
+      await knex( schemas.eventTranslation ).insert( insert );
+
+      inserted.eventTranslations.push( insert );
+
+    }
+
+  }
+
+  // delete all occurrences
+  removed.occurrences = await knex( schemas.occurrence ).delete().where( 'event_id', eventId );
+
+  inserted.occurrences = await _insertOccurrences( eventId, entries.occurrences );
+  
+
+  // event location is updated
+  if ( eventLocation.id ) {
+
+    await knex( schemas.eventLocationTranslation )
+      .delete()
+      .where( 'id', eventLocation.id );
+
+    await knex( schemas.eventLocation ).update( entries.eventLocation ).where( 'id', eventLocation.id );
+
+    eventLocation = _.extend( { id: eventLocation.id }, entries.eventLocation );
+
+  } else {
+
+    eventLocation = await _insertEventLocation( eventId, entries.eventLocation );
+
+  }
+
+  await _insertEventLocationTranslations( eventLocation.id, entries.eventLocationTranslations );
+
+  return {
+    inserted,
+    updated,
+    removed
+  }
+
+}
+
+
+async function _insertEventLocation( eventId, data ) {
+
+  const inserted = _.extend( data, { event_id: eventId } );
+
+  const [ eventLocationInsertId ] = await knex( schemas.eventLocation ).insert( inserted );
+
+  return _.extend( { id: eventLocationInsertId }, inserted );
+
+}
+
+async function _assembleEventLocation( eventId, data ) {
+
+  const result = await knex( schemas.eventLocation ).first( 'id' ).where( 'event_id', eventId );
+
+  return _.extend( data, result ? { id: result.id } : {}, { event_id: eventId } );
+
+}
+
+async function _insertOccurrences( eventId, entries ) {
+
+  const inserted = []
+
+  for ( const entry of entries ) {
+
+    const insert = _.extend( entry, { event_id: eventId } );
+
+    await knex( schemas.occurrence ).insert( insert );
+
+    inserted.push( insert );
+
+  }
+
+  return inserted;
+
+}
+
+
+async function _createLegacy( entries ) {
+
+  const [ insertedId ] = await knex( schemas.event ).insert( entries.event );
+
+  const inserted = {
+    event: _.extend( entries.event, { id: insertedId } ),
+    eventTranslations: [],
+    eventLocationTranslations: [],
+    eventLocation: null,
+    occurrences: []
+  }
+
+  
+  
+  for ( const entry of entries.eventTranslations ) {
+
+    const insert = _.extend( entry, { id: insertedId } );
+
+    await knex( schemas.eventTranslation ).insert( insert );
+
+    inserted.eventTranslations.push( insert );
+
+  }
+
+  inserted.occurrences = await _insertOccurrences( insertedId, entries.occurrences );
+
+  inserted.eventLocation = await _insertEventLocation( insertedId, entries.eventLocation );
+
+  inserted.eventLocationTranslations = await _insertEventLocationTranslations( inserted.eventLocation.id, entries.eventLocationTranslations );
+
+  return {
+    inserted
+  }
+
+}
+
+
+async function _insertEventLocationTranslations( eventLocationId, entries ) {
+
+  const inserted = [];
+
+  for ( const entry of entries ) {
+
+    const insert = _.extend( entry, { id: eventLocationId } );
+
+    await knex( schemas.eventLocationTranslation ).insert( insert );
+
+    inserted.eventLocationTranslations.push( insert );
+
+  }
+
+  return inserted;
 
 }
 
