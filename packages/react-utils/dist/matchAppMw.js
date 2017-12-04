@@ -3,6 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _find2 = require('lodash/find');
+
+var _find3 = _interopRequireDefault(_find2);
+
 exports.default = matchAppMw;
 
 var _react = require('react');
@@ -54,6 +59,13 @@ function matchAppMw(createStore, getRoutes, ApiClient) {
           };
 
           (0, _reduxConnect.loadOnServer)(Object.assign({}, renderProps, { store: store, helpers: { client: client, redirect: redirect } })).then(function () {
+
+            var reduxConnectState = store.getState().reduxAsyncConnect.loadState;
+            var redirectError = (0, _find3.default)(reduxConnectState, ['error.name', 'RedirectError']);
+
+            if (redirectError) {
+              throw redirectError.error;
+            }
 
             var component = (0, _react.createElement)(_reactRedux.Provider, { store: store, key: 'provider' }, (0, _react.createElement)(_reduxConnect.ReduxAsyncConnect, renderProps));
 

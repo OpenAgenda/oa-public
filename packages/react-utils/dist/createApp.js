@@ -4,10 +4,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _merge3 = require('lodash/merge');
+
+var _merge4 = _interopRequireDefault(_merge3);
+
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.default = function (options) {
-  var _$merge = _lodash2.default.merge({
+  var _merge2 = (0, _merge4.default)({
     routerScroll: true,
     state: {
       settings: {
@@ -18,13 +22,13 @@ exports.default = function (options) {
       res: {}
     }
   }, options),
-      state = _$merge.state,
-      createStore = _$merge.createStore,
-      getRoutes = _$merge.getRoutes,
-      createHistory = _$merge.createHistory,
-      routerScroll = _$merge.routerScroll,
-      ApiClient = _$merge.ApiClient,
-      beforeCreate = _$merge.beforeCreate;
+      state = _merge2.state,
+      createStore = _merge2.createStore,
+      getRoutes = _merge2.getRoutes,
+      createHistory = _merge2.createHistory,
+      routerScroll = _merge2.routerScroll,
+      ApiClient = _merge2.ApiClient,
+      beforeCreate = _merge2.beforeCreate;
 
   var client = new ApiClient(state.settings.apiRoot);
   var browserHistory = (0, _reactRouter.useRouterHistory)(createHistory)();
@@ -93,10 +97,6 @@ var _react2 = _interopRequireDefault(_react);
 var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
 
 var _redux = require('redux');
 

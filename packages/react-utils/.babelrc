@@ -4,6 +4,7 @@
     "es2015"
   ],
   "plugins": [
+    "lodash",
     "add-module-exports",
     "transform-decorators-legacy",
     "transform-react-display-name",

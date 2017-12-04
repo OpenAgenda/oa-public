@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { createElement } from 'react';
 import createHistory from 'react-router/lib/createMemoryHistory';
 import { Provider } from 'react-redux';
@@ -34,6 +35,13 @@ export default function matchAppMw( createStore, getRoutes, ApiClient ) {
           };
 
           loadOnServer( Object.assign( {}, renderProps, { store, helpers: { client, redirect } } ) ).then( () => {
+
+            const reduxConnectState = store.getState().reduxAsyncConnect.loadState;
+            const redirectError = _.find( reduxConnectState, [ 'error.name', 'RedirectError' ] );
+
+            if ( redirectError ) {
+              throw redirectError.error;
+            }
 
             const component = createElement(
               Provider,
