@@ -186,33 +186,38 @@ var Conversation = function () {
 
                 _context.next = 26;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
-                  inbox_id: destinationInbox.data.id,
-                  conversation_id: this.identifiers.id
-                }));
-
-              case 26:
-                _context.next = 28;
-                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
                   inbox_id: this.inbox.data.id,
                   conversation_id: this.identifiers.id
                 }));
 
-              case 28:
-                if (!data.message) {
-                  _context.next = 31;
+              case 26:
+                if (!(this.inbox.data.id !== destinationInbox.data.id)) {
+                  _context.next = 29;
                   break;
                 }
 
-                _context.next = 31;
+                _context.next = 29;
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
+                  inbox_id: destinationInbox.data.id,
+                  conversation_id: this.identifiers.id
+                }));
+
+              case 29:
+                if (!data.message) {
+                  _context.next = 32;
+                  break;
+                }
+
+                _context.next = 32;
                 return (0, _bluebird.resolve)(this.messages.create({
                   body: data.message,
                   userUid: inboxUser.data.userUid
                 }));
 
-              case 31:
+              case 32:
                 return _context.abrupt('return', this.get(options));
 
-              case 32:
+              case 33:
               case 'end':
                 return _context.stop();
             }
@@ -230,7 +235,7 @@ var Conversation = function () {
     key: 'get',
     value: function () {
       var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(options) {
-        var row, result, creatorInboxId, fromOrTo, actions;
+        var row, result, creatorInboxId;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -276,7 +281,7 @@ var Conversation = function () {
                 result = _context2.sent;
 
                 if (result.resolvedAt) {
-                  _context2.next = 25;
+                  _context2.next = 23;
                   break;
                 }
 
@@ -285,24 +290,22 @@ var Conversation = function () {
 
               case 19:
                 creatorInboxId = _context2.sent.data.inboxId;
-                fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
-                actions = _lodash2.default.get(_config.types, [result.type, 'actions', fromOrTo]);
 
 
-                result.actions = actions || null;
-                _context2.next = 26;
+                result.actions = this.getAvailableActions(result, creatorInboxId) || null;
+                _context2.next = 24;
                 break;
 
-              case 25:
+              case 23:
                 result.actions = null;
 
-              case 26:
+              case 24:
 
                 this.data = result;
 
                 return _context2.abrupt('return', this);
 
-              case 28:
+              case 26:
               case 'end':
                 return _context2.stop();
             }
@@ -369,7 +372,7 @@ var Conversation = function () {
     key: 'action',
     value: function () {
       var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(code, inboxUser) {
-        var _inboxUser, creatorInboxId, fromOrTo, actions, action, data;
+        var _inboxUser, creatorInboxId, actions, action, data;
 
         return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
@@ -398,20 +401,19 @@ var Conversation = function () {
                 throw new _verror2.default('Inbox user %j not found', _inboxUser.identifiers);
 
               case 10:
-                fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
-                actions = _lodash2.default.get(_config.types, [this.data.type, 'actions', fromOrTo]) || [];
+                actions = this.getAvailableActions(this.data, creatorInboxId) || [];
                 action = actions.find(function (v) {
                   return v && v.code === code;
                 });
 
                 if (action) {
-                  _context4.next = 15;
+                  _context4.next = 14;
                   break;
                 }
 
                 throw new _verror2.default('This action (%s) doesn\'t exist for a conversation of type %s (%j)', code, this.data.type, this.identifiers);
 
-              case 15:
+              case 14:
                 data = {
                   store: (0, _extends3.default)({}, this.data.store, {
                     resolvedWith: code,
@@ -421,7 +423,7 @@ var Conversation = function () {
                     }
                   })
                 };
-                _context4.next = 18;
+                _context4.next = 17;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.conversation).update((0, _extends3.default)({}, _mapper2.default.toDb(_conversationFieldsMap2.default, 'update', data, { protected: false }), {
                   updated_at: new Date(),
                   resolved_at: new Date()
@@ -429,33 +431,33 @@ var Conversation = function () {
                   return _config.schemas.conversation + '.' + key;
                 })).andWhere(_config.schemas.inboxConversation + '.inbox_id', this.inbox.data.id));
 
-              case 18:
-                _context4.prev = 18;
-                _context4.next = 21;
+              case 17:
+                _context4.prev = 17;
+                _context4.next = 20;
                 return (0, _bluebird.resolve)(_config.interfaces.onAction(this.data, action));
 
-              case 21:
-                _context4.next = 26;
+              case 20:
+                _context4.next = 25;
                 break;
 
-              case 23:
-                _context4.prev = 23;
-                _context4.t0 = _context4['catch'](18);
+              case 22:
+                _context4.prev = 22;
+                _context4.t0 = _context4['catch'](17);
 
                 log.error(new _verror2.default({
                   cause: _context4.t0,
                   info: { conversation: this, code: code }
                 }, 'Error in onAction interface'));
 
-              case 26:
+              case 25:
                 return _context4.abrupt('return', this.get());
 
-              case 27:
+              case 26:
               case 'end':
                 return _context4.stop();
             }
           }
-        }, _callee4, this, [[18, 23]]);
+        }, _callee4, this, [[17, 22]]);
       }));
 
       function action(_x6, _x7) {
@@ -584,6 +586,24 @@ var Conversation = function () {
 
       return _getInboxUser;
     }()
+  }, {
+    key: 'getAvailableActions',
+    value: function getAvailableActions(conversation, creatorInboxId) {
+      var _this = this;
+
+      var fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
+      var bothSide = conversation.inboxes.every(function (v) {
+        return v.id === _this.inbox.data.id;
+      });
+      var actions = _lodash2.default.get(_config.types, [conversation.type, 'actions', fromOrTo]);
+
+      if (bothSide) {
+        var otherSideActions = _lodash2.default.get(_config.types, [conversation.type, 'actions', fromOrTo === 'from' ? 'to' : 'from']);
+        actions = Array.isArray(actions) ? actions.concat(otherSideActions) : otherSideActions;
+      }
+
+      return actions;
+    }
   }, {
     key: 'toJSON',
     value: function toJSON() {

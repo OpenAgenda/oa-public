@@ -78,14 +78,16 @@ export default class Conversation {
     this.identifiers = { id: insertedId };
 
     await knex( schemas.inboxConversation ).insert( {
-      inbox_id: destinationInbox.data.id,
-      conversation_id: this.identifiers.id
-    } );
-
-    await knex( schemas.inboxConversation ).insert( {
       inbox_id: this.inbox.data.id,
       conversation_id: this.identifiers.id
     } );
+
+    if ( this.inbox.data.id !== destinationInbox.data.id ) {
+      await knex( schemas.inboxConversation ).insert( {
+        inbox_id: destinationInbox.data.id,
+        conversation_id: this.identifiers.id
+      } );
+    }
 
     if ( data.message ) {
       await this.messages.create( {
@@ -155,10 +157,7 @@ export default class Conversation {
     if ( !result.resolvedAt ) {
       const creatorInboxId = (await this._getInboxUser( result.creatorInboxUserId )).data.inboxId;
 
-      const fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
-      const actions = _.get( types, [ result.type, 'actions', fromOrTo ] );
-
-      result.actions = actions || null;
+      result.actions = this.getAvailableActions( result, creatorInboxId ) || null;
     } else {
       result.actions = null;
     }
@@ -219,8 +218,7 @@ export default class Conversation {
       throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
     }
 
-    const fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
-    const actions = _.get( types, [ this.data.type, 'actions', fromOrTo ] ) || [];
+    const actions = this.getAvailableActions( this.data, creatorInboxId ) || [];
     const action = actions.find( v => v && v.code === code );
 
     if ( !action ) {
@@ -303,6 +301,19 @@ export default class Conversation {
     }
 
     return inboxUser;
+  }
+
+  getAvailableActions( conversation, creatorInboxId ) {
+    const fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
+    const bothSide = conversation.inboxes.every( v => v.id === this.inbox.data.id );
+    let actions = _.get( types, [ conversation.type, 'actions', fromOrTo ] );
+
+    if ( bothSide ) {
+      const otherSideActions = _.get( types, [ conversation.type, 'actions', fromOrTo === 'from' ? 'to' : 'from' ] );
+      actions = Array.isArray( actions ) ? actions.concat( otherSideActions ) : otherSideActions;
+    }
+
+    return actions;
   }
 
   toJSON() {
