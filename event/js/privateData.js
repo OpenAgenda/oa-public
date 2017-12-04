@@ -110,7 +110,7 @@ module.exports = function ( options ) {
           prefix: window.location.pathname,
           focusFistConversation: simpleUser, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
-          allowCreateConversation: false, // hide creation button
+          allowCreateConversation: !simpleUser, // hide creation button
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
@@ -122,8 +122,7 @@ module.exports = function ( options ) {
               eventTitle: params.title
             }
           },
-          TitleComponent: 'h3',
-          Wrapper: ( { children } ) => <div className="event-secondary inbox">{children}</div>,
+          TitleComponent: 'h4',
           ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
@@ -131,7 +130,8 @@ module.exports = function ( options ) {
           author: resBasePath + '/inbox/author.json',
           conversations: {
             list: resBasePath + '/inbox/conversations.json',
-            create: resBasePath + '/inbox/conversations.json'
+            create: resBasePath + '/inbox/conversations.json',
+            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json'
           },
           messages: {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
@@ -145,6 +145,12 @@ module.exports = function ( options ) {
           uid: params.uid
         }
       },
+    }, () => {
+
+      const canvasElem = document.querySelector( '.js_inbox_event_canvas' );
+
+      canvasElem.classList.remove( 'display-none' );
+
     } );
 
   }
