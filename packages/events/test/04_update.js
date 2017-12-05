@@ -203,7 +203,11 @@ describe( 'events - functional (server): update', function() {
           onUpdate: {
             $set: ( before, after, context ) => {
 
-              context.should.eql( { userUid: 12, agendaUid: null } );  
+              context.should.eql( {
+                userUid: 12,
+                agendaUid: null,
+                transferToLegacy: false
+              } );  
 
               done();
 
@@ -213,7 +217,7 @@ describe( 'events - functional (server): update', function() {
       } ) );
 
       svc.update( id, {
-        "conditions" : "Its free!"
+        conditions : 'Its free!'
       }, { context: { userUid: 12 } }, ( err, result ) => {} );
 
     } );

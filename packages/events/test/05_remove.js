@@ -88,7 +88,8 @@ describe( 'events - functional (server): remove', function() {
 
               context.should.eql( {
                 userUid: 12345678,
-                agendaUid: null
+                agendaUid: null,
+                tranferToLegacy: false
               } );
 
               cb();
@@ -115,7 +116,8 @@ describe( 'events - functional (server): remove', function() {
 
               context.should.eql( {
                 userUid: 12345678,
-                agendaUid: null
+                agendaUid: null,
+                transferToLegacy: false
               } );
 
               done();

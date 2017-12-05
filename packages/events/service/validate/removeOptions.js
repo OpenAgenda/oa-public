@@ -7,7 +7,7 @@ schema.register( {
   boolean: require( '@openagenda/validators/boolean' )
 } );
 
-module.exports = schema( {
+const validate = schema( {
   transferToLegacy: {
     type: 'boolean',
     default: false
@@ -22,6 +22,20 @@ module.exports = schema( {
       type: 'integer',
       optional: true,
       default: null
+    },
+    transferToLegacy: {
+      type: 'boolean',
+      default: false
     }
   }
 } );
+
+module.exports = values => {
+
+  const clean = validate( values );
+
+  clean.context.transferToLegacy = clean.transferToLegacy;
+
+  return clean;
+
+}
