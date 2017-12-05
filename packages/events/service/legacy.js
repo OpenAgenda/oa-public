@@ -1,24 +1,19 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
+const knexLib = require( 'knex' );
+const moment = require( 'moment-timezone' );
+const { promisify } = require( 'util' );
+const VError = require( 'verror' );
 const w = require( 'when' );
-
 const wn = require( 'when/node' );
 
-const knexLib = require( 'knex' );
-
 const logger = require( '@openagenda/basic-logger' );
-
-const eventUtils = require( '../utils' );
-
-const getEvent = require( './get' );
-
-const validate = require( './validate' );
-
 const sUtils = require( '@openagenda/service-utils' );
 
-const moment = require( 'moment-timezone' );
+const eventUtils = require( '../utils' );
+const getEvent = require( './get' );
+const validate = require( './validate' );
 
 let knex, schemas, service, log = console.log;
 
@@ -26,11 +21,40 @@ module.exports = Object.assign( {
   init,
   get,
   transfer,
-  transferToLegacy
+  update,
+  remove
 } );
 
 
-async function transferToLegacy( identifiers, options ) {
+async function remove( identifiers ) {
+
+  const legacyEvent = _.first( await wn.call( get, identifiers, { internal: true, private: null } ) );
+
+  if ( !legacyEvent ) {
+
+    throw new VError( 'event of identifiers %j was not found and could not be removed from legacy', identifiers );
+
+  }
+
+  const deletedEntries = await knex( schemas.event ).delete().where( 'id', legacyEvent.id );
+
+  const deletedRecord = await knex( schemas.deleted ).insert( {
+    deleted_id: legacyEvent.id,
+    uid: legacyEvent.uid,
+    type: 'Event',
+    deleted_at: new Date,
+    store: JSON.stringify( legacyEvent )
+  } );
+
+  return {
+    success: deletedEntries===1,
+    deleted: deletedEntries,
+    insertedInDeletedLog: deletedRecord.length === 1
+  }
+
+}
+
+async function update( identifiers, options ) {
 
   const event = await getEvent( identifiers, _.extend( {}, options, { internal: true } ) );
 
@@ -274,6 +298,12 @@ function get( identifiers, options, cb ) {
 
   .done( v => {
 
+    if ( !v.entries.event ) {
+
+      return cb( null, null );
+
+    }
+
     cb( null, v.clean ? v.clean : v.data, {
       entries: v.entries,
       valid: !!v.clean,
@@ -348,6 +378,8 @@ function _revalidate( v ) {
 
 
 function _getOwner( v ) {
+
+  if ( !v.entries.event ) return v;
 
   return knex( schemas.user )
 
@@ -537,6 +569,8 @@ function _getAgendas( v ) {
 
 function _getAgendaEvents( v ) {
 
+  if ( !v.entries.event ) return v;
+
   return knex( schemas.agendaEvent )
 
   .select( v.fields.agendaEvent )
@@ -593,6 +627,8 @@ function _getEventLocationTranslations( v ) {
 
 function _getEventLocation( v ) {
 
+  if ( !v.entries.event ) return v;
+
   return knex( schemas.eventLocation )
 
   .select( v.fields.eventLocation )
@@ -623,6 +659,8 @@ function _getEventLocation( v ) {
 
 
 function _getEventTranslations( v ) {
+
+  if ( !v.entries.event ) return v;
 
   return knex( schemas.eventTranslation )
 
@@ -834,7 +872,8 @@ async function _updateLegacy( eventId, entries ) {
   return {
     inserted,
     updated,
-    removed
+    removed,
+    success: true
   }
 
 }
@@ -908,6 +947,7 @@ async function _createLegacy( entries ) {
   inserted.eventLocationTranslations = await _insertEventLocationTranslations( inserted.eventLocation.id, entries.eventLocationTranslations );
 
   return {
+    success: true,
     inserted
   }
 

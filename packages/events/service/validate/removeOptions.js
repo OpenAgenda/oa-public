@@ -8,6 +8,10 @@ schema.register( {
 } );
 
 module.exports = schema( {
+  transferToLegacy: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     userUid: {
       type: 'integer',

@@ -24,6 +24,10 @@ module.exports = schema( {
     type: 'boolean',
     default: false
   },
+  transferToLegacy: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     userUid: {
       type: 'integer',

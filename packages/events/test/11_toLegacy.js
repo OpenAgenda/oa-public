@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
 const knexLib = require( 'knex' );
+const wn = require( 'when/node' );
 
 const config = require( '../testconfig' );
 const svc = require( './service' );
@@ -33,19 +34,20 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       config.legacy.schemas.eventLocationTranslation,
       config.legacy.schemas.agendaEvent,
       config.legacy.schemas.user,
-      config.legacy.schemas.agenda
+      config.legacy.schemas.agenda,
+      config.legacy.schemas.deleted
     ], { reset: true }, done );
 
   } );
 
   after( svc.shutdown );
 
-  //after( done => knex.destroy( done ) );
+  after( done => knex.destroy( done ) );
 
 
   it( 'transfer to legacy structure creates legacy event if non-existant', async () => {
 
-    const { inserted } = await svc.legacy.transferToLegacy( { uid: 2875149 } );
+    const { inserted } = await svc.legacy.update( { uid: 2875149 } );
 
     inserted.event.uid.should.equal( 2875149 );
 
@@ -69,7 +71,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       }
     } );
 
-    await svc.legacy.transferToLegacy( { uid } );
+    await svc.legacy.update( { uid } );
 
     const legacyEventEntry = await knex( config.legacy.schemas.event ).first().where( { uid } );
 
@@ -88,7 +90,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     await svc.update( { uid }, { slug: 'a-new-slug' } );
 
-    await svc.legacy.transferToLegacy( { uid } );
+    await svc.legacy.update( { uid } );
 
     const eventEntry = await knex( config.legacy.schemas.event ).first().where( { uid } );
 
@@ -108,7 +110,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       end: new Date( '2017-12-26T12:00:00+0100' )
     } ] } );
 
-    const result = await svc.legacy.transferToLegacy( { uid } );
+    const result = await svc.legacy.update( { uid } );
 
     const occurrenceEntries = await knex( config.legacy.schemas.occurrence ).where( { event_id: eventId } ); 
 
@@ -123,6 +125,141 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     JSON.stringify( occurrenceEntries[ 0 ].date ).should.eql( '"2017-12-26T00:00:00.000Z"' );
 
+  } );
+
+
+  it( 'legacy event can be removed altogether', async () => {
+
+    const result = await svc.legacy.remove( { uid: 2875149 } );
+
+    result.should.eql( {
+      success: true,
+      deleted: 1,
+      insertedInDeletedLog: true
+    } );
+
+  } );
+
+
+  it( 'deleted legacy event records entry in legacy deleted table', async () => {
+
+    const uid = 2875149;
+
+    await svc.legacy.update( { uid } );
+
+    await svc.legacy.remove( { uid } );
+
+    const deletedLog = await knex( config.legacy.schemas.deleted ).first().where( { type: 'Event', uid } );
+
+    _.keys( deletedLog ).should.eql( [ 'id', 'uid', 'type', 'deleted_at', 'store', 'deleted_id' ] );
+
+    _.pick( deletedLog, [ 'uid', 'type' ] ).should.eql( {
+      uid,
+      type: 'Event'
+    } );
+
+  } );
+
+
+  it( 'transfer to legacy can be done after a create', async () => {
+
+    const { event } = await svc.create( {
+      title: { fr: 'Kevin fait de l\'install' },
+      timings: [ {
+        begin: new Date,
+        end: new Date
+      } ],
+      locationUid: 67886698
+    }, {
+      transferToLegacy: true
+    } );
+
+    const legacyEvent = _.first( await wn.call( svc.legacy.get, { uid: event.uid } ) );
+
+    legacyEvent.uid.should.equal( event.uid );
+
+  } );
+
+
+  it( 'transfer to legacy is not done after a create if option is not explicited', async () => {
+
+    const { event } = await svc.create( {
+      title: { fr: 'Kevin fait encore de l\'install' },
+      timings: [ { begin: new Date, end: new Date } ],
+      locationUid: 67886698
+    } );
+
+    const legacyEvent = _.first( await wn.call( svc.legacy.get, { uid: event.uid } ) );
+
+    should( legacyEvent ).equal( undefined );
+
+  } );
+
+
+  it( 'transfer to legacy can be done after an update', async () => {
+
+    const uid = 2875149;
+
+    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
+
+    await svc.update( { uid }, {
+      title: {
+        en: 'Naaaaa ssivenniaaaa ababi dimanaaa'
+      }
+    }, { transferToLegacy: true } );
+
+    const legacyEvent = _.first( await wn.call( svc.legacy.get, { uid } ) );
+
+    legacyEvent.title.en.should.equal( 'Naaaaa ssivenniaaaa ababi dimanaaa' );
+
+  } );
+
+
+  it( 'transfer to legacy is not done after an update by default', async () => {
+
+    const uid = 2875149;
+
+    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
+
+    await svc.update( { uid }, {
+      title: {
+        en: 'When the sun rises high in the safire sky'
+      }
+    } );
+
+    const legacyEvent = _.first( await wn.call( svc.legacy.get, { uid } ) );
+
+    legacyEvent.title.should.not.eql( { en: 'When the sun rises high in the safire sky' } );
+
+  } );
+
+
+  it( 'a delete does not transfer to legacy unless option is set', async () => {
+
+    const uid = 59481036;
+
+    const result = await svc.legacy.update( { uid } ); // ensure event is present in legacy
+
+    await svc.remove( { uid } );
+
+    const deletedLog = await knex( config.legacy.schemas.deleted ).first().where( { type: 'Event', uid } );
+
+    should( deletedLog ).equal( undefined );
+
+  } );
+
+
+  it( 'transfer to legacy can be done after a delete', async () => {
+
+    const uid = 2875149;
+
+    await svc.legacy.update( { uid } ); // ensure event is present in legacy
+
+    await svc.remove( { uid }, { transferToLegacy: true } );
+
+    const deletedLog = await knex( config.legacy.schemas.deleted ).first().where( { type: 'Event', uid } );
+
+    deletedLog.uid.should.equal( uid );
 
   } );
 

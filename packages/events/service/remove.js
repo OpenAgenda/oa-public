@@ -38,6 +38,8 @@ function remove( i, o, c ) {
 
     .then( _doRemove )
 
+    .then( _transferToLegacy )
+
     .then( _callInterface )
 
   if ( cb === null ) return p;
@@ -79,6 +81,25 @@ function _doRemove( v ) {
     return v;
 
   } );
+
+}
+
+
+function _transferToLegacy( v ) {
+
+  if ( !v.options.transferToLegacy ) return v;
+
+  if ( !v.success ) return v;
+
+  return service.legacy.remove( { uid: v.event.uid } )
+
+    .then( ( { success } ) => {
+
+      v.transferedToLegacy = !!success;
+
+      return v;
+
+    } );
 
 }
 

@@ -115,6 +115,12 @@ Get detailed data on a specific event
 
 Create an event.
 
+    await service.create( identifiers, data, [ options ]);
+
+or
+
+    service.create( identifiers, data, [ options ], ( err, result ) => {} );
+
 When successful, returns an object iwith the following keys:
 
     {
@@ -124,6 +130,19 @@ When successful, returns an object iwith the following keys:
       errors // validation errors or empty array
     }
 
+###Arguments
+
+ * **identifiers**: if set, a create is attempted. Either an id or an object containing uid, slug or id
+ * **data**: data for the create / update. Best see set tests and event validator structure for details
+ * **options**: see below
+
+### Options
+
+ * **protected**: if true, protected values can be set. defaults at false. See database map file for list of protected values
+ * **internal**: if true, internal values are included in result
+ * **includeImagePath**: if true, includes image path in result
+ * **draft**: if true, validates and sets a draft event. If false, validates and sets a published event. If null, draft value is deduced from data completeness. Default is true.
+ * **transferToLegacy**: if true, replicates data in legacy tables
 
 ## Set - deprecated
 Create or update an event
@@ -141,18 +160,8 @@ Create or update an event
 
     } );
  
-###Arguments
 
- * **identifiers**: if set, a create is attempted. Either an id or an object containing uid, slug or id
- * **data**: data for the create / update. Best see set tests and event validator structure for details
- * **options**: see below
 
-###Options
-
-* **protected**: if true, protected values can be set. defaults at false. See database map file for list of protected values
-* **internal**: if true, internal values are included in result
-* **includeImagePath**: if true, includes image path in result
-* **draft**: if true, validates and sets a draft event. If false, validates and sets a published event. If null, draft value is deduced from data completeness. Default is true.
 
 ## Remove
 Delete an event ( soft delete, sets deleted_at field to now  )

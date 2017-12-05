@@ -1,31 +1,23 @@
 
 "use strict";
 
-const w = require( 'when' ),
+const _ = require( 'lodash' );
+const w = require( 'when' );
 
-  _ = require( 'lodash' ),
+const logger = require( '@openagenda/basic-logger' );
+const slugs = require( '@openagenda/slugs' );
 
-  slugs = require( '@openagenda/slugs' ),
+const cleanCreateArgs = require( './lib/cleanCreateArgs' );
+const cleanCreateOptions = require( './validate/createOptions' );
+const draft = require( './lib/draft.w' );
+const get = require( './lib/get.w' );
+const map = require( './databaseFieldMap' );
+const now = require( './lib/now.w' );
+const transferToLegacy = require( './lib/transferToLegacy.w' );
+const unique = require( './lib/unique.w' );
+const validate = require( './lib/validate.w' );
 
-  get = require( './lib/get.w' ),
-
-  now = require( './lib/now.w' ),
-
-  logger = require( '@openagenda/basic-logger' ),
-
-  draft = require( './lib/draft.w' ),
-
-  unique = require( './lib/unique.w' ),
-
-  map = require( './databaseFieldMap' ),
-
-  validate = require( './lib/validate.w' ),
-
-  cleanCreateArgs = require( './lib/cleanCreateArgs' ),
-
-  cleanCreateOptions = require( './validate/createOptions' ),
-
-  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 
@@ -48,7 +40,8 @@ module.exports = _.extend( function( d, o, c ) {
     created: null,
     errors: [],
     identifiers: null,
-    success: false
+    success: false,
+    transferedToLegacy: false
   } ) )
 
     .then( _verifyUniqueUidIfSet )
@@ -73,6 +66,8 @@ module.exports = _.extend( function( d, o, c ) {
     .then( validate( { target: 'data', log } ) )
 
     .then( _doCreate )
+
+    .then( cleanOptions.transferToLegacy ? transferToLegacy.bind( null, service ) : v => v )
 
     .then( get( {
       log,
@@ -120,7 +115,8 @@ function _cleanResult( v ) {
     event: v.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
     valid: !v.errors.length,
     success: v.success,
-    errors: v.errors
+    errors: v.errors,
+    transferedToLegacy: v.transferedToLegacy
   }
 
 }

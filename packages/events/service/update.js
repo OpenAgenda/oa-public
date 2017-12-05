@@ -1,32 +1,25 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const w = require( 'when' );
 
-  w = require( 'when' ),
+const logger = require( '@openagenda/basic-logger' );
 
-  get = require( './lib/get.w' ),
+const cleanUpdateOptions = require( './validate/updateOptions' );
+const cleanUpdateArgs = require( './lib/cleanUpdateArgs' );
+const draft = require( './lib/draft.w' );
+const get = require( './lib/get.w' );
+const map = require( './databaseFieldMap' );
+const now = require( './lib/now.w' );
+const transferToLegacy = require( './lib/transferToLegacy.w' );
+const unique = require( './lib/unique.w' );
+const validate = require( './lib/validate.w' );
 
-  now = require( './lib/now.w' ),
-
-  draft = require( './lib/draft.w' ),
-
-  logger = require( '@openagenda/basic-logger' ),
-
-  unique = require( './lib/unique.w' ),
-
-  map = require( './databaseFieldMap' ),
-
-  validate = require( './lib/validate.w' ),
-
-  cleanUpdateArgs = require( './lib/cleanUpdateArgs' ),
-
-  cleanUpdateOptions = require( './validate/updateOptions' ),
-
-  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 
-module.exports = _.extend( function( i, d, o, c ) {
+module.exports = _.extend( ( i, d, o, c ) => {
 
   const { identifiers, data, options, cb } = cleanUpdateArgs( i, d, o, c );
 
@@ -48,7 +41,8 @@ module.exports = _.extend( function( i, d, o, c ) {
     clean: null, // validated clean data after merge
     updated: null, // get from db after update
     errors: [],  // eventual validation errors
-    success: false
+    success: false,
+    transferedToLegacy: false
   } ) )
 
     .then( get( {
@@ -76,6 +70,8 @@ module.exports = _.extend( function( i, d, o, c ) {
     } ) )
 
     .then( _doUpdate )
+
+    .then( cleanOptions.transferToLegacy ? transferToLegacy.bind( null, service ) : v => v )
 
     .then( get( {
       log,
@@ -132,7 +128,8 @@ function _cleanResult( v ) {
     event: v.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
     valid: !v.errors.length,
     success: v.success,
-    errors: v.errors
+    errors: v.errors,
+    transferedToLegacy: v.transferedToLegacy
   };
 
 }

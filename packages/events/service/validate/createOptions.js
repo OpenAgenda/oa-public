@@ -20,6 +20,10 @@ module.exports = schema( {
     type: 'boolean',
     default: false
   },
+  transferToLegacy: {
+    type: 'boolean',
+    default: false
+  },
   draft: {
     type: 'boolean',
     default: false

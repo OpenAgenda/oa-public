@@ -72,7 +72,8 @@ describe( 'events - functional (server): create', function() {
         },
         valid: true,
         success: true,
-        errors: [] 
+        errors: [] ,
+        transferedToLegacy: false
       } );
 
       done();
@@ -133,6 +134,7 @@ describe( 'events - functional (server): create', function() {
         valid: true,
         success: true,
         errors: [],
+        transferedToLegacy: false,
         event: { 
           slug: 'my-first-event',
           uid: result.event.uid,
