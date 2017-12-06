@@ -1,19 +1,17 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const endpoints = {
   get: require( './service/get' ),
   list: require( './service/list' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
   remove: require( './service/remove' )
-},
+};
 
-  _ = require( 'lodash' );
-
-module.exports = formSchemaId => {
+module.exports = _.extend( formSchemaId => {
 
   return _.mapValues( endpoints, ( v, k ) => v.bind( null, formSchemaId ) );
 
-}
-
-module.exports.init = require( './service/config' ).init;
+}, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ) );

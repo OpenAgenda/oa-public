@@ -8,7 +8,7 @@ const svc = require( '../../' ),
 
 module.exports = svc;
 
-module.exports.initAndLoad = async ( config, files = [ 'custom' ], options = {} ) => {
+module.exports.initAndLoad = async ( config, files = [ 'custom', 'legacy_event', 'agenda', 'legacy_agenda_event', 'legacy_agenda_event_tag' ], options = {} ) => {
 
   const params = _.extend( {
     reset: true
@@ -23,6 +23,18 @@ module.exports.initAndLoad = async ( config, files = [ 'custom' ], options = {} 
     fixtures( [ {
       table: 'custom',
       src: __dirname + '/../../custom.sql'
+    }, {
+      table: 'legacy_event',
+      src: __dirname + '/../fixtures/legacy_event.sql'
+    }, {
+      table: 'agenda',
+      src: __dirname + '/../fixtures/agenda.sql'
+    }, {
+      table: 'legacy_agenda_event',
+      src: __dirname + '/../fixtures/legacy_agenda_event.sql'
+    }, {
+      table: 'legacy_agenda_event_tag',
+      src: __dirname + '/../fixtures/legacy_agenda_event_tag.sql'
     } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), params, err => {
 
       if ( err ) return rj( err );

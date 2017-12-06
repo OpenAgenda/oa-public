@@ -6,11 +6,32 @@ const knexLib = require( 'knex' );
 const logs = require( '@openagenda/logs' );
 
 
+let ownedConnection = false;
+
 const config = {
   knex: null
 };
 
-module.exports = _.extend( config, { init } );
+module.exports = _.extend( config, {
+  init,
+  shutdown,
+  getConfig
+} );
+
+
+function getConfig() {
+
+  return config;
+
+}
+
+function shutdown() {
+
+  if ( !ownedConnection ) return;
+
+  return config.knex.destroy();
+
+}
 
 function init( c ) {
 
@@ -20,6 +41,8 @@ function init( c ) {
       client: 'mysql',
       connection: c.mysql
     } );
+
+    ownedConnection = true;
 
   }
 
@@ -32,7 +55,8 @@ function init( c ) {
   _.extend( config, _.pick( c, [ 
     'knex', 
     'schemas',
-    'interfaces'
+    'interfaces',
+    'legacy'
   ] ) );
 
 }

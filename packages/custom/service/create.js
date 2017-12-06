@@ -1,12 +1,18 @@
 "use strict";
 
+const validateOptions = require( './validators/options' );
 const config = require( './config' );
-
 const get = require( './get' );
+const legacy = require( './legacy' );
 
-module.exports = async ( formSchemaId, identifier, data ) => {
+const log = require( '@openagenda/logs' )( 'create' );
+
+module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   const { knex, schemas, interfaces } = config;
+
+  const cleanOptions = validateOptions( options );
+
 
   if ( !knex ) throw new Error( 'db connector needs to be specified at service init' );
 
@@ -57,6 +63,20 @@ module.exports = async ( formSchemaId, identifier, data ) => {
       updated_at: new Date(),
       store: JSON.stringify( clean )
     } );
+
+    if ( cleanOptions.transferToLegacy ) {
+
+      try {
+
+        await legacy( formSchemaId, identifier, clean );
+
+      } catch ( e ) {
+
+        log( 'error', 'did not sync legacy on create %s.%s', formSchemaId, identifier, e );
+
+      }
+
+    }
 
     return {
       success: true,
