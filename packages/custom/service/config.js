@@ -1,8 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const knexLib = require( 'knex' );
+
+const logs = require( '@openagenda/logs' );
+
 
 const config = {
   knex: null
@@ -18,6 +20,12 @@ function init( c ) {
       client: 'mysql',
       connection: c.mysql
     } );
+
+  }
+
+  if ( c.logger ) {
+
+    logs.setModuleConfig( c.logger );
 
   }
 
