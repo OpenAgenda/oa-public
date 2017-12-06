@@ -21,6 +21,8 @@ schema.register( {
 
 describe( 'extended events - functional (server): create', function() {
 
+  this.timeout( 4000 );
+
   beforeEach( async () => {
 
     await svc.initAndLoad( ih( config, {
