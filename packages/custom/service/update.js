@@ -44,7 +44,9 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   // verify pre-existing
   
-  if ( !await get( formSchemaId, identifier ) ) {
+  const before = await get( formSchemaId, identifier );
+
+  if ( !before ) {
 
     throw new Error( 'entry was not found for %s / %s', formSchemaId, identifier );
 
@@ -76,6 +78,12 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
         log( 'error', 'did not sync legacy on update %s.%s', formSchemaId, identifier, e );
 
       }
+
+    }
+
+    if ( updated && interfaces.onUpdate ) {
+
+      interfaces.onUpdate( before, await get( formSchemaId, identifier ), cleanOptions );
 
     }
 

@@ -78,10 +78,18 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     }
 
+    const created = await get( formSchemaId, identifier );
+
+    if ( interfaces.onCreate ) {
+
+      interfaces.onCreate( created, cleanOptions ); // context is same as options here
+
+    }
+
     return {
       success: true,
       insertId,
-      custom: clean
+      custom: created
     }
 
   } catch ( e ) {

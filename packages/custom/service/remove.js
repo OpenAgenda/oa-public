@@ -17,7 +17,9 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   // verify pre-existing
   
-  if ( !await get( formSchemaId, identifier ) ) {
+  const deletedCustom = await await get( formSchemaId, identifier );
+
+  if ( !deletedCustom ) {
 
     throw new Error( 'entry was not found for %s / %s', formSchemaId, identifier );
 
@@ -35,7 +37,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
         identifier,
       } );
 
-    if ( !!removedCount && cleanOptions.tranferToLegacy ) {
+    if ( removedCount && cleanOptions.tranferToLegacy ) {
 
       try {
 
@@ -46,6 +48,12 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
         log( 'error', 'did not sync legacy on remove %s.%s', formSchemaId, identifier, e );
 
       }
+
+    }
+
+    if ( removedCount && interfaces.onRemove) {
+
+      interfaces.onRemove( deletedCustom, cleanOptions ); // context is same as options here
 
     }
 
