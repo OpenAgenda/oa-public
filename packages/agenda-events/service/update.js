@@ -1,9 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const get = require( './get' );
-const validate = require( '../iso/validate' );
+
 const log = require( '@openagenda/logs' )( 'update' );
+
+const get = require( './get' );
+const legacyTransfer = require( './legacyTransfer' );
+const validate = require( '../iso/validate' );
 const validateOptions = require( './lib/validateOptions' );
 
 let config, knex;
@@ -92,6 +95,12 @@ async function update( agendaUid, eventUid, data, options = {} ) {
   if ( success && config.interfaces.onUpdate ) {
 
     config.interfaces.onUpdate( current, updated, params.context );
+
+  }
+
+  if ( success && params.transferToLegacy ) {
+
+    await legacyTransfer.to( updated );
 
   }
 

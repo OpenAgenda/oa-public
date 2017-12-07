@@ -95,7 +95,8 @@ describe( 'agendaEvents - functional (server): update', function() {
 
             context.should.eql( {
               userUid: 111,
-              agendaUid: null
+              agendaUid: null,
+              transferToLegacy: false
             } );
 
             done();
@@ -108,7 +109,8 @@ describe( 'agendaEvents - functional (server): update', function() {
     svc( 62792452 ).update( 10974548, { featured: true }, {
       context: {
         userUid: 111,
-        agendaUid: null
+        agendaUid: null,
+        transferToLegacy: false
       }
     } );
 

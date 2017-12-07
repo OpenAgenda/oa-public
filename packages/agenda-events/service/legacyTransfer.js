@@ -2,18 +2,14 @@
 
 const _ = require( 'lodash' );
 const validate = require( '../iso/validate' );
-const get = require( './get' );
-const create = require( './create' );
-const update = require( './update' );
-const remove = require( './remove' );
 const VError = require( 'verror' );
 const getLegacyState = require( './lib/getLegacyState' );
 const toLegacyState = require( './lib/toLegacyState' );
 
-let config, knex;
+let config, knex, service;
 
 module.exports = _.extend( legacyTransfer, {
-  init: ( c, k ) => { config = c; knex = k; },
+  init: ( c, k, s ) => { config = c; knex = k; service = s; },
   to: toLegacy,
   remove: removeLegacy
 } );
@@ -127,8 +123,7 @@ async function legacyTransfer( origin, options = {} ) {
 
     result = null;
 
-
-  let current = await get.byLegacyId( origin.agendaId, origin.eventId ),
+  let current = await service.get.byLegacyId( origin.agendaId, origin.eventId ),
 
     values = {
       state: getLegacyState( data.state, data.isPublished ),
@@ -141,19 +136,19 @@ async function legacyTransfer( origin, options = {} ) {
 
   if ( !data && current ) {
 
-    result = await remove.byLegacyId( origin.agendaId, origin.eventId );
+    result = await service.remove.byLegacyId( origin.agendaId, origin.eventId );
 
     result.operation = 'delete';
 
   } else if ( data && !current ) {
 
-    result = await create( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
+    result = await service.create( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
 
     result.operation = 'create';
 
   } else if ( data && ( current.updatedAt < new Date( data.updatedAt ) ) ) {
 
-    result = await update( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
+    result = await service.update( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
 
     result.operation = 'update';
 

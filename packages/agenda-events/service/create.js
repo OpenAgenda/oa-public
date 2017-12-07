@@ -1,12 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
 
-  validate = require( '../iso/validate' ),
-
-  validateOptions = require( './lib/validateOptions' ),
-
-  get = require( './get' );
+const get = require( './get' );
+const legacyTransfer = require( './legacyTransfer' );
+const validate = require( '../iso/validate' );
+const validateOptions = require( './lib/validateOptions' );
 
 let config, knex;
 
@@ -88,6 +87,12 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
   if ( success && config.interfaces.onCreate ) {
 
     config.interfaces.onCreate( created, params.context );
+
+  }
+
+  if ( success && options.transferToLegacy ) {
+
+    await legacyTransfer.to( created );
 
   }
 

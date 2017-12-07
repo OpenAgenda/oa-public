@@ -46,6 +46,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   } );
 
+
   it( 'remove by legacyId', async () => {
 
     let before = await svc( 62792452 ).get( 10974548 );
@@ -61,6 +62,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
     should( after ).equal( null );    
 
   } );
+
 
   it( 'remove by legacyId with eventId only', async () => {
 
@@ -131,7 +133,8 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
             context.should.eql( {
               userUid: 111,
-              agendaUid: null
+              agendaUid: null,
+              transferToLegacy: false
             } );
 
             done();

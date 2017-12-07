@@ -7,10 +7,24 @@ schema.register( {
 
 } );
 
-module.exports = schema( {
+module.exports = values => {
+
+  const clean = validate( values );
+
+  clean.context.transferToLegacy = clean.transferToLegacy;
+
+  return clean;
+
+}
+
+const validate = schema( {
   protected: {
     type: 'boolean',
     default: true
+  },
+  transferToLegacy: {
+    type: 'boolean',
+    default: false
   },
   context: {
     optional: true,

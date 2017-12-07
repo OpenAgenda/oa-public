@@ -53,5 +53,5 @@ module.exports.init = c => {
 
   Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
 
-  module.exports.legacyTransfer.init( config, client );
+  module.exports.legacyTransfer.init( config, client, endpoints );
 }

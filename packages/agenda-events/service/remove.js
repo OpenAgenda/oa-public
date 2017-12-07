@@ -1,13 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const w = require( 'when' );
 
 const get = require( './get' );
-
+const legacyTransfer = require( './legacyTransfer' );
 const listByEventUid = require( './list' ).byEventUid;
-
 const validateOptions = require( './lib/validateOptions' );
 
 let config, knex, queue;
@@ -82,7 +80,7 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 
   return await _remove( {
     legacy_id: [ agendaId, eventId ].join( '.' )
-  }, await get.byLegacyId(  agendaId, eventId ) );
+  }, await get.byLegacyId(  agendaId, eventId ), {} );
 
 }
 
@@ -119,6 +117,12 @@ async function _remove( where, current = null, params = null ) {
   if ( success && config.interfaces.onRemove ) {
 
     config.interfaces.onRemove( current, params !== null ? params.context : null );
+
+  }
+
+  if ( success && params.transferToLegacy ) {
+
+    await legacyTransfer.remove( current );
 
   }
 

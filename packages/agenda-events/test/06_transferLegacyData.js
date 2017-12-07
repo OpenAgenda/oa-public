@@ -2,17 +2,14 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' );
-
+const _ = require( 'lodash' );
+const mysql = require( 'mysql' );
 const should = require( 'should' );
 
-const config = require( '../testconfig.js' );
-
-const mysql = require( 'mysql' );
-
-const _ = require( 'lodash' );
-
 const queue = require( '@openagenda/queue' );
+
+const config = require( '../testconfig.js' );
+const svc = require( './service' );
 
 
 describe( 'transferLegacyData - sample', function() {
