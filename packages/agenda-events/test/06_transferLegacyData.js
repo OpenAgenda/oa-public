@@ -32,7 +32,7 @@ describe( 'transferLegacyData - sample', function() {
       'legacy_event',
       'legacy_user',
       'agenda_event_empty'
-    ], {}, done )
+    ], {}, done );
 
   } );
 

@@ -8,12 +8,86 @@ const update = require( './update' );
 const remove = require( './remove' );
 const VError = require( 'verror' );
 const getLegacyState = require( './lib/getLegacyState' );
+const toLegacyState = require( './lib/toLegacyState' );
 
 let config, knex;
 
 module.exports = _.extend( legacyTransfer, {
-  init: ( c, k ) => { config = c; knex = k; }
+  init: ( c, k ) => { config = c; knex = k; },
+  to: toLegacy,
+  remove: removeLegacy
 } );
+
+
+async function removeLegacy( ae ) {
+
+  const legacyId = await _getLegacyId( ae );
+
+  if ( !legacyId ) return;
+
+  return knex( config.legacy.schemas.agendaEvent ).delete().where( {
+    review_id: legacyId.split( '.' )[ 0 ],
+    event_id: legacyId.split( '.' )[ 1 ]
+  } );
+
+}
+
+
+async function toLegacy( ae ) {
+
+  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+
+  const legacyState = toLegacyState( ae.state ); 
+
+  const data = {
+    state: legacyState.state,
+    is_published: legacyState.isPublished,
+    updated_at: new Date
+  }
+
+  const q = knex( config.legacy.schemas.agendaEvent );
+
+  const legacyId = await _getLegacyId( ae );
+
+  let eventId, agendaId;
+
+  if ( !legacyId ) {
+
+    q.insert( _.extend( {
+      review_id: _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' ),
+      event_id: _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' ),
+      created_at: new Date
+    }, data ) );
+
+  } else {
+
+    q.update( data ).where( {
+      event_id: legacyId.split( '.' )[ 1 ],
+      review_id: legacyId.split( '.' )[ 0 ]
+    } );
+
+  }
+
+  return q;
+
+}
+
+
+async function _getLegacyId( ae ) {
+
+  if ( ae.legacyId ) return ae.legacyId;
+
+  const agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' );
+
+  const eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
+
+  return _.get( await knex( config.legacy.schemas.agendaEvent ).first( 'id' ).where( {
+    event_id: eventId,
+    review_id: agendaId
+  } ), 'id' ) ? agendaId + '.' + eventId : null;  
+
+}
+
 
 async function legacyTransfer( origin, options = {} ) {
 
