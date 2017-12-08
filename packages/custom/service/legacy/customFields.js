@@ -21,7 +21,7 @@ async function set( eventId, fields, data ) {
 
     const { store } = await knex( schemas.event ).first( 'store' ).where( { id: eventId } );
 
-    current = JSON.parse( store );
+    current = JSON.parse( store ) || {};
 
   } catch ( e ) {
 

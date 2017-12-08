@@ -1,11 +1,13 @@
 "use strict";
 
+const VError = require( 'verror' );
+
+const log = require( '@openagenda/logs' )( 'create' );
+
 const validateOptions = require( './validators/options' );
 const config = require( './config' );
 const get = require( './get' );
 const legacy = require( './legacy' );
-
-const log = require( '@openagenda/logs' )( 'create' );
 
 module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
@@ -41,7 +43,6 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
     }
 
   }
-
 
   // verify pre-existing
   
