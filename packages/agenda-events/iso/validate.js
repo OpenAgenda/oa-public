@@ -5,7 +5,8 @@ const schema = require( '@openagenda/validators/schema' );
 const _ = {
   extend: require( 'lodash/extend' ),
   keys: require( 'lodash/keys' ),
-  isObject: require( 'lodash/isObject' )
+  isObject: require( 'lodash/isObject' ),
+  pick: require( 'lodash/pick' )
 }
 
 schema.register( {
@@ -16,19 +17,23 @@ schema.register( {
   text: require( '@openagenda/validators/text' )
 } );
 
-let validate;
+let validate, validateData;
 
 module.exports = _.extend( v => {
 
   if ( !validate ) throw new Error( 'validate not initialized' );
 
-  return validate( _preClean( v ) );
+  return validate( _preClean( v )  );
 
-}, { init } );
+}, { 
+  init, 
+  validateData: v => validateData( _preClean( v ) )
+});
+
 
 function init( { eventStates } ) {
 
-  validate = schema( {
+  const fields = {
     eventUid: {
       type: 'integer',
       optional: false
@@ -61,7 +66,13 @@ function init( { eventStates } ) {
     updatedAt: {
       type: 'date'
     }
-  } );
+  }
+
+  validate = schema( fields );
+
+  validateData = schema( _.pick( fields, [ 'state', 'featured' ] ) );
+
+  module.exports.validateData.fields = validateData.fields;
 
 }
 

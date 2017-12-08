@@ -26,6 +26,8 @@ module.exports.remove = require( './service/remove' ).byEventUid;
 
 module.exports.list = require( './service/list' );
 
+module.exports.validate = endpoints.validate.validateData;
+
 module.exports.init = c => {
 
   const config = _.extend( {
