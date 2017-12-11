@@ -58,7 +58,8 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     }
 
     return {
-      success: !!removedCount
+      success: !!removedCount,
+      removed: deletedCustom
     }
 
   } catch ( e ) {

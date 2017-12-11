@@ -57,6 +57,10 @@ describe( 'extended events - functional (server): remove', function() {
 
     ( await svc( 12 ).remove( 123 ) ).should.eql( {
       success: true,
+      removed: {
+        contender: 'Phteve',
+        edition: 12
+      }
     } );
 
   } );
