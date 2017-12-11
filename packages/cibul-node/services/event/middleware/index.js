@@ -286,6 +286,7 @@ function layoutData( req, res ) {
 
   data.scriptParams = {
     uid: req.formatted.uid,
+    title: utils.escape( req.formatted.title, false ),
     agendaUid: req.agenda ? req.agenda.uid : false,
     ownerUid: req.formatted.owner.uid,
     adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],

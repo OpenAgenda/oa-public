@@ -40,7 +40,6 @@ app.use( '/home/inbox',
             perPageLimit: 20
           },
           res: {
-            inboxHome: '/home/inbox',
             conversations: {
               list: '/home/inbox/conversations',
               action: '/home/inbox/conversations/:conversationId/action/:code'
@@ -80,21 +79,21 @@ app.use( '/:slug/admin/inbox',
             perPageLimit: 20
           },
           res: {
-            inboxHome: '/:slug/admin/inbox',
+            author: '/agendas/:agendaUid/inbox/author.json',
             conversations: {
-              list: '/:slug/admin/inbox/conversations',
-              action: '/:slug/admin/inbox/conversations/:conversationId/action/:code'
+              list: '/agendas/:agendaUid/inbox/conversations.json',
+              action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json'
             },
             messages: {
-              list: '/:slug/admin/inbox/conversations/:conversationId/messages',
-              create: '/:slug/admin/inbox/conversations/:conversationId/messages'
+              list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
+              create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json'
             }
           },
           agenda: req.agenda
         }
       },
       req.baseUrl,
-      getApp( 'inboxes/agendaAdmin' )
+      getApp( 'agendaAdmin/inbox' )
     )( req, res, next );
 
   }

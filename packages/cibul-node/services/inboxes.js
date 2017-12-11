@@ -9,7 +9,6 @@ const agendasSvc = require( '@openagenda/agendas' );
 const config = require( '../config' );
 
 async function getUsersDetails( usersToBeDetailed ) {
-
   if ( usersToBeDetailed.length === 0 ) {
     return [];
   }
@@ -19,12 +18,11 @@ async function getUsersDetails( usersToBeDetailed ) {
     .map( user => ({
       uid: user.uid,
       name: user.fullName,
-      avatar: config.aws.imageBucketPath + user.image
+      avatar: user.image ? config.aws.imageBucketPath + user.image : config.aws.defaultImagePath
     }) );
-};
+}
 
 async function getInboxesDetails( inboxesToBeDetailed ) {
-
   const usersToBeDetailed = inboxesToBeDetailed
     .filter( v => v.type === 'user' )
     .map( v => ({ userUid: v.identifier }) );
@@ -38,22 +36,27 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
       includeImagePath: true,
       useDefaultImage: true
     }
-  ))
-    .map( v => ({
-      uid: v.uid,
-      name: v.title,
-      avatar: v.image
-    }) );
+  ))[ 0 ].map( v => ({
+    uid: v.uid,
+    name: v.title,
+    avatar: v.image || config.aws.defaultImagePath
+  }) );
 
   return [ ...users, ...agendas ];
+}
 
+async function onAction( conversation, action ) {
+  switch ( conversation.type ) {
+    case 'event': {
+      //
+    }
+  }
 }
 
 const interfaces = {
   getUsersDetails,
   getInboxesDetails,
-  onAction: ( conversation, action ) => {
-  }
+  onAction
 };
 
 module.exports.init = async config => {
@@ -64,7 +67,19 @@ module.exports.init = async config => {
       },
       interfaces,
       types: {
-        event: {}
+        event: {
+          actions: {
+            from: null,
+            to: [ {
+              code: 'resolve',
+              label: {
+                fr: 'Terminer',
+                en: 'Terminate'
+              },
+              kind: 'success'
+            } ]
+          }
+        }
       }
     } )
   );

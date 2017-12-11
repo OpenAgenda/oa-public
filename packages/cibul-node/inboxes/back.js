@@ -175,6 +175,12 @@ agendaRouter.get( '/conversations/:conversationId/messages.json',
 );
 
 agendaRouter.post( '/conversations/:conversationId/messages.json',
+  ( req, res, next ) => {
+    req.options = {
+      createInboxUserOnNull: true
+    };
+    next();
+  },
   inboxMw.messages.create( {
     namespaces: {
       conversationId: 'params.conversationId',

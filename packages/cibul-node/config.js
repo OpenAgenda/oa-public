@@ -118,7 +118,8 @@ let config = {
       port: 3306,
       user: 'root',
       password: "V4'&4F:,Mtji'hzq",
-      cache: true
+      cache: true,
+      timezone: 'UTC'
     },
     schemas: {
       activity: 'activity',
@@ -540,7 +541,8 @@ let config = {
       */
       password: 'grut',
       cache: true,
-      //debug: true
+      //debug: true,
+      timezone: 'UTC'
     },
     auth: {
       local: {
@@ -624,7 +626,8 @@ let config = {
       database: 'oatest',
       host: 'localhost',
       user: 'root',
-      password: 'grut'
+      password: 'grut',
+      timezone: 'UTC'
     },
     auth: {
       local: {
