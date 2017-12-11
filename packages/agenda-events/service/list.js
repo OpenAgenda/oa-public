@@ -64,7 +64,7 @@ async function listByUserUid( userUid, offset, limit ) {
 
 }
 
-async function listByEventUid( eventUid, offset, limit ) {
+async function listByEventUid( eventUid, offset = 0, limit = 20 ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
