@@ -2,17 +2,15 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' );
-
-const remove = require( '../service/remove' );
-
-const config = require( '../testconfig' );
-
+const _ = require( 'lodash' );
+const im = require( 'immutability-helper' );
 const should = require( 'should' );
 
-const im = require( 'immutability-helper' );
-
 const queue = require( '@openagenda/queue' );
+
+const config = require( '../testconfig' );
+const remove = require( '../service/remove' );
+const svc = require( './service' );
 
 describe( 'agendaEvents - functional (server): remove', function() {
 
@@ -43,6 +41,13 @@ describe( 'agendaEvents - functional (server): remove', function() {
     before.should.not.equal( null );
 
     should( after ).equal( null );
+
+    _.pick( result.removed, [ 'eventUid', 'agendaUid' ] )
+
+      .should.eql( {
+        eventUid: 10974548,
+        agendaUid: 62792452
+      } );
 
   } );
 

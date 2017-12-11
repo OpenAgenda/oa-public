@@ -127,7 +127,8 @@ async function _remove( where, current = null, params = null ) {
   }
 
   return {
-    success
+    success,
+    removed: current
   }
 
 }
