@@ -8,11 +8,16 @@ agendaSvc = require( '../services/agenda' ),
 
 utils = require( '@openagenda/utils' ),
 
+bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} ),
+
 routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
   emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
   emailStrategieShow: [ 'get', '/', show ],
-  emailStrategiePush: [ 'post', '/push', push ],
+  emailStrategiePush: [ 'post', '/push', [ bodyMw, push ] ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]
 };
 

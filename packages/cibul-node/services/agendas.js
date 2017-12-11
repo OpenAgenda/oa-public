@@ -44,13 +44,17 @@ module.exports.setLog = l => log = l;
 
 function onCreate( channel, agenda, cb ) {
 
-  // legacy elasticsearch needs to index reviews
-  coms.publish( channel, {
-    name: 'agenda.create',
-    values: {
-      id: agenda.id
-    }
-  } );
+  if ( channel ) {
+
+    // legacy elasticsearch needs to index reviews
+    coms.publish( channel, {
+      name: 'agenda.create',
+      values: {
+        id: agenda.id
+      }
+    } );
+
+  }
 
   if ( agenda.settings.contribution.useFields ) {
 
@@ -201,13 +205,17 @@ function onUpdate( channel, before, after, context ) {
 
   }
 
-  coms.publish( channel, {
-    name: 'agenda.update',
-    values: {
-      id: after.id,
-      type: updateType
-    }
-  } );
+  if ( channel ) {
+    
+    coms.publish( channel, {
+      name: 'agenda.update',
+      values: {
+        id: after.id,
+        type: updateType
+      }
+    } );
+
+  }
 
   if ( context && context.user ) {
 

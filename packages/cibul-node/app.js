@@ -2,19 +2,25 @@
 
 const supervisor = require( './lib/supervisor' );
 
-module.exports = ( enabledTypes, cb ) => {
+module.exports = function( enabledTypes, options, cb ) {
 
-  if ( !cb && typeof enabledTypes === 'function' ) {
+  if ( arguments.length === 1 && typeof arguments[ 0 ] === 'function' ) {
 
     cb = enabledTypes;
 
-    enabledTypes = [ 'web' ];
+    enabledTypes = [ 'web' ]
+
+  } else if ( arguments.length === 2 ) {
+
+    cb = options;
+
+    options = {};
 
   }
 
   supervisor( loadTasks => {
 
-    require( './services/init' )( err => {
+    require( './services/init' )( options, err => {
 
       const _ = require( 'lodash' );
       const http = require( 'http' );

@@ -274,6 +274,7 @@ let config = {
       platforms: [
         "youtube",
         "dailymotion",
+        "/day\.ly/",
         "vimeo",
         "soundcloud",
         "twitter\.com\/.+\/status\/[0-9]+$",

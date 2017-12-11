@@ -1,0 +1,256 @@
+"use strict";
+
+process.env.NODE_ENV = 'test';
+
+const _ = require( 'lodash' );
+const knexLib = require( 'knex' );
+const mysql = require( 'mysql' );
+const { promisify } = require( 'util' );
+const fixtures = require( 'fs' ).readFileSync( __dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8' );
+const ih = require( 'immutability-helper' );
+const should = require( 'should' );
+const VError = require( 'verror' );
+
+const events = require( '@openagenda/events' );
+const agendas = require( '@openagenda/agendas' );
+
+const config = require( '../config' );
+const core = require( '../core' );
+
+const testConfig = {
+  queues: {},
+  db: {
+    user: 'root',
+    password: 'grut',
+    database: 'oatest'
+  },
+  redis: {
+    host: 'localhost',
+    port: 6379
+  },
+  schemas: {
+    agenda: 'agenda',
+    eventService: 'event_2',
+    agendaEventService: 'agenda_event',
+    deleted: 'legacy_deleted',
+    event: 'legacy_event',
+    occurrence: 'legacy_occurrence',
+    eventTranslation: 'legacy_event_translation',
+    location: 'location',
+    eventLocation: 'legacy_event_location',
+    eventLocationTranslation: 'legacy_event_location_translation',
+    agendaEvent: 'legacy_agenda_event',
+    agendaEventTag: 'legacy_agenda_event_tag',
+    user: 'user',
+    stakeholder: 'member',
+    stakeholderSettings: 'member_settings'
+  },
+  tmpFolderPath: '/var/tmp',
+  aws: {
+    bucket: 'openagendatest',
+    accessKeyId: config.aws.accessKeyId,
+    secretAccessKey: config.aws.secretAccessKey,
+    defaultImagePath: config.aws.defaultImagePath,
+    imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
+  }
+};
+
+
+
+
+
+describe( 'core - functional ( server ): agenda event create', function() {
+
+  this.timeout( 20000 );
+
+  before( () => {
+
+    testConfig.knex = knexLib( {
+      client: 'mysql',
+      connection: testConfig.db,
+    } );
+
+  } )
+
+  before( async () => {
+
+    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), { 
+      multipleStatements: true 
+    } ) );
+
+    const query = promisify( con.query.bind( con ) );
+
+    const result = await query( fixtures );
+
+    con.end();
+
+  } );
+
+  before( async () => {
+
+    await core.init( testConfig, {
+      enabled: [
+        'events',
+        'agendas',
+        'agendaEvents',
+        'agendaStakeholders',
+        'formSchemas',
+        'custom'
+      ]
+    } );
+
+  } );
+
+  after( () => {
+
+    return testConfig.knex.destroy();
+
+  } );
+
+  describe( 'successful creates', () => {
+
+    let event,
+
+      eventServiceConfig,
+
+      onCreateCalls = [];
+
+    before( () => {
+
+      eventServiceConfig = events.getConfig();
+
+      events.init( ih( eventServiceConfig, {
+        interfaces: {
+          onCreate: {
+            $set: function( event, context ) {
+
+              onCreateCalls.push( arguments );
+
+            }
+          }
+        }
+      } ) );
+
+    } );
+
+    before( async () => {
+
+      const result = await core.agendas( 17026855 ).events.create( {
+        slug: 'un-event',
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+      event = result.created.event;
+
+    } );
+
+    it( 'adds event to event service', async () => {
+
+      const fetched = await events.get( { uid: event.uid } );
+
+      fetched.should.ok;
+
+    } );
+
+    it( 'adds event to legacy event structure', done => {
+
+      events.legacy.get( { uid: event.uid }, ( err, legacyEvent ) => {
+
+        legacyEvent.slug.should.equal( event.slug );
+
+        legacyEvent.uid.should.equal( event.uid );
+
+        legacyEvent.title.should.eql( event.title );
+
+        done();
+
+      } );
+
+    } );
+
+
+    describe( 'legacy custom data', () => {
+
+      let legacyAgendaEvent, agenda, legacyEvent;
+
+      before( done => {
+
+        // should do a promise
+        events.legacy.get( { uid: event.uid }, ( err, le ) => {
+
+          legacyEvent = le;
+
+          // should do here too
+          agendas.get( { uid: 17026855 }, { internal: true }, ( err, a ) => {
+
+            agenda = a;
+
+            testConfig.knex( 'legacy_agenda_event' ).first().where( {
+              event_id: legacyEvent.id, 
+              review_id: agenda.id
+            } ).then( l => {
+
+              legacyAgendaEvent = l;
+
+              done();
+
+            } );
+
+          } );
+
+        } );
+
+      } );
+
+      it( 'adds legacy category reference', () => {
+
+        legacyAgendaEvent.category_id.should.not.equal( null );  
+
+      } );
+
+      it( 'adds legacy record for agenda-event ( review_article )', () => {
+
+        _.pick( legacyAgendaEvent, [ 'review_id', 'event_id', 'state', 'is_published' ] ).should.eql( {
+          review_id: agenda.id,
+          event_id: legacyEvent.id,
+          state: 2,
+          is_published: 1
+        } );
+
+      } );
+
+      it( 'adds legacy record for tags', async () => {
+
+        let record = await testConfig.knex( 'legacy_agenda_event_tag' ).first().where( {
+          review_article_id: legacyAgendaEvent.id
+        } );
+
+        record.should.be.ok;
+
+      } );
+
+    } );
+
+    it( 'calls onCreate interface once', () => {
+
+      onCreateCalls.length.should.equal( 1 );
+
+    } );
+
+    it( 'onCreate interface gets context', () => {
+
+      onCreateCalls[ 0 ][ 1 ].transferToLegacy.should.equal( true );
+
+    } );
+
+  } );
+
+} );

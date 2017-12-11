@@ -1,16 +1,35 @@
 "use strict";
 
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
+
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const fs = require( 'fs' );
 const VError = require( 'verror' );
 const w = require( 'when' );
-const fs = require( 'fs' );
-const async = require( 'async' );
+
 const logs = require( '@openagenda/logs' );
 const logger = require( '@openagenda/logger' );
+const validators = require( '@openagenda/validators' );
+const schema = require( '@openagenda/validators/schema' );
+
+schema.register( {
+  pass: require( '@openagenda/validators/pass' )
+} );
+
+const validateOptions = schema( {
+  enabled: {
+    list: true,
+    type: 'pass'
+  }
+} );
 
 let log;
 
 
-module.exports = function ( config, cb ) {
+module.exports = function ( config, options, cb ) {
 
   let t = new Date;
 
@@ -19,17 +38,26 @@ module.exports = function ( config, cb ) {
 
     cb = config;
     config = require( '../config' );
+    options = {};
 
   } else if ( arguments.length === 0 ) {
 
     config = require( '../config' );
     cb = () => {};
 
+  } else if ( arguments.length === 2 ) {
+
+    cb = options;
+    config = require( '../config' );
+    options = {};
+
   }
+
+  const cleanOptions = validateOptions( options );
 
   // init logger
 
-  logger.init( config.logger );
+  if ( config.logger ) logger.init( config.logger );
 
   logs.init( {
     debug: {
@@ -47,7 +75,7 @@ module.exports = function ( config, cb ) {
 
     if ( err ) return cb( err );
 
-    async.eachSeries( services, _init.bind( null, config ), err => {
+    async.eachSeries( services, _init.bind( null, config, cleanOptions ), err => {
 
       if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
 
@@ -65,13 +93,19 @@ module.exports = function ( config, cb ) {
 module.exports.initless = true;
 
 
-function _init( config, fileOrFolderName, cb ) {
+function _init( config, options, fileOrFolderName, cb ) {
 
   let t = new Date();
 
   const name = fileOrFolderName.split( '.' )[ 0 ];
 
   let service = require( __dirname + '/' + name );
+
+  if ( options.enabled.length && !options.enabled.includes( name ) ) {
+
+    return cb();
+
+  }
 
   if ( service.initless ) {
 

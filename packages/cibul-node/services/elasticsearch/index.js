@@ -418,7 +418,7 @@ function _clean( query, params ) {
 
     if ( query[ name ] ) clean[ name ] = query[ name ];
 
-  });
+  } );
 
   return clean;
 
