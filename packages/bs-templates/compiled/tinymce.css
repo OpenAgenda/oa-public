@@ -1414,12 +1414,12 @@ output {
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
   .form-control::-moz-placeholder {
-    color: silver;
+    color: rgba(128, 128, 128, 0.8);
     opacity: 1; }
   .form-control:-ms-input-placeholder {
-    color: silver; }
+    color: rgba(128, 128, 128, 0.8); }
   .form-control::-webkit-input-placeholder {
-    color: silver; }
+    color: rgba(128, 128, 128, 0.8); }
   .form-control[disabled], .form-control[readonly],
   fieldset[disabled] .form-control {
     background-color: #eeeeee;
@@ -9581,5 +9581,5 @@ i.mce-i-backcolor {
   padding-right: 1px; }
 
 .mce-tinymce .mce-edit-area label {
-  color: silver !important;
+  color: rgba(128, 128, 128, 0.8) !important;
   pointer-events: none; }
