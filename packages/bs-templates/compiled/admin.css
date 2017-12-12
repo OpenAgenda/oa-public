@@ -8856,18 +8856,21 @@ a.text-success {
     display: block;
     opacity: 1;
     right: -122px;
-    min-width: 120px;
-    top: -1px; }
+    min-width: 120px; }
+    .official:hover .tooltip.right {
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 15px; }
     .official:hover .tooltip .tooltip-inner {
       background-color: #413a42; }
-    .official:hover .tooltip .tooltip-arrow {
+    .official:hover .tooltip.right .tooltip-arrow {
       border-right-color: #413a42; }
   .official.big .tooltip {
     top: 3px; }
     .official.big .tooltip .tooltip-inner {
       background-color: #fff;
       color: #413a42; }
-    .official.big .tooltip .tooltip-arrow {
+    .official.big .tooltip.right .tooltip-arrow {
       border-right-color: #fff; }
 
 i.golden-icon {

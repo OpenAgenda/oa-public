@@ -19,20 +19,12 @@
     font-size: 1.1em;
     vertical-align: middle;
 
-    &:hover {
-      
-    }
-
   }
 
   &.big i {
 
     font-size: 2em;
     background-position: -14px 0;
-
-    &:hover {
-      
-    }
 
   }
 
@@ -42,13 +34,19 @@
     opacity: 1;
     right: -122px;
     min-width: 120px;
-    top: -1px;
+    //top: -1px;
+
+    &.right {
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 15px;
+    }
 
     .tooltip-inner {
       background-color: $oa-black;
     }
 
-    .tooltip-arrow {
+    &.right .tooltip-arrow {
       border-right-color: $oa-black;
     }
 
@@ -63,7 +61,7 @@
       color: $oa-black;
     }
 
-    .tooltip-arrow {
+    &.right .tooltip-arrow {
       border-right-color: $oa-white;
     }
 
