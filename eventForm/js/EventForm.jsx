@@ -527,6 +527,7 @@ function EventFormFactory() {
           markdown={true}
           label={this.props.configuration.field( 'longDescription' ).getLabel( false, this.props.labels )}
           placeholder={this.props.configuration.field( 'longDescription' ).getPlaceholder( false, this.props.labels )}
+          info={this.props.configuration.field( 'longDescription' ).getInfo( false, null )}
           name='long_description'
           value={this.state.freeText}
           languages={this.state.languages}
@@ -592,6 +593,7 @@ function EventFormFactory() {
                 optional={false}
                 label={this.props.configuration.field( 'title' ).getLabel( false, this.props.labels )}
                 placeholder={this.props.configuration.field( 'title' ).getPlaceholder( false, this.props.labels )}
+                info={this.props.configuration.field( 'title' ).getInfo( false, null )}
                 name='title'
                 type='text'
                 value={this.state.title}
@@ -616,6 +618,7 @@ function EventFormFactory() {
                 optional={false}
                 label={this.props.configuration.field( 'description' ).getLabel( false, this.props.labels )}
                 placeholder={this.props.configuration.field( 'description' ).getPlaceholder( false, this.props.labels )}
+                info={this.props.configuration.field( 'description' ).getInfo( false, null )}
                 name='description'
                 type='text'
                 value={this.state.description}
@@ -655,6 +658,7 @@ function EventFormFactory() {
                 label={this.props.configuration.field( 'keywords' ).getLabel( false, this.props.labels )}
                 error={formErrors.keywords}
                 placeholder={this.props.configuration.field( 'keywords' ).getPlaceholder( false, this.props.labels )}
+                info={this.props.configuration.field( 'keywords' ).getInfo( false, null )}
                 lang={this.props.lang} />
             </div> : null}
           </div>;
@@ -671,6 +675,7 @@ function EventFormFactory() {
               counter={true}
               label={this.props.configuration.field( 'conditions' ).getLabel( false, this.props.labels )}
               placeholder={this.props.configuration.field( 'conditions' ).getPlaceholder( false, this.props.labels )}
+              info={this.props.configuration.field( 'conditions' ).getInfo( false, null )}
               name='conditions'
               type='text'
               optional={this.props.configuration.field( 'conditions' ).get( 'optional', true ) }
@@ -687,6 +692,7 @@ function EventFormFactory() {
         if ( o.field === 'registration' ) {
 
           return <div>{this.props.configuration.field( 'registration' ).display() ? <Registration
+            info={this.props.configuration.field( 'registration' ).getInfo( false, false )}
             lang={this.props.lang}
             label={this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels )}
             placeholder={this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels )}

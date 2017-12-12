@@ -1,14 +1,11 @@
 "use strict";
 
-var React = require( 'react' ),
+const createReactClass = require( 'create-react-class' );
+const React = require( 'react' );
+const TagsInput = require( 'react-tagsinput' );
 
-createReactClass = require( 'create-react-class' ),
-
-TagsInput = require( 'react-tagsinput' ),
-
-renderHelpers = require( './renderHelpers.jsx' ),
-
-validators = require( './validators' );
+const renderHelpers = require( './renderHelpers.jsx' );
+const validators = require( './validators' );
 
 module.exports = createReactClass( {
 

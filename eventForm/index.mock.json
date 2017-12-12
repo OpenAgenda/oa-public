@@ -427,6 +427,10 @@
           "fr" : "Titre custo",
           "en" : "Custom title"
         },
+        "info" : {
+          "fr" : "info personnalisée",
+          "en" : "customized info"
+        },
         "placeholder" : {
           "fr" : "placeholder custo",
           "en" : "custom placeholder"
@@ -436,6 +440,10 @@
         "placeholder" : {
           "fr" : "Ceci est un placeholder personnalisé",
           "en" : "This is a custom placeholder"
+        },
+        "info" :{
+          "fr" : "Ceci est une info",
+          "en" : "This is an info"
         }
       }, {
         "name" : "keywords",
@@ -446,6 +454,10 @@
         "placeholder" : {
           "fr" : "Placeholder custo",
           "en" : "Custom placeholder"
+        },
+        "info" :{
+          "fr" : "Ceci est une info",
+          "en" : "This is an info"
         }
       }, {
         "name" : "accessibility",
@@ -456,8 +468,12 @@
       }, {
         "name" : "registration",
         "label" : {
-          "fr" : "label peronnalisé",
+          "fr" : "label personnalisé",
           "en" : "customized label"
+        },
+        "info" : {
+          "fr" : "Ceci est une info (registration)",
+          "en" : "This is an info (registration)"
         },
         "placeholder" : {
           "fr" : "placeholder personnalisé",
@@ -468,6 +484,10 @@
         "name" : "description",
         "fixed" : {
           "fr" : "This is a fixed value"
+        },
+        "info" :{
+          "fr" : "Ceci est une info",
+          "en" : "This is an info"
         },
         "placeholder" : {
           "fr" : "Placeholder custo"
@@ -532,6 +552,10 @@
         "label" : {
           "fr" : "Détail des conditions",
           "en" : "Condition details"
+        },
+        "info" : {
+          "fr" : "Une info sur les conditions",
+          "en" : "An info about conditions"
         },
         "optional": false,
         "placeholder" : {

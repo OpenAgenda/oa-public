@@ -55,6 +55,7 @@ module.exports = createReactClass( {
       return <ul className="list-unstyled">
         <li key={'wisywig_0'}>
           <label>{ this.props.label[ this.props.lang ] }</label>
+          { this.props.info ? <span className="info">{ this.props.info[ this.props.lang ] }</span>: null }
         </li>
         {this.props.languages.map( l => <li className="lang-unit" key={'wisywig_' + l }>
           <label>{l}</label>
@@ -67,6 +68,7 @@ module.exports = createReactClass( {
     return <ul className="list-unstyled">
       <li>
         <label>{ this.props.label[ this.props.lang ] }</label>
+        { this.props.info ? <span className="info">{ this.props.info[ this.props.lang ] }</span>: null }
       </li>
       {this.renderComponent( this.props.languages[ 0 ] )}
     </ul>
