@@ -212,6 +212,10 @@ function _evaluateShouldAggregate( v ) {
 
     return v;
 
+  } else {
+
+    log( 'evaluating rules %j', v.rules );
+
   }
 
   let event = _.extend( {

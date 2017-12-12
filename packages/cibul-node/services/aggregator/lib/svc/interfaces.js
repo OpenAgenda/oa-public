@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const agendaSvc = require( '@openagenda/agendas' );
 const wn = require( 'when/node' );
 

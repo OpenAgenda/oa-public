@@ -136,7 +136,7 @@ function loadRules( config, v ) {
   let aggregatorId, aggregatorStore = {}, sourceStore = {};
 
 
-  log( 'loadign aggregator rules' );
+  log( 'loading aggregator rules' );
 
   async.waterfall( [ wcb => {
 
