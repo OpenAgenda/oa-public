@@ -964,7 +964,7 @@ async function _insertEventLocationTranslations( eventLocationId, entries ) {
 
     await knex( schemas.eventLocationTranslation ).insert( insert );
 
-    inserted.eventLocationTranslations.push( insert );
+    inserted.push( insert );
 
   }
 
