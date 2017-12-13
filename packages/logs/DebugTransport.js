@@ -22,6 +22,11 @@ class DebugTransport extends winston.Transport {
 
   log( level, msg, meta, cb ) {
     let displayedMeta = _.omit( meta, 'namespace' );
+
+    if (meta && meta instanceof Error && meta.stack) {
+      displayedMeta = meta.stack;
+    }
+
     displayedMeta = isEmptyObject( displayedMeta ) ? undefined : displayedMeta;
 
     this.debug.apply( null, [ msg ].concat( displayedMeta ? [ displayedMeta ] : [] ) );

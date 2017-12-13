@@ -122,6 +122,40 @@ describe( 'logs', () => {
 
     } );
 
+    it( 'logs errors stack', () => {
+
+      logs.init( { namespace: 'error-stack' } );
+
+      const transport = logs.getTransports().debug;
+      const spy = sinon.spy( transport, 'log' );
+
+      logs( 'error', new Error( 'Du caca ici !' ) );
+      logs( 'error', 'On a eu une erreur:', new Error( 'Du caca ici !' ) );
+      logs( 'error', 'On a eu une erreur: %s', new Error( 'Du caca ici !' ) );
+
+      sinon.assert.calledWith(
+        spy.getCall( 0 ),
+        'error',
+        '',
+        sinon.match( { message: 'Du caca ici !' } )
+      );
+
+      sinon.assert.calledWith(
+        spy.getCall( 1 ),
+        'error',
+        'On a eu une erreur:',
+        sinon.match( { message: 'Du caca ici !' } )
+      );
+
+      sinon.assert.calledWith(
+        spy.getCall( 2 ),
+        'error',
+        'On a eu une erreur: Error: Du caca ici !',
+        {}
+      );
+
+    } );
+
   } );
 
   describe( 'namespaced logger', () => {
@@ -249,7 +283,7 @@ describe( 'logs', () => {
         'info',
         'Un chargement à 42%, {"object":{"hmm":"pkpa"}}',
         { meta: 'berthoBestDev', namespace: 'test-3' }
-        );
+      );
 
     } );
 

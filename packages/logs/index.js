@@ -108,7 +108,7 @@ function getTransporters( options ) {
 function levellessLog( logger ) {
 
   return ( level, ...args ) =>
-    levels.includes( level ) && args.length ? logger[ level ]( ...args ) : logger[ 'debug' ]( level, ...args );
+    levels.includes( level ) && args.length ? logger[ level ]( ...args ) : logger.debug( level, ...args );
 
 }
 
