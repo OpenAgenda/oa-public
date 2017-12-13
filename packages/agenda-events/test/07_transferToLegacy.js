@@ -46,6 +46,20 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   } );
 
+
+  it( 'adds user reference when specified', async () => {
+
+    const { created } = await svc( 62792452 /* id: 4608 */ ).create( 43393865 /* id: 190093 */, { userUid: 98842070 } );
+
+    await svc.legacyTransfer.to( created );
+
+    const after = await knex( 'legacy_agenda_event' ).first().where( { event_id: 190093, review_id: 4608 } );
+
+    after.user_id.should.equal( 1909 );
+
+  } );
+
+
   it( 'updates record when existing', async () => {
 
     const { updated } = await svc( 62792452 ).update( 53117383, { state: 2 } );

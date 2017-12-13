@@ -41,6 +41,12 @@ async function toLegacy( ae ) {
     updated_at: new Date
   }
 
+  if ( ae.userUid ) {
+
+    data.user_id = _.get( await knex( config.legacy.schemas.user ).first( 'id' ).where( 'uid', ae.userUid ), 'id' );
+
+  }
+
   const q = knex( config.legacy.schemas.agendaEvent );
 
   const legacyId = await _getLegacyId( ae );
