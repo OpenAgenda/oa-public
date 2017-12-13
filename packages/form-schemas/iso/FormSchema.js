@@ -139,7 +139,7 @@ function validate( data, client = false ) {
   // clean each field
   dirty.fields.forEach( f => {
 
-    if ( f.fieldType === 'abstract' ) return;
+    if ( f.fieldType === 'abstract'  || !f.fieldType ) return;
 
     try {
 

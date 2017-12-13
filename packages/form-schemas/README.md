@@ -11,6 +11,11 @@ Base functionality include:
  * service crud operations to create, update, get and remove form schemas
  * a service to transfer legacy OA custom fields, tag set and category set to a valid form schema structure
 
+# Endpoints
+
+ * .create
+ * **.get**: get by form schema id. promise.
+
 # Validation
 
  * Validate this...
@@ -37,8 +42,3 @@ Provides create, update, get and remove methods. See tests for details.
 # Legacy bridge
 
 On the legacy platform, custom field schemas are stored in the agenda data model. A legacy bridge function can parse those to form a FormSchema that can be validated. Otherwise it just throws an error.
-
-
-# Todo
-
-agenda-events service will store custom data validated by a form schema belonging to the agenda. This data needs to be transfered from legacy data structure. given a form-schema, an event id and an agenda id, it will retrieve raw legacy custom field data ( fetched in review_article, review_article_tag and event - custom data is stored directly in event ), a bridging library can collect data and offer a validated data set matching the event reference in an agenda to be used by an eventual agenda-events service rebuild or transfer feature.
