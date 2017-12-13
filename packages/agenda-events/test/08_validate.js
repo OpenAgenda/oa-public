@@ -25,14 +25,15 @@ describe( 'agendaEvents - functional (server): validation', function() {
       featured: true
     } ).should.eql( {
       state: 2,
-      featured: true
+      featured: true,
+      userUid: null
     } );
 
   } );
 
   it( 'base validate endpoint has a field key as any validators validator would', () => {
 
-    _.keys( svc.validate.fields ).should.eql( [ 'state', 'featured' ] );
+    _.keys( svc.validate.fields ).should.eql( [ 'state', 'featured', 'userUid' ] );
 
   } );
 

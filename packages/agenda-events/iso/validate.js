@@ -70,7 +70,7 @@ function init( { eventStates } ) {
 
   validate = schema( fields );
 
-  validateData = schema( _.pick( fields, [ 'state', 'featured' ] ) );
+  validateData = schema( _.pick( fields, [ 'state', 'featured', 'userUid' ] ) );
 
   module.exports.validateData.fields = validateData.fields;
 
