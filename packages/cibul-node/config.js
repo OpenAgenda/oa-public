@@ -56,6 +56,7 @@ let config = {
       } ]
     },
     port: 8901,
+    apiPort: 8902,
     multiCore: true,
     mainChannel: 'main',
     jobsQueue: 'jobs',

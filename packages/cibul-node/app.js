@@ -158,6 +158,8 @@ module.exports = function( enabledTypes, options, cb ) {
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
 
+        require( './api' );
+
         webModules.web.forEach( m => m.load( app ) );
 
       }

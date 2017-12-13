@@ -5,12 +5,16 @@ const VError = require( 'verror' );
 
 const events = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
+const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
 
 const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
 const validate = require( './validate' );
 
+
 module.exports = async ( agendaUid, data ) => {
+
+  log( 'processing data', { agendaUid } );
 
   const {
     formSchemaId
@@ -20,6 +24,8 @@ module.exports = async ( agendaUid, data ) => {
 
   // pre-validate data
   const clean = await validate.loaded( { formSchemaId }, data );
+
+  log( 'pre-validation done', { agendaUid } );
 
   // create the event
   let result = await events.create( clean.event, { transferToLegacy: true } );
