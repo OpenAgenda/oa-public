@@ -128,7 +128,13 @@ function getCustomProperties( logger ) {
 function loadMetadata( logger ) {
 
   return function load( metadata ) {
-    logger.rewriters.push( ( level, msg, meta ) => Object.assign( {}, metadata, meta ) );
+    logger.rewriters.push( ( level, msg, meta ) => {
+      if ( meta && meta instanceof Error && meta.stack ) {
+        return Object.assign( meta, metadata );
+      }
+
+      return Object.assign( {}, metadata, meta );
+    } );
   };
 
 }

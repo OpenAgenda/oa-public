@@ -352,6 +352,42 @@ describe( 'logs', () => {
 
     } );
 
+    it( 'logs errors stack', () => {
+
+      logs.init( { debug: { prefix: 'oa:' }, namespace: 'error-stack' } );
+
+      const log = logs( 'test-5' );
+
+      const transport = log.getTransports().debug;
+      const spy = sinon.spy( transport, 'log' );
+
+      log( 'error', new Error( 'Du caca ici !' ) );
+      log( 'error', 'On a eu une erreur:', new Error( 'Du caca ici !' ) );
+      log( 'error', 'On a eu une erreur: %s', new Error( 'Du caca ici !' ), { test: 789 } );
+
+      sinon.assert.calledWith(
+        spy.getCall( 0 ),
+        'error',
+        '',
+        sinon.match( { namespace: 'test-5', message: 'Du caca ici !' } )
+      );
+
+      sinon.assert.calledWith(
+        spy.getCall( 1 ),
+        'error',
+        'On a eu une erreur:',
+        sinon.match( { namespace: 'test-5', message: 'Du caca ici !' } )
+      );
+
+      sinon.assert.calledWith(
+        spy.getCall( 2 ),
+        'error',
+        'On a eu une erreur: Error: Du caca ici !',
+        { namespace: 'test-5', test: 789 }
+      );
+
+    } );
+
   } );
 
   describe( 'set module config', () => {
