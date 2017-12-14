@@ -11,7 +11,9 @@ const credentialTypes = require( '@openagenda/agenda-stakeholders/iso/credential
 const getUid = str => str.split( ':' )[ 1 ];
 
 const eventStateCodeToLabel = code => [
+  'refused',
   'tocontrol',
+  'tobecontrolled',
   'controlled',
   'published'
 ][ code ];
