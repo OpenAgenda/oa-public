@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { ConversationForm, Link, MessageAvatar } from '../../components';
+import { ConversationForm, Link, AuthorAvatar } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
+import showBackLink from '../../utils/showBackLink';
 
 @asyncConnect( [ {
   promise: async ( { store: { dispatch, getState } } ) => {
@@ -63,12 +64,7 @@ export default class ConversationCreate extends Component {
       settings, conversations, author, router
     } = this.props;
 
-    const { TitleComponent, prefix, focusFistConversation, hideEmptyList, ContentWrapper } = settings;
-
-    // IF focusFistConversation AND !hideEmptyList AND conversations list not empty
-    // OR lastConversation resolved
-    const showBackLink = (!focusFistConversation && (!hideEmptyList && conversations && !conversations.length))
-      || (conversations && conversations.length && conversations[ 0 ].resolvedAt);
+    const { TitleComponent, prefix, ContentWrapper } = settings;
 
     const content = (
       <Fragment>
@@ -76,13 +72,13 @@ export default class ConversationCreate extends Component {
           {getLabel( 'newConversation' )}
         </TitleComponent>
 
-        {showBackLink ? <div>
+        {showBackLink( settings, conversations ) ? <div>
           <Link to="/">{getLabel( 'backToConversations' )}</Link>
         </div> : null}
 
         <div className="media">
           <div className="media-left">
-            <MessageAvatar message={author}/>
+            <AuthorAvatar author={author}/>
           </div>
           <div className="media-body">
             <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>

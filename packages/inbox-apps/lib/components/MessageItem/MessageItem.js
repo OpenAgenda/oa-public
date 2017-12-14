@@ -106,7 +106,7 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
               lineNumber: 24
             }
           },
-          _react3.default.createElement(_.MessageAvatar, { message: message, __source: {
+          _react3.default.createElement(_.AuthorAvatar, { author: message, __source: {
               fileName: _jsxFileName,
               lineNumber: 25
             }

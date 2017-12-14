@@ -1,20 +1,20 @@
 import React, { Component, Fragment } from 'react';
 
-export default class MessageAvatar extends Component {
+export default class AuthorAvatar extends Component {
   render() {
-    const { message } = this.props;
+    const { author: { inboxUser, inbox } } = this.props;
 
-    if ( message.inboxUser ) {
+    if ( inboxUser ) {
       return <Fragment>
         <img
-          src={message.inboxUser.avatar}
+          src={inboxUser.avatar}
           className="media-object img-circle"
           style={{ width: '60px' }}
         />
 
-        {message.inbox && message.inbox.avatar && message.inbox.type !== 'user'
+        {inbox && inbox.avatar && inbox.type !== 'user'
           ? <img
-            src={message.inbox.avatar}
+            src={inbox.avatar}
             className="media-object img-circle belongs"
             style={{ width: '25px' }}
           />
@@ -24,7 +24,7 @@ export default class MessageAvatar extends Component {
 
     return (
       <img
-        src={message.inbox.avatar}
+        src={inbox.avatar}
         className="media-object img-circle"
         style={{ width: '60px' }}
       />

@@ -33,7 +33,7 @@ import { ConversationForm } from '../../components';
 export default class ConversationModal extends Component {
   constructor( props ) {
     super( props );
-    this.renderForm = ::this.renderForm;
+    this.FormWrapper = ::this.FormWrapper;
   }
 
   state = {

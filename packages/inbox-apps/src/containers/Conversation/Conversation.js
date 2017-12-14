@@ -7,9 +7,10 @@ import { reset as resetForm } from 'redux-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { MessageList, MessageForm, MessageAvatar, ActionsList, Link } from '../../components';
+import { MessageList, MessageForm, AuthorAvatar, ActionsList, Link } from '../../components';
 import * as conversationActions from '../../redux/modules/conversation';
 import * as inboxActions from '../../redux/modules/inbox';
+import showBackLink from '../../utils/showBackLink';
 
 @asyncConnect( [ {
   promise: ( { store: { dispatch, getState }, router } ) => {
@@ -20,7 +21,7 @@ import * as inboxActions from '../../redux/modules/inbox';
     const query = focusFistConversation ? { limit: 1 } : {};
 
     // if ( !inboxActions.isLoaded( state ) ) {
-      promises.push( dispatch( inboxActions.load( query ) ) );
+    promises.push( dispatch( inboxActions.load( query ) ) );
     // }
 
     if ( !conversationActions.isAuthorLoaded( state ) ) {
@@ -91,12 +92,18 @@ export default class Conversation extends Component {
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
   FromWrapper( { children, handleSubmit, submitting } ) {
-    const { getLabel, author, messages } = this.props;
+    const { getLabel, author, messages, conversation } = this.props;
+
+    const contextInbox = _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] );
+
+    if ( contextInbox ) {
+      author.inbox = contextInbox;
+    }
 
     return (
       <div className="media">
         <div className="media-left media-top">
-          <MessageAvatar message={author}/>
+          <AuthorAvatar author={author}/>
         </div>
 
         <div className="media-body">
@@ -130,7 +137,7 @@ export default class Conversation extends Component {
       );
     }
 
-    if ( !conversation.actions ) {
+    if ( !conversation.actions || !conversation.actions.length ) {
       return (
         <MessageForm
           form="message"
@@ -166,11 +173,9 @@ export default class Conversation extends Component {
   render() {
     const {
       conversations, messages, nextLoading, getLabel,
-      settings: { TitleComponent, ContentWrapper, focusFistConversation, hideEmptyList }
+      settings, settings: { TitleComponent, ContentWrapper }
     } = this.props;
 
-    const showBackLink = (!focusFistConversation && (!hideEmptyList && conversations && !conversations.length))
-      || (conversations && conversations.length && conversations[ 0 ].resolvedAt);
 
     const content = (
       <Fragment>
@@ -178,7 +183,7 @@ export default class Conversation extends Component {
           {getLabel( 'conversation' )}
         </TitleComponent>
 
-        {showBackLink ? <div>
+        {showBackLink( settings, conversations ) ? <div style={{ marginBottom: '15px' }}>
           <Link to="/">{getLabel( 'backToConversations' )}</Link>
         </div> : null}
 

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { MessageAvatar, Link, LinkContainer } from '../';
+import { AuthorAvatar, Link, LinkContainer } from '../';
 
 @connect(
   state => ({
@@ -29,7 +29,7 @@ export default class ConversationItem extends Component {
     return (
       <div className="media">
         <div className="media-left media-top">
-          <MessageAvatar message={latestMessage}/>
+          <AuthorAvatar author={latestMessage}/>
         </div>
 
         <div className="media-body">
@@ -39,7 +39,7 @@ export default class ConversationItem extends Component {
               {' '}
               <span>
                 <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}
-                <Link to={`/agendas/${agendaUid}/events/${typeIdentifier}`} external>
+                <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
                   {store.params.eventTitle}
                 </Link>
               </span>

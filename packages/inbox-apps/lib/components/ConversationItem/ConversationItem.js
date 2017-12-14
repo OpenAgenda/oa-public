@@ -121,7 +121,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               lineNumber: 31
             }
           },
-          _react3.default.createElement(_.MessageAvatar, { message: latestMessage, __source: {
+          _react3.default.createElement(_.AuthorAvatar, { author: latestMessage, __source: {
               fileName: _jsxFileName,
               lineNumber: 32
             }
@@ -180,7 +180,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
                 ' ',
                 _react3.default.createElement(
                   _.Link,
-                  { to: '/agendas/' + agendaUid + '/events/' + typeIdentifier, external: true, __source: {
+                  { to: '/agendas/' + store.params.agendaUid + '/events/' + typeIdentifier, external: true, __source: {
                       fileName: _jsxFileName,
                       lineNumber: 42
                     }

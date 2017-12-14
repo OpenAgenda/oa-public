@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { getContext } from 'recompose';
 import validate from './validate';
-import { MessageAvatar } from '../';
+import { AuthorAvatar } from '../';
 import { renderTextarea } from '../../utils/form';
 
 @reduxForm( {

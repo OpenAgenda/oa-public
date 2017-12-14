@@ -348,7 +348,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
                   lineNumber: 131
                 }
               },
-              _react3.default.createElement(_components2.MessageAvatar, { message: author, __source: {
+              _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
                   fileName: _jsxFileName,
                   lineNumber: 132
                 }

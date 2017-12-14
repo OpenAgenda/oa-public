@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { MessageAvatar } from '../';
+import { AuthorAvatar } from '../';
 
 export default class MessageItem extends Component {
 
@@ -22,7 +22,7 @@ export default class MessageItem extends Component {
     return (
       <div className="media">
         <div className="media-left media-top">
-          <MessageAvatar message={message} />
+          <AuthorAvatar author={message} />
         </div>
 
         <div className="media-body">

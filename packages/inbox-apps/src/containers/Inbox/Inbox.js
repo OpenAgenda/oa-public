@@ -7,7 +7,7 @@ import { push } from 'react-router-redux';
 import { getContext } from 'recompose';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { ConversationList, LinkContainer, TitleComponent, MessageAvatar, ConversationForm } from '../../components';
+import { ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
@@ -129,7 +129,7 @@ export default class Inbox extends Component {
 
           <div className="media">
             <div className="media-left">
-              <MessageAvatar message={author}/>
+              <AuthorAvatar author={author}/>
             </div>
             <div className="media-body">
               <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>

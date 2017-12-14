@@ -131,7 +131,7 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
       confirmationMessage: null
     };
 
-    _this.renderForm = _this.renderForm.bind(_this);
+    _this.FormWrapper = _this.FormWrapper.bind(_this);
     return _this;
   }
 
