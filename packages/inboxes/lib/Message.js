@@ -42,6 +42,10 @@ var _ajvErrors = require('ajv-errors');
 
 var _ajvErrors2 = _interopRequireDefault(_ajvErrors);
 
+var _InboxUser = require('./InboxUser');
+
+var _InboxUser2 = _interopRequireDefault(_InboxUser);
+
 var _config = require('./config');
 
 var _mapper = require('./utils/mapper');
@@ -106,24 +110,34 @@ var Message = function () {
                 return (0, _bluebird.resolve)(this._loadConversation());
 
               case 3:
-                _context.next = 5;
-                return (0, _bluebird.resolve)(this._getInboxUser(data.userUid, { createOnNull: params.createInboxUserOnNull }));
+                _context.t0 = this.conversation.data.inboxUser;
 
-              case 5:
-                inboxUser = _context.sent;
+                if (_context.t0) {
+                  _context.next = 8;
+                  break;
+                }
+
+                _context.next = 7;
+                return (0, _bluebird.resolve)(this._getInboxUser({ userUid: this.userUid || data.userUid }, { createOnNull: params.createInboxUserOnNull }));
+
+              case 7:
+                _context.t0 = _context.sent.data;
+
+              case 8:
+                inboxUser = _context.t0;
 
 
                 data = (0, _extends3.default)({}, _lodash2.default.pick(data, 'body'), {
                   conversationId: this.conversation.data.id,
-                  inboxUserId: inboxUser.data.id
+                  inboxUserId: inboxUser.id
                 });
 
                 (0, _validate2.default)(ajv, _messageSchemas.createSchema, data);
 
-                _context.next = 10;
+                _context.next = 13;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.message).insert(_mapper2.default.toDb(_messageFieldsMap2.default, 'insert', data, { protected: false })));
 
-              case 10:
+              case 13:
                 _ref2 = _context.sent;
                 _ref3 = (0, _slicedToArray3.default)(_ref2, 1);
                 insertedId = _ref3[0];
@@ -131,9 +145,22 @@ var Message = function () {
 
                 this.identifiers = { id: insertedId };
 
-                return _context.abrupt('return', this.get(options));
+                _context.next = 19;
+                return (0, _bluebird.resolve)(this.get(options));
 
-              case 15:
+              case 19:
+                if (!_config.interfaces.onMessageCreate) {
+                  _context.next = 22;
+                  break;
+                }
+
+                _context.next = 22;
+                return (0, _bluebird.resolve)(_config.interfaces.onMessageCreate(this.conversation.data, this.data));
+
+              case 22:
+                return _context.abrupt('return', this);
+
+              case 23:
               case 'end':
                 return _context.stop();
             }
@@ -231,7 +258,7 @@ var Message = function () {
                   break;
                 }
 
-                throw new _verror2.default('Conversation %j not found', this.inbox.identifiers);
+                throw new _verror2.default('Conversation %j not found', this.conversation.identifiers);
 
               case 5:
               case 'end':
@@ -250,30 +277,29 @@ var Message = function () {
   }, {
     key: '_getInboxUser',
     value: function () {
-      var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(userUid, options) {
-        var identifiers, inboxUser;
+      var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(identifiers, options) {
+        var inboxUser;
         return _regenerator2.default.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                identifiers = { userUid: this.userUid || userUid };
-                _context4.next = 3;
+                _context4.next = 2;
                 return (0, _bluebird.resolve)(this.inbox.users.get(identifiers, options));
 
-              case 3:
+              case 2:
                 inboxUser = _context4.sent;
 
                 if (inboxUser.data) {
-                  _context4.next = 6;
+                  _context4.next = 5;
                   break;
                 }
 
                 throw new _verror2.default('InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers);
 
-              case 6:
+              case 5:
                 return _context4.abrupt('return', inboxUser);
 
-              case 7:
+              case 6:
               case 'end':
                 return _context4.stop();
             }

@@ -7,7 +7,7 @@ import mapper from './utils/mapper';
 import fieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
 import { getIdentifiersSchema, createSchema } from './validators/inboxUserSchemas';
-import populateDetails from "./db/populateDetails";
+import populateDetails from './db/populateDetails';
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );

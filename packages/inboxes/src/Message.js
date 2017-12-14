@@ -2,7 +2,8 @@ import _ from 'lodash';
 import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
-import { knex, schemas } from './config';
+import InboxUser from './InboxUser';
+import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import messageFieldsMap from './db/messageFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
@@ -33,12 +34,13 @@ export default class Message {
     }, options );
 
     await this._loadConversation();
-    const inboxUser = await this._getInboxUser( data.userUid, { createOnNull: params.createInboxUserOnNull } );
+    const inboxUser = this.conversation.data.inboxUser
+      || (await this._getInboxUser( { userUid: this.userUid || data.userUid }, { createOnNull: params.createInboxUserOnNull } )).data;
 
     data = {
       ..._.pick( data, 'body' ),
       conversationId: this.conversation.data.id,
-      inboxUserId: inboxUser.data.id
+      inboxUserId: inboxUser.id
     };
 
     validate( ajv, createSchema, data );
@@ -48,7 +50,13 @@ export default class Message {
 
     this.identifiers = { id: insertedId };
 
-    return this.get( options );
+    await this.get( options );
+
+    if ( interfaces.onMessageCreate ) {
+      await interfaces.onMessageCreate( this.conversation.data, this.data );
+    }
+
+    return this;
   }
 
   async get( options ) {
@@ -114,13 +122,13 @@ export default class Message {
     }
 
     if ( !this.conversation.data ) {
-      throw new VError( 'Conversation %j not found', this.inbox.identifiers );
+      throw new VError( 'Conversation %j not found', this.conversation.identifiers );
     }
   }
 
-  async _getInboxUser( userUid, options ) {
-    const identifiers = { userUid: this.userUid || userUid };
+  async _getInboxUser( identifiers, options ) {
     const inboxUser = await this.inbox.users.get( identifiers, options );
+    // const inboxUser = await new InboxUser( identifiers, { inbox } ).get( { createOnNull } );
 
     if ( !inboxUser.data ) {
       throw new VError( 'InboxUser %j not found in Inbox %j', identifiers, this.inbox.identifiers );

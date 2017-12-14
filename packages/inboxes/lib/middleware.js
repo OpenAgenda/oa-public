@@ -34,6 +34,10 @@ var _2 = require('./');
 
 var _3 = _interopRequireDefault(_2);
 
+var _Conversations = require('./Conversations');
+
+var _Conversations2 = _interopRequireDefault(_Conversations);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var config = exports.config = void 0;
@@ -211,10 +215,7 @@ var conversations = {
       namespaces: {
         type: 'type',
         identifier: 'identifier',
-        destinationInbox: {
-          type: 'destinationInbox.type',
-          identifier: 'destinationInbox.identifier'
-        },
+        destinationInbox: 'destinationInbox',
         conversationType: 'conversationType',
         conversationTypeIdentifier: 'conversationTypeIdentifier',
         params: 'conversationParams',
@@ -233,10 +234,7 @@ var conversations = {
             switch (_context3.prev = _context3.next) {
               case 0:
                 data = {
-                  destinationInbox: {
-                    type: _lodash2.default.get(req, namespaces.destinationInbox.type),
-                    identifier: parseInt(_lodash2.default.get(req, namespaces.destinationInbox.identifier))
-                  },
+                  destinationInbox: _lodash2.default.get(req, namespaces.destinationInbox),
                   type: _lodash2.default.get(req, namespaces.conversationType),
                   params: _lodash2.default.get(req, namespaces.params),
                   creatorInboxUser: _lodash2.default.get(req, namespaces.creatorInboxUser),
@@ -346,10 +344,13 @@ var conversations = {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return (0, _bluebird.resolve)(new _3.default({
-                  type: _lodash2.default.get(req, namespaces.type),
-                  identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
-                }).conversations.get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
+                return (0, _bluebird.resolve)(new _Conversations2.default({
+                  userUid: parseInt(_lodash2.default.get(req, namespaces.userUid)),
+                  inbox: new _3.default({
+                    type: _lodash2.default.get(req, namespaces.type),
+                    identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
+                  })
+                }).get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
 
               case 2:
                 conversation = _context5.sent;
@@ -384,7 +385,8 @@ var messages = {
       namespaces: {
         type: 'type',
         identifier: 'identifier',
-        conversationId: 'conversation.id'
+        conversationId: 'conversation.id',
+        userUid: 'user.uid'
       },
       limit: 20
     }, options),
@@ -401,10 +403,13 @@ var messages = {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return (0, _bluebird.resolve)(new _3.default({
-                  type: _lodash2.default.get(req, namespaces.type),
-                  identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
-                }).conversations.get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
+                return (0, _bluebird.resolve)(new _Conversations2.default({
+                  userUid: parseInt(_lodash2.default.get(req, namespaces.userUid)),
+                  inbox: new _3.default({
+                    type: _lodash2.default.get(req, namespaces.type),
+                    identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
+                  })
+                }).get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
 
               case 2:
                 conversation = _context6.sent;
@@ -453,10 +458,13 @@ var messages = {
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return (0, _bluebird.resolve)(new _3.default({
-                  type: _lodash2.default.get(req, namespaces.type),
-                  identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
-                }).conversations.get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
+                return (0, _bluebird.resolve)(new _Conversations2.default({
+                  userUid: parseInt(_lodash2.default.get(req, namespaces.userUid)),
+                  inbox: new _3.default({
+                    type: _lodash2.default.get(req, namespaces.type),
+                    identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
+                  })
+                }).get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
 
               case 2:
                 conversation = _context7.sent;

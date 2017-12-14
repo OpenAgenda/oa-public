@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Inboxes from './';
+import Conversations from "./Conversations";
 
 export let config;
 
@@ -96,10 +97,7 @@ export const conversations = {
       namespaces: {
         type: 'type',
         identifier: 'identifier',
-        destinationInbox: {
-          type: 'destinationInbox.type',
-          identifier: 'destinationInbox.identifier'
-        },
+        destinationInbox: 'destinationInbox',
         conversationType: 'conversationType',
         conversationTypeIdentifier: 'conversationTypeIdentifier',
         params: 'conversationParams',
@@ -111,10 +109,7 @@ export const conversations = {
 
     return wrap( async ( req, res ) => {
       const data = {
-        destinationInbox: {
-          type: _.get( req, namespaces.destinationInbox.type ),
-          identifier: parseInt( _.get( req, namespaces.destinationInbox.identifier ) )
-        },
+        destinationInbox: _.get( req, namespaces.destinationInbox ),
         type: _.get( req, namespaces.conversationType ),
         params: _.get( req, namespaces.params ),
         creatorInboxUser: _.get( req, namespaces.creatorInboxUser ),
@@ -182,11 +177,13 @@ export const conversations = {
     }, options );
 
     return wrap( async ( req, res ) => {
-      const conversation = await new Inboxes( {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
-      } )
-        .conversations.get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
       await conversation.action( _.get( req, namespaces.code ), { userUid: _.get( req, namespaces.userUid ) } );
 
@@ -201,7 +198,8 @@ export const messages = {
       namespaces: {
         type: 'type',
         identifier: 'identifier',
-        conversationId: 'conversation.id'
+        conversationId: 'conversation.id',
+        userUid: 'user.uid'
       },
       limit: 20
     }, options );
@@ -209,11 +207,13 @@ export const messages = {
     const limit = getLimit( config.mw.limit, params.limit );
 
     return wrap( async ( req, res ) => {
-      const conversation = await new Inboxes( {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
-      } )
-        .conversations.get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
       const messages = await conversation.messages
         .list( (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
@@ -235,11 +235,13 @@ export const messages = {
     }, options );
 
     return wrap( async ( req, res ) => {
-      const conversation = await new Inboxes( {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
-      } )
-        .conversations.get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
       const message = await conversation.messages
         .create(

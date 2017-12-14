@@ -117,8 +117,8 @@ var Conversations = function () {
             offset,
             limit,
             options,
-            rows,
             request,
+            rows,
             result,
             _args = arguments;
 
@@ -135,12 +135,12 @@ var Conversations = function () {
 
                 (0, _validate2.default)(ajv, _conversationSchemas.listSchema, query);
 
-                rows = void 0;
                 request = (0, _config.knex)(_config.schemas.conversation).select().column(_mapper2.default.listFields(_conversationFieldsMap2.default, 'select', 'db', options, true).map(function (v) {
                   return _config.schemas.conversation + '.' + v;
                 })).column(_config.schemas.inbox + '.id as inboxContextId').max(_config.schemas.message + '.id as latestMessageId').leftJoin(_config.schemas.inboxConversation, _config.schemas.inboxConversation + '.conversation_id', _config.schemas.conversation + '.id').leftJoin(_config.schemas.inbox, _config.schemas.inbox + '.id', _config.schemas.inboxConversation + '.inbox_id').leftJoin(_config.schemas.message, _config.schemas.message + '.conversation_id', _config.schemas.conversation + '.id').where(_lodash2.default.mapKeys(_mapper2.default.toDb(_conversationFieldsMap2.default, 'select', query, options), function (v, key) {
                   return _config.schemas.conversation + '.' + key;
                 })).groupBy(_config.schemas.conversation + '.id').orderByRaw('(resolvedAt IS NOT NULL)').orderByRaw('latestMessageId DESC').orderByRaw('GREATEST( ' + _config.schemas.conversation + '.created_at, ' + _config.schemas.conversation + '.updated_at ) DESC').offset(offset).limit(limit);
+                rows = void 0;
 
                 if (!this.userUid) {
                   _context.next = 12;
@@ -168,8 +168,8 @@ var Conversations = function () {
 
               case 15:
                 result = rows.map(function (row) {
-                  return _lodash2.default.reduce((0, _extends3.default)({}, row, _mapper2.default.toObj(_conversationFieldsMap2.default, row, options)), function (r, value, key) {
-                    return _lodash2.default.set(r, key, value);
+                  return _lodash2.default.reduce((0, _extends3.default)({}, row, _mapper2.default.toObj(_conversationFieldsMap2.default, row, options)), function (result, value, key) {
+                    return _lodash2.default.set(result, key, value);
                   }, {});
                 });
                 _context.next = 18;

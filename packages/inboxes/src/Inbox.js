@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import VError from 'verror';
-import { knex, schemas } from './config';
+import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxFieldsMap';
 import validate from './utils/validate';
@@ -47,7 +47,13 @@ export default class Inbox {
 
     this.identifiers = { id: insertedId };
 
-    return this.get( options );
+    await this.get( options );
+
+    if ( interfaces.onInboxCreate ) {
+      await interfaces.onInboxCreate( this );
+    }
+
+    return this;
   }
 
   async get( options ) {

@@ -6,6 +6,12 @@ export function getIdentifiersSchema( identifiers ) {
       properties: {
         id: {
           type: 'integer',
+        },
+        type: {
+          type: 'string'
+        },
+        identifier: {
+          type: 'integer'
         }
       }
     };

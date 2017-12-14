@@ -50,8 +50,6 @@ export default class Conversations {
 
     validate( ajv, listSchema, query );
 
-    let rows;
-
     const request = knex( schemas.conversation )
       .select()
       .column(
@@ -88,6 +86,8 @@ export default class Conversations {
       .offset( offset )
       .limit( limit );
 
+    let rows;
+
     if ( this.userUid ) { // viewed by user endpoint
       rows = await request
         .column(
@@ -109,7 +109,7 @@ export default class Conversations {
     let result = rows.map( row =>
       _.reduce(
         { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
-        ( r, value, key ) => _.set( r, key, value ),
+        ( result, value, key ) => _.set( result, key, value ),
         {}
       )
     );

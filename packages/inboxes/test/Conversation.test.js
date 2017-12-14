@@ -102,7 +102,7 @@ describe( 'Conversation', () => {
             uid: 23456789,
           }
         },
-        actions: null
+        actions: []
       } );
 
     } );
@@ -122,6 +122,12 @@ describe( 'Conversation', () => {
         creatorInboxUserId: 2,
         store: { params: {} },
         inboxContextId: 2,
+        inboxUser: {
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          userUid: 99999999
+        },
         inboxes: [ {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
@@ -138,7 +144,7 @@ describe( 'Conversation', () => {
           uid: 48959239
         } ],
         latestMessage: null,
-        actions: null
+        actions: []
       } );
 
     } );
@@ -158,6 +164,12 @@ describe( 'Conversation', () => {
         creatorInboxUserId: 2,
         store: { params: {} },
         inboxContextId: 2,
+        inboxUser: {
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          userUid: 99999999
+        },
         inboxes: [ {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
@@ -174,7 +186,7 @@ describe( 'Conversation', () => {
           uid: 456
         } ],
         latestMessage: null,
-        actions: null
+        actions: []
       } );
 
     } );
@@ -215,7 +227,7 @@ describe( 'Conversation', () => {
             uid: 99999999
           } ],
           latestMessage: null,
-          actions: null
+          actions: []
         } );
 
       }
@@ -269,7 +281,7 @@ describe( 'Conversation', () => {
             uid: 24681012,
           }
         },
-        actions: null
+        actions: []
       } );
 
     } );
@@ -287,6 +299,12 @@ describe( 'Conversation', () => {
         creatorInboxUserId: 1,
         store: { params: {} },
         inboxContextId: 2,
+        inboxUser: {
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          userUid: 99999999
+        },
         inboxes: [ {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -388,6 +406,12 @@ describe( 'Conversation', () => {
         updatedAt: new Date(),
         resolvedAt: new Date(),
         inboxContextId: 2,
+        inboxUser: {
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          userUid: 99999999
+        },
         inboxes: [ {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
           id: 1,
@@ -425,7 +449,7 @@ describe( 'Conversation', () => {
             uid: 99999999
           }
         },
-        actions: null
+        actions: []
       } );
 
     } );
@@ -606,6 +630,15 @@ describe( 'Conversation', () => {
               name: 'La gargouille',
               avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
               uid: 24681012
+            },
+            inboxUser: {
+              avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+              id: 5,
+              inboxId: 5,
+              leftAt: null,
+              name: 'Jean-Roger Benbambou',
+              uid: 99999999,
+              userUid: 99999999,
             }
           }
         },
@@ -790,6 +823,15 @@ describe( 'Conversation', () => {
               name: 'La gargouille',
               avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
               uid: 24681012
+            },
+            inboxUser: {
+              avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+              id: 5,
+              inboxId: 5,
+              leftAt: null,
+              name: 'Jean-Roger Benbambou',
+              uid: 99999999,
+              userUid: 99999999,
             }
           }
         },
@@ -920,24 +962,21 @@ describe( 'Conversation', () => {
         mysql: { ...testconfig.mysql, database },
         types: {
           contact_form: {
-            actions: {
-              from: null,
-              to: [ {
-                code: 'accept',
-                label: {
-                  fr: 'Accepter',
-                  en: 'Accept'
-                },
-                kind: 'success'
-              }, {
-                code: 'refuse',
-                label: {
-                  fr: 'Refuser',
-                  en: 'Refuse'
-                },
-                kind: 'danger'
-              } ]
-            }
+            actions: [ {
+              code: 'accept',
+              label: {
+                fr: 'Accepter',
+                en: 'Accept'
+              },
+              kind: 'success'
+            }, {
+              code: 'refuse',
+              label: {
+                fr: 'Refuser',
+                en: 'Refuse'
+              },
+              kind: 'danger'
+            } ]
           }
         }
       } );

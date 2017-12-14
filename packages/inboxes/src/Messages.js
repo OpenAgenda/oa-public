@@ -88,7 +88,7 @@ export default class Messages {
     }
 
     if ( !this.conversation.data ) {
-      throw new VError( 'Conversation %j not found', this.inbox.identifiers );
+      throw new VError( 'Conversation %j not found', this.conversation.identifiers );
     }
   }
 

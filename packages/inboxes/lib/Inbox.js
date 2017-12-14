@@ -117,9 +117,22 @@ var Inbox = function () {
 
                 this.identifiers = { id: insertedId };
 
-                return _context.abrupt('return', this.get(options));
+                _context.next = 14;
+                return (0, _bluebird.resolve)(this.get(options));
 
-              case 13:
+              case 14:
+                if (!_config.interfaces.onInboxCreate) {
+                  _context.next = 17;
+                  break;
+                }
+
+                _context.next = 17;
+                return (0, _bluebird.resolve)(_config.interfaces.onInboxCreate(this));
+
+              case 17:
+                return _context.abrupt('return', this);
+
+              case 18:
               case 'end':
                 return _context.stop();
             }

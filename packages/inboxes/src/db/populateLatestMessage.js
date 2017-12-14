@@ -11,6 +11,8 @@ export default async function populateLatestMessage( entities, inbox ) {
     return (await populateLatestMessage( [ entities ], inbox ))[ 0 ];
   }
 
+  // console.log( 'POPULATE LATEST MESSAGE ==>', inbox );
+
   const messages = await new Messages( { inbox } )
     .list( { id: _.uniq( entities.map( v => v.latestMessageId ) ) }, { latest: true } );
 

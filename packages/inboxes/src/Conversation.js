@@ -14,6 +14,7 @@ import Messages from './Messages';
 import InboxUser from './InboxUser';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
+import inboxUserFieldsMap from "./db/inboxUserFieldsMap";
 
 const log = logger( 'inboxes/Conversation' );
 
@@ -49,10 +50,11 @@ export default class Conversation {
       throw new VError( 'Inbox user %j not found', inboxUser.identifiers );
     }
 
-    const destinationInbox = await new Inbox( data.destinationInbox ).get();
+    const destinationInboxes = await Promise.all( [].concat( data.destinationInbox ).map( v => new Inbox( v ).get() ) );
+    const destinationNotFound = destinationInboxes.filter( v => !v.data );
 
-    if ( !destinationInbox.data ) {
-      throw new VError( 'Destination Inbox %j not found', destinationInbox.identifiers );
+    if ( destinationNotFound && destinationNotFound.length ) {
+      throw new VError( 'Destination Inbox(es) %j not found', destinationNotFound );
     }
 
     validate( ajv, createSchema, _.omit( data, 'destinationInbox', 'creatorInboxUser' ) );
@@ -82,12 +84,14 @@ export default class Conversation {
       conversation_id: this.identifiers.id
     } );
 
-    if ( this.inbox.data.id !== destinationInbox.data.id ) {
-      await knex( schemas.inboxConversation ).insert( {
-        inbox_id: destinationInbox.data.id,
-        conversation_id: this.identifiers.id
-      } );
-    }
+    await Promise.all( destinationInboxes.map( async destinationInbox => {
+      if ( this.inbox.data.id !== destinationInbox.data.id ) {
+        await knex( schemas.inboxConversation ).insert( {
+          inbox_id: destinationInbox.data.id,
+          conversation_id: this.identifiers.id
+        } );
+      }
+    } ) );
 
     if ( data.message ) {
       await this.messages.create( {
@@ -104,7 +108,7 @@ export default class Conversation {
 
     validate( ajv, identifiersSchema, this.identifiers );
 
-    const row = await knex( schemas.conversation )
+    const request = knex( schemas.conversation )
       .first()
       .column(
         mapper.listFields( conversationFieldsMap, 'select', 'db', options, true )
@@ -133,11 +137,31 @@ export default class Conversation {
           ( v, key ) => `${schemas.conversation}.${key}`
         )
       )
-      .andWhere( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id )
+      // .andWhere( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id )
       .groupBy( `${schemas.conversation}.id` )
       .orderByRaw( '(resolvedAt IS NOT NULL)' )
       .orderByRaw( 'latestMessageId DESC' )
       .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
+
+    let row;
+
+    if ( this.userUid ) { // viewed by user endpoint
+      row = await request
+        .column(
+          mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
+            .map( v => `${schemas.inboxUser}.${v}` )
+        )
+        .leftJoin(
+          schemas.inboxUser,
+          join => join
+            .on( `${schemas.inboxUser}.inbox_id`, `${schemas.inboxConversation}.inbox_id` )
+            .onNull( `${schemas.inboxUser}.left_at` )
+        )
+        .where( `${schemas.inboxUser}.user_uid`, this.userUid );
+    } else { // viewed by inbox endpoint
+      row = await request
+        .where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+    }
 
     if ( !row ) {
       this.data = null;
@@ -147,7 +171,7 @@ export default class Conversation {
     let result = _.reduce(
       { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
       ( result, value, key ) => _.set( result, key, value ),
-      row
+      {}
     );
 
     result = await populateLatestMessage( result, this.inbox );
@@ -155,11 +179,11 @@ export default class Conversation {
     result = await populateParticipants( result );
 
     if ( !result.resolvedAt ) {
-      const creatorInboxId = (await this._getInboxUser( result.creatorInboxUserId )).data.inboxId;
+      // const creatorInboxId = (await this._getInboxUser( result.creatorInboxUserId )).data.inboxId;
 
-      result.actions = this.getAvailableActions( result, creatorInboxId ) || null;
+      result.actions = await this.getAvailableActions( result );
     } else {
-      result.actions = null;
+      result.actions = [];
     }
 
     this.data = result;
@@ -199,8 +223,7 @@ export default class Conversation {
           mapper.toDb( conversationFieldsMap, 'select', this.identifiers, options ),
           ( v, key ) => `${schemas.conversation}.${key}`
         )
-      )
-      .andWhere( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+      );
 
     return this.get();
   }
@@ -212,13 +235,13 @@ export default class Conversation {
       this.userUid ? { userUid: this.userUid } : inboxUser,
       { inbox: this.inbox }
     );
-    const creatorInboxId = (await this._getInboxUser( this.data.creatorInboxUserId )).data.inboxId;
 
     if ( !_inboxUser.data ) {
       throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
     }
 
-    const actions = this.getAvailableActions( this.data, creatorInboxId ) || [];
+    // const creatorInboxId = (await this._getInboxUser( this.data.creatorInboxUserId )).data.inboxId;
+    const actions = await this.getAvailableActions( this.data );
     const action = actions.find( v => v && v.code === code );
 
     if ( !action ) {
@@ -257,8 +280,7 @@ export default class Conversation {
           mapper.toDb( conversationFieldsMap, 'select', this.identifiers ),
           ( v, key ) => `${schemas.conversation}.${key}`
         )
-      )
-      .andWhere( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+      );
 
     try {
       await interfaces.onAction( this.data, action );
@@ -303,15 +325,18 @@ export default class Conversation {
     return inboxUser;
   }
 
-  getAvailableActions( conversation, creatorInboxId ) {
-    const fromOrTo = creatorInboxId === this.inbox.data.id ? 'from' : 'to';
-    const bothSide = conversation.inboxes.every( v => v.id === this.inbox.data.id );
-    let actions = _.get( types, [ conversation.type, 'actions', fromOrTo ] );
+  async getAvailableActions( conversation ) {
+    const actions = _.get( types, [ conversation.type, 'actions' ], [] );
 
-    if ( bothSide ) {
-      const otherSideActions = _.get( types, [ conversation.type, 'actions', fromOrTo === 'from' ? 'to' : 'from' ] );
-      actions = Array.isArray( actions ) ? actions.concat( otherSideActions ) : otherSideActions;
-    }
+    return actions.reduce( async ( result, action ) => {
+      const keep = await interfaces.filterAction( this.inbox.data, conversation, action );
+
+      if ( !keep ) {
+        return result;
+      }
+
+      return [ ...await result, action ];
+    }, [] );
 
     return actions;
   }

@@ -16,6 +16,22 @@ export function getIdentifiersSchema( identifiers ) {
   };
 };
 
+export function getListSchema( query ) {
+  return {
+    required: [ query.userUid ? 'userUid' : 'inboxId' ],
+    additionalProperties: false,
+    properties: {
+      inboxId: {
+        items: { type: 'integer' },
+        uniqueItems: true
+      },
+      userUid: {
+        type: 'integer'
+      }
+    }
+  };
+}
+
 export const createSchema = {
   required: [ 'inboxId', 'userUid' ],
   additionalProperties: false,

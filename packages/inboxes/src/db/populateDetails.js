@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Inboxes from '../Inbox';
 import { interfaces } from '../config';
 
 export default async function populateDetails( entities, inbox ) {
@@ -16,7 +17,12 @@ export default async function populateDetails( entities, inbox ) {
     }
 
     if ( row.inboxUser && row.inboxUser.inboxId !== inbox.data.id ) {
-      delete row.inboxUser;
+      // if the current user is not in the entity inbox
+      const inboxUser = await new Inboxes( row.inbox ).users.get( { userUid: inbox.data.identifier } );
+
+      if ( !inboxUser || !inboxUser.data ) {
+        delete row.inboxUser;
+      }
     }
 
     return row;

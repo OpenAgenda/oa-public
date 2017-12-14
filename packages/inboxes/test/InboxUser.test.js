@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import VError from 'verror';
-import Inboxes, { config, initAndLoad, seed, InboxUser } from './service';
+import Inboxes, { config, initAndLoad, seed, InboxUsers, InboxUser } from './service';
 import testconfig from '../testconfig';
 
 const database = testconfig.mysql.database + '_InboxUser';
@@ -161,6 +161,86 @@ describe( 'InboxUser', () => {
         }
 
       } );
+
+    } );
+
+  } );
+
+  describe( 'list', () => {
+
+    test( 'list inbox users of an inbox', async () => {
+
+      const inboxUsers = await Inboxes( 4 ).users.list();
+
+      expect( inboxUsers.data ).eql( [
+        {
+          id: 3,
+          inboxId: 4,
+          userUid: 56484348,
+          leftAt: null
+        },
+        {
+          id: 4,
+          inboxId: 4,
+          userUid: 89216486,
+          leftAt: new Date( '2017-09-28T18:22:04.000Z' )
+        }
+      ] );
+
+    } );
+
+    test( 'list inbox users of an inbox (without lefted)', async () => {
+
+      const inboxUsers = await Inboxes( 4 ).users.list( { leftAt: false } );
+
+      expect( inboxUsers.toJSON() ).eql( [
+        {
+          id: 3,
+          inboxId: 4,
+          userUid: 56484348,
+          leftAt: null
+        }
+      ] );
+
+    } );
+
+    test( 'list inbox users of some inboxes', async () => {
+
+      const inboxUsers = await new InboxUsers().list( {
+        inboxId: [ 1, 2 ]
+      } );
+
+      expect( inboxUsers.toJSON() ).eql( [
+        { id: 1, inboxId: 1, userUid: 23456789, leftAt: null },
+        { id: 2, inboxId: 2, userUid: 99999999, leftAt: null }
+      ] );
+
+    } );
+
+    test( 'list inbox users attached to a user', async () => {
+
+      const inboxUsers = await new InboxUsers().list( {
+        userUid: 99999999
+      } );
+
+      expect( inboxUsers.toJSON() ).eql( [
+        { id: 2, inboxId: 2, userUid: 99999999, leftAt: null },
+        { id: 5, inboxId: 5, userUid: 99999999, leftAt: null }
+      ] );
+
+    } );
+
+    test( 'list inbox users with missing inboxId', async () => {
+
+      try {
+
+        await new InboxUsers().list();
+
+      } catch ( e ) {
+
+        expect( VError.info( e ).errors.inboxId.code ).equal( 'required' );
+
+      }
 
     } );
 

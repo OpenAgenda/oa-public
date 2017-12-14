@@ -188,7 +188,7 @@ var Messages = function () {
                   break;
                 }
 
-                throw new _verror2.default('Conversation %j not found', this.inbox.identifiers);
+                throw new _verror2.default('Conversation %j not found', this.conversation.identifiers);
 
               case 5:
               case 'end':
