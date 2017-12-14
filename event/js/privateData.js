@@ -5,6 +5,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import du from '@openagenda/dom-utils';
 import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
+import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
@@ -102,6 +103,28 @@ module.exports = function ( options ) {
     const simpleUser = !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN );
     const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
+    const user = sessions.getUser();
+
+    const destinationInbox = (() => {
+      if ( user.uid === params.contributor.uid && simpleUser ) {
+        return { // contributor (not admin) -> admins/modos
+          type: 'agenda',
+          identifier: params.agendaUid
+        };
+      }
+
+      return simpleUser ? [ { // user lambda -> admins/modos + contributor
+        type: 'agenda',
+        identifier: params.agendaUid
+      }, {
+        type: 'user',
+        identifier: params.contributor.uid
+      } ] : { // admin -> contributor
+        type: 'user',
+        identifier: params.contributor.uid
+      };
+    })();
+
     loadInbox( {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
@@ -114,12 +137,10 @@ module.exports = function ( options ) {
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
-            destinationInbox: {
-              type: 'agenda',
-              identifier: params.agendaUid
-            },
+            destinationInbox,
             params: {
-              eventTitle: params.title
+              eventTitle: params.title,
+              agendaUid: params.agendaUid
             }
           },
           TitleComponent: 'h4',
