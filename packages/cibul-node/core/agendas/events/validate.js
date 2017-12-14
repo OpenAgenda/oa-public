@@ -39,7 +39,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
     // clean event
     try {
 
-      clean.event = validateEvent( data );
+      validateEvent( data );
 
     } catch( eventValidationErrors ) {
 
@@ -48,6 +48,8 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
       log( 'received validation errors for event data', { count: eventValidationErrors.length } );
 
     }
+
+    clean.event = data;
 
   }
 

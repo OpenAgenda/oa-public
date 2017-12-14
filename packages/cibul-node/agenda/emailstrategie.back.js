@@ -15,7 +15,7 @@ bodyMw = require( 'body-parser' ).urlencoded( {
 
 routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
-  emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
+  emailStrategieNewSubmit: [ 'post', '/new',[ bodyMw, newSubmit ] ],
   emailStrategieShow: [ 'get', '/', show ],
   emailStrategiePush: [ 'post', '/push', [ bodyMw, push ] ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]

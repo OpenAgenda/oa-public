@@ -1,150 +1,58 @@
 "use strict";
 
 const multer = require( 'multer' )();
-const VError = require( 'verror' );
 
-const agendasMw = require( '@openagenda/agendas/middleware' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const wn = require( 'when/node' );
-
-const accessTokens = require( '../services/accessTokens' );
 const log = require( '@openagenda/logs' )( 'api' );
 
 const app = require( 'express' )();
 const config = require( '../config' );
-const core = require( '../core' );
+const mw = require( './middleware' );
+
+const create = require( './endpoints/create' );
+const update = require( './endpoints/update' );
+const remove = require( './endpoints/remove' );
 
 const handleError = require( '../services/00_errors' ).bind( null, 'api' );
 
 
 app.post( /^\/v2.+/, multer.single( 'image' ) );
 
+// access token control and user load
+app.post( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
 
 
-// access token control
-app.post( /^\/v2.+/, async ( req, res, next ) => {
+// load all the things
+app.param( 'agendaUid', mw.loadAgenda );
 
-  try {
-
-    req.user = await accessTokens.getUser( req.body.access_token, req.body.nonce );
-
-    if ( !req.user ) throw new Error( 'could not find user matching token' );
-
-  } catch( e ) {
-
-    return res.status( 403 ).json( {
-      error: e.message
-    } );
-
-  }
-
-  next();
-
-} );
+app.param( 'eventUid', mw.loadEvent );
 
 
-// load agenda when required
-app.param( 'agendaUid', agendasMw.load( {
-  namespaces: { identifiers: { uid: 'params.agendaUid' } },
-  private: null,
-  internal: true
-} ) );
+// control all the things
+app.post( '/v2/agendas/:agendaUid/events', mw.verifyMember );
 
-app.param( 'agendaUid', ( req, res, next ) => {
+app.post( [
+  '/v2/agendas/:agendaUid/events',
+  '/v2/agendas/:agendaUid/events/:eventUid'
+], mw.parseBodyData );
 
-  if ( !req.agenda ) return res.status( 404 ).json( {
-    error: 'agenda not found',
-    agendaUid: req.params.agendaUid
-  } );
-
-  next();
-
-} );
-
-
-// verify user role ( if publishing event content, needs to be a member )
-app.post( '/v2/agendas/:agendaUid/events', async ( req, res, next ) => {
-
-  const member = await wn.call( agendaStakeholders( req.agenda.id ).get, req.user.id, { instantiate: true } );
-
-  if ( !member ) {
-
-    return res.status( 403 ).json( {
-      error: 'user is not a member of agenda',
-      agendaUid: req.params.agendaUid
-    } )
-
-  }
-
-  if ( ![ 'contributor', 'moderator', 'administrator' ].includes( agendaStakeholders.types.codes.get( member.credential ) ) ) {
-
-    return res.status( 403 ).json( {
-      error: 'user is not authorized to contribute to agenda',
-      agendaUid: req.params.agendaUid
-    } );
-
-  }
-
-  next();
-
-} );
-
-app.post( '/v2/agendas/:agendaUid/events', async ( req, res, next ) => {
-
-  try {
-
-    req.parsedData = JSON.parse( req.body.data );
-
-  } catch ( e ) {
-
-    return res.status( 400 ).json( {
-      error: 'provided json is invalid',
-      agendaUid: req.params.agendaUid,
-      json: req.body.data
-    } );
-
-  }
-
-  next();
-
-} );
+app.post( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights );
 
 
 // create the thing
-app.post( '/v2/agendas/:agendaUid/events', async ( req, res, next ) => {
+app.post( '/v2/agendas/:agendaUid/events', create );
 
-  let result;
+// update the thing
+app.post( '/v2/agendas/:agendaUid/events/:eventUid', update );
 
-  // necessary du to legacy data structure constraints
-  req.parsedData.ownerUid = req.user.uid;
+// remove the thing
+app.delete( '/v2/agendas/:agendaUid/events/:eventUid', remove );
 
-  try {
+app.use( ( err, req, res, next ) => {
 
-    result = await core.agendas( req.agenda.uid ).events.create( req.parsedData );
+  handleError( err );
 
-  } catch( e ) {
-
-    if ( e.name === 'validationError' ) {
-
-      return res.status( 400 ).json( {
-        errors: VError.info( e ).errors
-      } );
-
-    } else {
-
-      handleError( e );
-
-      return res.status( 500 ).json( {
-        message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'
-      } );
-
-    }
-
-  }
-
-  res.json( {
-    success: true,
-    event: result.event
+  return res.status( 500 ).json( {
+    message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'
   } );
 
 } );
