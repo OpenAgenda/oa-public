@@ -3,9 +3,9 @@
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const winston = require( 'winston' );
+const LE = require( '@openagenda/le_node' );
 const DebugTransport = require( './DebugTransport' );
 const { getCallerFile, getModule } = require( './utils/caller' );
-const LE = require( 'le_node' );
 
 LE.provisionWinston( winston );
 
