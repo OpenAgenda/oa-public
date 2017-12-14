@@ -2,6 +2,12 @@
 # yarn lockfile v1
 
 
+"@openagenda/codependency@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.npmjs.org/@openagenda/codependency/-/codependency-2.0.2.tgz#f894913b8946c93e0d440bf7f3c767603e119a0f"
+  dependencies:
+    semver "^5.3.0"
+
 "@openagenda/fixtures@^2.0.1":
   version "2.0.1"
   resolved "https://registry.npmjs.org/@openagenda/fixtures/-/fixtures-2.0.1.tgz#880f0bd8ba3bcbf2fd0edf33eb9d3682a8b99b61"
@@ -10,10 +16,22 @@
     mysql "^2.10.2"
     when "^3.7.7"
 
-"@openagenda/logs@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.6.tgz#4fb5f56a6650e3d32b088ce3af12454bf460ecca"
+"@openagenda/le_node@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.npmjs.org/@openagenda/le_node/-/le_node-1.7.3.tgz#78864151fe9d82e55a050f28c5c0ed19814a168e"
   dependencies:
+    "@openagenda/codependency" "^2.0.2"
+    babel-runtime "6.6.1"
+    json-stringify-safe "5.0.1"
+    lodash "3.9.3"
+    reconnect-core "1.3.0"
+    semver "5.1.0"
+
+"@openagenda/logs@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.8.tgz#f99a724a569aa4ea0d95c9e6e87b116616a4cbd4"
+  dependencies:
+    "@openagenda/le_node" "^1.7.3"
     debug "^2.2.0"
     le_node "^1.7.1"
     lodash "^4.17.4"

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "babel src -d lib -s",
-    "test": "jest --coverage",
+    "test": "jest --coverage --forceExit",
     "test:watch": "npm test -- --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "preversion": "npm test",
@@ -28,7 +28,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/inboxes#readme",
   "dependencies": {
-    "@openagenda/logs": "^1.0.6",
+    "@openagenda/logs": "^1.0.8",
     "@openagenda/service-utils": "^2.0.0",
     "ajv": "^5.2.2",
     "ajv-errors": "^1.0.0",
