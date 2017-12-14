@@ -49,7 +49,7 @@
           </ul>
         </div>
 <% } %>
-        
+
         <div class="event-content">
           <h1><%= event.title %></h1>
           <p class="short-description"><%= event.description %></p>
@@ -109,12 +109,12 @@
           <h3><i class="acc <%= i %>"></i></h3>
           <p class="detail-item-content"><%= __( impairments[ i ] ) %></p>
         </section>
-<% }) %>        
+<% }) %>
 <% } %>
 <% if ( event.age ) { %>
         <section class="detail-item">
           <h3><i class="fa fa-child"></i></h3>
-<% if ( !event.age.max ) { %> 
+<% if ( !event.age.max ) { %>
           <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
 <% } else { %>
           <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
@@ -140,8 +140,8 @@
           --><div class="map js_map" data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"></div>
         </section>
 
-          
-        
+
+
 <% if ( event.agendaReferences.length > ( loner ? 0 : 1 ) ) { %>
         <div class="sharers">
           <ul><!--
@@ -162,13 +162,13 @@
           --></ul>
         </div>
 <% } %>
-      
+
         <section class="detail-item timings no-js js_timings_canvas">
           <h3><i class="fa fa-calendar-o"></i></h3>
 <% if ( typeof event.timingsComponents !== 'undefined' ) { %>
           <%- event.timingsComponent %>
 <% } else { %>
-          <% include _hours.part.ejs %> 
+          <% include _hours.part.ejs %>
 <% } %>
         </section>
 
@@ -192,7 +192,7 @@
             <ul>
 <%- g.tags.map( t => {
       return '<li>' + _txt.escape( t.label ) + '</li>';
-}).join( ', ' ) %>        
+}).join( ', ' ) %>
             </ul>
           </div>
 <% }); %>
@@ -207,7 +207,7 @@
             </ul>
           </div>
 <% } %>
-        
+
 <% if ( event.image ) { %>
           <img  class="img-responsive" src="<%= event.image %>">
 <% if ( event.credits ) { %>
@@ -234,8 +234,8 @@
 
         <div class="js_references"></div>
 
-<% if ( 
-  event.location.description 
+<% if (
+  event.location.description
   || event.location.access
   || event.location.image
   || event.location.website
@@ -327,9 +327,15 @@
 
     <div class="js_activities"></div>
 
-    <div class="js_inbox_event"></div>
+    <div class="display-none js_inbox_event_canvas">
+      <div class="event-secondary inbox">
+        <h3><%= __( 'inbox' ) %></h3>
 
-<% if ( event.owner ) { %>  
+        <div class="js_inbox_event"></div>
+      </div>
+    </div>
+
+<% if ( event.owner ) { %>
         <div class="signature">
           <p><%= __( 'createdBy', { 'owner' : event.owner.name } ) %> <%= _t( event.updatedAt, 'dddd Do MMMM - HH:mm' ) %></p>- <a href="<%= event.owner.contactLink %>"><%= __( 'contact' ) %></a>
         </div>

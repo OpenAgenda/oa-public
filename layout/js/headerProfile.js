@@ -26,7 +26,7 @@ const session = require( '@openagenda/sessions/client' ),
       profile: '.js_profile',
       dropdown: '.js_profile_dropdown',
       notifications: '.js_notifications',
-      inbox: '.js_inbox',
+      inbox: '.js_inbox_header',
     },
     classes: {
       displayNone: 'display-none'
