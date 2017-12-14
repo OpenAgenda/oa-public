@@ -119,6 +119,12 @@
         "image": "location71865148.jpg",
         "imageCredits" : "This picture took itself",
         "city": "Valenciennes",
+        "department" : "Nord",
+        "region" : "Hauts-de-France",
+        "country" : {
+          "fr" : "France (Métropole)",
+          "en" : "France (Metropolitan)"
+        },
         "postalCode": "59300",
         "latitude": 50.357208,
         "longitude": -3.531375,

@@ -1,3 +1,18 @@
+<%
+  function locationPart( l ) {
+
+    var data = event.location[ l ];
+
+    if ( typeof data === 'string' ) return data;
+
+    var v = data[ lang ];
+
+    if ( v === 'France (Métropole)' ) return null;
+
+    return v;
+
+  }
+%>
 <% if ( !loner ) { %>
 <header class="agenda-header">
   <div class="container">
@@ -25,7 +40,7 @@
         <div class="langs">
           <ul>
 <% event.languages.selection.forEach( function( l ) { %>
-<% if ( l.label==event.languages.current ) { %>
+<% if ( l.label === event.languages.current ) { %>
             <li class="current"><a><%= l.label %></a></li>
 <% } else { %>
             <li><a hreflang="<%= l %>" href="<%= l.link %>"><%= l.label %></a></li>
@@ -113,10 +128,16 @@
             <p>
               <%- event.location.name %><% /* escaped in model already */ %>
             </p>
-            <p><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></p>
+            <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
+            <ul class="info list-inline location-info-parts">
+<% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
+<% if ( event.location[ part ] && locationPart( part ) ) { %>
+              <li><span><%= locationPart( part ) %></span></li>
+<% } %>
+<% }); %>
+            </ul>
           </div><!--
           --><div class="map js_map" data-coord="<%= event.location.latitude %>|<%= event.location.longitude %>"></div>
-
         </section>
 
           
