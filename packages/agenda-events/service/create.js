@@ -84,15 +84,15 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   }
 
-  if ( success && config.interfaces.onCreate ) {
-
-    config.interfaces.onCreate( created, params.context );
-
-  }
-
   if ( success && options.transferToLegacy ) {
 
     await legacyTransfer.to( created );
+
+  }
+
+  if ( success && config.interfaces.onCreate ) {
+
+    config.interfaces.onCreate( created, params.context );
 
   }
 
