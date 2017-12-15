@@ -26,7 +26,10 @@ module.exports = async ( agendaUid, eventUid ) => {
     custom: false
   };
 
-  const event = await events.get( { uid: eventUid }, { private: null, internal: true } );
+  const event = await events.get( { uid: eventUid }, {
+    private: null,
+    internal: true
+  } );
 
   if ( !event ) {
 

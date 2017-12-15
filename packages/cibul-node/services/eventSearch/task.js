@@ -4,6 +4,8 @@ const q = require( '@openagenda/queue' )( 'eventSearch', { redis: require( '../.
 
 const agendaIndices = require( './agendaIndices' );
 
+const agendaEvents = require( '@openagenda/agenda-events' );
+
 const events = require( './eventTransverseOperations' );
 
 const logger = require( '@openagenda/logger' );
@@ -12,15 +14,17 @@ module.exports = () => {
 
   let log = logger( 'services/eventSearch/task' );
 
-  q.setConsumer( data => {
+  q.setConsumer( async data => {
 
     if ( data.args.agendaUid ) {
 
-      return agendaIndices( data.args.agendaUid )[ data.method ]( data.args.eventUid, { refresh: false } );
+      const ae = await agendaEvents( data.args.agendaUid ).get( data.args.eventUid );
+
+      return agendaIndices( data.args.agendaUid )[ data.method ]( ae, { refresh: false } );
 
     } else if ( [ 'update', 'remove', 'add' ].includes( data.method ) ) {
 
-      return events[ data.method ]( data.args.eventUid, { refresh: false } );
+      return await events[ data.method ]( data.args.eventUid, { refresh: false } );
 
     } else {
 

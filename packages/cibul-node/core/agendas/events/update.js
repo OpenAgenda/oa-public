@@ -25,7 +25,10 @@ module.exports = async ( agendaUid, eventUid, data ) => {
   let clean = await validate.loaded( { formSchemaId }, data );
 
   // update the event
-  let result = await events.update( { uid: eventUid }, clean.event );
+  let result = await events.update( { uid: eventUid }, clean.event, { 
+    context: { agendaUid, updateSearchIndex: false },
+    transferToLegacy: true
+  } );
 
   if ( !result.valid ) {
 

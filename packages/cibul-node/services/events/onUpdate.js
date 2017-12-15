@@ -7,6 +7,6 @@ module.exports = ( before, after, context ) => {
 
   log( 'info', 'updated event %s', after.uid, { context } );
 
-  eventSearch.events.batch.update( after, context ); // context should have agendaUid
+  eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
   
 }

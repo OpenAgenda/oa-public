@@ -59,7 +59,8 @@ function init( config ) {
 
       logger: {
         debug: {
-          prefix: 'svc:'
+          prefix: 'svc:',
+          enable: true
         },
         token: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
       }

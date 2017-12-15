@@ -525,6 +525,7 @@ let config = {
         //enable: 'oa:events*,oa:legacy*',
         //enable: 'oa:mailer/task/eventAggregation*',
         //enable: 'oa:legacy:*'
+        //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         enable: 'oa:*'
         //enable: '*'
       },

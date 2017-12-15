@@ -9,6 +9,6 @@ module.exports = ( ae, context ) => {
 
   // use context.userUid. will be null if nothing was specified at remove
   
-  eventSearch.agendas( ae.agendaUid ).remove( ae.eventUid );
+  eventSearch.agendas( ae.agendaUid ).remove( ae );
 
 }

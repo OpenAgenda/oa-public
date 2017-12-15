@@ -13,7 +13,7 @@ module.exports = async ( ae, context ) => {
 
   log( 'created agenda-event %j', ae, { context } );
 
-  eventSearch.agendas( ae.agendaUid ).add( ae.eventUid, ae.state );
+  _addToSearchIndex( ae );
 
   // use context.userUid. will be null when nothing was specified at create
 
@@ -37,6 +37,18 @@ module.exports = async ( ae, context ) => {
       sourceAgendaUid: context.agendaUid,
       state: ae.state
     } );
+
+  }
+
+}
+
+async function _addToSearchIndex( ae ) {
+
+  const result = await eventSearch.agendas( ae.agendaUid ).add( ae );
+
+  if ( !result.success ) {
+
+    log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
 
   }
 

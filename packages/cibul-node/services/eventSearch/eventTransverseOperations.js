@@ -32,7 +32,7 @@ async function search( query = null, nav = null, options = null ) {
 
 async function update( eventUid ) {
 
-  return index.update( { uid: eventUid }, await _getEvent( eventUid ), { expire: true } );
+  return await index.update( { uid: eventUid }, await _getEvent( eventUid ), { expire: true } );
 
 }
 
@@ -44,7 +44,19 @@ async function add( eventUid, options = {} ) {
 
   }
 
-  return index.add( await _getEvent( eventUid ), _.extend( { expire: true }, options ) );
+  const result = await index.add( await _getEvent( eventUid ), _.extend( { expire: true }, options ) );
+
+  if ( !result.success && result.message === 'negative ttl set' ) {
+
+    log( 'info', 'past event was not indexed', { eventUid } );
+
+    return {
+      success: true
+    }
+
+  }
+
+  return result;
 
 }
 
@@ -85,11 +97,17 @@ async function rebuild() {
 async function batch( method, event, context = {}) {
 
   // main agenda
-  const agendaUid = context.agendaUid;
+  const { agendaUid, updateEventSearchIndex } = context;
 
-  if ( agendaUid ) {
+  if ( agendaUid && updateEventSearchIndex ) {
 
-    await agendaIndices( agendaUid )[ method ]( event.uid );
+    const ae = await agendaEvents( agendaUid ).get( event.uid );
+    
+    if ( ae ) {
+
+      await agendaIndices( agendaUid )[ method ]( ae );
+
+    }
 
   }
 

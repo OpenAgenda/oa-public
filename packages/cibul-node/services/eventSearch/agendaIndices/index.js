@@ -1,12 +1,14 @@
 "use strict"
 
 const _ = require( 'lodash' );
-const search = require( './search' );
-const rebuild = require( './rebuild' );
-const assemble = require( './assemble' );
+
 const eventSearch = require( '@openagenda/event-search' );
-const schema = require( '@openagenda/validators/schema' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndices' );
+const schema = require( '@openagenda/validators/schema' );
+
+const assemble = require( './assemble' );
+const rebuild = require( './rebuild' );
+const search = require( './search' );
 
 const defaultSearchOptions = {
   detailed: false,
@@ -58,54 +60,70 @@ function _search( searchIndex, agendaUid, query, nav, options ) {
 
 }
 
-async function _add( searchIndex, agendaUid, eventUid, state, options = {} ) {
+async function _add( searchIndex, agendaUid, agendaEvent, options = {} ) {
 
   if ( !await searchIndex.exists() ) {
 
-    log( 'info', 'adding event %s to agenda index %s: index does not exist', eventUid, searchIndex.name );
+    log( 'info', 'adding event %s to agenda index %s: index does not exist', agendaEvent.eventUid, searchIndex.name );
 
     return;
 
   }
 
-  log( 'info', 'adding event %s to agenda index %s', eventUid, searchIndex.name );
+  log( 'info', 'adding event %s to agenda index %s', agendaEvent.eventUid, searchIndex.name );
 
-  const decorated = await assemble.item( { agendaUid, eventUid, state } );
+  const decorated = await assemble.item( agendaEvent );
 
-  return await searchIndex.add( decorated, validateOptions( options ) );
+  const cleanOptions = validateOptions( options );
+
+  return searchIndex.add( decorated, cleanOptions ).then( result => {
+
+    if ( result.success ) {
+
+      log( 'event %s was added to agenda %s', agendaEvent.eventUid, searchIndex.name, cleanOptions );
+
+    } else {
+
+      log( 'error', 'event %s could not be added to agenda %s', agendaEvent.eventUid, searchIndex.name, cleanOptions );
+
+    }
+
+    return result;
+
+  } );
 
 }
 
-async function _update( searchIndex, agendaUid, eventUid, state, options = {} ) {
+async function _update( searchIndex, agendaUid, agendaEvent, options = {} ) {
 
   if ( !await searchIndex.exists() ) {
 
-    log( 'info', 'updating event %s to agenda index %s: index does not exist', eventUid, searchIndex.name );
+    log( 'info', 'updating event %s to agenda index %s: index does not exist', agendaEvent.eventUid, searchIndex.name );
 
     return;
 
   }
 
-  log( 'info', 'updating event %s on agenda index %s', eventUid, searchIndex.name );
+  log( 'info', 'updating event %s on agenda index %s', agendaEvent.eventUid, searchIndex.name );
 
-  const decorated = await assemble.item( { agendaUid, eventUid, state } );
+  const decorated = await assemble.item( agendaEvent );
 
-  return await searchIndex.update( { uid: eventUid }, decorated, validateOptions( options ) );
+  return await searchIndex.update( { uid: agendaEvent.eventUid }, decorated, validateOptions( options ) );
 
 }
 
-async function _remove( searchIndex, eventUid, options = {} ) {
+async function _remove( searchIndex, agendaEvent, options = {} ) {
 
   if ( !await searchIndex.exists() ) {
 
-    log( 'info', 'removing event %s from agenda index %s: index does not exist', eventUid, searchIndex.name );
+    log( 'info', 'removing event %s from agenda index %s: index does not exist', agendaEvent.eventUid, searchIndex.name );
 
     return;
 
   }
 
-  log( 'info', 'removing event %s from agenda index %s', eventUid, searchIndex.name );
+  log( 'info', 'removing event %s from agenda index %s', agendaEvent.eventUid, searchIndex.name );
 
-  return await searchIndex.remove( { uid: eventUid }, validateOptions( options ) );
+  return await searchIndex.remove( { uid: agendaEvent.eventUid }, validateOptions( options ) );
 
 }

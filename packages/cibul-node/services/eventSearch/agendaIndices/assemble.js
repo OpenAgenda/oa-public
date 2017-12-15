@@ -108,7 +108,6 @@ async function item( agendaEvent ) {
   }
 
   return _item( {
-    agendaEvent,
     event,
     formSchemaId,
     validators: await getCustomValidators( formSchemaId ),

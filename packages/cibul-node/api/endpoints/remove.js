@@ -11,10 +11,8 @@ module.exports = async ( req, res, next ) => {
 
     const result = await core.agendas( req.agenda.uid ).events.remove( req.event.uid );
 
-    console.log( result );
-
     res.json( {
-      success: true
+      success: result.success
     } );
 
   } catch ( e ) {
