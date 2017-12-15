@@ -31,7 +31,15 @@ module.exports = async function( alias, identifiers, eventPart, options = {} ) {
 
   if ( lastTimingEndsInDays !== undefined && lastTimingEndsInDays < 0 ) {
 
-    return await remove( alias, identifiers, options );
+    try {
+
+      return await remove( alias, identifiers, options );
+
+    } catch ( err ) {
+
+      return handleError( err, 'failed to remove past event %s in index of alias %s', identifiers.uid, alias );
+
+    }
 
   }
 
