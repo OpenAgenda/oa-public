@@ -33,9 +33,9 @@ module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state
 
     const event = await wn.call( eventSvc.get, { uid: eventUid } );
 
-    const aggregatorAgenda = await wn.call( agendasSvc.get, { uid: aggregatorAgendaUid }, { internal: true } );
+    const aggregatorAgenda = await wn.call( agendasSvc.get, { uid: aggregatorAgendaUid }, { internal: true, includeImagePath: true } );
 
-    const sourceAgenda = await wn.call( agendasSvc.get, { uid: sourceAgendaUid }, { internal: true } );
+    const sourceAgenda = await wn.call( agendasSvc.get, { uid: sourceAgendaUid }, { internal: true, includeImagePath: true } );
 
     const members = ( await wn.call( stakeholders( aggregatorAgenda.id ).list, { credentials: [ 'administrator', 'moderator' ] }, 0, 100 ) )[ 0 ];
 

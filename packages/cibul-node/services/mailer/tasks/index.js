@@ -1,5 +1,6 @@
 "use strict";
 
 module.exports = {
-  eventAggregation: require( './eventAggregation' )
+  eventAggregation: require( './eventAggregation' ),
+  inboxMessage: require( './inboxMessage' )
 }

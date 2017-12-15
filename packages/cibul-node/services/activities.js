@@ -87,7 +87,7 @@ module.exports.init = async config => {
 
         if (
           !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
+          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' )) // moderator doesn't sees who has invited to become an administrator
         ) {
 
           return cb( null, false );
@@ -110,7 +110,7 @@ module.exports.init = async config => {
 
         if (
           !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
+          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' )) // moderator doesn't sees who has invited to become an administrator
         ) {
 
           return cb( null, false );
@@ -135,6 +135,9 @@ module.exports.init = async config => {
       }
     } ],
     logger: {
+      debug: {
+        prefix: 'svc:'
+      },
       token: process.env.NODE_ENV === 'production' ? '8d66d66a-58ce-42b6-ab21-7805b075ba48' : null
     }
   } );

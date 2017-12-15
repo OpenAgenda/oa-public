@@ -1,6 +1,11 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const bodyMw = require( 'body-parser' ).urlencoded( {
+    extended: true,
+    limit: 500000
+  } ),
+
+  sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
 
@@ -62,6 +67,7 @@ module.exports = path => {
   moment.locale( 'fr' );
 
   router.pre( [
+    bodyMw,
     cmn.loadBaseData(),
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.requireAdmin

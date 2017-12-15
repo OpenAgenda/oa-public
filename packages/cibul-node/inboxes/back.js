@@ -10,6 +10,7 @@ const agendasMw = require( '@openagenda/agendas/middleware' );
 const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const errorLogger = require( '../services/00_errors' );
+const config = require( '../config' );
 
 const app = express();
 
@@ -32,15 +33,17 @@ if ( __DEVELOPMENT__ ) {
 const userRouter = express.Router( { mergeParams: true } );
 app.use( '/home/inbox', userRouter );
 
-userRouter
-  .use( preMw )
-  .use( ( req, res, next ) => {
+const userPreMw = [
+  preMw,
+  ( req, res, next ) => {
     req.type = 'user';
     req.creatorInboxUser = { userUid: req.user.uid };
     next();
-  } );
+  }
+];
 
 userRouter.get( '/conversations/:conversationId/action/:code.json',
+  userPreMw,
   inboxMw.conversations.action( {
     namespaces: {
       conversationId: 'params.conversationId',
@@ -49,21 +52,26 @@ userRouter.get( '/conversations/:conversationId/action/:code.json',
       userUid: 'user.uid',
       code: 'params.code'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 userRouter.get( '/conversations/:conversationId/messages.json',
+  userPreMw,
   inboxMw.messages.list( {
     namespaces: {
       conversationId: 'params.conversationId',
       type: 'type',
-      identifier: 'user.uid'
+      identifier: 'user.uid',
+      userUid: 'user.uid'
     },
     limit: 20
-  } )
+  } ),
+  errorHandler
 );
 
 userRouter.post( '/conversations/:conversationId/messages.json',
+  userPreMw,
   inboxMw.messages.create( {
     namespaces: {
       conversationId: 'params.conversationId',
@@ -72,10 +80,12 @@ userRouter.post( '/conversations/:conversationId/messages.json',
       userUid: 'user.uid',
       body: 'body.body'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 userRouter.get( '/conversations.json',
+  userPreMw,
   inboxMw.user( 'user.uid' ).conversations.list( { limit: 20 } ),
   ( req, res, next ) => {
     inboxMw.user( 'user.uid' ).conversations.list( {
@@ -85,10 +95,12 @@ userRouter.get( '/conversations.json',
       },
       limit: req.query.limit || 20
     } )( req, res, next );
-  }
+  },
+  errorHandler
 );
 
 userRouter.post( '/conversations.json',
+  userPreMw,
   ( req, res, next ) => {
     req.options = {
       createInboxUserOnNull: true
@@ -99,59 +111,64 @@ userRouter.post( '/conversations.json',
     namespaces: {
       type: 'type',
       identifier: 'user.uid',
-      destinationInbox: {
-        type: 'body.destinationInbox.type',
-        identifier: 'body.destinationInbox.identifier'
-      },
+      destinationInbox: 'body.destinationInbox',
       conversationType: 'body.type',
       conversationTypeIdentifier: 'body.typeIdentifier',
       params: 'body.params',
       message: 'body.message',
       creatorInboxUser: 'creatorInboxUser'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 userRouter.get( '/author.json',
+  userPreMw,
   ( req, res ) => {
+    // get inbox <-> conversation ==> inboxUser
+    if ( req.query.conversationId ) {
+      //
+    }
+
     res.json( {
       inboxUser: {
         name: req.user.name,
-        avatar: req.user.thumbnail
+        avatar: req.user.thumbnail || config.aws.defaultImagePath
       }
     } );
-  }
+  },
+  errorHandler
 );
-
-userRouter.use( errorHandler );
 
 /* agenda */
 
 const agendaRouter = express.Router( { mergeParams: true } );
 app.use( '/agendas/:agendaUid/inbox', agendaRouter );
 
-agendaRouter
-  .use( preMw )
-  .use( ( req, res, next ) => {
+const agendaPreMw = [
+  preMw,
+  ( req, res, next ) => {
     req.type = 'agenda';
     req.creatorInboxUser = { userUid: req.user.uid };
     next();
-  } )
-  .use( oldAgendaLoad( 'agendaUid', 'uid' ) )
-  .use( cmn.checkAdminOrModerator )
-  .use( agendasMw.load( {
+  },
+  oldAgendaLoad( 'agendaUid', 'uid' ),
+  cmn.checkAdminOrModerator,
+  agendasMw.load( {
     namespaces: { identifiers: { uid: 'params.agendaUid' } },
     private: null
-  } ) )
-  .use( ( req, res, next ) => {
+  } ),
+  ( req, res, next ) => {
     if ( !req.agenda ) {
       res.status( 404 );
       return next( new VError( 'Agenda %s not found', req.params.agendaUid ) );
     }
     next();
-  } );
+  }
+];
 
 agendaRouter.get( '/conversations/:conversationId/action/:code.json',
+  agendaPreMw,
   inboxMw.conversations.action( {
     namespaces: {
       conversationId: 'params.conversationId',
@@ -160,21 +177,26 @@ agendaRouter.get( '/conversations/:conversationId/action/:code.json',
       userUid: 'user.uid',
       code: 'params.code'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 agendaRouter.get( '/conversations/:conversationId/messages.json',
+  agendaPreMw,
   inboxMw.messages.list( {
     namespaces: {
       conversationId: 'params.conversationId',
       type: 'type',
-      identifier: 'agenda.uid'
+      identifier: 'agenda.uid',
+      userUid: null
     },
     limit: 20
-  } )
+  } ),
+  errorHandler
 );
 
 agendaRouter.post( '/conversations/:conversationId/messages.json',
+  agendaPreMw,
   ( req, res, next ) => {
     req.options = {
       createInboxUserOnNull: true
@@ -189,10 +211,12 @@ agendaRouter.post( '/conversations/:conversationId/messages.json',
       body: 'body.body',
       userUid: 'user.uid'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 agendaRouter.get( '/conversations.json',
+  agendaPreMw,
   ( req, res, next ) => {
     inboxMw.conversations.list( {
       namespaces: {
@@ -201,10 +225,12 @@ agendaRouter.get( '/conversations.json',
       },
       limit: req.query.limit || 20
     } )( req, res, next );
-  }
+  },
+  errorHandler
 );
 
 agendaRouter.post( '/conversations.json',
+  agendaPreMw,
   ( req, res, next ) => {
     req.options = {
       createInboxUserOnNull: true
@@ -215,20 +241,19 @@ agendaRouter.post( '/conversations.json',
     namespaces: {
       type: 'type',
       identifier: 'agenda.uid',
-      destinationInbox: {
-        type: 'body.destinationInbox.type',
-        identifier: 'body.destinationInbox.identifier'
-      },
+      destinationInbox: 'body.destinationInbox',
       conversationType: 'body.type',
       conversationTypeIdentifier: 'body.typeIdentifier',
       params: 'body.params',
       message: 'body.message',
       creatorInboxUser: 'creatorInboxUser'
     }
-  } )
+  } ),
+  errorHandler
 );
 
 agendaRouter.get( '/author.json',
+  agendaPreMw,
   ( req, res, next ) => {
     inboxMw.inboxUser.get( {
       namespaces: {
@@ -237,19 +262,21 @@ agendaRouter.get( '/author.json',
       },
       fallbackGetter: () => ({
         name: req.user.name,
-        avatar: req.user.thumbnail
+        avatar: req.user.thumbnail || config.aws.defaultImagePath
       })
     } )( req, res, next );
-  }
+  },
+  errorHandler
 );
-
-agendaRouter.use( errorHandler );
 
 /* error handler */
 
 function errorHandler( err, req, res, next ) {
   if ( err.name === 'ValidationError' ) {
     return res.status( 400 );
+  }
+  if ( err.code ) {
+    return next( err );
   }
   errorLogger( 'middleware', err );
   res.status( 500 ).json( err );

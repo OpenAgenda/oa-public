@@ -125,7 +125,7 @@ const modLib = require( '../lib/moduleLib' ),
 
         let integer = parseInt( req.params.eventSlug );
 
-        if ( Number.isInteger( integer ) && ( ( integer + '' ).length === req.params.eventSlug.length ) ) {
+        if ( Number.isInteger( integer ) && ((integer + '').length === req.params.eventSlug.length) ) {
 
           return next( 'route' );
 
@@ -185,7 +185,7 @@ module.exports = path => {
  * controllers
  */
 
-function agendaEventShow( req, res ) {
+function agendaEventShow( req, res, next ) {
 
   let reqParams = {
     slug: req.agenda.slug,
@@ -202,13 +202,20 @@ function agendaEventShow( req, res ) {
 
   _addContactLink( req );
 
-  cmn.render( req, res, 'event/show', {
-    agendaId: req.agenda.id,
-    private: req.agenda.private,
-    adminNav: req.query.admin_nav,
-    event: req.formatted,
-    components: req.components
-  } );
+  req.event.getContributor( ( err, contributor ) => {
+    if ( err ) return next( err );
+
+    cmn.render( req, res, 'event/show', {
+      scriptParams: {
+        contributor
+      },
+      agendaId: req.agenda.id,
+      private: req.agenda.private,
+      adminNav: req.query.admin_nav,
+      event: req.formatted,
+      components: req.components
+    } );
+  } )
 
 }
 

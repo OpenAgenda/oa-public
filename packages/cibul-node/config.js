@@ -316,184 +316,197 @@ let config = {
     },
     routes: {
       globals: {
-        'authShow': {
+        authShow: {
           method: 'get',
           uri: '/auth'
         },
-        'signup': {
+        signup: {
           method: 'get',
           uri: '/signup'
         },
-        'homeMessages': {
+        homeMessages: {
           method: 'get',
           uri: '/home/messages'
         },
-        'homeNotifications': {
+        homeNotifications: {
           method: 'get',
           uri: '/home/notifications'
         },
-        'aboutShow': {
+        homeInbox: {
+          method: 'get',
+          uri: '/home/inbox'
+        },
+        homeInboxConversation: {
+          method: 'get',
+          uri: '/home/inbox/conversation/:conversationId'
+        },
+        aboutShow: {
           method: 'get',
           uri: '/about'
         },
-        'termsShow': {
+        termsShow: {
           method: 'get',
           uri: '/termsofuse'
         },
-        'searchEvent': {
+        searchEvent: {
           method: 'get',
           uri: '/events/search'
         },
-        'agendaNew': {
+        agendaNew: {
           method: 'get',
           uri: '/new'
         },
-        'agendaEventNew': {
+        agendaEventNew: {
           method: 'get',
           uri: '/:slug/addevent'
         },
-        'agendaEventEdit': {
+        agendaEventEdit: {
           method: 'get',
           uri: '/:slug/event/:eventSlug/edit'
         },
-        'agendaEventDuplicate': {
+        agendaEventDuplicate: {
           method: 'get',
           uri: '/:slug/event/:eventSlug/duplicate'
         },
-        'agendaEventShow': {
+        agendaEventShow: {
           method: 'get',
           uri: '/:slug/event/:eSlug'
         },
-        'agendaFeed': {
+        agendaFeed: {
           method: 'get',
           uri: '/agendas/:uid.atom'
         },
-        'agendaIcal': {
+        agendaIcal: {
           method: 'get',
           uri: '/agendas/:uid.ics'
         },
-        'agendaCsv': {
+        agendaCsv: {
           method: 'get',
           uri: '/agendas/:uid.csv'
         },
-        'agendaXml': {
+        agendaXml: {
           method: 'get',
           uri: '/agendas/:uid.xml'
         },
-        'agendaEmbedIndex': {
+        agendaEmbedIndex: {
           method: 'get',
           uri: '/:slug/admin/webembed'
         },
-        'aggregatorCreate': {
+        aggregatorCreate: {
           method: 'get',
           uri: '/agenda/:uid/aggregator/create'
         },
-        'agendaAddAsSource': {
+        agendaAddAsSource: {
           method: 'get',
           uri: '/agenda/:uid/aggregator/addTo/:aggUid'
         },
-        'agendaRemoveAsSource': {
+        agendaRemoveAsSource: {
           method: 'get',
           uri: '/agenda/:uid/aggregator/removeFrom/:aggUid'
         },
-        'agendaShowByUid': {
+        agendaShowByUid: {
           method: 'get',
           uri: '/agendas/:uid'
         },
-        'agendaAdminShow': {
+        agendaAdminShow: {
           method: 'get',
           uri: '/:slug/admin'
         },
-        'agendaEventAdminNavigate': {
+        agendaEventAdminNavigate: {
           method: 'get',
           uri: '/:slug/admin/navigate'
         },
-        'agendaAdminContributors': {
+        agendaAdminContributors: {
           method: 'get',
           uri: '/:slug/admin/contributors'
         },
-        'agendaAdminDataviz': {
+        agendaAdminDataviz: {
           method: 'get',
           uri: '/:slug/admin/dataviz'
         },
-        'agendaAdminWeb': {
+        agendaAdminWeb: {
           method: 'get',
           uri: '/:slug/admin/webembed'
         },
-        'agendaAdminIndesign': {
+        agendaAdminIndesign: {
           method: 'get',
           uri: '/:slug/admin/xml'
         },
-        'agendaAdminFacebook': {
+        agendaAdminFacebook: {
           mathod: 'get',
           uri: '/:slug/admin/facebook'
         },
-        'agendaAdminAdministrators': {
+        agendaAdminAdministrators: {
           method: 'get',
           uri: '/:slug/admin/admins'
         },
-        'agendaAdminModerators': {
+        agendaAdminModerators: {
           method: 'get',
           uri: '/:slug/admin/moderators'
         },
-        'agendaAdminTheme': {
+        agendaAdminTheme: {
           method: 'get',
           uri: '/:slug/admin/edit'
         },
-        'agendaAdminSettings': {
+        agendaAdminSettings: {
           method: 'get',
           uri: '/:slug/admin/edit'
         },
-        'eventShare': {
+        agendaAdminInbox: {
+          method: 'get',
+          uri: '/:slug/admin/inbox'
+        },
+        agendaAdminInboxConversation: {
+          method: 'get',
+          uri: '/:slug/admin/inbox/conversation/:conversationId'
+        },
+        eventShare: {
           method: 'get',
           uri: '/share/event/:eventSlug'
         },
-        'eventEdit': {
+        eventEdit: {
           method: 'get',
           uri: '/event/:eventSlug/edit'
         },
-        'eventDuplicate': {
+        eventDuplicate: {
           method: 'get',
           uri: '/event/:eventSlug/duplicate'
         },
-        'eventEmbedEdit': {
+        eventEmbedEdit: {
           method: 'get',
           uri: '/embed/event/:uid/edit'
         },
-        'eventRemove': {
+        eventRemove: {
           method: 'get',
           uri: '/event/:eventUid/remove'
         },
-        'eventCalendarShare': {
+        eventCalendarShare: {
           method: 'get',
           uri: '/calendarexport/:eventSlug'
         },
-        'conversationDiscussion': {
+        conversationDiscussion: {
           method: 'get',
           uri: '/messages/new?uuid=:uid&redirect=:redirect'
         },
-        'conversationAgendaContact': {
+        conversationAgendaContact: {
           method: 'get',
           uri: '/messages/new?type=7&aUid=:uid'
         },
-        'conversationEventClaim': {
+        conversationEventClaim: {
           method: 'get',
           uri: '/messages/new?type=2&slug=:eventSlug'
         },
-        'conversationEventSignal': {
+        conversationEventSignal: {
           method: 'get',
           uri: '/messages/new?type=4&slug=:eventSlug'
         },
-        'agendaContributorsCsv': {
+        agendaContributorsCsv: {
           method: 'get',
           uri: '/:slug/admin/contributors.csv'
         },
-        'agendaContributorsXlsx': {
+        agendaContributorsXlsx: {
           method: 'get',
           uri: '/:slug/admin/contributors.xlsx'
-        },
-        'agendaAdminInbox': {
-          method: '/:slug/admin/inbox'
         }
       },
       defaultGlobalsPrefix: ''
@@ -527,6 +540,7 @@ let config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         enable: 'oa:*'
+        //enable: 'oa:*,svc:*'
         //enable: '*'
       },
       token: false // no need to log dev things
