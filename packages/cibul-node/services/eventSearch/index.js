@@ -55,16 +55,15 @@ function init( config ) {
         type: 'objectsAsTerms',
         field: 'search_internals_agenda',
         destination: 'agendas'
-      },
-
-      logger: {
-        debug: {
-          prefix: 'svc:',
-          enable: true
-        },
-        token: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
       }
       
+    },
+
+    logger: {
+      debug: {
+        prefix: 'svc:'
+      },
+      token: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
     },
 
     interfaces: {
