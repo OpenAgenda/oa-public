@@ -784,7 +784,7 @@
     verror "^1.10.0"
     when "^3.7.8"
 
-"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7", "@openagenda/labels@^2.0.8":
+"@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7", "@openagenda/labels@^2.0.8":
   version "2.0.16"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.16.tgz#262df9930e6487d9fe5e7e937abf2dbd4abb9c00"
 
