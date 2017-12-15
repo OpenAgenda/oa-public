@@ -39,7 +39,15 @@ async function task() {
 
   while ( summary = await q.pop() ) {
 
-    await _sendSummary( summary );
+    try {
+
+      await _sendSummary( summary );
+
+    } catch ( e ) {
+
+      log( 'error', 'Canno\'t send summary of notifications:', e );
+
+    }
 
   }
 
