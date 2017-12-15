@@ -42,6 +42,13 @@ const validate = schema( {
       type: 'integer',
       optional: true,
       default: null
+    },
+    // often event update will come right before other update
+    // which will require a consolidated resync.
+    updateSearchIndex: {
+      type: 'boolean',
+      optional: true,
+      default: true
     }
   }
 } );

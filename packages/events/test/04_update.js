@@ -206,7 +206,8 @@ describe( 'events - functional (server): update', function() {
               context.should.eql( {
                 userUid: 12,
                 agendaUid: null,
-                transferToLegacy: false
+                transferToLegacy: false,
+                updateSearchIndex: true
               } );  
 
               done();
