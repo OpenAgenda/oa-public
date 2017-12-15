@@ -8,8 +8,6 @@ var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _bluebird = require('bluebird');
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -21,6 +19,8 @@ var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _bluebird = require('bluebird');
 
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
@@ -644,58 +644,86 @@ var Conversation = function () {
   }, {
     key: 'getAvailableActions',
     value: function () {
-      var _ref12 = (0, _bluebird.method)(function (conversation) {
+      var _ref12 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee10(conversation) {
         var _this2 = this;
 
-        var actions = _lodash2.default.get(_config.types, [conversation.type, 'actions'], []);
+        var actions, inbox;
+        return _regenerator2.default.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                actions = _lodash2.default.get(_config.types, [conversation.type, 'actions'], []);
 
-        return actions.reduce(function () {
-          var _ref13 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(result, action) {
-            var keep;
-            return _regenerator2.default.wrap(function _callee9$(_context9) {
-              while (1) {
-                switch (_context9.prev = _context9.next) {
-                  case 0:
-                    _context9.next = 2;
-                    return (0, _bluebird.resolve)(_config.interfaces.filterAction(_this2.inbox.data, conversation, action));
-
-                  case 2:
-                    keep = _context9.sent;
-
-                    if (keep) {
-                      _context9.next = 5;
-                      break;
-                    }
-
-                    return _context9.abrupt('return', result);
-
-                  case 5:
-                    _context9.t0 = [];
-                    _context9.t1 = _toConsumableArray3.default;
-                    _context9.next = 9;
-                    return (0, _bluebird.resolve)(result);
-
-                  case 9:
-                    _context9.t2 = _context9.sent;
-                    _context9.t3 = (0, _context9.t1)(_context9.t2);
-                    _context9.t4 = [action];
-                    return _context9.abrupt('return', _context9.t0.concat.call(_context9.t0, _context9.t3, _context9.t4));
-
-                  case 13:
-                  case 'end':
-                    return _context9.stop();
+                if (!(this.inbox.data.id === conversation.inboxContextId)) {
+                  _context10.next = 5;
+                  break;
                 }
-              }
-            }, _callee9, _this2);
-          }));
 
-          return function (_x13, _x14) {
-            return _ref13.apply(this, arguments);
-          };
-        }(), []);
+                _context10.t0 = this.inbox;
+                _context10.next = 8;
+                break;
 
-        return actions;
-      });
+              case 5:
+                _context10.next = 7;
+                return (0, _bluebird.resolve)(new _Inbox2.default(conversation.inboxContextId).get());
+
+              case 7:
+                _context10.t0 = _context10.sent;
+
+              case 8:
+                inbox = _context10.t0;
+                return _context10.abrupt('return', actions.reduce(function () {
+                  var _ref13 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(result, action) {
+                    var keep;
+                    return _regenerator2.default.wrap(function _callee9$(_context9) {
+                      while (1) {
+                        switch (_context9.prev = _context9.next) {
+                          case 0:
+                            _context9.next = 2;
+                            return (0, _bluebird.resolve)(_config.interfaces.filterAction(inbox.data, conversation, action));
+
+                          case 2:
+                            keep = _context9.sent;
+
+                            if (keep) {
+                              _context9.next = 5;
+                              break;
+                            }
+
+                            return _context9.abrupt('return', result);
+
+                          case 5:
+                            _context9.t0 = [];
+                            _context9.t1 = _toConsumableArray3.default;
+                            _context9.next = 9;
+                            return (0, _bluebird.resolve)(result);
+
+                          case 9:
+                            _context9.t2 = _context9.sent;
+                            _context9.t3 = (0, _context9.t1)(_context9.t2);
+                            _context9.t4 = [action];
+                            return _context9.abrupt('return', _context9.t0.concat.call(_context9.t0, _context9.t3, _context9.t4));
+
+                          case 13:
+                          case 'end':
+                            return _context9.stop();
+                        }
+                      }
+                    }, _callee9, _this2);
+                  }));
+
+                  return function (_x13, _x14) {
+                    return _ref13.apply(this, arguments);
+                  };
+                }(), []));
+
+              case 11:
+              case 'end':
+                return _context10.stop();
+            }
+          }
+        }, _callee10, this);
+      }));
 
       function getAvailableActions(_x12) {
         return _ref12.apply(this, arguments);

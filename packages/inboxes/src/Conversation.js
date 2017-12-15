@@ -328,8 +328,12 @@ export default class Conversation {
   async getAvailableActions( conversation ) {
     const actions = _.get( types, [ conversation.type, 'actions' ], [] );
 
+    const inbox = this.inbox.data.id === conversation.inboxContextId
+      ? this.inbox
+      : await new Inbox( conversation.inboxContextId ).get();
+
     return actions.reduce( async ( result, action ) => {
-      const keep = await interfaces.filterAction( this.inbox.data, conversation, action );
+      const keep = await interfaces.filterAction( inbox.data, conversation, action );
 
       if ( !keep ) {
         return result;
