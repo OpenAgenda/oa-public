@@ -3,10 +3,12 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { getContext } from 'recompose';
 import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 
 @reduxForm( {
-  form: 'conversation'
+  form: 'conversation',
+  validate
 } )
 @getContext( {
   getLabel: PropTypes.func
@@ -36,7 +38,7 @@ export default class ConversationForm extends Component {
   }
 
   render() {
-    const { getLabel, handleSubmit, submitting, Wrapper } = this.props;
+    const { getLabel, submit, handleSubmit, submitting, Wrapper } = this.props;
 
     return createElement(
       Wrapper,
@@ -66,8 +68,14 @@ export default class ConversationForm extends Component {
           component={renderTextarea}
           name="message"
           className="form-control"
-          // classNameGroup="margin-top-md margin-bottom-lg"
-          rows="8"
+          classNameGroup="margin-v-xs"
+          rows="6"
+          getErrorLabel={getLabel}
+          onKeyDown={e => {
+            if ( e.keyCode === 13 && e.ctrlKey ) {
+              submit();
+            }
+          }}
         />
       </Fragment>
     );

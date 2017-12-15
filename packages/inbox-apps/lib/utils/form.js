@@ -160,10 +160,11 @@ function renderTextarea(_ref2) {
       rows = _ref2.rows,
       cols = _ref2.cols,
       spellCheck = _ref2.spellCheck,
-      props = (0, _objectWithoutProperties3.default)(_ref2, ['placeholder', 'className', 'rows', 'cols', 'spellCheck']);
+      onKeyDown = _ref2.onKeyDown,
+      props = (0, _objectWithoutProperties3.default)(_ref2, ['placeholder', 'className', 'rows', 'cols', 'spellCheck', 'onKeyDown']);
 
 
-  var inputAttrs = { placeholder: placeholder, className: className, rows: rows, cols: cols, spellCheck: spellCheck };
+  var inputAttrs = { placeholder: placeholder, className: className, rows: rows, cols: cols, spellCheck: spellCheck, onKeyDown: onKeyDown };
 
   var content = _react2.default.createElement(
     'div',

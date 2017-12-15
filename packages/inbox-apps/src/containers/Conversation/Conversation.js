@@ -13,11 +13,12 @@ import * as inboxActions from '../../redux/modules/inbox';
 import showBackLink from '../../utils/showBackLink';
 
 @asyncConnect( [ {
-  promise: ( { store: { dispatch, getState }, router } ) => {
+  key: 'asyncConnectConversation',
+  promise: ( { store: { dispatch, getState }, router, helpers: { redirect } } ) => {
     const state = getState();
     const promises = [];
 
-    const { focusFistConversation } = state.settings;
+    const { prefix, focusFistConversation } = state.settings;
     const query = focusFistConversation ? { limit: 1 } : {};
 
     // if ( !inboxActions.isLoaded( state ) ) {
@@ -29,7 +30,10 @@ import showBackLink from '../../utils/showBackLink';
     }
 
     // if ( !conversationActions.isLoaded( state ) ) {
-    promises.push( dispatch( conversationActions.load( router.params.conversationId ) ) );
+    promises.push(
+      dispatch( conversationActions.load( router.params.conversationId ) )
+        .catch( () => redirect( prefix ) )
+    );
     // }
 
     return Promise.all( promises );
@@ -127,6 +131,10 @@ export default class Conversation extends Component {
 
   renderForm() {
     const { conversation, triggerAction, getLabel } = this.props;
+
+    if ( !conversation ) {
+      return null;
+    }
 
     if ( conversation.resolvedAt ) {
       return (

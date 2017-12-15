@@ -25,7 +25,7 @@ export default class MessageForm extends Component {
   };
 
   render() {
-    const { handleSubmit, submitting, getLabel, Wrapper } = this.props;
+    const { handleSubmit, submit, submitting, getLabel, Wrapper } = this.props;
 
     return createElement(
       Wrapper,
@@ -37,6 +37,11 @@ export default class MessageForm extends Component {
         classNameGroup="margin-v-xs"
         rows="6"
         getErrorLabel={getLabel}
+        onKeyDown={e => {
+          if ( e.keyCode === 13 && e.ctrlKey ) {
+            submit();
+          }
+        }}
       />
     );
   }

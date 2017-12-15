@@ -59,6 +59,10 @@ var _recompose = require('recompose');
 
 var _reduxForm = require('redux-form');
 
+var _validate = require('./validate');
+
+var _validate2 = _interopRequireDefault(_validate);
+
 var _form = require('../../utils/form');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -83,7 +87,8 @@ function _wrapComponent(id) {
 }
 
 var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm.reduxForm)({
-  form: 'conversation'
+  form: 'conversation',
+  validate: _validate2.default
 }), _dec2 = (0, _recompose.getContext)({
   getLabel: _propTypes2.default.func
 }), _dec(_class = _dec2(_class = (_temp = _class2 = function (_Component) {
@@ -113,6 +118,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
     value: function render() {
       var _props = this.props,
           getLabel = _props.getLabel,
+          submit = _props.submit,
           handleSubmit = _props.handleSubmit,
           submitting = _props.submitting,
           Wrapper = _props.Wrapper;
@@ -123,7 +129,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 44
+            lineNumber: 46
           }
         },
         _react3.default.createElement(_reduxForm.Field, {
@@ -134,7 +140,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           parse: this.parseJsonValue,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 45
+            lineNumber: 47
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
@@ -143,7 +149,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           type: 'hidden',
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 52
+            lineNumber: 54
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
@@ -154,19 +160,25 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           parse: this.parseJsonValue,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 57
+            lineNumber: 59
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
           label: getLabel('message'),
           component: _form.renderTextarea,
           name: 'message',
-          className: 'form-control'
-          // classNameGroup="margin-top-md margin-bottom-lg"
-          , rows: '8',
+          className: 'form-control',
+          classNameGroup: 'margin-v-xs',
+          rows: '6',
+          getErrorLabel: getLabel,
+          onKeyDown: function onKeyDown(e) {
+            if (e.keyCode === 13 && e.ctrlKey) {
+              submit();
+            }
+          },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 64
+            lineNumber: 66
           }
         })
       ));

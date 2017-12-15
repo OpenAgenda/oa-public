@@ -97,6 +97,7 @@ var MessageForm = _wrapComponent('MessageForm')((_dec = (0, _reduxForm.reduxForm
     value: function render() {
       var _props = this.props,
           handleSubmit = _props.handleSubmit,
+          submit = _props.submit,
           submitting = _props.submitting,
           getLabel = _props.getLabel,
           Wrapper = _props.Wrapper;
@@ -109,6 +110,11 @@ var MessageForm = _wrapComponent('MessageForm')((_dec = (0, _reduxForm.reduxForm
         classNameGroup: 'margin-v-xs',
         rows: '6',
         getErrorLabel: getLabel,
+        onKeyDown: function onKeyDown(e) {
+          if (e.keyCode === 13 && e.ctrlKey) {
+            submit();
+          }
+        },
         __source: {
           fileName: _jsxFileName,
           lineNumber: 33
