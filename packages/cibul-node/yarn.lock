@@ -552,8 +552,8 @@
     when "^3.7.8"
 
 "@openagenda/events@^1.1.0":
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.6.tgz#605d8969592f5874696f436a886735f907520c46"
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.7.tgz#ef399cfe5d1742487f206615665b954a77e14b9b"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/mysql-utils" "^2.0.0"
@@ -708,8 +708,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.6.tgz#5f9974ad40a5f58cb37b4fa8d2bac27e0d3dd434"
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.7.tgz#d40c68805830b1beaaaf53e3b0e903ddeff33822"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -742,8 +742,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.8.tgz#9003aed7ffd659b029c94a4dec39b85c8b8ae8f5"
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.9.tgz#da198191fa187ad5f1238b67e79fa38488a5770d"
   dependencies:
     "@openagenda/logs" "^1.0.8"
     "@openagenda/service-utils" "^2.0.0"
@@ -5332,8 +5332,8 @@ imagesloaded@^4.1:
     ev-emitter "^1.0.0"
 
 immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1, immutability-helper@^2.5.1:
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.0.tgz#3e909d1baf915765a9624545198d04c55a80bdd7"
+  version "2.6.1"
+  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.1.tgz#355805fee7ad52dca52ca74ed5aab172031baf7b"
   dependencies:
     invariant "^2.2.0"
 
@@ -8223,8 +8223,8 @@ react-transform-catch-errors@^1.0.2:
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
 
 react-waypoint@^7.1.0, react-waypoint@^7.3.1:
-  version "7.3.2"
-  resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-7.3.2.tgz#11ec5cfa0b5acb1cc95f7f8fb82e194170d95ecf"
+  version "7.3.3"
+  resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-7.3.3.tgz#49ad8e69cca4ae80f2f19608e5d6cf05d75c607e"
   dependencies:
     consolidated-events "^1.1.0"
     prop-types "^15.0.0"
