@@ -214,12 +214,12 @@ module.exports = function( enabledTypes, options, cb ) {
 
         tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 
-        tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
+        /*tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
           period: 'daily',
           time: '05:00'
         } );
 
-        tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } );
+        tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, { period: 'daily', time: '08:00' } ); */
 
         require( './general/mainLogger.task' )();
 
