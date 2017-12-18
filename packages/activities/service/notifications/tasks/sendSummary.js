@@ -61,6 +61,12 @@ function sendSummary( summary, cb ) {
 
 async function _sendSummary( { user, notifications } ) {
 
+  if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].createdAt ), 'days', true ) ) > 2 ) {
+
+    return log( 'warn', 'Attempt to send too old summary at %s', user.email );
+
+  }
+
   if ( !notifications.length ) return;
 
   await knex( config.schemas.feed_notification )
