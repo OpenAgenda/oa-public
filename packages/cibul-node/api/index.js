@@ -8,9 +8,15 @@ const app = require( 'express' )();
 const config = require( '../config' );
 const mw = require( './middleware' );
 
-const create = require( './endpoints/create' );
-const update = require( './endpoints/update' );
-const remove = require( './endpoints/remove' );
+const events = {
+  create: require( './endpoints/eventCreate' ),
+  update: require( './endpoints/eventUpdate' ),
+  remove: require( './endpoints/eventRemove' )
+}
+
+const settings = {
+  get: require( './endpoints/settingsGet' )
+}
 
 const handleError = require( '../services/00_errors' ).bind( null, 'api' );
 
@@ -19,6 +25,8 @@ app.post( /^\/v2.+/, multer.single( 'image' ) );
 
 // access token control and user load
 app.post( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
+
+app.get( /^\/v2.+/, mw.verifyAndLoadKeyUser );
 
 
 // load all the things
@@ -39,13 +47,20 @@ app.post( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRight
 
 
 // create the thing
-app.post( '/v2/agendas/:agendaUid/events', create );
+app.post( '/v2/agendas/:agendaUid/events', events.create );
 
 // update the thing
-app.post( '/v2/agendas/:agendaUid/events/:eventUid', update );
+app.post( '/v2/agendas/:agendaUid/events/:eventUid', events.update );
 
 // remove the thing
-app.delete( '/v2/agendas/:agendaUid/events/:eventUid', remove );
+app.delete( '/v2/agendas/:agendaUid/events/:eventUid', events.remove );
+
+
+app.get( '/v2/agendas/:agendaUid/settings', [
+  mw.verifyMember.allow( [ 'administrator' ] ),
+  settings.get
+] );
+
 
 app.use( ( err, req, res, next ) => {
 

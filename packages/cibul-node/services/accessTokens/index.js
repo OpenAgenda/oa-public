@@ -20,7 +20,24 @@ let knex;
 module.exports = {
   init,
   isValid,
-  getUser
+  getUser,
+  getUserFromKey
+}
+
+async function getUserFromKey( keyString ) {
+
+  const apiKeySet = await knex( 'api_key_set' ).first( 'user_id' ).where( {
+    api_key: keyString
+  } );
+
+  if ( !apiKeySet ) {
+
+    throw new Error( 'could not find api key set matching key', { key: keyString } );
+
+  }
+
+  return userGet( { id: apiKeySet.user_id } );
+
 }
 
 async function getUser( tokenString = null, nonce = null ) {

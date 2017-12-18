@@ -2,6 +2,7 @@
 
 module.exports = {
   verifyAndLoadAccessTokenUser: require( './verifyAndLoadAccessTokenUser' ),
+  verifyAndLoadKeyUser: require( './verifyAndLoadKeyUser' ),
   verifyEventEditionRights: require( './verifyEventEditionRights' ),
   verifyMember: require( './verifyMember' ),
   loadAgenda: require( './loadAgenda' ),

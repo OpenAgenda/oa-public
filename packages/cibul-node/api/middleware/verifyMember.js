@@ -3,7 +3,13 @@
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const wn = require( 'when/node' );
 
-module.exports = async ( req, res, next ) => {
+const defaultRoles = [ 'contributor', 'moderator', 'administrator' ];
+
+module.exports = verify.bind( null, defaultRoles );
+
+module.exports.allow = roles => verify.bind( null, roles );
+
+async function verify( roles, req, res, next ) {
 
   const member = await wn.call( agendaStakeholders( req.agenda.id ).get, req.user.id, { instantiate: true } );
 
