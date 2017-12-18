@@ -17,6 +17,7 @@ module.exports = ( formSchema, customFields ) => {
       integer: parseBasic,
       number: parseBasic,
       textarea: parseBasic,
+      wysiwyg: parseBasic,
       url: parseBasic,
       email: parseBasic,
       image: parseBasic,
