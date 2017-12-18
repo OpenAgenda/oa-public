@@ -15,7 +15,9 @@ module.exports = head => {
     generator: 'generator',
     imageURL: 'image_url',
     language: 'language',
-    pubDate: 'pubDate'
+    pubDate: 'pubDate',
+    custom_namespaces: 'custom_namespaces',
+    custom_elements: 'custom_elements'
   }[ k ] ) ) );
 
   return {

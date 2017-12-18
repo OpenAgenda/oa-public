@@ -39,7 +39,7 @@ module.exports = ( event, options = {} ) => {
     } ]
   }, event.image ? {
     enclosure: {
-      url: event.image.base + event.image.filename,
+      url: ( event.image.base + event.image.filename ).replace( 'https://', 'http://' ),
       type: 'image/jpeg'
     }
   } : {} );
