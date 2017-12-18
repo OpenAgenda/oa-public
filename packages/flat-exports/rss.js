@@ -16,8 +16,7 @@ module.exports = head => {
     imageURL: 'image_url',
     language: 'language',
     pubDate: 'pubDate',
-    custom_namespaces: 'custom_namespaces',
-    custom_elements: 'custom_elements'
+    custom_namespaces: 'custom_namespaces'
   }[ k ] ) ) );
 
   return {

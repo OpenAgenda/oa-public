@@ -14,14 +14,7 @@ module.exports = head => {
   return _.extend( validate( head ), {
     custom_namespaces: {
       'ev': 'http://purl.org/rss/1.0/modules/event/'
-    },
-    custom_elements: [ {
-      'ev:startdate': 'Event first start date and time'
-    }, {
-      'ev:enddate': 'Event final end date and time'
-    }, {
-      'ev:location' : 'Name and Address of the location of the event'
-    } ]
+    }
   } );
 
 }
