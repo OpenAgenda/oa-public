@@ -92,4 +92,18 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   } );
 
+  it( 'updates featured value', async () => {
+
+    await svc.legacyTransfer.remove( { eventUid: 53117383, agendaUid: 62792452 } );
+
+    const { created } = await svc( 62792452 ).create( 43393865, { userUid: 98842070, featured: true } );
+
+    await svc.legacyTransfer.to( created );
+
+    const after = await knex( 'legacy_agenda_event' ).first().where( { event_id: 190093, review_id: 4608 } );
+
+    after.featured.should.equal( 1 );
+
+  } );
+
 } );

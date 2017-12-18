@@ -38,6 +38,7 @@ async function toLegacy( ae ) {
   const data = {
     state: legacyState.state,
     is_published: legacyState.isPublished,
+    featured: ae.featured,
     updated_at: new Date
   }
 
