@@ -123,7 +123,9 @@ function _extractTemplate( defaultTemplate, elem ) {
   return elem.innerHTML.substr( 
     startIndex + '<!--'.length, 
     endIndex - startIndex - '<!--'.length
-  );
+  )
+    .replace( 'src="/{', 'src="{' )
+    .replace( 'href="/{', 'href="{' );
 
 }
 
