@@ -94,7 +94,7 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   it( 'updates featured value', async () => {
 
-    await svc.legacyTransfer.remove( { eventUid: 53117383, agendaUid: 62792452 } );
+    await svc( 62792452 ).remove( 43393865 );
 
     const { created } = await svc( 62792452 ).create( 43393865, { userUid: 98842070, featured: true } );
 
