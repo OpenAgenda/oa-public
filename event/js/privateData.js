@@ -5,6 +5,7 @@ import _ from 'lodash';
 import debug from 'debug';
 import du from '@openagenda/dom-utils';
 import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
+import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
@@ -102,6 +103,28 @@ module.exports = function ( options ) {
     const simpleUser = !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN );
     const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
+    const user = sessions.getUser();
+
+    const destinationInbox = (() => {
+      if ( user.uid === params.contributor.uid && simpleUser ) {
+        return { // contributor (not admin) -> admins/modos
+          type: 'agenda',
+          identifier: params.agendaUid
+        };
+      }
+
+      return simpleUser ? [ { // user lambda -> admins/modos + contributor
+        type: 'agenda',
+        identifier: params.agendaUid
+      }, {
+        type: 'user',
+        identifier: params.contributor.uid
+      } ] : { // admin -> contributor
+        type: 'user',
+        identifier: params.contributor.uid
+      };
+    })();
+
     loadInbox( {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
@@ -110,20 +133,17 @@ module.exports = function ( options ) {
           prefix: window.location.pathname,
           focusFistConversation: simpleUser, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
-          allowCreateConversation: false, // hide creation button
+          allowCreateConversation: !simpleUser, // hide creation button
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
-            destinationInbox: {
-              type: 'agenda',
-              identifier: params.agendaUid
-            },
+            destinationInbox,
             params: {
-              eventTitle: params.title
+              eventTitle: params.title,
+              agendaUid: params.agendaUid
             }
           },
-          TitleComponent: 'h3',
-          Wrapper: ( { children } ) => <div className="event-secondary inbox">{children}</div>,
+          TitleComponent: 'h4',
           ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
@@ -131,7 +151,8 @@ module.exports = function ( options ) {
           author: resBasePath + '/inbox/author.json',
           conversations: {
             list: resBasePath + '/inbox/conversations.json',
-            create: resBasePath + '/inbox/conversations.json'
+            create: resBasePath + '/inbox/conversations.json',
+            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json'
           },
           messages: {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
@@ -145,6 +166,12 @@ module.exports = function ( options ) {
           uid: params.uid
         }
       },
+    }, () => {
+
+      const canvasElem = document.querySelector( '.js_inbox_event_canvas' );
+
+      canvasElem.classList.remove( 'display-none' );
+
     } );
 
   }
