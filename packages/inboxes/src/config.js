@@ -18,7 +18,8 @@ async function init( c ) {
     'schemas',
     'cache',
     'interfaces',
-    'types'
+    'types',
+    'defaultAction'
   ] ) );
 
   const knexConfig = getKnexConfig( c );

@@ -373,12 +373,8 @@ var conversations = {
         return _ref5.apply(this, arguments);
       };
     }());
-  }
-};
-
-exports.conversations = conversations;
-var messages = {
-  list: function list(options) {
+  },
+  resume: function resume(options) {
     var _this6 = this;
 
     var _$merge6 = _lodash2.default.merge({
@@ -387,17 +383,13 @@ var messages = {
         identifier: 'identifier',
         conversationId: 'conversation.id',
         userUid: 'user.uid'
-      },
-      limit: 20
+      }
     }, options),
-        namespaces = _$merge6.namespaces,
-        params = (0, _objectWithoutProperties3.default)(_$merge6, ['namespaces']);
-
-    var limit = getLimit(config.mw.limit, params.limit);
+        namespaces = _$merge6.namespaces;
 
     return wrap(function () {
       var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(req, res) {
-        var conversation, messages;
+        var conversation;
         return _regenerator2.default.wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
@@ -414,15 +406,13 @@ var messages = {
               case 2:
                 conversation = _context6.sent;
                 _context6.next = 5;
-                return (0, _bluebird.resolve)(conversation.messages.list((req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit /* options */));
+                return (0, _bluebird.resolve)(conversation.update({ closedAt: null }, { userUid: _lodash2.default.get(req, namespaces.userUid) }));
 
               case 5:
-                messages = _context6.sent;
 
+                res.send({ conversation: conversation });
 
-                res.send({ conversation: conversation, messages: messages });
-
-              case 7:
+              case 6:
               case 'end':
                 return _context6.stop();
             }
@@ -434,8 +424,12 @@ var messages = {
         return _ref6.apply(this, arguments);
       };
     }());
-  },
-  create: function create(options) {
+  }
+};
+
+exports.conversations = conversations;
+var messages = {
+  list: function list(options) {
     var _this7 = this;
 
     var _$merge7 = _lodash2.default.merge({
@@ -443,16 +437,18 @@ var messages = {
         type: 'type',
         identifier: 'identifier',
         conversationId: 'conversation.id',
-        userUid: 'user.uid',
-        body: 'body.body',
-        options: 'options'
-      }
+        userUid: 'user.uid'
+      },
+      limit: 20
     }, options),
-        namespaces = _$merge7.namespaces;
+        namespaces = _$merge7.namespaces,
+        params = (0, _objectWithoutProperties3.default)(_$merge7, ['namespaces']);
+
+    var limit = getLimit(config.mw.limit, params.limit);
 
     return wrap(function () {
       var _ref7 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(req, res) {
-        var conversation, message;
+        var conversation, messages;
         return _regenerator2.default.wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
@@ -469,16 +465,13 @@ var messages = {
               case 2:
                 conversation = _context7.sent;
                 _context7.next = 5;
-                return (0, _bluebird.resolve)(conversation.messages.create({
-                  body: _lodash2.default.get(req, namespaces.body),
-                  userUid: _lodash2.default.get(req, namespaces.userUid)
-                }, _lodash2.default.get(req, namespaces.options)));
+                return (0, _bluebird.resolve)(conversation.messages.list((req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit /* options */));
 
               case 5:
-                message = _context7.sent;
+                messages = _context7.sent;
 
 
-                res.send({ message: message });
+                res.send({ conversation: conversation, messages: messages });
 
               case 7:
               case 'end':
@@ -490,6 +483,64 @@ var messages = {
 
       return function (_x13, _x14) {
         return _ref7.apply(this, arguments);
+      };
+    }());
+  },
+  create: function create(options) {
+    var _this8 = this;
+
+    var _$merge8 = _lodash2.default.merge({
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier',
+        conversationId: 'conversation.id',
+        userUid: 'user.uid',
+        body: 'body.body',
+        options: 'options'
+      }
+    }, options),
+        namespaces = _$merge8.namespaces;
+
+    return wrap(function () {
+      var _ref8 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(req, res) {
+        var conversation, message;
+        return _regenerator2.default.wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                _context8.next = 2;
+                return (0, _bluebird.resolve)(new _Conversations2.default({
+                  userUid: parseInt(_lodash2.default.get(req, namespaces.userUid)),
+                  inbox: new _3.default({
+                    type: _lodash2.default.get(req, namespaces.type),
+                    identifier: parseInt(_lodash2.default.get(req, namespaces.identifier))
+                  })
+                }).get(parseInt(_lodash2.default.get(req, namespaces.conversationId))));
+
+              case 2:
+                conversation = _context8.sent;
+                _context8.next = 5;
+                return (0, _bluebird.resolve)(conversation.messages.create({
+                  body: _lodash2.default.get(req, namespaces.body),
+                  userUid: _lodash2.default.get(req, namespaces.userUid)
+                }, _lodash2.default.get(req, namespaces.options)));
+
+              case 5:
+                message = _context8.sent;
+
+
+                res.send({ message: message });
+
+              case 7:
+              case 'end':
+                return _context8.stop();
+            }
+          }
+        }, _callee8, _this8);
+      }));
+
+      return function (_x15, _x16) {
+        return _ref8.apply(this, arguments);
       };
     }());
   }

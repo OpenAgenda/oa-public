@@ -33,9 +33,9 @@ export default class Conversations {
       .get( options );
   }
 
-  update( identifiers, data, options ) {
+  update( identifiers, data, inboxUser, options ) {
     return new Conversation( identifiers, { inbox: this.inbox, userUid: this.userUid } )
-      .update( data, options );
+      .update( data, inboxUser, options );
   }
 
   action( identifiers, code, inboxUser ) {

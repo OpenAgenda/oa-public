@@ -4,9 +4,10 @@ import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
 import logger from '@openagenda/logs';
-import { knex, schemas, types, interfaces } from './config';
+import { knex, schemas, types, interfaces, defaultAction } from './config';
 import mapper from './utils/mapper';
 import conversationFieldsMap from './db/conversationFieldsMap';
+import inboxUserFieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
 import { identifiersSchema, createSchema, updateSchema } from './validators/conversationSchemas';
 import Inbox from './Inbox';
@@ -14,7 +15,6 @@ import Messages from './Messages';
 import InboxUser from './InboxUser';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
-import inboxUserFieldsMap from "./db/inboxUserFieldsMap";
 
 const log = logger( 'inboxes/Conversation' );
 
@@ -178,33 +178,47 @@ export default class Conversation {
 
     result = await populateParticipants( result );
 
-    if ( !result.resolvedAt ) {
-      // const creatorInboxId = (await this._getInboxUser( result.creatorInboxUserId )).data.inboxId;
-
-      result.actions = await this.getAvailableActions( result );
-    } else {
-      result.actions = [];
-    }
+    result.actions = await this.getAvailableActions( result );
 
     this.data = result;
 
     return this;
   }
 
-  async update( data, options ) {
+  async update( data, inboxUser, options ) {
     await this._loadConversation();
+
+    const _inboxUser = await this._getInboxUser(
+      this.userUid ? { userUid: this.userUid } : inboxUser,
+      { inbox: this.inbox }
+    );
+
+    if ( !_inboxUser.data ) {
+      throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
+    }
 
     if ( data.resolvedAt ) {
       data.resolvedAt = new Date( data.resolvedAt );
     }
+    if ( data.closedAt ) {
+      data.closedAt = new Date( data.closedAt );
+    }
 
     validate( ajv, updateSchema, data );
+
+    if ( data.closedAt === null ) {
+      data.closedAt = null;
+    }
 
     data = {
       ..._.omit( data, 'params' ),
       store: {
         ...this.data.store,
-        params: data.params || {}
+        params: _.merge(
+          {},
+          this.data.store.params || {},
+          data.params || {}
+        )
       }
     };
 
@@ -240,7 +254,6 @@ export default class Conversation {
       throw new VError( 'Inbox user %j not found', _inboxUser.identifiers );
     }
 
-    // const creatorInboxId = (await this._getInboxUser( this.data.creatorInboxUserId )).data.inboxId;
     const actions = await this.getAvailableActions( this.data );
     const action = actions.find( v => v && v.code === code );
 
@@ -253,7 +266,16 @@ export default class Conversation {
       );
     }
 
-    const data = {
+    if ( this.data.resolvedAt && this.data.store.resolvedWith !== defaultAction.code && code !== defaultAction.code ) {
+      throw new VError( 'You canno\'t resolve a conversation two times' );
+    }
+
+    const data = this.data.resolvedAt ? {
+      closedAt: new Date()
+    } : {
+      updatedAt: new Date(),
+      resolvedAt: new Date(),
+      closedAt: new Date(),
       store: {
         ...this.data.store,
         resolvedWith: code,
@@ -266,9 +288,7 @@ export default class Conversation {
 
     await knex( schemas.conversation )
       .update( {
-        ...mapper.toDb( conversationFieldsMap, 'update', data, { protected: false } ),
-        updated_at: new Date(),
-        resolved_at: new Date()
+        ...mapper.toDb( conversationFieldsMap, 'update', data, { protected: false } )
       } )
       .leftJoin(
         schemas.inboxConversation,
@@ -326,21 +346,24 @@ export default class Conversation {
   }
 
   async getAvailableActions( conversation ) {
-    const actions = _.get( types, [ conversation.type, 'actions' ], [] );
-
     const inbox = this.inbox.data.id === conversation.inboxContextId
       ? this.inbox
       : await new Inbox( conversation.inboxContextId ).get();
 
-    return actions.reduce( async ( result, action ) => {
-      const keep = await interfaces.filterAction( inbox.data, conversation, action );
+    const actions = conversation.resolvedAt ? [] : await _.get( types, [ conversation.type, 'actions' ], [] )
+      .reduce( async ( result, action ) => {
+        const keep = await interfaces.filterAction( inbox.data, conversation, action );
 
-      if ( !keep ) {
-        return result;
-      }
+        if ( !keep ) {
+          return result;
+        }
 
-      return [ ...await result, action ];
-    }, [] );
+        return [ ...await result, action ];
+      }, [] );
+
+    if ( !actions.length && !conversation.closedAt ) {
+      return [ defaultAction ];
+    }
 
     return actions;
   }

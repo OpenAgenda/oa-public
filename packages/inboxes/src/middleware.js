@@ -189,6 +189,31 @@ export const conversations = {
 
       res.send( { conversation } );
     } );
+  },
+
+  resume( options ) {
+    const { namespaces } = _.merge( {
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier',
+        conversationId: 'conversation.id',
+        userUid: 'user.uid'
+      }
+    }, options );
+
+    return wrap( async ( req, res ) => {
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+
+      await conversation.update( { closedAt: null }, { userUid: _.get( req, namespaces.userUid ) } );
+
+      res.send( { conversation } );
+    } );
   }
 };
 

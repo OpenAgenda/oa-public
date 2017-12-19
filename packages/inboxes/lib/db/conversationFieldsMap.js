@@ -35,7 +35,11 @@ var fieldsMap = [{
   protected: true
 }, {
   db: 'resolved_at',
-  obj: 'resolvedAt'
+  obj: 'resolvedAt',
+  protected: true
+}, {
+  db: 'closed_at',
+  obj: 'closedAt'
 }];
 
 exports.default = fieldsMap;

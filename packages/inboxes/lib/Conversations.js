@@ -100,8 +100,8 @@ var Conversations = function () {
     }
   }, {
     key: 'update',
-    value: function update(identifiers, data, options) {
-      return new _Conversation2.default(identifiers, { inbox: this.inbox, userUid: this.userUid }).update(data, options);
+    value: function update(identifiers, data, inboxUser, options) {
+      return new _Conversation2.default(identifiers, { inbox: this.inbox, userUid: this.userUid }).update(data, inboxUser, options);
     }
   }, {
     key: 'action',

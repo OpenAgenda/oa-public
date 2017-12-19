@@ -45,6 +45,12 @@ export const updateSchema = {
     resolvedAt: {
       instanceof: 'Date'
     },
+    closedAt: {
+      oneOf: [
+        { type: 'null' },
+        { instanceof: 'Date' }
+      ]
+    },
     params: {
       type: 'object'
     }

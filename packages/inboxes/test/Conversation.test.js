@@ -102,7 +102,15 @@ describe( 'Conversation', () => {
             uid: 23456789,
           }
         },
-        actions: []
+        actions: [ {
+          code: 'defaultAction',
+          label: {
+            fr: 'Fermer',
+            en: 'Close'
+          },
+          kind: 'success'
+        } ],
+        closedAt: null
       } );
 
     } );
@@ -144,7 +152,15 @@ describe( 'Conversation', () => {
           uid: 48959239
         } ],
         latestMessage: null,
-        actions: []
+        actions: [ {
+          code: 'defaultAction',
+          label: {
+            fr: 'Fermer',
+            en: 'Close'
+          },
+          kind: 'success'
+        } ],
+        closedAt: null
       } );
 
     } );
@@ -186,7 +202,15 @@ describe( 'Conversation', () => {
           uid: 456
         } ],
         latestMessage: null,
-        actions: []
+        actions: [ {
+          code: 'defaultAction',
+          label: {
+            fr: 'Fermer',
+            en: 'Close'
+          },
+          kind: 'success'
+        } ],
+        closedAt: null
       } );
 
     } );
@@ -227,7 +251,15 @@ describe( 'Conversation', () => {
             uid: 99999999
           } ],
           latestMessage: null,
-          actions: []
+          actions: [ {
+            code: 'defaultAction',
+            label: {
+              fr: 'Fermer',
+              en: 'Close'
+            },
+            kind: 'success'
+          } ],
+          closedAt: null
         } );
 
       }
@@ -281,7 +313,15 @@ describe( 'Conversation', () => {
             uid: 24681012,
           }
         },
-        actions: []
+        actions: [ {
+          code: 'defaultAction',
+          label: {
+            fr: 'Fermer',
+            en: 'Close'
+          },
+          kind: 'success'
+        } ],
+        closedAt: null
       } );
 
     } );
@@ -356,7 +396,8 @@ describe( 'Conversation', () => {
             en: 'Refuse'
           },
           kind: 'danger'
-        } ]
+        } ],
+        closedAt: null
       } );
 
     } );
@@ -392,7 +433,7 @@ describe( 'Conversation', () => {
 
       await conversation.update( {
         params: { un: { nouveau: 'truc' } },
-        resolvedAt: new Date()
+        closedAt: new Date()
       } );
 
       expect(
@@ -404,7 +445,8 @@ describe( 'Conversation', () => {
         creatorInboxUserId: 1,
         store: { params: { un: { nouveau: 'truc' } } },
         updatedAt: new Date(),
-        resolvedAt: new Date(),
+        resolvedAt: null,
+        closedAt: new Date(),
         inboxContextId: 2,
         inboxUser: {
           id: 2,
@@ -449,8 +491,31 @@ describe( 'Conversation', () => {
             uid: 99999999
           }
         },
-        actions: []
+        actions: [ {
+          code: 'accept',
+          label: {
+            fr: 'Accepter',
+            en: 'Accept'
+          },
+          kind: 'success'
+        }, {
+          code: 'refuse',
+          label: {
+            fr: 'Refuser',
+            en: 'Refuse'
+          },
+          kind: 'danger'
+        } ]
       } );
+
+    } );
+
+    it( 'update params', async () => {
+
+      const conversation = await Inboxes( 4 )
+        .conversations.update( 3, { params: { un: { nouveau: 'truc' } } }, { userUid: 89216486 } );
+
+      expect( conversation.data.store ).eql( { params: { un: { nouveau: 'truc' } } } );
 
     } );
 
@@ -463,7 +528,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes( { type: 'agenda', identifier: 48959239 } ).conversations.list();
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
 
       expect( result ).eql( [ {
         id: 1,
@@ -509,7 +574,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes.user( 99999999 ).conversations.list();
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
 
       expect( result ).eql( [
         {
@@ -744,7 +809,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes.user( 99999999 ).conversations.list( 1, 3 );
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
 
       expect( result ).eql( [
         {
@@ -887,7 +952,7 @@ describe( 'Conversation', () => {
         .conversations.list( { type: 'contact_form', typeIdentifier: 456789 } );
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
 
       expect( result ).eql( [
         {
@@ -936,18 +1001,6 @@ describe( 'Conversation', () => {
       const conversations = await new Inboxes.user( 86286559 ).conversations.list();
 
       expect( conversations.toJSON() ).eql( [] );
-
-    } );
-
-  } );
-
-  describe( 'update', async () => {
-
-    it( 'update params', async () => {
-
-      const conversation = await Inboxes( 4 ).conversations.update( 3, { params: { un: { nouveau: 'truc' } } } );
-
-      expect( conversation.data.store ).eql( { params: { un: { nouveau: 'truc' } } } );
 
     } );
 

@@ -38,7 +38,12 @@ const fieldsMap = [
   },
   {
     db: 'resolved_at',
-    obj: 'resolvedAt'
+    obj: 'resolvedAt',
+    protected: true
+  },
+  {
+    db: 'closed_at',
+    obj: 'closedAt'
   }
 ];
 
