@@ -77,7 +77,7 @@ function _wrapComponent(id) {
 
 var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedux.connect)(function (state) {
   return {
-    agendaUid: state.agenda && state.agenda.uid
+    settings: state.settings
   };
 }), _dec(_class = (_temp = _class2 = function (_Component) {
   (0, _inherits3.default)(ConversationItem, _Component);
@@ -92,7 +92,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
     value: function render() {
       var _props = this.props,
           conversation = _props.conversation,
-          agendaUid = _props.agendaUid;
+          maskEventTitle = _props.settings.maskEventTitle;
       var getLabel = this.context.getLabel;
 
 
@@ -151,7 +151,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               },
               getMessageSenderName(latestMessage)
             ),
-            store && store.params && store.params.eventTitle ? _react3.default.createElement(
+            !maskEventTitle && store && store.params && store.params.eventTitle ? _react3.default.createElement(
               _react2.Fragment,
               {
                 __source: {

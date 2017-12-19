@@ -11,7 +11,7 @@ function showBackLink(settings, conversations) {
 
   if (focusFistConversation) {
     if (hideEmptyList) {
-      if (conversations && conversations.length && conversations[0].resolvedAt) {
+      if (conversations && conversations.length && conversations[0].resolvedAt || conversations && conversations.length > 1) {
         return true; // focusFistConversation && hideEmptyList && conversations not empty
       }
     } else {

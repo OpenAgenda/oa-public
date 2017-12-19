@@ -130,17 +130,20 @@ export default class Conversation extends Component {
   }
 
   renderForm() {
-    const { conversation, triggerAction, getLabel } = this.props;
+    const { conversation, triggerAction, resume, getLabel } = this.props;
 
     if ( !conversation ) {
       return null;
     }
 
-    if ( conversation.resolvedAt ) {
+    if ( conversation.closedAt ) {
       return (
         <div className="conversation-resolved well text-center margin-top-md">
           <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
-          {getLabel( 'conversationAreResolved' )}
+          {getLabel( 'conversationAreResolved' )}<br/>
+          <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
+            {getLabel( 'resumeConversation' )}
+          </button>
         </div>
       );
     }
@@ -180,20 +183,32 @@ export default class Conversation extends Component {
 
   render() {
     const {
-      conversations, messages, nextLoading, getLabel,
-      settings, settings: { TitleComponent, ContentWrapper }
+      conversations, conversation, messages, nextLoading, getLabel,
+      settings, settings: { ContentWrapper, maskEventTitle }
     } = this.props;
+
+    const { store, typeIdentifier } = conversation;
 
 
     const content = (
       <Fragment>
-        <TitleComponent>
+        {/* <TitleComponent>
           {getLabel( 'conversation' )}
-        </TitleComponent>
+        </TitleComponent> */}
 
         {showBackLink( settings, conversations ) ? <div style={{ marginBottom: '15px' }}>
-          <Link to="/">{getLabel( 'backToConversations' )}</Link>
+          <Link to="/">{getLabel( 'back' )}</Link>
         </div> : null}
+
+        {!maskEventTitle && store && store.params && store.params.eventTitle ? <Fragment>
+          {' '}
+          <h4 className="event-title">
+            <span className="text-muted">{_.upperFirst( getLabel( 'aboutEvent' ) )}</span>{' '}
+            <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
+              {store.params.eventTitle}
+            </Link>
+          </h4>
+        </Fragment> : null}
 
         {this.renderForm()}
 

@@ -73,7 +73,7 @@ export default class ConversationCreate extends Component {
         </TitleComponent>
 
         {showBackLink( settings, conversations ) ? <div>
-          <Link to="/">{getLabel( 'backToConversations' )}</Link>
+          <Link to="/">{getLabel( 'back' )}</Link>
         </div> : null}
 
         <div className="media">

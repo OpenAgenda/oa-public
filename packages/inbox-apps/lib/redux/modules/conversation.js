@@ -20,6 +20,7 @@ exports.loadAuthor = loadAuthor;
 exports.nextPage = nextPage;
 exports.sendMessage = sendMessage;
 exports.triggerAction = triggerAction;
+exports.resume = resume;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,6 +36,9 @@ var SEND_MESSAGE_FAIL = 'inbox-apps/conversation/SEND_MESSAGE_FAIL';
 var TRIGGER_ACTION = 'inbox-apps/conversation/TRIGGER_ACTION';
 var TRIGGER_ACTION_SUCCESS = 'inbox-apps/conversation/TRIGGER_ACTION_SUCCESS';
 var TRIGGER_ACTION_FAIL = 'inbox-apps/conversation/TRIGGER_ACTION_FAIL';
+var RESUME = 'inbox-apps/conversation/RESUME';
+var RESUME_SUCCESS = 'inbox-apps/conversation/RESUME_SUCCESS';
+var RESUME_FAIL = 'inbox-apps/conversation/RESUME_FAIL';
 var LOAD_AUTHOR = 'inbox-apps/conversation/LOAD_AUTHOR';
 var LOAD_AUTHOR_SUCCESS = 'inbox-apps/conversation/LOAD_AUTHOR_SUCCESS';
 var LOAD_AUTHOR_FAIL = 'inbox-apps/conversation/LOAD_AUTHOR_FAIL';
@@ -112,6 +116,21 @@ function reducer() {
       return (0, _extends3.default)({}, state, {
         actionError: action.error,
         actionLoading: false
+      });
+    case RESUME:
+      return (0, _extends3.default)({}, state, {
+        resumeLoading: true
+      });
+    case RESUME_SUCCESS:
+      return (0, _extends3.default)({}, state, {
+        data: action.result.conversation,
+        resumeError: null,
+        resumeLoading: false
+      });
+    case RESUME_FAIL:
+      return (0, _extends3.default)({}, state, {
+        resumeError: action.error,
+        resumeLoading: false
       });
     case LOAD_AUTHOR:
       return (0, _extends3.default)({}, state, {
@@ -217,6 +236,18 @@ function triggerAction(conversationId, code) {
           agenda = _ref7.agenda,
           event = _ref7.event;
       return client.get(res.conversations.action.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid).replace(':conversationId', conversationId).replace(':code', code));
+    }
+  };
+}
+
+function resume(conversationId) {
+  return {
+    types: [RESUME, RESUME_SUCCESS, RESUME_FAIL],
+    promise: function promise(client, _ref8) {
+      var res = _ref8.res,
+          agenda = _ref8.agenda,
+          event = _ref8.event;
+      return client.get(res.conversations.resume.replace(':slug', agenda && agenda.slug).replace(':agendaUid', agenda && agenda.uid).replace(':eventUid', event && event.uid).replace(':conversationId', conversationId));
     }
   };
 }

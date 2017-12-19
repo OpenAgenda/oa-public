@@ -6,7 +6,7 @@ import { AuthorAvatar, Link, LinkContainer } from '../';
 
 @connect(
   state => ({
-    agendaUid: state.agenda && state.agenda.uid
+    settings: state.settings
   })
 )
 export default class ConversationItem extends Component {
@@ -16,7 +16,7 @@ export default class ConversationItem extends Component {
   };
 
   render() {
-    const { conversation, agendaUid } = this.props;
+    const { conversation, settings: { maskEventTitle } } = this.props;
     const { getLabel } = this.context;
 
     if ( !conversation.latestMessage ) {
@@ -35,7 +35,7 @@ export default class ConversationItem extends Component {
         <div className="media-body">
           <div className="media-heading">
             <b>{getMessageSenderName( latestMessage )}</b>
-            {store && store.params && store.params.eventTitle ? <Fragment>
+            {!maskEventTitle && store && store.params && store.params.eventTitle ? <Fragment>
               {' '}
               <span>
                 <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}

@@ -10,6 +10,9 @@ const SEND_MESSAGE_FAIL = 'inbox-apps/conversation/SEND_MESSAGE_FAIL';
 const TRIGGER_ACTION = 'inbox-apps/conversation/TRIGGER_ACTION';
 const TRIGGER_ACTION_SUCCESS = 'inbox-apps/conversation/TRIGGER_ACTION_SUCCESS';
 const TRIGGER_ACTION_FAIL = 'inbox-apps/conversation/TRIGGER_ACTION_FAIL';
+const RESUME = 'inbox-apps/conversation/RESUME';
+const RESUME_SUCCESS = 'inbox-apps/conversation/RESUME_SUCCESS';
+const RESUME_FAIL = 'inbox-apps/conversation/RESUME_FAIL';
 const LOAD_AUTHOR = 'inbox-apps/conversation/LOAD_AUTHOR';
 const LOAD_AUTHOR_SUCCESS = 'inbox-apps/conversation/LOAD_AUTHOR_SUCCESS';
 const LOAD_AUTHOR_FAIL = 'inbox-apps/conversation/LOAD_AUTHOR_FAIL';
@@ -94,6 +97,24 @@ export default function reducer( state = initialState, action ) {
         ...state,
         actionError: action.error,
         actionLoading: false
+      };
+    case RESUME:
+      return {
+        ...state,
+        resumeLoading: true
+      };
+    case RESUME_SUCCESS:
+      return {
+        ...state,
+        data: action.result.conversation,
+        resumeError: null,
+        resumeLoading: false
+      };
+    case RESUME_FAIL:
+      return {
+        ...state,
+        resumeError: action.error,
+        resumeLoading: false
       };
     case LOAD_AUTHOR:
       return {
@@ -211,6 +232,20 @@ export function triggerAction( conversationId, code ) {
           .replace( ':eventUid', event && event.uid )
           .replace( ':conversationId', conversationId )
           .replace( ':code', code )
+      )
+  };
+}
+
+export function resume( conversationId ) {
+  return {
+    types: [ RESUME, RESUME_SUCCESS, RESUME_FAIL ],
+    promise: ( client, { res, agenda, event } ) =>
+      client.get(
+        res.conversations.resume
+          .replace( ':slug', agenda && agenda.slug )
+          .replace( ':agendaUid', agenda && agenda.uid )
+          .replace( ':eventUid', event && event.uid )
+          .replace( ':conversationId', conversationId )
       )
   };
 }

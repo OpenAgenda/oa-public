@@ -251,7 +251,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
                 lineNumber: 76
               }
             },
-            getLabel('backToConversations')
+            getLabel('back')
           )
         ) : null,
         _react3.default.createElement(
