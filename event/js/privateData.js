@@ -105,24 +105,38 @@ module.exports = function ( options ) {
 
     const user = sessions.getUser();
 
-    const destinationInbox = (() => {
+    // userRole = 'adminmod' || 'contributor' || 'simpleUser'
+    const userRole = (() => {
       if ( user.uid === params.contributor.uid && simpleUser ) {
-        return { // contributor (not admin) -> admins/modos
-          type: 'agenda',
-          identifier: params.agendaUid
-        };
+        return 'adminmod';
       }
+      return simpleUser ? 'simpleUser' : 'contributor';
+    })();
 
-      return simpleUser ? [ { // user lambda -> admins/modos + contributor
-        type: 'agenda',
-        identifier: params.agendaUid
-      }, {
-        type: 'user',
-        identifier: params.contributor.uid
-      } ] : { // admin -> contributor
-        type: 'user',
-        identifier: params.contributor.uid
-      };
+    // La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda,
+    // ainsi qu'au contributeur de l'événement.
+
+    const destinationInbox = (() => {
+      switch ( userRole ) {
+        case 'adminmod': // admin -> contributor
+          return {
+            type: 'user',
+            identifier: params.contributor.uid
+          };
+        case 'contributor': // contributor (not admin) -> admins/modos
+          return {
+            type: 'agenda',
+            identifier: params.agendaUid
+          };
+        case 'simpleUser': // user lambda -> admins/modos + contributor
+          return [ {
+            type: 'agenda',
+            identifier: params.agendaUid
+          }, {
+            type: 'user',
+            identifier: params.contributor.uid
+          } ];
+      }
     })();
 
     loadInbox( {
@@ -134,12 +148,13 @@ module.exports = function ( options ) {
           focusFistConversation: simpleUser, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: !simpleUser, // hide creation button
+          maskEventTitle: true, // useless on event page
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
             destinationInbox,
             params: {
-              eventTitle: params.title,
+              eventTitle: _.unescape( params.title ),
               agendaUid: params.agendaUid
             }
           },
@@ -152,7 +167,8 @@ module.exports = function ( options ) {
           conversations: {
             list: resBasePath + '/inbox/conversations.json',
             create: resBasePath + '/inbox/conversations.json',
-            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json'
+            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json',
+            resume: resBasePath + '/inbox/conversations/:conversationId/resume.json'
           },
           messages: {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
