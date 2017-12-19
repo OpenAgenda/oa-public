@@ -8372,6 +8372,9 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 .inbox .btn-creation {
   margin-top: -7px; }
 
+.inbox .btn-resume {
+  padding-bottom: 0; }
+
 .inbox .media {
   overflow: visible; }
   .inbox .media .media-left, .inbox .media .media-right {
