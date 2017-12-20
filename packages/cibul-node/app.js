@@ -2,7 +2,7 @@
 
 const supervisor = require( './lib/supervisor' );
 
-module.exports = function( enabledTypes, options, cb ) {
+module.exports = function ( enabledTypes, options, cb ) {
 
   if ( arguments.length === 1 && typeof arguments[ 0 ] === 'function' ) {
 
@@ -249,6 +249,8 @@ module.exports = function( enabledTypes, options, cb ) {
         require( './services/agendaStatistics' ).task();
 
         require( '@openagenda/activities' ).tasks.notifications.addActivity();
+
+        // require( '@openagenda/inboxes' ).tasks.sync();
 
         //require( '@openagenda/events' ).tasks.slowTransfer( { force: true, interval: 500 } );
 

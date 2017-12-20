@@ -1,16 +1,15 @@
 "use strict";
 
-const agendas = require( '@openagenda/agendas' ),
+const _ = require( 'lodash' );
+const agendas = require( '@openagenda/agendas' );
+const users = require( '@openagenda/users' );
+const activities = require( '@openagenda/activities' );
+const invitations = require( '@openagenda/invitations' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const { Inbox } = require( '@openagenda/inboxes' );
+const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
 
-  users = require( '@openagenda/users' ),
-
-  activities = require( '@openagenda/activities' ),
-
-  invitations = require( '@openagenda/invitations' ),
-
-  sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' ),
-
-  _ = require( 'lodash' );
+const getRole = agendaStakeholders.types.get;
 
 let log = console.log;
 
@@ -114,6 +113,34 @@ module.exports = function ( before, stakeholder, context ) {
                 } );
 
             } );
+
+          // contributor -> adminmods
+          if (
+            !agendaStakeholders.types.isSuperiorTo( before.credential, getRole( 'moderator' ), true )
+            && agendaStakeholders.types.isSuperiorTo( stakeholder.credential, getRole( 'moderator' ), true )
+          ) {
+
+            // add inboxUser
+            log( 'add inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+            new Inbox( { type: 'agenda', identifier: agenda.uid } )
+              .users.add( { userUid: user.uid } )
+              .then( _.noop );
+
+          }
+
+          // adminmods -> contributor
+          if (
+            agendaStakeholders.types.isSuperiorTo( before.credential, getRole( 'moderator' ), true )
+            && !agendaStakeholders.types.isSuperiorTo( stakeholder.credential, getRole( 'moderator' ), true )
+          ) {
+
+            // remove inboxUser
+            log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+            new Inbox( { type: 'agenda', identifier: agenda.uid } )
+              .users.remove( { userUid: user.uid } )
+              .then( _.noop );
+
+          }
 
         }
 

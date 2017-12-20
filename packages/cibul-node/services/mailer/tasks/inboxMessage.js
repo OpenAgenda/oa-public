@@ -92,14 +92,11 @@ async function sendMail( inboxUser, conversation, message ) {
     ? genUrl.abs( 'agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id } )
     : genUrl.abs( 'homeInboxConversation', { conversationId: conversation.id } );
 
-  const description = agenda
+  const title = agenda
     ? getInboxLabel( 'newMessageBodyOnAgenda', {
-      agenda: agenda.title,
-      message: _.escape( message.body )
+      agenda: agenda.title
     }, lang )
-    : getInboxLabel( 'newMessageBody', {
-      message: _.escape( message.body )
-    }, lang );
+    : getInboxLabel( 'newMessageBody', lang );
 
   // Ne plus recevoir les notifications de la messagerie de cet agenda (admin, subject: agenda, type: inbox)
   // Ne plus recevoir les notifications de cet agenda (admin, subject: agenda)
@@ -153,14 +150,14 @@ async function sendMail( inboxUser, conversation, message ) {
     data: {
       logo,
       title: {
-        text: subject,
+        text: title,
         link: url
       },
       action: {
         label: getInboxLabel( 'newMessageAction', lang ),
         link: url
       },
-      description,
+      description: _.escape( message.body ),
       footerActions
     }
   } );

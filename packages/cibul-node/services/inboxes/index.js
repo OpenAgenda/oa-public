@@ -8,8 +8,9 @@ const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
 const userSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const mailer = require( './mailer' );
-const config = require( '../config' );
+const log = require( '@openagenda/logs' )( 'services/inboxes' );
+const mailer = require( '../mailer' );
+const config = require( '../../config' );
 
 async function getUsersDetails( usersToBeDetailed ) {
   if ( usersToBeDetailed.length === 0 ) {
@@ -61,33 +62,41 @@ function filterAction( inbox, conversation, action ) {
 async function onInboxCreate( Inbox ) {
   switch ( Inbox.data.type ) {
     case 'user': {
-      const inboxUser = await Inbox.users.get( { userUid: Inbox.data.identifier }, { createOnNull: true } );
+      const inboxUser = await Inbox.users.add( { userUid: Inbox.data.identifier } );
 
       if ( !inboxUser.data ) {
-        throw new VError(
-          'Canno\'t get/create InboxUser (%j) on inbox (%j)',
-          { userUid: Inbox.data.identifier },
-          Inbox.data
-        );
+        log( 'warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: Inbox.data.identifier }, Inbox.data );
       }
+
+      break;
     }
     case 'agenda': {
       // get all adminmods
       // create inboxUsers
 
       const agendaGet = promisify( agendasSvc.get );
-      const agendaId = (await agendaGet(
+      const agenda = await agendaGet(
         { uid: Inbox.data.identifier },
-        { private: null, internal: true, deletedUser: false }
-      )).id;
+        { private: null, internal: true }
+      );
 
-      const shList = promisify( stakeholdersSvc.agenda( agendaId ).list );
+      if ( !agenda ) {
+        log( 'warn', 'Cannot retrieve agenda %j', { uid: Inbox.data.identifier } );
+        break;
+      }
+
       const stakeholders = [];
       const limit = 100;
       let pos = 0;
       let result;
+      const shList = () => promisify( stakeholdersSvc.agenda( agenda.id ).list )(
+        { credentials: [ 'administrator', 'moderator' ] },
+        pos,
+        limit,
+        { deletedUser: false }
+      );
 
-      while ( result = await shList( { credentials: [ 'administrator', 'moderator' ] }, pos, limit ) ) {
+      while ( result = await shList() ) {
         if ( !result.length ) break;
         pos = pos + limit;
 
@@ -108,13 +117,14 @@ async function onInboxCreate( Inbox ) {
       for ( const user of users ) {
         await Inbox.users.add( { userUid: user.uid } );
       }
+
+      break;
     }
   }
-
 }
 
 async function onMessageCreate( conversation, message ) {
-  if ( [ 75052324, 99999999, 31046551, 7339049, 71438739 ].indexOf( message.inboxUser.userUid ) !== -1 ) {
+  if ( [ 75052324, 99999999, 31046551, 7339049, 71438739 ].indexOf( message.inboxUser.userUid ) === -1 ) {
     return;
   }
 
@@ -140,36 +150,31 @@ const interfaces = {
   onAction
 };
 
-module.exports.init = async config => {
+module.exports.init = async c => {
   await inboxes.init(
-    _.merge( config, {
+    _.merge( c, {
       migrations: {
         tableName: 'inboxes_migrations'
       },
+      services: {
+        agendas: agendasSvc,
+        stakeholders: stakeholdersSvc,
+        users: userSvc
+      },
       interfaces,
-      types: {
-        event: {
-          actions: [ {
-            code: 'resolve',
-            label: {
-              fr: 'Terminer',
-              en: 'Terminate'
-            },
-            kind: 'success'
-          } ]
+      defaultAction: {
+        code: 'default',
+        label: {
+          fr: 'Fermer',
+          en: 'Close'
         },
-        contact_form: {
-          actions: [ {
-            code: 'resolve',
-            label: {
-              fr: 'Terminer',
-              en: 'Terminate'
-            },
-            kind: 'success'
-          } ]
-        }
+        kind: 'success'
+      },
+      types: {
+        event: {},
+        contact_form: {}
       }
     } )
   );
-  await inboxMw.init( _.merge( config, { interfaces, mw: { limit: 20 } } ) );
+  await inboxMw.init( _.merge( c, { interfaces, mw: { limit: 20 } } ) );
 };

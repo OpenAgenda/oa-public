@@ -56,6 +56,19 @@ userRouter.get( '/conversations/:conversationId/action/:code.json',
   errorHandler
 );
 
+userRouter.get( '/conversations/:conversationId/resume.json',
+  userPreMw,
+  inboxMw.conversations.resume( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'user.uid',
+      userUid: 'user.uid'
+    }
+  } ),
+  errorHandler
+);
+
 userRouter.get( '/conversations/:conversationId/messages.json',
   userPreMw,
   inboxMw.messages.list( {
@@ -181,6 +194,19 @@ agendaRouter.get( '/conversations/:conversationId/action/:code.json',
   errorHandler
 );
 
+agendaRouter.get( '/conversations/:conversationId/resume.json',
+  agendaPreMw,
+  inboxMw.conversations.resume( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'agenda.uid',
+      userUid: 'user.uid'
+    }
+  } ),
+  errorHandler
+);
+
 agendaRouter.get( '/conversations/:conversationId/messages.json',
   agendaPreMw,
   inboxMw.messages.list( {
@@ -199,7 +225,7 @@ agendaRouter.post( '/conversations/:conversationId/messages.json',
   agendaPreMw,
   ( req, res, next ) => {
     req.options = {
-      createInboxUserOnNull: true
+      // createInboxUserOnNull: true
     };
     next();
   },
@@ -233,7 +259,7 @@ agendaRouter.post( '/conversations.json',
   agendaPreMw,
   ( req, res, next ) => {
     req.options = {
-      createInboxUserOnNull: true
+      // createInboxUserOnNull: true
     };
     next();
   },
@@ -272,8 +298,9 @@ agendaRouter.get( '/author.json',
 /* error handler */
 
 function errorHandler( err, req, res, next ) {
+  console.log( err, VError.info( err ) );
   if ( err.name === 'ValidationError' ) {
-    return res.status( 400 );
+    return res.status( 400 ).json( err );
   }
   if ( err.code ) {
     return next( err );

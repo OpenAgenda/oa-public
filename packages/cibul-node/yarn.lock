@@ -2,15 +2,9 @@
 # yarn lockfile v1
 
 
-"@newrelic/native-metrics@^2.1.0":
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/@newrelic/native-metrics/-/native-metrics-2.1.2.tgz#9a595dc602654b717188a294507087a51e79fba3"
-  dependencies:
-    nan "^2.4.0"
-
 "@openagenda/activities@^2.0.0":
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/@openagenda/activities/-/activities-2.0.2.tgz#dbb42ded5b0a7efd12fe1c97b4f568f8918f49a2"
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/activities/-/activities-2.0.4.tgz#55613cb0302c6e8c39b9c6c610489c8476f4e40c"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.0"
     "@openagenda/labels" "^2.0.3"
@@ -130,8 +124,8 @@
     when "^3.7.7"
 
 "@openagenda/agenda-events@^1.1.0":
-  version "1.1.8"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.8.tgz#2bb7c69f05c47fa4db403cc36227d1f3604957e5"
+  version "1.1.9"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.9.tgz#bdeda2506a0695c723615bffd96712617039d08b"
   dependencies:
     "@openagenda/logs" "^1.0.1"
     "@openagenda/queue" "^1.0.0"
@@ -144,8 +138,8 @@
     when "^3.7.7"
 
 "@openagenda/agenda-locations@^1.0.5", "@openagenda/agenda-locations@^1.0.6":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-locations/-/agenda-locations-1.0.7.tgz#ffc4a97bea29b4a6897ff73b6f240033a3c777be"
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-locations/-/agenda-locations-1.0.8.tgz#e6a5bed7e88d0c11d7b4db9497ad4f592c8ef159"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/bs-templates" "^2.0.3"
@@ -327,8 +321,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.15"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.15.tgz#1fc612fbf020854b89a55b6ede668dd1416dbe07"
+  version "2.0.16"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.16.tgz#ef2c1a9487f97a55cd700cc17102fba2d3f35076"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -371,8 +365,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.12"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.12.tgz#54afef4740397cf4cb595f5fa2463ce5835bc9a7"
+  version "1.0.14"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.14.tgz#1725a29070ef05249559328326c045b18d967ec0"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -602,8 +596,8 @@
     when "^3.7.7"
 
 "@openagenda/flat-exports@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/@openagenda/flat-exports/-/flat-exports-1.1.0.tgz#08466c22a1a1d623576cc9073e5f8e6cd5f53b02"
+  version "1.1.3"
+  resolved "https://registry.npmjs.org/@openagenda/flat-exports/-/flat-exports-1.1.3.tgz#5dbecb3b8ed78ec513c4d5f6c4d9520affcd202e"
   dependencies:
     "@openagenda/flattener" "^1.1.0"
     "@openagenda/stream-utils" "^1.1.0"
@@ -622,8 +616,8 @@
     lodash "^4.17.4"
 
 "@openagenda/form-schemas@^1.1.0":
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.4.tgz#cede98048ec33023bd1085fd8f4c5b30e9205487"
+  version "1.1.5"
+  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.5.tgz#01edf2fbf647a2df07d71f0e87b2a0764c0e3555"
   dependencies:
     "@openagenda/labels" "^2.0.7"
     "@openagenda/logs" "^1.0.5"
@@ -708,8 +702,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.7.tgz#d40c68805830b1beaaaf53e3b0e903ddeff33822"
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.8.tgz#3e15af46e4de98ae692b7e08b6fbbeae5c5ff0b6"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -742,8 +736,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.9.tgz#da198191fa187ad5f1238b67e79fa38488a5770d"
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.10.tgz#75c043498e30ffaea0dae386a2573438cd38d74a"
   dependencies:
     "@openagenda/logs" "^1.0.8"
     "@openagenda/service-utils" "^2.0.0"
@@ -785,8 +779,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7", "@openagenda/labels@^2.0.8":
-  version "2.0.16"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.16.tgz#262df9930e6487d9fe5e7e937abf2dbd4abb9c00"
+  version "2.0.17"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.17.tgz#9aebe295c55c087d1888a7af434cdf671668c1a6"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -1183,8 +1177,8 @@ Base64@~0.2.0:
   resolved "https://registry.npmjs.org/Base64/-/Base64-0.2.1.tgz#ba3a4230708e186705065e66babdd4c35cf60028"
 
 JSONStream@^1.0.3:
-  version "1.3.1"
-  resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.1.tgz#707f761e01dae9e16f1bcf93703b78c70966579a"
+  version "1.3.2"
+  resolved "https://registry.npmjs.org/JSONStream/-/JSONStream-1.3.2.tgz#c102371b6ec3a7cf3b847ca00c20bb0fce4c6dea"
   dependencies:
     jsonparse "^1.2.0"
     through ">=2.2.7 <3"
@@ -1262,10 +1256,6 @@ agent-base@^4.1.0:
   dependencies:
     es6-promisify "^5.0.0"
 
-agent-base@~1.0.1:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/agent-base/-/agent-base-1.0.2.tgz#6890d3fb217004b62b70f8928e0fae5f8952a706"
-
 agentkeepalive@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/agentkeepalive/-/agentkeepalive-2.2.0.tgz#c5d1bd4b129008f1163f236f86e5faea2026e2ef"
@@ -1286,8 +1276,8 @@ ajv@^4.9.1:
     json-stable-stringify "^1.0.1"
 
 ajv@^5.1.0, ajv@^5.1.5, ajv@^5.2.2:
-  version "5.5.1"
-  resolved "https://registry.npmjs.org/ajv/-/ajv-5.5.1.tgz#b38bb8876d9e86bee994956a04e721e88b248eb2"
+  version "5.5.2"
+  resolved "https://registry.npmjs.org/ajv/-/ajv-5.5.2.tgz#73b5eeca3fab653e3d3f9422b341ad42205dc965"
   dependencies:
     co "^4.6.0"
     fast-deep-equal "^1.0.0"
@@ -1558,8 +1548,8 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.170.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.170.0.tgz#4f9cfd26a268ef6a2969d3475ed8134bb3899525"
+  version "2.171.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.171.0.tgz#69c2565e98e353d437402477cc3064a13caedc9c"
   dependencies:
     buffer "4.9.1"
     crypto-browserify "1.0.9"
@@ -4004,8 +3994,8 @@ elasticsearch@^13.2.0, elasticsearch@^13.3.1:
     lodash.trimend "^4.5.1"
 
 electron-to-chromium@^1.3.28:
-  version "1.3.28"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.28.tgz#8dd4e6458086644e9f9f0a1cf32e2a1f9dffd9ee"
+  version "1.3.29"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.29.tgz#7a58236b95468c3e7660091348522d65d7736b36"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -5281,14 +5271,6 @@ https-proxy-agent@1, https-proxy-agent@^1.0.0:
     debug "2"
     extend "3"
 
-https-proxy-agent@^0.3.5:
-  version "0.3.6"
-  resolved "https://registry.npmjs.org/https-proxy-agent/-/https-proxy-agent-0.3.6.tgz#713fa38e5d353f50eb14a342febe29033ed1619b"
-  dependencies:
-    agent-base "~1.0.1"
-    debug "2"
-    extend "3"
-
 husl@^5.0.0:
   version "5.0.3"
   resolved "https://registry.npmjs.org/husl/-/husl-5.0.3.tgz#ee272aaff1bebe40df3588ed007b70de7e679788"
@@ -5332,8 +5314,8 @@ imagesloaded@^4.1:
     ev-emitter "^1.0.0"
 
 immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1, immutability-helper@^2.5.1:
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.1.tgz#355805fee7ad52dca52ca74ed5aab172031baf7b"
+  version "2.6.2"
+  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.2.tgz#0df76cd906518cf81f79caecb4e55d2850a11e2d"
   dependencies:
     invariant "^2.2.0"
 
@@ -5582,8 +5564,8 @@ is-lower-case@^1.0.0:
     lower-case "^1.1.0"
 
 is-my-json-valid@^2.12.4:
-  version "2.16.1"
-  resolved "https://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.16.1.tgz#5a846777e2c2620d1e69104e5d3a03b1f6088f11"
+  version "2.17.1"
+  resolved "https://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.17.1.tgz#3da98914a70a22f0a8563ef1511a246c6fc55471"
   dependencies:
     generate-function "^2.0.0"
     generate-object-property "^1.1.0"
@@ -5782,7 +5764,7 @@ json-stable-stringify@~0.0.0:
   dependencies:
     jsonify "~0.0.0"
 
-json-stringify-safe@5.0.1, json-stringify-safe@^5.0.0, json-stringify-safe@~5.0.1:
+json-stringify-safe@5.0.1, json-stringify-safe@~5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/json-stringify-safe/-/json-stringify-safe-5.0.1.tgz#1296a2d58fd45f19a0f6ce01d65701e2c735b6eb"
 
@@ -6753,8 +6735,8 @@ moment@2.9.0:
   resolved "https://registry.npmjs.org/moment/-/moment-2.9.0.tgz#77ec1175fa294f42627f10c8e6de6302c036f6d5"
 
 "moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.18.1, moment@^2.19.1, moment@^2.9.0:
-  version "2.19.4"
-  resolved "https://registry.npmjs.org/moment/-/moment-2.19.4.tgz#17e5e2c6ead8819c8ecfad83a0acccb312e94682"
+  version "2.20.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
 morgan@^1.9.0:
   version "1.9.0"
@@ -6857,7 +6839,7 @@ mysql@^2.10.2, mysql@^2.11, mysql@^2.11.1, mysql@^2.12.0, mysql@^2.13.0, mysql@^
     safe-buffer "5.1.1"
     sqlstring "2.3.0"
 
-nan@^2.3.0, nan@^2.3.2, nan@^2.4.0:
+nan@^2.3.0, nan@^2.3.2:
   version "2.8.0"
   resolved "https://registry.npmjs.org/nan/-/nan-2.8.0.tgz#ed715f3fe9de02b57a5e6252d90a96675e1f085a"
 
@@ -6894,19 +6876,6 @@ negotiator@~0.2.5:
 netmask@^1.0.6:
   version "1.0.6"
   resolved "https://registry.npmjs.org/netmask/-/netmask-1.0.6.tgz#20297e89d86f6f6400f250d9f4f6b4c1945fcd35"
-
-newrelic@*:
-  version "2.4.2"
-  resolved "https://registry.npmjs.org/newrelic/-/newrelic-2.4.2.tgz#ce63238b989f8fa27dae60ea24fe3c2fad969e5c"
-  dependencies:
-    async "^2.1.4"
-    concat-stream "^1.5.0"
-    https-proxy-agent "^0.3.5"
-    json-stringify-safe "^5.0.0"
-    readable-stream "^2.1.4"
-    semver "^5.3.0"
-  optionalDependencies:
-    "@newrelic/native-metrics" "^2.1.0"
 
 no-case@^2.2.0:
   version "2.3.2"
@@ -8223,8 +8192,8 @@ react-transform-catch-errors@^1.0.2:
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
 
 react-waypoint@^7.1.0, react-waypoint@^7.3.1:
-  version "7.3.3"
-  resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-7.3.3.tgz#49ad8e69cca4ae80f2f19608e5d6cf05d75c607e"
+  version "7.3.4"
+  resolved "https://registry.npmjs.org/react-waypoint/-/react-waypoint-7.3.4.tgz#6f4a167ca71c0877576699d6980089f001137f90"
   dependencies:
     consolidated-events "^1.1.0"
     prop-types "^15.0.0"
@@ -9275,8 +9244,8 @@ source-map@~0.6.1:
   resolved "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
 sourcemapped-stacktrace@^1.1.6:
-  version "1.1.7"
-  resolved "https://registry.npmjs.org/sourcemapped-stacktrace/-/sourcemapped-stacktrace-1.1.7.tgz#17e05374ff78b71a9d89ad3975a49f22725ba935"
+  version "1.1.8"
+  resolved "https://registry.npmjs.org/sourcemapped-stacktrace/-/sourcemapped-stacktrace-1.1.8.tgz#6b7a3f1a6fb15f6d40e701e23ce404553480d688"
   dependencies:
     source-map "0.5.6"
 

@@ -68,7 +68,8 @@ let config = {
       stakeholderCreate: 'stakeholderCreate',
       stakeholderMessage: 'stakeholderMessage',
       notificationAddActivity: 'notificationAddActivity',
-      notificationSendSummary: 'notificationSendSummary'
+      notificationSendSummary: 'notificationSendSummary',
+      inboxesSync: 'inboxesSync'
     },
     legacyQueue: 'bgestack',
     tmpFolderPath: '/var/tmp/',

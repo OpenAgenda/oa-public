@@ -50,7 +50,8 @@ app.use( '/home/inbox',
             conversations: {
               create: '/home/inbox/conversations.json',
               list: '/home/inbox/conversations.json',
-              action: '/home/inbox/conversations/:conversationId/action/:code.json'
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
@@ -91,7 +92,8 @@ app.use( '/:slug/admin/inbox',
             conversations: {
               create: '/agendas/:agendaUid/inbox/conversations.json',
               list: '/agendas/:agendaUid/inbox/conversations.json',
-              action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json'
+              action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json'
             },
             messages: {
               list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
@@ -154,7 +156,8 @@ app.use( '/:slug/contact',
             conversations: {
               create: '/home/inbox/conversations.json',
               list: '/home/inbox/conversations.json',
-              action: '/home/inbox/conversations/:conversationId/action/:code.json'
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
