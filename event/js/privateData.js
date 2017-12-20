@@ -9,6 +9,10 @@ import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
+import makeLabelGetter from '@openagenda/labels';
+import inboxesLabels from '@openagenda/labels/inboxes';
+
+const getInboxesLabel = makeLabelGetter( inboxesLabels );
 
 const defaults = {
   uid: false,
@@ -107,14 +111,16 @@ module.exports = function ( options ) {
 
     // userRole = 'adminmod' || 'contributor' || 'simpleUser'
     const userRole = (() => {
-      if ( user.uid === params.contributor.uid && simpleUser ) {
-        return 'adminmod';
+      if ( simpleUser && user.uid === params.contributor.uid ) {
+        return 'contributor';
       }
-      return simpleUser ? 'simpleUser' : 'contributor';
+      return simpleUser ? 'simpleUser' : 'adminmod';
     })();
 
-    // La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda,
-    // ainsi qu'au contributeur de l'événement.
+    // eventConvDescAdminmod
+    // eventConvDescContributor
+    // eventConvDescSimpleUser
+    const creationDescription = getInboxesLabel( 'eventConvDesc' + _.upperFirst( userRole ), params.lang );
 
     const destinationInbox = (() => {
       switch ( userRole ) {
@@ -149,6 +155,8 @@ module.exports = function ( options ) {
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: !simpleUser, // hide creation button
           maskEventTitle: true, // useless on event page
+          maskCreationSubtitle: true, // useless on event page
+          creationDescription,
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
