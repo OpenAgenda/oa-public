@@ -4,6 +4,7 @@ import InboxUsers from './InboxUsers';
 import InboxUser from './InboxUser';
 import Conversations from './Conversations';
 import Conversation from './Conversation';
+import * as tasks from './tasks';
 import config, { init } from './config';
 
 function InboxFactory( ...args ) {
@@ -26,6 +27,7 @@ export default InboxFactory;
 
 export {
   config,
+  tasks,
   init,
   Inbox,
   InboxUsers,

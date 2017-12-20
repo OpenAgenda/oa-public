@@ -17,9 +17,12 @@ async function init( c ) {
     'mysql',
     'schemas',
     'cache',
+    'services',
     'interfaces',
     'types',
-    'defaultAction'
+    'defaultAction',
+    'redis',
+    'queues'
   ] ) );
 
   const knexConfig = getKnexConfig( c );

@@ -28,7 +28,10 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/inboxes#readme",
   "dependencies": {
+    "@openagenda/agenda-stakeholders": "^2.0.3",
+    "@openagenda/agendas": "^1.0.4",
     "@openagenda/logs": "^1.0.8",
+    "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "ajv": "^5.2.2",
     "ajv-errors": "^1.0.0",

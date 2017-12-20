@@ -485,7 +485,7 @@ var Conversation = function () {
                   break;
                 }
 
-                throw new _verror2.default('You canno\'t resolve a conversation two times');
+                throw new _verror2.default('You cannot resolve a conversation two times');
 
               case 15:
                 data = this.data.resolvedAt ? {

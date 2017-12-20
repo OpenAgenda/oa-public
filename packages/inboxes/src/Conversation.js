@@ -267,7 +267,7 @@ export default class Conversation {
     }
 
     if ( this.data.resolvedAt && this.data.store.resolvedWith !== defaultAction.code && code !== defaultAction.code ) {
-      throw new VError( 'You canno\'t resolve a conversation two times' );
+      throw new VError( 'You cannot resolve a conversation two times' );
     }
 
     const data = this.data.resolvedAt ? {

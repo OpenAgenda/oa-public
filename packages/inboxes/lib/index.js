@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Conversation = exports.Conversations = exports.InboxUser = exports.InboxUsers = exports.Inbox = exports.init = exports.config = undefined;
+exports.Conversation = exports.Conversations = exports.InboxUser = exports.InboxUsers = exports.Inbox = exports.init = exports.tasks = exports.config = undefined;
 
 var _assign = require('babel-runtime/core-js/object/assign');
 
@@ -33,9 +33,15 @@ var _Conversation = require('./Conversation');
 
 var _Conversation2 = _interopRequireDefault(_Conversation);
 
+var _tasks = require('./tasks');
+
+var tasks = _interopRequireWildcard(_tasks);
+
 var _config = require('./config');
 
 var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61,6 +67,7 @@ _util2.default.inherits(InboxFactory, _Inbox2.default);
 
 exports.default = InboxFactory;
 exports.config = _config2.default;
+exports.tasks = tasks;
 exports.init = _config.init;
 exports.Inbox = _Inbox2.default;
 exports.InboxUsers = _InboxUsers2.default;
