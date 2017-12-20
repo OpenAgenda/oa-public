@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const wn = require( 'when/node' );
 const mailer = require( '../mailer' );
 const agendasSvc = require( '@openagenda/agendas' );
@@ -46,7 +47,7 @@ async function _addToSearchIndex( ae ) {
 
   const result = await eventSearch.agendas( ae.agendaUid ).add( ae );
 
-  if ( !result.success ) {
+  if ( !_.get( result, 'success' ) ) {
 
     log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
 
