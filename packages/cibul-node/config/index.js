@@ -2,7 +2,9 @@
 
 const deepExtend = require( 'deep-extend' ),
 
-  knexLib = require( 'knex' );
+  knexLib = require( 'knex' ),
+
+  prod = require( './prod' );
 
 let config = {
   all: {
@@ -81,22 +83,22 @@ let config = {
         prefix: 'oa:',
         enable: false
       },
-      token: '1cdd4c11-fe29-4144-ae18-e4fb8392c282',
+      token: prod.logentries.main,
       errorsTracking: {
-        logentriesKey: 'b78fe636-dc33-4aa3-be30-b7b4e642477c',
-        sentryDsn: 'https://5fe9d785fe8c43d2aac6372740474a4d@sentry.io/128991'
+        logentriesKey: prod.logentries.errors,
+        sentryDsn: prod.sentry.dsn
       }
     },
     name: 'cibul-node',
-    domain: 'openagenda.com',
-    mailerDomain: 'mailer.openagenda.com',
-    root: 'https://openagenda.com',
-    logo: 'https://s3.eu-central-1.amazonaws.com/oastatic/openagenda-185.png',
-    googleAnalyticsId: 'UA-60305866-1',
-    embedGoogleAnalyticsId: 'UA-60305866-2',
+    domain: prod.domains.main,
+    mailerDomain: prod.domains.mailer,
+    root: prod.root,
+    logo: prod.logo,
+    googleAnalyticsId: prod.googleAnalytics.id,
+    embedGoogleAnalyticsId: prod.googleAnalytics.embedId,
     cssVersion: 1,
     externalScripts: {
-      zendesk: 'window.zEmbed||function(e,t){var n,o,d,i,s,a=[],r=document.createElement("iframe");window.zEmbed=function(){a.push(arguments)},window.zE=window.zE||window.zEmbed,r.src="javascript:false",r.title="",r.role="presentation",(r.frameElement||r).style.cssText="display: none",d=document.getElementsByTagName("script"),d=d[d.length-1],d.parentNode.insertBefore(r,d),i=r.contentWindow,s=i.document;try{o=s}catch(c){n=document.domain,r.src=\'javascript:var d=document.open();d.domain="\'+n+\'";void(0);\',o=s}o.open()._l=function(){var o=this.createElement("script");n&&(this.domain=n),o.id="js-iframe-async",o.src=e,this.t=+new Date,this.zendeskHost=t,this.zEQueue=a,this.body.appendChild(o)},o.write(\'<body onload="document._l();">\'),o.close()}("https://assets.zendesk.com/embeddable_framework/main.js","openagenda.zendesk.com");'
+      zendesk: prod.zendesk.widget
     },
     useCache: false,
     agendaCacheExpire: 30 * 1000,
@@ -104,22 +106,18 @@ let config = {
       agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
     },
     adminEmail: 'admin@openagenda.com',
-    callToActionEmails: [
-      'romain.lange@openagenda.com',
-      'yacine.bensalem@openagenda.com',
-      'guilhem.laveissiere@openagenda.com'
-    ],
-    contactResource: 'https://pipedrivewebforms.com/form/dd36e7d663fe7c77e3ac65b3bada24e0',
-    mapboxAccessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow',
+    callToActionEmails: prod.sales.email,
+    contactResource: prod.sales.pipedriveForm,
+    mapboxAccessToken: prod.mapbox.token,
     geocodeFarm: {
-      key: 'c90247db-b0de461fb1e9-8517d6450e7b'
+      key: prod.geocodeFarm.key
     },
     db: {
-      database: 'oa',
-      host: 'cibul.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
-      port: 3306,
-      user: 'root',
-      password: "V4'&4F:,Mtji'hzq",
+      database: prod.db.name,
+      host: prod.db.host,
+      port: prod.db.port,
+      user: prod.db.user,
+      password: prod.db.password,
       cache: true,
       timezone: 'UTC'
     },
@@ -165,27 +163,27 @@ let config = {
     auth: {
       local: {
         useCaptcha: true,
-        captchaKey: '6LeO0AMTAAAAAGGzr5naEkY_VCM5xILpOp2j_1qY',
-        captchaSecret: '6LeO0AMTAAAAADtTdp2ShTEp-nVFktIyzPqkXr22',
-        captchaVerify: 'https://www.google.com/recaptcha/api/siteverify'
+        captchaKey: prod.googleCaptcha.key,
+        captchaSecret: prod.googleCaptcha.secret,
+        captchaVerify: prod.googleCaptcha.verify
       },
       facebook: {
-        id: '218055591568337',
-        secret: '444c327ed38e220805f23a40110475b4'
+        id: prod.facebook.appId,
+        secret: prod.facebook.appSecret
       },
       twitter: {
-        key: 'U6TZ7AMQzbtuUEyQKmShTQ',
-        secret: 'e6kB4iMssc6T54JqGtVgIqA7FbYnhGsn6YCuAfRFs'
+        key: prod.twitter.key,
+        secret: prod.twitter.secret
       },
       google: {
-        id: '168621602257-al70gdmimj8sj4c1d1pqt8nrfr33srjc.apps.googleusercontent.com',
-        secret: 'tCAMVQ3SLe71CWAc-K5AOnpg'
+        id: prod.googleApps.id,
+        secret: prod.googleApps.secret
       }
     },
     es: {
-      host: 'ec2-54-195-243-94.eu-west-1.compute.amazonaws.com',
-      port: 9200,
-      indexName: 'cibul',
+      host: prod.elasticsearch.v1_3.host,
+      port: prod.elasticsearch.v1_3.port,
+      indexName: prod.elasticsearch.indices.legacyEvents,
       channel: 'main'
     },
     esLocation: {
@@ -193,19 +191,19 @@ let config = {
         type: 'stdio',
         level: [ 'error', 'warning' ]
       } ],
-      index: 'location',
+      index: prod.elasticsearch.indices.locations,
       apiVersion: '1.3',
       timeout: 30000
     },
     redis: {
-      host: 'ec2-54-195-243-94.eu-west-1.compute.amazonaws.com',
-      port: 6379
+      host: prod.redis.host,
+      port: prod.redis.port
     },
     session: {
       name: 'oa', // session cookie name
       writableName: 'oa.rw', // store client-editable data
-      keys: [ 'hellomada', 'hellofada', 'iamnowat', 'campgranada' ],
-      secret: 'yeepeekayaymadafaka',
+      keys: prod.session.keys,
+      secret: prod.session.secret,
       maxAge: 1000 * 60 * 60 * 48,
       httpOnly: false,
       namespace: 'sessions',
@@ -232,15 +230,15 @@ let config = {
       mailgun: {
         transport: {
           auth: {
-            api_key: 'key-1dbfbb052b63a8e86a325778d2144204',
-            domain: 'mailgun.openagenda.com'
+            api_key: prod.mailgun.key,
+            domain: prod.domains.mailer
           }
         },
         delay: 100
       },
       ses: {
-        accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
-        secretAccessKey: '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',
+        accessKeyId: 'xxx',
+        secretAccessKey: 'xxx',
         region: 'eu-west-1',
       },
       nodemailer: {
@@ -255,25 +253,25 @@ let config = {
       }
     },
     aws: {
-      accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
-      secretAccessKey: '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',
+      accessKeyId: prod.aws.key,
+      secretAccessKey: prod.aws.secret,
       region: 'eu-west-1',
-      imageBucketPath: 'https://cibul.s3.amazonaws.com/',
-      tmpBucketPath: 'https://cibultmp.s3.amazonaws.com/',
-      staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
-      bucket: 'cibul',
-      tmpBucket: 'cibultmp',
-      defaultImagePath: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      imageBucketPath: `https://${prod.aws.buckets.main}.s3.amazonaws.com/`,
+      tmpBucketPath: `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`,
+      staticBucketPath: `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
+      bucket: prod.aws.buckets.main,
+      tmpBucket: prod.aws.buckets.temporary,
+      defaultImagePath: `//s3.eu-central-1.amazonaws.com/${prod.aws.buckets.static}/graylogo140.png`
     },
     sendinblue: {
-      apiKey: 'Gg6zBJdqf8mjHXFp',
-      newsletterList: 4
+      apiKey: prod.sendinblue.key,
+      newsletterList: prod.sendinblue.list
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
       //key: '044c4cbd91d65eab056738',
       //key: '32d62d210e9dcf24c0134e',
-      key: '05acdb65a8a86f5d0d792d',
+      key: prod.iframely.key,
       platforms: [
         "youtube",
         "dailymotion",
@@ -298,14 +296,14 @@ let config = {
       selectionLimit: 30  // maximum number of events displayable in the selection of a newsletter campaign
     },
     twitter: {
-      name: '@OpenAgendaFR'
+      name: prod.twitter.name
     },
     bridges: {
       swapcard: {
-        redirect: 'https://openagenda.com/services/swapcard/connect/callback',
-        clientID: '5_55ktc1a47zgogwg4gw8k8s4gg4kk4848s800gwggkswsc4so4o',
-        clientSecret: 'mox19rhegg0wc0wkg0gsksoscowk0wss8k0wkcwgkg800woks',
-        token: 'MGE5NmZlNzhhNTc2MDBkMDQzZWIzNzVmMzdjODJkOGNmMjFjMTFlOTAwYTM5ZWExYWRjNTg2ZjUxNDlkOWNkNg',
+        redirect: null, // deprecated
+        clientID: null, // deprecated
+        clientSecret: null, // deprecated
+        token: null, // deprecated
         baseSite: 'https://api.swapcard.com',
         authorizePath: '/oauth/v2/auth',
         accessTokenPath: '/oauth/v2/token',
@@ -313,7 +311,7 @@ let config = {
       }
     },
     comexposium: {
-      contributingAgendaUid: 63430882 // le salon de l'agriculture
+      contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
     routes: {
       globals: {
