@@ -116,6 +116,21 @@ export default class Events extends Component {
       .replace( ':eventSlug', event.slug );
   }
 
+  getImagePath( base, path ) {
+    const trailingBaseSlash = base.slice( -1 ) === '/';
+    const leadingPathSlash = path.slice( 1 ) === '/';
+
+    if ( trailingBaseSlash && leadingPathSlash ) {
+      return base.slice( 0, -1 ) + path;
+    }
+
+    if ( trailingBaseSlash || leadingPathSlash ) {
+      return base + path;
+    }
+
+    return base + '/' + path;
+  }
+
   render() {
     const {
       res, handleSubmit, events, loading, listLoading, nextLoading,
@@ -127,7 +142,7 @@ export default class Events extends Component {
     const selectAgendasModal = modals.selectAgenda || {};
 
     if ( loading ) {
-      return <Spinner />;
+      return <Spinner/>;
     }
 
     return (
@@ -168,7 +183,7 @@ export default class Events extends Component {
                 >
                   <img
                     className="media-object ill avatar"
-                    src={event.image.base + event.image.filename}
+                    src={this.getImagePath( event.image.base, event.image.filename )}
                     alt={this.getMultilangLabel( event.title )}
                   />
                 </a>
@@ -203,10 +218,10 @@ export default class Events extends Component {
           </div>}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
+            <Spinner/>
           </div>}
 
-          <Waypoint onEnter={this.throttledNextPage} />
+          <Waypoint onEnter={this.throttledNextPage}/>
 
           {selectAgendasModal.visible && <Modal
             title={getLabel( 'selectAgenda' )}

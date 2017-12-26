@@ -221,6 +221,22 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
       return res.events[event.private ? 'showPrivate' : 'show'].replace(':slug', event.agenda.slug).replace(':eventSlug', event.slug);
     }
   }, {
+    key: 'getImagePath',
+    value: function getImagePath(base, path) {
+      var trailingBaseSlash = base.slice(-1) === '/';
+      var leadingPathSlash = path.slice(1) === '/';
+
+      if (trailingBaseSlash && leadingPathSlash) {
+        return base.slice(0, -1) + path;
+      }
+
+      if (trailingBaseSlash || leadingPathSlash) {
+        return base + path;
+      }
+
+      return base + '/' + path;
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -310,7 +326,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                   },
                   _react3.default.createElement('img', {
                     className: 'media-object ill avatar',
-                    src: event.image.base + event.image.filename,
+                    src: _this2.getImagePath(event.image.base, event.image.filename),
                     alt: _this2.getMultilangLabel(event.title)
                   })
                 )
