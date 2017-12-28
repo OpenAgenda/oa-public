@@ -9,6 +9,10 @@ import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';
 import remote from '../../js/lib/remote/remote.mod.js';
+import makeLabelGetter from '@openagenda/labels';
+import inboxesLabels from '@openagenda/labels/inboxes';
+
+const getInboxesLabel = makeLabelGetter( inboxesLabels );
 
 const defaults = {
   uid: false,
@@ -105,24 +109,40 @@ module.exports = function ( options ) {
 
     const user = sessions.getUser();
 
-    const destinationInbox = (() => {
-      if ( user.uid === params.contributor.uid && simpleUser ) {
-        return { // contributor (not admin) -> admins/modos
-          type: 'agenda',
-          identifier: params.agendaUid
-        };
+    // userRole = 'adminmod' || 'contributor' || 'simpleUser'
+    const userRole = (() => {
+      if ( simpleUser && user.uid === params.contributor.uid ) {
+        return 'contributor';
       }
+      return simpleUser ? 'simpleUser' : 'adminmod';
+    })();
 
-      return simpleUser ? [ { // user lambda -> admins/modos + contributor
-        type: 'agenda',
-        identifier: params.agendaUid
-      }, {
-        type: 'user',
-        identifier: params.contributor.uid
-      } ] : { // admin -> contributor
-        type: 'user',
-        identifier: params.contributor.uid
-      };
+    // eventConvDescAdminmod
+    // eventConvDescContributor
+    // eventConvDescSimpleUser
+    const creationDescription = getInboxesLabel( 'eventConvDesc' + _.upperFirst( userRole ), params.lang );
+
+    const destinationInbox = (() => {
+      switch ( userRole ) {
+        case 'adminmod': // admin -> contributor
+          return {
+            type: 'user',
+            identifier: params.contributor.uid
+          };
+        case 'contributor': // contributor (not admin) -> admins/modos
+          return {
+            type: 'agenda',
+            identifier: params.agendaUid
+          };
+        case 'simpleUser': // user lambda -> admins/modos + contributor
+          return [ {
+            type: 'agenda',
+            identifier: params.agendaUid
+          }, {
+            type: 'user',
+            identifier: params.contributor.uid
+          } ];
+      }
     })();
 
     loadInbox( {
@@ -134,12 +154,15 @@ module.exports = function ( options ) {
           focusFistConversation: simpleUser, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: !simpleUser, // hide creation button
+          maskEventTitle: true, // useless on event page
+          maskCreationSubtitle: true, // useless on event page
+          creationDescription,
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
             destinationInbox,
             params: {
-              eventTitle: params.title,
+              eventTitle: _.unescape( params.title ),
               agendaUid: params.agendaUid
             }
           },
@@ -152,7 +175,8 @@ module.exports = function ( options ) {
           conversations: {
             list: resBasePath + '/inbox/conversations.json',
             create: resBasePath + '/inbox/conversations.json',
-            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json'
+            action: resBasePath + '/inbox/conversations/:conversationId/action/:code.json',
+            resume: resBasePath + '/inbox/conversations/:conversationId/resume.json'
           },
           messages: {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
