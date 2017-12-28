@@ -25,7 +25,11 @@ module.exports = function( params ) {
             <span class="js_message info"></span>
           </div>
           <div class="canvas js_image_canvas"></div>
-          <input placeholder="<%= imageCreditsPlaceholder %>" name="image_credits" type="text" class="form-control js_image_credits margin-top-sm">
+          <div class="js_image_credits">
+            <% if ( imageCreditsLabel ) { %><label><%= imageCreditsLabel %></label><% } %>
+            <% if ( imageCreditsInfo ) { %><div><%= imageCreditsInfo %></div><% } %>
+            <input placeholder="<%= imageCreditsPlaceholder %>" name="image_credits" type="text" class="form-control margin-top-sm">
+          </div>
           <div class="js_remove remove-action">
             <a class="btn btn-danger" href="#"><%= removeImage %></a>
             <span class="js_remove_loader"></span>
@@ -160,21 +164,23 @@ module.exports = function( params ) {
 
   _useImageCredits = function() {
 
-    return du.el( params.canvas ).getAttribute( 'attr-display-credits' ) === '1';
+    return du.el( params.canvas ).getAttribute( 'attr-credits-display' ) === '1';
 
   },
 
   _enableImageCredits = function( credits = null ) {
 
+    let imageCreditsInput = du.el( 'input', du.el( '.js_image_credits' ) );
+
     du.removeClass( du.el( '.js_image_credits' ), 'display-none' );
 
     if ( credits ) {
 
-      du.el( '.js_image_credits' ).value = credits;
+      imageCreditsInput.value = credits;
 
     }    
 
-    params.onCreditsUpdate( du.el( '.js_image_credits' ).value );
+    params.onCreditsUpdate( imageCreditsInput.value );
 
   },
 
@@ -393,6 +399,12 @@ module.exports = function( params ) {
 
     elem = document.createElement('div');
     elem.className = params.classes.main;
+
+    _.extend( params.labels, {
+      imageCreditsLabel: JSON.parse( du.el( params.canvas ).getAttribute( 'attr-credits-label' ) ),
+      imageCreditsInfo: JSON.parse( du.el( params.canvas ).getAttribute( 'attr-credits-info' ) ),
+      imageCreditsPlaceholder: JSON.parse( du.el( params.canvas ).getAttribute( 'attr-credits-placeholder' ) ) || params.labels.imageCreditsPlaceholder
+    } );
 
     elem.innerHTML = ejs.render( params.templates.main, params.labels );
 

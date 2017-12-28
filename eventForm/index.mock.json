@@ -412,6 +412,9 @@
     "event" : {},
     "configuration" : {
       "fields" : [ {
+        "name" : "language",
+        "display" : false
+      }, {
         "name" : "references",
         "display" : true,
         "info" : {
@@ -420,7 +423,19 @@
         }
       }, {
         "name" : "credits",
-        "display" : false
+        "display" : true,
+        "info" : {
+          "fr" : "Champ info custo",
+          "en" : "Custom info field"
+        },
+        "placeholder" : {
+          "fr": "Champ placeholder custo",
+          "en" : "Custom pl field"
+        },
+        "label" : {
+          "fr" : "Label custo",
+          "en" : "Custom label"
+        }
       }, {
         "name" : "title",
         "label" : {
@@ -497,6 +512,10 @@
         "info" : {
           "fr" : "Ceci est un message personnalisé",
           "en" : "This is a customized message"
+        },
+        "title" : {
+          "fr" : "Ceci est un titre image perso",
+          "en" : "This is a custom image title"
         }
       }, {
         "name" : "age",

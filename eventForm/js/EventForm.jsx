@@ -555,11 +555,19 @@ function EventFormFactory() {
 
     },
 
+    displayLanguageBar: function() {
+
+      return !!this.props.configuration.field( 'language' ).get( 'display', true );
+
+    },
+
     render: function () {
 
       let displayedLanguageBar = false;
 
       const renderLanguageBar = () => {
+
+        if ( !this.displayLanguageBar() ) return null;
 
         if ( displayedLanguageBar ) return null;
 
@@ -578,7 +586,13 @@ function EventFormFactory() {
 
         if ( o.field === 'image' ) {
 
-          return <div className="js_event_image_canvas" attr-display-credits={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }></div>;
+          return <div 
+            className="js_event_image_canvas" 
+            attr-credits-display={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }
+            attr-credits-label={JSON.stringify( this.props.configuration.field( 'credits' ).getLabel( true ) )}
+            attr-credits-info={JSON.stringify( this.props.configuration.field( 'credits' ).getInfo( true ) )}
+            attr-credits-placeholder={JSON.stringify( this.props.configuration.field( 'credits' ).getPlaceholder( true ) )}
+          ></div>;
 
         }
 
