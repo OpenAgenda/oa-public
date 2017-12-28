@@ -535,6 +535,7 @@
           "en" : "a custom info"
         },
         "displayRecurrencer" : false,
+        "defaultWeek" : "2016-01-18",
         "activeDays" :  [ {
           "startDate": "2016-01-27",
           "endDate": "2016-01-31"
