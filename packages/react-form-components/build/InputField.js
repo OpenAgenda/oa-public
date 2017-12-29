@@ -130,6 +130,11 @@ module.exports = createReactClass({
         null,
         this.getLabel(this.props.name)
       ),
+      this.props.info && this.getLabel(this.props.info) ? React.createElement(
+        'div',
+        null,
+        this.getLabel(this.props.info)
+      ) : null,
       React.createElement(
         'div',
         { className: this.props.className || '' },

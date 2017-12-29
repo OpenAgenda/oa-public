@@ -31,6 +31,9 @@ module.exports = createReactClass({
     // used to optionnally bypass getLabel and load info as is
     info: PropTypes.string,
 
+    // used to optionnally bypass getLabel and load placeholder as is
+    placeholder: PropTypes.string,
+
     // called when value changes
     onChange: PropTypes.func,
 
@@ -77,12 +80,14 @@ module.exports = createReactClass({
       this.props.type == 'textarea' ? React.createElement('textarea', {
         name: name,
         rows: this.props.rows,
+        placeholder: this.props.getLabel(this.props.placeholder) || this.props.placeholder,
         value: this.props.value[lang],
         className: 'form-control',
         onChange: this.onChange(lang),
         disabled: !this.isEnabled(lang) }) : React.createElement('input', {
         name: name,
         type: 'text',
+        placeholder: this.props.getLabel(this.props.placeholder) || this.props.placeholder,
         value: this.props.value[lang],
         className: 'form-control',
         onChange: this.onChange(lang),
@@ -140,7 +145,7 @@ module.exports = createReactClass({
       this.props.info ? React.createElement(
         'span',
         { className: 'info' },
-        this.props.info
+        this.props.getLabel(this.props.info) || this.props.info
       ) : null,
       React.createElement(
         'ul',

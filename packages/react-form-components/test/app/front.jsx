@@ -287,6 +287,18 @@ var React = require( 'react' ),
           getLabel={getLabel}
         />
 
+        <p>input field with custom placeholder & info</p>
+
+        <InputField
+          name="phone"
+          value={ this.state.values.phone }
+          onChange={ this.onChange }
+          getLabel={ getLabel }
+          placeholder="phonePlaceholder"
+          info="phoneInfo"
+          validator={validators.phone( { field: 'phone' } ) }
+        />
+
         <div className="separator"></div>
 
         <p>disabled input field</p>
@@ -381,7 +393,8 @@ var React = require( 'react' ),
           onChange={( name, value ) => {
           }}
           label="display empty fields when input is empty"
-          info="Yeepeekayyay"
+          info="descriptionInfo"
+          placeholder="descriptionPlaceholder"
           type="text"
         />
 

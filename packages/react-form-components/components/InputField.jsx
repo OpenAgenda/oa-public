@@ -131,6 +131,9 @@ module.exports = createReactClass( {
 
     return <div className={ this.props.enabled ? 'form-group' : 'form-group disabled' }>
       <label>{this.getLabel( this.props.name )}</label>
+      { this.props.info && this.getLabel( this.props.info ) ? 
+        <div>{this.getLabel( this.props.info )}</div>
+      : null }
       <div className={this.props.className || ''}>
         {this.props.type!=="textarea" ? <input
           className="form-control"

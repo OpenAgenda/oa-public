@@ -36,6 +36,9 @@ module.exports = createReactClass( {
     // used to optionnally bypass getLabel and load info as is
     info: PropTypes.string,
 
+    // used to optionnally bypass getLabel and load placeholder as is
+    placeholder: PropTypes.string,
+
     // called when value changes
     onChange: PropTypes.func,
 
@@ -83,6 +86,7 @@ module.exports = createReactClass( {
     { this.props.type == 'textarea' ? <textarea
       name={name}
       rows={this.props.rows}
+      placeholder={this.props.getLabel( this.props.placeholder ) || this.props.placeholder }
       value={this.props.value[lang]}
       className="form-control"
       onChange={this.onChange( lang )}
@@ -91,6 +95,7 @@ module.exports = createReactClass( {
     : <input
         name={name}
         type="text"
+        placeholder={this.props.getLabel( this.props.placeholder ) || this.props.placeholder }
         value={this.props.value[lang]}
         className="form-control"
         onChange={this.onChange( lang )} 
@@ -141,7 +146,7 @@ module.exports = createReactClass( {
 
     return <div className={classes.join( ' ' )}>
       <label>{this.props.label || this.props.getLabel( this.props.name )}</label>
-      { this.props.info ? <span className="info">{ this.props.info }</span> : null }
+      { this.props.info ? <span className="info">{this.props.getLabel( this.props.info ) || this.props.info }</span> : null }
       <ul className="list-unstyled">
       {this.props.languages.map( lang => {
         return <li key={lang} className={this.isEnabled( lang ) ? '' : 'disabled'}>

@@ -12,6 +12,31 @@ module.exports = {
     en: 'Email'
   },
 
+  phone: {
+    fr: 'Téléphone',
+    en: 'Phone'
+  },
+
+  phoneInfo: {
+    fr: 'Indiquez un numéro de téléphone',
+    en: 'Indicate a phone number'
+  },
+
+  phonePlaceholder: {
+    fr: 'Ex: 00 33 6 34 32 54 32',
+    en: 'Ex: 00 33 6 82 03 23 43'
+  },
+
+  descriptionInfo: {
+    fr: 'Info de description',
+    en: 'Description info'
+  },
+
+  descriptionPlaceholder: {
+    fr: 'Placeholder de description',
+    en: 'Description placeholder'
+  },
+
   'number.toosmall' : {
     fr: 'Le nombre doit être supérieur ou égal à %min%',
     en: 'The number must be equal to or higher than %min%'
