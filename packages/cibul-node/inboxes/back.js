@@ -116,7 +116,7 @@ userRouter.post( '/conversations.json',
   userPreMw,
   ( req, res, next ) => {
     req.options = {
-      createInboxUserOnNull: true
+      // createInboxUserOnNull: true
     };
     next();
   },

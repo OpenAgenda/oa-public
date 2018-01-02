@@ -43,7 +43,8 @@ app.use( '/home/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4'
+            TitleComponent: 'h4',
+            emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang )
           },
           res: {
             author: '/home/inbox/author.json',
@@ -85,7 +86,8 @@ app.use( '/:slug/admin/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4'
+            TitleComponent: 'h4',
+            emptyInboxLabel: getLabel( 'agendaInboxDesc', req.lang )
           },
           res: {
             author: '/agendas/:agendaUid/inbox/author.json',
@@ -124,7 +126,6 @@ app.use( '/:slug/contact',
     ] )).some( Boolean );
 
     if ( adminOrModerator ) {
-      console.log( 'IL EST OU LE SETFLASH, IL EST OU !!!' );
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
@@ -140,8 +141,11 @@ app.use( '/:slug/contact',
             TitleComponent: 'h4',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
-            allowCreateConversation: true, // hide creation button
-            topListConversation: true, // add a conversation form on top of conversation list
+            allowCreateConversation: true, // show creation button
+            maskCreationSubtitle: true,
+            topListForm: true, // add a conversation form on top of conversation list
+            inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             defaultQuery: {
               type: 'contact_form',
               typeIdentifier: req.agenda.uid,

@@ -3,7 +3,7 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const wn = require( 'when/node' );
-const { InboxUsers } = require( '@openagenda/inboxes' );
+const { Inbox, InboxUsers } = require( '@openagenda/inboxes' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const mailer = require( '@openagenda/mailer' );
@@ -47,7 +47,9 @@ module.exports = async ( { conversation, message }, cb ) => {
           .assign( { user } )
           .value();
 
-        await sendMail( inboxUserToNotify, conversation, message );
+        const senderName = await getSenderName( { inboxUser: inboxUserToNotify, conversation, message } );
+
+        await sendMail( { inboxUser: inboxUserToNotify, conversation, message, senderName } );
 
       }
 
@@ -70,8 +72,31 @@ async function inboxIdsToInboxUsers( inboxes, ids ) {
   }, 0, 10000 )).data, o => ({ ...o, inbox: _.find( inboxes, [ 'id', o.inboxId ] ) }) );
 }
 
-async function sendMail( inboxUser, conversation, message ) {
+async function getSenderName( { inboxUser, conversation, message } ) {
+  const conv = await Inbox.user( inboxUser.userUid ).conversations.get( conversation.id );
+  const msg = await conv.messages.get( message.id );
 
+  if ( msg.data.inboxUser ) {
+    return (await promisify( usersSvc.get )( { uid: msg.data.inboxUser.userUid }, {
+      removed: false,
+      detailed: true
+    } )).full_name;
+  }
+
+  if ( msg.data.inbox.type === 'agenda' ) {
+    return (await promisify( agendasSvc.get )( { uid: msg.data.inbox.identifier }, {
+      private: null,
+      includeImagePath: true
+    } )).title;
+  } else if ( msg.data.inbox.type === 'user' ) {
+    return (await promisify( usersSvc.get )( { uid: msg.data.inbox.identifier }, {
+      removed: false,
+      detailed: true
+    } )).full_name;
+  }
+}
+
+async function sendMail( { inboxUser, conversation, message, senderName } ) {
   const mailerAsync = promisify( mailer );
   const getAgenda = promisify( agendasSvc.get );
 
@@ -142,6 +167,12 @@ async function sendMail( inboxUser, conversation, message ) {
     return;
   }
 
+  let description = _.escape( message.body );
+
+  if ( senderName ) {
+    description = description + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`;
+  }
+
   return mailerAsync( {
     recipient: user.email,
     source: getMailerLabel( 'noReply', lang ),
@@ -157,9 +188,8 @@ async function sendMail( inboxUser, conversation, message ) {
         label: getInboxLabel( 'newMessageAction', lang ),
         link: url
       },
-      description: _.escape( message.body ),
+      description,
       footerActions
     }
   } );
-
 }
