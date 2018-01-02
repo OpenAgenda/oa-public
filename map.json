@@ -93,6 +93,12 @@
     "js" : "widgets/preview/preview.js",
     "prod" : "embed/oaPreviewWidget.js"
   },
+
+  {
+    "js" : "widgets/relative/relative.js",
+    "prod" : "embed/oaRelativeWidget.js"
+  },
+
   {
     "js" : "widgets/tags/tags.js",
     "prod" : "embed/cibulTagsWidget.js" 
