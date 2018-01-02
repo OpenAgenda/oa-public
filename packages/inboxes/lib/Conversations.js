@@ -62,6 +62,10 @@ var _inboxUserFieldsMap = require('./db/inboxUserFieldsMap');
 
 var _inboxUserFieldsMap2 = _interopRequireDefault(_inboxUserFieldsMap);
 
+var _inboxFieldsMap = require('./db/inboxFieldsMap');
+
+var _inboxFieldsMap2 = _interopRequireDefault(_inboxFieldsMap);
+
 var _populateParticipants = require('./db/populateParticipants');
 
 var _populateParticipants2 = _interopRequireDefault(_populateParticipants);
@@ -73,6 +77,10 @@ var _populateLatestMessage2 = _interopRequireDefault(_populateLatestMessage);
 var _conversationSchemas = require('./validators/conversationSchemas');
 
 var _config = require('./config');
+
+var _populateDetails = require('./db/populateDetails');
+
+var _populateDetails2 = _interopRequireDefault(_populateDetails);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -137,7 +145,11 @@ var Conversations = function () {
 
                 request = (0, _config.knex)(_config.schemas.conversation).select().column(_mapper2.default.listFields(_conversationFieldsMap2.default, 'select', 'db', options, true).map(function (v) {
                   return _config.schemas.conversation + '.' + v;
-                })).column(_config.schemas.inbox + '.id as inboxContextId').max(_config.schemas.message + '.id as latestMessageId').leftJoin(_config.schemas.inboxConversation, _config.schemas.inboxConversation + '.conversation_id', _config.schemas.conversation + '.id').leftJoin(_config.schemas.inbox, _config.schemas.inbox + '.id', _config.schemas.inboxConversation + '.inbox_id').leftJoin(_config.schemas.message, _config.schemas.message + '.conversation_id', _config.schemas.conversation + '.id').where(_lodash2.default.mapKeys(_mapper2.default.toDb(_conversationFieldsMap2.default, 'select', query, options), function (v, key) {
+                })).column(_config.schemas.inbox + '.id as inboxContextId').column(_mapper2.default.listFields(_inboxUserFieldsMap2.default, 'select', 'db', options, true, 'creatorInboxUser.').map(function (v) {
+                  return 'creatorInboxUser.' + v;
+                })).column(_mapper2.default.listFields(_inboxFieldsMap2.default, 'select', 'db', options, true, 'creatorInbox.').map(function (v) {
+                  return 'creatorInbox.' + v;
+                })).max(_config.schemas.message + '.id as latestMessageId').leftJoin(_config.schemas.inboxConversation, _config.schemas.inboxConversation + '.conversation_id', _config.schemas.conversation + '.id').leftJoin(_config.schemas.inbox, _config.schemas.inbox + '.id', _config.schemas.inboxConversation + '.inbox_id').leftJoin(_config.schemas.message, _config.schemas.message + '.conversation_id', _config.schemas.conversation + '.id').leftJoin(_config.schemas.inboxUser + ' as creatorInboxUser', 'creatorInboxUser.id', _config.schemas.conversation + '.creator_inbox_user_id').leftJoin(_config.schemas.inbox + ' as creatorInbox', 'creatorInbox.id', 'creatorInboxUser.inbox_id').where(_lodash2.default.mapKeys(_mapper2.default.toDb(_conversationFieldsMap2.default, 'select', query, options), function (v, key) {
                   return _config.schemas.conversation + '.' + key;
                 })).groupBy(_config.schemas.conversation + '.id').orderByRaw('(resolvedAt IS NOT NULL)').orderByRaw('latestMessageId DESC').orderByRaw('GREATEST( ' + _config.schemas.conversation + '.created_at, ' + _config.schemas.conversation + '.updated_at ) DESC').offset(offset).limit(limit);
                 rows = void 0;
@@ -173,14 +185,19 @@ var Conversations = function () {
                   }, {});
                 });
                 _context.next = 18;
-                return (0, _bluebird.resolve)((0, _populateLatestMessage2.default)(result, this.inbox));
+                return (0, _bluebird.resolve)((0, _populateDetails2.default)(result, this.inbox));
 
               case 18:
                 result = _context.sent;
                 _context.next = 21;
-                return (0, _bluebird.resolve)((0, _populateParticipants2.default)(result));
+                return (0, _bluebird.resolve)((0, _populateLatestMessage2.default)(result, this.inbox));
 
               case 21:
+                result = _context.sent;
+                _context.next = 24;
+                return (0, _bluebird.resolve)((0, _populateParticipants2.default)(result));
+
+              case 24:
                 result = _context.sent;
 
 
@@ -188,7 +205,7 @@ var Conversations = function () {
 
                 return _context.abrupt('return', this);
 
-              case 24:
+              case 27:
               case 'end':
                 return _context.stop();
             }

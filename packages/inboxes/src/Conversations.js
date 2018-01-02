@@ -8,10 +8,12 @@ import mapper from './utils/mapper';
 import validate from './utils/validate';
 import conversationFieldsMap from './db/conversationFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
+import inboxFieldsMap from './db/inboxFieldsMap';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
 import { listSchema } from './validators/conversationSchemas';
 import { knex, schemas, types } from './config';
+import populateDetails from "./db/populateDetails";
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -57,6 +59,14 @@ export default class Conversations {
           .map( v => `${schemas.conversation}.${v}` )
       )
       .column( `${schemas.inbox}.id as inboxContextId` )
+      .column(
+        mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'creatorInboxUser.' )
+          .map( v => `creatorInboxUser.${v}` )
+      )
+      .column(
+        mapper.listFields( inboxFieldsMap, 'select', 'db', options, true, 'creatorInbox.' )
+          .map( v => `creatorInbox.${v}` )
+      )
       .max( `${schemas.message}.id as latestMessageId` )
       .leftJoin(
         schemas.inboxConversation,
@@ -72,6 +82,16 @@ export default class Conversations {
         schemas.message,
         `${schemas.message}.conversation_id`,
         `${schemas.conversation}.id`
+      )
+      .leftJoin(
+        `${schemas.inboxUser} as creatorInboxUser`,
+        `creatorInboxUser.id`,
+        `${schemas.conversation}.creator_inbox_user_id`
+      )
+      .leftJoin(
+        `${schemas.inbox} as creatorInbox`,
+        `creatorInbox.id`,
+        `creatorInboxUser.inbox_id`
       )
       .where(
         _.mapKeys(
@@ -113,6 +133,8 @@ export default class Conversations {
         {}
       )
     );
+
+    result = await populateDetails( result, this.inbox );
 
     result = await populateLatestMessage( result, this.inbox );
 

@@ -8,11 +8,13 @@ import { knex, schemas, types, interfaces, defaultAction } from './config';
 import mapper from './utils/mapper';
 import conversationFieldsMap from './db/conversationFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
+import inboxFieldsMap from './db/inboxFieldsMap';
 import validate from './utils/validate';
 import { identifiersSchema, createSchema, updateSchema } from './validators/conversationSchemas';
 import Inbox from './Inbox';
 import Messages from './Messages';
 import InboxUser from './InboxUser';
+import populateDetails from './db/populateDetails';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
 
@@ -115,11 +117,19 @@ export default class Conversation {
           .map( v => `${schemas.conversation}.${v}` )
       )
       .column( `${schemas.inbox}.id as inboxContextId` )
+      .column(
+        mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'creatorInboxUser.' )
+          .map( v => `creatorInboxUser.${v}` )
+      )
+      .column(
+        mapper.listFields( inboxFieldsMap, 'select', 'db', options, true, 'creatorInbox.' )
+          .map( v => `creatorInbox.${v}` )
+      )
       .max( `${schemas.message}.id as latestMessageId` )
       .leftJoin(
         schemas.inboxConversation,
-        `${schemas.conversation}.id`,
-        `${schemas.inboxConversation}.conversation_id`
+        `${schemas.inboxConversation}.conversation_id`,
+        `${schemas.conversation}.id`
       )
       .leftJoin(
         schemas.inbox,
@@ -131,13 +141,22 @@ export default class Conversation {
         `${schemas.message}.conversation_id`,
         `${schemas.conversation}.id`
       )
+      .leftJoin(
+        `${schemas.inboxUser} as creatorInboxUser`,
+        `creatorInboxUser.id`,
+        `${schemas.conversation}.creator_inbox_user_id`
+      )
+      .leftJoin(
+        `${schemas.inbox} as creatorInbox`,
+        `creatorInbox.id`,
+        `creatorInboxUser.inbox_id`
+      )
       .where(
         _.mapKeys(
           mapper.toDb( conversationFieldsMap, 'select', this.identifiers, options ),
           ( v, key ) => `${schemas.conversation}.${key}`
         )
       )
-      // .andWhere( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id )
       .groupBy( `${schemas.conversation}.id` )
       .orderByRaw( '(resolvedAt IS NOT NULL)' )
       .orderByRaw( 'latestMessageId DESC' )
@@ -173,6 +192,8 @@ export default class Conversation {
       ( result, value, key ) => _.set( result, key, value ),
       {}
     );
+
+    result = await populateDetails( result, this.inbox );
 
     result = await populateLatestMessage( result, this.inbox );
 

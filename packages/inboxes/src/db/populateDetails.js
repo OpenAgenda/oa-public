@@ -15,28 +15,51 @@ export default async function populateDetails( entities, inbox ) {
     if ( row.inboxUserId ) {
       delete row.inboxUserId;
     }
+    if ( row.creatorInboxUserId ) {
+      delete row.creatorInboxUserId;
+    }
 
     if ( row.inboxUser && row.inboxUser.inboxId !== inbox.data.id ) {
-      // if the current user is not in the entity inbox
-      const inboxUser = await new Inboxes( row.inbox ).users.get( { userUid: inbox.data.identifier } );
+      // check if the current user is in the entity inbox
+      const inboxUser = inbox.data.type === 'user'
+        ? await new Inboxes( row.inboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
+        : null;
 
       if ( !inboxUser || !inboxUser.data ) {
         delete row.inboxUser;
       }
     }
 
+    if ( row.creatorInboxUser && row.creatorInboxUser.inboxId !== inbox.data.id ) {
+      // check if the current user is in the creator inbox of entity
+      const creatorInboxUser = inbox.data.type === 'user'
+        ? await new Inboxes( row.creatorInboxUser.inboxId ).users.get( { userUid: inbox.data.identifier } )
+        : null;
+
+      if ( !creatorInboxUser || !creatorInboxUser.data ) {
+        delete row.creatorInboxUser;
+      }
+    }
+
     return row;
   } ) );
 
-  const listsToPopulate = result.reduce( ( result, row ) => {
+  const listsToPopulate = result.reduce( ( prev, row ) => {
     if ( row.inboxUser ) {
-      result.users.push( row.inboxUser );
+      prev.users.push( row.inboxUser );
     }
     if ( row.inbox ) {
-      result.inboxes.push( row.inbox );
+      prev.inboxes.push( row.inbox );
     }
 
-    return result;
+    if ( row.creatorInboxUser ) {
+      prev.users.push( row.creatorInboxUser );
+    }
+    if ( row.creatorInbox ) {
+      prev.inboxes.push( row.creatorInbox );
+    }
+
+    return prev;
   }, { users: [], inboxes: [] } );
 
   listsToPopulate.users = _.uniqWith( listsToPopulate.users, _.isEqual );
@@ -46,14 +69,28 @@ export default async function populateDetails( entities, inbox ) {
   const inboxesDetails = await interfaces.getInboxesDetails( listsToPopulate.inboxes );
 
   return result.map( entity => {
-    let userIndex = usersDetails.findIndex( v => entity.inboxUser && entity.inboxUser.userUid === v.uid );
-    let inboxIndex = inboxesDetails.findIndex( v => entity.inbox && entity.inbox.identifier === v.uid );
+    const inboxUserIndex = entity.inboxUser ? usersDetails.findIndex( v => entity.inboxUser.userUid === v.uid ) : -1;
+    const inboxIndex = entity.inbox ? inboxesDetails.findIndex( v => entity.inbox.identifier === v.uid ) : -1;
 
-    if ( ~userIndex ) {
-      Object.assign( entity.inboxUser, usersDetails[ userIndex ] );
+    const creatorInboxUserIndex = entity.creatorInboxUser
+      ? usersDetails.findIndex( v => entity.creatorInboxUser.userUid === v.uid )
+      : -1;
+    const creatorInboxIndex = entity.creatorInbox
+      ? inboxesDetails.findIndex( v => entity.creatorInbox.identifier === v.uid )
+      : -1;
+
+    if ( inboxUserIndex !== -1 ) {
+      Object.assign( entity.inboxUser, usersDetails[ inboxUserIndex ] );
     }
-    if ( ~inboxIndex ) {
+    if ( inboxIndex !== -1 ) {
       Object.assign( entity.inbox, inboxesDetails[ inboxIndex ] );
+    }
+
+    if ( creatorInboxUserIndex !== -1 ) {
+      Object.assign( entity.creatorInboxUser, usersDetails[ creatorInboxUserIndex ] );
+    }
+    if ( creatorInboxIndex !== -1 ) {
+      Object.assign( entity.creatorInbox, inboxesDetails[ creatorInboxIndex ] );
     }
 
     return entity;

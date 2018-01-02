@@ -37,7 +37,7 @@ describe( 'Conversation', () => {
 
   afterAll( async () => {
 
-    await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+    // await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
     await config.knex.destroy();
 
   } );
@@ -62,7 +62,23 @@ describe( 'Conversation', () => {
         id: 6,
         type: 'event',
         typeIdentifier: 456789,
-        creatorInboxUserId: 1,
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 1,
+          identifier: 48959239,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 48959239
+        },
+        creatorInboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          id: 1,
+          inboxId: 1,
+          leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          userUid: 23456789,
+          uid: 23456789,
+        },
         store: { params: { trucUtile: false } },
         inboxContextId: 1,
         inboxes: [ {
@@ -127,14 +143,33 @@ describe( 'Conversation', () => {
         id: 6,
         type: 'edition_request',
         typeIdentifier: null,
-        creatorInboxUserId: 2,
-        store: { params: {} },
-        inboxContextId: 2,
-        inboxUser: {
+        creatorInbox: {
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          id: 2,
+          identifier: 99999999,
+          name: 'L\'admin',
+          type: 'user',
+          uid: 99999999
+        },
+        creatorInboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
-          userUid: 99999999
+          name: 'Jean-Roger Benbambou',
+          userUid: 99999999,
+          uid: 99999999,
+        },
+        store: { params: {} },
+        inboxContextId: 2,
+        inboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          userUid: 99999999,
+          uid: 99999999,
         },
         inboxes: [ {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
@@ -177,14 +212,33 @@ describe( 'Conversation', () => {
         id: 6,
         type: 'edition_request',
         typeIdentifier: null,
-        creatorInboxUserId: 2,
-        store: { params: {} },
-        inboxContextId: 2,
-        inboxUser: {
+        creatorInbox: {
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+          id: 2,
+          identifier: 99999999,
+          name: 'L\'admin',
+          type: 'user',
+          uid: 99999999
+        },
+        creatorInboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
-          userUid: 99999999
+          name: 'Jean-Roger Benbambou',
+          userUid: 99999999,
+          uid: 99999999,
+        },
+        store: { params: {} },
+        inboxContextId: 2,
+        inboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          id: 2,
+          inboxId: 2,
+          leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          userUid: 99999999,
+          uid: 99999999,
         },
         inboxes: [ {
           avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
@@ -232,7 +286,23 @@ describe( 'Conversation', () => {
           id: 6,
           type: 'event',
           typeIdentifier: 456789,
-          creatorInboxUserId: 7,
+          creatorInbox: {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
+          creatorInboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 7,
+            inboxId: 1,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            userUid: 85878525,
+            uid: 85878525,
+          },
           store: { params: {} },
           inboxContextId: 1,
           inboxes: [ {
@@ -281,7 +351,14 @@ describe( 'Conversation', () => {
         typeIdentifier: null,
         store: { params: {} },
         inboxContextId: 4,
-        creatorInboxUserId: 5,
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 5,
+          identifier: 24681012,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 24681012
+        },
         inboxes: [
           {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
@@ -336,13 +413,23 @@ describe( 'Conversation', () => {
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
-        creatorInboxUserId: 1,
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 1,
+          identifier: 48959239,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 48959239
+        },
         store: { params: {} },
         inboxContextId: 2,
         inboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          uid: 99999999,
           userUid: 99999999
         },
         inboxes: [ {
@@ -442,16 +529,26 @@ describe( 'Conversation', () => {
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
-        creatorInboxUserId: 1,
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 1,
+          identifier: 48959239,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 48959239
+        },
         store: { params: { un: { nouveau: 'truc' } } },
         updatedAt: new Date(),
         resolvedAt: null,
         closedAt: new Date(),
         inboxContextId: 2,
         inboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
           id: 2,
           inboxId: 2,
           leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          uid: 99999999,
           userUid: 99999999
         },
         inboxes: [ {
@@ -534,8 +631,24 @@ describe( 'Conversation', () => {
         id: 1,
         type: 'contribution_request',
         typeIdentifier: null,
-        creatorInboxUserId: 1,
         store: { params: {} },
+        creatorInbox: {
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+          id: 1,
+          identifier: 48959239,
+          name: 'La gargouille',
+          type: 'agenda',
+          uid: 48959239
+        },
+        creatorInboxUser: {
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+          id: 1,
+          inboxId: 1,
+          leftAt: null,
+          name: 'Jean-Roger Benbambou',
+          userUid: 23456789,
+          uid: 23456789,
+        },
         inboxContextId: 1,
         inboxes: [ {
           id: 1,
@@ -581,10 +694,25 @@ describe( 'Conversation', () => {
           id: 5,
           type: 'contact_form',
           typeIdentifier: null,
-          creatorInboxUserId: 4,
           store: { params: {} },
           inboxContextId: 2,
-          inboxUser: { id: 2, inboxId: 2, leftAt: null, userUid: 99999999 },
+          creatorInbox: {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 4,
+            identifier: 7891011,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 7891011
+          },
+          inboxUser: {
+            id: 2,
+            inboxId: 2,
+            leftAt: null,
+            userUid: 99999999,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999
+          },
           inboxes: [ {
             id: 6,
             type: 'user',
@@ -618,14 +746,24 @@ describe( 'Conversation', () => {
           id: 4,
           type: 'contact_form',
           typeIdentifier: 456789,
-          creatorInboxUserId: 6,
           store: { params: {} },
           inboxContextId: 2,
+          creatorInbox: {
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 6,
+            identifier: 86286559,
+            name: 'L\'admin',
+            type: 'user',
+            uid: 86286559
+          },
           inboxUser: {
             id: 2,
             inboxId: 2,
             userUid: 99999999,
-            leftAt: null
+            leftAt: null,
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999
           },
           inboxes: [ {
             id: 6,
@@ -660,14 +798,33 @@ describe( 'Conversation', () => {
           id: 3,
           type: 'contact_form',
           typeIdentifier: null,
-          creatorInboxUserId: 5,
           store: { params: {} },
           inboxContextId: 5,
+          creatorInbox: {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 5,
+            identifier: 24681012,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 24681012
+          },
+          creatorInboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 5,
+            inboxId: 5,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
+            userUid: 99999999
+          },
           inboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 5,
             inboxId: 5,
             userUid: 99999999,
-            leftAt: null
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999
           },
           inboxes: [ {
             id: 4,
@@ -711,13 +868,32 @@ describe( 'Conversation', () => {
           id: 2,
           type: 'edition_request',
           typeIdentifier: null,
-          creatorInboxUserId: 2,
           store: { params: {} },
           inboxContextId: 2,
+          creatorInbox: {
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 2,
+            identifier: 99999999,
+            name: 'L\'admin',
+            type: 'user',
+            uid: 99999999
+          },
+          creatorInboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 2,
+            inboxId: 2,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
+            userUid: 99999999
+          },
           inboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             userUid: 99999999,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
             leftAt: null
           },
           inboxes: [ {
@@ -753,13 +929,23 @@ describe( 'Conversation', () => {
           id: 1,
           type: 'contribution_request',
           typeIdentifier: null,
-          creatorInboxUserId: 1,
           store: { params: {} },
           inboxContextId: 2,
+          creatorInbox: {
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            id: 1,
+            identifier: 48959239,
+            name: 'La gargouille',
+            type: 'agenda',
+            uid: 48959239
+          },
           inboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
             id: 2,
             inboxId: 2,
             userUid: 99999999,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
             leftAt: null
           },
           inboxes: [ {
@@ -816,10 +1002,25 @@ describe( 'Conversation', () => {
           id: 4,
           type: 'contact_form',
           typeIdentifier: 456789,
-          creatorInboxUserId: 6,
           store: { params: {} },
           inboxContextId: 2,
-          inboxUser: { id: 2, inboxId: 2, leftAt: null, userUid: 99999999 },
+          creatorInbox: {
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            id: 6,
+            identifier: 86286559,
+            name: 'L\'admin',
+            type: 'user',
+            uid: 86286559
+          },
+          inboxUser: {
+            id: 2,
+            inboxId: 2,
+            userUid: 99999999,
+            name: 'Jean-Roger Benbambou',
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            leftAt: null,
+            uid: 99999999
+          },
           inboxes: [ {
             id: 6,
             type: 'user',
@@ -853,14 +1054,33 @@ describe( 'Conversation', () => {
           id: 3,
           type: 'contact_form',
           typeIdentifier: null,
-          creatorInboxUserId: 5,
           store: { 'params': {} },
           inboxContextId: 5,
+          creatorInbox: {
+            id: 5,
+            type: 'agenda',
+            identifier: 24681012,
+            name: 'La gargouille',
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
+            uid: 24681012
+          },
+          creatorInboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 5,
+            inboxId: 5,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
+            userUid: 99999999
+          },
           inboxUser: {
             id: 5,
             inboxId: 5,
             userUid: 99999999,
-            leftAt: null
+            name: 'Jean-Roger Benbambou',
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            leftAt: null,
+            uid: 99999999
           },
           inboxes: [ {
             id: 4,
@@ -904,14 +1124,33 @@ describe( 'Conversation', () => {
           id: 2,
           type: 'edition_request',
           typeIdentifier: null,
-          creatorInboxUserId: 2,
           store: { params: {} },
           inboxContextId: 2,
+          creatorInbox: {
+            id: 2,
+            type: 'user',
+            identifier: 99999999,
+            name: 'L\'admin',
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 99999999
+          },
+          creatorInboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 2,
+            inboxId: 2,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
+            userUid: 99999999
+          },
           inboxUser: {
             id: 2,
             inboxId: 2,
             userUid: 99999999,
-            leftAt: null
+            name: 'Jean-Roger Benbambou',
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            leftAt: null,
+            uid: 99999999
           },
           inboxes: [ {
             id: 2,
@@ -959,10 +1198,25 @@ describe( 'Conversation', () => {
           id: 4,
           type: 'contact_form',
           typeIdentifier: 456789,
-          creatorInboxUserId: 6,
           store: { params: {} },
           inboxContextId: 2,
-          inboxUser: { id: 2, inboxId: 2, leftAt: null, userUid: 99999999 },
+          creatorInbox: {
+            id: 6,
+            type: 'user',
+            identifier: 86286559,
+            name: 'L\'admin',
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
+            uid: 86286559
+          },
+          inboxUser: {
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
+            id: 2,
+            inboxId: 2,
+            leftAt: null,
+            name: 'Jean-Roger Benbambou',
+            uid: 99999999,
+            userUid: 99999999
+          },
           inboxes: [ {
             id: 6,
             type: 'user',

@@ -58,7 +58,7 @@ exports.default = function () {
             _context2.next = 8;
             return (0, _bluebird.resolve)((0, _bluebird.all)(entities.map(function () {
               var _ref2 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(row) {
-                var inboxUser;
+                var inboxUser, creatorInboxUser;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
@@ -66,27 +66,73 @@ exports.default = function () {
                         if (row.inboxUserId) {
                           delete row.inboxUserId;
                         }
+                        if (row.creatorInboxUserId) {
+                          delete row.creatorInboxUserId;
+                        }
 
                         if (!(row.inboxUser && row.inboxUser.inboxId !== inbox.data.id)) {
-                          _context.next = 6;
+                          _context.next = 12;
                           break;
                         }
 
-                        _context.next = 4;
-                        return (0, _bluebird.resolve)(new _Inbox2.default(row.inbox).users.get({ userUid: inbox.data.identifier }));
+                        if (!(inbox.data.type === 'user')) {
+                          _context.next = 9;
+                          break;
+                        }
 
-                      case 4:
-                        inboxUser = _context.sent;
+                        _context.next = 6;
+                        return (0, _bluebird.resolve)(new _Inbox2.default(row.inboxUser.inboxId).users.get({ userUid: inbox.data.identifier }));
+
+                      case 6:
+                        _context.t0 = _context.sent;
+                        _context.next = 10;
+                        break;
+
+                      case 9:
+                        _context.t0 = null;
+
+                      case 10:
+                        inboxUser = _context.t0;
 
 
                         if (!inboxUser || !inboxUser.data) {
                           delete row.inboxUser;
                         }
 
-                      case 6:
+                      case 12:
+                        if (!(row.creatorInboxUser && row.creatorInboxUser.inboxId !== inbox.data.id)) {
+                          _context.next = 22;
+                          break;
+                        }
+
+                        if (!(inbox.data.type === 'user')) {
+                          _context.next = 19;
+                          break;
+                        }
+
+                        _context.next = 16;
+                        return (0, _bluebird.resolve)(new _Inbox2.default(row.creatorInboxUser.inboxId).users.get({ userUid: inbox.data.identifier }));
+
+                      case 16:
+                        _context.t1 = _context.sent;
+                        _context.next = 20;
+                        break;
+
+                      case 19:
+                        _context.t1 = null;
+
+                      case 20:
+                        creatorInboxUser = _context.t1;
+
+
+                        if (!creatorInboxUser || !creatorInboxUser.data) {
+                          delete row.creatorInboxUser;
+                        }
+
+                      case 22:
                         return _context.abrupt('return', row);
 
-                      case 7:
+                      case 23:
                       case 'end':
                         return _context.stop();
                     }
@@ -101,15 +147,22 @@ exports.default = function () {
 
           case 8:
             result = _context2.sent;
-            listsToPopulate = result.reduce(function (result, row) {
+            listsToPopulate = result.reduce(function (prev, row) {
               if (row.inboxUser) {
-                result.users.push(row.inboxUser);
+                prev.users.push(row.inboxUser);
               }
               if (row.inbox) {
-                result.inboxes.push(row.inbox);
+                prev.inboxes.push(row.inbox);
               }
 
-              return result;
+              if (row.creatorInboxUser) {
+                prev.users.push(row.creatorInboxUser);
+              }
+              if (row.creatorInbox) {
+                prev.inboxes.push(row.creatorInbox);
+              }
+
+              return prev;
             }, { users: [], inboxes: [] });
 
 
@@ -127,18 +180,32 @@ exports.default = function () {
           case 17:
             inboxesDetails = _context2.sent;
             return _context2.abrupt('return', result.map(function (entity) {
-              var userIndex = usersDetails.findIndex(function (v) {
-                return entity.inboxUser && entity.inboxUser.userUid === v.uid;
-              });
-              var inboxIndex = inboxesDetails.findIndex(function (v) {
-                return entity.inbox && entity.inbox.identifier === v.uid;
-              });
+              var inboxUserIndex = entity.inboxUser ? usersDetails.findIndex(function (v) {
+                return entity.inboxUser.userUid === v.uid;
+              }) : -1;
+              var inboxIndex = entity.inbox ? inboxesDetails.findIndex(function (v) {
+                return entity.inbox.identifier === v.uid;
+              }) : -1;
 
-              if (~userIndex) {
-                (0, _assign2.default)(entity.inboxUser, usersDetails[userIndex]);
+              var creatorInboxUserIndex = entity.creatorInboxUser ? usersDetails.findIndex(function (v) {
+                return entity.creatorInboxUser.userUid === v.uid;
+              }) : -1;
+              var creatorInboxIndex = entity.creatorInbox ? inboxesDetails.findIndex(function (v) {
+                return entity.creatorInbox.identifier === v.uid;
+              }) : -1;
+
+              if (inboxUserIndex !== -1) {
+                (0, _assign2.default)(entity.inboxUser, usersDetails[inboxUserIndex]);
               }
-              if (~inboxIndex) {
+              if (inboxIndex !== -1) {
                 (0, _assign2.default)(entity.inbox, inboxesDetails[inboxIndex]);
+              }
+
+              if (creatorInboxUserIndex !== -1) {
+                (0, _assign2.default)(entity.creatorInboxUser, usersDetails[creatorInboxUserIndex]);
+              }
+              if (creatorInboxIndex !== -1) {
+                (0, _assign2.default)(entity.creatorInbox, inboxesDetails[creatorInboxIndex]);
               }
 
               return entity;
