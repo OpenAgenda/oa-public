@@ -705,13 +705,13 @@ function EventFormFactory() {
 
         if ( o.field === 'registration' ) {
 
-          return <div>{this.props.configuration.field( 'registration' ).display() ? <Registration
+          return <div>{this.props.configuration.field( 'registration' ).display() ? <div className="margin-bottom-md"><Registration
             info={this.props.configuration.field( 'registration' ).getInfo( false, false )}
             lang={this.props.lang}
             label={this.props.configuration.field( 'registration' ).getLabel( false, this.props.labels )}
             placeholder={this.props.configuration.field( 'registration' ).getPlaceholder( false, this.props.labels )}
             value={this.state.ticketLink}
-            onChange={this.onChangeRegistration} /> : null}</div>
+            onChange={this.onChangeRegistration} /></div> : null}</div>
 
         }
 
