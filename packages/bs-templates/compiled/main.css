@@ -10599,49 +10599,58 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   .legacy-event-form .counter.error {
     color: #da4453; }
 
-.accessibility {
-  padding: 2em 0; }
-  .accessibility ul {
-    margin-top: 1em; }
-  .accessibility li {
-    width: 96px;
-    display: inline-block;
-    cursor: pointer;
-    text-align: center; }
-    .accessibility li > * {
-      cursor: pointer; }
-    .accessibility li .box {
-      border-radius: 4px;
-      padding: 1em 0; }
-    .accessibility li .checked {
-      background: #41acdd; }
-    .accessibility li label {
-      display: block;
-      font-weight: normal; }
-  .accessibility .ill {
-    display: inline-block;
-    width: 60px !important;
-    height: 60px !important;
-    vertical-align: middle;
-    background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-60.png"); }
-  .accessibility .checked .vi {
-    background-position: 120px 0; }
-  .accessibility .hi {
-    background-position: 0 60px; }
-  .accessibility .checked .hi {
-    background-position: 120px 60px; }
-  .accessibility .mi {
-    background-position: 0 120px; }
-  .accessibility .checked .mi {
-    background-position: 120px 120px; }
-  .accessibility .pi {
-    background-position: 0 180px; }
-  .accessibility .checked .pi {
-    background-position: 120px 180px; }
-  .accessibility .sl {
-    background-position: 0 240px; }
-  .accessibility .checked .sl {
-    background-position: 120px 240px; }
+.accessibility ul {
+  margin-top: 1em; }
+
+.accessibility li {
+  width: 96px;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center; }
+  .accessibility li > * {
+    cursor: pointer; }
+  .accessibility li .box {
+    border-radius: 4px;
+    padding: 1em 0; }
+  .accessibility li .checked {
+    background: #41acdd; }
+  .accessibility li label {
+    display: block;
+    font-weight: normal; }
+
+.accessibility .ill {
+  display: inline-block;
+  width: 60px !important;
+  height: 60px !important;
+  vertical-align: middle;
+  background-image: url("//s3.eu-central-1.amazonaws.com/oastatic/accessibility-60.png"); }
+
+.accessibility .checked .vi {
+  background-position: 120px 0; }
+
+.accessibility .hi {
+  background-position: 0 60px; }
+
+.accessibility .checked .hi {
+  background-position: 120px 60px; }
+
+.accessibility .mi {
+  background-position: 0 120px; }
+
+.accessibility .checked .mi {
+  background-position: 120px 120px; }
+
+.accessibility .pi {
+  background-position: 0 180px; }
+
+.accessibility .checked .pi {
+  background-position: 120px 180px; }
+
+.accessibility .sl {
+  background-position: 0 240px; }
+
+.accessibility .checked .sl {
+  background-position: 120px 240px; }
 
 .target-age > * {
   margin-right: 5px;
