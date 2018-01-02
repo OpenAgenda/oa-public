@@ -164,7 +164,6 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           }
         }),
         _react3.default.createElement(_reduxForm.Field, {
-          label: getLabel('message'),
           component: _form.renderTextarea,
           name: 'message',
           className: 'form-control',
@@ -176,6 +175,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
               submit();
             }
           },
+          placeholder: getLabel('yourMessage'),
           __source: {
             fileName: _jsxFileName,
             lineNumber: 66

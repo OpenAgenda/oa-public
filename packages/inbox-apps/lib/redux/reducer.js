@@ -22,6 +22,10 @@ var _conversationForm = require('./modules/conversationForm');
 
 var _conversationForm2 = _interopRequireDefault(_conversationForm);
 
+var _modals = require('./modules/modals');
+
+var _modals2 = _interopRequireDefault(_modals);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var noop = function noop() {
@@ -34,6 +38,7 @@ exports.default = (0, _createReducer2.default)({
   inbox: _inbox2.default,
   conversation: _conversation2.default,
   conversationForm: _conversationForm2.default,
+  modals: _modals2.default,
   agenda: noop,
   event: noop
 });

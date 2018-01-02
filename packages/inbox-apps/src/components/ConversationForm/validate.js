@@ -8,7 +8,7 @@ schema.register( {
 export default function validate( data ) {
   try {
     const validate = schema( {
-      body: {
+      message: {
         type: 'text',
         // min: 2,
         // max: 10000,

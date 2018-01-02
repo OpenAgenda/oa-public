@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MessageList = exports.MessageItem = exports.MessageForm = exports.LinkContainer = exports.Link = exports.ConversationList = exports.ConversationItem = exports.ConversationForm = exports.AuthorAvatar = exports.ActionsList = undefined;
+exports.MessageList = exports.MessageItem = exports.MessageForm = exports.LinkContainer = exports.Link = exports.Image = exports.ConversationList = exports.ConversationItem = exports.ConversationForm = exports.AuthorAvatar = exports.ActionsList = undefined;
 
 var _ActionsList2 = require('./ActionsList/ActionsList');
 
@@ -24,6 +24,10 @@ var _ConversationItem3 = _interopRequireDefault(_ConversationItem2);
 var _ConversationList2 = require('./ConversationList/ConversationList');
 
 var _ConversationList3 = _interopRequireDefault(_ConversationList2);
+
+var _Image2 = require('./Image/Image');
+
+var _Image3 = _interopRequireDefault(_Image2);
 
 var _Link2 = require('./Link/Link');
 
@@ -52,6 +56,7 @@ exports.AuthorAvatar = _AuthorAvatar3.default;
 exports.ConversationForm = _ConversationForm3.default;
 exports.ConversationItem = _ConversationItem3.default;
 exports.ConversationList = _ConversationList3.default;
+exports.Image = _Image3.default;
 exports.Link = _Link3.default;
 exports.LinkContainer = _LinkContainer3.default;
 exports.MessageForm = _MessageForm3.default;

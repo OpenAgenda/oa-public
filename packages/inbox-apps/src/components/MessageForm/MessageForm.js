@@ -42,6 +42,7 @@ export default class MessageForm extends Component {
             submit();
           }
         }}
+        placeholder={getLabel( 'yourMessage' )}
       />
     );
   }

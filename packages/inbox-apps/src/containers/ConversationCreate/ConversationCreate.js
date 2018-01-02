@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { ConversationForm, Link, AuthorAvatar } from '../../components';
+import { ConversationForm, LinkContainer, AuthorAvatar } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
+import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import showBackLink from '../../utils/showBackLink';
 
@@ -33,7 +34,7 @@ import showBackLink from '../../utils/showBackLink';
     conversations: state.inbox.data,
     author: state.conversation.author
   }),
-  conversationFormActions
+  { ...conversationFormActions, ...modalActions }
 )
 @getContext( {
   getLabel: PropTypes.func
@@ -45,15 +46,22 @@ export default class ConversationCreate extends Component {
   }
 
   FromWrapper( { handleSubmit, children } ) {
-    const { getLabel } = this.props;
+    const { getLabel, settings, author } = this.props;
+    const { belowMessageDesc } = settings;
 
     return (
-      <form onSubmit={handleSubmit} className="conversation-form">
-        <div className="margin-bottom-md">
-          {children}
-        </div>
+      <form onSubmit={handleSubmit} className="conversation-form margin-bottom-md">
+        {children}
 
-        <button type="submit" className="btn btn-primary">{getLabel( 'send' )}</button>
+        {author.inbox && author.inbox.type !== 'user' && author.inboxUser
+          ? <div className="margin-bottom-xs">{getLabel( 'yourMessageWillBeSigned' )} <b>{author.inbox.name}</b></div>
+          : null}
+
+        {belowMessageDesc
+          ? <div className="margin-bottom-xs" dangerouslySetInnerHTML={{ __html: belowMessageDesc }}/>
+          : null}
+
+        <button type="submit" className="btn btn-primary margin-top-xs">{getLabel( 'send' )}</button>
       </form>
     );
   }
@@ -61,20 +69,36 @@ export default class ConversationCreate extends Component {
   render() {
     const {
       createConversation, initialValues, getLabel,
-      settings, conversations, author, router
+      settings, conversations, author, router, showModal
     } = this.props;
 
-    const { TitleComponent, prefix, ContentWrapper } = settings;
+    const {
+      TitleComponent, prefix, ContentWrapper, creationDescriptionLabel,
+      maskCreationSubtitle, creationSubtitle
+    } = settings;
 
     const content = (
       <Fragment>
-        <TitleComponent>
-          {getLabel( 'newConversation' )}
-        </TitleComponent>
+        {maskCreationSubtitle ? null : <TitleComponent>
+          {creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )}
+        </TitleComponent>}
 
-        {showBackLink( settings, conversations ) ? <div>
-          <Link to="/">{getLabel( 'back' )}</Link>
+        {showBackLink( settings, conversations ) ? <div className="text-right margin-bottom-sm">
+          <LinkContainer to="/">
+            {path => (
+              <button
+                className="btn btn-info btn-back"
+                onClick={() => router.push( { pathname: path, state: { showListAllowed: true } } )}
+              >
+                {getLabel( 'showAllConversations' )}
+              </button>
+            )}
+          </LinkContainer>
         </div> : null}
+
+        <div className="clearfix"/>
+
+        {creationDescriptionLabel ? <p>{creationDescriptionLabel}</p> : null}
 
         <div className="media">
           <div className="media-left">
@@ -84,11 +108,16 @@ export default class ConversationCreate extends Component {
             <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
 
             <ConversationForm
+              form="conversation-create"
               onSubmit={data => createConversation( data )
                 .then( result => {
                   const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
                   router.push( url );
+                  showModal( 'messageSent' );
                   return result;
+                } )
+                .catch( err => {
+                  console.log( 'ERROR', err );
                 } )
               }
               initialValues={initialValues}

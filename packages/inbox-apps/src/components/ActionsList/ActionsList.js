@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 export default class ActionsList extends Component {
+  constructor( props ) {
+    super( props );
+    this.triggerAction = ::this.triggerAction;
+  }
 
   static contextTypes = {
     lang: PropTypes.string
@@ -18,8 +22,18 @@ export default class ActionsList extends Component {
     return action.label[ Object.keys( action.label )[ 0 ] ];
   }
 
+  triggerAction( action ) {
+    const { onAction, showModal } = this.props;
+
+    if ( action.code === 'default' ) {
+      return showModal( 'closeConfirmation', { action, onAction } );
+    }
+
+    return onAction( action.code );
+  }
+
   render() {
-    const { actions, onAction } = this.props;
+    const { actions } = this.props;
 
     if ( !actions ) {
       return null;
@@ -31,7 +45,7 @@ export default class ActionsList extends Component {
           className={cn( 'btn', 'btn-block', {
             [ `btn-${action.kind}` ]: !!action.kind
           } )}
-          onClick={() => onAction( action.code )}
+          onClick={() => this.triggerAction( action )}
         >
           {this.getActionLabel( action )}
         </button>

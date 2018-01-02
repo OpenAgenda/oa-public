@@ -115,6 +115,7 @@ var MessageForm = _wrapComponent('MessageForm')((_dec = (0, _reduxForm.reduxForm
             submit();
           }
         },
+        placeholder: getLabel('yourMessage'),
         __source: {
           fileName: _jsxFileName,
           lineNumber: 33

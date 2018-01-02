@@ -3,6 +3,7 @@ export AuthorAvatar from './AuthorAvatar/AuthorAvatar';
 export ConversationForm from './ConversationForm/ConversationForm';
 export ConversationItem from './ConversationItem/ConversationItem';
 export ConversationList from './ConversationList/ConversationList';
+export Image from './Image/Image';
 export Link from './Link/Link';
 export LinkContainer from './LinkContainer/LinkContainer';
 export MessageForm from './MessageForm/MessageForm';

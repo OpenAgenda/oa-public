@@ -38,6 +38,12 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _jsxFileName = 'src/components/AuthorAvatar/AuthorAvatar.js';
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _index = require('../index');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _components = {
@@ -70,10 +76,21 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
   (0, _createClass3.default)(AuthorAvatar, [{
     key: 'render',
     value: function render() {
-      var _props$author = this.props.author,
+      var _props = this.props,
+          _props$author = _props.author,
           inboxUser = _props$author.inboxUser,
-          inbox = _props$author.inbox;
+          inbox = _props$author.inbox,
+          inline = _props.inline;
 
+
+      var imgClasses = (0, _classnames2.default)('img-circle', {
+        'media-object': !inline
+      });
+
+      var principalStyle = {
+        width: inline ? '24px' : '60px',
+        verticalAlign: 'bottom'
+      };
 
       if (inboxUser) {
         return _react3.default.createElement(
@@ -81,37 +98,43 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 8
+              lineNumber: 19
             }
           },
-          _react3.default.createElement('img', {
+          _react3.default.createElement(_index.Image, {
             src: inboxUser.avatar,
-            className: 'media-object img-circle',
-            style: { width: '60px' },
+            fallbackSrc: __DEVELOPMENT__ ? inboxUser.avatar.replace('cibuldev', 'cibul') : null,
+            className: imgClasses,
+            style: principalStyle,
+            title: inboxUser.name,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 9
+              lineNumber: 20
             }
           }),
-          inbox && inbox.avatar && inbox.type !== 'user' ? _react3.default.createElement('img', {
+          !inline && inbox && inbox.avatar && inbox.type !== 'user' ? _react3.default.createElement(_index.Image, {
             src: inbox.avatar,
-            className: 'media-object img-circle belongs',
-            style: { width: '25px' },
+            fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
+            className: (0, _classnames2.default)(imgClasses, 'belongs'),
+            style: { width: inline ? '10px' : '25px' },
+            title: inbox.name,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 16
+              lineNumber: 29
             }
           }) : null
         );
       }
 
-      return _react3.default.createElement('img', {
+      return _react3.default.createElement(_index.Image, {
         src: inbox.avatar,
-        className: 'media-object img-circle',
-        style: { width: '60px' },
+        fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
+        className: imgClasses,
+        style: principalStyle,
+        title: inbox.name,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26
+          lineNumber: 41
         }
       });
     }

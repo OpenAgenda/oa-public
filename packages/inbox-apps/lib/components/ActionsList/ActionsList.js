@@ -80,9 +80,13 @@ function _wrapComponent(id) {
 var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Component) {
   (0, _inherits3.default)(ActionsList, _Component);
 
-  function ActionsList() {
+  function ActionsList(props) {
     (0, _classCallCheck3.default)(this, ActionsList);
-    return (0, _possibleConstructorReturn3.default)(this, (ActionsList.__proto__ || (0, _getPrototypeOf2.default)(ActionsList)).apply(this, arguments));
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (ActionsList.__proto__ || (0, _getPrototypeOf2.default)(ActionsList)).call(this, props));
+
+    _this.triggerAction = _this.triggerAction.bind(_this);
+    return _this;
   }
 
   (0, _createClass3.default)(ActionsList, [{
@@ -98,13 +102,25 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
       return action.label[(0, _keys2.default)(action.label)[0]];
     }
   }, {
+    key: 'triggerAction',
+    value: function triggerAction(action) {
+      var _props = this.props,
+          onAction = _props.onAction,
+          showModal = _props.showModal;
+
+
+      if (action.code === 'default') {
+        return showModal('closeConfirmation', { action: action, onAction: onAction });
+      }
+
+      return onAction(action.code);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
 
-      var _props = this.props,
-          actions = _props.actions,
-          onAction = _props.onAction;
+      var actions = this.props.actions;
 
 
       if (!actions) {
@@ -116,7 +132,7 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
           'div',
           { className: 'margin-top-sm', key: action.code, __source: {
               fileName: _jsxFileName,
-              lineNumber: 29
+              lineNumber: 43
             }
           },
           _react3.default.createElement(
@@ -124,11 +140,11 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
             {
               className: (0, _classnames2.default)('btn', 'btn-block', (0, _defineProperty3.default)({}, 'btn-' + action.kind, !!action.kind)),
               onClick: function onClick() {
-                return onAction(action.code);
+                return _this2.triggerAction(action);
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 30
+                lineNumber: 44
               }
             },
             _this2.getActionLabel(action)

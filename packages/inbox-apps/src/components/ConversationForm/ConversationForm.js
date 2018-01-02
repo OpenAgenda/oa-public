@@ -64,7 +64,6 @@ export default class ConversationForm extends Component {
           parse={this.parseJsonValue}
         />
         <Field
-          label={getLabel( 'message' )}
           component={renderTextarea}
           name="message"
           className="form-control"
@@ -76,6 +75,7 @@ export default class ConversationForm extends Component {
               submit();
             }
           }}
+          placeholder={getLabel( 'yourMessage' )}
         />
       </Fragment>
     );

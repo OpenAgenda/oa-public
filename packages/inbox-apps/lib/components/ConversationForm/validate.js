@@ -31,7 +31,7 @@ _schema2.default.register({
 function validate(data) {
   try {
     var _validate = (0, _schema2.default)({
-      body: {
+      message: {
         type: 'text',
         // min: 2,
         // max: 10000,

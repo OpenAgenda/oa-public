@@ -3,6 +3,7 @@ import { reducer as form } from 'redux-form';
 import inbox from './modules/inbox';
 import conversation from './modules/conversation';
 import conversationForm from './modules/conversationForm';
+import modals from './modules/modals';
 
 const noop = (v = null) => v;
 
@@ -11,6 +12,7 @@ export default createReducer( {
   inbox,
   conversation,
   conversationForm,
+  modals,
   agenda: noop,
   event: noop
 } );

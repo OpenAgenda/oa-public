@@ -48,6 +48,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _nl2br = require('@openagenda/react-utils/dist/nl2br');
+
+var _nl2br2 = _interopRequireDefault(_nl2br);
+
 var _ = require('../');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -96,19 +100,19 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
         'div',
         { className: 'media', __source: {
             fileName: _jsxFileName,
-            lineNumber: 23
+            lineNumber: 24
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 24
+              lineNumber: 25
             }
           },
           _react3.default.createElement(_.AuthorAvatar, { author: message, __source: {
               fileName: _jsxFileName,
-              lineNumber: 25
+              lineNumber: 26
             }
           })
         ),
@@ -116,14 +120,14 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 28
+              lineNumber: 29
             }
           },
           _react3.default.createElement(
             'p',
             { className: 'media-heading', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 29
+                lineNumber: 30
               }
             },
             _react3.default.createElement(
@@ -131,7 +135,7 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 30
+                  lineNumber: 31
                 }
               },
               getMessageSenderName(message)
@@ -141,16 +145,16 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
             'div',
             { className: 'margin-bottom-xs', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 32
+                lineNumber: 33
               }
             },
-            message.body || null
+            (0, _nl2br2.default)(message.body) || null
           ),
           _react3.default.createElement(
             'p',
             { className: 'text-muted', title: creationDate.format('LLL'), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 35
+                lineNumber: 36
               }
             },
             getLabel('messagePostedRelativeDate', { date: creationDate.fromNow(true) })

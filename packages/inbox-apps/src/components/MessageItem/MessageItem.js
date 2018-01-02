@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { AuthorAvatar } from '../';
 
 export default class MessageItem extends Component {
@@ -22,7 +23,7 @@ export default class MessageItem extends Component {
     return (
       <div className="media">
         <div className="media-left media-top">
-          <AuthorAvatar author={message} />
+          <AuthorAvatar author={message}/>
         </div>
 
         <div className="media-body">
@@ -30,7 +31,7 @@ export default class MessageItem extends Component {
             <b>{getMessageSenderName( message )}</b>
           </p>
           <div className="margin-bottom-xs">
-            {message.body || null}
+            {nl2br( message.body ) || null}
           </div>
           <p className="text-muted" title={creationDate.format( 'LLL' )}>
             {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}

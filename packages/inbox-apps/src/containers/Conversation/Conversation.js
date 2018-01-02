@@ -7,9 +7,10 @@ import { reset as resetForm } from 'redux-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { MessageList, MessageForm, AuthorAvatar, ActionsList, Link } from '../../components';
+import { MessageList, MessageForm, AuthorAvatar, ActionsList, Link, LinkContainer } from '../../components';
 import * as conversationActions from '../../redux/modules/conversation';
 import * as inboxActions from '../../redux/modules/inbox';
+import * as modalActions from '../../redux/modules/modals';
 import showBackLink from '../../utils/showBackLink';
 
 @asyncConnect( [ {
@@ -60,7 +61,7 @@ import showBackLink from '../../utils/showBackLink';
     lastPage: state.conversation.lastPage,
     res: state.res
   }),
-  { ...conversationActions, resetForm }
+  { ...conversationActions, ...modalActions, resetForm }
 )
 @getContext( {
   getLabel: PropTypes.func
@@ -69,6 +70,7 @@ export default class Conversation extends Component {
   constructor( props ) {
     super( props );
     this.renderForm = ::this.renderForm;
+    this.renderTitle = ::this.renderTitle;
     this.FromWrapper = ::this.FromWrapper;
   }
 
@@ -87,10 +89,11 @@ export default class Conversation extends Component {
   };
 
   sendMessage = async data => {
-    const { router, sendMessage, resetForm } = this.props;
+    const { router, sendMessage, resetForm, showModal } = this.props;
     await sendMessage( router.params.conversationId, data );
 
     resetForm( 'message' );
+    showModal( 'messageSent' );
   }
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
@@ -113,13 +116,19 @@ export default class Conversation extends Component {
         <div className="media-body">
           <p className="author-name">{getAuthorName( author )}</p>
 
-          <form onSubmit={handleSubmit} className="message-form">
+          <form onSubmit={handleSubmit} className="message-form margin-bottom-md">
             {children}
+
+            {author.inbox && author.inbox.type !== 'user' && author.inboxUser
+              ? <div className="margin-bottom-sm">
+                {getLabel( 'yourMessageWillBeSigned' )} <b>{author.inbox.name}</b>
+              </div>
+              : null}
 
             <button
               type="submit"
               disabled={submitting}
-              className="btn btn-primary margin-bottom-sm"
+              className="btn btn-primary margin-top-xs"
             >
               {getLabel( messages && messages.length ? 'reply' : 'submit' )}
             </button>
@@ -130,7 +139,7 @@ export default class Conversation extends Component {
   }
 
   renderForm() {
-    const { conversation, triggerAction, resume, getLabel } = this.props;
+    const { conversation, triggerAction, resume, getLabel, showModal } = this.props;
 
     if ( !conversation ) {
       return null;
@@ -174,6 +183,7 @@ export default class Conversation extends Component {
             <ActionsList
               onAction={triggerAction.bind( null, conversation.id )}
               actions={conversation.actions}
+              showModal={showModal}
             />
           </div>
         </div>
@@ -181,14 +191,53 @@ export default class Conversation extends Component {
     );
   }
 
+  renderTitle() {
+    const { settings, conversation, getLabel } = this.props;
+
+    const { maskEventTitle } = settings;
+    const { type, store, typeIdentifier } = conversation;
+
+    if ( !maskEventTitle && store && store.params && store.params.eventTitle ) {
+      return (
+        <Fragment>
+          {' '}
+          <h4 className="event-title">
+            <span className="text-muted">{_.upperFirst( getLabel( 'conversationInitiatedOn' ) )}</span>{' '}
+            <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
+              {store.params.eventTitle}
+            </Link>
+          </h4>
+          <p className="margin-bottom-sm">{getLabel( 'by' )} <b>{getCreatorName( conversation )}</b></p>
+        </Fragment>
+      );
+    }
+
+    if ( type === 'contact_form' ) {
+      return (
+        <Fragment>
+          {' '}
+          <h4 className="event-title">
+            <span className="text-muted">{_.upperFirst( getLabel( 'contactConversationInitiated' ) )}</span>
+          </h4>
+          <p className="margin-bottom-sm">{getLabel( 'by' )} <b>{getCreatorName( conversation )}</b></p>
+        </Fragment>
+      );
+    }
+
+    return (
+      <h4 className="event-title text-muted margin-bottom-sm">
+        {getLabel( 'conversationInitiatedBy' )} <b>{getCreatorName( conversation )}</b>
+      </h4>
+    );
+  }
+
   render() {
     const {
-      conversations, conversation, messages, nextLoading, getLabel,
-      settings, settings: { ContentWrapper, maskEventTitle }
+      conversations, messages,
+      nextLoading, getLabel, settings, router
     } = this.props;
 
-    const { store, typeIdentifier } = conversation;
-
+    const { ContentWrapper } = settings;
 
     const content = (
       <Fragment>
@@ -196,19 +245,20 @@ export default class Conversation extends Component {
           {getLabel( 'conversation' )}
         </TitleComponent> */}
 
-        {showBackLink( settings, conversations ) ? <div style={{ marginBottom: '15px' }}>
-          <Link to="/">{getLabel( 'back' )}</Link>
+        {showBackLink( settings, conversations ) ? <div className="text-right margin-bottom-sm">
+          <LinkContainer to="/">
+            {path => (
+              <button
+                className="btn btn-info btn-back"
+                onClick={() => router.push( { pathname: path, state: { showListAllowed: true } } )}
+              >
+                {getLabel( 'showAllConversations' )}
+              </button>
+            )}
+          </LinkContainer>
         </div> : null}
 
-        {!maskEventTitle && store && store.params && store.params.eventTitle ? <Fragment>
-          {' '}
-          <h4 className="event-title">
-            <span className="text-muted">{_.upperFirst( getLabel( 'aboutEvent' ) )}</span>{' '}
-            <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
-              {store.params.eventTitle}
-            </Link>
-          </h4>
-        </Fragment> : null}
+        {this.renderTitle()}
 
         {this.renderForm()}
 
@@ -238,4 +288,12 @@ function getAuthorName( author ) {
   }
 
   return author.inbox.name;
+}
+
+function getCreatorName( conversation ) {
+  if ( conversation.creatorInboxUser ) {
+    return conversation.creatorInboxUser.name;
+  }
+
+  return conversation.creatorInbox.name;
 }
