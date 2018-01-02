@@ -58,6 +58,8 @@ module.exports = function( formConfiguration, options ) {
 
       }
 
+      if ( !defaults ) return null;
+
       return translated ? defaults[ name ][ params.lang ] : defaults[ name ];
 
     }
@@ -69,6 +71,8 @@ module.exports = function( formConfiguration, options ) {
         return translated ? configuration.placeholder[ params.lang ] : configuration.placeholder;
 
       }
+
+      if ( !defaults ) return null;
 
       return translated ? defaults[ name + 'Placeholder' ][ this.props.lang ] : defaults[ name + 'Placeholder' ];
 

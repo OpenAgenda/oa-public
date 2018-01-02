@@ -42,9 +42,15 @@ module.exports = function( params ) {
 
     }
 
+    if ( imageConfiguration.title ) {
+
+      params.labels.imageSection = imageConfiguration.title[ params.language ];
+
+    }
+
     eh.trigger( params.events.fetch, data => {
 
-      handleEventImage({
+      handleEventImage( {
         labels: params.labels,
         canvas: params.canvas,
         upload: params.upload,
@@ -58,12 +64,12 @@ module.exports = function( params ) {
 
           eh.trigger( params.events.remove );
 
-          eh.trigger(params.events.heightChange);
+          eh.trigger( params.events.heightChange );
 
         },
         onImageLoad: function() {
 
-          eh.trigger(params.events.heightChange);
+          eh.trigger( params.events.heightChange );
 
         },
         onCreditsUpdate: function( credits ) {

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.16",
+  "version": "1.0.20",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -44,7 +44,7 @@
     "@openagenda/home": "^2.0.5",
     "@openagenda/image-upload": "^1.0.5",
     "@openagenda/inbox-apps": "^1.0.2",
-    "@openagenda/labels": "^2.0.8",
+    "@openagenda/labels": "^2.0.17",
     "@openagenda/le_js": "^0.0.3",
     "@openagenda/leaflet.markercluster": "^0.4.0",
     "@openagenda/member-apps": "^1.0.1",
@@ -111,7 +111,7 @@
     "react-select": "^1.0.0-rc.4",
     "react-table": "^5.0.2",
     "react-tagsinput": "^3.7.0",
-    "react-timings-picker": "^0.3.0",
+    "react-timings-picker": "^0.3.2",
     "react-transform-catch-errors": "^1.0.2",
     "reactify": "1.1.1",
     "redbox-react": "^1.5.0",

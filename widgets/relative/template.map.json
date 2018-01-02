@@ -1,0 +1,24 @@
+{
+  "attributes": [
+    {
+      "name": "Today",
+      "mapTo": "today"
+    },
+    {
+      "name": "Tomorrow",
+      "mapTo": "tomorrow"
+    },
+    {
+      "name": "ThisWeekend",
+      "mapTo": "thisWeekend"
+    },
+    {
+      "name": "ThisWeek",
+      "mapTo": "thisWeek"
+    },
+    {
+      "name": "ThisMonth",
+      "mapTo": "thisMonth"
+    }
+  ]
+}
