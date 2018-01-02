@@ -14,7 +14,7 @@ const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
 
 module.exports = function( timings, lang, timezone ) {
 
-  if ( [ 'fr', 'en' ].indexOf( lang ) == -1 ) {
+  if ( [ 'fr', 'en', 'ar' ].indexOf( lang ) == -1 ) {
 
     lang = 'en';
 
