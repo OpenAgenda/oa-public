@@ -11,9 +11,9 @@
 
   }
 
-  .btn-creation {
+  .btn-creation, .btn-back {
 
-    margin-top: -7px;
+    //margin-top: -6px;
 
   }
 
@@ -48,12 +48,32 @@
 
       overflow: visible;
 
+      .media-heading {
+
+
+
+      }
+
     }
 
     .message-form textarea, .conversation-form textarea {
 
       resize: vertical;
       min-height: 120px;
+
+    }
+
+  }
+
+  &.inbox-user, &.inbox-agenda-admin {
+
+    position: relative;
+
+    .btn-back {
+
+      position: absolute;
+      top: -3px;
+      right: 0;
 
     }
 

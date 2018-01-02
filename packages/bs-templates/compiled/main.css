@@ -8369,9 +8369,6 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 .inbox .well {
   box-shadow: none; }
 
-.inbox .btn-creation {
-  margin-top: -7px; }
-
 .inbox .btn-resume {
   padding-bottom: 0; }
 
@@ -8391,6 +8388,13 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   .inbox .media .message-form textarea, .inbox .media .conversation-form textarea {
     resize: vertical;
     min-height: 120px; }
+
+.inbox.inbox-user, .inbox.inbox-agenda-admin {
+  position: relative; }
+  .inbox.inbox-user .btn-back, .inbox.inbox-agenda-admin .btn-back {
+    position: absolute;
+    top: -3px;
+    right: 0; }
 
 #event #header .row {
   position: relative; }
