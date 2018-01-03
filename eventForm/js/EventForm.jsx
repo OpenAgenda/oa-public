@@ -31,7 +31,8 @@ import translator from './translator.js';
 import Wysiwyg from './Wysiwyg.jsx';
 
 const _ = {
-  isArray: require( 'lodash/isArray' )
+  isArray: require( 'lodash/isArray' ),
+  extend: require( 'lodash/extend' )
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
@@ -840,7 +841,7 @@ function EventFormFactory() {
             check={translator.change.bind( null, true )}
             uncheck={translator.change.bind( null, false )}
             sourceChange={translator.sourceChange.bind( null )}
-            labels={flattenLabels( translationLabels, this.props.lang )}
+            labels={flattenLabels( _.extend( translationLabels, this.props.configuration.field( 'translation' ).getAll() ), this.props.lang )}
           />
         </div> : null}
 
