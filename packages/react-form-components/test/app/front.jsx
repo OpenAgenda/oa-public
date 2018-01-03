@@ -206,7 +206,8 @@ var React = require( 'react' ),
             sourceLanguage: 'Langue source',
             targetLanguages: 'Traduction automatique',
             translationHelp: 'En savoir plus',
-            sourceChange: 'Changer'
+            sourceChange: 'Changer',
+            info: 'Un texte informatif'
           }}
           check={ this.translationCheck.bind( null, true ) }
           uncheck={ this.translationCheck.bind( null, false ) }

@@ -17,7 +17,7 @@ Translation.propTypes = {
   checked: PropTypes.array,
   check: PropTypes.func,
   uncheck: PropTypes.func,
-  helpLink: PropTypes.string
+  helpLink: PropTypes.string,
 }
 
 const TranslationComponent = createReactClass( {
@@ -36,7 +36,8 @@ const TranslationComponent = createReactClass( {
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
         translationHelp: 'Find out more',
-        sourceChange: 'Choose'
+        sourceChange: 'Choose',
+        info: null
       },
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements',
       check: () => {
@@ -85,6 +86,7 @@ const TranslationComponent = createReactClass( {
         <label style={{ display: 'none' }}>{labels.translationHelp}</label>
       </a>
       <h2>{labels.translationTitle}</h2>
+      { labels.info ? <div className="margin-bottom-sm">{ labels.info }</div> : null }
       <div className="form-inline row">
         <div className="col-sm-6">
           <label>{labels.sourceLanguage}</label>

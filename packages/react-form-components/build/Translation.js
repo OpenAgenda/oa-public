@@ -59,7 +59,8 @@ var TranslationComponent = (0, _createReactClass2.default)({
         sourceLanguage: 'Source Language',
         targetLanguages: 'Automatic translation',
         translationHelp: 'Find out more',
-        sourceChange: 'Choose'
+        sourceChange: 'Choose',
+        info: null
       },
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/213573709-Traduction-automatique-des-%C3%A9v%C3%A9nements',
       check: function check() {},
@@ -110,6 +111,11 @@ var TranslationComponent = (0, _createReactClass2.default)({
         null,
         labels.translationTitle
       ),
+      labels.info ? _react2.default.createElement(
+        'div',
+        { className: 'margin-bottom-sm' },
+        labels.info
+      ) : null,
       _react2.default.createElement(
         'div',
         { className: 'form-inline row' },
