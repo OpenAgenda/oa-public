@@ -88,7 +88,7 @@ var defineJob = exports.defineJob = function () {
           case 12:
             pos = pos + users.length;
 
-            log('users %d-%d queued to sync', pos - users.length, pos);
+            log('info', 'users %d-%d queued to sync', pos - users.length, pos);
 
             _iteratorNormalCompletion = true;
             _didIteratorError = false;
@@ -153,7 +153,7 @@ var defineJob = exports.defineJob = function () {
 
           case 43:
 
-            log('Total of %d users queued to sync', stats.usersToSync);
+            log('info', 'Total of %d users queued to sync', stats.usersToSync);
 
             pos = 0;
             agendas = void 0;
@@ -178,7 +178,7 @@ var defineJob = exports.defineJob = function () {
           case 51:
             pos = pos + agendas.length;
 
-            log('agendas %d-%d queued to sync', pos - agendas.length, pos);
+            log('info', 'agendas %d-%d queued to sync', pos - agendas.length, pos);
 
             _iteratorNormalCompletion2 = true;
             _didIteratorError2 = false;
@@ -243,7 +243,7 @@ var defineJob = exports.defineJob = function () {
 
           case 82:
 
-            log('Total of %d agendas queued to sync', stats.agendasToSync);
+            log('info', 'Total of %d agendas queued to sync', stats.agendasToSync);
 
           case 83:
           case 'end':
@@ -283,7 +283,7 @@ var syncUser = function () {
 
           case 7:
             stats.usersInboxCreated += 1;
-            log('Inbox %o is created', inboxIdentifiers);
+            log('info', 'Inbox %o is created', inboxIdentifiers);
 
           case 9:
 
@@ -305,7 +305,7 @@ var syncUser = function () {
 
           case 16:
             stats.inboxUsersAdded += 1;
-            log('InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
+            log('info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
 
           case 18:
           case 'end':
@@ -349,7 +349,7 @@ var syncAgenda = function () {
 
           case 8:
             stats.agendasInboxCreated += 1;
-            log('Inbox %o is created', inboxIdentifiers);
+            log('info', 'Inbox %o is created', inboxIdentifiers);
 
           case 10:
 
@@ -448,7 +448,7 @@ var syncAgenda = function () {
 
           case 50:
             stats.inboxUsersAdded += 1;
-            log('InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
+            log('info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
 
           case 52:
             _iteratorNormalCompletion3 = true;
@@ -602,9 +602,9 @@ exports.default = function () {
 
           case 27:
 
-            log('%d users inbox created', stats.usersInboxCreated);
-            log('%d agendas inbox created', stats.agendasInboxCreated);
-            log('%d inboxUsers added', stats.inboxUsersAdded);
+            log('info', '%d users inbox created', stats.usersInboxCreated);
+            log('info', '%d agendas inbox created', stats.agendasInboxCreated);
+            log('info', '%d inboxUsers added', stats.inboxUsersAdded);
 
           case 30:
           case 'end':
