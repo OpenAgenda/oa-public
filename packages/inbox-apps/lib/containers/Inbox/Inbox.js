@@ -220,7 +220,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
     lastPage: state.inbox.lastPage,
     author: state.conversation.author
   };
-}, (0, _extends3.default)({}, inboxActions, conversationActions, conversationFormActions, modalActions)), _dec3 = (0, _recompose.getContext)({
+}, (0, _extends3.default)({}, conversationActions, inboxActions, conversationFormActions, modalActions)), _dec3 = (0, _recompose.getContext)({
   getLabel: _propTypes2.default.func
 }), _dec(_class = _dec2(_class = _dec3(_class = function (_Component) {
   (0, _inherits3.default)(Inbox, _Component);

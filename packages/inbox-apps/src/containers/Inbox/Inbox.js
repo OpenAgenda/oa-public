@@ -58,7 +58,7 @@ import removeTrailingSlash from '../../utils/removeTrailingSlash';
     lastPage: state.inbox.lastPage,
     author: state.conversation.author
   }),
-  { ...inboxActions, ...conversationActions, ...conversationFormActions, ...modalActions }
+  { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions }
 )
 @getContext( {
   getLabel: PropTypes.func
