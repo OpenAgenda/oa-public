@@ -120,7 +120,7 @@ module.exports = function ( options ) {
     // eventConvDescAdminmod
     // eventConvDescContributor
     // eventConvDescSimpleUser
-    const creationDescription = getInboxesLabel( 'eventConvDesc' + _.upperFirst( userRole ), params.lang );
+    const creationDescriptionLabel = getInboxesLabel( 'eventConvDesc' + _.upperFirst( userRole ), params.lang );
 
     const destinationInbox = (() => {
       switch ( userRole ) {
@@ -155,8 +155,12 @@ module.exports = function ( options ) {
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: !simpleUser, // hide creation button
           maskEventTitle: true, // useless on event page
-          maskCreationSubtitle: true, // useless on event page
-          creationDescription,
+          // maskCreationSubtitle: true, // useless on event page
+          creationSubtitle: getInboxesLabel(
+            userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
+            params.lang
+          ),
+          creationDescriptionLabel,
           defaultQuery: {
             type: 'event',
             typeIdentifier: params.uid,
@@ -166,7 +170,7 @@ module.exports = function ( options ) {
               agendaUid: params.agendaUid
             }
           },
-          TitleComponent: 'h4',
+          TitleComponent: ( { children } ) => <h4 className="pull-left margin-bottom-md">{children}</h4>,
           ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
