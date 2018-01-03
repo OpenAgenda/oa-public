@@ -41,9 +41,9 @@ export default async function syncTask() {
     }
   }
 
-  log( '%d users inbox created', stats.usersInboxCreated );
-  log( '%d agendas inbox created', stats.agendasInboxCreated );
-  log( '%d inboxUsers added', stats.inboxUsersAdded );
+  log( 'info', '%d users inbox created', stats.usersInboxCreated );
+  log( 'info', '%d agendas inbox created', stats.agendasInboxCreated );
+  log( 'info', '%d inboxUsers added', stats.inboxUsersAdded );
 }
 
 export async function processJob( stats, data ) {
@@ -72,7 +72,7 @@ export async function defineJob( stats, q ) {
     if ( !users.length ) break;
     pos = pos + users.length;
 
-    log( 'users %d-%d queued to sync', pos - users.length, pos );
+    log( 'info', 'users %d-%d queued to sync', pos - users.length, pos );
 
     for ( const user of users ) {
       stats.usersToSync += 1;
@@ -80,7 +80,7 @@ export async function defineJob( stats, q ) {
     }
   }
 
-  log( 'Total of %d users queued to sync', stats.usersToSync );
+  log( 'info', 'Total of %d users queued to sync', stats.usersToSync );
 
   pos = 0;
   let agendas;
@@ -89,7 +89,7 @@ export async function defineJob( stats, q ) {
     if ( !agendas.length ) break;
     pos = pos + agendas.length;
 
-    log( 'agendas %d-%d queued to sync', pos - agendas.length, pos );
+    log( 'info', 'agendas %d-%d queued to sync', pos - agendas.length, pos );
 
     for ( const agenda of agendas ) {
       stats.agendasToSync += 1;
@@ -97,7 +97,7 @@ export async function defineJob( stats, q ) {
     }
   }
 
-  log( 'Total of %d agendas queued to sync', stats.agendasToSync );
+  log( 'info', 'Total of %d agendas queued to sync', stats.agendasToSync );
 }
 
 async function syncUser( stats, user ) {
@@ -108,7 +108,7 @@ async function syncUser( stats, user ) {
   if ( !Inbox.data ) {
     await Inbox.create();
     stats.usersInboxCreated += 1;
-    log( 'Inbox %o is created', inboxIdentifiers );
+    log( 'info', 'Inbox %o is created', inboxIdentifiers );
   }
 
   // add InboxUser
@@ -118,7 +118,7 @@ async function syncUser( stats, user ) {
   if ( !inboxUser.data ) {
     await Inbox.users.add( { userUid: user.uid } );
     stats.inboxUsersAdded += 1;
-    log( 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
+    log( 'info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
   }
 }
 
@@ -135,7 +135,7 @@ async function syncAgenda( stats, agenda ) {
   if ( !Inbox.data ) {
     await Inbox.create();
     stats.agendasInboxCreated += 1;
-    log( 'Inbox %o is created', inboxIdentifiers );
+    log( 'info', 'Inbox %o is created', inboxIdentifiers );
   }
 
   // add InboxUsers
@@ -176,7 +176,7 @@ async function syncAgenda( stats, agenda ) {
     if ( !inboxUser.data ) {
       await Inbox.users.add( { userUid: user.uid } );
       stats.inboxUsersAdded += 1;
-      log( 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
+      log( 'info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
     }
   }
 }
