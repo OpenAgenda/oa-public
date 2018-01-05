@@ -164,12 +164,12 @@ module.exports = createReactClass({
 
     return ( 
       <div className="target-age margin-v-md">
-        <label onClick={this.onEnabled()} className="checkbox-inline">
-          <input type="checkbox" name="age" checked={this.state.enabled} onClick={this.onEnabled(!this.state.enabled)} /> 
+        <label className="checkbox-inline">
+          <input type="checkbox" name="age" checked={this.state.enabled} onChange={this.onEnabled(!this.state.enabled )} /> 
           <span>{this.props.label[this.props.labelsLang]}</span>
           {this.props.info ? <span> - {this.props.info}</span> : null }
         </label>
-        <div class="age-inputs">
+        <div className="age-inputs">
           <span> - </span>
           <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label> 
           <Select
@@ -178,7 +178,7 @@ module.exports = createReactClass({
             options={this.getSelectOptions()}
             clearable={false}
             onChange={this.onChange( 'min' )}
-            onFocus={this.onEnabled(true)}
+            onFocus={this.onEnabled(true )}
             onBlur={this.onChange( 'min' )}
             placeholder={labels.select[this.props.labelsLang]}
           />
