@@ -169,7 +169,7 @@ module.exports = createReactClass({
           <span>{this.props.label[this.props.labelsLang]}</span>
           {this.props.info ? <span> - {this.props.info}</span> : null }
         </label>
-        <div>
+        { this.state.enabled ? <div>
           <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label> 
           <Select
             name="minage"
@@ -192,7 +192,7 @@ module.exports = createReactClass({
             onFocus={this.onEnabled(true)}
             placeholder={labels.select[this.props.labelsLang]}
           />
-        </div>
+        </div> : null }
       </div>
     );
 
