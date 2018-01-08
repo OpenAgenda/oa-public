@@ -25,7 +25,8 @@ module.exports = function( formConfiguration, options ) {
       getInfo: getInfo,
       display: display,
       fixed: fixed,
-      get: get
+      get: get,
+      getAll: getAll
     } );
 
     function getConfiguration() {
@@ -47,6 +48,12 @@ module.exports = function( formConfiguration, options ) {
     function get( namespace, defaultValue ) {
 
       return _.get( configuration, namespace, defaultValue );
+
+    }
+
+    function getAll( defaultValue = {} ) {
+
+      return configuration || defaultValue
 
     }
 

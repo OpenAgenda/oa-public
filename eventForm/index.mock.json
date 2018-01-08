@@ -412,6 +412,12 @@
     "event" : {},
     "configuration" : {
       "fields" : [ {
+        "name" : "translation",
+        "info" : {
+          "en" : "An informative text",
+          "fr" : "Un texte informatif"
+        }
+      }, {
         "name" : "language",
         "display" : false
       }, {

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.21",
+  "version": "1.0.28",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -33,7 +33,7 @@
     "@openagenda/admin-agendas": "^1.0.1",
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-event-references": "^1.0.2",
-    "@openagenda/agenda-locations": "^1.0.6",
+    "@openagenda/agenda-locations": "^1.0.11",
     "@openagenda/agenda-search": "^0.1.2",
     "@openagenda/agenda-settings": "^1.0.1",
     "@openagenda/agenda-tags": "^0.1.2",

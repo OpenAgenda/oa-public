@@ -31,7 +31,8 @@ import translator from './translator.js';
 import Wysiwyg from './Wysiwyg.jsx';
 
 const _ = {
-  isArray: require( 'lodash/isArray' )
+  isArray: require( 'lodash/isArray' ),
+  extend: require( 'lodash/extend' )
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
@@ -539,11 +540,15 @@ function EventFormFactory() {
 
     renderLocationSelector: function () {
 
+      const settings = _.extend( {
+        translation: this.state.translation || null
+      }, this.props.configuration.field( 'location' ).settings || {} );
+
       return <div className="form-section">
         { this.props.configuration.field( 'location' ).info ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
-          settings={this.props.configuration.field( 'location' ).settings}
+          settings={settings}
           mode={this.state.locationMode}
           disableChange={this.props.configuration.field( 'location' ).disableChange}
           onChangeMode={this.onLocationModeChange}
@@ -840,7 +845,7 @@ function EventFormFactory() {
             check={translator.change.bind( null, true )}
             uncheck={translator.change.bind( null, false )}
             sourceChange={translator.sourceChange.bind( null )}
-            labels={flattenLabels( translationLabels, this.props.lang )}
+            labels={flattenLabels( _.extend( translationLabels, this.props.configuration.field( 'translation' ).getAll() ), this.props.lang )}
           />
         </div> : null}
 

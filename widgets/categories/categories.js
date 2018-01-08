@@ -128,6 +128,23 @@ var widget = function( elem, options ) {
 
     }
 
+    if ( eventItem.passed ) {
+
+      // add eventual eventTag to Slugs
+      if ( !cn.contains( passedCategorySlugs, eventItem.c ) ) passedCategorySlugs.push( eventItem.c );
+
+    } else {
+
+      let passedCategoryIndex = passedCategorySlugs.indexOf( eventItem.c );
+
+      if ( passedCategoryIndex !== -1 ) {
+
+        passedCategorySlugs.splice( passedCategoryIndex, 1 );
+
+      }
+
+    }
+
   }
 
 

@@ -154,9 +154,20 @@ function widget( elem, options ) {
 
         activeTags[ eventTag ]++;
 
-        if ( eventItem.passed && !cn.contains( passedTagSlugs, eventTag ) ) {
+        if ( eventItem.passed ) {
 
-          passedTagSlugs.push( eventTag );
+          // add eventual eventTag to passedTagSlugs
+          if ( !cn.contains( passedTagSlugs, eventTag ) ) passedTagSlugs.push( eventTag );
+
+        } else {
+
+          let passedTagIndex = passedTagSlugs.indexOf( eventTag );
+
+          if ( passedTagIndex !== -1 ) {
+
+            passedTagSlugs.splice( passedTagIndex, 1 );
+
+          }
 
         }
 
