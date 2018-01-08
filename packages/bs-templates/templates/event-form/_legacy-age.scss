@@ -3,34 +3,38 @@
   & > * {
 
     margin-right: 5px;
-    font-weight: normal;
 
   }
 
-  input[type="checkbox"] {
-
-    margin-right: 0.5em;
-    vertical-align: top;
-
-  }
-
-  .Select-control {
-
-    width: 150px;
-
-  }
-
-  .Select-placeholder {
-
-    padding: 0px 52px 8px 10px;
-
-  }
-
-  .Select {
+  .age-inputs {
 
     display: inline-block;
-    vertical-align: middle;
-    z-index: 3;
+
+    label {
+
+      font-weight: normal;
+
+    }
+
+    .Select-control {
+
+      width: 150px;
+
+    }
+
+    .Select-placeholder {
+
+      padding: 0px 52px 8px 10px;
+
+    }
+
+    .Select {
+
+      display: inline-block;
+      vertical-align: middle;
+      z-index: 3;
+
+    }
 
   }
 

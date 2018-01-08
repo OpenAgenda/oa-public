@@ -10622,8 +10622,7 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   .accessibility li .checked {
     background: #41acdd; }
   .accessibility li label {
-    display: block;
-    font-weight: normal; }
+    display: block; }
 
 .accessibility .ill {
   display: inline-block;
@@ -10660,23 +10659,20 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
   background-position: 120px 240px; }
 
 .target-age > * {
-  margin-right: 5px;
-  font-weight: normal; }
+  margin-right: 5px; }
 
-.target-age input[type="checkbox"] {
-  margin-right: 0.5em;
-  vertical-align: top; }
-
-.target-age .Select-control {
-  width: 150px; }
-
-.target-age .Select-placeholder {
-  padding: 0px 52px 8px 10px; }
-
-.target-age .Select {
-  display: inline-block;
-  vertical-align: middle;
-  z-index: 3; }
+.target-age .age-inputs {
+  display: inline-block; }
+  .target-age .age-inputs label {
+    font-weight: normal; }
+  .target-age .age-inputs .Select-control {
+    width: 150px; }
+  .target-age .age-inputs .Select-placeholder {
+    padding: 0px 52px 8px 10px; }
+  .target-age .age-inputs .Select {
+    display: inline-block;
+    vertical-align: middle;
+    z-index: 3; }
 
 .mce-content-body .mce-reset {
   margin: 0;
