@@ -160,6 +160,10 @@ module.exports = function ( options ) {
             userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
             params.lang
           ),
+          creationButtonLabel: getInboxesLabel(
+            userRole === 'adminmod' ? 'contactContributor' : 'contactAdministrators',
+            params.lang
+          ),
           creationDescriptionLabel,
           defaultQuery: {
             type: 'event',
