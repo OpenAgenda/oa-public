@@ -16,21 +16,75 @@ export default class ConversationItem extends Component {
     getLabel: PropTypes.func
   };
 
-  render() {
+  renderTitle() {
     const { conversation, settings: { maskEventTitle } } = this.props;
+    const { getLabel } = this.context;
+
+    const { resolvedAt, store, type, typeIdentifier } = conversation;
+
+    const creator = {
+      inbox: conversation.creatorInbox,
+      inboxUser: conversation.creatorInboxUser
+    };
+
+    const resolvedIcon = resolvedAt ? <Fragment>
+      {' '}
+      <div className="tooltip-icon">
+        <i className="fa fa-check" aria-hidden="true"></i>
+        <div className="tooltip right" role="tooltip">
+          <div className="tooltip-arrow"></div>
+          <div className="tooltip-inner">{getLabel( 'resolvedConversation' )}</div>
+        </div>
+      </div>
+    </Fragment> : null;
+
+    if ( type === 'request_contribute' ) {
+      const contextInbox = getContextInbox( conversation );
+
+      if ( contextInbox.type === 'agenda' ) {
+        return (
+          <Fragment>
+            <b>{getInboxUserName( creator )}</b> {getLabel( 'wouldLikeToContribute' )}
+            {resolvedIcon}
+          </Fragment>
+        );
+      }
+
+      return (
+        <Fragment>
+          {getLabel( 'requestForContribution' )} <b>{store.params.agendaTitle}</b>
+          {resolvedIcon}
+        </Fragment>
+      );
+    }
+
+    return (
+      <Fragment>
+        {getLabel( 'createdBy' )}{' '}
+        <AuthorAvatar author={creator} inline/>{' '}
+        <b>{getInboxUserName( creator )}</b>
+        {!maskEventTitle && store && store.params && store.params.eventTitle ? <Fragment>
+          {' '}
+          <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}
+          <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
+            {store.params.eventTitle}
+          </Link>
+        </Fragment> : null}
+        {resolvedIcon}
+      </Fragment>
+    );
+  }
+
+  render() {
+    const { conversation } = this.props;
     const { getLabel } = this.context;
 
     if ( !conversation.latestMessage ) {
       return null;
     }
 
-    const { latestMessage, resolvedAt, store, typeIdentifier, inboxes, inboxContextId } = conversation;
+    const { latestMessage, inboxes, inboxContextId } = conversation;
     const creationDate = moment( latestMessage.createdAt );
-
-    const creator = {
-      inbox: conversation.creatorInbox,
-      inboxUser: conversation.creatorInboxUser
-    };
 
     const destinationInbox = inboxes
       .filter( v => v.id !== inboxContextId )
@@ -45,26 +99,7 @@ export default class ConversationItem extends Component {
 
         <div className="media-body">
           <div className="media-heading margin-bottom-sm">
-            {getLabel( 'createdBy' )}{' '}
-            <AuthorAvatar author={creator} inline/>{' '}
-            <b>{getInboxUserName( creator )}</b>
-            {!maskEventTitle && store && store.params && store.params.eventTitle ? <Fragment>
-              {' '}
-              <span className="text-muted">{getLabel( 'aboutEvent' )}</span>{' '}
-              <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
-                {store.params.eventTitle}
-              </Link>
-            </Fragment> : null}
-            {resolvedAt ? <Fragment>
-              {' '}
-              <div className="tooltip-icon">
-                <i className="fa fa-check" aria-hidden="true"></i>
-                <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow"></div>
-                  <div className="tooltip-inner">{getLabel( 'resolvedConversation' )}</div>
-                </div>
-              </div>
-            </Fragment> : null}
+            {this.renderTitle()}
           </div>
           <div className="margin-bottom-xs">
             <sup><i className="fa fa-quote-left text-muted" aria-hidden="true"></i></sup>&ensp;
@@ -94,4 +129,16 @@ function getInboxUserName( message ) {
   }
 
   return message.inbox.name;
+}
+
+function getCreatorName( conversation ) {
+  if ( conversation.creatorInboxUser ) {
+    return conversation.creatorInboxUser.name;
+  }
+
+  return conversation.creatorInbox.name;
+}
+
+function getContextInbox( conversation ) {
+  return _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] )
 }

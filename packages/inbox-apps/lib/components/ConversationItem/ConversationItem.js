@@ -24,6 +24,10 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
+var _find2 = require('lodash/find');
+
+var _find3 = _interopRequireDefault(_find2);
+
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -88,11 +92,183 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
   }
 
   (0, _createClass3.default)(ConversationItem, [{
-    key: 'render',
-    value: function render() {
+    key: 'renderTitle',
+    value: function renderTitle() {
       var _props = this.props,
           conversation = _props.conversation,
           maskEventTitle = _props.settings.maskEventTitle;
+      var getLabel = this.context.getLabel;
+      var resolvedAt = conversation.resolvedAt,
+          store = conversation.store,
+          type = conversation.type,
+          typeIdentifier = conversation.typeIdentifier;
+
+
+      var creator = {
+        inbox: conversation.creatorInbox,
+        inboxUser: conversation.creatorInboxUser
+      };
+
+      var resolvedIcon = resolvedAt ? _react3.default.createElement(
+        _react2.Fragment,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 30
+          }
+        },
+        ' ',
+        _react3.default.createElement(
+          'div',
+          { className: 'tooltip-icon', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 32
+            }
+          },
+          _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 33
+            }
+          }),
+          _react3.default.createElement(
+            'div',
+            { className: 'tooltip right', role: 'tooltip', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 34
+              }
+            },
+            _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 35
+              }
+            }),
+            _react3.default.createElement(
+              'div',
+              { className: 'tooltip-inner', __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 36
+                }
+              },
+              getLabel('resolvedConversation')
+            )
+          )
+        )
+      ) : null;
+
+      if (type === 'request_contribute') {
+        var contextInbox = getContextInbox(conversation);
+
+        if (contextInbox.type === 'agenda') {
+          return _react3.default.createElement(
+            _react2.Fragment,
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 46
+              }
+            },
+            _react3.default.createElement(
+              'b',
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 47
+                }
+              },
+              getInboxUserName(creator)
+            ),
+            ' ',
+            getLabel('wouldLikeToContribute'),
+            resolvedIcon
+          );
+        }
+
+        return _react3.default.createElement(
+          _react2.Fragment,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 54
+            }
+          },
+          getLabel('requestForContribution'),
+          ' ',
+          _react3.default.createElement(
+            'b',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 55
+              }
+            },
+            store.params.agendaTitle
+          ),
+          resolvedIcon
+        );
+      }
+
+      return _react3.default.createElement(
+        _react2.Fragment,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 62
+          }
+        },
+        getLabel('createdBy'),
+        ' ',
+        _react3.default.createElement(_2.AuthorAvatar, { author: creator, inline: true, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 64
+          }
+        }),
+        ' ',
+        _react3.default.createElement(
+          'b',
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 65
+            }
+          },
+          getInboxUserName(creator)
+        ),
+        !maskEventTitle && store && store.params && store.params.eventTitle ? _react3.default.createElement(
+          _react2.Fragment,
+          {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 66
+            }
+          },
+          ' ',
+          _react3.default.createElement(
+            'span',
+            { className: 'text-muted', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 68
+              }
+            },
+            getLabel('aboutEvent')
+          ),
+          ' ',
+          _react3.default.createElement(
+            _2.Link,
+            { to: '/agendas/' + store.params.agendaUid + '/events/' + typeIdentifier, external: true, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 69
+              }
+            },
+            store.params.eventTitle
+          )
+        ) : null,
+        resolvedIcon
+      );
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var conversation = this.props.conversation;
       var getLabel = this.context.getLabel;
 
 
@@ -101,18 +277,10 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
       }
 
       var latestMessage = conversation.latestMessage,
-          resolvedAt = conversation.resolvedAt,
-          store = conversation.store,
-          typeIdentifier = conversation.typeIdentifier,
           inboxes = conversation.inboxes,
           inboxContextId = conversation.inboxContextId;
 
       var creationDate = (0, _moment2.default)(latestMessage.createdAt);
-
-      var creator = {
-        inbox: conversation.creatorInbox,
-        inboxUser: conversation.creatorInboxUser
-      };
 
       var destinationInbox = inboxes.filter(function (v) {
         return v.id !== inboxContextId;
@@ -124,19 +292,19 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         'div',
         { className: 'media', __source: {
             fileName: _jsxFileName,
-            lineNumber: 41
+            lineNumber: 95
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 42
+              lineNumber: 96
             }
           },
           _react3.default.createElement(_2.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 43
+              lineNumber: 97
             }
           })
         ),
@@ -144,114 +312,23 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 46
+              lineNumber: 100
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-heading margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 47
+                lineNumber: 101
               }
             },
-            getLabel('createdBy'),
-            ' ',
-            _react3.default.createElement(_2.AuthorAvatar, { author: creator, inline: true, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 49
-              }
-            }),
-            ' ',
-            _react3.default.createElement(
-              'b',
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 50
-                }
-              },
-              getInboxUserName(creator)
-            ),
-            !maskEventTitle && store && store.params && store.params.eventTitle ? _react3.default.createElement(
-              _react2.Fragment,
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 51
-                }
-              },
-              ' ',
-              _react3.default.createElement(
-                'span',
-                { className: 'text-muted', __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 53
-                  }
-                },
-                getLabel('aboutEvent')
-              ),
-              ' ',
-              _react3.default.createElement(
-                _2.Link,
-                { to: '/agendas/' + store.params.agendaUid + '/events/' + typeIdentifier, external: true, __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 54
-                  }
-                },
-                store.params.eventTitle
-              )
-            ) : null,
-            resolvedAt ? _react3.default.createElement(
-              _react2.Fragment,
-              {
-                __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 58
-                }
-              },
-              ' ',
-              _react3.default.createElement(
-                'div',
-                { className: 'tooltip-icon', __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 60
-                  }
-                },
-                _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 61
-                  }
-                }),
-                _react3.default.createElement(
-                  'div',
-                  { className: 'tooltip right', role: 'tooltip', __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 62
-                    }
-                  },
-                  _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 63
-                    }
-                  }),
-                  _react3.default.createElement(
-                    'div',
-                    { className: 'tooltip-inner', __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 64
-                      }
-                    },
-                    getLabel('resolvedConversation')
-                  )
-                )
-              )
-            ) : null
+            this.renderTitle()
           ),
           _react3.default.createElement(
             'div',
             { className: 'margin-bottom-xs', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 104
               }
             },
             _react3.default.createElement(
@@ -259,12 +336,12 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 70
+                  lineNumber: 105
                 }
               },
               _react3.default.createElement('i', { className: 'fa fa-quote-left text-muted', 'aria-hidden': 'true', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 70
+                  lineNumber: 105
                 }
               })
             ),
@@ -275,14 +352,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'p',
             { title: creationDate.format('LLL'), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 73
+                lineNumber: 108
               }
             },
             _react3.default.createElement(
               'span',
               { className: 'text-muted', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 74
+                  lineNumber: 109
                 }
               },
               getLabel('lastMessagePostedRelativeDate', { date: creationDate.fromNow(true) }),
@@ -292,7 +369,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             ' ',
             _react3.default.createElement(_2.AuthorAvatar, { author: latestMessage, inline: true, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 78
+                lineNumber: 113
               }
             }),
             ' ',
@@ -300,14 +377,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _react3.default.createElement('br', {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 80
+                lineNumber: 115
               }
             }),
             _react3.default.createElement(
               _2.Link,
               { to: '/conversation/' + conversation.id, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 81
+                  lineNumber: 116
                 }
               },
               getLabel('viewConversation')
@@ -331,6 +408,18 @@ function getInboxUserName(message) {
   }
 
   return message.inbox.name;
+}
+
+function getCreatorName(conversation) {
+  if (conversation.creatorInboxUser) {
+    return conversation.creatorInboxUser.name;
+  }
+
+  return conversation.creatorInbox.name;
+}
+
+function getContextInbox(conversation) {
+  return (0, _find3.default)(conversation.inboxes, ['id', conversation.inboxContextId]);
 }
 module.exports = exports['default'];
 //# sourceMappingURL=ConversationItem.js.map

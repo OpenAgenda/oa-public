@@ -117,7 +117,7 @@ export default class Inbox extends Component {
     const {
       TitleComponent, ContentWrapper, allowCreateConversation,
       topListForm, prefix, emptyInboxLabel, creationSubtitle,
-      inboxDesc, maskCreationSubtitle
+      creationButtonLabel, maskCreationSubtitle, inboxDesc
     } = settings;
 
     const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
@@ -166,7 +166,7 @@ export default class Inbox extends Component {
                 className="btn btn-info btn-creation"
                 onClick={() => router.push( path )}
               >
-                {creationSubtitle ? creationSubtitle : getLabel( 'createConversation' )}
+                {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
               </button>
             )}
           </LinkContainer>

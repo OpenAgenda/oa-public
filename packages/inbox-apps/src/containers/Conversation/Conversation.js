@@ -224,6 +224,24 @@ export default class Conversation extends Component {
       );
     }
 
+    if ( type === 'request_contribute' ) {
+      const contextInbox = getContextInbox( conversation );
+
+      if ( contextInbox.type === 'agenda' ) {
+        return (
+          <h4 className="event-title text-muted margin-bottom-sm">
+            <b>{getCreatorName( conversation )}</b> {getLabel( 'wouldLikeToContribute' )}
+          </h4>
+        );
+      }
+
+      return (
+        <h4 className="event-title text-muted margin-bottom-sm">
+          {getLabel( 'requestForContribution' )} <b>{store.params.agendaTitle}</b>
+        </h4>
+      );
+    }
+
     return (
       <h4 className="event-title text-muted margin-bottom-sm">
         {getLabel( 'conversationInitiatedBy' )} <b>{getCreatorName( conversation )}</b>
@@ -296,4 +314,8 @@ function getCreatorName( conversation ) {
   }
 
   return conversation.creatorInbox.name;
+}
+
+function getContextInbox( conversation ) {
+  return _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] )
 }

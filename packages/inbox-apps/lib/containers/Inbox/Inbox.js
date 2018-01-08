@@ -327,8 +327,9 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           prefix = settings.prefix,
           emptyInboxLabel = settings.emptyInboxLabel,
           creationSubtitle = settings.creationSubtitle,
-          inboxDesc = settings.inboxDesc,
-          maskCreationSubtitle = settings.maskCreationSubtitle;
+          creationButtonLabel = settings.creationButtonLabel,
+          maskCreationSubtitle = settings.maskCreationSubtitle,
+          inboxDesc = settings.inboxDesc;
 
       var _partition2 = (0, _partition5.default)(conversations, function (o) {
         return !o.resolvedAt;
@@ -472,7 +473,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
                     lineNumber: 165
                   }
                 },
-                creationSubtitle ? creationSubtitle : getLabel('createConversation')
+                creationButtonLabel ? creationButtonLabel : getLabel('createConversation')
               );
             }
           )
