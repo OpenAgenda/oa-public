@@ -16,7 +16,7 @@
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-event-references": "^1.0.2",
     "@openagenda/agenda-events": "^1.1.0",
-    "@openagenda/agenda-locations": "^1.0.5",
+    "@openagenda/agenda-locations": "^1.0.11",
     "@openagenda/agenda-monitor": "^1.1.0",
     "@openagenda/agenda-search": "^0.1.2",
     "@openagenda/agenda-settings": "^1.0.1",

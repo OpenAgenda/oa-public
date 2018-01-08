@@ -137,7 +137,7 @@
     verror "^1.10.0"
     when "^3.7.7"
 
-"@openagenda/agenda-locations@^1.0.11", "@openagenda/agenda-locations@^1.0.5":
+"@openagenda/agenda-locations@^1.0.11":
   version "1.0.11"
   resolved "https://registry.npmjs.org/@openagenda/agenda-locations/-/agenda-locations-1.0.11.tgz#3d19ac787526555b313b8869a800b433d1e43848"
   dependencies:
