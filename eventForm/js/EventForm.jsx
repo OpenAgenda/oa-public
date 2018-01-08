@@ -540,11 +540,15 @@ function EventFormFactory() {
 
     renderLocationSelector: function () {
 
+      const settings = _.extend( {
+        translation: this.state.translation || null
+      }, this.props.configuration.field( 'location' ).settings || {} );
+
       return <div className="form-section">
         { this.props.configuration.field( 'location' ).info ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
-          settings={this.props.configuration.field( 'location' ).settings}
+          settings={settings}
           mode={this.state.locationMode}
           disableChange={this.props.configuration.field( 'location' ).disableChange}
           onChangeMode={this.onLocationModeChange}
