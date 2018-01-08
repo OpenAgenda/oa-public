@@ -49,16 +49,6 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
   return [ ...users, ...agendas ];
 }
 
-function filterAction( inbox, conversation, action ) {
-  switch ( conversation.type ) {
-    case 'contact_form':
-    case 'event':
-      return inbox.type === 'agenda';
-    default:
-      return true;
-  }
-}
-
 async function onInboxCreate( Inbox ) {
   switch ( Inbox.data.type ) {
     case 'user': {
@@ -134,19 +124,68 @@ async function onMessageCreate( conversation, message ) {
   } );
 }
 
-function onAction( conversation, action ) {
+function filterAction( inbox, conversation, action ) {
+  switch ( conversation.type ) {
+    case 'contact_form':
+    case 'event':
+    case 'request_contribute':
+      return inbox.type === 'agenda';
+    default:
+      return true;
+  }
+}
+
+async function onAction( conversation, action ) {
   switch ( conversation.type ) {
     case 'event':
-    //
+      break;
+    case 'request_contribute': {
+
+      if ( action.code === 'accept' ) {
+
+        if ( conversation.creatorInbox && conversation.creatorInbox.type === 'user' ) {
+
+          try {
+
+            const user = await promisify( userSvc.get )( { uid: conversation.creatorInbox.identifier }, { removed: null } );
+            const agenda = await promisify( agendasSvc.get )(
+              { uid: conversation.typeIdentifier },
+              { private: null, internal: true }
+            );
+
+            const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
+
+            if ( !sh ) {
+
+              const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).create )(
+                { email: user.email },
+                { allowPartial: true }
+              );
+
+              log( 'info', 'Contribution request accepted', { stakeholder: sh } );
+
+            }
+
+          } catch ( err ) {
+
+            log( 'error', 'Cannot accept a contribution request', err );
+
+          }
+
+        }
+
+      }
+
+    }
   }
 }
 
 const interfaces = {
   getUsersDetails,
   getInboxesDetails,
-  filterAction,
   onInboxCreate,
   onMessageCreate,
+  filterAction,
   onAction
 };
 
@@ -172,7 +211,24 @@ module.exports.init = async c => {
       },
       types: {
         event: {},
-        contact_form: {}
+        contact_form: {},
+        request_contribute: {
+          actions: [ {
+            code: 'accept',
+            label: {
+              fr: 'Accepter',
+              en: 'Accept'
+            },
+            kind: 'success'
+          }, {
+            code: 'refuse',
+            label: {
+              fr: 'Refuser',
+              en: 'Refuse'
+            },
+            kind: 'danger'
+          } ]
+        }
       }
     } )
   );

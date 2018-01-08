@@ -142,7 +142,7 @@ app.use( '/:slug/contact',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
-            maskCreationSubtitle: true,
+            // maskCreationSubtitle: true,
             topListForm: true, // add a conversation form on top of conversation list
             inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
@@ -188,6 +188,96 @@ app.use( '/:slug/contact',
         };
 
         cmn.render( req, res, 'agenda/contact', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
+app.use( '/:slug/request-contribute',
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null
+  } ),
+  wrap( async ( req, res, next ) => {
+    const isContributor = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isContributor )( { id: req.user.id } )
+    ] )).some( Boolean );
+
+    if ( isContributor ) {
+      sessions.setFlash( req, res, getLabel( 'youreAlreadyContributor', req.lang ) );
+      return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
+    }
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          settings: {
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            TitleComponent: 'h4',
+            focusFistConversation: true, // force to display the first conversation if exists
+            // hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            // maskCreationSubtitle: true,
+            creationSubtitle: getLabel( 'youWantToContribute', req.lang ),
+            // creationDescriptionLabel: getLabel( 'wantContributeMakeRequest', req.lang ),
+            creationButtonLabel: getLabel( 'createConversation', req.lang ),
+            // topListForm: true, // add a conversation form on top of conversation list
+            inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            defaultQuery: {
+              type: 'request_contribute',
+              typeIdentifier: req.agenda.uid,
+              params: {
+                agendaTitle: req.agenda.title
+              },
+              destinationInbox: {
+                type: 'agenda',
+                identifier: req.agenda.uid
+              }
+            }
+          },
+          res: {
+            author: '/home/inbox/author.json',
+            conversations: {
+              create: '/home/inbox/conversations.json',
+              list: '/home/inbox/conversations.json',
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
+            },
+            messages: {
+              list: '/home/inbox/conversations/:conversationId/messages.json',
+              create: '/home/inbox/conversations/:conversationId/messages.json'
+            }
+          },
+          agenda: req.agenda
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'agenda/requestContribute', { ...baseData, scriptParams: { state }, lang, content } );
 
       }
     )( req, res, next );

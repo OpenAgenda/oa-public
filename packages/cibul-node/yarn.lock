@@ -137,9 +137,9 @@
     verror "^1.10.0"
     when "^3.7.7"
 
-"@openagenda/agenda-locations@^1.0.5", "@openagenda/agenda-locations@^1.0.6":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-locations/-/agenda-locations-1.0.9.tgz#de04584df2e8b2f775d03fd3b92d0acf8bf0b8f8"
+"@openagenda/agenda-locations@^1.0.11", "@openagenda/agenda-locations@^1.0.5":
+  version "1.0.11"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-locations/-/agenda-locations-1.0.11.tgz#3d19ac787526555b313b8869a800b433d1e43848"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/bs-templates" "^2.0.3"
@@ -321,8 +321,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.18"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.18.tgz#20476dd17232567cb03517305c34f9591bc2ed1b"
+  version "2.0.20"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.20.tgz#2bcefcc1b46399580ceadbcccbbd82681701f843"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -365,14 +365,14 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.22"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.22.tgz#558eeb6f7d936cef3a99caf244ad167265ed1e2d"
+  version "1.0.26"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.26.tgz#7a5891f58f42231ebe95103e8d9ccf5aebad766e"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
     "@openagenda/agenda-categories" "^0.1.2"
     "@openagenda/agenda-event-references" "^1.0.2"
-    "@openagenda/agenda-locations" "^1.0.6"
+    "@openagenda/agenda-locations" "^1.0.11"
     "@openagenda/agenda-search" "^0.1.2"
     "@openagenda/agenda-settings" "^1.0.1"
     "@openagenda/agenda-tags" "^0.1.2"
@@ -738,8 +738,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.12"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.12.tgz#f51d1afb48009a23138797c8ee587677b4fa1baf"
+  version "1.0.13"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.13.tgz#9d56c780a49ccd10fc2220d37868da6b7dc3d305"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.3"
     "@openagenda/agendas" "^1.0.4"
@@ -2935,8 +2935,8 @@ camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000784:
-  version "1.0.30000784"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000784.tgz#129ced74e9a1280a441880b6cd2bce30ef59e6c0"
+  version "1.0.30000787"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000787.tgz#a76c4fa1d6ac00640447ec83c1e7c6b33dd615c5"
 
 caporal@^0.4.1:
   version "0.4.1"
@@ -7263,14 +7263,20 @@ p-finally@^1.0.0:
   resolved "https://registry.npmjs.org/p-finally/-/p-finally-1.0.0.tgz#3fbcfb15b899a44123b34b6dcc18b724336a2cae"
 
 p-limit@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/p-limit/-/p-limit-1.1.0.tgz#b07ff2d9a5d88bec806035895a2bab66a27988bc"
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/p-limit/-/p-limit-1.2.0.tgz#0e92b6bedcb59f022c13d0f1949dc82d15909f1c"
+  dependencies:
+    p-try "^1.0.0"
 
 p-locate@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/p-locate/-/p-locate-2.0.0.tgz#20a0103b222a70c8fd39cc2e580680f3dde5ec43"
   dependencies:
     p-limit "^1.1.0"
+
+p-try@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
 
 pac-proxy-agent@^2.0.0:
   version "2.0.0"
