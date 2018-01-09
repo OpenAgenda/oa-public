@@ -136,8 +136,8 @@ describe( 'event search - functional: create', function() {
     eventData.uid++;
 
     eventData.timings = [ {
-      begin: ( new Date() ).setDate( ( new Date() ).getDate() - 1 ),
-      end: ( new Date() ).setDate( ( new Date() ).getDate() - 1 )
+      begin: _getYesterdayDate( 1 ),
+      end: _getYesterdayDate( 2 )
     } ];
 
     let result = await service( 'test_index' ).add( eventData, { 
@@ -162,5 +162,17 @@ async function _timeout( ms ) {
     setTimeout( rs, ms );
 
   } );
+
+}
+
+function _getYesterdayDate( secondsOffset ) {
+
+  const yesterday = new Date();
+
+  yesterday.setDate( ( new Date() ).getDate() - 1 );
+
+  yesterday.setSeconds( yesterday.getSeconds() + secondsOffset );
+
+  return yesterday;
 
 }

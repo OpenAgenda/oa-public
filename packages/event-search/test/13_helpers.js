@@ -115,7 +115,30 @@ describe( 'event-search - unit: helpers', function() {
 
   } );
 
+  it( 'gives the number of days between now and the last timing ends also in the past', () => {
+
+    const timings = [ {
+      end: _getYesterdayDate( 1 )
+    } ];
+
+    helpers.lastTimingEndsIn( { timings } ).should.equal( -1 );
+
+  } );
+
 } );
+
+
+function _getYesterdayDate( secondsOffset ) {
+
+  const yesterday = new Date();
+
+  yesterday.setDate( ( new Date() ).getDate() - 1 );
+
+  yesterday.setSeconds( yesterday.getSeconds() + secondsOffset );
+
+  return yesterday;
+
+}
 
 function _dateStrFromNow( count = 0 ) {
 
