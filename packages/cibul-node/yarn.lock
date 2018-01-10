@@ -24,8 +24,8 @@
     when "^3.7.8"
 
 "@openagenda/activity-apps@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.1.tgz#5e37d1371fbcda576bcf7d40015c1c56e2dd04c4"
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.3.tgz#782240c0e9f029a82a1ce4e81dc9745a2e31ced6"
   dependencies:
     "@openagenda/activities" "^2.0.0"
     "@openagenda/basic-logger" "^2.0.0"
@@ -49,7 +49,7 @@
     react-bootstrap "^0.31.0"
     react-router "^3.0.5"
     react-router-redux "^4.0.8"
-    react-select "^1.0.0-rc.4"
+    react-select "1.0.0-rc.4"
     redux-connect "^5.0.0"
     redux-form "^6.6.2"
     when "^3.7.8"
@@ -365,8 +365,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.29"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.29.tgz#e39af9daaa2ada18afed632c4063bc33ef786609"
+  version "1.0.31"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.31.tgz#9896858402f2199024c1e6ac6bcafa30a6c3c9d9"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -447,7 +447,7 @@
     react-copy-to-clipboard "^4.2.3"
     react-dom "^16.2.0"
     react-dropzone "^4.2.1"
-    react-select "^1.0.0-rc.4"
+    react-select "1.0.0-rc.4"
     react-table "^5.0.2"
     react-tagsinput "^3.7.0"
     react-timings-picker "^0.3.2"
@@ -530,8 +530,8 @@
     should "~4.0"
 
 "@openagenda/event-search@^1.1.0":
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.3.tgz#57b511dfa67448b809c10b6fb18cb29e8bc6e064"
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.4.tgz#04d92fcc7ec45b5948d13c5ae2c3105d954912ea"
   dependencies:
     "@openagenda/countries" "^0.1.1"
     "@openagenda/date-range" "^2.1.0"
@@ -704,8 +704,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.10.tgz#29d77eafe2776bdd08716898b153e8b1e7b139b2"
+  version "1.0.11"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.11.tgz#43077f50b4859f02cc5e7e32df918f5a67795f6f"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -949,8 +949,8 @@
     spin.js "2.3.2"
 
 "@openagenda/react-form-components@^2.0.0", "@openagenda/react-form-components@^2.0.1", "@openagenda/react-form-components@^2.0.3", "@openagenda/react-form-components@^2.0.7", "@openagenda/react-form-components@^2.0.8":
-  version "2.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/react-form-components/-/react-form-components-2.0.10.tgz#75115bffba73555bd406ffaa61994dc707b97eeb"
+  version "2.0.11"
+  resolved "https://registry.npmjs.org/@openagenda/react-form-components/-/react-form-components-2.0.11.tgz#a148d384d015b9f18534a7c245b5fe3f77b82de8"
   dependencies:
     "@openagenda/utils" "^1.0.1"
     "@openagenda/validators" "^2.0.0"
@@ -960,7 +960,7 @@
     load-script "^1.0.0"
     marked "^0.3.6"
     prop-types "^15.5.8"
-    react-select "^1.0.0-rc.4"
+    react-select "1.0.0-rc.10"
     react-tagsinput "^3.16.1"
     spin.js "2.3.2"
     to-markdown "^3.0.1"
@@ -1553,11 +1553,12 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.177.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.177.0.tgz#d5fbf1f82bab250e55153699b030b44f687f600b"
+  version "2.178.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.178.0.tgz#e8257adde039cad2a1ac0abd278d172b6c39a9c7"
   dependencies:
     buffer "4.9.1"
-    crypto-browserify "1.0.9"
+    create-hash "^1.1.3"
+    create-hmac "^1.1.6"
     events "^1.1.1"
     jmespath "0.15.0"
     querystring "0.2.0"
@@ -3471,7 +3472,7 @@ create-ecdh@^4.0.0:
     bn.js "^4.1.0"
     elliptic "^6.0.0"
 
-create-hash@^1.1.0, create-hash@^1.1.2:
+create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/create-hash/-/create-hash-1.1.3.tgz#606042ac8b9262750f483caddab0f5819172d8fd"
   dependencies:
@@ -3480,7 +3481,7 @@ create-hash@^1.1.0, create-hash@^1.1.2:
     ripemd160 "^2.0.0"
     sha.js "^2.4.0"
 
-create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
+create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4, create-hmac@^1.1.6:
   version "1.1.6"
   resolved "https://registry.npmjs.org/create-hmac/-/create-hmac-1.1.6.tgz#acb9e221a4e17bdb076e90657c42b93e3726cf06"
   dependencies:
@@ -3536,10 +3537,6 @@ cryptiles@3.x.x:
   resolved "https://registry.npmjs.org/cryptiles/-/cryptiles-3.1.2.tgz#a89fbb220f5ce25ec56e8c4aa8a4fd7b5b0d29fe"
   dependencies:
     boom "5.x.x"
-
-crypto-browserify@1.0.9:
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/crypto-browserify/-/crypto-browserify-1.0.9.tgz#cc5449685dfb85eb11c9828acc7cb87ab5bbfcc0"
 
 crypto-browserify@^3.0.0, crypto-browserify@^3.11.0:
   version "3.12.0"
@@ -6433,8 +6430,8 @@ marked@0.3.6:
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
 marked@^0.3.6:
-  version "0.3.9"
-  resolved "https://registry.npmjs.org/marked/-/marked-0.3.9.tgz#54ce6a57e720c3ac6098374ec625fcbcc97ff290"
+  version "0.3.12"
+  resolved "https://registry.npmjs.org/marked/-/marked-0.3.12.tgz#7cf25ff2252632f3fe2406bde258e94eee927519"
 
 masonry-layout@4.1.0:
   version "4.1.0"
@@ -7988,8 +7985,8 @@ rc-switch@^1.3.2, rc-switch@^1.4.2, rc-switch@^1.4.3:
     prop-types "^15.5.6"
 
 rc@^1.1.7:
-  version "1.2.2"
-  resolved "https://registry.npmjs.org/rc/-/rc-1.2.2.tgz#d8ce9cb57e8d64d9c7badd9876c7c34cbe3c7077"
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/rc/-/rc-1.2.3.tgz#51575a900f8dd68381c710b4712c2154c3e2035b"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -8077,9 +8074,16 @@ react-dropzone@^4.2.1:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
 
-react-input-autosize@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-2.1.2.tgz#a3dc11a5517c434db25229925541309de3f7a8f5"
+react-input-autosize@^1.1.3:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-1.2.0.tgz#87241071159f742123897691da6796ec33b57d05"
+  dependencies:
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
+
+react-input-autosize@^2.0.1, react-input-autosize@^2.1.2:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-2.2.0.tgz#2f2431a1213b45308c94304a54ff9385a4edcad9"
   dependencies:
     prop-types "^15.5.8"
 
@@ -8170,6 +8174,23 @@ react-router@^3.0.0, react-router@^3.0.5, react-router@^3.2.0:
     loose-envify "^1.2.0"
     prop-types "^15.5.6"
     warning "^3.0.0"
+
+react-select@1.0.0-rc.10:
+  version "1.0.0-rc.10"
+  resolved "https://registry.npmjs.org/react-select/-/react-select-1.0.0-rc.10.tgz#f137346250f9255c979fbfa21860899928772350"
+  dependencies:
+    classnames "^2.2.4"
+    prop-types "^15.5.8"
+    react-input-autosize "^2.0.1"
+
+react-select@1.0.0-rc.4:
+  version "1.0.0-rc.4"
+  resolved "https://registry.npmjs.org/react-select/-/react-select-1.0.0-rc.4.tgz#f28f3bab18196ff8f32337bb52ed015773c90663"
+  dependencies:
+    classnames "^2.2.4"
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
+    react-input-autosize "^1.1.3"
 
 react-select@^1.0.0-rc.4:
   version "1.2.0"
