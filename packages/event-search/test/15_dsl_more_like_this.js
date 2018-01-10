@@ -91,6 +91,7 @@ describe( 'event-search - unit: more like this search', function() {
       for( let item of moreLikeThisData ) {
 
         await client.index( {
+          id: item.id,
           index: 'simple_more_like_this',
           refresh: true,
           type: 'notes',
@@ -133,7 +134,7 @@ describe( 'event-search - unit: more like this search', function() {
               like: 'This is not working.',
               min_term_freq: 1,
               max_query_terms: 12,
-              min_doc_freq: 1 // WOOOHOOO!
+              min_doc_freq: 1 // WOOOHOOO! Tests on small datasets need this
             }
           }
         }
@@ -194,12 +195,198 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.equal( 3 );
+      } ) ).hits.total.should.greaterThanOrEqual( 2 );
 
     } );
 
+    describe( 'like with docs', () => {
+
+      const _searchNotes = _getSearchResult.bind( null, client, 'simple_more_like_this', 'notes' );
+
+      it( 'array of keywords does not match in doc search', async () => {
+
+        const result = await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'tags' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: [ {
+                doc: {
+                  tags: 'masdar'
+                }
+              } ]
+            }
+          }
+        } )
+
+        _getIds( result ).should.eql( [] );
+
+      } );
+
+      it( 'array of keywords matches plain text', async () => {
+
+        const result = await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'tags' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: [ 'masdar' ]
+            }
+          }
+        } );
+
+        _getIds( result ).should.eql( [ 2 ] );
+
+      } );
+
+      it( 'mixture of input docs bring more results', async () => {
+
+        const result = await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'tags', 'note', 'place.name' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: [ {
+                doc: {
+                  note: 'masdar',
+                  place: {
+                    name: 'masdar'
+                  }
+                }
+              }, 'masdar' ]
+            }
+          }
+        } );
+
+        _getIds( result, true ).forEach( id => {
+
+          // results vary.
+          id.should.equalOneOf( [ 1, 2, 3, 4 ] )
+
+        } );
+
+      } );
+
+
+      it( 'mlt query can be filtered', async () => {
+
+        const result = await _searchNotes( {
+          query: {
+            bool: {
+              must: {
+                mlt: {
+                  fields: [ 'tags', 'note', 'place.name' ],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: [ {
+                    doc: {
+                      note: 'masdar',
+                      place: {
+                        name: 'masdar'
+                      }
+                    }
+                  }, 'masdar' ]
+                }
+              },
+              filter: {
+                term: {
+                  category: 'one'
+                }
+              }
+            }
+          }
+        } );
+
+        _getIds( result, true ).should.eql( [ 1, 2 ] );
+
+      } );
+
+
+      // this does not return constant result orders
+      /*it( 'mlt query returns results sorted by scoring', async () => {
+
+        // 5 has yup all over it
+        _getIds( await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'tags', 'place.name', 'note' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: 'yup'
+            }
+          }
+        } ) )[ 0 ].should.equal( 5 );
+
+      } );*/
+
+
+      it( 'mlt result count is limited to 10 by default', async () => {
+
+        _getIds( await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'tags', 'place.name', 'note' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: 'yup'
+            }
+          }
+        } ) ).length.should.equal( 10 );
+
+      } );
+
+
+      it( 'mlt can be filtered', async () => {
+
+        _getIds( await _searchNotes( {
+          query: {
+            bool: {
+              must: {
+                mlt: {
+                  fields: [ 'note' ],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: 'yup'
+                }
+              },
+              filter: {
+                term: {
+                  category: 'one'
+                }
+              }
+            }
+          }
+        } ), true ).should.eql( [ 1, 2 ] )
+
+      } );
+
+
+      it( 'mlt can be retrieved based on given document ids', async () => {
+
+        ( await _searchNotes( {
+          query: {
+            mlt: {
+              fields: [ 'place.name' ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+              like: [ {
+                _id: 1
+              } ]
+            }
+          }
+        } ) ).hits.hits[ 0 ]._source.id.should.equal( 2 );
+
+      } );
+
+
+    } );
+
   } );
 
+  
   describe( 'on event mapping', () => {
 
     this.timeout( 10000 );
@@ -230,25 +417,124 @@ describe( 'event-search - unit: more like this search', function() {
 
     } );
 
-    it( 'this returns nothing', async () => {
+    it( 'this returns events with Paris in internal full address field', async () => {
 
       const result = await dslSearch( 'more_like_this', {
         query: {
           more_like_this: {
             fields: [ 'search_internals_full_address_text' ],
+            min_term_freq: 1,
+            min_doc_freq: 1,
             like: [ {
-              _index : indiceName, // alias should suffice here
-              _type : 'event',
               doc: {
                 search_internals_full_address_text: 'Paris'
               }
-            } ],
-            min_term_freq: 1
-          }      }
+            } ]
+          }
+        }
       } );
-   
+
+      result.events[ 0 ].search_internals_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
+
     } );
 
-  } );
+    it( 'this returns upcoming events with Paris in full address field', async () => {
 
+      // All events Meuse are in the past
+      ( await dslSearch( 'more_like_this', {
+        query: {
+          bool: {
+            must: {
+              more_like_this: {
+                fields: [ 'search_internals_full_address_text' ],
+                min_term_freq: 1,
+                min_doc_freq: 1,
+                like: [ {
+                  doc: {
+                    search_internals_full_address_text: 'Meuse'
+                  }
+                } ]
+              }
+            },
+            filter: {
+              range: {
+                search_internals_last_timing: {
+                  gte: 'now-1d/d'
+                }
+              }
+            }
+          }
+        }
+      } ) ).events.length.should.equal( 0 );
+
+      // one event in paris is in the future
+      ( await dslSearch( 'more_like_this', {
+        query: {
+          bool: {
+            must: {
+              more_like_this: {
+                fields: [ 'search_internals_full_address_text' ],
+                min_term_freq: 1,
+                min_doc_freq: 1,
+                like: [ {
+                  doc: {
+                    search_internals_full_address_text: 'Paris'
+                  }
+                } ]
+              }
+            },
+            filter: {
+              range: {
+                search_internals_last_timing: {
+                  gte: 'now-1d/d'
+                }
+              }
+            }
+          }
+        }
+      } ) ).events.length.should.equal( 1 );
+   
+    } );
+
+
+    it( 'get an event given another.', async () => {
+
+      const { events } = await dslSearch( 'more_like_this', {
+        query: {
+          mlt: {
+            fields: [ 'location.department' ],
+            min_term_freq: 1,
+            min_doc_freq: 1,
+            like: [ {
+              _id: 1111 // the uid
+            } ]
+          }
+        }
+      } );
+
+      events.length.should.equal( 1 );
+
+      events[ 0 ].uid.should.equal( 2222 );
+
+    } )
+
+  } );
+  
 } );
+
+
+function _getIds( result, sort = false ) {
+
+  const ids = result.hits.hits.map( h => h._source.id );
+
+  if ( !sort ) return ids;
+
+  return ids.sort( ( a, b ) => a > b );
+
+}
+
+function _getSearchResult( client, index, type, body ) {
+
+  return client.search( { type, index, body } );
+
+}
