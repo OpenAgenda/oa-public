@@ -3,6 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { AuthorAvatar, Link, LinkContainer } from '../';
 
 @connect(
@@ -103,7 +104,7 @@ export default class ConversationItem extends Component {
           </div>
           <div className="margin-bottom-xs">
             <sup><i className="fa fa-quote-left text-muted" aria-hidden="true"></i></sup>&ensp;
-            {latestMessage.body || null}
+            {latestMessage.body ? nl2br( latestMessage.body ) : null}
           </div>
           <p title={creationDate.format( 'LLL' )}>
             <span className="text-muted">

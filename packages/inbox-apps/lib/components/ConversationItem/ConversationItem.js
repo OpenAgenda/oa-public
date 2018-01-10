@@ -56,6 +56,10 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _reactRedux = require('react-redux');
 
+var _nl2br = require('@openagenda/react-utils/dist/nl2br');
+
+var _nl2br2 = _interopRequireDefault(_nl2br);
+
 var _2 = require('../');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -114,7 +118,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 30
+            lineNumber: 31
           }
         },
         ' ',
@@ -122,31 +126,31 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'tooltip-icon', __source: {
               fileName: _jsxFileName,
-              lineNumber: 32
+              lineNumber: 33
             }
           },
           _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
               fileName: _jsxFileName,
-              lineNumber: 33
+              lineNumber: 34
             }
           }),
           _react3.default.createElement(
             'div',
             { className: 'tooltip right', role: 'tooltip', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 34
+                lineNumber: 35
               }
             },
             _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 35
+                lineNumber: 36
               }
             }),
             _react3.default.createElement(
               'div',
               { className: 'tooltip-inner', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 36
+                  lineNumber: 37
                 }
               },
               getLabel('resolvedConversation')
@@ -164,7 +168,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 46
+                lineNumber: 47
               }
             },
             _react3.default.createElement(
@@ -172,7 +176,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 47
+                  lineNumber: 48
                 }
               },
               getInboxUserName(creator)
@@ -188,7 +192,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 54
+              lineNumber: 55
             }
           },
           getLabel('requestForContribution'),
@@ -198,7 +202,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 55
+                lineNumber: 56
               }
             },
             store.params.agendaTitle
@@ -212,14 +216,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 62
+            lineNumber: 63
           }
         },
         getLabel('createdBy'),
         ' ',
         _react3.default.createElement(_2.AuthorAvatar, { author: creator, inline: true, __source: {
             fileName: _jsxFileName,
-            lineNumber: 64
+            lineNumber: 65
           }
         }),
         ' ',
@@ -228,7 +232,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 65
+              lineNumber: 66
             }
           },
           getInboxUserName(creator)
@@ -238,7 +242,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 66
+              lineNumber: 67
             }
           },
           ' ',
@@ -246,7 +250,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'span',
             { className: 'text-muted', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 68
+                lineNumber: 69
               }
             },
             getLabel('aboutEvent')
@@ -256,7 +260,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _2.Link,
             { to: '/agendas/' + store.params.agendaUid + '/events/' + typeIdentifier, external: true, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 69
+                lineNumber: 70
               }
             },
             store.params.eventTitle
@@ -292,19 +296,19 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         'div',
         { className: 'media', __source: {
             fileName: _jsxFileName,
-            lineNumber: 95
+            lineNumber: 96
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 96
+              lineNumber: 97
             }
           },
           _react3.default.createElement(_2.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 97
+              lineNumber: 98
             }
           })
         ),
@@ -312,14 +316,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 100
+              lineNumber: 101
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-heading margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 101
+                lineNumber: 102
               }
             },
             this.renderTitle()
@@ -328,7 +332,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'div',
             { className: 'margin-bottom-xs', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 104
+                lineNumber: 105
               }
             },
             _react3.default.createElement(
@@ -336,30 +340,30 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 105
+                  lineNumber: 106
                 }
               },
               _react3.default.createElement('i', { className: 'fa fa-quote-left text-muted', 'aria-hidden': 'true', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 105
+                  lineNumber: 106
                 }
               })
             ),
             '\u2002',
-            latestMessage.body || null
+            latestMessage.body ? (0, _nl2br2.default)(latestMessage.body) : null
           ),
           _react3.default.createElement(
             'p',
             { title: creationDate.format('LLL'), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 108
+                lineNumber: 109
               }
             },
             _react3.default.createElement(
               'span',
               { className: 'text-muted', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 109
+                  lineNumber: 110
                 }
               },
               getLabel('lastMessagePostedRelativeDate', { date: creationDate.fromNow(true) }),
@@ -369,7 +373,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             ' ',
             _react3.default.createElement(_2.AuthorAvatar, { author: latestMessage, inline: true, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 113
+                lineNumber: 114
               }
             }),
             ' ',
@@ -377,14 +381,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _react3.default.createElement('br', {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 115
+                lineNumber: 116
               }
             }),
             _react3.default.createElement(
               _2.Link,
               { to: '/conversation/' + conversation.id, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 116
+                  lineNumber: 117
                 }
               },
               getLabel('viewConversation')
