@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.28",
+  "version": "1.0.31",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -108,7 +108,7 @@
     "react-copy-to-clipboard": "^4.2.3",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.1",
-    "react-select": "^1.0.0-rc.4",
+    "react-select": "1.0.0-rc.4",
     "react-table": "^5.0.2",
     "react-tagsinput": "^3.7.0",
     "react-timings-picker": "^0.3.2",

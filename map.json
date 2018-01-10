@@ -1,5 +1,6 @@
 [
   "agenda/contact",
+  "agenda/requestContribute",
   "inboxes/user",
   "agendaAdmin/inbox",
   "activities/agenda",

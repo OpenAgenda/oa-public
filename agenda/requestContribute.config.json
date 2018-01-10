@@ -1,0 +1,12 @@
+{
+  "layout": "bsLayout/main",
+  "labels": "event/show",
+  "bsCss": {
+    "main": "/node_modules/@openagenda/bs-templates/compiled/main.css"
+  },
+  "helpers": {
+    "_i": "image"
+  },
+  "base": {},
+  "js": true
+}
