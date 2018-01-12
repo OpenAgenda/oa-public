@@ -1,11 +1,11 @@
 {
   "name": "@openagenda/agenda-calendar-apps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Calendar views for an agenda",
   "main": "index.js",
   "author": "Kari Olafsson",
   "license": "private",
-  "scripts" : {
+  "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "webpack-dev-server",
     "version": "npm run build && git add -A dist",
