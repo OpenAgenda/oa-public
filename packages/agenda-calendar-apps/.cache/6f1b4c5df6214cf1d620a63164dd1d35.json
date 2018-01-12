@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"@openagenda/bs-templates/compiled/main.scss","loc":{"line":3,"column":9}}],"generated":{"js":"\"use strict\";\n\nrequire('@openagenda/bs-templates/compiled/main.scss');"},"hash":"b7f5f3cfca99c5245a012125a3ca6a3b"}
