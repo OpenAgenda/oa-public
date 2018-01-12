@@ -40795,7 +40795,15 @@ var _Event = __webpack_require__(477);
 
 var _Event2 = _interopRequireDefault(_Event);
 
-var _utils = __webpack_require__(478);
+var _calendar = __webpack_require__(478);
+
+var _calendar2 = _interopRequireDefault(_calendar);
+
+var _flatten = __webpack_require__(479);
+
+var _flatten2 = _interopRequireDefault(_flatten);
+
+var _utils = __webpack_require__(480);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40888,7 +40896,6 @@ var Main = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -40910,22 +40917,7 @@ var Main = function (_Component) {
               culture: this.props.lang,
               defaultDate: this.state.displayedDate,
               onNavigate: this.onNavigate.bind(this),
-              messages: _lodash2.default.mapValues({
-                allDay: { en: 'All day', fr: 'Toute la journée' },
-                previous: { en: 'Previous', fr: 'Précédent' },
-                next: { en: 'Next', fr: 'Suivant' },
-                today: { en: 'Today', fr: 'Aujourd\'hui' },
-                month: { en: 'Month', fr: 'Mois' },
-                week: { en: 'Week', fr: 'Semaine' },
-                day: { en: 'Day', fr: 'Jour' },
-                agenda: { en: 'Agenda', fr: 'Journal' },
-                date: { en: 'Date', fr: 'Date' },
-                time: { en: 'Time', fr: 'Heure' },
-                event: { en: 'Event', fr: 'Evénement' }
-                //showMore?: Function
-              }, function (v) {
-                return v[_this3.props.lang];
-              })
+              messages: (0, _flatten2.default)(_calendar2.default, this.props.lang)
             }))
           ) : null
         ),
@@ -72524,6 +72516,85 @@ exports.default = Event;
 
 /***/ }),
 /* 478 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+  allDay: {
+    en: 'All day',
+    fr: 'Toute la journée'
+  },
+  previous: {
+    en: 'Previous',
+    fr: 'Précédent'
+  },
+  next: {
+    en: 'Next',
+    fr: 'Suivant'
+  },
+  today: {
+    en: 'Today',
+    fr: 'Aujourd\'hui'
+  },
+  month: {
+    en: 'Month',
+    fr: 'Mois'
+  },
+  week: {
+    en: 'Week',
+    fr: 'Semaine'
+  },
+  day: {
+    en: 'Day',
+    fr: 'Jour'
+  },
+  agenda: {
+    en: 'Agenda',
+    fr: 'Journal'
+  },
+  date: {
+    en: 'Date',
+    fr: 'Date'
+  },
+  time: {
+    en: 'Time',
+    fr: 'Heure'
+  },
+  event: {
+    en: 'Event',
+    fr: 'Evénement'
+  }
+}
+
+
+/***/ }),
+/* 479 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * flatten a labels set to a single language keyed list
+ */
+module.exports = function( labels, lang ) {
+
+  var flat = {};
+
+  for ( var f in labels ) {
+
+    flat[ f ] = labels[ f ][ lang ];
+
+  }
+
+  return flat;
+
+}
+
+/***/ }),
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
