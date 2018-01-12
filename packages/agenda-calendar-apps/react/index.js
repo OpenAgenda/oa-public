@@ -10,6 +10,9 @@ import Spinner from 'react-spinkit';
 import get from './get';
 import Event from './Event';
 
+import labels from '@openagenda/labels/agendas/calendar';
+import flattenLabels from '@openagenda/labels/flatten';
+
 
 import {
   pickLang,
@@ -111,21 +114,8 @@ export default class Main extends Component {
             }}
             culture={this.props.lang}
             defaultDate={this.state.displayedDate}
-            onNavigate={this.onNavigate.bind( this )}
-            messages={_.mapValues( {
-              allDay: { en: 'All day', fr: 'Toute la journée' },
-              previous: { en: 'Previous', fr: 'Précédent' },
-              next: { en: 'Next', fr: 'Suivant' },
-              today: { en: 'Today', fr: 'Aujourd\'hui' },
-              month: { en: 'Month', fr: 'Mois' },
-              week: { en: 'Week', fr: 'Semaine' },
-              day: { en: 'Day', fr: 'Jour' },
-              agenda: { en: 'Agenda', fr: 'Journal' },
-              date: { en: 'Date', fr: 'Date' },
-              time: { en: 'Time', fr: 'Heure' },
-              event: { en: 'Event', fr: 'Evénement' },
-              //showMore?: Function
-            }, v => v[ this.props.lang ] )}
+            onNavigate={ this.onNavigate.bind( this ) }
+            messages={ flattenLabels( labels, this.props.lang ) }
           />
         </div> : null }
       </div>

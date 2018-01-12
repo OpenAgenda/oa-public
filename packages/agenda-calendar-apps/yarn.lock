@@ -3,12 +3,12 @@
 
 
 "@openagenda/bs-templates@^2.0.20":
-  version "2.0.21"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.21.tgz#840795be11c035a1d07de0530f8b17eca1f07769"
+  version "2.0.22"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.22.tgz#260f7e33b6163b99aed6174aa3a242209f3a0954"
 
 "@openagenda/labels@^2.0.21":
-  version "2.0.21"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.21.tgz#9e1caab6b8aa8e3888ba86e1fbed719034be51c4"
+  version "2.0.23"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.23.tgz#e3e90fac5b3d8213b45090dd265324a4d78cebb2"
 
 abbrev@1:
   version "1.1.1"
