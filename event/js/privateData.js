@@ -114,6 +114,9 @@ module.exports = function ( options ) {
       if ( simpleUser && user.uid === params.contributor.uid ) {
         return 'contributor';
       }
+      if ( user.uid === params.contributor.uid ) {
+        return 'adminContributor'
+      }
       return simpleUser ? 'simpleUser' : 'adminmod';
     })();
 
@@ -124,7 +127,9 @@ module.exports = function ( options ) {
 
     const destinationInbox = (() => {
       switch ( userRole ) {
-        case 'adminmod': // admin -> contributor
+        case 'adminContributor': // admin contributor
+          return;
+        case 'adminmod': // admin (not contributor) -> contributor
           return {
             type: 'user',
             identifier: params.contributor.uid
@@ -149,7 +154,9 @@ module.exports = function ( options ) {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
       state: {
+        user,
         settings: {
+          context: 'event',
           prefix: window.location.pathname,
           focusFistConversation: simpleUser, // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
@@ -170,11 +177,12 @@ module.exports = function ( options ) {
             typeIdentifier: params.uid,
             destinationInbox,
             params: {
+              agendaTitle: _.unescape( params.agendaTitle ),
               eventTitle: _.unescape( params.title ),
               agendaUid: params.agendaUid
             }
           },
-          TitleComponent: ( { children } ) => <h4 className="pull-left margin-bottom-md">{children}</h4>,
+          TitleComponent: ( { children } ) => <h4 className="inbox-title pull-left margin-bottom-md">{children}</h4>,
           ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
