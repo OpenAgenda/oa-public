@@ -52,6 +52,7 @@ import removeTrailingSlash from '../../utils/removeTrailingSlash';
   state => ({
     initialValues: state.settings.defaultQuery,
     settings: state.settings,
+    user: state.user,
     conversations: state.inbox.data,
     loading: state.inbox.loading,
     nextLoading: state.inbox.nextLoading,
@@ -111,7 +112,7 @@ export default class Inbox extends Component {
   render() {
     const {
       conversations, nextLoading, router, getLabel, showModal,
-      createConversation, author, initialValues, settings
+      createConversation, author, initialValues, settings, user
     } = this.props;
 
     const {
@@ -175,8 +176,8 @@ export default class Inbox extends Component {
         <div className="clearfix"/>
 
         {!unresolvedConvs.length
-          ? <ConversationList conversations={resolvedConvs}/>
-          : <ConversationList conversations={unresolvedConvs}/>}
+          ? <ConversationList conversations={resolvedConvs} user={user}/>
+          : <ConversationList conversations={unresolvedConvs} user={user}/>}
 
         {unresolvedConvs.length && resolvedConvs.length ? <Fragment>
           <TitleComponent>
@@ -185,7 +186,7 @@ export default class Inbox extends Component {
 
           <div className="clearfix"/>
 
-          <ConversationList conversations={resolvedConvs}/>
+          <ConversationList conversations={resolvedConvs} user={user}/>
         </Fragment> : null}
 
         {/*{conversations && conversations.length ? <ConversationList conversations={conversations}/> : null}*/}

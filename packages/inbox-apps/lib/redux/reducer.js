@@ -39,6 +39,7 @@ exports.default = (0, _createReducer2.default)({
   conversation: _conversation2.default,
   conversationForm: _conversationForm2.default,
   modals: _modals2.default,
+  user: noop,
   agenda: noop,
   event: noop
 });

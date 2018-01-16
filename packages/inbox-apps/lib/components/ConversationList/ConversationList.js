@@ -72,11 +72,13 @@ var ConversationList = _wrapComponent('ConversationList')(function (_Component) 
   (0, _createClass3.default)(ConversationList, [{
     key: 'render',
     value: function render() {
-      var conversations = this.props.conversations;
+      var _props = this.props,
+          conversations = _props.conversations,
+          user = _props.user;
 
 
       return conversations.map(function (conversation) {
-        return _react3.default.createElement(_.ConversationItem, { conversation: conversation, key: conversation.id, __source: {
+        return _react3.default.createElement(_.ConversationItem, { conversation: conversation, user: user, key: conversation.id, __source: {
             fileName: _jsxFileName,
             lineNumber: 9
           }

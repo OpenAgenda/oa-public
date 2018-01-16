@@ -13,6 +13,7 @@ export default createReducer( {
   conversation,
   conversationForm,
   modals,
+  user: noop,
   agenda: noop,
   event: noop
 } );
