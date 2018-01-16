@@ -201,7 +201,7 @@ export default class Conversation extends Component {
       return (
         <Fragment>
           {' '}
-          <h4 className="event-title">
+          <h4 className="inbox-title">
             <span className="text-muted">{_.upperFirst( getLabel( 'conversationInitiatedOn' ) )}</span>{' '}
             <Link to={`/agendas/${store.params.agendaUid}/events/${typeIdentifier}`} external>
               {store.params.eventTitle}
@@ -216,7 +216,7 @@ export default class Conversation extends Component {
       return (
         <Fragment>
           {' '}
-          <h4 className="event-title">
+          <h4 className="inbox-title">
             <span className="text-muted">{_.upperFirst( getLabel( 'contactConversationInitiated' ) )}</span>
           </h4>
           <p className="margin-bottom-sm">{getLabel( 'by' )} <b>{getCreatorName( conversation )}</b></p>
@@ -229,21 +229,21 @@ export default class Conversation extends Component {
 
       if ( contextInbox.type === 'agenda' ) {
         return (
-          <h4 className="event-title text-muted margin-bottom-sm">
+          <h4 className="inbox-title text-muted margin-bottom-sm">
             <b>{getCreatorName( conversation )}</b> {getLabel( 'wouldLikeToContribute' )}
           </h4>
         );
       }
 
       return (
-        <h4 className="event-title text-muted margin-bottom-sm">
+        <h4 className="inbox-title text-muted margin-bottom-sm">
           {getLabel( 'requestForContribution' )} <b>{store.params.agendaTitle}</b>
         </h4>
       );
     }
 
     return (
-      <h4 className="event-title text-muted margin-bottom-sm">
+      <h4 className="inbox-title text-muted margin-bottom-sm">
         {getLabel( 'conversationInitiatedBy' )} <b>{getCreatorName( conversation )}</b>
       </h4>
     );

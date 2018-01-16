@@ -569,7 +569,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
                 lineNumber: 166
               }
             },
-            destinationInbox.id !== latestMessage.inbox.id ? _react3.default.createElement(_2.AuthorAvatar, { author: latestMessage, __source: {
+            destinationInbox.id !== latestMessage.inbox.id ? _react3.default.createElement(_2.AuthorAvatar, { author: latestMessage, inline: true, __source: {
                 fileName: _jsxFileName,
                 lineNumber: 175
               }
@@ -584,7 +584,9 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
   }, {
     key: 'render',
     value: function render() {
-      var conversation = this.props.conversation;
+      var _props3 = this.props,
+          user = _props3.user,
+          conversation = _props3.conversation;
       var getLabel = this.context.getLabel;
 
 
@@ -598,18 +600,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           resolvedAt = conversation.resolvedAt;
 
 
-      var destinationInbox = inboxes.filter(function (v) {
-        return v.id !== inboxContextId;
-      }).sort(function (o) {
-        return Number(o.type === 'agenda');
-      }).shift() || inboxes[0];
+      var destinationInbox = getDestinationInbox({ user: user, inboxes: inboxes, inboxContextId: inboxContextId });
 
       var resolvedIcon = resolvedAt ? _react3.default.createElement(
         _react2.Fragment,
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 200
+            lineNumber: 197
           }
         },
         ' ',
@@ -617,31 +615,31 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'tooltip-icon', __source: {
               fileName: _jsxFileName,
-              lineNumber: 202
+              lineNumber: 199
             }
           },
           _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
               fileName: _jsxFileName,
-              lineNumber: 203
+              lineNumber: 200
             }
           }),
           _react3.default.createElement(
             'div',
             { className: 'tooltip right', role: 'tooltip', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 204
+                lineNumber: 201
               }
             },
             _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 205
+                lineNumber: 202
               }
             }),
             _react3.default.createElement(
               'div',
               { className: 'tooltip-inner', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 206
+                  lineNumber: 203
                 }
               },
               getLabel('resolvedConversation')
@@ -654,19 +652,19 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         'div',
         { className: 'media', __source: {
             fileName: _jsxFileName,
-            lineNumber: 212
+            lineNumber: 209
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 213
+              lineNumber: 210
             }
           },
           _react3.default.createElement(_2.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 214
+              lineNumber: 211
             }
           })
         ),
@@ -674,14 +672,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 217
+              lineNumber: 214
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-heading margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 218
+                lineNumber: 215
               }
             },
             this.renderTitle(),
@@ -691,7 +689,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'div',
             { className: 'conversation-item-message margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 222
+                lineNumber: 219
               }
             },
             this.renderAuthorSentence({ destinationInbox: destinationInbox }),
@@ -699,7 +697,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               'div',
               { className: 'message padding-bottom-xs', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 225
+                  lineNumber: 222
                 }
               },
               latestMessage.body ? (0, _nl2br2.default)(latestMessage.body) : null
@@ -709,7 +707,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _2.Link,
             { to: '/conversation/' + conversation.id, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 231
+                lineNumber: 228
               }
             },
             getLabel('viewConversation')
@@ -744,6 +742,22 @@ function getCreatorName(conversation) {
 
 function getContextInbox(conversation) {
   return (0, _find3.default)(conversation.inboxes, ['id', conversation.inboxContextId]);
+}
+
+function getDestinationInbox(_ref2) {
+  var user = _ref2.user,
+      inboxes = _ref2.inboxes,
+      inboxContextId = _ref2.inboxContextId;
+
+  var _inboxes = inboxes.sort(function (o) {
+    return Number(o.type === 'agenda');
+  }).filter(function (v) {
+    return !(v.type === 'user' && v.identifier === user.uid);
+  });
+
+  return _inboxes.filter(function (v) {
+    return v.id !== inboxContextId;
+  })[0] || _inboxes[0];
 }
 
 function isCreator(creator, user) {

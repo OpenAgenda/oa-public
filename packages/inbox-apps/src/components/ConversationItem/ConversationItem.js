@@ -172,7 +172,7 @@ export default class ConversationItem extends Component {
             title={creationDate.format( 'LLL' )}
           >
             {destinationInbox.id !== latestMessage.inbox.id
-              ? <AuthorAvatar author={latestMessage}/>
+              ? <AuthorAvatar author={latestMessage} inline/>
               : null}
             {getInboxUserName( latestMessage )}{' '}
             {getLabel( 'repliedAgo', { date: creationDate.fromNow( true ) } )}
@@ -183,7 +183,7 @@ export default class ConversationItem extends Component {
   }
 
   render() {
-    const { conversation } = this.props;
+    const { user, conversation } = this.props;
     const { getLabel } = this.context;
 
     if ( !conversation.latestMessage ) {
@@ -192,10 +192,7 @@ export default class ConversationItem extends Component {
 
     const { latestMessage, inboxes, inboxContextId, resolvedAt } = conversation;
 
-    const destinationInbox = inboxes
-      .filter( v => v.id !== inboxContextId )
-      .sort( o => Number( o.type === 'agenda' ) )
-      .shift() || inboxes[ 0 ];
+    const destinationInbox = getDestinationInbox( { user, inboxes, inboxContextId } );
 
     const resolvedIcon = resolvedAt ? <Fragment>
       {' '}
@@ -255,6 +252,14 @@ function getCreatorName( conversation ) {
 
 function getContextInbox( conversation ) {
   return _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] )
+}
+
+function getDestinationInbox( { user, inboxes, inboxContextId } ) {
+  let _inboxes = inboxes
+    .sort( o => Number( o.type === 'agenda' ) )
+    .filter( v => !(v.type === 'user' && v.identifier === user.uid) );
+
+  return _inboxes.filter( v => v.id !== inboxContextId )[ 0 ] || _inboxes[ 0 ];
 }
 
 function isCreator( creator, user ) {

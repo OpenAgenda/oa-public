@@ -507,7 +507,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           ' ',
           _react3.default.createElement(
             'h4',
-            { className: 'event-title', __source: {
+            { className: 'inbox-title', __source: {
                 fileName: _jsxFileName,
                 lineNumber: 204
               }
@@ -567,7 +567,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           ' ',
           _react3.default.createElement(
             'h4',
-            { className: 'event-title', __source: {
+            { className: 'inbox-title', __source: {
                 fileName: _jsxFileName,
                 lineNumber: 219
               }
@@ -611,7 +611,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
         if (contextInbox.type === 'agenda') {
           return _react3.default.createElement(
             'h4',
-            { className: 'event-title text-muted margin-bottom-sm', __source: {
+            { className: 'inbox-title text-muted margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
                 lineNumber: 232
               }
@@ -633,7 +633,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
 
         return _react3.default.createElement(
           'h4',
-          { className: 'event-title text-muted margin-bottom-sm', __source: {
+          { className: 'inbox-title text-muted margin-bottom-sm', __source: {
               fileName: _jsxFileName,
               lineNumber: 239
             }
@@ -655,7 +655,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
 
       return _react3.default.createElement(
         'h4',
-        { className: 'event-title text-muted margin-bottom-sm', __source: {
+        { className: 'inbox-title text-muted margin-bottom-sm', __source: {
             fileName: _jsxFileName,
             lineNumber: 246
           }
