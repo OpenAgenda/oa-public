@@ -13,11 +13,12 @@ import Event from './Event';
 import labels from '@openagenda/labels/agendas/calendar';
 import flattenLabels from '@openagenda/labels/flatten';
 
-
 import {
-  pickLang,
-  getMonthBrackets,
-  getMonth
+  getTimeBrackets,
+  getMonth,
+  spreadEventsOnDateTimings,
+  flattenTargetedLabels,
+  appendMoreItem
 } from './utils';
 
 BigCalendar.setLocalizer(
@@ -31,45 +32,55 @@ export default class Main extends Component {
     super(props);
 
     this.state = {
-      loading: true,
-      events: null
-    };
+      events: null,
+      labels: flattenLabels( labels, this.props.lang ),
+      displayedDate: new Date
+    }
+
+  }
+
+  componentDidMount() {
 
     this.get( new Date );
 
   }
 
-  get( d ) {
+  get( d, view = 'month' ) {
 
-    const [ gte, lte ] = getMonthBrackets( d );
+    this.setState( {
+      view,
+      loading: true
+    } );
 
-    get( this.props.res, this.props.agendaUid, {
+    const [ gte, lte ] = getTimeBrackets( view, d );
+
+    console.log( 'getting for bracket', view, [ gte, lte ] );
+
+    get( this.props.res.search, this.props.agendaUid, {
       size: 0,
       date: {
         lte,
         gte
       },
       detailed: true,
-      aggregations: [ 'eventsByDay' ]
+      aggregations: [ view === 'month' ? 'eventsByMonthlyDay' : 'eventsByWeeklyDay' ]
     } ).then( result => {
 
       const events = result.aggregations.days.reduce( ( acc, cur ) => {
 
-        const parsedEvents = acc.concat( cur.sampleEvents.reduce( ( acc, e ) => {
+        let parsedItems = spreadEventsOnDateTimings( cur.sampleEvents, cur.key )
+          // multilingual content can be flattened to one language
+          .map( flattenTargetedLabels.bind( null, [ 'title', 'dateRange', 'keywords' ], this.props.lang ) )
+          // the type can discriminate event items from others
+          .map( e => _.extend( e, { type: 'event' } ) )
 
-          return acc.concat( e.timings
-            .filter( t => moment( t.begin ).format( 'YYYY-MM-DD' ) === cur.key )
-            .map( t => _.extend( _.omit( e, [ 'timings' ] ), {
-              title: pickLang( e.title, this.props.lang ),
-              begin: new Date( t.begin ),
-              end: new Date( t.end ),
-              dayKey: [ cur.key, pickLang( e.title, this.props.lang ) ].join( ' - ' )
-            } ) ) );
+        if ( cur.count > parsedItems.length ) {
 
-        }, [] ) );
+          parsedItems = appendMoreItem( this.state.labels, parsedItems, view );
 
+        }
 
-        return this.state.view === 'month' ? _.uniqBy( parsedEvents, 'dayKey' ) : parsedEvents;
+        return acc.concat( this.state.view === 'month' ? _.uniqBy( parsedItems, 'key' ) : parsedItems )
 
       }, [] );
 
@@ -83,18 +94,46 @@ export default class Main extends Component {
 
   }
 
-  onNavigate( newDate, type, direction ) {
+  onSelectMore( more ) {
 
-    this.setState( {
-      loading: true,
-      view: type
-    } );
+    if ( !window ) return;
 
-    if ( type === 'month' ) {
+    const win = window.open(
+      this.props.res.agenda
+      .replace( '{agendaUid}', this.props.agendaUid )
+      + '?oaq[from]=' + more.key
+      + '&oaq[to]=' + more.key );
 
-      this.get( newDate );
+      win.focus();
 
-    }
+  }
+
+  onSelectEvent( event ) {
+
+    if ( !window ) return;
+
+    const win = window.open(
+      this.props.res.event
+      .replace( '{agendaUid}', this.props.agendaUid )
+      .replace( '{eventUid}', event.uid ), 
+      '_blank'
+    );
+
+    win.focus();
+
+  }
+
+  onView( newView ) {
+
+    this.get( this.state.displayedDate, newView );
+
+  }
+
+  onNavigate( newDate, view, direction ) {
+
+    console.log( 'onNavigate', newDate, view, direction );
+
+    this.get( newDate, view );
 
   }
 
@@ -104,6 +143,7 @@ export default class Main extends Component {
       <div className="row">
         { this.state.events ? <div className="padding-v-lg padding-h-lg">
           <BigCalendar
+            views={['month', 'week']}
             {...this.props}
             events={this.state.events || []}
             step={60}
@@ -115,7 +155,9 @@ export default class Main extends Component {
             culture={this.props.lang}
             defaultDate={this.state.displayedDate}
             onNavigate={ this.onNavigate.bind( this ) }
-            messages={ flattenLabels( labels, this.props.lang ) }
+            onView={ this.onView.bind( this ) }
+            messages={ this.state.labels }
+            onSelectEvent= { item => item.type === 'more' ? this.onSelectMore( item ) : this.onSelectEvent( item ) }
           />
         </div> : null }
       </div>
@@ -129,13 +171,17 @@ export default class Main extends Component {
 }
 
 Main.propTypes = {
-  res: PropTypes.string,
+  res: PropTypes.object,
   lang: PropTypes.string.isRequired,
   agendaUid: PropTypes.number.isRequired
 }
 
 Main.defaultProps = {
-  res: 'https://openagenda.com/agendas/{agendaUid}/events.v2.json',
+  res: {
+    agenda: 'https://d.openagenda.com/agendas/{agendaUid}',
+    search: 'https://d.openagenda.com/agendas/{agendaUid}/events.v2.json',
+    event: 'https://d.openagenda.com/agendas/{agendaUid}/events/{eventUid}'
+  },
   lang: 'en'
 }
 

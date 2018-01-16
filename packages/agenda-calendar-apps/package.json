@@ -27,14 +27,15 @@
     "webpack-dev-server": "^2.9.5"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.0.21",
+    "@openagenda/labels": "^2.0.24",
+    "css-loader": "^0.28.7",
+    "immutability-helper": "^2.6.4",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
     "prop-types": "^15.6.0",
     "react-big-calendar": "^0.17.0",
     "react-spinkit": "^3.0.0",
-    "css-loader": "^0.28.7",
-    "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "superagent": "^3.8.2"

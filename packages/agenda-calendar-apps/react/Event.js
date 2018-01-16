@@ -1,6 +1,7 @@
 "use strict";
 
 import React, { Component } from 'react';
+import More from './More';
 
 export default class Event extends Component {
 
@@ -14,7 +15,9 @@ export default class Event extends Component {
 
   render() {
 
-    return <div>
+    if ( this.props.event.type === 'more' ) return <More {...this.props} />;
+
+    return <div className="calendar-event-item">
       <label>{this.props.title}</label>
     </div>
 
