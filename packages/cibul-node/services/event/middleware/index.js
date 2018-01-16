@@ -288,6 +288,7 @@ function layoutData( req, res ) {
     uid: req.formatted.uid,
     title: utils.escape( req.formatted.title, false ),
     agendaUid: req.agenda ? req.agenda.uid : false,
+    agendaTitle: req.agenda ? req.agenda.title : false,
     ownerUid: req.formatted.owner.uid,
     adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],
     hasCustomFields: req.formatted.custom && req.formatted.custom.length,

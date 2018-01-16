@@ -38,7 +38,9 @@ app.use( '/home/inbox',
     inboxAppsMw.matchApp(
       {
         state: {
+          user: req.user,
           settings: {
+            context: 'user',
             prefix: req.baseUrl,
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
@@ -81,7 +83,9 @@ app.use( '/:slug/admin/inbox',
     inboxAppsMw.matchApp(
       {
         state: {
+          user: req.user,
           settings: {
+            context: 'agenda',
             prefix: req.baseUrl,
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
@@ -133,7 +137,9 @@ app.use( '/:slug/contact',
     inboxAppsMw.matchApp(
       {
         state: {
+          user: req.user,
           settings: {
+            context: 'agenda',
             prefix: req.baseUrl,
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
@@ -149,6 +155,9 @@ app.use( '/:slug/contact',
             defaultQuery: {
               type: 'contact_form',
               typeIdentifier: req.agenda.uid,
+              params: {
+                agendaTitle: req.agenda.title
+              },
               destinationInbox: {
                 type: 'agenda',
                 identifier: req.agenda.uid
@@ -217,7 +226,9 @@ app.use( '/:slug/request-contribute',
     inboxAppsMw.matchApp(
       {
         state: {
+          user: req.user,
           settings: {
+            context: 'agenda',
             prefix: req.baseUrl,
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
