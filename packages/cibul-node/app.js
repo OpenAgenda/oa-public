@@ -160,6 +160,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( './api' );
 
+        require( './calendar' )( app, '/' ); //:agendaSlug/calendar
+
         webModules.web.forEach( m => m.load( app ) );
 
       }

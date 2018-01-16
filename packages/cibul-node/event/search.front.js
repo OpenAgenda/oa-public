@@ -1,16 +1,13 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const app = require( 'express' )();
-
-const search = require( '../services/eventSearch' ).events;
-
-const cmn = require( '../lib/commons-app' );
-
 const ih = require( 'immutability-helper' );
 
-const _ = require( 'lodash' );
-
 const sessions = require( '@openagenda/sessions' );
+
+const cmn = require( '../lib/commons-app' );
+const search = require( '../services/eventSearch' ).events;
 
 module.exports = ( parentApp, path ) => {
 
