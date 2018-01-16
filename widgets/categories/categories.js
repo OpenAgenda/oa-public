@@ -124,12 +124,6 @@ var widget = function( elem, options ) {
 
     if ( eventItem.passed ) {
 
-      passedCategorySlugs.push( eventItem.c );
-
-    }
-
-    if ( eventItem.passed ) {
-
       // add eventual eventTag to Slugs
       if ( !cn.contains( passedCategorySlugs, eventItem.c ) ) passedCategorySlugs.push( eventItem.c );
 
