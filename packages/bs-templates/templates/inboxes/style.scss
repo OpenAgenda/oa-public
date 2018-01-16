@@ -23,7 +23,7 @@
 
     position: absolute;
     top: 28px;
-    right: 24px;
+    right: 12px;
     margin-left: 8px;
     max-width: 220px;
     white-space: nowrap;
@@ -66,6 +66,19 @@
       .media-heading {
 
         //
+
+      }
+
+      .conversation-item-message {
+
+        border-left: 3px solid $oa-blue;
+        padding-left: 8px;
+
+        .message {
+
+          line-height: 16px;
+
+        }
 
       }
 
