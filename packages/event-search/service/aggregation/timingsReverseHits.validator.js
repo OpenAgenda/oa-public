@@ -33,6 +33,10 @@ const validate = schema( {
       }
     }
   },
+  size: {
+    type: 'integer',
+    default: 3
+  },
   format: {
     type: 'choice',
     unique: true,

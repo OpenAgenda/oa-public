@@ -16,6 +16,7 @@
           "aggs" : {
             "top" : {
               "top_hits" : {
+                "size" : ${ size },
                 "_source" : {
                   "excludes" : [
                     "search_internals_*",
