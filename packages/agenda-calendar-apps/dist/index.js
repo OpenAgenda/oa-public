@@ -4603,7 +4603,7 @@ return hooks;
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)(module)))
 
 /***/ }),
 /* 1 */
@@ -5012,7 +5012,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(20);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -5944,7 +5944,7 @@ var _dates = __webpack_require__(4);
 
 var _dates2 = _interopRequireDefault(_dates);
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6176,7 +6176,66 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 /* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21),
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+/**
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (process.env.NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+module.exports = invariant;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(22),
     getRawTag = __webpack_require__(282),
     objectToString = __webpack_require__(283);
 
@@ -6207,7 +6266,7 @@ module.exports = baseGetTag;
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(13);
@@ -6219,7 +6278,7 @@ module.exports = Symbol;
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 /**
@@ -6254,7 +6313,7 @@ module.exports = isObjectLike;
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6274,7 +6333,7 @@ function accessor(data, field) {
 }
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var assignValue = __webpack_require__(128),
@@ -6320,7 +6379,7 @@ module.exports = copyObject;
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -6348,7 +6407,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6405,65 +6464,6 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 module.exports = invariant;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var invariant = function(condition, format, a, b, c, d, e, f) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  }
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error(
-        'Minified exception occurred; use the non-minified dev environment ' +
-        'for the full error message and additional helpful warnings.'
-      );
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error(
-        format.replace(/%s/g, function() { return args[argIndex++]; })
-      );
-      error.name = 'Invariant Violation';
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-};
-
-module.exports = invariant;
-
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
@@ -6994,7 +6994,7 @@ exports.set = set;
 exports.result = result;
 exports.default = messages;
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(20);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -7044,8 +7044,8 @@ function messages(msgs) {
 /* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(20),
-    isObjectLike = __webpack_require__(22);
+var baseGetTag = __webpack_require__(21),
+    isObjectLike = __webpack_require__(23);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -7259,7 +7259,7 @@ var isBuffer = nativeIsBuffer || stubFalse;
 
 module.exports = isBuffer;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)(module)))
 
 /***/ }),
 /* 47 */
@@ -7334,7 +7334,7 @@ module.exports = ReactPropTypesSecret;
 
 
 if (process.env.NODE_ENV !== 'production') {
-  var invariant = __webpack_require__(26);
+  var invariant = __webpack_require__(27);
   var warning = __webpack_require__(36);
   var ReactPropTypesSecret = __webpack_require__(49);
   var loggedTypeFailures = {};
@@ -7511,7 +7511,7 @@ module.exports = isArrayLike;
 /* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(20),
+var baseGetTag = __webpack_require__(21),
     isObject = __webpack_require__(14);
 
 /** `Object#toString` result references. */
@@ -8020,7 +8020,7 @@ module.exports = getSymbols;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsArguments = __webpack_require__(343),
-    isObjectLike = __webpack_require__(22);
+    isObjectLike = __webpack_require__(23);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -8271,7 +8271,7 @@ var _propTypes3 = __webpack_require__(8);
 
 var _helpers = __webpack_require__(28);
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 var _eventLevels = __webpack_require__(17);
 
@@ -25977,7 +25977,7 @@ module.exports = cloneArrayBuffer;
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(82), __webpack_require__(25)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(82), __webpack_require__(26)(module)))
 
 /***/ }),
 /* 82 */
@@ -26016,7 +26016,7 @@ module.exports = g;
 exports.__esModule = true;
 exports.default = moveDate;
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(20);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -26753,7 +26753,7 @@ var _dates2 = _interopRequireDefault(_dates);
 
 var _propTypes3 = __webpack_require__(8);
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27288,7 +27288,7 @@ module.exports = toSource;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseIsEqualDeep = __webpack_require__(333),
-    isObjectLike = __webpack_require__(22);
+    isObjectLike = __webpack_require__(23);
 
 /**
  * The base implementation of `_.isEqual` which supports partial comparisons
@@ -27628,7 +27628,7 @@ var DataView = __webpack_require__(350),
     Promise = __webpack_require__(351),
     Set = __webpack_require__(352),
     WeakMap = __webpack_require__(353),
-    baseGetTag = __webpack_require__(20),
+    baseGetTag = __webpack_require__(21),
     toSource = __webpack_require__(103);
 
 /** `Object#toString` result references. */
@@ -40795,15 +40795,15 @@ var _Event = __webpack_require__(477);
 
 var _Event2 = _interopRequireDefault(_Event);
 
-var _calendar = __webpack_require__(478);
+var _calendar = __webpack_require__(479);
 
 var _calendar2 = _interopRequireDefault(_calendar);
 
-var _flatten = __webpack_require__(479);
+var _flatten = __webpack_require__(480);
 
 var _flatten2 = _interopRequireDefault(_flatten);
 
-var _utils = __webpack_require__(480);
+var _utils = __webpack_require__(481);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40824,52 +40824,66 @@ var Main = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
 
     _this.state = {
-      loading: true,
-      events: null
+      events: null,
+      labels: (0, _flatten2.default)(_calendar2.default, _this.props.lang),
+      displayedDate: new Date()
     };
-
-    _this.get(new Date());
 
     return _this;
   }
 
   _createClass(Main, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+
+      this.get(new Date());
+    }
+  }, {
     key: 'get',
     value: function get(d) {
       var _this2 = this;
 
-      var _getMonthBrackets = (0, _utils.getMonthBrackets)(d),
-          _getMonthBrackets2 = _slicedToArray(_getMonthBrackets, 2),
-          gte = _getMonthBrackets2[0],
-          lte = _getMonthBrackets2[1];
+      var view = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'month';
 
-      (0, _get3.default)(this.props.res, this.props.agendaUid, {
+
+      this.setState({
+        view: view,
+        loading: true
+      });
+
+      var _getTimeBrackets = (0, _utils.getTimeBrackets)(view, d),
+          _getTimeBrackets2 = _slicedToArray(_getTimeBrackets, 2),
+          gte = _getTimeBrackets2[0],
+          lte = _getTimeBrackets2[1];
+
+      console.log('getting for bracket', view, [gte, lte]);
+
+      (0, _get3.default)(this.props.res.search, this.props.agendaUid, {
         size: 0,
         date: {
           lte: lte,
           gte: gte
         },
         detailed: true,
-        aggregations: ['eventsByDay']
+        aggregations: [view === 'month' ? 'eventsByMonthlyDay' : 'eventsByWeeklyDay']
       }).then(function (result) {
 
         var events = result.aggregations.days.reduce(function (acc, cur) {
 
-          var parsedEvents = acc.concat(cur.sampleEvents.reduce(function (acc, e) {
+          var parsedItems = (0, _utils.spreadEventsOnDateTimings)(cur.sampleEvents, cur.key)
+          // multilingual content can be flattened to one language
+          .map(_utils.flattenTargetedLabels.bind(null, ['title', 'dateRange', 'keywords'], _this2.props.lang))
+          // the type can discriminate event items from others
+          .map(function (e) {
+            return _lodash2.default.extend(e, { type: 'event' });
+          });
 
-            return acc.concat(e.timings.filter(function (t) {
-              return (0, _moment2.default)(t.begin).format('YYYY-MM-DD') === cur.key;
-            }).map(function (t) {
-              return _lodash2.default.extend(_lodash2.default.omit(e, ['timings']), {
-                title: (0, _utils.pickLang)(e.title, _this2.props.lang),
-                begin: new Date(t.begin),
-                end: new Date(t.end),
-                dayKey: [cur.key, (0, _utils.pickLang)(e.title, _this2.props.lang)].join(' - ')
-              });
-            }));
-          }, []));
+          if (cur.count > parsedItems.length) {
 
-          return _this2.state.view === 'month' ? _lodash2.default.uniqBy(parsedEvents, 'dayKey') : parsedEvents;
+            parsedItems = (0, _utils.appendMoreItem)(_this2.state.labels, parsedItems, view);
+          }
+
+          return acc.concat(_this2.state.view === 'month' ? _lodash2.default.uniqBy(parsedItems, 'key') : parsedItems);
         }, []);
 
         _this2.setState({
@@ -40880,22 +40894,43 @@ var Main = function (_Component) {
       });
     }
   }, {
+    key: 'onSelectMore',
+    value: function onSelectMore(more) {
+
+      if (!window) return;
+
+      var win = window.open(this.props.res.agenda.replace('{agendaUid}', this.props.agendaUid) + '?oaq[from]=' + more.key + '&oaq[to]=' + more.key);
+
+      win.focus();
+    }
+  }, {
+    key: 'onSelectEvent',
+    value: function onSelectEvent(event) {
+
+      if (!window) return;
+
+      var win = window.open(this.props.res.event.replace('{agendaUid}', this.props.agendaUid).replace('{eventUid}', event.uid), '_blank');
+
+      win.focus();
+    }
+  }, {
+    key: 'onView',
+    value: function onView(newView) {
+
+      this.get(this.state.displayedDate, newView);
+    }
+  }, {
     key: 'onNavigate',
-    value: function onNavigate(newDate, type, direction) {
+    value: function onNavigate(newDate, view, direction) {
 
-      this.setState({
-        loading: true,
-        view: type
-      });
+      console.log('onNavigate', newDate, view, direction);
 
-      if (type === 'month') {
-
-        this.get(newDate);
-      }
+      this.get(newDate, view);
     }
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
 
       return _react2.default.createElement(
         'div',
@@ -40906,7 +40941,9 @@ var Main = function (_Component) {
           this.state.events ? _react2.default.createElement(
             'div',
             { className: 'padding-v-lg padding-h-lg' },
-            _react2.default.createElement(_reactBigCalendar2.default, _extends({}, this.props, {
+            _react2.default.createElement(_reactBigCalendar2.default, _extends({
+              views: ['month', 'week']
+            }, this.props, {
               events: this.state.events || [],
               step: 60,
               startAccessor: 'begin',
@@ -40917,7 +40954,11 @@ var Main = function (_Component) {
               culture: this.props.lang,
               defaultDate: this.state.displayedDate,
               onNavigate: this.onNavigate.bind(this),
-              messages: (0, _flatten2.default)(_calendar2.default, this.props.lang)
+              onView: this.onView.bind(this),
+              messages: this.state.labels,
+              onSelectEvent: function onSelectEvent(item) {
+                return item.type === 'more' ? _this3.onSelectMore(item) : _this3.onSelectEvent(item);
+              }
             }))
           ) : null
         ),
@@ -40937,13 +40978,17 @@ exports.default = Main;
 
 
 Main.propTypes = {
-  res: _propTypes2.default.string,
+  res: _propTypes2.default.object,
   lang: _propTypes2.default.string.isRequired,
   agendaUid: _propTypes2.default.number.isRequired
 };
 
 Main.defaultProps = {
-  res: 'https://openagenda.com/agendas/{agendaUid}/events.v2.json',
+  res: {
+    agenda: 'https://d.openagenda.com/agendas/{agendaUid}',
+    search: 'https://d.openagenda.com/agendas/{agendaUid}/events.v2.json',
+    event: 'https://d.openagenda.com/agendas/{agendaUid}/events/{eventUid}'
+  },
   lang: 'en'
 };
 
@@ -40966,7 +41011,7 @@ var config = JSON.parse(document.getElementById('config').innerHTML);
 
 
 var emptyFunction = __webpack_require__(15);
-var invariant = __webpack_require__(26);
+var invariant = __webpack_require__(27);
 var warning = __webpack_require__(36);
 var assign = __webpack_require__(19);
 
@@ -41516,7 +41561,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 
 
 var emptyFunction = __webpack_require__(15);
-var invariant = __webpack_require__(26);
+var invariant = __webpack_require__(27);
 var ReactPropTypesSecret = __webpack_require__(49);
 
 module.exports = function() {
@@ -41618,7 +41663,7 @@ if (process.env.NODE_ENV !== "production") {
 
 var _assign = __webpack_require__(19);
 var emptyObject = __webpack_require__(37);
-var invariant = __webpack_require__(26);
+var invariant = __webpack_require__(27);
 var warning = __webpack_require__(36);
 var emptyFunction = __webpack_require__(15);
 var checkPropTypes = __webpack_require__(50);
@@ -43870,7 +43915,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(20);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -44078,7 +44123,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _invariant = __webpack_require__(27);
+var _invariant = __webpack_require__(20);
 
 var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -45287,7 +45332,7 @@ if (process.env.NODE_ENV !== "production") {
 'use strict';
 
 var React = __webpack_require__(1);
-var invariant = __webpack_require__(26);
+var invariant = __webpack_require__(27);
 var warning = __webpack_require__(36);
 var ExecutionEnvironment = __webpack_require__(85);
 var _assign = __webpack_require__(19);
@@ -60882,7 +60927,7 @@ module.exports = chunk;
 /* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21);
+var Symbol = __webpack_require__(22);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -63706,7 +63751,7 @@ module.exports = cacheHas;
 /* 339 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21),
+var Symbol = __webpack_require__(22),
     Uint8Array = __webpack_require__(106),
     eq = __webpack_require__(29),
     equalArrays = __webpack_require__(105),
@@ -63976,8 +64021,8 @@ module.exports = baseTimes;
 /* 343 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(20),
-    isObjectLike = __webpack_require__(22);
+var baseGetTag = __webpack_require__(21),
+    isObjectLike = __webpack_require__(23);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]';
@@ -64024,9 +64069,9 @@ module.exports = stubFalse;
 /* 345 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(20),
+var baseGetTag = __webpack_require__(21),
     isLength = __webpack_require__(55),
-    isObjectLike = __webpack_require__(22);
+    isObjectLike = __webpack_require__(23);
 
 /** `Object#toString` result references. */
 var argsTag = '[object Arguments]',
@@ -64133,7 +64178,7 @@ var nodeUtil = (function() {
 
 module.exports = nodeUtil;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)(module)))
 
 /***/ }),
 /* 348 */
@@ -64526,7 +64571,7 @@ module.exports = toString;
 /* 361 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21),
+var Symbol = __webpack_require__(22),
     arrayMap = __webpack_require__(117),
     isArray = __webpack_require__(11),
     isSymbol = __webpack_require__(40);
@@ -65707,7 +65752,7 @@ var _helpers = __webpack_require__(28);
 
 var _propTypes3 = __webpack_require__(8);
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 var _dayViewLayout = __webpack_require__(382);
 
@@ -66138,7 +66183,7 @@ exports.startsBefore = startsBefore;
 exports.positionFromDate = positionFromDate;
 exports.default = getStyledEvents;
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 var _dates = __webpack_require__(4);
 
@@ -66810,7 +66855,7 @@ var _dates2 = _interopRequireDefault(_dates);
 
 var _constants = __webpack_require__(12);
 
-var _accessors = __webpack_require__(23);
+var _accessors = __webpack_require__(24);
 
 var _propTypes3 = __webpack_require__(8);
 
@@ -67293,7 +67338,7 @@ var arrayMap = __webpack_require__(117),
     baseClone = __webpack_require__(392),
     baseUnset = __webpack_require__(412),
     castPath = __webpack_require__(47),
-    copyObject = __webpack_require__(24),
+    copyObject = __webpack_require__(25),
     customOmitClone = __webpack_require__(415),
     flatRest = __webpack_require__(417),
     getAllKeysIn = __webpack_require__(131);
@@ -67511,7 +67556,7 @@ module.exports = baseClone;
 /* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(24),
+var copyObject = __webpack_require__(25),
     keys = __webpack_require__(34);
 
 /**
@@ -67534,7 +67579,7 @@ module.exports = baseAssign;
 /* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(24),
+var copyObject = __webpack_require__(25),
     keysIn = __webpack_require__(79);
 
 /**
@@ -67658,7 +67703,7 @@ function cloneBuffer(buffer, isDeep) {
 
 module.exports = cloneBuffer;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)(module)))
 
 /***/ }),
 /* 398 */
@@ -67690,7 +67735,7 @@ module.exports = copyArray;
 /* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(24),
+var copyObject = __webpack_require__(25),
     getSymbols = __webpack_require__(69);
 
 /**
@@ -67712,7 +67757,7 @@ module.exports = copySymbols;
 /* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(24),
+var copyObject = __webpack_require__(25),
     getSymbolsIn = __webpack_require__(130);
 
 /**
@@ -67995,7 +68040,7 @@ module.exports = addSetEntry;
 /* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21);
+var Symbol = __webpack_require__(22);
 
 /** Used to convert symbols to primitives and strings. */
 var symbolProto = Symbol ? Symbol.prototype : undefined,
@@ -68161,9 +68206,9 @@ module.exports = customOmitClone;
 /* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(20),
+var baseGetTag = __webpack_require__(21),
     getPrototype = __webpack_require__(48),
-    isObjectLike = __webpack_require__(22);
+    isObjectLike = __webpack_require__(23);
 
 /** `Object#toString` result references. */
 var objectTag = '[object Object]';
@@ -68323,7 +68368,7 @@ module.exports = baseFlatten;
 /* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(21),
+var Symbol = __webpack_require__(22),
     isArguments = __webpack_require__(70),
     isArray = __webpack_require__(11);
 
@@ -68490,7 +68535,7 @@ module.exports = defaults;
 /* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(24),
+var copyObject = __webpack_require__(25),
     createAssigner = __webpack_require__(426),
     keysIn = __webpack_require__(79);
 
@@ -72474,6 +72519,10 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _More = __webpack_require__(478);
+
+var _More2 = _interopRequireDefault(_More);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -72494,14 +72543,16 @@ var Event = function (_Component) {
   }
 
   _createClass(Event, [{
-    key: "render",
+    key: 'render',
     value: function render() {
 
+      if (this.props.event.type === 'more') return _react2.default.createElement(_More2.default, this.props);
+
       return _react2.default.createElement(
-        "div",
-        null,
+        'div',
+        { className: 'calendar-event-item' },
         _react2.default.createElement(
-          "label",
+          'label',
           null,
           this.props.title
         )
@@ -72516,6 +72567,61 @@ exports.default = Event;
 
 /***/ }),
 /* 478 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var More = function (_Component) {
+  _inherits(More, _Component);
+
+  function More() {
+    _classCallCheck(this, More);
+
+    return _possibleConstructorReturn(this, (More.__proto__ || Object.getPrototypeOf(More)).apply(this, arguments));
+  }
+
+  _createClass(More, [{
+    key: "render",
+    value: function render() {
+
+      return _react2.default.createElement(
+        "div",
+        { className: "calendar-more-item" },
+        _react2.default.createElement(
+          "label",
+          null,
+          this.props.title
+        )
+      );
+    }
+  }]);
+
+  return More;
+}(_react.Component);
+
+exports.default = More;
+
+/***/ }),
+/* 479 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72565,12 +72671,16 @@ module.exports = {
   event: {
     en: 'Event',
     fr: 'Evénement'
+  },
+  more: {
+    en: 'See all events',
+    fr: 'Voir tous les événements'
   }
 }
 
 
 /***/ }),
-/* 479 */
+/* 480 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72594,7 +72704,7 @@ module.exports = function( labels, lang ) {
 }
 
 /***/ }),
-/* 480 */
+/* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72604,13 +72714,54 @@ var _lodash = __webpack_require__(81);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _immutabilityHelper = __webpack_require__(482);
+
+var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
   pickLang: pickLang,
-  getMonthBrackets: getMonthBrackets,
-  getMonth: getMonth
+  getTimeBrackets: getTimeBrackets,
+  getMonth: getMonth,
+  spreadEventsOnDateTimings: spreadEventsOnDateTimings,
+  flattenTargetedLabels: flattenTargetedLabels,
+  appendMoreItem: appendMoreItem
 };
+
+function appendMoreItem(labels, eventItems, view) {
+
+  return eventItems.sort(function (e1, e2) {
+    return e1.begin > e2.begin;
+  }).concat({
+    type: 'more',
+    key: eventItems[0].date,
+    begin: _lodash2.default.last(eventItems).begin, // used by component to display in order
+    end: _lodash2.default.last(eventItems).end,
+    title: labels.more,
+    allDay: view === 'week'
+  });
+}
+
+function flattenTargetedLabels(keys, targetLang, obj) {
+
+  return _lodash2.default.keys(obj).reduce(function (flatObj, key) {
+
+    if (keys.includes(key)) {
+
+      flatObj[key] = pickLang(obj[key], targetLang);
+    } else {
+
+      flatObj[key] = obj[key];
+    }
+
+    return flatObj;
+  }, {});
+}
 
 function pickLang(multi, preferredLang) {
 
@@ -72626,6 +72777,35 @@ function getMonth(d) {
   return [d.getFullYear(), fZ(d.getMonth() + 1)].join('-');
 }
 
+function getWeekBrackets(d) {
+
+  var end = new Date(d);
+
+  var begin = new Date(d);
+
+  // if d is a sunday, counts as previous week
+
+  if (d.getDay() === 0) d.setDate(d.getDate() - 1);
+
+  begin.setDate(d.getDate() - d.getDay() + 1);
+
+  end.setDate(begin.getDate() + 6);
+
+  return [getDateString(begin), getDateString(end)];
+}
+
+function getTimeBrackets(type, d) {
+
+  if (!['week', 'month'].includes(type)) {
+
+    throw new Error('unknown time bracket type');
+  }
+
+  if (type === 'month') return getMonthBrackets(d);
+
+  return getWeekBrackets(d);
+}
+
 function getMonthBrackets(d) {
 
   var begin = getMonth(d) + '-01';
@@ -72636,13 +72816,302 @@ function getMonthBrackets(d) {
 
   end.setDate(0);
 
-  return [begin, [end.getFullYear(), fZ(end.getMonth() + 1), fZ(end.getDate())].join('-')];
+  return [begin, getDateString(end)];
+}
+
+function getDateString(d) {
+
+  return [d.getFullYear(), fZ(d.getMonth() + 1), fZ(d.getDate())].join('-');
+}
+
+function spreadEventsOnDateTimings(events, targetDate /*YYYY-MM-DD*/) {
+
+  return events.reduce(function (processed, event) {
+
+    var timelessEvent = _lodash2.default.omit(event, ['timings']);
+
+    return processed.concat(event.timings.filter(function (t) {
+      return (0, _moment2.default)(t.begin).format('YYYY-MM-DD') === targetDate;
+    }).map(function (t) {
+      return (0, _immutabilityHelper2.default)(timelessEvent, {
+        key: { $set: timelessEvent.uid + '/' + targetDate },
+        date: { $set: targetDate },
+        begin: { $set: new Date(t.begin) },
+        end: { $set: new Date(t.end) }
+      });
+    }));
+  }, []);
 }
 
 function fZ(n) {
 
   return n < 10 ? '0' + n : n;
 }
+
+/***/ }),
+/* 482 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var invariant = __webpack_require__(20);
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var splice = Array.prototype.splice;
+
+var toString = Object.prototype.toString
+var type = function(obj) {
+  return toString.call(obj).slice(8, -1);
+}
+
+var assign = Object.assign || /* istanbul ignore next */ function assign(target, source) {
+  getAllKeys(source).forEach(function(key) {
+    if (hasOwnProperty.call(source, key)) {
+      target[key] = source[key];
+    }
+  });
+  return target;
+};
+
+var getAllKeys = typeof Object.getOwnPropertySymbols === 'function' ?
+  function(obj) { return Object.keys(obj).concat(Object.getOwnPropertySymbols(obj)) } :
+  /* istanbul ignore next */ function(obj) { return Object.keys(obj) };
+
+/* istanbul ignore next */
+function copy(object) {
+  if (Array.isArray(object)) {
+    return assign(object.constructor(object.length), object)
+  } else if (type(object) === 'Map') {
+    return new Map(object)
+  } else if (type(object) === 'Set') {
+    return new Set(object)
+  } else if (object && typeof object === 'object') {
+    var prototype = object.constructor && object.constructor.prototype
+    return assign(Object.create(prototype || null), object);
+  } else {
+    return object;
+  }
+}
+
+function newContext() {
+  var commands = assign({}, defaultCommands);
+  update.extend = function(directive, fn) {
+    commands[directive] = fn;
+  };
+  update.isEquals = function(a, b) { return a === b; };
+
+  return update;
+
+  function update(object, spec) {
+    if (typeof spec === 'function') {
+      return spec(object);
+    }
+
+    if (!(Array.isArray(object) && Array.isArray(spec))) {
+      invariant(
+        !Array.isArray(spec),
+        'update(): You provided an invalid spec to update(). The spec may ' +
+        'not contain an array except as the value of $set, $push, $unshift, ' +
+        '$splice or any custom command allowing an array value.'
+      );
+    }
+
+    invariant(
+      typeof spec === 'object' && spec !== null,
+      'update(): You provided an invalid spec to update(). The spec and ' +
+      'every included key path must be plain objects containing one of the ' +
+      'following commands: %s.',
+      Object.keys(commands).join(', ')
+    );
+
+    var nextObject = object;
+    var index, key;
+    getAllKeys(spec).forEach(function(key) {
+      if (hasOwnProperty.call(commands, key)) {
+        var objectWasNextObject = object === nextObject;
+        nextObject = commands[key](spec[key], nextObject, spec, object);
+        if (objectWasNextObject && update.isEquals(nextObject, object)) {
+          nextObject = object;
+        }
+      } else {
+        var nextValueForKey = update(object[key], spec[key]);
+        if (!update.isEquals(nextValueForKey, nextObject[key]) || typeof nextValueForKey === 'undefined' && !hasOwnProperty.call(object, key)) {
+          if (nextObject === object) {
+            nextObject = copy(object);
+          }
+          nextObject[key] = nextValueForKey;
+        }
+      }
+    })
+    return nextObject;
+  }
+
+}
+
+var defaultCommands = {
+  $push: function(value, nextObject, spec) {
+    invariantPushAndUnshift(nextObject, spec, '$push');
+    return value.length ? nextObject.concat(value) : nextObject;
+  },
+  $unshift: function(value, nextObject, spec) {
+    invariantPushAndUnshift(nextObject, spec, '$unshift');
+    return value.length ? value.concat(nextObject) : nextObject;
+  },
+  $splice: function(value, nextObject, spec, originalObject) {
+    invariantSplices(nextObject, spec);
+    value.forEach(function(args) {
+      invariantSplice(args);
+      if (nextObject === originalObject && args.length) nextObject = copy(originalObject);
+      splice.apply(nextObject, args);
+    });
+    return nextObject;
+  },
+  $set: function(value, nextObject, spec) {
+    invariantSet(spec);
+    return value;
+  },
+  $toggle: function(targets, nextObject) {
+    invariantSpecArray(targets, '$toggle');
+    var nextObjectCopy = targets.length ? copy(nextObject) : nextObject;
+
+    targets.forEach(function(target) {
+      nextObjectCopy[target] = !nextObject[target];
+    });
+
+    return nextObjectCopy;
+  },
+  $unset: function(value, nextObject, spec, originalObject) {
+    invariantSpecArray(value, '$unset');
+    value.forEach(function(key) {
+      if (Object.hasOwnProperty.call(nextObject, key)) {
+        if (nextObject === originalObject) nextObject = copy(originalObject);
+        delete nextObject[key];
+      }
+    });
+    return nextObject;
+  },
+  $add: function(value, nextObject, spec, originalObject) {
+    invariantMapOrSet(nextObject, '$add');
+    invariantSpecArray(value, '$add');
+    if (type(nextObject) === 'Map') {
+      value.forEach(function(pair) {
+        var key = pair[0];
+        var value = pair[1];
+        if (nextObject === originalObject && nextObject.get(key) !== value) nextObject = copy(originalObject);
+        nextObject.set(key, value);
+      });
+    } else {
+      value.forEach(function(value) {
+        if (nextObject === originalObject && !nextObject.has(value)) nextObject = copy(originalObject);
+        nextObject.add(value);
+      });
+    }
+    return nextObject;
+  },
+  $remove: function(value, nextObject, spec, originalObject) {
+    invariantMapOrSet(nextObject, '$remove');
+    invariantSpecArray(value, '$remove');
+    value.forEach(function(key) {
+      if (nextObject === originalObject && nextObject.has(key)) nextObject = copy(originalObject);
+      nextObject.delete(key);
+    });
+    return nextObject;
+  },
+  $merge: function(value, nextObject, spec, originalObject) {
+    invariantMerge(nextObject, value);
+    getAllKeys(value).forEach(function(key) {
+      if (value[key] !== nextObject[key]) {
+        if (nextObject === originalObject) nextObject = copy(originalObject);
+        nextObject[key] = value[key];
+      }
+    });
+    return nextObject;
+  },
+  $apply: function(value, original) {
+    invariantApply(value);
+    return value(original);
+  }
+};
+
+module.exports = newContext();
+module.exports.newContext = newContext;
+
+// invariants
+
+function invariantPushAndUnshift(value, spec, command) {
+  invariant(
+    Array.isArray(value),
+    'update(): expected target of %s to be an array; got %s.',
+    command,
+    value
+  );
+  invariantSpecArray(spec[command], command)
+}
+
+function invariantSpecArray(spec, command) {
+  invariant(
+    Array.isArray(spec),
+    'update(): expected spec of %s to be an array; got %s. ' +
+    'Did you forget to wrap your parameter in an array?',
+    command,
+    spec
+  );
+}
+
+function invariantSplices(value, spec) {
+  invariant(
+    Array.isArray(value),
+    'Expected $splice target to be an array; got %s',
+    value
+  );
+  invariantSplice(spec['$splice']);
+}
+
+function invariantSplice(value) {
+  invariant(
+    Array.isArray(value),
+    'update(): expected spec of $splice to be an array of arrays; got %s. ' +
+    'Did you forget to wrap your parameters in an array?',
+    value
+  );
+}
+
+function invariantApply(fn) {
+  invariant(
+    typeof fn === 'function',
+    'update(): expected spec of $apply to be a function; got %s.',
+    fn
+  );
+}
+
+function invariantSet(spec) {
+  invariant(
+    Object.keys(spec).length === 1,
+    'Cannot have more than one key in an object with $set'
+  );
+}
+
+function invariantMerge(target, specValue) {
+  invariant(
+    specValue && typeof specValue === 'object',
+    'update(): $merge expects a spec of type \'object\'; got %s',
+    specValue
+  );
+  invariant(
+    target && typeof target === 'object',
+    'update(): $merge expects a target of type \'object\'; got %s',
+    target
+  );
+}
+
+function invariantMapOrSet(target, command) {
+  var typeOfTarget = type(target);
+  invariant(
+    typeOfTarget === 'Map' || typeOfTarget === 'Set',
+    'update(): %s expects a target of type Set or Map; got %s',
+    command,
+    typeOfTarget
+  );
+}
+
 
 /***/ })
 /******/ ]);
