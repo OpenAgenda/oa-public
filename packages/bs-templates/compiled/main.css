@@ -15448,7 +15448,22 @@ button.rbc-input::-moz-focus-inner {
   min-height: 800px;
   width: 100%; }
   .agenda-calendar .rbc-calendar .rbc-event {
-    background-color: #41acdd;
-    border-radius: 3px; }
+    padding: 0;
+    background: #41acdd;
+    color: #fff; }
     .agenda-calendar .rbc-calendar .rbc-event .rbc-event-content label {
       margin-bottom: 0; }
+
+.agenda-calendar .calendar-event-item {
+  background-color: #41acdd;
+  color: #fff;
+  padding: 2px 4px;
+  cursor: pointer; }
+  .agenda-calendar .calendar-event-item label {
+    cursor: pointer; }
+
+.agenda-calendar .calendar-more-item {
+  background: #fff;
+  color: #413a42; }
+  .agenda-calendar .calendar-more-item label {
+    cursor: pointer; }

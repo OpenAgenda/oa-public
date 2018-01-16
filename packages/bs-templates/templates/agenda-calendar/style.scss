@@ -1,3 +1,4 @@
+@import "../layout/base";
 @import 'react-big-calendar.css';
 
 .agenda-calendar {
@@ -24,8 +25,9 @@
 
     .rbc-event {
 
-      background-color: $oa-blue;
-      border-radius: 3px;
+      padding: 0;
+      background: $oa-blue;
+      color: $oa-white;
 
       .rbc-event-content {
 
@@ -38,6 +40,33 @@
       }
 
     }
+
+  }
+
+  .calendar-event-item {
+
+    background-color: $oa-blue;
+    color: $oa-white;
+    padding: 2px 4px;
+    cursor: pointer;
+    
+    label {
+
+      cursor: pointer;
+
+    }
+
+  }
+
+  .calendar-more-item {
+
+    background: $oa-white;
+    color: $oa-black;
+
+    label {
+      cursor: pointer;
+    }
+    
 
   }
 
