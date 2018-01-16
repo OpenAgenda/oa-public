@@ -158,7 +158,7 @@ var Conversation = function () {
 
               case 8:
                 _context2.next = 10;
-                return (0, _bluebird.resolve)((0, _bluebird.all)([].concat(data.destinationInbox).map(function (v) {
+                return (0, _bluebird.resolve)((0, _bluebird.all)([].concat(data.destinationInbox || []).map(function (v) {
                   return new _Inbox2.default(v).get();
                 })));
 

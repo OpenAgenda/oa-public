@@ -52,7 +52,8 @@ export default class Conversation {
       throw new VError( 'Inbox user %j not found', inboxUser.identifiers );
     }
 
-    const destinationInboxes = await Promise.all( [].concat( data.destinationInbox ).map( v => new Inbox( v ).get() ) );
+    const destinationInboxes = await Promise.all( [].concat( data.destinationInbox || [] )
+      .map( v => new Inbox( v ).get() ) );
     const destinationNotFound = destinationInboxes.filter( v => !v.data );
 
     if ( destinationNotFound && destinationNotFound.length ) {
