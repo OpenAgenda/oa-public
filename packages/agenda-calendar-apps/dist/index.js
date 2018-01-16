@@ -40985,9 +40985,9 @@ Main.propTypes = {
 
 Main.defaultProps = {
   res: {
-    agenda: 'https://d.openagenda.com/agendas/{agendaUid}',
-    search: 'https://d.openagenda.com/agendas/{agendaUid}/events.v2.json',
-    event: 'https://d.openagenda.com/agendas/{agendaUid}/events/{eventUid}'
+    agenda: 'https://openagenda.com/agendas/{agendaUid}',
+    search: 'https://openagenda.com/agendas/{agendaUid}/events.v2.json',
+    event: 'https://openagenda.com/agendas/{agendaUid}/events/{eventUid}'
   },
   lang: 'en'
 };

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-calendar-apps",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Calendar views for an agenda",
   "main": "index.js",
   "author": "Kari Olafsson",
