@@ -2,8 +2,9 @@
 
 const _ = require( 'lodash' );
 const validate = require( './validate' );
-const buildDsl = require( './buildDsl' );
 const validateExtension = require( './validateExtension' );
+
+const { getQuery, getSort, getSource, getNav } = require( '../helpers/dsl' );
 
 module.exports = _.extend( queryToDsl, { inflate } );
 
@@ -26,7 +27,19 @@ function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) 
 
   let extensionParts = _extractExtensionParts( inflated, extensions );
 
-  return buildDsl( clean, extensionParts, nav, includes );
+  const dsl = {
+    query: getQuery( clean, extensionParts ),
+    sort: getSort( clean.sort ),
+    _source: getSource( includes )
+  };
+
+  if ( nav ) {
+
+    _.extend( dsl, getNav( nav ) );
+
+  }
+
+  return dsl;
 
 }
 

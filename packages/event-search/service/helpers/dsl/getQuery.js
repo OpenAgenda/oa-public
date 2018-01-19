@@ -2,89 +2,7 @@
 
 const _ = require( 'lodash' );
 
-module.exports = _.extend( build, {
-  getNav,
-  getQuery,
-  getSort,
-  getSource
-} );
-
-
-function build( cleanQuery, extensionQueries = {}, nav = null, includes = null ) {
-  
-  const dsl = {
-    query: getQuery( cleanQuery, extensionQueries ),
-    sort: getSort( cleanQuery.sort ),
-    _source: getSource( includes )
-  };
-
-  if ( nav ) {
-
-    _.extend( dsl, getNav( nav ) );
-
-  }
-
-  return dsl;
-
-}
-
-function getSort( sort = null ) {
-
-  if ( sort ) {
-
-    const [ field, order ] = sort.split( '.' );
-
-    return [ _.set( {}, field + '.order', order ) ];
-
-  }
-
-  return [ {
-    'timings.end' : {
-      mode: 'min',
-      order: 'asc',
-      nested_path: 'timings',
-      nested_filter: {
-        range: { 'timings.end' : { gte: 'now' } }
-      }
-    }
-  }, {
-    search_internals_last_timing: { order: 'desc' }
-  } ];
-
-}
-
-
-function getSource( includes = null ) {
-
-  const source = {
-    excludes: [ 
-      'search_internals_*', 
-      'timings.search_internals_*'
-    ]
-  };
-
-  if ( includes === null ) return source;
-
-  source.includes = includes;
-
-  return source;
-
-}
-
-
-function getNav( nav = {} ) {
-
-  if ( nav.size === undefined ) return null;
-
-  return {
-    from: nav.from,
-    size: nav.size
-  }
-
-}
-
-
-function getQuery( cleanQuery, extensionQueries ) {
+module.exports = ( cleanQuery, extensionQueries ) => {
 
   const query = {};
 
@@ -272,7 +190,6 @@ function _localTime( t ) {
 
 }
 
-
 function _geoBounds( b ) {
 
   return {
@@ -285,7 +202,6 @@ function _geoBounds( b ) {
   }
 
 }
-
 
 function _mustPart( queryType, fieldName, value ) {
 
