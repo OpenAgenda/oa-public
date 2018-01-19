@@ -1,15 +1,16 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
+
+const buildAggregationDsl = require( '../aggregation' );
+const config = require( '../config' );
 const dsl = require( './dsl' );
 const h = require( '../helpers' );
-const VError = require( 'verror' );
-const config = require( '../config' );
+const parseAggregationResult = require( '../aggregation' ).parseResult;
 const parseQuery = require( '../query' );
 const validateNav = require( '../query/validateNav' );
-const buildAggregationDsl = require( '../aggregation' );
 const validateOptions = require( '../query/validateOptions' );
-const parseAggregationResult = require( '../aggregation' ).parseResult;
 
 
 module.exports = async ( alias, query, nav = {}, options = {} ) => {
@@ -43,6 +44,8 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
     // includes
     ( cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes )
   );
+
+  // sorting and _source added after
 
 
   if ( cleanOptions.aggregations ) {

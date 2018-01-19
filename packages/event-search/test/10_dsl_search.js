@@ -1,12 +1,13 @@
 "use strict";
 
 const should = require( 'should' );
+
 const config = require( '../testconfig' );
-const events = require( 'events-service/test/service' );
-const service = require( '../' );
 const dslSearch = require( '../service/search' ).dsl;
-const scroll = require( '../service/search' ).scroll;
+const events = require( 'events-service/test/service' );
 const moment = require( 'moment-timezone' );
+const scroll = require( '../service/search' ).scroll;
+const service = require( '../' );
 
 
 describe( 'event-search - unit: dsl search', function() {

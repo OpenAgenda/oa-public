@@ -516,7 +516,61 @@ describe( 'event-search - unit: more like this search', function() {
 
       events[ 0 ].uid.should.equal( 2222 );
 
-    } )
+    } );
+
+
+    it( 'sort and source keys belong on the root', async () => {
+
+      const moreLikeThisQuery = {
+        query: {
+          bool: {
+            must: {
+              more_like_this: {
+                fields: [ 'search_internals_full_address_text' ],
+                min_term_freq: 1,
+                min_doc_freq: 1,
+                like: [ {
+                  doc: {
+                    search_internals_full_address_text: 'Paris'
+                  }
+                } ]
+              }
+            },
+            filter: {
+              /*range: {
+                search_internals_last_timing: {
+                  gte: 'now-1d/d'
+                }
+              }*/
+            }
+          }
+        },
+        _source: {
+          excludes: [ 'search_internals_*', 'timings.search_internals_*' ],
+          includes: [ 'uid' ]
+        }
+      };
+
+      const { events } = await dslSearch( 'more_like_this', moreLikeThisQuery );
+
+      events.map( e => e.uid ).should.eql( [ 1111, 2222 ] );
+
+      Object.keys( events[ 0 ] ).should.eql( [ 'uid' ] );
+
+      const { events: sortedEvents } = await dslSearch( 'more_like_this', ih( moreLikeThisQuery, {
+        sort: {
+          $set: [ {
+            uid: {
+              order: 'desc'
+            }
+          } ]
+        }
+      } ) );
+
+      sortedEvents.map( e => e.uid ).should.eql( [ 2222, 1111 ] );
+
+    } );
+
 
   } );
   

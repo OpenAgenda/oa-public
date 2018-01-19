@@ -2,43 +2,146 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = null ) => {
+module.exports = _.extend( build, {
+  getNav,
+  getQuery,
+  getSort,
+  getSource
+} );
 
-  let mustParts = [],
 
-    filterParts = [];
-
-  let dsl = {
-    sort: _sort( cleanQuery.sort ),
-    _source: {
-      excludes: [ 
-        'search_internals_*', 
-        'timings.search_internals_*' 
-      ]
-    }
+function build( cleanQuery, extensionQueries = {}, nav = null, includes = null ) {
+  
+  const dsl = {
+    query: getQuery( cleanQuery, extensionQueries ),
+    sort: getSort( cleanQuery.sort ),
+    _source: getSource( includes )
   };
 
+  if ( nav ) {
 
-  // from / size?
-  if ( nav && nav.size !== undefined ) {
-
-    dsl.from = nav.from;
-    dsl.size = nav.size;
+    _.extend( dsl, getNav( nav ) );
 
   }
 
-  if ( includes !== null ) {
+  return dsl;
 
-    dsl._source.includes = includes;
+}
+
+function getSort( sort = null ) {
+
+  if ( sort ) {
+
+    const [ field, order ] = sort.split( '.' );
+
+    return [ _.set( {}, field + '.order', order ) ];
+
+  }
+
+  return [ {
+    'timings.end' : {
+      mode: 'min',
+      order: 'asc',
+      nested_path: 'timings',
+      nested_filter: {
+        range: { 'timings.end' : { gte: 'now' } }
+      }
+    }
+  }, {
+    search_internals_last_timing: { order: 'desc' }
+  } ];
+
+}
+
+
+function getSource( includes = null ) {
+
+  const source = {
+    excludes: [ 
+      'search_internals_*', 
+      'timings.search_internals_*'
+    ]
+  };
+
+  if ( includes === null ) return source;
+
+  source.includes = includes;
+
+  return source;
+
+}
+
+
+function getNav( nav = {} ) {
+
+  if ( nav.size === undefined ) return null;
+
+  return {
+    from: nav.from,
+    size: nav.size
+  }
+
+}
+
+
+function getQuery( cleanQuery, extensionQueries ) {
+
+  const query = {};
+
+  const mustParts = _getQueryMustParts( cleanQuery, extensionQueries );
+
+  const filterParts = _getQueryFilterParts( cleanQuery );
+
+  if ( mustParts.length === 1 && !filterParts.length ) {
+
+    _.extend( query, mustParts[ 0 ] );
+
+  } else if ( mustParts.length > 1 || ( filterParts.length && mustParts.length ) ) {
+
+    _.set( query, 'bool.must', mustParts );
 
   }
 
 
-  // build parts: terms
+  if ( filterParts.length ) {
+
+    _.set( query, 'bool.filter', filterParts );
+
+  }
+
+  return query;   
+
+}
 
 
-  // add term constraints
-  [ 
+function _getQueryFilterParts( cleanQuery ) {
+
+  const parts = [];
+
+  if ( cleanQuery.localTime.gte || cleanQuery.localTime.lte ) {
+
+    parts.push( _localTime( cleanQuery.localTime ) );
+
+  }
+
+  if ( cleanQuery.date.gte || cleanQuery.date.lte ) {
+
+    parts.push( _dateExcludingOngoing( cleanQuery.date ) );
+
+  }
+
+  return parts;
+
+}
+
+
+function _getQueryMustParts( cleanQuery, extensionQueries = {} ) {
+
+  const parts = [];
+
+  // term constraints
+  
+  [
     'uid', 
     'slug',
     [ 'keyword', 'search_internals_keywords', true ],
@@ -60,11 +163,13 @@ module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = nul
 
     if ( cleanQuery[ fromField ].length > 1 && !and ) {
 
-      mustParts.push( _mustPart( 'in', toField, cleanQuery[ fromField ] ) );
+      parts.push( _mustPart( 'in', toField, cleanQuery[ fromField ] ) );
 
     } else {
 
-      mustParts = mustParts.concat( cleanQuery[ fromField ].map( _mustPart.bind( null, 'term', toField ) ) );
+      cleanQuery[ fromField ]
+        .map( _mustPart.bind( null, 'term', toField ) )
+        .forEach( p => parts.push( p ) );
       
     }
 
@@ -79,7 +184,7 @@ module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = nul
     && cleanQuery.geo.southWest.lng
   ) {
 
-    mustParts.push( _geoBounds( cleanQuery.geo ) );
+    parts.push( _geoBounds( cleanQuery.geo ) );
 
   }
 
@@ -87,7 +192,7 @@ module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = nul
   // add multi_match search part
   if ( cleanQuery.search ) {
 
-    mustParts.push( {
+    parts.push( {
       multi_match: {
         query: cleanQuery.search,
         fields: [ 
@@ -102,57 +207,23 @@ module.exports = ( cleanQuery, extensionQueries = {}, nav = null, includes = nul
   }
 
 
-  if ( cleanQuery.localTime.gte || cleanQuery.localTime.lte ) {
-
-    filterParts.push( _localTime( cleanQuery.localTime ) );
-
-  }
-
-  if ( cleanQuery.date.gte || cleanQuery.date.lte ) {
-
-    filterParts.push( _dateExcludingOngoing( cleanQuery.date ) );
-
-  }
-
-
   // add custom ( all is match )
   
   if ( extensionQueries && _.keys( extensionQueries ).length ) {
 
-    Object.keys( extensionQueries ).forEach( extension => {
+    _.keys( extensionQueries ).forEach( extension => {
 
-      Object.keys( extensionQueries[ extension ] ).forEach( field => {
+      _.keys( extensionQueries[ extension ] ).forEach( field => {
 
-        mustParts.push( _mustPart( 'match', extension + '.' + field, extensionQueries[ extension ][ field ] ) );
+        parts.push( _mustPart( 'match', extension + '.' + field, extensionQueries[ extension ][ field ] ) );
 
       } );
 
     } );
 
-
   }
 
-
-  // assemble and return dsl
-
-  if ( mustParts.length === 1 && !filterParts.length ) {
-
-    _.set( dsl, 'query', mustParts[ 0 ] );
-
-  } else if ( mustParts.length > 1 || ( filterParts.length && mustParts.length ) ) {
-
-    _.set( dsl, 'query.bool.must', mustParts );
-
-  }
-
-
-  if ( filterParts.length ) {
-
-    _.set( dsl, 'query.bool.filter', filterParts );
-
-  }
-
-  return dsl;
+  return parts;
 
 }
 
@@ -225,31 +296,5 @@ function _mustPart( queryType, fieldName, value ) {
   q[ queryType ][ fieldName ] = value;
 
   return q;
-
-}
-
-
-function _sort( sort = null ) {
-
-  if ( sort ) {
-
-    const [ field, order ] = sort.split( '.' );
-
-    return [ _.set( {}, field + '.order', order ) ];
-
-  }
-
-  return [ {
-    'timings.end' : {
-      mode: 'min',
-      order: 'asc',
-      nested_path: 'timings',
-      nested_filter: {
-        range: { 'timings.end' : { gte: 'now' } }
-      }
-    }
-  }, {
-    search_internals_last_timing: { order: 'desc' }
-  } ];
 
 }

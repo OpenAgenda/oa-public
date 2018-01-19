@@ -19,17 +19,24 @@ The service needs to be initialized before use. See the `testconfig.sample.js` f
 
 ## Single index operations
 
+Load up an index:
+
+    const eventSearch = require( 'event-search' );
+
+    const eventIndex = eventSearch( 'aliasname' );
+
 The service allows you to handle an aliased event index through its main interface, a function taking the name of the handled alias:
 
- * **search( 'alias_name' ).name**: in case you forgot the index name
- * **search( 'alias_name' ).exists**: says if the index exists
- * **search( 'alias_name' ).rebuild**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
- * **search( 'alias_name' ).delete**:  delete the index
- * **search( 'alias_name' ).search**: search an index. See tests for more details
- * **search( 'alias_name' ).search.stream**: search an index using a stream. Tests for details
- * **search( 'alias_name' ).add**: add an event to an index. See tests for more details
- * **search( 'alias_name' ).update**: update an event ( partial update ).
- * **search( 'alias_name' ).remove**: remove an event from index.
+ * **eventIndex.name**: in case you forgot the index name
+ * **eventIndex.exists()**: says if the index exists
+ * **eventIndex.rebuild()**: takes an event list function and loops on it to rebuild a search index. Discards the previous one on a successful operation
+ * **eventIndex.delete()**:  delete the index
+ * **eventIndex.search()**: search an index. See tests for more details
+ * **eventIndex.search.stream()**: search an index using a stream. Tests for details
+ * **eventIndex.add()**: add an event to an index. See tests for more details
+ * **eventIndex.update()**: update an event ( partial update ).
+ * **eventIndex.remove()**: remove an event from index.
+ * **eventIndex.moreLikeThis()**: perform a more like this search
 
 
 # Usage of the service in an integrated environment
