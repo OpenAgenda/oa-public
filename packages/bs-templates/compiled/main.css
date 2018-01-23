@@ -9369,6 +9369,10 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     /* just for templating */ }
     .event-references .configure .search .remove {
       display: none; }
+    .event-references .configure .search .section-item {
+      cursor: default; }
+      .event-references .configure .search .section-item:hover {
+        background: inherit; }
   .event-references .event-pic {
     height: 64px;
     width: 64px;

@@ -111,6 +111,18 @@
         display: none;
 
       }
+
+      .section-item {
+
+        cursor: default;
+
+        &:hover {
+
+          background: inherit;
+
+        }
+
+      }
         
     }
 
