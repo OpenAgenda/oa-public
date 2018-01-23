@@ -176,7 +176,7 @@ function _getMemberMap( agendaEvents = [] ) {
   return new Promise( ( rs, rj ) => {
 
     // agenda & event ids need to be retrieved as stakeholder service does not reference uids.
-    agendas.get( { uid: agendaUid }, { internal: true }, async ( err, agenda ) => {
+    agendas.get( { uid: agendaUid }, { internal: true, private: null }, async ( err, agenda ) => {
 
       if ( err ) return rj( new VError( err, 'could not get agenda %s', agendaUid ) );
 

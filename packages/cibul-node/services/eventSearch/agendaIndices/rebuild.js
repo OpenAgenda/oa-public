@@ -77,7 +77,7 @@ function _getAgenda( agendaUid ) {
 
   return new Promise( ( rs, rj ) => {
 
-    agendas.get( { uid: agendaUid }, { internal: true }, ( err, agenda ) => {
+    agendas.get( { uid: agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
 
       if ( err ) return rj( err );
 

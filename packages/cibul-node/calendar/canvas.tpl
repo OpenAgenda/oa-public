@@ -78,7 +78,8 @@
       <script type="application/json" id="config">
         {
           "agendaUid" : <%= agenda.uid %>,
-          "lang" : "<%= lang %>"
+          "lang" : "<%= lang %>",
+          "res" : <%= JSON.stringify( res ) %>
         }
       </script>
       <script type="text/javascript" src="/js/calendar.js"></script>

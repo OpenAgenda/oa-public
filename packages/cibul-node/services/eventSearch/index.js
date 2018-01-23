@@ -44,11 +44,19 @@ function init( config ) {
         destination: 'languages'
       },
 
-      eventsByDay: {
+      eventsByMonthlyDay: {
         type: 'timingsReverseHits',
         format: 'YYYY-MM-dd',
         interval: 'day',
         destination: 'days'
+      },
+
+      eventsByWeeklyDay: {
+        type: 'timingsReverseHits',
+        format: 'YYYY-MM-dd',
+        interval: 'day',
+        destination: 'days',
+        size: 10
       },
 
       agendas: {

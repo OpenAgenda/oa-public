@@ -282,9 +282,17 @@ function show( req, res ) {
 
 function redirect( req, res, next ) {
 
-  if ( !req.agenda ) return next( { code: 404 } );
+  if ( !req.agenda ) {
 
-  return res.redirect( 301, req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { protocol: 'https://' } ) );
+    return next( { code: 404 } );
+
+  }
+
+  const redirect = req.genUrl( 'agendaShow', { slug: req.agenda.slug, oaq: req.query.oaq }, { protocol: 'https://' } );
+
+  req.log( 'info', 'redirecting to %s', redirect );
+
+  return res.redirect( 302, redirect );
 
 }
 

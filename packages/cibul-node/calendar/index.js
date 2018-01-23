@@ -8,6 +8,8 @@ const flattenLabels = require( '@openagenda/labels/flatten' );
 const headerLabels = require( '@openagenda/labels/layout/header' );
 const sessions = require( '@openagenda/sessions' );
 
+const config = require( '../config' );
+
 const canvas = _.template( require( 'fs' ).readFileSync( __dirname + '/canvas.tpl', 'utf-8' ) );
 
 
@@ -33,7 +35,12 @@ app.get( '/:agendaSlug/calendar', ( req, res, next ) => {
   res.send( canvas( {
     agenda: req.agenda,
     lang: req.lang,
-    labels: flattenLabels( headerLabels, req.lang )
+    labels: flattenLabels( headerLabels, req.lang ),
+    res: {
+      agenda: `${config.root}/agendas/{agendaUid}`,
+      search: `${config.root}/agendas/{agendaUid}/events.v2.json`,
+      event: `${config.root}/agendas/{agendaUid}/events/{eventUid}`
+    }
   } ) );
 
 } );

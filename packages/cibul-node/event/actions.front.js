@@ -6,6 +6,7 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
   limit: 500000
 } );
 
+const _ = require( 'lodash' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const mailer = require( '@openagenda/mailer' );
 const sessions = require( '@openagenda/sessions' );
@@ -302,6 +303,8 @@ function _agendasAction( req, res, next ) {
 
     }
 
+    const originUid = _.get( req.event, 'origin.uid' );
+
     req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
 
       model.reviews().list( { 
@@ -311,7 +314,7 @@ function _agendasAction( req, res, next ) {
 
         if ( err ) return next( err );
 
-        req.templateData.agendas = agendas.map( a => ( {
+        req.templateData.agendas = agendas.filter( a => a.uid !== originUid ).map( a => ( {
           uid: a.uid,
           slug: a.slug,
           title: a.title,
