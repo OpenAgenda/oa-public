@@ -51,7 +51,7 @@ module.exports = paths => {
     performance: {
       hints: false,
       maxAssetSize: 2000000
-    },
+    }, 
     plugins: [
       new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
