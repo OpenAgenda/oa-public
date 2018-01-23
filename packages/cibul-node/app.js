@@ -222,8 +222,8 @@ module.exports = function ( enabledTypes, options, cb ) {
         } );
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, {
-          period: 'daily', 
-          time: '08:00' 
+          period: 'daily',
+          time: '08:00'
         } );
 
         require( './general/mainLogger.task' )();
@@ -251,6 +251,10 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './services/agendaStatistics' ).task();
 
         require( '@openagenda/activities' ).tasks.notifications.addActivity();
+
+        // require( './services/elasticsearch' ).resync( { reset: true }, ( err, res ) => {
+        //   console.log( 'FINI', err, res );
+        // } );
 
         // require( '@openagenda/inboxes' ).tasks.sync();
 

@@ -148,10 +148,12 @@ app.use( '/:slug/contact',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
-            // maskCreationSubtitle: true,
+            maskCreationSubtitle: true,
             topListForm: true, // add a conversation form on top of conversation list
             inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            onConversationCreateFlash: getLabel( 'agendaContactCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'contact_form',
               typeIdentifier: req.agenda.uid,
@@ -235,7 +237,7 @@ app.use( '/:slug/request-contribute',
             perPageLimit: 20,
             TitleComponent: 'h4',
             focusFistConversation: true, // force to display the first conversation if exists
-            // hideEmptyList: true, // redirect on creation if the list is empty
+            hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
             // maskCreationSubtitle: true,
             creationSubtitle: getLabel( 'youWantToContribute', req.lang ),
@@ -244,6 +246,8 @@ app.use( '/:slug/request-contribute',
             // topListForm: true, // add a conversation form on top of conversation list
             inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            onConversationCreateFlash: getLabel( 'requestContributeCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'request_contribute',
               typeIdentifier: req.agenda.uid,

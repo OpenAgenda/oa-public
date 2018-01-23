@@ -96,6 +96,22 @@ async function getSenderName( { inboxUser, conversation, message } ) {
   }
 }
 
+function getSubjectLabel( { conversation, agenda, lang } ) {
+  switch ( conversation.type ) {
+    case 'contact_form':
+      return getInboxLabel( 'emailSubjectContactForm', { agenda: agenda.title }, lang );
+    case 'event':
+      return getInboxLabel( 'emailSubjectEvent', {
+        agenda: agenda.title,
+        event: conversation.store.params.eventTitle
+      }, lang );
+    case 'request_contribute':
+      return getInboxLabel( 'emailSubjectRequestContribute', { agenda: agenda.title }, lang );
+  }
+
+  return getInboxLabel( 'newMessageSubject', lang );
+}
+
 async function sendMail( { inboxUser, conversation, message, senderName } ) {
   const mailerAsync = promisify( mailer );
   const getAgenda = promisify( agendasSvc.get );
@@ -107,7 +123,7 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
     ? await getAgenda( { uid: inbox.identifier }, { private: null, includeImagePath: true } )
     : null;
 
-  const subject = getInboxLabel( 'newMessageSubject', lang );
+  const subject = getSubjectLabel( { conversation, agenda, lang } );
 
   const logo = agenda && agenda.image
     ? agenda.image.replace( '.com/', '.com/rwtb' )

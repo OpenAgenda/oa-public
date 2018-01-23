@@ -9,6 +9,7 @@ const userSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/inboxes' );
+const inboxesLabels = require( '@openagenda/labels/inboxes' );
 const mailer = require( '../mailer' );
 const config = require( '../../config' );
 
@@ -219,14 +220,18 @@ module.exports.init = async c => {
               fr: 'Accepter',
               en: 'Accept'
             },
-            kind: 'success'
+            kind: 'success',
+            confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
+            confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
           }, {
             code: 'refuse',
             label: {
               fr: 'Refuser',
               en: 'Refuse'
             },
-            kind: 'danger'
+            kind: 'danger',
+            confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
+            confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
           } ]
         }
       }
