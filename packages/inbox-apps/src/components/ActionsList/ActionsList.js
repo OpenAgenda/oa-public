@@ -29,6 +29,10 @@ export default class ActionsList extends Component {
       return showModal( 'closeConfirmation', { action, onAction } );
     }
 
+    if ( action.confirmationModalLabel ) {
+      return showModal( 'actionConfirmation', { action, onAction } );
+    }
+
     return onAction( action.code );
   }
 

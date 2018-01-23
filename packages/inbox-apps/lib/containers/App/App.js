@@ -64,6 +64,10 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _labels = require('@openagenda/labels');
 
 var _labels2 = _interopRequireDefault(_labels);
@@ -124,6 +128,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
     }
   };
 }), _dec3 = (0, _recompose.getContext)({
+  lang: _propTypes2.default.string,
   getLabel: _propTypes2.default.func
 }), _dec(_class = _dec2(_class = _dec3(_class = function (_Component) {
   (0, _inherits3.default)(App, _Component);
@@ -146,6 +151,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
       var _props = this.props,
           modals = _props.modals,
           closeModal = _props.closeModal,
+          lang = _props.lang,
           Wrapper = _props.settings.Wrapper,
           children = _props.children,
           getLabel = _props.getLabel;
@@ -153,13 +159,14 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
 
       var messageSentModal = modals && modals.messageSent || {};
       var closeConfirmationModal = modals && modals.closeConfirmation || {};
+      var actionConfirmationModal = modals && modals.actionConfirmation || {};
 
       var content = _react3.default.createElement(
         _react2.Fragment,
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 49
+            lineNumber: 52
           }
         },
         children,
@@ -173,23 +180,23 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
             classNames: { overlay: 'popup-overlay big' },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 52
+              lineNumber: 55
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'margin-top-sm text-center', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 57
+                lineNumber: 60
               }
             },
-            getLabel('yourMessageHasBeenSent')
+            messageSentModal.params.onConversationCreateFlash ? messageSentModal.params.onConversationCreateFlash : getLabel('yourMessageHasBeenSent')
           ),
           _react3.default.createElement(
             'div',
             { className: 'margin-top-sm text-center', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 58
+                lineNumber: 65
               }
             },
             _react3.default.createElement(
@@ -198,7 +205,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                   return closeModal('messageSent');
                 }, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 59
+                  lineNumber: 66
                 }
               },
               getLabel('close')
@@ -215,14 +222,14 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
             classNames: { overlay: 'popup-overlay big' },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 65
+              lineNumber: 72
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'margin-top-sm text-center', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 70
+                lineNumber: 77
               }
             },
             getLabel('closeConversationDesc')
@@ -231,7 +238,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
             'div',
             { className: 'margin-top-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 71
+                lineNumber: 78
               }
             },
             _react3.default.createElement(
@@ -240,7 +247,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                   return closeModal('closeConfirmation');
                 }, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 72
+                  lineNumber: 79
                 }
               },
               getLabel('cancel')
@@ -266,10 +273,81 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
                   }, _callee, _this2);
                 })), __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 75
+                  lineNumber: 82
                 }
               },
               getLabel('close')
+            )
+          )
+        ) : null,
+        actionConfirmationModal.visible ? _react3.default.createElement(
+          _Modal2.default,
+          {
+            title: actionConfirmationModal.params.action.confirmationModalTitle[lang],
+            onClose: function onClose() {
+              return closeModal('actionConfirmation');
+            },
+            classNames: { overlay: 'popup-overlay big' },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 91
+            }
+          },
+          _react3.default.createElement(
+            'div',
+            { className: 'margin-top-sm text-center', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 96
+              }
+            },
+            actionConfirmationModal.params.action.confirmationModalLabel[lang]
+          ),
+          _react3.default.createElement(
+            'div',
+            { className: 'margin-top-sm', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 99
+              }
+            },
+            _react3.default.createElement(
+              'button',
+              { className: 'btn btn-primary', onClick: function onClick() {
+                  return closeModal('actionConfirmation');
+                }, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 100
+                }
+              },
+              getLabel('cancel')
+            ),
+            _react3.default.createElement(
+              'button',
+              {
+                className: (0, _classnames2.default)('btn', 'btn-' + actionConfirmationModal.params.action.kind, 'pull-right'),
+                onClick: (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
+                  return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                      switch (_context2.prev = _context2.next) {
+                        case 0:
+                          _context2.next = 2;
+                          return (0, _bluebird.resolve)(actionConfirmationModal.params.onAction(actionConfirmationModal.params.action.code));
+
+                        case 2:
+                          closeModal('actionConfirmation');
+
+                        case 3:
+                        case 'end':
+                          return _context2.stop();
+                      }
+                    }
+                  }, _callee2, _this2);
+                })),
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 103
+                }
+              },
+              getLabel('confirm')
             )
           )
         ) : null
@@ -281,7 +359,7 @@ var App = _wrapComponent('App')((_dec = (0, _reactRedux.connect)(function (state
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 88
+              lineNumber: 119
             }
           },
           content

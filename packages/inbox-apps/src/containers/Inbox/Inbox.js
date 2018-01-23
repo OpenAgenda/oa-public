@@ -12,6 +12,7 @@ import * as conversationActions from '../../redux/modules/conversation';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
+import setFlashMessage from '../../utils/setFlashMessage';
 
 @asyncConnect( [ {
   key: 'inbox', // key is usefull for the redirection
@@ -118,7 +119,8 @@ export default class Inbox extends Component {
     const {
       TitleComponent, ContentWrapper, allowCreateConversation,
       topListForm, prefix, emptyInboxLabel, creationSubtitle,
-      creationButtonLabel, maskCreationSubtitle, inboxDesc
+      creationButtonLabel, maskCreationSubtitle, inboxDesc,
+      onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
     const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
@@ -143,9 +145,23 @@ export default class Inbox extends Component {
                 form="inbox-conversation-create"
                 onSubmit={data => createConversation( data )
                   .then( async result => {
-                    const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
-                    router.push( url );
-                    showModal( 'messageSent' );
+                    if ( onConversationCreateRedirect ) {
+                      if ( onConversationCreateFlash ) {
+                        setFlashMessage( onConversationCreateFlash );
+                      }
+
+                      window.location.href = onConversationCreateRedirect;
+                    } else {
+                      const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
+                      router.push( url );
+
+                      if ( onConversationCreateFlash ) {
+                        showModal( 'messageSent', { message: onConversationCreateFlash } );
+                      } else {
+                        showModal( 'messageSent' );
+                      }
+                    }
+
                     return result;
                   } )
                 }

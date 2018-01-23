@@ -10,6 +10,7 @@ import * as conversationActions from '../../redux/modules/conversation';
 import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import showBackLink from '../../utils/showBackLink';
+import setFlashMessage from '../../utils/setFlashMessage';
 
 @asyncConnect( [ {
   promise: async ( { store: { dispatch, getState } } ) => {
@@ -74,7 +75,8 @@ export default class ConversationCreate extends Component {
 
     const {
       TitleComponent, prefix, ContentWrapper, creationDescriptionLabel,
-      maskCreationSubtitle, creationSubtitle
+      maskCreationSubtitle, creationSubtitle, inboxDesc,
+      onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
     const content = (
@@ -82,6 +84,8 @@ export default class ConversationCreate extends Component {
         {maskCreationSubtitle ? null : <TitleComponent>
           {creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )}
         </TitleComponent>}
+
+        {inboxDesc ? <p>{inboxDesc}</p> : null}
 
         {showBackLink( settings, conversations ) ? <div className="text-right margin-bottom-sm">
           <LinkContainer to="/">
@@ -111,9 +115,23 @@ export default class ConversationCreate extends Component {
               form="conversation-create"
               onSubmit={data => createConversation( data )
                 .then( result => {
-                  const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
-                  router.push( url );
-                  showModal( 'messageSent' );
+                  if ( onConversationCreateRedirect ) {
+                    if ( onConversationCreateFlash ) {
+                      setFlashMessage( onConversationCreateFlash );
+                    }
+
+                    window.location.href = onConversationCreateRedirect;
+                  } else {
+                    const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
+                    router.push( url );
+
+                    if ( onConversationCreateFlash ) {
+                      showModal( 'messageSent', { message: onConversationCreateFlash } );
+                    } else {
+                      showModal( 'messageSent' );
+                    }
+                  }
+
                   return result;
                 } )
                 .catch( err => {

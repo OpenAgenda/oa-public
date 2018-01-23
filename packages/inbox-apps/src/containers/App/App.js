@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getContext, withContext } from 'recompose';
 import moment from 'moment';
+import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -29,6 +30,7 @@ import 'moment/locale/fr';
   })
 )
 @getContext( {
+  lang: PropTypes.string,
   getLabel: PropTypes.func
 } )
 export default class App extends Component {
@@ -38,12 +40,13 @@ export default class App extends Component {
 
   render() {
     const {
-      modals, closeModal,
+      modals, closeModal, lang,
       settings: { Wrapper }, children, getLabel
     } = this.props;
 
     const messageSentModal = modals && modals.messageSent || {};
     const closeConfirmationModal = modals && modals.closeConfirmation || {};
+    const actionConfirmationModal = modals && modals.actionConfirmation || {};
 
     const content = (
       <Fragment>
@@ -54,7 +57,11 @@ export default class App extends Component {
           onClose={() => closeModal( 'messageSent' )}
           classNames={{ overlay: 'popup-overlay big' }}
         >
-          <div className="margin-top-sm text-center">{getLabel( 'yourMessageHasBeenSent' )}</div>
+          <div className="margin-top-sm text-center">
+            {messageSentModal.params.onConversationCreateFlash
+              ? messageSentModal.params.onConversationCreateFlash
+              : getLabel( 'yourMessageHasBeenSent' )}
+          </div>
           <div className="margin-top-sm text-center">
             <button className="btn btn-primary" onClick={() => closeModal( 'messageSent' )}>
               {getLabel( 'close' )}
@@ -77,6 +84,30 @@ export default class App extends Component {
               closeModal( 'closeConfirmation' );
             }}>
               {getLabel( 'close' )}
+            </button>
+          </div>
+        </Modal> : null}
+
+        {actionConfirmationModal.visible ? <Modal
+          title={actionConfirmationModal.params.action.confirmationModalTitle[ lang ]}
+          onClose={() => closeModal( 'actionConfirmation' )}
+          classNames={{ overlay: 'popup-overlay big' }}
+        >
+          <div className="margin-top-sm text-center">
+            {actionConfirmationModal.params.action.confirmationModalLabel[ lang ]}
+          </div>
+          <div className="margin-top-sm">
+            <button className="btn btn-primary" onClick={() => closeModal( 'actionConfirmation' )}>
+              {getLabel( 'cancel' )}
+            </button>
+            <button
+              className={cn( 'btn', `btn-${actionConfirmationModal.params.action.kind}`, 'pull-right' )}
+              onClick={async () => {
+                await actionConfirmationModal.params.onAction( actionConfirmationModal.params.action.code );
+                closeModal( 'actionConfirmation' );
+              }}
+            >
+              {getLabel( 'confirm' )}
             </button>
           </div>
         </Modal> : null}

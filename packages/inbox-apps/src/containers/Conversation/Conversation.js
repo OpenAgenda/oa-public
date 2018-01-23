@@ -72,6 +72,7 @@ export default class Conversation extends Component {
     this.renderForm = ::this.renderForm;
     this.renderTitle = ::this.renderTitle;
     this.FromWrapper = ::this.FromWrapper;
+    this.getClosedLabel = ::this.getClosedLabel;
   }
 
   nextPage = () => {
@@ -138,6 +139,21 @@ export default class Conversation extends Component {
     );
   }
 
+  getClosedLabel() {
+    const { conversation, getLabel } = this.props;
+
+    if ( conversation.type === 'request_contribute' ) {
+      switch ( conversation.store.resolvedWith ) {
+        case 'accept':
+          return getLabel( 'requestContributeAccepted' );
+        case 'refuse':
+          return getLabel( 'requestContributeRefused' );
+      }
+    }
+
+    return getLabel( 'conversationAreResolved' );
+  }
+
   renderForm() {
     const { conversation, triggerAction, resume, getLabel, showModal } = this.props;
 
@@ -149,7 +165,7 @@ export default class Conversation extends Component {
       return (
         <div className="conversation-resolved well text-center margin-top-md">
           <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
-          {getLabel( 'conversationAreResolved' )}<br/>
+          {this.getClosedLabel()}<br/>
           <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
             {getLabel( 'resumeConversation' )}
           </button>

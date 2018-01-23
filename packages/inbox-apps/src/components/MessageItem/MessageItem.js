@@ -30,12 +30,14 @@ export default class MessageItem extends Component {
           <p className="media-heading">
             <b>{getMessageSenderName( message )}</b>
           </p>
-          <div className="margin-bottom-xs">
-            {nl2br( message.body ) || null}
+          <div className="conversation-item-message">
+            <div className="margin-bottom-xs">
+              {nl2br( message.body ) || null}
+            </div>
+            <p className="text-muted" title={creationDate.format( 'LLL' )}>
+              {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}
+            </p>
           </div>
-          <p className="text-muted" title={creationDate.format( 'LLL' )}>
-            {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}
-          </p>
         </div>
       </div>
     );

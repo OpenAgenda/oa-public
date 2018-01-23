@@ -143,21 +143,29 @@ var MessageItem = _wrapComponent('MessageItem')((_temp = _class = function (_Com
           ),
           _react3.default.createElement(
             'div',
-            { className: 'margin-bottom-xs', __source: {
+            { className: 'conversation-item-message', __source: {
                 fileName: _jsxFileName,
                 lineNumber: 33
               }
             },
-            (0, _nl2br2.default)(message.body) || null
-          ),
-          _react3.default.createElement(
-            'p',
-            { className: 'text-muted', title: creationDate.format('LLL'), __source: {
-                fileName: _jsxFileName,
-                lineNumber: 36
-              }
-            },
-            getLabel('messagePostedRelativeDate', { date: creationDate.fromNow(true) })
+            _react3.default.createElement(
+              'div',
+              { className: 'margin-bottom-xs', __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 34
+                }
+              },
+              (0, _nl2br2.default)(message.body) || null
+            ),
+            _react3.default.createElement(
+              'p',
+              { className: 'text-muted', title: creationDate.format('LLL'), __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 37
+                }
+              },
+              getLabel('messagePostedRelativeDate', { date: creationDate.fromNow(true) })
+            )
           )
         )
       );

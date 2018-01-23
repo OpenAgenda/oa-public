@@ -113,6 +113,10 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
         return showModal('closeConfirmation', { action: action, onAction: onAction });
       }
 
+      if (action.confirmationModalLabel) {
+        return showModal('actionConfirmation', { action: action, onAction: onAction });
+      }
+
       return onAction(action.code);
     }
   }, {
@@ -132,7 +136,7 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
           'div',
           { className: 'margin-top-sm', key: action.code, __source: {
               fileName: _jsxFileName,
-              lineNumber: 43
+              lineNumber: 47
             }
           },
           _react3.default.createElement(
@@ -144,7 +148,7 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 44
+                lineNumber: 48
               }
             },
             _this2.getActionLabel(action)
