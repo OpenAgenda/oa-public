@@ -109,7 +109,7 @@ module.exports = function ( options ) {
 
     const user = sessions.getUser();
 
-    // userRole = 'adminmod' || 'contributor' || 'simpleUser'
+    // userRole === 'adminContributor' || 'adminmod' || 'contributor' || 'simpleUser'
     const userRole = (() => {
       if ( simpleUser && user.uid === params.contributor.uid ) {
         return 'contributor';
@@ -158,9 +158,9 @@ module.exports = function ( options ) {
         settings: {
           context: 'event',
           prefix: window.location.pathname,
-          focusFistConversation: simpleUser, // force to display the first conversation if exists
+          focusFistConversation: ![ 'adminmod', 'adminContributor' ].includes( userRole ), // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
-          allowCreateConversation: !simpleUser, // hide creation button
+          allowCreateConversation: [ 'adminmod', 'adminContributor' ].includes( userRole ), // display (or not) creation button
           maskEventTitle: true, // useless on event page
           // maskCreationSubtitle: true, // useless on event page
           creationSubtitle: getInboxesLabel(
