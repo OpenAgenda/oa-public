@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inbox-apps",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "main": "index.js",
   "repository": "bertho-zero@bitbucket.org:openagenda/inbox-apps.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
