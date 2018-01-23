@@ -1,19 +1,19 @@
 "use strict";
 
 const config = require( './config' );
-const parseQuery = require( './query' );
+const getMoreLikeThisDsl = require( './query' ).moreLikeThis;
+const runDslQuery = require( './search/dsl' );
 
-module.exports = async ( alias, query, mltFields = [] ) => {
+module.exports = async ( alias, mltQuery, query ) => {
 
-  const filterPartDsl = parseQuery( 
-    query, 
-    {} /*nav*/, 
-    [] /*extensions*/, 
-    // includes
-    config.baseSearchIncludes
-  );
+  const dsl = getMoreLikeThisDsl( mltQuery, query );
 
-  console.log( filterPartDsl );
+  const { events, total } = await runDslQuery( alias, dsl );
+
+  return {
+    events,
+    total
+  };
 
   /*
   

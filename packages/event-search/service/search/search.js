@@ -75,6 +75,8 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
 
 }
 
+module.exports.dsl = dsl;
+
 
 function _parseEvents( parsers, events ) {
 

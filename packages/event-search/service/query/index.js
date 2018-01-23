@@ -4,9 +4,12 @@ const _ = require( 'lodash' );
 const validate = require( './validate' );
 const validateExtension = require( './validateExtension' );
 
-const { getQuery, getSort, getSource, getNav } = require( '../helpers/dsl' );
+const { getQuery, getSort, getSource, getNav, getMoreLikeThis } = require( '../helpers/dsl' );
 
-module.exports = _.extend( queryToDsl, { inflate } );
+module.exports = _.extend( queryToDsl, { 
+  inflate,
+  moreLikeThis
+} );
 
 
 /**
@@ -20,12 +23,11 @@ module.exports = _.extend( queryToDsl, { inflate } );
  */
 function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) {
 
-  // unflatten
-  let inflated = inflate( query );
+  const inflated = inflate( query );
 
-  let clean = validate( inflated );
+  const clean = validate( inflated );
 
-  let extensionParts = _extractExtensionParts( inflated, extensions );
+  const extensionParts = _extractExtensionParts( inflated, extensions );
 
   const dsl = {
     query: getQuery( clean, extensionParts ),
@@ -37,6 +39,21 @@ function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) 
 
     _.extend( dsl, getNav( nav ) );
 
+  }
+
+  return dsl;
+
+}
+
+function moreLikeThis( mltQuery, query = {} ) {
+
+  const cleanQuery = validate( inflate( query ) );
+
+  const mlt = getMoreLikeThis( mltQuery );
+
+  const dsl = {
+    query: getQuery( cleanQuery, {}, { mlt } ),
+    _source: getSource()
   }
 
   return dsl;

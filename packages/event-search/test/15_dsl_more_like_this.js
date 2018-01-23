@@ -8,6 +8,7 @@ const serviceConfig = require( '../service/config' );
 const should = require( 'should' );
 
 const service = require( '../' );
+const getMoreLikeThis = require( '../service/helpers/dsl/getMoreLikeThis' );
 
 const dslSearch = require( '../service/search' ).dsl;
 const moreLikeThisData = require( './service/simpleMoreLikeThis.data' );
@@ -387,7 +388,7 @@ describe( 'event-search - unit: more like this search', function() {
   } );
 
   
-  describe( 'on event mapping', () => {
+  describe( 'on event-like mapping', () => {
 
     this.timeout( 10000 );
 
@@ -437,6 +438,7 @@ describe( 'event-search - unit: more like this search', function() {
       result.events[ 0 ].search_internals_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
 
     } );
+
 
     it( 'this returns upcoming events with Paris in full address field', async () => {
 
@@ -573,6 +575,30 @@ describe( 'event-search - unit: more like this search', function() {
 
 
   } );
+
+
+  describe( 'getMoreLikeThis parsing function', () => {
+
+    it( 'keywords search maps to search_internals_keywords_text', () => {
+
+      const mlt = getMoreLikeThis( {
+        keywords: {
+          fr: [ 'vin chaud' ],
+          en: []
+        }
+      } );
+
+      mlt.fields.should.eql( [
+        'search_internals_keywords_text'
+      ] );
+
+      mlt.like.should.eql( [ {
+        doc: { search_internals_keywords_text: 'vin chaud' } 
+      } ] );
+
+    } );
+
+  } );
   
 } );
 
@@ -588,6 +614,8 @@ function _getIds( result, sort = false ) {
 }
 
 function _getSearchResult( client, index, type, body ) {
+
+  // getMoreLikeThis
 
   return client.search( { type, index, body } );
 

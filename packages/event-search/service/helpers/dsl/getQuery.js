@@ -2,11 +2,11 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( cleanQuery, extensionQueries ) => {
+module.exports = ( cleanQuery, extensionQueries, additionalMustParts = [] ) => {
 
   const query = {};
 
-  const mustParts = _getQueryMustParts( cleanQuery, extensionQueries );
+  const mustParts = _getQueryMustParts( cleanQuery, extensionQueries ).concat( additionalMustParts );
 
   const filterParts = _getQueryFilterParts( cleanQuery );
 

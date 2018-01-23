@@ -4,5 +4,6 @@ module.exports = {
   getNav: require( './getNav' ),
   getQuery: require( './getQuery' ),
   getSort: require( './getSort' ),
-  getSource: require( './getSource' )
+  getSource: require( './getSource' ),
+  getMoreLikeThis: require( './getMoreLikeThis' )
 }
