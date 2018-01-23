@@ -5,11 +5,11 @@
     <section class="col-sm-6 col-sm-offset-3 wsq">
       <div class="content event-references">
         
-        <h2>Event form list presentation</h2>
+        <h2 class="margin-bottom-lg">Event form list presentation</h2>
 
         <div class="configure">
         
-          <h2>Evénements liés</h2>
+          <label>Evénements liés</label>
           <p>Liez d'autres événements de l'agenda à votre événement</p>
 
           <ul class="list-unstyled references">
@@ -18,12 +18,15 @@
             <li><% include _reference-item.ejs %></li>
           </ul>
 
-          <a href="#">Ajouter un événement</a>
+          <a class="btn btn-primary" href="#">Ajouter un événement</a>
+          <span class="margin-h-sm">où</span>
+          <a class="" href="#">Charger des événements similaires</a>
 
-          <p>remplace 'Ajouter un événement' sur clic:</p>
+          <p class="margin-top-lg"><strong>Commentaire template</strong>: Le champ ci-dessous remplace 'Ajouter un événement' quand le bouton a été cliqué:</p>
           <div class="search dropdown open">
             <input type="text" class="form-control" placeholder="Chercher via titre ou lieu" />
             <ul class="dropdown-menu">
+              <li><% include _reference-item-section.ejs %></li>
               <li><% include _reference-item.ejs %></li>
               <li><% include _reference-item.ejs %></li>
               <li><% include _reference-item.ejs %></li>

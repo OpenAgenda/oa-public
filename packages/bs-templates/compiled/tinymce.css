@@ -7851,6 +7851,9 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     width: 40px;
     border-radius: 0; }
 
+.text-muted {
+  color: #bbb; }
+
 .mce-content-body .mce-reset {
   margin: 0;
   padding: 0;
