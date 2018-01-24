@@ -8370,17 +8370,31 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     padding: 16em 0; }
 
 .inbox {
-  position: relative; }
+  position: relative;
+  /**
+   * alternative to title
+   */ }
   .inbox.inbox-user {
     padding: 20px 30px; }
   .inbox h4 {
     padding: 30px 0 0; }
     .inbox h4:first-child {
       padding-top: 10px; }
+  .inbox .main-avatar .primary {
+    width: 60px;
+    vertical-align: bottom; }
+  .inbox .main-avatar .belongs {
+    width: 25px; }
   .inbox .well {
     box-shadow: none; }
   .inbox .inbox-title {
     padding-right: 228px; }
+  .inbox .inbox-breadcrumbs {
+    font-size: 20px;
+    padding-bottom: 20px; }
+    .inbox .inbox-breadcrumbs i {
+      font-weight: bold;
+      padding: 0 10px; }
   .inbox .btn-creation, .inbox .btn-back {
     position: absolute;
     top: 28px;
@@ -8394,9 +8408,6 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     padding-bottom: 0; }
   .inbox .conversation-item {
     margin: 30px 0; }
-    .inbox .conversation-item .media-object {
-      width: 60px;
-      vertical-align: bottom; }
     .inbox .conversation-item .conversation-item-message img {
       width: 24px;
       vertical-align: bottom; }
@@ -8422,7 +8433,7 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
           line-height: 16px; }
     .inbox .media .message-form textarea, .inbox .media .conversation-form textarea {
       resize: vertical;
-      min-height: 120px; }
+      min-height: 70px; }
   .inbox.inbox-agenda-admin .btn-creation, .inbox.inbox-agenda-admin .btn-back {
     top: 0;
     right: 0; }

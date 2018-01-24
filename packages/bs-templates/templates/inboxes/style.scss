@@ -23,6 +23,23 @@
 
   }
 
+  .main-avatar {
+
+    .primary {
+
+      width: 60px;
+      vertical-align: bottom;
+
+    }
+
+    .belongs {
+
+      width: 25px;
+
+    }
+
+  }
+
   position: relative;
 
   .well {
@@ -33,7 +50,25 @@
 
   .inbox-title {
 
-    padding-right: 228px; // 220 of button width + 8
+    // 220 of button width + 8
+    padding-right: 228px;
+
+  }
+
+  /**
+   * alternative to title
+   */
+  .inbox-breadcrumbs {
+
+    font-size: 20px;
+    padding-bottom: 20px;
+
+    i {
+
+      font-weight: bold;
+      padding: 0 10px;
+
+    }
 
   }
 
@@ -59,13 +94,6 @@
   .conversation-item {
 
     margin: 30px 0;
-
-    .media-object {
-      
-      width: 60px;
-      vertical-align: bottom;
-
-    }
 
     .conversation-item-message {
 
@@ -129,7 +157,7 @@
     .message-form textarea, .conversation-form textarea {
 
       resize: vertical;
-      min-height: 120px;
+      min-height: 70px;
 
     }
 
