@@ -106,7 +106,7 @@ let config = {
       agenda: [ 'twitter', 'facebook', 'googlePlus', 'linkedIn' ]
     },
     adminEmail: 'admin@openagenda.com',
-    callToActionEmails: prod.sales.email,
+    callToActionEmails: prod.sales.emails,
     contactResource: prod.sales.pipedriveForm,
     mapboxAccessToken: prod.mapbox.token,
     geocodeFarm: {
