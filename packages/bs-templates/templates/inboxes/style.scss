@@ -72,6 +72,33 @@
 
   }
 
+  .inbox-head {
+
+    padding-bottom: 20px;
+
+    .inbox-breadcrumbs {
+
+      padding-bottom: 0;
+
+    }
+
+    .inbox-actions {
+
+      background: $oa-gray-lightest;
+      border-radius: 3px;
+      text-align: center;
+      padding: 20px;
+
+      button, span {
+
+        margin-right: 10px;
+
+      }
+
+    }
+
+  }
+
   .btn-creation, .btn-back {
 
     position: absolute;

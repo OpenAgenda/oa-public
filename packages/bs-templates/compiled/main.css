@@ -8395,6 +8395,17 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     .inbox .inbox-breadcrumbs i {
       font-weight: bold;
       padding: 0 10px; }
+  .inbox .inbox-head {
+    padding-bottom: 20px; }
+    .inbox .inbox-head .inbox-breadcrumbs {
+      padding-bottom: 0; }
+    .inbox .inbox-head .inbox-actions {
+      background: #fafafa;
+      border-radius: 3px;
+      text-align: center;
+      padding: 20px; }
+      .inbox .inbox-head .inbox-actions button, .inbox .inbox-head .inbox-actions span {
+        margin-right: 10px; }
   .inbox .btn-creation, .inbox .btn-back {
     position: absolute;
     top: 28px;

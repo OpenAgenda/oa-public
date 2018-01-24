@@ -4,19 +4,37 @@
     <div class="col-sm-offset-2 col-sm-8">
       <div class="wsq">
         <div class="inbox inbox-user padding-all-sm">
-          <!-- 
-            #tweak: presentation "fil d'ariane" proposé par romain 
+          <!-- #tweak: encadrer l'entete d'une conversation devient nécéssaire quand des actions son présentes -->
+          <div class="inbox-head">
+            <!-- 
+              #tweak: presentation "fil d'ariane" proposé par romain 
 
-            La partie Messagerie ramène sur la vue liste
-          -->
-          <h3 class="inbox-breadcrumbs">
-            <a>Messagerie</a>
-            <i class="fa fa-angle-right"></i>
-            <span>Guilhem Laveissiere OpenAgenda voudrait contribuer</span>
-          </h3>
+              La partie Messagerie ramène sur la vue liste
+            -->
+            <h3 class="inbox-breadcrumbs">
+              <a>Messagerie</a>
+              <i class="fa fa-angle-right"></i>
+              <span>Guilhem Laveissiere OpenAgenda voudrait contribuer</span>
+            </h3>
+            <!-- #tweak: les actions sont placées sous le titre -->
+            <div class="inbox-actions">
+              <!-- #tweak: 
+                les labels détaillent plus l'action prise:
+
+                au lieu de 'Accepter' -> 'Ajouter en tant que contributer'
+
+              -->
+              <button class="btn btn-primary">Ajouter en tant que contributeur</button>
+              <span>ou</span>
+              <a href="#">Refuser la demande</a>
+            </div>
+          </div>
           <div class="js_canvas">
             <div class="row">
-              <div class="col-sm-10">
+              <!--
+                #tweak: sans les actions, la textarea peut prendre toute la largeur
+              -->
+              <div class="col-sm-12">
                 <div class="media">
                   <!--
                     #tweak: ajout d'une classe main-avatar, primary
@@ -30,7 +48,11 @@
                     <form class="message-form margin-bottom-md">
                       <div class="form-group margin-v-xs">
                         <div>
-                          <textarea class="form-control" name="body" placeholder="Votre message"></textarea>
+                          <!-- #tweak: précision dans le placeholder, parce que ça semblera évident pour la plupart -->
+                          <textarea 
+                            class="form-control" 
+                            name="body" 
+                            placeholder="Demandez des précisions avant d'accepter la demande"></textarea>
                         </div>
                       </div>
                       <div class="margin-bottom-sm">
@@ -40,20 +62,12 @@
                   </div>
                 </div>
               </div>
-              <div class="col-sm-2">
-                <p><b>Actions</b></p>
-                <div class="text-center">
-                  <div class="margin-top-sm">
-                    <button class="btn btn-block btn-success">Accepter</button>
-                  </div>
-                  <div class="margin-top-sm">
-                    <button class="btn btn-block btn-danger">Refuser</button>
-                  </div>
-                </div>
-              </div>
+              <!-- #tweak: les actions sont retirées d'ici -->
             </div>
             <div class="media">
-              <div class="media-left media-top"><img class="img-circle media-object" src="https://cibul.s3.amazonaws.com/profile71438739.jpg" style="width: 60px; vertical-align: bottom;" title="Guilhem Laveissiere OpenAgenda"></div>
+              <div class="media-left media-top main-avatar">
+                <img class="img-circle media-object primary" src="https://cibul.s3.amazonaws.com/profile71438739.jpg" title="Guilhem Laveissiere OpenAgenda">
+              </div>
               <div class="media-body">
                 <p class="media-heading"><b>Guilhem Laveissiere OpenAgenda</b></p>
                 <div class="conversation-item-message">
