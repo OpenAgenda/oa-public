@@ -8371,6 +8371,12 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
 
 .inbox {
   position: relative; }
+  .inbox.inbox-user {
+    padding: 20px 30px; }
+  .inbox h4 {
+    padding: 30px 0 0; }
+    .inbox h4:first-child {
+      padding-top: 10px; }
   .inbox .well {
     box-shadow: none; }
   .inbox .inbox-title {
@@ -8386,6 +8392,16 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     overflow: hidden; }
   .inbox .btn-resume {
     padding-bottom: 0; }
+  .inbox .conversation-item {
+    margin: 30px 0; }
+    .inbox .conversation-item .media-object {
+      width: 60px;
+      vertical-align: bottom; }
+    .inbox .conversation-item .conversation-item-message img {
+      width: 24px;
+      vertical-align: bottom; }
+    .inbox .conversation-item .conversation-item-message .message-info {
+      color: gray; }
   .inbox .media {
     overflow: visible; }
     .inbox .media .media-left, .inbox .media .media-right {

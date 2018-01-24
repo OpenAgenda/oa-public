@@ -5,6 +5,24 @@
 
 .inbox {
 
+  &.inbox-user {
+
+    padding: 20px 30px;
+
+  }
+
+  h4 {
+
+    padding: 30px 0 0;
+
+    &:first-child {
+
+      padding-top: 10px;
+
+    }
+
+  }
+
   position: relative;
 
   .well {
@@ -38,6 +56,36 @@
 
   }
 
+  .conversation-item {
+
+    margin: 30px 0;
+
+    .media-object {
+      
+      width: 60px;
+      vertical-align: bottom;
+
+    }
+
+    .conversation-item-message {
+
+      img {
+
+        width: 24px;
+        vertical-align: bottom;
+
+      }
+
+      .message-info {
+
+        color: $oa-gray;
+
+      }
+
+    }
+
+  }
+
   .media {
 
     overflow: visible;
@@ -62,12 +110,6 @@
     .media-body {
 
       overflow: visible;
-
-      .media-heading {
-
-        //
-
-      }
 
       .conversation-item-message {
 
