@@ -135,7 +135,7 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
         [2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
           'a',
           {
-            href: res.moderate.replace(':slug', agenda.slug),
+            href: res.agendas.moderate.replace(':slug', agenda.slug),
             className: 'text-muted'
           },
           agenda.stakeholder.credential === 2 ? getLabel('manage') : getLabel('moderate')
@@ -147,6 +147,14 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
             className: 'text-muted'
           },
           getLabel('addAnEvent')
+        ),
+        ![2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
+          'a',
+          {
+            href: res.agendas.contact.replace(':slug', agenda.slug),
+            className: 'text-muted'
+          },
+          getLabel('contact')
         )
       );
     }

@@ -81,6 +81,7 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
     res: state.res,
     lang: state.settings.lang,
     prefix: state.settings.prefix,
+    displayLegacyMessageTab: state.settings.displayLegacyMessageTab,
     tab: state.menu.tab
   };
 }), _dec(_class = (_temp = _class2 = function (_Component) {
@@ -99,7 +100,8 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
           tab = _props.tab,
           prefix = _props.prefix,
           creationButton = _props.creationButton,
-          agendasSearch = _props.agendasSearch;
+          agendasSearch = _props.agendasSearch,
+          displayLegacyMessageTab = _props.displayLegacyMessageTab;
       var getLabel = this.context.getLabel;
 
 
@@ -133,13 +135,13 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
             getLabel('myEvents')
           )
         ),
-        _react3.default.createElement(
+        displayLegacyMessageTab && _react3.default.createElement(
           'li',
           { className: 'menu-item text-muted' },
           _react3.default.createElement(
             'a',
             { href: res.messages },
-            getLabel('messages')
+            getLabel('inbox')
           )
         )
       );

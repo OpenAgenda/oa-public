@@ -44,7 +44,7 @@ export default class Agendas extends Component {
     return (
       <div className="actions">
         {[ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
-          href={res.moderate.replace( ':slug', agenda.slug )}
+          href={res.agendas.moderate.replace( ':slug', agenda.slug )}
           className="text-muted"
         >
           {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
@@ -54,6 +54,12 @@ export default class Agendas extends Component {
           className="text-muted"
         >
           {getLabel( 'addAnEvent' )}
+        </a>}
+        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
+          href={res.agendas.contact.replace( ':slug', agenda.slug )}
+          className="text-muted"
+        >
+          {getLabel( 'contact' )}
         </a>}
       </div>
     );

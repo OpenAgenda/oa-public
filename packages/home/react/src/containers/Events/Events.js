@@ -209,6 +209,15 @@ export default class Events extends Component {
                 <div className="actions">
                   {event.timerange}
                 </div>
+
+                {/* <div className="actions">
+                  <a
+                    href={this.getEventShowLink( event ) + '#inbox'}
+                    className="text-muted"
+                  >
+                    {getLabel( 'contact' )}
+                  </a>
+                </div> */}
               </div>
             </div>
           ) )}

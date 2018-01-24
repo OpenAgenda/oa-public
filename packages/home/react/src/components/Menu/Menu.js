@@ -13,6 +13,7 @@ const selector = formValueSelector( 'homeAgendas' );
     res: state.res,
     lang: state.settings.lang,
     prefix: state.settings.prefix,
+    displayLegacyMessageTab: state.settings.displayLegacyMessageTab,
     tab: state.menu.tab
   })
 )
@@ -28,7 +29,7 @@ export default class Menu extends Component {
 
   render() {
 
-    const { res, tab, prefix, creationButton, agendasSearch } = this.props;
+    const { res, tab, prefix, creationButton, agendasSearch, displayLegacyMessageTab } = this.props;
     const { getLabel } = this.context;
 
     return (
@@ -48,7 +49,9 @@ export default class Menu extends Component {
             {getLabel( 'myEvents' )}
           </Link>
         </li>
-        <li className="menu-item text-muted"><a href={res.messages}>{getLabel( 'messages' )}</a></li>
+        {displayLegacyMessageTab && <li className="menu-item text-muted">
+          <a href={res.messages}>{getLabel( 'inbox' )}</a>
+        </li>}
         {/*<li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>*/}
       </ul>
     );
