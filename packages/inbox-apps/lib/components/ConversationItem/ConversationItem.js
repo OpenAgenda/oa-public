@@ -650,7 +650,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
 
       return _react3.default.createElement(
         'div',
-        { className: 'media', __source: {
+        { className: 'media conversation-item', __source: {
             fileName: _jsxFileName,
             lineNumber: 209
           }

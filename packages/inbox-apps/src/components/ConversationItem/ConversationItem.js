@@ -206,7 +206,7 @@ export default class ConversationItem extends Component {
     </Fragment> : null;
 
     return (
-      <div className="media">
+      <div className="media conversation-item">
         <div className="media-left media-top">
           <AuthorAvatar author={{ inbox: destinationInbox }}/>
         </div>
