@@ -135,20 +135,11 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
         ),
         _react3.default.createElement(
           'li',
-          { className: 'menu-item' },
+          { className: 'menu-item text-muted' },
           _react3.default.createElement(
             'a',
             { href: res.messages },
             getLabel('messages')
-          )
-        ),
-        _react3.default.createElement(
-          'li',
-          { className: 'menu-item' },
-          _react3.default.createElement(
-            'a',
-            { href: res.notifs },
-            getLabel('notifications')
           )
         )
       );

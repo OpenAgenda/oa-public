@@ -48,8 +48,8 @@ export default class Menu extends Component {
             {getLabel( 'myEvents' )}
           </Link>
         </li>
-        <li className="menu-item"><a href={res.messages}>{getLabel( 'messages' )}</a></li>
-        <li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>
+        <li className="menu-item text-muted"><a href={res.messages}>{getLabel( 'messages' )}</a></li>
+        {/*<li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>*/}
       </ul>
     );
 
