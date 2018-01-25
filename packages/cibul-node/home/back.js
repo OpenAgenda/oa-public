@@ -15,10 +15,12 @@ module.exports = path => {
   const routes = {
     homeShow: [ 'get', '', [
       cmn.loadBaseData( 'oasfmain.css' ),
+      _displayLegacyMessageTab,
       matchApp
     ] ],
     homeEvents: [ 'get', '/events', [
       cmn.loadBaseData( 'oasfmain.css' ),
+      _displayLegacyMessageTab,
       matchApp
     ] ],
     homeActivities: [ 'get', '/activities', [
@@ -66,6 +68,8 @@ function matchApp( req, res, next ) {
   const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
+  console.log( req.displayLegacyMessageTab ? 'display message tab' : 'do not display message tab' );
+
   homeMw.matchApp(
     {
       state: {
@@ -111,6 +115,23 @@ function getUserActivitiesApp( req, res, next, { store, component } = {} ) {
   const content = component ? ReactDOM.renderToString( component ) : '';
 
   cmn.render( req, res, 'activities/user', { scriptParams: { state }, lang, content } );
+
+}
+
+/**
+ * function to be removed together with message tab at the end of march 2018
+ */
+function _displayLegacyMessageTab( req, res, next ) {
+
+  config.knex( 'conversation_user' ).first( 'id' ).where( 'user_id', req.user.id )
+
+    .then( record => {
+
+      req.displayLegacyMessageTab = !!record;
+
+      next();
+
+    } );
 
 }
 
