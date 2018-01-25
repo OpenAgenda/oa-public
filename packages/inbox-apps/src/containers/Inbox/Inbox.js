@@ -6,6 +6,7 @@ import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
@@ -208,8 +209,8 @@ export default class Inbox extends Component {
         {/*{conversations && conversations.length ? <ConversationList conversations={conversations}/> : null}*/}
 
         {!conversations || !conversations.length ?
-          <div className="text-center text-muted padding-v-md">
-            {emptyInboxLabel ? emptyInboxLabel : getLabel( 'noResult' )}
+          <div className="padding-v-md">
+            {nl2br( emptyInboxLabel ? emptyInboxLabel : getLabel( 'noResult' ) )}
           </div> :
           null}
 

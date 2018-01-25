@@ -82,6 +82,10 @@ var _Spinner = require('@openagenda/react-components/build/Spinner');
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
+var _nl2br = require('@openagenda/react-utils/dist/nl2br');
+
+var _nl2br2 = _interopRequireDefault(_nl2br);
+
 var _components2 = require('../../components');
 
 var _inbox = require('../../redux/modules/inbox');
@@ -272,7 +276,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         'form',
         { onSubmit: handleSubmit, className: 'conversation-form margin-bottom-md', __source: {
             fileName: _jsxFileName,
-            lineNumber: 79
+            lineNumber: 80
           }
         },
         children,
@@ -280,7 +284,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           'div',
           { className: 'margin-bottom-sm', __source: {
               fileName: _jsxFileName,
-              lineNumber: 83
+              lineNumber: 84
             }
           },
           getLabel('yourMessageWillBeSigned'),
@@ -290,7 +294,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 84
+                lineNumber: 85
               }
             },
             author.inbox.name
@@ -298,14 +302,14 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         ) : null,
         belowMessageDesc ? _react3.default.createElement('div', { className: 'margin-bottom-xs', dangerouslySetInnerHTML: { __html: belowMessageDesc }, __source: {
             fileName: _jsxFileName,
-            lineNumber: 89
+            lineNumber: 90
           }
         }) : null,
         _react3.default.createElement(
           'button',
           { type: 'submit', className: 'btn btn-primary margin-top-xs', __source: {
               fileName: _jsxFileName,
-              lineNumber: 92
+              lineNumber: 93
             }
           },
           getLabel('send')
@@ -351,7 +355,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 129
+            lineNumber: 130
           }
         },
         topListForm && !unresolvedConvs.length ? _react3.default.createElement(
@@ -359,7 +363,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 130
+              lineNumber: 131
             }
           },
           maskCreationSubtitle ? null : _react3.default.createElement(
@@ -367,7 +371,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 131
+                lineNumber: 132
               }
             },
             creationSubtitle ? creationSubtitle : getLabel('newConversation')
@@ -377,7 +381,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 135
+                lineNumber: 136
               }
             },
             inboxDesc
@@ -386,19 +390,19 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             'div',
             { className: 'media', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 137
+                lineNumber: 138
               }
             },
             _react3.default.createElement(
               'div',
               { className: 'media-left', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 138
+                  lineNumber: 139
                 }
               },
               _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 139
+                  lineNumber: 140
                 }
               })
             ),
@@ -406,14 +410,14 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
               'div',
               { className: 'media-body', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 141
+                  lineNumber: 142
                 }
               },
               _react3.default.createElement(
                 'h4',
                 { className: 'media-heading margin-bottom-sm', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 142
+                    lineNumber: 143
                   }
                 },
                 getAuthorName(author)
@@ -452,7 +456,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
                 Wrapper: this.FromWrapper,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 144
+                  lineNumber: 145
                 }
               })
             )
@@ -463,7 +467,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 175
+              lineNumber: 176
             }
           },
           getLabel(!unresolvedConvs.length ? 'pastConversations' : 'ongoingConversations')
@@ -472,14 +476,14 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           'div',
           { className: 'text-right', __source: {
               fileName: _jsxFileName,
-              lineNumber: 179
+              lineNumber: 180
             }
           },
           _react3.default.createElement(
             _components2.LinkContainer,
             { to: '/conversation/create', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 180
+                lineNumber: 181
               }
             },
             function (path) {
@@ -492,7 +496,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
                   },
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 182
+                    lineNumber: 183
                   }
                 },
                 creationButtonLabel ? creationButtonLabel : getLabel('createConversation')
@@ -502,16 +506,16 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         ),
         _react3.default.createElement('div', { className: 'clearfix', __source: {
             fileName: _jsxFileName,
-            lineNumber: 192
+            lineNumber: 193
           }
         }),
         !unresolvedConvs.length ? _react3.default.createElement(_components2.ConversationList, { conversations: resolvedConvs, user: user, __source: {
             fileName: _jsxFileName,
-            lineNumber: 195
+            lineNumber: 196
           }
         }) : _react3.default.createElement(_components2.ConversationList, { conversations: unresolvedConvs, user: user, __source: {
             fileName: _jsxFileName,
-            lineNumber: 196
+            lineNumber: 197
           }
         }),
         unresolvedConvs.length && resolvedConvs.length ? _react3.default.createElement(
@@ -519,7 +523,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 198
+              lineNumber: 199
             }
           },
           _react3.default.createElement(
@@ -527,48 +531,48 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 199
+                lineNumber: 200
               }
             },
             getLabel('pastConversations')
           ),
           _react3.default.createElement('div', { className: 'clearfix', __source: {
               fileName: _jsxFileName,
-              lineNumber: 203
+              lineNumber: 204
             }
           }),
           _react3.default.createElement(_components2.ConversationList, { conversations: resolvedConvs, user: user, __source: {
               fileName: _jsxFileName,
-              lineNumber: 205
+              lineNumber: 206
             }
           })
         ) : null,
         !conversations || !conversations.length ? _react3.default.createElement(
           'div',
-          { className: 'text-center text-muted padding-v-md', __source: {
+          { className: 'padding-v-md', __source: {
               fileName: _jsxFileName,
-              lineNumber: 211
+              lineNumber: 212
             }
           },
-          emptyInboxLabel ? emptyInboxLabel : getLabel('noResult')
+          (0, _nl2br2.default)(emptyInboxLabel ? emptyInboxLabel : getLabel('noResult'))
         ) : null,
         nextLoading && _react3.default.createElement(
           'div',
           { className: 'padding-v-md', style: { position: 'relative' }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 216
+              lineNumber: 217
             }
           },
           _react3.default.createElement(_Spinner2.default, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 217
+              lineNumber: 218
             }
           })
         ),
         _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage, __source: {
             fileName: _jsxFileName,
-            lineNumber: 220
+            lineNumber: 221
           }
         })
       );
@@ -578,7 +582,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 225
+            lineNumber: 226
           }
         },
         content
