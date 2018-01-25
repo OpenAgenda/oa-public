@@ -50,7 +50,7 @@ export default class Menu extends Component {
           </Link>
         </li>
         {displayLegacyMessageTab && <li className="menu-item text-muted">
-          <a href={res.messages}>{getLabel( 'inbox' )}</a>
+          <a href={res.messages}>{getLabel( 'messages' )}</a>
         </li>}
         {/*<li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>*/}
       </ul>

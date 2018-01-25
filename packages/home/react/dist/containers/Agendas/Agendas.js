@@ -143,7 +143,7 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
         [1, 2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
           'a',
           {
-            href: res['agendas'].addEvent.replace(':slug', agenda.slug),
+            href: res.agendas.addEvent.replace(':slug', agenda.slug),
             className: 'text-muted'
           },
           getLabel('addAnEvent')
