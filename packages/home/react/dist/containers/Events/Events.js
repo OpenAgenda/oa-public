@@ -54,6 +54,10 @@ var _reactTransformCatchErrors4 = _interopRequireDefault(_reactTransformCatchErr
 
 var _dec, _dec2, _dec3, _class, _class2, _temp2;
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
@@ -222,19 +226,27 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
     }
   }, {
     key: 'getImagePath',
-    value: function getImagePath(base, path) {
+    value: function getImagePath(image) {
+      var thumbnail = _lodash2.default.find(image.variants, ['type', 'thumbnail']);
+
+      var _ref3 = thumbnail || image,
+          filename = _ref3.filename;
+
+      var base = image.base;
+
+
       var trailingBaseSlash = base.slice(-1) === '/';
-      var leadingPathSlash = path.slice(1) === '/';
+      var leadingFilenameSlash = filename.slice(1) === '/';
 
-      if (trailingBaseSlash && leadingPathSlash) {
-        return base.slice(0, -1) + path;
+      if (trailingBaseSlash && leadingFilenameSlash) {
+        return base.slice(0, -1) + filename;
       }
 
-      if (trailingBaseSlash || leadingPathSlash) {
-        return base + path;
+      if (trailingBaseSlash || leadingFilenameSlash) {
+        return base + filename;
       }
 
-      return base + '/' + path;
+      return base + '/' + filename;
     }
   }, {
     key: 'render',
@@ -326,7 +338,7 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                   },
                   _react3.default.createElement('img', {
                     className: 'media-object ill avatar',
-                    src: _this2.getImagePath(event.image.base, event.image.filename),
+                    src: _this2.getImagePath(event.image),
                     alt: _this2.getMultilangLabel(event.title)
                   })
                 )

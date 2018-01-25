@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
@@ -116,19 +117,24 @@ export default class Events extends Component {
       .replace( ':eventSlug', event.slug );
   }
 
-  getImagePath( base, path ) {
+  getImagePath( image ) {
+    const thumbnail = _.find( image.variants, [ 'type', 'thumbnail' ] );
+
+    const { filename } = thumbnail || image;
+    const { base } = image;
+
     const trailingBaseSlash = base.slice( -1 ) === '/';
-    const leadingPathSlash = path.slice( 1 ) === '/';
+    const leadingFilenameSlash = filename.slice( 1 ) === '/';
 
-    if ( trailingBaseSlash && leadingPathSlash ) {
-      return base.slice( 0, -1 ) + path;
+    if ( trailingBaseSlash && leadingFilenameSlash ) {
+      return base.slice( 0, -1 ) + filename;
     }
 
-    if ( trailingBaseSlash || leadingPathSlash ) {
-      return base + path;
+    if ( trailingBaseSlash || leadingFilenameSlash ) {
+      return base + filename;
     }
 
-    return base + '/' + path;
+    return base + '/' + filename;
   }
 
   render() {
@@ -183,7 +189,7 @@ export default class Events extends Component {
                 >
                   <img
                     className="media-object ill avatar"
-                    src={this.getImagePath( event.image.base, event.image.filename )}
+                    src={this.getImagePath( event.image )}
                     alt={this.getMultilangLabel( event.title )}
                   />
                 </a>
