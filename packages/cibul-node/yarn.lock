@@ -639,7 +639,35 @@
     qs "^6.0.1"
     robust-point-in-polygon "^1.0.3"
 
-"@openagenda/home@^2.0.2", "@openagenda/home@^2.0.5":
+"@openagenda/home@^2.0.2":
+  version "2.0.10"
+  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.10.tgz#d98bbb0cd3688051e590c8793effe8e9b3633b7c"
+  dependencies:
+    "@openagenda/date-range" "^2.1.0"
+    "@openagenda/dom-utils" "^2.0.4"
+    "@openagenda/labels" "^2.0.2"
+    "@openagenda/react-components" "^2.0.1"
+    "@openagenda/react-form-components" "^2.0.0"
+    "@openagenda/react-utils" "^2.0.0"
+    async "^2.4.0"
+    babel-runtime "^6.26.0"
+    classnames "^2.2.5"
+    knex "^0.12.6"
+    lodash "^4.17.4"
+    moment "^2.18.1"
+    mysql "^2.11.1"
+    prop-types "^15.5.8"
+    react-bootstrap "^0.31.0"
+    react-redux "^4.4.5"
+    react-router "^3.0.5"
+    react-router-redux "^4.0.6"
+    react-waypoint "^7.1.0"
+    redux "^3.6.0"
+    redux-connect "^5.1.0"
+    redux-form "^6.1.1"
+    superagent "^2.3.0"
+
+"@openagenda/home@^2.0.5":
   version "2.0.9"
   resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.9.tgz#b3f933ca42c089a27fa98da481967413db767ffb"
   dependencies:
