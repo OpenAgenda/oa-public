@@ -86,7 +86,9 @@ function matchApp( req, res, next ) {
             list: req.genUrl( 'homeShowList' ),
             show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
             showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
-            addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } )
+            addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
+            moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
+            contact: '/:slug/contact'
           },
           events: {
             list: req.genUrl( 'homeEventsList' ),
@@ -96,7 +98,6 @@ function matchApp( req, res, next ) {
           },
           messages: req.genUrl( 'homeMessages' ),
           notifs: req.genUrl( 'homeNotifications' ),
-          moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
           search: req.genUrl( 'agendaSearch' )
         }
       }
