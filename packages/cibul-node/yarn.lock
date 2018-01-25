@@ -321,8 +321,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.25"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.25.tgz#1030add97bd53eacb1af56521b29eb39abd03a1f"
+  version "2.0.28"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.28.tgz#04b82dd7a0dede641bbc89c2cd9728a15c5920ee"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -365,8 +365,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.36"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.36.tgz#62474fc72170f2bf4dd87eb03de0ec5d0d53d61c"
+  version "1.0.37"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.37.tgz#1a54372d4e4069b5a61edd8a24041525371f6da1"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -640,8 +640,8 @@
     robust-point-in-polygon "^1.0.3"
 
 "@openagenda/home@^2.0.2", "@openagenda/home@^2.0.5":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.6.tgz#3e01884190ce55ecf1d44c2d32f9ccb51ab0f5a4"
+  version "2.0.9"
+  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.9.tgz#b3f933ca42c089a27fa98da481967413db767ffb"
   dependencies:
     "@openagenda/date-range" "^2.1.0"
     "@openagenda/dom-utils" "^2.0.4"
@@ -704,8 +704,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.15"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.15.tgz#3a537b545e4ba97f1521b243662e01782f86a211"
+  version "1.0.18"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.18.tgz#27e42ab303568dbca6582225132664333ef72af0"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -785,8 +785,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.28"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.28.tgz#29b71c0c7ce0115793381e7ae97d0622e7769bcb"
+  version "2.0.29"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.29.tgz#d7e2c99daae1b232ee9645816895d564427183d4"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -9763,8 +9763,8 @@ timers-browserify@^1.0.1:
     process "~0.11.0"
 
 timers-browserify@^2.0.4:
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.5.tgz#04878fb12a155a159c9d1e59faa1f77bf4ecc44c"
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.6.tgz#241e76927d9ca05f4d959819022f5b3664b64bae"
   dependencies:
     setimmediate "^1.0.4"
 

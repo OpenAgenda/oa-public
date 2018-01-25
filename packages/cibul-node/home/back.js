@@ -68,8 +68,6 @@ function matchApp( req, res, next ) {
   const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
-  console.log( req.displayLegacyMessageTab ? 'display message tab' : 'do not display message tab' );
-
   homeMw.matchApp(
     {
       state: {
@@ -78,7 +76,8 @@ function matchApp( req, res, next ) {
           lang,
           apiRoot: `http://localhost:${config.port}`,
           perPageLimit: homeMw.getConfig().mw.limit,
-          isNew: req.user.isNew
+          isNew: req.user.isNew,
+          displayLegacyMessageTab: req.displayLegacyMessageTab
         },
         res: {
           agendas: {
