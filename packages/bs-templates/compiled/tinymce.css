@@ -7468,7 +7468,10 @@ a.badge:hover, a.badge:focus {
     width: auto;
     display: inline-block;
     background: transparent;
-    vertical-align: middle; }
+    /*
+      commenting this part as it breaks inline spinner on agenda-event-reference suggestions load
+      vertical-align: middle;
+     */ }
     .spin-canvas.spin-inline > span {
       display: inline-block; }
     .spin-canvas.spin-inline .spinner {
@@ -7852,7 +7855,7 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
     border-radius: 0; }
 
 .text-muted {
-  color: #bbb; }
+  color: gray; }
 
 .mce-content-body .mce-reset {
   margin: 0;

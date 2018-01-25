@@ -46,7 +46,11 @@
     width: auto;
     display: inline-block;
     background: transparent;
-    vertical-align: middle;
+    
+    /*
+      commenting this part as it breaks inline spinner on agenda-event-reference suggestions load
+      vertical-align: middle;
+     */
 
     .spinner {
 
