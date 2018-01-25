@@ -32,27 +32,27 @@ describe( 'date-range', () => {
 
   describe( 'one date', () => {
 
-    it( 'should displays as "Monday 18 December, 07:00, 10:00, 11:00"', function() {
+    it( 'should displays as "Tuesday 18 December, 07:00, 10:00, 11:00"', function() {
 
       range( testData.oneDate.winterDefault, 'en' )
 
-      .should.be.equal( 'Monday 18 December, 07:00, 10:00, 11:00' );
+      .should.be.equal( 'Tuesday 18 December, 07:00, 10:00, 11:00' );
 
     });
 
-    it( 'should display as "Monday 18 December, 08:00, 11:00, 12:00"', () => {
+    it( 'should display as "Tuesday 18 December, 08:00, 11:00, 12:00"', () => {
 
       range( testData.oneDate.winterDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( 'Monday 18 December, 08:00, 11:00, 12:00' );
+      .should.be.equal( 'Tuesday 18 December, 08:00, 11:00, 12:00' );
 
     } );
 
-    it( 'should display as "Tuesday 18 April, 09:00, 12:00, 13:00"', () => {
+    it( 'should display as "Wednesday 18 April, 09:00, 12:00, 13:00"', () => {
 
       range( testData.oneDate.summerDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( 'Tuesday 18 April, 09:00, 12:00, 13:00' );
+      .should.be.equal( 'Wednesday 18 April, 09:00, 12:00, 13:00' );
 
     } );
 
@@ -126,7 +126,7 @@ describe( 'date-range', () => {
 
       range( testData.twoDates.oneDifferentYear, 'fr' )
 
-      .should.be.equal( '16 décembre 2014 et 18 décembre 2017' );
+      .should.be.equal( '16 décembre 2014 et 18 décembre 2018' );
 
     } );
 
