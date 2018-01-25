@@ -321,8 +321,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.24"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.24.tgz#361f4ec6ca33ddd055e0ccdb1736cae6c39d7a6c"
+  version "2.0.25"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.25.tgz#1030add97bd53eacb1af56521b29eb39abd03a1f"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -365,8 +365,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.35"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.35.tgz#ee0e4f08037a4153576c5190bf85194aa83d46f9"
+  version "1.0.36"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.36.tgz#62474fc72170f2bf4dd87eb03de0ec5d0d53d61c"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -530,8 +530,8 @@
     should "~4.0"
 
 "@openagenda/event-search@^1.1.0":
-  version "1.1.7"
-  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.7.tgz#a244c4a6363651aef899a772c590478413c0f68a"
+  version "1.1.9"
+  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.9.tgz#c2e6d95f049fd938f3441bfa89d22a9fc0992d7a"
   dependencies:
     "@openagenda/countries" "^0.1.1"
     "@openagenda/date-range" "^2.1.0"
@@ -704,8 +704,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.14"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.14.tgz#7521704a5b7453a149fb715f0d100d490a1185dc"
+  version "1.0.15"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.15.tgz#3a537b545e4ba97f1521b243662e01782f86a211"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -721,6 +721,7 @@
     body-parser "^1.18.2"
     classnames "^2.2.5"
     history "^3.3.0"
+    js-cookie "^2.2.0"
     load-script "^1.0.0"
     lodash "^4.17.4"
     moment "^2.19.1"
@@ -784,8 +785,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.27"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.27.tgz#1373f4616a8a9a2d20e9e5af91ace320ca783a03"
+  version "2.0.28"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.28.tgz#29b71c0c7ce0115793381e7ae97d0622e7769bcb"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -1553,8 +1554,8 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.184.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.184.0.tgz#6a379bdce5d930483626c43939086a23386e44ad"
+  version "2.186.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.186.0.tgz#64eccea5bf0449810323c313d9cb41c2a4a2850d"
   dependencies:
     buffer "4.9.1"
     events "^1.1.1"
@@ -4043,8 +4044,8 @@ emojis-list@^2.0.0:
   resolved "https://registry.npmjs.org/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
 
 encodeurl@~1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.1.tgz#79e3d58655346909fe6f0f45a5de68103b294d20"
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
 
 encoding@^0.1.11:
   version "0.1.12"
@@ -4090,7 +4091,7 @@ es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
 
-es6-error@^4.0.0:
+es6-error@^4.0.0, es6-error@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npmjs.org/es6-error/-/es6-error-4.1.1.tgz#9e3af407459deed47e9a91f9b885a84eb05c561d"
 
@@ -4118,8 +4119,8 @@ es6-promise@^3.2.1:
   resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
 
 es6-promise@^4.0.3, es6-promise@^4.1.1:
-  version "4.2.2"
-  resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.2.tgz#f722d7769af88bd33bc13ec6605e1f92966b82d9"
+  version "4.2.4"
+  resolved "https://registry.npmjs.org/es6-promise/-/es6-promise-4.2.4.tgz#dc4221c2b16518760bd8c39a52d8f356fc00ed29"
 
 es6-promisify@^5.0.0:
   version "5.0.0"
@@ -4610,8 +4611,8 @@ findup-sync@~0.2.0:
     glob "~4.3.0"
 
 fizzy-ui-utils@^2.0.0:
-  version "2.0.5"
-  resolved "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.5.tgz#d72debc74d2c9d272dbcbb7b001707897f6c3210"
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.6.tgz#9c75e313fb273e68ed80d7443ae751e1c241c6cc"
   dependencies:
     desandro-matches-selector "^2.0.0"
 
@@ -5699,12 +5700,12 @@ jmespath@0.15.0:
   resolved "https://registry.npmjs.org/jmespath/-/jmespath-0.15.0.tgz#a3f222a9aae9f966f5d27c796510e28091764217"
 
 jquery@>=1.10, jquery@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.2.1.tgz#5c4d9de652af6cd0a770154a631bba12b015c787"
+  version "3.3.1"
+  resolved "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 js-base64@^2.1.8:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.4.1.tgz#e02813181cd53002888e918935467acb2910e596"
+  version "2.4.2"
+  resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.4.2.tgz#1896da010ef8862f385d8887648e9b6dc4a7a2e9"
 
 js-beautify@1.4.2:
   version "1.4.2"
@@ -5713,6 +5714,10 @@ js-beautify@1.4.2:
     config-chain "~1.1.5"
     mkdirp "0.3.5"
     nopt "~2.1.1"
+
+js-cookie@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/js-cookie/-/js-cookie-2.2.0.tgz#1b2c279a6eece380a12168b92485265b35b1effb"
 
 js-stringify@^1.0.1:
   version "1.0.2"
@@ -8078,8 +8083,8 @@ react-dom@^16.2.0:
     prop-types "^15.6.0"
 
 react-dropzone@^4.2.1:
-  version "4.2.5"
-  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.5.tgz#61f4ea914ac8b0a8c7f39795c74c4718d03b13f1"
+  version "4.2.7"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.2.7.tgz#a4963b1f725d5a91e63cd1c2b55ddce537953d46"
   dependencies:
     attr-accept "^1.0.3"
     prop-types "^15.5.7"
@@ -8527,11 +8532,11 @@ redux-form@^6.1.1, redux-form@^6.2.0, redux-form@^6.5.0, redux-form@^6.6.2, redu
     prop-types "^15.5.9"
 
 redux-form@^7.1.0, redux-form@^7.1.2, redux-form@^7.2.0:
-  version "7.2.0"
-  resolved "https://registry.npmjs.org/redux-form/-/redux-form-7.2.0.tgz#4465d9bc863e40b1704695d672bea75fcf81db04"
+  version "7.2.1"
+  resolved "https://registry.npmjs.org/redux-form/-/redux-form-7.2.1.tgz#011f6ff0cf050552a4a182a271f22217f4584684"
   dependencies:
     deep-equal "^1.0.1"
-    es6-error "^4.0.0"
+    es6-error "^4.1.1"
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.2"
     is-promise "^2.1.0"
@@ -9092,8 +9097,8 @@ setprototypeof@1.1.0:
   resolved "https://registry.npmjs.org/setprototypeof/-/setprototypeof-1.1.0.tgz#d0bd85536887b6fe7c0d818cb962d9d91c54e656"
 
 sha.js@^2.4.0, sha.js@^2.4.8, sha.js@~2.4.4:
-  version "2.4.9"
-  resolved "https://registry.npmjs.org/sha.js/-/sha.js-2.4.9.tgz#98f64880474b74f4a38b8da9d3c0f2d104633e7d"
+  version "2.4.10"
+  resolved "https://registry.npmjs.org/sha.js/-/sha.js-2.4.10.tgz#b1fde5cd7d11a5626638a07c604ab909cfa31f9b"
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
@@ -9758,8 +9763,8 @@ timers-browserify@^1.0.1:
     process "~0.11.0"
 
 timers-browserify@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.4.tgz#96ca53f4b794a5e7c0e1bd7cc88a372298fa01e6"
+  version "2.0.5"
+  resolved "https://registry.npmjs.org/timers-browserify/-/timers-browserify-2.0.5.tgz#04878fb12a155a159c9d1e59faa1f77bf4ecc44c"
   dependencies:
     setimmediate "^1.0.4"
 
@@ -9903,8 +9908,8 @@ uglify-js@2.4.24, uglify-js@2.4.x, uglify-js@~2.4.0:
     yargs "~3.5.4"
 
 uglify-js@3.3.x:
-  version "3.3.7"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.7.tgz#28463e7c7451f89061d2b235e30925bf5625e14d"
+  version "3.3.8"
+  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.8.tgz#51e9a5db73afb53ac98603d08224edcd0be45fd8"
   dependencies:
     commander "~2.13.0"
     source-map "~0.6.1"

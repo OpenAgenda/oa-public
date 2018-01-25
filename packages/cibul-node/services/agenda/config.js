@@ -16,16 +16,6 @@ module.exports = {
     access: 'moderator'
   }, {
     section : 'manage',
-    key : 'activities',
-    label : 'Activities',
-    uri : 'agendaAdminActivityApps',
-    access: 'moderator',
-    badge: {
-      link: '#',
-      label: 'newTab'
-    }
-  }, {
-    section : 'manage',
     key : 'locations',
     label : 'Locations',
     uri : 'agendaAdminLocations',
@@ -40,13 +30,23 @@ module.exports = {
     call: {
       subject: 'aggregator'
     }
-  }/* , {
+  }, {
     section : 'manage',
     key : 'inbox',
     label : 'Inbox',
     uri : 'agendaAdminInbox',
     access: 'moderator'
-  } */, {
+  }, {
+    section : 'manage',
+    key : 'activities',
+    label : 'Activities',
+    uri : 'agendaAdminActivityApps',
+    access: 'moderator',
+    badge: {
+      link: '#',
+      label: 'newTab'
+    }
+  }, {
     section : 'export',
     key : 'facebook',
     label: 'Facebook',
