@@ -4,74 +4,87 @@ module.exports = {
   oneDate: {
     en: '%day%, %times%',
     fr: '%day%, %times%',
-    ar: '%day%, %times%'
+    ar: '%day%, %times%',
+    he: ''
   },
   twoDates: {
     en: '%firstDate% and %lastDate%',
     fr: '%firstDate% et %lastDate%',
     ar: '%lastDate% و %firstDate%',
+    he: ''
   },
   moreDates: {
     en: '%firstDate% - %lastDate%',
     fr: '%firstDate% - %lastDate%',
-    ar: '%lastDate% - %firstDate%'
+    ar: '%lastDate% - %firstDate%',
+    he: ''
   },
   noDates: {
     en: 'no dates available',
     fr: 'aucune date disponible',
-    ar: 'أي تاريخ متاح'
+    ar: 'لا يتوفر أي تاريخ',
+    he: 'אין תאריך זמין'
   },
   months: [
-    { en: 'january', fr: 'janvier', ar: 'كانون الثاني' },
-    { en: 'february', fr: 'février', ar: 'شهر فبراير' },
-    { en: 'march', fr: 'mars', ar: 'مارس' },
-    { en: 'april', fr: 'avril', ar: 'أبريل' },
-    { en: 'may', fr: 'mai', ar: 'قد' },
-    { en: 'june', fr: 'juin', ar: 'يونيو' },
-    { en: 'july', fr: 'juillet', ar: 'يوليو' },
-    { en: 'august', fr: 'août', ar: 'أغسطس' },
-    { en: 'september', fr: 'septembre', ar: 'سبتمبر' },
-    { en: 'october', fr: 'octobre', ar: 'شهر اكتوبر' },
-    { en: 'november', fr: 'novembre', ar: 'شهر نوفمبر' },
-    { en: 'december', fr: 'décembre', ar: 'ديسمبر' }
+    { en: 'january', fr: 'janvier', ar: 'كانون الثاني', he: 'ינואר' },
+    { en: 'february', fr: 'février', ar: 'شباط', he: 'פברואר' },
+    { en: 'march', fr: 'mars', ar: 'آذار', he: 'מרץ' },
+    { en: 'april', fr: 'avril', ar: 'نيسان', he: 'אפריל' },
+    { en: 'may', fr: 'mai', ar: 'أيار', he: 'מאי' },
+    { en: 'june', fr: 'juin', ar: 'حزيران', he: 'יוני' },
+    { en: 'july', fr: 'juillet', ar: 'تموز', he: 'יולי' },
+    { en: 'august', fr: 'août', ar: 'آب', he: 'אוגוסט' },
+    { en: 'september', fr: 'septembre', ar: 'أيلول', he: 'ספטמבר' },
+    { en: 'october', fr: 'octobre', ar: 'تشرين الأول', he: 'אוקטובר' },
+    { en: 'november', fr: 'novembre', ar: 'تشرين الثاني', he: 'נובמבר' },
+    { en: 'december', fr: 'décembre', ar: 'كانون الأول', he: 'דצמבר' }
   ],
   minuteSeparator: {
     en: ':',
     fr: 'h',
-    ar: ':'
+    ar: ':',
+    he: ':'
   },
   prefix: {
     en: 'on',
     fr: 'les',
-    ar: 'على'
+    ar: 'في',
+    he: 'במועדים'
   },
   weekdays: [ {
     en: 'sundays',
     fr: 'dimanches',
-    ar: 'الأحد'
+    ar: 'الأحد',
+    he: 'ימי ראשון'
   }, {
     en: 'mondays',
     fr: 'lundis',
-    ar: 'الاثنين'
+    ar: 'الاثنين',
+    he: 'ימי שני'
   }, {
     en: 'tuesdays',
     fr: 'mardis',
-    ar: 'ثلاثاء'
+    ar: 'الثلاثاء',
+    he: 'ימי שלישי'
   }, {
     en: 'wednesdays',
     fr: 'mercredis',
-    ar: 'الأربعاء'
+    ar: 'الأربعاء',
+    he: 'ימי רביעי'
   }, {
     en: 'thursdays',
     fr: 'jeudis',
-    ar: 'الخميس'
+    ar: 'الخميس',
+    he: 'ימי חמישי'
   }, {
     en: 'fridays',
     fr: 'vendredis',
-    ar: 'الجمعة'
+    ar: 'الجمعة',
+    he: 'ימי שישי'
   }, {
     en: 'saturdays',
     fr: 'samedis',
-    ar: 'أيام السبت'
+    ar: 'السبت',
+    he: 'ימי שבת'
   } ]
 };
