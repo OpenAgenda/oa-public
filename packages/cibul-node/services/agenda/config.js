@@ -35,17 +35,17 @@ module.exports = {
     key : 'inbox',
     label : 'Inbox',
     uri : 'agendaAdminInbox',
-    access: 'moderator'
-  }, {
-    section : 'manage',
-    key : 'activities',
-    label : 'Activities',
-    uri : 'agendaAdminActivityApps',
     access: 'moderator',
     badge: {
       link: '#',
       label: 'newTab'
     }
+  }, {
+    section : 'manage',
+    key : 'activities',
+    label : 'Activities',
+    uri : 'agendaAdminActivityApps',
+    access: 'moderator'
   }, {
     section : 'export',
     key : 'facebook',
@@ -98,11 +98,7 @@ module.exports = {
     label : 'Advanced',
     access : 'administrator',
     uri : 'agendaSettingsEditApp',
-    suffix : '/advanced',
-    badge: {
-      link: '#',
-      label: 'newTab'
-    }
+    suffix : '/advanced'
   } ]
 
 }
