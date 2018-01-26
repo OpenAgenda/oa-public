@@ -112,32 +112,37 @@ function notificationsList( req, res ) {
     entityType: 'user',
     entityUid: req.user.uid
   } ).notifications.list( req.query.fromId, limit )
-    .then( notifications => {
+    .then( async notifications => {
 
       const app = notificationsApp( { notifications, lang: req.lang || 'fr', userUid: req.user.uid } );
+
+      await activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: req.user.uid
+      } ).notifications.markAs( {}, 1, { allowRegress: false, listArgs: [ 0, 10000 ] } );
+
+      // return activitiesSvc.feed( {
+      //   entityType: 'user',
+      //   entityUid: req.user.uid
+      // } ).notifications.markAs( { ids: notifications.map( v => v.id ) }, 1, { allowRegress: false } )
+      //   .then( notifications => {
 
       return activitiesSvc.feed( {
         entityType: 'user',
         entityUid: req.user.uid
-      } ).notifications.markAs( { ids: notifications.map( v => v.id ) }, 1, { allowRegress: false } )
-        .then( notifications => {
+      } ).notifications.count( { state: 0 } )
+        .then( counter => {
 
-          return activitiesSvc.feed( {
-            entityType: 'user',
-            entityUid: req.user.uid
-          } ).notifications.count( { state: 0 } )
-            .then( counter => {
-
-              res.json( {
-                counter,
-                notifications,
-                html: ReactDOMServer.renderToStaticMarkup( app ),
-                lastPage: notifications.length < limit
-              } );
-
-            } );
+          res.json( {
+            counter,
+            notifications,
+            html: ReactDOMServer.renderToStaticMarkup( app ),
+            lastPage: notifications.length < limit
+          } );
 
         } );
+
+      // } );
 
     } )
     .catch( err => {
