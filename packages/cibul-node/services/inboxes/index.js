@@ -193,7 +193,7 @@ module.exports.init = async c => {
         debug: {
           prefix: 'oa:'
         },
-        token: process.env.NODE_ENV === 'production' ? 'f09ae8aa-1551-42d2-b14d-77c4712ffe38' : null
+        token: process.env.NODE_ENV === 'production' ? 'dff93527-2446-4669-9309-f8fd1c8f32f0' : null
       },
       migrations: {
         tableName: 'inboxes_migrations'
