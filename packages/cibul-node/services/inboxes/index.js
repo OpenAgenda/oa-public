@@ -189,6 +189,12 @@ const interfaces = {
 module.exports.init = async c => {
   await inboxes.init(
     _.merge( c, {
+      logger: {
+        debug: {
+          prefix: 'oa:'
+        },
+        token: process.env.NODE_ENV === 'production' ? 'f09ae8aa-1551-42d2-b14d-77c4712ffe38' : null
+      },
       migrations: {
         tableName: 'inboxes_migrations'
       },
