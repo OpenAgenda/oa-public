@@ -9414,6 +9414,8 @@ ul.nav.navbar-nav.navbar-right > li.notifications {
       cursor: default; }
       .event-references .configure .search .section-item:hover {
         background: inherit; }
+    .event-references .configure .search .dropdown-menu {
+      width: 100%; }
   .event-references .event-pic {
     height: 64px;
     width: 64px;
