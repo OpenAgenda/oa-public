@@ -42,7 +42,9 @@ var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _index = require('../index');
+var _Image = require('@openagenda/react-components/build/Image');
+
+var _Image2 = _interopRequireDefault(_Image);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -101,7 +103,7 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
               lineNumber: 19
             }
           },
-          _react3.default.createElement(_index.Image, {
+          _react3.default.createElement(_Image2.default, {
             src: inboxUser.avatar,
             fallbackSrc: __DEVELOPMENT__ ? inboxUser.avatar.replace('cibuldev', 'cibul') : null,
             className: imgClasses,
@@ -112,7 +114,7 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
               lineNumber: 20
             }
           }),
-          !inline && inbox && inbox.avatar && inbox.type !== 'user' ? _react3.default.createElement(_index.Image, {
+          !inline && inbox && inbox.avatar && inbox.type !== 'user' ? _react3.default.createElement(_Image2.default, {
             src: inbox.avatar,
             fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
             className: (0, _classnames2.default)(imgClasses, 'belongs'),
@@ -126,7 +128,7 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
         );
       }
 
-      return _react3.default.createElement(_index.Image, {
+      return _react3.default.createElement(_Image2.default, {
         src: inbox.avatar,
         fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
         className: imgClasses,
