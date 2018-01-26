@@ -42,6 +42,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _Image = require('@openagenda/react-components/build/Image');
+
+var _Image2 = _interopRequireDefault(_Image);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _components = {
@@ -94,7 +98,12 @@ var AgendasList = _wrapComponent('AgendasList')((_temp = _class = function (_Com
             _react3.default.createElement(
               'a',
               { href: getTitleLink(agenda) },
-              _react3.default.createElement('img', { className: 'media-object ill avatar', src: agenda.image, alt: agenda.title })
+              _react3.default.createElement(_Image2.default, {
+                src: agenda.image,
+                fallbackSrc: agenda.image.replace('cibuldev', 'cibul'),
+                className: 'media-object ill avatar',
+                alt: agenda.title
+              })
             )
           ),
           _react3.default.createElement(

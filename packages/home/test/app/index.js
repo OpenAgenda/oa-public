@@ -6,10 +6,10 @@ const morgan = require( 'morgan' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
 const fixtures = require( '@openagenda/fixtures' );
-const homeMw = require( '../../middleware' );
-const agendasSvc = require( 'agendas/service/test' );
+const agendasSvc = require( '@openagenda/agendas/service/test' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders/test/service' );
-const eventsSvc = require( 'events-service/test/service' );
+const eventsSvc = require( '@openagenda/events/test/service' );
+const homeMw = require( '../../middleware' );
 const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' );
 

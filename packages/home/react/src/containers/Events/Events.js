@@ -10,6 +10,7 @@ import throttle from 'lodash/throttle';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
+import Image from '@openagenda/react-components/build/Image';
 import * as agendasActions from '../../redux/modules/agendas';
 import * as eventsActions from '../../redux/modules/events';
 import * as modalsActions from '../../redux/modules/modals';
@@ -182,14 +183,14 @@ export default class Events extends Component {
         <div className="row">
           {events && events.map( ( event, i ) => (
             <div className="event-item media" key={i}>
-
               <div className="media-left">
                 <a
                   href={this.getEventShowLink( event )}
                 >
-                  <img
-                    className="media-object ill avatar"
+                  <Image
                     src={this.getImagePath( event.image )}
+                    fallbackSrc={this.getImagePath( event.image ).replace( 'cibuldev', 'cibul' )}
+                    className="media-object ill avatar"
                     alt={this.getMultilangLabel( event.title )}
                   />
                 </a>

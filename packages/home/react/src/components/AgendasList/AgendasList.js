@@ -1,5 +1,6 @@
 import React, { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
+import Image from '@openagenda/react-components/build/Image';
 
 const componentPropTypes = PropTypes.oneOfType( [
   PropTypes.element,
@@ -36,7 +37,12 @@ export default class AgendasList extends Component {
         <div className="agenda-item media" key={i}>
           <div className="media-left">
             <a href={getTitleLink( agenda )}>
-              <img className="media-object ill avatar" src={agenda.image} alt={agenda.title} />
+              <Image
+                src={agenda.image}
+                fallbackSrc={agenda.image.replace( 'cibuldev', 'cibul' )}
+                className="media-object ill avatar"
+                alt={agenda.title}
+              />
             </a>
           </div>
           <div className="media-body">
@@ -45,9 +51,9 @@ export default class AgendasList extends Component {
                 <strong>{agenda.title}</strong>
               </a>
               {!!agenda.official && <div className="official">
-                <i />
+                <i/>
                 <div className="tooltip right" role="tooltip">
-                  <div className="tooltip-arrow" />
+                  <div className="tooltip-arrow"/>
                   <div className="tooltip-inner">{getLabel( 'officialAgenda' )}</div>
                 </div>
               </div>}

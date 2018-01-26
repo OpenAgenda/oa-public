@@ -90,6 +90,10 @@ var _Modal = require('@openagenda/react-components/build/Modal');
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
+var _Image = require('@openagenda/react-components/build/Image');
+
+var _Image2 = _interopRequireDefault(_Image);
+
 var _agendas = require('../../redux/modules/agendas');
 
 var agendasActions = _interopRequireWildcard(_agendas);
@@ -336,9 +340,10 @@ var Events = _wrapComponent('Events')((_dec = (0, _reduxConnect.asyncConnect)([{
                   {
                     href: _this2.getEventShowLink(event)
                   },
-                  _react3.default.createElement('img', {
-                    className: 'media-object ill avatar',
+                  _react3.default.createElement(_Image2.default, {
                     src: _this2.getImagePath(event.image),
+                    fallbackSrc: _this2.getImagePath(event.image).replace('cibuldev', 'cibul'),
+                    className: 'media-object ill avatar',
                     alt: _this2.getMultilangLabel(event.title)
                   })
                 )

@@ -1,6 +1,6 @@
-const agendasSvc = require( 'agendas' );
+const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const eventsSvc = require( 'events-service' );
+const eventsSvc = require( '@openagenda/events' );
 
 module.exports = {
   mysql: {
