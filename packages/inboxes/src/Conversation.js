@@ -82,6 +82,8 @@ export default class Conversation {
 
     this.identifiers = { id: insertedId };
 
+    log.info( 'Conversation is created: %j', this.identifiers );
+
     await knex( schemas.inboxConversation ).insert( {
       inbox_id: this.inbox.data.id,
       conversation_id: this.identifiers.id

@@ -38,6 +38,10 @@ var _verror = require('verror');
 
 var _verror2 = _interopRequireDefault(_verror);
 
+var _logs = require('@openagenda/logs');
+
+var _logs2 = _interopRequireDefault(_logs);
+
 var _config = require('./config');
 
 var _mapper = require('./utils/mapper');
@@ -63,6 +67,8 @@ var _Conversations = require('./Conversations');
 var _Conversations2 = _interopRequireDefault(_Conversations);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var log = (0, _logs2.default)('inboxes/Inbox');
 
 var ajv = new _ajv2.default({ allErrors: true, jsonPointers: true, errorDataPath: 'property' });
 (0, _ajvErrors2.default)(ajv);
@@ -121,18 +127,21 @@ var Inbox = function () {
                 return (0, _bluebird.resolve)(this.get(options));
 
               case 14:
+
+                log.info('Inbox is created: %j', this.data);
+
                 if (!_config.interfaces.onInboxCreate) {
-                  _context.next = 17;
+                  _context.next = 18;
                   break;
                 }
 
-                _context.next = 17;
+                _context.next = 18;
                 return (0, _bluebird.resolve)(_config.interfaces.onInboxCreate(this));
 
-              case 17:
+              case 18:
                 return _context.abrupt('return', this);
 
-              case 18:
+              case 19:
               case 'end':
                 return _context.stop();
             }
@@ -207,11 +216,13 @@ var Inbox = function () {
 
               case 6:
 
+                log.info('Inbox removed: %j', this.data);
+
                 this.data = null;
 
                 return _context3.abrupt('return', this);
 
-              case 8:
+              case 9:
               case 'end':
                 return _context3.stop();
             }

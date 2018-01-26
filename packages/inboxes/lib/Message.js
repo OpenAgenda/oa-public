@@ -42,9 +42,9 @@ var _ajvErrors = require('ajv-errors');
 
 var _ajvErrors2 = _interopRequireDefault(_ajvErrors);
 
-var _InboxUser = require('./InboxUser');
+var _logs = require('@openagenda/logs');
 
-var _InboxUser2 = _interopRequireDefault(_InboxUser);
+var _logs2 = _interopRequireDefault(_logs);
 
 var _config = require('./config');
 
@@ -75,6 +75,8 @@ var _populateDetails = require('./db/populateDetails');
 var _populateDetails2 = _interopRequireDefault(_populateDetails);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var log = (0, _logs2.default)('conversation/Message');
 
 var ajv = new _ajv2.default({ allErrors: true, jsonPointers: true, errorDataPath: 'property' });
 (0, _ajvErrors2.default)(ajv);
@@ -149,18 +151,21 @@ var Message = function () {
                 return (0, _bluebird.resolve)(this.get(options));
 
               case 19:
+
+                log.info('Message is created in conversation %d by inboxUser %j: %j', this.conversation.data.id, inboxUser, this.data);
+
                 if (!_config.interfaces.onMessageCreate) {
-                  _context.next = 22;
+                  _context.next = 23;
                   break;
                 }
 
-                _context.next = 22;
+                _context.next = 23;
                 return (0, _bluebird.resolve)(_config.interfaces.onMessageCreate(this.conversation.data, this.data));
 
-              case 22:
+              case 23:
                 return _context.abrupt('return', this);
 
-              case 23:
+              case 24:
               case 'end':
                 return _context.stop();
             }

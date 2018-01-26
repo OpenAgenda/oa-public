@@ -207,14 +207,16 @@ var Conversation = function () {
 
                 this.identifiers = { id: insertedId };
 
-                _context2.next = 27;
+                log.info('Conversation is created: %j', this.identifiers);
+
+                _context2.next = 28;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({
                   inbox_id: this.inbox.data.id,
                   conversation_id: this.identifiers.id
                 }));
 
-              case 27:
-                _context2.next = 29;
+              case 28:
+                _context2.next = 30;
                 return (0, _bluebird.resolve)((0, _bluebird.all)(destinationInboxes.map(function () {
                   var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee(destinationInbox) {
                     return _regenerator2.default.wrap(function _callee$(_context) {
@@ -245,22 +247,22 @@ var Conversation = function () {
                   };
                 }())));
 
-              case 29:
+              case 30:
                 if (!data.message) {
-                  _context2.next = 32;
+                  _context2.next = 33;
                   break;
                 }
 
-                _context2.next = 32;
+                _context2.next = 33;
                 return (0, _bluebird.resolve)(this.messages.create({
                   body: data.message,
                   userUid: inboxUser.data.userUid
                 }));
 
-              case 32:
+              case 33:
                 return _context2.abrupt('return', this.get(options));
 
-              case 33:
+              case 34:
               case 'end':
                 return _context2.stop();
             }

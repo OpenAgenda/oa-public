@@ -2,6 +2,7 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import VError from 'verror';
+import logger from '@openagenda/logs';
 import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxFieldsMap';
@@ -9,6 +10,8 @@ import validate from './utils/validate';
 import { getIdentifiersSchema, createSchema } from './validators/inboxSchemas';
 import InboxUsers from './InboxUsers';
 import Conversations from './Conversations';
+
+const log = logger( 'inboxes/Inbox' );
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -49,6 +52,8 @@ export default class Inbox {
 
     await this.get( options );
 
+    log.info( 'Inbox is created: %j', this.data );
+
     if ( interfaces.onInboxCreate ) {
       await interfaces.onInboxCreate( this );
     }
@@ -75,6 +80,8 @@ export default class Inbox {
 
     await knex( schemas.inbox )
       .where( 'id', this.data.id );
+
+    log.info( 'Inbox removed: %j', this.data );
 
     this.data = null;
 

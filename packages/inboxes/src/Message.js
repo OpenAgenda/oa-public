@@ -2,7 +2,7 @@ import _ from 'lodash';
 import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
-import InboxUser from './InboxUser';
+import logger from '@openagenda/logs';
 import { knex, schemas, interfaces } from './config';
 import mapper from './utils/mapper';
 import messageFieldsMap from './db/messageFieldsMap';
@@ -11,6 +11,8 @@ import inboxFieldsMap from './db/inboxFieldsMap';
 import validate from './utils/validate';
 import { identifiersSchema, createSchema } from './validators/messageSchemas';
 import populateDetails from './db/populateDetails';
+
+const log = logger( 'conversation/Message' );
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -51,6 +53,13 @@ export default class Message {
     this.identifiers = { id: insertedId };
 
     await this.get( options );
+
+    log.info(
+      'Message is created in conversation %d by inboxUser %j: %j',
+      this.conversation.data.id,
+      inboxUser,
+      this.data
+    );
 
     if ( interfaces.onMessageCreate ) {
       await interfaces.onMessageCreate( this.conversation.data, this.data );

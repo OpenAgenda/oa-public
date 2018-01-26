@@ -42,6 +42,10 @@ var _ajvErrors = require('ajv-errors');
 
 var _ajvErrors2 = _interopRequireDefault(_ajvErrors);
 
+var _logs = require('@openagenda/logs');
+
+var _logs2 = _interopRequireDefault(_logs);
+
 var _config = require('./config');
 
 var _mapper = require('./utils/mapper');
@@ -63,6 +67,8 @@ var _populateDetails = require('./db/populateDetails');
 var _populateDetails2 = _interopRequireDefault(_populateDetails);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var log = (0, _logs2.default)('inboxes/InboxUser');
 
 var ajv = new _ajv2.default({ allErrors: true, jsonPointers: true, errorDataPath: 'property' });
 (0, _ajvErrors2.default)(ajv);
@@ -139,9 +145,16 @@ var InboxUser = function () {
 
                 this.identifiers = { id: insertedId };
 
-                return _context.abrupt('return', this.get(options));
+                _context.next = 22;
+                return (0, _bluebird.resolve)(this.get(options));
 
-              case 21:
+              case 22:
+
+                log.info('InboxUser is created: %j', this.data);
+
+                return _context.abrupt('return', this);
+
+              case 24:
               case 'end':
                 return _context.stop();
             }
@@ -267,9 +280,11 @@ var InboxUser = function () {
 
                 this.data.leftAt = leftAt;
 
+                log.info('InboxUser removed: %j', this.data);
+
                 return _context3.abrupt('return', this);
 
-              case 9:
+              case 10:
               case 'end':
                 return _context3.stop();
             }

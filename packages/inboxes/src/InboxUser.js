@@ -2,12 +2,15 @@ import _ from 'lodash';
 import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
+import logger from '@openagenda/logs';
 import { knex, schemas } from './config';
 import mapper from './utils/mapper';
 import fieldsMap from './db/inboxUserFieldsMap';
 import validate from './utils/validate';
 import { getIdentifiersSchema, createSchema } from './validators/inboxUserSchemas';
 import populateDetails from './db/populateDetails';
+
+const log = logger( 'inboxes/InboxUser' );
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -54,7 +57,11 @@ export default class InboxUser {
 
     this.identifiers = { id: insertedId };
 
-    return this.get( options );
+    await this.get( options );
+
+    log.info( 'InboxUser is created: %j', this.data );
+
+    return this;
   }
 
   async get( options ) {
@@ -112,6 +119,8 @@ export default class InboxUser {
       .where( 'id', this.data.id );
 
     this.data.leftAt = leftAt;
+
+    log.info( 'InboxUser removed: %j', this.data );
 
     return this;
   }
