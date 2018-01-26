@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.0.10",
+  "version": "2.0.11",
   "description": "Oh la home",
   "main": "service/index.js",
   "directories": {
