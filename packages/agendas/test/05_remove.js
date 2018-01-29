@@ -55,6 +55,34 @@ describe( 'agendas - functional (server): remove', function() {
 
   } );
 
+  it( 'agenda remove with private option set removes private db entry', done => {
+
+    let con = mysql.createConnection( config.mysql );
+
+    con.query( `select id from ${config.schemas.agenda} where id = ?`, 4826, ( err, rows ) => {
+
+      rows.length.should.equal( 1 );
+
+      svc.remove( 4826, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        con.query( `select id from ${config.schemas.agenda} where id = ?`, 4826, ( err, rows ) => {
+
+          rows.length.should.equal( 0 );
+
+          con.end();
+
+          done();
+
+        } );
+
+      } );
+
+    } );
+
+  } );
+
 
   it( 'agenda remove calls interface callback beforeRemove and onRemove', done => {
 

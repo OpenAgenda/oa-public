@@ -46,7 +46,7 @@ function _get( v ) {
 
   let d = w.defer();
 
-  service.get( v.identifiers, { internal: true }, ( err, agenda ) => {
+  service.get( v.identifiers, { internal: true, private: null }, ( err, agenda ) => {
 
     if ( err ) return d.reject( err );
 
