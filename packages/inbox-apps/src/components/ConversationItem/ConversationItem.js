@@ -18,7 +18,7 @@ export default class ConversationItem extends Component {
     getLabel: PropTypes.func
   };
 
-  renderTitle() {
+  renderTitle( { destinationInbox } ) {
     const { user, conversation, settings: { context } } = this.props;
     const { getLabel } = this.context;
 
@@ -34,41 +34,92 @@ export default class ConversationItem extends Component {
         switch ( context ) {
           case 'event': {
             if ( isCreator( creator, user ) ) {
-              return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
+              if ( destinationInbox.type === 'user' ) {
+                return <Fragment>{getLabel( 'youContactedTheContributor' )}</Fragment>;
+              } else {
+                return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
+              }
             } else {
-              return <Fragment><b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}</Fragment>;
+              if ( destinationInbox.type === 'user' ) {
+                return (
+                  <Fragment>
+                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}
+                  </Fragment>
+                );
+              } else {
+                return <Fragment><b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}</Fragment>;
+              }
             }
           }
           case 'agenda': {
             if ( isCreator( creator, user ) ) {
-              return (
-                <Fragment>
-                  {getLabel( 'youContactedTheAgenda' )} {getLabel( 'on' )}{' '}
-                  <b>{store.params.eventTitle}</b></Fragment>
-              );
+              if ( destinationInbox.type === 'user' ) {
+                return (
+                  <Fragment>
+                    {getLabel( 'youContactedTheContributor' )} {getLabel( 'of' )}{' '}
+                    <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              } else {
+                return (
+                  <Fragment>
+                    {getLabel( 'youContactedTheAgenda' )} {getLabel( 'on' )}{' '}
+                    <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              }
             } else {
-              return <Fragment>
-                <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
-                {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-              </Fragment>;
+              if ( destinationInbox.type === 'user' ) {
+                return (
+                  <Fragment>
+                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}{' '}
+                    {getLabel( 'of' )} <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              } else {
+                return (
+                  <Fragment>
+                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
+                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              }
             }
           }
           case 'user': {
             if ( isCreator( creator, user ) ) {
-              return (
-                <Fragment>
-                  {getLabel( 'youContactedTheAgenda' )} <b>{store.params.agendaTitle}</b>{' '}
-                  {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-                </Fragment>
-              );
+              if ( destinationInbox.type === 'user' ) {
+                return (
+                  <Fragment>
+                    {getLabel( 'youContactedTheContributor' )} {getLabel( 'of' )}{' '}
+                    <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              } else {
+                return (
+                  <Fragment>
+                    {getLabel( 'youContactedTheAgenda' )} <b>{store.params.agendaTitle}</b>{' '}
+                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              }
             } else {
-              return (
-                <Fragment>
-                  <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
-                  <b>{store.params.agendaTitle}</b>{' '}
-                  {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-                </Fragment>
-              );
+              if ( destinationInbox.type === 'user' ) { // TODO
+                return (
+                  <Fragment>
+                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}{' '}
+                    {getLabel( 'of' )} <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              } else {
+                return (
+                  <Fragment>
+                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
+                    <b>{store.params.agendaTitle}</b>{' '}
+                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
+                  </Fragment>
+                );
+              }
             }
           }
         }
@@ -213,7 +264,7 @@ export default class ConversationItem extends Component {
 
         <div className="media-body">
           <div className="media-heading margin-bottom-sm">
-            {this.renderTitle()}{resolvedIcon}
+            {this.renderTitle( { destinationInbox } )}{resolvedIcon}
           </div>
 
           <div className="conversation-item-message margin-bottom-sm">
