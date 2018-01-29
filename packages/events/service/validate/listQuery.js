@@ -24,7 +24,7 @@ module.exports = schema( {
   },
   private: {
     type: 'choice',
-    default: false,
+    default: undefined,
     options: [ true, false, null ],
     unique: true
   },

@@ -43,7 +43,9 @@ function list( query, offset, limit, options, cb ) {
 
       const cleanQuery = validateQuery( params.query );
 
-      const knexQuery = _addWheres( knex( schemas.event ), cleanQuery );
+      const includePrivate = [ null, true ].includes( ( cleanQuery.private !== undefined ? cleanQuery : cleanOptions ).private );
+
+      const knexQuery = _addWheres( knex( schemas.event ), cleanQuery, cleanOptions );
 
       if ( cleanOptions.total ) {
 
@@ -56,7 +58,7 @@ function list( query, offset, limit, options, cb ) {
         internal: cleanOptions.internal, 
         detailed: cleanOptions.detailed, 
         useDefaultImage: params.options.useDefaultImage,
-        includePrivate: cleanQuery.private || cleanQuery.private === null,
+        includePrivate,
         includeDraft: cleanQuery.draft || cleanQuery.draft === null
       } );
 
@@ -207,13 +209,23 @@ function _detailed( events, options ) {
 
 
 
-function _addWheres( knex, query ) {
+function _addWheres( knex, query, options ) {
 
   let wheres = {};
 
-  if ( query.private !== null ) {
+  if ( query.private !== undefined ) {
 
-    wheres.private = query.private;
+    if ( query.private !== null ) {
+
+      console.log( 'DEPRECATED private should be in list options' );
+
+      wheres.private = query.private;
+
+    }
+
+  } else if ( options.private !== null ) {
+
+    wheres.private = options.private;
 
   }
 

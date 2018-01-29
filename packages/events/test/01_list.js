@@ -2,17 +2,13 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
-
-  should = require( 'should' ),
-
-  _ = require( 'lodash' ),
-
-  mysql = require( 'mysql' ),
-
-  async = require( 'async' );
+const config = require( '../testconfig' );
+const svc = require( './service' );
 
 describe( 'events - functional (server): list', function() {
 
@@ -108,7 +104,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'list with private to true gets private events only', done => {
 
-    svc.list( { private: true }, 0, 20, ( err, events ) => {
+    svc.list(  0, 20, { private: true }, ( err, events ) => {
 
       events.filter( e => e.private ).length.should.equal( events.length );
 
@@ -119,6 +115,33 @@ describe( 'events - functional (server): list', function() {
   } );
 
   it( 'list with private to null gets both private and non private events', done => {
+
+    svc.list( { uid: [ 3564473, 64549836, 48641508 ] }, 0, 20, { private: null }, ( err, events ) => {
+
+      events.filter( e => !e.private ).length.should.not.equal( 0 );
+
+      events.filter( e => e.private ).length.should.not.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'list with private in query to true gets private events only', done => {
+
+    svc.list( { private: true }, 0, 20, ( err, events ) => {
+
+      events.filter( e => e.private ).length.should.equal( events.length );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'list with private in query to null gets both private and non private events', done => {
 
     svc.list( { private: null, uid: [ 3564473, 64549836, 48641508 ] }, 0, 20, ( err, events ) => {
 

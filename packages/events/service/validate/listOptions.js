@@ -3,7 +3,8 @@
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  boolean: require( '@openagenda/validators/boolean' )
+  boolean: require( '@openagenda/validators/boolean' ),
+  choice: require( '@openagenda/validators/choice' )
 } );
 
 module.exports = schema( {
@@ -18,6 +19,12 @@ module.exports = schema( {
   detailed: {
     type: 'boolean',
     default: false
+  },
+  private: {
+    type: 'choice',
+    default: false,
+    options: [ true, false, null ],
+    unique: true
   },
   useDetaultImage: {
     type: 'boolean',
