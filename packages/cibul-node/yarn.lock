@@ -24,8 +24,8 @@
     when "^3.7.8"
 
 "@openagenda/activity-apps@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.3.tgz#782240c0e9f029a82a1ce4e81dc9745a2e31ced6"
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.5.tgz#994132d9be813ea413f07b8664c9e4640e16e3a1"
   dependencies:
     "@openagenda/activities" "^2.0.0"
     "@openagenda/basic-logger" "^2.0.0"
@@ -278,8 +278,8 @@
     when "3.7.4"
 
 "@openagenda/agendas@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.npmjs.org/@openagenda/agendas/-/agendas-1.0.4.tgz#48f00f7acf8c6da4483d8cbd76904b80deeb312b"
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/agendas/-/agendas-1.0.5.tgz#65d2cf36b4b8b30f511de8e32d996ba720b2db3c"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/image-files" "^1.0.2"
@@ -321,8 +321,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.28"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.28.tgz#04b82dd7a0dede641bbc89c2cd9728a15c5920ee"
+  version "2.0.30"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.30.tgz#a89690a512bb99f79c169c7479e7211e99174524"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -365,8 +365,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.37"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.37.tgz#1a54372d4e4069b5a61edd8a24041525371f6da1"
+  version "1.0.38"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.38.tgz#26c63f0c6ffcdca3df40d8fcfaec86661424e9fc"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -490,8 +490,8 @@
     verror "^1.10.0"
 
 "@openagenda/date-range@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@openagenda/date-range/-/date-range-2.1.0.tgz#5d5bad08d94fcc8ee3b499b8cab428937f8155f9"
+  version "2.1.1"
+  resolved "https://registry.npmjs.org/@openagenda/date-range/-/date-range-2.1.1.tgz#1bf8a58e6f16da4b7157c32e8b366ca08eca641d"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"
@@ -545,7 +545,7 @@
     verror "^1.9.0"
     when "^3.7.8"
 
-"@openagenda/events@^1.1.0":
+"@openagenda/events@^1.1.0", "@openagenda/events@^1.1.7":
   version "1.1.7"
   resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.7.tgz#ef399cfe5d1742487f206615665b954a77e14b9b"
   dependencies:
@@ -639,42 +639,16 @@
     qs "^6.0.1"
     robust-point-in-polygon "^1.0.3"
 
-"@openagenda/home@^2.0.2":
-  version "2.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.10.tgz#d98bbb0cd3688051e590c8793effe8e9b3633b7c"
+"@openagenda/home@^2.0.2", "@openagenda/home@^2.0.5":
+  version "2.0.11"
+  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.11.tgz#a1d293fe8ccb7d01cfbf45d48377b912dd82c6f6"
   dependencies:
+    "@openagenda/agendas" "^1.0.4"
     "@openagenda/date-range" "^2.1.0"
     "@openagenda/dom-utils" "^2.0.4"
+    "@openagenda/events" "^1.1.7"
     "@openagenda/labels" "^2.0.2"
-    "@openagenda/react-components" "^2.0.1"
-    "@openagenda/react-form-components" "^2.0.0"
-    "@openagenda/react-utils" "^2.0.0"
-    async "^2.4.0"
-    babel-runtime "^6.26.0"
-    classnames "^2.2.5"
-    knex "^0.12.6"
-    lodash "^4.17.4"
-    moment "^2.18.1"
-    mysql "^2.11.1"
-    prop-types "^15.5.8"
-    react-bootstrap "^0.31.0"
-    react-redux "^4.4.5"
-    react-router "^3.0.5"
-    react-router-redux "^4.0.6"
-    react-waypoint "^7.1.0"
-    redux "^3.6.0"
-    redux-connect "^5.1.0"
-    redux-form "^6.1.1"
-    superagent "^2.3.0"
-
-"@openagenda/home@^2.0.5":
-  version "2.0.9"
-  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.9.tgz#b3f933ca42c089a27fa98da481967413db767ffb"
-  dependencies:
-    "@openagenda/date-range" "^2.1.0"
-    "@openagenda/dom-utils" "^2.0.4"
-    "@openagenda/labels" "^2.0.2"
-    "@openagenda/react-components" "^2.0.1"
+    "@openagenda/react-components" "^2.0.3"
     "@openagenda/react-form-components" "^2.0.0"
     "@openagenda/react-utils" "^2.0.0"
     async "^2.4.0"
@@ -732,8 +706,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.18"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.18.tgz#27e42ab303568dbca6582225132664333ef72af0"
+  version "1.0.20"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.20.tgz#fddd82984b971adcc07aae9e9d74dc1491620cf3"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -767,8 +741,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.14"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.14.tgz#be2086994c320b8000295e96f4a19564a32979c2"
+  version "1.0.15"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.15.tgz#81470290b15db9afea53d9bcb5f8426b6459ebcd"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.3"
     "@openagenda/agendas" "^1.0.4"
@@ -813,8 +787,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.29"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.29.tgz#d7e2c99daae1b232ee9645816895d564427183d4"
+  version "2.0.33"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.33.tgz#5c4d0a32e04aac235d7a287fb4e4d2f77e9fdd4c"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -967,14 +941,15 @@
     classnames "^2.2.3"
     prop-types "^15.5.9"
 
-"@openagenda/react-components@^2.0.0", "@openagenda/react-components@^2.0.1", "@openagenda/react-components@^2.0.2", "@openagenda/react-components@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/react-components/-/react-components-2.0.3.tgz#e25a2ce4707208efdc85eccbd2332228c5565d89"
+"@openagenda/react-components@^2.0.0", "@openagenda/react-components@^2.0.2", "@openagenda/react-components@^2.0.3":
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/react-components/-/react-components-2.0.4.tgz#4dffbd6f6bea81015d86e07b770803f16ac372a6"
   dependencies:
     "@openagenda/dom-utils" "^2.0.3"
     create-react-class "^15.5.3"
     prop-types "^15.5.8"
     react-bootstrap "^0.31.0"
+    recompose "^0.26.0"
     spin.js "2.3.2"
 
 "@openagenda/react-form-components@^2.0.0", "@openagenda/react-form-components@^2.0.1", "@openagenda/react-form-components@^2.0.3", "@openagenda/react-form-components@^2.0.7", "@openagenda/react-form-components@^2.0.8":
@@ -1582,8 +1557,8 @@ attr-accept@^1.0.3:
   resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.186.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.186.0.tgz#64eccea5bf0449810323c313d9cb41c2a4a2850d"
+  version "2.188.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.188.0.tgz#9062abc7dba6393459fa2f3423cf5d294f004611"
   dependencies:
     buffer "4.9.1"
     events "^1.1.1"
@@ -3925,7 +3900,11 @@ dom-walk@^0.1.0:
   version "0.1.1"
   resolved "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.1.tgz#672226dc74c8f799ad35307df936aba11acd6018"
 
-domain-browser@^1.1.1, domain-browser@~1.1.0:
+domain-browser@^1.1.1:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
+
+domain-browser@~1.1.0:
   version "1.1.7"
   resolved "https://registry.npmjs.org/domain-browser/-/domain-browser-1.1.7.tgz#867aa4b093faa05f1de08c06f4d7b21fdf8698bc"
 
@@ -4639,8 +4618,8 @@ findup-sync@~0.2.0:
     glob "~4.3.0"
 
 fizzy-ui-utils@^2.0.0:
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.6.tgz#9c75e313fb273e68ed80d7443ae751e1c241c6cc"
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz#7df45dcc4eb374a08b65d39bb9a4beedf7330505"
   dependencies:
     desandro-matches-selector "^2.0.0"
 
@@ -5732,8 +5711,8 @@ jquery@>=1.10, jquery@^3.2.1:
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
 js-base64@^2.1.8:
-  version "2.4.2"
-  resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.4.2.tgz#1896da010ef8862f385d8887648e9b6dc4a7a2e9"
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
 
 js-beautify@1.4.2:
   version "1.4.2"
@@ -9694,8 +9673,8 @@ swap-case@^1.0.0:
     upper-case "^1.1.1"
 
 symbol-observable@^1.0.2, symbol-observable@^1.0.3, symbol-observable@^1.0.4:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.1.0.tgz#5c68fd8d54115d9dfb72a84720549222e8db9b32"
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-1.2.0.tgz#c22688aed4eab3cdc2dfeacbb561660560a00804"
 
 symbol-tree@^3.2.1:
   version "3.2.2"
@@ -9872,9 +9851,13 @@ tsscmp@1.0.5, tsscmp@~1.0.0:
   version "1.0.5"
   resolved "https://registry.npmjs.org/tsscmp/-/tsscmp-1.0.5.tgz#7dc4a33af71581ab4337da91d85ca5427ebd9a97"
 
-tty-browserify@0.0.0, tty-browserify@~0.0.0:
+tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
+
+tty-browserify@~0.0.0:
+  version "0.0.1"
+  resolved "https://registry.npmjs.org/tty-browserify/-/tty-browserify-0.0.1.tgz#3f05251ee17904dfd0677546670db9651682b811"
 
 tunnel-agent@^0.6.0:
   version "0.6.0"
@@ -9936,8 +9919,8 @@ uglify-js@2.4.24, uglify-js@2.4.x, uglify-js@~2.4.0:
     yargs "~3.5.4"
 
 uglify-js@3.3.x:
-  version "3.3.8"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.8.tgz#51e9a5db73afb53ac98603d08224edcd0be45fd8"
+  version "3.3.9"
+  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.9.tgz#33869666c8ab7f7658ce3d22f0f1ced40097d33a"
   dependencies:
     commander "~2.13.0"
     source-map "~0.6.1"

@@ -5,8 +5,10 @@ const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const morgan = require( 'morgan' );
 const ReactDOM = require( 'react-dom/server' );
+const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
 const agendasMw = require( '@openagenda/agendas/middleware' );
+const eventsSvc = require( '@openagenda/events' );
 const inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/inboxes' );
@@ -205,6 +207,110 @@ app.use( '/:slug/contact',
   } )
 );
 
+app.use( '/:slug/admin/events/:eventSlug/contact',
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null
+  } ),
+  eventLoad(),
+  wrap( async ( req, res, next ) => {
+    const adminOrModerator = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
+    ] )).some( Boolean );
+
+    if ( !adminOrModerator ) {
+      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
+      return res.redirect( 302, req.genUrl( 'publicEventContact', {
+        slug: req.agenda.slug,
+        eventSlug: req.event.slug
+      } ) );
+    }
+
+    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'agenda',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            TitleComponent: 'h4',
+            focusFistConversation: true, // force to display the first conversation if exists
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            maskCreationSubtitle: true,
+            topListForm: false, // add a conversation form on top of conversation list
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: eventShowLink,
+            onConversationCreateFlash: getLabel( 'agendaContactCreationSuccess', req.lang ),
+            defaultQuery: {
+              type: 'event',
+              typeIdentifier: req.event.uid,
+              params: {
+                agendaTitle: _.unescape( req.agenda.title ),
+                eventTitle: _.unescape( getEventTitle( req.event, req.lang ) ),
+                agendaUid: req.agenda.uid
+              },
+              destinationInbox: {
+                type: 'user',
+                identifier: req.event.ownerUid
+              }
+            }
+          },
+          res: {
+            author: '/home/inbox/author.json',
+            conversations: {
+              create: '/home/inbox/conversations.json',
+              list: '/home/inbox/conversations.json',
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
+            },
+            messages: {
+              list: '/home/inbox/conversations/:conversationId/messages.json',
+              create: '/home/inbox/conversations/:conversationId/messages.json'
+            }
+          },
+          agenda: req.agenda,
+          event: req.event
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            ...req.event,
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          inboxTitle: getLabel(
+            'contactContributorOf',
+            { title: _.escape( getEventTitle( req.event, req.lang ) ), link: eventShowLink },
+            req.lang
+          ),
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'event/contact', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
 app.use( '/:slug/request-contribute',
   preMw,
   oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
@@ -312,6 +418,26 @@ function getApp( template ) {
 
   };
 
+}
+
+function eventLoad() {
+  return wrap( async ( req, res, next ) => {
+    req.event = await promisify( eventsSvc.get )(
+      { slug: req.params.eventSlug },
+      { internal: true, includeImagePath: true, private: null }
+    );
+
+    next();
+  } );
+}
+
+function getEventTitle( event, lang ) {
+  if ( typeof event.title === 'string' ) {
+    return event.title;
+  }
+
+  const keys = Object.keys( event.title );
+  return event.title[ lang ] || event.title[ keys[ 0 ] ];
 }
 
 /* Util */

@@ -102,7 +102,7 @@ module.exports = path => {
         next();
       },
       keysMw.create(),
-      (req, res, next) => res.send( req.result )
+      ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysGet: [ 'get', '/:slug/admin/settings/keys/get', [
       agendaSvc.mw.load( 'slug' ),
@@ -116,7 +116,7 @@ module.exports = path => {
         next();
       },
       keysMw.get(),
-      (req, res, next) => res.send( req.result )
+      ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysList: [ 'get', '/:slug/admin/settings/keys/list', [
       agendaSvc.mw.load( 'slug' ),
@@ -130,7 +130,7 @@ module.exports = path => {
         next();
       },
       keysMw.list(),
-      (req, res, next) => res.send( req.result )
+      ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysUpdate: [ 'patch', '/:slug/admin/settings/keys/update', [
       agendaSvc.mw.load( 'slug' ),
@@ -144,7 +144,7 @@ module.exports = path => {
         next();
       },
       keysMw.update(),
-      (req, res, next) => res.send( req.result )
+      ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysRemove: [ 'delete', '/:slug/admin/settings/keys/remove', [
       agendaSvc.mw.load( 'slug' ),
@@ -158,7 +158,7 @@ module.exports = path => {
         next();
       },
       keysMw.remove(),
-      (req, res, next) => res.send( { rowAffected: req.result } )
+      ( req, res, next ) => res.send( { rowAffected: req.result } )
     ] ]
   };
 

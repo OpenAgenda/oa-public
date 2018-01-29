@@ -506,6 +506,10 @@ let config = {
         agendaContributorsXlsx: {
           method: 'get',
           uri: '/:slug/admin/contributors.xlsx'
+        },
+        publicEventContact: {
+          method: 'get',
+          uri: '/:slug/events/:eventSlug#inbox'
         }
       },
       defaultGlobalsPrefix: ''
