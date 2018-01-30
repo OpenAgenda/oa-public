@@ -59,7 +59,8 @@ function validate( args ) {
       removed: {
         type: 'choice',
         options: [ true, false, null ],
-        default: false
+        default: false,
+        unique: true
       }
     },
     cb: {
@@ -139,6 +140,8 @@ async function list( query, offset, limit, options, cb ) {
       baseRequest.whereIn( 'id', query.id );
 
     }
+
+    console.log( 'OPTIONS', options );
 
     if ( options.removed === false ) {
       baseRequest.where( 'is_removed', 0 );
