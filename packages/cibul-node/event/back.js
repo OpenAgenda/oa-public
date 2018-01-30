@@ -68,20 +68,34 @@ const routes = {
   ] ],
 
   // this name does not imply reference search
+  // suggestions are part of new search in their own file
   agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     agendaSvc.mw.load( 'uid' ),
     ( req, res, next ) => {
+
       req.agendaId = req.agenda.id;
       next();
+
     },
     _loadAdminOrModerator,
     eventReferences.mw.events,
-    ( req, res ) => {
-      res.json( req.events );
-    }
+    ( req, res ) => res.json( req.events )
+    
   ] ],
 
+  agendaEventReferenceSuggestion: [ 'get', '/agendas/:uid/events/suggestions', [
+    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+    ( req, res, next ) => {
+
+      req.agendaUid = req.params.uid;
+
+      next();
+
+    },
+    eventReferences.mw.suggestions,
+    ( req, res ) => res.json( req.events )
+  ] ],
 
   agendaEventActivities: [ 'get', '/agendas/:uid/events/:eventUid/activities', [
     agendaSvc.mw.load( 'uid' ),

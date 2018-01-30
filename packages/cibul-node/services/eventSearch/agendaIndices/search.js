@@ -52,6 +52,15 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
 }
 
+
+module.exports.moreLikeThis = async ( searchIndex, agendaUid, sample ) => {
+
+  // do it on keywords, title
+  return searchIndex.moreLikeThis( sample );
+
+}
+
+
 module.exports.stream = async ( searchIndex, agendaUid, query, options = {} ) => {
 
   const { searchOptions, parseEvent } = await _prepare( agendaUid, options );

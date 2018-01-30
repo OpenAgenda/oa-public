@@ -1,14 +1,13 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const agendaEventReferences = require( '@openagenda/agenda-event-references' );
+const logger = require( '@openagenda/logger' );
 
-const internalEventSvc = require( './event' ),
-
-  internalAgendaSvc = require( './agenda' ),
-
-  logger = require( '@openagenda/logger' ),
-
-  _ = require( 'lodash' );
+const internalEventSvc = require( './event' );
+const internalAgendaSvc = require( './agenda' );
+const search = require( './eventSearch' );
 
 module.exports.init = ( config, cb ) => {
 
@@ -18,10 +17,23 @@ module.exports.init = ( config, cb ) => {
     logger,
     interfaces: {
 
-      events
+      events,
+
+      suggestions
 
     }
   }, cb );
+
+}
+
+
+function suggestions( agendaUid, sample, options, cb ) {
+
+  search.agendas( agendaUid ).moreLikeThis( sample )
+
+    .then( result => cb( null, result.events ) )
+
+    .catch( err => cb( err ) );
 
 }
 
