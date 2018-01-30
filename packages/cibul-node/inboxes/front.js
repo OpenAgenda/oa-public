@@ -266,16 +266,16 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             }
           },
           res: {
-            author: '/home/inbox/author.json',
+            author: `/agendas/${req.agenda.uid}/inbox/author.json`,
             conversations: {
-              create: '/home/inbox/conversations.json',
-              list: '/home/inbox/conversations.json',
-              action: '/home/inbox/conversations/:conversationId/action/:code.json',
-              resume: '/home/inbox/conversations/:conversationId/resume.json'
+              create: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
+              list: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
+              action: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/action/:code.json`,
+              resume: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/resume.json`
             },
             messages: {
-              list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              list: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
+              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`
             }
           },
           agenda: req.agenda,
