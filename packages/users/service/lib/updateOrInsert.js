@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const w = require( 'when' );
 const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 const config = require( '../../config' );
@@ -88,6 +89,7 @@ module.exports = function _updateOrInsert( v ) {
 
       .then( result => {
 
+        v.before = _.clone( user );
         v.user = typeof result == 'number' ? Object.assign( user, fields ) : { id: result[ 0 ] };
 
         v.success = true;

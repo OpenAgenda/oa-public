@@ -2,6 +2,8 @@
 
 process.env.NODE_ENV = 'test';
 
+const _ = require( 'lodash' );
+
 const config = require( '../testconfig' ),
 
   should = require( 'should' ),
@@ -50,6 +52,7 @@ describe( '.update', function () {
             full_name: 'Julien Dargaisse',
             username: 'juliendargaisse',
             email: 'julien.dargaisse@gmail.com',
+            culture: 'fr',
             image: null,
             created_at: new Date( '2015-05-01T06:52:42.000Z' ),
             updated_at: new Date( '2016-01-22T08:35:17.000Z' ),
@@ -90,6 +93,7 @@ describe( '.update', function () {
             full_name: 'Julien Dargaisse',
             username: 'juliendargaisse',
             email: 'julien.dargaisse@gmail.com',
+            culture: 'fr',
             image: null,
             created_at: new Date( '2015-05-01T06:52:42.000Z' ),
             updated_at: new Date( '2016-01-22T08:35:17.000Z' ),
@@ -104,6 +108,58 @@ describe( '.update', function () {
         done();
 
       } );
+
+  } );
+
+  describe( 'update interfaces', () => {
+
+    // before( async () => {
+    //
+    //   await service.initAndLoad( _.merge( {}, config, {
+    //     interfaces: {
+    //       onUpdate( before, user ) {
+    //
+    //         console.log( 'UPPPP', before, user );
+    //
+    //       }
+    //     }
+    //   } ) );
+    //   await require( '@openagenda/keys' ).init( config );
+    //
+    // } );
+
+    it( 'call onUpdate interface after updating', done => {
+
+      service.initAndLoad( _.merge( {}, config, {
+        interfaces: {
+          onUpdate( before, user ) {
+
+            should( before ).match( {
+              full_name: 'Julien Dargaisse',
+              culture: 'fr'
+            } );
+
+            should( user ).match( {
+              full_name: 'Jean-Phil Entoize',
+              culture: 'en'
+            } );
+
+            done();
+
+          }
+        }
+      } ) )
+        .then( () =>
+          service.update( 3843,
+            { full_name: 'Jean-Phil Entoize', culture: 'en' },
+            { protected: false },
+            err => {
+              if ( err ) done( err );
+            }
+          )
+        );
+
+    } );
 
   } );
 

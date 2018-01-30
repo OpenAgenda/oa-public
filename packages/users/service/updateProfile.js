@@ -34,6 +34,7 @@ module.exports = function updateProfile( query, cb ) {
     .then( _clean )
 
     .done( v => cb( null, {
+      before: v.before,
       user: v.user,
       valid: v.valid,
       success: v.success,

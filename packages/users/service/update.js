@@ -68,6 +68,7 @@ function update( identifier, data, options, cb ) {
 
         if ( err ) return reject( err );
 
+        v.before = v.result.user;
         v.result.user = user;
 
         resolve( v );
@@ -75,6 +76,13 @@ function update( identifier, data, options, cb ) {
       } );
 
     } ) )
+    .then( async v => {
+      if ( config.interfaces.onUpdate ) {
+        await config.interfaces.onUpdate( v.before, v.result.user );
+      }
+
+      return v;
+    } )
     .done(
       v => cb( null, Object.assign( {}, v.result, { success: !v.result.errors.length } ) ),
       err => cb( err )
