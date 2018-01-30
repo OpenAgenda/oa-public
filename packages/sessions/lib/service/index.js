@@ -64,15 +64,20 @@ module.exports = {
   scan: scan,
   sync: sync,
   close: close,
-  setFlash: setFlash,
+  setFlash: function setFlash(req, res, message) {
+    return set(config.writableCookie.name, req, res, 'flash', message);
+  },
+  setCulture: function setCulture(req, res, culture) {
+    return set(config.sessionCookie.name, req, res, 'user.culture', culture);
+  },
   isLogged: isLogged,
   getCulture: getCulture,
   middleware: middleware
 };
 
-function setFlash(request, response, message) {
+function set(cookieName, request, response, name, value) {
 
-  expressCookie(config.writableCookie.name, request, response).set('flash', message);
+  expressCookie(cookieName, request, response).set(name, value);
 }
 
 function getCulture(request) {

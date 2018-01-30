@@ -6,6 +6,8 @@ var _stringify2 = _interopRequireDefault(_stringify);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _ = require('lodash');
+
 var config = void 0;
 
 module.exports = function (name, request, response) {
@@ -29,7 +31,7 @@ module.exports = function (name, request, response) {
 
   function set(key, update) {
 
-    values[key] = update;
+    _.set(values, key, update);
 
     var encoded = new Buffer((0, _stringify2.default)(values)).toString('base64');
 
