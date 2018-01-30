@@ -148,6 +148,16 @@ describe( 'event search - functional: more like this', function() {
 
     } );
 
+    it( 'mlt on nothing should return empty result', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {} );
+
+      total.should.equal( 0 );
+
+      events.length.should.equal( 0 );
+
+    } );
+
   } );
 
 } );

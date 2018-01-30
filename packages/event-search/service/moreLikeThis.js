@@ -1,10 +1,13 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const config = require( './config' );
 const getMoreLikeThisDsl = require( './query' ).moreLikeThis;
 const runDslQuery = require( './search/dsl' );
 
 module.exports = async ( alias, mltQuery, query ) => {
+
+  if ( _.keys( mltQuery ).length === 0 ) return { events: [], total: 0 };
 
   const dsl = getMoreLikeThisDsl( mltQuery, query );
 
@@ -14,32 +17,5 @@ module.exports = async ( alias, mltQuery, query ) => {
     events,
     total
   };
-
-  /*
-  
-  { sort: 
-   [ { 'timings.end': [Object] },
-     { search_internals_last_timing: [Object] } ],
-  _source: 
-   { excludes: [ 'search_internals_*', 'timings.search_internals_*' ],
-     includes: 
-      [ 'uid',
-        'title',
-        'dateRange',
-        'image',
-        'keywords',
-        'slug',
-        'agenda.uid',
-        'agenda.title',
-        'agenda.image',
-        'timings',
-        'location.name',
-        'location.address',
-        'contributor.organization',
-        'timezone' ] },
-  query: { term: { uid: 2 } } }
-
-  
-   */
 
 }
