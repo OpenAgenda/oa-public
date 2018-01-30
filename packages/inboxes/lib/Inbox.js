@@ -128,7 +128,7 @@ var Inbox = function () {
 
               case 14:
 
-                log.info('Inbox is created: %j', this.data);
+                log.info('Inbox is created', { inbox: this.data });
 
                 if (!_config.interfaces.onInboxCreate) {
                   _context.next = 18;
@@ -216,7 +216,7 @@ var Inbox = function () {
 
               case 6:
 
-                log.info('Inbox removed: %j', this.data);
+                log.info('Inbox removed', { inbox: this.data });
 
                 this.data = null;
 

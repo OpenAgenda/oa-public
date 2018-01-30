@@ -207,7 +207,7 @@ var Conversation = function () {
 
                 this.identifiers = { id: insertedId };
 
-                log.info('Conversation is created: %j', this.identifiers);
+                log.info('Conversation is created', { conversation: this.identifiers });
 
                 _context2.next = 28;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.inboxConversation).insert({

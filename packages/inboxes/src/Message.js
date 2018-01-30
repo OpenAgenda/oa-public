@@ -55,10 +55,9 @@ export default class Message {
     await this.get( options );
 
     log.info(
-      'Message is created in conversation %d by inboxUser %j: %j',
+      'Message is created in conversation %d',
       this.conversation.data.id,
-      inboxUser,
-      this.data
+      { message: this.data, inboxUser }
     );
 
     if ( interfaces.onMessageCreate ) {

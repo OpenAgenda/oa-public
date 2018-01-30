@@ -150,7 +150,7 @@ var InboxUser = function () {
 
               case 22:
 
-                log.info('InboxUser is created: %j', this.data);
+                log.info('InboxUser is created', { inboxUser: this.data });
 
                 return _context.abrupt('return', this);
 
@@ -280,7 +280,7 @@ var InboxUser = function () {
 
                 this.data.leftAt = leftAt;
 
-                log.info('InboxUser removed: %j', this.data);
+                log.info('InboxUser removed', { inboxUser: this.data });
 
                 return _context3.abrupt('return', this);
 

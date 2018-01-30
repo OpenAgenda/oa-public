@@ -52,7 +52,7 @@ export default class Inbox {
 
     await this.get( options );
 
-    log.info( 'Inbox is created: %j', this.data );
+    log.info( 'Inbox is created', { inbox: this.data } );
 
     if ( interfaces.onInboxCreate ) {
       await interfaces.onInboxCreate( this );
@@ -81,7 +81,7 @@ export default class Inbox {
     await knex( schemas.inbox )
       .where( 'id', this.data.id );
 
-    log.info( 'Inbox removed: %j', this.data );
+    log.info( 'Inbox removed', { inbox: this.data } );
 
     this.data = null;
 

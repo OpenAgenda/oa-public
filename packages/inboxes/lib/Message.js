@@ -152,7 +152,7 @@ var Message = function () {
 
               case 19:
 
-                log.info('Message is created in conversation %d by inboxUser %j: %j', this.conversation.data.id, inboxUser, this.data);
+                log.info('Message is created in conversation %d', this.conversation.data.id, { message: this.data, inboxUser: inboxUser });
 
                 if (!_config.interfaces.onMessageCreate) {
                   _context.next = 23;

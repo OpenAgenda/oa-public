@@ -59,7 +59,7 @@ export default class InboxUser {
 
     await this.get( options );
 
-    log.info( 'InboxUser is created: %j', this.data );
+    log.info( 'InboxUser is created', { inboxUser: this.data } );
 
     return this;
   }
@@ -120,7 +120,7 @@ export default class InboxUser {
 
     this.data.leftAt = leftAt;
 
-    log.info( 'InboxUser removed: %j', this.data );
+    log.info( 'InboxUser removed', { inboxUser: this.data } );
 
     return this;
   }
