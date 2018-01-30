@@ -12,6 +12,10 @@ var _events = require('./events');
 
 var _events2 = _interopRequireDefault(_events);
 
+var _suggestions = require('./suggestions');
+
+var _suggestions2 = _interopRequireDefault(_suggestions);
+
 var _immutabilityHelper = require('immutability-helper');
 
 var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
@@ -26,6 +30,8 @@ exports.default = function () {
   var newState = (0, _search2.default)(state, action);
 
   newState = (0, _events2.default)(newState, action);
+
+  newState = (0, _suggestions2.default)(newState, action);
 
   return newState;
 };

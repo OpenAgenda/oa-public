@@ -1,6 +1,8 @@
 "use strict";
 
-import update from 'immutability-helper'
+import update from 'immutability-helper';
+
+import { excludeEventsWithUids, formatEventItem } from './helpers';
 
 export default ( state = {}, action ) => {
   
@@ -30,18 +32,10 @@ export default ( state = {}, action ) => {
         search: {
           searching: { $set: false },
           query: { $set: action.query },
-          events: { $set: 
+          events: { $set: 
             action.events
-            .filter( e => state.events.map( ev => ev.uid ).indexOf( e.uid ) === -1 )
-            .map( e => ( { 
-              uid: e.uid,
-              title: e.title[ state.lang ],
-              dateRange: e.dateRange[ state.lang ],
-              location: {
-                name: e.location.name,
-                address: e.location.address
-              }
-            } ) ) 
+              .filter( excludeEventsWithUids.bind( null, state.events.map( e => e.uid ) ) )
+              .map( formatEventItem.bind( null, state.lang ) )
           }
         }
       } );

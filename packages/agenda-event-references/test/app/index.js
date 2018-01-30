@@ -1,14 +1,11 @@
 "use strict";
 
-const fixtures = require( '@openagenda/fixtures' ),
+const fixtures = require( '@openagenda/fixtures' );
 
-svc = require( '../../' ),
+const config = require( '../../testconfig.js' );
+const svc = require( '../../' );
 
-config = require( '../../testconfig.js' ),
-
-utils = require( '@openagenda/utils' ),
-
-app = require( '@openagenda/test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.js',
   excludeDefaultStyles: true,
   styles: [
@@ -16,13 +13,14 @@ app = require( '@openagenda/test-app' )( {
   ],
   webpack: true,
   babelServer: true
-} ),
+} );
 
-fs = require( 'fs' );
+config.interfaces.events = require( './eventSearch.interface' );
 
-config.interfaces.events = eventSearch;
+config.interfaces.suggestions = require( './eventSuggestions.interface' );
 
-app.get( '/events', ( req, res, next ) => { setTimeout( () => { next(); } , 2000 ); } );
+app.get( /\/(events|suggestions)/, ( req, res, next ) => { setTimeout( () => { next(); } , 2000 ); } );
+
 
 app.get( '/events', ( req, res, next ) => { 
 
@@ -34,56 +32,17 @@ app.get( '/events', ( req, res, next ) => {
 
 app.get( '/events', svc.mw.events );
 
-app.get( '/events', ( req, res ) => { res.json( req.events ); } );
 
-svc.init( config, () => {
+app.get( '/suggestions', ( req, res, next ) => { 
 
-  app.getAndListen();
+  req.agendaUid = 456;
+
+  next();
 
 } );
 
-let testEvents = JSON.parse( fs.readFileSync( __dirname + '/events.json' ) );
+app.get( '/suggestions', svc.mw.suggestions );
 
-function eventSearch( agendaId, query, options, cb ) {
+app.get( /\/(events|suggestions)/, ( req, res ) => res.json( req.events ) );
 
-  cb( null, testEvents
-
-  .filter( e => {
-
-    if ( query.exclude && utils.isArray( query.exclude ) ) {
-
-      if ( query.exclude.map( x => parseInt( x ) ).indexOf( e.uid ) !== -1 ) return false;
-
-    }
-
-    if ( !query.search ) return true;
-
-    return [ e.title, e.location.name, e.location.address ].filter( text => {
-
-      if ( typeof text === 'object' ) {
-
-        return !!Object.keys( text ).filter( k => {
-
-          return text[ k ].toLowerCase().indexOf( query.search.toLowerCase() ) !== -1;
-
-        } ).length;
-
-      } else {
-
-        return text.toLowerCase().indexOf( query.search.toLowerCase() ) !== -1;
-
-      }
-
-    } ).length ? true : false;
-
-  } )
-
-  .filter( e => {;
-
-    if ( !query.uids ) return true;
-
-    return query.uids.map( uid => parseInt( uid ) ).indexOf( e.uid ) !== -1;
-
-  } ) );
-
-}
+svc.init( config, () => app.getAndListen() );

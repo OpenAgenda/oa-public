@@ -12,6 +12,10 @@ var _helpers = require('./helpers');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _ = {
+  isEqual: require('lodash/isEqual')
+};
+
 exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
@@ -19,16 +23,18 @@ exports.default = function () {
 
   switch (action.type) {
 
-    case 'SEARCH_REQUEST':
+    case 'SUGGESTION_REQUEST':
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
-          searching: { $set: true },
-          query: { $set: action.query }
-        }
+          searching: { $set: true }
+        },
+        loadingSuggestions: { $set: true }
       });
 
-    case 'SEARCH_FAILED':
+      break;
+
+    case 'SUGGESTION_REQUEST_FAILED':
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
@@ -37,32 +43,57 @@ exports.default = function () {
         }
       });
 
-    case 'SEARCH_SUCCESS':
+      break;
+
+    case 'SUGGESTION_REQUEST_SUCCESS':
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
           searching: { $set: false },
-          query: { $set: action.query },
-          events: { $set: action.events.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
+          error: { $set: null },
+          suggestions: {
+            $set: action.suggestions.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
               return e.uid;
             }))).map(_helpers.formatEventItem.bind(null, state.lang))
           }
-        }
+        },
+        loadingSuggestions: { $set: false }
       });
 
-    case 'SEARCH_SHOW':
+      break;
+
+    case 'SUGGESTION_REQUEST_ADD_SUCCESS':
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
-          display: { $set: true }
-        }
+          searching: { $set: false },
+          error: { $set: null },
+          events: { $set: null },
+          suggestions: { $set: [] }
+        },
+        events: {
+          $set: state.events.concat(action.suggestions.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
+            return e.uid;
+          }))).map(_helpers.formatEventItem.bind(null, state.lang)))
+        },
+        loadingSuggestions: { $set: false }
       });
 
-    case 'SEARCH_HIDE':
+      break;
+
+    case 'SUGGESTION_RESET':
+
+      if (_.isEqual(state.sample, action.sample)) {
+
+        return state;
+      }
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
-          display: { $set: false }
+          suggestions: { $set: null }
+        },
+        sample: {
+          $set: action.sample
         }
       });
 

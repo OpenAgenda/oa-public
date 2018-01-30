@@ -1,12 +1,18 @@
 "use strict";
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import createReactClass from 'create-react-class'
-import EventItem from '../components/EventItem'
-import Spinner from '@openagenda/react-form-components/build/Spinner'
-import SearchField from '@openagenda/react-form-components/build/SearchField'
-import clickTracker from '../clickTracker'
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+
+import SearchField from '@openagenda/react-form-components/build/SearchField';
+import Spinner from '@openagenda/react-components/build/Spinner';
+
+import clickTracker from '../clickTracker';
+import EventItem from '../components/EventItem';
+
+const _ = {
+  get: require( 'lodash/get' )
+}
 
 const Editor = props => ( 
 
@@ -34,17 +40,93 @@ const EditorComponent = createReactClass( {
 
   },
 
+  renderDropdownItem( event ) {
+
+    const { onEventAdd } = this.props;
+
+    return <li key={event.uid}>
+      <EventItem event={event} onClick={onEventAdd} />
+    </li>
+
+  },
+
+  renderDropdown( search ) {
+
+    const { getLabel } = this.props;
+
+    // the drop down renders when
+
+    if ( search.searching ) {
+
+      return <ul className="dropdown-menu">
+        <li><div className="padding-all-lg"><Spinner /></div></li>
+      </ul>
+
+    }
+
+    if ( search.events !== null && search.events.length ) {
+
+      return <ul className="dropdown-menu">
+        <li key="event-section-item">
+          <div className="media section-item">
+            <strong className="text-muted">{getLabel( 'searchResultTitle' )}</strong>
+          </div>
+        </li>
+        { search.events.map( event => this.renderDropdownItem( event ) ) }
+      </ul>
+
+    }
+
+    if ( search.suggestions !== null && search.suggestions.length ) {
+
+      return <ul className="dropdown-menu">
+        <li key="suggestion-section-item">
+          <div className="media section-item">
+            <strong className="text-muted">{getLabel( 'suggestionResultTitle' )}</strong>
+          </div>
+        </li>
+        { search.suggestions.map( event => this.renderDropdownItem( event ) ) }
+      </ul>
+
+    }
+
+    return <ul className="dropdown-menu">
+      <li className="empty">
+        <p>{getLabel( 'emptySearch' )}</p>
+      </li>
+    </ul>
+
+  },
+
   render() {
 
-    let { onShow, onSearch, onEventRemove, onEventAdd, search, events, loading, getLabel, info } = this.props;
+    const { 
+      onShow, 
+      onSearch, 
+      onSearchFocus,
+      onEventRemove, 
+      onEventAdd, 
+      onSuggestionsAdd,
+      search, 
+      events, 
+      loading, 
+      getLabel, 
+      info,
+      suggest,
+      loadingSuggestions
+    } = this.props;
+
+    const disabledAddSuggestions = loadingSuggestions || ( search.suggestions && !search.suggestions.length );
+
+    const displayDropdown = search.query && search.query.length || ( suggest &&  search.suggestions !== null && search.suggestions.length );
 
     return <div className="event-references">
 
       <div className="configure">
         
-        <h2>{getLabel( 'editorTitle' )}</h2>
+        <label>{getLabel( 'editorTitle' )}</label>
 
-        { info ? <span>{ info }</span> : null }
+        { info ? <div className="margin-bottom-sm">{ info }</div> : null }
 
         <ul className="list-unstyled references">
           { loading ? <Spinner/> : ( 
@@ -55,7 +137,7 @@ const EditorComponent = createReactClass( {
 
         { search.display ? 
 
-            <div className={ search.events ? 'search dropdown open' : 'search dropdown' }>
+            <div className={ displayDropdown ? 'search dropdown open' : 'search dropdown' }>
 
               <SearchField
                 loading={ search.searching }
@@ -64,21 +146,25 @@ const EditorComponent = createReactClass( {
                 name="search"
                 label={ getLabel( 'search' ) }
                 placeholder={ getLabel( 'search' ) }
+                onFocus={ onSearchFocus }
                 onChange={ onSearch }
               />
 
-              { search.events ? <ul className="dropdown-menu">
-              { search.events.length ?
-                search.events.map( event => <li key={event.uid}><EventItem event={event} onClick={onEventAdd} /></li> )
-              : <li className="empty">
-                  <p>{getLabel( 'emptySearch' )}</p>
-                </li>
-              }
-              </ul> : null }
+              { displayDropdown ? this.renderDropdown( search ) : null }
 
             </div>
 
-        : <a onClick={onShow}>{getLabel( 'addEvent' )}</a> }
+        : <div>
+          <a className="btn btn-primary margin-right-sm" onClick={onShow}>{getLabel( 'addEvent' )}</a>
+          { suggest ? <span>
+            <span className="margin-h-sm">{getLabel( 'addEventOr' )}</span>
+            <a 
+              disabled={ disabledAddSuggestions }
+              className={ disabledAddSuggestions ? 'btn margin-right-sm text-muted' : 'btn margin-right-sm' }
+              onClick={onSuggestionsAdd}>{getLabel( 'addEventSuggest' )}</a>
+          </span> : null }
+          { loadingSuggestions ? <Spinner mode="inline" /> : null }
+        </div> }
 
       </div>
 

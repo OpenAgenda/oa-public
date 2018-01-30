@@ -21,14 +21,21 @@ export default options => {
       initUids: [],
       lang: 'fr',
       res: {
-        events: '/events'
+        events: '/events',
+        suggestions: '/suggestions'
       },
       loading: false,
+      loadingSuggestions: false,
+      sample: null, // suggest events feature
       error: false,
       info: null,
       events: [],
       search: {
-        display: false
+        searching: false,
+        query: null,
+        display: false,
+        events: null,
+        suggestions: null
       }
     }, options || {} ),
 
@@ -54,7 +61,12 @@ export default options => {
 
     }
 
+  } else if ( options.sample ) {
+
+    store.dispatch( actions.resetSuggestions( options.sample ) );
+
   }
+
 
   return <Provider store={ store }>
     <Container />

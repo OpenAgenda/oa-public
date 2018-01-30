@@ -84,8 +84,17 @@ exports.default = function () {
 
       return (0, _immutabilityHelper2.default)(state, {
         search: {
-          $set: {
-            display: false
+          searching: {
+            $set: false
+          },
+          display: {
+            $set: false
+          },
+          query: {
+            $set: false
+          },
+          events: {
+            $set: []
           }
         },
         events: {

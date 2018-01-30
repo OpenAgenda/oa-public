@@ -69,8 +69,17 @@ export default ( state = {}, action ) => {
 
       return update( state, {
         search: {
-          $set: {
-            display: false
+          searching: {
+            $set: false
+          },
+          display: {
+            $set: false
+          },
+          query: {
+            $set: false
+          },
+          events: {
+            $set: []
           }
         },
         events: {

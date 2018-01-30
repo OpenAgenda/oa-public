@@ -48,14 +48,21 @@ exports.default = function (options) {
       initUids: [],
       lang: 'fr',
       res: {
-        events: '/events'
+        events: '/events',
+        suggestions: '/suggestions'
       },
       loading: false,
+      loadingSuggestions: false,
+      sample: null, // suggest events feature
       error: false,
       info: null,
       events: [],
       search: {
-        display: false
+        searching: false,
+        query: null,
+        display: false,
+        events: null,
+        suggestions: null
       }
     }, options || {}),
         onChange = options.onChange;
@@ -78,6 +85,9 @@ exports.default = function (options) {
         }));
       });
     }
+  } else if (options.sample) {
+
+    store.dispatch(_actions2.default.resetSuggestions(options.sample));
   }
 
   return _react2.default.createElement(

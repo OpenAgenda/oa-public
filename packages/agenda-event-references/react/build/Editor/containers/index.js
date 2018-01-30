@@ -34,7 +34,9 @@ function (state, props) {
     events: state.events,
     loading: state.loading,
     info: state.info,
-    getLabel: (0, _labels2.default)(_references2.default, props.lang || 'fr')
+    getLabel: (0, _labels2.default)(_references2.default, props.lang || 'fr'),
+    suggest: !!state.sample,
+    loadingSuggestions: state.loadingSuggestions
 
   };
 },
@@ -51,12 +53,23 @@ function (dispatch, props) {
       return dispatch(_actions2.default.search(value));
     },
 
+    onSearchFocus: function onSearchFocus(input) {
+
+      return input.length ? function () {} : dispatch(_actions2.default.suggest());
+    },
+
+    //onSearchFocus: ( name, value ) => dispatch( actions.suggest( value ) ),
+
     onEventRemove: function onEventRemove(eventUid) {
       return dispatch(_actions2.default.eventRemove(eventUid));
     },
 
     onEventAdd: function onEventAdd(event) {
       return dispatch(_actions2.default.eventAdd(event));
+    },
+
+    onSuggestionsAdd: function onSuggestionsAdd() {
+      return dispatch(_actions2.default.suggestionsAdd());
     }
 
   };

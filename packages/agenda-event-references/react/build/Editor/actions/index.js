@@ -12,13 +12,17 @@ var _events = require('./events');
 
 var _events2 = _interopRequireDefault(_events);
 
+var _suggestions = require('./suggestions');
+
+var _suggestions2 = _interopRequireDefault(_suggestions);
+
 var _utils = require('@openagenda/utils');
 
 var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var actions = _utils2.default.extend({}, _search2.default, _events2.default);
+var actions = _utils2.default.extend({}, _search2.default, _events2.default, _suggestions2.default);
 
 exports.default = actions;
 module.exports = exports['default'];
