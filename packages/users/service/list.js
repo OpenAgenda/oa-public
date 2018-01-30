@@ -15,6 +15,7 @@ schema.register( {
   boolean: require( '@openagenda/validators/boolean' ),
   integer: require( '@openagenda/validators/integer' ),
   pass: require( '@openagenda/validators/pass' ),
+  choice: require( '@openagenda/validators/choice' ),
 } );
 
 function validate( args ) {
@@ -56,7 +57,8 @@ function validate( args ) {
         default: false
       },
       removed: {
-        type: 'boolean',
+        type: 'choice',
+        options: [ true, false, null ],
         default: false
       }
     },
@@ -101,7 +103,7 @@ async function list( query, offset, limit, options, cb ) {
     }
 
     if ( args.query && args.query.removed ) {
-      log( 'warning', 'DEPRECATED - removed in option is deprecated, use options instead' );
+      log( 'warning', 'DEPRECATED - removed in query is deprecated, use options instead' );
       args.options.removed = args.query.removed;
       args.query.removed = undefined;
     }
