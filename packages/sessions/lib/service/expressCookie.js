@@ -26,18 +26,20 @@ module.exports = function (name, request, response) {
 
     if (typeof response.cookie !== 'function') return;
 
-    response.cookie(name, new Buffer((0, _stringify2.default)({})).toString('base64'), { maxAge: 1 });
+    response.cookie(name, new Buffer((0, _stringify2.default)({}), 'utf8').toString('base64'), { maxAge: 1 });
   }
 
   function set(key, update) {
 
     _.set(values, key, update);
 
-    var encoded = new Buffer((0, _stringify2.default)(values)).toString('base64');
+    var encoded = new Buffer((0, _stringify2.default)(values), 'utf8').toString('base64');
 
     request.cookies[name] = encoded;
 
-    response.cookie(name, encoded, { maxAge: config.writableCookie.maxAge });
+    response.cookie(name, encoded, { maxAge: config.writableCookie.maxAge, encode: function encode(str) {
+        return str;
+      } });
   }
 };
 
@@ -51,7 +53,7 @@ function _decode(req, name) {
 
   try {
 
-    decoded = JSON.parse(new Buffer(encoded, 'base64').toString());
+    decoded = JSON.parse(new Buffer(encoded, 'base64').toString('utf8'));
   } catch (e) {}
 
   return decoded;
