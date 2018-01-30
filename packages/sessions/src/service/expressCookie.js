@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 let config;
 
 module.exports = ( name, request, response ) => {
@@ -22,7 +24,7 @@ module.exports = ( name, request, response ) => {
 
   function set( key, update ) {
 
-    values[ key ] = update;
+    _.set( values, key, update );
 
     let encoded = ( new Buffer( JSON.stringify( values ) ) ).toString( 'base64' );
 

@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const should = require( 'should' );
 const sessions = require( '../src/service' );
+const expressCookie = require( '../src/service/expressCookie' );
 const config = require( '../testconfig' );
 const isoConfig = require( '../src/iso/config' );
 const h = require( './lib/helpers' );
@@ -54,7 +55,7 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
-      ( await sessions.isLogged( req ) ).should.equal( true );
+      (await sessions.isLogged( req )).should.equal( true );
 
     } );
 
@@ -67,7 +68,7 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       req.cookies[ isoConfig.cookies.session ] = 'therandomsessioncode';
 
-      ( await sessions.isLogged( req ) ).should.equal( false );
+      (await sessions.isLogged( req )).should.equal( false );
 
     } );
 
@@ -79,7 +80,7 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
       let session = { somekey: '123' };
 
-      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123' } );
+      serviceHelpers.cleanSession( session ).should.eql( { somekey: '123' } );
 
     } );
 
@@ -106,6 +107,50 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
       };
 
       should( sessions.getCulture( req ) ).equal( null );
+
+    } );
+
+  } );
+
+  describe( '.setFlash', () => {
+
+    it( 'sets flash message', () => {
+
+      const req = {
+        session: {},
+        cookies: {}
+      };
+
+      const res = {
+        cookies: {}
+      };
+      res.cookie = ( name, values ) => res.cookies[ name ] = values;
+
+      sessions.setFlash( req, res, 'pédo-phile d\'ici' );
+
+      should( expressCookie( config.writableCookie.name, req, res ).get().flash ).equal( 'pédo-phile d\'ici' );
+
+    } );
+
+  } );
+
+  describe( '.setCulture', () => {
+
+    it( 'sets user culture', () => {
+
+      const req = {
+        session: {},
+        cookies: {}
+      };
+
+      const res = {
+        cookies: {}
+      };
+      res.cookie = ( name, values ) => res.cookies[ name ] = values;
+
+      sessions.setCulture( req, res, 'be' );
+
+      should( expressCookie( config.sessionCookie.name, req, res ).get().user.culture ).equal( 'be' );
 
     } );
 

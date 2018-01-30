@@ -3,7 +3,7 @@
 module.exports = {
   sessionCookie: {
     name: 'oa',
-    keys: [ 'k', 'e', 'y', 's' ],
+    keys: [ 'dsqfdsq', 'fdqfdsqfdsf', 'dsfdss' ],
     maxAge: 1000 * 60 * 60 * 48, // 2 days
     signed: true,
     secure: false,

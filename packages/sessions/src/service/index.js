@@ -26,16 +26,16 @@ module.exports = {
   scan,
   sync,
   close,
-  setFlash,
+  setFlash: ( req, res, message ) => set( config.writableCookie.name, req, res, 'flash', message ),
+  setCulture: ( req, res, culture ) => set( config.sessionCookie.name, req, res, 'user.culture', culture ),
   isLogged,
   getCulture,
   middleware
 }
 
+function set( cookieName, request, response, name, value ) {
 
-function setFlash( request, response, message ) {
-
-  expressCookie( config.writableCookie.name, request, response ).set( 'flash', message );
+  expressCookie( cookieName, request, response ).set( name, value );
 
 }
 
@@ -56,7 +56,9 @@ function getCulture( request ) {
 
     if ( user ) return user.culture;
 
-  } catch( e ) { console.log( e ); }
+  } catch ( e ) {
+    console.log( e );
+  }
 
   return null;
 
