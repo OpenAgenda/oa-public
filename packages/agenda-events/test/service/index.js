@@ -55,6 +55,9 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
     table: 'legacy_agenda_event',
     src: __dirname + '/legacy_agenda_event.data.sql'
   }, {
+    table: 'legacy_event_editor',
+    src: __dirname + '/legacy_event_editor.data.sql'
+  }, {
     table: 'legacy_agenda',
     src: __dirname + '/legacy_agenda.data.sql'
   }, {

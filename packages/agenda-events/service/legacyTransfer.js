@@ -54,19 +54,44 @@ async function toLegacy( ae ) {
 
   let eventId, agendaId;
 
-  if ( !legacyId ) {
+  if ( legacyId ) {
 
-    q.insert( _.extend( {
-      review_id: _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' ),
-      event_id: _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' ),
-      created_at: new Date
-    }, data ) );
+    eventId = legacyId.split( '.' )[ 1 ];
+    agendaId = legacyId.split( '.' )[ 0 ];
+
+    q.update( data ).where( {
+      event_id: eventId,
+      review_id: agendaId
+    } );
 
   } else {
 
-    q.update( data ).where( {
-      event_id: legacyId.split( '.' )[ 1 ],
-      review_id: legacyId.split( '.' )[ 0 ]
+    eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
+    agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' )
+
+    q.insert( _.extend( {
+      review_id: agendaId,
+      event_id: eventId,
+      created_at: new Date
+    }, data ) );
+    
+  }
+
+  const hasLegacyEventEditorRef = !!( await knex( config.legacy.schemas.eventEditor ).first( 'event_id' ).where( { event_id: eventId, review_id: agendaId } ) );
+
+  if ( ae.canEdit && !hasLegacyEventEditorRef ) {
+
+    await knex( config.legacy.schemas.eventEditor ).insert( {
+      event_id: eventId,
+      review_id: agendaId,
+      type: 1
+    } );
+
+  } else if ( !ae.canEdit && hasLegacyEventEditorRef ) {
+
+    await knex( config.legacy.schemas.eventEditor ).delete().where( {
+      event_id: eventId,
+      review_id: agendaId
     } );
 
   }
@@ -112,7 +137,7 @@ async function legacyTransfer( origin, options = {} ) {
   let data = await knex( config.legacy.schemas.agendaEvent )
     .first( [
       'a.uid as agendaUid', 
-      'e.uid as eventUid', 
+      'e.uid as eventUid',
       'a.id as agendaId',
       'e.id as eventId',
       'ra.is_published as isPublished', 
@@ -120,15 +145,22 @@ async function legacyTransfer( origin, options = {} ) {
       'ra.featured as featured',
       'ra.updated_at as updatedAt',
       'ra.created_at as createdAt',
-      'u.uid as userUid'
+      'u.uid as userUid',
+      'ee.event_id as canEdit'
     ] )
     .from( config.legacy.schemas.agendaEvent + ' as ra' )
     .leftJoin( config.legacy.schemas.agenda + ' as a', 'ra.review_id', 'a.id' )
     .leftJoin( config.legacy.schemas.event + ' as e', 'ra.event_id', 'e.id' )
     .leftJoin( config.legacy.schemas.user + ' as u', 'ra.user_id', 'u.id' )
-    .where( where ),
+    .leftJoin( config.legacy.schemas.eventEditor + ' as ee', function() {
+
+      this.on( 'ra.event_id', '=', 'ee.event_id' ).andOn( 'ra.review_id', '=', 'ee.review_id' );
+
+    } ).where( where ),
 
     result = null;
+
+  data.canEdit = !!data.canEdit;
 
   let current = await service.get.byLegacyId( origin.agendaId, origin.eventId ),
 
@@ -138,6 +170,7 @@ async function legacyTransfer( origin, options = {} ) {
       legacyId: data.agendaId + '.' + data.eventId,
       createdAt: data.createdAt,
       userUid: data.userUid,
+      canEdit: data.canEdit,
       updatedAt: data.updatedAt
     };
 

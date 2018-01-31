@@ -17,6 +17,7 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
     svc.initAndLoad( config, [
       'legacy_agenda_event',
+      'legacy_event_editor',
       'legacy_agenda',
       'legacy_event',
       'legacy_user',
@@ -105,5 +106,42 @@ describe( 'transferLegacyData - transfer to legacy', function() {
     after.featured.should.equal( 1 );
 
   } );
+
+  it( 'adds event_editor entry if edition right is not set', async () => {
+
+    await svc( 62792452 ).remove( 43393865 );
+
+    const { created } = await svc( 62792452 ).create( 43393865, { canEdit: true } );
+
+    await svc.legacyTransfer.to( created );
+
+    const after = await knex( 'legacy_event_editor' ).first().where( { 
+      event_id: 190093, 
+      review_id: 4608 
+    } );
+
+    after.should.eql( {
+      type: 1,
+      event_id: 190093, 
+      review_id: 4608 
+    } );
+
+  } );
+
+  it( 'removes event_editor entry if edition right is set', async () => {
+
+    const { updated } = await svc( 62792452 ).update( 6973928, { canEdit: false } );
+
+    await svc.legacyTransfer.to( updated );
+
+    const after = await knex( 'legacy_event_editor' ).first().where( { 
+      event_id: 81824, 
+      review_id: 4608 
+    } );
+
+    should( after ).equal( undefined );
+
+  } );
+
 
 } );

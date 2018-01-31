@@ -28,7 +28,8 @@ module.exports = {
     schemas: {
       agendaEvent: 'legacy_agenda_event',
       event: 'legacy_event',
-      agenda: 'legacy_agenda'
+      agenda: 'legacy_agenda',
+      eventEditor: 'legacy_event_editor'
     }
   },
 
