@@ -32,6 +32,7 @@ describe( 'agendaEvents - functional (server): get', function() {
       userUid: 12312312,
       state: config.eventStates.VALIDATED,
       featured: false,
+      canEdit: false,
       legacyId: '42.24'
     } );
 
@@ -47,6 +48,7 @@ describe( 'agendaEvents - functional (server): get', function() {
       agendaUid: 62792452,
       userUid: 12312312,
       featured: false,
+      canEdit: false,
       state: config.eventStates.VALIDATED,
       legacyId: '42.24'
     } );

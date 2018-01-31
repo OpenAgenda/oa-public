@@ -83,6 +83,7 @@ describe( 'agendaEvents - functional (server): create', function() {
 
   } );
 
+
   it( 'context can be passed in options to be transfered to onCreate interface', done => {
 
     svc.init( im( config, {
@@ -109,6 +110,7 @@ describe( 'agendaEvents - functional (server): create', function() {
 
   } );
 
+
   it( 'when no context is passed, default context values are given', done => {
 
     svc.init( im( config, {
@@ -128,6 +130,15 @@ describe( 'agendaEvents - functional (server): create', function() {
     } ) )
 
     svc( 1212 ).create( 3445 ).then( () => done() );
+
+  } );
+
+
+  it( 'set canEdit to true in second create argument', async () => {
+
+    const { created } = await svc( 1212 ).create( 3446, { canEdit: true } );
+
+    created.canEdit.should.equal( true );
 
   } );
 

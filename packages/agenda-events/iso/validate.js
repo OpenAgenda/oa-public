@@ -49,6 +49,10 @@ function init( { eventStates } ) {
       type: 'boolean',
       default: false
     },
+    canEdit: {
+      type: 'boolean',
+      default: false
+    },
     state: {
       type: 'choice',
       default: eventStates.PUBLISHED,

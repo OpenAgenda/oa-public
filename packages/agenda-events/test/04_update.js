@@ -66,6 +66,31 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  it( 'simple update to canEdit set to true', async () => {
+
+    const result = await svc( 62792452 ).update( 10974548, {
+      canEdit: true
+    } );
+
+    result.updated.canEdit.should.equal( true );
+
+  } );
+
+  it( 'update is part update', async () => {
+
+
+    await svc( 62792452 ).update( 10974548, {
+      canEdit: true
+    } );
+
+    const result = await svc( 62792452 ).update( 10974548, {
+      state: -1
+    } );
+
+    result.updated.canEdit.should.equal( true );
+
+  } );
+
   it( 'simple update forcing timestamp values', async () => {
 
     let createdAt = new Date( '2017-02-28T08:00:00.000Z' );

@@ -81,6 +81,7 @@ describe( 'transferLegacyData - sample', function() {
 
   } );
 
+
   it( 'transfer 20 events in empty target db effectively creates 20 records', done => {
 
     let con = mysql.createConnection( config.mysql );

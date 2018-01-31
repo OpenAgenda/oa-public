@@ -5,6 +5,7 @@ create table if not exists `${schema}` (
   user_uid bigint(20),
   state tinyint(1) not null default 0,
   featured tinyint(1) not null default 0,
+  can_edit tinyint(1) default 0,
   created_at datetime not null,
   updated_at datetime not null,
   legacy_id varchar(30),

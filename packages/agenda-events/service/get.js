@@ -38,6 +38,7 @@ async function _get( where ) {
       'event_uid',
       'user_uid',
       'state',
+      'can_edit',
       'featured',
       'created_at',
       'updated_at',
