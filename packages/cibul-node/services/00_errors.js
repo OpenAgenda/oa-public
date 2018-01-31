@@ -28,7 +28,7 @@ function handler( namespace, err ) {
 
     if ( process.env.NODE_ENV === 'production' ) {
 
-      console.error( '%s %s: %j', ( new Date ).toUTCString(), namespace, error );
+      console.error( '%s %s', new Date().toUTCString(), namespace, error );
 
     }
 

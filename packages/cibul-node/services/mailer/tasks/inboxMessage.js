@@ -119,8 +119,8 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
   const { user, inbox } = inboxUser;
   const { culture: lang = 'fr' } = user;
 
-  const agenda = inbox.type === 'agenda'
-    ? await getAgenda( { uid: inbox.identifier }, { private: null, includeImagePath: true } )
+  const agenda = conversation.store.params && conversation.store.params.agendaUid
+    ? await getAgenda( { uid: conversation.store.params.agendaUid }, { private: null, includeImagePath: true } )
     : null;
 
   const subject = getSubjectLabel( { conversation, agenda, lang } );

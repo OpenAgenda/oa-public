@@ -14,6 +14,8 @@ const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib.js' ),
 
+  _ = require( 'lodash' ),
+
   moment = require( 'moment' ),
 
   async = require( 'async' ),
@@ -41,7 +43,16 @@ module.exports = path => {
         usersMw.updateProfile,
         ( req, res, next ) => {
 
-          if ( req.result.success ) return sessions.middleware.sync( 'syncResult' )( req, res, next );
+          if ( req.result.before.culture !== req.result.user.culture ) {
+            sessions.setCulture( req, res, req.result.user.culture );
+          }
+
+          if ( req.result.success ) {
+            return _.flow(
+              sessions.middleware.open( 'user', 'sessionResult' ),
+              req.result.success ? sessions.middleware.sync( 'syncResult' ) : ( req, res, next ) => next(),
+            )( req, req, next );
+          }
 
           next();
 

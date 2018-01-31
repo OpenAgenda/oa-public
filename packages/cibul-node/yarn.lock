@@ -743,8 +743,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.15"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.15.tgz#81470290b15db9afea53d9bcb5f8426b6459ebcd"
+  version "1.0.16"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.16.tgz#dba0328cf1fe6b94dd2d5ca894680a6478cd6dae"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.3"
     "@openagenda/agendas" "^1.0.4"

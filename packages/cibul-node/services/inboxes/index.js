@@ -14,6 +14,7 @@ const mailer = require( '../mailer' );
 const config = require( '../../config' );
 
 async function getUsersDetails( usersToBeDetailed ) {
+
   if ( usersToBeDetailed.length === 0 ) {
     return [];
   }
@@ -98,7 +99,7 @@ async function onInboxCreate( Inbox ) {
       const users = [];
       const userIds = _.map( stakeholders, 'userId' );
 
-      while ( result = (await userSvc.list( { id: userIds }, pos, limit, { removed: false } )).users ) {
+      while ( result = (await userSvc.list( { id: userIds }, pos, limit, { removed: null } )).users ) {
         if ( !result.length ) break;
         pos = pos + limit;
 
