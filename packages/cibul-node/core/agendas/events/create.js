@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 const VError = require( 'verror' );
 
 const events = require( '@openagenda/events' );
@@ -45,7 +46,11 @@ module.exports = async ( agendaUid, data ) => {
 
   }
 
-  const addResult = await doAdd( agendaUid, created.event.uid, formSchemaId, clean );
+  const addResult = await doAdd( agendaUid, created.event.uid, formSchemaId, ih( clean, {
+    agendaEvent: {
+      canEdit: { $set: true }
+    } 
+  } ) );
 
   return {
     success: true,

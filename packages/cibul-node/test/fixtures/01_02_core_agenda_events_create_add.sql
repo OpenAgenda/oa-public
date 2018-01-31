@@ -202,6 +202,7 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `event_uid` bigint(20) NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT '0',
   `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `can_edit` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `legacy_id` varchar(30) DEFAULT NULL,
@@ -309,6 +310,15 @@ CREATE TABLE IF NOT EXISTS `legacy_event` (
   `age_max` smallint(6) DEFAULT NULL,
   `accessibility` varchar(255) DEFAULT NULL,
   `type` varchar(2) DEFAULT NULL,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+create table if not exists legacy_event_editor (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_id` bigint(20) NOT NULL,
+  `review_id` bigint(20) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT 1,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
