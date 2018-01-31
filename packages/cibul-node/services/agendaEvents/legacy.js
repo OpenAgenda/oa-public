@@ -55,7 +55,11 @@ async function evaluate( err, action ) {
 
     } else if ( action.name === 'review.article_create' ) {
       
-      result = await agendaEvents.legacyTransfer( action.values.id, { context: { userUid: action.values.user_uid } } );
+      result = await agendaEvents.legacyTransfer( action.values.id, {
+        context: { 
+          userUid: action.values.user_uid 
+        } 
+      } );
 
     } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 

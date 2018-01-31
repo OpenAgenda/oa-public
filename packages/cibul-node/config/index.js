@@ -133,6 +133,7 @@ let config = {
       categorySet: 'category_set',
       conversationReviewerRequestInfo: 'conversation_reviewer_request_info',
       event: 'event',
+      eventEditor: 'event_editor',
       eventReferences: 'agenda_event_reference',
       eventTranslation: 'event_translation',
       eventService: 'event_2',

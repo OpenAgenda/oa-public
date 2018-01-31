@@ -27,6 +27,7 @@ function init( config ) {
       mysql: config.db,
       schemas: {
         agendaEvent: config.schemas.agendaEvent,
+        eventEditor: config.schemas.eventEditor,
         event: config.schemas.event,
         agenda: config.schemas.agenda,
         user: config.schemas.user
