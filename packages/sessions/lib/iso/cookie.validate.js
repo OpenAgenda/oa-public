@@ -17,10 +17,14 @@ var writableFields = {
     type: 'text',
     max: 1000
   },
-  messages: {
-    newFlag: {
-      type: 'boolean',
-      default: false
+  inbox: {
+    lastRequestTime: {
+      type: 'integer',
+      default: 0
+    },
+    latestKnownMessageTime: {
+      type: 'integer',
+      default: 0
     }
   },
   notifications: {

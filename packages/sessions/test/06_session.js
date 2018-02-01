@@ -93,16 +93,19 @@ describe( 'session - functional (client): session', () => {
   } );
 
 
-  describe( '.messages', () => {
+  describe( '.inbox', () => {
 
-    it( 'getNewFlag - returns false if not flagged', done => {
+    it( 'getInboxSummary - returns times at zero by default', done => {
 
       jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
 
         // this is for test env only
         clientSession.test.loadCookiesLib( cookiesLib( w ) );
 
-        should( clientSession.messages.getNewFlag() ).equal( false );
+        clientSession.inbox.getSummary().should.eql( { 
+          lastRequestTime: 0, 
+          latestKnownMessageTime: 0
+        } );
 
         done();
 
@@ -110,33 +113,22 @@ describe( 'session - functional (client): session', () => {
 
     } );
 
-    it( 'getNewFlag/setNewFlag - returns true if flagged', done => {
+    it( 'getInboxSummary - returns set times if any', done => {
 
-      jsdom.env( '<a>boum</a>', ( err, w ) => {
+      jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
 
+        // this is for test env only
         clientSession.test.loadCookiesLib( cookiesLib( w ) );
 
-        clientSession.messages.setNewFlag( true )
+        clientSession.inbox.setSummary( {
+          lastRequestTime: 1000,
+          latestKnownMessageTime: 899
+        } );
 
-        clientSession.messages.getNewFlag().should.equal( true );
-
-        done();
-
-      } );
-
-    } );
-
-    it( 'getNewFlag - can unset while getting flag', done => {
-
-      jsdom.env( '<a>boum</a>', ( err, w ) => {
-
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
-
-        clientSession.messages.setNewFlag( true );
-
-        clientSession.messages.getNewFlag( true );
-
-        clientSession.messages.getNewFlag().should.equal( false );
+        clientSession.inbox.getSummary().should.eql( {
+          lastRequestTime: 1000,
+          latestKnownMessageTime: 899
+        } );
 
         done();
 
