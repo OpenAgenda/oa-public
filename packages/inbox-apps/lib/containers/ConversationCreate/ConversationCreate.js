@@ -247,13 +247,12 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           author = _props2.author,
           router = _props2.router,
           showModal = _props2.showModal;
-      var TitleComponent = settings.TitleComponent,
-          prefix = settings.prefix,
+      var prefix = settings.prefix,
           ContentWrapper = settings.ContentWrapper,
           creationDescriptionLabel = settings.creationDescriptionLabel,
           maskCreationSubtitle = settings.maskCreationSubtitle,
           creationSubtitle = settings.creationSubtitle,
-          inboxDesc = settings.inboxDesc,
+          creationDesc = settings.creationDesc,
           onConversationCreateRedirect = settings.onConversationCreateRedirect,
           onConversationCreateFlash = settings.onConversationCreateFlash;
 
@@ -266,61 +265,34 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
             lineNumber: 83
           }
         },
-        maskCreationSubtitle ? null : _react3.default.createElement(
-          TitleComponent,
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 84
-            }
-          },
-          creationSubtitle ? creationSubtitle : getLabel('newConversation')
-        ),
-        inboxDesc ? _react3.default.createElement(
+        maskCreationSubtitle ? _react3.default.createElement(_components2.Breadcrumb, {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 85
+          }
+        }) : _react3.default.createElement(_components2.Breadcrumb, {
+          breadParts: [{
+            component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
+          }],
+          disableFirstPartLink: !(0, _showBackLink2.default)(settings, conversations),
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 87
+          }
+        }),
+        creationDesc ? _react3.default.createElement(
           'p',
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 88
+              lineNumber: 95
             }
           },
-          inboxDesc
-        ) : null,
-        (0, _showBackLink2.default)(settings, conversations) ? _react3.default.createElement(
-          'div',
-          { className: 'text-right margin-bottom-sm', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 90
-            }
-          },
-          _react3.default.createElement(
-            _components2.LinkContainer,
-            { to: '/', __source: {
-                fileName: _jsxFileName,
-                lineNumber: 91
-              }
-            },
-            function (path) {
-              return _react3.default.createElement(
-                'button',
-                {
-                  className: 'btn btn-info btn-back',
-                  onClick: function onClick() {
-                    return router.push({ pathname: path, state: { showListAllowed: true } });
-                  },
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 93
-                  }
-                },
-                getLabel('showAllConversations')
-              );
-            }
-          )
+          creationDesc
         ) : null,
         _react3.default.createElement('div', { className: 'clearfix', __source: {
             fileName: _jsxFileName,
-            lineNumber: 103
+            lineNumber: 97
           }
         }),
         creationDescriptionLabel ? _react3.default.createElement(
@@ -328,7 +300,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 105
+              lineNumber: 99
             }
           },
           creationDescriptionLabel
@@ -337,19 +309,19 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           'div',
           { className: 'media', __source: {
               fileName: _jsxFileName,
-              lineNumber: 107
+              lineNumber: 101
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-left', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 108
+                lineNumber: 102
               }
             },
             _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 109
+                lineNumber: 103
               }
             })
           ),
@@ -357,14 +329,14 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
             'div',
             { className: 'media-body', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 111
+                lineNumber: 105
               }
             },
             _react3.default.createElement(
               'h4',
               { className: 'media-heading margin-bottom-sm', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 112
+                  lineNumber: 106
                 }
               },
               getAuthorName(author)
@@ -399,7 +371,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
               Wrapper: this.FromWrapper,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 114
+                lineNumber: 108
               }
             })
           )
@@ -411,7 +383,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 150
+            lineNumber: 144
           }
         },
         content

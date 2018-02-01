@@ -24,10 +24,6 @@ var _inherits2 = require('babel-runtime/helpers/inherits');
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _find2 = require('lodash/find');
-
-var _find3 = _interopRequireDefault(_find2);
-
 var _redboxReact2 = require('redbox-react');
 
 var _redboxReact3 = _interopRequireDefault(_redboxReact2);
@@ -64,7 +60,11 @@ var _nl2br = require('@openagenda/react-utils/dist/nl2br');
 
 var _nl2br2 = _interopRequireDefault(_nl2br);
 
-var _2 = require('../');
+var _ = require('../');
+
+var _getDestinationInbox = require('../../utils/getDestinationInbox');
+
+var _getDestinationInbox2 = _interopRequireDefault(_getDestinationInbox);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -100,603 +100,18 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
   }
 
   (0, _createClass3.default)(ConversationItem, [{
-    key: 'renderTitle',
-    value: function renderTitle(_ref) {
+    key: 'renderAuthorSentence',
+    value: function renderAuthorSentence(_ref) {
       var destinationInbox = _ref.destinationInbox;
+      var getLabel = this.context.getLabel;
       var _props = this.props,
           user = _props.user,
-          conversation = _props.conversation,
-          context = _props.settings.context;
-      var getLabel = this.context.getLabel;
-      var store = conversation.store,
-          type = conversation.type;
-
-
-      var creator = {
-        inbox: conversation.creatorInbox,
-        inboxUser: conversation.creatorInboxUser
-      };
-
-      switch (type) {
-        case 'event':
-          switch (context) {
-            case 'event':
-              {
-                if (isCreator(creator, user)) {
-                  if (destinationInbox.type === 'user') {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 38
-                        }
-                      },
-                      getLabel('youContactedTheContributor')
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 40
-                        }
-                      },
-                      getLabel('youContactedTheAgenda')
-                    );
-                  }
-                } else {
-                  if (destinationInbox.type === 'user') {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 45
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 46
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheContributor')
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 50
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 50
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheAgenda')
-                    );
-                  }
-                }
-              }
-            case 'agenda':
-              {
-                if (isCreator(creator, user)) {
-                  if (destinationInbox.type === 'user') {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 58
-                        }
-                      },
-                      getLabel('youContactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 60
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 65
-                        }
-                      },
-                      getLabel('youContactedTheAgenda'),
-                      ' ',
-                      getLabel('on'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 67
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  }
-                } else {
-                  if (destinationInbox.type === 'user') {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 74
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 75
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 76
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 81
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 82
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheAgenda'),
-                      ' ',
-                      getLabel('on'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 83
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  }
-                }
-              }
-            case 'user':
-              {
-                if (isCreator(creator, user)) {
-                  if (destinationInbox.type === 'user') {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 93
-                        }
-                      },
-                      getLabel('youContactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 95
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 100
-                        }
-                      },
-                      getLabel('youContactedTheAgenda'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 101
-                          }
-                        },
-                        store.params.agendaTitle
-                      ),
-                      ' ',
-                      getLabel('on'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 102
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  }
-                } else {
-                  if (destinationInbox.type === 'user') {
-                    // TODO
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 109
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 110
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 111
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  } else {
-                    return _react3.default.createElement(
-                      _react2.Fragment,
-                      {
-                        __source: {
-                          fileName: _jsxFileName,
-                          lineNumber: 116
-                        }
-                      },
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 117
-                          }
-                        },
-                        getInboxUserName(creator)
-                      ),
-                      ' ',
-                      getLabel('contactedTheAgenda'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 118
-                          }
-                        },
-                        store.params.agendaTitle
-                      ),
-                      ' ',
-                      getLabel('on'),
-                      ' ',
-                      _react3.default.createElement(
-                        'b',
-                        {
-                          __source: {
-                            fileName: _jsxFileName,
-                            lineNumber: 119
-                          }
-                        },
-                        store.params.eventTitle
-                      )
-                    );
-                  }
-                }
-              }
-          }
-        case 'contact_form':
-          switch (context) {
-            case 'agenda':
-              if (isCreator(creator, user)) {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 130
-                    }
-                  },
-                  getLabel('youContactedTheAgenda')
-                );
-              } else {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 133
-                    }
-                  },
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 134
-                      }
-                    },
-                    getInboxUserName(creator)
-                  ),
-                  ' ',
-                  getLabel('contactedTheAgenda')
-                );
-              }
-            case 'user':
-              if (isCreator(creator, user)) {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 140
-                    }
-                  },
-                  getLabel('youContactedTheAgenda'),
-                  ' ',
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 140
-                      }
-                    },
-                    store.params.agendaTitle
-                  )
-                );
-              } else {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 143
-                    }
-                  },
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 144
-                      }
-                    },
-                    getInboxUserName(creator)
-                  ),
-                  ' ',
-                  getLabel('contactedTheAgenda'),
-                  ' ',
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 145
-                      }
-                    },
-                    store.params.agendaTitle
-                  )
-                );
-              }
-          }
-        case 'request_contribute':
-          switch (context) {
-            case 'agenda':
-              if (isCreator(creator, user)) {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 154
-                    }
-                  },
-                  getLabel('youWantToContributeToTheAgenda')
-                );
-              } else {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 157
-                    }
-                  },
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 158
-                      }
-                    },
-                    getInboxUserName(creator)
-                  ),
-                  ' ',
-                  getLabel('wantsToContributeToTheAgenda')
-                );
-              }
-            case 'user':
-              if (isCreator(creator, user)) {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 165
-                    }
-                  },
-                  getLabel('youWantToContributeToTheAgenda'),
-                  ' ',
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 167
-                      }
-                    },
-                    store.params.agendaTitle
-                  )
-                );
-              } else {
-                return _react3.default.createElement(
-                  _react2.Fragment,
-                  {
-                    __source: {
-                      fileName: _jsxFileName,
-                      lineNumber: 172
-                    }
-                  },
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 173
-                      }
-                    },
-                    getInboxUserName(creator)
-                  ),
-                  ' ',
-                  getLabel('wantsToContributeToTheAgenda'),
-                  ' ',
-                  _react3.default.createElement(
-                    'b',
-                    {
-                      __source: {
-                        fileName: _jsxFileName,
-                        lineNumber: 174
-                      }
-                    },
-                    store.params.agendaTitle
-                  )
-                );
-              }
-          }
-      }
-
-      return _react3.default.createElement(
-        _react2.Fragment,
-        {
-          __source: {
-            fileName: _jsxFileName,
-            lineNumber: 182
-          }
-        },
-        getLabel('createdBy'),
-        ' ',
-        _react3.default.createElement(
-          'b',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 185
-            }
-          },
-          getInboxUserName(creator)
-        )
-      );
-    }
-  }, {
-    key: 'renderAuthorSentence',
-    value: function renderAuthorSentence(_ref2) {
-      var destinationInbox = _ref2.destinationInbox;
-      var getLabel = this.context.getLabel;
-      var _props2 = this.props,
-          user = _props2.user,
-          conversation = _props2.conversation;
+          conversation = _props.conversation;
       var latestMessage = conversation.latestMessage;
 
 
       var creationDate = (0, _moment2.default)(latestMessage.createdAt);
-      var firstMessage = latestMessage.createdAt === conversation.createdAt;
+      var firstMessage = creationDate.diff((0, _moment2.default)(conversation.createdAt), 'seconds') <= 1;
       var creator = {
         inbox: conversation.creatorInbox,
         inboxUser: conversation.creatorInboxUser
@@ -707,7 +122,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'margin-bottom-sm padding-top-xs text-muted', title: creationDate.format('LLL'), __source: {
               fileName: _jsxFileName,
-              lineNumber: 204
+              lineNumber: 35
             }
           },
           getLabel('postedAgo', { date: creationDate.fromNow(true) })
@@ -718,7 +133,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'div',
             { className: 'margin-bottom-sm padding-top-xs text-muted', title: creationDate.format('LLL'), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 211
+                lineNumber: 42
               }
             },
             getLabel('youRepliedAgo', { date: creationDate.fromNow(true) })
@@ -731,14 +146,24 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               title: creationDate.format('LLL'),
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 217
+                lineNumber: 48
               }
             },
-            destinationInbox.id !== latestMessage.inbox.id ? _react3.default.createElement(_2.AuthorAvatar, { author: latestMessage, inline: true, __source: {
-                fileName: _jsxFileName,
-                lineNumber: 226
-              }
-            }) : null,
+            destinationInbox.id !== latestMessage.inbox.id ? _react3.default.createElement(
+              _react2.Fragment,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 58
+                }
+              },
+              _react3.default.createElement(_.AuthorAvatar, { author: latestMessage, inline: true, __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 59
+                }
+              }),
+              ' '
+            ) : null,
             getInboxUserName(latestMessage),
             ' ',
             getLabel('repliedAgo', { date: creationDate.fromNow(true) })
@@ -747,11 +172,53 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
       }
     }
   }, {
+    key: 'TitleEntityComponent',
+    value: function TitleEntityComponent(_ref2) {
+      var children = _ref2.children,
+          type = _ref2.type,
+          agendaUid = _ref2.agendaUid,
+          eventUid = _ref2.eventUid;
+
+      switch (type) {
+        case 'agenda':
+          return _react3.default.createElement(
+            _.Link,
+            { to: '/agendas/' + agendaUid, external: true, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 74
+              }
+            },
+            children
+          );
+        case 'event':
+          return _react3.default.createElement(
+            _.Link,
+            { to: '/agendas/' + agendaUid + '/events/' + eventUid, external: true, __source: {
+                fileName: _jsxFileName,
+                lineNumber: 76
+              }
+            },
+            children
+          );
+        default:
+          return _react3.default.createElement(
+            'b',
+            {
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 78
+              }
+            },
+            children
+          );
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var _props3 = this.props,
-          user = _props3.user,
-          conversation = _props3.conversation;
+      var _props2 = this.props,
+          user = _props2.user,
+          conversation = _props2.conversation;
       var getLabel = this.context.getLabel;
 
 
@@ -760,19 +227,17 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
       }
 
       var latestMessage = conversation.latestMessage,
-          inboxes = conversation.inboxes,
-          inboxContextId = conversation.inboxContextId,
           resolvedAt = conversation.resolvedAt;
 
 
-      var destinationInbox = getDestinationInbox({ user: user, inboxes: inboxes, inboxContextId: inboxContextId });
+      var destinationInbox = (0, _getDestinationInbox2.default)({ user: user, conversation: conversation });
 
       var resolvedIcon = resolvedAt ? _react3.default.createElement(
         _react2.Fragment,
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 248
+            lineNumber: 94
           }
         },
         ' ',
@@ -780,31 +245,31 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'tooltip-icon', __source: {
               fileName: _jsxFileName,
-              lineNumber: 250
+              lineNumber: 96
             }
           },
           _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
               fileName: _jsxFileName,
-              lineNumber: 251
+              lineNumber: 97
             }
           }),
           _react3.default.createElement(
             'div',
             { className: 'tooltip right', role: 'tooltip', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 252
+                lineNumber: 98
               }
             },
             _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 253
+                lineNumber: 99
               }
             }),
             _react3.default.createElement(
               'div',
               { className: 'tooltip-inner', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 254
+                  lineNumber: 100
                 }
               },
               getLabel('resolvedConversation')
@@ -817,19 +282,19 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         'div',
         { className: 'media conversation-item', __source: {
             fileName: _jsxFileName,
-            lineNumber: 260
+            lineNumber: 106
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 261
+              lineNumber: 107
             }
           },
-          _react3.default.createElement(_2.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
+          _react3.default.createElement(_.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 262
+              lineNumber: 108
             }
           })
         ),
@@ -837,24 +302,32 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 265
+              lineNumber: 111
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-heading margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 266
+                lineNumber: 112
               }
             },
-            this.renderTitle({ destinationInbox: destinationInbox }),
+            _react3.default.createElement(_.ConversationTitle, {
+              user: user,
+              conversation: conversation,
+              EntityComponent: this.TitleEntityComponent,
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 113
+              }
+            }),
             resolvedIcon
           ),
           _react3.default.createElement(
             'div',
             { className: 'conversation-item-message margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 270
+                lineNumber: 121
               }
             },
             this.renderAuthorSentence({ destinationInbox: destinationInbox }),
@@ -862,17 +335,17 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               'div',
               { className: 'message padding-bottom-xs', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 273
+                  lineNumber: 124
                 }
               },
               latestMessage.body ? (0, _nl2br2.default)(latestMessage.body) : null
             )
           ),
           _react3.default.createElement(
-            _2.Link,
+            _.Link,
             { to: '/conversation/' + conversation.id, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 279
+                lineNumber: 130
               }
             },
             getLabel('viewConversation')
@@ -895,34 +368,6 @@ function getInboxUserName(entity) {
   }
 
   return entity.inbox.name;
-}
-
-function getCreatorName(conversation) {
-  if (conversation.creatorInboxUser) {
-    return conversation.creatorInboxUser.name;
-  }
-
-  return conversation.creatorInbox.name;
-}
-
-function getContextInbox(conversation) {
-  return (0, _find3.default)(conversation.inboxes, ['id', conversation.inboxContextId]);
-}
-
-function getDestinationInbox(_ref3) {
-  var user = _ref3.user,
-      inboxes = _ref3.inboxes,
-      inboxContextId = _ref3.inboxContextId;
-
-  var _inboxes = inboxes.sort(function (o) {
-    return Number(o.type === 'agenda');
-  }).filter(function (v) {
-    return !(v.type === 'user' && v.identifier === user.uid);
-  });
-
-  return _inboxes.filter(function (v) {
-    return v.id !== inboxContextId;
-  })[0] || _inboxes[0];
 }
 
 function isCreator(creator, user) {

@@ -52,6 +52,8 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _recompose = require('recompose');
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -124,37 +126,71 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
     value: function render() {
       var _this2 = this;
 
-      var actions = this.props.actions;
+      var _props2 = this.props,
+          actions = _props2.actions,
+          getLabel = _props2.getLabel;
 
 
-      if (!actions) {
+      if (!actions || !actions.length) {
         return null;
       }
 
-      return actions.map(function (action) {
-        return _react3.default.createElement(
-          'div',
-          { className: 'margin-top-sm', key: action.code, __source: {
-              fileName: _jsxFileName,
-              lineNumber: 47
-            }
-          },
-          _react3.default.createElement(
-            'button',
-            {
-              className: (0, _classnames2.default)('btn', 'btn-block', (0, _defineProperty3.default)({}, 'btn-' + action.kind, !!action.kind)),
-              onClick: function onClick() {
-                return _this2.triggerAction(action);
-              },
-              __source: {
+      return _react3.default.createElement(
+        _react2.Fragment,
+        {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 48
+          }
+        },
+        actions.map(function (action, index) {
+          return _react3.default.createElement(
+            _react2.Fragment,
+            { key: action.code, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 48
+                lineNumber: 50
               }
             },
-            _this2.getActionLabel(action)
-          )
-        );
-      });
+            index > 0 ? _react3.default.createElement(
+              'span',
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 52
+                }
+              },
+              getLabel('or')
+            ) : null,
+            action.code === 'default' || index > 0 ? _react3.default.createElement(
+              'a',
+              {
+                role: 'button',
+                onClick: function onClick() {
+                  return _this2.triggerAction(action);
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 56
+                }
+              },
+              _this2.getActionLabel(action)
+            ) : _react3.default.createElement(
+              'button',
+              {
+                className: (0, _classnames2.default)('btn', (0, _defineProperty3.default)({}, 'btn-' + action.kind, !!action.kind)),
+                onClick: function onClick() {
+                  return _this2.triggerAction(action);
+                },
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 63
+                }
+              },
+              _this2.getActionLabel(action)
+            )
+          );
+        })
+      );
     }
   }]);
   return ActionsList;
@@ -162,7 +198,10 @@ var ActionsList = _wrapComponent('ActionsList')((_temp = _class = function (_Com
   lang: _propTypes2.default.string
 }, _temp));
 
-exports.default = ActionsList;
 ;
+
+exports.default = (0, _recompose.getContext)({
+  getLabel: _propTypes2.default.func
+})(ActionsList);
 module.exports = exports['default'];
 //# sourceMappingURL=ActionsList.js.map

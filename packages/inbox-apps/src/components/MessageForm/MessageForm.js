@@ -35,7 +35,7 @@ export default class MessageForm extends Component {
         name="body"
         className="form-control"
         classNameGroup="margin-v-xs"
-        rows="6"
+        rows="3"
         getErrorLabel={getLabel}
         onKeyDown={e => {
           if ( e.keyCode === 13 && e.ctrlKey ) {

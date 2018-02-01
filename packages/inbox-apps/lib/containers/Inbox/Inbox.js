@@ -330,8 +330,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           initialValues = _props2.initialValues,
           settings = _props2.settings,
           user = _props2.user;
-      var TitleComponent = settings.TitleComponent,
-          ContentWrapper = settings.ContentWrapper,
+      var ContentWrapper = settings.ContentWrapper,
           allowCreateConversation = settings.allowCreateConversation,
           topListForm = settings.topListForm,
           prefix = settings.prefix,
@@ -339,7 +338,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           creationSubtitle = settings.creationSubtitle,
           creationButtonLabel = settings.creationButtonLabel,
           maskCreationSubtitle = settings.maskCreationSubtitle,
-          inboxDesc = settings.inboxDesc,
+          creationDesc = settings.creationDesc,
           onConversationCreateRedirect = settings.onConversationCreateRedirect,
           onConversationCreateFlash = settings.onConversationCreateFlash;
 
@@ -358,51 +357,96 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             lineNumber: 130
           }
         },
+        allowCreateConversation && !topListForm && _react3.default.createElement(
+          'div',
+          { className: 'text-right', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 131
+            }
+          },
+          _react3.default.createElement(
+            _components2.LinkContainer,
+            { to: '/conversation/create', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 132
+              }
+            },
+            function (path) {
+              return _react3.default.createElement(
+                'button',
+                {
+                  className: 'btn btn-info btn-creation pull-right',
+                  onClick: function onClick() {
+                    return router.push(path);
+                  },
+                  __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 134
+                  }
+                },
+                creationButtonLabel ? creationButtonLabel : getLabel('createConversation')
+              );
+            }
+          )
+        ),
+        _react3.default.createElement(
+          'div',
+          { className: 'inbox-head', __source: {
+              fileName: _jsxFileName,
+              lineNumber: 144
+            }
+          },
+          topListForm && !unresolvedConvs.length && !maskCreationSubtitle ? _react3.default.createElement(_components2.Breadcrumb, {
+            breadParts: [{
+              component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
+            }],
+            disableFirstPartLink: true,
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 147
+            }
+          }) : _react3.default.createElement(_components2.Breadcrumb, {
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 153
+            }
+          })
+        ),
         topListForm && !unresolvedConvs.length ? _react3.default.createElement(
           _react2.Fragment,
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 131
+              lineNumber: 156
             }
           },
-          maskCreationSubtitle ? null : _react3.default.createElement(
-            TitleComponent,
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 132
-              }
-            },
-            creationSubtitle ? creationSubtitle : getLabel('newConversation')
-          ),
-          inboxDesc ? _react3.default.createElement(
+          creationDesc ? _react3.default.createElement(
             'p',
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 136
+                lineNumber: 157
               }
             },
-            inboxDesc
+            creationDesc
           ) : null,
           _react3.default.createElement(
             'div',
             { className: 'media', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 138
+                lineNumber: 159
               }
             },
             _react3.default.createElement(
               'div',
               { className: 'media-left', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 139
+                  lineNumber: 160
                 }
               },
               _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 140
+                  lineNumber: 161
                 }
               })
             ),
@@ -410,14 +454,14 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
               'div',
               { className: 'media-body', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 142
+                  lineNumber: 163
                 }
               },
               _react3.default.createElement(
                 'h4',
                 { className: 'media-heading margin-bottom-sm', __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 143
+                    lineNumber: 164
                   }
                 },
                 getAuthorName(author)
@@ -456,66 +500,28 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
                 Wrapper: this.FromWrapper,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 145
+                  lineNumber: 166
                 }
               })
             )
           )
         ) : null,
         conversations && conversations.length ? _react3.default.createElement(
-          TitleComponent,
-          {
-            __source: {
+          'h4',
+          { className: 'margin-bottom-md', __source: {
               fileName: _jsxFileName,
-              lineNumber: 176
+              lineNumber: 197
             }
           },
           getLabel(!unresolvedConvs.length ? 'pastConversations' : 'ongoingConversations')
         ) : null,
-        allowCreateConversation && !topListForm && _react3.default.createElement(
-          'div',
-          { className: 'text-right', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 180
-            }
-          },
-          _react3.default.createElement(
-            _components2.LinkContainer,
-            { to: '/conversation/create', __source: {
-                fileName: _jsxFileName,
-                lineNumber: 181
-              }
-            },
-            function (path) {
-              return _react3.default.createElement(
-                'button',
-                {
-                  className: 'btn btn-info btn-creation',
-                  onClick: function onClick() {
-                    return router.push(path);
-                  },
-                  __source: {
-                    fileName: _jsxFileName,
-                    lineNumber: 183
-                  }
-                },
-                creationButtonLabel ? creationButtonLabel : getLabel('createConversation')
-              );
-            }
-          )
-        ),
-        _react3.default.createElement('div', { className: 'clearfix', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 193
-          }
-        }),
         !unresolvedConvs.length ? _react3.default.createElement(_components2.ConversationList, { conversations: resolvedConvs, user: user, __source: {
             fileName: _jsxFileName,
-            lineNumber: 196
+            lineNumber: 202
           }
         }) : _react3.default.createElement(_components2.ConversationList, { conversations: unresolvedConvs, user: user, __source: {
             fileName: _jsxFileName,
-            lineNumber: 197
+            lineNumber: 203
           }
         }),
         unresolvedConvs.length && resolvedConvs.length ? _react3.default.createElement(
@@ -523,27 +529,21 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 199
+              lineNumber: 205
             }
           },
           _react3.default.createElement(
-            TitleComponent,
-            {
-              __source: {
+            'h4',
+            { className: 'margin-bottom-md', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 200
+                lineNumber: 206
               }
             },
             getLabel('pastConversations')
           ),
-          _react3.default.createElement('div', { className: 'clearfix', __source: {
-              fileName: _jsxFileName,
-              lineNumber: 204
-            }
-          }),
           _react3.default.createElement(_components2.ConversationList, { conversations: resolvedConvs, user: user, __source: {
               fileName: _jsxFileName,
-              lineNumber: 206
+              lineNumber: 210
             }
           })
         ) : null,
@@ -551,7 +551,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           'div',
           { className: 'padding-v-md', __source: {
               fileName: _jsxFileName,
-              lineNumber: 212
+              lineNumber: 216
             }
           },
           (0, _nl2br2.default)(emptyInboxLabel ? emptyInboxLabel : getLabel('noResult'))
@@ -560,19 +560,19 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           'div',
           { className: 'padding-v-md', style: { position: 'relative' }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 217
+              lineNumber: 221
             }
           },
           _react3.default.createElement(_Spinner2.default, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 218
+              lineNumber: 222
             }
           })
         ),
         _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage, __source: {
             fileName: _jsxFileName,
-            lineNumber: 221
+            lineNumber: 225
           }
         })
       );
@@ -582,7 +582,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 226
+            lineNumber: 230
           }
         },
         content

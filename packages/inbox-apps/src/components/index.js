@@ -1,8 +1,10 @@
 export ActionsList from './ActionsList/ActionsList';
 export AuthorAvatar from './AuthorAvatar/AuthorAvatar';
+export Breadcrumb from './Breadcrumb/Breadcrumb';
 export ConversationForm from './ConversationForm/ConversationForm';
 export ConversationItem from './ConversationItem/ConversationItem';
 export ConversationList from './ConversationList/ConversationList';
+export ConversationTitle from './ConversationTitle/ConversationTitle';
 // export Image from './Image/Image';
 export Link from './Link/Link';
 export LinkContainer from './LinkContainer/LinkContainer';

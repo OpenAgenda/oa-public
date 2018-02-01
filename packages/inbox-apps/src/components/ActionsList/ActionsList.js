@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { getContext } from 'recompose';
 import cn from 'classnames';
 
-export default class ActionsList extends Component {
+class ActionsList extends Component {
   constructor( props ) {
     super( props );
     this.triggerAction = ::this.triggerAction;
@@ -37,24 +38,44 @@ export default class ActionsList extends Component {
   }
 
   render() {
-    const { actions } = this.props;
+    const { actions, getLabel } = this.props;
 
-    if ( !actions ) {
+    if ( !actions || !actions.length ) {
       return null;
     }
 
-    return actions.map( action => (
-      <div className="margin-top-sm" key={action.code}>
-        <button
-          className={cn( 'btn', 'btn-block', {
-            [ `btn-${action.kind}` ]: !!action.kind
-          } )}
-          onClick={() => this.triggerAction( action )}
-        >
-          {this.getActionLabel( action )}
-        </button>
-      </div>
-    ) );
-  }
+    return (
+      <Fragment>
+        {actions.map( ( action, index ) => (
+          <Fragment key={action.code}>
+            {index > 0 ? (
+              <span>{getLabel( 'or' )}</span>
+            ) : null}
 
+            {action.code === 'default' || index > 0 ? (
+              <a
+                role="button"
+                onClick={() => this.triggerAction( action )}
+              >
+                {this.getActionLabel( action )}
+              </a>
+            ) : (
+              <button
+                className={cn( 'btn', {
+                  [ `btn-${action.kind}` ]: !!action.kind
+                } )}
+                onClick={() => this.triggerAction( action )}
+              >
+                {this.getActionLabel( action )}
+              </button>
+            )}
+          </Fragment>
+        ) )}
+      </Fragment>
+    );
+  }
 };
+
+export default getContext( {
+  getLabel: PropTypes.func
+} )( ActionsList );

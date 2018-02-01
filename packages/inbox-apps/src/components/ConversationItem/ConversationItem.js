@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
-import { AuthorAvatar, Link } from '../';
+import { AuthorAvatar, ConversationTitle, Link } from '../';
+import getDestinationInbox from '../../utils/getDestinationInbox';
 
 @connect(
   state => ({
@@ -18,182 +18,13 @@ export default class ConversationItem extends Component {
     getLabel: PropTypes.func
   };
 
-  renderTitle( { destinationInbox } ) {
-    const { user, conversation, settings: { context } } = this.props;
-    const { getLabel } = this.context;
-
-    const { store, type } = conversation;
-
-    const creator = {
-      inbox: conversation.creatorInbox,
-      inboxUser: conversation.creatorInboxUser
-    };
-
-    switch ( type ) {
-      case 'event':
-        switch ( context ) {
-          case 'event': {
-            if ( isCreator( creator, user ) ) {
-              if ( destinationInbox.type === 'user' ) {
-                return <Fragment>{getLabel( 'youContactedTheContributor' )}</Fragment>;
-              } else {
-                return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
-              }
-            } else {
-              if ( destinationInbox.type === 'user' ) {
-                return (
-                  <Fragment>
-                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}
-                  </Fragment>
-                );
-              } else {
-                return <Fragment><b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}</Fragment>;
-              }
-            }
-          }
-          case 'agenda': {
-            if ( isCreator( creator, user ) ) {
-              if ( destinationInbox.type === 'user' ) {
-                return (
-                  <Fragment>
-                    {getLabel( 'youContactedTheContributor' )} {getLabel( 'of' )}{' '}
-                    <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              } else {
-                return (
-                  <Fragment>
-                    {getLabel( 'youContactedTheAgenda' )} {getLabel( 'on' )}{' '}
-                    <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              }
-            } else {
-              if ( destinationInbox.type === 'user' ) {
-                return (
-                  <Fragment>
-                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}{' '}
-                    {getLabel( 'of' )} <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              } else {
-                return (
-                  <Fragment>
-                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
-                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              }
-            }
-          }
-          case 'user': {
-            if ( isCreator( creator, user ) ) {
-              if ( destinationInbox.type === 'user' ) {
-                return (
-                  <Fragment>
-                    {getLabel( 'youContactedTheContributor' )} {getLabel( 'of' )}{' '}
-                    <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              } else {
-                return (
-                  <Fragment>
-                    {getLabel( 'youContactedTheAgenda' )} <b>{store.params.agendaTitle}</b>{' '}
-                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              }
-            } else {
-              if ( destinationInbox.type === 'user' ) { // TODO
-                return (
-                  <Fragment>
-                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheContributor' )}{' '}
-                    {getLabel( 'of' )} <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              } else {
-                return (
-                  <Fragment>
-                    <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}{' '}
-                    <b>{store.params.agendaTitle}</b>{' '}
-                    {getLabel( 'on' )} <b>{store.params.eventTitle}</b>
-                  </Fragment>
-                );
-              }
-            }
-          }
-        }
-      case 'contact_form':
-        switch ( context ) {
-          case 'agenda':
-            if ( isCreator( creator, user ) ) {
-              return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
-            } else {
-              return (
-                <Fragment>
-                  <b>{getInboxUserName( creator )}</b> {getLabel( 'contactedTheAgenda' )}
-                </Fragment>
-              );
-            }
-          case 'user':
-            if ( isCreator( creator, user ) ) {
-              return <Fragment>{getLabel( 'youContactedTheAgenda' )} <b>{store.params.agendaTitle}</b></Fragment>;
-            } else {
-              return (
-                <Fragment>
-                  <b>{getInboxUserName( creator )}</b>{' '}
-                  {getLabel( 'contactedTheAgenda' )} <b>{store.params.agendaTitle}</b>
-                </Fragment>
-              );
-            }
-        }
-      case 'request_contribute':
-        switch ( context ) {
-          case 'agenda':
-            if ( isCreator( creator, user ) ) {
-              return <Fragment>{getLabel( 'youWantToContributeToTheAgenda' )}</Fragment>;
-            } else {
-              return (
-                <Fragment>
-                  <b>{getInboxUserName( creator )}</b> {getLabel( 'wantsToContributeToTheAgenda' )}
-                </Fragment>
-              );
-            }
-          case 'user':
-            if ( isCreator( creator, user ) ) {
-              return (
-                <Fragment>
-                  {getLabel( 'youWantToContributeToTheAgenda' )}{' '}
-                  <b>{store.params.agendaTitle}</b>
-                </Fragment>
-              );
-            } else {
-              return (
-                <Fragment>
-                  <b>{getInboxUserName( creator )}</b>{' '}
-                  {getLabel( 'wantsToContributeToTheAgenda' )} <b>{store.params.agendaTitle}</b>
-                </Fragment>
-              );
-            }
-        }
-    }
-
-    return (
-      <Fragment>
-        {getLabel( 'createdBy' )}{' '}
-        {/* <AuthorAvatar author={creator} inline/>{' '} */}
-        <b>{getInboxUserName( creator )}</b>
-      </Fragment>
-    );
-  }
-
   renderAuthorSentence( { destinationInbox } ) {
     const { getLabel } = this.context;
     const { user, conversation } = this.props;
     const { latestMessage } = conversation;
 
     const creationDate = moment( latestMessage.createdAt );
-    const firstMessage = latestMessage.createdAt === conversation.createdAt;
+    const firstMessage = creationDate.diff( moment( conversation.createdAt ), 'seconds' ) <= 1;
     const creator = {
       inbox: conversation.creatorInbox,
       inboxUser: conversation.creatorInboxUser
@@ -223,13 +54,28 @@ export default class ConversationItem extends Component {
             title={creationDate.format( 'LLL' )}
           >
             {destinationInbox.id !== latestMessage.inbox.id
-              ? <AuthorAvatar author={latestMessage} inline/>
+              ? (
+                <Fragment>
+                  <AuthorAvatar author={latestMessage} inline/>{' '}
+                </Fragment>
+              )
               : null}
             {getInboxUserName( latestMessage )}{' '}
             {getLabel( 'repliedAgo', { date: creationDate.fromNow( true ) } )}
           </div>
         );
       }
+    }
+  }
+
+  TitleEntityComponent( { children, type, agendaUid, eventUid } ) {
+    switch ( type ) {
+      case 'agenda':
+        return <Link to={`/agendas/${agendaUid}`} external>{children}</Link>;
+      case 'event':
+        return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} external>{children}</Link>;
+      default:
+        return <b>{children}</b>;
     }
   }
 
@@ -241,9 +87,9 @@ export default class ConversationItem extends Component {
       return null;
     }
 
-    const { latestMessage, inboxes, inboxContextId, resolvedAt } = conversation;
+    const { latestMessage, resolvedAt } = conversation;
 
-    const destinationInbox = getDestinationInbox( { user, inboxes, inboxContextId } );
+    const destinationInbox = getDestinationInbox( { user, conversation } );
 
     const resolvedIcon = resolvedAt ? <Fragment>
       {' '}
@@ -264,7 +110,12 @@ export default class ConversationItem extends Component {
 
         <div className="media-body">
           <div className="media-heading margin-bottom-sm">
-            {this.renderTitle( { destinationInbox } )}{resolvedIcon}
+            <ConversationTitle
+              user={user}
+              conversation={conversation}
+              EntityComponent={this.TitleEntityComponent}
+            />
+            {resolvedIcon}
           </div>
 
           <div className="conversation-item-message margin-bottom-sm">
@@ -291,26 +142,6 @@ function getInboxUserName( entity ) {
   }
 
   return entity.inbox.name;
-}
-
-function getCreatorName( conversation ) {
-  if ( conversation.creatorInboxUser ) {
-    return conversation.creatorInboxUser.name;
-  }
-
-  return conversation.creatorInbox.name;
-}
-
-function getContextInbox( conversation ) {
-  return _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] )
-}
-
-function getDestinationInbox( { user, inboxes, inboxContextId } ) {
-  let _inboxes = inboxes
-    .sort( o => Number( o.type === 'agenda' ) )
-    .filter( v => !(v.type === 'user' && v.identifier === user.uid) );
-
-  return _inboxes.filter( v => v.id !== inboxContextId )[ 0 ] || _inboxes[ 0 ];
 }
 
 function isCreator( creator, user ) {

@@ -7,7 +7,7 @@ import { getContext } from 'recompose';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
-import { ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
+import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
@@ -118,9 +118,9 @@ export default class Inbox extends Component {
     } = this.props;
 
     const {
-      TitleComponent, ContentWrapper, allowCreateConversation,
+      ContentWrapper, allowCreateConversation,
       topListForm, prefix, emptyInboxLabel, creationSubtitle,
-      creationButtonLabel, maskCreationSubtitle, inboxDesc,
+      creationButtonLabel, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
@@ -128,12 +128,33 @@ export default class Inbox extends Component {
 
     const content = (
       <Fragment>
-        {topListForm && !unresolvedConvs.length ? <Fragment>
-          {maskCreationSubtitle ? null : <TitleComponent>
-            {creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )}
-          </TitleComponent>}
+        {allowCreateConversation && !topListForm && <div className="text-right">
+          <LinkContainer to="/conversation/create">
+            {path => (
+              <button
+                className="btn btn-info btn-creation pull-right"
+                onClick={() => router.push( path )}
+              >
+                {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
+              </button>
+            )}
+          </LinkContainer>
+        </div>}
 
-          {inboxDesc ? <p>{inboxDesc}</p> : null}
+        <div className="inbox-head">
+          {topListForm && !unresolvedConvs.length && !maskCreationSubtitle
+            ? (
+              <Breadcrumb
+                breadParts={[ {
+                  component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
+                } ]}
+                disableFirstPartLink
+              />
+            ) : <Breadcrumb/>}
+        </div>
+
+        {topListForm && !unresolvedConvs.length ? <Fragment>
+          {creationDesc ? <p>{creationDesc}</p> : null}
 
           <div className="media">
             <div className="media-left">
@@ -173,35 +194,18 @@ export default class Inbox extends Component {
           </div>
         </Fragment> : null}
 
-        {conversations && conversations.length ? <TitleComponent>
+        {conversations && conversations.length ? <h4 className="margin-bottom-md">
           {getLabel( !unresolvedConvs.length ? 'pastConversations' : 'ongoingConversations' )}
-        </TitleComponent> : null}
-
-        {allowCreateConversation && !topListForm && <div className="text-right">
-          <LinkContainer to="/conversation/create">
-            {path => (
-              <button
-                className="btn btn-info btn-creation"
-                onClick={() => router.push( path )}
-              >
-                {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
-              </button>
-            )}
-          </LinkContainer>
-        </div>}
-
-        <div className="clearfix"/>
+        </h4> : null}
 
         {!unresolvedConvs.length
           ? <ConversationList conversations={resolvedConvs} user={user}/>
           : <ConversationList conversations={unresolvedConvs} user={user}/>}
 
         {unresolvedConvs.length && resolvedConvs.length ? <Fragment>
-          <TitleComponent>
+          <h4 className="margin-bottom-md">
             {getLabel( 'pastConversations' )}
-          </TitleComponent>
-
-          <div className="clearfix"/>
+          </h4>
 
           <ConversationList conversations={resolvedConvs} user={user}/>
         </Fragment> : null}

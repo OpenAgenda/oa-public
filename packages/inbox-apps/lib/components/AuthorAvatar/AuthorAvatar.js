@@ -85,14 +85,10 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
           inline = _props.inline;
 
 
-      var imgClasses = (0, _classnames2.default)('img-circle', {
+      var imgClasses = (0, _classnames2.default)('img-circle', 'author-avatar', {
+        'author-avatar-inline': inline,
         'media-object': !inline
       });
-
-      var principalStyle = {
-        width: inline ? '24px' : '60px',
-        verticalAlign: 'bottom'
-      };
 
       if (inboxUser) {
         return _react3.default.createElement(
@@ -100,29 +96,27 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 19
+              lineNumber: 15
             }
           },
           _react3.default.createElement(_Image2.default, {
             src: inboxUser.avatar,
             fallbackSrc: __DEVELOPMENT__ ? inboxUser.avatar.replace('cibuldev', 'cibul') : null,
             className: imgClasses,
-            style: principalStyle,
             title: inboxUser.name,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 20
+              lineNumber: 16
             }
           }),
           !inline && inbox && inbox.avatar && inbox.type !== 'user' ? _react3.default.createElement(_Image2.default, {
             src: inbox.avatar,
             fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
             className: (0, _classnames2.default)(imgClasses, 'belongs'),
-            style: { width: inline ? '10px' : '25px' },
             title: inbox.name,
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 29
+              lineNumber: 24
             }
           }) : null
         );
@@ -132,11 +126,10 @@ var AuthorAvatar = _wrapComponent('AuthorAvatar')(function (_Component) {
         src: inbox.avatar,
         fallbackSrc: __DEVELOPMENT__ ? inbox.avatar.replace('cibuldev', 'cibul') : null,
         className: imgClasses,
-        style: principalStyle,
         title: inbox.name,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 41
+          lineNumber: 35
         }
       });
     }

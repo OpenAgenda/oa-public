@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { ConversationForm, LinkContainer, AuthorAvatar } from '../../components';
+import { ConversationForm, LinkContainer, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
@@ -74,31 +74,25 @@ export default class ConversationCreate extends Component {
     } = this.props;
 
     const {
-      TitleComponent, prefix, ContentWrapper, creationDescriptionLabel,
-      maskCreationSubtitle, creationSubtitle, inboxDesc,
+      prefix, ContentWrapper, creationDescriptionLabel,
+      maskCreationSubtitle, creationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
     const content = (
       <Fragment>
-        {maskCreationSubtitle ? null : <TitleComponent>
-          {creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )}
-        </TitleComponent>}
+        {maskCreationSubtitle
+          ? <Breadcrumb/>
+          : (
+            <Breadcrumb
+              breadParts={[ {
+                component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
+              } ]}
+              disableFirstPartLink={!showBackLink( settings, conversations )}
+            />
+          )}
 
-        {inboxDesc ? <p>{inboxDesc}</p> : null}
-
-        {showBackLink( settings, conversations ) ? <div className="text-right margin-bottom-sm">
-          <LinkContainer to="/">
-            {path => (
-              <button
-                className="btn btn-info btn-back"
-                onClick={() => router.push( { pathname: path, state: { showListAllowed: true } } )}
-              >
-                {getLabel( 'showAllConversations' )}
-              </button>
-            )}
-          </LinkContainer>
-        </div> : null}
+        {creationDesc ? <p>{creationDesc}</p> : null}
 
         <div className="clearfix"/>
 

@@ -6,14 +6,10 @@ export default class AuthorAvatar extends Component {
   render() {
     const { author: { inboxUser, inbox }, inline } = this.props;
 
-    const imgClasses = cn( 'img-circle', {
+    const imgClasses = cn( 'img-circle', 'author-avatar', {
+      'author-avatar-inline': inline,
       'media-object': !inline
     } );
-
-    const principalStyle = {
-      width: inline ? '24px' : '60px',
-      verticalAlign: 'bottom'
-    };
 
     if ( inboxUser ) {
       return <Fragment>
@@ -21,7 +17,6 @@ export default class AuthorAvatar extends Component {
           src={inboxUser.avatar}
           fallbackSrc={__DEVELOPMENT__ ? inboxUser.avatar.replace( 'cibuldev', 'cibul' ) : null}
           className={imgClasses}
-          style={principalStyle}
           title={inboxUser.name}
         />
 
@@ -30,7 +25,6 @@ export default class AuthorAvatar extends Component {
             src={inbox.avatar}
             fallbackSrc={__DEVELOPMENT__ ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
             className={cn( imgClasses, 'belongs' )}
-            style={{ width: inline ? '10px' : '25px' }}
             title={inbox.name}
           />
           : null}
@@ -42,7 +36,6 @@ export default class AuthorAvatar extends Component {
         src={inbox.avatar}
         fallbackSrc={__DEVELOPMENT__ ? inbox.avatar.replace( 'cibuldev', 'cibul' ) : null}
         className={imgClasses}
-        style={principalStyle}
         title={inbox.name}
       />
     );
