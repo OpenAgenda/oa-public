@@ -32,7 +32,8 @@ import Wysiwyg from './Wysiwyg.jsx';
 
 const _ = {
   isArray: require( 'lodash/isArray' ),
-  extend: require( 'lodash/extend' )
+  extend: require( 'lodash/extend' ),
+  pick: require( 'lodash/pick' )
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
@@ -748,6 +749,7 @@ function EventFormFactory() {
             initUids={this.state.references}
             res={this.props.referenceRes}
             info={this.props.configuration.field( 'references' ).getInfo( true, false )}
+            sample={this.props.configuration.field( 'references' ).get( 'suggest', false ) ? _.pick( this.state, [ 'title', 'description', 'keywords' ] ) : null }
             onChange={this.props.onReferencesChange}
           /> : null}</div>
 

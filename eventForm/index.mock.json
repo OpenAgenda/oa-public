@@ -423,6 +423,7 @@
       }, {
         "name" : "references",
         "display" : true,
+        "suggest" : true,
         "info" : {
           "fr" : "Une info en plus",
           "en" : "An additionnal info"
