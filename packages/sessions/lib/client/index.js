@@ -21,9 +21,9 @@ module.exports = {
     getCount: getNotificationCount,
     setCount: setNotificationCount
   },
-  messages: {
-    setNewFlag: setMessageNewFlag,
-    getNewFlag: getMessageNewFlag
+  inbox: {
+    getSummary: getInboxSummary,
+    setSummary: setInboxSummary
   },
   isLogged: isLogged,
   flash: flash,
@@ -68,32 +68,18 @@ function getNotificationCount() {
   return session.notifications.count;
 }
 
-function setMessageNewFlag() {
-  var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+function getInboxSummary() {
 
-
-  var session = _getWritable() || {};
-
-  _.set(session, 'messages.newFlag', !!value);
-
-  _setWritable(session);
+  return _.get(_getWritable(), 'inbox');
 }
 
-function getMessageNewFlag() {
-  var unset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
+function setInboxSummary(update) {
 
   var session = _getWritable() || {};
 
-  var flag = _.get(session, 'messages.newFlag', false);
-
-  if (!unset) return flag;
-
-  _.set(session, 'messages.newFlag', false);
+  session.inbox = update;
 
   _setWritable(session);
-
-  return flag;
 }
 
 function setNotificationCount(count) {
@@ -140,22 +126,24 @@ function _getSession() {
 
 function _getWritable() {
 
-  return _get(config.cookies.writable, validate.writable);
+  return _get(config.cookies.writable, validate.writable, true);
 }
 
 function _get(name, validate) {
+  var useDefault = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
 
   var cookieValue = cookies.get(name),
       clean = void 0;
 
-  if (!cookieValue) return null;
+  if (!cookieValue) return useDefault ? validate.default : null;
 
   try {
 
     clean = validate(JSON.parse(base64.decode(cookieValue)));
   } catch (e) {
 
-    return null;
+    return useDefault ? validate.default : null;
   }
 
   return clean;
