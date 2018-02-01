@@ -526,6 +526,7 @@ var ugly = require( 'uglify-js' ),
 
     var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
 
+    // compiler.watch( {}, function ( err, stats ) {
     compiler.run( function ( err, stats ) {
 
       if ( err ) cb( err );
