@@ -9160,11 +9160,14 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
 .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
   line-height: 1.45; }
 
-ul.nav.navbar-nav.navbar-right > li.notifications {
+ul.nav.navbar-nav.navbar-right > li.notifications,
+ul.nav.navbar-nav.navbar-right > li.messages {
   position: relative; }
-  ul.nav.navbar-nav.navbar-right > li.notifications .js_notifications_opener {
+  ul.nav.navbar-nav.navbar-right > li.notifications a,
+  ul.nav.navbar-nav.navbar-right > li.messages a {
     cursor: pointer; }
-  ul.nav.navbar-nav.navbar-right > li.notifications .label {
+  ul.nav.navbar-nav.navbar-right > li.notifications .label,
+  ul.nav.navbar-nav.navbar-right > li.messages .label {
     position: absolute;
     bottom: 10px;
     left: 24px;
