@@ -126,8 +126,8 @@
     when "^3.7.7"
 
 "@openagenda/agenda-events@^1.1.0":
-  version "1.1.9"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.9.tgz#bdeda2506a0695c723615bffd96712617039d08b"
+  version "1.1.11"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-events/-/agenda-events-1.1.11.tgz#2596b26c1881a6208f4c61d3a6f3cdcb66fc96d8"
   dependencies:
     "@openagenda/logs" "^1.0.1"
     "@openagenda/queue" "^1.0.0"
@@ -323,8 +323,8 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
 "@openagenda/bs-templates@^2.0.3", "@openagenda/bs-templates@^2.0.6":
-  version "2.0.30"
-  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.30.tgz#a89690a512bb99f79c169c7479e7211e99174524"
+  version "2.0.32"
+  resolved "https://registry.npmjs.org/@openagenda/bs-templates/-/bs-templates-2.0.32.tgz#5565a9f67983191452f353f4d429c16c4db80d1f"
 
 "@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
   version "2.0.3"
@@ -367,8 +367,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.39"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.39.tgz#db16e3677e288193ee0a918ac464180922be2b5f"
+  version "1.0.40"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.40.tgz#f046834ee1abd887d33cfcb8f33f4760cb13421c"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -519,8 +519,8 @@
     xml2js "0.4.9"
 
 "@openagenda/es-node@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.0.tgz#f157a49eaff94dbc120f6b4493b170b26d0be489"
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.1.tgz#f65c0bdcd427e04b1bf994c37fa5da8b87e269ed"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -708,8 +708,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.20"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.20.tgz#fddd82984b971adcc07aae9e9d74dc1491620cf3"
+  version "1.0.21"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.21.tgz#b79d4f30a764162c442e860f5822e9fb638946da"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -743,8 +743,8 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.16"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.16.tgz#dba0328cf1fe6b94dd2d5ca894680a6478cd6dae"
+  version "1.0.17"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.17.tgz#656a2022fdae3a7d80cb3aed1d7a7c56388343cc"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.3"
     "@openagenda/agendas" "^1.0.4"
@@ -789,8 +789,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.34"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.34.tgz#4d4d4c51af36f29ec96fbba50976e34133012d1a"
+  version "2.0.35"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.35.tgz#e17717bfbaad7ea0238891411925dc207b8f0881"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -1027,8 +1027,8 @@
     when "^3.7.7"
 
 "@openagenda/sessions@^3.0.0", "@openagenda/sessions@^3.0.2", "@openagenda/sessions@^3.0.3", "@openagenda/sessions@^3.0.5":
-  version "3.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.7.tgz#65463d55f2a4bedff07933cd829d7e1661550f20"
+  version "3.0.10"
+  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.10.tgz#aa844d7628e68dc0769fb89ac5a649f74cbd431e"
   dependencies:
     "@openagenda/logs" "^1.0.0"
     "@openagenda/service-utils" "^2.0.0"
@@ -1121,8 +1121,8 @@
     when "^3.7.7"
 
 "@openagenda/users@^2.0.1":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@openagenda/users/-/users-2.0.4.tgz#871873d1bf2313d4c24167e126e6705036a1ab78"
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/@openagenda/users/-/users-2.0.6.tgz#94b9c45440b9c50bb60fe1c99edfde5b700fa36b"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/dom-utils" "^2.0.4"
@@ -3511,8 +3511,8 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     sha.js "^2.4.8"
 
 create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3:
-  version "15.6.2"
-  resolved "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
+  version "15.6.3"
+  resolved "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   dependencies:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
@@ -4022,8 +4022,8 @@ elasticsearch@^13.2.0, elasticsearch@^13.3.1:
     lodash.trimend "^4.5.1"
 
 electron-to-chromium@^1.3.30:
-  version "1.3.31"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.31.tgz#00d832cba9fe2358652b0c48a8816c8e3a037e9f"
+  version "1.3.32"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.32.tgz#11d0684c0840e003c4be8928f8ac5f35dbc2b4e6"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -8009,8 +8009,8 @@ rc-switch@^1.3.2, rc-switch@^1.4.2, rc-switch@^1.4.3:
     prop-types "^15.5.6"
 
 rc@^1.1.7:
-  version "1.2.4"
-  resolved "https://registry.npmjs.org/rc/-/rc-1.2.4.tgz#a0f606caae2a3b862bbd0ef85482c0125b315fa3"
+  version "1.2.5"
+  resolved "https://registry.npmjs.org/rc/-/rc-1.2.5.tgz#275cd687f6e3b36cc756baa26dfee80a790301fd"
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
