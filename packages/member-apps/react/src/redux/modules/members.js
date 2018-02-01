@@ -281,7 +281,7 @@ export function invite( data ) {
   return {
     types: [ INVITE, INVITE_SUCCESS, INVITE_FAIL ],
     promise: ( client, { res } ) => {
-      const stakeholders = data.emails && data.emails.split( ',' ).map( v => v.trim() ).filter( v => !!v )
+      const stakeholders = data.emails && data.emails.split( /[\s\n,]+/ ).map( v => v.trim() ).filter( v => !!v )
           .map( email => ({ email }) );
       return client.post( res.invite, {
         data: {

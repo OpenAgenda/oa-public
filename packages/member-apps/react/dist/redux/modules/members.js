@@ -333,7 +333,7 @@ function invite(data) {
     promise: function promise(client, _ref6) {
       var res = _ref6.res;
 
-      var stakeholders = data.emails && data.emails.split(',').map(function (v) {
+      var stakeholders = data.emails && data.emails.split(/[\s\n,]+/).map(function (v) {
         return v.trim();
       }).filter(function (v) {
         return !!v;

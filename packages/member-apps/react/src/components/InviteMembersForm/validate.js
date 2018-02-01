@@ -10,7 +10,7 @@ export default function validate( values ) {
   let errors = {};
 
   values = { ...values };
-  values.emails = values.emails && values.emails.split( ',' ).map( v => v.trim() ).filter( v => !!v );
+  values.emails = values.emails && values.emails.split( /[\s\n,]+/ ).map( v => v.trim() ).filter( v => !!v );
 
   try {
 

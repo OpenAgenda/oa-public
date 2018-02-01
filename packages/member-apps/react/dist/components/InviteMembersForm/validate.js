@@ -42,7 +42,7 @@ function validate(values) {
   var errors = {};
 
   values = (0, _extends3.default)({}, values);
-  values.emails = values.emails && values.emails.split(',').map(function (v) {
+  values.emails = values.emails && values.emails.split(/[\s\n,]+/).map(function (v) {
     return v.trim();
   }).filter(function (v) {
     return !!v;
