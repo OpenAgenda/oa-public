@@ -47,7 +47,6 @@ app.use( '/home/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4',
             emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang )
           },
           res: {
@@ -92,7 +91,6 @@ app.use( '/:slug/admin/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4',
             emptyInboxLabel: getLabel( 'agendaInboxDesc', req.lang )
           },
           res: {
@@ -146,13 +144,13 @@ app.use( '/:slug/contact',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
-            maskCreationSubtitle: true,
+            // maskCreationSubtitle: true,
+            creationSubtitle: getLabel( 'contactForm', req.lang ),
             topListForm: true, // add a conversation form on top of conversation list
-            inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
+            creationDesc: getLabel( 'sendMessageToAdmin', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
             onConversationCreateFlash: getLabel( 'agendaContactCreationSuccess', req.lang ),
@@ -242,7 +240,6 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
@@ -341,16 +338,15 @@ app.use( '/:slug/request-contribute',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            TitleComponent: 'h4',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
             // maskCreationSubtitle: true,
-            creationSubtitle: getLabel( 'youWantToContribute', req.lang ),
+            creationSubtitle: getLabel( 'titleContributionRequest', req.lang ),
             // creationDescriptionLabel: getLabel( 'wantContributeMakeRequest', req.lang ),
             creationButtonLabel: getLabel( 'createConversation', req.lang ),
             // topListForm: true, // add a conversation form on top of conversation list
-            inboxDesc: getLabel( 'sendMessageToAdmin', req.lang ),
+            creationDesc: getLabel( 'youWantToContribute', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
             onConversationCreateFlash: getLabel( 'requestContributeCreationSuccess', req.lang ),
@@ -358,7 +354,8 @@ app.use( '/:slug/request-contribute',
               type: 'request_contribute',
               typeIdentifier: req.agenda.uid,
               params: {
-                agendaTitle: req.agenda.title
+                agendaTitle: req.agenda.title,
+                agendaUid: req.agenda.uid
               },
               destinationInbox: {
                 type: 'agenda',

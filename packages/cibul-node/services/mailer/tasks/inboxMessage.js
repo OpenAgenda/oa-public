@@ -116,7 +116,7 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
   const mailerAsync = promisify( mailer );
   const getAgenda = promisify( agendasSvc.get );
 
-  const { user, inbox } = inboxUser;
+  const { user } = inboxUser;
   const { culture: lang = 'fr' } = user;
 
   const agenda = conversation.store.params && conversation.store.params.agendaUid

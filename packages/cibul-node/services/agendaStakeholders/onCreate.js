@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const agendas = require( '@openagenda/agendas' );
 const users = require( '@openagenda/users' );
 const activities = require( '@openagenda/activities' );
@@ -39,9 +40,17 @@ module.exports = function ( stakeholder, context ) {
 
         }
 
-        // Create inboxUser
-        log( 'create inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
-        new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.add( { userUid: user.uid } ).then( _.noop );
+        // Create inboxUser, only for moderator or more
+        if (
+          agendaStakeholders.types.isSuperiorTo(
+            stakeholder.credential,
+            agendaStakeholders.types.get( 'moderator' ),
+            true
+          )
+        ) {
+          log( 'create inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+          new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.add( { userUid: user.uid } ).then( _.noop );
+        }
 
         activities.feed( { entityType: 'user', entityUid: user.uid } )
           .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )

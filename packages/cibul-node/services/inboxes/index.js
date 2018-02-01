@@ -208,8 +208,8 @@ module.exports.init = async c => {
       defaultAction: {
         code: 'default',
         label: {
-          fr: 'Fermer',
-          en: 'Close'
+          fr: 'Fermer la conversation',
+          en: 'Close the conversation'
         },
         kind: 'success'
       },
@@ -220,17 +220,17 @@ module.exports.init = async c => {
           actions: [ {
             code: 'accept',
             label: {
-              fr: 'Accepter',
-              en: 'Accept'
+              fr: 'Ajouter en tant que contributeur',
+              en: 'Add as a contributor'
             },
-            kind: 'success',
+            kind: 'primary',
             confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
             confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
           }, {
             code: 'refuse',
             label: {
-              fr: 'Refuser',
-              en: 'Refuse'
+              fr: 'Refuser la demande',
+              en: 'Refuse the request'
             },
             kind: 'danger',
             confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
