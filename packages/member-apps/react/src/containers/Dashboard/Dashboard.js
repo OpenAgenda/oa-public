@@ -309,7 +309,7 @@ export default class Dashboard extends Component {
 
   render() {
     const {
-      res, handleSubmit, stakeholders, total, loading, nextLoading, stats,
+      res, handleSubmit, stakeholders, total, loading, nextLoading, stats, search, getStats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage,
       sendAMessage, showInviteResult, cleanInviteResult, inviteError, credentials, agenda
     } = this.props;
@@ -490,11 +490,13 @@ export default class Dashboard extends Component {
               {getLabel( 'membersInvited' )}
             </div>}
           </div> : <InviteMembersForm onSubmit={data => invite( data )
-            .then( result => {
+            .then( async result => {
               if ( result.error && result.error instanceof SubmissionError ) {
                 throw new SubmissionError( result.error.errors );
               }
-              return result;
+
+              await getStats();
+              return this.search( { search } );
             } )
           } />}
         </Modal>}

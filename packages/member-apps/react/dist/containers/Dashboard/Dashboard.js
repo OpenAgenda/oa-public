@@ -534,6 +534,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           loading = _props6.loading,
           nextLoading = _props6.nextLoading,
           stats = _props6.stats,
+          search = _props6.search,
+          getStats = _props6.getStats,
           showModal = _props6.showModal,
           closeModal = _props6.closeModal,
           setModal = _props6.setModal,
@@ -818,11 +820,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               getLabel('membersInvited')
             )
           ) : _react3.default.createElement(_InviteMembersForm2.default, { onSubmit: function onSubmit(data) {
-              return invite(data).then(function (result) {
+              return invite(data).then(async function (result) {
                 if (result.error && result.error instanceof _reduxForm.SubmissionError) {
                   throw new _reduxForm.SubmissionError(result.error.errors);
                 }
-                return result;
+
+                await getStats();
+                return _this5.search({ search: search });
               });
             } })
         ),
