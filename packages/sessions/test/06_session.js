@@ -95,7 +95,7 @@ describe( 'session - functional (client): session', () => {
 
   describe( '.inbox', () => {
 
-    it( 'getInboxSummary - returns times at zero by default', done => {
+    it( 'getSummary - returns times at zero by default', done => {
 
       jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
 
@@ -113,7 +113,7 @@ describe( 'session - functional (client): session', () => {
 
     } );
 
-    it( 'getInboxSummary - returns set times if any', done => {
+    it( 'getSummary - returns set times if any', done => {
 
       jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
 

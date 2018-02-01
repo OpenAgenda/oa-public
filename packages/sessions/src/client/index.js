@@ -142,7 +142,7 @@ function _getWritable() {
 function _get( name, validate, useDefault = false ) {
 
   let cookieValue = cookies.get( name ), clean;
-
+  
   if ( !cookieValue ) return useDefault ? validate.default : null;
 
   try {
