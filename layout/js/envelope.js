@@ -5,6 +5,10 @@ const get = require( '@openagenda/utils/get' );
 const session = require( '@openagenda/sessions/client' );
 const debug = require( 'debug' );
 
+const _ = {
+  get: require( 'lodash/get' )
+};
+
 let log = () => {};
 
 const checkInterval = 1000*60*5;
@@ -15,6 +19,12 @@ module.exports = async () => {
 
   log( 'running envelope' );
 
+  if ( window && window.location.href.indexOf( '/home/inbox' ) !== -1 ) {
+
+    return _clearHasNew();
+
+  }
+
   if ( await _hasNew() ) {
 
     log( 'displaying has new message' );
@@ -22,6 +32,19 @@ module.exports = async () => {
     _displayHasNew();
 
   }
+
+}
+
+async function _clearHasNew() {
+
+  log( 'clearing has new' );
+
+  const inboxSummary = await session.inbox.getSummary();
+
+  inboxSummary.lastKnownState = false;
+  inboxSummary.lastRequestTime = ( new Date ).getTime();
+
+  session.inbox.setSummary( inboxSummary );
 
 }
 
