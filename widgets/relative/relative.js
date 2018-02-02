@@ -129,33 +129,33 @@ function setOnReady( cb ) {
 
 }
 
-function getWeekDate( offset ) {
+function getWeekDate(offset) {
 
-  const monday = getMonday();
+  var monday = getMonday();
 
-  const weekDate = new Date();
+  var weekDate = new Date( monday );
 
-  weekDate.setDate( monday.getDate() + offset );
+  weekDate.setDate(monday.getDate() + offset);
 
   return weekDate;
-
+  
 }
 
 function getTodayIndexFromMonday() {
 
-  const d = new Date();
+  var d = new Date();
 
-  return d.getDate() - ((d.getDay() + 6) % 7 );
+  return d.getDate() - (d.getDay() + 6) % 7;
 
 }
 
 function getMonday() {
 
-  const index = getTodayIndexFromMonday();
+  var index = getTodayIndexFromMonday();
 
-  const d = new Date();
+  var d = new Date();
 
-  d.setDate( d.getDate() - index );
+  d.setDate(d.getDate() + index - 1 );
 
   return d;
 
@@ -163,9 +163,9 @@ function getMonday() {
 
 function getTomorrow() {
 
-  const d = new Date();
+  var d = new Date();
 
-  d.setDate( d.getDate() + 1 );
+  d.setDate(d.getDate() + 1);
 
   return d;
 

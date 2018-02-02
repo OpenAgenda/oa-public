@@ -1,38 +1,33 @@
 "use strict";
 
-const session = require( '@openagenda/sessions/client' ),
+const extend = require( 'lodash/extend' );
 
-  b64 = require( '../../js/lib/Base64/Base64.mod.js' ),
+const getLabelFactory = require( '@openagenda/labels' );
+const labels = require( '@openagenda/labels/users/profile' );
+const session = require( '@openagenda/sessions/client' );
 
-  toggle = require( './toggle' ),
+const b64 = require( '../../js/lib/Base64/Base64.mod.js' );
+const bsTemplate = require( '../../user/bsMenu.ejs' );
+const du = require( '../../js/lib/domUtils' );
+const envelope = require( './envelope' );
+const toggle = require( './toggle' );
+const template = require( '../../user/menu.ejs' );
 
-  template = require( '../../user/menu.ejs' ),
-
-  getLabelFactory = require( '@openagenda/labels' ),
-
-  labels = require( '@openagenda/labels/users/profile' ),
-
-  bsTemplate = require( '../../user/bsMenu.ejs' ),
-
-  extend = require( 'lodash/extend' ),
-
-  du = require( '../../js/lib/domUtils' ),
-
-  params = {
-    selectors: {
-      languageMenu: '.js_language_menu',
-      headerLinks: '.js_header_links',
-      signinLink: '.js_signin_link',
-      profile: '.js_profile',
-      dropdown: '.js_profile_dropdown',
-      notifications: '.js_notifications',
-      inbox: '.js_inbox_header',
-    },
-    classes: {
-      displayNone: 'display-none'
-    },
-    template: 'user/menu'
-  };
+const params = {
+  selectors: {
+    languageMenu: '.js_language_menu',
+    headerLinks: '.js_header_links',
+    signinLink: '.js_signin_link',
+    profile: '.js_profile',
+    dropdown: '.js_profile_dropdown',
+    notifications: '.js_notifications',
+    inbox: '.js_inbox_header',
+  },
+  classes: {
+    displayNone: 'display-none'
+  },
+  template: 'user/menu'
+};
 
 let pClicked = false;
 
@@ -71,6 +66,8 @@ module.exports = options => {
   du.el( params.selectors.notifications ).insertAdjacentElement( 'beforebegin', li );
 
   toggle( li );
+
+  envelope();
 
 };
 
