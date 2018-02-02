@@ -11,11 +11,11 @@
 
   }
 
-  h4 {
+  h4 { // subtitles: "Conversations past" & "Conversation ongoing"
 
     padding: 30px 0 0;
 
-    &:first-child {
+    &:first-of-type {
 
       padding-top: 10px;
 
@@ -40,8 +40,6 @@
 
   }
 
-  position: relative;
-
   .well {
 
     box-shadow: none;
@@ -62,6 +60,7 @@
 
     font-size: 20px;
     padding-bottom: 20px;
+    line-height: 1.4em;
 
     i {
 
@@ -99,22 +98,53 @@
 
   }
 
-  .btn-creation, .btn-back {
+  .btn-creation {
 
-    position: absolute;
-    top: 28px;
-    right: 12px;
-    margin-left: 8px;
-    max-width: 220px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    margin-top: 16px;
+    //position: absolute;
+    //top: 28px;
+    //right: 12px;
+    //margin-left: 8px;
+    //max-width: 220px;
+    //white-space: nowrap;
+    //text-overflow: ellipsis;
+    //overflow: hidden;
 
   }
 
   .btn-resume {
 
     padding-bottom: 0;
+
+  }
+
+  img.author-avatar {
+
+    width: 60px;
+
+    &:not(.belongs) {
+
+      vertical-align: bottom;
+
+    }
+
+    &.belongs {
+
+      width: 25px;
+
+    }
+
+    &-inline {
+
+      width: 24px;
+
+      &.belongs {
+
+        width: 10px;
+
+      }
+
+    }
 
   }
 

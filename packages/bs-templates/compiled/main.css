@@ -8376,7 +8376,6 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
     padding: 16em 0; }
 
 .inbox {
-  position: relative;
   /**
    * alternative to title
    */ }
@@ -8384,7 +8383,7 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
     padding: 20px 30px; }
   .inbox h4 {
     padding: 30px 0 0; }
-    .inbox h4:first-child {
+    .inbox h4:first-of-type {
       padding-top: 10px; }
   .inbox .main-avatar .primary {
     width: 60px;
@@ -8397,7 +8396,8 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
     padding-right: 228px; }
   .inbox .inbox-breadcrumbs {
     font-size: 20px;
-    padding-bottom: 20px; }
+    padding-bottom: 20px;
+    line-height: 1.4em; }
     .inbox .inbox-breadcrumbs i {
       font-weight: bold;
       padding: 0 10px; }
@@ -8412,17 +8412,20 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
       padding: 20px; }
       .inbox .inbox-head .inbox-actions button, .inbox .inbox-head .inbox-actions span {
         margin-right: 10px; }
-  .inbox .btn-creation, .inbox .btn-back {
-    position: absolute;
-    top: 28px;
-    right: 12px;
-    margin-left: 8px;
-    max-width: 220px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden; }
+  .inbox .btn-creation {
+    margin-top: 16px; }
   .inbox .btn-resume {
     padding-bottom: 0; }
+  .inbox img.author-avatar {
+    width: 60px; }
+    .inbox img.author-avatar:not(.belongs) {
+      vertical-align: bottom; }
+    .inbox img.author-avatar.belongs {
+      width: 25px; }
+    .inbox img.author-avatar-inline {
+      width: 24px; }
+      .inbox img.author-avatar-inline.belongs {
+        width: 10px; }
   .inbox .conversation-item {
     margin: 30px 0; }
     .inbox .conversation-item .conversation-item-message img {
