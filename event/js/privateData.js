@@ -182,7 +182,6 @@ module.exports = function ( options ) {
               agendaUid: params.agendaUid
             }
           },
-          TitleComponent: ( { children } ) => <h4 className="inbox-title pull-left margin-bottom-md">{children}</h4>,
           ContentWrapper: ( { children } ) => <div className="event-content padding-h-sm padding-v-md">{children}</div>,
           lang: params.lang,
         },
