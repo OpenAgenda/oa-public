@@ -9161,13 +9161,13 @@ body .crisp-client-container .crisp-client-excerpt .crisp-client-excerpt-minimiz
   line-height: 1.45; }
 
 ul.nav.navbar-nav.navbar-right > li.notifications,
-ul.nav.navbar-nav.navbar-right > li.messages {
+ul.nav.navbar-nav.navbar-right > li.inbox {
   position: relative; }
   ul.nav.navbar-nav.navbar-right > li.notifications a,
-  ul.nav.navbar-nav.navbar-right > li.messages a {
+  ul.nav.navbar-nav.navbar-right > li.inbox a {
     cursor: pointer; }
   ul.nav.navbar-nav.navbar-right > li.notifications .label,
-  ul.nav.navbar-nav.navbar-right > li.messages .label {
+  ul.nav.navbar-nav.navbar-right > li.inbox .label {
     position: absolute;
     bottom: 10px;
     left: 24px;
