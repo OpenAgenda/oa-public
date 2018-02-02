@@ -22,8 +22,22 @@ module.exports = {
   init: init,
   shutdown: shutdown,
   callbackify: callbackify,
-  redisCommand: redisCommand
+  redisCommand: redisCommand,
+  getUser: getUser
 };
+
+function getUser(identifier) {
+
+  try {
+
+    return interfaces('getUser', identifier);
+  } catch (e) {
+
+    log('error', e);
+
+    throw e;
+  }
+}
 
 function callbackify(p, cb) {
 

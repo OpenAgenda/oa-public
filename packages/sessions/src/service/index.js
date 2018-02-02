@@ -27,7 +27,6 @@ module.exports = {
   sync,
   close,
   setFlash: ( req, res, message ) => set( config.writableCookie.name, req, res, 'flash', message ),
-  setCulture: ( req, res, culture ) => set( config.sessionCookie.name, req, res, 'user.culture', culture ),
   isLogged,
   getCulture,
   middleware

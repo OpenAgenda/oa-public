@@ -30,33 +30,15 @@ var open = function () {
 
             log('attempting session open for user %j', identifier);
 
-            user = void 0;
+            _context.next = 5;
+            return getUser(identifier);
 
-            // fetch user data from interface
-
-            _context.prev = 4;
-            _context.next = 7;
-            return interfaces('getUser', identifier);
-
-          case 7:
+          case 5:
             user = _context.sent;
-            _context.next = 14;
-            break;
-
-          case 10:
-            _context.prev = 10;
-            _context.t0 = _context['catch'](4);
-
-
-            log('error', _context.t0);
-
-            throw _context.t0;
-
-          case 14:
             sessionUser = null, cookieData = null;
 
             if (user) {
-              _context.next = 18;
+              _context.next = 10;
               break;
             }
 
@@ -67,50 +49,50 @@ var open = function () {
               errors: [{ code: 'user.notfound' }]
             });
 
-          case 18:
-            _context.prev = 18;
+          case 10:
+            _context.prev = 10;
 
 
             sessionUser = validate(_.extend({
               latestActivity: new Date()
             }, user));
 
-            _context.next = 26;
+            _context.next = 18;
             break;
 
-          case 22:
-            _context.prev = 22;
-            _context.t1 = _context['catch'](18);
+          case 14:
+            _context.prev = 14;
+            _context.t0 = _context['catch'](10);
 
 
             log('error', 'user validation failed on %j', user);
 
-            return _context.abrupt('return', { errors: _context.t1, success: false });
+            return _context.abrupt('return', { errors: _context.t0, success: false });
+
+          case 18:
+            _context.prev = 18;
+            sessionKey = [config.redis.prefix, sessionUser.uid].join(':');
+            _context.next = 22;
+            return redisCommand('set', [sessionKey, (0, _stringify2.default)(sessionUser)]);
+
+          case 22:
+            _context.next = 24;
+            return redisCommand('expire', [sessionKey, config.expire]);
+
+          case 24:
+            _context.next = 30;
+            break;
 
           case 26:
             _context.prev = 26;
-            sessionKey = [config.redis.prefix, sessionUser.uid].join(':');
-            _context.next = 30;
-            return redisCommand('set', [sessionKey, (0, _stringify2.default)(sessionUser)]);
-
-          case 30:
-            _context.next = 32;
-            return redisCommand('expire', [sessionKey, config.expire]);
-
-          case 32:
-            _context.next = 38;
-            break;
-
-          case 34:
-            _context.prev = 34;
-            _context.t2 = _context['catch'](26);
+            _context.t1 = _context['catch'](18);
 
 
             log('error', 'session could not be stored in redis for user %s', user);
 
-            throw new VError(_context.t2, 'sessions could not be stored in redis for user %j', user);
+            throw new VError(_context.t1, 'sessions could not be stored in redis for user %j', user);
 
-          case 38:
+          case 30:
 
             // store session in cookie
 
@@ -136,12 +118,12 @@ var open = function () {
               errors: []
             });
 
-          case 43:
+          case 35:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, this, [[4, 10], [18, 22], [26, 34]]);
+    }, _callee, this, [[10, 14], [18, 26]]);
   }));
 
   return function open(_x, _x2, _x3) {
@@ -157,7 +139,8 @@ var _require = require('./helpers'),
     cleanSession = _require.cleanSession,
     callbackify = _require.callbackify,
     interfaces = _require.interfaces,
-    redisCommand = _require.redisCommand;
+    redisCommand = _require.redisCommand,
+    getUser = _require.getUser;
 
 var cookieValidate = require('../../iso/cookie.validate');
 var log = require('@openagenda/logs')('sessions/open');

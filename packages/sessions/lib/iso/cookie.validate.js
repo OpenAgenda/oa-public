@@ -22,9 +22,9 @@ var writableFields = {
       type: 'integer',
       default: 0
     },
-    latestKnownMessageTime: {
-      type: 'integer',
-      default: 0
+    lastKnownState: {
+      type: 'boolean',
+      default: false
     }
   },
   notifications: {

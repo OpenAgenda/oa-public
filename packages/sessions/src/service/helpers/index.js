@@ -12,7 +12,24 @@ module.exports = {
   init,
   shutdown,
   callbackify,
-  redisCommand
+  redisCommand,
+  getUser
+}
+
+function getUser( identifier ) {
+
+  try {
+
+    return interfaces( 'getUser', identifier );
+
+  } catch ( e ) {
+
+    log( 'error', e );
+
+    throw e;
+
+  }
+
 }
 
 
@@ -36,7 +53,7 @@ function interfaces( name, args ) {
 
   return new Promise( ( rs, rj ) => {
 
-    config.interfaces[ name ].apply( null, ( _.isArray( args ) ? args : [ args ] ).concat( ( err, result ) => {  
+    config.interfaces[ name ].apply( null, ( _.isArray( args ) ? args : [ args ] ).concat( ( err, result ) => {
 
       if ( err ) return rj( err );
 

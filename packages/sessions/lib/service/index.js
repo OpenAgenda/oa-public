@@ -67,9 +67,6 @@ module.exports = {
   setFlash: function setFlash(req, res, message) {
     return set(config.writableCookie.name, req, res, 'flash', message);
   },
-  setCulture: function setCulture(req, res, culture) {
-    return set(config.sessionCookie.name, req, res, 'user.culture', culture);
-  },
   isLogged: isLogged,
   getCulture: getCulture,
   middleware: middleware

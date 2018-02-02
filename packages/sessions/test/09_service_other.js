@@ -134,26 +134,4 @@ describe( 'session - functional (server): isLogged & getCulture', () => {
 
   } );
 
-  describe( '.setCulture', () => {
-
-    it( 'sets user culture', () => {
-
-      const req = {
-        session: {},
-        cookies: {}
-      };
-
-      const res = {
-        cookies: {}
-      };
-      res.cookie = ( name, values ) => res.cookies[ name ] = values;
-
-      sessions.setCulture( req, res, 'be' );
-
-      should( expressCookie( config.sessionCookie.name, req, res ).get().user.culture ).equal( 'be' );
-
-    } );
-
-  } );
-
-} ); 
+} );

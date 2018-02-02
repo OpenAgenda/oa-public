@@ -44,7 +44,7 @@ describe( 'session - functional (server): open', () => {
 
       result.success.should.equal( true );
 
-      Object.keys( result ).should.eql( [ 
+      Object.keys( result ).should.eql( [
         'success', // true if ok
         'data', // session data stored on the server side
         'cookieData', // session data stored on the session cookie
@@ -123,7 +123,7 @@ describe( 'session - functional (server): open', () => {
 
     } );
 
-  } );  
+  } );
 
   it( 'open sets an expiration on session', done => {
 

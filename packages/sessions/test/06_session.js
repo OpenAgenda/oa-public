@@ -102,9 +102,9 @@ describe( 'session - functional (client): session', () => {
         // this is for test env only
         clientSession.test.loadCookiesLib( cookiesLib( w ) );
 
-        clientSession.inbox.getSummary().should.eql( { 
-          lastRequestTime: 0, 
-          latestKnownMessageTime: 0
+        clientSession.inbox.getSummary().should.eql( {
+          lastRequestTime: 0,
+          lastKnownState: false
         } );
 
         done();
@@ -122,12 +122,12 @@ describe( 'session - functional (client): session', () => {
 
         clientSession.inbox.setSummary( {
           lastRequestTime: 1000,
-          latestKnownMessageTime: 899
+          lastKnownState: true
         } );
 
         clientSession.inbox.getSummary().should.eql( {
           lastRequestTime: 1000,
-          latestKnownMessageTime: 899
+          lastKnownState: true
         } );
 
         done();

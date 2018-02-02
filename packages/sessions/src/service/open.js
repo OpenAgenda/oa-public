@@ -1,7 +1,7 @@
 "use strict";
 
 const config = require( './config' );
-const { cleanSession, callbackify, interfaces, redisCommand } = require( './helpers' );
+const { cleanSession, callbackify, interfaces, redisCommand, getUser } = require( './helpers' );
 const cookieValidate = require( '../../iso/cookie.validate' );
 const log = require( '@openagenda/logs' )( 'sessions/open' );
 const validate = require( './validate' );
@@ -32,21 +32,7 @@ async function open( request, response, identifier ) {
 
   log( 'attempting session open for user %j', identifier );
 
-  let user;
-
-  // fetch user data from interface
-
-  try {
-
-    user = await interfaces( 'getUser', identifier );
-
-  } catch ( e ) {
-
-    log( 'error', e );
-
-    throw e;
-
-  }
+  let user = await getUser( identifier );
 
   let sessionUser = null, cookieData = null;
 
@@ -92,7 +78,7 @@ async function open( request, response, identifier ) {
 
     throw new VError( e, 'sessions could not be stored in redis for user %j', user );
 
-  }  
+  }
 
   // store session in cookie
 
@@ -102,7 +88,7 @@ async function open( request, response, identifier ) {
 
   // clear writable cookie
   if ( response ) {
-    
+
     expressCookie( config.writableCookie.name, request, response ).clear();
 
   }
