@@ -1,24 +1,26 @@
 "use strict";
 
-const { promisify } = require( 'util' );
-const express = require( 'express' );
-const bodyParser = require( 'body-parser' );
-const morgan = require( 'morgan' );
-const ReactDOM = require( 'react-dom/server' );
 const _ = require( 'lodash' );
-const sessions = require( '@openagenda/sessions' );
+const bodyParser = require( 'body-parser' );
+const express = require( 'express' );
+const morgan = require( 'morgan' );
+const { promisify } = require( 'util' );
+const ReactDOM = require( 'react-dom/server' );
+
 const agendasMw = require( '@openagenda/agendas/middleware' );
 const eventsSvc = require( '@openagenda/events' );
 const inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
-const makeLabelGetter = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/inboxes' );
-const cmn = require( '../lib/commons-app' );
-const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
-const config = require( '../config' );
+const makeLabelGetter = require( '@openagenda/labels' );
+const sessions = require( '@openagenda/sessions' );
+const users = require( '@openagenda/users' );
 
-const getLabel = makeLabelGetter( labels );
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 
 const app = express();
+const getLabel = makeLabelGetter( labels );
 
 module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 
@@ -36,6 +38,15 @@ if ( __DEVELOPMENT__ ) {
 app.use( '/home/inbox',
   preMw,
   cmn.loadBaseData( 'oasfmain.css' ),
+  ( req, res, next ) => {
+
+    users.refresh( 'lastInboxCheck', { uid: req.user.uid }, ( err, success ) => {
+
+      next();
+
+    } );
+
+  },
   ( req, res, next ) => {
     inboxAppsMw.matchApp(
       {

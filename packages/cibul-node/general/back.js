@@ -1,40 +1,35 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const _ = require( 'lodash' );
+const bodyParser = require( 'body-parser' );
 
-cmn = require( '../lib/commons-app' ),
+const callToActionMw = require( '@openagenda/call-to-action/middleware' );
+const { Inbox } = require( '@openagenda/inboxes' );
+const mailer = require( '@openagenda/mailer' );
+const sessions = require( '@openagenda/sessions' );
+const users = require( '@openagenda/users' );
+const utils = require( '@openagenda/utils' );
 
-mailer = require( '@openagenda/mailer' ),
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const invitationSvc = require( '../services/invitation' );
+const modLib = require( '../lib/moduleLib' );
 
-config = require( '../config' ),
-
-utils = require( '@openagenda/utils' ),
-
-invitationSvc = require( '../services/invitation' ),
-
-bodyParser = require( 'body-parser' ),
-
-sessions = require( '@openagenda/sessions' ),
-
-userSvc = require( '../services/user' ),
-
-callToActionMw = require( '@openagenda/call-to-action/middleware' ),
-
-routes = {
+const routes = {
 
   featureRequest: [ 'post', '/featurerequest', [
     cmn.loadLogger( 'featureRequest' ),
     bodyParser.json(),
     sessions.middleware.load( { detailed: true } ),
-    _loadUser,
-    featureRequest 
+    _loadUser.bind( null, false ),
+    featureRequest
   ] ],
 
   request: [ 'post', '/request', [
     cmn.loadLogger( 'request' ),
     bodyParser.json(),
     sessions.middleware.load( { detailed: true } ),
-    _loadUser,
+    _loadUser.bind( null, false ),
     callToActionMw.request()
   ] ],
 
@@ -48,6 +43,14 @@ routes = {
     cmn.loadLogger( 'snsMailReplies' ),
     bodyParser.text(),
     snsMailReplies
+  ] ],
+
+  latestInboxMessageTimestamp: [ 'get', '/latest-inbox-timestamp', [
+    cmn.loadLogger( 'latestInboxMessageTimestamp' ),
+    sessions.middleware.load( { detailed: true } ),
+    sessions.middleware.ifUnlogged( ( req, res ) => res.send( null ) ),
+    _loadUser.bind( null, true ),
+    latestInboxMessageTimestamp
   ] ]
 
 };
@@ -77,9 +80,9 @@ ${req.body.message}
 
 }
 
-function _loadUser( req, res, next ) {
+function _loadUser( detailed, req, res, next ) {
 
-  userSvc.get( { id: req.user.id }, ( err, user ) => {
+  users.get( { id: req.user.id }, { detailed, camel: true }, ( err, user ) => {
 
     if ( err ) return next( err );
 
@@ -87,7 +90,39 @@ function _loadUser( req, res, next ) {
 
     next();
 
-  });
+  } );
+
+}
+
+function latestInboxMessageTimestamp( req, res, next ) {
+
+  Inbox.user( req.user.uid ).conversations.list( 0, 1 ).then( ( { data } ) => {
+
+    let hasNew = false;
+
+    const latestConversation = _.head( data );
+
+    if ( !latestConversation ) return res.send( { hasNew } );
+
+    const timestamp = _.get( latestConversation, 'latestMessage.createdAt', null );
+
+    if ( timestamp === null ) {
+
+      hasNew = false;
+
+    } else if ( !req.user.lastInboxCheck ) {
+
+      hasNew = true;
+
+    } else if ( timestamp > req.user.lastInboxCheck ) {
+
+      hasNew = true;
+
+    }
+
+    res.send( { hasNew } );
+
+  } ).catch( next );
 
 }
 
@@ -170,6 +205,6 @@ function snsMailReplies( req, res, next ) {
     } );
 
   } );
-   
+
 
 }
