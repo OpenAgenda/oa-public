@@ -39,103 +39,11 @@ function wrapWithApp( element ) {
   );
 }
 
-const user = {
-  culture: 'fr',
-  uid: 31046551,
-  name: 'Kévin Berthommier - OpenAgenda',
-  thumbnail: null
-};
-const conversation = {
-  id: 135,
-  type: 'event',
-  typeIdentifier: 25404061,
-  store: {
-    params: {
-      agendaTitle: 'Test convs 12622',
-      eventTitle: 'Contactez-moi !',
-      agendaUid: 17388451
-    }
-  },
-  createdAt: '2018-02-02T15:57:40.000Z',
-  updatedAt: null,
-  resolvedAt: null,
-  closedAt: null,
-  inboxContextId: 62817,
-  creatorInboxUser: {
-    id: 68431,
-    inboxId: 62817,
-    userUid: 31046551,
-    leftAt: null,
-    uid: 31046551,
-    name: 'Kévin Berthommier - OpenAgenda',
-    avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  },
-  creatorInbox: {
-    id: 62817,
-    type: 'agenda',
-    identifier: 17388451,
-    uid: 17388451,
-    name: 'Test convs 12622',
-    avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-  },
-  latestMessage: {
-    id: 214,
-    conversationId: 135,
-    body: 'Salut !',
-    createdAt: '2018-02-02T15:57:40.000Z',
-    inboxUser: {
-      id: 68431,
-      inboxId: 62817,
-      userUid: 31046551,
-      leftAt: null,
-      uid: 31046551,
-      name: 'Kévin Berthommier - OpenAgenda',
-      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-    },
-    inbox: {
-      id: 62817,
-      type: 'agenda',
-      identifier: 17388451,
-      uid: 17388451,
-      name: 'Test convs 12622',
-      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-    }
-  },
-  inboxes: [
-    {
-      id: 152,
-      type: 'user',
-      identifier: 7339049,
-      uid: 7339049,
-      name: 'Yacine Bensalem - OpenAgenda',
-      avatar: 'https://cibuldev.s3.amazonaws.com/profile7339049.jpg'
-    },
-    {
-      id: 62817,
-      type: 'agenda',
-      identifier: 17388451,
-      uid: 17388451,
-      name: 'Test convs 12622',
-      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-    }
-  ],
-  actions: [
-    {
-      code: 'default',
-      label: {
-        fr: 'Fermer la conversation',
-        en: 'Close the conversation'
-      },
-      kind: 'success'
-    }
-  ]
-};
-
 function makeTest( state, props ) {
-  store = mockStore( state );
+  store = mockStore( _.merge( state, { user: props.user } ) );
 
   const wrapper = mount( wrapWithApp(
-    <ConversationTitle {...props} />
+    <p><ConversationTitle {...props} /></p>
   ) );
 
   expect( wrapper.text() ).to.matchSnapshot();
@@ -143,38 +51,315 @@ function makeTest( state, props ) {
 
 
 describe( 'conversation of type event', () => {
-
   describe( 'context event', () => {
-    it( 'created by me, destinated to a user', () => {
-      const initialState = {
-        settings: {
-          lang: 'fr',
-          context: 'event'
-        }
-      };
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'event'
+      }
+    };
 
+    it( 'created by me, destinated to a user', () => {
       const { user, conversation } = _.find( fixturesData, {
         type: 'event',
         context: 'event',
         creator: true,
-        destination: 'user'
+        destination: 'me'
       } );
 
       makeTest( initialState, { user, conversation } );
     } );
 
-    it( 'created by me, not destinated to a user', () => {
-      //
+    it( 'created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'event',
+        creator: true,
+        destination: 'agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
     } );
 
-    it( 'created by someone else, destinated to me or my agenda', () => {
-      //
+    it( 'created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'event',
+        creator: false,
+        destination: 'me'
+      } );
+
+      makeTest( initialState, { user, conversation } );
     } );
 
-    it( 'created by someone else, not destinated to me or my agenda', () => {
-      //
+    it( 'created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'event',
+        creator: false,
+        destination: 'contributor+agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
     } );
 
+    it( 'created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'event',
+        creator: false,
+        destination: 'contributor'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
   } );
 
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me, destinated to contributor', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'agenda',
+        creator: true,
+        destination: 'contributor'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'agenda',
+        creator: true,
+        destination: 'agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'agenda',
+        creator: false,
+        destination: 'contributor'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'agenda',
+        creator: false,
+        destination: 'contributor+agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'agenda',
+        creator: false,
+        destination: 'me'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me, destinated to contributor', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'user',
+        creator: true,
+        destination: 'contributor'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by me, destinated to the agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'user',
+        creator: true,
+        destination: 'agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to contributor', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'user',
+        creator: false,
+        destination: 'contributor'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to contributor+agenda', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'user',
+        creator: false,
+        destination: 'contributor+agenda'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'event',
+        context: 'user',
+        creator: false,
+        destination: 'me'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+} );
+
+describe( 'conversation of type contact_form', () => {
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_form',
+        context: 'agenda',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_form',
+        context: 'agenda',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_form',
+        context: 'user',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_form',
+        context: 'user',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+} );
+
+describe( 'conversation of type request_contribute', () => {
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'request_contribute',
+        context: 'agenda',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'request_contribute',
+        context: 'agenda',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'request_contribute',
+        context: 'user',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'request_contribute',
+        context: 'user',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
 } );

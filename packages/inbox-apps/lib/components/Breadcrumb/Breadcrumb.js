@@ -44,6 +44,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _recompose = require('recompose');
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _ = require('../');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -98,12 +102,18 @@ var Breadcrumb = _wrapComponent('Breadcrumb')(function (_Component) {
               lineNumber: 17
             }
           }),
-          _react3.default.createElement(
+          typeof breadPart.component === 'string' ? _react3.default.createElement('span', {
+            className: (0, _classnames2.default)(breadPart.className),
+            dangerouslySetInnerHTML: { __html: breadPart.component },
+            __source: {
+              fileName: _jsxFileName,
+              lineNumber: 19
+            }
+          }) : _react3.default.createElement(
             'span',
-            {
-              __source: {
+            { className: (0, _classnames2.default)(breadPart.className), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 18
+                lineNumber: 24
               }
             },
             breadPart.component
@@ -127,7 +137,7 @@ var Breadcrumb = _wrapComponent('Breadcrumb')(function (_Component) {
         _.LinkContainer,
         { to: '/', __source: {
             fileName: _jsxFileName,
-            lineNumber: 32
+            lineNumber: 38
           }
         },
         function (path) {
@@ -140,7 +150,7 @@ var Breadcrumb = _wrapComponent('Breadcrumb')(function (_Component) {
               },
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 34
+                lineNumber: 40
               }
             },
             getLabel('inbox')
@@ -152,7 +162,7 @@ var Breadcrumb = _wrapComponent('Breadcrumb')(function (_Component) {
         'h3',
         { className: 'inbox-breadcrumbs', __source: {
             fileName: _jsxFileName,
-            lineNumber: 45
+            lineNumber: 51
           }
         },
         homePart,

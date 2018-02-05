@@ -94,8 +94,6 @@ export default class ConversationCreate extends Component {
 
         {creationDesc ? <p>{creationDesc}</p> : null}
 
-        <div className="clearfix"/>
-
         {creationDescriptionLabel ? <p>{creationDescriptionLabel}</p> : null}
 
         <div className="media">

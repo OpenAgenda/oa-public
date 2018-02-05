@@ -1,3 +1,47 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`conversation of type contact_form context agenda created by me 1`] = `"Vous avez contacté l'agenda"`;
+
+exports[`conversation of type contact_form context agenda created by someone else 1`] = `"Yacine Bensalem - OpenAgenda a contacté l'agenda"`;
+
+exports[`conversation of type contact_form context user created by me 1`] = `"Vous avez contacté l'agenda Test convs 12622"`;
+
+exports[`conversation of type contact_form context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda a contacté l'agenda Test convs 12622"`;
+
+exports[`conversation of type event context agenda created by me, destinated to contributor 1`] = `"Vous avez contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda sur Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda sur Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to me 1`] = `"Kévin Berthommier - OpenAgenda vous a contacté sur Contactez-moi !"`;
+
 exports[`conversation of type event context event created by me, destinated to a user 1`] = `"Vous avez contacté le contributeur"`;
+
+exports[`conversation of type event context event created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda"`;
+
+exports[`conversation of type event context event created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur"`;
+
+exports[`conversation of type event context event created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda"`;
+
+exports[`conversation of type event context event created by someone else, destinated to me 1`] = `"Test convs 12622 vous a contacté"`;
+
+exports[`conversation of type event context user created by me, destinated to contributor 1`] = `"Vous avez contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context user created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda Test convs 12622 sur Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda Test convs 12622 sur Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to me 1`] = `"Kévin Berthommier - OpenAgenda vous a contacté sur Contactez-moi !"`;
+
+exports[`conversation of type request_contribute context agenda created by me 1`] = `"Vous souhaitez contribuer à l'agenda"`;
+
+exports[`conversation of type request_contribute context agenda created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda"`;
+
+exports[`conversation of type request_contribute context user created by me 1`] = `"Vous souhaitez contribuer à l'agenda Test convs 12622"`;
+
+exports[`conversation of type request_contribute context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda Test convs 12622"`;

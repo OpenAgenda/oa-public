@@ -159,11 +159,27 @@ export default class Conversation extends Component {
   TitleEntityComponent( { children, type, agendaUid, eventUid } ) {
     switch ( type ) {
       case 'agenda':
-        return <Link to={`/agendas/${agendaUid}`} className="text-muted" external>{children}</Link>;
+        return (
+          <Link
+            to={`/agendas/${agendaUid}`}
+            className="conversation-title-entity"
+            external
+          >
+            {children}
+          </Link>
+        );
       case 'event':
-        return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} className="text-muted" external>{children}</Link>;
+        return (
+          <Link
+            to={`/agendas/${agendaUid}/events/${eventUid}`}
+            className="conversation-title-entity"
+            external
+          >
+            {children}
+          </Link>
+        );
       default:
-        return <span className="text-muted">{children}</span>;
+        return <span className="conversation-title-entity">{children}</span>;
     }
   }
 
@@ -185,7 +201,8 @@ export default class Conversation extends Component {
                 user={user}
                 conversation={conversation}
                 EntityComponent={this.TitleEntityComponent}
-              />
+              />,
+              className: 'text-muted'
             } ]}
             disableFirstPartLink={!showBackLink( settings, conversations )}
           />

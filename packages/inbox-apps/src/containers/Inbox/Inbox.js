@@ -70,6 +70,7 @@ export default class Inbox extends Component {
   constructor( props ) {
     super( props );
     this.FromWrapper = ::this.FromWrapper;
+    this.renderCreationButton = ::this.renderCreationButton;
   }
 
   FromWrapper( { handleSubmit, children } ) {
@@ -111,6 +112,32 @@ export default class Inbox extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
+  renderCreationButton( { unresolvedConvs } ) {
+    const { settings, router } = this.props;
+    const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
+
+    const creationButton = (
+      <div className="text-right">
+        <LinkContainer to="/conversation/create">
+          {path => (
+            <button
+              className="btn btn-info btn-creation pull-right"
+              onClick={() => router.push( path )}
+            >
+              {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
+            </button>
+          )}
+        </LinkContainer>
+      </div>
+    );
+
+    if ( allClosedForCreate && unresolvedConvs.length ) {
+      return null;
+    }
+
+    return allowCreateConversation && !topListForm ? creationButton : null;
+  }
+
   render() {
     const {
       conversations, nextLoading, router, getLabel, showModal,
@@ -118,9 +145,8 @@ export default class Inbox extends Component {
     } = this.props;
 
     const {
-      ContentWrapper, allowCreateConversation,
-      topListForm, prefix, emptyInboxLabel, creationSubtitle,
-      creationButtonLabel, maskCreationSubtitle, creationDesc,
+      ContentWrapper, topListForm, prefix, emptyInboxLabel,
+      creationSubtitle, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
@@ -128,18 +154,7 @@ export default class Inbox extends Component {
 
     const content = (
       <Fragment>
-        {allowCreateConversation && !topListForm && <div className="text-right">
-          <LinkContainer to="/conversation/create">
-            {path => (
-              <button
-                className="btn btn-info btn-creation pull-right"
-                onClick={() => router.push( path )}
-              >
-                {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
-              </button>
-            )}
-          </LinkContainer>
-        </div>}
+        {this.renderCreationButton( { unresolvedConvs } )}
 
         <div className="inbox-head">
           {topListForm && !unresolvedConvs.length && !maskCreationSubtitle

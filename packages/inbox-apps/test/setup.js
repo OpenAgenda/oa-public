@@ -14,5 +14,5 @@ chai.use( chaiJestDiff() );
 chai.use( chaiJestSnapshot );
 
 Enzyme.configure( { adapter: new Adapter() } );
-expect.addSnapshotSerializer( createSerializer() );
+expect.addSnapshotSerializer( createSerializer( { mode: 'deep' } ) );
 

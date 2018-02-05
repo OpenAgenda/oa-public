@@ -168,7 +168,7 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           name: 'message',
           className: 'form-control',
           classNameGroup: 'margin-v-xs',
-          rows: '6',
+          rows: '3',
           getErrorLabel: getLabel,
           onKeyDown: function onKeyDown(e) {
             if (e.keyCode === 13 && e.ctrlKey) {

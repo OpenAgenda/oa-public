@@ -290,17 +290,12 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           },
           creationDesc
         ) : null,
-        _react3.default.createElement('div', { className: 'clearfix', __source: {
-            fileName: _jsxFileName,
-            lineNumber: 97
-          }
-        }),
         creationDescriptionLabel ? _react3.default.createElement(
           'p',
           {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 99
+              lineNumber: 97
             }
           },
           creationDescriptionLabel
@@ -309,19 +304,19 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
           'div',
           { className: 'media', __source: {
               fileName: _jsxFileName,
-              lineNumber: 101
+              lineNumber: 99
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-left', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 102
+                lineNumber: 100
               }
             },
             _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 103
+                lineNumber: 101
               }
             })
           ),
@@ -329,14 +324,14 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
             'div',
             { className: 'media-body', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 105
+                lineNumber: 103
               }
             },
             _react3.default.createElement(
               'h4',
               { className: 'media-heading margin-bottom-sm', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 106
+                  lineNumber: 104
                 }
               },
               getAuthorName(author)
@@ -371,7 +366,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
               Wrapper: this.FromWrapper,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 108
+                lineNumber: 106
               }
             })
           )
@@ -383,7 +378,7 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 144
+            lineNumber: 142
           }
         },
         content

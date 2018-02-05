@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { getContext } from 'recompose';
+import cn from 'classnames';
 import { LinkContainer } from '../';
 
 class Breadcrumb extends Component {
@@ -11,14 +12,19 @@ class Breadcrumb extends Component {
       return null;
     }
 
-    return breadParts.map( ( breadPart, i ) => {
-      return (
-        <Fragment key={i}>
-          <i className="fa fa-angle-right"></i>
-          <span>{breadPart.component}</span>
-        </Fragment>
-      );
-    } );
+    return breadParts.map( ( breadPart, i ) => (
+      <Fragment key={i}>
+        <i className="fa fa-angle-right"></i>
+        {typeof breadPart.component === 'string' ? (
+          <span
+            className={cn( breadPart.className )}
+            dangerouslySetInnerHTML={{ __html: breadPart.component }}
+          />
+        ) : (
+          <span className={cn( breadPart.className )}>{breadPart.component}</span>
+        )}
+      </Fragment>
+    ) );
   }
 
   render() {

@@ -68,7 +68,7 @@ export default class ConversationForm extends Component {
           name="message"
           className="form-control"
           classNameGroup="margin-v-xs"
-          rows="6"
+          rows="3"
           getErrorLabel={getLabel}
           onKeyDown={e => {
             if ( e.keyCode === 13 && e.ctrlKey ) {
