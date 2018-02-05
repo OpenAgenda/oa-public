@@ -158,9 +158,10 @@ module.exports = function ( options ) {
         settings: {
           context: 'event',
           prefix: window.location.pathname,
-          focusFistConversation: ![ 'adminmod', 'adminContributor' ].includes( userRole ), // force to display the first conversation if exists
+          focusFistConversation: [ 'contributor', 'simpleUser' ].includes( userRole ), // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
-          allowCreateConversation: [ 'adminmod', 'adminContributor' ].includes( userRole ), // display (or not) creation button
+          allowCreateConversation: true, // display (or not) creation button
+          allClosedForCreate: [ 'contributor', 'simpleUser' ].includes( userRole ),
           maskEventTitle: true, // useless on event page
           // maskCreationSubtitle: true, // useless on event page
           creationSubtitle: getInboxesLabel(
