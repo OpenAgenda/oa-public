@@ -30,24 +30,29 @@ export default class ConversationTitle extends Component {
       inboxUser: conversation.creatorInboxUser
     };
 
+    const userIsInConversation = isInInboxes( conversation.inboxes, user );
+
     switch ( type ) {
       case 'event':
         switch ( context ) {
           case 'event': {
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               if ( destinationInbox.type === 'user' ) {
                 return <Fragment>{getLabel( 'youContactedTheContributor' )}</Fragment>;
               } else {
                 return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
               }
             } else {
-              if ( destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id ) {
+              if (
+                (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
+                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              ) {
                 return (
                   <Fragment>
                     <EntityComponent type="user">
                       {getInboxUserName( creator )}
                     </EntityComponent>{' '}
-                    {getLabel( 'contactedTheContributor' )}
+                    {userIsInConversation ? getLabel( 'contactedYou' ) : getLabel( 'contactedTheContributor' )}
                   </Fragment>
                 );
               } else {
@@ -61,7 +66,7 @@ export default class ConversationTitle extends Component {
             }
           }
           case 'agenda': {
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               if ( destinationInbox.type === 'user' ) {
                 return (
                   <Fragment>
@@ -82,12 +87,22 @@ export default class ConversationTitle extends Component {
                 );
               }
             } else {
-              if ( destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id ) {
+              if (
+                (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
+                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              ) {
                 return (
                   <Fragment>
                     <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
-                    {getLabel( 'contactedTheContributor' )}{' '}
-                    {getLabel( 'of' )}{' '}
+                    {userIsInConversation ? (
+                      <Fragment>
+                        {getLabel( 'contactedYou' )} {getLabel( 'on' )}{' '}
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        {getLabel( 'contactedTheContributor' )} {getLabel( 'of' )}{' '}
+                      </Fragment>
+                    )}
                     <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                       {store.params.eventTitle}
                     </EntityComponent>
@@ -108,7 +123,7 @@ export default class ConversationTitle extends Component {
             }
           }
           case 'user': {
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               if ( destinationInbox.type === 'user' ) {
                 return (
                   <Fragment>
@@ -133,12 +148,22 @@ export default class ConversationTitle extends Component {
                 );
               }
             } else {
-              if ( destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id ) {
+              if (
+                (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id)
+                || (destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id)
+              ) {
                 return (
                   <Fragment>
                     <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
-                    {getLabel( 'contactedTheContributor' )}{' '}
-                    {getLabel( 'of' )}{' '}
+                    {userIsInConversation ? (
+                      <Fragment>
+                        {getLabel( 'contactedYou' )} {getLabel( 'on' )}{' '}
+                      </Fragment>
+                    ) : (
+                      <Fragment>
+                        {getLabel( 'contactedTheContributor' )} {getLabel( 'of' )}{' '}
+                      </Fragment>
+                    )}
                     <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                       {store.params.eventTitle}
                     </EntityComponent>
@@ -165,7 +190,7 @@ export default class ConversationTitle extends Component {
       case 'contact_form':
         switch ( context ) {
           case 'agenda':
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               return <Fragment>{getLabel( 'youContactedTheAgenda' )}</Fragment>;
             } else {
               return (
@@ -176,7 +201,7 @@ export default class ConversationTitle extends Component {
               );
             }
           case 'user':
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               return (
                 <Fragment>
                   {getLabel( 'youContactedTheAgenda' )}{' '}
@@ -200,7 +225,7 @@ export default class ConversationTitle extends Component {
       case 'request_contribute':
         switch ( context ) {
           case 'agenda':
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               return <Fragment>{getLabel( 'youWantToContributeToTheAgenda' )}</Fragment>;
             } else {
               return (
@@ -211,7 +236,7 @@ export default class ConversationTitle extends Component {
               );
             }
           case 'user':
-            if ( isCreator( creator, user ) ) {
+            if ( isUser( creator, user ) ) {
               return (
                 <Fragment>
                   {getLabel( 'youWantToContributeToTheAgenda' )}{' '}
@@ -244,14 +269,18 @@ function getInboxUserName( entity ) {
   return entity.inbox.name;
 }
 
-function isCreator( creator, user ) {
-  if ( creator.inboxUser && creator.inboxUser.userUid === user.uid ) {
+function isUser( entity, user ) {
+  if ( entity.inboxUser && entity.inboxUser.userUid === user.uid ) {
     return true;
   }
 
-  if ( creator.inbox.type === 'user' && creator.inbox.identifier === user.uid ) {
+  if ( entity.inbox.type === 'user' && entity.inbox.identifier === user.uid ) {
     return true;
   }
 
   return false;
+}
+
+function isInInboxes( inboxes, user ) {
+  return inboxes.some( inbox => isUser( { inbox }, user ) );
 }

@@ -113,19 +113,21 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
         inboxUser: conversation.creatorInboxUser
       };
 
+      var userIsInConversation = isInInboxes(conversation.inboxes, user);
+
       switch (type) {
         case 'event':
           switch (context) {
             case 'event':
               {
-                if (isCreator(creator, user)) {
+                if (isUser(creator, user)) {
                   if (destinationInbox.type === 'user') {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 39
+                          lineNumber: 41
                         }
                       },
                       getLabel('youContactedTheContributor')
@@ -136,33 +138,33 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 41
+                          lineNumber: 43
                         }
                       },
                       getLabel('youContactedTheAgenda')
                     );
                   }
                 } else {
-                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id) {
+                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id || destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id) {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 46
+                          lineNumber: 51
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 47
+                            lineNumber: 52
                           }
                         },
                         getInboxUserName(creator)
                       ),
                       ' ',
-                      getLabel('contactedTheContributor')
+                      userIsInConversation ? getLabel('contactedYou') : getLabel('contactedTheContributor')
                     );
                   } else {
                     return _react3.default.createElement(
@@ -170,14 +172,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 55
+                          lineNumber: 60
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 56
+                            lineNumber: 61
                           }
                         },
                         getInboxUserName(creator)
@@ -190,14 +192,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
               }
             case 'agenda':
               {
-                if (isCreator(creator, user)) {
+                if (isUser(creator, user)) {
                   if (destinationInbox.type === 'user') {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 67
+                          lineNumber: 72
                         }
                       },
                       getLabel('youContactedTheContributorOf'),
@@ -206,7 +208,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 69
+                            lineNumber: 74
                           }
                         },
                         store.params.eventTitle
@@ -218,7 +220,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 76
+                          lineNumber: 81
                         }
                       },
                       getLabel('youContactedTheAgenda'),
@@ -229,7 +231,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 78
+                            lineNumber: 83
                           }
                         },
                         store.params.eventTitle
@@ -237,34 +239,55 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     );
                   }
                 } else {
-                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id) {
+                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id || destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id) {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 87
+                          lineNumber: 95
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 88
+                            lineNumber: 96
                           }
                         },
                         getInboxUserName(creator)
                       ),
                       ' ',
-                      getLabel('contactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
+                      userIsInConversation ? _react3.default.createElement(
+                        _react2.Fragment,
+                        {
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 98
+                          }
+                        },
+                        getLabel('contactedYou'),
+                        ' ',
+                        getLabel('on'),
+                        ' '
+                      ) : _react3.default.createElement(
+                        _react2.Fragment,
+                        {
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 102
+                          }
+                        },
+                        getLabel('contactedTheContributor'),
+                        ' ',
+                        getLabel('of'),
+                        ' '
+                      ),
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 91
+                            lineNumber: 106
                           }
                         },
                         store.params.eventTitle
@@ -276,14 +299,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 98
+                          lineNumber: 113
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 99
+                            lineNumber: 114
                           }
                         },
                         getInboxUserName(creator)
@@ -297,7 +320,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 102
+                            lineNumber: 117
                           }
                         },
                         store.params.eventTitle
@@ -308,14 +331,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
               }
             case 'user':
               {
-                if (isCreator(creator, user)) {
+                if (isUser(creator, user)) {
                   if (destinationInbox.type === 'user') {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 114
+                          lineNumber: 129
                         }
                       },
                       getLabel('youContactedTheContributorOf'),
@@ -324,7 +347,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 116
+                            lineNumber: 131
                           }
                         },
                         store.params.eventTitle
@@ -336,7 +359,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 123
+                          lineNumber: 138
                         }
                       },
                       getLabel('youContactedTheAgenda'),
@@ -345,7 +368,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 125
+                            lineNumber: 140
                           }
                         },
                         store.params.agendaTitle
@@ -357,7 +380,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 129
+                            lineNumber: 144
                           }
                         },
                         store.params.eventTitle
@@ -365,34 +388,55 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     );
                   }
                 } else {
-                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id) {
+                  if (destinationInbox.type === 'user' && destinationInbox.id !== creator.inbox.id || destinationInbox.type === 'agenda' && destinationInbox.id === creator.inbox.id) {
                     return _react3.default.createElement(
                       _react2.Fragment,
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 138
+                          lineNumber: 156
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 139
+                            lineNumber: 157
                           }
                         },
                         getInboxUserName(creator)
                       ),
                       ' ',
-                      getLabel('contactedTheContributor'),
-                      ' ',
-                      getLabel('of'),
-                      ' ',
+                      userIsInConversation ? _react3.default.createElement(
+                        _react2.Fragment,
+                        {
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 159
+                          }
+                        },
+                        getLabel('contactedYou'),
+                        ' ',
+                        getLabel('on'),
+                        ' '
+                      ) : _react3.default.createElement(
+                        _react2.Fragment,
+                        {
+                          __source: {
+                            fileName: _jsxFileName,
+                            lineNumber: 163
+                          }
+                        },
+                        getLabel('contactedTheContributor'),
+                        ' ',
+                        getLabel('of'),
+                        ' '
+                      ),
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 142
+                            lineNumber: 167
                           }
                         },
                         store.params.eventTitle
@@ -404,14 +448,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       {
                         __source: {
                           fileName: _jsxFileName,
-                          lineNumber: 149
+                          lineNumber: 174
                         }
                       },
                       _react3.default.createElement(
                         EntityComponent,
                         { type: 'user', __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 150
+                            lineNumber: 175
                           }
                         },
                         getInboxUserName(creator)
@@ -423,7 +467,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 152
+                            lineNumber: 177
                           }
                         },
                         store.params.agendaTitle
@@ -435,7 +479,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                         EntityComponent,
                         { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
                             fileName: _jsxFileName,
-                            lineNumber: 156
+                            lineNumber: 181
                           }
                         },
                         store.params.eventTitle
@@ -448,13 +492,13 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
         case 'contact_form':
           switch (context) {
             case 'agenda':
-              if (isCreator(creator, user)) {
+              if (isUser(creator, user)) {
                 return _react3.default.createElement(
                   _react2.Fragment,
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 169
+                      lineNumber: 194
                     }
                   },
                   getLabel('youContactedTheAgenda')
@@ -465,14 +509,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 172
+                      lineNumber: 197
                     }
                   },
                   _react3.default.createElement(
                     EntityComponent,
                     { type: 'user', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 173
+                        lineNumber: 198
                       }
                     },
                     getInboxUserName(creator)
@@ -482,13 +526,13 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                 );
               }
             case 'user':
-              if (isCreator(creator, user)) {
+              if (isUser(creator, user)) {
                 return _react3.default.createElement(
                   _react2.Fragment,
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 181
+                      lineNumber: 206
                     }
                   },
                   getLabel('youContactedTheAgenda'),
@@ -497,7 +541,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     EntityComponent,
                     { type: 'agenda', agendaUid: typeIdentifier, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 183
+                        lineNumber: 208
                       }
                     },
                     store.params.agendaTitle
@@ -509,14 +553,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 190
+                      lineNumber: 215
                     }
                   },
                   _react3.default.createElement(
                     EntityComponent,
                     { type: 'user', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 191
+                        lineNumber: 216
                       }
                     },
                     getInboxUserName(creator)
@@ -528,7 +572,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     EntityComponent,
                     { type: 'agenda', agendaUid: typeIdentifier, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 193
+                        lineNumber: 218
                       }
                     },
                     store.params.agendaTitle
@@ -539,13 +583,13 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
         case 'request_contribute':
           switch (context) {
             case 'agenda':
-              if (isCreator(creator, user)) {
+              if (isUser(creator, user)) {
                 return _react3.default.createElement(
                   _react2.Fragment,
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 204
+                      lineNumber: 229
                     }
                   },
                   getLabel('youWantToContributeToTheAgenda')
@@ -556,14 +600,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 207
+                      lineNumber: 232
                     }
                   },
                   _react3.default.createElement(
                     EntityComponent,
                     { type: 'user', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 208
+                        lineNumber: 233
                       }
                     },
                     getInboxUserName(creator)
@@ -573,13 +617,13 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                 );
               }
             case 'user':
-              if (isCreator(creator, user)) {
+              if (isUser(creator, user)) {
                 return _react3.default.createElement(
                   _react2.Fragment,
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 216
+                      lineNumber: 241
                     }
                   },
                   getLabel('youWantToContributeToTheAgenda'),
@@ -588,7 +632,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     EntityComponent,
                     { type: 'agenda', agendaUid: typeIdentifier, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 218
+                        lineNumber: 243
                       }
                     },
                     store.params.agendaTitle
@@ -600,14 +644,14 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                   {
                     __source: {
                       fileName: _jsxFileName,
-                      lineNumber: 225
+                      lineNumber: 250
                     }
                   },
                   _react3.default.createElement(
                     EntityComponent,
                     { type: 'user', __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 226
+                        lineNumber: 251
                       }
                     },
                     getInboxUserName(creator)
@@ -619,7 +663,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     EntityComponent,
                     { type: 'agenda', agendaUid: typeIdentifier, __source: {
                         fileName: _jsxFileName,
-                        lineNumber: 228
+                        lineNumber: 253
                       }
                     },
                     store.params.agendaTitle
@@ -657,16 +701,22 @@ function getInboxUserName(entity) {
   return entity.inbox.name;
 }
 
-function isCreator(creator, user) {
-  if (creator.inboxUser && creator.inboxUser.userUid === user.uid) {
+function isUser(entity, user) {
+  if (entity.inboxUser && entity.inboxUser.userUid === user.uid) {
     return true;
   }
 
-  if (creator.inbox.type === 'user' && creator.inbox.identifier === user.uid) {
+  if (entity.inbox.type === 'user' && entity.inbox.identifier === user.uid) {
     return true;
   }
 
   return false;
+}
+
+function isInInboxes(inboxes, user) {
+  return inboxes.some(function (inbox) {
+    return isUser({ inbox: inbox }, user);
+  });
 }
 module.exports = exports['default'];
 //# sourceMappingURL=ConversationTitle.js.map

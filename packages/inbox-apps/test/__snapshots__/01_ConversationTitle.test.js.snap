@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`conversation of type event context event created by me, destinated to a user 1`] = `"Vous avez contacté le contributeur"`;
