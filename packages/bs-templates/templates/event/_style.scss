@@ -7,7 +7,7 @@
   }
 
   .short-description {
-    
+
     margin: 0;
     padding: 20px;
 
@@ -21,7 +21,7 @@
 
       font-size: 16px;
       line-height: 20px;
-    
+
     }
 
 
@@ -67,7 +67,7 @@
     label {
 
       font-weight: normal;
-      
+
     }
 
   }
@@ -133,7 +133,7 @@
 
   }
 
-  
+
   .event-secondary {
 
     padding-top: 4em;
@@ -152,6 +152,7 @@
 
       padding: 20px 20px 0;
       margin: 0;
+      word-wrap: break-word;
 
     }
 
@@ -166,6 +167,7 @@
         a {
 
           color: inherit;
+          word-wrap: break-word;
 
         }
 
@@ -194,7 +196,7 @@
         max-width: 100%;
 
       }
-      
+
     }
 
     .location-tags {

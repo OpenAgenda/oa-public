@@ -8492,17 +8492,20 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
 #event h1 {
   margin: 0;
-  padding: 10px 20px; }
+  padding: 10px 20px;
+  word-wrap: break-word; }
 
 #event .description {
   font-size: 15px;
-  font-weight: 300; }
+  font-weight: 300;
+  word-wrap: break-word; }
   #event .description div {
     /* this applies to embedded content */
     margin: 20px 0; }
 
 #event .short-description {
-  padding: 10px 20px 0; }
+  padding: 10px 20px 0;
+  word-wrap: break-word; }
 
 #event .title {
   font-size: 24px;
@@ -8982,14 +8985,16 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
 #event .location-details p {
   padding: 20px 20px 0;
-  margin: 0; }
+  margin: 0;
+  word-wrap: break-word; }
 
 #event .location-details .location-head {
   padding: 20px 20px 0; }
   #event .location-details .location-head label {
     display: block; }
     #event .location-details .location-head label a {
-      color: inherit; }
+      color: inherit;
+      word-wrap: break-word; }
   #event .location-details .location-head .tags {
     padding: 5px 0 0; }
     #event .location-details .location-head .tags label, #event .location-details .location-head .tags li {

@@ -3,7 +3,7 @@
 
   // header
   #header {
-   
+
     .row {
       position: relative;
     }
@@ -80,12 +80,14 @@
   h1 {
     margin: 0;
     padding: 10px 20px;
+    word-wrap: break-word;
   }
 
   .description {
 
     font-size: 15px;
     font-weight: 300;
+    word-wrap: break-word;
 
     div {
 
@@ -99,15 +101,16 @@
   .short-description {
 
     padding: 10px 20px 0;
+    word-wrap: break-word;
 
   }
 
   .title {
-  
+
     font-size: 24px;
     font-weight: 300;
     margin: 30px 0 15px;
-    
+
   }
 
   .img-responsive {
@@ -116,7 +119,7 @@
 
   }
 
-    
+
 
     @media (min-width: 768px) {
 
@@ -124,7 +127,7 @@
         padding: 20px 40px 0;
       }
 
-      
+
 
       .short-description {
         font-size: 24px;
@@ -132,7 +135,7 @@
         padding: 20px 40px 0;
       }
     }
-    
+
 
   // signature
   .signature {
@@ -148,7 +151,7 @@
   }
 
 
-  
+
   // metadatas
   .meta-container {
 
