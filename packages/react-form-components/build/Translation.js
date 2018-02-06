@@ -107,7 +107,7 @@ var TranslationComponent = (0, _createReactClass2.default)({
         )
       ),
       _react2.default.createElement(
-        'h2',
+        'label',
         null,
         labels.translationTitle
       ),

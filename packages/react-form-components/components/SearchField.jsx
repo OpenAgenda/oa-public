@@ -19,7 +19,9 @@ module.exports = createReactClass( {
     dynamic: PropTypes.bool,
     timeout: PropTypes.number,
     loading: PropTypes.bool,
-    enableLoadingDisplay: PropTypes.bool
+    enableLoadingDisplay: PropTypes.bool,
+    onChange: PropTypes.func,
+    onFocus: PropTypes.func
   },
 
   getDefaultProps: function() {
@@ -67,6 +69,14 @@ module.exports = createReactClass( {
       this.timeout = undefined;
 
     }
+
+  },
+
+  onFocus: function( e ) {
+
+    if ( !this.props.onFocus ) return;
+
+    this.props.onFocus( e.target.value );
 
   },
 
@@ -186,6 +196,7 @@ module.exports = createReactClass( {
         placeholder={this.props.placeholder}
         type="text"
         className="form-control"
+        onFocus={this.onFocus}
         onChange={this.onChange}
         onKeyUp={this.onCommit}
         value={this.state.edit || ''} />

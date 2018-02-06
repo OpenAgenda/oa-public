@@ -85,7 +85,7 @@ const TranslationComponent = createReactClass( {
         <i className="fa fa-question-circle"></i>
         <label style={{ display: 'none' }}>{labels.translationHelp}</label>
       </a>
-      <h2>{labels.translationTitle}</h2>
+      <label>{labels.translationTitle}</label>
       { labels.info ? <div className="margin-bottom-sm">{ labels.info }</div> : null }
       <div className="form-inline row">
         <div className="col-sm-6">
