@@ -8,6 +8,18 @@ exports[`conversation of type contact_form context user created by me 1`] = `"Vo
 
 exports[`conversation of type contact_form context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda a contacté l'agenda Test convs 12622"`;
 
+exports[`conversation of type edition_request context agenda created by me 1`] = `"Vous demandez les droits d'édition sur Traitement de texte niveau 1"`;
+
+exports[`conversation of type edition_request context agenda created by someone else 1`] = `"Kaoré - OpenAgenda demande les droits d'édition sur Traitement de texte niveau 1"`;
+
+exports[`conversation of type edition_request context event created by me 1`] = `"Vous demandez les droits d'édition"`;
+
+exports[`conversation of type edition_request context event created by someone else 1`] = `"Kaoré - OpenAgenda demande les droits d'édition"`;
+
+exports[`conversation of type edition_request context user created by me 1`] = `"Vous demandez les droits d'édition sur Traitement de texte niveau 1 de l'agenda La Gargouille"`;
+
+exports[`conversation of type edition_request context user created by someone else 1`] = `"La Gargouille demande les droits d'édition sur Traitement de texte niveau 1 "`;
+
 exports[`conversation of type event context agenda created by me, destinated to contributor 1`] = `"Vous avez contacté le contributeur de Contactez-moi !"`;
 
 exports[`conversation of type event context agenda created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda sur Contactez-moi !"`;
@@ -45,3 +57,5 @@ exports[`conversation of type request_contribute context agenda created by someo
 exports[`conversation of type request_contribute context user created by me 1`] = `"Vous souhaitez contribuer à l'agenda Test convs 12622"`;
 
 exports[`conversation of type request_contribute context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda Test convs 12622"`;
+
+exports[`returns null 1`] = `""`;

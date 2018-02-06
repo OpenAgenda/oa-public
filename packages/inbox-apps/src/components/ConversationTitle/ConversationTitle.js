@@ -257,7 +257,85 @@ export default class ConversationTitle extends Component {
               );
             }
         }
+      case 'edition_request':
+        switch ( context ) {
+          case 'event':
+            if ( isUser( creator, user ) ) {
+              return <Fragment>{getLabel( 'youAreRequestingEditingRights' )}</Fragment>;
+            } else {
+              return (
+                <Fragment>
+                  <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                  {getLabel( 'isRequestingEditingRights' )}
+                </Fragment>
+              );
+            }
+          case 'agenda':
+            if ( isUser( creator, user ) ) {
+              return (
+                <Fragment>
+                  {getLabel( 'youAreRequestingEditingRights' )}{' '}
+                  {getLabel( 'on' )}{' '}
+                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.eventTitle}
+                  </EntityComponent>
+                </Fragment>
+              );
+            } else {
+              return (
+                <Fragment>
+                  <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                  {getLabel( 'isRequestingEditingRights' )}{' '}
+                  {getLabel( 'on' )}{' '}
+                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.eventTitle}
+                  </EntityComponent>
+                </Fragment>
+              );
+            }
+          case 'user':
+            if ( isUser( creator, user ) ) {
+              return (
+                <Fragment>
+                  {getLabel( 'youAreRequestingEditingRights' )}{' '}
+                  {getLabel( 'on' )}{' '}
+                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.eventTitle}
+                  </EntityComponent>
+                  {creator.inboxUser ? (
+                    <Fragment>
+                      {' '}{getLabel( 'ofTheAgenda' )}{' '}
+                      <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                        {store.params.agendaTitle}
+                      </EntityComponent>
+                    </Fragment>
+                  ) : null}
+                </Fragment>
+              );
+            } else {
+              return (
+                <Fragment>
+                  <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                  {getLabel( 'isRequestingEditingRights' )}{' '}
+                  {getLabel( 'on' )}{' '}
+                  <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.eventTitle}
+                  </EntityComponent>{' '}
+                  {creator.inboxUser ? (
+                    <Fragment>
+                      {' '}{getLabel( 'ofTheAgenda' )}{' '}
+                      <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                        {store.params.agendaTitle}
+                      </EntityComponent>
+                    </Fragment>
+                  ) : null}
+                </Fragment>
+              );
+            }
+        }
     }
+
+    return null;
   }
 }
 

@@ -323,7 +323,8 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
       var unresolvedConvs = _ref4.unresolvedConvs;
       var _props2 = this.props,
           settings = _props2.settings,
-          router = _props2.router;
+          router = _props2.router,
+          getLabel = _props2.getLabel;
       var allowCreateConversation = settings.allowCreateConversation,
           topListForm = settings.topListForm,
           creationButtonLabel = settings.creationButtonLabel,

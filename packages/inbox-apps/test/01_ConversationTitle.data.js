@@ -105,16 +105,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -205,16 +195,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -287,16 +267,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -367,16 +337,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
       }
     ]
   }
@@ -459,16 +419,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -549,16 +499,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
       }
     ]
   }
@@ -703,16 +643,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
       }
     ]
   }
@@ -1366,16 +1296,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -1435,16 +1355,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
       }
     ]
   }
@@ -1533,16 +1443,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -1612,16 +1512,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -1681,40 +1571,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'accept',
-        label: {
-          fr: 'Ajouter en tant que contributeur',
-          en: 'Add as a contributor'
-        },
-        kind: 'primary',
-        confirmationModalTitle: {
-          fr: 'Accepter le contributeur',
-          en: 'Accept the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir accepter ce contributeur ?',
-          en: 'Are you sure you want to accept this contributor ?'
-        }
-      },
-      {
-        code: 'refuse',
-        label: {
-          fr: 'Refuser la demande',
-          en: 'Refuse the request'
-        },
-        kind: 'danger',
-        confirmationModalTitle: {
-          fr: 'Refuser le contributeur',
-          en: 'Refuse the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir refuser ce contributeur ?',
-          en: 'Are you sure you want to refuse this contributor?'
-        }
       }
     ]
   }
@@ -1784,40 +1640,6 @@ export default [ {
         uid: 17388451,
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    ],
-    actions: [
-      {
-        code: 'accept',
-        label: {
-          fr: 'Ajouter en tant que contributeur',
-          en: 'Add as a contributor'
-        },
-        kind: 'primary',
-        confirmationModalTitle: {
-          fr: 'Accepter le contributeur',
-          en: 'Accept the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir accepter ce contributeur ?',
-          en: 'Are you sure you want to accept this contributor ?'
-        }
-      },
-      {
-        code: 'refuse',
-        label: {
-          fr: 'Refuser la demande',
-          en: 'Refuse the request'
-        },
-        kind: 'danger',
-        confirmationModalTitle: {
-          fr: 'Refuser le contributeur',
-          en: 'Refuse the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir refuser ce contributeur ?',
-          en: 'Are you sure you want to refuse this contributor?'
-        }
       }
     ]
   }
@@ -1906,16 +1728,6 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
-      {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
-        },
-        kind: 'success'
-      }
     ]
   }
 }, {
@@ -1976,39 +1788,485 @@ export default [ {
         name: 'Test convs 12622',
         avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       }
-    ],
-    actions: [
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'event',
+  creator: true,
+  user: userKaore,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 14,
+    creatorInboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inboxUser: {
+        id: 13,
+        inboxId: 14,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
       {
-        code: 'accept',
-        label: {
-          fr: 'Ajouter en tant que contributeur',
-          en: 'Add as a contributor'
-        },
-        kind: 'primary',
-        confirmationModalTitle: {
-          fr: 'Accepter le contributeur',
-          en: 'Accept the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir accepter ce contributeur ?',
-          en: 'Are you sure you want to accept this contributor ?'
-        }
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
       },
       {
-        code: 'refuse',
-        label: {
-          fr: 'Refuser la demande',
-          en: 'Refuse the request'
-        },
-        kind: 'danger',
-        confirmationModalTitle: {
-          fr: 'Refuser le contributeur',
-          en: 'Refuse the contributor'
-        },
-        confirmationModalLabel: {
-          fr: 'Êtes-vous sûr de vouloir refuser ce contributeur ?',
-          en: 'Are you sure you want to refuse this contributor?'
-        }
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'event',
+  creator: false,
+  user: userBertho,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 14,
+    creatorInboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inboxUser: {
+        id: 13,
+        inboxId: 14,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'agenda',
+  creator: true,
+  user: userKaore,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 14,
+    creatorInboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inboxUser: {
+        id: 13,
+        inboxId: 14,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'agenda',
+  creator: false,
+  user: userBertho,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 14,
+    creatorInboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inboxUser: {
+        id: 13,
+        inboxId: 14,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'user',
+  creator: true,
+  user: userKaore,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 14,
+    creatorInboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    inboxUser: {
+      id: 13,
+      inboxId: 14,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inboxUser: {
+        id: 13,
+        inboxId: 14,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    ]
+  }
+}, {
+  type: 'edition_request',
+  context: 'user',
+  creator: false,
+  user: userBertho,
+  conversation: {
+    id: 143,
+    type: 'edition_request',
+    typeIdentifier: 22722175,
+    store: {
+      params: {
+        agendaTitle: 'La Gargouille',
+        eventTitle: 'Traitement de texte niveau 1',
+        agendaUid: 48959239
+      }
+    },
+    createdAt: '2018-02-06T09:32:16.000Z',
+    updatedAt: null,
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 1444,
+    creatorInbox: {
+      id: 14,
+      type: 'agenda',
+      identifier: 48959239,
+      uid: 48959239,
+      name: 'La Gargouille',
+      avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+    },
+    inboxUser: {
+      id: 19190,
+      inboxId: 1444,
+      userUid: 99999986,
+      leftAt: null,
+      uid: 99999986,
+      name: 'AGECA',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 222,
+      conversationId: 143,
+      body: 'Peut-on modifier votre event ?!',
+      createdAt: '2018-02-06T09:32:16.000Z',
+      inbox: {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 1444,
+        type: 'user',
+        identifier: 99999986,
+        uid: 99999986,
+        name: 'AGECA',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 14,
+        type: 'agenda',
+        identifier: 48959239,
+        uid: 48959239,
+        name: 'La Gargouille',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda48959239.jpg'
       }
     ]
   }

@@ -671,7 +671,205 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                 );
               }
           }
+        case 'edition_request':
+          switch (context) {
+            case 'event':
+              if (isUser(creator, user)) {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 264
+                    }
+                  },
+                  getLabel('youAreRequestingEditingRights')
+                );
+              } else {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 267
+                    }
+                  },
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 268
+                      }
+                    },
+                    getInboxUserName(creator)
+                  ),
+                  ' ',
+                  getLabel('isRequestingEditingRights')
+                );
+              }
+            case 'agenda':
+              if (isUser(creator, user)) {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 276
+                    }
+                  },
+                  getLabel('youAreRequestingEditingRights'),
+                  ' ',
+                  getLabel('on'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 279
+                      }
+                    },
+                    store.params.eventTitle
+                  )
+                );
+              } else {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 286
+                    }
+                  },
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 287
+                      }
+                    },
+                    getInboxUserName(creator)
+                  ),
+                  ' ',
+                  getLabel('isRequestingEditingRights'),
+                  ' ',
+                  getLabel('on'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 290
+                      }
+                    },
+                    store.params.eventTitle
+                  )
+                );
+              }
+            case 'user':
+              if (isUser(creator, user)) {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 299
+                    }
+                  },
+                  getLabel('youAreRequestingEditingRights'),
+                  ' ',
+                  getLabel('on'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 302
+                      }
+                    },
+                    store.params.eventTitle
+                  ),
+                  creator.inboxUser ? _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 306
+                      }
+                    },
+                    ' ',
+                    getLabel('ofTheAgenda'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 308
+                        }
+                      },
+                      store.params.agendaTitle
+                    )
+                  ) : null
+                );
+              } else {
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 317
+                    }
+                  },
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 318
+                      }
+                    },
+                    getInboxUserName(creator)
+                  ),
+                  ' ',
+                  getLabel('isRequestingEditingRights'),
+                  ' ',
+                  getLabel('on'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'event', eventUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 321
+                      }
+                    },
+                    store.params.eventTitle
+                  ),
+                  ' ',
+                  creator.inboxUser ? _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 325
+                      }
+                    },
+                    ' ',
+                    getLabel('ofTheAgenda'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 327
+                        }
+                      },
+                      store.params.agendaTitle
+                    )
+                  ) : null
+                );
+              }
+          }
       }
+
+      return null;
     }
   }]);
   return ConversationTitle;

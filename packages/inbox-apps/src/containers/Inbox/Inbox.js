@@ -113,7 +113,7 @@ export default class Inbox extends Component {
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
   renderCreationButton( { unresolvedConvs } ) {
-    const { settings, router } = this.props;
+    const { settings, router, getLabel } = this.props;
     const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
 
     const creationButton = (

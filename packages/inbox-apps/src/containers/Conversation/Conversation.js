@@ -144,13 +144,21 @@ export default class Conversation extends Component {
   getClosedLabel() {
     const { conversation, getLabel } = this.props;
 
-    if ( conversation.type === 'request_contribute' ) {
-      switch ( conversation.store.resolvedWith ) {
-        case 'accept':
-          return getLabel( 'requestContributeAccepted' );
-        case 'refuse':
-          return getLabel( 'requestContributeRefused' );
-      }
+    switch ( conversation.type ) {
+      case 'request_contribute':
+        switch ( conversation.store.resolvedWith ) {
+          case 'accept':
+            return getLabel( 'requestContributeAccepted' );
+          case 'refuse':
+            return getLabel( 'requestContributeRefused' );
+        }
+      case 'edition_request':
+        switch ( conversation.store.resolvedWith ) {
+          case 'accept':
+            return getLabel( 'editionRequestAccepted' );
+          case 'refuse':
+            return getLabel( 'editionRequestRefused' );
+        }
     }
 
     return getLabel( 'conversationAreResolved' );

@@ -49,6 +49,16 @@ function makeTest( state, props ) {
   expect( wrapper.text() ).to.matchSnapshot();
 }
 
+it( 'returns null', () => {
+  makeTest(
+    { settings: {} },
+    {
+      user: {},
+      conversation: { inboxes: [] }
+    }
+  );
+} );
+
 
 describe( 'conversation of type event', () => {
   describe( 'context event', () => {
@@ -355,6 +365,95 @@ describe( 'conversation of type request_contribute', () => {
     it( 'created by someone else', () => {
       const { user, conversation } = _.find( fixturesData, {
         type: 'request_contribute',
+        context: 'user',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+} );
+
+describe( 'conversation of type edition_request', () => {
+  describe( 'context event', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'event'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
+        context: 'event',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
+        context: 'event',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
+        context: 'agenda',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
+        context: 'agenda',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
+        context: 'user',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'edition_request',
         context: 'user',
         creator: false
       } );
