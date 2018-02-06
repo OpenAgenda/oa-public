@@ -298,13 +298,15 @@ agendaRouter.get( '/author.json',
 /* error handler */
 
 function errorHandler( err, req, res, next ) {
-  console.log( err, VError.info( err ) );
-  if ( err.name === 'ValidationError' ) {
-    return res.status( 400 ).json( err );
+  if ( err ) {
+    if ( err.name === 'ValidationError' ) {
+      return res.status( 400 ).json( err );
+    }
+    if ( err.code ) {
+      res.status( err.code );
+      return next( err );
+    }
+    errorLogger( 'middleware', err );
+    res.status( 500 ).json( err );
   }
-  if ( err.code ) {
-    return next( err );
-  }
-  errorLogger( 'middleware', err );
-  res.status( 500 ).json( err );
 }

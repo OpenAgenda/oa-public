@@ -510,7 +510,11 @@ let config = {
         },
         publicEventContact: {
           method: 'get',
-          uri: '/:slug/events/:eventSlug#inbox'
+          uri: '/:slug/events/:eventSlug/contact'
+        },
+        adminEventContact: {
+          method: 'get',
+          uri: '/:slug/admin/events/:eventSlug/contact'
         }
       },
       defaultGlobalsPrefix: ''

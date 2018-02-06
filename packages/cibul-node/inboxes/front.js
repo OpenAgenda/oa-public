@@ -209,7 +209,7 @@ app.use( '/:slug/contact',
           title: req.agenda.title
         };
 
-        cmn.render( req, res, 'agenda/contact', { ...baseData, scriptParams: { state }, lang, content } );
+        cmn.render( req, res, 'agenda/inbox', { ...baseData, scriptParams: { state }, lang, content } );
 
       }
     )( req, res, next );
@@ -254,7 +254,12 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             focusFistConversation: true, // force to display the first conversation if exists
             hideEmptyList: true, // redirect on creation if the list is empty
             allowCreateConversation: true, // show creation button
-            maskCreationSubtitle: true,
+            creationSubtitle: getLabel(
+              'contactContributorOf',
+              { title: _.escape( getMultiLanguageTitle( req.event, req.lang ) ), link: eventShowLink },
+              req.lang
+            ),
+            maskCreationSubtitle: false,
             topListForm: false, // add a conversation form on top of conversation list
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: eventShowLink,
@@ -264,7 +269,7 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
               typeIdentifier: req.event.uid,
               params: {
                 agendaTitle: _.unescape( req.agenda.title ),
-                eventTitle: _.unescape( getEventTitle( req.event, req.lang ) ),
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
                 agendaUid: req.agenda.uid
               },
               destinationInbox: {
@@ -303,16 +308,217 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             ...req.event,
             backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
           },
-          inboxTitle: getLabel(
-            'contactContributorOf',
-            { title: _.escape( getEventTitle( req.event, req.lang ) ), link: eventShowLink },
-            req.lang
-          ),
           image: req.agenda.image,
           title: req.agenda.title
         };
 
-        cmn.render( req, res, 'event/contact', { ...baseData, scriptParams: { state }, lang, content } );
+        cmn.render( req, res, 'event/inbox', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
+app.use( '/:slug/events/:eventSlug/contact',
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null
+  } ),
+  eventLoad(),
+  wrap( async ( req, res, next ) => {
+    const adminOrModerator = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
+    ] )).some( Boolean );
+
+    if ( adminOrModerator ) {
+      sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
+      return res.redirect( 302, req.genUrl( 'adminEventContact', {
+        slug: req.agenda.slug,
+        eventSlug: req.event.slug
+      } ) );
+    }
+
+    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'agenda',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            focusFistConversation: true, // force to display the first conversation if exists
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            creationSubtitle: getLabel(
+              'contactAdministratorsOf',
+              { title: _.escape( getMultiLanguageTitle( req.agenda, req.lang ) ), link: eventShowLink },
+              req.lang
+            ),
+            maskCreationSubtitle: false,
+            topListForm: false, // add a conversation form on top of conversation list
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: eventShowLink,
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+            defaultQuery: {
+              type: 'event',
+              typeIdentifier: req.event.uid,
+              params: {
+                agendaTitle: _.unescape( req.agenda.title ),
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
+                agendaUid: req.agenda.uid
+              },
+              destinationInbox: {
+                type: 'agenda',
+                identifier: req.agenda.uid
+              }
+            }
+          },
+          res: {
+            author: `/home/inbox/author.json`,
+            conversations: {
+              create: `/home/inbox/conversations.json`,
+              list: `/home/inbox/conversations.json`,
+              action: `/home/inbox/conversations/:conversationId/action/:code.json`,
+              resume: `/home/inbox/conversations/:conversationId/resume.json`
+            },
+            messages: {
+              list: `/home/inbox/conversations/:conversationId/messages.json`,
+              create: `/home/inbox/conversations/:conversationId/messages.json`
+            }
+          },
+          agenda: req.agenda,
+          event: req.event
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            ...req.event,
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'event/inbox', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
+app.use( '/:slug/admin/events/:eventSlug/edition-request',
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null
+  } ),
+  eventLoad(),
+  wrap( async ( req, res, next ) => {
+    const adminOrModerator = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
+    ] )).some( Boolean );
+
+    if ( !adminOrModerator ) {
+      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
+      return res.redirect( 302, req.genUrl( 'agendaEventShow', {
+        slug: req.agenda.slug,
+        eventSlug: req.event.slug
+      } ) );
+    }
+
+    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'agenda',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            focusFistConversation: true, // force to display the first conversation if exists
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            creationSubtitle: getLabel(
+              'requestEditionCreationTitle',
+              { title: _.escape( getMultiLanguageTitle( req.event, req.lang ) ), link: eventShowLink },
+              req.lang
+            ),
+            maskCreationSubtitle: false,
+            topListForm: false, // add a conversation form on top of conversation list
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: eventShowLink,
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+            defaultQuery: {
+              type: 'edition_request',
+              typeIdentifier: req.event.uid,
+              params: {
+                agendaTitle: _.unescape( req.agenda.title ),
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
+                agendaUid: req.agenda.uid
+              },
+              destinationInbox: {
+                type: 'user',
+                identifier: req.event.ownerUid
+              }
+            }
+          },
+          res: {
+            author: `/agendas/${req.agenda.uid}/inbox/author.json`,
+            conversations: {
+              create: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
+              list: `/agendas/${req.agenda.uid}/inbox/conversations.json`,
+              action: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/action/:code.json`,
+              resume: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/resume.json`
+            },
+            messages: {
+              list: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
+              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`
+            }
+          },
+          agenda: req.agenda,
+          event: req.event
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            ...req.event,
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'event/inbox', { ...baseData, scriptParams: { state }, lang, content } );
 
       }
     )( req, res, next );
@@ -360,7 +566,7 @@ app.use( '/:slug/request-contribute',
             creationDesc: getLabel( 'youWantToContribute', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-            onConversationCreateFlash: getLabel( 'requestContributeCreationSuccess', req.lang ),
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'request_contribute',
               typeIdentifier: req.agenda.uid,
@@ -439,13 +645,13 @@ function eventLoad() {
   } );
 }
 
-function getEventTitle( event, lang ) {
-  if ( typeof event.title === 'string' ) {
-    return event.title;
+function getMultiLanguageTitle( entity, lang ) {
+  if ( typeof entity.title === 'string' ) {
+    return entity.title;
   }
 
-  const keys = Object.keys( event.title );
-  return event.title[ lang ] || event.title[ keys[ 0 ] ];
+  const keys = Object.keys( entity.title );
+  return entity.title[ lang ] || entity.title[ keys[ 0 ] ];
 }
 
 /* Util */

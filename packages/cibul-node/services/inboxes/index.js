@@ -7,11 +7,23 @@ const inboxes = require( '@openagenda/inboxes' );
 const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
 const userSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
+const agendaEventsSvc = require( '@openagenda/agenda-events' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/inboxes' );
 const inboxesLabels = require( '@openagenda/labels/inboxes' );
 const mailer = require( '../mailer' );
 const config = require( '../../config' );
+
+
+const loggerConfig = {
+  debug: {
+    prefix: 'oa:'
+  },
+  token: process.env.NODE_ENV === 'production' ? 'dff93527-2446-4669-9309-f8fd1c8f32f0' : null
+};
+
+log.setConfig( loggerConfig );
+
 
 async function getUsersDetails( usersToBeDetailed ) {
 
@@ -128,6 +140,8 @@ function filterAction( inbox, conversation, action ) {
     case 'event':
     case 'request_contribute':
       return inbox.type === 'agenda';
+    case 'edition_request':
+      return inbox.type === 'user';
     default:
       return true;
   }
@@ -175,6 +189,33 @@ async function onAction( conversation, action ) {
       }
 
     }
+    case 'edition_request': {
+
+      if ( action.code === 'accept' ) {
+
+        try {
+
+          await agendaEventsSvc( conversation.store.params.agendaUid )
+            .update(
+              conversation.typeIdentifier,
+              { canEdit: true },
+              { transferToLegacy: true }
+            );
+
+          log( 'info', 'Edition rights request accepted', {
+            agendaUid: conversation.store.params.agendaUid,
+            eventUid: conversation.typeIdentifier
+          } );
+
+        } catch ( err ) {
+
+          log( 'error', 'Cannot accept an edition rights request', err );
+
+        }
+
+      }
+
+    }
   }
 }
 
@@ -190,12 +231,7 @@ const interfaces = {
 module.exports.init = async c => {
   await inboxes.init(
     _.merge( c, {
-      logger: {
-        debug: {
-          prefix: 'oa:'
-        },
-        token: process.env.NODE_ENV === 'production' ? 'dff93527-2446-4669-9309-f8fd1c8f32f0' : null
-      },
+      logger: loggerConfig,
       migrations: {
         tableName: 'inboxes_migrations'
       },
@@ -235,6 +271,27 @@ module.exports.init = async c => {
             kind: 'danger',
             confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
             confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
+          } ]
+        },
+        edition_request: {
+          actions: [ {
+            code: 'accept',
+            label: {
+              fr: 'Accepter la demande',
+              en: 'Accept the request'
+            },
+            kind: 'primary',
+            confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
+            confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
+          }, {
+            code: 'refuse',
+            label: {
+              fr: 'Refuser la demande',
+              en: 'Refuse the request'
+            },
+            kind: 'danger',
+            confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
+            confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
           } ]
         }
       }
