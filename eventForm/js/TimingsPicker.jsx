@@ -57,7 +57,7 @@ module.exports = createReactClass( {
           <i className="fa fa-question-circle"></i>
         </a>
       </p>
-      <h2>{this.props.labels.timings[ this.props.lang ]}</h2>
+      <label>{this.props.labels.timings[ this.props.lang ]} (*)</label>
       <Picker
         startTime={this.props.day.start}
         endTime={this.props.day.end}

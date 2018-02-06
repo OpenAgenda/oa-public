@@ -511,7 +511,7 @@ function EventFormFactory() {
       }
 
 
-      // a language was added  
+      // a language was added
       addedLanguage = languages.filter( function ( l ) {
 
         return self.state.languages.indexOf( l ) == -1;
@@ -592,8 +592,8 @@ function EventFormFactory() {
 
         if ( o.field === 'image' ) {
 
-          return <div 
-            className="js_event_image_canvas" 
+          return <div
+            className="js_event_image_canvas"
             attr-credits-display={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }
             attr-credits-label={JSON.stringify( this.props.configuration.field( 'credits' ).getLabel( true ) )}
             attr-credits-info={JSON.stringify( this.props.configuration.field( 'credits' ).getInfo( true ) )}
@@ -758,7 +758,7 @@ function EventFormFactory() {
         if ( o.field === 'location' ) {
 
           return <div className="margin-v-lg">
-            <h2>{this.props.labels.locationSection[ this.props.lang ]}</h2>
+            <label>{this.props.labels.locationSection[ this.props.lang ]} (*)</label>
             {this.state.locationMode === 'create' ?
               <Modal disableBodyScroll={true} classNames={{
                 overlay: 'popup-overlay big'
@@ -834,7 +834,7 @@ function EventFormFactory() {
           />
 
         }
-        
+
 
         return <div><p>.</p></div>;
 
@@ -852,6 +852,8 @@ function EventFormFactory() {
         </div> : null}
 
         <div className="js_form_canvas_below"></div>
+
+        <p className="margin-top-sm">{this.getLabel( 'compulsoryNote' )}</p>
 
         {this.state.translation && this.state.translation.translating ?
           <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />

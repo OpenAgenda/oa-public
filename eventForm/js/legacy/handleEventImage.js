@@ -18,7 +18,7 @@ module.exports = function( params ) {
     templates: {
       main: `
         <div class="form-section">
-          <h2><%= imageSection %></h2>
+          <label><%= imageSection %></label>
           <div class="upload-image">
             <button class="btn btn-default"><%= upload %></button>
             <span class="js_loader loader"></span>
@@ -117,7 +117,7 @@ module.exports = function( params ) {
   _createForm = function() {
 
     form = document.createElement('form');
-    
+
     form.setAttribute('method', 'post');
     form.setAttribute('enctype', 'multipart/form-data');
     form.setAttribute('target', params.frameName);
@@ -178,7 +178,7 @@ module.exports = function( params ) {
 
       imageCreditsInput.value = credits;
 
-    }    
+    }
 
     params.onCreditsUpdate( imageCreditsInput.value );
 
@@ -231,7 +231,7 @@ module.exports = function( params ) {
       if ( _useImageCredits() ) _enableImageCredits();
 
       if (params.onSuccess) params.onSuccess(res.name);
-    
+
     } else {
 
       _displayMessage(res.message, 'error');
