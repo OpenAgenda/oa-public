@@ -65,7 +65,7 @@ import showBackLink from '../../utils/showBackLink';
     lastPage: state.conversation.lastPage,
     res: state.res
   }),
-  { ...conversationActions, ...modalActions, resetForm }
+  { ...conversationActions, ...modalActions, resetForm, inboxLoad: inboxActions.load }
 )
 @getContext( {
   getLabel: PropTypes.func
@@ -194,11 +194,11 @@ export default class Conversation extends Component {
   render() {
     const {
       conversations, conversation, messages, user,
-      triggerAction, showModal, nextLoading,
+      inboxLoad, triggerAction, showModal, nextLoading,
       resume, getLabel, settings
     } = this.props;
 
-    const { ContentWrapper } = settings;
+    const { ContentWrapper, focusFistConversation } = settings;
 
     const content = (
       <Fragment>
@@ -218,7 +218,10 @@ export default class Conversation extends Component {
           {conversation.actions && conversation.actions.length ? (
             <div className="inbox-actions margin-top-lg">
               <ActionsList
-                onAction={triggerAction.bind( null, conversation.id )}
+                onAction={
+                  code => triggerAction( conversation.id, code )
+                    .then( () => inboxLoad( focusFistConversation ? { limit: 1 } : {} ) )
+                }
                 actions={conversation.actions}
                 showModal={showModal}
               />
