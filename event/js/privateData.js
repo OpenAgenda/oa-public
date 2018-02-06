@@ -111,10 +111,10 @@ module.exports = function ( options ) {
 
     // userRole === 'adminContributor' || 'adminmod' || 'contributor' || 'simpleUser'
     const userRole = (() => {
-      if ( simpleUser && user.uid === params.contributor.uid ) {
+      if ( simpleUser && user.uid === params.ownerUid ) {
         return 'contributor';
       }
-      if ( user.uid === params.contributor.uid ) {
+      if ( user.uid === params.ownerUid ) {
         return 'adminContributor'
       }
       return simpleUser ? 'simpleUser' : 'adminmod';
@@ -132,7 +132,7 @@ module.exports = function ( options ) {
         case 'adminmod': // admin (not contributor) -> contributor
           return {
             type: 'user',
-            identifier: params.contributor.uid
+            identifier: params.ownerUid
           };
         case 'contributor': // contributor (not admin) -> admins/modos
           return {
@@ -145,7 +145,7 @@ module.exports = function ( options ) {
             identifier: params.agendaUid
           }, {
             type: 'user',
-            identifier: params.contributor.uid
+            identifier: params.ownerUid
           } ];
       }
     })();
