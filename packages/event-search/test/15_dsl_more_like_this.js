@@ -387,7 +387,7 @@ describe( 'event-search - unit: more like this search', function() {
 
   } );
 
-  
+
   describe( 'on event-like mapping', () => {
 
     this.timeout( 10000 );
@@ -495,7 +495,7 @@ describe( 'event-search - unit: more like this search', function() {
           }
         }
       } ) ).events.length.should.equal( 1 );
-   
+
     } );
 
 
@@ -593,13 +593,62 @@ describe( 'event-search - unit: more like this search', function() {
       ] );
 
       mlt.like.should.eql( [ {
-        doc: { search_internals_keywords_text: 'vin chaud' } 
+        doc: { search_internals_keywords_text: 'vin chaud' }
       } ] );
 
     } );
 
+
+    it( 'multilingual keywords maps to multiple like statements', () => {
+
+      const mlt = getMoreLikeThis( {
+        keywords: {
+          fr: [ 'vin chaud' ],
+          en: [ 'hot wine' ]
+        }
+      } );
+
+      mlt.like.length.should.equal( 2 );
+
+    } );
+
+    it( 'department distributes over all likes', () => {
+
+      const mlt = getMoreLikeThis( {
+        title: {
+          fr: 'Un titre',
+          en: 'A title'
+        },
+        location: {
+          department: 'Meuse'
+        }
+      } );
+
+       mlt.like.forEach( l => {
+
+         l.doc.search_internals_full_address_text.should.equal( 'Meuse' );
+
+       } );
+
+    } );
+
+    it( 'location fields pile up in same like field', () => {
+
+      const mlt = getMoreLikeThis( {
+        location: {
+          region: 'Grand Est',
+          department: 'Meuse',
+          city: 'Verdun'
+        }
+      } );
+
+      mlt.like[ 0 ].doc.search_internals_full_address_text.should.equal( 'Verdun Meuse Grand Est' );
+
+    } );
+
   } );
-  
+
+
 } );
 
 

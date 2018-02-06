@@ -32,25 +32,25 @@ CREATE TABLE `${schema}` (
 
 
 INSERT INTO `${schema}` (
-  `id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`, 
-  `slug`, 
-  `title`, 
-  `description`, 
-  `long_description`, 
-  `keywords`, 
-  `conditions`, 
-  `image`, 
-  `draft`, 
-  `private`, 
-  `timezone`, 
-  `timings`, 
-  `accessibility`, 
-  `age`, 
-  `registration`, 
-  `created_at`, 
-  `updated_at`, 
+  `id`, `uid`, `owner_uid`, `agenda_uid`, `location_uid`,
+  `slug`,
+  `title`,
+  `description`,
+  `long_description`,
+  `keywords`,
+  `conditions`,
+  `image`,
+  `draft`,
+  `private`,
+  `timezone`,
+  `timings`,
+  `accessibility`,
+  `age`,
+  `registration`,
+  `created_at`,
+  `updated_at`,
   `deleted_at`
-) VALUES 
+) VALUES
 
 (
   56, #id
@@ -107,7 +107,7 @@ INSERT INTO `${schema}` (
   107, #uid // UNIQUE
   789678, #owner_uid
   7678678, #agenda_uid
-  1, #location_uid 
+  1, #location_uid
   'masdar_event_1', #slug // UNIQUE
   '{"fr":"Tri de bazar"}', #title
   '{"fr":"Bazar sorting"}', #description
@@ -132,7 +132,7 @@ INSERT INTO `${schema}` (
   132, #uid // UNIQUE
   789678, #owner_uid
   7678678, #agenda_uid
-  1, #location_uid 
+  1, #location_uid
   'finger_event_1', #slug // UNIQUE
   '{"fr":"Les doigts dans le nez"}', #title
   '{"fr":""}', #description
@@ -157,7 +157,7 @@ INSERT INTO `${schema}` (
   157, #uid // UNIQUE
   789678, #owner_uid
   7678678, #agenda_uid
-  1, #location_uid 
+  83357467, #location_uid 
   'finger_event_2', #slug // UNIQUE
   '{"fr":"Ou ailleurs"}', #title
   '{"fr":""}', #description

@@ -86,10 +86,10 @@ describe( 'event search - functional: more like this', function() {
 
     it( 'mlt on one keyword', async () => {
 
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( { 
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
         keywords: {
           fr: [ 'vin chaud' ]
-        } 
+        }
       } );
 
       total.should.equal( 2 );
@@ -155,6 +155,33 @@ describe( 'event search - functional: more like this', function() {
       total.should.equal( 0 );
 
       events.length.should.equal( 0 );
+
+    } );
+
+    it( 'mlt on department', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        location: {
+          department: 'Finistère'
+        }
+      } );
+
+      events[ 0 ].location.department.should.equal( 'Finistère' );
+
+    } );
+
+    it( 'mlt on department with title in different department', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        keywords: {
+          fr: [ 'janine' ]
+        },
+        location: {
+          department: 'Finistère'
+        }
+      } );
+
+      events.map( e => e.slug ).sort().should.eql( [ 'finger_event_2', 'shop_event_2' ] );
 
     } );
 
