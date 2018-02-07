@@ -516,6 +516,9 @@ export default class Dashboard extends Component {
           title={getLabel( 'sendAMessage' )}
           visible={sendAMessageModal.visible || false}
           onClose={() => closeModal( 'sendAMessage' )}
+          classNames={{
+            overlay: 'popup-overlay big'
+          }}
         >
           {!sendAMessageModal.confirmation
             ? <SendMessageForm onSubmit={data => sendAMessage( data, sendAMessageModal.stakeholder )
@@ -545,6 +548,9 @@ export default class Dashboard extends Component {
           title={getLabel( writeToMembersModal.inactive ? 'sendMessageToInactives' : 'sendMessageToAll' )}
           visible={writeToMembersModal.visible || false}
           onClose={() => closeModal( 'writeToMembers' )}
+          classNames={{
+            overlay: 'popup-overlay big'
+          }}
         >
           {!writeToMembersModal.confirmation
             ? <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )

@@ -855,6 +855,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             visible: sendAMessageModal.visible || false,
             onClose: function onClose() {
               return closeModal('sendAMessage');
+            },
+            classNames: {
+              overlay: 'popup-overlay big'
             }
           },
           !sendAMessageModal.confirmation ? _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
@@ -893,6 +896,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             visible: writeToMembersModal.visible || false,
             onClose: function onClose() {
               return closeModal('writeToMembers');
+            },
+            classNames: {
+              overlay: 'popup-overlay big'
             }
           },
           !writeToMembersModal.confirmation ? _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
