@@ -320,6 +320,13 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             }
           }),
           _react3.default.createElement(
+            'p',
+            null,
+            getLabel('totalSources'),
+            ': ',
+            total
+          ),
+          _react3.default.createElement(
             'form',
             { onSubmit: handleSubmit(this.search) },
             _react3.default.createElement(_reduxForm.Field, {

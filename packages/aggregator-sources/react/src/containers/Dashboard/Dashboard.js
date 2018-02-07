@@ -179,6 +179,7 @@ export default class Dashboard extends Component {
               __html: getLabel( 'addSources', { searchLink: res.search } )
             }}
           />
+          <p>{getLabel( 'totalSources' )}: {total}</p>
           <form onSubmit={handleSubmit( this.search )}>
             <Field
               component={this.renderSearchInput}
