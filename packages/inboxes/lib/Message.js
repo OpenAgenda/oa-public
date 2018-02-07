@@ -137,7 +137,7 @@ var Message = function () {
                 (0, _validate2.default)(ajv, _messageSchemas.createSchema, data);
 
                 _context.next = 13;
-                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.message).insert(_mapper2.default.toDb(_messageFieldsMap2.default, 'insert', data, { protected: false })));
+                return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.message).insert((0, _extends3.default)({}, _mapper2.default.toDb(_messageFieldsMap2.default, 'insert', data, { protected: false }), { created_at: new Date() })));
 
               case 13:
                 _ref2 = _context.sent;

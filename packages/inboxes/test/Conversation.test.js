@@ -37,7 +37,7 @@ describe( 'Conversation', () => {
 
   afterAll( async () => {
 
-    // await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+    await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
     await config.knex.destroy();
 
   } );

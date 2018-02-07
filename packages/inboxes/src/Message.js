@@ -48,7 +48,7 @@ export default class Message {
     validate( ajv, createSchema, data );
 
     const [ insertedId ] = await knex( schemas.message )
-      .insert( mapper.toDb( messageFieldsMap, 'insert', data, { protected: false } ) );
+      .insert( { ...mapper.toDb( messageFieldsMap, 'insert', data, { protected: false } ), created_at: new Date() } );
 
     this.identifiers = { id: insertedId };
 
