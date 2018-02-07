@@ -18,7 +18,7 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true } );
+  const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid, reviewId: agenda.id } );
 
   if ( ae.state === 2 ) {

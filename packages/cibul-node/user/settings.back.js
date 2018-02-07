@@ -43,10 +43,6 @@ module.exports = path => {
         usersMw.updateProfile,
         ( req, res, next ) => {
 
-          if ( req.result.before.culture !== req.result.user.culture ) {
-            sessions.setCulture( req, res, req.result.user.culture );
-          }
-
           if ( req.result.success ) {
             return _.flow(
               sessions.middleware.open( 'user', 'sessionResult' ),

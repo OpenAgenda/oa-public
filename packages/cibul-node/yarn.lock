@@ -367,8 +367,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.45"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.45.tgz#31b087c19b32a19901c7ad77e68457653a32aa2b"
+  version "1.0.47"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.47.tgz#4b25efd388a5caacbe418efd39e6b36f8c31536a"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -708,8 +708,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.23"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.23.tgz#96ea49b4aaedafa908f68748b4babe7824fbaef4"
+  version "1.0.24"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.24.tgz#fd58e2ca434583f4ecb83f507c3a1e950a561a28"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -789,8 +789,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.37"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.37.tgz#4352a94449c3e58faef3b89937c7596df0c6dcb5"
+  version "2.0.38"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.38.tgz#3055236a18a69bad00c13401632c1afcba3c310b"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
