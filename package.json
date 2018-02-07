@@ -1,0 +1,12 @@
+{
+  "name": "oa",
+  "version": "1.0.0",
+  "description": "OpenAgenda monorepo",
+  "main": "index.js",
+  "repository": "https://bitbucket.org/openagenda/oa",
+  "author": "OpenAgenda Dev Team",
+  "license": "See license.txt",
+  "devDependencies": {
+    "lerna": "^2.8.0"
+  }
+}
