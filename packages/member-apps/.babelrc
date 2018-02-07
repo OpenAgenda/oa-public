@@ -12,7 +12,8 @@
     "transform-object-rest-spread",
     "transform-class-properties",
     "transform-export-extensions",
-    "transform-function-bind"
+    "transform-function-bind",
+    "transform-async-to-generator"
   ],
   "env": {
     "development": {
