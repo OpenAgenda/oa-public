@@ -230,72 +230,84 @@ const interfaces = {
 
 module.exports.init = async c => {
   await inboxes.init(
-    _.merge( c, {
-      logger: loggerConfig,
-      migrations: {
-        tableName: 'inboxes_migrations'
-      },
-      services: {
-        agendas: agendasSvc,
-        stakeholders: stakeholdersSvc,
-        users: userSvc
-      },
-      interfaces,
-      defaultAction: {
-        code: 'default',
-        label: {
-          fr: 'Fermer la conversation',
-          en: 'Close the conversation'
+    _.merge(
+      _.pick( c, [
+        'mysql',
+        'knex',
+        'redis',
+        'schemas.inbox',
+        'schemas.inboxUser',
+        'schemas.conversation',
+        'schemas.inboxConversation',
+        'schemas.message',
+        'queues.inboxesSync'
+      ] ),
+      {
+        logger: loggerConfig,
+        migrations: {
+          tableName: 'inboxes_migrations'
         },
-        kind: 'success'
-      },
-      types: {
-        event: {},
-        contact_form: {},
-        request_contribute: {
-          actions: [ {
-            code: 'accept',
-            label: {
-              fr: 'Ajouter en tant que contributeur',
-              en: 'Add as a contributor'
-            },
-            kind: 'primary',
-            confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
-            confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
-          }, {
-            code: 'refuse',
-            label: {
-              fr: 'Refuser la demande',
-              en: 'Refuse the request'
-            },
-            kind: 'danger',
-            confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
-            confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
-          } ]
+        services: {
+          agendas: agendasSvc,
+          stakeholders: stakeholdersSvc,
+          users: userSvc
         },
-        edition_request: {
-          actions: [ {
-            code: 'accept',
-            label: {
-              fr: 'Accepter la demande',
-              en: 'Accept the request'
-            },
-            kind: 'primary',
-            confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
-            confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
-          }, {
-            code: 'refuse',
-            label: {
-              fr: 'Refuser la demande',
-              en: 'Refuse the request'
-            },
-            kind: 'danger',
-            confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
-            confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
-          } ]
+        interfaces,
+        defaultAction: {
+          code: 'default',
+          label: {
+            fr: 'Fermer la conversation',
+            en: 'Close the conversation'
+          },
+          kind: 'success'
+        },
+        types: {
+          event: {},
+          contact_form: {},
+          request_contribute: {
+            actions: [ {
+              code: 'accept',
+              label: {
+                fr: 'Ajouter en tant que contributeur',
+                en: 'Add as a contributor'
+              },
+              kind: 'primary',
+              confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
+              confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
+            }, {
+              code: 'refuse',
+              label: {
+                fr: 'Refuser la demande',
+                en: 'Refuse the request'
+              },
+              kind: 'danger',
+              confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
+              confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
+            } ]
+          },
+          edition_request: {
+            actions: [ {
+              code: 'accept',
+              label: {
+                fr: 'Accepter la demande',
+                en: 'Accept the request'
+              },
+              kind: 'primary',
+              confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
+              confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
+            }, {
+              code: 'refuse',
+              label: {
+                fr: 'Refuser la demande',
+                en: 'Refuse the request'
+              },
+              kind: 'danger',
+              confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
+              confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
+            } ]
+          }
         }
-      }
-    } )
+      } )
   );
-  await inboxMw.init( _.merge( c, { interfaces, mw: { limit: 20 } } ) );
+  await inboxMw.init( _.merge( {}, c, { interfaces, mw: { limit: 20 } } ) );
 };
