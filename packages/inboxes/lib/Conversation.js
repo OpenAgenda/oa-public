@@ -417,11 +417,7 @@ var Conversation = function () {
                   data.closedAt = new Date(data.closedAt);
                 }
 
-                try {
-                  (0, _validate2.default)(ajv, _conversationSchemas.updateSchema, data);
-                } catch (e) {
-                  console.log(_verror2.default.info(e));
-                }
+                (0, _validate2.default)(ajv, _conversationSchemas.updateSchema, data);
 
                 if (data.closedAt === null) {
                   data.closedAt = null;

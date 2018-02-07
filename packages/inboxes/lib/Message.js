@@ -148,7 +148,7 @@ var Message = function () {
                 this.identifiers = { id: insertedId };
 
                 _context.next = 19;
-                return (0, _bluebird.resolve)(this.conversation.update({ updatedAt: new Date() }, inboxUser.data, { protected: false }));
+                return (0, _bluebird.resolve)(this.conversation.update({ updatedAt: new Date() }, inboxUser.id, { protected: false }));
 
               case 19:
                 _context.next = 21;
