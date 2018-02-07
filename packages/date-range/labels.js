@@ -4,87 +4,90 @@ module.exports = {
   oneDate: {
     en: '%day%, %times%',
     fr: '%day%, %times%',
-    ar: '%day%, %times%',
-    he: ''
+    he: '%day%, %times%',
+    ar: '%day%, %times%'
   },
   twoDates: {
     en: '%firstDate% and %lastDate%',
     fr: '%firstDate% et %lastDate%',
-    ar: '%lastDate% و %firstDate%',
-    he: ''
+    he: '%firstDate% וגם %lastDate% ',
+    ar: '%firstDate% و %lastDate% ',
   },
   moreDates: {
     en: '%firstDate% - %lastDate%',
     fr: '%firstDate% - %lastDate%',
-    ar: '%lastDate% - %firstDate%',
-    he: ''
+    he: '%firstDate% - %lastDate%',
+    ar: '%firstDate% - %lastDate%'
+
   },
   noDates: {
     en: 'no dates available',
     fr: 'aucune date disponible',
+    he: 'אין תאריך זמין',
     ar: 'لا يتوفر أي تاريخ',
-    he: 'אין תאריך זמין'
   },
   months: [
-    { en: 'january', fr: 'janvier', ar: 'كانون الثاني', he: 'ינואר' },
-    { en: 'february', fr: 'février', ar: 'شباط', he: 'פברואר' },
-    { en: 'march', fr: 'mars', ar: 'آذار', he: 'מרץ' },
-    { en: 'april', fr: 'avril', ar: 'نيسان', he: 'אפריל' },
-    { en: 'may', fr: 'mai', ar: 'أيار', he: 'מאי' },
-    { en: 'june', fr: 'juin', ar: 'حزيران', he: 'יוני' },
-    { en: 'july', fr: 'juillet', ar: 'تموز', he: 'יולי' },
-    { en: 'august', fr: 'août', ar: 'آب', he: 'אוגוסט' },
-    { en: 'september', fr: 'septembre', ar: 'أيلول', he: 'ספטמבר' },
-    { en: 'october', fr: 'octobre', ar: 'تشرين الأول', he: 'אוקטובר' },
-    { en: 'november', fr: 'novembre', ar: 'تشرين الثاني', he: 'נובמבר' },
-    { en: 'december', fr: 'décembre', ar: 'كانون الأول', he: 'דצמבר' }
+    { en: 'january', fr: 'janvier', he: 'ינואר', ar:'كانون الثاني' },
+    { en: 'february', fr: 'février', he: 'פברואר', ar:'شباط' },
+    { en: 'march', fr: 'mars', he: 'מרץ', ar:'آذار'  },
+    { en: 'april', fr: 'avril', he: 'אפריל', ar:'نيسان'  },
+    { en: 'may', fr: 'mai', he: 'מאי', ar:'أيار'  },
+    { en: 'june', fr: 'juin', he: 'יוני', ar:'حزيران' },
+    { en: 'july', fr: 'juillet', he: 'יולי', ar:'تموز' },
+    { en: 'august', fr: 'août', he: 'אוגוסט', ar:'آب' },
+    { en: 'september', fr: 'septembre', he: 'ספטמבר', ar:'أيلول' },
+    { en: 'october', fr: 'octobre', he: 'אוקטובר', ar:'تشرين الأول' },
+    { en: 'november', fr: 'novembre', he: 'נובמבר', ar:'تشرين الثاني' },
+    { en: 'december', fr: 'décembre', he: 'דצמבר', ar:'كانون الأول' }
   ],
+
+
   minuteSeparator: {
     en: ':',
     fr: 'h',
-    ar: ':',
-    he: ':'
+    he: ':',
+    ar: ':'
   },
   prefix: {
     en: 'on',
     fr: 'les',
-    ar: 'في',
-    he: 'במועדים'
+    he: 'במועדים',
+    ar: 'في'
   },
   weekdays: [ {
     en: 'sundays',
     fr: 'dimanches',
-    ar: 'الأحد',
-    he: 'ימי ראשון'
+    he: 'ימי ראשון',
+    ar: 'الأحد'
   }, {
     en: 'mondays',
     fr: 'lundis',
-    ar: 'الاثنين',
-    he: 'ימי שני'
+    he: 'ימי שני',
+    ar: 'الاثنين'
   }, {
     en: 'tuesdays',
     fr: 'mardis',
-    ar: 'الثلاثاء',
-    he: 'ימי שלישי'
+    he: 'ימי שלישי',
+    ar: 'الثلاثاء'
   }, {
     en: 'wednesdays',
     fr: 'mercredis',
-    ar: 'الأربعاء',
-    he: 'ימי רביעי'
+    he: 'ימי רביעי',
+    ar: 'الأربعاء'
   }, {
     en: 'thursdays',
     fr: 'jeudis',
-    ar: 'الخميس',
-    he: 'ימי חמישי'
+    he: 'ימי חמישי',
+    ar: 'الخميس'
   }, {
     en: 'fridays',
     fr: 'vendredis',
-    ar: 'الجمعة',
-    he: 'ימי שישי'
+    he: 'ימי שישי',
+    ar: 'الجمعة'
   }, {
     en: 'saturdays',
     fr: 'samedis',
-    ar: 'السبت',
-    he: 'ימי שבת'
+    he: 'ימי שבת',
+    ar: 'السبت'
   } ]
 };
