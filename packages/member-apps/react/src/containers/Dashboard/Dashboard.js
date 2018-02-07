@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
@@ -239,14 +239,14 @@ export default class Dashboard extends Component {
               {eventCount} {getLabel( eventCount && eventCount > 1 ? 'events' : 'event' )}
               {/*</span>*/}
             </a>
-            {(userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {(userCredential !== 3 || ![ 2, 3 ].includes( credential )) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'editMember', { stakeholder } )}
             >
               {getLabel( 'editProfile' )}
             </a>}
-            {!owner && (userCredential !== 3 || ![ 2, 3 ].includes( credential ) ) && <a
+            {!owner && (userCredential !== 3 || ![ 2, 3 ].includes( credential )) && <a
               role="button"
               className="text-muted"
               onClick={() => showModal( 'removeMember', { stakeholder } )}
@@ -301,7 +301,7 @@ export default class Dashboard extends Component {
       <li role="presentation" className={classNames( { active: credFilters.includes( key ) } )}>
         <a href="#" onClick={e => toggleFilter( e, key )}>
           <strong>{nbr || 0}</strong> {getLabel( label )}{' '}
-          <i className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )} />
+          <i className={classNames( 'fa fa-times', { invisible: !credFilters.includes( key ) } )}/>
         </a>
       </li>
     );
@@ -310,8 +310,9 @@ export default class Dashboard extends Component {
   render() {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats, search, getStats,
-      showModal, closeModal, setModal, modals, update, invite, remove, sendMessage,
-      sendAMessage, showInviteResult, cleanInviteResult, inviteError, credentials, agenda
+      showModal, closeModal, setModal, modals, update, invite, remove, sendMessage, credFilters,
+      sendAMessage, showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
+      location
     } = this.props;
     const { getLabel, lang } = this.context;
 
@@ -338,7 +339,7 @@ export default class Dashboard extends Component {
             <DropdownButton bsStyle='default' title={getLabel( 'actions' )} id='dropdown-actions' pullRight>
               <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
               {/* <MenuItem>Importer des contributeurs</MenuItem> */}
-              {credentials.invitationMessage && <MenuItem divider />}
+              {credentials.invitationMessage && <MenuItem divider/>}
 
               {credentials.invitationMessage &&
               <MenuItem onClick={() => showModal( 'writeToMembers' )}>
@@ -365,7 +366,7 @@ export default class Dashboard extends Component {
                 <i className="golden-icon"></i>{' '}{getLabel( 'nameModerators' )}
               </MenuItem>}
 
-              <MenuItem divider />
+              <MenuItem divider/>
               <MenuItem href={res.exportToXlsx}>{getLabel( 'exportToXlsx' )}</MenuItem>
               <MenuItem href={res.exportToCsv}>{getLabel( 'exportToCsv' )}</MenuItem>
             </DropdownButton>
@@ -374,6 +375,14 @@ export default class Dashboard extends Component {
 
         <p>
           {getLabel( 'total' )}: <strong>{stats.total || 0}</strong>
+          {(
+            (total > 0 && total !== (stats.total || 0)) // if total differ of 0 or stats.total
+            || (((credFilters && credFilters.length) || (!!search && search === location.query.search)) && !loading) // if there is a search of filter(s)
+          ) ? (
+            <span className="margin-left-sm">
+              {getLabel( 'searchResult' )}: {total} {getLabel( total <= 1 ? 'member' : 'members' ).toLowerCase()}
+            </span>
+          ) : null}
         </p>
 
         <ul className="nav nav-pills" role="tablist">
@@ -402,9 +411,9 @@ export default class Dashboard extends Component {
           />
         </form>
 
-        {total > 0 && <div className="margin-v-md">
+        {/* total > 0 && <div className="margin-v-md">
           {getLabel( 'result' )}: {total} {getLabel( 'members' ).toLowerCase()}
-        </div>}
+        </div> */}
 
         <div>
           {stakeholders && stakeholders.map( s => this.renderStakeholder( s ) )}
@@ -414,7 +423,7 @@ export default class Dashboard extends Component {
           </div> : null}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
+            <Spinner/>
           </div>}
         </div>
 
@@ -498,7 +507,7 @@ export default class Dashboard extends Component {
               await getStats();
               return this.search( { search } );
             } )
-          } />}
+          }/>}
         </Modal>}
 
         {memberReinvitedModal.visible && <Modal
@@ -529,7 +538,7 @@ export default class Dashboard extends Component {
                 return result;
               } )
               .then( () => setModal( 'sendAMessage', { confirmation: true } ) )
-            } />
+            }/>
             : <div className="text-center">
               <div className="margin-v-sm">
                 {getLabel( 'messageSent' )}
@@ -561,7 +570,7 @@ export default class Dashboard extends Component {
                 return result;
               } )
               .then( () => setModal( 'writeToMembers', { confirmation: true } ) )
-            } />
+            }/>
             : <div className="text-center">
               <div className="margin-v-sm">
                 {getLabel( 'messageSent' )}

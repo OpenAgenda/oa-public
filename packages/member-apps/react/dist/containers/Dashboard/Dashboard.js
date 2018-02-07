@@ -544,12 +544,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           invite = _props6.invite,
           remove = _props6.remove,
           sendMessage = _props6.sendMessage,
+          credFilters = _props6.credFilters,
           sendAMessage = _props6.sendAMessage,
           showInviteResult = _props6.showInviteResult,
           cleanInviteResult = _props6.cleanInviteResult,
           inviteError = _props6.inviteError,
           credentials = _props6.credentials,
-          agenda = _props6.agenda;
+          agenda = _props6.agenda,
+          location = _props6.location;
       var _context = this.context,
           getLabel = _context.getLabel,
           lang = _context.lang;
@@ -649,7 +651,18 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             'strong',
             null,
             stats.total || 0
-          )
+          ),
+          total > 0 && total !== (stats.total || 0) || // if total differ of 0 or stats.total
+          (credFilters && credFilters.length || !!search && search === location.query.search) && !loading // if there is a search of filter(s)
+          ? _react3.default.createElement(
+            'span',
+            { className: 'margin-left-sm' },
+            getLabel('searchResult'),
+            ': ',
+            total,
+            ' ',
+            getLabel(total <= 1 ? 'member' : 'members').toLowerCase()
+          ) : null
         ),
         _react3.default.createElement(
           'ul',
@@ -672,15 +685,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             action: this.debouncedSearch,
             loading: loading
           })
-        ),
-        total > 0 && _react3.default.createElement(
-          'div',
-          { className: 'margin-v-md' },
-          getLabel('result'),
-          ': ',
-          total,
-          ' ',
-          getLabel('members').toLowerCase()
         ),
         _react3.default.createElement(
           'div',
