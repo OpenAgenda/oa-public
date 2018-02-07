@@ -42,6 +42,9 @@ export const listSchema = {
 export const updateSchema = {
   additionalProperties: false,
   properties: {
+    updatedAt: {
+      instanceof: 'Date'
+    },
     resolvedAt: {
       instanceof: 'Date'
     },

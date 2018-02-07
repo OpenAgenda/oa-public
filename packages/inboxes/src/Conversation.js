@@ -77,7 +77,8 @@ export default class Conversation {
       .insert( {
         ...mapper.toDb( conversationFieldsMap, 'insert', data, options ),
         ...mapper.toDb( conversationFieldsMap, 'insert', protectedData, { protected: false } ),
-        creator_inbox_user_id: inboxUser.data.id
+        creator_inbox_user_id: inboxUser.data.id,
+        updated_at: new Date()
       } );
 
     this.identifiers = { id: insertedId };

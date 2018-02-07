@@ -52,6 +52,12 @@ export default class Message {
 
     this.identifiers = { id: insertedId };
 
+    await this.conversation.update(
+      { updatedAt: new Date() },
+      inboxUser.id,
+      { protected: false }
+    );
+
     await this.get( options );
 
     log.info(

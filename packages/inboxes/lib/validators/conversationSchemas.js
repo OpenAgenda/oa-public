@@ -47,6 +47,9 @@ var listSchema = exports.listSchema = {
 var updateSchema = exports.updateSchema = {
   additionalProperties: false,
   properties: {
+    updatedAt: {
+      instanceof: 'Date'
+    },
     resolvedAt: {
       instanceof: 'Date'
     },

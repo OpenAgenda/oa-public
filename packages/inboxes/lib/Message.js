@@ -148,24 +148,28 @@ var Message = function () {
                 this.identifiers = { id: insertedId };
 
                 _context.next = 19;
-                return (0, _bluebird.resolve)(this.get(options));
+                return (0, _bluebird.resolve)(this.conversation.update({ updatedAt: new Date() }, inboxUser.data, { protected: false }));
 
               case 19:
+                _context.next = 21;
+                return (0, _bluebird.resolve)(this.get(options));
+
+              case 21:
 
                 log.info('Message is created in conversation %d', this.conversation.data.id, { msg: this.data, inboxUser: inboxUser });
 
                 if (!_config.interfaces.onMessageCreate) {
-                  _context.next = 23;
+                  _context.next = 25;
                   break;
                 }
 
-                _context.next = 23;
+                _context.next = 25;
                 return (0, _bluebird.resolve)(_config.interfaces.onMessageCreate(this.conversation.data, this.data));
 
-              case 23:
+              case 25:
                 return _context.abrupt('return', this);
 
-              case 24:
+              case 26:
               case 'end':
                 return _context.stop();
             }

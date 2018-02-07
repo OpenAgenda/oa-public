@@ -196,7 +196,8 @@ var Conversation = function () {
 
                 _context2.next = 21;
                 return (0, _bluebird.resolve)((0, _config.knex)(_config.schemas.conversation).insert((0, _extends3.default)({}, _mapper2.default.toDb(_conversationFieldsMap2.default, 'insert', data, options), _mapper2.default.toDb(_conversationFieldsMap2.default, 'insert', protectedData, { protected: false }), {
-                  creator_inbox_user_id: inboxUser.data.id
+                  creator_inbox_user_id: inboxUser.data.id,
+                  updated_at: new Date()
                 })));
 
               case 21:
@@ -416,7 +417,11 @@ var Conversation = function () {
                   data.closedAt = new Date(data.closedAt);
                 }
 
-                (0, _validate2.default)(ajv, _conversationSchemas.updateSchema, data);
+                try {
+                  (0, _validate2.default)(ajv, _conversationSchemas.updateSchema, data);
+                } catch (e) {
+                  console.log(_verror2.default.info(e));
+                }
 
                 if (data.closedAt === null) {
                   data.closedAt = null;
