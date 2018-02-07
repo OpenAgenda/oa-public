@@ -40,6 +40,8 @@ var ugly = require( 'uglify-js' ),
 
   production = true,
 
+  watch = false,
+
   log,
 
   webpack = require( 'webpack' ),
@@ -68,13 +70,13 @@ var ugly = require( 'uglify-js' ),
       async.apply( prodifyCss, map, 'oaeCss', destOAECssPath ),
       async.apply( prodifyCss, map, 'oaetCss', destOAETCssPath )
     ].concat( onlyCss ? [] : [
-        async.apply( prodifyPublicTemplates, map ),
-        async.apply( prodifyTemplateJs, map ),
-        async.apply( prodifyJs, map )
-      ] ).concat( onlyCss ? _copyBsCss : [
-        _copyBsCss,
-        legacyProdify
-      ] ), function ( err ) {
+      async.apply( prodifyPublicTemplates, map ),
+      async.apply( prodifyTemplateJs, map ),
+      async.apply( prodifyJs, map )
+    ] ).concat( onlyCss ? _copyBsCss : [
+      _copyBsCss,
+      legacyProdify
+    ] ), function ( err ) {
 
       if ( err ) throw err;
 
@@ -122,7 +124,7 @@ var ugly = require( 'uglify-js' ),
 
         try {
 
-          content += (labels ? '/*' + filename + '*/' : '') + (production ? ugly.minify( __dirname + '/' + path + filename, { mangle: true } ).code : fs.readFileSync( __dirname + '/' + path + filename ) ) + (changeLine ? '\n' : ';');
+          content += (labels ? '/*' + filename + '*/' : '') + (production ? ugly.minify( __dirname + '/' + path + filename, { mangle: true } ).code : fs.readFileSync( __dirname + '/' + path + filename )) + (changeLine ? '\n' : ';');
 
         } catch ( e ) {
 
@@ -351,7 +353,7 @@ var ugly = require( 'uglify-js' ),
 
         if ( err ) return cb( err );
 
-        var offset = ( templateName.split( '/' ).length - 1 ) * 3,
+        var offset = (templateName.split( '/' ).length - 1) * 3,
 
           csses = {},
 
@@ -389,7 +391,7 @@ var ugly = require( 'uglify-js' ),
 
         }
 
-        if ( config.layout && ( parentsMap.indexOf( config.layout ) == -1 ) ) parentsMap.push( config.layout );
+        if ( config.layout && (parentsMap.indexOf( config.layout ) == -1) ) parentsMap.push( config.layout );
 
         ecb();
 
@@ -526,8 +528,11 @@ var ugly = require( 'uglify-js' ),
 
     var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
 
+    const compileFn = watch ? compiler.watch.bind( compiler, {} ) : compiler.run.bind( compiler );
+
     // compiler.watch( {}, function ( err, stats ) {
-    compiler.run( function ( err, stats ) {
+    // compiler.run( function ( err, stats ) {
+    compileFn( function ( err, stats ) {
 
       if ( err ) cb( err );
 
@@ -594,13 +599,20 @@ var ugly = require( 'uglify-js' ),
   };
 
 for ( var i = 2; i < process.argv.length; i++ ) {
-  if ( process.argv[ i ] === 'l' ) {
-    labels = true;
-    changeLine = true;
-  } else if ( process.argv[ i ] === 'css' ) {
-    onlyCss = true;
-  } else {
-    buildFilter.push( process.argv[ i ] );
+  switch ( process.argv[ i ] ) {
+    case 'l':
+      labels = true;
+      changeLine = true;
+      break;
+    case 'css':
+      onlyCss = true;
+      break;
+    case '-w':
+    case '--watch':
+      watch = true;
+      break;
+    default:
+      buildFilter.push( process.argv[ i ] );
   }
 }
 
