@@ -660,9 +660,9 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             null,
             stats.total || 0
           ),
-          total > 0 && total !== (stats.total || 0) || // if total differ of 0 or stats.total
-          (credFilters && credFilters.length || !!search && search === location.query.search) && !loading // if there is a search of filter(s)
-          ? _react3.default.createElement(
+          // if there is a search or filter(s)
+          total > 0 && total < (stats.total || 0) || // if total differ of 0 or stats.total
+          (credFilters && credFilters.length || !!search && search === location.query.search) && !loading ? _react3.default.createElement(
             'span',
             { className: 'margin-left-sm' },
             getLabel('searchResult'),
@@ -847,10 +847,10 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
                         case 2:
                           _context2.next = 4;
-                          return getStats();
+                          return _this5.search({ search: search });
 
                         case 4:
-                          return _context2.abrupt('return', _this5.search({ search: search }));
+                          return _context2.abrupt('return', getStats());
 
                         case 5:
                         case 'end':

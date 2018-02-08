@@ -375,9 +375,9 @@ export default class Dashboard extends Component {
 
         <p>
           {getLabel( 'total' )}: <strong>{stats.total || 0}</strong>
-          {(
-            (total > 0 && total !== (stats.total || 0)) // if total differ of 0 or stats.total
-            || (((credFilters && credFilters.length) || (!!search && search === location.query.search)) && !loading) // if there is a search of filter(s)
+          {( // if there is a search or filter(s)
+            (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
+            || (((credFilters && credFilters.length) || (!!search && search === location.query.search)) && !loading)
           ) ? (
             <span className="margin-left-sm">
               {getLabel( 'searchResult' )}: {total} {getLabel( total <= 1 ? 'member' : 'members' ).toLowerCase()}
@@ -504,8 +504,8 @@ export default class Dashboard extends Component {
                 throw new SubmissionError( result.error.errors );
               }
 
-              await getStats();
-              return this.search( { search } );
+              await this.search( { search } );
+              return getStats();
             } )
           }/>}
         </Modal>}
