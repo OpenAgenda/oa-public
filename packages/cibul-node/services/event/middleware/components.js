@@ -56,7 +56,7 @@ function buildComponents( req, res, next ) {
   .then( _timings )
 
   .done( v => next(), err => next( err ) );
-  
+
 }
 
 function _references( v ) {
@@ -101,9 +101,9 @@ function _references( v ) {
 
           ev.events.push( ( {
             image: e.getThumbnail( false ),
-            link: genUrl( 'agendaEventShow', { 
-              slug: v.req.agenda.slug, 
-              eventSlug: e.slug 
+            link: genUrl( 'agendaEventShow', {
+              slug: v.req.agenda.slug,
+              eventSlug: e.slug
             } ),
             title: e.title,
             location: {

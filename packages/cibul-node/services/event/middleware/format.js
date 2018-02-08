@@ -98,11 +98,11 @@ function _location( v ) {
 
 
 function _registration( v ) {
-  
+
   v.formatted.registration = registration( v.req.event.getTicketLink( true ) );
 
   return v;
-  
+
 }
 
 
