@@ -306,7 +306,8 @@ module.exports.init = async c => {
               confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
             } ]
           }
-        }
+        },
+        defaultImagePath: c.aws.defaultImagePath
       } )
   );
   await inboxMw.init( _.merge( {}, c, { interfaces, mw: { limit: 20 } } ) );
