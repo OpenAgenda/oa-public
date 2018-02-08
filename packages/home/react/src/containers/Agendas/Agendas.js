@@ -43,6 +43,12 @@ export default class Agendas extends Component {
 
     return (
       <div className="actions">
+        {[ 4 ].includes( agenda.stakeholder.credential ) && <a
+          href={res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}
+          className="text-muted"
+        >
+          {getLabel( 'see' )}
+        </a>}
         {[ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
           href={res.agendas.moderate.replace( ':slug', agenda.slug )}
           className="text-muted"

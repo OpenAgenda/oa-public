@@ -132,6 +132,14 @@ var Agendas = _wrapComponent('Agendas')((_dec = (0, _reactRedux.connect)(functio
       return _react3.default.createElement(
         'div',
         { className: 'actions' },
+        [4].includes(agenda.stakeholder.credential) && _react3.default.createElement(
+          'a',
+          {
+            href: res.agendas[agenda.private ? 'showPrivate' : 'show'].replace(':slug', agenda.slug),
+            className: 'text-muted'
+          },
+          getLabel('see')
+        ),
         [2, 3].includes(agenda.stakeholder.credential) && _react3.default.createElement(
           'a',
           {
