@@ -74,7 +74,10 @@ exports.default = function () {
         events: {
           $set: state.events.concat(action.suggestions.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
             return e.uid;
-          }))).map(_helpers.formatEventItem.bind(null, state.lang)))
+          }))).filter(function (e, i) {
+            return i < 3;
+          }) // keep three items
+          .map(_helpers.formatEventItem.bind(null, state.lang)))
         },
         loadingSuggestions: { $set: false }
       });

@@ -40,7 +40,7 @@ export default ( state = {}, action ) => {
         search: {
           searching: { $set: false },
           error: { $set: null },
-          suggestions: { 
+          suggestions: {
             $set: action.suggestions
               .filter( excludeEventsWithUids.bind( null, state.events.map( e => e.uid ) ) )
               .map( formatEventItem.bind( null, state.lang ) )
@@ -63,6 +63,7 @@ export default ( state = {}, action ) => {
         events: {
           $set: state.events.concat( action.suggestions
             .filter( excludeEventsWithUids.bind( null, state.events.map( e => e.uid ) ) )
+            .filter( ( e, i ) => i < 3 ) // keep three items
             .map( formatEventItem.bind( null, state.lang ) ) )
         },
         loadingSuggestions: { $set: false }
