@@ -196,9 +196,14 @@ exports.default = function () {
 
               if (inboxUserIndex !== -1) {
                 (0, _assign2.default)(entity.inboxUser, usersDetails[inboxUserIndex]);
+              } else if (entity.inboxUser) {
+                entity.inboxUser.avatar = _config.defaultImagePath;
               }
+
               if (inboxIndex !== -1) {
                 (0, _assign2.default)(entity.inbox, inboxesDetails[inboxIndex]);
+              } else if (entity.inbox) {
+                entity.inbox.avatar = _config.defaultImagePath;
               }
 
               if (creatorInboxUserIndex !== -1) {

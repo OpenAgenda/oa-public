@@ -22,7 +22,8 @@ async function init( c ) {
     'types',
     'defaultAction',
     'redis',
-    'queues'
+    'queues',
+    'defaultImagePath'
   ] ) );
 
   const knexConfig = getKnexConfig( c );

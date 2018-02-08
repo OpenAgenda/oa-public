@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import Inboxes from '../Inbox';
-import { interfaces } from '../config';
+import { interfaces, defaultImagePath } from '../config';
 
 export default async function populateDetails( entities, inbox ) {
   if ( entities === null ) {
@@ -81,9 +81,14 @@ export default async function populateDetails( entities, inbox ) {
 
     if ( inboxUserIndex !== -1 ) {
       Object.assign( entity.inboxUser, usersDetails[ inboxUserIndex ] );
+    } else if ( entity.inboxUser ) {
+      entity.inboxUser.avatar = defaultImagePath;
     }
+
     if ( inboxIndex !== -1 ) {
       Object.assign( entity.inbox, inboxesDetails[ inboxIndex ] );
+    } else if ( entity.inbox ) {
+      entity.inbox.avatar = defaultImagePath;
     }
 
     if ( creatorInboxUserIndex !== -1 ) {

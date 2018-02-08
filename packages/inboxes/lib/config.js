@@ -20,7 +20,7 @@ var init = function () {
 
             if (c.logger) _logs2.default.setModuleConfig(c.logger);
 
-            _lodash2.default.merge(config, _lodash2.default.pick(c, ['mysql', 'schemas', 'cache', 'services', 'interfaces', 'types', 'defaultAction', 'redis', 'queues']));
+            _lodash2.default.merge(config, _lodash2.default.pick(c, ['mysql', 'schemas', 'cache', 'services', 'interfaces', 'types', 'defaultAction', 'redis', 'queues', 'defaultImagePath']));
 
             knexConfig = getKnexConfig(c);
 
