@@ -243,6 +243,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
 
     _this.FromWrapper = _this.FromWrapper.bind(_this);
     _this.getClosedLabel = _this.getClosedLabel.bind(_this);
+    _this.TitleEntityComponent = _this.TitleEntityComponent.bind(_this);
     return _this;
   }
 
@@ -269,19 +270,19 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
         'div',
         { className: 'media', __source: {
             fileName: _jsxFileName,
-            lineNumber: 114
+            lineNumber: 115
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 115
+              lineNumber: 116
             }
           },
           _react3.default.createElement(_components2.AuthorAvatar, { author: author, __source: {
               fileName: _jsxFileName,
-              lineNumber: 116
+              lineNumber: 117
             }
           })
         ),
@@ -289,14 +290,14 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 119
+              lineNumber: 120
             }
           },
           _react3.default.createElement(
             'p',
             { className: 'author-name', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 120
+                lineNumber: 121
               }
             },
             getAuthorName(author)
@@ -305,7 +306,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
             'form',
             { onSubmit: handleSubmit, className: 'message-form margin-bottom-md', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 122
+                lineNumber: 123
               }
             },
             children,
@@ -313,7 +314,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
               'div',
               { className: 'margin-bottom-sm', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 126
+                  lineNumber: 127
                 }
               },
               getLabel('yourMessageWillBeSigned'),
@@ -323,7 +324,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
                 {
                   __source: {
                     fileName: _jsxFileName,
-                    lineNumber: 127
+                    lineNumber: 128
                   }
                 },
                 author.inbox.name
@@ -337,7 +338,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
                 className: 'btn btn-primary margin-top-xs',
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 131
+                  lineNumber: 132
                 }
               },
               getLabel(messages && messages.length ? 'reply' : 'submit')
@@ -379,7 +380,10 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
       var children = _ref5.children,
           type = _ref5.type,
           agendaUid = _ref5.agendaUid,
-          eventUid = _ref5.eventUid;
+          eventUid = _ref5.eventUid,
+          locationUid = _ref5.locationUid;
+      var context = this.props.settings.context;
+
 
       switch (type) {
         case 'agenda':
@@ -391,7 +395,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
               external: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 171
+                lineNumber: 174
               }
             },
             children
@@ -405,17 +409,43 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
               external: true,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 181
+                lineNumber: 184
               }
             },
             children
           );
+        case 'location':
+          if (context === 'agenda') {
+            return _react3.default.createElement(
+              _components2.Link,
+              {
+                to: '/agendas/' + agendaUid + '/admin/locations?uids[]=' + locationUid,
+                className: 'conversation-title-entity',
+                external: true,
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 195
+                }
+              },
+              children
+            );
+          } else {
+            return _react3.default.createElement(
+              'b',
+              { className: 'conversation-title-entity', __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 204
+                }
+              },
+              children
+            );
+          }
         default:
           return _react3.default.createElement(
             'span',
             { className: 'conversation-title-entity', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 190
+                lineNumber: 207
               }
             },
             children
@@ -446,14 +476,14 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 204
+            lineNumber: 221
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'inbox-head', __source: {
               fileName: _jsxFileName,
-              lineNumber: 205
+              lineNumber: 222
             }
           },
           _react3.default.createElement(_components2.Breadcrumb, {
@@ -464,7 +494,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
                 EntityComponent: this.TitleEntityComponent,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 208
+                  lineNumber: 225
                 }
               }),
               className: 'text-muted'
@@ -472,14 +502,14 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
             disableFirstPartLink: !(0, _showBackLink2.default)(settings, conversations),
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 206
+              lineNumber: 223
             }
           }),
           conversation.actions && conversation.actions.length ? _react3.default.createElement(
             'div',
             { className: 'inbox-actions margin-top-lg', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 219
+                lineNumber: 236
               }
             },
             _react3.default.createElement(_components2.ActionsList, {
@@ -492,7 +522,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
               showModal: showModal,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 220
+                lineNumber: 237
               }
             })
           ) : null,
@@ -500,12 +530,12 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
             'div',
             { className: 'conversation-resolved well text-center margin-top-lg', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 232
+                lineNumber: 249
               }
             },
             _react3.default.createElement('i', { className: 'fa fa-lock text-muted', 'aria-hidden': 'true', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 233
+                lineNumber: 250
               }
             }),
             ' ',
@@ -513,7 +543,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
             _react3.default.createElement('br', {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 234
+                lineNumber: 251
               }
             }),
             _react3.default.createElement(
@@ -522,7 +552,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
                   return resume(conversation.id);
                 }, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 235
+                  lineNumber: 252
                 }
               },
               getLabel('resumeConversation')
@@ -535,19 +565,19 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           Wrapper: this.FromWrapper,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 243
+            lineNumber: 260
           }
         }),
         messages && messages.length ? _react3.default.createElement(_components2.MessageList, { messages: messages, __source: {
             fileName: _jsxFileName,
-            lineNumber: 250
+            lineNumber: 267
           }
         }) : null,
         !messages || !messages.length ? _react3.default.createElement(
           'div',
           { className: 'text-center text-muted margin-v-md', __source: {
               fileName: _jsxFileName,
-              lineNumber: 252
+              lineNumber: 269
             }
           },
           getLabel('noResult')
@@ -556,19 +586,19 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
           'div',
           { className: 'padding-v-md', style: { position: 'relative' }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 256
+              lineNumber: 273
             }
           },
           _react3.default.createElement(_Spinner2.default, {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 257
+              lineNumber: 274
             }
           })
         ),
         _react3.default.createElement(_reactWaypoint2.default, { onEnter: this.throttledNextPage, __source: {
             fileName: _jsxFileName,
-            lineNumber: 260
+            lineNumber: 277
           }
         })
       );
@@ -578,7 +608,7 @@ var Conversation = _wrapComponent('Conversation')((_dec = (0, _reduxConnect.asyn
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 265
+            lineNumber: 282
           }
         },
         content

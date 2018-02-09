@@ -75,6 +75,7 @@ export default class Conversation extends Component {
     super( props );
     this.FromWrapper = ::this.FromWrapper;
     this.getClosedLabel = ::this.getClosedLabel;
+    this.TitleEntityComponent = ::this.TitleEntityComponent;
   }
 
   nextPage = () => {
@@ -164,7 +165,9 @@ export default class Conversation extends Component {
     return getLabel( 'conversationAreResolved' );
   }
 
-  TitleEntityComponent( { children, type, agendaUid, eventUid } ) {
+  TitleEntityComponent( { children, type, agendaUid, eventUid, locationUid } ) {
+    const { context } = this.props.settings;
+
     switch ( type ) {
       case 'agenda':
         return (
@@ -186,6 +189,20 @@ export default class Conversation extends Component {
             {children}
           </Link>
         );
+      case 'location':
+        if ( context === 'agenda' ) {
+          return (
+            <Link
+              to={`/agendas/${agendaUid}/admin/locations?uids[]=${locationUid}`}
+              className="conversation-title-entity"
+              external
+            >
+              {children}
+            </Link>
+          );
+        } else {
+          return <b className="conversation-title-entity">{children}</b>
+        }
       default:
         return <span className="conversation-title-entity">{children}</span>;
     }

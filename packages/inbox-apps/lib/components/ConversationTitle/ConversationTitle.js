@@ -867,6 +867,145 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                 );
               }
           }
+        case 'suggest_location_change':
+          switch (context) {
+            case 'agenda':
+              if (isUser(creator, user)) {
+                // Vous avez suggeré une modification sur le lieu XXX
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 342
+                    }
+                  },
+                  getLabel('youSuggestedALocationChange'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'location', locationUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 344
+                      }
+                    },
+                    store.params.locationName
+                  )
+                );
+              } else {
+                // XXX a suggeré une modification sur le lieu YYY
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 352
+                    }
+                  },
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 353
+                      }
+                    },
+                    getInboxUserName(creator)
+                  ),
+                  ' ',
+                  getLabel('suggestedALocationChange'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'location', locationUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 355
+                      }
+                    },
+                    store.params.locationName
+                  )
+                );
+              }
+            case 'user':
+              if (isUser(creator, user)) {
+                // Vous avez suggeré une modification sur le lieu XXX de l'agenda YYY
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 365
+                    }
+                  },
+                  getLabel('youSuggestedALocationChange'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'location', locationUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 367
+                      }
+                    },
+                    store.params.locationName
+                  ),
+                  ' ',
+                  getLabel('ofTheAgenda'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 371
+                      }
+                    },
+                    store.params.agendaTitle
+                  )
+                );
+              } else {
+                // XXX a suggeré une modification sur le lieu YYY de l'agenda ZZZ
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 379
+                    }
+                  },
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 380
+                      }
+                    },
+                    getInboxUserName(creator)
+                  ),
+                  ' ',
+                  getLabel('suggestedALocationChange'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'location', locationUid: typeIdentifier, agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 382
+                      }
+                    },
+                    store.params.locationName
+                  ),
+                  ' ',
+                  getLabel('ofTheAgenda'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 386
+                      }
+                    },
+                    store.params.agendaTitle
+                  )
+                );
+              }
+          }
       }
 
       return null;

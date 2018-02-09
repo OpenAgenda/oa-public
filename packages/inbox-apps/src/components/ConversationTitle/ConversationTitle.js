@@ -333,6 +333,63 @@ export default class ConversationTitle extends Component {
               );
             }
         }
+      case 'suggest_location_change':
+        switch ( context ) {
+          case 'agenda':
+            if ( isUser( creator, user ) ) {
+              // Vous avez suggeré une modification sur le lieu XXX
+              return (
+                <Fragment>
+                  {getLabel( 'youSuggestedALocationChange' )}{' '}
+                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.locationName}
+                  </EntityComponent>
+                </Fragment>
+              );
+            } else {
+              // XXX a suggeré une modification sur le lieu YYY
+              return (
+                <Fragment>
+                  <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                  {getLabel( 'suggestedALocationChange' )}{' '}
+                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.locationName}
+                  </EntityComponent>
+                </Fragment>
+              );
+            }
+          case 'user':
+            if ( isUser( creator, user ) ) {
+              // Vous avez suggeré une modification sur le lieu XXX de l'agenda YYY
+              return (
+                <Fragment>
+                  {getLabel( 'youSuggestedALocationChange' )}{' '}
+                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.locationName}
+                  </EntityComponent>
+                  {' '}{getLabel( 'ofTheAgenda' )}{' '}
+                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                    {store.params.agendaTitle}
+                  </EntityComponent>
+                </Fragment>
+              );
+            } else {
+              // XXX a suggeré une modification sur le lieu YYY de l'agenda ZZZ
+              return (
+                <Fragment>
+                  <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                  {getLabel( 'suggestedALocationChange' )}{' '}
+                  <EntityComponent type="location" locationUid={typeIdentifier} agendaUid={store.params.agendaUid}>
+                    {store.params.locationName}
+                  </EntityComponent>
+                  {' '}{getLabel( 'ofTheAgenda' )}{' '}
+                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                    {store.params.agendaTitle}
+                  </EntityComponent>
+                </Fragment>
+              );
+            }
+        }
     }
 
     return null;

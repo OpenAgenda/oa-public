@@ -13,6 +13,10 @@ import getDestinationInbox from '../../utils/getDestinationInbox';
   })
 )
 export default class ConversationItem extends Component {
+  constructor( props ) {
+    super( props );
+    this.TitleEntityComponent = ::this.TitleEntityComponent;
+  }
 
   static contextTypes = {
     getLabel: PropTypes.func
@@ -68,12 +72,26 @@ export default class ConversationItem extends Component {
     }
   }
 
-  TitleEntityComponent( { children, type, agendaUid, eventUid } ) {
+  TitleEntityComponent( { children, type, agendaUid, eventUid, locationUid } ) {
+    const { context } = this.props.settings;
+
     switch ( type ) {
       case 'agenda':
         return <Link to={`/agendas/${agendaUid}`} external>{children}</Link>;
       case 'event':
         return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} external>{children}</Link>;
+      case 'location':
+        if ( context === 'agenda' ) {
+          return (
+            <Link
+              to={`/agendas/${agendaUid}/admin/locations?uids[]=${locationUid}`}
+              className="conversation-title-entity"
+              external
+            >
+              {children}
+            </Link>
+          );
+        }
       default:
         return <b>{children}</b>;
     }

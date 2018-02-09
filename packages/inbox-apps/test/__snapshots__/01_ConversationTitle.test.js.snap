@@ -58,4 +58,12 @@ exports[`conversation of type request_contribute context user created by me 1`] 
 
 exports[`conversation of type request_contribute context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda Test convs 12622"`;
 
+exports[`conversation of type suggest_location_change context agenda created by me 1`] = `"Vous avez suggeré une modification sur le lieu Stand Grands Terroirs Lot"`;
+
+exports[`conversation of type suggest_location_change context agenda created by someone else 1`] = `"Kaoré - OpenAgenda a suggeré une modification sur le lieu Stand Grands Terroirs Lot"`;
+
+exports[`conversation of type suggest_location_change context user created by me 1`] = `"Vous avez suggeré une modification sur le lieu Stand Grands Terroirs Lot de l'agenda Salon International de l'Agriculture 2018"`;
+
+exports[`conversation of type suggest_location_change context user created by someone else 1`] = `"Kaoré - OpenAgenda a suggeré une modification sur le lieu Stand Grands Terroirs Lot de l'agenda Salon International de l'Agriculture 2018"`;
+
 exports[`returns null 1`] = `""`;

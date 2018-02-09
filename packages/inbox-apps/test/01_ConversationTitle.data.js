@@ -2270,4 +2270,332 @@ export default [ {
       }
     ]
   }
+}, {
+  type: 'suggest_location_change',
+  context: 'agenda',
+  creator: true,
+  user: userKaore,
+  conversation: {
+    id: 75,
+    type: 'suggest_location_change',
+    typeIdentifier: 88125499,
+    store: {
+      params: {
+        agendaTitle: 'Salon International de l\'Agriculture 2018',
+        agendaUid: 6999235,
+        locationName: 'Stand Grands Terroirs Lot',
+        locationUid: 88125499
+      }
+    },
+    createdAt: '2018-02-09T10:22:03.000Z',
+    updatedAt: '2018-02-09T10:22:03.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 54708,
+    creatorInbox: {
+      id: 31340,
+      type: 'user',
+      identifier: 75052324,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    latestMessage: {
+      id: 129,
+      conversationId: 75,
+      body: 'zffezfe',
+      createdAt: '2018-02-09T10:22:03.000Z',
+      inbox: {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      {
+        id: 54708,
+        type: 'agenda',
+        identifier: 6999235,
+        uid: 6999235,
+        name: 'Salon International de l\'Agriculture 2018',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda45072293.jpg'
+      }
+    ],
+    actions: [
+      {
+        code: 'default',
+        label: {
+          fr: 'Fermer la conversation',
+          en: 'Close the conversation'
+        },
+        kind: 'success'
+      }
+    ]
+  }
+}, {
+  type: 'suggest_location_change',
+  context: 'agenda',
+  creator: false,
+  user: userRomain,
+  conversation: {
+    id: 75,
+    type: 'suggest_location_change',
+    typeIdentifier: 88125499,
+    store: {
+      params: {
+        agendaTitle: 'Salon International de l\'Agriculture 2018',
+        agendaUid: 6999235,
+        locationName: 'Stand Grands Terroirs Lot',
+        locationUid: 88125499
+      }
+    },
+    createdAt: '2018-02-09T10:22:03.000Z',
+    updatedAt: '2018-02-09T10:22:03.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 54708,
+    creatorInbox: {
+      id: 31340,
+      type: 'user',
+      identifier: 75052324,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    latestMessage: {
+      id: 129,
+      conversationId: 75,
+      body: 'zffezfe',
+      createdAt: '2018-02-09T10:22:03.000Z',
+      inbox: {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      {
+        id: 54708,
+        type: 'agenda',
+        identifier: 6999235,
+        uid: 6999235,
+        name: 'Salon International de l\'Agriculture 2018',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda45072293.jpg'
+      }
+    ],
+    actions: [
+      {
+        code: 'default',
+        label: {
+          fr: 'Fermer la conversation',
+          en: 'Close the conversation'
+        },
+        kind: 'success'
+      }
+    ]
+  }
+}, {
+  type: 'suggest_location_change',
+  context: 'user',
+  creator: true,
+  user: userKaore,
+  conversation: {
+    id: 75,
+    type: 'suggest_location_change',
+    typeIdentifier: 88125499,
+    store: {
+      params: {
+        agendaTitle: 'Salon International de l\'Agriculture 2018',
+        agendaUid: 6999235,
+        locationName: 'Stand Grands Terroirs Lot',
+        locationUid: 88125499
+      }
+    },
+    createdAt: '2018-02-09T10:22:03.000Z',
+    updatedAt: '2018-02-09T10:22:03.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 31340,
+    creatorInboxUser: {
+      id: 29696,
+      inboxId: 31340,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    creatorInbox: {
+      id: 31340,
+      type: 'user',
+      identifier: 75052324,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    inboxUser: {
+      id: 29696,
+      inboxId: 31340,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    latestMessage: {
+      id: 129,
+      conversationId: 75,
+      body: 'zffezfe',
+      createdAt: '2018-02-09T10:22:03.000Z',
+      inboxUser: {
+        id: 29696,
+        inboxId: 31340,
+        userUid: 75052324,
+        leftAt: null,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      inbox: {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      {
+        id: 54708,
+        type: 'agenda',
+        identifier: 6999235,
+        uid: 6999235,
+        name: 'Salon International de l\'Agriculture 2018',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda45072293.jpg'
+      }
+    ],
+    actions: [
+      {
+        code: 'default',
+        label: {
+          fr: 'Fermer la conversation',
+          en: 'Close the conversation'
+        },
+        kind: 'success'
+      }
+    ]
+  }
+}, {
+  type: 'suggest_location_change',
+  context: 'user',
+  creator: false,
+  user: userRomain,
+  conversation: {
+    id: 75,
+    type: 'suggest_location_change',
+    typeIdentifier: 88125499,
+    store: {
+      params: {
+        agendaTitle: 'Salon International de l\'Agriculture 2018',
+        agendaUid: 6999235,
+        locationName: 'Stand Grands Terroirs Lot',
+        locationUid: 88125499
+      }
+    },
+    createdAt: '2018-02-09T10:22:03.000Z',
+    updatedAt: '2018-02-09T10:22:03.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 54708,
+    creatorInbox: {
+      id: 31340,
+      type: 'user',
+      identifier: 75052324,
+      uid: 75052324,
+      name: 'Kaoré - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+    },
+    inboxUser: {
+      id: 53233,
+      inboxId: 54708,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    latestMessage: {
+      id: 129,
+      conversationId: 75,
+      body: 'zffezfe',
+      createdAt: '2018-02-09T10:22:03.000Z',
+      inbox: {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 31340,
+        type: 'user',
+        identifier: 75052324,
+        uid: 75052324,
+        name: 'Kaoré - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg'
+      },
+      {
+        id: 54708,
+        type: 'agenda',
+        identifier: 6999235,
+        uid: 6999235,
+        name: 'Salon International de l\'Agriculture 2018',
+        avatar: 'https://cibuldev.s3.amazonaws.com/agenda45072293.jpg'
+      }
+    ],
+    actions: [
+      {
+        code: 'default',
+        label: {
+          fr: 'Fermer la conversation',
+          en: 'Close the conversation'
+        },
+        kind: 'success'
+      }
+    ]
+  }
 } ];

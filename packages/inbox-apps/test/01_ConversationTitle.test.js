@@ -462,3 +462,63 @@ describe( 'conversation of type edition_request', () => {
     } );
   } );
 } );
+
+describe( 'conversation of type suggest_location_change', () => {
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'suggest_location_change',
+        context: 'agenda',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'suggest_location_change',
+        context: 'agenda',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'suggest_location_change',
+        context: 'user',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'suggest_location_change',
+        context: 'user',
+        creator: false
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+} );
