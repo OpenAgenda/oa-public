@@ -217,14 +217,30 @@ module.exports = (0, _createReactClass2.default)({
   },
   renderStakeholderItem: function renderStakeholderItem(stakeholder) {
 
+    if (stakeholder.deletedUser) {
+      return _react2.default.createElement(
+        'tr',
+        { key: stakeholder.id },
+        _react2.default.createElement(
+          'td',
+          { className: 'text-danger text-center', colSpan: 7 },
+          'User deleted'
+        )
+      );
+    }
+
     if (!stakeholder.user) {
       return _react2.default.createElement(
         'tr',
         { key: stakeholder.id },
         _react2.default.createElement(
           'td',
-          { className: 'text-danger text-center', colSpan: 6 },
-          'User deleted'
+          { className: 'text-info text-center', colSpan: 7 },
+          'User invited (',
+          stakeholder.custom.contactName,
+          ': ',
+          stakeholder.custom.email,
+          ')'
         )
       );
     }

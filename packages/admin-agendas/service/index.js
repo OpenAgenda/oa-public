@@ -67,13 +67,14 @@ function init( c, cb ) {
 
 }
 
-function agendaStakeholdersList( agendaId, query, offset, limit, cb ) {
+function agendaStakeholdersList( agendaId, query, offset, limit, options, cb ) {
 
   w( {
     agendaId,
     query,
     offset,
-    limit
+    limit,
+    options
   } )
 
   .then( _agendaStakeholdersList )
@@ -98,7 +99,7 @@ function _agendaStakeholdersList( v ) {
     total: 1
   }, v.query );
 
-  agendaStakeholders( parseInt( v.agendaId ) ).list( query, v.offset, v.limit, ( err, stakeholders, total ) => {
+  agendaStakeholders( parseInt( v.agendaId ) ).list( query, v.offset, v.limit, v.options, ( err, stakeholders, total ) => {
 
     if ( err ) d.reject( err );
 

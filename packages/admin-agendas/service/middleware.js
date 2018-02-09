@@ -130,7 +130,7 @@ function agendaStakeholdersList( req, res, next ) {
   } catch ( e ) {
   }
 
-  service.stakeholders.list( agendaId, query, offset, limit, ( err, stakeholders, total ) => {
+  service.stakeholders.list( agendaId, query, offset, limit, { deletedUser: null }, ( err, stakeholders, total ) => {
 
     if ( err ) return next( err );
 

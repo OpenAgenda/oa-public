@@ -39,38 +39,38 @@ module.exports = createReactClass( {
 
   },
 
-  setOfficial( checked ){
+  setOfficial( checked ) {
 
     this.props.setAgenda( { official: checked } );
 
   },
 
-  setPrivate( checked ){
+  setPrivate( checked ) {
 
     this.props.setAgenda( { private: checked } );
 
   },
 
-  renderAgendaHeader () {
+  renderAgendaHeader() {
     const { setAgenda } = this.props;
 
     return (
       <header className="agenda-header">
         <div className="container-fluid profile notheme">
           <div className="row">
-            { this.props.agenda.image ?
+            {this.props.agenda.image ?
               <div className="col-sm-2 avatar-container">
                 <a href={'/' + this.props.agenda.slug}> <img className="avatar"
-                  src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
-                  alt={this.props.agenda.title} /> </a>
-              </div> : null }
+                                                             src={'https://cibul.s3.amazonaws.com/' + this.props.agenda.image}
+                                                             alt={this.props.agenda.title}/> </a>
+              </div> : null}
 
-            <div className={ this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container' }>
+            <div className={this.props.agenda.image ? 'col-sm-7 title-container' : 'title-container'}>
               <a href={'/' + this.props.agenda.slug}>
                 <h1>{this.props.agenda.title}</h1>
                 <p>{this.props.agenda.description}</p>
-              </a> { this.props.agenda.url ?
-              <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null }
+              </a> {this.props.agenda.url ?
+              <p><a target="_blank" href={this.props.agenda.url}>{this.props.agenda.url}</a></p> : null}
               {this.props.agenda.uid ? <div>
                 <div>Agenda officiel <Switch
                   className="rc-switch"
@@ -127,10 +127,20 @@ module.exports = createReactClass( {
 
   renderStakeholderItem( stakeholder ) {
 
-    if (!stakeholder.user) {
+    if ( stakeholder.deletedUser ) {
       return (
         <tr key={stakeholder.id}>
-          <td className="text-danger text-center" colSpan={6}>User deleted</td>
+          <td className="text-danger text-center" colSpan={7}>User deleted</td>
+        </tr>
+      );
+    }
+
+    if ( !stakeholder.user ) {
+      return (
+        <tr key={stakeholder.id}>
+          <td className="text-info text-center" colSpan={7}>
+            User invited ({stakeholder.custom.contactName}: {stakeholder.custom.email})
+          </td>
         </tr>
       );
     }
@@ -160,7 +170,7 @@ module.exports = createReactClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-              onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
+                    onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
             </button>
           </td>
         </tr>
@@ -176,7 +186,7 @@ module.exports = createReactClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-              onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
+                    onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
             </button>
           </td>
         </tr>
@@ -324,11 +334,11 @@ module.exports = createReactClass( {
 
         <div className="nav nav-tabs">
           <li role="presentation" className={tab == 'stakeholders' ? 'active' : ''}
-            onClick={() => this.setTab( 'stakeholders' )}>
+              onClick={() => this.setTab( 'stakeholders' )}>
             <a href="#">Stakeholders</a>
           </li>
           <li role="presentation" className={tab == 'features' ? 'active' : ''}
-            onClick={() => this.setTab( 'features' )}>
+              onClick={() => this.setTab( 'features' )}>
             <a href="#">Features</a>
           </li>
         </div>
