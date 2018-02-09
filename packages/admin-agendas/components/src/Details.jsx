@@ -1,6 +1,6 @@
 "use strict";
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import List from '@openagenda/react-components/build/List';
@@ -139,7 +139,9 @@ module.exports = createReactClass( {
       return (
         <tr key={stakeholder.id}>
           <td className="text-info text-center" colSpan={7}>
-            User invited ({stakeholder.custom.contactName}: {stakeholder.custom.email})
+            User invited (
+            {stakeholder.custom.contactName ? <Fragment>{stakeholder.custom.contactName}: </Fragment> : null}
+            {stakeholder.custom.email})
           </td>
         </tr>
       );

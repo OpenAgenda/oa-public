@@ -237,8 +237,12 @@ module.exports = (0, _createReactClass2.default)({
           'td',
           { className: 'text-info text-center', colSpan: 7 },
           'User invited (',
-          stakeholder.custom.contactName,
-          ': ',
+          stakeholder.custom.contactName ? _react2.default.createElement(
+            _react.Fragment,
+            null,
+            stakeholder.custom.contactName,
+            ': '
+          ) : null,
           stakeholder.custom.email,
           ')'
         )
