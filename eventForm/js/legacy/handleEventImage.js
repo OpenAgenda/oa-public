@@ -170,7 +170,7 @@ module.exports = function( params ) {
 
   _enableImageCredits = function( credits = null ) {
 
-    let imageCreditsInput = du.el( 'input', du.el( '.js_image_credits' ) );
+    let imageCreditsInput = du.el( du.el( '.js_image_credits' ), 'input' );
 
     du.removeClass( du.el( '.js_image_credits' ), 'display-none' );
 

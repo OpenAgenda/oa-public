@@ -14,7 +14,7 @@
       { "name": "Palais Royal", "address": "Paris Palais Royal, 8 Rue Molière, 75001 Paris", "lat": 48.865017, "lng": 2.335248, "uid": 288 },
       { "name": "Arènes de Montmartre", "address": "25 Rue Chappe, 75018 Paris, France", "lat": 48.885558, "lng": 2.342023, "uid": 289 }
     ],
-    "countries" : [ 
+    "countries" : [
       { "code":"AD", "name": "Andorra" },
       { "code": "AE", "name": "United Arab Emirates" },
       { "code": "AF", "name": "Afghanistan" },
@@ -265,6 +265,7 @@
       "freeText": { "fr":  "", "en":  "Not really much more to tell", "es":  "No hay mucho mas que decir" },
       "tags": { "fr":  "concert, musique, son", "en":  "concert, music, sound", "es":  "concierto, musica, sonido" },
       "image": "pirate.jpg",
+      "credits": "Un pirate",
       "fileKey": "a65ab5e8ddab44278f95bff8ce9ae8ad",
       "conditions": {
         "fr": "C'est un peu cher",
@@ -273,9 +274,9 @@
       "ticketLink": "https://openagenda.com",
       "location": {
         "uid": 46541645,
-        "name": "La Grande Arche", 
-        "address": "Esplanade de la Grande Arche, Nanterre", 
-        "lat": 48.892698, 
+        "name": "La Grande Arche",
+        "address": "Esplanade de la Grande Arche, Nanterre",
+        "lat": 48.892698,
         "lng": 2.23595
       },
       "accessibility": [ "sl", "hi" ],
@@ -295,8 +296,8 @@
       },
       "agendas": [
         {
-          "uid": 84735921, 
-          "tags": ["theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes"], 
+          "uid": 84735921,
+          "tags": ["theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes"],
           "category": "expositions"
         }
       ]
@@ -596,7 +597,7 @@
     "event" : {
       "agendas": [
         {
-          "uid": 84735921, 
+          "uid": 84735921,
           "nonemptytags": [ "theatre-du-chatelet", "vente", "festival-nemo", "espace-jemmapes" ],
           "tags" : [ "la-bellevilloise", "comedie-de-paris" ],
           "category": "expositions"
