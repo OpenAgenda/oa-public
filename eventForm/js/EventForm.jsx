@@ -749,7 +749,7 @@ function EventFormFactory() {
             initUids={this.state.references}
             res={this.props.referenceRes}
             info={this.props.configuration.field( 'references' ).getInfo( true, false )}
-            sample={this.props.configuration.field( 'references' ).get( 'suggest', false ) ? _.pick( this.state, [ 'title', 'description', 'keywords' ] ) : null }
+            sample={this.props.configuration.field( 'references' ).get( 'suggest', false ) ? _.pick( this.state, [ 'title', 'description', 'keywords', 'location' ] ) : null }
             onChange={this.props.onReferencesChange}
           /> : null}</div>
 
