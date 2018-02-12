@@ -14875,6 +14875,15 @@ i.mce-i-backcolor {
           bottom: 0;
           right: 14px; }
 
+.activity-list li {
+  padding-bottom: 1em; }
+  .activity-list li .activity-time {
+    display: block;
+    color: gray; }
+  .activity-list li .activity-info {
+    display: block;
+    padding-bottom: 0.3em; }
+
 /* #note1 */
 @media screen and (max-width: 768px) {
   .notifications-body {
