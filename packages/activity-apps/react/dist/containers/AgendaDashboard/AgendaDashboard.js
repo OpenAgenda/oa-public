@@ -352,7 +352,7 @@ var AgendaDashboard = _wrapComponent('AgendaDashboard')((_dec = (0, _reduxConnec
             'ul',
             { className: 'list-unstyled activity-list' },
             activities.map(function (a) {
-              return _react3.default.createElement(_components2.ActivityItem, { activity: a, lang: lang, withFilterIcons: true });
+              return _react3.default.createElement(_components2.ActivityItem, { key: 'activity.' + a.id, activity: a, lang: lang, withFilterIcons: true });
             })
           ),
           (!activities || activities.length === 0) && _react3.default.createElement(

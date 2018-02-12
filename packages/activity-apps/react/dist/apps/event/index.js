@@ -23,7 +23,7 @@ exports.default = function (options) {
       'ul',
       { className: 'list-unstyled activity-list' },
       activities.map(function (a) {
-        return _react2.default.createElement(_components2.ActivityItem, { activity: a, lang: lang });
+        return _react2.default.createElement(_components2.ActivityItem, { key: 'activity.' + a.id, activity: a, lang: lang });
       })
     )
   );

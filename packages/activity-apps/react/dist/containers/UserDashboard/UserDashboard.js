@@ -184,7 +184,7 @@ var UserDashboard = _wrapComponent('UserDashboard')((_dec = (0, _reduxConnect.as
           'ul',
           { className: 'list-unstyled activity-list' },
           activities.map(function (a) {
-            return _react3.default.createElement(_components2.ActivityItem, { activity: a, lang: lang });
+            return _react3.default.createElement(_components2.ActivityItem, { key: 'activity.' + a.id, activity: a, lang: lang });
           })
         ),
         (!activities || activities.length === 0) && _react3.default.createElement(

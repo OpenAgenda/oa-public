@@ -200,7 +200,7 @@ export default class AgendaDashboard extends Component {
 
         <div className="padding-top-md">
           {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-            {activities.map( a => <ActivityItem activity={a} lang={lang} withFilterIcons={true} />)}
+            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} lang={lang} withFilterIcons={true} />)}
           </ul>}
 
           {(!activities || activities.length === 0) && <div className="margin-bottom-sm">
