@@ -161,6 +161,14 @@
 
       }
 
+      .message br {
+
+        content: "";
+        margin-bottom: 0.5em;
+        display: block;
+
+      }
+
       .message-info {
 
         color: $oa-gray;
@@ -231,7 +239,7 @@
 
   }
 
-  .conversation-title-entity:not(:hover) {
+  .conversation-title-entity:not(a:hover) {
 
     color: $oa-black;
 

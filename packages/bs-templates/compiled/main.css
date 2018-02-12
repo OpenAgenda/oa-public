@@ -8431,6 +8431,10 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
     .inbox .conversation-item .conversation-item-message img {
       width: 24px;
       vertical-align: bottom; }
+    .inbox .conversation-item .conversation-item-message .message br {
+      content: "";
+      margin-bottom: 0.5em;
+      display: block; }
     .inbox .conversation-item .conversation-item-message .message-info {
       color: gray; }
   .inbox .media {
@@ -8457,7 +8461,7 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
   .inbox.inbox-agenda-admin .btn-creation, .inbox.inbox-agenda-admin .btn-back {
     top: 0;
     right: 0; }
-  .inbox .conversation-title-entity:not(:hover) {
+  .inbox .conversation-title-entity:not(a:hover) {
     color: #413a42; }
 
 #event #header .row {
