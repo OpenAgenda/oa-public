@@ -9,16 +9,12 @@ import Select from 'react-select';
 import moment from 'moment';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import activityLabels from '@openagenda/labels/activities/admin';
-import activityFormatMaker from '@openagenda/activities/formatActivity';
 import * as activitiesActions from '../../redux/modules/activities';
 import { renderField, renderSelect, renderInput } from '../../utils/form';
-import { DateTimePicker } from '../../components';
+import { DateTimePicker, ActivityItem } from '../../components';
 
 import 'moment/locale/fr';
 moment.locale( 'fr' );
-
-const formatActivity = activityFormatMaker( {}, activityLabels );
 
 const dashboardValuesSelector = getFormValues( 'activityAppsAdminDashboard' );
 
@@ -238,15 +234,8 @@ export default class AdminDashboard extends Component {
 
         <div className="row padding-top-md">
           <div className="col-md-offset-3 col-md-6">
-            {(activities && activities.length > 0) && <ul className="list-unstyled">
-              {activities.map( activity => (
-                <li key={activity.id} className="padding-bottom-xs">
-                  <label className="pull-left margin-right-sm small">
-                    {moment( activity.createdAt ).format( 'LLL' )}
-                  </label>
-                  <p className="activity-item" dangerouslySetInnerHTML={{ __html: formatActivity( activity ) }} />
-                </li>
-              ) )}
+            {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
+              { activities.map( a => <ActivityItem key={a.id} activity={a} /> ) }
             </ul>}
 
             {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

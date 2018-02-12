@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -64,17 +64,11 @@ var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _formatActivity = require('@openagenda/activities/formatActivity');
-
-var _formatActivity2 = _interopRequireDefault(_formatActivity);
-
-var _user = require('@openagenda/labels/activities/user');
-
-var _user2 = _interopRequireDefault(_user);
-
 var _activities = require('../../redux/modules/activities');
 
 var activitiesActions = _interopRequireWildcard(_activities);
+
+var _components2 = require('../../components');
 
 require('moment/locale/fr');
 
@@ -100,8 +94,6 @@ function _wrapComponent(id) {
     return _reactTransformCatchErrors2(Component, id);
   };
 }
-
-var formatActivity = (0, _formatActivity2.default)({}, _user2.default);
 
 var UserDashboard = _wrapComponent('UserDashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
@@ -190,18 +182,9 @@ var UserDashboard = _wrapComponent('UserDashboard')((_dec = (0, _reduxConnect.as
         ),
         activities && activities.length > 0 && _react3.default.createElement(
           'ul',
-          { className: 'list-unstyled' },
-          activities.map(function (activity) {
-            return _react3.default.createElement(
-              'li',
-              { key: activity.id, className: 'padding-bottom-xs' },
-              _react3.default.createElement(
-                'label',
-                { className: 'pull-left margin-right-sm small' },
-                (0, _moment2.default)(activity.createdAt).format('LLL')
-              ),
-              _react3.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
-            );
+          { className: 'list-unstyled activity-list' },
+          activities.map(function (a) {
+            return _react3.default.createElement(_components2.ActivityItem, { activity: a, lang: lang });
           })
         ),
         (!activities || activities.length === 0) && _react3.default.createElement(

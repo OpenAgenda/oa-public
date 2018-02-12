@@ -8,13 +8,11 @@ import mapValues from 'lodash/mapValues';
 import update from 'immutability-helper';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import activityFormatMaker from '@openagenda/activities/formatActivity';
-import activityLabels from '@openagenda/labels/activities/agenda';
 import * as activitiesActions from '../../redux/modules/activities';
 
-import 'moment/locale/fr';
+import { ActivityItem } from '../../components';
 
-const formatActivity = activityFormatMaker( {}, activityLabels );
+import 'moment/locale/fr';
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -201,16 +199,8 @@ export default class AgendaDashboard extends Component {
         </div>
 
         <div className="padding-top-md">
-          {(activities && activities.length > 0) && <ul className="list-unstyled">
-            {activities.map( activity => (
-              <li key={activity.id} className="padding-bottom-xs">
-                <label className="pull-left margin-right-sm small">
-                  {moment( activity.createdAt ).format( 'LLL' )}
-                </label>
-                <p onClick={this.onActivityClick} className="activity-item"
-                  dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang, true ) }} />
-              </li>
-            ) )}
+          {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
+            {activities.map( a => <ActivityItem activity={a} lang={lang} withFilterIcons={true} />)}
           </ul>}
 
           {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

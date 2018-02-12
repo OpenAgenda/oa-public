@@ -1,3 +1,5 @@
+"use strict";
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
@@ -5,13 +7,11 @@ import moment from 'moment';
 import throttle from 'lodash/throttle';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
-import activityFormatMaker from '@openagenda/activities/formatActivity';
-import activityLabels from '@openagenda/labels/activities/user';
 import * as activitiesActions from '../../redux/modules/activities';
 
-import 'moment/locale/fr';
+import { ActivityItem } from '../../components';
 
-const formatActivity = activityFormatMaker( {}, activityLabels );
+import 'moment/locale/fr';
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -81,15 +81,8 @@ export default class UserDashboard extends Component {
       <div className="content">
         <h2 className="margin-bottom-md">{getLabel( 'activities' )}</h2>
 
-        {(activities && activities.length > 0) && <ul className="list-unstyled">
-          {activities.map( activity => (
-            <li key={activity.id} className="padding-bottom-xs">
-              <label className="pull-left margin-right-sm small">
-                {moment( activity.createdAt ).format( 'LLL' )}
-              </label>
-              <p className="activity-item" dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
-            </li>
-          ) )}
+        {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
+          {activities.map( a => <ActivityItem activity={a} lang={lang} /> )}
         </ul>}
 
         {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

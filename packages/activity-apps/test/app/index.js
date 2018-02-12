@@ -31,10 +31,10 @@ app.use( ( req, res, next ) => {
     case 'agenda':
     case 'user':
     case 'notifications':
-      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/main.css' ] );
+      app.setStyles( [ __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css' ] );
       break;
     default:
-      app.setStyles( [ __dirname + '/../../node_modules/bs-templates/compiled/admin.css' ] );
+      app.setStyles( [ __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/admin.css' ] );
 
   }
 

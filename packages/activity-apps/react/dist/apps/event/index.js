@@ -21,18 +21,9 @@ exports.default = function (options) {
     null,
     activities && activities.length > 0 && _react2.default.createElement(
       'ul',
-      { className: 'list-unstyled' },
-      activities.map(function (activity) {
-        return _react2.default.createElement(
-          'li',
-          { key: activity.id, className: 'padding-bottom-xs' },
-          _react2.default.createElement(
-            'label',
-            { className: 'pull-left margin-right-sm small' },
-            (0, _moment2.default)(activity.createdAt).locale(lang).format('LLL')
-          ),
-          _react2.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity, lang) } })
-        );
+      { className: 'list-unstyled activity-list' },
+      activities.map(function (a) {
+        return _react2.default.createElement(_components2.ActivityItem, { activity: a, lang: lang });
       })
     )
   );
@@ -42,24 +33,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _event = require('@openagenda/labels/activities/event');
-
-var _event2 = _interopRequireDefault(_event);
-
-var _formatActivity = require('@openagenda/activities/formatActivity');
-
-var _formatActivity2 = _interopRequireDefault(_formatActivity);
-
 require('moment/locale/fr');
+
+var _components2 = require('../../components');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const getLabel = ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang );
-var formatActivity = (0, _formatActivity2.default)({}, _event2.default);
-// import makeGetterLabel from '@openagenda/labels';
 module.exports = exports['default'];
 //# sourceMappingURL=index.js.map

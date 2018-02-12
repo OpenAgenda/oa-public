@@ -1,15 +1,10 @@
 "use strict";
 
 import React from 'react';
-import moment from 'moment';
-// import makeGetterLabel from '@openagenda/labels';
-import labels from '@openagenda/labels/activities/event';
-import activityFormatMaker from '@openagenda/activities/formatActivity';
 
 import 'moment/locale/fr';
 
-// const getLabel = ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang );
-const formatActivity = activityFormatMaker( {}, labels );
+import { ActivityItem } from '../../components';
 
 export default function ( options ) {
 
@@ -20,15 +15,8 @@ export default function ( options ) {
 
   return (
     <div>
-      {(activities && activities.length > 0) && <ul className="list-unstyled">
-        {activities.map( activity => (
-          <li key={activity.id} className="padding-bottom-xs">
-            <label className="pull-left margin-right-sm small">
-              {moment( activity.createdAt ).locale( lang ).format( 'LLL' )}
-            </label>
-            <p className="activity-item" dangerouslySetInnerHTML={{ __html: formatActivity( activity, lang ) }} />
-          </li>
-        ) )}
+      {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
+        {activities.map( a => <ActivityItem activity={a} lang={lang} /> )}
       </ul>}
     </div>
   );

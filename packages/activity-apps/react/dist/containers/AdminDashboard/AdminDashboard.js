@@ -90,14 +90,6 @@ var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
 var _monitorBottomHit2 = _interopRequireDefault(_monitorBottomHit);
 
-var _admin = require('@openagenda/labels/activities/admin');
-
-var _admin2 = _interopRequireDefault(_admin);
-
-var _formatActivity = require('@openagenda/activities/formatActivity');
-
-var _formatActivity2 = _interopRequireDefault(_formatActivity);
-
 var _activities = require('../../redux/modules/activities');
 
 var activitiesActions = _interopRequireWildcard(_activities);
@@ -132,8 +124,6 @@ function _wrapComponent(id) {
 }
 
 _moment2.default.locale('fr');
-
-var formatActivity = (0, _formatActivity2.default)({}, _admin2.default);
 
 var dashboardValuesSelector = (0, _reduxForm.getFormValues)('activityAppsAdminDashboard');
 
@@ -463,18 +453,9 @@ var AdminDashboard = _wrapComponent('AdminDashboard')((_dec = (0, _reduxConnect.
             { className: 'col-md-offset-3 col-md-6' },
             activities && activities.length > 0 && _react3.default.createElement(
               'ul',
-              { className: 'list-unstyled' },
-              activities.map(function (activity) {
-                return _react3.default.createElement(
-                  'li',
-                  { key: activity.id, className: 'padding-bottom-xs' },
-                  _react3.default.createElement(
-                    'label',
-                    { className: 'pull-left margin-right-sm small' },
-                    (0, _moment2.default)(activity.createdAt).format('LLL')
-                  ),
-                  _react3.default.createElement('p', { className: 'activity-item', dangerouslySetInnerHTML: { __html: formatActivity(activity) } })
-                );
+              { className: 'list-unstyled activity-list' },
+              activities.map(function (a) {
+                return _react3.default.createElement(_components2.ActivityItem, { key: a.id, activity: a });
               })
             ),
             (!activities || activities.length === 0) && _react3.default.createElement(
