@@ -107,7 +107,7 @@ var formatDate = function ( date, format, timezone ) {
   if ( timezone ) {
 
     return moment.tz( date, timezone ).format( format );
-    
+
   }
 
   return moment( date ).utc().format( format );
