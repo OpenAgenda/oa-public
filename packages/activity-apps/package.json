@@ -75,6 +75,7 @@
     "concurrently": "^3.5.0",
     "husky": "^0.14.0",
     "iscroll": "^5.2.0",
+    "mocha": "^5.0.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
     "react": "^16.0.0",
