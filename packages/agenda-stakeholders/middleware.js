@@ -126,13 +126,14 @@ function agenda( namespace = 'agenda' ) {
 
   function get( options ) {
 
-    let { namespaces } = _.merge( {
+    let { namespaces, options: getOptions } = _.merge( {
       namespaces: {
         identifiers: 'identifiers',
         user: 'user',
         stakeholder: 'stakeholder',
         instance: 'stakeholderInstance'
-      }
+      },
+      options: {}
     }, options || {} );
 
     return ( req, res, next ) => {
@@ -146,7 +147,7 @@ function agenda( namespace = 'agenda' ) {
 
       }
 
-      service.agenda( _.get( req, namespace ).id ).get( identifiers, ( err, st ) => {
+      service.agenda( _.get( req, namespace ).id ).get( identifiers, getOptions, ( err, st ) => {
 
         if ( err ) return next( err );
 
