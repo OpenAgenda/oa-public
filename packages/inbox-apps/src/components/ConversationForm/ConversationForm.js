@@ -38,11 +38,11 @@ export default class ConversationForm extends Component {
   }
 
   render() {
-    const { getLabel, submit, handleSubmit, submitting, Wrapper } = this.props;
+    const { getLabel, submit, handleSubmit, submitting, Wrapper, error } = this.props;
 
     return createElement(
       Wrapper,
-      { handleSubmit, submitting },
+      { handleSubmit, submitting, error },
       <Fragment>
         <Field
           name="destinationInbox"

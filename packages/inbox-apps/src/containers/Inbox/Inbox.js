@@ -14,6 +14,7 @@ import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import setFlashMessage from '../../utils/setFlashMessage';
+import { SubmissionError } from "redux-form";
 
 @asyncConnect( [ {
   key: 'inbox', // key is usefull for the redirection
@@ -73,13 +74,15 @@ export default class Inbox extends Component {
     this.renderCreationButton = ::this.renderCreationButton;
   }
 
-  FromWrapper( { handleSubmit, children } ) {
+  FromWrapper( { handleSubmit, error, children } ) {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
     return (
       <form onSubmit={handleSubmit} className="conversation-form margin-bottom-md">
         {children}
+
+        {error ? <p className="text-danger">{error}</p> : null}
 
         {author.inbox && author.inbox.type !== 'user' && author.inboxUser
           ? <div className="margin-bottom-sm">
@@ -117,18 +120,16 @@ export default class Inbox extends Component {
     const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
 
     const creationButton = (
-      <div className="text-right">
-        <LinkContainer to="/conversation/create">
-          {path => (
-            <button
-              className="btn btn-info btn-creation pull-right"
-              onClick={() => router.push( path )}
-            >
-              {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
-            </button>
-          )}
-        </LinkContainer>
-      </div>
+      <LinkContainer to="/conversation/create">
+        {path => (
+          <button
+            className="btn btn-info btn-creation pull-right"
+            onClick={() => router.push( path )}
+          >
+            {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
+          </button>
+        )}
+      </LinkContainer>
     );
 
     if ( allClosedForCreate && unresolvedConvs.length ) {
@@ -147,16 +148,28 @@ export default class Inbox extends Component {
     const {
       ContentWrapper, topListForm, prefix, emptyInboxLabel,
       creationSubtitle, maskCreationSubtitle, creationDesc,
-      onConversationCreateRedirect, onConversationCreateFlash
+      onConversationCreateRedirect, onConversationCreateFlash,
+      displayHelp
     } = settings;
 
     const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
 
     const content = (
       <Fragment>
-        {this.renderCreationButton( { unresolvedConvs } )}
-
         <div className="inbox-head">
+          {this.renderCreationButton( { unresolvedConvs } )}
+
+          {displayHelp ? (
+            <a
+              title={getLabel( 'needHelp' )}
+              target="_blank"
+              href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
+              className="pull-right"
+            >
+              <i className="fa fa-question-circle"></i>
+            </a>
+          ) : null}
+
           {topListForm && !unresolvedConvs.length && !maskCreationSubtitle
             ? (
               <Breadcrumb
@@ -200,6 +213,9 @@ export default class Inbox extends Component {
                     }
 
                     return result;
+                  } )
+                  .catch( () => {
+                    throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
                   } )
                 }
                 initialValues={initialValues}

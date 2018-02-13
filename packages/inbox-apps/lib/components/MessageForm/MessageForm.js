@@ -100,10 +100,11 @@ var MessageForm = _wrapComponent('MessageForm')((_dec = (0, _reduxForm.reduxForm
           submit = _props.submit,
           submitting = _props.submitting,
           getLabel = _props.getLabel,
-          Wrapper = _props.Wrapper;
+          Wrapper = _props.Wrapper,
+          error = _props.error;
 
 
-      return (0, _react2.createElement)(Wrapper, { handleSubmit: handleSubmit, submitting: submitting }, _react3.default.createElement(_reduxForm.Field, {
+      return (0, _react2.createElement)(Wrapper, { handleSubmit: handleSubmit, submitting: submitting, error: error }, _react3.default.createElement(_reduxForm.Field, {
         component: _form.renderTextarea,
         name: 'body',
         className: 'form-control',

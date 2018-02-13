@@ -148,7 +148,8 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
     key: 'FormWrapper',
     value: function FormWrapper(_ref2) {
       var children = _ref2.children,
-          handleSubmit = _ref2.handleSubmit;
+          handleSubmit = _ref2.handleSubmit,
+          error = _ref2.error;
       var getLabel = this.props.getLabel;
 
       return _react3.default.createElement(
@@ -165,7 +166,16 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
               lineNumber: 53
             }
           },
-          children
+          children,
+          error ? _react3.default.createElement(
+            'p',
+            { className: 'text-danger', __source: {
+                fileName: _jsxFileName,
+                lineNumber: 56
+              }
+            },
+            error
+          ) : null
         ),
         _react3.default.createElement(
           'button',
@@ -174,7 +184,7 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
             className: 'btn btn-primary center-block',
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 57
+              lineNumber: 59
             }
           },
           getLabel('send')
@@ -217,14 +227,14 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
             classNames: { overlay: 'popup-overlay big' },
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 82
+              lineNumber: 84
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'margin-top-sm text-center', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 90
+                lineNumber: 92
               }
             },
             getLabel(confirmationMessage ? 'creationSuccess' : 'creationFail')
@@ -243,12 +253,12 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
           classNames: { overlay: 'popup-overlay big' },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 98
+            lineNumber: 100
           }
         },
         modalDescription && _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: modalDescription.replace(/\n/g, '<br />') }, __source: {
             fileName: _jsxFileName,
-            lineNumber: 104
+            lineNumber: 106
           }
         }),
         _react3.default.createElement(_components2.ConversationForm, {
@@ -263,7 +273,7 @@ var ConversationModal = _wrapComponent('ConversationModal')((_dec = (0, _reactRe
           Wrapper: this.FormWrapper,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 105
+            lineNumber: 107
           }
         })
       );

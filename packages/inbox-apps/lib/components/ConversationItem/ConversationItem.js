@@ -66,6 +66,10 @@ var _getDestinationInbox = require('../../utils/getDestinationInbox');
 
 var _getDestinationInbox2 = _interopRequireDefault(_getDestinationInbox);
 
+var _marked = require('marked');
+
+var _marked2 = _interopRequireDefault(_marked);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _components = {
@@ -126,7 +130,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'margin-bottom-sm padding-top-xs text-muted', title: creationDate.format('LLL'), __source: {
               fileName: _jsxFileName,
-              lineNumber: 39
+              lineNumber: 40
             }
           },
           getLabel('postedAgo', { date: creationDate.fromNow(true) })
@@ -137,7 +141,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'div',
             { className: 'margin-bottom-sm padding-top-xs text-muted', title: creationDate.format('LLL'), __source: {
                 fileName: _jsxFileName,
-                lineNumber: 46
+                lineNumber: 47
               }
             },
             getLabel('youRepliedAgo', { date: creationDate.fromNow(true) })
@@ -150,7 +154,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               title: creationDate.format('LLL'),
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 52
+                lineNumber: 53
               }
             },
             destinationInbox.id !== latestMessage.inbox.id ? _react3.default.createElement(
@@ -158,12 +162,12 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               {
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 62
+                  lineNumber: 63
                 }
               },
               _react3.default.createElement(_.AuthorAvatar, { author: latestMessage, inline: true, __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 63
+                  lineNumber: 64
                 }
               }),
               ' '
@@ -192,7 +196,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _.Link,
             { to: '/agendas/' + agendaUid, external: true, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 80
+                lineNumber: 81
               }
             },
             children
@@ -202,7 +206,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             _.Link,
             { to: '/agendas/' + agendaUid + '/events/' + eventUid, external: true, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 82
+                lineNumber: 83
               }
             },
             children
@@ -217,7 +221,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
                 external: true,
                 __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 86
+                  lineNumber: 87
                 }
               },
               children
@@ -229,7 +233,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             {
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 96
+                lineNumber: 97
               }
             },
             children
@@ -260,7 +264,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 112
+            lineNumber: 113
           }
         },
         ' ',
@@ -268,31 +272,31 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'tooltip-icon', __source: {
               fileName: _jsxFileName,
-              lineNumber: 114
+              lineNumber: 115
             }
           },
           _react3.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true', __source: {
               fileName: _jsxFileName,
-              lineNumber: 115
+              lineNumber: 116
             }
           }),
           _react3.default.createElement(
             'div',
             { className: 'tooltip right', role: 'tooltip', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 116
+                lineNumber: 117
               }
             },
             _react3.default.createElement('div', { className: 'tooltip-arrow', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 117
+                lineNumber: 118
               }
             }),
             _react3.default.createElement(
               'div',
               { className: 'tooltip-inner', __source: {
                   fileName: _jsxFileName,
-                  lineNumber: 118
+                  lineNumber: 119
                 }
               },
               getLabel('resolvedConversation')
@@ -305,19 +309,19 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
         'div',
         { className: 'media conversation-item', __source: {
             fileName: _jsxFileName,
-            lineNumber: 124
+            lineNumber: 125
           }
         },
         _react3.default.createElement(
           'div',
           { className: 'media-left media-top', __source: {
               fileName: _jsxFileName,
-              lineNumber: 125
+              lineNumber: 126
             }
           },
           _react3.default.createElement(_.AuthorAvatar, { author: { inbox: destinationInbox }, __source: {
               fileName: _jsxFileName,
-              lineNumber: 126
+              lineNumber: 127
             }
           })
         ),
@@ -325,14 +329,14 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
           'div',
           { className: 'media-body', __source: {
               fileName: _jsxFileName,
-              lineNumber: 129
+              lineNumber: 130
             }
           },
           _react3.default.createElement(
             'div',
             { className: 'media-heading margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 130
+                lineNumber: 131
               }
             },
             _react3.default.createElement(_.ConversationTitle, {
@@ -341,7 +345,7 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
               EntityComponent: this.TitleEntityComponent,
               __source: {
                 fileName: _jsxFileName,
-                lineNumber: 131
+                lineNumber: 132
               }
             }),
             resolvedIcon
@@ -350,25 +354,24 @@ var ConversationItem = _wrapComponent('ConversationItem')((_dec = (0, _reactRedu
             'div',
             { className: 'conversation-item-message margin-bottom-sm', __source: {
                 fileName: _jsxFileName,
-                lineNumber: 139
+                lineNumber: 140
               }
             },
             this.renderAuthorSentence({ destinationInbox: destinationInbox }),
-            _react3.default.createElement(
-              'div',
-              { className: 'message padding-bottom-xs', __source: {
-                  fileName: _jsxFileName,
-                  lineNumber: 142
-                }
-              },
-              latestMessage.body ? (0, _nl2br2.default)(latestMessage.body) : null
-            )
+            _react3.default.createElement('div', {
+              className: 'message padding-bottom-xs',
+              dangerouslySetInnerHTML: { __html: (0, _marked2.default)(latestMessage.body, { breaks: true }) },
+              __source: {
+                fileName: _jsxFileName,
+                lineNumber: 143
+              }
+            })
           ),
           _react3.default.createElement(
             _.Link,
             { to: '/conversation/' + conversation.id, __source: {
                 fileName: _jsxFileName,
-                lineNumber: 148
+                lineNumber: 149
               }
             },
             getLabel('viewConversation')

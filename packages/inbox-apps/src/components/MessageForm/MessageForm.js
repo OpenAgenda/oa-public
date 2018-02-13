@@ -25,11 +25,11 @@ export default class MessageForm extends Component {
   };
 
   render() {
-    const { handleSubmit, submit, submitting, getLabel, Wrapper } = this.props;
+    const { handleSubmit, submit, submitting, getLabel, Wrapper, error } = this.props;
 
     return createElement(
       Wrapper,
-      { handleSubmit, submitting },
+      { handleSubmit, submitting, error },
       <Field
         component={renderTextarea}
         name="body"

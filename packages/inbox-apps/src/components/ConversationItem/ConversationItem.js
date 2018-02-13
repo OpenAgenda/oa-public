@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { AuthorAvatar, ConversationTitle, Link } from '../';
 import getDestinationInbox from '../../utils/getDestinationInbox';
+import marked from "marked";
 
 @connect(
   state => ({
@@ -139,10 +140,10 @@ export default class ConversationItem extends Component {
           <div className="conversation-item-message margin-bottom-sm">
             {this.renderAuthorSentence( { destinationInbox } )}
 
-            <div className="message padding-bottom-xs">
-              {/* <sup><i className="fa fa-quote-left text-muted" aria-hidden="true"></i></sup>&ensp; */}
-              {latestMessage.body ? nl2br( latestMessage.body ) : null}
-            </div>
+            <div
+              className="message padding-bottom-xs"
+              dangerouslySetInnerHTML={{ __html: marked( latestMessage.body, { breaks: true } ) }}
+            />
           </div>
 
           <Link to={`/conversation/${conversation.id}`}>

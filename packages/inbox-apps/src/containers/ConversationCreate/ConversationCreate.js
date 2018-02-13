@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { ConversationForm, LinkContainer, AuthorAvatar, Breadcrumb } from '../../components';
+import { SubmissionError } from 'redux-form';
+import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as inboxActions from '../../redux/modules/inbox';
 import * as conversationActions from '../../redux/modules/conversation';
@@ -46,13 +47,15 @@ export default class ConversationCreate extends Component {
     this.FromWrapper = ::this.FromWrapper;
   }
 
-  FromWrapper( { handleSubmit, children } ) {
+  FromWrapper( { handleSubmit, children, error } ) {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
     return (
       <form onSubmit={handleSubmit} className="conversation-form margin-bottom-md">
         {children}
+
+        {error ? <p className="text-danger">{error}</p> : null}
 
         {author.inbox && author.inbox.type !== 'user' && author.inboxUser
           ? <div className="margin-bottom-xs">{getLabel( 'yourMessageWillBeSigned' )} <b>{author.inbox.name}</b></div>
@@ -82,14 +85,19 @@ export default class ConversationCreate extends Component {
     const content = (
       <Fragment>
         {maskCreationSubtitle
-          ? <Breadcrumb/>
-          : (
-            <Breadcrumb
-              breadParts={[ {
-                component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
-              } ]}
-              disableFirstPartLink={!showBackLink( settings, conversations )}
-            />
+          ? (
+            <div className="inbox-head">
+              <Breadcrumb/>
+            </div>
+          ) : (
+            <div className="inbox-head">
+              <Breadcrumb
+                breadParts={[ {
+                  component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
+                } ]}
+                disableFirstPartLink={!showBackLink( settings, conversations )}
+              />
+            </div>
           )}
 
         {creationDesc ? <p>{creationDesc}</p> : null}
@@ -126,8 +134,8 @@ export default class ConversationCreate extends Component {
 
                   return result;
                 } )
-                .catch( err => {
-                  console.log( 'ERROR', err );
+                .catch( () => {
+                  throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
                 } )
               }
               initialValues={initialValues}

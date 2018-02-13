@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
-import { reset as resetForm } from 'redux-form';
+import { reset as resetForm, SubmissionError } from 'redux-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
@@ -93,8 +93,11 @@ export default class Conversation extends Component {
   };
 
   sendMessage = async data => {
-    const { router, sendMessage, resetForm, showModal } = this.props;
-    await sendMessage( router.params.conversationId, data );
+    const { router, sendMessage, resetForm, showModal, getLabel } = this.props;
+    await sendMessage( router.params.conversationId, data )
+      .catch( () => {
+        throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
+      } );
 
     resetForm( 'message' );
     showModal( 'messageSent' );
@@ -102,7 +105,7 @@ export default class Conversation extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  FromWrapper( { children, handleSubmit, submitting } ) {
+  FromWrapper( { children, handleSubmit, submitting, error } ) {
     const { getLabel, author, messages, conversation } = this.props;
 
     const contextInbox = _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] );
@@ -122,6 +125,8 @@ export default class Conversation extends Component {
 
           <form onSubmit={handleSubmit} className="message-form margin-bottom-md">
             {children}
+
+            {error ? <p className="text-danger">{error}</p> : null}
 
             {author.inbox && author.inbox.type !== 'user' && author.inboxUser
               ? <div className="margin-bottom-sm">

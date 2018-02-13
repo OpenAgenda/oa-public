@@ -842,7 +842,6 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     },
                     store.params.eventTitle
                   ),
-                  ' ',
                   creator.inboxUser ? _react3.default.createElement(
                     _react2.Fragment,
                     {
@@ -1004,6 +1003,205 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     store.params.agendaTitle
                   )
                 );
+              }
+          }
+        case 'contact_member':
+          switch (context) {
+            case 'agenda':
+              if (isUser(creator, user)) {
+                // Vous avez contacté Jean-Phil
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 399
+                    }
+                  },
+                  getLabel('youContacted'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 401
+                      }
+                    },
+                    store.params.userName
+                  )
+                );
+              } else {
+                if (user.uid === store.params.userUid) {
+                  // Kévin vous a contacté
+                  return _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 408
+                      }
+                    },
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 409
+                        }
+                      },
+                      getInboxUserName(creator)
+                    ),
+                    ' ',
+                    getLabel('contactedYou')
+                  );
+                } else {
+                  // Kévin a contacté Jean-Phil
+                  return _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 416
+                      }
+                    },
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 417
+                        }
+                      },
+                      getInboxUserName(creator)
+                    ),
+                    ' ',
+                    getLabel('contacted'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 419
+                        }
+                      },
+                      store.params.userName
+                    )
+                  );
+                }
+              }
+            case 'user':
+              if (isUser(creator, user)) {
+                // Vous avez contacté Jean-Phil sur l'agenda XXX
+                return _react3.default.createElement(
+                  _react2.Fragment,
+                  {
+                    __source: {
+                      fileName: _jsxFileName,
+                      lineNumber: 428
+                    }
+                  },
+                  getLabel('youContacted'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'user', __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 430
+                      }
+                    },
+                    store.params.userName
+                  ),
+                  ' ',
+                  getLabel('onTheAgenda'),
+                  ' ',
+                  _react3.default.createElement(
+                    EntityComponent,
+                    { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 432
+                      }
+                    },
+                    store.params.agendaTitle
+                  )
+                );
+              } else {
+                if (user.uid === store.params.userUid) {
+                  // Kévin vous a contacté sur l'agenda XXX
+                  return _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 441
+                      }
+                    },
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 442
+                        }
+                      },
+                      getInboxUserName(creator)
+                    ),
+                    ' ',
+                    getLabel('contactedYou'),
+                    ' ',
+                    getLabel('onTheAgenda'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 445
+                        }
+                      },
+                      store.params.agendaTitle
+                    )
+                  );
+                } else {
+                  // Kévin a contacté Jean-Phil sur l'agenda XXX
+                  return _react3.default.createElement(
+                    _react2.Fragment,
+                    {
+                      __source: {
+                        fileName: _jsxFileName,
+                        lineNumber: 453
+                      }
+                    },
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 454
+                        }
+                      },
+                      getInboxUserName(creator)
+                    ),
+                    ' ',
+                    getLabel('contacted'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'user', __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 456
+                        }
+                      },
+                      store.params.userName
+                    ),
+                    ' ',
+                    getLabel('onTheAgenda'),
+                    ' ',
+                    _react3.default.createElement(
+                      EntityComponent,
+                      { type: 'agenda', agendaUid: store.params.agendaUid, __source: {
+                          fileName: _jsxFileName,
+                          lineNumber: 458
+                        }
+                      },
+                      store.params.agendaTitle
+                    )
+                  );
+                }
               }
           }
       }

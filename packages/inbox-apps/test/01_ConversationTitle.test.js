@@ -522,3 +522,87 @@ describe( 'conversation of type suggest_location_change', () => {
     } );
   } );
 } );
+
+describe( 'conversation of type contact_member', () => {
+  describe( 'context agenda', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'agenda'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'agenda',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'agenda',
+        creator: false,
+        destination: 'me'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to other', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'agenda',
+        creator: false,
+        destination: 'member'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+
+  describe( 'context user', () => {
+    const initialState = {
+      settings: {
+        lang: 'fr',
+        context: 'user'
+      }
+    };
+
+    it( 'created by me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'user',
+        creator: true
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to me', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'user',
+        creator: false,
+        destination: 'me'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+
+    it( 'created by someone else, destinated to other', () => {
+      const { user, conversation } = _.find( fixturesData, {
+        type: 'contact_member',
+        context: 'user',
+        creator: false,
+        destination: 'member'
+      } );
+
+      makeTest( initialState, { user, conversation } );
+    } );
+  } );
+} );

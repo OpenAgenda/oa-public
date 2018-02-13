@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import nl2br from '@openagenda/react-utils/dist/nl2br';
+import marked from 'marked';
 import { AuthorAvatar } from '../';
 
 export default class MessageItem extends Component {
-
   static contextTypes = {
     getLabel: PropTypes.func
   };
@@ -31,9 +30,10 @@ export default class MessageItem extends Component {
             <b>{getMessageSenderName( message )}</b>
           </p>
           <div className="conversation-item-message">
-            <div className="margin-bottom-xs">
-              {nl2br( message.body ) || null}
-            </div>
+            <div
+              className="margin-bottom-xs"
+              dangerouslySetInnerHTML={{ __html: marked( message.body, { breaks: true } ) }}
+            />
             <p className="text-muted" title={creationDate.format( 'LLL' )}>
               {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}
             </p>

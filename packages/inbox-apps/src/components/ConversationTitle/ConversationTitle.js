@@ -320,7 +320,7 @@ export default class ConversationTitle extends Component {
                   {getLabel( 'on' )}{' '}
                   <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                     {store.params.eventTitle}
-                  </EntityComponent>{' '}
+                  </EntityComponent>
                   {creator.inboxUser ? (
                     <Fragment>
                       {' '}{getLabel( 'ofTheAgenda' )}{' '}
@@ -388,6 +388,79 @@ export default class ConversationTitle extends Component {
                   </EntityComponent>
                 </Fragment>
               );
+            }
+        }
+      case 'contact_member':
+        switch ( context ) {
+          case 'agenda':
+            if ( isUser( creator, user ) ) {
+              // Vous avez contacté Jean-Phil
+              return (
+                <Fragment>
+                  {getLabel( 'youContacted' )}{' '}
+                  <EntityComponent type="user">{store.params.userName}</EntityComponent>
+                </Fragment>
+              );
+            } else {
+              if ( user.uid === store.params.userUid ) {
+                // Kévin vous a contacté
+                return (
+                  <Fragment>
+                    <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                    {getLabel( 'contactedYou' )}
+                  </Fragment>
+                );
+              } else {
+                // Kévin a contacté Jean-Phil
+                return (
+                  <Fragment>
+                    <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                    {getLabel( 'contacted' )}{' '}
+                    <EntityComponent type="user">{store.params.userName}</EntityComponent>
+                  </Fragment>
+                );
+              }
+            }
+          case 'user':
+            if ( isUser( creator, user ) ) {
+              // Vous avez contacté Jean-Phil sur l'agenda XXX
+              return (
+                <Fragment>
+                  {getLabel( 'youContacted' )}{' '}
+                  <EntityComponent type="user">{store.params.userName}</EntityComponent>{' '}
+                  {getLabel( 'onTheAgenda' )}{' '}
+                  <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                    {store.params.agendaTitle}
+                  </EntityComponent>
+                </Fragment>
+              );
+            } else {
+              if ( user.uid === store.params.userUid ) {
+                // Kévin vous a contacté sur l'agenda XXX
+                return (
+                  <Fragment>
+                    <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                    {getLabel( 'contactedYou' )}{' '}
+                    {getLabel( 'onTheAgenda' )}{' '}
+                    <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                      {store.params.agendaTitle}
+                    </EntityComponent>
+                  </Fragment>
+                );
+              } else {
+                // Kévin a contacté Jean-Phil sur l'agenda XXX
+                return (
+                  <Fragment>
+                    <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+                    {getLabel( 'contacted' )}{' '}
+                    <EntityComponent type="user">{store.params.userName}</EntityComponent>{' '}
+                    {getLabel( 'onTheAgenda' )}{' '}
+                    <EntityComponent type="agenda" agendaUid={store.params.agendaUid}>
+                      {store.params.agendaTitle}
+                    </EntityComponent>
+                  </Fragment>
+                );
+              }
             }
         }
     }

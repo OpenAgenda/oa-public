@@ -2598,4 +2598,475 @@ export default [ {
       }
     ]
   }
+}, {
+  type: 'contact_member',
+  context: 'user',
+  creator: true,
+  user: userRomain,
+  conversation: {
+    id: 81,
+    type: 'contact_member',
+    typeIdentifier: 11649,
+    store: {
+      params: {
+        agendaTitle: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        userUid: 31046551,
+        userName: 'Kévin Berthommier - OpenAgenda'
+      }
+    },
+    createdAt: '2018-02-13T10:01:02.000Z',
+    updatedAt: '2018-02-13T10:01:02.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 3244,
+    creatorInboxUser: {
+      id: 1580,
+      inboxId: 3244,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    creatorInbox: {
+      id: 3244,
+      type: 'user',
+      identifier: 99999999,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    inboxUser: {
+      id: 1580,
+      inboxId: 3244,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    latestMessage: {
+      id: 136,
+      conversationId: 81,
+      body: 'Salut Bertho !',
+      createdAt: '2018-02-13T10:01:02.000Z',
+      inboxUser: {
+        id: 1580,
+        inboxId: 3244,
+        userUid: 99999999,
+        leftAt: null,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      inbox: {
+        id: 3244,
+        type: 'user',
+        identifier: 99999999,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 3244,
+        type: 'user',
+        identifier: 99999999,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      {
+        id: 3204,
+        type: 'user',
+        identifier: 31046551,
+        uid: 31046551,
+        name: 'Kévin Berthommier - OpenAgenda',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
+}, {
+  type: 'contact_member',
+  context: 'user',
+  creator: false,
+  destination: 'me',
+  user: userBertho,
+  conversation: {
+    id: 81,
+    type: 'contact_member',
+    typeIdentifier: 11649,
+    store: {
+      params: {
+        agendaTitle: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        userUid: 31046551,
+        userName: 'Kévin Berthommier - OpenAgenda'
+      }
+    },
+    createdAt: '2018-02-13T10:01:02.000Z',
+    updatedAt: '2018-02-13T10:01:02.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 3204,
+    creatorInbox: {
+      id: 3244,
+      type: 'user',
+      identifier: 99999999,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    inboxUser: {
+      id: 1540,
+      inboxId: 3204,
+      userUid: 31046551,
+      leftAt: null,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 136,
+      conversationId: 81,
+      body: 'Salut Bertho !',
+      createdAt: '2018-02-13T10:01:02.000Z',
+      inbox: {
+        id: 3244,
+        type: 'user',
+        identifier: 99999999,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      }
+    },
+    inboxes: [
+      {
+        id: 3244,
+        type: 'user',
+        identifier: 99999999,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      {
+        id: 3204,
+        type: 'user',
+        identifier: 31046551,
+        uid: 31046551,
+        name: 'Kévin Berthommier - OpenAgenda',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
+}, {
+  type: 'contact_member',
+  context: 'user',
+  creator: false,
+  destination: 'member',
+  user: userBertho,
+  conversation: {
+    id: 82,
+    type: 'contact_member',
+    typeIdentifier: 10987,
+    store: {
+      params: {
+        agendaTitle: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        userUid: 75052324,
+        userName: 'Kaoré - OpenAgenda'
+      }
+    },
+    createdAt: '2018-02-13T10:01:32.000Z',
+    updatedAt: '2018-02-13T10:01:32.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 56678,
+    creatorInboxUser: {
+      id: 58149,
+      inboxId: 56678,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    creatorInbox: {
+      id: 56678,
+      type: 'agenda',
+      identifier: 91362789,
+      uid: 91362789,
+      name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    inboxUser: {
+      id: 58146,
+      inboxId: 56678,
+      userUid: 31046551,
+      leftAt: null,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 137,
+      conversationId: 82,
+      body: 'Salut Kaoré !',
+      createdAt: '2018-02-13T10:01:32.000Z',
+      inboxUser: {
+        id: 58149,
+        inboxId: 56678,
+        userUid: 99999999,
+        leftAt: null,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      inbox: {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    },
+    inboxes: [
+      {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
+}, {
+  type: 'contact_member',
+  context: 'agenda',
+  creator: true,
+  user: userRomain,
+  conversation: {
+    id: 82,
+    type: 'contact_member',
+    typeIdentifier: 10987,
+    store: {
+      params: {
+        agendaTitle: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        userUid: 75052324,
+        userName: 'Kaoré - OpenAgenda'
+      }
+    },
+    createdAt: '2018-02-13T10:01:32.000Z',
+    updatedAt: '2018-02-13T10:01:32.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 56678,
+    creatorInboxUser: {
+      id: 58149,
+      inboxId: 56678,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    creatorInbox: {
+      id: 56678,
+      type: 'agenda',
+      identifier: 91362789,
+      uid: 91362789,
+      name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 137,
+      conversationId: 82,
+      body: 'Salut Kaoré !',
+      createdAt: '2018-02-13T10:01:32.000Z',
+      inboxUser: {
+        id: 58149,
+        inboxId: 56678,
+        userUid: 99999999,
+        leftAt: null,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      inbox: {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    },
+    inboxes: [
+      {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
+}, {
+  type: 'contact_member',
+  context: 'agenda',
+  creator: false,
+  destination: 'me',
+  user: userKaore,
+  conversation: {
+    id: 82,
+    type: "contact_member",
+    typeIdentifier: 10987,
+    store: {
+      params: {
+        agendaTitle:
+          "Journées européennes du patrimoine 2016 (version simplifiée)",
+        userUid: 75052324,
+        userName: "Kaoré - OpenAgenda"
+      }
+    },
+    createdAt: "2018-02-13T10:01:32.000Z",
+    updatedAt: "2018-02-13T10:01:32.000Z",
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 56678,
+    creatorInboxUser: {
+      id: 58149,
+      inboxId: 56678,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: "Romain Lange - OpenAgenda",
+      avatar: "https://cibuldev.s3.amazonaws.com/profile99999999.jpg"
+    },
+    creatorInbox: {
+      id: 56678,
+      type: "agenda",
+      identifier: 91362789,
+      uid: 91362789,
+      name: "Journées européennes du patrimoine 2016 (version simplifiée)",
+      avatar: "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+    },
+    inboxUser: {
+      id: 58145,
+      inboxId: 56678,
+      userUid: 75052324,
+      leftAt: null,
+      uid: 75052324,
+      name: "Kaoré - OpenAgenda",
+      avatar: "https://cibuldev.s3.amazonaws.com/review_kaore-olafsson_01.jpg"
+    },
+    latestMessage: {
+      id: 137,
+      conversationId: 82,
+      body: "Salut Kaoré !",
+      createdAt: "2018-02-13T10:01:32.000Z",
+      inboxUser: {
+        id: 58149,
+        inboxId: 56678,
+        userUid: 99999999,
+        leftAt: null,
+        uid: 99999999,
+        name: "Romain Lange - OpenAgenda",
+        avatar: "https://cibuldev.s3.amazonaws.com/profile99999999.jpg"
+      },
+      inbox: {
+        id: 56678,
+        type: "agenda",
+        identifier: 91362789,
+        uid: 91362789,
+        name: "Journées européennes du patrimoine 2016 (version simplifiée)",
+        avatar: "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+      }
+    },
+    inboxes: [
+      {
+        id: 56678,
+        type: "agenda",
+        identifier: 91362789,
+        uid: 91362789,
+        name: "Journées européennes du patrimoine 2016 (version simplifiée)",
+        avatar: "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png"
+      }
+    ]
+  }
+}, {
+  type: 'contact_member',
+  context: 'agenda',
+  creator: false,
+  destination: 'member',
+  user: userBertho,
+  conversation: {
+    id: 82,
+    type: 'contact_member',
+    typeIdentifier: 10987,
+    store: {
+      params: {
+        agendaTitle: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        userUid: 75052324,
+        userName: 'Kaoré - OpenAgenda'
+      }
+    },
+    createdAt: '2018-02-13T10:01:32.000Z',
+    updatedAt: '2018-02-13T10:01:32.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 56678,
+    creatorInboxUser: {
+      id: 58149,
+      inboxId: 56678,
+      userUid: 99999999,
+      leftAt: null,
+      uid: 99999999,
+      name: 'Romain Lange - OpenAgenda',
+      avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+    },
+    creatorInbox: {
+      id: 56678,
+      type: 'agenda',
+      identifier: 91362789,
+      uid: 91362789,
+      name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 137,
+      conversationId: 82,
+      body: 'Salut Kaoré !',
+      createdAt: '2018-02-13T10:01:32.000Z',
+      inboxUser: {
+        id: 58149,
+        inboxId: 56678,
+        userUid: 99999999,
+        leftAt: null,
+        uid: 99999999,
+        name: 'Romain Lange - OpenAgenda',
+        avatar: 'https://cibuldev.s3.amazonaws.com/profile99999999.jpg'
+      },
+      inbox: {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    },
+    inboxes: [
+      {
+        id: 56678,
+        type: 'agenda',
+        identifier: 91362789,
+        uid: 91362789,
+        name: 'Journées européennes du patrimoine 2016 (version simplifiée)',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
 } ];

@@ -121,10 +121,11 @@ var ConversationForm = _wrapComponent('ConversationForm')((_dec = (0, _reduxForm
           submit = _props.submit,
           handleSubmit = _props.handleSubmit,
           submitting = _props.submitting,
-          Wrapper = _props.Wrapper;
+          Wrapper = _props.Wrapper,
+          error = _props.error;
 
 
-      return (0, _react2.createElement)(Wrapper, { handleSubmit: handleSubmit, submitting: submitting }, _react3.default.createElement(
+      return (0, _react2.createElement)(Wrapper, { handleSubmit: handleSubmit, submitting: submitting, error: error }, _react3.default.createElement(
         _react2.Fragment,
         {
           __source: {

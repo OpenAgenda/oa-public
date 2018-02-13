@@ -78,7 +78,6 @@ export default function reducer( state = initialState, action ) {
         messages: [ action.result.message, ...state.messages ]
       };
     case SEND_MESSAGE_FAIL:
-      // TODO throw SubmissionError if needed
       return state;
     case TRIGGER_ACTION:
       return {

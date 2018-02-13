@@ -100,7 +100,6 @@ function reducer() {
         messages: [action.result.message].concat((0, _toConsumableArray3.default)(state.messages))
       });
     case SEND_MESSAGE_FAIL:
-      // TODO throw SubmissionError if needed
       return state;
     case TRIGGER_ACTION:
       return (0, _extends3.default)({}, state, {

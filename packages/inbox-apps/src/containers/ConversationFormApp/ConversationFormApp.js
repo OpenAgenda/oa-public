@@ -46,12 +46,14 @@ export default class ConversationModal extends Component {
     } );
   }
 
-  FormWrapper( { children, handleSubmit } ) {
+  FormWrapper( { children, handleSubmit, error } ) {
     const { getLabel } = this.props;
     return (
       <form onSubmit={handleSubmit} className="conversation-form">
         <div className="margin-v-md">
           {children}
+
+          {error ? <p className="text-danger">{error}</p> : null}
         </div>
 
         <button
