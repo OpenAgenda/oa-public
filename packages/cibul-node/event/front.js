@@ -1,5 +1,7 @@
 "use strict";
 
+const { promisify } = require( 'util' );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -16,6 +18,8 @@ const modLib = require( '../lib/moduleLib' ),
 
   eventSvc = require( '../services/event' ),
 
+  stakeholderSvc = require( '@openagenda/agenda-stakeholders' ),
+
   stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' ),
 
   getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
@@ -30,7 +34,7 @@ const modLib = require( '../lib/moduleLib' ),
       _formatSocialLinks,
       cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
       _appendEventTransferCredential,
-      agendaEventShow
+      wrap( agendaEventShow )
     ],
     customEmbedEventShow: [
       agendaSvc.mw.decorateEvent( false ),
@@ -72,7 +76,8 @@ const modLib = require( '../lib/moduleLib' ),
       cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
         slug: 'slug',
         eventSlug: 'eventSlug'
-      }, { maintainQuery: true } ) )
+      }, { maintainQuery: true } ) ),
+      sessions.middleware.load()
     ].concat( middlewares.agendaEventShow ) ],
 
     agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
@@ -185,7 +190,7 @@ module.exports = path => {
  * controllers
  */
 
-function agendaEventShow( req, res, next ) {
+async function agendaEventShow( req, res, next ) {
 
   let reqParams = {
     slug: req.agenda.slug,
@@ -202,6 +207,10 @@ function agendaEventShow( req, res, next ) {
 
   _addContactLink( req );
 
+  const userStakeholder = req.user
+    ? await promisify( stakeholderSvc( req.agenda.id ).get )( { userId: req.user.id } )
+    : null;
+
   req.event.getContributor( ( err, contributor ) => {
     if ( err ) return next( err );
 
@@ -213,7 +222,9 @@ function agendaEventShow( req, res, next ) {
       private: req.agenda.private,
       adminNav: req.query.admin_nav,
       event: req.formatted,
-      components: req.components
+      components: req.components,
+      userStakeholder,
+      user: req.user
     } );
   } )
 
@@ -614,5 +625,11 @@ function _googleItineraryLink( lat, lng ) {
 function _googleMapsLink( lat, lng ) {
 
   return `https://maps.google.com/maps?q=${lat},${lng}&z=15`
+
+}
+
+function wrap( fn ) {
+
+  return ( req, res, next ) => fn( req, res, next ).catch( next );
 
 }

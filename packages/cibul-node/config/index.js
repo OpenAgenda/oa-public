@@ -264,9 +264,10 @@ let config = {
       tmpBucket: prod.aws.buckets.temporary,
       defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`
     },
-    sendinblue: {
-      apiKey: prod.sendinblue.key,
-      newsletterList: prod.sendinblue.list
+    mailjet: {
+      apiKey: prod.mailjet.apiKey,
+      apiSecret: prod.mailjet.apiSecret,
+      contactsListId: prod.mailjet.contactsListId
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',

@@ -234,6 +234,10 @@ function checkAdministrator( options ) {
 
         return agendaStakeholders( req[ params.name ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
+          if ( !stakeholder ) {
+            return _resolve( false );
+          }
+
           const role = agendaStakeholders.types.codes.get( stakeholder.credential );
 
           _resolve( role === 'administrator' );

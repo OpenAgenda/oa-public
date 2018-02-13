@@ -7,9 +7,10 @@ const morgan = require( 'morgan' );
 const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
 
-const agendasMw = require( '@openagenda/agendas/middleware' );
 const eventsSvc = require( '@openagenda/events' );
+const agendasMw = require( '@openagenda/agendas/middleware' );
 const inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
+const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const sessions = require( '@openagenda/sessions' );
@@ -613,6 +614,103 @@ app.use( '/:slug/request-contribute',
         };
 
         cmn.render( req, res, 'agenda/requestContribute', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
+app.use( '/:slug/locations/:locationUid/suggest-change',
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null,
+    internal: true
+  } ),
+  locationSvc.mw( 'agenda.id' ).load,
+  wrap( async ( req, res, next ) => {
+    const adminOrModerator = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } ),
+    ] )).some( Boolean );
+
+    if ( adminOrModerator ) {
+      sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
+      return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
+    }
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'agenda',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            focusFistConversation: true, // force to display the first conversation if exists
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            // maskCreationSubtitle: true,
+            creationSubtitle: getLabel( 'titleSuggestLocationChange', req.lang ),
+            // creationDescriptionLabel: getLabel( 'wantContributeMakeRequest', req.lang ),
+            creationButtonLabel: getLabel( 'createConversation', req.lang ),
+            // topListForm: true, // add a conversation form on top of conversation list
+            creationDesc: getLabel( 'suggestLocationChangeDesc', req.lang ),
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+            defaultQuery: {
+              type: 'suggest_location_change',
+              typeIdentifier: req.location.uid,
+              params: {
+                agendaTitle: req.agenda.title,
+                agendaUid: req.agenda.uid,
+                locationName: req.location.name,
+                locationUid: req.location.uid
+              },
+              destinationInbox: {
+                type: 'agenda',
+                identifier: req.agenda.uid
+              }
+            }
+          },
+          res: {
+            author: '/home/inbox/author.json',
+            conversations: {
+              create: '/home/inbox/conversations.json',
+              list: '/home/inbox/conversations.json',
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
+            },
+            messages: {
+              list: '/home/inbox/conversations/:conversationId/messages.json',
+              create: '/home/inbox/conversations/:conversationId/messages.json'
+            }
+          },
+          agenda: req.agenda
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'agenda/inbox', { ...baseData, scriptParams: { state }, lang, content } );
 
       }
     )( req, res, next );

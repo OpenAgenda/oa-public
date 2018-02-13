@@ -1,10 +1,12 @@
 "use strict";
 
+const { callbackify } = require( 'util' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
-const config = require( '../config' );
 const files = require( '@openagenda/files' );
 const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
+const log = require( '@openagenda/logs' )( 'newsletter' );
+const config = require( '../config' );
 
 const landingPages = landing( {
   en: config.root + '/discover',
@@ -267,17 +269,19 @@ function getTotalEvents() {
 
 function newsletterSubscribe( req, res ) {
 
-  newsletter.addSubscriber( req.body.email, ( err, result ) => {
+  callbackify( newsletter.addSubscriber )( req.body.email, err => {
 
     if ( err ) {
 
-      req.log( 'error', { service: 'newsletter', message: result.message, error: result.message } );
+      log( 'error', { service: 'newsletter', message: err.message, error: err } );
 
       sessions.setFlash( req, res, __( 'invalidEmail', req.lang ) );
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
     } else {
+
+      log( 'info', 'Nouvel inscrit à la newsletter: %s', req.body.email, { email: req.body.email } );
 
       sessions.setFlash( req, res, __( 'subscribed', req.lang ) );
 

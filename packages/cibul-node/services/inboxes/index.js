@@ -305,7 +305,8 @@ module.exports.init = async c => {
               confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
               confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
             } ]
-          }
+          },
+          suggest_location_change: {}
         },
         defaultImagePath: c.aws.defaultImagePath
       } )
