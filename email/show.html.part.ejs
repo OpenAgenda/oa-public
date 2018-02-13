@@ -13,7 +13,7 @@
 <% include ./bottom.html.part.ejs %>
 <% include ./top.html.part.ejs %>
 <% if ( description ) { %>
-<%- _txt.marked( description ) %>
+<%- _txt.marked( description, { breaks: true } ) %>
 <% } %>
 <% include ./bottom.html.part.ejs %>
 <% if ( typeof action !== 'undefined' ) { %>
