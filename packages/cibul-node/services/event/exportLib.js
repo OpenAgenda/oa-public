@@ -110,6 +110,12 @@ function cleanEvent( eInst, options, cb ) {
 
   l = eInst.locations.length ? eInst.locations[ 0 ] : false;
 
+  if ( c.image ) {
+    
+    c.imageCredits = eInst.imageCredits || null;
+
+  }
+
   if ( eInst.origin ) {
 
     c.origin = eInst.origin;
