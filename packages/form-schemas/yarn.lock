@@ -17,8 +17,8 @@
     when "^3.7.7"
 
 "@openagenda/labels@^2.0.7":
-  version "2.0.40"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.40.tgz#b1385eabb9c7b1030aee45991f17d2349a2332b5"
+  version "2.0.42"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.42.tgz#982a11b170a43422f1541e405330f1816e865dac"
 
 "@openagenda/le_node@^1.7.3":
   version "1.7.3"
@@ -131,8 +131,8 @@ bluebird@^3.4.6:
   resolved "https://registry.npmjs.org/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
 brace-expansion@^1.1.7:
-  version "1.1.8"
-  resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.8.tgz#c07b211c7c952ec1f8efd51a77ef0d1d3990a292"
+  version "1.1.11"
+  resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
