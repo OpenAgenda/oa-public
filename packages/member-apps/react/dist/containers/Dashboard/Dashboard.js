@@ -36,6 +36,10 @@ var _extends2 = require('babel-runtime/helpers/extends');
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _promise = require('babel-runtime/core-js/promise');
 
 var _promise2 = _interopRequireDefault(_promise);
@@ -81,6 +85,8 @@ var _upperFirst = require('lodash/upperFirst');
 var _upperFirst2 = _interopRequireDefault(_upperFirst);
 
 var _reactBootstrap = require('react-bootstrap');
+
+var _jsBase = require('js-base64');
 
 var _monitorBottomHit = require('@openagenda/dom-utils/monitorBottomHit');
 
@@ -148,12 +154,6 @@ function _wrapComponent(id) {
 }
 
 var dashboardValuesSelector = (0, _reduxForm.formValueSelector)('membersDashboard');
-// const selector = formValueSelector( 'membersDashboard' );
-
-var base64encode = function base64encode(str) {
-  // str = encodeURIComponent( str );
-  return typeof window === 'undefined' ? new Buffer(str).toString('base64') : btoa(str);
-};
 
 var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConnect)([{
   promise: function promise(_ref) {
@@ -173,12 +173,16 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     return _promise2.default.all(promises);
   }
 }]), _dec2 = (0, _reactRedux.connect)(function (state, props) {
-  return {
+  var _ref2;
+
+  return _ref2 = {
     initialValues: {
       search: props.location.query.search || ''
     },
+    agenda: state.agenda,
     res: state.res,
     credentials: state.agenda.credentials,
+    userShId: state.stakeholder.id,
     userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
@@ -189,12 +193,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
     showInviteResult: state.members.showInviteResult,
     inviteError: state.members.inviteError,
     stats: state.members.stats,
-    search: dashboardValuesSelector(state, 'search'),
-    agenda: state.agenda,
-    perPageLimit: state.settings.perPageLimit,
-    modals: state.modals,
-    roles: state.agenda.roles
-  };
+    search: dashboardValuesSelector(state, 'search')
+  }, (0, _defineProperty3.default)(_ref2, 'agenda', state.agenda), (0, _defineProperty3.default)(_ref2, 'perPageLimit', state.settings.perPageLimit), (0, _defineProperty3.default)(_ref2, 'modals', state.modals), (0, _defineProperty3.default)(_ref2, 'roles', state.agenda.roles), _ref2;
 }, (0, _extends3.default)({}, membersActions, modalsActions)), _dec3 = (0, _reduxForm.reduxForm)({
   form: 'membersDashboard'
 }), _dec(_class = _dec2(_class = _dec3(_class = (_temp = _class2 = function (_Component) {
@@ -205,8 +205,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
 
     var _this = (0, _possibleConstructorReturn3.default)(this, (Dashboard.__proto__ || (0, _getPrototypeOf2.default)(Dashboard)).call(this, props));
 
-    _this.search = function (_ref2) {
-      var search = _ref2.search;
+    _this.search = function (_ref3) {
+      var search = _ref3.search;
       var _this$props = _this.props,
           list = _this$props.list,
           location = _this$props.location,
@@ -334,8 +334,11 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var _props4 = this.props,
           res = _props4.res,
           showModal = _props4.showModal,
+          userShId = _props4.userShId,
           userCredential = _props4.userCredential,
-          resendInvitation = _props4.resendInvitation;
+          resendInvitation = _props4.resendInvitation,
+          location = _props4.location,
+          agenda = _props4.agenda;
       var getLabel = this.context.getLabel;
 
 
@@ -344,6 +347,8 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
         if (credential === 1 && eventCount === 0) return 'noContrib';
         if (deletedUser && !invited) return 'deleted';
       }();
+
+      var base64url = _jsBase.Base64.encode(location.pathname + location.search);
 
       return _react3.default.createElement(
         'div',
@@ -453,17 +458,14 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
               },
               getLabel('removeMember')
             ),
-            user && _react3.default.createElement(
+            user && id !== userShId ? _react3.default.createElement(
               'a',
               {
-                role: 'button',
                 className: 'text-muted',
-                onClick: function onClick() {
-                  return showModal('sendAMessage', { stakeholder: stakeholder });
-                }
+                href: '/' + agenda.slug + '/admin/members/' + id + '/contact?creationRedirect=' + base64url
               },
               getLabel('sendAMessage')
-            ),
+            ) : null,
             invited && _react3.default.createElement(
               'a',
               {
@@ -553,7 +555,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
           remove = _props6.remove,
           sendMessage = _props6.sendMessage,
           credFilters = _props6.credFilters,
-          sendAMessage = _props6.sendAMessage,
           showInviteResult = _props6.showInviteResult,
           cleanInviteResult = _props6.cleanInviteResult,
           inviteError = _props6.inviteError,
@@ -575,7 +576,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
       var inviteMembersModal = modals.inviteMembers || {};
       var memberReinvitedModal = modals.memberReinvited || {};
       var writeToMembersModal = modals.writeToMembers || {};
-      var sendAMessageModal = modals.sendAMessage || {};
 
       return _react3.default.createElement(
         'div',
@@ -833,7 +833,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             )
           ) : _react3.default.createElement(_InviteMembersForm2.default, { onSubmit: function onSubmit(data) {
               return invite(data).then(function () {
-                var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(result) {
+                var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(result) {
                   return _regenerator2.default.wrap(function _callee$(_context2) {
                     while (1) {
                       switch (_context2.prev = _context2.next) {
@@ -861,7 +861,7 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
                 }));
 
                 return function (_x) {
-                  return _ref3.apply(this, arguments);
+                  return _ref4.apply(this, arguments);
                 };
               }());
             } })
@@ -882,47 +882,6 @@ var Dashboard = _wrapComponent('Dashboard')((_dec = (0, _reduxConnect.asyncConne
             'div',
             null,
             getLabel('invitationNotResended')
-          )
-        ),
-        sendAMessageModal && _react3.default.createElement(
-          _Modal2.default,
-          {
-            title: getLabel('sendAMessage'),
-            visible: sendAMessageModal.visible || false,
-            onClose: function onClose() {
-              return closeModal('sendAMessage');
-            },
-            classNames: {
-              overlay: 'popup-overlay big'
-            }
-          },
-          !sendAMessageModal.confirmation ? _react3.default.createElement(_SendMessageForm2.default, { onSubmit: function onSubmit(data) {
-              return sendAMessage(data, sendAMessageModal.stakeholder).then(function (result) {
-                if (result.error && result.error instanceof _reduxForm.SubmissionError) {
-                  throw new _reduxForm.SubmissionError(result.error.errors);
-                }
-                return result;
-              }).then(function () {
-                return setModal('sendAMessage', { confirmation: true });
-              });
-            } }) : _react3.default.createElement(
-            'div',
-            { className: 'text-center' },
-            _react3.default.createElement(
-              'div',
-              { className: 'margin-v-sm' },
-              getLabel('messageSent')
-            ),
-            _react3.default.createElement(
-              'button',
-              {
-                onClick: function onClick() {
-                  return closeModal('sendAMessage');
-                },
-                className: 'btn btn-danger'
-              },
-              getLabel('close')
-            )
           )
         ),
         writeToMembersModal.visible && _react3.default.createElement(

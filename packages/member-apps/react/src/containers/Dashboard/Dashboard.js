@@ -8,6 +8,7 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import upperFirst from 'lodash/upperFirst';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { Base64 } from 'js-base64';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
@@ -21,12 +22,6 @@ import * as modalsActions from '../../redux/modules/modals';
 import { renderField, renderSearchInput } from '../../utils/form';
 
 const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
-// const selector = formValueSelector( 'membersDashboard' );
-
-const base64encode = str => {
-  // str = encodeURIComponent( str );
-  return typeof window === 'undefined' ? new Buffer( str ).toString( 'base64' ) : btoa( str );
-};
 
 @asyncConnect( [ {
   promise: ( { store: { dispatch, getState } } ) => {
@@ -47,8 +42,10 @@ const base64encode = str => {
     initialValues: {
       search: props.location.query.search || ''
     },
+    agenda: state.agenda,
     res: state.res,
     credentials: state.agenda.credentials,
+    userShId: state.stakeholder.id,
     userCredential: state.stakeholder.credential,
     stakeholders: state.members.data,
     page: state.members.page,
@@ -180,7 +177,7 @@ export default class Dashboard extends Component {
 
   renderStakeholder( stakeholder ) {
     const { id, credential, invited, custom, eventCount, user, deletedUser, owner } = stakeholder;
-    const { res, showModal, userCredential, resendInvitation } = this.props;
+    const { res, showModal, userShId, userCredential, resendInvitation, location, agenda } = this.props;
     const { getLabel } = this.context;
 
     const stakeholderType = (() => {
@@ -188,6 +185,8 @@ export default class Dashboard extends Component {
       if ( credential === 1 && eventCount === 0 ) return 'noContrib';
       if ( deletedUser && !invited ) return 'deleted';
     })();
+
+    const base64url = Base64.encode( location.pathname + location.search );
 
     return (
       <div key={id} className="bo-list-item media">
@@ -253,13 +252,12 @@ export default class Dashboard extends Component {
             >
               {getLabel( 'removeMember' )}
             </a>}
-            {user && <a
-              role="button"
+            {user && id !== userShId ? <a
               className="text-muted"
-              onClick={() => showModal( 'sendAMessage', { stakeholder } )}
+              href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
             >
               {getLabel( 'sendAMessage' )}
-            </a>}
+            </a> : null}
             {invited && <a
               role="button"
               onClick={() => resendInvitation( id )
@@ -311,7 +309,7 @@ export default class Dashboard extends Component {
     const {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats, search, getStats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage, credFilters,
-      sendAMessage, showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
+      showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
       location
     } = this.props;
     const { getLabel, lang } = this.context;
@@ -328,7 +326,6 @@ export default class Dashboard extends Component {
     const inviteMembersModal = modals.inviteMembers || {};
     const memberReinvitedModal = modals.memberReinvited || {};
     const writeToMembersModal = modals.writeToMembers || {};
-    const sendAMessageModal = modals.sendAMessage || {};
 
     return (
       <div>
@@ -519,38 +516,6 @@ export default class Dashboard extends Component {
           {memberReinvitedModal.success ?
             <div>{getLabel( 'invitationResended' )}</div> :
             <div>{getLabel( 'invitationNotResended' )}</div>}
-        </Modal>}
-
-        {sendAMessageModal && <Modal
-          title={getLabel( 'sendAMessage' )}
-          visible={sendAMessageModal.visible || false}
-          onClose={() => closeModal( 'sendAMessage' )}
-          classNames={{
-            overlay: 'popup-overlay big'
-          }}
-        >
-          {!sendAMessageModal.confirmation
-            ? <SendMessageForm onSubmit={data => sendAMessage( data, sendAMessageModal.stakeholder )
-              .then( result => {
-                if ( result.error && result.error instanceof SubmissionError ) {
-                  throw new SubmissionError( result.error.errors );
-                }
-                return result;
-              } )
-              .then( () => setModal( 'sendAMessage', { confirmation: true } ) )
-            }/>
-            : <div className="text-center">
-              <div className="margin-v-sm">
-                {getLabel( 'messageSent' )}
-              </div>
-
-              <button
-                onClick={() => closeModal( 'sendAMessage' )}
-                className="btn btn-danger"
-              >
-                {getLabel( 'close' )}
-              </button>
-            </div>}
         </Modal>}
 
         {writeToMembersModal.visible && <Modal

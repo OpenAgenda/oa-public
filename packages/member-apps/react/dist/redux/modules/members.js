@@ -32,7 +32,6 @@ exports.resendInvitation = resendInvitation;
 exports.cleanInviteResult = cleanInviteResult;
 exports.remove = remove;
 exports.sendMessage = sendMessage;
-exports.sendAMessage = sendAMessage;
 exports.addCredFilter = addCredFilter;
 exports.removeCredFilter = removeCredFilter;
 exports.cleanCredFilters = cleanCredFilters;
@@ -385,16 +384,6 @@ function sendMessage(data, inactive) {
     promise: function promise(client, _ref9) {
       var res = _ref9.res;
       return client.post(res.sendMessage, { data: data, query: { inactive: inactive } });
-    }
-  };
-}
-
-function sendAMessage(data, stakeholder) {
-  return {
-    types: [SEND_A_MESSAGE, SEND_A_MESSAGE_SUCCESS, SEND_A_MESSAGE_FAIL],
-    promise: function promise(client, _ref10) {
-      var res = _ref10.res;
-      return client.post(res.sendAMessage.replace(':id', stakeholder.id), { data: data });
     }
   };
 }

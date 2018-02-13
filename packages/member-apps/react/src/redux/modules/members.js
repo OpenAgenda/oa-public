@@ -324,13 +324,6 @@ export function sendMessage( data, inactive ) {
   };
 }
 
-export function sendAMessage( data, stakeholder ) {
-  return {
-    types: [ SEND_A_MESSAGE, SEND_A_MESSAGE_SUCCESS, SEND_A_MESSAGE_FAIL ],
-    promise: ( client, { res } ) => client.post( res.sendAMessage.replace( ':id', stakeholder.id ), { data } )
-  };
-}
-
 export function addCredFilter( credential ) {
   return {
     type: ADD_CRED_FILTER,
