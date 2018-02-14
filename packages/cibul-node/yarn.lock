@@ -55,8 +55,8 @@
     when "^3.7.8"
 
 "@openagenda/admin-agendas@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/admin-agendas/-/admin-agendas-1.0.3.tgz#f1c6c7621afb10050be02959153280c8d84aa1a0"
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/admin-agendas/-/admin-agendas-1.0.4.tgz#f4fa680e7ed5946ea1f466ef0adf606c7509a088"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/dom-utils" "^2.1.0"
@@ -72,6 +72,7 @@
     deep-extend "^0.4.1"
     immutability-helper "^2.2.0"
     knex "^0.10.0"
+    lodash "^4.17.5"
     mysql "^2.10.2"
     prop-types "^15.5.8"
     rc-switch "^1.4.2"
@@ -242,8 +243,8 @@
     superagent "^2.2.0"
 
 "@openagenda/agenda-stakeholders@^2.0.0", "@openagenda/agenda-stakeholders@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.3.tgz#00a768df069f6a0e2a3ce1acaa0dc125d2263ba9"
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-stakeholders/-/agenda-stakeholders-2.0.4.tgz#6697d8ced1c9fad0147260dec775bf325539f531"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/mysql-table-store" "^1.0.0"
@@ -367,8 +368,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.52"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.52.tgz#4af8ed280c640d960a81cbf697c8906aab2030ce"
+  version "1.0.53"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.53.tgz#df48d9c80e3923255ee3e15b1803fc749db255fc"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -708,8 +709,8 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.26"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.26.tgz#c742af20908359c8bc3a258d6f335ee3f2500285"
+  version "1.0.27"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.27.tgz#e9e046b0ba329d21023cd14005404b3ba01446bc"
   dependencies:
     "@openagenda/dom-utils" "^2.0.0"
     "@openagenda/labels" "^2.0.2"
@@ -728,6 +729,7 @@
     js-cookie "^2.2.0"
     load-script "^1.0.0"
     lodash "^4.17.4"
+    marked "^0.3.12"
     moment "^2.19.1"
     prop-types "^15.6.0"
     react "^16.2.0"
@@ -789,8 +791,8 @@
     when "^3.7.8"
 
 "@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.41"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.41.tgz#f053ddf24047f81649ad67892981ed8864033220"
+  version "2.0.42"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.42.tgz#982a11b170a43422f1541e405330f1816e865dac"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"
@@ -860,8 +862,8 @@
     validator "3.40.0"
 
 "@openagenda/member-apps@^1.0.1", "@openagenda/member-apps@^1.0.2":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.0.10.tgz#b9ba85ad02ebd8d21abe5c50ef6e9e5090a70250"
+  version "1.0.11"
+  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.0.11.tgz#cfd9b05fb84179d12d03ce7dea4d2f22fabb474c"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.0"
     "@openagenda/call-to-action" "^2.0.3"
@@ -873,6 +875,7 @@
     async "^2.1.4"
     body-parser "^1.16.0"
     classnames "^2.2.5"
+    js-base64 "^2.4.3"
     lodash "^4.17.4"
     prop-types "^15.5.8"
     react-bootstrap "^0.31.0"
@@ -3244,8 +3247,8 @@ combine-source-map@~0.8.0:
     source-map "~0.5.3"
 
 combined-stream@^1.0.5, combined-stream@~1.0.5:
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.5.tgz#938370a57b4a51dea2c77c15d5c5fdf895164009"
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
   dependencies:
     delayed-stream "~1.0.0"
 
@@ -5730,7 +5733,7 @@ jquery@>=1.10, jquery@^3.2.1:
   version "3.3.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
 
-js-base64@^2.1.8:
+js-base64@^2.1.8, js-base64@^2.4.3:
   version "2.4.3"
   resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.4.3.tgz#2e545ec2b0f2957f41356510205214e98fad6582"
 
@@ -6470,7 +6473,7 @@ marked@0.3.6:
   version "0.3.6"
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
-marked@^0.3.6:
+marked@^0.3.12, marked@^0.3.6:
   version "0.3.12"
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.12.tgz#7cf25ff2252632f3fe2406bde258e94eee927519"
 

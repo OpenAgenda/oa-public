@@ -226,6 +226,12 @@ module.exports = function ( enabledTypes, options, cb ) {
           time: '08:00'
         } );
 
+        tfy( require( '@openagenda/inboxes' ).tasks.sync, {
+          period: 'weekly',
+          day: 'sunday',
+          time: '11:00'
+        } );
+
         require( './general/mainLogger.task' )();
 
         require( './services/agenda/task' )();

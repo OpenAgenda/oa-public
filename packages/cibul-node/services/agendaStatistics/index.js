@@ -1,8 +1,10 @@
 "use strict";
 
+const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
+const { syncAgenda } = require( '@openagenda/inboxes/lib/tasks/sync' );
 
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
@@ -28,7 +30,8 @@ module.exports = async agendaUid => {
     actions: {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
       rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
-      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`
+      resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
+      resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`
     }
   }
 
@@ -45,7 +48,7 @@ module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaU
 module.exports.transferFormSchema = agenda => {
 
   log( 'transfering form schema from legacy to form schema db for agenda %d', agenda.uid );
-  
+
   return formSchemas.legacy.transfer( agenda.id );
 
 }
@@ -59,7 +62,7 @@ module.exports.task = () => {
 
     switch ( data.type ) {
 
-      case 'search': 
+      case 'search':
 
         _resyncSearch( data.agendaUid );
         break;
@@ -74,6 +77,21 @@ module.exports.task = () => {
 
         _resyncLegacySearch( data.agendaUid );
         break;
+
+      case 'inbox':
+
+        agendasSvc.get( { uid: data.agendaUid }, { private: null, internal: true }, ( err, agenda ) => {
+
+          const stats = {};
+
+          syncAgenda( agenda, stats )
+            .then( () => {
+
+              log( 'info', 'Agenda %d inbox synced', agenda.uid, stats );
+
+            } );
+
+        } );
 
     }
 

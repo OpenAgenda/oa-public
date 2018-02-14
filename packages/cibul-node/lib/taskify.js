@@ -1,28 +1,40 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' );
+const moment = require( 'moment' );
+
+const utils = require( '@openagenda/utils' );
 
 
 /**
  * prepare task for periodic and offsetted runs
  */
 
-module.exports = function( run, options ) {
+module.exports = function ( run, options ) {
 
   var params = utils.extend( {
     period: false,  // periodicity of the task
     bootOffset: 0   // offset time at which task will do its first run
   }, options ? options : {} );
 
-  if ( params.period == 'daily' ) {
+  if ( !params.bootOffset ) {
 
-    params.period = 60000*60*24;
-
-    params.bootOffset = _setBootOffset( params.time );
+    params.bootOffset = _setBootOffset( params );
 
   }
 
-  setTimeout( function() {
+  if ( params.period === 'daily' ) {
+
+    params.period = 60000 * 60 * 24;
+
+  }
+
+  if ( params.period === 'weekly' ) {
+
+    params.period = 60000 * 60 * 24 * 7;
+
+  }
+
+  setTimeout( function () {
 
     run();
 
@@ -36,24 +48,29 @@ module.exports = function( run, options ) {
 
 }
 
-function _setBootOffset( time ) {
+function _setBootOffset( params ) {
 
-  var now = new Date(),
+  const { period, day, time } = params;
 
-  timeParts = time.split( ':' ),
+  const [ hour, minute ] = time.split( ':' );
 
-  bootTime = new Date();
+  const now = moment.utc().locale( 'en' );
+  const nextTime = now.clone();
 
-  bootTime.setHours( timeParts[ 0 ] );
-
-  bootTime.setMinutes( timeParts[ 1 ] );
-
-  if ( bootTime < now ) {
-
-    bootTime.setHours( bootTime.getHours() + 24 );
-
+  if ( day ) {
+    nextTime.startOf( 'week' ).day( day );
   }
 
-  return bootTime.getTime() - now.getTime();
+  nextTime.hour( hour ).minute( minute );
+
+  if ( nextTime.isBefore( now ) ) {
+    if ( period === 'weekly' ) {
+      nextTime.add( 1, 'week' );
+    } else {
+      nextTime.add( 1, 'day' );
+    }
+  }
+
+  return nextTime.diff( now );
 
 }
