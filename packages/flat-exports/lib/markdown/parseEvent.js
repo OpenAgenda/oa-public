@@ -5,11 +5,13 @@ const fs = require( 'fs' );
 
 const transform = require( '../transform' );
 
-const render = _.template( fs.readFileSync( __dirname + '/event.tpl', 'utf-8' ) );
+const txtRender = _.template( fs.readFileSync( __dirname + '/txtEvent.tpl', 'utf-8' ) );
 
-module.exports = ( { genUrl, lang }, data ) => {
+const mdRender = _.template( fs.readFileSync( __dirname + '/mdEvent.tpl', 'utf-8' ) );
 
-  return render( {
+module.exports = ( format, { genUrl, lang }, data ) => {
+
+  return ( format === 'md' ? mdRender : txtRender )( {
     title: get( data.title, lang ),
     link: genUrl( data ),
     description: get( data.description, lang ),

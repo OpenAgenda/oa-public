@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const FlatTransform = require( './lib/FlatTransform' );
 
 const { head, parseEvent } = require( './lib/markdown' );
@@ -10,8 +12,8 @@ module.exports = class MarkdownStream extends FlatTransform {
 
     super( {
       options,
-      head,
-      parseEvent
+      head: head.bind( null, _.get( options, 'format', 'md' ) ),
+      parseEvent: parseEvent.bind( null, _.get( options, 'format', 'md' ) )
     } );
 
   }

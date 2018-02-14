@@ -1,6 +1,4 @@
-## <%= title %>
-
-<%= description %>
+<%= title %> - <%= description %>
 <%= dateRange %>
 <%= location.name %> - <%= location.address %>
 <% if ( longDescription.length ) { %>
