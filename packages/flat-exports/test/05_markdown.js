@@ -21,7 +21,8 @@ describe( 'flat-exports - unit - md', () => {
       } );
 
       expect( head ).toBe(
-`La Gargouille - Evénements à Paris
+`La Gargouille
+Evénements à Paris
 https://openagenda.com/la-gargouille
 
 
@@ -34,9 +35,7 @@ https://openagenda.com/la-gargouille
       const markdownEventItem = md.parseEvent( 'txt', { lang: 'fr', genUrl: e => '#' + e.uid }, event );
 
       expect( markdownEventItem ).toBe(
-`## Accès libre
-
-Accès libre accompagné
+`Accès libre - Accès libre accompagné
 2 octobre - 29 décembre
 MMN13 - 47 rue du javelot 75013
 
