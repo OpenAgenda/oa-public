@@ -7,6 +7,7 @@ const xlsx = require( '@openagenda/flat-exports' ).xlsx();
 const search = require( '../../services/eventSearch' );
 const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const ICSStream = require( '@openagenda/flat-exports' ).ICSStream;
+const MarkdownStream = require( '@openagenda/flat-exports' ).MarkdownStream;
 const rss = require( './rss' );
 
 module.exports = ( parentApp, path ) => {
@@ -16,15 +17,15 @@ module.exports = ( parentApp, path ) => {
 }
 
 app.get( 
-  '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|rss)', 
-  agendas.middleware.load( { namespaces: { identifiers: { uid: 'params.agendaUid' } } } )
+  '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|rss|txt|md)', 
+  agendas.middleware.load( { private: null, namespaces: { identifiers: { uid: 'params.agendaUid' } } } )
 );
 
 
 rss( app, '/agendas/:agendaUid/events.v2.rss' );
 
 
-app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics)', async ( req, res, next ) => {
+app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|txt|md)', async ( req, res, next ) => {
 
   const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
     aggregations: [ 'languages' ]
@@ -68,6 +69,29 @@ app.get( '/agendas/:agendaUid/events.v2.csv', ( req, res, next ) => {
     'Content-Type' : 'text/csv',
     'Content-disposition' : `attachment; filename="${req.agenda.slug}.agenda.csv"`
   } );
+
+} );
+
+app.get( '/agendas/:agendaUid/events.v2.(txt|md)', async ( req, res, next ) => {
+
+  const extension = req.originalUrl.split( '.' ).pop().split( '?' ).shift();
+
+  res.writeHead( 200, {
+    'Content-Type' : 'text/plain',
+    'charset': 'utf-8',
+    'Content-disposition' : `attachment; filename="${req.agenda.slug}.agenda.${extension}"`
+  } );
+
+  const stream = new MarkdownStream( {
+    lang: req.lang,
+    slug: req.agenda.slug,
+    identifier: req.agenda.uid,
+    title: req.agenda.title,
+    description: req.agenda.description,
+    genUrl: e => 'https://openagenda.com/' + req.agenda.slug + '/events/' + e.slug
+  } );
+
+  req.stream.pipe( stream ).pipe( res );
 
 } );
 
