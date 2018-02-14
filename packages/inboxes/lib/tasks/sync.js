@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.defineJob = exports.processJob = undefined;
+exports.syncAgenda = exports.syncUser = exports.processJob = exports.defineJob = undefined;
 
 var _getIterator2 = require('babel-runtime/core-js/get-iterator');
 
@@ -15,49 +15,13 @@ var _regenerator2 = _interopRequireDefault(_regenerator);
 
 var _bluebird = require('bluebird');
 
-var processJob = exports.processJob = function () {
-  var _ref2 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(stats, data) {
+var defineJob = exports.defineJob = function () {
+  var _ref2 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(q, stats) {
+    var agendasSvc, usersSvc, agendasList, limit, pos, users, _ref3, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, user, agendas, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, agenda;
+
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
-          case 0:
-            if (!data.user) {
-              _context2.next = 3;
-              break;
-            }
-
-            _context2.next = 3;
-            return (0, _bluebird.resolve)(syncUser(stats, data.user));
-
-          case 3:
-            if (!data.agenda) {
-              _context2.next = 6;
-              break;
-            }
-
-            _context2.next = 6;
-            return (0, _bluebird.resolve)(syncAgenda(stats, data.agenda));
-
-          case 6:
-          case 'end':
-            return _context2.stop();
-        }
-      }
-    }, _callee2, this);
-  }));
-
-  return function processJob(_x, _x2) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var defineJob = exports.defineJob = function () {
-  var _ref3 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(stats, q) {
-    var agendasSvc, usersSvc, agendasList, limit, pos, users, _ref4, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, user, agendas, _iteratorNormalCompletion2, _didIteratorError2, _iteratorError2, _iterator2, _step2, agenda;
-
-    return _regenerator2.default.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
           case 0:
             agendasSvc = _config.services.agendas, usersSvc = _config.services.users;
             agendasList = (0, _util.promisify)(agendasSvc.list);
@@ -66,24 +30,24 @@ var defineJob = exports.defineJob = function () {
             users = void 0;
 
           case 5:
-            _context3.next = 7;
+            _context2.next = 7;
             return (0, _bluebird.resolve)(usersSvc.list(pos, limit));
 
           case 7:
-            _ref4 = _context3.sent;
-            users = _ref4.users;
+            _ref3 = _context2.sent;
+            users = _ref3.users;
 
-            if (!_ref4) {
-              _context3.next = 43;
+            if (!_ref3) {
+              _context2.next = 43;
               break;
             }
 
             if (users.length) {
-              _context3.next = 12;
+              _context2.next = 12;
               break;
             }
 
-            return _context3.abrupt('break', 43);
+            return _context2.abrupt('break', 43);
 
           case 12:
             pos = pos + users.length;
@@ -93,62 +57,62 @@ var defineJob = exports.defineJob = function () {
             _iteratorNormalCompletion = true;
             _didIteratorError = false;
             _iteratorError = undefined;
-            _context3.prev = 17;
+            _context2.prev = 17;
             _iterator = (0, _getIterator3.default)(users);
 
           case 19:
             if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
-              _context3.next = 27;
+              _context2.next = 27;
               break;
             }
 
             user = _step.value;
 
-            stats.usersToSync += 1;
-            _context3.next = 24;
+            upStats(stats, 'usersToSync');
+            _context2.next = 24;
             return (0, _bluebird.resolve)(q({ user: user }));
 
           case 24:
             _iteratorNormalCompletion = true;
-            _context3.next = 19;
+            _context2.next = 19;
             break;
 
           case 27:
-            _context3.next = 33;
+            _context2.next = 33;
             break;
 
           case 29:
-            _context3.prev = 29;
-            _context3.t0 = _context3['catch'](17);
+            _context2.prev = 29;
+            _context2.t0 = _context2['catch'](17);
             _didIteratorError = true;
-            _iteratorError = _context3.t0;
+            _iteratorError = _context2.t0;
 
           case 33:
-            _context3.prev = 33;
-            _context3.prev = 34;
+            _context2.prev = 33;
+            _context2.prev = 34;
 
             if (!_iteratorNormalCompletion && _iterator.return) {
               _iterator.return();
             }
 
           case 36:
-            _context3.prev = 36;
+            _context2.prev = 36;
 
             if (!_didIteratorError) {
-              _context3.next = 39;
+              _context2.next = 39;
               break;
             }
 
             throw _iteratorError;
 
           case 39:
-            return _context3.finish(36);
+            return _context2.finish(36);
 
           case 40:
-            return _context3.finish(33);
+            return _context2.finish(33);
 
           case 41:
-            _context3.next = 5;
+            _context2.next = 5;
             break;
 
           case 43:
@@ -159,21 +123,21 @@ var defineJob = exports.defineJob = function () {
             agendas = void 0;
 
           case 46:
-            _context3.next = 48;
+            _context2.next = 48;
             return (0, _bluebird.resolve)(agendasList(pos, limit, { private: null, internal: true }));
 
           case 48:
-            if (!(agendas = _context3.sent)) {
-              _context3.next = 82;
+            if (!(agendas = _context2.sent)) {
+              _context2.next = 82;
               break;
             }
 
             if (agendas.length) {
-              _context3.next = 51;
+              _context2.next = 51;
               break;
             }
 
-            return _context3.abrupt('break', 82);
+            return _context2.abrupt('break', 82);
 
           case 51:
             pos = pos + agendas.length;
@@ -183,62 +147,62 @@ var defineJob = exports.defineJob = function () {
             _iteratorNormalCompletion2 = true;
             _didIteratorError2 = false;
             _iteratorError2 = undefined;
-            _context3.prev = 56;
+            _context2.prev = 56;
             _iterator2 = (0, _getIterator3.default)(agendas);
 
           case 58:
             if (_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done) {
-              _context3.next = 66;
+              _context2.next = 66;
               break;
             }
 
             agenda = _step2.value;
 
-            stats.agendasToSync += 1;
-            _context3.next = 63;
+            upStats(stats, 'agendasToSync');
+            _context2.next = 63;
             return (0, _bluebird.resolve)(q({ agenda: agenda }));
 
           case 63:
             _iteratorNormalCompletion2 = true;
-            _context3.next = 58;
+            _context2.next = 58;
             break;
 
           case 66:
-            _context3.next = 72;
+            _context2.next = 72;
             break;
 
           case 68:
-            _context3.prev = 68;
-            _context3.t1 = _context3['catch'](56);
+            _context2.prev = 68;
+            _context2.t1 = _context2['catch'](56);
             _didIteratorError2 = true;
-            _iteratorError2 = _context3.t1;
+            _iteratorError2 = _context2.t1;
 
           case 72:
-            _context3.prev = 72;
-            _context3.prev = 73;
+            _context2.prev = 72;
+            _context2.prev = 73;
 
             if (!_iteratorNormalCompletion2 && _iterator2.return) {
               _iterator2.return();
             }
 
           case 75:
-            _context3.prev = 75;
+            _context2.prev = 75;
 
             if (!_didIteratorError2) {
-              _context3.next = 78;
+              _context2.next = 78;
               break;
             }
 
             throw _iteratorError2;
 
           case 78:
-            return _context3.finish(75);
+            return _context2.finish(75);
 
           case 79:
-            return _context3.finish(72);
+            return _context2.finish(72);
 
           case 80:
-            _context3.next = 46;
+            _context2.next = 46;
             break;
 
           case 82:
@@ -247,19 +211,55 @@ var defineJob = exports.defineJob = function () {
 
           case 83:
           case 'end':
-            return _context3.stop();
+            return _context2.stop();
         }
       }
-    }, _callee3, this, [[17, 29, 33, 41], [34,, 36, 40], [56, 68, 72, 80], [73,, 75, 79]]);
+    }, _callee2, this, [[17, 29, 33, 41], [34,, 36, 40], [56, 68, 72, 80], [73,, 75, 79]]);
   }));
 
-  return function defineJob(_x3, _x4) {
-    return _ref3.apply(this, arguments);
+  return function defineJob(_x, _x2) {
+    return _ref2.apply(this, arguments);
   };
 }();
 
-var syncUser = function () {
-  var _ref5 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(stats, user) {
+var processJob = exports.processJob = function () {
+  var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(data, stats) {
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            if (!data.user) {
+              _context3.next = 3;
+              break;
+            }
+
+            _context3.next = 3;
+            return (0, _bluebird.resolve)(syncUser(data.user, stats));
+
+          case 3:
+            if (!data.agenda) {
+              _context3.next = 6;
+              break;
+            }
+
+            _context3.next = 6;
+            return (0, _bluebird.resolve)(syncAgenda(data.agenda, stats));
+
+          case 6:
+          case 'end':
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
+  }));
+
+  return function processJob(_x3, _x4) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+var syncUser = exports.syncUser = function () {
+  var _ref5 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(user, stats) {
     var inboxIdentifiers, Inbox, inboxUserIdentifiers, inboxUser;
     return _regenerator2.default.wrap(function _callee4$(_context4) {
       while (1) {
@@ -268,7 +268,7 @@ var syncUser = function () {
             // create Inbox
             inboxIdentifiers = { type: 'user', identifier: user.uid };
             _context4.next = 3;
-            return (0, _bluebird.resolve)(new _3.default(inboxIdentifiers).get());
+            return (0, _bluebird.resolve)(new _3.default(inboxIdentifiers).get({ createOnNull: false }));
 
           case 3:
             Inbox = _context4.sent;
@@ -282,7 +282,7 @@ var syncUser = function () {
             return (0, _bluebird.resolve)(Inbox.create());
 
           case 7:
-            stats.usersInboxCreated += 1;
+            upStats(stats, 'userInboxesCreated');
             log('info', 'Inbox %o is created', inboxIdentifiers);
 
           case 9:
@@ -304,7 +304,7 @@ var syncUser = function () {
             return (0, _bluebird.resolve)(Inbox.users.add({ userUid: user.uid }));
 
           case 16:
-            stats.inboxUsersAdded += 1;
+            upStats(stats, 'inboxUsersAdded');
             log('info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
 
           case 18:
@@ -320,8 +320,8 @@ var syncUser = function () {
   };
 }();
 
-var syncAgenda = function () {
-  var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(stats, agenda) {
+var syncAgenda = exports.syncAgenda = function () {
+  var _ref6 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(agenda, stats) {
     var stakeholdersSvc, usersSvc, inboxIdentifiers, Inbox, limit, pos, result, stakeholders, shList, users, userIds, _iteratorNormalCompletion3, _didIteratorError3, _iteratorError3, _iterator3, _step3, user, inboxUserIdentifiers, inboxUser;
 
     return _regenerator2.default.wrap(function _callee5$(_context5) {
@@ -334,7 +334,7 @@ var syncAgenda = function () {
 
             inboxIdentifiers = { type: 'agenda', identifier: agenda.uid };
             _context5.next = 4;
-            return (0, _bluebird.resolve)(new _3.default(inboxIdentifiers).get());
+            return (0, _bluebird.resolve)(new _3.default(inboxIdentifiers).get({ createOnNull: false }));
 
           case 4:
             Inbox = _context5.sent;
@@ -348,7 +348,7 @@ var syncAgenda = function () {
             return (0, _bluebird.resolve)(Inbox.create());
 
           case 8:
-            stats.agendasInboxCreated += 1;
+            upStats(stats, 'agendaInboxesCreated');
             log('info', 'Inbox %o is created', inboxIdentifiers);
 
           case 10:
@@ -447,7 +447,7 @@ var syncAgenda = function () {
             return (0, _bluebird.resolve)(Inbox.users.add({ userUid: user.uid }));
 
           case 50:
-            stats.inboxUsersAdded += 1;
+            upStats(stats, 'inboxUsersAdded');
             log('info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers);
 
           case 52:
@@ -543,8 +543,8 @@ exports.default = function () {
             stats = {
               usersToSync: 0,
               agendasToSync: 0,
-              usersInboxCreated: 0,
-              agendasInboxCreated: 0,
+              userInboxesCreated: 0,
+              agendaInboxesCreated: 0,
               inboxUsersAdded: 0
             };
             _context.next = 4;
@@ -558,7 +558,7 @@ exports.default = function () {
 
             _context.prev = 5;
             _context.next = 8;
-            return (0, _bluebird.resolve)(defineJob(stats, q));
+            return (0, _bluebird.resolve)(defineJob(q, stats));
 
           case 8:
             _context.next = 13;
@@ -584,7 +584,7 @@ exports.default = function () {
 
             _context.prev = 17;
             _context.next = 20;
-            return (0, _bluebird.resolve)(processJob(stats, data));
+            return (0, _bluebird.resolve)(processJob(data, stats));
 
           case 20:
             _context.next = 25;
@@ -602,8 +602,8 @@ exports.default = function () {
 
           case 27:
 
-            log('info', '%d users inbox created', stats.usersInboxCreated);
-            log('info', '%d agendas inbox created', stats.agendasInboxCreated);
+            log('info', '%d user inboxes created', stats.userInboxesCreated);
+            log('info', '%d agenda inboxes created', stats.agendaInboxesCreated);
             log('info', '%d inboxUsers added', stats.inboxUsersAdded);
 
           case 30:
@@ -620,4 +620,10 @@ exports.default = function () {
 
   return syncTask;
 }();
+
+function upStats(stats, key) {
+  if (stats) {
+    _lodash2.default.set(stats, key, _lodash2.default.get(stats, key, 0) + 1);
+  }
+}
 //# sourceMappingURL=sync.js.map

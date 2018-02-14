@@ -159,25 +159,27 @@ var Inbox = function () {
     key: 'get',
     value: function () {
       var _ref4 = (0, _bluebird.coroutine)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(options) {
+        var params;
         return _regenerator2.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return (0, _bluebird.resolve)(this._get(options));
+                params = _lodash2.default.merge({ createOnNull: true }, options);
+                _context2.next = 3;
+                return (0, _bluebird.resolve)(this._get(params));
 
-              case 2:
-                if (!(!this.data && this.identifiers.type)) {
-                  _context2.next = 4;
+              case 3:
+                if (!(!this.data && this.identifiers.type && params.createOnNull)) {
+                  _context2.next = 5;
                   break;
                 }
 
-                return _context2.abrupt('return', this.create(this.identifiers, options));
-
-              case 4:
-                return _context2.abrupt('return', this);
+                return _context2.abrupt('return', this.create(this.identifiers, params));
 
               case 5:
+                return _context2.abrupt('return', this);
+
+              case 6:
               case 'end':
                 return _context2.stop();
             }

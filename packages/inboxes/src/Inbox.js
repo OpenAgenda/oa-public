@@ -62,10 +62,12 @@ export default class Inbox {
   }
 
   async get( options ) {
-    await this._get( options );
+    const params = _.merge( { createOnNull: true }, options );
 
-    if ( !this.data && this.identifiers.type ) {
-      return this.create( this.identifiers, options );
+    await this._get( params );
+
+    if ( !this.data && this.identifiers.type && params.createOnNull ) {
+      return this.create( this.identifiers, params );
     }
 
     return this;
