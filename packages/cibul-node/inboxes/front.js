@@ -9,6 +9,7 @@ const ReactDOM = require( 'react-dom/server' );
 
 const eventsSvc = require( '@openagenda/events' );
 const agendasMw = require( '@openagenda/agendas/middleware' );
+const stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' );
 const inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
@@ -59,7 +60,8 @@ app.use( '/home/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang )
+            emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang ),
+            displayHelp: true
           },
           res: {
             author: '/home/inbox/author.json',
@@ -103,7 +105,8 @@ app.use( '/:slug/admin/inbox',
             lang: req.lang,
             apiRoot: `http://localhost:${config.port}`,
             perPageLimit: 20,
-            emptyInboxLabel: getLabel( 'agendaInboxDesc', req.lang )
+            emptyInboxLabel: getLabel( 'agendaInboxDesc', req.lang ),
+            displayHelp: true
           },
           res: {
             author: '/agendas/:agendaUid/inbox/author.json',
@@ -165,12 +168,13 @@ app.use( '/:slug/contact',
             creationDesc: getLabel( 'sendMessageToAdmin', req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-            onConversationCreateFlash: getLabel( 'agendaContactCreationSuccess', req.lang ),
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'contact_form',
               typeIdentifier: req.agenda.uid,
               params: {
-                agendaTitle: req.agenda.title
+                agendaTitle: req.agenda.title,
+                agendaUid: req.agenda.uid
               },
               destinationInbox: {
                 type: 'agenda',
@@ -189,6 +193,123 @@ app.use( '/:slug/contact',
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
               create: '/home/inbox/conversations/:conversationId/messages.json'
+            }
+          },
+          agenda: req.agenda
+        }
+      },
+      req.baseUrl,
+      ( req, res, next, { store, component } = {} ) => {
+
+        const state = store ? store.getState() : {};
+        const lang = req.lang;
+
+        const content = component ? ReactDOM.renderToString( component ) : '';
+
+        const baseData = {
+          event: {
+            backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          },
+          image: req.agenda.image,
+          title: req.agenda.title
+        };
+
+        cmn.render( req, res, 'agenda/inbox', { ...baseData, scriptParams: { state }, lang, content } );
+
+      }
+    )( req, res, next );
+  } )
+);
+
+app.use( '/:slug/admin/members/:stakeholderId/contact',
+  ( req, res, next ) => {
+    req.shIdentifiers = { id: req.params.stakeholderId };
+    next();
+  },
+  preMw,
+  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  cmn.loadBaseData( 'oasfmain.css' ),
+  agendasMw.load( {
+    namespaces: { identifiers: { slug: 'params.slug' } },
+    private: null
+  } ),
+  stakeholderMw.agenda( 'agendaInstance' ).get( { // from
+    namespaces: { stakeholder: 'userSh' }
+  } ),
+  stakeholderMw.agenda( 'agendaInstance' ).get( { // to
+    namespaces: { identifiers: 'shIdentifiers' },
+    options: { detailed: true }
+  } ),
+  wrap( async ( req, res, next ) => {
+    if ( !req.stakeholder || !req.stakeholder.id ) {
+      sessions.setFlash( req, res, getLabel( 'youCannotWriteToThisMember', req.lang ) );
+      return res.redirect( 302, `/${req.agenda.slug}/admin` );
+    }
+
+    const adminOrModerator = (await Promise.all( [
+      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
+      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
+    ] )).some( Boolean );
+
+    if ( !adminOrModerator ) {
+      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
+      return res.redirect( 302, `/${req.agenda.slug}/admin` );
+    }
+
+    const shIsAdminmod = [ 2, 3 ].includes( req.stakeholder.credential );
+
+    const destinationInbox = shIsAdminmod ? {
+      type: 'user',
+      identifier: req.stakeholder.user.uid
+    } : [];
+
+    const userName = req.stakeholder.custom.contactName || req.stakeholder.user.full_name;
+
+    const resPrefix = shIsAdminmod ? '/home' : `/agendas/${req.agenda.uid}`;
+
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'agenda',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            focusFistConversation: true, // force to display the first conversation if exists
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            // maskCreationSubtitle: true,
+            // topListForm: true, // add a conversation form on top of conversation list
+            creationSubtitle: getLabel( 'contactName', { name: userName }, req.lang ),
+            // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.full_name }, req.lang ),
+            belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
+            onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
+            defaultQuery: {
+              type: 'contact_member',
+              typeIdentifier: req.stakeholder.id,
+              params: {
+                agendaTitle: req.agenda.title,
+                agendaUid: req.agenda.uid,
+                userUid: req.stakeholder.user.uid,
+                userName
+              },
+              destinationInbox
+            }
+          },
+          res: {
+            author: `${resPrefix}/inbox/author.json`,
+            conversations: {
+              create: `${resPrefix}/inbox/conversations.json`,
+              list: `${resPrefix}/inbox/conversations.json`,
+              action: `${resPrefix}/inbox/conversations/:conversationId/action/:code.json`,
+              resume: `${resPrefix}/inbox/conversations/:conversationId/resume.json`
+            },
+            messages: {
+              list: `${resPrefix}/inbox/conversations/:conversationId/messages.json`,
+              create: `${resPrefix}/inbox/conversations/:conversationId/messages.json`
             }
           },
           agenda: req.agenda
@@ -264,14 +385,14 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             topListForm: false, // add a conversation form on top of conversation list
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: eventShowLink,
-            onConversationCreateFlash: getLabel( 'agendaContactCreationSuccess', req.lang ),
+            onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'event',
               typeIdentifier: req.event.uid,
               params: {
                 agendaTitle: _.unescape( req.agenda.title ),
-                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
-                agendaUid: req.agenda.uid
+                agendaUid: req.agenda.uid,
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) )
               },
               destinationInbox: {
                 type: 'user',
@@ -373,8 +494,8 @@ app.use( '/:slug/events/:eventSlug/contact',
               typeIdentifier: req.event.uid,
               params: {
                 agendaTitle: _.unescape( req.agenda.title ),
-                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
-                agendaUid: req.agenda.uid
+                agendaUid: req.agenda.uid,
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) )
               },
               destinationInbox: {
                 type: 'agenda',
@@ -476,8 +597,8 @@ app.use( '/:slug/admin/events/:eventSlug/edition-request',
               typeIdentifier: req.event.uid,
               params: {
                 agendaTitle: _.unescape( req.agenda.title ),
-                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) ),
-                agendaUid: req.agenda.uid
+                agendaUid: req.agenda.uid,
+                eventTitle: _.unescape( getMultiLanguageTitle( req.event, req.lang ) )
               },
               destinationInbox: {
                 type: 'user',

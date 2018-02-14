@@ -6,6 +6,7 @@ const wn = require( 'when/node' );
 const { Inbox, InboxUsers } = require( '@openagenda/inboxes' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const mailer = require( '@openagenda/mailer' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
 const makeLabelGetter = require( '@openagenda/labels' );
@@ -47,9 +48,7 @@ module.exports = async ( { conversation, message }, cb ) => {
           .assign( { user } )
           .value();
 
-        const senderName = await getSenderName( { inboxUser: inboxUserToNotify, conversation, message } );
-
-        await sendMail( { inboxUser: inboxUserToNotify, conversation, message, senderName } );
+        await sendMail( { inboxUser: inboxUserToNotify, conversation, message } );
 
       }
 
@@ -112,7 +111,7 @@ function getSubjectLabel( { conversation, agenda, lang } ) {
   return getInboxLabel( 'newMessageSubject', lang );
 }
 
-async function sendMail( { inboxUser, conversation, message, senderName } ) {
+async function sendMail( { inboxUser, conversation, message } ) {
   const mailerAsync = promisify( mailer );
   const getAgenda = promisify( agendasSvc.get );
 
@@ -120,51 +119,10 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
   const { culture: lang = 'fr' } = user;
 
   const agenda = conversation.store.params && conversation.store.params.agendaUid
-    ? await getAgenda( { uid: conversation.store.params.agendaUid }, { private: null, includeImagePath: true } )
-    : null;
-
-  const subject = getSubjectLabel( { conversation, agenda, lang } );
-
-  const logo = agenda && agenda.image
-    ? agenda.image.replace( '.com/', '.com/rwtb' )
-    : 'https://openagenda.com/images/openagenda.png';
-
-  const url = agenda
-    ? genUrl.abs( 'agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id } )
-    : genUrl.abs( 'homeInboxConversation', { conversationId: conversation.id } );
-
-  const title = agenda
-    ? getInboxLabel( 'newMessageBodyOnAgenda', {
-      agenda: agenda.title
-    }, lang )
-    : getInboxLabel( 'newMessageBody', lang );
-
-  // Ne plus recevoir les notifications de la messagerie de cet agenda (admin, subject: agenda, type: inbox)
-  // Ne plus recevoir les notifications de cet agenda (admin, subject: agenda)
-  // Ne plus recevoir les notifications de votre messagerie (user, subject: home, type: inbox)
-  const footerActions = agenda ? [ {
-    text: getInboxLabel( 'unsubscribeInboxAgenda', lang ),
-    link: config.root + unsubscribed.app.genUrl( 'add', {
-      userUid: user.uid,
-      subject: 'agenda',
-      type: 'inbox',
-      identifier: agenda.uid
-    } )
-  }, {
-    text: getInboxLabel( 'unsubscribeAgenda', lang ),
-    link: config.root + unsubscribed.app.genUrl( 'add', {
-      userUid: user.uid,
-      subject: 'agenda',
-      identifier: agenda.uid
-    } )
-  } ] : [ {
-    text: getInboxLabel( 'unsubscribeInboxHome', lang ),
-    link: config.root + unsubscribed.app.genUrl( 'add', {
-      userUid: user.uid,
-      subject: 'home',
-      type: 'inbox'
-    } )
-  } ];
+    ? await getAgenda(
+      { uid: conversation.store.params.agendaUid },
+      { private: null, includeImagePath: true, internal: true }
+    ) : null;
 
   // check if is unsubscribed
   const isUnsubscribed = await wn.call(
@@ -183,11 +141,35 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
     return;
   }
 
-  let description = _.escape( message.body );
+  const subject = getSubjectLabel( { conversation, agenda, lang } );
 
-  if ( senderName ) {
-    description = description + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`;
-  }
+  const logo = agenda && agenda.image
+    ? agenda.image.replace( '.com/', '.com/rwtb' )
+    : 'https://openagenda.com/images/openagenda.png';
+
+  const stakeholder = agenda
+    ? await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } )
+    : null;
+
+  const isAdminmod = agenda && stakeholder && [ 2, 3 ].includes( stakeholder.credential );
+
+  const url = isAdminmod
+    ? genUrl.abs( 'agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id } )
+    : genUrl.abs( 'homeInboxConversation', { conversationId: conversation.id } );
+
+  const title = agenda
+    ? getInboxLabel( 'newMessageBodyOnAgenda', {
+      agenda: agenda.title
+    }, lang )
+    : getInboxLabel( 'newMessageBody', lang );
+
+  const senderName = await getSenderName( { inboxUser, conversation, message } );
+
+  const description = senderName
+    ? _.escape( message.body )
+    : description + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`;
+
+  const footerActions = getFooterActions( { agenda, stakeholder, user, lang } );
 
   return mailerAsync( {
     recipient: user.email,
@@ -208,4 +190,51 @@ async function sendMail( { inboxUser, conversation, message, senderName } ) {
       footerActions
     }
   } );
+}
+
+function getFooterActions( { agenda, stakeholder, user, lang } ) {
+  if ( agenda && stakeholder ) {
+    return [ {
+      text: getInboxLabel( 'unsubscribeInboxAgenda', lang ),
+      link: config.root + unsubscribed.app.genUrl( 'add', {
+        userUid: user.uid,
+        subject: 'agenda',
+        type: 'inbox',
+        identifier: agenda.uid
+      } )
+    }, {
+      text: getInboxLabel( 'unsubscribeAgenda', lang ),
+      link: config.root + unsubscribed.app.genUrl( 'add', {
+        userUid: user.uid,
+        subject: 'agenda',
+        identifier: agenda.uid
+      } )
+    } ];
+  } else if ( agenda ) {
+    return [ {
+      text: getInboxLabel( 'unsubscribeInboxAgenda', lang ),
+      link: config.root + unsubscribed.app.genUrl( 'add', {
+        userUid: user.uid,
+        subject: 'agenda',
+        type: 'inbox',
+        identifier: agenda.uid
+      } )
+    }, {
+      text: getInboxLabel( 'unsubscribeInboxHome', lang ),
+      link: config.root + unsubscribed.app.genUrl( 'add', {
+        userUid: user.uid,
+        subject: 'home',
+        type: 'inbox'
+      } )
+    } ];
+  } else {
+    return [ {
+      text: getInboxLabel( 'unsubscribeInboxHome', lang ),
+      link: config.root + unsubscribed.app.genUrl( 'add', {
+        userUid: user.uid,
+        subject: 'home',
+        type: 'inbox'
+      } )
+    } ];
+  }
 }

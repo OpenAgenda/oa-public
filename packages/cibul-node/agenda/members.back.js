@@ -96,11 +96,6 @@ const routes = {
   membersSendMessage: [ 'post', '/send-message', [
     _sendMessage(),
     ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  ] ],
-
-  membersSendAMessage: [ 'post', '/send-a-message/:id', [
-    _sendAMessage(),
-    ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
   ] ]
 
 };
@@ -206,8 +201,7 @@ function matchApp( req, res, next ) {
           writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
           exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
           exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
-          sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } ),
-          sendAMessage: req.genUrl( 'membersSendAMessage', { slug: req.agenda.slug, id: ':id' } )
+          sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
         },
         agenda: {
           uid: req.agenda.uid,
@@ -356,23 +350,6 @@ function _sendMessage() {
       },
       actionsCounterEqualZero: req.query.inactive ? true : null,
       deletedUser: false
-    } )( req, res, next );
-
-  };
-
-}
-
-function _sendAMessage() {
-
-  return ( req, res, next ) => {
-
-    req.context = { lang: req.lang, user: req.user, replyTo: req.body.replyTo };
-
-    stakeholdersMw.agenda( 'agendaInstance.data' ).message( {
-      namespaces: {
-        message: 'body.message'
-      },
-      id: parseInt( req.params.id ) || 0
     } )( req, res, next );
 
   };
