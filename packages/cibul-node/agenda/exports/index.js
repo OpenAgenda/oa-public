@@ -83,6 +83,7 @@ app.get( '/agendas/:agendaUid/events.v2.(txt|md)', async ( req, res, next ) => {
   } );
 
   const stream = new MarkdownStream( {
+    format: extension,
     lang: req.lang,
     slug: req.agenda.slug,
     identifier: req.agenda.uid,
