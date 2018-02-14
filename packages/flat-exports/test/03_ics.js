@@ -34,7 +34,7 @@ describe( 'flat-exports - unit - ics', () => {
 
     test( 'ics event', () => {
 
-      const result = ics.event( { lang: 'fr' }, event );
+      const result = ics.parseEvent( { lang: 'fr' }, event );
 
       result.should.eql( [
         'BEGIN:VEVENT',
