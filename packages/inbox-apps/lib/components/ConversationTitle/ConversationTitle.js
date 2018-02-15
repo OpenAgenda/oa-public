@@ -683,7 +683,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       lineNumber: 264
                     }
                   },
-                  getLabel('youAreRequestingEditingRights')
+                  getLabel('youRequestedEditingRights')
                 );
               } else {
                 return _react3.default.createElement(
@@ -704,7 +704,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     getInboxUserName(creator)
                   ),
                   ' ',
-                  getLabel('isRequestingEditingRights')
+                  getLabel('requestedEditingRights')
                 );
               }
             case 'agenda':
@@ -717,7 +717,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       lineNumber: 276
                     }
                   },
-                  getLabel('youAreRequestingEditingRights'),
+                  getLabel('youRequestedEditingRights'),
                   ' ',
                   getLabel('on'),
                   ' ',
@@ -750,7 +750,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     getInboxUserName(creator)
                   ),
                   ' ',
-                  getLabel('isRequestingEditingRights'),
+                  getLabel('requestedEditingRights'),
                   ' ',
                   getLabel('on'),
                   ' ',
@@ -775,7 +775,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                       lineNumber: 299
                     }
                   },
-                  getLabel('youAreRequestingEditingRights'),
+                  getLabel('youRequestedEditingRights'),
                   ' ',
                   getLabel('on'),
                   ' ',
@@ -829,7 +829,7 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                     getInboxUserName(creator)
                   ),
                   ' ',
-                  getLabel('isRequestingEditingRights'),
+                  getLabel('requestedEditingRights'),
                   ' ',
                   getLabel('on'),
                   ' ',
@@ -1203,6 +1203,42 @@ var ConversationTitle = _wrapComponent('ConversationTitle')((_dec = (0, _reactRe
                   );
                 }
               }
+          }
+        case 'support':
+          if (isUser(creator, user)) {
+            // Vous avez contacté le support
+            return _react3.default.createElement(
+              _react2.Fragment,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 470
+                }
+              },
+              getLabel('youContactedSupport')
+            );
+          } else {
+            // XXX a contacté le support
+            return _react3.default.createElement(
+              _react2.Fragment,
+              {
+                __source: {
+                  fileName: _jsxFileName,
+                  lineNumber: 477
+                }
+              },
+              _react3.default.createElement(
+                EntityComponent,
+                { type: 'user', __source: {
+                    fileName: _jsxFileName,
+                    lineNumber: 478
+                  }
+                },
+                getInboxUserName(creator)
+              ),
+              ' ',
+              getLabel('contactedSupport')
+            );
           }
       }
 

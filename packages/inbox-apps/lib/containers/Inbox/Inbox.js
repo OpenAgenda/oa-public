@@ -397,7 +397,9 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
           creationDesc = settings.creationDesc,
           onConversationCreateRedirect = settings.onConversationCreateRedirect,
           onConversationCreateFlash = settings.onConversationCreateFlash,
-          displayHelp = settings.displayHelp;
+          displayHelp = settings.displayHelp,
+          allowCreateConversation = settings.allowCreateConversation,
+          focusFistConversation = settings.focusFistConversation;
 
       var _partition2 = (0, _partition5.default)(conversations, function (o) {
         return !o.resolvedAt;
@@ -440,7 +442,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
               }
             })
           ) : null,
-          topListForm && !unresolvedConvs.length && !maskCreationSubtitle ? _react3.default.createElement(_components2.Breadcrumb, {
+          topListForm && (allowCreateConversation && !focusFistConversation || !unresolvedConvs.length) && !maskCreationSubtitle ? _react3.default.createElement(_components2.Breadcrumb, {
             breadParts: [{
               component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
             }],
@@ -456,7 +458,7 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
             }
           })
         ),
-        topListForm && !unresolvedConvs.length ? _react3.default.createElement(
+        topListForm && (allowCreateConversation && !focusFistConversation || !unresolvedConvs.length) ? _react3.default.createElement(
           _react2.Fragment,
           {
             __source: {
@@ -464,16 +466,11 @@ var Inbox = _wrapComponent('Inbox')((_dec = (0, _reduxConnect.asyncConnect)([{
               lineNumber: 184
             }
           },
-          creationDesc ? _react3.default.createElement(
-            'p',
-            {
-              __source: {
-                fileName: _jsxFileName,
-                lineNumber: 185
-              }
-            },
-            creationDesc
-          ) : null,
+          creationDesc ? _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: creationDesc }, __source: {
+              fileName: _jsxFileName,
+              lineNumber: 185
+            }
+          }) : null,
           _react3.default.createElement(
             'div',
             { className: 'media', __source: {

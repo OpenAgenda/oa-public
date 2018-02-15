@@ -308,16 +308,11 @@ var ConversationCreate = _wrapComponent('ConversationCreate')((_dec = (0, _redux
             }
           })
         ),
-        creationDesc ? _react3.default.createElement(
-          'p',
-          {
-            __source: {
-              fileName: _jsxFileName,
-              lineNumber: 103
-            }
-          },
-          creationDesc
-        ) : null,
+        creationDesc ? _react3.default.createElement('p', { dangerouslySetInnerHTML: { __html: creationDesc }, __source: {
+            fileName: _jsxFileName,
+            lineNumber: 103
+          }
+        }) : null,
         creationDescriptionLabel ? _react3.default.createElement(
           'p',
           {

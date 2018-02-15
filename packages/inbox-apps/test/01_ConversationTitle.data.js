@@ -3069,4 +3069,150 @@ export default [ {
       }
     ]
   }
+}, {
+  type: 'support',
+  creator: true,
+  user: userBertho,
+  conversation: {
+    id: 116,
+    type: 'support',
+    typeIdentifier: null,
+    store: {
+      params: {}
+    },
+    createdAt: '2018-02-15T09:46:48.000Z',
+    updatedAt: '2018-02-15T09:46:48.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 3204,
+    creatorInboxUser: {
+      id: 1540,
+      inboxId: 3204,
+      userUid: 31046551,
+      leftAt: null,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    creatorInbox: {
+      id: 3204,
+      type: 'user',
+      identifier: 31046551,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    inboxUser: {
+      id: 1540,
+      inboxId: 3204,
+      userUid: 31046551,
+      leftAt: null,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 190,
+      conversationId: 116,
+      body: 'Salut le support !',
+      createdAt: '2018-02-15T09:46:48.000Z',
+      inboxUser: {
+        id: 1540,
+        inboxId: 3204,
+        userUid: 31046551,
+        leftAt: null,
+        uid: 31046551,
+        name: 'Kévin Berthommier - OpenAgenda',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      inbox: {
+        id: 3204,
+        type: 'user',
+        identifier: 31046551,
+        uid: 31046551,
+        name: 'Kévin Berthommier - OpenAgenda',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    },
+    inboxes: [
+      {
+        id: 3204,
+        type: 'user',
+        identifier: 31046551,
+        uid: 31046551,
+        name: 'Kévin Berthommier - OpenAgenda',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 68902,
+        type: 'support',
+        identifier: 1,
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
+}, {
+  type: 'support',
+  creator: false,
+  user: userBertho,
+  conversation: {
+    id: 117,
+    type: 'support',
+    typeIdentifier: null,
+    store: {
+      params: {}
+    },
+    createdAt: '2018-02-15T10:36:20.000Z',
+    updatedAt: '2018-02-15T10:36:20.000Z',
+    resolvedAt: null,
+    closedAt: null,
+    inboxContextId: 68902,
+    creatorInbox: {
+      id: 68893,
+      type: 'user',
+      identifier: 4752166,
+      uid: 4752166,
+      name: 'Déborah Le Bovic',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    inboxUser: {
+      id: 73788,
+      inboxId: 68902,
+      userUid: 31046551,
+      leftAt: null,
+      uid: 31046551,
+      name: 'Kévin Berthommier - OpenAgenda',
+      avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+    },
+    latestMessage: {
+      id: 191,
+      conversationId: 117,
+      body: 'ferhsqgufizegquseq',
+      createdAt: '2018-02-15T10:36:20.000Z',
+      inbox: {
+        id: 68893,
+        type: 'user',
+        identifier: 4752166,
+        uid: 4752166,
+        name: 'Déborah Le Bovic',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    },
+    inboxes: [
+      {
+        id: 68893,
+        type: 'user',
+        identifier: 4752166,
+        uid: 4752166,
+        name: 'Déborah Le Bovic',
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      },
+      {
+        id: 68902,
+        type: 'support',
+        identifier: 1,
+        avatar: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    ]
+  }
 } ];

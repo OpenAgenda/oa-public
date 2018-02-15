@@ -149,7 +149,7 @@ export default class Inbox extends Component {
       ContentWrapper, topListForm, prefix, emptyInboxLabel,
       creationSubtitle, maskCreationSubtitle, creationDesc,
       onConversationCreateRedirect, onConversationCreateFlash,
-      displayHelp
+      displayHelp, allowCreateConversation, focusFistConversation
     } = settings;
 
     const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
@@ -170,7 +170,7 @@ export default class Inbox extends Component {
             </a>
           ) : null}
 
-          {topListForm && !unresolvedConvs.length && !maskCreationSubtitle
+          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) && !maskCreationSubtitle
             ? (
               <Breadcrumb
                 breadParts={[ {
@@ -181,8 +181,8 @@ export default class Inbox extends Component {
             ) : <Breadcrumb/>}
         </div>
 
-        {topListForm && !unresolvedConvs.length ? <Fragment>
-          {creationDesc ? <p>{creationDesc}</p> : null}
+        {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) ? <Fragment>
+          {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
 
           <div className="media">
             <div className="media-left">

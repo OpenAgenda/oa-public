@@ -261,12 +261,12 @@ export default class ConversationTitle extends Component {
         switch ( context ) {
           case 'event':
             if ( isUser( creator, user ) ) {
-              return <Fragment>{getLabel( 'youAreRequestingEditingRights' )}</Fragment>;
+              return <Fragment>{getLabel( 'youRequestedEditingRights' )}</Fragment>;
             } else {
               return (
                 <Fragment>
                   <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
-                  {getLabel( 'isRequestingEditingRights' )}
+                  {getLabel( 'requestedEditingRights' )}
                 </Fragment>
               );
             }
@@ -274,7 +274,7 @@ export default class ConversationTitle extends Component {
             if ( isUser( creator, user ) ) {
               return (
                 <Fragment>
-                  {getLabel( 'youAreRequestingEditingRights' )}{' '}
+                  {getLabel( 'youRequestedEditingRights' )}{' '}
                   {getLabel( 'on' )}{' '}
                   <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                     {store.params.eventTitle}
@@ -285,7 +285,7 @@ export default class ConversationTitle extends Component {
               return (
                 <Fragment>
                   <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
-                  {getLabel( 'isRequestingEditingRights' )}{' '}
+                  {getLabel( 'requestedEditingRights' )}{' '}
                   {getLabel( 'on' )}{' '}
                   <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                     {store.params.eventTitle}
@@ -297,7 +297,7 @@ export default class ConversationTitle extends Component {
             if ( isUser( creator, user ) ) {
               return (
                 <Fragment>
-                  {getLabel( 'youAreRequestingEditingRights' )}{' '}
+                  {getLabel( 'youRequestedEditingRights' )}{' '}
                   {getLabel( 'on' )}{' '}
                   <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                     {store.params.eventTitle}
@@ -316,7 +316,7 @@ export default class ConversationTitle extends Component {
               return (
                 <Fragment>
                   <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
-                  {getLabel( 'isRequestingEditingRights' )}{' '}
+                  {getLabel( 'requestedEditingRights' )}{' '}
                   {getLabel( 'on' )}{' '}
                   <EntityComponent type="event" eventUid={typeIdentifier} agendaUid={store.params.agendaUid}>
                     {store.params.eventTitle}
@@ -462,6 +462,23 @@ export default class ConversationTitle extends Component {
                 );
               }
             }
+        }
+      case 'support':
+        if ( isUser( creator, user ) ) {
+          // Vous avez contacté le support
+          return (
+            <Fragment>
+              {getLabel( 'youContactedSupport' )}
+            </Fragment>
+          );
+        } else {
+          // XXX a contacté le support
+          return (
+            <Fragment>
+              <EntityComponent type="user">{getInboxUserName( creator )}</EntityComponent>{' '}
+              {getLabel( 'contactedSupport' )}
+            </Fragment>
+          );
         }
     }
 

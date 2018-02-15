@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { expect } from 'chai';
-import { shallow, render, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import { Provider, connect } from 'react-redux';
 import { compose, withContext } from 'recompose';
@@ -604,5 +604,32 @@ describe( 'conversation of type contact_member', () => {
 
       makeTest( initialState, { user, conversation } );
     } );
+  } );
+} );
+
+describe( 'conversation of type support', () => {
+  const initialState = {
+    settings: {
+      lang: 'fr',
+      context: 'user'
+    }
+  };
+
+  it( 'created by me', () => {
+    const { user, conversation } = _.find( fixturesData, {
+      type: 'support',
+      creator: true
+    } );
+
+    makeTest( initialState, { user, conversation } );
+  } );
+
+  it( 'created by someone else', () => {
+    const { user, conversation } = _.find( fixturesData, {
+      type: 'support',
+      creator: false
+    } );
+
+    makeTest( initialState, { user, conversation } );
   } );
 } );

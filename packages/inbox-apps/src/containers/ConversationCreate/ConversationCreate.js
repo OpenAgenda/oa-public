@@ -100,7 +100,7 @@ export default class ConversationCreate extends Component {
             </div>
           )}
 
-        {creationDesc ? <p>{creationDesc}</p> : null}
+        {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
 
         {creationDescriptionLabel ? <p>{creationDescriptionLabel}</p> : null}
 
