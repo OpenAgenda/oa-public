@@ -82,7 +82,8 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
     lang: state.settings.lang,
     prefix: state.settings.prefix,
     displayLegacyMessageTab: state.settings.displayLegacyMessageTab,
-    tab: state.menu.tab
+    tab: state.menu.tab,
+    userId: state.settings.userId
   };
 }), _dec(_class = (_temp = _class2 = function (_Component) {
   (0, _inherits3.default)(Menu, _Component);
@@ -101,7 +102,8 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
           prefix = _props.prefix,
           creationButton = _props.creationButton,
           agendasSearch = _props.agendasSearch,
-          displayLegacyMessageTab = _props.displayLegacyMessageTab;
+          displayLegacyMessageTab = _props.displayLegacyMessageTab,
+          userId = _props.userId;
       var getLabel = this.context.getLabel;
 
 
@@ -135,6 +137,15 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
             getLabel('myEvents')
           )
         ),
+        [1, 2, 11258, 15453, 34577].includes(userId) ? _react3.default.createElement(
+          'li',
+          { className: 'menu-item' },
+          _react3.default.createElement(
+            'a',
+            { href: '/admin/support' },
+            getLabel('support')
+          )
+        ) : null,
         displayLegacyMessageTab && _react3.default.createElement(
           'li',
           { className: 'menu-item text-muted' },
