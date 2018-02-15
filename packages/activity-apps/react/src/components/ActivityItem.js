@@ -22,7 +22,7 @@ export default class ActivityItem extends Component {
     if ( withFilterIcons ) formatArgs.push( withFilterIcons );
 
     return <li>
-      <span className="activity-info" dangerouslySetInnerHTML={{ __html: formatActivity.apply( null , formatArgs ) }} />
+      <span className="activity-info activity-item" dangerouslySetInnerHTML={{ __html: formatActivity.apply( null , formatArgs ) }} />
       <span className="activity-time">
         {moment( activity.createdAt ).format( 'LLL' )}
       </span>

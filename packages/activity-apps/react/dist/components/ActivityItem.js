@@ -101,7 +101,7 @@ var ActivityItem = _wrapComponent('ActivityItem')(function (_Component) {
       return _react3.default.createElement(
         'li',
         null,
-        _react3.default.createElement('span', { className: 'activity-info', dangerouslySetInnerHTML: { __html: formatActivity.apply(null, formatArgs) } }),
+        _react3.default.createElement('span', { className: 'activity-info activity-item', dangerouslySetInnerHTML: { __html: formatActivity.apply(null, formatArgs) } }),
         _react3.default.createElement(
           'span',
           { className: 'activity-time' },
