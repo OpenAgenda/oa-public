@@ -34,6 +34,9 @@ module.exports = {
       ]
     } ]
   },
+  resolve: {
+    symlinks: false
+  },
   plugins: [
     new HTMLWebpackPlugin( {
       template: 'index.html'

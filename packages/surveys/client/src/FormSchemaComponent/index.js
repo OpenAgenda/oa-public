@@ -9,6 +9,9 @@ import FormSchema from '@openagenda/form-schemas/iso/FormSchema';
 import React, { Component } from 'react';
 import { flatten, post } from './helpers';
 
+import errorLabels from '@openagenda/labels/errors';
+import flattenLabels from '@openagenda/labels/flatten';
+
 const Field = require( './Field' );
 
 export default class FormSchemaComponent extends Component {
@@ -18,6 +21,9 @@ export default class FormSchemaComponent extends Component {
     super( props );
 
     this.state = {
+      labels: {
+        errors: flattenLabels( errorLabels, this.props.lang )
+      },
       values: {}, // values by field
       errors: {}, // errors by field
       editedFields: {} // fields that have been fiddled with by user
@@ -80,7 +86,9 @@ export default class FormSchemaComponent extends Component {
 
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
 
-        errors[ e.field ] = e.message;
+        console.log( e );
+
+        errors[ e.field ] = _.get( this.state.labels.errors, e.code, e.message );
 
         return errors;
 
