@@ -26,26 +26,15 @@ module.exports = class TextField extends Component {
 
     const { value, onChange, type } = this.props;
 
-    if ( type === 'textarea' ) {
-      
-      return <textarea
-        name={name}
-        rows={3}
-        className="form-control"
-        value={value || ''}
-        onChange={this.onChange}
-        >
-      </textarea>
-      
+    const fieldProps = {
+      name,
+      rows: 3,
+      className: 'form-control margin-v-xs',
+      value: value || '',
+      onChange: this.onChange
     }
-
-    return <input
-      className="form-control"
-      name={name}
-      type="text"
-      value={value || ''}
-      onChange={onChange} 
-    />
+   
+    return type === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
 
   }
 

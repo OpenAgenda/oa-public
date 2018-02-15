@@ -1,6 +1,7 @@
 "use strict";
 
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 const FieldComponents = {
   text: require( './TextField' ),
@@ -20,13 +21,13 @@ module.exports = class RadioField extends Component {
       info
     } = this.props.field;
 
-    const { value, onChange, type, field } = this.props;
+    const { value, onChange, type, field, error } = this.props;
 
     const Component = FieldComponents[ type ];
 
-    return <div className="form-group" key={name}>
-      {label?<label>{label}</label>:null}
-      {info?<div><span>{info}</span></div>:null}
+    return <div className={classNames( { 'form-group' : true, 'has-error' : !!error } ) } key={name}>
+      {label?<label className="control-label">{label}</label>:null}
+      <div>{error || info?<span>{error || info}</span>:null}</div>
       <Component
         type={type}
         field={field}

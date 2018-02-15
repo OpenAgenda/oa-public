@@ -32,7 +32,7 @@ export default class Main extends Component {
 Main.propTypes = {
   res: PropTypes.object,
   lang: PropTypes.string.isRequired,
-  formSchema: PropTypes.object.isRequired
+  schema: PropTypes.object.isRequired
 }
 
 Main.defaultProps = {

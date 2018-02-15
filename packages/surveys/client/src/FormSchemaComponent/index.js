@@ -4,6 +4,8 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
 
+import FormSchema from '@openagenda/form-schemas/iso/FormSchema';
+
 import React, { Component } from 'react';
 import { flatten, post } from './helpers';
 
@@ -16,7 +18,9 @@ export default class FormSchemaComponent extends Component {
     super( props );
 
     this.state = {
-      values: {}
+      values: {}, // values by field
+      errors: {}, // errors by field
+      editedFields: {} // fields that have been fiddled with by user
     }
 
     this.onSubmit = this.onSubmit.bind( this );
@@ -28,7 +32,15 @@ export default class FormSchemaComponent extends Component {
 
     e.preventDefault();
 
-    sa.post( this.props.res.post, this.state.values ).then( res => {
+    const { clean, errors } = this.validate( this.state.values );
+
+    if ( errors ) {
+
+      return this.setState( { errors } );
+
+    }
+
+    sa.post( this.props.res.post, clean ).then( res => {
 
       if ( res.statusCode === 200 ) {
 
@@ -39,6 +51,42 @@ export default class FormSchemaComponent extends Component {
       }
 
     } );
+
+  }
+
+  getFieldError( field, value ) {
+
+    const values = {};
+
+    values[ field ] = value;
+
+    const { clean, errors } = this.validate( values );
+
+    return _.get( errors, field, null );
+
+  }
+  
+  validate( values ) {
+    
+    try {
+
+      const validate = ( new FormSchema( this.props.schema ) ).getValidate();
+
+      const clean = validate( values );
+
+      return { clean, errors: {} };
+
+    } catch ( errors ) {
+
+      return { clean: null, errors: errors.reduce( ( errors, e ) => {
+
+        errors[ e.field ] = e.message;
+
+        return errors;
+
+      }, {} ) }
+
+    }
 
   }
 
@@ -56,8 +104,13 @@ export default class FormSchemaComponent extends Component {
 
     updateValues[ field ] = { $set: value };
 
+    const updateErrors = {};
+
+    updateErrors[ field ] = { $set: this.getFieldError( field, value ) };
+
     this.setState( {
-      values: ih( this.state.values, updateValues )
+      values: ih( this.state.values, updateValues ),
+      errors: ih( this.state.errors, updateErrors )
     } );
 
   }
@@ -78,7 +131,7 @@ export default class FormSchemaComponent extends Component {
     }
 
     return <div>
-      {this.props.formSchema.fields.map( ( f, i ) => {
+      {this.props.schema.fields.map( ( f, i ) => {
 
         const flatField = flatten( f, lang );
 
@@ -87,6 +140,7 @@ export default class FormSchemaComponent extends Component {
           key={'field' + i}
           field={flatField}
           value={_.get( values, f.field, null )}
+          error={_.get( this.state.errors, f.field, null )}
           onChange={this.onChange.bind( this, f.field )}
         />
 

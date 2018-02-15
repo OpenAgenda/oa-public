@@ -21,9 +21,8 @@ module.exports = class RadioField extends Component {
           <input
             type="radio"
             name={name}
-            value={o.value}
-            onChange={onChange.bind( null, o.value )}
-            checked={o.value===value} />
+            onChange={onChange.bind( null, o.id )}
+            checked={o.id===value} />
           {o.label}
         </label>
       </div> )}

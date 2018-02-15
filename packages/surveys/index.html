@@ -16,8 +16,42 @@
           "post" : "http://localhost:3000/survey",
           "redirect" : "http://localhost:3000/redirected"
         },
-        "formSchema" : {
+        "schema" : {
           "fields" : [ {
+            "field" : "contributions",
+            "fieldType" : "radio",
+            "label" : {
+              "fr" : "Combien d'événements saisissez-vous annuellement sur OpenAgenda?",
+              "en" : "How many events do you contribute annually on OpenAgenda?"
+            },
+            "info" : {
+              "fr" : "Champ requis",
+              "en" : "Required field"
+            },
+            "optional" : false,
+            "options" : [ {
+              "id" : 6,
+              "value" : "1a5",
+              "label" : {
+                "fr" : "Entre 1 et 5",
+                "en" : "Between 1 and 5"
+              }
+            }, {
+              "id" : 7,
+              "value" : "6a20",
+              "label" : {
+                "fr" : "Entre 6 et 20",
+                "en" : "Between 6 and 20"
+              }
+            }, {
+              "id" : 8,
+              "value" : "plusde20",
+              "label" : {
+                "fr" : "Plus de 20",
+                "en" : "More than 20"
+              }
+            } ]
+          },{
             "field" : "facilite",
             "label" : {
               "fr" : "Facilité d'utilisation",
@@ -61,9 +95,10 @@
           }, {
             "field" : "difficultydetails",
             "fieldType" : "textarea",
+            "optional" : false,
             "label" : {
-              "fr" : "Quelle partie du formulaire a semblé(e) le plus difficile à prendre en main?",
-              "en" : "Which part of the form seemed the most difficult?"
+              "fr" : "Quelle partie du formulaire vous a semblé(e) le plus difficile à prendre en main?",
+              "en" : "Which part of the form was the most difficult to use?"
             }
           }, {
             "field" : "contacttel",
