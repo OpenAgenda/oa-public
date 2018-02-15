@@ -60,6 +60,11 @@ module.exports = {
   'required': {
     fr: 'Requis',
     en: 'Required'
+  },
+
+  'choice.required' : {
+    fr: 'Requis',
+    en: 'Required'
   }
 
 }
