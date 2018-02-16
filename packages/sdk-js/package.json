@@ -1,0 +1,37 @@
+{
+  "name": "sdk-js",
+  "version": "2.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Oagenda/sdk-js.git",
+  "author": "Bertho <kevin.bertho@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf lib && babel src -d dist -s",
+    "test": "jest --coverage",
+    "test:watch": "yarn test --watch",
+    "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
+    "precommit": "yarn build && git add -A",
+    "postmerge": "yarn build && git add -A"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "bluebird": "^3.5.1",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^22.2.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.3.2",
+    "babel-plugin-transform-async-to-bluebird": "^1.1.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-promise-to-bluebird": "^1.1.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "jest": "^22.3.0",
+    "rimraf": "^2.6.2"
+  }
+}
