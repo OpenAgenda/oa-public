@@ -8,3 +8,6 @@ To add a repo from any other place to here, one must:
  * if that doesn't work, just move the folder and delete the .git file
  * in the repo of the imported lib, set as title and commit "LAST COMMIT, lib moved to oa repo"
 
+http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup
+
+https://github.com/glenjamin/webpack-hot-middleware

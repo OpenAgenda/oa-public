@@ -7,6 +7,8 @@ import { render } from 'react-dom';
 
 import FormSchemaComponent from './FormSchemaComponent';
 
+if ( module.hot ) module.hot.accept();
+
 export default class Main extends Component {
 
   constructor( props ) {
@@ -19,7 +21,7 @@ export default class Main extends Component {
 
   render() {
 
-    return <div className="container wsq top-margined">
+    return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
         <FormSchemaComponent { ...this.props } />
       </div>
@@ -36,7 +38,9 @@ Main.propTypes = {
 }
 
 Main.defaultProps = {
-  res: {},
+  res: {
+    post: ''
+  },
   lang: 'en'
 }
 

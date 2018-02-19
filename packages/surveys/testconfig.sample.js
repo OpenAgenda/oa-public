@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const knex = require( 'knex' );
+const fs = require( 'fs' );
 
 const connection = {
   database: 'oatest_surveys',
@@ -10,6 +11,7 @@ const connection = {
 }
 
 module.exports = {
+  frontAppPath: '/js/index.js',
   knex: knex( {
     client: 'mysql',
     // leave database name out of connection for tests only
@@ -18,5 +20,7 @@ module.exports = {
   schema: 'survey',
   test: {
     connection
-  }
+  },
+  decorateKey: 'decorateWith', // inject data before create
+  layout: fs.readFileSync( __dirname + '/index.ejs', 'utf-8' ),
 }

@@ -1,0 +1,80 @@
+[ {
+  "uid" : 1,
+  "name" : "La boutique",
+  "address" : "29 passage du Ponceau, Paris",
+  "latitude" : 48.8675959,
+  "longitude" : 2.3516408,
+  "district" : "Paris 02",
+  "city" : "Paris",
+  "department" : "Paris",
+  "region" : "Ile-de-France",
+  "countryCode" : "FR",
+  "timezone" : "Europe/Paris"
+}, {
+  "uid" : 2,
+  "name" : "Café de la Gaité",
+  "address" : "3Bis Rue Papin, Paris",
+  "latitude" : 48.8670842,
+  "longitude" : 2.3523516,
+  "district" : "Paris 02",
+  "city" : "Paris",
+  "department" : "Paris",
+  "region" : "Ile-de-France",
+  "countryCode" : "FR",
+  "timezone" : "Europe/Paris"
+}, {
+  "uid" : 65918542,
+  "name" : "Musée de Valence - arts et archéologie",
+  "address" : "4 place des Ormeaux, 26000 Valence",
+  "latitude" : 44.931457,
+  "longitude" : 4.889928,
+  "city" : "Valence",
+  "department" : "Drôme",
+  "region" : "Auvergne-Rhône-Alpes",
+  "countryCode" : "FR",
+  "timezone" : "Europe/Paris"
+}, {
+  "uid" : 10096987,
+  "name" : "Monument A La Victoire",
+  "address" : "rue Mazel, Verdun",
+  "latitude" : 49.16075,
+  "longitude" : 5.38461,
+  "city" : "Verdun",
+  "department" : "Meuse",
+  "region" : "Grand Est",
+  "countryCode" : "FR",
+  "timezone" : "Europe/Paris"
+}, {
+  "uid" : 8896048,
+  "name" : "Tenri Cultural Institute",
+  "address" : "43 West 13th Street Manhattan",
+  "latitude" : 40.735507,
+  "longitude" : -73.995091,
+  "city" : "New York",
+  "department" : "New York County",
+  "region" : "New York",
+  "countryCode" : "US",
+  "timezone" : "America/New_York"
+}, {
+  "uid" : 83357467,
+  "name" : "Place Saint-Corentin",
+  "address" : "Place Saint-Corentin, Quimper",
+  "latitude" : 47.995788,
+  "longitude" : -4.103017,
+  "city" : "Quimper",
+  "department" : "Finistère",
+  "region" : "Bretagne",
+  "countryCode" : "FR",
+  "timezone" : "Europe/Paris"
+}, {
+  "uid" : 78656126,
+  "name" : "Caveau des terroirs",
+  "address" : "Grandson, Suisse",
+  "latitude" : 46.809208,
+  "longitude" : 6.645761,
+  "city" : "Grandson",
+  "department" : "Jura-Nord vaudois District",
+  "region" : "Vaud",
+  "countryCode" : "CH",
+  "timezone" : "Europe/Zurich"
+} ]
