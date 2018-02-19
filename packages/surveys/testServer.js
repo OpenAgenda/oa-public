@@ -1,36 +1,67 @@
 "use strict";
 
-const parentApp = require( 'express' )();
+const webpack = require( 'webpack' );
+const webpackConfig = require( './webpack.config' );
+const compiler = webpack( webpackConfig );
 
-const service = require( './server' );
+const express = require( 'express' );
+
+const parentApp = express();
 
 const config = require( './testconfig' );
+const service = require( './server' );
+
+parentApp.use( require( 'webpack-dev-middleware' )( compiler, {
+  noInfo: true, 
+  publicPath: webpackConfig.output.publicPath
+} ) );
 
 config.knex.raw( 'use ' + config.test.connection.database ).then( () => {
 
   service.init( config );
   
-})
+} );
 
+parentApp.use( require( 'webpack-hot-middleware' )( compiler ) );
 
-const app = require( './server' ).app;
+parentApp.use( express.static( __dirname + '/node_modules/@openagenda/bs-templates/compiled' ) );
 
 parentApp.use( ( req, res, next ) => {
 
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  req.lang = 'fr';
 
   next();
 
 } );
 
-parentApp.use( '/survey', app );
+parentApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
 
-parentApp.listen( 3000 );
+  // if data must be decorated, it can be done here
+  
+  req.decorateWith = {
+    uid: req.params.agendaUid,
+    contributor: 'steve'
+  }
 
-parentApp.get( '/redirect', ( req, res, next ) => {
-
-  res.send( 'redirected!' );
+  next();
 
 } );
+
+parentApp.get( '/', ( req, res ) => res.redirect( 301, '/agendas/123/survey' ) );
+
+parentApp.get( '/redirect', ( req, res, next ) => {
+  
+  res.send( 'redirected!' );
+  
+} );
+
+
+/**
+ * service app bit
+ */
+
+const app = require( './server' ).app;
+
+parentApp.use( '/agendas/:agendaUid/survey', app );
+
+parentApp.listen( 8080 );

@@ -1,14 +1,22 @@
 "use strict";
 
-const HTMLWebpackPlugin = require( 'html-webpack-plugin' );
 const webpack = require( 'webpack' );
 
 module.exports = {
-  entry: __dirname + '/client/src/index.js',
+  context: __dirname,
+  entry: [ 
+    'webpack-hot-middleware/client',
+    './client/src/index.js'
+  ],
   output: {
-    path: __dirname + '/client/dist/',
-    filename: 'index.js'
+    filename: 'index.js',
+    path: __dirname,
+    publicPath: '/js/'
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   module: {
     rules: [ {
       test: /\.js$/,
@@ -36,10 +44,5 @@ module.exports = {
   },
   resolve: {
     symlinks: false
-  },
-  plugins: [
-    new HTMLWebpackPlugin( {
-      template: 'index.html'
-    } )
-  ]
+  }
 }

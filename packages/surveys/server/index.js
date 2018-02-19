@@ -1,11 +1,24 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const fs = require( 'fs' );
+
 const app = require( 'express' )();
 const bodyParser = require( 'body-parser' );
 const ih = require( 'immutability-helper' );
 
-let knex = null; // knex connection given to service
-let schema = null;
+const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
+
+const surveySchema = require( './surveySchema' );
+
+const serviceParams = {
+  knex: null,
+  schema: null,
+  decorateKey: null,
+  frontAppPath: null,
+  render: null,
+  validate: null
+}
 
 module.exports = {
   app,
@@ -15,14 +28,20 @@ module.exports = {
 
 async function init( c ) {
 
-  knex = c.knex;
-  schema = c.schema;
+  _.extend( serviceParams, c );
+  
+  serviceParams.render = _.template( c.layout.replace( '<%- content %>', fs.readFileSync( __dirname + '/canvas.ejs', 'utf-8' ) ), {
+    imports: _.pick( serviceParams, [ 'frontAppPath' ] )
+  } );
 
-  const exists = await knex.schema.hasTable( c.schema );
+
+  serviceParams.validate = ( new FormSchema( surveySchema ) ).getValidate();
+
+  const exists = await serviceParams.knex.schema.hasTable( c.schema );
 
   if ( !exists ) {
 
-    await knex.schema.createTable( schema, table => {
+    await serviceParams.knex.schema.createTable( c.schema, table => {
       table.increments();
       table.json( 'store' );
       table.timestamps();
@@ -38,6 +57,7 @@ async function create( data ) {
 
   const createdAt = new Date;
   const updatedAt = new Date;
+  const { knex, schema } = serviceParams;
 
   const [ insertId ] = await knex( schema ).insert( {
     store: JSON.stringify( data ),
@@ -53,11 +73,43 @@ async function create( data ) {
 
 }
 
+app.get( '/', ( req, res, next ) => {
+
+  res.send( serviceParams.render({
+    config: JSON.stringify( {
+      lang: _.get( req, 'lang', 'en' ),
+      res: {
+        redirect : 'http://localhost:3000/redirected'
+      },
+      schema: surveySchema
+    } )
+  } ) );
+
+} );
+
 app.post( '/', bodyParser.json(), async ( req, res, next ) => {
 
-  console.log( 'this was posted', req.body );
+  let clean;
 
-  await create( req.body );
+  try {
+
+    clean = serviceParams.validate( req.body );
+
+  } catch ( e ) {
+
+    return res.status( 400 ).json( {
+      errors: e
+    } );
+
+  }
+
+  if ( serviceParams.decorateKey ) {
+
+    _.extend( clean, _.get( req, serviceParams.decorateKey, {} ) );
+
+  }
+
+  await create( clean );
 
   res.json( 200 );
 

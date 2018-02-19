@@ -11,6 +11,7 @@ import { flatten, post } from './helpers';
 
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
+import labels from '@openagenda/labels/surveys';
 
 const Field = require( './Field' );
 
@@ -22,7 +23,8 @@ export default class FormSchemaComponent extends Component {
 
     this.state = {
       labels: {
-        errors: flattenLabels( errorLabels, this.props.lang )
+        errors: flattenLabels( errorLabels, this.props.lang ),
+        main: flattenLabels( labels, this.props.lang )
       },
       values: {}, // values by field
       errors: {}, // errors by field
@@ -40,13 +42,13 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.validate( this.state.values );
 
-    if ( errors ) {
+    if ( _.keys( errors ).length ) {
 
       return this.setState( { errors } );
 
     }
 
-    sa.post( this.props.res.post, clean ).then( res => {
+    sa.post( _.get( this.props.res, 'post', '' ), clean ).then( res => {
 
       if ( res.statusCode === 200 ) {
 
@@ -85,8 +87,6 @@ export default class FormSchemaComponent extends Component {
     } catch ( errors ) {
 
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
-
-        console.log( e );
 
         errors[ e.field ] = _.get( this.state.labels.errors, e.code, e.message );
 
@@ -131,9 +131,11 @@ export default class FormSchemaComponent extends Component {
 
     if ( submitted ) {
 
-      return <div>
-        <span>Done!</span>
-        <button onClick={this.onSubmitConfirm}>Ok</button>
+      return <div className="text-center">
+        <div className="padding-all-sm">
+          <span>{this.state.labels.main.confirmation}</span>
+        </div>
+        <button className="btn btn-primary" onClick={this.onSubmitConfirm}>{this.state.labels.main.done}</button>
       </div>
 
     }
@@ -160,4 +162,10 @@ export default class FormSchemaComponent extends Component {
 
   }
 
+}
+
+FormSchemaComponent.defaultPropTypes = {
+  res: {
+    post: ''
+  }
 }
