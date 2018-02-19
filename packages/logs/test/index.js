@@ -40,7 +40,7 @@ describe( 'logs', () => {
     it( 'log with logentries + debug', () => {
 
       logs.init( {
-        token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
+        token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       } );
 
       const transportDebug = logs.getTransports().debug;
@@ -196,7 +196,7 @@ describe( 'logs', () => {
 
       logs.init( {
         debug: { prefix: 'oa:' },
-        token: '2624667a-1903-4d21-8d5d-ea14b86409aa'
+        token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'
       } );
 
       const log = logs( 'test' );

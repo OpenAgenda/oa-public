@@ -14,7 +14,6 @@
   "dependencies": {
     "@openagenda/le_node": "^1.7.3",
     "debug": "^2.2.0",
-    "le_node": "^1.7.1",
     "lodash": "^4.17.4",
     "winston": "^2.3.1"
   },
