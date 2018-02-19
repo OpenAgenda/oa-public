@@ -46,7 +46,7 @@
     "@openagenda/inboxes": "^1.0.2",
     "@openagenda/invitations": "^1.0.1",
     "@openagenda/keys": "^2.0.0",
-    "@openagenda/labels": "^2.0.16",
+    "@openagenda/labels": "^2.0.44",
     "@openagenda/landing": "^1.1.0",
     "@openagenda/logger": "^0.0.2",
     "@openagenda/logs": "^1.0.6",

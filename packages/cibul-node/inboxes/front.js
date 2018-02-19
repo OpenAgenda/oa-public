@@ -84,6 +84,54 @@ app.use( '/home/inbox',
   }
 );
 
+app.use( '/support',
+  preMw,
+  cmn.loadBaseData( 'oasfmain.css' ),
+  ( req, res, next ) => {
+    inboxAppsMw.matchApp(
+      {
+        state: {
+          user: req.user,
+          settings: {
+            context: 'user',
+            prefix: req.baseUrl,
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20,
+            creationDesc: getLabel( 'supportInboxDesc', req.lang ),
+            // displayHelp: true,
+            hideEmptyList: true, // redirect on creation if the list is empty
+            allowCreateConversation: true, // show creation button
+            topListForm: true,
+            defaultQuery: {
+              type: 'support',
+              destinationInbox: {
+                type: 'support',
+                identifier: 1
+              }
+            }
+          },
+          res: {
+            author: '/home/inbox/author.json',
+            conversations: {
+              create: '/home/inbox/conversations.json',
+              list: '/home/inbox/conversations.json',
+              action: '/home/inbox/conversations/:conversationId/action/:code.json',
+              resume: '/home/inbox/conversations/:conversationId/resume.json'
+            },
+            messages: {
+              list: '/home/inbox/conversations/:conversationId/messages.json',
+              create: '/home/inbox/conversations/:conversationId/messages.json'
+            }
+          }
+        }
+      },
+      req.baseUrl,
+      getApp( 'inboxes/user' )
+    )( req, res, next );
+  }
+);
+
 app.use( '/:slug/admin/inbox',
   preMw,
   oldAgendaLoad( 'slug' ),

@@ -1,0 +1,154 @@
+"use strict";
+
+const express = require( 'express' );
+const bodyParser = require( 'body-parser' );
+const morgan = require( 'morgan' );
+const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
+const sessions = require( '@openagenda/sessions' );
+const cmn = require( '../lib/commons-app' );
+const errorLogger = require( '../services/00_errors' );
+const config = require( '../config' );
+
+
+const supportRouter = express.Router( { mergeParams: true } );
+
+module.exports = supportRouter;
+
+
+if ( __DEVELOPMENT__ ) {
+  supportRouter.use( morgan( 'dev' ) );
+}
+
+const preMw = [
+  cmn.loadLogger( 'inboxes/back' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
+  sessions.middleware.load( { detailed: true } ),
+  bodyParser.urlencoded( { extended: true } ),
+  bodyParser.json(),
+  ( req, res, next ) => {
+    req.type = 'support';
+    req.identifier = 1;
+    req.creatorInboxUser = { userUid: req.user.uid };
+    next();
+  },
+  cmn.requireAdmin
+];
+
+supportRouter.get( '/conversations/:conversationId/action/:code.json',
+  preMw,
+  inboxMw.conversations.action( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      userUid: 'user.uid',
+      code: 'params.code'
+    }
+  } ),
+  errorHandler
+);
+
+supportRouter.get( '/conversations/:conversationId/resume.json',
+  preMw,
+  inboxMw.conversations.resume( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      userUid: 'user.uid'
+    }
+  } ),
+  errorHandler
+);
+
+supportRouter.get( '/conversations/:conversationId/messages.json',
+  preMw,
+  inboxMw.messages.list( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      userUid: null
+    },
+    limit: 20
+  } ),
+  errorHandler
+);
+
+supportRouter.post( '/conversations/:conversationId/messages.json',
+  preMw,
+  inboxMw.messages.create( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      body: 'body.body',
+      userUid: 'user.uid'
+    }
+  } ),
+  errorHandler
+);
+
+supportRouter.get( '/conversations.json',
+  preMw,
+  ( req, res, next ) => {
+    inboxMw.conversations.list( {
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier'
+      },
+      limit: req.query.limit || 20
+    } )( req, res, next );
+  },
+  errorHandler
+);
+
+supportRouter.post( '/conversations.json',
+  preMw,
+  inboxMw.conversations.create( {
+    namespaces: {
+      type: 'type',
+      identifier: 'identifier',
+      destinationInbox: 'body.destinationInbox',
+      conversationType: 'body.type',
+      conversationTypeIdentifier: 'body.typeIdentifier',
+      params: 'body.params',
+      message: 'body.message',
+      creatorInboxUser: 'creatorInboxUser'
+    }
+  } ),
+  errorHandler
+);
+
+supportRouter.get( '/author.json',
+  preMw,
+  ( req, res, next ) => {
+    inboxMw.inboxUser.get( {
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier'
+      },
+      fallbackGetter: () => ({
+        name: req.user.name,
+        avatar: req.user.thumbnail || config.aws.defaultImagePath
+      })
+    } )( req, res, next );
+  },
+  errorHandler
+);
+
+/* error handler */
+
+function errorHandler( err, req, res, next ) {
+  if ( err ) {
+    if ( err.name === 'ValidationError' ) {
+      return res.status( 400 ).json( err );
+    }
+    if ( err.code ) {
+      res.status( err.code );
+      return next( err );
+    }
+    errorLogger( 'middleware', err );
+    res.status( 500 ).json( err );
+  }
+}

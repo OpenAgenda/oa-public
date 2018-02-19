@@ -26,7 +26,7 @@
             </div>
           </form>
           <ul class="nav navbar-nav navbar-right js_header_links">
-            <li><a target="_blank" href="//openagenda.zendesk.com"><%= labels.help %></a></li>
+            <li><a target="_blank" href="/support"><%= labels.help %></a></li>
             <li class="js_toggle language-menu js_not_logged js_language_menu" data-toggle="js_languages_menu">
               <a href="#"><%= lang %></a>
               <ul class="dropdown-menu js_languages_menu collapse">

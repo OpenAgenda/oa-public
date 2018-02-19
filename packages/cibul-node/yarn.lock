@@ -790,9 +790,13 @@
     verror "^1.10.0"
     when "^3.7.8"
 
-"@openagenda/labels@^2.0.16", "@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
+"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
   version "2.0.42"
   resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.42.tgz#982a11b170a43422f1541e405330f1816e865dac"
+
+"@openagenda/labels@^2.0.44":
+  version "2.0.44"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.44.tgz#a3dff3e32277b5efad0eedf95a8761a61a0a287d"
 
 "@openagenda/landing@^1.1.0":
   version "1.1.1"

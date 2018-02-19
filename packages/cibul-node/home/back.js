@@ -77,7 +77,9 @@ function matchApp( req, res, next ) {
           apiRoot: `http://localhost:${config.port}`,
           perPageLimit: homeMw.getConfig().mw.limit,
           isNew: req.user.isNew,
-          displayLegacyMessageTab: req.displayLegacyMessageTab
+          displayLegacyMessageTab: req.displayLegacyMessageTab,
+          userId: req.user.id,
+          userUid: req.user.uid
         },
         res: {
           agendas: {

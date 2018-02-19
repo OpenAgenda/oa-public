@@ -1,6 +1,10 @@
 "use strict";
 
-const bodyMw = require( 'body-parser' ).urlencoded( {
+const _ = require( 'lodash' ),
+
+  ReactDOM = require( 'react-dom/server' ),
+
+  bodyMw = require( 'body-parser' ).urlencoded( {
     extended: true,
     limit: 500000
   } ),
@@ -37,28 +41,64 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
 
   agendasSvc = require( '@openagenda/agendas' ),
 
-  routes = {
-    adminIndex: [ 'get', '/', index ],
-    adminSearch: [ 'get', '/search', search ],
-    adminUsers: [ 'get', '/users', getUsers ],
-    adminUserSignInAs: [ 'get', '/users/signin', [
-      _loadUser(),
-      userSignin
-    ] ],
-    adminUserActivate: [ 'get', '/users/activate', [
-      _loadUser(),
-      userActivate
-    ] ],
-    adminUserUpdate: [ 'post', '/users/update', [
-      _loadUser( 'post' ),
-      userUpdate
-    ] ],
-    throwTestError: [ 'get', '/throw', throwTestError ],
-    adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
-    eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
-    eventsDiff: [ 'get', '/eventsdiff', eventsDiff ]
-  };
+  inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
 
+const routes = {
+  adminIndex: [ 'get', '/', index ],
+  adminSearch: [ 'get', '/search', search ],
+  adminUsers: [ 'get', '/users', getUsers ],
+  adminUserSignInAs: [ 'get', '/users/signin', [
+    _loadUser(),
+    userSignin
+  ] ],
+  adminUserActivate: [ 'get', '/users/activate', [
+    _loadUser(),
+    userActivate
+  ] ],
+  adminUserUpdate: [ 'post', '/users/update', [
+    _loadUser( 'post' ),
+    userUpdate
+  ] ],
+  throwTestError: [ 'get', '/throw', throwTestError ],
+  adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
+  eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
+  eventsDiff: [ 'get', '/eventsdiff', eventsDiff ],
+  adminSupport: [ 'get', '/support', [
+    ( req, res, next ) => {
+      inboxAppsMw.matchApp(
+        {
+          state: {
+            user: req.user,
+            settings: {
+              context: 'user',
+              prefix: req.originalUrl,
+              lang: req.lang,
+              apiRoot: `http://localhost:${config.port}`,
+              perPageLimit: 20
+            },
+            res: {
+              author: '/admin/support/author.json',
+              conversations: {
+                create: '/admin/support/conversations.json',
+                list: '/admin/support/conversations.json',
+                action: '/admin/support/conversations/:conversationId/action/:code.json',
+                resume: '/admin/support/conversations/:conversationId/resume.json'
+              },
+              messages: {
+                list: '/admin/support/conversations/:conversationId/messages.json',
+                create: '/admin/support/conversations/:conversationId/messages.json'
+              }
+            }
+          }
+        },
+        req.baseUrl,
+        renderSupportApp()
+      )( req, res, next );
+    }
+  ] ]
+};
+
+const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
 module.exports = path => {
 
@@ -69,6 +109,7 @@ module.exports = path => {
   router.pre( [
     bodyMw,
     cmn.loadBaseData(),
+    sessions.middleware.load(),
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     cmn.requireAdmin
   ] );
@@ -382,28 +423,28 @@ function _searchUsers( req, res ) {
     entries,
     function ( err, rows ) {
 
-    if ( err ) return cmn.catchError( req, res )( err );
-
-    total = rows[ 0 ].total;
-
-    model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, entries, function ( err, rows ) {
-
       if ( err ) return cmn.catchError( req, res )( err );
 
-      cmn.renderJson( req, res, {
-        users: rows.map( function ( row ) {
+      total = rows[ 0 ].total;
 
-          return { uid: row.uid, fullName: row.full_name, email: row.email, is_removed: row.is_removed };
+      model.lib.query( 'select * from user' + where + ' order by created_at desc limit ' + (page - 1) * perPage + ', ' + perPage, entries, function ( err, rows ) {
 
-        } ),
-        page: page,
-        total: total,
-        perPage: perPage
-      } )
+        if ( err ) return cmn.catchError( req, res )( err );
+
+        cmn.renderJson( req, res, {
+          users: rows.map( function ( row ) {
+
+            return { uid: row.uid, fullName: row.full_name, email: row.email, is_removed: row.is_removed };
+
+          } ),
+          page: page,
+          total: total,
+          perPage: perPage
+        } )
+
+      } );
 
     } );
-
-  } );
 
 }
 
@@ -528,3 +569,18 @@ var _layoutData = function ( totals, totalsWeek, totalsMonth ) {
   };
 
 };
+
+function renderSupportApp() {
+  return ( req, res, next, { store, component } ) => {
+    const state = store ? store.getState() : {};
+    const lang = req.lang;
+
+    const content = component ? ReactDOM.renderToString( component ) : '';
+
+    res.send( supportTemplate( {
+      scriptParams: { state },
+      lang,
+      content
+    } ) );
+  };
+}

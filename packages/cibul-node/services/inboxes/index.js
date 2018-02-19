@@ -307,7 +307,8 @@ module.exports.init = async c => {
             } ]
           },
           suggest_location_change: {},
-          contact_member: {}
+          contact_member: {},
+          support: {}
         },
         defaultImagePath: c.aws.defaultImagePath
       } )
