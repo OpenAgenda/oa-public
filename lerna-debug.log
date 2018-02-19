@@ -1,0 +1,21 @@
+0 silly input [ '../OpenAgenda/inboxes' ]
+1 silly flags { _: [ 'import' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   pathToRepo: '../OpenAgenda/inboxes' }
+2 verbose rootPath /home/bertho/oa
+3 info version 2.9.0
+4 silly isInitialized
+5 silly isInitialized true
+6 silly existsSync /home/bertho/oa/VERSION
+7 info versioning independent
+8 silly initialize attempt
+9 silly statSync /home/bertho/OpenAgenda/inboxes
+10 silly getWorkspaceRoot
+11 verbose getWorkspaceRoot /home/bertho/oa
+12 silly existsSync /home/bertho/oa/packages/inboxes
+13 silly getCurrentSHA
+14 verbose getCurrentSHA 8ccbac04e799236787f342ebcad692c07d353ee7
+15 error initialize callback with error
+16 error Error: Local repository has un-committed changes
+16 error     at ImportCommand.initialize (/home/bertho/.config/yarn/global/node_modules/lerna/lib/commands/ImportCommand.js:158:25)

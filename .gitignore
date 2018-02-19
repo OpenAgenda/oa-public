@@ -4,3 +4,4 @@ node_modules
 **/testconfig.js
 **/.cache
 .cache
+lerna-degug.log
