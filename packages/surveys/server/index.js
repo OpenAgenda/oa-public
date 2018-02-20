@@ -66,7 +66,7 @@ async function create( data ) {
   } );
 
   return ih( data, { 
-    id: { $set: insertId },
+    id: { $set: insertId },
     createdAt,
     updatedAt
   } );
