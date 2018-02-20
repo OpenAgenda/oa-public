@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/activity-apps#readme",
   "dependencies": {
-    "@openagenda/activities": "^2.0.5",
+    "@openagenda/activities": "^2.0.6",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/labels": "^2.0.7",
