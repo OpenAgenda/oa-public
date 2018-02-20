@@ -2,13 +2,27 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( sort = null ) => {
+module.exports = ( sorts = null ) => {
 
-  if ( sort ) {
+  sorts = [].concat( sorts );
 
-    const [ field, order ] = sort.split( '.' );
+  if ( sorts.length ) {
 
-    return [ _.set( {}, field + '.order', order ) ];
+    return sorts.map( sort => {
+
+      const split = sort.split( '.' );
+
+      const order = split.pop();
+
+      const field = split.join( '.' );
+
+      const dslOrderItem = {};
+
+      dslOrderItem[ field ] = { 'order': order };
+
+      return dslOrderItem;
+
+    } );
 
   }
 

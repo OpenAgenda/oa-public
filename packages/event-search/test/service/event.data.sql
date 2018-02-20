@@ -267,7 +267,8 @@ INSERT INTO `${schema}` (
 (
   22, 22, 65570947, 21475128, 8896048, 
   'new_york_event',
-  '{"fr":"Other_Timezone_Horaires: un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', '{}', 
+  '{"fr":"Other_Timezone_Horaires: un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', 
+  '{"fr" : [ "lieu" ], "en" : [] }',
   NULL, '{}', 0, 0, 'America/New_York', 
   '[{"begin":"2016-10-24T12:00:00.000Z","end":"2016-10-24T13:00:00.000Z"}]', 
   '{"mi":true,"hi":true,"pi":true,"vi":false,"sl":true}', 
@@ -281,7 +282,8 @@ INSERT INTO `${schema}` (
 (
   23, 23, 797897, 796789, 83357467,
   'quimper_event',
-  '{"fr":"Cet événement ne se déroule pas à Paris"}','{"fr":"Cet événement ne se déroule pas à Paris"}','{"fr":"Cet événement ne se déroule pas à Paris"}','{"fr" : [ "prise", "panneau" ], "en" : [ "ouest", "poster" ] }',
+  '{"fr":"Cet événement ne se déroule pas à Paris"}','{"fr":"Cet événement ne se déroule pas à Paris"}','{"fr":"Cet événement ne se déroule pas à Paris"}',
+  '{"fr" : [ "prise", "panneau", "lieu" ], "en" : [ "ouest", "poster" ] }',
   NULL, '{}', 0, 0, 'Europe/Paris',
   '[{"begin":"2010-04-01T14:00:00.000Z","end":"2010-04-01T18:00:00.000Z"},{"begin":"2010-04-01T22:00:00.000Z","end":"2010-04-01T23:30:00.000Z"}]', 
   '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
@@ -290,7 +292,8 @@ INSERT INTO `${schema}` (
 (
   24, 24, 797897, 796789, 78656126,
   'evenement_suisse',
-  '{"fr":"Boire à la montagne"}','{"fr":"Boire à la montagne"}','{"fr":"Boire à la montagne"}','{"fr" : [], "en" : [] }',
+  '{"fr":"Boire à la montagne"}','{"fr":"Boire à la montagne"}','{"fr":"Boire à la montagne"}',
+  '{"fr" : [ "lieu" ], "en" : [] }',
   NULL, '{}', 0, 0, 'Europe/Zurich',
   '[{"begin":"2010-04-01T14:00:00.000Z","end":"2010-04-01T18:00:00.000Z"},{"begin":"2010-04-01T22:00:00.000Z","end":"2010-04-01T23:30:00.000Z"}]', 
   '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
@@ -299,7 +302,8 @@ INSERT INTO `${schema}` (
 (
   100000, 100000, 789114, 7678114, 65918542,
   'rhone_region_event',
-  '{"fr":"Un événement dans une region"}','{"fr":"Un événement dans une region"}','{"fr":"Un événement dans une region"}','{}',
+  '{"fr":"Un événement dans une region"}','{"fr":"Un événement dans une region"}','{"fr":"Un événement dans une region"}',
+  '{"fr" : [ "lieu" ], "en" : [] }',
   NULL, '{}', 0, 0, 'Europe/Paris',
   '[{"begin":"2010-04-01T14:00:00.000Z","end":"2010-04-01T18:00:00.000Z"}]',
   '{}',

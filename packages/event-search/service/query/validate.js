@@ -110,10 +110,14 @@ module.exports = schema( {
     type: 'choice',
     options: [ 
       'updatedAt.desc',
-      'updatedAt.asc'
+      'updatedAt.asc',
+      'location.name.asc',
+      'location.city.asc',
+      'location.name.desc',
+      'location.city.desc'
     ],
     optional: true,
-    unique: true,
+    unique: false,
     default: null
   }
 } );

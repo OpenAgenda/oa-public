@@ -172,7 +172,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'country code search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { countryCode: 'CH' } );
+      let { events, total } = await service( 'simple_search' ).search( { countryCode: 'CH' } );
 
       total.should.equal( 1 )
 
@@ -183,7 +183,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'keyword search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { keyword: 'word' } );
+      let { events, total } = await service( 'simple_search' ).search( { keyword: 'word' } );
 
       total.should.equal( 1 );
 
@@ -194,7 +194,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'keywords search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { keyword: [ 'autre', 'clé' ] } );
+      let { events, total } = await service( 'simple_search' ).search( { keyword: [ 'autre', 'clé' ] } );
 
       total.should.equal( 1 );
 
@@ -205,7 +205,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'lang search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { lang: 'de' } );
+      let { events, total } = await service( 'simple_search' ).search( { lang: 'de' } );
 
       total.should.equal( 1 );
 
@@ -216,7 +216,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'region search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { region: 'Auvergne-Rhône-Alpes' } );
+      let { events, total } = await service( 'simple_search' ).search( { region: 'Auvergne-Rhône-Alpes' } );
 
       total.should.equal( 1 );
 
@@ -227,7 +227,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'regions search', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { region: [ 'Auvergne-Rhône-Alpes', 'New York' ] } );
+      let { events, total } = await service( 'simple_search' ).search( { region: [ 'Auvergne-Rhône-Alpes', 'New York' ] } );
 
       total.should.equal( 2 );
 
@@ -244,7 +244,7 @@ describe( 'event search - functional: search', function() {
           keyword: 'local_time'
         }
 
-        let { total } = await service( 'simple_search' ).search( query );
+        let { total } = await service( 'simple_search' ).search( query );
 
         total.should.equal( 2 );
 
@@ -259,7 +259,7 @@ describe( 'event search - functional: search', function() {
           }
         };
 
-        let { total } = await service( 'simple_search' ).search( query );
+        let { total } = await service( 'simple_search' ).search( query );
 
         total.should.equal( 0 );
 
@@ -571,7 +571,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'geolocation filtering', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { 
+      let { events, total } = await service( 'simple_search' ).search( { 
         geo: {
           northEast: {
             lat: 50,
@@ -593,7 +593,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'sorting can show in order upcoming first and past second, then nearest from now first', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié' } );
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié' } );
 
       total.should.equal( 5 );
 
@@ -636,10 +636,46 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    it( 'sorting works as an array as well: descending on city name', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        keyword: 'lieu',
+        sort: [
+          'location.city.desc'
+        ]
+      }, {}, { detailed: true } );
+
+      events.map( e => _.pick( e, [ 'location.city' ] ).location.city ).should.eql( [
+        'Valence',
+        'Quimper',
+        'New York',
+        'Grandson'
+      ] );
+
+    } );
+
+    it( 'sorting works as an array as well: ascending on city name', async () => {
+
+      let { events, total } = await service( 'simple_search' ).search( {
+        keyword: 'lieu',
+        sort: [
+          'location.city.asc'
+        ]
+      }, {}, { detailed: true } );
+
+      events.map( e => _.pick( e, [ 'location.city' ] ).location.city ).should.eql( [
+        'Grandson',
+        'New York',
+        'Quimper',
+        'Valence'
+      ] );
+
+    } );
+
 
     it( 'navigate using from & size returns expected number of events', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
+      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
 
       events.length.should.equal( 4 );
 
@@ -648,7 +684,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'navigate using from & size maintains order', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
+      let { events, total } = await service( 'simple_search' ).search( {}, { from: 0, size: 4 } );
 
       let fourth = events[ 3 ].uid;
 
