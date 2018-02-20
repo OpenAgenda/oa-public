@@ -361,7 +361,7 @@ describe( 'event search - functional: search', function() {
           }
         }
 
-        let { total, events } = await service( 'simple_search' ).search( query );
+        let { total, events } = await service( 'simple_search' ).search( query );
 
         total.should.equal( 1 );
 
@@ -771,10 +771,10 @@ describe( 'event search - functional: search', function() {
     it( 'events from a specific agenda can be retrieved based on the agenda uid', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( {
-        agendaUid : 7678675
+        agendaUid : 21475128
       }, {}, { detailed: true } );
 
-      events[ 0 ].agenda.uid.should.equal( 7678675 );
+      events[ 0 ].agenda.uid.should.equal( 21475128 );
 
     } );
 

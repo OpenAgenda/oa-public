@@ -89,9 +89,9 @@ describe( 'event search - functional: search', function() {
 
       let { aggregations, events } = await service( 'simple_search' ).search( {
         keyword: 'word'
-      }, { size: 2 }, {
+      }, { size: 2 }, {
         detailed: true, // timings is not part of standard, if timespan is 
-        aggregations: [ { type: 'timespan' } ]
+        aggregations: [ { type: 'timespan' } ]
       } );
 
       JSON.stringify( aggregations ).should.eql( '{"timespan":{"first":"2010-04-01T14:00:00.000Z","last":"2010-04-01T22:00:00.000Z"}}' );
@@ -145,60 +145,21 @@ describe( 'event search - functional: search', function() {
       } ) );
 
       let { aggregations } = await service( 'simple_search' ).search( {
-        'agendaUid' : [ '21475128', '796789' ]
+        'agendaUid' : [ 7678678, 21475128 ]
       }, { size: 0 }, {
         aggregations: 'agendas'
       } );
 
-      aggregations.agendas.should.eql( [
-        {
-          "key": "796789",
-          "count": 3,
-          "agenda": {
-            "uid": "796789",
-            "title": "LA DAME DE CANTON",
-            "image": ""
-          }
-        },
-        {
-          "key": "796789",
-          "count": 2,
-          "agenda": {
-            "uid": "796789",
-            "title": "Le Batofar",
-            "image": ""
-          }
-        },
-        {
-          "key": "796789",
-          "count": 2,
-          "agenda": {
-            "uid": "796789",
-            "title": "Petit Bain",
-            "image": ""
-          }
-        },
-        {
-          "key": "21475128",
-          "count": 1,
-          "agenda": {
-            "uid": "21475128",
-            "title": "LA DAME DE CANTON",
-            "image": ""
-          }
-        },
-        {
-          "key": "21475128",
-          "count": 1,
-          "agenda": {
-            "uid": "21475128",
-            "title": "Le Batofar",
-            "image": ""
-          }
-        }
-      ] );
+      aggregations.agendas.should.eql( [ {
+        key: '21475128',
+        count: 2,
+        agenda: {
+          uid: '21475128', 
+          title: 'France Handball 2017'
+        } 
+      } ] );
 
-    } )
+    } );
 
   } );
 
