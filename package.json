@@ -10,6 +10,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "preversion": "echo 'PREVERSION SCRIPT' && exit 0"
+  },
   "devDependencies": {
     "lerna": "^2.9.0"
   }
