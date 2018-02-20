@@ -48,7 +48,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             message: null,
             type: 2,
             useFields: false,
-            authorizedIPAddresses: []
+            authorizedIPAddresses: [],
+            survey: false
           },
           translation: {
             enabled: false,
@@ -226,7 +227,8 @@ describe( 'agendas - functional (server): set (update)', function() {
               message: null,
               type: 2,
               useFields: false,
-              authorizedIPAddresses: []
+              authorizedIPAddresses: [],
+              survey: false
             },
             translation: {
               enabled: false,

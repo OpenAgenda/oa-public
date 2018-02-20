@@ -60,9 +60,15 @@ module.exports = {
         default: false
       },
       authorizedIPAddresses: {
+        // if set, only those IPs should be allowed to access the agenda edition and contribution pages
         type: 'ip',
         list: true,
         default: []
+      },
+      survey: {
+        // survey allows for a survey to be given at the end of the contribution process
+        type: 'boolean',
+        default: false
       }
     },
     translation: {

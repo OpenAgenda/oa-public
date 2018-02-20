@@ -48,7 +48,8 @@ describe( 'agendas - unit (server): validate', () => {
             message: null,
             type: 2,
             useFields: false,
-            authorizedIPAddresses: []
+            authorizedIPAddresses: [],
+            survey: false
           },
           translation: {
             enabled: false,
@@ -168,7 +169,8 @@ describe( 'agendas - unit (server): validate', () => {
             message: null,
             type: 2,
             useFields: false,
-            authorizedIPAddresses: []
+            authorizedIPAddresses: [],
+            survey: false
           },
           translation: {
             enabled: false,
