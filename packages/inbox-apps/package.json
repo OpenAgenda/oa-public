@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inbox-apps",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "main": "index.js",
   "repository": "bertho-zero@bitbucket.org:openagenda/inbox-apps.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -12,22 +12,17 @@
     "watch-server": "nodemon -w test/app -w lib -w ../inboxes test/app",
     "fixtures": "node test/app/fixtures",
     "test": "jest --coverage --forceExit",
-    "test:watch": "npm test -- --watch",
+    "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A lib",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "preversion": "yarn test",
+    "prepublish": "yarn build"
   },
   "peerDependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "dependencies": {
-    "@openagenda/dom-utils": "^2.0.0",
+    "@openagenda/dom-utils": "^2.1.4",
     "@openagenda/labels": "^2.0.47",
     "@openagenda/logs": "^1.0.1",
     "@openagenda/react-components": "^2.0.0",
@@ -89,7 +84,6 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.1",
-    "husky": "^0.14.3",
     "jest": "^22.1.4",
     "jest-enzyme": "^4.1.1",
     "morgan": "^1.9.0",

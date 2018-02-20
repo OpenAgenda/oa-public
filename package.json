@@ -6,7 +6,16 @@
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "OpenAgenda Dev Team",
   "license": "See license.txt",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "devDependencies": {
-    "lerna": "^2.8.0"
+    "husky": "^0.14.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run precommit --since --stream"
+    }
   }
 }
