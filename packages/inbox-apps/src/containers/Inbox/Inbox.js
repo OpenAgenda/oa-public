@@ -1,0 +1,272 @@
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
+import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-connect';
+import { getContext } from 'recompose';
+import Waypoint from 'react-waypoint';
+import Spinner from '@openagenda/react-components/build/Spinner';
+import nl2br from '@openagenda/react-utils/dist/nl2br';
+import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
+import * as inboxActions from '../../redux/modules/inbox';
+import * as conversationActions from '../../redux/modules/conversation';
+import * as conversationFormActions from '../../redux/modules/conversationForm';
+import * as modalActions from '../../redux/modules/modals';
+import removeTrailingSlash from '../../utils/removeTrailingSlash';
+import setFlashMessage from '../../utils/setFlashMessage';
+import { SubmissionError } from "redux-form";
+
+@asyncConnect( [ {
+  key: 'inbox', // key is usefull for the redirection
+  promise: ( { store: { dispatch, getState }, helpers: { redirect } } ) => {
+    const state = getState();
+    const location = state.routing.locationBeforeTransitions;
+
+    const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
+    const query = focusFistConversation ? { limit: 1 } : {};
+
+    return dispatch( inboxActions.load( query ) )
+      .then( async result => {
+
+        if ( topListForm && !conversationActions.isAuthorLoaded( state ) ) {
+          await dispatch( conversationActions.loadAuthor() );
+        }
+
+        if ( location.state && location.state.showListAllowed ) {
+          return;
+        }
+
+        if ( (hideEmptyList) && result.conversations && !result.conversations.length ) {
+          return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+        }
+
+        if ( focusFistConversation ) {
+          if ( result.conversations && !result.conversations.length ) {
+            return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+          } else if ( result.conversations && result.conversations.length && !result.conversations[ 0 ].resolvedAt ) {
+            return redirect( `${removeTrailingSlash( prefix )}/conversation/${result.conversations[ 0 ].id}` );
+          }
+        }
+
+      } );
+  }
+} ] )
+@connect(
+  state => ({
+    initialValues: state.settings.defaultQuery,
+    settings: state.settings,
+    user: state.user,
+    conversations: state.inbox.data,
+    loading: state.inbox.loading,
+    nextLoading: state.inbox.nextLoading,
+    lastPage: state.inbox.lastPage,
+    author: state.conversation.author
+  }),
+  { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions }
+)
+@getContext( {
+  getLabel: PropTypes.func
+} )
+export default class Inbox extends Component {
+  constructor( props ) {
+    super( props );
+    this.FromWrapper = ::this.FromWrapper;
+    this.renderCreationButton = ::this.renderCreationButton;
+  }
+
+  FromWrapper( { handleSubmit, error, children } ) {
+    const { getLabel, settings, author } = this.props;
+    const { belowMessageDesc } = settings;
+
+    return (
+      <form onSubmit={handleSubmit} className="conversation-form margin-bottom-md">
+        {children}
+
+        {error ? <p className="text-danger">{error}</p> : null}
+
+        {author.inbox && author.inbox.type !== 'user' && author.inboxUser
+          ? <div className="margin-bottom-sm">
+            {getLabel( 'yourMessageWillBeSigned' )} <b>{author.inbox.name}</b>
+          </div>
+          : null}
+
+        {belowMessageDesc
+          ? <div className="margin-bottom-xs" dangerouslySetInnerHTML={{ __html: belowMessageDesc }}/>
+          : null}
+
+        <button type="submit" className="btn btn-primary margin-top-xs">{getLabel( 'send' )}</button>
+      </form>
+    );
+  }
+
+  nextPage = () => {
+    const { lastPage, loading, nextLoading, conversations } = this.props;
+
+    if (
+      !conversations || !conversations.length
+      || loading || nextLoading
+      || lastPage
+    ) {
+      return;
+    }
+
+    this.props.nextPage();
+  };
+
+  throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
+
+  renderCreationButton( { unresolvedConvs } ) {
+    const { settings, router, getLabel } = this.props;
+    const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
+
+    const creationButton = (
+      <LinkContainer to="/conversation/create">
+        {path => (
+          <button
+            className="btn btn-info btn-creation pull-right"
+            onClick={() => router.push( path )}
+          >
+            {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
+          </button>
+        )}
+      </LinkContainer>
+    );
+
+    if ( allClosedForCreate && unresolvedConvs.length ) {
+      return null;
+    }
+
+    return allowCreateConversation && !topListForm ? creationButton : null;
+  }
+
+  render() {
+    const {
+      conversations, nextLoading, router, getLabel, showModal,
+      createConversation, author, initialValues, settings, user
+    } = this.props;
+
+    const {
+      ContentWrapper, topListForm, prefix, emptyInboxLabel,
+      creationSubtitle, maskCreationSubtitle, creationDesc,
+      onConversationCreateRedirect, onConversationCreateFlash,
+      displayHelp, allowCreateConversation, focusFistConversation
+    } = settings;
+
+    const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
+
+    const content = (
+      <Fragment>
+        <div className="inbox-head">
+          {this.renderCreationButton( { unresolvedConvs } )}
+
+          {displayHelp ? (
+            <a
+              title={getLabel( 'needHelp' )}
+              target="_blank"
+              href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
+              className="pull-right"
+            >
+              <i className="fa fa-question-circle"></i>
+            </a>
+          ) : null}
+
+          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) && !maskCreationSubtitle
+            ? (
+              <Breadcrumb
+                breadParts={[ {
+                  component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
+                } ]}
+                disableFirstPartLink
+              />
+            ) : <Breadcrumb/>}
+        </div>
+
+        {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) ? <Fragment>
+          {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
+
+          <div className="media">
+            <div className="media-left">
+              <AuthorAvatar author={author}/>
+            </div>
+            <div className="media-body">
+              <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
+
+              <ConversationForm
+                form="inbox-conversation-create"
+                onSubmit={data => createConversation( data )
+                  .then( async result => {
+                    if ( onConversationCreateRedirect ) {
+                      if ( onConversationCreateFlash ) {
+                        setFlashMessage( onConversationCreateFlash );
+                      }
+
+                      window.location.href = onConversationCreateRedirect;
+                    } else {
+                      const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
+                      router.push( url );
+
+                      if ( onConversationCreateFlash ) {
+                        showModal( 'messageSent', { message: onConversationCreateFlash } );
+                      } else {
+                        showModal( 'messageSent' );
+                      }
+                    }
+
+                    return result;
+                  } )
+                  .catch( () => {
+                    throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
+                  } )
+                }
+                initialValues={initialValues}
+                Wrapper={this.FromWrapper}
+              />
+            </div>
+          </div>
+        </Fragment> : null}
+
+        {conversations && conversations.length ? <h4 className="margin-bottom-md">
+          {getLabel( !unresolvedConvs.length ? 'pastConversations' : 'ongoingConversations' )}
+        </h4> : null}
+
+        {!unresolvedConvs.length
+          ? <ConversationList conversations={resolvedConvs} user={user}/>
+          : <ConversationList conversations={unresolvedConvs} user={user}/>}
+
+        {unresolvedConvs.length && resolvedConvs.length ? <Fragment>
+          <h4 className="margin-bottom-md">
+            {getLabel( 'pastConversations' )}
+          </h4>
+
+          <ConversationList conversations={resolvedConvs} user={user}/>
+        </Fragment> : null}
+
+        {/*{conversations && conversations.length ? <ConversationList conversations={conversations}/> : null}*/}
+
+        {!conversations || !conversations.length ?
+          <div className="padding-v-md">
+            {nl2br( emptyInboxLabel ? emptyInboxLabel : getLabel( 'noResult' ) )}
+          </div> :
+          null}
+
+        {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner/>
+        </div>}
+
+        <Waypoint onEnter={this.throttledNextPage}/>
+      </Fragment>
+    );
+
+    return ContentWrapper
+      ? <ContentWrapper>{content}</ContentWrapper>
+      : content;
+  }
+};
+
+function getAuthorName( obj ) {
+  if ( obj.inboxUser ) {
+    return obj.inboxUser.name;
+  }
+
+  return obj.inbox.name;
+}

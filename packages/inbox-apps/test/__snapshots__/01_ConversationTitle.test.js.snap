@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`conversation of type contact_form context agenda created by me 1`] = `"Vous avez contacté l'agenda"`;
+
+exports[`conversation of type contact_form context agenda created by someone else 1`] = `"Yacine Bensalem - OpenAgenda a contacté l'agenda"`;
+
+exports[`conversation of type contact_form context user created by me 1`] = `"Vous avez contacté l'agenda Test convs 12622"`;
+
+exports[`conversation of type contact_form context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda a contacté l'agenda Test convs 12622"`;
+
+exports[`conversation of type contact_member context agenda created by me 1`] = `"Vous avez contacté Kaoré - OpenAgenda"`;
+
+exports[`conversation of type contact_member context agenda created by someone else, destinated to me 1`] = `"Romain Lange - OpenAgenda vous a contacté"`;
+
+exports[`conversation of type contact_member context agenda created by someone else, destinated to other 1`] = `"Romain Lange - OpenAgenda a contacté Kaoré - OpenAgenda"`;
+
+exports[`conversation of type contact_member context user created by me 1`] = `"Vous avez contacté Kévin Berthommier - OpenAgenda sur l'agenda Journées européennes du patrimoine 2016 (version simplifiée)"`;
+
+exports[`conversation of type contact_member context user created by someone else, destinated to me 1`] = `"Romain Lange - OpenAgenda vous a contacté sur l'agenda Journées européennes du patrimoine 2016 (version simplifiée)"`;
+
+exports[`conversation of type contact_member context user created by someone else, destinated to other 1`] = `"Romain Lange - OpenAgenda a contacté Kaoré - OpenAgenda sur l'agenda Journées européennes du patrimoine 2016 (version simplifiée)"`;
+
+exports[`conversation of type edition_request context agenda created by me 1`] = `"Vous avez demandé les droits d'édition sur Traitement de texte niveau 1"`;
+
+exports[`conversation of type edition_request context agenda created by someone else 1`] = `"Kaoré - OpenAgenda a demandé les droits d'édition sur Traitement de texte niveau 1"`;
+
+exports[`conversation of type edition_request context event created by me 1`] = `"Vous avez demandé les droits d'édition"`;
+
+exports[`conversation of type edition_request context event created by someone else 1`] = `"Kaoré - OpenAgenda a demandé les droits d'édition"`;
+
+exports[`conversation of type edition_request context user created by me 1`] = `"Vous avez demandé les droits d'édition sur Traitement de texte niveau 1 de l'agenda La Gargouille"`;
+
+exports[`conversation of type edition_request context user created by someone else 1`] = `"La Gargouille a demandé les droits d'édition sur Traitement de texte niveau 1"`;
+
+exports[`conversation of type event context agenda created by me, destinated to contributor 1`] = `"Vous avez contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda sur Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda sur Contactez-moi !"`;
+
+exports[`conversation of type event context agenda created by someone else, destinated to me 1`] = `"Kévin Berthommier - OpenAgenda vous a contacté sur Contactez-moi !"`;
+
+exports[`conversation of type event context event created by me, destinated to a user 1`] = `"Vous avez contacté le contributeur"`;
+
+exports[`conversation of type event context event created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda"`;
+
+exports[`conversation of type event context event created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur"`;
+
+exports[`conversation of type event context event created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda"`;
+
+exports[`conversation of type event context event created by someone else, destinated to me 1`] = `"Test convs 12622 vous a contacté"`;
+
+exports[`conversation of type event context user created by me, destinated to contributor 1`] = `"Vous avez contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context user created by me, destinated to the agenda 1`] = `"Vous avez contacté l'agenda Test convs 12622 sur Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to contributor 1`] = `"Kévin Berthommier - OpenAgenda a contacté le contributeur de Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to contributor+agenda 1`] = `"Romain Lange - OpenAgenda a contacté l'agenda Test convs 12622 sur Contactez-moi !"`;
+
+exports[`conversation of type event context user created by someone else, destinated to me 1`] = `"Kévin Berthommier - OpenAgenda vous a contacté sur Contactez-moi !"`;
+
+exports[`conversation of type request_contribute context agenda created by me 1`] = `"Vous souhaitez contribuer à l'agenda"`;
+
+exports[`conversation of type request_contribute context agenda created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda"`;
+
+exports[`conversation of type request_contribute context user created by me 1`] = `"Vous souhaitez contribuer à l'agenda Test convs 12622"`;
+
+exports[`conversation of type request_contribute context user created by someone else 1`] = `"Yacine Bensalem - OpenAgenda souhaite contribuer à l'agenda Test convs 12622"`;
+
+exports[`conversation of type suggest_location_change context agenda created by me 1`] = `"Vous avez suggeré une modification sur le lieu Stand Grands Terroirs Lot"`;
+
+exports[`conversation of type suggest_location_change context agenda created by someone else 1`] = `"Kaoré - OpenAgenda a suggeré une modification sur le lieu Stand Grands Terroirs Lot"`;
+
+exports[`conversation of type suggest_location_change context user created by me 1`] = `"Vous avez suggeré une modification sur le lieu Stand Grands Terroirs Lot de l'agenda Salon International de l'Agriculture 2018"`;
+
+exports[`conversation of type suggest_location_change context user created by someone else 1`] = `"Kaoré - OpenAgenda a suggeré une modification sur le lieu Stand Grands Terroirs Lot de l'agenda Salon International de l'Agriculture 2018"`;
+
+exports[`conversation of type support created by me 1`] = `"Vous avez contacté le support OpenAgenda"`;
+
+exports[`conversation of type support created by someone else 1`] = `"Déborah Le Bovic a contacté le support OpenAgenda"`;
+
+exports[`returns null 1`] = `""`;

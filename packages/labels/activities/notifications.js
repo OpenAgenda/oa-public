@@ -244,19 +244,19 @@ module.exports = {
 
   'agenda.removeEvent.singSing': {
     en: '%actor% removed %object% from %target%.',
-    fr: '%actor% a supprimé %object% sur %target%.'
+    fr: '%actor% a retiré %object% de %target%.'
   },
   'agenda.removeEvent.singPlur': {
     en: '%actor% removed %object% from %target%.',
-    fr: '%actor% a supprimé %object% sur %target%.'
+    fr: '%actor% a retiré %object% de %target%.'
   },
   'agenda.removeEvent.plurSing': {
     en: '%actor% removed %object% from %target%.',
-    fr: '%actor% ont supprimé %object% sur %target%.'
+    fr: '%actor% ont retiré %object% de %target%.'
   },
   'agenda.removeEvent.plurPlur': {
     en: '%actor% removed %object% from %target%.',
-    fr: '%actor% ont supprimé %object% sur %target%.'
+    fr: '%actor% ont retiré %object% de %target%.'
   },
 
   'event.create.singSing': {

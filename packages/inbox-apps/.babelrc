@@ -1,0 +1,51 @@
+{
+  "presets": [
+    "react",
+    "stage-0",
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "Firefox >= 24",
+            "Chrome >= 33",
+            "Safari >= 9",
+            "IE >= 10"
+          ],
+          "node": "6"
+        }
+      }
+    ]
+  ],
+  "plugins": [
+    "lodash",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-react-jsx-source",
+    "transform-async-to-bluebird",
+    "transform-promise-to-bluebird",
+    "transform-runtime",
+    "add-module-exports"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        [
+          "react-transform",
+          {
+            "transforms": [
+              {
+                "transform": "react-transform-catch-errors",
+                "imports": [
+                  "react",
+                  "redbox-react"
+                ]
+              }
+            ]
+          }
+        ]
+      ]
+    }
+  }
+}

@@ -54,8 +54,8 @@ module.exports = {
     fr: '%user% a dépublié %event% sur %agenda%.'
   },
   'agenda.removeEvent': {
-    en: '%user% removed %event% on %agenda%.',
-    fr: '%user% a supprimé %event% sur %agenda%.'
+    en: '%user% removed %event% from %agenda%.',
+    fr: '%user% a retiré %event% de %agenda%.'
   },
   'event.create': {
     en: '%user% created %event% in the agenda %agenda%.',
