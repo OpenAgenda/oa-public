@@ -4,7 +4,7 @@ const should = require( 'should' ),
 
   config = require( '../testconfig' ),
 
-  events = require( 'events-service/test/service' ),
+  events = require( '@openagenda/events/test/service' ),
 
   service = require( '../' );
 

@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 const config = require( '../testconfig' );
-const events = require( 'events-service/test/service' );
+const events = require( '@openagenda/events/test/service' );
 const service = require( '../' );
 
 describe( 'event-search - functional: rebuild', function() {
@@ -12,12 +12,12 @@ describe( 'event-search - functional: rebuild', function() {
     this.timeout( 10000 );
 
     async function eventsList( offset, limit ) {
-        
+
       return events.list( offset, limit, {
         internal: true,
         detailed: true,
         private: null
-      } ).then( r => r.events );
+      } ).then( r =>  r.events );
 
     }
 

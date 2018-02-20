@@ -5,7 +5,7 @@ const fs = require( 'fs' );
 
 const config = require( '../testconfig' );
 
-const events = require( 'events-service/test/service' );
+const events = require( '@openagenda/events/test/service' );
 const contributors = require( './service/contributors' );
 
 const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );

@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 const config = require( '../testconfig' );
-const events = require( 'events-service/test/service' );
+const events = require( '@openagenda/events/test/service' );
 const service = require( '../' );
 
 describe( 'event search - functional: remove', function() {

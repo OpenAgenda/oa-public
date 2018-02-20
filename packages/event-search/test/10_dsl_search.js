@@ -4,7 +4,7 @@ const should = require( 'should' );
 
 const config = require( '../testconfig' );
 const dslSearch = require( '../service/search' ).dsl;
-const events = require( 'events-service/test/service' );
+const events = require( '@openagenda/events/test/service' );
 const moment = require( 'moment-timezone' );
 const scroll = require( '../service/search' ).scroll;
 const service = require( '../' );

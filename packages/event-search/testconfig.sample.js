@@ -24,7 +24,7 @@ module.exports = {
     },
 
     interfaces: {
-      getOriginAgendas: ( uids, cb ) => {
+      getOriginAgendas: ( uids, options, cb ) => {
 
         cb( null, uids.map( uid => ( {
           uid,
