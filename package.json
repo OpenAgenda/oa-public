@@ -11,11 +11,6 @@
     "packages/*"
   ],
   "devDependencies": {
-    "husky": "^0.14.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lerna run precommit --since --stream"
-    }
+    "lerna": "^2.9.0"
   }
 }
