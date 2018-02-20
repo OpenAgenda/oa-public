@@ -27,9 +27,7 @@ export default function loadApp( options, cb ) {
       window[ params.functionName ]( params );
     }
 
-    if ( cb ) {
-      cb();
-    }
+    if ( cb ) cb();
 
   } );
 
