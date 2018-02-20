@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/tasks/index.js"],"names":["sync"],"mappings":";;;;;;;;;;;;;QAAOA,I","file":"index.js","sourcesContent":["export sync from './sync';\n"]}

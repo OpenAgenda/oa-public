@@ -1,8 +1,12 @@
-.idea
-node_modules
-**/node_modules
-**/testconfig.js
-**/.cache
-.cache
-lerna-debug.log
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
 yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+
+# Only in root directory
+/lerna-debug.log
