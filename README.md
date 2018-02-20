@@ -11,6 +11,7 @@ To add a repo from any other place to here, one must:
  * move test (if exist) on preversion script
  * move build (if exist) on prepublish script
  * add lib (or output build) directory to .gitignore
+ * remove yarn.lock files in packages/*
 
 http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup
 
