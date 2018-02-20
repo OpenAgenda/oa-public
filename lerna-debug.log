@@ -1,0 +1,143 @@
+0 silly input [ '../agendas' ]
+1 silly flags { _: [ 'import' ],
+1 silly flags   'reject-cycles': false,
+1 silly flags   rejectCycles: false,
+1 silly flags   pathToRepo: '../agendas' }
+2 verbose rootPath /home/kaore/Dev/lib/oa
+3 info version 2.8.0
+4 silly isInitialized
+5 silly isInitialized true
+6 silly existsSync /home/kaore/Dev/lib/oa/VERSION
+7 info versioning independent
+8 silly initialize attempt
+9 silly statSync /home/kaore/Dev/lib/agendas
+10 silly getWorkspaceRoot
+11 verbose getWorkspaceRoot /home/kaore/Dev/lib/oa
+12 silly existsSync /home/kaore/Dev/lib/oa/packages/agendas
+13 silly getCurrentSHA
+14 verbose getCurrentSHA d3fc1ca351de81c7c44d63158ade31f1360be7c4
+15 info About to import 117 commits from ../agendas into packages/agendas
+16 silly initialize success
+17 silly execute attempt
+18 info d7bb077
+19 info 4e70049
+20 info 2edc67b
+21 info 8a151c5
+22 info fe16871
+23 info 4c1c15f
+24 info 293a7e9
+25 info e0a5b87
+26 info d2b13f6
+27 info 4913ff1
+28 info 2390089
+29 info 9701a5c
+30 info 58a62bc
+31 info 13a9d97
+32 info b996c79
+33 info 2a53eb1
+34 info b6da054
+35 info 9381456
+36 info fba48eb
+37 info b5ecbd8
+38 info 42ede14
+39 info db6acf2
+40 info ac3e9d8
+41 info 786ebd7
+42 info c415569
+43 info f13ce10
+44 info 4dcb1b5
+45 info 068f568
+46 info e5a0b1d
+47 info 5fc85c6
+48 info 47862a9
+49 info 92e8ebb
+50 info d2f8262
+51 info 96f8d75
+52 info ddae002
+53 info 6552d6c
+54 info afeffe0
+55 info b6186df
+56 info a9a3681
+57 info c5163f5
+58 info 1582ba8
+59 info f79dea6
+60 info 9d62b5e
+61 info 901be63
+62 error import Error: Failed to apply commit 901be63.
+62 error import Command failed: git am -3 --keep-non-patch
+62 error import error: Failed to merge in the changes.
+62 error import Applying: yarn support
+62 error import Using index info to reconstruct a base tree...
+62 error import M	packages/agendas/.gitignore
+62 error import M	packages/agendas/package.json
+62 error import Falling back to patching base and 3-way merge...
+62 error import Auto-merging packages/agendas/package.json
+62 error import CONFLICT (content): Merge conflict in packages/agendas/package.json
+62 error import Auto-merging packages/agendas/.gitignore
+62 error import CONFLICT (content): Merge conflict in packages/agendas/.gitignore
+62 error import Patch failed at 0001 yarn support
+62 error import The copy of the patch that failed is found in: .git/rebase-apply/patch
+62 error import When you have resolved this problem, run "git am --continue".
+62 error import If you prefer to skip this patch, run "git am --skip" instead.
+62 error import To restore the original branch and stop patching, run "git am --abort".
+62 error import
+62 error import Rolling back to previous HEAD (commit d3fc1ca351de81c7c44d63158ade31f1360be7c4).
+62 error import You may try with --flatten to import flat history.
+62 error import     at Promise.all.then.arr (/home/kaore/.nvm/versions/node/v8.9.1/lib/node_modules/lerna/node_modules/execa/index.js:236:11)
+62 error import     at <anonymous>
+62 error import     at process._tickCallback (internal/process/next_tick.js:188:7)
+62 error import  { Error: Failed to apply commit 901be63.
+62 error import Command failed: git am -3 --keep-non-patch
+62 error import error: Failed to merge in the changes.
+62 error import Applying: yarn support
+62 error import Using index info to reconstruct a base tree...
+62 error import M	packages/agendas/.gitignore
+62 error import M	packages/agendas/package.json
+62 error import Falling back to patching base and 3-way merge...
+62 error import Auto-merging packages/agendas/package.json
+62 error import CONFLICT (content): Merge conflict in packages/agendas/package.json
+62 error import Auto-merging packages/agendas/.gitignore
+62 error import CONFLICT (content): Merge conflict in packages/agendas/.gitignore
+62 error import Patch failed at 0001 yarn support
+62 error import The copy of the patch that failed is found in: .git/rebase-apply/patch
+62 error import When you have resolved this problem, run "git am --continue".
+62 error import If you prefer to skip this patch, run "git am --skip" instead.
+62 error import To restore the original branch and stop patching, run "git am --abort".
+62 error import
+62 error import Rolling back to previous HEAD (commit d3fc1ca351de81c7c44d63158ade31f1360be7c4).
+62 error import You may try with --flatten to import flat history.
+62 error import     at Promise.all.then.arr (/home/kaore/.nvm/versions/node/v8.9.1/lib/node_modules/lerna/node_modules/execa/index.js:236:11)
+62 error import     at <anonymous>
+62 error import     at process._tickCallback (internal/process/next_tick.js:188:7)
+62 error import   stack: 'Error: Failed to apply commit 901be63.\nCommand failed: git am -3 --keep-non-patch\nerror: Failed to merge in the changes.\nApplying: yarn support\nUsing index info to reconstruct a base tree...\nM\tpackages/agendas/.gitignore\nM\tpackages/agendas/package.json\nFalling back to patching base and 3-way merge...\nAuto-merging packages/agendas/package.json\nCONFLICT (content): Merge conflict in packages/agendas/package.json\nAuto-merging packages/agendas/.gitignore\nCONFLICT (content): Merge conflict in packages/agendas/.gitignore\nPatch failed at 0001 yarn support\nThe copy of the patch that failed is found in: .git/rebase-apply/patch\nWhen you have resolved this problem, run "git am --continue".\nIf you prefer to skip this patch, run "git am --skip" instead.\nTo restore the original branch and stop patching, run "git am --abort".\n\nRolling back to previous HEAD (commit d3fc1ca351de81c7c44d63158ade31f1360be7c4).\nYou may try with --flatten to import flat history.\n    at Promise.all.then.arr (/home/kaore/.nvm/versions/node/v8.9.1/lib/node_modules/lerna/node_modules/execa/index.js:236:11)\n    at <anonymous>\n    at process._tickCallback (internal/process/next_tick.js:188:7)',
+62 error import   code: 128,
+62 error import   killed: false,
+62 error import   stdout: 'Applying: yarn support\nUsing index info to reconstruct a base tree...\nM\tpackages/agendas/.gitignore\nM\tpackages/agendas/package.json\nFalling back to patching base and 3-way merge...\nAuto-merging packages/agendas/package.json\nCONFLICT (content): Merge conflict in packages/agendas/package.json\nAuto-merging packages/agendas/.gitignore\nCONFLICT (content): Merge conflict in packages/agendas/.gitignore\nPatch failed at 0001 yarn support\nThe copy of the patch that failed is found in: .git/rebase-apply/patch\nWhen you have resolved this problem, run "git am --continue".\nIf you prefer to skip this patch, run "git am --skip" instead.\nTo restore the original branch and stop patching, run "git am --abort".\n',
+62 error import   stderr: 'error: Failed to merge in the changes.\n',
+62 error import   failed: true,
+62 error import   signal: null,
+62 error import   cmd: 'git am -3 --keep-non-patch',
+62 error import   timedOut: false }
+63 error execute callback with error
+64 error Error: Failed to apply commit 901be63.
+64 error Command failed: git am -3 --keep-non-patch
+64 error error: Failed to merge in the changes.
+64 error Applying: yarn support
+64 error Using index info to reconstruct a base tree...
+64 error M	packages/agendas/.gitignore
+64 error M	packages/agendas/package.json
+64 error Falling back to patching base and 3-way merge...
+64 error Auto-merging packages/agendas/package.json
+64 error CONFLICT (content): Merge conflict in packages/agendas/package.json
+64 error Auto-merging packages/agendas/.gitignore
+64 error CONFLICT (content): Merge conflict in packages/agendas/.gitignore
+64 error Patch failed at 0001 yarn support
+64 error The copy of the patch that failed is found in: .git/rebase-apply/patch
+64 error When you have resolved this problem, run "git am --continue".
+64 error If you prefer to skip this patch, run "git am --skip" instead.
+64 error To restore the original branch and stop patching, run "git am --abort".
+64 error
+64 error Rolling back to previous HEAD (commit d3fc1ca351de81c7c44d63158ade31f1360be7c4).
+64 error You may try with --flatten to import flat history.
+64 error     at Promise.all.then.arr (/home/kaore/.nvm/versions/node/v8.9.1/lib/node_modules/lerna/node_modules/execa/index.js:236:11)
+64 error     at <anonymous>
