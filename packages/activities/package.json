@@ -4,7 +4,7 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "preversion": "yarn test"
   },
   "repository": {
