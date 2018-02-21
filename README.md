@@ -13,9 +13,7 @@ To add a repo from any other place to here, one must:
  * add lib (or output build) directory to .gitignore
  * remove yarn.lock files in packages/*
 
-http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup
 
-https://github.com/glenjamin/webpack-hot-middleware
 
 
 ### Lerna tips
