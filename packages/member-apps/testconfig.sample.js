@@ -1,5 +1,6 @@
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
+const keysSvc = require( '@openagenda/keys' );
 
 module.exports = {
   queue: {
@@ -79,6 +80,11 @@ module.exports = {
     },
     onMessage: ( stakeholder, message, cb ) => {
       cb()
+    },
+    keys: {
+      get: identifiers => keysSvc( identifiers ).get(),
+      create: ( identifiers, data ) => keysSvc( identifiers ).create( data ),
+      remove: identifiers => keysSvc( identifiers ).remove()
     }
   },
   queue: {

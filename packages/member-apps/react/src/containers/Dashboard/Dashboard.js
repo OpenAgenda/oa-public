@@ -431,12 +431,13 @@ export default class Dashboard extends Component {
           <EditMemberForm
             stakeholder={editModal.stakeholder}
             onSubmit={( ...params ) => update( editModal.stakeholder.id, ...params )
-              .then( result => {
+              .then( async result => {
                 if ( result.error && result.error instanceof SubmissionError ) {
                   throw new SubmissionError( result.error.errors );
                 } else {
                   closeModal( 'editMember' );
                 }
+                await getStats();
                 return result;
               } )
             }

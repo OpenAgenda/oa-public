@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/containers/index.js"],"names":["App","Dashboard"],"mappings":";;;;;;;;;;;;;;;;;QAAOA,G;QACAC,S","file":"index.js","sourcesContent":["export App from './App/App';\nexport Dashboard from './Dashboard/Dashboard';\n"]}

@@ -31,3 +31,9 @@ Add `--concurrency 1` argument for run the command in one package after another.
 
 If publishing fails but bumping version works fine then you can run:  
 `lerna exec --since -- yarn publish`
+
+For missing packages due to hoisting: https://yarnpkg.com/blog/2018/02/15/nohoist/
+
+| with workspace | without workspace |
+| :------------: | :---------------: |
+| 30s 83" | 2m 02s 73" |
