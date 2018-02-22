@@ -32,7 +32,7 @@ module.exports = function( labels, defaultLang ) {
       return null;
     }
 
-    var str = labels[ name ][ lang ] || name;
+    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
 
     if ( values ) {
 
