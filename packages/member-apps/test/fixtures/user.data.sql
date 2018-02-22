@@ -2,7 +2,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `${schema}` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `full_name` varchar(50) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL,
+  `is_new` tinyint(4) DEFAULT '1',
+  `last_inbox_check` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_idx` (`id`),
   UNIQUE KEY `username` (`username`),

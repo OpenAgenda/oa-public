@@ -9,6 +9,7 @@ const path = require( 'path' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const agendasSvc = require( '@openagenda/agendas/service/test' );
+const usersSvc = require( '@openagenda/users/service' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders/test/service' );
 const stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' );
@@ -36,6 +37,7 @@ app.use( bodyParser.urlencoded( { extended: true } ) );
 // parse application/json
 app.use( bodyParser.json() );
 
+usersSvc.init( config );
 agendasSvc.init( config );
 stakeholdersSvc.init( config, () => {
 
