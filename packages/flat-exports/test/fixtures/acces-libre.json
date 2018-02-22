@@ -42,7 +42,7 @@
   },
   "accessibility": {
     "hi": true,
-    "vi": true,
+    "vi": false,
     "pi": true,
     "sl": true,
     "mi": true

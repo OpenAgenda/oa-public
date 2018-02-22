@@ -35,5 +35,8 @@ module.exports = schema( {
   },
   description: {
     type: 'text'
+  },
+  section: {
+    type: 'text'
   }
 } );

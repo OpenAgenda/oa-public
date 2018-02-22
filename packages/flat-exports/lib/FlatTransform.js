@@ -18,13 +18,19 @@ module.exports = class FlatTransform extends Transform {
 
     this._tail = tail;
 
+    this._previousEvent = null;
+
     this.push( head( this._options ) );
     
   }
 
   _transform( event, encoding, cb ) {
 
-    cb( null, this._parseEvent( this._options, event ) );
+    const previousEvent = this._previousEvent;
+
+    this._previousEvent = event;
+
+    cb( null, this._parseEvent( this._options, event, { previous: previousEvent } ) );
 
   }
 
