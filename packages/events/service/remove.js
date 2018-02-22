@@ -51,11 +51,15 @@ function remove( i, o, c ) {
 }
 
 
-function _callInterface( v ) {
+async function _callInterface( v ) {
 
   if ( v.success && config.interfaces && config.interfaces.onRemove ) {
 
-    config.interfaces.onRemove( v.event, v.options.context );
+    try {
+      await config.interfaces.onRemove( v.event, v.options.context );
+    } catch ( e ) {
+      log( 'error', 'Error in onRemove event interface:', e );
+    }
 
   }  
 
