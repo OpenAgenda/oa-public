@@ -20,5 +20,25 @@ module.exports = {
   signLanguage: {
     en: 'sign language',
     fr: 'langue des signes'
+  },
+  mi: {
+    en: 'motor impairment',
+    fr: 'handicap moteur'
+  },
+  hi: {
+    en: 'hearing impairment',
+    fr: 'handicap auditif'
+  },
+  pi: {
+    en: 'mental impairment',
+    fr: 'handicap psychique'
+  },
+  vi: {
+    en: 'visual impairment',
+    fr: 'handicap visuel'
+  },
+  sl: {
+    en: 'sign language',
+    fr: 'langue des signes'
   }
 }
