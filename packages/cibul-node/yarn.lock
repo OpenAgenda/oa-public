@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@openagenda/activities@^2.0.0":
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/@openagenda/activities/-/activities-2.0.4.tgz#55613cb0302c6e8c39b9c6c610489c8476f4e40c"
+"@openagenda/activities@^2.0.0", "@openagenda/activities@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/@openagenda/activities/-/activities-2.0.6.tgz#dcf930e641d3f0ff96d19d906d86d6767a777b4a"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.0"
     "@openagenda/labels" "^2.0.3"
@@ -24,10 +24,10 @@
     when "^3.7.8"
 
 "@openagenda/activity-apps@^1.0.1":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.7.tgz#a7491b0bbe8485d4fe9922a95873ada7eacff3a1"
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@openagenda/activity-apps/-/activity-apps-1.0.10.tgz#53ebc1bfd2e1ed79bb4bdc6cead68acb16673b4d"
   dependencies:
-    "@openagenda/activities" "^2.0.0"
+    "@openagenda/activities" "^2.0.6"
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/dom-utils" "^2.1.0"
     "@openagenda/labels" "^2.0.7"
@@ -280,9 +280,9 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/agendas@^1.0.4":
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/@openagenda/agendas/-/agendas-1.0.5.tgz#65d2cf36b4b8b30f511de8e32d996ba720b2db3c"
+"@openagenda/agendas@^1.0.4", "@openagenda/agendas@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/agendas/-/agendas-1.0.8.tgz#2f96df1cd831b3a64e3cb48defab3320ff2d1d16"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/image-files" "^1.0.2"
@@ -368,8 +368,8 @@
     when "~3.4"
 
 "@openagenda/cibul-templates@^1.0.0":
-  version "1.0.53"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.53.tgz#df48d9c80e3923255ee3e15b1803fc749db255fc"
+  version "1.0.54"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-templates/-/cibul-templates-1.0.54.tgz#a1f2afe5f69ca28a6413198644543664fb132696"
   dependencies:
     "@openagenda/activity-apps" "^1.0.1"
     "@openagenda/admin-agendas" "^1.0.1"
@@ -499,9 +499,9 @@
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"
 
-"@openagenda/dom-utils@^2.0.0", "@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4", "@openagenda/dom-utils@^2.1.0":
-  version "2.1.1"
-  resolved "https://registry.npmjs.org/@openagenda/dom-utils/-/dom-utils-2.1.1.tgz#e1c18bf6b422ded0dfb4ceb5829f848ba9acc5e2"
+"@openagenda/dom-utils@^2.0.3", "@openagenda/dom-utils@^2.0.4", "@openagenda/dom-utils@^2.1.0", "@openagenda/dom-utils@^2.1.4":
+  version "2.1.4"
+  resolved "https://registry.npmjs.org/@openagenda/dom-utils/-/dom-utils-2.1.4.tgz#5abe4d7a4b5b9c4909ce44393fda5a9f650f9ac6"
   dependencies:
     "@openagenda/utils" "^1.0.0"
     es6-promise "^4.1.1"
@@ -533,8 +533,8 @@
     should "~4.0"
 
 "@openagenda/event-search@^1.1.0":
-  version "1.1.11"
-  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.11.tgz#f698820a17c9e6a9c2f7f8de64cb9a17b6292967"
+  version "1.1.17"
+  resolved "https://registry.npmjs.org/@openagenda/event-search/-/event-search-1.1.17.tgz#4888b275b2dec12566aa72a14179da481035bdfc"
   dependencies:
     "@openagenda/countries" "^0.1.1"
     "@openagenda/date-range" "^2.1.0"
@@ -549,8 +549,8 @@
     when "^3.7.8"
 
 "@openagenda/events@^1.1.0", "@openagenda/events@^1.1.7":
-  version "1.1.8"
-  resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.8.tgz#546ec2308788b3918230baeadafbcd1ed0265bfd"
+  version "1.1.9"
+  resolved "https://registry.npmjs.org/@openagenda/events/-/events-1.1.9.tgz#1dca44be63418054548730602e902e6b1762529b"
   dependencies:
     "@openagenda/basic-logger" "^2.0.0"
     "@openagenda/mysql-utils" "^2.0.0"
@@ -599,8 +599,8 @@
     when "^3.7.7"
 
 "@openagenda/flat-exports@^1.1.0":
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/@openagenda/flat-exports/-/flat-exports-1.1.3.tgz#5dbecb3b8ed78ec513c4d5f6c4d9520affcd202e"
+  version "1.1.6"
+  resolved "https://registry.npmjs.org/@openagenda/flat-exports/-/flat-exports-1.1.6.tgz#15d485cc1e3d11194155bdbd217c2671081a45e0"
   dependencies:
     "@openagenda/flattener" "^1.1.0"
     "@openagenda/stream-utils" "^1.1.0"
@@ -619,8 +619,8 @@
     lodash "^4.17.4"
 
 "@openagenda/form-schemas@^1.1.0":
-  version "1.1.6"
-  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.6.tgz#993d22a914529b5a39848b91c270ccabf7eefffa"
+  version "1.1.7"
+  resolved "https://registry.npmjs.org/@openagenda/form-schemas/-/form-schemas-1.1.7.tgz#fcfb31cda353f738fbc07f5ea92d425fb9eed5d7"
   dependencies:
     "@openagenda/labels" "^2.0.7"
     "@openagenda/logs" "^1.0.5"
@@ -643,8 +643,8 @@
     robust-point-in-polygon "^1.0.3"
 
 "@openagenda/home@^2.0.2", "@openagenda/home@^2.0.5":
-  version "2.0.12"
-  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.12.tgz#7cb489f88fd571dd01ca938741283233e8be1227"
+  version "2.0.13"
+  resolved "https://registry.npmjs.org/@openagenda/home/-/home-2.0.13.tgz#a6f8cddddc5cdd999d2d1edc8b07a231bcbe90a5"
   dependencies:
     "@openagenda/agendas" "^1.0.4"
     "@openagenda/date-range" "^2.1.0"
@@ -709,11 +709,11 @@
     when "^3.7.5"
 
 "@openagenda/inbox-apps@^1.0.1", "@openagenda/inbox-apps@^1.0.2":
-  version "1.0.27"
-  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.27.tgz#e9e046b0ba329d21023cd14005404b3ba01446bc"
+  version "1.0.37"
+  resolved "https://registry.npmjs.org/@openagenda/inbox-apps/-/inbox-apps-1.0.37.tgz#79e2fb5ea00451f8ae23658145715e0463f01f60"
   dependencies:
-    "@openagenda/dom-utils" "^2.0.0"
-    "@openagenda/labels" "^2.0.2"
+    "@openagenda/dom-utils" "^2.1.4"
+    "@openagenda/labels" "^2.0.47"
     "@openagenda/logs" "^1.0.1"
     "@openagenda/react-components" "^2.0.0"
     "@openagenda/react-form-components" "^2.0.0"
@@ -745,11 +745,11 @@
     when "^3.7.8"
 
 "@openagenda/inboxes@^1.0.2":
-  version "1.0.21"
-  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.21.tgz#deb7a349df3cd1931aed8b2f8bd9d7bb1e8c6144"
+  version "1.0.26"
+  resolved "https://registry.npmjs.org/@openagenda/inboxes/-/inboxes-1.0.26.tgz#bef5855b322e6e8e977b86dab7cbf0163949bc3e"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.3"
-    "@openagenda/agendas" "^1.0.4"
+    "@openagenda/agendas" "^1.0.8"
     "@openagenda/logs" "^1.0.8"
     "@openagenda/queue" "^1.0.0"
     "@openagenda/service-utils" "^2.0.0"
@@ -790,13 +790,9 @@
     verror "^1.10.0"
     when "^3.7.8"
 
-"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
-  version "2.0.42"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.42.tgz#982a11b170a43422f1541e405330f1816e865dac"
-
-"@openagenda/labels@^2.0.44":
-  version "2.0.44"
-  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.44.tgz#a3dff3e32277b5efad0eedf95a8761a61a0a287d"
+"@openagenda/labels@^2.0.2", "@openagenda/labels@^2.0.26", "@openagenda/labels@^2.0.27", "@openagenda/labels@^2.0.3", "@openagenda/labels@^2.0.44", "@openagenda/labels@^2.0.47", "@openagenda/labels@^2.0.5", "@openagenda/labels@^2.0.6", "@openagenda/labels@^2.0.7":
+  version "2.0.47"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.47.tgz#5bee1a9ce66fc8513a178f9f457c046a44b15cbd"
 
 "@openagenda/labels@^2.0.46":
   version "2.0.46"
@@ -842,12 +838,11 @@
     should "7.0.4"
 
 "@openagenda/logs@^1.0.0", "@openagenda/logs@^1.0.1", "@openagenda/logs@^1.0.4", "@openagenda/logs@^1.0.5", "@openagenda/logs@^1.0.6", "@openagenda/logs@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.8.tgz#f99a724a569aa4ea0d95c9e6e87b116616a4cbd4"
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.9.tgz#9f55e9e9ea0db7866fe21ac090f2e3bbe5c5880b"
   dependencies:
     "@openagenda/le_node" "^1.7.3"
     debug "^2.2.0"
-    le_node "^1.7.1"
     lodash "^4.17.4"
     winston "^2.3.1"
 
@@ -870,8 +865,8 @@
     validator "3.40.0"
 
 "@openagenda/member-apps@^1.0.1", "@openagenda/member-apps@^1.0.2":
-  version "1.0.11"
-  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.0.11.tgz#cfd9b05fb84179d12d03ce7dea4d2f22fabb474c"
+  version "1.0.13"
+  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.0.13.tgz#b79c1e28f9c5c61cce05d9734e770cbbca73ad31"
   dependencies:
     "@openagenda/agenda-stakeholders" "^2.0.0"
     "@openagenda/call-to-action" "^2.0.3"
@@ -1518,8 +1513,8 @@ asap@~2.0.3:
   resolved "https://registry.npmjs.org/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
 
 asn1.js@^4.0.0:
-  version "4.9.2"
-  resolved "https://registry.npmjs.org/asn1.js/-/asn1.js-4.9.2.tgz#8117ef4f7ed87cd8f89044b5bff97ac243a16c9a"
+  version "4.10.1"
+  resolved "https://registry.npmjs.org/asn1.js/-/asn1.js-4.10.1.tgz#b9c2bf5805f1e64aadeed6df3a2bfafb5a73f5a0"
   dependencies:
     bn.js "^4.0.0"
     inherits "^2.0.1"
@@ -1572,8 +1567,8 @@ ast-types@0.9.6:
   resolved "https://registry.npmjs.org/ast-types/-/ast-types-0.9.6.tgz#102c9e9e9005d3e7e3829bf0c4fa24ee862ee9b9"
 
 ast-types@0.x.x:
-  version "0.10.2"
-  resolved "https://registry.npmjs.org/ast-types/-/ast-types-0.10.2.tgz#aef76a04fde54634976fc94defaad1a67e2eadb0"
+  version "0.11.1"
+  resolved "https://registry.npmjs.org/ast-types/-/ast-types-0.11.1.tgz#5bb3a8d5ba292c3f4ae94d46df37afc30300b990"
 
 astw@^2.0.0:
   version "2.2.0"
@@ -1644,12 +1639,14 @@ atob@^2.0.0:
   resolved "https://registry.npmjs.org/atob/-/atob-2.0.3.tgz#19c7a760473774468f20b2d2d03372ad7d4cbf5d"
 
 attr-accept@^1.0.3:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/attr-accept/-/attr-accept-1.1.2.tgz#6836bfe054e4ef1ee3076fdde56cec9bb3ffead6"
+  dependencies:
+    core-js "^2.5.0"
 
 aws-sdk@^2.145.0, aws-sdk@^2.2.36:
-  version "2.193.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.193.0.tgz#89ac3bde1ff6c914c52f7f0c28a2febf23edfaa5"
+  version "2.200.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.200.0.tgz#f460c96408725b0eb8c658fddea6e0bfe0ef5a44"
   dependencies:
     buffer "4.9.1"
     events "^1.1.1"
@@ -2536,8 +2533,8 @@ base62@0.1.1:
   resolved "https://registry.npmjs.org/base62/-/base62-0.1.1.tgz#7b4174c2f94449753b11c2651c083da841a7b084"
 
 base62@^1.1.0:
-  version "1.2.5"
-  resolved "https://registry.npmjs.org/base62/-/base62-1.2.5.tgz#f59b629268aadafa2887667546b1fe3e15565507"
+  version "1.2.7"
+  resolved "https://registry.npmjs.org/base62/-/base62-1.2.7.tgz#5c01aad73c0124f9535cff1bdb9c4e6ccf838cfb"
 
 base64-js@0.0.7:
   version "0.0.7"
@@ -2548,8 +2545,8 @@ base64-js@0.0.8:
   resolved "https://registry.npmjs.org/base64-js/-/base64-js-0.0.8.tgz#1101e9544f4a76b1bc3b26d452ca96d7a35e7978"
 
 base64-js@^1.0.2:
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/base64-js/-/base64-js-1.2.1.tgz#a91947da1f4a516ea38e5b4ec0ec3773675e0886"
+  version "1.2.3"
+  resolved "https://registry.npmjs.org/base64-js/-/base64-js-1.2.3.tgz#fb13668233d9614cf5fb4bce95a9ba4096cdf801"
 
 base@^0.11.1:
   version "0.11.2"
@@ -3077,8 +3074,8 @@ camelcase@^4.1.0:
   resolved "https://registry.npmjs.org/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000808"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000808.tgz#7d759b5518529ea08b6705a19e70dbf401628ffc"
+  version "1.0.30000810"
+  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30000810.tgz#47585fffce0e9f3593a6feea4673b945424351d9"
 
 caporal@^0.4.1:
   version "0.4.1"
@@ -3382,7 +3379,7 @@ combine-source-map@~0.8.0:
     lodash.memoize "~3.0.3"
     source-map "~0.5.3"
 
-combined-stream@^1.0.5, combined-stream@~1.0.5:
+combined-stream@1.0.6, combined-stream@^1.0.5, combined-stream@~1.0.5:
   version "1.0.6"
   resolved "https://registry.npmjs.org/combined-stream/-/combined-stream-1.0.6.tgz#723e7df6e801ac5613113a7e445a9b69cb632818"
   dependencies:
@@ -4271,8 +4268,8 @@ entities@^1.1.1, entities@~1.1.1:
   resolved "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
 errno@^0.1.3:
-  version "0.1.6"
-  resolved "https://registry.npmjs.org/errno/-/errno-0.1.6.tgz#c386ce8a6283f14fc09563b71560908c9bf53026"
+  version "0.1.7"
+  resolved "https://registry.npmjs.org/errno/-/errno-0.1.7.tgz#4684d71779ad39af177e3f007996f7c67c852618"
   dependencies:
     prr "~1.0.1"
 
@@ -4289,8 +4286,8 @@ error-stack-parser@^1.3.6:
     stackframe "^0.3.1"
 
 es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.38"
-  resolved "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.38.tgz#fa7d40d65bbc9bb8a67e1d3f9cc656a00530eed3"
+  version "0.10.39"
+  resolved "https://registry.npmjs.org/es5-ext/-/es5-ext-0.10.39.tgz#fca21b67559277ca4ac1a1ed7048b107b6f76d87"
   dependencies:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
@@ -4935,11 +4932,11 @@ form-data@1.0.0-rc4:
     mime-types "^2.1.10"
 
 form-data@^2.1.1, form-data@^2.3.1, form-data@~2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmjs.org/form-data/-/form-data-2.3.1.tgz#6fb94fbd71885306d73d15cc497fe4cc4ecd44bf"
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/form-data/-/form-data-2.3.2.tgz#4970498be604c20c005d4f5c23aecd21d6b49099"
   dependencies:
     asynckit "^0.4.0"
-    combined-stream "^1.0.5"
+    combined-stream "1.0.6"
     mime-types "^2.1.12"
 
 form-data@~1.0.0-rc3:
@@ -5476,16 +5473,16 @@ hoek@2.x.x:
   resolved "https://registry.npmjs.org/hoek/-/hoek-2.16.3.tgz#20bb7403d3cea398e91dc4710a8ff1b8274a25ed"
 
 hoek@4.x.x:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
+  version "4.2.1"
+  resolved "https://registry.npmjs.org/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
 hoist-non-react-statics@^1.0.3, hoist-non-react-statics@^1.0.5, hoist-non-react-statics@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
 
-hoist-non-react-statics@^2.2.1, hoist-non-react-statics@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -5674,8 +5671,8 @@ imagesloaded@^4.1:
     ev-emitter "^1.0.0"
 
 immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1, immutability-helper@^2.5.1:
-  version "2.6.4"
-  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.4.tgz#a931aef97257fcb6d2b5456de652ab6e3bba8408"
+  version "2.6.5"
+  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.6.5.tgz#94a10f18f1196244b2dea92d46522d2b4dce7b73"
   dependencies:
     invariant "^2.2.0"
 
@@ -5800,8 +5797,8 @@ interpret@^1.0.0, interpret@^1.1.0:
   resolved "https://registry.npmjs.org/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
 
 invariant@^2.0.0, invariant@^2.1.0, invariant@^2.2.0, invariant@^2.2.1, invariant@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
+  version "2.2.3"
+  resolved "https://registry.npmjs.org/invariant/-/invariant-2.2.3.tgz#1a827dfde7dcbd7c323f0ca826be8fa7c5e9d688"
   dependencies:
     loose-envify "^1.0.0"
 
@@ -5817,9 +5814,9 @@ ipaddr.js@1.0.5:
   version "1.0.5"
   resolved "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.0.5.tgz#5fa78cf301b825c78abc3042d812723049ea23c7"
 
-ipaddr.js@1.5.2:
-  version "1.5.2"
-  resolved "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.5.2.tgz#d4b505bde9946987ccf0fc58d9010ff9607e3fa0"
+ipaddr.js@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/ipaddr.js/-/ipaddr.js-1.6.0.tgz#e3fa357b773da619f26e95f049d055c72796f86b"
 
 is-absolute@^1.0.0:
   version "1.0.0"
@@ -5979,12 +5976,17 @@ is-lower-case@^1.0.0:
   dependencies:
     lower-case "^1.1.0"
 
+is-my-ip-valid@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/is-my-ip-valid/-/is-my-ip-valid-1.0.0.tgz#7b351b8e8edd4d3995d4d066680e664d94696824"
+
 is-my-json-valid@^2.12.4:
-  version "2.17.1"
-  resolved "https://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.17.1.tgz#3da98914a70a22f0a8563ef1511a246c6fc55471"
+  version "2.17.2"
+  resolved "https://registry.npmjs.org/is-my-json-valid/-/is-my-json-valid-2.17.2.tgz#6b2103a288e94ef3de5cf15d29dd85fc4b78d65c"
   dependencies:
     generate-function "^2.0.0"
     generate-object-property "^1.1.0"
+    is-my-ip-valid "^1.0.0"
     jsonpointer "^4.0.0"
     xtend "^4.0.0"
 
@@ -6480,11 +6482,11 @@ knex@^0.9.0:
     v8flags "^2.0.2"
 
 knox-s3@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.npmjs.org/knox-s3/-/knox-s3-0.9.3.tgz#effbfa59353b4a82bd54c62cc9fdacd31fc0755d"
+  version "0.9.5"
+  resolved "https://registry.npmjs.org/knox-s3/-/knox-s3-0.9.5.tgz#48fe99953ccb57697d184f631bc8efe8f1dcb575"
   dependencies:
     debug "^2.2.0"
-    mime "1.4.0"
+    mime "^1.4.0"
     once "^1.3.0"
     stream-counter "^1.0.0"
     xml2js "^0.4.4"
@@ -6657,7 +6659,7 @@ lodash-compat@^3.0.0:
   version "3.10.2"
   resolved "https://registry.npmjs.org/lodash-compat/-/lodash-compat-3.10.2.tgz#c6940128a9d30f8e902cd2cf99fd0cba4ecfc183"
 
-lodash-es@^4.17.3, lodash-es@^4.17.4, lodash-es@^4.2.0, lodash-es@^4.2.1:
+lodash-es@^4.17.3, lodash-es@^4.17.4, lodash-es@^4.17.5, lodash-es@^4.2.1:
   version "4.17.5"
   resolved "https://registry.npmjs.org/lodash-es/-/lodash-es-4.17.5.tgz#9fc6e737b1c4d151d8f9cae2247305d552ce748f"
 
@@ -6909,8 +6911,8 @@ mailgun-js@^0.13.1:
     tsscmp "~1.0.0"
 
 make-dir@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/make-dir/-/make-dir-1.1.0.tgz#19b4369fe48c116f53c2af95ad102c0e39e85d51"
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/make-dir/-/make-dir-1.2.0.tgz#6d6a49eead4aae296c53bbf3a1a008bd6c89469b"
   dependencies:
     pify "^3.0.0"
 
@@ -6943,8 +6945,8 @@ marked@0.3.6:
   resolved "https://registry.npmjs.org/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
 
 marked@^0.3.12, marked@^0.3.6:
-  version "0.3.12"
-  resolved "https://registry.npmjs.org/marked/-/marked-0.3.12.tgz#7cf25ff2252632f3fe2406bde258e94eee927519"
+  version "0.3.16"
+  resolved "https://registry.npmjs.org/marked/-/marked-0.3.16.tgz#2f188b7dfcfa6540fe9940adaf0f3b791c9a5cba"
 
 masonry-layout@4.1.0:
   version "4.1.0"
@@ -7073,9 +7075,9 @@ mime-db@~1.25.0:
   version "1.25.0"
   resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.25.0.tgz#c18dbd7c73a5dbf6f44a024dc0d165a1e7b1c392"
 
-mime-db@~1.30.0:
-  version "1.30.0"
-  resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.30.0.tgz#74c643da2dd9d6a45399963465b26d5ca7d71f01"
+mime-db@~1.33.0:
+  version "1.33.0"
+  resolved "https://registry.npmjs.org/mime-db/-/mime-db-1.33.0.tgz#a3492050a5cb9b63450541e39d9788d2272783db"
 
 mime-types@2.1.13:
   version "2.1.13"
@@ -7083,11 +7085,11 @@ mime-types@2.1.13:
   dependencies:
     mime-db "~1.25.0"
 
-mime-types@^2.1.10, mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.15, mime-types@~2.1.16, mime-types@~2.1.17, mime-types@~2.1.6, mime-types@~2.1.7:
-  version "2.1.17"
-  resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.17.tgz#09d7a393f03e995a79f8af857b70a9e0ab16557a"
+mime-types@^2.1.10, mime-types@^2.1.11, mime-types@^2.1.12, mime-types@~2.1.16, mime-types@~2.1.17, mime-types@~2.1.18, mime-types@~2.1.6, mime-types@~2.1.7:
+  version "2.1.18"
+  resolved "https://registry.npmjs.org/mime-types/-/mime-types-2.1.18.tgz#6f323f60a83d11146f831ff11fd66e2fe5503bb8"
   dependencies:
-    mime-db "~1.30.0"
+    mime-db "~1.33.0"
 
 mime-types@~2.0.4, mime-types@~2.0.9:
   version "2.0.14"
@@ -7107,15 +7109,11 @@ mime@1.3.4:
   version "1.3.4"
   resolved "https://registry.npmjs.org/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
-mime@1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmjs.org/mime/-/mime-1.4.0.tgz#69e9e0db51d44f2a3b56e48b7817d7d137f1a343"
-
 mime@1.4.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
-mime@^1.3.4, mime@^1.3.6, mime@^1.4.1:
+mime@^1.3.4, mime@^1.3.6, mime@^1.4.0, mime@^1.4.1:
   version "1.6.0"
   resolved "https://registry.npmjs.org/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
 
@@ -7828,8 +7826,8 @@ os-tmpdir@^1.0.0, os-tmpdir@^1.0.1, os-tmpdir@~1.0.1:
   resolved "https://registry.npmjs.org/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
 osenv@0, osenv@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/osenv/-/osenv-0.1.4.tgz#42fe6d5953df06c8064be6f176c3d05aaaa34644"
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/osenv/-/osenv-0.1.5.tgz#85cdfafaeb28e8677f416e287592b5f3f49ea410"
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
@@ -8338,11 +8336,11 @@ proxy-addr@~1.0.10, proxy-addr@~1.0.3:
     ipaddr.js "1.0.5"
 
 proxy-addr@~2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.2.tgz#6571504f47bb988ec8180253f85dd7e14952bdec"
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/proxy-addr/-/proxy-addr-2.0.3.tgz#355f262505a621646b3130a728eb647e22055341"
   dependencies:
     forwarded "~0.1.2"
-    ipaddr.js "1.5.2"
+    ipaddr.js "1.6.0"
 
 proxy-agent@2:
   version "2.2.0"
@@ -8569,8 +8567,8 @@ randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
     safe-buffer "^5.1.0"
 
 randomfill@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/randomfill/-/randomfill-1.0.3.tgz#b96b7df587f01dd91726c418f30553b1418e3d62"
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/randomfill/-/randomfill-1.0.4.tgz#c92196fc86ab42be983f1bf31778224931d61458"
   dependencies:
     randombytes "^2.0.5"
     safe-buffer "^5.1.0"
@@ -8784,15 +8782,15 @@ react-redux@^4.4.5:
     prop-types "^15.5.4"
 
 react-redux@^5.0.4, react-redux@^5.0.6:
-  version "5.0.6"
-  resolved "https://registry.npmjs.org/react-redux/-/react-redux-5.0.6.tgz#23ed3a4f986359d68b5212eaaa681e60d6574946"
+  version "5.0.7"
+  resolved "https://registry.npmjs.org/react-redux/-/react-redux-5.0.7.tgz#0dc1076d9afb4670f993ffaef44b8f8c1155a4c8"
   dependencies:
-    hoist-non-react-statics "^2.2.1"
+    hoist-non-react-statics "^2.5.0"
     invariant "^2.0.0"
-    lodash "^4.2.0"
-    lodash-es "^4.2.0"
+    lodash "^4.17.5"
+    lodash-es "^4.17.5"
     loose-envify "^1.1.0"
-    prop-types "^15.5.10"
+    prop-types "^15.6.0"
 
 react-router-redux@^4.0.4, react-router-redux@^4.0.5, react-router-redux@^4.0.6, react-router-redux@^4.0.8:
   version "4.0.8"
@@ -9117,8 +9115,8 @@ redux-devtools-inspector@^0.11.3:
     redux-devtools-themes "^1.0.0"
 
 redux-devtools-instrument@^1.0.1:
-  version "1.8.2"
-  resolved "https://registry.npmjs.org/redux-devtools-instrument/-/redux-devtools-instrument-1.8.2.tgz#5e91cfe402e790dae3fd2f0d235f7b7d84b09ffe"
+  version "1.8.3"
+  resolved "https://registry.npmjs.org/redux-devtools-instrument/-/redux-devtools-instrument-1.8.3.tgz#c510d67ab4e5e4525acd6e410c25ab46b85aca7c"
   dependencies:
     lodash "^4.2.0"
     symbol-observable "^1.0.2"
@@ -10646,11 +10644,11 @@ type-check@~0.3.2:
     prelude-ls "~1.1.2"
 
 type-is@^1.6.4, type-is@~1.6.15, type-is@~1.6.4, type-is@~1.6.6:
-  version "1.6.15"
-  resolved "https://registry.npmjs.org/type-is/-/type-is-1.6.15.tgz#cab10fb4909e441c82842eafe1ad646c81804410"
+  version "1.6.16"
+  resolved "https://registry.npmjs.org/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
   dependencies:
     media-typer "0.3.0"
-    mime-types "~2.1.15"
+    mime-types "~2.1.18"
 
 type-is@~1.5.1:
   version "1.5.7"
@@ -10677,8 +10675,8 @@ uglify-js@2.4.24, uglify-js@2.4.x, uglify-js@~2.4.0:
     yargs "~3.5.4"
 
 uglify-js@3.3.x:
-  version "3.3.10"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.10.tgz#8e47821d4cf28e14c1826a0078ba0825ed094da8"
+  version "3.3.11"
+  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-3.3.11.tgz#e9d058b20715138bb4e8e5cae2ea581686bdaae3"
   dependencies:
     commander "~2.14.1"
     source-map "~0.6.1"
@@ -10872,8 +10870,8 @@ v8flags@^3.0.1:
     homedir-polyfill "^1.0.1"
 
 valid-data-url@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/valid-data-url/-/valid-data-url-0.1.4.tgz#9480d7eb8d4f5675a8ad774e51068be7b0aef410"
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/valid-data-url/-/valid-data-url-0.1.5.tgz#b237fbb69618f8f594b3405fd2562e0c35ae6e41"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"

@@ -63,15 +63,17 @@ const routes = {
   adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
   eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
   eventsDiff: [ 'get', '/eventsdiff', eventsDiff ],
-  adminSupport: [ 'get', '/support', [
+  adminSupport: [ 'get', '/support/?*?', [
     ( req, res, next ) => {
+      const prefix = '/admin/support';
+
       inboxAppsMw.matchApp(
         {
           state: {
             user: req.user,
             settings: {
               context: 'user',
-              prefix: req.originalUrl,
+              prefix,
               lang: req.lang,
               apiRoot: `http://localhost:${config.port}`,
               perPageLimit: 20
@@ -91,7 +93,7 @@ const routes = {
             }
           }
         },
-        req.baseUrl,
+        prefix,
         renderSupportApp()
       )( req, res, next );
     }

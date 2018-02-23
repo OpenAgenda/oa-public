@@ -262,7 +262,8 @@ let config = {
       staticBucketPath: `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
       bucket: prod.aws.buckets.main,
       tmpBucket: prod.aws.buckets.temporary,
-      defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`
+      defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
+      oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
     },
     mailjet: {
       apiKey: prod.mailjet.apiKey,

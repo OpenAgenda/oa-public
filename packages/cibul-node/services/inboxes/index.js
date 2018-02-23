@@ -45,6 +45,7 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
     .filter( v => v.type === 'user' )
     .map( v => ({ userUid: v.identifier }) );
   const agendasToBeDetailed = inboxesToBeDetailed.filter( v => v.type === 'agenda' );
+  const supportToBeDetailed = inboxesToBeDetailed.filter( v => v.type === 'support' );
 
   const users = await getUsersDetails( usersToBeDetailed );
   const agendas = agendasToBeDetailed.length === 0 ? [] : (await wn.call( agendasSvc.list,
@@ -59,8 +60,14 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
     name: v.title,
     avatar: v.image || config.aws.defaultImagePath
   }) );
+  const supports = supportToBeDetailed.map( v => ({
+    ...v,
+    uid: 1,
+    name: 'support',
+    avatar: config.aws.oaLogoIcon
+  }) );
 
-  return [ ...users, ...agendas ];
+  return [ ...users, ...agendas, ...supports ];
 }
 
 async function onInboxCreate( Inbox ) {
