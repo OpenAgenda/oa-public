@@ -313,9 +313,14 @@
           </li>
 <% } %>
 
-<% if ( !loner ) { %>
+<% if (
+  (typeof userStakeholder !== 'undefined' && userStakeholder && ![ 2, 3 ].includes( userStakeholder.credential ) && typeof user !== 'undefined')
+  || (typeof user !== 'undefined' && user && !userStakeholder)
+) { %>
           <li>
-            <a class="display-none js_role_event_editor" rel="nofollow" href="<%= genUrl( 'locationSuggestion', { locationUid: event.location.uid, slug: slug, eventSlug: event.slug } ) %>"><%= __( 'requestChangeLocation' ) %></a>
+            <a rel="nofollow" href="<%= `/${slug}/locations/${event.location.uid}/suggest-change` %>">
+              <%= __( 'requestChangeLocation' ) %>
+            </a>
           </li>
 <% } %>
           </ul>
