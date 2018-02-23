@@ -157,6 +157,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './agenda/back' )( app );
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
+        require( './surveys' )( app, '/' );
 
         require( './api' );
 

@@ -40,7 +40,7 @@ const validateOptions = schema( {
 
 module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
-  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
+  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
 
   return searchIndex.search( query, nav, searchOptions )
 
@@ -48,7 +48,7 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
       total,
       events: events.map( parseEvent ),
       aggregations
-    } ) );
+    } ) );
 
 }
 
@@ -63,7 +63,7 @@ module.exports.moreLikeThis = async ( searchIndex, agendaUid, sample ) => {
 
 module.exports.stream = async ( searchIndex, agendaUid, query, options = {} ) => {
 
-  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
+  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
 
   const stream = searchIndex.search.stream( query, searchOptions );
 
@@ -81,6 +81,7 @@ async function _prepare( agendaUid, options ) {
     extensions: [ 'contributor', 'state' ],
     aggregations: cleanOptions.aggregations
   };
+  
 
   let parseEvent = e => e;
 

@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const app = require( 'express' )();
 const search = require( '../services/eventSearch' );
 
@@ -14,8 +16,8 @@ app.get( '/agendas/:agendaUid/events.v2.json', ( req, res, next ) => {
   // here options must be separated from 
   search.agendas( req.params.agendaUid ).search( req.query, req.query, req.query )
 
-  .then( result => res.json( result ) )
+    .then( result => res.json( result ) )
 
-  .catch( err => next( err ) );
+    .catch( err => next( err ) );
 
 } );

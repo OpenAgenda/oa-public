@@ -1,13 +1,16 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const app = require( 'express' )();
+
 const agendas = require( '@openagenda/agendas' );
 const csv = require( '@openagenda/flat-exports' ).csv();
-const xlsx = require( '@openagenda/flat-exports' ).xlsx();
-const search = require( '../../services/eventSearch' );
-const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const ICSStream = require( '@openagenda/flat-exports' ).ICSStream;
+const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const MarkdownStream = require( '@openagenda/flat-exports' ).MarkdownStream;
+const xlsx = require( '@openagenda/flat-exports' ).xlsx();
+
+const search = require( '../../services/eventSearch' );
 const rss = require( './rss' );
 
 module.exports = ( parentApp, path ) => {
@@ -74,7 +77,7 @@ app.get( '/agendas/:agendaUid/events.v2.csv', ( req, res, next ) => {
 
 app.get( '/agendas/:agendaUid/events.v2.(txt|md)', async ( req, res, next ) => {
 
-  const extension = req.originalUrl.split( '.' ).pop().split( '?' ).shift();
+  const extension = req.originalUrl.split( '?' ).shift().split( '.' ).pop();
 
   res.writeHead( 200, {
     'Content-Type' : 'text/plain',
@@ -84,6 +87,7 @@ app.get( '/agendas/:agendaUid/events.v2.(txt|md)', async ( req, res, next ) => {
 
   const stream = new MarkdownStream( {
     format: extension,
+    section: _getFirstSortField( req.query ),
     lang: req.lang,
     slug: req.agenda.slug,
     identifier: req.agenda.uid,
@@ -95,6 +99,20 @@ app.get( '/agendas/:agendaUid/events.v2.(txt|md)', async ( req, res, next ) => {
   req.stream.pipe( stream ).pipe( res );
 
 } );
+
+function _getFirstSortField( query ) {
+
+  const firstSort = _.head( query.sort, null );
+
+  if ( !firstSort ) return null;
+
+  const parts = firstSort.split( '.' );
+
+  parts.pop();
+
+  return parts.join( '.' );
+
+}
 
 app.get( '/agendas/:agendaUid/events.v2.ics', ( req, res, next ) => {
 

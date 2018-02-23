@@ -108,7 +108,7 @@ function _sendToken( values ) {
 
   renders = {};
 
-  return wn.call( async.each, [ 'html', 'text' ], ( type, ecb ) => {
+  return wn.call( async.each, [ 'html', 'text' ], ( type, ecb ) => {
 
     templater( 'email/show', Object.assign( { type }, {
       lang: values.user.culture,
