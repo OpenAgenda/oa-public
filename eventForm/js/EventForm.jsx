@@ -542,7 +542,7 @@ function EventFormFactory() {
     renderLocationSelector: function () {
 
       const settings = _.extend( {
-        translation: this.state.translation || null
+        translation: this.state.translation || null
       }, this.props.configuration.field( 'location' ).settings || {} );
 
       return <div className="form-section">
@@ -569,7 +569,7 @@ function EventFormFactory() {
 
     render: function () {
 
-      let displayedLanguageBar = false;
+      let displayedLanguageBar = false, displayedTranslator = false;
 
       const renderLanguageBar = () => {
 
@@ -583,6 +583,23 @@ function EventFormFactory() {
           languages={this.state.languages}
           onChange={this.changeLanguages}
           getLabel={this.getLabel} />
+
+      }
+
+      const renderTranslator = () => {
+
+        let displayedTranslator = true;
+
+        return <div className="margin-v-lg">
+          <Translation
+            source={this.state.translation.source}
+            sets={this.state.translation.sets}
+            check={translator.change.bind( null, true )}
+            uncheck={translator.change.bind( null, false )}
+            sourceChange={translator.sourceChange.bind( null )}
+            labels={flattenLabels( _.extend( translationLabels, this.props.configuration.field( 'translation' ).getAll() ), this.props.lang )}
+          />
+        </div>
 
       }
 
@@ -684,6 +701,12 @@ function EventFormFactory() {
           </div>;
 
         }
+
+        if ( o.field === 'translation' ) {
+
+          return renderTranslator();
+
+        } 
 
         if ( o.field === 'conditions' ) {
 
@@ -840,16 +863,7 @@ function EventFormFactory() {
 
       } ) }
 
-        {this.state.translation ? <div className="margin-v-lg">
-          <Translation
-            source={this.state.translation.source}
-            sets={this.state.translation.sets}
-            check={translator.change.bind( null, true )}
-            uncheck={translator.change.bind( null, false )}
-            sourceChange={translator.sourceChange.bind( null )}
-            labels={flattenLabels( _.extend( translationLabels, this.props.configuration.field( 'translation' ).getAll() ), this.props.lang )}
-          />
-        </div> : null}
+      { this.state.translation && !displayedTranslator ? renderTranslator() : null }
 
         <div className="js_form_canvas_below"></div>
 

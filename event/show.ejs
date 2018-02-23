@@ -115,9 +115,9 @@
         <section class="detail-item">
           <h3><i class="fa fa-child"></i></h3>
 <% if ( !event.age.max ) { %>
-          <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
+          <p class="detail-item-content"><%= __( 'startingAt', { 'min' : event.age.min } ) %></p>
 <% } else { %>
-          <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
+          <p class="detail-item-content"><%= __( 'minToMaxYearsOld', { 'min' : event.age.min, 'max' : event.age.max } ) %></p>
 <% } %>
         </section>
 <% } %>
@@ -128,7 +128,7 @@
             <p>
               <%- event.location.name %><% /* escaped in model already */ %>
             </p>
-            <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
+            <span class="margin-right-xs"><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%= event.location.address %></a></span>
             <ul class="info list-inline location-info-parts">
 <% [ 'department', 'region', 'country' ].forEach( function( part ) { %>
 <% if ( event.location[ part ] && locationPart( part ) ) { %>
