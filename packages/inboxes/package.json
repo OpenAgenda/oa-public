@@ -53,7 +53,6 @@
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.1",
     "jest": "^21.1.0",
-    "mocha": "^3.5.3",
     "reload": "^2.2.2",
     "sinon": "^4.0.1"
   }
