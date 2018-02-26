@@ -47,7 +47,7 @@ parentApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
 
 } );
 
-parentApp.get( '/', ( req, res ) => res.redirect( 301, '/agendas/123/survey' ) );
+parentApp.get( '/', ( req, res ) => res.redirect( 302, '/agendas/123/survey' ) );
 
 parentApp.get( '/redirect', ( req, res, next ) => {
   
