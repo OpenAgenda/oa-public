@@ -1,10 +1,9 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
     "build": "babel react/src -d react/dist -s",
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",

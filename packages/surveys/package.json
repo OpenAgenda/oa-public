@@ -1,12 +1,12 @@
 {
   "name": "@openagenda/surveys",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "license": "See license.txt",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "start": "nodemon testServer.js",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.1.0",

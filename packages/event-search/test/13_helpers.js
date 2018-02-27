@@ -8,6 +8,7 @@ const config = require( '../testconfig' );
 const w = require( 'when' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
+const moment = require( 'moment' );
 
 describe( 'event-search - unit: helpers', function() {
 
@@ -142,9 +143,7 @@ function _getYesterdayDate( secondsOffset ) {
 
 function _dateStrFromNow( count = 0 ) {
 
-  let d = new Date();
-
-  d.setDate( d.getDate() + count );
+  const d = moment().add( count, 'day' ).toDate();
 
   return JSON.stringify( d ).replace( /"/g, '' );
 

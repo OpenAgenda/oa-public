@@ -1,10 +1,9 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
     "build": "babel react/src -d react/dist -s",
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
@@ -44,7 +43,7 @@
     "redux-form": "^6.5.0"
   },
   "devDependencies": {
-    "@openagenda/agendas": "^1.0.4",
+    "@openagenda/agendas": "^1.0.9",
     "@openagenda/bs-templates": "^2.0.4",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.1",

@@ -116,9 +116,11 @@ describe( 'event search - functional: create', function() {
 
     eventData.uid++; // avoid conflict with previous test
 
+    const timestamp = ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
+
     eventData.timings = [ {
-      begin: ( new Date() ).setDate( ( new Date() ).getDate() + 1 ),
-      end: ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
+      begin: timestamp,
+      end: timestamp + 1
     } ];
 
     let result = await service( 'test_index' ).add( eventData, { 

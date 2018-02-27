@@ -1,10 +1,10 @@
 {
   "name": "@openagenda/agendas",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "agendas service",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "preversion": "npm test"
   },
   "keywords": [],
