@@ -77,7 +77,7 @@ App = createReactClass( {
 
   },
 
-  onCustomChange( field, value ) {
+  onCustomChange( field, value, errors ) {
 
     const updated = {};
 
@@ -85,7 +85,13 @@ App = createReactClass( {
 
     const updatedCustom = update( this.state.event.custom, updated );
 
-    this.onChange( 'custom' )( updatedCustom );
+    const updatedErrors = {};
+
+    updatedErrors[ field ] = { $set: errors };
+
+    const updatedCustomErrors = update( this.state.customSetErrors, updatedErrors );
+
+    this.onChange( 'custom' )( updatedCustom, updatedCustomErrors );
 
   },
 
@@ -93,30 +99,15 @@ App = createReactClass( {
 
     let self = this;
 
-    return function( values ) {
+    return function( values, errors ) {
 
       let changes = { event: {} };
 
       if ( type === 'custom' ) {
 
-        let field = arguments[ 0 ], 
+        changes.event.custom = { $set: values };
 
-          value = arguments[ 1 ],
-
-          error = arguments[ 2 ];
-
-        changes.event[ type ] = {};
-
-        changes.event[ type ][ field ] = {
-          $set: value
-        }
-
-        changes.customSetErrors = {}
-
-        // if error is undefined, the key should be unset rather than set to 'undefined'
-        changes.customSetErrors[ field ] = {
-          $set: error
-        };
+        changes.customSetErrors = { $set: errors }
 
       } else {
         
@@ -167,7 +158,7 @@ App = createReactClass( {
     
     post( this.props.res, { event: this.state.event }, ( err, result ) => {
 
-      if ( err || !result.success ) {
+      if ( err || !result.success ) {
 
         return this.setState( {
           saving: false,

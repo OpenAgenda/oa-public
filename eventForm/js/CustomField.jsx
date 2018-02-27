@@ -32,7 +32,7 @@ module.exports = createReactClass({
             lang= { this.props.lang } 
             type= { field.fieldType } 
             value= { this.props.value ? this.props.value : {} }
-            error= { this.props.error || false }
+            error= { this.props.error || false }
             languages= { this.props.languages }
             onChange= { this.props.onChange } />
           </div>;
@@ -50,7 +50,7 @@ module.exports = createReactClass({
             type= { field.fieldType }
             enriched= { !!field.enriched }
             value= { this.props.value ? this.props.value : '' }
-            error= { this.props.error || false }
+            error= { this.props.error || false }
             onChange= { this.props.onChange } />
         </div>
 
@@ -90,7 +90,7 @@ module.exports = createReactClass({
         field= { field }
         lang= { this.props.lang } 
         value= { this.props.value ? this.props.value : '' }
-        label= { field.label }
+        label= { field.label }
         handleUpdate= { this.props.onChange } /></div>;
 
     } else if ( field.fieldType == 'radio' ) {
@@ -103,8 +103,8 @@ module.exports = createReactClass({
           lang= { this.props.lang }
           info= { field.info } 
           value= { this.props.value ? this.props.value : '' }
-          error= { this.props.error || false }
-          label= { field.label }
+          error= { this.props.error || false }
+          label= { field.label }
           onChange= { this.props.onChange } />
       </div>
 
@@ -117,8 +117,8 @@ module.exports = createReactClass({
           lang= { this.props.lang }
           info= { field.info } 
           value= { this.props.value ? this.props.value : '' }
-          error= { this.props.error || false }
-          label= { field.label }
+          error= { this.props.error || false }
+          label= { field.label }
           onChange= { this.props.onChange } />
       </div>
 
@@ -132,8 +132,8 @@ module.exports = createReactClass({
           lang= { this.props.lang }
           info= { field.info } 
           value= { this.props.value ? this.props.value : '' }
-          error= { this.props.error || false }
-          label= { field.label }
+          error= { this.props.error || false }
+          label= { field.label }
           onChange= { this.props.onChange } />
       </div>
 
@@ -145,7 +145,7 @@ module.exports = createReactClass({
           name={ field.name }
           upload={ this.props.res.upload.replace( '{field}', field.name ) }
           remove={ this.props.res.remove.replace( '{field}', field.name ) }
-          lang={ this.props.lang }
+          lang={ this.props.lang }
           value={ this.props.value ? this.props.res.path + this.props.value : '' }
           label={ field.label }
           info={ field.info }
@@ -164,7 +164,7 @@ module.exports = createReactClass({
           label={ field.label }
           optional= { field.optional }
           path={ this.props.res.path }
-          value={ this.props.value }
+          value={ this.props.value }
           onChange={ this.props.onChange }
           upload={ this.props.res.upload.replace( '{field}', field.name ) }
           remove={ this.props.res.remove.replace( '{field}', field.name ) }
