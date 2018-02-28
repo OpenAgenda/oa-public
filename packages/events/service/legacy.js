@@ -72,8 +72,6 @@ async function update( identifiers, options ) {
 
   const legacyEventId = _.get( await knex( schemas.event ).first( 'id' ).where( 'uid', event.uid ), 'id' );
 
-
-
   const entries = {
     event: _.extend(
       // always applies
@@ -97,8 +95,8 @@ async function update( identifiers, options ) {
       title: _.get( event.title, lang ),
       description: _.get( event.description, lang ),
       free_text: _.get( event.longDescription, lang ),
-      tags: _.get( event.keywords, lang )
-    } ) ),
+      tags: _.get( event.keywords, lang, [] ).join( ', ' )
+    } ) ),
     eventLocation: {
       event_id: 'TBD',
       location_id: locationId,

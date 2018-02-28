@@ -47,7 +47,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
   it( 'transfer to legacy structure creates legacy event if non-existant', async () => {
 
-    const { inserted } = await svc.legacy.update( { uid: 2875149 } );
+    const { inserted } = await svc.legacy.update( { uid: 2875149 } );
 
     inserted.event.uid.should.equal( 2875149 );
 
@@ -71,7 +71,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       }
     } );
 
-    await svc.legacy.update( { uid } );
+    await svc.legacy.update( { uid } );
 
     const legacyEventEntry = await knex( config.legacy.schemas.event ).first().where( { uid } );
 
@@ -98,6 +98,28 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
   } ); 
 
+  it( 'transfer to legacy structure updates keywords', async () => {
+
+    const uid = 59481036;
+
+    const newKeywords = [ 'un', 'deux', 'trois', 'nous allons', 'à la mort' ];
+
+    await svc.update( { uid }, { keywords: {
+      fr: newKeywords
+    } } );
+
+    await svc.legacy.update( { uid } );
+
+    const eventEntry = await knex( config.legacy.schemas.event ).first().where( { uid } );
+
+    const eventTranslationEntry = await knex( config.legacy.schemas.eventTranslation ).first().where( {
+      id: eventEntry.id
+    } );
+
+    eventTranslationEntry.tags.should.equal( 'un, deux, trois, nous allons, à la mort' );
+
+  } );
+
 
   it( 'transfer to legacy replaces occurrences', async () => {
 
@@ -116,7 +138,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     occurrenceEntries.length.should.equal( 1 );
 
-    _.pick( occurrenceEntries[ 0 ], [ 'time_start', 'time_end' ] )
+    _.pick( occurrenceEntries[ 0 ], [ 'time_start', 'time_end' ] )
 
       .should.eql( {
         time_start: '03:00:00',
@@ -130,7 +152,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
   it( 'legacy event can be removed altogether', async () => {
 
-    const result = await svc.legacy.remove( { uid: 2875149 } );
+    const result = await svc.legacy.remove( { uid: 2875149 } );
 
     result.should.eql( {
       success: true,
@@ -145,9 +167,9 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     const uid = 2875149;
 
-    await svc.legacy.update( { uid } );
+    await svc.legacy.update( { uid } );
 
-    await svc.legacy.remove( { uid } );
+    await svc.legacy.remove( { uid } );
 
     const deletedLog = await knex( config.legacy.schemas.deleted ).first().where( { type: 'Event', uid } );
 
@@ -200,7 +222,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     const uid = 2875149;
 
-    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
+    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
 
     await svc.update( { uid }, {
       title: {
@@ -219,7 +241,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     const uid = 2875149;
 
-    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
+    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
 
     await svc.update( { uid }, {
       title: {

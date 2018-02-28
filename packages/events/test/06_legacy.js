@@ -73,7 +73,7 @@ describe( 'events - functional (server): legacy bridge', function() {
         locationUid: 46785382,
         title: { fr: 'Indoor de Paris - CSO Pro 1' },
         description: { fr: 'Epreuve de Saut d\'Obstacles Pro 1' },
-        longDescription: { fr: 'Lors de cette épreuve **50 couples de cavaliers professionnel **prendront le départ de deux parcours d\'obstacles de 1m40 et 1m45.\n\nL\'objectif pour les concurrents est d\'effectuer deux parcours sans faute et le plus rapidement possible.\n\nVous ne connaissez pas la compétition de saut d\'obstacles? Pas de panique le règlement est simple, vous vous prendrez au jeu facilement !\n\nVous pourrez apprécier **la franchise, la puissance, l\'adresse, la rapidité **et le respect du cheval ainsi que la qualité d\'équitation du cavalier.\n\nLa compétition se déroulera en deux manches:\n\n*   **Etape 1** :\n\nBarème A au chrono sans barrage\n\nHauteur : 1,40 m\n\n50 partants\n\nLundi 28/11: 14h30 - 16h30\n\n*   **Etape 2** : Finale\n\nSuper 10, option B\n\nHauteur : 1,45 m\n\n50 partants\n\nMardi 29/11: 10h00 - 12h00\n\n**Secteur**\n\nHall 5a - Carrière Fédérale' },
+        longDescription: { fr: 'Lors de cette épreuve **50 couples de cavaliers professionnel **prendront le départ de deux parcours d\'obstacles de 1m40 et 1m45.\n\nL\'objectif pour les concurrents est d\'effectuer deux parcours sans faute et le plus rapidement possible.\n\nVous ne connaissez pas la compétition de saut d\'obstacles? Pas de panique le règlement est simple, vous vous prendrez au jeu facilement !\n\nVous pourrez apprécier **la franchise, la puissance, l\'adresse, la rapidité **et le respect du cheval ainsi que la qualité d\'équitation du cavalier.\n\nLa compétition se déroulera en deux manches:\n\n*   **Etape 1** :\n\nBarème A au chrono sans barrage\n\nHauteur : 1,40 m\n\n50 partants\n\nLundi 28/11: 14h30 - 16h30\n\n*   **Etape 2** : Finale\n\nSuper 10, option B\n\nHauteur : 1,45 m\n\n50 partants\n\nMardi 29/11: 10h00 - 12h00\n\n**Secteur**\n\nHall 5a - Carrière Fédérale' },
         keywords: { fr: [ 'CSO', 'epreuves', 'indoor de paris', 'pro' ] },
         conditions: {
           fr: 'Entrée pas chère',
@@ -170,7 +170,6 @@ describe( 'events - functional (server): legacy bridge', function() {
     } );
 
   } );
-
 
 
   it( 'uid is maintained during transfer', done => {
@@ -356,7 +355,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.update( 147621, { title: { fr: 'Changed!' } }, err => {
+      svc.update( 147621, { title: { fr: 'Changed!' } }, err => {
 
         svc.get( 147621, { private: null }, ( err, event ) => {
 
@@ -414,7 +413,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.update( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
+      svc.update( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
 
         svc.get( 147621, { private: null }, ( err, event ) => {
 
