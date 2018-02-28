@@ -72,6 +72,7 @@ async function update( identifiers, options ) {
 
   const legacyEventId = _.get( await knex( schemas.event ).first( 'id' ).where( 'uid', event.uid ), 'id' );
 
+
   const entries = {
     event: _.extend(
       // always applies
@@ -516,7 +517,7 @@ function _loadLegacy( v ) {
 
   .then( r => {
 
-    v.legacy = _.assign( r[ 1 ], { event: r[ 0 ] } );
+    v.legacy = _.assign( r[ 1 ], { event: r[ 0 ] } );
 
     return v;
 
@@ -610,7 +611,7 @@ function _getEventLocationTranslations( v ) {
 
     v.entries.eventLocationTranslations.forEach( r => {
 
-      if ( !r.pricing_info || !r.pricing_info.length ) return;
+      if ( !r.pricing_info || !r.pricing_info.length ) return;
 
       v.data.conditions[ r.lang ] = r.pricing_info;
 
@@ -711,7 +712,7 @@ function _getEventTranslations( v ) {
 
 function _parseKeywords( keywords ) {
 
-  if ( !keywords || !keywords.length ) return [];
+  if ( !keywords || !keywords.length ) return [];
 
   return keywords.split( ',' ).map( k => k.trim() );
 
@@ -879,7 +880,7 @@ async function _updateLegacy( eventId, entries ) {
 
 async function _insertEventLocation( eventId, data ) {
 
-  const inserted = _.extend( data, { event_id: eventId } );
+  const inserted = _.extend( data, { event_id: eventId } );
 
   const [ eventLocationInsertId ] = await knex( schemas.eventLocation ).insert( inserted );
 
@@ -916,7 +917,7 @@ async function _insertOccurrences( eventId, entries ) {
 
 async function _createLegacy( entries ) {
 
-  const [ insertedId ] = await knex( schemas.event ).insert( entries.event );
+  const [ insertedId ] = await knex( schemas.event ).insert( entries.event );
 
   const inserted = {
     event: _.extend( entries.event, { id: insertedId } ),

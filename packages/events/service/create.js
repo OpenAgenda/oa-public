@@ -63,7 +63,7 @@ module.exports = _.extend( function( d, o, c ) {
 
     .then( draft( 'data' ) )
 
-    .then( validate( { target: 'data', log } ) )
+    .then( validate( { target: 'data', log } ) )
 
     .then( _doCreate )
 
