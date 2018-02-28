@@ -32,6 +32,7 @@ export default async function syncTask() {
   }
 
   let data;
+  let i = 0;
 
   while ( data = await q.pop() ) {
     try {
@@ -39,6 +40,8 @@ export default async function syncTask() {
     } catch ( e ) {
       log( 'error', 'Error on sync process: job n°%d:\n%o', i, data, e );
     }
+
+    i++;
   }
 
   log( 'info', '%d user inboxes created', stats.userInboxesCreated );
