@@ -1,5 +1,7 @@
 "use strict";
 
+const VError = require( 'verror' );
+
 const agendaEvents = require( '@openagenda/agenda-events' );
 const custom = require( '@openagenda/custom' );
 
@@ -11,7 +13,18 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
   }
 
   // reference event on agenda
-  let result = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, { transferToLegacy: true } );
+  let result;
+
+  try {
+    
+    result = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, { transferToLegacy: true } );
+
+  } catch ( e ) {
+
+    throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agendaUid, eventUid );
+
+  }
+
 
   added.agendaEvent = result.created;
 

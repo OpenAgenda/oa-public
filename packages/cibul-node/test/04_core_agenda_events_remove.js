@@ -42,6 +42,7 @@ const testConfig = {
     eventLocation: 'legacy_event_location',
     eventLocationTranslation: 'legacy_event_location_translation',
     agendaEvent: 'legacy_agenda_event',
+    eventEditor: 'legacy_event_editor',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',

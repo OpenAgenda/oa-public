@@ -145,6 +145,9 @@ describe( 'core - functional ( server ): agenda event create', function() {
           begin: new Date,
           end: new Date
         } ],
+        keywords: {
+          fr: [ 'un', 'deux', 'trois' ]
+        },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       } );

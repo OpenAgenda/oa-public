@@ -178,6 +178,7 @@ ALTER TABLE `member` ADD PRIMARY KEY (`id`), ADD KEY `user_id_idx` (`user_id`), 
 CREATE TABLE IF NOT EXISTS `agenda_event` (
   `id` bigint(20) NOT NULL,
   `agenda_uid` bigint(20) NOT NULL,
+  `can_edit` tinyint(1) NOT NULL DEFAULT '0',
   `event_uid` bigint(20) NOT NULL,
   `state` tinyint(1) NOT NULL DEFAULT '0',
   `featured` tinyint(1) NOT NULL DEFAULT '0',
@@ -298,7 +299,7 @@ CREATE TABLE IF NOT EXISTS `legacy_event_location` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `ticket_link` varchar(255) DEFAULT NULL,
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL auto_increment,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -330,6 +331,15 @@ CREATE TABLE IF NOT EXISTS `legacy_occurrence` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1037197 DEFAULT CHARSET=latin1;
+
+
+create table if not exists legacy_event_editor (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `event_id` bigint(20) NOT NULL,
+  `review_id` bigint(20) NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
