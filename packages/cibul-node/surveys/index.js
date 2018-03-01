@@ -1,11 +1,16 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const app = require( 'express' )();
 
-const surveysApp = require( '@openagenda/surveys/server' ).app;
+const service = require( '@openagenda/surveys/server' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
+const flattenLabels = require( '@openagenda/labels/flatten' );
+const headerLabels = require( '@openagenda/labels/layout/header' );
 
 module.exports = ( parentApp, path ) => {
+
+  parentApp.use( '/assets/surveys', service.assets );
 
   parentApp.use( path, app );
 
@@ -22,14 +27,37 @@ app.param( 'agendaSlug', agendasMw.load( {
   private: null
 } ) );
 
-app.post( '/:agendaSlug/survey', ( req, res, next ) => {
+app.get( '/:agendaSlug/survey/:eventSlug', ( req, res, next ) => {
 
   req.decorate = {
-    agenda: _.pick( req.agenda, [ 'uid', 'slug' ] )
+    config: {
+      res: {
+        redirect: {
+          $set: `/${req.params.agendaSlug}/events/${req.params.eventSlug}`
+        }
+      }
+    },
+    agenda: {
+      $set: req.agenda 
+    },
+    lang: {
+      $set: req.lang
+    },
+    labels: {
+      $set: flattenLabels( headerLabels, req.lang )
+    }
   }
 
   next();
 
 } );
 
-app.use( '/:agendaSLug/survey', surveysApp );
+app.post( '/:agendaSlug/survey/:eventSlug', ( req, res, next ) => {
+
+  req.decorate = { agenda: { $set: _.pick( req.agenda, [ 'slug', 'uid' ] ) } }
+
+  next();
+
+} );
+
+app.use( '/:agendaSlug/survey/:eventSlug', service.app );

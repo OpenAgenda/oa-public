@@ -551,7 +551,6 @@ let config = {
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         //enable: 'oa:*'
         enable: 'oa:*,svc:*'
-        //enable: '*'
       },
       token: false // no need to log dev things
       //token: 'a2923436-55dc-4eba-8668-44824d11c089'

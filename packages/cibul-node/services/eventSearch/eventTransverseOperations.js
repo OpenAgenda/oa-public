@@ -136,7 +136,7 @@ async function _getEvent( eventUid ) {
 
 function _queue( method, eventUid, agendaUid = null ) {
 
-  const args = { agendaUid, eventUid };
+  const args = { agendaUid, eventUid };
 
   log( 'queuing index %s for args %s', method, JSON.stringify( args ) );
 
