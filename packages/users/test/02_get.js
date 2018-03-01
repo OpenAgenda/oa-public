@@ -128,6 +128,19 @@ describe( '.get', function () {
 
   } );
 
+  it( 'get user with removed option a null', done => {
+
+    service.get( { id: 1025 }, { removed: null }, ( err, user ) => {
+
+      should( err ).equal( null );
+      user.email.should.equal( 'vincentac@gmail.com' );
+
+      done();
+
+    } );
+
+  } );
+
   it( 'get user with detailed & camel options', done => {
 
     service.get( { id: 2 }, { detailed: true, camel: true }, ( err, user ) => {

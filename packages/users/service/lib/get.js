@@ -15,7 +15,7 @@ module.exports = async function _get( v ) {
   const detailed = v.params && v.params.detailed;
   const password = v.params && v.params.password;
   const store = v.params && v.params.store;
-  const removed = v.params && v.params.removed || false;
+  const removed = v.params && v.params.removed !== undefined ? v.params.removed : false;
 
   const fields = (detailed ? detailedFields : basicFields)
     .concat( password ? [ 'password', 'salt' ] : [] )
@@ -25,8 +25,10 @@ module.exports = async function _get( v ) {
 
   let request = knex.column( fields ).select().from( schemas.user );
 
-  if ( !removed ) {
+  if ( removed === false ) {
     request = request.where( schemas.user + '.is_removed', 0 );
+  } else if ( removed === true ) {
+    request = request.where( schemas.user + '.is_removed', 1 );
   }
 
   let whereColumn = schemas.user + '.' + ( identifiers[ 0 ] || 'id');

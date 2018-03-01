@@ -47,7 +47,7 @@ describe( '.list', function () {
 
       should( err ).equal( null );
       users.length.should.equal( 10 );
-      total.should.equal( 26 );
+      total.should.equal( 25 );
 
       done();
 
@@ -77,7 +77,7 @@ describe( '.list', function () {
     const { users, total } = await service.list( 0, 10, { total: true } );
 
     users.length.should.equal( 10 );
-    total.should.equal( 26 );
+    total.should.equal( 25 );
 
   } );
 
@@ -94,7 +94,16 @@ describe( '.list', function () {
 
     const { users } = await service.list( {}, { removed: true } );
 
-    users.length.should.equal( 0 );
+    users.length.should.equal( 1 );
+
+  } );
+
+  it( 'list with removed option at null', async () => {
+
+    const { users, total } = await service.list( {}, { removed: null, total: true } );
+
+    users.length.should.equal( 20 );
+    total.should.equal( 26 );
 
   } );
 
