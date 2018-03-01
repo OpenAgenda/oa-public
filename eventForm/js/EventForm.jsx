@@ -588,7 +588,7 @@ function EventFormFactory() {
 
       const renderTranslator = () => {
 
-        let displayedTranslator = true;
+        displayedTranslator = true;
 
         return <div className="margin-v-lg">
           <Translation
