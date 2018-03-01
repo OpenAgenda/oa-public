@@ -1,7 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
-const webpackConfig = require( './webpack.config' );
+const webpackConfig = require( './webpack.dev' );
 const compiler = webpack( webpackConfig );
 
 const express = require( 'express' );
@@ -18,13 +18,16 @@ parentApp.use( require( 'webpack-dev-middleware' )( compiler, {
 
 config.knex.raw( 'use ' + config.test.connection.database ).then( () => {
 
+  // in dev environment, hot reload puts js there:
+  config.frontAppPath = '/js/index.js';
+
   service.init( config );
   
 } );
 
 parentApp.use( require( 'webpack-hot-middleware' )( compiler ) );
 
-parentApp.use( express.static( __dirname + '/node_modules/@openagenda/bs-templates/compiled' ) );
+parentApp.use( express.static( __dirname + '/../../node_modules/@openagenda/bs-templates/compiled' ) );
 
 parentApp.use( ( req, res, next ) => {
 
@@ -60,8 +63,9 @@ parentApp.get( '/redirect', ( req, res, next ) => {
  * service app bit
  */
 
-const app = require( './server' ).app;
+parentApp.use( '/agendas/:agendaUid/survey', service.app );
 
-parentApp.use( '/agendas/:agendaUid/survey', app );
+// in production only
+parentApp.use( '/assets/surveys', service.assets )
 
 parentApp.listen( 8080 );

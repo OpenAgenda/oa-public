@@ -125,7 +125,7 @@ export default class FormSchemaComponent extends Component {
 
   render() {
 
-    const { lang } = this.props;
+    const { lang } = this.props;
 
     const { values, submitted } = this.state;
 

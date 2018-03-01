@@ -1,9 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const express = require( 'express' );
 const fs = require( 'fs' );
 
-const app = require( 'express' )();
+
+const app = express();
 const bodyParser = require( 'body-parser' );
 const ih = require( 'immutability-helper' );
 
@@ -15,7 +17,7 @@ const serviceParams = {
   knex: null,
   schema: null,
   decorateKey: null,
-  frontAppPath: null,
+  frontAppPath: '/assets/surveys/index.js',
   render: null,
   validate: null
 }
@@ -23,7 +25,8 @@ const serviceParams = {
 module.exports = {
   app,
   init,
-  create
+  create,
+  assets: express.static( __dirname + '/../assets' )
 }
 
 async function init( c ) {
@@ -33,7 +36,6 @@ async function init( c ) {
   serviceParams.render = _.template( c.layout.replace( '<%- content %>', fs.readFileSync( __dirname + '/canvas.ejs', 'utf-8' ) ), {
     imports: _.pick( serviceParams, [ 'frontAppPath' ] )
   } );
-
 
   serviceParams.validate = ( new FormSchema( surveySchema ) ).getValidate();
 

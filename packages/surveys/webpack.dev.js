@@ -6,11 +6,11 @@ module.exports = {
   context: __dirname,
   entry: [ 
     'webpack-hot-middleware/client',
-    './client/src/index.js'
+    './client/index.js'
   ],
   output: {
     filename: 'index.js',
-    path: __dirname,
+    path: __dirname + '/assets',
     publicPath: '/js/'
   },
   plugins: [
@@ -24,6 +24,7 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
+          babelrc: false,
           presets: [
             'babel-preset-env',
             'babel-preset-react'

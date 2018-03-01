@@ -11,16 +11,17 @@ const connection = {
 }
 
 module.exports = {
-  frontAppPath: '/js/index.js',
   knex: knex( {
     client: 'mysql',
     // leave database name out of connection for tests only
     connection: _.omit( connection, 'database' )
   } ),
   schema: 'survey',
+  decorateKey: 'decorateWith', // inject data before create
+  layout: fs.readFileSync( __dirname + '/index.ejs', 'utf-8' ),
+
+  // only useful for dev environment
   test: {
     connection
   },
-  decorateKey: 'decorateWith', // inject data before create
-  layout: fs.readFileSync( __dirname + '/index.ejs', 'utf-8' ),
 }
