@@ -4,7 +4,7 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
+    "test": "mocha --compilers js:babel-core/register --exit",
     "build": "babel react/src -d react/build -s",
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.js -o .tmp/testapp-client.js",
@@ -65,7 +65,7 @@
   "devDependencies": {
     "@openagenda/bs-templates": "^2.0.2",
     "@openagenda/fixtures": "^2.0.1",
-    "@openagenda/keys": "^2.0.0",
+    "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "@openagenda/unsubscribed": "^2.0.0",
     "babel-cli": "^6.11.4",
@@ -83,6 +83,7 @@
     "concurrently": "^3.5.0",
     "cookie-parser": "^1.4.3",
     "husky": "^0.14.3",
+    "mocha": "^5.0.0",
     "piping": "^1.0.0-rc.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

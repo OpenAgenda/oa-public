@@ -141,8 +141,6 @@ async function list( query, offset, limit, options, cb ) {
 
     }
 
-    console.log( 'OPTIONS', options );
-
     if ( options.removed === false ) {
       baseRequest.where( 'is_removed', 0 );
     } else if ( options.removed === true ) {

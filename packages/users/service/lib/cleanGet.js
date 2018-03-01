@@ -9,8 +9,9 @@ module.exports = function cleanGet( v ) {
 
     v.user = utils.filterByAttr( v.user, [
       'id', 'uid', 'full_name', 'username', 'email', 'image', 'facebook_uid',
-      'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at', 'updated_at', 'last_notified', 'is_removed',
-      'is_new', 'last_signin', 'comexposium_id', 'api_key', 'api_secret'
+      'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at', 
+      'updated_at', 'last_notified', 'is_removed', 'is_new', 'last_signin',
+      'comexposium_id', 'api_key', 'api_secret', 'last_inbox_check'
     ]
       .concat( v.params && v.params.store ? 'store' : [] ) );
 

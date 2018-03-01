@@ -22,7 +22,7 @@ schema.register( {
 
 // define the schema
 
-const protectedFields = [ 'is_activated', 'is_new', 'last_signin' ];
+const protectedFields = [ 'is_activated', 'is_new', 'last_signin', 'last_inbox_check' ];
 
 const schemaValidator = schema( {
   full_name: {
@@ -61,6 +61,9 @@ const schemaValidator = schema( {
     type: 'number'
   },
   last_signin: {
+    type: 'date'
+  },
+  last_inbox_check: {
     type: 'date'
   },
   is_removed: {

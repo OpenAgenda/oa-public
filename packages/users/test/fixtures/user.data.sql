@@ -17,6 +17,7 @@ CREATE TABLE `${schema}` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `last_notified` datetime DEFAULT NULL,
+  `last_inbox_check` datetime DEFAULT NULL,
   `is_removed` tinyint(1) NOT NULL DEFAULT '0',
   `store` longtext,
   `api_key` varchar(32) DEFAULT NULL,

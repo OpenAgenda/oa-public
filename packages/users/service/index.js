@@ -14,7 +14,7 @@ const confirmChangeEmail = require( './confirmChangeEmail' );
 const generateApiKey = require( './generateApiKey' );
 const remove = require( './remove' );
 const setNewFlag = require( './setNewFlag' );
-const refreshLastSignin = require( './refreshLastSignin' );
+const refresh = require( './refresh' );
 
 
 module.exports = {
@@ -32,5 +32,6 @@ module.exports = {
   generateApiKey,
   remove,
   setNewFlag,
-  refreshLastSignin
+  refreshLastSignin: refresh.bind( null, 'lastSignin' ), // deprecated
+  refresh
 };

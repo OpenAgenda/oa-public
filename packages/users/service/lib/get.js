@@ -5,7 +5,7 @@ const config = require( '../../config' );
 const basicFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'culture', 'is_new', 'created_at', 'updated_at' ];
 const detailedFields = [ 'id', 'uid', 'full_name', 'username', 'email', 'image', 'is_new',
   'facebook_uid', 'twitter_id', 'google_id', 'culture', 'is_activated', 'created_at',
-  'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id' ];
+  'updated_at', 'last_notified', 'is_removed', 'last_signin', 'comexposium_id', 'last_inbox_check' ];
 
 module.exports = async function _get( v ) {
 

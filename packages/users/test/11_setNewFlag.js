@@ -2,15 +2,12 @@
 
 process.env.NODE_ENV = 'test';
 
-const config = require( '../testconfig' ),
+const should = require( 'should' );
 
-  should = require( 'should' ),
+const fixtures = require( '@openagenda/fixtures' );
 
-  fixtures = require( '@openagenda/fixtures' ),
-
-  service = require( '../service' ),
-
-  mysql = require( 'mysql' );
+const config = require( '../testconfig' );
+const service = require( '../service' );
 
 
 describe( '.setNewFlag', function () {
@@ -20,7 +17,6 @@ describe( '.setNewFlag', function () {
   before( async () => {
 
     await service.initAndLoad( config );
-    await require( '@openagenda/keys' ).init( config );
 
   } );
 
@@ -28,10 +24,7 @@ describe( '.setNewFlag', function () {
 
     fixtures.init( config );
 
-    fixtures( [ {
-      table: config.schemas.key,
-      src: __dirname + '/fixtures/key.data.sql'
-    } ], { reset: false }, done );
+    fixtures( [], { reset: false }, done );
 
   } );
 

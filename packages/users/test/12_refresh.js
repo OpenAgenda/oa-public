@@ -13,7 +13,7 @@ const config = require( '../testconfig' ),
   mysql = require( 'mysql' );
 
 
-describe( '.refreshLastSignin', function () {
+describe( '.refresh', function () {
 
   this.timeout( 20000 );
 
@@ -35,7 +35,7 @@ describe( '.refreshLastSignin', function () {
 
   } );
 
-  it( 'refreshLastSignin', done => {
+  it( 'refreshLastSignin - deprecated', done => {
 
     service.get( { id: 3843 }, { detailed: true }, ( err, user ) => {
 
@@ -49,6 +49,36 @@ describe( '.refreshLastSignin', function () {
           service.get( { id: 3843 }, { detailed: true }, ( err2, modifiedUser ) => {
 
             should( user.last_signin ).below( modifiedUser.last_signin );
+
+            done();
+
+          } );
+
+        }
+      );
+
+    } );
+
+  } );
+
+
+  it( 'refresh - last inbox check', done => {
+
+    service.get( { id: 3843 }, { detailed: true, camel: true }, ( err, user ) => {
+
+      service.refresh( 'lastInboxCheck',
+        { id: 3843 },
+        ( err, success ) => {
+
+          should( err ).equal( null );
+          should( success ).eql( true );
+
+          service.get( { id: 3843 }, { detailed: true, camel: true }, ( err, modifiedUser ) => {
+
+
+            should( user.lastInboxCheck ).equal( null );
+
+            modifiedUser.lastInboxCheck.should.ok;
 
             done();
 
