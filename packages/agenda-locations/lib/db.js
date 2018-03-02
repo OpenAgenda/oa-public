@@ -1,0 +1,1485 @@
+"use strict";
+
+const _ = require( 'lodash' );
+
+var utils = require( '@openagenda/utils' ),
+
+w = require( 'when' ), 
+
+mysql = require( 'mysql' ),
+
+validate = require( './validate' ),
+
+logger = require( '@openagenda/basic-logger' ), log,
+
+async = require( 'async' ),
+
+slug = require( 'slug' ),
+
+states = require( './states' ),
+
+helpers = require( './mysqlHelpers' ),
+
+countries = require( '@openagenda/countries' ),
+
+config,
+
+fields = [ 
+  'id', 'uid', { obj: 'eveId', db: 'eve_id' }, { obj: 'agendaId', db: 'agenda_id' }, 'slug', { obj: 'name', db: 'placename'}, 
+  'address', 'city', 'region', 'department', { obj: 'postalCode', 'db': 'postal_code' }, { obj: 'countryCode', db: 'country' },
+  { obj: 'district', db: 'city_district' }, 'latitude', 'longitude', { obj: 'updatedAt', db: 'updated_at' }, 'store'
+],
+
+// fields kept in store column in schema
+storeFields = [ 
+  'image', 'description', 'tags', 
+  'website', 'phone', 'links', 'access', 
+  'state', 'timezone', 'imageCredits'
+],
+
+// field used to retrieve aggregates of values for filtering
+termFields = [ 'name', 'city', 'region', 'department', 'country' ];
+
+module.exports = {
+  isReady: () => !!config,
+  getConnection: () => mysql.createConnection( config ),
+  init,
+  set,
+  get,
+  exists,
+  remove,
+  unlink,
+  list: utils.extend( list, {
+    terms: listTerms
+  } ),
+
+  // decorate a list of locations with
+  // any data that needs to be fetched
+  // from separate stores ( agenda settings )
+  decorate,
+
+  // get all distinct values from specific field
+  getSettings,
+
+  // copy settings of an agenda to another
+  copySettings,
+
+  // resync agenda locations data with agenda settings
+  resync,
+
+  test: {
+    _fromDbFields,
+    _toDbFields,
+    _filterWheres,
+    _defineListQuery,
+    _defineGetQuery,
+    _defineTermsQuery,
+    _resyncLocationTags
+  }
+}
+
+
+function resync( agendaId, cb ) {
+
+  getSettings( agendaId, ( err, settings ) => {
+
+    if ( err ) return cb( err );
+
+    if ( !settings || !settings.tagSet ) return cb();
+
+    let offset = 0, limit = 20, more = true;
+
+    async.doWhilst( wcb => {
+
+      list( { agendaId: agendaId }, offset, limit, ( err, locations ) => {
+
+        if ( err ) return cb( err );
+
+        more = !!locations.length;
+
+        offset += limit;
+
+        async.eachSeries( locations, ( l, ecb ) => {
+
+          _resyncLocationTags( l, settings, err => {
+
+            if ( err ) {
+
+              log( 'could not sync location %s', l.id );
+
+            }
+
+            ecb();
+
+          } );
+
+        }, wcb );
+
+      } );
+
+    }, () => { return more; }, cb );
+
+  } );
+
+}
+
+/**
+ * get agenda location data settings
+ */
+
+function getSettings( agendaId, cb ) {
+
+  if ( !config || !config.agendaSettingsTableName ) {
+
+    return cb( 'db not inited or settings schema missing' );
+
+  }
+
+  var con = _connect( config );
+
+  con.query( `select store from ${config.agendaSettingsTableName} where agenda_id = ?`, agendaId, ( err, rows ) => {
+
+    con.end();
+
+    if ( err ) return cb( err );
+
+    let settings = {};
+
+    try {
+
+      if ( rows.length ) settings = JSON.parse( rows[ 0 ].store );
+
+    } catch( e ) {};
+
+    cb( null, settings );
+
+  } );
+
+}
+
+
+function copySettings( originAgendaId, destinationAgendaId, cb ) {
+
+  getSettings( originAgendaId, ( err, settings ) => {
+
+    if ( err ) return cb( err );
+
+    let con = _connect( config );
+
+    con.query( `select agenda_id from ${config.agendaSettingsTableName} where agenda_id = ?`, destinationAgendaId, ( err, rows ) => {
+
+      let query = rows.length ?
+        `update ${config.agendaSettingsTableName} set store = ? where agenda_id = ?`
+        : `insert into ${config.agendaSettingsTableName} ( store, agenda_id ) values ( ?, ? )`;
+
+      con.query( query, [ JSON.stringify( settings ), destinationAgendaId ], ( err, result ) => {
+
+        con.end();
+
+        if ( err ) return cb( err );
+
+        cb( null, {
+          success: result.affectedRows === 1
+        } );
+
+      } )
+
+    } )
+
+  } );
+
+}
+
+
+function list( wheres, offset, limit, cb ) {
+
+  if ( arguments.length == 3 ) {
+
+    cb = limit;
+
+    limit = offset;
+
+    offset = wheres;
+
+    wheres = {};
+
+  }
+
+  var con = _connect( config );
+
+  w( {
+    con: con,
+    offset: offset,
+    limit: limit,
+    locations: false,
+    config: config,
+    wheres: wheres,
+    query: false,
+    filteredWheres: {}
+  } )
+
+  .then( _filterWheres )
+
+  .then( _defineListQuery )
+
+  .then( _runQuery( 'locations' ) )
+
+  .then( _clean( 'locations' ) )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, v.locations );
+
+  }, err => {
+
+    con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+function decorate( locations, cb ) {
+
+  var loadedSettings = {},
+
+  decoratedLocations = [],
+
+  toDecorate = utils.isArray( locations ) ? locations : [ locations ];
+
+  async.eachSeries( toDecorate, ( location, ecb ) => {
+
+    w( {
+      settings: location.agendaId ? loadedSettings[ location.agendaId ] : false,
+      location: location
+    } )
+
+    .then( _loadSettings )
+
+    .then( _decorateTags )
+
+    .done( v => {
+
+      decoratedLocations.push( v.location );
+
+      ecb();
+
+    }, ecb );
+
+  }, err => {
+
+    if ( err ) return cb( err );
+
+    cb( null, utils.isArray( locations ) ? decoratedLocations : decoratedLocations[ 0 ] );
+
+  } );
+
+  function _loadSettings( v ) {
+
+    if ( !v.location.agendaId || v.settings ) return v;
+
+    let d = w.defer();
+
+    getSettings( v.location.agendaId, ( err, settings ) => {
+
+      if ( err ) return d.reject( err );
+
+      loadedSettings[ v.location.agendaId ] = settings;
+
+      v.settings = settings;
+
+      d.resolve( v );
+
+    } );
+
+    return d.promise;
+
+  }
+
+  function _decorateTags( v ) {
+
+    if ( !v.settings
+
+    || !v.settings.tagSet
+
+    || !v.settings.tagSet.groups
+
+    || !v.settings.tagSet.groups.length ) return v;
+
+    if ( !v.location.tags || !utils.isArray( v.location.tags ) ) return v;
+
+    v.location.tags = v.location.tags.map( lt => {
+
+      let gt = v.settings.tagSet.groups.map( g => {
+
+        return g.tags.filter( t => {
+
+          return t.id == lt.id;
+
+        } );
+
+      } ).filter( gt => gt.length );
+
+      if ( !gt.length ) return [];
+
+      return gt[ 0 ][ 0 ];
+
+    } );
+
+    return v;
+
+  }
+
+}
+
+
+/**
+ * promise version of the above
+ */
+decorate.promise = function( v ) {
+
+  let d = w.defer();
+
+  decorate( v.locations, ( err, decorated ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.decorated = decorated;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function set( data, settings, cb ) {
+
+  if ( arguments.length == 2 ) {
+
+    cb = settings;
+
+    settings = {};
+
+  }
+
+  log( 'set location' );
+
+  var con = _connect( config );
+
+  w( {
+    config,
+    settings,
+    con,
+    operation: false,
+    data,
+    currentLocation: false,
+    location: false,
+    errors: []
+  } )
+
+  .then( _determineCreateOrUpdate )
+
+  .then( _validate )
+
+  .then( v => {
+
+    if ( v.errors.length ) return v;
+
+    return ( v.operation == 'create' ? _create : _update )( v );
+
+  } )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, {
+      success: !v.errors.length,
+      operation: v.operation,
+      location: v.location,
+      errors: v.errors
+    } );
+
+  }, err => {
+
+    con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+/**
+ * check if location exists. Limits get to id field
+ * and does not bother to clean
+ */
+function exists( identifiers, cb ) {
+
+  if ( typeof identifiers !== 'object' ) {
+
+    return cb( 'could not check: wrong identifiers %s', identifers );
+
+  }
+
+  let con = _connect( config );
+
+  w( utils.extend( {
+    con: con,
+    query: false,
+    config: config,
+    fields: [ 'id' ]
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+
+  .then( _defineGetQuery )
+
+  .then( _runGetQuery )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, !!v.location );
+
+  }, err => {
+
+    if ( con ) con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+/**
+ * get a location
+ */
+function get( identifiers, cb ) {
+
+  if ( typeof identifiers !== 'object' ) {
+
+    return cb( 'could not get: wrong identifiers %s', identifers );
+
+  }
+
+  let con = _connect( config );
+
+  w( utils.extend( {
+    con: con,
+    query: false,
+    config: config
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+
+  .then( _defineGetQuery )
+
+  .then( _runGetQuery )
+
+  .then( _clean( 'location' ) )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, v.location );
+
+  }, err => {
+
+    if ( con ) con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+function unlink( identifiers, cb ) {
+
+  var con = _connect( config );
+
+  w( utils.extend( {
+    con,
+    config,
+    query: false,
+    location: false
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+
+  .then( _defineGetQuery )
+
+  .then( _runGetQuery )
+
+  .then( _defineUnlinkQuery )
+
+  .then( _runRemoveQuery )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, v.location );
+
+  }, err => {
+
+    con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+function remove( identifiers, cb ) {
+
+  var con = _connect( config );
+
+  w( utils.extend( {
+    con: con,
+    query: false,
+    config: config,
+    location: false
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+
+  .then( _defineGetQuery )
+
+  .then( _runGetQuery )
+
+  .then( _defineRemoveQuery )
+
+  .then( _runRemoveQuery )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, v.location );
+
+  }, err => {
+
+    con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+/**
+ * no offset and no limit for this guy. 
+ * he is expected to fetch all values.
+ */
+function listTerms( fields, wheres, cb ) {
+
+  if ( arguments.length == 2 ) {
+
+    cb = wheres;
+
+    wheres = {};
+
+  }
+
+  var con = _connect( config );
+
+  w( {
+    con: con,
+    fields: fields,
+    terms: false,
+    config: config,
+    wheres: wheres,
+    query: false,
+    filteredWheres: {}
+  } )
+
+  .then( _filterWheres )
+
+  .then( _validateTermFields )
+
+  .then( _defineTermsQuery )
+
+  .then( _runQuery( 'terms' ) )
+
+  .then( _cleanTerms )
+
+  .done( v => {
+
+    con.end();
+
+    cb( null, v.terms );
+
+  }, err => {
+
+    con.end();
+
+    cb( err );
+
+  } );
+
+}
+
+
+function init( cfg, cb ) {
+
+  log = logger( 'db' );
+
+  w( {
+    config: utils.extend( {
+      host: 'localhost',
+      database: 'agenda_locations',
+      user: 'root',
+      password: false,
+      table: 'location'
+    }, cfg ),
+    noLoadDatabase: true
+  } )
+
+  .then( _checkDb )
+
+  .then( _checkSchema )
+
+  .done( v => {
+
+    log( 'init complete' );
+
+    config = v.config;
+
+    if ( cb ) cb( null );
+
+  }, cb );
+
+}
+
+
+function _clean( namespace ) {
+
+  return v => {
+
+    let items = utils.isArray( v[ namespace ] ) ? v[ namespace ] : [ v[ namespace ] ];
+
+    items = items.map( l => {
+
+      if ( !l ) {
+
+        return l;
+
+      }
+
+      // description may have been input in store as string.
+      // it should be multilingual therefore an object
+      if ( typeof l.description === 'string' ) {
+
+        l.description = { fr: l.description };
+
+      }
+
+      // same for access
+      if ( typeof l.access == 'string' ) {
+
+        l.access = { fr: l.access };
+
+      }
+
+      return l;
+
+    } );
+
+    v[ namespace ] = utils.isArray( v[ namespace ] ) ? items : items[ 0 ];
+
+    return v;
+
+  }
+
+}
+
+
+function _filterWheres( v ) {
+
+  v.filteredWheres = {};
+
+  [ 'name', 'agendaId', 'uid' ].filter( f => v.wheres[ f ] !== undefined ).forEach( f => {
+
+    v.filteredWheres[ f ] = v.wheres[ f ];
+
+  } );
+
+  return v;
+
+}
+
+
+function _defineListQuery( v ) {
+
+  var wheresObj = _toDbFields( v.filteredWheres ),
+
+  wheres = [];
+
+
+
+  for( let k in wheresObj ) {
+
+    if ( wheresObj[ k ] === null ) {
+
+      wheres.push( k + ' is null' );
+
+    } else if ( _.isArray( wheresObj[ k ] ) ) {
+
+      wheres.push( k + ' in (' + wheresObj[ k ].map( w => v.con.escape( w ) ).join( ', ' ) + ')' );
+
+    } else {
+
+      wheres.push( k + ' = ' + v.con.escape( wheresObj[ k ] ) );
+
+    }
+
+  }
+
+  v.query = [
+    `select ${fields.map( f => typeof f == 'string' ? f : f.db ).join( ', ' )}`,
+    `from ${v.config.table}`,
+    wheres.length ? `where ${wheres.join( ' and ' )}` : '',
+    `limit ${v.offset}, ${v.limit}`
+  ].join( ' ' );
+
+  if ( log ) log( 'list query: %s', v.query );
+
+  return v;
+
+}
+
+
+function _runQuery( targetField ) {
+
+  return function( v ) {
+
+    var d = w.defer();
+
+    v.con.query( v.query, ( err, rows ) => {
+
+      if ( err ) return d.reject( err );
+
+      v[ targetField ] = rows.map( _fromDbFields );
+
+      d.resolve( v );
+
+    } );
+
+    return d.promise;
+
+  }
+
+}
+
+
+function _connect( config ) {
+
+  if ( !config ) return false;
+
+  return mysql.createConnection( config );
+
+}
+
+function _update( v ) {
+
+  log( 'running update' );
+
+  return w( v )
+
+  .then( _updateLocation );
+
+}
+
+
+function _create( v ) {
+
+  log( 'running create' );
+
+  return w( v )
+
+  .then( _assignUniqueUid )
+
+  .then( _assignUniqueSlug )
+
+  .then( _insertLocation );
+
+}
+
+function _defineGetQuery( v ) {
+
+  var idFields = v.idFields.map( idf => {
+
+    let f = fields.filter( f => ( typeof f == 'string' ? f : f.obj ) == idf )[ 0 ];
+
+    return typeof f == 'string' ? f : f.db;
+
+  } );
+
+  if ( !idFields.length ) {
+
+    v.query = false;
+
+    return v;
+
+  }
+
+  v.query = [ 'select' ]
+    .concat( ( v.fields || fields ).map( f => typeof f == 'string' ? f : f.db ).join( ', ') )
+    .concat( `from ${v.config.table} where` )
+    .concat( idFields.map( ( f, i ) => f + ' = ' + v.con.escape( v.values[ i ] ) ).join( ' and ') )
+    .concat( [ 'limit 0, 1' ] ).join( ' ' );
+
+  // if ( log ) log( 'get query: %s', v.query );
+
+  return v;
+
+}
+
+
+function _validateTermFields( v ) {
+
+  v.fields.forEach( field => {
+
+    if ( termFields.indexOf( field ) == -1 ) {
+
+      throw 'unauthorized term';
+
+    }
+
+  } );
+
+  return v;
+
+}
+
+
+function _defineTermsQuery( v ) {
+
+  var wheresObj = _toDbFields( v.filteredWheres ),
+
+  wheres = [],
+
+  selects = v.fields;
+
+  for( let k in wheresObj ) {
+
+    wheres.push(  k + ( wheresObj[ k ] === null ? ' is ' : '=' ) + v.con.escape( wheresObj[ k ] ) );
+
+  }
+
+  v.fields.map( field => {
+
+    wheres.push( field + ' is not null' );
+
+    wheres.push( field + ' <> "null"' );
+
+    wheres.push( field + ' <> ""' );
+
+  } );
+
+  selects[ 0 ] = 'distinct ' + selects[ 0 ];
+
+  v.query = [
+    `select ${selects.join( ', ' )}`,
+    `from ${v.config.table}`,
+    wheres.length ? `where ${wheres.join( ' and ' )}` : ''
+  ].join( ' ' );
+
+  if ( log ) log( 'terms query: %s', v.query );
+
+  return v;    
+
+}
+
+
+function _cleanTerms( v ) {
+
+  v.terms.forEach( t => {
+
+    if ( t.countryCode ) {
+
+      t.country = countries.getLabel( t.countryCode );
+
+    }
+
+  } );
+
+  return v;
+
+}
+
+
+function _runGetQuery( v ) {
+
+  var d;
+
+  if ( !v.query ) {
+
+    v.location = null;
+
+    return v;
+
+  }
+
+  d = w.defer();
+
+  v.con.query( v.query, ( err, rows ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.location = rows.length ? _fromDbFields( rows[ 0 ] ) : null;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _defineRemoveQuery( v ) {
+
+  if ( v.location === null ) return v;
+
+  v.query = [
+    `delete from ${v.config.table}`,
+    `where id = ${v.con.escape( v.location.id )}`,
+    'limit 1'
+  ].join( ' ' );
+
+  return v;
+
+}
+
+
+function _defineUnlinkQuery( v ) {
+
+  if ( v.location === null ) return v;
+
+  v.query = [
+    `update ${v.config.table} set agenda_id=NULL`,
+    `where id = ${v.con.escape( v.location.id )}`,
+    'limit 1'
+  ].join( ' ' );
+
+  return v;
+
+}
+
+
+function _runRemoveQuery( v ) {
+
+  if ( v.location === null ) return v;
+
+  var d = w.defer();
+
+  v.con.query( v.query, ( err ) => {
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _toDbFields( values, previousValues ) {
+
+  var dbData = _transform( values, 'obj', 'db' );
+
+  // if store values are undefined and previous values exist,
+  // they should be used and not be reset
+
+  if ( dbData.store && previousValues ) {
+
+    for( let k in dbData.store ) {
+
+      if ( dbData.store[ k ] === undefined ) {
+
+        dbData.store[ k ] = previousValues[ k ];
+
+      }
+
+    }
+
+  }
+
+  return dbData;
+
+}
+
+
+function _fromDbFields( values ) {
+
+  var objData = _transform( values, 'db', 'obj' ),
+
+  store;
+
+  if ( values.store ) {
+
+    try {
+
+      store = JSON.parse( values.store ) || {};
+
+    } catch( e ) {
+
+      log( 'error', 'could not parse store: %s', values.store );
+
+      return objData;
+
+    }
+
+    storeFields.forEach( f => {
+
+      objData[ f ] = store[ f ];
+
+    } ); 
+
+  }
+
+  return objData;
+
+}
+
+
+function _transform( values, from, to ) {
+
+  var transformed = {};
+
+  fields.filter( f => values[ typeof f == 'string' ? f : f[ from ] ] !== undefined )
+
+  .forEach( f => {
+
+    transformed[ typeof f == 'string' ? f : f[ to ] ] = values[ typeof f == 'string' ? f : f[ from ] ];
+
+  } );
+
+  return transformed;
+
+}
+
+
+function _assignUniqueUid( v ) {
+
+  log( 'assigning unique uid' );
+
+  var d = w.defer();
+
+  _defineUnique( v, 'uid', () => Math.ceil( Math.random() * 100000000 ), ( err, uid ) => {
+
+    if ( err ) return d.reject( err );
+
+    log( 'assigned uid %s', uid );
+
+    v.location.uid = uid;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+function _assignUniqueSlug( v ) {
+
+  log( 'assigning unique slug' );
+
+  var d = w.defer(), tried = false;
+
+  _defineUnique( v, 'slug', () => {
+
+    let sluggedName = slug( v.location.name, { lower: true } );
+
+    if ( tried ) {
+
+      sluggedName += Math.ceil( Math.random() * 1000 );
+
+    }
+
+    tried = true;
+
+    return sluggedName;
+
+  }, ( err, sluggedName ) => {
+
+    log( 'selected slug %s', sluggedName );
+
+    if ( err ) return d.reject( err );
+
+    v.location.slug = sluggedName;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _insertLocation( v ) {
+
+  log( 'inserting location' );
+
+  let d = w.defer(),
+
+  dbData = _toDbFields( v.location );
+
+  dbData.created_at = new Date();
+
+  dbData.updated_at = new Date();
+
+  helpers.insert( v.con, v.config.table, dbData, ( err, result ) => {
+
+    if ( err ) return d.reject( err );
+
+    v.location.id = result.insertId;
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _updateLocation( v ) {
+
+  var d = w.defer(),
+
+  identifiers = _extractIdentifiers( v.data, [ 'id', 'uid' ] ),
+
+  dbData = _toDbFields( v.location, v.currentLocation );
+
+  dbData.updated_at = new Date();
+
+  log( 'updating location of id %s with data %s', JSON.stringify( identifiers.obj ), JSON.stringify( dbData ) );
+
+  helpers.update( v.con, v.config.table, identifiers.obj, dbData, ( err ) => {
+
+    if ( err ) return d.reject( err );
+
+    // get refreshed values from db ( if only to fetch id for subsequent search indexing )
+    get( identifiers.obj, ( err, location ) => {
+
+      if ( err ) return d.reject( err );
+
+      if ( !location ) return d.reject( 'could not fetch updated event' );
+
+      v.location = location;
+
+      d.resolve( v );
+
+    } );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _defineUnique( v, field, generator, cb ) {
+
+  var uniqueValue = false;
+
+  async.doWhilst( wcb => {
+
+    let value = generator();
+
+    log( 'attempting values %s for field %s', value, field );
+
+    v.con.query( `select id from ${v.config.table} where ${field} = ${v.con.escape( value )} limit 0, 1`, ( err, rows ) => {
+
+      if ( err ) return wcb( err );
+
+      if ( !rows.length ) {
+
+        log( 'value %s is unique', value );
+
+        uniqueValue = value;
+
+      }
+
+      wcb();
+
+    } );
+
+  }, () => !uniqueValue, ( err ) => {
+
+    cb( err, uniqueValue );
+
+  } );
+
+}
+
+
+function _resyncLocationTags( location, settings, cb ) {
+
+  let changed = false,
+
+  settingsTags = settings.tagSet.groups.reduce( ( prev, g ) => {
+
+    return prev.concat( g.tags );
+
+  }, [] ),
+
+  locationTags = ( location.tags || [] );
+
+  // if has tags that settings does not have, remove them
+  locationTags = locationTags.filter( t => {
+
+    if ( settingsTags.map( st => st.id ).indexOf( t.id ) == -1 ) {
+
+      changed = true;
+
+      return false;
+
+    }
+
+    return true;
+
+  } );
+
+  // if a tag label is different, update
+  locationTags = locationTags.map( t => {
+
+    let st = settingsTags.filter( st => st.id === t.id )[ 0 ];
+
+    if ( st.label !== t.label ) {
+
+      changed = true;
+
+      t.label = st.label;
+
+    }
+
+    return t;
+
+  } );
+
+  // nothing to update, don't bother db
+  if ( !changed ) {
+
+    log( 'location %s tags are already in sync', location.id );
+
+    return cb( null );
+
+  }
+
+  location.tags = locationTags;
+
+  set( location, settings, cb );
+
+}
+
+
+function _determineCreateOrUpdate( v ) {
+
+  var d = w.defer(),
+
+  identifiers = _extractIdentifiers( v.data, [ 'id', 'uid', 'eveId' ] ).obj;
+
+  v.operation = 'create';
+
+  log( '_determineCreateOrUpdate for identifiers %s', JSON.stringify( identifiers ) );
+
+  // if not a single unique identifier is defined, no need to get
+  if ( !Object.keys( identifiers ).length ) {
+
+    log( '_determineCreateOrUpdate: no identifiers defined -> create' );
+
+    return v;
+
+  }
+
+  // optionally add agenda constraint if specified
+  
+  if ( v.data.agendaId ) {
+
+    identifiers.agendaId = v.data.agendaId;
+
+  }
+
+  get( identifiers, ( err, location ) => {
+
+    if ( err ) return d.reject( err );
+
+    if ( location ) {
+
+      log( '_determineCreateOrUpdate: found location id %s -> update', location.id );
+
+      v.data.id = location.id;
+
+      v.currentLocation = location;
+
+      v.operation = 'update';
+
+    }
+
+    log( '_determineCreateOrUpdate: identifiers %s trigger an %s', JSON.stringify( identifiers ), v.operation );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+  
+}
+
+
+function _extractIdentifiers( data, idFieldCandidates ) {
+
+  var extracted = {
+    idFields: [],
+    values: [],
+    obj: {}
+  };
+
+  idFieldCandidates.forEach( ( field ) => {
+
+    if ( !data[ field ] ) return;
+
+    extracted.idFields.push( field );
+
+    extracted.values.push( data[ field ] );
+
+    extracted.obj[ field ] = data[ field ];
+
+  } );
+
+  return extracted;
+
+}
+
+function _checkDb( v ) {
+
+  var d = w.defer(),
+
+  q = `create database if not exists ${v.config.database}`,
+
+  con = _connect( {
+    host: v.config.host,
+    user: v.config.user,
+    password: v.config.password
+  } );
+
+  con.query( q, err => {
+
+    con.end();
+
+    if ( err ) {
+
+      return d.reject( err );
+
+    }
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}
+
+
+function _validate( v ) {
+
+  log( '_validate' );
+
+  try {
+
+    v.location = validate( v.data, v.settings, v.operation !== 'create' );
+
+  } catch( e ) {
+
+    v.errors = e;
+
+    return v;
+
+  }
+  
+  if ( !v.location.store ) v.location.store = {};
+
+  storeFields.forEach( f => {
+
+    v.location.store[ f ] = v.location[ f ];
+
+  } );
+
+  return v;
+
+}
+
+function _checkSchema( v ) {
+
+  var d = w.defer(),
+
+  con = _connect( {
+    host: v.config.host,
+    user: v.config.user,
+    password: v.config.password,
+    database: v.config.database,
+    multipleStatements: true
+  });
+
+  con.query( `
+CREATE TABLE IF NOT EXISTS ${v.config.table}
+(id BIGINT AUTO_INCREMENT,
+uid BIGINT UNIQUE,
+agenda_id bigint,
+slug VARCHAR(100) NOT NULL UNIQUE,
+placename VARCHAR(100) NOT NULL,
+address VARCHAR(255),
+city VARCHAR(100),
+country VARCHAR(2),
+latitude DECIMAL(10, 6) NOT NULL,
+longitude DECIMAL(10, 6) NOT NULL,
+owner_id BIGINT,
+main TINYINT(1) DEFAULT '0' NOT NULL,
+store LONGTEXT,
+processed_at datetime,
+region VARCHAR(255),
+department VARCHAR(255),
+city_district VARCHAR(255),
+postal_code VARCHAR(20),
+eve_id VARCHAR(100) UNIQUE,
+created_at DATETIME NOT NULL,
+updated_at DATETIME NOT NULL, 
+UNIQUE INDEX slug_idx (slug), 
+INDEX latlng_idx (latitude, longitude),
+INDEX owner_id_idx (owner_id),
+PRIMARY KEY(id)) DEFAULT CHARACTER 
+SET utf8 COLLATE utf8_general_ci ENGINE = INNODB; 
+CREATE TABLE IF NOT EXISTS ${v.config.agendaSettingsTableName}
+(agenda_id BIGINT UNIQUE NOT NULL,
+store LONGTEXT,
+PRIMARY KEY(agenda_id)) DEFAULT CHARACTER
+SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;`,
+
+  err => {
+
+    con.end();
+
+    if ( err ) return d.reject( err );
+
+    d.resolve( v );
+
+  } );
+
+  return d.promise;
+
+}

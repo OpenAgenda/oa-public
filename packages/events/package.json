@@ -1,0 +1,43 @@
+{
+  "name": "@openagenda/events",
+  "version": "1.1.12",
+  "description": "handle core event data",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --exit",
+    "build-fields": "node tasks/makeValidatorFields.js",
+    "prepublish": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/events.git"
+  },
+  "author": "Loooo'd Vaaaeeeda'",
+  "homepage": "https://bitbucket.org/openagenda/events#readme",
+  "dependencies": {
+    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/mysql-utils": "^2.0.0",
+    "@openagenda/queue": "^1.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/slugs": "^1.1.0",
+    "@openagenda/validators": "^2.0.1",
+    "async": "^2.1.2",
+    "knex": "^0.12.5",
+    "lodash": "^4.16.6",
+    "marked": "^0.3.6",
+    "moment-timezone": "^0.5.7",
+    "mysql": "^2.11.1",
+    "verror": "^1.10.0",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "@openagenda/fixtures": "^2.0.1",
+    "babel-core": "^6.24.0",
+    "immutability-helper": "^2.3.0",
+    "mocha": "^4.0.1",
+    "should": "^11.1.1"
+  }
+}

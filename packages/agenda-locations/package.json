@@ -1,0 +1,81 @@
+{
+  "name": "@openagenda/agenda-locations",
+  "version": "1.0.19",
+  "description": "",
+  "main": "index.js",
+  "license": "no license",
+  "scripts": {
+    "pretest": "npm run babelify",
+    "test": "mocha --exit",
+    "build": "babel components/src -d components/build -s",
+    "babelify": "babel components/src -d components/build -s",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A components/build",
+    "preserve": "npm run-script babelify",
+    "preserve-populate": "npm run-script babelify",
+    "serve": "node test/app",
+    "serve-populate": "node test/app fixtures",
+    "serve-debug": "node debug test/app",
+    "debug": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve-debug",
+    "start": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve-populate",
+    "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve"
+  },
+  "dependencies": {
+    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/bs-templates": "^2.0.3",
+    "@openagenda/countries": "^0.1.1",
+    "@openagenda/dom-utils": "^2.0.4",
+    "@openagenda/files": "^2.0.5",
+    "@openagenda/geocode-farm": "^1.0.4",
+    "@openagenda/image-upload": "^1.0.1",
+    "@openagenda/images": "^1.0.3",
+    "@openagenda/labels": "^2.0.27",
+    "@openagenda/react-components": "^2.0.2",
+    "@openagenda/react-form-components": "^2.0.8",
+    "@openagenda/spinner": "^2.0.1",
+    "@openagenda/translators": "^1.0.2",
+    "@openagenda/utils": "^1.0.2",
+    "@openagenda/validators": "^2.0.1",
+    "async": "^1.5.0",
+    "create-react-class": "^15.5.2",
+    "deep-extend": "^0.4.0",
+    "elasticsearch": "^10.0.1",
+    "immutability-helper": "^2.0.0",
+    "languages": "0.1.3",
+    "leaflet": "^0.7.7",
+    "lodash": "^4.17.2",
+    "mysql": "2.9.0",
+    "prop-types": "^15.5.8",
+    "qs": "2.3.3",
+    "rc-switch": "^1.3.2",
+    "react-select": "^1.0.0-rc.4",
+    "s3": "^4.4.0",
+    "slug": "0.9.1",
+    "when": "3.7.4",
+    "xhr": "^2.2.0"
+  },
+  "peerDependencies": {
+    "react": "15 || 16"
+  },
+  "devDependencies": {
+    "@openagenda/test-app": "^2.0.3",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "body-parser": "1.14.1",
+    "husky": "^0.14.3",
+    "mocha": "^4.0.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "reactify": "1.1.1",
+    "should": "^7.1.1"
+  },
+  "browserify": {
+    "transform": "reactify"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  }
+}

@@ -1,9 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const express = require( 'express' );
 const fs = require( 'fs' );
 
-const app = require( 'express' )();
+
+const app = express();
 const bodyParser = require( 'body-parser' );
 const ih = require( 'immutability-helper' );
 
@@ -15,7 +17,7 @@ const serviceParams = {
   knex: null,
   schema: null,
   decorateKey: null,
-  frontAppPath: null,
+  frontAppPath: '/assets/surveys/index.js',
   render: null,
   validate: null
 }
@@ -23,7 +25,8 @@ const serviceParams = {
 module.exports = {
   app,
   init,
-  create
+  create,
+  assets: express.static( __dirname + '/../assets' )
 }
 
 async function init( c ) {
@@ -33,7 +36,6 @@ async function init( c ) {
   serviceParams.render = _.template( c.layout.replace( '<%- content %>', fs.readFileSync( __dirname + '/canvas.ejs', 'utf-8' ) ), {
     imports: _.pick( serviceParams, [ 'frontAppPath' ] )
   } );
-
 
   serviceParams.validate = ( new FormSchema( surveySchema ) ).getValidate();
 
@@ -75,15 +77,25 @@ async function create( data ) {
 
 app.get( '/', ( req, res, next ) => {
 
-  res.send( serviceParams.render({
-    config: JSON.stringify( {
+  let templateData = {
+    config: {
       lang: _.get( req, 'lang', 'en' ),
       res: {
-        redirect : 'http://localhost:3000/redirected'
+        redirect : '/'
       },
       schema: surveySchema
-    } )
-  } ) );
+    }
+  }
+
+  if ( serviceParams.decorateKey ) {
+
+    templateData = ih( templateData, _.get( req, serviceParams.decorateKey, {} ) );
+
+  }
+
+  templateData.config = JSON.stringify( templateData.config );
+
+  res.send( serviceParams.render( templateData ) );
 
 } );
 
@@ -105,7 +117,7 @@ app.post( '/', bodyParser.json(), async ( req, res, next ) => {
 
   if ( serviceParams.decorateKey ) {
 
-    _.extend( clean, _.get( req, serviceParams.decorateKey, {} ) );
+    clean = ih( clean, _.get( req, serviceParams.decorateKey, {} ) );
 
   }
 
