@@ -1,5 +1,6 @@
 import { promisify, callbackify } from 'util';
 import _ from 'lodash';
+import VError from 'verror';
 import queueLib from '@openagenda/queue';
 import logs from '@openagenda/logs';
 import { services, queues, redis } from '../config';
@@ -38,7 +39,7 @@ export default async function syncTask() {
     try {
       await processJob( data, stats );
     } catch ( e ) {
-      log( 'error', 'Error on sync process: job n°%d:\n%o', i, data, e );
+      log( 'error', 'Error on sync process: job n°%d:\n%j', i, data, new VError( e ) );
     }
 
     i++;
@@ -112,7 +113,7 @@ export async function syncUser( user, stats ) {
   if ( !Inbox.data ) {
     await Inbox.create();
     upStats( stats, 'userInboxesCreated' );
-    log( 'info', 'Inbox %o is created', inboxIdentifiers );
+    log( 'info', 'Inbox %j is created', inboxIdentifiers );
   }
 
   // add InboxUser
@@ -122,7 +123,7 @@ export async function syncUser( user, stats ) {
   if ( !inboxUser.data ) {
     await Inbox.users.add( { userUid: user.uid } );
     upStats( stats, 'inboxUsersAdded' );
-    log( 'info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
+    log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
   }
 }
 
@@ -139,7 +140,7 @@ export async function syncAgenda( agenda, stats ) {
   if ( !Inbox.data ) {
     await Inbox.create();
     upStats( stats, 'agendaInboxesCreated' );
-    log( 'info', 'Inbox %o is created', inboxIdentifiers );
+    log( 'info', 'Inbox %j is created', inboxIdentifiers );
   }
 
   // add InboxUsers
@@ -180,7 +181,7 @@ export async function syncAgenda( agenda, stats ) {
     if ( !inboxUser.data ) {
       await Inbox.users.add( { userUid: user.uid } );
       upStats( stats, 'inboxUsersAdded' );
-      log( 'info', 'InboxUser %o is added to inbox %o', inboxUserIdentifiers, inboxIdentifiers );
+      log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
     }
   }
 }
