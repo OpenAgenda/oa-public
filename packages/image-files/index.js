@@ -18,9 +18,9 @@ module.exports = {
 }
 
 
-function load( options, cb ) {
+function load( options, cb = null ) {
 
-  w( Object.assign( {
+  const p = w( Object.assign( {
     path: false,
     url: false,
     formats: []
@@ -34,13 +34,23 @@ function load( options, cb ) {
 
   .then( _upload )
 
-  .done( v => {
+  .then( _cleanResult );
 
-    cb( null, {
-      uploadedPaths: v.uploadedPaths
+  if ( cb ) {
+
+    p.done( result => {
+
+      setTimeout( () => cb( null, result ), 0 );
+      
     } );
 
-  }, cb );
+    p.catch( cb );
+
+  } else {
+
+    return p;
+
+  }
 
 }
 
@@ -63,6 +73,13 @@ function init( c ) {
     tmpPath: config.files.tmpPath, 
     logger 
   } );
+
+}
+
+
+function _cleanResult( v ) {
+
+  return { uploadedPaths: v.uploadedPaths }
 
 }
 

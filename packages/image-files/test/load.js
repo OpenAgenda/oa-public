@@ -54,6 +54,25 @@ describe( 'image-files - load', function() {
 
   } );
 
+  it( 'previous operation as a promise', async () => {
+
+    const result = await svc.load( {
+      url: testImageUrl,
+      formats: [ {
+        name: 'rainfrog_s.jpg',
+        format: { width: 50, height: 50, crop: true }
+      }, {
+        name: 'rainfrog_o.jpg'
+      } ]
+    } );
+
+    result.uploadedPaths.should.eql( [
+      'https://openagendatst.s3.amazonaws.com/rainfrog_s.jpg',
+      'https://openagendatst.s3.amazonaws.com/rainfrog_o.jpg'
+    ] );
+
+  } );
+
 
   it( 'loads image from path in s3 bucket', done => {
 
