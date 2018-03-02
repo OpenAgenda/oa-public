@@ -77,15 +77,25 @@ async function create( data ) {
 
 app.get( '/', ( req, res, next ) => {
 
-  res.send( serviceParams.render({
-    config: JSON.stringify( {
+  let templateData = {
+    config: {
       lang: _.get( req, 'lang', 'en' ),
       res: {
-        redirect : 'http://localhost:3000/redirected'
+        redirect : '/'
       },
       schema: surveySchema
-    } )
-  } ) );
+    }
+  }
+
+  if ( serviceParams.decorateKey ) {
+
+    templateData = ih( templateData, _.get( req, serviceParams.decorateKey, {} ) );
+
+  }
+
+  templateData.config = JSON.stringify( templateData.config );
+
+  res.send( serviceParams.render( templateData ) );
 
 } );
 
@@ -107,7 +117,7 @@ app.post( '/', bodyParser.json(), async ( req, res, next ) => {
 
   if ( serviceParams.decorateKey ) {
 
-    _.extend( clean, _.get( req, serviceParams.decorateKey, {} ) );
+    clean = ih( clean, _.get( req, serviceParams.decorateKey, {} ) );
 
   }
 

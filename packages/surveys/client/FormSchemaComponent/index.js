@@ -166,6 +166,7 @@ export default class FormSchemaComponent extends Component {
 
 FormSchemaComponent.defaultPropTypes = {
   res: {
-    post: ''
+    post: '',
+    redirect: null
   }
 }

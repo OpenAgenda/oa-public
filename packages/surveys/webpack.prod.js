@@ -7,7 +7,7 @@ module.exports = {
   entry: './client/index.js',
   output: {
     filename: 'index.js',
-    path: __dirname + '/assets'
+    path: __dirname + '/dist'
   },
   module: {
     rules: [ {
