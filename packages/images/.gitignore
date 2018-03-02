@@ -4,3 +4,4 @@ test/tmp1*
 test/test*
 npm-debug.log
 yarn-error.log
+testconfig.js

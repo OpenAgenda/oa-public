@@ -68,7 +68,7 @@ describe( 'images - functional (server): main function', function() {
 
     imageSvc.multi( {
       url: imageSrc
-    }, destOptions, function( err, paths ) {
+    }, destOptions, function( err, paths, infos ) {
 
       var destDatas = destOptions;
 

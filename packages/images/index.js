@@ -76,13 +76,17 @@ function processImageMulti( srcOptions, destOptions, cb ) {
         path: values.path,
         clear: false,
         name: false
-      }, options ) );
+      }, options, {
+        returnValues: true
+      } ) )
 
     } ) )
 
-    .then( function( paths ) {
+    .then( results => {
 
-      values.paths = paths;
+      values.paths = results.map( r => r.dstPath );
+
+      values.infos = results.map( r => r.info );
 
       return values;
 
@@ -92,9 +96,9 @@ function processImageMulti( srcOptions, destOptions, cb ) {
 
   .then( _clearOrigin )
 
-  .done( function( values ) {
+  .done( values => {
 
-    cb( null, values.paths );
+    cb( null, values.paths, values.infos );
 
   }, cb );
 
@@ -116,10 +120,12 @@ function processImage( options, cb ) {
     name: false, // required
     format: false,  // if not set, keep original format
     sizeLimits: [ 2000, 10000000 ],
+    info: {},
+    returnValues: false,
     clear: true // if true, deletes origin file in tmp dir
   }, options ) )
 
-  .then( p.ifl( { url: true }, _download ) )
+  .then( p.ifl( { url: true }, _download ) )
 
   .then( p.ifl( { path: false }, p.interrupt( 'image could not be retrieved' ) ) )
 
@@ -139,7 +145,7 @@ function processImage( options, cb ) {
 
   .done( function( values ) {
 
-    cb( null, values.dstPath );
+    cb( null, values.returnValues ? values : values.dstPath );
 
   }, cb );
 
@@ -292,7 +298,7 @@ function _resize( values ) {
 
 function _crop( values ) {
 
-  if ( !values.format.crop || !values.format.height || !values.format.width ) return values;
+  if ( !values.format.crop || !values.format.height || !values.format.width ) return values;
 
   return w.promise( function( rs, rj ) {
 
