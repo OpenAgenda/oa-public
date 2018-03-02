@@ -64,7 +64,7 @@ module.exports = function( path ) {
     cmn.loadBaseData( 'oasfmain.css' ),
   ] );
 
-  return {
+  return {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }

@@ -37,14 +37,15 @@ TYPES = model.notifications().TYPES;
 
 module.exports = {
   notify: {
-    newContributor: _notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
-    iAmNewContributor: _notify( TYPES.AGENDA.IAMNEWCONTRIBUTOR ),
-    newAdministrator: _notify( TYPES.AGENDA.NEWADMINISTRATOR ),
-    iAmNewModerator: _notify( TYPES.AGENDA.IAMNEWMODERATOR ),
-    newModerator: _notify( TYPES.AGENDA.NEWMODERATOR ),
-    iAmNewAdministrator: _notify( TYPES.AGENDA.IAMNEWADMINISTRATOR ),
-    expiredSwapcard: _notify( TYPES.AGENDA.EXPIREDSWAPCARD ),
-    newSource: newSource
+    // removed legacy notifications
+    newContributor: cb => cb(), //_notify( TYPES.AGENDA.NEWCONTRIBUTOR ),
+    iAmNewContributor: cb => cb(), //_notify( TYPES.AGENDA.IAMNEWCONTRIBUTOR ),
+    newAdministrator: cb => cb(), //_notify( TYPES.AGENDA.NEWADMINISTRATOR ),
+    iAmNewModerator: cb => cb(), //_notify( TYPES.AGENDA.IAMNEWMODERATOR ),
+    newModerator: cb => cb(), //_notify( TYPES.AGENDA.NEWMODERATOR ),
+    iAmNewAdministrator: cb => cb(), //_notify( TYPES.AGENDA.IAMNEWADMINISTRATOR ),
+    expiredSwapcard: cb => cb(), //_notify( TYPES.AGENDA.EXPIREDSWAPCARD ),
+    newSource: () => {} //newSource
   },
   process: process,
   initless: true
@@ -94,7 +95,7 @@ function process( data, cb ) {
 
 function _createMyNotification( type, data, cb ) {
 
-  model.notifications().create[ type ]( data, ( err, result ) => {
+  model.notifications().create[ type ]( data, ( err, result ) => {
 
     if ( err ) return cb( err );
 
