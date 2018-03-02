@@ -15,7 +15,7 @@
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "preversion": "yarn test",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "peerDependencies": {
     "react": "^16.2.0",

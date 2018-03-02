@@ -162,7 +162,7 @@ export default class Conversation {
         )
       )
       .groupBy( `${schemas.conversation}.id` )
-      .orderByRaw( '(resolvedAt IS NOT NULL)' )
+      .orderByRaw( '(closedAt IS NOT NULL)' )
       .orderByRaw( 'latestMessageId DESC' )
       .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
 
@@ -291,16 +291,17 @@ export default class Conversation {
       );
     }
 
-    if ( this.data.resolvedAt && this.data.store.resolvedWith !== defaultAction.code && code !== defaultAction.code ) {
+    if ( this.data.resolvedAt && code !== defaultAction.code ) {
       throw new VError( 'You cannot resolve a conversation two times' );
     }
 
-    const data = this.data.resolvedAt ? {
-      closedAt: new Date()
+    const data = code === defaultAction.code ? {
+      closedAt: new Date(),
+      updatedAt: new Date()
     } : {
+      closedAt: new Date(),
       updatedAt: new Date(),
       resolvedAt: new Date(),
-      closedAt: new Date(),
       store: {
         ...this.data.store,
         resolvedWith: code,

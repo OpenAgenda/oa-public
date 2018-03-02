@@ -43,7 +43,7 @@ import { SubmissionError } from "redux-form";
         if ( focusFistConversation ) {
           if ( result.conversations && !result.conversations.length ) {
             return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
-          } else if ( result.conversations && result.conversations.length && !result.conversations[ 0 ].resolvedAt ) {
+          } else if ( result.conversations && result.conversations.length && !result.conversations[ 0 ].closedAt ) {
             return redirect( `${removeTrailingSlash( prefix )}/conversation/${result.conversations[ 0 ].id}` );
           }
         }
@@ -115,7 +115,7 @@ export default class Inbox extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  renderCreationButton( { unresolvedConvs } ) {
+  renderCreationButton( { unclosedConvs } ) {
     const { settings, router, getLabel } = this.props;
     const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
 
@@ -132,7 +132,7 @@ export default class Inbox extends Component {
       </LinkContainer>
     );
 
-    if ( allClosedForCreate && unresolvedConvs.length ) {
+    if ( allClosedForCreate && unclosedConvs.length ) {
       return null;
     }
 
@@ -152,12 +152,12 @@ export default class Inbox extends Component {
       displayHelp, allowCreateConversation, focusFistConversation
     } = settings;
 
-    const [ unresolvedConvs, resolvedConvs ] = _.partition( conversations, o => !o.resolvedAt );
+    const [ unclosedConvs, closedConvs ] = _.partition( conversations, o => !o.closedAt );
 
     const content = (
       <Fragment>
         <div className="inbox-head">
-          {this.renderCreationButton( { unresolvedConvs } )}
+          {this.renderCreationButton( { unclosedConvs } )}
 
           {displayHelp ? (
             <a
@@ -170,7 +170,7 @@ export default class Inbox extends Component {
             </a>
           ) : null}
 
-          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) && !maskCreationSubtitle
+          {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) && !maskCreationSubtitle
             ? (
               <Breadcrumb
                 breadParts={[ {
@@ -181,7 +181,7 @@ export default class Inbox extends Component {
             ) : <Breadcrumb/>}
         </div>
 
-        {topListForm && ((allowCreateConversation && !focusFistConversation) || !unresolvedConvs.length) ? <Fragment>
+        {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) ? <Fragment>
           {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
 
           <div className="media">
@@ -226,19 +226,19 @@ export default class Inbox extends Component {
         </Fragment> : null}
 
         {conversations && conversations.length ? <h4 className="margin-bottom-md">
-          {getLabel( !unresolvedConvs.length ? 'pastConversations' : 'ongoingConversations' )}
+          {getLabel( !unclosedConvs.length ? 'pastConversations' : 'ongoingConversations' )}
         </h4> : null}
 
-        {!unresolvedConvs.length
-          ? <ConversationList conversations={resolvedConvs} user={user}/>
-          : <ConversationList conversations={unresolvedConvs} user={user}/>}
+        {unclosedConvs.length
+          ? <ConversationList conversations={unclosedConvs} user={user}/>
+          : <ConversationList conversations={closedConvs} user={user}/>}
 
-        {unresolvedConvs.length && resolvedConvs.length ? <Fragment>
+        {unclosedConvs.length && closedConvs.length ? <Fragment>
           <h4 className="margin-bottom-md">
             {getLabel( 'pastConversations' )}
           </h4>
 
-          <ConversationList conversations={resolvedConvs} user={user}/>
+          <ConversationList conversations={closedConvs} user={user}/>
         </Fragment> : null}
 
         {/*{conversations && conversations.length ? <ConversationList conversations={conversations}/> : null}*/}

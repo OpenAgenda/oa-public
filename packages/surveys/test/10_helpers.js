@@ -1,6 +1,6 @@
 "use strict";
 
-const { flatten } = require( '../client/src/FormSchemaComponent/helpers' );
+const { flatten } = require( '../client/FormSchemaComponent/helpers' );
 
 test( 'flattens labels of form schema field', () => {
 
