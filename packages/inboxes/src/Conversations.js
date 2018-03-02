@@ -100,7 +100,7 @@ export default class Conversations {
         )
       )
       .groupBy( `${schemas.conversation}.id` )
-      .orderByRaw( '(resolvedAt IS NOT NULL)' )
+      .orderByRaw( '(closedAt IS NOT NULL)' )
       .orderByRaw( `latestMessageId DESC` )
       .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` )
       .offset( offset )
