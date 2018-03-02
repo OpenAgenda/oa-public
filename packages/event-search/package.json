@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-search",
-  "version": "1.1.21",
+  "version": "1.1.22",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/events": "^1.1.12",
+    "@openagenda/events": "^1.1.13",
     "mocha": "^4.0.1",
     "moment": "^2.20.1",
     "should": "^11.2.1"
