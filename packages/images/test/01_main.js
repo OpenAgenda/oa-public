@@ -59,7 +59,7 @@ describe( 'images - functional (server): main function', function() {
 
   });
 
-  it.only( 'process image to multiple outputs from url', done => {
+  it( 'process image to multiple outputs from url', done => {
 
     var destOptions = [
       { name: 'processed1', format: { width: 300 } },
@@ -72,7 +72,15 @@ describe( 'images - functional (server): main function', function() {
 
       var destDatas = destOptions;
 
-      console.log( infos );
+      infos.map( i => i.size ).forEach( ( size, i ) => {
+
+        size.should.eql( [ { 
+          width: 300, height: 205.25
+        }, { 
+          width: 200, height: 200
+        } ][ i ] );
+
+      } )
 
       for( var i in paths ) {
 
