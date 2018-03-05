@@ -59,7 +59,7 @@ describe( 'images - functional (server): main function', function() {
 
   });
 
-  it( 'process image to multiple outputs from url', function( done ) {
+  it.only( 'process image to multiple outputs from url', done => {
 
     var destOptions = [
       { name: 'processed1', format: { width: 300 } },
@@ -71,6 +71,8 @@ describe( 'images - functional (server): main function', function() {
     }, destOptions, function( err, paths, infos ) {
 
       var destDatas = destOptions;
+
+      console.log( infos );
 
       for( var i in paths ) {
 
