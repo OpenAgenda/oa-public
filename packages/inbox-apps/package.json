@@ -6,8 +6,9 @@
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf lib && babel src -d lib -s",
-    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \" sleep 3 && yarn watch-server\"",
+    "clean": "rimraf lib",
+    "build": "babel src -d lib -s",
+    "start": "yarn clean && concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \" sleep 3 && yarn watch-server\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
     "watch-server": "nodemon -w test/app -w lib -w ../inboxes test/app",
     "fixtures": "node test/app/fixtures",
@@ -15,7 +16,7 @@
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "preversion": "yarn test",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "^16.2.0",
