@@ -14,10 +14,12 @@ Run init of module before anything. Init inits module, so works for all subseque
       url: url
     }, [
       { name: name, format: { width: 600 } },
-      { name: 'evf' + name },
+      { name: 'evf' + name },
       { name: 'evtb' + name, format: { width: 120, height: 160, crop: true } }
-    ], function( err, imagePaths ) {
+    ], function( err, imagePaths, infos ) {
 
      // do what you want here
+
+     // infos gives size info on reformatted images
 
     } );
