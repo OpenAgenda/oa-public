@@ -1,12 +1,11 @@
 "use strict";
 
-const files = require( '@openagenda/files' ),
+const _ = require( 'lodash' );
+const w = require( 'when' );
 
-  images = require( '@openagenda/images' ),
-
-  logger = require( '@openagenda/basic-logger' ),
-
-  w = require( 'when' );
+const files = require( '@openagenda/files' );
+const images = require( '@openagenda/images' );
+const logger = require( '@openagenda/basic-logger' );
 
 let config, log;
 
@@ -27,7 +26,8 @@ function load( options, cb = null ) {
   }, options, {
     // internal stuff
     formattedPaths: [],
-    uploadedPaths: []
+    uploadedPaths: [],
+    infos: []
   } ) )
 
   .then( _format )
@@ -79,7 +79,7 @@ function init( c ) {
 
 function _cleanResult( v ) {
 
-  return { uploadedPaths: v.uploadedPaths }
+  return _.pick( v, [ 'uploadedPaths', 'infos' ] );
 
 }
 
@@ -93,13 +93,14 @@ function _format( v ) {
   images.multi( {
     path: v.path,
     url: v.url
-  }, v.formats, ( err, imagePaths ) => {
+  }, v.formats, ( err, imagePaths, infos ) => {
 
     if ( err ) return d.reject( err );
 
     log( 'formatted images successfully generated' );
 
     v.formattedPaths = imagePaths;
+    v.infos = infos;
 
     d.resolve( v );
 

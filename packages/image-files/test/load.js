@@ -74,6 +74,32 @@ describe( 'image-files - load', function() {
   } );
 
 
+  it( 'include created image sizes in result', async () => {
+
+    const result = await svc.load( {
+      url: testImageUrl,
+      formats: [ {
+        name: 'rainfrog_s.jpg',
+        format: { width: 250 }
+      }, {
+        name: 'rainfrog_o.jpg',
+        format: { width: 20 }
+      } ]
+    } );
+
+    result.infos.forEach( ( info, i ) => {
+
+      info.size.should.eql( [ {
+        width: 250, height: 143.875
+      }, {
+        width: 20, height: 11.51
+      } ][ i ] );
+
+    } );
+
+  } );
+
+
   it( 'loads image from path in s3 bucket', done => {
 
     fs.createReadStream( __dirname + '/files/rainfrog.png' )
