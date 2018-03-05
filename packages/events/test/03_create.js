@@ -2,15 +2,15 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const fs = require( 'fs' );
+const ih = require( 'immutability-helper' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
+const svc = require( './service' );
+const config = require( '../testconfig' );
 
-  should = require( 'should' ),
-
-  mysql = require( 'mysql' ),
-
-  ih = require( 'immutability-helper' );
+const imageFiles = require( '@openagenda/image-files' );
 
 describe( 'events - functional (server): create', function() {
 
@@ -18,7 +18,33 @@ describe( 'events - functional (server): create', function() {
 
   beforeEach( done => {
 
-    svc.initAndLoad( config, [ config.schemas.event + '_empty' ], done );
+    fs.createReadStream( __dirname + '/service/night_king.png' )
+
+      .pipe( fs.createWriteStream( __dirname + '/service/tmp.png' ) )
+
+      .on( 'close', () => {
+
+        done ()
+
+      } );
+
+  } )
+
+  beforeEach( done => {
+
+    // image files is an independent service
+    // that formats and loads given images on
+    // s3. The event service calls it when
+    // it is given images as local paths or urls
+    imageFiles.init( config.tests.imageFiles );
+
+    svc.initAndLoad( ih( config, {
+      interfaces: {
+        imageFilesLoad: {
+          $set: imageFiles.load
+        }
+      }
+    } ), [ config.schemas.event + '_empty' ], done );
 
   } );
 
@@ -79,6 +105,76 @@ describe( 'events - functional (server): create', function() {
       done();
 
     } );
+
+  } );
+
+
+  it( 'create the simplest draft event with image provided as url', async () => {
+
+    const { event } = await svc.create( {
+      image: {
+        url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    }, { draft: true } );
+
+    event.image.size.should.eql( { width: 600, height: 600 } );
+
+    /* {
+      filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
+      size: { width: 600, height: 600 },
+      variants: 
+       [ { filename: '636eaeeeb44243e4a76a3c12b8928045.full.image.jpg',
+           type: 'full',
+           size: [Object] },
+         { filename: '636eaeeeb44243e4a76a3c12b8928045.thumb.image.jpg',
+           type: 'thumbnail',
+           size: [Object] } ],
+      credits: null,
+      base: '//openagendatst.s3.amazonaws.com/' 
+    } */
+
+  } );
+
+
+  it( 'create the simplest draft event with image as local path', async () => {
+
+    const { event } = await svc.create( {
+      image: {
+        path: __dirname + '/service/tmp.png',
+        credits: 'Cé moi kai pri la foto',
+      }
+    }, { draft: true } );
+
+    event.image.size.should.eql( { width: 600, height: 913 } );
+
+    event.image.variants.map( v => v.type ).should.eql( [ 'full', 'thumbnail' ] );
+
+    /*{
+      "filename": "c3adffbad2d848d3b747ba7878d9f160.base.image.jpg",
+      "size": {
+        "width": 600,
+        "height": 913
+      },
+      "variants": [
+        {
+          "filename": "c3adffbad2d848d3b747ba7878d9f160.full.image.jpg",
+          "type": "full",
+          "size": {
+            "width": 449,
+            "height": 683
+          }
+        },
+        {
+          "filename": "c3adffbad2d848d3b747ba7878d9f160.thumb.image.jpg",
+          "type": "thumbnail",
+          "size": {
+            "width": 200,
+            "height": 200
+          }
+        }
+      ],
+      "credits": "Cé moi kai pri la foto"
+    }*/
 
   } );
 

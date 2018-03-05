@@ -2,6 +2,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const uuidV4 = require( 'uuid/v4' );
 const w = require( 'when' );
 
 const logger = require( '@openagenda/basic-logger' );
@@ -16,6 +17,7 @@ const now = require( './lib/now.w' );
 const transferToLegacy = require( './lib/transferToLegacy.w' );
 const unique = require( './lib/unique.w' );
 const validate = require( './lib/validate.w' );
+const processImage = require( './lib/processImage' );
 
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
@@ -25,7 +27,36 @@ module.exports = _.extend( function( d, o, c ) {
 
   const { data, options, cb } = cleanCreateArgs( d, o, c );
 
+  const p = createPromise( data, options );
+
+  if ( cb === null ) return p;
+
+  p.catch( cb );
+
+  p.then( cb.bind( null, null ) );
+
+}, {
+  init: ( svc, c ) => {
+
+    service = svc;
+
+    schemas = c.schemas;
+
+    knex = c.knex;
+
+    config = c;
+
+    log = logger( 'events service/create' );
+
+  }
+} );
+
+
+async function createPromise( data, options ) {
+
   let cleanOptions = {};
+
+  const { interfaces } = config;
 
   try {
 
@@ -33,7 +64,7 @@ module.exports = _.extend( function( d, o, c ) {
 
   } catch ( e ) {};
 
-  const p = w( _.extend( {}, cleanOptions, {
+  const v = await w( _.extend( {}, cleanOptions, {
     id: false,
     data,
     clean: null,
@@ -63,9 +94,22 @@ module.exports = _.extend( function( d, o, c ) {
 
     .then( draft( 'data' ) )
 
-    .then( validate( { target: 'data', log } ) )
+    .then( validate( { target: 'data', log } ) );
 
-    .then( _doCreate )
+  if ( _.get( data, 'image.path' ) || _.get( data, 'image.url' ) ) {
+
+    v.clean.fileKey = _.get( v.clean, 'fileKey' ) || uuidV4().replace( /\-/g, '' );
+
+    v.clean.image = _.extend( await processImage( interfaces.imageFilesLoad, config.image.formats, v.clean.fileKey, _.pick( data.image, [ 'url', 'path' ] ) ), {
+      credits: _.get( v, 'clean.image.credits' )
+    } );
+
+  }
+
+  // if image was set as path or url, image should be processed before event create.
+
+
+  return w( v ).then( _doCreate )
 
     .then( cleanOptions.transferToLegacy ? transferToLegacy.bind( null, service ) : v => v )
 
@@ -80,27 +124,7 @@ module.exports = _.extend( function( d, o, c ) {
 
     .then( _cleanResult );
 
-  if ( cb === null ) return p;
-
-  p.catch( cb );
-
-  p.then( cb.bind( null, null ) );
-
-}, {
-  init: ( svc, c ) => {
-
-    service = svc;
-
-    schemas = c.schemas;
-
-    knex = c.knex;
-
-    config = c;
-
-    log = logger( 'events service/create' );
-
-  }
-} );
+}
 
 
 function _cleanResult( v ) {

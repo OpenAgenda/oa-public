@@ -71,7 +71,7 @@ function _cleanResult( v ) {
   }
 
   v.filtered.image = decorateImage( v.filtered.image, {
-    imagePath: config.imagePath,
+    imagePath: config.image.base,
     useDefaultPath: v.useDefaultImage,
     defaultPath: config.defaultImagePath
   } );

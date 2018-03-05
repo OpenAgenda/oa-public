@@ -274,7 +274,7 @@ describe( 'events - functional (server): list', function() {
 
     svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
 
-      events[ 0 ].image.base.should.equal( config.imagePath );
+      events[ 0 ].image.base.should.equal( config.image.base );
 
       done();
 
@@ -311,7 +311,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'list does not give deleted events', done => {
 
-    svc.list( { uid: [ 31638453, 1517683, 68645096 ] }, 0, 20, ( err, events ) => {
+    svc.list( { uid: [ 31638453, 1517683, 68645096 ] }, 0, 20, ( err, events ) => {
 
       events.filter( e => e.uid === 31638453 ).length.should.equal( 0 );
 

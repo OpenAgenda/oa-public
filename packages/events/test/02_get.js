@@ -174,14 +174,14 @@ describe( 'events - functional (server): get', function () {
 
     } );
 
-  } );
+  } );
 
 
   it( 'if image is provided, image path is placed in base key', done => {
 
     svc.get( { uid: 48641508 }, ( err, event ) => {
 
-      event.image.base.should.equal( config.imagePath );
+      event.image.base.should.equal( config.image.base );
 
       done();
 
