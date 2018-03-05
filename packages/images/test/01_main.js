@@ -75,7 +75,7 @@ describe( 'images - functional (server): main function', function() {
       infos.map( i => i.size ).forEach( ( size, i ) => {
 
         size.should.eql( [ { 
-          width: 300, height: 205.25
+          width: 300, height: 206
         }, { 
           width: 200, height: 200
         } ][ i ] );

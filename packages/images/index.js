@@ -279,9 +279,9 @@ function _resize( values ) {
 
     resizeRatio = values.format[ resizeByHeight ? 'height' : 'width' ] / values.info.size[ resizeByHeight ? 'height' : 'width' ];
 
-    values.info.size.width = values.info.size.width * resizeRatio;
+    values.info.size.width = Math.ceil( values.info.size.width * resizeRatio );
 
-    values.info.size.height = values.info.size.height * resizeRatio;
+    values.info.size.height = Math.ceil( values.info.size.height * resizeRatio );
 
     values.image.resize( values.info.size.width, values.info.size.height );
 
