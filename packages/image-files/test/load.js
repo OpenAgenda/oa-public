@@ -90,9 +90,9 @@ describe( 'image-files - load', function() {
     result.infos.forEach( ( info, i ) => {
 
       info.size.should.eql( [ {
-        width: 250, height: 143.875
+        width: 250, height: 144
       }, {
-        width: 20, height: 11.51
+        width: 20, height: 12
       } ][ i ] );
 
     } );
