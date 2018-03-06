@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit",
-    "preversion": "yarn test"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
