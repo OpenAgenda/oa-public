@@ -86,7 +86,7 @@ function instanciate( data ) {
       url: url
     }, [
       { name: name, format: { width: 600 } },
-      { name: 'evf' + name },
+      { name: 'evf' + name },
       { name: 'evtb' + name, format: { width: 240, height: 320, crop: true } }
     ], function( err, imagePaths ) {
 

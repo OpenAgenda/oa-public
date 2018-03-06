@@ -2,6 +2,7 @@
 
 const events = require( '@openagenda/events' );
 const logger = require( '@openagenda/logger' );
+const imageFiles = require( '@openagenda/image-files' );
 const legacy = require( './legacy' );
 
 const interfaces = {
@@ -10,7 +11,8 @@ const interfaces = {
   beforeRemove: require( './beforeRemove' ),
   onRemove: require( './onRemove' ),
   getOriginAgendas: require( './getOriginAgendas' ),
-  getLocations: require( './getLocations' )
+  getLocations: require( './getLocations' ),
+  imageFilesLoad: imageFiles.load
 };
 
 
@@ -29,13 +31,21 @@ function init( config ) {
     schemas: {
       event: config.schemas.eventService
     },
-    imagePath: config.aws.imageBucketPath,
-    defaultImagePath: config.aws.defaultImagePath,
-    files: {
-      tmpPath: config.tmpFolderPath,
-      bucket: config.aws.bucket,
-      accessKeyId: config.aws.accessKeyId,
-      secretAccessKey: config.aws.secretAccessKey
+    image: {
+      base: config.aws.imageBucketPath,
+      default: config.aws.defaultImagePath,
+      formats: [ {
+        name: '{fileKey}.base.image.jpg',
+        format: { width: 600 },
+        variant: 'base'
+      }, {
+        name: '{fileKey}.full.image.jpg',
+        variant: 'full'
+      }, {
+        name: '{fileKey}.thumb.image.jpg',
+        format: { width: 200, height: 200, crop: true },
+        variant: 'thumbnail'
+      } ]
     },
     legacy: {
       mysql: config.db,

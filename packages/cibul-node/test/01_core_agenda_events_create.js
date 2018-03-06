@@ -4,12 +4,14 @@ process.env.NODE_ENV = 'test';
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
+const fs = require( 'fs' );
+const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
 const { promisify } = require( 'util' );
-const fixtures = require( 'fs' ).readFileSync( __dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8' );
-const ih = require( 'immutability-helper' );
 const should = require( 'should' );
 const VError = require( 'verror' );
+
+const fixtures = fs.readFileSync( __dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8' );
 
 const events = require( '@openagenda/events' );
 const agendas = require( '@openagenda/agendas' );
@@ -55,9 +57,6 @@ const testConfig = {
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   }
 };
-
-
-
 
 
 describe( 'core - functional ( server ): agenda event create', function() {

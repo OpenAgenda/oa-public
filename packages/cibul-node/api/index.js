@@ -1,12 +1,13 @@
 "use strict";
 
-const multer = require( 'multer' )();
 
 const log = require( '@openagenda/logs' )( 'api' );
 
 const app = require( 'express' )();
 const config = require( '../config' );
 const mw = require( './middleware' );
+
+const upload = require( 'multer' )( { dest: config.tmpFolderPath } );
 
 const events = {
   create: require( './endpoints/eventCreate' ),
@@ -21,7 +22,8 @@ const settings = {
 const handleError = require( '../services/00_errors' ).bind( null, 'api' );
 
 
-app.post( /^\/v2.+/, multer.single( 'image' ) );
+// should only apply to create and upload really
+app.post( /^\/v2.+/, upload.single( 'image' ) );
 
 // access token control and user load
 app.post( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );

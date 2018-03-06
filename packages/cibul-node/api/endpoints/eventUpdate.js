@@ -7,6 +7,9 @@ const core = require( '../../core' );
 
 module.exports = async ( req, res, next ) => {
 
+  // if there was an image uploaded with the post, it is loaded in req.file.path with multer
+  _.set( req.parsedData, 'image.path', _.get( req, 'file.path', undefined ) );
+
   try {
 
     const result = await core.agendas( req.agenda.uid ).events.update( req.event.uid, _.omit( req.parsedData, [ 'ownerUid', 'creatorUid' ] ) );
