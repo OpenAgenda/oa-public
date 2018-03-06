@@ -166,8 +166,8 @@ async function sendMail( { inboxUser, conversation, message } ) {
   const senderName = await getSenderName( { inboxUser, conversation, message } );
 
   const description = senderName
-    ? _.escape( message.body )
-    : description + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`;
+    ? _.escape( message.body ) + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`
+    : _.escape( message.body );
 
   const footerActions = getFooterActions( { agenda, stakeholder, user, lang } );
 

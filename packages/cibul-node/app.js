@@ -80,7 +80,6 @@ module.exports = function ( enabledTypes, options, cb ) {
           require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
           require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
           require( './location/front' )( '/locations' ),
-          require( './location/suggestions.front' )( '/:slug/locations/:locationUid/suggest' ),
           require( './location/back' )( '' ),
           require( './agenda/settings.back' )( '' ),
           require( './agenda/sources.back' )( '/:slug/admin' ),

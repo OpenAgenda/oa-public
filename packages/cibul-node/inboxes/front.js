@@ -333,7 +333,7 @@ app.use( '/:slug/admin/members/:stakeholderId/contact',
             creationSubtitle: getLabel( 'contactName', { name: userName }, req.lang ),
             // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.full_name }, req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
-            onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            onConversationCreateRedirect: `/agendas/${req.agenda.uid}/admin/members`,
             onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
             defaultQuery: {
               type: 'contact_member',
