@@ -22,7 +22,9 @@
       "**/redbox-react",
       "**/redbox-react/**",
       "**/create-react-class",
-      "**/create-react-class/**"
+      "**/create-react-class/**",
+      "**/rc-switch",
+      "**/rc-switch/**"
     ]
   },
   "devDependencies": {
