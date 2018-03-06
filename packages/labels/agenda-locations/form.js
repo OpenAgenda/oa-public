@@ -86,8 +86,8 @@ module.exports = {
     en: 'Cancel'
   },
   back: {
-    fr: 'retour',
-    en: 'back'
+    fr: 'Revenir à la liste',
+    en: 'Go back to the list'
   },
   'location.required' : {
     fr: 'ce champ est requis',
