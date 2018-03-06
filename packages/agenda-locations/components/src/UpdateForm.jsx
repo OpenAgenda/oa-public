@@ -23,7 +23,11 @@ module.exports = createReactClass( {
 
 
     return <div className="form-head">
-      <a onClick={ this.props.actions.closeForm }>{ getLabel( 'back', this.props.lang ) }</a>
+      <a
+        className="btn btn-default"
+        onClick={ this.props.actions.closeForm }>
+        <i className="fa fa-angle-left margin-right-sm"></i>
+        <span>{ getLabel( 'back', this.props.lang ) }</span></a>
       <h2>{ getLabel( 'title', this.props.lang ) }</h2>
       <span className="info">{ getLabel( 'info', this.props.lang ) }</span>
     </div>

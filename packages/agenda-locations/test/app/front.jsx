@@ -18,8 +18,6 @@ TermPickerApp = require( '../../components/build/TermSelectorPicker' ),
 
 agendaTestSettings = require( '../fixtures/agendaTestSettings.js' ),
 
-SuggestionForm = require( '../../components/build/SuggestionForm' ),
-
 Wrapper;
 
 window.addEventListener( 'load', function() {

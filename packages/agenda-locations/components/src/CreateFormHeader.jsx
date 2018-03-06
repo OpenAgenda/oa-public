@@ -39,7 +39,10 @@ module.exports = createReactClass( {
   render() {
 
     return <div className="head">
-      { this.props.actions && this.props.actions.closeForm ? <a onClick={ this.props.actions.closeForm }>{ this.getLabel( 'back' ) }</a> : null }
+      { this.props.actions && this.props.actions.closeForm ? <a className="btn btn-default" onClick={ this.props.actions.closeForm }>
+        <i className="fa fa-angle-left margin-right-sm"></i>
+        <span>{ this.getLabel( 'back' ) }</span>
+      </a> : null }
       <h2>{ this.getLabel( 'title', this.props.lang ) }</h2>
       <span className="info">{ this.getLabel( 'info', this.props.lang ) }</span>
     </div>

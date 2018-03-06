@@ -4,7 +4,7 @@ var app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
-    __dirname + '/../../node_modules/@openagenda/bs-templates/compiled/main.css'
+    __dirname + '/../../../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ]
 } ),
 
