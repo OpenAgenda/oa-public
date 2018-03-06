@@ -14,16 +14,45 @@ const now = require( './lib/now.w' );
 const transferToLegacy = require( './lib/transferToLegacy.w' );
 const unique = require( './lib/unique.w' );
 const validate = require( './lib/validate.w' );
+const processImage = require( './lib/processImage' );
 
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 let schemas, service, knex, config, log;
 
+
 module.exports = _.extend( ( i, d, o, c ) => {
 
   const { identifiers, data, options, cb } = cleanUpdateArgs( i, d, o, c );
 
-  let cleanOptions = {};
+  const p = promiseUpdate( identifiers, data, options );
+
+  if ( cb === null ) return p;
+
+  p.catch( cb );
+
+  p.then( cb.bind( null, null ) );
+
+}, {
+  init: ( svc, c ) => {
+
+    service = svc;
+
+    schemas = c.schemas;
+
+    knex = c.knex;
+
+    config = c;
+
+    log = logger( 'events service/update' );
+
+  }
+} );
+
+
+async function promiseUpdate( identifiers, data, options ) {
+
+  let cleanOptions;
 
   try {
 
@@ -31,7 +60,7 @@ module.exports = _.extend( ( i, d, o, c ) => {
 
   } catch ( e ) {}
 
-  const p = w( _.extend( {}, cleanOptions, {
+  const v = await w( _.extend( {}, cleanOptions, {
     identifiers,
     data,
     id: false,
@@ -65,11 +94,13 @@ module.exports = _.extend( ( i, d, o, c ) => {
     .then( unique.verify( {
       mysql: config.mysql, 
       table: schemas.event, 
-      field: 'slug', 
+      field: 'slug',
       log 
-    } ) )
+    } ) );
 
-    .then( _doUpdate )
+  _.extend( v, await processImage.w( config, v ) );
+
+  return w( v ).then( _doUpdate )
 
     .then( cleanOptions.transferToLegacy ? transferToLegacy.bind( null, service ) : v => v )
 
@@ -84,27 +115,7 @@ module.exports = _.extend( ( i, d, o, c ) => {
 
     .then( _cleanResult );
 
-  if ( cb === null ) return p;
-
-  p.catch( cb );
-
-  p.then( cb.bind( null, null ) );
-
-}, {
-  init: ( svc, c ) => {
-
-    service = svc;
-
-    schemas = c.schemas;
-
-    knex = c.knex;
-
-    config = c;
-
-    log = logger( 'events service/update' );
-
-  }
-} );
+}
 
 
 function _merge( v ) {

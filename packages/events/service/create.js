@@ -2,7 +2,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const uuidV4 = require( 'uuid/v4' );
 const w = require( 'when' );
 
 const logger = require( '@openagenda/basic-logger' );
@@ -96,18 +95,8 @@ async function createPromise( data, options ) {
 
     .then( validate( { target: 'data', log } ) );
 
-  if ( _.get( data, 'image.path' ) || _.get( data, 'image.url' ) ) {
-
-    v.clean.fileKey = _.get( v.clean, 'fileKey' ) || uuidV4().replace( /\-/g, '' );
-
-    v.clean.image = _.extend( await processImage( interfaces.imageFilesLoad, config.image.formats, v.clean.fileKey, _.pick( data.image, [ 'url', 'path' ] ) ), {
-      credits: _.get( v, 'clean.image.credits' )
-    } );
-
-  }
-
   // if image was set as path or url, image should be processed before event create.
-
+  _.extend( v, await processImage.w( config, v ) );
 
   return w( v ).then( _doCreate )
 

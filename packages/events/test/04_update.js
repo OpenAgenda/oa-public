@@ -2,15 +2,14 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const ih = require( 'immutability-helper' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
+const config = require( '../testconfig' );
+const svc = require( './service' );
 
-  should = require( 'should' ),
-
-  mysql = require( 'mysql' ),
-
-  ih = require( 'immutability-helper' );
+const imageFiles = require( '@openagenda/image-files' );
 
 describe( 'events - functional (server): update', function() {
 
@@ -20,7 +19,15 @@ describe( 'events - functional (server): update', function() {
 
   beforeEach( done => {
 
-    svc.initAndLoad( config, done );
+    imageFiles.init( config.tests.imageFiles );
+
+    svc.initAndLoad( ih( config, {
+      interfaces: {
+        imageFilesLoad: {
+          $set: imageFiles.load
+        }
+      }
+    } ), done );
 
   } );
 
@@ -58,6 +65,19 @@ describe( 'events - functional (server): update', function() {
     result.event.title.should.eql( {
       fr: 'Titre toujours à jour'
     } );    
+
+  } );
+
+
+  it( 'update the image given a url', async () => {
+
+    const { event } = await svc.update( id, {
+      image: {
+        url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+      }
+    } );
+
+    event.image.size.should.eql( { width: 600, height: 600 } );
 
   } );
 
