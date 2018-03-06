@@ -50,6 +50,12 @@ describe( 'form-schemas - unit (server): legacy custom fields', function() {
 
   } );
 
+  it( 'select field', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'select.in' ) ).should.eql( _get( 'select.out' ) );
+
+  } );
+
 } );
 
 function _get( name ) {

@@ -16,7 +16,7 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
   beforeEach( done => {
 
-    svc.initAndLoad( config, [ 
+    svc.initAndLoad( config, [ 
       config.schemas.formSchema,
       config.legacy.schemas.agenda,
       config.legacy.schemas.tagSet,

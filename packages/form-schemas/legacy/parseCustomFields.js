@@ -23,7 +23,7 @@ module.exports = ( formSchema, customFields ) => {
       image: parseBasic,
       file: parseBasic,
       multichoice: parseChoice,
-      // select,
+      select: parseChoice,
       radio: parseChoice,
       checkbox: parseCheckbox
     } )[ f.fieldType ];
@@ -50,7 +50,7 @@ function parseBasic( field ) {
 
 function parseChoice( field ) {
 
-  let minMaxed = field.fieldType === 'radio' ? false : true;
+  let minMaxed = ![ 'radio', 'select' ].includes( field.fieldType );
 
   let csField = _parseBase( field, minMaxed );
 
@@ -109,6 +109,8 @@ function _parseBase( field, minMaxed = false ) {
 function _fieldType( legacy ) {
 
   if ( legacy === 'multichoice' ) return 'checkbox';
+
+  if ( legacy === 'select' ) return 'radio';
 
   return legacy;
 
