@@ -1,0 +1,164 @@
+@import '../layout/base';
+@import '../agenda-admin/style';
+@import '../form-components/image-upload';
+
+.agenda-settings-creation {
+  .stepper-container {
+    position: relative;
+
+    &:after {
+      width: 100%;
+      height: 2px;
+      content: '';
+      position: absolute;
+      background-color: #7d7d7d;
+      top: 14px;
+      left: 0;
+      z-index: 1;
+    }
+
+    .stepper {
+      counter-reset: step;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      padding-left: 0;
+      margin-bottom: 50px;
+
+      .step {
+        font-size: 14px;
+        color: #7d7d7d;
+        z-index: 2;
+        background-color: white;
+
+        &:not(:last-child) {
+          padding-right: 6px;
+        }
+
+        &:before {
+          width: 30px;
+          height: 30px;
+          content: counter(step);
+          counter-increment: step;
+          line-height: 28px;
+          border: 2px solid #7d7d7d;
+          display: inline-block;
+          text-align: center;
+          margin: 0 10px 10px auto;
+          border-radius: 50%;
+          background-color: white;
+        }
+
+        &:not(:first-child):before {
+          margin-left: 8px;
+        }
+
+        &.passed:before {
+          font-weight: normal;
+          color: $oa-blue;
+          border-color: $oa-blue;
+          font-family: FontAwesome;
+          content: '\f00c';
+        }
+
+        &.active {
+          font-weight: bold;
+
+          &:before {
+            font-weight: normal;
+            color: white;
+            border-color: $oa-blue;
+            background-color: $oa-blue;
+            font-family: FontAwesome;
+            content: '\f040';
+          }
+        }
+      }
+    }
+  }
+
+  .table-responsive {
+    overflow: visible;
+  }
+
+  table {
+    td:first-of-type {
+      cursor: pointer;
+    }
+  }
+
+  form {
+    margin-top: 30px;
+
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
+
+    .form-group + .form-group {
+      margin: 28px 0;
+    }
+  }
+
+  .dropdown {
+    .dropdown-menu {
+      padding: 0;
+    }
+
+    label {
+      font-weight: normal;
+    }
+
+    .container-fluid {
+      margin: 10px 0;
+    }
+  }
+}
+
+.agenda-settings-edit {
+  form {
+    textarea {
+      resize: vertical;
+    }
+
+    p.label {
+      margin-bottom: 5px;
+    }
+  }
+
+  & > .profile .image-upload form {
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 250px;
+    height: 250px;
+    max-width: 250px;
+
+    img {
+      border-radius: 50%;
+    }
+
+    /*.actions {
+      padding: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }*/
+  }
+
+  .advanced {
+
+    table.table > tbody > tr.inactive:hover {
+      background-color: #f5f5f5;
+    }
+
+    table.table > tbody > tr > td:nth-of-type(2n) {
+      padding: 8px 15px;
+    }
+
+    input[readonly] {
+      background-color: $oa-white;
+    }
+
+  }
+}

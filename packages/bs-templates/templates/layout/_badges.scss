@@ -1,0 +1,34 @@
+@import "assets/stylesheets/bootstrap/badges";
+
+.badge.badge-sm {
+  padding: 2px 5px;
+}
+
+.badge-warning, .label-warning {
+  background-color: $oa-warning;
+  border-color: $oa-warning;
+}
+
+.badge-default, .label-default {
+  color: $oa-gray;
+  background-color: $oa-white;
+  border: 1px solid $oa-gray-light;
+}
+
+.badge-primary {
+  color: $oa-white;
+  background-color: $oa-blue;
+  border: 1px solid $oa-blue;
+}
+
+.badge-info {
+  color: $oa-blue;
+  background-color: transparent;
+  border: 1px solid $oa-blue;
+}
+
+.badge-success {
+  color: $oa-white;
+  background-color: $brand-success;
+  border: 1px solid $brand-success;
+}

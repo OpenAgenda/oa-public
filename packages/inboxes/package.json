@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.29",
+  "version": "1.0.33",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "main": "lib/index.js",
   "repository": {
@@ -13,7 +13,7 @@
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "preversion": "yarn test",
-    "version": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "directories": {
     "lib": "lib"

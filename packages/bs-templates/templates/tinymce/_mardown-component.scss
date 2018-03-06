@@ -1,0 +1,11 @@
+@import 'skins/lightgray/content.inline.min.css';
+@import 'skins/lightgray/skin.min.css';
+
+.mce-panel {
+  padding-right: 1px;
+}
+
+.mce-tinymce .mce-edit-area label {
+  color: $input-color-placeholder!important;
+  pointer-events: none;
+}

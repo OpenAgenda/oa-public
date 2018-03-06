@@ -7,9 +7,24 @@
   "author": "OpenAgenda Dev Team",
   "license": "See license.txt",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "scripts": {
+    "bs": "lerna bootstrap"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react/**",
+      "**/react-dom",
+      "**/react-dom/**",
+      "**/redbox-react",
+      "**/redbox-react/**",
+      "**/create-react-class",
+      "**/create-react-class/**"
+    ]
+  },
   "devDependencies": {
     "lerna": "^2.9.0"
   }

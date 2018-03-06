@@ -1,0 +1,58 @@
+.oa-page-header .profile {
+
+  h3 {
+
+    padding-left: 10px;
+
+  }
+  
+  .dropdown-menu {
+
+    .row li {
+
+      margin: 0;
+      padding: 0;
+
+      a {
+
+        padding-left: 10px;
+
+        &:hover {
+
+          color: $oa-white;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+.oa-page-header .profile .dropdown-menu .row li {
+
+  margin: 0;
+  padding: 0;
+
+}
+
+.oa-page-header .profile h3 {
+
+  padding-left: 10px;
+  
+}
+
+.oa-page-header .profile .dropdown-menu .row li a {
+
+  padding-left: 10px;
+
+
+}
+
+.oa-page-header .profile .dropdown-menu .row li a:hover {
+
+  color: white;
+
+}

@@ -1,0 +1,214 @@
+.oa-page-header {
+
+  margin: 0;
+  z-index: 2002;
+  padding-bottom: 0;
+
+  .collapse {
+    display: none;
+    visibility: hidden;
+
+    &.in {
+      display: block;
+      visibility: visible;
+    }
+
+    &.navbar-collapse {
+
+      visibility: visible;
+
+    }
+  }
+
+  .navbar-header {
+    padding-left: 10px;
+  }
+
+  .language-menu {
+
+    & > a {
+      text-transform: uppercase;
+    }
+
+    .selected {
+      color: $oa-blue;
+    }
+
+  }
+
+  .search-form {
+
+    float: left;
+    margin: 0 0 0 1em;
+
+    .search-input {
+
+      width: 210px;
+
+    }
+
+  }
+
+  .js_header_links {
+
+    position: relative;
+
+  }
+
+  .profile {
+
+    position: static;
+
+    & > a {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      display: inline-block;
+      cursor: pointer;
+
+      img {
+
+        margin-top: -5px;
+        margin-bottom: -5px;
+        width: 30px;
+        max-height: 30px;
+
+      }
+
+    }
+
+    .dropdown-menu {
+
+      min-width: 400px;
+      margin: 0;
+      padding: 0;
+
+      .row {
+
+        li {
+
+          padding: 0 10px;
+
+          img {
+            width: 24px;
+          }
+
+          a {
+            color: #333;
+            padding: 10px 0;
+            display: block;
+          }
+
+          &:hover {
+
+            background: #f5f5f5;
+
+            a {
+
+              text-decoration: none;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  /**
+   * mobile menu adjustments - hack over bootstrap, isolated from the rest.
+   */
+
+  @media (max-width: 768px) {
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .navbar-nav > li, .navbar-nav {
+      float: left !important;
+    }
+
+    .navbar-right {
+      float: right !important;
+    }
+
+    .navbar-collapse {
+
+      padding: 0;
+
+    }
+
+    .dropdown-menu {
+
+      display: block;
+      position: relative;
+      visibility: visible;
+      width: 100%;
+      border: none;
+      box-shadow: none;
+
+    }
+
+    .language-menu {
+
+      display: block;
+      float: none !important;
+
+      & > a {
+        display: none;
+      }
+
+      .dropdown-menu li {
+        display: inline-block;
+      }
+
+    }
+
+    .search-form {
+
+      float: none;
+      margin: 0;
+
+      .search-input {
+        width: 100%;
+        border: 0;
+        padding-left: 15px;
+      }
+
+      .search-button {
+        border: 0;
+      }
+
+    }
+
+    .profile {
+
+      & > a {
+        display: none;
+      }
+
+      .dropdown-menu {
+
+        display: block;
+        position: relative;
+        visibility: visible;
+
+        .row {
+          margin: 0;
+        }
+
+      }
+
+    }
+
+    .signin {
+      float: left;
+      padding-left: 5px;
+    }
+
+  }
+
+}

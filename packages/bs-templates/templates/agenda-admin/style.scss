@@ -1,0 +1,55 @@
+@import '../layout/base';
+@import '../components/nav';
+@import '../form-components/image-upload';
+@import '../form-components/input-with-icon';
+
+.agenda-admin {
+
+  margin: 60px auto;
+
+  .header {
+
+    padding: 20px;
+
+    .agenda-logo img {
+
+      max-width: 100%;
+
+    }
+
+  }
+
+  &.getting-started {
+
+    .image-upload form {
+      border-radius: 50%;
+      
+      min-height: 250px;
+      height: 250px;
+      max-width: 250px;
+
+      img {
+        border-radius: 50%;
+      }
+    }
+
+  }
+
+  .body {
+
+    padding: 0 30px 2em;
+
+  }
+
+  &.redirect {
+
+    .body {
+
+      text-align: center;
+      padding: 16em 0;
+
+    }
+
+  }
+
+}

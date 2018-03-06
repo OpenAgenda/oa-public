@@ -3,3 +3,5 @@ node_modules/
 testconfig.js
 npm-debug.log
 yarn-error.log
+
+components/build

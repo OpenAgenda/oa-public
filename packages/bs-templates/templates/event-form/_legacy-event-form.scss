@@ -1,0 +1,32 @@
+@import "../form-components/language-bar";
+@import "../form-components/multilingual-input";
+@import "../form-components/multi-input-field";
+@import "../form-components/image-upload";
+@import "../agenda-locations/selector";
+
+@import "legacy-image-upload";
+@import "legacy-counter";
+@import "legacy-accessibility";
+@import "legacy-age";
+@import "../tinymce/style";
+
+.legacy-event-form {
+  
+  .info {
+
+    display: block;
+    padding-bottom: 0.5em;
+
+  }
+
+  .checkbox {
+
+    label {
+
+      span, input { vertical-align: middle; }
+
+    }
+
+  }
+
+}

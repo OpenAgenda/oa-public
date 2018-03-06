@@ -1,0 +1,209 @@
+@import "../layout/base";
+@import '../components/agenda-item';
+@import 'event-item';
+@import '../components/nav';
+@import '../form-components/input-with-icon';
+
+.home {
+
+  > .row.wsq {
+
+    display: flex;
+    flex-direction: row;
+
+  }
+
+  .btn-collapse-nav i {
+    color: #7B8B8C;
+  }
+
+  h2 {
+    display: inline-block;
+    margin: 0 0 32px;
+  }
+
+  .search {
+    width: 50%;
+  }
+
+  .agenda-item {
+    padding: 1em 1em;
+
+    a {
+      display: inline-block;
+    }
+
+    .media-left img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .media-body {
+      .actions {
+        font-size: 13px;
+        color: #777777;
+
+        a {
+          text-decoration: none;
+
+          &:hover {
+            color: #41acdd;
+          }
+        }
+
+        a + a {
+          margin-left: 12px;
+        }
+      }
+    }
+
+    .official i {
+      vertical-align: middle;
+    }
+  }
+
+  .header {
+    padding-top: 20px;
+  }
+
+  .new-user {
+
+    h2 {
+      display: block;
+    }
+
+  }
+
+  @media (max-width: $screen-sm) {
+
+    & > .row.wsq {
+
+      flex-direction: column;
+
+    }
+
+    h2 {
+      margin: 0;
+    }
+
+    .search {
+      width: 100%;
+    }
+
+    .header {
+      padding: 20px 30px;
+    }
+
+  }
+
+  @media (min-width: $screen-sm) {
+
+    .nav {
+      padding: 20px 0;
+    }
+
+  }
+
+}
+
+.home.home-events {
+
+  .event-item {
+
+    .media-left img {
+
+      border-radius: 0;
+
+    }
+
+    .media-body {
+
+      vertical-align: baseline;
+
+      .media-heading {
+
+        .agenda {
+
+          font-size: 13px;
+          font-style: italic;
+          margin-bottom: 4px;
+
+        }
+
+        .agenda ~ a {
+
+          padding: 4px 0;
+
+        }
+
+        .badge {
+
+          margin-left: 8px;
+          vertical-align: baseline;
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .popup-overlay {
+
+    section {
+
+      height: 90%;
+
+      .popup-content {
+
+        form .form-group.search {
+
+          width: 100%;
+
+        }
+
+        .agenda-item {
+
+          padding: 0;
+
+          .media-left img {
+
+            width: 40px;
+            height: 40px;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  @media (max-width: $screen-sm) {
+
+    & > .row.wsq {
+
+      flex-direction: column;
+
+    }
+
+  }
+
+  @media (min-width: $screen-sm) {
+
+    .event-item {
+
+      .media-body {
+
+        padding-right: 40px;
+
+      }
+
+    }
+
+  }
+
+}

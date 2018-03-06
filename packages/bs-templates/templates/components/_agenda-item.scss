@@ -1,0 +1,51 @@
+.agenda-item {
+
+  overflow: visible;
+
+  .media-left, .media-body {
+
+    vertical-align: middle;
+
+  }
+
+  .media-body {
+
+    overflow: visible;
+
+  }
+
+  padding: 1em 2em;
+
+  a {
+
+    color: inherit;
+    text-decoration: none;
+    display: block;
+
+  }
+
+  .description {
+
+    margin-bottom: 0.4em;
+
+  }
+
+  .badge {
+
+    margin-right: 0.4em;
+
+  }
+
+  .ill {
+
+    max-width: 96px;
+
+    &.avatar {
+
+      width: auto;
+
+    }
+
+  }
+
+}

@@ -1,0 +1,97 @@
+.big-events {
+
+  width: 600px;
+  height: 400px;
+  list-style-type: none;
+  position: relative;
+  padding: 20px;
+  margin-right: 40px;
+
+  li {
+
+    position: absolute;
+
+    a {
+
+      background: url( '//s3.eu-central-1.amazonaws.com/oastatic/landing/bigevents.png' );
+      background-position-y: 0;
+      background-position-x: 0;
+      height: 180px;
+      width: 180px;
+      display: block;
+
+    }
+
+    &.be-fdm {
+
+
+
+    }
+
+    &.be-chv {
+
+      top: 230px;
+    
+      a {
+
+        background-position-x: -180px;
+        height: 176px;
+
+      }
+
+    }
+
+    &.be-sdi {
+
+      left: 225px;
+
+      a {
+
+        background-position-x: -367px;
+
+      }
+
+    }
+
+    &.be-cpd {
+
+      left: 225px;
+      top: 230px;
+
+      a {
+
+        background-position-x: -735px;
+
+      }
+
+    }
+
+    &.be-slt {
+
+      left: 430px;
+
+      a {
+
+        background-position-x: -930px;
+
+      }
+
+    }
+
+    &.be-fen {
+
+      left: 430px;
+      top: 220px;
+
+      a {
+
+        background-position-x: -1110px;
+        width: 172px;
+
+      }
+
+    }
+
+  }
+
+}

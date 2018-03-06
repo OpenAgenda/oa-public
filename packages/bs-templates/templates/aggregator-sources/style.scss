@@ -1,0 +1,61 @@
+@import "../layout/base";
+@import '../agenda-admin/style';
+@import '../components/agenda-item';
+@import '../form-components/input-with-icon';
+
+.aggregator-sources {
+
+  .search {
+    width: 50%;
+  }
+
+  .agenda-item {
+    padding: 1em 20px;
+
+    a {
+      display: inline-block;
+    }
+
+    .actions a + a {
+      margin-left: 12px;
+    }
+
+    .media-left img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .media-body {
+      .actions a {
+        font-size: 13px;
+        text-decoration: none;
+        color: #777777;
+
+        &:hover {
+          color: #41acdd;
+        }
+      }
+    }
+
+    .official i {
+      vertical-align: middle;
+    }
+  }
+
+  @media (max-width: $screen-sm) {
+
+    h2 {
+      margin: 0;
+    }
+
+    .search {
+      width: 100%;
+    }
+
+    .header {
+      padding: 20px 30px;
+    }
+
+  }
+
+}

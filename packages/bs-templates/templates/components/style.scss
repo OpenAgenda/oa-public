@@ -1,0 +1,12 @@
+/**
+ * some components styles are defined in base
+ */
+@import "../layout/base";
+
+
+/**
+ * ones less widespread are not.
+ */
+@import "small-map";
+
+@import "file-upload";

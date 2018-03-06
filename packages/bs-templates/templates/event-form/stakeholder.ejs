@@ -1,0 +1,48 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+<div class="container event-dialog">
+  <div class="row top-margined">
+    <section class="col-sm-6 col-sm-offset-3 wsq">
+      <div class="content">
+        <div class="header">
+          <h2>Bienvenue!</h2>
+          <label>Présentez-vous avant de saisir vos événements.</label>
+          <p class="text-muted">Vos informations personnelles ne seront visibles que par l'équipe de l'agenda.<br>
+              Seul le nom de votre organisation pourra être public.</p>
+        </div>
+
+        <form method="post" role="form">
+          <div class="form-group">
+            <label for="fullname">Prénom Nom *</label>
+            <input type="text" class="form-control" name="fullname">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="text" class="form-control" name="email">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Téléphone *</label>
+            <input type="text" class="form-control" name="phone">
+          </div>
+
+          <div class="form-group">
+            <label for="organisation">Organisation *</label>
+            <input type="text" class="form-control" name="organisation">
+          </div>
+
+          <div class="form-group">
+            <label for="function">Fonction *</label>
+            <input type="text" class="form-control" name="function">
+          </div>
+
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>

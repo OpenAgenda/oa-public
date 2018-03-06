@@ -1,0 +1,45 @@
+@import "../layout/base";
+@import "../agenda/header";
+@import "social-shares";
+@import "references";
+@import "registration";
+@import "../form-components/react-select";
+@import "../form-components/translation";
+@import "../modal/modal";
+@import "timings-picker";
+@import "contribution-info";
+
+@import "legacy-event-form";
+
+/* event-dialog is to be deprecated */
+.event-dialog {
+
+  .header {
+
+    margin-bottom: 30px;
+
+  }
+  
+  .content.jumbotron {
+    
+    margin-top: 30px;
+    margin-bottom: 0;
+
+  }
+
+  .actions {
+
+    text-align: center;
+    max-width: 360px;
+    margin: auto;
+
+    a {
+
+      display: block;
+      margin-bottom: 1.6em;
+
+    }
+
+  }
+
+}

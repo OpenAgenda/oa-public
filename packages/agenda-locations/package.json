@@ -1,24 +1,23 @@
 {
   "name": "@openagenda/agenda-locations",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "",
   "main": "index.js",
   "license": "no license",
   "scripts": {
-    "pretest": "npm run babelify",
+    "pretest": "yarn build",
     "test": "mocha --exit",
     "build": "babel components/src -d components/build -s",
-    "babelify": "babel components/src -d components/build -s",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A components/build",
-    "preserve": "npm run-script babelify",
-    "preserve-populate": "npm run-script babelify",
+    "preversion": "yarn test",
+    "prepublishOnly": "yarn build",
+    "preserve": "yarn build",
+    "preserve-populate": "yarn build",
     "serve": "node test/app",
     "serve-populate": "node test/app fixtures",
     "serve-debug": "node debug test/app",
-    "debug": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve-debug",
-    "start": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve-populate",
-    "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run-script serve"
+    "debug": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve-debug",
+    "start": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve-populate",
+    "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve"
   },
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
