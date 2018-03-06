@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/bs-templates",
-  "version": "2.0.39",
+  "version": "2.0.40",
   "description": "openagenda bootstrap templates",
   "main": "server.js",
   "scripts": {
@@ -18,7 +18,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
   "devDependencies": {
     "async": "^1.5.0",
     "bootstrap": "3.3.5",
