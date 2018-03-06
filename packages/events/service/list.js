@@ -267,7 +267,7 @@ function _addWheres( knex, query, options ) {
 
   if ( query.uid ) {
 
-    knex.where( 'uid', 'in', query.uid.concat( -1 ) );
+    knex.where( 'uid', 'in', [ -1 ].concat( query.uid ) );
 
   }
 
