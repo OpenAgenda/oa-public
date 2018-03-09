@@ -120,5 +120,21 @@ module.exports = {
   redirectSub: {
     en: 'You will be automatically redirected in an instant',
     fr: 'Vous allez être redirigé automatiquement dans un instant'
+  },
+  access: {
+    en: 'Access',
+    fr: 'Accès'
+  },
+  publicAccess: {
+    en: 'Public',
+    fr: 'Public'
+  },
+  contributorAccess: {
+    en: 'Contributor',
+    fr: 'Contributeur'
+  },
+  administratorAccess: {
+    en: 'Administrator',
+    fr: 'Restreint ( administrateurs, modérateurs )'
   }
 }
