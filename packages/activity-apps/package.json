@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -47,7 +47,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.42",
+    "@openagenda/bs-templates": "^2.0.45",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "babel-cli": "^6.18.0",
