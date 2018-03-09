@@ -1,30 +1,23 @@
 "use strict";
 
-var svc,
 
-  csv = require( 'fast-csv' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const csv = require( 'fast-csv' );
+const xlsx = require( 'xlsx-writestream' );
 
-  async = require( 'async' ),
+const pdf = require( '@openagenda/pdf' );
+const utils = require( '@openagenda/utils' );
+const tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-admin/tabs' ) );
 
-  pdf = require( '@openagenda/pdf' ),
+const svcConfig = require( './config' );
+const eventSvc = require( '../event' );
+const config = require( '../../config' );
+const version = require( './helpers/version' );
 
-  xlsx = require( 'xlsx-writestream' ),
+const mwh = require( '../lib/middlewareHelpers' );
 
-  utils = require( '@openagenda/utils' ),
-
-  svcConfig = require( './config' ),
-
-  eventSvc = require( '../event' ),
-
-  config = require( '../../config' ),
-
-  version = require( './helpers/version' ),
-
-  tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-admin/tabs' ) ),
-
-  _ = require( 'lodash' ),
-
-  mwh = require( '../lib/middlewareHelpers' );
+let svc;
 
 module.exports = function( agendaService ) {
 

@@ -1,15 +1,17 @@
 "use strict";
 
-const w = require( 'when' );
 const _ = require( 'lodash' );
+const async = require( 'async' );
+const w = require( 'when' );
+
+const agendaCategories = require( '@openagenda/agenda-categories' );
+const agendaTags = require( '@openagenda/agenda-tags' );
+const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 const slugs = require( '@openagenda/slugs' );
 const utils = require( '@openagenda/utils' );
-const async = require( 'async' );
+
 const genUrl = require( '../genUrl' );
 const config = require( '../../config' );
-const agendaTags = require( '@openagenda/agenda-tags' );
-const agendaCategories = require( '@openagenda/agenda-categories' );
-const countryLabels = require( '@openagenda/labels/agenda-locations/countries' );
 
 let svc;
 
@@ -203,18 +205,29 @@ function _addTagGroups( v ) {
 
   v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
 
+  // includePrivateData
+
   // keep groups containing tags used by event
   .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).length )
 
   // keep group tags used by event
   .map( g => ( {
     name: g.name,
+    access: g.access || 'public',
     slug: g.name ? slugs.generate( g.name ) : null,
     tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
   } ) )
 
-    // remove empty groups
-    .filter( g => g.tags.length );
+  .filter( g => {
+
+    if ( v.includePrivateData ) return true;
+
+    return _.get( g, 'access', 'public' ) === 'public' 
+
+  } )
+
+  // remove empty groups
+  .filter( g => g.tags.length );
 
 
   // reuse tag group order with tags
@@ -231,6 +244,8 @@ function _addTags( v ) {
   if ( v.decorated.tags ) return v;
 
   let d = w.defer();
+
+  // includePrivateData
 
   v.event.getAgendaTags( v.agenda.id, ( err, tags ) => {
 
@@ -310,7 +325,7 @@ function _addContributorInfo( v ) {
 
     } else {
 
-      v.decorated.contributor = contributorInfo || null;
+      v.decorated.contributor = contributorInfo || null;
 
     }
 

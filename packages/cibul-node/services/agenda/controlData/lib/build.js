@@ -60,11 +60,11 @@ function _update( data, cb ) {
 
   .then( _getControlData )
 
-  .then( p.ifl( { ctlData: true }, _loadEvent ) )
+  .then( p.ifl( { ctlData: true }, _loadEvent ) )
 
-  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
+  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
 
-  .then( p.ifl( { ctlData: true }, _appendEvent ) )
+  .then( p.ifl( { ctlData: true }, _appendEvent ) )
 
   .then( p.ifl( { ctlData: true }, _updateLastOccurrence ) )
 
@@ -107,7 +107,7 @@ function _insert( data, cb ) {
 
   .then( p.ifl( { ctlData: true }, _loadEvent ) )
 
-  .then( p.ifl( { ctlData: true, event: true }, _appendEvent ) )
+  .then( p.ifl( { ctlData: true, event: true }, _appendEvent ) )
 
   .then( p.ifl( { ctlData: true, event: true }, _updateLastOccurrence ) )
 
@@ -150,7 +150,7 @@ function _remove( data, cb ) {
 
   .then( p.ifl( { ctlData: true }, _loadEvent ) )
 
-  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
+  .then( p.ifl( { ctlData: true, event: true }, _removeEvent ) )
 
   .then( p.ifl( { ctlData: true, event: true }, _updateLastOccurrence ) )
 

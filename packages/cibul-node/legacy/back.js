@@ -22,6 +22,7 @@ const aggregatorSvc = require( '../services/aggregator' );
 const agendaSvc = require( '../services/agenda' );
 const eventSvc = require( '../services/event' );
 const formOrderMw = require( './formOrder.mw.js' );
+const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 const modLib = require( '../lib/moduleLib' );
 const notificationMail = require( '../services/notification/mail' );
 const userSvc = require( '../services/user' );
@@ -47,7 +48,7 @@ const routes = {
     eventUpdate: [ 'get', '/events/:eventUid/update', [
       _loadEventByUid,
       eventUpdate
-    ] ],
+    ] ],
 
     legacyApi: [ 'get', '/api', [
       api
@@ -88,6 +89,11 @@ const routes = {
     formOrder: [ 'get', '/:slug/form-order', [
       agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       formOrderMw
+    ] ],
+
+    legacyFormFieldsByUser: [ 'get', '/:slug/form-fields/:userUid', [
+      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      formFieldsByUser
     ] ],
 
 

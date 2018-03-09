@@ -61,6 +61,12 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           tagSet = t;
 
+          if ( tagSet && !params.includePrivateData ) {
+
+            tagSet.groups = tagSet.groups.filter( g => !g.access || g.access === 'public' );
+
+          }
+
           wcb();
 
         } );
@@ -244,7 +250,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'thumbnail',
         'originalImage',
         'updatedAt',
-        [ 'range', 'range', [ 'fr', 'en' ] ],
+        [ 'range', 'range', [ 'fr', 'en' ] ],
         {
           'sourceField' : [ 'timings', 'location.timezone' ],
           'destField' : 'timings_fr',
@@ -448,7 +454,7 @@ function _extendMapping( agenda, includePrivateData ) {
 
   customFields.forEach( function( cField ) {
 
-    if ( includePrivateData || ( cField.type !== 'private' ) ) {
+    if ( includePrivateData || !cField.type || cField.type === 'public' ) {
 
       amendment.push( [ cField.name, 'customValues.' + cField.name ] );
 

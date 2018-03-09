@@ -62,6 +62,7 @@ module.exports = {
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
   checkStakeholder,
+  loadMemberRole,
   renderUnauthorized,
 
   verifyIPMiddleware,
@@ -317,6 +318,32 @@ function checkContributor( req, res, next ) {
   } );
 
 }
+
+
+function loadMemberRole( agendaNamespace, req, res, next ) {
+
+  req.role = null;
+
+  _prepareSession( req, res, err => {
+
+    if ( err ) return next( err );
+
+    agendaStakeholders( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
+
+      if ( !stakeholder ) {
+        return _resolve( false );
+      }
+
+      req.role = agendaStakeholders.types.codes.get( stakeholder.credential );
+
+      next();
+
+    } );
+
+  } )
+
+}
+
 
 function checkAdminOrModerator( req, res, next ) {
 

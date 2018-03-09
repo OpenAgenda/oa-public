@@ -1,7 +1,10 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const React = require( 'react' );
 const ReactDOMServer = require( 'react-dom/server' );
+const { promisify } = require( 'util' );
+
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 const sessions = require( '@openagenda/sessions' );
@@ -16,6 +19,8 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const activitiesEventApp = require( '@openagenda/activity-apps/react/dist/apps/event' );
+
+const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
 const routes = {
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
@@ -49,7 +54,18 @@ const routes = {
   agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
     agendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdminOrModerator,
+    cmn.loadMemberRole.bind( null, 'agenda' ),
+    ( req, res, next ) => {
+
+      if ( ![ 'contributor', 'moderator', 'administrator' ].includes( req.role ) ) {
+
+        return res.sendStatus( 403 );
+
+      }
+
+      next();
+
+    },
     getPrivateEventData
   ] ],
 
@@ -171,11 +187,13 @@ function getPrivateEventData( req, res, next ) {
 
       let d = w.defer();
 
-      req.agenda.getEventPrivateCustomData( req.event, ( err, custom ) => {
+      req.agenda.getEventCustom( req.event, ( err, custom ) => {
 
         if ( err ) return d.reject( err );
 
-        v.custom = custom;
+        v.custom = custom
+          .filter( _filterByRole.bind( null, req.role ) )
+          .filter( c => c.access !== 'public' );
 
         v.labels = v.req.agenda.getCustomFieldsLabels( v.req.event.getCurrentLanguage() );
 
@@ -184,6 +202,25 @@ function getPrivateEventData( req, res, next ) {
       } );
 
       return d.promise;
+
+    } )
+
+    // get tag groups info
+    .then( async v => {
+
+      v.tagSet = ( await getAgendaTags( v.req.agenda.id ) ) || null;
+
+      if ( !v.tagSet ) return v;
+
+      const tags = await promisify( v.req.event.getAgendaTags )( v.req.agenda.id );
+
+      v.tagGroups = v.tagSet.groups.map( g => ( {
+        name: g.name,
+        access: g.access || 'public',
+        tags: g.tags.filter( t => tags.map( t => t.id ).includes( t.id ) )
+      } ) ).filter( _filterByRole.bind( null, req.role ) );
+
+      return v;            
 
     } )
 
@@ -227,10 +264,24 @@ function getPrivateEventData( req, res, next ) {
             contactName: contributorLabels.contactName[ req.lang ],
             contactPosition: contributorLabels.contactPosition[ req.lang ]
           }
-        }
+        },
+        tagGroups: v.tagGroups
       } );
 
     }, next );
+
+}
+
+
+function _filterByRole( role, item ) {
+
+  if ( item.access === 'administrator' ) {
+
+    return [ 'administrator', 'moderator' ].includes( role );
+
+  }
+
+  return true;
 
 }
 
