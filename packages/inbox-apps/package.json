@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inbox-apps",
-  "version": "1.0.46",
+  "version": "1.0.47",
   "main": "index.js",
   "repository": "bertho-zero@bitbucket.org:openagenda/inbox-apps.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@openagenda/dom-utils": "^2.1.4",
-    "@openagenda/labels": "^2.0.49",
+    "@openagenda/labels": "^2.0.50",
     "@openagenda/logs": "^1.0.1",
     "@openagenda/react-components": "^2.0.0",
     "@openagenda/react-form-components": "^2.0.0",

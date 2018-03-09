@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/flat-exports",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/flattener": "^1.1.0",
-    "@openagenda/labels": "^2.0.49",
+    "@openagenda/labels": "^2.0.50",
     "@openagenda/stream-utils": "^1.1.0",
     "@openagenda/utils": "^1.0.1",
     "@openagenda/validators": "^2.0.1",
@@ -25,7 +25,7 @@
     "xlsx-writestream": "^0.4.0"
   },
   "devDependencies": {
-    "@openagenda/labels": "^2.0.49",
+    "@openagenda/labels": "^2.0.50",
     "eslint-plugin-jest": "^21.12.2",
     "jest": "^22.0.0",
     "should": "^13.1.2"

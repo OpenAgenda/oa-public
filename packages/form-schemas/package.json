@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "Handle event data structure configuration storage",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "preversion": "npm test"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.0.7",
+    "@openagenda/labels": "^2.0.50",
     "@openagenda/logs": "^1.0.5",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",

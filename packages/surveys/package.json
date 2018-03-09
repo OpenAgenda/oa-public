@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/surveys",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "license": "See license.txt",
   "main": "index.js",
   "scripts": {
@@ -11,8 +11,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@openagenda/form-schemas": "^1.1.8",
-    "@openagenda/labels": "^2.0.49",
+    "@openagenda/form-schemas": "^1.1.9",
+    "@openagenda/labels": "^2.0.50",
     "babel-plugin-lodash": "^3.3.2",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
