@@ -7,6 +7,8 @@ const TagsInput = require( 'react-tagsinput' );
 const renderHelpers = require( './renderHelpers.jsx' );
 const validators = require( './validators' );
 
+const splitRegExp = new RegExp( /,|;/, 'g' );
+
 module.exports = createReactClass( {
 
   getInitialState: function() {
@@ -26,7 +28,7 @@ module.exports = createReactClass( {
 
   parse: function( tString ) {
 
-    return ( typeof tString !== 'string' ? '' : tString ).split( ',' ).filter( function( s ) {
+    return ( typeof tString !== 'string' ? '' : tString ).split( splitRegExp ).filter( function( s ) {
 
       return !!s.length;
 
@@ -50,7 +52,7 @@ module.exports = createReactClass( {
 
       self.setState( { userHasTyped: true } );
 
-      tags[ l ] = self.stringify( lTags );
+      tags[ l ] = self.stringify( lTags );
 
       currentInputs[ l ] = '';
 
@@ -72,9 +74,9 @@ module.exports = createReactClass( {
 
       tags = JSON.parse( JSON.stringify( self.props.value || {} ) ),
 
-      lTags = ( tags[ l ] || '' ).split( ',' );
+      lTags = ( tags[ l ] || '' ).split( splitRegExp );
 
-      if ( !currentInputs[ l ] || !currentInputs[ l ].length ) return;
+      if ( !currentInputs[ l ] || !currentInputs[ l ].length ) return;
 
       lTags.push( currentInputs[ l ] );
 
@@ -82,7 +84,7 @@ module.exports = createReactClass( {
 
       self.setState( { currentInputs: currentInputs } );
 
-      tags[ l ] = self.stringify( lTags );
+      tags[ l ] = self.stringify( lTags );
 
       self.props.onChange( tags, self.validate( tags ) );
 
@@ -98,9 +100,9 @@ module.exports = createReactClass( {
 
       var currentInputs = JSON.parse( JSON.stringify( self.state.currentInputs ) ),
 
-      hasComma = e.target.value.split( ',' ).length > 1;
+      hasComma = e.target.value.split( splitRegExp ).length > 1;
 
-      currentInputs[ l ] = e.target.value.split( ',' )[ 0 ];
+      currentInputs[ l ] = e.target.value.split( splitRegExp )[ 0 ];
 
       self.setState( { currentInputs: currentInputs } );
 
@@ -124,7 +126,7 @@ module.exports = createReactClass( {
           className : 'react-tagsinput-input',
           onBlur: this.onBlur( l ),
           onChange: this.onInputChange( l ),
-          value: this.state.currentInputs[ l ],
+          value: this.state.currentInputs[ l ],
           style: !value.length ? { width: '630px' } : null
         }}
         onChange={ this.onChange( l ) }
