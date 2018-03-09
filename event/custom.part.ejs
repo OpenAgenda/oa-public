@@ -1,7 +1,7 @@
 <dl class="event-item-info">
 <% for ( var i in custom ) { %>
 <% if ( custom[ i ].value ) { %>
-<% if ( custom[ i ].fieldType == 'url' ) { %>
+<% if ( custom[ i ].fieldType == 'url' ) { %>
   <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
     <span><%= labels[ custom[ i ].name ] %></span>
     <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>

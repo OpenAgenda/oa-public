@@ -63,7 +63,7 @@ window.hook( function( options ) {
 
 window.asap( options => {
 
-  var params = utils.extend( {
+  var params = utils.extend( {
     agendaUid: null,
     moderatorCanPublish: false,
     hasCustomFields: false,
@@ -115,13 +115,11 @@ window.asap( options => {
 
       du.removeClass( du.el( '.js_current_state' ), 'display-none' );
 
-    } else {
+    }
 
-      if ( params.hasCustomFields ) {
+    if ( roles.length && params.hasCustomFields ) {
 
-        prv.load( params.agendaUid, params.uid );
-
-      }
+      prv.load( params.agendaUid, params.uid );
 
     }
 

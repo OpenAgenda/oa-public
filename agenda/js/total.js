@@ -34,7 +34,7 @@ module.exports = function( selector, lang ) {
 
   function _update( newCount ) {
 
-    let queryPassedIncluded = ( _readHrefQuery().oaq || {} ).passed;
+    let queryPassedIncluded = ( _readHrefQuery().oaq || {} ).passed;
 
     if ( typeof queryPassedIncluded === 'undefined' ) {
 

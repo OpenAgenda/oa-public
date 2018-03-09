@@ -40,7 +40,9 @@ let log;
 
 module.exports = function ( options ) {
 
-  var params = _.extend( {}, defaults, options ? options : {} );
+  var params = _.extend( {
+    roles: []
+  }, defaults, options ? options : {} );
 
   if ( window.env ) params.env = window.env;
 
@@ -87,6 +89,10 @@ module.exports = function ( options ) {
 
       }
 
+      const tagGroups = _.get( data, 'tagGroups', [] ).filter( g => g.access !== 'public' );
+
+      displayPrivateTags( tagGroups );
+
     } );
 
   }
@@ -98,6 +104,21 @@ module.exports = function ( options ) {
       res: params.activitiesUrl[ params.env ].replace( '{agendaUid}', agendaUid ).replace( '{eventUid}', eventUid ),
       fetch: _fetch,
       lang
+    } );
+
+  }
+
+  function displayPrivateTags( tagGroups ) {
+
+    tagGroups.forEach( g => {
+
+      du.el( '.js_tag_groups' ).insertAdjacentHTML( 'beforeend', `<div class="tags">
+        <label><i class="fa fa-unlock-alt margin-right-xs"></i><span>${g.name}</span></label>:
+        <ul>
+          ${g.tags.map( t => '<li>' + t.label + '</li>' )}
+        </ul>
+      </div>` );
+
     } );
 
   }

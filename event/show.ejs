@@ -185,7 +185,7 @@
           </div>
 <% } %>
 <% if ( typeof event.tagGroups !== 'undefined' ) { %>
-          <div class="tag-groups">
+          <div class="tag-groups js_tag_groups">
 <% event.tagGroups.forEach( g => { %>
           <div class="tags">
             <label><%= g.name || __( 'tags' ) %>: </label>
@@ -256,7 +256,7 @@
           <label>
             <%- event.location.name %>
           </label>
-          <span><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%- event.location.address %></a></span>
+          <span><a target="_blank" href="<%= event.googleItineraryLink || '#' %>"><%- event.location.address %></a></span>
 <% if ( event.location.tags && event.location.tags.length ) { %>
           <div class="tags">
             <label><%= __( 'tags' ) %>:</label>
