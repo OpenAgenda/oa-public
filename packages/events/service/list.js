@@ -135,7 +135,7 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
           event.image = decorateImage( event.image, {
             imagePath: config.image.base,
             useDefaultPath: useDefaultImage,
-            defaultPath: config.defaultImagePath 
+            defaultPath: config.image.default 
           } );
 
           return event;
