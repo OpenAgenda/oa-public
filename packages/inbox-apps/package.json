@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inbox-apps",
-  "version": "1.0.48",
+  "version": "1.0.49",
   "main": "index.js",
   "repository": "bertho-zero@bitbucket.org:openagenda/inbox-apps.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -56,7 +56,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.41",
+    "@openagenda/bs-templates": "^2.0.42",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/inboxes": "^1.0.34",
     "@openagenda/test-app": "^3.0.1-3",
