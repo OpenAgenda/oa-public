@@ -250,7 +250,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             indesign: false,
             aggregator: false,
             prioritizedAggregator: false,
-            invitationMessage: false
+            invitationMessage: false,
+            calendarView: false
           } 
         },
         valid: true,

@@ -254,6 +254,7 @@ describe( 'agendas - functional (server): get', function() {
           aggregator: false,
           prioritizedAggregator: false,
           invitationMessage: false,
+          calendarView: false,
         },
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,

@@ -100,6 +100,12 @@ module.exports = {
     prioritizedAggregator: {
       type: 'boolean',
       default: false
+    },
+
+    // display calendar view for agenda
+    calendarView: {
+      type: 'boolean',
+      default: false
     }
 
   }

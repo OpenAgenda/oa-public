@@ -190,6 +190,7 @@ describe( 'agendas - unit (server): validate', () => {
           emailstrategie: false,
           indesign: false,
           invitationMessage: false,
+          calendarView: false,
           moderators: false,
           tags: false,
           embedsHead: false,
