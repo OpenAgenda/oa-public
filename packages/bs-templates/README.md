@@ -7,6 +7,7 @@ To get started, run server.js, a tiny express server to serve rendered styles.
 so:
 
 npm install
+ln -s node_modules/font-awesome/fonts fonts
 
 and then:
 
