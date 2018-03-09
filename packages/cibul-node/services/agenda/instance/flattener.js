@@ -484,7 +484,7 @@ function _isMultilingual( value ) {
 
   for ( var i = possibleLanguages.length - 1; i >= 0; i-- ) {
 
-    if ( value[ possibleLanguages[ i ] ] === null || ( typeof value[ possibleLanguages[ i ] ] == 'string' ) ) {
+    if ( value[ possibleLanguages[ i ] ] === null || ( typeof value[ possibleLanguages[ i ] ] == 'string' ) ) {
 
       return true;
 
