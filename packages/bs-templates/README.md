@@ -8,6 +8,8 @@ so:
 
 npm install
 ln -s node_modules/font-awesome/fonts fonts
+cd templates/event-form
+ln -s ../tinymce/skins/lightgray/fonts fonts
 
 and then:
 
