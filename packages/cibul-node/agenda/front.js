@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const sessions = require( '@openagenda/sessions' ),
 
   modLib = require( '../lib/moduleLib' ),
@@ -139,7 +141,7 @@ const sessions = require( '@openagenda/sessions' ),
 
     customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
       cmn.redirectLegacySearch,
-      ( req, res, next ) => { req.preview = true; next() },
+      ( req, res, next ) => { req.preview = true; next() },
       agendaSvc.mw.load( 'uid', { cache: true } ),
       cmn.checkAdministrator(),
       embedSvc.mw.load( 'embedUid', 'uid' ),
@@ -259,23 +261,28 @@ function showXhr( template ) {
 
 
 function show( req, res ) {
-  
-  lib.extend( req.templateData, {
-    agenda: {
-      uid: req.agenda.uid,
-      slug: req.agenda.slug,
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      private: req.agenda.private,
-      image: req.agenda.getImage( false ),
-      official: req.agenda.official,
-      isEmpty: req.agenda.isEmpty,
-      importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
-    }
-  } );
 
-  cmn.render( req, res, 'agenda/show', req.templateData );
+  agendas.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
+  
+    lib.extend( req.templateData, {
+      agenda: {
+        uid: req.agenda.uid,
+        slug: req.agenda.slug,
+        title: req.agenda.title,
+        description: req.agenda.description,
+        url: req.agenda.url,
+        private: req.agenda.private,
+        image: req.agenda.getImage( false ),
+        official: req.agenda.official,
+        isEmpty: req.agenda.isEmpty,
+        importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
+        showCalendar: _.get( agenda, 'credentials.showCalendar', false )
+      }
+    } );
+
+    cmn.render( req, res, 'agenda/show', req.templateData );
+
+  } );
 
 }
 

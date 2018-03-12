@@ -324,7 +324,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope' ].forEach( k => {
+  [ 'what', 'type', 'age', 'scope' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 
