@@ -133,6 +133,6 @@ module.exports = {
   },
   showCalendar: {
     en: 'Calendar view',
-    fr: 'Vue calendaire'
+    fr: 'Vue calendrier'
   }
 };
