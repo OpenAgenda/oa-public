@@ -276,7 +276,7 @@ function show( req, res ) {
         official: req.agenda.official,
         isEmpty: req.agenda.isEmpty,
         importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-        showCalendar: _.get( agenda, 'credentials.showCalendar', false )
+        showCalendar: _.get( agenda, 'credentials.calendarView', false )
       }
     } );
 
