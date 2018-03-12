@@ -130,5 +130,9 @@ module.exports = {
   privateAgenda: {
     en: 'Private agenda',
     fr: 'Agenda privé'
+  },
+  showCalendar: {
+    en: 'Calendar view',
+    fr: 'Vue calendaire'
   }
 };
