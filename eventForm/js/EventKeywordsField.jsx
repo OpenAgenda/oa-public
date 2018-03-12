@@ -7,7 +7,7 @@ const TagsInput = require( 'react-tagsinput' );
 const renderHelpers = require( './renderHelpers.jsx' );
 const validators = require( './validators' );
 
-const splitRegExp = new RegExp( /,|;/, 'g' );
+const splitRegExp = new RegExp( ',|;', 'g' );
 
 module.exports = createReactClass( {
 
