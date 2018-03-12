@@ -8223,9 +8223,7 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
         width: 100%; } }
   @media (min-width: 1200px) {
     .agenda-header .profile.container, .agenda-header .profile.container-fluid {
-      padding: 20px 40px; }
-    .agenda-header .ctas .btn {
-      margin-bottom: 0; } }
+      padding: 20px 40px; } }
 
 .nav h2 {
   padding: 10px 30px; }

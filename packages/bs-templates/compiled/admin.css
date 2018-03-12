@@ -7983,9 +7983,7 @@ button.close {
         width: 100%; } }
   @media (min-width: 1200px) {
     .agenda-header .profile.container, .agenda-header .profile.container-fluid {
-      padding: 20px 40px; }
-    .agenda-header .ctas .btn {
-      margin-bottom: 0; } }
+      padding: 20px 40px; } }
 
 /**
  * phase out lightbox - remove with deprecation of flash message script in cibul-templates
