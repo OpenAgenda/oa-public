@@ -63,6 +63,7 @@ import showBackLink from '../../utils/showBackLink';
     loading: state.conversation.loading,
     nextLoading: state.conversation.nextLoading,
     lastPage: state.conversation.lastPage,
+    agenda: state.agenda,
     res: state.res
   }),
   { ...conversationActions, ...modalActions, resetForm, inboxLoad: inboxActions.load }
@@ -92,15 +93,12 @@ export default class Conversation extends Component {
     this.props.nextPage( router.params.conversationId );
   };
 
-  sendMessage = async data => {
-    const { router, sendMessage, resetForm, showModal, getLabel } = this.props;
-    await sendMessage( router.params.conversationId, data )
+  sendMessage = data => {
+    const { router, sendMessage, getLabel } = this.props;
+    return sendMessage( router.params.conversationId, data )
       .catch( () => {
         throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
       } );
-
-    resetForm( 'message' );
-    showModal( 'messageSent' );
   }
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
@@ -217,7 +215,8 @@ export default class Conversation extends Component {
     const {
       conversations, conversation, messages, user,
       inboxLoad, triggerAction, showModal, nextLoading,
-      resume, getLabel, settings
+      resume, getLabel, settings, res, attachFileToMessage,
+      agenda
     } = this.props;
 
     const { ContentWrapper, focusFistConversation } = settings;
@@ -264,8 +263,19 @@ export default class Conversation extends Component {
         {conversation && !conversation.closedAt && (
           <MessageForm
             form="message"
-            onSubmit={this.sendMessage}
             Wrapper={this.FromWrapper}
+            uploadEndpoint={
+              res.messages.prepareAttachment
+                .replace( ':conversationId', conversation.id )
+                .replace( ':agendaUid', agenda && agenda.uid )
+            }
+            onSubmit={this.sendMessage}
+            onMessageSent={() => {
+              // resetForm( 'message' );
+              showModal( 'messageSent' );
+            }}
+            onFileUploaded={attachFileToMessage}
+            conversation={conversation}
           />
         )}
 

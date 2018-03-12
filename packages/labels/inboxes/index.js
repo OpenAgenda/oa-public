@@ -450,4 +450,24 @@ module.exports = {
     fr: 'La demande a été refusée.',
     en: 'The request was refused.'
   },
+  uppyNote: {
+    fr: 'Vous pouvez télécharger une image ou un fichier de type pdf, doc ou docx.',
+    en: 'You can upload an image or a file of type pdf, doc or docx.'
+  },
+  uppyModalTitle: {
+    fr: 'Ajouter une pièce jointe',
+    en: 'Add attachment(s)'
+  },
+  attachFile: {
+    fr: 'Ajouter une pièce jointe',
+    en: 'Add attachment'
+  },
+  attachment: {
+    fr: 'Pièce jointe',
+    en: 'Attachment'
+  },
+  uploadError: {
+    fr: 'Erreur de téléchargement',
+    en: 'Upload error'
+  }
 };

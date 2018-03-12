@@ -263,6 +263,7 @@ function matchApp( req, res, next ) {
       _.merge( state, {
         res: {
           inboxHome: '/?_app=agendaAdmin',
+          author: '',
           conversations: {
             create: '/agendaAdmin/conversations',
             list: '/agendaAdmin/conversations',
@@ -281,6 +282,7 @@ function matchApp( req, res, next ) {
       _.merge( state, {
         res: {
           inboxHome: '/?_app=user',
+          author: '',
           conversations: {
             list: '/user/conversations',
             action: '/user/conversations/:conversationId/action/:code'

@@ -1,6 +1,6 @@
 exports.up = knex => {
 
-  const schemas = knex.client.config.schemas;
+  const { schemas } = knex.client.config;
 
   return knex.schema.createTableIfNotExists( schemas.inboxConversation, table => {
     table.charset( 'utf8' );
@@ -17,7 +17,7 @@ exports.up = knex => {
 
 exports.down = knex => {
 
-  const schemas = knex.client.config.schemas;
+  const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists( schemas.inboxConversation );
 

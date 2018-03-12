@@ -44,6 +44,11 @@ const fieldsMap = [
   {
     db: 'closed_at',
     obj: 'closedAt'
+  },
+  {
+    db: 'file_key',
+    obj: 'fileKey',
+    protected: true
   }
 ];
 

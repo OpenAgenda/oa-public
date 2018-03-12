@@ -8,6 +8,7 @@
   "license": "See license.txt",
   "private": true,
   "scripts": {
+    "install": "lerna link",
     "bs": "lerna bootstrap"
   },
   "workspaces": {
@@ -16,15 +17,21 @@
     ],
     "nohoist": [
       "**/react",
-      "**/react/**",
       "**/react-dom",
-      "**/react-dom/**",
       "**/redbox-react",
-      "**/redbox-react/**",
       "**/create-react-class",
       "**/create-react-class/**",
       "**/rc-switch",
-      "**/rc-switch/**"
+      "**/rc-switch/**",
+      "**/font-awesome",
+      "**/uppy",
+      "**/uppy/**",
+      "**/uppy-server",
+      "**/uppy-server/**",
+      "**/fetch",
+      "**/fetch/**",
+      "**/superagent",
+      "**/superagent/**"
     ]
   },
   "devDependencies": {

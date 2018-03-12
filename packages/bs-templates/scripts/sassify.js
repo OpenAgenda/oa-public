@@ -1,12 +1,14 @@
 "use strict";
 
+const path = require( 'path' );
+
+const fs = require( 'fs' );
+
 var sass = require( 'node-sass' ),
 
-importOnce = require('node-sass-import-once'),
+  importOnce = require( 'node-sass-import-once' ),
 
-fs = require( 'fs' ),
-
-colors = require( 'colors' );
+  colors = require( 'colors' );
 
 module.exports = createCss;
 
@@ -26,7 +28,8 @@ function createCss( filename, cb ) {
 
     }
 
-    fs.writeFile( filename.replace( '.scss', '.css' ), rendered, cb ? cb : () => {} );
+    fs.writeFile( filename.replace( '.scss', '.css' ), rendered, cb ? cb : () => {
+    } );
 
   } );
 
@@ -39,7 +42,7 @@ function render( filename, cb ) {
   sass.render( {
     file: filename,
     importer: importOnce,
-    includePaths: [ __dirname + '/../' ]
+    includePaths: [ path.resolve( __dirname, '..' ), path.resolve( __dirname, '..', 'node_modules' ) ]
   }, ( err, result ) => {
 
     if ( err ) return cb( err );

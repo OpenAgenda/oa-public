@@ -1,3 +1,5 @@
+import update from 'immutability-helper';
+
 const LOAD = 'inbox-apps/conversation/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/conversation/LOAD_SUCCESS';
 const LOAD_FAIL = 'inbox-apps/conversation/LOAD_FAIL';
@@ -16,6 +18,9 @@ const RESUME_FAIL = 'inbox-apps/conversation/RESUME_FAIL';
 const LOAD_AUTHOR = 'inbox-apps/conversation/LOAD_AUTHOR';
 const LOAD_AUTHOR_SUCCESS = 'inbox-apps/conversation/LOAD_AUTHOR_SUCCESS';
 const LOAD_AUTHOR_FAIL = 'inbox-apps/conversation/LOAD_AUTHOR_FAIL';
+const ATTACH_FILE_TO_MESSAGE = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE';
+const ATTACH_FILE_TO_MESSAGE_SUCCESS = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE_SUCCESS';
+const ATTACH_FILE_TO_MESSAGE_FAIL = 'inbox-apps/conversation/ATTACH_FILE_TO_MESSAGE_FAIL';
 
 const initialState = {
   loaded: false,
@@ -134,6 +139,15 @@ export default function reducer( state = initialState, action ) {
         authorFetching: false,
         authorFetchingError: action.error
       };
+    case ATTACH_FILE_TO_MESSAGE_SUCCESS:
+      const messageIndex = (state.messages || []).findIndex( v => v.id === action.messageId );
+
+      return messageIndex === -1 // creation of conversation or not
+        ? {
+          ...state,
+          messages: [ action.result.message ]
+        }
+        : update( state, { messages: { $splice: [ [ messageIndex, 1, action.result.message ] ] } } );
     default:
       return state;
   }
@@ -217,7 +231,7 @@ export function sendMessage( conversationId, data ) {
           .replace( ':conversationId', conversationId ),
         { data }
       )
-  }
+  };
 }
 
 export function triggerAction( conversationId, code ) {
@@ -245,6 +259,28 @@ export function resume( conversationId ) {
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid )
           .replace( ':conversationId', conversationId )
+      )
+  };
+}
+
+export function attachFileToMessage( conversationId, messageId, file ) {
+  return {
+    types: [ ATTACH_FILE_TO_MESSAGE, ATTACH_FILE_TO_MESSAGE_SUCCESS, ATTACH_FILE_TO_MESSAGE_FAIL ],
+    messageId,
+    promise: ( client, { res, agenda, event } ) =>
+      client.get(
+        res.messages.addAttachment
+          .replace( ':slug', agenda && agenda.slug )
+          .replace( ':agendaUid', agenda && agenda.uid )
+          .replace( ':eventUid', event && event.uid )
+          .replace( ':conversationId', conversationId ),
+        {
+          query: {
+            messageId,
+            filename: file.meta.key,
+            originalName: file.name
+          }
+        }
       )
   };
 }

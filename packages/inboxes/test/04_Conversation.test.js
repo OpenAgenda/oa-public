@@ -57,7 +57,7 @@ describe( 'Conversation', () => {
 
       expect( _.omit(
         conversation.toJSON(),
-        'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt'
+        'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey'
       ) ).eql( {
         id: 6,
         type: 'event',
@@ -100,6 +100,7 @@ describe( 'Conversation', () => {
           body: 'Comment qu\'on contribute ?',
           conversationId: 6,
           id: 11,
+          attachments: [],
           inbox: {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
             id: 1,
@@ -139,7 +140,7 @@ describe( 'Conversation', () => {
         params: {}
       } );
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt' ) ).eql( {
+      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
         id: 6,
         type: 'edition_request',
         typeIdentifier: null,
@@ -208,7 +209,7 @@ describe( 'Conversation', () => {
         params: {}
       } );
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt' ) ).eql( {
+      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
         id: 6,
         type: 'edition_request',
         typeIdentifier: null,
@@ -282,7 +283,7 @@ describe( 'Conversation', () => {
           createInboxUserOnNull: true
         } );
 
-        expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt' ) ).eql( {
+        expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
           id: 6,
           type: 'event',
           typeIdentifier: 456789,
@@ -344,7 +345,7 @@ describe( 'Conversation', () => {
       const conversation = await Inboxes( 4 ).conversations.get( 3 );
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' )
+        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
       ).eql( {
         id: 3,
         type: 'contact_form',
@@ -381,6 +382,7 @@ describe( 'Conversation', () => {
           body: 'Tu pourrais me demander si je vais bien aussi, tss !',
           conversationId: 3,
           id: 8,
+          attachments: [],
           inbox: {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
             id: 5,
@@ -408,7 +410,7 @@ describe( 'Conversation', () => {
       const conversation = await Inboxes.user( 99999999 ).conversations.get( 1 );
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt' )
+        _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey' )
       ).eql( {
         id: 1,
         type: 'contribution_request',
@@ -451,6 +453,7 @@ describe( 'Conversation', () => {
           id: 2,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
           conversationId: 1,
+          attachments: [],
           inboxUser: {
             id: 2,
             inboxId: 2,
@@ -524,7 +527,7 @@ describe( 'Conversation', () => {
       } );
 
       expect(
-        _.omit( conversation.toJSON(), 'createdAt', 'latestMessage.createdAt' )
+        _.omit( conversation.toJSON(), 'createdAt', 'latestMessage.createdAt', 'fileKey' )
       ).eql( {
         id: 1,
         type: 'contribution_request',
@@ -570,6 +573,7 @@ describe( 'Conversation', () => {
           id: 2,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
           conversationId: 1,
+          attachments: [],
           inboxUser: {
             id: 2,
             inboxId: 2,
@@ -588,21 +592,7 @@ describe( 'Conversation', () => {
             uid: 99999999
           }
         },
-        actions: [ {
-          code: 'accept',
-          label: {
-            fr: 'Accepter',
-            en: 'Accept'
-          },
-          kind: 'success'
-        }, {
-          code: 'refuse',
-          label: {
-            fr: 'Refuser',
-            en: 'Refuse'
-          },
-          kind: 'danger'
-        } ]
+        actions: []
       } );
 
     } );
@@ -625,7 +615,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes( { type: 'agenda', identifier: 48959239 } ).conversations.list();
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
       expect( result ).eql( [ {
         id: 1,
@@ -669,6 +659,7 @@ describe( 'Conversation', () => {
           id: 2,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
           conversationId: 1,
+          attachments: [],
           inbox: {
             id: 2,
             type: 'user',
@@ -687,7 +678,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes.user( 99999999 ).conversations.list();
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
       expect( result ).eql( [
         {
@@ -732,6 +723,7 @@ describe( 'Conversation', () => {
             id: 10,
             body: 'Salut, j\'avais juste envie de vous dire que je vais supprimer mon compte !',
             conversationId: 5,
+            attachments: [],
             inbox: {
               id: 6,
               type: 'user',
@@ -784,6 +776,7 @@ describe( 'Conversation', () => {
             id: 9,
             body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
             conversationId: 4,
+            attachments: [],
             inbox: {
               id: 6,
               type: 'user',
@@ -845,6 +838,7 @@ describe( 'Conversation', () => {
             id: 8,
             body: 'Tu pourrais me demander si je vais bien aussi, tss !',
             conversationId: 3,
+            attachments: [],
             inbox: {
               id: 5,
               type: 'agenda',
@@ -915,6 +909,7 @@ describe( 'Conversation', () => {
             id: 5,
             body: 'Mais voyons Francis, sois poli stp !',
             conversationId: 2,
+            attachments: [],
             inbox: {
               id: 4,
               type: 'agenda',
@@ -967,6 +962,7 @@ describe( 'Conversation', () => {
             id: 2,
             body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
             conversationId: 1,
+            attachments: [],
             inboxUser: {
               id: 2,
               inboxId: 2,
@@ -995,7 +991,7 @@ describe( 'Conversation', () => {
       const conversations = await Inboxes.user( 99999999 ).conversations.list( 1, 3 );
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
       expect( result ).eql( [
         {
@@ -1040,6 +1036,7 @@ describe( 'Conversation', () => {
             id: 9,
             body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
             conversationId: 4,
+            attachments: [],
             inbox: {
               id: 6,
               type: 'user',
@@ -1101,6 +1098,7 @@ describe( 'Conversation', () => {
             id: 8,
             body: 'Tu pourrais me demander si je vais bien aussi, tss !',
             conversationId: 3,
+            attachments: [],
             inbox: {
               id: 5,
               type: 'agenda',
@@ -1171,6 +1169,7 @@ describe( 'Conversation', () => {
             id: 5,
             body: 'Mais voyons Francis, sois poli stp !',
             conversationId: 2,
+            attachments: [],
             inbox: {
               id: 4,
               type: 'agenda',
@@ -1191,7 +1190,7 @@ describe( 'Conversation', () => {
         .conversations.list( { type: 'contact_form', typeIdentifier: 456789 } );
 
       const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt' ) );
+        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
 
       expect( result ).eql( [
         {
@@ -1236,6 +1235,7 @@ describe( 'Conversation', () => {
             id: 9,
             body: 'J\'en ai marre de vos gueules, j\'me tire d\'ici !',
             conversationId: 4,
+            attachments: [],
             inbox: {
               id: 6,
               type: 'user',

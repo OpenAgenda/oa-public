@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-connect';
 import { getContext } from 'recompose';
-import { SubmissionError } from 'redux-form';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
 import * as inboxActions from '../../redux/modules/inbox';
@@ -34,9 +33,15 @@ import setFlashMessage from '../../utils/setFlashMessage';
     initialValues: state.settings.defaultQuery,
     settings: state.settings,
     conversations: state.inbox.data,
-    author: state.conversation.author
+    author: state.conversation.author,
+    agenda: state.agenda,
+    res: state.res
   }),
-  { ...conversationFormActions, ...modalActions }
+  {
+    ...conversationFormActions,
+    ...modalActions,
+    attachFileToMessage: conversationActions.attachFileToMessage
+  }
 )
 @getContext( {
   getLabel: PropTypes.func
@@ -72,8 +77,9 @@ export default class ConversationCreate extends Component {
 
   render() {
     const {
-      createConversation, initialValues, getLabel,
-      settings, conversations, author, router, showModal
+      createConversation, initialValues, getLabel, res,
+      settings, conversations, author, router, showModal,
+      attachFileToMessage, agenda
     } = this.props;
 
     const {
@@ -113,33 +119,29 @@ export default class ConversationCreate extends Component {
 
             <ConversationForm
               form="conversation-create"
-              onSubmit={data => createConversation( data )
-                .then( result => {
-                  if ( onConversationCreateRedirect ) {
-                    if ( onConversationCreateFlash ) {
-                      setFlashMessage( onConversationCreateFlash );
-                    }
-
-                    window.location.href = onConversationCreateRedirect;
-                  } else {
-                    const url = removeTrailingSlash( prefix ) + `/conversation/${result.conversation.id}`;
-                    router.push( url );
-
-                    if ( onConversationCreateFlash ) {
-                      showModal( 'messageSent', { message: onConversationCreateFlash } );
-                    } else {
-                      showModal( 'messageSent' );
-                    }
-                  }
-
-                  return result;
-                } )
-                .catch( () => {
-                  throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
-                } )
-              }
               initialValues={initialValues}
               Wrapper={this.FromWrapper}
+              onSubmit={createConversation}
+              uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
+              onConversationCreate={conversation => {
+                if ( onConversationCreateRedirect ) {
+                  if ( onConversationCreateFlash ) {
+                    setFlashMessage( onConversationCreateFlash );
+                  }
+
+                  window.location.href = onConversationCreateRedirect;
+                } else {
+                  const url = removeTrailingSlash( prefix ) + `/conversation/${conversation.id}`;
+                  router.push( url );
+
+                  if ( onConversationCreateFlash ) {
+                    showModal( 'messageSent', { message: onConversationCreateFlash } );
+                  } else {
+                    showModal( 'messageSent' );
+                  }
+                }
+              }}
+              onFileUploaded={attachFileToMessage}
             />
           </div>
         </div>

@@ -1,6 +1,9 @@
 import _ from 'lodash';
+import uppy from 'uppy-server';
+import axios from 'axios';
 import Inboxes from './';
-import Conversations from "./Conversations";
+import Conversations from './Conversations';
+import { aws, knex, schemas } from './config';
 
 export let config;
 
@@ -8,10 +11,7 @@ export function init( c ) {
   config = c;
 }
 
-/******************/
-/* User enpoints  */
-
-/******************/
+/* User enpoints */
 
 export function user( namespace ) {
   return {
@@ -45,9 +45,7 @@ export function user( namespace ) {
   };
 }
 
-/******************/
 /* Other enpoints */
-/******************/
 
 export const inboxUser = {
   get( options ) {
@@ -278,6 +276,145 @@ export const messages = {
         );
 
       res.send( { message } );
+    } );
+  },
+
+  prepareAttachment( options ) {
+    const { namespaces, uppyOptions } = _.merge( {
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier',
+        conversationId: 'conversation.id',
+        messageId: 'message.id',
+        userUid: 'user.uid'
+      },
+      uppyOptions: {
+        providerOptions: {
+          s3: {
+            getKey: req => req.filename,
+            key: config.aws.accessKeyId,
+            secret: config.aws.secretAccessKey,
+            bucket: config.aws.bucket,
+            region: config.aws.region
+          }
+        },
+        server: {
+          host: config.domain,
+          protocol: 'https'
+        },
+        sendSelfEndpoint: config.domain,
+        secret: '***SECRET***',
+        debug: false
+      }
+    }, options );
+
+    return wrap( async ( req, res ) => {
+      const messageId = parseInt( _.get( req, namespaces.messageId ) );
+
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+
+      const message = await conversation.messages.get( messageId );
+
+      if ( !message || !message.data ) {
+        res.status( 400 );
+        throw new VError( 'Message doesn\'t exist' );
+      }
+
+      const { filename: originalName } = req.query;
+      const conversationFileKey = conversation.data.fileKey;
+      const extension = originalName.split( '.' ).pop();
+
+      const foreignFilename = `conv.${conversationFileKey}.msg.${messageId}${extension ? '.' + extension : ''}`;
+
+      req.filename = foreignFilename;
+
+      uppy.app( uppyOptions )( req, res );
+    } );
+  },
+
+  addAttachment( options ) {
+    const { namespaces } = _.merge( {
+      namespaces: {
+        type: 'type',
+        identifier: 'identifier',
+        conversationId: 'conversation.id',
+        messageId: 'message.id',
+        userUid: 'user.uid',
+        filename: 'filename',
+        originalName: 'originalName'
+      }
+    }, options );
+
+    return wrap( async ( req, res ) => {
+      const messageId = parseInt( _.get( req, namespaces.messageId ) );
+
+      const conversation = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+
+      const message = await conversation.messages.get( messageId );
+
+      if ( !message || !message.data ) {
+        res.status( 400 );
+        throw new VError( 'Message doesn\'t exist' );
+      }
+
+      const originalName = _.get( req, namespaces.originalName );
+      const filename = _.get( req, namespaces.filename );
+
+      await conversation.messages.addAttachment( messageId, {
+        originalName,
+        filename
+      } );
+
+      res.send( { message: await message.get() } );
+    } );
+  },
+
+  downloadAttachment( options ) {
+    const { namespaces } = _.merge( {
+      namespaces: {
+        id: 'attachment.id',
+        filename: 'attachment.filename'
+      }
+    }, options );
+
+    return wrap( async ( req, res ) => {
+      const filename = _.get( req, namespaces.filename, null );
+
+      const attachment = await knex( schemas.messageAttachment )
+        .select()
+        .first()
+        .where( {
+          id: parseInt( _.get( req, namespaces.id, null ) ),
+          filename
+        } )
+        .then( v => _.mapKeys( v, ( value, key ) => _.camelCase( key ) ) );
+
+      if ( attachment ) {
+        res.set(
+          'Content-Disposition',
+          `attachment; filename=${attachment.originalName}`
+        );
+      }
+
+      const { data } = await axios( {
+        method: 'get',
+        url: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${filename}`,
+        responseType: 'stream'
+      } );
+
+      data.pipe( res );
     } );
   }
 };

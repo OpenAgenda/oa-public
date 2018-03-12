@@ -3,6 +3,7 @@ import VError from 'verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
+import uuid from 'uuid/v4';
 import logger from '@openagenda/logs';
 import { knex, schemas, types, interfaces, defaultAction } from './config';
 import mapper from './utils/mapper';
@@ -34,6 +35,13 @@ export default class Conversation {
     this.inbox = options && options.inbox;
     this.userUid = options && options.userUid;
     this.messages = new Messages( { conversation: this, inbox: this.inbox, userUid: this.userUid } );
+  }
+
+  static async link( { inboxId, conversationId } ) {
+    return knex( schemas.inboxConversation ).insert( {
+      inbox_id: inboxId,
+      conversation_id: conversationId
+    } );
   }
 
   async create( data, options ) {
@@ -78,23 +86,24 @@ export default class Conversation {
         ...mapper.toDb( conversationFieldsMap, 'insert', data, options ),
         ...mapper.toDb( conversationFieldsMap, 'insert', protectedData, { protected: false } ),
         creator_inbox_user_id: inboxUser.data.id,
-        updated_at: new Date()
+        updated_at: new Date(),
+        file_key: uuid().replace( /\-/g, '' )
       } );
 
     this.identifiers = { id: insertedId };
 
     log.info( 'Conversation is created', { conversation: this.identifiers } );
 
-    await knex( schemas.inboxConversation ).insert( {
-      inbox_id: this.inbox.data.id,
-      conversation_id: this.identifiers.id
+    await Conversation.link( {
+      inboxId: this.inbox.data.id,
+      conversationId: this.identifiers.id
     } );
 
     await Promise.all( destinationInboxes.map( async destinationInbox => {
       if ( this.inbox.data.id !== destinationInbox.data.id ) {
-        await knex( schemas.inboxConversation ).insert( {
-          inbox_id: destinationInbox.data.id,
-          conversation_id: this.identifiers.id
+        await Conversation.link( {
+          inboxId: destinationInbox.data.id,
+          conversationId: this.identifiers.id
         } );
       }
     } ) );
@@ -295,22 +304,32 @@ export default class Conversation {
       throw new VError( 'You cannot resolve a conversation two times' );
     }
 
-    const data = code === defaultAction.code ? {
-      closedAt: new Date(),
-      updatedAt: new Date()
-    } : {
-      closedAt: new Date(),
-      updatedAt: new Date(),
-      resolvedAt: new Date(),
-      store: {
-        ...this.data.store,
-        resolvedWith: code,
-        resolvedBy: {
-          inboxUserId: _inboxUser.data.id,
-          userUid: _inboxUser.data.userUid
-        }
+    const data = (() => {
+      if ( code === defaultAction.code ) {
+        return {
+          closedAt: new Date(),
+          updatedAt: new Date()
+        };
+      } else if ( action.resolve === false ) {
+        return {
+          updatedAt: new Date()
+        };
+      } else {
+        return {
+          closedAt: new Date(),
+          updatedAt: new Date(),
+          resolvedAt: new Date(),
+          store: {
+            ...this.data.store,
+            resolvedWith: code,
+            resolvedBy: {
+              inboxUserId: _inboxUser.data.id,
+              userUid: _inboxUser.data.userUid
+            }
+          }
+        };
       }
-    };
+    })();
 
     await knex( schemas.conversation )
       .update( {
@@ -376,7 +395,7 @@ export default class Conversation {
       ? this.inbox
       : await new Inbox( conversation.inboxContextId ).get();
 
-    const actions = conversation.resolvedAt ? [] : await _.get( types, [ conversation.type, 'actions' ], [] )
+    const actions = conversation.closedAt ? [] : await _.get( types, [ conversation.type, 'actions' ], [] )
       .reduce( async ( result, action ) => {
         const keep = await interfaces.filterAction( inbox.data, conversation, action );
 
@@ -387,8 +406,8 @@ export default class Conversation {
         return [ ...await result, action ];
       }, [] );
 
-    if ( !actions.length && !conversation.closedAt ) {
-      return [ defaultAction ];
+    if ( !actions.filter( v => v.resolve !== false ).length && !conversation.closedAt ) {
+      return [ ...actions, defaultAction ];
     }
 
     return actions;
