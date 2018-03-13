@@ -55,7 +55,7 @@ const modLib = require( '../lib/moduleLib' ),
     agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
       cmn.https,
       agendaSvc.mw.load( 'slug' ),
-      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' } ) ),
+      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' }, { maintainQuery: true } ) ),
       sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
         slug: 'slug',
         msg: {

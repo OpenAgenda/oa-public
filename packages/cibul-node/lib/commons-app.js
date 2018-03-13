@@ -865,7 +865,7 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
 
     } );
 
-    if ( params.maintainQuery ) {
+    if ( redirectParams.maintainQuery ) {
 
       _.extend( paramValues, req.query );
 
