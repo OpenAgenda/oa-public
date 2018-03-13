@@ -217,7 +217,9 @@ module.exports = function ( options ) {
           },
           messages: {
             list: resBasePath + '/inbox/conversations/:conversationId/messages.json',
-            create: resBasePath + '/inbox/conversations/:conversationId/messages.json'
+            create: resBasePath + '/inbox/conversations/:conversationId/messages.json',
+            prepareAttachment: resBasePath + '/inbox/conversations/:conversationId/prepare-attachment',
+            addAttachment: resBasePath + '/inbox/conversations/:conversationId/add-attachment'
           }
         },
         agenda: {
