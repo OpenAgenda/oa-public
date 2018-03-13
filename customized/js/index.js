@@ -23,7 +23,7 @@ window.asap( function( options ) {
 
   deepExtend( params, options );
 
-  ReactDom.hydrate( <App
+  ReactDom.render( <App
     lang={params.lang}
     tagSet={params.tagSet}
     categorySet={params.categorySet}

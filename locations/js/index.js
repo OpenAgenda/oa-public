@@ -26,7 +26,7 @@ window.hook( function( options ) {
 
   deepExtend( params, options );
 
-  ReactDom.hydrate( <LocactionsAdmin
+  ReactDom.render( <LocactionsAdmin
     agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}

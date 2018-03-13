@@ -38,7 +38,7 @@ window.hook( function( options ) {
   }
 
   // deploy here.
-  ReactDom.hydrate( <SuggestionForm
+  ReactDom.render( <SuggestionForm
     lang={ params.lang }
     locationUid={ params.locationUid }
     res={ params.res }

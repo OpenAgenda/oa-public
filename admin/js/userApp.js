@@ -276,6 +276,6 @@ class UserApp extends Component {
 
 module.exports = canvasElem => {
 
-  ReactDom.hydrate( <UserApp />, canvasElem );
+  ReactDom.render( <UserApp />, canvasElem );
 
 };

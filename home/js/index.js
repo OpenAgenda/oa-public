@@ -32,6 +32,6 @@ window.hook( options => {
   const app = createApp( params );
 
   app.match( du.el( '.js_canvas' ) );
-  // ReactDOM.hydrate( app, du.el( '.js_canvas' ) );
+  // ReactDOM.render( app, du.el( '.js_canvas' ) );
 
 } );
