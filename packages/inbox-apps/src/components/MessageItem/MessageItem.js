@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import marked from 'marked';
+import qs from 'qs';
 import { AuthorAvatar } from '../';
 
 export default class MessageItem extends Component {
@@ -19,6 +20,8 @@ export default class MessageItem extends Component {
 
     const creationDate = moment( message.createdAt );
 
+    const attachment = message.attachments.length ? message.attachments[ 0 ] : null;
+
     return (
       <div className="media">
         <div className="media-left media-top">
@@ -34,6 +37,22 @@ export default class MessageItem extends Component {
               className="margin-bottom-xs"
               dangerouslySetInnerHTML={{ __html: marked( message.body, { breaks: true } ) }}
             />
+            {attachment && (
+              <div>
+                <i className="fa fa-paperclip" aria-hidden="true"></i>{' '}
+                {getLabel( 'attachment' )}:{' '}
+                <a
+                  href={`/home/inbox/download-attachment?${qs.stringify( {
+                    filename: attachment.filename,
+                    id: attachment.id
+                  } )}`}
+                  target="_blank"
+                  download={attachment.originalName}
+                >
+                  {attachment.originalName}
+                </a>
+              </div>
+            )}
             <p className="text-muted" title={creationDate.format( 'LLL' )}>
               {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}
             </p>

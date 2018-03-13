@@ -8,6 +8,7 @@ import messageFieldsMap from './db/messageFieldsMap';
 import inboxUserFieldsMap from './db/inboxUserFieldsMap';
 import inboxFieldsMap from './db/inboxFieldsMap';
 import populateDetails from './db/populateDetails';
+import populateAttachments from './db/populateAttachments';
 
 export default class Messages {
   constructor( options ) {
@@ -24,6 +25,11 @@ export default class Messages {
   get( identifiers, options ) {
     return new Message( identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
       .get( options );
+  }
+
+  addAttachment( identifiers, data ) {
+    return new Message( identifiers, { inbox: this.inbox, conversation: this.conversation, userUid: this.userUid } )
+      .addAttachment( data );
   }
 
   async list( ...args ) {
@@ -78,6 +84,8 @@ export default class Messages {
     );
 
     this.data = await populateDetails( result, this.inbox );
+
+    this.data = await populateAttachments( result );
 
     return this;
   }

@@ -23,7 +23,9 @@ async function init( c ) {
     'defaultAction',
     'redis',
     'queues',
-    'defaultImagePath'
+    'defaultImagePath',
+    'domain',
+    'aws'
   ] ) );
 
   const knexConfig = getKnexConfig( c );

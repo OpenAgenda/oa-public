@@ -1,0 +1,31 @@
+import _ from 'lodash';
+import { knex, schemas, aws } from '../config';
+
+export default async function populateAttachments( entities ) {
+  if ( entities === null ) {
+    return null;
+  }
+
+  if ( !Array.isArray( entities ) ) {
+    return (await populateAttachments( [ entities ] ))[ 0 ];
+  }
+
+  const messageIds = _.map( entities, 'id' );
+
+  let attachments;
+  let result = await knex( schemas.messageAttachment )
+    .select()
+    .whereIn( 'message_id', messageIds )
+    .map( row => _.mapKeys( row, ( value, key ) => _.camelCase( key ) ) );
+
+  return entities.map( entity => {
+    ([ attachments, result ] = _.partition( result, [ 'messageId', entity.id ] ));
+
+    entity.attachments = attachments.map( attachment => ({
+      ...attachment,
+      path: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${attachment.filename}`
+    }) );
+
+    return entity
+  } );
+}

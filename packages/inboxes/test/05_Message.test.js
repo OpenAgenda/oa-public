@@ -55,6 +55,7 @@ describe( 'Message', () => {
         id: 11,
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
+        attachments: [],
         inboxUser: {
           id: 1,
           inboxId: 1,
@@ -87,6 +88,7 @@ describe( 'Message', () => {
         id: 11,
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
+        attachments: [],
         inboxUser: {
           id: 2,
           inboxId: 2,
@@ -150,6 +152,7 @@ describe( 'Message', () => {
         id: 11,
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
+        attachments: [],
         inboxUser: {
           id: 7,
           inboxId: 1,
@@ -184,6 +187,7 @@ describe( 'Message', () => {
         id: 1,
         conversationId: 1,
         body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+        attachments: [],
         inboxUser: {
           id: 1,
           inboxId: 1,
@@ -221,6 +225,7 @@ describe( 'Message', () => {
           id: 2,
           conversationId: 1,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
+          attachments: [],
           inbox: {
             id: 2,
             type: 'user',
@@ -234,6 +239,7 @@ describe( 'Message', () => {
           id: 1,
           conversationId: 1,
           body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+          attachments: [],
           inboxUser: {
             id: 1,
             inboxId: 1,
@@ -268,6 +274,7 @@ describe( 'Message', () => {
           id: 2,
           conversationId: 1,
           body: 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌',
+          attachments: [],
           inboxUser: {
             id: 2,
             inboxId: 2,
@@ -290,6 +297,7 @@ describe( 'Message', () => {
           id: 1,
           conversationId: 1,
           body: 'Salut, ca marche pas ! comment qu\'on fé ?',
+          attachments: [],
           inbox: {
             id: 1,
             type: 'agenda',

@@ -11,6 +11,7 @@ import inboxFieldsMap from './db/inboxFieldsMap';
 import validate from './utils/validate';
 import { identifiersSchema, createSchema } from './validators/messageSchemas';
 import populateDetails from './db/populateDetails';
+import populateAttachments from "./db/populateAttachments";
 
 const log = logger( 'conversation/Message' );
 
@@ -126,6 +127,33 @@ export default class Message {
     );
 
     this.data = await populateDetails( result, this.inbox );
+
+    this.data = await populateAttachments( result );
+
+    return this;
+  }
+
+  async addAttachment( data ) {
+    await this.get();
+
+    if ( !this.data ) {
+      throw new VError( 'Message cannot found' );
+    }
+
+    /*
+    * originalName  // original name
+    * filename      // s3 filename on bucket
+    * */
+
+    const inboxUser = this.conversation.data.inboxUser || (await this._getInboxUser( { userUid: this.userUid } )).data;
+
+    await knex( schemas.messageAttachment ).insert( {
+      message_id: this.data.id,
+      inbox_user_id: inboxUser.id,
+      original_name: data.originalName,
+      filename: data.filename,
+      created_at: new Date()
+    } );
 
     return this;
   }

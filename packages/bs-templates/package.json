@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/bs-templates",
-  "version": "2.0.48",
+  "version": "2.0.49",
   "description": "openagenda bootstrap templates",
   "main": "server.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "node-sass-import-once": "^1.2.0",
     "node-watch": "^0.3.5",
     "reload": "^1.1.0",
+    "uppy": "^0.23.2",
     "walk": "^2.3.9"
   }
 }
