@@ -1,9 +1,9 @@
+import _ from 'lodash';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { AuthorAvatar, ConversationTitle, Link } from '../';
 import getDestinationInbox from '../../utils/getDestinationInbox';
 import marked from "marked";
@@ -142,7 +142,7 @@ export default class ConversationItem extends Component {
 
             <div
               className="message padding-bottom-xs"
-              dangerouslySetInnerHTML={{ __html: marked( latestMessage.body, { breaks: true } ) }}
+              dangerouslySetInnerHTML={{ __html: marked( _.escape( latestMessage.body ), { breaks: true } ) }}
             />
           </div>
 

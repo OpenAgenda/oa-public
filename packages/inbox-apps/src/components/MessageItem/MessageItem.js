@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -35,7 +36,7 @@ export default class MessageItem extends Component {
           <div className="conversation-item-message">
             <div
               className="margin-bottom-xs"
-              dangerouslySetInnerHTML={{ __html: marked( message.body, { breaks: true } ) }}
+              dangerouslySetInnerHTML={{ __html: marked( _.escape( message.body ), { breaks: true } ) }}
             />
             {attachment && (
               <div>

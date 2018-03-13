@@ -61,7 +61,7 @@ export default function createApp( options ) {
   appDest.className = params.appDestClassName;
   window.document.body.insertAdjacentElement( 'beforeend', appDest );
 
-  return ReactDOM.hydrate(
+  return ReactDOM.render(
     <Provider store={store} key="provider">
       <ConversationFormApp />
     </Provider>,
