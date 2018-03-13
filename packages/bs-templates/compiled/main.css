@@ -14024,8 +14024,8 @@ i.mce-i-backcolor {
   display: none; }
   #agenda .side-content .list-group {
     padding-left: 10px; }
-    #agenda .side-content .list-group .oa-group-last-tag {
-      padding-bottom: 3em; }
+    #agenda .side-content .list-group .oa-group-first-tag {
+      padding-top: 3em; }
   @media (min-width: 768px) {
     #agenda .side-content {
       display: block; } }
