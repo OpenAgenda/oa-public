@@ -345,7 +345,7 @@ function widget( elem, options ) {
 
         if ( tag.g !== previousGroup ) {
 
-          classes.push( 'oa-group-last-tag' );
+          classes.push( 'oa-group-first-tag' );
 
         }
 
