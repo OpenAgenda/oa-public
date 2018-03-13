@@ -3,7 +3,7 @@
 const { promisify } = require( 'util' );
 const wn = require( 'when/node' );
 const _ = require( 'lodash' );
-const inboxes = require( '@openagenda/inboxes' );
+const { default: inboxes, Conversation } = require( '@openagenda/inboxes' );
 const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
 const userSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
@@ -142,9 +142,15 @@ async function onMessageCreate( conversation, message ) {
 }
 
 function filterAction( inbox, conversation, action ) {
+  if ( action.code === 'involveTechnicalSupport' ) {
+    return !conversation.inboxes.find( inbox => inbox.type === 'support' );
+  }
+
   switch ( conversation.type ) {
     case 'contact_form':
+      return inbox.type === 'agenda';
     case 'event':
+      return inbox.type === 'agenda';
     case 'request_contribute':
       return inbox.type === 'agenda';
     case 'edition_request':
@@ -155,9 +161,16 @@ function filterAction( inbox, conversation, action ) {
 }
 
 async function onAction( conversation, action ) {
+  if ( action.code === 'involveTechnicalSupport' ) {
+    const supportInbox = await inboxes( {
+      type: 'support',
+      identifier: 1
+    } ).get();
+
+    await Conversation.link( { conversationId: conversation.id, inboxId: supportInbox.data.id } );
+  }
+
   switch ( conversation.type ) {
-    case 'event':
-      break;
     case 'request_contribute': {
 
       if ( action.code === 'accept' ) {
@@ -247,7 +260,9 @@ module.exports.init = async c => {
         'schemas.conversation',
         'schemas.inboxConversation',
         'schemas.message',
-        'queues.inboxesSync'
+        'schemas.messageAttachment',
+        'queues.inboxesSync',
+        'aws'
       ] ),
       {
         logger: loggerConfig,
@@ -269,8 +284,28 @@ module.exports.init = async c => {
           kind: 'success'
         },
         types: {
-          event: {},
-          contact_form: {},
+          event: {
+            actions: [ {
+              code: 'involveTechnicalSupport',
+              label: {
+                fr: 'Impliquer le support technique',
+                en: 'Involve technical support'
+              },
+              kind: 'default',
+              resolve: false
+            } ]
+          },
+          contact_form: {
+            actions: [ {
+              code: 'involveTechnicalSupport',
+              label: {
+                fr: 'Impliquer le support technique',
+                en: 'Involve technical support'
+              },
+              kind: 'default',
+              resolve: false
+            } ]
+          },
           request_contribute: {
             actions: [ {
               code: 'accept',

@@ -146,6 +146,52 @@ agendaRouter.post( '/conversations.json',
   errorHandler
 );
 
+agendaRouter.use( '/conversations/:conversationId/prepare-attachment',
+  preMw,
+  inboxMw.messages.prepareAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'agenda.uid',
+      userUid: 'user.uid',
+      messageId: 'query.meta.messageId'
+    },
+    uppyOptions: {
+      providerOptions: {
+        s3: {
+          key: config.aws.accessKeyId,
+          secret: config.aws.secretAccessKey,
+          bucket: config.aws.bucket,
+          region: config.aws.region
+        }
+      },
+      server: {
+        host: config.domain,
+        protocol: 'https'
+      },
+      secret: config.uppy.secret,
+      debug: false
+    }
+  } ),
+  errorHandler
+);
+
+agendaRouter.use( '/conversations/:conversationId/add-attachment',
+  preMw,
+  inboxMw.messages.addAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'agenda.uid',
+      userUid: 'user.uid',
+      messageId: 'query.messageId',
+      filename: 'query.filename',
+      originalName: 'query.originalName'
+    }
+  } ),
+  errorHandler
+);
+
 agendaRouter.get( '/author.json',
   preMw,
   ( req, res, next ) => {

@@ -120,6 +120,52 @@ supportRouter.post( '/conversations.json',
   errorHandler
 );
 
+supportRouter.use( '/conversations/:conversationId/prepare-attachment',
+  preMw,
+  inboxMw.messages.prepareAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      userUid: 'user.uid',
+      messageId: 'query.meta.messageId'
+    },
+    uppyOptions: {
+      providerOptions: {
+        s3: {
+          key: config.aws.accessKeyId,
+          secret: config.aws.secretAccessKey,
+          bucket: config.aws.bucket,
+          region: config.aws.region
+        }
+      },
+      server: {
+        host: config.domain,
+        protocol: 'https'
+      },
+      secret: config.uppy.secret,
+      debug: false
+    }
+  } ),
+  errorHandler
+);
+
+supportRouter.use( '/conversations/:conversationId/add-attachment',
+  preMw,
+  inboxMw.messages.addAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'identifier',
+      userUid: 'user.uid',
+      messageId: 'query.messageId',
+      filename: 'query.filename',
+      originalName: 'query.originalName'
+    }
+  } ),
+  errorHandler
+);
+
 supportRouter.get( '/author.json',
   preMw,
   ( req, res, next ) => {

@@ -125,6 +125,62 @@ userRouter.post( '/conversations.json',
   errorHandler
 );
 
+userRouter.use( '/conversations/:conversationId/prepare-attachment',
+  preMw,
+  inboxMw.messages.prepareAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'user.uid',
+      userUid: 'user.uid',
+      messageId: 'query.meta.messageId'
+    },
+    uppyOptions: {
+      providerOptions: {
+        s3: {
+          key: config.aws.accessKeyId,
+          secret: config.aws.secretAccessKey,
+          bucket: config.aws.bucket,
+          region: config.aws.region
+        }
+      },
+      server: {
+        host: config.domain,
+        protocol: 'https'
+      },
+      secret: config.uppy.secret,
+      debug: false
+    }
+  } ),
+  errorHandler
+);
+
+userRouter.use( '/conversations/:conversationId/add-attachment',
+  preMw,
+  inboxMw.messages.addAttachment( {
+    namespaces: {
+      conversationId: 'params.conversationId',
+      type: 'type',
+      identifier: 'user.uid',
+      userUid: 'user.uid',
+      messageId: 'query.messageId',
+      filename: 'query.filename',
+      originalName: 'query.originalName'
+    }
+  } ),
+  errorHandler
+);
+
+userRouter.get( '/download-attachment',
+  inboxMw.messages.downloadAttachment( {
+    namespaces: {
+      id: 'query.id',
+      filename: 'query.filename'
+    }
+  } ),
+  errorHandler
+);
+
 userRouter.get( '/author.json',
   preMw,
   ( req, res ) => {
@@ -154,6 +210,7 @@ function errorHandler( err, req, res, next ) {
       res.status( err.code );
       return next( err );
     }
+    console.log( err );
     errorLogger( 'middleware', err );
     res.status( 500 ).json( err );
   }

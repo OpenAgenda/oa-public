@@ -159,7 +159,8 @@ let config = {
       inboxUser: 'inboxes_inbox_user',
       conversation: 'inboxes_conversation',
       inboxConversation: 'inboxes_inbox_conversation',
-      message: 'inboxes_message'
+      message: 'inboxes_message',
+      messageAttachment: 'inboxes_message_attachment'
     },
     auth: {
       local: {
@@ -264,6 +265,9 @@ let config = {
       tmpBucket: prod.aws.buckets.temporary,
       defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
       oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
+    },
+    uppy: {
+      secret: 'DUy=dBGY1,(B]Yj'
     },
     mailjet: {
       apiKey: prod.mailjet.apiKey,

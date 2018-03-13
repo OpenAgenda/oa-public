@@ -73,7 +73,9 @@ app.use( '/home/inbox',
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              create: '/home/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
             }
           }
         }
@@ -121,7 +123,9 @@ app.use( '/support',
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              create: '/home/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
             }
           }
         }
@@ -166,7 +170,9 @@ app.use( '/:slug/admin/inbox',
             },
             messages: {
               list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
-              create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json'
+              create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment'
             }
           },
           agenda: req.agenda
@@ -240,7 +246,9 @@ app.use( '/:slug/contact',
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              create: '/home/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
             }
           },
           agenda: req.agenda
@@ -357,7 +365,9 @@ app.use( '/:slug/admin/members/:stakeholderId/contact',
             },
             messages: {
               list: `${resPrefix}/inbox/conversations/:conversationId/messages.json`,
-              create: `${resPrefix}/inbox/conversations/:conversationId/messages.json`
+              create: `${resPrefix}/inbox/conversations/:conversationId/messages.json`,
+              prepareAttachment: `${resPrefix}/inbox/conversations/:conversationId/prepare-attachment`,
+              addAttachment: `${resPrefix}/inbox/conversations/:conversationId/add-attachment`
             }
           },
           agenda: req.agenda
@@ -458,7 +468,9 @@ app.use( '/:slug/admin/events/:eventSlug/contact',
             },
             messages: {
               list: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
-              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`
+              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
+              prepareAttachment: `agendas/${req.agenda.uid}/inbox/conversations/:conversationId/prepare-attachment`,
+              addAttachment: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/add-attachment`
             }
           },
           agenda: req.agenda,
@@ -561,7 +573,9 @@ app.use( '/:slug/events/:eventSlug/contact',
             },
             messages: {
               list: `/home/inbox/conversations/:conversationId/messages.json`,
-              create: `/home/inbox/conversations/:conversationId/messages.json`
+              create: `/home/inbox/conversations/:conversationId/messages.json`,
+              prepareAttachment: `/home/inbox/conversations/:conversationId/prepare-attachment`,
+              addAttachment: `/home/inbox/conversations/:conversationId/add-attachment`
             }
           },
           agenda: req.agenda,
@@ -664,7 +678,9 @@ app.use( '/:slug/admin/events/:eventSlug/edition-request',
             },
             messages: {
               list: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
-              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`
+              create: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/messages.json`,
+              prepareAttachment: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/prepare-attachment`,
+              addAttachment: `/agendas/${req.agenda.uid}/inbox/conversations/:conversationId/add-attachment`
             }
           },
           agenda: req.agenda,
@@ -760,7 +776,9 @@ app.use( '/:slug/request-contribute',
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              create: '/home/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: `/home/inbox/conversations/:conversationId/prepare-attachment`,
+              addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
             }
           },
           agenda: req.agenda
@@ -857,7 +875,9 @@ app.use( '/:slug/locations/:locationUid/suggest-change',
             },
             messages: {
               list: '/home/inbox/conversations/:conversationId/messages.json',
-              create: '/home/inbox/conversations/:conversationId/messages.json'
+              create: '/home/inbox/conversations/:conversationId/messages.json',
+              prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
             }
           },
           agenda: req.agenda
