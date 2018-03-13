@@ -4,7 +4,16 @@ const settings = {
   res: 'https://taas.reverso.net/riws/RestTranslation.svc/v1/output=json/TranslateHtml'
 }
 
-const _ = require( 'lodash' );
+
+const _ = {
+  isPlainObject: require( 'lodash/isPlainObject' ),
+  defaults: require( 'lodash/defaults' ),
+  isArray: require( 'lodash/isArray' ),
+  keys: require( 'lodash/keys' ),
+  extend: require( 'lodash/extend' ),
+  set: require( 'lodash/set' )
+}
+
 const request = require( 'superagent' );
 const async = require( 'async' );
 const sha1 = require( 'sha1' );
@@ -53,29 +62,49 @@ module.exports = options => {
   }
 
 
-  function objectTranslate( obj, lang, destLang, cb ) {
+  function objectTranslate( obj, lang, destLang, options, cb ) {
 
-    let translations = {}, timeoutErrors = [];
+    if ( arguments.length === 4 ) {
 
-    return async.eachSeries( Object.keys( obj ), ( key, ecb ) => {
+      cb = options;
+      options = {};
 
-      translate( obj[ key ], lang, destLang, ( err, translation, timeouts ) => {
+    }
 
-        if ( err ) {
+    const params = _.extend( {
+      onProcess: processedLang => {},
+      separator: '|||'
+    }, options );
+
+    const destLangCount = ( [].concat( destLang ) ).length;
+
+    const translations = {}, timeoutErrors = [];
+
+    const concatenatedObj = _.keys( obj ).map( k => obj[ k ] ).join( params.separator );
+    const concatenatedTranslations = {};
+
+    // this translates per field at first level.
+    // it should translate per language
+
+    return async.eachSeries( [].concat( destLang ), ( destLang, ecb ) => {
+
+      params.onProcess( destLang );
+
+      translate( concatenatedObj, lang, destLang, ( err, concatenatedTranslation ) => {
+
+        if ( err && err.code === 'ECONNABORTED' ) {
+
+          timeoutErrors.push( { lang: destLang } );
+
+          return ecb();
+
+        } else if ( err ) {
 
           return ecb( err );
 
         }
 
-        if ( timeouts ) {
-
-          timeoutErrors = timeoutErrors.concat( timeouts.map( e => Object.assign( { key }, e ) ) );
-
-          return ecb();
-
-        }
-
-        translations[ key ] = translation;
+        concatenatedTranslations[ destLang ] = concatenatedTranslation;
 
         ecb();
 
@@ -84,6 +113,19 @@ module.exports = options => {
     }, err => {
 
       if ( err ) return cb( err );
+
+      // redistribute values per field then dest lang
+      _.keys( concatenatedTranslations ).forEach( destLang => {
+
+        let fieldValues = concatenatedTranslations[ destLang ].split( params.separator ).map( v => v.trim() );
+
+        _.keys( obj ).forEach( ( field, index ) => {
+
+          _.set( translations, destLangCount > 1 ? field + '.' + destLang : field, fieldValues[ index ] );
+
+        } );
+
+      } );
 
       cb( null, translations, timeoutErrors.length ? timeoutErrors : null );
 

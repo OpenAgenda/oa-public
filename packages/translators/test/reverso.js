@@ -51,6 +51,20 @@ describe( 'reverso', function() {
 
     } );
 
+    it( 'makes a translation from english to french with a separator character', done => {
+
+      r( 'I sure hope this works|||And this as well', 'en', 'fr', ( err, translation ) => {
+
+        translation.should.equal( 'Je l\'espoir sûr cela travaille ||| Et cela aussi' );
+
+        done();
+
+      } );
+
+    } );
+
+
+
     it( 'empty or undefined source language gives back empty string', done => {
 
       r( undefined , 'en', ( err, translation ) => {
@@ -225,7 +239,7 @@ describe( 'reverso', function() {
 
     it( 'object translation timeout gives timed out fields and langs as a flat list in third arg of cb', done => {
 
-      r( {
+      r( {
         title: 'Le bouc',
         description: 'Le bouc est le mâle de la chèvre.'
       }, [ 'es', 'de' ], ( err, translations, timeoutErrors ) => {
@@ -235,10 +249,8 @@ describe( 'reverso', function() {
         translations.should.eql( {} );
 
         timeoutErrors.should.eql( [ 
-          { key: 'title', lang: 'es' },
-          { key: 'title', lang: 'de' },
-          { key: 'description', lang: 'es' },
-          { key: 'description', lang: 'de' }
+          { lang: 'es' },
+          { lang: 'de' }
         ] );
 
         done();
