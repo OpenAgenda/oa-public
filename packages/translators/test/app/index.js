@@ -1,6 +1,6 @@
 "use strict";
 
-const app = require( 'test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.js',
   excludeDefaultStyles: true,
   styles: [ __dirname + '/style.scss' ],

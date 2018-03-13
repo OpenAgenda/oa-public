@@ -1,13 +1,19 @@
 {
-  "name": "translators",
-  "version": "1.0.0",
+  "name": "@openagenda/translators",
+  "version": "1.0.3",
   "description": "Provides iso functions to fetch translated content",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "preversion": "npm test",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:next": "npm version prerelease && npm publish --tag next"
   },
   "keywords": [],
   "author": "",
@@ -19,11 +25,16 @@
   },
   "dependencies": {
     "async": "^2.1.2",
-    "crypto-browserify": "^3.0.9",
+    "crypto-js": "^3.1.9-1",
     "lodash": "^4.17.1",
     "marked": "^0.3.6",
     "sha1": "^1.1.1",
     "superagent": "^2.3.0",
     "to-markdown": "^3.0.3"
+  },
+  "devDependencies": {
+    "@openagenda/test-app": "^2.0.4",
+    "babel-preset-es2015": "^6.24.1",
+    "should": "^11.1.1"
   }
 }

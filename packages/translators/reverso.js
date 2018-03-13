@@ -17,7 +17,7 @@ const _ = {
 const request = require( 'superagent' );
 const async = require( 'async' );
 const sha1 = require( 'sha1' );
-const crypto = require( 'crypto-browserify' );
+const hmacSha1 = require( 'crypto-js/hmac-sha1' );
 const marked = require( 'marked' );
 const toMarkdown = require( 'to-markdown' );
 
@@ -182,7 +182,7 @@ module.exports = options => {
 
     let created = _reversoCreated(),
 
-    signature = crypto.createHmac( 'sha1', params.password ).update( params.user + created ).digest( 'hex' ),
+    signature = hmacSha1( params.user + created, params.password ),
 
     isUserTemplate = ( {
       fr: {
@@ -214,7 +214,7 @@ module.exports = options => {
 
       .set( 'Username', params.user )
 
-      .set( 'Signature', signature.toUpperCase() )
+      .set( 'Signature', signature.toString().toUpperCase() )
 
       .set( 'Created', created )
 
@@ -224,7 +224,7 @@ module.exports = options => {
 
         if ( err ) return cb( err );
 
-        let html = ( new Buffer( res.body.TranslatedHtml, 'base64' ) ).toString(),
+        let html = ( new Buffer( res.body.TranslatedHtml || '', 'base64' ) ).toString(),
 
         cleanResponse = html
 

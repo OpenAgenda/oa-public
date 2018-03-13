@@ -6,9 +6,9 @@ const reverso = require( '../reverso' );
 
 const config = require( '../testconfig' );
 
-const depr = require( '../../../scripts/eveAgendas/lib/reverso' );
-
 describe( 'reverso', function() {
+
+  this.timeout( 30000 );
 
   describe( 'successful requests', function( done ) {
 
