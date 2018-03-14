@@ -38,7 +38,7 @@ window.hook( function( options ) {
 
   deepExtend( params, options );
 
-  ReactDom.hydrate( <AdminEventsHeader
+  ReactDom.render( <AdminEventsHeader
     terms={params.terms}
     lang={params.lang}
     res={params.res} />, du.el( params.selectors.headerCanvas ) );

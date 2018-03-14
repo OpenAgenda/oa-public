@@ -57,7 +57,7 @@ window.oaEventForm = function( options ) {
 
     rUtils.eh.trigger( params.events.languageChange, initialLanguages );
 
-    ReactDom.hydrate( <EventForm
+    ReactDom.render( <EventForm
       order={ params.order }
       configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
       agendaUid= { params.agendaUid }

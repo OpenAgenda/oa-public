@@ -17,6 +17,6 @@ const params = {
 
 window.hook( options => {
 
-  ReactDom.hydrate( App( _.merge( params, options ) ), du.el( '.js_canvas' ) );
+  ReactDom.render( App( _.merge( params, options ) ), du.el( '.js_canvas' ) );
 
 } );

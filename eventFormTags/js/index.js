@@ -253,6 +253,6 @@ window.hook( options => {
 
   let params = utils.extend( {}, defaults, options );
 
-  ReactDom.hydrate( <App {...params} />, du.el( params.canvas ) );
+  ReactDom.render( <App {...params} />, du.el( params.canvas ) );
 
 } );
