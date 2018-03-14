@@ -146,7 +146,7 @@ export default class ConversationForm extends Component {
   }
 
   render() {
-    const { getLabel, submit, submitting, Wrapper, error, lang } = this.props;
+    const { getLabel, submit, submitting, Wrapper, error, lang, initialValues } = this.props;
 
     return createElement(
       Wrapper,
@@ -185,11 +185,11 @@ export default class ConversationForm extends Component {
           }}
           placeholder={getLabel( 'yourMessage' )}
         />
-        <p>
+        {[ 'event', 'suggest_location_change', 'support' ].includes( initialValues.type ) ? <p>
           <a role="button" onClick={this.handleOpen}>
             {getLabel( 'attachFile' )}
           </a>
-        </p>
+        </p> : null}
         {this.state.modalOpen && <Modal
           title={getLabel( 'uppyModalTitle' )}
           visible={this.state.modalOpen}

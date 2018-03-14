@@ -124,7 +124,7 @@ export default class MessageForm extends Component {
   } );
 
   render() {
-    const { submit, submitting, getLabel, lang, Wrapper, error } = this.props;
+    const { submit, submitting, getLabel, lang, Wrapper, error, conversation } = this.props;
 
     return createElement(
       Wrapper,
@@ -144,11 +144,11 @@ export default class MessageForm extends Component {
           }}
           placeholder={getLabel( 'yourMessage' )}
         />
-        <p>
+        {[ 'event', 'suggest_location_change', 'support' ].includes( conversation.type ) ? <p>
           <a role="button" onClick={this.handleOpen}>
             {getLabel( 'attachFile' )}
           </a>
-        </p>
+        </p> : null}
         {this.state.modalOpen && <Modal
           title={getLabel( 'uppyModalTitle' )}
           visible={this.state.modalOpen}
