@@ -1,3 +1,5 @@
 node_modules/*
 testconfig.js
 .idea
+yarn.lock
+yarn-error.log
