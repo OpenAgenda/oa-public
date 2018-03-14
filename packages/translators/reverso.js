@@ -35,19 +35,25 @@ module.exports = options => {
 
   return translate;
 
-  function translate( text, lang, destLang, cb ) {
+  function translate( text, lang, destLang, options, cb ) {
 
-    if ( arguments.length === 3 ) {
+    if ( arguments.length === 4 ) {
+
+      cb = options;
+      options = {};
+
+    } else if ( arguments.length === 3 ) {
 
       cb = destLang;
       destLang = lang;
       lang = 'fr';
+      options = {};
 
     }
 
     if ( _.isPlainObject( text ) ) {
 
-      return objectTranslate( text, lang, destLang, cb );
+      return objectTranslate( text, lang, destLang, options, cb );
 
     }
 
