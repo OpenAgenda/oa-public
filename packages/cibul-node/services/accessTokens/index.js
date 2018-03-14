@@ -36,7 +36,7 @@ async function getUserFromKey( keyString ) {
 
   }
 
-  return userGet( { id: apiKeySet.user_id } );
+  return userGet( { id: apiKeySet.user_id } );
 
 }
 
@@ -97,7 +97,7 @@ async function _isValid( token, nonce = null ) {
 
   if ( timeOfDeath < now ) {
 
-    log( 'info', 'token is expired', { token: token.token, timeOfDeath } );
+    log( 'info', 'token is expired', { token: token.token, timeOfDeath } );
 
     throw new Error( 'access token is expired' );
 

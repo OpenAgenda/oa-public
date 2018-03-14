@@ -36,7 +36,11 @@ module.exports = function ( enabledTypes, options, cb ) {
       const log = logger( 'app' );
 
       if ( err ) {
+
+        console.log( err );
+
         return log( 'error', 'could not load app: %s', err );
+
       }
 
       if ( __DEVELOPMENT__ ) {
