@@ -53,14 +53,26 @@ function translate( cb ) {
 
   fields.forEach( f => objToTranslate[ f ] = context.state[ f ] ? context.state[ f ][ sourceLanguage ] : '' );
 
-  translator( objToTranslate, sourceLanguage, destLanguages, ( err, translatedObj, timeouts ) => {
+  function onProcess( lang ) {
+
+    context.setState( {
+      translation: update( context.state.translation, {
+        translationProgress: { $set: [ sourceLanguage, lang ] }
+      } )
+    } )
+
+  }
+
+  translator( objToTranslate, sourceLanguage, destLanguages, {
+    onProcess
+  }, ( err, translatedObj, timeouts ) => {
 
     if ( err ) {
 
       context.setState( {
         translation: update( context.state.translation, { 
           translating: { $set: false },
-          message: { $set: 'Could not complete translation' }
+          message: { $set: 'Could not complete translation' }
         } )
       } );
 

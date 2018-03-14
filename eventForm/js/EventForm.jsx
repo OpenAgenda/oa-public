@@ -33,7 +33,8 @@ import Wysiwyg from './Wysiwyg.jsx';
 const _ = {
   isArray: require( 'lodash/isArray' ),
   extend: require( 'lodash/extend' ),
-  pick: require( 'lodash/pick' )
+  pick: require( 'lodash/pick' ),
+  get: require( 'lodash/get' )
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
@@ -131,6 +132,22 @@ function EventFormFactory() {
     getLabel: function ( name ) {
 
       return this.props.labels[ name ][ this.props.lang ];
+
+    },
+
+    formatTranslationMessage: function() {
+
+      const progress = _.get( this.state, 'translation.translationProgress' );
+
+      if ( !progress ) return '';
+
+      return '\n' + progress.map( lang => ( {
+        en: 'English',
+        fr: 'Français',
+        it: 'Italiano', 
+        es: 'Español',
+        de: 'Deutsch'
+      } )[ lang ] ).join( ' → ' )
 
     },
 
@@ -870,7 +887,7 @@ function EventFormFactory() {
         <p className="margin-top-sm">{this.getLabel( 'compulsoryNote' )}</p>
 
         {this.state.translation && this.state.translation.translating ?
-          <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />
+          <Spinner page={true} message={ translationLabels.processingTranslation[ this.props.lang ] + this.formatTranslationMessage() } />
           : null}
 
         {this.state.submitSpin ?
