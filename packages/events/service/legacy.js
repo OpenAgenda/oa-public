@@ -87,7 +87,7 @@ async function update( identifiers, options ) {
         age_max: event.age.max,
         origin_uid: event.agendaUid,
         owner_id: userId,
-        accessibility: event.accessibility ? JSON.stringify( event.accessibility ) : null
+        accessibility: _updateLegacyAccessibility( event.accessibility )
       }
     ),
     eventTranslations: _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) ).map( lang => ( {
@@ -996,5 +996,14 @@ function _extractTimezone( entry ) {
   } catch( e ) {}
 
   return timezone;
+
+}
+
+
+function _updateLegacyAccessibility( accessibility = null ) {
+
+ if ( !accessibility ) return null;
+
+ return JSON.stringify( _.keys( accessibility ).filter( code => accessibility[ code ] ) );
 
 }
