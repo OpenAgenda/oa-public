@@ -344,9 +344,11 @@ function _addCustomFields( v ) {
 
   customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
 
-  customFieldsGetter( v.event, v.lang, ( err, custom ) => {
+  customFieldsGetter( v.event, v.lang, ( err, custom, privateExists ) => {
 
     if ( err ) return d.reject( err );
+
+    v.decorated.hasPrivateCustomFields = privateExists;
 
     v.decorated.customValues = {};
 

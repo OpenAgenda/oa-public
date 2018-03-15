@@ -285,7 +285,6 @@ function show( req, res ) {
 
   _addContactLink( req );
 
-
   cmn.render( req, res, 'event/show', { event: req.formatted } );
 
 }

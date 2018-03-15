@@ -267,7 +267,7 @@ function layoutData( req, res ) {
 
   data.headLinks.push({
     rel: 'canonical',
-    href: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true, protocol: 'https://' } )
+    href: req.genUrl( 'eventShow', { eventSlug: req.event.slug }, { abs: true, protocol: 'https://' } )
   });
 
   if ( req.event.image ) {
@@ -291,7 +291,7 @@ function layoutData( req, res ) {
     agendaTitle: req.agenda ? req.agenda.title : false,
     ownerUid: req.formatted.owner.uid,
     adminAgendaUids: req.formatted.adminAgendas ? req.formatted.adminAgendas.map( function( a ) { return a.uid; } ) : [],
-    hasCustomFields: req.formatted.custom && req.formatted.custom.length,
+    hasCustomFields: ( req.formatted.custom && req.formatted.custom.length ) || req.formatted.hasPrivateCustomFields,
     lang: req.lang
   };
 
