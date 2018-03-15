@@ -5,7 +5,7 @@
   "description": "OpenAgenda main app",
   "scripts": {
     "test": "mocha --exit",
-    "start": "node server.js web admin task",
+    "start": "TZ=Etc/UTC node server.js web admin task",
     "watch": "nodemon --ignore node_modules/ --exec 'npm run start'",
     "background": "nohup npm start >/dev/null 2>&1 &"
   },

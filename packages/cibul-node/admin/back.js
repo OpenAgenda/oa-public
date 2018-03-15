@@ -88,7 +88,9 @@ const routes = {
               },
               messages: {
                 list: '/admin/support/conversations/:conversationId/messages.json',
-                create: '/admin/support/conversations/:conversationId/messages.json'
+                create: '/admin/support/conversations/:conversationId/messages.json',
+                prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
+                addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
               }
             }
           }
@@ -332,7 +334,7 @@ function userUpdate( req, res, next ) {
 
     if ( err ) return next( err );
 
-    usersSvc.get( req.loadedUser.id, { removed: true, detailed: true, store: true }, ( err, result ) => {
+    usersSvc.get( req.loadedUser.id, { removed: null, detailed: true, store: true }, ( err, result ) => {
 
       if ( err ) return next( err );
 
@@ -389,7 +391,7 @@ function _loadUser( type = 'get' ) {
 
     var uid = request.uid;
 
-    usersSvc.get( { uid }, { removed: true, detailed: true, store: true }, ( err, result ) => {
+    usersSvc.get( { uid }, { removed: null, detailed: true, store: true }, ( err, result ) => {
 
       if ( err ) return cmn.catchError( req, res )( err );
 
