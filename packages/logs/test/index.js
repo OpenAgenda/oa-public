@@ -2,6 +2,7 @@
 
 const should = require( 'should' );
 const sinon = require( 'sinon' );
+const winston = require( 'winston' );
 const logs = require( '../' );
 const DebugTransport = require( '../DebugTransport' );
 
@@ -408,6 +409,36 @@ describe( 'logs', () => {
       transport.debug.namespace.should.equal( 'prefix:test-5' );
 
     } );
+
+  } );
+
+  describe( 'add & remove transports', () => {
+
+    logs.add.should.be.a.Function();
+    logs.remove.should.be.a.Function();
+
+    logs.init();
+
+    const log = logs( 'test-4' );
+
+    log.add.should.be.a.Function();
+    log.remove.should.be.a.Function();
+
+    let transports = log.getTransports();
+    transports.should.have.property( 'debug' );
+    transports.should.not.have.property( 'console' );
+
+    log.add( winston.transports.Console );
+
+    transports = log.getTransports();
+    transports.should.have.property( 'debug' );
+    transports.should.have.property( 'console' );
+
+    log.remove( 'debug' );
+
+    transports = log.getTransports();
+    transports.should.not.have.property( 'debug' );
+    transports.should.have.property( 'console' );
 
   } );
 

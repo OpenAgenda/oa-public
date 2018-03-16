@@ -115,7 +115,11 @@ function levellessLog( logger ) {
 function getCustomProperties( logger ) {
 
   return Object.assign( _.mapValues(
-    _.pick( logger, 'log', 'configure', 'loadMetadata', 'clearMetadata', 'setConfig', 'getTransports' ),
+    _.pick(
+      logger,
+      'log', 'add', 'remove',
+      'configure', 'loadMetadata', 'clearMetadata', 'setConfig', 'getTransports'
+    ),
     v => v.bind( logger )
   ) );
 
