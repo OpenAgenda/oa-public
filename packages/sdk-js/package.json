@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "main": "dist/index.js",
   "repository": "https://github.com/Oagenda/sdk-js.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -13,7 +13,7 @@
     "precommit": "yarn build && git add -A",
     "postmerge": "yarn build && git add -A",
     "preversion": "yarn test",
-    "version": "yarn build && git add -A lib",
+    "version": "yarn build",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "yarn publish --new-version patch",
     "release:minor": "yarn publish --new-version minor",
