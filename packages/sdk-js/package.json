@@ -1,7 +1,7 @@
 {
-  "name": "sdk-js",
-  "version": "2.0.0",
-  "main": "index.js",
+  "name": "@openagenda/sdk-js",
+  "version": "1.0.0",
+  "main": "dist/index.js",
   "repository": "https://github.com/Oagenda/sdk-js.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
@@ -11,12 +11,23 @@
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "precommit": "yarn build && git add -A",
-    "postmerge": "yarn build && git add -A"
+    "postmerge": "yarn build && git add -A",
+    "preversion": "yarn test",
+    "version": "yarn build && git add -A lib",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "yarn publish --new-version patch",
+    "release:minor": "yarn publish --new-version minor",
+    "release:major": "yarn publish --new-version major",
+    "release:next": "yarn publish --new-version prerelease --tag next"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
     "bluebird": "^3.5.1",
-    "lodash": "^4.17.5"
+    "lodash": "^4.17.5",
+    "superagent": "^3.8.2",
+    "superagent-prefix": "^0.0.2",
+    "superagent-use": "^0.1.0",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -31,7 +42,13 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-jest-diff": "^1.0.2",
     "jest": "^22.3.0",
-    "rimraf": "^2.6.2"
+    "moment": "^2.20.1",
+    "reload": "^2.2.2",
+    "rimraf": "^2.6.2",
+    "sinon": "^4.4.5"
   }
 }

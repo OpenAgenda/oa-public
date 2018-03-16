@@ -1,7 +1,5 @@
 {
   "presets": [
-    "react",
-    "stage-0",
     [
       "env",
       {
@@ -16,36 +14,16 @@
           "node": "6"
         }
       }
-    ]
+    ],
+    "stage-0"
   ],
   "plugins": [
     "lodash",
     "transform-decorators-legacy",
     "transform-class-properties",
-    "transform-react-jsx-source",
     "transform-async-to-bluebird",
     "transform-promise-to-bluebird",
     "transform-runtime",
     "add-module-exports"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        [
-          "react-transform",
-          {
-            "transforms": [
-              {
-                "transform": "react-transform-catch-errors",
-                "imports": [
-                  "react",
-                  "redbox-react"
-                ]
-              }
-            ]
-          }
-        ]
-      ]
-    }
-  }
+  ]
 }
