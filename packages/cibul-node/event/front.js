@@ -212,6 +212,7 @@ async function agendaEventShow( req, res, next ) {
     : null;
 
   req.event.getContributor( ( err, contributor ) => {
+
     if ( err ) return next( err );
 
     cmn.render( req, res, 'event/show', {
