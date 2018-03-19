@@ -162,6 +162,8 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './inboxes/front' )( app );
         require( './surveys' )( app, '/' );
 
+        require( './event/files' )( app, '/' );
+
         require( './api' );
 
         require( './calendar' )( app, '/' ); //:agendaSlug/calendar

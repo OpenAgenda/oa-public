@@ -266,6 +266,12 @@ let config = {
       defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
       oaLogoIcon: 'https://s3-eu-west-1.amazonaws.com/cibulstatic/logo_icon_300.jpg'
     },
+    authorizedMimeTypes: {
+      txt: 'text/plain',
+      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      pdf: 'application/pdf',
+      jpg: 'image/jpeg'
+    },
     uppy: {
       secret: 'DUy=dBGY1,(B]Yj'
     },

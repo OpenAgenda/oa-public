@@ -66,6 +66,8 @@ const routes = {
       next();
 
     },
+    eventSvc.mw.format,
+    agendaSvc.mw.decorateEvent( true ),
     getPrivateEventData
   ] ],
 
@@ -177,33 +179,12 @@ function getPrivateEventData( req, res, next ) {
   w( {
     req: req,
     res: res,
-    custom: false,
-    labels: false,
+    custom: req.formatted.custom
+      .filter( _filterByRole.bind( null, req.role ) )
+      .filter( c => c.access !== 'public' ),
+    labels: req.formatted.customLabels,
     contributor: false
   } )
-
-  // get private custom data
-    .then( v => {
-
-      let d = w.defer();
-
-      req.agenda.getEventCustom( req.event, ( err, custom ) => {
-
-        if ( err ) return d.reject( err );
-
-        v.custom = custom
-          .filter( _filterByRole.bind( null, req.role ) )
-          .filter( c => c.access !== 'public' );
-
-        v.labels = v.req.agenda.getCustomFieldsLabels( v.req.event.getCurrentLanguage() );
-
-        d.resolve( v );
-
-      } );
-
-      return d.promise;
-
-    } )
 
     // get tag groups info
     .then( async v => {

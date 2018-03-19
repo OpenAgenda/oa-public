@@ -368,10 +368,13 @@ function _addCustomFields( v ) {
 
         c.value.embed = '<iframe height="500" width="100%" src="' + uploaded + '" frameborder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>';
 
+        c.value.link = `${config.root}/${v.agenda.slug}/events/${v.event.slug}/files/${c.name}`;
+
         v.decorated.customValues[ c.name ] = {
           name: c.value.name,
           uploaded,
-          embed: c.value.embed
+          embed: c.value.embed,
+          link: c.value.link
         }
 
       } else if ( ![ 'image', 'file' ].includes( c.fieldType ) ) {

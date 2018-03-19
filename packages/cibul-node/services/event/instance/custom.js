@@ -138,7 +138,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       destUrl: false,                    // destination url
       filename: false,
       destPath: false,
-      format: {}
+      format: {},
+      extension: null
     }, params ) )
 
     .then( _setDestFileName )
@@ -246,7 +247,7 @@ function _checkDestExistence( v ) {
 
   if ( !field ) return false;
 
-  return _checkExistence( v, getFilePathData( v.fileKey, v.name, _getFieldExtension( field ) ).url );
+  return _checkExistence( v, getFilePathData( v.fileKey, v.name ).url );
 
 }
 
@@ -384,7 +385,8 @@ function _setDestFileName( v ) {
 
   const field = _getField( v.customFields, v.name );
 
-  let i = getFilePathData( v.fileKey, v.name, _getFieldExtension( field ) );
+  // specifying file type when we have an image;
+  let i = getFilePathData( v.fileKey, v.name, v.field.fieldType === 'image' ? 'jpg' : null );
 
   v.bucket = i.bucket;
 
@@ -403,14 +405,16 @@ function _setDestFileName( v ) {
 }
 
 
-function getFilePathData( fileKey, fieldName, extension ) {
+function getFilePathData( fileKey, fieldName, extension = null ) {
 
-  const imageName = [ fileKey, 'event', fieldName, extension ].join( '.' );
+  let fileName = [ fileKey, 'event', fieldName ].join( '.' );
+
+  if ( extension ) fileName = fileName + '.' + extension;
 
   return {
     bucket: config.aws.bucket,
-    name: imageName,
-    url: config.aws.imageBucketPath + imageName
+    name: fileName,
+    url: config.aws.imageBucketPath + fileName
   }
 
 }

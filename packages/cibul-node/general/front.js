@@ -72,16 +72,10 @@ const _homeMw = [
       cmn.loadBaseData( 'oasfmain.css' ),
       _redirectLang,
       _redirectLegacyLinks,
-      corpo 
+      corpo
     ] ],
-    newFileKey: [ 'get', '/filekey/new', async ( req, res, next ) => {
-
-      res.set( 'Content-Type', 'text/plain' );
-
-      res.send( await files.s3.generateUniquePrefix() );
-
-    } ],
-    discover: [ 'get', '/discover/:page', [ 
+    newFileKey: [ 'get', '/filekey/new', newFileKey ],
+    discover: [ 'get', '/discover/:page', [
       cmn.https,
       _corpoBrowserCache,
       _cache,
@@ -126,6 +120,19 @@ function _cache( req, res, next ) {
 }
 
 
+async function newFileKey( req, res, next ) {
+
+  res.set( 'Content-Type', 'text/plain' );
+
+  const prefix = await files.s3.generateUniquePrefix();
+
+  req.log( 'generated %s', prefix );
+
+  res.send( prefix );
+
+}
+
+
 function _corpoBrowserCache( req, res, next ) {
 
   mwHelpers.compareModifiedSince( config.corpoLastUpdate, req, res, next );
@@ -160,7 +167,7 @@ function _setLang( req, res, next ) {
 
 function corpo( req, res, next ) {
 
-  const pageName = req.params.page || ( req.lang === 'fr' ? '' : 'en' );
+  const pageName = req.params.page || ( req.lang === 'fr' ? '' : 'en' );
 
   let page = landingPages( pageName );
 

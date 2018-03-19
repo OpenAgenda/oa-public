@@ -32,7 +32,7 @@ routes = {
     deprecatedShow
   ] ) ],
 
-  customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
+  customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),

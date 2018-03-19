@@ -22,7 +22,7 @@ routes = {
     agendaEventCustomUpload.bind( null, true )
   ] ],
 
-  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove/key/:fileKey', [ 
+  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove/key/:fileKey', [
     sessions.middleware.load(),
     _loadFieldType,
     agendaEventNewCustomRemove 
@@ -69,7 +69,7 @@ function _loadFieldType( req, res, next ) {
 
   req.fieldType = field.fieldType;
 
-  req.fieldExtension = field.extension;
+  req.authorizedExtensions = [].concat( field.extension );
 
   next();
 
@@ -85,12 +85,13 @@ function agendaEventCustomUpload( isNew, req, res, next ) {
     customFields: req.agenda.getCustomFieldsConfig()
   });
 
-  ( req.fieldType === 'image' ? _processImageFile : _processFile )( req, res, next, ( path, cb ) => {
+  ( req.fieldType === 'image' ? _processImageFile : _processFile )( req, res, next, ( path, extension, cb ) => {
 
     event.setCustomFile( {
       name: req.params.field,
       path: path,
-      fileKey: req.params.fileKey
+      fileKey: req.params.fileKey,
+      extension
     }, cb );
 
   } );
@@ -146,7 +147,7 @@ function _processImageFile( req, res, next, set ) {
     dest: config.tmpFolderPath,
     handler: function( path, info, cb ) {
 
-      set( path, ( err, result ) => {
+      set( path, 'jpg', ( err, result ) => {
 
         cb( err, err ? null : result.path );
 
@@ -160,28 +161,38 @@ function _processImageFile( req, res, next, set ) {
 
 function _processFile( req, res, next, set ) {
 
+  let extension;
+
    multer( {
     dest: config.tmpFolderPath,
     fileFilter: ( req, file, cb ) => {
 
-      const expectedType = ( {
-        pdf: 'application/pdf'
-      } )[ req.fieldExtension ];
+      const authorizedMimetypes = req.authorizedExtensions.map( ext => config.authorizedMimeTypes[ ext ] );
 
-      cb( null, expectedType === file.mimetype );
+      if ( !authorizedMimetypes.includes( file.mimetype ) ) {
+
+        return cb( null, false );
+
+      } else {
+
+        extension = req.authorizedExtensions[ authorizedMimetypes.indexOf( file.mimetype ) ];
+
+        cb( null, true );
+
+      }
 
     }
   } ).single( 'file' )( req, res, err => {
 
     if ( err ) return next( err );
 
-    set( req.file.path, ( err, result ) => {
+    set( req.file.path, extension, ( err, result ) => {
 
       if ( err ) return next( err );
 
       res.json( _.extend( result, {
         name: req.file.originalname
-      } ) );
+      } ) );
 
     } );
 

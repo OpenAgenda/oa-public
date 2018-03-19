@@ -391,7 +391,8 @@ function decorateEvent( includePrivateData ) {
   return function( req, res, next ) {
 
     svc.exports.decorateEvent( req.agenda, req.event, req.formatted, {
-      includePrivateData: false,
+      // this value was at false, the custom file link needs access
+      includePrivateData,
       lang: req.lang,
       loadTagSet: true,
       multiLang: false
