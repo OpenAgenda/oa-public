@@ -12,10 +12,7 @@
 <% } else if ( custom[ i ].fieldType === 'file' ) { %>
   <dt><%= labels[ custom[ i ].name ] %></dt>
   <dd>
-    <a target="_blank" href="<%= _i( custom[ i ].value.uploaded ) %>"><%= custom[ i ].value.name %></a> 
-<% if ( custom[ i ].value.embed ) { %>
-    <%- custom[ i ].value.embed %>
-<% } %>
+    <a target="_blank" href="<%= custom[ i ].value.link %>"><%= custom[ i ].value.name %></a>
   </dd>
 <% } else if ( custom[ i ].fieldType == 'image' ) { %>
   <dt></dt>
