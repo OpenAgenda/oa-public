@@ -52,6 +52,13 @@ module.exports = {
         unique: true,
         options: [ s.NOT_VALIDATED, s.VALIDATED, s.PUBLISHED ]
       },
+      defaultLang: {
+        default: null,
+        type: 'choice',
+        optional: true,
+        unique: true,
+        options: [ 'en', 'fr', 'it', 'es', 'de', 'ar', null ]
+      },
       message: {
         type: 'text'
       },

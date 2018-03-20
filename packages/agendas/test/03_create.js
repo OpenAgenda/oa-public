@@ -47,6 +47,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               eventAggregation: false
             },
             contribution: {
+              defaultLang: null,
               defaultState: 2,
               message: null,
               type: 2,
@@ -136,6 +137,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               eventAggregation: false
             },
             contribution: {
+              defaultLang: null,
               defaultState: 2,
               message: null,
               type: 2,
@@ -241,6 +243,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               eventAggregation: false
             },
             contribution: {
+              defaultLang: null,
               defaultState: 2,
               message: null,
               type: 2,
