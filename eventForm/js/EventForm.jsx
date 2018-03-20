@@ -97,11 +97,13 @@ function EventFormFactory() {
 
       formErrors = state.errors || {};
 
-      state.languages = this.props.initialLanguages;
+      if ( this.props.initialLanguages.length ) {
 
-      if ( !state.languages.length ) {
+        state.languages = this.props.initialLanguages;
 
-        state.languages = [ this.props.lang ];
+      } else {
+
+        state.languages = [ this.props.defaultFormLanguage || this.props.lang ];
 
       }
 

@@ -62,6 +62,7 @@ window.oaEventForm = function( options ) {
       configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
+      defaultFormLanguage= { params.defaultFormLanguage }
       useWysiwyg= {params.useWysiwyg}
       initData= {eventData}
       lang= {params.language}
