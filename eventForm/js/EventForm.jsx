@@ -161,6 +161,7 @@ function EventFormFactory() {
 
         updated[ field ] = value;
 
+        // console.log( 'EventForm.onChange', field, errorMessage );
         formErrors[ field ] = errorMessage;
 
         if ( this.state.translation && this.state.translation.enabled && changedLanguages.length ) {
@@ -265,6 +266,8 @@ function EventFormFactory() {
 
     onCustomChange: function ( field, value, errorMessage ) {
 
+      // console.log( 'EventForm.onCustomChange', field, errorMessage );
+
       var updated = {
         custom: JSON.parse( JSON.stringify( this.state.custom ) )
       };
@@ -284,6 +287,8 @@ function EventFormFactory() {
      * generate events as list including for each error the message, the label of the field and its name
      */
     listErrorDetails: function () {
+
+      // console.log( 'listErrorDetails, formErrors', formErrors );
 
       var errors = [], self = this;
 
