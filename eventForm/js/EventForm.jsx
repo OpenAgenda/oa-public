@@ -883,7 +883,7 @@ function EventFormFactory() {
         }
 
 
-        return <div><p>.</p></div>;
+        return console.log( 'not rendering', o.field );
 
       } ) }
 
