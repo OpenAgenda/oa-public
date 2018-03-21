@@ -941,6 +941,10 @@ module.exports = {
     en: 'Samoa',
     fr: 'Samoa Américaines'
   },
+  XK: {
+    en: 'Kosovo',
+    fr: 'Kosovo'
+  },
   YE: {
     en: 'Yemen',
     fr: 'Yemen'
