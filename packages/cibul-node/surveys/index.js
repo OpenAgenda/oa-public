@@ -10,7 +10,7 @@ const headerLabels = require( '@openagenda/labels/layout/header' );
 
 module.exports = ( parentApp, path ) => {
 
-  parentApp.use( '/assets/surveys', service.assets );
+  parentApp.use( '/dist/surveys', service.assets );
 
   parentApp.use( path, app );
 
