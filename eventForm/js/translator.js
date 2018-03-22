@@ -11,7 +11,8 @@ const onTranslationCheck = require( '@openagenda/react-form-components/lib/onTra
 const async = require( 'async' );
 
 const _ = {
-  extend: require( 'lodash/extend' )
+  extend: require( 'lodash/extend' ),
+  get: require( 'lodash/get' )
 }
 
 const translators = require( '@openagenda/translators' );
@@ -35,6 +36,25 @@ let context,
 // translator
   translator;
 
+
+function notifyEmptySource( sourceLanguage, cb ) {
+
+  context.setState( {
+    translation: update( context.state.translation, {
+      deactivated: {
+        $set: true
+      }
+    } )
+  } );
+
+  setTimeout( () => {
+
+    cb();
+
+  }, 2000 );
+
+}
+
 function translate( cb ) {
 
   if ( !translator ) return cb();
@@ -52,6 +72,13 @@ function translate( cb ) {
   let objToTranslate = {};
 
   fields.forEach( f => objToTranslate[ f ] = context.state[ f ] ? context.state[ f ][ sourceLanguage ] : '' );
+
+  if ( !_.get( objToTranslate, 'title', '' ).length ) {
+
+    return notifyEmptySource( sourceLanguage, cb );
+
+  }
+
 
   function onProcess( lang ) {
 
@@ -204,13 +231,13 @@ function _truncateOverflows( texts, max ) {
 
       if ( !truncated[ field ] ) truncated[ field ] = {};
 
-      if ( texts[ field ][ lang ].length <= max[ field ] ) {
+      if ( texts[ field ][ lang ].length <= max[ field ] ) {
 
-        truncated[ field ][ lang ] = texts[ field ][ lang ];
+        truncated[ field ][ lang ] = texts[ field ][ lang ];
 
       } else {
 
-        truncated[ field ][ lang ] = texts[ field ][ lang ].substr( 0, max[ field ] - 3 ) + '...';
+        truncated[ field ][ lang ] = texts[ field ][ lang ].substr( 0, max[ field ] - 3 ) + '...';
 
       }
 

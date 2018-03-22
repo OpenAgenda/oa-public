@@ -893,9 +893,13 @@ function EventFormFactory() {
 
         <p className="margin-top-sm">{this.getLabel( 'compulsoryNote' )}</p>
 
-        {this.state.translation && this.state.translation.translating ?
+        {this.state.translation && this.state.translation.translating && !this.state.translation.deactivated ?
           <Spinner page={true} message={ translationLabels.processingTranslation[ this.props.lang ] + this.formatTranslationMessage() } />
           : null}
+
+        {_.get( this.state, 'translation.deactivated', false ) ?
+          <Spinner page={true} message={translationLabels.deactivatedTranslation[ this.props.lang ]} />
+        : null }
 
         {this.state.submitSpin ?
           <Spinner page={true}
