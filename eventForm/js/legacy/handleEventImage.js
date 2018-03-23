@@ -21,7 +21,7 @@ module.exports = function( params ) {
           <label><%= imageSection %></label>
           <div class="upload-image">
             <button class="btn btn-default"><%= upload %></button>
-            <span class="js_loader loader"></span>
+            <span class="js_loader loader display-none"></span>
             <span class="js_message info"></span>
           </div>
           <div class="canvas js_image_canvas"></div>
@@ -212,7 +212,7 @@ module.exports = function( params ) {
 
     form.submit();
 
-    _lock(params.selectors.loader);
+    _lock();
 
   },
 
@@ -294,7 +294,7 @@ module.exports = function( params ) {
 
   _toggleRemove = function() {
 
-    if (!removeElem) {
+    if ( !removeElem ) {
 
       removeElem = du.el(elem, params.selectors.remove);
 
@@ -304,7 +304,7 @@ module.exports = function( params ) {
 
         if (locked) return;
 
-        _lock(params.selectors.removeLoader);
+        _lock();
 
         remote.get(params.remove, {timeout: 10000}, function(success, data) {
 
@@ -349,29 +349,37 @@ module.exports = function( params ) {
 
   },
 
-  _lock = function(selector) {
+  _lock = function() {
+
+    const loaderCanvas = du.el( params.selectors.loader );
 
     locked = true;
 
-    du.el(elem, params.selectors.button).setAttribute('disabled', 'disabled');
+    du.el(elem, params.selectors.button).setAttribute( 'disabled', 'disabled' );
 
-    du.addClass(du.el(elem, params.selectors.remove), params.classes.disabled);
+    du.addClass( du.el(elem, params.selectors.remove), params.classes.disabled);
 
-    if (!spinner) spinner = new Spinner(params.spinner);
+    if (!spinner) spinner = new Spinner( params.spinner );
 
     spinner.spin();
 
-    du.el(elem, selector).appendChild(spinner.el);
+    loaderCanvas.appendChild(spinner.el);
+
+    du.removeClass( loaderCanvas, 'display-none' );
 
   },
 
   _unlock = function() {
+
+    const loaderCanvas = du.el( params.selectors.loader );
 
     locked = false;
 
     du.el(elem, params.selectors.button).removeAttribute('disabled');
 
     du.removeClass(du.el(elem, params.selectors.remove), params.classes.disabled);
+
+    du.addClass( loaderCanvas, 'display-none' );
 
     spinner.stop();
 
