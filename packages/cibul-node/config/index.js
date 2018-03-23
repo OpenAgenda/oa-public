@@ -201,6 +201,13 @@ let config = {
       host: prod.redis.host,
       port: prod.redis.port
     },
+    scriptRoutes: { // on prodifier server
+      adminLocationReport: {
+        port: 3000,
+        host: '54.229.143.166',
+        path: '/agendas/:agendaUid/locations/report/:userUid'
+      }
+    },
     session: {
       name: 'oa', // session cookie name
       writableName: 'oa.rw', // store client-editable data

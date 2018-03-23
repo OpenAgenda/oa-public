@@ -1,25 +1,25 @@
 "use strict";
 
-const modLib = require( '../lib/moduleLib' ),
+const _ = require( 'lodash' );
+const bodyParser = require( 'body-parser' );
+const http = require( 'http' );
+const ih = require( 'immutability-helper' );
 
-  cmn = require( '../lib/commons-app' ),
+const agendaSvc = require( '../services/agenda' );
+const cmn = require( '../lib/commons-app' );
+const modLib = require( '../lib/moduleLib' );
 
-  bodyParser = require( 'body-parser' ),
+const agendas = require( '@openagenda/agendas' );
+const mw = require( '@openagenda/agenda-locations' ).mw();
+const sessions = require( '@openagenda/sessions' );
 
-  // to be deprecated
-  agendaSvc = require( '../services/agenda' ),
+const checkLogging = sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) );
 
-  agendas = require( '@openagenda/agendas' ),
+const config = require( '../config' );
 
-  mw = require( '@openagenda/agenda-locations' ).mw(),
+const routes = {
 
-  sessions = require( '@openagenda/sessions' ),
-
-  checkLogging = sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) ),
-
-  routes = {
-
-    locationIndex: [ 'get', '/:slug/locations', [
+    locationIndex: [ 'get', '/:slug/locations', [
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.list,
@@ -35,6 +35,13 @@ const modLib = require( '../lib/moduleLib' ),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.loadSettings(),
       show
+    ] ],
+
+    agendaAdminLocationsCsv: [ 'get', '/:slug/admin/locations/exports.csv', [
+      checkLogging,
+      cmn.verifyIPMiddleware,
+      cmn.checkAdminOrModerator,
+      forwardCsvExport
     ] ],
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
@@ -104,7 +111,7 @@ const modLib = require( '../lib/moduleLib' ),
       mw.reverseGeocode
     ] ],
 
-    locationResync: [ 'get', '/:slug/admin/locations/resync', [
+    locationResync: [ 'get', '/:slug/admin/locations/resync', [
       cmn.verifyIPMiddleware,
       mw.resync,
       _resyncSuccess
@@ -159,7 +166,7 @@ module.exports = function( path ) {
     agendaSvc.mw.load( 'slug' )
   ] );
 
-  return {
+  return {
     load: router.load( path ),
     paths: modLib.getPaths( path, routes )
   }
@@ -182,6 +189,7 @@ function show( req, res ) {
         uid: req.agenda.uid
       },
       res: {
+        csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
         index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
         geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
         reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
@@ -204,11 +212,32 @@ function show( req, res ) {
 
 }
 
+function forwardCsvExport( req, res, next ) {
+
+  const options = ih( config.scriptRoutes.adminLocationReport, {
+    path: {
+      $set: config.scriptRoutes.adminLocationReport.path
+      .replace( ':agendaUid', req.agenda.uid )
+      .replace( ':userUid', req.user.uid )
+      + '?lang=' + req.lang
+    }
+  } );
+
+  http.get( options, response => {
+
+    res.set( _.pick( response.headers, [ 'content-type', 'content-disposition' ] ) );
+
+    response.pipe( res );
+
+  } );
+
+}
+
 function _resyncSuccess( req, res, next ) {
 
   sessions.setFlash( req, res, 'resync is ongoing' );
 
-  res.redirect( req.genUrl( 'agendaAdminLocations', { slug: req.agenda.slug } ) );
+  res.redirect( req.genUrl( 'agendaAdminLocations', { slug: req.agenda.slug } ) );
 
 }
 
