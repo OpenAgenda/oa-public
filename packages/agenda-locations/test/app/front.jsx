@@ -56,6 +56,7 @@ Wrapper = createReactClass( {
         getStakeholder: '/stakeholders/:stakeholderId',
         remove: '/remove',
         merge: '/merge',
+        csv: '#csv',
         removeSuggestion: '/:locationUid/suggestion/remove',
         image: {
           upload: '/:locationUid/image',
