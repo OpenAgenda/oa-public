@@ -243,7 +243,8 @@ function cleanString( str ) {
     30, // RS
     31, // Information separator
     8232,
-    8233
+    8233,
+    769// U+0301
   ];
 
   for( var i = 0; i < charsToClean.length; i++ ) {

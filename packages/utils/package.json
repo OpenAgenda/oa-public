@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "minimalistic utilities lib",
   "scripts": {
+    "test" : "mocha --exit",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
@@ -15,6 +16,7 @@
     "xhr": "^2.2.2"
   },
   "devDependencies": {
+    "mocha": "^5.0.5",
     "should": "7.1.1"
   }
 }
