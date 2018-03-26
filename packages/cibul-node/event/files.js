@@ -9,6 +9,8 @@ const config = require( '../config' );
 const legacyEventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 
+const { cleanString } = require( '@openagenda/utils' );
+
 module.exports = ( parentApp, path ) => {
 
   parentApp.use( path, app );
@@ -33,9 +35,11 @@ app.get( '/:slug/events/:eventSlug/files/:file', ( req, res, next ) => {
 
   https.get( s3FilePath, s3Res => {
 
+    const filename = cleanString( file.value.name );
+
     res.writeHead( 200, {
-      'Content-Type' : config.authorizedMimeTypes[ file.value.name.split( '.' ).pop() ],
-      'content-disposition' : `attachment; filename="${file.value.name}"`
+      'Content-Type' : config.authorizedMimeTypes[ filename.split( '.' ).pop() ],
+      'content-disposition' : `attachment; filename="${filename}"`
     } );
 
     s3Res.pipe( res );
