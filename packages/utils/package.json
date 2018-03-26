@@ -1,9 +1,9 @@
 {
   "name": "@openagenda/utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "minimalistic utilities lib",
   "scripts": {
-    "test" : "mocha --exit",
+    "test": "mocha --exit",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
