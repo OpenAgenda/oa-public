@@ -31,7 +31,7 @@ Wrapper = createReactClass( {
   getInitialState: function() {
 
     return {
-      display: 'admin', // suggestion, admin, selector
+      display: 'selector', // suggestion, admin, selector
       location: undefined,
       initSelectorMode: 'create',
       mode: 'show',
@@ -39,7 +39,8 @@ Wrapper = createReactClass( {
       pickedTerm: {
         region: 'Champagne-Ardenne',
         department: 'Aube'
-      }
+      },
+      allowCreate: true
     }
 
   },
@@ -118,6 +119,7 @@ Wrapper = createReactClass( {
       requestChangeMode={this.onRequestChangeMode}
       mode={this.state.mode}
       lang="fr"
+      allowCreate={this.state.allowCreate}
       res={this.props.res}
       onChange={this.onLocationChange}
       onChangeMode={this.onChangeLocationMode}

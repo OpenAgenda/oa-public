@@ -22,7 +22,9 @@ module.exports = createReactClass( {
 
     onSelect: PropTypes.func,
 
-    getLabel: PropTypes.func
+    getLabel: PropTypes.func,
+
+    allowCreate: PropTypes.bool
 
   },
 
@@ -159,7 +161,7 @@ module.exports = createReactClass( {
         renderItem={this.renderItem}
         renderHead={this.renderHead}
         renderEmpty={this.renderEmpty}
-        renderBottom={this.renderCreateItem}
+        renderBottom={this.props.allowCreate ? this.renderCreateItem : () => {}}
         onLoaded={this.onListLoaded}
         onLoading={this.onListLoading} />
     </div>

@@ -33,6 +33,8 @@ module.exports = createReactClass( {
 
     disableChange: PropTypes.bool,
 
+    allowCreate: PropTypes.bool,
+
     onChange: PropTypes.func // if location has changed, returns it;
   },
 
@@ -45,7 +47,8 @@ module.exports = createReactClass( {
           detailed: false
         }
       },
-      disableChange: false
+      disableChange: false,
+      allowCreate: true
     };
 
   },
@@ -136,6 +139,7 @@ module.exports = createReactClass( {
       res={this.props.res}
       lang={this.props.lang}
       onSelect={this.onSelect}
+      allowCreate={this.props.allowCreate}
       onCreateRequest={this.onCreateRequest}/>
 
   },

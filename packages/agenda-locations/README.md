@@ -24,7 +24,7 @@ Edit a testconfig.js at the root of this project with configuration to your db, 
       },
       elasticsearch: {
         host: 'localhost:9200',
-        log: [ {
+        log: [ {
           type: 'stdio',
           level: [ 'error', 'warning' ]
         } ],
@@ -40,7 +40,7 @@ Edit a testconfig.js at the root of this project with configuration to your db, 
         table: 'location',
         agendaSettingsTableName: 'location_agenda_settings'
       },
-      files: {
+      files: {
         tmpPath: __dirname + '/test/tmp',
         bucket: 'openagendatst',
         accessKeyId: 'dqsdsqfdsqfds',
@@ -130,3 +130,8 @@ will then display it in an editable select field.
 When a selection is made, it is given by an onChange function from props.
 
 
+
+
+# Features
+
+ * it is possible to disable location creation on the location selector through the prop allowCreate ( default at true )
