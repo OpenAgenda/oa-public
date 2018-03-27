@@ -64,7 +64,8 @@ function EventFormFactory() {
   return createReactClass( {
 
     propTypes: {
-      configuration: PropTypes.object
+      configuration: PropTypes.object,
+      contributionConfiguration: PropTypes.object
     },
 
     getDefaultProps: function () {
@@ -78,6 +79,9 @@ function EventFormFactory() {
             name: 'location',
             settings: false
           } ]
+        },
+        contributionConfiguration: {
+          allowLocationCreate: true
         },
         initTranslation: false,
         custom: []
@@ -573,6 +577,7 @@ function EventFormFactory() {
         { this.props.configuration.field( 'location' ).info ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
+          allowCreate={this.props.contributionConfiguration.allowLocationCreate}
           settings={settings}
           mode={this.state.locationMode}
           disableChange={this.props.configuration.field( 'location' ).disableChange}

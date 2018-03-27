@@ -60,6 +60,7 @@ window.oaEventForm = function( options ) {
     ReactDom.render( <EventForm
       order={ params.order }
       configuration= { formConfiguration( params.configuration ? params.configuration : {}, { lang: params.language } ) }
+      contributionConfiguration= { params.contributionConfiguration }
       agendaUid= { params.agendaUid }
       initialLanguages= { initialLanguages }
       defaultFormLanguage= { params.defaultFormLanguage }
