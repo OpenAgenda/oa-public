@@ -44,6 +44,7 @@ describe( 'agendas - unit (server): validate', () => {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
             message: null,
@@ -166,6 +167,7 @@ describe( 'agendas - unit (server): validate', () => {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
             message: null,

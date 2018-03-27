@@ -39,6 +39,7 @@ describe( 'agendas - functional (server): get', function() {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
             message: null,
@@ -141,6 +142,7 @@ describe( 'agendas - functional (server): get', function() {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
             message: null,
@@ -230,6 +232,7 @@ describe( 'agendas - functional (server): get', function() {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
             defaultLang: null,
             defaultState: 2,
             message: null,

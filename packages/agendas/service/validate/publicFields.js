@@ -59,6 +59,10 @@ module.exports = {
         unique: true,
         options: [ 'en', 'fr', 'it', 'es', 'de', 'ar', null ]
       },
+      allowLocationCreate: {
+        default: true,
+        type: 'boolean'
+      },
       message: {
         type: 'text'
       },
