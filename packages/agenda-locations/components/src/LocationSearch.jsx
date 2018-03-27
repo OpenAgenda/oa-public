@@ -91,6 +91,15 @@ module.exports = createReactClass( {
 
   },
 
+  onFocus: function( value ) {
+
+    this.setState( {
+      query: { search: value },
+      showDropdown: true
+    } );
+
+  },
+
   onListLoading: function() {
 
     this.setState( {
@@ -146,6 +155,7 @@ module.exports = createReactClass( {
         name="name"
         loading={this.state.loading}
         value={this.state.query.search}
+        onFocus={this.onFocus}
         placeholder={this.props.getLabel( 'namePlaceholder' )}
         onChange={this.onSearchChange} />
       { this.state.loading ? <Spinner mode='inline' loading={true} message={this.props.getLabel( 'searching' )} />  : null }
