@@ -67,7 +67,7 @@ function _pickLanguage( event, lang ) {
 
 function _formatDescription( description, dateRange, html = '' ) {
 
-  return `<p>${description}</p><p>${dateRange}</p>${cleanString( html )}`;
+  return `<strong>${dateRange}</strong><p>${description}</p>${cleanString( html )}`;
 
 }
 
