@@ -13,11 +13,14 @@ module.exports = ( app, route ) => {
 
     try {
 
-      const query = _.extend( { sort: 'updatedAt.desc' }, req.query );
+      const query = _.extend( { 
+        sort: 'updatedAt.desc',
+        embed_url: null
+      }, req.query );
 
       const { events, total } = await search.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
-      
-      feed = rss( {
+
+      const rssOptions = {
         title: req.agenda.title,
         description: req.agenda.description,
         feedURL: config.root + req.originalUrl,
@@ -25,7 +28,15 @@ module.exports = ( app, route ) => {
         imageURL: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null,
         language: req.lang,
         pubDate: req.agenda.updatedAt
-      } );
+      };
+
+      if ( query.embed_url ) {
+
+        rssOptions.genUrl = e => query.embed_url + '?oaq[uid]=' + e.uid;
+
+      }
+      
+      feed = rss( rssOptions );
 
       events.forEach( e => feed.addEvent( e ) );
 
