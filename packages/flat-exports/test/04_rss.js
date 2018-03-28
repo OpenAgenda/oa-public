@@ -17,6 +17,12 @@ describe( 'flat-exports - unit - rss', () => {
 
   } );
 
+  test( 'formatEvent - custom genUrl', () => {
+
+    formatEvent( event, { genUrl: e => 'grut' + e.uid } ).url.should.equal( 'grut' + event.uid );
+
+  } );
+
 } );
 
 
