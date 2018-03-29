@@ -12896,17 +12896,27 @@ button.uppy-StatusBar-statusIndicator {
 .location-selector .actions {
   float: right; }
 
-.legacy-event-form .event-image .form-section > div {
-  padding: 1em 0 0; }
-
-.legacy-event-form .event-image .form-section .canvas {
-  text-align: center; }
-  .legacy-event-form .event-image .form-section .canvas div {
-    padding: 20px;
-    color: gray;
-    background-color: rgba(0, 0, 0, 0.03); }
-  .legacy-event-form .event-image .form-section .canvas img {
-    max-width: 100%; }
+.legacy-event-form .event-image {
+  position: relative; }
+  .legacy-event-form .event-image .form-section > div {
+    padding: 1em 0 0; }
+  .legacy-event-form .event-image .form-section .canvas {
+    text-align: center; }
+    .legacy-event-form .event-image .form-section .canvas div {
+      padding: 20px;
+      color: gray;
+      background-color: rgba(0, 0, 0, 0.03); }
+    .legacy-event-form .event-image .form-section .canvas img {
+      max-width: 100%; }
+  .legacy-event-form .event-image .form-section form input {
+    padding: 5px; }
+  .legacy-event-form .event-image .loader {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.5); }
 
 .legacy-event-form .counter {
   position: absolute;

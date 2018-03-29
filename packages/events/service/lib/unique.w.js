@@ -1,16 +1,54 @@
 "use strict";
 
-const verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' ),
+const w = require( 'when' );
 
-  w = require( 'when' ),
+const verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' );
+const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
 
-  map = require( '../databaseFieldMap' ),
+const { promisify } = require( 'util' );
 
-  dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
+const map = require( '../databaseFieldMap' );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 module.exports = {
   verify,
-  define: require( '@openagenda/mysql-utils/defineUnique' )
+  define: defineUnique,
+  promiseDefine,
+  promiseVerify
+}
+
+
+function promiseVerify( params, cb ) {
+
+  return new Promise( ( rs, rj ) => {
+
+    verifyUnique( params, ( err, is ) => {
+
+      if ( err ) return rj( err );
+
+      rs( is );
+
+    } );
+
+  } );
+
+}
+
+
+function promiseDefine( params, genFn ) {
+
+  return new Promise( ( rs, rj ) => {
+
+    defineUnique( params, genFn, ( err, uniqueValue ) => {
+
+      if ( err ) return rj( err );
+
+      rs( uniqueValue );
+
+    } );
+
+  } );
+
 }
 
 function verify( { mysql, table, field, log } ) {

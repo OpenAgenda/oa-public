@@ -237,6 +237,25 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
   } );
 
 
+  it( 'accessibility field is a stringified array in a legacy model', async () => {
+
+    const uid = 2875149;
+
+    await svc.legacy.update( { uid } ); // ensure the event is updated in legacy
+
+    await svc.update( { uid }, {
+      accessibility: {
+        mi: true
+      }
+    }, { transferToLegacy: true } );
+
+    const record = await knex( config.legacy.schemas.event ).first().where( { uid } );
+
+    record.accessibility.should.equal( '["mi"]' );
+
+  } );
+
+
   it( 'transfer to legacy is not done after an update by default', async () => {
 
     const uid = 2875149;

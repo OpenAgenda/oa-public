@@ -30,5 +30,9 @@ module.exports = {
   sourceChange: {
     en: 'Change',
     fr: 'Changer'
+  },
+  deactivatedTranslation: {
+    en: 'The automated translation is deactivated',
+    fr: 'Le module de traduction automatique est désactivé'
   }
 }

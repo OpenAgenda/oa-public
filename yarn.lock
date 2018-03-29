@@ -668,7 +668,7 @@
     spin.js "2.3.2"
     xhr "2.2.0"
 
-"@openagenda/test-app@^2.0.3":
+"@openagenda/test-app@^2.0.3", "@openagenda/test-app@^2.0.4":
   version "2.0.4"
   resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.4.tgz#ea491e8790f65ef8718ab0e15c35bb914614d62b"
   dependencies:
@@ -733,18 +733,6 @@
     tmp "^0.0.33"
     webpack "^3.5.5"
     yargs "^9.0.1"
-
-"@openagenda/translators@^1.0.2", "@openagenda/translators@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/translators/-/translators-1.0.3.tgz#39fec94a1dfe1f0a9b9c698b15ccbeb3c137e7f9"
-  dependencies:
-    async "^2.1.2"
-    crypto-js "^3.1.9-1"
-    lodash "^4.17.1"
-    marked "^0.3.6"
-    sha1 "^1.1.1"
-    superagent "^2.3.0"
-    to-markdown "^3.0.3"
 
 "@openagenda/tumblr-parser@^0.1.0":
   version "0.1.0"
@@ -9530,7 +9518,7 @@ mocha@^4.0.1:
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
-mocha@^5.0.0, mocha@^5.0.1:
+mocha@^5.0.0, mocha@^5.0.1, mocha@^5.0.4:
   version "5.0.4"
   resolved "https://registry.npmjs.org/mocha/-/mocha-5.0.4.tgz#6b7aa328472da1088e69d47e75925fd3a3bb63c6"
   dependencies:

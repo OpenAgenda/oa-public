@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-locations",
-  "version": "1.0.29",
+  "version": "1.0.31",
   "description": "",
   "main": "index.js",
   "license": "no license",
@@ -32,7 +32,7 @@
     "@openagenda/react-components": "^2.0.2",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/spinner": "^2.0.1",
-    "@openagenda/translators": "^1.0.2",
+    "@openagenda/translators": "^1.0.5",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.0.1",
     "async": "^1.5.0",

@@ -20,7 +20,8 @@ module.exports = createReactClass( {
     return {
       value: '',
       name: 'search',
-      loading: false
+      loading: false,
+      onFocus: () => {}
     }
 
   },
@@ -28,6 +29,12 @@ module.exports = createReactClass( {
   onChange: function ( e ) {
 
     this.props.onChange( e.target.value );
+
+  },
+
+  onFocus: function( e ) {
+
+    this.props.onFocus( e.target.value );
 
   },
 
@@ -61,6 +68,7 @@ module.exports = createReactClass( {
         type="text"
         className="form-control"
         onChange={this.onChange}
+        onFocus={this.onFocus}
         onKeyUp={this.onCommit}
         value={this.props.value || ''} />
       <span className="input-group-btn">

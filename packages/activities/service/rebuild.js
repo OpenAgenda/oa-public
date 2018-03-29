@@ -258,6 +258,10 @@ function rebuild( args, options, logger ) {
         if ( err && err.message === 'Feed already followed' ) return next();
         if ( err && err.message === 'Feed doesn\'t exists' ) {
 
+          if ( !ra.eventUid ) { // TODO is not normal, bordel
+            return next();
+          }
+
           return service.feed( { entityType: 'event', entityUid: ra.eventUid } ).create( err => {
 
             if ( err ) {

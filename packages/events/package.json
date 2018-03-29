@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/events",
-  "version": "1.1.15",
+  "version": "1.1.16",
   "description": "handle core event data",
   "main": "index.js",
   "directories": {

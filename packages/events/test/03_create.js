@@ -44,7 +44,10 @@ describe( 'events - functional (server): create', function() {
           $set: imageFiles.load
         }
       }
-    } ), [ config.schemas.event + '_empty' ], done );
+    } ), [ 
+      config.schemas.event + '_empty',
+      config.legacy.schemas.event
+    ], { reset: true }, done );
 
   } );
 
@@ -468,7 +471,7 @@ describe( 'events - functional (server): create', function() {
       result.success.should.equal( true );
 
       result.event.should.eql( {
-        id: 147618, // this is an internal field
+        id: 1, // this is an internal field
         slug: 'un-titre',
         uid: result.event.uid,
         ownerUid: 123, // this too

@@ -44,6 +44,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             eventAggregation: false
           },
           contribution: {
+            allowLocationCreate: true,
+            defaultLang: null,
             defaultState: 2,
             message: null,
             type: 2,
@@ -223,6 +225,8 @@ describe( 'agendas - functional (server): set (update)', function() {
               eventAggregation: false
             },
             contribution: {
+              allowLocationCreate: true,
+            defaultLang: null,
               defaultState: 2,
               message: null,
               type: 2,

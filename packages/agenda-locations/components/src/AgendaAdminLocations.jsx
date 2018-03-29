@@ -293,14 +293,30 @@ module.exports = createReactClass( {
 
   renderMergeAction() {
 
-    return <div className="form-group">
-      { !this.state.merge ?
-        <button className="btn btn-default"
-          onClick={this.actions.toggleMerge.bind( null, true )}>{this.getLabel( 'merge' )}</button>
-        : <button className="btn btn-danger"
-          onClick={this.actions.toggleMerge.bind( null, false )}>{this.getLabel( 'cancelmerge' )}</button>
-      }
-    </div>
+    if ( this.state.merge ) {
+
+      return <button className="btn btn-danger" onClick={this.actions.toggleMerge.bind( null, false )}>{this.getLabel( 'cancelmerge' )}</button>
+
+    } else {
+
+      return <button className="btn btn-default" onClick={this.actions.toggleMerge.bind( null, true )}>{this.getLabel( 'merge' )}</button>
+
+    }
+
+  },
+
+  renderCsvAction() {
+
+    if ( this.props.res.csv ) {
+
+      return <a href={this.props.res.csv} className="btn btn-default margin-left-sm">
+        <span>csv</span>
+        <i className="fa fa-download margin-left-xs"></i>
+      </a>
+
+    }
+
+    return null;
 
   },
 
@@ -347,8 +363,10 @@ module.exports = createReactClass( {
                   className="btn btn-primary"
                   onClick={this.actions.newLocation.bind( null )}>{this.getLabel( 'create' )}</button>
               </div>
-              {this.renderMergeAction()}
-
+              <div className="form-group">
+                {this.renderMergeAction()}
+                {this.renderCsvAction()}
+              </div>
             </div>
           </div>
         </div>

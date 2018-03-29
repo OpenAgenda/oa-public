@@ -32,7 +32,15 @@ module.exports = _.extend( function( d, o, c ) {
 
   p.catch( cb );
 
-  p.then( cb.bind( null, null ) );
+  p.then( result => {
+
+    setImmediate( () => {
+
+      cb( null, result );
+
+    } );
+
+  } );
 
 }, {
   init: ( svc, c ) => {
@@ -63,7 +71,8 @@ async function createPromise( data, options ) {
 
   } catch ( e ) {};
 
-  const v = await w( _.extend( {}, cleanOptions, {
+
+  let v = await w( _.extend( {}, cleanOptions, {
     id: false,
     data,
     clean: null,
@@ -74,9 +83,18 @@ async function createPromise( data, options ) {
     transferedToLegacy: false
   } ) )
 
-    .then( _verifyUniqueUidIfSet )
+    .then( _verifyUniqueUidIfSet );
 
-    .then( _createUid )
+  if ( !data.uid ) {
+
+    v.data.uid = await _createUid(
+      config.knex( schemas.event ),
+      config.legacyKnex( config.legacy.schemas.event )
+    );
+
+  }
+
+  v = await w( v )
 
     .then( _createSlugIfNotSet )
 
@@ -184,35 +202,30 @@ function _verifyUniqueUidIfSet( v ) {
 }
 
 
-function _createUid( v ) {
+async function _createUid( eventSchema, legacyEventSchema ) {
 
-  let d = w.defer();
+  let uniqueUid = null;
 
-  if ( v.data.uid ) {
+  while ( !uniqueUid ) {
 
-    log( 'uid is already defined, no need to create new' );
+    let newUid = Math.ceil( Math.random() * 99999999 );
 
-    return v;
+    const exists = !!( await eventSchema.first( 'id' ).where( { uid: newUid } ) );
+
+    uniqueUid = exists ? null : newUid;
 
   }
 
-  unique.define( {
-    table: schemas.event,
-    field: 'uid',
-    mysql: config.mysql
-  }, () => Math.ceil( Math.random() * 99999999 ), ( err, uid ) => {
+  const uidExistsInLegacy = !!( await legacyEventSchema.first( 'uid' ).where( { uid: uniqueUid } ) );
 
-    if ( err ) return d.reject( err );
+  if ( uidExistsInLegacy ) {
 
-    v.data.uid = uid;
+    // if at first you don't succeed
+    return _createUid( eventSchema, legacyEventSchema );
 
-    log( 'created uid %s', uid );
+  }
 
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
+  return uniqueUid;
 
 }
 
