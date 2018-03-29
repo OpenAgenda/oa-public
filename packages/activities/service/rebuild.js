@@ -152,6 +152,8 @@ function rebuild( args, options, logger ) {
         } ).follow( eventFeed.id )
           .catch( err => {
 
+            if ( err && err.message === 'Feed already followed' ) return;
+
             console.error( err );
 
           } );
