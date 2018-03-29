@@ -348,6 +348,25 @@
     "@openagenda/utils" "^1.0.2"
     moment-timezone "^0.5.3"
 
+"@openagenda/events@^1.1.17":
+  version "1.1.16"
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/mysql-utils" "^2.0.0"
+    "@openagenda/queue" "^1.0.0"
+    "@openagenda/service-utils" "^2.0.0"
+    "@openagenda/slugs" "^1.1.0"
+    "@openagenda/validators" "^2.0.1"
+    async "^2.1.2"
+    knex "^0.12.5"
+    lodash "^4.16.6"
+    marked "^0.3.6"
+    moment-timezone "^0.5.7"
+    mysql "^2.11.1"
+    uuid "^3.2.1"
+    verror "^1.10.0"
+    when "^3.7.7"
+
 "@openagenda/files@^2.0.0", "@openagenda/files@^2.0.5", "@openagenda/files@^2.0.6":
   version "2.0.6"
   resolved "https://registry.npmjs.org/@openagenda/files/-/files-2.0.6.tgz#f3397a5423234427849fe174b5a3f5d5498122f2"
@@ -444,6 +463,10 @@
     uuid "^3.1.0"
     verror "^1.10.0"
     when "^3.7.8"
+
+"@openagenda/labels@^2.0.55":
+  version "2.0.55"
+  resolved "https://registry.npmjs.org/@openagenda/labels/-/labels-2.0.55.tgz#d7753f047c7e7cbff14b7436bd435728b87b495e"
 
 "@openagenda/le_js@^0.0.3":
   version "0.0.3"
@@ -733,6 +756,17 @@
     tmp "^0.0.33"
     webpack "^3.5.5"
     yargs "^9.0.1"
+
+"@openagenda/translators@^1.0.6":
+  version "1.0.5"
+  dependencies:
+    async "^2.1.2"
+    crypto-js "^3.1.9-1"
+    lodash "^4.17.1"
+    marked "^0.3.6"
+    sha1 "^1.1.1"
+    superagent "^2.3.0"
+    to-markdown "^3.0.3"
 
 "@openagenda/tumblr-parser@^0.1.0":
   version "0.1.0"

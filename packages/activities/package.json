@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activities",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "homepage": "https://bitbucket.org/openagenda/activities#readme",
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.0",
-    "@openagenda/labels": "^2.0.53",
+    "@openagenda/labels": "^2.0.55",
     "@openagenda/logs": "^1.0.1",
     "@openagenda/mailer": "^1.0.2",
     "@openagenda/queue": "^1.0.0",
