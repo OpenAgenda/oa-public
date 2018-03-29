@@ -52,8 +52,10 @@ import setFlashMessage from '../../utils/setFlashMessage';
   }
 } ] )
 @connect(
-  state => ({
-    initialValues: state.settings.defaultQuery,
+  ( state, props ) => ({
+    initialValues: props.location.query.origin
+      ? _.merge( state.settings.defaultQuery, { params: { origin: props.location.query.origin } } )
+      : state.settings.defaultQuery,
     settings: state.settings,
     user: state.user,
     conversations: state.inbox.data,

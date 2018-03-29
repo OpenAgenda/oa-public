@@ -29,7 +29,7 @@ export default class ConversationItem extends Component {
     const { latestMessage } = conversation;
 
     const creationDate = moment( latestMessage.createdAt );
-    const firstMessage = creationDate.diff( moment( conversation.createdAt ), 'seconds' ) <= 1;
+    const firstMessage = creationDate.diff( moment( conversation.createdAt ), 'seconds' ) <= 2;
     const creator = {
       inbox: conversation.creatorInbox,
       inboxUser: conversation.creatorInboxUser
@@ -135,6 +135,12 @@ export default class ConversationItem extends Component {
               EntityComponent={this.TitleEntityComponent}
             />
             {resolvedIcon}
+
+            {conversation.store && conversation.store.params && conversation.store.params.origin ? (
+              <div className="text-muted">
+                ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
+              </div>
+            ) : null}
           </div>
 
           <div className="conversation-item-message margin-bottom-sm">

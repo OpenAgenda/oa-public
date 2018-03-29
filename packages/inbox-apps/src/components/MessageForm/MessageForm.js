@@ -40,7 +40,7 @@ export default class MessageForm extends Component {
 
     const uppy = this.uppy = Uppy( {
       restrictions: {
-        maxNumberOfFiles: 1,
+        maxNumberOfFiles: 4,
         allowedFileTypes: [
           'image/*',
           'text/csv',
@@ -124,7 +124,9 @@ export default class MessageForm extends Component {
   } );
 
   render() {
-    const { submit, submitting, getLabel, lang, Wrapper, error, conversation } = this.props;
+    const { submit, submitting, getLabel, lang, Wrapper, error } = this.props;
+
+    const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
     return createElement(
       Wrapper,
@@ -144,11 +146,15 @@ export default class MessageForm extends Component {
           }}
           placeholder={getLabel( 'yourMessage' )}
         />
-        {[ 'event', 'suggest_location_change', 'support' ].includes( conversation.type ) ? <p>
+
+        <p>
           <a role="button" onClick={this.handleOpen}>
-            {getLabel( 'attachFile' )}
+            {numberFiles === 0 ? getLabel( 'attachFile' ) : null}
+            {numberFiles === 1 ? getLabel( 'oneAttachment' ) : null}
+            {numberFiles > 1 ? getLabel( 'nAttachments', { number: numberFiles } ) : null}
           </a>
-        </p> : null}
+        </p>
+
         {this.state.modalOpen && <Modal
           title={getLabel( 'uppyModalTitle' )}
           visible={this.state.modalOpen}
@@ -167,6 +173,12 @@ export default class MessageForm extends Component {
             note={getLabel( 'uppyNote' )}
             locale={uppyLocales.Dashboard[ lang ]}
           />
+
+          <div className="text-center padding-top-md">
+            <button className="btn btn-info" onClick={this.handleClose}>
+              {getLabel( 'validate' )}
+            </button>
+          </div>
         </Modal>}
 
         <StatusBar

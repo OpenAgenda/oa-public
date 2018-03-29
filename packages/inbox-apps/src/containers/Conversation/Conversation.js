@@ -236,6 +236,12 @@ export default class Conversation extends Component {
             disableFirstPartLink={!showBackLink( settings, conversations )}
           />
 
+          {conversation.store && conversation.store.params && conversation.store.params.origin ? (
+            <div className="text-muted">
+              ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
+            </div>
+          ) : null}
+
           {conversation.actions && conversation.actions.length ? (
             <div className="inbox-actions margin-top-lg">
               <ActionsList
