@@ -78,8 +78,9 @@ function rebuild( args, options, logger ) {
   } )
     .then( () => {
 
-      return knex( options.feedTable ).del()
-        .then( () => knex( options.activityTable ).del() )
+      return Promise.resolve()
+      /* knex( options.feedTable ).del()
+        .then( () => knex( options.activityTable ).del() ) */
         .then( () => {
 
           return eachUsers( onEachUser )
