@@ -19061,112 +19061,143 @@ module.exports = Agent;
 "use strict";
 
 
-const _ = {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var _ = {
   pick: __webpack_require__(155),
   keys: __webpack_require__(10),
   extend: __webpack_require__(7)
 };
 
-const validateField = __webpack_require__(174);
+var validateField = __webpack_require__(174);
 
-const getSchema = __webpack_require__(184);
+var getSchema = __webpack_require__(184);
 
-module.exports = class {
-
-  constructor(data) {
+module.exports = function () {
+  function _class(data) {
+    _classCallCheck(this, _class);
 
     // { fields, nextOptionId, res, id }
     this.data = validate(data, true);
   }
 
   // get clean data
-  getData() {
 
-    return this.data;
-  }
 
-  addField(data) {
+  _createClass(_class, [{
+    key: 'getData',
+    value: function getData() {
 
-    let clean = validateField(data);
-
-    if (!this.isFieldNameAvailable(clean.field)) {
-
-      throw 'This field name is taken! : ' + clean.field;
+      return this.data;
     }
+  }, {
+    key: 'addField',
+    value: function addField(data) {
 
-    this.data.fields.push(clean);
-  }
+      var clean = validateField(data);
 
-  getField(index) {
+      if (!this.isFieldNameAvailable(clean.field)) {
 
-    this._checkFieldIndex(index);
+        throw 'This field name is taken! : ' + clean.field;
+      }
 
-    return this.data.fields[index];
-  }
-
-  moveField(index, moves) {
-
-    let newIndex = index + moves;
-
-    this._checkFieldIndex(newIndex, 'Move value exceeds possible value');
-
-    let field = this._popField(index);
-
-    this.data.fields.splice(newIndex, 0, field);
-  }
-
-  removeField(index) {
-
-    this._checkFieldIndex(index);
-
-    this._popField(index);
-  }
-
-  isFieldNameAvailable(name) {
-
-    return !this.data.fields.filter(f => f.field == name).length;
-  }
-
-  getFieldCount() {
-
-    return this.data.fields.length;
-  }
-
-  isEmpty() {
-
-    return !this.data.fields.length;
-  }
-
-  isNew() {
-
-    return _isNew(this.data);
-  }
-
-  getValidate(accessType = null, accessLevel = null, options = {}) {
-
-    return getSchema(this.data.fields, accessType, accessLevel, options);
-  }
-
-  _checkFieldIndex(index, errorMessage = 'Index exceeds schema size') {
-
-    if (index < 0 || index >= this.getFieldCount()) {
-
-      throw errorMessage;
+      this.data.fields.push(clean);
     }
-  }
+  }, {
+    key: 'getField',
+    value: function getField(index) {
 
-  _popField(index) {
+      this._checkFieldIndex(index);
 
-    return this.data.fields.splice(index, 1)[0];
-  }
+      return this.data.fields[index];
+    }
+  }, {
+    key: 'moveField',
+    value: function moveField(index, moves) {
 
-};
+      var newIndex = index + moves;
+
+      this._checkFieldIndex(newIndex, 'Move value exceeds possible value');
+
+      var field = this._popField(index);
+
+      this.data.fields.splice(newIndex, 0, field);
+    }
+  }, {
+    key: 'removeField',
+    value: function removeField(index) {
+
+      this._checkFieldIndex(index);
+
+      this._popField(index);
+    }
+  }, {
+    key: 'isFieldNameAvailable',
+    value: function isFieldNameAvailable(name) {
+
+      return !this.data.fields.filter(function (f) {
+        return f.field == name;
+      }).length;
+    }
+  }, {
+    key: 'getFieldCount',
+    value: function getFieldCount() {
+
+      return this.data.fields.length;
+    }
+  }, {
+    key: 'isEmpty',
+    value: function isEmpty() {
+
+      return !this.data.fields.length;
+    }
+  }, {
+    key: 'isNew',
+    value: function isNew() {
+
+      return _isNew(this.data);
+    }
+  }, {
+    key: 'getValidate',
+    value: function getValidate() {
+      var accessType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var accessLevel = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+
+      return getSchema(this.data.fields, accessType, accessLevel, options);
+    }
+  }, {
+    key: '_checkFieldIndex',
+    value: function _checkFieldIndex(index) {
+      var errorMessage = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'Index exceeds schema size';
+
+
+      if (index < 0 || index >= this.getFieldCount()) {
+
+        throw errorMessage;
+      }
+    }
+  }, {
+    key: '_popField',
+    value: function _popField(index) {
+
+      return this.data.fields.splice(index, 1)[0];
+    }
+  }]);
+
+  return _class;
+}();
 
 module.exports.validate = validate;
 
-function validate(data, client = false) {
+function validate(data) {
+  var client = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-  let errors = [],
+
+  var errors = [],
       dirty = _.extend({
     id: null,
     nextOptionId: 1,
@@ -19181,7 +19212,7 @@ function validate(data, client = false) {
   clean.fields = [];
 
   // clean each field
-  dirty.fields.forEach(f => {
+  dirty.fields.forEach(function (f) {
 
     if (f.fieldType === 'abstract' || !f.fieldType) return;
 
@@ -19199,16 +19230,22 @@ function validate(data, client = false) {
     throw errors;
   }
 
-  let biggestId = clean.fields
+  var biggestId = clean.fields
 
   // consider fields with options only
-  .filter(f => f.options)
+  .filter(function (f) {
+    return f.options;
+  })
 
   // build one big options list
-  .reduce((options, f) => options.concat(f.options), [])
+  .reduce(function (options, f) {
+    return options.concat(f.options);
+  }, [])
 
   // keep biggest id
-  .reduce((biggestId, o) => o.id > biggestId ? o.id : biggestId, 0);
+  .reduce(function (biggestId, o) {
+    return o.id > biggestId ? o.id : biggestId;
+  }, 0);
 
   if (_isNew(clean)) {
 
@@ -19228,11 +19265,13 @@ function _isNew(data) {
   return data.id === null;
 }
 
-function _omit(obj, fields = []) {
+function _omit(obj) {
+  var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
 
-  let filtered = {};
 
-  _.keys(obj).forEach(k => {
+  var filtered = {};
+
+  _.keys(obj).forEach(function (k) {
 
     if (fields.indexOf(k) !== -1) return;
 
@@ -19244,11 +19283,11 @@ function _omit(obj, fields = []) {
 
 function _assignOptionIds(data) {
 
-  data.fields.forEach(field => {
+  data.fields.forEach(function (field) {
 
     if (!field.options) return;
 
-    field.options.forEach(o => {
+    field.options.forEach(function (o) {
 
       if (o.id && o.id >= data.nextOptionId) {
 
@@ -19895,13 +19934,13 @@ module.exports = nativeKeysIn;
 "use strict";
 
 
-const types = Object.keys(__webpack_require__(77));
+var types = Object.keys(__webpack_require__(77));
 
-const schema = __webpack_require__(78);
+var schema = __webpack_require__(78);
 
-const _ = __webpack_require__(79);
+var _ = __webpack_require__(79);
 
-const choice = __webpack_require__(80);
+var choice = __webpack_require__(80);
 
 schema.register({
   pass: __webpack_require__(178),
@@ -19912,17 +19951,17 @@ schema.register({
   date: __webpack_require__(84),
   multilingual: __webpack_require__(85),
   integer: __webpack_require__(30), // i need an integer validator
-  choice
+  choice: choice
 });
 
-const optionedTypes = ['radio', 'checkbox', 'select'];
+var optionedTypes = ['radio', 'checkbox', 'select'];
 
-const minMaxedTypes = ['checkbox', 'integer', 'number', 'text', 'textarea', 'markdown'];
+var minMaxedTypes = ['checkbox', 'integer', 'number', 'text', 'textarea', 'markdown'];
 
-const validateType = choice({
+var validateType = choice({
   optional: false,
   options: types,
-  default: 'text',
+  'default': 'text',
   unique: true
 });
 
@@ -19937,8 +19976,8 @@ module.exports = validate;
  */
 function validate(value) {
 
-  let errors = [],
-      clean,
+  var errors = [],
+      clean = void 0,
       type = validateType(value ? value.fieldType : null);
 
   try {
@@ -19952,7 +19991,9 @@ function validate(value) {
   // validate any optioned type
   if (optionedTypes.indexOf(type) !== -1) {
 
-    let unique = value.options.reduce((unique, v) => unique.indexOf(v.value) === -1 ? unique.concat(v.value) : unique, []);
+    var unique = value.options.reduce(function (unique, v) {
+      return unique.indexOf(v.value) === -1 ? unique.concat(v.value) : unique;
+    }, []);
 
     if (unique.length !== value.options.length) {
 
@@ -19986,9 +20027,9 @@ function validate(value) {
   return clean;
 }
 
-const typeSchemas = {};
+var typeSchemas = {};
 
-types.forEach(type => {
+types.forEach(function (type) {
 
   typeSchemas[type] = schema(_.extend({
 
@@ -20012,7 +20053,7 @@ types.forEach(type => {
       type: 'multilingual',
       max: 1000,
       optional: true,
-      default: null
+      'default': null
     },
 
     write: {
@@ -20033,13 +20074,13 @@ types.forEach(type => {
 
     optional: {
       type: 'boolean',
-      default: true
+      'default': true
     },
 
     // when the field was defined elsewhere ( tag, category or custom )
     origin: {
       type: 'choice',
-      default: null,
+      'default': null,
       unique: true,
       options: ['tags', 'categories', 'custom']
     }
@@ -20840,11 +20881,11 @@ module.exports = exports['default'];
 "use strict";
 
 
-const types = __webpack_require__(77);
+var types = __webpack_require__(77);
 
-const schema = __webpack_require__(78);
+var schema = __webpack_require__(78);
 
-const _ = {
+var _ = {
   keyBy: __webpack_require__(185),
   extend: __webpack_require__(7),
   omit: __webpack_require__(222)
@@ -20861,15 +20902,19 @@ schema.register({
   choice: __webpack_require__(80)
 });
 
-module.exports = (fields, accessType = null, accessLevel = null, options = {}) => {
+module.exports = function (fields) {
+  var accessType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  var accessLevel = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-  const params = _.extend({
+
+  var params = _.extend({
     includeUnspecified: true
   }, options);
 
   accessLevel = accessLevel === null ? [] : [].concat(accessLevel);
 
-  const validationFields = fields.filter(f => {
+  var validationFields = fields.filter(function (f) {
 
     if (accessType === null) return true;
 
@@ -20878,34 +20923,38 @@ module.exports = (fields, accessType = null, accessLevel = null, options = {}) =
     if (accessLevel.includes(f[accessType])) return true;
 
     return false;
-  }).map(f => {
+  }).map(function (f) {
 
-    let type = types[f.fieldType].split('.')[0];
+    var type = types[f.fieldType].split('.')[0];
 
-    let validatable = _.extend(f, { type });
+    var validatable = _.extend(f, { type: type });
 
     if (types[f.fieldType].indexOf('unique') !== -1) {
 
       validatable.unique = true;
     }
 
-    let omits = ['label', 'info', 'write', 'read', 'fieldType'];
+    var omits = ['label', 'info', 'write', 'read', 'fieldType'];
 
-    ['min', 'max'].forEach(f => {
+    ['min', 'max'].forEach(function (f) {
 
       if (validatable[f] === null) omits.push(f);
     });
 
     if (type === 'choice') {
 
-      validatable.options = validatable.options.map(o => o.id);
+      validatable.options = validatable.options.map(function (o) {
+        return o.id;
+      });
     }
 
     return _.omit(validatable, omits);
   });
 
   // this guy derives a schema from the fields
-  return schema(_.keyBy(validationFields, o => o.field));
+  return schema(_.keyBy(validationFields, function (o) {
+    return o.field;
+  }));
 };
 
 /***/ }),
