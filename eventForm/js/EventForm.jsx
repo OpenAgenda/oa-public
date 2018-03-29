@@ -574,7 +574,7 @@ function EventFormFactory() {
       }, this.props.configuration.field( 'location' ).settings || {} );
 
       return <div className="form-section">
-        { this.props.configuration.field( 'location' ).info ?
+        { this.props.configuration.field( 'location' ).info && ( this.state.locationMode !== 'create' ) ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
           allowCreate={this.props.contributionConfiguration.allowLocationCreate}
