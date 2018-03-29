@@ -1,8 +1,6 @@
 "use strict";
 
 if ( !window._babelPolyfill ) require( 'babel-polyfill' );
-require( '@openagenda/dom-utils/polyfill' );
-
 
 require( '@openagenda/dom-utils/polyfill' );
 
