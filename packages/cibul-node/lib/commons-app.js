@@ -686,6 +686,8 @@ function renderTemplate( req, templatePath, data, maintain, cb ) {
 
   compiledData.jsVersion = config.jsVersion;
 
+  compiledData.originalUrl = req.originalUrl;
+
   templater( templatePath + (req.xhr ? '.part' : ''), compiledData, function ( err, result ) {
 
     if ( err && req.xhr ) { // xhr request has no corresponding partial
