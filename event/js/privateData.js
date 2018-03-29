@@ -278,9 +278,16 @@ module.exports = function ( options ) {
 
   function _renderCustom( data ) {
 
-    data.private = '<div class="private-label"><i class="fa fa-unlock-alt"></i> <span>Information privée</span></div>';
+    return params.customTemplate( _.extend( {
+      private: '<div class="private-label"><i class="fa fa-unlock-alt"></i> <span>Information privée</span></div>',
+      _i: ( image, staticFile ) => {
 
-    return params.customTemplate( data );
+        if ( staticFile ) return '//cibulstatic.s3.amazonaws.com/' + image;
+
+        return '//cibul.s3.amazonaws.com/' + image;
+
+      }
+    }, data ) );
 
   }
 

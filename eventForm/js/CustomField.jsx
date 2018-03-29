@@ -18,6 +18,8 @@ module.exports = createReactClass({
 
     const field = this.props.field;
 
+    //console.log( 'CustomField.render', field.name, this.props.error );
+
     if ( [ 'integer', 'text', 'textarea', 'number', 'url', 'email' ].indexOf( field.fieldType ) !== -1 ) {
 
       if ( field.multilingual ) {

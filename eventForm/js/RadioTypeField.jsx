@@ -42,7 +42,7 @@ module.exports = function( funcs ) {
 
         i = this.props.value.indexOf( value );
 
-        newValue = ( this.props.value || [] ).concat();
+        newValue = ( this.props.value || [] ).concat();
 
         if ( i == -1 ) {
 
@@ -93,7 +93,7 @@ module.exports = function( funcs ) {
 
         if ( value === undefined ) value = '';
 
-        if ( !this.props.optional && !( value + '').length ) {
+        if ( !this.props.optional && !this.props.field.optional && !( value + '').length ) {
 
           return this.message( ERR.NOTEMPTY );
 

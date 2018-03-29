@@ -33,7 +33,8 @@ import Wysiwyg from './Wysiwyg.jsx';
 const _ = {
   isArray: require( 'lodash/isArray' ),
   extend: require( 'lodash/extend' ),
-  pick: require( 'lodash/pick' )
+  pick: require( 'lodash/pick' ),
+  get: require( 'lodash/get' )
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
@@ -63,7 +64,8 @@ function EventFormFactory() {
   return createReactClass( {
 
     propTypes: {
-      configuration: PropTypes.object
+      configuration: PropTypes.object,
+      contributionConfiguration: PropTypes.object
     },
 
     getDefaultProps: function () {
@@ -77,6 +79,9 @@ function EventFormFactory() {
             name: 'location',
             settings: false
           } ]
+        },
+        contributionConfiguration: {
+          allowLocationCreate: true
         },
         initTranslation: false,
         custom: []
@@ -96,11 +101,13 @@ function EventFormFactory() {
 
       formErrors = state.errors || {};
 
-      state.languages = this.props.initialLanguages;
+      if ( this.props.initialLanguages.length ) {
 
-      if ( !state.languages.length ) {
+        state.languages = this.props.initialLanguages;
 
-        state.languages = [ this.props.lang ];
+      } else {
+
+        state.languages = [ this.props.defaultFormLanguage || this.props.lang ];
 
       }
 
@@ -134,6 +141,22 @@ function EventFormFactory() {
 
     },
 
+    formatTranslationMessage: function() {
+
+      const progress = _.get( this.state, 'translation.translationProgress' );
+
+      if ( !progress ) return '';
+
+      return '\n' + progress.map( lang => ( {
+        en: 'English',
+        fr: 'Français',
+        it: 'Italiano', 
+        es: 'Español',
+        de: 'Deutsch'
+      } )[ lang ] ).join( ' → ' )
+
+    },
+
     onChange: function ( field ) {
 
       return ( value, errorMessage, changedLanguages = [] ) => {
@@ -142,6 +165,7 @@ function EventFormFactory() {
 
         updated[ field ] = value;
 
+        // console.log( 'EventForm.onChange', field, errorMessage );
         formErrors[ field ] = errorMessage;
 
         if ( this.state.translation && this.state.translation.enabled && changedLanguages.length ) {
@@ -246,6 +270,8 @@ function EventFormFactory() {
 
     onCustomChange: function ( field, value, errorMessage ) {
 
+      // console.log( 'EventForm.onCustomChange', field, errorMessage );
+
       var updated = {
         custom: JSON.parse( JSON.stringify( this.state.custom ) )
       };
@@ -265,6 +291,8 @@ function EventFormFactory() {
      * generate events as list including for each error the message, the label of the field and its name
      */
     listErrorDetails: function () {
+
+      // console.log( 'listErrorDetails, formErrors', formErrors );
 
       var errors = [], self = this;
 
@@ -546,9 +574,10 @@ function EventFormFactory() {
       }, this.props.configuration.field( 'location' ).settings || {} );
 
       return <div className="form-section">
-        { this.props.configuration.field( 'location' ).info ?
+        { this.props.configuration.field( 'location' ).info && ( this.state.locationMode !== 'create' ) ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
+          allowCreate={this.props.contributionConfiguration.allowLocationCreate}
           settings={settings}
           mode={this.state.locationMode}
           disableChange={this.props.configuration.field( 'location' ).disableChange}
@@ -859,7 +888,7 @@ function EventFormFactory() {
         }
 
 
-        return <div><p>.</p></div>;
+        return console.log( 'not rendering', o.field );
 
       } ) }
 
@@ -869,9 +898,13 @@ function EventFormFactory() {
 
         <p className="margin-top-sm">{this.getLabel( 'compulsoryNote' )}</p>
 
-        {this.state.translation && this.state.translation.translating ?
-          <Spinner page={true} message={translationLabels.processingTranslation[ this.props.lang ]} />
+        {this.state.translation && this.state.translation.translating && !this.state.translation.deactivated ?
+          <Spinner page={true} message={ translationLabels.processingTranslation[ this.props.lang ] + this.formatTranslationMessage() } />
           : null}
+
+        {_.get( this.state, 'translation.deactivated', false ) ?
+          <Spinner page={true} message={translationLabels.deactivatedTranslation[ this.props.lang ]} />
+        : null }
 
         {this.state.submitSpin ?
           <Spinner page={true}

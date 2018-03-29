@@ -73,7 +73,7 @@ module.exports = createReactClass({
     if ( !acceptedFiles.length ) return;
 
     const req = sa.post( this.props.upload );
-    
+
     const file = acceptedFiles[ 0 ];
 
     req.attach( 'file', file );
@@ -112,11 +112,11 @@ module.exports = createReactClass({
   render: function() {
 
     return <div className={ this.state.error ? 'form-group has-error' : 'form-group'}>
-      <label>{this.props.label[ this.props.lang ].replace( '%s', this.props.extension )}{ this.props.optional ? '' : ' (*)' }</label>
+      <label>{this.props.label[ this.props.lang ].replace( '%s', [].concat( this.props.extension ).join( ', ' ) )}{ this.props.optional ? '' : ' (*)' }</label>
       <div className="file-upload">
         <Dropzone
           disabled={ this.state.loading }
-          accept={ '.' + this.props.extension }
+          accept={ '.' + [].concat( this.props.extension ).join( ',.' ) }
           className="file-dropzone"
           multiple={false}
           name={ this.props.name }

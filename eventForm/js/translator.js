@@ -11,7 +11,8 @@ const onTranslationCheck = require( '@openagenda/react-form-components/lib/onTra
 const async = require( 'async' );
 
 const _ = {
-  extend: require( 'lodash/extend' )
+  extend: require( 'lodash/extend' ),
+  get: require( 'lodash/get' )
 }
 
 const translators = require( '@openagenda/translators' );
@@ -35,6 +36,25 @@ let context,
 // translator
   translator;
 
+
+function notifyEmptySource( sourceLanguage, cb ) {
+
+  context.setState( {
+    translation: update( context.state.translation, {
+      deactivated: {
+        $set: true
+      }
+    } )
+  } );
+
+  setTimeout( () => {
+
+    cb();
+
+  }, 2000 );
+
+}
+
 function translate( cb ) {
 
   if ( !translator ) return cb();
@@ -53,14 +73,33 @@ function translate( cb ) {
 
   fields.forEach( f => objToTranslate[ f ] = context.state[ f ] ? context.state[ f ][ sourceLanguage ] : '' );
 
-  translator( objToTranslate, sourceLanguage, destLanguages, ( err, translatedObj, timeouts ) => {
+  if ( !_.get( objToTranslate, 'title', '' ).length ) {
+
+    return notifyEmptySource( sourceLanguage, cb );
+
+  }
+
+
+  function onProcess( lang ) {
+
+    context.setState( {
+      translation: update( context.state.translation, {
+        translationProgress: { $set: [ sourceLanguage, lang ] }
+      } )
+    } )
+
+  }
+
+  translator( objToTranslate, sourceLanguage, destLanguages, {
+    onProcess
+  }, ( err, translatedObj, timeouts ) => {
 
     if ( err ) {
 
       context.setState( {
         translation: update( context.state.translation, { 
           translating: { $set: false },
-          message: { $set: 'Could not complete translation' }
+          message: { $set: 'Could not complete translation' }
         } )
       } );
 
@@ -192,13 +231,13 @@ function _truncateOverflows( texts, max ) {
 
       if ( !truncated[ field ] ) truncated[ field ] = {};
 
-      if ( texts[ field ][ lang ].length <= max[ field ] ) {
+      if ( texts[ field ][ lang ].length <= max[ field ] ) {
 
-        truncated[ field ][ lang ] = texts[ field ][ lang ];
+        truncated[ field ][ lang ] = texts[ field ][ lang ];
 
       } else {
 
-        truncated[ field ][ lang ] = texts[ field ][ lang ].substr( 0, max[ field ] - 3 ) + '...';
+        truncated[ field ][ lang ] = texts[ field ][ lang ].substr( 0, max[ field ] - 3 ) + '...';
 
       }
 
