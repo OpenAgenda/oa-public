@@ -34,12 +34,14 @@ export default async function syncTask() {
 
   let data;
   let i = 0;
+  const total = await q.len();
 
   while ( data = await q.pop() ) {
     try {
+      log( 'Process job n°%d/%d', i + 1, total );
       await processJob( data, stats );
     } catch ( e ) {
-      log( 'error', 'Error on sync process: job n°%d:\n%j', i, data, new VError( e ) );
+      log( 'error', 'Error on sync process: job n°%d:\n%j', i + 1, data, VError.fullStack( e ) );
     }
 
     i++;
@@ -111,7 +113,7 @@ export async function syncUser( user, stats ) {
   const Inbox = await new Inboxes( inboxIdentifiers ).get( { createOnNull: false } );
 
   if ( !Inbox.data ) {
-    await Inbox.create();
+    await Inbox.create( inboxIdentifiers );
     upStats( stats, 'userInboxesCreated' );
     log( 'info', 'Inbox %j is created', inboxIdentifiers );
   }
