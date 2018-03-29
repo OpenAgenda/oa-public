@@ -456,7 +456,7 @@ module.exports = {
   },
   uppyModalTitle: {
     fr: 'Ajouter une pièce jointe',
-    en: 'Add attachment(s)'
+    en: 'Add attachment'
   },
   attachFile: {
     fr: 'Ajouter une pièce jointe',
@@ -466,8 +466,24 @@ module.exports = {
     fr: 'Pièce jointe',
     en: 'Attachment'
   },
+  oneAttachment: {
+    fr: '1 pièce jointe',
+    en: '1 attachment'
+  },
+  nAttachments: {
+    fr: '%number% pièces jointes',
+    en: '%number% attachments'
+  },
   uploadError: {
     fr: 'Erreur de téléchargement',
     en: 'Upload error'
+  },
+  from: {
+    fr: 'Depuis',
+    en: 'From'
+  },
+  validate: {
+    fr: 'Valider',
+    en: 'Validate'
   }
 };
