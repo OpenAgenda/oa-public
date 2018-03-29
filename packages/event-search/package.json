@@ -23,7 +23,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/events": "^1.1.17",
+    "@openagenda/events": "^1.1.16",
     "mocha": "^4.0.1",
     "moment": "^2.20.1",
     "should": "^11.2.1"
