@@ -121,20 +121,16 @@ module.exports = {
     en: 'You will be automatically redirected in an instant',
     fr: 'Vous allez être redirigé automatiquement dans un instant'
   },
-  access: {
-    en: 'Access',
-    fr: 'Accès'
-  },
   publicAccess: {
-    en: 'Public',
-    fr: 'Public'
+    en: 'Openly viewable',
+    fr: 'Visible du public'
   },
   contributorAccess: {
-    en: 'Contributor',
-    fr: 'Contributeur'
+    en: 'Viewable by agenda members only',
+    fr: 'Visible uniquement des membres de l\'agenda'
   },
   administratorAccess: {
-    en: 'Administrator',
-    fr: 'Restreint ( administrateurs, modérateurs )'
+    en: 'Viewable by administrators and moderators only',
+    fr: 'Visible uniquement des administrateurs et modérateurs'
   }
 }

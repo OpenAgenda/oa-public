@@ -32,7 +32,11 @@
     "@openagenda/react-components": "^2.0.2",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/spinner": "^2.0.1",
+<<<<<<< HEAD
     "@openagenda/translators": "^1.0.6",
+=======
+    "@openagenda/translators": "^1.0.5",
+>>>>>>> b5f47da330515cb1b6bd7ef0baa74b91f129ca1a
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.0.1",
     "async": "^1.5.0",

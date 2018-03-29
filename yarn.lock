@@ -757,6 +757,7 @@
     webpack "^3.5.5"
     yargs "^9.0.1"
 
+<<<<<<< HEAD
 "@openagenda/translators@^1.0.6":
   version "1.0.5"
   dependencies:
@@ -768,6 +769,8 @@
     superagent "^2.3.0"
     to-markdown "^3.0.3"
 
+=======
+>>>>>>> b5f47da330515cb1b6bd7ef0baa74b91f129ca1a
 "@openagenda/tumblr-parser@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@openagenda/tumblr-parser/-/tumblr-parser-0.1.0.tgz#93c36263de31667e1206d326634c9ba4ac2cabaf"
