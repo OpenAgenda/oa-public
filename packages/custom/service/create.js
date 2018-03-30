@@ -48,7 +48,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   
   if ( await get( formSchemaId, identifier ) ) {
 
-    throw new Error( 'entry already exists for %s / %s', formSchemaId, identifier );
+    throw new VError( 'entry already exists for %s / %s', formSchemaId, identifier );
 
   }
 
