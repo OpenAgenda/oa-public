@@ -1,5 +1,6 @@
 "use strict";
 
+const VError = require( 'verror' );
 const validateOptions = require( './validators/options' );
 const config = require( './config' );
 const get = require( './get' );
@@ -21,7 +22,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   if ( !deletedCustom ) {
 
-    throw new Error( 'entry was not found for %s / %s', formSchemaId, identifier );
+    throw new VError( 'entry was not found for %s / %s', formSchemaId, identifier );
 
   }
 
