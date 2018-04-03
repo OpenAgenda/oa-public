@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import marked from 'marked';
@@ -11,6 +11,40 @@ export default class MessageItem extends Component {
     getLabel: PropTypes.func
   };
 
+  renderAttachments() {
+    const { message: { attachments } } = this.props;
+    const { getLabel } = this.context;
+
+    if ( !attachments || !attachments.length ) {
+      return null;
+    }
+
+    return (
+      <div>
+        <i className="fa fa-paperclip" aria-hidden="true"></i>{' '}
+        {getLabel( attachments && attachments.length > 1 ? 'attachments' : 'attachment' )}:
+
+        {attachments.map( ( attachment, i ) => (
+          <Fragment>
+            {i === 0 ? ' ' : ', '}
+            <a
+              href={`/home/inbox/download-attachment?${qs.stringify( {
+                filename: attachment.filename,
+                id: attachment.id
+              } )}`}
+              target="_blank"
+              download={attachment.originalName}
+            >
+              {attachment.originalName}
+            </a>
+          </Fragment>
+        ) )}
+      </div>
+    );
+
+    return;
+  }
+
   render() {
     const { message } = this.props;
     const { getLabel } = this.context;
@@ -20,8 +54,6 @@ export default class MessageItem extends Component {
     }
 
     const creationDate = moment( message.createdAt );
-
-    const attachment = message.attachments.length ? message.attachments[ 0 ] : null;
 
     return (
       <div className="media">
@@ -38,22 +70,9 @@ export default class MessageItem extends Component {
               className="margin-bottom-xs"
               dangerouslySetInnerHTML={{ __html: marked( _.escape( message.body ), { breaks: true } ) }}
             />
-            {attachment && (
-              <div>
-                <i className="fa fa-paperclip" aria-hidden="true"></i>{' '}
-                {getLabel( 'attachment' )}:{' '}
-                <a
-                  href={`/home/inbox/download-attachment?${qs.stringify( {
-                    filename: attachment.filename,
-                    id: attachment.id
-                  } )}`}
-                  target="_blank"
-                  download={attachment.originalName}
-                >
-                  {attachment.originalName}
-                </a>
-              </div>
-            )}
+
+            {this.renderAttachments()}
+
             <p className="text-muted" title={creationDate.format( 'LLL' )}>
               {getLabel( 'messagePostedRelativeDate', { date: creationDate.fromNow( true ) } )}
             </p>
