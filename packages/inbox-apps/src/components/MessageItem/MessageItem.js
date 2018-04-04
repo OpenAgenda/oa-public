@@ -25,7 +25,7 @@ export default class MessageItem extends Component {
         {getLabel( attachments && attachments.length > 1 ? 'attachments' : 'attachment' )}:
 
         {attachments.map( ( attachment, i ) => (
-          <Fragment>
+          <Fragment key={attachment.id}>
             {i === 0 ? ' ' : ', '}
             <a
               href={`/home/inbox/download-attachment?${qs.stringify( {
