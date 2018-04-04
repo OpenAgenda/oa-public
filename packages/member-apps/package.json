@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -26,7 +26,7 @@
     "@openagenda/agenda-stakeholders": "^2.0.0",
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.6",
-    "@openagenda/labels": "^2.0.53",
+    "@openagenda/labels": "^2.0.58",
     "@openagenda/react-components": "^2.0.3",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/react-utils": "^2.0.2",
@@ -43,8 +43,8 @@
     "redux-form": "^6.5.0"
   },
   "devDependencies": {
-    "@openagenda/agendas": "^1.0.10",
-    "@openagenda/bs-templates": "^2.0.51",
+    "@openagenda/agendas": "^1.0.17",
+    "@openagenda/bs-templates": "^2.0.56",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",

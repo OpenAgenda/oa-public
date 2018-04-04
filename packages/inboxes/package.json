@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "main": "lib/index.js",
   "repository": {
@@ -22,7 +22,7 @@
   "homepage": "https://bitbucket.org/openagenda/inboxes#readme",
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.3",
-    "@openagenda/agendas": "^1.0.10",
+    "@openagenda/agendas": "^1.0.17",
     "@openagenda/logs": "^1.0.8",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
