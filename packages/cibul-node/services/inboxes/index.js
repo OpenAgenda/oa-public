@@ -141,9 +141,47 @@ async function onMessageCreate( conversation, message ) {
   } );
 }
 
-function filterAction( inbox, conversation, action ) {
+async function filterAction( inbox, conversation, action ) {
   if ( action.code === 'involveTechnicalSupport' ) {
+    if ( inbox.type !== 'agenda' ) {
+      return false;
+    }
+
+    const user = await promisify( userSvc.get )( { uid: conversation.inboxUser.userUid }, { removed: null } );
+
+    const agenda = await promisify( agendasSvc.get )(
+      { uid: inbox.identifier },
+      { private: null, internal: true }
+    );
+
+    const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
+
+    if ( !sh || !stakeholdersSvc.types.isSuperiorTo( sh.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
+      return false;
+    }
+
     return !conversation.inboxes.find( inbox => inbox.type === 'support' );
+  }
+
+  if ( action.code === 'removeTechnicalSupport' ) {
+    if ( inbox.type !== 'agenda' ) {
+      return false;
+    }
+
+    const user = await promisify( userSvc.get )( { uid: conversation.inboxUser.userUid }, { removed: null } );
+
+    const agenda = await promisify( agendasSvc.get )(
+      { uid: inbox.identifier },
+      { private: null, internal: true }
+    );
+
+    const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
+
+    if ( !sh || !stakeholdersSvc.types.isSuperiorTo( sh.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
+      return false;
+    }
+
+    return !!conversation.inboxes.find( inbox => inbox.type === 'support' );
   }
 
   switch ( conversation.type ) {
@@ -293,6 +331,14 @@ module.exports.init = async c => {
               },
               kind: 'default',
               resolve: false
+            }, {
+              code: 'removeTechnicalSupport',
+              label: {
+                fr: 'Retirer le support technique',
+                en: 'Remove technical support'
+              },
+              kind: 'default',
+              resolve: false
             } ]
           },
           contact_form: {
@@ -301,6 +347,14 @@ module.exports.init = async c => {
               label: {
                 fr: 'Impliquer le support technique',
                 en: 'Involve technical support'
+              },
+              kind: 'default',
+              resolve: false
+            }, {
+              code: 'removeTechnicalSupport',
+              label: {
+                fr: 'Retirer le support technique',
+                en: 'Remove technical support'
               },
               kind: 'default',
               resolve: false
