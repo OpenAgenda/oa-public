@@ -13,9 +13,7 @@
     "watch-server": "nodemon -w test/app -w lib -w ../inboxes test/app",
     "fixtures": "node test/app/fixtures",
     "test": "jest --coverage --forceExit",
-    "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn clean && yarn build"
   },
   "peerDependencies": {

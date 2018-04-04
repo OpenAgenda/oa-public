@@ -4,8 +4,7 @@
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "preversion": "npm test"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

@@ -10,9 +10,7 @@
   "scripts": {
     "build": "babel src -d lib -s",
     "test": "jest --coverage --forceExit",
-    "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn build"
   },
   "directories": {

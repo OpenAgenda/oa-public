@@ -8,8 +8,7 @@
   },
   "scripts": {
     "test": "mocha --exit",
-    "build-fields": "node tasks/makeValidatorFields.js",
-    "preversion": "yarn test"
+    "build-fields": "node tasks/makeValidatorFields.js"
   },
   "repository": {
     "type": "git",

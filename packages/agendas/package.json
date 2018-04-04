@@ -4,8 +4,7 @@
   "description": "agendas service",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha --exit",
-    "preversion": "npm test"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",

@@ -4,8 +4,7 @@
   "description": "Handle event data structure configuration storage",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit",
-    "preversion": "npm test"
+    "test": "mocha --exit"
   },
   "dependencies": {
     "@openagenda/labels": "^2.0.53",

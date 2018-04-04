@@ -8,7 +8,6 @@
     "pretest": "yarn build",
     "test": "mocha --exit",
     "build": "babel components/src -d components/build -s",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn build",
     "preserve": "yarn build",
     "preserve-populate": "yarn build",

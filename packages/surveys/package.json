@@ -7,7 +7,6 @@
     "build": "webpack --config webpack.prod.js",
     "start": "nodemon server.dev.js",
     "test": "jest --forceExit",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
