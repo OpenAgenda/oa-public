@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="2.0.21"></a>
+## <small>2.0.21 (2018-04-05)</small>
+
+* chore: add conventional-changelog and commitlint ([c2f8a34](https://bitbucket.org/openagenda/oa/commits/c2f8a34))
+
+
+
+
 <a name="2.0.20"></a>
 ## [2.0.20](https://bitbucket.org/projects/openagenda/repos/oa/compare/diff?targetBranch=refs%2Ftags%2F@openagenda/activities@2.0.19&sourceBranch=refs%2Ftags%2F@openagenda/activities@2.0.20) (2018-04-05)
 
