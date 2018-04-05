@@ -1,0 +1,20 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+<a name="1.0.57"></a>
+## [1.0.57](https://bitbucket.org/projects/openagenda/repos/oa/compare/diff?targetBranch=refs%2Ftags%2F@openagenda/inbox-apps@1.0.56&sourceBranch=refs%2Ftags%2F@openagenda/inbox-apps@1.0.57) (2018-04-05)
+
+
+### Bug Fixes
+
+* **activities:** rebuild ([a367d5d](https://bitbucket.org/projects/openagenda/repos/oa/commits/a367d5d))
+
+
+### Features
+
+* add request_contribute conversation type ([7c6ef8c](https://bitbucket.org/projects/openagenda/repos/oa/commits/7c6ef8c))
+* add suggest_location_change type ([5bd3e93](https://bitbucket.org/projects/openagenda/repos/oa/commits/5bd3e93))
+* display inboxes only for OA team ([b487ea4](https://bitbucket.org/projects/openagenda/repos/oa/commits/b487ea4))
+* **inboxes:** involve support & attachments ([2aa77df](https://bitbucket.org/projects/openagenda/repos/oa/commits/2aa77df))

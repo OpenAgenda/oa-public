@@ -1,7 +1,12 @@
 {
   "name": "@openagenda/flat-exports",
-  "version": "1.1.16",
+  "version": "1.1.17",
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/flat-exports",
   "main": "index.js",
   "scripts": {
     "test": "jest"
@@ -11,7 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/flattener": "^1.1.0",
-    "@openagenda/labels": "^2.0.59",
+    "@openagenda/labels": "^2.0.60",
     "@openagenda/stream-utils": "^1.1.0",
     "@openagenda/utils": "^1.0.1",
     "@openagenda/validators": "^2.0.1",
@@ -24,7 +29,7 @@
     "xlsx-writestream": "^0.4.0"
   },
   "devDependencies": {
-    "@openagenda/labels": "^2.0.59",
+    "@openagenda/labels": "^2.0.60",
     "eslint-plugin-jest": "^21.12.2",
     "jest": "^22.0.0",
     "should": "^13.1.2"

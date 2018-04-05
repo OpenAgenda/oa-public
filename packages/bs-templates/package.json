@@ -1,8 +1,13 @@
 {
   "name": "@openagenda/bs-templates",
-  "version": "2.0.57",
+  "version": "2.0.58",
   "description": "openagenda bootstrap templates",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/bs-templates",
   "scripts": {
     "start": "nodemon server.js",
     "build": "node scripts/build.js",

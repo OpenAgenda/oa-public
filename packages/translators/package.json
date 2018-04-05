@@ -1,11 +1,19 @@
 {
   "name": "@openagenda/translators",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Provides iso functions to fetch translated content",
-  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/translators",
   "directories": {
     "test": "test"
   },
+  "main": "index.js",
   "scripts": {
     "test": "mocha --exit",
     "release:patch": "npm version patch && npm publish",
@@ -13,9 +21,6 @@
     "release:major": "npm version major && npm publish",
     "release:next": "npm version prerelease && npm publish --tag next"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@openagenda/test-app": "^2.0.4",
     "babel-preset-es2015": "^6.24.1",

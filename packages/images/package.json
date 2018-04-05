@@ -1,11 +1,16 @@
 {
   "name": "@openagenda/images",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
-  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "no license",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/images",
+  "main": "index.js",
   "scripts": {
     "test": "mocha",
     "release:patch": "npm version patch && npm publish",

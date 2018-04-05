@@ -1,11 +1,16 @@
 {
   "name": "@openagenda/dom-utils",
-  "version": "2.1.7",
+  "version": "2.1.8",
   "description": "",
   "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/dom-utils",
   "dependencies": {
     "@openagenda/utils": "^1.0.0",
     "es6-promise": "^4.1.1",
