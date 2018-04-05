@@ -9,12 +9,23 @@
   "npmClientArgs": [
     "--no-lockfile"
   ],
+  "changelog": {
+    "repo": "openagenda/oa",
+    "labels": {
+      "Tag: Breaking Change": ":boom: Breaking Change",
+      "Tag: Features": ":rocket: New Feature",
+      "Tag: Bug Fix": ":bug: Bug Fix",
+      "Tag: Styles": ":nail_care: Styles",
+      "Tag: Documentation": ":memo: Documentation",
+      "Tag: chore": ":house: Internal"
+    }
+  },
   "command": {
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
       "changelogPreset": "angular-bitbucket",
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish"
     }
   }
 }
