@@ -19,17 +19,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
     "@openagenda/activities": "^2.0.22",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.10",
     "@openagenda/labels": "^2.0.62",
-=======
-    "@openagenda/activities": "^2.0.21",
-    "@openagenda/basic-logger": "^2.0.0",
-    "@openagenda/dom-utils": "^2.1.9",
-    "@openagenda/labels": "^2.0.61",
->>>>>>> d436f9b5631883433cef91b29a6206639e291623
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.0.7",
     "@openagenda/react-utils": "^2.0.2",
