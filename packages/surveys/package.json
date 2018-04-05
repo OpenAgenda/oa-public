@@ -15,8 +15,13 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@openagenda/form-schemas": "^1.1.16",
     "@openagenda/labels": "^2.0.62",
+=======
+    "@openagenda/form-schemas": "^1.1.15",
+    "@openagenda/labels": "^2.0.61",
+>>>>>>> d436f9b5631883433cef91b29a6206639e291623
     "babel-plugin-lodash": "^3.3.2",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
