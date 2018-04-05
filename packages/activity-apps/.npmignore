@@ -17,3 +17,4 @@ react/src/
 test/
 !test/service/
 !test/fixtures/
+testconfig.js

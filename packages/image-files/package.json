@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/image-files",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Handle image processing from when an image url or temporary path to the moment it is stored on s3. Does formatting through the 'images' service and file uploading through the 'files' service. Does not handle client to server image uploads.",
   "main": "index.js",
   "directories": {
@@ -19,7 +19,7 @@
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/files": "^2.0.6",
-    "@openagenda/images": "^1.0.5",
+    "@openagenda/images": "^1.0.6",
     "lodash": "^4.17.5",
     "when": "^3.7.7"
   },

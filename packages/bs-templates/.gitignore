@@ -1,7 +1,12 @@
-*.html
 .idea/
+.vscode/
 node_modules/
 npm-debug.log
 yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+*.html
 templates/event-form/fonts
 fonts

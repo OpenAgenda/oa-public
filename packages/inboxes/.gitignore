@@ -1,2 +1,10 @@
-lib/
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
+yarn-error.log
+testconfig.js
 coverage/
+.cache/
+
+lib/

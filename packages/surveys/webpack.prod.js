@@ -1,7 +1,5 @@
 "use strict";
 
-const webpack = require( 'webpack' );
-
 module.exports = {
   context: __dirname,
   entry: './client/index.js',
@@ -20,4 +18,4 @@ module.exports = {
   resolve: {
     symlinks: false
   }
-}
+};

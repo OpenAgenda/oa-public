@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/surveys",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "license": "See license.txt",
   "main": "index.js",
   "scripts": {
@@ -10,8 +10,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@openagenda/form-schemas": "^1.1.12",
-    "@openagenda/labels": "^2.0.58",
+    "@openagenda/form-schemas": "^1.1.13",
+    "@openagenda/labels": "^2.0.59",
     "babel-plugin-lodash": "^3.3.2",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
@@ -25,7 +25,7 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.56",
+    "@openagenda/bs-templates": "^2.0.57",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",
