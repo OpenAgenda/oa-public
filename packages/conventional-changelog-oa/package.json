@@ -1,0 +1,11 @@
+{
+  "name": "@openagenda/conventional-changelog-oa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://bitbucket.org/openagenda/oa/src/master/packages/conventional-changelog-oa",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "compare-func": "^1.3.2"
+  }
+}
