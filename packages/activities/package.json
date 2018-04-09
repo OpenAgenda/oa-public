@@ -1,23 +1,22 @@
 {
   "name": "@openagenda/activities",
-  "version": "2.0.17",
+  "version": "2.0.22",
   "description": "",
-  "main": "service/index.js",
-  "scripts": {
-    "test": "mocha --exit",
-    "preversion": "yarn test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/activities.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/activities#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/activities",
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha --exit"
+  },
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.0",
-    "@openagenda/labels": "^2.0.57",
+    "@openagenda/labels": "^2.0.62",
     "@openagenda/logs": "^1.0.1",
     "@openagenda/mailer": "^1.0.2",
     "@openagenda/queue": "^1.0.0",

@@ -16,3 +16,4 @@ src/
 .tmp/
 test/
 !test/fixtures/
+testconfig.js

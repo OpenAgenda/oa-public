@@ -255,12 +255,12 @@ function rebuild( args, options, logger ) {
       .then( () => next() )
       .catch( err => {
 
+        if ( !ra.eventUid ) { // TODO is not normal, bordel
+          return next();
+        }
+
         if ( err && err.message === 'Feed already followed' ) return next();
         if ( err && err.message === 'Feed doesn\'t exists' ) {
-
-          if ( !ra.eventUid ) { // TODO is not normal, bordel
-            return next();
-          }
 
           return service.feed( { entityType: 'event', entityUid: ra.eventUid } ).create( err => {
 
@@ -335,8 +335,8 @@ function rebuild( args, options, logger ) {
         options.aggregatorTable + '.id as aggId'
       ] )
         .join( options.userTable, options.reviewTable + '.owner_id', options.userTable + '.id' )
-        .leftJoin( options.aggregatorTable, options.reviewTable + '.id', options.aggregatorTable + '.review_id' )
-        .where( options.userTable + '.is_removed', 0 ),
+        .leftJoin( options.aggregatorTable, options.reviewTable + '.id', options.aggregatorTable + '.review_id' ),
+        // .where( options.userTable + '.is_removed', 0 ),
       eachCb
     );
 

@@ -1,7 +1,5 @@
 "use strict";
 
-const webpack = require( 'webpack' );
-
 module.exports = {
   mode: 'production',
   context: __dirname,
@@ -21,4 +19,4 @@ module.exports = {
   resolve: {
     symlinks: false
   }
-}
+};

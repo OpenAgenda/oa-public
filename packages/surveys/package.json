@@ -1,18 +1,22 @@
 {
   "name": "@openagenda/surveys",
-  "version": "1.1.23",
+  "version": "1.1.28",
   "license": "See license.txt",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/surveys",
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "nodemon server.dev.js",
     "test": "jest --forceExit",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "@openagenda/form-schemas": "^1.1.11",
-    "@openagenda/labels": "^2.0.53",
+    "@openagenda/form-schemas": "^1.1.16",
+    "@openagenda/labels": "^2.0.62",
     "babel-plugin-lodash": "^3.3.2",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
@@ -26,7 +30,7 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.51",
+    "@openagenda/bs-templates": "^2.0.60",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",

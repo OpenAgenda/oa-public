@@ -1,18 +1,22 @@
 {
   "name": "@openagenda/agendas",
-  "version": "1.0.16",
+  "version": "1.0.21",
   "description": "agendas service",
   "main": "service/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/agendas",
   "scripts": {
-    "test": "mocha --exit",
-    "preversion": "npm test"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
-    "@openagenda/image-files": "^1.0.4",
+    "@openagenda/image-files": "^1.0.9",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.2",

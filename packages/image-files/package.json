@@ -1,15 +1,18 @@
 {
   "name": "@openagenda/image-files",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "description": "Handle image processing from when an image url or temporary path to the moment it is stored on s3. Does formatting through the 'images' service and file uploading through the 'files' service. Does not handle client to server image uploads.",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/image-files",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha --exit",
-    "preversion": "npm test",
-    "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
     "release:minor": "npm version minor && npm publish",
     "release:major": "npm version major && npm publish",
@@ -21,7 +24,7 @@
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/files": "^2.0.6",
-    "@openagenda/images": "^1.0.4",
+    "@openagenda/images": "^1.0.9",
     "lodash": "^4.17.5",
     "when": "^3.7.7"
   },

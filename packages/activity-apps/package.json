@@ -1,7 +1,12 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.28",
+  "version": "1.0.33",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/activity-apps",
   "main": "index.js",
   "scripts": {
     "build": "babel react/src -d react/dist -s",
@@ -10,19 +15,14 @@
     "fixtures": "node test/app/fixtures",
     "prepublishOnly": "yarn build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/activity-apps.git"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/activity-apps#readme",
   "dependencies": {
-    "@openagenda/activities": "^2.0.17",
+    "@openagenda/activities": "^2.0.22",
     "@openagenda/basic-logger": "^2.0.0",
-    "@openagenda/dom-utils": "^2.1.6",
-    "@openagenda/labels": "^2.0.57",
+    "@openagenda/dom-utils": "^2.1.10",
+    "@openagenda/labels": "^2.0.62",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.0.7",
     "@openagenda/react-utils": "^2.0.2",
@@ -47,7 +47,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.55",
+    "@openagenda/bs-templates": "^2.0.60",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "babel-cli": "^6.18.0",

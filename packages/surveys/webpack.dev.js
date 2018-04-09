@@ -4,13 +4,13 @@ const webpack = require( 'webpack' );
 
 module.exports = {
   context: __dirname,
-  entry: [ 
+  entry: [
     'webpack-hot-middleware/client',
     './client/index.js'
   ],
   output: {
     filename: 'index.js',
-    path: __dirname + '/assets',
+    path: __dirname + '/dist',
     publicPath: '/js/'
   },
   plugins: [
@@ -39,4 +39,4 @@ module.exports = {
   resolve: {
     symlinks: false
   }
-}
+};

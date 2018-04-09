@@ -466,6 +466,10 @@ module.exports = {
     fr: 'Pièce jointe',
     en: 'Attachment'
   },
+  attachments: {
+    fr: 'Pièces jointes',
+    en: 'Attachments'
+  },
   oneAttachment: {
     fr: '1 pièce jointe',
     en: '1 attachment'

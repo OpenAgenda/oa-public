@@ -1,30 +1,28 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.37",
+  "version": "1.0.42",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
-  "main": "lib/index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/inboxes.git"
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/inboxes",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
   },
   "scripts": {
     "build": "babel src -d lib -s",
     "test": "jest --coverage --forceExit",
-    "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "preversion": "yarn test",
     "prepublishOnly": "yarn build"
   },
-  "directories": {
-    "lib": "lib"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/inboxes#readme",
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.3",
-    "@openagenda/agendas": "^1.0.10",
+    "@openagenda/agendas": "^1.0.21",
     "@openagenda/logs": "^1.0.8",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",

@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import marked from 'marked';
+import qs from 'qs';
 import { AuthorAvatar, ConversationTitle, Link } from '../';
 import getDestinationInbox from '../../utils/getDestinationInbox';
-import marked from "marked";
 
 @connect(
   state => ({
@@ -98,6 +99,39 @@ export default class ConversationItem extends Component {
     }
   }
 
+  renderAttachments( attachments ) {
+    const { getLabel } = this.context;
+
+    if ( !attachments || !attachments.length ) {
+      return null;
+    }
+
+    return (
+      <div>
+        <i className="fa fa-paperclip" aria-hidden="true"></i>{' '}
+        {getLabel( attachments && attachments.length > 1 ? 'attachments' : 'attachment' )}:
+
+        {attachments.map( ( attachment, i ) => (
+          <Fragment key={i}>
+            {i === 0 ? ' ' : ', '}
+            <a
+              href={`/home/inbox/download-attachment?${qs.stringify( {
+                filename: attachment.filename,
+                id: attachment.id
+              } )}`}
+              target="_blank"
+              download={attachment.originalName}
+            >
+              {attachment.originalName}
+            </a>
+          </Fragment>
+        ) )}
+      </div>
+    );
+
+    return;
+  }
+
   render() {
     const { user, conversation } = this.props;
     const { getLabel } = this.context;
@@ -150,6 +184,8 @@ export default class ConversationItem extends Component {
               className="message padding-bottom-xs"
               dangerouslySetInnerHTML={{ __html: marked( _.escape( latestMessage.body ), { breaks: true } ) }}
             />
+
+            {this.renderAttachments( latestMessage.attachments )}
           </div>
 
           <Link to={`/conversation/${conversation.id}`}>

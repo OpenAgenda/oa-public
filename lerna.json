@@ -8,5 +8,13 @@
   "useWorkspaces": true,
   "npmClientArgs": [
     "--no-lockfile"
-  ]
+  ],
+  "command": {
+    "publish": {
+      "allowBranch": "master",
+      "conventionalCommits": true,
+      "changelogPreset": "angular-bitbucket",
+      "message": "chore(release): publish"
+    }
+  }
 }

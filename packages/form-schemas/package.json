@@ -1,14 +1,18 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.1.11",
+  "version": "1.1.16",
   "description": "Handle event data structure configuration storage",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/form-schemas",
   "scripts": {
-    "test": "mocha --exit",
-    "preversion": "npm test"
+    "test": "mocha --exit"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.0.53",
+    "@openagenda/labels": "^2.0.62",
     "@openagenda/logs": "^1.0.5",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",

@@ -8742,10 +8742,6 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
   overflow: hidden;
   min-height: 300px; }
 
-.uppy-Dashboard--semiTransparent .uppy-Dashboard-inner {
-  background-color: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: saturate(180%) blur(20px); }
-
 .uppy-Dashboard--modal .uppy-Dashboard-inner {
   position: fixed;
   top: 0;
