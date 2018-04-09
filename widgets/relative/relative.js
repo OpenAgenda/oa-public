@@ -62,7 +62,7 @@ function widget( elem, options ) {
         to: getDateString( getWeekDate( 6 ) )
       },
       this_week: {
-        from: getDateString( getMonday() ),
+        from: getDateString( getMondayOf() ),
         to: getDateString( getWeekDate( 6 ) )
       },
       this_month: {
@@ -131,7 +131,7 @@ function setOnReady( cb ) {
 
 function getWeekDate(offset) {
 
-  var monday = getMonday();
+  var monday = getMondayOf();
 
   var weekDate = new Date( monday );
 
@@ -141,23 +141,23 @@ function getWeekDate(offset) {
   
 }
 
-function getTodayIndexFromMonday() {
+function getIndexFromMonday( d ) {
 
-  var d = new Date();
+  if ( !d ) d = new Date();
 
-  return d.getDate() - (d.getDay() + 6) % 7;
+  return (d.getDay() + 6) % 7;
 
 }
 
-function getMonday() {
+function getMondayOf( d ) {
 
-  var index = getTodayIndexFromMonday();
+  if ( !d ) d = new Date();
 
-  var d = new Date();
+  var monday = new Date( d );
 
-  d.setDate(d.getDate() + index - 1 );
+  monday.setDate(d.getDate() - getIndexFromMonday(d) );
 
-  return d;
+  return monday;
 
 }
 
