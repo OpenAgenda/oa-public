@@ -17,7 +17,7 @@ const serviceParams = {
   knex: null,
   schema: null,
   decorateKey: null,
-  frontAppPath: '/assets/surveys/index.js',
+  frontAppPath: '/dist/surveys/index.js',
   render: null,
   validate: null
 }
@@ -26,7 +26,7 @@ module.exports = {
   app,
   init,
   create,
-  assets: express.static( __dirname + '/../assets' )
+  dist: express.static( __dirname + '/../dist' )
 }
 
 async function init( c ) {

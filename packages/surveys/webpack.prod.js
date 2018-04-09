@@ -3,6 +3,7 @@
 const webpack = require( 'webpack' );
 
 module.exports = {
+  mode: 'production',
   context: __dirname,
   entry: './client/index.js',
   output: {
