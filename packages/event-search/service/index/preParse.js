@@ -99,7 +99,7 @@ function _dateRange( timings, timezone ) {
 
   let range = {};
 
-  [ 'fr', 'en' ].forEach( lang => {
+  [ 'fr', 'ar', 'en' ].forEach( lang => {
 
     range[ lang ] = dateRange( timings.map( t => ( {
       start: new Date( t.begin ),

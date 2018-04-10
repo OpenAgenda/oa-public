@@ -251,7 +251,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -270,10 +270,11 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
       
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       events[ 0 ].dateRange.should.eql( { 
         fr: 'Lundi 24 octobre 2016, 08h00', 
+        ar: 'الإثنين ٢٤ أكتوبر ٢٠١٦, 08:00',
         en: 'Monday 24 October 2016, 08:00' 
       } );
 

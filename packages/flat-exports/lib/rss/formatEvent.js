@@ -72,29 +72,28 @@ function _formatDescription( description, dateRange, html = '' ) {
 }
 
 
-/*
- let item = {
-        title: eInst.getTitle(),
-        description: _buildRssDescription( eInst, exp, req.lang ),
-        url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
-        guid: req.agenda.uid + '/' + eInst.uid,
-        date: eInst.createdAt,
-        lat: exp.latitude,
-        long: exp.longitude,
-        custom_elements: [ {
-          'ev:startdate' : moment.tz( exp.timings[ 0 ].start, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
-        }, {
-          'ev:enddate' : moment.tz( exp.timings[ exp.timings.length - 1 ].end, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
-        }, {
-          'ev:location' : exp.location.name + ' - ' + exp.location.address
-        } ]
-      }
+/* let item = {
+  title: eInst.getTitle(),
+  description: _buildRssDescription( eInst, exp, req.lang ),
+  url: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: eInst.slug, lang: req.lang }, { abs: true } ),
+  guid: req.agenda.uid + '/' + eInst.uid,
+  date: eInst.createdAt,
+  lat: exp.latitude,
+  long: exp.longitude,
+  custom_elements: [ {
+    'ev:startdate' : moment.tz( exp.timings[ 0 ].start, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
+  }, {
+    'ev:enddate' : moment.tz( exp.timings[ exp.timings.length - 1 ].end, exp.location.timezone ).format( 'YYYY-MM-DDTHH:mm:ss' )
+  }, {
+    'ev:location' : exp.location.name + ' - ' + exp.location.address
+  } ]
+}
 
-      if ( exp.image ) {
+if ( exp.image ) {
 
-        item.enclosure = {
-          url: exp.image,
-          type: 'image/jpeg'
-        }
+  item.enclosure = {
+    url: exp.image,
+    type: 'image/jpeg'
+  }
 
-      }*/
+}*/

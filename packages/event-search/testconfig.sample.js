@@ -37,9 +37,11 @@ module.exports = {
       getLocations: require( './test/service/locationsList' )
     },
 
-    imagePath: '//openagendatst.s3.amazonaws.com/',
+    image: {
+      base: '//openagendatst.s3.amazonaws.com/'
+    },
 
-    files: {/**/},
+    files: {/**/},
 
     legacy: {/**/},
 

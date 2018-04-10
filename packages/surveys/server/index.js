@@ -26,7 +26,7 @@ module.exports = {
   app,
   init,
   create,
-  assets: express.static( __dirname + '/../dist' )
+  dist: express.static( __dirname + '/../dist' )
 }
 
 async function init( c ) {

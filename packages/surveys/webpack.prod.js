@@ -1,6 +1,7 @@
 "use strict";
 
 module.exports = {
+  mode: 'production',
   context: __dirname,
   entry: './client/index.js',
   output: {

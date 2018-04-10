@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.33"></a>
+## <small>1.1.33 (2018-04-09)</small>
+
+* merge resolution and event search tweak - added arabic in date range ([ca6c5db](https://bitbucket.org/openagenda/oa/commits/ca6c5db))
+* chore: remove unused lerna config ([127ae7e](https://bitbucket.org/openagenda/oa/commits/127ae7e))
+* chore: set changelogs labels ([0969582](https://bitbucket.org/openagenda/oa/commits/0969582))
+* chore(release): publish ([1d4335f](https://bitbucket.org/openagenda/oa/commits/1d4335f))
+
+
+
+
 <a name="1.1.32"></a>
 ## <small>1.1.32 (2018-04-05)</small>
 

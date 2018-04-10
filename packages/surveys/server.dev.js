@@ -6,15 +6,17 @@ const compiler = webpack( webpackConfig );
 
 const express = require( 'express' );
 
-const parentApp = express();
+const devApp = express();
 
 const config = require( './testconfig' );
 const service = require( './server' );
 
-parentApp.use( require( 'webpack-dev-middleware' )( compiler, {
+devApp.use( require( 'webpack-dev-middleware' )( compiler, {
   noInfo: true, 
   publicPath: webpackConfig.output.publicPath
 } ) );
+
+devApp.use( require( 'webpack-hot-middleware' )( compiler ) );
 
 config.knex.raw( 'use ' + config.test.connection.database ).then( () => {
 
@@ -25,11 +27,9 @@ config.knex.raw( 'use ' + config.test.connection.database ).then( () => {
   
 } );
 
-parentApp.use( require( 'webpack-hot-middleware' )( compiler ) );
+devApp.use( express.static( __dirname + '/../../node_modules/@openagenda/bs-templates/compiled' ) );
 
-parentApp.use( express.static( __dirname + '/../../node_modules/@openagenda/bs-templates/compiled' ) );
-
-parentApp.use( ( req, res, next ) => {
+devApp.use( ( req, res, next ) => {
 
   req.lang = 'fr';
 
@@ -37,7 +37,7 @@ parentApp.use( ( req, res, next ) => {
 
 } );
 
-parentApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
+devApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
 
   // if data must be decorated, it can be done here
   
@@ -50,9 +50,9 @@ parentApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
 
 } );
 
-parentApp.get( '/', ( req, res ) => res.redirect( 302, '/agendas/123/survey' ) );
+devApp.get( '/', ( req, res ) => res.redirect( 302, '/agendas/123/survey' ) );
 
-parentApp.get( '/redirect', ( req, res, next ) => {
+devApp.get( '/redirect', ( req, res, next ) => {
   
   res.send( 'redirected!' );
   
@@ -63,9 +63,9 @@ parentApp.get( '/redirect', ( req, res, next ) => {
  * service app bit
  */
 
-parentApp.use( '/agendas/:agendaUid/survey', service.app );
+devApp.use( '/agendas/:agendaUid/survey', service.app );
 
 // in production only
-parentApp.use( '/assets/surveys', service.assets )
+devApp.use( '/dist/surveys', service.dist )
 
-parentApp.listen( 8080 );
+devApp.listen( 8080 );
