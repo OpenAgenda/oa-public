@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.11"></a>
+## <small>1.0.11 (2018-04-10)</small>
+
+* image-files(test): added bmp test file ([ce9f2c3](https://bitbucket.org/openagenda/oa/commits/ce9f2c3))
+
+
+
+
 <a name="1.0.10"></a>
 ## <small>1.0.10 (2018-04-10)</small>
 
