@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.10"></a>
+## <small>1.0.10 (2018-04-10)</small>
+
+* test(image-files): bmp load from path ([b2b0549](https://bitbucket.org/openagenda/oa/commits/b2b0549))
+* chore: remove unused lerna config ([127ae7e](https://bitbucket.org/openagenda/oa/commits/127ae7e))
+* chore: set changelogs labels ([0969582](https://bitbucket.org/openagenda/oa/commits/0969582))
+* chore(release): publish ([1d4335f](https://bitbucket.org/openagenda/oa/commits/1d4335f))
+
+
+
+
 <a name="1.0.9"></a>
 ## <small>1.0.9 (2018-04-05)</small>
 
