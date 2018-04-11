@@ -13,7 +13,7 @@
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "changelogPreset": "angular-bitbucket",
+      "changelogPreset": "@openagenda/oa",
       "message": "chore(release): publish"
     }
   }

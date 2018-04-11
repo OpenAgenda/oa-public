@@ -81,12 +81,15 @@ export default class Conversation {
 
     data = _.omit( data, 'params', 'destinationInbox', 'creatorInboxUser' );
 
+    const createdAt = new Date();
+
     const [ insertedId ] = await knex( schemas.conversation )
       .insert( {
         ...mapper.toDb( conversationFieldsMap, 'insert', data, options ),
         ...mapper.toDb( conversationFieldsMap, 'insert', protectedData, { protected: false } ),
         creator_inbox_user_id: inboxUser.data.id,
-        updated_at: new Date(),
+        created_at: createdAt,
+        updated_at: createdAt,
         file_key: uuid().replace( /\-/g, '' )
       } );
 
@@ -112,6 +115,8 @@ export default class Conversation {
       await this.messages.create( {
         body: data.message,
         userUid: inboxUser.data.userUid
+      }, {
+        createdAt
       } );
     }
 

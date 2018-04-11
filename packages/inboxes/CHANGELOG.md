@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.43"></a>
+## [1.0.43](https://bitbucket.org/openagenda/oa/compare/@openagenda/inboxes@1.0.42%0D@openagenda/inboxes@1.0.43) (2018-04-11)
+
+
+### Bug Fixes
+
+* **inboxes:** create conversation with a message use the same date
+([2adcb9b](https://bitbucket.org/openagenda/oa/commits/2adcb9b))
+
+### Chore
+
+* remove unused lerna config
+([127ae7e](https://bitbucket.org/openagenda/oa/commits/127ae7e))
+
 <a name="1.0.42"></a>
 ## <small>1.0.42 (2018-04-05)</small>
 

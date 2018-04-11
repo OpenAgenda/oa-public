@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.60"></a>
+## [1.0.60](https://bitbucket.org/openagenda/oa/compare/@openagenda/inbox-apps@1.0.59%0D@openagenda/inbox-apps@1.0.60) (2018-04-11)
+
+
+### Bug Fixes
+
+* merge missing conflicts
+([143b7a7](https://bitbucket.org/openagenda/oa/commits/143b7a7))
+
+### Chore
+
+* **release:** publish %s
+([d436f9b](https://bitbucket.org/openagenda/oa/commits/d436f9b))* remove unused lerna config
+([127ae7e](https://bitbucket.org/openagenda/oa/commits/127ae7e))
+
+### Unclassified commits
+
+* Merge branch 'master' of bitbucket.org:openagenda/oa
+([a5a8e9a](https://bitbucket.org/openagenda/oa/commits/a5a8e9a))
+
 <a name="1.0.59"></a>
 ## <small>1.0.59 (2018-04-05)</small>
 

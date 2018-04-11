@@ -21,6 +21,9 @@ readable messages** that are easy to follow when looking through the **project h
 we use the git commit messages to **generate the change log**.
 
 ### Commit Message Format
+
+> For use the changelog generator, you need to publish with the command `yarn release` or `yarn lerna publish`
+
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**, a **scope** and a **subject**:
 
@@ -57,13 +60,14 @@ If the commit reverts a previous commit, it should begin with `revert: `, follow
 Must be one of the following:
 
 * **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+* **chore**: Other changes that don't modify src or test files
 * **ci**: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-* **chore**: Changes that affect the tasks (gulp, etc) or internal tools (lerna, etc)
 * **docs**: Documentation only changes
 * **feat**: A new feature
 * **fix**: A bug fix
 * **perf**: A code change that improves performance
 * **refactor**: A code change that neither fixes a bug nor adds a feature
+* **revert**: Reverts a previous commit
 * **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
 * **test**: Adding missing tests or correcting existing tests
 
