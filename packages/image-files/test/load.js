@@ -100,6 +100,40 @@ describe( 'image-files - load', function() {
   } );
 
 
+  it( 'loads bmp from path to s3 bucket', done => {
+
+    fs.createReadStream( __dirname + '/files/orchestra.bmp' )
+
+    .pipe( fs.createWriteStream( __dirname + '/files/tmp.bmp' ) )
+
+    .on( 'close', () => {
+
+      svc.load( {
+        path: __dirname + '/files/tmp.bmp',
+        formats: [ {
+          name: 'orchestra_s.jpg',
+          format: { width: 100 }
+        }, {
+          name: 'orchestra_o.jpg'
+        } ]
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        result.uploadedPaths.should.eql( [
+          'https://openagendatst.s3.amazonaws.com/orchestra_s.jpg',
+          'https://openagendatst.s3.amazonaws.com/orchestra_o.jpg'
+        ] );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
   it( 'loads image from path in s3 bucket', done => {
 
     fs.createReadStream( __dirname + '/files/rainfrog.png' )
