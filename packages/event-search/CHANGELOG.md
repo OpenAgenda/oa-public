@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.35"></a>
+## <small>1.1.35 (2018-04-11)</small>
+
+
+
+
+
+**Note:** Version bump only for package @openagenda/event-search
+
 <a name="1.1.34"></a>
 ## <small>1.1.34 (2018-04-11)</small>
 
