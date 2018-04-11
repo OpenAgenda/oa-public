@@ -13,7 +13,7 @@
     "publish": {
       "allowBranch": "master",
       "conventionalCommits": true,
-      "changelogPreset": "@openagenda/conventional-changelog-oa",
+      "changelogPreset": "@openagenda/oa",
       "message": "chore(release): publish"
     }
   }
