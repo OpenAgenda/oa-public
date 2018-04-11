@@ -42,7 +42,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
     should( after ).equal( null );
 
-    _.pick( result.removed, [ 'eventUid', 'agendaUid' ] )
+    _.pick( result.removed, [ 'eventUid', 'agendaUid' ] )
 
       .should.eql( {
         eventUid: 10974548,
@@ -139,7 +139,8 @@ describe( 'agendaEvents - functional (server): remove', function() {
             context.should.eql( {
               userUid: 111,
               agendaUid: null,
-              transferToLegacy: false
+              transferToLegacy: false,
+              legacy: true
             } );
 
             done();

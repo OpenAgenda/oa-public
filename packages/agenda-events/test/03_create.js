@@ -94,7 +94,8 @@ describe( 'agendaEvents - functional (server): create', function() {
             context.should.eql( {
               userUid: 111,
               agendaUid: null,
-              transferToLegacy: false
+              transferToLegacy: false,
+              legacy: true
             } );
 
           }
@@ -121,7 +122,8 @@ describe( 'agendaEvents - functional (server): create', function() {
             context.should.eql( {
               userUid: null,
               agendaUid: null,
-              transferToLegacy: false
+              transferToLegacy: false,
+              legacy: true
             } );
 
           }
