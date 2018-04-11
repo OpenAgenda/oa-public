@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.34"></a>
+## <small>1.1.34 (2018-04-11)</small>
+
+* feature(event-search): log bulk indexing errors ([a04f2ea](https://bitbucket.org/openagenda/oa/commits/a04f2ea))
+
+
+
+
 <a name="1.1.33"></a>
 ## <small>1.1.33 (2018-04-09)</small>
 
