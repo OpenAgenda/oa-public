@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.2.1"></a>
+## <small>1.2.1 (2018-04-11)</small>
+
+* tweak(agenda-events): added legacy key to interface context ([3b0c947](https://bitbucket.org/openagenda/oa/commits/3b0c947))
+* tweak(agenda-events): ignore log file ([a009832](https://bitbucket.org/openagenda/oa/commits/a009832))
+
+
+
+
 <a name="1.2.0"></a>
 ## 1.2.0 (2018-04-11)
 
