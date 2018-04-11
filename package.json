@@ -11,7 +11,8 @@
     "install": "lerna link",
     "bs": "lerna bootstrap",
     "commit": "git-cz",
-    "commitmsg": "commitlint -e $GIT_PARAMS"
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "release": "lerna publish"
   },
   "workspaces": {
     "packages": [

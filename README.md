@@ -22,7 +22,7 @@ we use the git commit messages to **generate the change log**.
 
 ### Commit Message Format
 
-> For use the changelog generator, you need to publish with the command `yarn lerna publish`
+> For use the changelog generator, you need to publish with the command `yarn release` or `yarn lerna publish`
 
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**, a **scope** and a **subject**:

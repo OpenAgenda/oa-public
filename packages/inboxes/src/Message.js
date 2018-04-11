@@ -33,7 +33,8 @@ export default class Message {
 
   async create( data, options ) {
     const params = _.merge( {
-      createInboxUserOnNull: false
+      createInboxUserOnNull: false,
+      createdAt: null
     }, options );
 
     await this._loadConversation();
@@ -48,13 +49,15 @@ export default class Message {
 
     validate( ajv, createSchema, data );
 
+    const createdAt = params.createdAt || new Date();
+
     const [ insertedId ] = await knex( schemas.message )
-      .insert( { ...mapper.toDb( messageFieldsMap, 'insert', data, { protected: false } ), created_at: new Date() } );
+      .insert( { ...mapper.toDb( messageFieldsMap, 'insert', data, { protected: false } ), created_at: createdAt } );
 
     this.identifiers = { id: insertedId };
 
     await this.conversation.update(
-      { updatedAt: new Date() },
+      { updatedAt: createdAt },
       inboxUser.id,
       { protected: false }
     );
