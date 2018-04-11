@@ -17,7 +17,12 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
 
   try {
     
-    result = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, { transferToLegacy: true } );
+    result = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, {
+      transferToLegacy: true, // directive to replicate to legacy data structure
+      context: {
+        legacy: false // indication that context of operation is not legacy
+      }
+    });
 
   } catch ( e ) {
 

@@ -20,6 +20,10 @@ module.exports = async ( searchIndex, uid ) => {
       code: {
         type: 'integer',
         default: 0
+      },
+      featured: {
+        type: 'boolean',
+        default: false
       }
     } )
   }, 
@@ -29,6 +33,9 @@ module.exports = async ( searchIndex, uid ) => {
         code: {
           type: 'integer'
         }
+      },
+      featured: {
+        type: 'boolean'
       }
     };
 

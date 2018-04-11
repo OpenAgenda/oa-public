@@ -1,32 +1,27 @@
 "use strict";
 
-const config = require( '../../config' ),
+const queue = require( '@openagenda/queue' );
 
-  onError = require( '../00_errors' ).bind( null, 'aggregator' ),
+const config = require( '../../config' );
+const evaluate = require( './lib/evaluate' );
+const isAggregator = require( './lib/isAggregator' );
+const notify = require( './lib/notify' );
+const sources = require( './lib/sources' );
+const task = require( './lib/task' );
 
-  notify = require( './lib/notify' ),
+const onError = require( '../00_errors' ).bind( null, 'aggregator' );
 
-  evaluate = require( './lib/evaluate' ),
+const q = queue( config.queues.aggregator, {
+  redis: config.redis,
+  schedulable: true,
+  onError
+} );
 
-  sources = require( './lib/sources' ),
-
-  task = require( './lib/task' ),
-
-  isAggregator = require( './lib/isAggregator' ),
-
-  queue = require( '@openagenda/queue' ),
-
-  q = queue( config.queues.aggregator, { 
-    redis: config.redis,
-    schedulable: true,
-    onError
-  } ),
-
-  pQ = queue( config.queues.aggregator + ':priority', {
-    redis: config.redis,
-    schedulable: true,
-    onError
-  } );
+const pQ = queue( config.queues.aggregator + ':priority', {
+  redis: config.redis,
+  schedulable: true,
+  onError
+} );
 
 module.exports = {
   isAggregator,

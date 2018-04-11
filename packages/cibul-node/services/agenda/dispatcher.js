@@ -55,8 +55,9 @@ module.exports = agenda => {
 
     let params = Object.assign( {
       refresh: true
-    }, options || {} );
+    }, options || {} );
 
+    // legacy
     log( 'agenda.%s.onEventPublish.%s' , agenda.id, event.id );
 
     aggregator.notifyPublish( event.id, agenda.id, !params.refresh /* mute */ );

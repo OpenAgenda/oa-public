@@ -55,7 +55,7 @@ function create( data, cb ) {
       values: { id: created.id }
     } );
 
-    get( { id: created.id }, cb );
+    get( { id: created.id }, cb );
 
   } );
 

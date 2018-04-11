@@ -37,7 +37,12 @@ module.exports = async ( agendaUid, eventUid ) => {
 
   }
 
-  result = await agendaEvents( agendaUid ).remove( eventUid, { transferToLegacy: true } );
+  result = await agendaEvents( agendaUid ).remove( eventUid, {
+    transferToLegacy: true,
+    context: {
+      legacy: false
+    }
+  } );
 
   if ( result.success ) {
 
@@ -47,7 +52,12 @@ module.exports = async ( agendaUid, eventUid ) => {
 
   if ( formSchemaId ) {
 
-    result = await custom( formSchemaId ).remove( eventUid, { transferToLegacy: true } );
+    result = await custom( formSchemaId ).remove( eventUid, {
+      transferToLegacy: true,
+      context: {
+        legacy: false 
+      } 
+    } );
 
     if ( result.success ) {
 
@@ -61,7 +71,7 @@ module.exports = async ( agendaUid, eventUid ) => {
 
   if ( !remaining.length || ( event.agendaUid === agendaUid ) ) {
 
-    result = await events.remove( { uid: eventUid }, { transferToLegacy: true } );
+    result = await events.remove( { uid: eventUid }, { transferToLegacy: true } );
 
     if ( result.success ) {
 

@@ -36,6 +36,9 @@ _onComplete,
 
 jobHandlers = {
   'index.resync' : _resync,
+  'legacy.es.event.create' : _publish( 'events' ),
+  'legacy.es.event.update' : _publish( 'events' ),
+  'legacy.es.event.remove' : _delete( 'events' ),
   'event.publish' : _publish( 'events' ),
   'event.create' : _publish( 'events' ),
   'event.delete' : _delete( 'events' ),

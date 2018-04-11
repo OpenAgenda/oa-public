@@ -2,12 +2,16 @@
 
 const _ = require( 'lodash' );
 const wn = require( 'when/node' );
-const mailer = require( '../mailer' );
+
 const agendasSvc = require( '@openagenda/agendas' );
-const oldEventSvc = require( '../event' );
+
+const coms = require( '../../lib/coms' );
+const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
-const mailContributor = require( '../event/instance/mailContributor' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
+const mailContributor = require( '../event/instance/mailContributor' );
+const mailer = require( '../mailer' );
+const oldEventSvc = require( '../event' );
 
 
 module.exports = async ( ae, context ) => {
@@ -15,12 +19,13 @@ module.exports = async ( ae, context ) => {
   log( 'created agenda-event %j', ae, { context } );
 
   _addToSearchIndex( ae );
-
+  
   // use context.userUid. will be null when nothing was specified at create
 
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
+  
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid, reviewId: agenda.id } );
-
+  
   if ( ae.state === 2 ) {
 
     mailContributor( event, agenda );
@@ -40,6 +45,22 @@ module.exports = async ( ae, context ) => {
     } );
 
   }
+
+
+  if ( context.legacy ) return;
+
+  /**
+   * Anything happening hear should not be triggered elsewhere by legacy parts of app
+   */
+  
+  coms.publish( config.mainChannel, {
+    name: 'legacy.es.event.create',
+    values: {
+      id: event.id,
+      type: 'create'
+    }
+  } );
+
 
 }
 

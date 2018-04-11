@@ -78,7 +78,7 @@ async function _prepare( agendaUid, options ) {
 
   let searchOptions = {
     detailed: cleanOptions.detailed,
-    extensions: [ 'contributor', 'state' ],
+    extensions: [ 'contributor', 'state', 'featured' ],
     aggregations: cleanOptions.aggregations
   };
   

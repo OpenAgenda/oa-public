@@ -80,7 +80,8 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
         validators,
         member: _.find( memberMap, m => m.uid === ae.userUid ),
         custom: custom ? custom.custom : null,
-        state: ae.state
+        state: ae.state,
+        featured: ae.featured
       } );
 
       return assembledItem;
@@ -113,13 +114,14 @@ async function item( agendaEvent ) {
     validators: await getCustomValidators( formSchemaId ),
     member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
     custom: await _getCustomData( formSchemaId, agendaEvent ),
-    state: agendaEvent.state
+    state: agendaEvent.state,
+    featured: agendaEvent.featured
   } );
 
 }
 
 
-function _item( { event, validators, member, custom, state } ) {
+function _item( { event, validators, member, custom, state, featured } ) {
 
   const decoration = {};
 
@@ -139,7 +141,7 @@ function _item( { event, validators, member, custom, state } ) {
 
   }
 
-  decoration.state = { $set: { code: state } };
+  decoration.state = { $set: { code: state, featured: !!featured } };
 
   return ih( event, decoration );
 

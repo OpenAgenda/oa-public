@@ -47,7 +47,10 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
   if ( clean.agendaEvent ) {
     
-    result = await agendaEvents( agendaUid ).update( updated.event.uid, clean.agendaEvent, { transferToLegacy: true } );
+    result = await agendaEvents( agendaUid ).update( updated.event.uid, clean.agendaEvent, { 
+      transferToLegacy: true, 
+      context: { legacy: false }
+    } );
 
     updated.agendaEvent = result.updated;
 
@@ -55,7 +58,10 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
   if ( clean.custom ) {
 
-    const result = await custom( formSchemaId ).update( updated.event.uid, clean.custom, { transferToLegacy: true } );
+    const result = await custom( formSchemaId ).update( updated.event.uid, clean.custom, {
+      transferToLegacy: true, 
+      context: { legacy: false } 
+    } );
 
     if ( result.success ) {
 
