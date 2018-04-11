@@ -45,7 +45,15 @@ module.exports = async ( alias, options ) => {
 
     let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
 
-    counts.indexed += bulkResult.items.length;
+    if ( bulkResult.errors ) {
+
+      console.log( JSON.stringify( bulkResult, null, 4 ) );
+
+    } else {
+
+      counts.indexed += bulkResult.items.length;
+
+    }
 
     offset += limit;
 

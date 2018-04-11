@@ -69,7 +69,7 @@ describe( 'event-search - unit: query.validate', function() {
 
   it( 'simple custom field search', () => {
 
-    let dsl = query( { 'custom.stand' : 'Hall A, S 123' }, {}, [ 'custom' ] );
+    let dsl = query( { 'custom.stand' : 'Hall A, S 123' }, {}, [ 'custom' ] );
 
     dsl.should.eql( {
       "sort": [

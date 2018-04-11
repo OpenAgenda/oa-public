@@ -18,6 +18,9 @@ const fieldMap = {
   },
   email: {
     type: 'keyword'
+  },
+  boolean: {
+    type: 'boolean'
   }
 }
 
@@ -25,7 +28,7 @@ module.exports = fields => {
 
   let parsed = {};
 
-  Object.keys( _.isObject( fields ) ? fields : {} ).forEach( f => {
+  Object.keys( _.isObject( fields ) ? fields : {} ).forEach( f => {
 
     parsed[ f ] = fieldMap[ fields[ f ].type ];
 
