@@ -20,7 +20,8 @@ module.exports = {
     inboxUser: 'inbox_user',
     conversation: 'conversation',
     inboxConversation: 'inbox_conversation',
-    message: 'message'
+    message: 'message',
+    messageAttachment: 'message_attachment'
   },
   types: {
     contribution_request: {

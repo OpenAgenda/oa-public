@@ -21,7 +21,7 @@ module.exports = {
     conversation: 'conversation',
     inboxConversation: 'inbox_conversation',
     message: 'message',
-    message_attachment: 'message_attachment'
+    messageAttachment: 'message_attachment'
   },
   defaultAction: {
     code: 'defaultAction',

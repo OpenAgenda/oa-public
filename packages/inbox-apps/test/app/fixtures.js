@@ -36,7 +36,7 @@ async function fix() {
     }, {
       table: config.schemas.inboxConversation,
       src: __dirname + '/../fixtures/inbox_conversation.data.sql'
-    } , {
+    }, {
       table: config.schemas.message,
       src: __dirname + '/../fixtures/message.data.sql'
     } ], { reset: false } );

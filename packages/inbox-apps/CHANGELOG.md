@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.61"></a>
+## <small>1.0.61 (2018-04-11)</small>
+
+
+
+
+
+**Note:** Version bump only for package @openagenda/inbox-apps
+
 <a name="1.0.60"></a>
 ## [1.0.60](https://bitbucket.org/openagenda/oa/compare/@openagenda/inbox-apps@1.0.59%0D@openagenda/inbox-apps@1.0.60) (2018-04-11)
 

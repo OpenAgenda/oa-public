@@ -182,7 +182,7 @@ export default class ConversationForm extends Component {
           getErrorLabel={getLabel}
           onKeyDown={e => {
             if ( e.keyCode === 13 && e.ctrlKey ) {
-              submit();
+              this.handleSubmit();
             }
           }}
           placeholder={getLabel( 'yourMessage' )}
