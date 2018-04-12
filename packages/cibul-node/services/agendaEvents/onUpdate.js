@@ -3,7 +3,7 @@
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-
+const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
@@ -31,5 +31,7 @@ module.exports = async ( before, after, context ) => {
       type: 'update'
     }
   } );
+
+  aggregator.notifyPublish( event.id, agenda.id );
 
 }

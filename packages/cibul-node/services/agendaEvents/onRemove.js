@@ -2,6 +2,8 @@
 
 const wn = require( 'when/node' );
 
+const agendasSvc = require( '@openagenda/agendas' );
+const aggregator = require( '../aggregator' );
 const eventSearch = require( '../eventSearch' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
@@ -23,7 +25,8 @@ module.exports = async ( ae, context ) => {
    * Anything happening hear should not be triggered elsewhere by legacy parts of app
    */
   
-  
+  const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
+
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
   
   coms.publish( config.mainChannel, {
@@ -33,5 +36,7 @@ module.exports = async ( ae, context ) => {
       type: 'remove'
     }
   } );
+
+  aggregator.notifyUnpublish( event.id, agenda.id );
 
 }

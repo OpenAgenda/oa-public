@@ -5,6 +5,7 @@ const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 
+const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
@@ -12,7 +13,6 @@ const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 const mailContributor = require( '../event/instance/mailContributor' );
 const mailer = require( '../mailer' );
 const oldEventSvc = require( '../event' );
-
 
 module.exports = async ( ae, context ) => {
 
@@ -61,6 +61,7 @@ module.exports = async ( ae, context ) => {
     }
   } );
 
+  aggregator.notifyPublish( event.id, agenda.id );
 
 }
 

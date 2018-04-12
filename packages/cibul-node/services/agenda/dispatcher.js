@@ -78,7 +78,7 @@ module.exports = agenda => {
 
     let params = Object.assign( {
       refresh: true
-    }, options || {} );
+    }, options || {} );
 
     log( 'agenda.%s.onEventUnpublish.%s', agenda.id, event.id );
 
@@ -102,7 +102,7 @@ module.exports = agenda => {
 
     let params = Object.assign( {
       refresh: true
-    }, options || {} );
+    }, options || {} );
 
     log( 'agenda.%s.onEventUpdate.%s', agenda.id, event.id );
 
