@@ -50,15 +50,6 @@ export default class Menu extends Component {
             {getLabel( 'myEvents' )}
           </Link>
         </li>
-        {[ 1, 2, 11258, 15453, 34577 ].includes( userId ) ? (
-          <li className="menu-item">
-            <a href="/admin/support">{getLabel( 'support' )}</a>
-          </li>
-        ): null}
-        {displayLegacyMessageTab && <li className="menu-item text-muted">
-          <a href={res.messages}>{getLabel( 'messages' )}</a>
-        </li>}
-        {/*<li className="menu-item"><a href={res.notifs}>{getLabel( 'notifications' )}</a></li>*/}
       </ul>
     );
 

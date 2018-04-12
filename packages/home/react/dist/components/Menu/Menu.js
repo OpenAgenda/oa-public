@@ -136,24 +136,6 @@ var Menu = _wrapComponent('Menu')((_dec = (0, _reactRedux.connect)(function (sta
             { to: prefix + '/events' },
             getLabel('myEvents')
           )
-        ),
-        [1, 2, 11258, 15453, 34577].includes(userId) ? _react3.default.createElement(
-          'li',
-          { className: 'menu-item' },
-          _react3.default.createElement(
-            'a',
-            { href: '/admin/support' },
-            getLabel('support')
-          )
-        ) : null,
-        displayLegacyMessageTab && _react3.default.createElement(
-          'li',
-          { className: 'menu-item text-muted' },
-          _react3.default.createElement(
-            'a',
-            { href: res.messages },
-            getLabel('messages')
-          )
         )
       );
     }
