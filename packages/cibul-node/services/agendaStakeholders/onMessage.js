@@ -22,7 +22,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 
   if ( stakeholder.deletedUser ) return cb();
 
-  agendas.get( stakeholder.agendaId, { includeImagePath: true }, ( err, agenda ) => {
+  agendas.get( stakeholder.agendaId, { includeImagePath: true, private: null }, ( err, agenda ) => {
 
     if ( err ) log( 'error', err );
 

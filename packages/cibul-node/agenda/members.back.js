@@ -338,7 +338,7 @@ function _sendMessage() {
 
     if ( !req.agendaInstance.data.credentials.invitationMessage ) {
 
-      return res.status( 400 ).json( { error: 'You don\'t have right to send message to all members' } );
+      return res.status( 400 ).json( { error: 'You don\'t have right to send message to multiple members' } );
 
     }
 
@@ -346,7 +346,8 @@ function _sendMessage() {
 
     stakeholdersMw.agenda( 'agendaInstance.data' ).message( {
       namespaces: {
-        message: 'body.message'
+        message: 'body.message',
+        query: 'query'
       },
       actionsCounterEqualZero: req.query.inactive ? true : null,
       deletedUser: false
