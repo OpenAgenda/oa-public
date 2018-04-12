@@ -551,26 +551,6 @@
     redux-form "^6.6.3"
     superagent "3.6.0"
 
-"@openagenda/react-utils@^3.0.0":
-  version "3.0.2"
-  resolved "https://registry.npmjs.org/@openagenda/react-utils/-/react-utils-3.0.2.tgz#ff31fca328c636ae2ed8987b9027bdce13ccb99f"
-  dependencies:
-    deep-extend "^0.4.1"
-    history "^3.3.0"
-    lodash "^4.17.4"
-    react-redux "^5.0.4"
-    react-router "^3.0.0"
-    react-router-redux "^4.0.8"
-    react-router-scroll "^0.4.2"
-    redux "^3.6.0"
-    redux-connect "^5.1.0"
-    redux-devtools "^3.4.0"
-    redux-devtools-dock-monitor "^1.1.2"
-    redux-devtools-inspector "^0.11.3"
-    redux-form "^7.2.0"
-    superagent "3.6.0"
-    verror "^1.10.0"
-
 "@openagenda/registration@^1.1.1":
   version "1.1.2"
   resolved "https://registry.npmjs.org/@openagenda/registration/-/registration-1.1.2.tgz#b504956fe8f8fe86190edbb705f56db2c35395a6"
@@ -1361,7 +1341,7 @@ axios@^0.18.0:
     follow-redirects "^1.3.0"
     is-buffer "^1.1.5"
 
-babel-cli@^6.16.0, babel-cli@^6.18.0, babel-cli@^6.26.0, babel-cli@^6.9.0:
+babel-cli@^6.16.0, babel-cli@^6.18.0, babel-cli@^6.24.1, babel-cli@^6.26.0, babel-cli@^6.9.0:
   version "6.26.0"
   resolved "https://registry.npmjs.org/babel-cli/-/babel-cli-6.26.0.tgz#502ab54874d7db88ad00b887a06383ce03d002f1"
   dependencies:
@@ -2093,7 +2073,7 @@ babel-plugin-transform-minify-booleans@^6.9.0:
   version "6.9.0"
   resolved "https://registry.npmjs.org/babel-plugin-transform-minify-booleans/-/babel-plugin-transform-minify-booleans-6.9.0.tgz#e36ceaa49aadcae70ec98bd9dbccb660719a667a"
 
-babel-plugin-transform-object-rest-spread@^6.16.0, babel-plugin-transform-object-rest-spread@^6.20.2, babel-plugin-transform-object-rest-spread@^6.22.0, babel-plugin-transform-object-rest-spread@^6.26.0:
+babel-plugin-transform-object-rest-spread@^6.16.0, babel-plugin-transform-object-rest-spread@^6.20.2, babel-plugin-transform-object-rest-spread@^6.22.0, babel-plugin-transform-object-rest-spread@^6.23.0, babel-plugin-transform-object-rest-spread@^6.26.0:
   version "6.26.0"
   resolved "https://registry.npmjs.org/babel-plugin-transform-object-rest-spread/-/babel-plugin-transform-object-rest-spread-6.26.0.tgz#0f36692d50fef6b7e2d4b3ac1478137a963b7b06"
   dependencies:
@@ -11226,6 +11206,15 @@ react-waypoint@^7.1.0, react-waypoint@^7.3.1:
 react@^16.0.0, react@^16.2.0:
   version "16.2.0"
   resolved "https://registry.npmjs.org/react/-/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+  dependencies:
+    fbjs "^0.8.16"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.npmjs.org/react/-/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"

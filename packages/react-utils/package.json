@@ -2,27 +2,20 @@
   "name": "@openagenda/react-utils",
   "version": "3.0.2",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/react-utils",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist -s",
-    "watch": "npm run build -- -w",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "version": "rimraf dist && npm run build && git add -A dist",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "clean": "rimraf dist",
+    "prepublishOnly": "yarn clean && yarn build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/react-utils.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/react-utils#readme",
   "peerDependencies": {
     "react": "15 || 16",
     "react-dom": "15 || 16"

@@ -14,3 +14,4 @@ yarn-error.log
 react/src/
 .babelrc
 test/
+testconfig.js

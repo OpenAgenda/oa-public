@@ -317,10 +317,10 @@ export function remove( id ) {
   };
 }
 
-export function sendMessage( data, inactive ) {
+export function sendMessage( data, query ) {
   return {
     types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
-    promise: ( client, { res } ) => client.post( res.sendMessage, { data, query: { inactive } } )
+    promise: ( client, { res } ) => client.post( res.sendMessage, { data, query } )
   };
 }
 
