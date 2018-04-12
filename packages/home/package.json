@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.0.15",
+  "version": "2.0.16",
   "description": "Oh la home",
   "repository": {
     "type": "git",
@@ -27,11 +27,11 @@
     "react-dom": "16 || 15"
   },
   "dependencies": {
-    "@openagenda/agendas": "^1.0.4",
+    "@openagenda/agendas": "^1.0.22",
     "@openagenda/date-range": "^2.1.0",
-    "@openagenda/dom-utils": "^2.0.4",
-    "@openagenda/events": "^1.1.7",
-    "@openagenda/labels": "^2.0.2",
+    "@openagenda/dom-utils": "^2.1.11",
+    "@openagenda/events": "^1.1.22",
+    "@openagenda/labels": "^2.0.63",
     "@openagenda/react-components": "^2.0.3",
     "@openagenda/react-form-components": "^2.0.0",
     "@openagenda/react-utils": "^2.0.0",
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.0",
-    "@openagenda/bs-templates": "^2.0.2",
+    "@openagenda/bs-templates": "^2.0.61",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^2.0.2",
     "babel-cli": "^6.16.0",
