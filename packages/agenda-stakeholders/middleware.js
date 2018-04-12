@@ -206,7 +206,8 @@ function agenda( namespace = 'agenda' ) {
       namespaces: {
         message: 'message',
         result: 'result',
-        context: 'context'
+        context: 'context',
+        query: 'query'
       },
       actionsCounterEqualZero: null,
       deletedUser: false,
@@ -216,10 +217,12 @@ function agenda( namespace = 'agenda' ) {
 
     return ( req, res, next ) => {
 
+      const query = _.pick( _.get( req, namespaces.query, {} ), [ 'search', 'credential' ] );
+
       service.agenda( _.get( req, namespace ).id )
 
         .message(
-          { actionsCounterEqualZero, deletedUser, id, userId },
+          Object.assign( {}, query, { actionsCounterEqualZero, deletedUser, id, userId } ),
           _.get( req, namespaces.message, '' ),
           _.get( req, namespaces.context, null ),
           ( err, result ) => {
