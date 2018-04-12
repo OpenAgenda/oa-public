@@ -1,4 +1,8 @@
-testconfig.js
-node_modules/*
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
 yarn-error.log
-.idea
+testconfig.js
+coverage/
+.cache/

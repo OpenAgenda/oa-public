@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/containers/index.js"],"names":["App","Agendas","Events"],"mappings":";;;;;;;;;;;;;;;;;;;;;QAAOA,G;QACAC,O;QACAC,M","file":"index.js","sourcesContent":["export App from './App/App';\nexport Agendas from './Agendas/Agendas';\nexport Events from './Events/Events';"]}

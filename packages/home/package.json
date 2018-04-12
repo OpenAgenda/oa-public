@@ -1,34 +1,27 @@
 {
   "name": "@openagenda/home",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "Oh la home",
-  "main": "service/index.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "mocha --compilers js:babel-core/register",
-    "build": "rimraf react/dist && babel react/src -d react/dist -s",
-    "preserve": "npm run build",
-    "serve": "node test/app",
-    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A react/dist",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
-  },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/home.git"
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/home#readme",
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/home",
+  "directories": {
+    "test": "test"
+  },
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "babel react/src -d react/dist -s",
+    "clean": "rimraf react/dist",
+    "preserve": "yarn clean && yarn build",
+    "serve": "node test/app",
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'yarn serve'",
+    "prepublishOnly": "yarn clean && yarn build"
+  },
   "peerDependencies": {
     "react": "16 || 15",
     "react-dom": "16 || 15"
