@@ -82,7 +82,7 @@ agendaRouter.get( '/conversations/:conversationId/messages.json',
       conversationId: 'params.conversationId',
       type: 'type',
       identifier: 'agenda.uid',
-      userUid: null
+      userUid: 'user.uid'
     },
     limit: 20
   } ),
