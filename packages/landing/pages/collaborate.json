@@ -1,0 +1,20 @@
+{
+  "keys": [
+    { "lang" : "fr", "key" : "agenda-collaboratif" },
+    { "lang" : "en", "key" : "collaborative-agenda" }
+  ],
+  "head" : {
+    "title" : "collaborateHeadTitle",
+    "description" : "collaborateDescription"
+  },
+  "layout": "layout",
+  "title": "collaborateTitle",
+  "description": "collaborateDescription",
+  "segments": [ {
+    "key": "stakeholders",
+    "background": "gray"
+  }, "network", {
+    "key": "moderators",
+    "background": "gray"
+  }, "testimony", "footer" ]
+}

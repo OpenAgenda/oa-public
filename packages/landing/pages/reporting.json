@@ -1,0 +1,20 @@
+{
+  "keys" : [
+    { "lang" : "en", "key" : "your-reporting" },
+    { "lang" : "fr", "key" : "votre-reporting" }
+  ],
+  "head" : {
+    "title" : "reportingToolDescription",
+    "description" : "reportingToolDescription"
+  },
+  "title": "reportingToolTitle",
+  "description": "reportingToolDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key" : "customized",
+    "background" : "white"
+  }, {
+    "key" : "private",
+    "background" : "gray" 
+  }, "testimony", "footer" ]
+}

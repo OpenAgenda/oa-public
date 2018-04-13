@@ -1,0 +1,17 @@
+{
+  "keys" : [
+    { "lang" : "en", "key" : "build-your-network" },
+    { "lang" : "fr", "key" : "construisez-votre-reseau" }
+  ],
+  "head" : {
+    "title" : "buildNetworkHeadTitle",
+    "description" : "buildNetworkDescription"
+  },
+  "layout": "layout",
+  "title": "buildNetworkTitle",
+  "description": "buildNetworkDescription",
+  "segments": [ "network", {
+    "key": "opendata", 
+    "background": "gray"
+  }, "exports", "footer" ]
+}

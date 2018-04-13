@@ -1,0 +1,79 @@
+{
+  "template": "footer",
+  "offers": {
+    "title": "footerOffers",
+    "list": [ {
+      "link": "#agenda-pricing",
+      "label": "footerAgendaPricing"
+    }, {
+      "link": "#network-pricing",
+      "label": "footerNetworkPricing"
+    } ]
+  },
+  "more": {
+    "title": "footerMore",
+    "list": [ {
+      "link": "#broadcast",
+      "label": "exportsBroadcastTitle"
+    }, {
+      "link": "#buildnetwork",
+      "label": "buildNetworkTitle"
+    }, {
+      "link": "#collaborate",
+      "label": "collaborateTitle"
+    }, {
+      "link": "#reporting",
+      "label": "reportingToolTitle"
+    } ]
+  },
+  "service": {
+    "title" : "footerService",
+    "list" : [ {
+      "link" : "https://openagenda.zendesk.com/hc/fr/articles/202295681-Les-r%C3%A9utilisateurs-de-la-base-OpenAgenda",
+      "label" : "footerReuse"
+    }, {
+      "link" : "#testimonies",
+      "label" : "footerTestimonies"
+    }, {
+      "link" : "https://openagenda.zendesk.com/hc/fr",
+      "label" : "footerApi"
+    }, {
+      "link" : "https://openagenda.zendesk.com/hc/fr/articles/201753991",
+      "label" : "footerTerms"
+    } ]
+  },
+  "contact" : {
+    "title" : "footerContactUs",
+    "list": [ {
+        "link" : "#contactus",
+        "label" : "footerContactForm"
+      }, {
+        "label" : "29 passage du Ponceau, 75002 Paris",
+        "link" : "https://goo.gl/maps/2JYWje3wbqB2"
+      }, {
+      "ul" : [ {
+        "link" : "https://twitter.com/OAgenda",
+        "icon" : "fa fa-twitter-square fa-lg"
+      }, {
+        "link" : "https://www.instagram.com/openagenda/",
+        "icon" : "fa fa-instagram fa-lg"
+      }, {
+        "link" : "https://www.facebook.com/oagenda",
+        "icon" : "fa fa-facebook-square fa-lg"
+      }, {
+        "link" : "https://www.linkedin.com/company/openagenda",
+        "icon" : "fa fa-linkedin-square fa-lg"
+      }, {
+        "link" : "https://github.com/Oagenda",
+        "icon" : "fa fa-github-square fa-lg"
+      } ]
+    }, {
+      "form" : {
+        "link" : "/newsletter/subscribe",
+        "placeholder" : "footerContactEmail",
+        "button" : "footerContactSubscribe"
+      }
+    } ]
+  },
+  "bottom" : [ "footerPriceComment" ]
+}

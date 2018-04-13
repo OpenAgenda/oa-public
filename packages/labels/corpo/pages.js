@@ -143,6 +143,10 @@ module.exports = {
     fr: 'Agenda basique',
     en: 'Basic Agenda'
   }, 
+  pricingTitle: {
+    fr: 'Tarifs',
+    en: 'Pricing'
+  },
   agendaPricingTitle: {
     fr: 'Offres agenda',
     en: 'Agenda offers'
@@ -150,6 +154,10 @@ module.exports = {
   agendaPricingDescription: {
     fr: 'Tarifs pour un agenda',
     en: 'Pricing for one agenda'
+  },
+  pricingDescription: {
+    fr: 'Toutes les offres',
+    en: 'All pricings'
   },
   networkPricingTitle: {
     fr: 'Offres réseaux d\'agendas',

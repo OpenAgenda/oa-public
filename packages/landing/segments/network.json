@@ -1,0 +1,12 @@
+{
+  "template": "basic",
+  "title": "networkTitle",
+  "points": [
+    "networkInterconnected",
+    "networkEvolving",
+    "networkSupport",
+    "networkExport"
+  ],
+  "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/francenetwork.png",
+  "imageWidth" : 300
+}

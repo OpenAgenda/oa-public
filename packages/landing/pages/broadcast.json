@@ -1,0 +1,27 @@
+{
+  "keys" : [ {
+    "lang" : "en", "key" : "broadcast-your-events"
+  }, {
+    "lang" : "fr", "key" : "diffusez-vos-evenements"
+  } ],
+  "head" : {
+    "title" : "broadcastHeadTitle",
+    "description" : "broadcastHeadDescription"
+  },
+  "title": "exportsBroadcastTitle",
+  "description": "exportsBroadcastDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key" : "opendata",
+    "background" : "gray"
+  }, {
+    "key": "customembed",
+    "background": "white"
+  }, {
+    "key": "exports",
+    "background": "gray"
+  }, {
+    "key": "private",
+    "background": "white"
+  }, "footer" ]
+}

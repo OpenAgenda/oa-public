@@ -1,0 +1,10 @@
+{
+  "template": "basic",
+  "title": "customEmbedTitle",
+  "points": [
+    "customEmbed",
+    "customEmbedSearch",
+    "customEmbedFeatured",
+    "customEmbedTemplates"
+  ]
+}

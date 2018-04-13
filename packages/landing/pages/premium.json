@@ -1,0 +1,45 @@
+{
+  "keys": [
+    { "lang" : "en", "key" : "premium-agenda" },
+    { "lang" : "fr", "key" : "agenda-premium" }
+  ],
+  "head" : {
+    "title": "premiumOfferHeadTitle",
+    "description": "premiumOfferDescription"
+  },
+  "title": "premiumOfferTitle",
+  "description": "premiumOfferDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key": "startwith",
+    "title": "startWithFree"
+  }, {
+    "key": "premiumSummary"
+  }, {
+    "key": "customized",
+    "background": "gray"
+  }, {
+    "key": "boundaries",
+    "background": "white"
+  }, {
+    "key": "customembed", 
+    "background": "gray"
+  }, {
+    "key": "private",
+    "background": "white"
+  }, {
+    "key": "validationcircuit",
+    "background": "dark-purple"
+  }, {
+    "key": "moderators",
+    "background": "gray"
+  }, {
+    "key": "testimony",
+    "background" : "white",
+    "action" : {
+      "title" : "contactUsTitle",
+      "link" : "#contactus",
+      "label" : "contactUsLabel"
+    }
+  }, "footer" ]
+}

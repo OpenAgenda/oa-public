@@ -1,0 +1,11 @@
+{
+  "template": "basic",
+  "title": "exportsTitle",
+  "points": [
+    "exportsFormats",
+    "exportsFiltered",
+    "exportsReuse",
+    "exportsNetworkable"
+  ],
+  "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/Export sans moustaches.jpg"
+}

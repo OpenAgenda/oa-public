@@ -1,0 +1,14 @@
+{
+  "template": "basic",
+  "title": "expertiseTitle",
+  "points": [
+    "expertiseOperationalSupport",
+    "expertiseEditorialGuide",
+    "expertiseDeploy",
+    "expertiseAnimation",
+    "expertiseModeration",
+    "expertiseReporting",
+    "expertiseTraining",
+    "expertiseContentPromotion"
+  ]
+}

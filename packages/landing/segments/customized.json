@@ -1,0 +1,8 @@
+{
+  "template": "basic",
+  "title": "customizedTitle",
+  "points": [
+    "customizedChoice",
+    "customizedExportable"
+  ]
+}

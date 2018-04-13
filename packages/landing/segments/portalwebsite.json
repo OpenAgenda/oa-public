@@ -1,0 +1,9 @@
+{
+  "template" : "basic",
+  "title" : "portalTitle",
+  "points" : [
+    "portalTailored",
+    "portalSearch",
+    "portalContent"
+  ]
+}

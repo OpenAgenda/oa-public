@@ -1,0 +1,8 @@
+{
+  "template": "basic",
+  "title": "moderatorTitle",
+  "points": [
+    "moderatorRights",
+    "moderatorTweaks"
+  ]
+}
