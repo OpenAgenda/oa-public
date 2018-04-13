@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const fs = require( 'fs' );
 
-const segments = require( '../' );
+const segments = require( '../segment-pages' );
 
 const should = require( 'should' );
 
