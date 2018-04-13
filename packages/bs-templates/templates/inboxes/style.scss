@@ -53,6 +53,7 @@
 
   .inbox-head {
     padding-bottom: 20px;
+    word-break: break-word;
 
     .inbox-breadcrumbs {
       padding-bottom: 0;
@@ -145,6 +146,7 @@
 
     .media-body {
       overflow: visible;
+      word-break: break-word;
 
       .conversation-item-message {
         border-left: 3px solid $oa-blue;

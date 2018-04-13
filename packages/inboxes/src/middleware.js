@@ -101,7 +101,8 @@ export const conversations = {
         params: 'conversationParams',
         message: 'body.message',
         creatorInboxUser: 'creatorInboxUser',
-        options: 'options'
+        options: 'options',
+        userUid: 'user.uid'
       }
     }, options );
 
@@ -118,10 +119,15 @@ export const conversations = {
         typeIdentifier: _.get( req, namespaces.conversationTypeIdentifier )
       } );
 
-      const conversation = await Inboxes( {
-        type: _.get( req, namespaces.type ),
-        identifier: parseInt( _.get( req, namespaces.identifier ) ),
-      } ).conversations.create(
+      const conversations = await new Conversations( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: await Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } );
+
+      const conversation = await conversations.create(
         {
           ...data,
           ...optionalData
