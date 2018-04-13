@@ -144,7 +144,7 @@ module.exports = {
     en: 'Basic Agenda'
   }, 
   pricingTitle: {
-    fr: 'Offres',
+    fr: 'Tarifs',
     en: 'Pricing'
   },
   agendaPricingTitle: {
