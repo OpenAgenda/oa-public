@@ -20,14 +20,18 @@ module.exports = text => {
 
     linkValidate( text );
 
-  } catch ( e ) { markIt = false; }
+    markIt = false;
+
+  } catch ( e ) {  }
 
   // if is a bare email, do not treat as markdown
   try {
 
     emailValidate( text );
 
-  } catch ( e ) { markIt = false; }
+    markIt = false;
+
+  } catch ( e ) { }
 
   if ( !markIt ) return text;
 
