@@ -21,7 +21,7 @@ module.exports = config => {
     return {
       key: f.key,
       defaults: f,
-      render: pug.render.bind( null, params.templates[ f.template ] )
+      render: pug.render.bind( null, params.templates[ f.template ] )
     }
 
   } );
