@@ -87,6 +87,10 @@ module.exports = {
     fr: 'Inviter des membres',
     en: 'Invite members'
   },
+  invite: {
+    fr: 'Inviter',
+    en: 'Invite'
+  },
   inviteMembersPlaceholder: {
     fr: 'Collez ici les adresses email des nouveaux membres, séparées par des virgules',
     en: 'Paste here the email addresses of new members, separated by commas'
@@ -227,6 +231,10 @@ module.exports = {
     fr: 'Envoyer le message',
     en: 'Send message'
   },
+  sendMessageToMembers: {
+    fr: 'Envoyer un message aux membres',
+    en: 'Send a message to the members'
+  },
   sendMessageToAll: {
     fr: 'Envoyer un message à tous les membres',
     en: 'Send a message to all members'
@@ -262,5 +270,13 @@ module.exports = {
   moreinfoDeleted: {
     fr: 'Membre ayant supprimé son compte utilisateur',
     en: 'Member that has deleted his/her user account'
-  }
+  },
+  writeToHim: {
+    fr: 'Lui écrire',
+    en: 'Write to him'
+  },
+  writeToThem: {
+    fr: 'Leur écrire',
+    en: 'Write to them'
+  },
 };

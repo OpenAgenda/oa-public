@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import upperFirst from 'lodash/upperFirst';
-import { DropdownButton, MenuItem } from 'react-bootstrap';
+import { ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -333,54 +333,33 @@ export default class Dashboard extends Component {
           {getLabel( 'members' )}
 
           <div className="pull-right">
-            <DropdownButton bsStyle='default' title={getLabel( 'actions' )} id='dropdown-actions' pullRight>
-              <MenuItem onClick={() => showModal( 'inviteMembers' )}>{getLabel( 'inviteMembers' )}</MenuItem>
-              {/* <MenuItem>Importer des contributeurs</MenuItem> */}
-              {credentials.invitationMessage && <MenuItem divider/>}
+            <div className="btn-group">
+              <DropdownButton title="Exporter" id="nested-export-dropdown">
+                <MenuItem href={res.exportToXlsx}>XLSX</MenuItem>
+                <MenuItem href={res.exportToCsv}>CSV</MenuItem>
+              </DropdownButton>
 
-              {credentials.invitationMessage &&
-              <MenuItem onClick={() => showModal( 'writeToMembers' )}>
-                {getLabel( 'sendMessageToAll' )}
-              </MenuItem>}
-              {credentials.invitationMessage &&
-              <MenuItem onClick={() => showModal( 'writeToMembers', { inactive: true } )}>
-                {getLabel( 'sendMessageToInactives' )}
-              </MenuItem>}
+              <Button onClick={() => showModal( 'inviteMembers' )}>
+                {getLabel( 'invite' )}
+              </Button>
 
-              {!credentials.invitationMessage &&
-              <MenuItem
-                className="icon-hoverable"
-                onClick={() => openRequestForm( { lang, subject: 'writeToAll', agenda: agenda.slug } )}
-              >
-                <i className="golden-icon"></i>{' '}{getLabel( 'sendMessageToAll' )}
-              </MenuItem>}
-
-              {!credentials.invitationMessage &&
-              <MenuItem
-                className="icon-hoverable"
-                onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}
-              >
-                <i className="golden-icon"></i>{' '}{getLabel( 'nameModerators' )}
-              </MenuItem>}
-
-              <MenuItem divider/>
-              <MenuItem href={res.exportToXlsx}>{getLabel( 'exportToXlsx' )}</MenuItem>
-              <MenuItem href={res.exportToCsv}>{getLabel( 'exportToCsv' )}</MenuItem>
-            </DropdownButton>
+              {!credentials.invitationMessage && (
+                <DropdownButton
+                  id="nested-more-dropdown"
+                  title={<i className="fa fa-ellipsis-v" aria-hidden="true"></i>}
+                  pullRight
+                  noCaret
+                >
+                  <MenuItem
+                    onClick={() => openRequestForm( { lang, subject: 'moderators', agenda: agenda.slug } )}
+                  >
+                    <i className="golden-icon"></i>{' '}{getLabel( 'nameModerators' )}
+                  </MenuItem>
+                </DropdownButton>
+              )}
+            </div>
           </div>
         </h2>
-
-        <p>
-          {getLabel( 'total' )}: <strong>{stats.total || 0}</strong>
-          {( // if there is a search or filter(s)
-            (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
-            || (((credFilters && credFilters.length) || (!!search && search === location.query.search)) && !loading)
-          ) ? (
-            <span className="margin-left-sm">
-              {getLabel( 'searchResult' )}: {total} {getLabel( total <= 1 ? 'member' : 'members' ).toLowerCase()}
-            </span>
-          ) : null}
-        </p>
 
         <ul className="nav nav-pills" role="tablist">
           {/* <li role="presentation" className={classNames( { active: !credFilters.length } )}>
@@ -411,6 +390,34 @@ export default class Dashboard extends Component {
         {/* total > 0 && <div className="margin-v-md">
           {getLabel( 'result' )}: {total} {getLabel( 'members' ).toLowerCase()}
         </div> */}
+
+        <div className="margin-v-md">
+          {getLabel( 'total' )}: <strong>{stats.total || 0}</strong>
+
+          {( // if there is a search or filter(s)
+            (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
+            || (((credFilters && credFilters.length) || (!!search && search === location.query.search)) && !loading)
+          ) ? (
+            <span className="margin-left-sm">
+              {getLabel( 'result' )}: <strong>{total}</strong> {getLabel( total <= 1 ? 'member' : 'members' ).toLowerCase()}
+            </span>
+          ) : null}
+
+          {total > 0 ? <button
+            className="btn btn-default btn-medium margin-left-sm"
+            onClick={() => {
+              if ( credentials.invitationMessage ) {
+                return showModal( 'writeToMembers', {
+                  query: { search: search || undefined, credentials: credFilters }
+                } );
+              }
+              return openRequestForm( { lang, subject: 'writeToAll', agenda: agenda.slug } );
+            }}
+          >
+              {credentials.invitationMessage ? null : <Fragment><i className="golden-icon"></i>{' '}</Fragment>}
+              {getLabel( total > 1 ? 'writeToThem' : 'writeToHim' )}
+          </button> : null}
+        </div>
 
         <div>
           {stakeholders && stakeholders.map( s => this.renderStakeholder( s ) )}
@@ -520,7 +527,7 @@ export default class Dashboard extends Component {
         </Modal>}
 
         {writeToMembersModal.visible && <Modal
-          title={getLabel( writeToMembersModal.inactive ? 'sendMessageToInactives' : 'sendMessageToAll' )}
+          title={getLabel( 'sendMessageToMembers' )}
           visible={writeToMembersModal.visible || false}
           onClose={() => closeModal( 'writeToMembers' )}
           classNames={{
@@ -528,7 +535,7 @@ export default class Dashboard extends Component {
           }}
         >
           {!writeToMembersModal.confirmation
-            ? <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.inactive )
+            ? <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.query )
               .then( result => {
                 if ( result.error && result.error instanceof SubmissionError ) {
                   throw new SubmissionError( result.error.errors );

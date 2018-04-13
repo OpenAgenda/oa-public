@@ -1,0 +1,83 @@
+{
+  "name": "@openagenda/home",
+  "version": "2.0.16",
+  "description": "Oh la home",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/home",
+  "directories": {
+    "test": "test"
+  },
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register",
+    "build": "babel react/src -d react/dist -s",
+    "clean": "rimraf react/dist",
+    "preserve": "yarn clean && yarn build",
+    "serve": "node test/app",
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'yarn serve'",
+    "prepublishOnly": "yarn clean && yarn build"
+  },
+  "peerDependencies": {
+    "react": "16 || 15",
+    "react-dom": "16 || 15"
+  },
+  "dependencies": {
+    "@openagenda/agendas": "^1.0.22",
+    "@openagenda/date-range": "^2.1.0",
+    "@openagenda/dom-utils": "^2.1.11",
+    "@openagenda/events": "^1.1.22",
+    "@openagenda/labels": "^2.0.63",
+    "@openagenda/react-components": "^2.0.3",
+    "@openagenda/react-form-components": "^2.0.0",
+    "@openagenda/react-utils": "^2.0.0",
+    "async": "^2.4.0",
+    "babel-runtime": "^6.26.0",
+    "classnames": "^2.2.5",
+    "knex": "^0.12.6",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "mysql": "^2.11.1",
+    "prop-types": "^15.5.8",
+    "react-bootstrap": "^0.31.0",
+    "react-redux": "^4.4.5",
+    "react-router": "^3.0.5",
+    "react-router-redux": "^4.0.6",
+    "react-waypoint": "^7.1.0",
+    "redux": "^3.6.0",
+    "redux-connect": "^5.1.0",
+    "redux-form": "^6.1.1",
+    "superagent": "^2.3.0"
+  },
+  "devDependencies": {
+    "@openagenda/agenda-stakeholders": "^2.0.0",
+    "@openagenda/bs-templates": "^2.0.61",
+    "@openagenda/fixtures": "^2.0.1",
+    "@openagenda/test-app": "^2.0.2",
+    "babel-cli": "^6.16.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-transform-class-properties": "^6.16.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-export-extensions": "^6.8.0",
+    "babel-plugin-transform-function-bind": "^6.8.0",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-plugin-transform-react-display-name": "^6.8.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.16.0",
+    "express": "^4.14.0",
+    "husky": "^0.14.1",
+    "morgan": "^1.7.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-transform-catch-errors": "^1.0.2",
+    "redbox-react": "^1.3.1",
+    "rimraf": "^2.6.2",
+    "should": "^11.1.1"
+  }
+}

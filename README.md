@@ -4,17 +4,17 @@ The OA javascript mono repo.
 
 To add a repo from any other place to here, one must:
 
- * run `lerna import <local-path-to-external-repository>`
+ * run `lerna import <local-path-to-external-repository> --flatten`
  * if that doesn't work, just move the folder and delete the .git file
  * in the repo of the imported lib, set as title and commit "LAST COMMIT, lib moved to oa repo"
  * remove `yarn release:<type>` scripts
- * move test (if exist) on preversion script
+ * remove test script from preversion script if exist
  * move build (if exist) on prepublishOnly script
  * add lib (or output build) directory to .gitignore
  * remove yarn.lock files in packages/*
  * fix `repository` and `homepage` in package.json
 
-## <a name="commit"></a> Commit Message Guidelines
+## Commit Message Guidelines
 
 We have very precise rules over how our git commit messages can be formatted.  This leads to **more
 readable messages** that are easy to follow when looking through the **project history**.  But also,
