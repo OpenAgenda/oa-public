@@ -10621,7 +10621,8 @@ button.uppy-StatusBar-statusIndicator {
       font-weight: bold;
       padding: 0 10px; }
   .inbox .inbox-head {
-    padding-bottom: 20px; }
+    padding-bottom: 20px;
+    word-break: break-word; }
     .inbox .inbox-head .inbox-breadcrumbs {
       padding-bottom: 0; }
     .inbox .inbox-head .inbox-actions {
@@ -10668,7 +10669,8 @@ button.uppy-StatusBar-statusIndicator {
         right: 10px;
         top: 40px; }
     .inbox .media .media-body {
-      overflow: visible; }
+      overflow: visible;
+      word-break: break-word; }
       .inbox .media .media-body .conversation-item-message {
         border-left: 3px solid #41acdd;
         padding-left: 8px; }
