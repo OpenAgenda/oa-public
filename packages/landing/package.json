@@ -4,11 +4,7 @@
   "description": "Project to speed up configuration of corpo static pages",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "@openagenda/labels": "^2.0.7",
