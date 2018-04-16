@@ -26,6 +26,7 @@ import validate from '../../lib/validate';
 import CountryField from './CountryField';
 import LocationMap from './LocationMap';
 import StateToggler from './StateToggler';
+import suggestionHelpers from './suggestions.helpers.js';
 
 const _ = {
   extend: require( 'lodash/extend' ),
@@ -179,6 +180,13 @@ module.exports = createReactClass( {
 
   },
 
+  isFieldEnabled( name ) {
+
+    if ( !this.props.disableNoAlternatives ) return true;
+
+    return suggestionHelpers.fieldHasAlternative( name, this.props.alternatives );
+
+  },
 
   getMultilingual( field ) {
 
@@ -637,6 +645,144 @@ module.exports = createReactClass( {
 
   },
 
+  renderAlternative( fieldName, pasteNames ) {
+
+    log( 'renderAlternative - field %s', fieldName );
+
+    if ( !this.props.alternatives || !this.props.alternatives.length ) {
+
+      return null;
+
+    }
+
+    const items = this.props.alternatives
+
+      .map( ( l, i ) => {
+
+        if ( !l.location[ fieldName ] ) return null;
+
+        let value = l.location[ fieldName ];
+
+        if ( utils.isArray( value ) ) {
+
+          value = value.join( ', ' );
+
+        } else if ( value && typeof value === 'object' && !utils.size( value ) ) {
+
+          return null;
+
+        }
+
+        return <li key={fieldName + i}>
+          {l.label ? <label>{l.label}</label> : null}
+          <a onClick={e => this.actions.loadAlternative( this.props.alternatives, fieldName, i, pasteNames )}>
+            {value.length > alternativeMaxLength ? value.substr( 0, alternativeMaxLength ) + '...' : value}
+          </a>
+        </li>
+
+      } )
+      .filter( v => !!v );
+
+    return items.length ? (
+      <div className="alternatives">
+        <ul>{items}</ul>
+      </div>
+    ) : null;
+
+  },
+
+  renderMultilingualAlternatives( fieldName, pasteNames ) {
+
+    return lang => {
+
+      const items = this.props.alternatives
+
+        .map( ( l, i ) => {
+
+          if ( !l.location[ fieldName ] || !l.location[ fieldName ][ lang ] ) {
+
+            return null;
+
+          }
+
+          let lValue = l.location[ fieldName ] && typeof l.location[ fieldName ] === 'object' ? ( l.location[ fieldName ][ lang ] || '' ) : '';
+
+          return <li key={fieldName + lang + i}>
+            {l.label ? <label>{l.label}</label> : null}
+            <a
+              onClick={e => this.actions.loadAlternative( this.props.alternatives, fieldName, i, lang, pasteNames )}>
+              {lValue.length > alternativeMaxLength ? lValue.substr( 0, alternativeMaxLength ) + '...' : lValue}
+            </a>
+          </li>
+
+        } )
+        .filter( v => !!v );
+
+      return items.length ? (
+        <div className="alternatives">
+          <ul>{items}</ul>
+        </div>
+      ) : null;
+
+    }
+
+  },
+
+  /**
+   * render an alternative to tag when at least one alternative
+   * differs from location main
+   */
+  renderTagAlternative( tag, groupIndex, tagIndex ) {
+
+    let differentAlternatives = suggestionHelpers.suggestedTagsDiffer( tag, this.props.location, this.props.alternatives );
+
+    if ( !differentAlternatives.length ) {
+
+      return null;
+
+    }
+
+    let isInLocation = !!( this.props.location.tags || [] ).filter( t => t.id === tag.id ).length,
+
+      alternative = differentAlternatives[ 0 ];
+
+    return <div className="alternatives checkbox-alternatives">
+      <ul>
+        <li>
+          {alternative.label ? <label>{alternative.label} </label> : null}
+          <a onClick={e => this.actions.loadTagAlternative( tag, !isInLocation )}>
+            <i className={isInLocation ? 'fa fa-square-o' : 'fa fa-check-square-o'}></i> <span>{tag.label}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  },
+
+  renderImageAlternatives() {
+
+    const items = this.props.alternatives
+
+      .map( ( a, i ) => {
+
+        if ( !a.location.image ) return null;
+
+        return <li
+          key={'image' + i}
+          onClick={e => this.actions.loadAlternative( this.props.alternatives, 'image', i )}
+        ><img src={a.location.image} /></li>
+
+      } )
+      .filter( v => !!v );
+
+    return items.length ? (
+      <div className="alternatives image-alternatives">
+        <ul>{items}</ul>
+      </div>
+    ) : null;
+
+  },
+
   renderErrors() {
 
     let errors = this.state.errors.filter( e => {
@@ -723,9 +869,10 @@ module.exports = createReactClass( {
 
     return <div>
 
-      <div className="form-group">
+      <div className={this.isFieldEnabled( 'image' ) ? 'form-group' : 'form-group disabled'}>
 
         <ImageUpload
+          enabled={this.isFieldEnabled( 'image' )}
           value={value}
           upload={uploadRes}
           remove={removeRes}
@@ -739,18 +886,21 @@ module.exports = createReactClass( {
               }
             } ) );
 
-          }} />
+          }}
+          bottom={this.renderImageAlternatives()} />
 
       </div>
 
       <InputField
         name='imageCredits'
+        enabled={this.isFieldEnabled( 'imageCredits' )}
         value={this.state.location.imageCredits}
         getLabel={this.getLabel}
         lang={this.props.lang}
         info="imageCreditsInfo"
         placeholder="imageCreditsPlaceholder"
         onChange={this.onChange}
+        bottom={this.renderAlternative( 'imageCredits' )}
         validator={validate.field( 'imageCredits' )} />
 
       <div className="multilingual-group">
@@ -766,54 +916,64 @@ module.exports = createReactClass( {
 
         <MultilingualInputField
           name='description'
+          enabled={this.props.disableNoAlternatives ? suggestionHelpers.getLangAlternatives( 'description', this.props.alternatives ) : null}
           value={this.getMultilingual( 'description' )}
           languages={this.getLanguages()}
           getLabel={this.getLabel}
           onChange={this.onChange}
           placeholder={this.getLabel( 'descriptionPlaceholder' )}
           info={this.getLabel( 'descriptionInfo' )}
+          bottom={this.renderMultilingualAlternatives( 'description' )}
           type="textarea" />
 
         <MultilingualInputField
           name='access'
+          enabled={this.props.disableNoAlternatives ? suggestionHelpers.getLangAlternatives( 'access', this.props.alternatives ) : null}
           value={this.getMultilingual( 'access' )}
           languages={this.getLanguages()}
           getLabel={this.getLabel}
           onChange={this.onChange}
           placeholder={this.getLabel( 'accessPlaceholder' )}
           info={this.getLabel( 'accessInfo' )}
+          bottom={this.renderMultilingualAlternatives( 'access' )}
           type="text" />
 
       </div>
 
       <InputField
         name='phone'
+        enabled={this.isFieldEnabled( 'phone' )}
         value={this.state.location.phone}
         getLabel={this.getLabel}
         lang={this.props.lang}
         onChange={this.onChange}
         info="phoneInfo"
         placeholder="phonePlaceholder"
+        bottom={this.renderAlternative( 'phone' )}
         validator={validate.field( 'phone' )} />
 
       <InputField
         name='website'
+        enabled={this.isFieldEnabled( 'website' )}
         value={this.state.location.website}
         getLabel={this.getLabel}
         lang={this.props.lang}
         info="websiteInfo"
         placeholder="websitePlaceholder"
         onChange={this.onChange}
+        bottom={this.renderAlternative( 'website' )}
         validator={validate.field( 'website' )} />
 
       <MultiInputField
         name="links"
+        enabled={this.isFieldEnabled( 'links' )}
         info={this.getLabel( 'linksInfo' )}
         placeholder={this.getLabel( 'linksPlaceholder' )}
         value={this.state.location.links}
         getLabel={this.getLabel}
         lang={this.props.lang}
         onChange={this.onChange}
+        bottom={this.renderAlternative( 'links' )}
         validator={validate.field( 'links' )} />
 
 
@@ -824,6 +984,8 @@ module.exports = createReactClass( {
           name='tags'
           set={this.props.settings.tagSet}
           onChange={this.onChange}
+          tagBottom={this.renderTagAlternative}
+          disabledTagIds={this.props.disableNoAlternatives ? suggestionHelpers.getSameAsSuggestedTagIds( this.props.settings.tagSet, this.props.location, this.props.alternatives ) : []}
           value={this.state.location.tags || []}/>
 
         : null}
@@ -860,17 +1022,18 @@ module.exports = createReactClass( {
 
       <InputField
         name="name"
-        enabled={true}
+        enabled={this.isFieldEnabled( 'name' )}
         value={this.state.location.name}
         info="nameInfo"
         placeholder="namePlaceholder"
         getLabel={this.getLabel}
         lang={this.props.lang}
         onChange={this.onChange}
-        validator={validate.field( 'name' )} />
+        validator={validate.field( 'name' )}
+        bottom={this.renderAlternative( 'name' )} />
 
       <CountryField
-        enabled={true}
+        enabled={this.isFieldEnabled( 'countryCode' )}
         value={this.state.location.countryCode}
         lang={this.props.lang}
         onChange={this.onChange}
@@ -889,11 +1052,12 @@ module.exports = createReactClass( {
         className="input-group"
         errors={this.state.geocodeError ? [ { code: 'geocodeError' } ] : false}
         renderButton={this.renderGeocodeButton}
+        bottom={this.renderAlternative( 'address', [ 'address', 'countryCode', 'latitude', 'longitude', 'region', 'department', 'city', 'postalCode', 'timezone' ] )}
         autoFocus={!!this.state.location.name} />
 
-      <div className="form-group">
+      <div className={this.isFieldEnabled( 'latitude' ) ? 'form-group' : 'form-group disabled'}>
         <LocationMap
-          enabled={true}
+          enabled={this.isFieldEnabled( 'latitude' )}
           resetZoom={this.state.autoGeocode}
           location={this.state.location}
           draggableMarker={true}
