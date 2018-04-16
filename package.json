@@ -15,24 +15,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/react",
-      "**/react-dom",
-      "**/redbox-react",
-      "**/create-react-class",
-      "**/create-react-class/**",
-      "**/rc-switch",
-      "**/rc-switch/**",
-      "**/font-awesome",
-      "**/uppy",
-      "**/uppy/**",
-      "**/uppy-server",
-      "**/uppy-server/**",
-      "**/fetch",
-      "**/fetch/**",
-      "**/superagent",
-      "**/superagent/**"
     ]
   },
   "devDependencies": {
