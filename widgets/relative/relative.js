@@ -105,7 +105,7 @@ function widget( elem, options ) {
 
     elem.innerHTML = parser.render( widgetLabels );
 
-    cn.forEach( cn.els( 'a', elem ), link => {
+    cn.forEach( cn.els( elem, 'a' ), link => {
 
       cn.addEvent( link, 'click', e => {
 

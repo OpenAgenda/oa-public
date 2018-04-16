@@ -32,7 +32,7 @@ function mBlock( l ) {
 
   } else {
 
-    value = this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '';
+    value = this.props.value ? ( this.props.value[ l ] ? this.props.value[ l ] : '' ) : '';
 
   }
 
