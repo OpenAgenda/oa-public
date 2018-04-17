@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/surveys",
-  "version": "1.1.31",
+  "version": "1.1.32",
   "license": "SEE LICENSE IN license.txt",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.63",
+    "@openagenda/bs-templates": "^2.0.64",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",
