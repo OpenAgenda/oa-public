@@ -18,7 +18,7 @@
     "fixtures": "node test/app/fixtures",
     "test": "jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "publish": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "^16.2.0",

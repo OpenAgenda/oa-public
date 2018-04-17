@@ -9,7 +9,7 @@ To add a repo from any other place to here, one must:
  * in the repo of the imported lib, set as title and commit "LAST COMMIT, lib moved to oa repo"
  * remove `yarn release:<type>` scripts
  * remove test script from preversion script if exist
- * move build (if exist) on prepublishOnly script
+ * move build (if exist) on prepublish script
  * add lib (or output build) directory to .gitignore
  * remove yarn.lock files in packages/*
  * fix `repository` and `homepage` in package.json

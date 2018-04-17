@@ -18,7 +18,7 @@
     "build": "babel src -d lib -s",
     "test": "jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "publish": "yarn build"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.3",
