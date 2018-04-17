@@ -20,7 +20,7 @@
     "preserve": "yarn clean && yarn build",
     "serve": "node test/app",
     "start": "nodemon --ext js,jsx --ignore react/dist --exec 'yarn serve'",
-    "prepublishOnly": "yarn clean && yarn build"
+    "prepare": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "16 || 15",

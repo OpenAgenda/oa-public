@@ -14,7 +14,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublishOnly": "yarn clean && yarn build"
+    "prepare": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "15 || 16",
