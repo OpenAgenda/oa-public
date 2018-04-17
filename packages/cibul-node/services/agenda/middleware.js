@@ -542,6 +542,14 @@ function buildXlsx( includePrivateData ) {
         // clean event
         eInst.exportable( ( err, clean ) => {
 
+          if ( err ) {
+
+            req.log( 'error', err );
+
+            return stream.resume();
+
+          }
+
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
             includePrivateData: !!includePrivateData,
@@ -728,7 +736,7 @@ function _loadIsPassed( agenda, cb ) {
 
 function _hasQueryOtherThan( req, exceptions ) {
 
-  if ( typeof exceptions == 'string' ) exceptions = [ exceptions ];
+  if ( typeof exceptions == 'string' ) exceptions = [ exceptions ];
 
   if ( !exceptions ) exceptions = [];
 
@@ -754,6 +762,8 @@ function _cleanXlsxRow( row ) {
       clean[ c ] = row[ c ].replace( /\v/g, ' ' );
 
       clean[ c ] = row[ c ].replace( /\n/g, '\r\n' );
+
+      clean[ c ] = row[ c ].replace( /\u0006/g, '' );
 
     } else if ( utils.isArray( row[ c ] ) ) {
 
