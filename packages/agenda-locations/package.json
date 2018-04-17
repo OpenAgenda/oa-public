@@ -13,7 +13,7 @@
     "pretest": "yarn build",
     "test": "mocha --exit",
     "build": "babel components/src -d components/build -s",
-    "prepare": "yarn build",
+    "publish": "yarn build",
     "preserve": "yarn build",
     "preserve-populate": "yarn build",
     "serve": "node test/app",

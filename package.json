@@ -10,7 +10,7 @@
   "scripts": {
     "bs": "lerna bootstrap",
     "install": "lerna link",
-    "prepare": "lerna run prepare",
+    "publish": "lerna run publish",
     "start": "yarn workspace cibulNode start",
     "release": "lerna publish"
   },
