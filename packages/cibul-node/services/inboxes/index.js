@@ -164,6 +164,10 @@ async function filterAction( inbox, conversation, action ) {
   }
 
   if ( action.code === 'removeTechnicalSupport' ) {
+    if ( inbox.type === 'support' ) {
+      return !!conversation.inboxes.find( inbox => inbox.type === 'support' );
+    }
+
     if ( inbox.type !== 'agenda' ) {
       return false;
     }
@@ -206,6 +210,15 @@ async function onAction( conversation, action ) {
     } ).get();
 
     await Conversation.link( { conversationId: conversation.id, inboxId: supportInbox.data.id } );
+  }
+
+  if ( action.code === 'removeTechnicalSupport' ) {
+    const supportInbox = await inboxes( {
+      type: 'support',
+      identifier: 1
+    } ).get();
+
+    await Conversation.unlink( { conversationId: conversation.id, inboxId: supportInbox.data.id } );
   }
 
   switch ( conversation.type ) {
