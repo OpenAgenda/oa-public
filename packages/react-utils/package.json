@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-utils",
-  "version": "3.0.3",
+  "version": "3.0.5",
   "description": "",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublishOnly": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "15 || 16",

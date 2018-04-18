@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.34",
+  "version": "1.0.36",
   "description": "",
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
     "fixtures": "node test/app/fixtures",
-    "prepublishOnly": "yarn build"
+    "prepublish": "yarn build"
   },
   "keywords": [],
   "author": "",
@@ -47,7 +47,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.61",
+    "@openagenda/bs-templates": "^2.0.64",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "babel-cli": "^6.18.0",

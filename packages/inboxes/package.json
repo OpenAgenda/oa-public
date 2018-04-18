@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.46",
+  "version": "1.0.48",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "keywords": [],
   "author": "",
@@ -18,7 +18,7 @@
     "build": "babel src -d lib -s",
     "test": "jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "prepublishOnly": "yarn build"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.3",

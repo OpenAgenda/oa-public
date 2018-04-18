@@ -5,11 +5,13 @@
   "main": "index.js",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "OpenAgenda Dev Team",
-  "license": "See license.txt",
+  "license": "SEE LICENCE IN license.txt",
   "private": true,
   "scripts": {
-    "install": "lerna link",
     "bs": "lerna bootstrap",
+    "install": "lerna link",
+    "prepublish": "lerna run prepublish",
+    "start": "yarn workspace cibulNode start",
     "release": "lerna publish"
   },
   "workspaces": {

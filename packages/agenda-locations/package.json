@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-locations",
-  "version": "1.0.40",
+  "version": "1.0.42",
   "description": "",
   "main": "index.js",
   "license": "no license",
@@ -13,7 +13,7 @@
     "pretest": "yarn build",
     "test": "mocha --exit",
     "build": "babel components/src -d components/build -s",
-    "prepublishOnly": "yarn build",
+    "prepublish": "yarn build",
     "preserve": "yarn build",
     "preserve-populate": "yarn build",
     "serve": "node test/app",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
-    "@openagenda/bs-templates": "^2.0.61",
+    "@openagenda/bs-templates": "^2.0.64",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/files": "^2.0.5",

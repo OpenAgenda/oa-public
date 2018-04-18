@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.0.32",
+  "version": "1.0.34",
   "description": "",
   "keywords": [],
   "author": "",
@@ -16,7 +16,7 @@
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
     "fixtures": "node test/app/fixtures",
-    "prepublishOnly": "yarn build"
+    "prepublish": "yarn build"
   },
   "peerDependencies": {
     "react": "15 || 16",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@openagenda/agendas": "^1.0.22",
-    "@openagenda/bs-templates": "^2.0.61",
+    "@openagenda/bs-templates": "^2.0.64",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",

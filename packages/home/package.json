@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.0.16",
+  "version": "2.0.18",
   "description": "Oh la home",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "preserve": "yarn clean && yarn build",
     "serve": "node test/app",
     "start": "nodemon --ext js,jsx --ignore react/dist --exec 'yarn serve'",
-    "prepublishOnly": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
     "react": "16 || 15",
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.0",
-    "@openagenda/bs-templates": "^2.0.61",
+    "@openagenda/bs-templates": "^2.0.64",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^2.0.2",
     "babel-cli": "^6.16.0",

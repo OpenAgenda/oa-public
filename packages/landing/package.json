@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/landing",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Project to speed up configuration of corpo static pages",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.5",
+    "@openagenda/bs-templates": "^2.0.64",
     "mocha": "^5.1.0",
     "reload": "^1.1.0",
     "should": "^11.1.1"

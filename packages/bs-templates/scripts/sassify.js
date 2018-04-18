@@ -42,7 +42,11 @@ function render( filename, cb ) {
   sass.render( {
     file: filename,
     importer: importOnce,
-    includePaths: [ path.resolve( __dirname, '..' ), path.resolve( __dirname, '..', 'node_modules' ) ]
+    includePaths: [
+      path.resolve( __dirname, '..' ),                      // bs-templates
+      path.resolve( __dirname, '../node_modules' ),         // bs-templates node_modules
+      path.resolve( __dirname, '../../../node_modules' )    // lerna root node_modules
+    ]
   }, ( err, result ) => {
 
     if ( err ) return cb( err );
