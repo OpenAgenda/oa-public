@@ -723,6 +723,10 @@ module.exports = {
     en: 'Terms and conditions',
     fr: 'Conditions d\'utilisation'
   },
+  footerConfidential: {
+    en: 'Confidential data policy',
+    fr: 'Politique de confidentialité'
+  },
   footerReuse: {
     en: 'Broadcasting sites and medias',
     fr: 'Les sites et médias rediffuseurs'
