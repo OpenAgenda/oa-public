@@ -10,5 +10,17 @@ module.exports = {
   ownershipTransfered: {
     en: 'The ownership of the event has successfully been transfered',
     fr: 'La propriété de l\'événement a été transférée avec succès'
+  },
+  spreadsheetTitle: {
+    en: 'Download spreadsheet',
+    fr: 'Télécharger le tableur'
+  },
+  allLanguages: {
+    en: 'All languages',
+    fr: 'Toutes les langues'
+  },
+  spreadsheetDescription: {
+    en: 'Limit downloaded content to specified languages',
+    fr: 'Limiter les données téléchargées à certaines langues'
   }
 };
