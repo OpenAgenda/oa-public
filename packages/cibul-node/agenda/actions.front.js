@@ -116,10 +116,29 @@ function actionShow( req, res ) {
     includeActionLinks: false,
     scriptParams: {
       uid: req.agenda.uid,
-      lang: req.lang
+      lang: req.lang,
+      languages: []
     },
     search: req.query.oaq,
     logged: false
+  } )
+
+  .then( v => {
+
+    return new Promise( ( rs, rj ) => {
+
+      req.agenda.getLanguages( ( err, languages ) => {
+
+        if ( err ) return rj( err );
+
+        v.scriptParams.languages = languages;
+
+        rs( v );
+
+      } );
+
+    } );
+
   } )
 
   .then( function( values ) {

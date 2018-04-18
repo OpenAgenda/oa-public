@@ -1,16 +1,14 @@
 "use strict";
 
-const image = require( './image' ),
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const logger = require( '@openagenda/basic-logger' );
 
-  logger = require( '@openagenda/basic-logger' ),
+const image = require( './image' );
+const getRoles = require( './getRoles' );
+const validate = require( '../validate' );
 
-  getRoles = require( './getRoles' ),
-
-  validate = require( '../validate' ),
-
-  publicValidate = require( '../validate/public' );
+const publicValidate = require( '../validate/public' );
 
 let service, log = console.log;
 
