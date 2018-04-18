@@ -15,7 +15,7 @@ module.exports = ( parentApp, path ) => {
 
 }
 
-app.get( '/*', [ 
+app.get( '/*', [
   sessions.middleware.ifUnlogged( cmn.redirectTo() ),
   cmn.requireAdmin
 ] );

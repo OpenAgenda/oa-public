@@ -1,6 +1,5 @@
 "use strict";
 
-
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const csv = require( 'fast-csv' );
@@ -87,7 +86,7 @@ function loadAgenda( paramName, fieldName, options ) {
 
     getParams[ fieldName ] = req.params[ paramName ];
     
-    if ( !loadOptions.required && req.params[ paramName ] === undefined ) {
+    if ( !loadOptions.required && req.params[ paramName ] === undefined ) {
 
       return next();
 
@@ -215,9 +214,9 @@ function loadAdminLayout( req, res, next ) {
 
         .map( tab => {
 
-          let label = tabLabels( tab.key, req.lang ),
+          const label = tabLabels( tab.key, req.lang );
 
-            badge = null;
+          let badge = null;
 
           if ( tab.badge ) {
 
@@ -236,7 +235,7 @@ function loadAdminLayout( req, res, next ) {
           }
 
           return _.extend( {}, tab, {
-            badge: badge || undefined,
+            badge: badge || undefined,
             label,
             call: credentials.includes( tab.requiredCred ) ? null : tab.call
           } );
@@ -502,7 +501,8 @@ function buildXlsx( includePrivateData ) {
   return function( req, res, next ) {
 
     req.agenda.flattener( {
-      includePrivateData: includePrivateData,
+      exclusiveLang: _.get( req, [ 'query', 'cols.lang' ] ),
+      includePrivateData,
       lang: req.lang
     }, ( err, f ) => {
 
@@ -605,8 +605,9 @@ function buildCsv( includePrivateData ) {
 
     req.agenda.flattener( {
       includeDetailedLocation: _includeDetailedLocation( req ),
-      includePrivateData: includePrivateData,
-      lang: req.lang
+      includePrivateData,
+      lang: req.lang,
+      exclusiveLang: _.get( req, [ 'query', 'cols.lang' ] )
     }, ( err, f ) => {
 
       if ( err ) return next( err );

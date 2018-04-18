@@ -5,3 +5,4 @@ yarn-error.log
 config/prod.js
 .vscode/
 yarn.lock
+.eslintrc

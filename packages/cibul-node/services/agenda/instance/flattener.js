@@ -30,17 +30,26 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function flattener( options, cb ) {
 
-    let languages, mapping, tagSet, categorySet,
+    let languages, mapping, tagSet, categorySet;
 
-    params = utils.extend( {
+    const params = utils.extend( {
       includePrivateData: typeof options == 'boolean' ? options : false,
       includeDetailedLocation: typeof options === 'boolean' ? options : true,
       lang: false,
-      headerHandler: false
+      headerHandler: false,
+      exclusiveLang: null
     }, typeof options === 'object' ? options : {} );
 
     async.waterfall( [
       wcb => {
+
+        if ( params.exclusiveLang ) {
+
+          languages = [ params.exclusiveLang ];
+
+          return wcb();
+
+        }
 
         instance.getLanguages( ( err, l ) => {
 
@@ -92,8 +101,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
       mapping = _defineMapping( params.includePrivateData, params.includeDetailedLocation, tagSet, categorySet );
 
       cb( null, {
-        getFieldNames: getFieldNames,
-        flatten: flatten
+        getFieldNames,
+        flatten
       });
 
     } );
@@ -190,7 +199,11 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         value = _extractValue( values, srcField );
 
-        if ( _isMultilingual( value ) ) {
+        if ( _isMultilingual( value ) && params.exclusiveLang ) {
+
+          flattened[ _fieldLabel( dstField + '_' + params.exclusiveLang ) ] = fn( value[ params.exclusiveLang ] || '' );
+
+        } else if ( _isMultilingual( value ) ) {
 
           _extractLanguages( value ).forEach( function( lang ) {
 
@@ -243,7 +256,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     function _defineMapping( includePrivateData, includeDetailedLocation, tagSet, categorySet ) {
 
-      let map = [ 'uid' ].concat( _textFields( [ 
+      return [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
       ], languages ), [
         'image',
@@ -367,8 +380,6 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
           return true;
 
         } );
-
-      return map;
 
     }
 
