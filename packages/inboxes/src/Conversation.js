@@ -38,10 +38,26 @@ export default class Conversation {
   }
 
   static async link( { inboxId, conversationId } ) {
+    const link = await knex( schemas.inboxConversation ).select().where( {
+      inbox_id: inboxId,
+      conversation_id: conversationId
+    } );
+
+    if ( link.length ) {
+      return null;
+    }
+
     return knex( schemas.inboxConversation ).insert( {
       inbox_id: inboxId,
       conversation_id: conversationId
     } );
+  }
+
+  static async unlink( { inboxId, conversationId } ) {
+    return knex( schemas.inboxConversation ).where( {
+      inbox_id: inboxId,
+      conversation_id: conversationId
+    } ).del();
   }
 
   async create( data, options ) {

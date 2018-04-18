@@ -1,7 +1,6 @@
 import sinon from 'sinon';
 import _ from 'lodash';
-import VError from 'verror';
-import Inboxes, { config, initAndLoad, seed, init } from './service';
+import Inboxes, { config, initAndLoad, seed, init, Conversation } from './service';
 import testconfig from '../testconfig';
 
 const database = testconfig.mysql.database + '_Conversation';
@@ -1318,6 +1317,57 @@ describe( 'Conversation', () => {
       }
 
       spy.restore();
+
+    } );
+
+  } );
+
+  describe( 'link', () => {
+
+    it( 'link a conversation to an inbox', async () => {
+
+      const inboxId = 1;
+      const conversationId = 4;
+
+      await Conversation.link( { inboxId, conversationId } );
+
+      const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
+
+      expect( conversation ).to.be.an.instanceof( Conversation );
+
+    } );
+
+    it( 'cannot create double link', async () => {
+
+      const inboxId = 1;
+      const conversationId = 1;
+
+      await Conversation.link( { inboxId, conversationId } );
+      await Conversation.link( { inboxId, conversationId } );
+
+      const result = await config.knex( config.schemas.inboxConversation ).select().where( {
+        inbox_id: inboxId,
+        conversation_id: conversationId
+      } );
+
+      expect( result ).to.be.an( 'array' ).that.has.lengthOf( 1 );
+
+    } );
+
+  } );
+
+  describe( 'unlink', () => {
+
+    it( 'unlink a conversation to an inbox', async () => {
+
+      const inboxId = 1;
+      const conversationId = 1;
+
+      await Conversation.unlink( { inboxId, conversationId } );
+
+      const conversation = await Inboxes( inboxId ).conversations.get( conversationId );
+
+      expect( conversation.toJSON() ).to.be.null;
 
     } );
 
