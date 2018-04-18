@@ -12,8 +12,8 @@ module.exports = {
     fr: 'La propriété de l\'événement a été transférée avec succès'
   },
   spreadsheetTitle: {
-    en: 'Download spreadsheet',
-    fr: 'Télécharger le tableur'
+    en: 'Download',
+    fr: 'Télécharger'
   },
   allLanguages: {
     en: 'All languages',
