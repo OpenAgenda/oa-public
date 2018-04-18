@@ -1,16 +1,18 @@
 "use strict";
 
-var favorites = require( './favorites' ),
+const debug = require( 'debug' );
 
-debug = require( 'debug' ), log,
+const utils = require( '@openagenda/utils' );
 
-params = {
+const gShare = require( './googleCalendarShare' );
+const spreadsheet = require( './spreadsheet' );
+const favorites = require( './favorites' );
+
+const params = {
   uid: false // agenda uid required
-},
+};
 
-utils = require( '@openagenda/utils' ),
-
-gShare = require( './googleCalendarShare' );
+let log;
 
 if ( [ 'tpl', 'development' ].indexOf( window.env ) !== -1 ) {
 
@@ -31,5 +33,7 @@ window.asap( function( options ) {
   favorites.menu();
 
   gShare( options );
+
+  spreadsheet( options );
 
 } );

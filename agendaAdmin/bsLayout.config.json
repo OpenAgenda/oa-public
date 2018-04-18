@@ -14,6 +14,7 @@
     "pageClass" : false,
     "search" : "",
     "searchRes" : "searchEvents",
+    "originalUrl": "#",
     "metas" : {
       "title" : "OpenAgenda",
       "description": "Communicate efficiently on your events",

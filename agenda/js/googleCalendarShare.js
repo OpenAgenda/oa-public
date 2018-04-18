@@ -31,7 +31,7 @@ module.exports = function( options ) {
 function _displayBehavior( linkElem ) {
 
   modalPartial( linkElem, { html: params.template( {
-    __: __,
+    __,
     link: linkElem.getAttribute( 'href' )
   } ) } );
 

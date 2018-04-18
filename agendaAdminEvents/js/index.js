@@ -1,17 +1,19 @@
 "use strict";
 
-var du = require( '@openagenda/dom-utils' ),
+const deepExtend = require( 'deep-extend' );
+const React = require( 'react' );
+const ReactDom = require( 'react-dom' );
 
-deepExtend = require( 'deep-extend' ),
+const du = require( '@openagenda/dom-utils' );
 
-React = require( 'react' ),
+const AdminEventsHeader = require( './AdminEventsHeader.jsx' );
+const removeEventWarning = require( './removeEventWarning' );
 
-AdminEventsHeader = require( './AdminEventsHeader.jsx' ),
+const spreadsheet = require( '../../agenda/js/spreadsheet' );
 
-removeEventWarning = require( './removeEventWarning' ),
-
-params = {
+const params = {
   lang: 'en',
+  languages: [],
   res: {
     terms: '#',
     location: '#',
@@ -30,9 +32,8 @@ params = {
     removeEvent: '.js_remove_link'
   },
   image: '#'
-},
+};
 
-ReactDom = require( 'react-dom' );
 
 window.hook( function( options ) {
 
@@ -46,6 +47,11 @@ window.hook( function( options ) {
   _toggler( params.selectors.headControls.link, params.selectors.headControls.body );
 
   removeEventWarning( du.el( params.selectors.headerCanvas ), du.els( params.selectors.removeEvent ), params.lang );
+
+  spreadsheet( {
+    lang: params.lang,
+    languages: params.languages
+  } );
 
 } );
 

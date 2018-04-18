@@ -15,7 +15,8 @@
 
     "scriptParams" : {
       "uid" : 48959239,
-      "lang" : "fr"
+      "lang" : "fr",
+      "languages" : [ "fr", "en", "es", "it" ]
     },
 
     "key" : null,
