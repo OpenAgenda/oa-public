@@ -26,7 +26,11 @@ describe( 'image-files - load', function() {
 
     svc.clear( [
       'rainfrog_s.jpg',
-      'rainfrog_o.jpg'
+      'rainfrog_o.jpg',
+      'url_orchestra_s.jpg',
+      'url_orchestra_o.jpg',
+      'orchestra_s.jpg',
+      'orchestra_o.jpg'
     ], done );
 
   } );
@@ -37,7 +41,11 @@ describe( 'image-files - load', function() {
       url: testImageUrl,
       formats: [ {
         name: 'rainfrog_s.jpg',
-        format: { width: 50, height: 50, crop: true }
+        format: {
+          width: 50,
+          height: 50,
+          crop: true
+        }
       }, {
         name: 'rainfrog_o.jpg'
       } ]
@@ -128,6 +136,31 @@ describe( 'image-files - load', function() {
         done();
 
       } );
+
+    } );
+
+  } );
+
+  it( 'loads bmp from url to s3 bucket', done => {
+
+    svc.load( {
+      url: 'http://admin-toulouse.cutm.nfrance.com/documents/10718111/10877026/Concert+d%27harmonie/699f1126-061d-4b4f-924b-52a83dfbf867?t=1521648413345',
+      formats: [ {
+        name: 'url_orchestra_s.jpg',
+        format: { width: 100 }
+      }, {
+        name: 'url_orchestra_o.jpg'
+      } ]
+    }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.uploadedPaths.should.eql( [
+        'https://openagendatst.s3.amazonaws.com/url_orchestra_s.jpg',
+        'https://openagendatst.s3.amazonaws.com/url_orchestra_o.jpg'
+      ] );
+
+      done();
 
     } );
 
