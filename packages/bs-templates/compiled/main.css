@@ -16518,6 +16518,26 @@ i.mce-i-backcolor {
     .tooltip-icon.big .tooltip.right .tooltip-arrow {
       border-right-color: #fff; }
 
+.home .home-nav {
+  margin: 0 0 -3px 16px; }
+  .home .home-nav li h2, .home .home-nav li a {
+    font-weight: normal;
+    font-size: 18px;
+    padding: 10px;
+    margin: 0;
+    color: gray; }
+  .home .home-nav li.active h2 {
+    color: #413a42;
+    border-bottom: 3px solid #41acdd; }
+  .home .home-nav li a:hover {
+    text-decoration: none;
+    color: #41acdd; }
+  @media (min-width: 480px) {
+    .home .home-nav li {
+      margin: 0 10px; }
+      .home .home-nav li h2, .home .home-nav li a {
+        font-size: 20px; } }
+
 .home > .row.wsq {
   display: flex;
   flex-direction: row; }
@@ -16533,7 +16553,7 @@ i.mce-i-backcolor {
   width: 50%; }
 
 .home .agenda-item, .home .event-item {
-  padding: 1em 1em; }
+  padding: 1em 0; }
   .home .agenda-item a, .home .event-item a {
     display: inline-block; }
   .home .agenda-item .media-left img, .home .event-item .media-left img {
