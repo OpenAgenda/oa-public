@@ -5,13 +5,16 @@ process.env.NODE_ENV = 'test';
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const fs = require( 'fs' );
+const should = require( 'should' );
+
 const fakeImage = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/notanimage.jpg';
 const gm = require( 'gm' ).subClass( { imageMagick: true } );
 const imageSrc = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/Galaxie-ESO-137-001.jpg';
 const imageSvc = require( '../' );
-const should = require( 'should' );
 const testconfig = require( '../testconfig.js' );
 const tmpTestFile = '/var/tmp/testfile';
+const unlinkTestFiles = require( './helpers/unlinkTestFiles' );
+
 
 describe( 'images - unit (server): download', function() {
 
@@ -21,13 +24,15 @@ describe( 'images - unit (server): download', function() {
 
   } );
 
+  afterEach( () => unlinkTestFiles( __dirname ) );
+
   this.timeout( 20000 );
 
   it( 'should send timeout error', function( done ) {
 
     imageSvc.init( _.extend( {}, testconfig, { timeout: 1 } ) );
 
-    imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
+    imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
 
       err.should.equal( 'timeout' );
 
@@ -42,7 +47,7 @@ describe( 'images - unit (server): download', function() {
 
     imageSvc.init( _.extend( {}, testconfig, { maxSize: 1 } ) );
 
-    imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
+    imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
 
       err.should.equal( 'maximum size exceeded' );
 
@@ -57,7 +62,7 @@ describe( 'images - unit (server): download', function() {
 
     this.timeout( 10000 );
 
-    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
 
       var stats = fs.statSync( values.path );
 

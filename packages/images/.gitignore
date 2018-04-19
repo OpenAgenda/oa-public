@@ -6,6 +6,7 @@ yarn-error.log
 testconfig.js
 coverage/
 .cache/
+.eslintrc
 
 test/tmp1*
 test/test*

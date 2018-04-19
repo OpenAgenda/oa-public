@@ -21,7 +21,7 @@ describe( 'images - unit (server): crop', function() {
 
   before( function( done ) {
 
-    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+    imageSvc.test._download( {url: imageSrc } ).done( function( values ) {
 
       path = values.path;
 
@@ -33,7 +33,7 @@ describe( 'images - unit (server): crop', function() {
 
   beforeEach( function( done ) {
 
-    imageSvc.test._loadImageStream( { path: path } ).done( function( values ) {
+    imageSvc.test._loadImageStream( { path } ).done( function( values ) {
 
       image = values.image;
 
@@ -55,8 +55,8 @@ describe( 'images - unit (server): crop', function() {
   it( 'crop in height', function( done ) {
 
     imageSvc.test._crop( { 
-      image: image, 
-      info: info, 
+      image, 
+      info, 
       format: { crop: true, width: 20, height: 200 }
     }).done( function( values ) {
 
