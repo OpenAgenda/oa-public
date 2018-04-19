@@ -34,9 +34,6 @@ const CLEAN_CRED_FILTERS = 'member-apps/members/CLEAN_CRED_FILTERS';
 const SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
 const SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
 const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
-const SEND_A_MESSAGE = 'member-apps/members/SEND_A_MESSAGE';
-const SEND_A_MESSAGE_SUCCESS = 'member-apps/members/SEND_A_MESSAGE_SUCCESS';
-const SEND_A_MESSAGE_FAIL = 'member-apps/members/SEND_A_MESSAGE_FAIL';
 
 
 const initialState = {
