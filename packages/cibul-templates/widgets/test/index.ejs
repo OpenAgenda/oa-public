@@ -1,0 +1,82 @@
+<html>
+  <head>
+  <script type="text/javascript">
+    window.testControlData='<%= controlData %>';
+  </script>
+<% js.forEach( function( jsPath ) { %>
+  <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+    <style>
+
+      * { padding: 0; margin: 0; }
+
+      body {
+        overflow-y: hidden;
+      }
+
+      main, section {
+        display: inline-block;
+        vertical-align: top;
+        width: 50%;
+      }
+
+      .cibulMap .map-canvas {
+        height: 600px!important;
+      }
+
+      .right-bit > div {
+
+        display: inline-block;
+        vertical-align: top;
+
+      }
+
+
+      .cibulCategories li .count { display: inline!important; margin-left: 10px; }
+      .cibulTags li .count { display: inline!important; margin-left: 10px; }
+
+    </style>
+  </head>
+  <body>
+
+    <header>
+      <a href="/widgets/test/index">with href</a> - 
+      <a href="/widgets/test/index?state=nohrefupdate">without href</a>
+      <a href="/widgets/test/index?state=newlist">nodejs list</a>
+    </header>
+
+    <main>
+
+      <p>list widget</p>
+<% if ( !newList ) { %>
+      <iframe frameborder="0" allowtransparency="allowtransparency" class="cibulFrame cbpglst" src="//d.openagenda.com/frontend_dev.php/embed/48959239/46744426"></iframe>
+<% } else { %>
+      <iframe frameborder="0" scrolling="no" allowtransparency="allowtransparency" class="cibulFrame cbpgbdy" src="/agenda/embedShow" width="100%"></iframe>
+<% } %>
+    </main><!--
+
+    --><section class="right-bit">
+
+      <span>tags widget</span>
+      <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426"></div>
+
+      <div class="cbpgtg cibulTags" data-cbctl="48959239/46744426|la-bellevilloise,printemps-arabe,photo"></div>
+
+      <span>categories widget</span>
+      <div class="cbpgct cibulCategories" data-cbctl="48959239/46744426"></div>
+
+      <span>map widget</span>
+      <div class="cbpgmp cibulMap" data-cbctl="48959239/46744426|fr"></div>
+
+
+      <div class="cbpgcl cibulCalendar" data-cbctl="48959239/46744426|fr"></div>
+
+      <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr"></div>
+      
+      <!--<p>organizers widget</p>
+      <div class="cbpgog cibulOrganizers" data-cbctl="48959239/46744426"></div>-->
+
+    </section>
+    
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "adminCss" : {
+    "bootstrap" : "../node_modules/@openagenda/bs-templates/compiled/admin.css"
+  },
+
+  "base" : {    
+    "lang" : "fr"
+  },
+
+  "js" : true
+}

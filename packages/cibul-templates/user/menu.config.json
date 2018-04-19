@@ -1,0 +1,10 @@
+{
+  "layout" : "layout/blank",
+  "css": {
+    "base" : "../css/base.scss",
+    "site" : "../css/site.css",
+    "page" : "../css/page structure/page.css",
+    "headings" : "../css/headings.css",
+    "userMenu" : "css/menu.css"
+  }
+}

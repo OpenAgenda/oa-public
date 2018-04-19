@@ -1,0 +1,14 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type" : "Thing",
+  "name" : "<%= agenda.title %>",
+<% if ( agenda.image ) { %>
+  "image" : "<%= _i( agenda.image ) %>",
+<% } %>
+<% if ( agenda.url ) { %>
+  "url" : "<%= agenda.url %>",
+<% } %>
+  "description" : "<%= agenda.description %>"
+}
+</script>

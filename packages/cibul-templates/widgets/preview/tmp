@@ -1,0 +1,114 @@
+<ul>
+<% for( var i in events ) { %><% var e = events[ i ]; %>
+  <li>
+    <p><a href="<%= e.link %>">
+      <strong><%= e.title %></strong>
+    </a></p>
+<% if ( e.thumbnail ) { %>
+    <a href="<%= e.link %>">
+      <img src="<%= e.thumbnail %>"/>
+    </a>
+<% } %>
+    <p><a href="<%= e.link %>"><%= e.description %></a></p>
+    <p><a href="<%= e.link %>"><%= e.range %></a></p>
+  </li>
+<% } %>
+</ul>
+
+
+{
+  "attributes" : [ { 
+    "name" : "Title", 
+    "mapTo" : "title" 
+  }, {
+    "name" : "Description",
+    "mapTo" : "description"
+  }, {
+    "name" : "FreeText",
+    "mapTo" : "freeText"
+  }, {
+    "name" : "ImageUrl",
+    "mapTo" : "image"
+  }, {
+    "name" : "PricingInfo",
+    "mapTo" : "pricingInfo"
+  }, {
+    "name" : "TicketUrl",
+    "mapTo" : "ticketLink"
+  }, {
+    "name" : "BackLink",
+    "mapTo" : "backLink"
+  }, {
+    "name" : "BackLabel",
+    "mapTo" : "backLabel"
+  }, {
+    "name" : "LocationLink",
+    "mapTo" : "locationLink"
+  }, {
+    "name": "DateRange", 
+    "mapTo": "dateRange" 
+  }, {
+    "name": "LocationName", 
+    "mapTo": "placeName" 
+  }, {
+    "name": "PostalCode", 
+    "mapTo": "postalCode" 
+  }, {
+    "name": "Address", 
+    "mapTo": "address" 
+  }, {
+    "name": "Latitude", 
+    "mapTo": "latitude" 
+  }, {
+    "name": "Longitude", 
+    "mapTo": "longitude" 
+  }, {
+    "name" : "City",
+    "mapTo" : "city"
+  }, {  
+    "name" : "FacebookShareUrl",
+    "mapTo" : "facebookShare"
+  }, {
+    "name" : "TwitterShareUrl",
+    "mapTo" : "twitterShare"
+  }, {
+    "name" : "GoogleShareUrl",
+    "mapTo" : "googleShare"
+  }, {
+    "name" : "LinkedInShareUrl",
+    "mapTo" : "linkedInShare"
+  }, {
+    "name" : "TumblrShareUrl",
+    "mapTo" : "tumblrShare"
+  }, {
+    "name" : "PinterestShareUrl",
+    "mapTo" : "pinterestShare"
+  } ],
+
+  "children" : [ {
+    "name" : "Timings",
+    "mapTo" : "timings",
+    "attributes" : [ {
+      "name" : "Timing",
+      "mapTo" : "label"
+    } ]
+  }, {
+    "name" : "Dates",
+    "mapTo" : "dates",
+    "attributes" : [ {
+      "name" : "Date",
+      "mapTo" : "label"
+    } ],
+    "children" : [ {
+      "name" : "Timings",
+      "mapTo" : "timings",
+      "attributes" : [ {
+        "name" : "Start",
+        "mapTo" : "startLabel"
+      }, {
+        "name" : "End",
+        "mapTo" : "endLabel"
+      }]
+    } ]
+  } ]
+}

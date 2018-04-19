@@ -1,0 +1,18 @@
+{
+  "base" : {
+    "reviews" : {
+      "total" : 78,
+      "totalInWeek" : 12 
+    },
+    "events" : {
+      "total" : 89,
+      "totalInWeek" : 20,
+      "totalInMonth" : 30
+    },
+    "users" : {
+      "total" : 908,
+      "totalInWeek" : 20,
+      "totalInMonth" : 89
+    }
+  }
+}

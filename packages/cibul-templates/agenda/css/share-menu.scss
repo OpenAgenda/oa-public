@@ -1,0 +1,22 @@
+.share-menu {
+  
+  .btn-adds {
+    margin: 0 -5px;
+    padding: 5px 0 10px;
+
+    .btn {
+      background: $oa-gray-lightest;
+      border-color: transparent;
+      color: $oa-gray;
+      display: inline-block;
+      margin: 5px;
+
+      &:hover {
+        background: $oa-blue;
+        
+        color: $oa-white;
+      }
+    }
+  }
+
+}

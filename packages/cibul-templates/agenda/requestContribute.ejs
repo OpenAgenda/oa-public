@@ -1,0 +1,31 @@
+<header class="agenda-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1 agenda-container">
+        <a href="<%= event.backLink %>">
+          <% if ( image ) { %>
+          <img class="avatar" src="<%= _i( image ) %>" alt="<%= title %>">
+          <% } %>
+          <strong><%= title %></strong>
+          <span>(<%= __( 'seeAllEvents' ) %>)</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+<div id="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <div class="wsq padding-all-md padding-top-sm margin-v-md inbox">
+          <h3 class="margin-bottom-md inbox-title"><%= __( 'contributionRestricted' ) %></h3>
+          <div></div><!-- just for don't merge margins -->
+
+          <div class="js_canvas"><%- typeof content !== 'undefined' ? content : '' %></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% var centeredFooter = true; %>
+<% include ../bsLayout/footer.part.ejs %>

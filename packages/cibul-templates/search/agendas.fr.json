@@ -1,0 +1,9 @@
+{
+  "Results for \"%what%\"" : "Résultats pour \"%what%\"",
+  "%start% to %finish%" : "du %start% au %finish%",
+  "%count% agendas" : "%count% agendas",
+  "see events" : "voir les événements",
+  "Latest updated agendas" : "Derniers agendas mis à jour",
+  "see latest published events" : "voir les derniers événements publiés",
+  "No result available for \"%what%\"" : "Aucun résultat pour \"%what%\""
+}

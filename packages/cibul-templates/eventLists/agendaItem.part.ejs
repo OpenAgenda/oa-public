@@ -1,0 +1,41 @@
+<article><!--
+  <% if ( event.thumbnail ) { %>
+  --><a class="pic" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+    <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
+  </a><!--
+<% } %>
+  --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>">
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+      <span class="title"><%= event.title %></span>
+    </a>
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+      <span class="dsc"><%= event.description %></span>
+    </a>
+    <a href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+      <span class="sti url"><%= __( event.dateRange[0], _t( event.dateRange[1] ) ) %></span>
+      <span class="url">@ <%= event.placeName %></span>
+<% if ( event.organization ) { %>
+      <span class="org" data-slug="<%= event.organization.slug %>"><%= __( 'by %name%', { '%name%' : event.organization.label } ) %></span>
+<% } %>
+    </a>
+<% if ( event.city ) { %>
+    <a class="cty" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+      <span><%= event.city %></span>
+    </a>
+<% } %>
+<% if ( event.category ) { %>
+    <a class="ct" href="<%= genUrl( eventUri, [ base, event.query, queryLang ? { lang: queryLang } : {} ] ) %>">
+      <span><%= event.category.label %></span>
+    </a>
+<% } %>
+<% if ( event.tags ) { %>
+    <span class="tg">
+      <ul>
+<% event.tags.forEach( function( tag ) { %>
+        <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
+<% }); %>
+      </ul>
+    </span>
+<% } %>
+  </div>
+</article>

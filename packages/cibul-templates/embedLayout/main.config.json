@@ -1,0 +1,32 @@
+{
+  "oaeCss" : {
+    "variables" : "../css/variables.scss",
+    "bootstrap" : "../bootstrap/custom-bootstrap.css",
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
+    "bsEmbedBase" : "../css/bsEmbedBase.scss",
+    "bsButtons" : "../css/bsButtons.scss"
+  },
+
+  "oaetCss" : {
+    "variables" : "../css/variables.scss",
+    "bootstrap" : "../bootstrap/custom-bootstrap.css",
+    "fontawesome430" : "../css/font-awesome-4.3.0/css/font-awesome.css",
+    "bsEmbedBase" : "../css/bsEmbedBase.scss",
+    "bsButtons" : "../css/bsButtons.scss"
+  },
+
+  "base" : {
+    "metas" : {
+      "title" : "OpenAgenda",
+      "description": "Agendas",
+      "keywords" : "openagenda, events, agendas, open data, networked",
+      "robots" : "index, follow"
+    },
+    "lang" : "fr",
+    "pageClass" : "cb",
+    "pageId" : false,
+    "fb" : false
+  },
+  
+  "js" : true
+}

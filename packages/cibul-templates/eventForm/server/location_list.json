@@ -1,0 +1,65 @@
+{
+  "items": [
+    {
+      "updatedAt": "2015-12-28T16:56:42.357Z",
+      "region": "Pays de la Loire",
+      "uid": 93105902,
+      "address": "Place Royale, Nantes",
+      "description": null,
+      "department": "Loire-Atlantique",
+      "name": "Place Royale, Nantes",
+      "countryCode": "FR",
+      "image": null,
+      "longitude": -1.558552,
+      "latitude": 47.214627,
+      "agendaId": 123,
+      "city": "Nantes"
+    },
+    {
+      "updatedAt": "2015-12-28T16:56:42.357Z",
+      "region": "Rhône-Alpes",
+      "uid": 14840617,
+      "address": "Place Victor Hugo, Grenoble",
+      "description": null,
+      "department": "Isère",
+      "name": "Place Victor Hugo, Grenoble",
+      "countryCode": "FR",
+      "image": null,
+      "longitude": 5.724027,
+      "latitude": 45.188655,
+      "agendaId": 123,
+      "city": "Grenoble"
+    },
+    {
+      "updatedAt": "2015-12-28T16:56:42.357Z",
+      "region": "Languedoc-Roussillon",
+      "uid": 25778629,
+      "address": "Place de la République, Perpignan",
+      "description": null,
+      "department": "Pyrénées-Orientales",
+      "name": "Place de la République, Perpignan",
+      "countryCode": "FR",
+      "image": null,
+      "longitude": 2.895757,
+      "latitude": 42.698624,
+      "agendaId": 123,
+      "city": "Perpignan"
+    },
+    {
+      "updatedAt": "2015-12-28T16:56:42.357Z",
+      "region": "Lorraine",
+      "uid": 50148047,
+      "address": "Place Maginot, nancy",
+      "description": null,
+      "department": "Meurthe-et-Moselle",
+      "name": "Place Maginot, nancy",
+      "countryCode": "FR",
+      "image": null,
+      "longitude": 6.177243,
+      "latitude": 48.689671,
+      "agendaId": 123,
+      "city": "Nancy"
+    }
+  ],
+  "total": 4
+} 

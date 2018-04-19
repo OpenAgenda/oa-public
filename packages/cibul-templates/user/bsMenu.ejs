@@ -1,0 +1,38 @@
+<li class="profile" data-toggle="js_dropdown_menu"> 
+  <a aria-expanded="false">
+  <% if ( thumbnail ) { %>
+    <img alt="user thumbnail" src="<%= thumbnail.replace( 'cibultest.', 'cibul.') %>">
+  <% } else if ( fullName ) { %>
+    <span><%= fullName %></span>
+  <% } else { %>
+    <span><%= __( 'myProfile' ) %></span>
+  <% } %>
+  </a>
+  <ul class="dropdown-menu js_dropdown_menu collapse" role="menu">
+    <li>
+      <div class="row">
+        <ul class="list-unstyled col-md-6">
+          <li>
+            <h3><%= __( 'general' ) %></h3>
+          </li>
+          <li>
+            <a href="/home/events"><%= __( 'myEvents' ) %></a>
+          </li>
+          <li>
+            <a href="/settings"><%= __( 'settings' ) %></a>
+          </li>
+          <li>
+            <a href="/signout"><%= __( 'signout' ) %></a>
+          </li>
+        </ul>
+        <ul class="list-unstyled col-md-6">
+          <li><h3><%= __( 'agendasTitle' ) %></h3></li>
+          <li><a href="/home"><%= __( 'myAgendas' ) %></a></li>
+          <li><a href="/agendas"><%= __( 'searchAgendas' ) %></a></li>
+          <li><a href="/new"><%= __( 'createAgenda' ) %></a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+  
+</li>

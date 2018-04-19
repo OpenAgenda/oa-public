@@ -1,0 +1,14 @@
+<html>
+  <head>
+<script type="text/javascript">
+  window.testControlData='<%= controlData %>';
+</script>
+<% js.forEach( function( jsPath ) { %>
+  <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+  </head>
+  <body>
+    <p>calendar widget</p>
+    <div class="cbpgcl cibulCalendar" data-cbctl="48959239/46744426|fr"></div>
+  </body>
+</html>

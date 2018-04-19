@@ -1,0 +1,81 @@
+{
+  "agenda" : {
+    "slug" : "slug",
+    "title" : "La Gargouille",
+    "url" : "https://d.openagenda.com/frontend_dev.php/la-gargouille",
+    "image" : "review_la-gargouille_00.jpg"
+  },
+
+  "tabs" : [ {
+    "section" : "manage",
+    "key" : "events",
+    "label" : "Events",
+    "uri" : "agendaAdminShow"
+  }, {
+    "section" : "manage",
+    "key" : "contributors",
+    "label" : "Contributors",
+    "uri" : "agendaAdminContributors"
+  }, {
+    "section" : "manage",
+    "key" : "dataviz",
+    "label" : "Dataviz",
+    "uri" : "agendaAdminDataviz"
+  }, {
+    "section" : "manage",
+    "key" : "categories",
+    "label" : "Categories and Tags",
+    "uri" : "agendaAdminCategories"
+  }, {
+    "section" : "manage",
+    "key" : "sources",
+    "label" : "Sources",
+    "uri" : "agendaAdminSources",
+    "badge" : {
+      "label" : "nouveau",
+      "link" : "https://openagenda.com"
+    }
+  }, {
+    "section" : "export",
+    "key" : "swapcard",
+    "label" : "Swapcard",
+    "uri" : "serviceIndex",
+    "uriParams" : { "service" : "swapcard" }
+  }, {
+    "section" : "export",
+    "key" : "web",
+    "label" : "Web Integration",
+    "uri" : "agendaAdminWeb"
+  }, {
+    "section" : "export",
+    "key" : "facebook",
+    "label" : "Facebook",
+    "uri" : "facebookShow"
+  }, {
+    "section" : "export",
+    "key" : "newsletters",
+    "label" : "Newsetters",
+    "uri" : "newsletterIndex"
+  }, {
+    "section" : "export",
+    "key" : "indesign",
+    "label" : "Indesign - Xml",
+    "uri" : "agendaAdminIndesign"
+  }, {
+    "section" : "export",
+    "key" : "emailstrategie",
+    "label" : "EmailStrategie",
+    "uri" : "agendaEmailStrategie"
+  }, {
+    "section" : "settings",
+    "key" : "administrators",
+    "label" : "Administrators",
+    "uri" : "agendaAdminAdministrators"
+  }, {
+    "section" : "settings",
+    "key" : "settings",
+    "label" : "Settings",
+    "uri" : "agendaAdminSettings"
+  } ]
+  
+}

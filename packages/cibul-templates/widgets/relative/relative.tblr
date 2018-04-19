@@ -1,0 +1,7 @@
+<ul>
+  <li><a href="#" class="js_today">{Today}</a></li>
+  <li><a href="#" class="js_tomorrow">{Tomorrow}</a></li>
+  <li><a href="#" class="js_this_weekend">{ThisWeekend}</a></li>
+  <li><a href="#" class="js_this_week">{ThisWeek}</a></li>
+  <li><a href="#" class="js_this_month">{ThisMonth}</a></li>
+</ul>

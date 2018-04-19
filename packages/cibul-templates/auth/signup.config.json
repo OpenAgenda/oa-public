@@ -1,0 +1,23 @@
+{
+  "layout": "bsLayout/main",
+
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "auth" : "css/auth.scss"
+  },
+  "helpers" : {
+    "_r" : "redirect",
+    "_t" : "time",
+    "_i" : "image",
+    "_txt" : "text",
+    "_sl" : "shareLinks"
+  },
+  "base" : {
+    "headMessage" : false,
+    "pageClass" : "auth",
+    "optionals" : {},
+    "useCaptcha" : false,
+    "agenda" : false,
+    "includeActionLinks" : false
+  }
+}

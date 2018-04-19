@@ -1,0 +1,75 @@
+"use strict";
+
+const path = require( 'path' );
+const webpack = require( 'webpack' );
+const ourOwnModules = require( './ourOwnModules.json' );
+
+
+module.exports = ( paths ) => {
+
+  return {
+    devtool: 'eval-source-map',
+    entry: path.join( __dirname, paths.src.path, paths.src.name ),
+    output: {
+      path: paths.dest.path,
+      filename: paths.dest.name
+    },
+    module: {
+      rules: [
+        {
+          test: /\.jsx?$/,
+          enforce: 'pre',
+          loader: 'source-map-loader'
+        },
+        {
+          test: /\.jsx?$/,
+          exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
+          use: {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              forceEnv: 'development'
+            }
+          }
+        },
+        {
+          test: /\.ejs$/,
+          loader: 'ejs-compiled-loader',
+        },
+        {
+          test: /\.(css|html|tblr)$/,
+          loader: 'raw-loader',
+        }
+      ]
+    },
+    resolve: {
+      symlinks: false,
+      extensions: [ '.js', '.jsx' ],
+      alias: {
+        'react': path.join( path.dirname( __dirname ), 'node_modules/react' ),
+        'react/addons': path.join( path.dirname( __dirname ), 'node_modules/react/addons' )
+      }
+    },
+    performance: {
+      hints: false,
+      maxAssetSize: 20000000
+    },
+    plugins: [
+      new webpack.IgnorePlugin( /unicode\/category\/So/ ),
+      new webpack.DefinePlugin( {
+        'process.env': {
+          NODE_ENV: '"development"'
+        },
+        __CLIENT__: true,
+        __SERVER__: false,
+        __DEVELOPMENT__: true,
+        __DEVTOOLS__: true
+      } ),
+      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(get-size)/ )
+    ],
+    node: {
+      fs: 'empty'
+    }
+  };
+
+};

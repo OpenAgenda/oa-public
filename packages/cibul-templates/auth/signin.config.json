@@ -1,0 +1,22 @@
+{
+  "layout": "bsLayout/main",
+  "oaCss" : {
+    "bsForms" : "../css/bsForms.scss",
+    "agenda-header" : "../node_modules/@openagenda/bs-templates/templates/agenda/_header.scss",
+    "auth" : "css/auth.scss"
+  },
+  "helpers" : {
+    "_r" : "redirect",
+    "_t" : "time",
+    "_i" : "image",
+    "_txt" : "text",
+    "_sl" : "shareLinks"
+  },
+  "base" : {
+    "headMessage" : false,
+    "pageClass" : "auth",
+    "optionals" : {},
+    "agenda" : false,
+    "includeActionLinks" : false
+  }
+}

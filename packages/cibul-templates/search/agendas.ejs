@@ -1,0 +1,41 @@
+<div class="header">
+  <div class="content">
+<% if ( pager.routeName == 'searchAgendas' ) { %>
+    <% include ./searchAgendasHeader %>
+<% } else { %>
+    <% include ./latestAgendasHeader %>
+<% } %>
+  </div>
+</div>
+<div class="canvas">
+  <div class="sidebar"></div>
+  <main>
+    <% include ../general/pages %>
+    <ul>
+<% agendas.forEach(function( agenda ) { %>
+      <li>
+      <article><!--
+<% if ( agenda.image ) { %>
+        --><a class="pic" href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>">
+          <img src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
+        </a><!--
+<% } %>
+        --><div class="cnt<% if ( !agenda.image ) { %> nopic<% } %>" href="#">
+          <a href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>"><span class="title"><%= agenda.title %></span></a>
+          <a href="<%= genUrl('agendaShow', { slug: agenda.slug }) %>"><span class="dsc"><%= agenda.description %></span></a>
+<% if ( agenda.categories.length ) { %>
+          <ul class="tg">
+<% agenda.categories.forEach( function( category ) { %>
+          <li><a href="#<%= category.slug %>"><%= category.label %></a></li>
+<% }); %>
+          </ul>
+<% } %>
+
+        </div>
+      </article>
+      </li>
+<% }); %>
+    </ul>
+    <% include ../general/pages %>
+  </main>
+</div>

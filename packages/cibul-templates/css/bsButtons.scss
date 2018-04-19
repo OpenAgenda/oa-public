@@ -1,0 +1,39 @@
+.btn {
+
+  &.green {
+    background-color: $oa-green!important;
+    color: $oa-white!important;
+  }
+  
+  &.checked {
+
+    position: relative;
+    padding-right: 30px;
+
+    &:after {
+      content: "\f00c";
+      font-family: FontAwesome;
+      height: 20px;
+      line-height: 40px;
+      position: absolute;
+      right: 2px;
+      top: -4px;
+      width: 20px;
+    }
+
+  }
+
+  &.uncheckable:hover {
+
+    background: $oa-red!important;
+    color: $oa-white;
+
+    &:after {
+
+      content: "\f00d";
+      
+    }
+
+  }
+
+}

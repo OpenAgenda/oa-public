@@ -1,0 +1,26 @@
+{
+  "layout" : "embedLayout/main",
+  
+  "oaeCss" : {
+    "event-embed" : "css/embed-style.scss",
+    "event-hours" : "../node_modules/@openagenda/bs-templates/templates/event/_hours.scss"
+  },
+
+  "oaetCss" : {
+    "event-embed" : "css/embed-style.scss",
+    "event-hours" : "../node_modules/@openagenda/bs-templates/templates/event/_hours.scss"
+  },
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image",
+    "_sl" : "shareLinks",
+    "_txt" : "text"
+  },
+
+  "base" : {
+    "pageId" : "event"
+  },
+
+  "js" : true
+}

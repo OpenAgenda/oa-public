@@ -1,0 +1,23 @@
+{
+  "layout" : "bsLayout/main",
+
+  "oaCss" : {
+    "agenda-header" : "../node_modules/@openagenda/bs-templates/templates/agenda/_header.scss",
+    "share-page" : "../agenda/css/share-page.scss",
+    "share-menu" : "../agenda/css/share-menu.scss"
+  },
+
+  "helpers" : {
+    "_t" : "time",
+    "_sl" : "shareLinks",
+    "_i" : "image",
+    "_r" : "redirect"
+  },
+
+  "base" : {
+    "centeredFooter" : true,
+    "back" : false
+  },
+
+  "js" : true
+}

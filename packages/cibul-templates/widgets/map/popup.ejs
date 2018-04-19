@@ -1,0 +1,21 @@
+<div class="map-location">
+<% if (typeof count !== 'undefined') { %>
+    <span class="count">
+      <span><%= count %></span>
+      <label> <%= count==1 ? labels.events.replace('s', '') : labels.events %></label>
+    </span>
+<% } %>
+<% if ( typeof image !== 'undefined' && image ) { %>
+  <div class="oa-location-image">
+    <img src="<%= image %>"/>
+  </div>
+<% } %>
+  <span class="oa-location-details">
+    <p><%= name %></p>
+    <span class="map-address"><%= address %></span>
+    <% if ( postalCode ) { %><span class="map-postalcode"><%= postalCode %></span><% } %>
+    <% if ( city ) { %><span class="map-city"><%= city %></span><% } %>
+    <% if ( department ) { %><span class="map-department"><%= department %></span><% } %>
+    <% if ( region ) { %><span class="map-region"><%= region %></span><% } %>
+  </span>
+</div>

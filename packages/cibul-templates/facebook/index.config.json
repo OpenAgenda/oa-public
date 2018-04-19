@@ -1,0 +1,16 @@
+{
+  "layout": "agendaAdmin/bsLayout",
+  "bsCss" : {
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
+  },
+  "css" : {},
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  },
+  "base" : {
+    "mainClass" : "facebook",
+    "pageId" : false,
+    "tab" : "facebook"
+  }
+}

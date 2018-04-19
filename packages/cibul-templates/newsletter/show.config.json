@@ -1,0 +1,98 @@
+{
+  "layout" : "newsletter/layout",
+  "base" : {
+    "logo" : "https://cibulstatic.s3.amazonaws.com/biglogo.png",
+    "previewLink" : true,
+    "mobileMeta" : false,
+    "css" : {
+      "mobileWidth" : "520",
+      "bgColor" : "background-color: #f4f4f4;",
+      "ctColor" : "background-color: #ffffff;",
+      "bodyTable" : "",
+      "templateContainer" : "width:520px; max-width: 100%;",
+      "bodyCell" : "border-top:4px solid #f4f4f4; background-color: #f0f0f0;",
+
+      "templateHeader" : "background-color:#F4F4F4; border-top:1px solid #FFFFFF; border-bottom:1px solid #CCCCCC;",
+      "templatePreheader" : "",
+      "preheaderContent" : "color:#808080; font-family:Helvetica; font-size:10px; line-height:125%; text-align:left;",
+      "headerContent" : "color:#505050; font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
+      "headerContenta" : "color:#EB4102; font-weight:normal; text-decoration:underline;",
+
+      "titleImage" : "width: 80px; height: auto; margin-right: 20px;",
+      "mapImage" : "height: auto; max-width: 600px; max-width: 100%;",
+      
+      "templateBody" : "",
+      "bodyContent" : "color:#333; font-family:Helvetica; font-size:13px; line-height:150%; padding-top:20px; padding-right:20px; padding-bottom:20px; padding-left:20px; text-align:left;",
+      "bodyContenta" : "color: #11BED4; font-weight:normal; text-decoration: none; word-break: break-word;",
+
+
+      "sectionTitle" : "font-size: 50px; margin-bottom: 10px; display:block; color: #bbb;",
+
+      "h1" : "color:#333 !important; display:block; font-family:Helvetica; font-size:35px; font-style:normal; font-weight:normal; line-height:100%; letter-spacing:normal;  margin-right:0; text-align:left;",
+      "h1a" : "color: #333; text-decoration: none;",
+
+
+      "templateSection" : "background-color:#f0f0f0; border-top:1px solid #FFFFFF; margin-top: 20px; margin-bottom: 20px;",
+      "sectionContent" : "color:#333; font-family:Helvetica; font-size:13px; line-height:150%; padding-top:12px; padding-right:20px; padding-bottom:5px; padding-left:20px; text-align:left;",
+
+      "h2" : "color:#999 !important; font-weight:normal; font-size:26px; display:block; font-family:Helvetica; font-style:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:8px; margin-left:0; text-align:left;",
+      "h2a" : "color: #999;  text-decoration: none;",
+
+      "bodyContentImg" : "display:inline; height:auto; max-width:560px;",
+
+      "h3" : "color:#333 !important; display:block; font-family:Helvetica; font-size:16px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:15px; margin-left:0; text-align:left;",
+      "h3a" : "color: #333;  text-decoration: none;",
+      "h4" : "color:#333 !important; display:block; font-family:Helvetica; font-size:14px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:0; margin-right:0; margin-bottom:25px; margin-left:0; text-align:left;",
+      "h4a" : "color: #333;  text-decoration: none;",
+
+      "edito" : "color:#333 !important; display:block; font-family:Helvetica; font-size:16px; font-weight:normal; line-height:100%; letter-spacing:normal; margin-top:50px; margin-right:0; margin-bottom:50px; margin-left:0; text-align:left;",
+      "editoa" : "color: #333;  text-decoration: none;",
+
+      "featuredEvent" : "background-color: white; margin-bottom: 50px;",
+
+      "featuredImage" : "height:auto; width: 600px; max-width: 100%;",
+
+      "featuredTitle" : "margin-bottom: 15px; font-size:28px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredTitlea" : "font-weight: normal; color: #333;  text-decoration: none;",
+
+      "featuredDesc" : "margin-bottom: 10px; font-size:16px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredDesca" : "color: #666;  text-decoration: none;",
+
+      "featuredSpaceTime" : "font-size:14px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "featuredSpaceTimea" : "color: #333;  text-decoration: none;",
+
+      "templateImage" : "",
+      "imageContent" : "color:#505050; font-family:Helvetica; font-size:20px; font-weight:bold; line-height:100%; padding-top:0; padding-right:0; padding-bottom:0; padding-left:0; text-align:center; vertical-align:middle;",
+
+      "itemTitle" : "padding-bottom: 5px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemTitlea" : "font-size: 18px; color: #333; text-decoration: none; font-weight: bold;",
+
+      "itemDesc" : "padding-bottom: 10px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemDesca" : "font-size: 14px; color: #333;  text-decoration: none;",
+
+      "itemSpaceTime" : "padding-bottom: 15px; color:#333 !important; display:block; font-family:Helvetica; display:block;",
+      "itemSpaceTimea" : "color: #666; font-size: 13px; text-decoration: none;",
+
+      "itemSeparator" : "border-bottom: 1px solid #333; display: block; padding-top: 30px; margin-bottom: 20px;",
+
+
+      "addEventLinkCanvas" : "padding-top: 60px; text-align: center;",
+      "addEventLink" : "padding: 10px; background-color: #5bb75b; color: white; font-size: 14px;",
+
+      "linksCanvas" : "",
+
+      "linkItem" : "padding-top: 5px; padding-bottom: 5px; display: block;",
+
+      "spacedLinkItem" : "padding-top: 30px; display: block;",
+
+      "logoCanvas" : "text-align: center;",
+
+      "logo" : " max-width: 120px; "
+
+    }
+  },
+  "helpers" : {
+    "_t" : "time",
+    "_txt" : "text"
+  }
+}

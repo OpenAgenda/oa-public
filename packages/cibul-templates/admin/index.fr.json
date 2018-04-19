@@ -1,0 +1,34 @@
+{
+	"Reviews"
+	: "Agendas",
+	"Events"
+	: "Evenements",
+	"Users"
+	: "Utilisateurs",
+	"Last week"
+	: "La semaine dernière",
+	"Last month"
+	: "Le mois dernier",
+	"Number of reviews created %totalReviews%"
+	: "Nombre d'agenda(s) crée(s) %totalReviews%",
+	"Number of events created %totalEvents%"
+	: "Nombre d'évéement(s) crée(s) %totalEvents%",
+	"Number of users created %totalUsers%"
+	: "Nombre d'utilisateur(s) crée(s) %totalUsers%",
+	"%reviewsWeek% reviews"
+	: "%reviewsWeek% agendas",
+	"%reviewsMonth% reviews"
+	: "%reviewsMonth% agendas",
+	"%eventsWeek% events"
+	: "%eventsWeek% evenements",
+	"%eventsMonth% events"
+	: "%eventsMonth% evenements",
+	"%usersWeek% users"
+	: "%usersWeek% utilisateurs",
+	"%usersMonth% users"
+	: "%usersMonth% utilisateurs",
+	"Published events by week"
+	: "Evénements publiés par semaine",
+	"Diff between primary db and Elasticsearch"
+	: "Diff entre bdd et elasticsearch"
+}

@@ -1,0 +1,45 @@
+#agenda {
+  
+  .main-content {
+
+    padding: 0;
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+
+    @media (min-width: 720px) {
+
+      width: 685px;
+
+    }
+
+    @media (min-width: 1040px) {
+
+      width: 1040px;
+
+    }
+
+    article {
+
+      display: inline-block;
+      vertical-align: top;
+      margin: 0 20px 40px;
+      text-align: left;
+
+      @media (min-width: 662px) {
+
+        width: 300px;
+
+      }
+
+      @media (min-width: 562px ) {
+
+        width: 250px;
+
+      }
+
+    }
+
+  }
+
+}

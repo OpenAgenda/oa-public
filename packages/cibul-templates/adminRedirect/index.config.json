@@ -1,0 +1,17 @@
+{
+  "layout" : "agendaAdmin/bsLayout",
+  "bsCss" : {
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
+  },
+
+  "helpers" : {
+    "_i" : "image"
+  },
+
+  "base" : {
+    "mainClass" : "redirect",
+    "pageId" : false
+  },
+
+  "js" : true
+}

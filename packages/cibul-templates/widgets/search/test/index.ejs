@@ -1,0 +1,14 @@
+<html>
+  <head>
+<% js.forEach( function( jsPath ) { %>
+  <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+  </head>
+  <body>
+    <p>search widget</p>
+    <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr" data-search-label="custom search label"></div>
+
+    <p>another field for the same in the same page</p>
+    <div class="cbpgsc cibulSearch" data-cbctl="48959239/46744426|fr"></div>
+  </body>
+</html>

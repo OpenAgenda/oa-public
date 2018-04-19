@@ -1,0 +1,134 @@
+{
+  "base" : {
+    "search" : {
+      "what" : "yeepeekayyay"
+    }
+  },
+  "reg" : {
+    "agendas" : [
+      {
+        "image" : "review_la-gargouille_00.jpg",
+        "title" : "La Gargouille",
+        "description" : "Une sélection d'événements à Paris",
+        "locationInfo" : "Ile de France",
+        "categories" : [
+          {
+            "label" : "Concerts",
+            "slug" : "concerts"
+          },
+          {
+            "label" : "Expositions",
+            "slug" : "expositions"
+          },
+          {
+            "label" : "Insolite",
+            "slug" : "expositions"
+          }
+        ]
+      },
+      {
+        "image" : null,
+        "title" : "59 RIVOLI",
+        "description" : "Toute la programmation événement du célèbre Aftersquat de la rue de Rivoli",
+        "locationInfo" : "59 Rivoli",
+        "categories" : [
+          {
+            "label" : "exposition",
+            "slug" : "exposition"
+          },
+          {
+            "label" : "concert",
+            "slug" : "concert"
+          },
+          {
+            "label" : "performance",
+            "slug" : "performance"
+          }
+        ]
+      },
+      {
+        "image" : "review_lafilledurock_00.jpg",
+        "title" : "Lafilledurock",
+        "description" : "Sélection des concerts parisiens en Rock/Metal/Etc... par le blog lafilledurock",
+        "locationInfo" : "Ile de France",
+        "categories" : []
+      },
+      {
+        "image" : "review_cresol_03.jpg",
+        "title" : "Economie Solidaire Centre",
+        "description" : "Evénements relatifs à l'Economie Solidaire en région Centre",
+        "locationInfo" : "Centre",
+        "categories" : [
+          {
+            "label" : "Indre et Loire",
+            "slug" : "indreetloire"
+          },
+          {
+            "label" : "Cher",
+            "slug" : "cher"
+          },
+          {
+            "label" : "Indre",
+            "slug" : "indre"
+          }
+        ]
+      },
+      {
+        "image" : "review_vodkakoka-roberta_01.jpg",
+        "title" : "Vodkakoka Roberta",
+        "description" : "Event Manager, Selecta, DJ, Event Promoter",
+        "locationInfo" : "Ile de France",
+        "categories" : []
+      },
+      {
+        "image" : null,
+        "title" : "sinai de jazz",
+        "description" : "Séléction d'événements",
+        "locationInfo" : "Ile de France",
+        "categories" : []
+      },
+      {
+        "image" : "review_event4change_03.jpg",
+        "title" : "Event4Change",
+        "description" : "Changer le monde, événement après événement",
+        "locationInfo" : "France",
+        "categories" : []
+      },
+      {
+        "image" : "review_xavier-girard_01.jpg",
+        "title" : "Réseau 63",
+        "description" : "Evénements autour du bien-être et de la spiritualité dans le Puy-de-Dôme",
+        "locationInfo" : "Puy-de-Dôme",
+        "categories" : []
+      },
+      {
+        "image" : "review_cheznous_598_00.jpg",
+        "title" : "Jeu de Territoire pour développer la qualité de Vie",
+        "description" : "l'agenda des évènements repérés par ChezNousEvénements relatifs à l'Economie Solidaire en région Centre",
+        "locationInfo" : "Puy-de-Dôme",
+        "categories" : []
+      },
+      {
+        "image" : "review_fidh_00.jpg",
+        "title" : "FIDH",
+        "description" : "FIDH federates 178 NGOs in over 100 countries. Founded in 1922, we fight for #humanrights #justice #freedom #democracy - In French: @fidh_fr",
+        "locationInfo" : "Monde",
+        "categories" : []
+      }
+    ],
+    "pager" : {
+      "current" : 3,
+      "total" : 127,
+      "action" : "searchAgendas",
+      "values" : { "what" : "whatvalues", "when" : "whenvalues", "where" : "wherevalues" },
+      "perPage" : 15
+    }
+  },
+  "empty" : {
+    "agendas" : [],
+    "pager" : {
+      "total" : 0,
+      "routeName" : "searchAgendas"
+    }
+  }
+}

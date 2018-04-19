@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+<% if ( metas.title ) { %>
+    <title><%- __( metas.title ) %></title>
+<% } %>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="language" content="<%= lang %>" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <% include ./metas.part.ejs %>
+    <% include ./css.part.ejs %>
+    <% include ./js.part.ejs %>
+  </head>
+  <body<% if ( pageClass ) { %> class="<%= pageClass %>"<% } %> data-options="<%- typeof scriptParams !== 'undefined' ? _esc( JSON.stringify( scriptParams ) ) : '' %>">
+    <div id="outdated"></div>
+    <header class="js_top_nav">
+      <div class="container">
+        <a class="logo" href="<%= genUrl( 'corpoHome' ) %>"><img alt="OpenAgenda" src="/images/openagenda.png"></a>
+        <form class="cform bigger" method="get" action="<%= genUrl( 'agendaSearch' ) %>">
+          <input type="text" name="search" value="<%= typeof search !== 'undefined' ? search : '' %>" placeholder="<%= __( 'Search' ) %>"/>
+<% if ( typeof lang !== 'undefined' && lang !== 'fr' ) { %>
+          <input type="hidden" name="lang" value="<%= lang %>"/>
+<% } %>
+          <button type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+        <ul class="links site-links js_header_links">
+          <li><a target="_blank" href="/support?origin=<%= encodeURIComponent( originalUrl ) %>">
+              <%= __( 'Help' ) %></a>
+          </li>
+          <% if ( typeof links !== 'undefined' ) { %>
+<% links.forEach( function( link ) { %>
+          <li <% if ( typeof link.className !== 'undefined') { %>class="<%= link.className %>"<% } %>><a href="<%= link.url %>"><%= __(link.label) %></a></li>
+<% }); %>
+<% } %>
+          <li><a class="js_signin_link" href="<%= genUrl('signin') %>" rel="nofollow"><%= __('Sign in') %></a></li>
+          <li class="language-menu js_language_menu js_toggle" data-toggle="language-menu">
+            <a class="js_toggle_trigger"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
+            <ul class="language-menu">
+              <li><a rel="alternate" href="?lang=fr" hreflang="fr">français</a></li><!--
+              --><li><a href="?lang=en" hreflang="en">english</a></li>
+            </ul>
+          </li>
+          <li class="inbox js_inbox_header hide">
+            <a href="/home/inbox">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li class="notifications js_notifications hide">
+            <a class="js_notifications_opener">
+              <i class="fa fa-bell" aria-hidden="true"></i>
+              <span class="label label-danger hide"></span>
+            </a>
+            <div class="js_notifications_panel hide"></div>
+          </li>
+        </ul>
+      </div>
+    </header>

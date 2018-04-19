@@ -1,0 +1,17 @@
+<html>
+  <head>
+<% js.forEach( function( jsPath ) { %>
+    <script type="text/javascript" src="<%= jsPath %>"></script>
+<% }) %>
+  </head>
+  <body>
+    <p>new list widget</p>
+    <iframe 
+      frameborder="0"
+      allowtransparency="allowtransparency" 
+      class="<%= useFallback ? '' : 'cibulFrame cbpgbdy' %>"
+      <%= useFallback ? 'data-oabdy' : '' %>
+      src="/agenda/embedShow" 
+      width="100%"></iframe>
+  </body>
+</html>

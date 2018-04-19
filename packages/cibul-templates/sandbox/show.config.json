@@ -1,0 +1,13 @@
+{
+  "layout" : "bsLayout/main",
+
+  "oaCss" : {
+    "sandbox" : "css/style.scss"
+  },
+
+  "base" : {
+    "pageId" : "sandbox",
+    "title" : "This is the sandbox page",
+    "name" : "Steve"
+  }
+}

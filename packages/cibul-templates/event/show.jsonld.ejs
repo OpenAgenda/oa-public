@@ -1,0 +1,39 @@
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type" : "Event",
+  "name" : "<%= event.title %>",
+  "description" : "<%= event.description %>",
+  "url" : "<%= genUrl( loner ? 'eventShow' : 'agendaEventShow', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ], { abs: true } ) %>",
+<% if ( event.image ) { %>
+  "image" : "<%= _i( event.image ) %>",
+<% } %>
+<% if ( event.timings.length ) { %>   
+  "startDate" : "<%= _t( event.timings[ 0 ].start, 'YYYY-MM-DDThh:mm' ) %>",
+  "endDate" : "<%= _t( event.timings[ event.timings.length - 1 ].start, 'YYYY-MM-DDThh:mm' ) %>",
+  "duration" : "<%= _t.diff( event.timings[ 0 ].start, event.timings[ 0 ].end ) %>",
+<% } %>
+  "location" : {
+    "@type" : "Place",
+    "name" : "<%= event.location.name %>",
+    "address" : {
+      "@type" : "PostalAddress",
+<% if ( event.location.postalCode ) { %>
+      "postalCode" : "<%= event.location.postalCode %>",
+<% } %>
+<% if ( event.location.city ) { %>
+      "addressLocality" : "<%= event.location.city %>",
+<% } %>
+<% if ( event.location.region ) { %>
+      "addressRegion" : "<%= event.location.region %>",
+<% } %>
+      "streetAddress" : "<%= event.location.address %>"
+    },
+    "geo": {
+      "@type" : "GeoCoordinates",
+      "latitude" : "<%= event.location.latitude %>",
+      "longitude" : "<%= event.location.longitude %>"
+    }
+  }
+}
+</script>

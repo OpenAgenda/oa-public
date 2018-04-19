@@ -1,0 +1,7 @@
+{
+  "uid" : "48959239/46744426",
+  "js" : [ "../../controller/main.js", "../categories.js" ],
+  "base" : {
+    "controlData" : "embedcontroldata-lagargouille.json"
+  }
+}

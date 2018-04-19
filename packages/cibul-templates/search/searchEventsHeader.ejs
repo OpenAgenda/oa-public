@@ -1,0 +1,7 @@
+<h1><%= __( pager.total ? 'Results for "%what%"' : 'No result available for "%what%"', { '%what%': search.what } ) %></h1>
+<ul>
+<% if ( pager.total ) { %>
+  <li><span><%= __('%count% events', { '%count%': pager.total }) %></span></li>
+<% } %>
+  <li><a class="url" href="<%= genUrl( 'searchAgendas', { search: search } ) %>"><%= __('see agendas') %></a></li>
+</ul>

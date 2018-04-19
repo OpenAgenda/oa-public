@@ -1,0 +1,26 @@
+{
+  "base" : {
+
+    "scriptParams" : {
+      "terms" : true,
+      "lang" : "fr",
+      "languages" : [ "en", "fr" ],
+      "res" : {
+        "contributor" : "user.json",
+        "location" : "location.json",
+        "terms" : "testTerms.json"
+      }
+    }
+
+  },
+
+  "standard" : {},
+
+  "noterms" : {
+
+    "scriptParams" : {
+      "terms" : false
+    }
+
+  }
+}

@@ -1,0 +1,19 @@
+<div class="popup-overlay js_close_popup">
+  <section>
+    <header class="popup-title">
+      <h2><%= __('Choose a date') %></h2>
+      <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
+    </header>
+    <div class="js_popup_content popup-content share-menu">
+      <ul class="list-group">
+<% event.timings.forEach( function( timing ) { %>
+        <li class="list-group-item">
+          <a href="<%= timing.link %>" class="item active" target="_blank">
+            <%= _t( timing.start, 'dddd Do - HH:mm', event.timezone ) %>
+          </a>
+        </li>
+<% }) %>
+      </ul>
+    </div>
+  </section>
+</div>

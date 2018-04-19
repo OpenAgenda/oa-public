@@ -1,0 +1,86 @@
+#event {
+
+  .event-content {
+
+    background: none;
+    border-radius: none;
+
+    h1 {
+
+      padding-top: 0;
+
+    }
+
+    h1, .description, .short-description, .dates {
+
+      padding-left: 0;
+      padding-right: 0;
+
+    }
+
+    .share {
+
+      padding-bottom: 10px;
+
+      i {
+
+        font-size: 24px;
+        margin-right: 5px;
+      
+      }
+
+      span {
+
+        display: none;
+
+      }
+
+
+    }
+
+    .conditions {
+
+      display: inline-block;
+      padding-right: 1em;
+
+    }
+
+    .ticket-link {
+
+      display: inline-block;
+
+    }
+
+    .location {
+
+      padding: 1.5em 0 1em;
+
+      a {
+
+        font-weight: bold;
+        font-size: 1.1em;
+
+      }
+
+    }
+
+    .dates {
+
+      ul {
+
+        padding: 0;
+
+      }
+
+      li {
+
+        list-style-type: none;
+        padding: 0.5em 0;
+
+      }
+
+    }
+
+  }
+
+}

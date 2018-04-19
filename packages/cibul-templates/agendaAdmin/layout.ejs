@@ -1,0 +1,51 @@
+<% include ../layout/mainTop %>
+<div class="page">
+  <div class="wsq container <%= mainClass %>" id="review-admin-menu">
+    <header>
+<% if ( agenda.image ) {%>
+      <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+        <img alt="<%= agenda.title %>" src="<%= _i( agenda.image ) %>">
+      </a>
+<% } %>
+      <div class="title js_edit">
+        <h1><%= agenda.title %></h1>
+        <p><%= __('Administration') %></p>
+        <a class="url" href="<%= genUrl( 'agendaShow') %>"><%= __('back') %></a>
+      </div>
+    </header>
+    <nav class="sec">
+      <ul class="sidebar-item">
+        <li class="menu-button js_menu_button">
+          <a>
+            <i class="fa fa-list"></i>
+          </a>
+        </li>
+        <li class="menu-item js_menu_item title">
+          <h2><%= __('Manage') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }); %>
+<% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
+      <ul class="sidebar-item">
+        <li class="menu-item title js_menu_item">
+          <h2><%= __('Export') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section == 'export' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
+      </ul>
+<% } %>
+<% if ( tabs.filter( function( t ) { return t.section == 'settings' } ).length ) { %>
+      <ul class="sidebar-item">
+        <li class="menu-item title js_menu_item"><h2><%= __('Customize') %></h2></li>
+<% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
+      </ul>
+<% } %>
+    </nav><!--
+    --><div class="main">
+      <!-- content -->
+    </div>
+<% include ../layout/mainBottom %>

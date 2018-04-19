@@ -1,0 +1,40 @@
+[ {
+  "uid": 1111,
+  "title": {
+    "fr" : "Festival de l'hiver"
+  },
+  "location": {
+    "name": "Centre ville",
+    "address": "Genève"
+  },
+  "dateRange": {
+    "fr" : "14 février",
+    "en" : "14 february"
+  }
+}, {
+  "uid": 2222,
+  "title": {
+    "fr" : "Acrobaties d'eau"
+  },
+  "location": {
+    "name": "La fontaine",
+    "address": "Genève"
+  },
+  "dateRange": {
+    "fr" : "15 mars",
+    "en" : "15 march"
+  }
+}, {
+  "uid": 3333,
+  "title": {
+    "fr" : "Courir dans le parc"
+  },
+  "location": {
+    "name": "Le parc au bout de la rive",
+    "address": "59 rue de la rive, Genève"
+  },
+  "dateRange": {
+    "fr": "du 20 au 22 juin",
+    "en": "from 20 to 22 june"
+  }
+} ]

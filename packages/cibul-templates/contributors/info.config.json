@@ -1,0 +1,20 @@
+{
+  "layout" : "agendaAdmin/bsLayout",
+
+  "labels" : "contributors/info",
+
+  "bsCss" : {
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
+  },
+
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  },
+
+  "base" : {
+    "mainClass" : "agenda-admin editors",
+    "pageId" : false,
+    "tab" : "contributors"
+  }
+}

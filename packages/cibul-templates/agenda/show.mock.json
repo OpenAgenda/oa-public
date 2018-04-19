@@ -1,0 +1,213 @@
+{
+  "base" : {
+    "agenda" : {
+      "title" : "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
+      "description" : "l'agenda des évènements repérés par ChezNous",
+      "image" : "review_cheznous_598_00.jpg",
+      "isEmpty" : false,
+      "official" : true,
+      "private" : true,
+      "slug" : "chez-nous",
+      "url" : "http://cheznous.coop",
+      "uid" : 48959239,
+      "theme" : false
+    },
+    
+    "redirect" : "quiruezrhdk",
+    
+    "eventUri" : "eventShow",
+    "importUri" : "/agenda/action.part",
+    "base" : { "slug" : "chez-nous" },
+    "total" : 200,
+    "passedIncluded" : false,
+    "passedQuery" : "#",
+    "lang" : "fr",
+    "scriptParams" : {
+      "uid" : 48959239,
+      "total" : 200,
+      "perPage" : 20,
+      "lang" : "fr",
+      "res" : {
+        "actions" : "#actions" 
+      }
+    },
+    
+    "pager" : {
+      "current" : 3,
+      "total" : 127,
+      "action" : "show",
+      "values" : {},
+      "perPage" : 15
+    }
+  },
+  "standard" : {
+    "agenda" : {
+      "isEmpty" : false
+    },
+    "events" : [
+      {
+        "title" : "Les imams en France",
+        "uid" : "48948894",
+        "featured" : true,
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_les-imams-en-france_924665.jpg",
+        "description" : "Solenne Jouanneau",
+        "dateRange" : "26 avril 2015, 18h00",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Quelque part",
+        "category" : {
+          "label" : "Expositions",
+          "slug" : "expositions"
+        },
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "politique",
+            "label" : "politique"
+          }
+        ],
+        "organization" : {
+          "label" : "MegaCorp Enterprises",
+          "slug" : "megacorp-entreprises"
+        }
+      },
+      {
+        "title" : "Europe : les états désunis (Coralie Delaume)",
+        "uid" : "45464648",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : null,
+        "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
+        "dateRange" : "du 29 septembre 2012 au 31 mai 2015",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Centre George Pompidou",
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "geolocalisation",
+            "label" : "géolocalisation"
+          },
+          {
+            "slug" : "saas",
+            "label" : "saas"
+          }
+        ]
+      },
+      {
+        "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_premileres-mesures-revolutionnaires_282421.jpg",
+        "description" : "Wilfried Lignier",
+        "dateRange" : "du 29 septembre 2012 au 31 mai 2015",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Creanova",
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "objetsconnectes",
+            "label" : "objets connectés"
+          },
+          {
+            "slug" : "paperasse",
+            "label" : "paperasse"
+          }
+        ]
+      },
+      {
+        "title" : "Homo spectator : voir, faire voir",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
+        "description" : "Marie-José Mondzain",
+        "dateRange" : "du 12 au 14 octobre 2014",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Banque Populaire Atlantique"
+      },
+      {
+        "title" : "La Technologisation du corps",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_homo-spectator-voir-faire-voir_223470.jpg",
+        "description" : "Brigitte Munier-Termime",
+        "dateRange" : "du 12 au 14 octobre 2014",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Metro Stalingrad"
+      },
+      {
+        "title" : "Changeons d'agriculture",
+        "uid" : "4546988948",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/evtbevent_changeons-d-agriculture_703516.jpg",
+        "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
+        "dateRange" : "du 12 au 14 octobre 2014",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Banque Populaire Atlantique",
+        "tags" : [
+          {
+            "label" : "business model",
+            "slug" : "business-model"
+          },
+          {
+            "label" : "découverte",
+            "slug" : "decouverte"
+          }
+        ]
+      },
+      {
+        "title" : "Eric Hazan",
+        "uid" : "4546988948",
+        "importUri" : "/event/action.part",
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_premileres-mesures-revolutionnaires_282421.jpg",
+        "description" : "Eric Hazan",
+        "dateRange" : "du 12 au 14 octobre 2014",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Banque Impopulaire",
+        "tags" : [
+          {
+            "label" : "télécom bretagne",
+            "slug" : "telecom-bretagne"
+          }
+        ]
+      }
+    ],
+    "scriptParams" : {
+      "empty" : false
+    }
+  },
+  "noimage" : {
+    "agenda" : {
+      "image": false,
+      "isEmpty" : true
+    },
+    "events" : []
+  },
+  "themed" : {
+    "agenda" : {
+      "theme" : {
+        "image" : "review-bg-1402924618-615.jpg",
+        "repeat" : false,
+        "anchorage" : "center",
+        "backgroundColor" : "#fafafc",
+        "canvasPosition" : "center",
+        "canvasOffset" : "120"
+      }
+    },
+    "events" : []
+  },
+  "empty" : {
+    "agenda" : {
+      "isEmpty" : true
+    },
+    "events" : [],
+    "scriptParams" : {
+      "empty" : true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "readme" : "used to generate the html render of the event page timings",
+  "helpers" : {
+    "_t" : "time",
+    "_txt" : "text"
+  },
+  "base" : {
+    "wrap" : false
+  }
+}

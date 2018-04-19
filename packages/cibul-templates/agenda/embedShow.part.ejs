@@ -1,0 +1,13 @@
+<% if ( !total ) { %>
+<% if ( ( passed === true ) && !hasSearchQuery ) { %>
+    <p class="text-center"><%- __( 'There are no upcoming events published in this agenda.' ) %></p>
+<% } else { %>
+    <p class="text-center"><%= __( 'There are no matching events. Please widen your search.' ) %></p>
+<% } %>
+<% } else { %>
+
+<% renders.eventItems.forEach(function( eventRender ) { %>
+    <%- eventRender %>
+<% } ); %>
+
+<% } %>

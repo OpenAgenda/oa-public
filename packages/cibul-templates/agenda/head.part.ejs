@@ -1,0 +1,73 @@
+<header class="agenda-header" <% if ( agenda.theme ) { %> style="background-image:url(<%= _i( agenda.theme.image ) %>)" <% } %>>
+<% if ( agenda.theme ) { %>
+  <div class="layer"></div>
+<% } %>
+  <div class="container profile<% if ( !agenda.theme ) { %> notheme <% } %>">
+    <div class="row"><!--
+      --><div class="col-sm-2 avatar-container">
+<% if ( agenda.image ) { %>
+      <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+        <img class="avatar" src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
+      </a>
+<% } %>
+      </div><!--
+      --><div class="col-sm-7 title-container">
+        <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+          <div class="agenda-title">
+            <h1><%= agenda.title %></h1>
+<% if ( agenda.official || agenda.private ) { %>
+            <div class="agenda-badges">
+<% if ( agenda.official ) { %>
+              <div class="official big">
+                <i></i>
+                <div class="tooltip right" role="tooltip">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner"><%= __( 'officialAgenda' ) %></div>
+                </div>
+              </div>
+<% } %>
+<% if ( agenda.private ) { %>
+              <div class="tooltip-icon big">
+                <i class="fa fa-unlock-alt"></i>
+                <div class="tooltip right" role="tooltip">
+                  <div class="tooltip-arrow"></div>
+                  <div class="tooltip-inner"><%= __( 'privateAgenda' ) %></div>
+                </div>
+              </div>
+<% } %>
+            </div>
+<% } %>
+          </div>
+          <p><%- _txt.setLinks( agenda.description ) %></p>
+        </a>
+<% if ( agenda.url ) { %>
+        <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
+<% } %>
+            <% if ( includeActionLinks ) { %><div class="ctas">
+                <a
+                  class="btn btn-default js_create_conversation_contact margin-bottom-xs"
+                  href="/<%= agenda.slug %>/contact"
+                  rel="nofollow"
+                  data-type="contact_form"
+                  data-destination-inbox="<%= `{"type": "agenda", "identifier": ${agenda.uid}` %>"
+                  data-lang="fr"
+                >
+                    <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
+                </a>
+                <a class="btn btn-default js_use_search margin-bottom-xs" href="<%= agenda.importUri %>" rel="nofollow">
+                    <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>
+                </a>
+                <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>">
+                    <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
+                </a>
+                <% if ( agenda.showCalendar ) { %>
+                <a class="btn btn-default margin-bottom-xs" href="<%= agenda.slug + '/calendar' %>"><i class="fa fa-calendar"></i><span><%= __( 'showCalendar' ) %></span></a>
+                <% } %>
+                <a class="btn btn-primary display-none js_admin_button margin-bottom-xs" data-href="<%= genUrl( 'agendaAdminShow', { slug: agenda.slug } ) %>" rel="nofollow">
+                  <i class="fa fa-cogs"></i> <%= __( 'manage' ) %>
+                </a>
+            </div><% } %>
+      </div>
+    </div>
+  </div>
+</header>

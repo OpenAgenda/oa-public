@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module './languageBar.jsx' from '/home/kaore/Dev/www/cibul-templates/event form/js'");

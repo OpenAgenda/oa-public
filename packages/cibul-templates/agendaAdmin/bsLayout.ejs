@@ -1,0 +1,55 @@
+<% include ../bsLayout/mainTop %>
+<div class="container agenda-admin<%= typeof mainClass !== 'undefined' ? ' ' + mainClass : '' %>">
+  <div class="row wsq header">
+<% if ( agenda.image ) { %>
+    <div class="col col-sm-2">
+      <a class="agenda-logo" href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
+        <img alt="<%= agenda.title %>" src="<%= _i( agenda.image ) %>">
+      </a>
+    </div>
+    <div class="col col-sm-10">
+<% } else { %>
+    <div class="col col-sm-12">
+<% } %>
+      <h1><%= agenda.title %></h1>
+      <p><%= __( 'Administration' ) %></p>
+      <a class="url" href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>"><%= __('back') %></a>
+    </div>
+  </div>
+  <div class="row wsq">
+    <div class="col col-sm-3 nav">
+      <ul class="list-unstyled">
+        <li>
+          <h2><%= __('Manage') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section === 'manage' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }); %>
+      </ul>
+<% if ( tabs.filter( function( t ) { return t.section == 'export' } ).length ) { %>
+      <ul class="list-unstyled">
+        <li>
+          <h2><%= __('Export') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section == 'export' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
+      </ul>
+<% } %>
+<% if ( tabs.filter( function( t ) { return t.section == 'settings' } ).length ) { %>
+      <ul class="sidebar-item list-unstyled">
+        <li>
+          <h2><%= __('Customize') %></h2>
+        </li>
+<% tabs.filter( function( t ) { return t.section == 'settings' } ).forEach( function( t ) { %>
+      <% include ./tab.part.ejs %>
+<% }) %>
+      </ul>
+<% } %>
+    </div><!--
+    --><div class="col col-sm-9 body">
+      <!-- content -->
+    </div>
+  </div>
+</div>
+<% include ../bsLayout/mainBottom %>

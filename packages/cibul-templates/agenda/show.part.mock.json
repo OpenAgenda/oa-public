@@ -1,0 +1,152 @@
+{
+  "base" : {
+    "slug" : "chez-nous",
+    "eventUri" : "eventShow",
+    "base" : { "slug" : "chez-nous" },
+    "total" : 200,
+    "lang" : "fr"
+  },
+  "standard" : {
+    "eventBaseQuery" : { "slug" : "chez-nous" },
+    "events" : [
+      {
+        "title" : "Les imams en France",
+        "uid" : "48948894",
+        "importUri" : "/event/action.part",
+        "featured" : true,
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_les-imams-en-france_924665.jpg",
+        "description" : "Solenne Jouanneau",
+        "dateRange" : "26 avril 2015, 18h00",
+        "closestDate" : "2015-02-23T18:00:00.000Z",
+        "placeName" : "Quelque part",
+        "category" : {
+          "label" : "Expositions",
+          "slug" : "expositions"
+        },
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "politique",
+            "label" : "politique"
+          }
+        ],
+        "organization" : {
+          "label" : "MegaCorp Enterprises",
+          "slug" : "megacorp-entreprises"
+        }
+      },
+      {
+        "title" : "Europe : les états désunis (Coralie Delaume)",
+        "uid" : "45464648",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : null,
+        "description" : "Coralie Delaume nous explique avec brio pourquoi l'UE ne fonctionne pas.",
+        "dateRange" : "du 29 septembre 2012 au 31 mai 2015",
+        "closestDate" : "2015-02-22T22:00:00.000Z",
+        "placeName" : "Centre George Pompidou",
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "geolocalisation",
+            "label" : "géolocalisation"
+          },
+          {
+            "slug" : "saas",
+            "label" : "saas"
+          }
+        ]
+      },
+      {
+        "title" : "La petite noblesse de l’intelligence, une sociologie des enfants surdoués",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_premileres-mesures-revolutionnaires_282421.jpg",
+        "description" : "Wilfried Lignier",
+        "dateRange" : "22 février 2015, 18h",
+        "closestDate" : "2015-03-25T18:00:00.000Z",
+        "placeName" : "Creanova",
+        "city" : "Paris",
+        "tags" : [
+          {
+            "slug" : "objetsconnectes",
+            "label" : "objets connectés"
+          },
+          {
+            "slug" : "paperasse",
+            "label" : "paperasse"
+          }
+        ]
+      },
+      {
+        "title" : "Homo spectator : voir, faire voir",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_la-petite-noblesse-de-l-intelligence-une-sociologie-des-enfants-surdoues_739383.jpg",
+        "description" : "Marie-José Mondzain",
+        "dateRange" : "22 février 2015, 18h",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Banque Populaire Atlantique"
+      },
+      {
+        "title" : "La Technologisation du corps",
+        "uid" : "748789456",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_homo-spectator-voir-faire-voir_223470.jpg",
+        "description" : "Brigitte Munier-Termime",
+        "dateRange" : "22 février 2015, 18h",
+        "closestDate" : "2015-02-22T22:00:00.000Z",
+        "placeName" : "Metro Stalingrad"
+      },
+      {
+        "title" : "Changeons d'agriculture",
+        "uid" : "4546988948",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_changeons-d-agriculture_703516.jpg",
+        "description" : "Le “modèle” agricole qui s’est imposé depuis quelques décennies est de plus en plus critiqué en raison de ses conséquences néfastes sur l’environnement, l’emploi et la santé humaine et animale...",
+        "dateRange" : "22 février 2015, 18h",
+        "closestDate" : "2015-02-22T18:00:00.000Z",
+        "placeName" : "Banque Populaire Atlantique",
+        "tags" : [
+          {
+            "label" : "business model",
+            "slug" : "business-model"
+          },
+          {
+            "label" : "découverte",
+            "slug" : "decouverte"
+          }
+        ]
+      },
+      {
+        "title" : "Eric Hazan",
+        "uid" : "4546988948",
+        "importUri" : "/event/action.part",
+        "query" : { "eventSlug" : "fqsdfdq" },
+        "slug" : "fqsdfdq",
+        "image" : "//cibul.s3.amazonaws.com/event_premileres-mesures-revolutionnaires_282421.jpg",
+        "description" : "Eric Hazan",
+        "dateRange" : "22 février 2015, 18h",
+        "closestDate" : "2015-03-22T18:00:00.000Z",
+        "placeName" : "Banque Impopulaire",
+        "tags" : [
+          {
+            "label" : "télécom bretagne",
+            "slug" : "telecom-bretagne"
+          }
+        ]
+      }
+    ]
+  }
+}

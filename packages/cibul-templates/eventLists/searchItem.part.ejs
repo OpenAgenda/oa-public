@@ -1,0 +1,29 @@
+<article><!--
+  <% if ( event.thumbnail ) { %>
+  --><a class="pic" href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>">
+    <img src="<%= _i( event.thumbnail ) %>" alt="<%= event.title %>">
+  </a><!--
+<% } %>
+  --><div class="cnt<% if ( !event.thumbnail ) { %> nopic<% } %>" href="#">
+<% if ( event.category ) { %>
+    <a class="ct mbClr" href="#<%= event.category.slug %>"><%= event.category.label %></a>
+<% } %>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ] ) %>"><span class="title"><%= event.title %></span></a>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {} ] ) %>"><span class="sti url"><%= __( event.dateRange[0], _t(event.dateRange[1]) ) %></span></a>
+    <a href="<%= genUrl( 'eventShow', [ { eventSlug: event.slug }, queryLang ? { lang: queryLang } : {}] ) %>"><span class="dsc"><%= event.description %></span></a>
+<% if ( event.tags ) { %>
+    <span class="tg">
+      <ul>
+<% event.tags.forEach( function( tag ) { %>
+        <li><a href="#<%= tag.slug %>"><%= tag.label %></a></li>
+<% }); %>
+      </ul>
+    </span>
+<% } %>
+    <a class="lc" href="<%= genUrl('eventShow', { eventSlug: event.slug }) %>">
+      <i class="fa fa-map-marker mClr"></i>
+      <span><%= event.placeName %></span>
+    </a>
+
+  </div>
+</article>

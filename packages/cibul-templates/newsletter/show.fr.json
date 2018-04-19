@@ -1,0 +1,16 @@
+{
+  "Email not displaying correctly?" : "L'email ne s'affiche pas correctement?",
+  "View this in your browser" : "Voir ceci dans le navigateur",
+  "book" : "réserver",
+  "Featured Events" : "Les événements à la une",
+  "The selection" : "La sélection",
+  "from %start% to %finish% @ %placename%" : "du %start% au %finish% @ %placename%",
+  "The agenda of" : "L'agenda de",
+  "Add an Event" : "Ajouter un événement",
+  "Stay up to date by connecting this agenda to your favorite service" : 
+  "Suivez-nous directement dans votre service personnel",
+  "Download this agenda in csv format"
+  : "Télécharger notre programmation au format csv",
+  "Unsubscribe"
+  : "Se désabonner"
+}

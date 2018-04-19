@@ -1,0 +1,15 @@
+<% if ( typeof bottom !== 'undefined' ) { %>
+<% if ( typeof bottom.scriptSources !== 'undefined' ) { %>
+<% bottom.scriptSources.forEach( function( src ) { %>
+<script type="text/javascript" src="<%= src %>"></script>
+<% } ); %>
+<% } %>
+<% if ( bottom.scripts ) { %>
+<% bottom.scripts.forEach( function( script ) { %>
+<script type="text/javascript"><%- script %></script>
+<% }); %>
+<% } %>
+<% } %>
+<% include ../layout/js.part.ejs %>
+  </body>
+</html>

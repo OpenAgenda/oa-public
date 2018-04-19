@@ -1,0 +1,70 @@
+<% if ( actions.indexOf( 'calendars' ) !== -1 ) { %>
+<p class="legend"><%= __('Import in a personal calendar') %></p>
+
+<div class="btn-adds">
+<% if ( event.imports.length ) { %>
+<% event.imports.forEach( function( i ) { %> 
+  <a class="btn btn-default<% if ( event.multipleTimings ) { %> js_modal <% } %>" href="<%= i.uri %>" <% if ( !event.multipleTimings ) { %>target="_blank"<% } %>><%= i.label %></a>
+<% }) %>
+<% } else { %>
+  <p class="text-center"><%= __('There are no timings available for this event') %></p>
+<% } %>
+</div>
+<% } %>
+<% if ( ( actions.indexOf( 'agendas' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
+<p class="legend"><%= __('Import in OpenAgenda') %></p>
+<% if ( logged ) { %>
+
+<% if ( agendas.length ) { %>
+<div class="btn-adds">
+
+<% agendas.forEach( function( a ) { %>
+<% if ( a.sharing ) { %>
+  <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+<% } else { %>
+  <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+<% } %>
+<% }); %>
+
+<% } else { %>
+
+  <div class="prompt text-center">
+    <p><%= __( 'You do not own any OpenAgenda yet' ) %></p>
+    <a class="btn green" href="<%= genUrl( 'agendaNew' ) %>"><%= __( 'Create an agenda' ) %></a>
+  </div>
+  
+<% } %>
+
+</div>
+
+<% } else { %>
+
+  <div class="prompt text-center">
+    <p><%= __( 'You need to sign in to your account to add this event to your agendas' ) %></p>
+    <a class="btn green" href="<%= genUrl( 'signin' ) %>"><%= __( 'Sign In' ) %></a>
+  </div>
+
+<% } %>
+
+<% } %>
+
+<% if ( ( actions.indexOf( 'email' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
+
+<p class="legend"><%= __( 'Send to email addresses' ) %></p>
+
+<form method="post" action="<%= mailSendUri %>">
+  <div class="form-group">
+    <textarea
+      name="mailsend"
+      class="form-control" 
+      rows="3"
+    ></textarea>
+    <label for="mailsend"><%= __( 'Type in the emails you want to send the event to' )  %></label>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn green"><%= __( 'Send' ) %></button>
+  </div>
+  
+</form>
+
+<% } %>

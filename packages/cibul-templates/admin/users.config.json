@@ -1,0 +1,14 @@
+{
+  "layout": "adminLayout/main",
+  "bsCss" : {
+    "main" : "/node_modules/@openagenda/bs-templates/compiled/admin.css",
+    "react-table" : "/node_modules/react-table/react-table.css"
+  },
+  "helpers" : {
+    "_t" : "time",
+    "_i" : "image"
+  },
+  "base" : {
+  },
+  "js" : true
+}

@@ -1,0 +1,27 @@
+<div class="popup-overlay js_close_popup">
+  <section>
+    <header class="popup-title">
+      <h2><%= spreadsheetTitle %> - <%= extension %></h2>
+      <a class="close-link" href=""><i class="fa fa-times fa-lg"></i></a>
+    </header>
+    <div class="js_popup_content popup-content">
+      <p><%= spreadsheetDescription %></p>
+      <ul class="list-inline text-center">
+      <% links.slice( 1 ).forEach( function( link ) { %>
+        <li>
+          <a style="
+            margin-top: 12px;
+            background: white; 
+            color:#333" href="<%= link.link %>" class="btn btn-default"><%= link.label %></a>
+        </li>
+      <% } ) %>
+      </ul>
+      <div class="text-center">
+        <a style="
+          margin-top: 12px;
+          background: white; 
+          color:#333" href="<%= links[ 0 ].link %>" class="btn btn-default"><%= links[ 0 ].label %></a>
+      </div>
+    </div>
+  </section>
+</div>
