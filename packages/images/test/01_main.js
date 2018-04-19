@@ -59,6 +59,27 @@ describe( 'images - functional (server): main function', function() {
 
   });
 
+
+  it( 'process images from wobbly url', done => {
+
+    imageSvc.multi( {
+      url: 'http://admin-toulouse.cutm.nfrance.com/documents/10718111/10877026/Concert+d%27harmonie/699f1126-061d-4b4f-924b-52a83dfbf867?t=1521648413345'
+    }, [ {
+      name: 'url_orchestra_s.jpg',
+      format: { width: 100 }
+    }, {
+      name: 'url_orchestra_o.jpg'
+    } ], ( err, result ) => {
+
+      files = files.concat( result );
+
+      done();
+
+    } );
+
+  } );
+
+
   it( 'process image to multiple outputs from url', done => {
 
     var destOptions = [

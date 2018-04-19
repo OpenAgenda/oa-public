@@ -430,11 +430,17 @@ function _download( values ) {
 
       log( 'download successful at %s', path );
 
-      rs( values );
-
     });
 
     req.pipe( file );
+
+    file.on( 'close', () => {
+
+      if ( aborted ) return;
+
+      rs( values );
+
+    } );
 
   } );
 

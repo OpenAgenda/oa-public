@@ -38,7 +38,7 @@ function load( options, cb = null ) {
 
   if ( cb ) {
 
-    p.done( result => {
+    p.then( result => {
 
       setTimeout( () => cb( null, result ), 0 );
       
@@ -88,7 +88,7 @@ function _format( v ) {
 
   log( 'formatting source file %s', v.path || v.url );
 
-  let d = w.defer();
+  const d = w.defer();
 
   images.multi( {
     path: v.path,

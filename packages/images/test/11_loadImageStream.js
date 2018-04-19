@@ -5,23 +5,28 @@ process.env.NODE_ENV = 'test';
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const fs = require( 'fs' );
+const should = require( 'should' );
+
 const fakeImage = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/notanimage.jpg';
 const gm = require( 'gm' ).subClass( { imageMagick: true } );
 const imageSrc = 'https://s3-eu-west-1.amazonaws.com/cibulstatic/Galaxie-ESO-137-001.jpg';
 const imageSvc = require( '../' );
-const should = require( 'should' );
 const testconfig = require( '../testconfig.js' );
 const tmpTestFile = '/var/tmp/testfile';
+
+const unlinkTestFiles = require( './helpers/unlinkTestFiles' );
 
 describe( 'images - unit (server): loadImageStream', function() {
 
   this.timeout( 20000 );
 
-  var path, notImagePath;
+  let path, notImagePath;
 
-  before( function( done ) {
+  before( () => imageSvc.init( testconfig ) );
 
-    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+  before( done => {
+
+    imageSvc.test._download( { url: imageSrc } ).done( values => {
 
       path = values.path;
 
@@ -31,9 +36,9 @@ describe( 'images - unit (server): loadImageStream', function() {
 
   });
 
-  before( function( done ) {
+  before( done => {
 
-    imageSvc.test._download( { url: fakeImage } ).done( function( values ) {
+    imageSvc.test._download( { url: fakeImage } ).done( values => {
 
       notImagePath = values.path;
 
@@ -43,17 +48,11 @@ describe( 'images - unit (server): loadImageStream', function() {
 
   })
 
-  after( function() {
+  after( () => unlinkTestFiles( __dirname ) );
 
-    if ( path ) fs.unlinkSync( path );
+  it( 'load wrong image stream', done => {
 
-  });
-
-  it( 'load wrong image stream', function( done ) {
-
-    this.timeout( 10000 );
-
-    imageSvc.test._loadImageStream( { path: notImagePath } ).done( null, function( err ) {
+    imageSvc.test._loadImageStream( { path: notImagePath } ).done( null, err => {
 
       err.should.equal( 'invalid image' );
 
@@ -63,11 +62,9 @@ describe( 'images - unit (server): loadImageStream', function() {
 
   });
 
-  it( 'load image stream succeeds', function( done ) {
+  it( 'load image stream succeeds', done => {
 
-    this.timeout( 10000 );
-
-    imageSvc.test._loadImageStream( { path: path } ).done( function( values ) {
+    imageSvc.test._loadImageStream( { path } ).done( values => {
 
       values.info.Filesize.should.equal( '271KB' );
 
