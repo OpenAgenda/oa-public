@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const should = require( 'should' );
 const knexLib = require( 'knex' );
 const service = require( './service' );
-const { rebuild } = require( '../service/rebuild' );
+const { rebuild } = require( '../src/service/rebuild' );
 const winston = require( 'winston' );
 const config = require( '../testconfig' );
 

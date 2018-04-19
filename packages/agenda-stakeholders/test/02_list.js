@@ -6,7 +6,7 @@ const should = require( 'should' ),
 
   config = require( '../testconfig' ),
 
-  creds = require( '../iso/credentialTypes' ),
+  creds = require( '../src/iso/credentialTypes' ),
 
   _ = require( 'lodash' );
 

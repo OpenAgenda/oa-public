@@ -6,7 +6,7 @@ var config = require( '../testconfig' ),
 
 mysql = require( 'mysql' ),
 
-defaultFields = require( '../iso/defaults' ).fields,
+defaultFields = require( '../src/iso/defaults' ).fields,
 
 // proxy of service for tests.
 service = require( './service' ),

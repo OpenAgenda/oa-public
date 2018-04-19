@@ -2,7 +2,7 @@
 
 const config = require( '../../testconfig' );
 
-const reverso = require( '../../reverso' );
+const reverso = require( '../../src/reverso' );
 
 window.onload = function() {
 

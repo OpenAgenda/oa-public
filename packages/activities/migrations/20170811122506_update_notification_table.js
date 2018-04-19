@@ -1,4 +1,4 @@
-const traverseTable = require( '../utils/traverseTable' );
+const traverseTable = require( '../src/utils/traverseTable' );
 const wn = require( 'when/node' );
 
 exports.up = async knex => {

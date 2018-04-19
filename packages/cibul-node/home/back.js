@@ -7,7 +7,7 @@ const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const homeMw = require( '@openagenda/home/middleware' );
 const sessions = require( '@openagenda/sessions' );
-const activitiesMw = require( '@openagenda/activity-apps/middleware' );
+const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
 
 
 module.exports = path => {

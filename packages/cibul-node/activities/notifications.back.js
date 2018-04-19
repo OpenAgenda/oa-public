@@ -2,7 +2,7 @@
 
 const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
-const mw = require( '@openagenda/activity-apps/middleware' );
+const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 

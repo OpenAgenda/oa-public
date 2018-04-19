@@ -2,7 +2,7 @@
 
 // proxy function for service in a test env. Init does service init as well as fixture loading.
 
-const svc = require( '../../' ),
+const svc = require( '../../src/service' ),
 
   fixtures = require( './fixtures' ),
 

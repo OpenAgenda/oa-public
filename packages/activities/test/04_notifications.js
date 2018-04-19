@@ -5,7 +5,7 @@ const should = require( 'should' );
 const VError = require( 'verror' );
 const queue = require( '@openagenda/queue' );
 const service = require( './service' );
-const { addActivity } = require( '../service/notifications/tasks/addActivity' );
+const { addActivity } = require( '../src/service/notifications/tasks/addActivity' );
 const config = require( '../testconfig' );
 
 let q;

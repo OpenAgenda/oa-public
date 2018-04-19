@@ -10,8 +10,9 @@
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/activities",
-  "main": "service/index.js",
+  "main": "dist/service/index.js",
   "scripts": {
+    "build": "babel src -d dist -s",
     "test": "mocha --exit"
   },
   "dependencies": {

@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const validators = require( '../iso/validators' );
+const validators = require( '../src/iso/validators' );
 
 
 describe( 'agenda-stakeholders - unit (iso): validators', () => {

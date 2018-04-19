@@ -1,4 +1,4 @@
-import Stakeholder from '@openagenda/agenda-stakeholders/iso/Stakeholder';
+import Stakeholder from '@openagenda/agenda-stakeholders/dist/iso/Stakeholder';
 
 export default function validate( values ) {
 

@@ -33,7 +33,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   mwHelpers = require( '../services/lib/middlewareHelpers' ),
 
-  stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' ),
+  stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
 
   perPage = 20,
 

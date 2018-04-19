@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import update from 'immutability-helper';
-import reverso from '@openagenda/translators/reverso';
+import reverso from '@openagenda/translators/dist/reverso';
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
 import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';

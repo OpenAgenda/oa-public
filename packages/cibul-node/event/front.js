@@ -20,7 +20,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   stakeholderSvc = require( '@openagenda/agenda-stakeholders' ),
 
-  stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' ),
+  stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
 
   getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
 

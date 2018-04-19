@@ -9,7 +9,7 @@ const ReactDOM = require( 'react-dom/server' );
 
 const eventsSvc = require( '@openagenda/events' );
 const agendasMw = require( '@openagenda/agendas/middleware' );
-const stakeholderMw = require( '@openagenda/agenda-stakeholders/middleware' );
+const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );

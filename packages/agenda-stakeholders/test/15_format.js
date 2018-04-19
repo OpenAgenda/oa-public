@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-format = require( '../service/format' );
+format = require( '../src/service/format' );
 
 describe( 'agenda stakeholders - unit (server): format', () => {
 

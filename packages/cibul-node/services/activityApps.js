@@ -2,7 +2,7 @@
 
 const logger = require( '@openagenda/logger' );
 
-const activityAppsMw = require( '@openagenda/activity-apps/middleware' );
+const activityAppsMw = require( '@openagenda/activity-apps/dist/middleware' );
 const activitiesSvc = require( '@openagenda/activities' );
 
 module.exports.init = config => activityAppsMw.init( {

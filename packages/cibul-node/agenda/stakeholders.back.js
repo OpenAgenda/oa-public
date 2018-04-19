@@ -36,7 +36,7 @@ const utils = require( '@openagenda/utils' ),
 
   stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' ),
+  stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
 
   routes = {
 

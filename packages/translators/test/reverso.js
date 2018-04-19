@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const reverso = require( '../reverso' );
+const reverso = require( '../src/reverso' );
 
 const config = require( '../testconfig' );
 

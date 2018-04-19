@@ -6,7 +6,7 @@ const service = require( './service' );
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
-const types = require( '../iso/credentialTypes' );
+const types = require( '../src/iso/credentialTypes' );
 const queue = require( '@openagenda/queue' );
 
 describe( 'agenda-stakeholders - functional (server): create.bulk & task', function() {

@@ -2,7 +2,7 @@
 
 const should = require( 'should' ),
 
-format = require( '../service/customFormat' );
+format = require( '../src/service/customFormat' );
 
 describe( 'agenda-stakeholders - unit (server) - customFormat', () => {
 

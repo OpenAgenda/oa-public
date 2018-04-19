@@ -12,7 +12,7 @@ const agendasSvc = require( '@openagenda/agendas/service/test' );
 const usersSvc = require( '@openagenda/users/service' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders/test/service' );
-const stakeholdersMw = require( '@openagenda/agenda-stakeholders/middleware' );
+const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const bodyParser = require( 'body-parser' ); //
 const config = require( '../../testconfig.js' );
 

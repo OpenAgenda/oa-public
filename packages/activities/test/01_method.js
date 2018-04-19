@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const async = require( 'async' );
-const method = require( '../utils/method' );
+const method = require( '../src/utils/method' );
 
 describe( 'method', function () {
 

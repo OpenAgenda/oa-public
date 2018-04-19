@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import du from '@openagenda/dom-utils';
 import dl from '@openagenda/dom-utils/documentLocation';
-import adminApp from '../../react/dist/apps/admin';
-import agendaApp from '../../react/dist/apps/agenda';
-import userApp from '../../react/dist/apps/user';
-import notificationsHandler from '../../notifications';
+import adminApp from '../../src/react/apps/admin';
+import agendaApp from '../../src/react/apps/agenda';
+import userApp from '../../src/react/apps/user';
+import notificationsHandler from '../../src/notifications';
 
 // required also in main.js
 window.IScroll = require( 'iscroll/build/iscroll' );

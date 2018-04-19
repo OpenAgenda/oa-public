@@ -9,7 +9,7 @@ const mysql = require( 'mysql' );
 const knexLib = require( 'knex' );
 const w = require( 'when' );
 
-const dbUtils = require( '../service/dbUtils' );
+const dbUtils = require( '../src/service/dbUtils' );
 
 describe( 'agenda-stakeholders - unit (server): dbUtils', function() {
     

@@ -13,13 +13,10 @@
   "directories": {
     "test": "test"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --exit",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "build": "babel src -d dist -s",
+    "test": "mocha --exit"
   },
   "devDependencies": {
     "@openagenda/test-app": "^2.0.4",

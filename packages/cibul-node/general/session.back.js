@@ -10,7 +10,7 @@ const sessions = require( '@openagenda/sessions' ),
 
   stakeholders = require( '@openagenda/agenda-stakeholders' ),
 
-  credentialTypes = require( '@openagenda/agenda-stakeholders/iso/credentialTypes' ),
+  credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/credentialTypes' ),
 
   routes = {
     session: [ 'get', '/', [

@@ -10,7 +10,7 @@ const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const sessionsMw = require( '@openagenda/sessions/middleware' );
 const activitiesSvc = require( '@openagenda/activities/test/service' );
-const mw = require( '../../middleware' );
+const mw = require( '../../src/middleware' );
 const config = require( '../../testconfig.js' );
 
 const app = require( '@openagenda/test-app' )( {

@@ -5,7 +5,7 @@ Service for handling agenda stakeholders.
 
 # Testing
 
-Whether you want to use this service for your own lib tests or you want to add tests here, use the proxy service module `require( 'agenda-stakeholders/test/service' )`. It provides an additional method to load service config and prepare fixtures in one go:
+Whether you want to use this service for your own lib tests or you want to add tests here, use the proxy service module `require( '@openagenda/agenda-stakeholders/test/service' )`. It provides an additional method to load service config and prepare fixtures in one go:
 
     const stakeholders = require( 'agenda-stakeholders/test/service' );
 
@@ -83,7 +83,7 @@ A stakeholder instance can be created on either client or server sides with iso/
 
 The simplest way to start using an instance is just to instanciate with a set of field values:
 
-    const Stakeholder = require( 'agenda-stakeholders/iso/Stakeholder');
+    const Stakeholder = require( '@openagenda/agenda-stakeholders/dist/iso/Stakeholder');
 
     let fieldValues = {
       contactName: 'Al Ain',

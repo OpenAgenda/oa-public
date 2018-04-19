@@ -18,7 +18,7 @@ const w = require( 'when' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( '@openagenda/activities' );
-const activitiesEventApp = require( '@openagenda/activity-apps/react/dist/apps/event' );
+const activitiesEventApp = require( '@openagenda/activity-apps/dist/react/apps/event' );
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 

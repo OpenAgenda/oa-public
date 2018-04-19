@@ -4,7 +4,7 @@
 
 const wn = require( 'when/node' );
 const fixtures = require( '@openagenda/fixtures' );
-const svc = require( '../../' );
+const svc = require( '../../src/service' );
 
 module.exports = svc;
 

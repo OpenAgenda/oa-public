@@ -30,7 +30,7 @@ var utils = require( '@openagenda/utils' ),
 
   flash = require( './handleFlashMessage.js' ),
 
-  notifications = require( '@openagenda/activity-apps/notifications' ),
+  notifications = require( '@openagenda/activity-apps/dist/notifications' ),
 
   inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
 

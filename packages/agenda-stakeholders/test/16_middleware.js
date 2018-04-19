@@ -4,8 +4,8 @@ const service = require( './service' );
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const helpers = require( './lib/helpers' );
-const stakeholderMw = require( '../middleware' );
-const credentialTypes = require( '../iso/credentialTypes' );
+const stakeholderMw = require( '../src/middleware' );
+const credentialTypes = require( '../src/iso/credentialTypes' );
 
 describe( 'agenda-stakeholders - functional (server): middleware', function () {
 

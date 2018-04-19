@@ -13,7 +13,7 @@ const theData = {
 let serverData, serverDelay;
 
 
-const Link = require( '../iso/Link' );
+const Link = require( '../src/iso/Link' );
 
 describe( 'agenda-stakeholders - unit (iso): Link', () => {
 

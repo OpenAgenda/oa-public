@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const Stakeholder = require( '../iso/Stakeholder.js' );
+const Stakeholder = require( '../src/iso/Stakeholder.js' );
 
 const extend = require( 'lodash/extend' );
 

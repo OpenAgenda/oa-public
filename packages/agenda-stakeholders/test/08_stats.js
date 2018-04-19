@@ -8,7 +8,7 @@ const should = require( 'should' ),
 
   mysql = require( 'mysql' ),
 
-  types = require( '../iso/credentialTypes' ),
+  types = require( '../src/iso/credentialTypes' ),
 
   _ = require( 'lodash' ),
 
