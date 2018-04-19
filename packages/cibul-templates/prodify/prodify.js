@@ -91,7 +91,7 @@ var ugly = require( 'uglify-js' ),
 
     var src = fs.createReadStream( __dirname + '/../node_modules/@openagenda/bs-templates/compiled/main.css' ),
 
-      dest = fs.createWriteStream( __dirname + '/../../cibul-symfony/web/css/oasfmain.css' );
+      dest = fs.createWriteStream( __dirname + '/../../../../cibul-symfony/web/css/oasfmain.css' );
 
     src.pipe( dest );
 
