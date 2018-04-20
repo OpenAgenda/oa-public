@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-locations",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "",
   "main": "index.js",
   "license": "no license",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
-    "@openagenda/bs-templates": "^2.0.64",
+    "@openagenda/bs-templates": "^2.0.65",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/files": "^2.0.5",
@@ -36,7 +36,7 @@
     "@openagenda/react-components": "^2.0.2",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/spinner": "^2.0.1",
-    "@openagenda/translators": "^1.0.12",
+    "@openagenda/translators": "^1.0.13",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.0.1",
     "async": "^1.5.0",
