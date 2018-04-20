@@ -47,6 +47,23 @@ export function renderInput( { placeholder, className, spellCheck, ...props } ) 
 
 }
 
+export function renderCheckbox( { label, placeholder, className, spellCheck, ...props } ) {
+
+  const inputAttrs = { placeholder, className, spellCheck };
+
+  const content = (
+    <div className="checkbox">
+      <label>
+        <input type="checkbox" {...props.input} {...inputAttrs} />
+        {label}
+      </label>
+    </div>
+  );
+
+  return this::renderField( { content, ...props } );
+
+}
+
 export function renderTextarea( { placeholder, className, rows, cols, spellCheck, ...props } ) {
 
   const inputAttrs = { placeholder, className, rows, cols, spellCheck };

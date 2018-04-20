@@ -279,4 +279,8 @@ module.exports = {
     fr: 'Leur écrire',
     en: 'Write to them'
   },
+  sendOnlyToInactives: {
+    fr: "Envoyer seulement aux utilisateurs inactifs",
+    en: "Send only to inactive members"
+  }
 };

@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import validate from './validate';
-import { renderField, renderInput, renderTextarea, renderSelect, renderMarkdownInput } from '../../utils/form';
+import {
+  renderField,
+  renderInput,
+  renderTextarea,
+  renderSelect,
+  renderMarkdownInput,
+  renderCheckbox
+} from '../../utils/form';
 
 @reduxForm( {
   form: 'writeToMembers',
@@ -18,12 +25,21 @@ export default class SendMessageForm extends Component {
     this.renderTextarea = this::renderTextarea;
     this.renderSelect = this::renderSelect;
     this.renderMarkdownInput = this::renderMarkdownInput;
+    this.renderCheckbox = this::renderCheckbox;
   }
 
   static contextTypes = {
     getLabel: PropTypes.func,
     lang: PropTypes.string
   };
+
+  renderInactiveCheckbox( props ) {
+    const inputAttrs = { placeholder, className };
+
+    return (
+      <input {...props.input} {...inputAttrs} />
+    );
+  }
 
   render() {
 
@@ -49,9 +65,17 @@ export default class SendMessageForm extends Component {
           displayFeedback={false}
           loadComponent={
             <div style={{ height: '200px', position: 'relative' }}>
-              <Spinner />
+              <Spinner/>
             </div>
           }
+        />
+
+        <Field
+          label={getLabel( 'sendOnlyToInactives' )}
+          component={this.renderCheckbox}
+          name="inactive"
+          type="checkbox"
+          classNameGroup="margin-v-md"
         />
 
         <div className="text-center">
