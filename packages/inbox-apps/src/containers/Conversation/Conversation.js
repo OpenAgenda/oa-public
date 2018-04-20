@@ -266,7 +266,7 @@ export default class Conversation extends Component {
           )}
         </div>
 
-        {conversation && !conversation.closedAt && (
+        {!conversation.closedAt && (
           <MessageForm
             form="message"
             Wrapper={this.FromWrapper}

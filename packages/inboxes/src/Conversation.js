@@ -191,15 +191,14 @@ export default class Conversation {
           ( v, key ) => `${schemas.conversation}.${key}`
         )
       )
+      .where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id )
       .groupBy( `${schemas.conversation}.id` )
       .orderByRaw( '(closedAt IS NOT NULL)' )
       .orderByRaw( 'latestMessageId DESC' )
       .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
 
-    let row;
-
-    if ( this.userUid ) { // viewed by user endpoint
-      row = await request
+    if ( this.userUid ) {
+      request
         .column(
           mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
             .map( v => `${schemas.inboxUser}.${v}` )
@@ -211,10 +210,9 @@ export default class Conversation {
             .onNull( `${schemas.inboxUser}.left_at` )
         )
         .where( `${schemas.inboxUser}.user_uid`, this.userUid );
-    } else { // viewed by inbox endpoint
-      row = await request
-        .where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
     }
+
+    const row = await request;
 
     if ( !row ) {
       this.data = null;

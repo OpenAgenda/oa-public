@@ -1,4 +1,5 @@
 import update from 'immutability-helper';
+import { push } from 'react-router-redux';
 
 const LOAD = 'inbox-apps/conversation/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/conversation/LOAD_SUCCESS';
@@ -235,17 +236,29 @@ export function sendMessage( conversationId, data ) {
 }
 
 export function triggerAction( conversationId, code ) {
-  return {
-    types: [ TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL ],
-    promise: ( client, { res, agenda, event } ) =>
-      client.get(
-        res.conversations.action
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-          .replace( ':conversationId', conversationId )
-          .replace( ':code', code )
-      )
+  return ( { getState, dispatch } ) => {
+    const { settings, conversation } = getState();
+
+    return {
+      types: [ TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL ],
+      promise: ( client, { res, agenda, event } ) =>
+        client.get(
+          res.conversations.action
+            .replace( ':slug', agenda && agenda.slug )
+            .replace( ':agendaUid', agenda && agenda.uid )
+            .replace( ':eventUid', event && event.uid )
+            .replace( ':conversationId', conversationId )
+            .replace( ':code', code )
+        )
+          .then( result =>  {
+            if ( code === 'removeTechnicalSupport' ) {
+              dispatch( push( settings.prefix ) );
+              return { conversation: conversation.data };
+            }
+
+            return result;
+          } )
+    };
   };
 }
 

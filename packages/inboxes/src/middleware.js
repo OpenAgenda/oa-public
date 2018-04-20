@@ -181,6 +181,14 @@ export const conversations = {
     }, options );
 
     return wrap( async ( req, res ) => {
+      console.log( {
+        userUid: parseInt( _.get( req, namespaces.userUid ) ),
+        inbox: new Inboxes( {
+          type: _.get( req, namespaces.type ),
+          identifier: parseInt( _.get( req, namespaces.identifier ) ),
+        } )
+      } );
+
       const conversation = await new Conversations( {
         userUid: parseInt( _.get( req, namespaces.userUid ) ),
         inbox: new Inboxes( {
@@ -189,7 +197,10 @@ export const conversations = {
         } )
       } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
-      await conversation.action( _.get( req, namespaces.code ), { userUid: _.get( req, namespaces.userUid ) } );
+      await conversation.action(
+        _.get( req, namespaces.code ),
+        { userUid: parseInt( _.get( req, namespaces.userUid ) ) }
+      );
 
       res.send( { conversation } );
     } );
