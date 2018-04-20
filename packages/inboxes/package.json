@@ -10,12 +10,12 @@
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/inboxes",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "dist"
   },
   "scripts": {
-    "build": "babel src -d lib -s",
+    "build": "babel src -d dist -s",
     "test": "jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "prepublish": "yarn build"

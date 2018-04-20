@@ -32,9 +32,9 @@ var utils = require( '@openagenda/utils' ),
 
   notifications = require( '@openagenda/activity-apps/dist/notifications' ),
 
-  inbox = require( '@openagenda/inbox-apps/lib/apps/header' ),
+  inbox = require( '@openagenda/inbox-apps/dist/apps/header' ),
 
-  inboxConversationForm = require( '@openagenda/inbox-apps/lib/apps/conversationForm' ),
+  inboxConversationForm = require( '@openagenda/inbox-apps/dist/apps/conversationForm' ),
 
   LE = require( '@openagenda/le_js' ),
 

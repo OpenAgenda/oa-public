@@ -41,7 +41,7 @@ const _ = require( 'lodash' ),
 
   agendasSvc = require( '@openagenda/agendas' ),
 
-  inboxAppsMw = require( '@openagenda/inbox-apps/lib/middleware' );
+  inboxAppsMw = require( '@openagenda/inbox-apps/dist/middleware' );
 
 const routes = {
   adminIndex: [ 'get', '/', index ],

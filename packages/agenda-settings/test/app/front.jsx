@@ -3,8 +3,8 @@ import ReactDom from 'react-dom';
 import du from '@openagenda/dom-utils';
 import dl from '@openagenda/dom-utils/documentLocation';
 import callToAction from '@openagenda/call-to-action/react/dist';
-import createApp from '../../react/src/createApp';
-import editApp from '../../react/src/editApp';
+import createApp from '../../src/react/createApp';
+import editApp from '../../src/react/editApp';
 
 window.onload = () => {
 

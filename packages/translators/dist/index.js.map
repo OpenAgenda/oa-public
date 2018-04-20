@@ -1,1 +1,0 @@
-{"version":3,"sources":["../src/index.js"],"names":["module","exports","reverso","require"],"mappings":"AAAA;;AAEAA,OAAOC,OAAP,GAAiB;AACfC,WAASC,QAAS,WAAT;AADM,CAAjB","file":"index.js","sourcesContent":["\"use strict\";\n\nmodule.exports = {\n  reverso: require( './reverso' )\n}\n"]}

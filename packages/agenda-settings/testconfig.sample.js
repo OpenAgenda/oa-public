@@ -6,7 +6,7 @@ module.exports = {
   },
   mysql : {
     host : '127.0.0.1',
-    database : 'openagenda_agendasettingstest',
+    database : 'oa_test_agendasettings',
     password : 'grut',
     user : 'root'
   },

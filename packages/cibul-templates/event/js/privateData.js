@@ -4,7 +4,7 @@ import React from 'react';
 import _ from 'lodash';
 import debug from 'debug';
 import du from '@openagenda/dom-utils';
-import loadInbox from '@openagenda/inbox-apps/lib/apps/lazyInbox/load';
+import loadInbox from '@openagenda/inbox-apps/dist/apps/lazyInbox/load';
 import sessions from '@openagenda/sessions/client';
 import activities from './activities';
 import displayContributor from './contributor';

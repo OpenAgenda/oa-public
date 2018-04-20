@@ -1,3 +1,3 @@
-import { expose as exposeApp } from '@openagenda/inbox-apps/lib/apps/lazyInbox';
+import { expose as exposeApp } from '@openagenda/inbox-apps/dist/apps/lazyInbox';
 
 exposeApp( 'renderInboxEvent' );

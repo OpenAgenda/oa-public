@@ -1,11 +1,12 @@
-agenda admin/js/dataVizBundle.js
-agenda admin/js/node_modules/*
-server/node_modules/*
-node_modules/
-openagenda/.sass-cache/*
-build/browserified/*
-build/sass/*
-npm-debug.log
 .idea/
-yarn.lock
+.vscode/
+node_modules/
+npm-debug.log
 yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+agenda admin/js/dataVizBundle.js
+build/browserified/
+build/sass/

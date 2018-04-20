@@ -4,7 +4,7 @@ const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
-const { syncAgenda } = require( '@openagenda/inboxes/lib/tasks/sync' );
+const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );

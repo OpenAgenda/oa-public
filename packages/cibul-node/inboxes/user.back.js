@@ -3,7 +3,7 @@
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const morgan = require( 'morgan' );
-const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
+const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
 const errorLogger = require( '../services/00_errors' );

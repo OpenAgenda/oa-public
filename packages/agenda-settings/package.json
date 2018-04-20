@@ -2,33 +2,22 @@
   "name": "@openagenda/agenda-settings",
   "version": "1.0.1",
   "description": "",
-  "main": "service.js",
+  "repository": "https://bitbucket.org/openagenda/oa",
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/agenda-settings",
+  "main": "dist/service.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
-    "build": "rimraf react/lib && babel react/src -d react/lib -s",
-    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
+    "build": "rimraf dist && babel src -d dist -s",
+    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.jsx -o .tmp/testapp-client.js",
     "fixtures": "node test/app/fixtures",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A react/lib",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "prepublish": "yarn build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/agenda-settings.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/agenda-settings#readme",
   "peerDependencies": {
     "react": "15 || 16",
     "react-dom": "15 || 16"
@@ -84,6 +73,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "husky": "^0.14.1",
+    "mocha": "^4.1.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
     "react": "^16.0.0",

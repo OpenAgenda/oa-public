@@ -10,5 +10,7 @@ yarn.lock
 npm-debug.log
 yarn-error.log
 
-build/browserified/*
-build/sass/*
+# sources are useless in npm package (and build for this big package)
+.babelrc
+build/browserified/
+build/sass/

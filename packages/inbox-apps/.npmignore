@@ -15,5 +15,4 @@ src/
 .babelrc
 .tmp/
 test/
-!test/fixtures/
 testconfig.js

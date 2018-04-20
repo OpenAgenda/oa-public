@@ -11,7 +11,7 @@ npm-debug.log
 yarn-error.log
 
 # sources are useless in npm package
-react/src/
+src/
 .babelrc
 .tmp/
 test/

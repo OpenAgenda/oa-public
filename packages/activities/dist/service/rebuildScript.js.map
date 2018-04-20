@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/service/rebuildScript.js"],"names":["rebuild","require","parse","process","argv"],"mappings":";;AACA,IAAMA,UAAUC,QAAS,WAAT,CAAhB;;AAEAD,QAAQE,KAAR,CAAeC,QAAQC,IAAvB;AACA","file":"rebuildScript.js","sourcesContent":["\nconst rebuild = require( './rebuild' );\n\nrebuild.parse( process.argv );\n// rebuild( '-h' );\n\n"]}

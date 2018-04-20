@@ -12,5 +12,6 @@ yarn-error.log
 
 # sources are useless in npm package
 .babelrc
+src/
 test/
 testconfig.js

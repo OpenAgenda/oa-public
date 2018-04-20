@@ -5,7 +5,7 @@ if ( !require( 'piping' )( { hook: true } ) ) return;
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../../testconfig.js' );
-const service = require( '../../service' );
+const service = require( '../../src/service' );
 const agendasSvc = require( '@openagenda/agendas/service/test' );
 const mw = service.mw;
 const keysSvc = require( '@openagenda/keys' );

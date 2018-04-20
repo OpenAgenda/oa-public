@@ -16,9 +16,9 @@ const ReactDOM = require( 'react-dom/server' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
 const inboxes = require( '@openagenda/inboxes' );
-const inboxMw = require( '@openagenda/inboxes/lib/middleware' );
+const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const config = require( '../../testconfig.js' );
-const mw = require( '../../lib/middleware' );
+const mw = require( '../../src/middleware' );
 
 const port = process.env.PORT || 3000;
 

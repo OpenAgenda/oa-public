@@ -5,7 +5,8 @@
   "main": "dist/service/index.js",
   "scripts": {
     "build": "babel src -d dist -s",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "prepublish": "yarn build"
   },
   "keywords": [],
   "author": "",

@@ -6,12 +6,7 @@
   "scripts": {
     "start": "nodemon --ignore build --ignore node_modules app",
     "build:dev": "bnr build:dev",
-    "build:prod": "bnr build:prod",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "build:prod": "bnr build:prod"
   },
   "betterScripts": {
     "build:dev": {
