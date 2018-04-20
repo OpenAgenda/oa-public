@@ -46,6 +46,7 @@ describe( 'agendas - functional (server): get', function() {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
+            canPublish: [ 'administrators' ],
             survey: false
           },
           translation: {
@@ -149,6 +150,7 @@ describe( 'agendas - functional (server): get', function() {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
+            canPublish: [ 'administrators' ],
             survey: false
           },
           translation: {
@@ -239,6 +241,7 @@ describe( 'agendas - functional (server): get', function() {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
+            canPublish: [ 'administrators' ],
             survey: false
           },
           translation: {

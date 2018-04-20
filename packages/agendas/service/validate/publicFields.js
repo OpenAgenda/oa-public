@@ -52,6 +52,16 @@ module.exports = {
         unique: true,
         options: [ s.NOT_VALIDATED, s.VALIDATED, s.PUBLISHED ]
       },
+      canPublish: {
+        type: 'choice',
+        default: [
+          'administrators'
+        ],
+        options: [
+          'administrators',
+          'moderators'
+        ]
+      },
       defaultLang: {
         default: null,
         type: 'choice',

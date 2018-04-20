@@ -51,6 +51,7 @@ describe( 'agendas - unit (server): validate', () => {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
+            canPublish: [ 'administrators' ],
             survey: false
           },
           translation: {
@@ -174,6 +175,7 @@ describe( 'agendas - unit (server): validate', () => {
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
+            canPublish: [ 'administrators' ],
             survey: false
           },
           translation: {
