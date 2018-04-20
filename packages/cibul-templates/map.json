@@ -67,8 +67,6 @@
 
   "locations/index",
 
-  "locations/suggestionForm",
-
   "agendaAdminEvents/index",
 
   "error/show",
