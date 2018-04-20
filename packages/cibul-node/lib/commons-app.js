@@ -439,9 +439,7 @@ function renderUnauthorized() {
         content: getUnauthLabels( 'message', req.lang ),
         actions: [ {
           type: 'primary',
-          href: req.genUrl( 'conversationAgendaContact', {
-            uid: req.agenda.uid,
-          } ),
+          href: req.agenda.slug + '/contact',
           label: getUnauthLabels( 'contactAdmin', req.lang )
         } ]
       } );
