@@ -71,11 +71,14 @@ describe( 'agendas - functional (server): instanciate', function () {
         should( err ).equal( null );
 
         roles.should.eql( [ {
-          value: 1, code: 'contributor'
+          value: 1,
+          code: 'contributor'
         }, {
-          value: 2, code: 'administrator'
+          value: 2,
+          code: 'administrator'
         }, {
-          value: 3, code: 'moderator'
+          value: 3,
+          code: 'moderator'
         } ] );
 
         done();
