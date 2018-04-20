@@ -10,3 +10,4 @@ coverage/
 *.html
 templates/event-form/fonts
 fonts
+compiled/*.css

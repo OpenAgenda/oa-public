@@ -349,7 +349,7 @@ function _sendMessage() {
         message: 'body.message',
         query: 'query'
       },
-      actionsCounterEqualZero: req.query.inactive ? true : null,
+      actionsCounterEqualZero: req.body.inactive ? true : null,
       deletedUser: false
     } )( req, res, next );
 

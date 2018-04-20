@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.0.35",
+  "version": "1.0.36",
   "description": "",
   "keywords": [],
   "author": "",
@@ -26,7 +26,7 @@
     "@openagenda/agenda-stakeholders": "^2.0.6",
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.11",
-    "@openagenda/labels": "^2.0.63",
+    "@openagenda/labels": "^2.0.68",
     "@openagenda/react-components": "^2.0.3",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/react-utils": "^2.0.2",
