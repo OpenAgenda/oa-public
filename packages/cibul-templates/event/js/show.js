@@ -131,8 +131,10 @@ window.asap( options => {
 
     const user = session.getUser();
 
-    if ( user && [ 75052324, 99999999, 31046551, 7339049, 71438739 ].indexOf( user.uid ) !== -1 ) {
+    if ( user ) {
+
       prv.inbox( params, { roles, ROLES } );
+
     }
 
   } );
