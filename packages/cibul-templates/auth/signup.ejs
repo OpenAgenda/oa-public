@@ -23,7 +23,7 @@
           <div class="form-group">
             <label for="full_name"><%= __( 'Name Surname' ) %></label>
             <input class="form-control" type="text" name="full_name" value="<%= full_name %>"/>
-<% if ( errors.full_name ) { %>
+<% if ( errors.full_name ) { %>
             <span class="error"><%= __( errors.full_name ) %></span>
 <% } %>
           </div>
@@ -57,7 +57,7 @@
             <div class="captcha">
               <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
             </div>
-<% if ( errors.captcha ) { %>
+<% if ( errors.captcha ) { %>
             <span class="error"><%= __( errors.captcha ) %></span>
 <% } %> 
           </div>
@@ -109,7 +109,9 @@
         </div>
       </div>
       <div class="row content">
-        <p><%- __( 'By creating an account you agree to the %terms%.', { '%terms%' : '<a class="url" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>' }) %></p>
+        <p><%- __( 'By creating an account you agree to the %terms% and to the %policy%.', { 
+          '%terms%' : '<a class="url" target="_blank" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>',
+          '%policy%' : '<a class="url" target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/360003182014-Politique-de-confidentialit%C3%A9">' + __('Privacy Policy') + '</a>' }) %></p>
       </div>
     </section>
   </div>

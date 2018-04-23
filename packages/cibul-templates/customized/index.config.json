@@ -2,7 +2,7 @@
   "layout" : "agendaAdmin/bsLayout",
   
   "bsCss" : {
-    "main" : "/node_modules/@openagenda/bs-templates/compiled/main.css"
+    "main" : "/../bs-templates/compiled/main.css"
   },
 
   "helpers" : {
