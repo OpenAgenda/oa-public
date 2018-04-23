@@ -17,10 +17,12 @@
   : "S'inscrire",
   "something went wrong"
   : "il y a eu un petit problème",
-  "By creating an account you agree to the %terms%." :
-  "En créant un compte vous acceptez les %terms%.",
+  "By creating an account you agree to the %terms% and to the %policy%." :
+  "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
   "Terms of Use" :
   "Conditions d'Utilisation",
+  "Privacy Policy" :
+  "Politique de confidentialité",
   "But I already have an account" :
   "Mais j'ai déjà un compte",
   "The two passwords must be the same" :
