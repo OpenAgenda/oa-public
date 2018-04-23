@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "license": "MIT",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --exit",
     "preversion": "npm test",
     "postversion": "git push origin && git push origin --tags",
     "release:patch": "npm version patch && npm publish",
@@ -12,12 +12,13 @@
     "release:next": "npm version prerelease && npm publish --tag next"
   },
   "dependencies": {
-    "@openagenda/le_node": "^1.7.3",
     "debug": "^2.2.0",
+    "le_node": "^1.7.1",
     "lodash": "^4.17.4",
     "winston": "^2.3.1"
   },
   "devDependencies": {
+    "mocha": "^5.1.1",
     "should": "^11.2.1",
     "sinon": "^3.2.1"
   }
