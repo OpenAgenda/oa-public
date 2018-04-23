@@ -131,8 +131,8 @@ function getCustomProperties( logger ) {
 
 function loadMetadata( logger ) {
 
-  return function load( metadata ) {
-    logger.rewriters.push( ( level, msg, meta ) => {
+  return metadata => {
+    logger.rewriters.push( function load( level, msg, meta ) {
       if ( meta && meta instanceof Error && meta.stack ) {
         return Object.assign( meta, metadata );
       }
@@ -145,13 +145,33 @@ function loadMetadata( logger ) {
 
 function clearMetadata( logger ) {
 
-  return () => logger.rewriters = logger.rewriters.filter( v => v.name === 'load' );
+  return () => {
+    logger.rewriters = [];
+
+    if (logger.options.namespace) {
+      logger.loadMetadata( { namespace: logger.options.namespace } );
+    }
+  }
 
 }
 
-function setConfig( logger ) {
+function setConfig( logger, persist = true ) {
 
-  return conf => logger.configure( { transports: getTransporters( _.merge( {}, logger.options, conf ) ) } );
+  return conf => {
+    if (persist) {
+      logger.persistentConfig = true;
+    }
+
+    if ( logger.persistentConfig && !persist ) {
+      return;
+    }
+
+    const rewriters = logger.rewriters.filter( v => v.name === 'load' );
+
+    logger.configure( { transports: getTransporters( _.merge( logger.options, conf ) ) } );
+
+    logger.rewriters = rewriters;
+  }
 
 }
 
@@ -187,10 +207,8 @@ function setModuleConfig( conf, module ) {
 
   loggerConfigs[ callerModule ] = conf;
 
-  loggers.filter( logger => logger.callerModule === callerModule ).forEach( logger => {
-
-    logger.setConfig( _.merge( logger.options, conf ) );
-
-  } );
+  loggers
+    .filter( logger => logger.callerModule === callerModule )
+    .forEach( logger => logger.setConfig( conf, false ) );
 
 }
