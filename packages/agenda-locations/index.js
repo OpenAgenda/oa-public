@@ -1,75 +1,61 @@
 "use strict";
 
-const fieldMap = require( './lib/fieldMap' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const deepExtend = require( 'deep-extend' );
+const w = require( 'when' );
 
- _ = require( 'lodash' ),
+const countries = require( '@openagenda/countries' );
+const files = require( '@openagenda/files' );
+const geocodeFarm = require( '@openagenda/geocode-farm' );
+const images = require( '@openagenda/images' );
+const logger = require( '@openagenda/basic-logger' );
+const utils = require( '@openagenda/utils' );
 
- logger = require( '@openagenda/basic-logger' ),
-
- images = require( '@openagenda/images' ),
-
-  files = require( '@openagenda/files' ),
-
-  w = require( 'when' ),
-
-  async = require( 'async' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  deepExtend = require( 'deep-extend' );
+const db = require( './lib/db' );
+const fieldMap = require( './lib/fieldMap' );
+const insee = require( './utils/insee' );
+const instanciate = require( './lib/instanciate' );
+const mw = require( './lib/middleware' );
+const sharedConfig = require( './sharedConfig' );
+const search = require( './lib/search' );
+const searchLocation = require( './lib/search/location' );
 
 let log;
+let config;
 
-var db = require( './lib/db' ),
-
-  search = require( './lib/search' ),
-
-  searchLocation = require( './lib/search/location' ),
-
-  mw = require( './lib/middleware' ),
-
-  geocodeFarm = require( '@openagenda/geocode-farm' ),
-
-  countries = require( '@openagenda/countries' ),
-
-  instanciate = require( './lib/instanciate' ),
-
-  sharedConfig = require( './sharedConfig' ),
-
-  config,
-
-  service = {
-    init,
-    list,
-    count: search.count,
-    set,
-    get,
-    getNew,
-    remove,
-    unlink,
-    merge,
-    rebuild: search.rebuild,
-    resync,
-    refresh: search.refresh,
-    geocode: geocodeFarm, // deprecate this
-    validate: require( './lib/validate' ), // useful for isolated value validation
-    copy,
-    getSettings, // deprecated
-    settings: {
-      get: getSettings,
-      copy: db.copySettings
-    },
-    mw,
-    utils: {
-      countries: countries,
-      geocode: geocodeFarm
-    },
-    tasks: {
-      setLocationTimezones: require( './tasks/setLocationTimezones' )
-    },
-    logger,
-    interfaces: {} // get those at init
-  }
+const service = {
+  init,
+  list,
+  count: search.count,
+  set,
+  get,
+  getNew,
+  remove,
+  unlink,
+  merge,
+  rebuild: search.rebuild,
+  resync,
+  refresh: search.refresh,
+  geocode: geocodeFarm, // deprecate this
+  validate: require( './lib/validate' ), // useful for isolated value validation
+  copy,
+  getSettings, // deprecated
+  settings: {
+    get: getSettings,
+    copy: db.copySettings
+  },
+  mw,
+  utils: {
+    countries,
+    geocode: geocodeFarm
+  },
+  tasks: {
+    setLocationTimezones: require( './tasks/setLocationTimezones' )
+  },
+  logger,
+  interfaces: {} // get those at init
+};
 
 module.exports = service;
 
@@ -122,22 +108,24 @@ function init( c, cb ) {
 
   geocodeFarm.init( config.geocodefarm );
 
+  insee.init( { redis: config.redis } )
+
   mw.init( service, config );
 
   images.init( {
     tmpPath: config.files.tmpPath,
-    logger: logger
+    logger
   } );
 
   files.init( {
     bucket: config.files.bucket,
     accessKeyId: config.files.accessKeyId, // required
     secretAccessKey: config.files.secretAccessKey, // required too
-    logger: logger
+    logger
   } );
 
   instanciate.init( {
-    logger: logger
+    logger
   } );
 
   log = logger( 'location/index' );
@@ -190,7 +178,7 @@ function set( data, settings, cb ) {
 
   w( {
     create: false, // db set decides,
-    data: data,
+    data,
     location: false,
     errors: [],
     indexedLocation: false,
@@ -204,7 +192,7 @@ function set( data, settings, cb ) {
 
     if ( !v.data.agendaId ) return v;
 
-    let d = w.defer();
+    const d = w.defer();
 
     getSettings( v.data.agendaId, ( err, settings ) => {
 
@@ -225,7 +213,7 @@ function set( data, settings, cb ) {
 
     log( 'received data for set: %s', JSON.stringify( v.data ) );
 
-    let d = w.defer();
+    const d = w.defer();
 
     db.set( v.data, v.settings, ( err, result ) => {
 
@@ -272,7 +260,7 @@ function set( data, settings, cb ) {
 
     log( 'transfering image' );
 
-    let d = w.defer();
+    const d = w.defer();
 
     if ( !v.create ) {
 
@@ -313,7 +301,7 @@ function set( data, settings, cb ) {
 
     log( 'indexing location %s - ( %s )', v.location.uid, v.create ? 'create' : 'update' );
 
-    let d = w.defer();
+    const d = w.defer();
 
     search[ v.create ? 'create' : 'update' ]( v.location, { refresh: !!v.create }, ( err, indexedLocation ) => {
 
@@ -359,8 +347,8 @@ function merge( data, identifiers, cb ) {
   log( 'processing merge for locations of identifiers %s', JSON.stringify( identifiers ) );
 
   w( {
-    data: data,
-    identifiers: identifiers,
+    data,
+    identifiers,
     locations: [],
     merged: false
   } )
@@ -368,7 +356,7 @@ function merge( data, identifiers, cb ) {
   // fetch the locations
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     list( v.identifiers, 0, sharedConfig.mergeLimit, { keepId: true }, ( err, locations ) => {
 
@@ -393,7 +381,7 @@ function merge( data, identifiers, cb ) {
   // update reference location with data
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     v.merged = v.locations.pop();
 
@@ -420,7 +408,7 @@ function merge( data, identifiers, cb ) {
   // signal interfaces that locations will be merged
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     config.interfaces.locationsWillMerge( v.merged.id, v.locations.map( l => l.id ), err => {
 
@@ -439,9 +427,9 @@ function merge( data, identifiers, cb ) {
   // remove locations from db
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
-    async.eachSeries( v.locations.map( l => { return { id: l.id } } ), remove, err => {
+    async.eachSeries( v.locations.map( l => { return { id: l.id } } ), remove, err => {
 
       if ( err ) return d.reject( err );
 
@@ -455,7 +443,7 @@ function merge( data, identifiers, cb ) {
 
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     search.refresh( err => {
 
@@ -489,7 +477,7 @@ function unlink( identifiers, options, cb ) {
 
   }
 
-  let params = Object.assign( {
+  const params = Object.assign( {
     refresh: false // force refresh of search index after remove
   }, options );
 
@@ -523,7 +511,7 @@ function remove( identifiers, options, cb ) {
 
   }
 
-  let params = Object.assign( {
+  const params = Object.assign( {
     refresh: false // force refresh of search index after remove
   }, options );
 
@@ -591,7 +579,7 @@ function list( query, offset, limit, options, cb ) {
 
   }
 
-  let params = utils.extend( { 
+  const params = utils.extend( { 
     keepId: false,
     fromDb: false,
     internal: true, // should be false in new service. true here for backward compatibility
@@ -619,7 +607,7 @@ function _filterByFieldMap( location, params ) {
 
   return _.pickBy( location, ( value, field ) => {
 
-    let matches = fieldMap.filter( f => f.key === field );
+    const matches = fieldMap.filter( f => f.key === field );
 
     if ( !matches.length ) return true;
 
@@ -663,7 +651,7 @@ function get( identifiers, options, cb ) {
   // get location
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     ( v.params.fromDb ? db : search ).get( identifiers, ( err, l ) => {
     
@@ -699,7 +687,7 @@ function get( identifiers, options, cb ) {
 
     if ( !v.location || !v.params.decorate ) return v;
 
-    let d = w.defer();
+    const d = w.defer();
 
     db.decorate( v.location, ( err, decorated ) => {
 

@@ -1,22 +1,23 @@
 "use strict";
 
-const states = require( './states' );
-
 const _ = require( 'lodash' );
 
-var logger = require( '@openagenda/basic-logger' ), log,
+const logger = require( '@openagenda/basic-logger' );
+const iuMw = require( '@openagenda/image-upload/lib/middleware' );
+const utils = require( '@openagenda/utils' );
 
-service, config,
+const states = require( './states' );
 
-utils = require( '@openagenda/utils' ),
+const insee = require( '../utils/insee' );
 
-iuMw = require( '@openagenda/image-upload/lib/middleware' );
+let log, service, config;
 
-module.exports = getMiddleware;
+module.exports = _.extend( getMiddleware, {
+  init: ( s, c ) => { service = s; config = c; },
+  get
+} );
 
-module.exports.init = ( s, c ) => { service = s; config = c; };
 
-module.exports.get = get;
 
 function getMiddleware( idRef ) {
   
@@ -51,7 +52,7 @@ function getMiddleware( idRef ) {
 
   function load( req, res, next ) {
 
-    let query = _validateAndExtractData( req, res, next );
+    const query = _validateAndExtractData( req, res, next );
 
     if ( !query ) return;
 
@@ -121,7 +122,7 @@ function getMiddleware( idRef ) {
   function imageUpload( req, res, next ) {
 
     // if a suggestion is loaded ( is stakeholder id )
-    let stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
+    const stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
 
     if ( !req.params.locationUid ) {
 
@@ -137,11 +138,11 @@ function getMiddleware( idRef ) {
 
       iuMw( {
         dest: config.files.tmpPath,
-        handler: function( path, info, cb ) {
+        handler: ( path, info, cb ) => {
 
           location.setImage( {
-            path: path,
-            stakeholderId: stakeholderId
+            path,
+            stakeholderId
           }, cb );
 
         }
@@ -158,7 +159,7 @@ function getMiddleware( idRef ) {
 
   function imageRemove( req, res, next ) {
 
-    let stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
+    const stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
 
     if ( !req.params.locationUid ) {
 
@@ -166,11 +167,11 @@ function getMiddleware( idRef ) {
 
     }
 
-    service.get( { uid: req.params.locationUid }, ( err, location ) => {
+    service.get( { uid: req.params.locationUid }, ( err, location ) => {
 
       if ( err ) return next( err );
 
-      location.clearImage( { stakeholderId: stakeholderId }, err => {
+      location.clearImage( { stakeholderId }, err => {
 
         if ( err ) return next( err );
 
@@ -205,11 +206,9 @@ function getMiddleware( idRef ) {
 
       iuMw( {
         dest: config.files.tmpPath,
-        handler: function( path, info, cb ) {
+        handler: ( path, info, cb ) => {
 
-          location.setImage( {
-            path: path
-          }, cb );
+          location.setImage( { path }, cb );
 
         }
       } )( req, res, next );
@@ -511,7 +510,7 @@ function getMiddleware( idRef ) {
     service.geocode.reverse( {
       latitude: req.query.latitude,
       longitude: req.query.longitude
-    }, _handleGeocodeResponse( req, res ) );
+    }, _handleGeocodeResponse.bind( null, req, res ) );
 
   }
 
@@ -520,33 +519,49 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving geocodes for %s', req.query.address );
 
-    service.geocode( {
+    service.utils.geocode( {
       address: req.query.address,
       countryCode: req.query.countryCode
-    }, _handleGeocodeResponse( req, res ) );
+    }, _handleGeocodeResponse.bind( null, req, res ) );
 
   }
 
 
-  function _handleGeocodeResponse( req, res ) {
+  async function _handleGeocodeResponse( req, res, err, results ) {
 
-    return ( err, results ) => {
+    if ( err ) {
 
-      if ( err ) {
+      log( 'error', 'geocode farm error: ' + err );
 
-        log( 'error', 'geocode farm error: ' + err );
+      res.statusCode = 502;
 
-        res.statusCode = 502;
+      return res.send( 'nok' );
 
-        res.send( 'nok' );
+    };
 
-      } else {
+    for ( const l of results ) {
 
-        res.json( { results } );
+      console.log( l );
+
+      if ( [ 'FR', 'MQ', 'GP', 'RE', 'GF' ].includes( req.query.countryCode ) ) {
+
+        try {
+
+          const code = await insee( l );
+
+          l.insee = code;
+
+        } catch( e ) {
+
+          log( 'error', 'could not retrieve insee code for %s,%s: %s', l.latitude, l.longitude, e );
+
+        }
 
       }
 
     }
+
+    res.json( { results } );
 
   }
 
