@@ -1,10 +1,12 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
+const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
@@ -31,7 +33,8 @@ module.exports = async agendaUid => {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
       rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
       resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
-      resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`
+      resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
+      resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`
     }
   }
 
@@ -92,6 +95,27 @@ module.exports.task = () => {
             } );
 
         } );
+        break;
+
+      case 'activityFeeds':
+
+        rebuildActivityFeeds( null, {
+          agendaUid: data.agendaUid,
+          ..._.pick( config.db, [ 'database', 'host', 'port', 'user', 'password' ] ),
+          activityTable: config.schemas.activity,
+          feedTable: config.schemas.feed,
+          feedActivityTable: config.schemas.feed_activity,
+          feedFollowTable: config.schemas.feed_follow,
+          feedNotificationTable: config.schemas.feed_notification,
+          userTable: config.schemas.user,
+          reviewTable: config.schemas.agenda,
+          reviewArticleTable: config.schemas.agendaEvent,
+          eventTable: config.schemas.event,
+          reviewerTable: config.schemas.stakeholder,
+          aggregatorTable: config.schemas.aggregator,
+          migrationTable: 'activity_migrations'
+        } );
+        break;
 
     }
 

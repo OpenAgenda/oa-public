@@ -3,6 +3,7 @@ const Program = require( 'caporal/lib/program' );
 const knexLib = require( 'knex' );
 const nodefn = require( 'when/node' );
 const service = require( './index' );
+
 const traverseTable = require( '../utils/traverseTable' );
 
 const prog = new Program();
@@ -12,13 +13,16 @@ let knex;
 const initProg = () => prog
   .version( '1.0.0' )
   .description( 'Rebuild all feeds of a database' )
+
+  .option( '-a, --agendaUid', 'Uid of the agenda to rebuild' )
+
   .option( '-d, --database', 'Database to use.', null, 'oadev', true )
   .option( '-h, --host', 'Connect to host.', null, 'localhost', true )
   .option( '-p, --port', 'Port number to use for connection.', prog.INT, 3306, true )
   .option( '-u, --user', 'User for login.', null, 'root', true )
   .option( '-p, --password', 'Password to use when connecting to server.', null, 'grut', true )
 
-  .option( '-i, --interval', 'The interval between each iteration of a loop', prog.INT, 100, true )
+  // .option( '-i, --interval', 'The interval between each iteration of a loop', prog.INT, 100, true )
 
   .option( '--activity_table', 'activity table', null, 'activity', true )
   .option( '--feed_table', 'feed table', null, 'activity_feed', true )
@@ -42,7 +46,7 @@ module.exports = ( ...args ) => prog.parse( [ , , ...args ] );
 module.exports.parse = ( ...args ) => prog.parse( ...args );
 module.exports.rebuild = rebuild;
 
-function rebuild( args, options, logger ) {
+async function rebuild( args, options, logger ) {
 
   const mysqlConfig = _.pick( options, [ 'database', 'host', 'port', 'user', 'password' ] );
 
@@ -53,7 +57,7 @@ function rebuild( args, options, logger ) {
 
   const results = {};
 
-  return service.init( {
+  await service.init( {
     mysql: mysqlConfig,
     schemas: {
       activity: options.activityTable,
@@ -75,33 +79,30 @@ function rebuild( args, options, logger ) {
         port: 6379
       }
     }
-  } )
-    .then( () => {
+  } );
 
-      return Promise.resolve()
-      /* knex( options.feedTable ).del()
-        .then( () => knex( options.activityTable ).del() ) */
-        .then( () => {
 
-          return eachUsers( onEachUser )
-            .then( usersAffected => results.usersAffected = usersAffected )
-            .then( () => {
+  if ( !options.agendaUid ) {
 
-              return eachEvents( onEachEvent )
-                .then( eventsAffected => results.eventsAffected = eventsAffected );
+    const usersAffected = await eachUsers( onEachUser );
 
-            } )
-            .then( () => {
+    results.usersAffected = usersAffected;
 
-              return eachAgendas( onEachAgenda )
-                .then( agendasAffected => results.agendasAffected = agendasAffected );
+    const eventsAffected = await eachEvents( onEachEvent );
 
-            } );
+    results.eventsAffected = eventsAffected;
 
-        } );
+  }
 
-    } )
-    .then( () => results );
+  const agendasAffected = await eachAgendas( onEachAgenda );
+
+  results.agendasAffected = agendasAffected;
+
+  await knex.destroy();
+  await service.shutdown();
+
+  return results;
+
 
   function onEachUser( user, i, next ) {
 
@@ -322,26 +323,6 @@ function rebuild( args, options, logger ) {
 
   }
 
-  function eachAgendas( eachCb ) {
-
-    return nodefn.call(
-      traverseTable,
-      knex,
-      options.reviewTable,
-      q => q.select( [
-        options.reviewTable + '.*',
-        options.userTable + '.uid as userUid',
-        options.userTable + '.is_removed as userRemoved',
-        options.aggregatorTable + '.id as aggId'
-      ] )
-        .join( options.userTable, options.reviewTable + '.owner_id', options.userTable + '.id' )
-        .leftJoin( options.aggregatorTable, options.reviewTable + '.id', options.aggregatorTable + '.review_id' ),
-        // .where( options.userTable + '.is_removed', 0 ),
-      eachCb
-    );
-
-  }
-
   function eachEvents( eachCb ) {
 
     return nodefn.call(
@@ -354,6 +335,34 @@ function rebuild( args, options, logger ) {
         options.userTable + '.is_removed as userRemoved'
       ] )
         .join( options.userTable, options.eventTable + '.owner_id', options.userTable + '.id' ),
+      eachCb
+    );
+
+  }
+
+  function eachAgendas( eachCb ) { // TODO limit to selected agenda
+
+    return nodefn.call(
+      traverseTable,
+      knex,
+      options.reviewTable,
+      q => {
+        const query = q.select( [
+          options.reviewTable + '.*',
+          options.userTable + '.uid as userUid',
+          options.userTable + '.is_removed as userRemoved',
+          options.aggregatorTable + '.id as aggId'
+        ] )
+          .join( options.userTable, options.reviewTable + '.owner_id', options.userTable + '.id' )
+          .leftJoin( options.aggregatorTable, options.reviewTable + '.id', options.aggregatorTable + '.review_id' );
+
+        if ( options.agendaUid ) {
+          query.where( `${options.reviewTable}.uid`, options.agendaUid );
+        }
+
+        return query;
+      },
+      // .where( options.userTable + '.is_removed', 0 ),
       eachCb
     );
 

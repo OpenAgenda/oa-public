@@ -140,7 +140,7 @@ export async function syncAgenda( agenda, stats ) {
   const Inbox = await new Inboxes( inboxIdentifiers ).get( { createOnNull: false } );
 
   if ( !Inbox.data ) {
-    await Inbox.create();
+    await Inbox.create( inboxIdentifiers );
     upStats( stats, 'agendaInboxesCreated' );
     log( 'info', 'Inbox %j is created', inboxIdentifiers );
   }

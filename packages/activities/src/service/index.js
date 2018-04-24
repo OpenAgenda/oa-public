@@ -17,6 +17,7 @@ let knex;
 
 module.exports = {
   init,
+  shutdown,
   feed,
   feeds,
   activities,
@@ -58,4 +59,8 @@ async function init( c ) {
   activities.init( { config, knex, service: module.exports } );
   notifications.init( { config, knex, service: module.exports } );
 
+}
+
+function shutdown() {
+  return knex.destroy();
 }
