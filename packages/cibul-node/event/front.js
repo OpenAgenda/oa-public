@@ -1,173 +1,165 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const deepExtend = require( 'deep-extend' );
 const { promisify } = require( 'util' );
 
-const modLib = require( '../lib/moduleLib' ),
+const agendaSvc = require( '@openagenda/agendas' );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
+const sessions = require( '@openagenda/sessions' );
+const stakeholderSvc = require( '@openagenda/agenda-stakeholders' );
+const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 
-  cmn = require( '../lib/commons-app' ),
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const embedSvc = require( '../services/embed' );
+const eventSvc = require( '../services/event' );
+const legacyAgendaSvc = require( '../services/agenda' );
+const modLib = require( '../lib/moduleLib' );
 
-  config = require( '../config' ),
+const middlewares = {
+  agendaEventShow: [
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.format,
+    eventSvc.mw.components,
+    _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
+    legacyAgendaSvc.mw.decorateEvent( false ),
+    _formatSocialLinks,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+    _appendEventTransferCredential,
+    _appendModeratorCanPublish,
+    wrap( agendaEventShow )
+  ],
+  customEmbedEventShow: [
+    legacyAgendaSvc.mw.decorateEvent( false ),
+    _formatSocialLinks,
+    _formatFavoriteLink,
+    _addInterfaceLanguage,
+    _formatEmbedHeadLinks,
+    cmn.useEmbedGoogleAnalytics,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    embedSvc.mw.loadCustomLayoutData,
+    agendaEmbedEventShow
+  ]
+};
 
-  _ = require( 'lodash' ),
+const routes = {
 
-  sessions = require( '@openagenda/sessions' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  embedSvc = require( '../services/embed' ),
-
-  eventSvc = require( '../services/event' ),
-
-  stakeholderSvc = require( '@openagenda/agenda-stakeholders' ),
-
-  stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
-
-  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
-
-  middlewares = {
-    agendaEventShow: [
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      eventSvc.mw.format,
-      eventSvc.mw.components,
-      _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
-      agendaSvc.mw.decorateEvent( false ),
-      _formatSocialLinks,
-      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-      _appendEventTransferCredential,
-      wrap( agendaEventShow )
-    ],
-    customEmbedEventShow: [
-      agendaSvc.mw.decorateEvent( false ),
-      _formatSocialLinks,
-      _formatFavoriteLink,
-      _addInterfaceLanguage,
-      _formatEmbedHeadLinks,
-      cmn.useEmbedGoogleAnalytics,
-      embedSvc.mw.renderEvent,
-      cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
-      embedSvc.mw.loadCustomLayoutData,
-      agendaEmbedEventShow
-    ]
-  },
-
-  routes = {
-
-    agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
-      cmn.https,
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' }, { maintainQuery: true } ) ),
-      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
-        slug: 'slug',
-        msg: {
-          $raw: 'limitedAccessEvent'
-        },
-        redirect: {
-          $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ]
-        }
-      } ) ),
-      sessions.middleware.load( { detailed: true } ),
-      stakeholderMw.agenda().get(),
-      cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() )
-    ].concat( middlewares.agendaEventShow ) ],
-
-    agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
-      cmn.https,
-      agendaSvc.mw.load( 'slug' ),
-      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
-        slug: 'slug',
-        eventSlug: 'eventSlug'
-      }, { maintainQuery: true } ) ),
-      sessions.middleware.load()
-    ].concat( middlewares.agendaEventShow ) ],
-
-    agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
-      agendaSvc.mw.load( 'uid' ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      redirect
-    ] ],
-
-    agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
-      agendaSvc.mw.load( 'uid' ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      _switchEmbedLang,
-      eventSvc.mw.format,
-      eventSvc.mw.components,
-      _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
-      agendaSvc.mw.decorateEvent( false ),
-      _formatSocialLinks,
-      _formatEmbedHeadLinks,
-      cmn.useEmbedGoogleAnalytics,
-      embedSvc.mw.renderEvent,
-      cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
-      _appendFacebookParams,
-      agendaEmbedEventShow
-    ] ],
-
-    agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
-      agendaSvc.mw.load( 'uid' ),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      _switchEmbedLang,
-      eventSvc.mw.format,
-      eventSvc.mw.components,
-      _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
-    ].concat( middlewares.customEmbedEventShow ) ],
-
-    agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
-      agendaSvc.mw.load( 'uid' ),
-      cmn.checkAdministrator(),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      _switchEmbedLang,
-      eventSvc.mw.format,
-      eventSvc.mw.components,
-      _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] )
-    ].concat( middlewares.customEmbedEventShow ) ],
-
-    eventShow: [ 'get', '/events/:eventSlug', [
-      cmn.https,
-      ( req, res, next ) => {
-
-        let integer = parseInt( req.params.eventSlug );
-
-        if ( Number.isInteger( integer ) && ((integer + '').length === req.params.eventSlug.length) ) {
-
-          return next( 'route' );
-
-        }
-
-        next();
+  agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
+    cmn.https,
+    legacyAgendaSvc.mw.load( 'slug' ),
+    cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug', eventSlug: 'eventSlug' }, { maintainQuery: true } ) ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
+      slug: 'slug',
+      msg: {
+        $raw: 'limitedAccessEvent'
       },
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      ( req, res, next ) => {
+      redirect: {
+        $base64Route: [ 'agendaEventShowPrivate', { slug: 'slug', eventSlug: 'eventSlug' } ]
+      }
+    } ) ),
+    sessions.middleware.load( { detailed: true } ),
+    stakeholderMw.agenda().get(),
+    cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() )
+  ].concat( middlewares.agendaEventShow ) ],
 
-        if ( req.event.origin ) {
-          req.agenda = req.event.origin;
-          return redirect( req, res, next );
-        }
+  agendaEventShow: [ 'get', '/:slug/events/:eventSlug', [
+    cmn.https,
+    legacyAgendaSvc.mw.load( 'slug' ),
+    cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaEventShowPrivate', {
+      slug: 'slug',
+      eventSlug: 'eventSlug'
+    }, { maintainQuery: true } ) ),
+    sessions.middleware.load()
+  ].concat( middlewares.agendaEventShow ) ],
 
-        next();
-      },
-      eventSvc.mw.format,
-      eventSvc.mw.components,
-      _formatSocialLinks,
-      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-      show
-    ] ],
+  agendaEventRedirect: [ 'get', '/agendas/:uid/events/:eventUid', [
+    legacyAgendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    redirect
+  ] ],
 
-    eventShowByUid: [ 'get', '/events/:eventUid', [
-      cmn.https,
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      ( req, res, next ) => {
+  agendaEmbedEventShow: [ 'get', '/agendas/:uid/embed/events/:eventUid', [
+    legacyAgendaSvc.mw.load( 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
+    eventSvc.mw.format,
+    eventSvc.mw.components,
+    _formatAgendaLinks( 'agendaEmbedShow', [ 'uid' ] ),
+    legacyAgendaSvc.mw.decorateEvent( false ),
+    _formatSocialLinks,
+    _formatEmbedHeadLinks,
+    cmn.useEmbedGoogleAnalytics,
+    embedSvc.mw.renderEvent,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
+    _appendFacebookParams,
+    agendaEmbedEventShow
+  ] ],
+
+  agendaCustomEmbedEventShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events/:eventUid', [
+    legacyAgendaSvc.mw.load( 'uid' ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
+    eventSvc.mw.format,
+    eventSvc.mw.components,
+    _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
+  ].concat( middlewares.customEmbedEventShow ) ],
+
+  agendaCustomEmbedEventShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid', [
+    legacyAgendaSvc.mw.load( 'uid' ),
+    cmn.checkAdministrator(),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _switchEmbedLang,
+    eventSvc.mw.format,
+    eventSvc.mw.components,
+    _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] )
+  ].concat( middlewares.customEmbedEventShow ) ],
+
+  eventShow: [ 'get', '/events/:eventSlug', [
+    cmn.https,
+    ( req, res, next ) => {
+
+      const integer = parseInt( req.params.eventSlug );
+
+      if ( Number.isInteger( integer ) && ((integer + '').length === req.params.eventSlug.length) ) {
+
+        return next( 'route' );
+
+      }
+
+      next();
+    },
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    ( req, res, next ) => {
+
+      if ( req.event.origin ) {
         req.agenda = req.event.origin;
-        next();
-      },
-      redirect
-    ] ]
+        return redirect( req, res, next );
+      }
 
-  },
+      next();
+    },
+    eventSvc.mw.format,
+    eventSvc.mw.components,
+    _formatSocialLinks,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+    show
+  ] ],
 
-  deepExtend = require( 'deep-extend' );
+  eventShowByUid: [ 'get', '/events/:eventUid', [
+    cmn.https,
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    ( req, res, next ) => {
+      req.agenda = req.event.origin;
+      next();
+    },
+    redirect
+  ] ]
+
+};
 
 module.exports = path => {
 
@@ -519,6 +511,21 @@ function _appendEventTransferCredential( req, res, next ) {
     req.baseData.hasOwnershipTransfer = has;
 
     req.baseData.scriptParams.hasOwnershipTransfer = has;
+
+    next();
+
+  } );
+
+}
+
+
+function _appendModeratorCanPublish( req, res, next ) {
+
+  if ( !req.agenda ) return next();
+
+  agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
+
+    req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [] ).includes( 'moderators' );
 
     next();
 
