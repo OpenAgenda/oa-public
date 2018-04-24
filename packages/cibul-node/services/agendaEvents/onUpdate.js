@@ -32,6 +32,16 @@ module.exports = async ( before, after, context ) => {
     }
   } );
 
-  aggregator.notifyPublish( event.id, agenda.id );
+  if ( before.state === after.state ) return;
+
+  if ( after.state === 2 ) {
+
+    aggregator.notifyPublish( event.id, agenda.id );
+
+  } else if ( before.state === 2 ) {
+
+    aggregator.notifyUnpublish( event.id, agenda.id );
+
+  }
 
 }
