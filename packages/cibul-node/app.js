@@ -238,6 +238,12 @@ module.exports = function ( enabledTypes, options, cb ) {
           time: '11:00'
         } );
 
+        tfy( require( './services/activities/tasks/rebuild' ), {
+          period: 'weekly',
+          day: 'monday',
+          time: '03:00'
+        } );
+
         require( './general/mainLogger.task' )();
 
         require( './services/agenda/task' )();
