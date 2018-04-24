@@ -10,7 +10,8 @@ const cmn = require( '../lib/commons-app' );
 const sessions = require( '@openagenda/sessions' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 const eventSvc = require( '../services/event' );
-const agendaSvc = require( '../services/agenda' );
+const legacyAgendaSvc = require( '../services/agenda' );
+const agendaSvc = require( '@openagenda/agendas' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
@@ -24,7 +25,7 @@ const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
 const routes = {
   eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
-    agendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.checkEventEditor,
     _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
@@ -33,7 +34,7 @@ const routes = {
   ] ],
 
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
-    agendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
     _changeStateCredential,
@@ -43,7 +44,7 @@ const routes = {
   ] ],
 
   agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
-    agendaSvc.mw.load( 'slug' ),
+    legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
@@ -52,7 +53,7 @@ const routes = {
   ] ],
 
   agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
-    agendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.loadMemberRole.bind( null, 'agenda' ),
     ( req, res, next ) => {
@@ -67,12 +68,12 @@ const routes = {
 
     },
     eventSvc.mw.format,
-    agendaSvc.mw.decorateEvent( true ),
+    legacyAgendaSvc.mw.decorateEvent( true ),
     getPrivateEventData
   ] ],
 
   agendaEventReferences: [ 'get', '/agendas/:uid/events/:eventUid/references', [
-    agendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _loadAdminOrModerator,
     eventSvc.mw.components.getReferences,
@@ -89,7 +90,7 @@ const routes = {
   // suggestions are part of new search in their own file
   agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    agendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load( 'uid' ),
     ( req, res, next ) => {
 
       req.agendaId = req.agenda.id;
@@ -116,14 +117,14 @@ const routes = {
   ] ],
 
   agendaEventActivities: [ 'get', '/agendas/:uid/events/:eventUid/activities', [
-    agendaSvc.mw.load( 'uid' ),
+    legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
     ( req, res, next ) => {
 
       const limit = 20;
 
-      let feed = activitiesSvc.feed( {
+      const feed = activitiesSvc.feed( {
         entityType: 'event',
         entityUid: req.event.uid
       } );
@@ -177,8 +178,8 @@ module.exports = function ( path ) {
 function getPrivateEventData( req, res, next ) {
 
   w( {
-    req: req,
-    res: res,
+    req,
+    res,
     custom: req.formatted.custom
       .filter( _filterByRole.bind( null, req.role ) )
       .filter( c => c.access !== 'public' ),
@@ -208,7 +209,7 @@ function getPrivateEventData( req, res, next ) {
     // get contributor info
     .then( v => {
 
-      let d = w.defer();
+      const d = w.defer();
 
       req.event.getContributorInfo( ( err, contributorInfo ) => {
 
@@ -314,18 +315,24 @@ function _redirect( req, res ) {
 
 function _changeStateCredential( req, res, next ) {
 
-  let settings = req.agenda.getSettings( true );
+  if ( parseInt( req.params.type ) !== STATETYPES.PUBLISHED ) {
 
-  if ( parseInt( req.params.type ) === STATETYPES.PUBLISHED && !settings.moderators.canPublish ) {
-
-    cmn.checkAdministrator( {
-      message: 'Only agenda administrators may publish events',
-      redirect: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } )
-    } )( req, res, next );
+    cmn.checkAdminOrModerator( req, res, next );
 
   } else {
 
-    cmn.checkAdminOrModerator( req, res, next );
+    agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
+
+      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [] ).includes( 'moderators' );
+
+      if ( moderatorsCanPublish ) return cmn.checkAdminOrModerator( req, res, next );
+
+      cmn.checkAdministrator( {
+        message: 'Only agenda administrators may publish events',
+        redirect: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } )
+      } )( req, res, next );
+
+    } );
 
   }
 

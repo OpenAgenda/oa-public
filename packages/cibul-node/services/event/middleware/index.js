@@ -1,20 +1,17 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const async = require( 'async' );
 
-  log = require( '@openagenda/logger' )( 'event middleware' ),
+const agendas = require( '@openagenda/agendas' );
+const sessions = require( '@openagenda/sessions' );
+const utils = require( '@openagenda/utils' );
 
-  utils = require( '@openagenda/utils' ),
+const log = require( '@openagenda/logger' )( 'event middleware' );
 
-  async = require( 'async' ),
-
-  i18n = require( '../../../i18n/i18n' ),
-
-  p = require( '../../../lib/promises' ),
-
-  w = p.w,
-
-  config = require( '../../../config' );
+const config = require( '../../../config' );
+const i18n = require( '../../../i18n/i18n' );
+const p = require( '../../../lib/promises' );
+const w = p.w;
 
 let svc;
 
@@ -24,7 +21,7 @@ module.exports = function( eventService ) {
 
   return {
     load: loadEvent,
-    loadUris: loadUris,
+    loadUris,
     format: require( './format' ),
     components: require( './components' ),
     cleanEvents,
@@ -50,8 +47,8 @@ function loadEvent( paramName, fieldName, options ) {
   return ( req, res, next ) => {
 
     w( {
-      req: req,
-      res: res,
+      req,
+      res,
       event: false,
       accessRequired: null,
       inAgendaContext: params.inAgendaContext,
@@ -137,7 +134,7 @@ function search( limit ) {
   return function( req, res, next ) {
 
     es.search( req.query.oaq, {
-      limit: limit,
+      limit,
       page: req.query.page
     }, function( err, data ) {
 
@@ -177,11 +174,11 @@ function checkEventEditor( req, res, next ) {
 
     if ( err ) return cb( err );
 
-    if ( !user ) return next( { code: 403 } );
+    if ( !user ) return next( { code: 403 } );
 
     req.event.isEditor( user.id, ( err, is ) => {
 
-      if ( err || !is ) return next( err || { code: 403 } );
+      if ( err || !is ) return next( err || { code: 403 } );
 
       next();
 
@@ -211,7 +208,7 @@ function ics( req, res, next ) {
 
 function layoutData( req, res ) {
 
-  let description = req.formatted.description + ' - ' + req.formatted.dateRange + ' - ' + req.formatted.location.name;
+  const description = req.formatted.description + ' - ' + req.formatted.dateRange + ' - ' + req.formatted.location.name;
 
   var data = {
     metas: {
@@ -243,8 +240,7 @@ function layoutData( req, res ) {
       title: req.agenda.title,
       description: req.agenda.description,
       url: req.agenda.url,
-      image: req.agenda.getImage( false ),
-      theme: req.agenda.getTheme()
+      image: req.agenda.getImage( false )
     });
 
   }
@@ -257,7 +253,7 @@ function layoutData( req, res ) {
 
       data.headLinks.push({
         rel: 'alternate',
-        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang: lang } ), { abs: true } ), 
+        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang } ), { abs: true } ), 
         hreflang: lang 
       });
 
@@ -294,14 +290,6 @@ function layoutData( req, res ) {
     hasCustomFields: ( req.formatted.custom && req.formatted.custom.length ) || req.formatted.hasPrivateCustomFields,
     lang: req.lang
   };
-
-  if ( req.agenda ) {
-
-    var settings = req.agenda.getSettings( true );
-
-    data.scriptParams.moderatorCanPublish = !!( settings.moderators && settings.moderators.canPublish );
-
-  }
 
   return data;
 
@@ -353,7 +341,7 @@ function _loadUserAgendaCreds( v ) {
 
   }
 
-  let user = v.req.user;
+  const user = v.req.user;
 
   return w.promise( function( rs, rj ) {
 
