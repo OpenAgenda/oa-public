@@ -17,13 +17,20 @@ class DebugTransport extends winston.Transport {
     this.level = params.level;
     this.prefix = params.prefix;
     this.namespace = params.namespace;
-    this.debug = debug( (params.prefix || '') + (params.namespace || '') );
+
+    const debugName = (params.prefix || '') + (params.namespace || '');
+
+    if ( params.enable && !debug.enabled( debugName ) ) {
+      debug.names.push( new RegExp( '^' + debugName.replace( /\*/g, '.*?' ) + '$' ) );
+    }
+
+    this.debug = debug( debugName );
   }
 
   log( level, msg, meta, cb ) {
     let displayedMeta = _.omit( meta, 'namespace' );
 
-    if (meta && meta instanceof Error && meta.stack) {
+    if ( meta && meta instanceof Error && meta.stack ) {
       displayedMeta = meta.stack;
     }
 

@@ -77,7 +77,8 @@ function getTransporters( options ) {
   const params = _.merge( {
     namespace: '',
     debug: {
-      prefix: ''
+      prefix: '',
+      enable: false
     },
     token: null
   }, config, options );
@@ -87,7 +88,8 @@ function getTransporters( options ) {
   transports.push( new DebugTransport( {
     level: 'debug',
     namespace: params.namespace,
-    prefix: params.debug.prefix
+    prefix: params.debug.prefix,
+    enable: params.debug.enable
   } ) );
 
   if ( params && params.token ) {
