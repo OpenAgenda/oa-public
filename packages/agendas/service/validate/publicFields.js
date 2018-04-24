@@ -55,7 +55,8 @@ module.exports = {
       canPublish: {
         type: 'choice',
         default: [
-          'administrators'
+          'administrators',
+          'moderators'
         ],
         options: [
           'administrators',
