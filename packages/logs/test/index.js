@@ -288,6 +288,33 @@ describe( 'logs', () => {
 
     } );
 
+    it( 'log with falsy ending value', () => {
+
+      logs.init();
+
+      const log = logs( 'test-7' );
+
+      const transport = log.getTransports().debug;
+      const spy = sinon.spy( transport, 'log' );
+
+      log( 'info', 'Je veux un zéro comme ça:', 0 );
+
+      sinon.assert.calledWith( spy,
+        'info',
+        'Je veux un zéro comme ça:',
+        { namespace: 'test-7' }
+      );
+
+      log( 'info', 'Je veux un zéro comme ça: %d', 0 );
+
+      sinon.assert.calledWith( spy,
+        'info',
+        'Je veux un zéro comme ça: 0',
+        { namespace: 'test-7' }
+      );
+
+    } );
+
     it( 'loadMetadata - preload metadata', () => {
 
       logs.init();
@@ -410,9 +437,34 @@ describe( 'logs', () => {
 
     } );
 
+    it( 'conserve loaded metadata before the setModuleConfig', () => {
+
+      logs.init( { debug: { prefix: 'oa:' } } );
+
+      const log = logs( 'test-6', { $callerModule: 'module-2' } ); // second args only for test
+
+      log.loadMetadata( { preloaded: 'data' } );
+
+      log.callerModule = 'module';
+      logs.setModuleConfig( { debug: { prefix: 'prefix:' } }, 'module-2' ); // second args only for test
+
+      const transport = log.getTransports().debug;
+      const spy = sinon.spy( transport, 'log' );
+
+      log( 'info', 'Oh yeah ! J\'ai encore mes metadata !' );
+
+      sinon.assert.calledWith(
+        spy.getCall( 0 ),
+        'info',
+        'Oh yeah ! J\'ai encore mes metadata !',
+        sinon.match( { namespace: 'test-6', preloaded: 'data' } )
+      );
+
+    } );
+
   } );
 
-  describe( 'add & remove transports', () => {
+  it( 'add & remove transports', () => {
 
     logs.add.should.be.a.Function();
     logs.remove.should.be.a.Function();

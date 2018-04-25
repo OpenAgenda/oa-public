@@ -3,15 +3,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
-import moment from 'moment';
 import throttle from 'lodash/throttle';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import * as activitiesActions from '../../redux/modules/activities';
 
 import { ActivityItem } from '../../components';
-
-import 'moment/locale/fr';
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -53,9 +50,6 @@ export default class UserDashboard extends Component {
   };
 
   componentDidMount() {
-
-    const { lang } = this.context;
-    moment.locale( lang );
 
     if ( typeof document !== 'undefined' ) {
       monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
