@@ -339,7 +339,7 @@ module.exports = createReactClass( {
 
     const item = gfResult.results[ 0 ];
 
-    const decoration = [ 'city', 'district', 'department', 'postalCode', 'region', 'timezone' ].reduce( ( d, field ) => {
+    const decoration = [ 'city', 'district', 'department', 'postalCode', 'region', 'timezone', 'insee' ].reduce( ( d, field ) => {
 
       d[ field ] = { $set: item[ field ] };
 

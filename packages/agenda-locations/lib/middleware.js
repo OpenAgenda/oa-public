@@ -255,7 +255,7 @@ function getMiddleware( idRef ) {
 
   function resync( req, res, next ) {
 
-    var agendaId = _extractRefValue( idRef, req );
+    const agendaId = _extractRefValue( idRef, req );
 
     if ( !agendaId ) {
 
@@ -274,7 +274,7 @@ function getMiddleware( idRef ) {
 
   function getUnverifiedCount( req, res, next ) {
 
-    var agendaId = _extractRefValue( idRef, req );
+    const agendaId = _extractRefValue( idRef, req );
 
     if ( !agendaId ) {
 
@@ -286,14 +286,14 @@ function getMiddleware( idRef ) {
     }
 
     service.count( {
-      agendaId: agendaId,
+      agendaId,
       state: states.unverified
     }, ( err, count ) => {
 
       if ( err ) return next( err );
 
       res.json( {
-        count: count
+        count
       } );
 
     } );
@@ -307,7 +307,7 @@ function getMiddleware( idRef ) {
    */
   function remove( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next );
+    const data = _validateAndExtractData( req, res, next );
 
     service.get( { uid: data.uid }, ( err, location ) => {
 
@@ -356,11 +356,11 @@ function getMiddleware( idRef ) {
   
   function set( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next ),
+    const data = _validateAndExtractData( req, res, next );
 
-    forcedValues = {},
+    const options = {};
 
-    options = {};
+    let forcedValues = {};
 
     if ( arguments.length == 4 ) {
 
@@ -387,7 +387,7 @@ function getMiddleware( idRef ) {
 
   function merge( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next );
+    const data = _validateAndExtractData( req, res, next );
 
     if ( !req.query.uids ) {
 
@@ -414,13 +414,13 @@ function getMiddleware( idRef ) {
 
   function listTerms( req, res, next ) {
 
-    var fields = req.query.field.split( ',' ),
+    const fields = req.query.field.split( ',' );
 
-    query = {
+    const query = {
       agendaId: _extractRefValue( idRef, req )
-    },
+    };
 
-    err = null;
+    let err = null;
 
     fields.forEach( f => {
 
@@ -442,9 +442,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      res.json( {
-        terms: terms
-      } );
+      res.json( { terms } );
 
     } );
 
@@ -453,15 +451,13 @@ function getMiddleware( idRef ) {
 
   function list( req, res, next ) {
 
-    var page = 1, 
-
-    query = {
+    const query = {
       agendaId: _extractRefValue( idRef, req )
-    },
+    };
 
-    limit = config.defaultLimit, 
+    let limit = config.defaultLimit;
 
-    offset = 0;
+    let offset = 0;
 
     if ( !req.xhr && !req.ignoreXhr ) return next();
 
@@ -487,7 +483,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      log( 'retrieved %s items for page %s successfully. Total is %s', locations.length, page, total );
+      log( 'retrieved %s items for offset %s, %s successfully. Total is %s', locations.length, offset, limit, total );
 
       req.locations = {
         total,
@@ -541,8 +537,6 @@ function getMiddleware( idRef ) {
 
     for ( const l of results ) {
 
-      console.log( l );
-
       if ( [ 'FR', 'MQ', 'GP', 'RE', 'GF' ].includes( req.query.countryCode ) ) {
 
         try {
@@ -568,7 +562,7 @@ function getMiddleware( idRef ) {
 
   function _validateAndExtractData( req, res, next ) {
 
-    var data = req.body || {};
+    const data = req.body || {};
 
     if ( !data ) {
 
