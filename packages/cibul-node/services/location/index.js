@@ -21,9 +21,9 @@ module.exports = {
   initless: true,
   list: model.locations().list,
   update: model.locations().update,
-  get: get,
-  create: create,
-  listSimilar: listSimilar, // take name, lat, lng.
+  get,
+  create,
+  listSimilar, // take name, lat, lng.
 }
 
 module.exports.mw = require( './middleware' )( module.exports );
@@ -87,7 +87,7 @@ function create( params, cb ) {
 
     if ( err ) return cb( err );
 
-    get( { id: result.id }, cb );
+    get( { id: result.id }, cb );
 
   });
 
@@ -98,8 +98,8 @@ function instanciate( data ) {
   var instance = model.locations().instance( data );
 
   return lib.extend( {}, instance, {
-    setImage: setImage,
-    unsetImage: unsetImage
+    setImage,
+    unsetImage
   });
 
   function unsetImage( cb ) {
@@ -114,9 +114,9 @@ function instanciate( data ) {
     var name = 'location' + instance.uid;
 
     imageSvc.multi( {
-      url: url
+      url
     }, [
-      { name: name, format: { width: 300 } },
+      { name, format: { width: 300 } },
     ], function( err, imagePaths ) {
 
       if ( err ) return cb( err );

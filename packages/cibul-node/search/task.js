@@ -6,35 +6,21 @@
  */
 
 
-var log = require( '@openagenda/logger' )( 'search task' ),
+const async = require( 'async' );
+const log = require( '@openagenda/logger' )( 'search task' );
 
-async = require( 'async' ),
+const agendaSvc = require( '../services/agenda' );
+const coms = require( '../lib/coms' );
+const config = require( '../config' );
+const esSvc = require( '../services/elasticsearch' );
+const loadDetailedLocation = require( '../services/elasticsearch/lib/loadDetailedLocation' );
+const loadEventReferences = require( '../services/elasticsearch/lib/loadEventReferences' );
+const utils = require( '../lib/utils' );
+const model = require( '../services/model' );
 
-coms = require( '../lib/coms' ),
+const ES = require( '@openagenda/es-node' )( config.es );
 
-utils = require( '../lib/utils' ),
-
-agendaSvc = require( '../services/agenda' ),
-
-config = require( '../config' ),
-
-model = require( '../services/model' ),
-
-ES = require( '@openagenda/es-node' )( config.es ),
-
-esSvc = require( '../services/elasticsearch' ),
-
-loadDetailedLocation = require( '../services/elasticsearch/lib/loadDetailedLocation' ),
-
-loadEventReferences = require( '../services/elasticsearch/lib/loadEventReferences' ),
-
-running = false,
-
-_onStart,
-
-_onComplete,
-
-jobHandlers = {
+const jobHandlers = {
   'index.resync' : _resync,
   'legacy.es.event.create' : _publish( 'events' ),
   'legacy.es.event.update' : _publish( 'events' ),
@@ -53,6 +39,11 @@ jobHandlers = {
   'review.sync': _sync
 };
 
+let running = false;
+
+let _onStart;
+
+let _onComplete;
 
 module.exports = run;
 
@@ -115,8 +106,6 @@ function _handleJob( err, job ) {
 
   if ( _onStart ) _onStart();
 
-  var formatted; // for parsed job
-
   log( 'debug', 'handling job' );
 
   if ( err ) {
@@ -127,7 +116,7 @@ function _handleJob( err, job ) {
 
   // parse the thing
 
-  formatted = _parseJob( job );
+  const formatted = _parseJob( job );
 
   if ( !formatted ) return;
 
@@ -164,7 +153,7 @@ function _resync( job, cb ) {
 
 function _sync( job, cb ) {
 
-  var hasMore = true, limit = 20, offset = 0;
+  let hasMore = true, limit = 20, offset = 0;
 
   agendaSvc.get( job.values, function( err, agenda ) {
 
@@ -174,11 +163,11 @@ function _sync( job, cb ) {
 
     // retrieve indexed events
 
-    var hasMore = true, offset = 0, eIds = [];
+    let hasMore = true, offset = 0, eIds = [];
 
     async.whilst( function() { return hasMore; }, function( wcb ) {
 
-      agenda.search( { passed: 1, showAll: true }, { offset: offset, limit: limit }, function( err, data ) {
+      agenda.search( { passed: 1, showAll: true }, { offset, limit }, function( err, data ) {
 
         eIds = utils.unique( eIds.concat( data.events.map( function( e ) { return parseInt( e.id.split( '@' )[0], 10 ); } ) ) );
 
@@ -205,7 +194,7 @@ function _sync( job, cb ) {
       async.whilst( function() { return hasMore; }, function( wcb ) {
 
         agenda.events.list( { 
-          offset: offset,
+          offset,
           limit: 1,
           isPublished: null
         }, function( err, events ) {
@@ -242,7 +231,7 @@ function _sync( job, cb ) {
 
             coms.publish( config.mainChannel, {
               name: 'event.update', 
-              values: { id: id } 
+              values: { id } 
             } );
             
           } catch( e ) {

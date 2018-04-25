@@ -14,8 +14,8 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 module.exports = _.extend( function( req, res, next ) {
 
   w( {
-    req: req,
-    res: res,
+    req,
+    res,
     formatted: {
       updatedAt: req.event.updatedAt,
       timezone: req.event.getLocationDetails().timezone,
@@ -53,7 +53,7 @@ module.exports = _.extend( function( req, res, next ) {
 
   .then( v => {
 
-    let d = w.defer();
+    const d = w.defer();
 
     if ( !req.agenda ) return v;
 
@@ -108,7 +108,7 @@ function _registration( v ) {
 
 function _uri( v ) {
 
-  let reqParams = {
+  const reqParams = {
     eventSlug: v.req.event.slug
   }
 
@@ -159,7 +159,7 @@ function _importUri( v ) {
 
 function _featured( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
   v.req.event.getFeatured( ( err, featured ) => {
 
@@ -178,7 +178,7 @@ function _featured( v ) {
 
 function _categories( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
   v.req.event.getAgendaCategory( ( err, category ) => {
 
@@ -228,7 +228,7 @@ function _dates( v ) {
 
 function _timings( v ) {
 
-  var _t = timeHelper( { lang: v.req.lang } );
+  const _t = timeHelper( { lang: v.req.lang } );
 
   v.formatted.timings = v.req.event.getTimings().map( t => {
 
@@ -265,7 +265,7 @@ function _load( namespace, fnName ) {
 
   return v => {
 
-    var d = w.defer();
+    const d = w.defer();
 
     v.req.event[ fnName ]( ( err, r ) => {
 
@@ -286,7 +286,7 @@ function _load( namespace, fnName ) {
 
 function _image( v ) {
 
-  var img = v.req.event.getImage( true );
+  const img = v.req.event.getImage( true );
 
   v.formatted.image = img ? img.replace( 'cibuldev', 'cibul' ) : false;
 
@@ -320,7 +320,7 @@ function listifyKeywords( keywords ) {
 
 function _main( v ) {
 
-  var map = {
+  const map = {
     uid: 'getUid',
     slug: 'getSlug',
     title: 'getTitle',
