@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
-import moment from 'moment';
 import pick from 'lodash/pick';
 import throttle from 'lodash/throttle';
 import mapValues from 'lodash/mapValues';
@@ -11,8 +10,6 @@ import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import * as activitiesActions from '../../redux/modules/activities';
 
 import { ActivityItem } from '../../components';
-
-import 'moment/locale/fr';
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -69,9 +66,6 @@ export default class AgendaDashboard extends Component {
   };
 
   componentDidMount() {
-
-    const { lang } = this.context;
-    moment.locale( lang );
 
     if ( typeof document !== 'undefined' ) {
       monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
