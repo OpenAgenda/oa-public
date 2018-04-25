@@ -26,9 +26,9 @@ describe( 'agenda location service', function () {
 
     it( 'unlink sets location agenda reference to null', done => {
 
-      let uid = 66638019,
+      const uid = 66638019;
 
-      con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
 
       con.query( `select id, uid, agenda_id from ${config.mysql.table} where uid = ?`, uid, ( err, rows ) => {
 
@@ -220,17 +220,17 @@ describe( 'agenda location service', function () {
 
     it( 'simple location copy adds an entry', done => {
 
-      let con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
 
       con.query( `select count( id ) as beforeCount from ${config.mysql.table}`, ( err, rows ) => {
 
-        let beforeCount = rows[ 0 ].beforeCount;
+        const beforeCount = rows[ 0 ].beforeCount;
 
         svc.copy( 123, 456, { uid: 38584748 }, ( err, result ) => {
 
           con.query( `select count( id ) as afterCount from ${config.mysql.table}`, ( err, rows ) => {
 
-            let afterCount = rows[ 0 ].afterCount;
+            const afterCount = rows[ 0 ].afterCount;
 
             afterCount.should.equal( beforeCount + 1 );
 
@@ -253,7 +253,7 @@ describe( 'agenda location service', function () {
     this.timeout( 10000 );
 
     // picked from first fixtures file
-    let mergeUids = [ 11552251, 27330589, 29935462, 39690484 ];
+    const mergeUids = [ 11552251, 27330589, 29935462, 39690484 ];
 
     beforeEach( done => fixtures( 123, done ) );
 
@@ -321,6 +321,7 @@ describe( 'agenda location service', function () {
           'region',
           'department',
           'postalCode',
+          'insee',
           'countryCode',
           'district',
           'latitude',
@@ -359,6 +360,7 @@ describe( 'agenda location service', function () {
           'region',
           'department',
           'postalCode',
+          'insee',
           'countryCode',
           'district',
           'latitude',
@@ -395,6 +397,7 @@ describe( 'agenda location service', function () {
           'name',
           'address',
           'city',
+          'insee',
           'countryCode',
           'district',
           'latitude',

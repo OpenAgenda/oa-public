@@ -89,6 +89,11 @@ module.exports.mapping = {
       type: 'string'
     },
 
+    insee: {
+      type: 'string',
+      index: 'not_analyzed'
+    },
+
     state: {
       type: 'integer',
       index: 'not_analyzed'

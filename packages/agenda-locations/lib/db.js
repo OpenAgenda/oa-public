@@ -1,44 +1,35 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const async = require( 'async' );
+const mysql = require( 'mysql' );
+const slug = require( 'slug' );
+const w = require( 'when' );
 
-var utils = require( '@openagenda/utils' ),
+const countries = require( '@openagenda/countries' );
+const logger = require( '@openagenda/basic-logger' );
+const utils = require( '@openagenda/utils' );
 
-w = require( 'when' ), 
+const helpers = require( './mysqlHelpers' );
+const states = require( './states' );
+const validate = require( './validate' );
 
-mysql = require( 'mysql' ),
-
-validate = require( './validate' ),
-
-logger = require( '@openagenda/basic-logger' ), log,
-
-async = require( 'async' ),
-
-slug = require( 'slug' ),
-
-states = require( './states' ),
-
-helpers = require( './mysqlHelpers' ),
-
-countries = require( '@openagenda/countries' ),
-
-config,
-
-fields = [ 
+const fields = [ 
   'id', 'uid', { obj: 'eveId', db: 'eve_id' }, { obj: 'agendaId', db: 'agenda_id' }, 'slug', { obj: 'name', db: 'placename'}, 
-  'address', 'city', 'region', 'department', { obj: 'postalCode', 'db': 'postal_code' }, { obj: 'countryCode', db: 'country' },
+  'address', 'city', 'region', 'department', { obj: 'postalCode', 'db': 'postal_code' }, 'insee', { obj: 'countryCode', db: 'country' },
   { obj: 'district', db: 'city_district' }, 'latitude', 'longitude', { obj: 'updatedAt', db: 'updated_at' }, 'store'
-],
+];
 
-// fields kept in store column in schema
-storeFields = [ 
+const storeFields = [ // fields kept in store column in schema
   'image', 'description', 'tags', 
   'website', 'phone', 'links', 'access', 
   'state', 'timezone', 'imageCredits'
-],
+];
 
 // field used to retrieve aggregates of values for filtering
-termFields = [ 'name', 'city', 'region', 'department', 'country' ];
+const termFields = [ 'name', 'city', 'region', 'department', 'country' ];
+
+let config, log;
 
 module.exports = {
   isReady: () => !!config,
@@ -85,13 +76,15 @@ function resync( agendaId, cb ) {
 
     if ( err ) return cb( err );
 
-    if ( !settings || !settings.tagSet ) return cb();
+    if ( !settings || !settings.tagSet ) return cb();
 
-    let offset = 0, limit = 20, more = true;
+    const limit = 20;
+
+    let offset = 0, more = true;
 
     async.doWhilst( wcb => {
 
-      list( { agendaId: agendaId }, offset, limit, ( err, locations ) => {
+      list( { agendaId }, offset, limit, ( err, locations ) => {
 
         if ( err ) return cb( err );
 
@@ -164,11 +157,11 @@ function copySettings( originAgendaId, destinationAgendaId, cb ) {
 
     if ( err ) return cb( err );
 
-    let con = _connect( config );
+    const con = _connect( config );
 
     con.query( `select agenda_id from ${config.agendaSettingsTableName} where agenda_id = ?`, destinationAgendaId, ( err, rows ) => {
 
-      let query = rows.length ?
+      const query = rows.length ?
         `update ${config.agendaSettingsTableName} set store = ? where agenda_id = ?`
         : `insert into ${config.agendaSettingsTableName} ( store, agenda_id ) values ( ?, ? )`;
 
@@ -208,12 +201,12 @@ function list( wheres, offset, limit, cb ) {
   var con = _connect( config );
 
   w( {
-    con: con,
-    offset: offset,
-    limit: limit,
+    con,
+    offset,
+    limit,
     locations: false,
-    config: config,
-    wheres: wheres,
+    config,
+    wheres,
     query: false,
     filteredWheres: {}
   } )
@@ -255,7 +248,7 @@ function decorate( locations, cb ) {
 
     w( {
       settings: location.agendaId ? loadedSettings[ location.agendaId ] : false,
-      location: location
+      location
     } )
 
     .then( _loadSettings )
@@ -282,7 +275,7 @@ function decorate( locations, cb ) {
 
     if ( !v.location.agendaId || v.settings ) return v;
 
-    let d = w.defer();
+    const d = w.defer();
 
     getSettings( v.location.agendaId, ( err, settings ) => {
 
@@ -314,7 +307,7 @@ function decorate( locations, cb ) {
 
     v.location.tags = v.location.tags.map( lt => {
 
-      let gt = v.settings.tagSet.groups.map( g => {
+      const gt = v.settings.tagSet.groups.map( g => {
 
         return g.tags.filter( t => {
 
@@ -342,7 +335,7 @@ function decorate( locations, cb ) {
  */
 decorate.promise = function( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
   decorate( v.locations, ( err, decorated ) => {
 
@@ -371,7 +364,7 @@ function set( data, settings, cb ) {
 
   log( 'set location' );
 
-  var con = _connect( config );
+  const con = _connect( config );
 
   w( {
     config,
@@ -430,14 +423,14 @@ function exists( identifiers, cb ) {
 
   }
 
-  let con = _connect( config );
+  const con = _connect( config );
 
   w( utils.extend( {
-    con: con,
+    con,
     query: false,
-    config: config,
+    config,
     fields: [ 'id' ]
-  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
 
   .then( _defineGetQuery )
 
@@ -471,13 +464,13 @@ function get( identifiers, cb ) {
 
   }
 
-  let con = _connect( config );
+  const con = _connect( config );
 
   w( utils.extend( {
-    con: con,
+    con,
     query: false,
-    config: config
-  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+    config
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
 
   .then( _defineGetQuery )
 
@@ -504,14 +497,14 @@ function get( identifiers, cb ) {
 
 function unlink( identifiers, cb ) {
 
-  var con = _connect( config );
+  const con = _connect( config );
 
   w( utils.extend( {
     con,
     config,
     query: false,
     location: false
-  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
 
   .then( _defineGetQuery )
 
@@ -540,14 +533,14 @@ function unlink( identifiers, cb ) {
 
 function remove( identifiers, cb ) {
 
-  var con = _connect( config );
+  const con = _connect( config );
 
   w( utils.extend( {
-    con: con,
+    con,
     query: false,
-    config: config,
+    config,
     location: false
-  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
+  }, _extractIdentifiers( identifiers, [ 'id', 'uid', 'slug', 'agendaId', 'eveId' ] ) ) )
 
   .then( _defineGetQuery )
 
@@ -591,11 +584,11 @@ function listTerms( fields, wheres, cb ) {
   var con = _connect( config );
 
   w( {
-    con: con,
-    fields: fields,
+    con,
+    fields,
     terms: false,
-    config: config,
-    wheres: wheres,
+    config,
+    wheres,
     query: false,
     filteredWheres: {}
   } )
@@ -663,7 +656,7 @@ function _clean( namespace ) {
 
   return v => {
 
-    let items = utils.isArray( v[ namespace ] ) ? v[ namespace ] : [ v[ namespace ] ];
+    let items = utils.isArray( v[ namespace ] ) ? v[ namespace ] : [ v[ namespace ] ];
 
     items = items.map( l => {
 
@@ -724,7 +717,7 @@ function _defineListQuery( v ) {
 
 
 
-  for( let k in wheresObj ) {
+  for( const k in wheresObj ) {
 
     if ( wheresObj[ k ] === null ) {
 
@@ -814,9 +807,9 @@ function _create( v ) {
 
 function _defineGetQuery( v ) {
 
-  var idFields = v.idFields.map( idf => {
+  const idFields = v.idFields.map( idf => {
 
-    let f = fields.filter( f => ( typeof f == 'string' ? f : f.obj ) == idf )[ 0 ];
+    const f = fields.filter( f => ( typeof f == 'string' ? f : f.obj ) == idf )[ 0 ];
 
     return typeof f == 'string' ? f : f.db;
 
@@ -868,7 +861,7 @@ function _defineTermsQuery( v ) {
 
   selects = v.fields;
 
-  for( let k in wheresObj ) {
+  for( const k in wheresObj ) {
 
     wheres.push(  k + ( wheresObj[ k ] === null ? ' is ' : '=' ) + v.con.escape( wheresObj[ k ] ) );
 
@@ -1003,7 +996,7 @@ function _toDbFields( values, previousValues ) {
 
   if ( dbData.store && previousValues ) {
 
-    for( let k in dbData.store ) {
+    for( const k in dbData.store ) {
 
       if ( dbData.store[ k ] === undefined ) {
 
@@ -1061,7 +1054,7 @@ function _transform( values, from, to ) {
 
   .forEach( f => {
 
-    transformed[ typeof f == 'string' ? f : f[ to ] ] = values[ typeof f == 'string' ? f : f[ from ] ];
+    transformed[ typeof f == 'string' ? f : f[ to ] ] = values[ typeof f == 'string' ? f : f[ from ] ];
 
   } );
 
@@ -1133,9 +1126,9 @@ function _insertLocation( v ) {
 
   log( 'inserting location' );
 
-  let d = w.defer(),
+  const d = w.defer();
 
-  dbData = _toDbFields( v.location );
+  const dbData = _toDbFields( v.location );
 
   dbData.created_at = new Date();
 
@@ -1158,7 +1151,7 @@ function _insertLocation( v ) {
 
 function _updateLocation( v ) {
 
-  var d = w.defer(),
+  const d = w.defer(),
 
   identifiers = _extractIdentifiers( v.data, [ 'id', 'uid' ] ),
 
@@ -1198,7 +1191,7 @@ function _defineUnique( v, field, generator, cb ) {
 
   async.doWhilst( wcb => {
 
-    let value = generator();
+    const value = generator();
 
     log( 'attempting values %s for field %s', value, field );
 
@@ -1229,18 +1222,16 @@ function _defineUnique( v, field, generator, cb ) {
 
 function _resyncLocationTags( location, settings, cb ) {
 
-  let changed = false,
+  let changed = false;
 
-  settingsTags = settings.tagSet.groups.reduce( ( prev, g ) => {
+  const settingsTags = settings.tagSet.groups.reduce( ( prev, g ) => {
 
     return prev.concat( g.tags );
 
-  }, [] ),
-
-  locationTags = ( location.tags || [] );
+  }, [] );
 
   // if has tags that settings does not have, remove them
-  locationTags = locationTags.filter( t => {
+  const locationTags = ( location.tags || [] ).filter( t => {
 
     if ( settingsTags.map( st => st.id ).indexOf( t.id ) == -1 ) {
 
@@ -1252,12 +1243,12 @@ function _resyncLocationTags( location, settings, cb ) {
 
     return true;
 
-  } );
+  } )
 
   // if a tag label is different, update
-  locationTags = locationTags.map( t => {
+  .map( t => {
 
-    let st = settingsTags.filter( st => st.id === t.id )[ 0 ];
+    const st = settingsTags.filter( st => st.id === t.id )[ 0 ];
 
     if ( st.label !== t.label ) {
 
@@ -1426,9 +1417,9 @@ function _validate( v ) {
 
 function _checkSchema( v ) {
 
-  var d = w.defer(),
+  const d = w.defer();
 
-  con = _connect( {
+  const con = _connect( {
     host: v.config.host,
     user: v.config.user,
     password: v.config.password,
@@ -1456,6 +1447,7 @@ region VARCHAR(255),
 department VARCHAR(255),
 city_district VARCHAR(255),
 postal_code VARCHAR(20),
+insee VARCHAR(10),
 eve_id VARCHAR(100) UNIQUE,
 created_at DATETIME NOT NULL,
 updated_at DATETIME NOT NULL, 

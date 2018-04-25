@@ -68,6 +68,7 @@ module.exports = function( agendaId, fixtureSet, reset, cb ) {
         department VARCHAR(255),
         city_district VARCHAR(255),
         postal_code VARCHAR(20),
+        insee VARCHAR(10),
         eve_id VARCHAR(100),
         created_at DATETIME NOT NULL,
         updated_at DATETIME NOT NULL, 
