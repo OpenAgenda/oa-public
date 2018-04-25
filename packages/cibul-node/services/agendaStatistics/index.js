@@ -7,6 +7,7 @@ const formSchemas = require( '@openagenda/form-schemas' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
+const logs = require( '@openagenda/logs' );
 
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
@@ -99,22 +100,34 @@ module.exports.task = () => {
 
       case 'activityFeeds':
 
-        rebuildActivityFeeds( null, {
-          agendaUid: data.agendaUid,
-          ..._.pick( config.db, [ 'database', 'host', 'port', 'user', 'password' ] ),
-          activityTable: config.schemas.activity,
-          feedTable: config.schemas.feed,
-          feedActivityTable: config.schemas.feed_activity,
-          feedFollowTable: config.schemas.feed_follow,
-          feedNotificationTable: config.schemas.feed_notification,
-          userTable: config.schemas.user,
-          reviewTable: config.schemas.agenda,
-          reviewArticleTable: config.schemas.agendaEvent,
-          eventTable: config.schemas.event,
-          reviewerTable: config.schemas.stakeholder,
-          aggregatorTable: config.schemas.aggregator,
-          migrationTable: 'activity_migrations'
-        } );
+        rebuildActivityFeeds(
+          null,
+          {
+            agendaUid: data.agendaUid,
+            ..._.pick( config.db, [ 'database', 'host', 'port', 'user', 'password' ] ),
+            activityTable: config.schemas.activity,
+            feedTable: config.schemas.feed,
+            feedActivityTable: config.schemas.feed_activity,
+            feedFollowTable: config.schemas.feed_follow,
+            feedNotificationTable: config.schemas.feed_notification,
+            userTable: config.schemas.user,
+            reviewTable: config.schemas.agenda,
+            reviewArticleTable: config.schemas.agendaEvent,
+            eventTable: config.schemas.event,
+            reviewerTable: config.schemas.stakeholder,
+            aggregatorTable: config.schemas.aggregator,
+            migrationTable: 'activity_migrations',
+            logger: {
+              debug: {
+                prefix: 'oa:'
+              },
+              token: process.env.NODE_ENV === 'production' ? '8d66d66a-58ce-42b6-ab21-7805b075ba48' : null
+            },
+            cli: false
+          },
+          logs( 'activities/rebuild' )
+        );
+
         break;
 
     }
