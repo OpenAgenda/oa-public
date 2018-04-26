@@ -45,7 +45,7 @@
 <% } %>
             <% if ( includeActionLinks ) { %><div class="ctas">
                 <a
-                  <% if ( targetBlank ) { %>target="_blank"<% } %>
+                  <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"
                   href="/<%= agenda.slug %>/contact"
                   rel="nofollow"
