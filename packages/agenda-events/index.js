@@ -43,17 +43,17 @@ module.exports.init = c => {
   }
 
   config.queues = {
-    interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
+    interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
   };
 
-  let client = knex( {
+  const client = knex( {
     client: 'mysql',
     connection: config.mysql
   } );
 
   Object.keys( endpoints ).forEach( e => endpoints[ e ].init( config, client, module.exports ) );
 
-  Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
+  Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
 
   module.exports.legacyTransfer.init( config, client, endpoints );
 }
