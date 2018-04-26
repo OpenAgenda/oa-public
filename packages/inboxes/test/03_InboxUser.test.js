@@ -47,7 +47,7 @@ describe( 'InboxUser', () => {
 
       const inboxUser = await Inboxes( { type: 'agenda', identifier: 48959239 } ).users.add( { userUid: 12341234 } );
 
-      expect( inboxUser.toJSON() ).eql( { id: 7, inboxId: 1, userUid: 12341234, leftAt: null } );
+      expect( inboxUser.toJSON() ).eql( { id: 10, inboxId: 1, userUid: 12341234, leftAt: null } );
 
     } );
 
@@ -212,7 +212,8 @@ describe( 'InboxUser', () => {
 
       expect( inboxUsers.toJSON() ).eql( [
         { id: 1, inboxId: 1, userUid: 23456789, leftAt: null },
-        { id: 2, inboxId: 2, userUid: 99999999, leftAt: null }
+        { id: 2, inboxId: 2, userUid: 99999999, leftAt: null },
+        { id: 8, inboxId: 1, userUid: 32132112, leftAt: null }
       ] );
 
     } );

@@ -163,7 +163,7 @@ export default class Conversation {
       .leftJoin(
         schemas.inboxConversation,
         `${schemas.inboxConversation}.conversation_id`,
-        `${schemas.conversation}.id`
+        `${schemas.conversation}.id` // TODO try to add a .on condition with inbox id
       )
       .leftJoin(
         schemas.inbox,
@@ -191,13 +191,12 @@ export default class Conversation {
           ( v, key ) => `${schemas.conversation}.${key}`
         )
       )
-      .where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id )
       .groupBy( `${schemas.conversation}.id` )
       .orderByRaw( '(closedAt IS NOT NULL)' )
       .orderByRaw( 'latestMessageId DESC' )
       .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
 
-    if ( this.userUid ) {
+    if ( this.userUid ) { // viewed by user endpoint
       request
         .column(
           mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
@@ -210,6 +209,12 @@ export default class Conversation {
             .onNull( `${schemas.inboxUser}.left_at` )
         )
         .where( `${schemas.inboxUser}.user_uid`, this.userUid );
+
+      if ( this.inbox.data && this.inbox.data.id && this.inbox.data.type !== 'user' ) {
+        request.where( `${schemas.inboxUser}.inbox_id`, this.inbox.data.id );
+      }
+    } else { // viewed by inbox endpoint
+      request.where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
     }
 
     const row = await request;
@@ -231,7 +236,7 @@ export default class Conversation {
 
     result = await populateParticipants( result );
 
-    result.actions = await this.getAvailableActions( result );
+    result.actions = await this.getAvailableActions( result ); // TODO fix missing inboxUser
 
     this.data = result;
 

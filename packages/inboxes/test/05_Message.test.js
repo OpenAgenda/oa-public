@@ -51,8 +51,7 @@ describe( 'Message', () => {
         userUid: 23456789
       } );
 
-      expect( _.omit( message.toJSON(), 'createdAt' ) ).eql( {
-        id: 11,
+      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).eql( {
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -84,8 +83,7 @@ describe( 'Message', () => {
         body: 'Salut toi, mets moi admin, et vite !'
       } );
 
-      expect( _.omit( message.toJSON(), 'createdAt' ) ).eql( {
-        id: 11,
+      expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).eql( {
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
@@ -148,13 +146,11 @@ describe( 'Message', () => {
         userUid: 78945621
       }, { createInboxUserOnNull: true } );
 
-      expect( _.omit( message.toJSON(), 'createdAt' ) ).eql( {
-        id: 11,
+      expect( _.omit( message.toJSON(), 'createdAt', 'id', 'inboxUser.id' ) ).eql( {
         conversationId: 1,
         body: 'Salut toi, mets moi admin, et vite !',
         attachments: [],
         inboxUser: {
-          id: 7,
           inboxId: 1,
           userUid: 78945621,
           leftAt: null,

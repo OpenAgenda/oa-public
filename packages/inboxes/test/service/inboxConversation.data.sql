@@ -8,4 +8,8 @@ INSERT INTO `${schema}` (`inbox_id`, `conversation_id`) VALUES
   (6, 4),
   (2, 4),
   (6, 5),
-  (2, 5);
+  (2, 5),
+  (7, 6),
+  (1, 7),
+  (8, 7),
+  (2, 7);
