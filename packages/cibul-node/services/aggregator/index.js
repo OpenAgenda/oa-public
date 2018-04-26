@@ -32,10 +32,10 @@ module.exports = {
   test: {
     clear: q.test.clear.bind( null, config.queues.aggregator ),
     flush: q.test.flush,
-    evaluate: evaluate,
+    evaluate,
     process: sources.process
   },
-  task: task,
+  task,
   init: config => {
 
     require( './interfaces/onEventRemove' ).init();

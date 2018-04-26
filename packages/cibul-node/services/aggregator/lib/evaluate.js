@@ -105,7 +105,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
   .then( p.ife( { referencedOrAdded: true }, _associateSameTags ) )
 
   // this is useless as long as custom_fields are directly stored in event schema!
-  // .then( p.ife( { referencedOrAdded: true }, _associateSameCustomFields ) )
+  // .then( p.ife( { referencedOrAdded: true }, _associateSameCustomFields ) )
 
   .then( p.ife( { referencedOrAdded: true }, _associateSameCategory ) )
 
