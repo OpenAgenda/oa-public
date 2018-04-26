@@ -167,7 +167,7 @@ let apiLog, log;
 
 module.exports = function ( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'legacy' ),
@@ -192,13 +192,11 @@ module.exports = function ( path ) {
 
 function head( req, res, next ) {
 
-  var data = {
-    agenda: req.agenda
-  }
-
-  data.agenda.theme = req.agenda.getTheme();
-
-  cmn.render( req, res, 'agenda/headPart', data );
+  cmn.render( req, res, 'agenda/headPart', {
+    agenda: req.agenda,
+    includeActionLinks: true,
+    targetBlank: true
+  } );
 
 }
 
@@ -229,7 +227,7 @@ function referencesSave( req, res, next ) {
 
     req.log( 'events added as reference: %s', result.events.map( e => e.slug + ':' + e.id ).join( ',' ) );
 
-    let refIds = result.events.map( e => parseInt( e.id.split( '@' )[ 0 ] ) );
+    const refIds = result.events.map( e => parseInt( e.id.split( '@' )[ 0 ] ) );
 
     referencesSvc( req.agenda.id ).set( req.event.id, refIds, err => {
 

@@ -537,7 +537,7 @@ function redirectToResend( values ) {
 
 function redirectToComplete( values ) {
 
-  var uri;
+  let uri;
 
   if ( values.resend ) {
 
@@ -573,7 +573,7 @@ function layoutData( req ) {
 
 function loadOptionals( req ) {
 
-  var optionals = {};
+  const optionals = {};
 
   if ( req.query.iToken ) {
 
