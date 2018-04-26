@@ -1,5 +1,28 @@
 // Main navigation bar
 
+
+.oa-page-header .help-button-canvas {
+    display: block;
+    padding: 7px 7px 0; }
+  .oa-page-header .btn-bordered {
+    background: transparent;
+    border-width: 2px;
+    color: inherit; }
+    .oa-page-header .btn-bordered span, .oa-page-header .btn-bordered i {
+      vertical-align: middle; }
+    .oa-page-header .btn-bordered.btn-primary {
+      border-color: #41acdd; }
+      .oa-page-header .btn-bordered.btn-primary i {
+        color: #41acdd;
+        font-size: 1.2em; }
+      .oa-page-header .btn-bordered.btn-primary:hover {
+        border-color: #6cbfe5;
+        background-color: #6cbfe5; }
+        .oa-page-header .btn-bordered.btn-primary:hover i, .oa-page-header .btn-bordered.btn-primary:hover span {
+          color: #fff; }
+  .oa-page-header .btn-rounded {
+    border-radius: 100px; }
+
 .collapse {
   display: none;
   visibility: hidden;

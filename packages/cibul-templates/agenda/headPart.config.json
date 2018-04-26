@@ -1,11 +1,13 @@
 {
   "readme" : "this template is used only to give a rendered header to the legacy php project",
+  "labels": "agendas/head",
   "helpers" : {
     "_r" : "redirect",
     "_i" : "image",
     "_txt" : "text"
   },
   "base" : {
-    "includeActionLinks" : false
+    "includeActionLinks" : false,
+    "targetBlank" : false
   }
 }

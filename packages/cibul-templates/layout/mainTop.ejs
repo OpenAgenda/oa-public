@@ -27,8 +27,12 @@
           </button>
         </form>
         <ul class="links site-links js_header_links">
-          <li><a target="_blank" href="/support?origin=<%= encodeURIComponent( originalUrl ) %>">
-              <%= __( 'Help' ) %></a>
+          <li>
+            <div class="help-button-canvas">
+              <a class="btn btn-primary btn-rounded btn-bordered" target="_blank" href="/support?origin=<%= encodeURIComponent( originalUrl ) %>">
+                <i class="fa fa-question-circle"></i>
+                <span><%= __( 'Help' ) %></span>
+              </a>
           </li>
           <% if ( typeof links !== 'undefined' ) { %>
 <% links.forEach( function( link ) { %>

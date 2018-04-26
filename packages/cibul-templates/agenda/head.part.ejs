@@ -2,7 +2,7 @@
 <% if ( agenda.theme ) { %>
   <div class="layer"></div>
 <% } %>
-  <div class="container profile<% if ( !agenda.theme ) { %> notheme <% } %>">
+  <div class="container profile notheme">
     <div class="row"><!--
       --><div class="col-sm-2 avatar-container">
 <% if ( agenda.image ) { %>
@@ -45,6 +45,7 @@
 <% } %>
             <% if ( includeActionLinks ) { %><div class="ctas">
                 <a
+                  <% if ( targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"
                   href="/<%= agenda.slug %>/contact"
                   rel="nofollow"
@@ -54,9 +55,11 @@
                 >
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
+                <% if ( agenda.importUri ) { %>
                 <a class="btn btn-default js_use_search margin-bottom-xs" href="<%= agenda.importUri %>" rel="nofollow">
                     <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>
                 </a>
+                <% } %>
                 <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>">
                     <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
                 </a>
