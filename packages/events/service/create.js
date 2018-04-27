@@ -71,7 +71,6 @@ async function createPromise( data, options ) {
 
   } catch ( e ) {};
 
-
   let v = await w( _.extend( {}, cleanOptions, {
     id: false,
     data,
