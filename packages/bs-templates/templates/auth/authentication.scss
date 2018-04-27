@@ -1,5 +1,15 @@
 .signup, .signin {
 
+  .jumbotron {
+
+    p:last-child {
+
+      margin: 0;
+
+    }
+
+  }
+
   .info-block {
 
     background-color: $oa-gray-lightest;  
