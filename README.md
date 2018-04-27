@@ -115,6 +115,12 @@ Add `--concurrency 1` argument for run the command in one package after another.
 `--parallel` is the preferred flag for long-running processes such as `yarn build -w` run over many packages.  
 (e.g. `lerna run --parallel build -- -w`)
 
+If buffer pb, use --max-buffer option. For example:
+
+    lerna import ../custom --flatten --max-buffer=524288000
+
+ref: https://github.com/lerna/lerna/issues/479
+
 
 
 ## Troubleshooting
