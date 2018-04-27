@@ -161,6 +161,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
         require( './surveys' )( app, '/' );
+        require( './users' )( app, '/users' );
 
         require( './event/files' )( app, '/' );
 
