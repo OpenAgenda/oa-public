@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import _ from 'lodash';
 import Inboxes, { config, initAndLoad, seed, init, Conversation } from './service';
 import testconfig from '../testconfig';
+import Conversations from "../src/Conversations";
 
 const database = testconfig.mysql.database + '_Conversation';
 const tables = [ 'inbox', 'inboxUser', 'conversation', 'inboxConversation', 'message' ];
@@ -56,9 +57,15 @@ describe( 'Conversation', () => {
 
       expect( _.omit(
         conversation.toJSON(),
-        'createdAt', 'updatedAt', 'resolvedAt', 'latestMessage.createdAt', 'fileKey'
+        'createdAt',
+        'updatedAt',
+        'resolvedAt',
+        'latestMessage.id',
+        'latestMessage.createdAt',
+        'fileKey',
+        'id',
+        'latestMessage.conversationId'
       ) ).eql( {
-        id: 6,
         type: 'event',
         typeIdentifier: 456789,
         creatorInbox: {
@@ -97,8 +104,6 @@ describe( 'Conversation', () => {
         } ],
         latestMessage: {
           body: 'Comment qu\'on contribute ?',
-          conversationId: 6,
-          id: 11,
           attachments: [],
           inbox: {
             avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
@@ -139,8 +144,7 @@ describe( 'Conversation', () => {
         params: {}
       } );
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
-        id: 6,
+      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey', 'id' ) ).eql( {
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
@@ -208,8 +212,15 @@ describe( 'Conversation', () => {
         params: {}
       } );
 
-      expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
-        id: 6,
+      expect( _.omit(
+        conversation.toJSON(),
+        'createdAt',
+        'updatedAt',
+        'resolvedAt',
+        'fileKey',
+        'id',
+        'inboxes[1].id'
+      ) ).eql( {
         type: 'edition_request',
         typeIdentifier: null,
         creatorInbox: {
@@ -241,15 +252,14 @@ describe( 'Conversation', () => {
           uid: 99999999,
         },
         inboxes: [ {
-          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           id: 2,
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg',
           identifier: 99999999,
           name: 'L\'admin',
           type: 'user',
           uid: 99999999
         }, {
           avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg',
-          id: 7,
           identifier: 456,
           name: 'La gargouille',
           type: 'agenda',
@@ -282,8 +292,15 @@ describe( 'Conversation', () => {
           createInboxUserOnNull: true
         } );
 
-        expect( _.omit( conversation.toJSON(), 'createdAt', 'updatedAt', 'resolvedAt', 'fileKey' ) ).eql( {
-          id: 6,
+        expect( _.omit(
+          conversation.toJSON(),
+          'createdAt',
+          'updatedAt',
+          'resolvedAt',
+          'fileKey',
+          'id',
+          'creatorInboxUser.id'
+        ) ).eql( {
           type: 'event',
           typeIdentifier: 456789,
           creatorInbox: {
@@ -296,7 +313,6 @@ describe( 'Conversation', () => {
           },
           creatorInboxUser: {
             avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png',
-            id: 7,
             inboxId: 1,
             leftAt: null,
             name: 'Jean-Roger Benbambou',
@@ -668,6 +684,52 @@ describe( 'Conversation', () => {
             uid: 99999999
           }
         }
+      }, {
+        id: 7,
+        type: 'contact_form',
+        typeIdentifier: null,
+        store: { params: {} },
+        inboxContextId: 1,
+        creatorInboxUser: {
+          id: 1,
+          inboxId: 1,
+          userUid: 23456789,
+          leftAt: null,
+          uid: 23456789,
+          name: 'Jean-Roger Benbambou',
+          avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+        },
+        creatorInbox: {
+          id: 1,
+          type: 'agenda',
+          identifier: 48959239,
+          uid: 48959239,
+          name: 'La gargouille',
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+        },
+        latestMessage: null,
+        inboxes: [ {
+          id: 1,
+          type: 'agenda',
+          identifier: 48959239,
+          uid: 48959239,
+          name: 'La gargouille',
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+        }, {
+          id: 8,
+          type: 'support',
+          identifier: 1,
+          uid: 1,
+          name: 'La gargouille',
+          avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+        }, {
+          id: 2,
+          type: 'user',
+          identifier: 99999999,
+          uid: 99999999,
+          name: 'L\'admin',
+          avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+        } ]
       } ] );
 
     } );
@@ -980,6 +1042,53 @@ describe( 'Conversation', () => {
               uid: 99999999
             }
           }
+        },
+        {
+          id: 7,
+          type: 'contact_form',
+          typeIdentifier: null,
+          store: { params: {} },
+          inboxContextId: 2,
+          creatorInbox: {
+            id: 1,
+            type: 'agenda',
+            identifier: 48959239,
+            uid: 48959239,
+            name: 'La gargouille',
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          },
+          inboxUser: {
+            id: 2,
+            inboxId: 2,
+            userUid: 99999999,
+            leftAt: null,
+            uid: 99999999,
+            name: 'Jean-Roger Benbambou',
+            avatar: 'https://cdn.pixabay.com/photo/2016/08/20/05/38/avatar-1606916_960_720.png'
+          },
+          latestMessage: null,
+          inboxes: [ {
+            id: 1,
+            type: 'agenda',
+            identifier: 48959239,
+            uid: 48959239,
+            name: 'La gargouille',
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          }, {
+            id: 8,
+            type: 'support',
+            identifier: 1,
+            uid: 1,
+            name: 'La gargouille',
+            avatar: 'https://cibul.s3.amazonaws.com/agenda48959239.jpg'
+          }, {
+            id: 2,
+            type: 'user',
+            identifier: 99999999,
+            uid: 99999999,
+            name: 'L\'admin',
+            avatar: 'http://www.lets-develop.com/wp-content/themes/olivias_theme/images/custom-avatar-admin.jpg'
+          } ]
         }
       ] );
 
@@ -1370,6 +1479,29 @@ describe( 'Conversation', () => {
       expect( conversation.toJSON() ).to.be.null;
 
     } );
+
+  } );
+
+  it( 'get a conversation by the endpoint user when indirectly inboxUser, through an agenda', async () => {
+
+    const conv = await Inboxes.user( 31046551 ).conversations.get( 6 );
+    const msg = await conv.messages.get( 11 );
+
+    expect( msg.data.id ).to.equal( 11 );
+
+  } );
+
+  it( 'support get a conversation in which it was added', async () => {
+
+    const conversation = await new Conversations( {
+      userUid: 32132112,
+      inbox: new Inboxes( {
+        type: 'support',
+        identifier: 1,
+      } )
+    } ).get( 7 );
+
+    expect( conversation.toJSON() ).to.have.property( 'inboxUser' );
 
   } );
 

@@ -89,7 +89,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes().create( { type: 'agenda', identifier: 1245685 } );
 
-      expect( inbox.toJSON() ).eql( { id: 7, type: 'agenda', identifier: 1245685 } );
+      expect( inbox.toJSON() ).eql( { id: 9, type: 'agenda', identifier: 1245685 } );
 
     } );
 
@@ -167,7 +167,7 @@ describe( 'Inbox', () => {
 
       const inbox = await Inboxes( { type: 'user', identifier: 678910 } ).get();
 
-      expect( inbox.toJSON() ).eql( { id: 7, type: 'user', identifier: 678910 } );
+      expect( inbox.toJSON() ).eql( { id: 9, type: 'user', identifier: 678910 } );
 
     } );
 
