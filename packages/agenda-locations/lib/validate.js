@@ -1,6 +1,6 @@
 "use strict"
 
-var validators = {
+const validators = {
   groupTags: require( '@openagenda/react-form-components/validators/groupTags' ),
   set: require( '@openagenda/validators/set' ),
   text: require( '@openagenda/validators/text' ),
@@ -15,33 +15,34 @@ var validators = {
   pass: require( '@openagenda/validators/pass' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
   regex: require( '@openagenda/validators/regex' )
-},
+};
 
-STATES = {
+const STATES = {
   tocontrol: 0,
   validated: 1  
-},
+};
 
-utils = require( '@openagenda/utils' ),
+const utils = require( '@openagenda/utils' );
 
 // validators applying for all locations of all agendas
-baseValidators = [
-  validators.number( { field: 'agendaId', optional: true } ),
-  _customImageValidator( { field: 'image', optional: true } ),
+const baseValidators = [
+  validators.number( { field: 'agendaId', optional: true } ),
+  _customImageValidator( { field: 'image', optional: true } ),
   validators.text( { field: 'name', min: 3, max: 100, optional: false } ),
   validators.regex( { field: 'image', regex: /[^\/]+$/, clean: true, optional: true } ),
   validators.text( { field: 'imageCredits', max: 255, optional: true } ),
-  validators.text( { field: 'address', min: 3, max: 255 } ),
-  validators.text( { field: 'city', min: 2, max: 300, optional: true } ),
+  validators.text( { field: 'address', min: 3, max: 255 } ),
+  validators.text( { field: 'city', min: 2, max: 300, optional: true } ),
   validators.text( { field: 'district', optional: true } ),
   validators.text( { field: 'department', min: 3, max: 300, optional: true } ),
   validators.text( { field: 'region', min: 0, max: 300, optional: true } ),
   validators.text( { field: 'postalCode', min: 3, max: 20, optional: true } ),
+  validators.text( { field: 'insee', min: 3, max: 20, optional: true } ),
   validators.text( { field: 'countryCode', min: 2, max: 2, optional: false } ),
   validators.text( { field: 'eveId', min: 0, max: 42, optional: true } ),
-  validators.multilingual( { field: 'description', max: 5000, optional: true, defaultLanguage: 'fr' } ),
+  validators.multilingual( { field: 'description', max: 5000, optional: true, defaultLanguage: 'fr' } ),
   validators.multilingual( { field: 'access', max: 1000, optional: true, defaultLanguage: 'fr' } ),
-  validators.link( { field: 'website', min: 0, optional: true } ),
+  validators.link( { field: 'website', min: 0, optional: true } ),
   validators.text( { field: 'timezone', min: 0, optional: true } ),
   validators.phone( { field: 'phone', min: 0, max: 42, optional: true } ),
   validators.latitude( { field: 'latitude', optional: true } ),
@@ -56,15 +57,13 @@ baseValidators = [
 ];
 
 
-module.exports = utils.extend( validate, {
-  field: field
-} );
+module.exports = utils.extend( validate, { field } );
 
 
 
 function validate( data, settings, partial ) {
 
-  var locationValidators = [];
+  let locationValidators = [];
 
   // clean arguments
   
@@ -132,7 +131,7 @@ function field( name ) {
 
 function _getValidators( settings ) {
 
-  var locationValidators = baseValidators.concat( [] );
+  const locationValidators = baseValidators.concat( [] );
 
   if ( settings.forceTags ) {
 
@@ -150,7 +149,7 @@ function _getValidators( settings ) {
 
 function _customImageValidator( options ) {
 
-  var v = validators.text( options );
+  const v = validators.text( options );
 
   return utils.extend(imageValidate, {
     field: options.field,
@@ -159,7 +158,7 @@ function _customImageValidator( options ) {
 
   function imageValidate( value ) {
 
-    var clean = v( value );
+    const clean = v( value );
 
     if ( !clean ) return null;
 

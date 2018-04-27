@@ -73,7 +73,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   }
 
-  entryValues = _.mapKeys( _.omit( clean, [ 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
+  entryValues = _.mapKeys( _.omit( clean, [ 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
 
   result = await knex( config.schemas.agendaEvent )
 

@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-var should = require( 'should' ),
+const should = require( 'should' ),
 
 db = require( '../lib/db' ),
 
@@ -74,9 +74,9 @@ describe( 'agenda-location db unit', () => {
 
   it( '_filterWheres', () => {
 
-    let wheres = { fsdq: 'fdqs', rezar: 'erae', agendaId: 2, name: 12 };
+    const wheres = { fsdq: 'fdqs', rezar: 'erae', agendaId: 2, name: 12 };
 
-    db.test._filterWheres( { wheres: wheres } )
+    db.test._filterWheres( { wheres } )
 
     .should.eql( { 
       wheres: { fsdq: 'fdqs', rezar: 'erae', agendaId: 2, name: 12 },
@@ -88,15 +88,15 @@ describe( 'agenda-location db unit', () => {
 
   it( '_defineListQuery', () => {
 
-    var con = mysql.createConnection( utils.extend( { table: table }, dbConfig ) );
+    const con = mysql.createConnection( utils.extend( { table }, dbConfig ) );
 
     db.test._defineListQuery( {
-      config: { table: table },
-      con: con,
+      config: { table },
+      con,
       filteredWheres: { agendaId: 12, name: 'twang' },
       limit: 20,
       offset: 100
-    } ).query.should.equal( 'select id, uid, eve_id, agenda_id, slug, placename, address, city, region, department, postal_code, country, city_district, latitude, longitude, updated_at, store from location where agenda_id = 12 and placename = \'twang\' limit 100, 20' );
+    } ).query.should.equal( 'select id, uid, eve_id, agenda_id, slug, placename, address, city, region, department, postal_code, insee, country, city_district, latitude, longitude, updated_at, store from location where agenda_id = 12 and placename = \'twang\' limit 100, 20' );
 
     con.end();
 
@@ -105,12 +105,12 @@ describe( 'agenda-location db unit', () => {
 
   it( '_defineTermsQuery', () => {
 
-    var con = mysql.createConnection( utils.extend( { table: table }, dbConfig ) );
+    const con = mysql.createConnection( utils.extend( { table }, dbConfig ) );
 
     db.test._defineTermsQuery( {
       fields: [ 'region' ],
-      config: { table: table },
-      con: con,
+      config: { table },
+      con,
       filteredWheres: { agendaId: 12 }
 
     } ).query.should.equal( 'select distinct region from location where agenda_id=12 and region is not null and region <> "null" and region <> ""' );
@@ -121,14 +121,14 @@ describe( 'agenda-location db unit', () => {
 
   it( '_defineGetQuery', () => {
 
-    var con = mysql.createConnection( utils.extend( { table: table }, dbConfig ) );
+    const con = mysql.createConnection( utils.extend( { table }, dbConfig ) );
 
     db.test._defineGetQuery( {
-      config: { table: table },
-      con: con,
+      config: { table },
+      con,
       idFields: [ 'agendaId', 'slug' ],
       values: [ 12, 'twang' ]
-    } ).query.should.equal( 'select id, uid, eve_id, agenda_id, slug, placename, address, city, region, department, postal_code, country, city_district, latitude, longitude, updated_at, store from location where agenda_id = 12 and slug = \'twang\' limit 0, 1' );
+    } ).query.should.equal( 'select id, uid, eve_id, agenda_id, slug, placename, address, city, region, department, postal_code, insee, country, city_district, latitude, longitude, updated_at, store from location where agenda_id = 12 and slug = \'twang\' limit 0, 1' );
 
     con.end();
 
@@ -143,7 +143,7 @@ describe( 'agenda-location db', function() {
 
   beforeEach( done => {
 
-    let con = mysql.createConnection( dbConfig );
+    const con = mysql.createConnection( dbConfig );
 
     con.query( 'drop database if exists ' + dbName, ( err ) => {
 
@@ -157,7 +157,7 @@ describe( 'agenda-location db', function() {
 
   afterEach( done => {
 
-    let con = mysql.createConnection( dbConfig );
+    const con = mysql.createConnection( dbConfig );
 
     con.query( 'drop database ' + dbName, ( err ) => {
 
@@ -186,7 +186,7 @@ describe( 'agenda-location db', function() {
 
   it( 'creates database if not existing at init', ( done ) => {
 
-    let con = mysql.createConnection( dbConfig );
+    const con = mysql.createConnection( dbConfig );
 
     db.init( utils.extend( {
       database: dbName
@@ -213,7 +213,7 @@ describe( 'agenda-location db', function() {
       database: dbName
     }, dbConfig ), ( err ) => {
 
-      let con = mysql.createConnection( utils.extend( {
+      const con = mysql.createConnection( utils.extend( {
         database: dbName
       }, dbConfig ) );
 
@@ -251,7 +251,7 @@ describe( 'agenda-location db', function() {
 
         result.errors.length.should.equal( 0 );
 
-        let con = mysql.createConnection( utils.extend( { database: dbName }, dbConfig ) );
+        const con = mysql.createConnection( utils.extend( { database: dbName }, dbConfig ) );
 
         con.query( 'select * from location where id = ?', result.location.id, ( err, rows ) => {
 
@@ -301,7 +301,7 @@ describe( 'agenda-location db', function() {
 
           should( err ).equal( null );
 
-          let con = mysql.createConnection( utils.extend( { database: dbName }, dbConfig ) );
+          const con = mysql.createConnection( utils.extend( { database: dbName }, dbConfig ) );
 
           con.query( 'select * from location where id = ?', result.location.id, ( err, rows ) => {
 
@@ -854,7 +854,7 @@ describe( 'agenda-location db', function() {
 
         should( err ).equal( null );
 
-        db.get( { id: result.location.id }, ( err, location ) => {
+        db.get( { id: result.location.id }, ( err, location ) => {
 
           location.tags.should.eql( [ { id: 33 } ] );
 

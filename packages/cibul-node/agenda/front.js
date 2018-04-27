@@ -317,7 +317,7 @@ function embedShow( req, res ) {
       routeName: 'agendaEmbedShow',
       current: req.templateData.page,
       total: req.total,
-      perPage: perPage
+      perPage
     }
   } );
 
@@ -329,8 +329,6 @@ function embedShow( req, res ) {
 function agendaSearchPage( req, res, next ) {
 
   if ( req.xhr ) return next();
-
-  cmn.addZendeskHelpButton( req.baseData );
 
   cmn.render( req, res, 'agendaSearch/index', {
     search: req.query && req.query.search ? req.query.search : '',
@@ -681,16 +679,16 @@ function _layoutData( req, res ) {
 
   req.log( 'loading layout data' );
 
-  var url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } ),
+  const url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
 
-  data = {
+  const data = {
     agenda: {
       theme: req.agenda.getTheme(),  
     },
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
       total: req.total,
-      perPage: perPage,
+      perPage,
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang,
       res: {
@@ -727,11 +725,6 @@ function _layoutData( req, res ) {
 
   }
 
-  if ( !req.embed ) {
-
-    cmn.addZendeskHelpButton( data );
-
-  }
 
   if ( req.agenda.image ) {
 

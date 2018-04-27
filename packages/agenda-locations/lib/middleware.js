@@ -1,22 +1,23 @@
 "use strict";
 
-const states = require( './states' );
-
 const _ = require( 'lodash' );
 
-var logger = require( '@openagenda/basic-logger' ), log,
+const logger = require( '@openagenda/basic-logger' );
+const iuMw = require( '@openagenda/image-upload/lib/middleware' );
+const utils = require( '@openagenda/utils' );
 
-service, config,
+const states = require( './states' );
 
-utils = require( '@openagenda/utils' ),
+const insee = require( '../utils/insee' );
 
-iuMw = require( '@openagenda/image-upload/lib/middleware' );
+let log, service, config;
 
-module.exports = getMiddleware;
+module.exports = _.extend( getMiddleware, {
+  init: ( s, c ) => { service = s; config = c; },
+  get
+} );
 
-module.exports.init = ( s, c ) => { service = s; config = c; };
 
-module.exports.get = get;
 
 function getMiddleware( idRef ) {
   
@@ -51,7 +52,7 @@ function getMiddleware( idRef ) {
 
   function load( req, res, next ) {
 
-    let query = _validateAndExtractData( req, res, next );
+    const query = _validateAndExtractData( req, res, next );
 
     if ( !query ) return;
 
@@ -121,7 +122,7 @@ function getMiddleware( idRef ) {
   function imageUpload( req, res, next ) {
 
     // if a suggestion is loaded ( is stakeholder id )
-    let stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
+    const stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
 
     if ( !req.params.locationUid ) {
 
@@ -137,11 +138,11 @@ function getMiddleware( idRef ) {
 
       iuMw( {
         dest: config.files.tmpPath,
-        handler: function( path, info, cb ) {
+        handler: ( path, info, cb ) => {
 
           location.setImage( {
-            path: path,
-            stakeholderId: stakeholderId
+            path,
+            stakeholderId
           }, cb );
 
         }
@@ -158,7 +159,7 @@ function getMiddleware( idRef ) {
 
   function imageRemove( req, res, next ) {
 
-    let stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
+    const stakeholderId = arguments.length === 4 ? arguments[ 3 ] : false;
 
     if ( !req.params.locationUid ) {
 
@@ -166,11 +167,11 @@ function getMiddleware( idRef ) {
 
     }
 
-    service.get( { uid: req.params.locationUid }, ( err, location ) => {
+    service.get( { uid: req.params.locationUid }, ( err, location ) => {
 
       if ( err ) return next( err );
 
-      location.clearImage( { stakeholderId: stakeholderId }, err => {
+      location.clearImage( { stakeholderId }, err => {
 
         if ( err ) return next( err );
 
@@ -205,11 +206,9 @@ function getMiddleware( idRef ) {
 
       iuMw( {
         dest: config.files.tmpPath,
-        handler: function( path, info, cb ) {
+        handler: ( path, info, cb ) => {
 
-          location.setImage( {
-            path: path
-          }, cb );
+          location.setImage( { path }, cb );
 
         }
       } )( req, res, next );
@@ -256,7 +255,7 @@ function getMiddleware( idRef ) {
 
   function resync( req, res, next ) {
 
-    var agendaId = _extractRefValue( idRef, req );
+    const agendaId = _extractRefValue( idRef, req );
 
     if ( !agendaId ) {
 
@@ -275,7 +274,7 @@ function getMiddleware( idRef ) {
 
   function getUnverifiedCount( req, res, next ) {
 
-    var agendaId = _extractRefValue( idRef, req );
+    const agendaId = _extractRefValue( idRef, req );
 
     if ( !agendaId ) {
 
@@ -287,14 +286,14 @@ function getMiddleware( idRef ) {
     }
 
     service.count( {
-      agendaId: agendaId,
+      agendaId,
       state: states.unverified
     }, ( err, count ) => {
 
       if ( err ) return next( err );
 
       res.json( {
-        count: count
+        count
       } );
 
     } );
@@ -308,7 +307,7 @@ function getMiddleware( idRef ) {
    */
   function remove( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next );
+    const data = _validateAndExtractData( req, res, next );
 
     service.get( { uid: data.uid }, ( err, location ) => {
 
@@ -357,11 +356,11 @@ function getMiddleware( idRef ) {
   
   function set( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next ),
+    const data = _validateAndExtractData( req, res, next );
 
-    forcedValues = {},
+    const options = {};
 
-    options = {};
+    let forcedValues = {};
 
     if ( arguments.length == 4 ) {
 
@@ -388,7 +387,7 @@ function getMiddleware( idRef ) {
 
   function merge( req, res, next ) {
 
-    var data = _validateAndExtractData( req, res, next );
+    const data = _validateAndExtractData( req, res, next );
 
     if ( !req.query.uids ) {
 
@@ -415,13 +414,13 @@ function getMiddleware( idRef ) {
 
   function listTerms( req, res, next ) {
 
-    var fields = req.query.field.split( ',' ),
+    const fields = req.query.field.split( ',' );
 
-    query = {
+    const query = {
       agendaId: _extractRefValue( idRef, req )
-    },
+    };
 
-    err = null;
+    let err = null;
 
     fields.forEach( f => {
 
@@ -443,9 +442,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      res.json( {
-        terms: terms
-      } );
+      res.json( { terms } );
 
     } );
 
@@ -454,15 +451,13 @@ function getMiddleware( idRef ) {
 
   function list( req, res, next ) {
 
-    var page = 1, 
-
-    query = {
+    const query = {
       agendaId: _extractRefValue( idRef, req )
-    },
+    };
 
-    limit = config.defaultLimit, 
+    let limit = config.defaultLimit;
 
-    offset = 0;
+    let offset = 0;
 
     if ( !req.xhr && !req.ignoreXhr ) return next();
 
@@ -488,7 +483,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      log( 'retrieved %s items for page %s successfully. Total is %s', locations.length, page, total );
+      log( 'retrieved %s items for offset %s, %s successfully. Total is %s', locations.length, offset, limit, total );
 
       req.locations = {
         total,
@@ -511,7 +506,7 @@ function getMiddleware( idRef ) {
     service.geocode.reverse( {
       latitude: req.query.latitude,
       longitude: req.query.longitude
-    }, _handleGeocodeResponse( req, res ) );
+    }, _handleGeocodeResponse.bind( null, req, res ) );
 
   }
 
@@ -520,40 +515,54 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving geocodes for %s', req.query.address );
 
-    service.geocode( {
+    service.utils.geocode( {
       address: req.query.address,
       countryCode: req.query.countryCode
-    }, _handleGeocodeResponse( req, res ) );
+    }, _handleGeocodeResponse.bind( null, req, res ) );
 
   }
 
 
-  function _handleGeocodeResponse( req, res ) {
+  async function _handleGeocodeResponse( req, res, err, results ) {
 
-    return ( err, results ) => {
+    if ( err ) {
 
-      if ( err ) {
+      log( 'error', 'geocode farm error: ' + err );
 
-        log( 'error', 'geocode farm error: ' + err );
+      res.statusCode = 502;
 
-        res.statusCode = 502;
+      return res.send( 'nok' );
 
-        res.send( 'nok' );
+    };
 
-      } else {
+    for ( const l of results ) {
 
-        res.json( { results } );
+      if ( [ 'FR', 'MQ', 'GP', 'RE', 'GF' ].includes( req.query.countryCode ) ) {
+
+        try {
+
+          const code = await insee( l );
+
+          l.insee = code;
+
+        } catch( e ) {
+
+          log( 'error', 'could not retrieve insee code for %s,%s: %s', l.latitude, l.longitude, e );
+
+        }
 
       }
 
     }
+
+    res.json( { results } );
 
   }
 
 
   function _validateAndExtractData( req, res, next ) {
 
-    var data = req.body || {};
+    const data = req.body || {};
 
     if ( !data ) {
 

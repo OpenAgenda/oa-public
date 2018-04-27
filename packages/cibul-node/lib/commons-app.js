@@ -4,16 +4,40 @@
  * common web app module middleware and initialization functions
  */
 
-const _ = require( 'lodash' );
-const sessions = require( '@openagenda/sessions' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const keys = require( '@openagenda/keys' );
-const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
-const hsts = require( 'hsts' );
+const R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3;
 
-const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const deepExtend = require( 'deep-extend' );
+const hsts = require( 'hsts' );
+const languages = require( 'languages' );
+const qs = require( 'qs' );
+const w = require( 'when' );
+const wn = require( 'when/node' );
 
 const agendas = require( '@openagenda/agendas' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const keys = require( '@openagenda/keys' );
+const logger = require( '@openagenda/logger' );
+const sessions = require( '@openagenda/sessions' );
+const templater = require( '@openagenda/cibul-templates' );
+const utils = require( '@openagenda/utils' );
+
+const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
+
+const agendaSvc = require( '../services/agenda' );
+const config = require( '../config' );
+const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
+const genUrl = require( '../services/genUrl' );
+const i18n = require( '../i18n/i18n.js' );
+const model = require( '../services/model' );
+const userSvc = require( '../services/user' );
+
+const log = logger( 'commons-app' );
+
+const labels = {
+  unauthorized: require( '@openagenda/labels/errors/unauthorized' )
+};
 
 const verifyIPMiddleware = [
   agendas.middleware.load( {
@@ -90,53 +114,12 @@ module.exports = {
 
 }
 
-/**
- * dependencies and constant declarations
- */
-
-var R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3,
-
-  logger = require( '@openagenda/logger' ),
-
-  log = logger( 'commons-app' ),
-
-  config = require( '../config' ),
-
-  w = require( 'when' ),
-
-  wn = require( 'when/node' ),
-
-  model = require( '../services/model' ),
-
-  templater = require( '@openagenda/cibul-templates' ),
-
-  i18n = require( '../i18n/i18n.js' ),
-
-  deepExtend = require( 'deep-extend' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  async = require( 'async' ),
-
-  genUrl = require( '../services/genUrl' ),
-
-  languages = require( 'languages' ),
-
-  userSvc = require( '../services/user' ),
-
-  labels = {
-    unauthorized: require( '@openagenda/labels/errors/unauthorized' )
-  },
-
-  qs = require( 'qs' );
 
 function loadEvent( paramName, fieldName ) {
 
   return function ( req, res, next ) {
 
-    var identifiers = {};
+    const identifiers = {};
 
     if ( !req.params[ paramName ] ) {
 
@@ -457,7 +440,7 @@ function renderUnauthorized() {
 
 function errorResponse( req, res, error, jsonResponse ) {
 
-  var errorTemplate;
+  let errorTemplate;
 
   if ( !error.code ) {
 
@@ -623,7 +606,7 @@ function render( req, res, templatePath, data, maintain ) {
 
     if ( err ) throw err;
 
-    var statusCode = res.code ? res.code : 200;
+    const statusCode = res.code ? res.code : 200;
 
     if ( !req.xhr ) {
 
@@ -654,7 +637,7 @@ function render( req, res, templatePath, data, maintain ) {
 
 function renderTemplate( req, templatePath, data, maintain, cb ) {
 
-  var compiledData = deepExtend( {},
+  const compiledData = deepExtend( {},
     req.baseData ? req.baseData : {},
     data ? data : {}
   );
@@ -738,7 +721,7 @@ function loadBaseData( func, cssFile ) {
 
     req.log( 'loading base data' );
 
-    var baseData = {
+    const baseData = {
       head: {
         css: {
           main: '/css/' + cssFile
@@ -767,7 +750,7 @@ function loadBaseData( func, cssFile ) {
 
     if ( config.env == 'production' ) {
 
-      let googleAnalyticsId = req.googleAnalyticsId || config.googleAnalyticsId;
+      const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
 
       baseData.bottom.scripts.push( 'var _gaq = _gaq || [];var pluginUrl =\'//www.google-analytics.com/plugins/ga/inpage_linkid.js\';_gaq.push([\'_require\', \'inpage_linkid\', pluginUrl]);_gaq.push([\'_setAccount\', \'' + googleAnalyticsId + '\']);_gaq.push([\'_trackPageview\']);(function() {var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);})();' );
       baseData.bottom.scripts.push( `var errorsTrackingConfig = ${JSON.stringify( config.logger.errorsTracking )}` );
@@ -792,7 +775,7 @@ function assign( source, target ) {
 
   return ( req, res, next ) => {
 
-    let obj = { req, res };
+    const obj = { req, res };
 
     _.set( obj, target, _.get( obj, source ) );
 
@@ -1046,7 +1029,7 @@ function renderJson( req, res, data, options ) {
 
   }
 
-  var body = JSON.stringify( data );
+  let body = JSON.stringify( data );
 
   if ( req.query.callback ) {
 
@@ -1083,7 +1066,7 @@ function loadLogger( name ) {
     req.log.load( {
       module: name ? name : 'unknown',
       url: req.originalUrl,
-      ip: req.header( 'x-forwarded-for' )
+      ip: ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' ).shift()
     } );
 
     if ( next ) next();
@@ -1095,7 +1078,7 @@ function loadLogger( name ) {
 
 function clearCookie( req, res, key ) {
 
-  var cookieValues = _decodeCookie( req );
+  const cookieValues = _decodeCookie( req );
 
   if ( cookieValues[ key ] === undefined ) {
 
@@ -1113,7 +1096,7 @@ function clearCookie( req, res, key ) {
 
 function readCookie( req, res, key, clearOnRead ) {
 
-  var cookieValues = _decodeCookie( req );
+  const cookieValues = _decodeCookie( req );
 
   if ( clearOnRead ) {
 
@@ -1127,7 +1110,7 @@ function readCookie( req, res, key, clearOnRead ) {
 
 function writeToCookie( req, res, key, value ) {
 
-  var cookieValues = _decodeCookie( req );
+  const cookieValues = _decodeCookie( req );
 
   cookieValues[ key ] = value;
 
@@ -1137,7 +1120,7 @@ function writeToCookie( req, res, key, value ) {
 
 function _saveCookie( req, res, cookieValues ) {
 
-  var encodedCookieValues = (new Buffer( JSON.stringify( cookieValues ) )).toString( 'base64' );
+  const encodedCookieValues = (new Buffer( JSON.stringify( cookieValues ) )).toString( 'base64' );
 
   // do this both in req and res.
   req.cookies[ config.cookie.name ] = encodedCookieValues;

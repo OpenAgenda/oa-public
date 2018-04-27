@@ -44,7 +44,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer of 1 event gives back type of operation', async () => {
 
-    let result = await svc.legacyTransfer( 436064 );
+    const result = await svc.legacyTransfer( 436064 );
 
     result.operation.should.equal( 'create' );
 
@@ -52,7 +52,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer of 1 event stores user uid', async () => {
 
-    let result = await svc.legacyTransfer( 436064 );
+    const result = await svc.legacyTransfer( 436064 );
 
     result.created.userUid.should.equal( 40960233 )
 
@@ -60,7 +60,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer of 1 event by event & agenda id works as well', async () => {
 
-    let result = await svc.legacyTransfer( { agendaId: 4608, eventId: 81631 } );
+    const result = await svc.legacyTransfer( { agendaId: 4608, eventId: 81631 } );
 
     result.operation.should.equal( 'create' );
 
@@ -68,7 +68,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer of 1 event transfers event edition rights when they exist on legacy struct', async () => {
 
-    let result = await svc.legacyTransfer( {
+    const result = await svc.legacyTransfer( {
       agendaId: 4608,
       eventId: 81824,
     } );
@@ -79,7 +79,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer of 1 event transfers event edition rights when they exist on legacy struct', async () => {
 
-    let result = await svc.legacyTransfer( {
+    const result = await svc.legacyTransfer( {
       agendaId: 4608,
       eventId: 82159,
     } );
@@ -107,7 +107,7 @@ describe( 'transferLegacyData - sample', function() {
 
   it( 'transfer 20 events in empty target db effectively creates 20 records', done => {
 
-    let con = mysql.createConnection( config.mysql );
+    const con = mysql.createConnection( config.mysql );
 
     con.query( `select count(id) from ${config.schemas.agendaEvent}`, ( err, rows ) => {
 
@@ -127,7 +127,7 @@ describe( 'transferLegacyData - sample', function() {
 
         } );
 
-      }, 1000 );
+      }, 2000 );
 
     } );
 
@@ -139,7 +139,7 @@ describe( 'transferLegacyData - sample', function() {
 
     setTimeout( () => {
 
-      let con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
       
       con.query( `delete from ${config.legacy.schemas.agendaEvent} limit 1`, err => {
 
@@ -161,7 +161,7 @@ describe( 'transferLegacyData - sample', function() {
 
       setTimeout( () => {
 
-        let con = mysql.createConnection( config.mysql );
+        const con = mysql.createConnection( config.mysql );
 
         con.query( `update ${config.schemas.agendaEvent} set user_uid = null limit 10`, err => {
 

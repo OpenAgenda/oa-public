@@ -14,6 +14,7 @@ module.exports.init = ( config, cb ) => {
 
   agendaLocations.init( {
     geocodefarm: config.geocodeFarm,
+    redis: config.redis,
     elasticsearch: {
       host: config.es.host + ':' + config.es.port,
       log: config.esLocation.log,

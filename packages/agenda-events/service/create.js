@@ -23,19 +23,17 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  let params = validateOptions( options ),
+  const params = validateOptions( options );
 
-    clean,
+  let clean;
 
-    insertIds,
-
-    success = false,
-
-    created = null;
+  let success = false;
+  
+  let created = null;
 
   try {
 
-    let values = _.extend( { eventUid, agendaUid }, data || {}, {
+    const values = _.extend( { eventUid, agendaUid }, data || {}, {
       createdAt: new Date(),
       updatedAt: new Date()
     } );
@@ -72,7 +70,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   }
 
-  insertIds = await knex( config.schemas.agendaEvent )
+  const insertIds = await knex( config.schemas.agendaEvent )
 
     .insert( _.mapKeys( clean, ( v, k ) => _.snakeCase( k ) ) );
 

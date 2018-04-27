@@ -13,6 +13,8 @@ const knex = require( 'knex' )( { client: 'mysql', connection: config.mysql } );
 
 describe( 'transferLegacyData - transfer to legacy', function() {
 
+  this.timeout( 40000 );
+
   before( done => {
 
     svc.initAndLoad( config, [
@@ -63,7 +65,7 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   it( 'updates record when existing', async () => {
 
-    const { updated } = await svc( 62792452 ).update( 53117383, { state: 2 } );
+    const { updated } = await svc( 62792452 ).update( 53117383, { state: 2 } );
 
     const before = await knex( 'legacy_agenda_event' ).first().where( { event_id: 81631, review_id: 4608 } );
 
