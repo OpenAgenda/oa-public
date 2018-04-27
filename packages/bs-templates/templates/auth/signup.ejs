@@ -1,0 +1,60 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+<div class="container page-dialog signup">
+  <div class="row top-margined bottom-margined">
+    <section class="col-sm-6 col-sm-offset-3 wsq padding-all-md">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2>Créez un compte</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="info-block text-center margin-v-lg">
+            <label>Vous avez déjà utilisé OpenAgenda&nbsp;? </label>
+            <button class="btn btn-primary">Connectez-vous</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <form>
+            <div class="form-group">
+              <label>Prénom Nom</label>
+              <input class="form-control"/>
+            </div>
+            <div class="form-group">
+              <label>Email</label>
+              <input class="form-control" type="email"/>
+            </div>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input class="form-control" type="password"/>
+            </div>
+            <div class="form-group">
+              <label>Répéter le mot de passe</label>
+              <input class="form-control" type="password"/>
+            </div>
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox"> Je ne suis pas un robot
+                </label>
+              </div>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Valider</button>
+            </div>
+          </form>
+        </div>
+        <% include ./_social.ejs %>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 margin-v-md">
+          <p>En créant un compte vous acceptez les <a href="#">Conditions d'Utilisation</a> ainsi que la <a href="#">Politique de confidentialité</a>.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>
