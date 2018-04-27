@@ -70,13 +70,13 @@ async function remove( eventUid ) {
 
 async function rebuild() {
 
-  let createdAt = new Date();
+  const createdAt = new Date();
 
   createdAt.setDate( createdAt.getDate() - 120 );
 
   return index.rebuild( {
     expire: true,
-    eventsList: async function( offset, limit ) {
+    eventsList: async ( offset, limit ) => {
 
       if ( offset > rebuildLimit ) return [];
 

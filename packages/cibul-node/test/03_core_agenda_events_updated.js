@@ -196,7 +196,7 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
       const updatedCustom = await custom( agenda.formSchemaId ).get( event.uid );
 
-      updatedCustom.should.eql( { 
+      updatedCustom.should.eql( {
         custom_description: 'Meh',
         intermunicipal_interest: [],
         recurring: [],

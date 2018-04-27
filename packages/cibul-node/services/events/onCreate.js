@@ -8,7 +8,7 @@ module.exports = ( event, context ) => {
 
   log( 'info', 'created event %s with context %j', event.uid, context );
 
-  _unsetNewUser( event );
+  if ( event.creatorUid ) _unsetNewUser( event );
 
   eventSearch.events.add( event.uid, { queue: true } );
 

@@ -22,7 +22,7 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
       context: {
         legacy: false // indication that context of operation is not legacy
       }
-    });
+    } );
 
   } catch ( e ) {
 
@@ -30,13 +30,12 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
 
   }
 
-
   added.agendaEvent = result.created;
 
   // create custom data
   if ( clean.custom ) {
 
-    const added = await custom( formSchemaId ).create( eventUid, clean.custom, { transferToLegacy: true } );
+    const result = await custom( formSchemaId ).create( eventUid, clean.custom, { transferToLegacy: true } );
 
     if ( result.success ) {
 

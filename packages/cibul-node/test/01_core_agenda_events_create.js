@@ -71,7 +71,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
       connection: testConfig.db,
     } );
 
-  } )
+  } );
 
   before( async () => {
 
@@ -110,11 +110,11 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
   describe( 'successful creates', () => {
 
-    let event,
+    let event;
 
-      eventServiceConfig,
+    let eventServiceConfig;
 
-      onCreateCalls = [];
+    const onCreateCalls = [];
 
     before( () => {
 
@@ -123,7 +123,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
       events.init( ih( eventServiceConfig, {
         interfaces: {
           onCreate: {
-            $set: function( event, context ) {
+            $set: ( event, context ) => {
 
               onCreateCalls.push( arguments );
 
@@ -233,7 +233,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       it( 'adds legacy record for tags', async () => {
 
-        let record = await testConfig.knex( 'legacy_agenda_event_tag' ).first().where( {
+        const record = await testConfig.knex( 'legacy_agenda_event_tag' ).first().where( {
           review_article_id: legacyAgendaEvent.id
         } );
 

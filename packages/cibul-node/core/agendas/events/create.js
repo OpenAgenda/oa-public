@@ -12,7 +12,6 @@ const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
 const validate = require( './validate' );
 
-
 module.exports = async ( agendaUid, data ) => {
 
   log( 'processing data', { agendaUid } );
@@ -29,7 +28,7 @@ module.exports = async ( agendaUid, data ) => {
   log( 'pre-validation done', { agendaUid } );
 
   // create the event
-  let result = await events.create( clean.event, { transferToLegacy: true } );
+  const result = await events.create( clean.event, { transferToLegacy: true } );
 
   if ( !result.valid ) {
 

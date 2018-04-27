@@ -25,7 +25,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
 
   let errors = [];
 
-  let clean = {
+  const clean = {
     custom: null,
     agendaEvent: null
   }
@@ -71,7 +71,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
 
       errors = errors.concat( customDataErrors );
 
-      log( 'received validation errors for custom data', { count: customDataErrors.length } )
+      log( 'received validation errors for custom data', { count: customDataErrors.length } )
 
     }
 
