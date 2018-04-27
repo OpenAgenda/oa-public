@@ -113,8 +113,6 @@ function _format( v ) {
 
 function _upload( v ) {
 
-  log( 'upload' );
-
   var d = w.defer();
 
   files.s3.store( v.formattedPaths, ( err, urls ) => {
