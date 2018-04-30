@@ -1,8 +1,8 @@
 "use strict";
 
 const custom = require( '@openagenda/custom' );
-
 const formSchemas = require( '@openagenda/form-schemas' );
+const logger = require( '@openagenda/logger' );
 
 const interfaces = {
   onCreate: require( './onCreate' ),
@@ -14,6 +14,7 @@ const interfaces = {
 module.exports.init = config => {
 
   custom.init( {
+    logger,
     knex: config.knex,
     schemas: {
       custom: 'custom'

@@ -12,7 +12,7 @@ const fs = require( 'fs' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 
-  var customFields, agendaUid;
+  let customFields, agendaUid;
 
   return {
     loadAgendaCustomContext,
@@ -41,7 +41,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         if ( err || !value ) return ecb( err );
 
-        let customImageEventUid = parseInt( value.split( '.' )[ 1 ] );
+        const customImageEventUid = parseInt( value.split( '.' )[ 1 ] );
 
         if ( customImageEventUid === instance.uid ) {
 
@@ -49,9 +49,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
         }
 
-        let src = getFilePathData( agendaUid, customImageEventUid, field.name, 'jpg' );
+        const src = getFilePathData( agendaUid, customImageEventUid, field.name, 'jpg' );
 
-        let dst = getFilePathData( agendaUid, instance.uid, field.name, 'jpg' );
+        const dst = getFilePathData( agendaUid, instance.uid, field.name, 'jpg' );
 
         // if the custom image name does not contain the uid of the current event
         // we have a duplicated event, we need to duplicate the image as well.

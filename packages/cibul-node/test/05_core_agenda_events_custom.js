@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const mysql = require( 'mysql' );
@@ -20,6 +21,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 
 const config = require( '../config' );
 const core = require( '../core' );
+
 
 require( '@openagenda/logs' ).setModuleConfig( {
   debug: {
@@ -68,7 +70,7 @@ const testConfig = {
 };
 
 
-describe.only( 'core - functional ( server ): agenda event create with custom data', function() {
+describe( 'core - functional ( server ): agenda event create with custom data', function() {
 
   let createdEventUid;
 
@@ -164,7 +166,7 @@ describe.only( 'core - functional ( server ): agenda event create with custom da
 
   after( () => testConfig.knex.destroy() );
 
-  it.only( 'legacy entries were created for custom fields', async () => {
+  it( 'legacy entries were created for custom fields', async () => {
 
     const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( { 
       uid: createdEventUid
@@ -174,7 +176,22 @@ describe.only( 'core - functional ( server ): agenda event create with custom da
 
     const legacyTags = await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id );
 
-    // legacyTags
+    legacyTags.map( t => _.pick( t, [ 'review_article_id', 'review_tag_id' ] ) ).should.eql( [ { 
+      review_article_id: legacyAgendaEvent.id,
+      review_tag_id: 27854,
+    }, {
+      review_article_id: legacyAgendaEvent.id,
+      review_tag_id: 27878,
+    }, {
+      review_article_id: legacyAgendaEvent.id,
+      review_tag_id: 27879,
+    }, {
+      review_article_id: legacyAgendaEvent.id,
+      review_tag_id: 27884,
+    }, {
+      review_article_id: legacyAgendaEvent.id,
+      review_tag_id: 27888,
+    } ] );
 
   } );
 

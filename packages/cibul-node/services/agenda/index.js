@@ -1,14 +1,10 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'agenda service' ),
-
-model = require( '../model' ),
-
-cache = require( '../cache' ),
-
-config = require( '../../config' ),
-
-es = require( '../elasticsearch' );
+const cache = require( '../cache' );
+const config = require( '../../config' );
+const log = require( '@openagenda/logger' )( 'agenda service' );
+const es = require( '../elasticsearch' );
+const model = require( '../model' );
 
 module.exports = {
   initless: true,
@@ -43,7 +39,7 @@ function get( queryParams, options, cb ) {
 
   log( 'getting agenda data %s', JSON.stringify( queryParams ) );
 
-  var get = model.agendas().get;
+  let get = model.agendas().get;
 
   if ( options.cache ) {
 

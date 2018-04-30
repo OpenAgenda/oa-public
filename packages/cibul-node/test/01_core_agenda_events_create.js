@@ -125,7 +125,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
           onCreate: {
             $set: ( event, context ) => {
 
-              onCreateCalls.push( arguments );
+              onCreateCalls.push( [ event, context ] );
 
             }
           }

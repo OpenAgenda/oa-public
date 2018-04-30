@@ -323,7 +323,7 @@ function _changeStateCredential( req, res, next ) {
 
     agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
-      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [] ).includes( 'moderators' );
+      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
 
       if ( moderatorsCanPublish ) return cmn.checkAdminOrModerator( req, res, next );
 
