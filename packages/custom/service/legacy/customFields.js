@@ -12,7 +12,7 @@ async function set( eventId, fields, data ) {
 
   if ( !fields.length ) return;
 
-  const { knex } = config;
+  const { knex } = config;
   const { schemas } = config.legacy;
 
   let current;
