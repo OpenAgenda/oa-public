@@ -6,7 +6,8 @@ const fixtures = require( '@openagenda/fixtures' );
 const svc = require( '../..' );
 
 module.exports = _.extend( svc, {
-  initAndLoad
+  initAndLoad,
+  populate
 } );
 
 async function initAndLoad( config, files, options ) {
@@ -39,11 +40,11 @@ async function initAndLoad( config, files, options ) {
   }, options );
 
   await svc.init( config );
-  await fix( config, files, params );
+  await populate( config, files, params );
 
 }
 
-async function fix( config, files, options ) {
+async function populate( config, files, options ) {
 
   return new Promise( ( resolve, reject ) => {
 

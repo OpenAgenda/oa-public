@@ -2,7 +2,10 @@
 
 const _ = require( 'lodash' );
 const errors = require( '@feathersjs/errors' );
-const service = require( './' );
+const imageUploadMw = require( '@openagenda/image-upload/lib/middleware' );
+const imageFiles = require( '@openagenda/image-files' );
+const service = require( './index' );
+const config = require( './config' );
 
 module.exports = {
   load( options ) {
@@ -44,11 +47,74 @@ module.exports = {
 
       next();
     } );
+  },
+
+  setImageProfile( options ) {
+    const params = _.merge( {
+      namespaces: {
+        uid: 'user.uid',
+        result: 'result'
+      }
+    }, options );
+
+    return wrap( ( req, res, next ) => {
+
+      imageUploadMw( {
+        dest: config.files.tmpPath,
+        handler: async ( path, info, cb ) => {
+
+          try {
+
+            const result = await service().setImageProfile(
+              _.get( req, params.namespaces.uid ),
+              { path }
+            );
+
+            _.set( req, params.namespaces.result, result );
+
+            cb( result.uploadedPaths[ 0 ] );
+
+          } catch ( e ) {
+
+            cb( e );
+
+          }
+
+        }
+      } )( req, res, next );
+
+    } );
+  },
+
+  clearImageProfile( options ) {
+    const params = _.merge( {
+      namespaces: {
+        uid: 'user.uid'
+      }
+    }, options );
+
+    return wrap( async ( req, res, next ) => {
+      await service().clearImageProfile( _.get( req, params.namespaces.uid ) );
+
+      next();
+    } );
   }
 };
 
 /* Util */
 
 function wrap( fn ) {
-  return ( req, res, next ) => fn( req, res, next ).catch( next );
+  return ( req, res, next ) => Promise.resolve( fn( req, res, next ) ).catch( next );
+}
+
+function _getFormats( name ) {
+  return [ {
+    name: name,
+    format: { width: 600 }
+  }, {
+    name: name + '_o'
+  }, {
+    name: name + '_sm',
+    format: { width: 300 }
+  } ]
 }

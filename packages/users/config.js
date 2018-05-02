@@ -4,8 +4,6 @@ const path = require( 'path' );
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const logger = require( '@openagenda/logs' );
-const images = require( '@openagenda/images' );
-const files = require( '@openagenda/files' );
 
 const config = {
   name: 'user',
