@@ -1,37 +1,3 @@
-"use strict";
-
-const util = require( 'util' );
-const winston = require( 'winston' );
-const debug = require( 'debug' );
-
-const isEmptyObject = obj => Object.keys( obj ).length === 0 && obj.constructor === Object;
-
-class CustomLogger extends winston.Transport {
-
-  constructor( options ) {
-    super( options );
-    this.name = 'OA Logger';
-    const params = Object.assign( { namespace: '', prefix: '', level: 'debug' }, options );
-    this.level = params.level;
-    this.namespace = params.namespace;
-    this.debug = debug( params.prefix + params.namespace );
-  }
-
-  log( level, msg, meta, callback ) {
-    this.debug.apply( null, [ msg ].concat( isEmptyObject( meta ) ? [] : [ meta ] ) );
-    callback( null, true );
-  }
-
-  setPrefix( prefix ) {
-    this.debug = debug( prefix + this.namespace );
-  }
-
-}
-
-module.exports = CustomLogger;
-
-
-/*
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const sinon = require( 'sinon' );
@@ -39,7 +5,7 @@ const service = require( './service' );
 const testconfig = require( '../testconfig' );
 const config = require( '../service/config' );
 
-describe.only( 'keys - get', function () {
+describe( 'keys - get', function () {
 
   this.timeout( 30000 );
 
@@ -126,6 +92,8 @@ describe.only( 'keys - get', function () {
     spy.callCount.should.equal( 2 );
     _.omit( result, [ 'key', 'createdAt' ] ).should.eql( exceptedResult );
 
+    spy.restore();
+
   } );
 
   it( 'get by key - with cache', async () => {
@@ -153,5 +121,3 @@ describe.only( 'keys - get', function () {
   } );
 
 } );
-
-*/
