@@ -144,7 +144,7 @@ module.exports = function ( path ) {
   router.pre( [
     cmn.https,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+    cmn.loadBaseData( auth.layoutData, 'oasfmain.css' ),
     bodyMw
   ] );
 
