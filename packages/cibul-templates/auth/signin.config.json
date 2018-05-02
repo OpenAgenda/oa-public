@@ -3,6 +3,7 @@
   "bsCss" : {
     "main" : "/../bs-templates/compiled/main.css"
   },
+  "labels": "auth/signin",
   "helpers" : {
     "_r" : "redirect",
     "_t" : "time",

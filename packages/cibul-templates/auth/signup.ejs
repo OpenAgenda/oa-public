@@ -3,19 +3,19 @@
 <% } %>
 <div class="container page-dialog signup">
   <div class="top-margined bottom-margined">
-    <% include _headMessage2.ejs %>
+    <% include _headMessage.ejs %>
     <div class="row">
       <section class="col-sm-6 col-sm-offset-3 wsq padding-all-md">
         <div class="row">
           <div class="col-sm-12">
-            <h2><%= __( 'Create an account' ) %></h2>
+            <h2><%= __( 'createAccount' ) %></h2>
           </div>
         </div>
         <div class="row">
           <div class="col-sm-12">
             <div class="info-block text-center margin-v-lg">
-              <label><%= __( 'Have you already used OpenAgenda ?' ) %></label>
-              <a href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>" class="btn btn-primary"><%= __( 'Connect' ) %></a>
+              <label><%= __( 'hasAccount' ) %></label>
+              <a href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>" class="btn btn-primary"><%= __( 'connect' ) %></a>
             </div>
           </div>
         </div>
@@ -30,28 +30,28 @@
           <div class="col-md-6">
             <form class="margin-h-sm" method="post">
               <div class="form-group<%= errors.full_name ? ' has-error' : '' %>">
-                <label for="full_name" class="control-label"><%= __( 'Name Surname' ) %></label>
+                <label for="full_name" class="control-label"><%= __( 'nameSurname' ) %></label>
                 <input name="full_name" class="form-control"/>
 <% if ( errors.full_name ) { %>
                 <span class="text-danger"><%= __( errors.full_name ) %></span>
 <% } %>
               </div>
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
-                <label for="email" class="control-label"><%= __('Email') %></label>
+                <label for="email" class="control-label"><%= __('email') %></label>
                 <input name="email" class="form-control" type="email"/>
 <% if ( errors.email ) { %>
                 <span class="text-danger"><%= __( errors.email ) %></span>
 <% } %>
               </div>
               <div class="form-group<%= errors.password ? ' has-error' : '' %>">
-                <label for="password"><%= __('Password') %></label>
+                <label for="password"><%= __('password') %></label>
                 <input name="password" class="form-control" type="password"/>
 <% if ( errors.password ) { %>
                 <span class="text-danger"><%= __( errors.password ) %></span>
 <% } %>
               </div>
               <div class="form-group<%= errors.repeat ? ' has-error' : '' %>">
-                <label for="repeat" class="control-label"><%= __('Repeat Password') %></label>
+                <label for="repeat" class="control-label"><%= __('repeatPassword') %></label>
                 <input name="repeat" class="form-control" type="password"/>
 <% if ( errors.repeat ) { %>
                 <span class="text-danger"><%= __( errors.repeat ) %></span>
@@ -68,7 +68,7 @@
               </div>
 <% } %>
               <div class="form-group">
-                <button class="btn btn-primary" type="submit"><%= __('Sign Up') %></button>
+                <button class="btn btn-primary" type="submit"><%= __('signup') %></button>
               </div>
             </form>
           </div>
@@ -110,9 +110,9 @@
         </div>
         <div class="row">
           <div class="col-sm-12 margin-v-md">
-            <p><%- __( 'By creating an account you agree to the %terms% and to the %policy%.', { 
-          '%terms%' : '<a target="_blank" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>',
-          '%policy%' : '<a target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/360003182014-Politique-de-confidentialit%C3%A9">' + __('Privacy Policy') + '</a>' }) %></p>
+            <p><%- __( 'agree', { 
+          '%terms%' : '<a target="_blank" href="' + genUrl( 'termsShow' ) + '">' + __('termsOfUse') + '</a>',
+          '%policy%' : '<a target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/360003182014-Politique-de-confidentialit%C3%A9">' + __('policy') + '</a>' }) %></p>
           </div>
         </div>
       </section>

@@ -4,6 +4,8 @@
   "bsCss" : {
     "main" : "/../bs-templates/compiled/main.css"
   },
+
+  "labels": "auth/signup",
   
   "helpers" : {
     "_r" : "redirect",
@@ -12,6 +14,7 @@
     "_txt" : "text",
     "_sl" : "shareLinks"
   },
+  
   "base" : {
     "headMessage" : false,
     "pageClass" : "auth",
