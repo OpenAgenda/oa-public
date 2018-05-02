@@ -34,5 +34,9 @@
   "this email is already in use"
   : "cet email est déjà utilisé",
   "Try this again"
-  : "Ré-essayez"
+  : "Ré-essayez",
+  "Have you already used OpenAgenda ?"
+  : "Vous avez déjà utilisé OpenAgenda ?",
+  "Connect"
+  : "Connectez-vous"
 }

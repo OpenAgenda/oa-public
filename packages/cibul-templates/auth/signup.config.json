@@ -1,10 +1,10 @@
 {
   "layout": "bsLayout/main",
 
-  "oaCss" : {
-    "bsForms" : "../css/bsForms.scss",
-    "auth" : "css/auth.scss"
+  "bsCss" : {
+    "main" : "/../bs-templates/compiled/main.css"
   },
+  
   "helpers" : {
     "_r" : "redirect",
     "_t" : "time",

@@ -1,9 +1,7 @@
 {
   "layout": "bsLayout/main",
-  "oaCss" : {
-    "bsForms" : "../css/bsForms.scss",
-    "agenda-header" : "../node_modules/@openagenda/bs-templates/templates/agenda/_header.scss",
-    "auth" : "css/auth.scss"
+  "bsCss" : {
+    "main" : "/../bs-templates/compiled/main.css"
   },
   "helpers" : {
     "_r" : "redirect",
