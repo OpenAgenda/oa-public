@@ -1,9 +1,29 @@
 "use strict";
 
 module.exports = {
+  usedAccount: {
+    fr: 'Ce service est déjà utilisé sur un autre compte',
+    en: 'This service account is already in use'
+  },
+  fieldCannotBeEmpty: {
+    en: 'This field cannot be empty',
+    fr: 'Ce champ ne doit pas être vide'
+  },
+  usedEmail: {
+    en: 'This email is already in use',
+    fr: 'Cet email est déjà utilisé'
+  },
+  invalidEmail: {
+    en: 'The email is not valid',
+    fr: 'Cet email n\'est pas valide'
+  },
   createAccount: {
     fr: 'Créez un compte',
     en: 'Create an account'
+  },
+  captchaTryAgain: {
+    fr: 'Veuillez ré-essayer',
+    en: 'Try this again'
   },
   hasAccount: {
     fr: 'Vous avez déjà utilisé OpenAgenda ?',
