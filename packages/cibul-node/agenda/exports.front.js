@@ -51,6 +51,9 @@ const routes = {
     _loadCategorySet,
     locationMw.loadSettings( 'locationSettings', true ),
     ( req, res ) => cmn.renderJson( req, res, {
+      title: req.agenda.title,
+      description: req.agenda.description,
+      url: req.agenda.url,
       tagSet: req.tagSet,
       categorSet: req.categorySet,
       locationSet: req.locationSettings,
