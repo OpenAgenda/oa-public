@@ -107,7 +107,7 @@ function _serviceAuthenticate( serviceFieldName ) {
 
     }
 
-    w( { fieldName: serviceFieldName, id: id } )
+    w( { fieldName: serviceFieldName, id } )
 
       .then( _findUserByServiceId )
 
@@ -216,7 +216,7 @@ function _serviceCreate( serviceFieldName, activate ) {
 
 function _createProcess( createData, options ) {
 
-  return w( lib.extend( { createData: createData }, options ? options : {} ) )
+  return w( lib.extend( { createData }, options ? options : {} ) )
 
     .then( _validateAndCreate )
 
@@ -342,7 +342,7 @@ function _findUserByServiceId( values ) {
 
   return w.promise( ( rs, rj ) => {
 
-    var getData = {};
+    const getData = {};
 
     getData[ values.fieldName ] = values.id;
 

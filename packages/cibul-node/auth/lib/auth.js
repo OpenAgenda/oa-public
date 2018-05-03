@@ -1,32 +1,22 @@
 "use strict";
 
-const labels = require( '@openagenda/labels/auth/messages' ),
+const w = require( 'when' );
+const deepExtend = require( 'deep-extend' );
 
-  getLabel = require( '@openagenda/labels' )( labels ),
+const labels = require( '@openagenda/labels/auth/messages' );
+const emailValidator = require( '@openagenda/validators/email' )();
+const getLabel = require( '@openagenda/labels' )( labels );
+const userSvc = require( '@openagenda/users' );
+const sessions = require( '@openagenda/sessions' );
 
-  inAppUserSvc = require( '../../services/user' ),
+const inAppUserSvc = require( '../../services/user' );
+const cmn = require( '../../lib/commons-app' );
+const lib = require( '../../lib/lib' );
+const config = require( '../../config' );
+const pLib = require( './passport' );
+const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
 
-  userSvc = require( '@openagenda/users' );
-
-var cmn = require( '../../lib/commons-app' ),
-
-lib = require( '../../lib/lib' ),
-
-config = require( '../../config' ),
-
-w = require( 'when' ),
-
-pLib = require( './passport' ),
-
-emailValidator = require( '@openagenda/validators/email' )(),
-
-deepExtend = require( 'deep-extend' ),
-
-loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-
-sessions = require( '@openagenda/sessions' ),
-
-exposed = {
+const exposed = {
   signin,
   layoutData,
   ifUserLoaded,
@@ -95,7 +85,7 @@ function init( service ) {
 
     return w.promise( function( resolve, reject ) {
 
-      var options = {};
+      const options = {};
 
       if ( !values.profile ) {
 
@@ -156,7 +146,7 @@ function init( service ) {
 
       if ( !values.data ) values.data = {};
 
-      values.err = { message: getLabel( 'facebookEmailMissing', values.req.lang ) }
+      values.err = { message: getLabel( 'facebookEmailMissing', values.req.lang ) }
 
       return values;
 
@@ -166,9 +156,9 @@ function init( service ) {
 
     return w.promise( function( resolve, reject ) {
 
-      let options = loadOptionals( values.req ),
+      const options = loadOptionals( values.req );
 
-      fullName = values.profile.fullName.length ? values.profile.fullName : fullNameFromEmail( values.profile.email );
+      const fullName = values.profile.fullName.length ? values.profile.fullName : fullNameFromEmail( values.profile.email );
 
       if ( values.req.agenda ) options.agenda = values.req.agenda;
 
@@ -181,7 +171,7 @@ function init( service ) {
       inAppUserSvc.create[ service ]( {
         id: values.profile.id,
         email: values.profile.email,
-        fullName: fullName,
+        fullName,
         culture: values.req.lang
       }, options, function( err, user, data ) {
 

@@ -133,7 +133,7 @@ const modLib = require( '../lib/moduleLib' ),
 
 module.exports = function ( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   log( 'initing' );
 
@@ -216,13 +216,13 @@ function signupSubmit( req, res ) {
 
 function signupComplete( req, res ) {
 
-  var resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } );
+  const resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } );
 
   if ( req.agenda ) resendQuery.slug = req.agenda.slug;
 
   cmn.render( req, res, 'auth/activation', {
     agenda: req.agenda,
-    resendQuery: resendQuery
+    resendQuery
   } );
 
 }
@@ -232,7 +232,7 @@ function activateResend( req, res ) {
 
   if ( !req.query.email ) {
 
-    auth.renderEmail( { req: req, res: res, title: 'Resend activation mail' } );
+    auth.renderEmail( { req, res, title: 'Resend activation mail' } );
 
   } else {
 
@@ -245,7 +245,7 @@ function activateResend( req, res ) {
 
         sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
 
-        return lib.extend( values, { req: req, res: res } );
+        return lib.extend( values, { req, res } );
 
       } )
 
@@ -256,8 +256,8 @@ function activateResend( req, res ) {
         if ( error == 'no account was found' ) error = 'no account matches this email';
 
         auth.renderEmail( {
-          req: req,
-          res: res,
+          req,
+          res,
           data: {
             errors: { email: error },
             email: req.query.email
@@ -425,7 +425,7 @@ function _guessFullName( req, res, next ) {
 
   if ( !req.query.email ) return next();
 
-  let fullName = auth.fullNameFromEmail( req.query.email );
+  const fullName = auth.fullNameFromEmail( req.query.email );
 
   if ( !fullName ) return next();
 
@@ -441,7 +441,7 @@ function _attemptCreate( values ) {
 
   return w.promise( function ( resolve, reject ) {
 
-    var options = auth.loadOptionals( values.req );
+    const options = auth.loadOptionals( values.req );
 
     if ( values.req.agenda ) options.agenda = values.req.agenda;
 
@@ -491,7 +491,7 @@ function _captchaCheck( values ) {
 
   return w.promise( function ( resolve, reject ) {
 
-    var verifyUrl = config.auth.local.captchaVerify + '?'
+    const verifyUrl = config.auth.local.captchaVerify + '?'
       + 'secret=' + config.auth.local.captchaSecret
       + '&response=' + values.req.body[ 'g-recaptcha-response' ]
       + '&remoteip=' + values.req.header( 'x-forwarded-for' );
@@ -501,7 +501,7 @@ function _captchaCheck( values ) {
       if ( err || !data.success ) {
 
         values.data.errors = {
-          captcha: 'Try this again'
+          captcha: 'captchaTryAgain'
         };
 
       }
@@ -517,7 +517,7 @@ function _captchaCheck( values ) {
 
 function _getAndParse( url, cb ) {
 
-  var data = '';
+  let data = '';
 
   log( 'fetching %s', url );
 
