@@ -20,7 +20,7 @@ const _ = require( 'lodash' ),
  
 let log;
 
-module.exports = _.extend( create, { 
+module.exports = _.extend( create, { 
   init
 } );
 
@@ -44,7 +44,7 @@ const createProcess = new Process( {
       settings: 'settings'
     },
     out: [ {
-      assign: [ 'result.valid', 'result.success', 'result.errors' ]
+      assign: [ 'result.valid', 'result.success', 'result.errors' ]
     }, {
       condition: false,
       end: true
@@ -88,13 +88,13 @@ const createProcess = new Process( {
     in: [ 'base', 'data', 'result.user', 'options' ],
     out: [ {
       condition: [ { $raw: null } ],
-      assign: [ , 'result.errors', { $raw: { 'result.success': false } } ]
+      assign: [ , 'result.errors', { $raw: { 'result.success': false } } ]
     }, {
       assign: [ 'stakeholderId', { $raw: { 'result.success': true } } ]
     } ]
   }, {
     task: 'get',
-    in: [ 'base', { id: 'stakeholderId' } ],
+    in: [ 'base', { id: 'stakeholderId' } ],
     out: [ {
       assign: 'result.stakeholder'
     } ]

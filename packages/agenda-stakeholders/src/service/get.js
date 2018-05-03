@@ -119,7 +119,7 @@ function _getUserInfo( v ) {
 
   }
 
-  let d =w.defer();
+  let d = w.defer();
 
   interfaces.getUser( { id: v.stakeholder.userId }, ( err, user ) => {
 

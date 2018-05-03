@@ -29,7 +29,7 @@ function list() {
   // prefilter is defined by service host endpoint ( .agenda or .user )
   let preFilter = arguments[ 0 ]; // this guy applies always
 
-  let { query, offset, limit, options, cb } = parseListArguments.apply( null, Array.prototype.slice.call( arguments, 1 ) );
+  let { query, offset, limit, options, cb } = parseListArguments.apply( null, Array.prototype.slice.call( arguments, 1 ) );
 
   _.extend( options, _legacyOptions( query, options ) );
 
