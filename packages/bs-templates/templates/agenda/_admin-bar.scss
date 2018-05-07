@@ -159,15 +159,30 @@
   }
 
   .list-group {
+
     background: $oa-white;
-    border-radius: 0 0 3px 3px;
     display: none;
     position: absolute;
     width: 100%;
     z-index: 2001;
     padding: 0;
+
+    &.w380 {
+
+      min-width: 380px;
+      width: 100%;
+      margin-top: -2px;
+      padding-bottom: 10px;
+
+    }
+
   }
 
+  .list-group-info-item {
+
+    padding: 24px 24px 12px;
+
+  }
 
   .list-group-item {
 
@@ -177,18 +192,28 @@
     padding: 0;
 
     .item {
+
       color: $oa-gray;
       background: transparent;
       border: none;
       cursor: pointer;
       display: block;
-      padding: 10px 45px 10px 30px;
+      padding: 10px 45px 10px 24px;
       text-align: left;
       text-decoration: none;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
       width: 100%;
+
+      label {
+        display: block;
+      }
+
+      span {
+        display: block;
+        white-space: initial;
+      }
 
       &.bullet:after {
         box-shadow: 0 0 0 1px silver;
@@ -202,6 +227,8 @@
         right: 15px;
         text-align: center;
         width: 20px;
+        margin: -10px 0;
+        top: 50%;
       }
 
       &.active:hover {
