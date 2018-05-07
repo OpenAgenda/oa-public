@@ -1,26 +1,19 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const moment = require( 'moment-timezone' );
 
-genUrl = require( '../../genUrl' ).abs,
+const accessibilityLabels = require( '@openagenda/labels/event/accessibility' );
+const agendaCategories = require( '@openagenda/agenda-categories' );
+const agendaLocations = require( '@openagenda/agenda-locations' );
+const agendaTags = require( '@openagenda/agenda-tags' );
+const exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' );
+const stateLabels = require( '@openagenda/labels/event/states' );
+const utils = require( '@openagenda/utils' );
 
-possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ],
-
-accessibilityLabels = require( '@openagenda/labels/event/accessibility' ),
-
-exportFieldLabels = require( '@openagenda/labels/event/exportFieldNames' ),
-
-agendaLocations = require( '@openagenda/agenda-locations' ),
-
-agendaTags = require( '@openagenda/agenda-tags' ),
-
-agendaCategories = require( '@openagenda/agenda-categories' ),
-
-async = require( 'async' ),
-
-stateLabels = require( '@openagenda/labels/event/states' ),
-
-moment = require( 'moment-timezone' );
+const genUrl = require( '../../genUrl' ).abs;
+const possibleLanguages = [ 'fr', 'en', 'es', 'de', 'it' ];
 
 module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => {
 
@@ -109,11 +102,11 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     function getFieldNames() {
 
-      var names = [];
+      let names = [];
 
       mapping.forEach( function( m ) {
 
-        var dstNames = [], suffixes = [];
+        const dstNames = [], suffixes = [];
 
         if ( utils.isArray( m ) && m.length === 3 ) {
         
@@ -133,7 +126,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         } else if ( typeof m === 'object' ) {
 
-          dstNames.push( m.destField ? m.field : m.field );
+          dstNames.push( m.field + ( m.predefinedLang ? '_' + m.predefinedLang : '' ) );
 
         } else {
 
@@ -152,13 +145,15 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     function flatten( values ) {
 
-      var flattened = {};
+      const flattened = {};
 
       mapping.forEach( function( m ) {
 
-        var srcField, dstField, value, suffixes = false,
+        let srcField, dstField, suffixes = false,
 
         fn = function( v ) { return v; };
+
+        let predefinedLang = false;
 
         if ( utils.isArray( m ) ) {
 
@@ -170,12 +165,14 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           fn = m.fn;
           srcField = m.sourceField;
-          dstField = m.destField ? m.destField : m.sourceField
+          dstField = m.destField ? m.destField : m.sourceField;
+          predefinedLang = _.get( m, 'predefinedLang', false );
 
         } else if ( typeof m === 'object' ) {
 
           srcField = m.field;
           dstField = m.field;
+          predefinedLang = _.get( m, 'predefinedLang', false );
 
         } else {
 
@@ -183,7 +180,11 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         }
 
-        if ( suffixes ) {
+        if ( predefinedLang ) {
+
+          flattened[ _fieldLabel( dstField + '_' + predefinedLang ) ] = '';
+
+        } else if ( suffixes ) {
 
           suffixes.forEach( function( s ) {
 
@@ -197,11 +198,11 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         }
 
-        value = _extractValue( values, srcField );
+        const value = _extractValue( values, srcField );
 
         if ( _isMultilingual( value ) && params.exclusiveLang ) {
 
-          flattened[ _fieldLabel( dstField + '_' + params.exclusiveLang ) ] = fn( value[ params.exclusiveLang ] || '' );
+          flattened[ _fieldLabel( dstField + '_' + ( predefinedLang || params.exclusiveLang)  ) ] = fn( value[ predefinedLang || params.exclusiveLang ] || '' );
 
         } else if ( _isMultilingual( value ) ) {
 
@@ -256,6 +257,10 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     function _defineMapping( includePrivateData, includeDetailedLocation, tagSet, categorySet ) {
 
+      const hasFrench = languages.includes( 'fr' );
+
+      const hasOtherLanguages = !!languages.filter( l => l !== 'fr' ).length;
+
       return [ 'uid' ].concat( _textFields( [ 
         'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
       ], languages ), [
@@ -263,123 +268,128 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'thumbnail',
         'originalImage',
         'updatedAt',
-        [ 'range', 'range', [ 'fr', 'en' ] ],
-        {
-          'sourceField' : [ 'timings', 'location.timezone' ],
-          'destField' : 'timings_fr',
-          fn: _defineTimings( 'fr' )
-        },
-        {
-          'sourceField' : [ 'timings', 'location.timezone' ],
-          'destField' : 'timings_en',
-          fn: _defineTimings( 'en' )
-        },
-        {
-          'sourceField' : [ 'timings', 'location.timezone' ],
-          'destField' : 'isoTimings',
-          fn: _defineISOTimings
-        },
-        'firstDate',
-        'firstTimeStart',
-        'firstTimeEnd',
-        'lastDate',
-        'lastTimeStart',
-        'lastTimeEnd',
-        { 
-          sourceField: 'category',
-          destField: categorySet && categorySet.name ? categorySet.name : 'category',
-          fn: _extractCategory
-        } ],
-        ( tagSet ? tagSet.groups.map( g => ( {
-          sourceField: 'tags',
-          destField: g.name,
-          fn: _extractGroupTags( g )
-        } ) ) : [ {
-          sourceField: 'tags',
-          fn: _extractTags
-        } ] ),
-        [ 'registrationUrl',
-        {
-          sourceField: 'accessibility',
-          destField: 'accessibility_fr',
-          fn: _defineAccessibility( 'fr' )
-        },
-        {
-          sourceField: 'accessibility',
-          destField: 'accessibility_en',
-          fn: _defineAccessibility( 'en' )
-        },
-        'age.min',
-        'age.max',
-        'featured',
-        'contributor.organization',
-        {
-          type: 'private',
-          sourceField: 'state',
-          destField: 'state',
-          fn: _state( params.lang )
-        },
-        {
-          type: 'private',
-          field: 'contributor.contactNumber'
-        },
-        {
-          type: 'private',
-          field: 'contributor.contactName'
-        },
-        {
-          type: 'private',
-          field: 'contributor.contactPosition'
-        },
-        {
-          type: 'private',
-          field: 'contributor.email'
-        },
-        { 
-          sourceField: 'slug',
-          destField: 'link',
-          fn: _defineEventUrl( instance )
-        },
-        'location.uid',
-        'location.latitude',
-        'location.longitude',
-        'location.name',
-        'location.address',
-        'location.postalCode',
-        'location.city',
-        'location.district',
-        'location.department',
-        'location.region',
-        {
-          sourceField: 'location.countryCode',
-          fn: _defineCountryLabel( params.lang )
-        } ],
-        ( includeDetailedLocation ? _extendLocationMapping( instance, languages ) : [] ),
-        _extendMapping( instance, includePrivateData ) )
+      ], hasFrench ? [ {
+        'sourceField' : [ 'timings', 'location.timezone' ],
+        'destField' : 'timings_fr',
+        fn: _defineTimings( 'fr' )
+      }, {
+        field: 'range',
+        predefinedLang: 'fr'
+      } ] : [],
+      hasOtherLanguages ? [ {
+        'sourceField' : [ 'timings', 'location.timezone' ],
+        'destField' : 'timings_en',
+        fn: _defineTimings( 'en' )
+      }, {
+        field: 'range',
+        predefinedLang: 'en'
+      } ] : [],
+      [ {
+        'sourceField' : [ 'timings', 'location.timezone' ],
+        'destField' : 'isoTimings',
+        fn: _defineISOTimings
+      },
+      'firstDate',
+      'firstTimeStart',
+      'firstTimeEnd',
+      'lastDate',
+      'lastTimeStart',
+      'lastTimeEnd',
+      { 
+        sourceField: 'category',
+        destField: categorySet && categorySet.name ? categorySet.name : 'category',
+        fn: _extractCategory
+      } ],
+      ( tagSet ? tagSet.groups.map( g => ( {
+        sourceField: 'tags',
+        destField: g.name,
+        fn: _extractGroupTags( g )
+      } ) ) : [ {
+        sourceField: 'tags',
+        fn: _extractTags
+      } ] ),
+      [ 'registrationUrl',
+      {
+        sourceField: 'accessibility',
+        destField: 'accessibility',
+        fn: _defineAccessibility( 'fr' )
+      },
+      {
+        sourceField: 'accessibility',
+        destField: 'accessibility',
+        fn: _defineAccessibility( 'en' )
+      },
+      'age.min',
+      'age.max',
+      'featured',
+      'contributor.organization',
+      {
+        type: 'private',
+        sourceField: 'state',
+        destField: 'state',
+        fn: _state( params.lang )
+      },
+      {
+        type: 'private',
+        field: 'contributor.contactNumber'
+      },
+      {
+        type: 'private',
+        field: 'contributor.contactName'
+      },
+      {
+        type: 'private',
+        field: 'contributor.contactPosition'
+      },
+      {
+        type: 'private',
+        field: 'contributor.email'
+      },
+      { 
+        sourceField: 'slug',
+        destField: 'link',
+        fn: _defineEventUrl( instance )
+      },
+      'location.uid',
+      'location.latitude',
+      'location.longitude',
+      'location.name',
+      'location.address',
+      'location.postalCode',
+      'location.city',
+      'location.district',
+      'location.department',
+      'location.region',
+      {
+        sourceField: 'location.countryCode',
+        fn: _defineCountryLabel( params.lang )
+      } ],
+      ( includeDetailedLocation ? _extendLocationMapping( instance, languages ) : [] ),
+      _extendMapping( instance, includePrivateData ) )
 
-        .filter( f => {
+      .filter( f => {
 
-          if ( typeof f !== 'object' ) {
-
-            return true;
-
-          }
-
-          if ( typeof utils.isArray( f ) ) {
-
-            return true;
-
-          }
-
-          if ( f.type === 'private' && !includePrivateData ) {
-
-            return false;
-
-          }
+        if ( typeof f !== 'object' ) {
 
           return true;
 
-        } );
+        }
+
+        if ( typeof utils.isArray( f ) ) {
+
+          return true;
+
+        }
+
+        if ( f.type === 'private' && !includePrivateData ) {
+
+          return false;
+
+        }
+
+        return true;
+
+      } );
 
     }
 
