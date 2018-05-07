@@ -31,14 +31,6 @@ module.exports = {
     en: 'Draft',
     fr: 'Brouillon',
   },
-  published: {
-    en: 'Published',
-    fr: 'Publié',
-  },
-  refused: {
-    en: 'Refused',
-    fr: 'Refusé'
-  },
   private: {
     en: 'Private',
     fr: 'Privé',
@@ -99,13 +91,49 @@ module.exports = {
     en: 'Event state',
     fr: 'Etat de l\'événement',
   },
+  published: {
+    en: 'Published',
+    fr: 'Publié',
+  },
+  publishedInfo: {
+    en: 'Publish this event to make it visible on the agenda main page',
+    fr: 'Cet événement est publié et est accessible sur l\'agenda.'
+  },
+  publishedContributorInfo: {
+    en: 'The event is published and displayed on the agenda',
+    fr: 'L\'événement est publié et est accessible sur l\'agenda.'
+  },
+  refused: {
+    en: 'Refused',
+    fr: 'Refusé'
+  },
+  refusedInfo: {
+    en: 'This event is not compatible with the agenda and should not be published',
+    fr: 'Cet événement n\'est pas compatible avec l\'agenda et ne sera pas publié'
+  },
+  refusedContributorInfo: {
+    en: 'This event is not compatible with the agenda and has been refused by administrators',
+    fr: 'Cet événement a été refusé par les administrateurs de l\'agenda et ne sera pas publié'
+  },
   toComplete: {
-    en: 'To complete',
-    fr: 'A compléter',
+    en: 'To be verified',
+    fr: 'En modération',
+  },
+  toCompleteInfo: {
+    en: 'This event needs to be verified and is not ready for publication',
+    fr: 'Cet événement doit être modéré et n\'est pas prêt à être publié'
+  },
+  toCompleteContributorInfo: {
+    en: 'The event will be verified by administrators prior to its publication',
+    fr: 'L\'événement doit être modéré par un administrateur avant sa publication'
   },
   readyForPublishing: {
     en: 'Ready for publishing',
     fr: 'Prêt à publier',
+  },
+  readyForPublishingInfo: {
+    en: 'This event has been verified and is ready to be published',
+    fr: 'Cet événement a été modéré et est prêt à être publié.'
   },
   unpublished: {
     en: 'Unpublished',
@@ -194,6 +222,10 @@ module.exports = {
   contact: {
     en: 'Contact',
     fr: 'Contacter',
+  },
+  contactAdministrators: {
+    en: 'Contact administrators',
+    fr: 'Contacter les administrateurs'
   },
   requestChangeLocation: {
     en: 'Request a change in the location information',
