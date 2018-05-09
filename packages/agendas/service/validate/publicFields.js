@@ -63,6 +63,14 @@ module.exports = {
           'moderators'
         ]
       },
+      unpublishOnChange: {
+        type: 'choice',
+        default: [],
+        options: [
+          'administrators',
+          'moderators'
+        ]
+      },
       defaultLang: {
         default: null,
         type: 'choice',

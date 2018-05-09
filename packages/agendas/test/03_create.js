@@ -19,7 +19,9 @@ describe( 'agendas - functional (server): set (create)', function() {
   } );
 
   afterEach( () => {
+
     svc.init( config ); // reset interfaces
+  
   } );
 
   before( svc.test.fixtures );
@@ -55,6 +57,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
+              unpublishOnChange: [],
               survey: false
             },
             translation: {
@@ -147,6 +150,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
+              unpublishOnChange: [],
               survey: false
             },
             translation: {
@@ -255,6 +259,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
+              unpublishOnChange: [],
               survey: false
             },
             translation: {

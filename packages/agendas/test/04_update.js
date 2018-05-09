@@ -52,6 +52,7 @@ describe( 'agendas - functional (server): set (update)', function() {
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
+            unpublishOnChange: [],
             survey: false
           },
           translation: {
@@ -227,13 +228,14 @@ describe( 'agendas - functional (server): set (update)', function() {
             },
             contribution: {
               allowLocationCreate: true,
-            defaultLang: null,
+              defaultLang: null,
               defaultState: 2,
               message: null,
               type: 2,
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
+              unpublishOnChange: [],
               survey: false
             },
             translation: {
