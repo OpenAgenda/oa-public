@@ -61,7 +61,7 @@ function agenda( agendaId ) {
     w( { agendaId, loaded: {
       settings: {
         contribution: {
-          unpublishOnChange: []
+          moderateOnChangeBy: []
         }
       }
     } } )

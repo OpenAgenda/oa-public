@@ -32,7 +32,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
           settings: {
             contribution: {
               type: 0,
-              unpublishOnChange: [],
+              moderateOnChangeBy: [],
               defaultState: 2,
               message: null
             } 
@@ -63,7 +63,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
           settings: {
             contribution: {
               type: 2,
-              unpublishOnChange: [],
+              moderateOnChangeBy: [],
               defaultState: 2,
               message: null
             }
@@ -82,7 +82,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
               settings: { 
                 contribution: { 
                   type: 1,
-                  unpublishOnChange: [],
+                  moderateOnChangeBy: [],
                   defaultState: 0, 
                   message: 'lol.'
                 } 

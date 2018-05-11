@@ -63,12 +63,13 @@ module.exports = {
           'moderators'
         ]
       },
-      unpublishOnChange: {
+      moderateOnChangeBy: {
         type: 'choice',
         default: [],
         options: [
           'administrators',
-          'moderators'
+          'moderators',
+          'contributors'
         ]
       },
       defaultLang: {

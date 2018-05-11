@@ -49,7 +49,7 @@ describe( 'agendas - unit (server): validate', () => {
             defaultState: 2,
             message: null,
             type: 2,
-            unpublishOnChange: [],
+            moderateOnChangeBy: [],
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
@@ -177,7 +177,7 @@ describe( 'agendas - unit (server): validate', () => {
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
-            unpublishOnChange: [],
+            moderateOnChangeBy: [],
             survey: false
           },
           translation: {

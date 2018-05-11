@@ -57,7 +57,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
-              unpublishOnChange: [],
+              moderateOnChangeBy: [],
               survey: false
             },
             translation: {
@@ -150,7 +150,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
-              unpublishOnChange: [],
+              moderateOnChangeBy: [],
               survey: false
             },
             translation: {
@@ -259,7 +259,7 @@ describe( 'agendas - functional (server): set (create)', function() {
               useFields: false,
               authorizedIPAddresses: [],
               canPublish: [ 'administrators', 'moderators' ],
-              unpublishOnChange: [],
+              moderateOnChangeBy: [],
               survey: false
             },
             translation: {
