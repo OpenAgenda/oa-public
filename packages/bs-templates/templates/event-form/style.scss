@@ -11,6 +11,18 @@
 
 @import "legacy-event-form";
 
+.info-note {
+  
+  padding: 8px;
+  border-left: 3px solid #41acdd;
+  background: $oa-gray-lightest;
+
+  p {
+    margin: 0;
+  }
+
+}
+
 /* event-dialog is to be deprecated */
 .event-dialog {
 
