@@ -1,20 +1,18 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const sessions = require( '@openagenda/sessions' );
-const agendaSvc = require( '../services/agenda' );
-const eventSvc = require( '../services/event' );
-const config = require( '../config' );
-
 const multer = require( 'multer' );
 
-var modLib = require( '../lib/moduleLib' ),
+const imageUpload = require( '@openagenda/image-upload/lib/middleware' );
+const sessions = require( '@openagenda/sessions' );
 
-cmn = require( '../lib/commons-app' ),
+const agendaSvc = require( '../services/agenda' );
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const eventSvc = require( '../services/event' );
+const modLib = require( '../lib/moduleLib' );
 
-imageUpload = require( '@openagenda/image-upload/lib/middleware' ),
-
-routes = {
+const routes = {
 
   agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload/key/:fileKey', [ 
     sessions.middleware.load(),
@@ -44,7 +42,7 @@ routes = {
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
@@ -89,7 +87,7 @@ function agendaEventCustomUpload( isNew, req, res, next ) {
 
     event.setCustomFile( {
       name: req.params.field,
-      path: path,
+      path,
       fileKey: req.params.fileKey,
       extension
     }, cb );
@@ -100,7 +98,7 @@ function agendaEventCustomUpload( isNew, req, res, next ) {
 
 function agendaEventNewCustomRemove( req, res, next ) {
 
-  var newEvent = req.agenda.events.new();
+  const newEvent = req.agenda.events.new();
 
   newEvent.loadAgendaCustomContext( {
     uid: req.agenda.uid,
@@ -145,7 +143,7 @@ function _processImageFile( req, res, next, set ) {
 
   imageUpload( {
     dest: config.tmpFolderPath,
-    handler: function( path, info, cb ) {
+    handler: ( path, info, cb ) => {
 
       set( path, 'jpg', ( err, result ) => {
 
