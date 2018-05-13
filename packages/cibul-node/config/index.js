@@ -6,6 +6,8 @@ const deepExtend = require( 'deep-extend' ),
 
   prod = require( './prod' );
 
+let currentConfig;
+
 const config = {
   all: {
     env: 'production',
@@ -568,7 +570,8 @@ const config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         //enable: 'oa:*'
-        enable: 'oa:*,svc:*'
+        //enable: 'oa:*,svc:*'
+        enable: 'svc:*'
       },
       token: false // no need to log dev things
       //token: 'a2923436-55dc-4eba-8668-44824d11c089'
@@ -735,7 +738,7 @@ const config = {
   production: {}
 };
 
-var currentConfig = _loadEnv( process.env.NODE_ENV || 'development' );
+currentConfig = _loadEnv( process.env.NODE_ENV || 'development' );
 
 currentConfig.loadEnv = _loadEnv;
 
@@ -754,6 +757,13 @@ currentConfig.knex = knexLib( {
 } );
 
 currentConfig.logger.debug.enable = process.env.DEBUG || currentConfig.logger.debug.enable;
+
+currentConfig.getLogConfig = ( prefix, key ) => ( {
+  debug: {
+    prefix: prefix + ':' + key + ':'
+  },
+  token: process.env.NODE_ENV !== 'production' ? null : prod.logentries[ key ]
+} );
 
 if ( process.env.NODE_ENV === 'development' ) {
   process.env.DEBUG = currentConfig.logger.debug.enable;

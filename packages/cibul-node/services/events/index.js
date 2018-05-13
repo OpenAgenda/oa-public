@@ -1,7 +1,6 @@
 "use strict";
 
 const events = require( '@openagenda/events' );
-const logger = require( '@openagenda/logger' );
 const imageFiles = require( '@openagenda/image-files' );
 const legacy = require( './legacy' );
 
@@ -27,7 +26,7 @@ function init( config ) {
   events.init( {
     mysql: config.db,
     redis: config.redis,
-    logger,
+    logger: config.getLogConfig( 'svc', 'events' ),
     schemas: {
       event: config.schemas.eventService
     },

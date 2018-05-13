@@ -28,7 +28,7 @@ module.exports.init = config => {
     existingRoles: agendaStakeholders.types.types,
     imagePath: config.aws.imageBucketPath,
     defaultImagePath: config.aws.defaultImagePath,
-    logger,
+    logger: config.getLogConfig( 'svc', 'agendas' ),
     interfaces: {
       onCreate: onCreate.bind( null, config.mainChannel ),
       onUpdate: onUpdate.bind( null, config.mainChannel ),
