@@ -1,35 +1,28 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const w = require( 'when' );
+const slug = require( 'slug' );
+
 const MODES = {
   CREATE: 'create',
   UPDATE: 'update'
-},
+};
 
-w = require( 'when' ),
+const defineUnique = require( '@openagenda/mysql-utils/defineUnique' );
+const verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' );
 
-get = require( './get' ),
+const get = require( './get' );
+const legacy = require( './legacy' );
+const map = require( './databaseFieldMap' );
+const validate = require( './validate' );
 
-_ = require( 'lodash' ),
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
+const log = require( '@openagenda/logs' )( 'set' );
 
-slug = require( 'slug' ),
+let knex, schemas, mysqlConfig, interfaces;
 
-defineUnique = require( '@openagenda/mysql-utils/defineUnique' ),
-verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' ),
-
-logger = require( '@openagenda/logs' ),
-
-map = require( './databaseFieldMap' );
-
-let knex, schemas, mysqlConfig, log, interfaces,
-
-dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
-
-validate = require( './validate' ),
-
-legacy = require( './legacy' );
-
-module.exports = set;
-module.exports.init = init;
+module.exports = _.extend( set, { init } );
 
 function set( identifiers, data, options, cb ) {
 
@@ -307,7 +300,7 @@ function _doCreate( v ) {
 
     if ( !v.success ) return v;
 
-    log( 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
+    log( 'info', 'agenda of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
 
     v.identifiers = {
       id: result[ 0 ]
@@ -560,7 +553,5 @@ function init( s, k ) {
   mysqlConfig = s.getConfig().mysql;
 
   interfaces = s.getConfig().interfaces;
-
-  log = logger( 'agendas service.set' );
 
 }
