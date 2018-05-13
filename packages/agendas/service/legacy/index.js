@@ -8,7 +8,7 @@ store = require( './store' ),
 
 utils = require( '@openagenda/utils' ),
 
-logger = require( '@openagenda/basic-logger' );
+logger = require( '@openagenda/logs' );
 
 let schemas, knex, log = () => {};
 

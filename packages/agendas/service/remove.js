@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require( '@openagenda/basic-logger' ),
+const logger = require( '@openagenda/logs' ),
 
 w = require( 'when' ),
 

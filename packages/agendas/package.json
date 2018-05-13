@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/logs": "^1.0.4",
     "@openagenda/image-files": "^1.0.12",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",

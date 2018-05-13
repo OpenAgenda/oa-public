@@ -16,7 +16,7 @@ slug = require( 'slug' ),
 defineUnique = require( '@openagenda/mysql-utils/defineUnique' ),
 verifyUnique = require( '@openagenda/mysql-utils/verifyUnique' ),
 
-logger = require( '@openagenda/basic-logger' ),
+logger = require( '@openagenda/logs' ),
 
 map = require( './databaseFieldMap' );
 
