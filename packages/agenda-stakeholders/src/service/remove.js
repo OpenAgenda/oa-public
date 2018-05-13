@@ -2,11 +2,12 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( '@openagenda/basic-logger' );
 const get = require( './get' );
 
+const logger = require( '@openagenda/logs' )( 'remove' );
+
 // service globals
-let interfaces, log, schemas, knex;
+let interfaces, schemas, knex;
 
 module.exports = _.extend( remove, { init } );
 
@@ -86,10 +87,6 @@ function _remove( v ) {
 } 
 
 function init( config ) {
-
-  log = logger( 'remove' );
-
-  log( 'initing' );
 
   schemas = config.schemas;
 

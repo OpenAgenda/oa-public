@@ -3,19 +3,20 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 
-const logger = require( '@openagenda/basic-logger' );
 const queue = require( '@openagenda/queue' );
 
 const contextValidator = require( '../iso/contextValidator' );
 const get = require( './get' );
 const list = require( './list' );
 
+const log = require( '@openagenda/logs' )( 'message' );
+
 module.exports = _.extend( queueMessage, {
   task,
   init
 } );
 
-let q, queueConfig, log, interfaces;
+let q, queueConfig, interfaces;
 
 
 /**
@@ -121,10 +122,6 @@ function task() {
 
 
 function init( config ) {
-
-  log = logger( 'message' );
-
-  log( 'initing' );
 
   queueConfig = config.queue;
 

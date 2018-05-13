@@ -207,7 +207,7 @@ module.exports = Object.assign( agendaId => {
 
   }
 
-}, { init } );
+}, { init } );
 
 
 function init( c ) {
