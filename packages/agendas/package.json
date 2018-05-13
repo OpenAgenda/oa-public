@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agendas",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "agendas service",
   "main": "service/index.js",
   "repository": {
@@ -15,8 +15,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/logs": "^1.0.4",
     "@openagenda/image-files": "^1.0.12",
+    "@openagenda/logs": "^1.0.4",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.2",
