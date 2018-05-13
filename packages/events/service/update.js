@@ -3,8 +3,6 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 
-const logger = require( '@openagenda/logs' );
-
 const cleanUpdateOptions = require( './validate/updateOptions' );
 const cleanUpdateArgs = require( './lib/cleanUpdateArgs' );
 const draft = require( './lib/draft.w' );
@@ -18,7 +16,9 @@ const processImage = require( './lib/processImage' );
 
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
-let schemas, service, knex, config, log;
+const log = require( '@openagenda/logs' )( 'update' );
+
+let schemas, service, knex, config;
 
 
 module.exports = _.extend( ( i, d, o, c ) => {
@@ -43,8 +43,6 @@ module.exports = _.extend( ( i, d, o, c ) => {
     knex = c.knex;
 
     config = c;
-
-    log = logger( 'events service/update' );
 
   }
 } );
@@ -199,7 +197,7 @@ function _doUpdate( v ) {
 
     if ( v.success ) {
 
-      log( 'updated event %s', v.id );
+      log( 'info', 'updated event %s', v.id );
 
     }
 
