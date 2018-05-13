@@ -45,6 +45,7 @@
         <i class="sticker"></i>
         <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
       </span>
+<% if ( !loner ) { %>
       <ul class="list-group js_dropdown_menu w380">  
         <li class="list-group-info-item">
           <span><%= __( states[ event.currentState ].label + 'ContributorInfo' ) %></span>
@@ -53,6 +54,7 @@
           </div>
         </li>
       </ul>
+<% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor w25">
       <a class="edge-link" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
