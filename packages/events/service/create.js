@@ -4,7 +4,7 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const slugs = require( '@openagenda/slugs' );
 
 const cleanCreateArgs = require( './lib/cleanCreateArgs' );

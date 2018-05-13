@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 const cleanUpdateOptions = require( './validate/updateOptions' );
 const cleanUpdateArgs = require( './lib/cleanUpdateArgs' );

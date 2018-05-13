@@ -8,7 +8,7 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const wn = require( 'when/node' );
 
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const sUtils = require( '@openagenda/service-utils' );
 
 const eventUtils = require( '../utils' );
