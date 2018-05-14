@@ -259,7 +259,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             aggregator: false,
             prioritizedAggregator: false,
             invitationMessage: false,
-            calendarView: false
+            calendarView: false,
+            docxExport: false
           } 
         },
         valid: true,

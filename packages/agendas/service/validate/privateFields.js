@@ -97,7 +97,14 @@ module.exports = {
       default: false
     },
 
+    // special queue to avoid huge free aggregation jobs
     prioritizedAggregator: {
+      type: 'boolean',
+      default: false
+    },
+
+    // Microsoft word export for the ministry of culture
+    docxExport: {
       type: 'boolean',
       default: false
     },
