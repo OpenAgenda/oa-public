@@ -50,7 +50,7 @@ Check `localhost:3000` and click on the link to open the modal. The agenda used 
 It can be changed on the `index.html` file of this repo.
 
 
-# Bits and pieces:
+# Bits and pieces
 
 This repo implements every functionality required to have a working docx generation mechanism
 
