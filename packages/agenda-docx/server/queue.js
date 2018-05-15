@@ -147,7 +147,7 @@ function _getRedisClient( name = 'default' ) {
 
     }
 
-    clients[ name ] = redis.createClient( config.port, config.host );
+    clients[ name ] = redis.createClient( config.redis.port, config.redis.host );
 
     _promisifyRedisClient( clients[ name ], [ 'get', 'set', 'llen', 'rpush', 'lpop', 'blpop', 'del' ] );
 
