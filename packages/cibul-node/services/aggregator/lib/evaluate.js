@@ -218,11 +218,11 @@ function _evaluateShouldAggregate( v ) {
 
   }
 
-  let event = _.extend( {
+  const event = _.extend( {
     tags: v.eventSourceTags.map( t => t.label )
   }, v.eventSourceCustomFields );
 
-  let matchingRuleValues = rules( v.rules, event );
+  const matchingRuleValues = rules( v.rules, event );
 
 
   // all rules must match to trigger aggregation
@@ -534,6 +534,8 @@ function _loadEventSourceTagsAndCustomFields( v ) {
     .then( () => wn.call( v.sourceAgenda.getEventPublicCustomData, v.event ) )
 
     .then( customFields => {
+
+      customFields = _.first( customFields );
 
       if ( !_.isArray( customFields ) ) return;
 
