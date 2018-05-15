@@ -24,13 +24,13 @@ function init( config ) {
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
-    redis: {
-      port: config.redis.port,
-      host: config.redis.host
-    },
     queue: {
       namespace: 'docx',
-      separator: ':'
+      separator: ':',
+      redis: {
+        port: config.redis.port,
+        host: config.redis.host
+      }
     },
     localTmpPath: '/var/tmp'
   } );
