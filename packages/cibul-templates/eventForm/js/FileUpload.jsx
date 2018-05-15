@@ -136,6 +136,7 @@ module.exports = createReactClass({
             <label className="control-label">{this.getBottomLabel()}</label>
           </div>
         </Dropzone>
+        <span>Fichiers acceptés: { '.' + [].concat( this.props.extension ).join( ', .' ) }</span>
         { this.props.value ? <a 
           href="#"
           onClick={this.onRemove}
