@@ -1,5 +1,7 @@
 "use strict";
 
+const express = require( 'express' );
+
 const config = require( './config' );
 const queue = require( './queue' );
 const task = require( './task' );
@@ -13,5 +15,6 @@ module.exports = {
 
   },
   app: require( './app' ),
-  task
+  task,
+  dist: express.static( __dirname + '/../client/dist' )
 }

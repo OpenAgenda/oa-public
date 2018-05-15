@@ -6,6 +6,8 @@ const generate = require( '../server/generateDocument' );
 
 describe( 'unit - generate document', () => {
 
+  jest.setTimeout( 10000 );
+
   let docPath;
 
   afterAll( done => {

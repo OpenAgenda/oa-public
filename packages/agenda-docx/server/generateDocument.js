@@ -18,8 +18,7 @@ module.exports = async ( { agendaUid, localTmpPath, templatePath, language } ) =
 
   const outputPath = localTmpPath + `/${agendaUid}.${(new Date).getTime()}.docx`;
 
-  //const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid );
-  const eventsFilePath = '/var/tmp/47800929.events.json';
+  const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid );
 
   const events = await loadEventsFromFile( eventsFilePath );
 

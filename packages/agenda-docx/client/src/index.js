@@ -95,7 +95,8 @@ class Main extends Component {
 
     const { labels } = this.state;
 
-    const hasFile = !!_.get( this.state, 'service.file.name', null );
+    const hasFile = this.state.service && this.state.service.file.name;
+    const isQueued = this.state.service && this.state.service.queued;
 
     const svcState = _.get( this.state, 'service', {} );
 
@@ -122,7 +123,7 @@ class Main extends Component {
       : <p>{labels.noFileAvailable}</p>
        }
       </div>
-      {_.get( this.state, 'service.queued', false ) ? 
+      { isQueued ? 
         <p>{labels.queued}</p>
        : this.renderQueueControl(!hasFile) }
       { hasFile ? <div className="margin-top-md">
@@ -138,8 +139,8 @@ Main.defaultProps = {
 
   labels: {
     modalLink: {
-      en: 'Click here',
-      fr: 'Cliquez ici'
+      en: 'Microsoft Word',
+      fr: 'Microsoft Word'
     },
     modalTitle: {
       en: 'Word export',
