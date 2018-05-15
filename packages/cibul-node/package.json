@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -67,6 +67,7 @@
     "@openagenda/users": "^2.0.1",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^1.2.14",
+    "agenda-docx": "git+https://github.com/OAgenda/agenda-docx.git",
     "async": "^2.3.0",
     "aws-sdk": "~2.0",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -114,8 +115,7 @@
     "validator": "^7.0.0",
     "verror": "^1.9.0",
     "when": "~3.4",
-    "xlsx-writestream": "0.4.0",
-    "agenda-docx": "git+https://github.com/OAgenda/agenda-docx.git"
+    "xlsx-writestream": "0.4.0"
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",
