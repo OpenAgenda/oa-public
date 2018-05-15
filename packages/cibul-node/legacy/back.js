@@ -78,6 +78,20 @@ const routes = {
       eventDelete
     ] ],
 
+    legacyAgendaCredentials: [ 'get', '/:slug/credentials', [
+      ( req, res, next ) => {
+
+        agendas.get( { slug: req.params.slug }, { private: null, internal: true }, ( err, agenda ) => {
+
+          if ( err ) return next( err );
+
+          res.json( agenda.credentials );
+
+        } );
+
+      }
+    ] ],
+
     /**
      * log sf messages
      */

@@ -4,7 +4,7 @@ const sources = require( './sources' );
 
 module.exports = {
   sources,
-  init: c => {
+  init: c => {
 
     sources.init( c );
 

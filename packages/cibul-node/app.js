@@ -164,6 +164,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( './event/files' )( app, '/' );
 
+        require( './services/agenda-docx' )( app, '/docx' );
+
         require( './api' );
 
         require( './calendar' )( app, '/' ); //:agendaSlug/calendar
@@ -243,6 +245,8 @@ module.exports = function ( enabledTypes, options, cb ) {
           day: 'monday',
           time: '03:00'
         } );
+
+        require( 'agenda-docx' ).task();
 
         require( './general/mainLogger.task' )();
 

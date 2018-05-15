@@ -114,7 +114,8 @@
     "validator": "^7.0.0",
     "verror": "^1.9.0",
     "when": "~3.4",
-    "xlsx-writestream": "0.4.0"
+    "xlsx-writestream": "0.4.0",
+    "agenda-docx": "git+https://github.com/OAgenda/agenda-docx.git"
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",

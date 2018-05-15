@@ -61,6 +61,29 @@ const verifyIPMiddleware = [
   } )
 ];
 
+const verifyAdminModMiddleware = agendaIdentifiers => [
+  agendas.middleware.load( {
+    namespaces: {
+      identifiers: agendaIdentifiers || { slug: 'params.slug' },
+      result: 'agenda'
+    },
+    private: null,
+    internal: true
+  } ),
+  loadMemberRole.bind( null, 'agenda' ),
+  ( req, res, next ) => {
+
+    if ( ![ 'administrator', 'moderator' ].includes( req.role ) ) {
+
+      return next( { code: 403 } );
+
+    }
+
+    next();
+
+  }
+]
+
 module.exports = {
 
   loadLogger,
@@ -89,6 +112,7 @@ module.exports = {
   loadMemberRole,
   renderUnauthorized,
 
+  verifyAdminModMiddleware,
   verifyIPMiddleware,
 
   useEmbedGoogleAnalytics,
@@ -301,6 +325,7 @@ function checkContributor( req, res, next ) {
   } );
 
 }
+
 
 
 function loadMemberRole( agendaNamespace, req, res, next ) {
