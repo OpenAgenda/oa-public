@@ -278,9 +278,17 @@ const config = {
     authorizedMimeTypes: {
       txt: 'text/plain',
       docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       pdf: 'application/pdf',
-      jpg: 'image/jpeg'
+      jpg: 'image/jpeg',
+      csv: 'text/csv',
+      doc: 'application/msword',
+      odp: 'application/vnd.oasis.opendocument.presentation',
+      ods: 'application/vnd.oasis.opendocument.spreadsheet',
+      odt: 'application/vnd.oasis.opendocument.text',
+      ppt: 'application/vnd.ms-powerpoint',
+      pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      xls: 'application/vnd.ms-excel'
     },
     uppy: {
       secret: 'DUy=dBGY1,(B]Yj'
