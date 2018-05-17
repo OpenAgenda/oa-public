@@ -194,7 +194,7 @@ function _init() {
 
     found = true;
 
-    if ( elem.getAttribute( 'data-flag' ) ) return;
+    if ( elem.getAttribute( 'data-flag' ) ) return log( 'already referenced' );
 
     elem.setAttribute( 'data-flag', '1' );
 
