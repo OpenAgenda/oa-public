@@ -1,0 +1,13 @@
+{
+  "name": "aggregators",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "jest": "^22.4.3",
+    "knex": "^0.14.6"
+  }
+}
