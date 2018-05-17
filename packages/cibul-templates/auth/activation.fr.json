@@ -5,8 +5,8 @@
   : "Un mail d'activation va vous être ré-envoyé dans un court instant. Vérifiez votre email, ainsi que votre courrier indésirable (spam).",
   "An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process."
   : "Un email contenant le lien d'activation de votre compte va vous être envoyé dans un instant. Vérifiez votre boîte de réception pour terminer votre inscription.",
-  "Didn't receive any mail? %resend%"
-  : "Vous n'avez pas reçu de mail? %resend%",
+  "Didn't receive any mail? %resend% or write us at %support%"
+  : "Vous n'avez pas reçu de mail? %resend% ou écrivez nous à %support%",
   "Click here to resend"
   : "Cliquez ici pour relancer l'envoi",
   "Stay up to date with what is going on with OpenAgenda!"

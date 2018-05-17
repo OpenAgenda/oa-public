@@ -8,7 +8,10 @@
         <div class="content">
           <h2><%= __('Check your mail for a validation link') %></h2>
           <p><%= __('An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.') %></p>
-          <p><%- __('Didn\'t receive any mail? %resend%', { '%resend%' : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __('Click here to resend')  + '</a>' }) %></p>
+          <p><%- __( 'Didn\'t receive any mail? %resend% or write us at %support%', { 
+            '%resend%' : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __( 'Click here to resend' )  + '</a>',
+            '%support%' : '<a class="url" href="mailto:support@openagenda.com">support@openagenda.com</a>'
+          } ) %></p>
         </div>
       </div>
       <div class="row">
