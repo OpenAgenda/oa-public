@@ -194,6 +194,10 @@ function _init() {
 
     found = true;
 
+    if ( elem.getAttribute( 'data-flag' ) ) return;
+
+    elem.setAttribute( 'data-flag', '1' );
+
     var arr = elem.getAttribute( config.attributes.config ).split( '|' ),
 
     lang = elem.hasAttribute( config.attributes.lang ) ? elem.getAttribute( config.attributes.lang ) : config.defaultLang,
