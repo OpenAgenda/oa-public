@@ -6,34 +6,34 @@
     <section class="col-sm-8 col-sm-offset-2 wsq">
       <div class="row">
         <div class="content">
-          <h2><%= __('Check your mail for a validation link') %></h2>
-          <p><%= __('An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.') %></p>
-          <p><%- __( 'Didn\'t receive any mail? %resend% or write us at %support%', { 
-            '%resend%' : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __( 'Click here to resend' )  + '</a>',
-            '%support%' : '<a class="url" href="mailto:support@openagenda.com">support@openagenda.com</a>'
+          <h2><%= __('checkEmail') %></h2>
+          <p><%= __('checkEmailInstruction') %></p>
+          <p><%- __( 'didNotReceive', { 
+            resend : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __( 'resend' )  + '</a>',
+            support : '<a class="url" href="mailto:support@openagenda.com">support@openagenda.com</a>'
           } ) %></p>
         </div>
       </div>
       <div class="row">
         <div class="content">
-          <h2><%= __('Stay up to date with what is going on with OpenAgenda!') %></h2>
+          <h2><%= __( 'stayUpToDate' ) %></h2>
           <div class="form-group social">
             <a class="btn btn-default btn-facebook" href="<%= facebookPage %>" target="_blank">
               <i class="fa fa-facebook"></i>
-              <span><%= __('Follow us') %></span>
+              <span><%= __( 'followUs' ) %></span>
             </a>
             <a class="btn btn-default btn-twitter" href="<%= twitterPage %>" target="_blank">
               <i class="fa fa-twitter"></i>
-              <span><%= __('Follow us') %></span>
+              <span><%= __( 'followUs' ) %></span>
             </a>
           </div>
           <div class="form-group">
             <form method="post" action="<%= genUrl( 'newsletterSubscribe' ) %>">
-              <label for="email"><%= __('Get our newsletter') %></label>
+              <label for="email"><%= __( 'getOurNewsletter' ) %></label>
               <div class="input-group">
-                <input class="form-control" type="text" name="email" placeholder="<%= __('Your email') %>">
+                <input class="form-control" type="text" name="email" placeholder="<%= __( 'yourEmail' ) %>">
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="submit"><%= __('Subscribe') %></button>
+                  <button class="btn btn-primary" type="submit"><%= __( 'subscribe' ) %></button>
                 </span>
               </div>
             </form>
