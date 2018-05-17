@@ -158,9 +158,6 @@ function loadAdminLayout( req, res, next ) {
           image: req.agenda.getImage ? req.agenda.getImage( false ) : req.agenda.image
         },
         bottom: {
-          scripts: [
-            config.externalScripts.zendesk
-          ],
           scriptSources: [
             '/js/verifiedLocationsCounter.js'
           ]

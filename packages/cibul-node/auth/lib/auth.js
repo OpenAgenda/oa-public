@@ -555,8 +555,6 @@ function layoutData( req ) {
     agenda: req.agenda ? req.agenda : false
   };
 
-  cmn.addZendeskHelpButton( data );
-
   return data;
 
 }
