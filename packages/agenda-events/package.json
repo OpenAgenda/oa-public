@@ -4,7 +4,8 @@
   "description": "Store agenda-event references",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "watch": "mocha --watch"
   },
   "dependencies": {
     "@openagenda/logs": "^1.0.1",
