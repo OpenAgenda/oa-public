@@ -3,31 +3,31 @@
 const _ = require( 'lodash' );
 const config = require( '../config' );
 
-module.exports = agendaUid => ( {
+module.exports = objectId => ( {
 
   aggregators: {
-    list: aggregatorList.bind( null, agendaUid )
+    list: aggregatorList.bind( null, objectId )
   }
 
-} )
+} );
 
-async function aggregatorList( agendaUid ) {
+async function aggregatorList( objectId ) {
 
   const { knex, interfaces } = config;
 
-  const agendaId = await interfaces.getAgendaId( agendaUid );
+  const object = await interfaces.getObject( objectId );
 
-  if ( agendaId === null ) return [];
+  if ( object === null ) return [];
 
   const result = await knex( 'aggregator_source as ags' )
-    .select( 'ag.review_id as aggregatorAgendaId' )
+    .select( 'ag.review_id as aggregatorObjectId' )
     .leftJoin( 'aggregator as ag', 'ags.aggregator_id', 'ag.id' )
-    .where( 'ags.review_id', agendaId );
+    .where( 'ags.review_id', object.id );
 
-  const agendaIds = result.map( row => row.aggregatorAgendaId );
+  const objectIds = result.map( row => row.aggregatorObjectId );
 
-  const activeAgendas = await interfaces.keepActiveAggregators( agendaIds );
+  const activeObjects = await interfaces.keepActiveAggregators( objectIds );
 
-  return activeAgendas;
+  return activeObjects;
 
 }

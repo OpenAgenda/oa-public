@@ -1,9 +1,9 @@
 "use strict";
 
-const sources = require( './lib/sources' );
-const config = require( './lib/config' );
+const _ = require( 'lodash' );
 
-module.exports = {
-  sources,
-  init: config.init
-}
+module.exports = _.extend( require( './lib/aggregators' ), {
+  sources: require( './lib/sources' ),
+  resync: require( './lib/resync' ),
+  init: require( './lib/config' ).init
+} );
