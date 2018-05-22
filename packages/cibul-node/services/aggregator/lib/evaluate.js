@@ -1,18 +1,14 @@
 "use strict";
 
-const agendaSvc = require( '../../agenda' ),
+const interfaces = require( '../interfaces' );
 
-  p = require( '../../../lib/promises' ),
+const p = require( '../../../lib/promises' ),
 
   aggUtils = require( './aggUtils' ),
 
   agendaTags = require( '@openagenda/agenda-tags' ),
 
   agendaCategories = require( '@openagenda/agenda-categories' ),
-
-  interfaces = {
-    onEventRemove: require( '../interfaces/onEventRemove' )
-  },
 
   logger = require( '@openagenda/logger' ),
 
@@ -178,7 +174,7 @@ function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
   .then( p.ife( { referenced: true }, _checkIfReferencedBySource ) )
 
   // start event change operations. First de-reference source agenda from aggregating agenda event
-  .then( p.ife( { referenced: true }, _removeSourceReference ) )
+  .then( p.ife( { referenced: true }, _removeSourceReference ) )
 
   // if aggregating agenda event has no other source references, remove it; ( it was not added by other source )
   .then( p.ife( { referenced: true, referencedBySource: true, hasRemainingReferences: false }, _removeFromAggregator ) )

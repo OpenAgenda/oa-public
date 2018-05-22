@@ -2,7 +2,6 @@
 
 process.env.NODE_ENV = 'test';
 
-
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const mysql = require( 'mysql' );
@@ -66,7 +65,8 @@ const testConfig = {
     secretAccessKey: config.aws.secretAccessKey,
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
-  }
+  },
+  getLogConfig: () => null
 };
 
 

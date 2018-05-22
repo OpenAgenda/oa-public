@@ -75,7 +75,7 @@ function loadEvent( v ) {
 
     eventSvc.get( { id: v.eventId }, ( err, event ) => {
 
-      if ( err || !event ) {
+      if ( err || !event ) {
 
         return rj( err || 'no event was found' );
 
@@ -95,7 +95,7 @@ function loadAgenda( namespace, identifier ) {
 
   _pre();
 
-  return function( v ) {
+  return function( v ) {
 
     return p.w.promise( function( rs, rj ) {
 

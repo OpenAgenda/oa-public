@@ -53,9 +53,9 @@ function set( config ) {
 
 function _process( data, cb ) {
 
-  var method = data.method,
+  let method = data.method;
 
-  args = data.args;
+  const args = data.args;
 
   if ( !method ) {
 

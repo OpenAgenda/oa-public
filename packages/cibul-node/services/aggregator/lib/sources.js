@@ -41,7 +41,7 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 
   .then( _checkNoSource )
 
-  .then( p.ife( { preexisting: false }, _checkNoLoop ) )
+  .then( p.ife( { preexisting: false }, _checkNoLoop ) )
 
   .then( p.ife( { preexisting: false, loop: false }, _createSource ) )
 
@@ -55,8 +55,8 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
         message: 'agenda source %s was added to aggregating agenda %s',
         type: 'sourceadd',
         sourceAgendaId: sourceId,
-        aggregatorAgendaId: aggregatorAgendaId,
-        upcomingOnly: upcomingOnly
+        aggregatorAgendaId,
+        upcomingOnly
       }, sourceId, aggregatorAgendaId );
 
       notify.newSource( {
@@ -80,8 +80,8 @@ function remove( sourceId, aggregatorAgendaId, cb ) {
   _init();
 
   p.w( {
-    sourceId: sourceId,
-    aggregatorAgendaId: aggregatorAgendaId,
+    sourceId,
+    aggregatorAgendaId,
     preexisting: null
   } )
 
@@ -99,12 +99,12 @@ function remove( sourceId, aggregatorAgendaId, cb ) {
         message: 'agenda source %s was removed from aggregating agenda %s',
         type: 'sourceremove',
         sourceAgendaId: sourceId,
-        aggregatorAgendaId: aggregatorAgendaId
+        aggregatorAgendaId
       }, sourceId, aggregatorAgendaId );
 
     }
 
-    cb( null, {
+    cb( null, {
       removed: v.removed
     } );
 
@@ -229,7 +229,7 @@ function _streamEvaluates( v ) {
 
     log( 'streaming events of source agenda id %s to add to aggregating agenda id %s', v.sourceAgenda.id, v.aggregatorAgendaId );
 
-    var stream = v.sourceAgenda.searchStream( { passed: !v.upcomingOnly } );
+    const stream = v.sourceAgenda.searchStream( { passed: !v.upcomingOnly } );
     
     stream.on( 'data', eventData => {
 
@@ -316,7 +316,7 @@ function _dispatchProcessJob( v ) {
   return p.w.promise( ( rs, rj ) => {
 
     // agenda updates should be muted
-    let mute = true;
+    const mute = true;
 
     q( {
       method: 'sources.process',
@@ -336,7 +336,7 @@ function _dispatchProcessJob( v ) {
 
 function _dispatchProcessComplete( v ) {
 
-  let d = p.w.defer();
+  const d = p.w.defer();
 
   log( 'dispatching source process completion for agenda id %s', v.aggregatorAgendaId );
 

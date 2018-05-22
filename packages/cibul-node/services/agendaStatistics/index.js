@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
+const aggregators = require( '@openagenda/aggregators' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
@@ -35,7 +36,8 @@ module.exports = async agendaUid => {
       rebuildSearch: `${config.root}/${agenda.slug}/admin/stats/resync/search`,
       resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
-      resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`
+      resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
+      resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`
     }
   }
 
@@ -65,6 +67,11 @@ module.exports.task = () => {
 
 
     switch ( data.type ) {
+
+      case 'aggregator':
+
+        aggregators.resync( { uid: data.agendaUid } );
+        break;
 
       case 'search':
 

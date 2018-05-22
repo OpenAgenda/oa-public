@@ -55,7 +55,8 @@ const testConfig = {
     secretAccessKey: config.aws.secretAccessKey,
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
-  }
+  },
+  getLogConfig: () => null
 };
 
 
