@@ -7,6 +7,7 @@ const endpoints = {
   list: require( './service/list' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
+  set: require( './service/set' ),
   remove: require( './service/remove' )
 };
 

@@ -17,7 +17,7 @@ schema.register( {
   text: require( '@openagenda/validators/text' )
 } );
 
-describe( 'extended events - functional (server): get', function() {
+describe( 'extended events - functional (server): list', function() {
 
   beforeEach( async () => {
 
