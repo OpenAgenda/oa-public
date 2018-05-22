@@ -93,7 +93,13 @@ export default class AgendasSearch extends Component {
 
     return (
       <div>
-        {createElement( Header )}
+        <div className="header hidden-xs">
+          <div className="pull-right">
+            <a href={res.agendas.create} className="btn btn-primary create-agenda">
+              {getLabel( 'createAgenda' )}
+            </a>
+          </div>
+        </div>
         <form onSubmit={handleSubmit( this.search )}>
           <Field
             component={SearchInput}
