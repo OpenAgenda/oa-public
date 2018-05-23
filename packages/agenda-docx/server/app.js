@@ -11,7 +11,11 @@ const defaultState = require( './defaultState' );
 
 app.param( 'agendaUid', ( req, res, next, uid ) => {
 
-  req.agendaFiles = agendaFiles( { s3: config.s3, bucket: config.s3.bucket, uid } );
+  req.agendaFiles = agendaFiles( {
+    s3: config.s3,
+    bucket: config.s3.bucket,
+    uid
+  } );
 
   next();
 

@@ -63,8 +63,6 @@ async function enqueue( data ) {
 
   const client = await _getRedisClient();
 
-  console.log( _queueName(), JSON.stringify( data ) );
-
   return client.p.rpush( _queueName(), JSON.stringify( data ) );
 
 }

@@ -13,8 +13,10 @@ describe( 'unit - queue', () => {
 
         await queue.init( {
           namespace: 'testoadocx',
-          port: 6389,
-          host: 'localhost'
+          redis: {
+            port: 6389,
+            host: 'localhost'
+          }
         } );
 
       } catch ( e ) {
@@ -33,8 +35,10 @@ describe( 'unit - queue', () => {
 
       await queue.init( {
         namespace: 'testoadocx',
-        port: 6379,
-        host: 'localhost'
+        redis: {
+          port: 6379,
+          host: 'localhost'
+        }
       } );
 
     } );
