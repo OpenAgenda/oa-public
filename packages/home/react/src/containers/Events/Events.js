@@ -179,7 +179,7 @@ export default class Events extends Component {
             visible={search || query.search || total > perPageLimit}
           />
         </form>
-        <div className="row">
+        <div>
           {events && events.map( ( event, i ) => (
             <div className="event-item media" key={i}>
               <div className="media-left">
