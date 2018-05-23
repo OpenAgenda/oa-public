@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/unsubscribed",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Users are tired of receiving emails. They cannot unsubscribed. This service enables basic crud ops on an unsubscription list, maintanable by user, email type, object and object identifier.",
   "main": "index.js",
   "scripts": {
