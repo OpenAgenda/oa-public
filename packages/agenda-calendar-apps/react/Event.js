@@ -5,7 +5,7 @@ import More from './More';
 
 export default class Event extends Component {
 
-  constructor( props ) {
+  constructor( props ) {
 
     super( props );
 
