@@ -379,6 +379,10 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
         url = url.replace('/t/null', '');
       }
 
+      if (unsubscription.type === undefined) {
+        url = url.replace('/t/undefined', '');
+      }
+
       request.get(url).end(function (err, result) {
         if (err) return reject(err);
         dispatch(actions.removeUnsubscription('response', (0, _assign2.default)(result.body, { unsubscription: unsubscription })));
