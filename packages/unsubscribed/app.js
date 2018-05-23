@@ -3,6 +3,8 @@
 const express = require( 'express' );
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'app' );
+
 module.exports = service => {
 
   const app = express();
@@ -40,6 +42,15 @@ module.exports = service => {
   function serviceEndpoint( name, useSubject = true, useType = true, useIdentifier = true ) {
 
     return ( req, res, next ) => {
+
+      if ( req.matchedUnsubscribePath ) return next();
+
+      req.matchedUnsubscribePath = true;
+
+      log( 'matched endpoint to %s, %s, %s', 
+        useSubject ? 'use subject' : 'NOT use subject', 
+        useType ? 'use type': 'NOT use type', 
+        useIdentifier ? 'use identifier' : 'NOT use identifier' );
 
       const data = {}
 

@@ -1,18 +1,19 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const knexLib = require( 'knex' );
 
-  knexLib = require( 'knex' ),
+const logger = require( '@openagenda/logs' );
 
-  config = require( './service/config' ),
+const config = require( './service/config' );
 
-  endpoints = {
-    is: require( './service/is' ),
-    add: require( './service/add' ),
-    list: require( './service/list' ),
-    clear: require( './service/clear' ),
-    remove: require( './service/remove' )
-  };
+const endpoints = {
+  is: require( './service/is' ),
+  add: require( './service/add' ),
+  list: require( './service/list' ),
+  clear: require( './service/clear' ),
+  remove: require( './service/remove' )
+};
 
 
 module.exports = _.extend( userEndpoints, {
@@ -33,7 +34,13 @@ function init( c ) {
       client: 'mysql',
       connection: c.mysql
     } ),
-    schemas: c.schemas
+    schemas: c.schemas,
   } );
+
+  if ( c.logger ) {
+
+    logger.setModuleConfig( c.logger );
+
+  }
 
 }

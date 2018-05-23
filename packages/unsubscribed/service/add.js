@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'add' );
+
 const c = require( './config' );
 
 module.exports = function( userUid, data, cb ) {
@@ -18,6 +20,8 @@ module.exports = function( userUid, data, cb ) {
     if ( err ) return cb( err );
 
     if ( !insertId ) return cb( 'could not insert unsubscribe reference' );
+
+    log( 'info', 'unsubscribed user %s from %s', userUid, subject, data );
 
     cb( null, {
       success: true 
