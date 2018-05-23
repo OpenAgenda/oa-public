@@ -79,6 +79,7 @@ class Wrapper extends Component {
             visible={this.state.modal}
             onClose={() => this.displayModal( false )}
             classNames={{ overlay: 'popup-overlay big' }}
+            disableBodyScroll
           >
             <p>Wahou, je suis bluffé</p>
             <img src="http://m.memegen.com/fptbj1.jpg" alt="wahou" style={{ maxWidth: '100%' }} />

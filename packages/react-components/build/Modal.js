@@ -60,9 +60,17 @@ var Modal = (_temp = _class = function (_Component) {
       if (this.props.visible) {
 
         this.addClickEvents();
+
+        if (this.props.disableBodyScroll) {
+          _bodyScroll2.default.disable();
+        }
       } else {
 
         this.removeClickEvents();
+
+        if (this.props.disableBodyScroll) {
+          _bodyScroll2.default.enable();
+        }
       }
     }
   }, {
@@ -93,9 +101,13 @@ var Modal = (_temp = _class = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
 
-      if (this.props.visible) this.addClickEvents();
+      if (this.props.visible) {
+        this.addClickEvents();
 
-      if (this.props.disableBodyScroll) _bodyScroll2.default.disable();
+        if (this.props.disableBodyScroll) {
+          _bodyScroll2.default.disable();
+        }
+      }
     }
   }, {
     key: 'componentWillUnmount',

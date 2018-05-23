@@ -43,9 +43,17 @@ export default class Modal extends Component {
 
       this.addClickEvents();
 
+      if ( this.props.disableBodyScroll ) {
+        bodyScroll.disable();
+      }
+
     } else {
 
       this.removeClickEvents();
+
+      if ( this.props.disableBodyScroll ) {
+        bodyScroll.enable();
+      }
 
     }
 
@@ -77,9 +85,13 @@ export default class Modal extends Component {
 
   componentDidMount() {
 
-    if ( this.props.visible ) this.addClickEvents();
+    if ( this.props.visible ) {
+      this.addClickEvents();
 
-    if ( this.props.disableBodyScroll ) bodyScroll.disable();
+      if ( this.props.disableBodyScroll ) {
+        bodyScroll.disable();
+      }
+    }
 
   }
 
@@ -144,14 +156,14 @@ export default class Modal extends Component {
         ref={ref => this.overlayRef = ref}
       >
         <section ref={this.setModalRef}>
-          { title ?
+          {title ?
             <header className="popup-title">
               <h2>{title}</h2>
               <a onClick={this.handleClose} className="close-link">
-                <i className="fa fa-times fa-lg" />
+                <i className="fa fa-times fa-lg"/>
               </a>
             </header>
-            : null }
+            : null}
           <div className="popup-content">
             {children}
           </div>
