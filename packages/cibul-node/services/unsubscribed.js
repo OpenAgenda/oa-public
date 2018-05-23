@@ -8,7 +8,8 @@ module.exports.init = config => {
     mysql: config.db,
     schemas: {
       unsubscribed: config.schemas.unsubscribed
-    }
+    },
+    logger: config.getLogConfig( 'svc', 'unsubscribed' )
   } );
 
 }
