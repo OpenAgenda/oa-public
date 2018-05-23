@@ -54,14 +54,9 @@ For more information about data formats please refer to the [API documentation](
 <h4 id="events-get">get</h4>
 
 ```js
-const agendaUid = 12345678;
+const eventUid = 87654321;
 
-const location = await oa.locations.create( agendaUid, {
-  name: 'Gare Meuse TGV',
-  address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines',
-  latitude: 48.9736458,
-  longitude: 5.2723537
-} );
+const event = await oa.events.get( eventUid );
 ```
 
 <h4 id="events-create">create</h4>
@@ -196,11 +191,11 @@ oa.events.create( 12345678, {
   })
   .catch(error => {
     expect( error.response.body ).to.be.eql( {
-        errors: [ {
-          field: 'title',
-          code: 'required',
-          message: 'at least one language entry is required'
-        } ]
-      } );
+      errors: [ {
+        field: 'title',
+        code: 'required',
+        message: 'at least one language entry is required'
+      } ]
+    } );
   });
 ```
