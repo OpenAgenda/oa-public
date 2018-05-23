@@ -9,15 +9,7 @@
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.js -o .tmp/testapp-client.js",
     "fixtures": "node test/app/fixtures",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A react/build",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "version": "npm run build && git add -A react/build"
   },
   "repository": {
     "type": "git",
