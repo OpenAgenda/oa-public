@@ -2,10 +2,7 @@
 
 const fs = require( 'fs' );
 const path = require( 'path' );
-const http = require( 'http' );
 const _ = require( 'lodash' );
-const express = require( 'express' );
-const axios = require( 'axios' );
 const knexLib = require( 'knex' );
 const { expect } = require( 'chai' );
 const sinon = require( 'sinon' );
@@ -13,11 +10,11 @@ const tmp = require( 'tmp' );
 const imageFiles = require( '@openagenda/image-files' );
 const fixtures = require( '@openagenda/fixtures' );
 const keysSvc = require( '@openagenda/keys/test/service' );
+const keysConfig = require( '@openagenda/keys/service/config' );
 const usersSvc = require( './service' );
 const crypto = require( '../service/lib/crypto' );
 const testconfig = require( '../testconfig' );
 const config = require( '../config' );
-const keysConfig = require( '@openagenda/keys/service/config' );
 
 const database = testconfig.mysql.database + '_service';
 
@@ -47,33 +44,7 @@ afterAll( async () => {
 } );
 
 describe( 'initialization', () => {
-  it( 'express | http + service', async () => {
-    const app = express();
-
-    // expose service users on the parent app
-    usersSvc.exposeApp( app, '/users' );
-
-    // get random port for test
-    const server = http.createServer( app ).listen();
-    const port = server.address().port;
-
-    // Usage by http request
-    const { data: page } = await axios.get( `http://localhost:${port}/users` );
-    expect( page.data ).to.have.lengthOf( 20 );
-
-    // Usage by service
-    const user = await usersSvc().get( kaoreUid );
-
-    expect( user.fullName ).to.be.equal( 'Kari Olafsson' );
-    expect( usersSvc() ).to.include.all.keys(
-      'find', 'get', 'create', 'patch', 'update', 'remove',
-      'hooks', 'on', 'once', 'emit', 'events'
-    );
-
-    server.close();
-  } );
-
-  it( 'just service', async () => {
+  it( 'simple initialization', async () => {
     const user = await usersSvc().get( kaoreUid );
 
     expect( user.fullName ).to.be.equal( 'Kari Olafsson' );

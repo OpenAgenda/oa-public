@@ -29,42 +29,42 @@ function exposeApp( parentApp, mountpath ) {
 
   // custom methods
   app.use(
-    path.join( mountpath, '/setImageProfile' ),
+    path.join( mountpath, '/:uid/setImageProfile' ),
     mw.setImageProfile()
   );
 
   app.use(
-    path.join( mountpath, '/clearImageProfile' ),
+    path.join( mountpath, '/:uid/clearImageProfile' ),
     mw.clearImageProfile()
   );
 
   app.use(
-    path.join( mountpath, '/requestChangeEmail' ),
+    path.join( mountpath, '/:uid/requestChangeEmail' ),
     mw.requestChangeEmail(),
   );
 
   app.use(
-    path.join( mountpath, '/confirmChangeEmail' ),
+    path.join( mountpath, '/:uid/confirmChangeEmail' ),
     mw.confirmChangeEmail(),
   );
 
   app.use(
-    path.join( mountpath, '/changePassword' ),
+    path.join( mountpath, '/:uid/changePassword' ),
     mw.changePassword(),
   );
 
   app.use(
-    path.join( mountpath, '/generateApiKey' ),
+    path.join( mountpath, '/:uid/generateApiKey' ),
     mw.generateApiKey(),
   );
 
   app.use(
-    path.join( mountpath, '/setNewFlag' ),
+    path.join( mountpath, '/:uid/setNewFlag' ),
     mw.setNewFlag(),
   );
 
   app.use(
-    path.join( mountpath, '/refresh' ),
+    path.join( mountpath, '/:uid/refresh' ),
     mw.refresh(),
   );
 
@@ -74,7 +74,9 @@ function exposeApp( parentApp, mountpath ) {
 
   service.hooks( hooks );
 
-  parentApp.use( app );
+  parentApp
+    .use( app )
+    .use( express.rest.formatter );
 
   return app;
 }

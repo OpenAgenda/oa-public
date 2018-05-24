@@ -21,9 +21,7 @@ module.exports = {
 
       const page = await service().find( {
         provider: 'rest',
-        query: {
-          ...identifier
-        }
+        query: _.clone( identifier )
       } );
 
       if ( page.data.length !== 1 ) {
@@ -39,7 +37,7 @@ module.exports = {
   setImageProfile( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         query: 'query',
         result: 'result'
       }
@@ -58,7 +56,7 @@ module.exports = {
               { path },
               {
                 provider: 'rest',
-                query: _.get( req, params.namespaces.query )
+                query: _.cloneDeep( _.get( req, params.namespaces.query ) )
               }
             );
 
@@ -82,7 +80,7 @@ module.exports = {
   clearImageProfile( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         query: 'query',
         result: 'result'
       }
@@ -94,7 +92,7 @@ module.exports = {
   requestChangeEmail( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -107,7 +105,7 @@ module.exports = {
   confirmChangeEmail( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         result: 'result'
       }
     }, options );
@@ -118,7 +116,7 @@ module.exports = {
   changePassword( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -131,7 +129,7 @@ module.exports = {
   generateApiKey( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         query: 'query',
         result: 'result'
       }
@@ -143,7 +141,7 @@ module.exports = {
   setNewFlag( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -156,7 +154,7 @@ module.exports = {
   refresh( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'user.uid',
+        uid: 'params.uid',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -193,28 +191,22 @@ function wrap( fn ) {
 
 function methodToMiddleware( method, params, withData = true ) {
   return wrap( async ( req, res, next ) => {
-    try {
-      const args = [
-        _.get( req, params.namespaces.uid ),
-        ...(withData ? _.get( req, params.namespaces.data ) : []),
-        {
-          provider: 'rest',
-          query: _.get( req, params.namespaces.query )
-        }
-      ];
+    const args = [
+      _.get( req, params.namespaces.uid ),
+      ...(withData ? [ _.cloneDeep( _.get( req, params.namespaces.data ) ) ] : []),
+      {
+        provider: 'rest',
+        query: _.cloneDeep( _.get( req, params.namespaces.query ) )
+      }
+    ];
 
-      const _service = service();
+    const _service = service();
 
-      const result = await _service[ method ].apply( _service, args );
+    const result = await _service[ method ].apply( _service, args );
 
-      console.log( 'result', result );
+    res.data = result;
+    _.set( req, params.namespaces.result, result );
 
-      res.data = result;
-      _.set( req, params.namespaces.result, result );
-
-      next();
-    } catch ( e ) {
-      next( e );
-    }
+    next();
   } );
 }

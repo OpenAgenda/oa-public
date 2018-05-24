@@ -296,6 +296,15 @@ module.exports = {
           keep( 'isNew' )
         ]
       ),
+      iff(
+        isAction( 'refresh' ),
+        [
+          iff( dataExists( 'lastSignin' ), setNow( 'lastSignin' ) ),
+          iff( dataExists( 'lastInboxCheck' ), setNow( 'lastInboxCheck' ) ),
+          iff( dataExists( 'lastNotified' ), setNow( 'lastNotified' ) ),
+          keep( 'lastSignin', 'lastInboxCheck', 'lastNotified' )
+        ]
+      ),
       // If there are not action you can modify your profile
       iff(
         isAction( undefined ),
@@ -317,15 +326,6 @@ module.exports = {
             }
           } ),
           keep( 'fullName', 'culture', 'isRemoved' )
-        ]
-      ),
-      iff(
-        isAction( 'refresh' ),
-        [
-          iff( dataExists( 'lastSignin' ), setNow( 'lastSignin' ) ),
-          iff( dataExists( 'lastInboxCheck' ), setNow( 'lastInboxCheck' ) ),
-          iff( dataExists( 'lastNotified' ), setNow( 'lastNotified' ) ),
-          keep( 'lastSignin', 'lastInboxCheck', 'lastNotified' )
         ]
       ),
       formatStore(),

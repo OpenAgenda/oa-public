@@ -9,11 +9,11 @@ const FormData = require( 'form-data' );
 const imageFiles = require( '@openagenda/image-files' );
 const fixtures = require( '@openagenda/fixtures' );
 const keysSvc = require( '@openagenda/keys/test/service' );
+const keysConfig = require( '@openagenda/keys/service/config' );
 const usersSvc = require( './service' );
 const mw = require( '../middleware' );
 const testconfig = require( '../testconfig' );
 const config = require( '../config' );
-const keysConfig = require( '@openagenda/keys/service/config' );
 
 const database = testconfig.mysql.database + '_middleware';
 
@@ -78,7 +78,7 @@ describe( 'load', () => {
 describe( 'setImageProfile', () => {
   it( 'upload new image profile', async done => {
     const req = new stream.PassThrough();
-    req.user = {
+    req.params = {
       uid: kaoreUid
     };
 
@@ -105,7 +105,7 @@ describe( 'setImageProfile', () => {
 
 describe( 'clearImageProfile', () => {
   it( 'clear image profile of Kaoré', async () => {
-    const req = { user: { uid: kaoreUid } };
+    const req = { params: { uid: kaoreUid } };
     const res = {};
 
     await expect(
@@ -117,8 +117,4 @@ describe( 'clearImageProfile', () => {
     expect( user.image ).to.be.null;
     expect( res.data ).to.be.eql( { success: true } );
   } );
-} );
-
-describe( 'requestChangeEmail', () => {
-
 } );
