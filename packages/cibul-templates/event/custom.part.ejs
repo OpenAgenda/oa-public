@@ -10,7 +10,10 @@
     <a target="_blank" href="<%= custom[ i ].value %>"><%= custom[ i ].value %></a>
   </dd>
 <% } else if ( custom[ i ].fieldType === 'file' ) { %>
-  <dt><%= labels[ custom[ i ].name ] %></dt>
+  <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
+    <span><%= labels[ custom[ i ].name ] %></span>
+    <% if ( typeof private !== 'undefined' && private ) { %><%- private %><% } %>
+  </dt>
   <dd>
     <a target="_blank" href="<%= custom[ i ].value.link %>"><%= custom[ i ].value.name %></a>
   </dd>
