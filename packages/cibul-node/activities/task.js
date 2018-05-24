@@ -1,4 +1,4 @@
-const logger = require( '@openagenda/logger' );
+const log = require( '@openagenda/logs' )( 'activities/task' );
 const activitiesSvc = require( '@openagenda/activities' );
 const agendasSvc = require( '@openagenda/agendas' );
 const usersSvc = require( '@openagenda/users' );
@@ -7,11 +7,16 @@ const eventSvc = require( '../services/event' );
 const coms = require( '../lib/coms' );
 const config = require( '../config' );
 
-let log;
+const loggerConfig = {
+  debug: {
+    prefix: 'oa:'
+  },
+  token: process.env.NODE_ENV === 'production' ? '8d66d66a-58ce-42b6-ab21-7805b075ba48' : null
+};
+
+log.setConfig( loggerConfig );
 
 module.exports = function () {
-
-  log = logger( 'activities/task' );
 
   coms.subscribe( config.mainChannel, ( err, action ) => {
 
@@ -34,7 +39,7 @@ module.exports = function () {
 
 function _onEventActivity( action ) {
 
-  log( 'info', action.values.agendaId ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.agendaId );
+  log( 'info', action.values.review_id ? '-- read event %s activity for agenda %s --' : '-- read event %s activity --', action.values.id, action.values.review_id );
 
   // untested code ( event deletion case ) - fixing event deletion exception with error handling.
 
@@ -76,7 +81,9 @@ function _onEventActivity( action ) {
             }
           }, err => {
 
-            log( 'error', new VError( err, 'could not add activity' ) );
+            if ( err ) {
+              log( 'error', new VError( err, 'could not add activity' ) );
+            }
 
           } );
 
