@@ -7,27 +7,10 @@
     "build": "rimraf build && babel components -d build -s",
     "preserve": "npm run-script build",
     "serve": "node test/app",
-    "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "version": "npm run build && git add -A build",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/react-components.git"
+    "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/react-components#readme",
-  "peerDependencies": {
-    "react": "15 || 16",
-    "react-dom": "15 || 16"
-  },
   "dependencies": {
     "@openagenda/dom-utils": "^2.0.3",
     "create-react-class": "^15.5.3",
