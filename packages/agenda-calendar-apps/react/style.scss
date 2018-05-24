@@ -1,0 +1,42 @@
+$oa-blue: #41acdd;
+
+@import '~/node_modules/react-big-calendar/lib/css/react-big-calendar.css';
+
+.spin-canvas {
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba( 255, 255, 255, 0.5 );
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 4;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.rbc-calendar {
+  
+  min-height: 800px;
+  width: 100%;
+
+  .rbc-event {
+
+    background-color: $oa-blue;
+    border-radius: 3px;
+
+    .rbc-event-content {
+
+      label {
+
+        margin-bottom: 0;
+
+      }
+
+    }
+
+  }
+
+}

@@ -34,7 +34,7 @@ module.exports.init = ( config, cb ) => {
     },
     schemas: config.schemas,
     mysql: config.db,
-    logger,
+    logger: config.getLogConfig( 'svc', 'agendaStakeholders' ),
     interfaces
   }, cb );
 

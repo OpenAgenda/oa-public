@@ -1,23 +1,26 @@
 "use strict";
 
-var knexLib = require('knex'),
-    w = require('when'),
-    _ = require('lodash'),
-    get = require('./get'),
-    list = require('./list'),
-    bulk = require('./bulk'),
-    stats = require('./stats'),
-    remove = require('./remove'),
-    create = require('./create'),
-    update = require('./update'),
-    legacy = require('./legacy'),
-    message = require('./message'),
-    dbUtils = require('./dbUtils'),
-    logger = require('@openagenda/basic-logger'),
-    settings = require('./settings'),
-    increment = require('./increment'),
-    instanciate = require('./instanciate'),
-    transferEvent = require('./transferEvent');
+var _ = require('lodash');
+var knexLib = require('knex');
+var w = require('when');
+
+var bulk = require('./bulk');
+var create = require('./create');
+var dbUtils = require('./dbUtils');
+var get = require('./get');
+var increment = require('./increment');
+var instanciate = require('./instanciate');
+var legacy = require('./legacy');
+var logger = require('@openagenda/logs');
+var list = require('./list');
+var message = require('./message');
+var remove = require('./remove');
+var settings = require('./settings');
+var stats = require('./stats');
+var transferEvent = require('./transferEvent');
+var update = require('./update');
+
+var log = logger('index');
 
 var knex = void 0,
     config = void 0,
@@ -140,7 +143,7 @@ function init(c, cb) {
 
     if (c.logger) {
 
-      logger.setLogger(c.logger);
+      logger.setModuleConfig(c.logger);
     }
   }).then(function () {
 
@@ -243,8 +246,13 @@ function init(c, cb) {
       knex: knex,
       schemas: schemas
     });
-  }).done(function () {
-    return cb ? cb() : null;
-  }, cb || null);
+  }).done(function (err) {
+
+    log('init done');
+
+    if (!cb) return;
+
+    cb(err);
+  });
 }
 //# sourceMappingURL=index.js.map

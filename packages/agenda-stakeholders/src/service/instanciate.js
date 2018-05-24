@@ -8,7 +8,7 @@ const validators = require( '@openagenda/validators' ),
 
   slug = require( 'slug' ),
 
-  logger = require( '@openagenda/basic-logger' ),
+  logger = require( '@openagenda/logs' ),
 
   format = require( './format' );
 

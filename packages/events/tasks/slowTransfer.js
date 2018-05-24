@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const queue = require( '@openagenda/queue' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 let service, config, log, q;
 

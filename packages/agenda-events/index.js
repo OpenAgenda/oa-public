@@ -7,6 +7,7 @@ const logger = require( '@openagenda/logs' );
 
 const endpoints = {
   list: require( './service/list' ),
+  listByLastId: require( './service/list' ).byLastId,
   get: require( './service/get' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
@@ -51,7 +52,7 @@ module.exports.init = c => {
     connection: config.mysql
   } );
 
-  Object.keys( endpoints ).forEach( e => endpoints[ e ].init( config, client, module.exports ) );
+  Object.keys( endpoints ).forEach( e => endpoints[ e ].init ? endpoints[ e ].init( config, client, module.exports ) : null );
 
   Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
 

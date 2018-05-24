@@ -24,8 +24,10 @@ function exposeApp( parentApp, mountpath ) {
 
   log( 'expose app' );
 
+  // basic methods (find, get, create, update, patch, remove)
   app.use( mountpath, serviceInstance );
 
+  // custom methods
   app.use(
     path.join( mountpath, '/setImageProfile' ),
     mw.setImageProfile()
@@ -33,10 +35,37 @@ function exposeApp( parentApp, mountpath ) {
 
   app.use(
     path.join( mountpath, '/clearImageProfile' ),
-    mw.clearImageProfile(),
-    ( req, res ) => {
-      res.send( { success: true } );
-    }
+    mw.clearImageProfile()
+  );
+
+  app.use(
+    path.join( mountpath, '/requestChangeEmail' ),
+    mw.requestChangeEmail(),
+  );
+
+  app.use(
+    path.join( mountpath, '/confirmChangeEmail' ),
+    mw.confirmChangeEmail(),
+  );
+
+  app.use(
+    path.join( mountpath, '/changePassword' ),
+    mw.changePassword(),
+  );
+
+  app.use(
+    path.join( mountpath, '/generateApiKey' ),
+    mw.generateApiKey(),
+  );
+
+  app.use(
+    path.join( mountpath, '/setNewFlag' ),
+    mw.setNewFlag(),
+  );
+
+  app.use(
+    path.join( mountpath, '/refresh' ),
+    mw.refresh(),
   );
 
   app.use( express.errorHandler() );

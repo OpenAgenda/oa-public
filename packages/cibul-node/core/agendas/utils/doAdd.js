@@ -5,6 +5,8 @@ const VError = require( 'verror' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const custom = require( '@openagenda/custom' );
 
+const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
+
 module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
 
   const added = {
@@ -35,11 +37,21 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
   // create custom data
   if ( clean.custom ) {
 
-    const result = await custom( formSchemaId ).create( eventUid, clean.custom, { transferToLegacy: true } );
+    try {
 
-    if ( result.success ) {
+      const result = await custom( formSchemaId ).create( eventUid, clean.custom, {
+        transferToLegacy: true
+      } );
 
-      added.custom = result.custom;
+      if ( result.success ) {
+
+        added.custom = result.custom;
+
+      }
+
+    } catch ( e ) {
+
+      log( 'error', 'did not sync legacy on custom create %s.%s: %s', formSchemaId, eventUid, e );
 
     }
 

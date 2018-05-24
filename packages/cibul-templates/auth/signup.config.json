@@ -1,10 +1,12 @@
 {
   "layout": "bsLayout/main",
 
-  "oaCss" : {
-    "bsForms" : "../css/bsForms.scss",
-    "auth" : "css/auth.scss"
+  "bsCss" : {
+    "main" : "/../bs-templates/compiled/main.css"
   },
+
+  "labels": "auth/signup",
+  
   "helpers" : {
     "_r" : "redirect",
     "_t" : "time",
@@ -12,6 +14,7 @@
     "_txt" : "text",
     "_sl" : "shareLinks"
   },
+  
   "base" : {
     "headMessage" : false,
     "pageClass" : "auth",

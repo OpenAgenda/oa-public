@@ -63,6 +63,15 @@ module.exports = {
           'moderators'
         ]
       },
+      moderateOnChangeBy: {
+        type: 'choice',
+        default: [],
+        options: [
+          'administrators',
+          'moderators',
+          'contributors'
+        ]
+      },
       defaultLang: {
         default: null,
         type: 'choice',

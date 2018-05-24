@@ -4,7 +4,7 @@ const crypto = require( 'crypto' );
 
 module.exports = {
   randomHash,
-  makeHashPassword,
+  hashPassword,
   verifyPassword
 };
 
@@ -25,7 +25,7 @@ function randomHash( length ) {
 
 }
 
-function makeHashPassword( password, salt ) {
+function hashPassword( password, salt ) {
 
   return crypto.createHash( 'sha1' ).update( salt + password ).digest( 'hex' );
 

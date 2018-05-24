@@ -6,12 +6,12 @@ module.exports = {
     en: 'refused'
   },
   tocontrol: {
-    fr: 'à compléter', 
-    en: 'incomplete'
+    fr: 'en modération', 
+    en: 'in moderation'
   },
   tobecontrolled:  {
-    fr: 'à compléter',
-    en: 'incomplete'
+    fr: 'en modération', 
+    en: 'in moderation'
   },
   controlled : {
     fr: 'prêt à publier',

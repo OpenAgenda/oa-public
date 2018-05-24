@@ -93,7 +93,7 @@ function objToDb( obj, filterNull = false ) {
 
     Object.keys( entry ).forEach( k => {
 
-      if ( entry[ k ] !== null && entry[ k ] !== undefined ) {
+      if ( entry[ k ] !== null && entry[ k ] !== undefined ) {
 
         filtered[ k ] = entry[ k ];
 
@@ -158,7 +158,7 @@ function dbToObj( entry, options = {} ) {
 
   } catch( e ) {}
 
-  obj.linkStore = store.linkStore || null;
+  obj.linkStore = store.linkStore || null;
 
   if ( store.custom_fields ) {
 
@@ -180,7 +180,7 @@ function dbToObj( entry, options = {} ) {
 
   if ( obj.actionsCounter === undefined ) {
 
-    obj = _.omit( obj, [ 'actionsCounter' ] );
+    obj = _.omit( obj, [ 'actionsCounter' ] );
 
   }
 

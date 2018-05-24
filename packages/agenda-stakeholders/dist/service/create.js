@@ -1,16 +1,17 @@
 "use strict";
 
-var _ = require('lodash'),
-    logger = require('@openagenda/basic-logger'),
-    Process = require('@openagenda/process-service'),
-    types = require('../iso/credentialTypes'),
-    format = require('./format'),
-    get = require('./get'),
-    validate = require('./lib/validate.process'),
-    validateContext = require('./lib/validateContext.process'),
-    settings = require('./settings');
+var _ = require('lodash');
 
-var log = void 0;
+var types = require('../iso/credentialTypes');
+var format = require('./format');
+var get = require('./get');
+var validate = require('./lib/validate.process');
+var validateContext = require('./lib/validateContext.process');
+var settings = require('./settings');
+
+var Process = require('@openagenda/process-service');
+
+var log = require('@openagenda/logs')('create');
 
 module.exports = _.extend(create, {
   init: init
@@ -131,10 +132,6 @@ function create(base, data, options, cb) {
 }
 
 function init(config) {
-
-  log = logger('create');
-
-  log('initing');
 
   schemas = config.schemas;
 

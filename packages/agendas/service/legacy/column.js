@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 let knex, schemas, log = () => {};
 
@@ -29,7 +29,7 @@ function column( schema, agendaId, columnName, value, cb ) {
 
   knex( schema )
 
-  .where( { id: agendaId } )
+  .where( { id: agendaId } )
 
   .update( updateData )
 

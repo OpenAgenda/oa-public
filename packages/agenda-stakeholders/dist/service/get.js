@@ -2,13 +2,13 @@
 
 var _ = require('lodash');
 var w = require('when');
-var logger = require('@openagenda/basic-logger');
 var format = require('./format');
 var validators = require('../iso/validators');
 
+var log = require('@openagenda/logs')('get');
+
 // service globals
-var log = void 0,
-    schemas = void 0,
+var schemas = void 0,
     knex = void 0,
     interfaces = void 0;
 
@@ -33,10 +33,6 @@ function get(preFilter, identifiers, options, cb) {
 }
 
 function init(config) {
-
-  log = logger('get');
-
-  log('initing');
 
   schemas = config.schemas;
 

@@ -7,7 +7,7 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var utils = require('@openagenda/utils'),
-    logger = require('@openagenda/basic-logger'),
+    logger = require('@openagenda/logs'),
     storeLib = require('@openagenda/mysql-table-store'),
     w = require('when'),
     validator = require('../iso/validator'),

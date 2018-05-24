@@ -25,6 +25,10 @@ module.exports = values => {
 
     clean.state = states[ Object.keys( states ).filter( k => clean.state === k.toLowerCase() )[ 0 ] ];
 
+  } else if ( clean.state === null ) {
+
+    return _.omit( clean, [ 'state' ] );
+
   }
 
   return clean;

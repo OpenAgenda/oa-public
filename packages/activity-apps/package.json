@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "",
   "repository": {
     "type": "git",
@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/activities": "^2.0.25",
+    "@openagenda/activities": "^2.0.27",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/labels": "^2.0.63",

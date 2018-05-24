@@ -165,6 +165,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( './event/files' )( app, '/' );
 
+        require( './services/agenda-docx' )( app, '/docx' );
+
         require( './api' );
 
         require( './calendar' )( app, '/' ); //:agendaSlug/calendar
@@ -245,6 +247,8 @@ module.exports = function ( enabledTypes, options, cb ) {
           time: '03:00'
         } );
 
+        require( 'agenda-docx' ).task();
+
         require( './general/mainLogger.task' )();
 
         require( './services/agenda/task' )();
@@ -262,8 +266,6 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
 
         require( '@openagenda/agenda-stakeholders' ).tasks.message();
-
-        require( './activities/task' )();
 
         require( './services/event/oembed' ).task();
 

@@ -10,7 +10,7 @@ const log = require( '@openagenda/logs' )( 'update' );
 
 module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
-  const { knex, schemas, interfaces } = config;
+  const { knex, schemas, interfaces } = config;
 
   const cleanOptions = validateOptions( options );
 
@@ -68,7 +68,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
       identifier,
     } ) );
 
-    if ( cleanOptions.tranferToLegacy ) {
+    if ( cleanOptions.transferToLegacy ) {
 
       try {
 

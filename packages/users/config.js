@@ -7,7 +7,8 @@ const logger = require( '@openagenda/logs' );
 
 const config = {
   name: 'user',
-  knex: null
+  knex: null,
+  interfaces: {}
 };
 
 module.exports = _.extend( config, { init } );

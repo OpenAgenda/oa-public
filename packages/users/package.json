@@ -1,7 +1,16 @@
 {
   "name": "@openagenda/users",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "",
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register --exit",
+    "build": "babel react/src -d react/build -s",
+    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
+    "watch-client": "testapp-clientwatcher -i test/app/front.js -o .tmp/testapp-client.js",
+    "fixtures": "node test/app/fixtures",
+    "version": "npm run build && git add -A react/build"
+  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
@@ -11,7 +20,7 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/users",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "dependencies": {
     "@feathersjs/commons": "^1.4.1",
@@ -41,6 +50,7 @@
     "express": "^4.16.3",
     "form-data": "^2.3.2",
     "jest": "^22.4.3",
+    "sinon": "^5.0.3",
     "tmp": "^0.0.33"
   }
 }

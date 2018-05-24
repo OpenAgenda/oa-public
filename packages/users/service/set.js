@@ -67,7 +67,7 @@ function _hashPassword( v ) {
 
     var salt = crypto.randomHash(),
 
-      password = crypto.makeHashPassword( v.query.password, salt );
+      password = crypto.hashPassword( v.query.password, salt );
 
 
     v.query.password = password;

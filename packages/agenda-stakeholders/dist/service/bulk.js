@@ -1,13 +1,16 @@
 "use strict";
 
-var async = require('async'),
-    queue = require('@openagenda/queue'),
-    logger = require('@openagenda/basic-logger'),
-    _ = require('lodash'),
-    create = require('./create'),
-    update = require('./update'),
-    get = require('./get'),
-    types = require('../iso/credentialTypes');
+var _ = require('lodash');
+var async = require('async');
+
+var queue = require('@openagenda/queue');
+
+var create = require('./create');
+var get = require('./get');
+var types = require('../iso/credentialTypes');
+var update = require('./update');
+
+var log = require('@openagenda/logs')('bulkCreate');
 
 module.exports = _.extend(bulk, {
   task: task,
@@ -16,7 +19,6 @@ module.exports = _.extend(bulk, {
 
 var q = void 0,
     queueConfig = void 0,
-    log = void 0,
     interfaces = void 0;
 
 /**
@@ -76,10 +78,6 @@ function task() {
 }
 
 function init(config) {
-
-  log = logger('bulkCreate');
-
-  log('initing');
 
   queueConfig = config.queue;
 

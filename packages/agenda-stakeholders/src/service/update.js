@@ -1,34 +1,26 @@
 "use strict";
 
-const 
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const utils = require( '@openagenda/utils' );
 
-  get = require( './get' ),
+const Process = require( '@openagenda/process-service' );
 
-  utils = require( '@openagenda/utils' ),
+const get = require( './get' );
+const format = require( './format' );
+const settings = require( './settings' );
+const types = require( '../iso/credentialTypes' );
+const validate = require( './lib/validate.process' );
+const validateContext = require( './lib/validateContext.process' );
 
-  logger = require( '@openagenda/basic-logger' ),
-
-  Process = require( '@openagenda/process-service' ),
-  
-  format = require( './format' ),
-
-  settings = require( './settings' ),
-  
-  types = require( '../iso/credentialTypes' ),
-  
-  validate = require( './lib/validate.process' ),
-
-  validateContext = require( './lib/validateContext.process' );
-
+const log = require( '@openagenda/logs' )( 'update' );
 
 module.exports = _.extend( update, {
   init
 } );
 
 
-let interfaces, knex, schemas, log;
+let interfaces, knex, schemas;
 
 const updateProcess = new Process( {
   tasks: {
@@ -43,7 +35,7 @@ const updateProcess = new Process( {
     in: [ 'base', 'identifiers' ],
     out: [ {
       condition: [ { $raw: null } ],
-      assign: [ , 'result.errors', { $raw: { 'result.success' : false } } ],
+      assign: [ , 'result.errors', { $raw: { 'result.success' : false } } ],
       end: true
     }, {
       assign: [ 'stakeholder' ]
@@ -62,7 +54,7 @@ const updateProcess = new Process( {
       settings: 'settings'
     },
     out: [ {
-      assign: [ 'result.valid', 'result.success', 'result.errors' ]
+      assign: [ 'result.valid', 'result.success', 'result.errors' ]
     }, {
       condition: false,
       end: true
@@ -80,7 +72,7 @@ const updateProcess = new Process( {
   }, {
     task: '_doUpdate',
     in: [ 'base', 'stakeholder', 'merged', 'options' ],
-    out: [ {
+    out: [ {
       condition: false,
       assign: [ 'result.success', 'result.errors' ]
     } ]
@@ -216,10 +208,6 @@ function _merge( stakeholder, data, options, cb ) {
 }
 
 function init( config ) {
-
-  log = logger( 'update' );
-
-  log( 'initing' );
 
   schemas = config.schemas;
 

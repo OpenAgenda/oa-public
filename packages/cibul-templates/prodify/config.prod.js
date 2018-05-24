@@ -63,13 +63,13 @@ module.exports = paths => {
         __DEVTOOLS__: false
       } ),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin( {
+      /*new webpack.optimize.UglifyJsPlugin( {
         compress: {
           warnings: false
         },
         mangle: true,
         fromString: true
-      } )
+      } )*/
     ],
     node: {
       fs: 'empty'

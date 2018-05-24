@@ -5,6 +5,7 @@
     "agenda-header" : "../node_modules/@openagenda/bs-templates/templates/agenda/_header.scss",
     "auth" : "css/auth.scss"
    },
+  "labels" : "auth/activation",
   "helpers" : {
     "_r" : "redirect",
     "_t" : "time",

@@ -100,11 +100,11 @@ async function rebuild( args, options, logger ) {
 
     results.usersAffected = usersAffected;
 
-    const eventsAffected = await eachEvents( onEachEvent );
-
-    results.eventsAffected = eventsAffected;
-
   }
+
+  const eventsAffected = await eachEvents( onEachEvent );
+
+  results.eventsAffected = eventsAffected;
 
   const agendasAffected = await eachAgendas( onEachAgenda );
 
@@ -226,7 +226,7 @@ async function rebuild( args, options, logger ) {
       } )
       .then( () => {
 
-        return (agenda.aggId ? Promise.resolve( 0 ) : eachReviewArticles( agenda, onEachReviewArticle ))
+        return (/* agenda.aggId ? Promise.resolve( 0 ) : */ eachReviewArticles( agenda, onEachReviewArticle ))
           .then( reviewArticlesAffected => {
 
             results.reviewArticlesAffected = (results.reviewArticlesAffected || 0) + reviewArticlesAffected;
@@ -357,6 +357,10 @@ async function rebuild( args, options, logger ) {
           options.userTable + '.is_removed as userRemoved'
         ] )
           .join( options.userTable, options.eventTable + '.owner_id', options.userTable + '.id' );
+
+        if ( options.agendaUid ) {
+          q.where( `${options.eventTable}.origin_uid`, options.agendaUid );
+        }
 
         if ( options.since ) {
           q.where( `${options.eventTable}.updated_at`, '>=', new Date( options.since * 1000 ) );

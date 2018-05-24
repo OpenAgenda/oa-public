@@ -1,25 +1,22 @@
 "use strict";
 
-const logger = require( '@openagenda/basic-logger' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
 
-  async = require( 'async' ),
+const queue = require( '@openagenda/queue' );
 
-  queue = require( '@openagenda/queue' ),
+const contextValidator = require( '../iso/contextValidator' );
+const get = require( './get' );
+const list = require( './list' );
 
-  list = require( './list' ),
-
-  get = require( './get' ),
-
-  _ = require( 'lodash' ),
-
-  contextValidator = require( '../iso/contextValidator' );
+const log = require( '@openagenda/logs' )( 'message' );
 
 module.exports = _.extend( queueMessage, {
   task,
   init
 } );
 
-let q, queueConfig, log, interfaces;
+let q, queueConfig, interfaces;
 
 
 /**
@@ -125,10 +122,6 @@ function task() {
 
 
 function init( config ) {
-
-  log = logger( 'message' );
-
-  log( 'initing' );
 
   queueConfig = config.queue;
 

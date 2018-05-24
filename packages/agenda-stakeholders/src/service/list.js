@@ -1,27 +1,21 @@
 "use strict";
 
-const parseListArguments = require( '@openagenda/service-utils/parseListArguments' ),
+const w = require( 'when' );
+const _ = require( 'lodash' );
 
-  w = require( 'when' ),
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
 
-  _ = require( 'lodash' ),
+const format = require( './format' );
+const credentialTypes = require( '../iso/credentialTypes' );
+const evaluateCredentialFilter = require( './lib/evaluateCredentialFilter' );
+const validators = require( '../iso/validators' );
 
-  logger = require( '@openagenda/basic-logger' ),
-
-  format = require( './format' ),
-
-  credentialTypes = require( '../iso/credentialTypes' ),
-
-  validators = require( '../iso/validators' ),
-
-  evaluateCredentialFilter = require( './lib/evaluateCredentialFilter' );
-
-
+const log = require( '@openagenda/logs' )( 'list' );
 
 module.exports = _.extend( list, { init } );
 
 // service globals
-let log, schemas, knex, interfaces;
+let schemas, knex, interfaces;
 
 
 function list() {
@@ -29,7 +23,7 @@ function list() {
   // prefilter is defined by service host endpoint ( .agenda or .user )
   let preFilter = arguments[ 0 ]; // this guy applies always
 
-  let { query, offset, limit, options, cb } = parseListArguments.apply( null, Array.prototype.slice.call( arguments, 1 ) );
+  let { query, offset, limit, options, cb } = parseListArguments.apply( null, Array.prototype.slice.call( arguments, 1 ) );
 
   _.extend( options, _legacyOptions( query, options ) );
 
@@ -64,11 +58,7 @@ function list() {
 
 }
 
-function init( config ) {
-
-  log = logger( 'list' );
-
-  log( 'initing' );
+function init( config ) {;
 
   schemas = config.schemas;
 
@@ -221,7 +211,7 @@ function _getUsersInfo( v ) {
 
     let d = w.defer();
 
-    interfaces.getUser( { id: s.userId }, ( err, user ) => {
+    interfaces.getUser( { id: s.userId }, ( err, user ) => {
 
       if ( err ) return d.reject( err );
 
@@ -258,7 +248,7 @@ function _legacyOptions( query, options ) {
 
     if ( query[ k ] !== undefined && options[ k ] === undefined ) {
 
-      l[ k ] = !!query[ k ];
+      l[ k ] = !!query[ k ];
 
     }
 

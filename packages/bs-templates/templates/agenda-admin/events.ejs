@@ -1,0 +1,24 @@
+<% include ../layout/_top.ejs %>
+
+<div class="container agenda-admin">
+  <% include ../agenda-admin/_admin-header.ejs %>
+
+  <div class="row wsq">
+    <%- include( '../agenda-admin/_admin-tabs.ejs', { selectedTab: 'events' } ) %>
+
+    <div class="col col-xs-9 body">
+      <header>
+        <span>Total des événements: <strong>12</strong></span>
+      </header>
+      <ul class="list-unstyled">
+        <% include ./_event-item.ejs %>
+        <% include ./_event-item.ejs %>
+        <% include ./_event-item.ejs %>
+        <% include ./_event-item.ejs %>
+      </ul>
+      <div class="text-center">
+        <button class="btn btn-default">Load more</button>
+      </div>
+    </div>
+  </div>
+</div>

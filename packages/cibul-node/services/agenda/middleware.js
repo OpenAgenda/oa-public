@@ -48,7 +48,7 @@ module.exports = function( agendaService ) {
 
 function loadAgenda( paramName, fieldName, options ) {
 
-  var loadOptions = {
+  const loadOptions = {
     name: 'agenda',
     required: true
   }; // options used for function, not for get
@@ -82,7 +82,7 @@ function loadAgenda( paramName, fieldName, options ) {
 
   return function( req, res, next ) {
 
-    var getParams = {};
+    const getParams = {};
 
     getParams[ fieldName ] = req.params[ paramName ];
     
@@ -158,9 +158,6 @@ function loadAdminLayout( req, res, next ) {
           image: req.agenda.getImage ? req.agenda.getImage( false ) : req.agenda.image
         },
         bottom: {
-          scripts: [
-            config.externalScripts.zendesk
-          ],
           scriptSources: [
             '/js/verifiedLocationsCounter.js'
           ]
@@ -431,13 +428,13 @@ function cleanJson( req, res, next ) {
 
 function buildPdf( req, res, next ) {
 
-  var pdfOptions = req.agenda.getPdfOptions(),
+  const pdfOptions = req.agenda.getPdfOptions();
 
-  stream = req.agenda.searchStream( req.query.oaq, {
+  const stream = req.agenda.searchStream( req.query.oaq, {
     showAll: false
-  } ),
+  } );
 
-  pdfStream = pdf( {
+  const pdfStream = pdf( {
     title: req.agenda.title,
     description: req.agenda.description,
     link: req.agenda.url,
@@ -463,7 +460,7 @@ function buildPdf( req, res, next ) {
 
     req.log( 'streaming event %s for pdf export', eventData.id );
 
-    var eInst = eventSvc.instanciate( eventData );
+    const eInst = eventSvc.instanciate( eventData );
 
     stream.pause();
 
@@ -508,13 +505,15 @@ function buildXlsx( includePrivateData ) {
 
       if ( err ) return next( err );
 
-      var stream = req.agenda.searchStream( req.query.oaq, {
+      const stream = req.agenda.searchStream( req.query.oaq, {
         showAll: includePrivateData 
       } ),
 
       xlsxStream = new xlsx(),
 
-      defaultRow = {}, processing = 0, end;
+      defaultRow = {};
+
+      let processing = 0, end;
 
       // default empty values
       f.getFieldNames().forEach( n => defaultRow[ n ] = '' );
@@ -537,7 +536,7 @@ function buildXlsx( includePrivateData ) {
         processing++;
 
         // instanciate
-        var eInst = eventSvc.instanciate( eventData );
+        const eInst = eventSvc.instanciate( eventData );
 
         // clean event
         eInst.exportable( ( err, clean ) => {
@@ -612,20 +611,20 @@ function buildCsv( includePrivateData ) {
 
       if ( err ) return next( err );
 
-      var stream = req.agenda.searchStream( req.query.oaq, {
+      const stream = req.agenda.searchStream( req.query.oaq, {
         showAll: includePrivateData 
-      } ),
+      } );
 
-      csvStream = csv.createWriteStream( {
+      const csvStream = csv.createWriteStream( {
         headers: true,
         delimiter: ';',
         quote: '"',
         escape: '"'
       } ),
 
-      defaultRow = {},
+      defaultRow = {};
 
-      processing = 0,
+      let processing = 0,
 
       end;
 
@@ -654,7 +653,7 @@ function buildCsv( includePrivateData ) {
         processing++;
 
         // instanciate
-        var eInst = eventSvc.instanciate( eventData );
+        const eInst = eventSvc.instanciate( eventData );
 
         eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 

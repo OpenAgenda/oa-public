@@ -4,7 +4,7 @@ const w = require( 'when' ),
 
   utils = require( '@openagenda/utils' ),
 
-  logger = require( '@openagenda/basic-logger' ),
+  logger = require( '@openagenda/logs' ),
 
   dbUtils = require( './dbUtils' ),
 

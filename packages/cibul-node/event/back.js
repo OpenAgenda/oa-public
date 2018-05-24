@@ -1,8 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const React = require( 'react' );
-const ReactDOMServer = require( 'react-dom/server' );
 const { promisify } = require( 'util' );
 
 const modLib = require( '../lib/moduleLib' );
@@ -19,7 +17,6 @@ const w = require( 'when' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( '@openagenda/activities' );
-const activitiesEventApp = require( '@openagenda/activity-apps/dist/react/apps/event' );
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
@@ -140,7 +137,7 @@ const routes = {
             const lastPage = activities.length < limit;
 
             res.json( {
-              html: ReactDOMServer.renderToStaticMarkup( activitiesEventApp( { activities, lang: req.lang || 'fr' } ) ),
+              activities,
               count: activities.length,
               nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
                 uid: req.agenda.uid,
@@ -323,7 +320,7 @@ function _changeStateCredential( req, res, next ) {
 
     agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
-      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [] ).includes( 'moderators' );
+      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
 
       if ( moderatorsCanPublish ) return cmn.checkAdminOrModerator( req, res, next );
 

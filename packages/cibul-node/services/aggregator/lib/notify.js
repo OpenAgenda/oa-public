@@ -1,15 +1,15 @@
 "use strict";
 
+const logger = require( '@openagenda/logger' );
+
 // transitional external aggregator service
-const svc = require( './svc' );
+const svc = require( '@openagenda/aggregators' );
 
-var p = require( '../../../lib/promises' ),
+const p = require( '../../../lib/promises' );
 
-aggUtils = require( './aggUtils' ),
+const aggUtils = require( './aggUtils' );
 
-q, pQ,
-
-logger = require( '@openagenda/logger' ), log;
+let q, pQ, log;
 
 
 /**
@@ -41,8 +41,8 @@ function unpublish( eventId, agendaId, cb ) {
   }
 
   p.w( {
-    agendaId: agendaId,
-    eventId: eventId,
+    agendaId,
+    eventId,
     event: false,
     aggregatorAgendas: []
   } )
@@ -150,7 +150,7 @@ function _dispatch( method ) {
         }
 
         queueFunc( {
-          method: method,
+          method,
           args: [ v.eventId, v.agendaId, aggAgenda.id, v.mute ]
         }, function( err ) {
 

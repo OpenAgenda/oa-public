@@ -256,6 +256,7 @@ create table if not exists `location` (
   department VARCHAR(255),
   city_district VARCHAR(255),
   postal_code VARCHAR(20),
+  insee VARCHAR(20),
   eve_id VARCHAR(100),
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL, 

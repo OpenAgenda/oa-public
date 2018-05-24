@@ -155,7 +155,6 @@ export default class Events extends Component {
     return (
       <div>
         <div className="header">
-          <h2 className="hidden-xs">{getLabel( 'myEvents' )}</h2>
           <div className="hidden-xs pull-right">
             <a
               onClick={() => agendasLoad( 'selectAgendasForCreateEvent' )
@@ -180,7 +179,7 @@ export default class Events extends Component {
             visible={search || query.search || total > perPageLimit}
           />
         </form>
-        <div className="row">
+        <div>
           {events && events.map( ( event, i ) => (
             <div className="event-item media" key={i}>
               <div className="media-left">

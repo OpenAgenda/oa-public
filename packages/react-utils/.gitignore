@@ -7,4 +7,8 @@ testconfig.js
 coverage/
 .cache/
 
+<<<<<<< HEAD
 dist/
+=======
+dist/
+>>>>>>> 3dec7c30f005368f70f6111d72e4f46ce5b414d1

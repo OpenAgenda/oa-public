@@ -1,9 +1,11 @@
 "use strict";
 
-var defaultFields = require('../iso/defaults').fields,
-    w = require('when'),
-    utils = require('@openagenda/utils'),
-    defaultSettings = {
+var _ = require('lodash');
+var w = require('when');
+
+var defaultFields = require('../iso/defaults').fields;
+
+var defaultSettings = {
   fields: []
 };
 
@@ -28,7 +30,7 @@ module.exports = Object.assign(function (agendaId) {
     }).then(function (rows) {
 
       var store = {},
-          s = utils.extend({}, defaultSettings);
+          s = _.extend({}, defaultSettings);
 
       if (!rows.length) {
 
@@ -50,7 +52,7 @@ module.exports = Object.assign(function (agendaId) {
         return s;
       }
 
-      return utils.extend({}, defaultSettings, {
+      return _.extend({}, defaultSettings, {
 
         fields: Object.keys(store.cFields).map(function (f) {
           return defaultFields.filter(function (lf) {

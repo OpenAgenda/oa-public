@@ -1,21 +1,25 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const async = require( 'async' );
 const w = require( 'when' );
-const sessions = require( '@openagenda/sessions' );
+
+const agendas = require( '@openagenda/agendas' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const cbify = require( '@openagenda/utils/cbify' );
+const sessions = require( '@openagenda/sessions' );
 const keysSvc = require( '@openagenda/keys' );
+
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
-const _ = require( 'lodash' );
+const cmn = require( '../lib/commons-app' );
 const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const modLib = require( '../lib/moduleLib' );
-const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
-const cbify = require( '@openagenda/utils/cbify' );
-const agendas = require( '@openagenda/agendas' );
+
+const agendaDocx = require( 'agenda-docx' );
 
 const routes = {
 
@@ -23,6 +27,7 @@ const routes = {
       sessions.middleware.load( { detailed: true } ),
       loadKey(),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+      _loadDocxPath,
       actionShow 
     ] ],
 
@@ -94,6 +99,19 @@ function loadKey() {
 }
 
 
+function _loadDocxPath( req, res, next ) {
+
+  agendaDocx.getState( req.agenda.uid ).then( state => {
+
+    req.docxPath = _.get( state, 'file.path' );
+
+    next();
+
+  }, next );
+
+}
+
+
 /**
  * controllers
  */
@@ -111,6 +129,7 @@ function actionShow( req, res ) {
     },
     key: req.userKey ? req.userKey.key : undefined,
     hasAggregator: false,
+    docxPath: req.docxPath,
     agendas: [],
     xhr: req.xhr,
     includeActionLinks: false,

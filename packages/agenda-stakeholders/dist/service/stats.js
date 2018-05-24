@@ -1,16 +1,17 @@
 "use strict";
 
-var _ = require('lodash'),
-    w = require('when'),
-    logger = require('@openagenda/basic-logger'),
-    types = require('../iso/credentialTypes'),
-    evaluateCredentialFilter = require('./lib/evaluateCredentialFilter');
+var _ = require('lodash');
+var w = require('when');
+
+var evaluateCredentialFilter = require('./lib/evaluateCredentialFilter');
+var types = require('../iso/credentialTypes');
+
+var log = require('@openagenda/logs')('stats');
 
 module.exports = _.extend(stats, { init: init });
 
 // service globals
-var log = void 0,
-    schemas = void 0,
+var schemas = void 0,
     knex = void 0,
     interfaces = void 0;
 
@@ -61,10 +62,6 @@ function _total(v) {
 }
 
 function init(config) {
-
-  log = logger('stats');
-
-  log('initing');
 
   schemas = config.schemas;
 

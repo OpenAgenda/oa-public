@@ -50,7 +50,7 @@ module.exports = function() {
 
 function _onAgendaActivity( action ) {
 
-  svc.get( { id: action.values.id }, function( err, agenda ) {
+  svc.get( { id: action.values.id }, function( err, agenda ) {
 
     if ( err ) {
 

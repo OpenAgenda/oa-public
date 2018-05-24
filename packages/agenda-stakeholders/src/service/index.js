@@ -1,46 +1,28 @@
 "use strict";
 
-const knexLib = require( 'knex' ),
+const _ = require( 'lodash' );
+const knexLib = require( 'knex' );
+const w = require( 'when' );
 
-  w = require( 'when' ),
+const bulk = require( './bulk' );
+const create = require( './create' );
+const dbUtils = require( './dbUtils' );
+const get = require( './get' );
+const increment = require( './increment' );
+const instanciate = require( './instanciate' );
+const legacy = require( './legacy' );
+const logger = require( '@openagenda/logs' );
+const list = require( './list' );
+const message = require( './message' );
+const remove = require( './remove' );
+const settings = require( './settings' );
+const stats = require( './stats' );
+const transferEvent = require( './transferEvent' );
+const update = require( './update' );
 
-  _ = require( 'lodash' ),
+const log = logger( 'index' );
 
-  get = require( './get' ),
-
-  list = require( './list' ),
-
-  bulk = require( './bulk' ),
-
-  stats = require( './stats' ),
-
-  remove = require( './remove' ),
-
-  create = require( './create' ),
-
-  update = require( './update' ),
-
-  legacy = require( './legacy' ),
-
-  message = require( './message' ),
-
-  dbUtils = require( './dbUtils' ),
-
-  logger = require( '@openagenda/basic-logger' ),
-
-  settings = require( './settings' ),
-
-  increment = require( './increment' ),
-
-  instanciate = require( './instanciate' ),
-
-  transferEvent = require( './transferEvent' );
-
-let knex,
-
-config,
-
-schemas;
+let knex, config, schemas;
 
 module.exports = Object.assign( agenda, {
   init,
@@ -172,7 +154,7 @@ function init( c, cb ) {
 
     if ( c.logger ) {
 
-      logger.setLogger( c.logger );
+      logger.setModuleConfig( c.logger );
       
     }
 
@@ -324,6 +306,14 @@ function init( c, cb ) {
 
   } )
 
-  .done( () => (cb ? cb() : null), cb || null );
+  .done( err  => {
+
+    log( 'init done' );
+
+    if ( !cb ) return;
+
+    cb( err );
+
+  } );
 
 }

@@ -1,12 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const VError = require( 'verror' );
 
-  VError = require( 'verror' ),
+const log = require( '@openagenda/logs' )( 'increment' );
 
-  logger = require( '@openagenda/basic-logger' );
-
-let knex, schemas, log;
+let knex, schemas;
 
 module.exports = _.extend( increment, { init } );
 
@@ -61,10 +60,6 @@ function increment( base, identifiers, cb ) {
 
 
 function init( config ) {
-
-  log = logger( 'increment' );
-
-  log( 'initing' );
 
   schemas = config.schemas;
 

@@ -21,7 +21,8 @@
   },
 
   "base" : {
-    "xhr" : false
+    "xhr" : false,
+    "docxPath" : false
   },
 
   "js" : true

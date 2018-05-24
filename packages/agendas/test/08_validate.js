@@ -49,6 +49,7 @@ describe( 'agendas - unit (server): validate', () => {
             defaultState: 2,
             message: null,
             type: 2,
+            moderateOnChangeBy: [],
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
@@ -176,6 +177,7 @@ describe( 'agendas - unit (server): validate', () => {
             useFields: false,
             authorizedIPAddresses: [],
             canPublish: [ 'administrators', 'moderators' ],
+            moderateOnChangeBy: [],
             survey: false
           },
           translation: {
@@ -202,7 +204,8 @@ describe( 'agendas - unit (server): validate', () => {
           embedsHead: false,
           embedsTemplates: false,
           prioritizedAggregator: false,
-          aggregator: false
+          aggregator: false,
+          docxExport: false
         }
       } );
 

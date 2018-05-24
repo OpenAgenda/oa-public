@@ -5,6 +5,8 @@ const knexLib = require( 'knex' );
 
 const logs = require( '@openagenda/logs' );
 
+const log = logs( 'init' );
+
 
 let ownedConnection = false;
 

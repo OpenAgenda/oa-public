@@ -3,37 +3,51 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 const http = require( 'http' );
+const _ = require( 'lodash' );
 const express = require( 'express' );
 const axios = require( 'axios' );
 const knexLib = require( 'knex' );
 const { expect } = require( 'chai' );
+const sinon = require( 'sinon' );
 const tmp = require( 'tmp' );
 const imageFiles = require( '@openagenda/image-files' );
 const fixtures = require( '@openagenda/fixtures' );
+const keysSvc = require( '@openagenda/keys/test/service' );
 const usersSvc = require( './service' );
+const crypto = require( '../service/lib/crypto' );
 const testconfig = require( '../testconfig' );
 const config = require( '../config' );
+const keysConfig = require( '@openagenda/keys/service/config' );
+
+const database = testconfig.mysql.database + '_service';
 
 const kaoreUid = 75052324;
 
-const database = testconfig.mysql.database + '_service';
+beforeEach( async () => {
+  await keysSvc.initAndLoad( {
+    ...testconfig,
+    mysql: { ...testconfig.mysql, database }
+  } );
+  await usersSvc.initAndLoad( {
+    ...testconfig,
+    mysql: { ...testconfig.mysql, database }
+  }, { reset: false } );
+  imageFiles.init( testconfig );
+} );
 
 afterEach( async () => {
   await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
   await config.knex.destroy();
+  await usersSvc().knex.destroy();
+  await keysConfig.knex.destroy();
 } );
 
-afterAll( () => {
+afterAll( async () => {
   fixtures.getConnection().end();
 } );
 
 describe( 'initialization', () => {
   it( 'express | http + service', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
     const app = express();
 
     // expose service users on the parent app
@@ -45,34 +59,24 @@ describe( 'initialization', () => {
 
     // Usage by http request
     const { data: page } = await axios.get( `http://localhost:${port}/users` );
-    expect( page.data ).to.have.property( 'length' ).that.to.be.equal( 20 );
+    expect( page.data ).to.have.lengthOf( 20 );
 
     // Usage by service
-    const service = usersSvc();
-    const user = await service.get( kaoreUid );
+    const user = await usersSvc().get( kaoreUid );
 
     expect( user.fullName ).to.be.equal( 'Kari Olafsson' );
-    expect( service ).to.include.all.keys(
+    expect( usersSvc() ).to.include.all.keys(
       'find', 'get', 'create', 'patch', 'update', 'remove',
       'hooks', 'on', 'once', 'emit', 'events'
     );
 
     server.close();
-    await service.knex.destroy();
   } );
 
   it( 'just service', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-    const user = await service.get( kaoreUid );
+    const user = await usersSvc().get( kaoreUid );
 
     expect( user.fullName ).to.be.equal( 'Kari Olafsson' );
-
-    await service.knex.destroy();
   } );
 
   it( 'init with a knex instance', async () => {
@@ -84,170 +88,246 @@ describe( 'initialization', () => {
       }
     } );
 
-    await usersSvc.initAndLoad( {
+    await keysSvc.initAndLoad( {
       ...testconfig,
       mysql: { ...testconfig.mysql, database },
       knex
     } );
+    await usersSvc.initAndLoad( {
+      ...testconfig,
+      mysql: { ...testconfig.mysql, database },
+      knex
+    }, { reset: false } );
 
-    const service = usersSvc();
-    const user = await service.get( kaoreUid );
+    const user = await usersSvc().get( kaoreUid );
 
     expect( user.fullName ).to.be.equal( 'Kari Olafsson' );
 
-    await service.knex.destroy();
+    await knex.destroy();
   } );
 } );
 
+describe( 'get', () => {
+  it( 'get a removed user', async () => {
+    const user = await usersSvc().get( kaoreUid );
+
+    expect( user.fullName ).to.be.equal( 'Kari Olafsson' );
+  } );
+} );
 
 describe( 'setImageProfile', () => {
   it( 'setImageProfile with a path', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-    imageFiles.init( testconfig );
-
-    const service = usersSvc();
     const tmpFile = tmp.fileSync();
 
     fs.createReadStream( path.join( __dirname, 'files/phteven.jpg' ) )
       .pipe( fs.createWriteStream( tmpFile.name ) );
 
-    const result = await service.setImageProfile( kaoreUid, {
+    const result = await usersSvc().setImageProfile( kaoreUid, {
       path: tmpFile.name
     } );
 
-    expect( result.uploadedPaths ).to.have.property( 'length' ).that.equal( 3 );
-
-    await service.knex.destroy();
+    expect( result.uploadedPaths ).to.have.lengthOf( 3 );
   } );
 } );
 
 describe( 'clearImageProfile', () => {
   it( 'clear image profile of a user', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-    imageFiles.init( testconfig );
+    await usersSvc().clearImageProfile( kaoreUid );
 
-    const service = usersSvc();
-
-    await service.clearImageProfile( kaoreUid );
-
-    const user = await service.get( kaoreUid );
+    const user = await usersSvc().get( kaoreUid );
 
     expect( user.image ).to.be.null;
-
-    await service.knex.destroy();
   } );
 } );
 
 describe( 'create', () => {
   it( 'create a user with an already taken email', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-
     await expect(
-      service.create( { email: 'gaetan@cibul.net' } )
+      usersSvc().create( { email: 'gaetan@cibul.net', password: 'pa**word' } )
     ).to.be.rejectedWith( Error, 'Already exist' );
-
-    await service.knex.destroy();
   } );
 } );
 
 describe( 'patch', () => {
   it( 'patch language of a user', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-    const result = await service.patch( kaoreUid, { culture: 'is' } );
+    const result = await usersSvc().patch( kaoreUid, { culture: 'is' } );
 
     expect( result.culture ).to.equal( 'is' );
-
-    await service.knex.destroy();
   } );
 
   it( 'patch user with a too long language', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-
     const error = await expect(
-      service.patch( kaoreUid, { culture: 'francaisDeFrânce' }, { provider: 'rest' } )
+      usersSvc().patch( kaoreUid, { culture: 'francaisDeFrânce' } )
     ).to.be.rejected;
 
-    expect( error.errors.length ).to.be.equal( 1 );
+    expect( error.errors ).to.have.lengthOf( 1 );
     expect( error.errors[ 0 ] ).to.include( {
       field: 'culture',
       code: 'string.toolong'
     } );
-
-    await service.knex.destroy();
   } );
 } );
 
 describe( 'requestChangeEmail', () => {
   it( 'basic requestChangeEmail', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-
-    const user = await service.requestChangeEmail( kaoreUid, { newEmail: 'jean-meaurice@hotmail.fr' } );
+    const user = await usersSvc().requestChangeEmail( kaoreUid, { newEmail: 'jean-meaurice@hotmail.fr' } );
 
     expect( user.store.newEmail ).to.be.equal( 'jean-meaurice@hotmail.fr' );
     expect( user.store.newEmailToken ).to.have.lengthOf( 32 );
-
-    await service.knex.destroy();
   } );
 
-  it( 'try to requestChangeEmail with an already taken email', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-
+  it( 'attempt to requestChangeEmail with an already taken email', async () => {
     await expect(
-      service.requestChangeEmail( kaoreUid, { newEmail: 'romain.lange@gmail.com' } )
+      usersSvc().requestChangeEmail( kaoreUid, { newEmail: 'romain.lange@gmail.com' } )
     ).to.be.rejectedWith( Error, 'Already exist' );
-
-    await service.knex.destroy();
   } );
 
-  it( 'try to requestChangeEmail with a bad email', async () => {
-    await usersSvc.initAndLoad( {
-      ...testconfig,
-      mysql: { ...testconfig.mysql, database }
-    } );
-
-    const service = usersSvc();
-
+  it( 'attempt to requestChangeEmail with a bad email', async () => {
     const error = await expect(
-      service.requestChangeEmail( kaoreUid, { newEmail: 'romain.langegmail.com' } )
+      usersSvc().requestChangeEmail( kaoreUid, { newEmail: 'romain.langegmail.com' } )
     ).to.be.rejected;
 
-    expect( error.errors.length ).to.be.equal( 1 );
+    expect( error.errors ).to.have.lengthOf( 1 );
     expect( error.errors[ 0 ] ).to.include( {
       field: 'newEmail',
       code: 'email.invalid'
     } );
+  } );
+} );
 
-    await service.knex.destroy();
+describe( 'confirmChangeEmail', () => {
+  it( 'basic confirmChangeEmail', async () => {
+    const user = await usersSvc().confirmChangeEmail( kaoreUid, {
+      query: {
+        token: 'e4a0f1c97b2f4ca7966f069e7b090c0d'
+      }
+    } );
+
+    expect( user.email ).to.be.equal( 'jean-bernard@gmail.com' );
+    expect( user.store.newEmail ).to.be.undefined;
+    expect( user.store.newEmailToken ).to.be.undefined;
+  } );
+
+  it( 'attempt to change his email for an email taken in the meantime', async () => {
+    await expect(
+      usersSvc().confirmChangeEmail( 17133001, {
+        query: {
+          token: '87071649646742ee8dce48e4eb1dc0b0'
+        }
+      } )
+    ).to.be.rejectedWith( Error, 'Already exist' );
+  } );
+
+  it( 'attempt to change email with a bad token in the query', async () => {
+    await expect(
+      usersSvc().confirmChangeEmail( 17133001, {
+        query: {
+          token: '87071649646742ee8dce48e4eb1dccbd'
+        }
+      } )
+    ).to.be.rejectedWith( Error, 'Bad token' );
+  } );
+} );
+
+describe( 'changePassword', () => {
+  it( 'change password', async () => {
+    const password = 'lab***adudule';
+
+    const user = await usersSvc().changePassword( 17133001, {
+      password
+    } );
+
+    expect( user.password ).to.be.equal( crypto.hashPassword( password, user.salt ) );
+  } );
+
+  it( 'change password - validation fail', async () => {
+    const password = null;
+
+    const error = await expect(
+      usersSvc().changePassword( 17133001, {
+        password
+      } )
+    ).to.be.rejected;
+
+    expect( error.errors ).to.have.lengthOf( 1 );
+    expect( error.errors[ 0 ] ).to.include( {
+      field: 'password',
+      code: 'required'
+    } );
+  } );
+} );
+
+describe( 'generateApiKey', () => {
+  it( 'generate new api public key', async () => {
+    const user = await usersSvc().generateApiKey( 17133001, {
+      publicKey: true,
+      secretKey: true
+    } );
+
+    expect( user.apiSecret ).to;
+  } );
+} );
+
+describe( 'remove', () => {
+  it( 'remove a user', async () => {
+    const user = await usersSvc().remove( 17133001 );
+
+    expect( user.isRemoved ).to.be.equal( true );
+
+    const modifiedUser = await usersSvc().get( 17133001 );
+
+    expect( modifiedUser ).to.be.null;
+  } );
+} );
+
+describe( 'setNewFlag', () => {
+  it( 'set a new flag to true', async () => {
+    const user = await usersSvc().get( 17133001 );
+
+    expect( user.isNew ).to.be.equal( true );
+
+    const modifiedUser = await usersSvc().setNewFlag( 17133001, {
+      isNew: false
+    } );
+
+    expect( modifiedUser.isNew ).to.be.equal( false );
+  } );
+} );
+
+describe( 'refresh', () => {
+
+  const now = new Date( _.floor( new Date(), -3 ) );
+  let clock;
+
+  beforeEach( () => {
+    clock = sinon.useFakeTimers( { now } );
+  } );
+
+  afterEach( () => {
+    clock.restore();
+  } );
+
+  it( 'refresh lastSignin', async () => {
+    const user = await usersSvc().refresh( 17133001, {
+      lastSignin: true
+    } );
+
+    expect( user.lastSignin ).to.eql( now );
+  } );
+
+  it( 'refresh lastInboxCheck', async () => {
+    const user = await usersSvc().refresh( 17133001, {
+      lastInboxCheck: true
+    } );
+
+    expect( user.lastInboxCheck ).to.eql( now );
+  } );
+
+  it( 'refresh lastNotified', async () => {
+    const user = await usersSvc().refresh( 17133001, {
+      lastNotified: true
+    } );
+
+    expect( user.lastNotified ).to.eql( now );
   } );
 } );

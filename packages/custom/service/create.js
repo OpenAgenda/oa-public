@@ -11,10 +11,9 @@ const legacy = require( './legacy' );
 
 module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
-  const { knex, schemas, interfaces } = config;
+  const { knex, schemas, interfaces } = config;
 
   const cleanOptions = validateOptions( options );
-
 
   if ( !knex ) throw new Error( 'db connector needs to be specified at service init' );
 
@@ -67,15 +66,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     if ( cleanOptions.transferToLegacy ) {
 
-      try {
-
-        await legacy( formSchemaId, identifier, clean );
-
-      } catch ( e ) {
-
-        log( 'error', 'did not sync legacy on create %s.%s', formSchemaId, identifier, e );
-
-      }
+      await legacy( formSchemaId, identifier, clean );
 
     }
 
@@ -94,6 +85,8 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
     }
 
   } catch ( e ) {
+
+    log( 'error', e );
 
     throw new VError( e, 'could not insert for %s / %s', formSchemaId, identifier );
 

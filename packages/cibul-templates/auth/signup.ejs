@@ -1,118 +1,121 @@
 <% if ( agenda ) { %>
 <% include ../agenda/head.part.ejs %>
 <% } %>
-<div class="container">
-  <% include _headMessage.ejs %>
-  <div class="row top-margined">
-    <section class="col-sm-6 col-sm-offset-3 wsq">
-      <div class="row">
-        <div class="content">
-          <h2><%= __( 'Create an account' ) %></h2>
-          <% if ( typeof message !== 'undefined' && message ) { %>
-          <div class="form-group">
-            <span class="error"><%= __( message ) %></span>
+<div class="container page-dialog signup">
+  <div class="top-margined bottom-margined">
+    <% include _headMessage.ejs %>
+    <div class="row">
+      <section class="col-sm-6 col-sm-offset-3 wsq padding-all-md">
+        <div class="row">
+          <div class="col-sm-12">
+            <h2><%= __( 'createAccount' ) %></h2>
           </div>
-          <% } else { %>
-          <a class="url" id="signin" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"><%= __( 'But I already have an account' ) %></a>
-          <% } %>
         </div>
-      </div>
-      <div class="row">
-        <form class="col-sm-6 content" method="post">
-
-          <div class="form-group">
-            <label for="full_name"><%= __( 'Name Surname' ) %></label>
-            <input class="form-control" type="text" name="full_name" value="<%= full_name %>"/>
-<% if ( errors.full_name ) { %>
-            <span class="error"><%= __( errors.full_name ) %></span>
-<% } %>
-          </div>
-
-          <div class="form-group">
-            <label for="email"><%= __('Email') %></label>
-            <input class="form-control" type="email" name="email" value="<%= email %>" />
-<% if ( errors.email ) { %>
-            <span class="error"><%= __( errors.email ) %></span>
-<% } %>
-          </div>
-
-          <div class="form-group">
-            <label for="password"><%= __('Password') %></label>
-            <input class="form-control" type="password" name="password" value="<%= password %>" />
-<% if ( errors.password ) { %>
-            <span class="error"><%= __( errors.password ) %></span>
-<% } %>
-          </div>
-
-          <div class="form-group">
-            <label for="repeat"><%= __('Repeat Password') %></label> 
-            <input class="form-control" type="password" name="repeat" value="<%= repeat %>" />
-<% if ( errors.repeat ) { %>
-            <span class="error"><%= __( errors.repeat ) %></span>
-<% } %>
-          </div>
-
-<% if ( useCaptcha ) { %>
-          <div class="form-group">
-            <div class="captcha">
-              <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="info-block text-center margin-v-lg">
+              <label><%= __( 'hasAccount' ) %></label>
+              <a href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>" class="btn btn-primary"><%= __( 'connect' ) %></a>
             </div>
-<% if ( errors.captcha ) { %>
-            <span class="error"><%= __( errors.captcha ) %></span>
-<% } %> 
           </div>
-<% } %>
-
-          <div class="form-group">
-            <button name="signup" class="btn btn-success" type="submit"><%= __('Sign Up') %></button>
-          </div>
-
-        </form>
-
-        <div class="col-sm-6 content social">
-
-          <div class="form-group">
-            
-            <a id="facebook-signup" class="btn btn-default btn-facebook fit" href="<%= genUrl( agenda ? 'agendaFacebookSignup' : 'facebookSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
-              <i class="fa fa-facebook"></i>
-              <span>Facebook</span>
-            </a>
-      <% if ( errors.facebookUid ) { %>
-            <span class="error"><%= __( errors.facebookUid ) %></span>
-      <% } %>
-
-          </div>
-
-          <div class="form-group">
-
-            <a id="twitter-signup" class="btn btn-default btn-twitter fit" href="<%= genUrl( agenda ? 'agendaTwitterSignup' : 'twitterSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
-              <i class="fa fa-twitter"></i>
-              <span>Twitter</span>
-            </a>
-      <% if ( errors.twitterUid ) { %>
-            <span class="error"><%= __( errors.twitterUid ) %></span>
-      <% } %>
-          </div>
-
-          <div class="form-group">
-
-            <a id="google-signup" class="btn btn-default btn-google fit" href="<%= genUrl( agenda ? 'agendaGoogleSignup' : 'googleSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>">
-              <i class="fa fa-google-plus"></i>
-              <span>Google Plus</span>
-            </a>
-<% if ( errors.googleUid ) { %>
-            <span class="error"><%= __( errors.googleUid ) %></span>
-<% } %>
-            
-          </div>
-
         </div>
-      </div>
-      <div class="row content">
-        <p><%- __( 'By creating an account you agree to the %terms% and to the %policy%.', { 
-          '%terms%' : '<a class="url" target="_blank" href="' + genUrl( 'termsShow' ) + '">' + __('Terms of Use') + '</a>',
-          '%policy%' : '<a class="url" target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/360003182014-Politique-de-confidentialit%C3%A9">' + __('Privacy Policy') + '</a>' }) %></p>
-      </div>
-    </section>
+<% if ( typeof message !== 'undefined' && message ) { %>
+        <div class="row">
+          <div class="col-sm-12">
+            <p class="bg-danger padding-all-sm"><%= __( message ) %></p>
+          </div>
+        </div>
+<% } %>
+        <div class="row margin-top-md">
+          <div class="col-md-6">
+            <form class="margin-h-sm" method="post">
+              <div class="form-group<%= errors.full_name ? ' has-error' : '' %>">
+                <label for="full_name" class="control-label"><%= __( 'nameSurname' ) %></label>
+                <input name="full_name" class="form-control"/>
+<% if ( errors.full_name ) { %>
+                <span class="text-danger"><%= __( errors.full_name ) %></span>
+<% } %>
+              </div>
+              <div class="form-group<%= errors.email ? ' has-error' : '' %>">
+                <label for="email" class="control-label"><%= __('email') %></label>
+                <input name="email" class="form-control" type="email"/>
+<% if ( errors.email ) { %>
+                <span class="text-danger"><%= __( errors.email ) %></span>
+<% } %>
+              </div>
+              <div class="form-group<%= errors.password ? ' has-error' : '' %>">
+                <label for="password" class="control-label"><%= __('password') %></label>
+                <input name="password" class="form-control" type="password"/>
+<% if ( errors.password ) { %>
+                <span class="text-danger"><%= __( errors.password ) %></span>
+<% } %>
+              </div>
+              <div class="form-group<%= errors.repeat ? ' has-error' : '' %>">
+                <label for="repeat" class="control-label"><%= __('repeatPassword') %></label>
+                <input name="repeat" class="form-control" type="password"/>
+<% if ( errors.repeat ) { %>
+                <span class="text-danger"><%= __( errors.repeat ) %></span>
+<% } %>
+              </div>
+<% if ( useCaptcha ) { %>
+              <div class="form-group<%= errors.captcha ? ' has-error' : '' %>">
+                <div class="captcha">
+                  <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+                </div>
+<% if ( errors.captcha ) { %>
+                <span class="text-danger"><%= __( errors.captcha ) %></span>
+<% } %> 
+              </div>
+<% } %>
+              <div class="form-group">
+                <button class="btn btn-primary" type="submit"><%= __('signup') %></button>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6">
+            <div class="margin-bottom-md">
+              <a 
+                href="<%= genUrl( agenda ? 'agendaFacebookSignup' : 'facebookSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
+                class="btn btn-facebook btn-block">
+                <i class="fa fa-facebook"></i>
+                Facebook
+              </a>
+<% if ( errors.facebookUid ) { %>
+              <span class="text-danger"><%= __( errors.facebookUid ) %></span>
+<% } %>
+            </div>
+            <div class="margin-bottom-md">
+              <a
+                href="<%= genUrl( agenda ? 'agendaTwitterSignup' : 'twitterSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>" 
+                class="btn btn-twitter btn-block">
+                <i class="fa fa-twitter"></i>
+                Twitter
+              </a>
+<% if ( errors.twitterUid ) { %>
+              <span class="text-danger"><%= __( errors.twitterUid ) %></span>
+<% } %>
+            </div>
+            <div class="margin-bottom-md">
+              <a 
+                href="<%= genUrl( agenda ? 'agendaGoogleSignup' : 'googleSignup', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
+                class="btn btn-google btn-block">
+                <i class="fa fa-google"></i>
+                Google
+              </a>
+<% if ( errors.googleUid ) { %>
+              <span class="text-danger"><%= __( errors.googleUid ) %></span>
+<% } %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 margin-v-md">
+            <p><%- __( 'agree', { 
+          terms : '<a target="_blank" href="' + genUrl( 'termsShow' ) + '">' + __('termsOfUse') + '</a>',
+          policy : '<a target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/360003182014-Politique-de-confidentialit%C3%A9">' + __('policy') + '</a>' }) %></p>
+          </div>
+        </div>
+      </section>
+    </div>
   </div>
 </div>

@@ -9,7 +9,7 @@ var utils = require('@openagenda/utils'),
 
 var knex,
     schemas,
-    logger = require('@openagenda/basic-logger'),
+    logger = require('@openagenda/logs'),
     log;
 
 module.exports = {

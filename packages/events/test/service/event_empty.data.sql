@@ -27,5 +27,6 @@ CREATE TABLE `${schema}` (
   UNIQUE INDEX uid_idx (uid),
   UNIQUE INDEX slug_idx (slug),
   INDEX agenda_uid_idx (agenda_uid),
+  INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

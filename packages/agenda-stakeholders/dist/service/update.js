@@ -1,15 +1,19 @@
 "use strict";
 
-var _ = require('lodash'),
-    get = require('./get'),
-    utils = require('@openagenda/utils'),
-    logger = require('@openagenda/basic-logger'),
-    Process = require('@openagenda/process-service'),
-    format = require('./format'),
-    settings = require('./settings'),
-    types = require('../iso/credentialTypes'),
-    validate = require('./lib/validate.process'),
-    validateContext = require('./lib/validateContext.process');
+var _ = require('lodash');
+
+var utils = require('@openagenda/utils');
+
+var Process = require('@openagenda/process-service');
+
+var get = require('./get');
+var format = require('./format');
+var settings = require('./settings');
+var types = require('../iso/credentialTypes');
+var validate = require('./lib/validate.process');
+var validateContext = require('./lib/validateContext.process');
+
+var log = require('@openagenda/logs')('update');
 
 module.exports = _.extend(update, {
   init: init
@@ -17,8 +21,7 @@ module.exports = _.extend(update, {
 
 var interfaces = void 0,
     knex = void 0,
-    schemas = void 0,
-    log = void 0;
+    schemas = void 0;
 
 var updateProcess = new Process({
   tasks: {
@@ -183,10 +186,6 @@ function _merge(stakeholder, data, options, cb) {
 }
 
 function init(config) {
-
-  log = logger('update');
-
-  log('initing');
 
   schemas = config.schemas;
 

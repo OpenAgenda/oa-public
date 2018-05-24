@@ -1,55 +1,47 @@
 "use strict";
 
-const knexLib = require( 'knex' ),
+const knexLib = require( 'knex' );
 
-  logger = require( '@openagenda/basic-logger' ),
+const imageFiles = require( '@openagenda/image-files' );
+const logger = require( '@openagenda/logs' );
 
-  imageFiles = require( '@openagenda/image-files' ),
+const Agenda = require( './Agenda' );
+const details = require( './details' );
+const get = require( './get' );
+const legacy = require( './legacy' );
+const list = require( './list' );
+const middleware = require( '../middleware' );
+const remove = require( './remove' );
+const set = require( './set' );
+const slugs = require( './slugs' );
+const validate = require( './validate' );
 
-  legacy = require( './legacy' ),
+const service = {
+  init,
+  list,
+  get,
+  findOne: get.findOne,
+  Agenda,
+  instanciate: data => new Agenda( data ),
+  middleware,
+  set,
+  remove,
+  count,
+  slugs: {
+    isTaken: slugs.isTaken,
+    generate: slugs.generate,
+  },
+  tasks: {
+    loadFromLegacy: require( '../tasks/loadFromLegacy' )
+  },
+  getConfig: () => config
+};
 
-  list = require( './list' ),
-
-  set = require( './set' ),
-
-  get = require( './get' ),
-
-  details = require( './details' ),
-
-  remove = require( './remove' ),
-
-  validate = require( './validate' ),
-
-  Agenda = require( './Agenda' ),
-
-  slugs = require( './slugs' ),
-
-  middleware = require( '../middleware' ),
-
-  service = {
-    init,
-    list,
-    get,
-    findOne: get.findOne,
-    Agenda,
-    instanciate: data => new Agenda( data ),
-    middleware,
-    set,
-    remove,
-    count,
-    slugs: {
-      isTaken: slugs.isTaken,
-      generate: slugs.generate,
-    },
-    tasks: {
-      loadFromLegacy: require( '../tasks/loadFromLegacy' )
-    },
-    getConfig: () => config
-  };
+const log = logger( 'index' );
 
 module.exports = service;
 
-let knex, config, schemas, imagePath, log;
+let knex, config, schemas, imagePath;
 
 function init( c ) {
 
@@ -64,7 +56,7 @@ function init( c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logger.setModuleConfig( c.logger );
 
   }
 
@@ -87,8 +79,7 @@ function init( c ) {
   legacy.init( schemas, knex );
 
   imageFiles.init( {
-    files: c.files,
-    logger: c.logger
+    files: c.files
   } );
 
   middleware.init( c, service );
@@ -99,7 +90,7 @@ function init( c ) {
 
   } );
 
-  log = logger( 'agendas service' );
+  log( 'init done' );
 
 }
 

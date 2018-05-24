@@ -2,12 +2,13 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const logger = require( '@openagenda/basic-logger' );
 const format = require( './format' );
 const validators = require( '../iso/validators' );
 
+const log = require( '@openagenda/logs' )( 'get' );
+
 // service globals
-let log, schemas, knex, interfaces;
+let schemas, knex, interfaces;
 
 module.exports = _.extend( get, { init } );
 
@@ -42,10 +43,6 @@ function get( preFilter, identifiers, options, cb ) {
 
 
 function init( config ) {
-
-  log = logger( 'get' );
-
-  log( 'initing' );
 
   schemas = config.schemas;
 
@@ -119,7 +116,7 @@ function _getUserInfo( v ) {
 
   }
 
-  let d =w.defer();
+  let d = w.defer();
 
   interfaces.getUser( { id: v.stakeholder.userId }, ( err, user ) => {
 

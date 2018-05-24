@@ -1,8 +1,10 @@
 "use strict";
 
 const knex = require( 'knex' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const _ = require( 'lodash' );
+
+const log = logger( 'init' );
 
 module.exports = endpoints => {
 
@@ -23,7 +25,7 @@ module.exports = endpoints => {
 
     if ( config.logger ) {
 
-      logger.setLogger( config.logger );
+      logger.setModuleConfig( config.logger );
 
     }
 
@@ -32,6 +34,8 @@ module.exports = endpoints => {
       endpoints[ e ].init( endpoints, config );
 
     } );
+
+    log( 'init done' );
 
   }
 

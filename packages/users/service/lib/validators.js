@@ -54,11 +54,11 @@ const schemaValidator = schema( {
     type: 'text'
   },
   is_activated: {
-    type: 'number',
-    default: 0
+    type: 'boolean',
+    default: false
   },
   is_new: {
-    type: 'number'
+    type: 'boolean'
   },
   last_signin: {
     type: 'date'
@@ -67,7 +67,7 @@ const schemaValidator = schema( {
     type: 'date'
   },
   is_removed: {
-    type: 'number'
+    type: 'boolean'
   },
   new_password: {
     type: 'text',

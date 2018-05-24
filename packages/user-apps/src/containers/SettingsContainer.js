@@ -362,7 +362,11 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
         .replace( ':type', unsubscription.type );
 
       if ( unsubscription.type === null ) {
-        url = url.replace( '/t/null', '' )
+        url = url.replace( '/t/null', '' );
+      }
+
+      if ( unsubscription.type === undefined ) {
+        url = url.replace( '/t/undefined', '' );
       }
 
       request.get( url )

@@ -67,12 +67,7 @@ function init( config ) {
       
     },
 
-    logger: {
-      debug: {
-        prefix: 'svc:'
-      },
-      token: process.env.NODE_ENV === 'production' ? '579dfeda-e57c-488c-85d0-adf994e2337f' : null
-    },
+    logger: config.getLogConfig( 'svc', 'eventSearch' ),
 
     interfaces: {
       onError

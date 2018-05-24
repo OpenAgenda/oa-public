@@ -156,7 +156,7 @@ function instanciate( data ) {
 
     }
 
-    let params = utils.extend( {
+    const params = utils.extend( {
       stakeholder: null, // required!
       refresh: true,
       mute: false,

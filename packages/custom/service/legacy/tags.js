@@ -8,20 +8,20 @@ module.exports = set;
 
 async function set( agendaEventId, fields, data ) {
 
-  const { knex } = config;
+  const { knex } = config;
   const { schemas } = config.legacy;
 
   const legacyTagIds = fields.reduce( ( tagIds, f ) => {
 
     if ( !data[ f.field ] ) return tagIds;
 
-    return tagIds.concat( data[ f.field ].map( id => {
+    return tagIds.concat( [].concat( data[ f.field ] ).map( id => {
 
       return _.head( f.options.filter( o => o.id === id ).map( o => o.legacyId ) );
 
     } ).filter( tId => !!tId ) );
 
-  }, [] );
+  }, [] );
 
   await knex( schemas.agendaEventTag ).delete().where( {
     review_article_id: agendaEventId

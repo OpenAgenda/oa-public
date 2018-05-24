@@ -1,26 +1,19 @@
 "use strict";
 
-const _ = require( 'lodash' ),
- 
-  logger = require( '@openagenda/basic-logger' ),
- 
-  Process = require( '@openagenda/process-service' ),
+const _ = require( 'lodash' );
 
-  types = require( '../iso/credentialTypes' ),
+const types = require( '../iso/credentialTypes' );
+const format = require( './format' );
+const get = require( './get' );
+const validate = require( './lib/validate.process' );
+const validateContext = require( './lib/validateContext.process' );
+const settings = require( './settings' );
 
-  format = require( './format' ),
+const Process = require( '@openagenda/process-service' );
 
-  get = require( './get' ),
+const log = require( '@openagenda/logs' )( 'create' );
 
-  validate = require( './lib/validate.process' ),
-
-  validateContext = require( './lib/validateContext.process' ),
- 
-  settings = require( './settings' );
- 
-let log;
-
-module.exports = _.extend( create, { 
+module.exports = _.extend( create, { 
   init
 } );
 
@@ -44,7 +37,7 @@ const createProcess = new Process( {
       settings: 'settings'
     },
     out: [ {
-      assign: [ 'result.valid', 'result.success', 'result.errors' ]
+      assign: [ 'result.valid', 'result.success', 'result.errors' ]
     }, {
       condition: false,
       end: true
@@ -88,13 +81,13 @@ const createProcess = new Process( {
     in: [ 'base', 'data', 'result.user', 'options' ],
     out: [ {
       condition: [ { $raw: null } ],
-      assign: [ , 'result.errors', { $raw: { 'result.success': false } } ]
+      assign: [ , 'result.errors', { $raw: { 'result.success': false } } ]
     }, {
       assign: [ 'stakeholderId', { $raw: { 'result.success': true } } ]
     } ]
   }, {
     task: 'get',
-    in: [ 'base', { id: 'stakeholderId' } ],
+    in: [ 'base', { id: 'stakeholderId' } ],
     out: [ {
       assign: 'result.stakeholder'
     } ]
@@ -142,10 +135,6 @@ function create( base, data, options, cb ) {
 
 
 function init( config ) {
-
-  log = logger( 'create' );
-
-  log( 'initing' );
 
   schemas = config.schemas;
 

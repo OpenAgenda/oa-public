@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 const image = require( './image' );
 const getRoles = require( './getRoles' );

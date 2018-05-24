@@ -525,7 +525,7 @@ function _appendModeratorCanPublish( req, res, next ) {
 
   agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
-    req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [] ).includes( 'moderators' );
+    req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
 
     next();
 

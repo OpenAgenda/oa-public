@@ -111,7 +111,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         activatingInvitations: !!test.credRowBefore.activating_invitation,
         prioritizedAggregator: false,
         emailstrategie: !!test.credRowBefore.emailstrategie,
-        aggregator: !!test.credRowBefore.aggregator
+        aggregator: !!test.credRowBefore.aggregator,
+        docxExport: false
       } );
 
       [ 'moderator', 'tags', 'custom_templates', 'custom_head', 'indesign' ].forEach( f => {

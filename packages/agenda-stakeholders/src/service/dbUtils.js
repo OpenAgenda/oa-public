@@ -10,7 +10,7 @@ format = require( './format' );
 
 var knex, schemas,
 
-logger = require( '@openagenda/basic-logger' ), log;
+logger = require( '@openagenda/logs' ), log;
 
 module.exports = {
   

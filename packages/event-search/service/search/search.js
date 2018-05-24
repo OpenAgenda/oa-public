@@ -12,8 +12,12 @@ const parseQuery = require( '../query' );
 const validateNav = require( '../query/validateNav' );
 const validateOptions = require( '../query/validateOptions' );
 
+const log = require( '@openagenda/logs' )( 'search' );
+
 
 module.exports = async ( alias, query, nav = {}, options = {} ) => {
+
+  log( 'searching on alias %s with query %j', alias, query );
 
   let cleanNav = {}, cleanOptions = {}, cleanDsl;
 

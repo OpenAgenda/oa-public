@@ -32,6 +32,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
           settings: {
             contribution: {
               type: 0,
+              moderateOnChangeBy: [],
               defaultState: 2,
               message: null
             } 
@@ -62,6 +63,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
           settings: {
             contribution: {
               type: 2,
+              moderateOnChangeBy: [],
               defaultState: 2,
               message: null
             }
@@ -79,7 +81,8 @@ describe( 'agendas - unit (server): legacy bridging', function() {
             data.should.eql( {
               settings: { 
                 contribution: { 
-                  type: 1, 
+                  type: 1,
+                  moderateOnChangeBy: [],
                   defaultState: 0, 
                   message: 'lol.'
                 } 

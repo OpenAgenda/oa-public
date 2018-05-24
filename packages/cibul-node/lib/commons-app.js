@@ -61,6 +61,29 @@ const verifyIPMiddleware = [
   } )
 ];
 
+const verifyAdminModMiddleware = agendaIdentifiers => [
+  agendas.middleware.load( {
+    namespaces: {
+      identifiers: agendaIdentifiers || { slug: 'params.slug' },
+      result: 'agenda'
+    },
+    private: null,
+    internal: true
+  } ),
+  loadMemberRole.bind( null, 'agenda' ),
+  ( req, res, next ) => {
+
+    if ( ![ 'administrator', 'moderator' ].includes( req.role ) ) {
+
+      return next( { code: 403 } );
+
+    }
+
+    next();
+
+  }
+]
+
 module.exports = {
 
   loadLogger,
@@ -89,6 +112,7 @@ module.exports = {
   loadMemberRole,
   renderUnauthorized,
 
+  verifyAdminModMiddleware,
   verifyIPMiddleware,
 
   useEmbedGoogleAnalytics,
@@ -101,8 +125,6 @@ module.exports = {
 
   redirectLegacySearch,
   loadLegacyRoutes,
-
-  addZendeskHelpButton,
 
   redirectTo,
   redirectToSignin,
@@ -156,17 +178,6 @@ function loadEvent( paramName, fieldName ) {
       .catch( catchError( req, res ) );
 
   }
-
-}
-
-
-function addZendeskHelpButton( layoutData ) {
-
-  if ( !layoutData.bottom ) layoutData.bottom = {};
-
-  if ( !layoutData.bottom.scripts ) layoutData.bottom.scripts = [];
-
-  layoutData.bottom.scripts.push( config.externalScripts.zendesk );
 
 }
 
@@ -301,6 +312,7 @@ function checkContributor( req, res, next ) {
   } );
 
 }
+
 
 
 function loadMemberRole( agendaNamespace, req, res, next ) {

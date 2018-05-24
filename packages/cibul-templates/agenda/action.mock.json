@@ -1,5 +1,6 @@
 {
   "base" : {
+
     "agenda" : {
       "title" : "Jeu de Territoire pour développer la qualité de Vie et la température de l'eau",
       "description" : "l'agenda des évènements repérés par ChezNous",
@@ -10,6 +11,8 @@
       "uid" : 48959239,
       "theme" : false
     },
+
+    "docxPath" : "https://fqfdqfqf.com",
 
     "includeActionLinks" : false,
 

@@ -2,12 +2,12 @@
 
 var _ = require('lodash');
 var w = require('when');
-var logger = require('@openagenda/basic-logger');
 var get = require('./get');
+
+var logger = require('@openagenda/logs')('remove');
 
 // service globals
 var interfaces = void 0,
-    log = void 0,
     schemas = void 0,
     knex = void 0;
 
@@ -68,10 +68,6 @@ function _remove(v) {
 }
 
 function init(config) {
-
-  log = logger('remove');
-
-  log('initing');
 
   schemas = config.schemas;
 

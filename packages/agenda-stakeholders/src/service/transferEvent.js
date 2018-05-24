@@ -5,15 +5,14 @@
  * ownership to other contributor of agenda
  */
 
-var interfaces, knex, schemas,
+const w = require( 'when' );
 
-  utils = require( '@openagenda/utils' ),
+const utils = require( '@openagenda/utils' );
+const dbUtils = require( './dbUtils' );
 
-  dbUtils = require( './dbUtils' ),
+const log = require( '@openagenda/logs' )( 'transferEvent' );
 
-  logger = require( '@openagenda/basic-logger' ), log,
-
-  w = require( 'when' );
+let interfaces, knex, schemas;
 
 module.exports = function ( agendaId ) {
 
@@ -81,15 +80,11 @@ module.exports = function ( agendaId ) {
 
 module.exports.init = function ( c ) {
 
-  log = logger( 'transferEvent' );
-
   interfaces = c.interfaces;
 
   schemas = c.schemas;
 
   knex = c.knex;
-
-  log( 'inited' );
 
 }
 

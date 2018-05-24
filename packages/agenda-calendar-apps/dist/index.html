@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>A test page</title>
+    <link rel="stylesheet" href="/node_modules/@openagenda/bs-templates/compiled/main.css" />
+  </head>
+  <body>
+    <header class="agenda-header"><div class="container profile notheme "><div class="row"><div class="col-sm-2 avatar-container"><a href="/agenda-culturel-grand-est"><img class="avatar" src="//cibul.s3.amazonaws.com/agenda7430297.jpg" alt="Agenda culturel Grand-Est"></a></div><div class="col-sm-7 title-container"><a href="/agenda-culturel-grand-est"><div class="agenda-title"><h1>Agenda culturel Grand-Est</h1></div> <p>Retrouvez dans cet agenda tous les événements des structures culturelles de la région Grand Est</p></a></div></div></div></header>
+    <div class="content agenda-calendar">
+      <div id="app"></div>
+      <script type="application/json" id="config">
+        {
+          "agendaUid" : 22604624,
+          "lang" : "fr",
+          "res" : {
+            "agenda" : "https://d.openagenda.com/agendas/{agendaUid}",
+            "search" : "https://d.openagenda.com/agendas/{agendaUid}/events.v2.json",
+            "event" : "https://d.openagenda.com/agendas/{agendaUid}/events/{eventUid}"
+          }
+        }
+      </script>
+    </div>
+  <script type="text/javascript" src="index.js"></script></body>
+</html>

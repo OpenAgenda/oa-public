@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.87",
+  "version": "1.0.106",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@openagenda/activity-apps": "^1.0.38",
+    "@openagenda/activity-apps": "^1.0.40",
     "@openagenda/admin-agendas": "^1.0.1",
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-event-references": "^1.0.2",
@@ -51,7 +51,7 @@
     "@openagenda/spinner": "^2.0.1",
     "@openagenda/sync-button": "^0.0.7",
     "@openagenda/translators": "^1.0.13",
-    "@openagenda/tumblr-parser": "^0.1.0",
+    "@openagenda/tumblr-parser": "^0.1.2",
     "@openagenda/users": "^2.0.1",
     "@openagenda/utils": "^1.0.2",
     "async": "0.9.0",

@@ -164,6 +164,7 @@ module.exports = createReactClass({
         <FileUpload
           name={ field.name }
           label={ field.label }
+          info= { field.info }
           optional= { field.optional }
           path={ this.props.res.path }
           value={ this.props.value }

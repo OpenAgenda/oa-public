@@ -4,7 +4,7 @@ var validators = require('@openagenda/validators'),
     _ = require('lodash'),
     w = require('when'),
     slug = require('slug'),
-    logger = require('@openagenda/basic-logger'),
+    logger = require('@openagenda/logs'),
     format = require('./format');
 
 var knex = void 0,

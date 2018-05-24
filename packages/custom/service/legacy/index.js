@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 
+const agendaEvents = require( './agendaEvents' );
 const customFields = require( './customFields' );
 const tags = require( './tags' );
 const categories = require( './categories' );
@@ -14,7 +15,7 @@ module.exports = _.extend( set, {
 
 async function set( formSchemaId, identifier, data ) {
 
-  const { knex } = config;
+  const { knex } = config;
   const { schemas, interfaces } = config.legacy;
 
   const fields = await interfaces.getFormSchemaFields( formSchemaId );
@@ -23,13 +24,10 @@ async function set( formSchemaId, identifier, data ) {
 
   const { id: eventId } = await knex( schemas.event ).first( 'id' ).where( 'uid', identifier );
 
+  const { id: agendaEventId } = await agendaEvents( agendaId, eventId );
+
   await customFields( eventId,
     fields.filter( f => f.origin === 'custom' ), data );
-
-  const { id: agendaEventId } = await knex( schemas.agendaEvent ).first( 'id' ).where( {
-    review_id: agendaId,
-    event_id: eventId
-  } );
 
   await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
 
@@ -39,7 +37,7 @@ async function set( formSchemaId, identifier, data ) {
 
 async function remove( formSchemaId, identifier ) {
 
-  const { knex } = config;
+  const { knex } = config;
   const { schemas, interfaces } = config.legacy;
 
   const { id: agendaId } = await knex( schemas.agenda ).first( 'id' ).where( 'form_schema_id', formSchemaId );

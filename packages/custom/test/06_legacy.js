@@ -66,13 +66,13 @@ describe( 'extended events - functional (server): legacy', function() {
       } 
     } );
 
-  } );
+  } );
 
 
   it( 'legacy set updates tag references based on given custom values', async () => {
 
     await legacy( 123 /* formSchemaId */, 27434489 /*eventUid*/, {
-      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/],
+      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/],
       'bordeaux-metropole' : [ 45 ]
     } );
 
@@ -88,7 +88,7 @@ describe( 'extended events - functional (server): legacy', function() {
   it( 'legacy set updates category reference base on given custom values', async () => {
 
     await legacy( 123 /* formSchemaId */, 27434489 /*eventUid*/, {
-      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/],
+      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/],
       'categories-agenda-metropolitain' : 45  /*3457*/
     } );
 

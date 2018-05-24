@@ -8,7 +8,7 @@ store = require( './store' ),
 
 utils = require( '@openagenda/utils' ),
 
-logger = require( '@openagenda/basic-logger' );
+logger = require( '@openagenda/logs' );
 
 let schemas, knex, log = () => {};
 
@@ -58,7 +58,13 @@ function agenda( agendaId ) {
    */
   function loadFromLegacy( cb ) {
 
-    w( { agendaId, loaded: {} } )
+    w( { agendaId, loaded: {
+      settings: {
+        contribution: {
+          moderateOnChangeBy: []
+        }
+      }
+    } } )
 
     .then( _loadContributionType )
 
@@ -304,7 +310,7 @@ function _loadContributionMessage( v ) {
 
     if ( err ) return d.reject( v );
 
-    utils.deep.set( v.loaded, 'settings.contribution.message', value || null );
+    utils.deep.set( v.loaded, 'settings.contribution.message', value || null );
 
     d.resolve( v );
 

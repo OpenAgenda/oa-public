@@ -3,6 +3,11 @@
 const keysSvc = require( '@openagenda/keys' );
 
 module.exports = {
+  name: 'users',
+  paginate: {
+    default: 20,
+    max: 100
+  },
   mysql: {
     host: '127.0.0.1',
     database: 'oa_test_users',
@@ -36,7 +41,6 @@ module.exports = {
       remove: identifiers => keysSvc( identifiers ).remove()
     }
   },
-  debug: true,
   redis: {
     connection: {
       host: 'localhost',

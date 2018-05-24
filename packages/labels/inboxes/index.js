@@ -172,8 +172,8 @@ module.exports = {
     en: 'Enter the changes you wish to suggest. These will then be processed by an administrator.'
   },
   supportInboxDesc: {
-    fr: 'Il est possible que la réponse à votre question se trouve dans notre <a target="_blank" href="https://openagenda.zendesk.com/hc/fr">centre d\'aide</a>, n\'hésitez pas y jeter un œil avant de poser votre question !',
-    en: 'It is possible that the answer to your question is in our <a target="_blank" href="https://openagenda.zendesk.com/hc/fr">help center</a>, please have a look before you ask your question!'
+    fr: 'Faites une recherche dans notre <a target="_blank" href="https://openagenda.zendesk.com/hc/fr">Centre d\'aide</a>. Si l\'information que vous recherchez ne s\'y trouve pas, écrivez-nous via le formulaire ci-dessous.',
+    en: 'Search our <a target="_blank" href="https://openagenda.zendesk.com/hc/en-us">Help center</a>. If the information you are looking for is not listed, write us a message and we will get back to you shortly.'
   },
   contactContributor: {
     fr: 'Contacter le contributeur',

@@ -1,19 +1,21 @@
 "use strict";
 
-var parseListArguments = require('@openagenda/service-utils/parseListArguments'),
-    w = require('when'),
-    _ = require('lodash'),
-    logger = require('@openagenda/basic-logger'),
-    format = require('./format'),
-    credentialTypes = require('../iso/credentialTypes'),
-    validators = require('../iso/validators'),
-    evaluateCredentialFilter = require('./lib/evaluateCredentialFilter');
+var w = require('when');
+var _ = require('lodash');
+
+var parseListArguments = require('@openagenda/service-utils/parseListArguments');
+
+var format = require('./format');
+var credentialTypes = require('../iso/credentialTypes');
+var evaluateCredentialFilter = require('./lib/evaluateCredentialFilter');
+var validators = require('../iso/validators');
+
+var log = require('@openagenda/logs')('list');
 
 module.exports = _.extend(list, { init: init });
 
 // service globals
-var log = void 0,
-    schemas = void 0,
+var schemas = void 0,
     knex = void 0,
     interfaces = void 0;
 
@@ -49,10 +51,7 @@ function list() {
 }
 
 function init(config) {
-
-  log = logger('list');
-
-  log('initing');
+  ;
 
   schemas = config.schemas;
 

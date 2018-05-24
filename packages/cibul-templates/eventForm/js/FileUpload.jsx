@@ -30,6 +30,7 @@ module.exports = createReactClass({
         fr: 'Charger un %s',
         en: 'Upload a %s'
       },
+      info: null,
       optional: true,
       path: null,
       value: null
@@ -113,6 +114,7 @@ module.exports = createReactClass({
 
     return <div className={ this.state.error ? 'form-group has-error' : 'form-group'}>
       <label>{this.props.label[ this.props.lang ].replace( '%s', [].concat( this.props.extension ).join( ', ' ) )}{ this.props.optional ? '' : ' (*)' }</label>
+      { this.props.info ? <span className="info">{this.props.info[ this.props.lang ]}</span> : null }
       <div className="file-upload">
         <Dropzone
           disabled={ this.state.loading }
@@ -134,6 +136,7 @@ module.exports = createReactClass({
             <label className="control-label">{this.getBottomLabel()}</label>
           </div>
         </Dropzone>
+        <span>Fichiers acceptés: { '.' + [].concat( this.props.extension ).join( ', .' ) }</span>
         { this.props.value ? <a 
           href="#"
           onClick={this.onRemove}

@@ -1,15 +1,12 @@
 "use strict";
 
 const { promisify } = require( 'util' );
+const _ = require( 'lodash' );
 const { Service } = require( 'feathers-knex' );
 const imageFiles = require( '@openagenda/image-files' );
 
 class Users extends Service {
-  setup( app ) {
-    this.app = app;
-  }
-
-  async setImageProfile( uid, { path, url } ) {
+  async setImageProfile( uid, { path, url }, params = {} ) {
     const user = await this.get( uid );
 
     const result = await imageFiles.load( {
@@ -18,45 +15,82 @@ class Users extends Service {
       formats: this._getImageFormats( `user.profile.${user.uid}` )
     } );
 
-    await this.patch( user.uid, {
+    result.user = await this.patch( user.uid, {
       image: result.uploadedPaths[ 0 ].split( '/' ).pop()
+    }, {
+      provider: params.provider,
+      query: params.query,
+      action: 'setImageProfile'
     } );
 
     return result;
   }
 
-  async clearImageProfile( uid ) {
+  async clearImageProfile( uid, params = {} ) {
     const user = await this.get( uid );
 
     const extension = user.image.split( '.' ).pop();
     const paths = this._getImageFormats( `user.profile.${user.uid}`, extension ).map( v => v.name );
 
-    const result = await promisify( imageFiles.clear )( paths );
+    await promisify( imageFiles.clear )( paths );
 
     await this.patch( user.uid, {
       image: null
+    }, {
+      provider: params.provider,
+      query: params.query,
+      action: 'clearImageProfile'
     } );
 
-    return result;
+    return { success: true };
   }
 
-  async requestChangeEmail( uid, data, params = {} ) {
-    const user = await this.get( uid );
-
-    return this.patch( user.uid, data, {
+  requestChangeEmail( uid, data, params = {} ) {
+    return this.patch( uid, data, {
       provider: params.provider,
       query: params.query,
       action: 'requestChangeEmail'
     } );
   }
 
-  async confirmChangeEmail( uid, params ) {
-    const user = await this.get( uid );
-
-    return this.patch( user.uid, data, {
+  confirmChangeEmail( uid, params = {} ) {
+    return this.patch( uid, {}, {
       provider: params.provider,
       query: params.query,
       action: 'confirmChangeEmail'
+    } );
+  }
+
+  changePassword( uid, data, params = {} ) {
+    return this.patch( uid, data, {
+      provider: params.provider,
+      query: params.query,
+      action: 'changePassword'
+    } );
+  }
+
+  generateApiKey( uid, params = {} ) {
+    return this.patch( uid, {}, {
+      provider: params.provider,
+      query: params.query,
+      action: 'generateApiKey',
+      ..._.pick( params, 'publicKey', 'secretKey' )
+    } );
+  }
+
+  setNewFlag( uid, data, params = {} ) {
+    return this.patch( uid, data, {
+      provider: params.provider,
+      query: params.query,
+      action: 'setNewFlag'
+    } );
+  }
+
+  refresh( uid, data, params = {} ) {
+    return this.patch( uid, data, {
+      provider: params.provider,
+      query: params.query,
+      action: 'refresh'
     } );
   }
 

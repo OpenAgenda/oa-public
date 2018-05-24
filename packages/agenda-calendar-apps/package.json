@@ -1,0 +1,43 @@
+{
+  "name": "@openagenda/agenda-calendar-apps",
+  "version": "1.0.4",
+  "description": "Calendar views for an agenda",
+  "main": "index.js",
+  "author": "Kari Olafsson",
+  "license": "private",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server",
+    "version": "npm run build && git add -A dist",
+    "postversion": "git push origin && git push origin --tags",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish"
+  },
+  "devDependencies": {
+    "@openagenda/bs-templates": "^2.0.20",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "html-webpack-plugin": "^2.30.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.5"
+  },
+  "dependencies": {
+    "@openagenda/labels": "^2.0.24",
+    "css-loader": "^0.28.7",
+    "immutability-helper": "^2.6.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
+    "prop-types": "^15.6.0",
+    "react-big-calendar": "^0.17.0",
+    "react-spinkit": "^3.0.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.19.0",
+    "superagent": "^3.8.2"
+  }
+}

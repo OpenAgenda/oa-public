@@ -16,7 +16,7 @@ module.exports = {
   initless: true,
   get,
   search: es.search,
-  create: create,
+  create,
   share: require( './share' ),
   list: model.events().list,
   instanciate: require( './instance' ),

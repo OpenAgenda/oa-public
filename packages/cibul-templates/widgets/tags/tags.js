@@ -59,9 +59,9 @@ function widget( elem, options ) {
       include : include,
     } ) );
 
-    if ( options.anchorConfig[ MODE ] ) {
+    if ( options.anchorConfig[ MODE ] ) {
 
-      view.setMode( options.anchorConfig[ MODE ] );
+      view.setMode( options.anchorConfig[ MODE ] );
 
     }
 

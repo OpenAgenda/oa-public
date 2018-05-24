@@ -22,7 +22,7 @@ module.exports = async ( agendaUid, eventUid, data ) => {
   const updated = {};
 
   // pre-validate data
-  let clean = await validate.loaded( { formSchemaId }, data );
+  const clean = await validate.loaded( { formSchemaId }, data );
 
   // update the event
   let result = await events.update( { uid: eventUid }, clean.event, { 
@@ -58,7 +58,7 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
   if ( clean.custom ) {
 
-    const result = await custom( formSchemaId ).update( updated.event.uid, clean.custom, {
+    const result = await custom( formSchemaId ).set( updated.event.uid, clean.custom, {
       transferToLegacy: true, 
       context: { legacy: false } 
     } );

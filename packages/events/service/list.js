@@ -3,7 +3,7 @@
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const map = require( './databaseFieldMap' );
 const svcUtils = require( '@openagenda/service-utils' );
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
@@ -12,12 +12,16 @@ const parseMarkdown = require( './lib/parseMarkdown' );
 const validateQuery = require( './validate/listQuery' );
 const validateOptions = require( './validate/listOptions' );
 
+const log = logger( 'list' );
 
-let schemas, service, knex, config, log;
+
+let schemas, service, knex, config;
 
 module.exports = Object.assign( list, { init } );
 
 function list( query, offset, limit, options, cb ) {
+
+  log( 'listing events for query %j', query );
 
   const params = _.defaultsDeep( svcUtils.parseListArguments.apply( null, arguments ), {
     query: {},
@@ -50,6 +54,8 @@ function list( query, offset, limit, options, cb ) {
       if ( cleanOptions.total ) {
 
         total = ( await knexQuery.clone().first( [ knex.raw( 'count( id ) as total' ) ] ) ).total;
+
+        log( 'total for %j: %s', params.query, total );
 
       }
 
@@ -111,7 +117,6 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
   if ( includePrivate ) listFields.push( 'private' );
 
   if ( includeDraft ) listFields.push( 'draft' );
-  
 
   if ( order ) {
 
@@ -121,12 +126,16 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
 
   }
 
+  log( 'launching list query for fields %j', listFields );
+
   return knex
     .select.apply( knex, listFields )
     .limit( limit || 0 )
     .offset( offset || 0 )
      
     .then( events => {
+
+      log( 'fetched %s events', events.length );
 
       return events.map( dbParse.toObj )
 
@@ -161,7 +170,11 @@ function _detailed( events, options ) {
 
     let originAgendaUids = events.map( e => e.agendaUid ).filter( uid => uid );
 
+    log( 'interface: fetching origin agendas by uid' );
+
     config.interfaces.getOriginAgendas( originAgendaUids, _.pick( options, [ 'internal' ] ), ( err, agendas ) => {
+
+      log( 'interface: fetched %s origin agendas by uid', agendas.length );
 
       if ( err ) {
 
@@ -182,7 +195,11 @@ function _detailed( events, options ) {
 
       }
 
+      log( 'interface: fetching locations by uid' );
+
       config.interfaces.getLocations( locationUids, _.pick( options, [ 'internal' ] ), ( err, locations ) => {
+
+        log( 'interface: fetched %s locations by uid', locations.length );
 
         if ( err ) {
 
@@ -194,7 +211,7 @@ function _detailed( events, options ) {
           {
             location: _.find( locations, l => l.uid === e.locationUid ) || null,
           },
-          options.html ? { 
+          options.html ? {
             html: _.mapValues( e.longDescription, parseMarkdown ) 
           } : {}
         ) ) );
@@ -289,7 +306,5 @@ function init( svc, c ) {
   knex = c.knex;
 
   config = c;
-
-  log = logger( 'event service.list' );
 
 }

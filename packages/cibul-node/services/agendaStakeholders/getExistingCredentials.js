@@ -10,6 +10,8 @@ module.exports = ( agendaId, cb ) => {
 
     if ( err ) return cb( err );
 
+    if ( !agenda ) return cb( null, [] );
+
     agenda.getRoles( ( err, credentials ) => {
 
       if ( err ) return cb( err );
