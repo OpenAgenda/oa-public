@@ -2,12 +2,12 @@
 <div id="content">
   <div class="container share-page">
     <div class="row">
-      <div class="col-sm-offset-3 col-sm-6">
+      <div class="col-sm-offset-2 col-sm-8">
         <h2><%= __( 'Export' ) %></h2>
       </div>
     </div>
     <div class="row text-left">
-      <div class="share-menu col-sm-offset-3 col-sm-6">
+      <div class="share-menu col-sm-offset-2 col-sm-8">
 
         <p class="legend"><%= __( 'Export your favorites' ) %></p>
         <div class="js_favorite_menu display-none">
@@ -17,7 +17,7 @@
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>">iCal</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid }) %>">ICS</a>
             <a class="btn btn-default js_fav_export js_spreadsheet" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid }) %>" data-extension="csv">CSV</a>
-            <a class="btn btn-default js_fav_export js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid } ) %>" data-extension="xlsx">Excel ( xlsx )</a>
+            <a class="btn btn-default js_fav_export js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid } ) %>" data-extension="xlsx">Microsoft Excel ( xlsx )</a>
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid }) %>">PDF</a>
             <a class="btn btn-default js_fav_export" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, key } ) %>">JSON *</a>
           </div>
@@ -34,7 +34,7 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: search }) %>">ICS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid, oaq: search } ) %>">RSS</a>
           <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: search }) %>" data-extension="csv">CSV</a>
-          <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: search } ) %>" data-extension="xlsx">Excel ( xlsx )</a>
+          <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: search } ) %>" data-extension="xlsx">Microsoft Excel ( xlsx )</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: search }) %>">PDF</a>
           <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, oaq: search, key } ) %>">JSON *</a>
         </div>
@@ -46,7 +46,10 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaRssEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">RSS</a>
           <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">ICS</a>
           <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaCsvEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>" data-extension="csv">CSV</a>
-          <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>" data-extension="xlsx">Excel ( xlsx )</a>
+          <a class="btn btn-default js_spreadsheet" href="<%= genUrl( 'agendaXlsxEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>" data-extension="xlsx">Microsoft Excel ( xlsx )</a>
+<% if ( docxPath ) { %>
+          <a class="btn btn-default" href="<%= docxPath %>"><strong><%= __( 'Microsoft Word ( docx )' ) %></strong></a>
+<% } %>
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">PDF</a>
           <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 }, key } ) %>">JSON *</a>
         </div>
