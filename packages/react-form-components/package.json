@@ -6,20 +6,11 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --watch",
     "build": "rimraf build && babel components -d build",
     "preserve": "npm run build",
     "serve": "node test/app",
-    "start": "nodemon --exec 'npm' --ignore build --ignore test/app/js/tinymce --ext js,jsx run-script serve",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A build",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "start": "nodemon --exec 'npm' --ignore build --ignore test/app/js/tinymce --ext js,jsx run-script serve"
   },
   "peerDependencies": {
     "react": "15 || 16",
