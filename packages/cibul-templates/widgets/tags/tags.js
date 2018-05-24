@@ -318,12 +318,14 @@ function widget( elem, options ) {
 
     log( 'rendering a%s widget', enabled ? 'n enabled' : ' disabled' );
 
-    var data = {
-      enabled : enabled,
+    const data = {
+      active: false,
+      selected: false,
+      enabled: enabled,
       tags : []
-    }, 
+    };
 
-    previousGroup = 0;
+    let previousGroup = 0;
 
     cn.forEach( tags, function( tag ) {
 
@@ -335,9 +337,21 @@ function widget( elem, options ) {
 
       selected = selectedTag == tag.s;
 
-      if ( active ) classes.push( 'active' );
+      if ( active ) {
 
-      if ( selected ) classes.push( 'selected' );
+        classes.push( 'active' );
+
+        data.active = true;
+
+      }
+
+      if ( selected ) {
+
+        classes.push( 'selected' );
+
+        data.selected = true;
+
+      }
 
       if ( !count ) classes.push( 'no-current-match' );
 
