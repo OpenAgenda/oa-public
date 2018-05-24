@@ -49,6 +49,10 @@ Check `localhost:3000` and click on the link to open the modal. The agenda used 
 
 It can be changed on the `index.html` file of this repo.
 
+Alternatively, a basic cli tool can be used to run a docx generation from a terminal:
+
+    yarn cli
+
 
 # Bits and pieces
 

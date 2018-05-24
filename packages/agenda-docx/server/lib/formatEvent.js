@@ -17,15 +17,13 @@ module.exports = function( event, lang = 'fr' ) {
     'location.access'
   ], lang, event );
 
-  _.set( flattened, 'dates', _formattedDates( flattened.timings, _.get( event, 'timezone', 'Europe/Paris' ), lang ) );
-
-  _.set( flattened, 'location.country', _countryLabel( _.get( event, 'location.countryCode', null ), lang ) );
-
-  _.set( flattened, 'custom', _customData( event ) );
-
-  _.set( flattened, 'accessibility', _accessibility( event.accessibility, lang ) );
-
-  flattened.hasAccessibility = !!event.accessibility.length;
+  _.extend( flattened, {
+    dates: _formattedDates( flattened.timings, _.get( event, 'timezone', 'Europe/Paris' ), lang ),
+    custom: _customData( event ),
+    accessibility: _accessibility( event.accessibility, lang ),
+    location: _.set( flattened.location, 'country', _countryLabel( _.get( event, 'location.countryCode', null ), lang ) ),
+    hasAccessibility: !!event.accessibility.length
+  } );
 
   return flattened;
 
@@ -64,7 +62,7 @@ function _customData( event ) {
 
   return event.tagGroups.reduce( ( reduced, g ) => {
 
-    return _.set( reduced, g.slug, g.tags.map( t => t.label ) );
+    return _.set( reduced, g.slug, g.tags.map( t => t.label ).join( ', ' ) );
 
   }, {} );
 

@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon server.dev",
     "dist": "webpack --config webpack.dist.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "cli": "node cli"
   },
   "dependencies": {
     "aws-sdk": "^2.230.1",
@@ -22,7 +23,8 @@
     "redis": "^2.8.0",
     "rimraf": "^2.6.2",
     "superagent": "^3.8.3",
-    "verror": "^1.10.0"
+    "verror": "^1.10.0",
+    "prompt-input": "^3.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

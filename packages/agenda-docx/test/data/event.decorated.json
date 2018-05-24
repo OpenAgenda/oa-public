@@ -117,12 +117,8 @@
   "hasPrivateCustomFields": false,
   "hasAccessibility": false,
   "custom": {
-    "conditions-de-participation": [
-      "Gratuit"
-    ],
-    "type-devenement": [
-      "Exposition"
-    ]
+    "conditions-de-participation": "Gratuit",
+    "type-devenement": "Exposition"
   },
   "contributor": {
     "organization": "Musées Agglomération du Bocage Bressuirais"

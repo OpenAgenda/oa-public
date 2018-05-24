@@ -97,6 +97,7 @@ module.exports = async ( { agendaUid, localTmpPath, templatePath, language } ) =
 
   return {
     outputPath,
+    events: formattedEvents,
     agenda: {
       title, description, url
     }
