@@ -1,10 +1,15 @@
 "use strict";
 
+const ReactDOM = require( 'react-dom' );
+
 const du = require( '@openagenda/dom-utils' );
 
 const layout = require( './activities.ejs' );
 
 const labels = require( '@openagenda/labels/event/show' );
+
+const activitiesEventApp = require( '@openagenda/activity-apps/dist/react/apps/event' );
+
 
 module.exports = ( { canvas, fetch, res, lang } ) => {
 
@@ -20,7 +25,14 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     if ( !result || !result.count ) return;
 
-    _displayActivities( canvas, result.html, labels.activity[ lang ] );
+    canvas.insertAdjacentHTML( 'beforeend', layout( { activityTitle: labels.activity[ lang ] } ) );
+
+    const activities = result.activities;
+
+    ReactDOM.render(
+      activitiesEventApp( { activities, lang } ),
+      du.el( '.js_event_activities' )
+    );
 
     buttonCanvas = du.el( '.js_more_activities' );
 
@@ -30,11 +42,11 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
     if ( !nextUrl ) return _removeButton();
 
-    _loadMore();
+    _loadMore( activities );
 
   } );
 
-  function _loadMore() {
+  function _loadMore( activities ) {
 
     du.addEvent( button, 'click', e => {
 
@@ -48,11 +60,12 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
 
         if ( !result.nextUrl ) _hide();
 
-        let d = document.createElement( 'div' );
+        Array.prototype.push.apply( activities, result.activities || [] );
 
-        d.innerHTML = result.html;
-
-        du.el( canvas, 'ul' ).insertAdjacentHTML( 'beforeend', du.el( d, 'ul' ).innerHTML );
+        ReactDOM.render(
+          activitiesEventApp( { activities, lang } ),
+          du.el( '.js_event_activities' )
+        );
 
         if ( result.nextUrl ) {
 
@@ -83,19 +96,5 @@ module.exports = ( { canvas, fetch, res, lang } ) => {
     buttonCanvas.parentNode.removeChild( buttonCanvas );
 
   }
-  
-}
-
-
-function _displayActivities( canvas, html, title ) {
-
-  canvas.insertAdjacentHTML( 'beforeend', 
-
-    layout( {
-      activityTitle: title,
-      html: html
-    } )
-
-  );
 
 }
