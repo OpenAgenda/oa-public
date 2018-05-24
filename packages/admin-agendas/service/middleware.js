@@ -1,14 +1,11 @@
 "use strict";
 
-var logger = require( '@openagenda/basic-logger' ), log,
+const _ = require( 'lodash' );
+const validators = require( '@openagenda/validators' );
 
-  validators = require( '@openagenda/validators' ),
-
-  service, config,
-
-  agendas,
-
-  utils = require( '@openagenda/utils' );
+let service;
+let config;
+let agendas;
 
 module.exports = {
   init,
@@ -26,12 +23,16 @@ function init( s, c ) {
 
   service = s;
 
-  config = utils.extend( {
-    limit: {
-      default: 20,
-      max: 100
-    }
-  }, c.mw || {} );
+  config = Object.assign(
+    {
+      limit: {
+        default: 20,
+        max: 100
+      }
+    },
+    c.mw || {},
+    _.pick( c, 'interfaces' )
+  );
 
   agendas = c.services.agendas;
 
@@ -40,7 +41,7 @@ function init( s, c ) {
 
 function list( req, res, next ) {
 
-  var query = req.query.oas,
+  let query = req.query.oas,
 
     offset = 0,
 
@@ -86,7 +87,7 @@ function get( req, res, next ) {
 
     return res.json( _.extend( agenda, {
       config: {
-        credentials: config.interfaces.getExistingCredentials()
+        credentials: config.interfaces.getAgendaCredentialDetails()
       }
     } ) );
 
@@ -115,7 +116,7 @@ function set( req, res, next ) {
 
 function agendaStakeholdersList( req, res, next ) {
 
-  var agendaId = req.query.agendaId,
+  let agendaId = req.query.agendaId,
 
     query = { order: 'credential' },
 

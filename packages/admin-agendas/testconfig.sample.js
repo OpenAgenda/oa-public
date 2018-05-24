@@ -55,7 +55,13 @@ module.exports = {
 
     },
 
+    getAgendaCredentialDetails: () => require( '@openagenda/agendas/service/validate/privateFields' ).credentials,
+
     onCreate: stakeholder => {},
-    onUpdate: ( before, after ) => {}
+    onUpdate: ( before, after ) => {},
+    onMessage: ( stakeholder, message, context, cb ) => {
+      console.log( stakeholder, message );
+      cb();
+    }
   }
 }
