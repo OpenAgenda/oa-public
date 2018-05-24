@@ -62,6 +62,7 @@ function list( req, res, next ) {
 
   if ( !req.xhr ) return next();
 
+  // bad practice to call a service inside another service
   agendas.list( query, offset, limit, {
     total: true,
     detailed: true,
@@ -78,11 +79,16 @@ function list( req, res, next ) {
 
 function get( req, res, next ) {
 
+  // bad practice to call a service inside another service
   agendas.get( req.query, { detailed: true, internal: true, private: null }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 
-    return res.json( agenda );
+    return res.json( _.extend( agenda, {
+      config: {
+        credentials: config.interfaces.getExistingCredentials()
+      }
+    } ) );
 
   } );
 
@@ -90,6 +96,7 @@ function get( req, res, next ) {
 
 function set( req, res, next ) {
 
+  // bad practice to call a service inside another service
   agendas.set( { uid: req.params.uid }, req.body, {
     internal: true,
     protected: false,
@@ -130,6 +137,7 @@ function agendaStakeholdersList( req, res, next ) {
   } catch ( e ) {
   }
 
+  // bad practice to call a service inside another service
   service.stakeholders.list( agendaId, query, offset, limit, { deletedUser: null }, ( err, stakeholders, total ) => {
 
     if ( err ) return next( err );
