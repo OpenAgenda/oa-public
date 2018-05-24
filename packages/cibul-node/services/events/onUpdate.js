@@ -14,8 +14,6 @@ module.exports = ( before, after, context ) => {
 
   eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
 
-  console.log( 'UPDAAATE', before, after, context );
-
   Promise.resolve()
     .then( async () => {
 
