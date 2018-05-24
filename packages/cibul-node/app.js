@@ -266,8 +266,6 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( '@openagenda/agenda-stakeholders' ).tasks.message();
 
-        require( './activities/task' )();
-
         require( './services/event/oembed' ).task();
 
         require( './services/agendaStatistics' ).task();

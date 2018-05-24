@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@openagenda/activity-apps": "^1.0.38",
+    "@openagenda/activity-apps": "^1.0.40",
     "@openagenda/admin-agendas": "^1.0.1",
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-event-references": "^1.0.2",

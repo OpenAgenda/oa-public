@@ -1,12 +1,57 @@
 "use strict";
 
-const eventSearch = require( '../eventSearch' );
+const { promisify } = require( 'util' );
+const VError = require( 'verror' );
+const activitiesSvc = require( '@openagenda/activities' );
+const usersSvc = require( '@openagenda/users' );
+const agendasSvc = require( '@openagenda/agendas' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onUpdate' );
+const eventSearch = require( '../eventSearch' );
 
 module.exports = ( before, after, context ) => {
 
   log( 'info', 'updated event %s', after.uid, { context } );
 
   eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
-  
+
+  Promise.resolve()
+    .then( async () => {
+
+      let user;
+      let agenda;
+
+      try {
+        user = await promisify( usersSvc.get )( { uid: context.userUid } );
+      } catch ( e ) {
+        return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
+      }
+
+      try {
+        agenda = await promisify( agendasSvc.get )( { uid: context.agendaUid }, { private: null } );
+      } catch ( e ) {
+        return log( 'error', new VError( e, 'Error to get agenda %s', context.agendaUid ) );
+      }
+
+      activitiesSvc.feed( { entityType: 'event', entityUid: after.uid } ).activities.add( {
+        actor: 'user:' + user.uid,
+        verb: 'event.update',
+        object: 'event:' + after.uid,
+        target: 'agenda:' + agenda.uid,
+        store: {
+          labels: {
+            actor: user.full_name,
+            object: before.title,
+            target: agenda.title
+          }
+        }
+      }, err => {
+
+        if ( err ) {
+          log( 'error', new VError( err, 'could not add activity' ) );
+        }
+
+      } );
+
+    } );
+
 }
