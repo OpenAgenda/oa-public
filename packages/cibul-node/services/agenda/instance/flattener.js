@@ -658,7 +658,7 @@ function _state( lang ) {
 
     if ( !s || !s.length ) return s;
 
-    return stateLabels[ s ][ lang ];
+    return stateLabels[ s ][ lang ];
 
   }
 
@@ -675,7 +675,7 @@ function _defineCountryLabel( lang ) {
 
 function _extractGroupTags( group ) {
 
-  let groupSlugs = group.tags.map( t => t.slug );
+  const groupSlugs = group.tags.map( t => t.slug );
 
   return tags => {
 
