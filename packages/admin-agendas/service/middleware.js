@@ -85,13 +85,19 @@ function get( req, res, next ) {
 
     if ( err ) return next( err );
 
-    return res.json( _.extend( agenda, {
-      config: {
-        credentials: config.interfaces.getAgendaCredentialDetails()
-      }
-    } ) );
+    return res.json( _extendWithConfig( agenda ) );
 
   } );
+
+}
+
+function _extendWithConfig( agenda ) {
+
+  return _.extend( agenda, {
+    config: {
+      credentials: config.interfaces.getAgendaCredentialDetails()
+    }
+  } )
 
 }
 
@@ -106,6 +112,8 @@ function set( req, res, next ) {
   }, ( err, result ) => {
 
     if ( err ) return next( err );
+
+    result.agenda = _extendWithConfig( result.agenda );
 
     return res.json( result );
 

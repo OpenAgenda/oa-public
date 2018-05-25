@@ -1,24 +1,28 @@
 "use strict";
 
-var _react = require('react');
+var _lodash = require('lodash');
 
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _createReactClass = require('create-react-class');
 
 var _createReactClass2 = _interopRequireDefault(_createReactClass);
 
-var _List = require('@openagenda/react-components/build/List');
+var _propTypes = require('prop-types');
 
-var _List2 = _interopRequireDefault(_List);
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
 
 var _rcSwitch = require('rc-switch');
 
 var _rcSwitch2 = _interopRequireDefault(_rcSwitch);
+
+var _List = require('@openagenda/react-components/build/List');
+
+var _List2 = _interopRequireDefault(_List);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -348,151 +352,28 @@ module.exports = (0, _createReactClass2.default)({
         setAgenda = _props.setAgenda;
 
 
-    return agenda.credentials && _react2.default.createElement(
-      'div',
-      null,
-      _react2.default.createElement('p', null),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { moderators: checked } });
-          },
-          checked: !!agenda.credentials.moderators
-        }),
-        ' Moderators'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { aggregator: checked } });
-          },
-          checked: !!agenda.credentials.aggregator
-        }),
-        ' Aggregator'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { prioritizedAggregator: checked } });
-          },
-          checked: !!agenda.credentials.prioritizedAggregator
-        }),
-        ' Prioritized aggregation'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { tags: checked } });
-          },
-          checked: !!agenda.credentials.tags
-        }),
-        ' Agenda tags'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { embedsHead: checked } });
-          },
-          checked: !!agenda.credentials.embedsHead
-        }),
-        ' Add lines inside embed ',
-        '<head>'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { embedsTemplates: checked } });
-          },
-          checked: !!agenda.credentials.embedsTemplates
-        }),
-        ' Customize embed templates'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { indesign: checked } });
-          },
-          checked: !!agenda.credentials.indesign
-        }),
-        ' Old indesign tab'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { activatingInvitations: checked } });
-          },
-          checked: !!agenda.credentials.activatingInvitations
-        }),
-        ' Invitations that trigger instant account verification ( no activation email required )'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { emailstrategie: checked } });
-          },
-          checked: !!agenda.credentials.emailstrategie
-        }),
-        ' Emailstrategie tab'
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        _react2.default.createElement(_rcSwitch2.default, {
-          className: 'rc-switch',
-          checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
-          unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
-          onChange: function onChange(checked) {
-            return setAgenda({ credentials: { invitationMessage: checked } });
-          },
-          checked: !!agenda.credentials.invitationMessage
-        }),
-        ' Invitation message'
-      )
+    var credentials = _lodash2.default.get(agenda, 'config.credentials', {});
+
+    return _react2.default.createElement(
+      'ul',
+      { className: 'list-unstyled' },
+      _lodash2.default.keys(credentials).map(function (c) {
+        return _react2.default.createElement(
+          'li',
+          { key: c, className: 'margin-v-sm' },
+          _react2.default.createElement(_rcSwitch2.default, {
+            className: 'rc-switch',
+            checkedChildren: _react2.default.createElement('i', { className: 'fa fa-check', 'aria-hidden': 'true' }),
+            unCheckedChildren: _react2.default.createElement('i', { className: 'fa fa-times', 'aria-hidden': 'true' }),
+            onChange: function onChange(checked) {
+              return setAgenda(_lodash2.default.set({}, ['credentials', c], checked));
+            },
+            checked: !!agenda.credentials[c]
+          }),
+          ' ',
+          credentials[c].description
+        );
+      })
     );
   },
   setTab: function setTab(name) {

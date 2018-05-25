@@ -1,10 +1,12 @@
 "use strict";
 
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import _ from 'lodash';
 import createReactClass from 'create-react-class';
-import List from '@openagenda/react-components/build/List';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
 import Switch from 'rc-switch';
+
+import List from '@openagenda/react-components/build/List';
 
 
 module.exports = createReactClass( {
@@ -212,113 +214,23 @@ module.exports = createReactClass( {
   },
 
   renderFeaturesTab() {
+
     const { agenda, setAgenda } = this.props;
 
-    return (
-      agenda.credentials && <div>
-        <p></p>
+    const credentials = _.get( agenda, 'config.credentials', {} );
 
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { moderators: checked } } )}
-            checked={!!agenda.credentials.moderators}
-          /> Moderators
-        </p>
+    return <ul className="list-unstyled">{_.keys( credentials ).map( c =>
+      <li key={c} className="margin-v-sm"> 
+        <Switch
+          className="rc-switch"
+          checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+          unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+          onChange={checked => setAgenda( _.set( {}, [ 'credentials', c ], checked ) )}
+          checked={!!agenda.credentials[ c ]}
+        /> {credentials[ c ].description}
+      </li>
+    )}</ul>
 
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { aggregator: checked } } )}
-            checked={!!agenda.credentials.aggregator}
-          /> Aggregator
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { prioritizedAggregator: checked } } )}
-            checked={!!agenda.credentials.prioritizedAggregator}
-          /> Prioritized aggregation
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { tags: checked } } )}
-            checked={!!agenda.credentials.tags}
-          /> Agenda tags
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { embedsHead: checked } } )}
-            checked={!!agenda.credentials.embedsHead}
-          /> Add lines inside embed {'<head>'}
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { embedsTemplates: checked } } )}
-            checked={!!agenda.credentials.embedsTemplates}
-          /> Customize embed templates
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { indesign: checked } } )}
-            checked={!!agenda.credentials.indesign}
-          /> Old indesign tab
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { activatingInvitations: checked } } )}
-            checked={!!agenda.credentials.activatingInvitations}
-          /> Invitations that trigger instant account verification ( no activation email required )
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { emailstrategie: checked } } )}
-            checked={!!agenda.credentials.emailstrategie}
-          /> Emailstrategie tab
-        </p>
-
-        <p>
-          <Switch
-            className="rc-switch"
-            checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
-            unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
-            onChange={checked => setAgenda( { credentials: { invitationMessage: checked } } )}
-            checked={!!agenda.credentials.invitationMessage}
-          /> Invitation message
-        </p>
-      </div>
-    );
   },
 
   setTab( name ) {
