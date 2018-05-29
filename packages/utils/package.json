@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "minimalistic utilities lib",
   "scripts": {
     "test": "mocha --exit",
