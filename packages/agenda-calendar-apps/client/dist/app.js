@@ -38400,8 +38400,6 @@ Main.defaultProps = {
 
 var config = JSON.parse(document.getElementById('config').innerHTML);
 
-console.log(document.getElementById('app'));
-
 (0, _reactDom.render)(_react2.default.createElement(Main, config), document.getElementById('app'));
 
 /***/ }),

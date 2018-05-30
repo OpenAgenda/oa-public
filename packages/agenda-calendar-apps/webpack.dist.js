@@ -6,9 +6,9 @@ const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 module.exports = {
   mode: 'production',
   context: __dirname,
-  optimization: {
+  /* defaults at true optimization: {
     minimize: false
-  },
+  },*/
   entry: [
     'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
     './client/src/index.js'
