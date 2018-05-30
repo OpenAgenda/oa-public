@@ -8,7 +8,7 @@ const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const flattenLabels = require( '@openagenda/labels/flatten' );
 const headerLabels = require( '@openagenda/labels/layout/header' );
 
-module.exports = ( parentApp, path ) => {
+module.exports = ( parentApp, path = '' ) => {
 
   parentApp.use( '/dist/surveys', service.dist );
 
@@ -38,7 +38,7 @@ app.get( '/:agendaSlug/survey/:eventSlug', ( req, res, next ) => {
       }
     },
     agenda: {
-      $set: req.agenda 
+      $set: req.agenda
     },
     lang: {
       $set: req.lang

@@ -73,18 +73,8 @@
         </div>
       </div>
     </header>
-    <div class="content agenda-calendar">
-      <div id="app"></div>
-      <script type="application/json" id="config">
-        {
-          "agendaUid" : <%= agenda.uid %>,
-          "lang" : "<%= lang %>",
-          "res" : <%= JSON.stringify( res ) %>
-        }
-      </script>
-      <script type="text/javascript" src="/js/calendar.js"></script>
-    </div>
-    <script type="text/javascript">window.templates = 'bs'</script>
+    {content}
+    <script type="text/javascript">window.templates='bs';</script>
     <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
   </body>
 </html>
