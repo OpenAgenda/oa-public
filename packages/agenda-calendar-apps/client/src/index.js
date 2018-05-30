@@ -13,10 +13,12 @@ import Event from './Event';
 import labels from '@openagenda/labels/agendas/calendar';
 import flattenLabels from '@openagenda/labels/flatten';
 
+if ( module.hot ) module.hot.accept();
+
 import {
   getTimeBrackets,
   getMonth,
-  spreadEventsOnDateTimings,
+  spreadEventsOnDateTimings,
   flattenTargetedLabels,
   appendMoreItem
 } from './utils';
@@ -25,7 +27,7 @@ BigCalendar.setLocalizer(
   BigCalendar.momentLocalizer(moment)
 );
 
-export default class Main extends Component {
+class Main extends Component {
 
   constructor( props ) {
 
@@ -63,7 +65,7 @@ export default class Main extends Component {
         gte
       },
       detailed: true,
-      aggregations: [ view === 'month' ? 'eventsByMonthlyDay' : 'eventsByWeeklyDay' ]
+      aggregations: [ view === 'month' ? 'eventsByMonthlyDay' : 'eventsByWeeklyDay' ]
     } ).then( result => {
 
       const events = result.aggregations.days.reduce( ( acc, cur ) => {
@@ -80,7 +82,7 @@ export default class Main extends Component {
 
         }
 
-        return acc.concat( this.state.view === 'month' ? _.uniqBy( parsedItems, 'key' ) : parsedItems )
+        return acc.concat( this.state.view === 'month' ? _.uniqBy( parsedItems, i => i.key ) : parsedItems )
 
       }, [] );
 
