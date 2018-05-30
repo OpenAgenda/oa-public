@@ -9,7 +9,7 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/surveys",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
+    "dist": "webpack --config webpack.dist.js",
     "start": "nodemon server.dev.js",
     "test": "jest --forceExit"
   },

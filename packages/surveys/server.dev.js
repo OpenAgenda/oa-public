@@ -8,7 +8,7 @@ const express = require( 'express' );
 
 const devApp = express();
 
-const config = require( './testconfig' );
+const config = require( './config.dev' );
 const service = require( './server' );
 
 devApp.use( require( 'webpack-dev-middleware' )( compiler, {
@@ -42,8 +42,8 @@ devApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
   // if data must be decorated, it can be done here
   
   req.decorateWith = {
-    uid: req.params.agendaUid,
-    contributor: 'steve'
+    uid: { $set: req.params.agendaUid },
+    contributor: { $set: 'steve' }
   }
 
   next();
@@ -52,7 +52,7 @@ devApp.post( '/agendas/:agendaUid/survey', ( req, res, next ) => {
 
 devApp.get( '/', ( req, res ) => res.redirect( 302, '/agendas/123/survey' ) );
 
-devApp.get( '/redirect', ( req, res, next ) => {
+devApp.get( '/redirect', ( req, res ) => {
   
   res.send( 'redirected!' );
   
@@ -66,6 +66,6 @@ devApp.get( '/redirect', ( req, res, next ) => {
 devApp.use( '/agendas/:agendaUid/survey', service.app );
 
 // in production only
-devApp.use( '/dist/surveys', service.dist )
+devApp.use( '/dist/surveys', service.dist );
 
-devApp.listen( 8080 );
+devApp.listen( 3000 );

@@ -18,7 +18,7 @@ const serviceParams = {
   schema: null,
   decorateKey: null,
   frontAppPath: '/dist/surveys/index.js',
-  render: null,
+  layout: () => 'no layout has been specified',
   validate: null
 }
 
@@ -26,14 +26,14 @@ module.exports = {
   app,
   init,
   create,
-  dist: express.static( __dirname + '/../dist' )
+  dist: express.static( __dirname + '/../client/dist' )
 }
 
 async function init( c ) {
 
   _.extend( serviceParams, c );
   
-  serviceParams.render = _.template( c.layout.replace( '<%- content %>', fs.readFileSync( __dirname + '/canvas.ejs', 'utf-8' ) ), {
+  serviceParams.render = _.template( fs.readFileSync( __dirname + '/canvas.ejs', 'utf-8' ), {
     imports: _.pick( serviceParams, [ 'frontAppPath' ] )
   } );
 
@@ -95,7 +95,9 @@ app.get( '/', ( req, res, next ) => {
 
   templateData.config = JSON.stringify( templateData.config );
 
-  res.send( serviceParams.render( templateData ) );
+  const rendered = serviceParams.render( templateData );
+
+  res.send( serviceParams.layout( req, rendered ) );
 
 } );
 
