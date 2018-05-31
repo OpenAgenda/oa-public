@@ -100,7 +100,7 @@ module.exports = agenda => {
 
   function onEventUpdate( event, options ) {
 
-    let params = Object.assign( {
+    const params = Object.assign( {
       refresh: true
     }, options || {} );
 
