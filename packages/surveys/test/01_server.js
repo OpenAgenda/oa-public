@@ -1,6 +1,6 @@
 "use strict";
 
-const config = require( '../testconfig.js' );
+const config = require( '../config.dev.js' );
 
 const service = require( '../server' );
 

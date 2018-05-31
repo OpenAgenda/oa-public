@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agendas",
-  "version": "1.0.29",
+  "version": "1.0.30",
   "description": "agendas service",
   "main": "service/index.js",
   "repository": {

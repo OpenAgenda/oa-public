@@ -1,0 +1,58 @@
+.language-bar {
+
+  padding-top: 1em;
+
+  ul {
+
+    display: inline-block;
+    padding: 0 1em 0 0;
+    vertical-align: top;
+
+  }
+  
+  li {
+
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 10px 10px 0;
+
+    .language-item {
+
+      background: $oa-blue;
+      border: 0;
+      border-radius: 3px;
+
+      span {
+      
+        padding: 8px;
+        display: inline-block;
+        cursor: pointer;
+        color: $oa-white;
+
+      }
+
+    }
+
+  }
+
+  .language-add {
+
+    display: inline-block;
+    cursor: pointer;
+
+    a {
+
+      padding-top: 7px;
+      display: inline-block;
+
+    }
+
+  }
+
+  .Select-control {
+
+    width: 10em;
+
+  }
+
+}

@@ -8,12 +8,17 @@ const logger = require( '@openagenda/logger' ),
 
   agendas = require( '@openagenda/agendas' );
 
+const credentials = require( '@openagenda/agendas/service/validate/privateFields' ).credentials;
+
 module.exports.init = ( config, cb ) => {
 
   adminAgendas.init( {
     services: {
       agendas,
       agendaStakeholders
+    },
+    interfaces: {
+      getAgendaCredentialDetails: () => credentials
     },
     mysql: config.db,
     schemas: config.schemas,

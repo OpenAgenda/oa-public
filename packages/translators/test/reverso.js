@@ -201,6 +201,21 @@ describe( 'reverso', function() {
 
     } );
 
+
+    it( 'if given an array in input, returns a keyed result', done => {
+
+      r( {
+        title: 'La fourchette'
+      }, [ 'en' ], ( err, obj ) => {
+
+        obj.should.eql( { title: { en: 'The fork(range)' } } );
+
+        done();
+
+      } );
+
+    } );
+
   } );
 
   describe( 'timeouts', done => {

@@ -92,15 +92,15 @@ module.exports = options => {
     // this translates per field at first level.
     // it should translate per language
 
-    return async.eachSeries( [].concat( destLang ), ( destLang, ecb ) => {
+    return async.eachSeries( [].concat( destLang ), ( singleDestLang, ecb ) => {
 
-      params.onProcess( destLang );
+      params.onProcess( singleDestLang );
 
-      translate( concatenatedObj, lang, destLang, ( err, concatenatedTranslation ) => {
+      translate( concatenatedObj, lang, singleDestLang, ( err, concatenatedTranslation ) => {
 
         if ( err && err.code === 'ECONNABORTED' ) {
 
-          timeoutErrors.push( { lang: destLang } );
+          timeoutErrors.push( { lang: singleDestLang } );
 
           return ecb();
 
@@ -110,7 +110,7 @@ module.exports = options => {
 
         }
 
-        concatenatedTranslations[ destLang ] = concatenatedTranslation;
+        concatenatedTranslations[ singleDestLang ] = concatenatedTranslation;
 
         ecb();
 
@@ -121,13 +121,13 @@ module.exports = options => {
       if ( err ) return cb( err );
 
       // redistribute values per field then dest lang
-      _.keys( concatenatedTranslations ).forEach( destLang => {
+      _.keys( concatenatedTranslations ).forEach( singleDestLang => {
 
-        let fieldValues = concatenatedTranslations[ destLang ].split( params.separator ).map( v => v.trim() );
+        let fieldValues = concatenatedTranslations[ singleDestLang ].split( params.separator ).map( v => v.trim() );
 
         _.keys( obj ).forEach( ( field, index ) => {
 
-          _.set( translations, destLangCount > 1 ? field + '.' + destLang : field, fieldValues[ index ] );
+          _.set( translations, _.isArray( destLang ) ? field + '.' + singleDestLang : field, fieldValues[ index ] );
 
         } );
 
