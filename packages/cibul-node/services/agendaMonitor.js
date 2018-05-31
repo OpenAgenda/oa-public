@@ -36,7 +36,7 @@ function agendaSearchResync( agendaUid ) {
 
   return new Promise( ( rs, rj ) => {
 
-    agendas.get( { uid: agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
+    agendas.get( { uid: agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
 
       if ( err ) return rj( new VError( err, 'could not retrieve agenda %s', agendaUid ) );
 
@@ -61,9 +61,9 @@ function agendaSearchStats( agendaUid ) {
 
   return new Promise( ( rs, rj ) => {
 
-    let searchResult = {};
+    const searchResult = {};
 
-    agendas.get( { uid: agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
+    agendas.get( { uid: agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
 
       if ( err ) return rj( new VError( err, 'could not retrieve agenda %s', agendaUid ) );
 
@@ -94,7 +94,7 @@ function agendaStats( agendaUid ) {
 
   return new Promise( ( rs, rj ) => {
 
-    agendas.get( { uid: agendaUid }, { detailed: true, includeRestricted: true, private: null }, ( err, agenda ) => {
+    agendas.get( { uid: agendaUid }, { detailed: true, includeRestricted: true, private: null }, ( err, agenda ) => {
 
       if ( err ) return rj( err );
 
@@ -110,7 +110,7 @@ function agendasList( fromUpdatedAt = null, offset = 0, limit = 20 ) {
 
   return new Promise( ( rs, rj ) => {
 
-    agendas.list( { updatedAtGreaterThan: fromUpdatedAt }, offset, limit, { private: null }, ( err, agendas ) => {
+    agendas.list( { updatedAtGreaterThan: fromUpdatedAt }, offset, limit, { private: null }, ( err, agendas ) => {
 
       if ( err ) return rj( err );
 
