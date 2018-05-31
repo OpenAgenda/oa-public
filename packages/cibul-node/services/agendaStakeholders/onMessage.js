@@ -56,7 +56,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
         _sendMessageEmail(
           {
             agenda,
-            url: genUrl( 'agendaShow', { slug: agenda.slug } ),
+            url: genUrl( 'agendaShow', { slug: agenda.slug }, { abs: true, protocol: 'https://' } ),
             linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
             message,
             recipient: user.email,
