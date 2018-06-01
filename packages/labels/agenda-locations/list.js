@@ -69,9 +69,17 @@ module.exports = {
     fr: 'Sélection de lieux',
     en: 'Locations selection'
   },
-  seeevents: {
-    fr: 'Voir les événements',
-    en: 'See the events'
+  seeEvents: {
+    fr: '%count% événements associés',
+    en: '%count% associated events'
+  },
+  seeEvent: {
+    fr: '1 événement associé',
+    en: '1 associated event'
+  },
+  noEvent: {
+    fr: 'Aucun événement associé',
+    en: 'No associated event'
   },
   hassuggestions: {
     fr: '%s suggestions',
