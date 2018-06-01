@@ -8,8 +8,7 @@ let log;
 
 module.exports = {
   init,
-  middleware,
-  log: log.bind( null, 'info' )
+  middleware
 }
 
 const blacklist = [

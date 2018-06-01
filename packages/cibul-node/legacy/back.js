@@ -31,7 +31,7 @@ const notificationMail = require( '../services/notification/mail' );
 const userSvc = require( '../services/user' );
 const legacyEvents = require( '../services/events' ).legacy;
 
-const logRequests = require( '../service/logRequests' );
+const logRequests = require( '../services/logRequests' );
 
 const routes = {
 
@@ -268,9 +268,9 @@ function api( req, res ) {
 
   if ( req.query.uri ) {
 
-    let parts = req.query.uri.split( '?' );
+    const parts = req.query.uri.split( '?' );
 
-    let path = parts.shift();
+    const path = parts.shift();
 
     let query = {};
 
