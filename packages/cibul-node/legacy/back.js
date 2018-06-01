@@ -31,6 +31,8 @@ const notificationMail = require( '../services/notification/mail' );
 const userSvc = require( '../services/user' );
 const legacyEvents = require( '../services/events' ).legacy;
 
+const logRequests = require( '../service/logRequests' );
+
 const routes = {
 
     /**
