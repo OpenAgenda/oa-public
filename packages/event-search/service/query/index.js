@@ -2,13 +2,15 @@
 
 const _ = require( 'lodash' );
 const validate = require( './validate' );
+const derelativize = require( '../helpers/derelativize' );
 const validateExtension = require( './validateExtension' );
 
 const { getQuery, getSort, getSource, getNav, getMoreLikeThis } = require( '../helpers/dsl' );
 
 module.exports = _.extend( queryToDsl, { 
   inflate,
-  moreLikeThis
+  moreLikeThis,
+  derelativize
 } );
 
 
@@ -25,7 +27,9 @@ function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) 
 
   const inflated = inflate( query );
 
-  const clean = validate( inflated );
+  const derelativized = derelativize( inflated );
+
+  const clean = validate( derelativized );
 
   const extensionParts = _extractExtensionParts( inflated, extensions );
 

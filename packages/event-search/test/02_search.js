@@ -1,7 +1,8 @@
 "use strict";
 
-const should = require( 'should' );
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
+const should = require( 'should' );
 
 const config = require( '../testconfig' );
 
@@ -10,7 +11,6 @@ const contributors = require( './service/contributors' );
 
 const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
 const service = require( '../' );
-const _ = require( 'lodash' );
 
 describe( 'event search - functional: search', function() {
 
@@ -58,7 +58,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'an event can be retrieved by uid', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
       total.should.equal( 1 );
 
@@ -68,7 +68,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'by default, only fields defined in service/config base fields are returned', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
       Object.keys( events[ 0 ] ).should.eql( [ 'uid', 'image', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'agenda', 'slug', 'lastTiming', 'nextTiming' ] );
 
@@ -84,7 +84,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'all fields are returned when detailed option is true', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
+      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
 
       Object.keys( events[ 0 ] ).should.eql( [ 
         'longDescription',
@@ -119,7 +119,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'several events can be retrieved by uid at once', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: [ 6, 11 ] } );
+      let { events, total } = await service( 'simple_search' ).search( { uid: [ 6, 11 ] } );
 
       total.should.equal( 2 );
 
@@ -130,7 +130,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'open search one or more words', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Mississipi' } );
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Mississipi' } );
 
       total.should.equal( 3 );
 
@@ -141,7 +141,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'open search on a city name', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Quimper' } );
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Quimper' } );
 
       total.should.equal( 1 );
 
@@ -151,7 +151,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'open search on country name in french', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Suisse' } );
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Suisse' } );
 
       total.should.equal( 1 )
 
@@ -161,7 +161,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'open search on country name in english', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Switzerland' } );
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Switzerland' } );
 
       total.should.equal( 1 )
 
@@ -313,7 +313,7 @@ describe( 'event search - functional: search', function() {
 
         events[ 0 ].slug.should.equal( 'local_time_2' );
 
-      } );
+      } );
 
     } );
 
@@ -327,7 +327,7 @@ describe( 'event search - functional: search', function() {
           keyword: 'date_event'
         }
 
-        let { total } = await service( 'simple_search' ).search( query );
+        let { total } = await service( 'simple_search' ).search( query );
 
         total.should.equal( 2 );
 
@@ -343,7 +343,7 @@ describe( 'event search - functional: search', function() {
           }
         }
 
-        let { total, events } = await service( 'simple_search' ).search( query );
+        let { total, events } = await service( 'simple_search' ).search( query );
 
         total.should.equal( 1 );
 
@@ -366,6 +366,20 @@ describe( 'event search - functional: search', function() {
         total.should.equal( 1 );
 
         events[ 0 ].slug.should.equal( 'date_1' ); 
+
+      } );
+
+      it( 'relative search: greater than today', async () => {
+
+        let { total, events } = await service( 'simple_search' ).search( {
+          search: 'Trié',
+          date: {
+            gte: 'today',
+            timezone: 'Europe/Paris'
+          }
+        } );
+
+        total.should.equal( 3 );
 
       } );
 
@@ -425,7 +439,7 @@ describe( 'event search - functional: search', function() {
 
       it( 'timing aggregation: keyword search with results', async () => {
 
-        let { aggregations, events } = await service( 'simple_search' ).search( {
+        let { aggregations, events } = await service( 'simple_search' ).search( {
           date: {
             gte: new Date( '2010-04-01' ),
             lte: new Date( '2010-04-30' )
@@ -448,7 +462,7 @@ describe( 'event search - functional: search', function() {
 
       it( 'reverse timing aggregation parses sample events', async () => {
 
-        let { aggregations, events } = await service( 'simple_search' ).search( {
+        let { aggregations, events } = await service( 'simple_search' ).search( {
           date: {
             gte: new Date( '2010-04-01' ),
             lte: new Date( '2010-04-30' )
@@ -472,7 +486,7 @@ describe( 'event search - functional: search', function() {
 
     describe( 'stream', () => {
 
-      it( 'simple streamed search returns all the events matching the search', async () => {
+      it( 'simple streamed search returns all the events matching the search', async () => {
 
         const { total } = await service( 'simple_search' ).search();
 
@@ -760,7 +774,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'custom field is searched through custom key', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {
+      let { events, total } = await service( 'simple_search' ).search( {
         custom: {
           organizeremail: 'cannes@reedexpo.fr'
         }
@@ -775,7 +789,7 @@ describe( 'event search - functional: search', function() {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { extensions: 'custom' } );
+      }, {}, { extensions: 'custom' } );
 
       total.should.equal( 1 );
 
@@ -827,7 +841,7 @@ describe( 'event search - functional: search', function() {
         }
       } );
 
-      _.keys( events[ 0 ] ).includes( 'mergedExtended' ).should.equal( true );
+      _.keys( events[ 0 ] ).includes( 'mergedExtended' ).should.equal( true );
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
 

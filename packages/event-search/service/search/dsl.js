@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const config = require( '../config' );
 
 module.exports = async ( alias, dsl, options = {} ) => {
-
+  
   const search = {
     type: config.type,
     index: alias,
