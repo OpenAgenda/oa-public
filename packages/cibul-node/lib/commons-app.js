@@ -956,7 +956,7 @@ function requireAdmin( req, res, next ) {
 
 function checkCredential( name, options ) {
 
-  var params = utils.extend( {
+  const params = _.extend( {
     name: 'agenda',
     namespace: false // if not set, response is error when cred is not assigned
   }, options ? options : {} );
@@ -998,7 +998,7 @@ function checkCredential( name, options ) {
 
 function getRedirect( req, paramName ) {
 
-  var redirectValue;
+  let redirectValue;
 
   if ( !paramName ) {
 

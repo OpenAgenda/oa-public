@@ -74,7 +74,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 2 );
 
@@ -98,7 +98,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -119,7 +119,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -184,7 +184,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 5 );
 
@@ -210,7 +210,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_2', 'multi_3' ] );
 
@@ -317,7 +317,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -336,7 +336,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -364,7 +364,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl )
+      let { events, total } = await dslSearch( 'simple_search', dsl )
 
       total.should.equal( 1 );
 
@@ -383,7 +383,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -402,7 +402,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -428,7 +428,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       total.should.equal( 1 );
 
@@ -439,7 +439,7 @@ describe( 'event-search - unit: dsl search', function() {
 
     it( 'filtering to keep events in between a timestamp bracket', async () => {
 
-      let dsl = {
+      const dsl = {
         query: {
           bool: {
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
@@ -461,7 +461,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await dslSearch( 'simple_search', dsl );
 
       events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
 
@@ -495,7 +495,6 @@ describe( 'event-search - unit: dsl search', function() {
       fetchedCount.should.equal( result.total );
         
     } );
-
 
 
     it( 'search_after fails when nested sort is done on date ( BIGINT ERROR )', async () => {
@@ -559,7 +558,7 @@ describe( 'event-search - unit: dsl search', function() {
         } ]
       }
 
-      let { events } = await dslSearch( 'simple_search', dsl );
+      let { events } = await dslSearch( 'simple_search', dsl );
 
       let fourth = events[ 3 ].uid;
 

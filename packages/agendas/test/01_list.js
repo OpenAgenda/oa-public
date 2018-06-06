@@ -2,24 +2,37 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const async = require( 'async' );
+const should = require( 'should' );
 
-  // service loaded with test lib
-  svc = require( '../service/test' ),
+const config = require( '../testconfig' );
 
-  async = require( 'async' ),
-
-  config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): list', function () {
 
   this.timeout( 30000 );
 
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence'
+    }
+  } ) );
+
   before( () => {
     svc.init( config )
   } );
-
-  before( svc.test.fixtures );
 
   it( 'list with offset gets right agenda', done => {
 
@@ -72,7 +85,8 @@ describe( 'agendas - functional (server): list', function () {
         'image',
         'updatedAt',
         'createdAt',
-        'private'
+        'private',
+        'indexed'
       ] );
 
       done();
@@ -110,6 +124,31 @@ describe( 'agendas - functional (server): list', function () {
       agendas.filter( a => a.uid === 17582566 ).length.should.equal( 1 );
 
       agendas.length.should.equal( 10 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'default list returns unindexed agendas', done => {
+
+    svc.list( 0, 30, ( err, agendas ) => {
+
+      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'list with indexed option set to true does not return unindexed agendas', done => {
+
+    svc.list( 0, 30, { indexed: true }, ( err, agendas ) => {
+
+      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 0 );
 
       done();
 

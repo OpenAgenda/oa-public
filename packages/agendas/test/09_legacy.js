@@ -2,17 +2,13 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const knex = require( 'knex' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-legacy = require( '../service/legacy' ),
-
-svc = require( '../service/test' ),
-
-config = require( '../testconfig' ),
-
-knex = require( 'knex' ),
-
-mysql = require( 'mysql' );
+const config = require( '../testconfig' );
+const legacy = require( '../service/legacy' );
+const svc = require( '../' );
 
 describe( 'agendas - unit (server): legacy bridging', function() {
 
@@ -20,7 +16,24 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
   before( () => svc.init( config ) );
 
-  beforeEach( svc.test.fixtures );
+  beforeEach( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql',
+      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence',
+      legacyCredential: 'legacy_credential_set'
+    }
+  } ) );
 
   describe( 'loadFromLegacy', () => {
 

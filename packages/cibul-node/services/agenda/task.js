@@ -1,26 +1,23 @@
-var logger = require( '@openagenda/logger' ), log,
+"use strict";
 
-svc = require( './' ),
+const _ = require( 'lodash' );
 
-utils = require( '@openagenda/utils' ),
+const async = require( 'async' );
 
-eventSvc = require( '../event' ),
+const log = require( '@openagenda/logs' )( 'services/agenda/task' );
 
-coms = require( '../../lib/coms' ),
+const utils = require( '@openagenda/utils' );
 
-aggregator = require( '../aggregator' ),
+const aggregator = require( '../aggregator' );
+const coms = require( '../../lib/coms' );
+const config = require( '../../config' );
+const dispatcher = require( './dispatcher' );
+const eventSvc = require( '../event' );
+const groupActions = require( './tasks/groupActions' );
+const svc = require( './' );
 
-dispatcher = require( './dispatcher' ),
-
-async = require( 'async' ),
-
-config = require( '../../config' ),
-
-groupActions = require( './tasks/groupActions' );
 
 module.exports = function() {
-
-  log = logger( 'services/agenda/task' );
 
   groupActions();
 
@@ -139,7 +136,7 @@ function _onEventActivity( action ) {
 
         default: // assuming regular update.
 
-          dsp.onEventUpdate( event, action.values );
+          dsp.onEventUpdate( event, _.extend( { agendaId: agenda.id }, action.values ) );
 
       }
 
@@ -162,7 +159,7 @@ function _forEachRelatedAgenda( event, agendaId, eachCb, cb ) {
 
   if ( agendaId ) {
 
-    svc.get( { id: agendaId }, ( err, a ) => {
+    svc.get( { id: agendaId }, ( err, a ) => {
 
       if ( err ) return cb( err );
 
@@ -184,7 +181,7 @@ function _forEachRelatedAgenda( event, agendaId, eachCb, cb ) {
 
       async.eachSeries( agendas, ( a, ecb ) => {
 
-        var agenda = svc.instanciate( a );
+        const agenda = svc.instanciate( a );
 
         event.loadAgendaContext( a.id, err => {
 

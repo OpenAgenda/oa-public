@@ -116,6 +116,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
       } );
 
+      app.use( require( './services/logRequests' ).middleware );
+
 
       // load gen url everywhere
       app.use( ( req, res, next ) => {

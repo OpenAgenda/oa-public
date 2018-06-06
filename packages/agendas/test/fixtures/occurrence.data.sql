@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ${schema} (
+CREATE TABLE IF NOT EXISTS ${occurrence} (
   id BIGINT AUTO_INCREMENT, 
   event_id BIGINT NOT NULL, 
   date DATE NOT NULL, 
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
-INSERT INTO ${schema} ( `event_id`, `date` ) VALUES
+INSERT INTO ${occurrence} ( `event_id`, `date` ) VALUES
 ( 1000, '2021-04-13' ),
 ( 1001, '2021-04-13' ),
 ( 1002, '2021-04-13' ),

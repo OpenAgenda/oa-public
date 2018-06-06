@@ -67,6 +67,20 @@ describe( 'event-search - unit: query.validate', function() {
   } );
 
 
+  it( 'relative time search dsl', () => {
+
+    const dsl = query( {
+      date: {
+        gte: 'today',
+        timezone: 'Europe/Paris'
+      }
+    } );
+
+    //console.log( JSON.stringify( dsl, null, 2 ) );
+
+  } );
+
+
   it( 'simple custom field search', () => {
 
     let dsl = query( { 'custom.stand' : 'Hall A, S 123' }, {}, [ 'custom' ] );

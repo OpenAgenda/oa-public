@@ -3,6 +3,8 @@
 
 const log = require( '@openagenda/logs' )( 'api' );
 
+const logRequests = require( '../services/logRequests' );
+
 const app = require( 'express' )();
 const config = require( '../config' );
 const mw = require( './middleware' );
@@ -21,6 +23,7 @@ const settings = {
 
 const handleError = require( '../services/00_errors' ).bind( null, 'api' );
 
+app.use( logRequests.middleware );
 
 // should only apply to create and upload really
 app.post( /^\/v2.+/, upload.single( 'image' ) );
@@ -62,7 +65,6 @@ app.get( '/v2/agendas/:agendaUid/settings', [
   mw.verifyMember.allow( [ 'administrator' ] ),
   settings.get
 ] );
-
 
 app.use( ( err, req, res, next ) => {
 

@@ -1,26 +1,23 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const guard = require( 'when/guard' );
+const w = require( 'when' );
+const wn = require( 'when/node' );
 
- w = require( 'when' ),
+const map = require( './databaseFieldMap' );
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
+const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
 
- map = require( './databaseFieldMap' ),
+const details = require( './details' );
 
- dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
-
- guard = require( 'when/guard' ),
-
- wn = require( 'when/node' ),
-
- details = require( './details' ),
-
- parseListArguments = require( '@openagenda/service-utils/parseListArguments' ),
-
- validateQuery = require( './validate/listQuery' );
+const validateQuery = require( './validate/listQuery' );
 
 let service, schemas, imagePath, knex;
 
-module.exports = _.extend( list, { init } );
+module.exports = _.extend( list, {
+  init
+} );
 
 
 function list( q, off, l, op, c ) {
@@ -41,6 +38,7 @@ function list( q, off, l, op, c ) {
 
   const finalOptions = _.extend( {
     private: false,
+    indexed: null,
     total: false,
     detailed: false,
     internal: null, // this should be false by default but was not existing until now
@@ -101,6 +99,12 @@ function _search( v ) {
   if ( v.options.private !== null ) {
 
     v.knex.where( 'private', v.options.private );
+
+  }
+
+  if ( v.options.indexed !== null ) {
+
+    v.knex.where( 'indexed', v.options.indexed );
 
   }
 

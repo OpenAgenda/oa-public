@@ -1,22 +1,23 @@
 "use strict";
 
-var app = require( '@openagenda/test-app' )( {
+const app = require( '@openagenda/test-app' )( {
   frontWrapper: __dirname + '/front.jsx',
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../../../node_modules/@openagenda/bs-templates/compiled/main.css'
   ]
-} ),
+} );
 
-fixtures = require( '../fixtures' ),
+const fixtures = require( '../fixtures' );
 
-config = require( '../../testconfig.js' ),
+const config = require( '../../testconfig.js' );
 
-locationsEditor = require( '../../' ),
+const locationsEditor = require( '../../' );
 
-agendaId = 123, userUid = 456,
+const agendaId = 123;
+const userUid = 456;
 
-mw = locationsEditor.mw( 'agendaId' );
+const mw = locationsEditor.mw( 'agendaId' );
 
 app.use( require( 'body-parser' ).json() );
 

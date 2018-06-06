@@ -572,6 +572,7 @@ const config = {
         //enable: 'oa:search task*',
         //enable: 'oa:events/interfaces/legacy'
         //enable: 'oa:agendaEvents/interfaces/legacy',
+        //enable: 'oa:agendaEvents/interfaces/legacy, oa:agendaEvents/interfaces/onUpdate',
         //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*, oa:groupactions*'
         //enable: 'oa:agendaEvents',
         //enable: 'oa:services/event/oembed',

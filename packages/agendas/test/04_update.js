@@ -2,27 +2,39 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const config = require( '../testconfig' );
 
-  svc = require( '../service/test' ),
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
-
-  mysql = require( 'mysql' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): set (update)', function() {
 
   this.timeout( 30000 );
 
-  before( () => {
-    svc.init( config );
-  } );
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql',
+      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence',
+      legacyCredential: 'legacy_credential_set'
+    }
+  } ) );
 
-  before( svc.test.fixtures );
+  before( () => svc.init( config ) );
 
-  afterEach( () => {
-    svc.init( config ); // reset interfaces
-  } );
+  afterEach( () => svc.init( config ) );
 
   it( 'set sets a pre-exisiting agenda if identifier is given as first parameter', done => {
 
@@ -66,7 +78,8 @@ describe( 'agendas - functional (server): set (update)', function() {
         updatedAt: result.agenda.updatedAt,
         createdAt: result.agenda.createdAt,
         official: 0,
-        private: 0
+        private: 0,
+        indexed: 1
       } );
 
       done();
@@ -181,7 +194,7 @@ describe( 'agendas - functional (server): set (update)', function() {
 
       let con = mysql.createConnection( config.mysql );
 
-      con.query( `select * from ${config.schemas.legacyCredentialSet} where review_id = ?`, result.agenda.id, ( err, rows ) => {
+      con.query( `select * from legacy_credential_set where review_id = ?`, result.agenda.id, ( err, rows ) => {
 
         rows[ 0 ].aggregator.should.equal( 1 );
 
@@ -192,7 +205,7 @@ describe( 'agendas - functional (server): set (update)', function() {
     } );
 
 
-  } )
+  } );
 
 
   it( 'set credentials on pre-exisiting agenda', done => {
@@ -218,6 +231,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           official: 0,
           officializedAt: null,
           private: 0,
+          indexed: 1,
           title: 'Agenda culturel Auvergne',
           description: 'test ! :)',
           url: '',

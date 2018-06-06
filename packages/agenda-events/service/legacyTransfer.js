@@ -186,7 +186,7 @@ async function legacyTransfer( origin, options = {} ) {
 
     result.operation = 'create';
 
-  } else if ( data && ( current.updatedAt < new Date( data.updatedAt ) ) ) {
+  } else if ( data && ( _.get( options, 'force' ) || ( current.updatedAt < new Date( data.updatedAt  ) ) ) ) {
 
     result = await service.update( data.agendaUid, data.eventUid, values, _.extend( { protected: false }, options ) );
 

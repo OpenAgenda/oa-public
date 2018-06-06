@@ -3,8 +3,20 @@
 const should = require( 'should' );
 
 const _distributeByLanguage = require( '../service/helpers/dsl/_distributeByLanguage' );
+const derelativize = require( '../service/helpers/derelativize' );
 
 describe( 'event-search - unit: miscellaneous helper testing', function() {
+
+  it( 'derelativize - converts relative term with absolute', () => {
+
+    const query = derelativize( {
+      date: {
+        gte: 'today',
+        timezone: 'Europe/Paris'
+      }
+    } );
+
+  } );
 
   it( '_distributeByLanguage - given predefined fields, distributes object over array of languaged objects', () => {
 
@@ -29,7 +41,7 @@ describe( 'event-search - unit: miscellaneous helper testing', function() {
       uid: 1234
     };
 
-    const byLang = _distributeByLanguage( [ 'title', 'description', 'keywords' ], obj );
+    const byLang = _distributeByLanguage( [ 'title', 'description', 'keywords' ], obj );
 
     byLang.should.eql( [ [ 'fr', { 
       title: 'Ceci est un titre',
