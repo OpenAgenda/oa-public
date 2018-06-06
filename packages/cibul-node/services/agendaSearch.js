@@ -31,7 +31,7 @@ module.exports.init = config => {
     interfaces: {
       agendasList: ( offset, limit, cb ) => {
 
-        agendas.list( offset, limit, { detailed: true }, ( err, agendas ) => {
+        agendas.list( offset, limit, { detailed: true, indexed: true }, ( err, agendas ) => {
 
           async.eachSeries( agendas, ( agenda, ecb ) => {
 
