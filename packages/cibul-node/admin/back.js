@@ -263,13 +263,13 @@ function getUsers( req, res, next ) {
                 cmn.renderJson( req, res, {
                   user: lib.filterByAttr( req.loadedUser, [
                     'uid',
-                    'full_name',
+                    'fullName',
                     'email',
-                    'is_activated',
-                    'is_removed',
-                    'created_at',
-                    'updated_at',
-                    'last_signin',
+                    'isActivated',
+                    'isRemoved',
+                    'createdAt',
+                    'updatedAt',
+                    'lastSignin',
                     'store'
                   ] ),
                   stakeholders
@@ -304,14 +304,20 @@ function getUsers( req, res, next ) {
 
 function userChangePassword( req, res ) {
 
-  const { uid, password: new_password } = req.query;
+  const { uid, password } = req.query;
 
-  usersSvc.changePassword( { uid, new_password }, ( err, result ) => {
+  usersSvc
+    .changePassword( uid, { password } )
+    .then( () => {
 
-    if ( err || !result.success ) return res.json( { success: false } );
-    res.json( { success: true } );
+      res.json( { success: true } );
 
-  } );
+    } )
+    .catch( () => {
+
+      res.json( { success: false } );
+
+    } );
 
 }
 
@@ -330,40 +336,33 @@ function userActivate( req, res ) {
 
 function userUpdate( req, res, next ) {
 
-  usersSvc.update( req.loadedUser.id, req.body, { internal: true }, err => {
+  usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
+    .then( async user => {
 
-    if ( err ) return next( err );
+      const store = user.store || {};
 
-    usersSvc.get( req.loadedUser.id, { removed: null, detailed: true, store: true }, ( err, result ) => {
+      if ( !store.enable_secret && req.body.enable_secret ) {
 
-      if ( err ) return next( err );
-
-      // Set new API secret key when admin activate enable_secret
-      if ( !(req.loadedUser.store && req.loadedUser.store.enable_secret) && req.body.enable_secret ) {
-
-        usersSvc.generateApiKey( { id: req.loadedUser.id }, { secret: true }, err => {
-
-          if ( err ) return next( err );
-
-          res.json( {
-            success: true,
-            user: result
-          } );
-
-        } )
-
-      } else {
-
-        res.json( {
-          success: true,
-          user: result
+        await usersSvc.generateApiKey( user.uid, {
+          secretKey: true
         } );
+
+        user = await usersSvc.patch( user.uid, {
+          store: {
+            ...store,
+            enable_secret: true
+          }
+        }, { detailed: true } );
 
       }
 
-    } );
+      res.json( {
+        success: true,
+        user
+      } );
 
-  } );
+    } )
+    .catch( next );
 
 }
 
@@ -389,17 +388,17 @@ function _loadUser( type = 'get' ) {
 
     if ( !request.uid ) return cmn.renderJson( req, res, { success: false, message: 'user uid is missing' } );
 
-    var uid = request.uid;
+    const uid = request.uid;
 
-    usersSvc.get( { uid }, { removed: null, detailed: true, store: true }, ( err, result ) => {
+    usersSvc.get( uid, { removed: null, detailed: true } )
+      .then( user => {
 
-      if ( err ) return cmn.catchError( req, res )( err );
+        req.loadedUser = user;
 
-      req.loadedUser = result;
+        next();
 
-      next();
-
-    } );
+      } )
+      .catch( cmn.catchError( req, res ) );
 
   }
 
@@ -438,7 +437,7 @@ function _searchUsers( req, res ) {
         cmn.renderJson( req, res, {
           users: rows.map( function ( row ) {
 
-            return { uid: row.uid, fullName: row.full_name, email: row.email, is_removed: row.is_removed };
+            return { uid: row.uid, fullName: row.full_name, email: row.email, isRemoved: row.is_removed };
 
           } ),
           page: page,

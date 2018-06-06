@@ -73,7 +73,7 @@ export default class UserShow extends Component {
     }
 
 
-    if ( !user.is_activated ) {
+    if ( !user.isActivated ) {
 
       activationLink = <span> - <a onClick={this.props.onUserActivation} href="#">activate</a></span>
 
@@ -81,7 +81,7 @@ export default class UserShow extends Component {
 
     return (
       <div>
-        <h2>{user.full_name}</h2>
+        <h2>{user.fullName}</h2>
         <table className="table">
           <tbody>
           <tr>
@@ -90,26 +90,26 @@ export default class UserShow extends Component {
           </tr>
           <tr>
             <td>email</td>
-            <td>{user.email} {user.is_removed ? <span style={{ color: 'brown' }}>Account removed</span> : null}</td>
+            <td>{user.email} {user.isRemoved ? <span style={{ color: 'brown' }}>Account removed</span> : null}</td>
           </tr>
           <tr>
             <td>is activated?</td>
             <td>
-              <span>{user.is_activated ? "yes" : "no"}</span>
+              <span>{user.isActivated ? "yes" : "no"}</span>
               {activationLink}
             </td>
           </tr>
           <tr>
             <td>Created At</td>
-            <td>{user.created_at}</td>
+            <td>{user.createdAt}</td>
           </tr>
           <tr>
             <td>Updated At</td>
-            <td>{user.updated_at}</td>
+            <td>{user.updatedAt}</td>
           </tr>
           <tr>
             <td>Last signin</td>
-            <td>{user.last_signin}</td>
+            <td>{user.lastSignin}</td>
           </tr>
           <tr>
             <td>Enable API secret</td>

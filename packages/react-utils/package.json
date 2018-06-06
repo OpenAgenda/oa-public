@@ -11,7 +11,6 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/react-utils",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "prepublish": "yarn clean && yarn build"

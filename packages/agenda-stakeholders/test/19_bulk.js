@@ -36,7 +36,7 @@ describe( 'agenda-stakeholders - functional (server): create.bulk & task', funct
            cb( null, {
             id: Math.ceil( Math.random() * 1000000 ),
             uid: 128492293,
-            full_name: 'Zorg', 
+            fullName: 'Zorg',
             email: identifiers.email || 'zorg@galactic.uv'
           } );
 

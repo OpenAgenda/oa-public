@@ -10,6 +10,7 @@
     "background": "nohup npm start >/dev/null 2>&1 &"
   },
   "dependencies": {
+    "@feathersjs/errors": "^3.3.0",
     "@openagenda/activities": "^2.0.27",
     "@openagenda/activity-apps": "^1.0.40",
     "@openagenda/admin-agendas": "^1.0.1",
@@ -88,6 +89,8 @@
     "express": "~4.13",
     "fast-csv": "2.0.0",
     "fast-levenshtein": "1.0.6",
+    "feathers-authentication-hooks": "^0.3.0",
+    "feathers-hooks-common": "^4.11.1",
     "gm": "1.21.1",
     "hsts": "^2.1.0",
     "immutability-helper": "^2.5.1",

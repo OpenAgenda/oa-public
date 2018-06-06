@@ -6,7 +6,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "mocha --watch",
+    "test": "mocha --exit",
     "build": "rimraf build && babel components -d build",
     "preserve": "npm run build",
     "serve": "node test/app",

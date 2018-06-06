@@ -16,20 +16,20 @@ module.exports = ( event, context ) => {
 
 function _unsetNewUser( event ) {
 
-  users.get( { uid: event.creatorUid }, ( err, user ) => {
+  users.get( event.creatorUid )
+    .then( async user => {
 
-    if ( err ) return log( 'error', err );
+      if ( user && user.isNew ) {
 
-    if ( user && user.is_new ) {
+        await users.setNewFlag( event.creatorUid, false );
 
-      users.setNewFlag( { uid: event.creatorUid }, false, ( err ) => {
+      }
 
-        if ( err ) return log( 'error', err );
+    } )
+    .catch( err => {
 
-      } );
+      log( 'error', err );
 
-    }
-
-  } );
+    } );
 
 }

@@ -38,7 +38,7 @@ describe( 'agenda-stakeholders - unit (server) - customFormat', () => {
 
       format.getFieldValues( {
         organization: { slug: 'drac', label: 'DRAC' },
-        fullName: 'Steve'
+        full_name: 'Steve'
       }, settings )
 
       .should.eql( {

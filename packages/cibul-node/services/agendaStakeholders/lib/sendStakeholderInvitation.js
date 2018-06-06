@@ -20,31 +20,34 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   if ( !stakeholder.userId ) {
 
-    users.get( context.invitationSender.userId, ( err, user ) => {
+    users.findOne( {
+      query: {
+        id: context.invitationSender.userId
+      }
+    } )
+      .then( user => {
 
-      if ( err ) return log( 'error', err );
-
-      activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
-        actor: 'user:' + user.uid,
-        verb: 'agenda.sendInvitation',
-        object: 'email:' + stakeholder.custom.email,
-        target: 'agenda:' + agenda.uid,
-        store: {
-          labels: {
-            actor: context.invitationSender.name || user.full_name,
-            object: stakeholder.custom.email,
-            target: agenda.title
-          },
-          credential: stakeholder.credential
-        }
-      } )
-        .catch( err => {
-
-          log( 'error', err );
-
+        return activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).activities.add( {
+          actor: 'user:' + user.uid,
+          verb: 'agenda.sendInvitation',
+          object: 'email:' + stakeholder.custom.email,
+          target: 'agenda:' + agenda.uid,
+          store: {
+            labels: {
+              actor: context.invitationSender.name || user.fullName,
+              object: stakeholder.custom.email,
+              target: agenda.title
+            },
+            credential: stakeholder.credential
+          }
         } );
 
-    } );
+      } )
+      .catch( err => {
+
+        log( 'error', err );
+
+      } );
 
   }
 

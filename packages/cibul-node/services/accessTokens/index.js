@@ -7,13 +7,9 @@
  * creation of such tokens are done in legacy php symfony app
  */
 
-const { promisify } = require( 'util' );
-
-const log = require( '@openagenda/logs' )( 'services/accessTokens' );
-
+const VError = require( 'verror' );
 const users = require( '@openagenda/users' );
-
-const userGet = promisify( users.get );
+const log = require( '@openagenda/logs' )( 'services/accessTokens' );
 
 let knex;
 
@@ -32,11 +28,15 @@ async function getUserFromKey( keyString ) {
 
   if ( !apiKeySet ) {
 
-    throw new Error( 'could not find api key set matching key', { key: keyString } );
+    throw new VError( 'could not find api key set matching key', { key: keyString } );
 
   }
 
-  return userGet( { id: apiKeySet.user_id } );
+  return users.findOne( {
+    query: {
+      id: apiKeySet.user_id
+    }
+  } );
 
 }
 
@@ -54,11 +54,15 @@ async function getUser( tokenString = null, nonce = null ) {
 
   if ( !apiKeySet ) {
 
-    throw new Error( 'could not find api key set matching token', { token: tokenString } );
+    throw new VError( 'could not find api key set matching token', { token: tokenString } );
 
   }
 
-  return userGet( { id: apiKeySet.user_id } );
+  return users.findOne( {
+    query: {
+      id: apiKeySet.user_id
+    }
+  } );
 
 }
 

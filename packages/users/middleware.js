@@ -3,8 +3,15 @@
 const _ = require( 'lodash' );
 const errors = require( '@feathersjs/errors' );
 const imageUploadMw = require( '@openagenda/image-upload/lib/middleware' );
+const log = require( '@openagenda/logs' )( 'users/middleware' );
 const service = require( './index' );
 const config = require( './config' );
+
+
+function wrap( fn ) {
+  return ( req, res, next ) => Promise.resolve( fn( req, res, next ) ).catch( next );
+}
+
 
 module.exports = {
   load( options ) {
@@ -19,16 +26,18 @@ module.exports = {
     return wrap( async ( req, res, next ) => {
       const identifier = getIdentifier( req, namespaces );
 
-      const page = await service().find( {
+      const user = await service().findOne( {
         provider: 'rest',
-        query: _.clone( identifier )
+        query: _.clone( identifier ),
+        user: req.user,
+        authenticated: req.authenticated
       } );
 
-      if ( page.data.length !== 1 ) {
+      if ( !user ) {
         throw new errors.NotFound( `No user found for ${JSON.stringify( identifier )}` );
       }
 
-      _.set( req, namespaces.entity, page.data[ 0 ] );
+      _.set( req, namespaces.entity, user );
 
       next();
     } );
@@ -37,7 +46,7 @@ module.exports = {
   setImageProfile( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         query: 'query',
         result: 'result'
       }
@@ -56,14 +65,16 @@ module.exports = {
               { path },
               {
                 provider: 'rest',
-                query: _.cloneDeep( _.get( req, params.namespaces.query ) )
+                query: _.cloneDeep( _.get( req, params.namespaces.query ) ),
+                user: req.user,
+                authenticated: req.authenticated
               }
             );
 
             res.data = result;
             _.set( req, params.namespaces.result, result );
 
-            cb( result.uploadedPaths[ 0 ] );
+            cb( null, result.uploadedPaths[ 0 ] );
 
           } catch ( e ) {
 
@@ -80,7 +91,7 @@ module.exports = {
   clearImageProfile( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         query: 'query',
         result: 'result'
       }
@@ -92,7 +103,7 @@ module.exports = {
   requestChangeEmail( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -105,7 +116,8 @@ module.exports = {
   confirmChangeEmail( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
+        query: 'query',
         result: 'result'
       }
     }, options );
@@ -116,7 +128,7 @@ module.exports = {
   changePassword( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -129,7 +141,7 @@ module.exports = {
   generateApiKey( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         query: 'query',
         result: 'result'
       }
@@ -141,7 +153,7 @@ module.exports = {
   setNewFlag( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -154,7 +166,7 @@ module.exports = {
   refresh( options ) {
     const params = _.merge( {
       namespaces: {
-        uid: 'params.uid',
+        uid: 'params.__feathersId',
         data: 'body',
         query: 'query',
         result: 'result'
@@ -185,10 +197,6 @@ function getIdentifier( req, namespaces ) {
   return { [ fieldName ]: data[ fieldName ] };
 }
 
-function wrap( fn ) {
-  return ( req, res, next ) => Promise.resolve( fn( req, res, next ) ).catch( next );
-}
-
 function methodToMiddleware( method, params, withData = true ) {
   return wrap( async ( req, res, next ) => {
     const args = [
@@ -196,7 +204,9 @@ function methodToMiddleware( method, params, withData = true ) {
       ...(withData ? [ _.cloneDeep( _.get( req, params.namespaces.data ) ) ] : []),
       {
         provider: 'rest',
-        query: _.cloneDeep( _.get( req, params.namespaces.query ) )
+        query: _.cloneDeep( _.get( req, params.namespaces.query ) ),
+        user: req.user,
+        authenticated: req.authenticated
       }
     ];
 

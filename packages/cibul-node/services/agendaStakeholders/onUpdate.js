@@ -24,24 +24,27 @@ module.exports = function ( before, stakeholder, context ) {
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
     // Activities
-    users.get( stakeholder.userId, { removed: null }, ( err, user ) => {
+    users.findOne( {
+      query: {
+        id: stakeholder.userId
+      },
+      removed: null
+    } )
+      .then( async user => {
 
-      if ( err ) return log( 'error', err );
-
-      users.get( context.invitationSender.userId, { removed: null }, ( err, senderUser ) => {
-
-        if ( err ) return log( 'error', err );
+        const senderUser = await users.findOne( {
+          query: {
+            id: context.invitationSender.userId
+          },
+          removed: null
+        } );
 
         // new user
         if ( stakeholder.userId && before.userId !== stakeholder.userId ) {
 
-          if ( user.is_new ) {
+          if ( user.isNew ) {
 
-            users.setNewFlag( { id: stakeholder.userId }, false, ( err ) => {
-
-              if ( err ) return log( 'error', err );
-
-            } );
+            await users.setNewFlag( user.uid, false );
 
           }
 
@@ -56,8 +59,8 @@ module.exports = function ( before, stakeholder, context ) {
                 target: 'agenda:' + agenda.uid,
                 store: {
                   labels: {
-                    actor: stakeholder.custom.contactName || user.full_name,
-                    object: context.invitationSender.name || senderUser.full_name,
+                    actor: stakeholder.custom.contactName || user.fullName,
+                    object: context.invitationSender.name || senderUser.fullName,
                     target: agenda.title
                   },
                   credential: stakeholder.credential
@@ -96,8 +99,8 @@ module.exports = function ( before, stakeholder, context ) {
                     target: 'agenda:' + agenda.uid,
                     store: {
                       labels: {
-                        actor: context.invitationSender.name || senderUser.full_name,
-                        object: stakeholder.custom.contactName || user.full_name,
+                        actor: context.invitationSender.name || senderUser.fullName,
+                        object: stakeholder.custom.contactName || user.fullName,
                         target: agenda.title
                       },
                       beforeCredential: before.credential,
@@ -151,9 +154,13 @@ module.exports = function ( before, stakeholder, context ) {
 
         }
 
+      } )
+      .catch( err => {
+
+        log( 'error', err );
+
       } );
 
-    } );
 
     // Invitation
     if (
@@ -161,9 +168,7 @@ module.exports = function ( before, stakeholder, context ) {
       || stakeholder.deletedUser
       || stakeholder.userId
     ) {
-
       return;
-
     }
 
     invitations.get( { email: stakeholder.custom.email } )

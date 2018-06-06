@@ -24,7 +24,8 @@ function init( c ) {
     'mysql',
     'schemas',
     'files',
-    'interfaces'
+    'interfaces',
+    'imagePath'
   ] ) );
 
 }

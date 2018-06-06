@@ -117,6 +117,10 @@ module.exports = {
     en: 'String is too short',
     fr: 'Hmm c\'est un peu court'
   },
+  'string.toolong': {
+    en: 'String is too long',
+    fr: 'Hmm c\'est un peu long'
+  },
   'password.badpassword': {
     en: 'Bad password',
     fr: 'Mauvais mot de passe'

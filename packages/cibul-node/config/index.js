@@ -545,6 +545,10 @@ const config = {
         adminEventContact: {
           method: 'get',
           uri: '/:slug/admin/events/:eventSlug/contact'
+        },
+        confirmChangeEmail: {
+          method: 'get',
+          uri: '/users/:uid/confirmChangeEmail'
         }
       },
       defaultGlobalsPrefix: ''

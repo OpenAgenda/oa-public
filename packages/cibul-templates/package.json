@@ -52,7 +52,7 @@
     "@openagenda/sync-button": "^0.0.7",
     "@openagenda/translators": "^1.0.13",
     "@openagenda/tumblr-parser": "^0.1.2",
-    "@openagenda/users": "^2.0.1",
+    "@openagenda/user-apps": "^1.0.0",
     "@openagenda/utils": "^1.0.2",
     "async": "0.9.0",
     "babel-core": "^6.9.0",

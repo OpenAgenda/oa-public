@@ -39,7 +39,17 @@ module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state
 
     const members = ( await wn.call( stakeholders( aggregatorAgenda.id ).list, { credentials: [ 'administrator', 'moderator' ] }, 0, 100 ) )[ 0 ];
 
-    const users = ( await wn.call( usersSvc.list, { id: members.map( m => m.userId ) }, { detailed: true } ) )[ 0 ].filter( u => !!u.email );
+    const users = (await usersSvc.find( {
+      query: {
+        id: {
+          $in: members.map( m => m.userId )
+        },
+        $limit: 100
+      },
+      detailed: true
+    } ) )
+      .data
+      .filter( u => !!u.email );
 
     log( 'sending mails to %s adminmods to notify aggregation %s -> %s', users.length, sourceAgenda.title, aggregatorAgenda.title )
 

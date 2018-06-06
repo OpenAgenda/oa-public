@@ -38,7 +38,7 @@ const PasswordSettings = createReactClass( {
     const { getLabels } = this.context;
 
     const {
-      activeTab, dispatch, fields: { old_password, new_password, confirmation },
+      activeTab, dispatch, fields: { oldPassword, password, confirmation },
       handleSubmit, successMessageDisplayed, prefix
     } = this.props;
 
@@ -58,19 +58,19 @@ const PasswordSettings = createReactClass( {
           <div style={{ padding: '0 5px' }}>
             <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
               <div className="form-group">
-                <label htmlFor="old_password">{getLabels( 'actualPassword' )} *</label>
-                <input type="password" className="form-control" name="old_password"
-                  autoComplete="new-password" {...domOnlyProps( old_password )} />
-                {old_password.touched && old_password.error &&
-                <div className="text-danger">{capitalize( getLabels( old_password.error ) )}</div>}
+                <label htmlFor="oldPassword">{getLabels( 'actualPassword' )} *</label>
+                <input type="password" className="form-control" name="oldPassword"
+                  autoComplete="new-password" {...domOnlyProps( oldPassword )} />
+                {oldPassword.touched && oldPassword.error &&
+                <div className="text-danger">{capitalize( getLabels( oldPassword.error ) )}</div>}
               </div>
 
               <div className="form-group">
-                <label htmlFor="new_password">{getLabels( 'newPassword' )} *</label>
-                <input type="password" className="form-control" name="new_password"
-                  autoComplete="new-password" {...domOnlyProps( new_password )} />
-                {new_password.touched && new_password.error &&
-                <div className="text-danger">{capitalize( getLabels( new_password.error ) )}</div>}
+                <label htmlFor="password">{getLabels( 'newPassword' )} *</label>
+                <input type="password" className="form-control" name="password"
+                  autoComplete="new-password" {...domOnlyProps( password )} />
+                {password.touched && password.error &&
+                <div className="text-danger">{capitalize( getLabels( password.error ) )}</div>}
               </div>
 
               <div className="form-group">
@@ -100,5 +100,5 @@ const PasswordSettings = createReactClass( {
 
 module.exports = reduxForm( {
   form: 'passwordSettings',
-  fields: [ 'old_password', 'new_password', 'confirmation' ]
+  fields: [ 'oldPassword', 'password', 'confirmation' ]
 } )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( PasswordSettings ) );

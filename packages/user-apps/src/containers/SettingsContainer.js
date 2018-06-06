@@ -1,40 +1,23 @@
 "use strict";
 
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  { bindActionCreators } = require( 'redux' ),
-
-  { connect } = require( 'react-redux' ),
-
-  { routerActions } = require( 'react-router-redux' ),
-
-  { change: changeFieldValue, reset: resetForm } = require( 'redux-form' ),
-
-  get = require( '@openagenda/utils/get' ),
-
-  request = require( 'superagent' ),
-
-  actions = require( '../actions' ),
-
-  Spinner = require( '@openagenda/react-form-components/build/Spinner' ),
-
-  ProfileSettings = require( '../components/ProfileSettings' ),
-
-  ImageSettings = require( '../components/ImageSettings' ),
-
-  EmailSettings = require( '../components/EmailSettings' ),
-
-  PasswordSettings = require( '../components/PasswordSettings' ),
-
-  ApiKeySettings = require( '../components/ApiKeySettings' ),
-
-  UnsubscribedSettings = require( '../components/UnsubscribedSettings' ),
-
-  Modal = require( '@openagenda/react-components/build/Modal' );
+const React = require( 'react' );
+const createReactClass = require( 'create-react-class' );
+const PropTypes = require( 'prop-types' );
+const { bindActionCreators } = require( 'redux' );
+const { connect } = require( 'react-redux' );
+const { routerActions } = require( 'react-router-redux' );
+const { change: changeFieldValue, reset: resetForm } = require( 'redux-form' );
+const request = require( 'superagent' );
+const get = require( '@openagenda/utils/get' );
+const Spinner = require( '@openagenda/react-form-components/build/Spinner' );
+const Modal = require( '@openagenda/react-components/build/Modal' );
+const actions = require( '../actions' );
+const ProfileSettings = require( '../components/ProfileSettings' );
+const ImageSettings = require( '../components/ImageSettings' );
+const EmailSettings = require( '../components/EmailSettings' );
+const PasswordSettings = require( '../components/PasswordSettings' );
+const ApiKeySettings = require( '../components/ApiKeySettings' );
+const UnsubscribedSettings = require( '../components/UnsubscribedSettings' );
 
 
 const SettingsContainer = createReactClass( {
@@ -77,7 +60,7 @@ const SettingsContainer = createReactClass( {
     return (
       <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
 
-        {loading ? <Spinner /> :
+        {loading ? <Spinner/> :
           <table className="table">
             <tbody>
 
@@ -125,7 +108,7 @@ const SettingsContainer = createReactClass( {
           </table>}
 
         <Modal visible={modal.visible || false} onClose={() => displayModal( { visible: false } )}
-          title={modal.title || ''}>
+               title={modal.title || ''}>
           <div className="text-center">
             {modal.content || ''}
             <button
@@ -185,58 +168,45 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
 
   }
 
-  function getMe() {
+  async function getMe() {
     dispatch( actions.getMe( 'request' ) );
 
-    return new Promise( ( resolve, reject ) => {
+    const result = (await request.get( getUrl( 'getMe' ) )).body;
 
-      get( getUrl( 'getMe' ), ( err, result ) => {
-        if ( err ) {
-          reject( err );
-        } else {
-          dispatch( actions.getMe( 'response', result ) );
-          if ( result.user ) {
-            dispatch( changeFieldValue( 'profileSettings', 'full_name', result.user.full_name ) );
-            dispatch( changeFieldValue( 'profileSettings', 'culture', result.user.culture ) );
-            dispatch( changeFieldValue( 'emailSettings', 'email', result.user.email ) );
-            dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', result.user.api_key ) );
-            dispatch( changeFieldValue( 'apiKeySettings', 'apiSecret', result.user.api_secret ) );
-            resolve( result.user );
-          } else {
-            reject();
-          }
-        }
-      } );
-    } );
+    dispatch( actions.getMe( 'response', { user: result } ) );
+
+    dispatch( changeFieldValue( 'profileSettings', 'fullName', result.fullName ) );
+    dispatch( changeFieldValue( 'profileSettings', 'culture', result.culture ) );
+    dispatch( changeFieldValue( 'emailSettings', 'newEmail', result.email ) );
+    dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', result.apiKey ) );
+    dispatch( changeFieldValue( 'apiKeySettings', 'apiSecret', result.apiSecret ) );
+
+    return result;
   }
 
-  function updateUser( { full_name, culture } ) {
-    dispatch( actions.updateUser( 'request' ) );
+  async function updateUser( { fullName, culture } ) {
+    try {
+      dispatch( actions.updateUser( 'request' ) );
 
-    return new Promise( ( resolve, reject ) => {
-      get( getUrl( 'updateProfile' ), { full_name, culture }, ( err, result ) => {
-        if ( !err ) {
-          let errors = getFormFirstErrors( result.errors );
+      const result = (await request.patch( getUrl( 'updateProfile' ) )
+        .send( { fullName, culture } )).body;
 
-          if ( Object.keys( errors ).length ) {
-            reject( errors );
-          } else {
-            dispatch( actions.displayMessage( 'updateProfile', true ) );
-            if ( stateProps.user.culture !== result.user.culture ) {
-              location.reload();
-            }
-            setTimeout( () => {
-              dispatch( actions.displayMessage( 'updateProfile', false ) );
-            }, 2000 );
-            resolve( result );
-          }
+      dispatch( actions.updateUser( 'response', result ) );
+      dispatch( actions.displayMessage( 'updateProfile', true ) );
+      if ( stateProps.user.culture !== result.culture ) {
+        location.reload();
+      }
+      setTimeout( () => dispatch( actions.displayMessage( 'updateProfile', false ) ), 2000 );
 
-          if ( result.success ) {
-            dispatch( actions.updateUser( 'response', result ) );
-          }
-        }
-      } );
-    } );
+      return result;
+    } catch ( e ) {
+      const body = e.response && e.response.body || {};
+      const errors = getFormFirstErrors( body.errors );
+
+      if ( Object.keys( errors ).length ) {
+        throw errors;
+      }
+    }
   }
 
   function onChangeProfileImage( image, err ) {
@@ -245,72 +215,84 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
 
   }
 
-  function changeEmail( { email, password } ) {
-    dispatch( actions.changeEmail( 'request' ) );
+  async function changeEmail( { newEmail, password } ) {
+    try {
+      dispatch( actions.changeEmail( 'request' ) );
 
-    return new Promise( ( resolve, reject ) => {
+      const result = (await request.patch( getUrl( 'changeEmail' ) )
+        .send( { newEmail, password } )).body;
 
-      get( getUrl( 'changeEmail' ), { email, password }, ( err, result ) => {
-        if ( !err ) {
-          let errors = getFormFirstErrors( result.errors );
+      dispatch( actions.changeEmail( 'response', result ) );
+      dispatch( actions.displayMessage( 'changeEmail', true ) );
+      setTimeout( () => dispatch( actions.displayMessage( 'changeEmail', false ) ), 2000 );
 
-          if ( Object.keys( errors ).length ) {
-            reject( errors );
-          } else {
-            dispatch( actions.displayMessage( 'changeEmail', true ) );
-            setTimeout( () => dispatch( actions.displayMessage( 'changeEmail', false ) ), 2000 );
-            resolve();
-          }
+      dispatch( resetForm( 'emailSettings' ) );
 
-          dispatch( actions.changeEmail( 'response', result ) );
-        }
-      } );
+      return result;
+    } catch ( e ) {
+      const body = e.response && e.response.body || {};
 
-    } )
-      .then( () => {
-        dispatch( resetForm( 'emailSettings' ) );
-      } );
+      if ( body.message === 'Already exist' ) {
+        body.errors = [ {
+          field: 'newEmail',
+          code: 'email.alreadytaken'
+        } ];
+      }
+
+      const errors = getFormFirstErrors( body.errors );
+
+      if ( Object.keys( errors ).length ) {
+        throw errors;
+      } else if ( body.message ) {
+        throw { _error: body.message }
+      }
+    }
   }
 
-  function changePassword( { old_password, new_password, confirmation } ) {
-    dispatch( actions.changePassword( 'request' ) );
+  async function changePassword( { oldPassword, password, confirmation } ) {
+    try {
+      dispatch( actions.changePassword( 'request' ) );
 
-    return new Promise( ( resolve, reject ) => {
+      const result = (await request.patch( getUrl( 'changePassword' ) )
+        .send( { oldPassword, password, confirmation } )).body;
 
-      get( getUrl( 'changePassword' ), { old_password, new_password, confirmation }, ( err, result ) => {
-        if ( !err ) {
-          let errors = getFormFirstErrors( result.errors );
+      dispatch( actions.changePassword( 'response', result ) );
+      dispatch( actions.displayMessage( 'changePassword', true ) );
+      setTimeout( () => dispatch( actions.displayMessage( 'changePassword', false ) ), 2000 );
 
-          if ( Object.keys( errors ).length ) {
-            reject( errors );
-          } else {
-            dispatch( actions.displayMessage( 'changePassword', true ) );
-            setTimeout( () => dispatch( actions.displayMessage( 'changePassword', false ) ), 2000 );
-            resolve();
-          }
-          dispatch( actions.changePassword( 'response', result ) );
-        }
-      } );
+      dispatch( resetForm( 'passwordSettings' ) );
 
-    } )
-      .then( () => {
-        dispatch( resetForm( 'passwordSettings' ) );
-      } );
+      return result;
+    } catch ( e ) {
+      const body = e.response && e.response.body || {};
+
+      const errors = getFormFirstErrors( body.errors );
+
+      if ( Object.keys( errors ).length ) {
+        throw errors;
+      } else if ( body.message ) {
+        throw { _error: body.message }
+      }
+    }
   }
 
-  function generateApiKey( secret = 0 ) {
+  function generateApiKey( secret ) {
     dispatch( actions.generateApiKey( 'request' ) );
 
     request.get( getUrl( 'generateApiKey' ) )
-      .query( { secret } )
+      .query( { $client: { [ secret ? 'secretKey' : 'publicKey' ]: true } } )
       .set( 'X-Requested-With', 'XMLHttpRequest' )
       .end( ( err, result ) => {
         if ( !err ) {
           let errors = getFormFirstErrors( result.body.errors );
 
           if ( !Object.keys( errors ).length ) {
-            dispatch( actions.generateApiKey( 'response', { ...result.body, secret } ) );
-            dispatch( changeFieldValue( 'apiKeySettings', secret ? 'apiSecret' : 'apiKey', result.body.key ) );
+            const key = result.body[ secret ? 'apiSecret' : 'apiKey' ];
+
+            if ( key ) {
+              dispatch( actions.generateApiKey( 'response', { key, secret } ) );
+              dispatch( changeFieldValue( 'apiKeySettings', secret ? 'apiSecret' : 'apiKey', key ) );
+            }
           }
         }
       } );
@@ -324,9 +306,8 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
   function deleteAccount() {
     dispatch( actions.deleteAccount( 'request' ) );
 
-    request.post( getUrl( 'deleteAccount' ) )
+    request.del( getUrl( 'deleteAccount' ) )
       .set( 'X-Requested-With', 'XMLHttpRequest' )
-      .send( { _csrf: appSettings.csrfToken } )
       .end( ( err, res ) => {
         dispatch( actions.deleteAccount( 'response' ) );
         if ( !err && res.ok ) {
@@ -380,7 +361,7 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
   }
 
   function getUrl( name ) {
-    return appSettings.prefix + appSettings.urls[ name ];
+    return appSettings.urls[ name ];
   }
 
   function getFormFirstErrors( validatorErrors ) {

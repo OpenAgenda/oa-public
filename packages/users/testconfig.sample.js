@@ -26,6 +26,7 @@ module.exports = {
     accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
     secretAccessKey: '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'
   },
+  imagePath: '//openagendatst.s3.amazonaws.com/',
   interfaces: {
     beforeRemove: ( user, cb ) => cb( null ),
     getAgenda: ( agendaUid, cb ) => cb( null, agendaUid === 85870128 ? {

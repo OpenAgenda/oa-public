@@ -1,5 +1,6 @@
 "use strict";
 
+const { callbackify } = require( 'util' );
 const config = require( '../../config' );
 const users = require( '@openagenda/users' );
 const async = require( 'async' );
@@ -98,15 +99,25 @@ module.exports = ( notifications, cb ) => {
 
     async.series( [
       n.review_id ? agendas.get.bind( null, { id: n.review_id }, { private : null } ) : cb => cb(),
-      users.get.bind( null, { id: n.user_id }, { detailed: true } ),
-      n.owner_id ? users.get.bind( null, { id: n.owner_id } ) : cb => cb(),
+      cb => callbackify( users.findOne )( {
+        query: {
+          id: n.user_id
+        },
+        detailed: true
+      }, cb ),
+      n.owner_id ? cb => callbackify( users.findOne )( {
+        query: {
+          id: n.owner_id
+        },
+        detailed: true
+      }, cb ) : cb => cb(),
       n.event_id ? events.get.bind( null, { id: n.event_id } ) : cb => cb(),
       aggregatorAgendaId ? agendas.get.bind( null, { id: aggregatorAgendaId }, { private: null } ) : cb => cb()
     ], ( err, result ) => {
 
       let [ 
-        agenda, 
-        notifiedUser, 
+        agenda,
+        notifiedUser,
         user,
         event,
         aggregator
@@ -122,14 +133,14 @@ module.exports = ( notifications, cb ) => {
 
       let mailType = types[ n.type ].code || _.snakeCase( types[ n.type ].label ),
 
-        action = _getAction( n.type, { 
-          agenda: n.type === 20 ? aggregator : agenda, 
+        action = _getAction( n.type, {
+          agenda: n.type === 20 ? aggregator : agenda,
           event
         }, notifiedUser.culture );
 
-    
-      unsubscribed( notifiedUser.uid ).is( { 
-        subject: 'agenda', 
+
+      unsubscribed( notifiedUser.uid ).is( {
+        subject: 'agenda',
         identifier: agenda ? agenda.uid : -1,
         type: mailType
       }, ( err, isUnsubscribed ) => {
@@ -140,10 +151,10 @@ module.exports = ( notifications, cb ) => {
 
         mcb( null, {
           recipient: notifiedUser.email,
-          subject: getLabel( types[ n.type ].label, { 
+          subject: getLabel( types[ n.type ].label, {
             agenda: agenda ? agenda.title : null,
             aggregator: aggregator ? aggregator.title : null,
-            user: user ? user.full_name : null,
+            user: user ? user.fullName : null,
             event: event ? _getLang( event.title, notifiedUser.culture ) : null
           }, notifiedUser.culture ),
           data: {
@@ -151,9 +162,9 @@ module.exports = ( notifications, cb ) => {
             surTitle: agenda ? agenda.title : null,
             title : false,
             action,
-            description: getLabel( types[ n.type ].label, { 
+            description: getLabel( types[ n.type ].label, {
               agenda: agenda ? _genLinked( agenda.title, 'agendaShow', { slug: agenda.slug } ) : null,
-              user: user ? user.full_name : null,
+              user: user ? user.fullName : null,
               event: event ? _genLinked( _getLang( event.title, notifiedUser.culture ), agenda ? 'agendaEventShow' : 'eventShow', { slug: agenda ? agenda.slug : null, eventSlug: event.slug } ) : null,
               aggregator: aggregator ? _genLinked( aggregator.title, 'agendaShow', { slug: aggregator.slug } ) : null,
             }, notifiedUser.culture ),
@@ -175,7 +186,7 @@ module.exports = ( notifications, cb ) => {
             } ] : []
           }
         } );
-        
+
       } );
 
     } );

@@ -69,9 +69,9 @@ const ApiKeySettings = createReactClass( {
             </p>
 
             <div className="form-group">
-              <label htmlFor="api_key">{getLabels( 'publicKey' )}</label>
+              <label htmlFor="apiKey">{getLabels( 'publicKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="api_key" readOnly {...domOnlyProps( apiKey )} />
+                <input type="text" className="form-control" name="apiKey" readOnly {...domOnlyProps( apiKey )} />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button"
                     onClick={() => displayModal( generateApiKeyModal() )}>
@@ -82,9 +82,9 @@ const ApiKeySettings = createReactClass( {
             </div>
 
             {apiSecret.value && <div className="form-group">
-              <label htmlFor="api_secret">{getLabels( 'secretKey' )}</label>
+              <label htmlFor="apiSecret">{getLabels( 'secretKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="api_secret" readOnly {...domOnlyProps( apiSecret )} />
+                <input type="text" className="form-control" name="apiSecret" readOnly {...domOnlyProps( apiSecret )} />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button"
                     onClick={() => displayModal( generateApiKeyModal( 1 ) )}>

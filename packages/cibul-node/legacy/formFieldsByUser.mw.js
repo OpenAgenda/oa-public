@@ -11,13 +11,12 @@ const getRole = members.types.codes.get;
 
 const { promisify } = require( 'util' );
 
-const getUser = promisify( users.get );
 const getAgendaTags = promisify( agendaTags.get );
 const getAgendaCategories = promisify( agendaCategories.get );
 
 module.exports = async ( req, res, next ) => {
 
-  const user = await getUser( { uid: req.params.userUid }, { internal: true, camel: true } );
+  const user = await users().get( req.params.userUid );
 
   if ( !user ) return res.sendStatus( 404 );
 

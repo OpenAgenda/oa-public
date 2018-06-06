@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const nodefn = require( 'when/node' );
 const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/prepareSummary' );
 const usersSvc = require( '@openagenda/users' );
@@ -52,7 +51,7 @@ async function prepareSummary() {
 
       } );
 
-      const user = await nodefn.call( usersSvc.get, { uid: item.entity_uid }, { detailed: true } );
+      const user = await usersSvc.get( item.entity_uid, { detailed: true } );
 
       unsubscribed( user.uid ).is( { subject: 'notifications', type: 'notifications_summary' }, ( err, is ) => {
 

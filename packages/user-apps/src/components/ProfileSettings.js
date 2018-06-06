@@ -33,7 +33,7 @@ const ProfileSettings = createReactClass( {
     const { getLabels } = this.context;
 
     const {
-      activeTab, fields: { full_name, culture }, handleSubmit, displayModal, deleteAccount,
+      activeTab, fields: { fullName, culture }, handleSubmit, displayModal, deleteAccount,
       successMessageDisplayed, prefix
     } = this.props;
 
@@ -61,10 +61,10 @@ const ProfileSettings = createReactClass( {
           <div style={{padding: '0 5px'}}>
             <form onSubmit={handleSubmit} style={{paddingBottom: '8px'}}>
               <div className="form-group">
-                <label htmlFor="full_name">{getLabels( 'fullname' )} *</label>
-                <input type="text" className="form-control" name="full_name" {...domOnlyProps( full_name )}/>
-                {full_name.touched && full_name.error &&
-                <div className="text-danger">{capitalize( getLabels( full_name.error ) )}</div>}
+                <label htmlFor="fullName">{getLabels( 'fullname' )} *</label>
+                <input type="text" className="form-control" name="fullName" {...domOnlyProps( fullName )}/>
+                {fullName.touched && fullName.error &&
+                <div className="text-danger">{capitalize( getLabels( fullName.error ) )}</div>}
               </div>
 
               <div className="form-group">
@@ -92,7 +92,7 @@ const ProfileSettings = createReactClass( {
               </div>
             </form>
           </div>
-        </td> : <td style={{cursor: 'pointer'}}><b className="text-muted">{full_name.value}</b></td>}
+        </td> : <td style={{cursor: 'pointer'}}><b className="text-muted">{fullName.value}</b></td>}
       </tr>
     );
 
@@ -102,5 +102,5 @@ const ProfileSettings = createReactClass( {
 
 module.exports = reduxForm( {
   form: 'profileSettings',
-  fields: [ 'full_name', 'culture' ]
+  fields: [ 'fullName', 'culture' ]
 } )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( ProfileSettings ) );

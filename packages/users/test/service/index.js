@@ -14,7 +14,7 @@ async function initAndLoad( config, files, options ) {
 
   const defautFiles = [
     'user',
-    'api_key_set'
+    'key'
   ]
 
   if ( arguments.length === 2 && Array.isArray( arguments[ 1 ] ) ) {
@@ -56,6 +56,9 @@ async function populate( config, files, options ) {
     }, {
       table: config.schemas.apiKeySet,
       src: path.dirname( __dirname ) + '/fixtures/api_key_set.data.sql'
+    }, {
+      table: config.schemas.key,
+      src: path.dirname( __dirname ) + '/fixtures/key.data.sql'
     } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, err => {
 
       if ( err ) return reject( err );

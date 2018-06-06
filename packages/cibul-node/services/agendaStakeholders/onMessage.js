@@ -47,26 +47,37 @@ module.exports = ( stakeholder, message, context, cb ) => {
     } else if ( stakeholder.userId ) {
 
       // User without custom.email
-      users.get( stakeholder.userId, { detailed: true }, ( err, user ) => {
+      users.findOne( {
+        query: {
+          id: stakeholder.userId
+        },
+        detailed: true
+      } )
+        .then( user => {
 
-        if ( err || !user ) return cb();
+          if ( !user ) return cb();
 
-        const lang = context.lang || 'fr';
+          const lang = context.lang || 'fr';
 
-        _sendMessageEmail(
-          {
-            agenda,
-            url: genUrl( 'agendaShow', { slug: agenda.slug } ),
-            linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
-            message,
-            recipient: user.email,
-            replyTo: context.replyTo,
-            lang
-          },
-          cb
-        );
+          _sendMessageEmail(
+            {
+              agenda,
+              url: genUrl( 'agendaShow', { slug: agenda.slug } ),
+              linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
+              message,
+              recipient: user.email,
+              replyTo: context.replyTo,
+              lang
+            },
+            cb
+          );
 
-      } );
+        } )
+        .catch( () => {
+
+          cb();
+
+        } );
 
     } else if ( stakeholder.custom.email ) {
 

@@ -7,7 +7,6 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit",
     "build": "babel components/src -d components/lib -s",
     "preserve": "yarn build",
     "serve": "node test/app",

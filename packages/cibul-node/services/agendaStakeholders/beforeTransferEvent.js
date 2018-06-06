@@ -10,19 +10,24 @@ let log = console.log;
 
 module.exports = function ( eventUid, ownerId, nextOwnerId, cb ) {
 
-  users.get( ownerId, ( err, ownerUser ) => {
-
-    if ( err ) return cb( err );
-
-    if ( !ownerUser ) {
-
-      return cb( new VError( 'previous owner not found ( id: %s )', ownerUser ) );
-
+  users.findOne( {
+    query: {
+      id: ownerId
     }
+  } )
+    .then( async ownerUser => {
 
-    users.get( nextOwnerId, ( err, nextOwnerUser ) => {
+      if ( !ownerUser ) {
 
-      if ( err ) return cb( err );
+        return cb( new VError( 'previous owner not found ( id: %s )', ownerUser ) );
+
+      }
+
+      const nextOwnerUser = await users.findOne( {
+        query: {
+          id: ownerId
+        }
+      } );
 
       if ( !nextOwnerUser ) {
 
@@ -38,41 +43,40 @@ module.exports = function ( eventUid, ownerId, nextOwnerId, cb ) {
 
       } )
 
-      .then( feed => {
+        .then( feed => {
 
-        if ( !feed ) return cb();
+          if ( !feed ) return cb();
 
-        feed.unfollow( { entityType: 'event', entityUid: eventUid }, err => {
+          feed.unfollow( { entityType: 'event', entityUid: eventUid }, err => {
 
-          if ( err ) {
+            if ( err ) {
 
-            log( 'error', err );
-            return cb( err );
+              log( 'error', err );
+              return cb( err );
 
-          }
+            }
 
-          activities.feed( { entityType: 'user', entityUid: nextOwnerUser.uid } )
+            activities.feed( { entityType: 'user', entityUid: nextOwnerUser.uid } )
 
-            .follow( { entityType: 'event', entityUid: eventUid }, err => {
+              .follow( { entityType: 'event', entityUid: eventUid }, err => {
 
-              if ( err ) {
+                if ( err ) {
 
-                log( 'error', err );
-                return cb( err );
+                  log( 'error', err );
+                  return cb( err );
 
-              }
+                }
 
-              cb();
+                cb();
 
-            } );
+              } );
+
+          } );
 
         } );
 
-      } );
-
-    } );
-
-  } );
+    } )
+    .catch( cb );
 
 }
 

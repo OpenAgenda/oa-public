@@ -5,7 +5,7 @@ const wn = require( 'when/node' );
 const _ = require( 'lodash' );
 const { default: inboxes, Conversation } = require( '@openagenda/inboxes' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
-const userSvc = require( '@openagenda/users' );
+const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEventsSvc = require( '@openagenda/agenda-events' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
@@ -31,13 +31,23 @@ async function getUsersDetails( usersToBeDetailed ) {
     return [];
   }
 
-  return (await userSvc.list( { uid: usersToBeDetailed.map( v => v.userUid ) }, 0, 100, { removed: null } ))
-    .users
+  return (await usersSvc.find( {
+    query: {
+      uid: {
+        $in: usersToBeDetailed.map( v => v.userUid )
+      },
+      $skip: 0,
+      $limit: 100
+    },
+    removed: null
+  } ))
+    .data
     .map( user => ({
       uid: user.uid,
       name: user.fullName,
       avatar: user.image ? config.aws.imageBucketPath + user.image : config.aws.defaultImagePath
     }) );
+
 }
 
 async function getInboxesDetails( inboxesToBeDetailed ) {
@@ -118,7 +128,14 @@ async function onInboxCreate( Inbox ) {
       const users = [];
       const userIds = _.map( stakeholders, 'userId' );
 
-      while ( result = (await userSvc.list( { id: userIds }, pos, limit, { removed: null } )).users ) {
+      while ( result = (await usersSvc.find( {
+        query: {
+          id: { $in: userIds },
+          $skip: pos,
+          $limit: limit
+        },
+        removed: null
+      })).data ) {
         if ( !result.length ) break;
         pos = pos + limit;
 
@@ -147,7 +164,7 @@ async function filterAction( inbox, conversation, action ) {
       return false;
     }
 
-    const user = await promisify( userSvc.get )( { uid: conversation.inboxUser.userUid }, { removed: null } );
+    const user = await usersSvc.get( conversation.inboxUser.userUid, { removed: null } );
 
     const agenda = await promisify( agendasSvc.get )(
       { uid: inbox.identifier },
@@ -172,7 +189,7 @@ async function filterAction( inbox, conversation, action ) {
       return false;
     }
 
-    const user = await promisify( userSvc.get )( { uid: conversation.inboxUser.userUid }, { removed: null } );
+    const user = await usersSvc.get( conversation.inboxUser.userUid, { removed: null } );
 
     const agenda = await promisify( agendasSvc.get )(
       { uid: inbox.identifier },
@@ -230,7 +247,7 @@ async function onAction( conversation, action ) {
 
           try {
 
-            const user = await promisify( userSvc.get )( { uid: conversation.creatorInbox.identifier }, { removed: null } );
+            const user = await usersSvc.get( conversation.creatorInbox.identifier, { removed: null } );
             const agenda = await promisify( agendasSvc.get )(
               { uid: conversation.typeIdentifier },
               { private: null, internal: true }
@@ -323,7 +340,7 @@ module.exports.init = async c => {
         services: {
           agendas: agendasSvc,
           stakeholders: stakeholdersSvc,
-          users: userSvc
+          users: usersSvc
         },
         interfaces,
         defaultAction: {

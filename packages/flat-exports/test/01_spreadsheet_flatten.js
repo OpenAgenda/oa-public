@@ -15,8 +15,6 @@ describe( 'flat-exports - unit - spreadsheet_flatten', () => {
       labels
     } );
 
-    console.log( flatten( event ) );
-
     event.should.be.ok;
 
   } );

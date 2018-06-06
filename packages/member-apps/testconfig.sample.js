@@ -1,3 +1,4 @@
+const { callbackify } = require( 'util' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const keysSvc = require( '@openagenda/keys' );
@@ -60,7 +61,7 @@ module.exports = {
     getEventCount: ( agendaId, userId, cb ) => {
       cb( null, 35 );
     },
-    getUser: usersSvc.get,
+    getUser: identifiers => callbackify( usersSvc.findOne )( { query: identifiers } ),
     getExistingCredentials: ( agendaId, cb ) => {
 
       agendasSvc.get( { id: agendaId }, { instanciate: true, private: null }, ( err, agenda ) => {

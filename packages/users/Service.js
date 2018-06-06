@@ -1,11 +1,22 @@
 "use strict";
 
 const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
 const { Service } = require( 'feathers-knex' );
 const imageFiles = require( '@openagenda/image-files' );
+const crypto = require( './utils/crypto' );
 
 class Users extends Service {
+  async findOne( params ) {
+    params = params || {}
+    params.query = params.query || {}
+    params.query.$limit = 1
+
+    const result = await this.find( params );
+    const data = result.data || result;
+
+    return Array.isArray( data ) ? data[ 0 ] : data
+  }
+
   async setImageProfile( uid, { path, url }, params = {} ) {
     const user = await this.get( uid );
 
@@ -17,11 +28,7 @@ class Users extends Service {
 
     result.user = await this.patch( user.uid, {
       image: result.uploadedPaths[ 0 ].split( '/' ).pop()
-    }, {
-      provider: params.provider,
-      query: params.query,
-      action: 'setImageProfile'
-    } );
+    }, { ...params, action: 'setImageProfile', } );
 
     return result;
   }
@@ -34,64 +41,55 @@ class Users extends Service {
 
     await promisify( imageFiles.clear )( paths );
 
-    await this.patch( user.uid, {
-      image: null
-    }, {
-      provider: params.provider,
-      query: params.query,
-      action: 'clearImageProfile'
-    } );
+    await this.patch( user.uid, { image: null }, { ...params, action: 'clearImageProfile' } );
 
     return { success: true };
   }
 
   requestChangeEmail( uid, data, params = {} ) {
-    return this.patch( uid, data, {
-      provider: params.provider,
-      query: params.query,
-      action: 'requestChangeEmail'
-    } );
+    return this.patch( uid, data, { ...params, action: 'requestChangeEmail' } );
   }
 
   confirmChangeEmail( uid, params = {} ) {
-    return this.patch( uid, {}, {
-      provider: params.provider,
-      query: params.query,
-      action: 'confirmChangeEmail'
-    } );
+    return this.patch( uid, {}, { ...params, action: 'confirmChangeEmail' } );
   }
 
   changePassword( uid, data, params = {} ) {
-    return this.patch( uid, data, {
-      provider: params.provider,
-      query: params.query,
-      action: 'changePassword'
-    } );
+    return this.patch( uid, data, { ...params, action: 'changePassword' } );
   }
 
   generateApiKey( uid, params = {} ) {
-    return this.patch( uid, {}, {
-      provider: params.provider,
-      query: params.query,
-      action: 'generateApiKey',
-      ..._.pick( params, 'publicKey', 'secretKey' )
-    } );
+    return this.patch( uid, {}, { ...params, action: 'generateApiKey' } );
   }
 
   setNewFlag( uid, data, params = {} ) {
-    return this.patch( uid, data, {
-      provider: params.provider,
-      query: params.query,
-      action: 'setNewFlag'
-    } );
+    return this.patch(
+      uid,
+      typeof data === 'boolean' ? { isNew: data } : data,
+      { ...params, action: 'setNewFlag' }
+    );
   }
 
   refresh( uid, data, params = {} ) {
-    return this.patch( uid, data, {
-      provider: params.provider,
-      query: params.query,
-      action: 'refresh'
-    } );
+    return this.patch( uid, data, { ...params, action: 'refresh' } );
+  }
+
+  async verifyPassword( data, params = {} ) {
+    if ( !params.query ) {
+      throw new errors.BadRequest( 'Query is needed for `verifyPassword`' );
+    }
+
+    const user = await this.findOne( { query: params.query, internal: true } );
+
+    if ( !user ) {
+      throw new errors.NotFound( 'User not found for `verifyPassword`' );
+    }
+
+    return crypto.verifyPassword(
+      user.password,
+      typeof data === 'string' ? data : data.password,
+      user.salt
+    );
   }
 
   _getImageFormats( name, includeExtension = false ) {

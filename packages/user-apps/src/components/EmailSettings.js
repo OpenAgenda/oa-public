@@ -38,7 +38,7 @@ const EmailSettings = createReactClass( {
     const { getLabels } = this.context;
 
     const {
-      activeTab, dispatch, fields: { email, password },
+      activeTab, dispatch, fields: { newEmail, password },
       handleSubmit, successMessageDisplayed, prefix
     } = this.props;
 
@@ -58,10 +58,10 @@ const EmailSettings = createReactClass( {
           <div style={{ padding: '0 5px' }}>
             <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
               <div className="form-group">
-                <label htmlFor="email">{getLabels( 'email' )} *</label>
-                <input type="text" className="form-control" name="email" {...domOnlyProps( email )} />
-                {email.touched && email.error &&
-                <div className="text-danger">{capitalize( getLabels( email.error ) )}</div>}
+                <label htmlFor="newEmail">{getLabels( 'email' )} *</label>
+                <input type="text" className="form-control" name="newEmail" {...domOnlyProps( newEmail )} />
+                {newEmail.touched && newEmail.error &&
+                <div className="text-danger">{capitalize( getLabels( newEmail.error ) )}</div>}
               </div>
 
               <div className="form-group">
@@ -86,7 +86,7 @@ const EmailSettings = createReactClass( {
               </div>
             </form>
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{email.value}</b></td>}
+        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{newEmail.value}</b></td>}
       </tr>
     );
 
@@ -96,5 +96,5 @@ const EmailSettings = createReactClass( {
 
 module.exports = reduxForm( {
   form: 'emailSettings',
-  fields: [ 'email', 'password' ]
+  fields: [ 'newEmail', 'password' ]
 } )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( EmailSettings ) );

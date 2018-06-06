@@ -11,6 +11,7 @@ const fixtures = require( '@openagenda/fixtures' );
 const keysSvc = require( '@openagenda/keys/test/service' );
 const keysConfig = require( '@openagenda/keys/service/config' );
 const usersSvc = require( './service' );
+const hooks = require( '../hooks' );
 const mw = require( '../middleware' );
 const testconfig = require( '../testconfig' );
 const config = require( '../config' );
@@ -24,12 +25,14 @@ beforeEach( async () => {
   await keysSvc.initAndLoad( {
     ...testconfig,
     mysql: { ...testconfig.mysql, database }
-  } );
+  }, [] );
   await usersSvc.initAndLoad( {
     ...testconfig,
     mysql: { ...testconfig.mysql, database }
   }, { reset: false } );
   imageFiles.init( testconfig );
+
+  usersSvc.hooks( hooks );
 } );
 
 afterEach( async () => {
@@ -79,7 +82,7 @@ describe( 'setImageProfile', () => {
   it( 'upload new image profile', async done => {
     const req = new stream.PassThrough();
     req.params = {
-      uid: kaoreUid
+      __feathersId: kaoreUid
     };
 
     const res = {
@@ -105,14 +108,14 @@ describe( 'setImageProfile', () => {
 
 describe( 'clearImageProfile', () => {
   it( 'clear image profile of Kaoré', async () => {
-    const req = { params: { uid: kaoreUid } };
+    const req = { params: { __feathersId: kaoreUid } };
     const res = {};
 
     await expect(
       promisify( mw.clearImageProfile() )( req, res )
     ).to.be.fulfilled;
 
-    const user = await usersSvc().get( kaoreUid );
+    const user = await usersSvc.get( kaoreUid );
 
     expect( user.image ).to.be.null;
     expect( res.data ).to.be.eql( { success: true } );
