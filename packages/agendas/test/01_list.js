@@ -133,9 +133,9 @@ describe( 'agendas - functional (server): list', function () {
 
   it( 'default list returns unindexed agendas', done => {
 
-    svc.list( 0, 10, ( err, agendas ) => {
+    svc.list( 0, 30, ( err, agendas ) => {
 
-      agendas.filter( a => a.uid === 35338076 ).length.should.equal( 1 );
+      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 1 );
 
       done();
 
@@ -144,11 +144,11 @@ describe( 'agendas - functional (server): list', function () {
   } );
 
 
-  it( 'list with indexed option set to false does not return indexed agendas', done => {
+  it( 'list with indexed option set to true does not return unindexed agendas', done => {
 
-    svc.list( 0, 10, { indexed: false }, ( err, agendas ) => {
+    svc.list( 0, 30, { indexed: true }, ( err, agendas ) => {
 
-      agendas.filter( a => a.uid === 35338076 ).length.should.equal( 0 );
+      agendas.filter( a => a.uid === 90695263 ).length.should.equal( 0 );
 
       done();
 
