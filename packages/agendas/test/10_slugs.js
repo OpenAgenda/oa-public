@@ -2,11 +2,10 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const should = require( 'should' );
 
-svc = require( '../service/test' ),
-
-config = require( '../testconfig' );
+const config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): slugs', function() {
 
@@ -18,7 +17,22 @@ describe( 'agendas - functional (server): slugs', function() {
 
   } );
 
-  before( svc.test.fixtures );
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence'
+    }
+  } ) );
 
   describe( 'isTaken', function() {
 

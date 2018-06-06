@@ -2,15 +2,12 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const async = require( 'async' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-svc = require( '../service/test' ),
-
-config = require( '../testconfig' ),
-
-mysql = require( 'mysql' ),
-
-async = require( 'async' );
+const config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
 
@@ -20,7 +17,24 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
     svc.init( config );
   } );
 
-  before( svc.test.fixtures );
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql',
+      __dirname + '/fixtures/legacyCredentialSet.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence',
+      legacyCredential: 'legacy_credential_set'
+    }
+  } ) );
 
   it( 'scans through agendas and updates new structure with legacy data', done => {
 

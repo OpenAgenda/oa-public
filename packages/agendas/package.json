@@ -29,7 +29,6 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@openagenda/fixtures": "^2.0.1",
     "mocha": "^5.0.1",
     "should": "^8.2.2"
   }

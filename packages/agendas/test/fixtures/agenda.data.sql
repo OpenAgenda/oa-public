@@ -1,30 +1,4 @@
-CREATE TABLE IF NOT EXISTS ${schema} (
-  id BIGINT AUTO_INCREMENT, 
-  uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL, 
-  official TINYINT(1) DEFAULT '0' NOT NULL,
-  officialized_at DATETIME,
-  private TINYINT(1) DEFAULT '0' NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  owner_id BIGINT NOT NULL,
-  form_schema_id BIGINT,
-  slug VARCHAR(255) NOT NULL UNIQUE,
-  description VARCHAR(165), /* 150 in real world */
-  image VARCHAR(255),
-  url VARCHAR(255),
-  collaborative TINYINT(1) DEFAULT '0' NOT NULL,
-  contribution_type TINYINT DEFAULT 0 NOT NULL,
-  contribution_info TEXT,
-  store TEXT,
-  credentials TEXT,
-  settings TEXT,
-  created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL,
-  INDEX owner_id_idx (owner_id), 
-  PRIMARY KEY(id)
-) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
-
-INSERT INTO ${schema} (`id`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `uid`, `main`, `store`, `contribution_type`, `contribution_info`, `official`, `private`, `credentials` ) VALUES
+INSERT INTO ${agenda} (`id`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `uid`, `main`, `store`, `contribution_type`, `contribution_info`, `official`, `private`, `credentials` ) VALUES
 (4818, 'Procès d''assises 2016', 7197, 'proces-d-assises-2016', 'Sélection des procès d''assise à Paris valant le coup d''être chroniqués', 'review_proces-d-assises-2016_00.jpg', '', 0, '2016-01-11 13:07:08', '2016-01-18 16:14:06', 17026855, 0, '{"order":"relative","moderated":false,"send_invitation_email":true,"contributorconfigstep":1}', 2, NULL, 0, 0, '{}' ),
 (4819, 'Liste des taches ', 7164, 'taches', 'Liste des taches ', NULL, '', 0, '2016-01-11 16:07:53', '2016-01-11 16:07:53', 20665250, 0, '{"order":"relative"}', 0, NULL, 0, 0, '{}' ),
 (4820, 'Planning intervenants', 7171, 'planning-intervenants', 'Retrouvez ici les différentes activités qui ont cours durant la semaine à l''éco-lieu "Unis...vers". Nos intervenants prendront soins de vous chouchouter.', 'review_planning-intervenants_00.jpg', '', 0, '2016-01-11 17:30:12', '2016-01-19 12:05:46', 35158816, 0, '{"order":"relative","dataviz":"[{\\"sections\\":[\\"category\\"],\\"filter\\":\\"upcoming\\"}]"}', 0, NULL, 0, 0, '{}' ),
@@ -126,6 +100,6 @@ INSERT INTO ${schema} (`id`, `title`, `owner_id`, `slug`, `description`, `image`
 (4930, 'Agenda Romainville', 7647, 'agenda-romainville', 'Retrouvez les événements à venir', NULL, 'http://www.ville-romainville.fr/', 0, '2016-01-29 10:14:32', '2016-01-29 10:14:32', 49837743, 0, '{"order":"relative"}', 0, NULL, 0, 0, '{}' ),
 (4931, 'Le jardin de la Louve', 7645, 'sylvie-et-pascal-verger', 'Visite du jardin chaque jeudi après midi du 15 avril au 30 octobre. Ouverture les 3, 4, 5 juin l''après midi', 'review_sylvie-et-pascal-verger_00.jpg', '', 0, '2016-01-29 10:21:59', '2016-01-29 10:22:01', 98054891, 0, '{"order":"relative"}', 0, NULL, 0, 0, '{"moderators" : true}');
 
-INSERT INTO ${schema} ( `id`, `uid`, `settings`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `main`, `store`, `contribution_type`, `official`, `private`, `credentials` ) VALUES
+INSERT INTO ${agenda} ( `id`, `uid`, `settings`, `title`, `owner_id`, `slug`, `description`, `image`, `url`, `collaborative`, `created_at`, `updated_at`, `main`, `store`, `contribution_type`, `official`, `private`, `credentials` ) VALUES
 (4932, 35338076, '{"contribution":{"authorizedIPAddresses":["123.456.789.101"]}}', 'Un agenda protégé', 7592, 'agenda-protege', 'Un agenda protégé par adresse IP', NULL, '', 0, '2016-01-28 16:52:12', '2016-01-28 16:52:12', 0, '{"order":"relative"}', 0, 0, 0, '{}' ),
 (4921, 90695263, '{}', 'Acte 21', 7477, 'agenda-pas-protege', 'Agenda pas protégé par IP', 'review_acte21_00.jpg', '', 0, '2016-01-28 09:45:19', '2016-01-28 13:05:37', 0, '{"order":"relative"}', 0, 0, 0, '{}' );

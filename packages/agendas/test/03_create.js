@@ -2,29 +2,36 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const should = require( 'should' );
 
-svc = require( '../service/test' ),
+const svc = require( '../' );
 
-config = require( '../testconfig' );
+const config = require( '../testconfig' );
 
 describe( 'agendas - functional (server): set (create)', function() {
 
   this.timeout( 30000 );
 
-  before( () => {
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence'
+    }
+  } ) );
 
-    svc.init( config );
+  before( () => svc.init( config ) );
 
-  } );
-
-  afterEach( () => {
-
-    svc.init( config ); // reset interfaces
-  
-  } );
-
-  before( svc.test.fixtures );
+  afterEach( () => svc.init( config ) );
 
   it( 'simplest create is with a title, a description and an owner', done => {
 

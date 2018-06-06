@@ -2,30 +2,36 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-svc = require( '../service/test' ),
-
-config = require( '../testconfig' ),
-
-mysql = require( 'mysql' );
+const config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): remove', function() {
 
   this.timeout( 30000 );
 
-  before( () => {
-    svc.init( config );
-  } );
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence'
+    }
+  } ) );
 
-  before( svc.test.fixtures );
+  before( () => svc.init( config ) );
 
-  afterEach( () => {
-
-    // reset interfaces
-    svc.init( config );
-
-  } );
+  afterEach( () => svc.init( config ) );
 
   it( 'agenda remove removes db entry', done => {
 

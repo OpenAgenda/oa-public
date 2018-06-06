@@ -2,27 +2,36 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const async = require( 'async' );
+const fs = require( 'fs' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  svc = require( '../service/test' ),
-
-  config = require( '../testconfig' ),
-
-  mysql = require( 'mysql' ),
-
-  fs = require( 'fs' ),
-
-  async = require( 'async' );
+const config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): instanciate', function () {
 
   this.timeout( 30000 );
 
-  before( () => {
-    svc.init( config );
-  } );
+  before( () => svc.init( config ) );
 
-  beforeEach( svc.test.fixtures );
+  before( require( './fixtures/load.js' ).bind( null, {
+    mysql: config.mysql,
+    files: [
+      __dirname + '/fixtures/resetDb.sql',
+      __dirname + '/../agenda.sql',
+      __dirname + '/fixtures/agenda.data.sql',
+      __dirname + '/fixtures/agendaEvent.data.sql',
+      __dirname + '/fixtures/occurrence.data.sql'
+    ],
+    map: {
+      database: config.mysql.database,
+      agenda: 'agenda',
+      agendaEvent: 'agenda_event',
+      occurrence: 'occurrence'
+    }
+  } ) );
 
   beforeEach( done => {
 

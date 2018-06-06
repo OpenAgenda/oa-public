@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ${schema} (
+CREATE TABLE IF NOT EXISTS ${legacyCredential} (
   id BIGINT AUTO_INCREMENT, 
   owner_id BIGINT NOT NULL, 
   review_id BIGINT, 
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
-INSERT INTO ${schema} 
+INSERT INTO ${legacyCredential} 
 ( `id`, `owner_id`, `review_id`, `indesign`, `aggregator`, `activating_invitations`, `custom_templates`, `moderator`, `custom_head`, `emailstrategie`, `tags`, `created_at`, `updated_at` ) values 
 ( NULL,     '1',       '4828',       '0',        '0',              '0',                   '0',             '0',          '0',            '0',          '0',      NOW(),        NOW()    ),
 ( NULL,     '1',       '4837',       '0',        '0',              '0',                   '0',             '0',          '0',            '0',          '0',      NOW(),        NOW()    ),
