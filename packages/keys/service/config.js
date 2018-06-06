@@ -28,10 +28,7 @@ async function init( c ) {
   ] ) );
 
   // clone or create a knex client
-  config.knex = c.knex ? c.knex.clone() : knexLib( {
-    client: 'mysql',
-    connection: c.mysql
-  } );
+  config.knex = knexLib( getKnexConfig( c ) );
 
   // add migrations config to the knex client
   if ( c.migrations !== null ) {
@@ -51,4 +48,35 @@ async function init( c ) {
     await config.knex.migrate.latest();
   }
 
+}
+
+function getKnexConfig( c ) {
+  let knexConfig;
+
+  if ( c.knex ) {
+    knexConfig = {
+      ...c.knex.client.config,
+      pool: c.knex.client.pool,
+      schemas: {
+        ...c.knex.client.config.schemas,
+        ...c.schemas
+      }
+    };
+  } else {
+    knexConfig = {
+      client: 'mysql',
+      connection: c.mysql,
+      schemas: c.schemas
+    };
+  }
+
+  if ( c.migrations ) {
+    knexConfig.migrations = {
+      ...(c.knex ? c.knex.client.config.migrations : {}),
+      ...c.migrations,
+      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
+    }
+  }
+
+  return knexConfig;
 }
