@@ -78,7 +78,8 @@ describe( 'agendas - functional (server): set (update)', function() {
         updatedAt: result.agenda.updatedAt,
         createdAt: result.agenda.createdAt,
         official: 0,
-        private: 0
+        private: 0,
+        indexed: 1
       } );
 
       done();
@@ -230,6 +231,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           official: 0,
           officializedAt: null,
           private: 0,
+          indexed: 1,
           title: 'Agenda culturel Auvergne',
           description: 'test ! :)',
           url: '',

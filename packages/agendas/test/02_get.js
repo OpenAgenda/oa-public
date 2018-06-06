@@ -73,7 +73,8 @@ describe( 'agendas - functional (server): get', function() {
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
         official: 0,
-        private: 0
+        private: 0,
+        indexed: 1
       } );
 
       done();
@@ -179,7 +180,8 @@ describe( 'agendas - functional (server): get', function() {
         createdAt: agenda.createdAt,
         updatedAt: agenda.updatedAt,
         official: 0,
-        private: 0
+        private: 0,
+        indexed: 1
       } );
 
       done();
@@ -285,7 +287,8 @@ describe( 'agendas - functional (server): get', function() {
         updatedAt: agenda.updatedAt,
         official: 0,
         officializedAt: null, 
-        private: 0
+        private: 0,
+        indexed: 1
       } );
 
       done();

@@ -161,6 +161,7 @@ describe( 'agendas - unit (server): validate', () => {
         official: false,
         officializedAt: null,
         private: false,
+        indexed: true,
         ownerId: 1,
         formSchemaId: null,
         settings: {

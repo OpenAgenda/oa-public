@@ -77,6 +77,7 @@ describe( 'agendas - functional (server): set (create)', function() {
           },
           official: 0,
           private: 0,
+          indexed: 1,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -171,6 +172,7 @@ describe( 'agendas - functional (server): set (create)', function() {
           image: null,
           official: 0,
           private: 0,
+          indexed: 1,
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
         },
@@ -253,6 +255,7 @@ describe( 'agendas - functional (server): set (create)', function() {
           official: 0,
           officializedAt: null,
           private: 0,
+          indexed: 1,
           settings: {
             mailing: {
               eventAggregation: false

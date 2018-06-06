@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
+  indexed TINYINT(1) DEFAULT '1' NOT NULL,
   title VARCHAR(255) NOT NULL,
   owner_id BIGINT NOT NULL,
   form_schema_id BIGINT,

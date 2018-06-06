@@ -85,7 +85,8 @@ describe( 'agendas - functional (server): list', function () {
         'image',
         'updatedAt',
         'createdAt',
-        'private'
+        'private',
+        'indexed'
       ] );
 
       done();
