@@ -131,6 +131,31 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
+  it( 'default list returns unindexed agendas', done => {
+
+    svc.list( 0, 10, ( err, agendas ) => {
+
+      agendas.filter( a => a.uid === 35338076 ).length.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'list with indexed option set to false does not return indexed agendas', done => {
+
+    svc.list( 0, 10, { indexed: false }, ( err, agendas ) => {
+
+      agendas.filter( a => a.uid === 35338076 ).length.should.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
 
   it( 'list with empty ids returns empty list', done => {
 
