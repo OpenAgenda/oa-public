@@ -51,7 +51,9 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
   const lang = ( context && context.lang ) || 'fr';
 
   const signupUrl = stakeholder.userId ?
+
     genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } ) :
+
     genUrl( 'signup', {
       invitation: invitation.token,
       email: stakeholder.custom.email,

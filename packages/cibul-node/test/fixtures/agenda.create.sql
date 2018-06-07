@@ -20,6 +20,7 @@ CREATE TABLE agenda (
   settings TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
+  indexed TINYINT DEFAULT 1,
   INDEX owner_id_idx (owner_id), 
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

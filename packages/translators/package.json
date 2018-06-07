@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/translators",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Provides iso functions to fetch translated content",
   "keywords": [],
   "author": "",

@@ -20,6 +20,7 @@ CREATE TABLE agenda (
   contribution_type TINYINT DEFAULT 0 NOT NULL,
   contribution_info TEXT,
   store TEXT,
+  indexed TINYINT DEFAULT 1,
   credentials TEXT,
   settings TEXT,
   created_at DATETIME NOT NULL,

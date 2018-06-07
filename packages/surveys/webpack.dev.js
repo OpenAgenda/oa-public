@@ -3,14 +3,14 @@
 const webpack = require( 'webpack' );
 
 module.exports = {
+  mode: 'development',
   context: __dirname,
   entry: [
     'webpack-hot-middleware/client',
-    './client/index.js'
+    './client/src/index.js'
   ],
   output: {
     filename: 'index.js',
-    path: __dirname + '/dist',
     publicPath: '/js/'
   },
   plugins: [

@@ -409,7 +409,7 @@ function getMiddleware( idRef ) {
 
     } );
 
-  }
+  }  
 
 
   function listTerms( req, res, next ) {
@@ -479,7 +479,25 @@ function getMiddleware( idRef ) {
 
     } );
 
-    service.list( query, offset, limit, ( err, locations, total ) => {
+    service.list( query, offset, limit, async ( err, locations, total ) => {
+
+      const counts = [];
+
+      const agendaId = _extractRefValue( idRef, req );
+
+      const locationUids = locations.map( l => l.uid );
+
+      try {
+
+        counts.splice( 0, 0, ... await config.interfaces.getEventCounts( { id: agendaId }, locationUids ) );
+
+      } catch ( e ) {
+
+        log( 'error', 'interface error: getEventCounts on agenda id %s and locations %s', agendaId, locationUids, e );
+
+      }
+
+      const locationsWithEventCounts = locations.map( l => _.extend( l, { eventCount: _.get( _.first( counts.filter( c => c.uid === l.uid ) ), 'count' ) } ) );
 
       if ( err ) return next( err );
 
@@ -489,7 +507,7 @@ function getMiddleware( idRef ) {
         total,
         offset,
         limit,
-        items: req.filterInternal ? locations.map( _.partialRight( _.omit, [ 'agendaId', 'suggestions', 'tamere' ] ) ) : locations
+        items: req.filterInternal ? locationsWithEventCounts.map( _.partialRight( _.omit, [ 'agendaId', 'suggestions' ] ) ) : locationsWithEventCounts
       }
 
       next();
@@ -626,7 +644,7 @@ function get( req, res, next ) {
 
 function _extractRefValue( idRef, req ) {
 
-  var refValue = req;
+  let refValue = req;
 
   idRef.split( '.' ).forEach( ( part ) => {
 
@@ -648,7 +666,7 @@ function _get( query, options, cb ) {
 
   }
 
-  let params = utils.extend( {
+  const params = utils.extend( {
     fromDb: true,
     instanciate: false,
     fullImagePath: true,

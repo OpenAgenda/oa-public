@@ -41,6 +41,11 @@ module.exports = {
     default: false
   },
 
+  indexed: {
+    type: 'boolean',
+    default: true
+  },
+
   credentials: {
 
     // activate moderators

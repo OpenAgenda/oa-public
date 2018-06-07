@@ -116,6 +116,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
       } );
 
+      app.use( require( './services/logRequests' ).middleware );
+
 
       // load gen url everywhere
       app.use( ( req, res, next ) => {
@@ -160,15 +162,16 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './agenda/back' )( app );
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
-        require( './surveys' )( app, '/' );
+        require( './services/surveys' )( app, '' );
 
         require( './event/files' )( app, '/' );
 
-        require( './services/agenda-docx' )( app, '/docx' );
+        require( './services/agendaDocx' )( app, '/docx' );
 
         require( './api' );
 
-        require( './calendar' )( app, '/' ); //:agendaSlug/calendar
+        // /:agendaSlug/calendar
+        require( './services/agendaCalendar' )( app, '' );
 
         webModules.web.forEach( m => m.load( app ) );
 

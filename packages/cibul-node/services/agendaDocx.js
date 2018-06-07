@@ -6,6 +6,7 @@ const cmn = require( '../lib/commons-app' );
 
 module.exports = _.extend( ( parentApp, path ) => {
 
+  // not necessary
   parentApp.use( path + '/dist', agendaDocx.dist );
 
   parentApp.use( path + '/:agendaUid', cmn.verifyAdminModMiddleware( { uid: 'params.agendaUid' } ) );

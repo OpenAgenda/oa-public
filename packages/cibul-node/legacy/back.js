@@ -1,5 +1,7 @@
 "use strict";
 
+const config = require( '../config' );
+
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const bodyParser = require( 'body-parser' );
@@ -10,6 +12,7 @@ const VError = require( 'verror' );
 const activitiesSvc = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
+const agendaEventsSvc = require( '../services/agendaEvents' );
 const mailer = require( '@openagenda/mailer' );
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
@@ -20,13 +23,15 @@ const utils = require( '@openagenda/utils' );
 
 const aggregatorSvc = require( '../services/aggregator' );
 const agendaSvc = require( '../services/agenda' );
-const eventSvc = require( '../services/event' );
+const legacyEventSvc = require( '../services/event' );
 const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 const modLib = require( '../lib/moduleLib' );
 const notificationMail = require( '../services/notification/mail' );
 const userSvc = require( '../services/user' );
 const legacyEvents = require( '../services/events' ).legacy;
+
+const logRequests = require( '../services/logRequests' );
 
 const routes = {
 
@@ -58,6 +63,7 @@ const routes = {
 
     legacyApiPostCached: [ 'post', '/api/cache', [ bodyParser.json(), apiPostCached ] ],
 
+    legacyApiSystem: [ 'post', '/api/system', [ bodyParser.json(), apiSystem ] ],
 
     /**
      * process a save for event references
@@ -216,7 +222,7 @@ function head( req, res, next ) {
 
 function _loadEventByUid( req, res, next ) {
 
-  eventSvc.get( { uid: req.params.eventUid }, ( err, event ) => {
+  legacyEventSvc.get( { uid: req.params.eventUid }, ( err, event ) => {
 
     if ( err ) return next( err );
 
@@ -262,9 +268,9 @@ function api( req, res ) {
 
   if ( req.query.uri ) {
 
-    let parts = req.query.uri.split( '?' );
+    const parts = req.query.uri.split( '?' );
 
-    let path = parts.shift();
+    const path = parts.shift();
 
     let query = {};
 
@@ -287,7 +293,7 @@ function api( req, res ) {
 
 function apiGetCached( req, res, next ) {
 
-  let cleanUri = _cleanApiUri( req );
+  const cleanUri = _cleanApiUri( req );
   
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
@@ -332,9 +338,58 @@ function apiGetCached( req, res, next ) {
 }
 
 
+async function _updateAgendaEvents( { eventId } ) {
+
+  const refs = await config.knex( 'review_article' ).select( 'review_id' ).where( 'event_id', eventId );
+
+  for ( const ref of refs ) {
+
+    await agendaEventsSvc.legacy.evaluate( {
+      name: 'event.update',
+      values: {
+        id: eventId,
+        agendaId: ref.review_id,
+        force: true
+      }
+    } );
+
+  }
+
+}
+
+
+async function apiSystem( req, res, next ) {
+
+  try {
+
+    const systemEvent = _.get( req.body, 'name' );
+
+    const values = _.get( req.body, 'values' );
+
+    if ( systemEvent === 'event.update' ) {
+
+      await _updateAgendaEvents( { eventId: values.id } );
+
+    } else {
+
+      req.log( 'error', 'unknown system event', systemEvent );
+
+    }
+
+ } catch ( e ) {
+
+  req.log( 'error', 'api system message fail', e );
+
+ }
+
+  res.send( null );
+
+}
+
+
 function apiPostCached( req, res, next ) {
 
-  let cleanUri = _cleanApiUri( req ), ttl = 60*60;
+  const cleanUri = _cleanApiUri( req ), ttl = 60*60;
 
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
@@ -344,7 +399,7 @@ function apiPostCached( req, res, next ) {
 
       res.send( null );
 
-    } );
+    } );
 
   } else {
 
@@ -365,7 +420,7 @@ function _cleanApiUri( req ) {
 
   const parts = req.query.uri.split( '?' );
 
-  let path = parts.shift();
+  const path = parts.shift();
 
   let query = {}
 

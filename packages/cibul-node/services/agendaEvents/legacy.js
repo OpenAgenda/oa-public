@@ -11,7 +11,8 @@ const q = require( '@openagenda/queue' )( 'agendaEventsLegacy', { redis: config.
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/legacy' );
 
 module.exports = {
-  task
+  task,
+  evaluate: evaluate.bind( null, null )
 }
 
 function task() {
@@ -20,7 +21,7 @@ function task() {
 
   q.setConsumer( evaluate.bind( null, null ) );
 
-  q.launch( { interval: 1000 } );
+  q.launch( { interval: 1000 } );
   
 }
 
@@ -65,8 +66,9 @@ async function evaluate( err, action ) {
 
       result = await agendaEvents.legacyTransfer( { 
         eventId: action.values.id,
-        agendaId: action.values.agendaId || action.values.review_id
-      }, { 
+        agendaId: action.values.agendaId || action.values.review_id
+      }, {
+        force: _.get( action, 'values.force' ),
         context: { 
           userUid: action.values.user_uid,
           agendaUid: action.values.sourceAgendaUid || null
@@ -103,7 +105,7 @@ async function _eventExists( articleId ) {
 
   const event = await config.knex( 'event as e' ).first( [ 'uid' ] )
     .leftJoin( 'review_article as ra', 'ra.event_id', 'e.id' )
-    .where( { 'ra.id': articleId } );
+    .where( { 'ra.id': articleId } );
 
   if ( !event ) return false;
 

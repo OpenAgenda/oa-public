@@ -1,14 +1,18 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
-const internalEventSvc = require( './event' ),
+const internalEventSvc = require( './event' );
 
-  agendas = require( '@openagenda/agendas' ),
+const agendas = require( '@openagenda/agendas' );
 
-  logger = require( '@openagenda/logger' ),
+const logger = require( '@openagenda/logger' );
 
-  _ = require( 'lodash' );
+const { promisify } = require( 'util' );
+
+const agendaGet = promisify( agendas.get );
 
 module.exports.init = ( config, cb ) => {
 
@@ -42,6 +46,27 @@ module.exports.init = ( config, cb ) => {
       getAgendaSettings: ( agendaId, cb ) => {
 
         agendas.get( agendaId, ( err, agenda ) => cb( err, agenda ? agenda.settings : {} ) )
+
+      },
+      getEventCounts: async ( agendaIdentifiers, locationUids ) => {
+
+        const agenda = await agendaGet( agendaIdentifiers, {
+          private: null
+        } );
+
+        if ( !agenda ) return [];
+
+        const records = await config.knex( 'event_2 as e' )
+          .select( [ 'e.location_uid as locationUid', config.knex.raw( 'count( e.id ) as eventCount' ) ] )
+          .leftJoin( 'agenda_event as ae', 'e.uid', 'ae.event_uid' )
+          .whereIn( 'e.location_uid', locationUids )
+          .andWhere( 'ae.agenda_uid', agenda.uid )
+          .groupBy( 'e.location_uid' );
+
+        return records.map( r => ( {
+          uid: r.locationUid,
+          count: r.eventCount
+        } ) );
 
       }
     }, internalEventSvc.locations ),

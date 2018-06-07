@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS ${schema} (
+CREATE TABLE IF NOT EXISTS ${agendaEvent} (
   id BIGINT AUTO_INCREMENT,
   review_id BIGINT NOT NULL,
   event_id BIGINT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS ${schema} (
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
-INSERT INTO ${schema} ( `review_id`, `event_id`, `state` ) VALUES
+INSERT INTO ${agendaEvent} ( `review_id`, `event_id`, `state` ) VALUES
 ( 4828, 1000, 2 ),
 ( 4828, 1001, 2 ),
 ( 4828, 1002, 2 ),

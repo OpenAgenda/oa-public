@@ -1,0 +1,67 @@
+"use strict";
+
+const webpack = require( 'webpack' );
+const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
+const S3Plugin = require( 'webpack-s3-plugin' );
+
+module.exports = {
+  mode: 'production',
+  context: __dirname,
+  /* defaults at true optimization: {
+    minimize: false
+  },*/
+  entry: [
+    'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
+    './client/src/index.js'
+  ],
+  output: {
+    filename: 'app.js',
+    path: __dirname + '/client/dist'
+  },
+  plugins: [ new LodashModuleReplacementPlugin ].concat(
+    ( process.env.NODE_ENV === 'production' && parseInt( process.env.CI ) ) ? [ new S3Plugin( {
+      s3Options: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: 'eu-west-1'
+      },
+      s3UploadOptions: {
+        Bucket: 'oasvc'
+      },
+      basePathTransform: f => 'agenda-calendar-apps/' + f
+    } )
+  ] : [] ),
+  module: {
+    rules: [ {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          plugins: [
+            'lodash'
+          ],
+          presets: [
+            'babel-preset-env',
+            'babel-preset-react',
+            'babel-preset-es2015',
+            'babel-preset-stage-0'
+          ]
+        }
+      }
+    }, {
+      test: /\.css$/,
+      loader: 'style-loader!css-loader'
+    }, {
+      test: /\.scss$/,
+      use: [
+        'style-loader',
+        'css-loader',
+        'sass-loader'
+      ]
+    } ]
+  },
+  resolve: {
+    symlinks: false
+  }
+};

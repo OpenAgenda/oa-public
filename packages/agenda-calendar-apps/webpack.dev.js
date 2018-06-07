@@ -1,14 +1,21 @@
 "use strict";
 
-const HTMLWebpackPlugin = require( 'html-webpack-plugin' );
 const webpack = require( 'webpack' );
 
 module.exports = {
-  entry: __dirname + '/react/index.js',
+  mode: 'development',
+  context: __dirname,
+  entry: [
+    'webpack-hot-middleware/client',
+    './client/src/index.js'
+  ],
   output: {
-    path: __dirname + '/dist',
-    filename: 'index.js'
+    filename: 'app.js'
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   module: {
     rules: [ {
       test: /\.js$/,
@@ -18,7 +25,9 @@ module.exports = {
         options: {
           presets: [
             'babel-preset-env',
-            'babel-preset-react' 
+            'babel-preset-react',
+            'babel-preset-es2015',
+            'babel-preset-stage-0'
           ]
         }
       }
@@ -34,9 +43,7 @@ module.exports = {
       ]
     } ]
   },
-  plugins: [
-    new HTMLWebpackPlugin( {
-      template: 'index.html' 
-    } )
-  ]
-}
+  resolve: {
+    symlinks: false
+  }
+};

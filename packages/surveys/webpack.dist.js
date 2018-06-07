@@ -3,10 +3,10 @@
 module.exports = {
   mode: 'production',
   context: __dirname,
-  entry: './client/index.js',
+  entry: './client/src/index.js',
   output: {
     filename: 'index.js',
-    path: __dirname + '/dist'
+    path: __dirname + '/client/dist'
   },
   module: {
     rules: [ {

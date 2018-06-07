@@ -1,10 +1,9 @@
 "use strict";
 
-const deepExtend = require( 'deep-extend' ),
+const deepExtend = require( 'deep-extend' );
+const knexLib = require( 'knex' );
 
-  knexLib = require( 'knex' ),
-
-  prod = require( './prod' );
+const prod = require( './prod' );
 
 let currentConfig;
 
@@ -270,6 +269,7 @@ const config = {
       imageBucketPath: `https://${prod.aws.buckets.main}.s3.amazonaws.com/`,
       tmpBucketPath: `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`,
       staticBucketPath: `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
+      servicesBucketPath: `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
       bucket: prod.aws.buckets.main,
       tmpBucket: prod.aws.buckets.temporary,
       defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,
@@ -568,6 +568,7 @@ const config = {
         //enable: 'oa:search task*',
         //enable: 'oa:events/interfaces/legacy'
         //enable: 'oa:agendaEvents/interfaces/legacy',
+        //enable: 'oa:agendaEvents/interfaces/legacy, oa:agendaEvents/interfaces/onUpdate',
         //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*, oa:groupactions*'
         //enable: 'oa:agendaEvents',
         //enable: 'oa:services/event/oembed',
