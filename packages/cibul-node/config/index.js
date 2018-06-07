@@ -1,10 +1,9 @@
 "use strict";
 
-const deepExtend = require( 'deep-extend' ),
+const deepExtend = require( 'deep-extend' );
+const knexLib = require( 'knex' );
 
-  knexLib = require( 'knex' ),
-
-  prod = require( './prod' );
+const prod = require( './prod' );
 
 let currentConfig;
 
