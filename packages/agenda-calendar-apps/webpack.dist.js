@@ -18,9 +18,8 @@ module.exports = {
     filename: 'app.js',
     path: __dirname + '/client/dist'
   },
-  plugins: [
-    new LodashModuleReplacementPlugin,
-    new S3Plugin( {
+  plugins: [ new LodashModuleReplacementPlugin ].concat(
+    ( process.env.NODE_ENV === 'production' && parseInt( process.env.CI ) ) ? [ new S3Plugin( {
       s3Options: {
         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -31,7 +30,7 @@ module.exports = {
       },
       basePathTransform: f => 'agenda-calendar-apps/' + f
     } )
-  ],
+  ] : [] ),
   module: {
     rules: [ {
       test: /\.js$/,
