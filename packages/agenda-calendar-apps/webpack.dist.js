@@ -2,6 +2,7 @@
 
 const webpack = require( 'webpack' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
+const S3Plugin = require( 'webpack-s3-plugin' );
 
 module.exports = {
   mode: 'production',
@@ -18,7 +19,18 @@ module.exports = {
     path: __dirname + '/client/dist'
   },
   plugins: [
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin,
+    new S3Plugin( {
+      s3Options: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        region: 'eu-west-1'
+      },
+      s3UploadOptions: {
+        Bucket: 'oasvc'
+      },
+      basePathTransform: f => 'agenda-calendar-apps/' + f
+    } )
   ],
   module: {
     rules: [ {
