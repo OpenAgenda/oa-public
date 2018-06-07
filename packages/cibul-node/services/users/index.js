@@ -120,14 +120,10 @@ module.exports = ( parentApp, mountpath ) => {
   app.patch(
     path.join( mountpath, '/:__feathersId' ),
     ( req, res, next ) => {
-      if ( res.data ) {
-        return _.flow(
-          sessions.middleware.open( 'user', 'sessionResult' ),
-          req.result.success ? sessions.middleware.sync( 'syncResult' ) : ( req, res, next ) => next(),
-        )( req, req, next );
-      }
-
-      next();
+      return _.flow(
+        sessions.middleware.open( 'user', 'sessionResult' ),
+        res.data ? sessions.middleware.sync( 'syncResult' ) : ( req, res, next ) => next(),
+      )( req, req, next );
     }
   );
 
