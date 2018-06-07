@@ -37,8 +37,6 @@ function getUser( imageBucketPath, query, cb ) {
   usersSvc.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
     .then( user => {
 
-      console.log( 'UUUSSSEEERRR', user );
-
       log( 'info', 'retrieved user %j', user );
       cb( null, {
         id: user.id,
