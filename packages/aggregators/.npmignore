@@ -8,4 +8,4 @@ yarn-error.log
 
 # sources are useless in npm package
 test/
-testconfig.js
+config.test.js

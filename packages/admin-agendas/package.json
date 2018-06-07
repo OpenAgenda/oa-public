@@ -8,6 +8,7 @@
   },
   "scripts": {
     "build": "babel components/src -d components/lib -s",
+    "prepublish": "yarn build",
     "preserve": "yarn build",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore components --ext js,jsx run-script serve"
