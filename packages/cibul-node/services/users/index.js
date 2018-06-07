@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const path = require( 'path' );
 const errors = require( '@feathersjs/errors' );
 const users = require( '@openagenda/users' );
