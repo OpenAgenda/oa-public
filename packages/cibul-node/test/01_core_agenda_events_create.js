@@ -97,7 +97,8 @@ describe( 'core - functional ( server ): agenda event create', function() {
         'agendaEvents',
         'agendaStakeholders',
         'formSchemas',
-        'custom'
+        'custom',
+        'eventSearch'
       ]
     } );
 
