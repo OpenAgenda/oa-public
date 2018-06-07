@@ -36,6 +36,8 @@ module.exports.getConfig = () => configStore;
 
 async function _exists( alias ) {
 
+  if ( !configStore.client ) throw new Error( 'Service was not initialized' );
+
   return configStore.client.indices.existsAlias( {
     name: alias
   } );
