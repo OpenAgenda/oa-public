@@ -13,7 +13,6 @@ const methods = [
   'on',
   'once',
   'emit',
-  'events',
 
   'find',
   'get',
