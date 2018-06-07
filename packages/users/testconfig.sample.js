@@ -3,6 +3,11 @@
 const keysSvc = require( '@openagenda/keys' );
 
 module.exports = {
+  name: 'users',
+  paginate: {
+    default: 20,
+    max: 100
+  },
   mysql: {
     host: '127.0.0.1',
     database: 'oa_test_users',
@@ -21,6 +26,7 @@ module.exports = {
     accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
     secretAccessKey: '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'
   },
+  imagePath: '//openagendatst.s3.amazonaws.com/',
   interfaces: {
     beforeRemove: ( user, cb ) => cb( null ),
     getAgenda: ( agendaUid, cb ) => cb( null, agendaUid === 85870128 ? {
@@ -36,7 +42,6 @@ module.exports = {
       remove: identifiers => keysSvc( identifiers ).remove()
     }
   },
-  debug: true,
   redis: {
     connection: {
       host: 'localhost',

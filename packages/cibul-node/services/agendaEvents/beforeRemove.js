@@ -20,7 +20,7 @@ module.exports = ( ae, context ) => {
       let event;
 
       try {
-        user = await promisify( usersSvc.get )( { uid: context.userUid } );
+        user = await usersSvc.get( context.userUid );
       } catch ( e ) {
         return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
       }
@@ -32,9 +32,13 @@ module.exports = ( ae, context ) => {
       }
 
       try {
-        event = await eventsSvc.get( { uid: ae.eventUid } );
+        event = await eventsSvc.get( { uid: ae.eventUid }, { deleted: true } );
       } catch ( e ) {
         return log( 'error', new VError( e, 'Error to get event %s', ae.eventUid ) );
+      }
+
+      if ( !user || !agenda || !event ) {
+        return log( 'error', new VError( 'An entity is missing for add activity', { user, agenda, event } ) );
       }
 
       activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
@@ -44,7 +48,7 @@ module.exports = ( ae, context ) => {
         target: 'agenda:' + agenda.uid,
         store: {
           labels: {
-            actor: user.full_name,
+            actor: user.fullName,
             object: event.title,
             target: agenda.title
           }

@@ -1,41 +1,32 @@
 "use strict";
 
+const path = require( 'path' );
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
-const logger = require( '@openagenda/basic-logger' );
-const images = require( '@openagenda/images' );
-const files = require( '@openagenda/files' );
+const logger = require( '@openagenda/logs' );
 
 const config = {
-  knex: null
+  name: 'user',
+  knex: null,
+  interfaces: {}
 };
 
 module.exports = _.extend( config, { init } );
 
-async function init( c ) {
+function init( c ) {
 
-  if ( c.logger ) logger.setLogger( c.logger );
+  if ( c.logger ) logger.setModuleConfig( c.logger );
 
   config.knex = knexLib( getKnexConfig( c ) );
 
   _.extend( config, _.pick( c, [
+    'paginate',
     'mysql',
     'schemas',
     'files',
-    'interfaces'
+    'interfaces',
+    'imagePath'
   ] ) );
-
-  images.init( {
-    tmpPath: config.files.tmpPath,
-    logger: logger
-  } );
-
-  files.init( {
-    bucket: config.files.bucket,
-    accessKeyId: config.files.accessKeyId, // required
-    secretAccessKey: config.files.secretAccessKey, // required too
-    logger: logger
-  } );
 
 }
 
@@ -43,16 +34,28 @@ function getKnexConfig( c ) {
   let knexConfig;
 
   if ( c.knex ) {
-    knexConfig = Object.assign( {}, c.knex.client.config, {
+    knexConfig = {
+      ...c.knex.client.config,
       pool: c.knex.client.pool,
-      schemas: Object.assign( {}, c.knex.client.config.schemas, c.schemas )
-    } );
+      schemas: {
+        ...c.knex.client.config.schemas,
+        ...c.schemas
+      }
+    };
   } else {
     knexConfig = {
       client: 'mysql',
       connection: c.mysql,
       schemas: c.schemas
     };
+  }
+
+  if ( c.migrations ) {
+    knexConfig.migrations = {
+      ...(c.knex ? c.knex.client.config.migrations : {}),
+      ...c.migrations,
+      directory: path.resolve( path.dirname( __dirname ), 'migrations' )
+    }
   }
 
   return knexConfig;

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const userSvc = require( '@openagenda/users' );
+const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
 
@@ -34,30 +34,26 @@ function getUser( imageBucketPath, query, cb ) {
 
   log( 'info', 'requested user with %j', query );
 
-  userSvc.get( query, { detailed: true }, ( err, u ) => {
+  usersSvc.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
+    .then( user => {
 
-    if ( err ) {
+      log( 'info', 'retrieved user %j', user );
+      cb( null, {
+        id: user.id,
+        uid: user.uid,
+        name: user.fullName,
+        thumbnail: user.image ? imageBucketPath + user.image : null,
+        email: user.email,
+        culture: user.culture,
+        isNew: !!user.isNew
+      } );
+
+    } )
+    .catch( err => {
 
       log( 'error', 'failed to retrieve user: %s', JSON.stringify( err ) );
+      cb( err, null );
 
-    } else {
-
-      log( 'info', 'retrieved user %j', u );
-
-    }
-
-    if ( err || !u ) return cb( err, u );
-
-    cb( null, {
-      id: u.id,
-      uid: u.uid,
-      name: u.full_name,
-      thumbnail: u.image ? imageBucketPath + u.image : null,
-      email: u.email,
-      culture: u.culture,
-      isNew: !!u.is_new
     } );
-
-  } );
 
 }

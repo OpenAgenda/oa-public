@@ -2,38 +2,48 @@
 
 module.exports = {
 
-  mysql: {
-    host: '127.0.0.1',
-    database: 'oatest_event',
-    password: 'grut',
-    user: 'root'
-  },
-
-  redis: {
-    host: 'localhost',
-    port: 6379
+  mysql : {
+    host : '127.0.0.1',
+    database : 'oatest_event',
+    password : 'grut',
+    user : 'root'
   },
 
   schemas: {
     event: 'event'
   },
 
-  imagePath: '//openagendatst.s3.amazonaws.com/',
-  defaultImagePath: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+  image: {
+    base: '//openagendatst.s3.amazonaws.com/',
+    default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png',
+    formats: [ {
+      name: '{fileKey}.base.image.jpg',
+      format: { width: 600 },
+      variant: 'base'
+    }, {
+      name: '{fileKey}.full.image.jpg',
+      variant: 'full'
+    }, {
+      name: '{fileKey}.thumb.image.jpg',
+      format: { width: 200, height: 200, crop: true },
+      variant: 'thumbnail'
+    } ]
+  },
 
-  files: {
-    tmpPath: __dirname + '/test/tmp',
-    bucket: 'openagendatst',
-    accessKeyId: '-----',
-    secretAccessKey: '-----'
+  // imagePath: ,
+  //defaultImagePath: ,
+
+  redis: {
+    host: 'localhost',
+    port: 6379
   },
 
   legacy: {
-    mysql: {
-      host: '127.0.0.1',
-      database: 'oatest_event',
-      password: 'grut',
-      user: 'root'
+    mysql : {
+      host : '127.0.0.1',
+      database : 'oatest_event',
+      password : 'grut',
+      user : 'root'
     },
     schemas: {
       event: 'legacy_event',
@@ -49,17 +59,26 @@ module.exports = {
     }
   },
 
+  tests: {
+
+    imageFiles: {
+      files: {
+        tmpPath: '/var/tmp/',
+        bucket: 'openagendatst',
+        accessKeyId: '-----',
+        secretAccessKey: '-----'
+      }
+    }
+
+  },
+
   interfaces: {
 
     onCreate: event => {},
 
     onUpdate: ( before, after ) => {},
 
-    beforeRemove: ( event, context, cb ) => {
-
-      cb();
-      
-    },
+    beforeRemove: ( event, context, cb ) => { cb() },
 
     onRemove: event => {},
 
@@ -73,6 +92,8 @@ module.exports = {
       } ) ) );
 
     },
+
+    imageFilesLoad: () => {}, // load func of inited image-files service
 
     getLocations: ( uids, options, cb ) => {
 

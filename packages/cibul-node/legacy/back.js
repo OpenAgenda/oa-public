@@ -756,49 +756,57 @@ function _extractRecipients( obj ) {
 
 function _addCreateEventActivity( eventFeed, req ) {
 
-  usersSvc.get( req.event.ownerId, ( err, user ) => {
-
-    if ( err ) return req.log( 'error', err );
-
-    if ( !user ) {
-
-      return req.log( 'error', new VError( 'user of id %s not found', req.event.ownerId ) );
-
+  usersSvc.findOne( {
+    query: {
+      id: req.event.ownerId
     }
+  } )
+    .then( user => {
 
-    activitiesSvc.feed( {
-      entityType: 'user',
-      entityUid: user.uid 
-    } ).follow( eventFeed, err => {
+      if ( !user ) {
 
-      if ( err ) req.log( 'error', err );
+        return req.log( 'error', new VError( 'user of id %s not found', req.event.ownerId ) );
 
-      activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
-        actor: 'user:' + user.uid,
-        verb: 'event.create',
-        object: 'event:' + req.event.uid,
-        target: 'agenda:' + req.agenda.uid,
-        store: {
-          labels: {
-            actor: user.full_name,
-            object: req.event.title,
-            target: req.agenda.title
-          }
-        }
-      }, err => {
+      }
+
+      activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: user.uid
+      } ).follow( eventFeed, err => {
 
         if ( err ) req.log( 'error', err );
 
-        stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
+        activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
+          actor: 'user:' + user.uid,
+          verb: 'event.create',
+          object: 'event:' + req.event.uid,
+          target: 'agenda:' + req.agenda.uid,
+          store: {
+            labels: {
+              actor: user.fullName,
+              object: req.event.title,
+              target: req.agenda.title
+            }
+          }
+        }, err => {
 
           if ( err ) req.log( 'error', err );
+
+          stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
+
+            if ( err ) req.log( 'error', err );
+
+          } );
 
         } );
 
       } );
 
-    } );
+    } )
+    .catch( err => {
 
-  } );
+      req.log( 'error', err );
+
+    } );
 
 }

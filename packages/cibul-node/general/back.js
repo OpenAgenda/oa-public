@@ -82,15 +82,15 @@ ${req.body.message}
 
 function _loadUser( detailed, req, res, next ) {
 
-  users.get( { id: req.user.id }, { detailed, camel: true }, ( err, user ) => {
+  users.findOne( { query: { id: req.user.id }, detailed: true } )
+    .then( user => {
 
-    if ( err ) return next( err );
+      req.user = user;
 
-    req.user = user;
+      next();
 
-    next();
-
-  } );
+    } )
+    .catch( next );
 
 }
 
@@ -133,11 +133,11 @@ function snsMailReports( req, res, next ) {
 
     let body = JSON.parse( req.body ),
 
-    message = JSON.parse( body.Message );
+      message = JSON.parse( body.Message );
 
     req.log( 'info', utils.extend( body, message ) );
 
-  } catch( e ) {
+  } catch ( e ) {
 
     req.log( 'error', 'could not read sns mail report: %s', req.body );
 
@@ -154,21 +154,21 @@ function snsMailReplies( req, res, next ) {
 
     let body = JSON.parse( req.body ),
 
-    messageId = body.MessageId,
+      messageId = body.MessageId,
 
-    message = JSON.parse( body.Message ),
+      message = JSON.parse( body.Message ),
 
-    destination = message.mail.destination[ 0 ],
+      destination = message.mail.destination[ 0 ],
 
-    mailContent = mailer.parser.extract( message.content ),
+      mailContent = mailer.parser.extract( message.content ),
 
-    subject = message.mail.commonHeaders.subject,
+      subject = message.mail.commonHeaders.subject,
 
-    replyTo = message.mail.source;
+      replyTo = message.mail.source;
 
     req.log( 'info', utils.extend( body, message ) );
 
-  } catch( e ) {
+  } catch ( e ) {
 
     req.log( 'error', 'could not read sns mail reply :%s', req.body );
 

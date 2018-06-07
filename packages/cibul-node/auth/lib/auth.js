@@ -6,7 +6,7 @@ const deepExtend = require( 'deep-extend' );
 const labels = require( '@openagenda/labels/auth/messages' );
 const emailValidator = require( '@openagenda/validators/email' )();
 const getLabel = require( '@openagenda/labels' )( labels );
-const userSvc = require( '@openagenda/users' );
+const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 
 const inAppUserSvc = require( '../../services/user' );
@@ -284,15 +284,20 @@ function signin( values ) {
 
   values.req.log( 'info', 'signing in user %s', user.email );
 
-  sessions.open( req, res, user, ( err, session ) => {
+  sessions.open( req, res, user, async ( err, session ) => {
+
+    if ( err ) req.log( 'error', { message: 'could not open session', error: err } );
     
-    var redirectUrl;
+    let redirectUrl;
 
-    userSvc.refreshLastSignin( { uid: user.uid }, ( err, success ) => {
+    usersSvc.refresh( user.uid, {
+      lastSignin: true
+    } )
+      .catch( err => {
 
-      if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
+        if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
 
-    } );
+      } );
 
     if ( req.query.redirect ) {
 

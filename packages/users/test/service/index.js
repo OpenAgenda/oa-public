@@ -6,14 +6,15 @@ const fixtures = require( '@openagenda/fixtures' );
 const svc = require( '../..' );
 
 module.exports = _.extend( svc, {
-  initAndLoad
+  initAndLoad,
+  populate
 } );
 
 async function initAndLoad( config, files, options ) {
 
   const defautFiles = [
     'user',
-    'api_key_set'
+    'key'
   ]
 
   if ( arguments.length === 2 && Array.isArray( arguments[ 1 ] ) ) {
@@ -39,11 +40,11 @@ async function initAndLoad( config, files, options ) {
   }, options );
 
   await svc.init( config );
-  await fix( config, files, params );
+  await populate( config, files, params );
 
 }
 
-async function fix( config, files, options ) {
+async function populate( config, files, options ) {
 
   return new Promise( ( resolve, reject ) => {
 
@@ -55,6 +56,9 @@ async function fix( config, files, options ) {
     }, {
       table: config.schemas.apiKeySet,
       src: path.dirname( __dirname ) + '/fixtures/api_key_set.data.sql'
+    }, {
+      table: config.schemas.key,
+      src: path.dirname( __dirname ) + '/fixtures/key.data.sql'
     } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, err => {
 
       if ( err ) return reject( err );

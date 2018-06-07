@@ -9,10 +9,10 @@ describe( 'flat-exports - unit - rss', () => {
 
   test( 'formatEvent', () => {
 
-    formatEvent( event ).custom_elements.should.eql( [ 
-      { 'ev:startdate': '2017-03-08T12:30:00' },
-      { 'ev:enddate': '2017-12-21T21:00:00' },
-      { 'ev:location': 'Centre national du Jeu - 17, allée Robert Doisneau, 92100 Boulogne-Billancourt' } 
+    formatEvent( event ).custom_elements.should.eql( [
+      { 'ev:startdate': '2017-03-08T09:30:00' },
+      { 'ev:enddate': '2017-12-21T18:00:00' },
+      { 'ev:location': 'Centre national du Jeu - 17, allée Robert Doisneau, 92100 Boulogne-Billancourt' }
     ] );
 
   } );

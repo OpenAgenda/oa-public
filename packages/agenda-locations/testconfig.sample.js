@@ -28,6 +28,10 @@ module.exports = {
     accessKeyId: 'ACCESSKEY',
     secretAccessKey: 'SECRETKEY'
   },
+  redis: {
+    host: 'localhost',
+    port: 6379
+  },
   interfaces: {
     getEventCount: ( l, cb ) => {
 

@@ -1,11 +1,11 @@
 {
   "name": "@openagenda/react-components",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build && babel components -d build -s",
     "prepublish": "yarn build",
+    "build": "rimraf build && babel components -d build -s",
     "preserve": "yarn build",
     "serve": "node test/app",
     "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'"

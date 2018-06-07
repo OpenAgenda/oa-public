@@ -149,7 +149,7 @@ function _loadName( data, user, cb ) {
 
   if ( !data.contactName && !data.contact_name && user ) {
 
-    data.contactName = user.full_name;
+    data.contactName = user.fullName;
 
   }
 

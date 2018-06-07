@@ -1,4 +1,4 @@
-var App = require( '@openagenda/users/react/build' ),
+var App = require( '@openagenda/user-apps/dist' ),
 
   deepExtend = require( 'deep-extend' ),
 
@@ -7,7 +7,7 @@ var App = require( '@openagenda/users/react/build' ),
     selectors: {
       canvas: '.js_canvas'
     },
-    prefix: '/settings' // IMPORTANT url for prefix redux router
+    prefix: '/settings' // IMPORTANT url for prefix react router
   };
 
 

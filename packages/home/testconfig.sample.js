@@ -83,7 +83,7 @@ module.exports.services = {
         cb( null, {
           id: identifiers.id || 123,
           uid: 128492293,
-          full_name: 'Zorg',
+          fullName: 'Zorg',
           email: identifiers.email || 'zorg@galactic.uv'
         } );
       },

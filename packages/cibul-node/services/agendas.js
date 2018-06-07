@@ -80,62 +80,66 @@ function onCreate( channel, agenda, cb ) {
 
     if ( err ) return log( 'error', err );
 
-    users.get( agenda.ownerId, ( err, user ) => {
-
-      if ( err ) return log( 'error', err );
-
-      if ( user.is_new ) {
-
-        users.setNewFlag( { id: user.id }, false, ( err ) => {
-
-          if ( err ) return log( 'error', err );
-
-        } )
-
+    users.findOne( {
+      query: {
+        id: agenda.ownerId
       }
+    } )
+      .then( async user => {
 
-      agendaStakeholders( agenda.id ).create( {
-        email: user.email
-      }, {
-        allowPartial: true,
-        credential: agendaStakeholders.types.get( 'administrator' )
-      }, ( err, stakeholder ) => {
+        if ( user.isNew ) {
 
-        if ( err ) {
+          await users.setNewFlag( user.uid, false );
 
-          return log( 'error', 'could not name agenda %s owner administrator, err: %s', agenda.id, err.message || err );
-          
         }
 
-        cb( err );
+        agendaStakeholders( agenda.id ).create( {
+          email: user.email
+        }, {
+          allowPartial: true,
+          credential: agendaStakeholders.types.get( 'administrator' )
+        }, ( err, stakeholder ) => {
 
-        activities.feed( agendaFeed ).activities.add( {
-          actor: 'user:' + user.uid,
-          verb: 'agenda.create',
-          target: 'agenda:' + agenda.uid,
-          store: {
-            labels: {
-              actor: user.full_name,
-              target: agenda.title
-            }
+          if ( err ) {
+
+            return log( 'error', 'could not name agenda %s owner administrator, err: %s', agenda.id, err.message || err );
+
           }
-        } )
+
+          cb( err );
+
+          activities.feed( agendaFeed ).activities.add( {
+            actor: 'user:' + user.uid,
+            verb: 'agenda.create',
+            target: 'agenda:' + agenda.uid,
+            store: {
+              labels: {
+                actor: user.fullName,
+                target: agenda.title
+              }
+            }
+          } )
+            .catch( err => {
+
+              log( 'error', err );
+
+            } );
+
+        } );
+
+        keys( { type: 'agendaFullRead', identifier: agenda.uid } ).create()
           .catch( err => {
 
             log( 'error', err );
 
           } );
 
+      } )
+      .catch( err => {
+
+        log( 'error', err );
+
       } );
-
-      keys( { type: 'agendaFullRead', identifier: agenda.uid } ).create()
-        .catch( err => {
-
-          log( 'error', err );
-
-        } );
-
-    } );
 
   } );
 

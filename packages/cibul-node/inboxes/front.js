@@ -42,11 +42,16 @@ app.use( '/home/inbox',
   cmn.loadBaseData( 'oasfmain.css' ),
   ( req, res, next ) => {
 
-    users.refresh( 'lastInboxCheck', { uid: req.user.uid }, ( err, success ) => {
+    users.refresh( {
+      lastInboxCheck: true
+    }, {
+      query: { uid: req.user.uid }
+    } )
+      .then( () => {
 
-      next();
+        next();
 
-    } );
+      } );
 
   },
   ( req, res, next ) => {
@@ -319,7 +324,7 @@ app.use( '/:slug/admin/members/:stakeholderId/contact',
       identifier: req.stakeholder.user.uid
     } : [];
 
-    const userName = req.stakeholder.custom.contactName || req.stakeholder.user.full_name;
+    const userName = req.stakeholder.custom.contactName || req.stakeholder.user.fullName;
 
     const resPrefix = shIsAdminmod ? '/home' : `/agendas/${req.agenda.uid}`;
 
@@ -339,7 +344,7 @@ app.use( '/:slug/admin/members/:stakeholderId/contact',
             // maskCreationSubtitle: true,
             // topListForm: true, // add a conversation form on top of conversation list
             creationSubtitle: getLabel( 'contactName', { name: userName }, req.lang ),
-            // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.full_name }, req.lang ),
+            // creationDesc: getLabel( 'sendMessageToName', { name: req.stakeholder.user.fullName }, req.lang ),
             belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
             onConversationCreateRedirect: `/agendas/${req.agenda.uid}/admin/members`,
             onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),

@@ -19,21 +19,29 @@ module.exports = function ( stakeholder ) {
 
     if ( !stakeholder.userId ) return;
 
-    users.get( stakeholder.userId, ( err, user ) => {
+    users.findOne( {
+      query: {
+        id: stakeholder.userId
+      }
+    } )
+      .then( user => {
 
-      if ( err ) return log( 'error', err );
+        if ( !user ) return log( 'error', 'user %s not found', stakeholder.userId );
 
-      if ( !user ) return log( 'error', 'user %s not found', stakeholder.userId );
+        log( 'unfollowing agenda for user uid %s', user.uid );
 
-      log( 'unfollowing agenda for user uid %s', user.uid );
+        activities.feed( { entityType: 'user', entityUid: user.uid } )
+          .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );
 
-      activities.feed( { entityType: 'user', entityUid: user.uid } )
-        .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );
+        log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+        new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.remove( { userUid: user.uid } ).then( _.noop );
 
-      log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
-      new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.remove( { userUid: user.uid } ).then( _.noop );
+      } )
+      .catch( err => {
 
-    } );
+        log( 'error', err );
+
+      } );
 
   } );
 

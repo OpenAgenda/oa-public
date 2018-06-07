@@ -15,7 +15,7 @@ module.exports = async ( event, context ) => {
 
   // TODO activities: event.delete in feed event -> feed agenda source (!!! filtered for agenda source)
 
- /* const user = await promisify( usersSvc.get )( { uid: context.userUid } );
+ /* const user = await usersSvc.get( context.userUid );
   const agenda = await promisify( agendasSvc.get )( { uid: context.agendaUid }, { private: null } );
 
   console.log( 'EVENT', event );
@@ -31,7 +31,7 @@ module.exports = async ( event, context ) => {
       target: 'agenda:' + context.agendaUid,
       store: {
         labels: {
-          actor: user.full_name,
+          actor: user.fullName,
           object: event.title,
           target: agenda.title
         }

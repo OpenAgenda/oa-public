@@ -21,7 +21,7 @@ module.exports = ( before, after, context ) => {
       let agenda;
 
       try {
-        user = await promisify( usersSvc.get )( { uid: context.userUid } );
+        user = await usersSvc.get( context.userUid );
       } catch ( e ) {
         return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
       }
@@ -39,7 +39,7 @@ module.exports = ( before, after, context ) => {
         target: 'agenda:' + agenda.uid,
         store: {
           labels: {
-            actor: user.full_name,
+            actor: user.fullName,
             object: before.title,
             target: agenda.title
           }

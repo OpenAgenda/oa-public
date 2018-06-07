@@ -193,7 +193,7 @@ export default class Dashboard extends Component {
         <div className="media-body">
           <div className="title media-heading">
             <strong>
-              {custom.contactName || (user && user.full_name) ||
+              {custom.contactName || (user && user.fullName) ||
               (invited ? custom.email || getLabel( 'invited' ) : getLabel( 'noName' ))}
             </strong>
             {' '}

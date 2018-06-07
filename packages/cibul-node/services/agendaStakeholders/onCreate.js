@@ -26,39 +26,40 @@ module.exports = function ( stakeholder, context ) {
 
       log( 'member (id %s) is created and associated with user (id %s)', stakeholder.id, stakeholder.userId );
 
-      users.get( stakeholder.userId, ( err, user ) => {
-
-        if ( err ) return log( 'error', err );
-
-        if ( user.is_new ) {
-
-          users.setNewFlag( { id: stakeholder.userId }, false, ( err ) => {
-
-            if ( err ) return log( 'error', err );
-
-          } );
-
+      users.findOne( {
+        query: {
+          id: stakeholder.userId
         }
+      } )
+        .then( async user => {
 
-        // Create inboxUser, only for moderator or more
-        if (
-          agendaStakeholders.types.isSuperiorTo(
-            stakeholder.credential,
-            agendaStakeholders.types.get( 'moderator' ),
-            true
-          )
-        ) {
-          log( 'create inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
-          new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.add( { userUid: user.uid } ).then( _.noop );
-        }
+          if ( user.isNew ) {
 
-        activities.feed( { entityType: 'user', entityUid: user.uid } )
-          .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
-          .then( result => {
+            await users.setNewFlag( user.uid, false );
 
-            users.get( context.invitationSender.userId, ( err, senderUser ) => {
+          }
 
-              if ( err ) return log( 'error', err );
+          // Create inboxUser, only for moderator or more
+          if (
+            agendaStakeholders.types.isSuperiorTo(
+              stakeholder.credential,
+              agendaStakeholders.types.get( 'moderator' ),
+              true
+            )
+          ) {
+            log( 'create inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+            new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.add( { userUid: user.uid } ).then( _.noop );
+          }
+
+          activities.feed( { entityType: 'user', entityUid: user.uid } )
+            .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
+            .then( async result => {
+
+              const senderUser = await users.findOne( {
+                query: {
+                  id: context.invitationSender.userId
+                }
+              } );
 
               if ( !senderUser ) return log( 'error', 'sender user ( id %s ) not found', context.invitationSender.userId );
 
@@ -76,8 +77,8 @@ module.exports = function ( stakeholder, context ) {
                 target: 'agenda:' + agenda.uid,
                 store: {
                   labels: {
-                    actor: context.invitationSender.name || senderUser.full_name,
-                    object: stakeholder.custom.contactName || user.full_name,
+                    actor: context.invitationSender.name || senderUser.fullName,
+                    object: stakeholder.custom.contactName || user.fullName,
                     target: agenda.title
                   },
                   credential: stakeholder.credential
@@ -89,16 +90,19 @@ module.exports = function ( stakeholder, context ) {
 
                 } );
 
+            } )
+            .catch( err => {
+
+              log( 'error', err );
+
             } );
 
-          } )
-          .catch( err => {
+        } )
+        .catch( err => {
 
-            log( 'error', err );
+          log( 'error', err );
 
-          } );
-
-      } );
+        } );
 
       return;
 

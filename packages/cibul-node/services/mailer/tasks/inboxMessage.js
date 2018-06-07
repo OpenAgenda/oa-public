@@ -33,12 +33,17 @@ module.exports = async ( { conversation, message }, cb ) => {
 
     for ( const chunk of chunks ) {
 
-      const users = (await usersSvc.list(
-        { uid: _.map( chunk, 'userUid' ) },
-        0,
-        chunk.length,
-        { removed: false, detailed: true }
-      )).users;
+      const users = (await usersSvc.find( {
+        query: {
+          uid: {
+            $in: _.map( chunk, 'userUid' )
+          },
+          $skip: 0,
+          $limit: chunk.length
+        },
+        removed: false,
+        detailed: true
+      } )).data;
 
       for ( const user of users ) {
 
@@ -76,10 +81,7 @@ async function getSenderName( { inboxUser, conversation, message } ) {
   const msg = await conv.messages.get( message.id );
 
   if ( msg.data.inboxUser ) {
-    return (await promisify( usersSvc.get )( { uid: msg.data.inboxUser.userUid }, {
-      removed: false,
-      detailed: true
-    } )).full_name;
+    return (await usersSvc.get( msg.data.inboxUser.userUid, { removed: false, detailed: true } )).fullName;
   }
 
   if ( msg.data.inbox.type === 'agenda' ) {
@@ -88,10 +90,7 @@ async function getSenderName( { inboxUser, conversation, message } ) {
       includeImagePath: true
     } )).title;
   } else if ( msg.data.inbox.type === 'user' ) {
-    return (await promisify( usersSvc.get )( { uid: msg.data.inbox.identifier }, {
-      removed: false,
-      detailed: true
-    } )).full_name;
+    return (await usersSvc.get( msg.data.inbox.identifier, { removed: false, detailed: true } )).fullName;
   }
 }
 

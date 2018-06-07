@@ -1,12 +1,12 @@
 {
   "name": "@openagenda/react-form-components",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "description": "",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "mocha --watch",
+    "test": "mocha --exit",
     "build": "rimraf build && babel components -d build",
     "prepublish": "yarn build",
     "preserve": "yarn build",

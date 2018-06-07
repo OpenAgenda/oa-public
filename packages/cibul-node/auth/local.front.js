@@ -5,6 +5,8 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
   limit: 500000
 } );
 
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -25,7 +27,7 @@ const modLib = require( '../lib/moduleLib' ),
 
   legacyUserSvc = require( '../services/user' ),
 
-  userSvc = require( '@openagenda/users' ),
+  usersSvc = require( '@openagenda/users' ),
 
   __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) ),
 
@@ -159,7 +161,7 @@ module.exports = function ( path ) {
 function signinSubmit( req, res, next ) {
 
   pLib.authenticate( 'local-signin', {
-    badRequestMessage: 'You must type in an email and a password'
+    badRequestMessage: getLabel( 'incorrectPassword', req.lang )
   }, function ( err, user, data ) {
 
     if ( err ) {
@@ -332,26 +334,26 @@ function activate( req, res ) {
 
 function _handleSigninRequest( req, email, password, cb ) {
 
-  userSvc.verifyPassword( { email, password }, { get: true, internal: true, detailed: true, camel: true }, ( err, result ) => {
+  usersSvc.verifyPassword( password, {
+    query: { email }
+  } )
+    .then( async validPassword => {
+      if ( !validPassword ) {
+        return cb( null, null, {
+          email,
+          password,
+          user: null,
+          errors: {
+            password: 'This password is incorrect'
+          }
+        } );
+      }
 
-    if ( err ) return cb( err );
+      const user = await usersSvc.findOne( { query: { email }, detailed: true } );
 
-    if ( !result.success ) {
-
-      return cb( null, null, {
-        email,
-        password,
-        user: null,
-        errors: {
-          password: 'This password is incorrect' 
-        } 
-      } );
-
-    }
-
-    cb( null, result.user, { email, password, user: result.user } );
-
-  } );
+      cb( null, user, { email, password, user } );
+    } )
+    .catch( cb );
 
 }
 

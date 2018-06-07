@@ -10,20 +10,20 @@
       "custom": {},
       "user": {
         "id": 2,
-        "full_name": "Romain Lange - OpenAgenda",
+        "fullName": "Romain Lange - OpenAgenda",
         "username": "romainlange",
         "email": "romain.lange@gmail.com",
         "image": null,
-        "facebook_uid": "656120718",
-        "twitter_screen_name": "romainlange",
+        "facebookUid": "656120718",
+        "twitterScreenName": "romainlange",
         "culture": "fr",
-        "is_activated": 1,
-        "created_at": "2011-04-12T11:21:41.000Z",
-        "updated_at": "2016-03-31T10:22:09.000Z",
-        "twitter_id": "20989152",
-        "google_id": "",
+        "isActivated": 1,
+        "createdAt": "2011-04-12T11:21:41.000Z",
+        "updatedAt": "2016-03-31T10:22:09.000Z",
+        "twitterId": "20989152",
+        "googleId": "",
         "uid": 99999999,
-        "last_signin": "2016-03-31T10:22:09.000Z"
+        "lastSignin": "2016-03-31T10:22:09.000Z"
       }
     },
     {
@@ -36,20 +36,20 @@
       "custom": {},
       "user": {
         "id": 3083,
-        "full_name": "Jerome Messina",
+        "fullName": "Jerome Messina",
         "username": "96570247",
         "email": "jerome.messina@culture.gouv.fr",
         "image": null,
-        "facebook_uid": null,
-        "twitter_screen_name": null,
+        "facebookUid": null,
+        "twitterScreenName": null,
         "culture": "fr",
-        "is_activated": 1,
-        "created_at": "2015-01-26T14:32:08.000Z",
-        "updated_at": "2016-03-31T07:08:08.000Z",
-        "twitter_id": null,
-        "google_id": null,
+        "isActivated": 1,
+        "createdAt": "2015-01-26T14:32:08.000Z",
+        "updatedAt": "2016-03-31T07:08:08.000Z",
+        "twitterId": null,
+        "googleId": null,
         "uid": 7627883,
-        "last_signin": "2016-03-31T07:08:08.000Z"
+        "lastSignin": "2016-03-31T07:08:08.000Z"
       }
     },
     {
@@ -62,20 +62,20 @@
       "custom": {},
       "user": {
         "id": 1,
-        "full_name": "Kari Olafsson",
+        "fullName": "Kari Olafsson",
         "username": "kaore-olafsson",
         "email": "kaoreolafsson@gmail.com",
         "image": "review_kaore-olafsson_01.jpg",
-        "facebook_uid": "592025090",
-        "twitter_screen_name": "ka0re",
+        "facebookUid": "592025090",
+        "twitterScreenName": "ka0re",
         "culture": "fr",
-        "is_activated": 1,
-        "created_at": "2011-04-09T06:27:01.000Z",
-        "updated_at": "2016-03-31T13:53:57.000Z",
-        "twitter_id": "125366137",
-        "google_id": null,
+        "isActivated": 1,
+        "createdAt": "2011-04-09T06:27:01.000Z",
+        "updatedAt": "2016-03-31T13:53:57.000Z",
+        "twitterId": "125366137",
+        "googleId": null,
         "uid": 75052324,
-        "last_signin": "2016-03-31T13:53:57.000Z"
+        "lastSignin": "2016-03-31T13:53:57.000Z"
       }
     },
     {
@@ -88,20 +88,20 @@
       "custom": {},
       "user": {
         "id": 3078,
-        "full_name": "Driss",
+        "fullName": "Driss",
         "username": "85753998",
         "email": "driss.tsila@culture.gouv.fr",
         "image": null,
-        "facebook_uid": null,
-        "twitter_screen_name": null,
+        "facebookUid": null,
+        "twitterScreenName": null,
         "culture": "fr",
-        "is_activated": 1,
-        "created_at": "2015-01-26T13:15:10.000Z",
-        "updated_at": "2016-03-23T15:35:17.000Z",
-        "twitter_id": null,
-        "google_id": null,
+        "isActivated": 1,
+        "createdAt": "2015-01-26T13:15:10.000Z",
+        "updatedAt": "2016-03-23T15:35:17.000Z",
+        "twitterId": null,
+        "googleId": null,
         "uid": 91725896,
-        "last_signin": "2016-03-23T13:03:14.000Z"
+        "lastSignin": "2016-03-23T13:03:14.000Z"
       }
     },
     {
