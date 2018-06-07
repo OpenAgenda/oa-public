@@ -4,6 +4,7 @@ const path = require( 'path' );
 const errors = require( '@feathersjs/errors' );
 const users = require( '@openagenda/users' );
 const svcHooks = require( '@openagenda/users/hooks' );
+const { isAction } = require( '@openagenda/users/hooks/index' );
 const logger = require( '@openagenda/logger' );
 const keys = require( '@openagenda/keys' );
 const agendas = require( '@openagenda/agendas' );
@@ -64,10 +65,7 @@ const hooks = {
     update: disallow(),
     patch: [
       iff( // restrictToCurrentUser expect for confirmChangeEmail
-        ctx =>
-          isProvider( 'external' )( ctx ) &&
-          ctx.params.action !== 'confirmChangeEmail' &&
-          (!ctx.params.$client || ctx.params.$client.action !== 'confirmChangeEmail'),
+        ctx => isProvider( 'external' )( ctx ) && !isAction( 'confirmChangeEmail' )( ctx ),
         restrictToCurrentUser(),
       ),
       ...svcHooks.before.patch
