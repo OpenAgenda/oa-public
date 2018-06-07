@@ -5,6 +5,8 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
   limit: 500000
 } );
 
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -159,7 +161,7 @@ module.exports = function ( path ) {
 function signinSubmit( req, res, next ) {
 
   pLib.authenticate( 'local-signin', {
-    badRequestMessage: 'You must type in an email and a password'
+    badRequestMessage: getLabel( 'incorrectPassword', req.lang )
   }, function ( err, user, data ) {
 
     if ( err ) {
