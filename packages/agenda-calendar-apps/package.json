@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-calendar-apps",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Calendar views for an agenda",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
