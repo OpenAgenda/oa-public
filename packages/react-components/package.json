@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf build && babel components -d build -s",
-    "preserve": "npm run-script build",
+    "prepublish": "yarn build",
+    "preserve": "yarn build",
     "serve": "node test/app",
     "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'"
   },

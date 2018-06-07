@@ -1,5 +1,10 @@
 .idea/
-npm-debug.log
-testconfig.js
+.vscode/
 node_modules/
-yarn.lock
+npm-debug.log
+yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+components/lib

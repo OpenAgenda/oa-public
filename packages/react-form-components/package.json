@@ -8,7 +8,8 @@
   "scripts": {
     "test": "mocha --watch",
     "build": "rimraf build && babel components -d build",
-    "preserve": "npm run build",
+    "prepublish": "yarn build",
+    "preserve": "yarn build",
     "serve": "node test/app",
     "start": "nodemon --exec 'npm' --ignore build --ignore test/app/js/tinymce --ext js,jsx run-script serve"
   },
