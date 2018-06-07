@@ -4,12 +4,7 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --exit",
-    "build": "babel react/src -d react/build -s",
-    "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"npm run fixtures\" \"npm run build -- -w\" \"npm run watch-client\" \"sleep 3 && node test/app\"",
-    "watch-client": "testapp-clientwatcher -i test/app/front.js -o .tmp/testapp-client.js",
-    "fixtures": "node test/app/fixtures",
-    "version": "npm run build && git add -A react/build"
+    "test": "mocha --exit"
   },
   "repository": {
     "type": "git",

@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "prepublish": "yarn build",
     "build": "babel src -d dist -s",
     "start": "concurrently --kill-others-on-fail -n \"fixtures,build,client,app\" \"yarn fixtures\" \"yarn build -w\" \"yarn watch-client\" \"sleep 3 && node test/app\"",
     "watch-client": "testapp-clientwatcher -i test/app/front.js -o .tmp/testapp-client.js",
