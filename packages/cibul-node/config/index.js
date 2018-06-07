@@ -270,6 +270,7 @@ const config = {
       imageBucketPath: `https://${prod.aws.buckets.main}.s3.amazonaws.com/`,
       tmpBucketPath: `https://${prod.aws.buckets.temporary}.s3.amazonaws.com/`,
       staticBucketPath: `https://${prod.aws.buckets.static}.s3.amazonaws.com/`,
+      servicesBucketPath: `https://${prod.aws.buckets.services}.s3.amazonaws.com/`,
       bucket: prod.aws.buckets.main,
       tmpBucket: prod.aws.buckets.temporary,
       defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`,

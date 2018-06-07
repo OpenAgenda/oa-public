@@ -36,7 +36,7 @@ module.exports = _.extend( ( parentApp, path ) => {
 function init( config ) {
 
   service.init( {
-    frontAppPath: '/dist/calendar',
+    frontAppPath: process.env.NODE_ENV==='production' ? config.aws.servicesBucketPath + 'agenda-calendar-apps' : '/dist/calendar',
     res: {
       agenda: `${config.root}/agendas/{agendaUid}`,
       search: `${config.root}/agendas/{agendaUid}/events.v2.json`,
