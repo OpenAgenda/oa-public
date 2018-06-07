@@ -1,10 +1,10 @@
 {
   "name": "@openagenda/users",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "",
-  "main": "service/index.js",
+  "main": "index.js",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "jest --forceExit"
   },
   "repository": {
     "type": "git",
@@ -13,10 +13,6 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/users",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest --forceExit"
-  },
   "dependencies": {
     "@feathersjs/commons": "^1.4.1",
     "@feathersjs/errors": "^3.3.0",
