@@ -2,19 +2,20 @@
 
 const { promisify } = require( 'util' );
 const { Service } = require( 'feathers-knex' );
+const errors = require( '@feathersjs/errors' );
 const imageFiles = require( '@openagenda/image-files' );
 const crypto = require( './utils/crypto' );
 
 class Users extends Service {
   async findOne( params ) {
-    params = params || {}
-    params.query = params.query || {}
-    params.query.$limit = 1
+    params = params || {};
+    params.query = params.query || {};
+    params.query.$limit = 1;
 
     const result = await this.find( params );
     const data = result.data || result;
 
-    return Array.isArray( data ) ? data[ 0 ] : data
+    return Array.isArray( data ) ? data[ 0 ] : data;
   }
 
   async setImageProfile( uid, { path, url }, params = {} ) {
