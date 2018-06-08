@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.109",
+  "version": "1.0.110",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@openagenda/activity-apps": "^1.0.41",
+    "@openagenda/activity-apps": "^1.0.42",
     "@openagenda/admin-agendas": "^1.0.7",
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-event-references": "^1.0.2",
@@ -39,11 +39,11 @@
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/home": "^2.0.24",
     "@openagenda/image-upload": "^1.0.5",
-    "@openagenda/inbox-apps": "^1.0.68",
+    "@openagenda/inbox-apps": "^1.0.69",
     "@openagenda/labels": "^2.0.26",
     "@openagenda/le_js": "^0.0.3",
     "@openagenda/leaflet.markercluster": "^0.4.0",
-    "@openagenda/member-apps": "^1.0.37",
+    "@openagenda/member-apps": "^1.0.38",
     "@openagenda/react-components": "^2.0.6",
     "@openagenda/react-form-components": "^2.0.14",
     "@openagenda/registration": "^1.1.1",
@@ -52,7 +52,7 @@
     "@openagenda/sync-button": "^0.0.7",
     "@openagenda/translators": "^1.0.13",
     "@openagenda/tumblr-parser": "^0.1.2",
-    "@openagenda/user-apps": "^1.0.1",
+    "@openagenda/user-apps": "^1.0.2",
     "@openagenda/utils": "^1.0.2",
     "async": "0.9.0",
     "babel-core": "^6.9.0",

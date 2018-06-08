@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activities",
-  "version": "2.0.28",
+  "version": "2.0.29",
   "description": "",
   "keywords": [],
   "author": "",
@@ -24,7 +24,7 @@
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/unsubscribed": "^2.0.4",
-    "@openagenda/users": "^2.0.10",
+    "@openagenda/users": "^2.0.11",
     "@openagenda/validators": "^2.0.1",
     "async": "^2.3.0",
     "caporal": "^0.4.1",

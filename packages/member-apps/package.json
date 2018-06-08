@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "",
   "keywords": [],
   "author": "",
@@ -48,7 +48,7 @@
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
-    "@openagenda/users": "^2.0.10",
+    "@openagenda/users": "^2.0.11",
     "babel-cli": "^6.18.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-add-module-exports": "^0.2.1",
