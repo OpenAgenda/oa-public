@@ -32,8 +32,12 @@ export default class ConversationItem extends Component {
     const creationDate = moment( latestMessage.createdAt );
     const firstMessage = creationDate.diff( moment( conversation.createdAt ), 'seconds' ) <= 2;
     const creator = {
-      inbox: conversation.creatorInbox,
-      inboxUser: conversation.creatorInboxUser
+      inbox: conversation.latestMessage && conversation.latestMessage.inbox
+        ? conversation.latestMessage.inbox
+        : null,
+      inboxUser: conversation.latestMessage && conversation.latestMessage.inboxUser
+        ? conversation.latestMessage.inboxUser
+        : null
     };
 
     if ( firstMessage ) {
