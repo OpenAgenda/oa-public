@@ -2,7 +2,7 @@ const VError = require( 'verror' );
 const errors = require( '@feathersjs/errors' );
 const { checkContext } = require( 'feathers-hooks-common' );
 
-module.exports = function softDelete( field, defaultParams = {} ) {
+module.exports = function softDelete( field, additionalParams = {} ) {
   const deleteField = field || 'deleted';
 
   return context => {
@@ -64,7 +64,7 @@ module.exports = function softDelete( field, defaultParams = {} ) {
       params.query.$disableSoftDelete = true;
       params.query.$disableStashBefore = true;
 
-      return service.get( id, Object.assign( {}, params, defaultParams ) )
+      return service.get( id, Object.assign( {}, params, additionalParams ) )
         .then( data => {
           delete params.query.$disableSoftDelete;
 

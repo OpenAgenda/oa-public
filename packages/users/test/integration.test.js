@@ -57,7 +57,16 @@ describe( 'http provider', () => {
   let port;
 
   beforeEach( () => {
-    app = express();
+    app = express()
+      .use( express.urlencoded( { extended: true, limit: '10mb' } ) )
+      .use( express.json( { limit: '10mb' } ) )
+      .use( ( req, res, next ) => {
+        req.feathers = req.feathers || {};
+        req.feathers.user = { uid: kaoreUid };
+        req.feathers.authenticated = req.authenticated = { uid: kaoreUid };
+
+        next();
+      } );
 
     // get random port for test
     server = http.createServer( app ).listen();
@@ -65,6 +74,12 @@ describe( 'http provider', () => {
 
     // expose service users on the parent app
     usersSvc.exposeApp( app, '/users' );
+
+    app.use( ( err, req, res, next ) => {
+
+      console.log( 'Err', err );
+      next();
+    } );
 
     // add hooks to the exposed app
     usersSvc.hooks( hooks );
@@ -90,14 +105,12 @@ describe( 'http provider', () => {
   } );
   /*************/
 
-  it( 'find', async () => {
-    const { data: page } = await axios.get( `http://localhost:${port}/users` );
-
-    expect( page.data ).to.have.lengthOf( 20 );
-    expect( usersSvc ).to.include.all.keys(
-      'find', 'get', 'create', 'patch', 'update', 'remove',
-      'hooks', 'on', 'once', 'emit', 'events'
-    );
+  it( 'find - return 404 error', async () => {
+    try {
+      await axios.get( `http://localhost:${port}/users` );
+    } catch ( e ) {
+      expect( e.response.status ).to.be.equal( 404 );
+    }
   } );
 
   it( 'refresh - post with data', async () => {
@@ -110,6 +123,9 @@ describe( 'http provider', () => {
         }
       },
       paramsSerializer: qs.stringify
+    } ).catch( err => {
+
+      console.log( 'Dla merde', err );
     } );
 
     expect( user.lastSignin ).to.be.equal( now.toISOString() );

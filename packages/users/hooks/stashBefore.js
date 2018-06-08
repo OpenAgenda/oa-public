@@ -31,10 +31,6 @@ module.exports = function stashBefore( prop, additionalParams = {} ) {
 
         context.params[ beforeField ] = JSON.parse( JSON.stringify( data ) );
         return context;
-      } )
-      .catch( err => {
-        console.log( 'ERR', err );
-        context
       } );
   };
 };

@@ -1,6 +1,9 @@
 module.exports = function isAction( action ) {
   return context => {
-    return (context.params || {}).action === action
-      || (context.params || {}).query && context.params.query.$client && context.params.query.$client.action === action;
+    if ( (context.params || {}).query && context.params.query.$client && context.params.query.$client.action ) {
+      return context.params.query.$client.action === action;
+    }
+
+    return (context.params || {}).action === action;
   };
 };

@@ -40,6 +40,7 @@ async function initAndLoad( config, files, options ) {
   }, options );
 
   await svc.init( config );
+
   await populate( config, files, params );
 
 }

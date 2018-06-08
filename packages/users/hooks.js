@@ -80,7 +80,7 @@ const creationSchema = {
   }
 };
 
-const softDelete = () => _softDelete( 'isRemoved', { detailed: true, includeImagePath: false, provider: undefined } );
+const softDelete = () => _softDelete( 'isRemoved', { provider: undefined, detailed: true, includeImagePath: false } );
 
 const userResolvers = {
   joins: {
@@ -125,7 +125,7 @@ module.exports = {
       searchKeyword()
     ],
     get: [
-      stashBefore( 'before', { internal: true } ),
+      stashBefore( 'before', { internal: true, provider: undefined } ),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
       softDelete(),
       detailedParamHook(),
@@ -302,7 +302,6 @@ module.exports = {
       },
       includeImagePathParamHook(),
       parseStore(),
-      fastJoin( userResolvers ),
       coerce( {
         isActivated: {
           type: 'boolean',
@@ -319,8 +318,17 @@ module.exports = {
         isNew: {
           type: 'boolean',
           optional: true
+        },
+        apiKey: {
+          type: 'text',
+          optional: true
+        },
+        apiSecret: {
+          type: 'text',
+          optional: true
         }
-      } )
+      } ),
+      fastJoin( userResolvers )
     ],
     find: [],
     get: [],

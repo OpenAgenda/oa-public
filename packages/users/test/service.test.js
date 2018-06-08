@@ -1,7 +1,5 @@
 "use strict";
 
-const Promise = require( 'bluebird' );
-
 const fs = require( 'fs' );
 const path = require( 'path' );
 const _ = require( 'lodash' );
@@ -116,6 +114,13 @@ describe( 'get', () => {
 
     expect( user.image ).to.be.equal( '//openagendatst.s3.amazonaws.com/review_kaore-olafsson_01.jpg' );
     expect( user.email ).to.be.equal( 'kaoreolafsson@gmail.com' );
+  } );
+
+  it( 'returns apiKey and secretKey', async () => {
+    const user = await usersSvc.get( 99999999, { provider: 'rest' } );
+
+    expect( user.apiKey ).to.be.equal( '317e316466a629c8dacd4aa81f39c930' );
+    expect( user.apiSecret ).to.be.equal( null );
   } );
 } );
 
