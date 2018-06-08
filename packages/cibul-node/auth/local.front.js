@@ -174,7 +174,11 @@ function signinSubmit( req, res, next ) {
 
       .then( auth.ifUserLoaded( false, v => {
 
-        v.req.log( 'error', 'user could not be loaded with data %s', JSON.stringify( v.data ) );
+        if ( v.err && v.err.name !== 'NotFound' ) {
+
+          v.req.log( 'error', 'user could not be loaded with data %s', JSON.stringify( v.data ) );
+
+        }
 
         deepExtend( v.data, v.req.body );
 
