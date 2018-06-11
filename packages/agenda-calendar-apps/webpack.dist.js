@@ -1,8 +1,9 @@
 "use strict";
 
-const webpack = require( 'webpack' );
+const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
+const webpack = require( 'webpack' );
 
 module.exports = {
   mode: 'production',
@@ -19,17 +20,24 @@ module.exports = {
     path: __dirname + '/client/dist'
   },
   plugins: [ new LodashModuleReplacementPlugin ].concat(
-    ( process.env.NODE_ENV === 'production' && parseInt( process.env.CI ) ) ? [ new S3Plugin( {
-      s3Options: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-        region: 'eu-west-1'
-      },
-      s3UploadOptions: {
-        Bucket: 'oasvc'
-      },
-      basePathTransform: f => 'agenda-calendar-apps/' + f
-    } )
+    ( process.env.NODE_ENV === 'production' && parseInt( process.env.CI ) ) ? [
+      new CompressionPlugin( {
+        test: /\.js/,
+        filename ( asset ) {
+          return asset.replace( '.gz', '' );
+        }
+      } ), new S3Plugin( {
+        s3Options: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          region: 'eu-west-1'
+        },
+        s3UploadOptions: {
+          Bucket: 'oasvc',
+          ContentEncoding: 'gzip'
+        },
+        basePathTransform: f => 'agenda-calendar-apps/' + f
+      } )
   ] : [] ),
   module: {
     rules: [ {
