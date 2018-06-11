@@ -308,17 +308,19 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         sourceField: 'tags',
         fn: _extractTags
       } ] ),
-      [ 'registrationUrl',
-      {
+      hasFrench ? [
+        {
+          sourceField: 'accessibility',
+          destField: 'accessibility_fr',
+          fn: _defineAccessibility( 'fr' )
+        }
+      ] : [],
+      hasOtherLanguages ? [ {
         sourceField: 'accessibility',
-        destField: 'accessibility',
-        fn: _defineAccessibility( 'fr' )
-      },
-      {
-        sourceField: 'accessibility',
-        destField: 'accessibility',
+        destField: 'accessibility_en',
         fn: _defineAccessibility( 'en' )
-      },
+      } ] : [],
+      [ 'registrationUrl',
       'age.min',
       'age.max',
       'featured',
@@ -609,7 +611,7 @@ function _defineEventUrl( instance ) {
 
 function _defineAccessibility( lang ) {
 
-  let labelCodes = {
+  const labelCodes = {
     mi: 'motorImpairment',
     hi: 'hearingImpairment',
     pi: 'mentalImpairment',
