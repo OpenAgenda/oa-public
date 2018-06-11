@@ -276,9 +276,11 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( '@openagenda/activities' ).tasks.notifications.addActivity();
 
-        // require( './services/elasticsearch' ).resync( { reset: true }, ( err, res ) => {
-        //   console.log( 'FINI', err, res );
-        // } );
+        /*require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => {
+          console.log( 'FINI', err, res );
+        } );*/
+
+        //require( './services/agendaStatistics' ).task.resyncLegacySearch();        
 
         // require( '@openagenda/inboxes' ).tasks.sync();
 

@@ -102,7 +102,7 @@ function _update( type, query ) {
 
   return  cb => {
 
-    var count = { processed: 0, errors: 0 };
+    const count = { processed: 0, errors: 0 };
 
     _loopThroughDb( type, query, function( dbRef, next ) {
 
@@ -184,7 +184,7 @@ function _update( type, query ) {
 
 function _defineGetQuery( type, params, obj ) {
 
-  var q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
+  const q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
 
   if ( type == 'events' && params.reviewId ) {
 
@@ -200,9 +200,9 @@ function _removeZombies( type, params ) {
 
   if ( !params ) params = {};
 
-  return ( cb ) => {
+  return cb => {
 
-    var count = { processed: 0, removed: 0, errors: 0 };
+    const count = { processed: 0, removed: 0, errors: 0 };
     
     log( 'info', 'removing %s zombies', type );
 
@@ -285,7 +285,9 @@ function _logUpdates( type, count ) {
 
 function _loopThroughIndex( type, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 10, offset = 0;
+  let hasMore = true, offset = 0;
+
+  const limit = 10;
 
   async.whilst( function() {
 
@@ -295,7 +297,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
     log( 'info', 'fetching in index %s offset %s', type, offset );
 
-    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
+    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
 
       if ( err ) return wcb( err );
 
@@ -320,7 +322,9 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  var hasMore = true, limit = 5, offset = 0;
+  const limit = 5;
+
+  let hasMore = true, offset = 0;
 
   async.whilst( function()  {
 
@@ -332,9 +336,11 @@ function _loopThroughDb( schema, params, usageFunc, cb ) {
 
     model[ schema ]().list( utils.extend( {
       extended: true,
-      offset: offset,
-      limit : limit
+      offset,
+      limit
     }, params ), function( err, result ) {
+
+      log( 'retrieved from db %s offset %s', schema, offset );
 
       if ( err ) return wcb( err );
 

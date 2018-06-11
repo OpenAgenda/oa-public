@@ -1,6 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
+
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
@@ -16,6 +18,8 @@ const db = require( './lib/db' );
 const legacySearch = require( './lib/legacySearch' );
 const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
+
+const agendasList = promisify( agendasSvc.list );
 
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 
@@ -144,6 +148,26 @@ module.exports.task = () => {
   } );
 
   q.launch();
+
+}
+
+module.exports.task.resyncLegacySearch = async function() {
+
+  let offset = 0;
+
+  let agendas = [];
+
+  while( ( agendas = await agendasList( offset, 1, { private: null } ) ).length ) {
+
+    const agenda = _.first( agendas );
+
+    await _resyncLegacySearch( agenda.uid );
+
+    offset++;
+
+  }
+
+  log( 'info', 'DONE RESYNCING ALL AGENDAS' );
 
 }
 
