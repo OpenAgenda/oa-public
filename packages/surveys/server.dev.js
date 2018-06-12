@@ -21,7 +21,7 @@ devApp.use( require( 'webpack-hot-middleware' )( compiler ) );
 config.knex.raw( 'use ' + config.test.connection.database ).then( () => {
 
   // in dev environment, hot reload puts js there:
-  config.frontAppPath = '/js/index.js';
+  config.frontAppPath = '/js/';
 
   service.init( config );
   
