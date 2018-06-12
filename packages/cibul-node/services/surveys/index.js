@@ -21,6 +21,7 @@ module.exports = _.extend( ( parentApp, path ) => {
 function init( config ) {
 
   surveys.init( {
+    frontAppPath: process.env.NODE_ENV==='production' ? config.aws.servicesBucketPath + 'surveys' : '/dist/surveys',
     knex: config.knex,
     schema: 'survey',
     decorateKey: 'decorate',
