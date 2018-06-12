@@ -50,8 +50,19 @@ export default class ProfileEdition extends Component {
     this.renderInputGroup = renderInputGroup.bind( this );
   }
 
-  componentWillMount() {
-    this.props.updateSyncErrors( 'profileEdition' );
+  componentDidMount() {
+
+    /*
+      @kevin: le updateSyncErrors n'est pas défini lors du chargement de l'app en prod
+      ce qui rend une page blanche et empêche les users d'update leur profil.
+      2 modifs: la condition + changement de WillMount à DidMount.
+    */
+    if ( this.props.updateSyncErrors ) {
+
+      this.props.updateSyncErrors( 'profileEdition' );
+
+    }
+
   }
 
   renderSubmitBtn() {
