@@ -3,7 +3,6 @@
 const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
-const webpack = require( 'webpack' );
 
 module.exports = {
   mode: 'production',
