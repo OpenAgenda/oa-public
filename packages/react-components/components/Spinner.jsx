@@ -20,6 +20,14 @@ Spinner.propTypes = {
 
 const SpinnerComponent = createReactClass( {
 
+  getInitialState() {
+
+    this.canvasRef = React.createRef();
+
+    return {}
+
+  },
+
   getDefaultProps() {
 
     return {
@@ -80,7 +88,7 @@ const SpinnerComponent = createReactClass( {
 
     if ( this.props.loading ) {
 
-      this.spinner.spin( ReactDOM.findDOMNode( this.refs.canvas ) );
+      this.spinner.spin( this.canvasRef.current );
 
       if ( this.props.page ) bodyScroll.disable();
 
@@ -105,7 +113,7 @@ const SpinnerComponent = createReactClass( {
     if ( this.props.page || this.props.mode === 'page' ) classes.push( 'spin-page' );
 
     return <span className={classes.join( ' ' )}>
-      <span ref="canvas" style={ this.props.mode !== 'inline' ? {
+      <span ref={this.canvasRef} style={ this.props.mode !== 'inline' ? {
         position: 'absolute',
         width: 0,
         zIndex: 2000000000,
