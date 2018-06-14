@@ -35,7 +35,6 @@
     "@openagenda/labels": "^2.0.63",
     "@openagenda/react-components": "^2.0.6",
     "@openagenda/react-form-components": "^2.0.14",
-    "@openagenda/spinner": "^2.0.1",
     "@openagenda/translators": "^1.0.13",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.0.1",

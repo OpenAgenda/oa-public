@@ -1,32 +1,34 @@
 "use strict";
 
-import React from 'react';
-import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
+import React from 'react';
 import update from 'immutability-helper';
-import reverso from '@openagenda/translators/dist/reverso';
+
+import base64 from '@openagenda/utils/base64';
+import errorLabels from '@openagenda/labels/errors';
+import flattenLabels from '@openagenda/labels/flatten';
+import formLabels from '@openagenda/labels/agenda-locations/form';
 import get from '@openagenda/utils/get';
 import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSelector';
 import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import InputField from '@openagenda/react-form-components/build/InputField';
-import Translation from '@openagenda/react-form-components/build/Translation';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
-import formLabels from '@openagenda/labels/agenda-locations/form';
-import errorLabels from '@openagenda/labels/errors';
+import Translation from '@openagenda/react-form-components/build/Translation';
+import reverso from '@openagenda/translators/dist/reverso';
 import translationLabels from '@openagenda/labels/event/translation';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
+import post from '@openagenda/utils/post';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import utils from '@openagenda/utils';
-import base64 from '@openagenda/utils/base64';
-import post from '@openagenda/utils/post';
-import flattenLabels from '@openagenda/labels/flatten';
+
 import actions from './formActions';
-import validate from '../../lib/validate';
 import CountryField from './CountryField';
 import LocationMap from './LocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers.js';
+import validate from '../../lib/validate';
 
 const _ = {
   extend: require( 'lodash/extend' ),
@@ -35,7 +37,7 @@ const _ = {
 
 const alternativeMaxLength = 50;
 
-var labels = utils.extend( {}, formLabels, errorLabels );
+const labels = _.extend( {}, formLabels, errorLabels );
 
 module.exports = createReactClass( {
 

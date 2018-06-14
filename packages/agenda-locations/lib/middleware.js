@@ -358,6 +358,8 @@ function getMiddleware( idRef ) {
 
     const data = _validateAndExtractData( req, res, next );
 
+    const agendaId = _extractRefValue( idRef, req );
+
     const options = {};
 
     let forcedValues = {};
@@ -374,10 +376,20 @@ function getMiddleware( idRef ) {
 
     }
 
-    service.set( utils.extend( data, forcedValues ), options, ( err, result ) => {
+    service.set( utils.extend( data, forcedValues ), options, async ( err, result ) => {
 
       if ( err ) return next( err );
 
+      if ( result.success ) {
+
+        result.location.eventCount = _.get(
+          _.head( await config.interfaces.getEventCounts( { id: agendaId }, [ result.location.uid ] ) ),
+          'count', 0
+        );
+
+      }
+
+      // what does this result look like?
       res.json( result );
 
     } );
