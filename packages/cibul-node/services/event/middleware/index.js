@@ -1,10 +1,12 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const async = require( 'async' );
 
 const agendas = require( '@openagenda/agendas' );
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 
 const log = require( '@openagenda/logger' )( 'event middleware' );
 
@@ -40,7 +42,7 @@ module.exports = function( eventService ) {
 
 function loadEvent( paramName, fieldName, options ) {
 
-  var params = utils.extend( { 
+  const params = _.extend( { 
     inAgendaContext: true // if agenda is in request and event must not be loaded in agenda context, use this
   }, options || {} );
 
@@ -97,14 +99,17 @@ function loadEvent( paramName, fieldName, options ) {
       }
 
       // user is logged and is editor or admin or moderator
-      if ( v.user.editor || v.user.credential ) {
+      if ( v.user.editor || [ 'administrator', 'moderator' ].includes( v.user.credential ) ) {
 
         return next();
 
       }
 
       // user is logged but does not have access
-      return next( { code: 403, messageCode: 'eventRestrictedAccess' } );
+      return next( {
+        code: 403,
+        messageCode: 'eventRestrictedAccess'
+      } );
 
     }, next );
 
@@ -345,33 +350,19 @@ function _loadUserAgendaCreds( v ) {
 
   return w.promise( function( rs, rj ) {
 
-    v.req.agenda.isAdministrator( user , function( err, is ) {
-
-      v.req.log( 'user %s administrator', is ? 'is' : 'is not' );
+    return agendaStakeholders( v.req.agenda.id ).get( { userId: v.user.id }, ( err, member ) => {
 
       if ( err ) return rj( err );
 
-      if ( is ) {
+      if ( !member ) return rs( v );
 
-        v.user.credential = 'administrator';
+      v.user.credential = agendaStakeholders.types.codes.get( member.credential );
 
-        return rs( v );
+      return rs( v );
 
-      };
+    } );
 
-      v.req.agenda.isModerator( user, function( err, is ) {
-
-        if ( err ) return rj( err );
-
-        v.user.credential = is ? 'moderator' : null;
-
-        rs( v );
-
-      });
-
-    } )
-
-  });
+  } );
 
 }
 
