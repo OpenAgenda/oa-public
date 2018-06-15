@@ -1,30 +1,21 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const w = require( 'when' );
+const wn = require( 'when/node' );
+
+const agendaCategories = require( '@openagenda/agenda-categories' );
+const agendaTags = require( '@openagenda/agenda-tags' );
+const log = require( '@openagenda/logs' )( 'services/aggregator/evaluate' );
+const rules = require( '@openagenda/aggregators' ).utils.rules;
+
+const aggUtils = require( './aggUtils' );
 const interfaces = require( '../interfaces' );
+const p = require( '../../../lib/promises' );
 
-const p = require( '../../../lib/promises' ),
+const config = require( '../../../config' );
 
-  aggUtils = require( './aggUtils' ),
-
-  agendaTags = require( '@openagenda/agenda-tags' ),
-
-  agendaCategories = require( '@openagenda/agenda-categories' ),
-
-  logger = require( '@openagenda/logger' ),
-
-  w = require( 'when' ),
-
-  _ = require( 'lodash' ),
-
-  async = require( 'async' ),
-
-  config = require( '../../../config' ),
-
-  wn = require( 'when/node' ),
-
-  rules = require( './rules' );
-
-let log;
 
 module.exports = {
   publish,
@@ -33,8 +24,6 @@ module.exports = {
 
 
 function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
-
-  _init();
 
   if ( arguments.length === 4 ) {
 
@@ -140,8 +129,6 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
 
 function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
-
-  _init();
 
   if ( arguments.length === 4 ) {
 
@@ -730,14 +717,5 @@ function _addEventToAggregator( v ) {
   });
 
   return d.promise;
-
-}
-
-
-function _init() {
-
-  if ( log ) return;
-
-  log = logger( 'services/aggregator/evaluate' );
 
 }
