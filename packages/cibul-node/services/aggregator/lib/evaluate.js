@@ -202,11 +202,11 @@ function _evaluateShouldAggregate( v ) {
   }
 
   const event = _.extend( {
+    location: _.get( v, 'event.locations[0]' ),
     tags: v.eventSourceTags.map( t => t.label )
   }, v.eventSourceCustomFields );
 
   const matchingRuleValues = rules( v.rules, event );
-
 
   // all rules must match to trigger aggregation
   if ( matchingRuleValues.length !== v.rules.length ) {

@@ -40,7 +40,7 @@ function getAllAggregatorIds( agendaId, cb ) {
         if ( err ) return wcb( err );
 
         // aggregators of current agenda
-        let aggIds = aggs.map( agg => agg.id )
+        const aggIds = aggs.map( agg => agg.id )
 
         // filter out those already in the loaded list
         .filter( aggId => aggregatorIds.indexOf( aggId ) === -1 );
@@ -117,7 +117,7 @@ function loadAgenda( namespace, identifier ) {
 
 function loadRules( config, v ) {
 
-  let d = p.w.defer();
+  const d = p.w.defer();
 
   const params = _.extend( {
     namespaces: {
@@ -129,7 +129,7 @@ function loadRules( config, v ) {
     log: ()=>{}
   }, config );
 
-  let log = params.log;
+  const log = params.log;
 
   const con = mysql.createConnection( params.db );
 
