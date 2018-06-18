@@ -73,7 +73,7 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
   const supports = supportToBeDetailed.map( v => ({
     ...v,
     uid: 1,
-    name: 'Support OpenAgenda',
+    name: 'OpenAgenda - Support',
     avatar: config.aws.oaLogoIcon
   }) );
 

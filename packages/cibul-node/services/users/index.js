@@ -17,6 +17,7 @@ const log = require( '@openagenda/logs' )( 'services/users' );
 const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
 const beforeRemove = require( './beforeRemove' );
 const onCreate = require( './onCreate' );
+const onGenerateApiKey = require( './onGenerateApiKey' );
 
 function restrictToCurrentUser() {
   return context => {
@@ -215,6 +216,7 @@ module.exports.init = async function init( config ) {
       beforeRemove,
       onCreate,
       getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
+      onGenerateApiKey,
       keys: {
         get: identifiers => keys( identifiers ).get(),
         create: ( identifiers, data ) => keys( identifiers ).create( data ),
