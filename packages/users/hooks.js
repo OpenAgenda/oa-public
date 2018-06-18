@@ -265,9 +265,9 @@ module.exports = {
           keep( 'fullName', 'culture', 'isRemoved' )
         )
       ),
-      formatStore(),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
       softDelete(),
+      formatStore(),
       snakeCase(),
       snakeCaseQuery()
     ],
@@ -301,7 +301,6 @@ module.exports = {
         }
       },
       includeImagePathParamHook(),
-      parseStore(),
       coerce( {
         isActivated: {
           type: 'boolean',
@@ -328,7 +327,8 @@ module.exports = {
           optional: true
         }
       } ),
-      fastJoin( userResolvers )
+      fastJoin( userResolvers ),
+      parseStore()
     ],
     find: [],
     get: [],

@@ -2,7 +2,7 @@ const _ = require( 'lodash' );
 const { alterItems } = require( 'feathers-hooks-common' );
 const config = require( '../config' );
 
-module.exports = function parseStore() {
+module.exports = function includeImagePathParamHook() {
   return context => {
     if ( !context.params.includeImagePath || context.result === null ) {
       return context;
