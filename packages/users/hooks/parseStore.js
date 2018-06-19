@@ -7,7 +7,7 @@ module.exports = function parseStore() {
       return context;
     }
 
-    alterItems( record =>
+    return alterItems( record =>
       ({ ...record, store: _.isString( record.store ) ? JSON.parse( record.store || '{}' ) : record.store })
     )( context );
   };

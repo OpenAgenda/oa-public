@@ -7,6 +7,6 @@ module.exports = function camelCase () {
       return context;
     }
 
-    alterItems( record => _.mapKeys( record, ( value, key ) => _.camelCase( key ) ) )( context );
+    return alterItems( record => _.mapKeys( record, ( value, key ) => _.camelCase( key ) ) )( context );
   };
 };

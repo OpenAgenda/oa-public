@@ -8,7 +8,7 @@ module.exports = function includeImagePathParamHook() {
       return context;
     }
 
-    alterItems( record => ({
+    return alterItems( record => ({
       ...record,
       image: record.image ? config.imagePath + record.image : record.image
     }) )( context );
