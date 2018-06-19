@@ -1,49 +1,49 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' );
 
-  modLib = require( '../lib/moduleLib' ),
+const modLib = require( '../lib/moduleLib' );
 
-  cmn = require( '../lib/commons-app' ),
+const cmn = require( '../lib/commons-app' );
 
-  agendaSvc = require( '../services/agenda' ),
+const agendaSvc = require( '../services/agenda' );
 
-  fb = require( '@openagenda/facebook' ),
+const fb = require( '@openagenda/facebook' );
 
-  utils = require( '@openagenda/utils' ),
+const utils = require( '@openagenda/utils' );
 
-  config = require( '../config' ),
+const config = require( '../config' );
 
-  genUrl = require( '../services/genUrl' ),
+const genUrl = require( '../services/genUrl' );
 
-  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) );
 
-  routes = {
+const routes = {
 
-    facebookShow: [ 'get', '/:slug/admin/facebook', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
-      show
-    ] ],
+  facebookShow: [ 'get', '/:slug/admin/facebook', [
+    agendaSvc.mw.load( 'slug' ),
+    cmn.checkAdministrator(),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    show
+  ] ],
 
-    facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
-      agendaSvc.mw.load( 'uid' ),
-      cmn.checkAdministrator(),
-      fb.tab.create
-    ] ],
+  facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
+    agendaSvc.mw.load( 'uid' ),
+    cmn.checkAdministrator(),
+    fb.tab.create
+  ] ],
 
-    facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
-      fb.tab.redirect,
-      _onComplete
-    ] ]
+  facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
+    fb.tab.redirect,
+    _onComplete
+  ] ]
 
-  }
+};
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
