@@ -1,9 +1,14 @@
 <div class="margin-bottom-lg">
-  <h2>Facebook</h2>
+  <h2><%= __( 'title' ) %></h2>
 </div>
 <section>
-  <p><%= __( 'Add your agenda to a tab in any Facebook page' ) %></p>
-  <div class="center">
-    <a class="button green" href="<%= genUrl( 'facebookTabLink', { uid: agenda.uid } )%>"><%= __( 'Add to Facebook' ) %></a>
+  <p><%= __( 'description' ) %></p>
+  <div class="margin-v-md">
+    <a class="btn btn-primary" href="<%= genUrl( 'facebookTabLink', { uid: agenda.uid } ) %>"><%= __( 'add' ) %></a>
+  </div>
+  <div>
+    <span><%- __( 'footnote', { 
+      link: '<a target="_blank" href="https://developers.facebook.com/docs/graph-api/changelog/version2.11/#gapi-90-pages">' + __( 'conditions' ) + '</a>' 
+    } ) %></span>
   </div>
 </section>
