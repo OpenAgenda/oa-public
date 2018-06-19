@@ -265,16 +265,16 @@ module.exports = {
           keep( 'fullName', 'culture', 'isRemoved' )
         )
       ),
-      formatStore(),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
       softDelete(),
+      formatStore(),
       snakeCase(),
       snakeCaseQuery()
     ],
     remove: [
       stashBefore(),
       async context => {
-        if ( context.params.before ) {
+        if ( context.params.before && config.interfaces && config.interfaces.beforeRemove ) {
           await config.interfaces.beforeRemove( context.params.before );
         }
       },
@@ -301,7 +301,6 @@ module.exports = {
         }
       },
       includeImagePathParamHook(),
-      parseStore(),
       coerce( {
         isActivated: {
           type: 'boolean',
@@ -328,19 +327,29 @@ module.exports = {
           optional: true
         }
       } ),
-      fastJoin( userResolvers )
+      fastJoin( userResolvers ),
+      parseStore()
     ],
     find: [],
     get: [],
     create: [
       async context => {
-        if ( context.result ) {
+        if ( context.result && config.interfaces && config.interfaces.onCreate ) {
           await config.interfaces.onCreate( context.result );
         }
       }
     ],
     update: [],
-    patch: [],
+    patch: [
+      iff(
+        isAction( 'generateApiKey' ),
+        async context => {
+          if ( context.result && config.interfaces && config.interfaces.onGenerateApiKey ) {
+            await config.interfaces.onGenerateApiKey( context.result );
+          }
+        }
+      )
+    ],
     remove: []
   },
 

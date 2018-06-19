@@ -345,14 +345,14 @@ function userUpdate( req, res, next ) {
 
         await usersSvc.generateApiKey( user.uid, {
           secretKey: true
-        } );
+        }, { removed: null } );
 
         user = await usersSvc.patch( user.uid, {
           store: {
             ...store,
             enable_secret: true
           }
-        }, { detailed: true } );
+        }, { detailed: true, removed: null, internal: true } );
 
       }
 

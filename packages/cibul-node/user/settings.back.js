@@ -1,30 +1,12 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  logged = sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-
-  loadSession = sessions.middleware.load( { detailed: true } ),
-
-  log = require( '@openagenda/logger' )( 'user/settings.back' ),
-
-  modLib = require( '../lib/moduleLib.js' ),
-
-  _ = require( 'lodash' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  users = require( '@openagenda/users' ),
-
-  usersMw = require( '@openagenda/users/middleware' ),
-
-  matchApp = require( '@openagenda/user-apps/dist/matchAppMw' ),
-
-  labels = require( '../../labels/users/settings' ),
-
-  getLabels = require( '../../labels/makeLabelGetter' )( labels );
+const sessions = require( '@openagenda/sessions' );
+const loadSession = sessions.middleware.load( { detailed: true } );
+const matchApp = require( '@openagenda/user-apps/dist/matchAppMw' );
+const log = require( '@openagenda/logger' )( 'user/settings.back' );
+const cmn = require( '../lib/commons-app' );
+const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
+const modLib = require( '../lib/moduleLib.js' );
 
 
 module.exports = path => {
