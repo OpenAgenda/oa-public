@@ -16,6 +16,7 @@
       "fr": "Combien de participants",
       "en": "How many participants"
     },
+    "placeholder" : null,
     "origin" : "custom"
   } ]
 }

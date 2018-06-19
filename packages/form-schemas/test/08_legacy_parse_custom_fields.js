@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const should = require( 'should' );
 
-const parseCustomFields = require( '../legacy/parseCustomFields' );
+const parseCustomFields = require( '../server/legacy/parseCustomFields' );
 
 
 describe( 'form-schemas - unit (server): legacy custom fields', function() {

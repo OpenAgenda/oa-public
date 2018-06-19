@@ -1,10 +1,9 @@
 "use strict";
 
-const VError = require( 'verror' ),
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
-
-  FormSchema = require( '../iso/FormSchema' );
+const FormSchema = require( '../../iso/FormSchema' );
+const VError = require( 'verror' );
 
 let config, service, client, legacy;
 

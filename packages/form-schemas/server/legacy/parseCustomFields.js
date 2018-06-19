@@ -1,10 +1,9 @@
 "use strict";
 
-const FormSchema = require( '../iso/FormSchema' ),
+const _ = require( 'lodash' );
 
-  validate = require( '../iso/FormSchema' ).validate,
-
-  _ = require( 'lodash' );
+const FormSchema = require( '../../iso/FormSchema' );
+const validate = require( '../../iso/FormSchema' ).validate;
 
 module.exports = ( formSchema, customFields ) => {
 

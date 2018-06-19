@@ -2,15 +2,12 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const _ = require( 'lodash' );
+const fs = require( 'fs' );
+const should = require( 'should' );
+const svc = require( './service' );
 
-  _ = require( 'lodash' ),
-
-  config = require( '../testconfig' ),
-
-  should = require( 'should' ),
-
-  fs = require( 'fs' );
+const config = require( '../testconfig' );
 
 describe( 'form-schemas - functional (server): create', () => {
 
