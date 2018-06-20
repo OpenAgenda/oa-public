@@ -13,13 +13,7 @@
     "build": "babel src -d ./ -s",
     "test": "mocha --compilers js:babel-core/register",
     "watch": "npm-watch",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "prepublish": "yarn build"
   },
   "keywords": [],
   "author": "",
