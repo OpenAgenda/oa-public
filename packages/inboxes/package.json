@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.51",
+  "version": "1.0.52",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "keywords": [],
   "author": "",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.6",
-    "@openagenda/agendas": "^1.0.23",
+    "@openagenda/agendas": "^1.0.35",
     "@openagenda/logs": "^1.0.8",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
