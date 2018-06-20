@@ -1,22 +1,21 @@
 "use strict";
 
-var debug = require( 'debug' ),
+const debug = require( 'debug' );
+const qs = require( 'qs' );
 
-cn = require( '../../js/lib/common/common.mod.js' ),
+const cn = require( '../../js/lib/common/common.mod.js' );
 
-remote = require( '../../js/lib/remote/remote.mod.js' ),
+const remote = require( '../../js/lib/remote/remote.mod.js' );
 
-filters = require( './filters' ),
+const filters = require( './filters' );
 
-geoLib = require( './geolocate' ),
+const geoLib = require( './geolocate' );
 
-controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' ),
+const controlDataFetch = require( '../../js/lib/controlDataFetch/controlDataFetch' );
 
-qs = require( 'qs' ),
+const env = window.env ? window.env : 'production';
 
-env = window.env ? window.env : 'production',
-
-defaults = {
+const defaults = {
   all: {
     search : '//openagenda.com/widgets/{uid}/search'
   },
@@ -29,9 +28,9 @@ defaults = {
   tpl: {
     search : '//d.openagenda.com/widgets/{uid}/search'
   }
-},
+};
 
-params = cn.extend( defaults.all, defaults[ env ] ? defaults[ env ] : {} );
+const params = cn.extend( defaults.all, defaults[ env ] ? defaults[ env ] : {} );
 
 module.exports = function( uid ) {
 
@@ -124,18 +123,18 @@ module.exports = function( uid ) {
     });
 
     return {
-      register: register,
-      getWidget: getWidget,
-      requestModal: requestModal,
-      releaseModal: releaseModal,
-      update : update,
-      sweep : sweep,
-      getControlData: getControlData,
-      getCurrentQuery: getCurrentQuery,
-      isDifferent: isDifferent,
-      setProxy: setProxy,
-      disableSyncHref: disableSyncHref,
-      disablePassedAutoLoad: disablePassedAutoLoad
+      register,
+      getWidget,
+      requestModal,
+      releaseModal,
+      update,
+      sweep,
+      getControlData,
+      getCurrentQuery,
+      isDifferent,
+      setProxy,
+      disableSyncHref,
+      disablePassedAutoLoad
     }
 
   })();
@@ -211,6 +210,12 @@ module.exports = function( uid ) {
     } else if ( enabled ) {
 
       widgetParams.enable( currentRequestParams );
+
+    }
+
+    if ( window.oa && window.oa.onWidgetRegister ) {
+
+      window.oa.onWidgetRegister( { uid, name: widgetParams.name } );          
 
     }
 
@@ -381,7 +386,7 @@ module.exports = function( uid ) {
 
     remote.getJsonp( 
       params.search.replace( '{uid}', uid ) +
-      '?' + qs.stringify( { oaq: searchQuery } ), { 
+      '?' + qs.stringify( { oaq: searchQuery } ), {
       data: {}, 
       timeout: 10000 
     }, function( responseType, data ) {
@@ -865,7 +870,7 @@ module.exports = function( uid ) {
 
     href = href.split( '?' )[ 0 ];
 
-    if ( ( typeof window.history == 'undefined' ) || ( typeof window.history.pushState == 'undefined' ) ) {
+    if ( ( typeof window.history == 'undefined' ) || ( typeof window.history.pushState == 'undefined' ) ) {
 
       log( 'window.history is not available' );
 
