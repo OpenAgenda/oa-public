@@ -89,6 +89,8 @@ var widget = function( elem, options ) {
 
       _createCalendar();
 
+      controller.onWidgetReady( 'calendar', { uid } );
+
       if ( onReady ) onReady();
 
     });

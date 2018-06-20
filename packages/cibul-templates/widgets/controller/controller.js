@@ -213,19 +213,14 @@ module.exports = function( uid ) {
 
     }
 
-    if ( window.oa && window.oa.onWidgetRegister ) {
-
-      window.oa.onWidgetRegister( { uid, name: widgetParams.name } );          
-
-    }
-
     return {
       update: update,
       getControlData: getControlData,
       requestModal: requestModal,
       releaseModal: releaseModal,
       getCurrentQuery: getCurrentQuery,
-      isDifferent: isDifferent
+      isDifferent: isDifferent,
+      onWidgetReady: onWidgetReady
     };
 
   }
@@ -303,6 +298,17 @@ module.exports = function( uid ) {
   function disablePassedAutoLoad() {
 
     passedAutoLoad = false;
+
+  }
+
+
+  function onWidgetReady( origin, data = {} ) {
+
+    if ( window.oa && window.oa.onWidgetReady ) {
+
+      window.oa.onWidgetReady( origin, data );
+
+    }
 
   }
 

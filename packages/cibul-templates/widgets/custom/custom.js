@@ -63,6 +63,8 @@ var widget = function( elem, options ) {
 
     cn.addEvent( elem, 'click', _onClick );
 
+    controller.onWidgetReady( 'custom', { uid } );
+
     if ( onReady ) onReady();
 
   } )();

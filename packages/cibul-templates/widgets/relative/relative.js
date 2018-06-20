@@ -81,6 +81,8 @@ function widget( elem, options ) {
 
     log( 'init complete, enable to render' );
 
+    controller.onWidgetReady( 'relative', { uid } );
+
     if ( onReady ) onReady();
 
   } );
