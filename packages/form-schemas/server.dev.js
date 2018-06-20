@@ -12,7 +12,6 @@ const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
   noInfo: true, 
-  path: __dirname + './client/dist',
   publicPath: '/js'
 } ) );
 

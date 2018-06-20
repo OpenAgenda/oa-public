@@ -32,7 +32,7 @@ module.exports = class TextField extends Component {
     const fieldProps = {
       name,
       rows: 3,
-      className: 'form-control margin-bottom-xs',
+      className: 'form-control',
       value: value || '',
       placeholder,
       onChange: this.onChange

@@ -10,7 +10,8 @@ module.exports = {
     './client/src/dev.js'
   ],
   output: {
-    filename: 'app.js'
+    filename: 'app.js',
+    publicPath: '/js/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

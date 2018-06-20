@@ -3,6 +3,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
+import FieldCounter from './FieldCounter';
+
 const FieldComponents = {
   text: require( './TextField' ),
   textarea: require( './TextField' ),
@@ -14,13 +16,12 @@ module.exports = class Field extends Component {
 
   render() {
 
-    // some field validation here couldn't hurt
-
     const {
       label,
       field: name,
       optional,
-      info
+      info,
+      max
     } = this.props.field;
 
     const {
@@ -35,7 +36,7 @@ module.exports = class Field extends Component {
     const Component = FieldComponents[ type ];
 
     return <div className={classNames( { 'form-group' : true, 'has-error' : !!error } ) } key={name}>
-      {label?<label className="control-label">{label}</label>:null}
+      {label ? <label className="control-label">{label}</label> : null}
       {optional ? '' : <span className="margin-left-xs">{'( ' + labels.required + ' )'}</span>}
       <div>{error || info?<span>{error || info}</span>:null}</div>
       <Component
@@ -44,6 +45,7 @@ module.exports = class Field extends Component {
         value={value}
         onChange={onChange}
       />
+      {max?<FieldCounter value={value} max={max}/>:null}
     </div>
 
   }

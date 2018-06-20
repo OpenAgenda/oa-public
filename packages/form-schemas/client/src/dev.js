@@ -27,6 +27,7 @@ class Main extends Component {
             "fr" : "Titre",
             "en" : "Title"
           },
+          "max" : 140,
           "placeholder" : {
             "fr" : "Le titre de votre événement",
             "en" : "Title of your event"
