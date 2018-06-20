@@ -7,6 +7,7 @@
         "fr": "Qui suis-je?"
       },
       "info": null,
+      "placeholder" : null,
       "write": "contributor",
       "read": null,
       "optional": false,

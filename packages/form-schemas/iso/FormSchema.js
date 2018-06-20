@@ -50,6 +50,12 @@ module.exports = class {
 
   }
 
+  getFields() {
+
+    return this.data.fields;
+
+  }
+
   moveField( index, moves ) {
 
     let newIndex = index + moves;

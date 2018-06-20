@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const parseTagSet = require( '../legacy/parseTagSet' );
+const parseTagSet = require( '../server/legacy/parseTagSet' );
 
 describe( 'form-schemas - unit (server): legacy tag sets', function() {
 
@@ -106,6 +106,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             legacyId: 10127
           } ],
           fieldType: "checkbox",
+          "placeholder" : null,
           "origin" : "tags"
         },
         {
@@ -114,6 +115,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             "fr": "Style musical"
           },
           "info": null,
+          "placeholder" : null,
           "write": 'contributor',
           "read": null,
           "optional": true,
@@ -153,7 +155,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
 
   it( 'takes a form schema, a category set and returns a form schema with the category set added as fields', () => {
 
-    parseTagSet.categories( { fields: [] }, {
+    parseTagSet.categories( { fields: [] }, {
       "name": "Type d'animation",
       "info": "Si vous souhaitez être plus précis, vosu pouvez également ajouter des mots-clés dans le formulaire.",
       "categories": [ {
@@ -182,6 +184,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
         "info": {
           "fr": "Si vous souhaitez être plus précis, vosu pouvez également ajouter des mots-clés dans le formulaire."
         },
+        "placeholder" : null,
         "write": "contributor",
         "read": null,
         "optional": false,

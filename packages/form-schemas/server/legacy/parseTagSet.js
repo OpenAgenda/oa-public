@@ -3,10 +3,10 @@
 const _ = require( 'lodash' );
 const slug = require( 'slug' );
 
-const FormSchema = require( '../iso/FormSchema' );
-const validate = require( '../iso/FormSchema' ).validate;
-
 const log = require( '@openagenda/logs' )( 'parseTagSet' );
+
+const FormSchema = require( '../../iso/FormSchema' );
+const validate = require( '../../iso/FormSchema' ).validate;
 
 module.exports = ( formSchema, tagSet, type = 'tag' ) => {
 

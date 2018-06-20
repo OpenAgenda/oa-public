@@ -13,6 +13,7 @@
       "en": "What is the value of PI"
     },
     "info": null,
+    "placeholder" : null,
     "origin" : "custom"
   } ]
 }

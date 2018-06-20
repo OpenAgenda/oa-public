@@ -66,7 +66,7 @@ function validate( value ) {
 
       errors = errors.concat( {
         field: 'options',
-        code: 'dublicate',
+        code: 'duplicate',
         message: 'option values must be unique',
         origin: value
       } );
@@ -129,6 +129,13 @@ types.forEach( type => {
       default: null
     },
 
+    placeholder: {
+      type: 'multilingual',
+      max: 300,
+      optional: true,
+      default: null
+    },
+
     write: {
       type: 'choice',
       // potential groups with write access
@@ -155,7 +162,7 @@ types.forEach( type => {
       type: 'choice',
       default: null,
       unique: true,
-      options: [ 'tags', 'categories', 'custom' ]
+      options: [ 'tags', 'categories', 'custom' ]
     }
 
   }, minMaxedTypes.indexOf( type ) !== -1 ? {

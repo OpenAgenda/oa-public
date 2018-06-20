@@ -6,7 +6,7 @@ const knex = require( 'knex' );
 const logger = require( '@openagenda/logs' );
 const storeLib = require( '@openagenda/mysql-table-store' );
 
-const FormSchema = require( './iso/FormSchema' );
+const FormSchema = require( '../iso/FormSchema' );
 const legacy = require( './legacy' );
 
 let client, log, config;

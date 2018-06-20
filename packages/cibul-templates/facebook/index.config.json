@@ -1,9 +1,9 @@
 {
   "layout": "agendaAdmin/bsLayout",
+  "labels": "agenda-admin/facebook",
   "bsCss" : {
     "main" : "/../bs-templates/compiled/main.css"
   },
-  "css" : {},
   "helpers" : {
     "_t" : "time",
     "_i" : "image"
