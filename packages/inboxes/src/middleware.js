@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import uppy from 'uppy-server';
 import axios from 'axios';
+import mime from 'mime-types';
 import Inboxes from './';
 import Conversations from './Conversations';
 import { aws, knex, schemas } from './config';
@@ -411,10 +412,16 @@ export const messages = {
         .then( v => _.mapKeys( v, ( value, key ) => _.camelCase( key ) ) );
 
       if ( attachment ) {
+
+        res.set( 'Content-Type', mime.contentType( filename ) || 'application/octet-stream' );
+
         res.set(
           'Content-Disposition',
-          `attachment; filename=${attachment.originalName}`
+          /\.(jpeg|jpg|gif|png|svg|bmp)$/.test( filename )
+            ? 'inline'
+            : `attachment; filename=${attachment.originalName}`
         );
+
       }
 
       const { data } = await axios( {

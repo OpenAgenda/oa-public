@@ -159,8 +159,8 @@ function _create( data, options, cb ) {
   .then( _applyToLegacy )
 
   .then( _get( {
-    target: 'created', 
-    internal: true, 
+    target: 'created',
+    internal: true,
     prerequisite: v => v.success && !v.errors.length,
     includeImagePath: params.includeImagePath
   } ) )
@@ -462,7 +462,13 @@ function _filterProtected( namespace, v ) {
 
 function _merge( v ) {
 
-  v.merged = _.merge( {}, v.current, v.data );
+  const customizer = ( obj, src, key ) => {
+    if ( _.isArray( src ) && key === 'moderateOnChangeBy' ) {
+      return src;
+    }
+  };
+
+  v.merged = _.mergeWith( {}, v.current, v.data, customizer );
 
   return v;
 

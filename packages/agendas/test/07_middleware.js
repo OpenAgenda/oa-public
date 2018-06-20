@@ -250,7 +250,7 @@ describe( 'agendas - functional (server): middleware', function () {
         const req = {
           agendaSlug: 'agenda-protege',
           header: ns => ( ( { // simulate express req.header() function
-            'x-forwarded-for' : '123.456.789.101'
+            'x-forwarded-for' : '123.123.123.101'
           } )[ ns ] )
         },
 

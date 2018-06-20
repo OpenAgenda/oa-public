@@ -54,17 +54,13 @@ module.exports = ( paths ) => {
       maxAssetSize: 20000000
     },
     plugins: [
-      new webpack.IgnorePlugin( /unicode\/category\/So/ ),
       new webpack.DefinePlugin( {
-        'process.env': {
-          NODE_ENV: '"development"'
-        },
+        'process.env.NODE_ENV': '"development"',
         __CLIENT__: true,
         __SERVER__: false,
         __DEVELOPMENT__: true,
         __DEVTOOLS__: true
-      } ),
-      new webpack.IgnorePlugin( /(.*)/, /node_modules\/(get-size)/ )
+      } )
     ],
     node: {
       fs: 'empty'

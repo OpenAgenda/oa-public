@@ -52,7 +52,7 @@ export default function ( options ) {
     window.React = React;
   }
 
-  if ( process.env.NODE_ENV === 'development' && !window.devToolsExtension ) {
+  if ( process.env.NODE_ENV === 'development' && !window.__REDUX_DEVTOOLS_EXTENSION__ ) {
     const devToolsDest = document.createElement( 'div' );
     window.document.body.insertBefore( devToolsDest, null );
     const DevTools = require( './ReduxDevTools' );

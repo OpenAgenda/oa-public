@@ -6,9 +6,6 @@
   "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "npmClientArgs": [
-    "--no-lockfile"
-  ],
   "command": {
     "publish": {
       "allowBranch": "master",

@@ -616,7 +616,7 @@ for ( var i = 2; i < process.argv.length; i++ ) {
   }
 }
 
-if ( process.env.BUILD_ENV === 'development' ) {
+if ( process.env.NODE_ENV === 'development' ) {
   production = false;
 }
 
