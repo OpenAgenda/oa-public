@@ -289,6 +289,31 @@ describe( 'agendas - functional (server): set (update)', function() {
 
   } );
 
+  it( 'empty moderateOnChangeBy keeped', done => {
+
+    svc.set(
+      { uid: 35338076 },
+      {
+        settings: {
+          contribution: {
+            moderateOnChangeBy: []
+          }
+        }
+      }, {
+        internal: true, // to retrieve credentials after update
+        protected: false
+      }, ( err, result ) => {
+
+        should( err ).equal( null );
+
+        should( result.agenda.settings.contribution.moderateOnChangeBy ).eql( [] );
+
+        done();
+
+    } );
+
+  } );
+
 
   it( 'unprotected set cannot update protected field', done => {
 

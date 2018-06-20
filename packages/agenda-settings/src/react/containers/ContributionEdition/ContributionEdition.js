@@ -161,6 +161,22 @@ export default class ContributionEdition extends Component {
               </div>
 
               <div className="form-group">
+                <div className={`checkbox ${getError( 'settings.contribution.moderateOnChangeBy' ) ? 'has-error' : ''}`}>
+                  <p><b>{getLabel( 'contribModerateOnChangeBy' )}</b></p>
+                  <label>
+                    <Field
+                      name="settings.contribution.moderateOnChangeBy"
+                      component="input"
+                      type="checkbox"
+                      format={v => v.includes( 'contributors' )}
+                      parse={value => value ? [ 'contributors' ] : []}
+                    />
+                    {getLabel( 'contribModerateOnChangeByUnpublish' )}
+                  </label>
+                </div>
+              </div>
+
+              <div className="form-group">
                 <p><b>{getLabel( 'limitDates' )}</b></p>
                 <a
                   className="margin-right-sm"

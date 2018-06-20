@@ -115,21 +115,27 @@ export default class ConversationItem extends Component {
         <i className="fa fa-paperclip" aria-hidden="true"></i>{' '}
         {getLabel( attachments && attachments.length > 1 ? 'attachments' : 'attachment' )}:
 
-        {attachments.map( ( attachment, i ) => (
-          <Fragment key={i}>
-            {i === 0 ? ' ' : ', '}
-            <a
-              href={`/home/inbox/download-attachment?${qs.stringify( {
-                filename: attachment.filename,
-                id: attachment.id
-              } )}`}
-              target="_blank"
-              download={attachment.originalName}
-            >
-              {attachment.originalName}
-            </a>
-          </Fragment>
-        ) )}
+        {attachments.map( ( attachment, i ) => {
+          const isImage = /\.(jpeg|jpg|gif|png|svg|bmp)$/.test( attachment.filename );
+          const link = `/home/inbox/download-attachment?${qs.stringify( {
+            filename: attachment.filename,
+            id: attachment.id
+          } )}`;
+
+          return (
+            <Fragment key={attachment.id}>
+              {i === 0 ? ' ' : ', '}
+              <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                {...(isImage ? {} : { download: attachment.originalName })}
+              >
+                {isImage ? <img src={link} alt={attachment.filename} className="attachment-image" /> : attachment.originalName}
+              </a>
+            </Fragment>
+          );
+        } )}
       </div>
     );
 

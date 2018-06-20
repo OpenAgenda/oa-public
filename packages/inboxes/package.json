@@ -33,6 +33,7 @@
     "babel-runtime": "^6.26.0",
     "knex": "^0.13.0",
     "lodash": "^4.17.4",
+    "mime-types": "^2.1.18",
     "mysql": "^2.14.1",
     "redis": "^2.8.0",
     "uppy-server": "^0.11.1",

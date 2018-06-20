@@ -265,5 +265,13 @@ module.exports = {
   removeKeyWarning: {
     fr: 'Êtes-vous certain de vouloir supprimer cette clé ?',
     en: 'Are you sure you want to delete this key?'
+  },
+  contribModerateOnChangeBy: {
+    fr: 'Statut d\'un événement après modification',
+    en: 'Status of an event after modification'
+  },
+  contribModerateOnChangeByUnpublish: {
+    fr: 'Dépublier l\'événement afin qu\'il soit contrôlé à nouveau',
+    en: 'Unpublish the event so that it is checked again'
   }
 };
