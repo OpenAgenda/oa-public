@@ -1,41 +1,53 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' ),
+const _ = {
+  extend: require( 'lodash/extend' ),
+  get: require( 'lodash/get' ),
+  keys: require( 'lodash/keys' ),
+  isArray: require( 'lodash/isArray' )
+};
 
-text = require( './text' );
+const text = require( './text' );
 
-module.exports = function( config ) {
+module.exports = config => {
 
-  var params = utils.extend( {
+  const params = _.extend( {
     field: false,
     optional: true,
-    defaultLanguage: 'en'
+    defaultLanguage: 'en',
+    languages: [] // if array is set, languages are required
   }, config || {} );
 
-  return utils.extend( validate, {
+  return _.extend( validate, {
     type: 'multilingual',
     field: params.field
   } );
 
-  function validate( origin ) {    
+  function validate( origin ) { 
 
-    let clean = {}, tmp = {}, errors = [], value,
+    const clean = {}, tmp = {};
 
-    validateText = text( params );
+    const validateText = text( params );
 
-    if ( typeof origin === 'string' ) {
+    let errors = [];
 
-      tmp[ params.defaultLanguage ] = origin;
+    const value = typeof origin === 'string' 
+      ? [ params.defaultLanguage ].reduce( l => _.set( {}, l, origin ), {} )
+      : origin || {};
 
-      value = tmp;
+    // if languages have been pre-specified, they should be
+    // part of validation and sanitizing
+    if ( _.isArray( params.languages ) ) {
 
-    } else {
+      params.languages.forEach( l => {
 
-      value = origin || {};
+        value[ l ] = _.get( value, l, '' );        
+
+      } );
 
     }
 
-    if ( !params.optional && !Object.keys( value ).length ) {
+    if ( !params.optional && !_.keys( value ).length ) {
 
       throw [ {
         field: params.field,
@@ -46,14 +58,15 @@ module.exports = function( config ) {
 
     }
 
-    if ( !Object.keys( value ).length && typeof params.default !== 'undefined' ) {
+
+
+    if ( !_.keys( value ).length && typeof params.default !== 'undefined' ) {
 
       return params.default;
 
     }
 
-
-    Object.keys( value ).forEach( l => {
+    _.keys( value ).forEach( l => {
 
       let langValue = value[ l ];
 
@@ -69,7 +82,7 @@ module.exports = function( config ) {
 
       } catch( lErrors ) {
 
-        errors = errors.concat( lErrors.map( e => utils.extend( { lang: l }, e ) ) );
+        errors = errors.concat( lErrors.map( e => _.extend( { lang: l }, e ) ) );
 
       }
 

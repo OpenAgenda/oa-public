@@ -1,17 +1,24 @@
 "use strict";
 
-var utils = require('@openagenda/utils'),
-    text = require('./text');
+var _ = {
+  extend: require('lodash/extend'),
+  get: require('lodash/get'),
+  keys: require('lodash/keys'),
+  isArray: require('lodash/isArray')
+};
+
+var text = require('./text');
 
 module.exports = function (config) {
 
-  var params = utils.extend({
+  var params = _.extend({
     field: false,
     optional: true,
-    defaultLanguage: 'en'
+    defaultLanguage: 'en',
+    languages: [] // if array is set, languages are required
   }, config || {});
 
-  return utils.extend(validate, {
+  return _.extend(validate, {
     type: 'multilingual',
     field: params.field
   });
@@ -19,22 +26,27 @@ module.exports = function (config) {
   function validate(origin) {
 
     var clean = {},
-        tmp = {},
-        errors = [],
-        value = void 0,
-        validateText = text(params);
+        tmp = {};
 
-    if (typeof origin === 'string') {
+    var validateText = text(params);
 
-      tmp[params.defaultLanguage] = origin;
+    var errors = [];
 
-      value = tmp;
-    } else {
+    var value = typeof origin === 'string' ? [params.defaultLanguage].reduce(function (l) {
+      return _.set({}, l, origin);
+    }, {}) : origin || {};
 
-      value = origin || {};
+    // if languages have been pre-specified, they should be
+    // part of validation and sanitizing
+    if (_.isArray(params.languages)) {
+
+      params.languages.forEach(function (l) {
+
+        value[l] = _.get(value, l, '');
+      });
     }
 
-    if (!params.optional && !Object.keys(value).length) {
+    if (!params.optional && !_.keys(value).length) {
 
       throw [{
         field: params.field,
@@ -44,12 +56,12 @@ module.exports = function (config) {
       }];
     }
 
-    if (!Object.keys(value).length && typeof params['default'] !== 'undefined') {
+    if (!_.keys(value).length && typeof params['default'] !== 'undefined') {
 
       return params['default'];
     }
 
-    Object.keys(value).forEach(function (l) {
+    _.keys(value).forEach(function (l) {
 
       var langValue = value[l];
 
@@ -64,7 +76,7 @@ module.exports = function (config) {
       } catch (lErrors) {
 
         errors = errors.concat(lErrors.map(function (e) {
-          return utils.extend({ lang: l }, e);
+          return _.extend({ lang: l }, e);
         }));
       }
     });
