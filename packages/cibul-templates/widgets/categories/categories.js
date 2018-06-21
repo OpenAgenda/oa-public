@@ -69,6 +69,8 @@ var widget = function( elem, options ) {
 
       log( 'init complete, enable to render' );
 
+      controller.onWidgetReady( 'categories', { uid } );
+
       if ( onReady ) onReady();
 
     });

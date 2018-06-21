@@ -175,6 +175,8 @@ function widget( elem, options ) {
 
         _initAutoSync( data );
 
+        controller.onWidgetReady( 'map', { uid } );
+
         if ( onReady ) onReady();
 
       } );

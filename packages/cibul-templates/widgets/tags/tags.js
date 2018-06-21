@@ -79,6 +79,8 @@ function widget( elem, options ) {
 
       log( 'init complete, enable to render' );
 
+      controller.onWidgetReady( 'tags', { uid } );
+
       if ( onReady ) onReady();
 
     } );
