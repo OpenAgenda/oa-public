@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inbox-apps",
-  "version": "1.0.70",
+  "version": "1.0.71",
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -30,7 +30,7 @@
     "@openagenda/logs": "^1.0.1",
     "@openagenda/react-components": "^2.0.6",
     "@openagenda/react-form-components": "^2.0.14",
-    "@openagenda/react-utils": "^3.0.5",
+    "@openagenda/react-utils": "^3.0.6",
     "@openagenda/sessions": "^3.0.0",
     "@openagenda/validators": "^2.0.1",
     "async": "^2.5.0",

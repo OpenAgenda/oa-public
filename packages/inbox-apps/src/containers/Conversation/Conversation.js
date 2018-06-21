@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { replace } from 'react-router-redux';
 import { asyncConnect } from 'redux-connect';
 import { reset as resetForm, SubmissionError } from 'redux-form';
 import Waypoint from 'react-waypoint';
@@ -16,44 +17,41 @@ import * as inboxActions from '../../redux/modules/inbox';
 import * as modalActions from '../../redux/modules/modals';
 import showBackLink from '../../utils/showBackLink';
 
+function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
+  const state = getState();
+  const promises = [];
+
+  const { prefix, focusFistConversation } = state.settings;
+  const query = focusFistConversation ? { limit: 1 } : {};
+
+  // if ( !inboxActions.isLoaded( state ) ) {
+  promises.push( dispatch( inboxActions.load( query ) ) );
+  // }
+
+  if ( !conversationActions.isAuthorLoaded( state ) ) {
+    promises.push( dispatch( conversationActions.loadAuthor() ) );
+  }
+
+  // if ( !conversationActions.isLoaded( state ) ) {
+  promises.push(
+    dispatch( conversationActions.load( router.params.conversationId ) )
+      .catch( () => redirect( prefix ) )
+  );
+  // }
+
+  return Promise.all( promises );
+}
+
 @asyncConnect( [ {
   key: 'asyncConnectConversation',
-  promise: ( { store: { dispatch, getState }, router, helpers: { redirect } } ) => {
-    const state = getState();
-    const promises = [];
-
-    const { prefix, focusFistConversation } = state.settings;
-    const query = focusFistConversation ? { limit: 1 } : {};
-
-    // if ( !inboxActions.isLoaded( state ) ) {
-    promises.push( dispatch( inboxActions.load( query ) ) );
-    // }
-
-    if ( !conversationActions.isAuthorLoaded( state ) ) {
-      promises.push( dispatch( conversationActions.loadAuthor() ) );
-    }
-
-    // if ( !conversationActions.isLoaded( state ) ) {
-    promises.push(
-      dispatch( conversationActions.load( router.params.conversationId ) )
-        .catch( () => redirect( prefix ) )
-    );
-    // }
-
-    return Promise.all( promises );
-  }
-} ] )
-@asyncConnect( [ {
-  promise: ( { store: { dispatch, getState } } ) => {
-    const state = getState();
-
-    if ( !conversationActions.isAuthorLoaded( state ) ) {
-      return dispatch( conversationActions.loadAuthor() );
-    }
+  promise: ( { store, router, helpers: { redirect } } ) => {
+    if ( !__SERVER__ ) return { needLoad: true };
+    return asyncLoad( { store, router, redirect } );
   }
 } ] )
 @connect(
   state => ({
+    reduxAsyncConnect: state.reduxAsyncConnect,
     settings: state.settings,
     user: state.user,
     author: state.conversation.author,
@@ -69,7 +67,8 @@ import showBackLink from '../../utils/showBackLink';
   { ...conversationActions, ...modalActions, resetForm, inboxLoad: inboxActions.load }
 )
 @getContext( {
-  getLabel: PropTypes.func
+  getLabel: PropTypes.func,
+  store: PropTypes.object
 } )
 export default class Conversation extends Component {
   constructor( props ) {
@@ -77,6 +76,39 @@ export default class Conversation extends Component {
     this.FromWrapper = ::this.FromWrapper;
     this.getClosedLabel = ::this.getClosedLabel;
     this.TitleEntityComponent = ::this.TitleEntityComponent;
+  }
+
+  state = {
+    loading: false,
+    loaded: this.props.asyncConnectConversation && !this.props.asyncConnectConversation.needLoad,
+    error: null
+  };
+
+  componentWillReceiveProps( nextProps ) {
+    const { store, router } = nextProps;
+
+    if ( !this.state.loaded ) {
+      this.setState( {
+        loading: true,
+        loaded: false,
+        error: null
+      } );
+
+      asyncLoad( { store, router, redirect: router.replace } )
+        .then( () => {
+          this.setState( {
+            loading: false,
+            loaded: true,
+            error: null
+          } );
+        }, error => {
+          this.setState( {
+            loading: false,
+            loaded: false,
+            error
+          } );
+        } );
+    }
   }
 
   nextPage = () => {
@@ -221,83 +253,92 @@ export default class Conversation extends Component {
 
     const { ContentWrapper, focusFistConversation } = settings;
 
-    const content = (
-      <Fragment>
-        <div className="inbox-head">
-          <Breadcrumb
-            breadParts={[ {
-              component: <ConversationTitle
-                user={user}
-                conversation={conversation}
-                EntityComponent={this.TitleEntityComponent}
-              />,
-              className: 'text-muted'
-            } ]}
-            disableFirstPartLink={!showBackLink( settings, conversations )}
-          />
+    const content = this.state.loading
+      ? <div className="text-center">
+        <Spinner loading={this.state.loading} mode="inline" options={{
+          width: 1,
+          length: 6,
+          radius: 10,
+          color: '#666'
+        }}/>
+      </div>
+      : (
+        <Fragment>
+          <div className="inbox-head">
+            <Breadcrumb
+              breadParts={[ {
+                component: <ConversationTitle
+                  user={user}
+                  conversation={conversation}
+                  EntityComponent={this.TitleEntityComponent}
+                />,
+                className: 'text-muted'
+              } ]}
+              disableFirstPartLink={!showBackLink( settings, conversations )}
+            />
 
-          {conversation.store && conversation.store.params && conversation.store.params.origin ? (
-            <div className="text-muted">
-              ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
-            </div>
-          ) : null}
+            {conversation.store && conversation.store.params && conversation.store.params.origin ? (
+              <div className="text-muted">
+                ({getLabel( 'from' )} <em>{decodeURIComponent( conversation.store.params.origin )})</em>
+              </div>
+            ) : null}
 
-          {conversation.actions && conversation.actions.length ? (
-            <div className="inbox-actions margin-top-lg">
-              <ActionsList
-                onAction={
-                  code => triggerAction( conversation.id, code )
-                    .then( () => inboxLoad( focusFistConversation ? { limit: 1 } : {} ) )
-                }
-                actions={conversation.actions}
-                showModal={showModal}
-              />
-            </div>
-          ) : null}
+            {conversation.actions && conversation.actions.length ? (
+              <div className="inbox-actions margin-top-lg">
+                <ActionsList
+                  onAction={
+                    code => triggerAction( conversation.id, code )
+                      .then( () => inboxLoad( focusFistConversation ? { limit: 1 } : {} ) )
+                  }
+                  actions={conversation.actions}
+                  showModal={showModal}
+                />
+              </div>
+            ) : null}
 
-          {conversation.closedAt && (
-            <div className="conversation-resolved well text-center margin-top-lg">
-              <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
-              {this.getClosedLabel()}<br/>
-              <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
-                {getLabel( 'resumeConversation' )}
-              </button>
-            </div>
+            {conversation.closedAt && (
+              <div className="conversation-resolved well text-center margin-top-lg">
+                <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
+                {this.getClosedLabel()}<br/>
+                <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
+                  {getLabel( 'resumeConversation' )}
+                </button>
+              </div>
+            )}
+          </div>
+
+          {!conversation.closedAt && (
+            <MessageForm
+              form="message"
+              Wrapper={this.FromWrapper}
+              uploadEndpoint={
+                res.messages.prepareAttachment
+                  .replace( ':conversationId', conversation.id )
+                  .replace( ':agendaUid', agenda && agenda.uid )
+              }
+              onSubmit={this.sendMessage}
+              onMessageSent={() => {
+                // resetForm( 'message' );
+                showModal( 'messageSent' );
+              }}
+              onFileUploaded={attachFileToMessage}
+              conversation={conversation}
+            />
           )}
-        </div>
 
-        {!conversation.closedAt && (
-          <MessageForm
-            form="message"
-            Wrapper={this.FromWrapper}
-            uploadEndpoint={
-              res.messages.prepareAttachment
-                .replace( ':conversationId', conversation.id )
-                .replace( ':agendaUid', agenda && agenda.uid )
-            }
-            onSubmit={this.sendMessage}
-            onMessageSent={() => {
-              // resetForm( 'message' );
-              showModal( 'messageSent' );
-            }}
-            onFileUploaded={attachFileToMessage}
-            conversation={conversation}
-          />
-        )}
+          {messages && messages.length ? <MessageList messages={messages}/> : null}
 
-        {messages && messages.length ? <MessageList messages={messages}/> : null}
+          {!messages || !messages.length ? <div className="text-center text-muted margin-v-md">
+            {getLabel( 'noResult' )}
+          </div> : null}
 
-        {!messages || !messages.length ? <div className="text-center text-muted margin-v-md">
-          {getLabel( 'noResult' )}
-        </div> : null}
+          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+            <Spinner/>
+          </div>}
 
-        {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-          <Spinner/>
-        </div>}
-
-        <Waypoint onEnter={this.throttledNextPage}/>
-      </Fragment>
-    );
+          <Waypoint onEnter={this.throttledNextPage}/>
+        </Fragment>
+      );
 
     return ContentWrapper
       ? <ContentWrapper>{content}</ContentWrapper>
