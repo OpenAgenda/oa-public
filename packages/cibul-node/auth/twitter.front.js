@@ -1,6 +1,8 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const _ = require( 'lodash' );
+
+const modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
@@ -38,7 +40,7 @@ routes = {
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -56,24 +58,31 @@ module.exports = function( path ) {
 
 function load( router, path ) {
 
-  var twitterOptions = {
-    consumerKey: config.auth.twitter.key,
-    consumerSecret: config.auth.twitter.secret,
+  const key = _.get( config, 'auth.twitter.key' );
+  const secret = _.get( config, 'auth.twitter.secret' );
+
+  const twitterOptions = {
+    consumerKey: key,
+    consumerSecret: secret,
     passReqToCallback: true,
     skipExtendedUserProfile: true
   };
 
   return function( app ) {
 
-    pLib.loadStrategy( 'twitter', 'passport-twitter' );
+    if ( key ) {
 
-    pLib.use( 'twitter-signin', 'twitter', lib.extend( {
-      callbackURL: genUrl.abs( 'twitterSigninCallback' )
-    }, twitterOptions ), _loadTwitterProfile );
+      pLib.loadStrategy( 'twitter', 'passport-twitter' );
 
-    pLib.use( 'twitter-signup', 'twitter', lib.extend({
-      callbackURL: genUrl.abs( 'twitterSignupCallback' )
-    }, twitterOptions ), _loadTwitterProfile );
+      pLib.use( 'twitter-signin', 'twitter', lib.extend( {
+        callbackURL: genUrl.abs( 'twitterSigninCallback' )
+      }, twitterOptions ), _loadTwitterProfile );
+
+      pLib.use( 'twitter-signup', 'twitter', lib.extend({
+        callbackURL: genUrl.abs( 'twitterSignupCallback' )
+      }, twitterOptions ), _loadTwitterProfile );
+
+    }
 
     return router.load( path )( app );
 
@@ -98,7 +107,7 @@ function signin( req, res, next ) {
 
 function signup( req, res, next ) {
 
-  var additional = {};
+  const additional = {};
 
   if ( req.query.email ) {
 

@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const w = require( 'when' );
 const deepExtend = require( 'deep-extend' );
 
@@ -416,6 +417,12 @@ function _render( template, defaults ) {
       data.headMessage = labels[ req.query.msg ] ? labels[ req.query.msg ][ req.lang ] : false;
 
     }
+
+    data.enabledServices = [];
+
+    if ( _.get( config, 'auth.facebook.id' ) ) data.enabledServices.push( 'facebook' );
+    if ( _.get( config, 'auth.google.id' ) ) data.enabledServices.push( 'google' );
+    if ( _.get( config, 'auth.twitter.key' ) ) data.enabledServices.push( 'twitter' );
 
     cmn.render( req, res, template, data );
 

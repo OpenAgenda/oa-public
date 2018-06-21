@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -31,7 +33,7 @@ const modLib = require( '../lib/moduleLib' ),
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -49,24 +51,28 @@ module.exports = function( path ) {
 
 function load( router, path ) {
 
-  var facebookOptions = {
-    clientID: config.auth.facebook.id,
-    clientSecret: config.auth.facebook.secret,
+  const facebookOptions = {
+    clientID: _.get( config, 'auth.facebook.id' ),
+    clientSecret: _.get( config, 'auth.facebook.secret' ),
     passReqToCallback: true,
     authorizationURL: "https://www.facebook.com/v2.0/dialog/oauth"
   };
 
   return function( app ) {
 
-    pLib.loadStrategy( 'facebook', 'passport-facebook' );
+    if ( _.get( config, 'auth.facebook.id' ) ) {
 
-    pLib.use( 'facebook-signin', 'facebook', lib.extend( {
-      callbackURL: genUrl.abs( 'facebookSigninCallback' )
-    }, facebookOptions ), _loadFacebookProfile );
+      pLib.loadStrategy( 'facebook', 'passport-facebook' );
 
-    pLib.use( 'facebook-signup', 'facebook', lib.extend( {
-      callbackURL: genUrl.abs( 'facebookSignupCallback' )
-    }, facebookOptions ), _loadFacebookProfile );
+      pLib.use( 'facebook-signin', 'facebook', lib.extend( {
+        callbackURL: genUrl.abs( 'facebookSigninCallback' )
+      }, facebookOptions ), _loadFacebookProfile );
+
+      pLib.use( 'facebook-signup', 'facebook', lib.extend( {
+        callbackURL: genUrl.abs( 'facebookSignupCallback' )
+      }, facebookOptions ), _loadFacebookProfile );
+
+    }
 
     return router.load( path )( app );
 

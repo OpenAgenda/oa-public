@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -31,7 +33,7 @@ const modLib = require( '../lib/moduleLib' ),
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -48,23 +50,29 @@ module.exports = function( path ) {
 
 function load( router, path ) {
 
-  var googleOptions = {
-    clientID: config.auth.google.id,
-    clientSecret: config.auth.google.secret,
+  const id = _.get( config, 'auth.google.id' );
+
+  const googleOptions = {
+    clientID: id,
+    clientSecret: _.get( config, 'auth.google.secret' ),
     passReqToCallback: true
   };
 
   return function( app ) {
 
-    pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
-    
-    pLib.use( 'google-signin', 'google', lib.extend( {
-      callbackURL: genUrl.abs( 'googleSigninCallback' )
-    }, googleOptions ), _loadGoogleProfile );
+    if ( id ) {
 
-    pLib.use( 'google-signup', 'google', lib.extend( {
-      callbackURL: genUrl.abs( 'googleSignupCallback' )
-    }, googleOptions ), _loadGoogleProfile );
+      pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
+    
+      pLib.use( 'google-signin', 'google', _.extend( {
+        callbackURL: genUrl.abs( 'googleSigninCallback' )
+      }, googleOptions ), _loadGoogleProfile );
+
+      pLib.use( 'google-signup', 'google', _.extend( {
+        callbackURL: genUrl.abs( 'googleSignupCallback' )
+      }, googleOptions ), _loadGoogleProfile );
+
+    }
 
     return router.load( path )( app );
 
