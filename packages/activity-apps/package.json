@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.42",
+  "version": "1.0.43",
   "description": "",
   "repository": {
     "type": "git",
@@ -19,12 +19,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/activities": "^2.0.29",
+    "@openagenda/activities": "^2.0.30",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.11",
-    "@openagenda/labels": "^2.0.63",
+    "@openagenda/labels": "^2.0.79",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
-    "@openagenda/react-form-components": "^2.0.14",
+    "@openagenda/react-form-components": "^2.0.15",
     "@openagenda/react-utils": "^2.0.2",
     "@openagenda/sessions": "^3.0.3",
     "@openagenda/utils": "^1.0.2",
@@ -47,7 +47,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.65",
+    "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "babel-cli": "^6.18.0",

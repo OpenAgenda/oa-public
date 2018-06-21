@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.1.20",
+  "version": "1.1.21",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -13,7 +13,7 @@
     "start": "nodemon server.dev"
   },
   "dependencies": {
-    "@openagenda/labels": "^2.0.63",
+    "@openagenda/labels": "^2.0.79",
     "@openagenda/logs": "^1.0.5",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",
@@ -25,7 +25,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.75",
+    "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/fixtures": "^2.0.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

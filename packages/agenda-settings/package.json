@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-settings",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "",
@@ -28,9 +28,9 @@
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/image-upload": "^1.0.7",
-    "@openagenda/labels": "^2.0.7",
-    "@openagenda/react-components": "^2.0.6",
-    "@openagenda/react-form-components": "^2.0.14",
+    "@openagenda/labels": "^2.0.79",
+    "@openagenda/react-components": "^2.0.8",
+    "@openagenda/react-form-components": "^2.0.15",
     "classnames": "^2.2.5",
     "deep-extend": "^0.4.1",
     "history": "^3.3.0",
@@ -52,7 +52,7 @@
     "superagent": "^2.2.0"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.65",
+    "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.0",
     "@openagenda/test-app": "^3.0.1-5",
