@@ -8,7 +8,8 @@
     "message" : "Woopidoo",
     "errors" : {
       "email" : "the email is not known"
-    }
+    },
+    "enabledServices" : [ "twitter", "facebook", "google" ]
   },
   "noinvites" : {
     "optionals" : {

@@ -17,7 +17,7 @@
         </div>
 
         <div class="row margin-top-md">
-          <div class="col-md-6">
+          <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
             <form class="margin-h-sm" method="post">
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
                 <label for="email" class="control-label"><%= __('email') %></label>
@@ -38,7 +38,9 @@
               </div>
             </form>
           </div>
+          <% if ( enabledServices.length ) { %>
           <div class="col-md-6">
+            <% if ( enabledServices.includes( 'facebook' ) ) { %>
             <div class="margin-bottom-md">
               <a
                 href="<%= genUrl( agenda ? 'agendaFacebookSignin' : 'facebookSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
@@ -47,6 +49,8 @@
                 Facebook
               </a>
             </div>
+            <% } %>
+            <% if ( enabledServices.includes( 'google' ) ) { %>
             <div class="margin-bottom-md">
               <a
                 href="<%= genUrl( agenda ? 'agendaGoogleSignin' : 'googleSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
@@ -55,6 +59,8 @@
                 Google
               </a>
             </div>
+            <% } %>
+            <% if ( enabledServices.includes( 'twitter' ) ) { %>
             <div>
               <a
                 href="<%= genUrl( agenda ? 'agendaTwitterSignin' : 'twitterSignin', [ optionals, agenda ? { slug: agenda.slug } : {} ] ) %>"
@@ -63,7 +69,9 @@
                 Twitter
               </a>
             </div>
+            <% } %>
           </div>
+          <% } %>
         </div>
         <div class="row">
           <div class="col-sm-12 margin-v-md">

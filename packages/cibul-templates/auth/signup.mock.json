@@ -15,6 +15,7 @@
     "email" : "gaetan@openagenda.com",
     "password" : "wigglypoof",
     "repeat" : "wigglypouf",
+    "enabledServices" : [ "twitter", "facebook", "google" ],
     "errors" : {
       "email" : "the email is invalid",
       "password" : "a password is required",
