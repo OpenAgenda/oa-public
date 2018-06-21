@@ -615,8 +615,8 @@ const config = {
         secret: '243737ef67adf832bf1c25c54717ed41'
       },
       twitter: {
-        key: 'hMcfdN7tfpzdfvTAeGUQ',
-        secret: 'TgyJQUQTNORR3RSARNznICg9xYIs7eAWr7ONNs70nc'
+        key: 'u9rxxAMJloDOHYQ87qpjTg55W',
+        secret: 'kstpqny90OSAQuaqrblDJXtv51B6jO4NO8j3TbdgErZa5RyDDt'
       },
       google: {
         id: '493901398908-njdc3qepd1j08arb37ptb8okhm6klu05.apps.googleusercontent.com',

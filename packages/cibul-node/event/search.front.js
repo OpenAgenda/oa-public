@@ -55,7 +55,7 @@ app.get( '/rebuild', ( req, res, next ) => {
 
 function _defineOptions( query, forceAggs = false ) {
 
-  if ( forceAggs || query.aggs || query.cal ) {
+  if ( forceAggs || query.aggs || query.cal ) {
 
     const update = { aggregations: { $set: [
       'agendas',
