@@ -84,8 +84,12 @@
     }
 
     .media-body {
-      .actions {
+      .event-detail-part {
         font-size: 13px;
+      }
+
+      .actions {
+        font-size: 14px;
         color: #777777;
 
         a {
@@ -172,12 +176,6 @@
           font-size: 13px;
           font-style: italic;
           margin-bottom: 4px;
-
-        }
-
-        .agenda ~ a {
-
-          padding: 4px 0;
 
         }
 
