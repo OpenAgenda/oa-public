@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
 import { asyncConnect } from 'redux-connect';
 import { reset as resetForm, SubmissionError } from 'redux-form';
 import Waypoint from 'react-waypoint';
@@ -51,7 +50,6 @@ function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
 } ] )
 @connect(
   state => ({
-    reduxAsyncConnect: state.reduxAsyncConnect,
     settings: state.settings,
     user: state.user,
     author: state.conversation.author,
@@ -84,8 +82,8 @@ export default class Conversation extends Component {
     error: null
   };
 
-  componentWillReceiveProps( nextProps ) {
-    const { store, router } = nextProps;
+  componentDidMount() {
+    const { store, router } = this.props;
 
     if ( !this.state.loaded && !this.state.loading ) {
       this.setState( {
@@ -254,7 +252,7 @@ export default class Conversation extends Component {
     const { ContentWrapper, focusFistConversation } = settings;
 
     const content = this.state.loading || !this.state.loaded
-      ? <div className="text-center">
+      ? <div className="text-center padding-v-md">
         <Spinner loading={this.state.loading} mode="inline" options={{
           width: 1,
           length: 6,
