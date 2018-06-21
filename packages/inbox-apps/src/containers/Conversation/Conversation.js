@@ -80,14 +80,14 @@ export default class Conversation extends Component {
 
   state = {
     loading: false,
-    loaded: this.props.asyncConnectConversation && !this.props.asyncConnectConversation.needLoad,
+    loaded: this.props.asyncConnectConversation ? !this.props.asyncConnectConversation.needLoad : false,
     error: null
   };
 
   componentWillReceiveProps( nextProps ) {
     const { store, router } = nextProps;
 
-    if ( !this.state.loaded ) {
+    if ( !this.state.loaded && !this.state.loading ) {
       this.setState( {
         loading: true,
         loaded: false,
@@ -253,7 +253,7 @@ export default class Conversation extends Component {
 
     const { ContentWrapper, focusFistConversation } = settings;
 
-    const content = this.state.loading
+    const content = this.state.loading || !this.state.loaded
       ? <div className="text-center">
         <Spinner loading={this.state.loading} mode="inline" options={{
           width: 1,
