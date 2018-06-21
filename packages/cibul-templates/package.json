@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/cibul-templates",
-  "version": "1.0.117",
+  "version": "1.0.118",
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
@@ -39,7 +39,7 @@
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/home": "^2.0.24",
     "@openagenda/image-upload": "^1.0.5",
-    "@openagenda/inbox-apps": "^1.0.72",
+    "@openagenda/inbox-apps": "^1.0.73",
     "@openagenda/labels": "^2.0.78",
     "@openagenda/le_js": "^0.0.3",
     "@openagenda/leaflet.markercluster": "^0.4.0",
