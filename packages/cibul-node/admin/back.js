@@ -270,6 +270,8 @@ function getUsers( req, res, next ) {
                     'createdAt',
                     'updatedAt',
                     'lastSignin',
+                    'apiKey',
+                    'apiSecret',
                     'store'
                   ] ),
                   stakeholders
