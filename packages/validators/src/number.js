@@ -1,6 +1,8 @@
 "use strict";
 
-import utils from '@openagenda/utils';
+const _ = {
+  extend: require( 'lodash/extend' )
+}
 
 /*
 integer: require( 'react-form-components/validators/integer' )
@@ -9,7 +11,7 @@ state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
 
 module.exports = config => {
 
-  let params = utils.extend( {
+  const params = _.extend( {
     field: false, // required
     min: null, // minus infinity if defined
     max: null, // infinity and beyond?
@@ -17,7 +19,7 @@ module.exports = config => {
     optional: true
   }, config || {} );
 
-  return utils.extend( validate, {
+  return _.extend( validate, {
     type: 'number',
     field: params.field
   } );
@@ -28,7 +30,7 @@ module.exports = config => {
 
     if ( typeof value == 'string' && value.length ) {
 
-      clean = parseInt( value, 10 );
+      clean = parseFloat( value, 10 );
 
     } else if ( typeof value === 'number' ) {
 

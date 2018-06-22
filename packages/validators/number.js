@@ -1,19 +1,16 @@
 "use strict";
 
-var _utils = require('@openagenda/utils');
+var _ = {
+  extend: require('lodash/extend')
 
-var _utils2 = _interopRequireDefault(_utils);
+  /*
+  integer: require( 'react-form-components/validators/integer' )
+  state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
+  */
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+};module.exports = function (config) {
 
-/*
-integer: require( 'react-form-components/validators/integer' )
-state: validators.integer( { field: 'state', min: 0, max: 1, default: 1 } )
-*/
-
-module.exports = function (config) {
-
-  var params = _utils2['default'].extend({
+  var params = _.extend({
     field: false, // required
     min: null, // minus infinity if defined
     max: null, // infinity and beyond?
@@ -21,7 +18,7 @@ module.exports = function (config) {
     optional: true
   }, config || {});
 
-  return _utils2['default'].extend(validate, {
+  return _.extend(validate, {
     type: 'number',
     field: params.field
   });
@@ -32,7 +29,7 @@ module.exports = function (config) {
 
     if (typeof value == 'string' && value.length) {
 
-      clean = parseInt(value, 10);
+      clean = parseFloat(value, 10);
     } else if (typeof value === 'number') {
 
       clean = value;
