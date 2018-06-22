@@ -1,8 +1,8 @@
 "use strict";
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'number validator', () => {
 
@@ -139,5 +139,13 @@ describe( 'number validator', () => {
     validate( '11' ).should.equal( 11 );
 
   });
+
+  it( 'cleans a valid number with decimal', () => {
+
+    const validate = validators.number();
+
+    validate( '11.1' ).should.equal( 11.1 );
+
+  } );
 
 } );

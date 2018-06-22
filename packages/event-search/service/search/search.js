@@ -58,8 +58,12 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
 
   }
   
-
-  let { events, total, aggregations, scrollId } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
+  let {
+    events,
+    total,
+    aggregations,
+    scrollId
+  } = await dsl( alias, cleanDsl, cleanNav.scroll ? cleanNav : {} );
 
   const eventParsers = _buildEventParsers( cleanOptions, aggregations );
 
@@ -114,6 +118,27 @@ function _buildEventParsers( options, aggregations ) {
   if ( !options.detailed ) {
 
     parsers.push( h.removeTimingsAndTimezone );
+
+  }
+
+  if ( options.geojson ) {
+    
+    parsers.push( h.geoJSON );
+
+  }
+
+  if ( options.monolingual ) {
+
+    parsers.push( h.monolingual.bind( null, [
+      'title',
+      'description',
+      'keywords',
+      'conditions',
+      'dateRange',
+      'longDescription',
+      'country',
+      'location.description'
+    ], options.monolingual ) );
 
   }
 
