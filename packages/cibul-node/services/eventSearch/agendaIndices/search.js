@@ -1,7 +1,9 @@
 "use strict";
 
-const agendas = require( '@openagenda/agendas' );
+const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
+
+const agendas = require( '@openagenda/agendas' );
 const schema = require( '@openagenda/validators/schema' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const makeTransform = require( '@openagenda/stream-utils' ).transform;
@@ -10,7 +12,8 @@ const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndexSear
 
 schema.register( {
   boolean: require( '@openagenda/validators/boolean' ),
-  pass: require( '@openagenda/validators/pass' )
+  pass: require( '@openagenda/validators/pass' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 const validateOptions = schema( {
@@ -34,6 +37,14 @@ const validateOptions = schema( {
   aggregations: {
     type: 'pass',
     default: null
+  },
+  geojson: {
+    type: 'boolean',
+    default: false
+  },
+  monolingual: {
+    type: 'text',
+    list: { max: 2 }
   }
 } );
 
@@ -76,12 +87,18 @@ async function _prepare( agendaUid, options ) {
 
   const cleanOptions = validateOptions( options );
 
-  let searchOptions = {
-    detailed: cleanOptions.detailed,
-    extensions: [ 'contributor', 'state', 'featured' ],
-    aggregations: cleanOptions.aggregations
-  };
-  
+  let searchOptions = _.extend( _.pick( cleanOptions, [
+    'detailed', 
+    'aggregations',
+    'geojson', 
+    'monolingual'
+  ] ), {
+    extensions: [
+      'contributor',
+      'state',
+      'featured'
+    ] 
+  } );
 
   let parseEvent = e => e;
 
