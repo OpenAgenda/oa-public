@@ -22,6 +22,8 @@ function asyncLoad( { store: { getState, dispatch }, redirect } ) {
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
 
+  query.total = true;
+
   return dispatch( inboxActions.load( query ) )
     .then( async result => {
 
@@ -65,6 +67,9 @@ function asyncLoad( { store: { getState, dispatch }, redirect } ) {
     settings: state.settings,
     user: state.user,
     conversations: state.inbox.data,
+    total: state.inbox.total,
+    totalOpened: state.inbox.totalOpened,
+    totalClosed: state.inbox.totalClosed,
     loading: state.inbox.loading,
     nextLoading: state.inbox.nextLoading,
     lastPage: state.inbox.lastPage,
@@ -187,7 +192,7 @@ export default class Inbox extends Component {
     const {
       conversations, nextLoading, router, getLabel, showModal,
       createConversation, author, initialValues, settings, user,
-      attachFileToMessage, res, agenda
+      attachFileToMessage, res, agenda, totalOpened, totalClosed
     } = this.props;
 
     const {
@@ -276,7 +281,12 @@ export default class Inbox extends Component {
           </Fragment> : null}
 
           {conversations && conversations.length ? <h4 className="margin-bottom-md">
-            {getLabel( !unclosedConvs.length ? 'pastConversations' : 'ongoingConversations' )}
+            {unclosedConvs.length ? totalOpened : totalClosed}{' '}
+            {getLabel(
+              unclosedConvs.length
+                ? 'ongoingConversation' + (unclosedConvs.length > 1 ? 's' : '' )
+                : 'pastConversation' + (closedConvs.length > 1 ? 's' : '' )
+            )}
           </h4> : null}
 
           {unclosedConvs.length
@@ -285,7 +295,8 @@ export default class Inbox extends Component {
 
           {unclosedConvs.length && closedConvs.length ? <Fragment>
             <h4 className="margin-bottom-md">
-              {getLabel( 'pastConversations' )}
+              {totalClosed}{' '}
+              {getLabel( 'pastConversation' + (closedConvs.length > 1 ? 's' : '' ) )}
             </h4>
 
             <ConversationList conversations={closedConvs} user={user}/>

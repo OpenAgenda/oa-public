@@ -37,7 +37,7 @@ describe( 'Conversation', () => {
 
   afterAll( async () => {
 
-    await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+    // await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
     await config.knex.destroy();
 
   } );
@@ -734,14 +734,25 @@ describe( 'Conversation', () => {
 
     } );
 
-    test( 'list conversations of a user', async () => {
+    test.only( 'list conversations of a user - with total', async () => {
 
-      const conversations = await Inboxes.user( 99999999 ).conversations.list();
+      const conversations = await Inboxes.user( 99999999 ).conversations.list( {}, { total: true } );
 
-      const result = conversations.toJSON()
-        .map( v => _.omit( v, 'createdAt', 'updatedAt', 'resolvedAt', 'closedAt', 'latestMessage.createdAt', 'fileKey' ) );
+      const { total, data: result } = conversations.toJSON();
 
-      expect( result ).eql( [
+      expect( total ).to.be.equal( 6 );
+
+      expect(
+        result
+          .map( v => _.omit( v,
+            'createdAt',
+            'updatedAt',
+            'resolvedAt',
+            'closedAt',
+            'latestMessage.createdAt',
+            'fileKey'
+          ) )
+      ).eql( [
         {
           id: 5,
           type: 'contact_form',
