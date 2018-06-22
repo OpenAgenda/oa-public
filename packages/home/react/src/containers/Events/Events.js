@@ -196,7 +196,7 @@ export default class Events extends Component {
               </div>
               <div className="media-body">
                 <div className="title media-heading">
-                  <div className="agenda">{event.agenda && event.agenda.title}</div>
+                  {event.agenda && <div className="agenda">{event.agenda.title}</div>}
                   <a href={this.getEventShowLink( event )}>
                     <strong>{this.getMultilangLabel( event.title )}</strong>
                   </a>
@@ -209,21 +209,21 @@ export default class Events extends Component {
                   </div>}
                   {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
                 </div>
-                <div className="actions">
+                <div className="event-detail-part">
                   {event.location && event.location.name}
                 </div>
-                <div className="actions">
+                <div className="event-detail-part">
                   {event.timerange}
                 </div>
 
-                {/* <div className="actions">
+                <div className="actions">
                   <a
-                    href={this.getEventShowLink( event ) + '#inbox'}
+                    href={this.getEventShowLink( event ) + '/edit'}
                     className="text-muted"
                   >
-                    {getLabel( 'contact' )}
+                    {getLabel( 'modify' )}
                   </a>
-                </div> */}
+                </div>
               </div>
             </div>
           ) )}

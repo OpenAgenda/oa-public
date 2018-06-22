@@ -90,5 +90,9 @@ module.exports = {
   support: {
     fr: 'Support',
     en: 'Support'
+  },
+  modify: {
+    fr: 'Modifier',
+    en: 'Modify'
   }
 };

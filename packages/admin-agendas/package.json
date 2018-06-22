@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/admin-agendas",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "service/index.js",
   "directories": {
@@ -23,9 +23,9 @@
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.0",
-    "@openagenda/labels": "^2.0.7",
-    "@openagenda/react-components": "^2.0.6",
-    "@openagenda/react-form-components": "^2.0.14",
+    "@openagenda/labels": "^2.0.79",
+    "@openagenda/react-components": "^2.0.8",
+    "@openagenda/react-form-components": "^2.0.15",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.0.1",
     "async": "^2.1.4",
@@ -44,7 +44,7 @@
   "devDependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.2",
     "@openagenda/agendas": "^1.0.4",
-    "@openagenda/bs-templates": "^2.0.5",
+    "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^2.0.3",
     "babel-cli": "^6.18.0",

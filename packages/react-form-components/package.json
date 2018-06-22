@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-form-components",
-  "version": "2.0.14",
+  "version": "2.0.15",
   "description": "",
   "keywords": [],
   "author": "",
@@ -32,7 +32,7 @@
     "to-markdown": "^3.0.1"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.0.2",
+    "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/test-app": "^2.0.3",
     "babel-cli": "^6.16.0",
     "babel-loader": "^6.2.4",
