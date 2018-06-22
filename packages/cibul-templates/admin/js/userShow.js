@@ -120,7 +120,7 @@ export default class UserShow extends Component {
                 checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
                 unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
                 onChange={this.toggleApiSecret}
-                checked={!!(user.store && user.store.enable_secret)}
+                checked={!!user.apiSecret}
               />
             </td>
           </tr>

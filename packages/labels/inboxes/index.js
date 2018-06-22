@@ -12,12 +12,20 @@ module.exports = {
     en: 'Conversations'
   },
   ongoingConversations: {
-    fr: 'Conversations en cours',
-    en: 'Ongoing conversations'
+    fr: 'conversations en cours',
+    en: 'ongoing conversations'
+  },
+  ongoingConversation: {
+    fr: 'conversation en cours',
+    en: 'ongoing conversation'
   },
   pastConversations: {
-    fr: 'Conversations passées',
-    en: 'Past conversations'
+    fr: 'conversations passées',
+    en: 'past conversations'
+  },
+  pastConversation: {
+    fr: 'conversation passée',
+    en: 'past conversation'
   },
   newConversation: {
     fr: 'Nouvelle conversation',

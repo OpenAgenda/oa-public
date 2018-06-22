@@ -23,7 +23,8 @@ export function user( namespace ) {
             query: {
               typeIdentifier: 'query.typeIdentifier',
               type: 'query.type'
-            }
+            },
+            total: 'query.total'
           },
           limit: 20
         }, options );
@@ -34,12 +35,18 @@ export function user( namespace ) {
             typeIdentifier: parseInt( _.get( req, namespaces.query.typeIdentifier ) )
           } );
           const limit = getLimit( config.mw.limit, params.limit );
+          const total = _.get( req, namespaces.total, false );
 
           const conversations = await Inboxes
             .user( _.get( req, namespace ) )
-            .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
+            .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total } );
 
-          res.send( { conversations } );
+          res.send( {
+            conversations: conversations.data || null,
+            total: conversations.total || null,
+            totalOpened: conversations.totalOpened || null,
+            totalClosed: conversations.totalClosed || null
+          } );
         } );
       }
     }
@@ -148,7 +155,8 @@ export const conversations = {
         query: {
           typeIdentifier: 'query.typeIdentifier',
           type: 'query.type'
-        }
+        },
+        total: 'query.total'
       },
       limit: 20
     }, options );
@@ -159,17 +167,23 @@ export const conversations = {
         typeIdentifier: parseInt( _.get( req, namespaces.query.typeIdentifier ) )
       } );
       const limit = getLimit( config.mw.limit, params.limit );
+      const total = _.get( req, namespaces.total, false );
 
       const conversations = await new Inboxes( {
         type: _.get( req, namespaces.type ),
         identifier: parseInt( _.get( req, namespaces.identifier ) ),
       } )
-        .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, /* options */ );
+        .conversations.list( query, (req.query.page > 0 ? req.query.page - 1 : 0) * limit, limit, { total } );
 
-      res.send( { conversations } );
+      res.send( {
+        conversations: conversations.data || null,
+        total: conversations.total || null,
+        totalOpened: conversations.totalOpened || null,
+        totalClosed: conversations.totalClosed || null
+      } );
     } );
   },
-
+/* options */
   action( options ) {
     const { namespaces } = _.merge( {
       namespaces: {

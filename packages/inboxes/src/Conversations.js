@@ -11,9 +11,9 @@ import inboxUserFieldsMap from './db/inboxUserFieldsMap';
 import inboxFieldsMap from './db/inboxFieldsMap';
 import populateParticipants from './db/populateParticipants';
 import populateLatestMessage from './db/populateLatestMessage';
+import populateDetails from './db/populateDetails';
 import { listSchema } from './validators/conversationSchemas';
 import { knex, schemas, types } from './config';
-import populateDetails from "./db/populateDetails";
 
 const ajv = new Ajv( { allErrors: true, jsonPointers: true, errorDataPath: 'property' } );
 ajvErrors( ajv );
@@ -49,6 +49,10 @@ export default class Conversations {
     await this._loadInbox();
 
     const { query, offset, limit, options } = parseListArguments( ...args );
+
+    const params = _.assign( {
+      total: false
+    }, options );
 
     validate( ajv, listSchema, query );
 
@@ -102,14 +106,10 @@ export default class Conversations {
       .groupBy( `${schemas.conversation}.id` )
       .orderByRaw( '(closedAt IS NOT NULL)' )
       .orderByRaw( `latestMessageId DESC` )
-      .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` )
-      .offset( offset )
-      .limit( limit );
-
-    let rows;
+      .orderByRaw( `GREATEST( ${schemas.conversation}.created_at, ${schemas.conversation}.updated_at ) DESC` );
 
     if ( this.userUid ) { // viewed by user endpoint
-      rows = await request
+      request
         .column(
           mapper.listFields( inboxUserFieldsMap, 'select', 'db', options, true, 'inboxUser.' )
             .map( v => `${schemas.inboxUser}.${v}` )
@@ -122,17 +122,36 @@ export default class Conversations {
         )
         .where( `${schemas.inboxUser}.user_uid`, this.userUid );
     } else { // viewed by inbox endpoint
-      rows = await request
-        .where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
+      request.where( `${schemas.inboxConversation}.inbox_id`, this.inbox.data.id );
     }
 
-    let result = rows.map( row =>
-      _.reduce(
-        { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
-        ( result, value, key ) => _.set( result, key, value ),
-        {}
-      )
-    );
+    if ( params.total ) {
+      const countResult = await knex
+        .count( 'cnt.id AS total' )
+        .first()
+        .from( request.clone().as( 'cnt' ) );
+      const countOpenedResult = await knex
+        .count( 'cnt.id AS total' )
+        .whereNull( 'closedAt' )
+        .first()
+        .from( request.clone().as( 'cnt' ) );
+      this.total = countResult.total || 0;
+      this.totalOpened = countOpenedResult.total || 0;
+      this.totalClosed = countResult.total - countOpenedResult.total;
+    } else {
+      this.total = null;
+    }
+
+    let result = await request
+      .offset( offset )
+      .limit( limit )
+      .map( row =>
+        _.reduce(
+          { ...row, ...mapper.toObj( conversationFieldsMap, row, options ) },
+          ( result, value, key ) => _.set( result, key, value ),
+          {}
+        )
+      );
 
     result = await populateDetails( result, this.inbox );
 
@@ -156,6 +175,15 @@ export default class Conversations {
   }
 
   toJSON() {
+    if ( typeof this.total === "number" ) {
+      return {
+        total: this.total,
+        totalOpened: this.totalOpened,
+        totalClosed: this.totalClosed,
+        data: this.data || null
+      }
+    }
+
     return this.data || null;
   }
 }
