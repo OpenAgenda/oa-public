@@ -15,7 +15,7 @@ module.exports = event => {
           type: 'Point',
           coordinates: [ location.latitude, location.longitude ]
         },
-        properties: location
+        properties: _.omit( location, [ 'latitude', 'longitude' ] )
       }
     }
   } );

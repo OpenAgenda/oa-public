@@ -104,9 +104,7 @@ describe( 'event search - functional: search', function() {
         },
         properties: {
           address: '29 passage du Ponceau, Paris',
-          latitude: 48.8675959,
-          name: 'La boutique',
-          longitude: 2.3516408 
+          name: 'La boutique'
         }
       } );
 

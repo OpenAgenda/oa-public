@@ -170,9 +170,7 @@ describe( 'event-search - unit: helpers', function() {
           },
           properties: {
             name: 'Somewhere',
-            description: 'A description of somewhere',
-            latitude: 45,
-            longitude: 23
+            description: 'A description of somewhere'
           }
         }
       } );
