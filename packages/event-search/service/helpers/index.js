@@ -6,6 +6,8 @@ const w = require( 'when' );
 const lastTimingEndsIn = require( './lastTimingEndsIn' );
 
 module.exports = {
+  geoJSON: require( './geoJSON' ),
+  monolingual: require( './monolingual' ),
   checkList,
   createIndexName: require( './createIndexName' ),
   createUniqueIndex: require( './createUniqueIndex' ),

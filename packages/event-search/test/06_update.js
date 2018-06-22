@@ -41,14 +41,18 @@ describe( 'event search - functional: update', function() {
 
   it( 'udpate the title of an event', async () => {
 
-    let result = await service( 'test_index' ).update( { uid: 1 }, {
+    const result = await service( 'test_index' ).update( { uid: 1 }, {
       title: {
         fr: 'Look at me. I am the title now.'
       }
-    }, { refresh: true } );
+    }, {
+      refresh: true
+    } );
 
-      
-    let { events, total } = await service( 'test_index' ).search( { uid: 1 } );
+    const {
+      events,
+      total
+    } = await service( 'test_index' ).search( { uid: 1 } );
 
     events[ 0 ].title.should.eql( {
       fr: 'Look at me. I am the title now.'
@@ -78,7 +82,6 @@ describe( 'event search - functional: update', function() {
 
   describe( 'expiring event', () => {
     
-
     it( 'when expiry is set returns includes ttl value', async () => {
 
       const eventData = {

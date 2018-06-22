@@ -27,6 +27,8 @@ module.exports.init = c => {
       'timings',
       'location.name',
       'location.address',
+      'location.latitude',
+      'location.longitude',
       'contributor.organization',
       'timezone'
     ],

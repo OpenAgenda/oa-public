@@ -58,7 +58,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'an event can be retrieved by uid', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
       total.should.equal( 1 );
 
@@ -68,17 +68,68 @@ describe( 'event search - functional: search', function() {
 
     it( 'by default, only fields defined in service/config base fields are returned', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
-      Object.keys( events[ 0 ] ).should.eql( [ 'uid', 'image', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'agenda', 'slug', 'lastTiming', 'nextTiming' ] );
+      _.keys( events[ 0 ] ).should.eql( [ 'uid', 'image', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'agenda', 'slug', 'lastTiming', 'nextTiming' ] );
 
     } );
 
     it( 'by default, event timings are converted to local timezone', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
 
       events[ 0 ].timings[ 0 ].begin.should.equal( '2016-10-24T14:00:00+02:00' );
+
+    } );
+
+    it( 'by default, undetailed search returns location name, address, latitude and longitude', async () => {
+
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+
+      _.keys( events[ 0 ].location ).sort().should.eql( [ 'address', 'latitude', 'longitude', 'name' ] );
+
+    } );
+
+    it( 'if geojson option is set, location data can be formatted in geojson format', async () => {
+
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
+        geojson: true
+      } );
+
+      events[ 0 ].location.should.eql( {
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [ 48.8675959, 2.3516408 ]
+        },
+        properties: {
+          address: '29 passage du Ponceau, Paris',
+          latitude: 48.8675959,
+          name: 'La boutique',
+          longitude: 2.3516408 
+        }
+      } );
+
+    } );
+
+    it( 'if monolingual option is set, multilingal fields are flattened to specified language', async () => {
+
+      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
+        monolingual: 'fr',
+        detailed: true
+      } );
+
+      [
+        'title',
+        'description',
+        'dateRange',
+        'country',
+        'longDescription'
+      ].map( f => events[ 0 ][ f ] ).forEach( data => {
+
+        ( typeof data ).should.equal( 'string' );
+
+      } );
 
     } );
 
