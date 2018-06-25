@@ -4,22 +4,15 @@
   "description": "",
   "main": "service/index.js",
   "scripts": {
-    "test": "mocha",
-    "preversion": "npm test",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/keys.git"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/keys#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/keys",
   "dependencies": {
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/mysql-utils": "^2.0.0",
