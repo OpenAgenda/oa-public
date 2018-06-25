@@ -168,7 +168,7 @@ export default class ContributionEdition extends Component {
                       name="settings.contribution.moderateOnChangeBy"
                       component="input"
                       type="checkbox"
-                      format={v => v.includes( 'contributors' )}
+                      format={v => Array.isArray( v ) ? v.includes( 'contributors' ) : false}
                       parse={value => value ? [ 'contributors' ] : []}
                     />
                     {getLabel( 'contribModerateOnChangeByUnpublish' )}
