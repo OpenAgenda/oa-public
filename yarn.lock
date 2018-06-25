@@ -387,6 +387,15 @@
     le_node "^1.7.1"
     should "7.0.4"
 
+"@openagenda/logs@^1.0.0", "@openagenda/logs@^1.0.1", "@openagenda/logs@^1.0.14", "@openagenda/logs@^1.0.15", "@openagenda/logs@^1.0.4", "@openagenda/logs@^1.0.5", "@openagenda/logs@^1.0.8":
+  version "1.0.15"
+  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.15.tgz#3c06c2bc97a01ecfedfccfcab421fa0354741907"
+  dependencies:
+    debug "^2.2.0"
+    le_node "^1.7.1"
+    lodash "^4.17.4"
+    winston "^2.3.1"
+
 "@openagenda/mailer@^1.0.2", "@openagenda/mailer@^1.0.4":
   version "1.0.4"
   resolved "https://registry.npmjs.org/@openagenda/mailer/-/mailer-1.0.4.tgz#7fb11627ce1f10697154938886723b16866ca5c0"
@@ -3479,21 +3488,6 @@ buffer@^5.0.2:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
 
-build@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.npmjs.org/build/-/build-0.1.4.tgz#707fe026ffceddcacbfdcdf356eafda64f151046"
-  dependencies:
-    cssmin "0.3.x"
-    jsmin "1.x"
-    jxLoader "*"
-    moo-server "*"
-    promised-io "*"
-    timespan "2.x"
-    uglify-js "1.x"
-    walker "1.x"
-    winston "*"
-    wrench "1.3.x"
-
 builtin-modules@^1.0.0:
   version "1.1.1"
   resolved "https://registry.npmjs.org/builtin-modules/-/builtin-modules-1.1.1.tgz#270f076c5a72c02f5b65a47df94c5fe3a278892f"
@@ -4190,10 +4184,6 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
-color-convert@^0.5.0:
-  version "0.5.3"
-  resolved "https://registry.npmjs.org/color-convert/-/color-convert-0.5.3.tgz#bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
-
 color-convert@^1.3.0, color-convert@^1.9.0:
   version "1.9.2"
   resolved "https://registry.npmjs.org/color-convert/-/color-convert-1.9.2.tgz#49881b8fba67df12a96bdf3f56c0aab9e7913147"
@@ -4221,13 +4211,6 @@ color-string@^0.3.0:
   dependencies:
     color-name "^1.0.0"
 
-color@0.8.x:
-  version "0.8.0"
-  resolved "https://registry.npmjs.org/color/-/color-0.8.0.tgz#890c07c3fd4e649537638911cf691e5458b6fca5"
-  dependencies:
-    color-convert "^0.5.0"
-    color-string "^0.3.0"
-
 color@^0.11.0:
   version "0.11.4"
   resolved "https://registry.npmjs.org/color/-/color-0.11.4.tgz#6d7b5c74fb65e841cd48792ad1ed5e07b904d764"
@@ -4244,10 +4227,6 @@ colormin@^1.0.5:
     css-color-names "0.0.4"
     has "^1.0.1"
 
-colornames@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/colornames/-/colornames-0.0.2.tgz#d811fd6c84f59029499a8ac4436202935b92be31"
-
 colors@0.5.x:
   version "0.5.1"
   resolved "https://registry.npmjs.org/colors/-/colors-0.5.1.tgz#7d0023eaeb154e8ee9fce75dcb923d0ed1667774"
@@ -4260,16 +4239,9 @@ colors@1.1.x, colors@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/colors/-/colors-1.1.2.tgz#168a4701756b6a7f51a12ce0c97bfa28c084ed63"
 
-colors@^1.1.2, colors@^1.2.1:
+colors@^1.1.2:
   version "1.3.0"
   resolved "https://registry.npmjs.org/colors/-/colors-1.3.0.tgz#5f20c9fef6945cb1134260aab33bfbdc8295e04e"
-
-colorspace@1.0.x:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/colorspace/-/colorspace-1.0.1.tgz#c99c796ed31128b9876a52e1ee5ee03a4a719749"
-  dependencies:
-    color "0.8.x"
-    text-hex "0.0.x"
 
 columnify@^1.5.4:
   version "1.5.4"
@@ -5010,10 +4982,6 @@ cssesc@^0.1.0:
   version "0.1.0"
   resolved "https://registry.npmjs.org/cssesc/-/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
 
-cssmin@0.3.x:
-  version "0.3.2"
-  resolved "https://registry.npmjs.org/cssmin/-/cssmin-0.3.2.tgz#ddce4c547b510ae0d594a8f1fbf8aaf8e2c5c00d"
-
 cssnano@^3.10.0:
   version "3.10.0"
   resolved "https://registry.npmjs.org/cssnano/-/cssnano-3.10.0.tgz#4f38f6cea2b9b17fa01490f23f1dc68ea65c1c38"
@@ -5479,14 +5447,6 @@ detective@^5.0.2:
     defined "^1.0.0"
     minimist "^1.1.1"
 
-diagnostics@^1.0.1:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/diagnostics/-/diagnostics-1.1.0.tgz#e1090900b49523e8527be20f081275205f2ae36a"
-  dependencies:
-    colorspace "1.0.x"
-    enabled "1.0.x"
-    kuler "0.0.x"
-
 dicer@0.2.5:
   version "0.2.5"
   resolved "https://registry.npmjs.org/dicer/-/dicer-0.2.5.tgz#5996c086bb33218c812c090bddc09cd12facb70f"
@@ -5793,12 +5753,6 @@ emojis-list@^2.0.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
 
-enabled@1.0.x:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/enabled/-/enabled-1.0.2.tgz#965f6513d2c2d1c5f4652b64a2e3396467fc2f93"
-  dependencies:
-    env-variable "0.0.x"
-
 encodeurl@~1.0.1, encodeurl@~1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/encodeurl/-/encodeurl-1.0.2.tgz#ad3ff4c86ec2d029322f5a02c3a9a606c95b3f59"
@@ -5869,10 +5823,6 @@ enhanced-resolve@~0.9.0:
 entities@^1.1.1, entities@~1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
-
-env-variable@0.0.x:
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/env-variable/-/env-variable-0.0.4.tgz#0d6280cf507d84242befe35a512b5ae4be77c54e"
 
 envinfo@^5.7.0:
   version "5.10.0"
@@ -6657,10 +6607,6 @@ fast-levenshtein@^2.0.6, fast-levenshtein@~2.0.4:
   version "2.0.6"
   resolved "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
 
-fast-safe-stringify@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.npmjs.org/fast-safe-stringify/-/fast-safe-stringify-2.0.4.tgz#4fe828718aa61dbcf9119c3c24e79cc4dea973b2"
-
 fastparse@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/fastparse/-/fastparse-1.1.1.tgz#d1e2643b38a94d7583b479060e6c4affc94071f8"
@@ -6723,10 +6669,6 @@ feathers-knex@^3.1.0:
     debug "^3.1.0"
     is-plain-object "^2.0.1"
     uberproto "^2.0.0"
-
-fecha@^2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fecha/-/fecha-2.3.3.tgz#948e74157df1a32fd1b12c3a3c3cdcb6ec9d96cd"
 
 figures@^1.3.5, figures@^1.7.0:
   version "1.7.0"
@@ -7053,12 +6995,6 @@ form-data@~2.1.1:
 form-serialize@0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/form-serialize/-/form-serialize-0.3.0.tgz#0ade9d838fe80548c03251531871db49e3d45149"
-
-formatio@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/formatio/-/formatio-1.2.0.tgz#f3b2167d9068c4698a8d51f4f760a39a54d818eb"
-  dependencies:
-    samsam "1.x"
 
 formidable@^1.0.17, formidable@^1.1.1, formidable@^1.2.0:
   version "1.2.1"
@@ -9332,10 +9268,6 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@0.3.x:
-  version "0.3.7"
-  resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-0.3.7.tgz#d739d8ee86461e54b354d6a7d7d1f2ad9a167f62"
-
 js-yaml@3.x, js-yaml@^3.2.7, js-yaml@^3.7.0, js-yaml@^3.9.1:
   version "3.12.0"
   resolved "https://registry.npmjs.org/js-yaml/-/js-yaml-3.12.0.tgz#eaed656ec8344f10f527c6bfa1b6e2244de167d1"
@@ -9462,10 +9394,6 @@ jsesc@^1.3.0:
 jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.npmjs.org/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
-
-jsmin@1.x:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/jsmin/-/jsmin-1.0.1.tgz#e7bd0dcd6496c3bf4863235bf461a3d98aa3b98c"
 
 json-bigint@^0.2.3:
   version "0.2.3"
@@ -9653,15 +9581,6 @@ jws@^3.1.5:
     jwa "^1.1.5"
     safe-buffer "^5.0.1"
 
-jxLoader@*:
-  version "0.1.1"
-  resolved "https://registry.npmjs.org/jxLoader/-/jxLoader-0.1.1.tgz#0134ea5144e533b594fc1ff25ff194e235c53ecd"
-  dependencies:
-    js-yaml "0.3.x"
-    moo-server "1.3.x"
-    promised-io "*"
-    walker "1.x"
-
 keycode@^2.1.2:
   version "2.2.0"
   resolved "https://registry.npmjs.org/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"
@@ -9839,12 +9758,6 @@ knox-s3@^0.9.3:
 koalas@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/koalas/-/koalas-1.0.2.tgz#318433f074235db78fae5661a02a8ca53ee295cd"
-
-kuler@0.0.x:
-  version "0.0.0"
-  resolved "https://registry.npmjs.org/kuler/-/kuler-0.0.0.tgz#b66bb46b934e550f59d818848e0abba4f7f5553c"
-  dependencies:
-    colornames "0.0.2"
 
 labeled-stream-splicer@^1.0.0:
   version "1.0.2"
@@ -10485,16 +10398,6 @@ log-utils@^0.2.1:
     time-stamp "^1.0.1"
     warning-symbol "^0.1.0"
 
-logform@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.npmjs.org/logform/-/logform-1.9.0.tgz#7e02f7d6b7f70dcc8ae56fcd2d060f9547afbac2"
-  dependencies:
-    colors "^1.2.1"
-    fast-safe-stringify "^2.0.4"
-    fecha "^2.3.3"
-    ms "^2.1.1"
-    triple-beam "^1.2.0"
-
 loglevelnext@^1.0.1:
   version "1.0.5"
   resolved "https://registry.npmjs.org/loglevelnext/-/loglevelnext-1.0.5.tgz#36fc4f5996d6640f539ff203ba819641680d75a2"
@@ -10502,7 +10405,7 @@ loglevelnext@^1.0.1:
     es6-symbol "^3.1.1"
     object.assign "^4.1.0"
 
-lolex@^2.1.2, lolex@^2.2.0, lolex@^2.3.2, lolex@^2.4.2:
+lolex@^2.2.0, lolex@^2.3.2, lolex@^2.4.2:
   version "2.7.0"
   resolved "https://registry.npmjs.org/lolex/-/lolex-2.7.0.tgz#9c087a69ec440e39d3f796767cf1b2cdc43d5ea5"
 
@@ -11082,7 +10985,7 @@ mocha@^4.0.1, mocha@^4.1.0:
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
-mocha@^5.0.0, mocha@^5.0.1, mocha@^5.0.4, mocha@^5.1.0, mocha@^5.1.1:
+mocha@^5.0.0, mocha@^5.0.1, mocha@^5.0.4, mocha@^5.1.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/mocha/-/mocha-5.2.0.tgz#6d8ae508f59167f940f2b5b3c4a612ae50c90ae6"
   dependencies:
@@ -11178,10 +11081,6 @@ moment@2.9.0:
 "moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.18.1, moment@^2.19.1, moment@^2.20.1, moment@^2.6.0, moment@^2.9.0:
   version "2.22.2"
   resolved "https://registry.npmjs.org/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
-
-moo-server@*, moo-server@1.3.x:
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/moo-server/-/moo-server-1.3.0.tgz#5dc79569565a10d6efed5439491e69d2392e58f1"
 
 morgan@1.9.0, morgan@^1.7.0, morgan@^1.9.0:
   version "1.9.0"
@@ -11341,10 +11240,6 @@ nanomatch@^1.2.9:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-native-promise-only@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.npmjs.org/native-promise-only/-/native-promise-only-0.8.1.tgz#20a318c30cb45f71fe7adfbf7b21c99c1472ef11"
-
 natives@^1.1.0:
   version "1.1.4"
   resolved "https://registry.npmjs.org/natives/-/natives-1.1.4.tgz#2f0f224fc9a7dd53407c7667c84cf8dbe773de58"
@@ -11410,7 +11305,7 @@ nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
 
-nise@^1.0.1, nise@^1.2.0, nise@^1.3.3:
+nise@^1.2.0, nise@^1.3.3:
   version "1.4.1"
   resolved "https://registry.npmjs.org/nise/-/nise-1.4.1.tgz#78bc2b343d5ff1031ea9d1bb2c87a94c26db7250"
   dependencies:
@@ -11952,10 +11847,6 @@ once@^1.3.0, once@^1.3.1, once@^1.4.0:
 once@~1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/once/-/once-1.1.1.tgz#9db574933ccb08c3a7614d154032c09ea6f339e7"
-
-one-time@0.0.4:
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/one-time/-/one-time-0.0.4.tgz#f8cdf77884826fe4dff93e3a9cc37b1e4480742e"
 
 onetime@^1.0.0:
   version "1.1.0"
@@ -13001,10 +12892,6 @@ promise@^7.0.1, promise@^7.1.1:
   resolved "https://registry.npmjs.org/promise/-/promise-7.3.1.tgz#064b72602b18f90f29192b8b1bc418ffd1ebd3bf"
   dependencies:
     asap "~2.0.3"
-
-promised-io@*:
-  version "0.3.5"
-  resolved "https://registry.npmjs.org/promised-io/-/promised-io-0.3.5.tgz#4ad217bb3658bcaae9946b17a8668ecd851e1356"
 
 promisify-call@^2.0.2:
   version "2.0.4"
@@ -14793,7 +14680,7 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.npmjs.org/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-samsam@1.3.0, samsam@1.x, samsam@^1.1.3:
+samsam@1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/samsam/-/samsam-1.3.0.tgz#8d1d9350e25622da30de3e44ba692b5221ab7c50"
 
@@ -15314,22 +15201,6 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
 simple-backoff@^1.0.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/simple-backoff/-/simple-backoff-1.1.0.tgz#b30dff4bc34a4f3e50e321641d9630e2a506f554"
-
-sinon@^3.2.1:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/sinon/-/sinon-3.3.0.tgz#9132111b4bbe13c749c2848210864250165069b1"
-  dependencies:
-    build "^0.1.4"
-    diff "^3.1.0"
-    formatio "1.2.0"
-    lodash.get "^4.4.2"
-    lolex "^2.1.2"
-    native-promise-only "^0.8.1"
-    nise "^1.0.1"
-    path-to-regexp "^1.7.0"
-    samsam "^1.1.3"
-    text-encoding "0.6.4"
-    type-detect "^4.0.0"
 
 sinon@^4.0.1:
   version "4.5.0"
@@ -16235,17 +16106,13 @@ tether@^1.1.1, tether@^1.3.2:
   version "1.4.4"
   resolved "https://registry.npmjs.org/tether/-/tether-1.4.4.tgz#9dc6eb2b3e601da2098fd264e7f7a8b264de1125"
 
-text-encoding@0.6.4, text-encoding@^0.6.4:
+text-encoding@^0.6.4:
   version "0.6.4"
   resolved "https://registry.npmjs.org/text-encoding/-/text-encoding-0.6.4.tgz#e399a982257a276dae428bb92845cb71bdc26d19"
 
 text-extensions@^1.0.0:
   version "1.7.0"
   resolved "https://registry.npmjs.org/text-extensions/-/text-extensions-1.7.0.tgz#faaaba2625ed746d568a23e4d0aacd9bf08a8b39"
-
-text-hex@0.0.x:
-  version "0.0.0"
-  resolved "https://registry.npmjs.org/text-hex/-/text-hex-0.0.0.tgz#578fbc85a6a92636e42dd17b41d0218cce9eb2b3"
 
 text-table@^0.2.0, text-table@~0.2.0:
   version "0.2.0"
@@ -16326,10 +16193,6 @@ timers-ext@0.1, timers-ext@^0.1.2:
   dependencies:
     es5-ext "~0.10.14"
     next-tick "1"
-
-timespan@2.x:
-  version "2.3.0"
-  resolved "https://registry.npmjs.org/timespan/-/timespan-2.3.0.tgz#4902ce040bd13d845c8f59b27e9d59bad6f39929"
 
 title-case@^1.0.0:
   version "1.1.2"
@@ -16484,10 +16347,6 @@ trim@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
 
-triple-beam@^1.2.0, triple-beam@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.npmjs.org/triple-beam/-/triple-beam-1.3.0.tgz#a595214c7298db8339eeeee083e4d10bd8cb8dd9"
-
 "true-case-path@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/true-case-path/-/true-case-path-1.0.2.tgz#7ec91130924766c7f573be3020c34f8fdfd00d62"
@@ -16594,10 +16453,6 @@ uglify-es@^3.3.4:
   dependencies:
     commander "~2.13.0"
     source-map "~0.6.1"
-
-uglify-js@1.x:
-  version "1.3.5"
-  resolved "https://registry.npmjs.org/uglify-js/-/uglify-js-1.3.5.tgz#4b5bfff9186effbaa888e4c9e94bd9fc4c94929d"
 
 uglify-js@2.4.24, uglify-js@2.4.x, uglify-js@~2.4.0:
   version "2.4.24"
@@ -17134,7 +16989,7 @@ walk@^2.3.9:
   dependencies:
     foreachasync "^3.0.0"
 
-walker@1.x, walker@~1.0.5:
+walker@~1.0.5:
   version "1.0.7"
   resolved "https://registry.npmjs.org/walker/-/walker-1.0.7.tgz#2f7f9b8fd10d677262b18a884e28d19618e028fb"
   dependencies:
@@ -17509,27 +17364,6 @@ window-size@^1.1.0:
     define-property "^1.0.0"
     is-number "^3.0.0"
 
-winston-transport@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.npmjs.org/winston-transport/-/winston-transport-4.2.0.tgz#a20be89edf2ea2ca39ba25f3e50344d73e6520e5"
-  dependencies:
-    readable-stream "^2.3.6"
-    triple-beam "^1.2.0"
-
-winston@*:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/winston/-/winston-3.0.0.tgz#1f0b24a96586798bcf0cd149fb07ed47cb01a1b2"
-  dependencies:
-    async "^2.6.0"
-    diagnostics "^1.0.1"
-    is-stream "^1.1.0"
-    logform "^1.9.0"
-    one-time "0.0.4"
-    readable-stream "^2.3.6"
-    stack-trace "0.0.x"
-    triple-beam "^1.3.0"
-    winston-transport "^4.2.0"
-
 winston@^2.3.1:
   version "2.4.3"
   resolved "https://registry.npmjs.org/winston/-/winston-2.4.3.tgz#7a9fdab371b6d3d9b63a592947846d856948c517"
@@ -17580,10 +17414,6 @@ wrap-ansi@^2.0.0:
 wrappy@1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
-
-wrench@1.3.x:
-  version "1.3.9"
-  resolved "https://registry.npmjs.org/wrench/-/wrench-1.3.9.tgz#6f13ec35145317eb292ca5f6531391b244111411"
 
 write-file-atomic@^1.2.0:
   version "1.3.4"

@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "OpenAgenda Dev Team",
-  "license": "SEE LICENCE IN license.txt",
+  "license": "SEE LICENCE IN LICENSE",
   "private": true,
   "scripts": {
     "bs": "lerna bootstrap",
