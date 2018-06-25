@@ -68,6 +68,12 @@ function widget( elem, options ) {
 
     elem.insertAdjacentElement( 'afterbegin', _render( wTpl, { events: events, total: data.total } ) );
 
+    if ( window.oa && window.oa.onWidgetReady ) {
+
+      window.oa.onWidgetReady( 'preview', { uid: params.uid } );
+
+    }
+
   } );
 
 }

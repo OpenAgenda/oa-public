@@ -480,7 +480,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to ) {
+    if ( ctl.p && passedAutoLoad && ( typeof currentRequestParams.passed == 'undefined' || typeof currentRequestParams.order == 'undefined' ) && !currentRequestParams.from && !currentRequestParams.to ) {
 
       change = true;
 
