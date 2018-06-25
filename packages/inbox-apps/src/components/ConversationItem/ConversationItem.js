@@ -131,7 +131,8 @@ export default class ConversationItem extends Component {
                 rel="noopener noreferrer"
                 {...(isImage ? {} : { download: attachment.originalName })}
               >
-                {isImage ? <img src={link} alt={attachment.filename} className="attachment-image" /> : attachment.originalName}
+                {isImage ?
+                  <img src={link} alt={attachment.filename} className="attachment-image"/> : attachment.originalName}
               </a>
             </Fragment>
           );
@@ -192,7 +193,13 @@ export default class ConversationItem extends Component {
 
             <div
               className="message padding-bottom-xs"
-              dangerouslySetInnerHTML={{ __html: marked( _.escape( latestMessage.body ), { breaks: true } ) }}
+              dangerouslySetInnerHTML={{
+                __html: marked( latestMessage.body, {
+                  breaks: true,
+                  sanitize: true,
+                  pedantic: true
+                } )
+              }}
             />
 
             {this.renderAttachments( latestMessage.attachments )}

@@ -129,7 +129,9 @@
   }
 
   .media {
-    overflow: visible;
+    table-layout: fixed;
+    width: 100%;
+    display: table;
 
     .media-left, .media-right {
       position: relative;
@@ -145,7 +147,8 @@
     }
 
     .media-body {
-      overflow: visible;
+      width: 90%;
+      overflow: auto;
       word-break: break-word;
 
       .conversation-item-message {
