@@ -1,4 +1,4 @@
-#Overview
+# Overview
 
 This logger lib adds some functionality to the base logentries library:
 
@@ -6,6 +6,8 @@ This logger lib adds some functionality to the base logentries library:
 * value loader to be reprinted at each subsequent log ( for example, if the log function is attached to the req object, it is useful to load user data once only and have it reprinted at each following log )
 
 ## API
+
+### Initialization
 
 `init( config )`
 
@@ -20,7 +22,7 @@ config:
   
 `setModuleConfig( config )`
 
-setModuleConfig peut être utilisé comme un **init** à l'intérieur de chaque module pour modifier la configuration de tous les loggers utilisés dans ce module.
+Can be used as an **init** inside each module to modify the configuration of all the loggers used in this module.
 
 ### Basic logger
 
