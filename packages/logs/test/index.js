@@ -130,28 +130,28 @@ describe( 'logs', () => {
       const transport = logs.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );
 
-      logs( 'error', new Error( 'Du caca ici !' ) );
-      logs( 'error', 'On a eu une erreur:', new Error( 'Du caca ici !' ) );
-      logs( 'error', 'On a eu une erreur: %s', new Error( 'Du caca ici !' ) );
+      logs( 'error', new Error( 'Une erreur ici !' ) );
+      logs( 'error', 'On a eu une erreur:', new Error( 'Une erreur ici !' ) );
+      logs( 'error', 'On a eu une erreur: %s', new Error( 'Une erreur ici !' ) );
 
       sinon.assert.calledWith(
         spy.getCall( 0 ),
         'error',
         '',
-        sinon.match( { message: 'Du caca ici !' } )
+        sinon.match( { message: 'Une erreur ici !' } )
       );
 
       sinon.assert.calledWith(
         spy.getCall( 1 ),
         'error',
         'On a eu une erreur:',
-        sinon.match( { message: 'Du caca ici !' } )
+        sinon.match( { message: 'Une erreur ici !' } )
       );
 
       sinon.assert.calledWith(
         spy.getCall( 2 ),
         'error',
-        'On a eu une erreur: Error: Du caca ici !',
+        'On a eu une erreur: Error: Une erreur ici !',
         {}
       );
 
@@ -389,28 +389,28 @@ describe( 'logs', () => {
       const transport = log.getTransports().debug;
       const spy = sinon.spy( transport, 'log' );
 
-      log( 'error', new Error( 'Du caca ici !' ) );
-      log( 'error', 'On a eu une erreur:', new Error( 'Du caca ici !' ) );
-      log( 'error', 'On a eu une erreur: %s', new Error( 'Du caca ici !' ), { test: 789 } );
+      log( 'error', new Error( 'Une erreur ici !' ) );
+      log( 'error', 'On a eu une erreur:', new Error( 'Une erreur ici !' ) );
+      log( 'error', 'On a eu une erreur: %s', new Error( 'Une erreur ici !' ), { test: 789 } );
 
       sinon.assert.calledWith(
         spy.getCall( 0 ),
         'error',
         '',
-        sinon.match( { namespace: 'test-5', message: 'Du caca ici !' } )
+        sinon.match( { namespace: 'test-5', message: 'Une erreur ici !' } )
       );
 
       sinon.assert.calledWith(
         spy.getCall( 1 ),
         'error',
         'On a eu une erreur:',
-        sinon.match( { namespace: 'test-5', message: 'Du caca ici !' } )
+        sinon.match( { namespace: 'test-5', message: 'Une erreur ici !' } )
       );
 
       sinon.assert.calledWith(
         spy.getCall( 2 ),
         'error',
-        'On a eu une erreur: Error: Du caca ici !',
+        'On a eu une erreur: Error: Une erreur ici !',
         { namespace: 'test-5', test: 789 }
       );
 

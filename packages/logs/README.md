@@ -95,9 +95,9 @@ If the placeholder does not have a corresponding argument, the placeholder is no
 To log an error you can use one of the following methods:
 
 ```js
-logs( 'error', new Error( 'Du caca ici !' ) );
+logs( 'error', new Error( 'Une erreur ici !' ) );
 /*
-Error: Du caca ici !
+Error: Une erreur ici !
   at Context.it (/home/bertho/OpenAgenda/logs/test/index.js:133:45)
   at callFn (/usr/local/lib/node_modules/mocha/lib/runnable.js:326:21)
   at Test.Runnable.run (/usr/local/lib/node_modules/mocha/lib/runnable.js:319:7)
@@ -112,9 +112,9 @@ Error: Du caca ici !
   at processImmediate [as _immediateCallback] (timers.js:722:5) +0ms
 */
 
-logs( 'error', 'On a eu une erreur:', new Error( 'Du caca ici !' ) );
+logs( 'error', 'On a eu une erreur:', new Error( 'Une erreur ici !' ) );
 /*
-On a eu une erreur: Error: Du caca ici !
+On a eu une erreur: Error: Une erreur ici !
   at Context.it (/home/bertho/OpenAgenda/logs/test/index.js:133:45)
   at callFn (/usr/local/lib/node_modules/mocha/lib/runnable.js:326:21)
   at Test.Runnable.run (/usr/local/lib/node_modules/mocha/lib/runnable.js:319:7)
@@ -129,8 +129,8 @@ On a eu une erreur: Error: Du caca ici !
   at processImmediate [as _immediateCallback] (timers.js:722:5) +0ms
 */
 
-logs( 'error', 'On a eu une erreur: %s', new Error( 'Du caca ici !' ) ); // Logs only message of the error
+logs( 'error', 'On a eu une erreur: %s', new Error( 'Une erreur ici !' ) ); // Logs only message of the error
 /*
-On a eu une erreur: Error: Du caca ici !
+On a eu une erreur: Error: Une erreur ici !
 */
 ```
