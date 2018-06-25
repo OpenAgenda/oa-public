@@ -2,9 +2,11 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'rules' );
+
 module.exports = ( rules, event, key = 'value' ) => {
 
-  return rules.filter( r => {
+  const result = rules.filter( r => {
 
     let passes = true;
 
@@ -33,6 +35,10 @@ module.exports = ( rules, event, key = 'value' ) => {
     return passes;
 
   } ).map( r => _.get( r, key, null ) );
+
+  log( 'info', 'evaluating rules %j on event %j: result is %j', rules, event, result );
+
+  return result;
 
 }
 
