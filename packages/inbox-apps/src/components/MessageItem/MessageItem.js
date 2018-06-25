@@ -40,7 +40,8 @@ export default class MessageItem extends Component {
                 rel="noopener noreferrer"
                 {...(isImage ? {} : { download: attachment.originalName })}
               >
-                {isImage ? <img src={link} alt={attachment.filename} className="attachment-image" /> : attachment.originalName}
+                {isImage ?
+                  <img src={link} alt={attachment.filename} className="attachment-image"/> : attachment.originalName}
               </a>
             </Fragment>
           );
@@ -74,7 +75,13 @@ export default class MessageItem extends Component {
           <div className="conversation-item-message">
             <div
               className="margin-bottom-xs"
-              dangerouslySetInnerHTML={{ __html: marked( _.escape( message.body ), { breaks: true } ) }}
+              dangerouslySetInnerHTML={{
+                __html: marked( message.body, {
+                  breaks: true,
+                  sanitize: true,
+                  pedantic: true
+                } )
+              }}
             />
 
             {this.renderAttachments()}

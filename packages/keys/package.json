@@ -1,0 +1,33 @@
+{
+  "name": "@openagenda/keys",
+  "version": "2.0.2",
+  "description": "",
+  "main": "service/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/keys",
+  "dependencies": {
+    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/mysql-utils": "^2.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/validators": "^1.2.14",
+    "knex": "^0.13.0",
+    "lodash": "^4.17.4",
+    "redis": "^2.8.0",
+    "uuid": "^3.1.0",
+    "verror": "^1.10.0",
+    "when": "^3.7.8"
+  },
+  "devDependencies": {
+    "@openagenda/fixtures": "^2.0.1",
+    "should": "^11.2.1",
+    "sinon": "^3.2.0"
+  }
+}
