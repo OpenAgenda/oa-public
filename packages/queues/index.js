@@ -56,8 +56,6 @@ function waitAndPop( queueName ) {
 
     return new Promise( ( rs, rj ) => {
 
-      console.log( 'blpop on %s', queueName );
-
       client.blpop( queueName, 0, ( err, result ) => {
 
         if ( err ) return rj( err );
