@@ -43,6 +43,8 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
 
     } catch( eventValidationErrors ) {
 
+      log( 'info', 'received event validation errors', eventValidationErrors );
+
       errors = errors.concat( eventValidationErrors );
 
       log( 'received validation errors for event data', { count: eventValidationErrors.length } );
