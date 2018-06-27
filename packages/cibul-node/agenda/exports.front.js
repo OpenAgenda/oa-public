@@ -1,5 +1,7 @@
 "use strict";
 
+const config = require( '../config' );
+
 const sessions = require( '@openagenda/sessions' );
 const tagSvc = require( '@openagenda/agenda-tags' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
@@ -49,6 +51,7 @@ const routes = {
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     _loadTagSet,
     _loadCategorySet,
+    _loadEmbedUids,
     locationMw.loadSettings( 'locationSettings', true ),
     ( req, res ) => cmn.renderJson( req, res, {
       title: req.agenda.title,
@@ -57,7 +60,8 @@ const routes = {
       tagSet: req.tagSet,
       categorSet: req.categorySet,
       locationSet: req.locationSettings,
-      customSet: req.agenda.getCustomFieldsConfig()
+      customSet: req.agenda.getCustomFieldsConfig(),
+      embeds: req.embeds
     } )
   ] ],
 
@@ -266,6 +270,19 @@ function _loadCategorySet( req, res, next ) {
     if ( err ) return next( err );
 
     req.categorySet = categorySet;
+
+    next();
+
+  } );
+
+}
+
+
+function _loadEmbedUids( req, res, next ) {
+
+  config.knex( 'review_embed' ).select( 'uid' ).where( 'review_id', req.agenda.id ).then( rows => {
+
+    req.embeds = rows.map( r => r.uid );
 
     next();
 
