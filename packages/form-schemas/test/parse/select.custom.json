@@ -1,0 +1,43 @@
+[ {
+  "name": "prif",
+  "fieldType": "select",
+  "type": "private",
+  "label": {
+    "fr": "PRIF",
+    "en": "PRIF"
+  },
+  "options": [
+    {
+      "label": {
+        "fr": "1 - Rosny",
+        "en": "1 - Rosny"
+      },
+      "value": "1-rosny",
+      "id" : 1
+    },
+    {
+      "label": {
+        "fr": "2 - Flicourt",
+        "en": "2 - Flicourt"
+      },
+      "value" : "2-flicourt",
+      "id" : 2
+    },
+    {
+      "label": {
+        "fr": "3 - Moisson",
+        "en": "3 - Moisson"
+      },
+      "value" : "3-moisson",
+      "id": 3
+    },
+    {
+      "label": {
+        "fr": "4 - Roche-Guyon",
+        "en": "4 - Roche-Guyon"
+      },
+      "value" : "4-roche-guyon",
+      "id": 4
+    }
+  ]
+} ]

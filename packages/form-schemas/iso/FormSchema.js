@@ -3,9 +3,9 @@
 const _ = {
   pick: require( 'lodash/pick' ),
   keys: require( 'lodash/keys' ),
-  extend: require( 'lodash/extend' )
+  extend: require( 'lodash/extend' ),
+  isObject: require( 'lodash/isObject' )
 }
-
 
 const validateField = require( './validateField' );
 
@@ -13,11 +13,12 @@ const getSchema = require( './getSchema' );
 
 module.exports = class {
 
-  constructor( data ) {
+  constructor( data, options = {} ) {
 
+    this.custom = options.custom;
 
     // { fields, nextOptionId, res, id }
-    this.data = validate( data, true );
+    this.data = validate( data, { custom: this.custom, client: true } );
 
   }
 
@@ -30,7 +31,7 @@ module.exports = class {
 
   addField( data ) {
 
-    let clean = validateField( data );
+    let clean = validateField( data, { custom: this.custom } );
 
     if ( !this.isFieldNameAvailable( clean.field ) ) {
 
@@ -102,7 +103,7 @@ module.exports = class {
 
   getValidate( accessType = null, accessLevel = null, options = {}) {
 
-    return getSchema( this.data.fields, accessType, accessLevel, options );
+    return getSchema( this.data.fields, accessType, accessLevel, _.extend( options, { custom: this.custom } ) );
 
   }
 
@@ -126,7 +127,15 @@ module.exports = class {
 
 module.exports.validate = validate;
 
-function validate( data, client = false ) {
+function validate( data, options = false ) {
+
+  const {
+    client, // is FormSchema running on client?
+    custom // eventual custom validators
+  } = _.extend( {
+    client: _.isObject( options ) ? false : options,
+    custom: {}
+  }, _.isObject( options ) ? options : {} );
 
   let errors = [],
 
@@ -149,7 +158,7 @@ function validate( data, client = false ) {
 
     try {
 
-      clean.fields.push( validateField( f ) );
+      clean.fields.push( validateField( f, { custom } ) );
 
     } catch ( e ) {
 

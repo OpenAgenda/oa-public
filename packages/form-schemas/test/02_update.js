@@ -31,7 +31,7 @@ describe( 'form-schemas - functional (server): create', () => {
 
     let { id } = await svc.create( { data: true } );
 
-    let formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.out.json', 'utf-8' ) );
+    let formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.schema.json', 'utf-8' ) );
 
     let result = await svc.update( id, formSchema );
 

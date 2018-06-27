@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import FieldCounter from './FieldCounter';
 
 const FieldComponents = {
+  multilingual: require( './Multilingual' ),
   text: require( './TextField' ),
   textarea: require( './TextField' ),
   radio: require( './RadioField' ),
@@ -19,10 +20,13 @@ module.exports = class Field extends Component {
     const {
       label,
       field: name,
+      languages,
       optional,
       info,
       max
     } = this.props.field;
+
+    const isMultilingual = _.isArray( languages ) && languages.length > 1;
 
     const {
       value,
@@ -33,9 +37,13 @@ module.exports = class Field extends Component {
       labels 
     } = this.props;
 
-    const Component = FieldComponents[ type ];
+    const Component = FieldComponents[ isMultilingual ? 'multilingual' : type ];
 
-    return <div className={classNames( { 'form-group' : true, 'has-error' : !!error } ) } key={name}>
+    return <div className={classNames( {
+      'form-group' : true, 
+      'has-error' : !!error,
+      'multilingual-input-field' : isMultilingual
+    } ) } key={name}>
       {label ? <label className="control-label">{label}</label> : null}
       {optional ? '' : <span className="margin-left-xs">{'( ' + labels.required + ' )'}</span>}
       <div>{error || info?<span>{error || info}</span>:null}</div>
@@ -45,7 +53,7 @@ module.exports = class Field extends Component {
         value={value}
         onChange={onChange}
       />
-      {max?<FieldCounter value={value} max={max}/>:null}
+      {max&&!isMultilingual?<FieldCounter value={value} max={max}/>:null}
     </div>
 
   }

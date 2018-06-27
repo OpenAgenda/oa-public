@@ -1,0 +1,8 @@
+{
+  "field": "title",
+  "type": "multilingual",
+  "optional": false,
+  "languages" : [ "fr", "en" ],
+  "max": 50,
+  "min": 3
+}

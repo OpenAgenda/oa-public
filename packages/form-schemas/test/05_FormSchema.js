@@ -1,8 +1,9 @@
 "use strict";
 
-const FormSchema = require( '../iso/FormSchema.js' );
-
 const should = require( 'should' );
+
+const customValidator = require( './custom/wigglypoof.validator' );
+const FormSchema = require( '../iso/FormSchema.js' );
 
 describe( 'FormSchema', () => {
 
@@ -71,7 +72,7 @@ describe( 'FormSchema', () => {
 
     it( 'a FormSchema can be initialized with preset fields', () => {
 
-      let s = new FormSchema( {
+      const s = new FormSchema( {
         fields: [ {
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
@@ -282,7 +283,6 @@ describe( 'FormSchema', () => {
 
     const validate = fs.getValidate();
 
-
     it( '.getValidate() returns the validator defined by the FormSchema fields', () => {
 
       validate.default.should.eql( {
@@ -293,8 +293,9 @@ describe( 'FormSchema', () => {
 
     } );
 
-
+    // this fails when languages is a possibility
     it( '.getValidate() validates choice fields correctly', () => {
+
 
       validate( {
         andanotherfield: 1
@@ -304,6 +305,66 @@ describe( 'FormSchema', () => {
         atextfield: null,
         anotherfield: null,
         andanotherfield: 1
+      } );
+
+    } );
+
+  } );
+
+
+  describe( 'extending FormSchema with custom types', () => {
+
+    const fs = new FormSchema( {
+      fields: [ {
+        field: 'atextfield',
+        label: { fr: 'Un champ texte' },
+        fieldType: 'text'
+      }, {
+        field: 'acustomfield',
+        label: { fr: 'Saisir Wigglypoof' },
+        fieldType: 'wigglypoof'
+      } ]
+    }, {
+      custom: {
+        wigglypoof: customValidator
+      }
+    } );
+
+    const validate = fs.getValidate();
+
+
+    it( 'validate data with a schema that includes a custom field - throws an error', () => {
+
+      try {
+
+        validate( {
+          atextfield: 'Un petit text',
+          acustomfield: 'Not wigglypoof'
+        } );
+
+      } catch ( errors ) {
+
+        errors.should.eql( [ { 
+          code: 'invalid',
+          message: 'Not Wigglypoof',
+          origin: 'Not wigglypoof',
+          field: 'acustomfield' 
+        } ] );
+
+      }
+
+    } );
+
+    it( 'validate data with a schema that includes a custom field - valid', () => {
+
+      const clean = validate( {
+        atextfield: 'un petit texte',
+        acustomfield: 'Wigglypoof'
+      } );
+
+      clean.should.eql( {
+        atextfield: 'un petit texte',
+        acustomfield: 'Wigglypoof'
       } );
 
     } );

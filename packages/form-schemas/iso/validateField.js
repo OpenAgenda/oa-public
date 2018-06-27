@@ -6,6 +6,8 @@ const schema = require( '@openagenda/validators/schema' );
 
 const _ = require( 'lodash/core' );
 
+_.extend( _, { get: require( 'lodash/get' ) } );
+
 const choice = require( '@openagenda/validators/choice' );
 
 schema.register( {
@@ -22,9 +24,11 @@ schema.register( {
 
 const optionedTypes = [ 'radio', 'checkbox', 'select' ];
 
-const minMaxedTypes = [ 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown' ];
+const minMaxedTypes = [ 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual' ];
 
-const validateType = choice( {
+const multilingualTypes = [ 'text', 'textarea' ];
+
+const validateStandardType = choice( {
   optional: false,
   options: types,
   default: 'text',
@@ -32,6 +36,20 @@ const validateType = choice( {
 } );
 
 module.exports = validate;
+
+function validateType( value, custom = {} ) {
+
+  const dirtyType = _.get( value, 'fieldType', null );
+
+  if ( custom && _.keys( custom ).includes( dirtyType ) ) {
+
+    return dirtyType; 
+
+  }
+
+  return validateStandardType( dirtyType );
+
+}
 
 
 /**
@@ -41,15 +59,19 @@ module.exports = validate;
  *  * an option value must be unique within its group
  *  * a max cannot be smaller than a min ( when set )
  */
-function validate( value ) {
+function validate( value, options = {} ) {
 
-  let errors = [], clean, 
+  const custom = _.get( options, 'custom', {} );
 
-  type = validateType( value ? value.fieldType : null );
+  const type = validateType( value, custom );
+
+  const isCustomField = _.keys( custom ).includes( type );
+
+  let errors = [], clean;
 
   try {
 
-    clean = typeSchemas[ type ]( value );
+    clean = typeSchemas[ isCustomField ? 'custom' : type ]( value );
 
   } catch( e ) {
 
@@ -91,6 +113,13 @@ function validate( value ) {
 
   }
 
+
+  if ( multilingualTypes.includes( type ) && _.isArray( value.languages ) ) {
+
+    clean.languages = value.languages;
+
+  }
+
   if ( errors.length ) throw errors;
 
   clean.fieldType = type;
@@ -102,9 +131,9 @@ function validate( value ) {
 
 const typeSchemas = {};
 
-types.forEach( type => {
+types.concat( 'custom' ).forEach( type => {
 
-  typeSchemas[ type ] = schema( _.extend( {
+  const structure = _.extend( {
 
     // all custom schema fields must have a field name
     // that is the name that will be used for the input
@@ -165,7 +194,9 @@ types.forEach( type => {
       options: [ 'tags', 'categories', 'custom' ]
     }
 
-  }, minMaxedTypes.indexOf( type ) !== -1 ? {
+  },
+
+  minMaxedTypes.indexOf( type ) !== -1 ? {
     min: {
       type: 'integer',
       optional: true
@@ -198,6 +229,8 @@ types.forEach( type => {
         }
       }
     }
-  } : {} ) );
+  } : {} );
+
+  typeSchemas[ type ] = schema( structure );
 
 } );

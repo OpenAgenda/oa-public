@@ -6,53 +6,47 @@ const should = require( 'should' );
 
 const parseCustomFields = require( '../server/legacy/parseCustomFields' );
 
-
 describe( 'form-schemas - unit (server): legacy custom fields', function() {
 
-  it( 'takes a form schema, a custom field set with one text field, gives the form schema completed with the text field', () => {
+  it( 'text custom field to schema', () => {
 
-    parseCustomFields( { fields: [] }, _get( 'text.in' ) )
+    parseCustomFields( { fields: [] }, _get( 'text.custom' ) )
 
-      .should.eql( _get( 'text.out' ) );
-
-  } );
-
-  it( 'number field', () => {
-
-    parseCustomFields( { fields: [] }, _get( 'number.in' ) )
-
-      .should.eql( _get( 'number.out' ) );
+      .should.eql( _get( 'text.schema' ) );
 
   } );
 
-  it( 'integer field', () => {
+  it( 'number custom field to schema', () => {
 
-    parseCustomFields( { fields: [] }, _get( 'integer.in' ) )
+    parseCustomFields( { fields: [] }, _get( 'number.custom' ) )
 
-      .should.eql( _get( 'customInteger.out' ) );
-
-  } );
-
-  it( 'textarea field', () => {
-
+      .should.eql( _get( 'number.schema' ) );
 
   } );
 
-  it( 'radio field', () => {
+  it( 'integer custom field to schema', () => {
 
-    parseCustomFields( { fields: [] }, _get( 'radio.in' ) ).should.eql( _get( 'radio.out' ) );
+    parseCustomFields( { fields: [] }, _get( 'integer.custom' ) )
 
-  } );
-
-  it( 'multichoice field', () => {
-
-    parseCustomFields( { fields: [] }, _get( 'multichoice.in' ) ).should.eql( _get( 'checkbox.out' ) );
+      .should.eql( _get( 'integer.schema' ) );
 
   } );
 
-  it( 'select field', () => {
+  it( 'radio custom field to schema', () => {
 
-    parseCustomFields( { fields: [] }, _get( 'select.in' ) ).should.eql( _get( 'select.out' ) );
+    parseCustomFields( { fields: [] }, _get( 'radio.custom' ) ).should.eql( _get( 'radio.schema' ) );
+
+  } );
+
+  it( 'multichoice custom field to schema', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'multichoice.in' ) ).should.eql( _get( 'checkbox.schema' ) );
+
+  } );
+
+  it( 'select custom field to schema', () => {
+
+    parseCustomFields( { fields: [] }, _get( 'select.custom' ) ).should.eql( _get( 'select.schema' ) );
 
   } );
 

@@ -16,7 +16,7 @@
       "options": [
         {
           "id": 1,
-          "value": "1",
+          "value": "1-rosny",
           "label": {
             "fr": "1 - Rosny",
             "en": "1 - Rosny"
@@ -25,7 +25,7 @@
         },
         {
           "id": 2,
-          "value": "2",
+          "value": "2-flicourt",
           "label": {
             "fr": "2 - Flicourt",
             "en": "2 - Flicourt"
@@ -34,7 +34,7 @@
         },
         {
           "id": 3,
-          "value": "3",
+          "value": "3-moisson",
           "label": {
             "fr": "3 - Moisson",
             "en": "3 - Moisson"
@@ -43,7 +43,7 @@
         },
         {
           "id": 4,
-          "value": "4",
+          "value": "4-roche-guyon",
           "label": {
             "fr": "4 - Roche-Guyon",
             "en": "4 - Roche-Guyon"

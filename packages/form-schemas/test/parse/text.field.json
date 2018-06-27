@@ -1,0 +1,15 @@
+{
+  "field": "animator",
+  "label": {
+    "fr": "Nom de l'animateur",
+    "en": "Name of the presenter"
+  },
+  "placeholder" : null,
+  "info": null,
+  "optional": false,
+  "fieldType": "text",
+  "min": 3,
+  "max": 50,
+  "read": null,
+  "write": "contributor"
+}

@@ -4,6 +4,8 @@ const iso = require( '../iso' );
 
 const should = require( 'should' );
 
+const customValidator = require( './custom/wigglypoof.validator.js' );
+
 describe( 'field validation', () => {
 
   describe( 'simple cases', () => {
@@ -32,6 +34,34 @@ describe( 'field validation', () => {
         origin: null
       } );
         
+    } );
+
+    it( 'validates a multilingual text field definition', () => {
+
+      iso.validateField( {
+        field: 'amultilingualtextfield',
+        fieldType: 'text',
+        languages: [ 'fr', 'en', 'it' ],
+        label: {
+          fr: 'Un champ texte multilingue'
+        }
+      } )
+
+      .should.eql( {
+        field: 'amultilingualtextfield',
+        label: { fr: 'Un champ texte multilingue' },
+        info: null,
+        placeholder: null,
+        write: null,
+        read: null,
+        optional: true,
+        origin: null,
+        languages: [ 'fr', 'en', 'it' ],
+        min: null,
+        max: null,
+        fieldType: 'text' 
+      } );
+
     } );
 
     it( 'validates a radio field definition', () => {
@@ -85,7 +115,7 @@ describe( 'field validation', () => {
         field: 'atextfield',
         label: { fr: 'Un champ de texte libre' },
         info: { fr: 'Avec un détail explicatif' },
-        "placeholder" : null,
+        placeholder : null,
         read: null,
         write: null,
         optional: true,
@@ -96,6 +126,35 @@ describe( 'field validation', () => {
       } );
 
     } );
+
+
+    it( 'validate a field requiring a custom validator', () => {
+
+      iso.validateField( {
+        field: 'acustomfield',
+        fieldType: 'someCustomType',
+        label: {
+          fr: 'Un champ au type personnalisé'
+        }
+      }, {
+        custom: {
+          someCustomType: customValidator
+        }
+      } ).should.eql( {
+        field: 'acustomfield',
+        label: { fr: 'Un champ au type personnalisé' },
+        info: null,
+        placeholder: null,
+        write: null,
+        read: null,
+        optional: true,
+        origin: null,
+        fieldType: 'someCustomType'
+      } );
+
+    } );
+
+    
 
   } );
 

@@ -1,0 +1,7 @@
+{
+  "field": "prif",
+  "type" : "choice",
+  "unique" : true,
+  "optional": true,
+  "options": [ 1, 2, 3, 4 ]
+}

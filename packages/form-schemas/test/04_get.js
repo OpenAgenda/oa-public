@@ -14,7 +14,7 @@ describe( 'get', () => {
 
   let id,
 
-    formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.out.json', 'utf-8' ) );
+    formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.schema.json', 'utf-8' ) );
 
   before( done => {
 
