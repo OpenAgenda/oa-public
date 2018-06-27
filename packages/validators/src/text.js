@@ -25,7 +25,7 @@ export default config => {
 
   function validate( value ) {
 
-    var clean = value ? value + '' : '';
+    var clean = value ? value + '' : '';
 
     if ( typeof value == 'object' && clean ) {
 
@@ -59,7 +59,7 @@ export default config => {
 
     if ( typeof value === 'undefined' || value === null || !clean.length ) {
 
-      if ( params.optional || params.default !== null ) return params.default;
+      if ( params.optional || params.default !== null ) return params.default;
 
       throw [ {
         field: validate.field,

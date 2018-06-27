@@ -57,7 +57,7 @@ export default config => {
 
     if ( parseInt( clean ) !== parseFloat( clean ) ) {
 
-      throw [ extend( {
+      throw [ extend( {
         code: 'integer.invalid',
         message: 'not an integer',
         origin: value

@@ -1,6 +1,8 @@
 "use strict";
 
-import utils from '@openagenda/utils';
+const _ = {
+  extend: require( 'lodash/extend' )
+}
 
 module.exports = {
   registerValidators,
@@ -8,7 +10,7 @@ module.exports = {
   getDefault
 }
 
-let registeredValidators = {};
+const registeredValidators = {};
 
 
 function getFlat( fields, values ) {
@@ -32,7 +34,7 @@ function getFlat( fields, values ) {
 
 function _makeValidator( type, field, options ) {
 
-  let validatorOptions = utils.extend( { field }, options );
+  let validatorOptions = _.extend( { field }, options );
 
   if ( type === 'list' ) {
 
@@ -83,6 +85,6 @@ function _extractType( fieldOptions ) {
 
 function registerValidators( validators ) {
 
-  registeredValidators = validators;
+  _.extend( registeredValidators, validators );
 
 }
