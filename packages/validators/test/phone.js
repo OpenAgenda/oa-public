@@ -1,8 +1,8 @@
 "use strict";
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'phone validator', () => {
 
@@ -10,9 +10,25 @@ describe( 'phone validator', () => {
 
   it( 'a phone number with spaces is a phone number', () => {
 
-    let clean = validate( '06 50 91 60' );
+    const clean = validate( '06 50 91 60' );
 
     clean.should.equal( '06 50 91 60' );
+
+  } );
+
+  it( 'an international phone number is a phone number', () => {
+
+    const clean = validate( '+33 (0)6 50 91 60 26' );
+
+    clean.should.equal( '+33 (0)6 50 91 60 26' );
+
+  } );
+
+  it( 'a phone number with dots or dashes is a phone number', () => {
+
+    const clean = validate( '+(1) 800-123-123' );
+
+    clean.should.equal( '+(1) 800-123-123' );    
 
   } );
 
