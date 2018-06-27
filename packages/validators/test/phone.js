@@ -22,7 +22,7 @@ describe( 'phone validator', () => {
 
     try {
 
-      validators.phone( { field: 'telephone', optional: false } )();
+      validators.phone( { field: 'telephone', optional: false } )();
 
     } catch( e ) {
 

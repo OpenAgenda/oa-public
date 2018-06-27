@@ -69,6 +69,12 @@ function schema( options ) {
 
       } catch ( errs ) {
 
+        if ( !isArray( errs ) ) {
+
+          throw errs;
+
+        }
+
         errors = errors.concat( errs.map( e => {
 
           return params.field ? extend( {}, e, { field: params.field + '.' + e.field } ) : e;
