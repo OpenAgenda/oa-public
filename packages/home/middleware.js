@@ -90,10 +90,10 @@ function eventsList( req, res, next ) {
   req.log( 'fetching events owned by user %s', req.user.uid );
 
   eventsList(
-    { private: null, draft: null, ownerUid: req.user.uid, order: 'updatedAt.desc', search: req.query.search },
+    { draft: null, ownerUid: req.user.uid, order: 'updatedAt.desc', search: req.query.search },
     offset,
     limit,
-    { total: true, detailed: true, useDefaultImage: true },
+    { private: null, total: true, detailed: true, useDefaultImage: true },
     ( err, events, total ) => {
 
       req.log( 'fetched %s of %s events owned by user %s', events.length, total, req.user.uid ); 

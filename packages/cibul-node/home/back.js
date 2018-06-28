@@ -93,7 +93,8 @@ function matchApp( req, res, next ) {
             list: req.genUrl( 'homeEventsList' ),
             show: req.genUrl.getPath( 'agendaEventShow' ),
             showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' ),
-            showWithoutAgenda: req.genUrl.getPath( 'eventShow' )
+            showWithoutAgenda: req.genUrl.getPath( 'eventShow' ),
+            edit: req.genUrl.getPath( 'agendaEventEdit' )
           },
           messages: req.genUrl( 'homeMessages' ),
           notifs: req.genUrl( 'homeNotifications' ),
