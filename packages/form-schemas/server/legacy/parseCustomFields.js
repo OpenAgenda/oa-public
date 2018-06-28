@@ -11,7 +11,7 @@ module.exports = ( formSchema, customFields ) => {
 
   customFields.forEach( f => {
 
-    let parse = ( {
+    const parse = ( {
       text: parseBasic,
       integer: parseBasic,
       number: parseBasic,
@@ -29,9 +29,11 @@ module.exports = ( formSchema, customFields ) => {
 
     if ( !parse ) return;
 
-    fs.addField( _.extend( parse( f ), {
+    const parsed = _.extend( parse( f ), {
       origin: 'custom'
-    } ) );
+    } );
+
+    fs.addField( parsed );
 
   } );
 
@@ -41,17 +43,15 @@ module.exports = ( formSchema, customFields ) => {
 
 function parseBasic( field ) {
 
-  let csField = _parseBase( field, true );
-
-  return csField;
+  return _parseBase( field, true );
 
 }
 
 function parseChoice( field ) {
 
-  let minMaxed = ![ 'radio', 'select' ].includes( field.fieldType );
+  const minMaxed = ![ 'radio', 'select' ].includes( field.fieldType );
 
-  let csField = _parseBase( field, minMaxed );
+  const csField = _parseBase( field, minMaxed );
 
   return _.extend( csField, { options: field.options } );
 
@@ -74,7 +74,7 @@ function parseCheckbox( field ) {
  */
 function _parseBase( field, minMaxed = false ) {
 
-  let base = {
+  const base = {
     field: field.name,
     optional: field.optional !== undefined ? !!field.optional : true,
     label: field.label,

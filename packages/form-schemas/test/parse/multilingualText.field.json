@@ -1,0 +1,12 @@
+{
+  "field": "title",
+  "fieldType": "text",
+  "optional": false,
+  "languages" : [ "fr", "en" ],
+  "label": {
+    "fr": "Nom de l'animateur",
+    "en": "Name of the presenter"
+  },
+  "max": 50,
+  "min": 3
+}

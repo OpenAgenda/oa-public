@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.1.21",
+  "version": "1.1.22",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {

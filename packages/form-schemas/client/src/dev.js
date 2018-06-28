@@ -6,6 +6,9 @@ import { render } from 'react-dom';
 
 import FormSchemaComponent from './index';
 
+import SomeCustomComponent from './custom/SomeCustomComponent';
+import someCustomValidator from './custom/someCustomValidator';
+
 if ( module.hot ) module.hot.accept();
 
 class Main extends Component {
@@ -18,10 +21,17 @@ class Main extends Component {
         redirect: '/'
       },
       lang: 'fr',
+      custom: {
+        somecustomtype: {
+          validator: someCustomValidator,
+          component: SomeCustomComponent
+        }
+      },
       schema: {
         "fields" : [ {
           "field" : "title",
           "fieldType" : "text",
+          "languages" : [ "fr", "en" ],
           "optional" : false,
           "label" : {
             "fr" : "Titre",
@@ -35,6 +45,7 @@ class Main extends Component {
         }, {
           "field" : "description",
           "fieldType" : "text",
+          "languages" : [ "fr", "en" ],
           "optional" : false,
           "label" : {
             "fr" : "Description courte",
@@ -47,6 +58,7 @@ class Main extends Component {
         }, {
           "field" : "longDescription",
           "fieldType" : "textarea",
+          "languages" : [ "fr", "en" ],
           "label" : {
             "fr" : "Description longue",
             "en" : "Long description"
@@ -59,11 +71,11 @@ class Main extends Component {
             "en" : "Attendence conditions, pricing"
           }
         }, {
-          "field" : "registration",
-          "fieldType" : "text",
+          "field" : "customfield",
+          "fieldType" : "somecustomtype",
           "label" : {
-            "fr" : "Inscription",
-            "en" : "Registration"
+            "fr" : "Saisissez Wigglypoof",
+            "en" : "Type Wigglypoof"
           }
         } ]
       }

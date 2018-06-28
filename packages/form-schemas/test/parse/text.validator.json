@@ -1,0 +1,7 @@
+{
+  "field": "animator",
+  "optional": false,
+  "type": "text",
+  "min": 3,
+  "max": 50
+}

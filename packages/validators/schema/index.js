@@ -81,6 +81,11 @@ function schema(options) {
         clean[flat.field] = flat.validator(flat.value);
       } catch (errs) {
 
+        if (!(0, _isArray2['default'])(errs)) {
+
+          throw errs;
+        }
+
         errors = errors.concat(errs.map(function (e) {
 
           return params.field ? (0, _extend2['default'])({}, e, { field: params.field + '.' + e.field }) : e;

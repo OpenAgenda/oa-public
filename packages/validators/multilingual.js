@@ -2,6 +2,7 @@
 
 var _ = {
   extend: require('lodash/extend'),
+  set: require('lodash/set'),
   get: require('lodash/get'),
   keys: require('lodash/keys'),
   isArray: require('lodash/isArray')

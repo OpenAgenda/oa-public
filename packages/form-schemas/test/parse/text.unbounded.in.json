@@ -1,0 +1,10 @@
+[ {
+  "name": "animator",
+  "fieldType": "text",
+  "type": "public",
+  "optional": false,
+  "label": {
+    "fr": "Nom de l'animateur",
+    "en": "Name of the presenter"
+  }
+} ]

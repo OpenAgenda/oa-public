@@ -1,0 +1,16 @@
+{
+  "field": "pi",
+  "optional": true,
+  "fieldType": "number",
+  "read": "moderator",
+  "write": "contributor",
+  "min": null,
+  "max": null,
+  "label": {
+    "fr": "Quelle est la valeur de PI",
+    "en": "What is the value of PI"
+  },
+  "info": null,
+  "placeholder" : null,
+  "origin" : "custom"
+}

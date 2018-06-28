@@ -1,10 +1,8 @@
 "use strict";
 
-var _utils = require('@openagenda/utils');
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _ = {
+  extend: require('lodash/extend')
+};
 
 module.exports = {
   registerValidators: registerValidators,
@@ -31,7 +29,7 @@ function getFlat(fields, values) {
 
 function _makeValidator(type, field, options) {
 
-  var validatorOptions = _utils2['default'].extend({ field: field }, options);
+  var validatorOptions = _.extend({ field: field }, options);
 
   if (type === 'list') {
 
@@ -71,6 +69,6 @@ function _extractType(fieldOptions) {
 
 function registerValidators(validators) {
 
-  registeredValidators = validators;
+  _.extend(registeredValidators, validators);
 }
 //# sourceMappingURL=root.js.map

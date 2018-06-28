@@ -172,7 +172,7 @@ function _detailed( events, options ) {
 
     log( 'interface: fetching origin agendas by uid' );
 
-    config.interfaces.getOriginAgendas( originAgendaUids, _.pick( options, [ 'internal' ] ), ( err, agendas ) => {
+    config.interfaces.getOriginAgendas( originAgendaUids, _.pick( options, [ 'internal', 'private' ] ), ( err, agendas ) => {
 
       log( 'interface: fetched %s origin agendas by uid', agendas.length );
 

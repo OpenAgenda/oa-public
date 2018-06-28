@@ -1,10 +1,11 @@
 "use strict";
 
-const types = require( './types' );
+const getValidatorFromField = require( './getValidatorFromField' );
 
 const schema = require( '@openagenda/validators/schema' );
 
 const _ = {
+  isObject: require( 'lodash/isObject' ),
   keyBy: require( 'lodash/keyBy' ),
   extend: require( 'lodash/extend' ),
   omit: require( 'lodash/omit' )
@@ -17,19 +18,22 @@ schema.register( {
   number: require( '@openagenda/validators/number' ),
   date: require( '@openagenda/validators/date' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
-  integer: require( '@openagenda/validators/number' ), // i need an integer validator
+  integer: require( '@openagenda/validators/integer' ),
   choice: require( '@openagenda/validators/choice' )
 } );
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
 
   const params = _.extend( {
-    includeUnspecified: true
+    includeUnspecified: true,
+    custom: {}
   }, options );
+
+  if ( _.isObject( params.custom ) ) schema.register( params.custom );
 
   accessLevel = accessLevel === null ? [] : [].concat( accessLevel );
 
-  const validationFields = fields.filter( f => {
+  const schemaConfiguration = fields.filter( f => {
 
     if ( accessType === null ) return true;
 
@@ -41,35 +45,18 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
 
   } ).map( f => {
 
-    let type = types[ f.fieldType ].split( '.' )[ 0 ];
+    const validatorConfiguration = getValidatorFromField( f, params );
 
-    let validatable = _.extend( f, { type } );
+    return validatorConfiguration;
 
-    if ( types[ f.fieldType ].indexOf( 'unique' ) !== -1 ) {
+  } ).reduce( ( schemaConfiguration, f ) => {
 
-      validatable.unique = true;
+    schemaConfiguration[ f.field ] = f;
 
-    }
+    return schemaConfiguration;
 
-    let omits = [ 'label', 'info', 'write', 'read', 'fieldType' ];
+  }, {} );
 
-    [ 'min', 'max' ].forEach( f => {
-
-      if ( validatable[ f ] === null ) omits.push( f );
-
-    } );
-
-    if ( type === 'choice' ) {
-
-      validatable.options = validatable.options.map( o => o.id );
-
-    }
-
-    return _.omit( validatable, omits );
-
-  } );
-
-  // this guy derives a schema from the fields
-  return schema( _.keyBy( validationFields, o => o.field ) );
+  return schema( schemaConfiguration );
 
 }

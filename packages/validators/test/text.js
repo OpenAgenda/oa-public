@@ -183,7 +183,17 @@ describe( 'text validator', () => {
 
       validate( 'a text' ).should.eql( [ 'a text' ] );
 
-    } )
+    } );
+
+    /*it( 'returns null when null is given when default is null', () => {
+
+      const validate = validators.text( {
+        field: 'text',
+        list: true,
+        default:
+      } );
+
+    } );*/
 
   } );
 

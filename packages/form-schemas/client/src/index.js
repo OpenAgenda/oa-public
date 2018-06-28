@@ -27,7 +27,9 @@ export default class FormSchemaComponent extends Component {
         errors: flattenLabels( errorLabels, this.props.lang ),
         main: flattenLabels( labels, this.props.lang )
       },
-      fields: ( new FormSchema( this.props.schema ) ).getFields(),
+      fields: ( new FormSchema( this.props.schema, {
+        custom: _.mapValues( this.props.custom, ( v, k ) => this.props.custom[ k ].validator )
+      } ) ).getFields(),
       values: {}, // values by field
       errors: {}, // errors by field
       editedFields: {} // fields that have been fiddled with by user
