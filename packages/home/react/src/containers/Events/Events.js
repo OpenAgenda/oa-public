@@ -118,6 +118,14 @@ export default class Events extends Component {
       .replace( ':eventSlug', event.slug );
   }
 
+  getEventEditLink( event ) {
+    const { res } = this.props;
+
+    return res.events.edit
+      .replace( ':slug', event.agenda.slug )
+      .replace( ':eventSlug', event.slug );
+  }
+
   getImagePath( image ) {
     const thumbnail = _.find( image.variants, [ 'type', 'thumbnail' ] );
 
@@ -218,7 +226,7 @@ export default class Events extends Component {
 
                 <div className="actions">
                   <a
-                    href={this.getEventShowLink( event ) + '/edit'}
+                    href={this.getEventEditLink( event )}
                     className="text-muted"
                   >
                     {getLabel( 'modify' )}
