@@ -86,14 +86,14 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       log( 'setting event %s state to %s', instance.id, newState );
 
-      var stateModifiers = {};
+      const stateModifiers = {};
 
       stateModifiers[ TYPES.REFUSED ] = _refuse;
       stateModifiers[ TYPES.PUBLISHED ] = _publish;
       stateModifiers[ TYPES.VALIDATED ] = _validate;
       stateModifiers[ TYPES.NOTVALIDATED ] = _unvalidate;
 
-      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED ].indexOf( parseInt( newState ) ) == -1 ) {
+      if ( [ TYPES.NOTVALIDATED, TYPES.VALIDATED, TYPES.PUBLISHED, TYPES.REFUSED ].indexOf( parseInt( newState ) ) == -1 ) {
 
         return cb( 'this state is unknown' );
 
@@ -139,7 +139,7 @@ function _publish( instance, cb ) {
   async.series( [
     async.apply( instance.undraft, true ),
     async.apply( instance.setPublished, true ),
-    async.apply( instance.setValidated, true )
+    async.apply( instance.setStatePublished, true )
   ], cb );
 
 }
