@@ -2,7 +2,7 @@
 
 Build and send responsive e-mails from Node.js.
 
-MJML + EJS + Nodemailer = :heart:
+[MJML](https://mjml.io/) + [EJS](http://ejs.co/) + [Nodemailer](https://nodemailer.com/about/) = :heart:
 
 ## Getting Started
 
@@ -277,7 +277,7 @@ task();
 
 ### Templating
 
-These methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [ejs](http://ejs.co/) for replacing variables and loops, among others.
+These methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [EJS](http://ejs.co/) for replacing variables and loops, among others.
 
 Only `render` and `compile` methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.
 You can pass your own translation method or overload the existing one with the data.
