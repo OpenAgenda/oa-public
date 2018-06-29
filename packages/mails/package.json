@@ -1,0 +1,52 @@
+{
+  "name": "mails",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.dev.js",
+    "test": "jest --forceExit",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc '**/*.js'"
+  },
+  "dependencies": {
+    "@openagenda/logs": "^1.0.15",
+    "@openagenda/queues": "^1.0.1",
+    "ejs": "^2.6.1",
+    "isemail": "^3.1.2",
+    "lodash": "^4.17.10",
+    "mjml": "^4.0.5",
+    "nodemailer": "^4.6.7",
+    "verror": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
+    "express": "^4.16.3",
+    "husky": "^1.0.0-rc.9",
+    "jest": "^23.2.0",
+    "lint-staged": "^7.2.0",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.17.5",
+    "prettier-eslint-cli": "^4.7.1",
+    "reload": "^2.3.0",
+    "walk": "^2.3.13"
+  },
+  "nodemonConfig": {
+    "ext": "js,json,mjml"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
+  }
+}
