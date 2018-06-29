@@ -4,7 +4,7 @@ const states = require( '../../iso/states' );
 
 module.exports = ( state, isPublished ) => {
 
-  if ( isPublished ) {
+  if ( state === 2 ) {
 
     return states.PUBLISHED;
 
