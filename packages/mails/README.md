@@ -152,13 +152,14 @@ await mails.init( {
 **Arguments**
 - `{Object} options`
 
-Name | Type | Description
----|:---:|---|---
-`options` | `Object` | The options to initializing the service. 
+| Name | Type | Description |
+|---|:---:|---|
+| `options` | `Object` | The options to initializing the service. |
 
 **options**
-Value | Required | Description
-|---:|:---:|---
+
+Value | Required | Description |
+|---:|:---:|---|
 |`templatesDir` | * | The folder path containing your templates.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
@@ -204,18 +205,19 @@ await mails( {
 **Arguments**
 - `{Object} options`
 
-Name | Type | Description
----|:---:|---|---
-`options` | `Object` | The options to sending email(s).
+Name | Type | Description |
+|---|:---:|---|
+| `options` | `Object` | The options to sending email(s). |
 
 **Options**
+
 | Value | Required | Description |
-|--:|:--:|--|
+|---:|:---:|---|
 | template |  | A string that is the name of the template, is equal to the folder name. |
 | lang |  | A string that defines the default language that will be applied to all recipients without lang. |
 | to | * | A recipient or array of recipients. |
-| queue |  | A Boolean, if false do not queue job and execute directly.
-| **...** |  | **All other nodemailer properties are normally handled by nodemailer, see the other options here (https://nodemailer.com/message/).**
+| queue |  | A Boolean, if false do not queue job and execute directly. |
+| **...** |  | **All other nodemailer properties are normally handled by nodemailer, see the other options here (https://nodemailer.com/message/).** |
 
 
 
