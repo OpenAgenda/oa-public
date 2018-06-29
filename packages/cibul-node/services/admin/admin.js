@@ -94,24 +94,24 @@ function getIndexedEventsByWeek( options, cb ) {
 
 function getIndexDiff( cb ) {
 
-  var dbCount,
+  let dbCount;
 
-  unreferencedQuery = [
+  const unreferencedQuery = [
     'select count( * ) as unref_count from( ',
       'select e.id',
-      'from event as e left join review_article as ra on ra.event_id=e.id and ra.is_published=1',
+      'from event as e left join review_article as ra on ra.event_id=e.id and ra.state=2',
       'where e.is_published = 1 and e.is_new = 0',
       'group by e.id having count( ra.id ) = 0',
     ') as x' 
-  ].join( ' ' ),
-
-  referencedQuery = [
-    'select count(ra.id) as ref_count',
-    'from review_article as ra',
-    'where ra.is_published = true'
   ].join( ' ' );
 
-  async.map( [ unreferencedQuery, referencedQuery ], model.lib.query, function( err, results ) {
+  const referencedQuery = [
+    'select count(ra.id) as ref_count',
+    'from review_article as ra',
+    'where ra.state = 2'
+  ].join( ' ' );
+
+  async.map( [ unreferencedQuery, referencedQuery ], model.lib.query, function( err, results ) {
 
     if ( err ) return cb( err );
 

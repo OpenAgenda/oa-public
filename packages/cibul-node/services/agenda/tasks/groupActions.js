@@ -97,18 +97,11 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
         params: [ oldState, agendaId, offset ]
       }
 
-      // to be completed state includes null states with is_published to 0
+      // to be completed state includes null or 0 states
       if ( oldState === 0 ) {
 
         query = {
-          str: 'select * from review_article where ( state = 0 or ( state is null and is_published=0 ) ) and review_id = ? limit ?, 100',
-          params: [ agendaId, offset ]
-        }
-
-      } else if ( oldState === 2 ) {
-
-        query = {
-          str: 'select * from review_article where is_published = 1 and review_id = ? limit ?, 100',
+          str: 'select * from review_article where ( state = 0 or state is null ) and review_id = ? limit ?, 100',
           params: [ agendaId, offset ]
         }
 
@@ -216,7 +209,7 @@ function changeEventState( agendaId, eventId, oldState, newState, options, cb ) 
 
         try {
 
-          await agendaEvents( v.agenda.uid ).update( v.event.uid, { state: newState }, options );
+          await agendaEvents( v.agenda.uid ).update( v.event.uid, { state: newState }, options );
 
         } catch ( e ) {
 
@@ -258,7 +251,7 @@ function _getCurrentState( v ) {
 
   if ( !v.event ) return v;
 
-  let d = w.defer();
+  const d = w.defer();
 
   v.event.getState( { labelized: false }, ( err, state ) => {
 
@@ -277,9 +270,9 @@ function _getCurrentState( v ) {
 
 function _loadAgenda( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
-  svc.get( { id: v.agendaId }, ( err, agenda ) => {
+  svc.get( { id: v.agendaId }, ( err, agenda ) => {
 
     if ( err ) return d.reject( err );
 
@@ -296,7 +289,7 @@ function _loadAgenda( v ) {
 
 function _loadEvent( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
   eventSvc.get( { id: v.eventId }, ( err, event ) => {
 

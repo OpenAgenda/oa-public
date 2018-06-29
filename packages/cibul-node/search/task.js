@@ -256,7 +256,7 @@ function _sync( job, cb ) {
 
 function _publish( schema ) {
 
-  return function( job, cb ) {
+  return ( job, cb ) => {
 
     log( 'info', 'publishing/creating %s %s', job.type, job.id );
 

@@ -297,7 +297,7 @@ function _agendasAction( req, res, next ) {
 
   sessions.get( req, { detailed: true }, ( err, session ) => {
 
-    if ( err || !session ) {
+    if ( err || !session ) {
 
       return next( err );
 

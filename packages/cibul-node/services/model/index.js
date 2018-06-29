@@ -10,7 +10,7 @@ const cache = require( '../cache' );
 
 const model = require( '@openagenda/cibul-model' )( config.db, {
   imagePath: config.aws.imageBucketPath,
-  cache: cache,
+  cache,
   query
 } );
 
@@ -21,7 +21,7 @@ module.exports.init = c => {}
 
 function query( sql, dirtyArgs = [], cb ) {
 
-  let arr = _.isArray( dirtyArgs ) ? dirtyArgs : [ dirtyArgs ];
+  const arr = _.isArray( dirtyArgs ) ? dirtyArgs : [ dirtyArgs ];
 
   log( 'running \'%s\' with values [%s]', sql, [].concat( arr ).join( ',' ) );
 

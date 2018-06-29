@@ -224,11 +224,10 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       it( 'adds legacy record for agenda-event ( review_article )', () => {
 
-        _.pick( legacyAgendaEvent, [ 'review_id', 'event_id', 'state', 'is_published' ] ).should.eql( {
+        _.pick( legacyAgendaEvent, [ 'review_id', 'event_id', 'state' ] ).should.eql( {
           review_id: agenda.id,
           event_id: legacyEvent.id,
-          state: 2,
-          is_published: 1
+          state: 2
         } );
 
       } );

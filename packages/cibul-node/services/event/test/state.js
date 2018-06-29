@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-var instanciate = require( '../instance' ),
+const instanciate = require( '../instance' ),
 
 cbm = require( '../../model' ),
 
@@ -18,7 +18,7 @@ coms = require( '../../../lib/coms' );
 
 describe( 'event state changes', function() {
 
-  var agenda = {}, event = {};
+  const agenda = {}, event = {};
 
   before( fixtureSets.prepareOneAgendaInstance( agenda, 'la-gargouille' ) );
 
@@ -38,11 +38,9 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.VALIDATED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
+      cbm.lib.query( 'select state from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.VALIDATED );
-
-        rows[ 0 ].is_published.should.equal( 0 );
 
         done();
 
@@ -56,11 +54,9 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.NOTVALIDATED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
+      cbm.lib.query( 'select state from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.NOTVALIDATED );
-
-        rows[ 0 ].is_published.should.equal( 0 );
 
         done();
 
@@ -74,11 +70,9 @@ describe( 'event state changes', function() {
 
     event.setState( TYPES.PUBLISHED, function( err ) {
 
-      cbm.lib.query( 'select state, is_published from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
+      cbm.lib.query( 'select state from review_article where event_id = ? and review_id = ? limit 0,1', [ event.id, event.reviewId ], function( err, rows ) {
 
         rows[ 0 ].state.should.equal( TYPES.VALIDATED );
-
-        rows[ 0 ].is_published.should.equal( 1 );
 
         done();
 
@@ -90,7 +84,7 @@ describe( 'event state changes', function() {
 
   it( 'when state is changed, an update is thrown on main channel', function( done ) {
 
-    var cli = coms.subscribe( config.mainChannel, function( err, data ) {
+    const cli = coms.subscribe( config.mainChannel, function( err, data ) {
 
       data.name.should.equal( 'event.update' );
 

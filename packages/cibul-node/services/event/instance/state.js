@@ -29,7 +29,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    var params = utils.extend( {
+    const params = utils.extend( {
       labelized: true
     }, options );
 
@@ -43,23 +43,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       if ( err ) return cb( err );
 
-      instance.getPublished( function( err, isPublished ) {
-
-        if ( err ) return cb( err );
-
-        if ( isPublished ) {
-
-          state = TYPES.PUBLISHED;
-
-        } else if ( state === null ) {
-
-          return cb( null, 'draft' );
-
-        }
-
-        cb( null, params.labelized ? _labelize( state ) : state );
-
-      });
+      cb( null, params.labelized ? _labelize( state ) : state );
 
     } );
 
@@ -68,7 +52,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function _labelize( state ) {
 
-    var labels = {};
+    const labels = {};
 
     labels[ TYPES.REFUSED ] = 'refused';
     labels[ TYPES.NOTVALIDATED ] = 'tocontrol';
@@ -138,8 +122,7 @@ function _publish( instance, cb ) {
 
   async.series( [
     async.apply( instance.undraft, true ),
-    async.apply( instance.setPublished, true ),
-    async.apply( instance.setStatePublished, true )
+    async.apply( instance.setPublished, true )
   ], cb );
 
 }
@@ -147,7 +130,6 @@ function _publish( instance, cb ) {
 function _refuse( instance, cb ) {
 
   async.series( [
-    async.apply( instance.setUnpublished, true ),
     async.apply( instance.setRefused, true )
   ], cb );
 
@@ -156,7 +138,6 @@ function _refuse( instance, cb ) {
 function _validate( instance, cb ) {
 
   async.series( [
-    async.apply( instance.setUnpublished, true ),
     async.apply( instance.setValidated, true )
   ], cb );
 
@@ -165,7 +146,6 @@ function _validate( instance, cb ) {
 function _unvalidate( instance, cb ) {
 
   async.series( [
-    async.apply( instance.setUnpublished, true ),
     async.apply( instance.setNotValidated, true )
   ], cb );
 

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-var config = require( '../../config' ),
+const config = require( '../../config' ),
 
 legacyLib = require( '@openagenda/es-node' )( config.es ),
 

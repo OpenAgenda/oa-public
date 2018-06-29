@@ -215,7 +215,7 @@ function layoutData( req, res ) {
 
   const description = req.formatted.description + ' - ' + req.formatted.dateRange + ' - ' + req.formatted.location.name;
 
-  var data = {
+  const data = {
     metas: {
       title: utils.escape( req.formatted.title, false ),
       keywords: utils.escape( req.formatted.keywords, false ),
@@ -229,11 +229,11 @@ function layoutData( req, res ) {
       "twitter:domain" : config.domain
     },
     loner: !req.agenda
-  },
+  };
 
-  uri = req.agenda ? 'agendaEventShow' : 'eventShow',
+  const uri = req.agenda ? 'agendaEventShow' : 'eventShow';
 
-  uriParams = { eventSlug: req.event.slug };
+  const uriParams = { eventSlug: req.event.slug };
 
   if ( req.agenda ) {
 
@@ -436,11 +436,11 @@ function _get( paramName, fieldName, inAgendaContext ) {
 
   }
 
-  return function( v ) {
+  return v => {
 
     return w.promise( function( rs, rj ) {
 
-      var getParams = {};
+      const getParams = {};
 
       getParams[ fieldName ] = v.req.params[ paramName ];
 

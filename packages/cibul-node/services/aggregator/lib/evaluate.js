@@ -330,7 +330,7 @@ function _checkIfReferencedBySource( v ) {
 
 function _addNewSourceReference( v ) {
 
-  let d = p.w.defer();
+  const d = p.w.defer();
 
   log( 'adding source agenda %s reference to event %s', v.sourceAgenda.id, v.event.id );
 

@@ -86,18 +86,18 @@ function _references( v ) {
 
       }
 
-      let ev = {
+      const ev = {
         lang: v.req.lang,
         events: []
       }
 
       async.eachSeries( events, ( event, ecb ) => {
 
-        let e = eventSvc.instanciate( event );
+        const e = eventSvc.instanciate( event );
 
-        e.getPublished( ( err, isPublished ) => {
+        e.getState( ( err, state ) => {
 
-          if ( !v.includeUnpublished && !isPublished ) return ecb();
+          if ( !v.includeUnpublished && state!==2 ) return ecb();
 
           ev.events.push( ( {
             image: e.getThumbnail( false ),
@@ -141,7 +141,7 @@ function _references( v ) {
 
 function _timings( v ) {
 
-  let d = w.defer();
+  const d = w.defer();
 
   templater( 'event/hours', {
     lang: v.req.lang,
