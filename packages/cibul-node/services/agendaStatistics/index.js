@@ -16,6 +16,7 @@ const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
 const db = require( './lib/db' );
 const legacySearch = require( './lib/legacySearch' );
+const custom = require( './lib/custom' );
 const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
 
@@ -42,6 +43,7 @@ module.exports = async agendaUid => {
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
       resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`
+      //resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`
     }
   }
 
@@ -69,8 +71,12 @@ module.exports.task = () => {
 
     if ( data.operation !== 'resync' ) return cb();
 
-
     switch ( data.type ) {
+
+      case 'custom' :
+
+        custom( data );
+        break;
 
       case 'aggregator':
 

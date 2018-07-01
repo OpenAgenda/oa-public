@@ -20,12 +20,18 @@ module.exports.init = config => {
       custom: 'custom'
     },
     interfaces,
+    queue: {
+      redis: config.redis,
+      name: 'custom'
+    },
     legacy: {
       schemas: {
         event: config.schemas.event,
         agendaEvent: config.schemas.agendaEvent,
         agendaEventTag: config.schemas.agendaEventTag,
-        agenda: config.schemas.agenda
+        agenda: config.schemas.agenda,
+        agendaCategory: config.schemas.agendaCategory,
+        agendaTag: config.schemas.agendaTag
       },
       interfaces: {
         getFormSchemaFields: async formSchemaId => {
