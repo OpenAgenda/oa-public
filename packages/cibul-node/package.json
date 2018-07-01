@@ -33,7 +33,7 @@
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/dom-utils": "^2.0.4",
     "@openagenda/email-strategie": "^0.1.0",
-    "@openagenda/es-node": "^1.0.0",
+    "@openagenda/es-node": "^1.0.5",
     "@openagenda/event-search": "^1.1.37",
     "@openagenda/events": "^1.1.23",
     "@openagenda/facebook": "^0.1.1",

@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
+//const custom = require( '@openagenda/custom' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
@@ -17,8 +18,6 @@ const oldEventSvc = require( '../event' );
 module.exports = async ( ae, context ) => {
 
   log( 'created agenda-event %j', ae, { context } );
-
-  _addToSearchIndex( ae );
   
   // use context.userUid. will be null when nothing was specified at create
 
@@ -47,21 +46,29 @@ module.exports = async ( ae, context ) => {
   }
 
 
-  if ( context.legacy ) return;
+  if ( context.legacy ) {
 
-  /**
-   * Anything happening hear should not be triggered elsewhere by legacy parts of app
-   */
-  
-  coms.publish( config.mainChannel, {
-    name: 'legacy.es.event.create',
-    values: {
-      id: event.id,
-      type: 'create'
-    }
-  } );
+    // if ( agenda.formSchemaId ) await custom( agenda.formSchemaId ).transferFromLegacy( event.uid );
 
-  aggregator.notifyPublish( event.id, agenda.id );
+  } else {
+
+    /**
+     * Anything happening hear should NOT be triggered elsewhere by legacy parts of app
+     */
+    
+    coms.publish( config.mainChannel, {
+      name: 'legacy.es.event.create',
+      values: {
+        id: event.id,
+        type: 'create'
+      }
+    } );
+
+    aggregator.notifyPublish( event.id, agenda.id );
+
+  }
+
+  _addToSearchIndex( ae );
 
 }
 

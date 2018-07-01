@@ -127,6 +127,7 @@ const config = {
       agenda: 'review',
       agendaEvent: 'review_article',
       agendaTag: 'review_tag',
+      agendaCategory: 'review_category',
       agendaEventTag: 'review_tag_article',
       aggregator: 'aggregator',
       aggregatorSource: 'aggregator_source',

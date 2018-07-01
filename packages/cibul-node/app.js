@@ -274,6 +274,8 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( './services/agendaStatistics' ).task();
 
+        require( '@openagenda/custom' ).task();
+
         require( '@openagenda/activities' ).tasks.notifications.addActivity();
 
         /*require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => {
