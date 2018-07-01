@@ -158,6 +158,12 @@ types.concat( 'custom' ).forEach( type => {
       default: null
     },
 
+    sub: {
+      type: 'multilingual',
+      optional: true,
+      default: null
+    },
+
     placeholder: {
       type: 'multilingual',
       max: 300,

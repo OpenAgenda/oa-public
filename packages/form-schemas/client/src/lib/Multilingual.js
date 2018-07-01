@@ -5,6 +5,7 @@ import ih from 'immutability-helper';
 import React, { Component } from 'react';
 
 import FieldCounter from './FieldCounter';
+import Sub from './Sub';
 
 const FieldComponents = {
   text: require( './TextField' ),
@@ -23,76 +24,29 @@ module.exports = class MultilingualField extends Component {
 
   render() {
 
-    const {
-      field: name,
-      placeholder,
-      languages,
-      max
-    } = this.props.field;
-
-    const {
-      type
-    } = this.props;
-
-    const Component = FieldComponents[ type ];
+    const field = this.props.field;
+    const error = this.props.error;
+    
+    const Component = FieldComponents[ field.fieldType ];
 
     return <ul className="list-unstyled">
-      {languages.map( l => (
-        <li key={name + '_' + l}>
-          <div className="lang-unit">
+      {field.languages.map( l => (
+        <li key={field.field + '_' + l}>
+          <div className="lang-input">
             <label>{l}</label>
             <div>
               <Component
-                type={type}
-                field={this.props.field}
-                value={_.get( this.props.value, l ) }
+                field={field}
+                value={_.get( this.props.value, l )}
                 onChange={this.onChange.bind( this, l )} />
-              {max?<FieldCounter value={_.get( this.props.value, l )} max={max}/>:null}
+              {field.max?<FieldCounter value={_.get( this.props.value, l )} max={field.max}/>:null}
+              <Sub label={field.sub} error={_.get( error, l )}/>
             </div>
           </div>
         </li>
       ) )}
     </ul>
 
-
-    /*
-    
-    
-
-     <div class="multilingual-input-field form-group">
-      <label>label of the multilingual input</label>
-      <span class="info" >Yeepeekayyay</span>
-      <ul class="list-unstyled" >
-        <li>
-          <div class="lang-unit">
-          <label >fr</label>
-       <div>
-         <div><input name="description_fr" type="text" value="Ouaich" class="form-control" >
-          </div>
-        </div>
-      </div>
-      </li>
-      <li class="disabled">
-      <div class="lang-unit">
-        <label>en</label>
-       <div>
-         <div>
-          <input name="description_en" type="text" value="Yep" class="form-control" disabled>
-        </div>
-        </div>
-      </div>
-      </li>
-      <li>
-      <div class="lang-unit" >
-        <label >es</label>
-       <div>
-         <div><input name="description_es" type="text" value="Si" class="form-control" >
-          </div>
-        </div>
-        </div>
-      </li>
-    </ul>
-    </div>*/
   }
 
 }

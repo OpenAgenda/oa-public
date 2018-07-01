@@ -11,7 +11,7 @@ function flatten( field, lang ) {
 
   const update = {};
 
-  [ 'label', 'info', 'placeholder' ].forEach( f => {
+  [ 'label', 'info', 'placeholder', 'sub' ].forEach( f => {
 
     if ( !field[ f ] ) return;
 

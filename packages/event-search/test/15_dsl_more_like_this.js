@@ -198,7 +198,7 @@ describe( 'event-search - unit: more like this search', function() {
         }
       } ) ).hits.total.should.greaterThanOrEqual( 2 );
 
-    } );
+    } );
 
     describe( 'like with docs', () => {
 
@@ -233,7 +233,7 @@ describe( 'event-search - unit: more like this search', function() {
               fields: [ 'tags' ],
               min_term_freq: 1,
               min_doc_freq: 1,
-              like: [ 'masdar' ]
+              like: [ 'masdar' ]
             }
           }
         } );
@@ -337,7 +337,7 @@ describe( 'event-search - unit: more like this search', function() {
           }
         } ) ).length.should.equal( 10 );
 
-      } );
+      } );
 
 
       it( 'mlt can be filtered', async () => {

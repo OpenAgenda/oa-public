@@ -12,7 +12,7 @@ const svc = require( './service' );
 
 const formSchemaFields = JSON.parse( fs.readFileSync( __dirname + '/fixtures/bordeaux-fields.json' , 'utf-8' ) );
 
-describe( 'extended events - functional (server): legacy', function() {
+describe( 'custom - functional (server): legacy', function() {
 
   this.timeout( 4000 );
 
@@ -49,9 +49,9 @@ describe( 'extended events - functional (server): legacy', function() {
   it( 'legacy set updates legacy event store with updated customField values', async () => {
 
     await legacy( 123 /*formSchemaId*/, 27434489 /*eventUid*/, {
-      'custom_description' : 'Une description personnalisée',
-      'intermunicipal_interest' : 1,
-      'recurring': 2
+      custom_description : 'Une description personnalisée',
+      intermunicipal_interest : 1,
+      recurring: 2
     } );
 
     const config = svc.getConfig();

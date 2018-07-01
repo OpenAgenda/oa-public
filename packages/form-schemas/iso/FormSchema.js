@@ -15,10 +15,8 @@ module.exports = class {
 
   constructor( data, options = {} ) {
 
-    this.custom = options.custom;
-
-    // { fields, nextOptionId, res, id }
-    this.data = validate( data, { custom: this.custom, client: true } );
+    // { fields, nextOptionId, res, id, custom }
+    this.data = validate( data, true );
 
   }
 
@@ -31,7 +29,9 @@ module.exports = class {
 
   addField( data ) {
 
-    let clean = validateField( data, { custom: this.custom } );
+    let clean = validateField( data, {
+      custom: this.data.custom
+    } );
 
     if ( !this.isFieldNameAvailable( clean.field ) ) {
 
@@ -103,7 +103,7 @@ module.exports = class {
 
   getValidate( accessType = null, accessLevel = null, options = {}) {
 
-    return getSchema( this.data.fields, accessType, accessLevel, _.extend( options, { custom: this.custom } ) );
+    return getSchema( this.data.fields, accessType, accessLevel, _.extend( options, { custom: this.data.custom } ) );
 
   }
 
@@ -127,15 +127,7 @@ module.exports = class {
 
 module.exports.validate = validate;
 
-function validate( data, options = false ) {
-
-  const {
-    client, // is FormSchema running on client?
-    custom // eventual custom validators
-  } = _.extend( {
-    client: _.isObject( options ) ? false : options,
-    custom: {}
-  }, _.isObject( options ) ? options : {} );
+function validate( data, client = false ) {
 
   let errors = [],
 
@@ -143,13 +135,14 @@ function validate( data, options = false ) {
     id: null,
     nextOptionId: 1,
     fields: [],
-    res: null
+    res: null,
+    custom: null
   }, data || {} ),
 
   // these we take as is
-  clean = _.pick( dirty, [ 'id', 'nextOptionId', 'res' ] );
+  clean = _.pick( dirty, [ 'id', 'nextOptionId', 'res', 'custom' ] );
 
-  clean.fields = []
+  clean.fields = [];
 
   // clean each field
   dirty.fields.forEach( f => {
@@ -158,7 +151,7 @@ function validate( data, options = false ) {
 
     try {
 
-      clean.fields.push( validateField( f, { custom } ) );
+      clean.fields.push( validateField( f, { custom: clean.custom } ) );
 
     } catch ( e ) {
 

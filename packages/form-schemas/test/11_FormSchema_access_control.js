@@ -25,7 +25,8 @@ describe( 'FormSchema - access control', () => {
         field: 'anotherlimitedfield',
         fieldType: 'number',
         read: 'moderator'
-      } ]
+      } ],
+      custom: null
     } );
 
   } );

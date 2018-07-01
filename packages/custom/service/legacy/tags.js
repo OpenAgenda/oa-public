@@ -4,7 +4,43 @@ const _ = require( 'lodash' );
 
 const config = require( '../config' );
 
-module.exports = set;
+module.exports = _.assign( set, {
+  parse
+} );
+
+async function parse( agendaEventId, fields ) {
+
+  const { knex } = config;
+  const { schemas } = config.legacy;
+
+  const parsed = {};
+
+  // match on label
+  
+  const legacyTags = ( await knex( schemas.agendaTag + ' as at' )
+    .select( 'tag' )
+    .leftJoin( schemas.agendaEventTag + ' as aet', 'at.id', 'aet.review_tag_id' )
+    .where( 'aet.review_article_id', agendaEventId ) ).map( r => r.tag );
+
+  fields.forEach( field => {
+
+    const matchingOptions = field.options.filter( o => legacyTags.includes( _.isObject( o.label ) ? _.get( o.label, 'fr' ) : o.label ) );
+
+    if ( !matchingOptions.length ) return;
+
+    parsed[ field.field ] = matchingOptions.map( o => o.id );
+
+    if ( [ 'select', 'radio' ].includes( field.fieldType ) ) {
+
+      parsed[ field.field ] = _.head( parsed[ field.field ] );
+
+    }
+
+  } );
+
+  return parsed;
+
+}
 
 async function set( agendaEventId, fields, data ) {
 

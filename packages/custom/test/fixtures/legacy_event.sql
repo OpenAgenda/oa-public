@@ -33,3 +33,8 @@ INSERT INTO `${schema}` (`id`, `uid`, `slug`, `url`, `image`, `background_image`
  '{}', NULL, '', NULL, NULL, '', '', 48959239, NULL, NULL ),
 (147619, 955726, 'loto-intergenerationnel', NULL, 'event_loto-intergenerationnel_933467.jpg', NULL, NULL, 27735, 1, 0, '2016-10-14 14:29:55', '2016-10-14 14:29:55', 'a:3:{s:10:"imageThumb";s:44:"evtbevent_loto-intergenerationnel_933467.jpg";s:9:"imageFull";s:43:"evfevent_loto-intergenerationnel_933467.jpg";s:5:"links";s:2:"[]";}', NULL, NULL, NULL, NULL, NULL, NULL, 48959239, NULL, NULL ),
 (196601, 17909604, 'visite-commentee-de-la-bibliotheque-universitaire-du-havre', NULL, 'event_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg', NULL, NULL, 23807, 0, 0, '2017-05-29 15:58:16', '2017-05-29 15:58:17', 'a:3:{s:10:"imageThumb";s:79:"evtbevent_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg";s:9:"imageFull";s:78:"evfevent_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg";s:5:"links";s:2:"[]";}', NULL, '{"creditsimage":"Direction de la Communication de l\'universit\\u00e9 du Havre"}', 0, 99, NULL, NULL, 66056061, NULL, NULL );
+
+
+#salons
+insert into `${schema}` (`id`, `uid`, `custom_fields`) values
+(395113, 3842071, '{"unitesrecherche":"3 ou 4","animateurs":"Steve et Chirie","organisateur":"CHU de Steve"}');

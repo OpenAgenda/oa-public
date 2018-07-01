@@ -1,0 +1,296 @@
+[
+  {
+    "field": "interetintercommunal",
+    "label": {
+      "fr": "Événement d'intérêt intercommunal",
+      "en": "Événement d'intérêt intercommunal"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 1,
+        "value": "true",
+        "label": {
+          "fr": "Événement d'intérêt intercommunal",
+          "en": "Événement d'intérêt intercommunal"
+        },
+        "legacyId": null
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "recurringevent",
+    "label": {
+      "fr": "Événement récurrent",
+      "en": "Événement récurrent"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 2,
+        "value": "true",
+        "label": {
+          "fr": "Événement récurrent",
+          "en": "Événement récurrent"
+        },
+        "legacyId": null
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "categories-metropolitaines",
+    "label": {
+      "fr": "Catégories Métropolitaines"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": false,
+    "origin": "tags",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 3,
+        "value": "atelier",
+        "label": {
+          "fr": "Atelier"
+        },
+        "legacyId": 15797
+      },
+      {
+        "id": 4,
+        "value": "braderie-brocante",
+        "label": {
+          "fr": "Braderie - Brocante"
+        },
+        "legacyId": 15798
+      },
+      {
+        "id": 5,
+        "value": "ceremonie",
+        "label": {
+          "fr": "Cérémonie"
+        },
+        "legacyId": 15799
+      },
+      {
+        "id": 6,
+        "value": "cinema",
+        "label": {
+          "fr": "Cinéma"
+        },
+        "legacyId": 15800
+      },
+      {
+        "id": 7,
+        "value": "conference-rencontre",
+        "label": {
+          "fr": "Conférence - Rencontre"
+        },
+        "legacyId": 15801
+      },
+      {
+        "id": 8,
+        "value": "consei-municipal",
+        "label": {
+          "fr": "Consei Municipal"
+        },
+        "legacyId": 15802
+      },
+      {
+        "id": 9,
+        "value": "danse",
+        "label": {
+          "fr": "Danse"
+        },
+        "legacyId": 15803
+      },
+      {
+        "id": 10,
+        "value": "developpement-durable",
+        "label": {
+          "fr": "Développement durable"
+        },
+        "legacyId": 15805
+      },
+      {
+        "id": 11,
+        "value": "emploi",
+        "label": {
+          "fr": "Emploi"
+        },
+        "legacyId": 15806
+      },
+      {
+        "id": 12,
+        "value": "exposition",
+        "label": {
+          "fr": "Exposition"
+        },
+        "legacyId": 15807
+      },
+      {
+        "id": 13,
+        "value": "fete-festival",
+        "label": {
+          "fr": "Fête - Festival"
+        },
+        "legacyId": 15808
+      },
+      {
+        "id": 14,
+        "value": "formation",
+        "label": {
+          "fr": "Formation"
+        },
+        "legacyId": 15809
+      },
+      {
+        "id": 15,
+        "value": "lecture",
+        "label": {
+          "fr": "Lecture"
+        },
+        "legacyId": 15810
+      },
+      {
+        "id": 16,
+        "value": "mode",
+        "label": {
+          "fr": "Mode"
+        },
+        "legacyId": 15811
+      },
+      {
+        "id": 17,
+        "value": "musique",
+        "label": {
+          "fr": "Musique"
+        },
+        "legacyId": 15812
+      },
+      {
+        "id": 18,
+        "value": "reunion-publique",
+        "label": {
+          "fr": "Réunion publique"
+        },
+        "legacyId": 15813
+      },
+      {
+        "id": 19,
+        "value": "sante",
+        "label": {
+          "fr": "Santé"
+        },
+        "legacyId": 15814
+      },
+      {
+        "id": 20,
+        "value": "spectacle",
+        "label": {
+          "fr": "Spectacle"
+        },
+        "legacyId": 15815
+      },
+      {
+        "id": 21,
+        "value": "sport",
+        "label": {
+          "fr": "Sport"
+        },
+        "legacyId": 15816
+      },
+      {
+        "id": 22,
+        "value": "theatre",
+        "label": {
+          "fr": "Théâtre"
+        },
+        "legacyId": 15817
+      },
+      {
+        "id": 23,
+        "value": "visite-balade",
+        "label": {
+          "fr": "Visite - Balade"
+        },
+        "legacyId": 15818
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "label",
+    "label": {
+      "fr": "Label"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "tags",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 24,
+        "value": "50-ans-de-la-mel",
+        "label": {
+          "fr": "50 ans de la MEL"
+        },
+        "legacyId": 23971
+      },
+      {
+        "id": 25,
+        "value": "design",
+        "label": {
+          "fr": "Design"
+        },
+        "legacyId": 23972
+      },
+      {
+        "id": 26,
+        "value": "grand-barouf",
+        "label": {
+          "fr": "Grand Barouf"
+        },
+        "legacyId": 23973
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "category-group",
+    "label": {
+      "fr": "Tags"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "categories",
+    "options": [],
+    "fieldType": "radio"
+  }
+]

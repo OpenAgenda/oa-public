@@ -27,9 +27,7 @@ export default class FormSchemaComponent extends Component {
         errors: flattenLabels( errorLabels, this.props.lang ),
         main: flattenLabels( labels, this.props.lang )
       },
-      fields: ( new FormSchema( this.props.schema, {
-        custom: _.mapValues( this.props.custom, ( v, k ) => this.props.custom[ k ].validator )
-      } ) ).getFields(),
+      fields: ( new FormSchema( this.props.schema ) ).getFields(),
       values: {}, // values by field
       errors: {}, // errors by field
       editedFields: {} // fields that have been fiddled with by user
@@ -92,7 +90,11 @@ export default class FormSchemaComponent extends Component {
 
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
 
-        errors[ e.field ] = _.get( this.state.labels.errors, e.code, e.message );
+        const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
+
+        const error = e.lang ? _.set( errors[ e.field ] || {}, e.lang, errorLabel ) : errorLabel;
+
+        errors[ e.field ] = error;
 
         return errors;
 
@@ -144,19 +146,18 @@ export default class FormSchemaComponent extends Component {
 
     }
 
-    return <div>
+    return <div className="oa-form">
       {this.state.fields.map( ( f, i ) => {
-
-        // loading defaults
-        const flatField = flatten( f, lang );
 
         const flatLabels = flatten( labels, lang );
 
         return <Field
+          customComponents={this.props.components}
+          lang={this.props.lang}
           labels={this.state.labels.main}
           type={f.fieldType}
           key={'field' + i}
-          field={flatField}
+          field={f}
           value={_.get( values, f.field, null )}
           placeholder={_.get( values, f.field, null )}
           error={_.get( this.state.errors, f.field, null )}

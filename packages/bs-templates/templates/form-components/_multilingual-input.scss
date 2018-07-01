@@ -9,7 +9,7 @@
     
   }
 
-  .lang-unit {
+  .lang-unit, .lang-input {
 
     padding: 1em 0 0.5em;
     position: relative;
@@ -29,6 +29,12 @@
       margin-left: 2em;
 
     }
+
+  }
+
+  .lang-input {
+
+    padding: 0.5em 0;
 
   }
 

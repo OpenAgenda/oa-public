@@ -20,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/logs": "^1.0.5",
+    "@openagenda/queues": "^1.0.3",
     "@openagenda/validators": "^2.0.1",
     "immutability-helper": "^2.2.3",
     "lodash": "^4.17.4",

@@ -1,0 +1,434 @@
+[
+  {
+    "field": "animateurs",
+    "label": {
+      "fr": "Intervenants",
+      "en": "Intervenants"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "fieldType": "text"
+  },
+  {
+    "field": "organisateur",
+    "label": {
+      "fr": "Organisateur",
+      "en": "Organisateur"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "fieldType": "text"
+  },
+  {
+    "field": "partenaire",
+    "label": {
+      "fr": "Partenaire(s)",
+      "en": "Partenaire(s)"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "fieldType": "text"
+  },
+  {
+    "field": "referentscientifique",
+    "label": {
+      "fr": "Comment garantissez-vous la qualité des informations scientifiques abordées ?",
+      "en": "How do you guarantee the quality of scientific information?"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": "moderator",
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "fieldType": "textarea"
+  },
+  {
+    "field": "unitesrecherche",
+    "label": {
+      "fr": "Liste des unités de recherche impliquées à l'événement",
+      "en": "Liste des unités de recherche impliquées à l'événement"
+    },
+    "info": {
+      "fr": "Indiquer le label numéro, l'intitulé et la ville de chaque unité",
+      "en": "Indiquer le label numéro, l'intitulé et la ville de chaque unité"
+    },
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "custom",
+    "min": null,
+    "max": null,
+    "fieldType": "text"
+  },
+  {
+    "field": "thematiques",
+    "label": {
+      "fr": "Thématiques"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": false,
+    "origin": "tags",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 1,
+        "value": "sciences-de-la-vie-et-de-la-sante",
+        "label": {
+          "fr": "Sciences de la vie et de la santé"
+        },
+        "legacyId": 27686
+      },
+      {
+        "id": 2,
+        "value": "sciences-exactes-maths-physique-chimie",
+        "label": {
+          "fr": "Sciences exactes (maths, physique, chimie)"
+        },
+        "legacyId": 27687
+      },
+      {
+        "id": 3,
+        "value": "sciences-de-lenvironnement-agronomie-ecologie-developpement-durable",
+        "label": {
+          "fr": "Sciences de l'environnement (agronomie, écologie, développement durable)"
+        },
+        "legacyId": 27688
+      },
+      {
+        "id": 4,
+        "value": "sciences-de-la-terre-et-de-lunivers-de-lespace",
+        "label": {
+          "fr": "Sciences de la Terre et de l'univers, de l'espace"
+        },
+        "legacyId": 27689
+      },
+      {
+        "id": 5,
+        "value": "sciences-numeriques",
+        "label": {
+          "fr": "Sciences numériques"
+        },
+        "legacyId": 27690
+      },
+      {
+        "id": 6,
+        "value": "sciences-humaines-et-sociales",
+        "label": {
+          "fr": "Sciences humaines et sociales"
+        },
+        "legacyId": 27691
+      },
+      {
+        "id": 7,
+        "value": "sciences-de-lingenieur",
+        "label": {
+          "fr": "Sciences de l'ingénieur"
+        },
+        "legacyId": 27692
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "publics-concernes",
+    "label": {
+      "fr": "Publics concernés"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "tags",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 8,
+        "value": "maternelle-3-5-ans",
+        "label": {
+          "fr": "Maternelle (3 - 5 ans)"
+        },
+        "legacyId": 27693
+      },
+      {
+        "id": 9,
+        "value": "primaire-5-10-ans",
+        "label": {
+          "fr": "Primaire (5 - 10 ans)"
+        },
+        "legacyId": 27694
+      },
+      {
+        "id": 10,
+        "value": "college-11-14-ans",
+        "label": {
+          "fr": "Collège (11 - 14 ans)"
+        },
+        "legacyId": 27695
+      },
+      {
+        "id": 11,
+        "value": "lycee-15-16-ans",
+        "label": {
+          "fr": "Lycée (15 - 16 ans)"
+        },
+        "legacyId": 27696
+      },
+      {
+        "id": 12,
+        "value": "etudiants-18-25-ans",
+        "label": {
+          "fr": "Etudiants (18 - 25 ans)"
+        },
+        "legacyId": 27697
+      },
+      {
+        "id": 13,
+        "value": "familles",
+        "label": {
+          "fr": "Familles"
+        },
+        "legacyId": 27698
+      },
+      {
+        "id": 14,
+        "value": "seniors",
+        "label": {
+          "fr": "Seniors"
+        },
+        "legacyId": 27699
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "inscription-necessaire",
+    "label": {
+      "fr": "Inscription nécessaire ?"
+    },
+    "info": {
+      "fr": "Si votre événement nécessite une réservation de place, indiquez-le ici."
+    },
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": false,
+    "origin": "tags",
+    "options": [
+      {
+        "id": 15,
+        "value": "oui",
+        "label": {
+          "fr": "Oui"
+        },
+        "legacyId": 27700
+      },
+      {
+        "id": 16,
+        "value": "non",
+        "label": {
+          "fr": "Non"
+        },
+        "legacyId": 27701
+      }
+    ],
+    "fieldType": "radio"
+  },
+  {
+    "field": "public-specifique",
+    "label": {
+      "fr": "Public spécifique"
+    },
+    "info": null,
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "tags",
+    "min": null,
+    "max": null,
+    "options": [
+      {
+        "id": 17,
+        "value": "scolaires",
+        "label": {
+          "fr": "Scolaires"
+        },
+        "legacyId": 27702
+      }
+    ],
+    "fieldType": "checkbox"
+  },
+  {
+    "field": "reconduction",
+    "label": {
+      "fr": "Reconduction"
+    },
+    "info": {
+      "fr": "S'agit-il d'une reconduction d'un projet proposé lors de l'édition précédente ?"
+    },
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": true,
+    "origin": "tags",
+    "options": [
+      {
+        "id": 18,
+        "value": "evenement-nouveau",
+        "label": {
+          "fr": "Événement nouveau"
+        },
+        "legacyId": 27703
+      },
+      {
+        "id": 19,
+        "value": "evenement-reconduit",
+        "label": {
+          "fr": "Événement reconduit"
+        },
+        "legacyId": 27704
+      }
+    ],
+    "fieldType": "radio"
+  },
+  {
+    "field": "type-danimation",
+    "label": {
+      "fr": "Type d'animation"
+    },
+    "info": {
+      "fr": "Si vous souhaitez être plus précis, vous pouvez également ajouter des mots-clés dans le formulaire."
+    },
+    "placeholder": null,
+    "write": "contributor",
+    "read": null,
+    "optional": false,
+    "origin": "categories",
+    "options": [
+      {
+        "id": 31,
+        "value": "une-categorie",
+        "label": {
+          "fr" : "Une catégorie"
+        }
+      },
+      {
+        "id": 20,
+        "value": "evenement-ponctuel-atelier",
+        "label": {
+          "fr": "[Evènement ponctuel] Atelier"
+        },
+        "legacyId": 5979
+      },
+      {
+        "id": 21,
+        "value": "evenement-ponctuel-exposition",
+        "label": {
+          "fr": "[Evènement ponctuel] Exposition"
+        },
+        "legacyId": 5980
+      },
+      {
+        "id": 22,
+        "value": "evenement-ponctuel-jeu",
+        "label": {
+          "fr": "[Evènement ponctuel] Jeu"
+        },
+        "legacyId": 5981
+      },
+      {
+        "id": 23,
+        "value": "evenement-ponctuel-conference",
+        "label": {
+          "fr": "[Evènement ponctuel] Conférence"
+        },
+        "legacyId": 5982
+      },
+      {
+        "id": 24,
+        "value": "evenement-ponctuel-rencontre-debat",
+        "label": {
+          "fr": "[Evènement ponctuel] Rencontre / débat"
+        },
+        "legacyId": 5983
+      },
+      {
+        "id": 25,
+        "value": "evenement-ponctuel-spectacle",
+        "label": {
+          "fr": "[Evènement ponctuel] Spectacle"
+        },
+        "legacyId": 5984
+      },
+      {
+        "id": 26,
+        "value": "evenement-ponctuel-visite",
+        "label": {
+          "fr": "[Evènement ponctuel] Visite"
+        },
+        "legacyId": 5985
+      },
+      {
+        "id": 27,
+        "value": "evenement-denvergure-village-des-sciences",
+        "label": {
+          "fr": "[Evènement d'envergure] Village des sciences"
+        },
+        "legacyId": 5986
+      },
+      {
+        "id": 28,
+        "value": "evenement-denvergure-parcours-scientifique",
+        "label": {
+          "fr": "[Evènement d'envergure] Parcours scientifique"
+        },
+        "legacyId": 6053
+      },
+      {
+        "id": 29,
+        "value": "evenement-denvergure-salon",
+        "label": {
+          "fr": "[Evènement d'envergure] Salon"
+        },
+        "legacyId": 6054
+      },
+      {
+        "id": 30,
+        "value": "evenement-denvergure-festival",
+        "label": {
+          "fr": "[Evènement d'envergure] Festival"
+        },
+        "legacyId": 6055
+      }
+    ],
+    "fieldType": "radio"
+  }
+]

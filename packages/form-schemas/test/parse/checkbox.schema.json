@@ -1,5 +1,6 @@
 {
   "nextOptionId": 17,
+  "custom" : null,
   "fields": [
     {
       "field": "organizertype",

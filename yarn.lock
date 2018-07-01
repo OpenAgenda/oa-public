@@ -220,9 +220,9 @@
     redux "^3.7.2"
     redux-form "^7.1.2"
 
-"@openagenda/cibul-model@^0.1.6":
-  version "0.1.12"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.12.tgz#c2cbe1be5feea6383eef5366e7dda215a6e37a47"
+"@openagenda/cibul-model@^0.1.15":
+  version "0.1.15"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.15.tgz#a861bd11a23068156d249c36dee9c4b5defca512"
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -266,9 +266,9 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.0":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.3.tgz#8f0e4182144929e344f70d62674e82b6bbe3fcb7"
+"@openagenda/es-node@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.5.tgz#e3ba65df26910f7585222e818560898f936b1977"
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -450,6 +450,14 @@
     async "^1.5.2"
     debug "2.2.0"
     redis "~0.12"
+
+"@openagenda/queues@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@openagenda/queues/-/queues-1.0.3.tgz#9e259abf3cceb56e475934f13c83d5cb7d234839"
+  dependencies:
+    lodash "^4.17.10"
+    redis "^2.8.0"
+    verror "^1.10.0"
 
 "@openagenda/react-bootstrap-datetimerangepicker@^2.0.5":
   version "2.0.5"

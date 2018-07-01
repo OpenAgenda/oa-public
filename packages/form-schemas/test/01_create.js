@@ -30,8 +30,9 @@ describe( 'form-schemas - functional (server): create', () => {
       success: true,
       id: 1,
       formSchema: {
+        custom: null,
         nextOptionId: 1,
-        fields: [] 
+        fields: []
       }
     } );
 

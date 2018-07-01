@@ -95,7 +95,8 @@ describe( 'FormSchema', () => {
             value: 'option-2',
             label: { fr: 'Option 2' }
           } ]
-        } ]
+        } ],
+        custom: null
       } );
 
       s.getFieldCount().should.equal( 3 );
@@ -315,6 +316,9 @@ describe( 'FormSchema', () => {
   describe( 'extending FormSchema with custom types', () => {
 
     const fs = new FormSchema( {
+      custom: {
+        wigglypoof: customValidator
+      },
       fields: [ {
         field: 'atextfield',
         label: { fr: 'Un champ texte' },
@@ -324,10 +328,6 @@ describe( 'FormSchema', () => {
         label: { fr: 'Saisir Wigglypoof' },
         fieldType: 'wigglypoof'
       } ]
-    }, {
-      custom: {
-        wigglypoof: customValidator
-      }
     } );
 
     const validate = fs.getValidate();

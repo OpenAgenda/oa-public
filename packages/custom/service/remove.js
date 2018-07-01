@@ -1,16 +1,18 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const VError = require( 'verror' );
+
+const log = require( '@openagenda/logs' )( 'remove' );
+
 const validateOptions = require( './validators/options' );
 const config = require( './config' );
 const get = require( './get' );
 const legacy = require( './legacy' );
 
-const log = require( '@openagenda/logs' )( 'remove' );
-
 module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
-  const { knex, schemas, interfaces } = config;
+  const { knex, schemas, interfaces } = config;
 
   const cleanOptions = validateOptions( options );
 
@@ -18,7 +20,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   // verify pre-existing
   
-  const deletedCustom = await await get( formSchemaId, identifier );
+  const deletedCustom = await get( formSchemaId, identifier );
 
   if ( !deletedCustom ) {
 

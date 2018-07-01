@@ -6,8 +6,8 @@ import { render } from 'react-dom';
 
 import FormSchemaComponent from './index';
 
-import SomeCustomComponent from './custom/SomeCustomComponent';
-import someCustomValidator from './custom/someCustomValidator';
+import WigglyPoofComponent from './custom/WigglyPoofComponent';
+import wigglypoofValidator from '../../test/custom/wigglypoof.validator';
 
 if ( module.hot ) module.hot.accept();
 
@@ -21,13 +21,13 @@ class Main extends Component {
         redirect: '/'
       },
       lang: 'fr',
-      custom: {
-        somecustomtype: {
-          validator: someCustomValidator,
-          component: SomeCustomComponent
-        }
+      components: {
+        wigglypoof: WigglyPoofComponent 
       },
       schema: {
+        custom: {
+          wigglypoof: wigglypoofValidator
+        },
         "fields" : [ {
           "field" : "title",
           "fieldType" : "text",
@@ -41,6 +41,10 @@ class Main extends Component {
           "placeholder" : {
             "fr" : "Le titre de votre événement",
             "en" : "Title of your event"
+          },
+          "sub": {
+            "fr" : "Ce champ est requis.",
+            "en" : "This field is required"
           }
         }, {
           "field" : "description",
@@ -54,6 +58,10 @@ class Main extends Component {
           "placeholder" : {
             "fr" : "Une courte description de votre événement",
             "en" : "A short description of your event"
+          },
+          "sub" : {
+            "fr" : "Ce champ est requis",
+            "en" : "This field is required"
           }
         }, {
           "field" : "longDescription",
@@ -62,6 +70,10 @@ class Main extends Component {
           "label" : {
             "fr" : "Description longue",
             "en" : "Long description"
+          },
+          "sub" : {
+            "fr" : "Ce champ ne doit pas exceder 10000 caractères",
+            "en" : "This field should not exceed 10000 characters"
           }
         }, {
           "field" : "conditions",
@@ -69,13 +81,21 @@ class Main extends Component {
           "label" : {
             "fr" : "Conditions de participation, tarifs",
             "en" : "Attendence conditions, pricing"
+          },
+          "sub" : {
+            "fr" : "Tel format est accepté",
+            "en" : "Some specific format is accepted"
           }
         }, {
           "field" : "customfield",
-          "fieldType" : "somecustomtype",
+          "fieldType" : "wigglypoof",
           "label" : {
             "fr" : "Saisissez Wigglypoof",
             "en" : "Type Wigglypoof"
+          },
+          "sub" : {
+            "fr" : "Et uniquement wigglypoof",
+            "en" : "And only wigglypoof"
           }
         } ]
       }

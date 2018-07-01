@@ -92,7 +92,7 @@ async function create( data ) {
       store: JSON.stringify( clean )
     } )
 
-    .then( ids => ids[ 0 ] );
+    .then( ids => ids[ 0 ] );
 
   log( 'created form-schema %s', id );
 
@@ -168,7 +168,7 @@ function init( c ) {
 
   log = logger( 'form-schemas' );
 
-  client = c.knex || knex( {
+  client = c.knex || knex( {
     client: 'mysql',
     connection: c.mysql
   } );

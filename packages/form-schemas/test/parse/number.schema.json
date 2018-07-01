@@ -1,5 +1,6 @@
 {
   "nextOptionId": 1,
+  "custom" : null,
   "fields": [ {
     "field": "pi",
     "optional": true,

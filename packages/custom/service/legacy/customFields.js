@@ -6,7 +6,9 @@ const VError = require( 'verror' );
 
 const config = require( '../config' );
 
-module.exports = set;
+module.exports = _.assign( set, {
+  parse
+} );
 
 async function set( eventId, fields, data ) {
 
@@ -66,5 +68,31 @@ async function set( eventId, fields, data ) {
   const result = await knex( schemas.event ).update( { store: JSON.stringify( current ) } ).where( { id: eventId } );
 
   return !!result;
+
+}
+
+function parse( fields, custom ) {
+
+  const legacyFields = _.keys( custom );
+
+  const parsed = {};
+
+  fields.filter( f => legacyFields.includes( f.field ) ).forEach( f => {
+
+    const value = custom[ f.field ];
+
+    if ( [ 'text', 'textarea' ].includes( f.fieldType ) ) {
+
+      parsed[ f.field ] = value;
+
+    } else {
+
+      log( 'warn', 'unhandled transfer for type %s', f.fieldType );
+
+    }
+
+  } );
+
+  return parsed;
 
 }

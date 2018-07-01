@@ -46,7 +46,7 @@ describe( 'extended events - functional (server): create', function() {
 
   it( 'create the simplest extended event gives a success response', async () => {
 
-    let result = await svc( 3819893 ).create( 123, {
+    const result = await svc( 3819893 ).create( 123, {
       edition: 12,
       contender: 'steve'
     } );
@@ -62,9 +62,9 @@ describe( 'extended events - functional (server): create', function() {
       contender: 'Jeff'
     } ).then( () => {
 
-      let con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
 
-      con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12345, 678 ], ( err, rows ) => {
+      con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12345, 678 ], ( err, rows ) => {
 
         con.end();
 

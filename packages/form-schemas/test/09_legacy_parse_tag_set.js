@@ -148,7 +148,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
           "fieldType": "radio",
           "origin" : "tags"
         }
-      ]
+      ],
+      custom: null
     } );
 
   } );
@@ -176,6 +177,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
       "required": true
     } ).should.eql( {
       "nextOptionId": 4,
+      "custom" : null,
       "fields": [ {
         "field": "type-danimation",
         "label": {
