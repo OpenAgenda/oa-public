@@ -350,7 +350,7 @@ function _loadUserAgendaCreds( v ) {
 
   return w.promise( function( rs, rj ) {
 
-    return agendaStakeholders( v.req.agenda.id ).get( { userId: v.user.id }, ( err, member ) => {
+    return agendaStakeholders( v.req.agenda.id ).get( { userId: user.id }, ( err, member ) => {
 
       if ( err ) return rj( err );
 
@@ -410,6 +410,8 @@ function _loadAccessRequired( v ) {
   v.isDraft = v.event.getIsDraft();
 
   if ( v.req.agenda && v.inAgendaContext ) {
+
+    v.event.isPublishedOn( v.req.agenda );
 
     v.accessRequired = !v.event.isPublishedOn( v.req.agenda );
 
