@@ -168,7 +168,7 @@ Value | Required | Description |
 |`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/Oagenda/queues))
 |`queueName` | * | A string that is the name of your Redis queue. 
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
-|`logger` |  | An object for the method `setModuleConfig` of https://github.com/Oagenda/logs
+|`logger` |  | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/Oagenda/logs)
 
 During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
 
