@@ -268,6 +268,8 @@ function _masonry( listSelector ) {
 
         _reset( true );
 
+        window.oaPageHandler.contentChange();
+
       } );
 
     }

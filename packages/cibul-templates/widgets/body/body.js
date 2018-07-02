@@ -101,7 +101,7 @@ function widget( elem, options ) {
 
     log( 'initing' );
     
-    var uid = _loadRes( options.anchorConfig[ 0 ] );
+    var uid = _loadRes( options.anchorConfig[ 0 ] );
 
     controller = options.register( wLib.interface( 'body', uid, {
       change: change 
@@ -132,7 +132,7 @@ function widget( elem, options ) {
 
         });
 
-      }, function( frameMessage ) {
+      }, frameMessage => {
 
         if ( frameMessage.height ) _adjustFrameHeight( frameMessage.height );
 
