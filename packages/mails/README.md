@@ -87,7 +87,7 @@ const { results, errors } = await mails( {
 The templates can come from an independent folder by setting the environment variable `MAILS_TEMPLATES_DIR` or setting `templatesDir` at initialization.
 
 Then run `yarn start` and navigate to [http://localhost:3000](http://localhost:3000).
-The home page is the list of templates available in the chosen folder (`templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser. 
+The home page is the list of templates available in the chosen folder (`./templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser. 
 
 Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
 
@@ -121,7 +121,7 @@ const mails = require( '@openagenda/mails' );
 
 await mails.init( {
   // Templating
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( __dirname, 'templates' ),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( process.cwd(), 'templates' ),
 
   // Mailing
   transport: {
@@ -240,8 +240,7 @@ If you want to add specific data to a recipient for the template (for example: i
 ```
 
 ***Defaults***
-It's an object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message.
-Defaults can not be overloaded, except for `data`, `headers` and `lang`.
+It's an object that is going to be merged into every message object. This allows you to specify shared options, for example to set a default _from_ address for every message.
 
 ***Data order***
 The data come from several sources, they are `Object.assign`ed in this order:

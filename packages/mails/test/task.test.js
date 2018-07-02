@@ -46,13 +46,13 @@ describe( 'task', () => {
   it( 'respect rateLimit with pool transporter', async done => {
     const recipients = [
       'kevin.bertho@gmail.com',
-      'kevin.berthommier@openagenda.fr',
-      'user1@openagenda.fr',
-      'user2@openagenda.fr',
-      'user3@openagenda.fr',
-      'user4@openagenda.fr',
-      'user5@openagenda.fr',
-      'user6@openagenda.fr',
+      'kevin.berthommier@openagenda.com',
+      'user1@openagenda.com',
+      'user2@openagenda.com',
+      'user3@openagenda.com',
+      'user4@openagenda.com',
+      'user5@openagenda.com',
+      'user6@openagenda.com',
       'kaore@openagenda.com'
     ];
 

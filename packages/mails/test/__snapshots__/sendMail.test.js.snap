@@ -1,5 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`sendMail Euthreal transport override default "from" value 1`] = `
+Array [
+  Object {
+    "accepted": Array [
+      "kevin.bertho@gmail.com",
+    ],
+    "envelope": Object {
+      "from": "admin@openagenda.com",
+      "to": Array [
+        "kevin.bertho@gmail.com",
+      ],
+    },
+    "messageSize": 6134,
+    "rejected": Array [],
+  },
+]
+`;
+
 exports[`sendMail Euthreal transport send email directly (without queue) - helloWorld template 1`] = `
 Array [
   Object {
@@ -7,25 +25,25 @@ Array [
       "kevin.bertho@gmail.com",
     ],
     "envelope": Object {
-      "from": "",
+      "from": "no-reply@openagenda.com",
       "to": Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6142,
+    "messageSize": 6174,
     "rejected": Array [],
   },
   Object {
     "accepted": Array [
-      "kevin.berthommier@openagenda.fr",
+      "kevin.berthommier@openagenda.com",
     ],
     "envelope": Object {
-      "from": "",
+      "from": "no-reply@openagenda.com",
       "to": Array [
-        "kevin.berthommier@openagenda.fr",
+        "kevin.berthommier@openagenda.com",
       ],
     },
-    "messageSize": 6114,
+    "messageSize": 6147,
     "rejected": Array [],
   },
   Object {
@@ -33,12 +51,12 @@ Array [
       "kaore@openagenda.com",
     ],
     "envelope": Object {
-      "from": "",
+      "from": "no-reply@openagenda.com",
       "to": Array [
         "kaore@openagenda.com",
       ],
     },
-    "messageSize": 6102,
+    "messageSize": 6134,
     "rejected": Array [],
   },
 ]
@@ -56,7 +74,6 @@ Object {
     "domain": "https://openagenda.com",
     "username": "kaore",
   },
-  "headers": Object {},
   "html": "
     <!doctype html>
     <html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
@@ -254,7 +271,6 @@ Object {
     "domain": "https://openagenda.com",
     "username": "bertho",
   },
-  "headers": Object {},
   "html": "
     <!doctype html>
     <html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
@@ -443,13 +459,12 @@ Object {
 }
 `;
 
-exports[`sendMail JSON transport send email - helloWorld template: kevin.berthommier@openagenda.fr mail 1`] = `
+exports[`sendMail JSON transport send email - helloWorld template: kevin.berthommier@openagenda.com mail 1`] = `
 Object {
   "data": Object {
     "domain": "https://openagenda.com",
     "username": "bertho",
   },
-  "headers": Object {},
   "html": "
     <!doctype html>
     <html xmlns=\\"http://www.w3.org/1999/xhtml\\" xmlns:v=\\"urn:schemas-microsoft-com:vml\\" xmlns:o=\\"urn:schemas-microsoft-com:office:office\\">
@@ -632,7 +647,7 @@ Object {
   ",
   "template": "helloWorld",
   "to": Object {
-    "address": "kevin.berthommier@openagenda.fr",
+    "address": "kevin.berthommier@openagenda.com",
     "name": "",
   },
 }

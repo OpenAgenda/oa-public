@@ -2,7 +2,7 @@ const path = require( 'path' );
 const makeLabelGetter = require( '../utils/makeLabelGetter' );
 
 module.exports = {
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.resolve( path.dirname( __dirname ), 'templates' ),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.resolve( process.cwd(), 'templates' ),
   defaults: {
     lang: 'en',
     data: {

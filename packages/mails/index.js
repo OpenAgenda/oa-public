@@ -1,30 +1,9 @@
-const _ = require( 'lodash' );
 const addressParser = require( 'nodemailer/lib/addressparser' );
 const isEmail = require( 'isemail' );
 const VError = require( 'verror' );
 const task = require( './task' );
 const templater = require( './templater' );
 const config = require( './config' );
-
-// from nodemailer
-function mergeOpts( source, ...objects ) {
-  objects.forEach( object => {
-    Object.keys( object || {} ).forEach( key => {
-      if ( !( key in source ) ) {
-        source[ key ] = object[ key ];
-      } else if ( [ 'headers', 'data' ].includes( key ) ) {
-        // headers is a special case. Allow setting individual default headers
-        Object.keys( object[ key ] ).forEach( key2 => {
-          if ( !( key2 in source[ key ] ) ) {
-            source[ key ][ key2 ] = object[ key ][ key2 ];
-          }
-        } );
-      }
-    } );
-  } );
-
-  return source;
-}
 
 function recipientToArray( recipient ) {
   return typeof recipient === 'object' && recipient !== null
@@ -40,33 +19,23 @@ function flattenRecipients( recipients ) {
 }
 
 async function sendMail( options = {} ) {
-  const params = {
-    headers: {},
-    data: {}
-  };
-
-  mergeOpts(
-    params,
-    config.defaults,
-    _.omit( options, 'data' ) // assign options.data later
-  );
-
-  const template = params.template ? templater.compile( params.template, { lang: params.lang } ) : null;
-  const recipients = flattenRecipients( params.to );
+  const defaultLang = options.lang || config.defaults.lang;
+  const template = options.template ? templater.compile( options.template, { lang: defaultLang } ) : null;
+  const recipients = flattenRecipients( options.to );
 
   const results = [];
   const errors = [];
 
   for ( const recipient of recipients ) {
-    const lang = recipient.lang || params.lang;
-    const templateData = Object.assign( { lang }, options.data || {}, recipient.data || {}, params.data );
+    const lang = recipient.lang || defaultLang;
+    const templateData = Object.assign( { lang }, options.data, recipient.data, config.defaults.data );
 
     if ( !isEmail.validate( recipient.address ) ) {
       errors.push(
         new VError(
           {
             info: {
-              ...params,
+              ...options,
               to: recipient,
               data: templateData
             }
@@ -79,19 +48,19 @@ async function sendMail( options = {} ) {
 
     try {
       if ( template ) {
-        const labels = ( config.translations.labels || {} )[ params.template ] || {};
+        const labels = ( config.translations.labels || {} )[ options.template ] || {};
         const __ = config.translations.makeLabelGetter( labels, lang );
 
-        params.html = template( {
+        options.html = template( {
           ...templateData,
           __
         } );
       }
 
-      const method = params.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
+      const method = options.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
 
       const result = await method( {
-        ...params,
+        ...options,
         to: recipient,
         data: templateData
       } );
@@ -102,7 +71,7 @@ async function sendMail( options = {} ) {
         new VError(
           {
             info: {
-              ...params,
+              ...options,
               to: recipient,
               data: templateData
             },

@@ -44,7 +44,7 @@ describe( 'sendMail', () => {
           username: 'bertho'
         },
         to: [
-          'kevin.bertho@gmail.com, kevin.berthommier@openagenda.fr',
+          'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
           { address: '"Kaoré" <kaore@openagenda.com>', data: { username: 'kaore' } }
         ]
       } );
@@ -53,7 +53,7 @@ describe( 'sendMail', () => {
       expect( errors ).toHaveLength( 0 );
 
       expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.bertho@gmail.com mail' );
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.berthommier@openagenda.fr mail' );
+      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.berthommier@openagenda.com mail' );
       expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kaore@openagenda.com mail' );
     } );
 
@@ -97,6 +97,7 @@ describe( 'sendMail', () => {
       await config.init( {
         transport: getEtherealTransport(),
         defaults: {
+          from: 'no-reply@openagenda.com',
           data: {
             domain: 'https://openagenda.com'
           }
@@ -114,7 +115,7 @@ describe( 'sendMail', () => {
           username: 'Bertho'
         },
         to: [
-          '"Kévin Berthommier" <kevin.bertho@gmail.com>, kevin.berthommier@openagenda.fr',
+          '"Kévin Berthommier" <kevin.bertho@gmail.com>, kevin.berthommier@openagenda.com',
           { address: 'kaore@openagenda.com', data: { username: 'Kaore' } }
         ],
         queue: false
@@ -126,6 +127,34 @@ describe( 'sendMail', () => {
         console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
         expect( result.response ).toContain( '250' );
       }
+
+      expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
+    } );
+
+    it( 'override default "from" value', async () => {
+      const from = 'admin@openagenda.com';
+
+      const { results, errors } = await mails( {
+        template: 'helloWorld',
+        from,
+        to: [
+          {
+            address: 'kevin.bertho@gmail.com',
+            name: 'Kévin Berthommier',
+            data: { username: 'Bertho' }
+          }
+        ],
+        queue: false
+      } );
+
+      expect( errors ).toHaveLength( 0 );
+
+      for ( const result of results ) {
+        console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
+        expect( result.response ).toContain( '250' );
+      }
+
+      expect( results[ 0 ].envelope.from ).toBe( from );
 
       expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
     } );

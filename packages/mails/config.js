@@ -9,7 +9,7 @@ const makeLabelGetter = require( './utils/makeLabelGetter' );
 const log = logs( 'mails/config' );
 
 const config = {
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( __dirname, 'templates' ),
+  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( process.cwd(), 'templates' ),
   transport: {
     pool: true,
     host: '127.0.0.1',
