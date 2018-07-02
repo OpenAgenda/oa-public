@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-//const custom = require( '@openagenda/custom' );
+const custom = require( '@openagenda/custom' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
@@ -48,7 +48,7 @@ module.exports = async ( ae, context ) => {
 
   if ( context.legacy ) {
 
-    // if ( agenda.formSchemaId ) await custom( agenda.formSchemaId ).transferFromLegacy( event.uid );
+    if ( agenda.formSchemaId ) await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
 
   } else {
 

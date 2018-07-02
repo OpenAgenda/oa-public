@@ -42,8 +42,8 @@ module.exports = async agendaUid => {
       resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
-      resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`
-      //resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`
+      resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`,
+      resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`
     }
   }
 
