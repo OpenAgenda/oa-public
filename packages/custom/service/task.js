@@ -35,7 +35,7 @@ async function task() {
 
       } else {
 
-        await transfer( data.formSchemaId, data.identifier );
+        await transfer( data.formSchemaId, data.identifier, data.agendaId );
 
       }
 
@@ -67,9 +67,10 @@ async function enqueueLegacyReferences( formSchemaId, agendaId ) {
     .limit( 20 )
   ).length ) {
 
+    // a transfer must also be done in the context of an agenda
     for ( const ref of refs ) {
 
-      await config.queue( { job: 'transfer', formSchemaId, identifier: ref.uid } );
+      await config.queue( { job: 'transfer', formSchemaId, identifier: ref.uid, agendaId } );
 
     }
 

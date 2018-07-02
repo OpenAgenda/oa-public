@@ -11,7 +11,7 @@ const svc = require( './service' );
 
 const formSchemaFields = JSON.parse( fs.readFileSync( __dirname + '/fixtures/fds-fields.json' , 'utf-8' ) );
 
-describe.only( 'custom - functional (server): transfer from legacy', function() {
+describe( 'custom - functional (server): transfer from legacy', function() {
 
   this.timeout( 4000 );
 
@@ -46,7 +46,7 @@ describe.only( 'custom - functional (server): transfer from legacy', function() 
 
   } );
 
-  it( 'legacy transfer to puts legacy custom data in the set item', async () => {
+  it( 'legacy transfer puts legacy custom data in the set item', async () => {
 
     await svc( 42 ).transferFromLegacy( 3842071 );
 

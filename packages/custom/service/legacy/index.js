@@ -22,7 +22,7 @@ async function set( formSchemaId, identifier, data ) {
     agendaId,
     eventId,
     agendaEventId
-  } = await load( formSchemaId, identifier, true );
+  } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
 
   await customFields( eventId,
     fields.filter( f => f.origin === 'custom' ), data );

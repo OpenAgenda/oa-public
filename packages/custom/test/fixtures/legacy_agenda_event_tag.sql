@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event_tag` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `review_article_id` bigint(20) NOT NULL,
   `review_tag_id` bigint(20) NOT NULL,
+  `updated_at` datetime not null,
   PRIMARY KEY(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

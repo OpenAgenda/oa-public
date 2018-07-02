@@ -7,7 +7,12 @@ const log = require( '@openagenda/logs' )( 'legacy/load' );
 const agendaEvents = require( './agendaEvents' );
 const config = require( '../config' );
 
-module.exports = async ( formSchemaId, identifier, insertIfNotExists = false ) => {
+module.exports = async ( formSchemaId, identifier, options = {} ) => {
+
+  const { insertIfNotExists, agendaId } = _.assign( {
+    insertIfNotExists: false,
+    agendaId: null
+  }, options );
 
   log( 'loading legacy data for %s', formSchemaId );
 
@@ -17,8 +22,15 @@ module.exports = async ( formSchemaId, identifier, insertIfNotExists = false ) =
 
   const fields = await interfaces.getFormSchemaFields( formSchemaId );  
 
-  const { id: agendaId } = await knex( schemas.agenda )
-    .first( 'id' ).where( 'form_schema_id', formSchemaId );
+  let aId = agendaId;
+
+  if ( !agendaId ) {
+
+    aId = _.get( await knex( schemas.agenda )
+      .first( 'id' )
+      .where( 'form_schema_id', formSchemaId ), 'id' );
+
+  }
 
   const {
     id: eventId,
@@ -32,15 +44,15 @@ module.exports = async ( formSchemaId, identifier, insertIfNotExists = false ) =
   const {
     id: agendaEventId,
     categoryId
-  } = await agendaEvents( agendaId, eventId, insertIfNotExists );
+  } = await agendaEvents( aId, eventId, insertIfNotExists );
 
   if ( !agendaEventId ) {
 
-    throw new Error( `Did not find review_article ${agendaId}.${eventId}` );
+    throw new Error( `Did not find review_article ${aId}.${eventId}` );
 
   }
 
-  log( 'loaded legacy agenda-event reference %s.%s', agendaId, eventId );
+  log( 'loaded legacy agenda-event reference %s.%s', aId, eventId );
 
   const custom = {};
 
@@ -60,7 +72,7 @@ module.exports = async ( formSchemaId, identifier, insertIfNotExists = false ) =
 
   return {
     fields,
-    agendaId,
+    agendaId: aId,
     eventId,
     agendaEventId,
     categoryId,

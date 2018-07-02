@@ -14,16 +14,16 @@ const categories = require( './categories' );
 const customFields = require( './customFields' );
 const tags = require( './tags' );
 
-module.exports = async ( formSchemaId, identifier ) => {
+module.exports = async ( formSchemaId, identifier, defaultAgendaId = null ) => {
 
   const {
-    fields,
     agendaId,
+    fields,
     eventId,
     agendaEventId,
     custom,
     categoryId
-  } = await load( formSchemaId, identifier );
+  } = await load( formSchemaId, identifier, defaultAgendaId );
 
   const toTransfer = _.assign( 
     await customFields.parse( fields, custom ),
@@ -31,7 +31,7 @@ module.exports = async ( formSchemaId, identifier ) => {
     await categories.parse( categoryId, fields.filter( f => f.origin === 'categories' ) )
   );
 
-  const emptyLegacyCustom = _.keys( toTransfer ).length;
+  const emptyLegacyCustom = !_.keys( toTransfer ).length;
   const current = await serviceGet( formSchemaId, identifier );
 
   if ( emptyLegacyCustom && current ) {

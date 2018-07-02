@@ -107,7 +107,10 @@ describe( 'custom - functional (server): legacy', function() {
 
     const config = svc.getConfig();
 
-    const legacyAgendaEvents = await config.knex( config.legacy.schemas.agendaEvent ).select();
+    const legacyAgendaEvents = await config.knex( config.legacy.schemas.agendaEvent ).select().where( {
+      review_id: 1010101,
+      event_id: 147621
+    } );
 
     // this works as long as there is only one ref in fixtures.
     // tag refs will be removed by cascade

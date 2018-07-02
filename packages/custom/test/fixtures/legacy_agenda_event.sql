@@ -8,4 +8,5 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
 
 INSERT INTO `legacy_agenda_event` (`id`, `review_id`, `event_id`, `category_id` ) VALUES
 (111, 1010101, 147621, NULL ),
+(112, 1010101, 147620, NULL ),
 (1743417, 13866, 395113, 123 );

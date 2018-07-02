@@ -87,7 +87,7 @@ function parse( fields, custom ) {
 
     } else {
 
-      log( 'warn', 'unhandled transfer for type %s', f.fieldType );
+      log( 'warn', 'unhandled transfer for type %s', f.fieldType || 'unspecified' );
 
     }
 
