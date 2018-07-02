@@ -210,7 +210,8 @@ describe( 'sendMail', () => {
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
-          data: { username: 'bertho', lang: 'fr' }
+          data: { username: 'bertho' },
+          lang: 'fr'
         },
         queue: false
       } );

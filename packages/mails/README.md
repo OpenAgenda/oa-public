@@ -76,7 +76,8 @@ const { results, errors } = await mails( {
   template: 'helloWorld',
   to: {
     address: 'kevin.bertho@gmail.com',
-    data: { username: 'bertho', lang: 'fr' }
+    data: { username: 'bertho' },
+    lang: 'fr'
   }
 } );
 ```
@@ -196,7 +197,8 @@ await mails( {
   template: 'helloWorld',
   to: {
     address: 'kevin.bertho@gmail.com',
-    data: { username: 'bertho', lang: 'fr' }
+    data: { username: 'bertho' },
+    lang: 'fr'
   },
   queue: false
 } );
@@ -228,11 +230,12 @@ It allows not to block the sending of emails for all when there is only a malfor
 ***Recipients***
 You will find more information on the nodemailer documention (https://nodemailer.com/message/addresses/).
 The main difference is that the email is sent separately to each recipient, one mail/one recipient.
-If you want to add specific data to a recipient for the template (for example: its name, age, role, etc.) you must use an object with the data key, the language of the recipient can be in the data key:
+If you want to add specific data to a recipient for the template (for example: its name, age, role, etc.) you must use an object with the data key, the language of the recipient can be in the lang key:
 ```js
 {
   address: 'kevin.bertho@gmail.com',
-  data: { lang: 'fr', username: 'bertho' }
+  data: { username: 'bertho' },
+  lang: 'fr'
 }
 ```
 
@@ -252,8 +255,7 @@ As for data, the language can be overloaded in several places, in this order:
 
  - `{ lang }` from `defaults`.
  - `lang` from the `sendMail` options
- - `lang` from the data of `sendMail` options
- - `lang` from the current recipient (`recipient.data.lang`)
+ - `lang` from the current recipient (`recipient.lang`)
 
 The `__` and `lang` values are passed to the template.
 

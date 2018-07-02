@@ -58,7 +58,8 @@ async function sendMail( options = {} ) {
   const errors = [];
 
   for ( const recipient of recipients ) {
-    const templateData = Object.assign( { lang: params.lang }, options.data || {}, recipient.data || {}, params.data );
+    const lang = recipient.lang || params.lang;
+    const templateData = Object.assign( { lang }, options.data || {}, recipient.data || {}, params.data );
 
     if ( !isEmail.validate( recipient.address ) ) {
       errors.push(
@@ -79,7 +80,7 @@ async function sendMail( options = {} ) {
     try {
       if ( template ) {
         const labels = ( config.translations.labels || {} )[ params.template ] || {};
-        const __ = config.translations.makeLabelGetter( labels, templateData.lang );
+        const __ = config.translations.makeLabelGetter( labels, lang );
 
         params.html = template( {
           ...templateData,
