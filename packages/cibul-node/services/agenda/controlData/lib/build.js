@@ -479,7 +479,7 @@ function _extractEvent( agenda, event ) {
 
     if ( !org || typeof org.slug !== 'string' || !org.slug.length ) return;
 
-    parsed.org = {
+    parsed.org = {
       l: org.label,
       s: org.slug
     }

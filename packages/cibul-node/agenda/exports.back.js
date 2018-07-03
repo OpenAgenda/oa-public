@@ -26,6 +26,12 @@ const modLib = require( '../lib/moduleLib' ),
       agendaSvc.mw.buildXlsx( true )
     ] ],
 
+    agendaAdminRssEvents: [ 'get', '/events.rss', [
+      cmn.checkAdminOrModeratorOrKey,
+      agendaSvc.mw.search( perPage, true ),
+      agendaSvc.mw.rss
+    ] ],
+
     agendaAdminJsonEvents: [ 'get', '/events.json', [
       cmn.checkAdminOrModeratorOrKey,
       agendaSvc.mw.search( perPage, true ),
@@ -39,7 +45,7 @@ const modLib = require( '../lib/moduleLib' ),
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     cmn.redirectLegacySearch,
