@@ -797,11 +797,16 @@ function EventFormFactory() {
 
         if ( o.field === 'references' ) {
 
+          const sample = _.extend( _.pick( this.state, [ 'title', 'description', 'keywords', 'location', 'custom' ] ), {
+            tags: _.get( this.state, 'agendas.0.tags', [] ),
+            category: _.get( this.state, 'agendas.0.category' )
+          } );
+
           return <div>{this.props.configuration.field( 'references' ).display( false ) ? <References
             initUids={this.state.references}
             res={this.props.referenceRes}
             info={this.props.configuration.field( 'references' ).getInfo( true, false )}
-            sample={this.props.configuration.field( 'references' ).get( 'suggest', false ) ? _.pick( this.state, [ 'title', 'description', 'keywords', 'location' ] ) : null }
+            sample={sample}
             onChange={this.props.onReferencesChange}
           /> : null}</div>
 
