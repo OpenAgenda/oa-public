@@ -1,7 +1,8 @@
 "use strict";
 
-const should = require( 'should' );
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
+const should = require( 'should' );
 
 const config = require( '../testconfig' );
 
@@ -10,7 +11,6 @@ const contributors = require( './service/contributors' );
 
 const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
 const service = require( '../' );
-const _ = require( 'lodash' );
 
 const dslSearch = require( '../service/search' ).dsl;
 
