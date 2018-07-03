@@ -4,7 +4,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.dev.js",
+    "start": "nodemon server.dev.js -w $MAILS_TEMPLATES_DIR",
     "test": "jest --forceExit",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'"
