@@ -16,7 +16,9 @@ const defaultSearchOptions = {
   includeCustom: false
 };
 
-schema.register( { boolean: require( '@openagenda/validators/boolean' ) } )
+schema.register( {
+  boolean: require( '@openagenda/validators/boolean' )
+} );
 
 const validateOptions = schema( {
   refresh: {
