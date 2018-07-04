@@ -2,19 +2,22 @@
 
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
+const w = require( 'when' );
+
+const agendaEvents = require( '@openagenda/agenda-events' );
+const agendaSvc = require( '@openagenda/agendas' );
+const contributorLabels = require( '@openagenda/labels/event/contributors' );
+const eventReferences = require( '@openagenda/agenda-event-references' );
+const formSchemas = require( '@openagenda/form-schemas' );
+const sessions = require( '@openagenda/sessions' );
+const customSvc = require( '@openagenda/custom' );
 
 const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
-const sessions = require( '@openagenda/sessions' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
-const agendaSvc = require( '@openagenda/agendas' );
-const eventReferences = require( '@openagenda/agenda-event-references' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
-const contributorLabels = require( '@openagenda/labels/event/contributors' );
-const w = require( 'when' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 
@@ -91,6 +94,7 @@ const routes = {
     ( req, res, next ) => {
 
       req.agendaId = req.agenda.id;
+
       next();
 
     },
@@ -102,9 +106,81 @@ const routes = {
 
   agendaEventReferenceSuggestion: [ 'get', '/agendas/:uid/events/suggestions', [
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+    agendaSvc.middleware.load( {
+      namespaces: {
+        identifiers: {
+          uid: 'params.uid'
+        },
+        result: 'agenda'
+      },
+      internal: true,
+      private: null
+    } ),
+    ( req, res, next ) => {
+
+      ( req.agenda.formSchemaId
+        ? formSchemas.get( req.agenda.formSchemaId )
+        : formSchemas.legacy.get( req.agenda.id ) ).then( fs => {
+
+        req.formSchemaFields = fs.fields;
+
+        next();
+
+      } );
+
+    },
     ( req, res, next ) => {
 
       req.agendaUid = req.params.uid;
+
+      const custom = customSvc.parseLegacy( req.formSchemaFields, {
+        custom: _.get( req, 'query.sample.custom', null ),
+        tags: _.get( req, 'query.sample.tags', [] ).map( t => t.label ),
+        category: _.get( req, 'query.sample.category', [] ).map( c => c.label )
+      } );
+
+      /*
+      custom
+      { infocom_title: 'fds',
+        infocom_cap: 'fsdq',
+        'thematiques-internes': [ 52 ],
+        labels: [ 24 ] 
+      }
+      */
+
+      req.query.sample = _.assignIn( _.omit( req.query.sample, [ 'custom', 'tags', 'category' ] ), { custom } );
+
+      /**
+      { 
+        location: { 
+          region: 'Île-de-France',
+          uid: '31881159',
+          phone: '',
+          department: 'Paris',
+          state: '0',
+          countryCode: 'FR',
+          image: '',
+          city: 'Paris',
+          updatedAt: '2017-10-09T16:29:32.153Z',
+          timezone: 'Europe/Paris',
+          postalCode: '75001',
+          address: 'Paris',
+          name: 'Paris',
+          longitude: '2.32818381449945',
+          imageCredits: '',
+          latitude: '48.8659680061992',
+          agendaId: '9017' },
+        custom: {
+          internal_remarks: 'fdsqfdq',
+          'service-contributeur': [ 6 ],
+          'type-devenement': 39,
+          quartiers: [ 19, 21 ],
+          'publics-cibles': [ 28 ],
+          'thematiques-internes': [ 51 ],
+          labels: [ 24, 25 ]
+        } 
+      }
+      **/
 
       next();
 
@@ -281,11 +357,9 @@ function _xhrResponse( req, res, next ) {
 
 function _redirect( req, res ) {
 
-  var uri = 'eventShow',
+  const query = { eventSlug: req.event.slug };
 
-    query = { eventSlug: req.event.slug },
-
-    redirectUrl;
+  let redirectUrl;
 
   if ( req.query.redirect ) {
 
@@ -418,7 +492,7 @@ function _changeState( req, res, next ) {
 
 function _changeFeatured( req, res, next ) {
 
-  var funcs = {
+  const funcs = {
     featured: req.agenda.setEventFeatured,
     notfeatured: req.agenda.setEventUnfeatured
   };
@@ -452,7 +526,7 @@ function _checkAuthorizedChanges( authorizedTypes ) {
 
     req.log( 'checking authorized changes for type %s', req.params.type );
 
-    var type = req.params.type;
+    let type = req.params.type;
 
     if ( type == parseInt( type, 10 ) ) {
 

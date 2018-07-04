@@ -23,7 +23,6 @@ module.exports = async ( req, res, next ) => {
   // if a form schema is defined, it is the reference for order.
   // if it derives from store custom fields, legacy order applies.
 
-
   res.json( order );
 
 }
