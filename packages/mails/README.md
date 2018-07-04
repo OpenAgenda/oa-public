@@ -91,10 +91,10 @@ The home page is the list of templates available in the chosen folder (`./templa
 
 Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
 
-**index.mjml** is the entry point of your template, it can be split into different partials (see [`mj-include`](https://mjml.io/documentation/#mj-include) of MJML).
-**text.ejs** is the text version of your template.
-**subject.ejs** is the subject of the mail corresponding to your template.
-**fixtures.js** exports data that are used in the template to preview as in production. If you use translations you can put your labels in a `$labels` key and add a `__` custom method if you need it.
+**index.mjml** is the entry point of your template, it can be split into different partials (see [`mj-include`](https://mjml.io/documentation/#mj-include) of MJML).  
+**text.ejs** is the text version of your template.  
+**subject.ejs** is the subject of the mail corresponding to your template.  
+**fixtures.js** exports data that are used in the template to preview as in production. If you use translations with dev app you can put your labels in a `$labels` key and add a `__` custom method if you need it.
 
 The structure of your templates folder can look like this:
 ```
@@ -165,7 +165,7 @@ await mails.init( {
 **options**
 
 Value | Required | Description |
-|---:|:---:|---|
+|---|:---:|---|
 |`templatesDir` | * | The folder path containing your templates.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
@@ -219,13 +219,13 @@ Name | Type | Description |
 ***Options***
 
 | Value | Required | Description |
-|---:|:---:|---|
+|---|:---:|---|
 | template |  | A string that is the name of the template, is equal to the folder name. |
 | data |  | An object that contains the data to passed to the template, this can be overloaded for each recipient. |
 | lang |  | A string that defines the default language that will be applied to all recipients without lang. |
 | to | * | A recipient or array of recipients. |
 | queue |  | A Boolean, if false do not queue job and execute directly. |
-| **...** |  | **All other nodemailer properties are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
+| **...** |  | **All other nodemailer options are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
 
 
 
@@ -268,7 +268,8 @@ The `__` and `lang` values are passed to the template.
 
 If you can send a lot of messages it is better to use the Redis queue rather than the memory.
 
-To use a `rateLimit` you will need to boot a transport with the `pool: true` option. Learn more at [Delivering bulk mail](https://nodemailer.com/usage/bulk-mail/) and [Pooled SMTP](https://nodemailer.com/smtp/pooled/)
+To use a `rateLimit` you will need to boot a transport with the `pool: true` option.  
+Learn more at [Delivering bulk mail](https://nodemailer.com/usage/bulk-mail/) and [Pooled SMTP](https://nodemailer.com/smtp/pooled/)
 
 Make sure to run the task before sending any email, just after the initialization looks correct.
 
@@ -309,7 +310,7 @@ Name | Type | Description |
 **Options**
 
 | Value | Required | Description |
-|---:|:---:|---|
+|---|:---:|---|
 | disableHtml |  | A Boolean, if true then `html` is not rendered and is equal null. |
 | disableText |  | A Boolean, if true then `text` is not rendered and is equal null. |
 | disableSubject |  | A Boolean, if true then `subject` is not rendered and is equal null. |
@@ -332,7 +333,7 @@ Name | Type | Description |
 **Options**
 
 | Value | Required | Description |
-|---:|:---:|---|
+|---|:---:|---|
 | disableHtml |  | A Boolean, if true then `html` is not compiled and is equal null. |
 | disableText |  | A Boolean, if true then `text` is not compiled and is equal null. |
 | disableSubject |  | A Boolean, if true then `subject` is not compiled and is equal null. |
