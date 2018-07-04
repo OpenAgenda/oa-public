@@ -94,7 +94,8 @@ app.get( /.mjml$/, ( req, res, next ) => {
   const __ = config.translations.makeLabelGetter( labels, lang );
 
   const { html: initialHtml, text, subject } = render( templateName, data, { lang, __ } );
-  let html = initialHtml;
+
+  let html = initialHtml || '<html><body></body></html>';
 
   if ( subject ) {
     html = html.replace(

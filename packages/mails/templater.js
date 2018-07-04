@@ -27,12 +27,7 @@ function getCompiledRenderer( compiled, type, templateName, opts ) {
         __: data.__ || __
       };
 
-      try {
-        return compiled[ type ]( templateData );
-      } catch ( e ) {
-        log.debug( new VError( e, `Error rendering ${type} compiled of the template ${templateName}` ) );
-        return null;
-      }
+      return compiled[ type ]( templateData );
     };
 }
 
@@ -41,8 +36,15 @@ function compile( templateName, opts = {} ) {
   const compiled = {};
 
   if ( !opts.disableHtml ) {
+    let rawHtml = null;
+
     try {
-      const rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+    } catch ( e ) {
+      log.error( new VError( e, `Error compiling html of the template '${templateName}'` ) );
+    }
+
+    if ( rawHtml ) {
       const { html: preHtml, errors } = mjml2html( rawHtml );
 
       if ( errors && errors.length ) {
@@ -55,33 +57,42 @@ function compile( templateName, opts = {} ) {
       }
 
       compiled.html = ejs.compile( preHtml, opts );
-    } catch ( e ) {
-      log.debug( new VError( e, `Error compiling html of the template '${templateName}'` ) );
     }
   }
 
   if ( !opts.disableText ) {
+    let rawText = null;
+
     try {
-      const rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
-      compiled.text = ejs.compile( rawText, opts );
+      rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
     } catch ( e ) {
-      log.debug( new VError( e, `Error compiling text of the template '${templateName}'` ) );
+      log.error( new VError( e, `Error compiling text of the template '${templateName}'` ) );
+    }
+
+    if ( rawText ) {
+      compiled.text = ejs.compile( rawText, opts );
     }
   }
 
   if ( !opts.disableSubject ) {
+    let rawSubject = null;
+
     try {
-      const rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
-      compiled.subject = ejs.compile( rawSubject, opts );
+      rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
     } catch ( e ) {
-      log.debug( new VError( e, `Error compiling subject of the template '${templateName}'` ) );
+      log.error( new VError( e, `Error compiling subject of the template '${templateName}'` ) );
+    }
+
+    if ( rawSubject ) {
+      compiled.subject = ejs.compile( rawSubject, opts );
     }
   }
 
   return {
-    html: opts.disableHtml ? null : getCompiledRenderer( compiled, 'html', templateName, opts ),
-    text: opts.disableText ? null : getCompiledRenderer( compiled, 'text', templateName, opts ),
-    subject: opts.disableSubject ? null : getCompiledRenderer( compiled, 'subject', templateName, opts )
+    html: opts.disableHtml || !compiled.html ? null : getCompiledRenderer( compiled, 'html', templateName, opts ),
+    text: opts.disableText || !compiled.text ? null : getCompiledRenderer( compiled, 'text', templateName, opts ),
+    subject:
+      opts.disableSubject || !compiled.subject ? null : getCompiledRenderer( compiled, 'subject', templateName, opts )
   };
 }
 
@@ -105,9 +116,17 @@ function render( templateName, data = {}, opts = {} ) {
   let text = null;
   let subject = null;
 
+  // Html
   if ( !opts.disableHtml ) {
+    let rawHtml = null;
+
     try {
-      const rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+    } catch ( e ) {
+      log.error( new VError( e, `Error rendering html of the template '${templateName}'` ) );
+    }
+
+    if ( rawHtml ) {
       const { html: preHtml, errors } = mjml2html( rawHtml );
 
       if ( errors && errors.length ) {
@@ -120,26 +139,36 @@ function render( templateName, data = {}, opts = {} ) {
       }
 
       html = ejs.render( preHtml, templateData, opts );
-    } catch ( e ) {
-      log.debug( new VError( e, `Error rendering html of the template '${templateName}'` ) );
     }
   }
 
+  // Text
   if ( !opts.disableText ) {
+    let rawText = null;
+
     try {
-      const rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
-      text = ejs.render( rawText, templateData, opts );
+      rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
     } catch ( e ) {
-      log.debug( new VError( e, `Error rendering text of the template '${templateName}'` ) );
+      log.error( new VError( e, `Error rendering text of the template '${templateName}'` ) );
+    }
+
+    if ( rawText ) {
+      text = ejs.render( rawText, templateData, opts );
     }
   }
 
+  // Subject
   if ( !opts.disableSubject ) {
+    let rawSubject = null;
+
     try {
-      const rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
-      subject = ejs.render( rawSubject, templateData, opts );
+      rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
     } catch ( e ) {
-      log.debug( new VError( e, `Error rendering subject of the template '${templateName}'` ) );
+      log.error( new VError( e, `Error rendering subject of the template '${templateName}'` ) );
+    }
+
+    if ( rawSubject ) {
+      subject = ejs.render( rawSubject, templateData, opts );
     }
   }
 

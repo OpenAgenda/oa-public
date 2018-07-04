@@ -84,10 +84,14 @@ const { results, errors } = await mails( {
 
 ### Building templates
 
-The templates can come from an independent folder by setting the environment variable `MAILS_TEMPLATES_DIR` or setting `templatesDir` at initialization.
+#### Launching app
 
-Then run `yarn start` and navigate to [http://localhost:3000](http://localhost:3000).
-The home page is the list of templates available in the chosen folder (`./templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser. 
+The templates can come from an independent folder by running the `oa-mails-editor` binary, setting the environment variable `MAILS_TEMPLATES_DIR` or setting `templatesDir` at initialization.
+
+The simpliest method is to run `oa-mails-editor` from the directory of templates and navigate to [http://localhost:3000](http://localhost:3000).  
+The home page is the list of templates available in the chosen folder (`./templates` by default), once on the template to edit you just have to save your changes to see the changes in your browser.
+
+#### Structure
 
 Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
 
@@ -109,7 +113,7 @@ The structure of your templates folder can look like this:
     index.mjml
     text.ejs
     subject.ejs
- ```
+ ``` 
 
 ## API
 
@@ -171,7 +175,7 @@ Value | Required | Description |
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
 |`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter( labels, defaultLang )` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `( name, values, lang )` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
 |`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/Oagenda/queues))
-|`queueName` | * | A string that is the name of your Redis queue. 
+|`queueName` | * | A string that is the name of your Redis queue.
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
 |`logger` |  | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/Oagenda/logs)
 
@@ -229,13 +233,13 @@ Name | Type | Description |
 
 
 
-***Error handling***
-`sendMail` does not throw an error in case of problem, it returns an object `{ results, errors }`.
+***Error handling***  
+`sendMail` does not throw an error in case of problem, it returns an object `{ results, errors }`.  
 It allows not to block the sending of emails for all when there is only a malformed email address in the batch, for example.
 
-***Recipients***
-You will find more information on the nodemailer documention (https://nodemailer.com/message/addresses/).
-The main difference is that the email is sent separately to each recipient, one mail/one recipient.
+***Recipients***  
+You will find more information on the nodemailer documention (https://nodemailer.com/message/addresses/).  
+The main difference is that the email is sent separately to each recipient, one mail/one recipient.  
 If you want to add specific data to a recipient for the template (for example: its name, age, role, etc.) you must use an object with the data key, the language of the recipient can be in the lang key:
 ```js
 {
@@ -245,17 +249,17 @@ If you want to add specific data to a recipient for the template (for example: i
 }
 ```
 
-***Defaults***
+***Defaults***  
 It's an object that is going to be merged into every message object. This allows you to specify shared options, for example to set a default _from_ address for every message.
 
-***Data order***
+***Data order***  
 The data come from several sources, they are `Object.assign`ed in this order:
 
  - `data` from the `sendMail` options
  - `data` from the current recipient (`recipient.data`)
  - `data` from `defaults.data` lastly for conserve values like *domain*, etc
 
-***Language***
+***Language***  
 As for data, the language can be overloaded in several places, in this order:
 
  - `{ lang }` from `defaults`.
@@ -287,7 +291,7 @@ task();
 
 The `render` and `compile` methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [EJS](http://ejs.co/) for replacing variables and loops, among others.
 
-These methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.
+These methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.  
 You can pass your own translation method or overload the existing one with the data.
 
 The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options).
