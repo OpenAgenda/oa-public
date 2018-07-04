@@ -5,25 +5,30 @@ const _ = require( 'lodash' );
 const config = require( '../config' );
 
 module.exports = _.assign( set, {
-  parse
+  parse,
+  load
 } );
 
-async function parse( categoryId, fields ) {
-
-  if ( !categoryId ) return {};
+async function load( categoryId ) {
 
   const { knex } = config;
   const { schemas } = config.legacy;
+
+  return _.get( await knex( schemas.agendaCategory + ' as c' ).first( 'category' ).where( 'id', categoryId ), 'category' );
+
+}
+
+function parse( fields, categoryLabel ) {
+
+  if ( !categoryLabel ) return {};
 
   const f = _.head( fields );
 
   if ( !f ) return {};
 
-  const label = _.get( await knex( schemas.agendaCategory + ' as c' ).first( 'category' ).where( 'id', categoryId ), 'category' );
+  if ( !categoryLabel ) return {};
 
-  if ( !label ) return {};
-
-  const matching = f.options.filter( o => ( _.isObject( o.label ) ? o.label.fr : o.label ) === label );
+  const matching = f.options.filter( o => ( _.isObject( o.label ) ? o.label.fr : o.label ) === categoryLabel );
 
   if ( !matching.length ) return {};
 

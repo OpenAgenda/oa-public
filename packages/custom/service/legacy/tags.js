@@ -5,22 +5,26 @@ const _ = require( 'lodash' );
 const config = require( '../config' );
 
 module.exports = _.assign( set, {
+  load,
   parse
 } );
 
-async function parse( agendaEventId, fields ) {
+
+async function load( agendaEventId ) {
 
   const { knex } = config;
   const { schemas } = config.legacy;
 
-  const parsed = {};
-
-  // match on label
-  
-  const legacyTags = ( await knex( schemas.agendaTag + ' as at' )
+  return ( await knex( schemas.agendaTag + ' as at' )
     .select( 'tag' )
     .leftJoin( schemas.agendaEventTag + ' as aet', 'at.id', 'aet.review_tag_id' )
     .where( 'aet.review_article_id', agendaEventId ) ).map( r => r.tag );
+
+}
+
+function parse( fields, legacyTags ) {
+
+  const parsed = {};
 
   fields.forEach( field => {
 

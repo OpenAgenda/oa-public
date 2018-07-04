@@ -6,7 +6,7 @@ const _ = require( 'lodash' );
 const serviceRemove = require( '../remove' );
 
 const categories = require( './categories' );
-const customFields = require( './customFields' );
+const custom = require( './custom' );
 const config = require( '../config' );
 const load = require( './load' );
 const tags = require( './tags' );
@@ -24,7 +24,7 @@ async function set( formSchemaId, identifier, data ) {
     agendaEventId
   } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
 
-  await customFields( eventId,
+  await custom( eventId,
     fields.filter( f => f.origin === 'custom' ), data );
 
   await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );

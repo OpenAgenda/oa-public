@@ -10,11 +10,28 @@ const serviceUpdate = require( '../update' );
 const serviceGet = require( '../get' );
 const serviceRemove = require( '../remove' );
 
-const categories = require( './categories' );
-const customFields = require( './customFields' );
-const tags = require( './tags' );
+const libs = {
+  categories: require( './categories' ),
+  custom: require( './custom' ),
+  tags: require( './tags' )
+}
 
-module.exports = async ( formSchemaId, identifier, defaultAgendaId = null ) => {
+
+module.exports = _.assign( transfer, {
+  parse
+} );
+
+function parse( fields, { custom, tags, category } ) {
+
+  return _.assign( 
+    libs.custom.parse( fields, custom ),
+    libs.tags.parse( fields.filter( f => f.origin === 'tags' ), tags ),
+    libs.categories.parse( fields.filter( f => f.origin === 'categories' ), category )
+  );
+
+}
+
+async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
 
   const {
     agendaId,
@@ -25,11 +42,15 @@ module.exports = async ( formSchemaId, identifier, defaultAgendaId = null ) => {
     categoryId
   } = await load( formSchemaId, identifier, defaultAgendaId );
 
-  const toTransfer = _.assign( 
-    await customFields.parse( fields, custom ),
-    await tags.parse( agendaEventId, fields.filter( f => f.origin === 'tags' ) ),
-    await categories.parse( categoryId, fields.filter( f => f.origin === 'categories' ) )
-  );
+  const legacyTags = await libs.tags.load( agendaEventId );
+
+  const legacyCategory = await libs.categories.load( categoryId );
+
+  const toTransfer = parse( fields, {
+    custom,
+    tags: legacyTags,
+    category: legacyCategory
+  } );
 
   const emptyLegacyCustom = !_.keys( toTransfer ).length;
   const current = await serviceGet( formSchemaId, identifier );

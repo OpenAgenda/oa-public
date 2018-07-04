@@ -19,4 +19,7 @@ module.exports = _.assign( formSchemaId => {
 
   return _.mapValues( endpoints, ( v, k ) => v.bind( null, formSchemaId ) );
 
-}, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), { task } );
+}, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), {
+  parseLegacy: require( './service/legacy/transfer' ).parse,
+  task
+} );
