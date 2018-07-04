@@ -8,7 +8,7 @@ const VError = require( 'verror' );
 const config = require( './config' );
 const { render } = require( './' );
 
-config.init( require( './config/development' ) ).catch( error => console.log( 'Initializing error:', error ) );
+config.init().catch( error => console.log( 'Initializing error:', error ) );
 
 function recursiveListPaths( base, regex, cb ) {
   const walker = walk.walk( base, {
@@ -29,10 +29,18 @@ function recursiveListPaths( base, regex, cb ) {
   walker.on( 'end', () => cb( null, paths ) );
 }
 
-function getTemplatesLangs( templateName ) {
-  const labels = ( config.translations.labels || {} )[ templateName ] || {};
-
+function getTemplatesLangs( labels ) {
   return _.uniq( _.flatten( _.map( labels, _.keys ) ) );
+}
+
+function renderLangsList( langs ) {
+  return [
+    '<ul style="text-align: center; padding-left: 0">',
+    '<b>Language</b><br />',
+    langs.map( l => `<li style="display: inline"><a href="?lang=${l}">${l}</a></li>` )
+      .join( '&nbsp;&nbsp;' ),
+    '</ul>',
+  ].join( '' );
 }
 
 const app = express();
@@ -71,7 +79,6 @@ app.get( /.mjml$/, ( req, res, next ) => {
   const templateDir = path.join( config.templatesDir, templateName );
   const fixturesPath = path.join( templateDir, 'fixtures.js' );
   let data;
-  let html;
 
   try {
     data = require(fixturesPath); // eslint-disable-line
@@ -82,21 +89,47 @@ app.get( /.mjml$/, ( req, res, next ) => {
 
   Object.assign( data, config.defaults.data );
 
-  const langs = getTemplatesLangs( templateName );
+  const labels = data.$labels || {};
+  const langs = getTemplatesLangs( labels );
+  const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
+  const __ = config.translations.makeLabelGetter( labels, lang );
 
-  html = render( templateName, data, { lang: req.query.lang || config.defaults.lang } );
+  let { html, text, subject } = render( templateName, data, { lang, __ } );
+
+  if ( subject ) {
+    html = html.replace(
+      '<body>',
+      [
+        '<body>',
+        `<div style="text-align: center"><b>Subject:</b> ${subject}</div>`,
+        '<hr style="max-width: 600px" />'
+      ].join( '' )
+    );
+  }
+
   if ( langs.length ) {
     html = html.replace(
       '<body>',
       [
         '<body>',
-        '<ul style="text-align: center; padding-left: 0">',
-        langs.map( l => `<li style="display: inline; margin-right: 10px"><a href="?lang=${l}">${l}</a></li>` ).join( '' ),
-        '</ul>',
-        '<hr />'
+        renderLangsList( langs ),
+        '<hr style="max-width: 600px" />'
       ].join( '' )
     );
   }
+
+  if ( text ) {
+    html = html.replace(
+      '</body>',
+      [
+        '<hr style="max-width: 600px" />',
+        '<h2 style="text-align: center">Text version</h2>',
+        `<div style="max-width: 600px; margin: 0 auto;">${text.replace( /(?:\r\n|\r|\n)/g, '<br>' )}</div>`,
+        '</body>'
+      ].join( '' )
+    );
+  }
+
   html = html.replace( '</body>', '<script src="/reload/reload.js"></script></body>' );
 
   res.send( html );

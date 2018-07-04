@@ -15,7 +15,7 @@
     "ejs": "^2.6.1",
     "isemail": "^3.1.2",
     "lodash": "^4.17.10",
-    "mjml": "^4.0.5",
+    "mjml": "^4.1.0",
     "nodemailer": "^4.6.7",
     "verror": "^1.10.0"
   },
@@ -25,17 +25,17 @@
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jest": "^21.17.0",
     "express": "^4.16.3",
-    "husky": "^1.0.0-rc.9",
+    "husky": "^0.14.3",
     "jest": "^23.2.0",
     "lint-staged": "^7.2.0",
     "morgan": "^1.9.0",
     "nodemon": "^1.17.5",
     "prettier-eslint-cli": "^4.7.1",
     "reload": "^2.3.0",
-    "walk": "^2.3.13"
+    "walk": "^2.3.14"
   },
   "nodemonConfig": {
-    "ext": "js,json,mjml"
+    "ext": "js,json,mjml,ejs"
   },
   "husky": {
     "hooks": {

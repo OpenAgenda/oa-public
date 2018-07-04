@@ -12,7 +12,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6134,
+    "messageSize": 6488,
     "rejected": Array [],
   },
 ]
@@ -30,7 +30,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6174,
+    "messageSize": 6528,
     "rejected": Array [],
   },
   Object {
@@ -43,7 +43,7 @@ Array [
         "kevin.berthommier@openagenda.com",
       ],
     },
-    "messageSize": 6147,
+    "messageSize": 6501,
     "rejected": Array [],
   },
   Object {
@@ -56,7 +56,7 @@ Array [
         "kaore@openagenda.com",
       ],
     },
-    "messageSize": 6134,
+    "messageSize": 6486,
     "rejected": Array [],
   },
 ]
@@ -144,13 +144,13 @@ Object {
         
         
       <div
-        
+         style=\\"\\"
       >
         
       
       <!--[if mso | IE]>
       <table
-         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"width:600px;\\" width=\\"600\\"
+         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" style=\\"width:600px;\\" width=\\"600\\"
       >
         <tr>
           <td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\">
@@ -173,7 +173,7 @@ Object {
         <tr>
       
             <td
-               style=\\"vertical-align:top;width:600px;\\"
+               class=\\"\\" style=\\"vertical-align:top;width:600px;\\"
             >
           <![endif]-->
             
@@ -254,7 +254,12 @@ Object {
       </body>
     </html>
   ",
+  "subject": "Hello kaore !
+",
   "template": "helloWorld",
+  "text": "Hello kaore !
+Go to https://openagenda.com
+",
   "to": Object {
     "address": "kaore@openagenda.com",
     "data": Object {
@@ -341,13 +346,13 @@ Object {
         
         
       <div
-        
+         style=\\"\\"
       >
         
       
       <!--[if mso | IE]>
       <table
-         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"width:600px;\\" width=\\"600\\"
+         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" style=\\"width:600px;\\" width=\\"600\\"
       >
         <tr>
           <td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\">
@@ -370,7 +375,7 @@ Object {
         <tr>
       
             <td
-               style=\\"vertical-align:top;width:600px;\\"
+               class=\\"\\" style=\\"vertical-align:top;width:600px;\\"
             >
           <![endif]-->
             
@@ -451,7 +456,12 @@ Object {
       </body>
     </html>
   ",
+  "subject": "Hello bertho !
+",
   "template": "helloWorld",
+  "text": "Hello bertho !
+Go to https://openagenda.com
+",
   "to": Object {
     "address": "kevin.bertho@gmail.com",
     "name": "",
@@ -535,13 +545,13 @@ Object {
         
         
       <div
-        
+         style=\\"\\"
       >
         
       
       <!--[if mso | IE]>
       <table
-         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" style=\\"width:600px;\\" width=\\"600\\"
+         align=\\"center\\" border=\\"0\\" cellpadding=\\"0\\" cellspacing=\\"0\\" class=\\"\\" style=\\"width:600px;\\" width=\\"600\\"
       >
         <tr>
           <td style=\\"line-height:0px;font-size:0px;mso-line-height-rule:exactly;\\">
@@ -564,7 +574,7 @@ Object {
         <tr>
       
             <td
-               style=\\"vertical-align:top;width:600px;\\"
+               class=\\"\\" style=\\"vertical-align:top;width:600px;\\"
             >
           <![endif]-->
             
@@ -645,7 +655,12 @@ Object {
       </body>
     </html>
   ",
+  "subject": "Hello bertho !
+",
   "template": "helloWorld",
+  "text": "Hello bertho !
+Go to https://openagenda.com
+",
   "to": Object {
     "address": "kevin.berthommier@openagenda.com",
     "name": "",
@@ -665,7 +680,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6107,
+    "messageSize": 6473,
     "rejected": Array [],
   },
 ]
@@ -683,7 +698,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6103,
+    "messageSize": 6465,
     "rejected": Array [],
   },
 ]

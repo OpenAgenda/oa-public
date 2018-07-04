@@ -91,8 +91,10 @@ The home page is the list of templates available in the chosen folder (`./templa
 
 Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
 
-**index.mjml** is the entry point of your template, it can be split into different partials (see [`mj-include`](https://mjml.io/documentation/#mj-include)).
-**fixtures.js** are data that are used in the template to preview as in production.
+**index.mjml** is the entry point of your template, it can be split into different partials (see [`mj-include`](https://mjml.io/documentation/#mj-include) of MJML).
+**text.ejs** is the text version of your template.
+**subject.ejs** is the subject of the mail corresponding to your template.
+**fixtures.js** exports data that are used in the template to preview as in production. If you use translations you can put your labels in a `$labels` key and add a `__` custom method if you need it.
 
 The structure of your templates folder can look like this:
 ```
@@ -100,9 +102,13 @@ The structure of your templates folder can look like this:
   /helloWorld
     fixtures.js
     index.mjml
+    text.ejs
+    subject.ejs
   /accountActivation
     fixtures.js
     index.mjml
+    text.ejs
+    subject.ejs
  ```
 
 ## API
@@ -151,7 +157,6 @@ await mails.init( {
 ```
 
 **Arguments**
-- `{Object} options`
 
 | Name | Type | Description |
 |---|:---:|---|
@@ -164,7 +169,7 @@ Value | Required | Description |
 |`templatesDir` | * | The folder path containing your templates.
 |`transport` | * | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).
 |`defaults` |  | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`.
-|`translations` |  | An object containing `labels` and |`makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter( labels, defaultLang )` is a function that returns a function that can be called in templates with `__`. <br />By default the `__` signature is `( name, values, lang )` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
+|`translations` |  | An object containing `labels` and `makeLabelGetter` keys. <br />- `labels` is an object of labels, one key per template. <br />- `makeLabelGetter( labels, defaultLang )` is a function that returns a function that can be called in templates with `__`. <br /><br />By default the `__` signature is `( name, values, lang )` and the values in the label are replaced when they are surrounded by `%`, for example a label like `Hello %username%` hope to receive `{ username }`
 |`redis` | * | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/Oagenda/queues))
 |`queueName` | * | A string that is the name of your Redis queue. 
 |`disableVerify` |  | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.
@@ -177,7 +182,8 @@ During initialization a `queue` and a `transporter` are added to the config, you
 #### `sendMail( options )`
 
 This is the main method, the one exported by default.
-This function returns a Promise with the value:
+
+This function returns a Promise with one of these values:
 
 - an array of Redis IDs if the queue is activated
 - an array of nodemailer `sendMail` results if the queue is disabled
@@ -205,21 +211,21 @@ await mails( {
 ```
 
 **Arguments**
-- `{Object} options`
 
 Name | Type | Description |
 |---|:---:|---|
 | `options` | `Object` | The options to sending email(s). |
 
-**Options**
+***Options***
 
 | Value | Required | Description |
 |---:|:---:|---|
 | template |  | A string that is the name of the template, is equal to the folder name. |
+| data |  | An object that contains the data to passed to the template, this can be overloaded for each recipient. |
 | lang |  | A string that defines the default language that will be applied to all recipients without lang. |
 | to | * | A recipient or array of recipients. |
 | queue |  | A Boolean, if false do not queue job and execute directly. |
-| **...** |  | **All other nodemailer properties are normally handled by nodemailer, see the other options here (https://nodemailer.com/message/).** |
+| **...** |  | **All other nodemailer properties are normally handled by nodemailer, see the other options [here](https://nodemailer.com/message/).** |
 
 
 
@@ -278,26 +284,59 @@ task();
 
 ### Templating
 
-These methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [EJS](http://ejs.co/) for replacing variables and loops, among others.
+The `render` and `compile` methods allow you to use your [MJML](https://mjml.io/) templates, coupled with [EJS](http://ejs.co/) for replacing variables and loops, among others.
 
-Only `render` and `compile` methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.
+These methods add `__` method in the data for use the translations in the templates, the labels are found with the `templateName` argument.
 You can pass your own translation method or overload the existing one with the data.
 
-All the methods below return an HTML string.
-
-The `opts` argument corresponds to the EJS argument described [here](http://ejs.co/#docs).
+The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options).
 
 #### `render( templateName [, data = {}, opts = {}] )`
 
-#### `renderFromFile( filePath [, data = {}, opts = {}] )`
+Returns an Object containing three strings:
+- `html`
+- `text`
+- `subject`.
 
-#### `renderFromMjml( mjml [, data = {}, opts = {}] )`
+**Arguments**
+
+Name | Type | Description |
+|---|:---:|---|
+| `templateName` | `string` | The name of the template, is equal to the folder name. |
+| `data` | `object` | An object that contains the data to passed to the template. |
+| `options` | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
+
+**Options**
+
+| Value | Required | Description |
+|---:|:---:|---|
+| disableHtml |  | A Boolean, if true then `html` is not rendered and is equal null. |
+| disableText |  | A Boolean, if true then `text` is not rendered and is equal null. |
+| disableSubject |  | A Boolean, if true then `subject` is not rendered and is equal null. |
+| **...** |  | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
 
 #### `compile( templateName [, opts = {}] )`
 
-#### `compileFromFile( filePath [, opts = {}] )`
+Returns an Object containing three functions:
+- `html( data )`
+- `text( data )`
+- `subject( data )`.
 
-#### `compileFromMjml( mjml [, opts = {}] )`
+**Arguments**
+
+Name | Type | Description |
+|---|:---:|---|
+| `templateName` | `string` | The name of the template, is equal to the folder name. |
+| `options` | `Object` | The `opts` argument corresponds to the EJS argument described [here](https://github.com/mde/ejs#options). <br /><br />With the ability to add `disableHtml`, `disableText` and `disableSubject`, all three booleans. |
+
+**Options**
+
+| Value | Required | Description |
+|---:|:---:|---|
+| disableHtml |  | A Boolean, if true then `html` is not compiled and is equal null. |
+| disableText |  | A Boolean, if true then `text` is not compiled and is equal null. |
+| disableSubject |  | A Boolean, if true then `subject` is not compiled and is equal null. |
+| **...** |  | **All other EJS options are normally handled by EJS, see the other options [here](https://github.com/mde/ejs#options).** |
 
 ## Testing
 

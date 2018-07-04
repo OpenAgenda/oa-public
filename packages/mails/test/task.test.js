@@ -31,11 +31,6 @@ describe( 'task', () => {
     } );
 
     await config.queue.clear();
-
-    await mails( {
-      template: 'helloWorld',
-      to: 'first@unlock'
-    } );
   } );
 
   beforeEach( () => {

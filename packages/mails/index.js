@@ -1,3 +1,4 @@
+const _ = require( 'lodash' );
 const addressParser = require( 'nodemailer/lib/addressparser' );
 const isEmail = require( 'isemail' );
 const VError = require( 'verror' );
@@ -20,7 +21,12 @@ function flattenRecipients( recipients ) {
 
 async function sendMail( options = {} ) {
   const defaultLang = options.lang || config.defaults.lang;
-  const template = options.template ? templater.compile( options.template, { lang: defaultLang } ) : null;
+  const compiled = options.template
+    ? templater.compile( options.template, {
+      ..._.pick( options, 'disableHtml', 'disableText', 'disableSubject' ),
+      lang: defaultLang
+    } )
+    : null;
   const recipients = flattenRecipients( options.to );
 
   const results = [];
@@ -47,14 +53,21 @@ async function sendMail( options = {} ) {
     }
 
     try {
-      if ( template ) {
+      if ( compiled ) {
         const labels = ( config.translations.labels || {} )[ options.template ] || {};
-        const __ = config.translations.makeLabelGetter( labels, lang );
+        templateData.__ = config.translations.makeLabelGetter( labels, lang );
 
-        options.html = template( {
-          ...templateData,
-          __
-        } );
+        if ( !options.disableHtml && compiled.html ) {
+          options.html = compiled.html( templateData );
+        }
+
+        if ( !options.disableText && compiled.text ) {
+          options.text = compiled.text( templateData );
+        }
+
+        if ( !options.disableSubject && compiled.subject ) {
+          options.subject = compiled.subject( templateData );
+        }
       }
 
       const method = options.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
