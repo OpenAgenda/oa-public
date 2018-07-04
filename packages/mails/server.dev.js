@@ -37,9 +37,8 @@ function renderLangsList( langs ) {
   return [
     '<ul style="text-align: center; padding-left: 0">',
     '<b>Language</b><br />',
-    langs.map( l => `<li style="display: inline"><a href="?lang=${l}">${l}</a></li>` )
-      .join( '&nbsp;&nbsp;' ),
-    '</ul>',
+    langs.map( l => `<li style="display: inline"><a href="?lang=${l}">${l}</a></li>` ).join( '&nbsp;&nbsp;' ),
+    '</ul>'
   ].join( '' );
 }
 
@@ -94,7 +93,8 @@ app.get( /.mjml$/, ( req, res, next ) => {
   const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
   const __ = config.translations.makeLabelGetter( labels, lang );
 
-  let { html, text, subject } = render( templateName, data, { lang, __ } );
+  const { html: initialHtml, text, subject } = render( templateName, data, { lang, __ } );
+  let html = initialHtml;
 
   if ( subject ) {
     html = html.replace(
@@ -108,14 +108,7 @@ app.get( /.mjml$/, ( req, res, next ) => {
   }
 
   if ( langs.length ) {
-    html = html.replace(
-      '<body>',
-      [
-        '<body>',
-        renderLangsList( langs ),
-        '<hr style="max-width: 600px" />'
-      ].join( '' )
-    );
+    html = html.replace( '<body>', [ '<body>', renderLangsList( langs ), '<hr style="max-width: 600px" />' ].join( '' ) );
   }
 
   if ( text ) {

@@ -24,7 +24,7 @@ function getCompiledRenderer( compiled, type, templateName, opts ) {
       const templateData = {
         ...data,
         lang: data.lang || opts.lang,
-        __: data.__ || __,
+        __: data.__ || __
       };
 
       try {
@@ -33,7 +33,7 @@ function getCompiledRenderer( compiled, type, templateName, opts ) {
         log.debug( new VError( e, `Error rendering ${type} compiled of the template ${templateName}` ) );
         return null;
       }
-    }
+    };
 }
 
 function compile( templateName, opts = {} ) {
