@@ -16,7 +16,7 @@ function suggestions( req, res, next ) {
 
   if ( !_pre( req, res, next ) ) return;
 
-  config.interfaces.suggestions( req.agendaUid, _.get( req.query, 'sample', {} ), { showAll: !!req.access }, _respond.bind( null, req, res, next ) );
+  config.interfaces.suggestions( req.agendaUid, _.get( req.query, 'sample', {} ), { showAll: !!req.access }, _respond.bind( null, req, res, next ) );
 
 }
 
