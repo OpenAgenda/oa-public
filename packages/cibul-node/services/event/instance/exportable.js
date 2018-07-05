@@ -94,6 +94,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         keywords: _cleanKeywords( instance.tags ),
         html: instance.getEnrichedFreeText( true ),
         image: loaded.getImage(),
+        imageCredits: instance.imageCredits,
         thumbnail: loaded.getThumbnail(),
         originalImage: loaded.getFullImage(),
         updatedAt: instance.updatedAt,

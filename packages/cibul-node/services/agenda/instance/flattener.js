@@ -25,7 +25,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     let languages, mapping, tagSet, categorySet;
 
-    const params = utils.extend( {
+    const params = _.extend( {
       includePrivateData: typeof options == 'boolean' ? options : false,
       includeDetailedLocation: typeof options === 'boolean' ? options : true,
       lang: false,
@@ -108,7 +108,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         const dstNames = [], suffixes = [];
 
-        if ( utils.isArray( m ) && m.length === 3 ) {
+        if ( _.isArray( m ) && m.length === 3 ) {
         
           m[ 2 ].forEach( function( suffix ) {
 
@@ -116,7 +116,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
           });
 
-        } else if ( utils.isArray( m ) ) {
+        } else if ( _.isArray( m ) ) {
 
           dstNames.push( m[ 1 ].split( '.' )[ 0 ] );
 
@@ -155,7 +155,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         let predefinedLang = false;
 
-        if ( utils.isArray( m ) ) {
+        if ( _.isArray( m ) ) {
 
           srcField = m[ 1 ];
           dstField = m[ 0 ];
@@ -265,6 +265,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
       ], languages ), [
         'image',
+        'imageCredits',
         'thumbnail',
         'originalImage',
         'updatedAt',
@@ -377,7 +378,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         }
 
-        if ( typeof utils.isArray( f ) ) {
+        if ( _.isArray( f ) ) {
 
           return true;
 
@@ -400,7 +401,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   function _extractValue( values, field ) {
 
-    if ( utils.isArray( field ) ) {
+    if ( _.isArray( field ) ) {
 
       return field.map( f => {
 
@@ -410,9 +411,9 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
     }
 
-    var fieldNames = field.split( '.' ),
+    const fieldNames = field.split( '.' );
 
-    value = values;
+    let value = values;
 
     fieldNames.forEach( function( name ) {
 
@@ -433,7 +434,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
 function _textFields( fields, languages ) {
 
-  var languageFields = [];
+  const languageFields = [];
 
   fields.forEach( function( f ) {
 
@@ -471,9 +472,9 @@ function _extendLocationMapping( agenda, languages ) {
 
 function _extendMapping( agenda, includePrivateData ) {
 
-  var amendment = [],
+  const amendment = [];
 
-  customFields = agenda.getCustomFieldsConfig();
+  const customFields = agenda.getCustomFieldsConfig();
 
   customFields.forEach( function( cField ) {
 
@@ -505,7 +506,7 @@ function _isMultilingual( value ) {
 
   if ( !Object.keys( value ).length ) return true;
 
-  for ( var i = possibleLanguages.length - 1; i >= 0; i-- ) {
+  for ( let i = possibleLanguages.length - 1; i >= 0; i-- ) {
 
     if ( value[ possibleLanguages[ i ] ] === null || ( typeof value[ possibleLanguages[ i ] ] == 'string' ) ) {
 
@@ -522,9 +523,9 @@ function _isMultilingual( value ) {
 
 function _extractLanguages( values ) {
 
-  var extractedLanguages = [];
+  const extractedLanguages = [];
 
-  for( var l in values ) {
+  for( const l in values ) {
 
     if ( ( typeof values[ l ] == 'string' )
 
