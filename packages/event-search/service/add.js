@@ -41,7 +41,7 @@ module.exports = async function( alias, event, options = {} ) {
 
   let result;
 
-  try {
+  try {
 
     result = await client.index( {
       index: alias,
@@ -63,7 +63,7 @@ module.exports = async function( alias, event, options = {} ) {
     log( 'info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
       operation: 'add',
       alias, 
-      identifiers: { uid: event.uid }
+      identifiers: { uid: event.uid }
     } );
 
   } else {

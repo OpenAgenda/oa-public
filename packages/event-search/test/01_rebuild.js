@@ -1,8 +1,10 @@
 "use strict";
 
 const should = require( 'should' );
-const config = require( '../testconfig' );
+
 const events = require( '@openagenda/events/test/service' );
+
+const config = require( '../testconfig' );
 const service = require( '../' );
 
 describe( 'event-search - functional: rebuild', function() {
@@ -181,11 +183,18 @@ describe( 'event-search - functional: rebuild', function() {
         type: config.type
       } );
 
-      result[ Object.keys( result )[ 0 ] ].mappings.event.properties.custom
+      result[ Object.keys( result )[ 0 ] ].mappings.event.properties.custom
 
       .should.eql( { properties: { 
-        expectedParticipants: { type: 'integer' },
-        inquiryEmail: { type: 'keyword' } 
+        expectedParticipants: {
+          type: 'integer'
+        },
+        inquiryEmail: {
+          type: 'keyword'
+        },
+        search_internal_keywords: {
+          type: 'keyword'
+        }
       } } );
 
     } );

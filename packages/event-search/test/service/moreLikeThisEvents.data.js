@@ -17,6 +17,11 @@ module.exports = [ {
     latitude : 48.8675959,
     longitude : 2.3516408,
     department: 'Paris'
+  },
+  custom: {
+    multichoicefield: [ 1, 4 ],
+    singlechoicefield: 10,
+    textfield: 'Hello, is there anybody out there'
   }
 }, {
   uid: 2222,
@@ -35,6 +40,10 @@ module.exports = [ {
     latitude : 48.866964,
     longitude : 2.353406,
     department: 'Paris'
+  },
+  custom: {
+    multichoicefield: [ 12 ],
+    singlechoicefield: 14
   }
 }, {
   uid: 3333,
@@ -57,9 +66,7 @@ module.exports = [ {
 }, {
   uid: 4444,
   timezone: 'Europe/Paris',
-  title: {
-    fr: 'plante'
-  },
+  title: 'plante',
   timings: [ {
     begin: '2017-08-05T10:00:00Z',
     end: '2017-08-05T12:00:00Z'

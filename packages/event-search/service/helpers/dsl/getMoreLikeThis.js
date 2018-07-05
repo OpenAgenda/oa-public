@@ -33,13 +33,49 @@ module.exports = mltQuery => {
 
     }
 
+    if ( mltQuery.custom ) {
+
+      const mltCustom = {};
+
+      const optionedValues = _.flatten( _.keys( mltQuery.custom )
+        .filter( field => _.isArray( mltQuery.custom[ field ] ) || _.isInteger( mltQuery.custom[ field ] ) )
+        .map( field => [].concat( mltQuery.custom[ field ] ) ) );
+
+      if ( optionedValues.length ) {
+
+        fields.push( 'custom.search_internals_keywords' );
+
+        mltCustom[ 'search_internals_keywords' ] = optionedValues.map( o => 'key' + o );
+
+      }
+
+      _.keys( mltQuery.custom )
+        .filter( field => _.isString( mltQuery.custom[ field ] ) )
+        .filter( field => mltQuery.custom[ field ].length )
+        .forEach( field => {
+
+          mltCustom[ field ] = mltQuery.custom[ field ];
+
+          fields.push( 'custom.' + field );
+
+        } );
+
+
+      if ( _.keys( mltCustom ).length ) {
+
+        mltDoc.custom = mltCustom;
+
+      }
+
+    }
+
     const flattenedMLTDoc = _.mapValues( mltDoc, v => _.isArray( v ) ? v.join( ' ' ) : v );
 
     const nonEmptyMLTDoc = _.omitBy( flattenedMLTDoc, v => !v );
 
     return _.keys( nonEmptyMLTDoc ).length ? {
       like: like.concat( nonEmptyMLTDoc ),
-      fields: _.uniq( fields.concat( _.keys( nonEmptyMLTDoc ) ) )
+      fields: _.uniq( fields.concat( _.keys( nonEmptyMLTDoc ).filter( k => k !== 'custom' ) ) )
     } : { like, fields };
 
   }, {

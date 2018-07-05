@@ -411,7 +411,20 @@ describe( 'event-search - unit: more like this search', function() {
       }
 
       await service( 'more_like_this' ).rebuild( {
-        eventsList
+        eventsList,
+        extensions: {
+          custom: {
+            multichoicefield: {
+              type: 'integer'
+            },
+            singlechoicefield: {
+              type: 'integer'
+            },
+            sometextfield: {
+              type: 'text'
+            }
+          }
+        }
       } );
 
       indiceName = Object.keys( await serviceConfig.client.indices.getAlias( { name: 'more_like_this' } ) )[ 0 ];
@@ -436,6 +449,88 @@ describe( 'event-search - unit: more like this search', function() {
       } );
 
       result.events[ 0 ].search_internals_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
+
+    } );
+
+
+    it( 'custom optioned type can be more liked this as a keyword', async () => {
+
+      const { events } = await dslSearch( 'more_like_this', {
+        query: {
+          more_like_this: {
+            fields: [ 'custom.search_internals_keywords' ],
+            min_word_length: 3,
+            min_term_freq: 1,
+            min_doc_freq: 1,
+            like: [ {
+              doc: {
+                custom: {
+                  search_internals_keywords: 'key4'
+                }
+              }
+            } ]
+          }
+        }
+      } );
+
+      events.length.should.equal( 1 );
+
+      events[ 0 ].uid.should.equal( 1111 );
+
+    } );
+
+
+    it( 'custom optioned type doesn\'t match for different option ids', async () => {
+
+      const { events } = await dslSearch( 'more_like_this', {
+        query: {
+          more_like_this: {
+            fields: [ 'custom.search_internals_keywords' ],
+            min_term_freq: 1,
+            min_doc_freq: 1,
+            like: [ {
+              doc: {
+                custom: {
+                  search_internals_keywords: 'id-40'
+                }
+              }
+            } ]
+          }
+        }
+      } );
+
+      events.length.should.equal( 0 );
+
+    } );
+
+    it( 'custom optioned type doesn\'t match for different option ids', async () => {
+
+      const { events } = await dslSearch( 'more_like_this', {
+        query: {
+          mlt: {
+            fields: [ 'custom.search_internals_keywords' ],
+            min_term_freq: 1,
+            min_doc_freq: 1,
+            min_word_length: 3,
+            like: [ {
+              doc: {
+                custom: {
+                  // more like this workds with texts and integers only
+                  // so when an event is given as basis of mlt,
+                  // with custom data, the schema must be known
+                  // and the custom data must be mltd with search_internals_keywords
+                  // of custom extension.
+                  search_internals_keywords: [ 'key4', 'key12', 'key10' ]
+                }
+              }
+            } ]
+          }
+        }
+      } );
+
+      events.length.should.equal( 2 );
+
+      events.map( e => e.uid ).should.eql( [ 1111, 2222 ] );
 
     } );
 
@@ -496,7 +591,7 @@ describe( 'event-search - unit: more like this search', function() {
         }
       } ) ).events.length.should.equal( 1 );
 
-    } );
+    } );
 
 
     it( 'get an event given another.', async () => {
@@ -595,6 +690,43 @@ describe( 'event-search - unit: more like this search', function() {
       mlt.like.should.eql( [ {
         doc: { search_internals_keywords_text: 'vin chaud' }
       } ] );
+
+    } );
+
+
+    it( 'custom optioned data maps to a single array of internal custom keywords or text fields', () => {
+
+      const mlt = getMoreLikeThis( {
+        custom: {
+          multichoicefield: [ 12, 13 ],
+          singlechoicefield: 4,
+          sometextfield: 'compteur de flotte numérique'
+        }
+      } );
+
+      mlt.should.eql( {
+        "fields": [
+          "custom.search_internals_keywords",
+          "custom.sometextfield"
+        ],
+        "min_word_length": 3,
+        "min_term_freq": 1,
+        "min_doc_freq": 1,
+        "like": [
+          {
+            "doc": {
+              "custom": {
+                "search_internals_keywords": [
+                  'key12',
+                  'key13',
+                  'key4'
+                ],
+                "sometextfield": "compteur de flotte numérique"
+              }
+            }
+          }
+        ]
+      } );
 
     } );
 

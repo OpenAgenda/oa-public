@@ -1,70 +1,89 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const moment = require( 'moment-timezone' );
+
 const countries = require( '@openagenda/countries' );
 const dateRange = require( '@openagenda/date-range' );
-const moment = require( 'moment-timezone' );
 
 module.exports = ( event, part = false ) => {
 
   let countryLabels = null;
 
-  let parsed = {};
+  const parsed = {};
 
-  _.keys( event ).filter( k => !part || ( event[ k ] !== undefined ) ).forEach( k => {
+  _.keys( event )
+    .filter( eventField => !part || ( event[ eventField ] !== undefined ) )
+    .forEach( eventField => {
 
-    if ( k === 'location' ) {
+      if ( eventField === 'custom' ) {
 
-      if ( !event.location ) return;
+        parsed.custom = _custom( event.custom );
 
-      let countryLabels = _.omit( countries.getLabel( event.location.countryCode ), [ 'code' ] );
+      } else if ( eventField === 'location' ) {
 
-      _.extend( parsed, {
-        country: countryLabels,
-        search_internals_full_address_text: _fullAddress( event, countryLabels ),
-        search_internals_location: event.location ? {
-          lat: event.location.latitude,
-          lon: event.location.longitude
-        } : null
-      } );
+        if ( !event.location ) return;
 
-    } else if ( k === 'timings' ) {
+        parsed.location = event.location;
 
-      _.extend( parsed, {
-        dateRange: _dateRange( event.timings, event.timezone ),
-        timings: event.timings.map( t => {
+        const countryLabels = _.omit( countries.getLabel( _.get( event, 'location.countryCode' ) ), [ 'code' ] );
 
-          t.search_internals_begin_from_midnight = _secondsMidnightDiff( event.timezone, t.begin );
+        parsed.country = countryLabels;
+
+        parsed[ 'search_internals_full_address_text' ] = _fullAddress( event, countryLabels );
+
+        parsed[ 'search_internals_location' ] = {
+          lat: _.get( event, 'location.latitude' ),
+          lon: _.get( event, 'location.longitude' )
+        };
+
+      } else if ( eventField === 'timings' ) {
+
+        parsed.dateRange = _dateRange( event.timings, event.timezone );
+
+        parsed[ 'search_internals_last_timing' ] = _reduceToLast( event.timings );
+
+        parsed.timings = event.timings.map( t => {
+
+          t[ 'search_internals_begin_from_midnight' ] = _secondsMidnightDiff( event.timezone, t.begin );
 
           return t;
 
-        } ),
-        search_internals_last_timing: _reduceToLast( event.timings )
-      } )
+        } );
 
-    } else if ( k === 'title' ) {
+      } else if ( eventField === 'title' ) {
 
-      parsed.search_internals_title = _flatten( event.title )
+        parsed.title = event.title;
 
-    } else if ( k === 'description' ) {
+        parsed[ 'search_internals_title' ] = _flatten( event.title )
 
-      parsed.search_internals_description = _flatten( event.description );
+      } else if ( eventField === 'description' ) {
 
-    } else if ( k === 'keywords' ) {
+        parsed.description = event.description;
 
-      parsed.search_internals_keywords = _flatten( event.keywords );
+        parsed[ 'search_internals_description' ] = _flatten( event.description );
 
-      parsed.search_internals_keywords_text = _flatten( event.keywords );
+      } else if ( eventField === 'keywords' ) {
 
-    } else if ( k === 'agenda' ) {
+        parsed.keywords = event.keywords;
 
-      if ( event.agenda ) {
+        parsed[ 'search_internals_keywords' ] = _flatten( event.keywords );
 
-        parsed.search_internals_agenda = _.toPairs( _.pick( event.agenda, [ 'uid', 'title', 'image' ] ) ).map( pair => pair.join( ':' ) ).join( '|' );
+        parsed[ 'search_internals_keywords_text' ] = _flatten( event.keywords );
+
+      } else if ( eventField === 'agenda' ) {
+
+        if ( !event.agenda ) return;
+
+        parsed.agenda = event.agenda;
+
+        parsed[ 'search_internals_agenda' ] = _.toPairs( _.pick( event.agenda, [ 'uid', 'title', 'image' ] ) ).map( pair => pair.join( ':' ) ).join( '|' );
+
+      } else {
+
+        parsed[ eventField ] = _.get( event, eventField );
 
       }
-
-    }
     
   } );
 
@@ -74,7 +93,35 @@ module.exports = ( event, part = false ) => {
 
   }
 
-  return _.extend( {}, event, parsed );
+  return parsed;
+
+}
+
+
+function _custom( custom ) {
+
+  const parsed = {
+    search_internals_keywords: []
+  };
+
+  _.keys( custom ).forEach( customField => {
+
+    parsed[ customField ] = custom[ customField ];
+
+    // required for more like this on optioned data: works only with stringed keywords
+    if ( _.isArray( custom[ customField ] ) || _.isInteger( custom[ customField ] ) ) {
+
+      [].concat( custom[ customField ] ).forEach( customValue => {
+
+        parsed[ 'search_internals_keywords' ].push( 'key' + customValue );
+
+      } );
+
+    }
+
+  } );
+
+  return parsed;
 
 }
 

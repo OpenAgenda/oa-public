@@ -42,6 +42,8 @@ describe( 'event search - functional: more like this', function() {
         detailed: true
       } ).then( r => r.events.map( e => {
 
+        e.custom = custom[ i ];
+
         e.contributor = contributors[ i ];
 
         e.contributor.uid = i++;
@@ -52,7 +54,22 @@ describe( 'event search - functional: more like this', function() {
 
     }
 
-    await service( 'simple_search' ).rebuild( { eventsList } );
+    await service( 'simple_search' ).rebuild( {
+      eventsList,
+      extensions: {
+        custom: {
+          multichoice: {
+            type: 'integer'
+          },
+          singlechoice: {
+            type: 'integer'
+          },
+          organizername: {
+            type: 'text'
+          }
+        }
+      }
+    } );
 
   } );
 
@@ -170,9 +187,57 @@ describe( 'event search - functional: more like this', function() {
 
     } );
 
+
+    it( 'mlt on custom option ids', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        custom: {
+          singlechoice: 5,
+        }
+      } );
+
+      events.length.should.equal( 1 );
+
+      events[ 0 ].custom.singlechoice.should.equal( 5 );
+
+    } );
+
+
+    it( 'mlt on custom option ids and custom text', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        custom: {
+          organizername: 'Reed',
+          multichoice: 7,
+          singlechoice: 5
+        }
+      } );
+
+      total.should.equal( 5 );
+
+    } );
+
+
+    it( 'mlt on custom option ids and custom text puts best match first', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        custom: {
+          organizername: 'Reed',
+          multichoice: 7,
+          singlechoice: 5
+        }
+      } );
+
+      events[ 0 ].custom.organizername.should.equal( 'Reed Expositions France' );
+
+      events[ 0 ].custom.multichoice.includes( 7 ).should.equal( true );
+
+    } );
+
+
     it( 'mlt on department with title in different department', async () => {
 
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
         keywords: {
           fr: [ 'janine' ]
         },

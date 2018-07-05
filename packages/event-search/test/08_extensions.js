@@ -25,7 +25,8 @@ describe( 'event-search - unit: extensions', function() {
       properties: { 
         captainAge: { type: 'integer' },
         expectedWeather: { type: 'text' },
-        captainEmail: { type: 'keyword' }
+        captainEmail: { type: 'keyword' },
+        search_internal_keywords: { type: 'keyword' }
       } 
     } );
 

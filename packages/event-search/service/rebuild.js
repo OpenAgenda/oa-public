@@ -47,6 +47,7 @@ module.exports = async ( alias, options ) => {
 
     if ( bulkResult.errors ) {
 
+      console.log( 'woot' );
       console.log( JSON.stringify( bulkResult, null, 4 ) );
 
     } else {

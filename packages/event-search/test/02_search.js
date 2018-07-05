@@ -70,7 +70,13 @@ describe( 'event search - functional: search', function() {
 
       const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
 
-      _.keys( events[ 0 ] ).should.eql( [ 'uid', 'image', 'contributor', 'keywords', 'dateRange', 'location', 'title', 'agenda', 'slug', 'lastTiming', 'nextTiming' ] );
+      const postParseFields = [ 'contributor', 'lastTiming', 'nextTiming' ];
+
+      const expectedFields = service.getConfig().baseSearchIncludes.concat( postParseFields ).map( f => f.split( '.' )[ 0 ] );
+
+      _.keys( events[ 0 ] )
+        .filter( field => !expectedFields.includes( field ) )
+        .should.eql( [] );
 
     } );
 
@@ -141,8 +147,8 @@ describe( 'event search - functional: search', function() {
         'image',
         'private',
         'keywords',
-        'accessibility',
         'dateRange',
+        'accessibility',
         'timezone',
         'description',
         'title',

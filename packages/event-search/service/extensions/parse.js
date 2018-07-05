@@ -26,7 +26,11 @@ const fieldMap = {
 
 module.exports = fields => {
 
-  let parsed = {};
+  const parsed = {
+    search_internal_keywords: {
+      type: 'keyword'
+    }
+  };
 
   Object.keys( _.isObject( fields ) ? fields : {} ).forEach( f => {
 
