@@ -126,7 +126,7 @@ const routes = {
 
         next();
 
-      } );
+      }, next );
 
     },
     ( req, res, next ) => {
@@ -139,48 +139,7 @@ const routes = {
         category: _.get( req, 'query.sample.category', [] ).map( c => c.label )
       } );
 
-      /*
-      custom
-      { infocom_title: 'fds',
-        infocom_cap: 'fsdq',
-        'thematiques-internes': [ 52 ],
-        labels: [ 24 ] 
-      }
-      */
-
       req.query.sample = _.assignIn( _.omit( req.query.sample, [ 'custom', 'tags', 'category' ] ), { custom } );
-
-      /**
-      { 
-        location: { 
-          region: 'Île-de-France',
-          uid: '31881159',
-          phone: '',
-          department: 'Paris',
-          state: '0',
-          countryCode: 'FR',
-          image: '',
-          city: 'Paris',
-          updatedAt: '2017-10-09T16:29:32.153Z',
-          timezone: 'Europe/Paris',
-          postalCode: '75001',
-          address: 'Paris',
-          name: 'Paris',
-          longitude: '2.32818381449945',
-          imageCredits: '',
-          latitude: '48.8659680061992',
-          agendaId: '9017' },
-        custom: {
-          internal_remarks: 'fdsqfdq',
-          'service-contributeur': [ 6 ],
-          'type-devenement': 39,
-          quartiers: [ 19, 21 ],
-          'publics-cibles': [ 28 ],
-          'thematiques-internes': [ 51 ],
-          labels: [ 24, 25 ]
-        } 
-      }
-      **/
 
       next();
 

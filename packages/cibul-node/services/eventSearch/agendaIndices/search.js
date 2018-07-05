@@ -66,7 +66,7 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 
 module.exports.moreLikeThis = async ( searchIndex, agendaUid, sample ) => {
 
-  // do it on keywords, title
+  // do it on keywords, title, custom ids, custom text.
   return searchIndex.moreLikeThis( sample );
 
 }

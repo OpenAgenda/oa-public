@@ -47,7 +47,7 @@ function events( agendaId, refQuery, options, cb ) {
 
   }
 
-  let params = _.extend( {
+  const params = _.extend( {
     showAll: false
   }, options );
 
@@ -55,7 +55,7 @@ function events( agendaId, refQuery, options, cb ) {
 
     if ( err ) return cb( err );
 
-    let query = {};
+    const query = {};
 
     if ( refQuery.search ) query.what = refQuery.search;
 

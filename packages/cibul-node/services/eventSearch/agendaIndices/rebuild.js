@@ -56,7 +56,7 @@ module.exports = async ( searchIndex, uid ) => {
   let missingEvents = [];
 
   return searchIndex.rebuild( {
-    eventsList: async function( offset, limit ) {
+    eventsList: async ( offset, limit ) => {
 
       const aes = await agendaEvents( uid ).list( offset, limit ).then( r => r.items );
 
