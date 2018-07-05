@@ -33,6 +33,10 @@ module.exports = {
     en: 'Image',
     fr: 'Image'
   },
+  imageCredits: {
+    en: 'Image credits',
+    fr: 'Crédits image'
+  },
   thumbnail: {
     en: 'Thumbnail',
     fr: 'Aperçu'
