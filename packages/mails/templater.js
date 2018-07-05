@@ -1,11 +1,14 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
+const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const mjml2html = require( 'mjml' );
 const ejs = require( 'ejs' );
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'mails/templater' );
 const config = require( './config' );
+
+const readFile = promisify( fs.readFile );
 
 function getCompiledRenderer( compiled, type, templateName, opts ) {
   let { __ } = opts;
@@ -31,7 +34,7 @@ function getCompiledRenderer( compiled, type, templateName, opts ) {
     };
 }
 
-function compile( templateName, opts = {} ) {
+async function compile( templateName, opts = {} ) {
   const templateDir = path.join( config.templatesDir || '', templateName );
   const compiled = {};
 
@@ -39,7 +42,7 @@ function compile( templateName, opts = {} ) {
     let rawHtml = null;
 
     try {
-      rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error compiling html of the template '${templateName}'` ) );
     }
@@ -64,7 +67,7 @@ function compile( templateName, opts = {} ) {
     let rawText = null;
 
     try {
-      rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
+      rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error compiling text of the template '${templateName}'` ) );
     }
@@ -78,7 +81,7 @@ function compile( templateName, opts = {} ) {
     let rawSubject = null;
 
     try {
-      rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
+      rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error compiling subject of the template '${templateName}'` ) );
     }
@@ -96,7 +99,7 @@ function compile( templateName, opts = {} ) {
   };
 }
 
-function render( templateName, data = {}, opts = {} ) {
+async function render( templateName, data = {}, opts = {} ) {
   const templateDir = path.join( config.templatesDir || '', templateName );
   const lang = data.lang || opts.lang;
 
@@ -121,7 +124,7 @@ function render( templateName, data = {}, opts = {} ) {
     let rawHtml = null;
 
     try {
-      rawHtml = fs.readFileSync( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error rendering html of the template '${templateName}'` ) );
     }
@@ -147,7 +150,7 @@ function render( templateName, data = {}, opts = {} ) {
     let rawText = null;
 
     try {
-      rawText = fs.readFileSync( path.join( templateDir, 'text.ejs' ), 'utf8' );
+      rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error rendering text of the template '${templateName}'` ) );
     }
@@ -162,7 +165,7 @@ function render( templateName, data = {}, opts = {} ) {
     let rawSubject = null;
 
     try {
-      rawSubject = fs.readFileSync( path.join( templateDir, 'subject.ejs' ), 'utf8' );
+      rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
     } catch ( e ) {
       log.error( new VError( e, `Error rendering subject of the template '${templateName}'` ) );
     }

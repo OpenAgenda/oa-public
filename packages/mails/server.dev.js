@@ -1,4 +1,5 @@
 const path = require( 'path' );
+const { URL } = require( 'url' );
 const _ = require( 'lodash' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
@@ -13,7 +14,7 @@ config.init().catch( error => console.log( 'Initializing error:', error ) );
 function recursiveListPaths( base, regex, cb ) {
   const walker = walk.walk( base, {
     followLinks: false,
-    filters: [ 'node_modules', 'scripts', '.git' ]
+    filters: [ 'node_modules', '.git' ]
   } );
 
   const paths = [];
@@ -40,6 +41,10 @@ function renderLangsList( langs ) {
     langs.map( l => `<li style="display: inline"><a href="?lang=${l}">${l}</a></li>` ).join( '&nbsp;&nbsp;' ),
     '</ul>'
   ].join( '' );
+}
+
+function withReload( html ) {
+  return html.replace( '</body>', '<script src="/reload/reload.js"></script></body>' );
 }
 
 const app = express();
@@ -69,7 +74,7 @@ app.get( '/', ( req, res, next ) => {
   } );
 } );
 
-app.get( /.mjml$/, ( req, res, next ) => {
+app.get( /.mjml$/, async ( req, res, next ) => {
   if ( req.path.includes( 'reload/reload.js' ) ) {
     return next();
   }
@@ -93,40 +98,78 @@ app.get( /.mjml$/, ( req, res, next ) => {
   const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
   const __ = config.translations.makeLabelGetter( labels, lang );
 
-  const { html: initialHtml, text, subject } = render( templateName, data, { lang, __ } );
+  let html;
+  let text;
+  let subject;
+  try {
+    ( { html, text, subject } = await render( templateName, data, {
+      lang,
+      __
+    } ) );
+  } catch ( error ) {
+    return next( error );
+  }
 
-  let html = initialHtml || '<html><body></body></html>';
+  switch ( req.query.raw ) {
+    case 'html': {
+      return res.send( req.query.ignoreReload ? html : withReload( html ) );
+    }
+    case 'text': {
+      const textPage = `<html><body>${text}</body></html>`;
+      return res.send( req.query.ignoreReload ? textPage : withReload( textPage ) );
+    }
+    case 'subject': {
+      const subjectPage = `<html><body>${subject}</body></html>`;
+      return res.send( req.query.ignoreReload ? subjectPage : withReload( subjectPage ) );
+    }
+    default:
+  }
 
-  if ( subject ) {
-    html = html.replace(
-      '<body>',
-      [
-        '<body>',
-        `<div style="text-align: center"><b>Subject:</b> ${subject}</div>`,
+  const baseUrl = `${req.protocol}://${req.get( 'host' )}${req.originalUrl}`;
+  const getRawUrl = type => {
+    const url = new URL( baseUrl );
+    url.searchParams.delete( 'raw' );
+    url.searchParams.set( 'raw', type );
+    return url;
+  };
+
+  const iframeSrc = getRawUrl( 'html' );
+  iframeSrc.searchParams.set( 'ignoreReload', '1' );
+
+  const initialHtml = [
+    '<html><body style="margin: 0">',
+    '<script>',
+    '  function resizeIframe( obj ) {',
+    "    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';",
+    '  }',
+    '</script>',
+    ...( langs.length ? [ renderLangsList( langs ), '<hr style="max-width: 600px" />' ] : [] ),
+    ...( subject
+      ? [
+        `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl( 'subject' )}">raw</a>)</small>:</b> `,
+        subject,
+        '</div>',
         '<hr style="max-width: 600px" />'
-      ].join( '' )
-    );
-  }
-
-  if ( langs.length ) {
-    html = html.replace( '<body>', [ '<body>', renderLangsList( langs ), '<hr style="max-width: 600px" />' ].join( '' ) );
-  }
-
-  if ( text ) {
-    html = html.replace(
-      '</body>',
-      [
-        '<hr style="max-width: 600px" />',
-        '<h2 style="text-align: center">Text version</h2>',
+      ]
+      : [] ),
+    '<div style="display: flex">',
+    '<div style="margin: 0 auto">',
+    `<h2 style="text-align: center">Html version <small>(<a href="${getRawUrl( 'html' )}">raw</a>)</small></h2>`,
+    `<iframe src="${iframeSrc}" frameborder="0" scrolling="no" width="600px" onload="resizeIframe(this)">`,
+    '</iframe>',
+    '</div>',
+    ...( text
+      ? [
+        '<div style="margin: 0 auto">',
+        `<h2 style="text-align: center">Text version <small>(<a href="${getRawUrl( 'text' )}">raw</a>)</small></h2>`,
         `<div style="max-width: 600px; margin: 0 auto;">${text.replace( /(?:\r\n|\r|\n)/g, '<br>' )}</div>`,
-        '</body>'
-      ].join( '' )
-    );
-  }
+        '</div>'
+      ]
+      : [] ),
+    '</div></body></html>'
+  ].join( '' );
 
-  html = html.replace( '</body>', '<script src="/reload/reload.js"></script></body>' );
-
-  res.send( html );
+  res.send( withReload( initialHtml ) );
 } );
 
 app.use( ( err, req, res, next ) => {
@@ -139,7 +182,7 @@ app.use( ( err, req, res, next ) => {
   const content = err instanceof VError ? JSON.stringify( err, null, 2 ) : err.toString();
   const html = `<html><body>${_.escape( content )}</body></html>`;
 
-  res.status( 500 ).send( html.replace( '</body>', '<script src="/reload/reload.js"></script></body>' ) );
+  res.status( 500 ).send( withReload( html ) );
 } );
 
 app.listen( 3000 );

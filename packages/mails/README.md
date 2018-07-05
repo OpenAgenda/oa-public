@@ -298,7 +298,7 @@ The `opts` argument corresponds to the EJS argument described [here](https://git
 
 #### `render( templateName [, data = {}, opts = {}] )`
 
-Returns an Object containing three strings:
+Returns a Promise that resolves an Object containing three strings:
 - `html`
 - `text`
 - `subject`.
@@ -322,7 +322,7 @@ Name | Type | Description |
 
 #### `compile( templateName [, opts = {}] )`
 
-Returns an Object containing three functions:
+Returns a Promise that resolves an Object containing three functions:
 - `html( data )`
 - `text( data )`
 - `subject( data )`.

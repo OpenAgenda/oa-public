@@ -8,7 +8,7 @@ async function sendMail( data ) {
   try {
     await config.transporter.sendMail( data );
   } catch ( error ) {
-    log.error( 'Error on sending email', error );
+    log.error( 'Error on sending email', { data, error } );
   }
 }
 

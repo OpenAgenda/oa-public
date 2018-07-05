@@ -2,6 +2,7 @@ const _ = require( 'lodash' );
 const addressParser = require( 'nodemailer/lib/addressparser' );
 const isEmail = require( 'isemail' );
 const VError = require( 'verror' );
+const log = require( '@openagenda/logs' )( 'mails/index' );
 const task = require( './task' );
 const templater = require( './templater' );
 const config = require( './config' );
@@ -22,7 +23,7 @@ function flattenRecipients( recipients ) {
 async function sendMail( options = {} ) {
   const defaultLang = options.lang || config.defaults.lang;
   const compiled = options.template
-    ? templater.compile( options.template, {
+    ? await templater.compile( options.template, {
       ..._.pick( options, 'disableHtml', 'disableText', 'disableSubject' ),
       lang: defaultLang
     } )
@@ -37,18 +38,18 @@ async function sendMail( options = {} ) {
     const templateData = Object.assign( { lang }, options.data, recipient.data, config.defaults.data );
 
     if ( !isEmail.validate( recipient.address ) ) {
-      errors.push(
-        new VError(
-          {
-            info: {
-              ...options,
-              to: recipient,
-              data: templateData
-            }
-          },
-          'Invalid email address'
-        )
+      const error = new VError(
+        {
+          info: {
+            ...options,
+            to: recipient,
+            data: templateData
+          }
+        },
+        'Invalid email address'
       );
+      log.error( error );
+      errors.push( error );
       continue;
     }
 
@@ -80,19 +81,19 @@ async function sendMail( options = {} ) {
 
       results.push( result );
     } catch ( error ) {
-      errors.push(
-        new VError(
-          {
-            info: {
-              ...options,
-              to: recipient,
-              data: templateData
-            },
-            cause: error
+      const wrappedError = new VError(
+        {
+          info: {
+            ...options,
+            to: recipient,
+            data: templateData
           },
-          'Error on sending mail'
-        )
+          cause: error
+        },
+        'Error on sending mail'
       );
+      log.error( wrappedError );
+      errors.push( wrappedError );
     }
   }
 
