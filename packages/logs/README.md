@@ -1,28 +1,35 @@
 # Overview
 
-This logger lib adds some functionality to the base logentries library:
+This logger lib adds some functionality to the base winston library:
 
 * log function generator with namespace initialization
-* value loader to be reprinted at each subsequent log ( for example, if the log function is attached to the req object, it is useful to load user data once only and have it reprinted at each following log )
+* value loader to be reprinted at each subsequent log (for example, if the log function is attached to the req object, it is useful to load user data once only and have it reprinted at each following log)
 
 ## API
 
 ### Initialization
 
-`init( config )`
+#### `init( config )`
 
 Initialization must be done before any call of **basic logger**.
 
-config:  
+`config`:
   * namespace: *(string)* namespace for the basic logger
   * debug:
     * enable: *(string|false)*
     * prefix: *(string)* the prefix used before all namespaces for the debug logs (eg: `oa:`)
   * token: *(string)* aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee
   
-`setModuleConfig( config )`
+ #### `setModuleConfig( config )`
 
 Can be used as an **init** inside each module to modify the configuration of all the loggers used in this module.
+
+### Enable debug
+
+You can enable the debug log display with the environment variable `DEBUG`, for example:
+```bash
+DEBUG=service* yarn test
+```
 
 ### Basic logger
 
