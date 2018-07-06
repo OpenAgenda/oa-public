@@ -1,8 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const validate = require( '../iso/validate' );
 const VError = require( 'verror' );
+
+const log = require( '@openagenda/logs' )( 'legacyTransfer' );
+
+const validate = require( '../iso/validate' );
 const getLegacyState = require( './lib/getLegacyState' );
 const toLegacyState = require( './lib/toLegacyState' );
 
@@ -67,7 +70,7 @@ async function toLegacy( ae ) {
   } else {
 
     eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
-    agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' )
+    agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' );
 
     q.insert( _.extend( {
       review_id: agendaId,

@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'create' );
+
 const get = require( './get' );
 const legacyTransfer = require( './legacyTransfer' );
 const validate = require( '../iso/validate' );
@@ -84,7 +86,17 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( success && options.transferToLegacy ) {
 
-    await legacyTransfer.to( created );
+    log( 'transfering to legacy %j', created );
+
+    try {
+
+     await legacyTransfer.to( created );
+
+    } catch ( e ) {
+
+      log( 'error', 'failed to transfer to legacy', e );
+
+    }
 
   }
 
