@@ -46,7 +46,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     categoryId
   } = await agendaEvents( aId, eventId, insertIfNotExists );
 
-  if ( !agendaEventId ) {
+  if ( agendaEventId === null ) {
 
     throw new Error( `Did not find review_article ${aId}.${eventId}` );
 
