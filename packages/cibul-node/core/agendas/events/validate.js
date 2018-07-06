@@ -8,7 +8,6 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
 const validateEvent = require( '@openagenda/events/service/validate/front' );
 const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
-
 const getAgenda = require( '../utils/getAgenda' );
 
 module.exports = async ( agendaUid, data ) => {
@@ -39,7 +38,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
     // clean event
     try {
 
-      validateEvent( data );
+      validateEvent( data, { optionalSlug: true } );
 
     } catch( eventValidationErrors ) {
 

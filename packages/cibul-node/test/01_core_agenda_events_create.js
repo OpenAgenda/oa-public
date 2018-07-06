@@ -150,7 +150,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
     before( async () => {
 
       const result = await core.agendas( 17026855 ).events.create( {
-        slug: 'un-event',
+        slug: 'un-evenement',
         title: {
           fr: 'Un événement'
         },
@@ -169,13 +169,31 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
     } );
 
+
+    after( () => {
+
+      events.init( ih( events.getConfig(), {
+        interfaces: {
+          onCreate: {
+            $set: ( event, context ) => {}
+          }
+        }
+      } ) );
+
+    } );
+
+
+
     it( 'adds event to event service', async () => {
 
-      const fetched = await events.get( { uid: event.uid } );
+      const fetched = await events.get( {
+        uid: event.uid
+      } );
 
       fetched.should.ok;
 
     } );
+
 
     it( 'adds event to legacy event structure', done => {
 
@@ -266,6 +284,48 @@ describe( 'core - functional ( server ): agenda event create', function() {
       onCreateCalls[ 0 ][ 1 ].transferToLegacy.should.equal( true );
 
     } );
+
+  } );
+
+
+  describe( 'successful create wizout slug', () => {
+
+    let event;
+
+    let result;
+
+    let eventServiceConfig;
+
+    const onCreateCalls = [];
+
+    before( async () => {
+
+      result = await core.agendas( 17026855 ).events.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        keywords: {
+          fr: [ 'un', 'deux', 'trois' ]
+        },
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+    } );
+
+
+    it( 'successful', () => {
+
+      const slug = 'un-evenement';
+
+      result.created.event.slug.substr( 0, slug.length ).should.equal( slug );
+
+    } );
+
 
   } );
 
