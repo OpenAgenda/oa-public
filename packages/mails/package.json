@@ -19,6 +19,7 @@
     "express": "^4.16.3",
     "isemail": "^3.1.2",
     "lodash": "^4.17.10",
+    "lru-cache": "^4.1.3",
     "mjml": "^4.1.0",
     "morgan": "^1.9.0",
     "nodemailer": "^4.6.7",

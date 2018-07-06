@@ -5,9 +5,11 @@ const _ = require( 'lodash' );
 const mjml2html = require( 'mjml' );
 const ejs = require( 'ejs' );
 const VError = require( 'verror' );
+const LRU = require( 'lru-cache' );
 const log = require( '@openagenda/logs' )( 'mails/templater' );
 const config = require( './config' );
 
+const cache = LRU();
 const readFile = promisify( fs.readFile );
 
 function getCompiledRenderer( compiled, type, templateName, opts ) {
@@ -35,16 +37,38 @@ function getCompiledRenderer( compiled, type, templateName, opts ) {
 }
 
 async function compile( templateName, opts = {} ) {
+  const cacheKeyCompiled = JSON.stringify( {
+    compiled: true,
+    templateName,
+    ..._.pick( opts, 'lang', 'disableHtml', 'disableText', 'disableSubject' )
+  } );
+  const cachedCompiled = cache.get( cacheKeyCompiled );
+
+  if ( cachedCompiled ) {
+    return cachedCompiled;
+  }
+
+  const cacheKeyRaw = JSON.stringify( {
+    raw: true,
+    templateName,
+    ..._.pick( opts, 'lang', 'disableHtml', 'disableText', 'disableSubject' )
+  } );
+  const cachedRaw = cache.get( cacheKeyRaw );
+
   const templateDir = path.join( config.templatesDir || '', templateName );
   const compiled = {};
 
-  if ( !opts.disableHtml ) {
-    let rawHtml = null;
+  let rawHtml = cachedRaw && cachedRaw.html;
+  let rawText = cachedRaw && cachedRaw.text;
+  let rawSubject = cachedRaw && cachedRaw.subject;
 
-    try {
-      rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error compiling html of the template '${templateName}'` ) );
+  if ( !opts.disableHtml ) {
+    if ( !rawHtml ) {
+      try {
+        rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error compiling html of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawHtml ) {
@@ -64,12 +88,12 @@ async function compile( templateName, opts = {} ) {
   }
 
   if ( !opts.disableText ) {
-    let rawText = null;
-
-    try {
-      rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error compiling text of the template '${templateName}'` ) );
+    if ( !rawText ) {
+      try {
+        rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error compiling text of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawText ) {
@@ -78,12 +102,12 @@ async function compile( templateName, opts = {} ) {
   }
 
   if ( !opts.disableSubject ) {
-    let rawSubject = null;
-
-    try {
-      rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error compiling subject of the template '${templateName}'` ) );
+    if ( !rawSubject ) {
+      try {
+        rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error compiling subject of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawSubject ) {
@@ -91,15 +115,31 @@ async function compile( templateName, opts = {} ) {
     }
   }
 
-  return {
+  const result = {
     html: opts.disableHtml || !compiled.html ? null : getCompiledRenderer( compiled, 'html', templateName, opts ),
     text: opts.disableText || !compiled.text ? null : getCompiledRenderer( compiled, 'text', templateName, opts ),
     subject:
       opts.disableSubject || !compiled.subject ? null : getCompiledRenderer( compiled, 'subject', templateName, opts )
   };
+
+  cache.set( cacheKeyRaw, {
+    html: rawHtml,
+    text: rawText,
+    subject: rawSubject
+  } );
+  cache.set( cacheKeyCompiled, result );
+
+  return result;
 }
 
 async function render( templateName, data = {}, opts = {} ) {
+  const cacheKey = JSON.stringify( {
+    raw: true,
+    templateName,
+    ..._.pick( opts, 'lang', 'disableHtml', 'disableText', 'disableSubject' )
+  } );
+  const cached = cache.get( cacheKey );
+
   const templateDir = path.join( config.templatesDir || '', templateName );
   const lang = data.lang || opts.lang;
 
@@ -115,18 +155,21 @@ async function render( templateName, data = {}, opts = {} ) {
     __
   };
 
+  let rawHtml = cached && cached.html;
+  let rawText = cached && cached.text;
+  let rawSubject = cached && cached.subject;
   let html = null;
   let text = null;
   let subject = null;
 
   // Html
   if ( !opts.disableHtml ) {
-    let rawHtml = null;
-
-    try {
-      rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error rendering html of the template '${templateName}'` ) );
+    if ( !rawHtml ) {
+      try {
+        rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error rendering html of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawHtml ) {
@@ -147,12 +190,12 @@ async function render( templateName, data = {}, opts = {} ) {
 
   // Text
   if ( !opts.disableText ) {
-    let rawText = null;
-
-    try {
-      rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error rendering text of the template '${templateName}'` ) );
+    if ( !rawText ) {
+      try {
+        rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error rendering text of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawText ) {
@@ -162,18 +205,24 @@ async function render( templateName, data = {}, opts = {} ) {
 
   // Subject
   if ( !opts.disableSubject ) {
-    let rawSubject = null;
-
-    try {
-      rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
-    } catch ( e ) {
-      log.error( new VError( e, `Error rendering subject of the template '${templateName}'` ) );
+    if ( !rawSubject ) {
+      try {
+        rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
+      } catch ( e ) {
+        log.error( new VError( e, `Error rendering subject of the template '${templateName}'` ) );
+      }
     }
 
     if ( rawSubject ) {
       subject = ejs.render( rawSubject, templateData, opts );
     }
   }
+
+  cache.set( cacheKey, {
+    html: rawHtml,
+    text: rawText,
+    subject: rawSubject
+  } );
 
   return {
     html,
