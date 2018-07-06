@@ -2,19 +2,20 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const _ = require( 'lodash' );
+const should = require( 'should' );
 
-db = require( '../lib/db' ),
+const db = require( '../lib/db' );
 
-utils = require( '@openagenda/utils' ),
+const  utils = require( '@openagenda/utils' );
 
-mysql = require( 'mysql' ),
+const  mysql = require( 'mysql' );
 
-async = require( 'async' ),
+const  async = require( 'async' );
 
-fs = require( 'fs' ),
+const fs = require( 'fs' );
 
-locationFixtures = [ {
+const locationFixtures = [ {
   agendaId: 1,
   uid: 111,
   name: '111',
@@ -41,15 +42,15 @@ locationFixtures = [ {
   longitude: 2.3516,
   region: 'Ile de France',
   countryCode: 'FR'
-} ],
+} ];
 
-dbConfig = utils.extend( {}, require( '../testconfig' ).mysql ),
+const dbConfig = utils.extend( {}, require( '../testconfig' ).mysql );
 
-table = dbConfig.table,
+const table = dbConfig.table;
 
-agendaTestSettings = require( __dirname + '/fixtures/agendaTestSettings.js' ),
+const agendaTestSettings = require( __dirname + '/fixtures/agendaTestSettings.js' );
 
-dbName = dbConfig.database;
+const dbName = dbConfig.database;
 
 delete dbConfig.database;
 delete dbConfig.table;
@@ -326,7 +327,7 @@ describe( 'agenda-location db', function() {
 
   it( 'set with an identifier and partial information updates the location partially', done => {
 
-    db.init( utils.extend( {
+    db.init( _.extend( {
       database: dbName
     }, dbConfig ), err => {
 
@@ -337,7 +338,9 @@ describe( 'agenda-location db', function() {
         latitude: 48.8675,
         longitude: 2.3516,
         website: 'https://openagenda.com',
-        description: 'Yeepeekayyay',
+        description: {
+          fr: 'Yeepeekayyay'
+        },
         countryCode: 'FR'
       }, ( err, result ) => {
 

@@ -1,20 +1,16 @@
 "use strict";
 
-var should = require( 'should' ),
+const fs = require( 'fs' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-helpers = require( '../lib/mysqlHelpers' ),
+const utils = require( '@openagenda/utils' );
 
-mysql = require( 'mysql' ),
+const helpers = require( '../lib/mysqlHelpers' );
 
-utils = require( '@openagenda/utils' ),
+const dbConfig = utils.extend( {}, require( '../testconfig.js' ).mysql );
 
-fs = require( 'fs' ),
-
-dbConfig = utils.extend( {}, require( '../testconfig.js' ).mysql ),
-
-table = dbConfig.table,
-
-database = dbConfig.database;
+const { table, database } = dbConfig;
 
 delete dbConfig.database; 
 
@@ -24,7 +20,7 @@ describe( 'mysql helpers', () => {
 
   beforeEach( done => {
 
-    let con = mysql.createConnection( dbConfig );
+    const con = mysql.createConnection( dbConfig );
 
     con.query( `drop database if exists ${database}`, () => {
 
@@ -44,7 +40,7 @@ describe( 'mysql helpers', () => {
 
       con.end();
 
-      con = mysql.createConnection( utils.extend( { database: database }, dbConfig ) );
+      con = mysql.createConnection( utils.extend( { database }, dbConfig ) );
 
       con.query( `create table if not exists ${table} ( id bigint auto_increment, uid bigint unique, other_id bigint, text longtext, primary key( id ) )`, ( err ) => {
 
@@ -59,13 +55,13 @@ describe( 'mysql helpers', () => {
   } );
 
 
-  it( 'update', ( done ) => {
+  it( 'update', done => {
 
-    let con = mysql.createConnection( utils.extend( { database: database }, dbConfig ) );
+    const con = mysql.createConnection( utils.extend( { database }, dbConfig ) );
 
     con.query( `insert into ${table} ( uid, other_id, text ) values ( ?, ?, ? )`, [ 123, 321, 'hueh hueh hueh' ], ( err, data ) => {
 
-      helpers.update( con, table, { id: data.insertId }, { uid: 999, text: 'nih hi hi'}, ( err ) => {
+      helpers.update( con.query.bind( con ), table, { id: data.insertId }, { uid: 999, text: 'nih hi hi'}, err => {
 
         should( err ).equal( null );
 
@@ -87,11 +83,11 @@ describe( 'mysql helpers', () => {
 
   } );
 
-  it( 'insert', ( done ) => {
+  it( 'insert', done => {
 
-    let con = mysql.createConnection( utils.extend( { database: database }, dbConfig ) );
+    const con = mysql.createConnection( utils.extend( { database }, dbConfig ) );
 
-    helpers.insert( con, table, { uid: 282, text: 'bzzh' }, ( err, data ) => {
+    helpers.insert( con.query.bind( con ), table, { uid: 282, text: 'bzzh' }, ( err, data ) => {
 
       should( err ).equal( null );
 

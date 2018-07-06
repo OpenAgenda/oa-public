@@ -1,55 +1,52 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' );
+const _ = require( 'lodash' );
+const mysql = require( 'mysql' );
 
 module.exports = {
-  update: update,
-  insert: insert
+  update,
+  insert
 }
 
 
-function insert( con, table, data, cb ) {
+function insert( query, table, data, cb ) {
 
-  var fields,
+  const rows = _.isArray( data ) ? data : [ data ];
 
-  insertQuery = [ 'insert into', table ], insertRows,
+  const fields = Object.keys( rows[ 0 ] );
 
-  rows = utils.isArray( data ) ? data : [ data ];
-
-  fields = Object.keys( rows[ 0 ] );
-
-  insertQuery = insertQuery.concat( [ 
+  const insertQuery = [ 'insert into', table ].concat( [ 
     '(', fields.join( ', ' ), ') values' 
   ] );
 
-  insertQuery.push( rows.map( ( row ) => {
+  let insertRows;
 
-    return '(' + fields.map( field => _prepareField( con, row[ field ] ) ).join( ', ' ) + ')';
+  insertQuery.push( rows.map( row => {
+
+    return '(' + fields.map( field => _prepareField( row[ field ] ) ).join( ', ' ) + ')';
 
   } ).join( ', ' ) );
 
-  con.query( insertQuery.join( ' ' ), cb );
+  query( insertQuery.join( ' ' ), [], cb );
 
 }
 
 
-function update( con, table, wheres, values, cb ) {
+function update( query, table, wheres, values, cb ) {
 
-  let updateQuery = [],
+  const updateQuery = [];
 
-  updateParts = [], 
+  const updateParts = [];
 
-  whereParts = [],
+  const whereParts = [];
 
-  field,
+  const filtered = _.extend( {}, values );
 
-  filtered = utils.extend( {}, values );
-
-  updateQuery.push( ['update', table, 'set'].join(' ') );
+  updateQuery.push( [ 'update', table, 'set' ].join(' ') );
 
   // filter out identifiers from update values
   
-  Object.keys( wheres ).forEach( ( k ) => {
+  _.keys( wheres ).forEach( ( k ) => {
 
     delete filtered[ k ];
 
@@ -57,15 +54,15 @@ function update( con, table, wheres, values, cb ) {
 
   // stick the values to be updated in the update query
 
-  for ( field in filtered ) {
+  for ( const field in filtered ) {
 
-    updateParts.push( field + '=' + _prepareField( con, filtered[ field ] ) );
+    updateParts.push( field + '=' + _prepareField( filtered[ field ] ) );
 
   }
 
   updateQuery.push( updateParts.join( ',' ) );
 
-  if ( !utils.size( wheres ) ) {
+  if ( !_.keys( wheres ).length ) {
 
     return cb( 'update with no wheres defined' );
 
@@ -76,15 +73,15 @@ function update( con, table, wheres, values, cb ) {
 
   updateQuery.push( 'where' );
 
-  for( field in wheres ) {
+  for( const field in wheres ) {
 
-    whereParts.push( field + ' = ' + con.escape( wheres[ field ] ) );
+    whereParts.push( field + ' = ' + mysql.escape( wheres[ field ] ) );
 
   }
 
   updateQuery.push( whereParts.join( ' and ' ) );
 
-  con.query( updateQuery.join(' '), cb );
+  query( updateQuery.join( ' ' ), [], cb );
 
 }
 
@@ -94,14 +91,14 @@ function update( con, table, wheres, values, cb ) {
  * before they can be shoved in a field
  */
 
-function _prepareField( con, f ) {
+function _prepareField( f ) {
 
   if ( typeof f == 'object' && !( f instanceof Date ) && ( f !== null ) ) {
 
-    return con.escape( JSON.stringify( f ) );
+    return mysql.escape( JSON.stringify( f ) );
 
   }
 
-  return con.escape( f );
+  return mysql.escape( f );
 
 }

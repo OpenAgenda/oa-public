@@ -8,7 +8,6 @@ const w = require( 'when' );
 
 const countries = require( '@openagenda/countries' );
 const logger = require( '@openagenda/basic-logger' );
-const utils = require( '@openagenda/utils' );
 
 const helpers = require( './mysqlHelpers' );
 const states = require( './states' );
@@ -31,6 +30,8 @@ const termFields = [ 'name', 'city', 'region', 'department', 'country' ];
 
 let config, log;
 
+let con;
+
 module.exports = {
   isReady: () => !!config,
   getConnection: () => mysql.createConnection( config ),
@@ -40,7 +41,7 @@ module.exports = {
   exists,
   remove,
   unlink,
-  list: utils.extend( list, {
+  list: _.extend( list, {
     terms: listTerms
   } ),
 
@@ -128,11 +129,7 @@ function getSettings( agendaId, cb ) {
 
   }
 
-  var con = _connect( config );
-
-  con.query( `select store from ${config.agendaSettingsTableName} where agenda_id = ?`, agendaId, ( err, rows ) => {
-
-    con.end();
+  _query( `select store from ${config.agendaSettingsTableName} where agenda_id = ?`, agendaId, ( err, rows ) => {
 
     if ( err ) return cb( err );
 
@@ -157,17 +154,13 @@ function copySettings( originAgendaId, destinationAgendaId, cb ) {
 
     if ( err ) return cb( err );
 
-    const con = _connect( config );
-
-    con.query( `select agenda_id from ${config.agendaSettingsTableName} where agenda_id = ?`, destinationAgendaId, ( err, rows ) => {
+    _query( `select agenda_id from ${config.agendaSettingsTableName} where agenda_id = ?`, destinationAgendaId, ( err, rows ) => {
 
       const query = rows.length ?
         `update ${config.agendaSettingsTableName} set store = ? where agenda_id = ?`
         : `insert into ${config.agendaSettingsTableName} ( store, agenda_id ) values ( ?, ? )`;
 
-      con.query( query, [ JSON.stringify( settings ), destinationAgendaId ], ( err, result ) => {
-
-        con.end();
+      _query( query, [ JSON.stringify( settings ), destinationAgendaId ], ( err, result ) => {
 
         if ( err ) return cb( err );
 
@@ -198,10 +191,7 @@ function list( wheres, offset, limit, cb ) {
 
   }
 
-  var con = _connect( config );
-
   w( {
-    con,
     offset,
     limit,
     locations: false,
@@ -221,13 +211,9 @@ function list( wheres, offset, limit, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, v.locations );
 
   }, err => {
-
-    con.end();
 
     cb( err );
 
@@ -238,11 +224,11 @@ function list( wheres, offset, limit, cb ) {
 
 function decorate( locations, cb ) {
 
-  var loadedSettings = {},
+  const loadedSettings = {};
 
-  decoratedLocations = [],
+  const decoratedLocations = [];
 
-  toDecorate = utils.isArray( locations ) ? locations : [ locations ];
+  const toDecorate = _.isArray( locations ) ? locations : [ locations ];
 
   async.eachSeries( toDecorate, ( location, ecb ) => {
 
@@ -267,7 +253,7 @@ function decorate( locations, cb ) {
 
     if ( err ) return cb( err );
 
-    cb( null, utils.isArray( locations ) ? decoratedLocations : decoratedLocations[ 0 ] );
+    cb( null, _.isArray( locations ) ? decoratedLocations : decoratedLocations[ 0 ] );
 
   } );
 
@@ -303,7 +289,7 @@ function decorate( locations, cb ) {
 
     || !v.settings.tagSet.groups.length ) return v;
 
-    if ( !v.location.tags || !utils.isArray( v.location.tags ) ) return v;
+    if ( !v.location.tags || !_.isArray( v.location.tags ) ) return v;
 
     v.location.tags = v.location.tags.map( lt => {
 
@@ -364,12 +350,9 @@ function set( data, settings, cb ) {
 
   log( 'set location' );
 
-  const con = _connect( config );
-
   w( {
     config,
     settings,
-    con,
     operation: false,
     data,
     currentLocation: false,
@@ -391,8 +374,6 @@ function set( data, settings, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, {
       success: !v.errors.length,
       operation: v.operation,
@@ -401,8 +382,6 @@ function set( data, settings, cb ) {
     } );
 
   }, err => {
-
-    con.end();
 
     cb( err );
 
@@ -423,10 +402,7 @@ function exists( identifiers, cb ) {
 
   }
 
-  const con = _connect( config );
-
-  w( utils.extend( {
-    con,
+  w( _.extend( {
     query: false,
     config,
     fields: [ 'id' ]
@@ -438,13 +414,9 @@ function exists( identifiers, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, !!v.location );
 
   }, err => {
-
-    if ( con ) con.end();
 
     cb( err );
 
@@ -466,7 +438,7 @@ function get( identifiers, cb ) {
 
   const con = _connect( config );
 
-  w( utils.extend( {
+  w( _.extend( {
     con,
     query: false,
     config
@@ -480,13 +452,9 @@ function get( identifiers, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, v.location );
 
   }, err => {
-
-    if ( con ) con.end();
 
     cb( err );
 
@@ -499,7 +467,7 @@ function unlink( identifiers, cb ) {
 
   const con = _connect( config );
 
-  w( utils.extend( {
+  w( _.extend( {
     con,
     config,
     query: false,
@@ -516,13 +484,9 @@ function unlink( identifiers, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, v.location );
 
   }, err => {
-
-    con.end();
 
     cb( err );
 
@@ -533,10 +497,7 @@ function unlink( identifiers, cb ) {
 
 function remove( identifiers, cb ) {
 
-  const con = _connect( config );
-
-  w( utils.extend( {
-    con,
+  w( _.extend( {
     query: false,
     config,
     location: false
@@ -552,13 +513,9 @@ function remove( identifiers, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, v.location );
 
   }, err => {
-
-    con.end();
 
     cb( err );
 
@@ -581,7 +538,7 @@ function listTerms( fields, wheres, cb ) {
 
   }
 
-  var con = _connect( config );
+  const con = _connect( config );
 
   w( {
     con,
@@ -605,13 +562,9 @@ function listTerms( fields, wheres, cb ) {
 
   .done( v => {
 
-    con.end();
-
     cb( null, v.terms );
 
   }, err => {
-
-    con.end();
 
     cb( err );
 
@@ -625,7 +578,7 @@ function init( cfg, cb ) {
   log = logger( 'db' );
 
   w( {
-    config: utils.extend( {
+    config: _.extend( {
       host: 'localhost',
       database: 'agenda_locations',
       user: 'root',
@@ -656,7 +609,7 @@ function _clean( namespace ) {
 
   return v => {
 
-    let items = utils.isArray( v[ namespace ] ) ? v[ namespace ] : [ v[ namespace ] ];
+    let items = _.isArray( v[ namespace ] ) ? v[ namespace ] : [ v[ namespace ] ];
 
     items = items.map( l => {
 
@@ -685,7 +638,7 @@ function _clean( namespace ) {
 
     } );
 
-    v[ namespace ] = utils.isArray( v[ namespace ] ) ? items : items[ 0 ];
+    v[ namespace ] = _.isArray( v[ namespace ] ) ? items : items[ 0 ];
 
     return v;
 
@@ -711,11 +664,9 @@ function _filterWheres( v ) {
 
 function _defineListQuery( v ) {
 
-  var wheresObj = _toDbFields( v.filteredWheres ),
+  const wheresObj = _toDbFields( v.filteredWheres );
 
-  wheres = [];
-
-
+  const wheres = [];
 
   for( const k in wheresObj ) {
 
@@ -725,11 +676,11 @@ function _defineListQuery( v ) {
 
     } else if ( _.isArray( wheresObj[ k ] ) ) {
 
-      wheres.push( k + ' in (' + wheresObj[ k ].map( w => v.con.escape( w ) ).join( ', ' ) + ')' );
+      wheres.push( k + ' in (' + wheresObj[ k ].map( w => mysql.escape( w ) ).join( ', ' ) + ')' );
 
     } else {
 
-      wheres.push( k + ' = ' + v.con.escape( wheresObj[ k ] ) );
+      wheres.push( k + ' = ' + mysql.escape( wheresObj[ k ] ) );
 
     }
 
@@ -751,11 +702,11 @@ function _defineListQuery( v ) {
 
 function _runQuery( targetField ) {
 
-  return function( v ) {
+  return v => {
 
-    var d = w.defer();
+    const d = w.defer();
 
-    v.con.query( v.query, ( err, rows ) => {
+    _query( v.query, ( err, rows ) => {
 
       if ( err ) return d.reject( err );
 
@@ -777,6 +728,25 @@ function _connect( config ) {
   if ( !config ) return false;
 
   return mysql.createConnection( config );
+
+}
+
+
+function _query( str, args, cb ) {
+
+  if ( !config ) return false;
+
+  if ( config.query ) {
+
+    config.query( str, args, cb );
+
+  } else {
+
+    if ( !con ) con = mysql.createConnection( config );
+
+    con.query( str, args, cb );
+
+  }
 
 }
 
@@ -826,7 +796,7 @@ function _defineGetQuery( v ) {
   v.query = [ 'select' ]
     .concat( ( v.fields || fields ).map( f => typeof f == 'string' ? f : f.db ).join( ', ') )
     .concat( `from ${v.config.table} where` )
-    .concat( idFields.map( ( f, i ) => f + ' = ' + v.con.escape( v.values[ i ] ) ).join( ' and ') )
+    .concat( idFields.map( ( f, i ) => f + ' = ' + mysql.escape( v.values[ i ] ) ).join( ' and ') )
     .concat( [ 'limit 0, 1' ] ).join( ' ' );
 
   // if ( log ) log( 'get query: %s', v.query );
@@ -855,15 +825,15 @@ function _validateTermFields( v ) {
 
 function _defineTermsQuery( v ) {
 
-  var wheresObj = _toDbFields( v.filteredWheres ),
+  const wheresObj = _toDbFields( v.filteredWheres );
 
-  wheres = [],
+  const wheres = [];
 
-  selects = v.fields;
+  const selects = v.fields;
 
   for( const k in wheresObj ) {
 
-    wheres.push(  k + ( wheresObj[ k ] === null ? ' is ' : '=' ) + v.con.escape( wheresObj[ k ] ) );
+    wheres.push(  k + ( wheresObj[ k ] === null ? ' is ' : '=' ) + mysql.escape( wheresObj[ k ] ) );
 
   }
 
@@ -911,8 +881,6 @@ function _cleanTerms( v ) {
 
 function _runGetQuery( v ) {
 
-  var d;
-
   if ( !v.query ) {
 
     v.location = null;
@@ -921,9 +889,9 @@ function _runGetQuery( v ) {
 
   }
 
-  d = w.defer();
+  const d = w.defer();
 
-  v.con.query( v.query, ( err, rows ) => {
+  _query( v.query, [], ( err, rows ) => {
 
     if ( err ) return d.reject( err );
 
@@ -944,7 +912,7 @@ function _defineRemoveQuery( v ) {
 
   v.query = [
     `delete from ${v.config.table}`,
-    `where id = ${v.con.escape( v.location.id )}`,
+    `where id = ${mysql.escape( v.location.id )}`,
     'limit 1'
   ].join( ' ' );
 
@@ -959,7 +927,7 @@ function _defineUnlinkQuery( v ) {
 
   v.query = [
     `update ${v.config.table} set agenda_id=NULL`,
-    `where id = ${v.con.escape( v.location.id )}`,
+    `where id = ${mysql.escape( v.location.id )}`,
     'limit 1'
   ].join( ' ' );
 
@@ -972,9 +940,9 @@ function _runRemoveQuery( v ) {
 
   if ( v.location === null ) return v;
 
-  var d = w.defer();
+  const d = w.defer();
 
-  v.con.query( v.query, ( err ) => {
+  _query( v.query, [], ( err ) => {
 
     if ( err ) return d.reject( err );
 
@@ -989,7 +957,7 @@ function _runRemoveQuery( v ) {
 
 function _toDbFields( values, previousValues ) {
 
-  var dbData = _transform( values, 'obj', 'db' );
+  const dbData = _transform( values, 'obj', 'db' );
 
   // if store values are undefined and previous values exist,
   // they should be used and not be reset
@@ -1015,9 +983,9 @@ function _toDbFields( values, previousValues ) {
 
 function _fromDbFields( values ) {
 
-  var objData = _transform( values, 'db', 'obj' ),
+  const objData = _transform( values, 'db', 'obj' );
 
-  store;
+  let store;
 
   if ( values.store ) {
 
@@ -1048,7 +1016,7 @@ function _fromDbFields( values ) {
 
 function _transform( values, from, to ) {
 
-  var transformed = {};
+  const transformed = {};
 
   fields.filter( f => values[ typeof f == 'string' ? f : f[ from ] ] !== undefined )
 
@@ -1067,7 +1035,7 @@ function _assignUniqueUid( v ) {
 
   log( 'assigning unique uid' );
 
-  var d = w.defer();
+  const d = w.defer();
 
   _defineUnique( v, 'uid', () => Math.ceil( Math.random() * 100000000 ), ( err, uid ) => {
 
@@ -1089,7 +1057,9 @@ function _assignUniqueSlug( v ) {
 
   log( 'assigning unique slug' );
 
-  var d = w.defer(), tried = false;
+  const d = w.defer();
+
+  let tried = false;
 
   _defineUnique( v, 'slug', () => {
 
@@ -1134,7 +1104,7 @@ function _insertLocation( v ) {
 
   dbData.updated_at = new Date();
 
-  helpers.insert( v.con, v.config.table, dbData, ( err, result ) => {
+  helpers.insert( _query, v.config.table, dbData, ( err, result ) => {
 
     if ( err ) return d.reject( err );
 
@@ -1151,17 +1121,17 @@ function _insertLocation( v ) {
 
 function _updateLocation( v ) {
 
-  const d = w.defer(),
+  const d = w.defer();
 
-  identifiers = _extractIdentifiers( v.data, [ 'id', 'uid' ] ),
+  const identifiers = _extractIdentifiers( v.data, [ 'id', 'uid' ] );
 
-  dbData = _toDbFields( v.location, v.currentLocation );
+  const dbData = _toDbFields( v.location, v.currentLocation );
 
   dbData.updated_at = new Date();
 
   log( 'updating location of id %s with data %s', JSON.stringify( identifiers.obj ), JSON.stringify( dbData ) );
 
-  helpers.update( v.con, v.config.table, identifiers.obj, dbData, ( err ) => {
+  helpers.update( _query, v.config.table, identifiers.obj, dbData, ( err ) => {
 
     if ( err ) return d.reject( err );
 
@@ -1187,7 +1157,7 @@ function _updateLocation( v ) {
 
 function _defineUnique( v, field, generator, cb ) {
 
-  var uniqueValue = false;
+  let uniqueValue = false;
 
   async.doWhilst( wcb => {
 
@@ -1195,7 +1165,7 @@ function _defineUnique( v, field, generator, cb ) {
 
     log( 'attempting values %s for field %s', value, field );
 
-    v.con.query( `select id from ${v.config.table} where ${field} = ${v.con.escape( value )} limit 0, 1`, ( err, rows ) => {
+    _query( `select id from ${v.config.table} where ${field} = ${mysql.escape( value )} limit 0, 1`, [], ( err, rows ) => {
 
       if ( err ) return wcb( err );
 
@@ -1280,9 +1250,9 @@ function _resyncLocationTags( location, settings, cb ) {
 
 function _determineCreateOrUpdate( v ) {
 
-  var d = w.defer(),
+  const d = w.defer();
 
-  identifiers = _extractIdentifiers( v.data, [ 'id', 'uid', 'eveId' ] ).obj;
+  const identifiers = _extractIdentifiers( v.data, [ 'id', 'uid', 'eveId' ] ).obj;
 
   v.operation = 'create';
 
@@ -1334,7 +1304,7 @@ function _determineCreateOrUpdate( v ) {
 
 function _extractIdentifiers( data, idFieldCandidates ) {
 
-  var extracted = {
+  const extracted = {
     idFields: [],
     values: [],
     obj: {}
@@ -1358,11 +1328,11 @@ function _extractIdentifiers( data, idFieldCandidates ) {
 
 function _checkDb( v ) {
 
-  var d = w.defer(),
+  const d = w.defer();
 
-  q = `create database if not exists ${v.config.database}`,
+  const q = `create database if not exists ${v.config.database}`;
 
-  con = _connect( {
+  const con = _connect( {
     host: v.config.host,
     user: v.config.user,
     password: v.config.password
