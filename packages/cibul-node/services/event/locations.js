@@ -1,20 +1,18 @@
 "use strict";
 
-var model = require( '../model' ),
+const async = require( 'async' );
 
-config = require( '../../config' ),
+const config = require( '../../config' );
 
-async = require( 'async' ),
+const model = require( '../model' );
 
-stakeholders = require( '@openagenda/agenda-stakeholders' ),
+const stakeholders = require( '@openagenda/agenda-stakeholders' );
 
-logger = require( '@openagenda/logger' ), log,
+const log = require( '@openagenda/logs' )( 'services/event/locations' );
 
-svc;
+let svc;
 
 module.exports = function( s ) {
-
-  log = logger( 'services/event/locations' );
 
   svc = s;
 

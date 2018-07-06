@@ -57,7 +57,18 @@ const testConfig = {
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
   mainChannel: 'maintest',
-  getLogConfig: () => null
+  getLogConfig: () => ( prefix, key ) => ( {
+    debug: {
+      prefix: prefix + ':' + key + ':'
+    },
+    token: null
+  } ),
+  logger: {
+    debug: {
+      prefix: 'oa:',
+      enable: false
+    }
+  }
 };
 
 

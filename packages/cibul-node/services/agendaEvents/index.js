@@ -20,6 +20,7 @@ function init( config ) {
   agendaEvents.init( {
     mysql: config.db,
     redis: config.redis,
+    logger: config.getLogConfig( 'svc', 'agendaEvents' ),
     schemas: {
       agendaEvent: config.schemas.agendaEventService
     },

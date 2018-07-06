@@ -1,16 +1,16 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'service:event' ),
+const config = require( '../../config' );
 
-config = require( '../../config' ),
+const log = require( '@openagenda/logger' )( 'service:event' );
 
-model = require( '../model' ),
+const model = require( '../model' );
 
-es = require( '../elasticsearch' ),
+const es = require( '../elasticsearch' );
 
-coms = require( '../../lib/coms' ),
+const coms = require( '../../lib/coms' );
 
-exportLib = require( './exportLib' );
+const exportLib = require( './exportLib' );
 
 module.exports = {
   initless: true,

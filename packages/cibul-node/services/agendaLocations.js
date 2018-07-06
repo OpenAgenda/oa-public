@@ -34,6 +34,7 @@ module.exports.init = ( config, cb ) => {
       table: 'location',
       agendaSettingsTableName: 'location_agenda_settings'
     },
+    query: _query.bind( null, config ),
     files: {
       tmpPath: config.tmpFolderPath,
       bucket: config.aws.bucket,
@@ -72,5 +73,27 @@ module.exports.init = ( config, cb ) => {
     }, internalEventSvc.locations ),
     logger
   }, cb );
+
+}
+
+
+function _query( config, queryStr, values, cb ) {
+
+  const query = config.knex.raw( queryStr, values );
+
+  query
+    .then(
+      result => result[ 0 ],
+      err => {
+
+        process.nextTick( () => cb( err ) );
+
+      }
+    )
+    .then( rows => {
+
+      process.nextTick( () => cb( null, rows ) );
+
+    } );
 
 }

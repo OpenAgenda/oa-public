@@ -48,6 +48,7 @@ module.exports = async ( ae, context ) => {
 
   if ( context.legacy ) {
 
+    // this happens after llegacy reference was added
     if ( agenda.formSchemaId ) await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
 
   } else {
