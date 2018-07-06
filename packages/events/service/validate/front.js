@@ -1,5 +1,9 @@
 "use strict";
 
+const assign = require( 'lodash/assign' );
+const omit = require( 'lodash/omit' );
+const get = require( 'lodash/get' );
+
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
@@ -15,4 +19,24 @@ schema.register( {
   email: require( '@openagenda/validators/email' )
 } );
 
-module.exports = schema( require( './frontFields' ) );
+const frontFields = require( './frontFields' );
+
+const validate = schema( frontFields );
+
+const sluglessValidate = schema( omit( frontFields, [ 'slug' ] ) );
+
+module.exports = ( data, options = {} ) => {
+
+  const params = assign( {
+    optionalSlug: false
+  }, options );
+
+  if ( params.optionalSlug && !get( data, 'slug' ) ) {
+
+    return sluglessValidate( data );
+
+  }
+
+  return validate( data );
+
+}

@@ -86,7 +86,54 @@ describe( 'events - unit (iso): validation', () => {
 
   } );
 
-  it( 'public validation only needs title', () => {
+  it( 'public validation requires slug by default', () => {
+
+    try {
+
+      frontValidate( {} );
+
+    } catch ( errors ) {
+
+      errors.filter( e => e.field === 'slug' ).length.should.equal( 1 );
+
+    }
+
+  } );
+
+
+  it( 'public validation can be set to render slug optional', () => {
+
+    try {
+
+      frontValidate( {}, { optionalSlug: true } )
+
+    } catch ( errors ) {
+
+      errors.filter( e => e.field === 'slug' ).length.should.equal( 0 );      
+
+    }
+
+  } );
+
+
+  it( 'public validation can be set to ignore slug', () => {
+
+    const clean = frontValidate( {
+      title: {
+        fr: 'Un titre'
+      },
+      timings: [ {
+        begin: new Date(),
+        end: new Date()
+      } ]
+    }, { optionalSlug: true } );
+
+    clean.title.fr.should.equal( 'Un titre' );
+
+  } );
+
+
+  it( 'public validation needs title and slug and timings', () => {
 
     let clean, errors = [], d = new Date();
 
