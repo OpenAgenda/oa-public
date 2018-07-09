@@ -15,7 +15,7 @@ module.exports = class Sub extends Component {
     return <div className={classNames({
       sub : true, 
       error: !!error 
-    })}>{error || label}</div>
+    })}>{error || label }</div>
 
   }
 

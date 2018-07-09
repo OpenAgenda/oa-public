@@ -18,6 +18,7 @@
       "en": "How many participants"
     },
     "placeholder" : null,
+    "sub" : null,
     "origin" : "custom"
   } ]
 }

@@ -8,6 +8,7 @@
       "en": "Name of the presenter"
     },
     "placeholder" : null,
+    "sub" : null,
     "info": null,
     "optional": false,
     "fieldType": "text",

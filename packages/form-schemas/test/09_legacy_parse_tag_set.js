@@ -68,6 +68,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             fr: 'Niveau scolaire'
           },
           info: null,
+          "sub" : null,
           write: 'contributor',
           read: null,
           optional: false,
@@ -116,6 +117,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
           },
           "info": null,
           "placeholder" : null,
+          "sub" : null,
           "write": 'contributor',
           "read": null,
           "optional": true,
@@ -217,7 +219,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
           }
         ],
         "fieldType": "radio",
-        "origin" : "categories"
+        "origin" : "categories",
+        "sub" : null
       } ]
     } );
 

@@ -9,6 +9,7 @@
       },
       "info": null,
       "placeholder" : null,
+      "sub" : null,
       "write": "contributor",
       "read": null,
       "optional": false,

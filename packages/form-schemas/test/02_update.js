@@ -9,7 +9,7 @@ const svc = require( './service' );
 
 const config = require( '../testconfig' );
 
-describe( 'form-schemas - functional (server): create', () => {
+describe( 'form-schemas - functional (server): update', () => {
 
   before( done => {
 
@@ -36,9 +36,9 @@ describe( 'form-schemas - functional (server): create', () => {
     let result = await svc.update( id, formSchema );
 
     result.should.eql( {
-      id: id,
+      id,
       success: true,
-      formSchema: formSchema
+      formSchema
     } );
 
   } );

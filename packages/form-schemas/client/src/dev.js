@@ -58,10 +58,6 @@ class Main extends Component {
           "placeholder" : {
             "fr" : "Une courte description de votre événement",
             "en" : "A short description of your event"
-          },
-          "sub" : {
-            "fr" : "Ce champ est requis",
-            "en" : "This field is required"
           }
         }, {
           "field" : "longDescription",

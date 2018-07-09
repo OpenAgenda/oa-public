@@ -1,12 +1,12 @@
 "use strict";
 
-const iso = require( '../iso' );
-
 const should = require( 'should' );
+
+const iso = require( '../iso' );
 
 const customValidator = require( './custom/wigglypoof.validator.js' );
 
-describe( 'field validation', () => {
+describe( 'validateField', () => {
 
   describe( 'simple cases', () => {
 
@@ -30,6 +30,7 @@ describe( 'field validation', () => {
         optional: true,
         min: null,
         max: null,
+        sub: null,
         fieldType: 'text',
         origin: null
       } );
@@ -59,6 +60,7 @@ describe( 'field validation', () => {
         languages: [ 'fr', 'en', 'it' ],
         min: null,
         max: null,
+        sub: null,
         fieldType: 'text' 
       } );
 
@@ -93,6 +95,7 @@ describe( 'field validation', () => {
           { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } } 
         ],
         fieldType: 'radio',
+        sub: null,
         origin: null
       } );
 
@@ -122,6 +125,7 @@ describe( 'field validation', () => {
         min: 3,
         max: 10,
         fieldType: 'textarea',
+        sub: null,
         origin: null
       } );
 
@@ -145,6 +149,7 @@ describe( 'field validation', () => {
         label: { fr: 'Un champ au type personnalisé' },
         info: null,
         placeholder: null,
+        sub: null,
         write: null,
         read: null,
         optional: true,

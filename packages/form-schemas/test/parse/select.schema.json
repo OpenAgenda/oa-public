@@ -10,6 +10,7 @@
       },
       "placeholder" : null,
       "info": null,
+      "sub" : null,
       "write": "contributor",
       "read": "moderator",
       "optional": true,
