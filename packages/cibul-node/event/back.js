@@ -136,7 +136,7 @@ const routes = {
       const custom = customSvc.parseLegacy( req.formSchemaFields, {
         custom: _.get( req, 'query.sample.custom', null ),
         tags: _.get( req, 'query.sample.tags', [] ).map( t => t.label ),
-        category: _.get( req, 'query.sample.category', [] ).map( c => c.label )
+        category: _.get( req, 'query.sample.category.label', null )
       } );
 
       req.query.sample = _.assignIn( _.omit( req.query.sample, [ 'custom', 'tags', 'category' ] ), { custom } );
