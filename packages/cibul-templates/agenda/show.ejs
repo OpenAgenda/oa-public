@@ -3,7 +3,7 @@
 <% if ( !agenda.isEmpty ) { %>
     <div id="content">
         <div class="container">
-            <div class="row">
+            <div class="row mobile-content-canvas">
                 <section class="col-sm-6 col-sm-offset-2 main-content">
                     <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %>|<%= lang %>|bs"></div>
                     <div class="total js_total" data-total="<%= total %>" data-passed-included="<%= passedIncluded ? '1' : '0' %>"></div>
@@ -14,10 +14,6 @@
                 <aside class="col-sm-4 col-aside sidebar">
 
                     <section class="side-item side-search">
-                        <h3 class="mobile-only">
-                            <i class="fa fa-search side-icon"></i><span
-                                    class="side-title"><%= __( 'searchInThisAgenda' ) %></span>
-                        </h3>
                         <div class="side-content">
                             <div class="search-form cbpgsc" data-cbctl="<%= agenda.uid %>|<%= lang %>">
                                 <input type="text" placeholder="<%= __( 'searchInThisAgenda' ) %>" class="search-input">
@@ -29,9 +25,6 @@
                     </section>
 
                     <section class="side-item side-map">
-                        <h3 class="mobile-only">
-                            <i class="fa fa-map-marker side-icon"></i><span class="side-title"><%= __( 'map' ) %></span>
-                        </h3>
                         <div class="side-content cbpgmp small-map" data-cbctl="<%= agenda.uid %>|<%= lang %>">
                             <div class="map-sync js_map_sync">
                                 <input type="checkbox" id="map-sync" class="js_sync_checkbox">
@@ -51,26 +44,14 @@
                     </section>
 
                     <section class="side-item side-categories display-none js_category_widget">
-                        <h3>
-                            <i class="fa fa-tag side-icon"></i>
-                            <span class="side-title"><%= __( 'categories' ) %></span>
-                        </h3>
                         <div class="side-content cbpgct" data-cbctl="<%= agenda.uid %>|bs"></div>
                     </section>
 
                     <section class="side-item side-tags display-none js_tags_widget">
-                        <h3>
-                            <i class="fa fa-tags side-icon"></i>
-                            <span class="side-title"><%= __( 'tags' ) %></span>
-                        </h3>
                         <div class="side-content cbpgtg" data-cbctl="<%= agenda.uid %>||bs"></div>
                     </section>
 
                     <section class="side-item display-none js_org_widget">
-                        <h3>
-                            <i class="fa fa-institution side-icon"></i>
-                            <span class="side-title"><%= __( 'organization' ) %></span>
-                        </h3>
                         <div class="side-content cbpgor" data-cbctl="<%= agenda.uid %>|bs"></div>
                     </section>
                     <% var footerUid = agenda.uid; %>
