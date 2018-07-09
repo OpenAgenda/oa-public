@@ -1,30 +1,57 @@
 #agenda {
 
+  @media (max-width: 768px) {
+
+    .mobile-content-canvas {
+
+      position: relative;
+      padding-top: 50px;
+
+    }
+
+  }
+
   // aside content
   .sidebar {
-    display: none;
-    
-    bottom: 0;
+
+
+    footer {
+
+      display: none;
+
+    }
+  
     padding: 0;
     position: absolute;
+    left: 0;
+    top: -15px;
     right: 0;
-    top: 0;
-    width: 50px;
+    
     z-index: 2000;
 
     &.fixed {
+
       padding-top: 50px;
       position: fixed;
       z-index: 99;
+
     }
 
     @media (min-width: 768px) {
+
       display: block;
       padding-left: 15px;
       padding-right: 15px;
       padding-top: 0 !important;
       position: relative !important;
       width: 33.3333%;
+
+      footer {
+
+        display: block;
+
+      }
+
     }
 
     @media (min-width: 1200px) {
@@ -82,6 +109,21 @@
 
   .side-item {
 
+    display: none;
+
+    &.side-search {
+
+      display: block;
+      width: 100;
+
+      .side-content {
+
+        display: block;
+
+      }
+
+    }
+
     a {
       color: $oa-gray;
       text-decoration: none;
@@ -98,6 +140,8 @@
     }
 
     @media (min-width: 768px) {
+
+      display: block;
 
       margin-bottom: 40px;
 
