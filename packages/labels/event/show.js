@@ -103,6 +103,10 @@ module.exports = {
     en: 'The event is published and displayed on the agenda',
     fr: 'L\'événement est publié et est accessible sur l\'agenda.'
   },
+  readyForPublishingContributorInfo: {
+    en: 'The event has been validated by moderators. It will be published without further changes',
+    fr: 'L\'événement a été validé par les modérateurs. Il sera publié sans changements additionnels'
+  },
   refused: {
     en: 'Refused',
     fr: 'Refusé'
