@@ -224,14 +224,14 @@ export default class Events extends Component {
                   {event.timerange}
                 </div>
 
-                <div className="actions">
+                {event.agenda ? <div className="actions">
                   <a
                     href={this.getEventEditLink( event )}
                     className="text-muted"
                   >
                     {getLabel( 'modify' )}
                   </a>
-                </div>
+                </div> : null}
               </div>
             </div>
           ) )}
