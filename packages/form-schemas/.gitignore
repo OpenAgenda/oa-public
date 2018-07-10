@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 node_modules/
+client/build
 npm-debug.log
 yarn-error.log
 testconfig.js

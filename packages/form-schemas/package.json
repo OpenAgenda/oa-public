@@ -10,7 +10,9 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/form-schemas",
   "scripts": {
     "test": "mocha --exit",
-    "start": "nodemon server.dev"
+    "prepublish": "yarn build",
+    "start": "nodemon server.dev",
+    "build": "rm -rf client/build && mkdir client/build && babel client/src --out-dir client/build --source-maps"
   },
   "dependencies": {
     "@openagenda/labels": "^2.0.79",

@@ -155,6 +155,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
     } );
 
   } );
+  
 
   it( 'takes a form schema, a category set and returns a form schema with the category set added as fields', () => {
 

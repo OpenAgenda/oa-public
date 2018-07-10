@@ -31,7 +31,8 @@ module.exports = class Field extends Component {
       value,
       onChange,
       error,
-      labels 
+      labels,
+      lang
     } = this.props;
 
     return <div className={classNames( {
@@ -46,6 +47,7 @@ module.exports = class Field extends Component {
       })}>{'( ' + labels.required + ' )'}</span>}
       {field.info?<div>{field.info}</div>:null}
       <Component
+        lang={lang}
         field={field}
         value={value}
         error={error}
