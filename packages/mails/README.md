@@ -95,7 +95,7 @@ The home page is the list of templates available in the chosen folder (`./templa
 
 Each template has a folder with its name, in there must be at least one file `index.mjml` and `fixtures.js`.
 
-**index.mjml** is the entry point of your template, it can be split into different partials (see [`mj-include`](https://mjml.io/documentation/#mj-include) of MJML).  
+**index.mjml** is the entry point of your template, it can be split into different partials (see [`include`](https://github.com/mde/ejs#includes) of EJS).  
 **text.ejs** is the text version of your template.  
 **subject.ejs** is the subject of the mail corresponding to your template.  
 **fixtures.js** exports data that are used in the template to preview as in production. If you use translations with dev app you can put your labels in a `$labels` key and add a `__` custom method if you need it.
