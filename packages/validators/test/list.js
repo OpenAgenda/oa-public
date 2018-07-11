@@ -1,8 +1,8 @@
 "use strict";
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'list validator', () => {
 

@@ -1,6 +1,9 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' );
+const _ = {
+  extend: require( 'lodash/extend' ),
+  isArray: require( 'lodash/isArray' )
+}
 
 /**
  * processes an array of values of potentially different
@@ -10,14 +13,14 @@ var utils = require( '@openagenda/utils' );
 
 module.exports = function( config, validates ) {
 
-  if ( arguments.length == 1 && utils.isArray( arguments[ 0 ] ) ) {
+  if ( validates === undefined && _.isArray( arguments[ 0 ] ) ) {
 
     validates = config;
     config = {};
 
   }
 
-  var params = utils.extend( {
+  const params = _.extend( {
     field: null,
     optional: true,
     types: false,
@@ -25,7 +28,7 @@ module.exports = function( config, validates ) {
     validates: []
   }, config );
 
-  utils.extend( validate, {
+  _.extend( validate, {
     type: 'list',
     clean,
     decorate,
@@ -59,14 +62,15 @@ module.exports = function( config, validates ) {
 
   }
 
-  return utils.extend( validate, {
+  return _.extend( validate, {
     type: 'list',
     field: params.field
   } );
 
-  function validate( value, cleanOnly ) {
+  function validate( value, cleanOnly = false ) {
 
-    var clean = [], errors = [];
+    const clean = [];
+    const errors = [];
 
     if ( params.optional && !value ) {
 
@@ -74,13 +78,13 @@ module.exports = function( config, validates ) {
 
     }
 
-    if ( params.optional && utils.isArray( value ) && !value.length ) {
+    if ( params.optional && _.isArray( value ) && !value.length ) {
 
       return clean;
 
     }
 
-    if ( !utils.isArray( value ) ) {
+    if ( !_.isArray( value ) ) {
 
       throw [ {
         field: params.field,
@@ -99,7 +103,7 @@ module.exports = function( config, validates ) {
 
       } catch( errs ) {
 
-        errors = errors.concat( errs.map( e => utils.extend( {}, e, { index: i, field: params.field } ) ) );
+        errs.forEach( e => errors.push( _.extend( {}, e, { index: i, field: params.field } ) ) );
 
       }
 
@@ -131,9 +135,11 @@ module.exports = function( config, validates ) {
    * throw errors or return clean
    */
 
-  function validateItem( item, decorated ) {
+  function validateItem( item, decorated = false ) {
 
-    var clean, errors = [], type;
+    const errors = [];
+
+    let clean, type;
 
     params.validates.forEach( v => {
 
@@ -147,7 +153,7 @@ module.exports = function( config, validates ) {
 
       } catch( e ) {
 
-        errors = errors.concat( e );
+        [].concat( e ).forEach( e => errors.push( e ) );
 
       }
 
