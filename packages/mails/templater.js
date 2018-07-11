@@ -58,12 +58,12 @@ async function compile( templateName, opts = {} ) {
   const templateDir = path.join( config.templatesDir || '', templateName );
   const compiled = {};
 
-  let rawHtml = cachedRaw && cachedRaw.html;
-  let rawText = cachedRaw && cachedRaw.text;
-  let rawSubject = cachedRaw && cachedRaw.subject;
+  let rawHtml = cachedRaw && cachedRaw.html ? cachedRaw.html : null;
+  let rawText = cachedRaw && cachedRaw.text ? cachedRaw.text : null;
+  let rawSubject = cachedRaw && cachedRaw.subject ? cachedRaw.subject : null;
 
   if ( !opts.disableHtml ) {
-    if ( !rawHtml ) {
+    if ( rawHtml === null ) {
       try {
         rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
       } catch ( e ) {
@@ -71,24 +71,27 @@ async function compile( templateName, opts = {} ) {
       }
     }
 
-    if ( rawHtml ) {
-      const { html: preHtml, errors } = mjml2html( rawHtml );
+    if ( rawHtml !== null ) {
+      compiled.html = data => {
+        const preHtml = ejs.render( rawHtml, data, opts );
+        const { html, errors } = mjml2html( preHtml );
 
-      if ( errors && errors.length ) {
-        throw new VError(
-          {
-            info: { errors }
-          },
-          'Invalid MJML'
-        );
-      }
+        if ( errors && errors.length ) {
+          throw new VError(
+            {
+              info: { errors }
+            },
+            'Invalid MJML'
+          );
+        }
 
-      compiled.html = ejs.compile( preHtml, opts );
+        return html;
+      };
     }
   }
 
   if ( !opts.disableText ) {
-    if ( !rawText ) {
+    if ( rawText === null ) {
       try {
         rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
       } catch ( e ) {
@@ -96,13 +99,13 @@ async function compile( templateName, opts = {} ) {
       }
     }
 
-    if ( rawText ) {
+    if ( rawText !== null ) {
       compiled.text = ejs.compile( rawText, opts );
     }
   }
 
   if ( !opts.disableSubject ) {
-    if ( !rawSubject ) {
+    if ( rawSubject === null ) {
       try {
         rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
       } catch ( e ) {
@@ -110,7 +113,7 @@ async function compile( templateName, opts = {} ) {
       }
     }
 
-    if ( rawSubject ) {
+    if ( rawSubject !== null ) {
       compiled.subject = ejs.compile( rawSubject, opts );
     }
   }
@@ -155,16 +158,16 @@ async function render( templateName, data = {}, opts = {} ) {
     __
   };
 
-  let rawHtml = cached && cached.html;
-  let rawText = cached && cached.text;
-  let rawSubject = cached && cached.subject;
+  let rawHtml = cached && cached.html ? cached.html : null;
+  let rawText = cached && cached.text ? cached.text : null;
+  let rawSubject = cached && cached.subject ? cached.subject : null;
   let html = null;
   let text = null;
   let subject = null;
 
   // Html
   if ( !opts.disableHtml ) {
-    if ( !rawHtml ) {
+    if ( rawHtml === null ) {
       try {
         rawHtml = await readFile( path.join( templateDir, 'index.mjml' ), 'utf8' );
       } catch ( e ) {
@@ -172,8 +175,9 @@ async function render( templateName, data = {}, opts = {} ) {
       }
     }
 
-    if ( rawHtml ) {
-      const { html: preHtml, errors } = mjml2html( rawHtml );
+    if ( rawHtml !== null ) {
+      const preHtml = ejs.render( rawHtml, templateData, opts );
+      const { html: renderedHtml, errors } = mjml2html( preHtml );
 
       if ( errors && errors.length ) {
         throw new VError(
@@ -184,13 +188,13 @@ async function render( templateName, data = {}, opts = {} ) {
         );
       }
 
-      html = ejs.render( preHtml, templateData, opts );
+      html = renderedHtml;
     }
   }
 
   // Text
   if ( !opts.disableText ) {
-    if ( !rawText ) {
+    if ( rawText === null ) {
       try {
         rawText = await readFile( path.join( templateDir, 'text.ejs' ), 'utf8' );
       } catch ( e ) {
@@ -198,14 +202,14 @@ async function render( templateName, data = {}, opts = {} ) {
       }
     }
 
-    if ( rawText ) {
+    if ( rawText !== null ) {
       text = ejs.render( rawText, templateData, opts );
     }
   }
 
   // Subject
   if ( !opts.disableSubject ) {
-    if ( !rawSubject ) {
+    if ( rawSubject === null ) {
       try {
         rawSubject = await readFile( path.join( templateDir, 'subject.ejs' ), 'utf8' );
       } catch ( e ) {
@@ -213,7 +217,7 @@ async function render( templateName, data = {}, opts = {} ) {
       }
     }
 
-    if ( rawSubject ) {
+    if ( rawSubject !== null ) {
       subject = ejs.render( rawSubject, templateData, opts );
     }
   }

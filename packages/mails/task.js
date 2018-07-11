@@ -12,11 +12,10 @@ async function sendMail( data ) {
   }
 }
 
-// send next message from the pending queue
+// send next messages from the pending queue
 async function shiftMessages() {
-  const total = await config.queue.total();
-  while ( config.transporter.isIdle() && total ) {
-    await sendMail( await config.queue.pop() );
+  while ( config.transporter.isIdle() ) {
+    await sendMail( await config.queue.waitAndPop() );
   }
 }
 
@@ -25,14 +24,11 @@ module.exports = async function task() {
     return;
   }
 
-  if ( typeof config.transporter.isIdle === 'function' ) {
+  if ( config.transporter.isIdle() ) {
     config.transporter.on( 'idle', shiftMessages );
-
-    if ( config.transporter.isIdle() ) {
-      // we need to wait the first mail (https://github.com/nodemailer/nodemailer/issues/768#issuecomment-299127268)
-      await sendMail( await config.queue.waitAndPop() );
-      await shiftMessages();
-    }
+    // we need to wait the first mail (https://github.com/nodemailer/nodemailer/issues/768#issuecomment-299127268)
+    await sendMail( await config.queue.waitAndPop() );
+    await shiftMessages();
   } else {
     while ( true ) {
       await sendMail( await config.queue.waitAndPop() );

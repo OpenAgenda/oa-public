@@ -144,7 +144,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     '  }',
     '</script>',
     ...( langs.length ? [ renderLangsList( langs ), '<hr style="max-width: 600px" />' ] : [] ),
-    ...( subject
+    ...( subject !== null
       ? [
         `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl( 'subject' )}">raw</a>)</small>:</b> `,
         subject,
@@ -158,7 +158,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     `<iframe src="${iframeSrc}" frameborder="0" scrolling="no" width="600px" onload="resizeIframe(this)">`,
     '</iframe>',
     '</div>',
-    ...( text
+    ...( text !== null
       ? [
         '<div style="margin: 0 auto">',
         `<h2 style="text-align: center">Text version <small>(<a href="${getRawUrl( 'text' )}">raw</a>)</small></h2>`,

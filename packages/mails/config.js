@@ -7,6 +7,7 @@ const logs = require( '@openagenda/logs' );
 const makeLabelGetter = require( './utils/makeLabelGetter' );
 
 const log = logs( 'mails/config' );
+const logTransporter = logs( 'mails/transporter' );
 
 const config = {
   templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( process.cwd(), 'templates' ),
@@ -45,8 +46,15 @@ async function init( c = {} ) {
     config.queue = queues( config.queueName );
   }
 
+  const transportLogger = {
+    error: ( data, ...rest ) => logTransporter.error( ...rest, data ),
+    warn: ( data, ...rest ) => logTransporter.warn( ...rest, data ),
+    info: ( data, ...rest ) => logTransporter.info( ...rest, data ),
+    debug: ( data, ...rest ) => logTransporter.debug( ...rest, data )
+  };
+
   // Transporter
-  config.transporter = nodemailer.createTransport( config.transport, config.defaults );
+  config.transporter = nodemailer.createTransport( { ...config.transport, logger: transportLogger }, config.defaults );
 
   if ( !config.disableVerify ) {
     try {

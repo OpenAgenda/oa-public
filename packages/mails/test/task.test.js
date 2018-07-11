@@ -31,6 +31,8 @@ describe( 'task', () => {
     } );
 
     await config.queue.clear();
+
+    mails.task();
   } );
 
   beforeEach( () => {
@@ -53,9 +55,6 @@ describe( 'task', () => {
 
     const start = Date.now();
     const spy = jest.spyOn( config.transporter, 'sendMail' );
-
-    // launch task after spyOn
-    mails.task();
 
     const { results, errors } = await mails( {
       template: 'helloWorld',
