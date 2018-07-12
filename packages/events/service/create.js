@@ -2,6 +2,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const uuidV4 = require( 'uuid/v4' );
 const w = require( 'when' );
 
 const logger = require( '@openagenda/logs' );
@@ -9,20 +10,18 @@ const slugs = require( '@openagenda/slugs' );
 
 const cleanCreateArgs = require( './lib/cleanCreateArgs' );
 const cleanCreateOptions = require( './validate/createOptions' );
-const draft = require( './lib/draft.w' );
+
 const get = require( './lib/get.w' );
 const map = require( './databaseFieldMap' );
-const now = require( './lib/now.w' );
-const transferToLegacy = require( './lib/transferToLegacy.w' );
-const unique = require( './lib/unique.w' );
-const validate = require( './lib/validate.w' );
+
+const validate = require( './validate' );
 const processImage = require( './lib/processImage' );
 
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
-let schemas, service, knex, config, log;
+let schemas, service, knex, config, log, legacySchemas;
 
-module.exports = _.extend( function( d, o, c ) {
+module.exports = _.extend( ( d, o, c ) => {
 
   const { data, options, cb } = cleanCreateArgs( d, o, c );
 
@@ -49,6 +48,8 @@ module.exports = _.extend( function( d, o, c ) {
 
     schemas = c.schemas;
 
+    legacySchemas = _.get( c, 'legacy.schemas' );
+
     knex = c.knex;
 
     config = c;
@@ -65,210 +66,267 @@ async function createPromise( data, options ) {
 
   const { interfaces } = config;
 
+  // clean given data
+  let preCleanEvent;
+
+  // clean completed data
+  let cleanEvent;
+
+  // id of created event
+  let createdId;
+
+  // created event was transfered to legacy
+  let transferedToLegacy = false;
+
+  // created event fetched from db
+  let created;
+
   try {
 
     cleanOptions = cleanCreateOptions( options );
 
   } catch ( e ) {};
 
-  let v = await w( _.extend( {}, cleanOptions, {
-    id: false,
-    data,
-    clean: null,
-    created: null,
-    errors: [],
-    identifiers: null,
-    success: false,
-    transferedToLegacy: false
-  } ) )
+  const errors = [];
 
-    .then( _verifyUniqueUidIfSet );
+  try {
 
-  if ( !data.uid ) {
+    if ( cleanOptions.draft ) {
 
-    v.data.uid = await _createUid(
-      config.knex( schemas.event ),
-      config.legacyKnex( config.legacy.schemas.event )
-    );
+      preCleanEvent = validate.draft( data );
+
+      preCleanEvent.draft = true;
+
+    } else {
+
+      preCleanEvent = _.assign( validate.front( data, { 
+        optionalSlug: true,
+        includeUid: true
+      } ), {
+        draft: false
+      } );
+
+    }
+
+  } catch ( frontValidationErrors ) {
+
+    console.log(frontValidationErrors);
+
+    frontValidationErrors.forEach( e => errors.push( _.assign( e, { step: 'pre' } ) ) );
 
   }
 
-  v = await w( v )
+  if ( !errors.length && preCleanEvent.uid && await _exists( 'uid', preCleanEvent.uid, cleanOptions.evaluateLegacyIdentifiers ) ) {
 
-    .then( _createSlugIfNotSet )
+    errors.push( {
+      code: 'unavailable.uid',
+      message: 'uid is taken by another event'
+    } );
 
-    .then( unique.verify( {
-      mysql: config.mysql, 
-      table: schemas.event, 
-      field: 'slug', 
-      log 
-    } ) )
+  }
 
-    .then( now.setTo( 'data', 'updatedAt', cleanOptions.protected ) )
+  if ( !errors.length && preCleanEvent.slug && await _exists( 'slug', preCleanEvent.slug, cleanOptions.evaluateLegacyIdentifiers ) ) {
 
-    .then( now.setTo( 'data', 'createdAt', cleanOptions.protected ) )
+    errors.push( {
+      code: 'unavailable.slug',
+      message: 'slug is taken by another event'
+    } );
 
-    .then( draft( 'data' ) )
+  }
 
-    .then( validate( { target: 'data', log } ) );
+  if ( !errors.length && !preCleanEvent.uid ) {
 
-  // if image was set as path or url, image should be processed before event create.
-  _.extend( v, await processImage.w( config, v ) );
+    preCleanEvent.uid = await _defineUnique( 'uid', () => Math.ceil( Math.random() * 99999999 ) );
 
-  return w( v ).then( _doCreate )
+  }
 
-    .then( cleanOptions.transferToLegacy ? transferToLegacy.bind( null, service ) : v => v )
+  if ( !errors.length && !preCleanEvent.slug ) {
 
-    .then( get( {
-      log,
-      get: service.get,
-      target: 'created', 
-      internal: true, 
-      prerequisite: v => v.success && !v.errors.length,
-      includeImagePath: cleanOptions.includeImagePath
-    } ) )
+    const title = preCleanEvent.title[ _.keys( preCleanEvent.title )[ 0 ] ];
 
-    .then( _cleanResult );
+    preCleanEvent.slug = await _defineUnique( 'slug', prev => [ 
+      title ? slugs.generate( title ) : null,
+      prev || !title ? Math.ceil( Math.random()*1000 ) : null
+    ].filter( v => !!v ).join( '_' ) );
 
-}
+  }
+
+  if ( !errors.length ) {
+
+    if ( cleanOptions.protected || !data.createdAt instanceof Date ) {
+
+      preCleanEvent.createdAt = new Date();
+
+    }
+
+    if ( cleanOptions.protected || !data.updatedAt instanceof Date ) {
+
+      preCleanEvent.updatedAt = new Date();
+
+    }
+
+    try {
+      
+      cleanEvent = ( cleanOptions.draft ? validate.draft : validate )( _.assign( {}, data, preCleanEvent ) );
+
+    } catch ( validationErrors ) {
+
+      validationErrors.forEach( e => errors.push( _.assign( e, { step: 'validation' } ) ) );
+
+    }
+
+  }
 
 
-function _cleanResult( v ) {
+  if ( !errors.length && ( _.get( data, 'image.path' ) || _.get( data, 'image.url' ) ) ) {
 
-  if ( v.success && config.interfaces ) {
+    try {
 
-    config.interfaces.onCreate( v.created, v.context );
+      cleanEvent.image = await _processImage( _.get( data, 'image.url' ), _.get( data, 'image.path' ), {
+        image: _.get( data, 'image' ),
+        filePath: _.get( data, 'fileKey' )
+      } );
+
+    } catch ( e ) {
+
+      errors.push( { step: 'image', caught: e } );
+
+    }
+
+  }
+
+
+  if ( !errors.length ) {
+
+    try {
+
+      createdId = _.head( await knex( schemas.event ).insert( dbParse.toDb( cleanEvent ) ) );
+
+    } catch( e ) {
+
+      errors.push( { step: 'db', caught: e } );
+
+    }
+
+    if ( !createdId ) {
+
+      errors.push( { step: 'db', message: 'Id of created event was not retrieved' } );
+
+    }
+
+  }
+
+  if ( !errors.length && cleanOptions.transferToLegacy ) {
+
+    try {
+
+      const result = await service.legacy.update( { id: createdId } );
+
+      transferedToLegacy = !!result.success;
+
+      if ( !transferToLegacy ) log( 'error', 'could not transfer event to legacy', createdId );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not transfer event to legacy', createdId, e );
+
+    }
+
+  }
+
+  if ( createdId ) {
+
+    try {
+
+      created = await service.get( { id: createdId }, {
+        internal: true,
+        private: null,
+        includeImagePath: cleanOptions.includeImagePath
+      } );
+
+    } catch ( e ) {
+
+      errors.push( {
+        message: 'Event was created but fetch after creation failed',
+        uid: cleanEvent.uid,
+        step: 'get',
+        caught: e
+      } );
+
+    }
+
+  }
+
+  if ( created && _.get( interfaces, 'onCreate' ) ) {
+
+    try {
+      
+      interfaces.onCreate( created, cleanOptions.context );
+
+    } catch ( e ) {
+
+      log( 'error', 'interfaces onCreate', { caught: e } );
+
+    }
 
   }
 
   return {
-    event: v.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
-    valid: !v.errors.length,
-    success: v.success,
-    errors: v.errors,
-    transferedToLegacy: v.transferedToLegacy
+    event: cleanOptions.internal ? created : dbParse.exclude( created, 'internal' ),
+    valid: !errors.length,
+    success: !!created,
+    errors,
+    transferedToLegacy
   }
 
 }
 
 
-function _doCreate( v ) {
+async function _processImage( url, path, event ) {
 
-  if ( v.errors.length ) {
+  const fileKey = _.get( event, 'fileKey' ) || uuidV4().replace( /\-/g, '' );
 
-    log( 'create will not proceed' );
-
-    return v;
-
-  }
-
-  return knex( schemas.event )
-
-    .insert( dbParse.toDb( v.clean ) )
-
-    .then( result => {
-
-      v.success = !!( result && result[ 0 ] );
-
-      if ( !v.success ) return v;
-
-      log( 'event of slug %s, uid %s, id %s successfully created', v.clean.slug, v.clean.uid, result[ 0 ] );
-
-      v.identifiers = {
-        id: result[ 0 ]
-      };
-
-      v.id = result[ 0 ];
-
-      return v;
-
-    } );
-
-}
-
-
-function _verifyUniqueUidIfSet( v ) {
-
-  if ( !v.data.uid ) return v;
-
-  return unique.verify( {
-    mysql: config.mysql, 
-    table: schemas.event, 
-    field: 'uid',
-    log
-  } )( v );
-
-}
-
-
-async function _createUid( eventSchema, legacyEventSchema ) {
-
-  let uniqueUid = null;
-
-  while ( !uniqueUid ) {
-
-    let newUid = Math.ceil( Math.random() * 99999999 );
-
-    const exists = !!( await eventSchema.first( 'id' ).where( { uid: newUid } ) );
-
-    uniqueUid = exists ? null : newUid;
-
-  }
-
-  const uidExistsInLegacy = !!( await legacyEventSchema.first( 'uid' ).where( { uid: uniqueUid } ) );
-
-  if ( uidExistsInLegacy ) {
-
-    // if at first you don't succeed
-    return _createUid( eventSchema, legacyEventSchema );
-
-  }
-
-  return uniqueUid;
-
-}
-
-
-function _createSlugIfNotSet( v ) {
-
-  if ( v.data.slug ) return v;
-
-  let d = w.defer(),
-
-  title = _getFirstTitle( v.data );
-
-  unique.define( {
-    table: schemas.event,
-    field: 'slug',
-    mysql: config.mysql
-  }, previousSlug => slugs.generate( title, !!previousSlug ),
-  ( err, slug ) => {
-
-    if ( err ) return d.reject( err );
-
-    log( 'created slug %s', slug );
-
-    v.data.slug = slug;
-
-    d.resolve( v );
-
+  return _.assign( await processImage(
+    config.interfaces.imageFilesLoad,
+    config.image.formats,
+    fileKey,
+    { url, path },
+  ), {
+    credits: _.get( event, 'image.credits' )
   } );
 
-  return d.promise;
+}
+
+
+async function _defineUnique( field, generator  ) {
+
+  let value = null;
+
+  value = generator( value );
+
+  while ( await _exists( field, value ) ) {
+
+    value = generator( value );
+
+  }
+
+  return value;
 
 }
 
 
-function _getFirstTitle( data ) {
+async function _exists( field, value, evaluateLegacyIdentifiers = true ) {
 
-  if ( !data || !data.title || typeof data.title !== 'object' ) {
+  // knex is defined in global
+  // schemas is defined in global
+  // legacySchemas is defined in global
 
-    return false;
+  const exists = await knex( schemas.event ).first( 'id' ).where( field, value ).then( r => !!r );
 
-  }
+  if ( !evaluateLegacyIdentifiers ) return !!exists;
 
-  let firstLang = Object.keys( data.title )[ 0 ];
+  const legacyExists = await knex( legacySchemas.event ).first( 'id' ).where( field, value ).then( r => !!r );
 
-  return data.title[ firstLang ];
+  return exists || legacyExists;
 
 }

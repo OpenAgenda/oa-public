@@ -206,7 +206,9 @@ function transfer( identifiers, options, cb ) {
     set( v.legacy.event, {
       draft: v.legacy.event.draft, 
       protected: false, 
-      context: v.context
+      context: v.context,
+      evaluateLegacyIdentifiers: false,
+      includeUid: true
     }, ( err, r ) => {
 
       if ( err ) return cb( err );

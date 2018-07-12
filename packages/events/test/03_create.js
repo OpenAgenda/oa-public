@@ -44,7 +44,7 @@ describe( 'events - functional (server): create', function() {
           $set: imageFiles.load
         }
       }
-    } ), [ 
+    } ), [
       config.schemas.event + '_empty',
       config.legacy.schemas.event
     ], { reset: true }, done );
@@ -52,6 +52,14 @@ describe( 'events - functional (server): create', function() {
   } );
 
   afterEach( svc.shutdown );
+
+  it( 'create empty draft event', async () => {
+
+    const { success } = await svc.create( {}, { draft: true } );
+
+    success.should.equal( true );
+
+  } );
 
   it( 'create the simplest draft event', done => {
 
@@ -61,7 +69,7 @@ describe( 'events - functional (server): create', function() {
 
       result.should.eql( {
         event: {
-          slug: 'false',
+          slug: result.event.slug,
           uid: result.event.uid,
           title: {},
           description: {},
@@ -144,7 +152,7 @@ describe( 'events - functional (server): create', function() {
     const { event } = await svc.create( {
       image: {
         path: __dirname + '/service/tmp.png',
-        credits: 'Cé moi kai pri la foto',
+        credits: 'Cé moi kai pri la foto'
       }
     }, { draft: true } );
 
@@ -190,29 +198,37 @@ describe( 'events - functional (server): create', function() {
       wednesday: new Date( '2017-07-05T12:00' )
     };
 
-    let result = await svc.create( {
-      title: {
-        fr: 'Un événement'
-      },
-      timings: [ {
-        begin: times.wednesday,
-        end: times.wednesday
-      }, {
-        begin: times.monday,
-        end: times.monday
-      }, {
-        begin: times.tuesday,
-        end: times.tuesday
-      } ]
-    } );
+    try {
 
-    ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
+      let result = await svc.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: times.wednesday,
+          end: times.wednesday
+        }, {
+          begin: times.monday,
+          end: times.monday
+        }, {
+          begin: times.tuesday,
+          end: times.tuesday
+        } ]
+      } );
 
-      .should.equal( times.monday.getTime() );
+      ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
 
-    ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
+        .should.equal( times.monday.getTime() );
 
-      .should.equal( times.wednesday.getTime() );
+      ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
+
+        .should.equal( times.wednesday.getTime() );
+
+    } catch ( e ) {
+
+      console.log( e );
+
+    }
 
   } );
 
@@ -273,7 +289,7 @@ describe( 'events - functional (server): create', function() {
         }
       } );
 
-      let con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
 
       con.query( `select * from ${config.schemas.event} where uid=${result.event.uid}`, ( err, rows ) => {
 
@@ -548,9 +564,9 @@ describe( 'events - functional (server): create', function() {
 
   it( 'when create is not protected, updatedAt and createdAt timestamps can be explicited', async () => {
 
-    let createdAt = new Date( '1981-02-28T03:00:00.000Z' ),
+    const createdAt = new Date( '1981-02-28T03:00:00.000Z' );
 
-      updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
+    const updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
 
     let result = await svc.create( {
       createdAt,
@@ -592,9 +608,9 @@ describe( 'events - functional (server): create', function() {
           begin: new Date(),
           end: new Date()
         } ]
-      }, { context: { userUid: 12 } } );
+      }, { context: { userUid: 12 } } );
 
-    } );
+    } );
 
   } );
 
