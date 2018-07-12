@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/inboxes",
-  "version": "1.0.52",
+  "version": "1.0.53",
   "description": "The inbox service provides functionality enabling users to exchange messages stored in conversations.",
   "keywords": [],
   "author": "",

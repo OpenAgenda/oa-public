@@ -64,7 +64,7 @@ export async function defineJob( q, stats ) {
   let pos = 0;
   let users;
 
-  while ( { users } = await usersSvc.list( pos, limit ) ) {
+  while ( { users } = (await usersSvc.find( { query: { $skip: pos, $limit: limit } } )).data ) {
     if ( !users.length ) break;
     pos = pos + users.length;
 
@@ -169,7 +169,16 @@ export async function syncAgenda( agenda, stats ) {
   const users = [];
   const userIds = _.map( stakeholders, 'userId' );
 
-  while ( result = (await usersSvc.list( { id: userIds }, pos, limit, { removed: false } )).users ) {
+  while ( result = (await usersSvc.find( {
+    query: {
+      id: {
+        $in: userIds
+      },
+      $skip: pos,
+      $limit: limit
+    },
+    removed: null
+  } )).data ) {
     if ( !result.length ) break;
     pos = pos + limit;
 
