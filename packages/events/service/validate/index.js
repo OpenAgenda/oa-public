@@ -35,6 +35,8 @@ module.exports.draft = _clean.bind( null, schema( _.mapValues( fields, f => {
 
 module.exports.default = eventSchema.default;
 
+module.exports.front = require( './front' );
+
 
 function _clean( validate, data ) {
 

@@ -24,6 +24,10 @@ const validate = schema( {
     type: 'boolean',
     default: false
   },
+  evaluateLegacyIdentifiers: {
+    type: 'boolean',
+    default: true
+  },
   draft: {
     type: 'boolean',
     default: false

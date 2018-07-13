@@ -10,7 +10,7 @@ schema.register( {
   text: require( '@openagenda/validators/text' ),
   boolean: require( '@openagenda/validators/boolean' ),
   link: require( '@openagenda/validators/link' ),
-  number: require( '@openagenda/validators/number' ),
+  integer: require( '@openagenda/validators/integer' ),
   date: require( '@openagenda/validators/date' ),
   slug: require( '@openagenda/slugs/lib/iso/validator' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
@@ -21,22 +21,30 @@ schema.register( {
 
 const frontFields = require( './frontFields' );
 
-const validate = schema( frontFields );
-
-const sluglessValidate = schema( omit( frontFields, [ 'slug' ] ) );
-
 module.exports = ( data, options = {} ) => {
 
   const params = assign( {
-    optionalSlug: false
+    optionalSlug: false,
+    includeUid: false
   }, options );
+
+  let fields = assign( {}, frontFields );
 
   if ( params.optionalSlug && !get( data, 'slug' ) ) {
 
-    return sluglessValidate( data );
+    fields = omit( fields, [ 'slug' ] );
 
   }
 
-  return validate( data );
+  if ( params.includeUid ) {
+
+    fields.uid = {
+      type: 'integer',
+      optional: false
+    }
+
+  }
+
+  return schema( fields )( data );
 
 }
