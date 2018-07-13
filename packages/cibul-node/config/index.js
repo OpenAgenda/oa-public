@@ -228,7 +228,8 @@ const config = {
       defaults: {
         from: 'no-reply@openagenda.com',
         replyTo: 'admin@openagenda.com'
-      }
+      },
+      transport: prod.mails.transport
     },
     mailer: {
       service: 'mailgun',
