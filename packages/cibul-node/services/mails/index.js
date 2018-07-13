@@ -8,8 +8,6 @@ const labels = require( '@openagenda/labels/all' ).mails;
 
 module.exports.init = async config => {
 
-  console.log( config.getLogConfig( 'svc', 'mails' ) );
-
   await mails.init( {
     // Templating
     templatesDir: path.join( __dirname, 'templates' ),
