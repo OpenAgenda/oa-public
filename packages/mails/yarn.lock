@@ -26,8 +26,8 @@
     winston "^2.3.1"
 
 "@openagenda/queues@^1.0.1":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/queues/-/queues-1.0.3.tgz#9e259abf3cceb56e475934f13c83d5cb7d234839"
+  version "1.0.4"
+  resolved "https://registry.npmjs.org/@openagenda/queues/-/queues-1.0.4.tgz#dfc0bccfc235369c24ca94a42de720d34478cbb0"
   dependencies:
     lodash "^4.17.10"
     redis "^2.8.0"
