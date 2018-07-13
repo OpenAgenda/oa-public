@@ -1,22 +1,24 @@
 "use strict";
 
-var utils = require('@openagenda/utils');
+var _ = {
+  extend: require('lodash/extend'),
+  isArray: require('lodash/isArray')
 
-/**
- * processes an array of values of potentially different
- * types. Throws a concatenation of all errors with
- * an index.
- */
+  /**
+   * processes an array of values of potentially different
+   * types. Throws a concatenation of all errors with
+   * an index.
+   */
 
-module.exports = function (config, validates) {
+};module.exports = function (config, validates) {
 
-  if (arguments.length == 1 && utils.isArray(arguments[0])) {
+  if (validates === undefined && _.isArray(arguments[0])) {
 
     validates = config;
     config = {};
   }
 
-  var params = utils.extend({
+  var params = _.extend({
     field: null,
     optional: true,
     types: false,
@@ -24,7 +26,7 @@ module.exports = function (config, validates) {
     validates: []
   }, config);
 
-  utils.extend(validate, {
+  _.extend(validate, {
     type: 'list',
     clean: clean,
     decorate: decorate,
@@ -53,27 +55,29 @@ module.exports = function (config, validates) {
     });
   }
 
-  return utils.extend(validate, {
+  return _.extend(validate, {
     type: 'list',
     field: params.field
   });
 
-  function validate(value, cleanOnly) {
+  function validate(value) {
+    var cleanOnly = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-    var clean = [],
-        errors = [];
+
+    var clean = [];
+    var errors = [];
 
     if (params.optional && !value) {
 
       return clean;
     }
 
-    if (params.optional && utils.isArray(value) && !value.length) {
+    if (params.optional && _.isArray(value) && !value.length) {
 
       return clean;
     }
 
-    if (!utils.isArray(value)) {
+    if (!_.isArray(value)) {
 
       throw [{
         field: params.field,
@@ -90,9 +94,9 @@ module.exports = function (config, validates) {
         clean.push(validateItem(item));
       } catch (errs) {
 
-        errors = errors.concat(errs.map(function (e) {
-          return utils.extend({}, e, { index: i, field: params.field });
-        }));
+        errs.forEach(function (e) {
+          return errors.push(_.extend({}, e, { index: i, field: params.field }));
+        });
       }
     });
 
@@ -116,11 +120,14 @@ module.exports = function (config, validates) {
    * throw errors or return clean
    */
 
-  function validateItem(item, decorated) {
+  function validateItem(item) {
+    var decorated = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-    var clean,
-        errors = [],
-        type;
+
+    var errors = [];
+
+    var clean = void 0,
+        type = void 0;
 
     params.validates.forEach(function (v) {
 
@@ -133,7 +140,9 @@ module.exports = function (config, validates) {
         clean = v(item);
       } catch (e) {
 
-        errors = errors.concat(e);
+        [].concat(e).forEach(function (e) {
+          return errors.push(e);
+        });
       }
     });
 
