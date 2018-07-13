@@ -36,7 +36,7 @@ function _getQueueName( queueName ) {
 
   if ( !config.prefix ) throw new Error( 'a prefix must be defined for redis queues' );
 
-  return [ config.prefix, queueName ].join( ':' );
+  return [ config.prefix, queueName ].join( config.separator );
 
 }
 
@@ -52,7 +52,7 @@ async function total( queueName ) {
 
 function waitAndPop( queueName ) {
 
-  return _getRedisClient( 'task' ).then( client => {
+  return _getRedisClient( `task:${queueName}` ).then( client => {
 
     return new Promise( ( rs, rj ) => {
 
@@ -80,11 +80,7 @@ async function enqueue( queueName, data ) {
 }
 
 
-async function pop( queueName, options = {} ) {
-
-  const { wait } = _.extend( {
-    wait: false
-  }, options );
+async function pop( queueName ) {
 
   const client = await _getRedisClient();
 
