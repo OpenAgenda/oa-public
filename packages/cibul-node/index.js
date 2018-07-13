@@ -20,6 +20,7 @@ module.exports = {
     files: require( '@openagenda/files' ),
     images: require( '@openagenda/images' ),
     mailer: require( '@openagenda/mailer' ),
+    mails: require( '@openagenda/mails' ),
     users: require( '@openagenda/users' )
   },
   config: require( './config' ),

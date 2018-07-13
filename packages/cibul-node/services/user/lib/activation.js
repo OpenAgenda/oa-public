@@ -4,9 +4,7 @@ var log = require( '@openagenda/logger' )( 'user svc - activation' ),
 
   lib = require( '../../../lib/lib' ),
 
-  config = require( '../../../config' ),
-
-  mailer = require( '@openagenda/mailer' ),
+  mails = require( '@openagenda/mails' ),
 
   model = require( '../../model' ),
 
@@ -276,9 +274,7 @@ function _sendToken( values ) {
 
   log( 'sending activation token' );
 
-  let linkParams = { token: values.token },
-
-    d = w.defer();
+  const linkParams = { token: values.token };
 
   if ( values.iToken ) linkParams.iToken = values.iToken;
 
@@ -288,51 +284,19 @@ function _sendToken( values ) {
 
   if ( values.agenda ) linkParams.slug = values.agenda.slug;
 
-  var link = genUrl.abs( values.agenda ? 'agendaActivate' : 'activate', linkParams ),
-
-    title = i18n( 'Activate your OpenAgenda account', values.user.culture ),
-
-    text = "Congratulations!, You just created your OpenAgenda account. Click on the following link to activate it \n %link%",
-
-    renders = {};
+  const link = genUrl.abs( values.agenda ? 'agendaActivate' : 'activate', linkParams );
 
   values.link = link;
 
-  async.each( [ 'html', 'text' ], ( type, ecb ) => {
-
-    templater( 'email/show', utils.extend( { type: type }, {
-      lang: values.user.culture,
-      env: process.env.NODE_ENV,
-      title: {
-        text: title,
-        link: link
-      },
-      description: i18n( text, { '%link%': link }, values.user.culture )
-    } ), ( err, render ) => {
-
-      if ( err ) return ecb( err );
-
-      renders[ type ] = render;
-
-      ecb();
-
-    } );
-
-  }, err => {
-
-    if ( err ) return d.reject( err );
-
-    mailer( {
-      recipient: values.user.email,
-      subject: title,
-      text: renders.text,
-      html: renders.html
-    } );
-
-    d.resolve( values );
-
-  } );
-
-  return d.promise;
+  return mails( {
+    template: 'activateAccount',
+    to: values.user.email,
+    lang: values.user.culture,
+    data: {
+      activateLink: link
+    },
+    queue: false
+  } )
+    .then( () => values );
 
 }

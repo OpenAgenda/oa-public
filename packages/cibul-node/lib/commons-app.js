@@ -99,7 +99,7 @@ module.exports = {
   https,                        // middleware. force https ( redirect to when not )
 
   requireAdmin,
-  loadBaseData,                 // middleware. 
+  loadBaseData,                 // middleware.
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
 
@@ -316,6 +316,25 @@ function checkContributor( req, res, next ) {
 
 
 function loadMemberRole( agendaNamespace, req, res, next ) {
+
+  function _resolve( isAdmin ) {
+
+    if ( isAdmin ) return next();
+
+    if ( params.redirect ) {
+
+      sessions.setFlash( req, res, params.message );
+
+      return res.redirect( params.redirect );
+
+    }
+
+    next( {
+      message: params.message,
+      code: 403
+    } );
+
+  }
 
   req.role = null;
 

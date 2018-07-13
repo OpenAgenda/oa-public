@@ -3,3 +3,8 @@ node_modules/*
 yarn.lock
 npm-debug.log
 yarn-error.log
+*.js
+*.js.map
+!/index.js
+!src/**/*
+!test/*

@@ -1,0 +1,83 @@
+<mjml>
+  <mj-head>
+    <mj-title><%- __( 'title' ) %></mj-title>
+    <mj-preview><%- __( 'title' ) %></mj-preview>
+
+    <mj-attributes>
+      <mj-all
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        line-height="22px"
+      />
+    </mj-attributes>
+
+    <mj-style inline="inline">
+      h1 {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1.4em;
+        letter-spacing: normal;
+      }
+
+      .title {
+        margin-top: 0;
+      }
+
+      .center {
+        text-align: center;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body
+    background-color="#f4f4f4"
+  >
+    <!-- Header -->
+    <mj-section padding="15px 0">
+      <mj-column>
+        <mj-image
+          width="300px"
+          src="https://openagenda.com/images/openagenda.png"
+          href="<%= root %>"
+          padding="0"
+        />
+      </mj-column>
+    </mj-section>
+
+    <mj-wrapper padding="0" border="1px solid #eeeeee">
+      <!-- Content -->
+      <mj-section
+        background-color="#ffffff"
+        padding="20px 40px"
+      >
+        <mj-column>
+          <mj-text>
+            <h1 class="title"><%- __( 'title' ) %></h1>
+            <%- __( 'description' ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+          </mj-text>
+
+          <mj-button
+            background-color="#41acdd"
+            color="white"
+            align="center"
+            href="<%= resetLink %>"
+          >
+            <%- __( 'actionDescription' ) %>
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <!-- Footer -->
+      <mj-section padding="15px 0">
+        <mj-column>
+          <mj-image
+            width="40px"
+            src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
+            href="<%= root %>"
+            padding="0"
+          />
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>

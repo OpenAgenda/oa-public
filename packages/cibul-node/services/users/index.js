@@ -10,10 +10,10 @@ const logger = require( '@openagenda/logger' );
 const keys = require( '@openagenda/keys' );
 const agendas = require( '@openagenda/agendas' );
 const sessions = require( '@openagenda/sessions' );
+const mails = require( '@openagenda/mails' );
 const mailer = require( '@openagenda/mailer' );
 const labels = require( '@openagenda/labels/users/settings' );
 const getLabels = require( '@openagenda/labels/makeLabelGetter' )( labels );
-const log = require( '@openagenda/logs' )( 'services/users' );
 const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
 const beforeRemove = require( './beforeRemove' );
 const onCreate = require( './onCreate' );
@@ -232,21 +232,13 @@ module.exports.init = async function init( config ) {
 
 function sendEmailForChange( { user, email, link, lang } ) {
 
-  mailer( {
-    recipient: email,
-    subject: getLabels( 'validationEmailSubject', lang ),
+  mails( {
+    template: 'changeEmail',
+    to: email,
     data: {
-      logo: 'https://openagenda.com/images/openagenda.png',
-      title: {
-        text: getLabels( 'validationEmailSubject', lang ),
-        link
-      },
-      action: {
-        label: getLabels( 'validationEmailAction', lang ),
-        link
-      },
-      description: getLabels( 'validationEmailContent', lang ),
-    }
+      link
+    },
+    lang
   } );
 
 }

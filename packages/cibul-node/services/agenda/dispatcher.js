@@ -8,8 +8,6 @@ eventSvc,
 
 logger = require( '@openagenda/logger' ), log,
 
-async = require( 'async' ),
-
 coms = require( '../../lib/coms' ),
 
 config = require( '../../config' ),
@@ -146,8 +144,8 @@ module.exports = agenda => {
 function _legacySearchUpdate( eventId ) {
 
   coms.publish( config.mainChannel, {
-    name: 'search.update', 
-    values: { id: eventId } 
+    name: 'search.update',
+    values: { id: eventId }
   } );
 
 }

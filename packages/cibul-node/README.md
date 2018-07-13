@@ -1,3 +1,11 @@
+## Modify mails templates
+
+To modify the templates of emails you have to clone `@openagenda/mails` then adjust the path and execute the following command:
+
+```bash
+MAILS_TEMPLATES_DIR=~/oa/packages/cibul-node/services/mails/templates yarn start
+```
+
 ## Server Configuration
 
 

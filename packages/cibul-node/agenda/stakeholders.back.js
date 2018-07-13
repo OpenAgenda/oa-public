@@ -1,8 +1,6 @@
 "use strict";
 
-const utils = require( '@openagenda/utils' ),
-
-  sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' ),
 
   streamUtils = require( '@openagenda/stream-utils' ),
 
@@ -20,13 +18,9 @@ const utils = require( '@openagenda/utils' ),
 
   getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
 
-  getInvLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/invitations' ) ),
-
   modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
-
-  invitationSvc = require( '../services/invitation' ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -40,51 +34,6 @@ const utils = require( '@openagenda/utils' ),
 
   routes = {
 
-    contributorsInvite:  [ 'post', '/contributors/invite', [ 
-      cmn.checkAdminOrModerator,
-      invite()
-    ] ],
-
-    administratorsInvite: [ 'post', '/admins/invite', [
-      cmn.checkAdministrator(),
-      invite( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-    ]],
-
-    moderatorsInvite: [ 'post', '/moderators/invite', [
-      cmn.checkAdministrator(),
-      invite( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' } )
-    ]],
-
-    contributorInviteResend: [ 'get', '/contributors/resend', [ 
-      cmn.checkAdminOrModerator,
-      inviteResend()
-    ] ],
-
-    administratorInviteResend: [ 'get', '/admins/resend', [
-      cmn.checkAdministrator(),
-      inviteResend( { inviteMethod: 'inviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-    ] ],
-
-    moderatorsInviteResend: [ 'get', '/moderators/resend', [
-      cmn.checkAdministrator(),
-      inviteResend( { inviteMethod: 'inviteModerators', redirect: 'agendaAdminModerators' })
-    ] ],
-
-    contributorInviteResendAll: [ 'get', '/contributors/resendall', [ 
-      cmn.checkAdminOrModerator,
-      inviteResendAll()
-    ] ],
-
-    administratorInviteResendAll: [ 'get', '/admins/resendall', [
-      cmn.checkAdministrator(),
-      inviteResendAll( { inviteMethod: 'resendInviteAdministrators', redirect: 'agendaAdminAdministrators' } )
-    ] ],
-
-    moderatorsInviteResendAll: [ 'get', '/moderators/resendall', [
-      cmn.checkAdministrator(),
-      inviteResendAll( { inviteMethod: 'resendInviteModerators', redirect: 'agendaAdminModerators' })
-    ] ],
-
     stakeholdersCsvExport: [ 'get', '/contributors.csv', [
       cmn.checkAdminOrModerator,
       _loadFlattener,
@@ -97,7 +46,7 @@ const utils = require( '@openagenda/utils' ),
       streamXlsx
     ] ],
 
-    contributorsInfo: [ 'get', '/contributors/info', [ 
+    contributorsInfo: [ 'get', '/contributors/info', [
       cmn.checkAdministrator(),
       agendaSvc.mw.loadAdminLayout,
       cmn.loadBaseData( 'oasfmain.css' ),
@@ -139,7 +88,7 @@ const utils = require( '@openagenda/utils' ),
 
       }
     ] ]
-    
+
   };
 
 module.exports = function( path ) {
@@ -183,137 +132,6 @@ function infoSubmit( req, res ) {
 
 }
 
-function invite( options ) {
-
-  var params = utils.extend( {
-    inviteMethod: 'inviteContributors',
-    redirect: 'agendaAdminContributors'
-  }, options ? options : {} );
-
-  return function( req, res ) {
-
-    if ( req.body.editors ) {
-
-      invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
-        emails: req.body.editors, 
-        lang: req.lang,
-        userId: req.user.id
-      }, ( err, invitations, result ) => {
-
-        if ( err ) {
-
-          sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
-
-        } else if ( result.count ) {
-
-          sessions.setFlash( req, res, getInvLabel( 'emailSubmitted', { count: result.count }, req.lang ) );
-
-        } else if ( invitations.length == 0 ) {
-
-          sessions.setFlash( req, res, getInvLabel( 'noNewInvite', req.lang ) );
-
-        } else {
-
-          sessions.setFlash( req, res, getInvLabel( 'sentInvites', { count : invitations.length }, req.lang ) );
-
-        }
-
-        res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) )
-
-      });
-      
-    } else {
-
-      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) )
-
-    }
-
-  }
-
-}
-
-
-function inviteResendAll( options ) {
-
-  var params = utils.extend( {
-    inviteMethod: 'resendInviteContributors',
-    redirect: 'agendaAdminContributors'
-  }, options || {} );
-
-  return ( req, res ) => {
-
-    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
-      lang: req.lang
-    }, ( err, invitations, result ) => {
-
-      if ( err ) {
-
-        req.log( 'error', err );
-
-        sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
-
-      } else {
-
-        sessions.setFlash( req, res, getInvLabel( 'resentInvites', { count : invitations.length }, req.lang ) );
-
-      }
-
-      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) );
-
-    } );
-
-  }
-
-}
-
-
-function inviteResend( options ) {
-
-  var params = utils.extend( {
-    inviteMethod: 'inviteContributors',
-    redirect: 'agendaAdminContributors'
-  }, options ? options : {} );
-
-  return function( req, res ) {
-
-    if ( !req.query.email ) {
-
-      res.redirect( 302, params.redirect, { slug: req.agenda.slug } );
-
-      return;
-
-    }
-
-    invitationSvc.agenda( req.agenda )[ params.inviteMethod ]( {
-      emails: req.query.email, 
-      lang: req.lang,
-      userId: req.user.id
-    }, function( err, invitation, result ) {
-
-      if ( err ) {
-
-        sessions.setFlash( req, res, getInvLabel( 'invitationError', req.lang ) );
-
-      } else if ( !invitation ) {
-
-        req.log( 'error', JSON.stringify( result ) );
-
-        sessions.setFlash( req, res, getInvLabel( 'invitationNotSent', req.lang ) );
-
-      } else {
-
-        sessions.setFlash( req, res, getInvLabel( 'resentInvite', req.lang ) );
-
-      }
-
-      res.redirect( 302, req.genUrl( params.redirect, { slug: req.agenda.slug } ) );
-
-    } );
-
-  }
-
-}
-
 function _loadFlattener( req, res, next ) {
 
   req.flatten = flattener( [ {
@@ -353,23 +171,6 @@ function _getCredentialLabel( lang ) {
     getCredentialLabel( 'administrator', lang ),
     getCredentialLabel( 'moderator', lang )
   ][ c - 1 ];
-
-}
-
-
-function streamStakeholders( req, res, next ) {
-
-  switch( req.params.format ) {
-
-    case 'csv': return _streamCsv( req, res, next );
-
-    case 'xlsx': return _streamXlsx( req, res, next );
-
-    default:
-
-      next( { code: 400, message: 'Export format unavailable' } );
-
-  }
 
 }
 

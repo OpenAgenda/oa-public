@@ -1,0 +1,180 @@
+<mjml>
+  <mj-head>
+    <mj-title><%- __( 'title' ) %></mj-title>
+    <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
+
+    <mj-attributes>
+      <mj-all
+        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+        line-height="22px"
+      />
+    </mj-attributes>
+
+    <mj-style>
+      h1 {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1.4em;
+        letter-spacing: normal;
+      }
+
+      .header-link {
+        text-decoration: none;
+      }
+
+      .header-link:hover {
+        text-decoration: none;
+      }
+
+      .grey-link {
+        color: #555555;
+      }
+
+      a .grey-link:hover {
+        color: #41ACDD;
+      }
+
+      .black-link {
+        color: #000000;
+      }
+
+      a .black-link:hover {
+        color: #41ACDD;
+      }
+
+      .center {
+        text-align: center;
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body
+    background-color="#f4f4f4"
+  >
+    <!-- Header -->
+    <mj-section padding="15px 0">
+      <mj-column>
+        <mj-image
+          width="<%= logo.width || '300px' %>"
+          src="<%= logo.src %>"
+          padding="0"
+        />
+
+        <mj-text>
+          <h2 class="center" style="margin: 0"><%= agendaTitle %></h2>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-wrapper padding="0" border="1px solid #eeeeee">
+      <!-- Event title + description -->
+      <mj-section
+        background-color="#ffffff"
+        padding="20px 40px"
+      >
+        <mj-column>
+          <mj-text>
+            <a href="<%= link %>" target="_blank" class="header-link">
+              <h2 class="grey-link"><%= event.title %></h2>
+              <span class="black-link"><%- event.description.replace(/(?:\r\n|\r|\n)/g, '<br />') %></span>
+            </a>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <!-- Event image -->
+      <mj-section
+        background-color="#ffffff"
+        padding="0"
+      >
+        <mj-column>
+          <mj-image src="<%= event.image %>" href="<%= link %>" padding="10px 25px 0 25px" />
+
+          <mj-text padding-top="0" font-style="italic">
+            <% if ( event.pricingInfo ) { %>
+              <%= event.pricingInfo %> -&nbsp;
+            <% } %>
+
+            <%= event.dateRange %>
+
+            <% if ( event.ticketLink ) { %>
+              &nbsp;- <a href="<%= event.ticketLink %>" target="_blank"><%= __('book') %></a>
+            <% } %>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <!-- Long description -->
+      <mj-section
+        background-color="#ffffff"
+        padding="10px 40px"
+      >
+        <mj-column>
+          <% if ( event.longDescription ) { %>
+            <mj-text>
+              <%- event.longDescription.replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+            </mj-text>
+          <% } %>
+        </mj-column>
+      </mj-section>
+
+      <!-- Map -->
+      <mj-section
+        background-color="#ffffff"
+        padding="15px 0 0 0"
+      >
+        <mj-column>
+          <mj-image
+            src="<%- `http://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-l-circle+41acdd(${map.lng},${map.lat})/${map.lng},${map.lat},${map.zoom}/600x140.png?access_token=${map.accessToken}` %>"
+            href="<%= link %>"
+          />
+        </mj-column>
+      </mj-section>
+
+      <!-- PlaceName + address -->
+      <mj-section
+        background-color="#ffffff"
+        padding="0 40px"
+      >
+        <mj-column>
+          <mj-text padding="0">
+            <a href="<%= link %>" target="_blank" class="header-link">
+              <h2 class="black-link"><%= event.placeName %></h2>
+              <h3 class="grey-link"><%= event.address %></h3>
+            </a>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+
+      <!-- Action button -->
+      <mj-section
+        background-color="#ffffff"
+        padding="20px 40px"
+      >
+        <mj-column>
+          <mj-button
+            background-color="#41acdd"
+            color="white"
+            align="center"
+            href="<%= link %>"
+          >
+            <%- __( 'actionDescription' ) %>
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <!-- Footer -->
+      <mj-section padding="15px 0">
+        <mj-column>
+          <mj-image
+            width="40px"
+            src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
+            href="<%= root %>"
+            padding="0"
+          />
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>

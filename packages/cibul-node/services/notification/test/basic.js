@@ -4,8 +4,6 @@ process.env.NODE_ENV = 'test';
 
 var should = require( 'should' ),
 
-async = require( 'async' ),
-
 config = require( '../../../config' ),
 
 cbm = require( 'cibulModel' )( config.db ),
@@ -67,21 +65,21 @@ describe( 'notification - basic', function() {
     }, function( err ) {
 
       coms.consume( 'jobs', function( err, values ) {
-        
-        values.should.eql( { 
+
+        values.should.eql( {
           type: 'notification',
           action: 'process',
-          values: { 
+          values: {
             ownerId: user.id,
             reviewId: agenda.id,
-            userId: false, 
+            userId: false,
             type: cbm.notifications().TYPES.AGENDA.NEWCONTRIBUTOR
           } } );
 
         done();
 
       });
-      
+
     } );
 
   });
@@ -94,19 +92,19 @@ describe( 'notification - basic', function() {
 
       coms.consume( 'jobs', function( err, values ) {
 
-        values.should.eql( { 
+        values.should.eql( {
           type: 'notification',
           action: 'process',
-          values: { 
+          values: {
             reviewId: agenda.id,
-            userId: false, 
+            userId: false,
             type: cbm.notifications().TYPES.AGENDA.EXPIREDSWAPCARD
           } } );
 
         done();
 
       });
-      
+
     } );
 
   });
@@ -131,7 +129,7 @@ describe( 'notification - basic', function() {
           admins.indexOf( row.userId ).should.not.equal( -1 );
 
           row.reviewId.should.equal( agenda.id );
-          
+
         });
 
         done();

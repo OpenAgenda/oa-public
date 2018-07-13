@@ -10,8 +10,6 @@ const lib = require( '../../lib/lib' );
 const activation = require( './lib/activation' );
 const lostPassword = require( './lib/lostPassword' );
 
-let invitationSvc;
-
 module.exports = {
   get,
   auth: authenticate,
@@ -24,12 +22,7 @@ module.exports.activation = activation( module.exports );
 
 module.exports.lostPassword = lostPassword( module.exports );
 
-module.exports.init = config => {
-
-  // avoid circular references
-  invitationSvc = require( '../invitation' );
-
-}
+module.exports.init = config => {};
 
 
 authenticate.facebook = _serviceAuthenticate( 'facebookUid' );
@@ -220,8 +213,6 @@ function _createProcess( createData, options ) {
 
     .then( _validateAndCreate )
 
-    .then( _isLoaded( 'user', invitationSvc.preprocessUser ) )
-
     .then( _isLoaded( 'user', _ifIsActivated( true, onActivation ) ) )
 
     .then( _isLoaded( 'user', _ifIsActivated( false, activation.createAndSend ) ) )
@@ -244,9 +235,7 @@ function onActivation( values ) {
 
       return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
 
-        .then( () => invitation2Svc.execute( { email: values.user.email }, { user: values.user } ) )
-
-        .then( () => invitationSvc.processUser( values ) );
+        .then( () => invitation2Svc.execute( { email: values.user.email }, { user: values.user } ) );
 
     } );
 

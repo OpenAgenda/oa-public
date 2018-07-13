@@ -12,7 +12,8 @@
     "install": "lerna link",
     "prepublish": "lerna run prepublish",
     "start": "yarn workspace cibulNode start",
-    "release": "lerna publish"
+    "release": "lerna publish",
+    "mails-editor": "yarn workspace cibulNode mails-editor"
   },
   "workspaces": {
     "packages": [

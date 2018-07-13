@@ -7,6 +7,7 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
 } );
 
 const _ = require( 'lodash' );
+const isEmail = require( 'isemail' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const mailer = require( '@openagenda/mailer' );
 const sessions = require( '@openagenda/sessions' );
@@ -28,7 +29,7 @@ const routes = {
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionShow
   ] ],
-  
+
   eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
@@ -182,7 +183,7 @@ function actionDatesShow( req, res ) {
 
 function eventMailSend( req, res, next ) {
 
-  var emails = mailer.extractEmails( req.body.mailsend );
+  var emails = _extractEmails( req.body.mailsend );
 
   req.formatted.uri = req.eventUri;
   req.formatted.uriParams = req.eventUriParams;
@@ -191,11 +192,11 @@ function eventMailSend( req, res, next ) {
 
     req.log( 'will send event as email to %s', emails.join(', ') );
 
-    var renders = {};
+    const renders = {};
 
     async.each( [ 'html', 'text' ], function( type, ecb ) {
 
-      cmn.renderTemplate( req, 'event/email', { 
+      cmn.renderTemplate( req, 'event/email', {
         type: type,
         layout: {
           title: req.event.getTitle(),
@@ -234,7 +235,7 @@ function eventMailSend( req, res, next ) {
       } );
 
       sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
-      
+
       res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
 
     } );
@@ -254,7 +255,7 @@ function _conditionalLayout( func, css ) {
 
   }
 
-} 
+}
 
 
 function _calendarAction( req, res, next ) {
@@ -273,13 +274,13 @@ function _calendarAction( req, res, next ) {
 
   eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ), req.agenda );
 
-  req.templateData.event.imports = timings.length ? [ { 
+  req.templateData.event.imports = timings.length ? [ {
     label: 'Google Calendar',
     uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
-  }, { 
+  }, {
     label: 'Yahoo! Calendar',
     uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'yahoo' } ] ) : timings[ 0 ].calendarLinks.yahoo,
-  }, { 
+  }, {
     label: 'Windows Live',
     uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
   }, {
@@ -307,8 +308,8 @@ function _agendasAction( req, res, next ) {
 
     req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
 
-      model.reviews().list( { 
-        stakeholderId: session.id, 
+      model.reviews().list( {
+        stakeholderId: session.id,
         limit: 200
       }, ( err, agendas ) => {
 
@@ -346,12 +347,26 @@ function _emailAction( req, res, next ) {
 
   } else {
 
-    req.templateData.mailSendUri = req.genUrl( 'eventMailSend', { 
-      eventSlug: req.event.slug 
+    req.templateData.mailSendUri = req.genUrl( 'eventMailSend', {
+      eventSlug: req.event.slug
     } );
 
   }
 
   next();
+
+}
+
+function _extractEmails( emailsString ) {
+
+  if ( typeof emailsString !== 'string' ) {
+
+    throw 'arg must be a string containing emails';
+
+  }
+
+  return emailsString
+    .split( /[\s;,\n\r]+/ )
+    .filter( v => isEmail.validate( v ) );
 
 }
