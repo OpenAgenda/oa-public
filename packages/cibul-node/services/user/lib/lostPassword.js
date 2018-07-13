@@ -4,19 +4,11 @@ var log = require( '@openagenda/logger' )( 'user svc - activation' ),
 
 lib = require( '../../../lib/lib' ),
 
-config = require( '../../../config' ),
-
 model = require( '../../model' ),
 
-mailer = require( '@openagenda/mailer' ),
+mails = require( '@openagenda/mails' ),
 
 genUrl = require( '../../genUrl' ),
-
-templater = require( '@openagenda/cibul-templates' ),
-
-async = require( 'async' ),
-
-getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/lostPassword' ) ),
 
 w = require( 'when' ),
 
@@ -87,7 +79,7 @@ function verifyToken( values ) {
 
     return values;
 
-  });
+  } );
 
 }
 
@@ -96,52 +88,25 @@ function _sendToken( values ) {
 
   log( 'sending lost password token %s', JSON.stringify( values ) );
 
-  let link = genUrl.abs( 'resetPassword', { token: values.token.token } );
+  const link = genUrl.abs( 'resetPassword', { token: values.token.token } );
 
   log( 'link: %s', link );
 
   values.link = link;
 
-  let subject = getLabel( 'mailSubject', values.user.culture ),
+  return mails( {
+    template: 'resetPassword',
+    lang: values.user.culture,
+    to: values.user.email,
+    data: {
+      resetLink: link
+    }
+  } )
+    .then( () => {
+      values.sent = true;
 
-  body = getLabel( 'mailBody', { link }, values.user.culture ),
-
-  renders = {};
-
-  return wn.call( async.each, [ 'html', 'text' ], ( type, ecb ) => {
-
-    templater( 'email/show', Object.assign( { type }, {
-      lang: values.user.culture,
-      env: process.env.NODE_ENV,
-      title: {
-        text: subject,
-        link: link
-      },
-      description: body
-    } ), ( err, render ) => {
-
-      if ( err ) return ecb( err );
-
-      renders[ type ] = render;
-
-      ecb();
-
+      return values;
     } );
-
-  } ).then( () => {
-
-    mailer( {
-      recipient: values.user.email,
-      subject: subject,
-      text: renders.text,
-      html: renders.html
-    } );
-
-    values.sent = true;
-
-    return values;
-
-  } );
 
 }
 

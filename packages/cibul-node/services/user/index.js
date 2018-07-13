@@ -24,12 +24,7 @@ module.exports.activation = activation( module.exports );
 
 module.exports.lostPassword = lostPassword( module.exports );
 
-module.exports.init = config => {
-
-  // avoid circular references
-  invitationSvc = require( '../invitation' );
-
-}
+module.exports.init = config => {};
 
 
 authenticate.facebook = _serviceAuthenticate( 'facebookUid' );

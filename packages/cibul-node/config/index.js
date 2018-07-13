@@ -224,6 +224,12 @@ const config = {
     cookie: {
       name: 'cibul'
     },
+    mails: {
+      defaults: {
+        from: 'no-reply@openagenda.com',
+        replyTo: 'admin@openagenda.com'
+      }
+    },
     mailer: {
       service: 'mailgun',
       simulated: false, // legacy ./mailer
@@ -634,6 +640,13 @@ const config = {
       host: 'localhost',
       port: 6379
     },
+    mails: {
+      transport: {
+        host: '127.0.0.1',
+        port: '1025', // Mailcatcher port
+      },
+      disableVerify: true
+    },
     mailer: {
       service: 'nodemailer',
       simulated: true, // legacy ./mailer
@@ -773,9 +786,9 @@ currentConfig.knex = knexLib( {
 
 currentConfig.logger.debug.enable = process.env.DEBUG || currentConfig.logger.debug.enable;
 
-currentConfig.getLogConfig = ( prefix, key ) => ( {
+currentConfig.getLogConfig = ( prefix, key, keyInPrefix = true ) => ( {
   debug: {
-    prefix: prefix + ':' + key + ':'
+    prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`
   },
   token: process.env.NODE_ENV !== 'production' ? null : prod.logentries[ key ]
 } );

@@ -1,22 +1,13 @@
 "use strict";
 
-var p = require( '../../../lib/promises' ), w = p.w,
+const w = require( 'when' );
+const mails = require( '@openagenda/mails' );
+const log = require( '@openagenda/logger' )( 'services/event/mailContributor' );
+const genUrl = require( '../../genUrl' );
+const { ife } = require( '../../../lib/promises' );
+const config = require( '../../../config' );
 
-  async = require( 'async' ),
-
-  genUrl = require( '../../genUrl' ),
-
-  i18n = require( '../../../i18n/i18n' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  templater = require( '@openagenda/cibul-templates' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  log = require( '@openagenda/logger' )( 'services/event/mailContributor' ),
-
-  agendaSvc;
+let agendaSvc;
 
 /**
  * temp solution before streams arrive
@@ -41,15 +32,15 @@ module.exports = function ( instance, agenda ) {
 
     .then( _checkFirstPublicationFlag )
 
-    .then( p.ife( { firstPublicationFlag: false }, _retrieveContributor ) )
+    .then( ife( { firstPublicationFlag: false }, _retrieveContributor ) )
 
-    .then( p.ife( { firstPublicationFlag: false }, _checkAdmin ) )
+    .then( ife( { firstPublicationFlag: false }, _checkAdmin ) )
 
-    .then( p.ife( { firstPublicationFlag: false }, _retrieveAgendaCustomMessage ) )
+    .then( ife( { firstPublicationFlag: false }, _retrieveAgendaCustomMessage ) )
 
-    .then( p.ife( { firstPublicationFlag: false }, _sendPublicationMail ) )
+    .then( ife( { firstPublicationFlag: false }, _sendPublicationMail ) )
 
-    .then( p.ife( { firstPublicationFlag: false }, _setFirstPublicationFlag ) )
+    .then( ife( { firstPublicationFlag: false }, _setFirstPublicationFlag ) )
 
     .done( () => {
     }, err => {
@@ -65,55 +56,31 @@ function _sendPublicationMail( v ) {
 
   log( 'sending publication mail' );
 
-  var d = w.defer(),
+  const logo = v.agenda.image
+    ? {
+      src: config.aws.imageBucketPath + v.agenda.image.replace( '.com/', '.com/rwtb' ),
+      width: '100px'
+    }
+    : {
+      src: `${config.root}/images/openagenda.png`,
+      width: '300px'
+    };
 
-    data = {
-      lang: v.contributor.lang,
-      env: process.env.NODE_ENV,
-      title: {
-        text: 'The agenda %title% published your event %event%',
-        values: {
-          '%title%': v.agenda.title,
-          '%event%': v.instance.getTitle()
-        },
-        link: genUrl( 'agendaEventShow', {
-          slug: v.agenda.slug,
-          eventSlug: v.instance.slug
-        }, { abs: true } )
-      },
-      description: v.message
-    },
-
-    renders = {};
-
-  async.each( [ 'html', 'text' ], ( type, ecb ) => {
-
-    templater( 'email/show', utils.extend( { type: type }, data ), ( err, render ) => {
-
-      if ( err ) return ecb( err );
-
-      renders[ type ] = render;
-
-      ecb();
-
-    } );
-
-  }, ( err ) => {
-
-    if ( err ) return d.reject( err );
-
-    mailer( {
-      recipient: v.contributor.email,
-      subject: i18n( data.title.text, data.title.values, v.contributor.lang ),
-      text: renders.text,
-      html: renders.html
-    } );
-
-    d.resolve( v );
-
+  return mails( {
+    template: 'eventPublishContributor',
+    to: v.contributor.email,
+    lang: v.contributor.lang,
+    data: {
+      logo,
+      agendaTitle: v.agenda.title,
+      eventTitle: v.instance.getTitle(),
+      message: v.message,
+      link: genUrl( 'agendaEventShow', {
+        slug: v.agenda.slug,
+        eventSlug: v.instance.slug,
+      }, { abs: true, protocol: 'https://' } )
+    }
   } );
-
-  return d.promise;
 
 }
 

@@ -1,20 +1,14 @@
 "use strict";
 
-const makeLabelGetter = require( '@openagenda/labels' ),
-
-  getInvitationLabel = makeLabelGetter( require( '@openagenda/labels/members/invitation' ) ),
-
-  getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) ),
-
-  agendas = require( '@openagenda/agendas' ),
-
-  genUrl = require( '../genUrl' ),
-
-  invitations = require( '@openagenda/invitations' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  users = require( '@openagenda/users' );
+const { callbackify } = require( 'util' );
+const makeLabelGetter = require( '@openagenda/labels' );
+const getInvitationLabel = makeLabelGetter( require( '@openagenda/labels/members/invitation' ) );
+const getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) );
+const agendas = require( '@openagenda/agendas' );
+const invitations = require( '@openagenda/invitations' );
+const mails = require( '@openagenda/mails' );
+const users = require( '@openagenda/users' );
+const genUrl = require( '../genUrl' );
 
 let log = console.log;
 
@@ -34,7 +28,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
       _sendMessageEmail(
         {
           agenda,
-          url: genUrl( 'agendaShow', { slug: agenda.slug } ),
+          url: genUrl( 'agendaShow', { slug: agenda.slug }, { abs: true, protocol: 'https://' } ),
           linkLabel: getInvitationLabel( 'emailShowAgenda', lang ),
           message,
           recipient: stakeholder.custom.email,
@@ -131,23 +125,28 @@ module.exports.setLog = l => log = l;
 
 function _sendMessageEmail( { agenda, url, linkLabel, message, recipient, lang, replyTo }, cb ) {
 
-  mailer( {
-    recipient,
-    source: replyTo || getMailerLabel( 'noReply', lang ),
-    replyTo: replyTo || getMailerLabel( 'noReply', lang ),
-    subject: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
-    data: {
-      logo: agenda.image ? agenda.image.replace( '.com/', '.com/rwtb' ) : 'https://openagenda.com/images/openagenda.png',
-      title: {
-        text: getInvitationLabel( 'newMessage', { agenda: agenda.title }, lang ),
-        link: url
-      },
-      action: {
-        label: linkLabel,
-        link: url
-      },
-      description: message
+  const logo = agenda.image
+    ? {
+      src: agenda.image.replace( '.com/', '.com/rwtb' ),
+      width: '100px'
     }
+    : {
+      src: `${config.root}/images/openagenda.png`,
+      width: '300px'
+    };
+
+  callbackify( mails ).call( mails, {
+    template: 'stakeholderMessage',
+    to: recipient,
+    from: replyTo || getMailerLabel( 'noReply', lang ),
+    replyTo: replyTo || getMailerLabel( 'noReply', lang ),
+    data: {
+      logo,
+      agenda: agenda.title,
+      link: url,
+      message
+    },
+    lang
   }, cb );
 
 }

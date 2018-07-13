@@ -20,15 +20,12 @@ const legacyPages = {
   network: 'network-of-agendas'
 };
 
-const coms = require( '../lib/coms' );
-const w = require( 'when' );
 const cmn = require( '../lib/commons-app' );
 const newsletter = require( '@openagenda/newsletter' );
-const mailer = require( '@openagenda/mailer' );
+const mails = require( '@openagenda/mails' );
 const modLib = require( '../lib/moduleLib' );
 const cache = require( '@openagenda/simple-cache' )( 'landing' );
 const model = require( '../services/model' );
-const metaLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/corpo/metas' ) );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
 const bodyMw = require( 'body-parser' ).urlencoded( {
@@ -56,7 +53,7 @@ const _homeMw = [
     ] ],
     newsletterSubscribe: [ 'post', '/newsletter/subscribe', [
       bodyMw,
-      newsletterSubscribe 
+      newsletterSubscribe
     ] ],
     serviceConnectCallback: [ 'get', '/services/:service/connect/callback', serviceConnectCallback ],
     emailUnsubscribe: [ 'get', '/emailunsubscribe', unsubscribe ],
@@ -82,7 +79,7 @@ const _homeMw = [
       cmn.loadBaseData( 'oasfmain.css' ),
       _redirectLang,
       _redirectLegacyLinks,
-      corpo 
+      corpo
     ] ],
   };
 
@@ -231,7 +228,7 @@ function getTotalAgendas() {
   return new Promise( ( resolve, reject ) => {
 
     model.lib.query( 'SELECT COUNT(*) AS reviews FROM review', function ( err, rows ) {
-      
+
       if ( err ) return reject( err );
 
       resolve( rows[ 0 ].reviews );
@@ -294,15 +291,11 @@ function newsletterSubscribe( req, res ) {
 
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
-      [ 'romain@cibul.net', 'kaore@cibul.net' ].forEach( mailTo => {
-
-        mailer( {
-          subject: 'Nouvel inscrit à la newsletter',
-          recipient: mailTo,
-          text: '"' + req.body.email + '" a été ajouté à la newsletter.'
-        } );
-
-      } )
+      mails( {
+        to: [ 'romain@cibul.net', 'kaore@cibul.net' ],
+        subject: 'Nouvel inscrit à la newsletter',
+        text: `"${req.body.email}" a été ajouté à la newsletter.`
+      } );
 
     }
 

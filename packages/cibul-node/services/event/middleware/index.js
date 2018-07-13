@@ -1,17 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
 
-const agendas = require( '@openagenda/agendas' );
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 
-const log = require( '@openagenda/logger' )( 'event middleware' );
-
 const config = require( '../../../config' );
-const i18n = require( '../../../i18n/i18n' );
 const p = require( '../../../lib/promises' );
 const w = p.w;
 
@@ -42,7 +37,7 @@ module.exports = function( eventService ) {
 
 function loadEvent( paramName, fieldName, options ) {
 
-  const params = _.extend( { 
+  const params = _.extend( {
     inAgendaContext: true // if agenda is in request and event must not be loaded in agenda context, use this
   }, options || {} );
 
@@ -251,15 +246,15 @@ function layoutData( req, res ) {
   }
 
   if ( !data.headLinks ) data.headLinks = [];
-  
+
   if ( req.event.getLanguages && req.event.getLanguages().length > 1 ) {
 
     req.event.getLanguages().forEach( function( lang ) {
 
       data.headLinks.push({
         rel: 'alternate',
-        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang } ), { abs: true } ), 
-        hreflang: lang 
+        href: req.genUrl( uri, utils.extend( {}, uriParams, { lang } ), { abs: true } ),
+        hreflang: lang
       });
 
     });

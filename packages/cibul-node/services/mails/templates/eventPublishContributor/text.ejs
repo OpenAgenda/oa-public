@@ -1,0 +1,9 @@
+<%- __( 'title', {
+  agenda: agendaTitle,
+  event: eventTitle
+} ) %>:
+
+<% if ( typeof message !== 'undefined' ) { %>
+<%- message %>
+
+<% } %><%- __( 'actionDescription' ) %>: <%- link %>

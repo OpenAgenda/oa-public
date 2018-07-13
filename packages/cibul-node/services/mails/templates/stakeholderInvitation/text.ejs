@@ -1,0 +1,11 @@
+<%- __(
+  isStakeholder
+    ? 'titleForExistantStakeholder'
+    : 'title', { agenda, credential: __( credential ) }
+) %>:
+
+<%- typeof message === 'string'
+  ? message.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+  : __( 'description', { agenda, credential: __( credential ) } ) %>
+
+<%- __( isStakeholder ? 'showAgenda' : 'signup' ) %>: <%- link %>

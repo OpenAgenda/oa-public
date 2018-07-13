@@ -1,18 +1,10 @@
 "use strict";
 
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
-
-  users = require( '@openagenda/users' ),
-
-  makeLabelGetter = require( '@openagenda/labels' ),
-
-  activities = require( '@openagenda/activities' ),
-
-  mailer = require( '@openagenda/mailer' ),
-
-  genUrl = require( '../../genUrl' ),
-
-  getInvitationLabel = makeLabelGetter( require( '@openagenda/labels/members/invitation' ) );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const users = require( '@openagenda/users' );
+const activities = require( '@openagenda/activities' );
+const mails = require( '@openagenda/mails' );
+const genUrl = require( '../../genUrl' );
 
 let log = console.log;
 
@@ -53,45 +45,36 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   const lang = ( context && context.lang ) || 'fr';
 
-  const signupUrl = stakeholder.userId ?
-
-    genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } ) :
-
-    genUrl( 'signup', {
+  const link = stakeholder.userId
+    ? genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } )
+    : genUrl( 'signup', {
       invitation: invitation.token,
       email: stakeholder.custom.email,
       lang
     }, { abs: true, protocol: 'https://' } );
 
-  const credentialLabel = getInvitationLabel( agendaStakeholders.types.codes.get( stakeholder.credential ), lang );
+  const logo = agenda.image
+    ? {
+      src: agenda.image.replace( '.com/', '.com/rwtb' ),
+      width: '100px'
+    }
+    : {
+      src: `${config.root}/images/openagenda.png`,
+      width: '300px'
+    };
 
-  const titleLabel = getInvitationLabel(
-    stakeholder.userId ? 'emailTitleForExistantUser' : 'emailTitle',
-    {
-      title: agenda.title,
-      credential: credentialLabel
+  mails( {
+    template: 'stakeholderInvitation',
+    to: stakeholder.custom.email,
+    data: {
+      logo,
+      link,
+      agenda: agenda.title,
+      message: context.message,
+      credential: agendaStakeholders.types.codes.get( stakeholder.credential ),
+      isStakeholder: !!stakeholder.userId
     },
     lang
-  );
-
-  mailer( {
-    recipient: stakeholder.custom.email,
-    subject: getInvitationLabel( 'emailSubject', lang ),
-    data: {
-      logo: agenda.image || 'https://openagenda.com/images/openagenda.png',
-      title: {
-        text: titleLabel,
-        link: signupUrl
-      },
-      action: {
-        label: getInvitationLabel( stakeholder.userId ? 'emailShowAgenda' : 'emailInscription', lang ),
-        link: signupUrl
-      },
-      description: context.message ? context.message : getInvitationLabel( 'emailDescription', {
-        title: agenda.title,
-        credential: credentialLabel
-      }, lang )
-    }
   } );
 
 };
