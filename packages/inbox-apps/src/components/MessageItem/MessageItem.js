@@ -25,7 +25,7 @@ export default class MessageItem extends Component {
         {getLabel( attachments && attachments.length > 1 ? 'attachments' : 'attachment' )}:
 
         {attachments.map( ( attachment, i ) => {
-          const isImage = /\.(jpeg|jpg|gif|png|svg|bmp)$/.test( attachment.filename );
+          const isImage = /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test( attachment.filename );
           const link = `/home/inbox/download-attachment?${qs.stringify( {
             filename: attachment.filename,
             id: attachment.id
