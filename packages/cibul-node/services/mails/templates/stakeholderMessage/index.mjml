@@ -30,6 +30,14 @@
       .center {
         text-align: center;
       }
+
+      .grey-link {
+        color: #555555;
+      }
+
+      a .grey-link:hover {
+        color: #41ACDD;
+      }
     </mj-style>
   </mj-head>
 
@@ -81,6 +89,10 @@
             href="<%= root %>"
             padding="0"
           />
+
+          <mj-text align="center">
+            <a href="<%= unsubscribeUrl %>" class="grey-link"><%- __( 'unsubscribeAgenda' ) %></a>
+          </mj-text>
         </mj-column>
       </mj-section>
     </mj-wrapper>

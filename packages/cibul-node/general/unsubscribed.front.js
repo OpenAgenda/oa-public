@@ -2,10 +2,10 @@
 
 const async = require( 'async' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
-const cmn = require( '../lib/commons-app' );
 const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
+const cmn = require( '../lib/commons-app' );
 
 const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
 const loadSession = sessions.middleware.load( { detailed: true } );

@@ -8,5 +8,9 @@ module.exports = {
   actionDescription: {
     fr: 'Voir l\'agenda',
     en: 'Show agenda'
+  },
+  unsubscribeAgenda: {
+    fr: 'Ne plus recevoir les messages de cet agenda',
+    en: 'Stop receiving messages from this agenda'
   }
 };

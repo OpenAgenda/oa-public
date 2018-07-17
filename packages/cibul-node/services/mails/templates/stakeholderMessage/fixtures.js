@@ -8,7 +8,8 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
-  message: 'Hmm\n\nOK !'
+  message: 'Hmm\n\nOK !',
+  unsubscribeUrl: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/stakeholderMessage' );
