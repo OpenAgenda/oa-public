@@ -54,6 +54,7 @@ schema.register( {
   text: validators.text,
   email: validators.email,
   boolean: validators.boolean,
+  pass: validators.pass,
 } );
 
 const creationSchema = {
@@ -117,9 +118,9 @@ module.exports = {
     all: [],
     find: [
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
-      softDelete(),
-      detailedParamHook(),
       removedParamHook(),
+      detailedParamHook(),
+      softDelete(),
       snakeCaseQuery(),
       searchByKey(),
       searchKeyword()
@@ -127,9 +128,9 @@ module.exports = {
     get: [
       stashBefore( 'before', { internal: true, provider: undefined } ),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
-      softDelete(),
-      detailedParamHook(),
       removedParamHook(),
+      detailedParamHook(),
+      softDelete(),
       snakeCaseQuery()
     ],
     create: [
@@ -239,29 +240,24 @@ module.exports = {
       // If there are not action you can modify your profile
       iff(
         isAction( undefined ),
-        context => validate( _.pick( {
-          fullName: {
-            optional: true,
-            type: 'text'
-          },
-          culture: {
-            optional: true,
-            type: 'text',
-            min: 2,
-            max: 2
-          },
-          isRemoved: {
-            optional: true,
-            type: 'boolean'
-          },
-          store: {
-            type: 'pass'
-          }
-        }, Object.keys( context.data ) ) )( context ),
         iff(
-          isProvider( 'server' ),
-          keep( 'fullName', 'culture', 'isRemoved', 'store' )
-        ).else(
+          context => context.params.internal !== true,
+          context => validate( _.pick( {
+            fullName: {
+              optional: true,
+              type: 'text'
+            },
+            culture: {
+              optional: true,
+              type: 'text',
+              min: 2,
+              max: 2
+            },
+            isRemoved: {
+              optional: true,
+              type: 'boolean'
+            }
+          }, Object.keys( context.data ) ) )( context ),
           keep( 'fullName', 'culture', 'isRemoved' )
         )
       ),
@@ -289,16 +285,20 @@ module.exports = {
     all: [
       camelCase(),
       camelCaseQuery(),
+      iff(
+        context => (context.result !== null && context.params.internal !== true),
+        context => keep(
+          ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
+        )( context )
+      ),
       context => {
-        if ( context.result === null ) {
+        if ( context.result === null || context.params.internal === true ) {
           return context;
         }
 
-        if ( context.params.internal !== true ) {
-          keep(
-            ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
-          )( context );
-        }
+        keep(
+          ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
+        )( context );
       },
       includeImagePathParamHook(),
       coerce( {

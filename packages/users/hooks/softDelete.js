@@ -1,6 +1,7 @@
 const VError = require( 'verror' );
 const errors = require( '@feathersjs/errors' );
 const { checkContext } = require( 'feathers-hooks-common' );
+const setInStore = require( './setInStore' );
 
 module.exports = function softDelete( field, additionalParams = {} ) {
   const deleteField = field || 'deleted';
@@ -39,10 +40,20 @@ module.exports = function softDelete( field, additionalParams = {} ) {
       case 'remove':
         return Promise.resolve()
           .then( () => context.id ? throwIfItemDeleted( context.id ) : null )
-          .then( () => {
+          .then( async () => {
+            const date = new Date();
+            const before = context.params.before;
+
             context.data[ deleteField ] = 1;
+            context.data.isActivated = 0;
+            context.data.username = `*removed-${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${before.id}`;
+            context.data.email = null;
+
+            await setInStore( 'email', 'params.before.email' )( context );
+
             context.params.query[ deleteField ] = 0;
             context.params.query.$disableSoftDelete = true;
+            context.params.internal = true;
 
             return service.patch( context.id, context.data, context.params )
               .then( result => {

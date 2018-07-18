@@ -1,14 +1,15 @@
 const schema = require( '@openagenda/validators/schema' );
+const { BadRequest } = require('@feathersjs/errors');
 const { validate: validateHook } = require( 'feathers-hooks-common' );
 
 module.exports = function validate( _schema ) {
   const _validate = schema( _schema );
 
-  return context => validateHook( values => {
+  return validateHook( ( values, context ) => {
     try {
       context.data = _validate( values );
-    } catch ( e ) {
-      return e;
+    } catch ( errors ) {
+      throw new BadRequest({ errors });
     }
-  } )( context );
+  } );
 };

@@ -103,9 +103,9 @@ describe( 'get', () => {
   } );
 
   it( 'get user with removed option at null', async () => {
-    const user = await usersSvc.get( 17133001, { removed: null } );
+    const user = await usersSvc.get( 9003991, { removed: null } );
 
-    expect( user.email ).to.be.equal( 'vincentac@gmail.com' );
+    expect( user.email ).to.be.equal( 'contact@dedale.info' );
     expect( user ).to.not.include.all.keys( 'isRemoved', 'isActivated' );
   } );
 
@@ -407,6 +407,12 @@ describe( 'remove', () => {
     const modifiedUser = await usersSvc.get( 17133001 );
 
     expect( modifiedUser ).to.be.null;
+
+    const removedUser = await usersSvc.get( 17133001, { removed: null, detailed: true, internal: true } );
+
+    expect( removedUser.email ).to.be.equal( null );
+    expect( removedUser.store.email ).to.be.equal( 'vincentac@gmail.com' );
+    expect( removedUser.isRemoved ).to.be.equal( true );
   } );
 } );
 
