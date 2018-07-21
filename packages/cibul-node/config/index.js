@@ -228,8 +228,7 @@ const config = {
       defaults: {
         from: 'no-reply@openagenda.com',
         replyTo: 'admin@openagenda.com'
-      },
-      transport: prod.mails.transport
+      }
     },
     mailer: {
       service: 'mailgun',
@@ -765,7 +764,11 @@ const config = {
     }
   },
 
-  production: {}
+  production: {
+    mails: {
+      transport: prod.mails.transport
+    }
+  }
 };
 
 currentConfig = _loadEnv( process.env.NODE_ENV || 'development' );

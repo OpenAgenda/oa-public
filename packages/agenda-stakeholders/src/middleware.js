@@ -202,7 +202,7 @@ function agenda( namespace = 'agenda' ) {
 
   function message( options ) {
 
-    let { namespaces, actionsCounterEqualZero, deletedUser, id, userId } = _.merge( {
+    let { namespaces, actionsCounterEqualZero, deletedUser, id, userId, invited } = _.merge( {
       namespaces: {
         message: 'message',
         result: 'result',
@@ -210,6 +210,7 @@ function agenda( namespace = 'agenda' ) {
         query: 'query'
       },
       actionsCounterEqualZero: null,
+      invited: null,
       deletedUser: false,
       id: undefined,
       userId: undefined
@@ -222,7 +223,7 @@ function agenda( namespace = 'agenda' ) {
       service.agenda( _.get( req, namespace ).id )
 
         .message(
-          Object.assign( {}, query, { actionsCounterEqualZero, deletedUser, id, userId } ),
+          Object.assign( {}, query, { actionsCounterEqualZero, deletedUser, id, userId, invited } ),
           _.get( req, namespaces.message, '' ),
           _.get( req, namespaces.context, null ),
           ( err, result ) => {
