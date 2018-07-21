@@ -601,6 +601,7 @@ const config = {
     //useCache: false,
     db: {
       database: 'oadev',
+      //database: 'ville_de_geneve',
       host: 'localhost',
       user: 'root',
       /*
