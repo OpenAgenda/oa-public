@@ -4,15 +4,12 @@
  * common web app module middleware and initialization functions
  */
 
-const R_METHOD = 0, R_CONTROLLER = 1, R_URI = 2, R_MW = 3;
-
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const deepExtend = require( 'deep-extend' );
 const hsts = require( 'hsts' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
-const w = require( 'when' );
 const wn = require( 'when/node' );
 
 const agendas = require( '@openagenda/agendas' );
@@ -25,13 +22,11 @@ const utils = require( '@openagenda/utils' );
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
 
-const agendaSvc = require( '../services/agenda' );
 const config = require( '../config' );
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 const genUrl = require( '../services/genUrl' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
-const userSvc = require( '../services/user' );
 
 const log = logger( 'commons-app' );
 
@@ -133,51 +128,6 @@ module.exports = {
   ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
 
   lang
-
-}
-
-
-function loadEvent( paramName, fieldName ) {
-
-  return function ( req, res, next ) {
-
-    const identifiers = {};
-
-    if ( !req.params[ paramName ] ) {
-
-      return next();
-
-    } else {
-
-      identifiers[ fieldName ] = req.params[ paramName ];
-
-    }
-
-    log( 'retrieving event for %s', JSON.stringify( identifiers ) );
-
-    wn.call( model.events().get, identifiers )
-
-      .then( function ( data ) {
-
-        if ( !data ) {
-
-          req.code = 404;
-
-          throw { code: 404 };
-
-        }
-
-        req.event = model.events().instance( data );
-
-        req.log.load( { event: req.event.slug } );
-
-        next();
-
-      } )
-
-      .catch( catchError( req, res ) );
-
-  }
 
 }
 
@@ -817,21 +767,6 @@ function assign( source, target ) {
 }
 
 
-function loadUserUid( req, res, next ) {
-
-  userSvc.get( { id: req.user.id }, ( err, user ) => {
-
-    if ( err ) return next( err );
-
-    req.userUid = user.uid;
-
-    next();
-
-  } );
-
-}
-
-
 /**
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
@@ -1189,15 +1124,6 @@ function _decodeCookie( req ) {
   }
 
   return {};
-
-}
-
-
-function _logRequest( req, res, next ) {
-
-  req.log( 'info', '>>> received request: %s', req.originalUrl );
-
-  next();
 
 }
 

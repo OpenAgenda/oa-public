@@ -11,13 +11,13 @@ const keys = require( '@openagenda/keys' );
 const agendas = require( '@openagenda/agendas' );
 const sessions = require( '@openagenda/sessions' );
 const mails = require( '@openagenda/mails' );
-const mailer = require( '@openagenda/mailer' );
 const labels = require( '@openagenda/labels/users/settings' );
 const getLabels = require( '@openagenda/labels/makeLabelGetter' )( labels );
 const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
 const beforeRemove = require( './beforeRemove' );
 const onCreate = require( './onCreate' );
 const onGenerateApiKey = require( './onGenerateApiKey' );
+const onActivation = require( './onActivation' );
 
 function restrictToCurrentUser() {
   return context => {
@@ -215,6 +215,7 @@ module.exports.init = async function init( config ) {
     interfaces: {
       beforeRemove,
       onCreate,
+      onActivation,
       getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
       onGenerateApiKey,
       keys: {

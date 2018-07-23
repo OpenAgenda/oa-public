@@ -121,7 +121,8 @@ module.exports = Object.assign(
   {
     app,
     exposeApp,
-    Service
+    Service,
+    config
   } );
 
 module.exports.init = c => {

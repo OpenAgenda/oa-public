@@ -19,8 +19,6 @@ const _ = require( 'lodash' ),
 
   moment = require( 'moment' ),
 
-  w = require( 'when' ),
-
   wn = require( 'when/node' ),
 
   async = require( 'async' ),
@@ -32,8 +30,6 @@ const _ = require( 'lodash' ),
   model = require( '../services/model' ),
 
   adminSvc = require( '../services/admin/admin' ),
-
-  userOldSvc = require( '../services/user' ),
 
   usersSvc = require( '@openagenda/users' ),
 
@@ -324,15 +320,25 @@ function userChangePassword( req, res ) {
 }
 
 
-function userActivate( req, res ) {
+async function userActivate( req, res ) {
 
-  userOldSvc.activation.activate( req.loadedUser, function ( err, result ) {
+  if ( !req.loadedUser.isActivated ) {
 
-    if ( err ) return cmn.catchError( req, res )( err );
+    try {
 
-    return cmn.renderJson( req, res, { success: true } );
+      req.loadedUser = await usersSvc.patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
 
-  } );
+      await usersSvc.config.interfaces.onActivation( { user: req.loadedUser } );
+
+      return cmn.renderJson( req, res, { success: true } );
+
+    } catch ( err ) {
+
+      return cmn.catchError( req, res )( err );
+
+    }
+
+  }
 
 }
 

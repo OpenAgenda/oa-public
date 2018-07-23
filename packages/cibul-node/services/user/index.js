@@ -1,8 +1,7 @@
 "use strict";
 
 const w = require( 'when' );
-const usersSvcConfig = require( '@openagenda/users/config' );
-const invitation2Svc = require( '@openagenda/invitations' );
+const invitationSvc = require( '@openagenda/invitations' );
 const activitiesSvc = require( '@openagenda/activities' );
 const log = require( '@openagenda/logs' )( 'services/user' );
 const model = require( '../model' );
@@ -131,9 +130,9 @@ function create( data, options, cb ) {
 
     .done( values => {
 
-      if ( values.user && usersSvcConfig.interfaces && usersSvcConfig.interfaces.onCreate ) {
+      if ( values.user && usersSvc.config.interfaces && usersSvc.config.interfaces.onCreate ) {
 
-        usersSvcConfig.interfaces.onCreate( values.user );
+        usersSvc.config.interfaces.onCreate( values.user );
 
       }
 
@@ -233,9 +232,9 @@ function onActivation( values ) {
     } )
     .then( () => {
 
-      return ( values.invitation ? invitation2Svc.execute( { token: values.invitation }, { user: values.user } ) : w() )
+      return ( values.invitation ? invitationSvc.execute( { token: values.invitation }, { user: values.user } ) : w() )
 
-        .then( () => invitation2Svc.execute( { email: values.user.email }, { user: values.user } ) );
+        .then( () => invitationSvc.execute( { email: values.user.email }, { user: values.user } ) );
 
     } );
 

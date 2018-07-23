@@ -1,28 +1,13 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'user svc - activation' ),
+const w = require( 'when' );
+const log = require( '@openagenda/logger' )( 'user svc - activation' );
+const mails = require( '@openagenda/mails' );
+const lib = require( '../../../lib/lib' );
+const model = require( '../../model' );
+const genUrl = require( '../../genUrl' );
 
-  lib = require( '../../../lib/lib' ),
-
-  mails = require( '@openagenda/mails' ),
-
-  model = require( '../../model' ),
-
-  genUrl = require( '../../genUrl' ),
-
-  i18n = require( '../../../i18n/i18n' ),
-
-  templater = require( '@openagenda/cibul-templates' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  async = require( 'async' ),
-
-  w = require( 'when' ),
-
-  wn = require( 'when/node' ),
-
-  userSvc;
+let userSvc;
 
 function init( svc ) {
 

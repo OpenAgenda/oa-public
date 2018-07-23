@@ -11,10 +11,6 @@ const sessions = require( '@openagenda/sessions' ),
 
   cmn = require( '../lib/commons-app' ),
 
-  config = require( '../config' ),
-
-  w = require( 'when' ),
-
   userSvc = require( '../services/user' ),
 
   routes = {
@@ -79,9 +75,9 @@ function resetPassword( req, res ) {
 
 function resetPasswordSubmit( req, res ) {
 
-  userSvc.lostPassword.updatePassword( { 
-    token: req.params.token, 
-    password: req.body.password, 
+  userSvc.lostPassword.updatePassword( {
+    token: req.params.token,
+    password: req.body.password,
     repeat: req.body.repeat
   } )
 
