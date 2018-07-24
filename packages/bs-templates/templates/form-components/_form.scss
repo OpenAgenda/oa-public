@@ -1,10 +1,15 @@
 .oa-form {
+
+  .form-group {
+    margin: 0;
+    padding: 0 0 15px;
+  }
   
   .sub {
 
     font-size: 0.95em;
     display: block;
-    height: 0.7em;
+    height: 1em;
 
   }
 
@@ -13,5 +18,10 @@
     color: $state-danger-text;
 
   }
+
+  ul {
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
 
 }

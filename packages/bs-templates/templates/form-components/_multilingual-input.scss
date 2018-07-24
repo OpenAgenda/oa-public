@@ -1,7 +1,7 @@
 .multilingual-input-field {
 
   position: relative; /* counter goes to the right if not relative */
-  padding: 1em 0; /* 2em is too much for event form */
+  padding: 1em 0 0; /* 2em is too much for event form */
 
   .info {
 
@@ -34,7 +34,7 @@
 
   .lang-input {
 
-    padding: 0.5em 0;
+    padding: 0.5em 0 0.2em;
 
   }
 
