@@ -1,16 +1,16 @@
 "use strict";
 
-const w = require( 'when' ),
+const _ = require( 'lodash' );
+const w = require( 'when' );
 
-column = require( './column' ),
+const utils = require( '@openagenda/utils' );
+const log = require( '@openagenda/logs' )( 'legacy' );
 
-store = require( './store' ),
+const column = require( './column' );
+const store = require( './store' );
 
-utils = require( '@openagenda/utils' ),
 
-logger = require( '@openagenda/logs' );
-
-let schemas, knex, log = () => {};
+let schemas, knex;
 
 module.exports = Object.assign( agenda, { 
   init: ( s, k ) => { 
@@ -19,8 +19,6 @@ module.exports = Object.assign( agenda, {
     knex = k;
 
     column.init( s, k );
-
-    log = logger( 'agendas service.legacy' );
 
   }
 } );
@@ -108,15 +106,9 @@ function _updateContributionMessage( v ) {
 
   log( 'updating contribution message' );
 
-  let message = utils.deep( v.data, 'settings.contribution.message' );
+  const message = _.get( v.data, 'settings.contribution.messages.instructions' ) || _.get( v.data, 'settings.contribution.message', '' );
 
-  if ( message === undefined ) {
-
-    message = '';
-
-  }
-
-  let d = w.defer();
+  const d = w.defer();
 
   column( v.agendaId, 'contribution_info', message, err => {
 

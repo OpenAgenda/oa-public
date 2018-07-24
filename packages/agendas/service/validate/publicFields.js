@@ -83,8 +83,20 @@ module.exports = {
         default: true,
         type: 'boolean'
       },
+      // this moved to messages.instruction
       message: {
         type: 'text'
+      },
+      messages: {
+        instructions: {
+          type: 'text'
+        },
+        complete: {
+          type: 'text'
+        },
+        publication: {
+          type: 'text'
+        }
       },
       useFields: {
         type: 'boolean',

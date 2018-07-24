@@ -47,6 +47,11 @@ describe( 'agendas - unit (server): validate', () => {
             defaultLang: null,
             defaultState: 2,
             message: null,
+            messages: {
+              instructions: null,
+              complete: null,
+              publication: null
+            },
             type: 2,
             moderateOnChangeBy: [],
             useFields: false,
@@ -173,6 +178,11 @@ describe( 'agendas - unit (server): validate', () => {
             defaultLang: null,
             defaultState: 2,
             message: null,
+            messages: {
+              instructions: null,
+              complete: null,
+              publication: null
+            },
             type: 2,
             useFields: false,
             authorizedIPAddresses: [],
