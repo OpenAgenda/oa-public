@@ -24,10 +24,11 @@ module.exports = class TextField extends Component {
     
     const {
       field: name, 
-      placeholder
+      placeholder,
+      fieldType
     } = this.props.field;
 
-    const { value, onChange, type } = this.props;
+    const { value, onChange } = this.props;
 
     const fieldProps = {
       name,
@@ -38,7 +39,7 @@ module.exports = class TextField extends Component {
       onChange: this.onChange
     }
    
-    return type === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
+    return fieldType === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
 
   }
 

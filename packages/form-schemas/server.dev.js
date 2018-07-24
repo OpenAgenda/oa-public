@@ -17,23 +17,25 @@ dev.use( require( 'webpack-dev-middleware' )( compiler, {
 
 dev.use( require( 'webpack-hot-middleware' )( compiler ) );
 
-dev.get( '/', ( req, res ) => {
+dev.get( '/', ( req, res ) => res.send( render( 'index' ) ) )
 
-  res.send( `
-    <!DOCTYPE html>
+dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
+
+dev.get( '/:page', ( req, res ) => res.send( render( req.params.page ) ) );
+
+dev.listen( 3000 );
+
+function render( filename ) {
+
+  return `<!DOCTYPE html>
     <head>
       <link rel="stylesheet" href="/style.css">
     </head>
     <html>
       <body>
         <div id="app"></div>
-        <script src="js/app.js"></script>
+        <script src="js/${filename}.js"></script>
       </body>
-    </html>`
-  );
+    </html>`;
 
-} );
-
-dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
-
-dev.listen( 3000 );
+}
