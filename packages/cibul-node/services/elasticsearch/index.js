@@ -167,18 +167,20 @@ function search( query, options, cb ) {
 
 function _prepare( query, options, cb ) {
 
-  var params = lib.extend( { 
+  const params = lib.extend( { 
     limit: LIMIT,
     agendaId: false,
     showAll: false
-  }, options ),
+  }, options );
 
-  esQuery = _buildESQuery(
+  const esQuery = _buildESQuery(
     _clean( query, params ),
     params.limit, 
     params.agendaId,
     params.showAll
   );
+
+
 
   cb( params, esQuery );
 
