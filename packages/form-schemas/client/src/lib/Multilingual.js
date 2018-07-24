@@ -27,7 +27,7 @@ module.exports = class MultilingualField extends Component {
     const field = this.props.field;
     const error = this.props.error;
     
-    const Component = FieldComponents[ field.fieldType ];
+    const Component = this.props.component || FieldComponents[ field.fieldType ];
 
     return <ul className="list-unstyled">
       {field.languages.map( l => (

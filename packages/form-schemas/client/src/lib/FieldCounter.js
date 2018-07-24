@@ -3,13 +3,19 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
+const _ = {
+  isArray: require( 'lodash/isArray' )
+}
+
 module.exports = class FieldCounter extends Component {
 
   remaining() {
 
-    if ( !this.props.value ) return this.props.max;
+    const value = _.isArray( this.props.value ) ? this.props.value.join('') : this.props.value;
 
-    return this.props.max - this.props.value.length;
+    if ( !value ) return this.props.max;
+
+    return this.props.max - value.length;
 
   }
 

@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import FieldCounter from './FieldCounter';
+import Sub from './Sub';
 
 const flattenFieldLabels = require( './helpers' ).flatten;
 
@@ -54,6 +55,7 @@ module.exports = class Field extends Component {
         onChange={onChange}
       />
       {field.max&&!isMultilingual?<FieldCounter value={value} max={field.max}/>:null}
+      {!isMultilingual?<Sub label={field.sub} error={error}/>:null}
     </div>
 
   }

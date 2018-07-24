@@ -154,7 +154,9 @@ describe( 'validateField', () => {
         read: null,
         optional: true,
         origin: null,
-        fieldType: 'someCustomType'
+        fieldType: 'someCustomType',
+        min: null,
+        max: null
       } );
 
     } );
