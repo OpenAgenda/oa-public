@@ -1,5 +1,6 @@
+const fs = require( 'fs' );
 const path = require( 'path' );
-const { URL } = require( 'url' );
+const { URL, URLSearchParams } = require( 'url' );
 const _ = require( 'lodash' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
@@ -11,34 +12,54 @@ const { render } = require( './' );
 
 config.init().catch( error => console.log( 'Initializing error:', error ) );
 
-function recursiveListPaths( base, regex, cb ) {
+function recursiveListPaths( base, type, filters ) {
   const walker = walk.walk( base, {
     followLinks: false,
-    filters: [ 'node_modules', '.git' ]
+    filters: [ 'node_modules', '.git', ...( Array.isArray( filters ) ? filters : [ filters ] ) ]
   } );
 
   const paths = [];
 
-  walker.on( 'directory', ( root, stat, next ) => {
-    if ( !regex || regex.test( stat.name ) ) {
-      paths.push( `${root.replace( base, '/' )}${stat.name}.mjml` );
-    }
-
+  walker.on( type, ( root, stat, next ) => {
+    paths.push( `${root.replace( base, '' )}/${stat.name}` );
     next();
   } );
 
-  walker.on( 'end', () => cb( null, paths ) );
+  return new Promise( resolve => walker.on( 'end', () => resolve( paths ) ) );
 }
 
-function getTemplatesLangs( labels ) {
+function getLangsFromLabels( labels ) {
   return _.uniq( _.flatten( _.map( labels, _.keys ) ) );
 }
 
-function renderLangsList( langs ) {
+function renderLangsList( langs, query ) {
   return [
     '<ul style="text-align: center; padding-left: 0">',
     '<b>Language</b><br />',
-    langs.map( l => `<li style="display: inline"><a href="?lang=${l}">${l}</a></li>` ).join( '&nbsp;&nbsp;' ),
+    langs
+      .map( l => {
+        const searchParams = new URLSearchParams( query );
+        searchParams.set( 'lang', l );
+
+        return `<li style="display: inline"><a href="?${searchParams}">${l}</a></li>`;
+      } )
+      .join( '&nbsp;&nbsp;' ),
+    '</ul>'
+  ].join( '' );
+}
+
+function renderFixturesList( paths, query ) {
+  return [
+    '<ul style="text-align: center; padding-left: 0">',
+    '<b>Fixtures</b><br />',
+    paths
+      .map( p => {
+        const searchParams = new URLSearchParams( query );
+        searchParams.set( 'fixtures', p.slice( 1 ) );
+
+        return `<li style="display: inline"><a href="?${searchParams}">${p.slice( 1 )}</a></li>`;
+      } )
+      .join( '&nbsp;&nbsp;' ),
     '</ul>'
   ].join( '' );
 }
@@ -55,9 +76,9 @@ app.use(
   } )
 );
 
-app.get( '/', ( req, res, next ) => {
-  recursiveListPaths( config.templatesDir, false, ( err, paths ) => {
-    if ( err ) return next( err );
+app.get( '/', async ( req, res, next ) => {
+  try {
+    const paths = await recursiveListPaths( config.templatesDir, 'directory', /^((?!fixtures).)*$/ );
 
     res.send(
       [
@@ -65,13 +86,15 @@ app.get( '/', ( req, res, next ) => {
         '<body>',
         '<h1>Templates list</h1>',
         '<ul>',
-        paths.map( p => `<li><a href="${p}">${p}</a></li>` ).join( '' ),
+        paths.map( p => `<li><a href="${p}.mjml">${p}</a></li>` ).join( '' ),
         '</ul>',
         '</body>',
         '</html>'
       ].join( '' )
     );
-  } );
+  } catch ( err ) {
+    return next( err );
+  }
 } );
 
 app.get( /.mjml$/, async ( req, res, next ) => {
@@ -81,11 +104,22 @@ app.get( /.mjml$/, async ( req, res, next ) => {
 
   const templateName = req.path.slice( 1, -5 );
   const templateDir = path.join( config.templatesDir, templateName );
-  const fixturesPath = path.join( templateDir, 'fixtures.js' );
+  const fixturesDir = path.join( templateDir, 'fixtures' );
+  let fixturesPaths = [];
   let data;
 
+  if ( fs.existsSync( fixturesDir ) && fs.lstatSync( fixturesDir ).isDirectory() ) {
+    fixturesPaths = await recursiveListPaths( fixturesDir, 'file' );
+  }
+
   try {
-    data = require(fixturesPath); // eslint-disable-line
+    if ( fixturesPaths.length ) {
+      // eslint-disable-next-line import/no-dynamic-require, global-require
+      data = require( path.join( fixturesDir, req.query.fixtures || fixturesPaths[ 0 ] ) );
+    } else {
+      // eslint-disable-next-line import/no-dynamic-require, global-require
+      data = require( path.join( templateDir, 'fixtures.js' ) );
+    }
   } catch ( e ) {
     console.log( `No fixtures for the template ${templateName}` );
     data = {};
@@ -94,7 +128,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   Object.assign( data, config.defaults.data );
 
   const labels = data.$labels || {};
-  const langs = getTemplatesLangs( labels );
+  const langs = getLangsFromLabels( labels );
   const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
   const __ = config.translations.makeLabelGetter( labels, lang );
 
@@ -128,7 +162,6 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   const baseUrl = `${req.protocol}://${req.get( 'host' )}${req.originalUrl}`;
   const getRawUrl = type => {
     const url = new URL( baseUrl );
-    url.searchParams.delete( 'raw' );
     url.searchParams.set( 'raw', type );
     return url;
   };
@@ -143,7 +176,8 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     "    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';",
     '  }',
     '</script>',
-    ...( langs.length ? [ renderLangsList( langs ), '<hr style="max-width: 600px" />' ] : [] ),
+    ...( langs.length ? [ renderLangsList( langs, req.query ), '<hr style="max-width: 600px" />' ] : [] ),
+    ...( fixturesPaths.length ? [ renderFixturesList( fixturesPaths, req.query ), '<hr style="max-width: 600px" />' ] : [] ),
     ...( subject !== null
       ? [
         `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl( 'subject' )}">raw</a>)</small>:</b> `,
