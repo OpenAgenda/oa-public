@@ -14,6 +14,9 @@ const FieldComponents = {
   multilingual: require( './Multilingual' ),
   text: require( './TextField' ),
   textarea: require( './TextField' ),
+  html: require( './HTMLField' ),
+  markdown: require( './MarkdownField' ),
+  slate: require( './SlateField' ),
   radio: require( './RadioField' ),
   checkbox: require( './CheckboxField' )
 }

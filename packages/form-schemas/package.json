@@ -20,10 +20,16 @@
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",
     "immutability-helper": "^2.3.0",
+    "immutable": "^3.8.2",
     "knex": "^0.13.0",
     "lodash": "^4.16.6",
+    "marked": "^0.4.0",
+    "slate": "^0.34.7",
+    "slate-html-serializer": "^0.6.13",
+    "slate-react": "^0.13.4",
     "slug": "^0.9.1",
     "superagent": "^3.8.3",
+    "turndown": "^4.0.2",
     "verror": "^1.10.0"
   },
   "devDependencies": {

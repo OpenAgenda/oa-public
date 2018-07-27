@@ -28,7 +28,7 @@ export default class FormSchemaComponent extends Component {
         main: flattenLabels( labels, this.props.lang )
       },
       fields: ( new FormSchema( this.props.schema ) ).getFields(),
-      values: {}, // values by field
+      values: this.props.values,
       errors: {}, // errors by field
       editedFields: {} // fields that have been fiddled with by user
     }
@@ -88,6 +88,8 @@ export default class FormSchemaComponent extends Component {
 
     } catch ( errors ) {
 
+      console.log( errors );
+
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
 
         const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
@@ -122,10 +124,14 @@ export default class FormSchemaComponent extends Component {
 
     updateErrors[ field ] = { $set: this.getFieldError( field, value ) };
 
-    this.setState( {
+    const data = {
       values: ih( this.state.values, updateValues ),
       errors: ih( this.state.errors, updateErrors )
-    } );
+    };
+
+    this.setState( data );
+
+    if ( this.props.onChange ) this.props.onChange( data );
 
   }
 

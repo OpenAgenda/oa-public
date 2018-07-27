@@ -19,7 +19,8 @@ schema.register( {
   date: require( '@openagenda/validators/date' ),
   multilingual: require( '@openagenda/validators/multilingual' ),
   integer: require( '@openagenda/validators/integer' ),
-  choice: require( '@openagenda/validators/choice' )
+  choice: require( '@openagenda/validators/choice' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
