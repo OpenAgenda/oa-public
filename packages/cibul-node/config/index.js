@@ -590,7 +590,8 @@ const config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         //enable: 'oa:*'
-        enable: 'oa:*,svc:*'
+        enable: 'oa:*,svc:*',
+        //enable: 'events/interfaces/legacy',
         //enable: 'oa:services/aggregator/evaluate'
         //enable: 'svc:*'
       },
