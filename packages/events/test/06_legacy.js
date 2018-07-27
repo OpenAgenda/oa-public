@@ -1,12 +1,10 @@
 "use strict";
 
-const svc = require( './service' ),
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-config = require( '../testconfig' ),
-
-should = require( 'should' ),
-
-mysql = require( 'mysql' );
+const svc = require( './service' );
+const config = require( '../testconfig' );
 
 describe( 'events - functional (server): legacy bridge', function() {
 
@@ -300,9 +298,9 @@ describe( 'events - functional (server): legacy bridge', function() {
       // change owner
       con.query( 'update legacy_event set owner_id = ?, updated_at = ? where id = ?', [ 2537, new Date(), 147580 ], ( err, rows ) => {
 
-        svc.legacy.transfer( 147580, ( err, result ) => {    
+        svc.legacy.transfer( 147580, ( err, result ) => {  
 
-          con.query( 'select * from event where id = ?', 147580, ( err, rows ) => {
+          con.query( 'select * from event where uid = ?', 10932458, ( err, rows ) => {
 
             rows[ 0 ].owner_uid.should.equal( 21815784 );
 
@@ -355,9 +353,9 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.update( 147621, { title: { fr: 'Changed!' } }, err => {
+      svc.update( { uid: result.event.uid }, { title: { fr: 'Changed!' } }, err => {
 
-        svc.get( 147621, { private: null }, ( err, event ) => {
+        svc.get( { uid: result.event.uid }, { private: null }, ( err, event ) => {
 
           event.title.fr.should.equal( 'Changed!' );
 
@@ -413,9 +411,11 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     svc.legacy.transfer( 147621, ( err, result ) => {
 
-      svc.update( 147621, { title: { fr: 'Changed!' } }, ( err, result ) => {
+      const eventUid = result.event.uid;
 
-        svc.get( 147621, { private: null }, ( err, event ) => {
+      svc.update( { uid: eventUid }, { title: { fr: 'Changed!' } }, ( err, result ) => {
+
+        svc.get( { uid: eventUid }, { private: null }, ( err, event ) => {
 
           event.title.fr.should.equal( 'Changed!' );
 

@@ -189,7 +189,7 @@ function _doUpdate( v ) {
     id: v.id
   } )
 
-  .update( dbParse.toDb( v.clean ) )
+  .update( _.omit( dbParse.toDb( v.clean ), [ 'id' ] ) )
 
   .then( affected => {
 

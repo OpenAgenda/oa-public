@@ -8,22 +8,23 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const wn = require( 'when/node' );
 
-const logger = require( '@openagenda/logs' );
 const sUtils = require( '@openagenda/service-utils' );
 
 const eventUtils = require( '../utils' );
 const getEvent = require( './get' );
 const validate = require( './validate' );
 
-let knex, schemas, service, log = console.log;
+const log = require( '@openagenda/logs' )( 'legacy' );
 
-module.exports = Object.assign( { 
+let knex, schemas, service;
+
+module.exports = {
   init,
   get,
   transfer,
   update,
   remove
-} );
+};
 
 
 async function remove( identifiers ) {
@@ -138,7 +139,7 @@ async function update( identifiers, options ) {
 
 function transfer( identifiers, options, cb ) {
 
-  log( 'transferring event of identifiers %s', JSON.stringify( identifiers ) );
+  log( 'transferring event of identifiers %s', JSON.stringify( _.pick( identifiers, [ 'id', 'uid', 'slug' ] ) ) );
 
   if ( arguments.length === 2 ) {
 
@@ -161,13 +162,15 @@ function transfer( identifiers, options, cb ) {
     getOptions: options
   } )
 
-  .then( _getServiceEvent )
-
   .then( _loadLegacy )
+
+  .then( _getServiceEvent )
 
   .done( v => {
 
     if ( !v.legacy.event ) {
+
+      log( 'error', 'failed to load legacy event for transfer' );
 
       return cb( null, {
         success: false,
@@ -180,6 +183,8 @@ function transfer( identifiers, options, cb ) {
 
     // event already exists, if has been updated later than legacy, transfer is not made
     if ( !v.force && v.event && v.event.updatedAt > v.legacy.event.updatedAt ) {
+
+      log( 'warn', 'event is timestamped as more recent than legacy, aborting transfer' );
 
       return cb( null, {
         success: true,
@@ -196,10 +201,16 @@ function transfer( identifiers, options, cb ) {
     // event already exists, an update is in order
     if ( v.event ) {
 
-      set = service.update.bind( null, v.identifiers );
+      log( 'info', 'updating event %s ( %s ) from legacy', v.legacy.event.uid, v.legacy.event.slug );
+
+      set = service.update.bind( null, { uid: v.legacy.event.uid } );
 
       // creatorUid never changes
       v.legacy.event.creatorUid = v.event.creatorUid;
+
+    } else {
+
+      log( 'info', 'creating event %s ( %s ) from legacy', v.legacy.event.uid, v.legacy.event.slug );
 
     }
 
@@ -218,7 +229,8 @@ function transfer( identifiers, options, cb ) {
         transferred: r.success,
         legacy: v.legacy,
         created: !v.event,
-        complete: v.legacy.complete
+        complete: v.legacy.complete,
+        errors: r.errors
       }, r ) );
 
     } );
@@ -500,7 +512,9 @@ function _getOccurrences( v ) {
 
 function _getServiceEvent( v ) {
 
-  return wn.call( service.get, v.identifiers, { private: null, internal: true } )
+  if ( !v.legacy.event ) return v;
+
+  return wn.call( service.get, { uid: v.legacy.event.uid }, { private: null, internal: true } )
 
   .then( event => {
 
@@ -981,8 +995,6 @@ function init( svc, c ) {
   schemas = c.legacy.schemas;
 
   service = svc;
-
-  log = logger( 'event-service/legacy' );
 
 }
 
