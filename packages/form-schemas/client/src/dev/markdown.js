@@ -22,6 +22,10 @@ class Main extends Component {
       lang: 'fr',
       values: {
         singlelangfield: '*Et boum*',
+        multilangfield: {
+          en: '_And boom_',
+          fr: '_Et boum_'
+        }
       },
       schema: {
         "fields" : [ {
@@ -37,6 +41,20 @@ class Main extends Component {
             "fr" : "Le texte dessous"
           },
           "max" : 10000
+        }, {
+          "field" : "multilangfield",
+          "fieldType" : "markdown",
+          "languages" : [ "en", "fr" ],
+          "label" : {
+            "fr" : "C'est pareil, mais multilingue"
+          },
+          "info" : {
+            "fr" : "Le texte info"
+          },
+          "sub" : {
+            "fr" : "Le texte dessous"
+          },
+          "max" : 4000
         } ]
       }
     };
