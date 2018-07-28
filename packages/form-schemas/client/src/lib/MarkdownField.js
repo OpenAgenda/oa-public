@@ -24,7 +24,7 @@ module.exports = class MarkdownField extends Component {
 
     return <SlateField {...ih( this.props, {
       value: {
-        $set: HTMLSerializer.deserialize( marked( this.props.value ) )
+        $set: HTMLSerializer.deserialize( marked( this.props.value || '' ) )
       },
       onChange: {
         $set: this.onChange.bind( this )

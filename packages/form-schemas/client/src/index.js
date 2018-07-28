@@ -125,7 +125,7 @@ export default class FormSchemaComponent extends Component {
     updateErrors[ field ] = { $set: this.getFieldError( field, value ) };
 
     const data = {
-      values: ih( this.state.values, updateValues ),
+      values: ih( this.state.values || {}, updateValues ),
       errors: ih( this.state.errors, updateErrors )
     };
 

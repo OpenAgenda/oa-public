@@ -21,11 +21,7 @@ class Main extends Component {
       },
       lang: 'fr',
       values: {
-        singlelangfield: '*Et boum*',
-        multilangfield: {
-          en: '_And boom_',
-          fr: '_Et boum_'
-        }
+        singlelangfield: '*Et boum*'
       },
       schema: {
         "fields" : [ {
@@ -50,6 +46,9 @@ class Main extends Component {
           },
           "info" : {
             "fr" : "Le texte info"
+          },
+          "placeholder" : {
+            "fr" : "S'affiche dans le champ"
           },
           "sub" : {
             "fr" : "Le texte dessous"

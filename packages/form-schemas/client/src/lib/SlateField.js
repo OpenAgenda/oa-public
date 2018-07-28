@@ -300,6 +300,7 @@ module.exports = class SlateField extends Component {
       </div>
       <div className="textarea-canvas">
         <Editor
+          placeholder={this.props.field.placeholder}
           spellCheck={false}
           value={this.state.value}
           renderMark={this.renderMark}
