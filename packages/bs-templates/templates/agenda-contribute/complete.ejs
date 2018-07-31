@@ -1,0 +1,34 @@
+<% include ../layout/_top.ejs %>
+<% include ../agenda/_header.ejs %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-offset-3 col-lg-6">
+      <div class="text-center">
+        <h2 class="margin-top-lg margin-bottom-md">Contribuer un nouvel événement</h2>
+      </div>
+      <div class="margin-v-lg wsq padding-all-md">
+        <% include ../components/stepper/_three-h-steps.ejs %>
+        <h3>Votre saisie a bien été enregistrée</h3>
+        <p class="margin-top-md">Votre événement a bien été enregistré et est en modération. Ce message peut également être un message personnalisé par l'administrateur de l'agenda</p>
+        <div class="margin-top-md">
+          <p>Que faire maintenant? Vous pouvez</p>
+          <ul class="list-unstyled text-center margin-h-lg">
+            <li class="margin-v-md">
+              <a class="btn btn-primary btn-block">Vérifier votre saisie</a>
+            </li>
+            <li class="margin-v-md">
+              <a class="btn btn-default btn-block">Saisir un autre événement</a>
+            </li>
+            <li class="margin-v-md">
+              <a class="btn btn-default btn-block">Voir tous vos événements</a>
+            </li>
+            <li class="margin-v-md">
+              <a class="btn btn-default btn-block">Contacter les administrateurs de l'agenda</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../layout/_bottom.ejs %>
