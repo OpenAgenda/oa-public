@@ -38,7 +38,7 @@ beforeEach( async () => {
 afterEach( async () => {
   await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
   await config.knex.destroy();
-  await usersSvc().knex.destroy();
+  // await usersSvc.knex.destroy();
   await keysConfig.knex.destroy();
 } );
 
@@ -259,6 +259,41 @@ describe( 'create', () => {
     );
 
     expect( user.isActivated ).to.be.equal( true );
+  } );
+
+  it( 'create a user should hash password', async () => {
+    const password = 'pa**word';
+
+    const user = await usersSvc.create(
+      { email: 'jean-eude@oa.com', password },
+      { detailed: true, internal: true }
+    );
+
+    expect( user.password ).to.not.be.equal( password );
+  } );
+
+  it( 'create a user and an activation token', async () => {
+    const email = 'jean-eude@oa.com';
+    const user = await usersSvc.create(
+      { email, password: 'pa**word' },
+      { detailed: true }
+    );
+
+    const token = await usersSvc.tokens.findOne( { query: { email } } );
+    expect( user.email ).to.be.equal( email );
+    expect( token.token ).to.have.lengthOf( 32 );
+  } );
+
+  it( 'doesn\'t create an activation token for an activated user', async () => {
+    const email = 'jean-eude@oa.com';
+    const user = await usersSvc.create(
+      { email, password: 'pa**word', isActivated: true },
+      { detailed: true }
+    );
+
+    const token = await usersSvc.tokens.findOne( { query: { email } } );
+    expect( user.email ).to.be.equal( email );
+    expect( token ).to.be.equal( undefined );
   } );
 } );
 
