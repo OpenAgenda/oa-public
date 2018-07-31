@@ -17,10 +17,6 @@ import TagsInput from 'react-tagsinput';
 
 import Sub from '@openagenda/form-schemas/client/build/lib/Sub';
 
-
-import ageLabels from '@openagenda/labels/cibul-templates/age-fields';
-import flattenLabels from '@openagenda/labels/flatten';
-
 const iconClasses = {
   link: 'fa fa-link',
   phone: 'fa fa-phone',
@@ -82,7 +78,6 @@ module.exports = class RegistrationComponent extends Component {
             style: !values.length ? { width: '630px' } : null
           }}
         />
-        <Sub label={field.sub} errors={errors}/>
       </div>
     );
 

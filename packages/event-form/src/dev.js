@@ -7,16 +7,17 @@ if ( module.hot ) module.hot.accept();
 
 import EventForm from './';
 
+console.log( '***** CHANGE ******' );
+
 class Main extends Component {
 
   render() {
 
-    return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+    return <div className="container wsq top-margined col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 oa-col-canvas">
       <div className="row margin-v-md margin-h-sm">
         <EventForm />
       </div>
     </div>
-
 
   }
 

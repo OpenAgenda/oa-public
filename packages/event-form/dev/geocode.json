@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "city": "Paris",
+      "countryCode": "FR",
+      "department": "Paris",
+      "district": null,
+      "insee": "75056",
+      "latitude": 48.8675800646479,
+      "longitude": 2.35245385425768,
+      "postalCode": "75002",
+      "region": "Île-de-France",
+      "street": "Passage du Ponceau",
+      "timezone": "Europe/Paris"
+    }
+  ]
+}

@@ -8,6 +8,8 @@ const compiler = webpack( webpackConfig );
 
 const dev = express();
 
+const locationApp = require( './dev/locationApp' );
+
 const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
@@ -33,6 +35,8 @@ dev.get( '/', ( req, res ) => {
   );
 
 } );
+
+dev.use( '/locations', locationApp );
 
 dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
 

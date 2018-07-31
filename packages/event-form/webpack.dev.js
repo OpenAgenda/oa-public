@@ -7,7 +7,7 @@ module.exports = {
   context: __dirname,
   entry: [
     'webpack-hot-middleware/client',
-    './client/src/dev.js'
+    './src/dev.js'
   ],
   output: {
     publicPath: '/js/',
@@ -24,17 +24,16 @@ module.exports = {
       use: {
         loader: 'babel-loader',
         options: {
-          presets: [
-            'babel-preset-env',
-            'babel-preset-react',
-            'babel-preset-es2015',
-            'babel-preset-stage-0'
-          ]
+          babelrc: true
         }
       }
     } ]
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
+    alias: {
+      // required only for the timings component
+      'react': require.resolve( 'react' )
+    }
   }
 };

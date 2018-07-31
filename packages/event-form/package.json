@@ -4,10 +4,12 @@
   "main": "client/build/index.js",
   "scripts": {
     "start": "nodemon server.dev",
-    "build": "webpack --config webpack.build.js"
+    "build": "rm -rf build && mkdir build && babel src --out-dir build --source-maps"
   },
   "dependencies": {
+    "@openagenda/agenda-locations": "^1.0.50",
     "@openagenda/form-schemas": "^1.1.23",
+    "@openagenda/react-components": "^2.0.8",
     "@openagenda/labels": "^2.0.81",
     "@openagenda/validators": "^2.0.8",
     "express": "^4.16.2",
@@ -16,7 +18,9 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-select": "^1.2.1",
-    "react-tagsinput": "^3.19.0"
+    "react-tagsinput": "^3.19.0",
+    "react-timings-picker": "^0.3.2",
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
     "@openagenda/bs-templates": "^2.0.78",
