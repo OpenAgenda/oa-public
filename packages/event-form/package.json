@@ -1,5 +1,5 @@
 {
-  "name": "event-form",
+  "name": "@openagenda/event-form",
   "version": "1.0.0",
   "main": "client/build/index.js",
   "scripts": {
