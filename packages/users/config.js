@@ -6,7 +6,6 @@ const knexLib = require( 'knex' );
 const logger = require( '@openagenda/logs' );
 
 const config = {
-  name: 'user',
   knex: null,
   interfaces: {}
 };

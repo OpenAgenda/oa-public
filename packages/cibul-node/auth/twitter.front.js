@@ -10,13 +10,13 @@ config = require( '../config' ),
 
 lib = require( '../lib/lib' ),
 
-userSvc = require( '../services/user' ),
-
 pLib = require( './lib/passport' ),
 
 auth = require( './lib/auth' )( 'twitter' ),
 
 sessions = require( '@openagenda/sessions' ),
+
+usersSvc = require( '@openagenda/users' ),
 
 deepExtend = require( 'deep-extend' ),
 
@@ -25,6 +25,8 @@ genUrl = require( '../services/genUrl' ),
 agendaSvc = require( '../services/agenda' ),
 
 w = require( 'when' ),
+
+log = require( '@openagenda/logs' )( 'auth/twitter.front' ),
 
 routes = {
   twitterSignin: [ 'get', '/twitter/signin', signin ],
@@ -189,11 +191,13 @@ function _processSignup( req, res, next ) {
 
     // .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
 
+    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) ) )
+
     .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
     .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
 
-    .done( auth.done , cmn.catchError( req, res ) );
+    .done( auth.done, cmn.catchError( req, res ) );
 
   })( req, res, next );
 
@@ -208,7 +212,7 @@ function _resendActivationToken( values ) {
 
   return w( values )
 
-  .then( userSvc.activation.createAndSend )
+  .then( _createAndSend )
 
   .then( auth.redirectToComplete );
 
@@ -231,7 +235,7 @@ function _attemptTwitterCreate( values ) {
 
 
 
-function _loadTwitterProfile( req, token, refreshToken, profile, done ) { 
+function _loadTwitterProfile( req, token, refreshToken, profile, done ) {
 
   var extracted = {
     id: profile.id,
@@ -259,7 +263,7 @@ function _attemptUsernameLoad( values ) {
 
     }
 
-    userSvc.auth.twitterScreenName( values.profile.fullName, auth.loadOptionals( values.req ), function( err, user, data ) {
+    auth.authenticate( values.profile.fullName, async ( err, user, data ) => {
 
       if ( err ) values.err = err;
 
@@ -267,14 +271,24 @@ function _attemptUsernameLoad( values ) {
 
       if ( data ) deepExtend( values.data, data );
 
-      resolve( values );
-
       // do this while you are at it
-      if ( user ) {
+      if ( values.user && values.profile ) {
 
-        userSvc.updateTwitterId( user, values.profile );
+        try {
+
+          values.user = await usersSvc.patch( values.user.uid, { tweeterId: values.profile.id }, { internal: true } );
+
+          log( 'info', 'twitter id has been fetched and saved for user %s: %s', user.id, JSON.stringify( result ) );
+
+        } catch ( e ) {
+
+          log( 'error', 'had trouble updating twitterId: %s', JSON.stringify( e ) );
+
+        }
 
       }
+
+      return resolve( values );
 
     });
 
@@ -287,8 +301,8 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
 
   values.req.log( 'redirect if no email is found in query' );
 
-  var redirectUrl = values.req.genUrl( values.req.agenda ? 'agendaTwitterEmail' : 'twitterEmail', [ 
-    values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {} 
+  var redirectUrl = values.req.genUrl( values.req.agenda ? 'agendaTwitterEmail' : 'twitterEmail', [
+    values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {}
   ] );
 
   if ( !values.req.query.email ) {
@@ -300,6 +314,57 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
     values.resolved = true;
 
   }
+
+  return values;
+
+}
+
+async function _createAndSend( values ) {
+
+  log( 'creating activation token' );
+
+  const user = values.user ? _.pick( values.user, 'id', 'uid', 'email' ) : { email: values.email };
+
+  if ( user.id && user.email && !user.isActivated ) {
+
+    log( 'user is already loaded: %s', JSON.stringify( user ) );
+
+    return values;
+
+  } else {
+
+    log( 'loading user based on values %s', JSON.stringify( user ) );
+
+    const result = await usersSvc.findOne( { query: user, detailed: true } );
+
+    log( 'loaded user %s', JSON.stringify( result ) );
+
+    if ( !result ) throw 'no account was found';
+
+    if ( result.isActivated ) throw 'the account is already activated';
+
+    values.user = result;
+
+  }
+
+  const optionals = _.pickBy( _.pick( values, 'iToken', 'invitation', 'redirect', 'agenda' ) );
+
+  let token = await usersSvc.tokens.findOne( {
+    query: { userId: values.user.id, email: values.user.email, type: 'aa' },
+  } );
+
+  if ( token ) {
+    await usersSvc.config.interfaces.sendToken( { result: token, params: { user: values.user, optionals } } );
+  } else {
+    token = await usersSvc.tokens.create(
+      { userId: values.user.id, email: values.user.email, type: 'aa' },
+      { user: values.user, optionals }
+    );
+  }
+
+  values.token = token.token;
+
+  log( 'info', 'activation token created for %s', values.user.email );
 
   return values;
 

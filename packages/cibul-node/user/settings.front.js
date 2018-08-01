@@ -3,7 +3,6 @@
 const sessions = require( '@openagenda/sessions' );
 const loadSession = sessions.middleware.load( { detailed: true } );
 const matchApp = require( '@openagenda/user-apps/dist/matchAppMw' );
-const log = require( '@openagenda/logger' )( 'user/settings.back' );
 const cmn = require( '../lib/commons-app' );
 const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
 const modLib = require( '../lib/moduleLib.js' );

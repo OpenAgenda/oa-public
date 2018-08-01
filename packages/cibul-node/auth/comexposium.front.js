@@ -6,23 +6,17 @@ const modLib = require( '../lib/moduleLib' ),
 
   w = require( 'when' ),
 
-  deepExtend = require( 'deep-extend' ),
-
   auth = require( './lib/auth' ),
-
-  model = require( '../services/model' ),
 
   log = require( '@openagenda/logger' )( 'auth/local' ),
 
   config = require( '../config' ),
 
-  lib = require( '../lib/lib' ),
-
-  userSvc = require( '../services/user' ),
-
   agendaSvc = require( '../services/agenda' ),
 
   sessions = require( '@openagenda/sessions' ),
+
+  usersSvc = require( '@openagenda/users' ),
 
   routes = {
 
@@ -84,23 +78,17 @@ function comexposiumSignin( req, res, next ) {
 }
 
 
-function _loadUser( v ) {
+async function _loadUser( v ) {
 
-  var d = w.defer();
-
-  userSvc.get( { comexposiumId: v.login }, ( err, user ) => {
-
-    if ( err ) return d.reject( err );
-
-    if ( !user ) return d.reject( 'user not found' );
-
-    v.user = user;
-
-    d.resolve( v );
-
+  const user = await usersSvc.findOne( {
+    query: { comexposiumId: v.login }
   } );
 
-  return d.promise;
+  if ( !user ) {
+    throw new Error( 'user not found' );
+  };
+
+  v.user = user;
 
 }
 

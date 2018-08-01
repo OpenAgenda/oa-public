@@ -17,7 +17,7 @@ module.exports = function ( before, stakeholder, context ) {
 
   log( 'updated member %s', stakeholder.id );
 
-  agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
+  agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, async ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
 
@@ -162,24 +162,32 @@ module.exports = function ( before, stakeholder, context ) {
       } );
 
 
-    // Invitation
+    // Updated invitation
     if (
       !_.isEqual( _.omit( before, 'updatedAt' ), _.omit( stakeholder, 'updatedAt' ) )
       || stakeholder.deletedUser
       || stakeholder.userId
     ) {
-      return;
+      if ( before.custom.email !== stakeholder.custom.email ) {
+        const { invitation } = await invitations.get( { email: before.custom.email } );
+
+        if ( invitation ) {
+          invitation.email = stakeholder.custom.email;
+          await invitation.save();
+        }
+
+      } else {
+        return;
+      }
     }
 
-    invitations.get( { email: stakeholder.custom.email } )
-      .then( ( { invitation } ) => {
+    // New/Resend invitation
+    const { invitation } = await invitations.get( { email: stakeholder.custom.email } )
 
-        const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
-        context = action.params[ 1 ] || context;
+    const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
+    context = action.params[ 1 ] || context;
 
-        sendStakeholderInvitation( invitation, stakeholder, context, agenda );
-
-      } );
+    sendStakeholderInvitation( invitation, stakeholder, context, agenda );
 
   } );
 

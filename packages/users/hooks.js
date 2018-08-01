@@ -8,6 +8,7 @@ const {
   some,
   keep,
   discardQuery,
+  existsByDot,
   fastJoin,
   paramsFromClient,
   disallow,
@@ -19,6 +20,7 @@ const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
 const {
   actionFromClient,
+  callInterface,
   camelCase,
   camelCaseQuery,
   changeEmailFromStore,
@@ -30,6 +32,7 @@ const {
   formatStore,
   generateApiKey,
   generateToken,
+  generateHash,
   generateUid,
   hashPassword,
   includeImagePathParamHook,
@@ -54,6 +57,7 @@ schema.register( {
   text: validators.text,
   email: validators.email,
   boolean: validators.boolean,
+  pass: validators.pass,
 } );
 
 const creationSchema = {
@@ -117,9 +121,9 @@ module.exports = {
     all: [],
     find: [
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
-      softDelete(),
-      detailedParamHook(),
       removedParamHook(),
+      detailedParamHook(),
+      softDelete(),
       snakeCaseQuery(),
       searchByKey(),
       searchKeyword()
@@ -127,25 +131,40 @@ module.exports = {
     get: [
       stashBefore( 'before', { internal: true, provider: undefined } ),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
-      softDelete(),
-      detailedParamHook(),
       removedParamHook(),
+      detailedParamHook(),
+      softDelete(),
       snakeCaseQuery()
     ],
     create: [
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
-      ctx => validate( {
+      context => validate( {
         ...creationSchema,
         // Allow server to create an activated user
-        ...(isProvider( 'server' )( ctx ) ? {
+        ...(isProvider( 'server' )( context ) ? {
           isActivated: {
             type: 'boolean',
             default: false
           }
+        } : {}),
+        // Allow password to be optional for a twitter registration
+        ...(context.data.twitterId ? {
+          password: {
+            type: 'text',
+            min: 4,
+            optional: true
+          }
         } : {})
-      } )( ctx ),
-      generateUid(),
+      } )( context ),
       checkUnicity( 'email' ),
+      generateUid(),
+      iff(
+        context => existsByDot( context.data, 'password' ),
+        generateHash( 'salt' ),
+        hashPassword( 'data.password', 'data.salt' )
+      ),
+      setNow('createdAt', 'updatedAt'),
+      callInterface( 'beforeCreate' ),
       formatStore(),
       softDelete(),
       snakeCase(),
@@ -239,32 +258,28 @@ module.exports = {
       // If there are not action you can modify your profile
       iff(
         isAction( undefined ),
-        context => validate( _.pick( {
-          fullName: {
-            optional: true,
-            type: 'text'
-          },
-          culture: {
-            optional: true,
-            type: 'text',
-            min: 2,
-            max: 2
-          },
-          isRemoved: {
-            optional: true,
-            type: 'boolean'
-          },
-          store: {
-            type: 'pass'
-          }
-        }, Object.keys( context.data ) ) )( context ),
         iff(
-          isProvider( 'server' ),
-          keep( 'fullName', 'culture', 'isRemoved', 'store' )
-        ).else(
+          context => context.params.internal !== true,
+          context => validate( _.pick( {
+            fullName: {
+              optional: true,
+              type: 'text'
+            },
+            culture: {
+              optional: true,
+              type: 'text',
+              min: 2,
+              max: 2
+            },
+            isRemoved: {
+              optional: true,
+              type: 'boolean'
+            }
+          }, Object.keys( context.data ) ) )( context ),
           keep( 'fullName', 'culture', 'isRemoved' )
         )
       ),
+      setNow( 'updatedAt' ),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
       softDelete(),
       formatStore(),
@@ -273,32 +288,32 @@ module.exports = {
     ],
     remove: [
       stashBefore(),
-      async context => {
-        if ( context.params.before && config.interfaces && config.interfaces.beforeRemove ) {
-          await config.interfaces.beforeRemove( context.params.before );
-        }
-      },
+      callInterface( 'beforeRemove' ),
       paramsFromClient( 'detailed', 'removed', 'includeImagePath' ),
       softDelete(),
       snakeCase(),
-      snakeCaseQuery()
-    ]
+      snakeCaseQuery(),
+    ],
   },
 
   after: {
     all: [
       camelCase(),
       camelCaseQuery(),
+      iff(
+        context => (context.result !== null && context.params.internal !== true),
+        context => keep(
+          ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
+        )( context )
+      ),
       context => {
-        if ( context.result === null ) {
+        if ( context.result === null || context.params.internal === true ) {
           return context;
         }
 
-        if ( context.params.internal !== true ) {
-          keep(
-            ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
-          )( context );
-        }
+        keep(
+          ...(context.params.detailed ? [ ...fields.basic, ...fields.detailed ] : fields.basic)
+        )( context );
       },
       includeImagePathParamHook(),
       coerce( {
@@ -334,20 +349,35 @@ module.exports = {
     get: [],
     create: [
       async context => {
-        if ( context.result && config.interfaces && config.interfaces.onCreate ) {
-          await config.interfaces.onCreate( context.result );
+        if ( context.result && !context.result.isActivated ) {
+          const tokensSvc = context.app.service( `${context.path}/tokens` );
+          const token = await tokensSvc.create( {
+            type: 'activateAccount',
+            userId: context.result.id,
+            email: context.result.email
+          }, {
+            optionals: context.params.tokenOptionals,
+            user: context.result
+          } );
+
+          context.params.activationToken = token;
         }
-      }
+      },
+      callInterface( 'onCreate' ),
+      iff(
+        context => (context.result && context.result.isActivated),
+        callInterface( 'onActivation' )
+      )
     ],
     update: [],
     patch: [
       iff(
         isAction( 'generateApiKey' ),
-        async context => {
-          if ( context.result && config.interfaces && config.interfaces.onGenerateApiKey ) {
-            await config.interfaces.onGenerateApiKey( context.result );
-          }
-        }
+        callInterface( 'onGenerateApiKey' )
+      ),
+      iff(
+        context => (!context.params.before.isActivated && context.result.isActivated),
+        callInterface( 'onActivation' )
       )
     ],
     remove: []

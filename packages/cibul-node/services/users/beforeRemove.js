@@ -2,36 +2,47 @@ const { promisify } = require( 'util' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
 
+
 /**
  * this interface will prevent user removal if not correctly executed
  */
-module.exports = async function beforeRemove( user ) {
+module.exports = function beforeRemove() {
 
-  // remove 100 stakeholders
+  return async ctx => {
 
-  await promisify( activities.feed( { entityType: 'user', entityUid: user.uid } ).remove )();
+    const user = ctx.params.before;
 
-  const stakeholders = await promisify( agendaStakeholders.user( user.id ).list )( 0, 100 );
+    if ( !user ) {
+      return ctx;
+    }
 
-  for ( const sh of stakeholders ) {
+    // remove 100 stakeholders
 
-    try {
+    await promisify( activities.feed( { entityType: 'user', entityUid: user.uid } ).remove )();
 
-      await promisify( agendaStakeholders.agenda( sh.agendaId ).update )(
-        { id: sh.id },
-        {},
-        {
-          allowPartial: true,
-          deletedUser: true
-        }
-      );
+    const stakeholders = await promisify( agendaStakeholders.user( user.id ).list )( 0, 100 );
 
-    } catch ( err ) {
+    for ( const sh of stakeholders ) {
 
-      log( 'error', 'could not remove stakeholder ', err );
+      try {
+
+        await promisify( agendaStakeholders.agenda( sh.agendaId ).update )(
+          { id: sh.id },
+          {},
+          {
+            allowPartial: true,
+            deletedUser: true
+          }
+        );
+
+      } catch ( err ) {
+
+        log( 'error', 'could not remove stakeholder ', err );
+
+      }
 
     }
 
-  }
+  };
 
 };

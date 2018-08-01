@@ -1,5 +1,6 @@
 module.exports = {
   actionFromClient: require( './actionFromClient' ),
+  callInterface: require( './callInterface' ),
   camelCase: require( './camelCase' ),
   camelCaseQuery: require( './camelCaseQuery' ),
   changeEmailFromStore: require( './changeEmailFromStore' ),
@@ -10,6 +11,7 @@ module.exports = {
   detailedParamHook: require( './detailedParamHook' ),
   formatStore: require( './formatStore' ),
   generateApiKey: require( './generateApiKey' ),
+  generateHash: require( './generateHash' ),
   generateToken: require( './generateToken' ),
   generateUid: require( './generateUid' ),
   hashPassword: require( './hashPassword' ),

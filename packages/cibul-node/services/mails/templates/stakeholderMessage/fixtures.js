@@ -8,7 +8,24 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
-  message: 'Hmm\n\nOK !'
+  message: 'Bonjour,\n' +
+    '\n' +
+    'Le ministère nous demande de vous diffuser le lien suivant :\n' +
+    '\n' +
+    '[https://journeesdupatrimoine.culture.gouv.fr/Composants/Surete-et-la-securite](https://journeesdupatrimoine.culture.gouv.fr/Composants/Surete-et-la-securite)\n' +
+    '\n' +
+    'Le lien fourni pointe vers un questionnaire de sécurité destiné à fluidifier la transmission d\'information vers les services préfectoraux afin de permettre à ces derniers d’adapter leur accompagnement site par site sur les questions de sécurité.\n' +
+    '\n' +
+    'Ce questionnaire n\'a pas pour objectif de lister des mesures à mettre en place obligatoirement mais vise à informer les forces de sécurité intérieures qui pourraient avoir à intervenir sur les sites.\n' +
+    '\n' +
+    'Ce questionnaire d\'information est accompagné en barre latérale d\'une fiche de recommandation et de conseils pratiques qui peuvent être fortement utiles aux responsables des sites organisateurs.\n' +
+    '\n' +
+    'Ce formulaire ayant été mis en ligne après l\'ouverture de la base open agenda, les sites inscrits avant le 24 mai ne l\'ont pas vu et n\'ont donc pas pu le remplir.\n' +
+    '\n' +
+    'Bien cordialement\n' +
+    '\n' +
+    'Stéphanie Bérusseau',
+  unsubscribeUrl: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/stakeholderMessage' );

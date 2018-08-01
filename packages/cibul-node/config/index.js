@@ -149,6 +149,7 @@ const config = {
       stakeholderSettings: 'stakeholder_settings',
       tagSet: 'tag_set',
       user: 'user',
+      userToken: 'user_token',
       legacyCredentialSet: 'review_credential',
       invitation: 'invitation_2', // new invitation
       unsubscribed: 'unsubscribed_2', // first unsubscribe addresses newsletter only

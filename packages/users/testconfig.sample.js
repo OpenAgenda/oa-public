@@ -3,7 +3,6 @@
 const keysSvc = require( '@openagenda/keys' );
 
 module.exports = {
-  name: 'users',
   paginate: {
     default: 20,
     max: 100
@@ -18,7 +17,8 @@ module.exports = {
     user: 'user',
     apiKeySet: 'api_key_set',
     unsubscribed: 'unsubscribed',
-    key: 'key'
+    key: 'key',
+    userToken: 'user_token'
   },
   files: {
     tmpPath: '/var/tmp',
@@ -28,7 +28,6 @@ module.exports = {
   },
   imagePath: '//openagendatst.s3.amazonaws.com/',
   interfaces: {
-    beforeRemove: ( user, cb ) => cb( null ),
     getAgenda: ( agendaUid, cb ) => cb( null, agendaUid === 85870128 ? {
       slug: 'journees-arts-culture-sup-2017',
       title: '2017 : Journées des Arts et de la Culture dans l\'Enseignement Supérieur'

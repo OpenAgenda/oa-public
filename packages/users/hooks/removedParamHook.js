@@ -4,8 +4,10 @@ module.exports = function removedParamHook() {
 
     if ( context.params.removed === true ) {
       context.params.query.isRemoved = 1;
+      context.params.query.$disableSoftDelete = true;
     } else if ( context.params.removed === null ) {
       delete context.params.query.isRemoved;
+      context.params.query.$disableSoftDelete = true;
     } else {
       context.params.query.isRemoved = 0;
     }

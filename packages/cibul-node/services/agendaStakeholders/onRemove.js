@@ -6,6 +6,7 @@ const users = require( '@openagenda/users' );
 const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 
 let log = console.log;
 
@@ -33,8 +34,21 @@ module.exports = function ( stakeholder ) {
         activities.feed( { entityType: 'user', entityUid: user.uid } )
           .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );
 
-        log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
-        new Inbox( { type: 'agenda', identifier: agenda.uid } ).users.remove( { userUid: user.uid } ).then( _.noop );
+        // Remove inboxUser, only for moderator or more
+        if (
+          agendaStakeholders.types.isSuperiorTo(
+            stakeholder.credential,
+            agendaStakeholders.types.get( 'moderator' ),
+            true
+          )
+        ) {
+          log( 'remove inboxUser (agenda uid %d & user uid %d)', agenda.uid, user.uid );
+          new Inbox( {
+            type: 'agenda',
+            identifier: agenda.uid
+          } ).users.remove( { userUid: user.uid } )
+            .then( _.noop );
+        }
 
       } )
       .catch( err => {

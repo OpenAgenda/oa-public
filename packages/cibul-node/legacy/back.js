@@ -28,7 +28,6 @@ const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
 const modLib = require( '../lib/moduleLib' );
 const notificationMail = require( '../services/notification/mail' );
-const userSvc = require( '../services/user' );
 const legacyEvents = require( '../services/events' ).legacy;
 
 const logRequests = require( '../services/logRequests' );
@@ -294,7 +293,7 @@ function api( req, res ) {
 function apiGetCached( req, res, next ) {
 
   const cleanUri = _cleanApiUri( req );
-  
+
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
     sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
@@ -312,7 +311,7 @@ function apiGetCached( req, res, next ) {
       }
 
     } );
-    
+
   } else {
 
     sCache( 'legacyApi', '*' ).get( cleanUri, ( err, content ) => {
@@ -583,13 +582,13 @@ function eventCreate( req, res, next ) {
 
 /*
 
-  mail things received from symfony. 
+  mail things received from symfony.
 
-  sample: { 
+  sample: {
     recipient: { 'gaetan@cibul.net': 'Gaetan Latouche' },
     subject: 'Messagerie OpenAgenda: You have a new message',
     body: '<p>fdqfdsqfdsq</p>\n<p>Kari Olafsson:</p>\n<p>"fdqfdsqfdq"</p>\n<p><a href="http://d.openagenda.com/frontend_dev.php/messages/1539851231500506" target="_blank">voir le message sur OpenAgenda / répondre</a></p>',
-    type: 'html' 
+    type: 'html'
   }
 
 */

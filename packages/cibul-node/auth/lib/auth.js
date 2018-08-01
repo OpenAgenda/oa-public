@@ -9,13 +9,26 @@ const emailValidator = require( '@openagenda/validators/email' )();
 const getLabel = require( '@openagenda/labels' )( labels );
 const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
+const log = require( '@openagenda/logs' )( 'auth/lib/auth' );
 
-const inAppUserSvc = require( '../../services/user' );
 const cmn = require( '../../lib/commons-app' );
 const lib = require( '../../lib/lib' );
 const config = require( '../../config' );
 const pLib = require( './passport' );
 const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
+
+const authenticateFields = {
+  facebook: 'facebookUid',
+  twitter: 'twitterId',
+  google: 'googleId',
+  twitterScreenName: 'twitterScreenName'
+};
+
+const createFields = {
+  facebook: 'facebookUid',
+  twitter: 'twitterId',
+  google: 'googleId',
+};
 
 const exposed = {
   signin,
@@ -63,8 +76,13 @@ exposed.renderEmail = _render( 'auth/emailForm', {
 exposed.renderInvalidActivation = _render( 'auth/invalidActivation', {} );
 
 function init( service ) {
-  
+
+  const authenticate = serviceAuthenticate( authenticateFields[ service ] );
+  const create = serviceCreate( createFields[ service ], service !== 'twitter' );
+
   return deepExtend( {
+    create,
+    authenticate,
     attemptAuth,
     attemptCreate,
     process,
@@ -96,13 +114,13 @@ function init( service ) {
 
       }
 
-      inAppUserSvc.auth[ service ]( values.profile.id, loadOptionals( values.req ), function( err, user, data ) {
+      authenticate( values.profile.id, ( err, user, data ) => {
 
         if ( err ) values.err = err;
 
         if ( user ) {
 
-          values.req.log( 'user is loaded' ); 
+          values.req.log( 'user is loaded' );
 
           values.user = user;
 
@@ -169,7 +187,7 @@ function init( service ) {
 
       }
 
-      inAppUserSvc.create[ service ]( {
+      create( {
         id: values.profile.id,
         email: values.profile.email,
         fullName,
@@ -212,39 +230,39 @@ function init( service ) {
  * then signin user
  */
 
-function process( service, name ) {
+  function process( service, name ) {
 
-  return serviceCallback( function( req, res, next ) {
+    return serviceCallback( function( req, res, next ) {
 
-    pLib.authenticate( service + '-' + name, {}, function( err, profile, data ) {
+      pLib.authenticate( service + '-' + name, {}, function( err, profile, data ) {
 
-      w( { 
-        req: req,
-        res: res,
-        err: err,
-        profile: profile,
-        data: data
-      } )
+        w( {
+          req: req,
+          res: res,
+          err: err,
+          profile: profile,
+          data: data
+        } )
 
-      .then( attemptAuth )
+        .then( attemptAuth )
 
-      .then( ifUserLoaded( false, attemptCreate ) )
+        .then( ifUserLoaded( false, attemptCreate ) )
 
-      .then( ifUserLoaded( false, errorExistingEmail ) )
+        .then( ifUserLoaded( false, errorExistingEmail ) )
 
-      .then( ifUnresolved( ifUserLoaded( true, signin ) ) )
+        .then( ifUnresolved( ifUserLoaded( true, signin ) ) )
 
-      .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage ) ) )
+        .then( ifUnresolved( ifUserLoaded( false, errorDefaultMessage ) ) )
 
-      .then( ifUnresolved( ifUserLoaded( false, module.exports[ name == 'signup' ? 'renderSignup' : 'renderSignin' ] ) ) )
+        .then( ifUnresolved( ifUserLoaded( false, module.exports[ name == 'signup' ? 'renderSignup' : 'renderSignin' ] ) ) )
 
-      .done( done , cmn.catchError( req, res ) );
+        .done( done , cmn.catchError( req, res ) );
 
-    } )( req, res, next );
+      } )( req, res, next );
 
-  } );
+    } );
 
-}
+  }
 
 }
 
@@ -252,14 +270,102 @@ module.exports = init;
 
 lib.extend( init, exposed );
 
+function serviceCreate( fieldName, activate ) {
+
+  return ( data, optionals, cb ) => {
+
+    if ( !cb ) {
+      cb = optionals;
+      optionals = {};
+    }
+
+    const createData = {
+      email: data.email,
+      fullName: data.fullName,
+      culture: data.culture ? data.culture : 'fr',
+      isActivated: !!activate,
+      [ fieldName ]: data.id,
+    };
+
+    log( 'creating user with %j', createData );
+
+    usersSvc.create( createData, { detailed: true, tokenOptionals: optionals, optionals } )
+      .then( user => {
+        if ( user ) {
+          log( 'user successfully created' );
+        }
+
+        return {
+          createData,
+          user,
+          service: { [ fieldName ]: data.id },
+        };
+      } )
+      .then( values => cb( null, values.user, values ), err => {
+
+        console.log( err )
+        cb( err );
+
+      } );
+
+  };
+
+}
+
+function serviceAuthenticate( fieldName ) {
+
+  return ( id, cb ) => {
+
+    const values = {
+      fieldName,
+      id,
+    };
+
+    usersSvc.findOne( {
+      query: { [ fieldName ]: id },
+      detailed: true,
+    } )
+      .then( user => {
+        values.user = user;
+      } )
+      .catch( err => {
+        if ( err.name !== 'NotFound' ) {
+          log( 'error', err );
+        }
+
+        if ( !values.errors ) {
+          values.errors = {};
+        }
+
+        values.errors.service = 'This user does not exist';
+      } )
+      .then( () => {
+        if ( !values.user || values.user.isActivated ) return values;
+
+        values.inactive = true;
+
+        if ( !values.errors ) values.errors = {};
+
+        values.errors.message = 'The account matching this email is not activated';
+
+        return values;
+      } )
+      .then(
+        () => cb( null, values.user, values ),
+        cb,
+      );
+
+  };
+
+}
 
 function signin( values ) {
 
-  var req = values.req, 
+  var req = values.req,
 
-  res = values.res, 
+  res = values.res,
 
-  user = values.user, 
+  user = values.user,
 
   agendaSlug,
 
@@ -288,7 +394,7 @@ function signin( values ) {
   sessions.open( req, res, user, async ( err, session ) => {
 
     if ( err ) req.log( 'error', { message: 'could not open session', error: err } );
-    
+
     let redirectUrl;
 
     usersSvc.refresh( user.uid, {
@@ -380,7 +486,7 @@ function _render( template, defaults ) {
 
     var asPromise = arguments.length===1,
 
-    req = asPromise ? values.req : arguments[ 0 ], 
+    req = asPromise ? values.req : arguments[ 0 ],
 
     res = asPromise ? values.res : arguments[ 1 ],
 
@@ -466,7 +572,7 @@ function ifUserActivated( expected, cb ) {
 
   }
 
-} 
+}
 
 function ifUserLoaded( loaded, cb ) {
 
@@ -484,7 +590,7 @@ function ifUserLoaded( loaded, cb ) {
 
   }
 
-} 
+}
 
 function errorDefaultMessage( values ) {
 
@@ -617,7 +723,7 @@ function fullNameFromEmail( emailInput ) {
     return false;
 
   }
-  
+
   let parts = email.split( '@' ),
 
   name = parts[ 0 ]
@@ -639,7 +745,7 @@ function done( values ) {
 
   values.req.log( 'done' );
 
-} 
+}
 
 function saveOptionals( req, res, additionals ) {
 

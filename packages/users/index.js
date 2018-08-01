@@ -1,12 +1,15 @@
-"use strict";
+'use strict';
 
 const path = require( 'path' );
+const _ = require( 'lodash' );
+const knexLib = require( 'knex' );
 const feathers = require( '@feathersjs/feathers' );
 const express = require( '@feathersjs/express' );
 const log = require( '@openagenda/logs' )( 'users' );
-const knexLib = require( 'knex' );
 const Service = require( './Service' );
 const config = require( './config' );
+const tokens = require( './tokens' );
+const tokensHooks = require( './tokens/hooks' );
 
 const methods = [
   'hooks',
@@ -29,8 +32,12 @@ const methods = [
   'generateApiKey',
   'setNewFlag',
   'refresh',
-  'verifyPassword'
+  'verifyPassword',
+  'activate'
 ];
+
+let usersSvc = null;
+let tokensSvc = null;
 
 const app = express( feathers() );
 
@@ -39,8 +46,7 @@ app
   .use( express.json( { limit: '10mb' } ) )
   .configure( express.rest( null ) );
 
-let serviceInstance = null;
-let service = null;
+let usersSvcInstance = null;
 
 function exposeApp( parentApp, mountpath ) {
   const mw = require( './middleware' );
@@ -48,17 +54,21 @@ function exposeApp( parentApp, mountpath ) {
   log( 'expose app' );
 
   // basic methods (find, get, create, update, patch, remove)
-  app.use( mountpath, serviceInstance );
+  app
+    .use( mountpath, usersSvcInstance )
+    .use( `${mountpath}/tokens`, tokens() );
+
+  usersSvcInstance.setup( app, mountpath );
 
   // custom methods
   app.use(
     path.join( mountpath, '/:__feathersId/setImageProfile' ),
-    mw.setImageProfile()
+    mw.setImageProfile(),
   );
 
   app.use(
     path.join( mountpath, '/:__feathersId/clearImageProfile' ),
-    mw.clearImageProfile()
+    mw.clearImageProfile(),
   );
 
   app.use(
@@ -93,7 +103,7 @@ function exposeApp( parentApp, mountpath ) {
 
   app.use(
     mountpath,
-    express.errorHandler( { html: false } )
+    express.errorHandler( { html: false } ),
   );
 
   parentApp
@@ -101,46 +111,72 @@ function exposeApp( parentApp, mountpath ) {
     .use( mountpath, express.rest.formatter );
 
   // callable service, exposed with express provider
-  service = app.service( mountpath );
+  usersSvc = app.service( mountpath );
+  tokensSvc = app.service( `${mountpath}/tokens` );
+
+  tokensSvc.hooks( tokensHooks );
 
   return app;
 }
 
 module.exports = Object.assign(
-  () => service,
+  () => usersSvc,
+  // users.<method>
   methods.reduce( ( result, method ) => ({
     ...result,
     [ method ]: ( ...args ) => {
-      if ( !service ) {
+      if ( !usersSvc ) {
         throw new Error( 'Service is not initialized' );
       }
 
-      return service[ method ].apply( service, args );
+      return usersSvc[ method ].apply( usersSvc, args );
     }
   }), {} ),
   {
+    // users.tokens.<method>
+    tokens: [ 'create', 'get', 'remove', 'findOne' ].reduce( ( result, method ) => ({
+      ...result,
+      [ method ]: ( ...args ) => {
+        if ( !tokensSvc ) {
+          throw new Error( 'Service is not initialized' );
+        }
+
+        return tokensSvc[ method ].apply( tokensSvc, args );
+      }
+    }), {} ),
     app,
     exposeApp,
-    Service
+    Service,
+    config
   } );
 
 module.exports.init = c => {
   config.init( c );
 
+  tokens.init();
+
   // raw service instance
-  serviceInstance = new Service( {
+  usersSvcInstance = new Service( {
     Model: knexLib( {
       client: 'mysql',
       connection: config.mysql,
-      schemas: c.schemas
+      schemas: config.schemas
     } ),
-    name: config.name,
+    name: config.schemas.user,
     id: 'uid',
     paginate: config.paginate
   } );
 
   // callable service, not exposed
-  service = feathers()
-    .use( config.name, serviceInstance )
-    .service( config.name );
+  const tempPath = config.schemas.user;
+  const tempApp = feathers()
+    .use( tempPath, usersSvcInstance )
+    .use( `${tempPath}/tokens`, tokens() );
+
+  usersSvcInstance.setup( tempApp, tempPath );
+
+  usersSvc = tempApp.service( config.schemas.user );
+  tokensSvc = tempApp.service( `${config.schemas.user}/tokens` );
+
+  tokensSvc.hooks( tokensHooks );
 };

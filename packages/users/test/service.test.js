@@ -38,7 +38,7 @@ beforeEach( async () => {
 afterEach( async () => {
   await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
   await config.knex.destroy();
-  await usersSvc().knex.destroy();
+  // await usersSvc.knex.destroy();
   await keysConfig.knex.destroy();
 } );
 
@@ -103,9 +103,9 @@ describe( 'get', () => {
   } );
 
   it( 'get user with removed option at null', async () => {
-    const user = await usersSvc.get( 17133001, { removed: null } );
+    const user = await usersSvc.get( 9003991, { removed: null } );
 
-    expect( user.email ).to.be.equal( 'vincentac@gmail.com' );
+    expect( user.email ).to.be.equal( 'contact@dedale.info' );
     expect( user ).to.not.include.all.keys( 'isRemoved', 'isActivated' );
   } );
 
@@ -260,6 +260,41 @@ describe( 'create', () => {
 
     expect( user.isActivated ).to.be.equal( true );
   } );
+
+  it( 'create a user should hash password', async () => {
+    const password = 'pa**word';
+
+    const user = await usersSvc.create(
+      { email: 'jean-eude@oa.com', password },
+      { detailed: true, internal: true }
+    );
+
+    expect( user.password ).to.not.be.equal( password );
+  } );
+
+  it( 'create a user and an activation token', async () => {
+    const email = 'jean-eude@oa.com';
+    const user = await usersSvc.create(
+      { email, password: 'pa**word' },
+      { detailed: true }
+    );
+
+    const token = await usersSvc.tokens.findOne( { query: { email } } );
+    expect( user.email ).to.be.equal( email );
+    expect( token.token ).to.have.lengthOf( 32 );
+  } );
+
+  it( 'doesn\'t create an activation token for an activated user', async () => {
+    const email = 'jean-eude@oa.com';
+    const user = await usersSvc.create(
+      { email, password: 'pa**word', isActivated: true },
+      { detailed: true }
+    );
+
+    const token = await usersSvc.tokens.findOne( { query: { email } } );
+    expect( user.email ).to.be.equal( email );
+    expect( token ).to.be.equal( undefined );
+  } );
 } );
 
 describe( 'patch', () => {
@@ -407,6 +442,12 @@ describe( 'remove', () => {
     const modifiedUser = await usersSvc.get( 17133001 );
 
     expect( modifiedUser ).to.be.null;
+
+    const removedUser = await usersSvc.get( 17133001, { removed: null, detailed: true, internal: true } );
+
+    expect( removedUser.email ).to.be.equal( null );
+    expect( removedUser.store.email ).to.be.equal( 'vincentac@gmail.com' );
+    expect( removedUser.isRemoved ).to.be.equal( true );
   } );
 } );
 

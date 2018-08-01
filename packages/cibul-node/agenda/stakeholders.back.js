@@ -26,9 +26,9 @@ const sessions = require( '@openagenda/sessions' ),
 
   eventSvc = require( '../services/event' ),
 
-  userSvc = require( '../services/user' ),
-
   stakeholders = require( '@openagenda/agenda-stakeholders' ),
+
+  usersSvc = require( '@openagenda/users' ),
 
   stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
 
@@ -223,7 +223,7 @@ function streamXlsx( req, res, next ) {
 }
 
 
-function _loadUserByEmail( req, res, next ) {
+async function _loadUserByEmail( req, res, next ) {
 
   if ( !req.query.email || !validator.isEmail( req.query.email ) ) {
 
@@ -234,32 +234,42 @@ function _loadUserByEmail( req, res, next ) {
 
   }
 
-  userSvc.get( { email: req.query.email }, ( err, user ) => {
+  try {
 
-    if ( err ) return next( err );
+    const user = await usersSvc.findOne( {
+      query: { email: req.query.email }
+    } );
 
-    if ( !user ) return next( { code: 400, message: 'the target account does not exist' } );
+    if ( !user ) {
+      return next( { code: 400, message: 'the target account does not exist' } );
+    }
 
     req.stakeholder = user;
 
     next();
 
-  } );
+  } catch ( err ) {
+
+    return next( err );
+
+  }
 
 }
 
 
-function _loadUserByUid( req, res, next ) {
+async function _loadUserByUid( req, res, next ) {
 
-  userSvc.get( { uid: req.params.uid }, ( err, user ) => {
+  try {
 
-    if ( err ) return next( err );
-
-    req.queriedUser = user;
+    req.queriedUser = await usersSvc.get( req.params.uid );
 
     next();
 
-  } );
+  } catch ( err ) {
+
+    return next( err );
+
+  }
 
 }
 

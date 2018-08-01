@@ -1,27 +1,22 @@
-"use strict";
+'use strict';
 
-const bodyMw = require( 'body-parser' ).urlencoded( {
-  extended: true,
-  limit: 500000
-} );
+const bodyMw = require( 'body-parser' )
+  .urlencoded( {
+    extended: true,
+    limit: 500000,
+  } );
 
-const sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' );
+const usersSvc = require( '@openagenda/users' );
+const log = require( '@openagenda/logs' )( 'auth/reset.front' );
+const modLib = require( '../lib/moduleLib' );
+const cmn = require( '../lib/commons-app' );
 
-  modLib = require( '../lib/moduleLib' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  config = require( '../config' ),
-
-  w = require( 'when' ),
-
-  userSvc = require( '../services/user' ),
-
-  routes = {
+const routes = {
     lostPassword: [ 'get', '/lost', lostPassword ],
     lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
     resetPassword: [ 'get', '/reset/:token', resetPassword ],
-    resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ]
+    resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ],
   };
 
 
@@ -32,15 +27,15 @@ module.exports = path => {
   router.pre( [
     cmn.loadBaseData(),
     sessions.middleware.ifLogged( cmn.redirectTo() ),
-    bodyMw
+    bodyMw,
   ] );
 
   return {
     load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+    paths: modLib.getPaths( path, routes ),
+  };
 
-}
+};
 
 
 /**
@@ -55,73 +50,73 @@ function lostPassword( req, res ) {
 
 function lostPasswordSubmit( req, res ) {
 
-  userSvc.lostPassword.createAndSend( { email: req.body.email  } )
+  _createAndSend( { email: req.body.email } )
 
-  .then( _ifValueIs( 'sent', true, _redirectToSignin( req, res, 'A password reset is being sent to your email' ) ) )
+    .then( _ifValueIs( 'sent', true, _redirectToSignin( req, res, 'A password reset is being sent to your email' ) ) )
 
-  .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
+    .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
 
-  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
+    .then( () => log( 'done' ), cmn.catchError( req, res ) );
 
 }
 
 function resetPassword( req, res ) {
 
-  userSvc.lostPassword.verifyToken( { token: req.params.token } )
+  _verifyToken( { token: req.params.token } )
 
-  .then( _ifValueIs( 'valid', true, _render( req, res, 'auth/resetPassword' ) ) )
+    .then( _ifValueIs( 'valid', true, _render( req, res, 'auth/resetPassword' ) ) )
 
-  .then( _ifValueIsNot( 'resolved', true, _redirectToSignin( req, res, 'The link is outdated. Try again.') ) )
+    .then( _ifValueIsNot( 'resolved', true, _redirectToSignin( req, res, 'The link is outdated. Try again.' ) ) )
 
-  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
+    .then( () => log( 'done' ), cmn.catchError( req, res ) );
 
 }
 
 function resetPasswordSubmit( req, res ) {
 
-  userSvc.lostPassword.updatePassword( { 
-    token: req.params.token, 
-    password: req.body.password, 
-    repeat: req.body.repeat
+  updatePassword( {
+    token: req.params.token,
+    password: req.body.password,
+    repeat: req.body.repeat,
   } )
 
-  .then( _ifValueIs( 'success', true, _redirectToSignin( req, res, 'Your password has been updated.' )))
+    .then( _ifValueIs( 'success', true, _redirectToSignin( req, res, 'Your password has been updated.' ) ) )
 
-  .then( _ifValueIsNot( 'resolved', true, _render( req, res, 'auth/resetPassword' ) ) )
+    .then( _ifValueIsNot( 'resolved', true, _render( req, res, 'auth/resetPassword' ) ) )
 
-  .done( function() { req.log( 'done' ); }, cmn.catchError( req, res ) );
+    .then( () => log( 'done' ), cmn.catchError( req, res ) );
 
 }
 
 
 function _ifValueIs( name, expected, func ) {
 
-  return function( values ) {
+  return function ( values ) {
 
     if ( expected == values[ name ] ) return func( values );
 
     return values;
 
-  }
+  };
 
 }
 
 function _ifValueIsNot( name, expected, func ) {
 
-  return function( values ) {
+  return function ( values ) {
 
     if ( expected !== values[ name ] ) return func( values );
 
     return values;
 
-  }
+  };
 
 }
 
 
 function _render( req, res, uri, data ) {
 
-  return function( values ) {
+  return function ( values ) {
 
     cmn.render( req, res, uri, values );
 
@@ -129,7 +124,7 @@ function _render( req, res, uri, data ) {
 
     return values;
 
-  }
+  };
 
 }
 
@@ -146,6 +141,153 @@ function _redirectToSignin( req, res, message ) {
 
     return values;
 
+  };
+
+}
+
+async function _createAndSend( values ) {
+
+  log( 'creating activation token' );
+
+  const user = values.user ? _.pick( values.user, 'id', 'uid', 'email' ) : { email: values.email };
+
+  if ( user.id && user.email && user.isActivated ) {
+
+    log( 'user is already loaded: %s', JSON.stringify( user ) );
+
+    return values;
+
+  } else {
+
+    log( 'loading user based on values %s', JSON.stringify( user ) );
+
+    const result = await usersSvc.findOne( { query: user, detailed: true } );
+
+    log( 'loaded user %s', JSON.stringify( result ) );
+
+    if ( !result ) throw 'No account matching this email was found';
+
+    if ( !result.isActivated ) throw 'The account matching this email is not yet activated';
+
+    values.user = result;
+
   }
+
+  let token = await usersSvc.tokens.findOne( {
+    query: {
+      userId: values.user.id,
+      email: values.user.email,
+      type: 'lp',
+    },
+  } );
+
+  if ( token ) {
+    await usersSvc.config.interfaces.sendToken( { result: token, params: { user: values.user } } );
+  } else {
+    token = await usersSvc.tokens.create(
+      {
+        userId: values.user.id,
+        email: values.user.email,
+        type: 'lp',
+      },
+      { user: values.user },
+    );
+  }
+
+  values.token = token.token;
+  values.sent = true;
+
+  log( 'info', 'lost password token created for %s', values.user.email );
+
+  return values;
+
+}
+
+async function _verifyToken( values ) {
+
+  const token = await usersSvc.tokens.findOne( {
+    query: {
+      token: values.token,
+      type: 'lp',
+    },
+  } );
+
+  values.valid = !!token;
+
+  values.loadedToken = token;
+
+  if ( !values.valid ) {
+
+    values.message = 'token is not valid';
+
+  }
+
+  return values;
+
+}
+
+async function updatePassword( values ) {
+
+  await _verifyToken( values );
+
+  if ( values.valid ) {
+
+    const result = await usersSvc.findOne( { query: { id: values.loadedToken.userId }, detailed: true } );
+
+    if ( !result ) {
+
+      values.message = 'user was not found';
+
+    } else if ( !result.isActivated ) {
+
+      values.message = 'user is not activated';
+
+    } else {
+
+      values.user = result;
+
+    }
+
+    if ( values.user ) {
+
+      if ( values.password !== values.repeat ) {
+
+        values.message = 'Passwords must match.';
+
+        return values;
+
+      } else if ( !values.password.length ) {
+
+        values.message = 'Field cannot be empty.';
+
+        return values;
+
+      }
+
+      try {
+
+        await usersSvc.changePassword( values.user.uid, { password: values.password } );
+
+        values.success = true;
+
+      } catch ( e ) {
+
+        throw 'the password could not be modified';
+
+      }
+
+      if ( values.success ) {
+
+        await usersSvc.tokens.remove( values.loadedToken.id );
+
+        log( 'token was successfully removed' );
+
+      }
+
+    }
+
+  }
+
+  return values;
 
 }
