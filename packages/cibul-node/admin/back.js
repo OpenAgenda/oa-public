@@ -1,43 +1,27 @@
 "use strict";
 
-const _ = require( 'lodash' ),
-
-  ReactDOM = require( 'react-dom/server' ),
-
-  bodyMw = require( 'body-parser' ).urlencoded( {
-    extended: true,
-    limit: 500000
-  } ),
-
-  sessions = require( '@openagenda/sessions' ),
-
-  modLib = require( '../lib/moduleLib' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  config = require( '../config' ),
-
-  moment = require( 'moment' ),
-
-  wn = require( 'when/node' ),
-
-  async = require( 'async' ),
-
-  log = require( '@openagenda/logger' )( 'admin/back' ),
-
-  lib = require( '../lib/lib' ),
-
-  model = require( '../services/model' ),
-
-  adminSvc = require( '../services/admin/admin' ),
-
-  usersSvc = require( '@openagenda/users' ),
-
-  stakeholdersSvc = require( '@openagenda/agenda-stakeholders' ),
-
-  agendasSvc = require( '@openagenda/agendas' ),
-
-  inboxAppsMw = require( '@openagenda/inbox-apps/dist/middleware' );
+const { promisify, callbackify } = require( 'util' );
+const _ = require( 'lodash' );
+const ReactDOM = require( 'react-dom/server' );
+const bodyMw = require( 'body-parser' ).urlencoded( {
+  extended: true,
+  limit: 500000
+} );
+const sessions = require( '@openagenda/sessions' );
+const modLib = require( '../lib/moduleLib' );
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const moment = require( 'moment' );
+const wn = require( 'when/node' );
+const async = require( 'async' );
+const log = require( '@openagenda/logger' )( 'admin/back' );
+const lib = require( '../lib/lib' );
+const model = require( '../services/model' );
+const adminSvc = require( '../services/admin/admin' );
+const usersSvc = require( '@openagenda/users' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const agendasSvc = require( '@openagenda/agendas' );
+const inboxAppsMw = require( '@openagenda/inbox-apps/dist/middleware' );
 
 const routes = {
   adminIndex: [ 'get', '/', index ],
@@ -183,33 +167,32 @@ function throwTestError( req, res, next ) {
 
 function search( req, res ) {
 
-  var start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate(),
+  const start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate();
+  const end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
 
-    end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
+  _getFork( start, end )
 
-  wn.call( _getFork, start, end )
-
-    .spread( function ( r, e, u ) {
+    .then( ( [ r, e, u ] ) => {
 
       cmn.render( req, res, 'admin/index', {
 
         events: {
           total: e,
           totalInWeek: null,
-          totalInMonth: null
+          totalInMonth: null,
         },
 
         reviews: {
           total: r,
           totalInWeek: null,
-          totalInMonth: null
+          totalInMonth: null,
         },
 
         users: {
           total: u,
           totalInWeek: null,
-          totalInMonth: null
-        }
+          totalInMonth: null,
+        },
 
       } );
 
@@ -327,8 +310,6 @@ async function userActivate( req, res ) {
     try {
 
       req.loadedUser = await usersSvc.patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
-
-      await usersSvc.config.interfaces.onActivation( { user: req.loadedUser } );
 
       return cmn.renderJson( req, res, { success: true } );
 
@@ -492,17 +473,14 @@ function eventsDiff( req, res ) {
 }
 
 
-function _getFork( begin, end, cb ) {
+function _getFork( begin, end ) {
 
-  async.series( [
-
-    async.apply( model.reviews().total, { createdAt: { gte: begin, lte: end } } ),
-
-    async.apply( model.events().total, { createdAt: { gte: begin, lte: end } } ),
-
-    async.apply( model.users().total, { createdAt: { gte: begin, lte: end } } )
-
-  ], cb );
+  return Promise.all( [
+    promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
+    promisify( model.events().total )( { createdAt: { gte: begin, lte: end } } ),
+    usersSvc.find( { query: { $limit: 0, createdAt: { $gte: begin, $lte: end } } } )
+      .then( res => res.total )
+  ] );
 
 }
 
@@ -514,7 +492,8 @@ function _getTotals( cb ) {
 
     async.apply( model.events().total ),
 
-    async.apply( model.users().total )
+    cb => usersSvc.find( { query: { $limit: 0 } } )
+      .then( res => cb( null, res.total ) )
 
   ], cb );
 }
@@ -531,7 +510,8 @@ function _getTotalsWeek( cb ) {
 
     async.apply( model.events().total, { createdAt: { gt: weekStart, lt: weekStop } } ),
 
-    async.apply( model.users().total, { createdAt: { gt: weekStart, lt: weekStop } } )
+    cb => usersSvc.find( { query: { $limit: 0, createdAt: { $gt: weekStart, $lt: weekStop } } } )
+      .then( res => cb( null, res.total ) )
 
   ], cb );
 }
@@ -548,7 +528,8 @@ function _getTotalsMonth( cb ) {
 
     async.apply( model.events().total, { createdAt: { gt: monthStart, lt: monthStop } } ),
 
-    async.apply( model.users().total, { createdAt: { gt: monthStart, lt: monthStop } } )
+    cb => usersSvc.find( { query: { $limit: 0, createdAt: { $gt: monthStart, $lt: monthStop } } } )
+      .then( res => cb( null, res.total ) )
 
   ], cb );
 

@@ -24,15 +24,11 @@ var model = require( '../../model' ),
 
   flattener = require( './flattener' ),
 
-  aggregator = require( '../../aggregator' ),
-
   emailStrategie = require( './emailStrategie' ),
 
   groupActions = require( './groupActions' ),
 
   controlData = require( '../controlData' ),
-
-  instanceQueue = require( '../../lib/instanceQueue' ),
 
   coms = require( '../../../lib/coms' ),
 
@@ -74,10 +70,6 @@ function instanciate( data ) {
       refresh,
       refreshUpdatedAt
     } );
-
-  instanceQueue( svcInstance, instance, [
-    'queue'
-  ] );
 
   search( svcInstance, instance, [
     'search',

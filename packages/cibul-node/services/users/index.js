@@ -14,10 +14,13 @@ const mails = require( '@openagenda/mails' );
 const labels = require( '@openagenda/labels/users/settings' );
 const getLabels = require( '@openagenda/labels/makeLabelGetter' )( labels );
 const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
+const update = require( 'immutability-helper' );
+const beforeCreate = require( './beforeCreate' );
 const beforeRemove = require( './beforeRemove' );
 const onCreate = require( './onCreate' );
 const onGenerateApiKey = require( './onGenerateApiKey' );
 const onActivation = require( './onActivation' );
+const sendToken = require( './sendToken' );
 
 function restrictToCurrentUser() {
   return context => {
@@ -43,46 +46,50 @@ function restrictToUnlogged() {
   };
 }
 
-const hooks = {
+const hooks = update( svcHooks, {
   before: {
-    all: svcHooks.before.all,
-    create: [
-      iff(
-        isProvider( 'external' ),
-        restrictToUnlogged()
-      ),
-      ...svcHooks.before.create
-    ],
-    get: [
-      iff(
-        isProvider( 'external' ),
-        restrictToCurrentUser()
-      ),
-      ...svcHooks.before.get
-    ],
-    find: [
-      disallow( 'external' ),
-      ...svcHooks.before.find
-    ],
-    update: disallow(),
-    patch: [
-      iff( // restrictToCurrentUser expect for confirmChangeEmail
-        ctx => isProvider( 'external' )( ctx ) && !isAction( 'confirmChangeEmail' )( ctx ),
-        restrictToCurrentUser(),
-      ),
-      ...svcHooks.before.patch
-    ],
-    remove: [
-      iff(
-        isProvider( 'external' ),
-        restrictToCurrentUser()
-      ),
-      ...svcHooks.before.remove
-    ]
-  },
-  after: svcHooks.after,
-  error: svcHooks.error,
-};
+    create: {
+      $unshift: [
+        iff(
+          isProvider( 'external' ),
+          restrictToUnlogged()
+        )
+      ]
+    },
+    get: {
+      $unshift: [
+        iff(
+          isProvider( 'external' ),
+          restrictToCurrentUser()
+        )
+      ]
+    },
+    find: {
+      $unshift: [
+        disallow( 'external' )
+      ]
+    },
+    update: {
+      $set: disallow()
+    },
+    patch: {
+      $unshift: [
+        iff( // restrictToCurrentUser expect for confirmChangeEmail
+          context => isProvider( 'external' )( context ) && !isAction( 'confirmChangeEmail' )( context ),
+          restrictToCurrentUser(),
+        )
+      ]
+    },
+    remove: {
+      $unshift: [
+        iff(
+          isProvider( 'external' ),
+          restrictToCurrentUser()
+        )
+      ]
+    }
+  }
+} );
 
 module.exports = ( parentApp, mountpath ) => {
 
@@ -214,10 +221,12 @@ module.exports.init = async function init( config ) {
     },
     interfaces: {
       beforeRemove,
+      beforeCreate,
       onCreate,
-      onActivation,
-      getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
       onGenerateApiKey,
+      onActivation,
+      sendToken,
+      getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
       keys: {
         get: identifiers => keys( identifiers ).get(),
         create: ( identifiers, data ) => keys( identifiers ).create( data ),

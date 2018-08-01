@@ -537,9 +537,9 @@ function catchError( req, res, jsonResponse ) {
 
   return err => {
 
-    if ( typeof err == 'object' && err.message ) {
+    if ( typeof err == 'object' && (err.stack || err.message) ) {
 
-      log( 'error', 'caught error: %s', err.message );
+      log( 'error', `caught error: ${err.stack ? err.stack : err.message}` );
 
     } else {
 

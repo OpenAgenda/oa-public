@@ -4,20 +4,32 @@ const invitationSvc = require( '@openagenda/invitations' );
 const activitiesSvc = require( '@openagenda/activities' );
 
 
-module.exports = async function onActivation( values ) {
+module.exports = function onActivation() {
+  return async context => {
+    const user = context.result;
 
-  try {
-    await activitiesSvc.feed( { entityType: 'user', entityUid: values.user.uid } ).create()
-  } catch ( err ) {
-    if ( err.message !== 'Feed already exists' ) {
-      throw err;
+    if ( !user ) {
+      return context;
     }
-  }
 
-  if ( values.invitation ) {
-    await invitationSvc.execute( { token: values.invitation }, { user: values.user } );
-  }
+    const { invitation } = context.params.optionals || {};
 
-  await invitationSvc.execute( { email: values.user.email }, { user: values.user } );
+    try {
+      await activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: user.uid,
+      } )
+        .create();
+    } catch ( err ) {
+      if ( err.message !== 'Feed already exists' ) {
+        throw err;
+      }
+    }
 
-}
+    if ( invitation ) {
+      await invitationSvc.execute( { token: invitation }, { user } );
+    }
+
+    await invitationSvc.execute( { email: user.email }, { user } );
+  };
+};

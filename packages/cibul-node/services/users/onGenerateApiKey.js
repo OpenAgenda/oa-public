@@ -1,34 +1,45 @@
 const config = require( '../../config' );
 
-module.exports = async function onGenerateApiKey( user ) {
 
-  // create/update legacy api_key_set entry
+module.exports = function onGenerateApiKey() {
 
-  const { knex, schemas } = config;
+  return async ctx => {
 
-  const existingKeySet = await knex( schemas.apiKeySet ).select().first().where( { user_id: user.id } );
+    const user = ctx.result;
 
-  if ( existingKeySet ) {
+    if ( !user ) {
+      return ctx;
+    }
 
-    await knex( schemas.apiKeySet )
-      .where( { id: existingKeySet.id } )
-      .update( {
-        api_key: user.apiKey || null,
-        api_secret: user.apiSecret || null
-      } );
+    // create/update legacy api_key_set entry
 
-  } else {
+    const { knex, schemas } = config;
 
-    await knex( schemas.apiKeySet )
-      .insert( {
-        api_key: user.apiKey || null,
-        api_secret: user.apiSecret || null,
-        user_id: user.id,
-        type: 1,
-        created_at: new Date(),
-        updated_at: new Date()
-      } );
+    const existingKeySet = await knex( schemas.apiKeySet ).select().first().where( { user_id: user.id } );
 
-  }
+    if ( existingKeySet ) {
+
+      await knex( schemas.apiKeySet )
+        .where( { id: existingKeySet.id } )
+        .update( {
+          api_key: user.apiKey || null,
+          api_secret: user.apiSecret || null
+        } );
+
+    } else {
+
+      await knex( schemas.apiKeySet )
+        .insert( {
+          api_key: user.apiKey || null,
+          api_secret: user.apiSecret || null,
+          user_id: user.id,
+          type: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        } );
+
+    }
+
+  };
 
 };

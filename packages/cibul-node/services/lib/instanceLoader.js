@@ -1,7 +1,5 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' );
-
 module.exports = function( extension ) {
 
   return function( loadedInstance, instance, methods ) {

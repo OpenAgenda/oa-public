@@ -62,7 +62,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         ],
         web: [ // open to the public
           require( './home/back' )( '/home' ),
-          require( './user/settings.back' )( '/settings' ),
+          require( './user/settings.front' )( '/settings' ),
           require( './newsletter/back' )( '/:slug/admin/newsletters' ),
           require( './newsletter/front' )( '/:slug/newsletters' ),
           require( './general/front' )( '' ),
@@ -263,8 +263,6 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './services/mailer' ).task();
 
         require( './services/agenda/controlData' ).task();
-
-        require( './services/lib/instanceQueue/task' )();
 
         require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
 

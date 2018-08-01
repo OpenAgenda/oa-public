@@ -5,132 +5,109 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
   limit: 500000
 } );
 
+const https = require( 'https' );
+const _ = require( 'lodash' );
+const w = require( 'when' );
+const deepExtend = require( 'deep-extend' );
+const usersSvc = require( '@openagenda/users' );
+const sessions = require( '@openagenda/sessions' );
+const invitationsSvc = require( '@openagenda/invitations' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
+const log = require( '@openagenda/logger' )( 'auth/local' );
+const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
+const agendaSvc = require( '../services/agenda' );
+const modLib = require( '../lib/moduleLib' );
+const cmn = require( '../lib/commons-app' );
+const lib = require( '../lib/lib' );
+const auth = require( './lib/auth' );
+const pLib = require( './lib/passport' );
+const config = require( '../config' );
 
-const modLib = require( '../lib/moduleLib' ),
+const routes = {
 
-  cmn = require( '../lib/commons-app' ),
+  signin: [ 'get', '/signin', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    _presetEmail,
+    auth.renderSignin
+  ] ],
 
-  w = require( 'when' ),
+  agendaSignin: [ 'get', '/:slug/signin', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    _presetEmail,
+    auth.renderSignin
+  ] ],
 
-  deepExtend = require( 'deep-extend' ),
+  signinSubmit: [ 'post', '/signin', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    signinSubmit
+  ] ],
 
-  auth = require( './lib/auth' ),
+  agendaSigninSubmit: [ 'post', '/:slug/signin', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signinSubmit
+  ] ],
 
-  https = require( 'https' ),
+  signup: [ 'get', '/signup', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    _loadCaptcha,
+    _guessFullName,
+    auth.renderSignup
+  ] ],
 
-  log = require( '@openagenda/logger' )( 'auth/local' ),
+  agendaSignup: [ 'get', '/:slug/signup', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    _loadCaptcha,
+    _guessFullName,
+    auth.renderSignup
+  ] ],
 
-  config = require( '../config' ),
+  signupSubmit: [ 'post', '/signup', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    signupSubmit
+  ] ],
 
-  lib = require( '../lib/lib' ),
+  agendaSignupSubmit: [ 'post', '/:slug/signup', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signupSubmit
+  ] ],
 
-  legacyUserSvc = require( '../services/user' ),
+  signupComplete: [ 'get', '/signup/complete', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    signupComplete
+  ] ],
 
-  usersSvc = require( '@openagenda/users' ),
+  agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signupComplete
+  ] ],
 
-  __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) ),
+  activateResend: [ 'get', '/activate/resend', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    activateResend
+  ] ],
 
-  agendaSvc = require( '../services/agenda' ),
+  agendaActivateResend: [ 'get', '/:slug/activate/resend', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    activateResend
+  ] ],
 
-  pLib = require( './lib/passport' ),
+  activate: [ 'get', '/activate/:token', [
+    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    activate
+  ] ],
 
-  sessions = require( '@openagenda/sessions' ),
+  agendaActivate: [ 'get', '/:slug/activate/:token', [
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    activate
+  ] ]
 
-  invitationsSvc = require( '@openagenda/invitations' ),
+};
 
-  routes = {
-
-    signin: [ 'get', '/signin', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      _presetEmail,
-      auth.renderSignin
-    ] ],
-
-    agendaSignin: [ 'get', '/:slug/signin', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      _presetEmail,
-      auth.renderSignin
-    ] ],
-
-    signinSubmit: [ 'post', '/signin', [
-      ( req, res, next ) => {
-
-        req.log( 'info', 'signing in user %s', req.body.email );
-
-        next();
-
-      },
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      signinSubmit
-    ] ],
-
-    agendaSigninSubmit: [ 'post', '/:slug/signin', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      signinSubmit
-    ] ],
-
-    signup: [ 'get', '/signup', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      _loadCaptcha,
-      _guessFullName,
-      auth.renderSignup
-    ] ],
-
-    agendaSignup: [ 'get', '/:slug/signup', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      _loadCaptcha,
-      _guessFullName,
-      auth.renderSignup
-    ] ],
-
-    signupSubmit: [ 'post', '/signup', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      signupSubmit
-    ] ],
-
-    agendaSignupSubmit: [ 'post', '/:slug/signup', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      signupSubmit
-    ] ],
-
-    signupComplete: [ 'get', '/signup/complete', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      signupComplete
-    ] ],
-
-    agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      signupComplete
-    ] ],
-
-    activateResend: [ 'get', '/activate/resend', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      activateResend
-    ] ],
-
-    agendaActivateResend: [ 'get', '/:slug/activate/resend', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      activateResend
-    ] ],
-
-    activate: [ 'get', '/activate/:token', [
-      sessions.middleware.ifLogged( cmn.redirectTo() ),
-      activate
-    ] ],
-
-    agendaActivate: [ 'get', '/:slug/activate/:token', [
-      sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-      activate
-    ] ]
-
-  },
-
-  useOptions = {
-    usernameField: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
-  };
+const useOptions = {
+  usernameField: 'email',
+  passwordField: 'password',
+  passReqToCallback: true
+};
 
 
 module.exports = function ( path ) {
@@ -205,7 +182,46 @@ function signupSubmit( req, res ) {
 
     .then( _captchaCheck )
 
-    .then( _ifHasErrors( false, _attemptCreate ) )
+    .then( async values => {
+
+      if ( values.data.errors ) {
+        return values;
+      }
+
+      const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
+
+      if ( req.agenda ) {
+        optionals.agenda = req.agenda;
+      }
+
+      try {
+        const user = await usersSvc.create( {
+          fullName: req.body.full_name,
+          email: req.body.email,
+          password: req.body.password,
+          culture: req.lang
+        }, {
+          detailed: true,
+          tokenOptionals: optionals,
+          optionals
+        } );
+
+        if ( user ) {
+          values.user = user;
+        }
+      } catch ( err ) {
+        if ( err && err.message === 'Already exist' ) {
+          values.data.errors = { email: 'usedEmail' };
+        }
+
+        if ( _.isObject( err.errors ) && Object.keys( err.errors ) > 0 ) {
+          values.data.errors = err.errors;
+        }
+      }
+
+      return values;
+
+    } )
 
     .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) )
 
@@ -234,64 +250,77 @@ function signupComplete( req, res ) {
 }
 
 
-function activateResend( req, res ) {
+async function activateResend( req, res ) {
 
   if ( !req.query.email ) {
-
     auth.renderEmail( { req, res, title: 'Resend activation mail' } );
-
   } else {
+    let user;
+    let token;
 
-    legacyUserSvc.activation.createAndSend( lib.extend( auth.loadOptionals( req ), {
-      email: req.query.email,
-      agenda: req.agenda
-    } ) )
+    const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
-      .then( function ( values ) {
-
-        sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
-
-        return lib.extend( values, { req, res } );
-
-      } )
-
-      .then( auth.redirectToComplete )
-
-      .done( auth.done, function ( error ) {
-
-        if ( error == 'no account was found' ) error = 'no account matches this email';
-
-        auth.renderEmail( {
-          req,
-          res,
-          data: {
-            errors: { email: error },
-            email: req.query.email
-          }
-        } );
-
+    try {
+      user = await usersSvc.findOne( {
+        query: { email: req.query.email },
+        detailed: true
       } );
+
+      if ( !user ) {
+        throw 'no account matches this email';
+      }
+
+      if ( user && user.isActivated ) {
+        throw 'the account is already activated';
+      }
+
+      token = await usersSvc.tokens.findOne( {
+        query: { userId: user.id, email: user.email, type: 'aa' },
+      } );
+
+      if ( token ) {
+        await usersSvc.config.interfaces.sendToken( { result: token, params: { user, optionals } } );
+      } else {
+        token = await await usersSvc.tokens.create(
+          { userId: user.id, email: user.email, type: 'aa' },
+          { user, optionals }
+        );
+      }
+
+      sessions.setFlash( req, res, __( 'sendAgain', req.lang ) );
+
+      auth.redirectToComplete( {
+        ...optionals,
+        req,
+        res,
+        user,
+        token: token.token
+      } );
+    } catch ( error ) {
+      log( 'error', error );
+
+      auth.renderEmail( {
+        req,
+        res,
+        data: {
+          errors: { email: error ? (error.message || error) : error },
+          email: req.query.email
+        }
+      } );
+    }
 
   }
 
 }
 
 
-function activate( req, res ) {
+async function activate( req, res ) {
 
-  legacyUserSvc.activation.activateByToken( req.params.token, auth.loadOptionals( req ), function ( err, user ) {
+  const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
-    if ( err ) {
+  try {
 
-      return cmn.catchError( req, res )( err );
-
-    }
-
-    if ( !user ) {
-
-      return auth.renderInvalidActivation( req, res );
-
-    }
+    const user = await usersSvc.activate( 0, { token: req.params.token }, { optionals } );
 
     if ( !req.query || !req.query.invitation ) {
 
@@ -331,7 +360,15 @@ function activate( req, res ) {
 
     } );
 
-  } );
+  } catch ( err ) {
+
+    if ( err.message.includes( 'not found' ) ) {
+      return auth.renderInvalidActivation( req, res );
+    }
+
+    return cmn.catchError( req, res )( err );
+
+  }
 
 }
 
@@ -358,19 +395,6 @@ function _handleSigninRequest( req, email, password, cb ) {
       cb( null, user, { email, password, user } );
     } )
     .catch( cb );
-
-}
-
-
-function _ifHasErrors( has, func ) {
-
-  return function ( values ) {
-
-    if ( !!values.data.errors !== has ) return values;
-
-    return func( values );
-
-  }
 
 }
 
@@ -438,40 +462,6 @@ function _guessFullName( req, res, next ) {
   auth.renderSignup( req, res, {
     full_name: fullName,
     email: req.query.email
-  } );
-
-}
-
-
-function _attemptCreate( values ) {
-
-  return w.promise( function ( resolve, reject ) {
-
-    const options = auth.loadOptionals( values.req );
-
-    if ( values.req.agenda ) options.agenda = values.req.agenda;
-
-    legacyUserSvc.create( {
-      fullName: values.req.body.full_name,
-      email: values.req.body.email,
-      password: values.req.body.password,
-      culture: values.req.lang
-    }, options, function ( err, user, data ) {
-
-      if ( err ) return reject( err );
-
-      if ( user ) values.user = user;
-
-      if ( data.errors ) {
-
-        deepExtend( values.data, data );
-
-      }
-
-      resolve( values );
-
-    } );
-
   } );
 
 }

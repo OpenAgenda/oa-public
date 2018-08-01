@@ -172,8 +172,7 @@ module.exports = function ( before, stakeholder, context ) {
         const { invitation } = await invitations.get( { email: before.custom.email } );
 
         if ( invitation ) {
-          invitation._data.email = stakeholder.custom.email;
-
+          invitation.email = stakeholder.custom.email;
           await invitation.save();
         }
 
