@@ -215,7 +215,8 @@ describe( 'agendas - unit (server): validate', () => {
           embedsTemplates: false,
           prioritizedAggregator: false,
           aggregator: false,
-          docxExport: false
+          docxExport: false,
+          eventOwnershipTransfer: false
         }
       } );
 

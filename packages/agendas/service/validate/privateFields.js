@@ -130,6 +130,12 @@ module.exports = {
       description: 'Agenda calendar view',
       type: 'boolean',
       default: false
+    },
+
+    eventOwnershipTransfer: {
+      description: 'Transfer ownership of event from one member to another within an agenda',
+      type: 'boolean',
+      default: false
     }
 
   }

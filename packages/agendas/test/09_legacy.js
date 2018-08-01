@@ -53,6 +53,7 @@ describe( 'agendas - unit (server): legacy bridging', function() {
           credentials: {
             indesign: 0,
             activatingInvitations: 0,
+            eventOwnershipTransfer: 0,
             embedsTemplates: 1,
             moderators: 0,
             embedsHead: 0,

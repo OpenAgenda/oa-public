@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS ${legacyCredential} (
   moderator TINYINT(1) DEFAULT '0',
   custom_head TINYINT(1) DEFAULT '0',
   emailstrategie TINYINT(1) DEFAULT '0',
+  event_transfer TINYINT(1) DEFAULT '0',
   tags TINYINT(1) DEFAULT '0', 
   created_at DATETIME NOT NULL, 
   updated_at DATETIME NOT NULL, 

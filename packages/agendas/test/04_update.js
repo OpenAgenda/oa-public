@@ -284,7 +284,8 @@ describe( 'agendas - functional (server): set (update)', function() {
             prioritizedAggregator: false,
             invitationMessage: false,
             calendarView: false,
-            docxExport: false
+            docxExport: false,
+            eventOwnershipTransfer: false
           } 
         },
         valid: true,

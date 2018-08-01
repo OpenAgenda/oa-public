@@ -312,7 +312,8 @@ describe( 'agendas - functional (server): set (create)', function() {
             prioritizedAggregator: false,
             invitationMessage: false,
             calendarView: false,
-            docxExport: false
+            docxExport: false,
+            eventOwnershipTransfer: false
           },
           createdAt: result.agenda.createdAt,
           updatedAt: result.agenda.updatedAt
