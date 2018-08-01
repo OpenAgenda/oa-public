@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const events = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/legacy' );
 
@@ -19,7 +21,7 @@ function _transfer( event, context, cb ) {
 
     } else if ( !result.transferred ) {
 
-      log( 'error', 'event %s could not be transferred: %s', event.uid, err );
+      log( 'error', 'event %s could not be transferred: %j', event.uid, _.get( result, 'errors' ) );
 
     } else if ( result.event.draft ) {
 

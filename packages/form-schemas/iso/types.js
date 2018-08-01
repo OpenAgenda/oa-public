@@ -9,6 +9,8 @@ module.exports = {
   text: 'text',
   textarea: 'text',
   markdown: 'text',
+  slate: 'pass',
+  html: 'text',
   image: 'text',
   file: 'text'
 }

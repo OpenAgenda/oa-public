@@ -38,7 +38,7 @@ export default ( state = {}, action ) => {
 
       return update( state, {
         search: {
-          searching: { $set: false },
+          searching: { $set: false },
           error: { $set: null },
           suggestions: {
             $set: action.suggestions
@@ -56,7 +56,7 @@ export default ( state = {}, action ) => {
       return update( state, {
         search: {
           searching: { $set: false },
-          error: { $set: null },
+          error: { $set: null },
           events: { $set: null },
           suggestions: { $set: [] }
         },

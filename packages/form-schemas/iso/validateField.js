@@ -24,9 +24,9 @@ schema.register( {
 
 const optionedTypes = [ 'radio', 'checkbox', 'select' ];
 
-const minMaxedTypes = [ 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual' ];
+const minMaxedTypes = [ 'custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate' ];
 
-const multilingualTypes = [ 'text', 'textarea' ];
+const multilingualTypes = [ 'text', 'textarea', 'html', 'markdown', 'slate' ];
 
 const validateStandardType = choice( {
   optional: false,
@@ -98,7 +98,7 @@ function validate( value, options = {} ) {
   }
 
   // validate any
-  if ( minMaxedTypes.indexOf( type ) !== -1 && value.min !== undefined && value.max !== undefined ) {
+  if ( ( minMaxedTypes.includes( type ) || isCustomField ) && value.min !== undefined && value.max !== undefined ) {
 
     if ( value.max < value.min ) {
 
@@ -113,8 +113,7 @@ function validate( value, options = {} ) {
 
   }
 
-
-  if ( multilingualTypes.includes( type ) && _.isArray( value.languages ) ) {
+  if ( ( multilingualTypes.includes( type ) || isCustomField ) && _.isArray( value.languages ) ) {
 
     clean.languages = value.languages;
 

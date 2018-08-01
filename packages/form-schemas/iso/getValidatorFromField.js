@@ -18,7 +18,7 @@ const map = [ {
   parser: convertToChoice.bind( null, { unique: true } ),
   type: 'choice'
 }, {
-  field: [ 'text', 'textarea', 'markdown' ],
+  field: [ 'text', 'textarea', 'markdown', 'html', 'slate' ],
   test: f => f.languages,
   parser: convertToMultilingual,
   type: 'multilingual'
@@ -27,9 +27,13 @@ const map = [ {
   parser: convertToChoice.bind( null, { unique: false } ),
   type: 'choice'
 }, {
-  field: [ 'textarea', 'markdown', 'image', 'file' ],
+  field: [ 'textarea', 'markdown', 'image', 'file', 'html' ],
   parser: convertTo,
   type: 'text'
+}, {
+  field: 'slate',
+  parser: convertTo,
+  type: 'pass'
 } ];
 
 module.exports = ( field, options = {} ) => {

@@ -60,6 +60,16 @@ describe( 'agendas - functional (server): set (create)', function() {
               defaultLang: null,
               defaultState: 2,
               message: null,
+              messages: {
+                instructions: null,
+                complete: null,
+                publication: null
+              },
+              messages: {
+              instructions: null,
+              complete: null,
+              publication: null
+            },
               type: 2,
               useFields: false,
               authorizedIPAddresses: [],
@@ -154,6 +164,11 @@ describe( 'agendas - functional (server): set (create)', function() {
               defaultLang: null,
               defaultState: 2,
               message: null,
+              messages: {
+                instructions: null,
+                complete: null,
+                publication: null
+              },
               type: 2,
               useFields: false,
               authorizedIPAddresses: [],
@@ -265,6 +280,11 @@ describe( 'agendas - functional (server): set (create)', function() {
               defaultLang: null,
               defaultState: 2,
               message: null,
+              messages: {
+                instructions: null,
+                complete: null,
+                publication: null
+              },
               type: 2,
               useFields: false,
               authorizedIPAddresses: [],

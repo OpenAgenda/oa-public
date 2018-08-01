@@ -11,7 +11,7 @@ Base functionality include:
  * service crud operations to create, update, get and remove form schemas
  * a service to transfer legacy OA custom fields, tag set and category set to a valid form schema structure
 
-# Endpoints
+# Endpoints
 
  * .create
  * **.get**: get by form schema id. promise.
@@ -42,3 +42,10 @@ Provides create, update, get and remove methods. See tests for details.
 # Legacy bridge
 
 On the legacy platform, custom field schemas are stored in the agenda data model. A legacy bridge function can parse those to form a FormSchema that can be validated. Otherwise it just throws an error.
+
+
+# Front app development
+
+Just `yarn start` to start working on an app. Dev apps can be split in multiple files, they must all be placed in `/client/src/dev`. To add a new dev application, just add a file of the same name in the folder and reference it in the dev index file.
+
+This structure makes it practical to target development on specific sub parts without having to load all front scripts.

@@ -10,6 +10,10 @@ var _get2 = _interopRequireDefault(_get);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _ = {
+  isArray: require('lodash/isArray')
+};
+
 exports.default = {
 
   suggest: suggest,
@@ -88,7 +92,7 @@ function suggest() {
         return dispatch({ type: 'SUGGESTION_REQUEST_FAILED', error: error });
       }
 
-      dispatch({ type: 'SUGGESTION_REQUEST_SUCCESS', suggestions: suggestions });
+      dispatch({ type: 'SUGGESTION_REQUEST_SUCCESS', suggestions: _.isArray(suggestions) ? suggestions : [] });
     });
   };
 }

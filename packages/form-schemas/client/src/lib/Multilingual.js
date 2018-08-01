@@ -9,7 +9,9 @@ import Sub from './Sub';
 
 const FieldComponents = {
   text: require( './TextField' ),
-  textarea: require( './TextField' )
+  textarea: require( './TextField' ),
+  html: require( './HTMLField' ),
+  markdown: require( './MarkdownField' )
 }
 
 module.exports = class MultilingualField extends Component {
@@ -27,7 +29,7 @@ module.exports = class MultilingualField extends Component {
     const field = this.props.field;
     const error = this.props.error;
     
-    const Component = FieldComponents[ field.fieldType ];
+    const Component = this.props.component || FieldComponents[ field.fieldType ];
 
     return <ul className="list-unstyled">
       {field.languages.map( l => (
@@ -36,6 +38,7 @@ module.exports = class MultilingualField extends Component {
             <label>{l}</label>
             <div>
               <Component
+                lang={this.props.lang}
                 field={field}
                 value={_.get( this.props.value, l )}
                 onChange={this.onChange.bind( this, l )} />

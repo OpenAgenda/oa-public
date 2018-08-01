@@ -15,6 +15,6 @@ module.exports = function( config ) {
       message: 'only small case characters, numbers or dashes are allowed'
     },
     type: 'slug'
-  }, config || {} ) );
+  }, config || {} ) );
 
 }

@@ -1,0 +1,60 @@
+"use strict";
+
+import _ from 'lodash';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+
+const devApps = [ {
+  name: 'A form',
+  description: 'This is the dev app before it was split. It shows a form with mixed fields',
+  link: '/form'
+}, {
+  name: 'A textarea',
+  description: 'A form with a textarea field',
+  link: '/textarea'
+}, {
+  name: 'A Slate field',
+  description: 'A field that outputs a slate document. To be used by HTML or markdown fields',
+  link: '/slate'
+}, {
+  name: 'An HTML field',
+  description: 'A field that outputs an html string',
+  link: '/html'
+}, {
+  name: 'A markdown field',
+  description: 'A field that outputs a markdown string',
+  link: '/markdown'
+} ];
+
+if ( module.hot ) module.hot.accept();
+
+class Main extends Component {
+
+  render() {
+
+    return <div className="margin-top-lg container col-lg-offset-1 col-lg-10">
+      
+      <div className="row margin-v-lg">
+        <h1>Development pages index</h1>
+      </div>
+
+      { _.chunk( devApps, 4 ).map( chunk => <div className="row margin-top-md">
+        {chunk.map( app => 
+          <div className="col-lg-3" key={app.link.substr( 1 )}>
+            <div className="wsq padding-v-sm padding-h-md">
+              <label>{app.name}</label>
+              <p>{app.description}</p>
+              <a href={app.link}>Open</a>
+            </div>
+          </div>
+        )}
+      </div> ) }
+
+    </div>
+
+  }
+
+}
+
+render( <Main />, document.getElementById( 'app' ) );

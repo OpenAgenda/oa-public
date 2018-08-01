@@ -11,7 +11,7 @@ const config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-    jsVersion: 39,
+    jsVersion: 40,
     versions: {
       // unused for now
       members: [ {
@@ -591,7 +591,8 @@ const config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         //enable: 'oa:*'
-        enable: 'oa:*,svc:*'
+        enable: 'oa:*,svc:*',
+        //enable: 'events/interfaces/legacy',
         //enable: 'oa:services/aggregator/evaluate'
         //enable: 'svc:*'
       },
@@ -601,6 +602,7 @@ const config = {
     //useCache: false,
     db: {
       database: 'oadev',
+      //database: 'ville_de_geneve',
       host: 'localhost',
       user: 'root',
       /*

@@ -1,82 +1,10 @@
 @import '../layout/base';
 @import '../agenda-admin/style';
 @import '../form-components/image-upload';
+@import '../components/stepper/style';
 
 .agenda-settings-creation {
-  .stepper-container {
-    position: relative;
-
-    &:after {
-      width: 100%;
-      height: 2px;
-      content: '';
-      position: absolute;
-      background-color: #7d7d7d;
-      top: 14px;
-      left: 0;
-      z-index: 1;
-    }
-
-    .stepper {
-      counter-reset: step;
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      padding-left: 0;
-      margin-bottom: 50px;
-
-      .step {
-        font-size: 14px;
-        color: #7d7d7d;
-        z-index: 2;
-        background-color: white;
-
-        &:not(:last-child) {
-          padding-right: 6px;
-        }
-
-        &:before {
-          width: 30px;
-          height: 30px;
-          content: counter(step);
-          counter-increment: step;
-          line-height: 28px;
-          border: 2px solid #7d7d7d;
-          display: inline-block;
-          text-align: center;
-          margin: 0 10px 10px auto;
-          border-radius: 50%;
-          background-color: white;
-        }
-
-        &:not(:first-child):before {
-          margin-left: 8px;
-        }
-
-        &.passed:before {
-          font-weight: normal;
-          color: $oa-blue;
-          border-color: $oa-blue;
-          font-family: FontAwesome;
-          content: '\f00c';
-        }
-
-        &.active {
-          font-weight: bold;
-
-          &:before {
-            font-weight: normal;
-            color: white;
-            border-color: $oa-blue;
-            background-color: $oa-blue;
-            font-family: FontAwesome;
-            content: '\f040';
-          }
-        }
-      }
-    }
-  }
-
+  
   .table-responsive {
     overflow: visible;
   }

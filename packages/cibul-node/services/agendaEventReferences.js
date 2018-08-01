@@ -59,7 +59,13 @@ function events( agendaId, refQuery, options, cb ) {
 
     if ( refQuery.search ) query.what = refQuery.search;
 
-    if ( refQuery.exclude ) query.exclude = refQuery.exclude;
+    if ( refQuery.exclude ) {
+
+      query.exclude = refQuery.exclude;
+
+      params.limit = 20 + ( refQuery.exclude ? refQuery.exclude.length : 0 );
+
+    }
 
     if ( refQuery.uids ) query.uids = refQuery.uids;
 

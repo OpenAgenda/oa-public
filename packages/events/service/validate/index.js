@@ -1,10 +1,10 @@
 "use strict";
 
-const schema = require( '@openagenda/validators/schema' ),
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const schema = require( '@openagenda/validators/schema' );
 
-  fields = require( './fields' );
+const fields = require( './fields' );
 
 schema.register( {
   text: require( '@openagenda/validators/text' ),

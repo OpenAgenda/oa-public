@@ -215,7 +215,7 @@ function _insertReferences( v ) {
       agenda_id: v.agendaId,
       event_id: v.eventId,
       ref_event_id: id
-    } ), 10 )
+    } ) )
   )
 
   .then( result => {

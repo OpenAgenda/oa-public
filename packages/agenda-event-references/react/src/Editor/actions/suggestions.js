@@ -1,6 +1,10 @@
 "use strict";
 
-import get from '@openagenda/utils/get'
+import get from '@openagenda/utils/get';
+
+const _ = {
+  isArray: require( 'lodash/isArray' )
+};
 
 export default {
 
@@ -88,7 +92,7 @@ function suggest() {
 
       }
 
-      dispatch( { type: 'SUGGESTION_REQUEST_SUCCESS', suggestions } );
+      dispatch( { type: 'SUGGESTION_REQUEST_SUCCESS', suggestions: _.isArray( suggestions ) ? suggestions : [] } );
 
     } );
 
