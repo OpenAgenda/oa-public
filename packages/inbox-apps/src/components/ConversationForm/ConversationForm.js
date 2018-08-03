@@ -146,7 +146,7 @@ export default class ConversationForm extends Component {
   }
 
   render() {
-    const { getLabel, submit, submitting, Wrapper, error, lang } = this.props;
+    const { getLabel, initialValues, submitting, Wrapper, error, lang } = this.props;
 
     const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
@@ -185,7 +185,11 @@ export default class ConversationForm extends Component {
               this.handleSubmit();
             }
           }}
-          placeholder={getLabel( 'yourMessage' )}
+          placeholder={
+            _.matches( initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' } )
+              ? getLabel( 'supportPlaceholder' )
+              : getLabel( 'yourMessage' )
+          }
         />
 
         <p>

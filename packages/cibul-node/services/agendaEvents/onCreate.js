@@ -5,6 +5,9 @@ const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 const custom = require( '@openagenda/custom' );
+const usersSvc = require( '@openagenda/users' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const activitiesSvc = require( '@openagenda/activities' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
@@ -18,13 +21,13 @@ const oldEventSvc = require( '../event' );
 module.exports = async ( ae, context ) => {
 
   log( 'created agenda-event %j', ae, { context } );
-  
+
   // use context.userUid. will be null when nothing was specified at create
 
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
-  
+
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid, reviewId: agenda.id } );
-  
+
   if ( ae.state === 2 ) {
 
     mailContributor( event, agenda );
@@ -56,7 +59,7 @@ module.exports = async ( ae, context ) => {
     /**
      * Anything happening hear should NOT be triggered elsewhere by legacy parts of app
      */
-    
+
     coms.publish( config.mainChannel, {
       name: 'legacy.es.event.create',
       values: {
@@ -71,6 +74,34 @@ module.exports = async ( ae, context ) => {
 
   _addToSearchIndex( ae );
 
+  // If it's a real creation, not an agregation
+  if ( context.userUid && !context.agendaUid ) {
+    try {
+      let eventFeed = {
+        entityType: 'event',
+        entityUid: event.uid,
+      };
+
+      try {
+        eventFeed = await activitiesSvc.feed( eventFeed ).create();
+      } catch ( err ) {
+        if ( err.message !== 'Feed already exists' ) {
+          log( 'error', err );
+        }
+      }
+
+      await activitiesSvc.feed( {
+        entityType: 'agenda',
+        entityUid: agenda.uid,
+      } )
+        .follow( eventFeed );
+
+      _addCreateEventActivity( eventFeed, { agenda, event }, context );
+    } catch ( e ) {
+      log( 'error', e );
+    }
+  }
+
 }
 
 async function _addToSearchIndex( ae ) {
@@ -82,5 +113,58 @@ async function _addToSearchIndex( ae ) {
     log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
 
   }
+
+}
+
+function _addCreateEventActivity( eventFeed, { agenda, event }, context ) {
+
+  usersSvc.get( context.userUid )
+    .then( user => {
+
+      if ( !user ) {
+
+        return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
+
+      }
+
+      activitiesSvc.feed( {
+        entityType: 'user',
+        entityUid: user.uid
+      } ).follow( eventFeed, err => {
+
+        if ( err ) log( 'error', err );
+
+        activitiesSvc.feed( eventFeed ).activities.add( {
+          actor: 'user:' + user.uid,
+          verb: 'event.create',
+          object: 'event:' + event.uid,
+          target: 'agenda:' + agenda.uid,
+          store: {
+            labels: {
+              actor: user.fullName,
+              object: event.title,
+              target: agenda.title
+            }
+          }
+        }, err => {
+
+          if ( err ) log( 'error', err );
+
+          stakeholdersSvc.agenda( agenda.id ).increment( { userId: user.id }, err => {
+
+            if ( err ) log( 'error', err );
+
+          } );
+
+        } );
+
+      } );
+
+    } )
+    .catch( err => {
+
+      log( 'error', err );
+
+    } );
 
 }

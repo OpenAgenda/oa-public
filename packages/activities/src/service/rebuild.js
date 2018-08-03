@@ -313,14 +313,22 @@ async function rebuild( args, options, logger ) {
     service.feed( {
       entityType: 'user',
       entityUid: stakeholder.userUid
-    } ).follow( { entityType: 'agenda', entityUid: stakeholder.reviewUid }, { credential: stakeholder.credential } )
-      .then( () => next() )
-      .catch( err => {
+    } ).unfollow( { entityType: 'agenda', entityUid: stakeholder.reviewUid } )
+      .then( () => {
 
-        if ( err && err.message === 'Feed already followed' ) return next();
+        service.feed( {
+          entityType: 'user',
+          entityUid: stakeholder.userUid
+        } ).follow( { entityType: 'agenda', entityUid: stakeholder.reviewUid }, { credential: stakeholder.credential } )
+          .then( () => next() )
+          .catch( err => {
 
-        logger.error( err );
-        next( err );
+            if ( err && err.message === 'Feed already followed' ) return next();
+
+            logger.error( err );
+            next( err );
+
+          } );
 
       } );
 

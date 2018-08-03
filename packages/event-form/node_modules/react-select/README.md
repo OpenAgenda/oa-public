@@ -9,6 +9,25 @@ React-Select
 
 A Select control built with and for [React](http://facebook.github.io/react/index.html). Initially built for use in [KeystoneJS](http://www.keystonejs.com).
 
+---
+
+## v2.0.0 Beta
+
+A major update to React-select is coming! v2 is all new with some major API improvements, a powerful
+new styles and components API, and support for some long-requested features like option groups.
+
+To install the new version:
+
+```
+yarn add react-select@next
+```
+
+Check out the [v2 documentation](https://deploy-preview-2289--react-select.netlify.com)
+and [upgrade guide](https://deploy-preview-2289--react-select.netlify.com/upgrade-guide).
+
+---
+
+
 ## Demo & Examples
 
 Live demo: [jedwatson.github.io/react-select](http://jedwatson.github.io/react-select/)
@@ -18,7 +37,7 @@ Live demo: [jedwatson.github.io/react-select](http://jedwatson.github.io/react-s
 
 The easiest way to use react-select is to install it from npm and build it into your app with Webpack.
 
-```js
+```
 yarn add react-select
 ```
 
@@ -37,9 +56,9 @@ You can also use the standalone UMD build by including `dist/react-select.js` an
 <script src="https://unpkg.com/prop-types@15.5.10/prop-types.js"></script>
 <script src="https://unpkg.com/classnames@2.2.5/index.js"></script>
 <script src="https://unpkg.com/react-input-autosize@2.0.0/dist/react-input-autosize.js"></script>
-<script src="https://unpkg.com/react-select/dist/react-select.js"></script>
+<script src="https://unpkg.com/react-select@1.2.1/dist/react-select.js"></script>
 
-<link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css">
+<link rel="stylesheet" href="https://unpkg.com/react-select@1.2.1/dist/react-select.css">
 ```
 
 
@@ -63,16 +82,18 @@ class App extends React.Component {
   }
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
+    // selectedOption can be null when the `x` (close) button is clicked
+    if (selectedOption) {
+      console.log(`Selected: ${selectedOption.label}`);
+    }
   }
   render() {
-  	const { selectedOption } = this.state;
-  	const value = selectedOption && selectedOption.value;
+    const { selectedOption } = this.state;
 
     return (
       <Select
         name="form-field-name"
-        value={value}
+        value={selectedOption}
         onChange={this.handleChange}
         options={[
           { value: 'one', label: 'One' },
@@ -145,8 +166,8 @@ const getOptions = (input, callback) => {
 };
 
 <Async
-    name="form-field-name"
-    loadOptions={getOptions}
+  name="form-field-name"
+  loadOptions={getOptions}
 />
 ```
 
@@ -302,13 +323,13 @@ You can manipulate the input by providing a `onInputChange` callback that return
 
 ```js
 function cleanInput(inputValue) {
-    // Strip all non-number characters from the input
-    return inputValue.replace(/[^0-9]/g, "");
-}   
+  // Strip all non-number characters from the input
+  return inputValue.replace(/[^0-9]/g, "");
+}
 
 <Select
-    name="form-field-name"
-    onInputChange={cleanInput}
+  name="form-field-name"
+  onInputChange={cleanInput}
 />
 ```
 
@@ -319,20 +340,20 @@ You can extend or override this behaviour by providing a `onInputKeyDown` callba
 
 ```js
 function onInputKeyDown(event) {
-    switch (event.keyCode) {
-        case 9:   // TAB
-            // Extend default TAB behaviour by doing something here
-            break;
-        case 13: // ENTER
-            // Override default ENTER behaviour by doing stuff here and then preventing default
-            event.preventDefault();
-            break;
-    }
+  switch (event.keyCode) {
+    case 9: // TAB
+      // Extend default TAB behaviour by doing something here
+      break;
+    case 13: // ENTER
+      // Override default ENTER behaviour by doing stuff here and then preventing default
+      event.preventDefault();
+      break;
+  }
 }
 
 <Select
-    {...otherProps}
-    onInputKeyDown={onInputKeyDown}
+  {...otherProps}
+  onInputKeyDown={onInputKeyDown}
 />
 ```
 
@@ -349,7 +370,7 @@ function onInputKeyDown(event) {
 | `autoFocus` | boolean | undefined | autofocus the component on mount |
 | `autoload` | boolean | true | whether to auto-load the default async options set |
 | `autosize` | boolean | true | If enabled, the input will expand as the length of its value increases |
-| `backspaceRemoves` | boolean | true | whether pressing backspace removes the last item when there is no input value |
+| `backspaceRemoves` | boolean | true | whether pressing backspace removes the last item when there is no input value (Also see related prop `deleteRemoves`) |
 | `backspaceToRemoveMessage` | string | 'Press backspace to remove {last label}' | prompt shown in input when at least one option in a multiselect is shown, set to '' to clear |
 | `className` | string | undefined | className for the outer element |
 | `clearable` | boolean | true | should it be possible to reset value |
@@ -357,7 +378,7 @@ function onInputKeyDown(event) {
 | `clearRenderer` | function | undefined | Renders a custom clear to be shown in the right-hand side of the select when clearable true: `clearRenderer()` |
 | `clearValueText` | string | 'Clear value' | title for the "clear" control |
 | `closeOnSelect` | boolean | true | whether to close the menu when a value is selected
-| `deleteRemoves` | boolean | true | whether pressing delete key removes the last item when there is no input value |
+| `deleteRemoves` | boolean | true | whether pressing delete key removes the last item when there is no input value.  (Also see related prop `backspaceRemoves`) |
 | `delimiter` | string | ',' | delimiter to use to join multiple values |
 | `disabled` | boolean | false | whether the Select is disabled or not |
 | `escapeClearsValue` | boolean | true | whether escape clears the value when the menu is closed |
@@ -395,7 +416,7 @@ function onInputKeyDown(event) {
 | `onValueClick` | function | undefined | onClick handler for value labels: `function (value, event) {}` |
 | `openOnClick` | boolean | true | open the options menu when the control is clicked (requires searchable = true) |
 | `openOnFocus` | boolean | false | open the options menu when the control gets focus |
-| `optionClassName`: string | undefined | additional class(es) to apply to the <Option /> elements
+| `optionClassName` | string | undefined | additional class(es) to apply to the <Option /> elements |
 | `optionComponent` | function | undefined | option component to render in dropdown |
 | `optionRenderer` | function | undefined | custom function to render the options in the menu |
 | `options` | array | undefined | array of options |
@@ -412,7 +433,7 @@ function onInputKeyDown(event) {
 | `style` | object | undefined | optional styles to apply to the control |
 | `tabIndex` | string or number | undefined | tabIndex of the control |
 | `tabSelectsValue` | boolean | true | whether to select the currently focused value when the `[tab]` key is pressed |
-| `trimFilter` | boolean | false | whether to trim whitespace from the filter value |
+| `trimFilter` | boolean | true | whether to trim whitespace from the filter value |
 | `value` | any | undefined | initial field value |
 | `valueComponent` | function | <Value /> | function which returns a custom way to render/manage the value selected `<CustomValue />` |
 | `valueKey` | string | 'value' | the option property to use for the value |
@@ -439,6 +460,7 @@ function onInputKeyDown(event) {
 | `onNewOptionClick` | function | new option click handler, it calls when new option has been selected. `function(option) {}` |
 | `shouldKeyDownEventCreateNewOption` | function | Decides if a keyDown event (eg its `keyCode`) should result in the creation of a new option. ENTER, TAB and comma keys create new options by default. Expected signature: `({ keyCode: number }): boolean` |
 | `promptTextCreator` | function | Factory for overriding default option creator prompt label. By default it will read 'Create option "{label}"'. Expected signature: `(label: String): String` |
+| `showNewOptionAtTop` | boolean | `true`: (Default) Show new option at top of list <br> `false`: Show new option at bottom of list |
 
 ### Methods
 

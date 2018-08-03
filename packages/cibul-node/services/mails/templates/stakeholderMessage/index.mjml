@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title><%- __( 'title', { agenda } ) %></mj-title>
+    <mj-title><%= __( 'title', { agenda } ) %></mj-title>
     <mj-preview><%= message %></mj-preview>
 
     <mj-attributes>
@@ -65,9 +65,10 @@
       >
         <mj-column>
           <mj-text>
-            <h1 class="title"><%- __( 'title', { agenda } ) %></h1>
-            <%- message.replace(/(?:\r\n|\r|\n)/g, '<br/>') %>
+            <h1 class="title"><%= __( 'title', { agenda } ) %></h1>
           </mj-text>
+
+          <mj-markdown><%- message %></mj-markdown>
 
           <mj-button
             background-color="#41acdd"
@@ -75,7 +76,7 @@
             align="center"
             href="<%= link %>"
           >
-            <%- __( 'actionDescription' ) %>
+            <%= __( 'actionDescription' ) %>
           </mj-button>
         </mj-column>
       </mj-section>
@@ -91,7 +92,7 @@
           />
 
           <mj-text align="center">
-            <a href="<%= unsubscribeUrl %>" class="grey-link"><%- __( 'unsubscribeAgenda' ) %></a>
+            <a href="<%= unsubscribeUrl %>" class="grey-link"><%= __( 'unsubscribeAgenda' ) %></a>
           </mj-text>
         </mj-column>
       </mj-section>

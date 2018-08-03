@@ -1,6 +1,7 @@
-'use strict';
+const _ = require( 'lodash' );
 
 module.exports = {
+  _,
   root: 'https://d.openagenda.com',
   logo: {
     src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
@@ -8,7 +9,6 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
-  // message: 'Hmm\n\nOK !',
   message: false,
   isStakeholder: true,
   credential: 'contributor'

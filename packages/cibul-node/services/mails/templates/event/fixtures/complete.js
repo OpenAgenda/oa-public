@@ -1,4 +1,7 @@
+const _ = require( 'lodash' );
+
 module.exports = {
+  _,
   root: 'https://d.openagenda.com',
   logo: {
     src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
@@ -7,7 +10,7 @@ module.exports = {
   agendaTitle: 'Sorties Grand Verdun',
   event: {
     title: 'Atelier de fabrication de bombe pour enfant',
-    description: 'Vous avez déjà voulu échanger votre enfant, le jetter ou le recycler ? Nous avons la solution !',
+    description: 'Vous avez déjà voulu échanger votre enfant, le jetter ou le recycler ?\n Nous avons la solution !',
     longDescription: 'Notre solution saura ravir les parents les plus ignobles:\n\nelle consiste à transformer votre immonde petit humain qui vous sert d\'enfant en bombe humaine, ce qui est parfait pour l\'emmener à la maternelle ou la crèche.',
     image: 'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
     dateRange: 'Restaurant Le Médicis, le mardi 29 juillet à 19:30',

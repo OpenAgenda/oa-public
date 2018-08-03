@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title><%- __( 'title' ) %></mj-title>
+    <mj-title><%= __( 'title' ) %></mj-title>
     <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
 
     <mj-attributes>
@@ -77,7 +77,9 @@
           <mj-text>
             <a href="<%= link %>" target="_blank" class="header-link">
               <h2 class="grey-link"><%= event.title %></h2>
-              <span class="black-link"><%- event.description.replace(/(?:\r\n|\r|\n)/g, '<br />') %></span>
+              <span class="black-link">
+                <%- _.escape( event.description ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+              </span>
             </a>
           </mj-text>
         </mj-column>
@@ -113,7 +115,7 @@
         <mj-column>
           <% if ( event.longDescription ) { %>
             <mj-text>
-              <%- event.longDescription.replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+              <%- _.escape( event.longDescription ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
             </mj-text>
           <% } %>
         </mj-column>
@@ -126,7 +128,7 @@
       >
         <mj-column>
           <mj-image
-            src="<%- `http://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-l-circle+41acdd(${map.lng},${map.lat})/${map.lng},${map.lat},${map.zoom}/600x140.png?access_token=${map.accessToken}` %>"
+            src="<%= `http://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-l-circle+41acdd(${map.lng},${map.lat})/${map.lng},${map.lat},${map.zoom}/600x140.png?access_token=${map.accessToken}` %>"
             href="<%= link %>"
           />
         </mj-column>
@@ -159,7 +161,7 @@
             align="center"
             href="<%= link %>"
           >
-            <%- __( 'actionDescription' ) %>
+            <%= __( 'actionDescription' ) %>
           </mj-button>
         </mj-column>
       </mj-section>
