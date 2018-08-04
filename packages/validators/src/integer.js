@@ -43,7 +43,9 @@ export default config => {
       throw errors.map( e => {
 
         e.code = e.code.replace( 'number', 'integer' );
-        e.message = e.message.replace( 'number', 'integer' );
+        e.message = e.message.replace( 'number', 'integer' ).replace( ' a ', ' an ' );
+
+        return e;
 
       } );
 

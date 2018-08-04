@@ -28,6 +28,30 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'does not validate if something that does not parse into integer is given', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.integer()( 'one two three' );
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 1 );
+
+    errors[ 0 ].should.eql( { 
+      code: 'integer.invalid',
+      message: 'not an integer',
+      origin: 'one two three'
+    } );
+
+  } );
+
   it( 'defaults to default when no value is given', () => {
 
     validators.integer( { default: 3 } )().should.equal( 3 );
