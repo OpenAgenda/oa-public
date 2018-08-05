@@ -27,10 +27,11 @@ module.exports = schema( {
     list: { default: null },
     type: 'pass' // aggregations are cleaned separately - see aggregation/index
   },
-  geojson: {
+  // moved to parser pure functions
+  /*geojson: {
     type: 'boolean',
     default: false
-  },
+  },*/
   monolingual: {
     type: 'text',
     default: null,

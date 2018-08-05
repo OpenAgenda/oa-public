@@ -33,6 +33,8 @@ module.exports.init = configStore.init;
 
 module.exports.getConfig = () => configStore;
 
+module.exports.parsers = require( './parsers' );
+
 
 async function _exists( alias ) {
 

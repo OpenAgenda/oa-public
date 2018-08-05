@@ -121,12 +121,6 @@ function _buildEventParsers( options, aggregations ) {
 
   }
 
-  if ( options.geojson ) {
-    
-    parsers.push( h.geoJSON );
-
-  }
-
   if ( options.monolingual ) {
 
     parsers.push( h.monolingual.bind( null, [
