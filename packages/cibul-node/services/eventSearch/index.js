@@ -10,7 +10,8 @@ module.exports = {
   init,
   agendas: agendaIndices,
   events: eventTransverseOperations,
-  task: require( './task' )
+  task: require( './task' ),
+  parsers: eventSearch.parsers
 }
 
 

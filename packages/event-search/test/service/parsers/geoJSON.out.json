@@ -1,0 +1,87 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.933832,
+          44.091772
+        ]
+      },
+      "properties": {
+        "uid": 19677788,
+        "image": {
+          "filename": "event_l-espagne_505184.jpg",
+          "size": {
+            "width": null,
+            "height": null
+          },
+          "credits": "© Cathy Pronnier",
+          "variants": [
+            {
+              "filename": "evfevent_l-espagne_505184.jpg",
+              "size": {
+                "width": null,
+                "height": null
+              },
+              "type": "full"
+            },
+            {
+              "filename": "evtbevent_l-espagne_505184.jpg",
+              "size": {
+                "width": null,
+                "height": null
+              },
+              "type": "thumbnail"
+            }
+          ],
+          "base": "https://cibuldev.s3.amazonaws.com/"
+        },
+        "contributor": {
+          "organization": "Association Culture & Patrimoine à Mouzieys Panens"
+        },
+        "keywords": {
+          "de": [],
+          "en": [],
+          "it": [],
+          "fr": [],
+          "es": []
+        },
+        "dateRange": {
+          "ar": "١٤ - ١٦ سبتمبر",
+          "en": "14 - 16 September",
+          "fr": "14 - 16 septembre"
+        },
+        "location": {
+          "address": "81170 Mouzieys-Panens",
+          "latitude": 44.091772,
+          "name": "Village",
+          "longitude": 1.933832
+        },
+        "title": {
+          "de": "Freier Besuch(Besichtigung): Spanien",
+          "en": "Free visit: Spain",
+          "it": "Visita(Soggiorno) libera(gratuita): la Spagna",
+          "fr": "Visite libre : L'Espagne",
+          "es": "Visita libre: España"
+        },
+        "agenda": {
+          "uid": 19150068,
+          "image": "agenda69809170.jpg",
+          "title": "JEP 2018 : Occitanie"
+        },
+        "slug": "l-espagne",
+        "lastTiming": {
+          "begin": "2018-09-16T07:30:00+02:00",
+          "end": "2018-09-16T00:00:00+02:00"
+        },
+        "nextTiming": {
+          "begin": "2018-09-14T07:30:00+02:00",
+          "end": "2018-09-14T00:00:00+02:00"
+        }
+      } 
+    }
+  ]
+}

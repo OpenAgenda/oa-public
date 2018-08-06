@@ -96,26 +96,6 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'if geojson option is set, location data can be formatted in geojson format', async () => {
-
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
-        geojson: true
-      } );
-
-      events[ 0 ].location.should.eql( {
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [ 48.8675959, 2.3516408 ]
-        },
-        properties: {
-          address: '29 passage du Ponceau, Paris',
-          name: 'La boutique'
-        }
-      } );
-
-    } );
-
     it( 'if monolingual option is set, multilingal fields are flattened to specified language', async () => {
 
       const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {

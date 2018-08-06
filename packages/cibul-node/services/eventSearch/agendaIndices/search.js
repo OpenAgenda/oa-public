@@ -38,10 +38,6 @@ const validateOptions = schema( {
     type: 'pass',
     default: null
   },
-  geojson: {
-    type: 'boolean',
-    default: false
-  },
   monolingual: {
     type: 'text',
     list: { max: 2 }
@@ -90,7 +86,6 @@ async function _prepare( agendaUid, options ) {
   let searchOptions = _.extend( _.pick( cleanOptions, [
     'detailed', 
     'aggregations',
-    'geojson', 
     'monolingual'
   ] ), {
     extensions: [
