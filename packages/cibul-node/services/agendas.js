@@ -5,7 +5,6 @@ const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
 const users = require( '@openagenda/users' );
-const logger = require( '@openagenda/logger' );
 const keys = require( '@openagenda/keys' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const model = require( './model' );
@@ -171,11 +170,9 @@ function onRemove( agenda ) {
 
 function onUpdate( channel, before, after, context ) {
 
-  let updateType,
-
-    hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution ),
-
-    hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
+  const hasContributionSettingsChange = JSON.stringify( before.settings.contribution ) !== JSON.stringify( after.settings.contribution );
+  const hasCredentialsChange = JSON.stringify( before.credentials ) !== JSON.stringify( after.credentials );
+  let updateType;
 
   if ( hasContributionSettingsChange ) {
 
@@ -186,8 +183,8 @@ function onUpdate( channel, before, after, context ) {
     updateType = 'credentials';
 
   } else if ( !_.isEqual(
-      _.omit( before, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] ),
-      _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'updatedAt' ] )
+      _.omit( before, [ 'settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt' ] ),
+      _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt' ] )
     ) ) {
 
     updateType = 'profile';
@@ -210,7 +207,7 @@ function onUpdate( channel, before, after, context ) {
   }
 
   if ( channel ) {
-    
+
     coms.publish( channel, {
       name: 'agenda.update',
       values: {
