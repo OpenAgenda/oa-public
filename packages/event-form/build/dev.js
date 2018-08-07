@@ -43,7 +43,16 @@ var Main = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'row margin-v-md margin-h-sm' },
-          _react2.default.createElement(_2.default, null)
+          _react2.default.createElement(_2.default, {
+            lang: 'fr',
+            values: {
+              title: {
+                fr: 'Inauguration d\'un formulaire',
+                en: 'A form inauguration'
+              },
+              locationUid: 93105902
+            }
+          })
         )
       );
     }

@@ -1,185 +1,23 @@
 "use strict";
 
-import React, { Component } from 'react';
+import React from 'react';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
-import AgeComponent from './components/Age';
-import RegistrationComponent from './components/Registration';
-import KeywordsComponent from './components/Keywords';
-import TimingsComponent from './components/Timings';
-import LocationComponent from './components/Location';
-
-const eventFormValidators = require( './validators' );
-
-export default class EventForm extends Component {
-
-  render() {
-
-    const props = {
-      lang: 'fr',
-      components: {
-        age: AgeComponent,
-        registration: RegistrationComponent,
-        keywords: KeywordsComponent,
-        timings: TimingsComponent,
-        locationUid: LocationComponent
-      },
-      values: {
-        locationUid: 93105902
-      },
-      schema: {
-        custom: {
-          age: eventFormValidators.age,
-          registration: eventFormValidators.registration,
-          keywords: eventFormValidators.keywords,
-          timings: eventFormValidators.timings,
-          locationUid: eventFormValidators.locationUid
-        },
-        fields: [ {
-          "field" : "title",
-          "fieldType" : "text",
-          "languages" : [ "fr", "en" ],
-          "optional" : false,
-          "label" : {
-            "fr" : "Titre",
-            "en" : "Title"
-          },
-          "max" : 140,
-          "placeholder" : {
-            "fr" : "Le titre de votre événement",
-            "en" : "Title of your event"
-          },
-          "sub": {
-            "fr" : "Ce champ est requis.",
-            "en" : "This field is required"
-          }
-        }, {
-          "field" : "description",
-          "fieldType" : "text",
-          "languages" : [ "fr", "en" ],
-          "optional" : false,
-          "label" : {
-            "fr" : "Description courte",
-            "en" : "Short description"
-          },
-          "placeholder" : {
-            "fr" : "Une courte description de votre événement",
-            "en" : "A short description of your event"
-          },
-          "sub": {
-            "fr" : "Ce champ est requis.",
-            "en" : "This field is required"
-          }
-        }, {
-          field: 'keywords',
-          fieldType: 'keywords',
-          languages: [ 'fr', 'en' ],
-          optional: true,
-          max: 255,
-          label: {
-            fr: 'Mots clés',
-            en: 'Keywords'
-          },
-          placeholder: {
-            fr: 'Séparez les mots clés par des tabulation ou des virgules',
-            en: 'Separate each keyword with tabs or commas'
-          },
-          "sub": {
-            "fr" : "Les mots clés sont utiles pour les fonctions de recherche",
-            "en" : "Keywords are useful for search features"
-          }
-        }, {
-          "field" : "longDescription",
-          "fieldType" : "markdown",
-          "languages" : [ 'fr', 'en' ],
-          "label" : {
-            "fr" : "Description longue",
-            "en" : "Long description"
-          },
-          "sub" : {
-            "fr" : "Ce champ ne doit pas exceder 10000 caractères",
-            "en" : "This field should not exceed 10000 characters"
-          },
-          "placeholder" : {
-            "fr" : "Soignez la mise en forme",
-            "en" : "Make things pretty"
-          }
-        }, {
-          "field" : "conditions",
-          "fieldType" : "text",
-          "label" : {
-            "fr" : "Conditions de participation, tarifs",
-            "en" : "Attendence conditions, pricing"
-          },
-          "sub" : {
-            "fr" : "Tel format est accepté",
-            "en" : "Some specific format is accepted"
-          }
-        }, {
-          field: 'age',
-          fieldType: 'age',
-          optional: true,
-          label: {
-            fr: 'Age du public ciblé',
-            en: 'Age of the targeted public'
-          }
-        }, {
-          field: 'registration',
-          fieldType: 'registration',
-          optional: true,
-          label: {
-            fr: 'Outils d\'inscription',
-            en: 'Registration'
-          },
-          placeholder: {
-            fr: 'Séparez les items par des tabulation ou des virgules',
-            en: 'Separate each item with tabs or commas'
-          },
-          sub: {
-            fr: 'Liens, emails ou numéros de téléphone',
-            en: 'Links, emails or phone numbers'
-          }
-        }, {
-          field: 'locationUid',
-          fieldType: 'locationUid',
-          optional: false,
-          label: {
-            fr: 'Lieu',
-            en: 'Location'
-          },
-          info: {
-            fr: 'Saisissez le nom du lieu où se déroule l\'événement',
-            en: 'Type in the name of the location where the event takes place'
-          },
-          sub: {
-            fr: 'Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur \'Créer un lieu\'',
-            en: 'If no location matches the name, add a new location by clicking on \'Create a new location\''
-          },
-          res: {
-            index: '/locations',
-            geocode: '/locations/geocode',
-            set: '/locations',
-            remove: '/locations/remove'
-          }
-        }, {
-          field: 'timings',
-          fieldType: 'timings',
-          optional: false,
-          label: {
-            fr: 'Horaires',
-            en: 'Timings'
-          },
-          info: {
-            fr: 'Définissez les horaires de votre événement',
-            en: 'Specify timings for your event'
-          }
-        } ]
-      }
-    }
-
-    return <FormSchemaComponent { ...props } />
-
-  }
-
+const eventFormComponents = {
+  age: require( './components/Age' ),
+  registration: require( './components/Registration' ),
+  keywords: require( './components/Keywords' ),
+  timings: require( './components/Timings' ),
+  locationUid: require( './components/Location' )
 }
+
+const eventSchema = require( './eventSchema' );
+
+export default props => <FormSchemaComponent
+  lang={props.lang}
+  components={eventFormComponents}
+  values={props.values}
+  schema={eventSchema}
+  actionComponents={props.actionComponents}
+/>
