@@ -39,7 +39,7 @@ function toEventFormFormat( timings, dayStart, dayEnd ) {
 
     if ( s.getTime() === e.getTime() ) return false;
 
-    if ( s.getDate() !== e.getDate() ) {
+    if ( s.getDate() !== e.getDate() ) {
 
       if ( dayEnd < _stringifyHours( e ) ) return false;
 
