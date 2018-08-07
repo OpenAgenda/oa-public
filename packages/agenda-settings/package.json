@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-settings",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "",
@@ -23,7 +23,7 @@
     "react-dom": "15 || 16"
   },
   "dependencies": {
-    "@openagenda/agendas": "^1.0.23",
+    "@openagenda/agendas": "^1.0.39",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.0",
