@@ -10,6 +10,18 @@ const devApps = [ {
   description: 'This is the dev app before it was split. It shows a form with mixed fields',
   link: '/form'
 }, {
+  name: 'A form with values',
+  description: 'Another form loaded with valid and invalid values',
+  link: '/loadedform'
+}, {
+  name: 'A form with a custom field',
+  description: 'A form that includes a custom component',
+  link: '/customcomponentform'
+}, {
+  name: 'A form with a given button section',
+  description: 'Some button layouts differ. A button component can be given to handle general form action. The component must accept an onSubmit prop, optionnally an onCancel',
+  link: '/custombuttonedform'
+}, {
   name: 'A textarea',
   description: 'A form with a textarea field',
   link: '/textarea'

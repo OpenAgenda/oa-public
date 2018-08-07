@@ -21,7 +21,19 @@ class Main extends Component {
         redirect: '/'
       },
       lang: 'fr',
+      components: {
+        wigglypoof: WigglyPoofComponent 
+      },
+      values: {
+        title: {
+          fr: 'Le titre',
+          en: 'A title'
+        }
+      },
       schema: {
+        custom: {
+          wigglypoof: wigglypoofValidator
+        },
         "fields" : [ {
           "field" : "title",
           "fieldType" : "text",
@@ -54,27 +66,15 @@ class Main extends Component {
             "en" : "A short description of your event"
           }
         }, {
-          "field" : "longDescription",
-          "fieldType" : "textarea",
-          "languages" : [ "fr", "en" ],
+          "field" : "customfield",
+          "fieldType" : "wigglypoof",
           "label" : {
-            "fr" : "Description longue",
-            "en" : "Long description"
+            "fr" : "Saisissez Wigglypoof",
+            "en" : "Type Wigglypoof"
           },
           "sub" : {
-            "fr" : "Ce champ ne doit pas exceder 10000 caractères",
-            "en" : "This field should not exceed 10000 characters"
-          }
-        }, {
-          "field" : "conditions",
-          "fieldType" : "text",
-          "label" : {
-            "fr" : "Conditions de participation, tarifs",
-            "en" : "Attendence conditions, pricing"
-          },
-          "sub" : {
-            "fr" : "Tel format est accepté",
-            "en" : "Some specific format is accepted"
+            "fr" : "Et uniquement wigglypoof",
+            "en" : "And only wigglypoof"
           }
         } ]
       }

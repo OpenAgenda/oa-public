@@ -23,6 +23,10 @@ const map = [ {
   parser: convertToMultilingual,
   type: 'multilingual'
 }, {
+  field: 'date',
+  parser: convertTo,
+  type: 'date'
+}, {
   field: 'checkbox',
   parser: convertToChoice.bind( null, { unique: false } ),
   type: 'choice'

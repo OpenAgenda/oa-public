@@ -6,7 +6,10 @@ const schema = require( '@openagenda/validators/schema' );
 
 const _ = require( 'lodash/core' );
 
-_.extend( _, { get: require( 'lodash/get' ) } );
+_.extend( _, { 
+  includes: require( 'lodash/includes' ),
+  get: require( 'lodash/get' ) 
+} );
 
 const choice = require( '@openagenda/validators/choice' );
 
@@ -79,6 +82,15 @@ function validate( value, options = {} ) {
 
   }
 
+  // if is custom field, set remaining keys
+  if ( isCustomField ) {
+
+    _.keys( value )
+      .filter( key => !_.includes( _.keys( clean ) ) )
+      .forEach( key => clean[ key ] = value[ key ] );
+
+  }
+
   // validate any optioned type
   if ( optionedTypes.indexOf( type ) !== -1 ) {
 
@@ -113,7 +125,7 @@ function validate( value, options = {} ) {
 
   }
 
-  if ( ( multilingualTypes.includes( type ) || isCustomField ) && _.isArray( value.languages ) ) {
+  if ( multilingualTypes.includes( type ) && _.isArray( value.languages ) ) {
 
     clean.languages = value.languages;
 

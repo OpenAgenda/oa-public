@@ -8,7 +8,8 @@ const _ = {
   isObject: require( 'lodash/isObject' ),
   keyBy: require( 'lodash/keyBy' ),
   extend: require( 'lodash/extend' ),
-  omit: require( 'lodash/omit' )
+  omit: require( 'lodash/omit' ),
+  set: require( 'lodash/set' )
 }
 
 schema.register( {
@@ -50,13 +51,7 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
 
     return validatorConfiguration;
 
-  } ).reduce( ( schemaConfiguration, f ) => {
-
-    schemaConfiguration[ f.field ] = f;
-
-    return schemaConfiguration;
-
-  }, {} );
+  } ).reduce( ( schemaConfiguration, f ) => _.set( schemaConfiguration, f.field, f ), {} );
 
   return schema( schemaConfiguration );
 

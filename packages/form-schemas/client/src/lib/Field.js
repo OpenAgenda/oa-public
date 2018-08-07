@@ -13,12 +13,14 @@ const flattenFieldLabels = require( './helpers' ).flatten;
 const FieldComponents = {
   multilingual: require( './Multilingual' ),
   text: require( './TextField' ),
+  integer: require( './TextField' ),
   textarea: require( './TextField' ),
   html: require( './HTMLField' ),
   markdown: require( './MarkdownField' ),
   slate: require( './SlateField' ),
   radio: require( './RadioField' ),
-  checkbox: require( './CheckboxField' )
+  checkbox: require( './CheckboxField' ),
+  date: require( './DateField' )
 }
 
 module.exports = class Field extends Component {
@@ -28,6 +30,10 @@ module.exports = class Field extends Component {
     const field = flattenFieldLabels( this.props.field, this.props.lang );
 
     const isMultilingual = _.isArray( field.languages ) && field.languages.length > 1;
+
+    const hasMaxCounter = field.max
+      && !isMultilingual
+      && ![ 'integer', 'number' ].includes( field.fieldType );
 
     const Component = this.getFieldComponent( isMultilingual );
 
@@ -57,8 +63,8 @@ module.exports = class Field extends Component {
         error={error}
         onChange={onChange}
       />
-      {field.max&&!isMultilingual?<FieldCounter value={value} max={field.max}/>:null}
-      {!isMultilingual?<Sub label={field.sub} error={error}/>:null}
+      {hasMaxCounter ? <FieldCounter value={value} max={field.max}/> : null }
+      { !isMultilingual ? <Sub label={field.sub} error={error}/> : null }
     </div>
 
   }

@@ -12,5 +12,6 @@ module.exports = {
   slate: 'pass',
   html: 'text',
   image: 'text',
-  file: 'text'
+  file: 'text',
+  date: 'date'
 }

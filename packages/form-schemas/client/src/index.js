@@ -5,7 +5,7 @@ import ih from 'immutability-helper';
 import React, { Component } from 'react';
 import sa from 'superagent';
 
-import labels from '@openagenda/labels/form-schemas';
+import formSchemaLabels from '@openagenda/labels/form-schemas';
 
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
@@ -22,19 +22,31 @@ export default class FormSchemaComponent extends Component {
 
     super( props );
 
+    const { lang, values } = props;
+
+    const hasValues = _.isObject( values ) && _.keys( values ).length;
+
     this.state = {
       labels: {
-        errors: flattenLabels( errorLabels, this.props.lang ),
-        main: flattenLabels( labels, this.props.lang )
+        errors: flattenLabels( errorLabels, lang ),
+        main: flattenLabels( formSchemaLabels, lang )
       },
-      fields: ( new FormSchema( this.props.schema ) ).getFields(),
-      values: this.props.values,
-      errors: {}, // errors by field
+      fields: ( new FormSchema( props.schema ) ).getFields(),
+      values,
+      errors: {},
       editedFields: {} // fields that have been fiddled with by user
     }
 
     this.onSubmit = this.onSubmit.bind( this );
     this.onSubmitConfirm = this.onSubmitConfirm.bind( this );
+
+    const { errors } = hasValues ? this.validate( values ) : { errors: {} };
+
+    if ( errors ) {
+
+      this.state.errors = errors;
+
+    }
 
   }
 
@@ -51,6 +63,12 @@ export default class FormSchemaComponent extends Component {
     }
 
     sa.post( _.get( this.props.res, 'post', '' ), clean ).then( res => {
+
+      if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
+
+        return this.props.onSubmitSuccess( this.state.values );
+
+      }
 
       if ( res.statusCode === 200 ) {
 
@@ -77,18 +95,20 @@ export default class FormSchemaComponent extends Component {
   }
   
   validate( values ) {
-    
+
     try {
 
       const validate = ( new FormSchema( this.props.schema ) ).getValidate();
 
       const clean = validate( values );
 
+      console.log( 'clean', clean );
+
       return { clean, errors: {} };
 
     } catch ( errors ) {
 
-      console.log( errors );
+      console.log( 'errors', errors );
 
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
 
@@ -155,7 +175,7 @@ export default class FormSchemaComponent extends Component {
     return <div className="oa-form">
       {this.state.fields.map( ( f, i ) => {
 
-        const flatLabels = flatten( labels, lang );
+        const flatLabels = flatten( formSchemaLabels, lang );
 
         return <Field
           customComponents={this.props.components}
@@ -171,9 +191,25 @@ export default class FormSchemaComponent extends Component {
         />
 
       } )}
-      <div className="form-group">
-        <button className="btn btn-default" type="submit" onClick={this.onSubmit}>Done</button>
-      </div>
+      {this.renderBottomActions()}
+    </div>
+
+  }
+
+  renderBottomActions() {
+
+    const matching = _.first( _.get( this.props, 'actionComponents', [] ).filter( a => a.position === 'bottom' ) );
+
+    if ( matching ) {
+
+      const { Component } = matching;
+
+      return <Component onSubmit={this.onSubmit} />
+
+    }
+
+    return <div className="form-group">
+      <button className="btn btn-default" type="submit" onClick={this.onSubmit}>Done</button>
     </div>
 
   }
@@ -181,6 +217,7 @@ export default class FormSchemaComponent extends Component {
 }
 
 FormSchemaComponent.defaultPropTypes = {
+  onSubmitSuccess: null,
   res: {
     post: '',
     redirect: null
