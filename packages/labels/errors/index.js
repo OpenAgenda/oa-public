@@ -52,6 +52,16 @@ module.exports = {
     en: 'A valid number must be input'
   },
 
+  'integer.invalid' : {
+    fr: 'Un entier valide doit être renseigné',
+    en: 'A valid integer must be intput'
+  },
+
+  'integer.toobig' : {
+    fr: 'Cette valeur est trop grande',
+    en: 'This value is too big'
+  },
+
   'groupTags.required' : {
     fr: 'Au moins un élément doit être sélectionné',
     en: 'At least one item must be selected'
