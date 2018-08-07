@@ -1,8 +1,8 @@
 <mjml>
   <mj-head>
-    <mj-title><%- __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></mj-title>
+    <mj-title><%= __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></mj-title>
     <% if ( typeof message !== 'undefined' ) { %>
-    <mj-preview><%- message %></mj-preview>
+    <mj-preview><%= message %></mj-preview>
     <% } %>
 
     <mj-attributes>
@@ -59,9 +59,14 @@
       >
         <mj-column>
           <mj-text>
-            <h1 class="title"><%- __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></h1>
-            <%- typeof message !== 'undefined' ? message.replace(/(?:\r\n|\r|\n)/g, '<br/>') : '' %>
+            <h1 class="title"><%= __( 'title', { agenda: agendaTitle, event: eventTitle } ) %></h1>
           </mj-text>
+
+          <% if ( typeof message !== 'undefined' ) { %>
+          <mj-markdown padding-top="0">
+            <%- message %>
+          </mj-markdown>
+          <% } %>
 
           <mj-button
             background-color="#41acdd"
@@ -69,7 +74,7 @@
             align="center"
             href="<%= link %>"
           >
-            <%- __( 'actionDescription' ) %>
+            <%= __( 'actionDescription' ) %>
           </mj-button>
         </mj-column>
       </mj-section>

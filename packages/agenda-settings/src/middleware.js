@@ -108,7 +108,7 @@ function create( req, res, next ) {
 
 function get( req, res, next ) {
 
-  agendasSvc.get( { uid: req.params.uid }, { includeImagePath: true, private: null }, ( err, result ) => {
+  agendasSvc.get( { uid: req.params.uid }, { includeImagePath: true, private: null, internal: true }, ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -126,7 +126,8 @@ function set( req, res, next ) {
     {
       includeImagePath: true,
       private: null,
-      context: req.context || null
+      context: req.context || null,
+      internal: true
     }, ( err, result ) => {
 
       if ( err ) return next( err );

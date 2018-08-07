@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import openFormRequest from '@openagenda/call-to-action/react/dist/openRequestForm';
 import Modal from '@openagenda/react-components/build/Modal';
 import { KeysManager } from '../../components';
+import * as  agendaActions from '../../redux/modules/agenda';
 import * as  modalsActions from '../../redux/modules/modals';
 import * as  keysActions from '../../redux/modules/keys';
 
@@ -18,7 +19,7 @@ const zendeskRes = {
     agenda: state.agenda.data,
     modals: state.modals
   }),
-  { ...modalsActions, removeKey: keysActions.remove }
+  { ...modalsActions, removeKey: keysActions.remove, editAgenda: agendaActions.edit }
 )
 export default class ContributionEdition extends Component {
 
@@ -28,12 +29,16 @@ export default class ContributionEdition extends Component {
   };
 
   state = {
-    activeTab: null
+    activeTab: null,
+    agendaIndexed: Boolean( this.props.agenda.indexed )
   }
 
   setTab( tab ) {
 
-    this.setState( { activeTab: tab } );
+    this.setState( {
+      ...this.state,
+      activeTab: tab
+    } );
 
   }
 
@@ -71,7 +76,7 @@ export default class ContributionEdition extends Component {
   }
 
   render() {
-    const { agenda, modals, closeModal, removeKey } = this.props;
+    const { agenda, modals, closeModal, removeKey, editAgenda } = this.props;
     const { getLabel, lang } = this.context;
 
     const removeModal = modals[ 'removeKey' ] || {};
@@ -119,8 +124,30 @@ export default class ContributionEdition extends Component {
             {this.renderTableRow(
               'private',
               <b>{getLabel( 'visibility' )}</b>,
-              <b className="text-muted">{getLabel( agenda.private ? 'privateAgenda' : 'publicAgenda' )}</b>,
+              <b className="text-muted">
+                {getLabel( agenda.private ? 'privateAgenda' : 'publicAgenda' )}
+                {' '}-{' '}
+                {getLabel( agenda.indexed ? 'indexedAgenda' : 'notIndexedAgenda' )}
+              </b>,
               <div>
+                <div className="checkbox">
+                  <label>
+                    <input
+                      type="checkbox"
+                      defaultChecked={this.state.agendaIndexed}
+                      onChange={() => {
+                        const agendaIndexed = !this.state.agendaIndexed;
+                        editAgenda( { indexed: agendaIndexed } )
+                          .then( () => {
+                            this.setState( {
+                              ...this.state,
+                              agendaIndexed,
+                            } );
+                          } );
+                      }}
+                    />{' '}{getLabel( 'indexedAgendaDesc' )}
+                  </label>
+                </div>
                 {agenda.private
                   ? <div>
                     <a

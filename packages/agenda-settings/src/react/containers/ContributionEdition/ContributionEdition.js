@@ -1,63 +1,123 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import get from 'lodash.get';
+import { createSelector } from 'reselect';
+import { reduxForm, Field, formValueSelector } from 'redux-form';
+import _ from 'lodash';
+import update from 'immutability-helper';
 import * as agendaActions from '../../redux/modules/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
 import openFormRequest from '@openagenda/call-to-action/react/dist/openRequestForm';
 
+const FORM_NAME = 'contributionEdition';
+
+/* selectors */
+const getFormState = state => state.form;
+const getNamedFormState = formName => createSelector(
+  [ getFormState ],
+  ( formState = {} ) => formState[ formName ],
+);
+const registeredFieldsSelector = formName => createSelector(
+  [ getNamedFormState( formName ) ],
+  ( namedFormState = {} ) => namedFormState.registeredFields,
+);
+
+const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
+const getFormValues = formValueSelector( FORM_NAME );
+
 @connect(
-  state => ({
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
-    agenda: state.agenda.data
-  }),
-  { onSubmit: agendaActions.edit }
+  state => {
+    const registeredFields = getRegisteredFields( state );
+    const registeredFieldNames = Object.values( registeredFields || {} )
+      .map( rf => rf.name );
+    const registeredValues = registeredFieldNames.length
+      ? getFormValues( state, ...registeredFieldNames )
+      : {};
+
+    return {
+      initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
+      agenda: state.agenda.data,
+      registeredValues
+    };
+  },
+  {
+    onSubmit: ( values, dispatch, { registeredValues } ) => {
+      const messageKey = 'settings.contribution.messages';
+      const messagesValues = _.mapValues(
+        _.pick( values, [
+          `${messageKey}.instructions`,
+          `${messageKey}.complete`,
+          `${messageKey}.publication`
+        ] ).settings.contribution.messages,
+        ( v, k ) => _.get( registeredValues, `${messageKey}.${k}`, null )
+      );
+
+      _.set( values, messageKey, messagesValues );
+
+      return agendaActions.edit( values );
+    },
+  },
 )
 @reduxForm( {
-  form: 'contributionEdition',
-  enableReinitialize: true
+  form: FORM_NAME,
+  enableReinitialize: true,
 } )
 @connect(
-  state => ({
+  state => ( {
     errors: state.form.contributionEdition.syncErrors,
     fields: state.form.contributionEdition.fields,
-  })
+  } ),
 )
 export default class ContributionEdition extends Component {
 
   static contextTypes = {
     getLabel: PropTypes.func,
-    lang: PropTypes.string
+    lang: PropTypes.string,
   };
 
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.renderTextarea = renderTextarea.bind( this );
     this.renderMarkdownInput = renderMarkdownInput.bind( this );
+
+    const messageKey = 'settings.contribution.messages';
+    const state = {
+      contributionInstructions: !!_.get( props.initialValues, `${messageKey}.instructions`, false ),
+      contributionComplete: !!_.get( props.initialValues, `${messageKey}.complete`, false ),
+      contributionPublication: !!_.get( props.initialValues, `${messageKey}.publication`, false )
+    };
+
+    this.state = {
+      ...state,
+      initialMessagesState: state
+    };
   }
 
   renderSubmitBtn() {
     const { dirty, submitting, submitSucceeded, valid } = this.props;
     const { getLabel } = this.context;
+    const dirtyState = !_.isEqual(
+      this.state.initialMessagesState,
+      _.pick( this.state, [ 'contributionInstructions', 'contributionComplete', 'contributionPublication' ] )
+    );
 
-    if ( !dirty && submitSucceeded ) {
+    if ( !(dirty || dirtyState) && submitSucceeded ) {
       return <button type="submit" className="btn btn-success" disabled>{getLabel( 'saved' )}</button>;
     } else if ( submitting ) {
       return <button type="submit" className="btn btn-primary" disabled>{getLabel( 'saving' )}</button>;
     } else {
-      return <button type="submit" className="btn btn-primary" {...{ disabled: dirty && valid ? undefined : true }}>
+      return <button type="submit" className="btn btn-primary" disabled={(dirty || dirtyState) && valid ? undefined : true}>
         {getLabel( 'saveModifications' )}
       </button>;
     }
   }
 
   render() {
-    const { handleSubmit, fields, errors, agenda } = this.props;
+    const { handleSubmit, onSubmit, fields, errors, agenda } = this.props;
     const { getLabel, lang } = this.context;
 
     const getError = fieldname => {
-      return get( fields, fieldname ) && get( fields, fieldname, {} ).touched && errors && errors[ fieldname ];
+      return _.get( fields, fieldname ) && _.get( fields, fieldname, {} ).touched && errors && errors[ fieldname ];
     };
 
     return (
@@ -65,7 +125,16 @@ export default class ContributionEdition extends Component {
         <h2 className="margin-bottom-md">{getLabel( 'contribution' )}</h2>
         <div className="row">
           <div className="col-md-7">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit( ( data, ...args ) => {
+              return onSubmit( data, ...args )
+                .then( () => this.setState( update( this.state, {
+                  initialMessagesState: { $set: _.pick( this.state, [
+                    'contributionInstructions',
+                    'contributionComplete',
+                    'contributionPublication'
+                  ] ) }
+                } ) ) );
+            } )}>
               <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.type' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribType' )}</b></p>
@@ -79,7 +148,7 @@ export default class ContributionEdition extends Component {
                       parse={value => value === undefined ? undefined : parseInt( value )}
                     />
                     {getLabel( 'contribTypeChoosen' )}
-                  </label><br />
+                  </label><br/>
                   <label>
                     <Field
                       name="settings.contribution.type"
@@ -94,13 +163,81 @@ export default class ContributionEdition extends Component {
                 </div>
               </div>
 
-              <Field
-                name="settings.contribution.message"
-                component={this.renderMarkdownInput}
-                label={getLabel( 'consigne' )}
-                subLabel={<p>{getLabel( 'consigneSubLabel' )}</p>}
-                lang={this.context.lang}
-              />
+              <p><b>{getLabel( 'contributorsMessages' )}</b></p>
+
+              <div className="checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => this.setState( update( this.state, {
+                      contributionInstructions: { $set: !this.state.contributionInstructions },
+                    } ) )}
+                    defaultChecked={this.state.contributionInstructions}
+                  />
+                  <p>
+                    <b>{getLabel( 'consigne' )}</b><br/>
+                    {getLabel( 'consigneSubLabel' )}
+                  </p>
+                </label>
+                {this.state.contributionInstructions && <div style={{ paddingLeft: '20px' }}>
+                  <Field
+                    name="settings.contribution.messages.instructions"
+                    component={this.renderMarkdownInput}
+                    lang={this.context.lang}
+                  />
+                </div>}
+              </div>
+
+              {agenda.credentials.invitationMessage && <div className="checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => this.setState( update( this.state, {
+                      contributionComplete: { $set: !this.state.contributionComplete },
+                    } ) )}
+                    defaultChecked={this.state.contributionComplete}
+                  />
+                  <p>
+                    <b>{getLabel( 'contributionMessageComplete' )}</b><br/>
+                    {getLabel( 'contributionMessageCompleteSubLabel' )}
+                  </p>
+                </label>
+                {this.state.contributionComplete && <Fragment>
+                  <div style={{ paddingLeft: '20px' }}>
+                    <Field
+                      name="settings.contribution.messages.complete"
+                      component={this.renderMarkdownInput}
+                      lang={this.context.lang}
+                    />
+                  </div>
+                </Fragment>}
+              </div>}
+
+              {agenda.credentials.invitationMessage && <div className="checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    onChange={() => this.setState( update( this.state, {
+                      contributionPublication: { $set: !this.state.contributionPublication },
+                    } ) )}
+                    defaultChecked={this.state.contributionPublication}
+                  />
+                  <p>
+                    <b>{getLabel( 'contributionMessagePublication' )}</b><br/>
+                    {getLabel( 'contributionMessagePublicationSubLabel' )}
+                  </p>
+                </label>
+                {this.state.contributionPublication && <Fragment>
+                  <br/>
+                  <div style={{ paddingLeft: '20px' }}>
+                    <Field
+                      name="settings.contribution.messages.publication"
+                      component={this.renderMarkdownInput}
+                      lang={this.context.lang}
+                    />
+                  </div>
+                </Fragment>}
+              </div>}
 
               <div className="form-group">
                 <div className={`radio ${getError( 'settings.contribution.useFields' ) ? 'has-error' : ''}`}>
@@ -111,18 +248,18 @@ export default class ContributionEdition extends Component {
                       component="input"
                       type="radio"
                       value="1"
-                      format={v => (v ? '1' : '0')}
+                      format={v => ( v ? '1' : '0' )}
                       parse={v => Boolean( parseInt( v ) )}
                     />
                     {getLabel( 'yes' )}
-                  </label><br />
+                  </label><br/>
                   <label>
                     <Field
                       name="settings.contribution.useFields"
                       component="input"
                       type="radio"
                       value="0"
-                      format={v => (v ? '1' : '0')}
+                      format={v => ( v ? '1' : '0' )}
                       parse={v => Boolean( parseInt( v ) )}
                     />
                     {getLabel( 'no' )}
@@ -144,7 +281,7 @@ export default class ContributionEdition extends Component {
                     />
                     {getLabel( 'contribDefaultStatePublished' )}{' '}
                     <span className="text-muted">({getLabel( 'contribDefaultStatePublishedText' )})</span>
-                  </label><br />
+                  </label><br/>
                   <label>
                     <Field
                       name="settings.contribution.defaultState"
@@ -161,7 +298,8 @@ export default class ContributionEdition extends Component {
               </div>
 
               <div className="form-group">
-                <div className={`checkbox ${getError( 'settings.contribution.moderateOnChangeBy' ) ? 'has-error' : ''}`}>
+                <div
+                  className={`checkbox ${getError( 'settings.contribution.moderateOnChangeBy' ) ? 'has-error' : ''}`}>
                   <p><b>{getLabel( 'contribModerateOnChangeBy' )}</b></p>
                   <label>
                     <Field
@@ -181,7 +319,11 @@ export default class ContributionEdition extends Component {
                 <a
                   className="margin-right-sm"
                   style={{ cursor: 'pointer' }}
-                  onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'limitDates' } )}
+                  onClick={() => openFormRequest( {
+                    lang,
+                    agenda: agenda.slug,
+                    subject: 'limitDates',
+                  } )}
                 >
                   {getLabel( 'requestLimitDates' )}
                 </a>
@@ -192,7 +334,11 @@ export default class ContributionEdition extends Component {
                 <a
                   className="margin-right-sm"
                   style={{ cursor: 'pointer' }}
-                  onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'customMessage' } )}
+                  onClick={() => openFormRequest( {
+                    lang,
+                    agenda: agenda.slug,
+                    subject: 'customMessage',
+                  } )}
                 >
                   {getLabel( 'requestCustomMessage' )}
                 </a>

@@ -11,17 +11,13 @@ const VError = require( 'verror' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
 const mailer = require( '@openagenda/mailer' );
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
 const sCache = require( '@openagenda/simple-cache' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const usersSvc = require( '@openagenda/users' );
 const utils = require( '@openagenda/utils' );
 
-const aggregatorSvc = require( '../services/aggregator' );
 const agendaSvc = require( '../services/agenda' );
 const legacyEventSvc = require( '../services/event' );
 const formOrderMw = require( './formOrder.mw.js' );
@@ -553,26 +549,6 @@ function eventCreate( req, res, next ) {
 
       }
 
-      aggregatorSvc.isAggregator( req.agenda.id, ( err, isAggregator ) => {
-
-        if ( err ) req.log( 'error', err );
-
-        if ( isAggregator ) {
-
-          return _addCreateEventActivity( eventFeed, req );
-
-        }
-
-        activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).follow( eventFeed, err => {
-
-          if ( err ) req.log( 'error', err );
-
-          _addCreateEventActivity( eventFeed, req );
-
-        } );
-
-      } );
-
     } );
 
   } );
@@ -750,62 +726,5 @@ function _extractRecipients( obj ) {
   for ( let email in obj ) emails.push( email );
 
   return emails;
-
-}
-
-function _addCreateEventActivity( eventFeed, req ) {
-
-  usersSvc.findOne( {
-    query: {
-      id: req.event.ownerId
-    }
-  } )
-    .then( user => {
-
-      if ( !user ) {
-
-        return req.log( 'error', new VError( 'user of id %s not found', req.event.ownerId ) );
-
-      }
-
-      activitiesSvc.feed( {
-        entityType: 'user',
-        entityUid: user.uid
-      } ).follow( eventFeed, err => {
-
-        if ( err ) req.log( 'error', err );
-
-        activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
-          actor: 'user:' + user.uid,
-          verb: 'event.create',
-          object: 'event:' + req.event.uid,
-          target: 'agenda:' + req.agenda.uid,
-          store: {
-            labels: {
-              actor: user.fullName,
-              object: req.event.title,
-              target: req.agenda.title
-            }
-          }
-        }, err => {
-
-          if ( err ) req.log( 'error', err );
-
-          stakeholdersSvc.agenda( req.agenda.id ).increment( { userId: user.id }, err => {
-
-            if ( err ) req.log( 'error', err );
-
-          } );
-
-        } );
-
-      } );
-
-    } )
-    .catch( err => {
-
-      req.log( 'error', err );
-
-    } );
 
 }

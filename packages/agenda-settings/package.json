@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-settings",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "",
@@ -23,7 +23,7 @@
     "react-dom": "15 || 16"
   },
   "dependencies": {
-    "@openagenda/agendas": "^1.0.23",
+    "@openagenda/agendas": "^1.0.39",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.0",
@@ -34,8 +34,9 @@
     "classnames": "^2.2.5",
     "deep-extend": "^0.4.1",
     "history": "^3.3.0",
+    "immutability-helper": "^2.7.1",
     "knex": "^0.11.10",
-    "lodash.get": "^4.4.2",
+    "lodash": "^4.17.10",
     "mysql": "^2.11.1",
     "prop-types": "^15.5.8",
     "react-copy-to-clipboard": "^5.0.0",
@@ -48,7 +49,8 @@
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.0.11",
-    "redux-form": "^6.1.1",
+    "redux-form": "^7.4.2",
+    "reselect": "^3.0.1",
     "superagent": "^2.2.0"
   },
   "devDependencies": {

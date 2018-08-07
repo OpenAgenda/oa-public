@@ -497,5 +497,9 @@ module.exports = {
   validate: {
     fr: 'Valider',
     en: 'Validate'
+  },
+  supportPlaceholder: {
+    fr: 'Bonjour,\n\nJ\'ai un problème lorsque j\'utilise OpenAgenda avec ...',
+    en: 'Hello,\n\nI have a problem when I use OpenAgenda with ...'
   }
 };

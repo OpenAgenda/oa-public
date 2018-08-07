@@ -1,6 +1,7 @@
 "use strict";
 
 const path = require( 'path' );
+const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const labels = require( '@openagenda/labels/all' ).mails;
@@ -17,6 +18,7 @@ module.exports.init = async config => {
     defaults: {
       ...config.mails.defaults,
       data: {
+        _,
         root: config.root
       }
     },

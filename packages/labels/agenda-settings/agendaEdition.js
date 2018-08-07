@@ -105,14 +105,6 @@ module.exports = {
     fr: 'Profil de l\'agenda',
     en: 'Agenda profile'
   },
-  consigne: {
-    fr: 'Consigne',
-    en: 'Guideline'
-  },
-  consigneSubLabel: {
-    fr: 'La consigne s\'affiche au début du formulaire de saisie d\'événement',
-    en: 'The guideline appears at the beginning of the event entry form'
-  },
   yes: {
     fr: 'Oui',
     en: 'Yes'
@@ -230,6 +222,18 @@ module.exports = {
     fr: 'Demander un agenda public',
     en: 'Request a public agenda'
   },
+  indexedAgenda: {
+    fr: 'Agenda indexé',
+    en: 'Indexed agenda'
+  },
+  indexedAgendaDesc: {
+    fr: 'Indexer l\'agenda dans les moteurs de recherche (la désindexation peut prendre 24h)',
+    en: 'Index the agenda in the search engines (the deindexation can take 24 hours)'
+  },
+  notIndexedAgenda: {
+    fr: 'Agenda non indexé',
+    en: 'Agenda not indexed'
+  },
   limitDates: {
     fr: 'Limitation des dates de saisies',
     en: 'Limitation of seizure dates'
@@ -273,5 +277,33 @@ module.exports = {
   contribModerateOnChangeByUnpublish: {
     fr: 'Dépublier l\'événement afin qu\'il soit contrôlé à nouveau',
     en: 'Unpublish the event so that it is checked again'
-  }
+  },
+  contributorsMessages: {
+    fr: 'Messages aux contributeurs',
+    en: 'Messages to contributors'
+  },
+  consigne: {
+    fr: 'Consigne de saisie',
+    en: 'Event form instructions'
+  },
+  consigneSubLabel: {
+    fr: 'La consigne s\'affiche au début du formulaire de saisie d\'événement',
+    en: 'The guideline appears at the beginning of the event entry form'
+  },
+  contributionMessageComplete: {
+    fr: 'Message de fin de contribution',
+    en: 'End of contribution message'
+  },
+  contributionMessageCompleteSubLabel: {
+    fr: 'S\'affiche lorsque le contributeur a soumi sa contribution',
+    en: 'Appears when the contributor has submitted their contribution'
+  },
+  contributionMessagePublication: {
+    fr: 'Message de publication',
+    en: 'Publication message'
+  },
+  contributionMessagePublicationSubLabel: {
+    fr: 'Envoyé au contributeur lorsque son événement a été publié',
+    en: 'Sent to the contributor when his event has been published'
+  },
 };
