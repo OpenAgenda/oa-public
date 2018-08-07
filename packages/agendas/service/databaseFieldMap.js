@@ -63,8 +63,7 @@ module.exports = [
   },
   {
     db: 'indexed',
-    obj: 'indexed',
-    protected: true
+    obj: 'indexed'
   },
   {
     db: 'credentials',

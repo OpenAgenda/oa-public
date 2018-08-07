@@ -8250,7 +8250,7 @@ imagesloaded@^4.1:
   dependencies:
     ev-emitter "^1.0.0"
 
-immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1, immutability-helper@^2.5.1, immutability-helper@^2.6.4, immutability-helper@^2.6.5, immutability-helper@^2.6.6, immutability-helper@^2.7.0:
+immutability-helper@^2.0.0, immutability-helper@^2.2.0, immutability-helper@^2.2.2, immutability-helper@^2.2.3, immutability-helper@^2.3.0, immutability-helper@^2.3.1, immutability-helper@^2.5.1, immutability-helper@^2.6.4, immutability-helper@^2.6.5, immutability-helper@^2.6.6, immutability-helper@^2.7.0, immutability-helper@^2.7.1:
   version "2.7.1"
   resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-2.7.1.tgz#5636dbb593e3deb5e572766d42249ea06bae7640"
   dependencies:
@@ -14655,7 +14655,7 @@ redux-form@^6.1.1, redux-form@^6.2.0, redux-form@^6.5.0, redux-form@^6.6.2, redu
     lodash-es "^4.17.3"
     prop-types "^15.5.9"
 
-redux-form@^7.1.0, redux-form@^7.1.2, redux-form@^7.2.0:
+redux-form@^7.1.0, redux-form@^7.1.2, redux-form@^7.2.0, redux-form@^7.4.2:
   version "7.4.2"
   resolved "https://registry.npmjs.org/redux-form/-/redux-form-7.4.2.tgz#d6061088fb682eb9fc5fb9749bd8b102f03154b0"
   dependencies:
@@ -14957,6 +14957,10 @@ require-uncached@^1.0.3:
 requires-port@1.0.x, requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
+
+reselect@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/reselect/-/reselect-3.0.1.tgz#efdaa98ea7451324d092b2b2163a6a1d7a9a2147"
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

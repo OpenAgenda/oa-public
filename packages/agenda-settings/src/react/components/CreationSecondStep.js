@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 import { validate, asyncValidate } from '../containers/AgendaCreation/validate';
-import get from 'lodash.get';
+import { get } from 'lodash';
 
 @reduxForm( {
   form: 'agendaCreation',
