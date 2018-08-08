@@ -26,7 +26,7 @@ module.exports = {
     en: 'cancel'
   },
   nolocation: {
-    fr: 'Séléctionnez un lieu',
+    fr: 'Sélectionnez un lieu',
     en: 'Select a location'
   },
   find: {

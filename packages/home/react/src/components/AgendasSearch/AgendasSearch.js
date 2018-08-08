@@ -94,7 +94,7 @@ export default class AgendasSearch extends Component {
     return (
       <div>
         <div className="header hidden-xs">
-          <div className="pull-right">
+          <div className="text-right margin-bottom-md">
             <a href={res.agendas.create} className="btn btn-primary create-agenda">
               {getLabel( 'createAgenda' )}
             </a>
