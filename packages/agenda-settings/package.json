@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-settings",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "repository": "https://bitbucket.org/openagenda/oa",
   "author": "",
@@ -28,7 +28,7 @@
     "@openagenda/call-to-action": "^2.0.3",
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/image-upload": "^1.0.7",
-    "@openagenda/labels": "^2.0.79",
+    "@openagenda/labels": "^2.0.84",
     "@openagenda/react-components": "^2.0.8",
     "@openagenda/react-form-components": "^2.0.15",
     "classnames": "^2.2.5",
