@@ -102,13 +102,9 @@ export default class FormSchemaComponent extends Component {
 
       const clean = validate( values );
 
-      console.log( 'clean', clean );
-
       return { clean, errors: {} };
 
     } catch ( errors ) {
-
-      console.log( 'errors', errors );
 
       return { clean: null, errors: errors.reduce( ( errors, e ) => {
 
