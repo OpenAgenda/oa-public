@@ -20,4 +20,5 @@ export default props => <FormSchemaComponent
   values={props.values}
   schema={eventSchema}
   actionComponents={props.actionComponents}
+  onSubmitSuccess={props.onSubmitSuccess}
 />

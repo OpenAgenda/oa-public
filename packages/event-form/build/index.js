@@ -30,7 +30,8 @@ exports.default = function (props) {
     components: eventFormComponents,
     values: props.values,
     schema: eventSchema,
-    actionComponents: props.actionComponents
+    actionComponents: props.actionComponents,
+    onSubmitSuccess: props.onSubmitSuccess
   });
 };
 //# sourceMappingURL=index.js.map
