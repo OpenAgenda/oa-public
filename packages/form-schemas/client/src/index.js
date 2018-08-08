@@ -66,7 +66,7 @@ export default class FormSchemaComponent extends Component {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
 
-        return this.props.onSubmitSuccess( this.state.values );
+        return this.props.onSubmitSuccess( this.state.values, res );
 
       }
 

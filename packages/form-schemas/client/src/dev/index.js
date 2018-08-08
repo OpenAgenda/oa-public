@@ -37,6 +37,10 @@ const devApps = [ {
   name: 'A markdown field',
   description: 'A field that outputs a markdown string',
   link: '/markdown'
+}, {
+  name: 'onSubmitSuccess',
+  description: 'The callback gives both the sent data and the successful response',
+  link: '/onsubmitsuccess'
 } ];
 
 if ( module.hot ) module.hot.accept();

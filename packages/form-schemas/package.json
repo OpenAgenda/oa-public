@@ -19,6 +19,7 @@
     "@openagenda/logs": "^1.0.5",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/validators": "^2.0.1",
+    "body-parser": "^1.18.3",
     "immutability-helper": "^2.3.0",
     "immutable": "^3.8.2",
     "knex": "^0.13.0",

@@ -3,6 +3,8 @@
 const express = require( 'express' );
 const webpack = require( 'webpack' );
 
+const bodyParser = require( 'body-parser' );
+
 const webpackConfig = require( './webpack.dev' );
 const compiler = webpack( webpackConfig );
 
@@ -24,6 +26,14 @@ dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).sen
 dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
 
 dev.get( '/:page', ( req, res ) => res.send( render( req.params.page ) ) );
+
+dev.post( '/:page', bodyParser.json(), ( req, res ) => {
+
+  res.json( {
+    message: 'ok, ' + req.params.page
+  } );
+
+} );
 
 dev.listen( 3000 );
 
