@@ -2,7 +2,7 @@
 
 const pickScenario = require( './pickScenario' );
 
-module.exports = async ( agenda, user, data ) => {
+module.exports = async ( agenda, user, current, data ) => {
 
   console.log( 'setMember interface received data for agenda %s and user %s', agenda.slug, user.name, data );
 

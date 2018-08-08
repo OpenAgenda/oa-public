@@ -31,7 +31,8 @@ service.init( {
     config: require( './dev/loadConfigMw' )
   },
   interfaces: {
-    setMember: require( './dev/setMember' )
+    setMember: require( './dev/setMember' ),
+    setEvent: require( './dev/setEvent' )
   }
 } )
 
@@ -45,13 +46,13 @@ dev.use( require( 'webpack-hot-middleware' )( compiler ) );
 dev.get( '/', ( req, res ) => {
 
   res.send( devLayout( req, '<div class="container margin-top-lg">' +
-    _.chunk( scenarios, 5 ).map( chunk => '<div class="row">' +
+    _.chunk( scenarios, 4 ).map( chunk => '<div class="row">' +
       chunk.map( scenario => `
         <div class="col-md-3">
           <div class="wsq padding-all-sm margin-all-sm">
             <label>${scenario.agenda.title}</label>
             <p>${scenario.agenda.description}</p>
-            <a href="/${scenario.agenda.slug}/contribute">Open</a>
+            <a href="${scenario.link || '/' + scenario.agenda.slug + '/contribute'}">Open</a>
           </div>
         </div>
       ` ).join( '' ) + 

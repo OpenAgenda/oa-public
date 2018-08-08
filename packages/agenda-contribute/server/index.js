@@ -64,20 +64,46 @@ function init( c ) {
     config.middlewares.config,
     ( req, res ) => {
 
-      config.interfaces.setMember( req.agenda, req.user, req.body )
+      config.interfaces.setMember( req.agenda, req.user, req.member, req.body )
 
-        .then( () => {
+      .then( () => {
 
-          res.send( 'ok' );
+        res.send( 'ok' );
 
-        }, error => {
+      }, error => {
 
-          res.status( 400 );
+        res.status( 400 );
 
-        } );
+      } );
 
     }
-  )
+  );
+
+
+  app.post( '/event',
+    bodyParser.json(),
+    config.middlewares.user,
+    config.middlewares.agenda,
+    config.middlewares.event,
+    config.middlewares.member,
+    config.middlewares.config,
+    ( req, res ) => {
+
+      config.interfaces.setEvent( req.agenda, req.user, req.event, req.body )
+
+      .then( ( { event } ) => {
+
+        res.json( { event } );
+
+      }, error => {
+
+        res.status( 400 );
+
+      } );
+
+
+    } 
+  );
 
 }
 

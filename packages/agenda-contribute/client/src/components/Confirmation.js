@@ -2,6 +2,7 @@
 
 import ih from 'immutability-helper';
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 
 import { connect } from 'react-redux';
 
@@ -13,28 +14,34 @@ import labels from '@openagenda/labels/agenda-contribute/confirmation';
 
 // container bit
 export default connect(
-  state => ih( state.confirmation, { lang: { $set: state.config.lang } } ),
+  state => state,
   dispatch => ( {
   } )
-)( ( { lang } ) => <Canvas lang={lang} step="confirmation">
-  <div className="margin-bottom-lg">
-    <h3>{labels.moderationRecap[ lang ]}</h3>
-    <p>{labels.moderationRecapDetail[ lang ]}</p>
+)( ( { config } ) => <Canvas {...config} step="confirmation">
+  
+  <div className="wsq padding-all-md padding-top-sm text-center">
+    <h3>{labels.moderationRecap[ config.lang ]}</h3>
   </div>
-  <div>
+  {_.get( config, 'confirmation.message' ) ? <div className="padding-all-md padding-bottom-sm wsq event-instruction">
+    <ReactMarkdown source={config.confirmation.message} />
+  </div> : <div className="padding-h-md padding-bottom-sm wsq">
+    <p>{labels.moderationRecapDetail[ config.lang ]}</p> 
+  </div> }
+  <div className="padding-all-md padding-top-sm wsq">
     <ul className="list-unstyled text-center margin-h-lg">
       <li className="margin-top-md">
-        <a className="btn btn-primary btn-block">{labels.seeEventAction[ lang ]}</a>
+        <a className="btn btn-primary btn-block">{labels.seeEventAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.addEventAction[ lang ]}</a>
+        <a className="btn btn-default btn-block">{labels.addEventAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.seeAllEventsAction[ lang ]}</a>
+        <a className="btn btn-default btn-block">{labels.seeAllEventsAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.contactAdministratorsAction[ lang ]}</a>
+        <a className="btn btn-default btn-block">{labels.contactAdministratorsAction[ config.lang ]}</a>
       </li>
     </ul>
   </div>
+  
 </Canvas> );

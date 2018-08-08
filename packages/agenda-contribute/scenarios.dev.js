@@ -16,7 +16,10 @@ module.exports = [ {
       dataIsRequired: false
     },
     event: {
-      instruction: 'Do not take **all day**'
+      message: 'Do not take **all day**'
+    },
+    confirmation: {
+      message: 'This is a message written by *Agenda administrators*'
     }
   }
 }, {
@@ -77,5 +80,43 @@ module.exports = [ {
     email: 'gaetan@cibul.net',
     position: 'Test user',
     organisation: 'OpenAgenda Corp.'
+  }
+}, {
+  link: '/confirmation/contribute/confirmation',
+  agenda: {
+    title: 'Show confirmation page directly (custom)',
+    description: 'This is a shortcut page to a confirmation page with custom message',
+    slug: 'confirmation',
+    uid: 1234321,
+    id: 5
+  },
+  config: {
+    lang: 'fr',
+    base: '/confirmation/contribute',
+    member: {
+      dataIsRequired: true
+    },
+    confirmation: {
+      message: 'This is a message from *Agenda administrators*'
+    }
+  }
+}, {
+  link: '/confirmation-default/contribute/confirmation',
+  agenda: {
+    title: 'Show confirmation page directly (default)',
+    description: 'This is a shortcut page to a confirmation page with default message',
+    slug: 'confirmation-default',
+    uid: 1234321,
+    id: 5
+  },
+  config: {
+    lang: 'fr',
+    base: '/confirmation-default/contribute',
+    member: {
+      dataIsRequired: true
+    },
+    confirmation: {
+      
+    }
   }
 } ];

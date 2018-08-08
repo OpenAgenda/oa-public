@@ -18,10 +18,10 @@ import memberSchema from '../lib/memberSchema';
 export default connect(
   state => state,
   dispatch => ( {
-    onSuccess: () => dispatch( reducers.member.updated() )
+    onSuccess: member => dispatch( reducers.member.updated( member ) )
   } )
 )( ( { config, member, onSuccess } ) => <Canvas {...config} step="member">
-  <div className="wsq padding-h-md padding-all-md padding-top-sm">
+  <div className="wsq padding-all-md padding-top-sm">
     <h3>{labels.title[ config.lang ]}</h3>
     <div className="margin-v-lg">
       <label>{labels.subtitle[ config.lang ]}</label>
