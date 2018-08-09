@@ -22,7 +22,7 @@ function reducer( state = {}, action = {} ) {
 /**
  * define which screen should be shown
  */
-function evaluate() {
+function evaluate( step ) {
 
   return ( dispatch, getState ) => {
 
@@ -33,13 +33,25 @@ function evaluate() {
       member: memberConfig
     } = state.config;
 
-    if ( memberConfig.dataIsRequired && !isMemberValid( state.member ) ) {
+    const authorizedSteps = [ 'member' ];
 
-      return dispatch( push( base + '/member' ) );
+    if ( !memberConfig.dataIsRequired || isMemberValid( state.member ) ) {
+
+      authorizedSteps.push( 'event' );
 
     }
 
-    return dispatch( push( base + '/event' ) );
+    if ( _.get( state, 'event.uid' ) ) {
+
+      authorizedSteps.push( 'confirmation' );
+
+    }
+
+    if ( !step || !authorizedSteps.includes( step ) ) {
+
+      dispatch( push( base + '/' + authorizedSteps.pop() ) );
+
+    }
 
   }
 

@@ -22,14 +22,24 @@ module.exports = {
 const config = {
   layout: ( req, content ) => 'The service is not ready',
   loadAgenda: async req => null,
-  CDNPath: null
+  CDNPath: null,
+  interfaces: {
+    exit: '/'
+  }
 }
 
 function init( c ) {
 
   _.extend( config, c );
 
-  app.get( [ '/', '/:step' ], 
+  app.get( [ '/', '/:step' ],
+    ( req, res, next ) => {
+
+      req.config = _.pick( config, [ 'redirects' ] )
+
+      next();
+
+    }, 
     config.middlewares.user,
     config.middlewares.agenda,
     config.middlewares.event,
@@ -45,13 +55,12 @@ function init( c ) {
       }
     };
 
-    res.send( config.layout( req, `
-<div>
-  <div id="app"></div>
-  <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
-  <script type="text/javascript" src="${_getClientAppPath()}"></script>
-</div>
-    ` ) );
+    res.send( config.layout( req, 
+      `<div>
+        <div id="app"></div>
+        <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
+        <script type="text/javascript" src="${_getClientAppPath()}"></script>
+      </div>` ) );
 
   } );
 

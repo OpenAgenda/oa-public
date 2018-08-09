@@ -23,6 +23,12 @@ const devLayout = require( './dev/layout' );
 
 service.init( {
   layout: devLayout,
+  redirects: {
+    seeEvent: '/?redirect.eventCreated=:eventUid',
+    createOtherEvent: '/?redirect.createOtherEvent',
+    seeAllEvents: '/?redirect.seeAllEvents',
+    contactAdministrators: '/?redirect.contactAdministrators'
+  },
   middlewares: {
     user: require( './dev/loadUserMw' ),
     agenda: require( './dev/loadAgendaMw' ),

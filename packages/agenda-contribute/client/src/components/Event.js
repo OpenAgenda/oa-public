@@ -19,9 +19,10 @@ import reducers from '../reducers';
 export default connect(
   state => state,
   dispatch => ( {
-    onSuccess: ( values, response ) => dispatch( reducers.event.updated( values, response ) )
+    onSuccess: ( values, response ) => dispatch( reducers.event.updated( values, response ) ),
+    onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
   } )
-)( ( { config, event, onSuccess } ) => <Canvas {...config} step="event">
+)( ( { config, event, onSuccess, onDidMount } ) => <Canvas {...config} step="event" onDidMount={onDidMount}>
   <div className="wsq padding-all-md padding-bottom-sm">
     <h3>{labels.title[ config.lang ]}</h3>
   </div>

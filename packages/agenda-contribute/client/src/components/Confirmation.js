@@ -16,8 +16,10 @@ import labels from '@openagenda/labels/agenda-contribute/confirmation';
 export default connect(
   state => state,
   dispatch => ( {
+    onRedirectAction: type => e => dispatch( reducers.confirmation.redirect( type ) ),
+    onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
   } )
-)( ( { config } ) => <Canvas {...config} step="confirmation">
+)( ( { config, onRedirectAction, onDidMount } ) => <Canvas {...config} step="confirmation" onDidMount={onDidMount}>
   
   <div className="wsq padding-all-md padding-top-sm text-center">
     <h3>{labels.moderationRecap[ config.lang ]}</h3>
@@ -30,16 +32,16 @@ export default connect(
   <div className="padding-all-md padding-top-sm wsq">
     <ul className="list-unstyled text-center margin-h-lg">
       <li className="margin-top-md">
-        <a className="btn btn-primary btn-block">{labels.seeEventAction[ config.lang ]}</a>
+        <a onClick={onRedirectAction( 'seeEvent' )} className="btn btn-primary btn-block">{labels.seeEventAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.addEventAction[ config.lang ]}</a>
+        <a onClick={onRedirectAction( 'createOtherEvent' )} className="btn btn-default btn-block">{labels.addEventAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.seeAllEventsAction[ config.lang ]}</a>
+        <a onClick={onRedirectAction( 'seeAllEvents' )} className="btn btn-default btn-block">{labels.seeAllEventsAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
-        <a className="btn btn-default btn-block">{labels.contactAdministratorsAction[ config.lang ]}</a>
+        <a onClick={onRedirectAction( 'contactAdministrators' )} className="btn btn-default btn-block">{labels.contactAdministratorsAction[ config.lang ]}</a>
       </li>
     </ul>
   </div>
