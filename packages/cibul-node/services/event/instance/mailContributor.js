@@ -1,8 +1,10 @@
 "use strict";
 
 const w = require( 'when' );
+const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
-const log = require( '@openagenda/logger' )( 'services/event/mailContributor' );
+const agendasSvc = require( '@openagenda/agendas' );
+const log = require( '@openagenda/logs' )( 'services/event/mailContributor' );
 const genUrl = require( '../../genUrl' );
 const { ife } = require( '../../../lib/promises' );
 const config = require( '../../../config' );
@@ -96,13 +98,21 @@ function _loadAgenda( v ) {
 
   agendaSvc.get( v.agenda.id ? { id: v.agenda.id } : v.agenda, ( err, agenda ) => {
 
-    log( 'agenda loaded' );
+    log( 'agenda loaded (from cibulModel)' );
 
     if ( err ) return w.reject( err );
 
     v.agenda = agenda;
 
-    d.resolve( v );
+    agendasSvc.get( v.agenda.id ? { id: v.agenda.id } : v.agenda, { detailed: true }, ( err, agenda ) => {
+
+      if ( err ) return w.reject( err );
+
+      v.agenda2 = agenda;
+
+      d.resolve( v );
+
+    } );
 
   } );
 
@@ -192,7 +202,7 @@ function _setFirstPublicationFlag( v ) {
 
 function _retrieveAgendaCustomMessage( v ) {
 
-  v.message = v.agenda.getStore( 'publicationMessage' );
+  v.message = _.get( v.agenda2, 'settings.contribution.messages.publication', null );
 
   return v;
 

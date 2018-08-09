@@ -64,7 +64,7 @@ module.exports = {
     en: 'Search an event'
   },
   selectAgenda: {
-    fr: 'Séléctionner l\'agenda dans lequel créer l\'événement',
+    fr: 'Sélectionner l\'agenda dans lequel créer l\'événement',
     en: 'Select an agenda in which to create the event'
   },
   privateAgenda: {
