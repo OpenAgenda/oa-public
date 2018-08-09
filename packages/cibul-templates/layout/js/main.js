@@ -36,7 +36,7 @@ var utils = require( '@openagenda/utils' ),
 
   inboxConversationForm = require( '@openagenda/inbox-apps/dist/apps/conversationForm' ),
 
-  LE = require( '@openagenda/le_js' ),
+  LE = require( './le' ),
 
   Raven = require( 'raven-js' ),
 

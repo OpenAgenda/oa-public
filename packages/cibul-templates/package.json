@@ -41,7 +41,6 @@
     "@openagenda/image-upload": "^1.0.5",
     "@openagenda/inbox-apps": "^1.0.74",
     "@openagenda/labels": "^2.0.79",
-    "@openagenda/le_js": "^0.0.3",
     "@openagenda/leaflet.markercluster": "^0.4.0",
     "@openagenda/member-apps": "^1.0.39",
     "@openagenda/react-components": "^2.0.8",
