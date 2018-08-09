@@ -15,7 +15,7 @@ module.exports.init = config => {
   agendaSearch.init( {
     schemas: config.schemas,
     elasticsearch: {
-      host: `http://ns397902.ip-151-80-41.eu:${process.env.NODE_ENV==='production' ? 9200 : 9205}`,
+      host: `${config.es53.host}:${config.es53.port}/`,
       apiVersion: '5.3'
     },
     mw: {
