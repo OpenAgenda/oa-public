@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import labels from '@openagenda/labels/activities/notifications';
 import makeLabelGetter from '@openagenda/labels';
-import notificationFormatMaker from '@openagenda/activities/src/formatNotification';
+import notificationFormatMaker from '@openagenda/activities/dist/formatNotification';
 
 import 'moment/locale/fr';
 
