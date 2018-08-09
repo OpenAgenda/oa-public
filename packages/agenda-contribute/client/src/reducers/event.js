@@ -35,8 +35,6 @@ function updated( values, response ) {
 
   return ( dispatch, getState ) => {
 
-    console.log( response );
-
     const state = getState();
 
     const { base } = state.config;

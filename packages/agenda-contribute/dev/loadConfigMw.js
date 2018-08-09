@@ -1,12 +1,12 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const pickScenario = require( './pickScenario' );
 
 module.exports = ( req, res, next ) => {
 
-  const sc = pickScenario( req );
-
-  req.config = sc.config;
+  _.extend( req.config, pickScenario( req ).config );
 
   next();
 

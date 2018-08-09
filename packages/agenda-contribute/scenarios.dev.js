@@ -82,6 +82,23 @@ module.exports = [ {
     organisation: 'OpenAgenda Corp.'
   }
 }, {
+  link: '/bypass-attempt-to-event/contribute/event',
+  agenda: {
+    title: 'User attempts to load event form when he is not a valid member',
+    description: 'When mounted, the event app does the necessary checks and re-routes user to member form if required',
+    slug: 'bypass-attempt-to-event',
+    uid: 891391,
+    id: 6
+  },
+  config: {
+    lang: 'fr',
+    base: '/bypass-attempt-to-event/contribute',
+    member: {
+      dataIsRequired: true
+    }
+  },
+  member: {} // nothing!
+}, {
   link: '/confirmation/contribute/confirmation',
   agenda: {
     title: 'Show confirmation page directly (custom)',
