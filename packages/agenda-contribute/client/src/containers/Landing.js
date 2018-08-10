@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import Canvas from './Canvas';
+import Canvas from '../components/Canvas';
 import reducers from '../reducers';
 
 import Spinner from '@openagenda/react-components/build/Spinner';

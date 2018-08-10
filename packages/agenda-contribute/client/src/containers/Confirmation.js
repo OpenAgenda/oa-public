@@ -1,6 +1,7 @@
 "use strict";
 
-import ih from 'immutability-helper';
+
+import _ from 'lodash';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -8,7 +9,7 @@ import { connect } from 'react-redux';
 
 import reducers from '../reducers';
 
-import Canvas from './Canvas';
+import Canvas from '../components/Canvas';
 
 import labels from '@openagenda/labels/agenda-contribute/confirmation';
 

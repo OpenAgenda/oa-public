@@ -9,9 +9,8 @@ import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
 import reducers from '../reducers';
 
-import Canvas from './Canvas';
+import Canvas from '../components/Canvas';
 
-import injectConfig from '../lib/injectConfig';
 import memberSchema from '../lib/memberSchema';
 
 // container bit

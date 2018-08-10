@@ -32,7 +32,7 @@ function init( c ) {
 
   _.extend( config, c );
 
-  app.get( [ '/', '/:step' ],
+  app.get( [ '/', '/:step', '/:step/:eventUid' ],
     ( req, res, next ) => {
 
       req.config = _.pick( config, [ 'redirects' ] )

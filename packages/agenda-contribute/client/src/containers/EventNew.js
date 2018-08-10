@@ -1,28 +1,22 @@
 "use strict";
 
 import _ from 'lodash';
-
-import ih from 'immutability-helper';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
-
 import labels from '@openagenda/labels/agenda-contribute/event';
 
-import Canvas from './Canvas';
-import injectConfig from '../lib/injectConfig';
+import Canvas from '../components/Canvas';
 import reducers from '../reducers';
 
 export default connect(
   state => state,
   dispatch => ( {
-    onSuccess: ( values, response ) => dispatch( reducers.event.updated( values, response ) ),
-    onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
+    onCreateSuccess: ( values, response ) => dispatch( reducers.event.created( values, response ) ),
+    onDidMount: () => dispatch( reducers.landing.evaluate( 'event' ) )
   } )
-)( ( { config, event, onSuccess, onDidMount } ) => <Canvas {...config} step="event" onDidMount={onDidMount}>
+)( ( { config, event, onCreateSuccess, onDidMount } ) => <Canvas {...config} step="event" onDidMount={onDidMount}>
   <div className="wsq padding-all-md padding-bottom-sm">
     <h3>{labels.title[ config.lang ]}</h3>
   </div>
@@ -33,11 +27,11 @@ export default connect(
     <EventForm 
       lang={config.lang} 
       values={event}
-      onSubmitSuccess={onSuccess}
+      onSubmitSuccess={onCreateSuccess}
       actionComponents={[ {
         position: 'bottom',
         Component: ( { onSubmit } ) => <div className="form-group">
-          <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.submit[ config.lang ]}</button>
+          <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
         </div>
       } ]}
     />
