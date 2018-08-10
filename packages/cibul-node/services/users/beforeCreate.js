@@ -41,9 +41,9 @@ async function isInvitedFromAnOfficialAgenda( invitation ) {
   let result = false;
 
   for ( const action of linkStakeholderActions ) {
-    const agenda = await promisify( agendasSvc.get )( action.params[ 0 ].agendaId );
+    const agenda = await promisify( agendasSvc.get )( action.params[ 0 ].agendaId, { private: null } );
 
-    if ( agenda.official ) {
+    if ( agenda && agenda.official ) {
       result = true;
       break;
     }
