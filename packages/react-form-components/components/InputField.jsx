@@ -129,7 +129,11 @@ module.exports = createReactClass( {
 
   render: function() {
 
-    return <div className={ this.props.enabled ? 'form-group' : 'form-group disabled' }>
+    var className = this.props.enabled ? 'form-group' : 'form-group disabled';
+
+    if ( this.props.groupClassName ) className += ' ' + this.props.groupClassName;
+
+    return <div className={ className }>
       <label>{this.getLabel( this.props.name )}</label>
       { this.props.info && this.getLabel( this.props.info ) ? 
         <div>{this.getLabel( this.props.info )}</div>
