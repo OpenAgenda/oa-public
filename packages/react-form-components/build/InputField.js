@@ -122,9 +122,13 @@ module.exports = createReactClass({
 
   render: function render() {
 
+    var className = this.props.enabled ? 'form-group' : 'form-group disabled';
+
+    if (this.props.groupClassName) className += ' ' + this.props.groupClassName;
+
     return React.createElement(
       'div',
-      { className: this.props.enabled ? 'form-group' : 'form-group disabled' },
+      { className: className },
       React.createElement(
         'label',
         null,

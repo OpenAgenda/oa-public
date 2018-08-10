@@ -93,6 +93,7 @@ function initialize( props ) {
     pageSpin: null
   }
 
+
   state.location = {};
 
   for( let f in props.location ) {
