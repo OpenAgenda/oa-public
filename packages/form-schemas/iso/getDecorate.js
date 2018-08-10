@@ -4,7 +4,7 @@
  * returns function that decorates valid data for a form-schema with full option values and labels
  */
 
-const ih = require( 'immutability-helper' );
+const update = require( 'immutability-helper' );
 
 const _ = {
   isArray: require( 'lodash/isArray' ),
@@ -21,7 +21,7 @@ module.exports.decorate = decorate;
 
 function decorate( fields, data ) {
 
-  let changes = {};
+  const changes = {};
 
   fields.forEach( f => {
 
@@ -45,17 +45,15 @@ function decorate( fields, data ) {
 
   } );
 
-  return ih( data, changes );
+  return update( data, changes );
 
 }
 
 
 function _decorate( options, id ) {
 
-  let matches = options.filter( o => o.id );
+  const option = options.find( o => o.id === id );
 
-  if ( !matches.length ) return null;
-
-  return _.omit( matches[ 0 ], [ 'legacyId' ] );
+  return typeof option === 'undefined' || option === null ? null : _.omit( option, [ 'legacyId' ] );
 
 }
