@@ -39,7 +39,7 @@ describe( 'unsubscribed - functional: .add', function() {
         .should.eql( {
           type: 'some.type',
           subject: 'agenda',
-          identifier: 2,
+          identifier: '2',
           user_uid: 12345678
         } );
 
@@ -70,7 +70,7 @@ describe( 'unsubscribed - functional: .add', function() {
         .should.eql( {
           type: null,
           subject: 'agenda',
-          identifier: 12,
+          identifier: '12',
           user_uid: 12345678
         } );
 
@@ -104,6 +104,39 @@ describe( 'unsubscribed - functional: .add', function() {
           identifier: null,
           user_uid: 1237021
         } );
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
+
+  it( 'simple add with email', done => {
+
+    service( 0 ).add( {
+      type: 'eventEmail',
+      subject: 'email',
+      identifier: 'bertho@cibul.net'
+    }, ( err, result ) => {
+
+      console.log( result );
+
+      const con = mysql.createConnection( config.mysql );
+
+      con.query( 'select * from unsubscribed where subject = ? and type = ?', [ 'email', 'eventEmail' ], ( err, rows ) => {
+
+        con.end();
+
+        _.pick( rows[ 0 ], [ 'type', 'subject', 'identifier', 'user_uid' ] )
+          .should.eql( {
+            type: 'eventEmail',
+            subject: 'email',
+            identifier: 'bertho@cibul.net',
+            user_uid: 0
+          } );
 
         done();
 

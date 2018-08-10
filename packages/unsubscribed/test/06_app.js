@@ -46,7 +46,7 @@ describe( 'unsubscribed - functional: express app', function () {
         type: 'event_added'
       } )
 
-        .should.equal( '/unsubscribe/u/123/s/agenda.218/t/event_added' );
+        .should.equal( '/unsubscribe/u/123/s/agenda/i/218/t/event_added' );
 
     } );
 
@@ -58,7 +58,7 @@ describe( 'unsubscribed - functional: express app', function () {
         identifier: 218
       } )
 
-        .should.equal( '/unsubscribe/u/123/s/agenda.218' );
+        .should.equal( '/unsubscribe/u/123/s/agenda/i/218' );
 
     } );
 
@@ -107,7 +107,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'simple add reference', done => {
 
-      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event' )
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456/t/notif_published_event' )
 
         .end( ( err, res ) => {
 
@@ -121,7 +121,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'simple unsuccessful remove', done => {
 
-      sa.get( 'http://localhost:3000/unsubscribe/u/124/s/agenda.456/t/notif_published_event/remove' )
+      sa.get( 'http://localhost:3000/unsubscribe/u/124/s/agenda/i/456/t/notif_published_event/remove' )
 
         .end( ( err, res ) => {
 
@@ -135,11 +135,11 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'simple successful remove', done => {
 
-      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event' )
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456/t/notif_published_event' )
 
         .end( ( err, res ) => {
 
-          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/t/notif_published_event/remove' )
+          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456/t/notif_published_event/remove' )
 
             .end( ( err, res ) => {
 
@@ -155,7 +155,7 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'add without type', done => {
 
-      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456' )
 
         .end( ( err, res ) => {
 
@@ -169,11 +169,11 @@ describe( 'unsubscribed - functional: express app', function () {
 
     it( 'typeless remove', done => {
 
-      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456' )
+      sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456' )
 
         .end( ( err, res ) => {
 
-          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda.456/remove' )
+          sa.get( 'http://localhost:3000/unsubscribe/u/123/s/agenda/i/456/remove' )
 
             .end( ( err, res ) => {
 

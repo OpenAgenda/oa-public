@@ -70,4 +70,34 @@ describe( 'unsubscribed - functional: .list', function () {
 
   } );
 
+  it( '.list with a query', done => {
+
+    const userUid = 75052324;
+
+    service( userUid ).list( { type: 'agenda_event_submit_moderation' }, ( err, result ) => {
+
+      should( err ).equal( null );
+
+      result.unsubscriptions.should.eql( [ {
+        id: 7,
+        userUid: 75052324,
+        type: 'agenda_event_submit_moderation',
+        subject: 'agenda',
+        identifier: 85870128,
+        createdAt: new Date( '2017-03-03T12:22:44.000Z' )
+      }, {
+        id: 3,
+        userUid: 75052324,
+        type: 'agenda_event_submit_moderation',
+        subject: 'agenda',
+        identifier: 97998826,
+        createdAt: new Date( '2017-03-03T08:24:05.000Z' )
+      } ] );
+
+      done();
+
+    } );
+
+  } );
+
 } );
