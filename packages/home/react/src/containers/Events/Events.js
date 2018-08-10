@@ -258,6 +258,7 @@ export default class Events extends Component {
               id="selectAgendasForCreateEvent"
               getTitleLink={agenda => res.agendas.addEvent.replace( ':slug', agenda.slug )}
               createButtonIfEmpty
+              clearfixAfterButton
             />
           </Modal>}
         </div>
