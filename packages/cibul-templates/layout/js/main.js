@@ -166,19 +166,24 @@ window.hook( () => {
   } catch ( e ) {
   }
 
-  Raven.config( errorsTrackingConfig.sentryDsn, {
-    dataCallback( data ) {
+  try {
 
-      try {
+    Raven.config( errorsTrackingConfig.sentryDsn, {
+      dataCallback( data ) {
 
-        LE.log( data );
+        try {
 
-      } catch ( e ) {
+          LE.log( data );
+
+        } catch ( e ) {
+        }
+
+        return data;
+
       }
+    } ).install();
 
-      return data;
-
-    }
-  } ).install();
+  } catch ( e ) {
+  }
 
 } );
