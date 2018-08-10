@@ -10,8 +10,12 @@ const _ = require( 'lodash' );
 const isEmail = require( 'isemail' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const mailer = require( '@openagenda/mailer' );
+const mails = require( '@openagenda/mails' );
 const sessions = require( '@openagenda/sessions' );
-const utils = require( '@openagenda/utils' );
+const formSchemasSvc = require( '@openagenda/form-schemas' );
+const customSvc = require( '@openagenda/custom' );
+const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
+const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
@@ -181,29 +185,93 @@ function actionDatesShow( req, res ) {
 }
 
 
-function eventMailSend( req, res, next ) {
-
-  var emails = _extractEmails( req.body.mailsend );
+async function eventMailSend( req, res, next ) {
 
   req.formatted.uri = req.eventUri;
   req.formatted.uriParams = req.eventUriParams;
 
-  model.unsubscribed().filter( emails, function( err, emails ) {
+  try {
+    const { formSchemaId } = req.agenda;
+    let customData = null;
 
-    req.log( 'will send event as email to %s', emails.join(', ') );
+    if ( formSchemaId ) {
+      const formSchema = await formSchemasSvc.get( formSchemaId );
+      const customValues = await customSvc( formSchemaId ).get( req.event.uid );
 
-    const renders = {};
+      if ( formSchema && formSchema.fields && customValues ) {
+        customData = _.reduce(
+          formSchemaDecorate( formSchema.fields )( customValues ),
+          ( result, value, key ) => {
+            if ( value === null ) {
+              return result;
+            }
 
-    async.each( [ 'html', 'text' ], function( type, ecb ) {
+            const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
+            const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
+            const label = getLocaleLabel( fieldSchema );
 
-      cmn.renderTemplate( req, 'event/email', {
-        type: type,
-        layout: {
-          title: req.event.getTitle(),
-          preheaderContent: req.event.getTitle()
-        },
+            return {
+              ...result,
+              [ label ]: typeof value !== 'object'
+                ? value
+                : Array.isArray( value )
+                  ? value.map( getLocaleLabel )
+                  : getLocaleLabel( value )
+            };
+          },
+          {}
+        );
+      }
+    }
+
+    const extractedEmails = _extractEmails( req.body.mailsend );
+    const unsubscribedEmails = ( await unsubscribedSvc( 0 )
+      .list( {
+        type: 'eventEmail',
+        subject: 'email',
+        identifier: extractedEmails,
+      } ) )
+      .unsubscriptions
+      .map( _.property( 'identifier' ) );
+    const emails = _.difference( extractedEmails, unsubscribedEmails );
+
+    req.log( 'will send event as email to %s', emails.join( ', ' ) );
+
+    const logo = req.agenda.image
+      ? {
+        src: config.aws.imageBucketPath + req.agenda.image.replace( '.com/', '.com/rwtb' ),
+        width: '100px'
+      }
+      : {
+        src: `${config.root}/images/openagenda.png`,
+        width: '300px'
+      };
+
+    const link = req.genUrl(
+      'agendaEventShow',
+      { slug: req.agenda.slug, eventSlug: req.event.slug },
+      { abs: true, protocol: 'https://' }
+    );
+
+    await mails( {
+      template: 'event',
+      to: emails.map( address => ({
+        address,
+        data: {
+          unsubscribeLink: config.root + unsubscribedSvc.app.genUrl( 'add', {
+            userUid: 0,
+            type: 'eventEmail',
+            subject: 'email',
+            identifier: address
+          } )
+        }
+      }) ),
+      data: {
+        logo,
+        link,
+        agendaTitle: req.agenda.title,
         event: req.formatted,
-        agenda: req.agenda ? req.agenda : false,
+        customData,
         map: {
           name: req.formatted.placeName,
           lat: req.formatted.latitude,
@@ -211,36 +279,15 @@ function eventMailSend( req, res, next ) {
           zoom: 16,
           accessToken: config.mapboxAccessToken
         }
-      }, function( err, render ) {
-
-        if ( err ) return ecb( err );
-
-        renders[ type ] = render;
-
-        ecb();
-
-      } );
-
-    }, function( err ) {
-
-      if ( err ) next( err );
-
-      // here we send the mail.
-
-      mailer( {
-        recipient: emails,
-        subject: req.event.getTitle(),
-        text: renders.text,
-        html: renders.html
-      } );
-
-      sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
-
-      res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
-
+      },
+      lang: req.lang
     } );
 
-  });
+    sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
+    res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
+  } catch ( err ) {
+    return next( err );
+  }
 
 }
 

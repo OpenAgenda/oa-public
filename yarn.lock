@@ -322,10 +322,6 @@
     lodash "^4.17.4"
     uuid "^3.0.1"
 
-"@openagenda/le_js@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/le_js/-/le_js-0.0.3.tgz#f85a5b078bc784ec4a8f2b01c503fea34ad255d2"
-
 "@openagenda/leaflet.markercluster@^0.4.0":
   version "0.4.0"
   resolved "https://registry.npmjs.org/@openagenda/leaflet.markercluster/-/leaflet.markercluster-0.4.0.tgz#d5e3a3106bcd35dcc7180a97d0c5ff548f40c98e"

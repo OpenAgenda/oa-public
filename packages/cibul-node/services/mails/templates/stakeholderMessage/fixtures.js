@@ -25,7 +25,7 @@ module.exports = {
     'Bien cordialement\n' +
     '\n' +
     'Stéphanie Bérusseau',
-  unsubscribeUrl: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message'
+  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/stakeholderMessage' );

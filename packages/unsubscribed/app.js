@@ -13,8 +13,8 @@ module.exports = service => {
 
   routes = {
     list: '/u/:userUid/list',
-    add: '/u/:userUid/s/:subject.:identifier/t/:type',
-    remove: '/u/:userUid/s/:subject.:identifier/t/:type/remove'
+    add: '/u/:userUid/s/:subject/i/:identifier/t/:type',
+    remove: '/u/:userUid/s/:subject/i/:identifier/t/:type/remove'
   };
 
   app.get( '/u', ( req, res, next ) => {
@@ -47,9 +47,9 @@ module.exports = service => {
 
       req.matchedUnsubscribePath = true;
 
-      log( 'matched endpoint to %s, %s, %s', 
-        useSubject ? 'use subject' : 'NOT use subject', 
-        useType ? 'use type': 'NOT use type', 
+      log( 'matched endpoint to %s, %s, %s',
+        useSubject ? 'use subject' : 'NOT use subject',
+        useType ? 'use type': 'NOT use type',
         useIdentifier ? 'use identifier' : 'NOT use identifier' );
 
       const data = {}
@@ -95,7 +95,7 @@ module.exports = service => {
    * outside of service; useBy is a workaround to know what the base
    * path is here. Base path is used by genUrl.
    */
-  
+
   function useBy( parentApp, p = '' ) {
 
     path = p;
@@ -118,7 +118,7 @@ module.exports = service => {
 
       return _typeless( specificPath );
 
-    } else if ( specificPath.indexOf( '.:identifier' ) !== -1 ) {
+    } else if ( specificPath.indexOf( '/i/:identifier' ) !== -1 ) {
 
       return _identifierless( specificPath );
 
@@ -132,7 +132,7 @@ module.exports = service => {
 
 function _identifierless( path ) {
 
-  return path.replace( '.:identifier', '' );
+  return path.replace( '/i/:identifier', '' );
 
 }
 

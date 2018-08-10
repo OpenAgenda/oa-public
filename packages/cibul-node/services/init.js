@@ -59,12 +59,7 @@ module.exports = function ( config, options, cb ) {
 
   if ( config.logger ) logger.init( config.logger );
 
-  logs.init( {
-    debug: {
-      prefix: 'oa:'
-    },
-    token: process.env.NODE_ENV === 'production' ? '1713c063-cd27-4a2c-9415-cb0b906c755e' : null
-  } );
+  logs.init( config.getLogConfig( 'oa', 'oa', false ) );
 
   log = logs( 'services/init' );
 

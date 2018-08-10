@@ -92,7 +92,7 @@
           />
 
           <mj-text align="center">
-            <a href="<%= unsubscribeUrl %>" class="grey-link"><%= __( 'unsubscribeAgenda' ) %></a>
+            <a href="<%= unsubscribeLink %>" class="grey-link"><%= __( 'unsubscribeAgenda' ) %></a>
           </mj-text>
         </mj-column>
       </mj-section>

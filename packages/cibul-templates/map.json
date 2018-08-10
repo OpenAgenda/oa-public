@@ -31,6 +31,7 @@
   "event/action",
   "event/embedShow",
   "event/action",
+  "event/email",
   "eventForm/index",
   "eventFormTags/index",
   "dialog/index",
@@ -49,7 +50,7 @@
     "uri" : "user/bsMenu",
     "public" : true
   },
-  
+
   "newsletter/show",
   "newsletter/unsubscribe",
   "newsletter/unsubscribeComplete",
@@ -70,7 +71,7 @@
   "agendaAdminEvents/index",
 
   "error/show",
-  
+
   "eventLists/searchList",
   "eventLists/agendaList",
 
@@ -101,7 +102,7 @@
 
   {
     "js" : "widgets/tags/tags.js",
-    "prod" : "embed/cibulTagsWidget.js" 
+    "prod" : "embed/cibulTagsWidget.js"
   },
   {
     "js" : "widgets/calendar/calendar.js",

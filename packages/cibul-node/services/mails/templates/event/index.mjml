@@ -1,6 +1,6 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __( 'title' ) %></mj-title>
+    <mj-title><%= event.title %></mj-title>
     <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
 
     <mj-attributes>
@@ -88,34 +88,42 @@
       <!-- Event image -->
       <mj-section
         background-color="#ffffff"
-        padding="0"
+        padding="10px 0 0 0"
       >
         <mj-column>
-          <mj-image src="<%= event.image %>" href="<%= link %>" padding="10px 25px 0 25px" />
+          <mj-image src="<%= event.image %>" href="<%= link %>" padding="0" />
 
-          <mj-text padding-top="0" font-style="italic">
-            <% if ( event.pricingInfo ) { %>
-              <%= event.pricingInfo %> -&nbsp;
-            <% } %>
-
+          <mj-text padding="0 15px" font-style="italic">
             <%= event.dateRange %>
-
-            <% if ( event.ticketLink ) { %>
-              &nbsp;- <a href="<%= event.ticketLink %>" target="_blank"><%= __('book') %></a>
-            <% } %>
           </mj-text>
         </mj-column>
       </mj-section>
 
-      <!-- Long description -->
+      <!-- Long description + princing info + registration -->
       <mj-section
         background-color="#ffffff"
-        padding="10px 40px"
+        padding="20px 40px"
       >
         <mj-column>
-          <% if ( event.longDescription ) { %>
+          <% if ( event.freeText ) { %>
             <mj-text>
-              <%- _.escape( event.longDescription ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+              <%- event.freeText %>
+            </mj-text>
+          <% } %>
+
+          <% if ( event.pricingInfo || event.ticketLink ) { %>
+            <mj-text>
+              <% if ( event.pricingInfo ) { %>
+                <%= event.pricingInfo %>
+
+                <% if ( event.ticketLink ) { %>
+                  &nbsp;-&nbsp;
+                <% } %>
+              <% } %>
+
+              <% if ( event.ticketLink ) { %>
+                <a href="<%= event.ticketLink %>" target="_blank"><%= __( 'book' ) %></a>
+              <% } %>
             </mj-text>
           <% } %>
         </mj-column>
@@ -124,28 +132,51 @@
       <!-- Map -->
       <mj-section
         background-color="#ffffff"
-        padding="15px 0 0 0"
+        padding="10px 0"
       >
         <mj-column>
           <mj-image
             src="<%= `http://api.tiles.mapbox.com/v4/foursquare.meku766r/pin-l-circle+41acdd(${map.lng},${map.lat})/${map.lng},${map.lat},${map.zoom}/600x140.png?access_token=${map.accessToken}` %>"
             href="<%= link %>"
+            padding="0"
           />
         </mj-column>
       </mj-section>
 
-      <!-- PlaceName + address -->
+      <!-- PlaceName + address + timings -->
       <mj-section
         background-color="#ffffff"
         padding="0 40px"
       >
         <mj-column>
-          <mj-text padding="0">
+          <mj-text padding-bottom="0">
             <a href="<%= link %>" target="_blank" class="header-link">
               <h2 class="black-link"><%= event.placeName %></h2>
               <h3 class="grey-link"><%= event.address %></h3>
             </a>
           </mj-text>
+
+          <% if ( event.timings.length > 1 ) { %>
+            <mj-text padding="0 25px">
+              <h3><%= __( 'timingsDetails' ) %></h3>
+
+              <p>
+              <% for ( const date of event.dates ) { %>
+                <%= date.label %> -
+                <%= date.timings.map( t => __( 'timing', { from: t.startLabel, to: t.endLabel } ) )
+                .join( ',' ) %><br />
+              <% } %>
+              </p>
+            </mj-text>
+          <% } %>
+
+          <% if ( customData && Object.keys( customData ).length ) { %>
+            <mj-text padding="0 25px">
+              <% for ( const [ label, value ] of Object.entries( customData ) ) { %>
+              <b><%= label %></b>: <%= Array.isArray( value ) ? value.join( ', ' ) : value %><br />
+              <% } %>
+            </mj-text>
+          <% } %>
         </mj-column>
       </mj-section>
 
@@ -175,6 +206,10 @@
             href="<%= root %>"
             padding="0"
           />
+
+          <mj-text align="center">
+            <a href="<%= unsubscribeLink %>" class="grey-link"><%= __( 'unsubscribe' ) %></a>
+          </mj-text>
         </mj-column>
       </mj-section>
     </mj-wrapper>

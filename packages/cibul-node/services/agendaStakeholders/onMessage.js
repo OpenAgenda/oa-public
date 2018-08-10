@@ -39,7 +39,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
             return cb();
           }
 
-          const unsubscribeUrl = unsubscribedSvc.app.genUrl( 'add', {
+          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
             userUid: user.uid,
             type: 'message',
             subject: 'stakeholder',
@@ -59,7 +59,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
               recipient: stakeholder.custom.email,
               replyTo: context.replyTo,
               lang,
-              unsubscribeUrl
+              unsubscribeLink
             },
             cb
           );
@@ -86,7 +86,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
             return cb();
           }
 
-          const unsubscribeUrl = unsubscribedSvc.app.genUrl( 'add', {
+          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
             userUid: user.uid,
             type: 'message',
             subject: 'stakeholder',
@@ -103,7 +103,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
               recipient: user.email,
               replyTo: context.replyTo,
               lang,
-              unsubscribeUrl
+              unsubscribeLink
             },
             cb
           );
@@ -135,7 +135,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
             return cb();
           }
 
-          const unsubscribeUrl = unsubscribedSvc.app.genUrl( 'add', {
+          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
             userUid: 0,
             type: 'message',
             subject: 'stakeholder',
@@ -164,7 +164,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
               recipient: stakeholder.custom.email,
               replyTo: context.replyTo,
               lang,
-              unsubscribeUrl
+              unsubscribeLink
             },
             cb
           );
@@ -180,7 +180,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 module.exports.setLog = l => log = l;
 
 
-function _sendMessageEmail( { agenda, url, unsubscribeUrl, message, recipient, lang, replyTo }, cb ) {
+function _sendMessageEmail( { agenda, url, unsubscribeLink, message, recipient, lang, replyTo }, cb ) {
 
   const logo = agenda.image
     ? {
@@ -202,7 +202,7 @@ function _sendMessageEmail( { agenda, url, unsubscribeUrl, message, recipient, l
       agenda: agenda.title,
       link: url,
       message,
-      unsubscribeUrl: config.root + unsubscribeUrl
+      unsubscribeLink: config.root + unsubscribeLink
     },
     lang
   }, cb );
