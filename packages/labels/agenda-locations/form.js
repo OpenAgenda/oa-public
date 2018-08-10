@@ -33,6 +33,14 @@ module.exports = {
     fr: 'La géolocalisation n\'a pas pu aboutir. Ré-essayez ou placez le marqueur manuellement',
     en: 'The geolocation was not successful. Please retry or place the marker manually'
   },
+  geocodeFieldSave: {
+    fr: 'Ok',
+    en: 'Ok'
+  },
+  geocodeFieldCancel: {
+    fr: 'Annuler',
+    en: 'Cancel'
+  },
   name: {
     fr: 'Nom du lieu',
     en: 'Name of the location'
@@ -128,5 +136,25 @@ module.exports = {
   saving: {
     fr: 'Sauvegarde',
     en: 'Saving'
+  },
+  region: {
+    fr: 'Région',
+    en: 'Region'
+  },
+  department: {
+    fr: 'Département',
+    en: 'Department'
+  },
+  city: {
+    fr: 'Ville',
+    en: 'City'
+  },
+  postalCode: {
+    fr: 'Code postal',
+    en: 'Postal code'
+  },
+  cityDistrict: {
+    fr: 'Quartier',
+    en: 'District'
   }
 }
