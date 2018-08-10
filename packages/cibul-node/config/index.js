@@ -11,7 +11,7 @@ const config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
-    jsVersion: 40,
+    jsVersion: 41,
     versions: {
       // unused for now
       members: [ {
