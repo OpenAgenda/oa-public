@@ -5,9 +5,11 @@ import ih from 'immutability-helper';
 
 import { push } from 'react-router-redux';
 
+const CREATE = 'agenda-contribute/event/CREATE';
 const UPDATE = 'agenda-contribute/event/UPDATE';
 
 module.exports = _.extend( reducer, {
+  created,
   updated
 } );
 
@@ -15,6 +17,10 @@ module.exports = _.extend( reducer, {
 function reducer( state = {}, action = {} ) {
 
   switch ( action.type ) {
+
+    case CREATE:
+
+      return action.event;
 
     case UPDATE:
 
@@ -27,11 +33,17 @@ function reducer( state = {}, action = {} ) {
 }
 
 
+function updated( values, response ) {
+
+
+}
+
+
 /**
  * member data save was confirmed by server
  */
 
-function updated( values, response ) {
+function created( values, response ) {
 
   return ( dispatch, getState ) => {
 
@@ -40,7 +52,7 @@ function updated( values, response ) {
     const { base } = state.config;
 
     dispatch( {
-      type: UPDATE, 
+      type: CREATE, 
       event: _.get( response, 'body.event' )
     } );
 

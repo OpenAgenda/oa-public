@@ -17,12 +17,13 @@ import {
   routerReducer
 } from 'react-router-redux';
 
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import Confirmation from './components/Confirmation';
-import Event from './components/Event';
-import Landing from './components/Landing';
-import Member from './components/Member';
+import Confirmation from './containers/Confirmation';
+import EventNew from './containers/EventNew';
+import EventEdit from './containers/EventEdit';
+import Landing from './containers/Landing';
+import Member from './containers/Member';
 
 if ( module.hot ) module.hot.accept();
 
@@ -71,7 +72,10 @@ render( <Provider store={store}>
       <div>
         <Route path={config.base} component={Landing} />
         <Route path={config.base + '/member'} component={Member} />
-        <Route path={config.base + '/event'} component={Event} />
+        <Route path={config.base + '/event'}>
+          <IndexRoute component={EventNew}/>
+          <Route path={':eventUid'} component={EventEdit} />
+        </Route>
         <Route path={config.base + '/confirmation'} component={Confirmation} />
       </div>
     </Router>

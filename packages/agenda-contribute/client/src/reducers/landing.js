@@ -30,8 +30,20 @@ function evaluate( step ) {
 
     const {
       base,
-      member: memberConfig
+      member: memberConfig,
+      edit
     } = state.config;
+
+    if ( edit && step === 'edit' ) {
+
+      // we are in the right place
+      return;
+
+    } else if ( edit ) {
+
+      return dispatch( push( base + '/event/' + state.event.uid ) );
+
+    }
 
     const authorizedSteps = [ 'member' ];
 

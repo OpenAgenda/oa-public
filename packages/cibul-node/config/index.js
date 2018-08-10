@@ -191,6 +191,10 @@ const config = {
       indexName: prod.elasticsearch.indices.legacyEvents,
       channel: 'main'
     },
+    es53: {
+      host: prod.elasticsearch.v5_3.host,
+      port: prod.elasticsearch.v5_3.port
+    },
     esLocation: {
       log: [ {
         type: 'stdio',
@@ -638,6 +642,10 @@ const config = {
       port: 9200,
       indexName: 'cibuldev',
       channel: 'maindev'
+    },
+    es53: {
+      host: 'http://ns397902.ip-151-80-41.eu',
+      port: 9205
     },
     redis: {
       host: 'localhost',

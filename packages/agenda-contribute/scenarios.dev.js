@@ -88,7 +88,7 @@ module.exports = [ {
     description: 'When mounted, the event app does the necessary checks and re-routes user to member form if required',
     slug: 'bypass-attempt-to-event',
     uid: 891391,
-    id: 6
+    id: 5
   },
   config: {
     lang: 'fr',
@@ -105,7 +105,7 @@ module.exports = [ {
     description: 'This is a shortcut page to a confirmation page with custom message',
     slug: 'confirmation',
     uid: 1234321,
-    id: 5
+    id: 6
   },
   config: {
     lang: 'fr',
@@ -124,7 +124,7 @@ module.exports = [ {
     description: 'This is a shortcut page to a confirmation page with default message',
     slug: 'confirmation-default',
     uid: 1234321,
-    id: 5
+    id: 7
   },
   config: {
     lang: 'fr',
@@ -135,5 +135,34 @@ module.exports = [ {
     confirmation: {
       
     }
+  }
+}, {
+  agenda: {
+    title: 'Editing the event does not require a stepper',
+    description: 'Yes.',
+    slug: 'edit-an-event',
+    uid: 121010301013,
+    id: 8
+  },
+  config: {
+    edit: true,
+    lang: 'fr',
+    base: '/edit-an-event/contribute',
+    member: {
+      dataIsRequired: false
+    }
+  },
+  event: {
+    uid: 123,
+    slug: 'an-existing-event',
+    title: {
+      fr: 'Un événement qui existe pour de vrai',
+      en: 'An existing event for real'
+    },
+    description: {
+      fr: 'Une petite description',
+      en: 'A wee description'
+    },
+    locationUid: 50148047
   }
 } ];
