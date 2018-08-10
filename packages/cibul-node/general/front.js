@@ -5,6 +5,7 @@ const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newslet
 const files = require( '@openagenda/files' );
 const landing = require( '@openagenda/landing' );
 const sessions = require( '@openagenda/sessions' );
+const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
@@ -422,29 +423,22 @@ function unsubscribe( req, res ) {
 
 }
 
-function unsubscribeSubmit( req, res ) {
+async function unsubscribeSubmit( req, res ) {
+  try {
+    await unsubscribedSvc( 0 ).create( {
+      type: 'eventEmail',
+      subject: 'email',
+      identifier: req.body.email ? req.body.email : '',
+    } );
 
-  model.unsubscribed().create( {
-    email: req.body.email
-  }, function ( err, entry ) {
-
-    if ( err ) {
-
-      cmn.render( req, res, 'general/unsubscribe', {
-        email: req.body.email ? req.body.email : '',
-        error: err
-      } );
-
-    } else {
-
-      sessions.setFlash( req, res, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
-
-      res.redirect( 302, '/' );
-
-    }
-
-  } );
-
+    sessions.setFlash( req, res, __( 'unsubscribed', { '%email%': req.body.email }, req.lang ) );
+    res.redirect( 302, '/' );
+  } catch ( err ) {
+    cmn.render( req, res, 'general/unsubscribe', {
+      email: req.body.email ? req.body.email : '',
+      error: err
+    } );
+  }
 }
 
 function serviceConnectCallback( req, res ) {

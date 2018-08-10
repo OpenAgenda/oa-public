@@ -1,0 +1,19 @@
+<%- agendaTitle %>
+
+<%- event.title %>
+<%- event.dateRange %>
+
+<%- link %>
+
+<% if ( event.pricingInfo ) { %><%-
+  event.pricingInfo
+%><% } %>
+<% if ( event.ticketLink ) { %><%-
+  __( 'book' ) %>: <%- event.ticketLink
+%><% } %>
+
+<%- event.description %>
+
+<%- event.freeText %>
+
+<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
