@@ -15,6 +15,11 @@
   border: 1px solid $oa-gray-light;
 }
 
+a.badge:hover {
+  color: $oa-blue;
+  border: 1px solid $oa-blue;
+}
+
 .badge-primary {
   color: $oa-white;
   background-color: $oa-blue;
