@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-contribute",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "server/index",
   "scripts": {
     "start": "nodemon server.dev",
