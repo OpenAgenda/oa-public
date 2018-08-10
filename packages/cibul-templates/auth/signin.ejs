@@ -21,7 +21,7 @@
             <form class="margin-h-sm" method="post">
               <div class="form-group<%= errors.email ? ' has-error' : '' %>">
                 <label for="email" class="control-label"><%= __('email') %></label>
-                <input name="email" class="form-control" type="email"/>
+                <input name="email" class="form-control" type="email" value="<%= email %>"/>
                 <% if ( errors.email ) { %>
                 <span class="text-danger"><%= __( errors.email ) %></span>
                 <% } %>
