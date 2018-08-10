@@ -31,8 +31,10 @@ import suggestionHelpers from './suggestions.helpers.js';
 import validate from '../../lib/validate';
 
 const _ = {
+  keys: require( 'lodash/keys' ),
   extend: require( 'lodash/extend' ),
-  get: require( 'lodash/get' )
+  get: require( 'lodash/get' ),
+  pick: require( 'lodash/pick' )
 }
 
 const alternativeMaxLength = 50;
@@ -249,10 +251,37 @@ module.exports = createReactClass( {
 
   },
 
+  editGeocode( field, value ) {
+
+    this.setState( { geocodeEdit: field, geocodeEditValue: value } );
+
+  },
+
+  setGeocodeFieldValue( field, value ) {
+
+    const updated = {
+      location: {}
+    };
+
+    updated.location[ field ] = { $set: value };
+
+    updated.geocodeEdit = { $set: null };
+
+    this.setState( update( this.state, updated ) );
+
+  },
+
+  cancelEditGeocode() {
+
+    this.setState( { geocodeEdit: false } );
+
+  },
+
   updateLocationReverseGeocode( latitude, longitude ) {
 
     this.setState( {
-      geocodeLoading: true
+      geocodeLoading: true,
+      geocodeEdit: false
     } );
 
     log( 'reverse geocode from latitude %s and longitude %s', latitude, longitude );
@@ -270,7 +299,8 @@ module.exports = createReactClass( {
 
       let updated = {
         geocodeLoading: { $set: false },
-        geocodeError: { $set: false }
+        geocodeError: { $set: false },
+        geocodeEdit: { $set: false }
       };
 
       updated.location = this.decorateLocation( result, true );
@@ -286,7 +316,8 @@ module.exports = createReactClass( {
     if ( setLoading ) {
 
       this.setState( {
-        geocodeLoading: true
+        geocodeLoading: true,
+        geocodeEdit: false
       } );
 
     }
@@ -306,7 +337,8 @@ module.exports = createReactClass( {
 
       let updated = {
         geocodeLoading: { $set: false },
-        geocodeError: { $set: false }
+        geocodeError: { $set: false },
+        geocodeEdit: { $set: false }
       };
 
       if ( err ) {
@@ -1011,6 +1043,63 @@ module.exports = createReactClass( {
 
   },
 
+  renderGeoData() {
+
+    const geo = _.pick( this.state.location, [ 'region', 'department', 'city', 'postalCode' ] );
+
+    if ( this.state.geocodeEdit ) {
+
+      return <div className="form-inline margin-v-xs">
+        <div className="form-group">
+          <input 
+            className="form-control margin-right-xs" 
+            placeholder={this.getLabel(this.state.geocodeEdit)} 
+            type="text" 
+            onChange={e => this.editGeocode( this.state.geocodeEdit, e.target.value) }
+            value={this.state.geocodeEditValue} />
+          <button 
+            className="btn btn-primary margin-right-xs"
+            onClick={() => this.setGeocodeFieldValue( this.state.geocodeEdit, this.state.geocodeEditValue )}
+          >{this.getLabel('geocodeFieldSave')}</button>
+          <button 
+            className="btn btn-default"
+            onClick={() => this.cancelEditGeocode()}
+          >{this.getLabel('geocodeFieldCancel')}</button>
+        </div>
+      </div>      
+
+    }
+
+    return <ul className="list-inline">
+      {_.keys( geo ).map( field => <li key={'geo-' + field}>
+        <a className="badge badge-default margin-bottom-xs" onClick={() => this.editGeocode( field, _.get( this.state, [ 'location', field ] ) )}>
+          <span>{this.getLabel( field )}: {geo[ field ]}&nbsp;</span>
+          <i className="fa fa-pencil"></i>
+        </a>
+      </li> )}
+    </ul>
+
+    /*<ul class="list-inline margin-v-sm padding-bottom-xs">
+        <li> 
+          <a class="badge badge-default">
+            <span>Région: Nouvelle aquitaine&nbsp;</span><i class="fa fa-pencil"></i>
+          </a>
+          <a class="badge badge-default">
+            <span>Ville: Bordeaux&nbsp;</span>
+            <i class="fa fa-pencil"></i>
+          </a>
+        </li>
+      </ul>
+      <div class="form-inline margin-top-xs">
+        <div class="form-group">
+          <input class="form-control" placeholder="Région" type="text"/>
+          <button class="btn btn-primary">Enregistrer</button>
+          <button class="btn btn-default">Annuler</button>
+        </div>
+      </div>*/
+
+  },
+
   render() {
 
     return <div ref={r => this[ 'location-form' ] = r} className="location-form">
@@ -1051,11 +1140,14 @@ module.exports = createReactClass( {
         validator={validate.field( 'address' )}
         lang={this.props.lang}
         getLabel={this.getLabel}
+        groupClassName="margin-bottom-xs"
         className="input-group"
         errors={this.state.geocodeError ? [ { code: 'geocodeError' } ] : false}
         renderButton={this.renderGeocodeButton}
         bottom={this.renderAlternative( 'address', [ 'address', 'countryCode', 'latitude', 'longitude', 'region', 'department', 'city', 'postalCode', 'timezone' ] )}
         autoFocus={!!this.state.location.name} />
+
+      {this.renderGeoData()}
 
       <div className={this.isFieldEnabled( 'latitude' ) ? 'form-group' : 'form-group disabled'}>
         <LocationMap
