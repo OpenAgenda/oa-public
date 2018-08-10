@@ -391,7 +391,7 @@ module.exports = {
       return context;
     }
 
-    if ( !context.error instanceof errors.NotFound ) {
+    if ( !(context.error instanceof errors.NotFound) ) {
       log.error(
         `Error in '${context.path}' service method '${context.method}'\n${context.error.stack}\n`,
         inspect( _.omit( context.error, [ 'hook.app', 'hook.service' ] ), { colors: true } )
