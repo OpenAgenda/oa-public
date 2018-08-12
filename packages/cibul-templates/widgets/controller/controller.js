@@ -1,5 +1,7 @@
 "use strict";
 
+const domain = require( '../../domain' );
+
 const debug = require( 'debug' );
 const qs = require( 'qs' );
 
@@ -17,7 +19,7 @@ const env = window.env ? window.env : 'production';
 
 const defaults = {
   all: {
-    search : '//openagenda.com/widgets/{uid}/search'
+    search : '//' + domain + '/widgets/{uid}/search'
   },
   development: {
     search : '//d.openagenda.com/widgets/{uid}/search'

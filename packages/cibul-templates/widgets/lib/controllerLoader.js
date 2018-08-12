@@ -1,10 +1,14 @@
+"use strict";
+
+var domain = require( '../../domain' );
+
 var loadJs = require( '../../js/lib/loadJs/loadJs.mod.js' ),
 
 cn = require( '../../js/lib/common/common.mod.js' ),
 
 defaults = {
   all : {
-    controllersPath : '//openagenda.com/js/embed/cibulControllers.js'
+    controllersPath : '//' + domain + '/js/embed/cibulControllers.js'
   },
   dev : {
     controllersPath : '//d.openagenda.com/js/embed/cibulControllers.js'

@@ -1,5 +1,7 @@
 "use strict";
 
+var domain = require( '../../domain' );
+
 var UID = 0,
 
 utils = require( '@openagenda/utils' ),
@@ -24,10 +26,10 @@ config = {
   all: {
     heightOffset: 40,
     res: {  
-      agenda: '//openagenda.com/agendas/:uid/embed/events',
-      customAgenda: '//openagenda.com/agendas/:uid/embeds/:embedUid/events',
-      event: '//openagenda.com/agendas/:uid/embed/events/:eventUid',
-      customEvent: '//openagenda.com/agendas/:uid/embeds/:embedUid/events/:eventUid'
+      agenda: '//' + domain + '/agendas/:uid/embed/events',
+      customAgenda: '//' + domain + '/agendas/:uid/embeds/:embedUid/events',
+      event: '//' + domain + '/agendas/:uid/embed/events/:eventUid',
+      customEvent: '//' + domain + '/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
   dev: {

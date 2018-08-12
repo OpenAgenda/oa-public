@@ -1,13 +1,15 @@
 "use strict";
 
+var domain = require( '../../../domain' );
+
 var cn = require( '../common/common.mod.js' ),
 
 remote = require( '../remote/remote.mod.js' ),
 
 res = {
   production: {
-    agenda : '//openagenda.com/agendas/{uid}/controldata',
-    embed : '//openagenda.com/agendas/{uid}/embeds/{embedUid}/controldata'
+    agenda : '//' + domain + '/agendas/{uid}/controldata',
+    embed : '//' + domain + '/agendas/{uid}/embeds/{embedUid}/controldata'
   },
   development: {
     agenda : '//d.openagenda.com/agendas/{uid}/controldata',

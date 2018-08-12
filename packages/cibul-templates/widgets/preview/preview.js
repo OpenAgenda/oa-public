@@ -1,5 +1,7 @@
 "use strict";
 
+var domain = require( '../../domain' );
+
 var parser = require( '@openagenda/tumblr-parser' ),
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -233,7 +235,7 @@ function _init() {
       link: link,
       lang: lang,
       json: json,
-      eventPart: link.indexOf( 'openagenda.com' ) !== -1 ? res.eventPart : res.embedEventPart,
+      eventPart: link.indexOf( domain ) !== -1 ? res.eventPart : res.embedEventPart,
       useStyle: !elem.hasAttribute( config.attributes.noDefaultStyle ),
       count: count
     } );

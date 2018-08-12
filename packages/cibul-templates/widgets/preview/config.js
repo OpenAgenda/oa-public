@@ -1,3 +1,7 @@
+"use strict";
+
+const domain = require( '../../domain' );
+
 module.exports = {
   attributes: {
     lang: 'data-lang',
@@ -13,7 +17,7 @@ module.exports = {
   count: 3,
   res: {
     all: {
-      json: '//openagenda.com/agendas/{uid}/events.json',
+      json: '//' + domain + '/agendas/{uid}/events.json',
       eventPart: '/events/{uid}',
       embedEventPart: '?oaq[uid]={uid}'
     },

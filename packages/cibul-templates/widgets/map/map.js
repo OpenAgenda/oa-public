@@ -1,5 +1,7 @@
 "use strict";
 
+var domain = require( '../../domain' );
+
 exports.setOnReady = setOnReady;
 
 var UID = 0,
@@ -33,7 +35,7 @@ env = window.env ? window.env : 'production',
 
 res = {
   all: {
-    location: '//openagenda.com/locations/{uid}.json'
+    location: '//' + domain + '/locations/{uid}.json'
   },
   dev: {
     location: '//d.openagenda.com/locations/{uid}.json'
