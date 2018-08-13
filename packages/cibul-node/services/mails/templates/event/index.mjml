@@ -86,6 +86,7 @@
       </mj-section>
 
       <!-- Event image -->
+      <% if ( event.credits ) { %>
       <mj-section
         background-color="#ffffff"
         padding="10px 0 0 0"
@@ -94,10 +95,11 @@
           <mj-image src="<%= event.image %>" href="<%= link %>" padding="0" />
 
           <mj-text padding="0 15px" font-style="italic">
-            <%= event.dateRange %>
+            <%= event.credits %>
           </mj-text>
         </mj-column>
       </mj-section>
+      <% } %>
 
       <!-- Long description + princing info + registration -->
       <mj-section
@@ -110,6 +112,12 @@
               <%- event.freeText %>
             </mj-text>
           <% } %>
+
+          <mj-divider border-width="1px" border-style="dashed" border-color="#555555" />
+
+          <mj-text>
+            <%= _.upperFirst( event.dateRange ) %>
+          </mj-text>
 
           <% if ( event.pricingInfo || event.ticketLink ) { %>
             <mj-text>
