@@ -1,5 +1,7 @@
 # OA templates
 
+This repo should be deprecated
+
 ## Layouts
 
 Layouts wrap pages with whatever you put in them. They are specified in your templateName.config.json file. They are built in much of the same way as a regular template. Examples of layouts and templates where they are used:
