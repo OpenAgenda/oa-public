@@ -84,9 +84,9 @@ const config = {
         prefix: 'oa:',
         enable: false
       },
-      token: prod.logentries.main,
+      token: prod.insightOps.main,
       errorsTracking: {
-        logentriesKey: prod.logentries.errors,
+        insightOpsKey: prod.insightOps.clientErrors,
         sentryDsn: prod.sentry.dsn
       }
     },
@@ -805,7 +805,7 @@ currentConfig.getLogConfig = ( prefix, key, keyInPrefix = true ) => ( {
   debug: {
     prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`
   },
-  token: process.env.NODE_ENV !== 'production' ? null : prod.logentries[ key ]
+  token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[ key ]
 } );
 
 if ( process.env.NODE_ENV === 'development' ) {

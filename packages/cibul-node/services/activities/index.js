@@ -134,12 +134,7 @@ module.exports.init = async config => {
 
       }
     } ],
-    logger: {
-      debug: {
-        prefix: 'svc:'
-      },
-      token: process.env.NODE_ENV === 'production' ? '8d66d66a-58ce-42b6-ab21-7805b075ba48' : null
-    }
+    logger: config.getLogConfig( 'oa', 'activities', false )
   } );
 
 }

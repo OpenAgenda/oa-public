@@ -161,7 +161,7 @@ window.hook( () => {
 
   try {
 
-    LE.init( errorsTrackingConfig.logentriesKey );
+    LE.init( errorsTrackingConfig.insightOpsKey );
 
   } catch ( e ) {
   }

@@ -1,8 +1,7 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'uncaught' );
-
 const _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'uncaught' );
 
 process.on( 'uncaughtException', handler.bind( null, 'uncaughtException' ) );
 
@@ -12,9 +11,7 @@ module.exports = handler;
 
 module.exports.init = c => {
 
-  log.setConfig( {
-    token: process.env.NODE_ENV === 'production' ? '98b067ad-0fb6-4047-8e61-be29141004b9' : null
-  } );
+  log.setConfig( c.getLogConfig( 'oa', 'errors', false ) );
 
 }
 
