@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import ReactMarkdown from 'react-markdown';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
