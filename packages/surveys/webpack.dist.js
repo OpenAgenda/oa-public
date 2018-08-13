@@ -4,6 +4,10 @@ const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 
+const serviceName = JSON.parse(
+  require( 'fs' ).readFileSync( __dirname + '/package.json', 'utf-8' )
+).name.split( '/' ).pop();
+
 module.exports = {
   mode: 'production',
   context: __dirname,
@@ -29,7 +33,7 @@ module.exports = {
           Bucket: 'oasvc',
           ContentEncoding: 'gzip'
         },
-        basePathTransform: f => 'surveys/' + f
+        basePathTransform: f => [ serviceName, f ].join( '/' )
       } )
   ] : [] ),
   module: {
