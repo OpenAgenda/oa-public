@@ -188,9 +188,9 @@
     redux "^3.7.2"
     redux-form "^7.1.2"
 
-"@openagenda/cibul-model@^0.1.15":
-  version "0.1.15"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.15.tgz#a861bd11a23068156d249c36dee9c4b5defca512"
+"@openagenda/cibul-model@^0.1.16":
+  version "0.1.16"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.16.tgz#f32163767f559cbd935f101ff78dccba51bcb3dc"
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"

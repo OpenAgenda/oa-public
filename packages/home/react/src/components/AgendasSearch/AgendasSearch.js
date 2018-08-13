@@ -87,19 +87,20 @@ export default class AgendasSearch extends Component {
     const {
       Header, getTitleLink,
       res, handleSubmit, agendas, listLoading, nextLoading, createButtonIfEmpty,
-      search, perPageLimit, total, fieldIsVisible, AgendaActionsComponent
+      search, perPageLimit, total, fieldIsVisible, AgendaActionsComponent, clearfixAfterButton
     } = this.props;
     const { getLabel } = this.context;
 
     return (
       <div>
         <div className="header hidden-xs">
-          <div className="text-right margin-bottom-md">
+          <div className="pull-right margin-bottom-md">
             <a href={res.agendas.create} className="btn btn-primary create-agenda">
               {getLabel( 'createAgenda' )}
             </a>
           </div>
         </div>
+        {clearfixAfterButton && <div className="clearfix"></div>}
         <form onSubmit={handleSubmit( this.search )}>
           <Field
             component={SearchInput}
