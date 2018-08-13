@@ -186,7 +186,7 @@ export default class ConversationForm extends Component {
             }
           }}
           placeholder={
-            _.matches( initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' } )
+            _.isMatch( initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' } )
               ? getLabel( 'supportPlaceholder' )
               : getLabel( 'yourMessage' )
           }
