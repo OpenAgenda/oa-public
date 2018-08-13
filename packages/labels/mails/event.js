@@ -16,5 +16,9 @@ module.exports = {
   unsubscribe: {
     fr: 'Ne plus recevoir les événements par email',
     en: 'Stop receiving events by email'
+  },
+  book: {
+    fr: 'réserver',
+    en: 'book'
   }
 };

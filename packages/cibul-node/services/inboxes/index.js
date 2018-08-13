@@ -15,12 +15,7 @@ const mailer = require( '../mailer' );
 const config = require( '../../config' );
 
 
-const loggerConfig = {
-  debug: {
-    prefix: 'oa:'
-  },
-  token: process.env.NODE_ENV === 'production' ? 'dff93527-2446-4669-9309-f8fd1c8f32f0' : null
-};
+const loggerConfig = config.getLogConfig( 'oa', 'inboxes', false );
 
 log.setConfig( loggerConfig );
 
