@@ -267,25 +267,6 @@ function checkContributor( req, res, next ) {
 
 function loadMemberRole( agendaNamespace, req, res, next ) {
 
-  function _resolve( isAdmin ) {
-
-    if ( isAdmin ) return next();
-
-    if ( params.redirect ) {
-
-      sessions.setFlash( req, res, params.message );
-
-      return res.redirect( params.redirect );
-
-    }
-
-    next( {
-      message: params.message,
-      code: 403
-    } );
-
-  }
-
   req.role = null;
 
   _prepareSession( req, res, err => {
@@ -295,7 +276,10 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
     agendaStakeholders( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
       if ( !stakeholder ) {
-        return _resolve( false );
+        return next( {
+          message: 'Not authorized',
+          code: 403
+        } );
       }
 
       req.role = agendaStakeholders.types.codes.get( stakeholder.credential );
