@@ -7,10 +7,10 @@ const { Inbox, InboxUsers } = require( '@openagenda/inboxes' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const mails = require( '@openagenda/mails' );
 const mailer = require( '@openagenda/mailer' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
 const makeLabelGetter = require( '@openagenda/labels' );
-const getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) );
 const getInboxLabel = makeLabelGetter( require( '@openagenda/labels/inboxes/mail' ) );
 const log = require( '@openagenda/logs' )( 'mailer/task/inboxMessage' );
 const genUrl = require( '../../genUrl' );
@@ -111,7 +111,6 @@ function getSubjectLabel( { conversation, agenda, lang } ) {
 }
 
 async function sendMail( { inboxUser, conversation, message } ) {
-  const mailerAsync = promisify( mailer );
   const getAgenda = promisify( agendasSvc.get );
 
   const { user } = inboxUser;
@@ -143,8 +142,8 @@ async function sendMail( { inboxUser, conversation, message } ) {
   const subject = getSubjectLabel( { conversation, agenda, lang } );
 
   const logo = agenda && agenda.image
-    ? agenda.image.replace( '.com/', '.com/rwtb' )
-    : 'https://openagenda.com/images/openagenda.png';
+    ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
+    : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
   const stakeholder = agenda
     ? await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } )
@@ -152,42 +151,27 @@ async function sendMail( { inboxUser, conversation, message } ) {
 
   const isAdminmod = agenda && stakeholder && [ 2, 3 ].includes( stakeholder.credential );
 
-  const url = isAdminmod
+  const link = isAdminmod
     ? genUrl.abs( 'agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id } )
     : genUrl.abs( 'homeInboxConversation', { conversationId: conversation.id } );
 
-  const title = agenda
-    ? getInboxLabel( 'newMessageBodyOnAgenda', {
-      agenda: agenda.title
-    }, lang )
-    : getInboxLabel( 'newMessageBody', lang );
-
   const senderName = await getSenderName( { inboxUser, conversation, message } );
-
-  const description = senderName
-    ? _.escape( message.body ) + `\n\n*${getInboxLabel( 'sentBy', lang )} **${senderName}***`
-    : _.escape( message.body );
 
   const footerActions = getFooterActions( { agenda, stakeholder, user, lang } );
 
-  return mailerAsync( {
-    recipient: user.email,
-    source: getMailerLabel( 'noReply', lang ),
-    replyTo: getMailerLabel( 'noReply', lang ),
-    subject,
+  return mails( {
+    template: 'inboxMessage',
+    to: user.email,
     data: {
+      subject,
       logo,
-      title: {
-        text: title,
-        link: url
-      },
-      action: {
-        label: getInboxLabel( 'newMessageAction', lang ),
-        link: url
-      },
-      description,
-      footerActions
-    }
+      agenda,
+      link,
+      senderName,
+      footerActions,
+      message: message.body
+    },
+    lang
   } );
 }
 
