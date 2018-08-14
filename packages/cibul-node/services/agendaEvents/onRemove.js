@@ -28,6 +28,14 @@ module.exports = async ( ae, context ) => {
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
+
+  if ( !event ) {
+
+    log( 'error', 'could not retrieve event for removal of %j', ae );
+
+    return;
+
+  }
   
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.remove',
