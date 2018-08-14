@@ -22,7 +22,7 @@ module.exports = () => {
         ..._.pickBy( _.pick( optionals || {}, 'iToken', 'invitation', 'redirect' ) ),
       };
 
-      if ( optionals && optionals.agenda ) linkParams.slug = values.agenda.slug;
+      if ( optionals && optionals.agenda ) linkParams.slug = optionals.agenda.slug;
 
       const link = genUrl.abs( optionals && optionals.agenda ? 'agendaActivate' : 'activate', linkParams );
 
