@@ -186,7 +186,7 @@ const config = {
       }
     },
     es: {
-      host: prod.elasticsearch.v1_3.host,
+      host: process.env.LEGACY_ES_HOST || prod.elasticsearch.v1_3.host,
       port: prod.elasticsearch.v1_3.port,
       indexName: prod.elasticsearch.indices.legacyEvents,
       channel: 'main'
@@ -638,7 +638,7 @@ const config = {
       }
     },
     es: {
-      host: 'localhost',
+      host: process.env.LEGACY_ES_HOST || 'localhost',
       port: 9200,
       indexName: 'cibuldev',
       channel: 'maindev'

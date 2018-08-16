@@ -8,3 +8,4 @@ coverage/
 .cache/
 .eslintrc
 config/prod.js
+dev.sh
