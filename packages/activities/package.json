@@ -20,7 +20,6 @@
     "@openagenda/agenda-stakeholders": "^2.0.6",
     "@openagenda/labels": "^2.0.79",
     "@openagenda/logs": "^1.0.14",
-    "@openagenda/mailer": "^1.0.2",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/unsubscribed": "^2.0.4",

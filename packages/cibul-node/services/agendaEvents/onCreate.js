@@ -15,7 +15,7 @@ const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 const mailContributor = require( '../event/instance/mailContributor' );
-const mailer = require( '../mailer' );
+const eventAggregation = require( './eventAggregation' );
 const oldEventSvc = require( '../event' );
 
 module.exports = async ( ae, context ) => {
@@ -39,12 +39,12 @@ module.exports = async ( ae, context ) => {
 
     log( 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
 
-    mailer.queue.eventAggregation( {
+    eventAggregation( {
       eventUid: event.uid,
       aggregatorAgendaUid: agenda.uid,
       sourceAgendaUid: context.agendaUid,
       state: ae.state
-    } );
+    } ).catch( error => log.error( 'Error on sending \'eventAggregation\' email', error ) );
 
   }
 

@@ -11,7 +11,7 @@ const agendaEventsSvc = require( '@openagenda/agenda-events' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/inboxes' );
 const inboxesLabels = require( '@openagenda/labels/inboxes' );
-const mailer = require( '../mailer' );
+const onMessageCreate = require( './onMessageCreate' );
 const config = require( '../../config' );
 
 
@@ -144,13 +144,6 @@ async function onInboxCreate( Inbox ) {
       break;
     }
   }
-}
-
-async function onMessageCreate( conversation, message ) {
-  mailer.queue.inboxMessage( {
-    conversation,
-    message
-  } );
 }
 
 async function filterAction( inbox, conversation, action ) {

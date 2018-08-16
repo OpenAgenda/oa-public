@@ -28,6 +28,9 @@ module.exports = {
     rebuild_user: 'rebuild_user',
     rebuild_aggregator: 'rebuild_aggregator',
   },
+  interfaces: {
+    sendSummary: ({ user, notifications }) => {}
+  },
   filterFollows: [ {
     verb: 'event.publish',
     getFeeds: true,

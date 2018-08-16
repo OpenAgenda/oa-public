@@ -1,8 +1,6 @@
 "use strict";
 
 const { callbackify, promisify } = require( 'util' );
-const makeLabelGetter = require( '@openagenda/labels' );
-const getMailerLabel = makeLabelGetter( require( '@openagenda/labels/components/mailer' ) );
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const mails = require( '@openagenda/mails' );
@@ -195,8 +193,6 @@ function _sendMessageEmail( { agenda, url, unsubscribeLink, message, recipient, 
   callbackify( mails ).call( mails, {
     template: 'stakeholderMessage',
     to: recipient,
-    from: replyTo || getMailerLabel( 'noReply', lang ),
-    replyTo: replyTo || getMailerLabel( 'noReply', lang ),
     data: {
       logo,
       agenda: agenda.title,

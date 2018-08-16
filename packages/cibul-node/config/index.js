@@ -92,7 +92,6 @@ const config = {
     },
     name: 'cibul-node',
     domain: prod.domains.main,
-    mailerDomain: prod.domains.mailer,
     root: prod.root,
     logo: prod.logo,
     googleAnalyticsId: prod.googleAnalytics.id,
@@ -233,39 +232,6 @@ const config = {
       defaults: {
         from: 'no-reply@openagenda.com',
         replyTo: 'admin@openagenda.com'
-      }
-    },
-    mailer: {
-      service: 'mailgun',
-      simulated: false, // legacy ./mailer
-      mailDefault: {
-        source: 'no-reply@openagenda.com',
-        replyTo: 'admin@openagenda.com'
-      },
-      noReply: {
-        fr: 'ne-pas-repondre@openagenda.com',
-        en: 'no-reply@openagenda.com'
-      }
-    },
-    mailerServices: {
-      dud: {},
-      mailgun: {
-        transport: {
-          auth: {
-            api_key: prod.mailgun.key,
-            domain: prod.domains.mailer
-          }
-        },
-        delay: 100
-      },
-      ses: {
-        accessKeyId: 'xxx',
-        secretAccessKey: 'xxx',
-        region: 'eu-west-1',
-      },
-      nodemailer: {
-        host: '127.0.0.1',
-        port: '1025'
       }
     },
     api: {
@@ -658,14 +624,6 @@ const config = {
       },
       disableVerify: true
     },
-    mailer: {
-      service: 'nodemailer',
-      simulated: true, // legacy ./mailer
-      mailDefault: {
-        from: 'no-reply@openagenda.com',
-        replyTo: 'admin@openagenda.com'
-      }
-    },
     routes: {
       defaultGlobalsPrefix: '/frontend_dev.php'
     },
@@ -757,10 +715,6 @@ const config = {
     redis: {
       host: 'localhost',
       port: 6379
-    },
-    mailer: {
-      service: 'dud',
-      simulated: true // legacy ./mailer
     },
     aws: {
       accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',

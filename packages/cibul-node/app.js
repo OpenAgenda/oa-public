@@ -63,8 +63,6 @@ module.exports = function ( enabledTypes, options, cb ) {
         web: [ // open to the public
           require( './home/back' )( '/home' ),
           require( './user/settings.front' )( '/settings' ),
-          require( './newsletter/back' )( '/:slug/admin/newsletters' ),
-          require( './newsletter/front' )( '/:slug/newsletters' ),
           require( './general/front' )( '' ),
           require( './general/session.back' )( '/session' ),
           require( './general/back' )( '' ),
@@ -163,7 +161,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
         require( './services/surveys' )( app, '' );
-        require( './services/agendaContribute' )( app, '' );
+        // require( './services/agendaContribute' )( app, '' );
         require( './services/users' )( app, '/users' );
 
         require( './event/files' )( app, '/' );
@@ -260,8 +258,6 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './services/aggregator' ).task();
 
         require( '@openagenda/email-strategie' ).task();
-
-        require( './services/mailer' ).task();
 
         require( './services/agenda/controlData' ).task();
 

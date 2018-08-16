@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const activities = require( '@openagenda/activities' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const sendSummary = require( './sendSummary' );
 
 module.exports.init = async config => {
 
@@ -21,7 +22,9 @@ module.exports.init = async config => {
       },
       redis: config.redis
     },
-    root: config.root,
+    interfaces: {
+      sendSummary
+    },
     filterFollows: [ {
       verb: [
         'event.create',

@@ -55,7 +55,6 @@
     "@openagenda/landing": "^1.2.9",
     "@openagenda/logger": "^0.0.2",
     "@openagenda/logs": "^1.0.14",
-    "@openagenda/mailer": "^1.0.4",
     "@openagenda/mails": "^1.3.2",
     "@openagenda/member-apps": "^1.0.39",
     "@openagenda/newsletter": "^2.0.1",

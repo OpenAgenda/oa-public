@@ -11,11 +11,11 @@ const mails = require( '@openagenda/mails' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const getInboxLabel = makeLabelGetter( require( '@openagenda/labels/inboxes/mail' ) );
-const log = require( '@openagenda/logs' )( 'mailer/task/inboxMessage' );
-const genUrl = require( '../../genUrl' );
-const config = require( '../../../config' );
+const log = require( '@openagenda/logs' )( 'services/inboxes/onMessageCreate' );
+const genUrl = require( '../genUrl' );
+const config = require( '../../config' );
 
-module.exports = async ( { conversation, message }, cb ) => {
+module.exports = async ( conversation, message ) => {
 
   try {
 
@@ -63,8 +63,6 @@ module.exports = async ( { conversation, message }, cb ) => {
     log( 'error', e );
 
   }
-
-  cb();
 
 };
 

@@ -8,11 +8,11 @@ const eventSvc = require( '@openagenda/events' );
 const usersSvc = require( '@openagenda/users' );
 const mails = require( '@openagenda/mails' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const log = require( '@openagenda/logs' )( 'mailer/task/eventAggregation' );
-const genUrl = require( '../../genUrl' );
+const log = require( '@openagenda/logs' )( 'services/agendaEvents/eventAggregation' );
+const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state }, cb ) => {
+module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state } ) => {
 
   try {
 
@@ -63,8 +63,6 @@ module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state
 
   }
 
-  cb();
-
 }
 
 
@@ -72,7 +70,7 @@ function _sendEmail( user, agenda, sourceAgenda, event, state ) {
 
   let stateLabel;
 
-  const lang = user.culture;
+  const lang = user.culture || 'fr';
 
   const eventTitle = _.find( event.title );
 
