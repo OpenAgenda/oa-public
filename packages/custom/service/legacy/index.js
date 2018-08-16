@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'legacy' );
+
 //const serviceSet = require( '../set' );
 const serviceRemove = require( '../remove' );
 
@@ -24,12 +26,36 @@ async function set( formSchemaId, identifier, data ) {
     agendaEventId
   } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
 
-  await custom( eventId,
-    fields.filter( f => f.origin === 'custom' ), data );
+  try {
 
-  await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
+    await custom( eventId,
+      fields.filter( f => f.origin === 'custom' ), data );
 
-  await categories( agendaEventId, fields.filter( f => f.origin === 'categories' ), data );
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy custom data', e );
+
+  }
+
+  try {
+
+    await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy tags', e );
+
+  }
+
+  try {
+
+    await categories( agendaEventId, fields.filter( f => f.origin === 'categories' ), data );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy custom categories', e );
+
+  }
 
 }
 
