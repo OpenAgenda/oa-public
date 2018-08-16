@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activities",
-  "version": "2.0.30",
+  "version": "2.0.31",
   "description": "",
   "keywords": [],
   "author": "",
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@openagenda/agenda-stakeholders": "^2.0.6",
-    "@openagenda/labels": "^2.0.79",
+    "@openagenda/labels": "^2.0.89",
     "@openagenda/logs": "^1.0.14",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",

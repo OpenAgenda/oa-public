@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.106",
+  "version": "0.0.107",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@feathersjs/errors": "^3.3.0",
-    "@openagenda/activities": "^2.0.30",
+    "@openagenda/activities": "^2.0.31",
     "@openagenda/activity-apps": "^1.0.44",
     "@openagenda/admin-agendas": "^1.0.8",
     "@openagenda/agenda-calendar-apps": "^1.1.5",
@@ -51,7 +51,7 @@
     "@openagenda/inboxes": "^1.0.51",
     "@openagenda/invitations": "^1.0.1",
     "@openagenda/keys": "^2.0.0",
-    "@openagenda/labels": "^2.0.88",
+    "@openagenda/labels": "^2.0.89",
     "@openagenda/landing": "^1.2.9",
     "@openagenda/logger": "^0.0.2",
     "@openagenda/logs": "^1.0.14",
