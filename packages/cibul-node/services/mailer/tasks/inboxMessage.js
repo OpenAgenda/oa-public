@@ -8,7 +8,6 @@ const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const mails = require( '@openagenda/mails' );
-const mailer = require( '@openagenda/mailer' );
 const unsubscribed = require( '@openagenda/unsubscribed' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const getInboxLabel = makeLabelGetter( require( '@openagenda/labels/inboxes/mail' ) );
