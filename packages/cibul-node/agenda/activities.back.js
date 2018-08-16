@@ -18,7 +18,7 @@ const appMw = [
   agendaSvc.mw.loadAdminLayout,
   agendas.middleware.load( {
     namespaces: {
-      identifiers: { slug: 'params.slug' },
+      identifiers: { slug: 'params.slug' },
       result: 'agendaFromService'
     },
     private: null
