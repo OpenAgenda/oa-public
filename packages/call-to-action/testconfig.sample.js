@@ -45,20 +45,6 @@ module.exports = {
 
         }
       }
-    },
-
-    mailer: {
-      queueName: 'mailer',
-      simulated: true,
-      mailService: 'nodemailer',
-      mailServiceConf: {
-        host: '127.0.0.1',
-        port: '1025',
-        mailDefault: {
-          from: 'no-reply@openagenda.com',
-          replyTo: 'admin@openagenda.com'
-        }
-      }
     }
   }
 };

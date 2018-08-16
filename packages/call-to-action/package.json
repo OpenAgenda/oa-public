@@ -3,28 +3,22 @@
   "version": "2.0.3",
   "main": "index.js",
   "scripts": {
+    "clean": "rimraf react/dist",
+    "build": "babel react/src -d react/dist -s",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf react/dist && babel react/src -d react/dist -s",
-    "preserve": "npm run build",
+    "preserve": "yarn build",
     "serve": "node test/app",
     "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
-    "precommit": "npm run build && git add -A",
-    "postmerge": "npm run build && git add -A",
-    "version": "npm run build && git add -A react/dist",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "prepublish": "yarn clean && yarn build"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/call-to-action.git"
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/openagenda/call-to-action#readme",
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/call-to-action",
   "directories": {
     "test": "test"
   },
@@ -34,10 +28,9 @@
     "react-dom": "16 || 15"
   },
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.0.4",
     "@openagenda/labels": "^2.0.2",
-    "@openagenda/mailer": "^1.0.2",
+    "@openagenda/logs": "^1.0.15",
     "@openagenda/react-components": "^2.0.2",
     "@openagenda/react-form-components": "^2.0.1",
     "@openagenda/react-utils": "^2.0.1",
@@ -65,11 +58,11 @@
     "babel-plugin-transform-react-display-name": "^6.8.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
-    "husky": "^0.14.2",
     "morgan": "^1.8.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "react-transform-catch-errors": "^1.0.2",
-    "redbox-react": "^1.5.0"
+    "redbox-react": "^1.5.0",
+    "rimraf": "^2.6.2"
   }
 }

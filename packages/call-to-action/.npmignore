@@ -1,12 +1,8 @@
 .idea/
-
 .npmignore
-
 node_modules/
-
 package-lock.json
 yarn.lock
-
 npm-debug.log
 yarn-error.log
 
@@ -14,3 +10,4 @@ yarn-error.log
 react/src/
 .babelrc
 test/
+testconfig.js

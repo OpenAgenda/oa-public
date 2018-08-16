@@ -1,18 +1,26 @@
 "use strict";
 
 const callToActionMw = require( '@openagenda/call-to-action/middleware' );
-const mailer = require( '@openagenda/mailer' );
-const logger = require( '@openagenda/logger' );
+const mails = require( '@openagenda/mails' );
 
 module.exports.init = config => {
 
   callToActionMw.init( {
-    emailDestinations: config.callToActionEmails, //Math.floor( Math.random()*3 )
+    emailDestinations: config.callToActionEmails,
     copyEmail: 'commercial@openagenda.com',
     interfaces: {
-      sendMail: mailer
-    },
-    logger
+      sendRequestEmail: ({ data: { subject, url, agenda, message }, user, to }) => mails({
+        template: 'callToAction',
+        to,
+        data: {
+          user,
+          subject,
+          url,
+          agenda,
+          message
+        }
+      })
+    }
   } );
 
 }

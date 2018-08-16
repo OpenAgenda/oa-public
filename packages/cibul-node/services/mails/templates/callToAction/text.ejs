@@ -1,0 +1,9 @@
+Demande d'activation: <%- subject %>
+
+User: <%- user.email %><%- user.uid ? ` (${user.uid})` : '' %>
+Url: <%- url %>
+Agenda: <%- agenda %><% if ( message ) { %>
+Message de l'utilisateur:
+
+<%- message %>
+<% } %>

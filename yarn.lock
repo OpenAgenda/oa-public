@@ -168,26 +168,6 @@
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
-"@openagenda/call-to-action@^2.0.2", "@openagenda/call-to-action@^2.0.3":
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/call-to-action/-/call-to-action-2.0.3.tgz#50bd7a3a1257721f54b440b0c68b94a0c321fd63"
-  dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/dom-utils" "^2.0.4"
-    "@openagenda/labels" "^2.0.2"
-    "@openagenda/mailer" "^1.0.2"
-    "@openagenda/react-components" "^2.0.2"
-    "@openagenda/react-form-components" "^2.0.1"
-    "@openagenda/react-utils" "^2.0.1"
-    "@openagenda/sessions" "^3.0.2"
-    body-parser "^1.16.0"
-    history "^3.3.0"
-    lodash "^4.17.4"
-    prop-types "^15.6.0"
-    react-redux "^5.0.6"
-    redux "^3.7.2"
-    redux-form "^7.1.2"
-
 "@openagenda/cibul-model@^0.1.16":
   version "0.1.16"
   resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.16.tgz#f32163767f559cbd935f101ff78dccba51bcb3dc"
@@ -11697,7 +11677,7 @@ moo@^0.4.3:
   version "0.4.3"
   resolved "https://registry.npmjs.org/moo/-/moo-0.4.3.tgz#3f847a26f31cf625a956a87f2b10fbc013bfd10e"
 
-morgan@1.9.0, morgan@^1.7.0, morgan@^1.9.0:
+morgan@1.9.0, morgan@^1.7.0, morgan@^1.8.2, morgan@^1.9.0:
   version "1.9.0"
   resolved "https://registry.npmjs.org/morgan/-/morgan-1.9.0.tgz#d01fa6c65859b76fcf31b3cb53a3821a311d8051"
   dependencies:
@@ -14143,7 +14123,7 @@ react-dock@^0.2.4:
     lodash.debounce "^3.1.1"
     prop-types "^15.5.8"
 
-react-dom@^16.0.0, react-dom@^16.2.0, react-dom@^16.3.2, react-dom@^16.4.0:
+react-dom@^16.0.0, react-dom@^16.2.0, react-dom@^16.3.2, react-dom@^16.4.0, react-dom@^16.4.2:
   version "16.4.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.4.2.tgz#4afed569689f2c561d2b8da0b819669c38a0bda4"
   dependencies:
@@ -14379,7 +14359,7 @@ react-waypoint@^7.1.0, react-waypoint@^7.3.1:
     consolidated-events "^1.1.0"
     prop-types "^15.0.0"
 
-react@^16.0.0, react@^16.2.0, react@^16.3.1, react@^16.3.2:
+react@^16.0.0, react@^16.2.0, react@^16.3.1, react@^16.3.2, react@^16.4.2:
   version "16.4.2"
   resolved "https://registry.npmjs.org/react/-/react-16.4.2.tgz#2cd90154e3a9d9dd8da2991149fdca3c260e129f"
   dependencies:

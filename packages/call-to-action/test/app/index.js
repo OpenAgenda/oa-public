@@ -4,10 +4,8 @@ const path = require( 'path' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const bodyParser = require( 'body-parser' );
-const logger = require( '@openagenda/basic-logger' );
 const sessions = require( '@openagenda/sessions' );
 const sessionsMw = require( '@openagenda/sessions/middleware' );
-const mailer = require( '@openagenda/mailer' );
 const config = require( '../../testconfig.js' );
 const mw = require( '../../middleware' )
 
@@ -25,15 +23,8 @@ const app = require( '@openagenda/test-app' )( {
 const port = process.env.PORT || 3000;
 
 sessions.init( config.services.sessions );
-mailer.init( Object.assign( {
-  host: config.redis.host,
-  port: config.redis.port,
-  log: logger( 'mailer' )
-}, config.services.mailer ) );
 
 mw.init( { emailDestination: config.emailDestination } );
-
-mailer.task();
 
 app.use( sessionsMw );
 

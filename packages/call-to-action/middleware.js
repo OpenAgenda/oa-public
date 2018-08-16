@@ -1,10 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const logger = require( '@openagenda/basic-logger' );
+const log = require( '@openagenda/logs' )( 'call-to-action/middleware' );
 
 let config;
-let log;
 
 module.exports = {
   init,
@@ -14,14 +13,6 @@ module.exports = {
 function init( c, cb ) {
 
   config = c;
-
-  if ( c.logger ) {
-
-    logger.setLogger( c.logger );
-
-  }
-
-  log = logger( 'call-to-action/middleware' );
 
   if ( cb ) cb();
 
@@ -37,36 +28,25 @@ function request( options ) {
 
   return ( req, res, next ) => {
 
-    const data = _.get( req, namespaces.data );
+    const data = _.pick( _.get( req, namespaces.data ), 'subject', 'url', 'agenda', 'message' );
 
-    _sendEmail( req, data, config.emailDestinations[ Math.floor( Math.random() * config.emailDestinations.length ) ] );
-    _sendEmail( req, data, config.copyEmail );
+    config.interfaces.sendRequestEmail({
+      data,
+      user: req.user,
+      to: [
+        ...(Array.isArray( config.emailDestinations ) ? config.emailDestinations : [ config.emailDestinations ]),
+        ...(Array.isArray( config.copyEmail ) ? config.copyEmail : [ config.copyEmail ])
+      ]
+    })
+      .then( () => {
+        res.json( { queued: true } );
+      } )
+      .catch( error => {
+        log( 'error', 'Error on sending call-to-action:', error );
+        res.json( { queued: false } );
+      } );
 
-    res.json( { queued: true } );
 
   };
-
-}
-
-function _sendEmail( req, data, recipient ) {
-
-  config.interfaces.sendMail( {
-    source: req.user.email,
-    replyTo: req.user.email,
-    recipient,
-    subject: 'Demande d\'activation: ' + data.subject,
-    data: {
-      logo: 'https://openagenda.com/images/openagenda.png',
-      title: {
-        text: `Demande d'activation: ${data.subject}`
-      },
-      description: `User: ${req.user && req.user.email} ${req.user && `(${req.user.uid})`}  
-Url: ${data.url}    
-Agenda: ${data.agenda}  
-Message de l'utilisateur:
-
-${data.message}`,
-    }
-  } );
 
 }
