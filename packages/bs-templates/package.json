@@ -25,7 +25,6 @@
     "colors": "^1.1.2",
     "ejs": "^2.4.1",
     "express": "^4.13.3",
-    "husky": "^0.13.4",
     "node-sass": "^4.5.2",
     "node-sass-import-once": "^1.2.0",
     "node-watch": "^0.3.5",
