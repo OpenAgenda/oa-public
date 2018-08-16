@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.103",
+  "version": "0.0.104",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -51,7 +51,7 @@
     "@openagenda/inboxes": "^1.0.51",
     "@openagenda/invitations": "^1.0.1",
     "@openagenda/keys": "^2.0.0",
-    "@openagenda/labels": "^2.0.85",
+    "@openagenda/labels": "^2.0.87",
     "@openagenda/landing": "^1.2.9",
     "@openagenda/logger": "^0.0.2",
     "@openagenda/logs": "^1.0.14",
@@ -70,7 +70,7 @@
     "@openagenda/surveys": "^1.1.40",
     "@openagenda/tumblr-parser": "^0.1.0",
     "@openagenda/unsubscribed": "^2.0.5",
-    "@openagenda/users": "^2.1.1",
+    "@openagenda/users": "^2.1.2",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^1.2.14",
     "agenda-docx": "git+https://github.com/OAgenda/agenda-docx.git",

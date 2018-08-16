@@ -12,7 +12,7 @@ const VError = require( 'verror' );
 const activitiesSvc = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
-const mailer = require( '@openagenda/mailer' );
+// const mailer = require( '@openagenda/mailer' );
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
 const sCache = require( '@openagenda/simple-cache' );
@@ -130,7 +130,7 @@ const routes = {
 
           if ( err ) return next( err );
 
-          mails.forEach( mailer );
+          // mails.forEach( mailer );
 
         } );
 
@@ -618,11 +618,11 @@ function mail( req, res, next ) {
 
   }
 
-  mailer( mail, err => {
+  // mailer( mail, err => {
 
-    _done( req, res );
+  _done( req, res );
 
-  } );
+  // } );
 
 }
 

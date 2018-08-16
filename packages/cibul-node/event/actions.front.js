@@ -9,7 +9,6 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
 const _ = require( 'lodash' );
 const isEmail = require( 'isemail' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
-const mailer = require( '@openagenda/mailer' );
 const mails = require( '@openagenda/mails' );
 const sessions = require( '@openagenda/sessions' );
 const formSchemasSvc = require( '@openagenda/form-schemas' );

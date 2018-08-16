@@ -279,7 +279,7 @@ async function activateResend( req, res ) {
       } );
 
       if ( token ) {
-        await usersSvc.config.interfaces.sendToken( { result: token, params: { user, optionals } } );
+        await usersSvc.config.interfaces.sendToken()( { result: token, params: { user, optionals } } );
       } else {
         token = await await usersSvc.tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
