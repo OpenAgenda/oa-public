@@ -32,8 +32,11 @@ async function set( formSchemaId, identifier, data, options = {} ) {
 
   try {
 
-    await custom( eventId,
-      fields.filter( f => f.origin === 'custom' ), data );
+    await custom( 
+      eventId,
+      fields.filter( f => f.origin === 'custom' ), 
+      data
+    );
 
   } catch ( e ) {
 

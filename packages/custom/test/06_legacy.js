@@ -56,14 +56,12 @@ describe( 'custom - functional (server): legacy', function() {
 
     const config = svc.getConfig();
 
-    const { store } = await config.knex( config.legacy.schemas.event ).first( 'store' ).where( { uid: 27434489 } );
+    const { custom_fields } = await config.knex( config.legacy.schemas.event ).first( 'custom_fields' ).where( { uid: 27434489 } );
 
-    JSON.parse( store ).should.eql( { 
-      customFields: {
-        custom_description: 'Une description personnalisée',
-        intermunicipal_interest: true,
-        recurring: true 
-      } 
+    JSON.parse( custom_fields ).should.eql( {
+      custom_description: 'Une description personnalisée',
+      intermunicipal_interest: true,
+      recurring: true 
     } );
 
   } );
@@ -119,7 +117,7 @@ describe( 'custom - functional (server): legacy', function() {
   } );
 
 
-  it( 'if transferToLegacy option is set, create triggers legacy set', async () => {
+  it.only( 'if transferToLegacy option is set, create triggers legacy set', async () => {
 
     const config = svc.getConfig();
 
@@ -127,9 +125,9 @@ describe( 'custom - functional (server): legacy', function() {
       'custom_description': 'Witness me!'
     }, { transferToLegacy: true } );
 
-    const { store } = await config.knex( config.legacy.schemas.event ).first( 'store' ).where( { uid: 31259734 } );
+    const { custom_fields } = await config.knex( config.legacy.schemas.event ).first( 'custom_fields' ).where( { uid: 31259734 } );
 
-    store.should.equal( '{"customFields":{"custom_description":"Witness me!"}}' );
+    custom_fields.should.equal( '{"custom_description":"Witness me!"}' );
 
   } );
 
