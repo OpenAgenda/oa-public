@@ -56,7 +56,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   
   try {
 
-    log( 'info', 'creating custom entry with %j', clean );
+    log( 'info', 'creating custom entry with %j', clean, { formSchemaId, identifier } );
 
     let insertId = await knex( schemas.custom ).insert( {
       form_schema_id: formSchemaId,

@@ -19,12 +19,16 @@ module.exports = _.extend( set, {
 
 async function set( formSchemaId, identifier, data ) {
 
+  log( 'info', 'fetching required data for legacy transfer', { formSchemaId, identifier } );
+
   const {
     fields,
     agendaId,
     eventId,
     agendaEventId
   } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
+
+  log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
 
   try {
 
@@ -37,6 +41,8 @@ async function set( formSchemaId, identifier, data ) {
 
   }
 
+  log( 'info', 'transfering legacy tag data', { formSchemaId, identifier } );
+
   try {
 
     await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
@@ -47,13 +53,15 @@ async function set( formSchemaId, identifier, data ) {
 
   }
 
+  log( 'info', 'transfering legacy category data', { formSchemaId, identifier } );
+
   try {
 
     await categories( agendaEventId, fields.filter( f => f.origin === 'categories' ), data );
 
   } catch ( e ) {
 
-    log( 'error', 'could not set legacy custom categories', e );
+    log( 'error', 'could not set legacy category categories', e );
 
   }
 
