@@ -40,7 +40,8 @@ module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
     try {
 
       const result = await custom( formSchemaId ).create( eventUid, clean.custom, {
-        transferToLegacy: true
+        transferToLegacy: true,
+        agendaId: clean.agendaId
       } );
 
       if ( result.success ) {

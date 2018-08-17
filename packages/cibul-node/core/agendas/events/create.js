@@ -17,7 +17,8 @@ module.exports = async ( agendaUid, data ) => {
   log( 'processing data', { agendaUid } );
 
   const {
-    formSchemaId
+    formSchemaId,
+    id: agendaId
   } = await getAgenda( agendaUid );
 
   const created = {};
@@ -48,7 +49,9 @@ module.exports = async ( agendaUid, data ) => {
   const addResult = await doAdd( agendaUid, created.event.uid, formSchemaId, ih( clean, {
     agendaEvent: {
       canEdit: { $set: true }
-    } 
+    },
+    // required for custom legacy sync only.
+    agendaId: { $set: agendaId }
   } ) );
 
   return {
