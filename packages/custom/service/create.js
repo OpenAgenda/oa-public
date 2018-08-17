@@ -70,7 +70,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
       log( 'info', 'transfering to legacy' );
 
-      await legacy( formSchemaId, identifier, clean );
+      await legacy( formSchemaId, identifier, clean, cleanOptions );
 
     }
 

@@ -17,7 +17,7 @@ module.exports = _.extend( set, {
   remove
 } );
 
-async function set( formSchemaId, identifier, data ) {
+async function set( formSchemaId, identifier, data, options = {} ) {
 
   log( 'info', 'fetching required data for legacy transfer', { formSchemaId, identifier } );
 
@@ -26,7 +26,7 @@ async function set( formSchemaId, identifier, data ) {
     agendaId,
     eventId,
     agendaEventId
-  } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
+  } = await load( formSchemaId, identifier, { insertIfNotExists: true, agendaId: options.agendaId } );
 
   log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
 
