@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const eventSearch = require( '@openagenda/event-search' );
 const agendaIndices = require( './agendaIndices' );
 const agendas = require( '@openagenda/agendas' );
@@ -20,7 +22,7 @@ function init( config ) {
   eventSearch.init( {
 
     elasticsearch: {
-      host: `${config.es53.host}:${config.es53.port}/`,
+      host: `${_.get( config, 'es53.host', 'localhost' )}:${_.get( config, 'es53.port', 9200 )}/`,
       apiVersion: '5.3'
     },
 
