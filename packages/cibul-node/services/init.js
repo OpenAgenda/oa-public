@@ -59,7 +59,7 @@ module.exports = function ( config, options, cb ) {
 
   if ( config.logger ) logger.init( config.logger );
 
-  logs.init( config.getLogConfig( 'oa', 'oa', false ) );
+  logs.init( config.logger || config.getLogConfig( 'oa', 'oa', false ) );
 
   log = logs( 'services/init' );
 

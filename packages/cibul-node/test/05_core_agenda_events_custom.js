@@ -21,14 +21,6 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const config = require( '../config' );
 const core = require( '../core' );
 
-
-require( '@openagenda/logs' ).setModuleConfig( {
-  debug: {
-    enable: true
-  }
-} );
-
-
 const testConfig = {
   queues: {},
   db: {
@@ -129,8 +121,8 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
   beforeEach( async () => {
 
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), { 
-      multipleStatements: true 
+    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+      multipleStatements: true
     } ) );
 
     const query = promisify( con.query.bind( con ) );
@@ -164,7 +156,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
     const createdEventUid = result.created.event.uid;
 
-    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( { 
+    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
       uid: createdEventUid
     } );
 
@@ -172,7 +164,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
     const legacyTags = await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id );
 
-    legacyTags.map( t => _.pick( t, [ 'review_article_id', 'review_tag_id' ] ) ).should.eql( [ { 
+    legacyTags.map( t => _.pick( t, [ 'review_article_id', 'review_tag_id' ] ) ).should.eql( [ {
       review_article_id: legacyAgendaEvent.id,
       review_tag_id: 27854,
     }, {
@@ -195,12 +187,12 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
   it( 'legacy entries were added with update', async () => {
 
     const eventDataWithMissingCustom = _.omit( eventData, [ 'thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public' ] );
-  
+
     const result = await core.agendas( 60934473 ).events.create( eventDataWithMissingCustom );
 
     const createdEventUid = result.created.event.uid;
 
-    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( { 
+    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
       uid: createdEventUid
     } );
 
