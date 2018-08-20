@@ -57,7 +57,7 @@ const testConfig = {
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
   mainChannel: 'maintest',
-  getLogConfig: () => ( prefix, key ) => ( {
+  getLogConfig: ( prefix, key ) => ( {
     debug: {
       prefix: prefix + ':' + key + ':'
     },
@@ -68,6 +68,10 @@ const testConfig = {
       prefix: 'oa:',
       enable: false
     }
+  },
+  es53: {
+    host: 'http://ns397902.ip-151-80-41.eu',
+    port: 9205
   }
 };
 
@@ -87,8 +91,8 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
   before( async () => {
 
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), { 
-      multipleStatements: true 
+    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+      multipleStatements: true
     } ) );
 
     const query = promisify( con.query.bind( con ) );
@@ -229,7 +233,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
             agenda = a;
 
             testConfig.knex( 'legacy_agenda_event' ).first().where( {
-              event_id: legacyEvent.id, 
+              event_id: legacyEvent.id,
               review_id: agenda.id
             } ).then( l => {
 
@@ -247,7 +251,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       it( 'adds legacy category reference', () => {
 
-        legacyAgendaEvent.category_id.should.not.equal( null );  
+        legacyAgendaEvent.category_id.should.not.equal( null );
 
       } );
 
