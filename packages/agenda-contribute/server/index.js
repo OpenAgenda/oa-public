@@ -12,20 +12,21 @@ const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../clie
 
 const serviceName = JSON.parse(
   require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )
-).name;
+).name.split( '/' ).pop();
 
 module.exports = {
   app,
-  init
+  init,
+  dist: express.static( __dirname + '/../client/dist' )
 }
 
 const config = {
   layout: ( req, content ) => 'The service is not ready',
-  loadAgenda: async req => null,
   CDNPath: null,
   interfaces: {
     exit: '/'
-  }
+  },
+  frontAppPath: null
 }
 
 function init( c ) {
@@ -35,16 +36,11 @@ function init( c ) {
   app.get( [ '/', '/:step', '/:step/:eventUid' ],
     ( req, res, next ) => {
 
-      req.config = _.pick( config, [ 'redirects' ] )
+      _.extend( req.config || {}, _.pick( config, [ 'redirects' ] ) );
 
       next();
 
     }, 
-    config.middlewares.user,
-    config.middlewares.agenda,
-    config.middlewares.event,
-    config.middlewares.member,
-    config.middlewares.config,
     ( req, res ) => {
 
     const frontAppInit = {
@@ -66,11 +62,6 @@ function init( c ) {
 
   app.post( '/member',
     bodyParser.json(),
-    config.middlewares.user,
-    config.middlewares.agenda,
-    config.middlewares.event,
-    config.middlewares.member,
-    config.middlewares.config,
     ( req, res ) => {
 
       config.interfaces.setMember( req.agenda, req.user, req.member, req.body )
@@ -91,11 +82,6 @@ function init( c ) {
 
   app.post( '/event',
     bodyParser.json(),
-    config.middlewares.user,
-    config.middlewares.agenda,
-    config.middlewares.event,
-    config.middlewares.member,
-    config.middlewares.config,
     ( req, res ) => {
 
       config.interfaces.setEvent( req.agenda, req.user, req.event, req.body )
@@ -118,12 +104,20 @@ function init( c ) {
 
 function _getClientAppPath() {
 
+  const distFileName = manifest[ 'main.js' ];
+
+  if ( config.frontAppPath ) {
+
+    return config.frontAppPath + '/' + distFileName;
+
+  }
+
   if ( process.env.NODE_ENV === 'development' ) return '/js/app.js';
 
   return [
     config.CDNPath,
     serviceName, 
-    manifest[ 'main.js' ]
+    distFileName
   ].join( '/' );
 
 }

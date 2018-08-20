@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
