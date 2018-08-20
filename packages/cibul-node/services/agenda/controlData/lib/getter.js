@@ -1,14 +1,28 @@
 "use strict";
 
-var store = require( './store' ),
+const _ = require( 'lodash' );
 
-build = require( './build' );
+const store = require( './store' );
+
+const build = require( './build' );
 
 module.exports = function( loaded, instance ) {
 
   // load control data getter
 
-  loaded.getControlData = function( cb ) {
+  loaded.getControlData = function( options, cb ) {
+
+    const params = {};
+
+    if ( arguments.length === 2 ) {
+
+      _.assign( params, options );
+
+    } else {
+
+      cb = options;
+
+    }
 
     store.get( instance.uid, function( err, data ) {
 
@@ -19,7 +33,7 @@ module.exports = function( loaded, instance ) {
       // if nothing is in cache, generate on
       // the fly ( like through )
       
-      build( { id: instance.id }, cb );
+      build( _.assign( params, { id: instance.id } ), cb );
 
     } );
     

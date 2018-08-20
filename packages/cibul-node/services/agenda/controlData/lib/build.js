@@ -49,6 +49,7 @@ function _update( data, cb ) {
   log( 'updating event %s in agenda %s control data', data.eventId, data.id );
 
   p.w( {
+    useEventSlug: true,
     agendaId: data.id,
     eventId: data.eventId,
     agenda: false,
@@ -94,6 +95,7 @@ function _insert( data, cb ) {
   log( 'inserting event %s into agenda %s control data', data.eventId, data.id );
 
   p.w( {
+    useEventSlug: true,
     agendaId: data.id,
     eventId: data.eventId,
     agenda: false,     // service instance
@@ -180,6 +182,7 @@ function _reset( data, cb ) {
   log( 'resetting control data of agenda %s', data.id );
 
   p.w( {
+    useEventSlug: data.useEventSlug,
     agendaId: data.id,
     dbInstance: false, // model instance
     agenda: false,     // service instance
@@ -321,11 +324,11 @@ function _loadAgenda( v ) {
 
 function _loadEvent( v ) {
 
-  let d = p.w.defer();
+  const d = p.w.defer();
 
   log( 'loading event %s', v.eventId );
 
-  eventSvc.get( { id: v.eventId }, ( err, event ) => {
+  eventSvc.get( { id: v.eventId }, ( err, event ) => {
 
     if ( err ) return d.reject( err );
 
@@ -344,13 +347,13 @@ function _loadEvent( v ) {
 
 function _appendEvents( v ) {
 
-  let d = p.w.defer(),
+  const d = p.w.defer();
 
-  hasMore = true, page = 1;
+  let hasMore = true, page = 1;
 
   async.doWhilst( wcb => {
 
-    v.agenda.search( { passed: 1 }, { limit: 40, page: page }, ( err, result ) => {
+    v.agenda.search( { passed: 1 }, { limit: 40, page }, ( err, result ) => {
 
       if ( err ) return wcb( err );
 
@@ -393,7 +396,7 @@ function _appendEvent( v, event ) {
 
   l = _extractLocation( eInst ),
 
-  e = _extractEvent( v.agenda, eInst );
+  e = _extractEvent( v.agenda, eInst, v );
 
   if ( v.ctlData.ev.map( ev => ev.u ).indexOf( e.u ) == -1 ) {
 
@@ -453,12 +456,18 @@ function _getTimingDate( t, timezone ) {
 
 }
 
-function _extractEvent( agenda, event ) {
+function _extractEvent( agenda, event, options = {} ) {
 
-  var parsed = {
+  const parsed = {
     u: event.uid,
     l: event.getLocationUid()
   };
+
+  if ( options.useEventSlug ) {
+
+    parsed.s = event.slug;
+
+  }
 
   parsed.tz = event.getLocationDetails().timezone;
 

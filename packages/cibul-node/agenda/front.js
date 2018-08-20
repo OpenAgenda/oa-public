@@ -210,7 +210,7 @@ const sessions = require( '@openagenda/sessions' ),
 
 module.exports = function( path ) {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     cmn.loadLogger( 'agenda front' )
@@ -248,7 +248,7 @@ function showXhr( template ) {
 
       cmn.renderJson( req, res, {
         success: true,
-        partial: partial,
+        partial,
         total: req.templateData.total,
         page: req.templateData.page
       } );
@@ -456,7 +456,7 @@ function _loadAgendaByAgendaId( req, res, next ) {
 
   if ( !req.agendaId ) return next( 'agenda identifier missing' );
 
-  agendaSvc.get( { id: req.agendaId }, function( err, agenda ) {
+  agendaSvc.get( { id: req.agendaId }, function( err, agenda ) {
 
     if ( err ) return next( err );
 
@@ -473,7 +473,7 @@ function _loadAgendaByAgendaId( req, res, next ) {
 
 function _formatEventItem( event, req, cb ) {
 
-  var inst = eventSvc.instanciate( event ),
+  const inst = eventSvc.instanciate( event ),
 
   img = inst.getImage( true ),
 
@@ -483,7 +483,7 @@ function _formatEventItem( event, req, cb ) {
 
   inst.switchLanguage( req.lang );
 
-  var formatted = lib.extend( inst, {
+  const formatted = lib.extend( inst, {
     dateRange: inst.getRange( req.lang, req.query.oaq ),
     closestDate: inst.getClosestDate(),
     keywords,
@@ -556,7 +556,7 @@ function _formatShowLinks( req, res, next ) {
 
     e.importUri = req.genUrl( 'eventActionShow', {
       eventSlug: e.slug,
-      back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ]) 
+      back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ]) 
     } );
 
   });
@@ -584,7 +584,7 @@ function _formatEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( e => {
 
-    var params = { 
+    const params = { 
       uid: req.agenda.uid,
       eventUid: e.uid,
       lang: req.lang
@@ -612,7 +612,7 @@ function _formatEmbedLinks( req, res, next ) {
       t.link = req.genUrl( 'agendaEmbedShow', {
         uid: req.params.uid,
         oaq: {
-          tags: [ t.slug ]
+          tags: [ t.slug ]
         }
       } );
 
