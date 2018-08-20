@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const mysql = require( 'mysql' );
@@ -22,11 +20,11 @@ const config = require( '../config' );
 const core = require( '../core' );
 
 
-require( '@openagenda/logs' ).setModuleConfig( {
+/*require( '@openagenda/logs' ).setModuleConfig( {
   debug: {
     enable: true
   }
-} );
+} );*/
 
 
 const testConfig = {
@@ -110,6 +108,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
     public: [27],
     organisateur: [32],
     "tag-group-4": [36],
+    'cle_session' : 1928391,
     image: {
       url:
         "http://admin-toulouse.cutm.nfrance.com/documents/10718111/10791958/67104/6eaff609-8b62-4609-9504-1e83123fb234",
@@ -188,6 +187,23 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
       review_article_id: legacyAgendaEvent.id,
       review_tag_id: 27888,
     } ] );
+
+  } );
+
+
+  it( 'legacy entries were created for custom fields of "custom" legacy origin', async () => {
+
+    const result = await core.agendas( 60934473 ).events.create( eventData );
+
+    const createdEventUid = result.created.event.uid;
+
+    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( { 
+      uid: createdEventUid
+    } );
+
+    const legacyEvent = await testConfig.knex( 'legacy_event' ).first().where( 'id', eventId );
+
+    JSON.parse( legacyEvent.store ).customFields.cle_session.should.equal( 1928391 );
 
   } );
 
