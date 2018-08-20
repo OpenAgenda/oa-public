@@ -182,7 +182,9 @@ module.exports = function ( before, stakeholder, context ) {
     }
 
     // New/Resend invitation
-    const { invitation } = await invitations.get( { email: stakeholder.custom.email } )
+    const { invitation } = await invitations.get( { email: stakeholder.custom.email } );
+
+    if ( !invitation ) return;
 
     const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
     context = action.params[ 1 ] || context;

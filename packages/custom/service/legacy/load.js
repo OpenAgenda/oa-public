@@ -14,7 +14,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     agendaId: null
   }, options );
 
-  log( 'loading legacy data for %s', formSchemaId );
+  log( 'info', 'loading legacy data for %s', formSchemaId );
 
   const { knex } = config;
 
@@ -22,9 +22,13 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   const fields = await interfaces.getFormSchemaFields( formSchemaId );  
 
+  log( 'info', 'fetched form schema fields', fields );
+
   let aId = agendaId;
 
   if ( !agendaId ) {
+
+    log( 'info', 'Agenda is not specified. Retrieving.' );
 
     aId = _.get( await knex( schemas.agenda )
       .first( 'id' )
@@ -39,7 +43,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     .first( [ 'id', 'custom_fields' ] )
     .where( 'uid', identifier );
 
-  log( 'loaded legacy custom data for %s', formSchemaId );
+  log( 'info', 'loaded legacy custom data for %s', formSchemaId );
 
   const {
     id: agendaEventId,
@@ -52,7 +56,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   }
 
-  log( 'loaded legacy agenda-event reference %s.%s', aId, eventId );
+  log( 'info', 'loaded legacy agenda-event reference %s.%s', aId, eventId );
 
   const custom = {};
 

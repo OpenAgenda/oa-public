@@ -1,4 +1,5 @@
 "use strict";
+
 const legacy = require( './legacy' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const eventStates = require( '@openagenda/agendas/service/validate/eventStates' );

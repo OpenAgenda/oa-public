@@ -56,6 +56,8 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   
   try {
 
+    log( 'info', 'creating custom entry with %j', clean, { formSchemaId, identifier } );
+
     let insertId = await knex( schemas.custom ).insert( {
       form_schema_id: formSchemaId,
       identifier,
@@ -66,7 +68,9 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     if ( cleanOptions.transferToLegacy ) {
 
-      await legacy( formSchemaId, identifier, clean );
+      log( 'info', 'transfering to legacy' );
+
+      await legacy( formSchemaId, identifier, clean, cleanOptions );
 
     }
 
@@ -74,9 +78,13 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     if ( interfaces.onCreate ) {
 
+      log( 'info', 'calling onCreate' );
+
       interfaces.onCreate( created, cleanOptions ); // context is same as options here
 
     }
+
+    log( 'info', 'create successful' );
 
     return {
       success: true,

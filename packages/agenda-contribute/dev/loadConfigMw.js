@@ -6,7 +6,7 @@ const pickScenario = require( './pickScenario' );
 
 module.exports = ( req, res, next ) => {
 
-  _.extend( req.config, pickScenario( req ).config );
+  req.config = pickScenario( req ).config;
 
   next();
 

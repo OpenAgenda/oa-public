@@ -72,7 +72,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
       try {
 
-        await legacy( formSchemaId, identifier, clean );
+        await legacy( formSchemaId, identifier, clean, cleanOptions );
 
       } catch ( e ) {
 

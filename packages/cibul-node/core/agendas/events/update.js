@@ -16,7 +16,8 @@ const validate = require( './validate' );
 module.exports = async ( agendaUid, eventUid, data ) => {
 
   const {
-    formSchemaId
+    formSchemaId,
+    id: agendaId
   } = await getAgenda( agendaUid );
 
   const updated = {};
@@ -60,6 +61,7 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
     const result = await custom( formSchemaId ).set( updated.event.uid, clean.custom, {
       transferToLegacy: true, 
+      agendaId,
       context: { legacy: false } 
     } );
 

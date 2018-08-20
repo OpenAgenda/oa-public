@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'legacy' );
+
 //const serviceSet = require( '../set' );
 const serviceRemove = require( '../remove' );
 
@@ -15,21 +17,56 @@ module.exports = _.extend( set, {
   remove
 } );
 
-async function set( formSchemaId, identifier, data ) {
+async function set( formSchemaId, identifier, data, options = {} ) {
+
+  log( 'info', 'fetching required data for legacy transfer', { formSchemaId, identifier } );
 
   const {
     fields,
     agendaId,
     eventId,
     agendaEventId
-  } = await load( formSchemaId, identifier, { insertIfNotExists: true } );
+  } = await load( formSchemaId, identifier, { insertIfNotExists: true, agendaId: options.agendaId } );
 
-  await custom( eventId,
-    fields.filter( f => f.origin === 'custom' ), data );
+  log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
 
-  await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
+  try {
 
-  await categories( agendaEventId, fields.filter( f => f.origin === 'categories' ), data );
+    await custom( 
+      eventId,
+      fields.filter( f => f.origin === 'custom' ), 
+      data
+    );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy custom data', e );
+
+  }
+
+  log( 'info', 'transfering legacy tag data', { formSchemaId, identifier } );
+
+  try {
+
+    await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy tags', e );
+
+  }
+
+  log( 'info', 'transfering legacy category data', { formSchemaId, identifier } );
+
+  try {
+
+    await categories( agendaEventId, fields.filter( f => f.origin === 'categories' ), data );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not set legacy category categories', e );
+
+  }
 
 }
 

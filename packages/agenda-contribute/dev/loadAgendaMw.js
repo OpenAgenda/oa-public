@@ -7,13 +7,7 @@ const pickScenario = require( './pickScenario' );
 // 
 module.exports = ( req, res, next ) => {
 
-  console.log( 'loadAgendaMw', req.baseUrl );
-
-  const agendaSlug = req.baseUrl.split( '/' )[ 1 ];
-
-  const scenario = pickScenario( agendaSlug );
-
-  req.agenda = scenario.agenda
+  req.agenda = pickScenario( req ).agenda;
 
   next();
 

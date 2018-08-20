@@ -3,9 +3,9 @@
 const _ = require( 'lodash' );
 const scenarios = require( '../scenarios.dev' );
 
-module.exports = ( reqOrAgendaSlug ) => {
+module.exports = req => {
 
-  const agendaSlug = _.isObject( reqOrAgendaSlug ) ? reqOrAgendaSlug.agenda.slug : reqOrAgendaSlug;
+  const agendaSlug = req.agenda ? req.agenda.slug : req.originalUrl.split( '/' )[ 1 ];
 
   return _.first( scenarios.filter( sc => sc.agenda.slug === agendaSlug ) );
 

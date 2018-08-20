@@ -8,7 +8,7 @@ const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
 
 const serviceName = JSON.parse(
   require( 'fs' ).readFileSync( __dirname + '/package.json', 'utf-8' )
-).name;
+).name.split( '/' ).pop();
 
 const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CI );
 //const pushToCDN = true;
@@ -18,9 +18,8 @@ const localDistPath = __dirname + '/client/dist';
 module.exports = {
   mode: 'production',
   context: __dirname,
-  /* defaults at true optimization: {
-    minimize: false
-  },*/
+  // defaults at true 
+  optimization: { minimize: false },
   entry: [
     'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
     './client/src/index.js'

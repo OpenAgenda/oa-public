@@ -19,15 +19,21 @@ async function set( eventId, fields, data ) {
 
   let current;
 
+  log( 'info', 'getting custom from legacy event', { eventId } );
+
   try {
 
-    const { store } = await knex( schemas.event ).first( 'store' ).where( { id: eventId } );
+    const { custom } = await knex( schemas.event )
+      .first( 'custom_fields as custom' )
+      .where( { id: eventId } );
 
-    current = JSON.parse( store ) || {};
+    current = custom && custom.length ? JSON.parse( custom ) : {};
 
   } catch ( e ) {
 
-    throw new VError( e, 'could not parse custom fields from store of event of id %s', eventId );
+    log( 'error', 'failed to get custom from legacy event', { eventId, e } );
+
+    throw new VError( e, 'could not parse custom fields from custom data of event of id %s', eventId );
 
   }
 
@@ -63,9 +69,9 @@ async function set( eventId, fields, data ) {
 
   }, {} );
 
-  current.customFields = parsed;
+  log( 'info', 'updating legacy event custom_fields', { parsed } );
 
-  const result = await knex( schemas.event ).update( { store: JSON.stringify( current ) } ).where( { id: eventId } );
+  const result = await knex( schemas.event ).update( { custom_fields: JSON.stringify( parsed ) } ).where( { id: eventId } );
 
   return !!result;
 

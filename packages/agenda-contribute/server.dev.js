@@ -22,19 +22,13 @@ const service = require( './' );
 const devLayout = require( './dev/layout' );
 
 service.init( {
+  useLocalDist: true,
   layout: devLayout,
   redirects: {
     seeEvent: '/?redirect.eventCreated=:eventUid',
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
     contactAdministrators: '/?redirect.contactAdministrators'
-  },
-  middlewares: {
-    user: require( './dev/loadUserMw' ),
-    agenda: require( './dev/loadAgendaMw' ),
-    member: require( './dev/loadMemberMw' ),
-    event: require( './dev/loadEventMw' ),
-    config: require( './dev/loadConfigMw' )
   },
   interfaces: {
     setMember: require( './dev/setMember' ),
@@ -67,9 +61,25 @@ dev.get( '/', ( req, res ) => {
 
 } );
 
-//dev.get( '/', ( req, res ) => res.redirect( 302, '/jep-2018-occitanie/contribute' ) );
 
 dev.use( '/locations', locationApp );
+
+dev.all( 
+  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ],
+  require( './dev/loadUserMw' ),
+  require( './dev/loadAgendaMw' ),
+  require( './dev/loadMemberMw' )
+);
+
+dev.all( 
+  '/:agendaSlug/contribute/:eventUid',
+  require( './dev/loadEventMw' )
+);
+
+dev.all(
+  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ],
+  require( './dev/loadConfigMw' )
+);
 
 dev.use( '/:agendaSlug/contribute', service.app );
 

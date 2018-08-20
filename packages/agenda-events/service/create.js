@@ -23,6 +23,8 @@ module.exports = _.extend( create, {
 
 async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
+  log( 'info', 'initiating create', { agendaUid, eventUid, data, options } );
+
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   const params = validateOptions( options );
@@ -86,11 +88,13 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( success && options.transferToLegacy ) {
 
-    log( 'transfering to legacy %j', created );
+    log( 'info', 'transfering to legacy %j', created );
 
     try {
 
-     await legacyTransfer.to( created );
+     const result = await legacyTransfer.to( created );
+
+     log( 'info', 'successfully transferred to legacy', result );
 
     } catch ( e ) {
 
@@ -105,6 +109,8 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
     config.interfaces.onCreate( created, params.context );
 
   }
+
+  log( 'info', 'done', { success, created, insertIds } );
 
   return {
     success,

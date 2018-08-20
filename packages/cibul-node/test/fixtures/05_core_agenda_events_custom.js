@@ -33,7 +33,25 @@ raw.push( knex( 'agenda' ).insert( {
   title: 'Custom fielded agenda',
   owner_id: 1,
   uid: 60934473,
-  form_schema_id: 26
+  form_schema_id: 26,
+  store: JSON.stringify( `{
+  "customFields": [
+    {
+      "name": "cle_session",
+      "label": {
+        "fr": "Clé session",
+        "en": "Clé session"
+      },
+      "info": {
+        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
+        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
+      },
+      "fieldType": "integer",
+      "optional": true,
+      "type": "private"
+    }
+  ]
+}` )
 } ) );
 
 raw.push( knex( 'user' ).insert( {
@@ -596,6 +614,26 @@ raw.push( knex( 'form_schema' ).insert( {
         }
       ],
       "fieldType": "radio"
+    },
+    {
+      "field": "cle_session",
+      "label": {
+        "fr": "Clé session",
+        "en": "Clé session"
+      },
+      "info": {
+        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
+        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": "contributor",
+      "read": "moderator",
+      "optional": true,
+      "origin": "custom",
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
     },
     {
       "field": "category-group",

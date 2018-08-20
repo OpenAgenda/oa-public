@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'legacy/agendaEvents' );
+
 const config = require( '../config' );
 
 module.exports = async ( agendaId, eventId, insertIfNotExists = false ) => {
