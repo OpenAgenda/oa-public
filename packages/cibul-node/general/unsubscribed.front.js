@@ -42,7 +42,7 @@ module.exports = ( parentApp, path ) => {
 
           if ( item.subject !== 'agenda' ) return cb();
 
-          agendasSvc.get( { uid: item.identifier }, ( err, agenda ) => {
+          agendasSvc.get( { uid: item.identifier }, { private: null }, ( err, agenda ) => {
 
             if ( err ) return cb( err );
 
@@ -94,7 +94,7 @@ module.exports = ( parentApp, path ) => {
 
   parentApp.use( path, ( req, res, next ) => {
 
-    if ( req.result.success ) {
+    if ( req.result && req.result.success ) {
 
       // do I know the language?
 
