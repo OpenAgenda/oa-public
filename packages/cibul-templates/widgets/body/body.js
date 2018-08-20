@@ -5,29 +5,23 @@ const _ = {
   first: require( 'lodash/first' )
 };
 
+const debug = require( 'debug' );
+
+const qs = require( 'qs' );
+
+const du = require( '@openagenda/dom-utils' );
+const utils = require( '@openagenda/utils' );
+
+const bottomHit = require( '../lib/bottomHit' );
 const domain = require( '../../domain' );
+const frameLink = require( '../lib/frameLink' ).parent;
+const style = require( './style.css' );
+const styler = require( '../lib/widgetStyler' );
+const wLib = require( '../lib/widgetLib' );
 
-var UID = 0;
+let UID = 0;
 
-var utils = require( '@openagenda/utils' ),
-
-du = require( '@openagenda/dom-utils' ),
-
-wLib = require( '../lib/widgetLib' ),
-
-frameLink = require( '../lib/frameLink' ).parent,
-
-bottomHit = require( '../lib/bottomHit' ),
-
-debug = require( 'debug' ),
-
-qs = require( 'qs' ),
-
-style = require( './style.css' ),
-
-styler = require( '../lib/widgetStyler' ),
-
-config = {
+let config = {
   all: {
     heightOffset: 40,
     res: {  
