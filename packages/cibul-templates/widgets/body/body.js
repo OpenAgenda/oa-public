@@ -2,7 +2,8 @@
 
 const _ = {
   get: require( 'lodash/get' ),
-  first: require( 'lodash/first' )
+  first: require( 'lodash/first' ),
+  omit: require( 'lodash/omit' )
 };
 
 const debug = require( 'debug' );
@@ -264,10 +265,7 @@ function widget( elem, options ) {
 
           // agenda link has no associated filter
 
-          delete currentQuery.uid;
-          delete currentQuery.event;
-
-          newSrc = _clean( message.load + '?' + qs.stringify( { oaq: currentQuery } ) );
+          newSrc = _clean( message.load + '?' + qs.stringify( { oaq: _.omit( currentQuery, [ 'uid', 'event' ] ) } ) );
 
         } else {
 

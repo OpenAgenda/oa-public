@@ -334,7 +334,8 @@ module.exports = function( uid ) {
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
     var newParams = _clean( cn.extend( {}, currentRequestParams, { 
-      uid: null
+      uid: null,
+      event: null
     }, updatedParams ) );
 
     if ( !isDifferent( newParams ) ) return;
