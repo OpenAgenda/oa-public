@@ -18,9 +18,7 @@ function reducer( state = {}, action = {} ) {
 
     case UPDATE:
 
-      return ih( state, {
-        member: { values: { $set: action.member } }
-      } );
+      return action.member;
 
   }
 
