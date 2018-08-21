@@ -27,7 +27,7 @@ const middlewares = {
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
-    _appendModeratorCanPublish,
+    _appendSettings,
     wrap( agendaEventShow )
   ],
   customEmbedEventShow: [
@@ -184,7 +184,7 @@ module.exports = path => {
 
 async function agendaEventShow( req, res, next ) {
 
-  let reqParams = {
+  const reqParams = {
     slug: req.agenda.slug,
     eventSlug: req.event.slug
   }
@@ -309,7 +309,7 @@ function _addLanguageLinks( req, uri, uriParams ) {
 
     linkedLanguages.push( {
       label: lang,
-      link: req.genUrl( uri, _.extend( {}, uriParams, { lang: lang } ) )
+      link: req.genUrl( uri, _.extend( {}, uriParams, { lang } ) )
     } );
 
   } );
@@ -347,9 +347,9 @@ function _formatAgendaLinks( uri, keys ) {
 
   return function ( req, res, next ) {
 
-    var routeValues = _getRouteValues( req, keys ),
+    const routeValues = _getRouteValues( req, keys );
 
-      baseSearchQuery = {};
+    const baseSearchQuery = {};
 
     if ( req.query.fb ) routeValues.fb = 1;
 
@@ -398,7 +398,7 @@ function _formatAgendaLinks( uri, keys ) {
 
 function _getRouteValues( req, keys ) {
 
-  var routeValues = [];
+  const routeValues = [];
 
   if ( typeof keys == 'string' ) keys = [ keys ];
 
@@ -519,13 +519,15 @@ function _appendEventTransferCredential( req, res, next ) {
 }
 
 
-function _appendModeratorCanPublish( req, res, next ) {
+function _appendSettings( req, res, next ) {
 
   if ( !req.agenda ) return next();
 
   agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
     req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
+
+    req.baseData.inbox = _.get( agenda, 'settings.inbox', {} );
 
     next();
 
