@@ -125,6 +125,10 @@ module.exports = function ( options ) {
 
   function inbox( params, { roles, ROLES } ) {
 
+    if ( !document.querySelector( '.js_inbox_event_canvas' ) ) {
+      return;
+    }
+
     const simpleUser = !roles.some( r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN );
     const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
