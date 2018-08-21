@@ -271,6 +271,14 @@ module.exports = {
     en: 'Contact form',
     fr: 'Formulaire de contact'
   },
+  contactEmail: {
+    en: 'Contact agenda administrators',
+    fr: 'Contacter les administrateurs'
+  },
+  contactEmailButton: {
+    en: 'Send an email',
+    fr: 'Envoyer un email'
+  },
   contributionRestricted: {
     en: 'The contribution to this agenda is restricted',
     fr: 'La contribution à cet agenda est restreinte'

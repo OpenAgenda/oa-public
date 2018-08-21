@@ -206,10 +206,15 @@ module.exports = function ( path ) {
 
 function head( req, res, next ) {
 
-  cmn.render( req, res, 'agenda/headPart', {
-    agenda: req.agenda,
-    includeActionLinks: true,
-    targetBlank: true
+  agendas.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
+
+    cmn.render( req, res, 'agenda/headPart', {
+      inbox: _.get( agenda, 'settings.inbox', {} ),
+      agenda: req.agenda,
+      includeActionLinks: true,
+      targetBlank: true
+    } );
+
   } );
 
 }

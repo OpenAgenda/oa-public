@@ -56,7 +56,7 @@ function agendasList( req, res, next ) {
         },
         offset,
         limit,
-        { includeImagePath: true, private: null, total: true, useDefaultImage: true },
+        { includeImagePath: true, private: null, total: true, useDefaultImage: true, includeFields: [ 'settings' ] },
         ( err, reviews, total ) => {
 
           if ( err ) return next( err );
