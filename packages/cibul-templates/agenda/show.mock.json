@@ -12,6 +12,10 @@
       "uid" : 48959239,
       "theme" : false
     },
+
+    "inbox": {
+      "mailto": "an@email.com"
+    },
     
     "redirect" : "quiruezrhdk",
     

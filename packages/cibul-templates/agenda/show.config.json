@@ -22,7 +22,8 @@
     "passedIncluded" : false,
     "hasSearchQuery" : false,
     "includeActionLinks" : true,
-    "private" : false
+    "private" : false,
+    "inbox" : {}
   },
   "js" : true
 }

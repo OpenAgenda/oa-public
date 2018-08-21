@@ -47,7 +47,7 @@
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"
-                  href="/<%= agenda.slug %>/contact"
+                  href="<% if ( typeof inbox.mailto !== 'undefined' && inbox.mailto ) { %>mailto:<%= inbox.mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
                   rel="nofollow"
                   data-type="contact_form"
                   data-destination-inbox="<%= `{"type": "agenda", "identifier": ${agenda.uid}` %>"
