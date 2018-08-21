@@ -15,6 +15,10 @@ module.exports = ( ae, context ) => {
   Promise.resolve()
     .then( async () => {
 
+      // If it's a DELETE:                  context.userUid !== null && context.agendaUid !== null
+      // If it's a REMOVE from origin:      context.userUid !== null && context.agendaUid === null
+      // If it's a REMOVE from elsewhere:   context.userUid === null && context.agendaUid !== null
+
       let user;
       let agenda;
       let event;
@@ -55,7 +59,7 @@ module.exports = ( ae, context ) => {
         }
       }, err => {
 
-        if ( err ) return log( 'error', 'Error to add activity agenda.removeEvent in feed event:%s', event.uid );
+        if ( err ) log( 'error', 'Error to add activity agenda.removeEvent in feed event:%s', event.uid );
 
         activitiesSvc.feed( { entityType: 'agenda', entityUid: agenda.uid } )
           .unfollow( { entityType: 'event', entityUid: event.uid }, err => {
