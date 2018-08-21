@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import { connect } from 'react-redux';
@@ -127,7 +126,7 @@ export default class Events extends Component {
   }
 
   getImagePath( image ) {
-    const thumbnail = _.find( image.variants, [ 'type', 'thumbnail' ] );
+    const thumbnail = Array.isArray( image.variants ) ? image.variants.find( v => v.type === 'thumbnail' ) : null;
 
     const { filename } = thumbnail || image;
     const { base } = image;
