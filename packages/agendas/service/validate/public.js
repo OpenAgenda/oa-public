@@ -12,6 +12,7 @@ schema.register( {
   date: require( '@openagenda/validators/date' ),
   slug: require( '../slugs/validator' ),
   choice: require( '@openagenda/validators/choice' ),
+  email: require( '@openagenda/validators/email' ),
   ip: require( '@openagenda/validators/ip' )
 } );
 
