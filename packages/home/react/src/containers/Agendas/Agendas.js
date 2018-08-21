@@ -1,3 +1,9 @@
+"use strict";
+
+const _ = {
+  get: require( 'lodash/get' )
+}
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -61,7 +67,13 @@ export default class Agendas extends Component {
         >
           {getLabel( 'addAnEvent' )}
         </a>}
-        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
+        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'settings.inbox.mailto' ) && <a
+          href={'mailto:' + _.get( agenda, 'settings.inbox.mailto' )}
+          className="text-muted"
+        >
+          {getLabel( 'contact' )}
+        </a>}
+        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && !_.get( agenda, 'settings.inbox.mailto' ) && <a
           href={res.agendas.contact.replace( ':slug', agenda.slug )}
           className="text-muted"
         >
