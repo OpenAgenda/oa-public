@@ -11,12 +11,12 @@ const serviceName = JSON.parse(
 ).name.split( '/' ).pop();
 
 const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CI );
-//const pushToCDN = true;
 
 const localDistPath = __dirname + '/client/dist';
 
 module.exports = {
-  mode: 'production',
+  // better to have a dist file in dev mode for local troubleshooting
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: __dirname,
   // defaults at true 
   optimization: { minimize: false },
@@ -81,6 +81,10 @@ module.exports = {
     } ]
   },
   resolve: {
-    symlinks: false
+    symlinks: false,
+    alias: {
+      // required only for the timings component
+      'react': require.resolve( 'react' )
+    }
   }
 };

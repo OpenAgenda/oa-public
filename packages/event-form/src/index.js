@@ -1,6 +1,7 @@
 "use strict";
 
-import React from 'react';
+import _ from 'lodash';
+import React, { Component } from 'react';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
 
@@ -14,11 +15,26 @@ const eventFormComponents = {
 
 const eventSchema = require( './eventSchema' );
 
-export default props => <FormSchemaComponent
-  lang={props.lang}
-  components={eventFormComponents}
-  values={props.values}
-  schema={eventSchema}
-  actionComponents={props.actionComponents}
-  onSubmitSuccess={props.onSubmitSuccess}
-/>
+export default class EventForm extends Component {
+
+  render() {
+
+    const { lang, values, actionComponents, onSubmitSuccess, locationRes } = this.props;
+
+    const schema = eventSchema( {
+      locationRes
+    } );           
+
+    return <FormSchemaComponent
+      lang={lang}
+      components={eventFormComponents}
+      values={values}
+      schema={schema}
+      actionComponents={actionComponents}
+      onSubmitSuccess={onSubmitSuccess}
+    />
+
+  }
+
+}
+

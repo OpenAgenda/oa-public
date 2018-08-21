@@ -31,6 +31,12 @@ module.exports = {
     default: false
   },
   settings: {
+    inbox: {
+      mailto: {
+        type: 'email',
+        default: null
+      }
+    },
     mailing: {
       eventAggregation: {
         type: 'boolean',

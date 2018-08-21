@@ -47,6 +47,9 @@ describe( 'agendas - functional (server): get', function() {
         url: 'http://www.salon-fromage.com/',
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         settings: {
+          inbox: {
+            mailto: null
+          },
           mailing: {
             eventAggregation: false
           },
@@ -158,6 +161,9 @@ describe( 'agendas - functional (server): get', function() {
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         url: 'http://www.ensparis.fr',
         settings: {
+          inbox: {
+            mailto: null
+          },
           mailing: {
             eventAggregation: false
           },
@@ -256,6 +262,9 @@ describe( 'agendas - functional (server): get', function() {
         url: 'http://www.ensparis.fr',
         image: 'review_epn-espace-torcy_00.jpg',
         settings: {
+          inbox: {
+            mailto: null
+          },
           mailing: {
             eventAggregation: false
           },

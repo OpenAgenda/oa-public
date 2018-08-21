@@ -1,5 +1,12 @@
 "use strict";
 
+const locationRes = {
+  index: '/locations',
+  geocode: '/locations/geocode',
+  set: '/locations',
+  remove: '/locations/remove'
+};
+
 module.exports = [ {
   // we set the agenda base data to describe scenario guidelines
   agenda: {
@@ -12,6 +19,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/no-member-data-is-required/contribute',
+    locationRes,
     member: {
       dataIsRequired: false
     },
@@ -33,6 +41,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/member-data-is-required/contribute',
+    locationRes,
     member: {
       dataIsRequired: true
     }
@@ -48,6 +57,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/member-with-incomplete-data/contribute',
+    locationRes,
     member: {
       dataIsRequired: true,
     }
@@ -70,6 +80,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/member-with-complete-data/contribute',
+    locationRes,
     member: {
       dataIsRequired: true
     }
@@ -93,6 +104,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/bypass-attempt-to-event/contribute',
+    locationRes,
     member: {
       dataIsRequired: true
     }
@@ -110,6 +122,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/confirmation/contribute',
+    locationRes,
     member: {
       dataIsRequired: true
     },
@@ -129,6 +142,7 @@ module.exports = [ {
   config: {
     lang: 'fr',
     base: '/confirmation-default/contribute',
+    locationRes,
     member: {
       dataIsRequired: true
     },
@@ -148,6 +162,7 @@ module.exports = [ {
     edit: true,
     lang: 'fr',
     base: '/edit-an-event/contribute',
+    locationRes,
     member: {
       dataIsRequired: false
     }

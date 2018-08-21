@@ -1,6 +1,6 @@
 "use strict";
 
-var getter = require( './lib/getter' ),
+const getter = require( './lib/getter' ),
 
 store = require( './lib/store' ),
 
@@ -18,7 +18,7 @@ namespace = 'agendaControlData';
 
 store.init( {
   redis: config.redis,
-  namespace: namespace
+  namespace
 } );
 
 task.init( {
@@ -39,7 +39,7 @@ module.exports.queue = ( agenda, options, cb ) => {
 
   }
 
-  let params = utils.extend( {
+  const params = utils.extend( {
     id: typeof agenda == 'object' ? agenda.id : agenda,
     type: false, // 'eventPublish', 'eventRemove', 'reset', 'eventUpdate'
     eventId: false, // if event action, specify event

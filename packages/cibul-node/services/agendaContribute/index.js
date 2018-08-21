@@ -37,6 +37,11 @@ module.exports = _.extend( ( parentApp, path ) => {
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
+      locationRes: {
+        index: `/${req.agenda.slug}/locations`,
+        geocode: `/${req.agenda.slug}/locations/geocode`,
+        set: `/${req.agenda.slug}/locations`
+      },
       member: {
         dataIsRequired: true
       },

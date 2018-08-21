@@ -22,7 +22,7 @@ const service = require( './' );
 const devLayout = require( './dev/layout' );
 
 service.init( {
-  useLocalDist: true,
+  //frontAppPath: '/dist', //set only to troubleshoot dist file
   layout: devLayout,
   redirects: {
     seeEvent: '/?redirect.eventCreated=:eventUid',
@@ -80,6 +80,14 @@ dev.all(
   [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ],
   require( './dev/loadConfigMw' )
 );
+
+
+// useful only if frontAppPath is given to service at init
+dev.use( '/dist', 
+  service.dist, 
+  ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
+);
+
 
 dev.use( '/:agendaSlug/contribute', service.app );
 

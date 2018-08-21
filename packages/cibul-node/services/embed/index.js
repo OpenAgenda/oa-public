@@ -33,9 +33,9 @@ function get( params, cb ) {
 
 function instanciate( data ) {
 
-  var instance = model.reviewEmbeds().instance( data ),
+  const instance = model.reviewEmbeds().instance( data );
 
-  agenda;
+  let agenda;
 
   return lib.extend( {}, instance, {
     getControlData
@@ -47,7 +47,9 @@ function instanciate( data ) {
 
       if ( err ) return cb( err );
 
-      a.getControlData( ( err, ctlData ) => {
+      a.getControlData( {
+        useEventSlug: instance.getUseEventSlug()
+      }, ( err, ctlData ) => {
 
         instance.decorateAgendaControlData( ctlData, cb ); 
 

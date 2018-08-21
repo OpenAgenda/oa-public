@@ -39,6 +39,9 @@ describe( 'agendas - unit (server): validate', () => {
         slug: 'title-of-the-agenda',
         official: false,
         settings: {
+          inbox: {
+            mailto: null
+          },
           mailing: {
             eventAggregation: false
           },
@@ -83,6 +86,9 @@ describe( 'agendas - unit (server): validate', () => {
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda',
         settings: {
+          inbox: {
+            mailto: null
+          },
           translation: {
             enabled: true,
             source: 'en',
@@ -170,6 +176,9 @@ describe( 'agendas - unit (server): validate', () => {
         ownerId: 1,
         formSchemaId: null,
         settings: {
+          inbox: {
+            mailto: null
+          },
           mailing: {
             eventAggregation: false
           },

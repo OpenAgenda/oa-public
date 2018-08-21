@@ -1,28 +1,28 @@
 "use strict";
 
-var domain = require( '../../domain' );
+const _ = {
+  get: require( 'lodash/get' ),
+  first: require( 'lodash/first' ),
+  omit: require( 'lodash/omit' )
+};
 
-var UID = 0,
+const debug = require( 'debug' );
 
-utils = require( '@openagenda/utils' ),
+const qs = require( 'qs' );
 
-du = require( '@openagenda/dom-utils' ),
+const du = require( '@openagenda/dom-utils' );
+const utils = require( '@openagenda/utils' );
 
-wLib = require( '../lib/widgetLib' ),
+const bottomHit = require( '../lib/bottomHit' );
+const domain = require( '../../domain' );
+const frameLink = require( '../lib/frameLink' ).parent;
+const style = require( './style.css' );
+const styler = require( '../lib/widgetStyler' );
+const wLib = require( '../lib/widgetLib' );
 
-frameLink = require( '../lib/frameLink' ).parent,
+let UID = 0;
 
-bottomHit = require( '../lib/bottomHit' ),
-
-debug = require( 'debug' ),
-
-qs = require( 'qs' ),
-
-style = require( './style.css' ),
-
-styler = require( '../lib/widgetStyler' ),
-
-config = {
+let config = {
   all: {
     heightOffset: 40,
     res: {  
@@ -32,7 +32,7 @@ config = {
       customEvent: '//' + domain + '/agendas/:uid/embeds/:embedUid/events/:eventUid'
     }
   },
-  dev: {
+  development: {
     res: {  
       agenda: '//d.openagenda.com/agendas/:uid/embed/events',
       customAgenda: '//d.openagenda.com/agendas/:uid/embeds/:embedUid/events',
@@ -93,21 +93,21 @@ function widget( elem, options ) {
 
   }
 
+  var lang;
+
   var log = debug( 'body' ),
 
   controller,
 
-  agendaRes, eventRes, lang;
+  agendaRes, eventRes;
 
   ( function() {
 
     log( 'initing' );
     
-    var uid = _loadRes( options.anchorConfig[ 0 ] );
+    var uid = _loadFromUidAttribute( elem.getAttribute( 'data-uid' ) ) || _loadRes( options.anchorConfig[ 0 ] );
 
-    controller = options.register( wLib.interface( 'body', uid, {
-      change: change 
-    } ));
+    controller = options.register( wLib.interface( 'body', uid, { change  } ));
 
     styler( style );
 
@@ -160,19 +160,23 @@ function widget( elem, options ) {
 
     log( 'change notification received with %s', JSON.stringify( reqParams ) );
 
-    var res;
+    let eventUid = _.get( reqParams, 'uid' );
 
-    if ( reqParams.uid ) {
+    if ( eventUid ) return _setSrc( _getEventRes( eventUid ) );
 
-      res = _getEventRes( reqParams.uid );
+    let eventSlug = _.get( reqParams, 'event' );
 
-    } else {
+    if ( !eventSlug ) return _setSrc( _getAgendaRes( reqParams ) );
 
-      res = _getAgendaRes( reqParams );
-      
-    }
+    controller.getControlData( data => {
 
-    _setSrc( res );
+      eventUid = _.get( _.first( data.ev.filter( e => e.s === eventSlug ) ), 'u' );
+
+      if ( !eventUid ) return _setSrc( _getAgendaRes( reqParams ) );
+
+      _setSrc( _getEventRes( eventUid ) );
+
+    } );
 
   }
 
@@ -189,17 +193,37 @@ function widget( elem, options ) {
 
     var hrefQuery = _readQueryPart( href, 'oaq', {} );
 
-    if ( _isEventLink( href ) ) {
+    controller.getControlData( function( data ) {
 
-      // extract actual uid here
-      hrefQuery.uid = _getEventUid( href );
+      if ( _isEventLink( href ) ) {
 
-    }
+        const eventUid = _getEventUid( href );
 
+        let slug = null;
 
-    log( 'updating request params "%s"', JSON.stringify( hrefQuery ) );
+        if ( data.ebd.ues ) {
 
-    controller.update( 'body', hrefQuery );
+          slug = _.get( _.first( data.ev.filter( e => e.u === parseInt( eventUid ) ) ), 's' );
+
+        }
+
+        if ( slug ) {
+
+          hrefQuery.event = slug;
+
+        } else {
+          
+          hrefQuery.uid = eventUid;
+
+        }
+
+      }
+
+      log( 'updating request params "%s"', JSON.stringify( hrefQuery ) );
+
+      controller.update( 'body', hrefQuery );
+
+    } );
 
   }
 
@@ -241,9 +265,7 @@ function widget( elem, options ) {
 
           // agenda link has no associated filter
 
-          delete currentQuery.uid;
-
-          newSrc = _clean( message.load + '?' + qs.stringify( { oaq: currentQuery } ) );
+          newSrc = _clean( message.load + '?' + qs.stringify( { oaq: _.omit( currentQuery, [ 'uid', 'event' ] ) } ) );
 
         } else {
 
@@ -414,9 +436,50 @@ function widget( elem, options ) {
 
   function _initSrc( query ) {
 
-    if ( utils.size( query ) || !elem.getAttribute( 'src' ) ) {
+    if ( utils.size( query ) || !elem.hasAttribute( 'src' ) ) {
 
       change( query );
+
+    }
+
+  }
+
+
+  function _loadFromUidAttribute( uid ) {
+
+    if ( !uid ) return null; 
+
+    _initAgendaRes( uid.split( '/' ) );
+
+    lang = elem.getAttribute( 'data-lang' ) || 'fr';
+
+    return uid;
+
+  }
+
+  function _initAgendaRes( uids ) {
+
+    if ( uids && uids.length >= 1 ) {
+
+      agendaRes = config.res[ uids.length == 2 ? 'customAgenda' : 'agenda' ].replace( ':uid', uids[ 0 ] );
+
+      eventRes = config.res[ uids.length == 2 ? 'customEvent' : 'event' ].replace( ':uid', uids[ 0 ] );
+
+      if ( uids.length == 2 ) {
+
+        agendaRes = agendaRes.replace( ':embedUid', uids[ 1 ] );
+
+        eventRes = eventRes.replace( ':embedUid', uids[ 1 ] );
+
+      }
+
+    } else {
+
+      if ( window.env !== 'tpl' ) throw 'Could not read embed identifiers';
+
+      agendaRes = config.res.agenda;
+
+      eventRes = config.res.event;
 
     }
 
@@ -443,29 +506,7 @@ function widget( elem, options ) {
 
     });
 
-    if ( uids && uids.length >= 1 ) {
-
-      agendaRes = config.res[ uids.length == 2 ? 'customAgenda' : 'agenda' ].replace( ':uid', uids[ 0 ] );
-
-      eventRes = config.res[ uids.length == 2 ? 'customEvent' : 'event' ].replace( ':uid', uids[ 0 ] );
-
-      if ( uids.length == 2 ) {
-
-        agendaRes = agendaRes.replace( ':embedUid', uids[ 1 ] );
-
-        eventRes = eventRes.replace( ':embedUid', uids[ 1 ] );
-
-      }
-
-    } else {
-
-      if ( window.env !== 'tpl' ) throw 'Could not read embed identifiers';
-
-      agendaRes = config.res.agenda;
-
-      eventRes = config.res.event;
-
-    }
+    _initAgendaRes( uids );
     
     return uids.join('/');
 
