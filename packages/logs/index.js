@@ -14,7 +14,7 @@ const levels = Object.keys( winston.config.npm.levels );
 
 const loggers = [];
 const loggerConfigs = {};
-const basicLogger = getLogger();
+const basicLogger = getLogger( { $callerFile: __filename, $callerModule: __dirname } );
 
 module.exports = Object.assign(
   createLogger,
@@ -50,7 +50,7 @@ function createLogger( namespace, ...args ) {
 
 function getLogger( options = {} ) {
 
-  const callerFile = getCallerFile( 2 );
+  const callerFile = options.$callerFile || getCallerFile( 2 );
   const callerModule = options.$callerModule || getModule( path.resolve( callerFile ) );
 
   const logger = new winston.Logger( {
