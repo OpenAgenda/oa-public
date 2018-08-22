@@ -1,6 +1,6 @@
 "use strict";
 
-const tty = require( 'tty' );
+const debug = require( 'debug' );
 const { inspect } = require( 'util' );
 const _ = require( 'lodash' );
 const errors = require( '@feathersjs/errors' );
@@ -396,7 +396,7 @@ module.exports = {
       log.error(
         `Error in '${context.path}' service method '${context.method}'\n${context.error.stack}\n`,
         inspect( _.omit( context.error, [ 'hook.app', 'hook.service' ] ), {
-          colors: tty.isatty( process.stdout.fd )
+          colors: debug.useColors()
         } )
       );
     }
