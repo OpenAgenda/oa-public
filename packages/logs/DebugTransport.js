@@ -29,15 +29,14 @@ class DebugTransport extends winston.Transport {
   }
 
   log( level, msg, meta, cb ) {
-    let displayedMeta = _.omit( meta, 'namespace' );
+    const displayedMeta = meta instanceof Error ? meta : _.omit( meta, 'namespace' );
+    const args = [ msg ].concat(
+      typeof displayedMeta !== 'undefined' && !isEmptyObject( displayedMeta )
+        ? util.inspect( displayedMeta, { colors: debug.useColors() } )
+        : []
+    );
 
-    if ( meta instanceof Error ) {
-      displayedMeta = util.inspect( meta );
-    }
-
-    displayedMeta = isEmptyObject( displayedMeta ) ? undefined : displayedMeta;
-
-    this.debug.apply( null, [ msg ].concat( displayedMeta ? [ displayedMeta ] : [] ) );
+    this.debug.apply( null, args );
 
     cb( null, true );
   }
