@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
 import pick from 'lodash/pick';
 import throttle from 'lodash/throttle';
-import mapValues from 'lodash/mapValues';
-import update from 'immutability-helper';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import * as activitiesActions from '../../redux/modules/activities';
@@ -54,23 +52,14 @@ export default class AgendaDashboard extends Component {
   constructor( props ) {
     super( props );
 
-    this.onActivityClick = ::this.onActivityClick;
     this.nextPage = ::this.nextPage;
-    this.getFilters = ::this.getFilters;
-    this.removeFilter = ::this.removeFilter;
     this.updateMonitorBottomHit = ::this.updateMonitorBottomHit;
   }
 
-  state = {
-    filters: this.getFilters( pick( this.props.location.query, [ 'actor', 'verb', 'object', 'target' ] ) )
-  };
-
   componentDidMount() {
-
     if ( typeof document !== 'undefined' ) {
       monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
     }
-
   }
 
   componentWillUnmount() {
@@ -82,97 +71,11 @@ export default class AgendaDashboard extends Component {
     monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
   }
 
-  getFilters( values ) {
-    const { activities } = this.props;
-
-    const usefullActivities = {
-      actor: activities.find( v => v.actor === values.actor ),
-      verb: activities.find( v => v.verb === values.verb ),
-      object: activities.find( v => v.object === values.object ),
-      target: activities.find( v => v.target === values.target )
-    };
-
-    return mapValues( usefullActivities, ( v, k ) => v ? {
-      label: v.store.labels[ k ],
-      value: v[ k ]
-    } : undefined );
-  }
-
-  removeFilter( type ) {
-    const { list, location, query } = this.props;
-    const { router } = this.context;
-
-    this.setState( update( this.state, {
-      filters: {
-        $unset: [ type ]
-      }
-    } ), () => {
-      list( { ...query, [ type ]: undefined } ).then( this.updateMonitorBottomHit )
-    } );
-
-    router.replace( {
-      ...location,
-      query: {
-        ...location.query,
-        [ type ]: undefined
-      }
-    } );
-  }
-
   nextPage() {
     const { loading, nextLoading, activities, query, nextPage, lastPage } = this.props;
     if ( !activities || !activities.length || loading || nextLoading || lastPage ) return;
     nextPage( query, activities[ activities.length - 1 ].id );
   };
-
-  onActivityClick( e ) {
-
-    const { location, query, list } = this.props;
-    const { router } = this.context;
-
-    if (
-      !e.target.hasAttribute( 'data-filtertype' )
-      || !e.target.hasAttribute( 'data-filterlabel' )
-      || !e.target.hasAttribute( 'data-filtervalue' )
-    ) {
-      return;
-    }
-
-    const type = e.target.getAttribute( 'data-filtertype' );
-    const label = e.target.getAttribute( 'data-filterlabel' );
-    const value = e.target.getAttribute( 'data-filtervalue' );
-
-    this.setState( update( this.state, {
-      filters: {
-        [ type ]: {
-          $set: {
-            label,
-            value
-          }
-        }
-      }
-    } ), () => {
-      list( { ...query, [ type ]: value } ).then( this.updateMonitorBottomHit )
-    } );
-
-    router.replace( {
-      ...location,
-      query: {
-        ...location.query,
-        [ type ]: value
-      }
-    } );
-  };
-
-  getEventTitle( labels ) {
-
-    if ( typeof labels !== 'object' ) return labels;
-
-    const { lang } = this.props;
-    const keys = Object.keys( labels );
-    return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
-
-  }
 
   render() {
     const { activities, nextLoading } = this.props;
@@ -182,19 +85,9 @@ export default class AgendaDashboard extends Component {
       <div>
         <h2>{getLabel( 'activities' )}</h2>
 
-        <div className="margin-v-md">
-          <ul className="nav nav-pills filters">
-            {Object.values( mapValues( this.state.filters, ( v, k ) =>
-              v && <li key={k} onClick={() => this.removeFilter( k )} className="active margin-right-sm">
-                <a role="button">{this.getEventTitle( v.label )}</a>
-              </li>
-            ) )}
-          </ul>
-        </div>
-
         <div className="padding-top-md">
           {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} lang={lang} withFilterIcons={true} />)}
+            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} lang={lang} />)}
           </ul>}
 
           {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

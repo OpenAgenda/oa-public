@@ -14,7 +14,7 @@ export default class ActivityItem extends Component {
 
   render() {
 
-    const { activity, lang, withFilterIcons } = this.props;
+    const { activity, lang, withFilterIcons, onActivityClick } = this.props;
 
     const formatArgs = [ activity ];
 
@@ -23,7 +23,11 @@ export default class ActivityItem extends Component {
     if ( withFilterIcons ) formatArgs.push( withFilterIcons );
 
     return <li>
-      <span className="activity-info activity-item" dangerouslySetInnerHTML={{ __html: formatActivity.apply( null , formatArgs ) }} />
+      <span
+        className="activity-info activity-item"
+        dangerouslySetInnerHTML={{ __html: formatActivity.apply( null , formatArgs ) }}
+        onClick={onActivityClick || null}
+      />
       <span className="activity-time">
         {moment( activity.createdAt ).locale( lang ).format( 'LLL' )}
       </span>
