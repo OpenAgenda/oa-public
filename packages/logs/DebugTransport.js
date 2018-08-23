@@ -1,5 +1,6 @@
 "use strict";
 
+const util = require( 'util' );
 const _ = require( 'lodash' );
 const winston = require( 'winston' );
 const debug = require( 'debug' );
@@ -30,8 +31,8 @@ class DebugTransport extends winston.Transport {
   log( level, msg, meta, cb ) {
     let displayedMeta = _.omit( meta, 'namespace' );
 
-    if ( meta && meta instanceof Error && meta.stack ) {
-      displayedMeta = meta.stack;
+    if ( meta instanceof Error ) {
+      displayedMeta = util.inspect( meta );
     }
 
     displayedMeta = isEmptyObject( displayedMeta ) ? undefined : displayedMeta;
