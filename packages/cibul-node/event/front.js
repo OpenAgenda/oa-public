@@ -523,11 +523,13 @@ function _appendSettings( req, res, next ) {
 
   if ( !req.agenda ) return next();
 
-  agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
+  agendaSvc.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
 
     req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
 
     req.baseData.inbox = _.get( agenda, 'settings.inbox', {} );
+
+    req.baseData.useContributeApp = _.get( agenda, 'credentials.useContributeApp', false );
 
     next();
 

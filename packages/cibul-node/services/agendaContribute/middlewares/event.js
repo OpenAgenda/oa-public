@@ -6,17 +6,13 @@ const core = require( '../../../core' );
 
 module.exports = function( req, res, next ) {
 
-  req.event = null;
-
-  next();
-
-  return;
-
   core.agendas( req.agenda.uid ).events.get( req.params.eventUid ).then( event => {
 
     if ( !event ) return next( 404 );
 
     req.event = event;
+
+    next();
 
   } ).catch( err => {
 
