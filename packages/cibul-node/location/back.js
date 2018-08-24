@@ -244,14 +244,10 @@ function _resyncSuccess( req, res, next ) {
 
 function showList( req, res, next ) {
 
-  if ( req.xhr ) {
-
-    return res.json( {
-      items: req.locations.items,
-      total: req.locations.total
-    } );
-
-  }
+  return res.json( {
+    items: req.locations.items,
+    total: req.locations.total
+  } );
 
   next();
 
