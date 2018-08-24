@@ -24,12 +24,6 @@ const devLayout = require( './dev/layout' );
 service.init( {
   //frontAppPath: '/dist', //set only to troubleshoot dist file
   layout: devLayout,
-  redirects: {
-    seeEvent: '/?redirect.eventCreated=:eventUid',
-    createOtherEvent: '/?redirect.createOtherEvent',
-    seeAllEvents: '/?redirect.seeAllEvents',
-    contactAdministrators: '/?redirect.contactAdministrators'
-  },
   interfaces: {
     setMember: require( './dev/setMember' ),
     setEvent: require( './dev/setEvent' )
@@ -65,19 +59,19 @@ dev.get( '/', ( req, res ) => {
 dev.use( '/locations', locationApp );
 
 dev.all( 
-  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ],
+  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step', '/:agendaSlug/contribute/event/:eventUid' ],
   require( './dev/loadUserMw' ),
   require( './dev/loadAgendaMw' ),
   require( './dev/loadMemberMw' )
 );
 
 dev.all( 
-  '/:agendaSlug/contribute/:eventUid',
+  '/:agendaSlug/contribute/event/:eventUid',
   require( './dev/loadEventMw' )
 );
 
 dev.all(
-  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ],
+  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step', '/:agendaSlug/contribute/event/:eventUid' ],
   require( './dev/loadConfigMw' )
 );
 

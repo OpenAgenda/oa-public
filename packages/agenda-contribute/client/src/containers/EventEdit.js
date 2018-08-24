@@ -46,6 +46,7 @@ class EventEdit extends Component {
               </div>:null}
               <div className="padding-all-md padding-top-lg wsq">
                 <EventForm 
+                  locationRes={config.locationRes}
                   lang={config.lang} 
                   values={event}
                   onSubmitSuccess={onUpdateSuccess}

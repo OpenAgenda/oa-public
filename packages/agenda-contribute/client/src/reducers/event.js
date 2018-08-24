@@ -35,6 +35,21 @@ function reducer( state = {}, action = {} ) {
 
 function updated( values, response ) {
 
+  return ( dispatch, getState ) => {
+
+    const state = getState();
+
+    if ( _.get( state , 'config.redirects.updated' ) ) {
+
+      window.location.href = _.get( state , 'config.redirects.updated' );
+
+    } else {
+
+      window.location.href = _.get( state, 'config.redirects.seeEvent' ).replace( ':eventUid', _.get( state, 'event.uid' ) );
+
+    }
+
+  }
 
 }
 

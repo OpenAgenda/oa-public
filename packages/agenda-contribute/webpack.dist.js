@@ -30,7 +30,7 @@ module.exports = {
     chunkFilename: '[id]-[chunkhash].js',
   },
   plugins: [
-    new LodashModuleReplacementPlugin,
+    new LodashModuleReplacementPlugin( { paths: true } ),
     new CleanWebpackPlugin( localDistPath ),
     new WebpackAssetsManifest( {
       output: __dirname + '/client/manifest.json'

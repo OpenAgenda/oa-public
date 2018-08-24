@@ -23,9 +23,6 @@ module.exports = {
 const config = {
   layout: ( req, content ) => 'The service is not ready',
   CDNPath: null,
-  interfaces: {
-    exit: '/'
-  },
   frontAppPath: null
 }
 
@@ -34,13 +31,6 @@ function init( c ) {
   _.extend( config, c );
 
   app.get( [ '/', '/:step', '/:step/:eventUid' ],
-    ( req, res, next ) => {
-
-      _.extend( req.config || {}, _.pick( config, [ 'redirects' ] ) );
-
-      next();
-
-    }, 
     ( req, res ) => {
 
     const frontAppInit = {
@@ -80,7 +70,7 @@ function init( c ) {
   );
 
 
-  app.post( '/event',
+  app.post( [ '/event', '/event/:eventUid' ],
     bodyParser.json(),
     ( req, res ) => {
 
