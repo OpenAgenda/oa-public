@@ -471,8 +471,6 @@ function getMiddleware( idRef ) {
 
     let offset = 0;
 
-    if ( !req.xhr && !req.ignoreXhr ) return next();
-
     try {
 
       limit = Math.min( config.maxLimit, parseInt( req.query.limit || config.defaultLimit ) );
