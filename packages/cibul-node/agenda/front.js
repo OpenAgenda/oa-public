@@ -545,7 +545,7 @@ function _formatShowLinks( req, res, next ) {
 
   req.templateData.events.forEach(  e => {
 
-    var params = { 
+    const params = { 
       slug: req.agenda.slug,
       eventSlug : e.slug,
       lang : req.lang 
@@ -597,6 +597,8 @@ function _formatEmbedLinks( req, res, next ) {
 
     e.link = req.genUrl(  'agendaEmbedEventShow', params );
 
+    e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
+
     if ( e.categorySlug ) {
 
       e.categoryLink = req.genUrl( 'agendaEmbedShow', {
@@ -640,6 +642,8 @@ function _formatCustomEmbedLinks( req, res, next ) {
     if ( req.query.oaq ) params.search = req.query.oaq;
 
     e.link = req.genUrl( req.preview ? 'agendaCustomEmbedEventShowPreview' : 'agendaCustomEmbedEventShow', params );
+
+    e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
 
     if ( e.categorySlug ) {
 
