@@ -48,6 +48,12 @@ module.exports = {
 
   credentials: {
 
+    useContributeApp: {
+      description: 'Use new contribute application for creating and editing events',
+      type: 'boolean',
+      default: false
+    },
+
     // activate moderators
     moderators: {
       description: 'Add Moderator to member roles',

@@ -294,6 +294,7 @@ describe( 'agendas - functional (server): get', function() {
           }
         },
         credentials: {
+          useContributeApp: false,
           activatingInvitations: false,
           emailstrategie: false,
           embedsHead: false,

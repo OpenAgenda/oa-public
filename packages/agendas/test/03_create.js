@@ -310,6 +310,7 @@ describe( 'agendas - functional (server): set (create)', function() {
             }
           },
           credentials: {
+            useContributeApp: false,
             activatingInvitations: false,
             emailstrategie: false,
             moderators: false,
