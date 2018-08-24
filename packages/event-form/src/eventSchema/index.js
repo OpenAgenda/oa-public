@@ -84,6 +84,7 @@ module.exports = ( { locationRes } ) => {
     }, {
       "field" : "conditions",
       "fieldType" : "text",
+      "languages" : [ 'fr', 'en' ],
       "label" : {
         "fr" : "Conditions de participation, tarifs",
         "en" : "Attendence conditions, pricing"
