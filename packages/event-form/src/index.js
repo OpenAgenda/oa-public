@@ -23,7 +23,7 @@ export default class EventForm extends Component {
 
     const schema = eventSchema( {
       locationRes
-    } );           
+    } );
 
     return <FormSchemaComponent
       lang={lang}
