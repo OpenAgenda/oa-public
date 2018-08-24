@@ -57,7 +57,11 @@
 <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor w25">
-      <a class="edge-link" href="<%= genUrl( loner ? 'eventEdit' : 'agendaEventEdit', [ { eventSlug: event.slug }, loner ? {} : { slug: slug } ] ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
+      <% if ( loner ) { } else if ( useContributeApp ) { %> 
+      <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
+      <% } else { %>
+      <a class="edge-link" href="<%= genUrl( 'agendaEventEdit', { eventSlug: event.slug, slug: slug } ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
+      <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
       <span class="edge-selected"><%= __( 'actions' ) %></span>
