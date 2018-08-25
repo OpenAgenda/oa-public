@@ -1058,5 +1058,17 @@ module.exports = {
   premiumSumTemplating: {
     en: 'Advanced customization for your embedded agenda',
     fr: 'Personnalisation avancée de votre agenda intégré'
+  },
+  embedTitle: {
+    en: 'OpenAgenda in your website',
+    fr: 'OpenAgenda sur votre site'
+  },
+  embedDescription: {
+    en: 'Embed your white-labelled OpenAgenda in your site',
+    fr: 'Intégrez votre OpenAgenda en marque blanche'
+  },
+  embedDiscover: {
+    en: 'Discover a selection of embedded agendas',
+    fr: 'Découvrez une séléction d\'OpenAgendas intégrés'
   }
 }
