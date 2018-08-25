@@ -1,0 +1,10 @@
+div.embed-previews
+  h2.margin-top-lg!=embedDiscover
+  ul.list-inline.margin-bottom-lg
+    each integration in integrations
+      li.margin-all-md
+        a.embed-item(href=integration.link target="_blank")
+          img(src=integration.pic alt!=integration.title)
+          .details
+            label!=integration.title
+            span!=integration.link

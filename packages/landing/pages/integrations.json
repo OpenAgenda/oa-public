@@ -1,0 +1,17 @@
+{
+  "keys" : [
+    { "lang" : "en", "key" : "your-website" },
+    { "lang" : "fr", "key" : "votre-site" }
+  ],
+  "head" : {
+    "title" : "embedTitle",
+    "description" : "embedDescription"
+  },
+  "title": "embedTitle",
+  "description": "embedDescription",
+  "layout": "layout",
+  "segments": [ {
+    "key" : "integrations",
+    "embedDiscover" : "embedDiscover"
+  }, "footer" ]
+}
