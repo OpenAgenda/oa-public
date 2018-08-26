@@ -1,7 +1,11 @@
 .embed-previews {
 
   text-align: center;
-  max-width: 1800px;
+  
+  > ul {
+    max-width: 1800px;
+    display: inline-block;
+  }
 
   .embed-item {
 
@@ -18,6 +22,7 @@
       background: rgba( $oa-dark-purple, 0.9 );
       color: $oa-white;
       padding: 1em;
+      cursor: pointer;
 
       label {
 
