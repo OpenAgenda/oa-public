@@ -1,25 +1,27 @@
 "use strict";
 
+const DEFAULT_LANGUAGE = 'en';
+
 const _ = {
-  extend: require( 'lodash/extend' ),
-  set: require( 'lodash/set' ),
+  assign: require( 'lodash/assign' ),
   get: require( 'lodash/get' ),
   keys: require( 'lodash/keys' ),
-  isArray: require( 'lodash/isArray' )
+  isArray: require( 'lodash/isArray' ),
+  isString: require( 'lodash/isString' )
 };
 
 const text = require( './text' );
 
-module.exports = config => {
+module.exports = ( config = {} )=> {
 
-  const params = _.extend( {
+  const params = _.assign( {
     field: false,
     optional: true,
-    defaultLanguage: 'en',
+    defaultLanguage: null,
     languages: [] // if array is set, languages are required
   }, config || {} );
 
-  return _.extend( validate, {
+  return _.assign( validate, {
     type: 'multilingual',
     field: params.field
   } );
@@ -32,9 +34,31 @@ module.exports = config => {
 
     let errors = [];
 
-    const value = typeof origin === 'string' 
-      ? [ params.defaultLanguage ].reduce( l => _.set( {}, l, origin ), {} )
-      : origin || {};
+    const value = {};
+
+    if ( _.isString( origin ) && params.languages.length ) {
+
+      _.assign( value, params.languages.reduce( ( c, l ) => {
+
+        c[ l ] = origin;
+
+        return c;
+
+      }, {} ) );
+
+    } else if ( _.isString( origin ) ) {
+
+      const obj = {};
+
+      obj[ params.defaultLanguage || DEFAULT_LANGUAGE ] = origin;
+
+      _.assign( value, obj );
+
+    } else {
+
+      _.assign( value, origin || {} );
+
+    }
 
     // if languages have been pre-specified, they should be
     // part of validation and sanitizing
@@ -83,7 +107,7 @@ module.exports = config => {
 
       } catch( lErrors ) {
 
-        errors = errors.concat( lErrors.map( e => _.extend( { lang: l }, e ) ) );
+        errors = errors.concat( lErrors.map( e => _.assign( { lang: l }, e ) ) );
 
       }
 
