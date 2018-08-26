@@ -19,7 +19,7 @@ class Main extends Component {
     // state is updated here
     this.state = {
       values: {},
-      errors: null
+      errors: []
     }
 
   }
@@ -28,9 +28,13 @@ class Main extends Component {
 
     const props = {
       values: this.state.values,
+      errors: this.state.errors,
       stateless: true,
-      onChange: ( { values, errors } ) => this.setState( { values, errors } ),
-      //onChange: ( { values, errors } ) => this.setState( _.assign( {}, values ? { values } : {}, errors ? { errors } : {} ) ),
+      onChange: ( { values, errors } ) => {
+
+        this.setState( { values, errors } );
+
+      },
       res: {
         post: '',
         redirect: '/'

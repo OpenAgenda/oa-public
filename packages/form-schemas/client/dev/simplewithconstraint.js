@@ -19,7 +19,9 @@ class Main extends Component {
           "field" : "anything",
           "fieldType" : "text",
           "optional" : false,
-          "label" : "N'importe quoi"
+          "label" : "Pas tout à fait n'importe quoi",
+          "min" : 3,
+          "max" : 10
         } ]
       }
     }

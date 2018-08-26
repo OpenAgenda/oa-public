@@ -10,6 +10,10 @@ const devApps = [ {
   description: 'To get started',
   link: '/simplest'
 }, {
+  name: 'Simple with a constraint',
+  description: 'To troubleshoot errors',
+  link: '/simplewithconstraint'
+}, {
   name: 'A form',
   description: 'This is the dev app before it was split. It shows a form with mixed fields',
   link: '/form'

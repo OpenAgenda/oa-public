@@ -34,14 +34,14 @@ export default class FormSchemaComponent extends Component {
       fields: this._getFormSchema().getFields(),
       defaultLabelLanguage: this.props.lang,
       values,
-      errors: {},
+      errors: [],
       editedFields: {} // fields that have been fiddled with by user
     }
 
     if ( !this.props.stateless ) {
 
       init.values = values;
-      init.errors = {};
+      init.errors = [];
 
     }
 
@@ -118,7 +118,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldError( field, value ) {
+  getFieldErrors( field, value ) {
 
     const values = {};
 
@@ -126,7 +126,9 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.validate( values );
 
-    return _.get( errors, field, null );
+
+
+    return errors.filter( e => e.field === field );
 
   }
 
@@ -146,22 +148,21 @@ export default class FormSchemaComponent extends Component {
 
       const clean = validate( values );
 
-      return { clean, errors: {} };
+      return { clean, errors: [] };
 
     } catch ( errors ) {
 
       // simpler to always keep errors as arrays.
-      return { clean: null, errors: errors.reduce( ( errors, e ) => {
+      return { 
+        clean: null, 
+        errors: errors.map( e => {
 
-        const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
+          const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
 
-        const error = e.lang ? _.set( errors[ e.field ] || {}, e.lang, errorLabel ) : errorLabel;
+          return _.set( e, 'label', errorLabel );
 
-        errors[ e.field ] = error;
-
-        return errors;
-
-      }, {} ) }
+        } )
+      }
 
     }
 
@@ -179,15 +180,15 @@ export default class FormSchemaComponent extends Component {
 
     const updateValues = {};
 
-    const updateErrors = {};
-
     updateValues[ field ] = { $set: value };
 
-    updateErrors[ field ] = { $set: this.getFieldError( field, value ) };
+    const updatedErrors = this.get( 'errors', [] )
+      .filter( e => e.field !== field )
+      .concat( this.getFieldErrors( field, value ) );
 
     this.set( {
       values: ih( this.get( 'values', {} ) || {}, updateValues ),
-      errors: ih( this.get( 'errors', {} ), updateErrors )
+      errors: updatedErrors
     } );
 
   }
@@ -224,7 +225,7 @@ export default class FormSchemaComponent extends Component {
           key={'field' + i}
           field={f}
           value={_.get( values, f.field, null )}
-          error={_.get( this.get( 'errors' ), f.field, null )}
+          error={ _.get( _.first( _.filter( this.get( 'errors' ), e => e.field === f.field ) ), 'label' )}
           onChange={this.onChange.bind( this, f.field )}
         />
 
