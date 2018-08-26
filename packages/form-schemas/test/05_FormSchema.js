@@ -103,6 +103,21 @@ describe( 'FormSchema', () => {
 
     } );
 
+    it( 'preset fields defining labels do not need to be given with language keys', () => {
+
+      const s = new FormSchema( {
+        fields: [ {
+          field: 'asinglefield',
+          label: 'Un champ texte',
+          fieldType: 'text'
+        } ],
+        defaultLabelLanguage: 'fr'
+      } )
+
+      s.getFields()[ 0 ].label.should.eql( { fr: 'Un champ texte' } );
+
+    } );
+
   } );
 
   describe( 'adding fields', () => {

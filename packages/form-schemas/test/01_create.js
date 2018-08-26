@@ -31,6 +31,7 @@ describe( 'form-schemas - functional (server): create', () => {
       id: 1,
       formSchema: {
         custom: null,
+        defaultLabelLanguage: null,
         nextOptionId: 1,
         fields: []
       }

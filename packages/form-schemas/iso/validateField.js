@@ -6,7 +6,8 @@ const schema = require( '@openagenda/validators/schema' );
 
 const _ = require( 'lodash/core' );
 
-_.extend( _, { 
+_.extend( _, {
+  assign: require( 'lodash/assign' ),
   includes: require( 'lodash/includes' ),
   get: require( 'lodash/get' ) 
 } );
@@ -72,9 +73,14 @@ function validate( value, options = {} ) {
 
   let errors = [], clean;
 
+  const fieldSchema = buildFieldSchema(
+    isCustomField ? 'custom' : type, {
+    defaultLabelLanguage: options.defaultLabelLanguage
+  } );
+
   try {
 
-    clean = typeSchemas[ isCustomField ? 'custom' : type ]( value );
+    clean = fieldSchema( value );
 
   } catch( e ) {
 
@@ -82,7 +88,7 @@ function validate( value, options = {} ) {
 
   }
 
-  // if is custom field, set remaining keys
+  // if is custom field, do not filter out remaining values
   if ( isCustomField ) {
 
     _.keys( value )
@@ -92,9 +98,9 @@ function validate( value, options = {} ) {
   }
 
   // validate any optioned type
-  if ( optionedTypes.indexOf( type ) !== -1 ) {
+  if ( optionedTypes.includes( type ) ) {
 
-    let unique = value.options.reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
+    const unique = value.options.reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
 
     if ( unique.length !== value.options.length ) {
 
@@ -140,12 +146,16 @@ function validate( value, options = {} ) {
 }
 
 
-const typeSchemas = {};
+function buildFieldSchema( type, options = {} ) {
 
-types.concat( 'custom' ).forEach( type => {
+  const { 
+    languages,
+    defaultLabelLanguage,
+  } = _.assign( {
+    defaultLabelLanguage: null
+  }, options );
 
-  const structure = _.extend( {
-
+  const structure = {
     // all custom schema fields must have a field name
     // that is the name that will be used for the input
     // in the form as well as the key in data exports
@@ -158,7 +168,8 @@ types.concat( 'custom' ).forEach( type => {
     // the label to be displayed in the form
     label: {
       type: 'multilingual',
-      optional: false
+      optional: false,
+      defaultLanguage: defaultLabelLanguage
     },
 
     // an informative text can be added adjacent to the form item
@@ -166,20 +177,23 @@ types.concat( 'custom' ).forEach( type => {
       type: 'multilingual',
       max: 1000,
       optional: true,
-      default: null
+      default: null,
+      defaultLanguage: defaultLabelLanguage
     },
 
     sub: {
       type: 'multilingual',
       optional: true,
-      default: null
+      default: null,
+      defaultLanguage: defaultLabelLanguage
     },
 
     placeholder: {
       type: 'multilingual',
       max: 300,
       optional: true,
-      default: null
+      default: null,
+      defaultLanguage: defaultLabelLanguage
     },
 
     write: {
@@ -211,43 +225,52 @@ types.concat( 'custom' ).forEach( type => {
       options: [ 'tags', 'categories', 'custom' ]
     }
 
-  },
+  };
 
-  minMaxedTypes.indexOf( type ) !== -1 ? {
-    min: {
-      type: 'integer',
-      optional: true
-    },
-    max: {
-      type: 'integer',
-      optional: true
-    }
-  } : {},
-  optionedTypes.indexOf( type ) !== -1 ? {
-    options: {
-      list: {
-        min: 1
+  if ( minMaxedTypes.includes( type ) ) {
+
+    _.assign( structure, {
+      min: {
+        type: 'integer',
+        optional: true
       },
-      fields: {
-        id: {
-          type: 'integer'
+      max: {
+        type: 'integer',
+        optional: true
+      }
+    } );
+
+  }
+
+  if ( optionedTypes.includes( type ) ) {
+
+    _.assign( structure, {
+      options: {
+        list: {
+          min: 1
         },
-        value: {
-          type: 'text',
-          optional: false
-        },
-        label: {
-          type: 'multilingual',
-          optional: false
-        },
-        legacyId: {
-          type: 'integer',
-          optional: true
+        fields: {
+          id: {
+            type: 'integer'
+          },
+          value: {
+            type: 'text',
+            optional: false
+          },
+          label: {
+            type: 'multilingual',
+            optional: false
+          },
+          legacyId: {
+            type: 'integer',
+            optional: true
+          }
         }
       }
-    }
-  } : {} );
+    } );
 
-  typeSchemas[ type ] = schema( structure );
+  }
 
-} );
+  return schema( structure );
+
+}

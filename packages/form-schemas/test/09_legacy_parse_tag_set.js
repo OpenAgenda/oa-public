@@ -61,6 +61,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
 
     parseTagSet( { fields: [] }, tagSet ).should.eql( {
       nextOptionId: 8,
+      "defaultLabelLanguage": null,
       fields: [
         {
           field: 'niveau-scolaire',
@@ -181,6 +182,7 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
     } ).should.eql( {
       "nextOptionId": 4,
       "custom" : null,
+      "defaultLabelLanguage": null,
       "fields": [ {
         "field": "type-danimation",
         "label": {

@@ -4,17 +4,17 @@ const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const webpack = require( 'webpack' );
 
-const devAppsPath = __dirname + '/client/src/dev';
-
 module.exports = {
   mode: 'development',
   context: __dirname,
   // in dev environment, entries are files in dev apps path
-  entry: fs.readdirSync( devAppsPath ).reduce( ( entry, file ) => {
+  entry: fs.readdirSync( __dirname + '/client/dev' ).reduce( ( entry, file ) => {
+
+    if ( file.split( '.' ).pop() !== 'js' ) return entry; // only js files are interesting
 
     return _.set( entry, file.split( '.' ).shift(), [
       'webpack-hot-middleware/client',
-      devAppsPath + '/' + file
+      __dirname + '/client/dev/' + file
     ] );
 
   }, {} ),

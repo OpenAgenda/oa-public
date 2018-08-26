@@ -1,6 +1,7 @@
 {
   "nextOptionId": 5,
   "custom" : null,
+  "defaultLabelLanguage": null,
   "fields": [
     {
       "field": "prif",

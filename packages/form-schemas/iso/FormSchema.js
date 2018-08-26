@@ -4,7 +4,8 @@ const _ = {
   pick: require( 'lodash/pick' ),
   keys: require( 'lodash/keys' ),
   extend: require( 'lodash/extend' ),
-  isObject: require( 'lodash/isObject' )
+  isObject: require( 'lodash/isObject' ),
+  omit: require( 'lodash/omit' )
 }
 
 const validateField = require( './validateField' );
@@ -29,8 +30,8 @@ module.exports = class {
 
   addField( data ) {
 
-    let clean = validateField( data, {
-      custom: this.data.custom
+    const clean = validateField( data, {
+      custom: this.data.custom,
     } );
 
     if ( !this.isFieldNameAvailable( clean.field ) ) {
@@ -136,11 +137,18 @@ function validate( data, client = false ) {
     nextOptionId: 1,
     fields: [],
     res: null,
-    custom: null
+    custom: null,
+    defaultLabelLanguage: null
   }, data || {} ),
 
   // these we take as is
-  clean = _.pick( dirty, [ 'id', 'nextOptionId', 'res', 'custom' ] );
+  clean = _.pick( dirty, [
+    'id',
+    'nextOptionId',
+    'res',
+    'custom', 
+    'defaultLabelLanguage'
+  ] );
 
   clean.fields = [];
 
@@ -151,7 +159,10 @@ function validate( data, client = false ) {
 
     try {
 
-      clean.fields.push( validateField( f, { custom: clean.custom } ) );
+      clean.fields.push( validateField( f, {
+        custom: clean.custom,
+        defaultLabelLanguage: clean.defaultLabelLanguage
+      } ) );
 
     } catch ( e ) {
 
@@ -190,7 +201,7 @@ function validate( data, client = false ) {
 
   }
 
-  return client ? clean : _omit( clean, [ 'res', 'id' ] );
+  return client ? clean : _.omit( clean, [ 'res', 'id' ] );
 
 }
 
@@ -198,22 +209,6 @@ function validate( data, client = false ) {
 function _isNew( data ) {
 
   return data.id === null;
-
-}
-
-function _omit( obj, fields = [] ) {
-
-  let filtered = {};
-
-  _.keys( obj ).forEach( k => {
-
-    if ( fields.indexOf( k ) !== -1 ) return;
-
-    filtered[ k ] = obj[ k ];
-
-  } );
-
-  return filtered;
 
 }
 
