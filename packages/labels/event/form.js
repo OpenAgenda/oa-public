@@ -69,6 +69,10 @@ module.exports = {
     'en' : 'Add a language',
     'fr' : 'Ajouter une langue'
   },
+  cancelLanguageChange: {
+    fr: 'Annuler',
+    en: 'Cancel'
+  },
   keywordsPlaceholder: {
     fr: 'Ajoutez des mots-clés séparés par des virgules',
     en: 'Add comma-separated keywords'
