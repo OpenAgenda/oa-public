@@ -14,6 +14,10 @@ const devApps = [ {
   description: 'To troubleshoot errors',
   link: '/simplewithconstraint'
 }, {
+  name: 'Multilingual fields with one language',
+  description: 'Multilingual fields when only one language is active',
+  link: '/multilingualwithonelanguage'
+}, {
   name: 'A form',
   description: 'This is the dev app before it was split. It shows a form with mixed fields',
   link: '/form'

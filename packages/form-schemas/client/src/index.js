@@ -64,9 +64,9 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  get( field ) {
+  get( field, defaultValue = null) {
 
-    return _.get( this, [ this.props.stateless ? 'props' : 'state', field ], null );
+    return _.get( this, [ this.props.stateless ? 'props' : 'state', field ], defaultValue );
 
   }
 
@@ -225,7 +225,7 @@ export default class FormSchemaComponent extends Component {
           key={'field' + i}
           field={f}
           value={_.get( values, f.field, null )}
-          error={ _.get( _.first( _.filter( this.get( 'errors' ), e => e.field === f.field ) ), 'label' )}
+          error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
           onChange={this.onChange.bind( this, f.field )}
         />
 

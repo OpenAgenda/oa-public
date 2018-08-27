@@ -18,8 +18,7 @@ class Main extends Component {
 
     // state is updated here
     this.state = {
-      values: {},
-      errors: []
+      values: {}
     }
 
   }

@@ -24,27 +24,40 @@ module.exports = class MultilingualField extends Component {
 
   }
 
+  renderField( l ) {
+
+    const { field, error } = this.props;
+
+    const Component = this.props.component || FieldComponents[ field.fieldType ];
+
+    return <div>
+      <Component
+        lang={this.props.lang}
+        field={field}
+        value={_.get( this.props.value, l )}
+        onChange={this.onChange.bind( this, l )} />
+      {field.max?<FieldCounter value={_.get( this.props.value, l )} max={field.max}/>:null}
+      <Sub label={field.sub} error={_.get( error, l )}/>
+    </div>
+
+  }
+
   render() {
 
-    const field = this.props.field;
-    const error = this.props.error;
-    
-    const Component = this.props.component || FieldComponents[ field.fieldType ];
+    const { field, error } = this.props;
+
+    if ( field.languages.length === 1 ) {
+
+      return this.renderField( field.languages[ 0 ] );
+
+    }
 
     return <ul className="list-unstyled">
       {field.languages.map( l => (
         <li key={field.field + '_' + l}>
           <div className="lang-input">
             <label>{l}</label>
-            <div>
-              <Component
-                lang={this.props.lang}
-                field={field}
-                value={_.get( this.props.value, l )}
-                onChange={this.onChange.bind( this, l )} />
-              {field.max?<FieldCounter value={_.get( this.props.value, l )} max={field.max}/>:null}
-              <Sub label={field.sub} error={_.get( error, l )}/>
-            </div>
+            {this.renderField( l )}
           </div>
         </li>
       ) )}
