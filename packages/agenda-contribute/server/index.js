@@ -105,8 +105,7 @@ function _getClientAppPath() {
   if ( process.env.NODE_ENV === 'development' ) return '/js/app.js';
 
   return [
-    config.CDNPath,
-    serviceName, 
+    config.CDNPath + serviceName, 
     distFileName
   ].join( '/' );
 
