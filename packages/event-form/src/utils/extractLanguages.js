@@ -10,7 +10,7 @@ module.exports = ( values, defaultLang ) => {
 
   }
 
-  return _.uniq( [ 
+  const languages = _.uniq( [ 
     'title', 
     'description', 
     'keywords', 
@@ -22,5 +22,9 @@ module.exports = ( values, defaultLang ) => {
       : languages;
 
   } , []) );
+
+  if ( languages.length ) return languages;
+
+  return [ defaultLang ];
 
 }

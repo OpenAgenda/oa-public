@@ -88,7 +88,7 @@ module.exports = class Languages extends Component {
           <div className="language-item">
             <span>{languages.getLanguageInfo( l ).nativeName}</span> 
             {pickedLanguages.length > 1 && <span className="remove" onClick={this.onRemove.bind( this, l )}>&#10005;</span>}
-            {pickedLanguages.length === 1 && <span>v&nbsp;</span>}
+            {pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down"></i></span>}
           </div>
         </li>)}
       </ul> : null }
