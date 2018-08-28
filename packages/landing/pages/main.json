@@ -46,7 +46,8 @@
       "points" : [
         "mainBroadcastPoint1",
         "mainBroadcastPoint2",
-        "mainBroadcastPoint3"
+        "mainBroadcastPoint3",
+        "mainBroadcastPoint4"
       ],
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/licouv.png"
     },
