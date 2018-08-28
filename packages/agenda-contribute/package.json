@@ -1,10 +1,10 @@
 {
   "name": "@openagenda/agenda-contribute",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "server/index",
   "scripts": {
     "start": "nodemon server.dev",
-    "prepare" : "cd ../form-schemas && yarn build && cd ../event-form && yarn build",
+    "prepare": "cd ../form-schemas && yarn build && cd ../event-form && yarn build",
     "dist": "yarn prepare && webpack --config webpack.dist.js"
   },
   "dependencies": {
