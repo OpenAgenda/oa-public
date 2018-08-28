@@ -636,15 +636,15 @@ function EventFormFactory() {
 
       { this.props.order.map( o => {
 
-        if ( o.field === 'image' ) {
+        if ( o.field === 'image'  ) {
 
-          return <div
+          return <div>{this.props.configuration.field( 'image' ).display() ? <div
             className="js_event_image_canvas"
             attr-credits-display={this.props.configuration.field( 'credits' ).display() ? '1' : '0' }
             attr-credits-label={JSON.stringify( this.props.configuration.field( 'credits' ).getLabel( true ) )}
             attr-credits-info={JSON.stringify( this.props.configuration.field( 'credits' ).getInfo( true ) )}
             attr-credits-placeholder={JSON.stringify( this.props.configuration.field( 'credits' ).getPlaceholder( true ) )}
-          ></div>;
+          ></div> : null}</div>;
 
         }
 
