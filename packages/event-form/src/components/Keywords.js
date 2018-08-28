@@ -1,11 +1,6 @@
 "use strict";
 
-const _ = {
-  flatten: require( 'lodash/flatten' ),
-  isArray: require( 'lodash/isArray' ),
-  get: require( 'lodash/get' ),
-  set: require( 'lodash/set' )
-}
+import _ from 'lodash';
 
 import React, { Component } from 'react';
 
@@ -25,7 +20,36 @@ module.exports = class KeywordsComponent extends Component {
 
   }
 
+  renderInput( l ) {
+
+    return <div>
+      <TagsInput 
+        value={preClean( this.props.value, l )} 
+        onChange={this.onChange.bind(this, l)}
+        inputProps={{
+          placeholder: this.props.field.placeholder,
+          style: !_.get( this.props.value, l ) ? { width: '630px' } : null
+        }}
+      />
+    </div>
+
+  }
+
+  singleLanguageRender() {
+
+    return <div className="keywords">
+      {this.renderInput( _.first( this.props.field.languages ) )}
+    </div>
+
+  }
+
   render() {
+
+    if ( this.props.field.languages.length === 1 ) {
+
+      return this.singleLanguageRender();
+
+    }
 
     return <div className="keywords">
       <ul className="list-unstyled">
@@ -33,18 +57,7 @@ module.exports = class KeywordsComponent extends Component {
         <li key={this.props.field.field + '_' + l}>
           <div className="lang-input">
             <label>{l}</label>
-            <div>
-              <TagsInput 
-                value={preClean( this.props.value, l )} 
-                onChange={this.onChange.bind(this, l)}
-                inputProps={{
-                  placeholder: this.props.field.placeholder,
-                  style: !_.get( this.props.value, l ) ? { width: '630px' } : null
-                }}
-              />
-              <Counter value={_.get( this.props.value, l )} max={this.props.field.max}/>
-              <Sub label={this.props.field.sub} error={_.get( this.props.error, l )}/>
-            </div>
+            {this.renderInput( l )}
           </div>
         </li>))}
       </ul>
