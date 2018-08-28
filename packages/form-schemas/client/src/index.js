@@ -31,11 +31,9 @@ export default class FormSchemaComponent extends Component {
         errors: flattenLabels( errorLabels, lang ),
         main: flattenLabels( formSchemaLabels, lang )
       },
-      fields: this._getFormSchema().getFields(),
       defaultLabelLanguage: this.props.lang,
       values,
-      errors: [],
-      editedFields: {} // fields that have been fiddled with by user
+      errors: []
     }
 
     if ( !this.props.stateless ) {
@@ -126,8 +124,6 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.validate( values );
 
-
-
     return errors.filter( e => e.field === field );
 
   }
@@ -136,7 +132,7 @@ export default class FormSchemaComponent extends Component {
 
     return new FormSchema( ih( this.props.schema, { 
       defaultLabelLanguage: { $set: this.props.lang } 
-    } ) )
+    } ) );
 
   }
   
@@ -213,7 +209,7 @@ export default class FormSchemaComponent extends Component {
     }
 
     return <div className="oa-form">
-      {this.state.fields.map( ( f, i ) => {
+      {this._getFormSchema().getFields().map( ( f, i ) => {
 
         const flatLabels = flatten( formSchemaLabels, lang );
 
