@@ -1,12 +1,13 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
+const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 
-const app = express();
+const logger = require( '@openagenda/logs' );
 
-const bodyParser = require( 'body-parser' );
+const app = express();
+const log = logger( 'index' );
 
 const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/manifest.json', 'utf-8' ) );
 
@@ -30,8 +31,15 @@ function init( c ) {
 
   _.extend( config, c );
 
-  app.get( [ '/', '/:step', '/:step/:eventUid' ],
-    ( req, res ) => {
+  if ( c.logger ) {
+
+    logger.setModuleConfig( c.logger );
+
+  }
+
+  app.get( [ '/', '/:step', '/:step/:eventUid' ], ( req, res ) => {
+
+    log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
 
     const frontAppInit = {
       config: req.config,
@@ -54,6 +62,8 @@ function init( c ) {
     bodyParser.json(),
     ( req, res ) => {
 
+      log( 'info', 'setting member for agenda %s', _.get( req, 'agenda.slug' ) );
+
       config.interfaces.setMember( req.agenda, req.user, req.member, req.body )
 
       .then( () => {
@@ -62,7 +72,9 @@ function init( c ) {
 
       }, error => {
 
-        res.status( 400 );
+        log( 'error', 'could not set member for agenda %s', _.get( req, 'agenda.slug' ), error );
+
+        res.status( 400 ).send( 'nok' );
 
       } );
 
@@ -74,6 +86,8 @@ function init( c ) {
     bodyParser.json(),
     ( req, res ) => {
 
+      log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
+
       config.interfaces.setEvent( req.agenda, req.user, req.event, req.body )
 
       .then( ( { event } ) => {
@@ -81,6 +95,8 @@ function init( c ) {
         res.json( { event } );
 
       }, error => {
+
+        log( 'error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error );
 
         res.status( 400 );
 
