@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nodemon server.dev",
     "test": "jest --forceExit",
+    "prepublish": "yarn build",
     "build": "rm -rf build && mkdir build && babel src --out-dir build --source-maps"
   },
   "dependencies": {
