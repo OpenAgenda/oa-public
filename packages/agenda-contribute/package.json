@@ -4,8 +4,7 @@
   "main": "server/index",
   "scripts": {
     "start": "nodemon server.dev",
-    "prepare": "cd ../form-schemas && yarn build && cd ../event-form && yarn build",
-    "dist": "yarn prepare && webpack --config webpack.dist.js"
+    "dist": "webpack --config webpack.dist.js"
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.1.23",

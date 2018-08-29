@@ -35,7 +35,7 @@ class EventEdit extends Component {
 
     return <div className="container">
       <div className="row">
-        <div className="col-lg-offset-3 col-lg-6 margin-bottom-lg">
+        <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
           <div className="text-center">
             <div className="margin-v-lg">
               <h3>{event.title[ _.first( _.keys( event.title ) ) ]}</h3>
