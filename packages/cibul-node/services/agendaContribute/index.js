@@ -82,6 +82,7 @@ module.exports = _.extend( ( parentApp, path ) => {
 function init( config ) {
 
   contribute.init( {
+    logger: config.getLogConfig( 'svc', 'agendaContribute' ),
     CDNPath: config.aws.servicesBucketPath,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,

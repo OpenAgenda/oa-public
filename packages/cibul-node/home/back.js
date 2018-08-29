@@ -81,6 +81,7 @@ function matchApp( req, res, next ) {
         },
         res: {
           agendas: {
+            contribute: '/:slug/contribute',
             create: req.genUrl( 'agendaSettingsCreateApp' ),
             list: req.genUrl( 'homeShowList' ),
             show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
