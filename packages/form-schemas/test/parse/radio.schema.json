@@ -1,6 +1,7 @@
 {
   "nextOptionId": 20,
   "custom" : null,
+  "defaultLabelLanguage": null,
   "fields": [
     {
       "field": "quisuisje",

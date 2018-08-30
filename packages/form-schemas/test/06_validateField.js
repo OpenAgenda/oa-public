@@ -161,6 +161,20 @@ describe( 'validateField', () => {
 
     } );
 
+
+    it( 'validate a field with labels specified only in one language', () => {
+
+      iso.validateField( {
+        field: 'afield',
+        fieldType: 'text',
+        label: 'A monolingual label',
+      }, { defaultLabelLanguage: 'fr' } ).label
+      .should.eql( {
+        fr: 'A monolingual label'
+      } );
+
+    } );
+
     
 
   } );

@@ -213,6 +213,7 @@ describe( 'agendas - unit (server): validate', () => {
         image: null,
         url: undefined,
         credentials: {
+          useContributeApp: false,
           activatingInvitations: false,
           emailstrategie: false,
           indesign: false,

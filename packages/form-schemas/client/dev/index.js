@@ -6,6 +6,18 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 const devApps = [ {
+  name: 'The simplest empty form',
+  description: 'To get started',
+  link: '/simplest'
+}, {
+  name: 'Simple with a constraint',
+  description: 'To troubleshoot errors',
+  link: '/simplewithconstraint'
+}, {
+  name: 'Multilingual fields with one language',
+  description: 'Multilingual fields when only one language is active',
+  link: '/multilingualwithonelanguage'
+}, {
   name: 'A form',
   description: 'This is the dev app before it was split. It shows a form with mixed fields',
   link: '/form'
@@ -41,6 +53,10 @@ const devApps = [ {
   name: 'onSubmitSuccess',
   description: 'The callback gives both the sent data and the successful response',
   link: '/onsubmitsuccess'
+}, {
+  name: 'Stateless',
+  description: 'Because sometimes you may want to handle the state in the parent component',
+  link: '/stateless'
 } ];
 
 if ( module.hot ) module.hot.accept();

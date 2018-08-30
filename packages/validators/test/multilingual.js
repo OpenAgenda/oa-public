@@ -96,6 +96,10 @@ describe( 'multilingual validator', () => {
       languages: [ 'fr', 'en' ]
     } );
 
+    const validateWithDefaultLang = multilingual( {
+      defaultLanguage: 'fr'
+    } );
+
     it( 'nothing given returns languages with null', () => {
 
       const clean = validate();
@@ -120,6 +124,22 @@ describe( 'multilingual validator', () => {
       } );
 
     } );
+
+    it( 'if a string is given, it is associated to the set default language', () => {
+
+      const clean = validateWithDefaultLang( 'Un super validateur' );
+
+      should( clean ).eql( { fr: 'Un super validateur' } );
+
+    } );
+
+    it( 'if no default language is preset and string is given, it is spread throughout languages', () => {
+
+      const clean = validate( 'Un super validateur' );
+
+      should( clean ).eql( { fr: 'Un super validateur', en: 'Un super validateur' } );
+
+    } )
 
     it( 'a non optional validator returns required errors on omitted languages', () => {
 

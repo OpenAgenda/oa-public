@@ -60,9 +60,15 @@
                     <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>
                 </a>
                 <% } %>
+                <% if ( agenda.useContributeApp ) { %>
+                <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= `/${agenda.slug}/contribute` %>">
+                    <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
+                </a>
+                <% } else { %>
                 <a class="btn btn-primary display-none js_add_button margin-bottom-xs" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>">
                     <i class="fa fa-plus" aria-hidden="true"></i> <%= __( 'addEvent' ) %>
                 </a>
+                <% } %>
                 <% if ( agenda.showCalendar ) { %>
                 <a class="btn btn-default margin-bottom-xs" href="<%= agenda.slug + '/calendar' %>"><i class="fa fa-calendar"></i><span><%= __( 'showCalendar' ) %></span></a>
                 <% } %>

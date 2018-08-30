@@ -1,3 +1,7 @@
+"use strict";
+
+const _ = require( 'lodash' );
+
 const range = require( '@openagenda/date-range' );
 
 const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
@@ -33,6 +37,10 @@ function init( c, cb ) {
 
 function agendasList( req, res, next ) {
 
+  /**
+   * most of this code should be in interface code of integrating app.
+   */
+
   const {
     agendas: { list: agendasList },
     stakeholders: { list: stakeholdersList }
@@ -41,41 +49,34 @@ function agendasList( req, res, next ) {
   const offset = (req.query.page - 1) * config.mw.limit;
   const limit = config.mw.limit;
 
-  stakeholdersList(
-    req.user.id,
-    0,
-    500, // hmmmm..
-    ( err, stakeholders ) => {
+  stakeholdersList( req.user.id, 0, 500, /* hmmmm.. */ ( err, stakeholders ) => {
+
+    if ( err ) return next( err );
+
+    agendasList( {
+      ids: stakeholders.map( s => s.agendaId ),
+      search: req.query.search
+    }, offset, limit, { 
+      includeImagePath: true,
+      private: null, 
+      total: true, 
+      useDefaultImage: true, 
+      includeFields: [ 'settings', 'credentials' ] 
+    }, ( err, reviews, total ) => {
 
       if ( err ) return next( err );
 
-      agendasList(
-        {
-          ids: stakeholders.map( s => s.agendaId ),
-          search: req.query.search
-        },
-        offset,
-        limit,
-        { includeImagePath: true, private: null, total: true, useDefaultImage: true, includeFields: [ 'settings' ] },
-        ( err, reviews, total ) => {
-
-          if ( err ) return next( err );
-
-          reviews = reviews.map( review => {
-
-            const stakeholder = stakeholders.find( s => s.agendaId === review.id );
-            return Object.assign( {}, review, { stakeholder } );
-
-          } );
-
-          res.send( {
-            total,
-            reviews
-          } );
-
-        } );
+      res.send( {
+        total,
+        reviews: reviews.map( review => _.assign( _.omit( review, [ 'credentials' ] ), { 
+          stakeholder: stakeholders.find( s => s.agendaId === review.id ),
+          useContributeApp: _.get( review, 'credentials.useContributeApp', false )
+        } ) )
+      } );
 
     } );
+
+  } );
 
 }
 

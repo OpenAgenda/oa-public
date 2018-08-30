@@ -7,6 +7,14 @@ const locationRes = {
   remove: '/locations/remove'
 };
 
+const redirects = {
+  updated: '/?redirect.updated=:eventUid',
+  seeEvent: '/?redirect.eventCreated=:eventUid',
+  createOtherEvent: '/?redirect.createOtherEvent',
+  seeAllEvents: '/?redirect.seeAllEvents',
+  contactAdministrators: '/?redirect.contactAdministrators'
+};
+
 module.exports = [ {
   // we set the agenda base data to describe scenario guidelines
   agenda: {
@@ -20,6 +28,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/no-member-data-is-required/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: false
     },
@@ -42,6 +51,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/member-data-is-required/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true
     }
@@ -58,6 +68,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/member-with-incomplete-data/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true,
     }
@@ -81,6 +92,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/member-with-complete-data/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true
     }
@@ -105,6 +117,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/bypass-attempt-to-event/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true
     }
@@ -123,6 +136,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/confirmation/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true
     },
@@ -143,14 +157,13 @@ module.exports = [ {
     lang: 'fr',
     base: '/confirmation-default/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: true
-    },
-    confirmation: {
-      
     }
   }
 }, {
+  link: '/edit-an-event/contribute/event/123',
   agenda: {
     title: 'Editing the event does not require a stepper',
     description: 'Yes.',
@@ -163,6 +176,7 @@ module.exports = [ {
     lang: 'fr',
     base: '/edit-an-event/contribute',
     locationRes,
+    redirects,
     member: {
       dataIsRequired: false
     }

@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 import { render } from 'react-dom';
 
-import FormSchemaComponent from '../index';
+import FormSchemaComponent from '../src/index';
 
 if ( module.hot ) module.hot.accept();
 

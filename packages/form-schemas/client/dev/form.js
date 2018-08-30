@@ -4,10 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import FormSchemaComponent from '../index';
-
-import WigglyPoofComponent from '../custom/WigglyPoofComponent';
-import wigglypoofValidator from '../../../test/custom/wigglypoof.validator';
+import FormSchemaComponent from '../src/index';
 
 if ( module.hot ) module.hot.accept();
 

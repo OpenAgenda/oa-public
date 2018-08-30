@@ -29,7 +29,7 @@ module.exports = class Field extends Component {
 
     const field = flattenFieldLabels( this.props.field, this.props.lang );
 
-    const isMultilingual = _.isArray( field.languages ) && field.languages.length > 1;
+    const isMultilingual = _.isArray( field.languages );
 
     const hasMaxCounter = field.max
       && !isMultilingual

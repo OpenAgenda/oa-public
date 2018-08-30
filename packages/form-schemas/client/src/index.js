@@ -26,25 +26,59 @@ export default class FormSchemaComponent extends Component {
 
     const hasValues = _.isObject( values ) && _.keys( values ).length;
 
-    this.state = {
+    const init = {
       labels: {
         errors: flattenLabels( errorLabels, lang ),
         main: flattenLabels( formSchemaLabels, lang )
       },
-      fields: ( new FormSchema( props.schema ) ).getFields(),
+      defaultLabelLanguage: this.props.lang,
       values,
-      errors: {},
-      editedFields: {} // fields that have been fiddled with by user
+      errors: []
     }
+
+    if ( !this.props.stateless ) {
+
+      init.values = values;
+      init.errors = [];
+
+    }
+
+    this.state = init;
 
     this.onSubmit = this.onSubmit.bind( this );
     this.onSubmitConfirm = this.onSubmitConfirm.bind( this );
 
-    const { errors } = hasValues ? this.validate( values ) : { errors: {} };
+    const { errors } = hasValues ? this.validate( values ) : { errors: [] };
 
-    if ( errors ) {
+    if ( errors && !this.props.stateless ) {
 
       this.state.errors = errors;
+
+    } else if ( errors ) {
+
+      this.set( { errors } );
+
+    }
+
+  }
+
+  get( field, defaultValue = null) {
+
+    return _.get( this, [ this.props.stateless ? 'props' : 'state', field ], defaultValue );
+
+  }
+
+  set( update ) {
+
+    if ( !this.props.stateless ) {
+
+      this.setState( update );
+
+    }
+
+    if ( this.props.onChange ) {
+
+      this.props.onChange( update );
 
     }
 
@@ -54,11 +88,11 @@ export default class FormSchemaComponent extends Component {
 
     e.preventDefault();
 
-    const { clean, errors } = this.validate( this.state.values );
+    const { clean, errors } = this.validate( this.get( 'values' ) );
 
     if ( _.keys( errors ).length ) {
 
-      return this.setState( { errors } );
+      return this.set( { errors } );
 
     }
 
@@ -66,7 +100,7 @@ export default class FormSchemaComponent extends Component {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
 
-        return this.props.onSubmitSuccess( this.state.values, res );
+        return this.props.onSubmitSuccess( this.get( 'values' ), res );
 
       }
 
@@ -82,7 +116,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldError( field, value ) {
+  getFieldErrors( field, value ) {
 
     const values = {};
 
@@ -90,7 +124,15 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.validate( values );
 
-    return _.get( errors, field, null );
+    return errors.filter( e => e.field === field );
+
+  }
+
+  _getFormSchema() {
+
+    return new FormSchema( ih( this.props.schema, { 
+      defaultLabelLanguage: { $set: this.props.lang } 
+    } ) );
 
   }
   
@@ -98,25 +140,25 @@ export default class FormSchemaComponent extends Component {
 
     try {
 
-      const validate = ( new FormSchema( this.props.schema ) ).getValidate();
+      const validate = this._getFormSchema().getValidate();
 
       const clean = validate( values );
 
-      return { clean, errors: {} };
+      return { clean, errors: [] };
 
     } catch ( errors ) {
 
-      return { clean: null, errors: errors.reduce( ( errors, e ) => {
+      // simpler to always keep errors as arrays.
+      return { 
+        clean: null, 
+        errors: errors.map( e => {
 
-        const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
+          const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
 
-        const error = e.lang ? _.set( errors[ e.field ] || {}, e.lang, errorLabel ) : errorLabel;
+          return _.set( e, 'label', errorLabel );
 
-        errors[ e.field ] = error;
-
-        return errors;
-
-      }, {} ) }
+        } )
+      }
 
     }
 
@@ -136,18 +178,14 @@ export default class FormSchemaComponent extends Component {
 
     updateValues[ field ] = { $set: value };
 
-    const updateErrors = {};
+    const updatedErrors = this.get( 'errors', [] )
+      .filter( e => e.field !== field )
+      .concat( this.getFieldErrors( field, value ) );
 
-    updateErrors[ field ] = { $set: this.getFieldError( field, value ) };
-
-    const data = {
-      values: ih( this.state.values || {}, updateValues ),
-      errors: ih( this.state.errors, updateErrors )
-    };
-
-    this.setState( data );
-
-    if ( this.props.onChange ) this.props.onChange( data );
+    this.set( {
+      values: ih( this.get( 'values', {} ) || {}, updateValues ),
+      errors: updatedErrors
+    } );
 
   }
 
@@ -155,7 +193,9 @@ export default class FormSchemaComponent extends Component {
 
     const { lang } = this.props;
 
-    const { values, submitted } = this.state;
+    const { submitted } = this.state;
+
+    const values = this.get( 'values' );
 
     if ( submitted ) {
 
@@ -169,7 +209,7 @@ export default class FormSchemaComponent extends Component {
     }
 
     return <div className="oa-form">
-      {this.state.fields.map( ( f, i ) => {
+      {this._getFormSchema().getFields().map( ( f, i ) => {
 
         const flatLabels = flatten( formSchemaLabels, lang );
 
@@ -181,8 +221,7 @@ export default class FormSchemaComponent extends Component {
           key={'field' + i}
           field={f}
           value={_.get( values, f.field, null )}
-          placeholder={_.get( values, f.field, null )}
-          error={_.get( this.state.errors, f.field, null )}
+          error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
           onChange={this.onChange.bind( this, f.field )}
         />
 
@@ -213,6 +252,7 @@ export default class FormSchemaComponent extends Component {
 }
 
 FormSchemaComponent.defaultPropTypes = {
+  stateless: false, // component handles its own state by default
   onSubmitSuccess: null,
   res: {
     post: '',

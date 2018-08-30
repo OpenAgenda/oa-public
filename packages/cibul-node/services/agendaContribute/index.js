@@ -18,7 +18,11 @@ module.exports = _.extend( ( parentApp, path ) => {
     ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
   );
 
-  parentApp.all( [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ], [
+  parentApp.all( [ 
+    '/:agendaSlug/contribute', 
+    '/:agendaSlug/contribute/:step',
+    '/:agendaSlug/contribute/event/:eventUid'
+  ], [
     sessions.middleware.load(),
     agendas.middleware.load( {
       namespaces: {
@@ -30,17 +34,29 @@ module.exports = _.extend( ( parentApp, path ) => {
     middlewares.member
   ] ); 
 
-  parentApp.all( '/:agendaSlug/contribute/:eventUid', middlewares.event );
+  parentApp.all( '/:agendaSlug/contribute/event/:eventUid', middlewares.event );
 
-  parentApp.all( [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step' ], ( req, res, next ) => {
+  parentApp.all( [
+    '/:agendaSlug/contribute', 
+    '/:agendaSlug/contribute/:step',
+    '/:agendaSlug/contribute/event/:eventUid'
+  ], ( req, res, next ) => {
     
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
+      edit: !!req.event,
       locationRes: {
         index: `/${req.agenda.slug}/locations`,
         geocode: `/${req.agenda.slug}/locations/geocode`,
         set: `/${req.agenda.slug}/locations`
+      },
+      redirects: {
+        //updated: `this should be set when specific redirects are needed on an update`
+        seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
+        createOtherEvent: `/agendas/${req.agenda.uid}/events/contribute`,
+        seeAllEvents: `/home/events`,
+        contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`
       },
       member: {
         dataIsRequired: true
@@ -66,14 +82,10 @@ module.exports = _.extend( ( parentApp, path ) => {
 function init( config ) {
 
   contribute.init( {
+    logger: config.getLogConfig( 'svc', 'agendaContribute' ),
+    CDNPath: config.aws.servicesBucketPath,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,
-    redirects: {
-      seeEvent: '/agendas/:agendaUid/events/:eventUid',
-      createOtherEvent: '/agendas/:agendaUid/events/contribute',
-      seeAllEvents: '/home/events',
-      contactAdministrators: '/agendas/:agendaUid/events/:eventUid/contact'
-    },
     middlewares,
     interfaces
   } );

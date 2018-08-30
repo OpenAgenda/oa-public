@@ -276,7 +276,8 @@ function show( req, res ) {
         official: req.agenda.official,
         isEmpty: req.agenda.isEmpty,
         importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-        showCalendar: _.get( agenda, 'credentials.calendarView', false )
+        showCalendar: _.get( agenda, 'credentials.calendarView', false ),
+        useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
       },
       inbox: _.get( agenda, 'settings.inbox', {} )
     } );
@@ -545,7 +546,7 @@ function _formatShowLinks( req, res, next ) {
 
   req.templateData.events.forEach(  e => {
 
-    var params = { 
+    const params = { 
       slug: req.agenda.slug,
       eventSlug : e.slug,
       lang : req.lang 
@@ -597,6 +598,8 @@ function _formatEmbedLinks( req, res, next ) {
 
     e.link = req.genUrl(  'agendaEmbedEventShow', params );
 
+    e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
+
     if ( e.categorySlug ) {
 
       e.categoryLink = req.genUrl( 'agendaEmbedShow', {
@@ -640,6 +643,8 @@ function _formatCustomEmbedLinks( req, res, next ) {
     if ( req.query.oaq ) params.search = req.query.oaq;
 
     e.link = req.genUrl( req.preview ? 'agendaCustomEmbedEventShowPreview' : 'agendaCustomEmbedEventShow', params );
+
+    e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
 
     if ( e.categorySlug ) {
 

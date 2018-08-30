@@ -1,6 +1,7 @@
 {
   "nextOptionId": 1,
   "custom" : null,
+  "defaultLabelLanguage": null,
   "fields": [ {
     "field": "pi",
     "optional": true,

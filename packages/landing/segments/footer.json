@@ -22,6 +22,9 @@
       "link": "#collaborate",
       "label": "collaborateTitle"
     }, {
+      "link" : "#your-website",
+      "label" : "embedTitle"
+    }, {
       "link": "#reporting",
       "label": "reportingToolTitle"
     } ]

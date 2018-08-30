@@ -29,7 +29,7 @@ module.exports = async ( agenda, user, current, data ) => {
 
     const stakeholderData = memberMap.toStakeholder( data );
 
-    const isMember = !!( await agendaMembers.get( user.id ) );
+    const isMember = !!( await agendaMembers.get( { userId: user.id } ) );
 
     log( isMember ? 'User is already member' : 'User is not member yet' );
 
@@ -39,7 +39,7 @@ module.exports = async ( agenda, user, current, data ) => {
 
     }
 
-    const { success } = await agendaMembers.update( user.id, stakeholderData );
+    const { success } = await agendaMembers.update( { userId: user.id }, stakeholderData );
 
     return success;
 

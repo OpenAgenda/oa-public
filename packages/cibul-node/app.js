@@ -161,7 +161,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './inboxes/back' )( app );
         require( './inboxes/front' )( app );
         require( './services/surveys' )( app, '' );
-        //require( './services/agendaContribute' )( app, '' );
+        require( './services/agendaContribute' )( app, '' );
         require( './services/users' )( app, '/users' );
 
         require( './event/files' )( app, '/' );

@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.114",
+  "version": "0.0.117",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -30,7 +30,7 @@
     "@openagenda/aggregator-sources": "^1.0.1",
     "@openagenda/aggregators": "^1.0.3",
     "@openagenda/call-to-action": "^2.1.0",
-    "@openagenda/cibul-model": "^0.1.16",
+    "@openagenda/cibul-model": "^0.1.17",
     "@openagenda/cibul-templates": "^1.0.131",
     "@openagenda/custom": "^1.1.0",
     "@openagenda/date-range": "^2.1.0",

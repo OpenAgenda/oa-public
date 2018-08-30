@@ -41,15 +41,26 @@ app.get( [ '/:page', '/' ], ( req, res, next ) => {
 
   let p = pages( 'http://' + req.hostname + ':' + port ); // reload the thing  
 
-  let page = req.params.page || null;
+  let page = req.params.page || null;
 
   console.log( 'ip %s requesting page %s', req.ip, page );
 
-  req.content = p( page ).render( req.optionalData );
+  try {
 
-  req.headPart = p( page ).getHeadPart();
+    req.content = p( page ).render( req.optionalData );
 
-  next();
+    req.headPart = p( page ).getHeadPart();
+
+    next();
+
+  } catch ( e ) {
+
+    console.log( e );
+
+    next( 404 );
+
+  }
+
 
 } );
 

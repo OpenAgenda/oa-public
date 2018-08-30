@@ -38,7 +38,7 @@ module.exports = class LocationComponent extends Component {
 
   loadLocation() {
 
-    sa.get( this.props.field.res.index, { uids: [ this.props.value ] } ).then( res => {
+    sa.get( this.props.field.res.index + '?uids[]=' + this.props.value ).then( res => {
 
       if ( !res.body.items.length ) {
 

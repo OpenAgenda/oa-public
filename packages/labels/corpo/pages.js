@@ -60,16 +60,20 @@ module.exports = {
     en: 'Your events are broadcasted on agendas of the platform as well as with our partners'
   },
   mainBroadcastPoint1: {
-    fr: 'vos événements sont **structurés** selon un standard international',
-    en: 'your events are **structured** following an international standard'
+    fr: 'Vos événements sont **structurés** selon un standard international',
+    en: 'Your events are **structured** following an international standard'
   },
   mainBroadcastPoint2: {
-    fr: 'ils sont agrégeables par d\'autres agendas de la plateforme',
-    en: 'they can be aggregated in other agendas'
+    fr: 'Ils sont agrégeables par d\'autres agendas de la plateforme',
+    en: 'They can be aggregated in other agendas'
   },
   mainBroadcastPoint3: {
-    fr: 'elles sont redifusées par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet',
-    en: 'they are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet'
+    fr: 'Ils sont redifusé par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet',
+    en: 'They are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet'
+  },
+  mainBroadcastPoint4: {
+    fr: 'Ils sont intégrables sur **[votre site](votre-site)**',
+    en: 'They are embedabble in your **[your website](your-website)**'
   },
   mainBETitle: {
     fr: 'Vous organisez un grand événement ?',
@@ -1058,5 +1062,17 @@ module.exports = {
   premiumSumTemplating: {
     en: 'Advanced customization for your embedded agenda',
     fr: 'Personnalisation avancée de votre agenda intégré'
+  },
+  embedTitle: {
+    en: 'OpenAgenda in your website',
+    fr: 'OpenAgenda sur votre site'
+  },
+  embedDescription: {
+    en: 'Embed your white-labelled OpenAgenda in your site',
+    fr: 'Intégrez votre OpenAgenda en marque blanche'
+  },
+  embedDiscover: {
+    en: 'Discover a selection of embedded agendas',
+    fr: 'Découvrez une sélection d\'OpenAgendas intégrés'
   }
 }

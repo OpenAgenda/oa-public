@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-contribute",
-  "version": "1.0.9",
+  "version": "1.0.17",
   "main": "server/index",
   "scripts": {
     "start": "nodemon server.dev",
@@ -9,6 +9,7 @@
   "dependencies": {
     "@openagenda/form-schemas": "^1.1.23",
     "@openagenda/labels": "^2.0.81",
+    "@openagenda/logs": "^1.0.18",
     "@openagenda/react-components": "^2.0.8",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.6",

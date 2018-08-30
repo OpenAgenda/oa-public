@@ -1,6 +1,7 @@
 {
   "nextOptionId": 17,
   "custom" : null,
+  "defaultLabelLanguage": null,
   "fields": [
     {
       "field": "organizertype",

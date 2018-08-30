@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( { locationRes } ) => {
+module.exports = ( { locationRes, languages } ) => {
 
   return {
     custom: {
@@ -10,12 +10,20 @@ module.exports = ( { locationRes } ) => {
       age: require( './age' ),
       keywords: require( './keywords' ),
       timings: require( './timings' ),
-      locationUid: require( './locationUid' )
+      locationUid: require( './locationUid' ),
+      languages: require( './languages' )
     },
     fields: [ {
+      "field" : "languages",
+      "fieldType" : "languages",
+      "label" : {
+        "fr" : "Choisissez une langue",
+        "en" : "Pick a language"
+      }
+    }, {
+      languages,
       "field" : "title",
       "fieldType" : "text",
-      "languages" : [ "fr", "en" ],
       "optional" : false,
       "label" : {
         "fr" : "Titre",
@@ -31,9 +39,9 @@ module.exports = ( { locationRes } ) => {
         "en" : "This field is required"
       }
     }, {
+      languages,
       "field" : "description",
       "fieldType" : "text",
-      "languages" : [ "fr", "en" ],
       "optional" : false,
       "label" : {
         "fr" : "Description courte",
@@ -48,9 +56,9 @@ module.exports = ( { locationRes } ) => {
         "en" : "This field is required"
       }
     }, {
+      languages,
       field: 'keywords',
       fieldType: 'keywords',
-      languages: [ 'fr', 'en' ],
       optional: true,
       max: 255,
       label: {
@@ -66,9 +74,9 @@ module.exports = ( { locationRes } ) => {
         "en" : "Keywords are useful for search features"
       }
     }, {
+      languages,
       "field" : "longDescription",
       "fieldType" : "markdown",
-      "languages" : [ 'fr', 'en' ],
       "label" : {
         "fr" : "Description longue",
         "en" : "Long description"
@@ -82,6 +90,7 @@ module.exports = ( { locationRes } ) => {
         "en" : "Make things pretty"
       }
     }, {
+      languages,
       "field" : "conditions",
       "fieldType" : "text",
       "label" : {
@@ -137,7 +146,7 @@ module.exports = ( { locationRes } ) => {
         geocode: '#locations/geocode',
         set: '#locations',
         remove: '#locations/remove'
-      }, locationRes )
+      }, locationRes || {} )
     }, {
       field: 'timings',
       fieldType: 'timings',

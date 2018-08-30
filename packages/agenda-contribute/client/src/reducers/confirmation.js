@@ -23,7 +23,7 @@ function redirect( type ) {
 
     const redirect = _.get( state , 'config.redirects.' + type );
 
-    if ( type === 'seeEvent' ) {
+    if ( [ 'contactAdministrators','seeEvent' ].includes( type ) ) {
 
       window.location.href = redirect.replace( ':eventUid', _.get( state, 'event.uid' ) );
 

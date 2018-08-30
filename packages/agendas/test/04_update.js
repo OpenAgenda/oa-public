@@ -279,6 +279,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           updatedAt: result.agenda.updatedAt,
           createdAt: result.agenda.createdAt,
           credentials: {
+            useContributeApp: false,
             activatingInvitations: false,
             emailstrategie: false,
             moderators: true,

@@ -26,7 +26,7 @@ class Main extends Component {
           values={{
             title: {
               fr: 'Inauguration d\'un formulaire',
-              en: 'A form inauguration'
+//              en: 'A form inauguration'
             },
             locationUid: 93105902
           }}

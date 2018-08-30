@@ -1,12 +1,13 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
+const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 
-const app = express();
+const logger = require( '@openagenda/logs' );
 
-const bodyParser = require( 'body-parser' );
+const app = express();
+const log = logger( 'index' );
 
 const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/manifest.json', 'utf-8' ) );
 
@@ -23,9 +24,6 @@ module.exports = {
 const config = {
   layout: ( req, content ) => 'The service is not ready',
   CDNPath: null,
-  interfaces: {
-    exit: '/'
-  },
   frontAppPath: null
 }
 
@@ -33,15 +31,15 @@ function init( c ) {
 
   _.extend( config, c );
 
-  app.get( [ '/', '/:step', '/:step/:eventUid' ],
-    ( req, res, next ) => {
+  if ( c.logger ) {
 
-      _.extend( req.config || {}, _.pick( config, [ 'redirects' ] ) );
+    logger.setModuleConfig( c.logger );
 
-      next();
+  }
 
-    }, 
-    ( req, res ) => {
+  app.get( [ '/', '/:step', '/:step/:eventUid' ], ( req, res ) => {
+
+    log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
 
     const frontAppInit = {
       config: req.config,
@@ -64,6 +62,8 @@ function init( c ) {
     bodyParser.json(),
     ( req, res ) => {
 
+      log( 'info', 'setting member for agenda %s', _.get( req, 'agenda.slug' ) );
+
       config.interfaces.setMember( req.agenda, req.user, req.member, req.body )
 
       .then( () => {
@@ -72,7 +72,9 @@ function init( c ) {
 
       }, error => {
 
-        res.status( 400 );
+        log( 'error', 'could not set member for agenda %s', _.get( req, 'agenda.slug' ), error );
+
+        res.status( 400 ).send( 'nok' );
 
       } );
 
@@ -80,9 +82,11 @@ function init( c ) {
   );
 
 
-  app.post( '/event',
+  app.post( [ '/event', '/event/:eventUid' ],
     bodyParser.json(),
     ( req, res ) => {
+
+      log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
       config.interfaces.setEvent( req.agenda, req.user, req.event, req.body )
 
@@ -91,6 +95,8 @@ function init( c ) {
         res.json( { event } );
 
       }, error => {
+
+        log( 'error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error );
 
         res.status( 400 );
 
@@ -115,8 +121,7 @@ function _getClientAppPath() {
   if ( process.env.NODE_ENV === 'development' ) return '/js/app.js';
 
   return [
-    config.CDNPath,
-    serviceName, 
+    config.CDNPath + serviceName, 
     distFileName
   ].join( '/' );
 

@@ -127,7 +127,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         emailstrategie: !!test.credRowBefore.emailstrategie,
         aggregator: !!test.credRowBefore.aggregator,
         docxExport: false,
-        eventOwnershipTransfer: false
+        eventOwnershipTransfer: false,
+        useContributeApp: false
       } );
 
       [ 'moderator', 'tags', 'custom_templates', 'custom_head', 'indesign' ].forEach( f => {
