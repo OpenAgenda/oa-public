@@ -71,6 +71,7 @@ export default class AdminDashboard extends Component {
   static contextTypes = {
     router: PropTypes.object,
     lang: PropTypes.string,
+    labels: PropTypes.object,
     getLabel: PropTypes.func
   };
 
@@ -148,8 +149,8 @@ export default class AdminDashboard extends Component {
     return (
       <DateTimePicker
         handleEvent={handleEvent}
-        startValue={startValue && moment( startValue )}
-        endValue={endValue && moment( endValue )}
+        startValue={startValue}
+        endValue={endValue}
       />
     );
 
@@ -243,7 +244,7 @@ export default class AdminDashboard extends Component {
 
   render() {
     const { handleSubmit, reset, activities, nextLoading } = this.props;
-    const { lang, getLabel } = this.context;
+    const { lang, labels, getLabel } = this.context;
 
     return (
       <div className="container-fluid">
@@ -347,6 +348,7 @@ export default class AdminDashboard extends Component {
                   key={a.id}
                   activity={a}
                   lang={lang}
+                  labels={labels}
                   withFilterIcons={true}
                   onActivityClick={this.onActivityClick}
                 />

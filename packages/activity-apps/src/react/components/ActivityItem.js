@@ -2,15 +2,17 @@
 
 import React, { Component } from 'react';
 import moment from 'moment';
+import activityFormatMaker from '@openagenda/activities/dist/formatActivity';
 
 import 'moment/locale/fr';
 
-import activityFormatMaker from '@openagenda/activities/dist/formatActivity';
-import activityLabels from '@openagenda/labels/activities/user';
-
-const formatActivity = activityFormatMaker( {}, activityLabels );
 
 export default class ActivityItem extends Component {
+
+  constructor( props ) {
+    super( props );
+    this.formatActivity = activityFormatMaker( {}, props.labels ).bind( this );
+  }
 
   render() {
 
@@ -25,7 +27,7 @@ export default class ActivityItem extends Component {
     return <li>
       <span
         className="activity-info activity-item"
-        dangerouslySetInnerHTML={{ __html: formatActivity.apply( null , formatArgs ) }}
+        dangerouslySetInnerHTML={{ __html: this.formatActivity( ...formatArgs ) }}
         onClick={onActivityClick || null}
       />
       <span className="activity-time">

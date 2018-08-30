@@ -8,6 +8,7 @@ import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import * as activitiesActions from '../../redux/modules/activities';
 
 import { ActivityItem } from '../../components';
+import labels from '@openagenda/labels/activities/event';
 
 @asyncConnect( [ {
     promise: ( { store: { dispatch, getState } } ) => {
@@ -46,6 +47,7 @@ export default class AgendaDashboard extends Component {
   static contextTypes = {
     router: PropTypes.object,
     lang: PropTypes.string,
+    labels: PropTypes.object,
     getLabel: PropTypes.func
   };
 
@@ -79,7 +81,7 @@ export default class AgendaDashboard extends Component {
 
   render() {
     const { activities, nextLoading } = this.props;
-    const { getLabel, lang } = this.context;
+    const { labels, getLabel, lang } = this.context;
 
     return (
       <div>
@@ -87,7 +89,7 @@ export default class AgendaDashboard extends Component {
 
         <div className="padding-top-md">
           {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} lang={lang} />)}
+            {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} />)}
           </ul>}
 
           {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

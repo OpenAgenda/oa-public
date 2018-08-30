@@ -1,10 +1,11 @@
 "use strict";
 
 import React from 'react';
+import labels from '@openagenda/labels/activities/event';
+import { ActivityItem } from '../../components';
 
 import 'moment/locale/fr';
 
-import { ActivityItem } from '../../components';
 
 export default function ( options ) {
 
@@ -16,7 +17,7 @@ export default function ( options ) {
   return (
     <div>
       {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-        {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} lang={lang} /> )}
+        {activities.map( a => <ActivityItem key={'activity.' + a.id} activity={a} labels={labels} lang={lang} /> )}
       </ul>}
     </div>
   );

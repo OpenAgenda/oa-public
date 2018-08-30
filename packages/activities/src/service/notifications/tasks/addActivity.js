@@ -120,7 +120,8 @@ function addActivity() {
         feedId: feed.id,
         verb: activity.verb,
         groupBy: groupedBy,
-        state: 0
+        state: 0,
+        sent: 0
       }, { excludeIds: params.excludeIds } )
         .then( notif => {
 

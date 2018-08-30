@@ -40,7 +40,8 @@ module.exports = async ( agendaUid, eventUid ) => {
   result = await agendaEvents( agendaUid ).remove( eventUid, {
     transferToLegacy: true,
     context: {
-      legacy: false
+      legacy: false,
+      deletion: true
     }
   } );
 
@@ -55,8 +56,8 @@ module.exports = async ( agendaUid, eventUid ) => {
     result = await custom( formSchemaId ).remove( eventUid, {
       transferToLegacy: true,
       context: {
-        legacy: false 
-      } 
+        legacy: false
+      }
     } );
 
     if ( result.success ) {

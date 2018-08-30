@@ -1,7 +1,7 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
-const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 const custom = require( '@openagenda/custom' );
@@ -24,9 +24,9 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
-
-  const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid, reviewId: agenda.id } );
+  const agenda = await promisify( agendasSvc.get )( { uid: ae.agendaUid }, { internal: true, private: null } );
+  const event = await promisify( oldEventSvc.get )( { uid: ae.eventUid, reviewId: agenda.id } );
+  let user;
 
   if ( ae.state === 2 ) {
 
@@ -74,32 +74,66 @@ module.exports = async ( ae, context ) => {
 
   _addToSearchIndex( ae );
 
-  // If it's a real creation, not an agregation
-  if ( context.userUid && !context.agendaUid ) {
+
+  try {
+
+    let eventFeed = {
+      entityType: 'event',
+      entityUid: event.uid,
+    };
+
     try {
-      let eventFeed = {
-        entityType: 'event',
-        entityUid: event.uid,
-      };
-
-      try {
-        eventFeed = await activitiesSvc.feed( eventFeed ).create();
-      } catch ( err ) {
-        if ( err.message !== 'Feed already exists' ) {
-          log( 'error', err );
-        }
+      eventFeed = await activitiesSvc.feed( eventFeed ).create();
+    } catch ( err ) {
+      if ( err.message !== 'Feed already exists' ) {
+        log( 'error', err );
       }
+    }
 
+    if ( context.userUid ) {
+      try {
+        user = await usersSvc.get( context.userUid );
+      } catch ( err ) {
+        log( 'error', err );
+      }
+    }
+
+    try {
       await activitiesSvc.feed( {
         entityType: 'agenda',
         entityUid: agenda.uid,
       } )
         .follow( eventFeed );
 
-      _addCreateEventActivity( eventFeed, { agenda, event }, context );
-    } catch ( e ) {
-      log( 'error', e );
+      // TODO move next feed follow in events.onCreate ?
+      if ( user ) {
+        await activitiesSvc.feed( {
+          entityType: 'user',
+          entityUid: user.uid,
+        } )
+          .follow( eventFeed );
+      }
+    } catch ( err ) {
+      if ( err.message !== 'Feed already followed' ) {
+        log( 'error', err );
+      }
     }
+
+    // If it's a real creation, not an agregation
+    if ( context.userUid && !context.agendaUid ) {
+
+      await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
+
+    } else if ( !context.userUid && context.agendaUid ) {
+
+      await _addAggregateEventActivity( eventFeed, { agenda, event }, context );
+
+    }
+
+  } catch ( e ) {
+
+    log( 'error', e );
+
   }
 
 }
@@ -116,55 +150,52 @@ async function _addToSearchIndex( ae ) {
 
 }
 
-function _addCreateEventActivity( eventFeed, { agenda, event }, context ) {
+async function _addCreateEventActivity( eventFeed, { agenda, event, user }, context ) {
 
-  usersSvc.get( context.userUid )
-    .then( user => {
+  if ( !user ) {
+    return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
+  }
 
-      if ( !user ) {
-
-        return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
-
+  await activitiesSvc.feed( eventFeed ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'event.create',
+    object: 'event:' + event.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: user.fullName,
+        object: event.title,
+        target: agenda.title
       }
+    }
+  } );
 
-      activitiesSvc.feed( {
-        entityType: 'user',
-        entityUid: user.uid
-      } ).follow( eventFeed, err => {
+  await promisify( stakeholdersSvc.agenda( agenda.id ).increment )( { userId: user.id } );
 
-        if ( err ) log( 'error', err );
+}
 
-        activitiesSvc.feed( eventFeed ).activities.add( {
-          actor: 'user:' + user.uid,
-          verb: 'event.create',
-          object: 'event:' + event.uid,
-          target: 'agenda:' + agenda.uid,
-          store: {
-            labels: {
-              actor: user.fullName,
-              object: event.title,
-              target: agenda.title
-            }
-          }
-        }, err => {
+async function _addAggregateEventActivity( eventFeed, { agenda, event }, context ) {
 
-          if ( err ) log( 'error', err );
+  // aggregatorAgendaUid: agenda.uid,
+  // sourceAgendaUid: context.agendaUid
 
-          stakeholdersSvc.agenda( agenda.id ).increment( { userId: user.id }, err => {
+  const sourceAgenda = await promisify( agendasSvc.get )(
+    { uid: context.agendaUid },
+    { internal: true, private: null }
+  );
 
-            if ( err ) log( 'error', err );
-
-          } );
-
-        } );
-
-      } );
-
-    } )
-    .catch( err => {
-
-      log( 'error', err );
-
-    } );
+  await activitiesSvc.feed( eventFeed ).activities.add( {
+    actor: 'agenda:' + sourceAgenda.uid,
+    verb: 'agenda.aggregateEvent',
+    object: 'event:' + event.uid,
+    target: 'agenda:' + agenda.uid, // aggregator
+    store: {
+      labels: {
+        actor: sourceAgenda.title,
+        object: event.title,
+        target: agenda.title
+      }
+    }
+  } );
 
 }

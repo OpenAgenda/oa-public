@@ -63,6 +63,10 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
     'agenda.setOfficial': {
       agenda: '/agendas/:agenda'
     },
+    'agenda.aggregateEvent': {
+      agenda: '/agendas/:agenda',
+      event: '/agendas/:agenda/events/:event'
+    },
     'event.create': {
       agenda: '/agendas/:agenda',
       event: '/agendas/:agenda/events/:event'
@@ -70,6 +74,9 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
     'event.update': {
       agenda: '/agendas/:agenda',
       event: '/agendas/:agenda/events/:event'
+    },
+    'event.delete': {
+      agenda: '/agendas/:agenda'
     }
   }, urls );
 
@@ -250,6 +257,21 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
           event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>'
         } );
 
+      case 'agenda.aggregateEvent':
+
+        const sourceAgendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.actor ) }, activity.store.labels.actor, 'actor' );
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+        eventUrl = makeUrl( 'event', {
+          agenda: getUid( activity.target ),
+          event: getUid( activity.object )
+        }, getEventTitle( activity.store.labels.object ), 'object' );
+
+        return getLabel( 'agenda.aggregateEvent', {
+          agenda: agendaUrl,
+          event: eventUrl,
+          sourceAgenda: sourceAgendaUrl
+        } );
+
       case 'event.create':
 
         agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
@@ -276,6 +298,16 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
           agenda: agendaUrl,
           user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
           event: eventUrl
+        } );
+
+      case 'event.delete':
+
+        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+
+        return getLabel( 'event.delete', {
+          agenda: agendaUrl,
+          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
+          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>'
         } );
 
       default:

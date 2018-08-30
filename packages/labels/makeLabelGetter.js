@@ -13,7 +13,7 @@ module.exports = function( labels, defaultLang ) {
 
   }
 
-  return function ( name, values, lang ) {
+  const getLabel = ( name, values, lang ) => {
 
     if ( arguments.length == 2 && typeof values == 'string' ) {
 
@@ -32,13 +32,13 @@ module.exports = function( labels, defaultLang ) {
       return null;
     }
 
-    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    let str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
 
     if ( values ) {
 
-      for ( var k in values ) {
+      for ( const k in values ) {
 
-        str = str.replace( '%' + k + '%', values[ k ] );
+        str = str.replace( `%${k}%`, values[ k ] );
 
       }
 
@@ -46,6 +46,10 @@ module.exports = function( labels, defaultLang ) {
 
     return str;
 
-  }
+  };
+
+  getLabel.labels = labels;
+
+  return getLabel;
 
 }

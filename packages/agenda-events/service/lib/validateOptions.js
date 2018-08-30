@@ -43,6 +43,11 @@ const validate = schema( {
       legacy: {
         type: 'boolean',
         default: true
+      },
+      deletion: {
+        type: 'boolean',
+        optional: true,
+        default: null
       }
     }
   }

@@ -26,6 +26,11 @@ const validate = schema( {
     transferToLegacy: {
       type: 'boolean',
       default: false
+    },
+    deletion: {
+      type: 'boolean',
+      optional: true,
+      default: null
     }
   }
 } );

@@ -57,6 +57,10 @@ module.exports = {
     en: '%user% removed %event%.',
     fr: '%user% a retiré %event%.'
   },
+  'agenda.aggregateEvent': {
+    en: '%agenda% aggregated %event% from %sourceAgenda%.',
+    fr: '%agenda% a agrégé %event% à partir de %sourceAgenda%.'
+  },
   'event.create': {
     en: '%user% created %event%.',
     fr: '%user% a créé %event%.'
@@ -64,6 +68,10 @@ module.exports = {
   'event.update': {
     en: '%user% updated %event%.',
     fr: '%user% a mis à jour %event%.'
+  },
+  'event.delete': {
+    en: '%user% deleted %event%.',
+    fr: '%user% a supprimé %event%.'
   },
   activities: {
     en: 'Activities',
