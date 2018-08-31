@@ -8,6 +8,8 @@ const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
+const controlData = require( '../agenda/controlData' );
+
 module.exports = ( ae, context ) => {
 
   log( 'will remove agenda-event %j', ae, { context } );
@@ -39,6 +41,16 @@ module.exports = ( ae, context ) => {
         event = await eventsSvc.get( { uid: ae.eventUid }, { deleted: true } );
       } catch ( e ) {
         return log( 'error', new VError( e, 'Error to get event %s', ae.eventUid ) );
+      }
+
+
+      if ( agenda && event ) {
+
+        controlData.queue( agenda.id, {
+          type: 'eventRemove',
+          eventId: event.id
+        } );
+
       }
 
       if ( !user || !agenda || !event ) {

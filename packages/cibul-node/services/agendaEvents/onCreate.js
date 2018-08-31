@@ -3,20 +3,23 @@
 const _ = require( 'lodash' );
 const wn = require( 'when/node' );
 
+const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
+
+const activitiesSvc = require( '@openagenda/activities' );
 const agendasSvc = require( '@openagenda/agendas' );
 const custom = require( '@openagenda/custom' );
-const usersSvc = require( '@openagenda/users' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const activitiesSvc = require( '@openagenda/activities' );
+const usersSvc = require( '@openagenda/users' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 const mailContributor = require( '../event/instance/mailContributor' );
 const eventAggregation = require( './eventAggregation' );
 const oldEventSvc = require( '../event' );
+
+const controlData = require( '../agenda/controlData' );
 
 module.exports = async ( ae, context ) => {
 
@@ -49,12 +52,15 @@ module.exports = async ( ae, context ) => {
   }
 
 
-  if ( context.legacy ) {
+  if ( context.legacy && agenda.formSchemaId ) {
 
     // this happens after llegacy reference was added
-    if ( agenda.formSchemaId ) await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
+    await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
 
-  } else {
+  } 
+
+
+  if ( !context.legacy ) {
 
     /**
      * Anything happening hear should NOT be triggered elsewhere by legacy parts of app
@@ -68,7 +74,25 @@ module.exports = async ( ae, context ) => {
       }
     } );
 
+  }
+
+  if ( !context.legacy && ae.state === 2 ) {
+
     aggregator.notifyPublish( event.id, agenda.id );
+
+  }
+
+  
+  /**
+   * control data is used for didsplaying widget data
+   */
+  
+  if ( ae.state === 2 && agenda && event ) {
+
+    controlData.queue( agenda.id, {
+      type: 'eventUpdate',
+      eventId: event.id
+    } );
 
   }
 
@@ -77,6 +101,7 @@ module.exports = async ( ae, context ) => {
   // If it's a real creation, not an agregation
   if ( context.userUid && !context.agendaUid ) {
     try {
+
       let eventFeed = {
         entityType: 'event',
         entityUid: event.uid,
