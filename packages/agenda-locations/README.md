@@ -135,3 +135,4 @@ When a selection is made, it is given by an onChange function from props.
 # Features
 
  * it is possible to disable location creation on the location selector through the prop allowCreate ( default at true )
+
