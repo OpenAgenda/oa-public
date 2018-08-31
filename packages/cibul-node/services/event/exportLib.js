@@ -70,7 +70,7 @@ module.exports = service => {
   svc = service;
 
   return {
-    cleanEvents: cleanEvents,
+    cleanEvents,
     clean: cleanEvent
   }
 
@@ -90,7 +90,7 @@ function _pickImageFromStore( e, type, defaultValue ) {
 
     if ( !match ) return defaultValue;
 
-    return images.base + match.filename;
+    return config.aws.imageBucketPath + match.filename;
 
   } catch ( e ) {}
 
