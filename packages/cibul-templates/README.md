@@ -25,5 +25,3 @@ In a bootstrap environment, lightbox display is handled by the bsLayout/modalPar
 
     mp( elem, { html: 'fdqfdsq' } ); // if you know what to load in the modal
 
-
-.
