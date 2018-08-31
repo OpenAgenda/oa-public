@@ -61,12 +61,12 @@ dev.post( '/:page',
 
   },
   filesMw.putInTemporary.bind( null, { /* use defaults */ } ),
-  filesMw.s3Upload,
-  filesMw.updateBodyValues,
+  //filesMw.s3Upload,
+  //filesMw.updateBodyValues,
   ( req, res, next ) => {
 
     // this here should include file values
-    console.log( req.body );
+    //console.log( req.body );
 
     next();
 
