@@ -57,6 +57,8 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     inserted.occurrences.length.should.equal( 1 );
 
+    inserted.event.store.should.eql( '{"images":{"filename":"event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","credits":null,"size":{"height":null,"width":null},"variants":[{"type":"full","filename":"evfevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}},{"type":"thumbnail","filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg","size":{"height":null,"width":null}}],"base":"//openagendatst.s3.amazonaws.com/"}}' );
+
   } );
 
 

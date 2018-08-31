@@ -88,7 +88,8 @@ async function update( identifiers, options ) {
         age_max: event.age.max,
         origin_uid: event.agendaUid,
         owner_id: userId,
-        accessibility: _updateLegacyAccessibility( event.accessibility )
+        accessibility: _updateLegacyAccessibility( event.accessibility ),
+        store: JSON.stringify( { images: event.image } )
       }
     ),
     eventTranslations: _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) ).map( lang => ( {
