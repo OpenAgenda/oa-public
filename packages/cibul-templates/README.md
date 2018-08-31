@@ -24,3 +24,6 @@ In a bootstrap environment, lightbox display is handled by the bsLayout/modalPar
     mp( elems ); // if the same behavior is to be applied to an array of elems and they each have a distinct href
 
     mp( elem, { html: 'fdqfdsq' } ); // if you know what to load in the modal
+
+
+.
