@@ -168,9 +168,9 @@
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
-"@openagenda/cibul-model@^0.1.16":
-  version "0.1.16"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.16.tgz#f32163767f559cbd935f101ff78dccba51bcb3dc"
+"@openagenda/cibul-model@^0.1.17":
+  version "0.1.17"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.17.tgz#294d57bb29eec6666d9bc754358233b30b5bddcc"
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -319,6 +319,15 @@
 "@openagenda/logs@^1.0.0", "@openagenda/logs@^1.0.1", "@openagenda/logs@^1.0.14", "@openagenda/logs@^1.0.15", "@openagenda/logs@^1.0.4", "@openagenda/logs@^1.0.5", "@openagenda/logs@^1.0.8":
   version "1.0.15"
   resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.15.tgz#3c06c2bc97a01ecfedfccfcab421fa0354741907"
+  dependencies:
+    debug "^2.2.0"
+    le_node "^1.7.1"
+    lodash "^4.17.4"
+    winston "^2.3.1"
+
+"@openagenda/logs@^1.0.18":
+  version "1.0.18"
+  resolved "https://registry.npmjs.org/@openagenda/logs/-/logs-1.0.18.tgz#07cc279a27b26e579e372679c8433da01a488b5b"
   dependencies:
     debug "^2.2.0"
     le_node "^1.7.1"
@@ -1557,6 +1566,20 @@ autoprefixer@^6.3.1:
 aws-sdk@^2.145.0, aws-sdk@^2.230.1, aws-sdk@^2.77.0:
   version "2.294.0"
   resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.294.0.tgz#f6e44078a728e3376fbc242dda526f920c44b695"
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.1.0"
+    xml2js "0.4.19"
+
+aws-sdk@^2.306.0:
+  version "2.306.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.306.0.tgz#104f69b6d2291ba94cb401105514c242be51aac4"
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -11959,7 +11982,7 @@ multer@1.0.5:
     type-is "^1.6.4"
     xtend "^4.0.0"
 
-multer@^1.3.0:
+multer@^1.3.0, multer@^1.3.1:
   version "1.3.1"
   resolved "https://registry.npmjs.org/multer/-/multer-1.3.1.tgz#c3fb3b35f50c7eefe873532f90d3dde02ce6e040"
   dependencies:
@@ -14323,6 +14346,13 @@ react-dom@^16.0.0, react-dom@^16.2.0, react-dom@^16.3.2, react-dom@^16.4.0, reac
 react-dropzone@^4.2.1:
   version "4.3.0"
   resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-4.3.0.tgz#facdd7db16509772633c9f5200621ac01aa6706f"
+  dependencies:
+    attr-accept "^1.1.3"
+    prop-types "^15.5.7"
+
+react-dropzone@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.npmjs.org/react-dropzone/-/react-dropzone-5.0.1.tgz#3ed201215794c0f650c6f25a8311a9d96d35ebb6"
   dependencies:
     attr-accept "^1.1.3"
     prop-types "^15.5.7"
