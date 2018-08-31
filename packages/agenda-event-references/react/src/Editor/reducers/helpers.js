@@ -13,7 +13,7 @@ function excludeEventsWithUids( excludedUids, event ) {
 
 function formatEventItem( lang, event ) {
 
-  return { 
+  return {
     uid: event.uid,
     title: event.title[ lang ],
     dateRange: event.dateRange[ lang ],

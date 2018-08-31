@@ -48,11 +48,11 @@ module.exports = async function sendSummary( { user, notifications } ) {
     v => {
       const formatted = formatNotification( v, lang );
 
-      return '<span style="color: gray"><span style="font-size: 12px">' +
+      return '<span style="font-size: 12px">' +
         _.upperFirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
-        '<a href="' + formatted.url + '" style="color: gray">' +
+        '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
         formatted.content.replace( /class="notif-highlight"/g, 'style="color: #413a42"' ) +
-        '</a></span>';
+        '</a>';
     }
   ).join( '\n***\n' );
 

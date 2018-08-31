@@ -11,7 +11,7 @@ export default class DateTimePicker extends Component {
     this.handleEvent = ::this.handleEvent;
   }
 
-  static PropTypes = {
+  static propTypes = {
     handleEvent: PropTypes.func,
     startValue: PropTypes.oneOfType( [
       PropTypes.string,
@@ -24,32 +24,32 @@ export default class DateTimePicker extends Component {
   };
 
   state = {
-    startDate: (this.props.startValue || moment()).subtract( 29, 'days' ),
-    endDate: this.props.endValue || moment(),
+    startDate: this.props.startValue || moment().subtract( 29, 'days' ).toDate(),
+    endDate: this.props.endValue || moment().toDate(),
     ranges: {
       'Aujourd\'hui': [
-        moment().startOf( 'day' ),
-        moment()
+        moment().startOf( 'day' ).toDate(),
+        moment().toDate()
       ],
       'Hier': [
-        moment().subtract( 1, 'days' ).startOf( 'day' ),
-        moment().subtract( 1, 'days' ).endOf( 'day' )
+        moment().subtract( 1, 'days' ).startOf( 'day' ).toDate(),
+        moment().subtract( 1, 'days' ).endOf( 'day' ).toDate()
       ],
       '7 derniers jours': [
-        moment().subtract( 6, 'days' ).startOf( 'day' ),
-        moment()
+        moment().subtract( 6, 'days' ).startOf( 'day' ).toDate(),
+        moment().toDate()
       ],
       '30 derniers jours': [
-        moment().subtract( 29, 'days' ).startOf( 'day' ),
-        moment()
+        moment().subtract( 29, 'days' ).startOf( 'day' ).toDate(),
+        moment().toDate()
       ],
       'Ce mois-ci': [
-        moment().startOf( 'month' ).startOf( 'day' ),
-        moment().endOf( 'month' )
+        moment().startOf( 'month' ).startOf( 'day' ).toDate(),
+        moment().endOf( 'month' ).toDate()
       ],
       'Le mois dernier': [
-        moment().subtract( 1, 'month' ).startOf( 'month' ).startOf( 'day' ),
-        moment().subtract( 1, 'month' ).endOf( 'month' )
+        moment().subtract( 1, 'month' ).startOf( 'month' ).startOf( 'day' ).toDate(),
+        moment().subtract( 1, 'month' ).endOf( 'month' ).toDate()
       ],
     },
   };
@@ -68,9 +68,11 @@ export default class DateTimePicker extends Component {
   render() {
     const { startValue, endValue, ranges } = this.props;
 
-    const start = startValue && (startValue || this.state.startDate).format( 'LLL' );
-    const end = endValue && (endValue || this.state.endDate).format( 'LLL' );
-    const label = start === end ? start : start + ' - ' + end;
+    const start = startValue || this.state.startDate;
+    const end = endValue || this.state.endDate;
+    const label = start === end
+      ? moment( start ).format( 'LLL' )
+      : moment( start ).format( 'LLL' ) + ' - ' + moment( end ).format( 'LLL' );
 
     const buttonStyle = { width: '100%' };
 

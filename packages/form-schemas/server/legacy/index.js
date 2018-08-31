@@ -31,7 +31,9 @@ async function get( agendaId ) {
 
     categorySet,
 
-    formData = { fields: [] };
+    formData = {
+      fields: [] 
+    };
 
   try {
 

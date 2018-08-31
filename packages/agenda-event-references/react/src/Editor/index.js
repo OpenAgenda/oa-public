@@ -18,6 +18,7 @@ export default options => {
   if ( !store ) {
 
     let initialState = utils.extend( {
+      uid: null,
       initUids: [],
       lang: 'fr',
       res: {

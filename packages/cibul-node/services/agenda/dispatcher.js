@@ -1,20 +1,18 @@
 "use strict";
 
-var aggregator, // loaded through require
+const redis = require( 'redis' );
 
-controlData,
+const log = require( '@openagenda/logs' )( 'services/agenda/dispatcher' );
 
-eventSvc,
+const clearReferences = require( '../event/clearReferences' );
+const coms = require( '../../lib/coms' );
+const config = require( '../../config' );
 
-logger = require( '@openagenda/logger' ), log,
+let aggregator, // loaded through require
 
-coms = require( '../../lib/coms' ),
+  controlData,
 
-config = require( '../../config' ),
-
-clearReferences = require( '../event/clearReferences' ),
-
-redis = require( 'redis' );
+  eventSvc;
 
 module.exports = agenda => {
 
@@ -29,14 +27,13 @@ module.exports = agenda => {
     onSetStakeholder
   }
 
-
   function onSetStakeholder( userId, action ) {
 
     log( 'dispatching agenda id %s, for stakeholder %s set to %s', agenda.id, userId, action );
 
     controlData.queue( agenda.id, {
       type: 'stakeholderSet',
-      userId: userId
+      userId
     } );
 
   }
@@ -51,7 +48,7 @@ module.exports = agenda => {
 
   function onEventPublish( event, options ) {
 
-    let params = Object.assign( {
+    const params = Object.assign( {
       refresh: true
     }, options || {} );
 
@@ -62,11 +59,6 @@ module.exports = agenda => {
 
     if ( !params.refresh ) return;
 
-    controlData.queue( agenda.id, {
-      type: 'eventPublish',
-      eventId: event.id
-    } );
-
     agenda.refreshUpdatedAt();
 
   }
@@ -74,7 +66,7 @@ module.exports = agenda => {
 
   function onEventUnpublish( event, options ) {
 
-    let params = Object.assign( {
+    const params = Object.assign( {
       refresh: true
     }, options || {} );
 
@@ -86,38 +78,12 @@ module.exports = agenda => {
 
     if ( !params.refresh ) return;
 
-    controlData.queue( agenda.id, {
-      type: 'eventRemove',
-      eventId: event.id
-    } );
-
     agenda.refreshUpdatedAt();
 
   }
 
 
   function onEventUpdate( event, options ) {
-
-    const params = Object.assign( {
-      refresh: true
-    }, options || {} );
-
-    log( 'agenda.%s.onEventUpdate.%s', agenda.id, event.id );
-
-    event.getState( ( err, state ) => {
-
-      if ( err ) return log( 'error', 'failed to load event %s state', event.id );
-
-      if ( state === 'published' ) {
-
-        controlData.queue( agenda.id, {
-          type: 'eventUpdate',
-          eventId: event.id
-        } );
-
-      }
-
-    } );
 
     agenda.refreshUpdatedAt();
 

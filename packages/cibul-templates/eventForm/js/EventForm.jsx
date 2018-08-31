@@ -803,6 +803,7 @@ function EventFormFactory() {
           } );
 
           return <div>{this.props.configuration.field( 'references' ).display( false ) ? <References
+            uid={this.state.uid}
             initUids={this.state.references}
             res={this.props.referenceRes}
             info={this.props.configuration.field( 'references' ).getInfo( true, false )}

@@ -29,7 +29,7 @@ class SearchStream extends Readable {
     this._cursor = 0;
 
     this._nav = {
-      scroll: options.scroll || '10m',
+      scroll: options.scroll || '10m',
       size: options.size || null
     };   
 

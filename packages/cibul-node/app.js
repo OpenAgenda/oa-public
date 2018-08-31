@@ -228,11 +228,13 @@ module.exports = function ( enabledTypes, options, cb ) {
         tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
+          // bootOffset: 1000
           period: 'daily',
           time: '05:00'
         } );
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, {
+          // bootOffset: 5000
           period: 'daily',
           time: '08:00'
         } );

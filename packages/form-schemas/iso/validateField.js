@@ -242,6 +242,18 @@ function buildFieldSchema( type, options = {} ) {
 
   }
 
+  if ( type === 'file' ) {
+
+    _.assign( structure, {
+      extensions: {
+        type: 'text',
+        optional: false,
+        list: true
+      }
+    } );
+
+  }
+
   if ( optionedTypes.includes( type ) ) {
 
     _.assign( structure, {

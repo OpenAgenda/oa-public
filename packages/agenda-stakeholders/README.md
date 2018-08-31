@@ -66,7 +66,7 @@ Options:
  * event: the identifiers of the event to transfer: { id: 28374 }
 
 
-## Updating a stakeholder
+## Updating a stakeholder
 
     service.agenda( id ).update( identifiers, data, [ options ], cb )
 

@@ -259,6 +259,15 @@ module.exports = {
     fr: '%actor% ont retiré %object% de %target%.'
   },
 
+  'agenda.aggregateEvent.sing': {
+    en: '%target% aggregated %object% from %actor%.',
+    fr: '%target% a agrégé %object% à partir de %actor%.'
+  },
+  'agenda.aggregateEvent.plur': {
+    en: '%target% aggregated %object% from %actor%.',
+    fr: '%target% a agrégé %object% à partir de %actor%.'
+  },
+
   'event.create.singSing': {
     en: '%actor% created %object% on %target%.',
     fr: '%actor% a créé %object% sur %target%.'
@@ -287,5 +296,22 @@ module.exports = {
   'event.update.plurPlur': {
     en: '%actor% updated %object% on %target%.',
     fr: '%actor% ont mis à jour %object% sur %target%.'
+  },
+
+  'event.delete.singSing': {
+    en: '%actor% removed %object% from %target%.',
+    fr: '%actor% a supprimé %object% de %target%.'
+  },
+  'event.delete.singPlur': {
+    en: '%actor% removed %object% from %target%.',
+    fr: '%actor% a supprimé %object% de %target%.'
+  },
+  'event.delete.plurSing': {
+    en: '%actor% removed %object% from %target%.',
+    fr: '%actor% ont supprimé %object% de %target%.'
+  },
+  'event.delete.plurPlur': {
+    en: '%actor% removed %object% from %target%.',
+    fr: '%actor% ont supprimé %object% de %target%.'
   }
 };

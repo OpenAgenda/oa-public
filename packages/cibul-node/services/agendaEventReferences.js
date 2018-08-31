@@ -27,11 +27,13 @@ module.exports.init = ( config, cb ) => {
 }
 
 
-function suggestions( agendaUid, sample, options, cb ) {
+function suggestions( agendaUid, sample, options = {}, cb ) {
 
   search.agendas( agendaUid ).moreLikeThis( sample )
 
-    .then( result => cb( null, result.events ) )
+    .then( result => _.get( result, 'events', [] ).filter( e => !_.get( options, 'exclude', [] ).includes( '' + e.uid ) ) )
+
+    .then( events => cb( null, events ) )
 
     .catch( err => cb( err ) );
 

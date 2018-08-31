@@ -563,6 +563,20 @@ function getMiddleware( idRef ) {
 
     };
 
+    if ( !results.length ) {
+
+      log( 'info', 
+        'geocode farm did not find any result for address "%s" in country "%s"', 
+        _.get( req, 'query.address' ), 
+        _.get( req, 'query.countryCode' )
+      );
+
+      return res.json( {
+        results: []
+      } );
+
+    }
+
     for ( const l of results ) {
 
       if ( [ 'FR', 'MQ', 'GP', 'RE', 'GF' ].includes( req.query.countryCode ) ) {
@@ -575,7 +589,7 @@ function getMiddleware( idRef ) {
 
         } catch( e ) {
 
-          log( 'error', 'could not retrieve insee code for %s,%s: %s', l.latitude, l.longitude, e );
+          log( 'error', 'geocode farm error: could not retrieve insee code for %s,%s: %j', l.latitude, l.longitude, e );
 
         }
 

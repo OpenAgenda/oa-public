@@ -11,7 +11,7 @@ module.exports = {
   markdown: 'text',
   slate: 'pass',
   html: 'text',
-  image: 'text',
-  file: 'text',
+  image: 'pass',
+  file: 'pass',
   date: 'date'
 }

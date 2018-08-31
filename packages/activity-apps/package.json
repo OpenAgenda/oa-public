@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/activity-apps",
-  "version": "1.0.44",
+  "version": "1.0.45",
   "description": "",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "@openagenda/activities": "^2.0.30",
     "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.11",
-    "@openagenda/labels": "^2.0.85",
+    "@openagenda/labels": "^2.0.94",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.0.15",
     "@openagenda/react-utils": "^2.0.2",

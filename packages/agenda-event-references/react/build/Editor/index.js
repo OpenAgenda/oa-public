@@ -45,6 +45,7 @@ exports.default = function (options) {
   if (!store) {
 
     var initialState = _utils2.default.extend({
+      uid: null,
       initUids: [],
       lang: 'fr',
       res: {

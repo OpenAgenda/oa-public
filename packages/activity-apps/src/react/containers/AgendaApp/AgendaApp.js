@@ -14,6 +14,7 @@ export default class AgendaApp extends Component {
 
   static childContextTypes = {
     lang: PropTypes.string,
+    labels: PropTypes.object,
     getLabel: PropTypes.func
   };
 
@@ -22,6 +23,7 @@ export default class AgendaApp extends Component {
 
     return {
       lang,
+      labels,
       getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, lang )
     };
   }

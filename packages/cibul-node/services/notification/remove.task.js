@@ -3,11 +3,11 @@
 const async = require( 'async' );
 const config = require( '../../config' );
 const mysql = require( 'mysql' );
-const log = require( '@openagenda/logger' )( 'services/notification/remove.task' );
+const log = require( '@openagenda/logs' )( 'services/notification/remove.task' );
 
 module.exports = done => {
 
-  log( `starting to remove old notifications at ${new Date}` );
+  log.info( `starting to remove old notifications at ${new Date}` );
 
   // count numbers notifications to delete
 
@@ -30,7 +30,7 @@ module.exports = done => {
 
         affectedRows += result.affectedRows;
 
-        log( 'removed %s notifications', affectedRows );
+        log.info( 'removed %s notifications', affectedRows );
 
         return wcb();
 
@@ -40,7 +40,7 @@ module.exports = done => {
 
     if ( err ) console.error( err );
 
-    log( `done removing notifications at ${new Date}` );
+    log.info( `done removing notifications at ${new Date()}` );
 
     if ( done ) done();
 

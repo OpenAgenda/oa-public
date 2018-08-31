@@ -31,11 +31,15 @@ const map = [ {
   parser: convertToChoice.bind( null, { unique: false } ),
   type: 'choice'
 }, {
-  field: [ 'textarea', 'markdown', 'image', 'file', 'html' ],
+  field: [ 'textarea', 'markdown', /*'image', 'file',*/ 'html' ],
   parser: convertTo,
   type: 'text'
 }, {
   field: 'slate',
+  parser: convertTo,
+  type: 'pass'
+}, {
+  field: [ 'image', 'file' ],
   parser: convertTo,
   type: 'pass'
 } ];

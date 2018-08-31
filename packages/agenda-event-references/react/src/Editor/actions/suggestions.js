@@ -30,6 +30,7 @@ function suggestionsAdd() {
   return ( dispatch, getState ) => {
 
     const {
+      uid,
       res,
       sample,
       events,
@@ -42,7 +43,7 @@ function suggestionsAdd() {
 
     dispatch( { type: 'SUGGESTION_REQUEST' } );
 
-    getSuggestions( res.suggestions, sample, events, ( error, suggestions ) => {
+    getSuggestions( res.suggestions, sample, events.concat( uid ? [ { uid } ] : [] ), ( error, suggestions ) => {
 
       if ( error ) {
 

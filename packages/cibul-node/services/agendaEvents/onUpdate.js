@@ -3,12 +3,15 @@
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
+
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
 const oldEventSvc = require( '../event' );
+
+const controlData = require( '../agenda/controlData' );
 
 module.exports = async ( before, after, context ) => {
 
@@ -37,6 +40,23 @@ module.exports = async ( before, after, context ) => {
       type: 'update'
     }
   } );
+
+
+  if ( after.state === 2 && agenda && event ) {
+
+    controlData.queue( agenda.id, {
+      type: 'eventUpdate',
+      eventId: event.id
+    } );
+
+  } else if ( agenda && event ) {
+
+    controlData.queue( agenda.id, {
+      type: 'eventRemove',
+      eventId: event.id
+    } );
+
+  }
 
   
   if ( context.legacy ) return;

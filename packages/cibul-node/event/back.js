@@ -122,7 +122,7 @@ const routes = {
         ? formSchemas.get( req.agenda.formSchemaId )
         : formSchemas.legacy.get( req.agenda.id ) ).then( fs => {
 
-        req.formSchemaFields = fs.fields;
+        req.formSchemaFields = _.get( fs, 'fields', [] );
 
         next();
 
@@ -139,7 +139,11 @@ const routes = {
         category: _.get( req, 'query.sample.category.label', null )
       } );
 
-      req.query.sample = _.assignIn( _.omit( req.query.sample, [ 'custom', 'tags', 'category' ] ), { custom } );
+      req.query.sample = _.assignIn( _.omit( req.query.sample, [
+        'custom',
+        'tags',
+        'category'
+      ] ), { custom } );
 
       next();
 

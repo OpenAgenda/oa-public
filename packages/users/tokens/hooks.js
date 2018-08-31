@@ -1,5 +1,6 @@
 'use strict';
 
+const debug = require( 'debug' );
 const errors = require( '@feathersjs/errors' );
 const { disallow } = require( 'feathers-hooks-common' );
 const {
@@ -10,7 +11,6 @@ const {
   snakeCaseQuery,
   generateToken
 } = require( '../hooks/index' );
-const config = require( '../config' );
 
 
 module.exports = {
@@ -84,6 +84,7 @@ module.exports = {
   },
 
   error( context ) {
+    // Avoid soft delete error
     if ( context.error instanceof errors.NotFound && context.error.message.includes( 'Item not found' ) ) {
       context.error = null;
       context.result = null;
@@ -94,8 +95,8 @@ module.exports = {
       log.error(
         `Error in '${context.path}' service method '${context.method}'\n${context.error.stack}\n`,
         inspect( _.omit( context.error, [ 'hook.app', 'hook.service' ] ), {
-          colors: process.env.NODE_ENV === 'development'
-        } ),
+          colors: debug.useColors()
+        } )
       );
     }
   },

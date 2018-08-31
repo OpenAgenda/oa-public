@@ -99,6 +99,7 @@ function cleanEvent( eInst, options, cb ) {
     html: eInst.getEnrichedFreeText( { allLanguages: true, includeLinks: options.includeEmbedded } ),
     image: eInst.getImage(),
     thumbnail: eInst.getThumbnail(),
+    thumbnail: 'ffdsqfdsq',
     originalImage: eInst.getFullImage(),
     age: eInst.getAge(),
     accessibility: eInst.getAccessibility(),

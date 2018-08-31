@@ -91,7 +91,7 @@ function _ranges( fromDate = null, toDate = null ) {
 
   while ( _stringifyDate( cursor ) <= _stringifyDate( lastDate ) ) {
 
-    ranges.push( { from: _stringifyDate( cursor ) } );
+    ranges.push( { from: _stringifyDate( cursor ) } );
 
     cursor.setDate( cursor.getDate() + 1 );
 
@@ -114,7 +114,7 @@ function _stringifyDate( dirtyDate ) {
 
   }
 
-  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
 
 }
 

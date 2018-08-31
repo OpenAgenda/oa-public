@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
-import sa from 'superagent';
 
 import formSchemaLabels from '@openagenda/labels/form-schemas';
 
@@ -12,9 +11,10 @@ import flattenLabels from '@openagenda/labels/flatten';
 
 import FormSchema from '../../iso/FormSchema';
 
-import { flatten, post } from './lib/helpers';
+import { flatten } from './lib/helpers';
+import submit from './lib/submit';
 
-const Field = require( './lib/Field' );
+const Field = require( './Components/Field' );
 
 export default class FormSchemaComponent extends Component {
 
@@ -96,21 +96,31 @@ export default class FormSchemaComponent extends Component {
 
     }
 
-    sa.post( _.get( this.props.res, 'post', '' ), clean ).then( res => {
+    submit( {
+      res: _.get( this.props.res, 'post', '' ),
+      formSchema: this._getFormSchema(),
+      values: clean
+    } ).then( res => {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
 
         return this.props.onSubmitSuccess( this.get( 'values' ), res );
 
+      } else if ( res.statusCode === 200 ) {
+
+        this.setState( { submitted: true } );
+
+      } else {
+
+        console.log( 'response status code is %s', res.statusCode );
+        console.log( res );
+
       }
 
-      if ( res.statusCode === 200 ) {
+    }, err => {
 
-        this.setState( {
-          submitted: true
-        } );
-
-      }
+      // deal with this later
+      throw err;
 
     } );
 

@@ -79,7 +79,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     }
 
-    let dateRange = instance.getDateRange( true );
+    const dateRange = instance.getDateRange( true );
 
     w( _.extend( {
       protocol: null,

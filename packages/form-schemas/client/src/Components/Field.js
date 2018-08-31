@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import FieldCounter from './FieldCounter';
 import Sub from './Sub';
 
-const flattenFieldLabels = require( './helpers' ).flatten;
+const flattenFieldLabels = require( '../lib/helpers' ).flatten;
 
 const FieldComponents = {
   multilingual: require( './Multilingual' ),
@@ -20,7 +20,8 @@ const FieldComponents = {
   slate: require( './SlateField' ),
   radio: require( './RadioField' ),
   checkbox: require( './CheckboxField' ),
-  date: require( './DateField' )
+  date: require( './DateField' ),
+  file: require( './FileField' )
 }
 
 module.exports = class Field extends Component {

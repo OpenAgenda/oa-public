@@ -28,7 +28,7 @@ const routes = {
       loadKey(),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       _loadDocxPath,
-      actionShow 
+      actionShow
     ] ],
 
     agendaEventAdd: [ 'get', '/add/:eventUid', [
@@ -220,7 +220,7 @@ function actionShow( req, res ) {
 
         } );
 
-      });   
+      } );
 
     } );
 
@@ -277,7 +277,7 @@ function actionShow( req, res ) {
       } );
 
     }
-    
+
   }, cmn.catchError( req, res ) );
 
 }
@@ -286,7 +286,7 @@ function actionShow( req, res ) {
 /**
  * added regardless of state.
  */
-  
+
 function eventAdd( req, res ) {
 
   req.agenda.getContributionSettings( ( err, contributionSettings ) => {
@@ -344,9 +344,10 @@ function eventRemove( req, res ) {
 
       try {
 
-        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: { 
-          userUid: req.user.uid, 
-          agendaUid: req.query.sourceAgendaUid
+        await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: {
+          userUid: req.user.uid,
+          agendaUid: req.query.sourceAgendaUid,
+          deletion: true
         } } );
 
       } catch ( e ) {
@@ -415,7 +416,7 @@ function _isContributorSharer( req, res, next ) {
 
     } );
 
-  } ); 
+  } );
 
 }
 

@@ -14,6 +14,8 @@ module.exports = {
   'agenda.unpublishEvent': [ 'target' ],
   'agenda.removeEvent': [ 'target' ],
   'agenda.setOfficial': [ 'target', 'store.officialized' ],
+  'agenda.aggregateEvent': [ 'actor', 'target' ],
   'event.create': [ 'target' ],
-  'event.update': [ 'target' ]
+  'event.update': [ 'target' ],
+  'event.delete': [ 'target' ]
 }

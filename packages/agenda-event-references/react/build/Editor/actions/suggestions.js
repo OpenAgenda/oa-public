@@ -39,6 +39,7 @@ function suggestionsAdd() {
 
   return function (dispatch, getState) {
     var _getState = getState(),
+        uid = _getState.uid,
         res = _getState.res,
         sample = _getState.sample,
         events = _getState.events,
@@ -50,7 +51,7 @@ function suggestionsAdd() {
 
     dispatch({ type: 'SUGGESTION_REQUEST' });
 
-    getSuggestions(res.suggestions, sample, events, function (error, suggestions) {
+    getSuggestions(res.suggestions, sample, events.concat(uid ? [{ uid: uid }] : []), function (error, suggestions) {
 
       if (error) {
 

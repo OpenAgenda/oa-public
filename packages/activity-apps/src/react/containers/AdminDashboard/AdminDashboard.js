@@ -4,6 +4,8 @@ import { asyncConnect } from 'redux-connect';
 import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
+import mapValues from 'lodash/mapValues';
+import update from 'immutability-helper';
 import pick from 'lodash/pick';
 import Select from 'react-select';
 import moment from 'moment';
@@ -68,6 +70,8 @@ export default class AdminDashboard extends Component {
 
   static contextTypes = {
     router: PropTypes.object,
+    lang: PropTypes.string,
+    labels: PropTypes.object,
     getLabel: PropTypes.func
   };
 
@@ -78,6 +82,22 @@ export default class AdminDashboard extends Component {
     this.renderInput = this::renderInput;
     this.renderReactSelect = ::this.renderReactSelect;
     this.renderDateTimeRangePicker = ::this.renderDateTimeRangePicker;
+    this.getFilters = ::this.getFilters;
+    this.removeFilter = ::this.removeFilter;
+    this.onActivityClick = ::this.onActivityClick;
+  }
+
+  state = {
+    filters: this.getFilters( pick( this.props.location.query, [ 'actor', 'verb', 'object', 'target' ] ) )
+  };
+
+  componentDidMount() {
+    if ( typeof document === 'undefined' ) return;
+    monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
+  }
+
+  componentWillUnmount() {
+    monitorBottomHit.stop();
   }
 
   search = values => this.props.list( values )
@@ -129,29 +149,107 @@ export default class AdminDashboard extends Component {
     return (
       <DateTimePicker
         handleEvent={handleEvent}
-        startValue={startValue && moment( startValue )}
-        endValue={endValue && moment( endValue )}
+        startValue={startValue}
+        endValue={endValue}
       />
     );
 
   }
 
-  componentDidMount() {
-    if ( typeof document === 'undefined' ) return;
-    monitorBottomHit( throttle( this.nextPage, 400, { trailing: false } ) );
+  onActivityClick( e ) {
+
+    const { location, query, list } = this.props;
+    const { router } = this.context;
+
+    if (
+      !e.target.hasAttribute( 'data-filtertype' )
+      || !e.target.hasAttribute( 'data-filterlabel' )
+      || !e.target.hasAttribute( 'data-filtervalue' )
+    ) {
+      return;
+    }
+
+    const type = e.target.getAttribute( 'data-filtertype' );
+    const label = e.target.getAttribute( 'data-filterlabel' );
+    const value = e.target.getAttribute( 'data-filtervalue' );
+
+    this.setState( update( this.state, {
+      filters: {
+        [ type ]: {
+          $set: {
+            label,
+            value
+          }
+        }
+      }
+    } ), () => {
+      list( { ...query, [ type ]: value } ).then( this.updateMonitorBottomHit )
+    } );
+
+    router.replace( {
+      ...location,
+      query: {
+        ...location.query,
+        [ type ]: value
+      }
+    } );
+  };
+
+  getEventTitle( labels ) {
+
+    if ( typeof labels !== 'object' ) return labels;
+
+    const { lang } = this.props;
+    const keys = Object.keys( labels );
+    return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
+
   }
 
-  componentWillUnmount() {
-    monitorBottomHit.stop();
+  getFilters( values ) {
+    const { activities } = this.props;
+
+    const usefullActivities = {
+      actor: activities.find( v => v.actor === values.actor ),
+      verb: activities.find( v => v.verb === values.verb ),
+      object: activities.find( v => v.object === values.object ),
+      target: activities.find( v => v.target === values.target )
+    };
+
+    return mapValues( usefullActivities, ( v, k ) => v ? {
+      label: v.store.labels[ k ],
+      value: v[ k ]
+    } : undefined );
+  }
+
+  removeFilter( type ) {
+    const { list, location, query } = this.props;
+    const { router } = this.context;
+
+    this.setState( update( this.state, {
+      filters: {
+        $unset: [ type ]
+      }
+    } ), () => {
+      list( { ...query, [ type ]: undefined } ).then( this.updateMonitorBottomHit )
+    } );
+
+    router.replace( {
+      ...location,
+      query: {
+        ...location.query,
+        [ type ]: undefined
+      }
+    } );
   }
 
   render() {
     const { handleSubmit, reset, activities, nextLoading } = this.props;
-    const { getLabel } = this.context;
+    const { lang, labels, getLabel } = this.context;
 
     return (
       <div className="container-fluid">
         <h2>Activités</h2>
+
         <form onSubmit={handleSubmit( this.search )}>
           <div className="row">
             <div className="col-md-3">
@@ -232,10 +330,29 @@ export default class AdminDashboard extends Component {
           </div>
         </form>
 
+        <div className="margin-v-md">
+          <ul className="nav nav-pills filters">
+            {Object.values( mapValues( this.state.filters, ( v, k ) =>
+              v && <li key={k} onClick={() => this.removeFilter( k )} className="active margin-right-sm">
+                <a role="button">{this.getEventTitle( v.label )}</a>
+              </li>
+            ) )}
+          </ul>
+        </div>
+
         <div className="row padding-top-md">
           <div className="col-md-offset-3 col-md-6">
             {(activities && activities.length > 0) && <ul className="list-unstyled activity-list">
-              { activities.map( a => <ActivityItem key={a.id} activity={a} /> ) }
+              { activities.map( a =>
+                <ActivityItem
+                  key={a.id}
+                  activity={a}
+                  lang={lang}
+                  labels={labels}
+                  withFilterIcons={true}
+                  onActivityClick={this.onActivityClick}
+                />
+              ) }
             </ul>}
 
             {(!activities || activities.length === 0) && <div className="margin-bottom-sm">

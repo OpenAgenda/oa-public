@@ -80,7 +80,7 @@ function parseResult( aggregators, result, predefined = {}, parseEvents = null )
 
 function _defaultParse( fieldName, result ) {
 
-   return result.buckets.map( b => ( { key: b.key, count: b.doc_count } ) );
+   return result.buckets.map( b => ( { key: b.key, count: b.doc_count } ) );
 
 }
 
@@ -115,7 +115,7 @@ function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
 
   field = aObj.field || aObj.type;
 
-  destination = aObj.destination || aObj.field || aObj.type;
+  destination = aObj.destination || aObj.field || aObj.type;
 
   data = _.extend( {}, aObj, { type, field, query } );
 

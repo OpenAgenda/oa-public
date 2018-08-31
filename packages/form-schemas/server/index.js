@@ -8,6 +8,7 @@ const storeLib = require( '@openagenda/mysql-table-store' );
 
 const FormSchema = require( '../iso/FormSchema' );
 const legacy = require( './legacy' );
+const filesMw = require( './middleware/files' );
 
 let client, log, config;
 
@@ -177,6 +178,10 @@ function init( c ) {
     create,
     update,
     get
+  } );
+
+  filesMw.init( {
+    tmpFolder: config.tmpFolder
   } );
 
 }

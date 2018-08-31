@@ -58,6 +58,12 @@ module.exports = class {
 
   }
 
+  getFileFields() {
+
+    return this.data.fields.filter( f => [ 'image', 'file' ].includes( f.fieldType ) );
+
+  }
+
   moveField( index, moves ) {
 
     let newIndex = index + moves;

@@ -467,8 +467,6 @@ function eventDelete( req, res, next ) {
   const userUid = req.query.userUid || null;
   const agendaUid = req.query.agendaUid || null;
 
-  legacyEvents.onRemove( req.event, { userUid, agendaUid } );
-
   req.event.getAgendaReferences( ( err, agendas ) => {
 
     async.eachSeries( agendas, ( a, ecb ) => {
@@ -481,8 +479,13 @@ function eventDelete( req, res, next ) {
 
     }, err => {
 
-      // allow some wiggle room for tasks to process
-      setTimeout( () => {
+      legacyEvents.onRemove( req.event, { userUid, agendaUid }, err => {
+
+        if ( err ) {
+
+          log( 'error', 'event %s could not be removed: %s', req.event.id, err );
+
+        }
 
         req.event.remove( err => {
 
@@ -490,21 +493,19 @@ function eventDelete( req, res, next ) {
 
             log( 'error', 'event %s could not be removed: %s', req.event.id, err );
 
-            console.log( err );
-
           } else {
 
             log( 'info', 'event %s removed', req.event.id );
 
           }
 
+          activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).remove( () => {
+
+            req.log( 'event %s feed removed', req.event.id );
+
+          } );
+
         } );
-
-      }, 6000 );
-
-      activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).remove( () => {
-
-        req.log( 'event %s feed removed', req.event.id );
 
       } );
 

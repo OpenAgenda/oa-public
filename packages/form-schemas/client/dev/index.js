@@ -50,6 +50,10 @@ const devApps = [ {
   description: 'A field that outputs a markdown string',
   link: '/markdown'
 }, {
+  name: 'A file upload field',
+  description: 'A field for uploading a file',
+  link: '/fileupload'
+}, {
   name: 'onSubmitSuccess',
   description: 'The callback gives both the sent data and the successful response',
   link: '/onsubmitsuccess'

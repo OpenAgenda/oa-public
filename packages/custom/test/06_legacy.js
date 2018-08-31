@@ -117,7 +117,7 @@ describe( 'custom - functional (server): legacy', function() {
   } );
 
 
-  it.only( 'if transferToLegacy option is set, create triggers legacy set', async () => {
+  it( 'if transferToLegacy option is set, create triggers legacy set', async () => {
 
     const config = svc.getConfig();
 

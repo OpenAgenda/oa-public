@@ -1,7 +1,8 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
 const activities = require( '@openagenda/activities' );
+const agendasSvc = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const sendSummary = require( './sendSummary' );
 
@@ -29,6 +30,7 @@ module.exports.init = async config => {
       verb: [
         'event.create',
         'event.update',
+        'event.delete',
         'agenda.unpublishEvent',
         'agenda.removeEvent',
         'agenda.changeEventState'
@@ -63,6 +65,7 @@ module.exports.init = async config => {
       verb: [
         'event.create',
         'event.update',
+        'event.delete',
         'agenda.publishEvent',
         'agenda.unpublishEvent',
         'agenda.removeEvent',
@@ -134,6 +137,59 @@ module.exports.init = async config => {
         }
 
         cb( null, true );
+
+      }
+    }, {
+      verb: 'agenda.aggregateEvent',
+      getFeeds: true,
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        // si le target (agenda qui agrège) est le targetFeed
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid === parseInt( activity.target.split( ':' )[ 1 ] ) ) {
+
+          return cb( null, true );
+
+        }
+
+        // si l'actor (agenda source) est le targetFeed
+        if (
+          targetFeed.entityType === 'agenda'
+          && targetFeed.entityUid === parseInt( activity.actor.split( ':' )[ 1 ] )
+        ) {
+
+          return promisify( agendasSvc.get )( {
+            uid: parseInt( activity.target.split( ':' )[ 1 ] )
+          }, { private: false } )
+            .then( agenda => {
+
+              return cb( null, !!agenda );
+
+            }, () => {
+
+              return cb( null, false );
+
+            } );
+
+        }
+
+        // if it is an adminmods
+        if (
+          originFeed.entityType === 'agenda'
+          && targetFeed.entityType === 'user'
+          && agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // more than moderator
+        ) {
+
+          return cb( null, true );
+
+        }
+
+        if ( originFeed.entityType === 'event' && targetFeed.entityType === 'user' ) {
+
+          return cb( null, true );
+
+        }
+
+        return cb( null, false );
 
       }
     } ],

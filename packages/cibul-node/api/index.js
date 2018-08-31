@@ -9,7 +9,9 @@ const app = require( 'express' )();
 const config = require( '../config' );
 const mw = require( './middleware' );
 
-const upload = require( 'multer' )( { dest: config.tmpFolderPath } );
+const upload = require( 'multer' )( {
+  dest: config.tmpFolderPath
+} );
 
 const events = {
   create: require( './endpoints/eventCreate' ),
