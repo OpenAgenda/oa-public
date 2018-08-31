@@ -73,7 +73,7 @@ function widget( elem, options ) {
 
       log( 'fetched controller data' );
 
-      _setTags( data, options.anchorConfig );
+      _setTags( data, options.anchorConfig, elem.getAttribute( 'data-group' ) ? parseInt( elem.getAttribute( 'data-group' ) ) : null );
 
       if ( !data.ebd || data.ebd.dcss.tags ) view.setDefaultStyle();
 
@@ -275,7 +275,7 @@ function widget( elem, options ) {
    * define widget tags set
    */
 
-  function _setTags( data, config ) {
+  function _setTags( data, config, group ) {
 
     var subset;
 
@@ -297,15 +297,19 @@ function widget( elem, options ) {
 
         tagSlugs.push( t.s );
 
-      })
+      });
 
     } else {
 
       cn.forEach( data.t, function( tag ) {
-        
-        tags.push( tag );          
 
-        tagSlugs.push( tag.s );
+        if ( group === tag.g || typeof group === 'undefined' ) {
+        
+          tags.push( tag );
+
+          tagSlugs.push( tag.s );
+
+        }
 
       } );
 
