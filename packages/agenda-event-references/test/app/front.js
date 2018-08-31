@@ -47,7 +47,7 @@ showEvents = [ {
 
 let Wrapper;
 
-window.onload = () => { ReactDom.render( <Wrapper />, du.el( '.js_canvas' ) ); }
+window.onload = () => { ReactDom.render( <Wrapper />, du.el( '.js_canvas' ) ); }
 
 Wrapper = createReactClass( {
 
