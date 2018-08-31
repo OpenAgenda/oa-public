@@ -76,6 +76,28 @@ module.exports = service => {
 
 }
 
+
+/**
+ * images set through core app or api v2 will have a specific image format
+ */
+function _pickImageFromStore( e, type, defaultValue ) {
+
+  try {
+
+    const images = _.get( _.isObject( e.store ) ? e.store : JSON.parse( e.store ), 'images' );
+
+    const match = _.first( _.get( images, 'variants' ).filter( v => v.type === type ) );
+
+    if ( !match ) return defaultValue;
+
+    return images.base + match.filename;
+
+  } catch ( e ) {}
+
+  return defaultValue;
+
+}
+
 function cleanEvent( eInst, options, cb ) {
 
   if ( arguments.length === 2 ) {
@@ -86,9 +108,9 @@ function cleanEvent( eInst, options, cb ) {
 
   }
 
-  var dateRange = eInst.getDateRange( true ),
+  const dateRange = eInst.getDateRange( true );
 
-  c = {
+  const c = {
     uid: eInst.uid,
     slug: eInst.slug,
     canonicalUrl: genUrl( 'eventShow', { eventSlug: eInst.slug }, { protocol: 'https://' } ),
@@ -98,9 +120,8 @@ function cleanEvent( eInst, options, cb ) {
     keywords: _extractKeywords( eInst ),
     html: eInst.getEnrichedFreeText( { allLanguages: true, includeLinks: options.includeEmbedded } ),
     image: eInst.getImage(),
-    thumbnail: eInst.getThumbnail(),
-    thumbnail: 'ffdsqfdsq',
-    originalImage: eInst.getFullImage(),
+    thumbnail: _pickImageFromStore( eInst, 'thumbnail', eInst.getThumbnail() ),
+    originalImage: _pickImageFromStore( eInst, 'full', eInst.getFullImage() ),
     age: eInst.getAge(),
     accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
@@ -108,9 +129,9 @@ function cleanEvent( eInst, options, cb ) {
       fr: eInst.getRange( 'fr' ),
       en: eInst.getRange( 'en' )
     }
-  },
+  };
 
-  l = eInst.locations.length ? eInst.locations[ 0 ] : false;
+  const l = eInst.locations.length ? eInst.locations[ 0 ] : false;
 
   if ( c.image ) {
     
