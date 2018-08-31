@@ -15,7 +15,7 @@ import ih from 'immutability-helper';
 import React, { Component } from 'react';
 import TagsInput from 'react-tagsinput';
 
-import Sub from '@openagenda/form-schemas/client/build/lib/Sub';
+import Sub from '@openagenda/form-schemas/client/build/Component/Sub';
 
 const iconClasses = {
   link: 'fa fa-link',

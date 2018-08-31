@@ -7,8 +7,8 @@ import React, { Component } from 'react';
 import ih from 'immutability-helper';
 import TagsInput from 'react-tagsinput';
 
-import Sub from '@openagenda/form-schemas/client/build/lib/Sub';
-import Counter from '@openagenda/form-schemas/client/build/lib/FieldCounter';
+import Sub from '@openagenda/form-schemas/client/build/Component/Sub';
+import Counter from '@openagenda/form-schemas/client/build/Component/FieldCounter';
 
 module.exports = class KeywordsComponent extends Component {
 
