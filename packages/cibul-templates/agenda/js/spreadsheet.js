@@ -21,8 +21,6 @@ module.exports = options => {
     languages: []
   }, options );
 
-  console.log( params );
-
   if ( params.languages.length <= 1 ) return;
 
   du.els( params.selector ).forEach( linkElem => {
