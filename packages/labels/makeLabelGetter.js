@@ -3,6 +3,8 @@
 /**
  * provide a labels getter that will
  * give back labels fed at init
+ *
+ * needs to be ES5 or cibul-templates uglify will throw errors
  */
 
 module.exports = function( labels, defaultLang ) {
@@ -13,7 +15,7 @@ module.exports = function( labels, defaultLang ) {
 
   }
 
-  const getLabel = ( name, values, lang ) => {
+  var getLabel = function( name, values, lang ) {
 
     if ( arguments.length == 2 && typeof values == 'string' ) {
 
@@ -32,13 +34,13 @@ module.exports = function( labels, defaultLang ) {
       return null;
     }
 
-    let str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
 
     if ( values ) {
 
-      for ( const k in values ) {
+      for ( var k in values ) {
 
-        str = str.replace( `%${k}%`, values[ k ] );
+        str = str.replace( '%' + k + '%', values[ k ] );
 
       }
 
