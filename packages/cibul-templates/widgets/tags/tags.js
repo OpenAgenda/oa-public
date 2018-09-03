@@ -303,7 +303,7 @@ function widget( elem, options ) {
 
       cn.forEach( data.t, function( tag ) {
 
-        if ( group === tag.g || typeof group === 'undefined' ) {
+        if ( group === tag.g || group === null ) {
         
           tags.push( tag );
 
