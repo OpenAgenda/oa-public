@@ -322,6 +322,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         fn: _defineAccessibility( 'en' )
       } ] : [],
       [ 'registrationUrl',
+      'origin.title',
+      'origin.uid',
       'age.min',
       'age.max',
       'featured',

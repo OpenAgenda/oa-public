@@ -100,6 +100,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         updatedAt: instance.updatedAt,
         age: instance.getAge(),
         accessibility: instance.getAccessibility(),
+        origin: instance.origin,
         range: {
           fr: loaded.getRange( 'fr' ),
           en: loaded.getRange( 'en' )
