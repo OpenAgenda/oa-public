@@ -51,7 +51,7 @@ function renderEventItems( req, res, next ) {
 
     mapping = req.embed.getMapping( 'eventitem' ) || mapping;
 
-    template = req.embed.getTemplate( 'eventitem' ) || template;
+    template = req.embed.getTemplate( 'eventitem' ) || template;
 
   }
 

@@ -2,9 +2,12 @@
 
 const _ = require( 'lodash' );
 
-const sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' );
+const slugs = require( '@openagenda/slugs' );
 
-  modLib = require( '../lib/moduleLib' ),
+const agendaTags = require( '@openagenda/agenda-tags' );
+
+const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
 
@@ -64,6 +67,7 @@ const sessions = require( '@openagenda/sessions' ),
       show 
     ],
     embedShow: [ 
+      _loadTagGroups,
       _format,
       _formatEmbedHeadLinks,
       _formatCustomEmbedLinks,
@@ -224,6 +228,22 @@ module.exports = function( path ) {
 }
 
 
+
+function _loadTagGroups( req, res, next ) {
+
+  if ( !req.agenda ) return next();
+
+  agendaTags.get( req.agenda.id, ( err, tagSet ) => {
+
+    if ( err ) return cb( err );
+
+    req.agenda.tagSet = tagSet;
+
+    next();
+
+  } );
+
+}
 
 /**
  * controllers
@@ -403,7 +423,7 @@ function _format( req, res, next ) {
 
     if ( err ) return cb( err );
 
-    let passedQuery = JSON.parse( JSON.stringify( req.query ) );
+    const passedQuery = JSON.parse( JSON.stringify( req.query ) );
 
     if ( !passedQuery.oaq ) {
 
@@ -420,7 +440,7 @@ function _format( req, res, next ) {
       passed: req.agenda.passed,
       // does the current selection include passed events
       passedIncluded: req.query.oaq ? req.query.oaq.passed : false,
-      passedQuery: passedQuery,
+      passedQuery,
       total: req.total,
       page: req.query.page || 1
     };
@@ -533,7 +553,13 @@ function _formatEventItem( event, req, cb ) {
 
       formatted.tags = t;
 
-      cb( null, formatted );
+      if ( req.agenda.tagSet ) formatted.tagGroups = req.agenda.tagSet.groups.map( g => ( {
+        name: g.name,
+        slug: g.name ? slugs.generate( g.name ) : null,
+        tags: g.tags.filter( t => formatted.tags.map( t => t.slug ).includes( t.slug ) )
+      } ) ).filter( g => g.tags.length );
+
+      return cb( null, formatted );
 
     } );
 
@@ -622,6 +648,21 @@ function _formatEmbedLinks( req, res, next ) {
 
     } );
 
+    if ( e.tagGroups ) e.tagGroups.forEach( tg => {
+
+      tg.tags.forEach( t => {
+
+        t.link = req.genUrl( 'agendaEmbedShow', {
+          uid: req.params.uid,
+          oaq: {
+            tags: [ t.slug ]
+          }
+        } );
+
+      } );
+
+    } );
+
   } );
 
   next();
@@ -633,7 +674,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( e => {
 
-    var params = {
+    const params = {
       uid: req.agenda.uid,
       embedUid: req.embed.uid,
       eventUid: e.uid,
@@ -670,6 +711,21 @@ function _formatCustomEmbedLinks( req, res, next ) {
           passed: req.query.passed
         },
         lang: req.lang
+      } );
+
+    } );
+
+    if ( e.tagGroups ) e.tagGroups.forEach( tg => {
+
+      tg.tags.forEach( t => {
+
+        t.link = req.genUrl( 'agendaEmbedShow', {
+          uid: req.params.uid,
+          oaq: {
+            tags: [ t.slug ]
+          }
+        } );
+
       } );
 
     } );

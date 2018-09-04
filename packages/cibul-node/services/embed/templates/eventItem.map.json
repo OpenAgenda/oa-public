@@ -104,6 +104,34 @@
       "itemName" : "Keyword"
     },
     {
+      "name" : "TagGroups",
+      "mapTo" : "tagGroups",
+      "attributes" : [ {
+        "name" : "Name",
+        "mapTo" : "name"
+      }, {
+        "name" : "GroupName",
+        "mapTo" : "name"
+      }, {
+        "name" : "GroupSlug",
+        "mapTo" : "slug"
+      } ],
+      "children" : [ {
+        "name" : "Tags",
+        "mapTo" : "tags",
+        "attributes" : [ {
+          "name" : "Tag",
+          "mapTo" : "label"
+        }, {
+          "name" : "TagLink",
+          "mapTo" : "link"
+        }, {
+          "name" : "TagSlug",
+          "mapTo" : "slug"
+        } ]
+      } ]
+    }, 
+    {
       "mapTo": "tags",
       "name": "Tags",
       "attributes": [
