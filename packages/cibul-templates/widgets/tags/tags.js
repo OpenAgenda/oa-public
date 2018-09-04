@@ -297,7 +297,7 @@ function widget( elem, options ) {
 
         tagSlugs.push( t.s );
 
-      });
+      } );
 
     } else {
 
