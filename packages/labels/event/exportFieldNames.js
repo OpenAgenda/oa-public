@@ -185,6 +185,14 @@ module.exports = {
     en: 'Maximum age',
     fr: 'Age maximum'
   },
+  'origin.title' : {
+    en: 'Origin agenda ( title )',
+    fr: 'Agenda d\'origine ( titre )'
+  },
+  'origin.uid' : {
+    en: 'Origin agenda ( uid )',
+    fr: 'Agenda d\'origine ( uid )'
+  },
   'contributor.email' : {
     en: 'Contributor: Email',
     fr: 'Contributeur: Email'
