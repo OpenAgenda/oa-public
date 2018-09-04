@@ -28,5 +28,9 @@ module.exports = {
   or: {
     en: 'OR',
     fr: 'OU'
+  },
+  acceptedExtensions: {
+    fr: 'Fichiers acceptés',
+    en: 'Accepted files'
   }
 }
