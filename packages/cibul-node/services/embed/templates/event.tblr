@@ -4,6 +4,38 @@
   
   <p class="short-description">{Description}</p>
 
+{block:Conditions}
+  <div class="conditions">
+    <p>{Conditions}</p>
+  </div>
+{/block:Conditions}
+  <ul class="list-inline">
+{block:Registration}
+    <li>
+      <a href="{Prefix}{Value}">
+        <span>{Value}</span>
+      </a>
+    </li>
+{/block:Registration}
+  </ul>
+
+  {block:ImageUrl}
+  <img class="img-responsive" src="{ImageUrl}" alt="{Title}"/>
+  {/block:ImageUrl}
+
+  <div class="description">
+  {FreeText}
+  </div>
+
+  <div class="location">
+    {LocationName}
+    <p><a href="{GoogleItineraryLink}">{Address}</a></p>
+  </div>
+
+  <div class="timings">
+    {TimingsComponent}
+  </div>
+
   <div class="share">
 {block:FacebookShareUrl}
     <a href="{FacebookShareUrl}"><i class="fa fa-facebook-official"></i></a>
@@ -26,34 +58,6 @@
 {block:EmailShareUrl}
     <a target="_blank" href="{EmailShareUrl}"><i class="fa fa-envelope"></i></a>
 {/block:EmailShareUrl}
-  </div>
-
-{block:Conditions}
-  <div class="conditions">
-    <p>{Conditions}</p>
-  </div>
-{/block:Conditions}
-{block:TicketUrl}
-  <div class="ticket-link">
-    <a href="{TicketUrl}">{TicketUrl}</a>
-  </div>
-{/block:TicketUrl}
-
-  {block:ImageUrl}
-  <img class="img-responsive" src="{ImageUrl}" alt="{Title}"/>
-  {/block:ImageUrl}
-
-  <div class="description">
-  {FreeText}
-  </div>
-
-  <div class="location">
-    {LocationName}
-    <p><a href="{GoogleItineraryLink}">{Address}</a></p>
-  </div>
-
-  <div class="timings">
-    {TimingsComponent}
   </div>
 
 </div>
