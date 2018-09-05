@@ -11,6 +11,7 @@ import SelectField from './SelectField.jsx';
 import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent';
 import FileUpload from './FileUpload.jsx';
+import classNames from 'classnames';
 
 module.exports = createReactClass({
 
@@ -24,7 +25,12 @@ module.exports = createReactClass({
 
       if ( field.multilingual ) {
 
-        return <div className="multilingual-input-field form-group margin-v-md">
+        return <div className={classNames( {
+          'multilingual-input-field' : true,
+          'form-group' : true,
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
           <MultilingualTextField
             name={ field.name }
             constraints= { field } 
@@ -41,7 +47,10 @@ module.exports = createReactClass({
 
       } else {
 
-        return <div className="margin-v-md">
+        return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
           <TextField 
             name= { field.name }
             constraints= { field }
@@ -60,7 +69,11 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType === 'wysiwyg' && field.multilingual ) {
 
-      return <div className="margin-v-md  multilingual-input-field">
+      return <div className={classNames( {
+          'multilingual-input-field' : true,
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <Wysiwyg
           name={field.name}
           lang={this.props.lang}
@@ -74,7 +87,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType === 'wysiwyg' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <HTMLComponent
           lang={this.props.lang}
           label={field.label[ this.props.lang]}
@@ -86,7 +102,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType == 'checkbox' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <CheckboxField
         name= { field.name }
         field= { field }
@@ -97,7 +116,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType == 'radio' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <RadioFields
           name= { field.name }
           type= "radio"
@@ -112,7 +134,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType == 'select' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <SelectField
           name= { field.name }
           field= { field }
@@ -126,7 +151,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType == 'multichoice' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <RadioFields
           name= { field.name }
           type= "checkbox"
@@ -141,7 +169,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType == 'image' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <ImageUpload
           className="upload"
           name={ field.name }
@@ -160,7 +191,10 @@ module.exports = createReactClass({
 
     } else if ( field.fieldType === 'file' ) {
 
-      return <div className="margin-v-md">
+      return <div className={classNames( {
+          'margin-v-md' : true,
+          'display-none' : field.hidden
+        } )}>
         <FileUpload
           name={ field.name }
           label={ field.label }
