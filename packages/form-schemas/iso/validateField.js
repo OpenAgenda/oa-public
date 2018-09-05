@@ -242,12 +242,12 @@ function buildFieldSchema( type, options = {} ) {
 
   }
 
-  if ( type === 'file' ) {
+  if ( [ 'image', 'file' ].includes( type ) ) {
 
     _.assign( structure, {
       extensions: {
         type: 'text',
-        optional: false,
+        optional: true,
         list: true
       }
     } );
