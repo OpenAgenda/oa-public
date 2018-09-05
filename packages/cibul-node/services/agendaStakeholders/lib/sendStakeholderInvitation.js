@@ -5,6 +5,7 @@ const users = require( '@openagenda/users' );
 const activities = require( '@openagenda/activities' );
 const mails = require( '@openagenda/mails' );
 const genUrl = require( '../../genUrl' );
+const config = require( '../../../config' );
 
 let log = console.log;
 
