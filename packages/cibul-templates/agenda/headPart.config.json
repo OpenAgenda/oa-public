@@ -8,6 +8,7 @@
   },
   "base" : {
     "includeActionLinks" : false,
-    "targetBlank" : false
+    "targetBlank" : false,
+    "mailto" : false
   }
 }

@@ -332,10 +332,10 @@
 
     <div class="js_activities"></div>
 
-<% if ( inbox && inbox.mailto ) { %>
+<% if ( mailto ) { %>
     <h3 class="margin-top-lg"><%= __( 'contactEmail' ) %></h3>
     <div class="padding-all-md wsq" style="text-align: center;">
-      <a href="mailto:<%= inbox.mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
+      <a href="<%= mailto %>" class="btn btn-primary"><%= __( 'contactEmailButton' ) %></a>
     </div>
 <% } else { %>
     <div class="display-none js_inbox_event_canvas" id="inbox">

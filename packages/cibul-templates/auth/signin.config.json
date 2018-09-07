@@ -16,6 +16,7 @@
     "pageClass" : "auth",
     "optionals" : {},
     "agenda" : false,
-    "includeActionLinks" : false
+    "includeActionLinks" : false,
+    "mailto" : false
   }
 }

@@ -16,6 +16,7 @@
     "pageClass" : "auth",
     "includeActionLinks" : false,
     "facebookPage" : "//facebook.com/oagenda",
-    "twitterPage" : "//twitter.com/OpenAgendaFR"
+    "twitterPage" : "//twitter.com/OpenAgendaFR",
+    "mailto" : false
   }
 }

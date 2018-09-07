@@ -21,6 +21,7 @@
     "optionals" : {},
     "useCaptcha" : false,
     "agenda" : false,
-    "includeActionLinks" : false
+    "includeActionLinks" : false,
+    "mailto" : false
   }
 }

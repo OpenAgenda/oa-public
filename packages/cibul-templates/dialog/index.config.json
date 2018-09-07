@@ -9,6 +9,7 @@
   },
   "labels" : "auth/messages",
   "base" : {
-    "includeActionLinks" : false
+    "includeActionLinks" : false,
+    "mailto" : false
   }
 }

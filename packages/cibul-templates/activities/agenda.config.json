@@ -10,7 +10,8 @@
   "base" : {
     "mainClass" : "activities-admin",
     "pageId" : false,
-    "tab" : "activities"
+    "tab" : "activities",
+    "mailto" : false
   },
   "js" : true
 }

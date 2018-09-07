@@ -44,11 +44,10 @@
         <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>
 <% } %>
             <% if ( includeActionLinks ) { %><div class="ctas">
-                <% if ( typeof inbox !== 'undefined' && inbox ) { %>
                 <a
                   <% if ( typeof targetBlank !== 'undefined' && targetBlank ) { %>target="_blank"<% } %>
                   class="btn btn-default js_create_conversation_contact margin-bottom-xs"
-                  href="<% if ( typeof inbox.mailto !== 'undefined' && inbox.mailto ) { %>mailto:<%= inbox.mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
+                  href="<% if ( mailto ) { %>mailto:<%= mailto %><% } else { %>/<%= agenda.slug %>/contact"<% } %>"
                   rel="nofollow"
                   data-type="contact_form"
                   data-destination-inbox="<%= `{"type": "agenda", "identifier": ${agenda.uid}` %>"
@@ -56,7 +55,6 @@
                 >
                     <i class="fa fa-envelope" aria-hidden="true"></i> <%= __( 'contact' ) %>
                 </a>
-                <% } %>
                 <% if ( agenda.importUri ) { %>
                 <a class="btn btn-default js_use_search margin-bottom-xs" href="<%= agenda.importUri %>" rel="nofollow">
                     <i class="fa fa-share-alt"></i> <%= __( 'export' ) %>

@@ -18,6 +18,7 @@
     },
     "hasCustomFields": false,
     "hasOwnershipTransfer": false,
+    "mailto" : false,
     "impairments": {
       "hi": "accessibleToHearing",
       "pi": "accessibleToMentally",

@@ -10,7 +10,8 @@
   },
   "base" : {
     "pageClass" : "cb search-page",
-    "queryLang" : false
+    "queryLang" : false,
+    "mailto" : false
   },
   "helpers" : {
     "_t" : "time",

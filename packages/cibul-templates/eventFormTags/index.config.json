@@ -12,7 +12,8 @@
     "_sl" : "shareLinks"
   },
   "base" : {
-    "includeActionLinks" : false
+    "includeActionLinks" : false,
+    "mailto" : false
   },
   "js" : true
 }
