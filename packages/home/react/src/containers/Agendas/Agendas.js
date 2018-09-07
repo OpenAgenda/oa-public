@@ -67,13 +67,13 @@ export default class Agendas extends Component {
         >
           {getLabel( 'addAnEvent' )}
         </a>}
-        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'settings.inbox.mailto' ) && <a
-          href={'mailto:' + _.get( agenda, 'settings.inbox.mailto' )}
+        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'mailto' ) && <a
+          href={_.get( agenda, 'mailto' )}
           className="text-muted"
         >
           {getLabel( 'contact' )}
         </a>}
-        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && !_.get( agenda, 'settings.inbox.mailto' ) && <a
+        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && !_.get( agenda, 'mailto' ) && <a
           href={res.agendas.contact.replace( ':slug', agenda.slug )}
           className="text-muted"
         >

@@ -43,7 +43,8 @@ function agendasList( req, res, next ) {
 
   const {
     agendas: { list: agendasList },
-    stakeholders: { list: stakeholdersList }
+    stakeholders: { list: stakeholdersList },
+    agendaMailTo
   } = config.interfaces;
 
   const offset = (req.query.page - 1) * config.mw.limit;
@@ -70,7 +71,8 @@ function agendasList( req, res, next ) {
         total,
         reviews: reviews.map( review => _.assign( _.omit( review, [ 'credentials' ] ), { 
           stakeholder: stakeholders.find( s => s.agendaId === review.id ),
-          useContributeApp: _.get( review, 'credentials.useContributeApp', false )
+          useContributeApp: _.get( review, 'credentials.useContributeApp', false ),
+          mailto: agendaMailTo( review ) // hacky. Ideally, the full list should be in integrating app
         } ) )
       } );
 
