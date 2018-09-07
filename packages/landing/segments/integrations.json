@@ -27,6 +27,11 @@
       "pic" : "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/maad93.jpg"
     }, 
     {
+      "title" : "Médiathèques Grand Châtellerault",
+      "link" : "https://mediatheques.grand-chatellerault.fr/agenda/en-ce-moment",
+      "pic" : "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/mediatheques-grand-chatellerault.jpg"
+    },
+    {
       "title" : "Le Salon de l'agriculture 2018",
       "link" : "https://www.salon-agriculture.com/Animations/Que-faire-sur-le-Salon?oaq%5Bpassed%5D=1&oaq%5Border%5D=latest",
       "pic" : "https://s3.eu-central-1.amazonaws.com/oastatic/landing/embeds/agriculture.jpg"
