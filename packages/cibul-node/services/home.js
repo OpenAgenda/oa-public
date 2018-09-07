@@ -5,6 +5,8 @@ const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const eventsSvc = require( '@openagenda/events' );
 
+const cmn = require( '../lib/commons-app' );
+
 
 module.exports.init = ( config, cb ) => {
 
@@ -19,6 +21,7 @@ module.exports.init = ( config, cb ) => {
       limit: 20
     },
     interfaces: {
+      agendaMailTo: cmn.agendaMailTo,
       agendas: {
         list: agendasSvc.list
       },

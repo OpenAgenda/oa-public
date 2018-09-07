@@ -33,7 +33,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   }
 
-  log( 'publish - evaluating for event %s, source %s, aggregating agenda %s %s', eventId, sourceId, aggregatingAgendaId, mute ? 'mute' : '' );
+  log( 'info', 'publish - evaluating for event %s, source %s, aggregating agenda %s %s', eventId, sourceId, aggregatingAgendaId, mute ? 'mute' : '' );
 
   p.w( {
     eventId,
@@ -110,11 +110,11 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
     } else if ( v.referenced ) {
 
-      log( 'publish - event %s of source %s already is in aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
+      log( 'info', 'publish - event %s of source %s already is in aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
 
     } else {
 
-      log( 'publish - nothing done for event %s of source %s to aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
+      log( 'info', 'publish - nothing done for event %s of source %s to aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
 
     }
  

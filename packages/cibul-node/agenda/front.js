@@ -299,7 +299,7 @@ function show( req, res ) {
         showCalendar: _.get( agenda, 'credentials.calendarView', false ),
         useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
       },
-      inbox: _.get( agenda, 'settings.inbox', {} )
+      mailto: cmn.agendaMailTo( agenda )
     } );
 
     cmn.render( req, res, 'agenda/show', req.templateData );

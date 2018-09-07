@@ -322,7 +322,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  const limit = 5;
+  const limit = 100;
 
   let hasMore = true, offset = 0;
 

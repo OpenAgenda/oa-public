@@ -225,7 +225,14 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         tfy( require( '@openagenda/agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
-        tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { period: 'daily', time: '19:00' } );
+        //tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { bootOffset: 5000 } );
+        tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { 
+          period: 'daily',
+          time: '19:00' 
+        } );
+
+
+
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
           // bootOffset: 1000

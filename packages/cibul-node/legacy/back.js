@@ -209,7 +209,7 @@ function head( req, res, next ) {
   agendas.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
     cmn.render( req, res, 'agenda/headPart', {
-      inbox: _.get( agenda, 'settings.inbox', {} ),
+      mailto: cmn.agendaMailTo( agenda ),
       agenda: req.agenda,
       includeActionLinks: true,
       targetBlank: true

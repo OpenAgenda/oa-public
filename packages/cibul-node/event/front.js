@@ -527,7 +527,7 @@ function _appendSettings( req, res, next ) {
 
     req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
 
-    req.baseData.inbox = _.get( agenda, 'settings.inbox', {} );
+    req.baseData.mailto = cmn.agendaMailTo( agenda );
 
     req.baseData.useContributeApp = _.get( agenda, 'credentials.useContributeApp', false );
 

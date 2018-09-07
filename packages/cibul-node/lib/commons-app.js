@@ -124,10 +124,32 @@ module.exports = {
   redirectTo,
   redirectToSignin,
 
+  agendaMailTo,
+
   ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
   ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
 
   lang
+
+}
+
+
+function agendaMailTo( agenda ) {
+
+  const config = _.get( agenda, 'settings.inbox.mailto' );
+
+  if ( !config ) return null;
+
+  if ( !_.get( config, 'enabled' ) ) return null;
+
+  const queryParts = [ 'subject', 'body' ]
+    .map( key => ( { key, value: _.get( config, key ) } ) )
+    .filter( item => item.value )
+    .map( item => item.key + '=' + encodeURIComponent( item.value ) );
+
+  if ( !queryParts.length ) return 'mailto:' + config.email;
+
+  return 'mailto:' + config.email + '?' + queryParts.join( '&' );
 
 }
 
