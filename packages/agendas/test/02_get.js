@@ -48,7 +48,12 @@ describe( 'agendas - functional (server): get', function() {
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false
@@ -162,7 +167,12 @@ describe( 'agendas - functional (server): get', function() {
         url: 'http://www.ensparis.fr',
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false
@@ -263,7 +273,12 @@ describe( 'agendas - functional (server): get', function() {
         image: 'review_epn-espace-torcy_00.jpg',
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false

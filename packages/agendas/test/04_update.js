@@ -53,7 +53,12 @@ describe( 'agendas - functional (server): set (update)', function() {
         url: 'http://www.salon-fromage.com/',
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false
@@ -246,7 +251,12 @@ describe( 'agendas - functional (server): set (update)', function() {
           image: null,
           settings: {
             inbox: {
-              mailto: null
+              mailto: {
+                enabled: false,
+                email: null,
+                subject: null,
+                body: null
+              }
             },
             mailing: {
               eventAggregation: false

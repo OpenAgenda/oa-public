@@ -33,8 +33,24 @@ module.exports = {
   settings: {
     inbox: {
       mailto: {
-        type: 'email',
-        default: null
+        // if mailto is enabled, inbox is not used
+        // and all message links are mailto:
+        enabled: {
+          type: 'boolean',
+          default: false
+        },
+        email: {
+          type: 'email',
+          default: null
+        },
+        subject: {
+          type: 'text',
+          default: null
+        },
+        body: {
+          type: 'text',
+          default: null
+        }
       }
     },
     mailing: {

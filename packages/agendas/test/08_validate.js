@@ -40,7 +40,12 @@ describe( 'agendas - unit (server): validate', () => {
         official: false,
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false
@@ -87,7 +92,12 @@ describe( 'agendas - unit (server): validate', () => {
         slug: 'title-of-the-agenda',
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           translation: {
             enabled: true,
@@ -177,7 +187,12 @@ describe( 'agendas - unit (server): validate', () => {
         formSchemaId: null,
         settings: {
           inbox: {
-            mailto: null
+            mailto: {
+              enabled: false,
+              email: null,
+              subject: null,
+              body: null
+            }
           },
           mailing: {
             eventAggregation: false

@@ -53,7 +53,12 @@ describe( 'agendas - functional (server): set (create)', function() {
           url: null,
           settings: {
             inbox: {
-              mailto: null
+              mailto: {
+                enabled: false,
+                email: null,
+                subject: null,
+                body: null
+              }
             },
             mailing: {
               eventAggregation: false
@@ -160,7 +165,12 @@ describe( 'agendas - functional (server): set (create)', function() {
           url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
           settings: {
             inbox: {
-              mailto: null
+              mailto: {
+                enabled: false,
+                email: null,
+                subject: null,
+                body: null
+              }
             },
             mailing: {
               eventAggregation: false
@@ -279,7 +289,12 @@ describe( 'agendas - functional (server): set (create)', function() {
           indexed: 1,
           settings: {
             inbox: {
-              mailto: null
+              mailto: {
+                enabled: false,
+                email: null,
+                subject: null,
+                body: null
+              }
             },
             mailing: {
               eventAggregation: false
