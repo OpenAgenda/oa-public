@@ -166,7 +166,8 @@ describe( 'core - functional ( server ): agenda event create', function() {
           fr: [ 'un', 'deux', 'trois' ]
         },
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+        'thematiques-bordeaux-metropole' : [ 3, 4 ],
+        accessibility: { sl: true }
       } );
 
       event = result.created.event;
@@ -198,7 +199,6 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
     } );
 
-
     it( 'adds event to legacy event structure', done => {
 
       events.legacy.get( { uid: event.uid }, ( err, legacyEvent ) => {
@@ -208,6 +208,40 @@ describe( 'core - functional ( server ): agenda event create', function() {
         legacyEvent.uid.should.equal( event.uid );
 
         legacyEvent.title.should.eql( event.title );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'accessibility is saved in service and legacy', done => {
+
+      events.get( {
+        uid: event.uid
+      } ).then( fetched => new Promise( rs => {
+
+        fetched.accessibility.should.eql( {
+          sl: true,
+          vi: false,
+          pi: false,
+          hi: false,
+          mi: false
+        } );
+
+        events.legacy.get( { uid: event.uid }, ( err, event ) => rs( event ) );
+
+      } ) )
+
+      .then( legacyEvent => {
+
+        legacyEvent.accessibility.should.eql( {
+          sl: true,
+          vi: false,
+          pi: false,
+          hi: false,
+          mi: false
+        } );
 
         done();
 
