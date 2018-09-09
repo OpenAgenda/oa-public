@@ -53,20 +53,14 @@ function _location( location, filter ) {
 }
 
 
-function _tags( evaluated, filter ) {
+function _tags( evaluatedTags, filter ) {
 
-  if ( !evaluated ) {
-
-    return false;
-
-  }
-
-  if ( filter.filter( f => evaluated.includes( f ) ).length !== filter.length ) {
+  if ( !evaluatedTags ) {
 
     return false;
 
   }
 
-  return true;
+  return !!_.intersection( filter, evaluatedTags ).length;
 
 }

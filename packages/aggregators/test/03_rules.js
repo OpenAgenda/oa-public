@@ -10,7 +10,7 @@ describe( 'aggregation rules', () => {
 
     const ruleset = [ {
       query: {
-        tags: [ 'Tag1' ]
+        tags: [ 'Tag1', 'Tag3' ]
       }
     }, {
       query: {

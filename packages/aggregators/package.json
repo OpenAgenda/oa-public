@@ -19,6 +19,7 @@
   "jest": {
     "testMatch": [
       "<rootDir>/test/*.js"
-    ]
+    ],
+    "testURL" : "http://localhost"
   }
 }
