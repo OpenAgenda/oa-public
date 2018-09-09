@@ -3,8 +3,8 @@
 const du = require( '@openagenda/dom-utils' );
 
 const _ = {
-  assign: require( 'lodash/assign'
-}
+  assign: require( 'lodash/assign' )
+};
 
 var debug = require( 'debug' ), log,
 
