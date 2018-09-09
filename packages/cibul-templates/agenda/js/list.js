@@ -1,12 +1,16 @@
 "use strict";
 
+const du = require( '@openagenda/dom-utils' );
+
+const _ = {
+  assign: require( 'lodash/assign'
+}
+
 var debug = require( 'debug' ), log,
 
 pagination = require( './pagination' ),
 
 partialLoader = require( './partialLoader' ),
-
-cn = require( '../../js/lib/common/common.mod' ),
 
 config = require( './config' ),
 
@@ -37,23 +41,27 @@ function init( options ) {
 
   log( 'initing' );
   
-  cn.extend( params, options );
+  _.assign( params, options );
 
   if ( options.empty ) return;
 
-  loader = partialLoader( cn.extend( config.partialOptions, {
-    canvas: cn.el( params.selectors.list ),
-    onLoad: params.onLoad
-  }));
+  du.asapReady( params.selectors.list, () => {
 
-  pagination.init( {
-    href: window.location.href,
-    total: params.total,
-    perPage: params.perPage,
-    loadNext: loader.after,
-    loadPrev: loader.before,
-    auto: params.autoLoadNext,
-    onLastPage: params.onLastPage 
+    loader = partialLoader( _.assign( config.partialOptions, {
+      canvas: du.el( params.selectors.list ),
+      onLoad: params.onLoad
+    }));
+
+    pagination.init( {
+      href: window.location.href,
+      total: params.total,
+      perPage: params.perPage,
+      loadNext: loader.after,
+      loadPrev: loader.before,
+      auto: params.autoLoadNext,
+      onLastPage: params.onLastPage 
+    } );
+
   } );
 
 }

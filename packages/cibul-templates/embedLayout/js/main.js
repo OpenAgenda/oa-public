@@ -61,7 +61,7 @@ window.hook = function( cb ) {
  * available
  */
 
-window.asap = function( cb ) {
+window.asap = function( cb ) {
 
   if ( asapRan ) return cb( params );
 
