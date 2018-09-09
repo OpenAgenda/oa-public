@@ -29,7 +29,7 @@ module.exports = function( service ) {
 
 function decorateEvents( agenda, events, toDecorate, options, cb ) {
 
-  var i = 0;
+  let i = 0;
 
   agendaTags.get( agenda.id, ( err, tagSet ) => {
 
@@ -79,8 +79,8 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
   w( utils.extend( {
     multiLang: true,
     longDescriptionField: toDecorate.freeText && !toDecorate.longDescription ? 'freeText' : 'longDescription',
-    agenda: agenda,
-    event: event,
+    agenda,
+    event,
     loadTagSet: false,
     decorated: toDecorate,
     lang: false,                // given by options
@@ -120,9 +120,9 @@ function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
 function _addFreeTextSuffixes( v ) {
 
-  let suffixes = v.agenda.getEventFreeTextSuffixes( false ),
+  const suffixes = v.agenda.getEventFreeTextSuffixes( false );
 
-    markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
+  const markedSuffixes = v.agenda.getEventFreeTextSuffixes( true );
 
   if ( !v.multiLang ) {
 
@@ -201,7 +201,7 @@ function _addTagGroups( v ) {
 
   if ( !tagSlugs || !tagSlugs.length ) return v;
 
-  let tagSet = v.agenda.tagSet;
+  const tagSet = v.agenda.tagSet;
 
   v.decorated.tagGroups = ( tagSet ? tagSet.groups : [] )
 

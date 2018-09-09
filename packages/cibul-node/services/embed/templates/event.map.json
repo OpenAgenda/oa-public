@@ -143,6 +143,15 @@
   }, {
     "name" : "ContributorOrganization",
     "mapTo" : "contributor.organization"
+  }, {
+    "name" : "OriginAgenda",
+    "mapTo" : "origin.title"
+  }, {
+    "name" : "OriginAgendaOAUrl",
+    "mapTo" : "origin.oaUrl"
+  }, {
+    "name" : "OriginAgendaUrl",
+    "mapTo" : "origin.url"
   } ],
   "children" : [ {
     "name" : "Keywords",

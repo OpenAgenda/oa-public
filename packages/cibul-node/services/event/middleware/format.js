@@ -13,12 +13,19 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 
 module.exports = _.extend( function( req, res, next ) {
 
+  if ( req.event.origin ) {
+
+    req.event.origin.oaUrl = 'https://openagenda.com/agendas/' + req.event.origin.uid;
+
+  }
+
   w( {
     req,
     res,
     formatted: {
       updatedAt: req.event.updatedAt,
       timezone: req.event.getLocationDetails().timezone,
+      origin: req.event.origin
     },
     _t: timeHelper( { lang: req.lang } )
   } )
