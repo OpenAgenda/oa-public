@@ -39,7 +39,7 @@ function _transfer( event, context, cb ) {
 
 }
 
-function _legacyRemove( event, context ) {
+function _legacyRemove( event, context, cb ) {
 
   events.remove( { uid: event.uid }, { context: { ...context, deletion: true } }, ( err, result ) => {
 
@@ -56,6 +56,8 @@ function _legacyRemove( event, context ) {
       log( 'info', 'event %s remove not performed', event.uid );
 
     }
+
+    cb( err );
 
   } );
 

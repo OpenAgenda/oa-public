@@ -467,6 +467,8 @@ function eventDelete( req, res, next ) {
   const userUid = req.query.userUid || null;
   const agendaUid = req.query.agendaUid || null;
 
+  log( 'received request to delete event %s from user %s on agenda %s', req.event.uid, userUid, agendaUid );
+
   req.event.getAgendaReferences( ( err, agendas ) => {
 
     async.eachSeries( agendas, ( a, ecb ) => {
