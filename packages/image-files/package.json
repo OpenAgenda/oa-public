@@ -22,9 +22,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/files": "^2.0.6",
     "@openagenda/images": "^1.0.10",
+    "@openagenda/logs": "^1.0.18",
     "lodash": "^4.17.5",
     "when": "^3.7.7"
   },

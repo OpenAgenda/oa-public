@@ -5,7 +5,7 @@ const w = require( 'when' );
 
 const files = require( '@openagenda/files' );
 const images = require( '@openagenda/images' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 
 let config, log;
 
@@ -61,11 +61,11 @@ function init( c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( config.logger );
+    logger.setModuleConfig( c.logger );
 
   }
 
-  log = logger( 'image-files' );
+  log = logger( 'index' );
 
   files.init( Object.assign( {}, c.files, { logger } ) );
 

@@ -1,20 +1,17 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
+const fs = require( 'fs' );
+const should = require( 'should' );
 
-const should = require( 'should' ),
+const config = require( '../testconfig' );
 
-config = require( '../testconfig' ),
+const svc = require( '../' );
 
-svc = require( '../' ),
-
-fs = require( 'fs' );
-
-describe( 'image-files - load', function() {
+describe( 'image-files - functional - load', function() {
 
   this.timeout( 10000 );
 
-  let testImageUrl = 'https://s3.eu-central-1.amazonaws.com/openagendatest/rainfrog.jpg';
+  const testImageUrl = 'https://s3.eu-central-1.amazonaws.com/openagendatest/rainfrog.jpg';
 
   before( () => {
 
