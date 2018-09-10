@@ -71,6 +71,8 @@ function processImageMulti( srcOptions, destOptions, cb ) {
     url: srcParams.url
   } ) : w( { path: srcParams.path } ) )
 
+  .then( p.ife( { preSave: true }, _preSave ) )
+
   .then( async values => {
 
     const paths = [];
@@ -78,7 +80,7 @@ function processImageMulti( srcOptions, destOptions, cb ) {
 
     for ( const options of destOptions ) {
 
-      const { dstPath, info } = await promisify( processImage )( _.assign( { 
+      const { dstPath, info } = await promisify( processImage )( _.assign( {
         path: values.path,
         clear: false,
         name: false
