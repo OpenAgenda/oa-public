@@ -1,21 +1,24 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const request = require( 'request' );
-const p = require( './lib/promises' );
-const w = p.w;
-const wn = p.wn;
+const fs = require( 'fs' );
+const gm = require( 'gm' ).subClass( { imageMagick: true } );
 const http = require( 'http' );
 const https = require( 'https' );
-const fs = require( 'fs' );
+const { promisify } = require( 'util' );
+const request = require( 'request' );
 const url = require( 'url' );
-const gm = require( 'gm' ).subClass( { imageMagick: true } );
+const VError = require( 'verror' );
+
 const logger = require( '@openagenda/logs' );
 const log = require( '@openagenda/logs' )( 'images' );
 
+const p = require( './lib/promises' );
+const { w, wn } = p;
+
 let config;
 
-module.exports = Object.assign( processImage, {
+module.exports = _.assign( processImage, {
   multi: processImageMulti,
   init,
   test: {
@@ -192,13 +195,19 @@ function _checkSize( values ) {
 
     var imageBytes;
 
-    if ( values.image.data.Filesize.indexOf( 'MB' ) !== -1 ) {
+    const { filesize } = values.info;
 
-      imageBytes = parseInt( values.image.data.Filesize.replace( /(\.[0-9]+|)MB/, '000000' ), 10 );
+    if ( filesize.indexOf( 'MB' ) !== -1 ) {
+
+      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)MB/, '000000' ), 10 );
+
+    } else if ( filesize.indexOf( 'KB' ) !== -1 ) {
+
+      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)KB/, '000' ), 10 );
 
     } else {
 
-      imageBytes = parseInt( values.image.data.Filesize.replace( /(\.[0-9]+|)KB/, '000' ), 10 );
+      imageBytes = parseInt( filesize.replace( /(\.[0-9]+|)B/, '' ), 10 );
 
     }
 
@@ -342,34 +351,34 @@ function _crop( values ) {
  * load and check image validity
  */
 
-function _loadImageStream( values ) {
+async function _loadImageStream( values ) {
 
-  return w.promise( function( rs, rj ) {
+  log( 'loading image stream' );
 
-    var image = gm( values.path );
+  const image = gm( values.path );
 
-    image.identify( function( err, info ) {
+  try {
 
-      if ( err ) {
+    const size = await promisify( image.size.bind( image ) )();
+  
+    const filesize = await promisify( image.filesize.bind( image ) )();
 
-        log( 'error', 'invalid image: %s', err );
+    values.info = {
+      size,
+      filesize
+    };
 
-        rj( 'invalid image' );
+    values.image = image;
 
-        return;
+    return values;
 
-      }
+  } catch ( err ) {
 
-      values.info = info;
+    log( 'error', 'invalid image: %j', err );
 
-      values.image = image;
+    throw 'invalid image';
 
-      rs( values );
-
-    });
-
-
-  });
+  }
 
 }
 

@@ -24,11 +24,11 @@ describe( 'images - unit (server): size', function() {
 
   before( done => {
 
-    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
 
       path = values.path;
 
-      imageSvc.test._loadImageStream( { path: values.path } ).done( function( values ) {
+      imageSvc.test._loadImageStream( { path: values.path } ).then( function( values ) {
 
         image = values.image;
 
@@ -44,7 +44,8 @@ describe( 'images - unit (server): size', function() {
   it( 'verify that image within size limit bounds passes check', function( done ) {
 
     imageSvc.test._checkSize( { 
-      image: image,
+      info: { filesize: '2000B' },
+      image,
       sizeLimits: [ 2000, 10000000 ]
     }).then( function( values ) {
 
@@ -53,6 +54,8 @@ describe( 'images - unit (server): size', function() {
       done();
 
     }).catch( function( e ) {
+
+      console.log( e );
 
       'image is caught'.should.not.equal( 'image is caught' );
 
@@ -65,6 +68,7 @@ describe( 'images - unit (server): size', function() {
   it( 'verify that image below size limit bounds fails check', function( done ) {
 
     imageSvc.test._checkSize( { 
+      info: { filesize: '271000B' },
       image,
       sizeLimits: [ 300000, 10000000 ]
     }).then( function( values ) {
@@ -86,7 +90,8 @@ describe( 'images - unit (server): size', function() {
   it( 'verify that image above size limit bounds fails check', function( done ) {
 
     imageSvc.test._checkSize( { 
-      image: image,
+      info: { filesize: '271000B' },
+      image,
       sizeLimits: [ 100000, 200000 ]
     }).then( function( values ) {
 

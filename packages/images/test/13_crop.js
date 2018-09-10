@@ -33,7 +33,7 @@ describe( 'images - unit (server): crop', function() {
 
   beforeEach( function( done ) {
 
-    imageSvc.test._loadImageStream( { path } ).done( function( values ) {
+    imageSvc.test._loadImageStream( { path } ).then( function( values ) {
 
       image = values.image;
 

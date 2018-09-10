@@ -50,27 +50,25 @@ describe( 'images - unit (server): loadImageStream', function() {
 
   after( () => unlinkTestFiles( __dirname ) );
 
-  it( 'load wrong image stream', done => {
+  it( 'load wrong image stream', async () => {
 
-    imageSvc.test._loadImageStream( { path: notImagePath } ).done( null, err => {
+    try {
+
+      await imageSvc.test._loadImageStream( { path: notImagePath } );
+
+    } catch ( err ) {
 
       err.should.equal( 'invalid image' );
 
-      done();
+    }
 
-    });
+  } );
 
-  });
+  it( 'load image stream succeeds', async () => {
 
-  it( 'load image stream succeeds', done => {
+    const values = await imageSvc.test._loadImageStream( { path } );
 
-    imageSvc.test._loadImageStream( { path } ).done( values => {
-
-      values.info.Filesize.should.equal( '271KB' );
-
-      done();
-
-    });
+    values.info.filesize.should.equal( '270573B' );
 
   } );
 

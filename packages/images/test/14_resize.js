@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const fs = require( 'fs' );
@@ -20,9 +18,11 @@ describe( 'images - unit (server): resize', function() {
 
   var path, image, info;
 
+  before( () => imageSvc.init( testconfig ) );
+
   before( function( done ) {
 
-    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
+    imageSvc.test._download( { url: imageSrc } ).done( function( values ) {
 
       path = values.path;
 
@@ -34,7 +34,7 @@ describe( 'images - unit (server): resize', function() {
 
   beforeEach( function( done ) {
 
-    imageSvc.test._loadImageStream( { path: path } ).done( function( values ) {
+    imageSvc.test._loadImageStream( { path } ).then( function( values ) {
 
       image = values.image;
 
@@ -57,8 +57,8 @@ describe( 'images - unit (server): resize', function() {
     this.timeout( 10000 );
 
     imageSvc.test._resize( { 
-      image: image, 
-      info: info,
+      image, 
+      info,
       format: {
         width: 800,
         height: 450
@@ -86,8 +86,8 @@ describe( 'images - unit (server): resize', function() {
     this.timeout( 10000 );
 
     imageSvc.test._resize( { 
-      image: image, 
-      info: info,
+      image, 
+      info,
       format: {
         width: 450,
         height: 800
