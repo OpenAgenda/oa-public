@@ -29,12 +29,13 @@ describe( 'images - unit (server): use cases', function() {
   it( 'resize transparent png', done => {
 
     imageSvc( {
+      preSave: true, // save in dest format before resizing and cropping. avoids crash issues. May cause others.
       path: __dirname + '/use_cases/tmp.png',
       name: 'testprocessedimage',
       format: {
         crop: true,
         width: 200,
-        height: 200
+        height: 180
       }
     }, function( err, resultPath ) {
 
@@ -42,7 +43,7 @@ describe( 'images - unit (server): use cases', function() {
 
       gm( resultPath ).size( function( err, size ) {
 
-        size.height.should.equal( 200 );
+        size.height.should.equal( 180 );
 
         done();
 

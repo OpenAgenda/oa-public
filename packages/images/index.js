@@ -71,29 +71,30 @@ function processImageMulti( srcOptions, destOptions, cb ) {
     url: srcParams.url
   } ) : w( { path: srcParams.path } ) )
 
-  .then( function( values ) {
+  .then( async values => {
 
-    return w.all( destOptions.map( function( options ) {
+    const paths = [];
+    const infos = [];
 
-      return wn.call( processImage, _.extend( { 
+    for ( const options of destOptions ) {
+
+      const { dstPath, info } = await promisify( processImage )( _.assign( { 
         path: values.path,
         clear: false,
         name: false
       }, options, {
         returnValues: true
-      } ) )
+      } ) );
 
-    } ) )
+      paths.push( dstPath );
+      infos.push( info );
 
-    .then( results => {
+    }
 
-      values.paths = results.map( r => r.dstPath );
-
-      values.infos = results.map( r => r.info );
-
-      return values;
-
-    });
+    return _.assign( values, {
+      paths,
+      infos
+    } );
 
   } )
 
@@ -118,6 +119,7 @@ function processImage( options, cb ) {
   log( 'processing single image' );
 
   w( _.extend( {
+    preSave: false,
     url: false,
     path: false, // either url or this is required
     name: false, // required
@@ -138,6 +140,8 @@ function processImage( options, cb ) {
 
   .then( _clearExif )
 
+  .then( p.ife( { preSave: true }, _preSave ) )
+
   .then( p.ifl( { format: true }, _crop ) )
 
   .then( p.ifl( { format: true }, _resize ) )
@@ -155,27 +159,23 @@ function processImage( options, cb ) {
 }
 
 
-function _clearOrigin( values ) {
+async function _clearOrigin( values ) {
 
-  return w.promise( function( rs, rj ) {
+  log( 'removing file at %s', values.path );
 
-    log( 'removing file at %s', values.path );
+  try {
 
-    fs.unlink( values.path, function( err ) {
+    await promisify( fs.unlink.bind( fs ) )( values.path );
 
-      if ( err ) {
+  } catch ( err ) {
 
-        log( 'error', 'could not delete file at %s', values.path );
+    log( 'error', 'could not delete file at %s', values.path );
 
-        return rj( err );
+    throw err;
 
-      }
+  }
 
-      rs( values );
-
-    });
-
-  });
+  return values;
 
 }
 
@@ -224,6 +224,39 @@ function _checkSize( values ) {
     rs( values );
 
   } );
+
+}
+
+
+async function _preSave( values ) {
+
+  const path = values.path.split( '/' );
+
+  const format = ( values.format && values.format.format ) ? values.format.format : 'jpg';
+
+  log( 'presaving to format', format );
+
+  path.pop();
+
+  path.push( _stripExtension( values.name ) );
+
+  const dstPath = path.join('/') + '.pre.' + format;
+
+  log( 'presaving to %s', dstPath );
+
+  await promisify( values.image.write.bind( values.image ) )( dstPath );
+
+  log( 'presaved' );
+
+  // reload image from pre-saved
+  if ( values.clear ) await _clearOrigin( values );
+
+  _.assign( values, {
+    path: dstPath,
+    clear: true
+  } );
+
+  return _loadImageStream( values );
 
 }
 
@@ -329,7 +362,7 @@ function _crop( values ) {
 
       values.info.size.height = newHeight;
 
-    } else {
+    } else if ( srcRatio > dstRatio ) {
 
       // crop in width
       
@@ -338,6 +371,10 @@ function _crop( values ) {
       values.image.crop( newWidth, values.info.size.height, ( values.info.size.width - newWidth ) / 2, 0 );
 
       values.info.size.width = newWidth;
+
+    } else {
+
+      log( 'the ratio is the same, no need to crop' );
 
     }
 
