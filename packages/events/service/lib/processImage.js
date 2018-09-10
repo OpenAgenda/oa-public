@@ -24,7 +24,7 @@ async function processImage( load, formats, fileKey, urlOrPath ) {
 
   const namedFormats = ih( formats, formats.map( f => ( { name: { $set: f.name.replace( '{fileKey}', fileKey ) } } ) ) );
 
-  const { uploadedPaths, infos } = await load( ih( urlOrPath, { formats: { $set: namedFormats } } ) );
+  const { uploadedPaths, infos } = await load( ih( urlOrPath, { preSave: { $set: true }, formats: { $set: namedFormats } } ) );
 
   // dispatch image sizes in format object
   

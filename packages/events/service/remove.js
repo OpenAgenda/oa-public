@@ -2,8 +2,6 @@
 
 const _ = require( 'lodash' );
 
-const logger = require( '@openagenda/logs' );
-
 const w = require( 'when' );
 
 const wn = require( 'when/node' );
@@ -14,12 +12,16 @@ const cleanOptions = require( './validate/removeOptions' );
 
 const sUtils = require( '@openagenda/service-utils' );
 
-let schemas, service, knex, config, log;
+const log = require( '@openagenda/logs' )( 'remove' );
+
+let schemas, service, knex, config;
 
 module.exports = Object.assign( remove, { init } );
 
 
 function remove( i, o, c ) {
+
+  log( 'remove' );
 
   const { identifiers, options, cb } = cleanArgs( i, o, c );
 
@@ -70,6 +72,8 @@ async function _callInterface( v ) {
 
 function _doRemove( v ) {
 
+  log( 'doRemove' );
+
   if ( !v.event ) return v;
 
   return knex( schemas.event )
@@ -110,9 +114,11 @@ function _transferToLegacy( v ) {
 
 function _before( v ) {
 
+  log( '_before' );
+
   if ( !config.interfaces || !config.interfaces.beforeRemove || !v.event ) {
 
-    return v;    
+    return v;
 
   }
 
@@ -124,6 +130,8 @@ function _before( v ) {
 
 
 function _get( v ) {
+
+  log( 'get' );
 
   return wn.call( service.get, v.identifiers, { internal: true, private: null } )
 
@@ -147,7 +155,5 @@ function init( svc, c ) {
   knex = c.knex;
 
   config = c;
-
-  log = logger( 'event service.remove' );
 
 }

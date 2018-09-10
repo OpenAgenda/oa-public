@@ -1,5 +1,7 @@
 "use strict";
 
+//process.env.DEBUG = '*';
+
 const svc = require( './service' ),
 
   config = require( '../testconfig' ),
@@ -77,6 +79,12 @@ describe( 'events - functional (server): remove', function() {
 
   describe( 'interfaces', () => {
 
+    beforeEach( done => {
+
+      svc.initAndLoad( config, done );
+
+    } );
+
     afterEach( svc.shutdown );
 
     it( 'if userUid is specified in options, it is given back in beforeRemove interface', done => {
@@ -99,11 +107,11 @@ describe( 'events - functional (server): remove', function() {
         }
       } ) );
 
-      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {
+      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {
 
         done();
 
-      } );
+      } );
 
     } );
 
@@ -117,7 +125,8 @@ describe( 'events - functional (server): remove', function() {
               context.should.eql( {
                 userUid: 12345678,
                 agendaUid: null,
-                transferToLegacy: false
+                transferToLegacy: false,
+                deletion: null // ?
               } );
 
               done();
@@ -127,7 +136,7 @@ describe( 'events - functional (server): remove', function() {
         }
       } ) );
 
-      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {} );
+      svc.remove( 145599, { context: { userUid: 12345678 } }, () => {} );
 
     } );
 
