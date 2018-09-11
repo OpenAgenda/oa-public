@@ -180,9 +180,10 @@ function init( c ) {
     get
   } );
 
-  filesMw.init( {
-    tmpFolder: config.tmpFolder
-  } );
+  filesMw.init( _.pick( config, [
+    'tmpFolder',
+    's3'
+  ] ) );
 
 }
 

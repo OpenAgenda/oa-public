@@ -21,7 +21,8 @@ const FieldComponents = {
   radio: require( './RadioField' ),
   checkbox: require( './CheckboxField' ),
   date: require( './DateField' ),
-  file: require( './FileField' )
+  file: require( './FileField' ),
+  image: require( './ImageField' )
 }
 
 module.exports = class Field extends Component {

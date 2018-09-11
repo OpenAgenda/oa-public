@@ -1,24 +1,47 @@
 "use strict";
 
 import _ from 'lodash';
+import Dropzone from 'react-dropzone';
 import React, { Component } from 'react';
 
-import Dropzone from 'react-dropzone';
+import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload';
+import flattenLabels from '@openagenda/labels/flatten';
 
 module.exports = class FileField extends Component {
 
   onDrop( acceptedFiles, rejectedFiles ) {
 
-    this.props.onChange( _.first( acceptedFiles ) );
+    // revoke preview to avoid memory leaks
+    // https://github.com/react-dropzone/react-dropzone#proptypes
+    acceptedFiles.forEach( file => {
+
+      try {
+        
+        window.URL.revokeObjectURL( file.preview );
+
+      } catch ( e ) {
+
+        console.error( 'could not revoke preview', e );
+
+      }
+
+    } );
+
+    this.props.onChange( {
+      originalName: _.get( acceptedFiles, '0.name' )
+    }, acceptedFiles );
 
   }
 
   render() {
+
+    const labels = flattenLabels( multilingualLabels, this.props.lang );
     
     const {
       field: name, 
       placeholder,
-      extensions
+      extensions,
+      store
     } = this.props.field;
 
     return <div className="file-upload">
@@ -30,8 +53,15 @@ module.exports = class FileField extends Component {
         onDrop={this.onDrop.bind( this )}
       >
         <button className="btn btn-primary">
-          <label>Allo, allo quoi</label>
+          <label>{labels.upload}</label>
         </button>
+        {this.props.value && <div className="margin-v-xs">
+          <label className="control-label">
+            <i className="fa fa-check margin-right-xs"></i>
+            <span>{_.get( this.props, 'value.originalName' )}</span>
+          </label>
+        </div>}
+        <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
       </Dropzone>
     </div>
 

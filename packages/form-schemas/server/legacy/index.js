@@ -43,6 +43,8 @@ async function get( agendaId ) {
 
   } catch( e ) {
 
+    console.log( e );
+
     throw new VError( e, 'could not parse legacy custom fields for agenda of id %s', agendaId );
 
   }

@@ -249,6 +249,10 @@ function buildFieldSchema( type, options = {} ) {
         type: 'text',
         optional: true,
         list: true
+      },
+      store: { // store variables depend on type ( s3 needs a region and a bucket )
+        type: 'pass',
+        optional: true
       }
     } );
 

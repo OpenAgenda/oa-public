@@ -54,6 +54,10 @@ const devApps = [ {
   description: 'A field for uploading a file',
   link: '/fileupload'
 }, {
+  name: 'An image upload field',
+  description: 'A field for uploading an image',
+  link: '/imageupload'
+}, {
   name: 'onSubmitSuccess',
   description: 'The callback gives both the sent data and the successful response',
   link: '/onsubmitsuccess'

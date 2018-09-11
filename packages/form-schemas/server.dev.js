@@ -10,8 +10,9 @@ const webpackConfig = require( './webpack.dev' );
 const compiler = webpack( webpackConfig );
 
 const filesMw = require( './server/middleware/files' );
+const schemaMw = require( './server/middleware/schema' );
 
-const config = require( './config.dev' );
+const config = require( './testconfig' );
 
 // normally done through init of service
 filesMw.init( {
@@ -19,8 +20,10 @@ filesMw.init( {
   s3: _.pick( config.s3, [ 'accessKeyId', 'secretAccessKey', 'region', 'bucket' ] )
 } );
 
-const devSchemas = {
-  fileupload: require( './dev/fileupload' )
+const devScenarios = {
+  fileupload: require( './dev/fileupload' ),
+  imageupload: require( './dev/imageupload' ),
+  simplest: require( './dev/simplest' )
 }
 
 const dev = express();
@@ -49,24 +52,27 @@ dev.post( '/:page',
   bodyParser.json(),
   ( req, res, next ) => {
 
-    // this is useful for preparing the processing of files.
-    // when the schema contains file types ( images or files )
-    // those need to be processed when set by a specific middleware
-    // that places them in a temporary folder for further processing
+    // when resources are loaded or posted for a specific instance,
+    // created or yet to be created, the server
+    // should know what schema is being created
 
-    req.schema = _.get( devSchemas, req.params.page );
-    req.fileKey = 'uniquefilekey123';
+    const { schema, values, fileKey } = _.get( devScenarios, req.params.page );
+
+    req.schema = schema;
+    req.values = values; // these are the current values
+    req.fileKey = fileKey;
 
     next();
 
   },
   filesMw.putInTemporary.bind( null, { /* use defaults */ } ),
-  //filesMw.s3Upload,
-  //filesMw.updateBodyValues,
+  filesMw.uploadFilesToS3.bind( null, { /* defaults */ } ),
+  filesMw.cleanFileValues.bind( null, {} ),
+  schemaMw.clean.bind( null, {} ),
   ( req, res, next ) => {
 
     // this here should include file values
-    //console.log( req.body );
+    console.log( 'clean', req.clean );
 
     next();
 

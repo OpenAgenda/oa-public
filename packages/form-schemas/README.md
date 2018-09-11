@@ -49,3 +49,12 @@ On the legacy platform, custom field schemas are stored in the agenda data model
 Just `yarn start` to start working on an app. Dev apps can be split in multiple files, they must all be placed in `/client/src/dev`. To add a new dev application, just add a file of the same name in the folder and reference it in the dev index file.
 
 This structure makes it practical to target development on specific sub parts without having to load all front scripts.
+
+
+# About file keys
+
+When an instance is created from a form schema that allows users to load static assets such as files and images, a unique file key is generated for that instance to be used for naming these assets with name unique names that link them to the instance.
+
+To illustrate, a form schema requires a user to load an image and a pdf file.
+
+The file key is generated at the creation of the object, once data is validated.

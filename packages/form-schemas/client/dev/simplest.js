@@ -6,6 +6,8 @@ import { render } from 'react-dom';
 
 import FormSchemaComponent from '../src/index';
 
+import { schema } from '../../dev/simplest';
+
 if ( module.hot ) module.hot.accept();
 
 class Main extends Component {
@@ -14,14 +16,7 @@ class Main extends Component {
 
     const props = {
       lang: 'fr',
-      schema: {
-        "fields" : [ {
-          "field" : "anything",
-          "fieldType" : "text",
-          "optional" : false,
-          "label" : "N'importe quoi"
-        } ]
-      }
+      schema
     }
 
     return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">

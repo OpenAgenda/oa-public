@@ -2,6 +2,12 @@
 
 const _ = require( 'lodash' );
 
+const schema = require( '@openagenda/validators/schema' );
+
+schema.register( {
+  choice: require( '@openagenda/validators/choice' )
+} );
+
 const validators = {
   text: require( '@openagenda/validators/text' ),
   boolean: require( '@openagenda/validators/boolean' ),
@@ -31,7 +37,7 @@ const map = [ {
   parser: convertToChoice.bind( null, { unique: false } ),
   type: 'choice'
 }, {
-  field: [ 'textarea', 'markdown', /*'image', 'file',*/ 'html' ],
+  field: [ 'textarea', 'markdown', 'html' ],
   parser: convertTo,
   type: 'text'
 }, {
@@ -40,8 +46,8 @@ const map = [ {
   type: 'pass'
 }, {
   field: [ 'image', 'file' ],
-  parser: convertTo,
-  type: 'pass'
+  parser: convertToFile,
+  type: 'file'
 } ];
 
 module.exports = ( field, options = {} ) => {
@@ -110,6 +116,12 @@ function convertToMultilingual( validatorOptions, fieldOptions ) {
 function convertTo( validatorOptions, fieldOptions ) {
 
   appendMinMax( validatorOptions, fieldOptions );
+
+}
+
+function convertToFile( validatorOptions, fieldOptions ) {
+
+  return _.assign( {}, validatorOptions, fieldOptions );
 
 }
 

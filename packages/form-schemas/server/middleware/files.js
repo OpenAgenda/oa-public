@@ -1,16 +1,24 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const AWS = require( 'aws-sdk' );
+const fs = require( 'fs' );
 const FormSchema = require( '../../iso/FormSchema' );
 const multer = require( 'multer' );
-const AWS = require( 'aws-sdk' );
+const { promisify } = require( 'util' );
+
+// const FILE_FIELD_PREFIX = require( '../../iso/fileFieldPrefix' );
 
 // set at init
 let tmpFolder;
+let s3;
+let upload;
 
 module.exports = {
   init,
-  putInTemporary
+  putInTemporary,
+  uploadFilesToS3,
+  cleanFileValues
 } 
 
 function putInTemporary( ns, req, res, next ) {
@@ -21,7 +29,9 @@ function putInTemporary( ns, req, res, next ) {
     fileFieldValues: 'fileFieldValues'
   }, ns );
 
-  if ( !tmpFolder ) return next( 'form-schemas middleware are not initialized' );
+  const temporaryFolder = tmpFolder || process.env.TMP_FOLDER;
+
+  if ( !temporaryFolder ) return next( 'form-schemas middleware are not initialized' );
 
   const fileFields = ( new FormSchema( req[ namespaces.schema ] ) ).getFileFields();
 
@@ -31,7 +41,7 @@ function putInTemporary( ns, req, res, next ) {
 
   multer( {
     storage: multer.diskStorage( {
-      destination: tmpFolder,
+      destination: temporaryFolder,
       filename: ( req, file, cb ) => {
 
         const field = _.first( fileFields.filter( f => f.field === file.fieldname ) );
@@ -42,13 +52,14 @@ function putInTemporary( ns, req, res, next ) {
         const filename = [
           req[ namespaces.fileKey ],
           file.fieldname,
-          file.originalname.split( '.' ).pop() 
+          file.originalname.split( '.' ).pop()
         ].join( '.' );
 
         const fieldValue = {
           originalName: file.originalname,
           extension: file.originalname.split( '.' ).pop(),
-          filename
+          filename,
+          path: [ temporaryFolder, filename ].join( '/' )
         }
 
         req[ namespaces.fileFieldValues ][ field.field ] = fieldValue;
@@ -57,7 +68,76 @@ function putInTemporary( ns, req, res, next ) {
 
       }
     } )
-  } ).fields( fileFields.map( f => ( { name: f.field, maxCount: 1 } ) ) )( req, res, next );
+  } ).fields( fileFields.map( f => ( { name: f.field, maxCount: f.max || 1 } ) ) )( req, res, next );
+
+}
+
+function cleanFileValues( ns, req, res, next ) {
+
+  const namespaces = _.assign( {
+    fileKey: 'fileKey',
+    schema: 'schema',
+    fileFieldValues: 'fileFieldValues'
+  }, ns );
+
+  const fileFieldValues = req[ namespaces.fileFieldValues ];
+
+  if ( !_.keys( fileFieldValues ).length ) {
+
+    return next();
+
+  }
+
+  _.keys( fileFieldValues ).forEach( fieldName => {
+
+    req.body[ fieldName ] = fileFieldValues[ fieldName ];
+
+  } );
+
+  next();
+
+}
+
+/**
+ * Upload files found in file values namespace to S3
+ */
+function uploadFilesToS3( ns, req, res, next ) {
+
+  const namespaces = _.assign( {
+    fileFieldValues: 'fileFieldValues'
+  }, ns );
+
+  const fileFieldsValues = req[ namespaces.fileFieldValues ];
+
+  if ( !_.keys( fileFieldsValues ).length ) return next();
+
+  s3MultipleUploads( fileFieldsValues ).then( 
+    () => next(), 
+    err => next( err ) 
+  );
+
+}
+
+async function s3MultipleUploads( fileFieldValues ) {
+
+  for ( const fieldName of _.keys( fileFieldValues ) ) {
+
+    await s3Upload( fileFieldValues[ fieldName ].filename );
+
+  }
+
+}
+
+async function s3Upload( filename ) {
+
+  const result = await upload( {
+    ACL: 'public-read', // because that is what I need now
+    Bucket: s3.bucket,
+    Key: filename,
+    Body: fs.createReadStream( tmpFolder + '/' + filename )
+  } );
+
+  return result.Location;
 
 }
 
@@ -65,5 +145,17 @@ function putInTemporary( ns, req, res, next ) {
 function init( config ) {
 
   tmpFolder = _.get( config, 'tmpFolder' );
+
+  s3 = _.get( config, 's3' );
+
+  const client = new AWS.S3( _.assign( {
+    apiVersion: '2006-03-01'
+  }, _.pick( config.s3, [
+    'accessKeyId',
+    'secretAccessKey',
+    'region'
+  ] ) ) );
+
+  upload = promisify( client.upload.bind( client ) );
 
 }

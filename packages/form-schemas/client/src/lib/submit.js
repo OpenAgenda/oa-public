@@ -3,32 +3,32 @@
 import _ from 'lodash';
 import sa from 'superagent';
 
-export default ( { res, formSchema, values } ) => {
+export default ( { res, values, files } ) => {
 
-  const fields = formSchema.getFields();
-
-  const fileFieldsWithFiles = fields
-    .filter( f => [ 'image', 'file' ].includes( f.fileType ) )
-    .filter( f => values[ f.field ] && !_.isString( values[ f.field ] ) )
-    .map( f => f.field );
-
-  const otherFields = fields
-    .filter( f => !fileFieldsWithFiles.includes( f.field ) )
-    .map( f => f.field );
+  const hasFiles = _.keys( files ).length;
 
   const req = sa.post( res );
 
-  fileFieldsWithFiles.forEach( fieldName => {
+  if ( !hasFiles ) {
 
-    req.attach( fieldName, values[ fieldName ] );
+    return req.send( { data: JSON.stringify( values ) } );
+
+  }
+
+  _.keys( files ).forEach( fieldName => {
+
+    // handle multiple files if need be
+    [].concat( files[ fieldName ] ).forEach( ( file, index ) => {
+
+      if ( !files[ fieldName ] ) throw new Error( 'file field is not defined: ' + fieldName );
+
+      req.attach( fieldName, files[ fieldName ][ index ] );
+
+    } );
 
   } );
 
-  otherFields.forEach( fieldName => {
-
-    req.field( fieldName, values[ fieldName ] );
-
-  } );
+  req.field( 'data', JSON.stringify( values ) );
 
   return new Promise( ( rs, rj ) => {
 

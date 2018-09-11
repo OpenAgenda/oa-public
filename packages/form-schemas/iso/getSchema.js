@@ -24,6 +24,22 @@ schema.register( {
   pass: require( '@openagenda/validators/pass' )
 } );
 
+const fileValidator = validatorOptions => schema( {
+  extension: {
+    type: 'text'
+  },
+  originalName: {
+    type: 'text'
+  },
+  filename: {
+    type: 'text'
+  }
+} );
+
+schema.register( {
+  file: fileValidator
+} );
+
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
 
   const params = _.extend( {

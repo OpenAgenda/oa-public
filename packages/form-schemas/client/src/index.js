@@ -32,8 +32,8 @@ export default class FormSchemaComponent extends Component {
         main: flattenLabels( formSchemaLabels, lang )
       },
       defaultLabelLanguage: this.props.lang,
-      values,
-      errors: []
+      // values,
+      // errors: []
     }
 
     if ( !this.props.stateless ) {
@@ -48,7 +48,10 @@ export default class FormSchemaComponent extends Component {
     this.onSubmit = this.onSubmit.bind( this );
     this.onSubmitConfirm = this.onSubmitConfirm.bind( this );
 
-    const { errors } = hasValues ? this.validate( values ) : { errors: [] };
+    const {
+      errors,
+      files
+    } = hasValues ? this.sanitize( values ) : { errors: [] };
 
     if ( errors && !this.props.stateless ) {
 
@@ -88,7 +91,9 @@ export default class FormSchemaComponent extends Component {
 
     e.preventDefault();
 
-    const { clean, errors } = this.validate( this.get( 'values' ) );
+    const values = this.get( 'values' );
+
+    const { clean, errors } = this.sanitize( values );
 
     if ( _.keys( errors ).length ) {
 
@@ -99,7 +104,8 @@ export default class FormSchemaComponent extends Component {
     submit( {
       res: _.get( this.props.res, 'post', '' ),
       formSchema: this._getFormSchema(),
-      values: clean
+      values, // values can be clean anew once received by server
+      files: this.get( 'files' )
     } ).then( res => {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
@@ -119,7 +125,6 @@ export default class FormSchemaComponent extends Component {
 
     }, err => {
 
-      // deal with this later
       throw err;
 
     } );
@@ -132,7 +137,7 @@ export default class FormSchemaComponent extends Component {
 
     values[ field ] = value;
 
-    const { clean, errors } = this.validate( values );
+    const { clean, errors } = this.sanitize( values );
 
     return errors.filter( e => e.field === field );
 
@@ -146,7 +151,8 @@ export default class FormSchemaComponent extends Component {
 
   }
   
-  validate( values ) {
+
+  sanitize( values ) {
 
     try {
 
@@ -182,7 +188,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  onChange( field, value ) {
+  onChange( field, value, files ) {
 
     const updateValues = {};
 
@@ -192,7 +198,12 @@ export default class FormSchemaComponent extends Component {
       .filter( e => e.field !== field )
       .concat( this.getFieldErrors( field, value ) );
 
+    const isFileField = this._getFormSchema().getFileFields().map( f => f.field ).includes( field );
+
+    const currentFiles = this.get( 'files', {} );
+
     this.set( {
+      files: isFileField ? _.set( currentFiles, field, files ) : currentFiles,
       values: ih( this.get( 'values', {} ) || {}, updateValues ),
       errors: updatedErrors
     } );
@@ -267,5 +278,6 @@ FormSchemaComponent.defaultPropTypes = {
   res: {
     post: '',
     redirect: null
-  }
+  },
+  fileKey: null
 }

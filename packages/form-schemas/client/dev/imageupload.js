@@ -8,7 +8,7 @@ import { render } from 'react-dom';
 
 import FormSchemaComponent from '../src/index';
 
-import { schema, values } from '../../dev/fileupload';
+import { values, schema } from '../../dev/imageupload';
 
 if ( module.hot ) module.hot.accept();
 
@@ -30,7 +30,7 @@ class Main extends Component {
       <div className="row">        
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
-            <p>A file upload field.</p>
+            <p>An image upload field.</p>
             <FormSchemaComponent { ...props } onChange={this.setState.bind( this )} />
           </div>
         </div>
