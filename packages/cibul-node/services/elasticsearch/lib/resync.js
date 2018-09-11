@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const async = require( 'async' ),
 
   model = require( '../../model' ),
@@ -28,7 +30,7 @@ module.exports = ( options, cb ) => {
 
   }
 
-  params = utils.extend( {
+  params = _.assign( {
     agendaId: false,
     isPublished: null,
     interval: 0,
@@ -322,7 +324,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
 function _loopThroughDb( schema, params, usageFunc, cb ) {
 
-  const limit = 100;
+  const limit = 5;
 
   let hasMore = true, offset = 0;
 
