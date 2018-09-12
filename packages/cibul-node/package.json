@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.127",
+  "version": "0.0.128",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
@@ -72,7 +72,6 @@
     "@openagenda/users": "^2.1.2",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^1.2.14",
-    "uuid": "^3.2.1",
     "agenda-docx": "git+https://github.com/OAgenda/agenda-docx.git",
     "async": "^2.3.0",
     "aws-sdk": "~2.0",
@@ -122,6 +121,7 @@
     "react-dom": "^16.2.0",
     "redis": "~0.12",
     "rss": "1.2.2",
+    "uuid": "^3.2.1",
     "validator": "^7.0.0",
     "verror": "^1.9.0",
     "when": "~3.4",
