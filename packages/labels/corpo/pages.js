@@ -72,8 +72,8 @@ module.exports = {
     en: 'They are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet'
   },
   mainBroadcastPoint4: {
-    fr: 'Ils sont intégrables sur **[votre site](votre-site)**',
-    en: 'They are embedabble in your **[your website](your-website)**'
+    fr: 'Ils sont intégrables sur **[votre site](/decouvrir/votre-site)**',
+    en: 'They are embedabble in your **[your website](/discover/your-website)**'
   },
   mainBETitle: {
     fr: 'Vous organisez un grand événement ?',
