@@ -18,27 +18,31 @@ module.exports = {
     fr: 'handicap visuel'
   },
   signLanguage: {
-    en: 'sign language',
-    fr: 'langue des signes'
+    en: 'Sign language',
+    fr: 'Langue des signes'
   },
   mi: {
-    en: 'motor impairment',
-    fr: 'handicap moteur'
+    en: 'Motor impairment',
+    fr: 'Handicap moteur'
   },
   hi: {
-    en: 'hearing impairment',
-    fr: 'handicap auditif'
+    en: 'Hearing impairment',
+    fr: 'Handicap auditif'
   },
   pi: {
-    en: 'mental impairment',
-    fr: 'handicap psychique'
+    en: 'Mental impairment',
+    fr: 'Handicap psychique'
   },
   vi: {
-    en: 'visual impairment',
-    fr: 'handicap visuel'
+    en: 'Visual impairment',
+    fr: 'Handicap visuel'
   },
   sl: {
-    en: 'sign language',
-    fr: 'langue des signes'
+    en: 'Sign language',
+    fr: 'Langue des signes'
+  },
+  input: {
+    en: 'This event has amenities to facilitate accessibility',
+    fr: 'Cet événement inclus des aménagements à l\'accessibilité'
   }
 }
