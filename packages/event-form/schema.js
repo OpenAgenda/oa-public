@@ -2,18 +2,35 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( { locationRes, languages } ) => {
+const eventValidators = {
+  registration: require( './validators/registration' ),
+  age: require( './validators/age' ),
+  accessibility: require( './validators/accessibility' ),
+  keywords: require( './validators/keywords' ),
+  timings: require( './validators/timings' ),
+  locationUid: require( './validators/locationUid' ),
+  languages: require( './validators/languages' )
+}
+
+module.exports = ( { locationRes, languages, fileStore } ) => {
 
   return {
-    custom: {
-      registration: require( './registration' ),
-      age: require( './age' ),
-      keywords: require( './keywords' ),
-      timings: require( './timings' ),
-      locationUid: require( './locationUid' ),
-      languages: require( './languages' )
-    },
+    custom: eventValidators,
     fields: [ {
+      "field" : "image",
+      "fieldType" : "image",
+      "optional" : true,
+      "label" : {
+        "fr" : "Image de l'événement",
+        "en" : "Image of the event"
+      },
+      "info" : {
+        "fr" : "Chargez une image d'au moins 300 pixels de large",
+        "en" : "Load an image of at least 300 pixels width"
+      },
+      "extensions" : [ "jpg", "bmp", "png", "jpeg" ],
+      "store" : fileStore
+    }, {
       "field" : "languages",
       "fieldType" : "languages",
       "label" : {
@@ -124,6 +141,14 @@ module.exports = ( { locationRes, languages } ) => {
       sub: {
         fr: 'Liens, emails ou numéros de téléphone',
         en: 'Links, emails or phone numbers'
+      }
+    }, {
+      field: 'accessibility',
+      fieldType: 'accessibility',
+      optional: true,
+      label: {
+        fr: 'Accessibilité',
+        en: 'Accessibility'
       }
     }, {
       field: 'locationUid',

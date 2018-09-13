@@ -16,10 +16,11 @@ const eventFormComponents = {
   keywords: require( './components/Keywords' ),
   timings: require( './components/Timings' ),
   locationUid: require( './components/Location' ),
-  languages: require( './components/Languages' )
+  languages: require( './components/Languages' ),
+  accessibility: require( './components/Accessibility' )
 }
 
-const eventSchema = require( './eventSchema' );
+const eventSchema = require( '../schema' );
 
 export default class EventForm extends Component {
 
@@ -32,14 +33,15 @@ export default class EventForm extends Component {
         this.props.values, 
         'languages', 
         extractLanguages( this.props.values, this.props.lang )
-      )
+      ),
+      files: []
     };
 
     this.onChange = this.onChange.bind( this );
 
   }
 
-  onChange( { values, errors } ) {
+  onChange( { values, errors, files } ) {
 
     const updates = {};
 
@@ -64,11 +66,11 @@ export default class EventForm extends Component {
 
     } else if ( !values ) {
 
-      this.setState( { errors } );
+      this.setState( { errors, files } );
 
     } else {
 
-      this.setState( { values, errors } );
+      this.setState( { values, errors, files } );
 
     }
 
@@ -76,11 +78,12 @@ export default class EventForm extends Component {
 
   render() {
 
-    const { lang, values, actionComponents, onSubmitSuccess, locationRes } = this.props;
+    const { lang, values, actionComponents, onSubmitSuccess, locationRes, fileStore } = this.props;
 
     const schema = eventSchema( {
       locationRes,
-      languages: this.state.values.languages
+      languages: this.state.values.languages,
+      fileStore
     } );
 
     return <FormSchemaComponent
@@ -89,6 +92,7 @@ export default class EventForm extends Component {
       components={eventFormComponents}
       values={this.state.values}
       errors={this.state.errors}
+      files={this.state.files}
       onChange={this.onChange}
       schema={schema}
       actionComponents={actionComponents}
