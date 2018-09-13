@@ -6,6 +6,7 @@ module.exports.init = config => {
 
   formSchemas.init( {
     knex: config.knex,
+    tmpFolder: config.tmpFolderPath,
     schemas: {
       formSchema: 'form_schema'
     },

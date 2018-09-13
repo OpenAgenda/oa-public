@@ -295,7 +295,7 @@ function _image( v ) {
 
   const img = v.req.event.getImage( true );
 
-  v.formatted.image = img ? img.replace( 'cibuldev', 'cibul' ) : false;
+  v.formatted.image = img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false;
 
   if ( img ) {
 

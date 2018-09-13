@@ -512,7 +512,7 @@ function _formatEventItem( event, req, cb ) {
     keywordList: eventFormat.listifyKeywords( keywords ),
     tags: [],
     title: inst.getTitle(),
-    image: img ? img.replace( 'cibuldev', 'cibul' ) : false,
+    image: img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false,
     thumbnail: inst.getThumbnail( false ),
     description: inst.getDescription(),
     freeText: inst.getEnrichedFreeText( false ),

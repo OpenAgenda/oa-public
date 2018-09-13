@@ -11,6 +11,8 @@ const layout = require( '../lib/layout' );
 const middlewares = require( './middlewares' );
 const interfaces = require( './interfaces' );
 
+let bucket;
+
 module.exports = _.extend( ( parentApp, path ) => {
 
   parentApp.use( '/dist/contribute', 
@@ -51,6 +53,10 @@ module.exports = _.extend( ( parentApp, path ) => {
         geocode: `/${req.agenda.slug}/locations/geocode`,
         set: `/${req.agenda.slug}/locations`
       },
+      fileStore: {
+        type: 's3',
+        bucket
+      },
       redirects: {
         //updated: `this should be set when specific redirects are needed on an update`
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
@@ -80,6 +86,8 @@ module.exports = _.extend( ( parentApp, path ) => {
 } );
 
 function init( config ) {
+
+  bucket = config.aws.bucket;
 
   contribute.init( {
     logger: config.getLogConfig( 'svc', 'agendaContribute' ),
