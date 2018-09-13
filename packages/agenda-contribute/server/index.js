@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 
+const eventSchema = require( '@openagenda/event-form/schema' );
+const formSchemaMw = require( '@openagenda/form-schemas/server/middleware' );
 const logger = require( '@openagenda/logs' );
 
 const app = express();
@@ -24,7 +26,8 @@ module.exports = {
 const config = {
   layout: ( req, content ) => 'The service is not ready',
   CDNPath: null,
-  frontAppPath: null
+  frontAppPath: null,
+  interfaces: {}
 }
 
 function init( c ) {
@@ -84,11 +87,41 @@ function init( c ) {
 
   app.post( [ '/event', '/event/:eventUid' ],
     bodyParser.json(),
+    ( req, res, next ) => {
+
+      // would be nice to know here which 
+      // langauges are required
+      req.schema = eventSchema( {
+        locationRes: '#',
+        languages: [],
+        store: null
+      } ); 
+
+      if ( _.get( req, 'event.fileKey' ) ) {
+
+        req.fileKey = req.event.fileKey;
+
+        return next();
+
+      }
+
+      config.interfaces.generateUniqueFileKey().then( fileKey => {
+
+        req.fileKey = fileKey;
+
+        next();
+
+      } );
+
+    },
+    formSchemaMw.files.putInTemporary.bind( null, {} ),
+    formSchemaMw.files.cleanFileValues.bind( null, {} ),
+    formSchemaMw.schema.clean.bind( null, {} ),
     ( req, res ) => {
 
       log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-      config.interfaces.setEvent( req.agenda, req.user, req.event, req.body )
+      config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues )
 
       .then( ( { event } ) => {
 

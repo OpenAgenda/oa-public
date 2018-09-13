@@ -18,7 +18,7 @@ export default connect(
     onDidMount: () => dispatch( reducers.landing.evaluate( 'event' ) )
   } )
 )( ( { config, event, onCreateSuccess, onDidMount } ) => <Canvas {...config} step="event" onDidMount={onDidMount}>
-  <div className="wsq padding-all-md padding-bottom-sm">
+  <div className="wsq padding-h-md padding-v-sm">
     <h3>{labels.title[ config.lang ]}</h3>
   </div>
   {_.get( config, 'event.message' ) ? <div className="padding-all-md padding-bottom-sm wsq event-instruction">
@@ -26,6 +26,7 @@ export default connect(
   </div>:null}
   <div className="padding-all-md padding-top-lg wsq">
     <EventForm 
+      fileStore={config.fileStore}
       locationRes={config.locationRes}
       lang={config.lang} 
       values={event}

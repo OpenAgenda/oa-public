@@ -1,6 +1,7 @@
 "use strict";
 
 process.env.NODE_ENV = 'development';
+process.env.TMP_FOLDER = __dirname + '/dev/tmp';
 
 const _ = require( 'lodash' );
 
@@ -26,7 +27,8 @@ service.init( {
   layout: devLayout,
   interfaces: {
     setMember: require( './dev/setMember' ),
-    setEvent: require( './dev/setEvent' )
+    setEvent: require( './dev/setEvent' ),
+    generateUniqueFileKey: require( './dev/generateUniqueFileKey' )
   }
 } )
 

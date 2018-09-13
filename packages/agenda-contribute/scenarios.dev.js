@@ -37,6 +37,10 @@ module.exports = [ {
     },
     confirmation: {
       message: 'This is a message written by *Agenda administrators*'
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   }
 }, {
@@ -54,6 +58,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: true
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   }
 }, {
@@ -71,6 +79,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: true,
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   },
   member: {
@@ -95,6 +107,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: true
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   },
   member: {
@@ -120,6 +136,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: true
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   },
   member: {} // nothing!
@@ -142,6 +162,10 @@ module.exports = [ {
     },
     confirmation: {
       message: 'This is a message from *Agenda administrators*'
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   }
 }, {
@@ -160,6 +184,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: true
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   }
 }, {
@@ -179,6 +207,10 @@ module.exports = [ {
     redirects,
     member: {
       dataIsRequired: false
+    },
+    fileStore: {
+      type: 's3',
+      bucket: 'oadev'
     }
   },
   event: {
