@@ -19,7 +19,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: __dirname,
   // defaults at true 
-  optimization: { minimize: false },
+  optimization: { minimize: true },
   entry: [
     'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
     './client/src/index.js'

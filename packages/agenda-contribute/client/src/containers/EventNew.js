@@ -2,13 +2,13 @@
 
 import _ from 'lodash';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
 import labels from '@openagenda/labels/agenda-contribute/event';
 
 import Canvas from '../components/Canvas';
+import Instructions from '../components/Instructions';
 import reducers from '../reducers';
 
 export default connect(
@@ -21,9 +21,7 @@ export default connect(
   <div className="wsq padding-h-md padding-v-sm">
     <h3>{labels.title[ config.lang ]}</h3>
   </div>
-  {_.get( config, 'event.message' ) ? <div className="padding-all-md padding-bottom-sm wsq event-instruction">
-    <ReactMarkdown source={config.event.message} />
-  </div>:null}
+  <Instructions message={_.get( config, 'event.message' )} className="wsq padding-top-sm" />
   <div className="padding-all-md padding-top-lg wsq">
     <EventForm 
       fileStore={config.fileStore}

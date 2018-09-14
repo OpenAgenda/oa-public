@@ -2,13 +2,14 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
-import ReactMarkdown from 'react-markdown';
-
 import { connect } from 'react-redux';
+
 
 import EventForm from '@openagenda/event-form/build';
 
 import labels from '@openagenda/labels/agenda-contribute/event';
+
+import Instructions from '../components/Instructions';
 
 import reducers from '../reducers';
 
@@ -40,9 +41,7 @@ class EventEdit extends Component {
             <div className="margin-v-lg">
               <h3>{event.title[ _.first( _.keys( event.title ) ) ]}</h3>
             </div>
-            {_.get( config, 'event.message' ) ? <div className="padding-all-md padding-bottom-sm wsq event-instruction">
-              <ReactMarkdown source={config.event.message} />
-            </div>:null}
+            <Instructions message={_.get( config, 'event.message' )} />
             <div className="padding-all-md padding-top-lg wsq">
               <EventForm 
                 fileStore={config.fileStore}
