@@ -8,7 +8,7 @@ const members = require( '@openagenda/agenda-stakeholders' );
 
 const memberMap = require( '../lib/stakeholder.map' );
 
-module.exports = async ( agenda, user, current, data ) => {
+module.exports = async ( agenda, user, current, posted ) => {
 
   /**
    * stakeholders service is aging. It does not support promises,
@@ -27,7 +27,7 @@ module.exports = async ( agenda, user, current, data ) => {
       update: promisify( members( agenda.id ).update )
     }
 
-    const stakeholderData = memberMap.toStakeholder( data );
+    const stakeholderData = memberMap.toStakeholder( JSON.parse( posted.data ) );
 
     const isMember = !!( await agendaMembers.get( { userId: user.id } ) );
 

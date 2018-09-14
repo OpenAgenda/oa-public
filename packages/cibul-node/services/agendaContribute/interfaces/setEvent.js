@@ -11,8 +11,6 @@ const config = require( '../../../config' );
 
 module.exports = async ( agenda, user, current, data, files ) => {
 
-  //IAMHERE - apparently, when event is untouched and saved, values are not posted
-
   log( 'current is %s', current ? 'set, this is an update.' : 'not set, this is a create' );
 
   const transforms = { '$unset': [] };
@@ -46,6 +44,10 @@ module.exports = async ( agenda, user, current, data, files ) => {
 
   }
 
+
+  // event state is dictated by agenda settings
+  transforms[ 'state' ] = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+
   const transformed = ih( data, transforms );
 
   if ( !current ) {
@@ -68,7 +70,7 @@ module.exports = async ( agenda, user, current, data, files ) => {
 
     } catch ( e ) {
 
-      //IAMHERE, validation errors should be array!
+      //IAMHERE, validation errors should be array! see notes.txt for more things
 
       if ( _.isArray( e ) ) {
 

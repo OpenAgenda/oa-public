@@ -60,18 +60,18 @@ module.exports = _.extend( ( parentApp, path ) => {
       redirects: {
         //updated: `this should be set when specific redirects are needed on an update`
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
-        createOtherEvent: `/agendas/${req.agenda.uid}/events/contribute`,
+        createOtherEvent: `/${req.agenda.slug}/contribute`,
         seeAllEvents: `/home/events`,
         contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`
       },
       member: {
-        dataIsRequired: true
+        dataIsRequired: !req.isMemberValid
       },
       event: {
-        message: _.get( req, 'agenda.contribution.messages.instruction' )
+        message: _.get( req, 'agenda.settings.contribution.messages.instructions' )
       },
       confirmation: {
-        message: _.get( req, 'agenda.contribution.messages.complete' )
+        message: _.get( req, 'agenda.settings.contribution.messages.complete' )
       }
     }
 

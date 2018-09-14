@@ -26,9 +26,15 @@ module.exports = function( req, res, next ) {
 
     req.member = memberMap.toMember( stakeholder.custom );
 
-    log( 'loaded member %j', req.member );
+    members.agenda( agendaId ).instanciate( stakeholder ).isValid( ( err, is ) => {
 
-    next();
+      req.isMemberValid = is;
+
+      log( 'loaded %s member: %j', is ? 'complete' : 'incomplete', req.member );
+
+      next();
+
+    } );
 
   } );
 
