@@ -65,7 +65,7 @@ module.exports = _.extend( ( parentApp, path ) => {
         contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`
       },
       member: {
-        dataIsRequired: !req.isMemberValid
+        dataIsRequired: _.get( req, 'agenda.settings.contribution.useFields', false )
       },
       event: {
         message: _.get( req, 'agenda.settings.contribution.messages.instructions' )
