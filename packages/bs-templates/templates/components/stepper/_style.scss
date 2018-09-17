@@ -48,12 +48,33 @@
         margin-left: 8px;
       }
 
+      &.activable {
+        cursor: pointer;
+
+        &:hover {
+          color: $oa-blue;
+          text-decoration: none;
+
+          &:before {
+
+            border-color: $oa-blue;
+          
+          }
+        }
+
+
+
+      }
+
+      &.passed:before, &.validated:before, &.activable:before {
+      }
+
       &.passed:before, &.validated:before {
         font-weight: normal;
-        color: $oa-blue;
         border-color: $oa-blue;
-        font-family: FontAwesome;
+        color: $oa-blue;
         content: '\f00c';
+        font-family: FontAwesome;
       }
 
       &.active {
