@@ -5,10 +5,11 @@ import classNames from 'classnames';
 
 import labels from '@openagenda/labels/agenda-contribute/stepper';
 
-export default ( { step, lang, displayMemberStep } ) => <div className="stepper-container">
-  <div className="stepper">
-    { displayMemberStep ? <div className={classNames({ step: true, active: step==='member' })}>{labels.member[ lang ]}</div> : null }
-    <div className={classNames({ step: true, active: step==='event' })}>{labels.event[ lang ]}</div>
-    <div className={classNames({ step: true, active: step==='confirmation' })}>{labels.confirmation[ lang ]}</div>
-  </div>
+export default ( { steps, lang, onSelectStep } ) => <div className="stepper-container">
+  <div className="stepper">{steps.filter( s => s.display ).map( s => <div 
+    key={s.step}
+    onClick={() => s.activable ? onSelectStep( s.step ) : null}
+    className={classNames( { step: true, active: s.active, activable: s.activable } )}>
+    {labels[ s.step ][ lang ]}
+  </div> )}</div>  
 </div>

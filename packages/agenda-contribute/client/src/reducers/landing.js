@@ -22,7 +22,7 @@ function reducer( state = {}, action = {} ) {
 /**
  * define which screen should be shown
  */
-function evaluate( step ) {
+function evaluate( step, requested = false ) {
 
   return ( dispatch, getState ) => {
 
@@ -62,6 +62,10 @@ function evaluate( step ) {
     if ( !step || !authorizedSteps.includes( step ) ) {
 
       dispatch( push( base + '/' + authorizedSteps.pop() ) );
+
+    } else if ( requested ) {
+
+      dispatch( push( base + '/' + step ) );
 
     }
 

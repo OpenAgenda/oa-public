@@ -1,5 +1,7 @@
 "use strict";
 
+import _ from 'lodash';
+
 import React, { Component } from 'react';
 
 import labels from '@openagenda/labels/agenda-contribute/canvas';
@@ -12,7 +14,7 @@ export default class Canvas extends Component {
 
     if ( this.props.onDidMount ) {
 
-      this.props.onDidMount( this.props.step );
+      this.props.onDidMount( _.first( this.props.steps.filter( s => s.active ) ) );
 
     }
 
@@ -20,15 +22,15 @@ export default class Canvas extends Component {
 
   render() {
 
-    const { lang, children, step, member } = this.props;
+    const { lang, children, steps, onSelectStep } = this.props;
 
     return <div className="container">
       <div className="row">
         <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
           <div className="text-center padding-top-lg">
-            <h2 className="margin-top-md">{labels.addEvent[lang]}</h2>
+            <h2 className="margin-top-md">{labels.addEvent[ lang ]}</h2>
             <div className="padding-h-md stepper-gray-background padding-v-md">
-              <Stepper step={step} lang={lang} displayMemberStep={member.dataIsRequired}/>
+              <Stepper steps={steps} lang={lang} onSelectStep={onSelectStep} />
             </div>
           </div>
           {children}

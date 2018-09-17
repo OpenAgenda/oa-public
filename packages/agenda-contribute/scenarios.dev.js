@@ -1,19 +1,30 @@
 "use strict";
 
-const locationRes = {
-  index: '/locations',
-  geocode: '/locations/geocode',
-  set: '/locations',
-  remove: '/locations/remove'
-};
+const _ = require( 'lodash' );
 
-const redirects = {
-  updated: '/?redirect.updated=:eventUid',
-  seeEvent: '/?redirect.eventCreated=:eventUid',
-  createOtherEvent: '/?redirect.createOtherEvent',
-  seeAllEvents: '/?redirect.seeAllEvents',
-  contactAdministrators: '/?redirect.contactAdministrators'
-};
+const defaultConfig = {
+  lang: 'fr',
+  locationRes: {
+    index: '/locations',
+    geocode: '/locations/geocode',
+    set: '/locations',
+    remove: '/locations/remove'
+  },
+  redirects: {
+    updated: '/?redirect.updated=:eventUid',
+    seeEvent: '/?redirect.eventCreated=:eventUid',
+    createOtherEvent: '/?redirect.createOtherEvent',
+    seeAllEvents: '/?redirect.seeAllEvents',
+    contactAdministrators: '/?redirect.contactAdministrators'
+  },
+  member: {
+    dataIsRequired: true
+  },
+  fileStore: {
+    type: 's3',
+    bucket: 'oadev'
+  }
+}
 
 module.exports = [ {
   // we set the agenda base data to describe scenario guidelines
@@ -24,11 +35,8 @@ module.exports = [ {
     uid: 1234,
     id: 1,
   },
-  config: {
-    lang: 'fr',
+  config: _.assign( {}, defaultConfig, {
     base: '/no-member-data-is-required/contribute',
-    locationRes,
-    redirects,
     member: {
       dataIsRequired: false
     },
@@ -37,12 +45,8 @@ module.exports = [ {
     },
     confirmation: {
       message: 'This is a message written by *Agenda administrators*'
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
     }
-  }
+  } )
 }, {
   agenda: {
     title: 'An agenda requiring event member data',
@@ -51,19 +55,12 @@ module.exports = [ {
     uid: 1235,
     id: 2
   },
-  config: {
-    lang: 'fr',
+  config: _.assign( {}, defaultConfig, {
     base: '/member-data-is-required/contribute',
-    locationRes,
-    redirects,
     member: {
       dataIsRequired: true
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
     }
-  }
+  } )
 }, {
   agenda: {
     title: 'A member set can be already loaded if the user is a member',
@@ -72,19 +69,9 @@ module.exports = [ {
     uid: 12345,
     id: 3
   },
-  config: {
-    lang: 'fr',
-    base: '/member-with-incomplete-data/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: true,
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/member-with-incomplete-data/contribute'
+  } ),
   member: {
     name: 'Gaetan Latouche',
     phone: '+33 (0)6 50 91 00 12',
@@ -100,19 +87,9 @@ module.exports = [ {
     uid: 12347,
     id: 4
   },
-  config: {
-    lang: 'fr',
+  config: _.assign( {}, defaultConfig, {
     base: '/member-with-complete-data/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: true
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  },
+  } ),
   member: {
     name: 'Gaetan Latouche',
     phone: '+33 (0)6 50 91 00 12',
@@ -129,19 +106,9 @@ module.exports = [ {
     uid: 891391,
     id: 5
   },
-  config: {
-    lang: 'fr',
+  config: _.assign( {}, defaultConfig, {
     base: '/bypass-attempt-to-event/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: true
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  },
+  } ),
   member: {} // nothing!
 }, {
   link: '/confirmation/contribute/confirmation',
@@ -152,22 +119,12 @@ module.exports = [ {
     uid: 1234321,
     id: 6
   },
-  config: {
-    lang: 'fr',
+  config: _.assign( {}, defaultConfig, {
     base: '/confirmation/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: true
-    },
     confirmation: {
       message: 'This is a message from *Agenda administrators*'
     },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  }
+  } )
 }, {
   link: '/confirmation-default/contribute/confirmation',
   agenda: {
@@ -177,19 +134,9 @@ module.exports = [ {
     uid: 1234321,
     id: 7
   },
-  config: {
-    lang: 'fr',
-    base: '/confirmation-default/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: true
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  }
+  config: _.assign( {}, defaultConfig, {
+    base: '/confirmation-default/contribute'
+  } )
 }, {
   link: '/edit-an-event/contribute/event/123',
   agenda: {
@@ -199,20 +146,10 @@ module.exports = [ {
     uid: 121010301013,
     id: 8
   },
-  config: {
+  config: _.assign( {}, defaultConfig, {
     edit: true,
-    lang: 'fr',
     base: '/edit-an-event/contribute',
-    locationRes,
-    redirects,
-    member: {
-      dataIsRequired: false
-    },
-    fileStore: {
-      type: 's3',
-      bucket: 'oadev'
-    }
-  },
+  } ),
   event: {
     uid: 123,
     slug: 'an-existing-event',

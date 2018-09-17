@@ -13,14 +13,16 @@ import Canvas from '../components/Canvas';
 
 import labels from '@openagenda/labels/agenda-contribute/confirmation';
 
+import deduceSteps from '../lib/deduceSteps';
+
 // container bit
 export default connect(
-  state => state,
+  state => deduceSteps( 'confirmation', state ),
   dispatch => ( {
     onRedirectAction: type => e => dispatch( reducers.confirmation.redirect( type ) ),
     onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
   } )
-)( ( { config, onRedirectAction, onDidMount } ) => <Canvas {...config} step="confirmation" onDidMount={onDidMount}>
+)( ( { config, onRedirectAction, onDidMount, steps } ) => <Canvas {...config} step="confirmation" onDidMount={onDidMount} onSelectStep={()=>{}} steps={steps}>
   
   <div className="wsq padding-all-md padding-top-sm text-center">
     <h3>{labels.moderationRecap[ config.lang ]}</h3>

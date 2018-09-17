@@ -13,14 +13,17 @@ import Canvas from '../components/Canvas';
 
 import memberSchema from '../lib/memberSchema';
 
+import deduceSteps from '../lib/deduceSteps';
+
 // container bit
 export default connect(
-  state => state,
+  state => deduceSteps( 'member', state ),
   dispatch => ( {
     onSuccess: member => dispatch( reducers.member.updated( member ) ),
-    onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
+    onDidMount: () => dispatch( reducers.landing.evaluate( 'member' ) ),
+    onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) )
   } )
-)( ( { config, member, onSuccess, onDidMount } ) => <Canvas {...config} step="member" onDidMount={onDidMount}>
+)( ( { config, member, onSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} steps={steps} onDidMount={onDidMount} onSelectStep={onSelectStep}>
   <div className="wsq padding-all-md padding-top-sm">
     <h3>{labels.title[ config.lang ]}</h3>
     <div className="margin-v-lg">
