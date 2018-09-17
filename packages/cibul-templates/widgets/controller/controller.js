@@ -352,6 +352,12 @@ module.exports = function( uid ) {
 
     if ( proxy && proxy.update ) proxy.update( updatedParams );
 
+    if ( window.oa && window.oa.onWidgetUpdate ) {
+
+      window.oa.onWidgetUpdate( originWidget, updatedParams );
+
+    }
+
     if ( syncHref ) {
 
       _updateHrefQuery( currentRequestParams );
