@@ -48,7 +48,7 @@
         margin-left: 8px;
       }
 
-      &.passed:before {
+      &.passed:before, &.validated:before {
         font-weight: normal;
         color: $oa-blue;
         border-color: $oa-blue;
