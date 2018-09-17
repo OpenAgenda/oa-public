@@ -8,6 +8,8 @@ const sessions = require( '@openagenda/sessions' );
 
 const layout = require( '../lib/layout' );
 
+const cmn = require( '../../lib/commons-app' );
+
 const middlewares = require( './middlewares' );
 const interfaces = require( './interfaces' );
 
@@ -33,6 +35,8 @@ module.exports = _.extend( ( parentApp, path ) => {
       private: null,
       internal: true // required for stakeholders service
     } ),
+    ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup` ) ),
     middlewares.member
   ] ); 
 
