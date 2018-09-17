@@ -397,7 +397,7 @@ function widget( elem, options ) {
 
       log( 'nav update includes event selection. Bounds are defined around event' );
 
-      bounds = m.createBounds( locations[ activeLocations[ 0 ] ].coords );
+      bounds = m.createBounds( locations[ activeLocations[ 0 ] ].coords );
 
       navHistory.add( reqParams, bounds );
 
