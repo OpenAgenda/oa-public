@@ -22,9 +22,7 @@ export default class FormSchemaComponent extends Component {
 
     super( props );
 
-    const { lang, values } = props;
-
-    const hasValues = _.isObject( values ) && _.keys( values ).length;
+    const { lang, values, withErrors } = props;
 
     const init = {
       labels: {
@@ -51,7 +49,7 @@ export default class FormSchemaComponent extends Component {
     const {
       errors,
       files
-    } = hasValues ? this.sanitize( values ) : { errors: [] };
+    } = withErrors ? this.sanitize( values ) : { errors: [] };
 
     if ( errors && !this.props.stateless ) {
 
@@ -273,6 +271,7 @@ export default class FormSchemaComponent extends Component {
 }
 
 FormSchemaComponent.defaultPropTypes = {
+  withErrors: false,
   stateless: false, // component handles its own state by default
   onSubmitSuccess: null,
   res: {
