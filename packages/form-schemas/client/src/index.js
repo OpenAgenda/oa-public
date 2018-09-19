@@ -29,9 +29,7 @@ export default class FormSchemaComponent extends Component {
         errors: flattenLabels( errorLabels, lang ),
         main: flattenLabels( formSchemaLabels, lang )
       },
-      defaultLabelLanguage: this.props.lang,
-      // values,
-      // errors: []
+      defaultLabelLanguage: this.props.lang
     }
 
     if ( !this.props.stateless ) {
@@ -167,9 +165,12 @@ export default class FormSchemaComponent extends Component {
         clean: null, 
         errors: errors.map( e => {
 
-          const errorLabel = _.get( this.state.labels.errors, e.code, e.message );
+          const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
 
-          return _.set( e, 'label', errorLabel );
+          return ih( e, {
+            label: { $set: _.get( this.state.labels.errors, e.code, e.message ) },
+            fieldLabel: { $set: _.get( field.label, this.props.lang ) }
+          } );
 
         } )
       }
@@ -228,24 +229,55 @@ export default class FormSchemaComponent extends Component {
     }
 
     return <div className="oa-form">
-      {this._getFormSchema().getFields().map( ( f, i ) => {
+      <div className={_.get( this.props, 'classNames.fieldsCanvas' ) || ''}>
+        {this._getFormSchema().getFields().map( ( f, i ) => {
 
-        const flatLabels = flatten( formSchemaLabels, lang );
+          const flatLabels = flatten( formSchemaLabels, lang );
 
-        return <Field
-          customComponents={this.props.components}
-          lang={this.props.lang}
-          labels={this.state.labels.main}
-          type={f.fieldType}
-          key={'field' + i}
-          field={f}
-          value={_.get( values, f.field, null )}
-          error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
-          onChange={this.onChange.bind( this, f.field )}
-        />
+          return <Field
+            customComponents={this.props.components}
+            lang={this.props.lang}
+            labels={this.state.labels.main}
+            type={f.fieldType}
+            key={'field' + i}
+            field={f}
+            value={_.get( values, f.field, null )}
+            error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
+            onChange={this.onChange.bind( this, f.field )}
+          />
 
-      } )}
+        } )}
+      </div>
+      {this.renderGroupedErrors()}
       {this.renderBottomActions()}
+    </div>
+
+  }
+
+  renderGroupedErrors() {
+
+    const errors = this.get( 'errors', [] );
+
+    if ( !errors.length ) return null;
+
+    const matching = _.first( _.get( this.props, 'errorComponents', [] ).filter( a => a.position === 'bottom' ) );
+
+    if ( matching ) {
+
+      const { Component } = matching;
+
+      return <Component errors={errors} />
+
+    }
+
+    return <div className={_.get( this.props, 'classNames.bottomErrorsCanvas' ) || 'error-summary boxed padding-v-sm padding-h-sm margin-v-md'}>
+      <div className="padding-bottom-sm">{this.state.labels.main.groupErrorHeader}:</div>
+      <ul className="list-unstyled margin-left-xs">
+      {errors.map( ( e, i ) => <li key={'error-' + i}>
+        <label>{e.fieldLabel}</label>:&nbsp;
+        <span>{e.label}</span>
+      </li> )}
+      </ul>
     </div>
 
   }
@@ -262,8 +294,8 @@ export default class FormSchemaComponent extends Component {
 
     }
 
-    return <div className="form-group">
-      <button className="btn btn-default" type="submit" onClick={this.onSubmit}>Done</button>
+    return <div className={_.get( this.props, 'classNames.bottomActionsCanvas' ) || 'form-group'}>
+      <button className="btn btn-primary" type="submit" onClick={this.onSubmit}>{this.state.labels.main.submit}</button>
     </div>
 
   }
