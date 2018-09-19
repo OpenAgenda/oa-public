@@ -42,16 +42,21 @@ class EventEdit extends Component {
               <h3>{event.title[ _.first( _.keys( event.title ) ) ]}</h3>
             </div>
             <Instructions message={_.get( config, 'event.message' )} />
-            <div className="padding-all-md padding-top-lg wsq">
+            <div className="padding-top-sm wsq">
               <EventForm 
+                withErrors={false}
                 fileStore={config.fileStore}
                 locationRes={config.locationRes}
                 lang={config.lang} 
                 values={event}
                 onSubmitSuccess={onUpdateSuccess}
+                classNames={{
+                  fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
+                  bottomErrorsCanvas: 'error-summary padding-all-md',
+                }}
                 actionComponents={[ {
                   position: 'bottom',
-                  Component: ( { onSubmit } ) => <div className="form-group">
+                  Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
                     <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
                   </div>
                 } ]}

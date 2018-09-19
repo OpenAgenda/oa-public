@@ -25,19 +25,24 @@ export default connect(
     <h3>{labels.title[ config.lang ]}</h3>
   </div>
   <Instructions message={_.get( config, 'event.message' )} className="wsq padding-top-sm" />
-  <div className="padding-all-md padding-top-lg wsq">
-    <EventForm 
-      fileStore={config.fileStore}
-      locationRes={config.locationRes}
-      lang={config.lang} 
-      values={event}
-      onSubmitSuccess={onCreateSuccess}
-      actionComponents={[ {
-        position: 'bottom',
-        Component: ( { onSubmit } ) => <div className="form-group">
-          <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
-        </div>
-      } ]}
-    />
-  </div>
+  
+  <EventForm 
+    withErrors={false}
+    fileStore={config.fileStore}
+    locationRes={config.locationRes}
+    lang={config.lang} 
+    values={event}
+    onSubmitSuccess={onCreateSuccess}
+    classNames={{
+      fieldsCanvas: 'padding-all-md wsq padding-bottom-sm',
+      bottomErrorsCanvas: 'error-summary padding-all-md',
+    }}
+    actionComponents={[ {
+      position: 'bottom',
+      Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
+        <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
+      </div>
+    } ]}
+  />
+  
 </Canvas> );
