@@ -26,8 +26,8 @@ module.exports = {
     en: 'Valid characters: digits, space, -, + ou ()'
   },
   name: {
-    fr: 'Name Surname',
-    en: 'Prénom Nom'
+    fr: 'Prénom Nom',
+    en: 'Name Surname'
   },
   position: {
     fr: 'Fonction',
