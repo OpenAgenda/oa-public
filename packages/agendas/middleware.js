@@ -33,7 +33,7 @@ function evaluateIPAddress( options ) {
 
     }
 
-    const IP = ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' )[ 0 ];
+    const IP = ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' )[ 0 ];
 
     if ( authorizedIPs.includes( IP ) ) {
 

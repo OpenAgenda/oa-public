@@ -120,6 +120,7 @@ module.exports = {
           type: 'text'
         }
       },
+      // require members to fill in a member form
       useFields: {
         type: 'boolean',
         default: false
