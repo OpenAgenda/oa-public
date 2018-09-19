@@ -78,7 +78,15 @@ export default class EventForm extends Component {
 
   render() {
 
-    const { lang, values, actionComponents, onSubmitSuccess, locationRes, fileStore } = this.props;
+    const {
+      lang,
+      values,
+      actionComponents,
+      onSubmitSuccess,
+      locationRes, 
+      fileStore, 
+      classNames
+    } = this.props;
 
     const schema = eventSchema( {
       locationRes,
@@ -95,6 +103,7 @@ export default class EventForm extends Component {
       files={this.state.files}
       onChange={this.onChange}
       schema={schema}
+      classNames={classNames}
       actionComponents={actionComponents}
       onSubmitSuccess={onSubmitSuccess}
     />
