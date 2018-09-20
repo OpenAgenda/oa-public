@@ -22,11 +22,11 @@ export default class FormSchemaComponent extends Component {
 
     super( props );
 
-    const { lang, values, withErrors } = props;
+    const { lang, values, withErrors, labels } = props;
 
     const init = {
       labels: {
-        errors: flattenLabels( errorLabels, lang ),
+        errors: flattenLabels( _.assign( {}, errorLabels, _.get( labels, 'errors', {} ) ), lang ),
         main: flattenLabels( formSchemaLabels, lang )
       },
       defaultLabelLanguage: this.props.lang
@@ -309,6 +309,9 @@ FormSchemaComponent.defaultPropTypes = {
   res: {
     post: '',
     redirect: null
+  },
+  labels: {
+    errors: {}
   },
   fileKey: null
 }
