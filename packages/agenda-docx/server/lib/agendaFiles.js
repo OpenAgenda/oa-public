@@ -1,15 +1,15 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const AWS = require( 'aws-sdk' );
 const fs = require( 'fs' );
 const { promisify } = require( 'util' );
+const _ = require( 'lodash' );
+const AWS = require( 'aws-sdk' );
 
 module.exports = ( { s3, uid } ) => {
 
-  const client = new AWS.S3( _.extend( { 
+  const client = new AWS.S3( _.extend( {
     apiVersion: '2006-03-01'
-  }, _.pick( s3, [ 
+  }, _.pick( s3, [
     'accessKeyId',
     'secretAccessKey',
     'region'
@@ -18,17 +18,10 @@ module.exports = ( { s3, uid } ) => {
   return {
     setJSON: setAgendaJSON.bind( null, client, s3.bucket, uid ),
     getJSON: getAgendaJSON.bind( null, client, s3.bucket, uid ),
-    removeJSON: removeAgendaJSON.bind( null, client, s3.bucket, uid ),
+    get: getAgendaFile.bind( null, client, s3.bucket, uid ),
     set: setAgendaFile.bind( null, client, s3.bucket, uid ),
     remove: removeAgendaFile.bind( null, client, s3.bucket, uid )
   };
-
-}
-
-
-function removeAgendaJSON( client, bucket, uid, name ) {
-
-  return removeAgendaFile( client, bucket, uid, name + '.json' );
 
 }
 
@@ -36,63 +29,53 @@ async function removeAgendaFile( client, bucket, uid, name ) {
 
   const deleteObject = promisify( client.deleteObject.bind( client ) );
 
-  try {
+  const result = await deleteObject( {
+    Bucket: bucket,
+    Key: [ uid, name ].join( '/' )
+  } );
 
-    const result = await deleteObject( {
-      Bucket: bucket,
-      Key: [ uid, name ].join( '/' )
-    } );
+  return result;
 
-    return result;
+}
 
-  } catch ( e ) {
+async function getAgendaFile( client, bucket, uid, name ) {
 
-    throw e;
+  const getObject = promisify( client.getObject.bind( client ) );
 
-  }
+  const result = await getObject( {
+    Bucket: bucket,
+    Key: [ uid, name ].join( '/' )
+  } );
+
+  return result.Body;
 
 }
 
 async function setAgendaFile( client, bucket, uid, localFilePath, name = null ) {
 
-  const filename = name || localFilePath.split( '/' ).pop();
-
   const upload = promisify( client.upload.bind( client ) );
 
-  try {
+  const result = await upload( {
+    ACL: 'public-read', // because that is what I need now
+    Bucket: bucket,
+    Key: [ uid, name ].join( '/' ),
+    Body: fs.createReadStream( localFilePath )
+  } );
 
-    const result = await upload( {
-      ACL: 'public-read', // because that is what I need now
-      Bucket: bucket,
-      Key: [ uid, name ].join( '/' ),
-      Body: fs.createReadStream( localFilePath )
-    } );
-
-    return {
-      path: result.Location
-    };
-
-  } catch ( e ) {
-
-    throw e;
-
-  }
+  return {
+    path: result.Location
+  };
 
 }
 
 
 async function getAgendaJSON( client, bucket, uid, name, defaultValue ) {
 
-  const getObject = promisify( client.getObject.bind( client ) );
-
   try {
 
-    const result = await getObject( {
-      Bucket: bucket,
-      Key: [ uid, name + '.json' ].join( '/' )
-    } );
+    const result = (await getAgendaFile( client, bucket, uid, name )).toString();
 
-    return JSON.parse( result.Body.toString() );
+    return JSON.parse( result );
 
   } catch ( e ) {
 
@@ -114,7 +97,7 @@ async function setAgendaJSON( client, bucket, uid, name, obj ) {
 
   return await putObject( {
     Bucket: bucket,
-    Key: [ uid, name + '.json' ].join( '/' ),
+    Key: [ uid, name ].join( '/' ),
     Body: JSON.stringify( obj ),
     ContentType: "application/json"
   } );

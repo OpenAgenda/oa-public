@@ -1,6 +1,7 @@
 "use strict";
 
 const fs = require( 'fs' );
+const _ = require( 'lodash' );
 
 const formatEvent = require( '../server/lib/formatEvent' );
 
@@ -11,7 +12,8 @@ describe( 'unit - formatEvent', () => {
 
   test( 'flatten and decorate event to get it ready for docx', () => {
 
-    expect( formatEvent( inputEvent, 'fr' ) ).toEqual( decoratedEvent );
+    expect( _.omit( formatEvent( inputEvent, 'fr' ), 'diffWithNow' ) )
+      .toEqual( _.omit( decoratedEvent, 'diffWithNow' ) );
 
   } );
 

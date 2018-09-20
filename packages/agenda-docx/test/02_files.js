@@ -1,7 +1,6 @@
 "use strict";
 
 const fs = require( 'fs' );
-const sa = require( 'superagent' );
 
 const config = require( '../config.dev' );
 
@@ -12,7 +11,7 @@ describe( 'unit - files', () => {
   const {
     setJSON,
     getJSON,
-    removeJSON,
+    get,
     set,
     remove
   } = AgendaFiles( {
@@ -23,19 +22,21 @@ describe( 'unit - files', () => {
 
   test( 'set a json file, get it back, delete it', async () => {
 
-    const json = await getJSON( 'test', { thisIsADefaultObject: true } );
+    await remove( 'test.json' );
+
+    const json = await getJSON( 'test.json', { thisIsADefaultObject: true } );
 
     expect( json ).toEqual( { thisIsADefaultObject: true } );
 
-    await setJSON( 'test', { thisIsAnUploadedJSON: true } );
+    await setJSON( 'test.json', { thisIsAnUploadedJSON: true } );
 
-    const json2 = await getJSON( 'test', null );
+    const json2 = await getJSON( 'test.json', null );
 
     expect( json2 ).toEqual( { thisIsAnUploadedJSON: true } );
 
-    await removeJSON( 'test' );
+    await remove( 'test.json' );
 
-    const json3 = await getJSON( 'test', { defaultObjectAgain: true } );
+    const json3 = await getJSON( 'test.json', { defaultObjectAgain: true } );
 
     expect( json3 ).toEqual( { defaultObjectAgain: true } );
 
@@ -51,7 +52,15 @@ describe( 'unit - files', () => {
 
     const { path } = await set( localTmpPath + '/test.txt', 'mytestfile.txt' );
 
-    expect( path ).toEqual( `https://${config.s3.bucket}.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt` );    
+    expect( path ).toEqual( `https://${config.s3.bucket}.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt` );
+
+  } );
+
+  test( 'get a docx as a Buffer', async () => {
+
+    const templateContent = await get( 'template.docx' );
+
+    expect( templateContent ).toBeInstanceOf( Buffer );
 
   } );
 

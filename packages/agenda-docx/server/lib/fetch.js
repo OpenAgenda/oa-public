@@ -33,12 +33,12 @@ async function loadAgendaDetails( agendaUid ) {
 }
 
 
-async function fetchAndStoreEvents( destFolder, agendaUid ) {
+async function fetchAndStoreEvents( destFolder, agendaUid, query ) {
 
   const limit = 100;
   let offset = 0, fetched = [], events = [];
 
-  while( ( fetched = await _fetch( agendaUid, offset, limit ) ).length ) {
+  while( ( fetched = await _fetch( agendaUid, offset, limit, query ) ).length ) {
 
     events = events.concat( fetched );
     offset += limit;
@@ -61,10 +61,12 @@ async function fetchAndStoreEvents( destFolder, agendaUid ) {
 
 }
 
-function _fetch( agendaUid, offset, limit ) {
+function _fetch( agendaUid, offset, limit, query ) {
 
   return sa.get( `https://openagenda.com/agendas/${agendaUid}/events.json`, {
-    offset, limit
+    offset,
+    limit,
+    oaq: query
   } ).then( result => result.body.events );
 
 }

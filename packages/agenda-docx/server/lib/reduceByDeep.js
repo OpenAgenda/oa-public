@@ -1,8 +1,7 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
 const reduceBy = require( './reduceBy' );
+const sortBy = require( './sortBy' );
 
 module.exports = reduceByDeep;
 
@@ -11,6 +10,23 @@ function reduceByDeep( items, deepReduceByOptions = [] ) {
   const reduceByOptions = deepReduceByOptions[ 0 ];
 
   const remainingOptions = deepReduceByOptions.slice( 1 );
+
+  if ( reduceByOptions.childrenKey && !reduceByOptions.key ) {
+
+    let result = remainingOptions.length ? reduceByDeep( items, remainingOptions ) : items;
+
+    // Sort first level
+    if ( reduceByOptions.sortChildrenBy ) {
+
+      result = sortBy( result, reduceByOptions.sortChildrenBy );
+
+    }
+
+    return {
+      [ reduceByOptions.childrenKey ]: result
+    };
+
+  }
 
   const reducedItems = reduceBy( items, reduceByOptions.key, reduceByOptions );
 

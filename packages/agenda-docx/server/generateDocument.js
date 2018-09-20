@@ -1,106 +1,94 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const Docxtemplater = require( 'docxtemplater' );
 const fs = require( 'fs' );
-const JSZip = require( 'jszip' );
 const { promisify } = require( 'util' );
+const Docxtemplater = require( 'docxtemplater' );
+const JSZip = require( 'jszip' );
+const expressions= require('angular-expressions');
+const _ = require( 'lodash' );
 
 const formatEvent = require( './lib/formatEvent' );
 const reduceByDeep = require( './lib/reduceByDeep' );
+const sortBy = require( './lib/sortBy' );
+const defaultReducer = require( './defaultReducer' );
 
 const readFile = promisify( fs.readFile, fs );
 const writeFile = promisify( fs.writeFile, fs );
 
-const { fetchAndStoreEvents, loadEventsFromFile, loadAgendaDetails } = require( './lib/fetch' );
+const {
+  fetchAndStoreEvents,
+  loadEventsFromFile,
+  loadAgendaDetails,
+} = require( './lib/fetch' );
 
-module.exports = async ( { agendaUid, localTmpPath, templatePath, language } ) => {
+module.exports = async ( {
+  agendaUid,
+  localTmpPath,
+  templatePath,
+  templateContent,
+  reducer = defaultReducer,
+  language,
+  query = {}
+} = {} ) => {
 
-  const outputPath = localTmpPath + `/${agendaUid}.${(new Date).getTime()}.docx`;
+  const outputPath = `${localTmpPath}/${agendaUid}.${new Date().getTime()}.docx`;
 
-  const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid );
+  const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid, query );
 
   const events = await loadEventsFromFile( eventsFilePath );
 
   const { title, description, url } = await loadAgendaDetails( agendaUid );
 
-  const content = await readFile( templatePath, 'binary' );
+  const content = templateContent || ( await readFile( templatePath, 'binary' ) );
 
   const doc = new Docxtemplater();
 
   doc.loadZip( new JSZip( content ) );
-  
+
   const formattedEvents = events.map( e => formatEvent( e, language ) );
 
-  const regions = reduceByDeep( formattedEvents, [ {
-    key: 'location.region',
-    targetKey: 'region',
-    childrenKey: 'departments',
-    hoist: [ {
-      source: 'location.country',
-      target: 'country'
-    } ]
-  }, {
-    key: 'location.department',
-    targetKey: 'department',
-    childrenKey: 'cities',
-    hoist: [ {
-      source: 'location.region',
-      target: 'region'
-    } ]
-  }, {
-    key: 'location.city',
-    targetKey: 'city',
-    childrenKey: 'locations',
-    hoist: [ {
-      source: 'location.department',
-      target: 'department'
-    }, {
-      source: 'location.region',
-      target: 'region'
-    } ]
-  }, {
-    key: 'location.name',
-    targetKey: 'location',
-    childrenKey: 'events',
-    hoist: [ {
-      source: 'location.address',
-      target: 'address'
-    }, {
-      source: 'location.description',
-      target: 'description'
-    }, {
-      source: 'location.access',
-      target: 'access'
-    }, {
-      source: 'location.tags',
-      target: 'tags'
-    }, {
-      source: 'location.phone',
-      target: 'phone'
-    }, {
-      source: 'location.website',
-      target: 'website'
-    } ]
-  } ] );
+  const reduced = reduceByDeep( formattedEvents, reducer );
 
   doc.setData( {
     agenda: {
-      title, description, url
+      title,
+      description,
+      url
     },
-    regions
+    ...reduced
   } );
+
+  expressions.filters.join = ( input, delimiter ) => input.join( delimiter );
+  expressions.filters.map = ( input, propName ) => _.map( input, propName );
+  expressions.filters.sortBy = ( input, keys ) => sortBy( input, keys );
+
+  const parser = tag => ( {
+    get: tag === '.'
+      ? s => s
+      : s => expressions.compile( tag.replace( /(’|“|”)/g, '\'' ) )( s )
+  } );
+
+  doc.setOptions( { parser } );
 
   doc.render();
 
-  await writeFile( outputPath, doc.getZip().generate( { type: 'nodebuffer' } ) );
+  await writeFile(
+    outputPath,
+    doc.getZip()
+      .generate( {
+        type: 'nodebuffer',
+        compression: 'DEFLATE'
+      } )
+  );
 
   return {
     outputPath,
     events: formattedEvents,
     agenda: {
-      title, description, url
+      title,
+      description,
+      url
     }
-  }
+  };
 
-}
+};

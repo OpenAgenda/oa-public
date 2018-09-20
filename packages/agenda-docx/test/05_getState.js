@@ -23,7 +23,7 @@ describe( 'functional - getState', () => {
 
   beforeAll( async () => {
 
-    await setJSON( 'state', {
+    await setJSON( 'state.json', {
       what: 'a valid state'
     } );
 

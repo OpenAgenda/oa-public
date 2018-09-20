@@ -1,39 +1,65 @@
-"use strict";
+'use strict';
 
 const _ = require( 'lodash' );
+const get = require( './get' );
+const sortBy = require( './sortBy' );
 
-module.exports = ( items, key, opts = {} ) => {
+module.exports = ( items, path, opts = {} ) => {
 
   const options = _.defaults( opts, {
     hoist: [],
     childrenKey: 'items',
-    targetKey: key
+    targetKey: path,
   } );
 
   const byKey = {};
 
   items.forEach( item => {
 
-    const keyValue = _.get( item, key, null );
+    const keyValue = get( item, path );
 
-    if ( byKey[ keyValue ] === undefined ) {
+    ( Array.isArray( keyValue ) ? keyValue : [ keyValue ] )
+      .forEach( key => {
 
-      byKey[ keyValue ] = {}
-      byKey[ keyValue ][ options.targetKey ] = keyValue;
-      byKey[ keyValue ][ options.childrenKey ] = [];
+        if ( byKey[ key ] === undefined ) {
 
-      options.hoist.forEach( ( { source, target } ) => {
+          byKey[ key ] = {};
+          byKey[ key ][ options.targetKey ] = key;
+          byKey[ key ][ options.childrenKey ] = [];
 
-        _.set( byKey[ keyValue ], target, _.get( item, source ) );
+          options.hoist.forEach( ( { source, target } ) => {
+
+            _.set( byKey[ key ], target, get( item, source ) );
+
+          } );
+
+        }
+
+        byKey[ key ][ options.childrenKey ].push( item );
 
       } );
 
-    }
-
-    byKey[ keyValue ][ options.childrenKey ].push( item );
-
   } );
 
-  return _.keys( byKey ).sort().map( k => byKey[ k ] );
+  let keys = _.keys( byKey );
 
-}
+  if ( options.sortBy ) {
+
+    keys = sortBy( keys, options.sortBy, ( item, sortByKey ) => _.get( byKey[ item ], sortByKey ) );
+
+  }
+
+  const result = keys.map( k => byKey[ k ] );
+
+  return result.map( item => {
+
+      if ( options.childrenKey && options.sortChildrenBy ) {
+
+        item[ options.childrenKey ] = sortBy( item[ options.childrenKey ], options.sortChildrenBy );
+
+      }
+
+      return item;
+    } );
+
+};

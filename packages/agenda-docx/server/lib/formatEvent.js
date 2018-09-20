@@ -17,13 +17,27 @@ module.exports = function( event, lang = 'fr' ) {
     'location.access'
   ], lang, event );
 
+  const timezone = _.get( event, 'timezone', 'Europe/Paris' );
+  const passed = _passedFlag( flattened.timings, timezone )
+
   _.extend( flattened, {
-    dates: _formattedDates( flattened.timings, _.get( event, 'timezone', 'Europe/Paris' ), lang ),
+    passed,
+    dates: _formattedDates( flattened.timings, timezone, lang ),
+    diffWithNow: _closestDiffWithNow( flattened.timings, passed, timezone ),
     custom: _customData( event ),
     accessibility: _accessibility( event.accessibility, lang ),
     location: _.set( flattened.location, 'country', _countryLabel( _.get( event, 'location.countryCode', null ), lang ) ),
     hasAccessibility: !!event.accessibility.length
   } );
+
+  const thematiqueSlug = Object.keys( event.custom ).find( v => v.startsWith( 'thematique-' ) );
+
+  if ( thematiqueSlug ) {
+    const tagGroup =  event.tagGroups.find( v => v.slug === thematiqueSlug );
+
+    flattened.thematiqueGroup = tagGroup.name;
+    flattened.thematiqueValue = tagGroup.tags[ 0 ].label;
+  }
 
   return flattened;
 
@@ -103,8 +117,8 @@ function _formattedDates( timings, timezone, lang = 'fr' ) {
 
   return timings.map( t => {
 
-    const begin = moment( t.start ).tz( timezone );
-    const end = moment( t.end ).tz( timezone );
+    const begin = moment.tz( t.start, timezone );
+    const end = moment.tz( t.end, timezone );
 
     t.date = begin.format( 'YYYY/MM/DD' );
     t.day = begin.format( 'Do MMMM' );
@@ -134,5 +148,37 @@ function _formattedDates( timings, timezone, lang = 'fr' ) {
     return dates;
 
   }, [] );
+
+}
+
+
+function _passedFlag( timings, timezone ) {
+
+  const now = moment.tz( timezone );
+
+  return timings.every( timing => moment.tz( timing.end, timezone ).diff( now ) < 0 );
+
+}
+
+
+function _closestDiffWithNow( timings, passed, timezone ) {
+
+  const now = moment.tz( timezone );
+
+  if ( passed ) {
+    return Math.abs( timings
+      .map( timing => moment.tz( timing.end, timezone ).diff( now ) )
+      .sort( ( a, b ) => a - b )
+      .pop()
+    );
+  }
+
+  const diffs = timings
+    .map( timing => moment.tz( timing.start, timezone ).diff( now ) )
+    .sort( ( a, b ) => a - b );
+
+  const firstNext = diffs.find( v => v >= 0 );
+
+  return firstNext ? firstNext : diffs.shift();
 
 }

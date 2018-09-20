@@ -114,7 +114,7 @@ async function _getQueueLength() {
 function _queueName() {
 
   //docx:queue
-  return config.namespace + config.separator + 'queue';
+  return config.namespace + (config.separator || ':') + 'queue';
 
 }
 

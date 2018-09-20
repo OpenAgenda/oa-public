@@ -1,7 +1,6 @@
 "use strict";
 
-const ih = require( 'immutability-helper' );
-
+const _ = require( 'lodash' );
 const config = require( './config' );
 const cleanString = require( './lib/cleanString' );
 const agendaFiles = require( './lib/agendaFiles' );
@@ -26,7 +25,25 @@ async function loop() {
     uid: data.uid
   } );
 
-  let state = await files.getJSON( 'state', defaultState );
+  const state = await files.getJSON( 'state.json', defaultState );
+  const template = ( state.templates || [] ).find( v => v.name === data.templateName );
+  const templatePath = template ? template.path : 'template.docx';
+
+  let templateContent;
+
+  try {
+
+    templateContent = await files.get( templatePath );
+
+  } catch ( err ) {
+
+    if ( err.code !== 'NoSuchKey' ) {
+
+      console.log( 'error', err );
+
+    }
+
+  }
 
   try {
 
@@ -35,34 +52,33 @@ async function loop() {
       agenda
     } = await generateDocument( {
       agendaUid: data.uid,
+      language: 'fr',
       localTmpPath: config.localTmpPath,
       templatePath: __dirname + '/../input.docx',
-      language: 'fr'
+      templateContent,
+      reducer: template && template.reducer ? template.reducer : state.reducer,
+      query: _.pick( data, 'from', 'to' )
     } );
 
     const filename = cleanString( agenda.title + '.docx' );
 
     const { path } = await files.set( outputPath, filename );
 
-    state = ih( state, {
-      file: {
-        $set: {
-          name: filename,
-          path,
-          createdAt: new Date()
-        }
-      }
-    } );
+    state.file = {
+      name: filename,
+      path,
+      createdAt: new Date()
+    };
 
   } catch ( e ) {
 
     console.log( 'error', e );
 
-  } 
+  }
 
-  await files.setJSON( 'state', ih( state, {
-    queued: { $set: false } 
-  } ) );
+  state.queued = false
+
+  await files.setJSON( 'state.json', state );
 
   loop();
 

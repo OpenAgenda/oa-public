@@ -9,7 +9,24 @@
           "city": "Paris",
           "region": "Ile de France",
           "country": "France"
-        }
+        },
+        "tagGroups": [
+          {
+            "name": "Type d'événement",
+            "access": "public",
+            "slug": "type-devenement",
+            "tags": [
+              {
+                "label": "Concert",
+                "slug": "concert"
+              },
+              {
+                "label": "Sortie",
+                "slug": "Sortie"
+              }
+            ]
+          }
+        ]
       }
     ],
     "city": "Paris"
@@ -24,7 +41,24 @@
           "city": "Paris",
           "region": "Ile de France",
           "country": "France"
-        }
+        },
+        "tagGroups": [
+          {
+            "name": "Type d'événement",
+            "access": "public",
+            "slug": "type-devenement",
+            "tags": [
+              {
+                "label": "Exposition",
+                "slug": "exposition"
+              },
+              {
+                "label": "Concert",
+                "slug": "concert"
+              }
+            ]
+          }
+        ]
       }
     ],
     "city": "Paris"
@@ -39,7 +73,24 @@
           "city": "Verdun",
           "region": "Grand-Est",
           "country": "France"
-        }
+        },
+        "tagGroups": [
+          {
+            "name": "Type d'événement",
+            "access": "public",
+            "slug": "type-devenement",
+            "tags": [
+              {
+                "label": "Exposition",
+                "slug": "exposition"
+              },
+              {
+                "label": "Sortie",
+                "slug": "Sortie"
+              }
+            ]
+          }
+        ]
       }
     ],
     "city": "Verdun"
@@ -54,7 +105,24 @@
           "city": "Paris",
           "region": "Ile de France",
           "country": "France"
-        }
+        },
+        "tagGroups": [
+          {
+            "name": "Type d'événement",
+            "access": "public",
+            "slug": "type-devenement",
+            "tags": [
+              {
+                "label": "Exposition",
+                "slug": "exposition"
+              },
+              {
+                "label": "Sortie",
+                "slug": "Sortie"
+              }
+            ]
+          }
+        ]
       }
     ],
     "city": "Paris"

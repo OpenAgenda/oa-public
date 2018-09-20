@@ -29,6 +29,6 @@ function getState( agendaUid ) {
     s3: config.s3,
     bucket: config.s3.bucket,
     uid: agendaUid
-  } ).getJSON( 'state', defaultState );
+  } ).getJSON( 'state.json', defaultState );
 
 }
