@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
     <mj-title><%= __( 'subject' ) %></mj-title>
-    <mj-preview><%= __( isStakeholder ? 'titleForExistantStakeholder' : 'title', { agenda } ) %></mj-preview>
+    <mj-preview><%= __( isStakeholder ? 'titleForExistantStakeholder' : 'title', { agenda, credential: __( credential ) } ) %></mj-preview>
 
     <mj-attributes>
       <mj-all

@@ -10,7 +10,7 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const cbify = require( '@openagenda/utils/cbify' );
 const sessions = require( '@openagenda/sessions' );
 const keysSvc = require( '@openagenda/keys' );
-
+const agendaDocx = require( '@openagenda/agenda-docx' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
 const cmn = require( '../lib/commons-app' );
 const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
@@ -19,7 +19,6 @@ const eventSvc = require( '../services/event' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
 
-const agendaDocx = require( 'agenda-docx' );
 
 const routes = {
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const agendaDocx = require( 'agenda-docx' );
+const agendaDocx = require( '@openagenda/agenda-docx' );
 const cmn = require( '../lib/commons-app' );
 
 module.exports = _.extend( ( parentApp, path ) => {

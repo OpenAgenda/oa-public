@@ -226,13 +226,10 @@ module.exports = function ( enabledTypes, options, cb ) {
         tfy( require( '@openagenda/agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
 
         //tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { bootOffset: 5000 } );
-        tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { 
+        tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, {
           period: 'daily',
-          time: '19:00' 
+          time: '19:00'
         } );
-
-
-
 
         tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
           // bootOffset: 1000
@@ -258,7 +255,7 @@ module.exports = function ( enabledTypes, options, cb ) {
           time: '03:00'
         } );
 
-        require( 'agenda-docx' ).task();
+        require( '@openagenda/agenda-docx' ).task();
 
         require( './general/mainLogger.task' )();
 
@@ -288,7 +285,7 @@ module.exports = function ( enabledTypes, options, cb ) {
           console.log( 'FINI', err, res );
         } );*/
 
-        //require( './services/agendaStatistics' ).task.resyncLegacySearch();
+        // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 
         // require( '@openagenda/inboxes' ).tasks.sync();
 
