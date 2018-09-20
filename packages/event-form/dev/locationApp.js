@@ -26,8 +26,10 @@ app.get( '/', ( req, res ) => {
 
   if ( req.query.uids ) {
 
+    const cleanUids = req.query.uids.map( u => parseInt( u ) );
+
     res.json( _.set( fixtures.index, 'items', 
-      fixtures.index.items.filter( l => req.query.uids.includes( l.uid ) )
+      fixtures.index.items.filter( l => cleanUids.includes( l.uid ) )
     ) );
 
   } else {

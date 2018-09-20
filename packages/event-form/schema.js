@@ -64,6 +64,7 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
         "fr" : "Description courte",
         "en" : "Short description"
       },
+      "max" : 200,
       "placeholder" : {
         "fr" : "Une courte description de votre événement",
         "en" : "A short description of your event"
@@ -98,6 +99,7 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
         "fr" : "Description longue",
         "en" : "Long description"
       },
+      "max" : 10000,
       "sub" : {
         "fr" : "Ce champ ne doit pas exceder 10000 caractères",
         "en" : "This field should not exceed 10000 characters"
@@ -114,6 +116,7 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
         "fr" : "Conditions de participation, tarifs",
         "en" : "Attendence conditions, pricing"
       },
+      "max" : 255,
       "sub" : {
         "fr" : "Tel format est accepté",
         "en" : "Some specific format is accepted"

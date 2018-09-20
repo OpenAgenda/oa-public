@@ -10,6 +10,8 @@ import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
 import identifyLanguageChanges from './utils/identifyLanguageChanges';
 import transferMultilingualValues from './utils/transferMultilingualValues';
 
+import errorLabels from '@openagenda/labels/event/errors';
+
 const eventFormComponents = {
   age: require( './components/Age' ),
   registration: require( './components/Registration' ),
@@ -106,6 +108,9 @@ export default class EventForm extends Component {
       classNames={classNames}
       actionComponents={actionComponents}
       onSubmitSuccess={onSubmitSuccess}
+      labels={{
+        errors: errorLabels
+      }}
     />
 
   }

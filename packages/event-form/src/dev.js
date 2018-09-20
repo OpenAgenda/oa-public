@@ -25,13 +25,12 @@ class Main extends Component {
           lang="fr"
           classNames={{
             fieldsCanvas: 'padding-all-md wsq',
-            bottomErrorsCanvas: 'error-summary padding-h-sm',
+            bottomErrorsCanvas: 'error-summary padding-all-md',
             bottomActionsCanvas: 'padding-all-md wsq'
           }}
           values={{
             title: {
-              fr: 'Inauguration d\'un formulaire',
-//              en: 'A form inauguration'
+              fr: 'Inauguration d\'un formulaire'
             },
             locationUid: 93105902,
             accessibility: { hi: true, sl: true }
