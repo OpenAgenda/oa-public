@@ -8,7 +8,8 @@
     "start": "nodemon server.dev",
     "dist": "webpack --config webpack.dist.js",
     "test": "jest --runInBand --forceExit",
-    "cli": "node cli"
+    "cli": "node cli",
+    "prebublish": "yarn dist"
   },
   "dependencies": {
     "angular-expressions": "^0.3.0",
