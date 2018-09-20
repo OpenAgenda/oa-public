@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-docx",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
@@ -9,7 +9,7 @@
     "dist": "webpack --config webpack.dist.js",
     "test": "jest --runInBand --forceExit",
     "cli": "node cli",
-    "prebublish": "yarn dist"
+    "prepublish": "yarn dist"
   },
   "dependencies": {
     "angular-expressions": "^0.3.0",
