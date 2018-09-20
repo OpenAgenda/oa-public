@@ -1,5 +1,5 @@
 {
-  "name": "agenda-docx",
+  "name": "@openagenda/agenda-docx",
   "version": "1.0.2",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
