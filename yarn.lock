@@ -90,9 +90,9 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/agenda-docx@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.3.tgz#3531fba1fa444a3a5733ba9319ede1542d2d7d04"
+"@openagenda/agenda-docx@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.5.tgz#7c5c2e45b4da63ff7089cceabfcf2b3388303775"
   dependencies:
     angular-expressions "^0.3.0"
     aws-sdk "^2.230.1"
@@ -190,9 +190,9 @@
   version "2.0.0"
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
 
-"@openagenda/cibul-model@^0.1.19":
-  version "0.1.19"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.19.tgz#ae30527f2fffd7da7033946d36c97c5b2d3c82af"
+"@openagenda/cibul-model@^0.1.20":
+  version "0.1.20"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.20.tgz#6141058c3e8c4d00ef3d624c7ca97b403668d7e1"
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"

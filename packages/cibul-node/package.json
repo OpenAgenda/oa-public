@@ -18,7 +18,7 @@
     "@openagenda/agenda-calendar-apps": "^1.1.5",
     "@openagenda/agenda-categories": "^0.1.2",
     "@openagenda/agenda-contribute": "^1.0.6",
-    "@openagenda/agenda-docx": "^1.0.3",
+    "@openagenda/agenda-docx": "^1.0.5",
     "@openagenda/agenda-event-references": "^1.0.2",
     "@openagenda/agenda-events": "^1.2.10",
     "@openagenda/agenda-locations": "^1.0.49",
