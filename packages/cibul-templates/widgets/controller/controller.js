@@ -970,7 +970,7 @@ module.exports = function( uid ) {
 
     if ( !d ) d = new Date();
 
-    return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+    return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
 
   }
 

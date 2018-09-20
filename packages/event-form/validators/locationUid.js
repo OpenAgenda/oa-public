@@ -1,9 +1,8 @@
 "use strict";
 
-const integer = require( '@openagenda/validators/integer' );
-
-module.exports = () => integer( {
+module.exports = () => require( '@openagenda/validators/integer' )( {
   field: 'locationUid',
+  optional: false,
   max: 99999999,
   min: 1
 } );

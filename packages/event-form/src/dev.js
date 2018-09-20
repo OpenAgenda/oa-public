@@ -13,7 +13,7 @@ class Main extends Component {
 
   render() {
 
-    return <div className="container wsq top-margined col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 oa-col-canvas">
+    return <div className="container top-margined col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 oa-col-canvas">
       <div className="row margin-v-md margin-h-sm">
         <EventForm
           locationRes={{
@@ -23,10 +23,14 @@ class Main extends Component {
             remove: '/locations/remove'
           }}
           lang="fr"
+          classNames={{
+            fieldsCanvas: 'padding-all-md wsq',
+            bottomErrorsCanvas: 'error-summary padding-all-md',
+            bottomActionsCanvas: 'padding-all-md wsq'
+          }}
           values={{
             title: {
-              fr: 'Inauguration d\'un formulaire',
-//              en: 'A form inauguration'
+              fr: 'Inauguration d\'un formulaire'
             },
             locationUid: 93105902,
             accessibility: { hi: true, sl: true }

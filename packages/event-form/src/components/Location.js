@@ -17,7 +17,7 @@ module.exports = class LocationComponent extends Component {
 
     let location = null;
 
-    if ( !this.props.value ) {
+    if ( !props.value ) {
 
       this.state = {
         mode: 'search',
@@ -87,6 +87,9 @@ module.exports = class LocationComponent extends Component {
       allowCreate={true}
       mode={this.state.mode}
       disableChange={false}
+      classNames={{
+        input: ''
+      }}
       onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
       location={this.state.location}
       lang={this.props.lang}
@@ -126,9 +129,7 @@ module.exports = class LocationComponent extends Component {
 
     }
 
-    //const labels = flattenLabels( timingsLabels, lang );
-
-    return <div className="margin-v-sm">
+    return <div className={this.state.mode === 'show' ? 'margin-v-xs' : ''}>
       {this.renderSelector()}
     </div>
 

@@ -1,8 +1,14 @@
+"use strict";
+
+if ( typeof L === 'undefined' ) {
+
+  require( 'leaflet' );
+
+}
+
 var maps = require( './maps.mod' ),
 
-utils = require( '@openagenda/utils' ),
-
-L = require( 'leaflet' );
+utils = require( '@openagenda/utils' );
 
 require( '@openagenda/leaflet.markercluster' );
 

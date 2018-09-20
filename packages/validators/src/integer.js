@@ -11,7 +11,7 @@ export default config => {
     optional: true,
     min: null,
     max: null,
-    default: null,
+    default: undefined,
     list: false
   }, config || {} ),
 

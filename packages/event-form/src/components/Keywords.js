@@ -22,15 +22,21 @@ module.exports = class KeywordsComponent extends Component {
 
   renderInput( l ) {
 
+    const { field, value, error } = this.props;
+
+    const preCleaned = preClean( value, l );
+
     return <div>
       <TagsInput 
-        value={preClean( this.props.value, l )} 
+        value={preCleaned} 
         onChange={this.onChange.bind(this, l)}
         inputProps={{
-          placeholder: this.props.field.placeholder,
-          style: !_.get( this.props.value, l ) ? { width: '630px' } : null
+          placeholder: field.placeholder,
+          style: !_.get( value, l ) ? { width: '630px' } : null
         }}
       />
+      <Counter value={ _.isArray( preCleaned ) ? preCleaned.join(',') : preCleaned } max={field.max} />
+      <Sub label={field.sub} error={error}/>
     </div>
 
   }
