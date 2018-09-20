@@ -1,6 +1,6 @@
 {
   "name": "agenda-docx",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
