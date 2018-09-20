@@ -110,4 +110,28 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'if its not optional, its not optional', () => {
+
+    const validate = validators.integer( { optional: false } );
+
+    try {
+
+      validate();
+
+    } catch ( e ) {
+
+      e.should.eql( [ { 
+        code: 'required',
+        message: 'a integer is required',
+        origin: undefined 
+      } ] );
+
+      return;
+
+    }
+
+    should.not.ok();
+
+  } );
+
 } );
