@@ -1,5 +1,7 @@
 "use strict";
 
+const log = require( '@openagenda/logs' )( 'createOptions' );
+
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
@@ -32,6 +34,11 @@ const validate = schema( {
     type: 'boolean',
     default: false
   },
+  // if creation of event comes from legacy, this should be true
+  legacy: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     includeImagePath: {
       type: 'boolean',
@@ -52,10 +59,20 @@ const validate = schema( {
 
 module.exports = values => {
 
-  const clean = validate( values );
+  try {
 
-  clean.context.transferToLegacy = clean.transferToLegacy;
+    const clean = validate( values );
 
-  return clean;
+    clean.context.transferToLegacy = clean.transferToLegacy;
+
+    return clean;
+
+  } catch ( e ) {
+
+    log( 'error', 'create optionas are invalid', values, e );
+
+    throw e;
+
+  }
 
 }

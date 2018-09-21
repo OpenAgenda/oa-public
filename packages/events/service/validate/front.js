@@ -25,7 +25,7 @@ module.exports = ( data, options = {} ) => {
 
   const params = assign( {
     optionalSlug: false,
-    includeUid: false
+    legacy: false
   }, options );
 
   let fields = assign( {}, frontFields );
@@ -36,7 +36,7 @@ module.exports = ( data, options = {} ) => {
 
   }
 
-  if ( params.includeUid ) {
+  if ( params.legacy ) {
 
     fields.uid = {
       type: 'integer',

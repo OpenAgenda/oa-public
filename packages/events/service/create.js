@@ -62,7 +62,7 @@ module.exports = _.extend( ( d, o, c ) => {
 
 async function createPromise( data, options ) {
 
-  let cleanOptions = {};
+  const cleanOptions = cleanCreateOptions( options );
 
   const { interfaces } = config;
 
@@ -81,12 +81,6 @@ async function createPromise( data, options ) {
   // created event fetched from db
   let created;
 
-  try {
-
-    cleanOptions = cleanCreateOptions( options );
-
-  } catch ( e ) {};
-
   const errors = [];
 
   try {
@@ -101,16 +95,12 @@ async function createPromise( data, options ) {
 
       preCleanEvent = _.assign( validate.front( data, { 
         optionalSlug: true,
-        includeUid: true
-      } ), {
-        draft: false
-      } );
+        legacy: cleanOptions.legacy
+      } ), { draft: false } );
 
     }
 
   } catch ( frontValidationErrors ) {
-
-    console.log(frontValidationErrors);
 
     frontValidationErrors.forEach( e => errors.push( _.assign( e, { step: 'pre' } ) ) );
 

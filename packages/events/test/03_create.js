@@ -228,6 +228,8 @@ describe( 'events - functional (server): create', function() {
 
       console.log( e );
 
+      should().ok();
+
     }
 
   } );

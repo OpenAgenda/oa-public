@@ -15,14 +15,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
   this.timeout( 60000 );
 
-  before( done => {
-
-    knex = knexLib( {
-      client: 'mysql',
-      connection: _.extend( config.mysql, {
-        timezone: 'utc'
-      } )
-    } );
+  beforeEach( done => {
 
     svc.initAndLoad( config, [
       config.schemas.event + '_few',
@@ -36,13 +29,17 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       config.legacy.schemas.user,
       config.legacy.schemas.agenda,
       config.legacy.schemas.deleted
-    ], { reset: true }, done );
+    ], { reset: true }, () => {
+
+      knex = svc.getConfig().knex;
+
+      done();
+
+    } );
 
   } );
 
-  after( svc.shutdown );
-
-  after( done => knex.destroy( done ) );
+  afterEach( done => svc.shutdown( done ) );
 
 
   it( 'transfer to legacy structure creates legacy event if non-existant', async () => {
@@ -153,6 +150,8 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
 
   it( 'legacy event can be removed altogether', async () => {
+
+    await svc.legacy.update( { uid: 2875149 } );
 
     const result = await svc.legacy.remove( { uid: 2875149 } );
 

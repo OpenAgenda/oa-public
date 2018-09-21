@@ -37,7 +37,7 @@
   },
   "description" : {
     "type" : "multilingual",
-    "max" : 255
+    "max" : 200
   },
   "longDescription" : {
     "type" : "multilingual",

@@ -1,10 +1,10 @@
 "use strict";
 
-const svc = require( '../../' ),
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const fixtures = require( '@openagenda/fixtures' );
 
-  fixtures = require( '@openagenda/fixtures' );
+const svc = require( '../../' );
 
 module.exports = svc;
 
@@ -32,7 +32,7 @@ module.exports.initAndLoad = function( config, files, options, cb ) {
 
   }
 
-  svc.init( config )
+  svc.init( config );
 
   fixtures.init( { mysql: config.mysql } );
 

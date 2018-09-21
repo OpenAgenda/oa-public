@@ -220,7 +220,7 @@ function transfer( identifiers, options, cb ) {
       protected: false, 
       context: v.context,
       evaluateLegacyIdentifiers: false,
-      includeUid: true
+      legacy: true
     }, ( err, r ) => {
 
       if ( err ) return cb( err );
