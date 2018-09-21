@@ -56,6 +56,13 @@ const testConfig = {
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
+  geocodeFarm: { key: 123 },
+  esLocation: {
+    //log: [  ],
+    index: 'locations',
+    apiVersion: '1.3',
+    timeout: 30000
+  },
   getLogConfig: () => null
 };
 
@@ -65,10 +72,8 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
   this.timeout( 20000 );
 
   const eventData = {
-    slug: "rugissant-tresor-de-la-guerre-despagne-et-autres-textes-de-serge-pey",
     title: {
-      fr:
-        "Rugissant / Trésor de la guerre d'Espagne et autres textes de Serge Pey"
+      fr: 'Rugissant / Trésor de la guerre d\'Espagne et autres textes de Serge Pey'
     },
     description: { fr: "Culture" },
     longDescription: {
@@ -118,7 +123,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
   } );
 
-  beforeEach( async () => {
+  before( async () => {
 
     const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
       multipleStatements: true
@@ -140,6 +145,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
         'agendas',
         'agendaEvents',
         'agendaStakeholders',
+        'agendaLocations',
         'formSchemas',
         'custom'
       ]
@@ -195,7 +201,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
     const legacyEvent = await testConfig.knex( 'legacy_event' ).first().where( 'id', eventId );
 
-    JSON.parse( legacyEvent.store ).customFields.cle_session.should.equal( 1928391 );
+    JSON.parse( legacyEvent.custom_fields ).cle_session.should.equal( 1928391 );
 
   } );
 

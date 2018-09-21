@@ -31,7 +31,7 @@ let log;
 
 module.exports = function ( config, options, cb ) {
 
-  let t = new Date;
+  const t = new Date();
 
   // define config to use
   if ( arguments.length == 1 && typeof config === 'function' ) {
@@ -90,11 +90,11 @@ module.exports.initless = true;
 
 function _init( config, options, fileOrFolderName, cb ) {
 
-  let t = new Date();
+  const t = new Date();
 
   const name = fileOrFolderName.split( '.' )[ 0 ];
 
-  let service = require( __dirname + '/' + name );
+  const service = require( __dirname + '/' + name );
 
   if ( options.enabled.length && !options.enabled.includes( name ) ) {
 

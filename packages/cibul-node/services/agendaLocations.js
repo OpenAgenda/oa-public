@@ -20,11 +20,11 @@ module.exports.init = ( config, cb ) => {
     geocodefarm: config.geocodeFarm,
     redis: config.redis,
     elasticsearch: {
-      host: config.es.host + ':' + config.es.port,
-      log: config.esLocation.log,
-      index: config.esLocation.index,
-      apiVersion: config.esLocation.apiVersion,
-      timeout: config.esLocation.timeout
+      host: _.get( config, 'es.host', 'localhost' ) + ':' + _.get( config, 'es.port', '9200' ),
+      log: _.get( config, 'esLocation.log' ),
+      index: _.get( config, 'esLocation.index' ),
+      apiVersion: _.get( config, 'esLocation.apiVersion' ),
+      timeout: _.get( config, 'esLocation.timeout' )
     },
     mysql: {
       host: config.db.host,
