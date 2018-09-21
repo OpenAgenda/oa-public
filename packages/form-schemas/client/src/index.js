@@ -211,7 +211,7 @@ export default class FormSchemaComponent extends Component {
 
   render() {
 
-    const { lang } = this.props;
+    const { lang, classNames } = this.props;
 
     const { submitted } = this.state;
 
@@ -229,12 +229,13 @@ export default class FormSchemaComponent extends Component {
     }
 
     return <div className="oa-form">
-      <div className={_.get( this.props, 'classNames.fieldsCanvas' ) || ''}>
+      <div className={_.get( classNames, 'fieldsCanvas', '' ) }>
         {this._getFormSchema().getFields().map( ( f, i ) => {
 
           const flatLabels = flatten( formSchemaLabels, lang );
 
           return <Field
+            className={_.get( classNames, 'field', 'form-group' ) }
             customComponents={this.props.components}
             lang={this.props.lang}
             labels={this.state.labels.main}

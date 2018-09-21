@@ -44,11 +44,11 @@ module.exports = class Field extends Component {
       onChange,
       error,
       labels,
-      lang
+      lang,
+      className
     } = this.props;
 
-    return <div className={classNames( {
-      'form-group' : true, 
+    return <div className={className + ' ' + classNames( {
       'has-error' : !!error,
       'multilingual-input-field' : isMultilingual
     } ) } key={field.field}>
