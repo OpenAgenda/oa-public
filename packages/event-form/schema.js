@@ -52,8 +52,8 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
         "en" : "Title of your event"
       },
       "sub": {
-        "fr" : "Ce champ est requis.",
-        "en" : "This field is required"
+        "fr" : "",
+        "en" : ""
       }
     }, {
       languages,
@@ -70,8 +70,8 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
         "en" : "A short description of your event"
       },
       "sub": {
-        "fr" : "Ce champ est requis.",
-        "en" : "This field is required"
+        "fr" : "",
+        "en" : ""
       }
     }, {
       languages,
@@ -101,8 +101,8 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
       },
       "max" : 10000,
       "sub" : {
-        "fr" : "Ce champ ne doit pas exceder 10000 caractères",
-        "en" : "This field should not exceed 10000 characters"
+        "fr" : "",
+        "en" : ""
       },
       "placeholder" : {
         "fr" : "Soignez la mise en forme",
@@ -118,8 +118,8 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
       },
       "max" : 255,
       "sub" : {
-        "fr" : "Tel format est accepté",
-        "en" : "Some specific format is accepted"
+        "fr" : "",
+        "en" : ""
       }
     }, {
       field: 'age',

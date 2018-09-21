@@ -1,6 +1,7 @@
 "use strict";
 
 import _ from 'lodash';
+import ih from 'immutability-helper';
 import React, { Component } from 'react';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build';
@@ -31,11 +32,11 @@ export default class EventForm extends Component {
     super( props );
 
     this.state = {
-      values: _.set( 
-        this.props.values, 
-        'languages', 
-        extractLanguages( this.props.values, this.props.lang )
-      ),
+      values: ih( this.props.values, { 
+        languages: { 
+          $set: extractLanguages( this.props.values, this.props.lang )
+        } 
+      } ),
       files: []
     };
 
@@ -57,12 +58,16 @@ export default class EventForm extends Component {
       // need to update multilingual values AND languages field
 
       this.setState( {
-        values: _.assign( transferMultilingualValues( 
+        values: ih( transferMultilingualValues( 
           this.state.values,
           getMultilingualFieldNames( eventSchema( { languages: true } ) ),
           _.get( this, 'state.values.languages.0' ),
           _.first( changedLanguages )
-        ), { languages: [ changedLanguages[ 0 ] ] } ),
+        ), {
+          languages: {
+            $set: [ changedLanguages[ 0 ] ]
+          }
+        } ), 
         errors
       } );
 
@@ -105,7 +110,9 @@ export default class EventForm extends Component {
       files={this.state.files}
       onChange={this.onChange}
       schema={schema}
-      classNames={classNames}
+      classNames={ih( classNames, {
+        field: { $set: 'padding-v-sm' }
+      } )}
       actionComponents={actionComponents}
       onSubmitSuccess={onSubmitSuccess}
       labels={{
