@@ -5,7 +5,7 @@ const VError = require( 'verror' );
 
 const formSchemas = require( '@openagenda/form-schemas' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
-const validateEvent = require( '@openagenda/events/service/validate/front' );
+const validate = require( '@openagenda/events/service/validate' );
 const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
 const getAgenda = require( '../utils/getAgenda' );
@@ -18,7 +18,12 @@ module.exports = async ( agendaUid, data ) => {
 
 }
 
-module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateEvent = true ) {
+module.exports.loaded = async function loaded( { formSchemaId }, data, options = {} ) {
+
+  const { draft, evaluateEvent } = _.assign( {
+    evaluateEvent: true,
+    draft: false
+  }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   log( 'validating full agenda event data' );
 
@@ -38,7 +43,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, evaluateE
     // clean event
     try {
 
-      validateEvent( data, { optionalSlug: true } );
+      validate[ draft ? 'draft' : 'front' ]( data, { optionalSlug: true } );
 
     } catch( eventValidationErrors ) {
 
