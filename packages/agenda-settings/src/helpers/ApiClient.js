@@ -1,6 +1,13 @@
 const superagent = require( 'superagent' );
+const deepExtend = require( 'deep-extend' );
 
 const methods = [ 'get', 'post', 'put', 'patch', 'del' ];
+
+const defaultOptions = {
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest'
+  }
+};
 
 class ApiClient {
   constructor( apiRoot, req ) {
@@ -16,15 +23,23 @@ class ApiClient {
     }
 
     methods.forEach( method => {
-      this[ method ] = ( path, { query, data, headers, files, fields } = {} ) => new Promise( ( resolve, reject ) => {
+      this[ method ] = ( path, options ) => new Promise( ( resolve, reject ) => {
+        const { query, data, headers, files, fields } = deepExtend( {}, defaultOptions, options );
+
         const request = superagent[ method ]( this.formatUrl( path ) );
 
         if ( query ) {
           request.query( query );
         }
 
-        if ( typeof window === 'undefined' && req && req.get( 'cookie' ) ) {
-          request.set( 'cookie', req.get( 'cookie' ) );
+        if ( typeof window === 'undefined' && req ) {
+          if ( req.get( 'cookie' ) ) {
+            request.set( 'cookie', req.get( 'cookie' ) );
+          }
+
+          if ( req.get( 'x-forwarded-for' ) ) {
+            request.set( 'x-forwarded-for', req.get( 'x-forwarded-for' ) );
+          }
         }
 
         if ( headers ) {
