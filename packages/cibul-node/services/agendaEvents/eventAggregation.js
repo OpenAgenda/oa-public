@@ -72,7 +72,7 @@ function _sendEmail( user, agenda, sourceAgenda, event, state ) {
 
   const lang = user.culture || 'fr';
 
-  const eventTitle = _.find( event.title );
+  const eventTitle = event.title[ lang ] || _.find( event.title );
 
   const link = genUrl( 'agendaEventShow', {
     slug: agenda.slug,
