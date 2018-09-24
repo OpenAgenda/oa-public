@@ -41,7 +41,7 @@ function _transfer( event, context, cb ) {
 
 function _legacyRemove( event, context, cb ) {
 
-  events.remove( { uid: event.uid }, { context: { ...context, deletion: true } }, ( err, result ) => {
+  events.remove( { uid: event.uid }, { context }, ( err, result ) => {
 
     if ( err ) {
 
