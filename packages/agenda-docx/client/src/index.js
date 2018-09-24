@@ -40,6 +40,8 @@ class Main extends Component {
     this.open = this.open.bind( this );
     this.queue = this.queue.bind( this );
     this.send = this.send.bind( this );
+    this.renderGenerateForm = this.renderGenerateForm.bind( this );
+    this.renderQueueControl = this.renderQueueControl.bind( this );
 
   }
 
@@ -92,16 +94,118 @@ class Main extends Component {
 
   }
 
-  renderQueueControl( asPrimary = false ) {
+  renderGenerateForm() {
 
     const { locale } = this.props;
     const { labels, service } = this.state;
+
+    return (
+      <Form
+        onSubmit={this.queue}
+        initialValues={{
+          templateName: service.templates && service.templates.length ? service.templates[ 0 ].name : undefined
+        }}
+        render={({ handleSubmit, invalid }) => (
+          <form onSubmit={handleSubmit}>
+
+            <Field
+              name="from"
+              format={value => value && value.startOf( 'day' ).toISOString()}
+              parse={value => value && moment( value )}
+              validate={( value, values ) => {
+                if ( values.to && moment( value ).isAfter( values.to ) ) {
+                  return labels.fromBeforeToError;
+                }
+              }}
+            >
+              {({ input, meta }) => (
+                <div className="form-group margin-all-sm">
+                  {labels.from}{' '}
+                  <div style={{ display: 'inline-block' }}>
+                    <DatePicker
+                      {...input}
+                      locale={locale}
+                      className="form-control"
+                      selected={input.value ? moment( input.value ) : input.value}
+                      value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                      autoComplete="off"
+                    />
+                  </div>
+                  {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                </div>
+              )}
+            </Field>
+
+            <Field
+              name="to"
+              format={value => value && value.endOf( 'day' ).toISOString()}
+              parse={value => value && moment( value )}
+              validate={( value, values ) => {
+                if ( values.from && moment( value ).isBefore( values.from ) ) {
+                  return labels.toAfterFromError;
+                }
+              }}
+            >
+              {({ input, meta }) => (
+                <div className="form-group margin-bottom-sm margin-h-sm">
+                  {labels.to}{' '}
+                  <div style={{ display: 'inline-block' }}>
+                    <DatePicker
+                      {...input}
+                      locale={locale}
+                      className="form-control"
+                      selected={input.value ? moment( input.value ) : input.value}
+                      value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                      autoComplete="off"
+                    />
+                  </div>
+                  {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                </div>
+              )}
+            </Field>
+
+            {service.templates && service.templates.length ? (
+              <Fragment>
+                <p>{labels.template}</p>
+
+                <div className="form-group">
+                  {service.templates.map( ( template, index ) => (
+                    <div className="radio" key={index}>
+                      <label style={{ color: 'inherit' }}>
+                        <Field name="templateName" component="input" type="radio" value={template.name} />
+                        {' '}
+                        {template.name}
+                      </label>
+                    </div>
+                  ) )}
+                </div>
+              </Fragment>
+            ) : null}
+
+            <div>
+              <button type="submit" className="btn btn-primary" disabled={invalid}>
+                {labels.generate}
+              </button>
+            </div>
+
+          </form>
+        )}
+      />
+    );
+
+  }
+
+  renderQueueControl( asPrimary = false ) {
+
+    const { labels } = this.state;
 
     if ( asPrimary ) {
 
       return (
         <div className="text-center margin-v-md">
-          <button className="btn btn-primary" onClick={() => this.queue()} type="button">{labels.launch}</button>
+          <div>{labels.launch}</div>
+
+          {this.renderGenerateForm()}
         </div>
       );
 
@@ -112,97 +216,7 @@ class Main extends Component {
         <div className="margin-bottom-sm"><label>{labels.or}</label></div>
         <div>{labels.launch}</div>
 
-        <Form
-          onSubmit={this.queue}
-          initialValues={{
-            templateName: service.templates && service.templates.length ? service.templates[ 0 ].name : undefined
-          }}
-          render={({ handleSubmit, invalid }) => (
-            <form onSubmit={handleSubmit}>
-
-              <Field
-                name="from"
-                format={value => value && value.startOf( 'day' ).toISOString()}
-                parse={value => value && moment( value )}
-                validate={( value, values ) => {
-                  if ( values.to && moment( value ).isAfter( values.to ) ) {
-                    return labels.fromBeforeToError;
-                  }
-                }}
-              >
-                {({ input, meta }) => (
-                  <div className="form-group margin-all-sm">
-                    {labels.from}{' '}
-                    <div style={{ display: 'inline-block' }}>
-                      <DatePicker
-                        {...input}
-                        locale={locale}
-                        className="form-control"
-                        selected={input.value ? moment( input.value ) : input.value}
-                        value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
-                        autoComplete="off"
-                      />
-                    </div>
-                    {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
-                  </div>
-                )}
-              </Field>
-
-              <Field
-                name="to"
-                format={value => value && value.endOf( 'day' ).toISOString()}
-                parse={value => value && moment( value )}
-                validate={( value, values ) => {
-                  if ( values.from && moment( value ).isBefore( values.from ) ) {
-                    return labels.toAfterFromError;
-                  }
-                }}
-              >
-                {({ input, meta }) => (
-                  <div className="form-group margin-bottom-sm margin-left-sm margin-right-sm">
-                    {labels.to}{' '}
-                    <div style={{ display: 'inline-block' }}>
-                      <DatePicker
-                        {...input}
-                        locale={locale}
-                        className="form-control"
-                        selected={input.value ? moment( input.value ) : input.value}
-                        value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
-                        autoComplete="off"
-                      />
-                    </div>
-                    {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
-                  </div>
-                )}
-              </Field>
-
-              {service.templates && service.templates.length ? (
-                <Fragment>
-                  <p>{labels.template}</p>
-
-                  <div className="form-group">
-                    {service.templates.map( ( template, index ) => (
-                      <div className="radio" key={index}>
-                        <label style={{ color: 'inherit' }}>
-                          <Field name="templateName" component="input" type="radio" value={template.name} />
-                          {' '}
-                          {template.name}
-                        </label>
-                      </div>
-                    ) )}
-                  </div>
-                </Fragment>
-              ) : null}
-
-              <div>
-                <button type="submit" className="btn btn-primary" disabled={invalid}>
-                  {labels.generate}
-                </button>
-              </div>
-
-            </form>
-          )}
-        />
+        {this.renderGenerateForm()}
       </div>
     );
 
@@ -219,10 +233,13 @@ class Main extends Component {
 
     if ( !this.state.open ) {
 
-      return <div><a
-        href="#docx"
-        onClick={()=>this.open()}
-      >{labels.modalLink}</a></div>
+      return (
+        <div>
+          <a href="#docx" onClick={() => this.open()}>
+            {labels.modalLink}
+          </a>
+        </div>
+      );
 
     }
 
