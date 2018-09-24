@@ -183,8 +183,8 @@ function _processSingle( base, data, options, cb ) {
 
       if ( types.isSuperiorTo( stakeholder.credential, options.credential ) ) {
 
-        return cb( null, { 
-          operation: null, 
+        return cb( null, {
+          operation: null,
           success: false,
           errors: [ {
             field: 'credential',
