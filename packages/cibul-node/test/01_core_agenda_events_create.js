@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const fs = require( 'fs' );
@@ -15,6 +13,7 @@ const fixtures = fs.readFileSync( __dirname + '/fixtures/01_02_core_agenda_event
 
 const events = require( '@openagenda/events' );
 const agendas = require( '@openagenda/agendas' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 
 const config = require( '../config' );
 const core = require( '../core' );
@@ -151,6 +150,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
     } );
 
+
     before( async () => {
 
       const result = await core.agendas( 17026855 ).events.create( {
@@ -175,6 +175,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
     } );
 
 
+
     after( () => {
 
       events.init( ih( events.getConfig(), {
@@ -186,7 +187,6 @@ describe( 'core - functional ( server ): agenda event create', function() {
       } ) );
 
     } );
-
 
 
     it( 'adds event to event service', async () => {
@@ -244,6 +244,58 @@ describe( 'core - functional ( server ): agenda event create', function() {
         } );
 
         done();
+
+      } );
+
+    } );
+
+
+    describe( 'draft', () => {
+
+      // this agenda has no required custom fields
+      const agendaUid = 55268170;
+
+      const errors = [];
+
+      let result;
+
+      before( async () => {
+
+        try {
+
+          result = await core.agendas( agendaUid ).events.create( {
+            title: {
+              fr: 'Un événement'
+            },
+          }, { draft: true } );
+
+        } catch ( e ) {
+
+          [].concat( e ).map( e => errors.push( e ) )
+
+        }
+
+      } );
+
+      it( 'no errors are registered for draft creationg', () => {
+
+        errors.should.eql( [] );
+
+      } );
+
+      it( 'event is recorded in event service as draft', () => {
+
+        result.created.event.draft.should.equal( 1 );
+
+      } );
+
+      it( 'draft event is not referenced in agenda', async () => {
+
+        const eventUid = _.get( result, 'created.event.uid' );
+
+        const ref = await agendaEvents( agendaUid ).get( eventUid );
+
+        should( ref ).equal( null );
 
       } );
 

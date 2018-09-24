@@ -12,9 +12,13 @@ const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
 const validate = require( './validate' );
 
-module.exports = async ( agendaUid, data ) => {
+module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'processing data', { agendaUid } );
+
+  const { draft } = _.assign( {
+    draft: false
+  }, options || {} );
 
   const {
     formSchemaId,
@@ -24,12 +28,15 @@ module.exports = async ( agendaUid, data ) => {
   const created = {};
 
   // pre-validate data
-  const clean = await validate.loaded( { formSchemaId }, data );
+  const clean = await validate.loaded( { formSchemaId }, data, { draft } );
 
   log( 'pre-validation done', { agendaUid } );
 
   // create the event
-  const result = await events.create( clean.event, { transferToLegacy: true } );
+  const result = await events.create( clean.event, { 
+    transferToLegacy: true,
+    draft
+  } );
 
   if ( !result.valid ) {
 
@@ -46,7 +53,10 @@ module.exports = async ( agendaUid, data ) => {
 
   }
 
-  const addResult = await doAdd( agendaUid, created.event.uid, formSchemaId, ih( clean, {
+  const addResult = await doAdd( agendaUid, created.event.uid, { 
+    formSchemaId,
+    draft
+  }, ih( clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },

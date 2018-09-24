@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
@@ -7,46 +8,53 @@ const custom = require( '@openagenda/custom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
-module.exports = async ( agendaUid, eventUid, formSchemaId, clean ) => {
+module.exports = async ( agendaUid, eventUid, options, clean ) => {
+
+  const { draft, formSchemaId } = _.assign( {
+    formSchemaId: null,
+    draft: false
+  }, _.isObject( options ) ? options : { formSchemaId: options } );
 
   const added = {
     agendaEvent: null,
     custom: null
   }
 
-  // reference event on agenda
-  let result;
+  if ( !draft ) {
 
-  try {
+    try {
     
-    result = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, {
-      transferToLegacy: true, // directive to replicate to legacy data structure
-      context: {
-        legacy: false // indication that context of operation is not legacy
-      }
-    } );
+      const { created } = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, {
+        transferToLegacy: true, // directive to replicate to legacy data structure
+        context: {
+          legacy: false // indication that context of operation is not legacy
+        }
+      } );
 
-  } catch ( e ) {
+      added.agendaEvent = created;
 
-    throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agendaUid, eventUid );
+    } catch ( e ) {
+
+      throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agendaUid, eventUid );
+
+    }
 
   }
-
-  added.agendaEvent = result.created;
 
   // create custom data
   if ( clean.custom ) {
 
     try {
 
-      const result = await custom( formSchemaId ).create( eventUid, clean.custom, {
-        transferToLegacy: true,
-        agendaId: clean.agendaId
+      const { success, custom: created } = await custom( formSchemaId ).create( eventUid, clean.custom, {
+        transferToLegacy: !draft,
+        agendaId: clean.agendaId,
+        draft
       } );
 
-      if ( result.success ) {
+      if ( success ) {
 
-        added.custom = result.custom;
+        added.custom = created;
 
       }
 
