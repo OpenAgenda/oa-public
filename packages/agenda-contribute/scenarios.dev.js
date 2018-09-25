@@ -15,7 +15,8 @@ const defaultConfig = {
     seeEvent: '/?redirect.eventCreated=:eventUid',
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
-    contactAdministrators: '/?redirect.contactAdministrators'
+    contactAdministrators: '/?redirect.contactAdministrators',
+    draft: '/?redirect.draft'
   },
   member: {
     dataIsRequired: true

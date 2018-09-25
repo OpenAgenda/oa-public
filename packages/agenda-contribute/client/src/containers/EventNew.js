@@ -40,6 +40,7 @@ export default connect(
     actionComponents={[ {
       position: 'bottom',
       Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
+        <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.draft[ config.lang ]}</button>
         <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
       </div>
     } ]}

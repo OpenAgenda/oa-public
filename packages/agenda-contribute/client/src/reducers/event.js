@@ -66,10 +66,17 @@ function created( values, response ) {
 
     const { base } = state.config;
 
-    dispatch( {
-      type: CREATE, 
-      event: _.get( response, 'body.event' )
-    } );
+    const event = _.get( response, 'body.event' );
+
+    if ( _.get( event, 'draft', false ) ) {
+
+      window.location.href = _.get( state, 'config.redirects.draft' );
+
+      return;
+
+    }
+
+    dispatch( { type: CREATE, event } );
 
     return dispatch( push( base + '/confirmation' ) );
 
