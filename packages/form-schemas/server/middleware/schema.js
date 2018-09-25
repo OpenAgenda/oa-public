@@ -55,7 +55,7 @@ function clean( ns, req, res, next ) {
 
   // validate the whole thing
 
-  const validate = ( new FormSchema( req[ namespaces.schema ] ) ).getValidate();
+  const validate = ( new FormSchema( req[ namespaces.schema ] ) ).getValidate( { draft: req.draft } );
 
   try {
 

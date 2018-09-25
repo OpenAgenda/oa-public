@@ -83,13 +83,19 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  onSubmit( e ) {
+  onSubmit( e, options = {} ) {
 
     e.preventDefault();
 
+    const { draft } = _.assign( {
+      draft: false
+    }, options );
+
+    const query = draft ? { draft: true } : null;
+
     const values = this.get( 'values' );
 
-    const { clean, errors } = this.sanitize( values );
+    const { clean, errors } = this.sanitize( values, { draft } );
 
     if ( _.keys( errors ).length ) {
 
@@ -101,7 +107,8 @@ export default class FormSchemaComponent extends Component {
       res: _.get( this.props.res, 'post', '' ),
       formSchema: this._getFormSchema(),
       values, // values can be clean anew once received by server
-      files: this.get( 'files' )
+      files: this.get( 'files' ),
+      query
     } ).then( res => {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
@@ -148,17 +155,20 @@ export default class FormSchemaComponent extends Component {
   }
   
 
-  sanitize( values ) {
+  sanitize( values, options ) {
 
     try {
 
-      const validate = this._getFormSchema().getValidate();
+      // options may contain draft bool at true.
+      const validate = this._getFormSchema().getValidate( options );
 
       const clean = validate( values );
 
       return { clean, errors: [] };
 
     } catch ( errors ) {
+
+      console.log( errors );
 
       // simpler to always keep errors as arrays.
       return { 
