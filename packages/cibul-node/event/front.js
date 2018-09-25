@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 const deepExtend = require( 'deep-extend' );
 const { promisify } = require( 'util' );
 
@@ -525,11 +526,24 @@ function _appendSettings( req, res, next ) {
 
   agendaSvc.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
 
-    req.baseData.scriptParams.moderatorCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
+    if ( err ) return next( err );
 
-    req.baseData.mailto = cmn.agendaMailTo( agenda );
-
-    req.baseData.useContributeApp = _.get( agenda, 'credentials.useContributeApp', false );
+    req.baseData = ih( req.baseData, { 
+      indexed: { 
+        $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  
+      },
+      scriptParams: {
+        moderatorCanPublish: {
+          $set: _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' )
+        }
+      },
+      mailto: {
+        $set: cmn.agendaMailTo( agenda )
+      },
+      useContributeApp: {
+        $set: _.get( agenda, 'credentials.useContributeApp', false )
+      }
+    } );
 
     next();
 

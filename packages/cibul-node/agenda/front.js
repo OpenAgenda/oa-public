@@ -7,6 +7,8 @@ const slugs = require( '@openagenda/slugs' );
 
 const agendaTags = require( '@openagenda/agenda-tags' );
 
+const ih = require( 'immutability-helper' );
+
 const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -283,23 +285,31 @@ function showXhr( template ) {
 function show( req, res ) {
 
   agendas.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
-  
-    lib.extend( req.templateData, {
+
+    req.templateData = ih( req.templateData, {
       agenda: {
-        uid: req.agenda.uid,
-        slug: req.agenda.slug,
-        title: req.agenda.title,
-        description: req.agenda.description,
-        url: req.agenda.url,
-        private: req.agenda.private,
-        image: req.agenda.getImage( false ),
-        official: req.agenda.official,
-        isEmpty: req.agenda.isEmpty,
-        importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
-        showCalendar: _.get( agenda, 'credentials.calendarView', false ),
-        useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
+        $set: {
+          uid: req.agenda.uid,
+          slug: req.agenda.slug,
+          title: req.agenda.title,
+          description: req.agenda.description,
+          url: req.agenda.url,
+          private: req.agenda.private,
+          image: req.agenda.getImage( false ),
+          official: req.agenda.official,
+          isEmpty: req.agenda.isEmpty,
+          importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
+          showCalendar: _.get( agenda, 'credentials.calendarView', false ),
+          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
+        }
       },
-      mailto: cmn.agendaMailTo( agenda )
+      mailto: {
+        $set: cmn.agendaMailTo( agenda )
+      }
+    } );
+
+    req.baseData = ih( req.baseData, { 
+      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  }
     } );
 
     cmn.render( req, res, 'agenda/show', req.templateData );
