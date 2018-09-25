@@ -13,6 +13,7 @@
   },
   "base": {
     "pageId": "event",
+    "indexed" : true,
     "event": {
       "owner": false
     },

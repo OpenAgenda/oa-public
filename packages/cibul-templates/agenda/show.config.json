@@ -15,6 +15,7 @@
     "_r" : "redirect"
   },
   "base" : {
+    "indexed": true,
     "theme" : false,
     "pageId" : false,
     "queryLang" : false,
