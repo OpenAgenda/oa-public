@@ -66,7 +66,8 @@ module.exports = _.extend( ( parentApp, path ) => {
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         seeAllEvents: `/home/events`,
-        contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`
+        contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`,
+        draft: `/home/events`
       },
       member: {
         dataIsRequired: _.get( req, 'agenda.settings.contribution.useFields', false )

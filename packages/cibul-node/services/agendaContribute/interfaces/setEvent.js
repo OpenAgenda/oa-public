@@ -9,7 +9,11 @@ const core = require( '../../../core' );
 
 const config = require( '../../../config' );
 
-module.exports = async ( agenda, user, current, data, files ) => {
+module.exports = async ( agenda, user, current, data, files, options = {} ) => {
+
+  const { draft } = _.assign( {
+    draft: false
+  }, options );
 
   log( 'current is %s', current ? 'set, this is an update.' : 'not set, this is a create' );
 
@@ -54,7 +58,7 @@ module.exports = async ( agenda, user, current, data, files ) => {
 
     log( 'creating event' );
 
-    const result = await core.agendas( agenda.uid ).events.create( transformed );
+    const result = await core.agendas( agenda.uid ).events.create( transformed, { draft } );
 
     return { event: result.created.event };
 
