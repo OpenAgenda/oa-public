@@ -13,6 +13,10 @@ module.exports = {
     fr: 'Créer l\'événement',
     en: 'Create the event'
   },
+  draft: {
+    fr: 'Enregistrer un brouillon',
+    en: 'Save as draft'
+  },
   update: {
     fr: 'Mettre à jour',
     en: 'Update'
