@@ -67,7 +67,7 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, options =
 
     log( 'evaluating custom data' );
 
-    const validateCustom = await formSchemas.getValidator( formSchemaId );
+    const validateCustom = await formSchemas.getValidator( formSchemaId, { draft } );
 
     try {
 

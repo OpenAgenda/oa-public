@@ -14,6 +14,7 @@ const fixtures = fs.readFileSync( __dirname + '/fixtures/01_02_core_agenda_event
 const events = require( '@openagenda/events' );
 const agendas = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
+const custom = require( '@openagenda/custom' );
 
 const config = require( '../config' );
 const core = require( '../core' );
@@ -253,7 +254,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
     describe( 'draft', () => {
 
       // this agenda has no required custom fields
-      const agendaUid = 55268170;
+      const agendaUid = 17026855;
 
       const errors = [];
 
@@ -277,7 +278,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       } );
 
-      it( 'no errors are registered for draft creationg', () => {
+      it( 'no errors are registered for draft creation', () => {
 
         errors.should.eql( [] );
 
@@ -296,6 +297,23 @@ describe( 'core - functional ( server ): agenda event create', function() {
         const ref = await agendaEvents( agendaUid ).get( eventUid );
 
         should( ref ).equal( null );
+
+      } );
+
+      it( 'draft custom data is stored', async () => {
+
+        const eventUid = _.get( result, 'created.event.uid' );
+
+        const data = await custom( 2 ).get( eventUid );
+
+        data.should.eql( { 
+          custom_description: null,
+          intermunicipal_interest: [],
+          recurring: [],
+          'thematiques-bordeaux-metropole': [],
+          'bordeaux-metropole': [],
+          'categories-agenda-metropolitain': null 
+        } );
 
       } );
 

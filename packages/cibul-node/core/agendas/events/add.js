@@ -27,6 +27,6 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
   }
 
-  return doAdd( agendaUid, eventUid, formSchemaId, clean );
+  return doAdd( agendaUid, eventUid, clean, formSchemaId );
 
 }
