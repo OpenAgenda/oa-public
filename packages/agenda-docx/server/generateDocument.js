@@ -2,10 +2,11 @@
 
 const fs = require( 'fs' );
 const { promisify } = require( 'util' );
+const _ = require( 'lodash' );
 const Docxtemplater = require( 'docxtemplater' );
 const JSZip = require( 'jszip' );
-const expressions= require('angular-expressions');
-const _ = require( 'lodash' );
+const expressions = require( 'angular-expressions' );
+const removeMd = require( 'remove-markdown' );
 
 const formatEvent = require( './lib/formatEvent' );
 const reduceByDeep = require( './lib/reduceByDeep' );
@@ -45,7 +46,7 @@ module.exports = async ( {
 
   doc.loadZip( new JSZip( content ) );
 
-  const formattedEvents = events.map( e => formatEvent( e, language ) );
+  const formattedEvents = events.map( e => formatEvent( e, { lang: language, from: query.from, to: query.to } ) );
 
   const reduced = reduceByDeep( formattedEvents, reducer );
 
@@ -61,6 +62,8 @@ module.exports = async ( {
   expressions.filters.join = ( input, delimiter ) => input.join( delimiter );
   expressions.filters.map = ( input, propName ) => _.map( input, propName );
   expressions.filters.sortBy = ( input, keys ) => sortBy( input, keys );
+  expressions.filters.removeMd = input => removeMd( input );
+  expressions.filters.upperFirst = input => _.upperFirst( input );
 
   const parser = tag => ( {
     get: tag === '.'

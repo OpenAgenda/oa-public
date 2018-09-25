@@ -4,7 +4,9 @@ const _ = require( 'lodash' );
 const moment = require( 'moment-timezone' );
 const countries = require( './countries' );
 
-module.exports = function( event, lang = 'fr' ) {
+module.exports = function( event, options ) {
+
+  const { from, to, lang } = _.merge( { lang: 'fr' }, options );
 
   const flattened = _singleLanguage( [
     'title',
@@ -22,7 +24,7 @@ module.exports = function( event, lang = 'fr' ) {
 
   _.extend( flattened, {
     passed,
-    dates: _formattedDates( flattened.timings, timezone, lang ),
+    dates: _formattedDates( flattened.timings, timezone, { from, to, lang } ),
     diffWithNow: _closestDiffWithNow( flattened.timings, passed, timezone ),
     custom: _customData( event ),
     accessibility: _accessibility( event.accessibility, lang ),
@@ -111,43 +113,63 @@ function _singleLanguage( fields, language, event ) {
 }
 
 
-function _formattedDates( timings, timezone, lang = 'fr' ) {
+function _formattedDates( timings, timezone, { from, to, lang = 'fr' } = {} ) {
 
   moment.locale( lang );
 
-  return timings.map( t => {
+  const fromDate = from ? moment( from ) : from;
+  const toDate = to ? moment( to ) : to;
 
-    const begin = moment.tz( t.start, timezone );
-    const end = moment.tz( t.end, timezone );
+  return timings.map( timing => {
 
-    t.date = begin.format( 'YYYY/MM/DD' );
-    t.day = begin.format( 'Do MMMM' );
-    t.weekday = begin.format( 'dddd' );
-    t.year = begin.format( 'YYYY' );
-    t.beginHours = begin.format( 'HH' );
-    t.beginMinutes = begin.format( 'mm' );
-    t.endHours = end.format( 'HH' );
-    t.endMinutes = end.format( 'mm' );
+    const begin = moment.tz( timing.start, timezone );
+    const end = moment.tz( timing.end, timezone );
 
-    return t;
+    timing.date = begin.format( 'YYYY/MM/DD' );
+    timing.day = begin.format( 'Do MMMM' );
+    timing.weekday = begin.format( 'dddd' );
+    timing.year = begin.format( 'YYYY' );
+    timing.beginHours = begin.format( 'HH' );
+    timing.beginMinutes = begin.format( 'mm' );
+    timing.endHours = end.format( 'HH' );
+    timing.endMinutes = end.format( 'mm' );
 
-  } ).reduce( ( dates, timing ) => {
+    return timing;
 
-    let dateIndex = dates.map( d => d.date ).indexOf( timing.date );
+  } )
+    .filter( timing => {
 
-    if ( dateIndex === -1 ) {
+      const start = moment.tz( timing.start, timezone );
+      const end = moment.tz( timing.end, timezone );
 
-      dates.push( _.pick( timing, [ 'date', 'day', 'weekday', 'year' ] ) );
-      dateIndex = dates.length - 1;
-      dates[ dateIndex ].timings = [];
+      if ( fromDate && end.isBefore( fromDate ) ) {
+        return false;
+      }
 
-    }
+      if ( toDate && start.isAfter( toDate ) ) {
+        return false
+      }
 
-    dates[ dateIndex ].timings.push( _.omit( timing, [ 'date', 'day', 'weekday', 'year' ] ) );
+      return true;
 
-    return dates;
+    } )
+    .reduce( ( dates, timing ) => {
 
-  }, [] );
+      let dateIndex = dates.findIndex( d => d.date === timing.date );
+
+      if ( dateIndex === -1 ) {
+
+        dates.push( _.pick( timing, [ 'date', 'day', 'weekday', 'year' ] ) );
+        dateIndex = dates.length - 1;
+        dates[ dateIndex ].timings = [];
+
+      }
+
+      dates[ dateIndex ].timings.push( _.omit( timing, [ 'date', 'day', 'weekday', 'year' ] ) );
+
+      return dates;
+
+    }, [] );
 
 }
 

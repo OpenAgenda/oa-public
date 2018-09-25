@@ -27,6 +27,7 @@
     "react-dom": "^16.2.0",
     "react-final-form": "^3.6.5",
     "redis": "^2.8.0",
+    "remove-markdown": "^0.3.0",
     "rimraf": "^2.6.2",
     "superagent": "^3.8.3",
     "verror": "^1.10.0"
