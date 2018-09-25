@@ -4,7 +4,7 @@ const schema = require( '@openagenda/validators/schema' );
 
 const _ = {
   isArray: require( 'lodash/isArray' ),
-  extend: require( 'lodash/extend' )
+  assign: require( 'lodash/assign' )
 }
 
 schema.register( {
@@ -23,15 +23,23 @@ const validateTiming = schema( {
 } );
 
 
-module.exports = () => value => {
+module.exports = ( options = {} ) => value => {
 
-  if ( !_.isArray( value ) || !value.length ) {
+  const params = _.assign( {
+    optional: false
+  }, options || {} );
+
+  if ( ( !_.isArray( value ) || !value.length ) && !params.optional ) {
 
     throw [ {
       code: 'timings.empty',
       message: 'At least one timing is required',
       field: 'timings'
     } ];
+
+  } else if ( !_.isArray( value ) || !value.length ) {
+
+    return [];
 
   }
 
@@ -51,7 +59,7 @@ module.exports = () => value => {
 
     } catch ( e ) {
 
-      carry.errors = carry.errors.concat( e.map( e => _.extend( e, { index } ) ) );
+      carry.errors = carry.errors.concat( e.map( e => _.assign( e, { index } ) ) );
 
     }
 
