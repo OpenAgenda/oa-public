@@ -7,7 +7,7 @@ const schema = require( '@openagenda/validators/schema' );
 const _ = {
   isObject: require( 'lodash/isObject' ),
   keyBy: require( 'lodash/keyBy' ),
-  extend: require( 'lodash/extend' ),
+  assign: require( 'lodash/assign' ),
   omit: require( 'lodash/omit' ),
   set: require( 'lodash/set' )
 }
@@ -42,9 +42,10 @@ schema.register( {
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
 
-  const params = _.extend( {
+  const params = _.assign( {
     includeUnspecified: true,
-    custom: {}
+    custom: {},
+    draft: false
   }, options );
 
   if ( _.isObject( params.custom ) ) schema.register( params.custom );

@@ -54,6 +54,8 @@ module.exports = ( field, options = {} ) => {
 
   const customValidators = _.get( options, 'custom', {} );
 
+  const draft = _.get( options, 'draft', false );
+
   const matchingMapItem = _.head( map.filter( mapItem => {
 
     // field type must match given field
@@ -72,12 +74,12 @@ module.exports = ( field, options = {} ) => {
 
   const type = _.get( matchingMapItem, 'type', field.fieldType );
 
-  const validatorOptions = _.extend( _.pick( field, [
-    'field',
-    'optional'
-  ] ), {
-    type
-  } );
+  const validatorOptions = _.extend( _.pick( field, draft ? [
+    'field'
+  ] : [ 
+    'field', 
+    'optional' 
+  ] ), { type } );
 
   if ( !matchingMapItem ) {
 

@@ -3,10 +3,12 @@
 const _ = {
   pick: require( 'lodash/pick' ),
   keys: require( 'lodash/keys' ),
-  extend: require( 'lodash/extend' ),
+  assign: require( 'lodash/assign' ),
   isObject: require( 'lodash/isObject' ),
   omit: require( 'lodash/omit' )
 }
+
+const ih = require( 'immutability-helper' );
 
 const validateField = require( './validateField' );
 
@@ -14,7 +16,7 @@ const getSchema = require( './getSchema' );
 
 module.exports = class {
 
-  constructor( data, options = {} ) {
+  constructor( data ) {
 
     // { fields, nextOptionId, res, id, custom }
     this.data = validate( data, true );
@@ -110,7 +112,14 @@ module.exports = class {
 
   getValidate( accessType = null, accessLevel = null, options = {}) {
 
-    return getSchema( this.data.fields, accessType, accessLevel, _.extend( options, { custom: this.data.custom } ) );
+    if ( _.isObject( accessType ) ) {
+
+      options = accessType;
+      accessType = null;
+
+    }
+
+    return getSchema( this.data.fields, accessType, accessLevel, ih( options, { custom: { $set: this.data.custom } } ) );
 
   }
 
@@ -138,7 +147,7 @@ function validate( data, client = false ) {
 
   let errors = [],
 
-  dirty = _.extend( {
+  dirty = _.assign( {
     id: null,
     nextOptionId: 1,
     fields: [],
