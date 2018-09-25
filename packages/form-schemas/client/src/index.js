@@ -168,8 +168,6 @@ export default class FormSchemaComponent extends Component {
 
     } catch ( errors ) {
 
-      console.log( errors );
-
       // simpler to always keep errors as arrays.
       return { 
         clean: null, 
