@@ -189,7 +189,7 @@ function _processSingle( base, data, options, cb ) {
           errors: [ {
             field: 'credential',
             code: 'credential.downgrade',
-            origin: options.credential || types.get( 'contributor' )
+            origin: options.credential || types.get( 'contributor' )
           } ]
         } );
 
