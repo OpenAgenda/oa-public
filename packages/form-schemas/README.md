@@ -31,6 +31,7 @@ This is a quick summary. For details, check tests: `test/FormSchema.js`
  * **addField( fieldData )**: adds a field to the schema
  * **getFieldCount()**: gives the number of fields
  * **getField( index )**: gets a field by its position index in schema
+ * **getValidate( options )**: get the validation function of the form schema
  * **moveField( index, moves )**: moves field up or down in the schema by given number of moves. Minus goes up, plus goes down
  * **removeField( index )**: remove field from schema 
 
