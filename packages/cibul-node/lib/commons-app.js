@@ -11,6 +11,7 @@ const hsts = require( 'hsts' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
 const wn = require( 'when/node' );
+const VError = require( 'verror' );
 
 const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
@@ -597,10 +598,18 @@ function render( req, res, templatePath, data, maintain ) {
 
     if ( !req.xhr ) {
 
-      res.writeHead( statusCode, {
-        "Content-Type": "text/html; charset=utf-8",
-        'Cache-Control': res.get( 'Cache-Control' ) || 'no-cache'
-      } );
+      try {
+
+        res.writeHead( statusCode, {
+          "Content-Type": "text/html; charset=utf-8",
+          'Cache-Control': res.get( 'Cache-Control' ) || 'no-cache'
+        } );
+
+      } catch ( e ) {
+
+        log.error( new VError( e, `Error in the render of the template ${templatePath}` ) );
+
+      }
 
       res.write( render );
 
