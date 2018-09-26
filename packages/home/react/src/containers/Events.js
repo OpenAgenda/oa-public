@@ -102,9 +102,9 @@ export default class Events extends Component {
 
   throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
 
-  getMultilangLabel( field ) {
-    if ( field === null || typeof field !== 'object' ) return field;
-    return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ];
+  getMultilangLabel( field, defaultValue = '' ) {
+    if ( field === null || typeof field !== 'object' ) return field || defaultValue;
+    return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ] || defaultValue;
   }
 
   getEventShowLink( event ) {
@@ -208,7 +208,7 @@ export default class Events extends Component {
                     src={this.getImagePath( event.image )}
                     fallbackSrc={this.getImagePath( event.image ).replace( 'cibuldev', 'cibul' )}
                     className="media-object ill avatar"
-                    alt={this.getMultilangLabel( event.title )}
+                    alt={this.getMultilangLabel( event.title, getLabel( 'noTitle' ) )}
                   />
                 </a>
               </div>
@@ -216,7 +216,7 @@ export default class Events extends Component {
                 <a href={this.getEventShowLink( event )}>
                   <div className="title media-heading">
                     {event.agenda && <div className="agenda">{event.agenda.title}</div>}
-                    <strong>{this.getMultilangLabel( event.title )}</strong>
+                    <strong>{this.getMultilangLabel( event.title , getLabel( 'noTitle' ) )}</strong>
                     {!!event.private && <div className="tooltip-icon">
                       <i className="fa fa-unlock-alt"></i>
                       <div className="tooltip right" role="tooltip">
@@ -227,7 +227,7 @@ export default class Events extends Component {
                     {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
                   </div>
                   <div className="event-detail-part">
-                    {event.location && event.location.name}
+                    { event.location && event.location.name ? event.location.name : getLabel('noLocation') }
                   </div>
                   <div className="event-detail-part">
                     {event.timerange}
