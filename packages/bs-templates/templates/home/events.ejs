@@ -1,73 +1,73 @@
 <% include ../layout/_top.ejs %>
 
 <div class="container top-margined home home-events">
-    <div class="row wsq">
-        <div class="col-sm-3 col-sm-push-9">
-            <div class="visible-xs-block"> <!-- small screen version -->
-                <div class="row header">
-                    <h2>Mes agendas</h2>
+  <div class="row wsq">
+    <div class="col-sm-3 col-sm-push-9">
+      <div class="visible-xs-block"> <!-- small screen version -->
+        <div class="row header">
+          <h2>Mes agendas</h2>
 
-                    <div class="pull-right">
-                        <button class="btn btn-default btn-collapse-nav"
-                                type="button" data-toggle="collapse" data-target="#collapseNav"
-                                aria-expanded="false" aria-controls="collapseNav">
-                            <i class="fa fa-bars" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="row collapse" id="collapseNav">
-                    <div class="nav">
-                        <ul class="list-unstyled">
-                            <li class="menu-item">
-                                <button class="btn btn-primary create-agenda" type="button">
-                                    Créer un agenda
-                                </button>
-                            </li>
-                            <li class="menu-item selected"><a href="#">Mes agendas</a></li>
-                            <li class="menu-item"><a href="#">Mes événements</a></li>
-                            <li class="menu-item"><a href="#">Messages</a></li>
-                            <li class="menu-item"><a href="#">Notifications</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="hidden-xs"> <!-- large screen version -->
-                <div class="row">
-                    <div class="nav nav-right">
-                        <ul class="list-unstyled">
-                            <li class="menu-item"><a href="#">Mes agendas</a></li>
-                            <li class="menu-item selected"><a href="#">Mes événements</a></li>
-                            <li class="menu-item"><a href="#">Messages</a></li>
-                            <li class="menu-item"><a href="#">Notifications</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+          <div class="pull-right">
+            <button class="btn btn-default btn-collapse-nav"
+                type="button" data-toggle="collapse" data-target="#collapseNav"
+                aria-expanded="false" aria-controls="collapseNav">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+          </div>
         </div>
-        <div class="col-sm-9 col-sm-pull-3 content">
-            <div class="header hidden-xs">
-                <h2>Mes événements</h2>
-            </div>
 
-            <form>
-                <div class="form-group input-icon-right search">
-                    <input type="text" class="form-control" placeholder="Rechercher un événement" />
-                    <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </div>
-            </form>
-
-            <div class="row">
-                <%- include('_event-item.ejs') %>
-                <%- include('_event-item.ejs') %>
-                <%- include('_event-item.ejs') %>
-                <%- include('_event-item.ejs') %>
-                <%- include('_event-item.ejs') %>
-                <%- include('_event-item.ejs') %>
-            </div>
+        <div class="row collapse" id="collapseNav">
+          <div class="nav">
+            <ul class="list-unstyled">
+              <li class="menu-item">
+                <button class="btn btn-primary create-agenda" type="button">
+                  Créer un agenda
+                </button>
+              </li>
+              <li class="menu-item selected"><a href="#">Mes agendas</a></li>
+              <li class="menu-item"><a href="#">Mes événements</a></li>
+              <li class="menu-item"><a href="#">Messages</a></li>
+              <li class="menu-item"><a href="#">Notifications</a></li>
+            </ul>
+          </div>
         </div>
+      </div>
+
+      <div class="hidden-xs"> <!-- large screen version -->
+        <div class="row">
+          <div class="nav nav-right">
+            <ul class="list-unstyled">
+              <li class="menu-item"><a href="#">Mes agendas</a></li>
+              <li class="menu-item selected"><a href="#">Mes événements</a></li>
+              <li class="menu-item"><a href="#">Messages</a></li>
+              <li class="menu-item"><a href="#">Notifications</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="col-sm-9 col-sm-pull-3 content">
+      <div class="header hidden-xs">
+        <h2>Mes événements</h2>
+      </div>
+
+      <form>
+        <div class="form-group input-icon-right search">
+          <input type="text" class="form-control" placeholder="Rechercher un événement" />
+          <button type="submit" class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+      </form>
+
+      <div class="row">
+        <%- include('_event-item.ejs') %>
+        <%- include('_event-item.ejs') %>
+        <%- include('_event-item.ejs') %>
+        <%- include('_event-item.ejs') %>
+        <%- include('_event-item.ejs') %>
+        <%- include('_event-item.ejs') %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
