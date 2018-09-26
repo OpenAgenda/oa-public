@@ -95,8 +95,12 @@ module.exports = {
     fr: 'Modifier',
     en: 'Modify'
   },
-  draft: {
-    fr: 'Brouillon',
-    en: 'Draft'
+  noTitle: {
+    fr: 'Titre non défini',
+    en: 'Title not defined'
+  },
+  noLocation: {
+    fr: 'Lieu non défini',
+    en: 'Location not defined'
   }
 };
