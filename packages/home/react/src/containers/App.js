@@ -11,8 +11,8 @@ import React, { Component } from 'react';
 
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
-import MenuItem from '../../components/MenuItem';
-import * as agendasActions from '../../redux/modules/agendas';
+import MenuItem from '../components/MenuItem';
+import * as agendasActions from '../redux/modules/agendas';
 
 const selector = formValueSelector( 'homeAgendas' );
 
@@ -98,7 +98,7 @@ export default class App extends Component {
                 {getLabel( 'myEvents' )}
               </MenuItem>
             </ul>
-            <div className="wsq content">
+            <div className="wsq">
               {this.props.children}
             </div>
           </div>

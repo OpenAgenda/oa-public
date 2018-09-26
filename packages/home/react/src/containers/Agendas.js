@@ -8,7 +8,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { AgendasSearch, Welcome } from '../../components';
+import { AgendasSearch, Welcome } from '../components';
 
 @connect( state => ({
   res: state.res,
