@@ -1,3 +1,5 @@
-export App from './App/App';
-export Agendas from './Agendas/Agendas';
-export Events from './Events/Events';
+"use strict";
+
+export App from './App';
+export Agendas from './Agendas';
+export Events from './Events';
