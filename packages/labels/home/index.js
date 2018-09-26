@@ -94,5 +94,9 @@ module.exports = {
   modify: {
     fr: 'Modifier',
     en: 'Modify'
+  },
+  draft: {
+    fr: 'Brouillon',
+    en: 'Draft'
   }
 };
