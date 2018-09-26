@@ -10,6 +10,12 @@
 
   }
 
+  .avatar {
+
+    border: none;
+
+  }
+
   &.media {
     margin-top: 0;
   }
@@ -26,10 +32,10 @@
 
   &.draft {
 
-    background: lighten( $oa-gray-lighter, 3 );
+    background: lighten( $oa-gray-lighter, 4 );
 
     &:hover {
-      background: lighten( $oa-gray-lighter, 2 );
+      background: lighten( $oa-gray-lighter, 3 );
     }
 
   }
