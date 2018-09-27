@@ -39,6 +39,16 @@ function updated( values, response ) {
 
     const state = getState();
 
+    const event = _.get( response, 'body.event' );
+
+    if ( _.get( event, 'draft', false ) ) {
+
+      window.location.href = _.get( state, 'config.redirects.draft' );
+
+      return;
+
+    }
+
     if ( _.get( state , 'config.redirects.updated' ) ) {
 
       window.location.href = _.get( state , 'config.redirects.updated' );

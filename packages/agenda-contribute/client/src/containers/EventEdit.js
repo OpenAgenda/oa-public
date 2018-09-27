@@ -31,25 +31,17 @@ class EventEdit extends Component {
 
   renderTitle( lang ) {
 
-    console.log( '***' );
-
-    console.log( lang );
-
     const { event } = this.props;
 
     const titleLanguages = _.keys( event.title );
 
     const eventLanguage = titleLanguages.includes( lang ) ? lang : _.first( titleLanguages );
 
-    console.log(eventLanguage);
-
     const title = [];
 
     if ( event.draft ) title.push( labels.editDraftTitle[ lang ] );
 
     if ( eventLanguage ) title.push( _.get( event, [ 'title', eventLanguage ] ) );
-
-    console.log( title );
 
     return <h3>{title.join( ': ' )}</h3>
 
@@ -82,8 +74,8 @@ class EventEdit extends Component {
                 actionComponents={[ {
                   position: 'bottom',
                   Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
-                    {event.draft && <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.draft[ config.lang ]}</button> }
-                    <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
+                    {event.draft && <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.updateDraft[ config.lang ]}</button> }
+                    <button onClick={onSubmit} className="btn btn-primary btn-block">{labels[ event.draft ? 'undraft' : 'update' ][ config.lang ]}</button>
                   </div>
                 } ]}
               />
