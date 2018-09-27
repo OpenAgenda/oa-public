@@ -23,7 +23,9 @@
       "**/react",
       "**/react/**",
       "**/react-dom",
-      "**/react-dom/**"
+      "**/react-dom/**",
+      "**/prettier-eslint-cli",
+      "**/prettier-eslint-cli/**"
     ]
   },
   "devDependencies": {
