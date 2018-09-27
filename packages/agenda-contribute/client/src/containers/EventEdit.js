@@ -41,8 +41,8 @@ class EventEdit extends Component {
             <div className="margin-v-lg">
               <h3>{event.title[ _.first( _.keys( event.title ) ) ]}</h3>
             </div>
-            <Instructions message={_.get( config, 'event.message' )} />
-            <div className="padding-top-sm wsq">
+            <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
+            <div className="wsq">
               <EventForm 
                 withErrors={false}
                 fileStore={config.fileStore}
@@ -57,6 +57,7 @@ class EventEdit extends Component {
                 actionComponents={[ {
                   position: 'bottom',
                   Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
+                    {event.draft && <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.draft[ config.lang ]}</button> }
                     <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
                   </div>
                 } ]}
