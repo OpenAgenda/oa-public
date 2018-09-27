@@ -10,6 +10,9 @@ const getAgenda = require( '../utils/getAgenda' );
 
 module.exports = async ( agendaUid, eventUid ) => {
 
+  // evaluating that the event is actually reffed in the agenda
+  // here can't hurt
+
   const {
     formSchemaId,
     id: agendaId

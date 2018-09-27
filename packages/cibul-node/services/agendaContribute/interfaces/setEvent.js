@@ -56,7 +56,7 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
   if ( !current ) {
 
-    log( 'creating event' );
+    log( draft ? 'creating draft' : 'creating event' );
 
     const result = await core.agendas( agenda.uid ).events.create( transformed, { draft } );
 
@@ -64,11 +64,11 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
   } else {
 
-    log( 'updating event' );
+    log( draft ? 'updating draft' : 'updating event' );
 
     try {
 
-      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed );
+      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, { draft } );
 
       return { event: result.updated.event };
 

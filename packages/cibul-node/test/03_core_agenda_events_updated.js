@@ -213,4 +213,65 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
   } );
 
+  describe( 'draft', () => {
+
+    const agendaUid = 17026855;
+
+    let draftEventUid;
+
+    const errors = [];
+
+    let result;
+
+    before( async () => {
+
+      const result = await core.agendas( agendaUid ).events.create( {
+        title: {
+          fr: 'Un événement'
+        },
+      }, { draft: true } );
+
+      draftEventUid = result.created.event.uid;
+
+    } );
+
+    it( 'an update of a draft is possible with a draft option set', async () => {
+
+      const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
+        title: {
+          fr: 'Un événement mis à jour'
+        },
+      }, { draft: true } );
+
+      result.updated.event.draft.should.ok();
+
+      result.updated.event.title.should.eql( {
+        fr: 'Un événement mis à jour'
+      } );
+
+    } );
+
+    it( 'an update of a draft without the draft option undrafts the event', async () => {
+
+      const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
+        title: {
+          fr: 'La mort.'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        keywords: {
+          fr: [ 'un', 'deux', 'trois' ]
+        },
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+      result.updated.event.draft.should.not.ok();
+
+    } );
+
+  } );
+
 } );

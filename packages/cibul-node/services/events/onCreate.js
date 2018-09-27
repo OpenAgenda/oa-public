@@ -10,7 +10,11 @@ module.exports = ( event, context ) => {
 
   if ( event.creatorUid ) _unsetNewUser( event );
 
-  eventSearch.events.add( event.uid, { queue: true } );
+  if ( !event.draft ) {
+
+    eventSearch.events.add( event.uid, { queue: true } );
+
+  }
 
 }
 

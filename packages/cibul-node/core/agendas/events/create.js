@@ -14,7 +14,7 @@ const validate = require( './validate' );
 
 module.exports = async ( agendaUid, data, options = {} ) => {
 
-  log( 'processing data', { agendaUid } );
+  log( 'processing', { agendaUid, options } );
 
   const { draft } = _.assign( {
     draft: false
