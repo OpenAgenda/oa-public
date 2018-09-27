@@ -185,7 +185,7 @@ module.exports = [ {
     draft: true,
     slug: 'an-existing-draft-event',
     title: {
-      fr: 'Un événement brouillon'
+      fr: 'Pas fini'
     },
     description: {
       fr: 'Une petite description'

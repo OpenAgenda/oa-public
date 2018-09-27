@@ -4,7 +4,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
 import EventForm from '@openagenda/event-form/build';
 
 import labels from '@openagenda/labels/agenda-contribute/event';
@@ -30,6 +29,32 @@ class EventEdit extends Component {
 
   }
 
+  renderTitle( lang ) {
+
+    console.log( '***' );
+
+    console.log( lang );
+
+    const { event } = this.props;
+
+    const titleLanguages = _.keys( event.title );
+
+    const eventLanguage = titleLanguages.includes( lang ) ? lang : _.first( titleLanguages );
+
+    console.log(eventLanguage);
+
+    const title = [];
+
+    if ( event.draft ) title.push( labels.editDraftTitle[ lang ] );
+
+    if ( eventLanguage ) title.push( _.get( event, [ 'title', eventLanguage ] ) );
+
+    console.log( title );
+
+    return <h3>{title.join( ': ' )}</h3>
+
+  }
+
   render() {
 
     const { config, event, onUpdateSuccess, onDidMount } = this.props;
@@ -39,7 +64,7 @@ class EventEdit extends Component {
         <div className="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6 margin-bottom-lg">
           <div className="text-center">
             <div className="margin-v-lg">
-              <h3>{event.title[ _.first( _.keys( event.title ) ) ]}</h3>
+              {this.renderTitle( config.lang )}
             </div>
             <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
             <div className="wsq">
