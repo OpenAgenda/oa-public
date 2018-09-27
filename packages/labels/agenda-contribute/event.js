@@ -28,5 +28,13 @@ module.exports = {
   editDraftTitle: {
     fr: 'Brouillon',
     en: 'Draft'
+  },
+  updateDraft: {
+    fr: 'Mettre à jour le brouillon',
+    en: 'Update draft'
+  },
+  undraft: {
+    fr: 'Créer l\'événement',
+    en: 'Create the event'
   }
 }
