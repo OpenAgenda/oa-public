@@ -24,5 +24,9 @@ module.exports = {
   editEvent: {
     fr: 'Mettre à jour l\'événement',
     en: 'Update the event'
+  },
+  editDraftTitle: {
+    fr: 'Brouillon',
+    en: 'Draft'
   }
 }
