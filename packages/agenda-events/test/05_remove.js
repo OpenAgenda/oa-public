@@ -30,11 +30,11 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   it( 'simple remove', async () => {
 
-    let before = await svc( 62792452 ).get( 10974548 );
+    const before = await svc( 62792452 ).get( 10974548 );
 
-    let result = await svc( 62792452 ).remove( 10974548 );
+    const result = await svc( 62792452 ).remove( 10974548 );
 
-    let after = await svc( 62792452 ).get( 10974548 );
+    const after = await svc( 62792452 ).get( 10974548 );
 
     result.success.should.equal( true );
 
@@ -54,11 +54,11 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   it( 'remove by legacyId', async () => {
 
-    let before = await svc( 62792452 ).get( 10974548 );
+    const before = await svc( 62792452 ).get( 10974548 );
 
-    let result = await remove.byLegacyId( 42, 24 );
+    const result = await remove.byLegacyId( 42, 24 );
 
-    let after = await svc( 62792452 ).get( 10974548 );
+    const after = await svc( 62792452 ).get( 10974548 );
 
     result.success.should.equal( true );
 
@@ -71,11 +71,11 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   it( 'remove by legacyId with eventId only', async () => {
 
-    let before = await svc( 62792452 ).get( 10974548 );
+    const before = await svc( 62792452 ).get( 10974548 );
 
-    let result = await remove.byLegacyId( null, 24 );
+    const result = await remove.byLegacyId( null, 24 );
 
-    let after = await svc( 62792452 ).get( 10974548 );
+    const after = await svc( 62792452 ).get( 10974548 );
 
     result.success.should.equal( true );
 
@@ -88,7 +88,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
   it( 'all references of given event can be removed in one call', async () => {
 
-    let result = await svc.remove( 15205357 );
+    const result = await svc.remove( 15205357 );
 
     result.should.eql( {
       success: true,
@@ -140,7 +140,8 @@ describe( 'agendaEvents - functional (server): remove', function() {
               userUid: 111,
               agendaUid: null,
               transferToLegacy: false,
-              legacy: true
+              legacy: true,
+              deletion: false
             } );
 
             done();

@@ -25,15 +25,15 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  let params = validateOptions( options ),
+  const params = validateOptions( options, 'update' );
 
-    clean, result, entryValues,
+  const current = await get( agendaUid, eventUid );
 
-    current = await get( agendaUid, eventUid ),
+  let clean;
 
-    success = false,
+  let success = false;
 
-    updated = null;
+  let updated = null;
 
   if ( current === null ) {
 
@@ -46,7 +46,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   try {
 
-    let values = _.extend( {}, current, data || {}, {
+    const values = _.extend( {}, current, data || {}, {
       updatedAt: new Date(),
       createdAt: current.createdAt
     } );
@@ -73,9 +73,9 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   }
 
-  entryValues = _.mapKeys( _.omit( clean, [ 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
+  const entryValues = _.mapKeys( _.omit( clean, [ 'agendaUid', 'eventUid' ] ), ( v, k ) => _.snakeCase( k ) );
 
-  result = await knex( config.schemas.agendaEvent )
+  const result = await knex( config.schemas.agendaEvent )
 
     .update( entryValues )
 

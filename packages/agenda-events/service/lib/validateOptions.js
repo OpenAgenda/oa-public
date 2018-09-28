@@ -1,14 +1,16 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
   boolean: require( '@openagenda/validators/boolean' )
 } );
 
-module.exports = values => {
+module.exports = ( values, operation = 'default' ) => {
 
-  const clean = validate( values );
+  const clean = validates[ operation ]( values );
 
   clean.context.transferToLegacy = clean.transferToLegacy;
 
@@ -16,7 +18,13 @@ module.exports = values => {
 
 }
 
-const validate = schema( {
+function validate( values, type = 'base' ) {
+
+
+
+}
+
+const base = {
   protected: {
     type: 'boolean',
     default: true
@@ -47,8 +55,14 @@ const validate = schema( {
       deletion: {
         type: 'boolean',
         optional: true,
-        default: null
+        default: false
       }
     }
   }
-} );
+}
+
+const validates = {
+  default: schema( base ),
+  create: schema( _.omit( base, [ 'context.fields.deletion' ] ) ),
+  update: schema( _.omit( base, [ 'context.fields.deletion' ] ) )
+}
