@@ -19,7 +19,6 @@ import { SearchInput, AgendasSearch } from '../components';
 
 const selector = formValueSelector( 'homeEvents' );
 
-
 @asyncConnect( [ {
   deferred: !__CLIENT__,
   promise: ( { store: { dispatch, getState }, helpers: { redirect } } ) => {
