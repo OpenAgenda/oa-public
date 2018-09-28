@@ -22,14 +22,10 @@ const selector = formValueSelector( 'homeEvents' );
 
 @asyncConnect( [ {
   deferred: !__CLIENT__,
-  promise: ( { store: { dispatch, getState }, helpers: { redirect } } ) => {
+  promise: ( { store: { dispatch, getState } } ) => {
     const state = getState();
     const query = state.routing.locationBeforeTransitions.query;
     const promises = [];
-
-    if ( state.settings.isNew ) {
-      return redirect( '/' );
-    }
 
     if ( !eventsActions.isLoaded( state ) ) {
       promises.push( dispatch( eventsActions.load( query ) ) );
@@ -132,7 +128,7 @@ export default class Events extends Component {
     return res.events.edit
       .replace( ':slug', event.agenda.slug )
       .replace( ':eventSlug', event.slug );
-      
+
   }
 
   getImagePath( image ) {
@@ -196,10 +192,11 @@ export default class Events extends Component {
             visible={search || query.search || total > perPageLimit}
           />
         </form>
+        <div className="clearfix"></div>
         <ul className="list-unstyled padding-top-sm">
           {events && events.map( ( event, i ) => (
-          <li className={'event-item media' + (event.draft ? ' draft' : '')}>
-            <div className="padding-all-md" key={i}>
+          <li key={event.uid} className={'event-item media' + (event.draft ? ' draft' : '')}>
+            <div className="padding-all-md">
               <div className="media-left">
                 <a
                   href={this.getEventShowLink( event )}
@@ -244,7 +241,7 @@ export default class Events extends Component {
           ) )}
 
           {!events || !events.length && <div className="text-center text-muted margin-top-md">
-            {getLabel( 'noResult' )}
+            {getLabel( search || query.search ? 'noResult' : 'noEventsCreated' )}
           </div>}
 
           {nextLoading && <li className="padding-v-md" style={{ position: 'relative' }}>

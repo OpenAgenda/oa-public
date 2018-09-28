@@ -51,10 +51,6 @@ module.exports = {
     fr: 'Aucun résultat trouvé',
     en: 'No result found'
   },
-  myEvents: {
-    fr: 'Mes événements',
-    en: 'My events'
-  },
   createEvent: {
     fr: 'Créer un événement',
     en: 'Create an event'
@@ -102,5 +98,9 @@ module.exports = {
   noLocation: {
     fr: 'Lieu non défini',
     en: 'Location not defined'
+  },
+  noEventsCreated: {
+    fr: 'Vous n\'avez encore créé aucun événement',
+    en: 'You haven\'t created any event yet'
   }
 };
