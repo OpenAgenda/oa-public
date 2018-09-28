@@ -264,7 +264,7 @@ export default class Events extends Component {
         >
           <AgendasSearch
             id="selectAgendasForCreateEvent"
-            getTitleLink={agenda => res.agendas.addEvent.replace( ':slug', agenda.slug )}
+            getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }
             createButtonIfEmpty
             clearfixAfterButton
           />
