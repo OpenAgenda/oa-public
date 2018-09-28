@@ -27,7 +27,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  const params = validateOptions( options );
+  const params = validateOptions( options, 'create' );
 
   let clean;
 

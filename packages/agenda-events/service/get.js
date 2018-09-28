@@ -32,7 +32,7 @@ async function _get( where ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  let ref = await knex( config.schemas.agendaEvent )
+  const ref = await knex( config.schemas.agendaEvent )
     .first( [ 
       'agenda_uid',
       'event_uid',
