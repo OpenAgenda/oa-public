@@ -11,6 +11,7 @@ const endpoints = {
   get: require( './service/get' ),
   create: require( './service/create' ),
   update: require( './service/update' ),
+  set: require( './service/set' ),
   remove: require( './service/remove' ),
   validate: require( './iso/validate' )
 }
