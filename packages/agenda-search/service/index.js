@@ -1,16 +1,14 @@
 "use strict";
 
-var logger = require( '@openagenda/basic-logger' ), log,
+const deepExtend = require( 'deep-extend' );
 
-db = require( './db' ),
+const logger = require( '@openagenda/logs' );
 
-searchLib = require( './search' ), search,
+const db = require( './db' );
+const mw = require( './middleware' );
+const searchLib = require( './search' );
 
-mw = require( './middleware' ),
-
-deepExtend = require( 'deep-extend' ),
-
-config;
+let log, search, config;
 
 module.exports = {
   init,
@@ -33,7 +31,6 @@ module.exports = {
 function init( c ) {
 
   config = deepExtend( {
-    logger: false,
     services: {
       agendas: false
     }
@@ -41,7 +38,7 @@ function init( c ) {
 
   if ( config.logger ) {
 
-    logger.setLogger( config.logger );
+    logger.setModuleConfig( config.logger );
 
   }
 

@@ -1,24 +1,20 @@
 "use strict";
 
-let logger = require( '@openagenda/basic-logger' ), log,
+const utils = require( '@openagenda/utils' );
+const React = require( 'react' );
+const ReactDOMServer = require( 'react-dom/server' );
+const rss = require( 'rss' );
 
-getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search/index' ) ),
+const log = require( '@openagenda/logs' )( 'middleware' );
 
-validators = require( '../validators' ),
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search/index' ) );
 
-service, config,
+const url = require( './url' );
+const validators = require( '../validators' );
 
-url = require( './url' ),
+const Body = React.createFactory( require( '../components/lib/Body.js' ) );
 
-utils = require( '@openagenda/utils' ),
-
-React = require( 'react' ),
-
-ReactDOMServer = require( 'react-dom/server' ),
-
-rss = require( 'rss' ),
-
-Body = React.createFactory( require( '../components/lib/Body.js' ) );
+let service, config;
 
 module.exports = {
   init,

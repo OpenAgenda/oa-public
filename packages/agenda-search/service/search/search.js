@@ -1,22 +1,17 @@
 "use strict";
 
-const w = require( 'when' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const elastic = require( 'elasticsearch' );
+const w = require( 'when' );
 
-  _ = require( 'lodash' ),
+const utils = require( '@openagenda/utils' );
 
-  elastic = require( 'elasticsearch' ),
+const log = require( '@openagenda/logs' )( 'search' );
 
-  utils = require( '@openagenda/utils' ),
-
-  async = require( 'async' ),
-
-  logger = require( '@openagenda/basic-logger' );
-
-let log, esClient;
+let esClient;
 
 module.exports = function( obj, service, config ) {
-
-  log = logger( 'search' );
 
   return {
 

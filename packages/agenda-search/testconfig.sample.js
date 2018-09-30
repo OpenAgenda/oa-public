@@ -20,7 +20,7 @@ module.exports = {
   },
   elasticsearch: {
     host: 'localhost:9200',
-    log: [ {
+    log: [ {
       type: 'stdio',
       level: [ 'error', 'warning' ]
     } ],
@@ -37,7 +37,7 @@ module.exports = {
     path: '//cibul.s3.amazonaws.com/',
     default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
   },
-  files: {
+  files: {
     tmpPath: __dirname + '/test/tmp',
     bucket: 'openagendatst',
     accessKeyId: '',
