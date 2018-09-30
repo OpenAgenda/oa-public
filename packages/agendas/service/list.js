@@ -9,7 +9,10 @@ const map = require( './databaseFieldMap' );
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 const parseListArguments = require( '@openagenda/service-utils/parseListArguments' );
 
-const details = require( './details' );
+
+const { promisify } = require( 'util' );
+
+const loadDetails = promisify( require( './details' ).load );
 
 const validateQuery = require( './validate/listQuery' );
 const validateOptions = require( './validate/listOptions' );
@@ -20,174 +23,141 @@ module.exports = _.extend( list, {
   init
 } );
 
-
 function list( q, off, l, op, c ) {
 
-  let { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments ),
+  const { query, offset, limit, options, cb } = parseListArguments.apply( null, arguments );
 
-    cleanQuery;
+  const p = promise( query, offset, limit, options );
 
-  try {
+  if ( cb ) return p.then( ( { agendas, total } ) => cb( null, agendas, total ), cb );
 
-    cleanQuery = validateQuery( query );
+  return p;
 
-  } catch ( errors  ) {
+}
 
-    return cb( new Error( 'invalid query' ) );
 
-  } 
+async function promise( query, offset, limit, options = {} ) {
+
+  const config = service.getConfig();
 
   const cleanOptions = validateOptions( options );
 
-  // options that were in query are to be DEPRECATED
-  Object.keys( cleanOptions ).forEach( k => {
+  _includeLegacyQuery( cleanOptions, options, query );
+
+  const cleanQuery = validateQuery( query );
+
+  if ( !knex ) throw new Error( 'service is not initialized' );  
+
+  const k = _search( knex( schemas.agenda ), cleanQuery, cleanOptions );
+
+  const total = cleanOptions.total ? await _total( k ) : null;
+
+  if ( cleanQuery.order ) {
+
+    k.orderBy.apply( k, cleanQuery.order.split( '.' ).map( _.snakeCase ) );
+    
+  } else {
+
+    k.orderBy( 'updated_at', 'desc' );
+
+  }
+
+  const rows = await k.select( _listFields( cleanOptions ) )
+    .limit( limit || 0 )
+    .offset( offset || 0 );
+
+  const agendas = rows.map( _parseDbEntry.bind( null, options, config ) );
+
+  if ( cleanOptions.detailed ) {
+
+    for ( const agenda of agendas ) {
+
+      await loadDetails( agenda );
+
+    }
+
+  }
+
+  return {
+    agendas,
+    total
+  }
+
+}
+
+
+function _includeLegacyQuery( clean, options, query ) {
+
+  _.keys( clean ).forEach( k => {
 
     if ( options[ k ] === undefined && query[ k ] !== undefined ) {
 
       console.log( '%s in query is DEPRECATED. set in options instead', k );
 
-      cleanOptions[ k ] = query[ k ];
+      clean[ k ] = query[ k ];
       query[ k ] = undefined;
 
     }
 
   } );
 
-  if ( !knex ) {
-
-    return cb( 'no config' );
-
-  }
-
-  w( {
-    offset,
-    limit,
-    query: cleanQuery,
-    options: cleanOptions,
-    knex: knex( schemas.agenda ),
-    result: {
-      agendas: [],
-      total: null
-    }
-  } )
-
-    .then( _search )
-
-    .then( _total )
-
-    .then( _order )
-
-    .then( _list )
-
-    .then( _detailed )
-
-    .done( v => cb( null, v.result.agendas, v.result.total ), cb );
+  return options;
 
 }
 
 
-function _search( v ) {
+function _search( k, query, options ) {
 
-  if ( v.options.private !== null ) {
+  if ( options.private !== null ) k.where( 'private', options.private );
 
-    v.knex.where( 'private', v.options.private );
+  if ( options.indexed !== null ) k.where( 'indexed', options.indexed );
 
-  }
+  if ( query.ids || query.id ) k.whereIn( 'id', query.id || query.ids );
 
-  if ( v.options.indexed !== null ) {
+  if ( query.uid ) k.whereIn( 'uid', query.uid );
 
-    v.knex.where( 'indexed', v.options.indexed );
+  if ( query.updatedAtGreaterThan ) {
 
-  }
-
-  if ( v.query.ids || v.query.id ) {
-
-    let ids = v.query.id || v.query.ids;
-
-    if ( v.query.ids ) {
-
-      console.log( 'agendas.list: use of ids is DEPRECATED. Use id instead' );
-
-    }
-
-    v.knex = v.knex.whereIn( 'id', ids );
+    k.where( 'updated_at', '>', query.updatedAtGreaterThan );
 
   }
 
-  if ( v.query.uid ) {
+  if ( query.idGreaterThan ) {
 
-    v.knex = v.knex.whereIn( 'uid', v.query.uid );
-
-  }
-
-  if ( v.query.updatedAtGreaterThan ) {
-
-    v.knex.where( 'updated_at', '>', v.query.updatedAtGreaterThan );
+    k.where( 'id', '>', query.idGreaterThan );
 
   }
 
-  if ( !v.query.search ) {
+  if ( !query.search ) return k;
 
-    return v;
+  k[ query.ids || query.id ? 'andWhere' : 'where' ]( function () {
 
-  }
-
-  v.knex = v.knex[ v.query.ids ? 'andWhere' : 'where' ]( function () {
-
-    this.where( 'title', 'like', `%${v.query.search}%` )
-      .orWhere( 'description', 'like', `%${v.query.search}%` )
-      .orWhere( 'slug', 'like', `%${v.query.search}%` );
+    this.where( 'title', 'like', `%${query.search}%` )
+      .orWhere( 'description', 'like', `%${query.search}%` )
+      .orWhere( 'slug', 'like', `%${query.search}%` );
 
   } );
 
-  return v;
+  return k;
 
 }
 
 
+async function _total( k ) {
 
+  const result = await knex.transaction( trx => k.clone()
+    .count( 'id as total' )
+    .transacting( trx ) 
+  );
 
-
-
-function _order( v ) {
-
-  if ( v.query.order ) {
-
-    v.knex.orderBy.apply( v.knex, v.query.order.split( '.' ).map( _.snakeCase ) );
-    
-  }
-
-  return v;
+  return _.get( result, '0.total' );
 
 }
 
 
-function _total( v ) {
+function _listFields( options ) {
 
-  if ( !v.options.total ) return v;
-
-  return knex.transaction( trx => {
-
-    return v.knex.clone()
-      .count( 'id as agendas' )
-      .transacting( trx );
-
-  } )
-
-    .then( result => {
-
-      v.result.total = result[ 0 ].agendas;
-
-      return v;
-
-    } );
-
-}
-
-
-function _list( v ) {
-
-  let listFields = map.filter( field => {
+  return map.filter( field => {
 
     if ( typeof field === 'string' ) {
 
@@ -195,7 +165,7 @@ function _list( v ) {
 
     }
 
-    if ( v.options.includeFields.includes( field.obj ) ) {
+    if ( options.includeFields.includes( field.obj ) ) {
 
       return true;
 
@@ -207,7 +177,7 @@ function _list( v ) {
 
     }
 
-    if ( field.internal && v.options.internal === false ) {
+    if ( field.internal && options.internal === false ) {
 
       return false;
 
@@ -217,62 +187,26 @@ function _list( v ) {
 
   } ).map( f => typeof f === 'string' ? f : f.db );
 
-  return knex.transaction( trx => {
-
-    return v.knex
-      .select.apply( v.knex, listFields )
-      // huh? order was defined prior to this
-      .orderBy( 'updated_at', 'desc' )
-      .limit( v.limit || 0 )
-      .offset( v.offset || 0 )
-      .transacting( trx );
-
-  } )
-
-    .then( agendas => {
-
-      v.result.agendas = agendas.map( dbParse.toObj )
-        .map( agenda => {
-
-          if ( v.options.includeImagePath && agenda.image ) {
-
-            agenda.image = imagePath + agenda.image;
-
-          } else if ( v.options.useDefaultImage && !agenda.image ) {
-
-            agenda.image = service.getConfig().defaultImagePath;
-
-          }
-
-          return agenda;
-
-        } );
-
-      return v;
-
-    } );
-
 }
 
 
-function _detailed( v ) {
+function _parseDbEntry( options, config, row ) {
 
-  if ( !v.options.detailed ) return v;
+  const agenda = dbParse.toObj( row );
 
-  let gDetails = guard( guard.n( 1 ), agenda => wn.call( details.load, agenda ) );
+  if ( options.includeImagePath && agenda.image ) {
 
-  return w.map( v.result.agendas, gDetails )
+    agenda.image = imagePath + agenda.image;
 
-    .then( agendas => {
+  } else if ( options.useDefaultImage && !agenda.image ) {
 
-      v.result.agendas = agendas;
+    agenda.image = config.defaultImagePath;
 
-      return v;
+  }
 
-    } );
+  return agenda;
 
 }
-
 
 
 function init( svc, k ) {
