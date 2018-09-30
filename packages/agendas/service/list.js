@@ -12,6 +12,7 @@ const parseListArguments = require( '@openagenda/service-utils/parseListArgument
 const details = require( './details' );
 
 const validateQuery = require( './validate/listQuery' );
+const validateOptions = require( './validate/listOptions' );
 
 let service, schemas, imagePath, knex;
 
@@ -36,25 +37,16 @@ function list( q, off, l, op, c ) {
 
   } 
 
-  const finalOptions = _.extend( {
-    private: false,
-    indexed: null,
-    total: false,
-    detailed: false,
-    internal: null, // this should be false by default but was not existing until now
-    includeImagePath: false,
-    useDefaultImage: false,
-    includeFields: [] // include fields in list results explicitely
-  }, options );
+  const cleanOptions = validateOptions( options );
 
   // options that were in query are to be DEPRECATED
-  Object.keys( finalOptions ).forEach( k => {
+  Object.keys( cleanOptions ).forEach( k => {
 
     if ( options[ k ] === undefined && query[ k ] !== undefined ) {
 
       console.log( '%s in query is DEPRECATED. set in options instead', k );
 
-      finalOptions[ k ] = query[ k ];
+      cleanOptions[ k ] = query[ k ];
       query[ k ] = undefined;
 
     }
@@ -71,7 +63,7 @@ function list( q, off, l, op, c ) {
     offset,
     limit,
     query: cleanQuery,
-    options: finalOptions,
+    options: cleanOptions,
     knex: knex( schemas.agenda ),
     result: {
       agendas: [],
