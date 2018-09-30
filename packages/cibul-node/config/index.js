@@ -612,7 +612,7 @@ const config = {
       channel: 'maindev'
     },
     es53: {
-      host: 'http://ns397902.ip-151-80-41.eu',
+      host: 'localhost',
       port: 9205
     },
     redis: {
