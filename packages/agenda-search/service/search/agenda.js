@@ -304,7 +304,7 @@ function clean( a, config ) {
     'createdAt' 
   ].forEach( k => {
 
-    c[ utils.toCamelCase( k ) ] = a[ k ];
+    c[ utils.toCamelCase( k ) ] = a[ k ];
 
   } );
 

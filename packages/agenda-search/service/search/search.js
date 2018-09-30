@@ -123,7 +123,7 @@ function _populate( v ) {
 
     log( 'info', 'listing agendas from %s to %s', offset, offset + limit );
 
-    ( v.interfaces && v.interfaces.agendasList ? v.interfaces.agendasList : v.service.list.bind( null, { detailed: true } ) )( offset, limit, ( err, items ) => {
+    ( v.interfaces && v.interfaces.agendasList ? v.interfaces.agendasList : v.service.list.bind( null, { detailed: true } ) )( offset, limit, ( err, items ) => {
 
       if ( err ) {
 
@@ -206,7 +206,7 @@ function _bulkInsert( v, items, cb ) {
 
   if ( !bulked.length ) {
 
-    return cb( null, { items: [] } );
+    return cb( null, { items: [] } );
 
   }
 
@@ -399,7 +399,7 @@ function getClient( config ) {
 
   if ( !esClient ) {
 
-    esClient = new elastic.Client( _.pick( config, [ 'host', 'apiVersion' ] ) );
+    esClient = new elastic.Client( _.pick( config, [ 'host', 'apiVersion' ] ) );
 
   }
 
@@ -413,7 +413,7 @@ function _now() {
   var now = new Date();
 
   return [
-    [ now.getFullYear(),
+    [ now.getFullYear(),
     utils.fZ( now.getMonth() + 1 ),
     utils.fZ( now.getDate() ) ].join( '' ),
     [ utils.fZ( now.getHours() ),

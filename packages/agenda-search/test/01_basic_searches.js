@@ -36,7 +36,7 @@ describe( 'search', function() {
 
   it( 'keyword search', done => {
 
-    search.list( { search: 'jardin' }, 0, 10, ( err, agendas, total ) => {
+    search.list( { search: 'jardin' }, 0, 10, ( err, agendas, total ) => {
 
       total.should.equal( 2 );
 
