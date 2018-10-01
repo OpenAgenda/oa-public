@@ -25,7 +25,8 @@ module.exports = _.extend( ( parentApp, path ) => {
   parentApp.all( [ 
     '/:agendaSlug/contribute', 
     '/:agendaSlug/contribute/:step',
-    '/:agendaSlug/contribute/event/:eventUid'
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
     sessions.middleware.load(),
     agendas.middleware.load( {
@@ -40,18 +41,22 @@ module.exports = _.extend( ( parentApp, path ) => {
     middlewares.member
   ] ); 
 
-  parentApp.all( '/:agendaSlug/contribute/event/:eventUid', middlewares.event );
+  parentApp.all( [
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], middlewares.event );
 
   parentApp.all( [
     '/:agendaSlug/contribute', 
     '/:agendaSlug/contribute/:step',
-    '/:agendaSlug/contribute/event/:eventUid'
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
   ], ( req, res, next ) => {
     
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: !!req.event,
+      edit: _.get( req, 'event' ) && !_.get( req, 'event.draft' ),
       locationRes: {
         index: `/${req.agenda.slug}/locations`,
         geocode: `/${req.agenda.slug}/locations/geocode`,
