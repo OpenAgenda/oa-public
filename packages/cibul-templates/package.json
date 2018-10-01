@@ -28,6 +28,7 @@
     "@openagenda/activity-apps": "^1.0.44",
     "@openagenda/admin-agendas": "^1.0.8",
     "@openagenda/agenda-categories": "^0.1.2",
+    "@openagenda/agenda-docx": "^1.0.7",
     "@openagenda/agenda-event-references": "^1.0.2",
     "@openagenda/agenda-locations": "^1.0.49",
     "@openagenda/agenda-search": "^0.1.2",
