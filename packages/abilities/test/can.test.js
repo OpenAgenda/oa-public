@@ -12,8 +12,8 @@ const database = `${testconfig.mysql.database}_can`;
 beforeEach( async () => {
   await db.create( { ...testconfig.mysql, database } );
   await db.fixtures( { ...testconfig.mysql, database }, {
-    agenda: path.join( __dirname, 'fixtures', 'agenda.sql' ),
-    member: path.join( __dirname, 'fixtures', 'member.sql' )
+    [ testconfig.schemas.agenda ]: path.join( __dirname, 'fixtures', 'agenda.sql' ),
+    [ testconfig.schemas.member ]: path.join( __dirname, 'fixtures', 'member.sql' )
   } );
 
   abilities.init( {

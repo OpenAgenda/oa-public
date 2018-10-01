@@ -64,7 +64,6 @@ async function get( entityName, identifier, options ) {
   }
 
   const getEntityFn = config.interfaces && config.interfaces.getEntity && config.interfaces.getEntity[ entityName ];
-  // const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
   const defineFn = config.interfaces && config.interfaces.defineFor && config.interfaces.defineFor[ entityName ];
 
   if ( !_.isFunction( getEntityFn ) ) {
@@ -76,14 +75,7 @@ async function get( entityName, identifier, options ) {
   }
 
   const builder = AbilityBuilder.extract();
-
   const entity = await getEntityFn( identifier );
-  // const entityDefaultRules = defaultForFn ? await defaultForFn( entity, builder ) : [];
-  //
-  // if ( _.isArray( entityDefaultRules ) ) {
-  //   builder.rules = entityDefaultRules;
-  // }
-
   const entityRules = await defineFn( entity, builder, options );
   const ability = new Ability( rulesLib.parse( entityRules ), { subjectName: getSubjectName } );
 

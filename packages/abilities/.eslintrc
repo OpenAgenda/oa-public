@@ -43,12 +43,17 @@
       {
         "devDependencies": [
           "test/setup.js",
-          "**/*.test.js",
-          "**/*.spec.js"
+          "**/*.{test,spec}.js"
         ]
       }
     ]
   },
+  "overrides": [ {
+    "files": "**/*.{test,spec}.js",
+    "rules": {
+      "no-unused-expressions": "off"
+    },
+  } ],
   "parserOptions": {
     "sourceType": "script"
   },

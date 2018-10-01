@@ -5,12 +5,18 @@ const { AbilityBuilder } = require( '@casl/ability' );
 const config = require( '../config' );
 
 
-const joinIfArray = ( value, delimiter = '|' ) => Array.isArray( value ) ? value.join( delimiter ) : value;
-const splitIfNeeded = ( value, delimiter = '|' ) => typeof value === 'string' && value.includes( delimiter )
-  ? value.split( delimiter )
-  : Array.isArray( value ) && value.length === 1
-    ? value[ 0 ]
-    : value;
+const joinIfArray = ( value, delimiter = '|' ) => ( Array.isArray( value ) ? value.join( delimiter ) : value );
+const splitIfNeeded = ( value, delimiter = '|' ) => {
+  if ( typeof value === 'string' && value.includes( delimiter ) ) {
+    return value.split( delimiter );
+  }
+
+  if ( Array.isArray( value ) && value.length === 1 ) {
+    return value[ 0 ];
+  }
+
+  return value;
+};
 
 function format( rules ) {
   const _format = rule => ( {
@@ -33,7 +39,7 @@ function parse( rules ) {
     conditions: typeof rule.conditions === 'string' ? JSON.parse( rule.conditions ) : ( rule.conditions || null ),
     fields: splitIfNeeded( rule.fields ) || null,
     reason: rule.reason || null
-  } )
+  } );
 
   return Array.isArray( rules ) ? rules.map( _parse ) : _parse( rules );
 }

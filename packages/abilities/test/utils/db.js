@@ -23,7 +23,7 @@ async function fixtures( config, schemas ) {
   for ( const [ schema, path ] of Object.entries( schemas ) ) {
     const sql = await promisify( readFile )( path, { encoding: 'utf8' } );
 
-    await promisify( conn.query ).call( conn, sql.replace( /\${schema}/g, schema )  );
+    await promisify( conn.query ).call( conn, sql.replace( /\${schema}/g, schema ) );
   }
 
   conn.destroy();
