@@ -281,11 +281,11 @@ module.exports = function ( enabledTypes, options, cb ) {
 
         require( '@openagenda/mails' ).task();
 
-        require( './services/elasticsearch' ).resync( { reset: true }, ( err, res ) => {
+        /*require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => {
 
           console.log( 'FINI', err, res );
 
-        } );
+        } );*/
 
         // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 
