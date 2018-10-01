@@ -25,10 +25,6 @@ module.exports = {
     fr: 'Mettre à jour l\'événement',
     en: 'Update the event'
   },
-  editDraftTitle: {
-    fr: 'Brouillon',
-    en: 'Draft'
-  },
   updateDraft: {
     fr: 'Mettre à jour le brouillon',
     en: 'Update draft'
@@ -36,5 +32,13 @@ module.exports = {
   undraft: {
     fr: 'Créer l\'événement',
     en: 'Create the event'
+  },
+  addEvent: {
+    fr: 'Ajouter un événement',
+    en: 'Add an event'
+  },
+  editDraftTitle: {
+    fr: 'Brouillon',
+    en: 'Draft'
   }
 }
