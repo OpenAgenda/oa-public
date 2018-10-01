@@ -22,14 +22,11 @@ export default connect(
     onRedirectAction: type => e => dispatch( reducers.confirmation.redirect( type ) ),
     onDidMount: step => dispatch( reducers.landing.evaluate( step ) )
   } )
-)( ( { config, onRedirectAction, onDidMount, steps } ) => <Canvas {...config} step="confirmation" onDidMount={onDidMount} onSelectStep={()=>{}} steps={steps}>
+)( ( { config, onRedirectAction, onDidMount, steps, event } ) => <Canvas {...config} step="confirmation" onDidMount={onDidMount} onSelectStep={()=>{}} steps={steps} title={labels.moderationRecap[ config.lang ]}>
   
-  <div className="wsq padding-all-md padding-top-sm text-center">
-    <h3>{labels.moderationRecap[ config.lang ]}</h3>
-  </div>
   {_.get( config, 'confirmation.message' ) ? <div className="padding-all-md padding-bottom-sm wsq event-instruction">
     <ReactMarkdown source={config.confirmation.message} />
-  </div> : <div className="padding-h-md padding-bottom-sm wsq">
+  </div> : <div className="padding-h-md padding-top-lg padding-bottom-sm wsq">
     <p>{labels.moderationRecapDetail[ config.lang ]}</p> 
   </div> }
   <div className="padding-all-md padding-top-sm wsq">

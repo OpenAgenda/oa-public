@@ -61,21 +61,28 @@ dev.get( '/', ( req, res ) => {
 dev.use( '/locations', locationApp );
 
 dev.all( 
-  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step', '/:agendaSlug/contribute/event/:eventUid' ],
+  [ 
+    '/:agendaSlug/contribute', 
+    '/:agendaSlug/contribute/:step', 
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft',
+  ],
   require( './dev/loadUserMw' ),
   require( './dev/loadAgendaMw' ),
   require( './dev/loadMemberMw' )
 );
 
-dev.all( 
+dev.all( [ 
   '/:agendaSlug/contribute/event/:eventUid',
-  require( './dev/loadEventMw' )
-);
+  '/:agendaSlug/contribute/event/:eventUid/draft'
+], require( './dev/loadEventMw' ) );
 
-dev.all(
-  [ '/:agendaSlug/contribute', '/:agendaSlug/contribute/:step', '/:agendaSlug/contribute/event/:eventUid' ],
-  require( './dev/loadConfigMw' )
-);
+dev.all( [
+  '/:agendaSlug/contribute',
+  '/:agendaSlug/contribute/:step',
+  '/:agendaSlug/contribute/event/:eventUid',
+  '/:agendaSlug/contribute/event/:eventUid/draft'
+], require( './dev/loadConfigMw' ) );
 
 
 // useful only if frontAppPath is given to service at init

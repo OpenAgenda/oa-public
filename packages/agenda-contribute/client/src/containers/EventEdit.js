@@ -74,8 +74,7 @@ class EventEdit extends Component {
                 actionComponents={[ {
                   position: 'bottom',
                   Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
-                    {event.draft && <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.updateDraft[ config.lang ]}</button> }
-                    <button onClick={onSubmit} className="btn btn-primary btn-block">{labels[ event.draft ? 'undraft' : 'update' ][ config.lang ]}</button>
+                    <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
                   </div>
                 } ]}
               />
