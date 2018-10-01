@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="language" content="<%= lang %>" />
+<% if ( typeof indexed !== 'undefined' && !indexed ) { %><meta name="robots" content="noindex"><% } %>
 <% if ( metas.title ) { %>
     <title><%- __( metas.title ) %></title>
 <% } %>

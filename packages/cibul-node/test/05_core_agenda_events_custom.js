@@ -108,7 +108,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
     'cle_session' : 1928391,
     image: {
       url:
-        "http://admin-toulouse.cutm.nfrance.com/documents/10718111/10791958/67104/6eaff609-8b62-4609-9504-1e83123fb234",
+        "https://s3.eu-central-1.amazonaws.com/oastatic/integration_4.jpg",
       credits: "Visuel Cave Poésie"
     },
     locationUid: 65208887

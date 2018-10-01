@@ -14,7 +14,7 @@ const React = require( 'react' ),
   
   typeValidators = {
     integer: { func: validators.isInteger, error: 'notInt' },
-    number: { func: validators.isNumber, error: 'notNum' },
+    number: { func: validators.isNumber, error: 'notNum' },
     email: { func: validators.isEmail, error: 'notEmail' },
     url: { func: validators.isUrl, error: 'notURL' }
   },
@@ -45,7 +45,7 @@ module.exports = createReactClass({
   componentDidMount: function() {
 
     // need to validate data on mount
-    this.props.onChange( this.props.value || '', this.validate( this.props.value || '' ) );
+    this.props.onChange( this.props.value || '', this.validate( this.props.value || '' ) );
 
   },
 
@@ -72,6 +72,7 @@ module.exports = createReactClass({
       return <input 
         name={this.props.name}
         className="form-control"
+        placeholder={this.props.placeholder ? this.props.placeholder[ this.props.lang ] : null}
         type="text"
         value={this.props.value ? this.props.value : ''} 
         onChange={this.onChange}/>;
@@ -80,6 +81,7 @@ module.exports = createReactClass({
 
       return <textarea
         className="form-control"
+        placeholder={this.props.placeholder ? this.props.placeholder[ this.props.lang ] : null}
         rows="4" 
         name={this.props.name}
         value={this.props.value} 

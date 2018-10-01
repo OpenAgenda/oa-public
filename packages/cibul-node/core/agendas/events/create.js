@@ -14,7 +14,7 @@ const validate = require( './validate' );
 
 module.exports = async ( agendaUid, data, options = {} ) => {
 
-  log( 'processing data', { agendaUid } );
+  log( 'processing', { agendaUid, options } );
 
   const { draft } = _.assign( {
     draft: false
@@ -33,8 +33,11 @@ module.exports = async ( agendaUid, data, options = {} ) => {
   log( 'pre-validation done', { agendaUid } );
 
   // create the event
-  const result = await events.create( clean.event, { 
-    transferToLegacy: true,
+  const result = await events.create( clean.event, {
+    context: {
+      userUid: _.get( options, 'context.userUid', null )
+    },
+    transferToLegacy: !draft,
     draft
   } );
 
@@ -53,16 +56,16 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   }
 
-  const addResult = await doAdd( agendaUid, created.event.uid, { 
-    formSchemaId,
-    draft
-  }, ih( clean, {
+  const addResult = await doAdd( agendaUid, created.event.uid, ih( clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
     // required for custom legacy sync only.
     agendaId: { $set: agendaId }
-  } ) );
+  } ), { 
+    formSchemaId,
+    draft
+  } );
 
   return {
     success: true,

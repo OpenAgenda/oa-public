@@ -51,7 +51,7 @@ async function get( id, options = {} ) {
 
 }
 
-async function getValidator( id ) {
+async function getValidator( id, options = {} ) {
 
   let data = await get( id );
 
@@ -63,7 +63,7 @@ async function getValidator( id ) {
 
   let fs = new FormSchema( data );
 
-  return fs.getValidate();
+  return fs.getValidate( options );
 
 }
 

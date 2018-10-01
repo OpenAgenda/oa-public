@@ -285,6 +285,7 @@ describe( 'FormSchema', () => {
         field: 'andanotherfield',
         label: { fr: 'Un choix' },
         fieldType: 'radio',
+        optional: false,
         options: [ {
           id: 1,
           value: 'option-1',
@@ -312,7 +313,6 @@ describe( 'FormSchema', () => {
     // this fails when languages is a possibility
     it( '.getValidate() validates choice fields correctly', () => {
 
-
       validate( {
         andanotherfield: 1
       } )
@@ -322,6 +322,45 @@ describe( 'FormSchema', () => {
         anotherfield: null,
         andanotherfield: 1
       } );
+
+    } );
+
+    it( '.getValidate by default returns a validator that processes the full schema', () => {
+
+      try {
+        
+        validate();
+
+      } catch( errors ) {
+
+        // because andanotherfield is required
+        errors.length.should.equal( 1 );
+
+        return;        
+
+      }
+
+      // should never reach here
+      should().ok();
+
+    } );
+
+    it( '.getValidate with draft option validates fields independently of their optional state', () => {
+
+      const draftValidate = fs.getValidate( { draft: true } );
+
+      try {
+
+        const clean = draftValidate();
+
+        clean.should.eql( { atextfield: null, anotherfield: null, andanotherfield: null } );
+
+      } catch ( e ) {
+
+        // should never reach here
+        should().ok();
+
+      }
 
     } );
 

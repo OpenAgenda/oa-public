@@ -3,11 +3,17 @@
 import _ from 'lodash';
 import sa from 'superagent';
 
-export default ( { res, values, files } ) => {
+export default ( { res, values, files, query } ) => {
 
   const hasFiles = _.keys( files ).length;
 
   const req = sa.post( res );
+
+  if ( _.isObject( query ) ) {
+
+    req.query( query );
+
+  }
 
   if ( !hasFiles ) {
 

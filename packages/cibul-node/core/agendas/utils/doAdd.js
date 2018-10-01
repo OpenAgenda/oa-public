@@ -8,7 +8,7 @@ const custom = require( '@openagenda/custom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
-module.exports = async ( agendaUid, eventUid, options, clean ) => {
+module.exports = async ( agendaUid, eventUid, clean, options ) => {
 
   const { draft, formSchemaId } = _.assign( {
     formSchemaId: null,

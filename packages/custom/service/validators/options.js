@@ -16,5 +16,10 @@ module.exports = schema( {
   agendaId: {
     type: 'integer',
     optional: true
+  },
+  draft: {
+    type: 'boolean',
+    optional: true,
+    default: false
   }
 } );

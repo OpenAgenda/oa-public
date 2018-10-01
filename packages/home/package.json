@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/home",
-  "version": "2.0.32",
+  "version": "2.0.36",
+  "version": "2.0.37",
   "description": "Oh la home",
   "repository": {
     "type": "git",
@@ -31,7 +32,7 @@
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/events": "^1.1.23",
-    "@openagenda/labels": "^2.0.79",
+    "@openagenda/labels": "^2.0.111",
     "@openagenda/react-components": "^2.0.8",
     "@openagenda/react-form-components": "^2.0.15",
     "@openagenda/react-utils": "^2.0.0",

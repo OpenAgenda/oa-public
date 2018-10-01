@@ -1,3 +1,5 @@
+"use strict";
+
 import React, { Component, createElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -6,8 +8,9 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import * as agendasActions from '../../redux/modules/agendas';
-import { AgendasList, SearchInput } from '../';
+import * as agendasActions from '../redux/modules/agendas';
+import AgendasList from './AgendasList';
+import SearchInput from './SearchInput';
 
 const componentPropTypes = PropTypes.oneOfType( [
   PropTypes.element,
@@ -92,7 +95,7 @@ export default class AgendasSearch extends Component {
     const { getLabel } = this.context;
 
     return (
-      <div>
+      <div className="content">
         <div className="header hidden-xs">
           <div className="pull-right margin-bottom-md">
             <a href={res.agendas.create} className="btn btn-primary create-agenda">

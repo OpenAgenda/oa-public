@@ -97,6 +97,8 @@ function init( c ) {
         store: null
       } ); 
 
+      req.draft = [ 'true', '1' ].includes( _.get( req, 'query.draft', '0' ) );
+
       if ( _.get( req, 'event.fileKey' ) ) {
 
         req.fileKey = req.event.fileKey;
@@ -121,7 +123,9 @@ function init( c ) {
 
       log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-      config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues )
+      config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues, {
+        draft: req.draft
+      } )
 
       .then( ( { event } ) => {
 

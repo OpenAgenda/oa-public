@@ -99,9 +99,9 @@ function eventsList( req, res, next ) {
     { private: null, total: true, detailed: true, useDefaultImage: true },
     ( err, events, total ) => {
 
-      req.log( 'fetched %s of %s events owned by user %s', events.length, total, req.user.uid ); 
-
       if ( err ) return next( err );
+
+      req.log( 'fetched %s of %s events owned by user %s', events.length, total, req.user.uid ); 
 
       res.send( {
         total,

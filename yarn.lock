@@ -149,30 +149,6 @@
     redis "^2.7.1"
     verror "^1.10.0"
 
-"@openagenda/agenda-search@^0.1.2":
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-search/-/agenda-search-0.1.2.tgz#350ecf01d32ac5e5cae8956969be2fbf318c4aa6"
-  integrity sha1-NQ7PAdMqxeXK6JVpab4vvzGMSqY=
-  dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
-    "@openagenda/dom-utils" "^2.1.0"
-    "@openagenda/labels" "^2.0.7"
-    "@openagenda/react-components" "^2.0.3"
-    "@openagenda/react-form-components" "^2.0.8"
-    "@openagenda/utils" "^1.0.2"
-    "@openagenda/validators" "^2.0.1"
-    async "^1.5.2"
-    create-react-class "^15.5.2"
-    deep-extend "^0.4.1"
-    elasticsearch "^13.3.1"
-    immutability-helper "^2.3.1"
-    knex "^0.9.0"
-    prop-types "^15.5.8"
-    qs "^6.1.0"
-    rss "^1.2.1"
-    when "^3.7.7"
-    xhr "^2.2.0"
-
 "@openagenda/agenda-tags@^0.1.2", "@openagenda/agenda-tags@^0.1.3":
   version "0.1.11"
   resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-0.1.11.tgz#35ce87522600843f3e742b2a987e27be6a47cd58"
@@ -220,10 +196,10 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
   integrity sha512-pgqIk32OQ9ynxUjQBf/kOKpS7nVDfq5FOmOTRHAqVux4RC03Sz9dd2URexXtSxngicA9xBlyNnUqG4HK29VX5w==
 
-"@openagenda/cibul-model@^0.1.20":
-  version "0.1.20"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.20.tgz#6141058c3e8c4d00ef3d624c7ca97b403668d7e1"
-  integrity sha512-LCgtXRarwekMufR8T1ohetOlq004ZCBiCCWPKq/nMENZWdw4wddZUKo+0Bue1HWuDPj0XIHa2tHc0smV1VBQSQ==
+"@openagenda/cibul-model@^0.1.22":
+  version "0.1.22"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.22.tgz#9b243496c3b2381d47da58fe9c83d636336d0aa9"
+  integrity sha512-7trvswIifU0pg9k+iqclY71eHUI47rVar4pn95wLeAcfvsgWKiyFAbWhAGY0PDusKYkEV5Hg8K15RsILaem89A==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -5673,7 +5649,7 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.3:
+create-react-class@^15.5.1, create-react-class@^15.5.2, create-react-class@^15.5.3, create-react-class@^15.6.0, create-react-class@^15.6.3:
   version "15.6.3"
   resolved "https://registry.npmjs.org/create-react-class/-/create-react-class-15.6.3.tgz#2d73237fb3f970ae6ebe011a9e66f46dbca80036"
   integrity sha512-M+/3Q6E6DLO6Yx3OwrWjwHBnvfXXYA7W+dFjt/ZDBemHO1DDZhsalX/NUtnTYclN6GfnBDRh4qRHjcDHmlJBJg==
@@ -16979,6 +16955,16 @@ react-dock@^0.2.4:
     lodash.debounce "^3.1.1"
     prop-types "^15.5.8"
 
+react-dom@^15.5.4:
+  version "15.6.2"
+  resolved "https://registry.npmjs.org/react-dom/-/react-dom-15.6.2.tgz#41cfadf693b757faf2708443a1d1fd5a02bef730"
+  integrity sha1-Qc+t9pO3V/rycIRDodH9WgK+9zA=
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.10"
+
 react-dom@^16.0.0, react-dom@^16.2.0, react-dom@^16.3.2, react-dom@^16.4.0, react-dom@^16.4.2:
   version "16.5.2"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-16.5.2.tgz#b69ee47aa20bab5327b2b9d7c1fe2a30f2cfa9d7"
@@ -17263,6 +17249,17 @@ react-waypoint@^7.1.0, react-waypoint@^7.3.1:
     consolidated-events "^1.1.0"
     prop-types "^15.0.0"
 
+react@^15.5.4:
+  version "15.6.2"
+  resolved "https://registry.npmjs.org/react/-/react-15.6.2.tgz#dba0434ab439cfe82f108f0f511663908179aa72"
+  integrity sha1-26BDSrQ5z+gvEI8PURZjkIF5qnI=
+  dependencies:
+    create-react-class "^15.6.0"
+    fbjs "^0.8.9"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+    prop-types "^15.5.10"
+
 react@^16.0.0, react@^16.2.0, react@^16.3.1, react@^16.3.2, react@^16.4.2:
   version "16.5.2"
   resolved "https://registry.npmjs.org/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
@@ -17273,7 +17270,7 @@ react@^16.0.0, react@^16.2.0, react@^16.3.1, react@^16.3.2, react@^16.4.2:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
-reactify@1.1.1:
+reactify@1.1.1, reactify@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/reactify/-/reactify-1.1.1.tgz#a8f119596273c0d4bfb1abea0c14c2601ea03bba"
   integrity sha1-qPEZWWJzwNS/savqDBTCYB6gO7o=

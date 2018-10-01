@@ -9,7 +9,11 @@ const core = require( '../../../core' );
 
 const config = require( '../../../config' );
 
-module.exports = async ( agenda, user, current, data, files ) => {
+module.exports = async ( agenda, user, current, data, files, options = {} ) => {
+
+  const { draft } = _.assign( {
+    draft: false
+  }, options );
 
   log( 'current is %s', current ? 'set, this is an update.' : 'not set, this is a create' );
 
@@ -34,12 +38,13 @@ module.exports = async ( agenda, user, current, data, files ) => {
   
   // for a new event, the owner and origin agenda must be specified
 
-  if ( !current ) {
+  if ( !current || current.draft ) {
 
     _.assign( transforms, {
       ownerUid: { $set: user.uid },
       creatorUid: { $set: user.uid },
-      agendaUid: { $set: agenda.uid }
+      agendaUid: { $set: agenda.uid },
+      canEdit: { $set: true }
     } );
 
   }
@@ -52,19 +57,29 @@ module.exports = async ( agenda, user, current, data, files ) => {
 
   if ( !current ) {
 
-    log( 'creating event' );
+    log( draft ? 'creating draft' : 'creating event' );
 
-    const result = await core.agendas( agenda.uid ).events.create( transformed );
+    const result = await core.agendas( agenda.uid ).events.create( transformed, {
+      draft,
+      context: {
+        userUid: user.uid
+      }
+    } );
 
     return { event: result.created.event };
 
   } else {
 
-    log( 'updating event' );
+    log( draft ? 'updating draft' : 'updating event' );
 
     try {
 
-      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed );
+      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, { 
+        draft,
+        context: {
+          userUid: user.uid
+        }
+      } );
 
       return { event: result.updated.event };
 

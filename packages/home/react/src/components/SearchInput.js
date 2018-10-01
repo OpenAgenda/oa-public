@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import { Field } from '../';
+import Field from './Field';
 
 const searchSpinner = {
   width: 1,

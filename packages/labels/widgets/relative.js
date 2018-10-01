@@ -10,7 +10,7 @@ module.exports = {
     en: 'Tomorrow'
   },
   thisWeekend: {
-    fr: 'Ce Week-end',
+    fr: 'Ce week-end',
     en: 'This Weekend'
   },
   thisWeek: {

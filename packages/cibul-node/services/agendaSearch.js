@@ -1,14 +1,11 @@
 "use strict";
 
-const agendaSearch = require( '@openagenda/agenda-search' ),
+const async = require( 'async' );
 
-  agendas = require( '@openagenda/agendas' ),
-
-  agendaLocations = require( '@openagenda/agenda-locations' ),
-
-  async = require( 'async' ),
-
-  logger = require( '@openagenda/logger' );
+const agendaLocations = require( '@openagenda/agenda-locations' );
+const agendaSearch = require( '@openagenda/agenda-search' );
+const agendas = require( '@openagenda/agendas' );
+const logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 
@@ -24,6 +21,7 @@ module.exports.init = config => {
         max: 100
       }
     },
+    logger: config.getLogConfig( 'svc', 'agendaSearch' ),
     image: {
       path: config.aws.imageBucketPath.replace( 'cibuldev', 'cibul' ),
       default: '//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
@@ -59,7 +57,6 @@ module.exports.init = config => {
 
       }
     },
-    logger,
     site: {
       url: config.root,
       image: config.logo

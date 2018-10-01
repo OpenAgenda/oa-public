@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agendas",
-  "version": "1.0.43",
+  "version": "1.0.45",
   "description": "agendas service",
   "main": "service/index.js",
   "repository": {
@@ -20,7 +20,7 @@
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.2",
-    "@openagenda/validators": "^2.0.1",
+    "@openagenda/validators": "^2.0.14",
     "async": "^1.5.2",
     "knex": "^0.10.0",
     "lodash": "^4.17.2",

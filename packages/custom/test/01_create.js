@@ -1,18 +1,14 @@
 "use strict";
 
-const should = require( 'should' ),
+const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  _ = require( 'lodash' ),
+const schema = require( '@openagenda/validators/schema' );
 
-  svc = require( './service' ),
-
-  ih = require( 'immutability-helper' ),
-
-  mysql = require( 'mysql' ),
-
-  config = require( '../testconfig' ),
-
-  schema = require( '@openagenda/validators/schema' );
+const config = require( '../testconfig' );
+const svc = require( './service' );
 
 schema.register( {
   integer: require( '@openagenda/validators/integer' ),
@@ -27,7 +23,7 @@ describe( 'extended events - functional (server): create', function() {
 
     await svc.initAndLoad( ih( config, {
       interfaces: {
-        getValidator: { $set: formSchemaId => {
+        getValidator: { $set: ( formSchemaId, options ) => {
 
           return schema( {
             edition: {

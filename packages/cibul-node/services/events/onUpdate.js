@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 const activitiesSvc = require( '@openagenda/activities' );
@@ -12,46 +14,71 @@ module.exports = ( before, after, context ) => {
 
   log( 'info', 'updated event %s', after.uid, { context } );
 
-  eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
+  if ( !after.draft ) {
+    
+    eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
 
-  Promise.resolve()
-    .then( async () => {
+    _registerActivity( before, after, context );
+    
+  }
 
-      let user;
-      let agenda;
 
-      try {
-        user = await usersSvc.get( context.userUid );
-      } catch ( e ) {
-        return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
+}
+
+
+async function _registerActivity( before, after, context ) {
+
+  let user;
+  let agenda;
+
+  if ( !_.get( context, 'userUid' ) ) {
+
+    log( 'warn', 'userUid is not set in context, will not register activity' );
+
+    return;
+
+  }
+
+  try {
+
+    user = await usersSvc.get( context.userUid );
+
+  } catch ( e ) {
+
+    return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
+
+  }
+
+  try {
+
+    agenda = await promisify( agendasSvc.get )( { uid: context.agendaUid }, { private: null } );
+
+  } catch ( e ) {
+
+    return log( 'error', new VError( e, 'Error to get agenda %s', context.agendaUid ) );
+
+  }
+
+  activitiesSvc.feed( { entityType: 'event', entityUid: after.uid } ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'event.update',
+    object: 'event:' + after.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: user.fullName,
+        object: before.title,
+        target: agenda.title
       }
+    }
+  }, err => {
 
-      try {
-        agenda = await promisify( agendasSvc.get )( { uid: context.agendaUid }, { private: null } );
-      } catch ( e ) {
-        return log( 'error', new VError( e, 'Error to get agenda %s', context.agendaUid ) );
-      }
+    if ( err ) {
 
-      activitiesSvc.feed( { entityType: 'event', entityUid: after.uid } ).activities.add( {
-        actor: 'user:' + user.uid,
-        verb: 'event.update',
-        object: 'event:' + after.uid,
-        target: 'agenda:' + agenda.uid,
-        store: {
-          labels: {
-            actor: user.fullName,
-            object: before.title,
-            target: agenda.title
-          }
-        }
-      }, err => {
+      log( 'error', new VError( err, 'could not add activity' ) );
 
-        if ( err ) {
-          log( 'error', new VError( err, 'could not add activity' ) );
-        }
+    }
 
-      } );
-
-    } );
+  } );
 
 }

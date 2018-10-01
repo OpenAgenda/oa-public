@@ -15,7 +15,8 @@ const defaultConfig = {
     seeEvent: '/?redirect.eventCreated=:eventUid',
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
-    contactAdministrators: '/?redirect.contactAdministrators'
+    contactAdministrators: '/?redirect.contactAdministrators',
+    draft: '/?redirect.draft'
   },
   member: {
     dataIsRequired: true
@@ -149,6 +150,9 @@ module.exports = [ {
   config: _.assign( {}, defaultConfig, {
     edit: true,
     base: '/edit-an-event/contribute',
+    event: {
+      message: '*Instructions appear in edition too*'
+    }
   } ),
   event: {
     uid: 123,
@@ -160,6 +164,31 @@ module.exports = [ {
     description: {
       fr: 'Une petite description',
       en: 'A wee description'
+    },
+    locationUid: 50148047
+  }
+}, {
+  link: '/edit-a-draft-event/contribute/event/902',
+  agenda: {
+    title: 'A draft event being edited can be saved as draft again',
+    description: 'Yes.',
+    slug: 'edit-a-draft-event',
+    uid: 121010301013,
+    id: 202020
+  },
+  config: _.assign( {}, defaultConfig, {
+    edit: true,
+    base: '/edit-a-draft-event/contribute',
+  } ),
+  event: {
+    uid: 902,
+    draft: true,
+    slug: 'an-existing-draft-event',
+    title: {
+      fr: 'Pas fini'
+    },
+    description: {
+      fr: 'Une petite description'
     },
     locationUid: 50148047
   }

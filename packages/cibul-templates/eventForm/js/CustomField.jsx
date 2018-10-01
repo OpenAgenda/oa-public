@@ -56,6 +56,7 @@ module.exports = createReactClass({
             constraints= { field }
             label= { field.label }
             info= { field.info } 
+            placeholder = { field.placeholder }
             optional= { field.optional }
             lang= { this.props.lang } 
             type= { field.fieldType }

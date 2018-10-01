@@ -7,7 +7,7 @@ const s = require( './eventStates' );
 module.exports = {
   title: { 
     type: 'text', 
-    min: 2, 
+    min: 2,
     max: 255, 
     optional: false
   },

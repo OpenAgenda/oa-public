@@ -1,3 +1,5 @@
+"use strict";
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { asyncConnect } from 'redux-connect';
@@ -10,24 +12,19 @@ import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
-import * as agendasActions from '../../redux/modules/agendas';
-import * as eventsActions from '../../redux/modules/events';
-import * as modalsActions from '../../redux/modules/modals';
-import { SearchInput, AgendasSearch } from '../../components';
+import * as agendasActions from '../redux/modules/agendas';
+import * as eventsActions from '../redux/modules/events';
+import * as modalsActions from '../redux/modules/modals';
+import { SearchInput, AgendasSearch } from '../components';
 
 const selector = formValueSelector( 'homeEvents' );
 
-
 @asyncConnect( [ {
   deferred: !__CLIENT__,
-  promise: ( { store: { dispatch, getState }, helpers: { redirect } } ) => {
+  promise: ( { store: { dispatch, getState } } ) => {
     const state = getState();
     const query = state.routing.locationBeforeTransitions.query;
     const promises = [];
-
-    if ( state.settings.isNew ) {
-      return redirect( '/' );
-    }
 
     if ( !eventsActions.isLoaded( state ) ) {
       promises.push( dispatch( eventsActions.load( query ) ) );
@@ -100,16 +97,22 @@ export default class Events extends Component {
 
   throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
 
-  getMultilangLabel( field ) {
-    if ( field === null || typeof field !== 'object' ) return field;
-    return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ];
+  getMultilangLabel( field, defaultValue = '' ) {
+    if ( field === null || typeof field !== 'object' ) return field || defaultValue;
+    return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ] || defaultValue;
   }
 
   getEventShowLink( event ) {
     const { res } = this.props;
 
+    if ( event.draft ) {
+
+      return this.getEventEditLink( event );
+
+    }
+
     if ( !event.agenda ) {
-      return res.events.showWithoutAgenda.replace( ':eventSlug', event.slug );
+      return '#';
     }
 
     return res.events[ event.private ? 'showPrivate' : 'show' ]
@@ -118,11 +121,13 @@ export default class Events extends Component {
   }
 
   getEventEditLink( event ) {
+
     const { res } = this.props;
 
     return res.events.edit
       .replace( ':slug', event.agenda.slug )
       .replace( ':eventSlug', event.slug );
+
   }
 
   getImagePath( image ) {
@@ -160,8 +165,8 @@ export default class Events extends Component {
     }
 
     return (
-      <div>
-        <div className="header">
+      <div className="padding-v-sm">
+        <div className="header padding-h-md">
           <div className="hidden-xs pull-right">
             <a
               onClick={() => agendasLoad( 'selectAgendasForCreateEvent' )
@@ -173,7 +178,7 @@ export default class Events extends Component {
             </a>
           </div>
         </div>
-        <form onSubmit={handleSubmit( this.search )}>
+        <form className="padding-h-md" onSubmit={handleSubmit( this.search )}>
           <Field
             component={SearchInput}
             name="search"
@@ -186,9 +191,11 @@ export default class Events extends Component {
             visible={search || query.search || total > perPageLimit}
           />
         </form>
-        <div>
+        <div className="clearfix"></div>
+        <ul className="list-unstyled padding-top-sm">
           {events && events.map( ( event, i ) => (
-            <div className="event-item media" key={i}>
+          <li key={event.uid} className={'event-item media' + (event.draft ? ' draft' : '')}>
+            <div className="padding-all-md">
               <div className="media-left">
                 <a
                   href={this.getEventShowLink( event )}
@@ -197,70 +204,67 @@ export default class Events extends Component {
                     src={this.getImagePath( event.image )}
                     fallbackSrc={this.getImagePath( event.image ).replace( 'cibuldev', 'cibul' )}
                     className="media-object ill avatar"
-                    alt={this.getMultilangLabel( event.title )}
+                    alt={this.getMultilangLabel( event.title, getLabel( 'noTitle' ) )}
                   />
                 </a>
               </div>
               <div className="media-body">
-                <div className="title media-heading">
-                  {event.agenda && <div className="agenda">{event.agenda.title}</div>}
-                  <a href={this.getEventShowLink( event )}>
-                    <strong>{this.getMultilangLabel( event.title )}</strong>
-                  </a>
-                  {!!event.private && <div className="tooltip-icon">
-                    <i className="fa fa-unlock-alt"></i>
-                    <div className="tooltip right" role="tooltip">
-                      <div className="tooltip-arrow"></div>
-                      <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
-                    </div>
-                  </div>}
-                  {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
-                </div>
-                <div className="event-detail-part">
-                  {event.location && event.location.name}
-                </div>
-                <div className="event-detail-part">
-                  {event.timerange}
-                </div>
+                <a href={this.getEventShowLink( event )}>
+                  <div className="title media-heading">
+                    {event.agenda && <div className="agenda">{event.agenda.title}</div>}
+                    <strong>{this.getMultilangLabel( event.title , getLabel( 'noTitle' ) )}</strong>
+                    {!!event.private && <div className="tooltip-icon">
+                      <i className="fa fa-unlock-alt"></i>
+                      <div className="tooltip right" role="tooltip">
+                        <div className="tooltip-arrow"></div>
+                        <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
+                      </div>
+                    </div>}
+                    {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
+                  </div>
+                  <div className="event-detail-part">
+                    { event.location && event.location.name ? event.location.name : getLabel('noLocation') }
+                  </div>
+                  <div className="event-detail-part">
+                    {event.timerange}
+                  </div>
+                </a>
 
                 {event.agenda ? <div className="actions">
-                  <a
-                    href={this.getEventEditLink( event )}
-                    className="text-muted"
-                  >
-                    {getLabel( 'modify' )}
-                  </a>
+                  {event.draft ? <span className="badge badge-sm badge-default">{getLabel( 'draft' )}</span> : null}
+                  <a href={this.getEventEditLink( event )}>{getLabel( 'modify' )}</a>
                 </div> : null}
               </div>
             </div>
+          </li>
           ) )}
 
           {!events || !events.length && <div className="text-center text-muted margin-top-md">
-            {getLabel( 'noResult' )}
+            {getLabel( search || query.search ? 'noResult' : 'noEventsCreated' )}
           </div>}
 
-          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
+          {nextLoading && <li className="padding-v-md" style={{ position: 'relative' }}>
             <Spinner/>
-          </div>}
+          </li>}
+        </ul>
 
-          <Waypoint onEnter={this.throttledNextPage}/>
+        <Waypoint onEnter={this.throttledNextPage}/>
 
-          {selectAgendasModal.visible && <Modal
-            title={getLabel( 'selectAgenda' )}
-            onClose={() => closeModal( 'selectAgenda' )}
-            classNames={{
-              overlay: 'popup-overlay big'
-            }}
-            disableBodyScroll
-          >
-            <AgendasSearch
-              id="selectAgendasForCreateEvent"
-              getTitleLink={agenda => res.agendas.addEvent.replace( ':slug', agenda.slug )}
-              createButtonIfEmpty
-              clearfixAfterButton
-            />
-          </Modal>}
-        </div>
+        {selectAgendasModal.visible && <Modal
+          title={getLabel( 'selectAgenda' )}
+          onClose={() => closeModal( 'selectAgenda' )}
+          classNames={{
+            overlay: 'popup-overlay big'
+          }}
+          disableBodyScroll
+        >
+          <AgendasSearch
+            id="selectAgendasForCreateEvent"
+            getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }
+            createButtonIfEmpty
+            clearfixAfterButton
+          />
+        </Modal>}
       </div>
     );
   }
