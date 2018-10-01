@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require( 'lodash' );
+const { AbilityBuilder } = require( '@casl/ability' );
 const config = require( '../config' );
 
 
@@ -57,9 +58,17 @@ async function list( entityName, identifier ) {
   return parse( rules );
 }
 
+function getDefaultFor( entityName ) {
+  const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
+  const builder = AbilityBuilder.extract();
+
+  return defaultForFn ? defaultForFn( builder ) : [];
+}
+
 
 module.exports = {
   list,
   format,
-  parse
+  parse,
+  getDefaultFor
 };

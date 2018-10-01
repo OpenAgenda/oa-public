@@ -1,15 +1,20 @@
 'use strict';
 
+const path = require( 'path' );
 const { expect } = require( 'chai' );
 const abilities = require( '../' );
 const config = require( '../config' );
 const testconfig = require( '../testconfig' );
-const createDb = require( './createDb' );
+const db = require( './utils/db' );
 
 const database = `${testconfig.mysql.database}_get`;
 
 beforeEach( async () => {
-  await createDb( database );
+  await db.create( { ...testconfig.mysql, database } );
+  await db.fixtures( { ...testconfig.mysql, database }, {
+    agenda: path.join( __dirname, 'fixtures', 'agenda.sql' ),
+    member: path.join( __dirname, 'fixtures', 'member.sql' )
+  } );
 
   abilities.init( {
     ...testconfig,
@@ -18,7 +23,7 @@ beforeEach( async () => {
 
   await abilities.db.migrate();
 
-  await abilities.db.seed();
+  await abilities.db.seed( 'firstTest' );
 } );
 
 afterEach( async () => {

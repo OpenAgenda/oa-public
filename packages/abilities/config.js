@@ -57,8 +57,12 @@ function migrate( options ) {
 }
 
 function seed( options ) {
+  const directory = typeof options === 'string'
+    ? path.join( __dirname, 'seeds', options )
+    : path.join( __dirname, 'seeds', options && options.scenarioName ? options.scenarioName : '' );
+
   return config.knex.seed.run( {
-    directory: path.join( __dirname, 'seeds' ),
+    directory,
     ...options
   } );
 }

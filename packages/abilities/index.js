@@ -23,14 +23,15 @@ function getSubjectName( subject ) {
 
 function can( action, subjectName, subject, field ) {
   const haveSubjectProp = subject && !!subject[ SUBJECT_NAME ];
+  const isObject = _.isObject( subject );
 
-  if ( !haveSubjectProp && _.isObject( subject ) ) {
+  if ( !haveSubjectProp && isObject ) {
     subject[ SUBJECT_NAME ] = subjectName;
   }
 
   const result = Ability.prototype.can.call( this, action, subject || subjectName, field );
 
-  if ( !haveSubjectProp ) {
+  if ( !haveSubjectProp && isObject ) {
     delete subject[ SUBJECT_NAME ];
   }
 
@@ -53,7 +54,7 @@ function cannot( action, subjectName, subject, field ) {
   return result;
 }
 
-async function get( entityName, identifier ) {
+async function get( entityName, identifier, options ) {
   if ( !_.isString( entityName ) ) {
     throw new TypeError( '`entityName` should be a string' );
   }
@@ -62,19 +63,29 @@ async function get( entityName, identifier ) {
     throw new TypeError( '`identifier` should be a number' );
   }
 
+  const getEntityFn = config.interfaces && config.interfaces.getEntity && config.interfaces.getEntity[ entityName ];
+  // const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
   const defineFn = config.interfaces && config.interfaces.defineFor && config.interfaces.defineFor[ entityName ];
+
+  if ( !_.isFunction( getEntityFn ) ) {
+    throw Error( `Missing interface \`getEntityFn.${entityName}\`` );
+  }
 
   if ( !_.isFunction( defineFn ) ) {
     throw Error( `Missing interface \`defineFor.${entityName}\`` );
   }
 
   const builder = AbilityBuilder.extract();
-  const entityRules = await defineFn( identifier, builder );
 
-  const ability = new Ability(
-    rulesLib.parse( entityRules ),
-    { subjectName: getSubjectName }
-  );
+  const entity = await getEntityFn( identifier );
+  // const entityDefaultRules = defaultForFn ? await defaultForFn( entity, builder ) : [];
+  //
+  // if ( _.isArray( entityDefaultRules ) ) {
+  //   builder.rules = entityDefaultRules;
+  // }
+
+  const entityRules = await defineFn( entity, builder, options );
+  const ability = new Ability( rulesLib.parse( entityRules ), { subjectName: getSubjectName } );
 
   ability.can = can.bind( ability );
   ability.cannot = cannot.bind( ability );
