@@ -37,6 +37,10 @@ module.exports = schema( {
     type: 'date',
     default: null
   },
+  idGreaterThan: {
+    type: 'integer',
+    default: null
+  },
   order: {
     type: 'choice',
     options: [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ],

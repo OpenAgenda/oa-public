@@ -34,7 +34,11 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   // update the event
   let result = await events.update( { uid: eventUid }, clean.event, { 
-    context: { agendaUid, updateSearchIndex: false },
+    context: {
+      agendaUid,
+      userUid: _.get( options, 'context.userUid', null ),
+      updateSearchIndex: false
+    },
     transferToLegacy: !draft,
     draft
   } );
@@ -56,12 +60,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( !draft && clean.agendaEvent ) {
     
-    result = await agendaEvents( agendaUid ).update( updated.event.uid, clean.agendaEvent, { 
+    result = await agendaEvents( agendaUid ).set( updated.event.uid, clean.agendaEvent, { 
       transferToLegacy: true, 
       context: { legacy: false }
     } );
 
-    updated.agendaEvent = result.updated;
+    updated.agendaEvent = result.set;
 
   }
 

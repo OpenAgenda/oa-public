@@ -1,0 +1,32 @@
+[ {
+  "uid" : 1,
+  "title" : "Ville de Roubaix",
+  "description" : "Agenda des événements de la ville de roubaix",
+  "publishedEvents" : 30,
+  "upcomingPublishedEvents" : 12,
+  "official" : true
+}, {
+  "uid" : 2,
+  "title" : "La Gargouille",
+  "description" : "Evénements insolites à Paris",
+  "publishedEvents": 2019,
+  "upcomingPublishedEvents" : 30,
+  "officializedAt" : "2017-07-21T17:03:00Z",
+  "official" : true
+}, {
+  "uid" : 3,
+  "title" : "Au Théâtre ce soir",
+  "description" : "Agenda agrégeant la programmation de théâtres",
+  "publishedEvents" : 2512,
+  "upcomingPublishedEvents" : 34,
+  "official" : false,
+  "keywords" : [ "France" ]
+}, {
+  "uid" : 4,
+  "title" : "Journées Européennes du Patrimoine",
+  "description" : "Les journées officielles",
+  "publishedEvents" : 10000,
+  "upcomingPublishedEvents" : 10000,
+  "official" : true,
+  "officializedAt" : "2017-05-21T17:03:00Z"
+} ]

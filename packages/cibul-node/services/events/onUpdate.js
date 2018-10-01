@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 const activitiesSvc = require( '@openagenda/activities' );
@@ -28,6 +30,14 @@ async function _registerActivity( before, after, context ) {
 
   let user;
   let agenda;
+
+  if ( !_.get( context, 'userUid' ) ) {
+
+    log( 'warn', 'userUid is not set in context, will not register activity' );
+
+    return;
+
+  }
 
   try {
 

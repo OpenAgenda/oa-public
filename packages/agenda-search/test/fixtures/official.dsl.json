@@ -1,0 +1,48 @@
+{
+  "_source": {
+    "exclude": [
+      "*_es"
+    ]
+  },
+  "from": 0,
+  "query": {
+    "bool": {
+      "must": [ {
+        "multi_match": {
+          "fields": [
+            "title",
+            "description"
+          ],
+          "operator": "and",
+          "query": "title",
+          "type": "cross_fields"
+        }
+      } ],
+      "filter": [
+        {
+          "term": {
+            "official": true
+          }
+        }
+      ]
+    }
+  },
+  "size": 10,
+  "sort": [
+    {
+      "official": {
+        "order": "desc"
+      }
+    },
+    {
+      "upcomingPublishedEvents": {
+        "order": "desc"
+      }
+    },
+    {
+      "updatedAt": {
+        "order": "desc"
+      }
+    }
+  ]
+}

@@ -32,6 +32,8 @@
 
   &.draft {
 
+    border-left: 4px solid $oa-gray-lightish;
+
     background: lighten( $oa-gray-lighter, 4 );
 
     &:hover {

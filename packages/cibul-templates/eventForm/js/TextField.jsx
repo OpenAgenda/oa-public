@@ -72,7 +72,7 @@ module.exports = createReactClass({
       return <input 
         name={this.props.name}
         className="form-control"
-        placeholder={this.props.placeholder || null}
+        placeholder={this.props.placeholder ? this.props.placeholder[ this.props.lang ] : null}
         type="text"
         value={this.props.value ? this.props.value : ''} 
         onChange={this.onChange}/>;
@@ -81,7 +81,7 @@ module.exports = createReactClass({
 
       return <textarea
         className="form-control"
-        placeholder={this.props.placeholder || null}
+        placeholder={this.props.placeholder ? this.props.placeholder[ this.props.lang ] : null}
         rows="4" 
         name={this.props.name}
         value={this.props.value} 

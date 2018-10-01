@@ -19,7 +19,6 @@ import { SearchInput, AgendasSearch } from '../components';
 
 const selector = formValueSelector( 'homeEvents' );
 
-
 @asyncConnect( [ {
   deferred: !__CLIENT__,
   promise: ( { store: { dispatch, getState } } ) => {
@@ -261,7 +260,7 @@ export default class Events extends Component {
         >
           <AgendasSearch
             id="selectAgendasForCreateEvent"
-            getTitleLink={agenda => res.agendas.addEvent.replace( ':slug', agenda.slug )}
+            getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }
             createButtonIfEmpty
             clearfixAfterButton
           />

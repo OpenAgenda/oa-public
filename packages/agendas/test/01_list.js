@@ -34,6 +34,14 @@ describe( 'agendas - functional (server): list', function () {
     svc.init( config )
   } );
 
+  it( 'list as a promise', async () => {
+
+    const { agendas } = await svc.list( 0, 10 );
+
+    agendas.length.should.equal( 10 );
+
+  } );
+
   it( 'list with offset gets right agenda', done => {
 
     svc.list( 0, 10, ( err, agendas ) => {
@@ -131,6 +139,7 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
+
   it( 'default list returns unindexed agendas', done => {
 
     svc.list( 0, 30, ( err, agendas ) => {
@@ -149,6 +158,19 @@ describe( 'agendas - functional (server): list', function () {
     svc.list( 0, 30, { indexed: true }, ( err, agendas ) => {
 
       agendas.filter( a => a.uid === 90695263 ).length.should.equal( 0 );
+
+      done();
+
+    } );
+
+  } );
+
+
+  it( 'total option at true provides total in result', done => {
+
+    svc.list( 0, 30, { total: true }, ( err, agendas, total ) => {
+
+      total.should.equal( 97 );
 
       done();
 
@@ -204,6 +226,19 @@ describe( 'agendas - functional (server): list', function () {
       agendas[ 0 ].publishedEvents.should.equal( 9 );
 
       done();
+
+    } );
+
+  } );
+
+
+  it( 'list with idGreaterThan limits agendas which have an id greater than a given id', async () => {
+
+    const { agendas } = await svc.list( { idGreaterThan: 4930 }, 0, 10, { internal :true } );
+
+    agendas.map( a => a.id ).forEach( id => {
+
+      ( id > 4930 ).should.equal( true );
 
     } );
 
