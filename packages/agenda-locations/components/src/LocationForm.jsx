@@ -31,10 +31,13 @@ import suggestionHelpers from './suggestions.helpers.js';
 import validate from '../../lib/validate';
 
 const _ = {
-  keys: require( 'lodash/keys' ),
+  assign: require( 'lodash/assign' ),
   extend: require( 'lodash/extend' ),
   get: require( 'lodash/get' ),
-  pick: require( 'lodash/pick' )
+  first: require( 'lodash/first' ),
+  keys: require( 'lodash/keys' ),
+  pick: require( 'lodash/pick' ),
+  upperCase: require( 'lodash/upperCase' )
 }
 
 const alternativeMaxLength = 50;
@@ -345,7 +348,7 @@ module.exports = createReactClass( {
 
         log( 'error', err );
 
-        utils.extend( updated, {
+        _.assign( updated, {
           geocodeError: { $set: true },
           location: {
             latitude: { $set: this.state.location.latitude || 0 },
@@ -355,7 +358,15 @@ module.exports = createReactClass( {
 
       } else if ( result.results.length ) {
 
-        updated.location = this.decorateLocation( result );
+        const location = this.decorateLocation( result );
+
+        if ( _.get( location, 'latitude' ) && _.get( location, 'longitude' ) && _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' ) {
+
+          this.fetchINSEE( _.first( result.results ) );
+
+        }
+
+        updated.location = location;
 
         updated.autoGeocode = { $set: true };
 
@@ -364,6 +375,28 @@ module.exports = createReactClass( {
       }
 
       this.setState( update( this.state, updated ) );
+
+    } );
+
+  },
+
+  fetchINSEE( location ) {
+
+    log( 'getting insee data for location %j', location );
+
+    get( this.props.res.insee, _.pick( location, [ 'latitude', 'longitude', 'city', 'department' ] ), ( err, result ) => {
+
+      if ( err ) {
+
+        return log( 'error', err );
+
+      }
+
+      log( 'retrieved insee: %j', result );
+
+      this.setState( { 
+        location: _.assign( this.state.location, { insee: _.get( result, 'code' ) } ) 
+      } );
 
     } );
 
@@ -1046,6 +1079,12 @@ module.exports = createReactClass( {
   renderGeoData() {
 
     const geo = _.pick( this.state.location, [ 'region', 'department', 'city', 'postalCode' ] );
+
+    if ( _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' ) {
+
+      geo.insee = _.get( this.state, 'location.insee' );
+
+    }
 
     if ( this.state.geocodeEdit ) {
 

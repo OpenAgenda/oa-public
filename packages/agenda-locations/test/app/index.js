@@ -79,6 +79,8 @@ app.get( '/toverify', mw.getUnverifiedCount );
 
 app.get( '/geocode', mw.geocode );
 
+app.get( '/insee', mw.insee );
+
 app.get( '/geocode/reverse', mw.reverseGeocode );
 
 app.get( '/terms', mw.list.terms );
