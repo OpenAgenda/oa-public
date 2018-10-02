@@ -172,6 +172,7 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
       res: _.assign( {
         index: '#locations',
         geocode: '#locations/geocode',
+        insee: '#locations/insee',
         set: '#locations',
         remove: '#locations/remove'
       }, locationRes || {} )
