@@ -149,6 +149,10 @@ module.exports = {
     fr: 'Ville',
     en: 'City'
   },
+  insee: {
+    fr: 'Code INSEE',
+    en: 'INSEE code'
+  },
   postalCode: {
     fr: 'Code postal',
     en: 'Postal code'
