@@ -107,10 +107,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/agenda-docx@^1.0.5":
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.6.tgz#816b5f3cac8f689d239089d15b15168a3e5a785c"
-  integrity sha512-7/jEEd/7pswF/FTYXi+PXvQRmU2Kxsob+iHXBrv4ZW2yubqRoGrxC1YV06HDgPtTVf/9REj3TaA2cf956gATuw==
+"@openagenda/agenda-docx@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.7.tgz#c75c87f756c8349df7996591d2106de1bfe048f0"
+  integrity sha512-jWyJoH0AWFXtg4uJEO5DV9DWvk9eCHWhkAdQZALJ94a/2XFI2xZjeeBmz+bW/ybHI6ZH5WYvQ5Js7FT5rc/A8A==
   dependencies:
     angular-expressions "^0.3.0"
     aws-sdk "^2.230.1"
@@ -127,6 +127,7 @@
     react-dom "^16.2.0"
     react-final-form "^3.6.5"
     redis "^2.8.0"
+    remove-markdown "^0.3.0"
     rimraf "^2.6.2"
     superagent "^3.8.3"
     verror "^1.10.0"
@@ -1817,10 +1818,25 @@ autoprefixer@^6.3.1:
     postcss "^5.2.16"
     postcss-value-parser "^3.2.3"
 
-aws-sdk@^2.145.0, aws-sdk@^2.230.1, aws-sdk@^2.282.1, aws-sdk@^2.306.0, aws-sdk@^2.77.0:
+aws-sdk@^2.145.0, aws-sdk@^2.282.1, aws-sdk@^2.306.0, aws-sdk@^2.77.0:
   version "2.320.0"
   resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.320.0.tgz#8089976be31e170771652f62b6796aab5dd9d7b4"
   integrity sha512-qJBjZ0sIIy6AzBe0RkK5HDl3Kl1uAz01R4Nqy+RyflB//XWz+dPN8CFYtzrQNyfpLtPe/4uPrmxC4NwGW1MXBQ==
+  dependencies:
+    buffer "4.9.1"
+    events "1.1.1"
+    ieee754 "1.1.8"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.1.0"
+    xml2js "0.4.19"
+
+aws-sdk@^2.230.1:
+  version "2.325.0"
+  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.325.0.tgz#bea29d4d1f4fafded3021b797e879104bb7664a7"
+  integrity sha512-26V/4vzInQ5EO/+HCoZaXO5YB6XWo4sRXbNtc3bFEcUfMZ5Psin2M8McY/zasJyYbZuNisK608kjio+AXm8vig==
   dependencies:
     buffer "4.9.1"
     events "1.1.1"
@@ -17503,6 +17519,11 @@ remark-parse@^5.0.0:
     unist-util-remove-position "^1.0.0"
     vfile-location "^2.0.0"
     xtend "^4.0.1"
+
+remove-markdown@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npmjs.org/remove-markdown/-/remove-markdown-0.3.0.tgz#5e4b667493a93579728f3d52ecc1db9ca505dc98"
+  integrity sha1-XktmdJOpNXlyjz1S7MHbnKUF3Jg=
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"
