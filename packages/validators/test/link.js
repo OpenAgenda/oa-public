@@ -69,29 +69,6 @@ describe( 'link validator', () => {
       
     } );
 
-    it( 'links with invalid uri components are rejected', () => {
-
-      let errors = [];
-
-      try {
-
-        validate( 'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5' )
-
-      } catch ( e ) {
-
-        errors = e;        
-
-      }
-
-      errors.should.eql( [ { 
-        origin: 'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5',
-        field: 'link',
-        code: 'link.invalid',
-        message: 'URI malformed' 
-      } ] );
-
-    } );
-
     it( 'http is added if missing', () => {
 
       var clean = validate( 'lemonde.fr' );
@@ -106,6 +83,8 @@ describe( 'link validator', () => {
       let errors = false,
 
       links = [
+        'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5',
+        'http://jereserve.maplace.fr/reservation.php?menu=evenement&societe=Espace+Simone+Signoret&filtre_lieu=ESPACE+SIMONE+SIGNORET&filtre_date=2018-10-10+15%3A00%3A00&filtre_spectacle=L%E0-Haut',
         '//graph.facebook.com/100002280111541/picture',
         'https://openagenda.com',
         'lemonde.fr',
