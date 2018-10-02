@@ -1080,7 +1080,10 @@ module.exports = createReactClass( {
 
     const geo = _.pick( this.state.location, [ 'region', 'department', 'city', 'postalCode' ] );
 
-    if ( _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' ) {
+    if ( 
+      _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' 
+      && _.get( this.state, 'location.latitude' )
+    ) {
 
       geo.insee = _.get( this.state, 'location.insee' );
 
