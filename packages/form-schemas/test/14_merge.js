@@ -7,6 +7,53 @@ const merge = require( '../iso/merge' );
 
 describe( 'unit - assigning schema properties to another schema', function() {
 
+  it( 'ids of options of merged schemas are no longer unique', () => {
+
+    const agendaSchema = {
+      fields: [ {
+        field: 'someagendafield',
+        fieldType: 'radio',
+        options: [ {
+          id: 1,
+          value: 'clubs',
+          label: 'Clubs'
+        }, {
+          id: 2,
+          value: 'comite',
+          label: 'Comités'
+        } ]
+      } ]
+    };
+
+    const networkSchema = {
+      fields: [ {
+        field: 'somenetworkfield',
+        fieldType: 'checkbox',
+        options: [ {
+          id: 1,
+          value: 'dogs',
+          label: 'Dogs'
+        }, {
+          id: 2,
+          value: 'tics',
+          label: 'Tics'
+        } ]
+      } ]
+    };
+
+    merge( networkSchema, agendaSchema ).fields.map( f => f.options )
+      .should.eql( [ 
+        [ 
+          { id: 1, value: 'clubs', label: 'Clubs' },
+          { id: 2, value: 'comite', label: 'Comités' } 
+        ], [ 
+          { id: 1, value: 'dogs', label: 'Dogs' },
+          { id: 2, value: 'tics', label: 'Tics' }
+        ] 
+      ] );
+
+  } );
+
   // ids will need to be prefixed by formschema id before they can make sense
   
   it( 'order of fields is dictated by outer-most schema', () => {
@@ -48,7 +95,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
     merge( eventSchema, networkSchema, agendaSchema ).fields
       .map( f => f.field ).should.eql( [
-        'theme', 'title', 'participants', 'description'
+        'title', 'participants', 'description', 'theme'
       ] );
 
   } );
@@ -86,21 +133,21 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
     merge( s1, s2, s3 ).should.eql( { 
       fields: [ { 
-         field: 'participants',
-         optional: false,
-         fieldType: 'integer',
-         label: 'Participants',
-         info: 'Combien de participants' 
+        field: 'budget',
+        optional: false,
+        fieldType: 'text',
+        label: 'Budget' 
       }, { 
          field: 'organizer',
          optional: false,
          fieldType: 'text',
          label: 'Organizer' 
       }, { 
-        field: 'budget',
-        optional: false,
-        fieldType: 'text',
-        label: 'Budget' 
+         field: 'participants',
+         optional: false,
+         fieldType: 'integer',
+         label: 'Participants',
+         info: 'Combien de participants' 
       } ] 
     } );
 
@@ -131,7 +178,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     const abstract = {
       fields: [ {
         field: 'participants',
-        "fieldType": "abstract",
+        fieldType: 'abstract',
         label: {
           fr: 'Les gens',
           en: 'People'
