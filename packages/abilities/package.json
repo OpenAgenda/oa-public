@@ -28,10 +28,10 @@
     "mysql": "^2.16.0"
   },
   "devDependencies": {
+    "@openagenda/agenda-stakeholders": "^2.0.9",
+    "@openagenda/agendas": "^1.0.45",
+    "@openagenda/users": "^2.1.2",
     "bluebird": "^3.5.2",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "chai-jest-diff": "^1.0.2",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",

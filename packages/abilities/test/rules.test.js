@@ -5,7 +5,7 @@ const config = require( '../config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 
-const database = `${testconfig.mysql.database}_get`;
+const database = `${testconfig.mysql.database}_rules`;
 
 beforeAll( async () => {
   await db.create( { ...testconfig.mysql, database } );
@@ -24,14 +24,8 @@ afterAll( async () => {
   await config.knex.destroy();
 } );
 
-describe( 'get', () => {
-  test( 'simple get of an ability instance for a user - by uid', async () => {
-    const ability = await abilities.get( 'user', 99999999 );
-
-    expect( ability.rules ).toMatchSnapshot();
-  } );
-
-  test( 'get with an empty entity object should throw an error', async () => {
-    await expect( abilities.get( 'user', {} ) ).rejects.toThrow( '`identifier` should be a number' );
+describe( 'rules', () => {
+  test( 'none', () => {
+    //
   } );
 } );

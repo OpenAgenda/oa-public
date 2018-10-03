@@ -29,7 +29,16 @@ async function fixtures( config, schemas ) {
   conn.destroy();
 }
 
+function getConfig( config, database, key = 'mysql.database' ) {
+  const newConfig = _.cloneDeep( config );
+
+  _.set( newConfig, key, database );
+
+  return newConfig;
+}
+
 module.exports = {
   create,
-  fixtures
+  fixtures,
+  getConfig
 };

@@ -21,7 +21,7 @@ module.exports = {
   interfaces: {
     getEntity,
     defaultFor: {
-      user( { can, cannot, rules } ) {
+      user( user, { can, cannot, rules } ) {
         can( 'create', 'event' );
         can( 'receive', 'activity' );
         cannot( 'receive', 'activity', { verb: 'spam' } );
@@ -88,15 +88,15 @@ module.exports = {
           member: abilities.rules.getDefaultFor( 'member' )
         };
 
-        const members = await membersSvc.list( {} );
-        const agendas = await agendasSvc.list( {} );
 
-        const agendasRules = await abilities.rules.list( 'agenda', _.map( agendas, 'uid' ) );
-        const membersRules = await abilities.rules.list( 'member', _.map( members, 'id' ) );
+        const agendasRules = await abilities.rules.list( 'agenda', [ // uids
+          48959239
+        ] );
+        const membersRules = await abilities.rules.list( 'member', [ // ids
+          60815
+        ] );
 
-        // TODO define agendasRules & membersRules
-
-        return defaultRules.user.concat( rules ).concat( userRules );
+        // return defaultRules.user.concat( rules ).concat( userRules );
 
         return defaultRules.agenda
           .concat( agendasRules )

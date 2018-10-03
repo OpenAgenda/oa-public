@@ -52,7 +52,7 @@
     "files": "**/*.{test,spec}.js",
     "rules": {
       "no-unused-expressions": "off"
-    },
+    }
   } ],
   "parserOptions": {
     "sourceType": "script"

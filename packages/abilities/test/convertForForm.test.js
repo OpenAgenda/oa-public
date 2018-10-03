@@ -5,7 +5,7 @@ const config = require( '../config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 
-const database = `${testconfig.mysql.database}_get`;
+const database = `${testconfig.mysql.database}_convertForForm`;
 
 beforeAll( async () => {
   await db.create( { ...testconfig.mysql, database } );
@@ -24,14 +24,10 @@ afterAll( async () => {
   await config.knex.destroy();
 } );
 
-describe( 'get', () => {
-  test( 'simple get of an ability instance for a user - by uid', async () => {
+describe( 'convertForForm', () => {
+  test( 'convert rules for a user form', async () => {
     const ability = await abilities.get( 'user', 99999999 );
 
-    expect( ability.rules ).toMatchSnapshot();
-  } );
-
-  test( 'get with an empty entity object should throw an error', async () => {
-    await expect( abilities.get( 'user', {} ) ).rejects.toThrow( '`identifier` should be a number' );
+    console.log( JSON.stringify( ability.convertForForm(), null, 2 ) );
   } );
 } );

@@ -8,7 +8,6 @@ exports.seed = async knex => {
 
   return knex( schemas.rule ).insert( [
     {
-      id: 1,
       entity_name: 'user',
       identifier: 99999999,
       actions: 'receive',
@@ -19,13 +18,42 @@ exports.seed = async knex => {
       reason: null
     },
     {
-      id: 2,
       entity_name: 'user',
-      identifier: 12345678,
+      identifier: 99999999,
       actions: 'receive',
-      subject: 'activity',
+      subject: 'eventUpdate',
+      inverted: false,
+      conditions: null,
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60815,
+      actions: 'receive',
+      subject: 'eventUpdate',
       inverted: true,
-      conditions: '{"verb":"spam","target":"agenda:456"}',
+      conditions: null,
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60815,
+      actions: 'receive',
+      subject: 'mail',
+      inverted: false,
+      conditions: '{"verb":"agenda.eventPublished"}',
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'agenda',
+      identifier: 48959239,
+      actions: 'receive',
+      subject: 'mail',
+      inverted: true,
+      conditions: '{"verb":"agenda.eventPublished"}',
       fields: null,
       reason: null
     }

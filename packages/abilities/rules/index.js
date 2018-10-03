@@ -20,6 +20,9 @@ const splitIfNeeded = ( value, delimiter = '|' ) => {
 
 function format( rules ) {
   const _format = rule => ( {
+    id: rule.id || null,
+    entity_name: rule.entityName || null,
+    identifier: rule.identifier || null,
     actions: joinIfArray( rule.actions ),
     subject: joinIfArray( rule.subject ),
     inverted: rule.inverted || false,
@@ -33,6 +36,9 @@ function format( rules ) {
 
 function parse( rules ) {
   const _parse = rule => ( {
+    id: rule.id || null,
+    entityName: rule.entityName || null,
+    identifier: rule.identifier || null,
     actions: splitIfNeeded( rule.actions ),
     subject: splitIfNeeded( rule.subject ),
     inverted: !!rule.inverted,
@@ -49,17 +55,22 @@ async function list( entityName, identifier ) {
     throw new TypeError( '`entityName` should be a string' );
   }
 
-  if ( !_.isNumber( identifier ) ) {
-    throw new TypeError( '`identifier` should be a number' );
+  if ( !( _.isNumber( identifier ) || ( Array.isArray( identifier ) && _.every( identifier, _.isNumber ) ) ) ) {
+    throw new TypeError( '`identifier` should be a number or an array of numbers' );
   }
 
-  const rules = await config
+  const request = config
     .knex( config.schemas.rule )
     .select()
-    .where( {
-      entity_name: entityName,
-      identifier
-    } );
+    .where( 'entity_name', entityName );
+
+  if ( Array.isArray( identifier ) ) {
+    request.whereIn( 'identifier', identifier );
+  } else {
+    request.where( 'identifier', identifier );
+  }
+
+  const rules = _.map( await request, row => _.mapKeys( row, ( v, k ) => _.camelCase( k ) ) );
 
   return parse( rules );
 }
@@ -67,6 +78,17 @@ async function list( entityName, identifier ) {
 function getDefaultFor( entityName ) {
   const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
   const builder = AbilityBuilder.extract();
+
+  function wrapper( func, ...args ) {
+    const result = func( ...args );
+
+    Object.assign( _.last( this.rules ), { entityName, identifier: null } );
+
+    return result;
+  };
+
+  builder.can = _.wrap( builder.can, wrapper ).bind( builder );
+  builder.cannot = _.wrap( builder.cannot, wrapper ).bind( builder );
 
   return defaultForFn ? defaultForFn( builder ) : [];
 }

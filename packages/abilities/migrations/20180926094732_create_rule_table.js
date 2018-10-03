@@ -24,8 +24,8 @@ exports.up = async knex => {
         .notNullable()
         .index();
 
-      table.string( 'actions' );
-      table.string( 'subject' );
+      table.string( 'actions' ).notNullable();
+      table.string( 'subject' ).notNullable();
       table.boolean( 'inverted' ).defaultTo( false );
       table.text( 'conditions', 'longtext' );
       table.text( 'fields', 'longtext' );

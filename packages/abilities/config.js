@@ -46,7 +46,7 @@ async function init( c = {} ) {
 
   config.knex = knexLib( getKnexConfig( c ) );
 
-  _.extend( config, _.pick( c, [ 'mysql', 'schemas', 'migrations', 'interfaces' ] ) );
+  _.extend( config, _.pick( c, [ 'mysql', 'schemas', 'migrations', 'interfaces', 'editableRules' ] ) );
 }
 
 function migrate( options ) {
