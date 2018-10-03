@@ -35,22 +35,20 @@ raw.push( knex( 'agenda' ).insert( {
   uid: 60934473,
   form_schema_id: 26,
   store: JSON.stringify( `{
-  "customFields": [
-    {
-      "name": "cle_session",
-      "label": {
-        "fr": "Clé session",
-        "en": "Clé session"
-      },
-      "info": {
-        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
-        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
-      },
-      "fieldType": "integer",
-      "optional": true,
-      "type": "private"
-    }
-  ]
+  "customFields": [ {
+    "name": "cle_session",
+    "label": {
+      "fr": "Clé session",
+      "en": "Clé session"
+    },
+    "info": {
+      "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
+      "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
+    },
+    "fieldType": "integer",
+    "optional": true,
+    "type": "private"
+  } ]
 }` )
 } ) );
 
