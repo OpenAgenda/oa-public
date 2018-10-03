@@ -4983,7 +4983,7 @@ command-join@^2.0.0:
   resolved "https://registry.npmjs.org/command-join/-/command-join-2.0.0.tgz#52e8b984f4872d952ff1bdc8b98397d27c7144cf"
   integrity sha1-Uui5hPSHLZUv8b3IuYOX0nxxRM8=
 
-commander@*, commander@^2.11.0, commander@^2.15.1, commander@^2.2.0, commander@^2.5.0, commander@^2.9.0:
+commander@*, commander@^2.11.0, commander@^2.15.1, commander@^2.16.0, commander@^2.2.0, commander@^2.5.0, commander@^2.9.0:
   version "2.18.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
   integrity sha512-6CYPa+JP2ftfRU2qkDK+UTVeQYosOg/2GbcjIcKPHfinyOLPVGXu/ovN86RP49Re5ndJK1N0kuiidFFuepc4ZQ==
@@ -11811,6 +11811,28 @@ knex@^0.14.3, knex@^0.14.6:
     uuid "^3.2.1"
     v8flags "^3.0.2"
 
+knex@^0.15.2:
+  version "0.15.2"
+  resolved "https://registry.npmjs.org/knex/-/knex-0.15.2.tgz#6059b87489605f4cc87599a6d2a9d265709e9340"
+  integrity sha1-YFm4dIlgX0zIdZmm0qnSZXCek0A=
+  dependencies:
+    babel-runtime "^6.26.0"
+    bluebird "^3.5.1"
+    chalk "2.3.2"
+    commander "^2.16.0"
+    debug "3.1.0"
+    inherits "~2.0.3"
+    interpret "^1.1.0"
+    liftoff "2.5.0"
+    lodash "^4.17.10"
+    minimist "1.2.0"
+    mkdirp "^0.5.1"
+    pg-connection-string "2.0.0"
+    tarn "^1.1.4"
+    tildify "1.2.0"
+    uuid "^3.3.2"
+    v8flags "^3.1.1"
+
 knex@^0.9.0:
   version "0.9.0"
   resolved "http://registry.npmjs.org/knex/-/knex-0.9.0.tgz#305a1a103cdbf50bf51fb80ff4e3b26d8f9bb850"
@@ -12554,7 +12576,7 @@ lodash@^3.10.0, lodash@^3.10.1, lodash@^3.7.0:
   resolved "http://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.0.0, lodash@^4.1.1, lodash@^4.12.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.16.6, lodash@^4.17.1, lodash@^4.17.10, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.6.0, lodash@^4.6.1, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.1.1, lodash@^4.12.0, lodash@^4.13.1, lodash@^4.15.0, lodash@^4.16.6, lodash@^4.17.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.2, lodash@^4.17.3, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@^4.6.0, lodash@^4.6.1, lodash@~4.17.10:
   version "4.17.11"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
@@ -20825,7 +20847,7 @@ v8flags@^2.0.2, v8flags@^2.1.1:
   dependencies:
     user-home "^1.1.1"
 
-v8flags@^3.0.2:
+v8flags@^3.0.2, v8flags@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/v8flags/-/v8flags-3.1.1.tgz#42259a1461c08397e37fe1d4f1cfb59cad85a053"
   integrity sha512-iw/1ViSEaff8NJ3HLyEjawk/8hjJib3E7pvG4pddVXfUg1983s3VGsiClDjhK64MQVDGqc1Q8r18S4VKQZS9EQ==
