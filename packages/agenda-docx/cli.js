@@ -26,7 +26,7 @@ const reducer = undefined;
 //     targetKey: 'thematiqueValue',
 //     sortBy: 'thematiqueValue',
 //     childrenKey: 'events',
-//     sortChildrenBy: [ 'title', 'diffWithNow', 'passed' ],
+//     sortChildrenBy: [ 'passed', 'diffWithNow', 'title' ],
 //     hoist: [
 //       {
 //         source: 'location.name',
@@ -77,6 +77,7 @@ const reducer = undefined;
 
     const agendaUid = await _term( 'What is the uid of the agenda to export?', {
       // default: 59272362 // chatellerault
+      // default: 1298686 // jnarchi-2018-auvergne-rhone-alpes
       default: 63106080 // jep 2018 guyane
     } );
 
@@ -93,8 +94,8 @@ const reducer = undefined;
       language: 'fr',
       reducer,
       query: {
-        from: '2017-12-31T23:00:00.000Z',
-        to: '2018-12-31T22:59:59.999Z'
+        // from: '2017-12-31T23:00:00.000Z',
+        // to: '2018-12-31T22:59:59.999Z'
       }
     } );
 

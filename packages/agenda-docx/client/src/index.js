@@ -32,7 +32,8 @@ class Main extends Component {
       open: false,
       service: null,
       loading: false,
-      labels: flattenLabels( this.props.labels, this.props.locale )
+      labels: flattenLabels( this.props.labels, this.props.locale ),
+      limitDates: false
     }
 
     this.dateToString = date => distanceInWordsToNow( date, { locale: locales[ this.props.locale ] } );
@@ -97,7 +98,7 @@ class Main extends Component {
   renderGenerateForm() {
 
     const { locale } = this.props;
-    const { labels, service } = this.state;
+    const { labels, service, limitDates } = this.state;
 
     return (
       <Form
@@ -108,65 +109,80 @@ class Main extends Component {
         render={({ handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit}>
 
-            <Field
-              name="from"
-              format={value => value && value.startOf( 'day' ).toISOString()}
-              parse={value => value && moment( value )}
-              validate={( value, values ) => {
-                if ( values.to && moment( value ).isAfter( values.to ) ) {
-                  return labels.fromBeforeToError;
-                }
-              }}
-            >
-              {({ input, meta }) => (
-                <div className="form-group margin-all-sm">
-                  {labels.from}{' '}
-                  <div style={{ display: 'inline-block' }}>
-                    <DatePicker
-                      {...input}
-                      locale={locale}
-                      className="form-control"
-                      selected={input.value ? moment( input.value ) : input.value}
-                      value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
-                      autoComplete="off"
-                    />
-                  </div>
-                  {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
-                </div>
-              )}
-            </Field>
+            <div className="checkbox">
+              <label style={{ color: 'inherit' }}>
+                <input
+                  type="checkbox"
+                  checked={limitDates}
+                  onChange={e => this.setState( { limitDates: e.target.checked } )}
+                />
+                {labels.limitDates}
+              </label>
+            </div>
 
-            <Field
-              name="to"
-              format={value => value && value.endOf( 'day' ).toISOString()}
-              parse={value => value && moment( value )}
-              validate={( value, values ) => {
-                if ( values.from && moment( value ).isBefore( values.from ) ) {
-                  return labels.toAfterFromError;
-                }
-              }}
-            >
-              {({ input, meta }) => (
-                <div className="form-group margin-bottom-sm margin-h-sm">
-                  {labels.to}{' '}
-                  <div style={{ display: 'inline-block' }}>
-                    <DatePicker
-                      {...input}
-                      locale={locale}
-                      className="form-control"
-                      selected={input.value ? moment( input.value ) : input.value}
-                      value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
-                      autoComplete="off"
-                    />
-                  </div>
-                  {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
-                </div>
-              )}
-            </Field>
+            {limitDates && (
+              <Fragment>
+                <Field
+                  name="from"
+                  format={value => value && value.startOf( 'day' ).toISOString()}
+                  parse={value => value && moment( value )}
+                  validate={( value, values ) => {
+                    if ( values.to && moment( value ).isAfter( values.to ) ) {
+                      return labels.fromBeforeToError;
+                    }
+                  }}
+                >
+                  {({ input, meta }) => (
+                    <div className="form-group margin-all-sm">
+                      {labels.from}{' '}
+                      <div style={{ display: 'inline-block' }}>
+                        <DatePicker
+                          {...input}
+                          locale={locale}
+                          className="form-control"
+                          selected={input.value ? moment( input.value ) : input.value}
+                          value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                          autoComplete="off"
+                        />
+                      </div>
+                      {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                    </div>
+                  )}
+                </Field>
+
+                <Field
+                  name="to"
+                  format={value => value && value.endOf( 'day' ).toISOString()}
+                  parse={value => value && moment( value )}
+                  validate={( value, values ) => {
+                    if ( values.from && moment( value ).isBefore( values.from ) ) {
+                      return labels.toAfterFromError;
+                    }
+                  }}
+                >
+                  {({ input, meta }) => (
+                    <div className="form-group margin-bottom-sm margin-h-sm">
+                      {labels.to}{' '}
+                      <div style={{ display: 'inline-block' }}>
+                        <DatePicker
+                          {...input}
+                          locale={locale}
+                          className="form-control"
+                          selected={input.value ? moment( input.value ) : input.value}
+                          value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                          autoComplete="off"
+                        />
+                      </div>
+                      {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                    </div>
+                  )}
+                </Field>
+              </Fragment>
+            )}
 
             {service.templates && service.templates.length ? (
               <Fragment>
-                <p>{labels.template}</p>
+                <p className="margin-top-sm">{labels.template}</p>
 
                 <div className="form-group">
                   {service.templates.map( ( template, index ) => (
@@ -213,7 +229,7 @@ class Main extends Component {
 
     return (
       <div className="text-center">
-        <div className="margin-bottom-sm"><label>{labels.or}</label></div>
+        <div className="margin-bottom-sm label-or"><label>{labels.or}</label></div>
         <div>{labels.launch}</div>
 
         {this.renderGenerateForm()}
@@ -329,12 +345,16 @@ Main.defaultProps = {
       fr: 'Générer'
     },
     toAfterFromError: {
-      en: '',
+      en: 'The start date must be before the end date.',
       fr: 'La date de début doit être avant la date de fin.'
     },
     fromBeforeToError: {
-      en: '',
+      en: 'The end date must be after the start date.',
       fr: 'La date de fin doit être après la date de début.'
+    },
+    limitDates: {
+      en: 'Limit dates',
+      fr: 'Limiter les dates'
     }
   }
 

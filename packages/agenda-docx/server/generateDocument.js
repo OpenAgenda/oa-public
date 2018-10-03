@@ -34,7 +34,7 @@ module.exports = async ( {
 
   const outputPath = `${localTmpPath}/${agendaUid}.${new Date().getTime()}.docx`;
 
-  const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid, query );
+  const eventsFilePath = await fetchAndStoreEvents( localTmpPath, agendaUid, { ...query, passed: 1 } );
 
   const events = await loadEventsFromFile( eventsFilePath );
 
