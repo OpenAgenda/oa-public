@@ -107,10 +107,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/agenda-docx@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.7.tgz#c75c87f756c8349df7996591d2106de1bfe048f0"
-  integrity sha512-jWyJoH0AWFXtg4uJEO5DV9DWvk9eCHWhkAdQZALJ94a/2XFI2xZjeeBmz+bW/ybHI6ZH5WYvQ5Js7FT5rc/A8A==
+"@openagenda/agenda-docx@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-docx/-/agenda-docx-1.0.8.tgz#1dd43220fcba161cb4908fd7414df609cbdc6b55"
+  integrity sha512-CLxrE9teuGLuVLQJ37scjBLTsJNSYvkVVK+B4Twl8QkGaXR/bLkBlaeYCalVqosuNqkbL+afNmpWw0nauelKJg==
   dependencies:
     angular-expressions "^0.3.0"
     aws-sdk "^2.230.1"
