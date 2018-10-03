@@ -34,38 +34,47 @@ function evaluate( step, requested = false ) {
       edit
     } = state.config;
 
-    if ( edit && step === 'edit' ) {
+    const draftEvent = _.get( state, 'event.draft', false );
+    const eventEdition = edit && !draftEvent;
+
+    if ( eventEdition && step === 'edit' ) {
 
       // we are in the right place
       return;
 
-    } else if ( edit ) {
+    } else if ( eventEdition ) {
 
       return dispatch( push( base + '/event/' + state.event.uid ) );
 
     }
 
-    const authorizedSteps = [ 'member' ];
+    // we are handling a new or a draft event
+
+    const requestedRoute = base + '/' + step + ( step === 'event' && draftEvent ? `/${_.get( state, 'event.uid' )}/draft` : '' );
+
+    const authorizedRoutes = [ base + '/member' ];
 
     if ( !memberConfig.dataIsRequired || isMemberValid( state.member ) ) {
 
-      authorizedSteps.push( 'event' );
+      authorizedRoutes.push( base + ( 
+        draftEvent ? `/event/${_.get( state, 'event.uid' )}/draft` : '/event' 
+      ) );
 
     }
 
-    if ( _.get( state, 'event.uid' ) ) {
+    if ( _.get( state, 'event.uid' ) && !draftEvent ) {
 
-      authorizedSteps.push( 'confirmation' );
+      authorizedRoutes.push( base + '/confirmation' );
 
     }
 
-    if ( !step || !authorizedSteps.includes( step ) ) {
+    if ( !step || !authorizedRoutes.includes( requestedRoute ) ) {
 
-      dispatch( push( base + '/' + authorizedSteps.pop() ) );
+      dispatch( push( authorizedRoutes.pop() ) );
 
     } else if ( requested ) {
 
-      dispatch( push( base + '/' + step ) );
+      dispatch( push( requestedRoute ) );
 
     }
 

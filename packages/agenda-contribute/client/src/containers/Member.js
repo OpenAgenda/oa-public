@@ -24,7 +24,7 @@ export default connect(
     onDidMount: () => dispatch( reducers.landing.evaluate( 'member' ) ),
     onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) )
   } )
-)( ( { config, member, onSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} steps={steps} onDidMount={onDidMount} onSelectStep={onSelectStep}>
+)( ( { config, member, event, onSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} steps={steps} onDidMount={onDidMount} onSelectStep={onSelectStep} event={event}>
   <div className=" padding-top-sm">
     <div className="wsq padding-all-md">
       <h3>{labels.title[ config.lang ]}</h3>

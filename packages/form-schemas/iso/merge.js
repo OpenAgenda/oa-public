@@ -13,29 +13,27 @@ function mergeAll( ...args ) {
 
 }
 
-function merge( s1, s2 ) {
+function merge( mergedIn, mergeWith ) {
 
-  const s2Fields = s2.fields.map( f => f.field );
+  return _.assign( {}, mergedIn, { 
+    fields: mergeWith.fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
 
-  const merged = _.assign( {}, s1, { fields: s1.fields.filter( f => !s2Fields.includes( f.field ) ) } );
+      const index = fields.map( f => f.field ).indexOf( field.field );
 
-  s2.fields.forEach( field => {
+      if ( index === -1 ) {
 
-    const index = _.findIndex( s1.fields, f => f.field === field.field );
+        fields.push( field );
 
-    if ( index === -1 ) {
+      } else {
 
-      merged.fields.push( field );
+        fields[ index ] = _mergeField( field, fields[ index ] );
 
-    } else {
+      }
 
-      merged.fields.push( _mergeField( s1.fields[ index ], field ) );
+      return fields;
 
-    }
-
+    }, [] )
   } );
-
-  return merged;
 
 }
 

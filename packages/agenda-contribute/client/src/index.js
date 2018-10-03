@@ -74,6 +74,7 @@ render( <Provider store={store}>
         <Route path={config.base + '/member'} component={Member} />
         <Route path={config.base + '/event'}>
           <IndexRoute component={EventNew}/>
+          <Route path={':eventUid/draft'} component={EventNew} />
           <Route path={':eventUid'} component={EventEdit} />
         </Route>
         <Route path={config.base + '/confirmation'} component={Confirmation} />

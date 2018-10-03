@@ -8,7 +8,7 @@ const utils = require( '@openagenda/utils' );
 
 const states = require( './states' );
 
-const insee = require( '../utils/insee' );
+const retrieveInsee = require( '../utils/insee' );
 
 let log, service, config;
 
@@ -39,6 +39,7 @@ function getMiddleware( idRef ) {
     setToValidate,
     merge,
     geocode,
+    insee,
     reverseGeocode,
     resync,
     remove,
@@ -551,6 +552,33 @@ function getMiddleware( idRef ) {
   }
 
 
+  function insee( req, res, next ) {
+
+    const data = _.pick( req.query, [ 'city', 'department', 'latitude', 'longitude' ] );
+
+    log( 'retrieving insee codes for %j', data );
+
+    if ( !data.latitude || !data.longitude ) {
+
+      return res.send( 400 );
+
+    }
+
+    retrieveInsee( data ).then( code => {
+
+      return res.json( { code } );
+
+    }, err => {
+
+      log( 'error', 'geocode farm error: could not retrieve insee code for %j: %j', data, e );
+
+      return res.send( 500 );
+
+    } );
+
+  }
+
+
   async function _handleGeocodeResponse( req, res, err, results ) {
 
     if ( err ) {
@@ -574,26 +602,6 @@ function getMiddleware( idRef ) {
       return res.json( {
         results: []
       } );
-
-    }
-
-    for ( const l of results ) {
-
-      if ( [ 'FR', 'MQ', 'GP', 'RE', 'GF' ].includes( req.query.countryCode ) ) {
-
-        try {
-
-          const code = await insee( l );
-
-          l.insee = code;
-
-        } catch( e ) {
-
-          log( 'error', 'geocode farm error: could not retrieve insee code for %s,%s: %j', l.latitude, l.longitude, e );
-
-        }
-
-      }
 
     }
 

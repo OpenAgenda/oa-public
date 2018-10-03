@@ -40,7 +40,7 @@ function init( c ) {
 
   }
 
-  app.get( [ '/', '/:step', '/:step/:eventUid' ], ( req, res ) => {
+  app.get( [ '/', '/:step', '/:step/:eventUid', '/:step/:eventUid/draft' ], ( req, res ) => {
 
     log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
 
@@ -85,9 +85,11 @@ function init( c ) {
   );
 
 
-  app.post( [ '/event', '/event/:eventUid' ],
-    bodyParser.json(),
-    ( req, res, next ) => {
+  app.post( [
+    '/event',
+    '/event/:eventUid',
+    '/event/:eventUid/draft' 
+  ], bodyParser.json(), ( req, res, next ) => {
 
       // would be nice to know here which 
       // langauges are required

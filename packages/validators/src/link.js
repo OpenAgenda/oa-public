@@ -98,18 +98,6 @@ module.exports = config => {
 
     } );
 
-    try {
-
-      // first check before regex
-      decodeURI( clean );
-
-    } catch ( e ) {
-
-      throw [ _.extend( {}, error[ 0 ], {
-        message: 'URI malformed'
-      } ) ];
-
-    }
 
     if ( !isURL( clean, {
       allow_protocol_relative_urls: true

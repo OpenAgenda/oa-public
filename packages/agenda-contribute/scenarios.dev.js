@@ -148,8 +148,8 @@ module.exports = [ {
     id: 8
   },
   config: _.assign( {}, defaultConfig, {
-    edit: true,
     base: '/edit-an-event/contribute',
+    edit: true,
     event: {
       message: '*Instructions appear in edition too*'
     }
@@ -168,7 +168,7 @@ module.exports = [ {
     locationUid: 50148047
   }
 }, {
-  link: '/edit-a-draft-event/contribute/event/902',
+  link: '/edit-a-draft-event/contribute/event/902/draft',
   agenda: {
     title: 'A draft event being edited can be saved as draft again',
     description: 'Yes.',
@@ -177,7 +177,6 @@ module.exports = [ {
     id: 202020
   },
   config: _.assign( {}, defaultConfig, {
-    edit: true,
     base: '/edit-a-draft-event/contribute',
   } ),
   event: {
@@ -191,5 +190,40 @@ module.exports = [ {
       fr: 'Une petite description'
     },
     locationUid: 50148047
+  },
+  member: {
+    name: 'Gaetan Latouche',
+    phone: '+33 (0)6 50 91 00 12',
+    email: 'gaetan@cibul.net',
+    position: 'Test user',
+    organisation: 'OpenAgenda Corp.'
+  }
+}, {
+  link: '/edit-a-draft-event-without-member/contribute/event/903/draft',
+  agenda: {
+    title: 'An edited draft without member data requires member data first',
+    description: 'Yes.',
+    slug: 'edit-a-draft-event-without-member',
+    uid: 121010301013,
+    id: 202020
+  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/edit-a-draft-event-without-member/contribute',
+  } ),
+  event: {
+    uid: 903,
+    draft: true,
+    slug: 'an-existing-draft-event',
+    title: {
+      fr: 'Pas tout à fait fini'
+    },
+    description: {
+      fr: 'Une petite description'
+    },
+    locationUid: 50148047
+  },
+  member: {
+    phone: '+33 (0)6 50 91 00 12',
+    organisation: 'OpenAgenda Corp.'
   }
 } ];

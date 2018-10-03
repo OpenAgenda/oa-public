@@ -52,6 +52,7 @@ Wrapper = createReactClass( {
         index: '/', 
         geocode: '/geocode', 
         reverseGeocode: '/geocode/reverse',
+        insee: '/insee',
         get: '/:locationUid',
         set: '/',
         getStakeholder: '/stakeholders/:stakeholderId',

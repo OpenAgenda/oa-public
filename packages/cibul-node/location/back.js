@@ -105,6 +105,12 @@ const routes = {
       mw.geocode
     ] ],
 
+    locationINSEE: [ 'get', '/:slug/locations/insee', [
+      checkLogging,
+      cmn.assign( 'req.user.uid', 'req.userUid' ),
+      mw.insee
+    ] ],
+
     locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -192,6 +198,7 @@ function show( req, res ) {
         csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
         index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
         geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
+        insee: req.genUrl( 'locationINSEE', { slug: req.agenda.slug } ),
         reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
         seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
         set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),

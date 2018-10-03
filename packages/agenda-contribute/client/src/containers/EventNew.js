@@ -20,7 +20,7 @@ export default connect(
     onDidMount: () => dispatch( reducers.landing.evaluate( 'event' ) ),
     onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) )
   } )
-)( ( { config, event, onCreateSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps}>
+)( ( { config, event, onCreateSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
   
   <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
   
@@ -38,7 +38,7 @@ export default connect(
     actionComponents={[ {
       position: 'bottom',
       Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
-        <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels.draft[ config.lang ]}</button>
+        <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get( event, 'draft' ) ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
         <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
       </div>
     } ]}
