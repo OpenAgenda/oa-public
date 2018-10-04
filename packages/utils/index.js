@@ -241,6 +241,7 @@ function cleanString( str ) {
     19, // DC3
     21, // NAK
     26, // SUB
+    29, // GS group separator
     30, // RS
     31, // Information separator
     8232,

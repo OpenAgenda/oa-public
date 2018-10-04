@@ -14,9 +14,13 @@ describe( 'utils.cleanString', () => {
 
   it( 'cleans', () => {
 
-    dirty.split( ';' ).forEach( dirtyChar => {
+    const dirtyChars = dirty.split( '\n' );
 
-      utils.cleanString( dirtyChar ).should.equal( ' ' );
+    dirtyChars.pop(); // remove end of file new line
+
+    dirtyChars.forEach( dirtyChar => {
+
+      utils.cleanString( dirtyChar ).should.equal( ` ` );
 
     } );
 
