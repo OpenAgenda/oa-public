@@ -10,6 +10,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
 
 const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
+const getNetwork = require( '../utils/getNetwork' );
 const validate = require( './validate' );
 
 module.exports = async ( agendaUid, data, options = {} ) => {
@@ -22,13 +23,19 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   const {
     formSchemaId,
+    networkUid,
     id: agendaId
   } = await getAgenda( agendaUid );
+
+  const network = await getNetwork( networkUid );
 
   const created = {};
 
   // pre-validate data
-  const clean = await validate.loaded( { formSchemaId }, data, { draft } );
+  const clean = await validate.loaded( { 
+    formSchemaId,
+    networkFormSchemaId: _.get( network, 'formSchemaId' )
+  }, data, { draft } );
 
   log( 'pre-validation done', { agendaUid } );
 
@@ -64,6 +71,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     agendaId: { $set: agendaId }
   } ), { 
     formSchemaId,
+    networkFormSchemaId: _.get( network, 'formSchemaId' ),
     draft
   } );
 

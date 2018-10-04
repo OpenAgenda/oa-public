@@ -15,6 +15,7 @@ module.exports = async ( agendaUid, eventUid ) => {
 
   const {
     formSchemaId,
+    networkUid,
     id: agendaId
   } = await getAgenda( agendaUid );
 

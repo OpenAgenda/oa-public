@@ -18,7 +18,7 @@ module.exports = async ( agendaUid, data ) => {
 
 }
 
-module.exports.loaded = async function loaded( { formSchemaId }, data, options = {} ) {
+module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
 
   const { draft, evaluateEvent } = _.assign( {
     evaluateEvent: true,
@@ -60,26 +60,29 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, options =
   }
 
 
-
-  // clean custom data
-
   if ( formSchemaId ) {
 
     log( 'evaluating custom data' );
 
-    const validateCustom = await formSchemas.getValidator( formSchemaId, { draft } );
+    const result = await _evaluateCustom( formSchemaId, data, { draft } );
 
-    try {
+    clean.custom = result.clean;
 
-      clean.custom = validateCustom( data );
+    errors = errors.concat( result.errors ); 
 
-    } catch( customDataErrors ) {
+  }
 
-      errors = errors.concat( customDataErrors );
+  // clean network custom data
+  
+  if ( networkFormSchemaId ) {
 
-      log( 'received validation errors for custom data', { count: customDataErrors.length } )
+    log( 'evaluating network custom data' );
 
-    }
+    const result = await _evaluateCustom( networkFormSchemaId, data, { draft } );
+
+    clean.networkCustom = result.clean;
+
+    errors = errors.concat( result.errors );
 
   }
 
@@ -117,5 +120,24 @@ module.exports.loaded = async function loaded( { formSchemaId }, data, options =
   }
 
   return clean;
+
+}
+
+
+async function _evaluateCustom( formSchemaId, data, options ) {
+
+  const validateCustom = await formSchemas.getValidator( formSchemaId, options );
+
+  try {
+
+    const clean = validateCustom( data );
+
+    return { clean, errors: [] }
+
+  } catch( errors ) {
+
+    return { clean: null, errors }
+
+  }  
 
 }

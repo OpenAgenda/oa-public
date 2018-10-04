@@ -25,7 +25,7 @@ const raw = [
   'legacyAgendaCategory.create.sql',
   'legacyAgendaTag.create.sql',
   'legacyTagSet.create.sql'
-].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;$/, '' ) );
+].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
 
 
 raw.push( knex( 'agenda' ).insert( {
