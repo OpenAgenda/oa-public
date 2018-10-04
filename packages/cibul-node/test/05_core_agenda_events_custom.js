@@ -116,10 +116,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
   before( () => {
 
-    testConfig.knex = knexLib( {
-      client: 'mysql',
-      connection: testConfig.db,
-    } );
+    testConfig.knex = knexLib( { client: 'mysql', connection: testConfig.db } );
 
   } );
 
@@ -147,7 +144,8 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
         'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
-        'custom'
+        'custom',
+        'networks'
       ]
     } );
 
@@ -155,78 +153,128 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
 
   after( () => testConfig.knex.destroy() );
 
-  it( 'legacy entries were created for custom fields', async () => {
+  describe( 'no network', function() {
 
-    const result = await core.agendas( 60934473 ).events.create( eventData );
+    it( 'legacy entries were created for custom fields', async () => {
 
-    const createdEventUid = result.created.event.uid;
+      const result = await core.agendas( 60934473 ).events.create( eventData );
 
-    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
-      uid: createdEventUid
+      const createdEventUid = result.created.event.uid;
+
+      const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
+        uid: createdEventUid
+      } );
+
+      const legacyAgendaEvent = await testConfig.knex( 'legacy_agenda_event' ).first().where( 'event_id', eventId );
+
+      const legacyTags = await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id );
+
+      legacyTags.map( t => _.pick( t, [ 'review_article_id', 'review_tag_id' ] ) ).should.eql( [ {
+        review_article_id: legacyAgendaEvent.id,
+        review_tag_id: 27854,
+      }, {
+        review_article_id: legacyAgendaEvent.id,
+        review_tag_id: 27878,
+      }, {
+        review_article_id: legacyAgendaEvent.id,
+        review_tag_id: 27879,
+      }, {
+        review_article_id: legacyAgendaEvent.id,
+        review_tag_id: 27884,
+      }, {
+        review_article_id: legacyAgendaEvent.id,
+        review_tag_id: 27888,
+      } ] );
+
     } );
 
-    const legacyAgendaEvent = await testConfig.knex( 'legacy_agenda_event' ).first().where( 'event_id', eventId );
 
-    const legacyTags = await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id );
+    it( 'legacy entries were created for custom fields of "custom" legacy origin', async () => {
 
-    legacyTags.map( t => _.pick( t, [ 'review_article_id', 'review_tag_id' ] ) ).should.eql( [ {
-      review_article_id: legacyAgendaEvent.id,
-      review_tag_id: 27854,
-    }, {
-      review_article_id: legacyAgendaEvent.id,
-      review_tag_id: 27878,
-    }, {
-      review_article_id: legacyAgendaEvent.id,
-      review_tag_id: 27879,
-    }, {
-      review_article_id: legacyAgendaEvent.id,
-      review_tag_id: 27884,
-    }, {
-      review_article_id: legacyAgendaEvent.id,
-      review_tag_id: 27888,
-    } ] );
+      const result = await core.agendas( 60934473 ).events.create( eventData );
+
+      const createdEventUid = result.created.event.uid;
+
+      const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
+        uid: createdEventUid
+      } );
+
+      const legacyEvent = await testConfig.knex( 'legacy_event' ).first().where( 'id', eventId );
+
+      JSON.parse( legacyEvent.custom_fields ).cle_session.should.equal( 1928391 );
+
+    } );
+
+
+    it( 'legacy entries were added with update', async () => {
+
+      const eventDataWithMissingCustom = _.omit( eventData, [ 'thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public' ] );
+
+      const result = await core.agendas( 60934473 ).events.create( eventDataWithMissingCustom );
+
+      const createdEventUid = result.created.event.uid;
+
+      const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
+        uid: createdEventUid
+      } );
+
+      const legacyAgendaEvent = await testConfig.knex( 'legacy_agenda_event' ).first().where( 'event_id', eventId );
+
+      ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 0 );
+
+      await core.agendas( 60934473 ).events.update( createdEventUid, _.extend( {
+        "tag-group-4": [36]
+      }, eventDataWithMissingCustom ) );
+
+      ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 1 );
+
+    } );
 
   } );
 
 
-  it( 'legacy entries were created for custom fields of "custom" legacy origin', async () => {
+  describe( 'with network', function() {
 
-    const result = await core.agendas( 60934473 ).events.create( eventData );
-
-    const createdEventUid = result.created.event.uid;
-
-    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
-      uid: createdEventUid
+    const networkEventData = ih( eventData, {
+      edition: { $set: 'Dernier trimestre 2018' }
     } );
 
-    const legacyEvent = await testConfig.knex( 'legacy_event' ).first().where( 'id', eventId );
+    const result = {};
 
-    JSON.parse( legacyEvent.custom_fields ).cle_session.should.equal( 1928391 );
+    before( async () => {
 
-  } );
+      _.assign( result, await core.agendas( 60935574 ).events.create( networkEventData ) );
 
-
-  it( 'legacy entries were added with update', async () => {
-
-    const eventDataWithMissingCustom = _.omit( eventData, [ 'thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public' ] );
-
-    const result = await core.agendas( 60934473 ).events.create( eventDataWithMissingCustom );
-
-    const createdEventUid = result.created.event.uid;
-
-    const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
-      uid: createdEventUid
     } );
 
-    const legacyAgendaEvent = await testConfig.knex( 'legacy_agenda_event' ).first().where( 'event_id', eventId );
+    it( 'creation returns network custom data in networkCustom key', async () => {
 
-    ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 0 );
+      result.created.networkCustom.should.eql( { edition: 'Dernier trimestre 2018' } );
 
-    await core.agendas( 60934473 ).events.update( createdEventUid, _.extend( {
-      "tag-group-4": [36]
-    }, eventDataWithMissingCustom ) );
+    } );
 
-    ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 1 );
+    it( 'network custom entry is saved separately from agenda custom entry', async () => {
+
+      const agendaCustomData = await custom( 26 ).get( result.created.event.uid );
+
+      const networkCustomData = await custom( 27 ).get( result.created.event.uid );
+
+      agendaCustomData.should.eql( { 
+        entreelibre: [],
+        'thematiques-metropolitaines': [ 3 ],
+        'types-devenements': [ 25 ],
+        public: [ 27 ],
+        organisateur: [ 32 ],
+        'tag-group-4': 36,
+        cle_session: 1928391,
+        'category-group': null 
+      } );
+
+      networkCustomData.should.eql( {
+        edition: 'Dernier trimestre 2018'
+      } );
+
+    } );
 
   } );
 
