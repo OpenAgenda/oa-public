@@ -11,7 +11,7 @@ module.exports = async ( { mysql, files, map } ) => {
     connection: _.extend( _.omit( mysql, [ 'database' ] ), { multipleStatements: true } )
   } );
 
-  let raw = files.map( file => fs.readFileSync( file, 'utf-8' ).replace( /;$/, '' ) ).join( ';' ) + ';';
+  let raw = files.map( file => fs.readFileSync( file, 'utf-8' ).replace( /;(\n|)$/, '' ) ).join( ';' ) + ';';
 
   _.forEach( map, ( value, key ) => {
 

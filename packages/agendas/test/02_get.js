@@ -16,7 +16,7 @@ describe( 'agendas - functional (server): get', function() {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../agenda.sql',
+      __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql'
@@ -269,6 +269,7 @@ describe( 'agendas - functional (server): get', function() {
         title: 'EPN "Espace Torcy"',
         description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
         formSchemaId: null,
+        networkUid: null,
         url: 'http://www.ensparis.fr',
         image: 'review_epn-espace-torcy_00.jpg',
         settings: {

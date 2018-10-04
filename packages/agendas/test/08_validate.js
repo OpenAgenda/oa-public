@@ -185,6 +185,7 @@ describe( 'agendas - unit (server): validate', () => {
         indexed: true,
         ownerId: 1,
         formSchemaId: null,
+        networkUid: null,
         settings: {
           inbox: {
             mailto: {

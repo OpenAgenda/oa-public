@@ -19,7 +19,7 @@ function build( files, options, cb ) {
 
   fixtures( [ {
     table: config.schemas.agenda,
-    src: [ __dirname + '/../agenda.sql', __dirname + '/agenda.data.sql' ]
+    src: [ __dirname + '/../model.sql', __dirname + '/agenda.data.sql' ]
   }, {
     table: config.schemas.agendaEvent,
     src: __dirname + '/agenda_event.data.sql'

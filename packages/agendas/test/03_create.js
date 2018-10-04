@@ -16,7 +16,7 @@ describe( 'agendas - functional (server): set (create)', function() {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../agenda.sql',
+      __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql'
@@ -277,6 +277,7 @@ describe( 'agendas - functional (server): set (create)', function() {
           id: result.agenda.id,
           ownerId: 1,
           formSchemaId: null,
+          networkUid: null,
           slug: 'seconde-guerre-punique',
           uid: result.agenda.uid,
           title: 'Seconde guerre punique',

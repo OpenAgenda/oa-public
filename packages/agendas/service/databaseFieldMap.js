@@ -21,6 +21,13 @@ module.exports = [
     protected: true,
     list: false
   },
+  {
+    db: 'network_uid',
+    obj: 'networkUid',
+    internal: true,
+    protected: true,
+    list: false
+  },
   'slug',
   {
     db: 'uid',
