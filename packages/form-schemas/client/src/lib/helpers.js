@@ -25,7 +25,7 @@ function flatten( field, lang ) {
 
     update.options = field.options.reduce( ( optionsUpdate, o ) => {
 
-      return optionsUpdate.concat( { label: { $set: _.get( o.label, lang ) } } );
+      return optionsUpdate.concat( { label: { $set: _.get( o.label, lang, _.get( o.label, _.first( _.keys( o.label ) ) ) ) } } );
 
     }, [] );
 

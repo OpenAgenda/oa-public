@@ -102,6 +102,37 @@ describe( 'validateField', () => {
     } );
 
 
+    it( 'radio field definition can be monolingual', () => {
+
+      iso.validateField( {
+        field: 'anoptionlist',
+        fieldType: 'radio',
+        label: 'Choix multiples',
+        options: [ {
+          id: 1,
+          value: '1',
+          label: 'Un'
+        }, {
+          id: 2,
+          value: '2',
+          label: 'Deux'
+        } ],
+        origin: null
+      } ).options.should.eql( [ {
+          id: 1,
+          value: '1',
+          legacyId: null,
+          label: { en: 'Un' }
+        }, {
+          id: 2,
+          value: '2',
+          legacyId: null,
+          label: { en: 'Deux' }
+        } ] );
+
+    } );
+
+
     it( 'validates a text field that includes min and max', () => {
 
       iso.validateField( {

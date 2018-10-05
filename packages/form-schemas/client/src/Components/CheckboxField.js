@@ -1,34 +1,31 @@
 "use strict";
 
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 
-module.exports = class CheckboxField extends Component {
+module.exports = props => {
 
-  render() {
+  const {
+    options,
+    field: name,
+  } = props.field;
 
-    const {
-      options,
-      field: name,
-    } = this.props.field;
+  const { value, onChange } = props;
 
-    const { value, onChange } = this.props;
+  const checked = [].concat( value || [] );
 
-    return <Fragment>
-      {options.map( o => <div
-        className="checkbox"
-        key={[ name, o.value ].join('.')} >
-        <label>
-          <input
-            type="checkbox"
-            name={name}
-            value={o.value}
-            onChange={onChange.bind( null, o.value===value ? null : o.value )}
-            checked={o.value===value} />
-          {o.label}
-        </label>
-      </div> )}
-    </Fragment>
-
-  }
+  return <Fragment>
+    {options.map( o => <div
+      className="checkbox"
+      key={[ name, o.value ].join('.')} >
+      <label>
+        <input
+          type="checkbox"
+          name={name}
+          onChange={onChange.bind( null, checked.includes( o.id ) ? checked.filter( cId => cId !== o.id ) : checked.concat( o.id ) )}
+          checked={checked.includes( o.id )} />
+        {o.label}
+      </label>
+    </div> )}
+  </Fragment>
 
 }

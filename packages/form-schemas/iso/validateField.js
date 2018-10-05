@@ -275,7 +275,8 @@ function buildFieldSchema( type, options = {} ) {
           },
           label: {
             type: 'multilingual',
-            optional: false
+            optional: false,
+            defaultLanguage: defaultLabelLanguage
           },
           legacyId: {
             type: 'integer',

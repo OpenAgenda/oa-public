@@ -62,6 +62,16 @@ const devApps = [ {
   link: '/html',
   group: 'types'
 }, {
+  name: 'A radio field',
+  description: 'A set of single choice options',
+  link: '/radio',
+  group: 'types'
+}, {
+  name: 'Checkboxes',
+  description: 'Sometimes more than one choice is allowed',
+  link: '/checkbox',
+  group: 'types'
+}, {
   name: 'A markdown field',
   description: 'A field that outputs a markdown string',
   link: '/markdown',
