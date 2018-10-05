@@ -1,9 +1,10 @@
 <% if ( typeof bottom !== 'undefined' ) { %>
-<% if ( bottom.scripts ) { %>
+<% if ( bottom.scripts ) { %>
 <% bottom.scripts.forEach( function( script ) { %>
 <script type="text/javascript"><%- script %></script>
 <% }); %>
 <% } %>
 <% } %>
+<% include ../layout/tracking.part.ejs %>
   </body>
 </html>
