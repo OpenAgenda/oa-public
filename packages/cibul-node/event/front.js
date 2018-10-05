@@ -41,6 +41,7 @@ const middlewares = {
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
+    _appendSettings,
     agendaEmbedEventShow
   ]
 };
@@ -542,6 +543,9 @@ function _appendSettings( req, res, next ) {
       },
       useContributeApp: {
         $set: _.get( agenda, 'credentials.useContributeApp', false )
+      },
+      googleAnalytics: {
+        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
       }
     } );
 

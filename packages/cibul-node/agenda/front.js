@@ -300,11 +300,14 @@ function show( req, res ) {
           isEmpty: req.agenda.isEmpty,
           importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
           showCalendar: _.get( agenda, 'credentials.calendarView', false ),
-          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
+          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false ),
         }
       },
       mailto: {
         $set: cmn.agendaMailTo( agenda )
+      },
+      googleAnalytics: {
+        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
       }
     } );
 
@@ -338,22 +341,38 @@ function redirect( req, res, next ) {
 
 function embedShow( req, res ) {
 
-  lib.extend( req.templateData, {
-    agenda: {
-      uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
-      isEmpty: req.agenda.isEmpty,  
-    },
-    renders: req.renders,
-    pager: {
-      base: { uid: req.agenda.uid },
-      routeName: 'agendaEmbedShow',
-      current: req.templateData.page,
-      total: req.total,
-      perPage
-    }
-  } );
+  agendas.get( { 
+    uid: req.agenda.uid
+  }, { 
+    private: null,
+    internal: true
+  }, ( err, agenda ) => {
 
-  cmn.render( req, res, 'agenda/embedShow', req.templateData );
+    cmn.render( req, res, 'agenda/embedShow', ih( req.templateData, {
+      agenda: {
+        $set: {
+          uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
+          isEmpty: req.agenda.isEmpty,  
+        }
+      },
+      googleAnalytics: {
+        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
+      },
+      renders: {
+        $set: req.renders
+      },
+      pager: {
+        $set: {
+          base: { uid: req.agenda.uid },
+          routeName: 'agendaEmbedShow',
+          current: req.templateData.page,
+          total: req.total,
+          perPage
+        }
+      }
+    } ) );
+
+  } );
 
 }
 
@@ -459,7 +478,7 @@ function _format( req, res, next ) {
 
     next();
 
-  });
+  } );
 
 }
 
