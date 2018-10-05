@@ -11,16 +11,6 @@ exports.seed = async knex => {
       entity_name: 'user',
       identifier: 99999999,
       actions: 'receive',
-      subject: 'activity',
-      inverted: false,
-      conditions: null,
-      fields: null,
-      reason: null
-    },
-    {
-      entity_name: 'user',
-      identifier: 99999999,
-      actions: 'receive',
       subject: 'eventUpdate',
       inverted: false,
       conditions: null,

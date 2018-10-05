@@ -1,8 +1,21 @@
 {
-  "extends": "airbnb-base",
+  "extends": "airbnb",
   "plugins": [
+    "import",
     "jest"
   ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "settings": {
+    "react": {
+      "version": "16.5.2"
+    }
+  },
   "rules": {
     "strict": [
       "error",
@@ -48,18 +61,25 @@
       }
     ]
   },
-  "overrides": [ {
-    "files": "**/*.{test,spec}.js",
-    "rules": {
-      "no-unused-expressions": "off"
+  "overrides": [
+    {
+      "files": "{src,test}/**/*.js",
+      "env":  {
+        "es6": true
+      },
+      "parser": "babel-eslint",
+      "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": true
+        }
+      }
+    },
+    {
+      "files": "**/*.{test,spec}.js",
+      "env": {
+        "jest":  true
+      }
     }
-  } ],
-  "parserOptions": {
-    "sourceType": "script"
-  },
-  "env": {
-    "es6": true,
-    "node": true,
-    "jest/globals": true
-  }
+  ]
 }

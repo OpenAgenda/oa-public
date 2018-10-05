@@ -1,11 +1,9 @@
-'use strict';
-
-const abilities = require( '../' );
-const config = require( '../config' );
+const abilities = require( '../src' );
+const config = require( '../src/config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 
-const database = `${testconfig.mysql.database}_convertForForm`;
+const database = `${testconfig.mysql.database}_getFormIndex`;
 
 beforeAll( async () => {
   await db.create( { ...testconfig.mysql, database } );
@@ -24,10 +22,11 @@ afterAll( async () => {
   await config.knex.destroy();
 } );
 
-describe( 'convertForForm', () => {
-  test( 'convert rules for a user form', async () => {
+describe( 'getFormIndex', () => {
+  test( 'simple getFormIndex for a user', async () => {
     const ability = await abilities.get( 'user', 99999999 );
+    const index = await ability.getFormIndex();
 
-    console.log( JSON.stringify( ability.convertForForm(), null, 2 ) );
+    expect( index ).toMatchSnapshot();
   } );
 } );

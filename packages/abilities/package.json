@@ -4,6 +4,7 @@
   "license": "MIT",
   "main": "dist/service/index.js",
   "scripts": {
+    "build": "babel --root-mode upward -d dist src",
     "test": "jest --forceExit --detectOpenHandles",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'"
@@ -21,21 +22,37 @@
     ]
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@casl/ability": "^2.4.2",
     "@openagenda/logs": "^1.0.19",
     "knex": "^0.15.2",
     "lodash": "^4.17.11",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "react": "^16.5.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-react-jsx-source": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "@openagenda/agenda-stakeholders": "^2.0.9",
     "@openagenda/agendas": "^1.0.45",
     "@openagenda/users": "^2.1.2",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "bluebird": "^3.5.2",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jest": "^21.22.1",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "husky": "^1.0.1",
     "jest": "^23.6.0",
     "lint-staged": "^7.3.0",

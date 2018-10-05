@@ -1,9 +1,6 @@
-'use strict';
-
 const _ = require( 'lodash' );
 const { AbilityBuilder } = require( '@casl/ability' );
-const config = require( '../config' );
-
+const config = require( './config' );
 
 const joinIfArray = ( value, delimiter = '|' ) => ( Array.isArray( value ) ? value.join( delimiter ) : value );
 const splitIfNeeded = ( value, delimiter = '|' ) => {
@@ -42,7 +39,7 @@ function parse( rules ) {
     actions: splitIfNeeded( rule.actions ),
     subject: splitIfNeeded( rule.subject ),
     inverted: !!rule.inverted,
-    conditions: typeof rule.conditions === 'string' ? JSON.parse( rule.conditions ) : ( rule.conditions || null ),
+    conditions: typeof rule.conditions === 'string' ? JSON.parse( rule.conditions ) : rule.conditions || null,
     fields: splitIfNeeded( rule.fields ) || null,
     reason: rule.reason || null
   } );
@@ -85,14 +82,13 @@ function getDefaultFor( entityName ) {
     Object.assign( _.last( this.rules ), { entityName, identifier: null } );
 
     return result;
-  };
+  }
 
   builder.can = _.wrap( builder.can, wrapper ).bind( builder );
   builder.cannot = _.wrap( builder.cannot, wrapper ).bind( builder );
 
-  return defaultForFn ? defaultForFn( builder ) : [];
+  return defaultForFn ? parse( defaultForFn( builder ) ) : [];
 }
-
 
 module.exports = {
   list,

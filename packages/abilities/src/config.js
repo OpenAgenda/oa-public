@@ -1,5 +1,3 @@
-'use strict';
-
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
@@ -32,7 +30,7 @@ function getKnexConfig( c ) {
     knexConfig.migrations = {
       ...( c.knex ? c.knex.client.config.migrations : {} ),
       ...c.migrations,
-      directory: path.resolve( __dirname, 'migrations' )
+      directory: path.join( __dirname, '..', 'migrations' )
     };
   }
 
@@ -51,15 +49,15 @@ async function init( c = {} ) {
 
 function migrate( options ) {
   return config.knex.migrate.latest( {
-    directory: path.join( __dirname, 'migrations' ),
+    directory: path.join( __dirname, '..', 'migrations' ),
     ...options
   } );
 }
 
 function seed( options ) {
   const directory = typeof options === 'string'
-    ? path.join( __dirname, 'seeds', options )
-    : path.join( __dirname, 'seeds', options && options.scenarioName ? options.scenarioName : '' );
+    ? path.join( __dirname, '..', 'seeds', options )
+    : path.join( __dirname, '..', 'seeds', options && options.scenarioName ? options.scenarioName : '' );
 
   return config.knex.seed.run( {
     directory,

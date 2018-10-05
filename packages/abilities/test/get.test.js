@@ -1,7 +1,5 @@
-'use strict';
-
-const abilities = require( '../' );
-const config = require( '../config' );
+const abilities = require( '../src' );
+const config = require( '../src/config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 
@@ -25,13 +23,13 @@ afterAll( async () => {
 } );
 
 describe( 'get', () => {
-  test( 'simple get of an ability instance for a user - by uid', async () => {
+  test( 'simple get for a user', async () => {
     const ability = await abilities.get( 'user', 99999999 );
 
     expect( ability.rules ).toMatchSnapshot();
   } );
 
-  test( 'get with an empty entity object should throw an error', async () => {
+  test( 'get with a bad identifier object should throw an error', async () => {
     await expect( abilities.get( 'user', {} ) ).rejects.toThrow( '`identifier` should be a number' );
   } );
 } );

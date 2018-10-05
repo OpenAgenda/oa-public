@@ -1,20 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`get simple get of an ability instance for a user - by uid 1`] = `
+exports[`get simple get for a user 1`] = `
 Array [
-  Object {
-    "actions": "receive",
-    "conditions": Object {
-      "verb": "agenda.eventPublished",
-    },
-    "entityName": "agenda",
-    "fields": null,
-    "id": 3,
-    "identifier": 48959239,
-    "inverted": true,
-    "reason": null,
-    "subject": "mail",
-  },
   Object {
     "actions": "create",
     "conditions": null,
@@ -51,17 +38,6 @@ Array [
     "subject": "activity",
   },
   Object {
-    "actions": "gna",
-    "conditions": null,
-    "entityName": "user",
-    "fields": null,
-    "id": null,
-    "identifier": 99999999,
-    "inverted": false,
-    "reason": null,
-    "subject": "activity",
-  },
-  Object {
     "actions": "receive",
     "conditions": null,
     "entityName": "user",
@@ -70,20 +46,7 @@ Array [
     "identifier": 99999999,
     "inverted": false,
     "reason": null,
-    "subject": "activity",
-  },
-  Object {
-    "actions": "receive",
-    "conditions": Object {
-      "verb": "agenda.eventPublished",
-    },
-    "entityName": "member",
-    "fields": null,
-    "id": 2,
-    "identifier": 60815,
-    "inverted": false,
-    "reason": null,
-    "subject": "mail",
+    "subject": "eventUpdate",
   },
 ]
 `;

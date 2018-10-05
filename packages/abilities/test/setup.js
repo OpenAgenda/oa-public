@@ -1,5 +1,3 @@
-'use strict';
-
 // const chai = require( 'chai' );
 // const chaiAsPromised = require( 'chai-as-promised' );
 // const chaiJestDiff = require( 'chai-jest-diff' ).default;
@@ -10,7 +8,7 @@
 // global.jestExpect = global.expect;
 
 // eslint-disable-next-line no-global-assign
-Promise = require( 'bluebird' );
+import Promise from 'bluebird';
 
 Promise.config( {
   longStackTraces: true

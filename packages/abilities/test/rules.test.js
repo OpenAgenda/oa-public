@@ -1,7 +1,5 @@
-'use strict';
-
-const abilities = require( '../' );
-const config = require( '../config' );
+const abilities = require( '../src' );
+const config = require( '../src/config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 

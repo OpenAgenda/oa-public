@@ -5,4 +5,6 @@ npm-debug.log
 yarn-error.log
 coverage/
 .cache/
+
 testconfig.js
+dist/

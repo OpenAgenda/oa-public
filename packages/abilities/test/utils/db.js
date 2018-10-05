@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require( 'lodash' );
-const { readFile } = require( 'fs' );
-const { promisify } = require( 'util' );
-const mysql = require( 'mysql' );
+import _ from 'lodash';
+import { readFile } from 'fs';
+import { promisify } from 'util';
+import mysql from 'mysql';
 
 async function create( config ) {
   const conn = mysql.createConnection( _.pick( config, [ 'user', 'password' ] ) );

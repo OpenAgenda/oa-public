@@ -1,7 +1,5 @@
-'use strict';
-
-const abilities = require( '../' );
-const config = require( '../config' );
+const abilities = require( '../src' );
+const config = require( '../src/config' );
 const testconfig = require( '../testconfig' );
 const db = require( './utils/db' );
 
@@ -24,7 +22,7 @@ afterAll( async () => {
   await config.knex.destroy();
 } );
 
-describe( 'Ability.can', () => {
+describe( 'can', () => {
   test( 'simple can', async () => {
     const ability = await abilities.get( 'user', 99999999 );
 
@@ -46,25 +44,19 @@ describe( 'Ability.can', () => {
     expect( ability.can( 'receive', 'activity', { verb: 'spam' } ) ).toBe( false );
   } );
 
-  test( 'compose ability for a user entity (agendas + user + members)', async () => {
-    const ability = await abilities.get( 'user', 12345678 );
+  test( 'compose ability for a member entity (agenda + user + member)', async () => {
+    const ability = await abilities.get( 'member', 60815 );
 
     expect( ability.can( 'receive', 'activity' ) ).toBe( true );
     expect( ability.can( 'receive', 'activity', { verb: 'spam' } ) ).toBe( false );
     expect( ability.can( 'receive', 'mail', { verb: 'agenda.eventPublished' } ) ).toBe( true );
   } );
 
-  test( 'check ability for a member from a subpart of a user', async () => {
+  test( 'check abilities that have opposed rules but the same user entity', async () => {
     const userAbility = await abilities.get( 'user', 99999999 );
     const memberAbility = await abilities.get( 'member', 60815 );
 
     expect( userAbility.can( 'receive', 'eventUpdate' ) ).toBe( true );
     expect( memberAbility.can( 'receive', 'eventUpdate' ) ).toBe( false );
-
-    // user can receive eventUpdate
-    // member cannot receive eventUpdate
-
-    // userAbility.can( 'receive', 'eventUpdate' ) === true
-    // userAbility.for( 'member', 60815 ).can( 'receive', 'eventUpdate' )
   } );
 } );

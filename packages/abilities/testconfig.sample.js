@@ -1,12 +1,13 @@
 'use strict';
 
-const abilities = require( './' );
+const abilities = require( './src' );
 
 const getEntity = {
   agenda: uid => ( { uid } ),
   member: id => ( { id } ),
   user: uid => ( { uid } )
 };
+
 
 module.exports = {
   mysql: {
@@ -88,11 +89,12 @@ module.exports = {
           member: abilities.rules.getDefaultFor( 'member' )
         };
 
-
-        const agendasRules = await abilities.rules.list( 'agenda', [ // uids
+        const agendasRules = await abilities.rules.list( 'agenda', [
+          // uids
           48959239
         ] );
-        const membersRules = await abilities.rules.list( 'member', [ // ids
+        const membersRules = await abilities.rules.list( 'member', [
+          // ids
           60815
         ] );
 
