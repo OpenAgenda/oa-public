@@ -12,9 +12,11 @@ const eventValidators = {
   languages: require( './validators/languages' )
 }
 
-module.exports = ( { locationRes, languages, fileStore } ) => {
+const merge = require( '@openagenda/form-schemas/iso/merge' );
 
-  return {
+module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => {
+
+  const eventSchema = {
     custom: eventValidators,
     fields: [ {
       "field" : "image",
@@ -190,5 +192,9 @@ module.exports = ( { locationRes, languages, fileStore } ) => {
       }
     } ]
   }
+
+  if ( !_.isArray( schemaExtensions ) ) return eventSchema;
+
+  return merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
 
 }

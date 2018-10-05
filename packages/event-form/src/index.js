@@ -60,7 +60,9 @@ export default class EventForm extends Component {
       this.setState( {
         values: ih( transferMultilingualValues( 
           this.state.values,
-          getMultilingualFieldNames( eventSchema( { languages: true } ) ),
+          getMultilingualFieldNames( eventSchema( { 
+            languages: true
+          } ) ),
           _.get( this, 'state.values.languages.0' ),
           _.first( changedLanguages )
         ), {
@@ -83,6 +85,17 @@ export default class EventForm extends Component {
 
   }
 
+  buildEventSchema() {
+
+    return eventSchema( {
+      locationRes: this.props.locationRes,
+      languages: this.state.values.languages,
+      fileStore: this.props.fileStore,
+      schemaExtensions: this.props.schemaExtensions 
+    } );
+
+  }
+
   render() {
 
     const {
@@ -90,16 +103,8 @@ export default class EventForm extends Component {
       values,
       actionComponents,
       onSubmitSuccess,
-      locationRes, 
-      fileStore, 
       classNames
     } = this.props;
-
-    const schema = eventSchema( {
-      locationRes,
-      languages: this.state.values.languages,
-      fileStore
-    } );
 
     return <FormSchemaComponent
       stateless={true}
@@ -109,7 +114,7 @@ export default class EventForm extends Component {
       errors={this.state.errors}
       files={this.state.files}
       onChange={this.onChange}
-      schema={schema}
+      schema={this.buildEventSchema()}
       classNames={ih( classNames, {
         field: { $set: 'padding-v-sm' }
       } )}
