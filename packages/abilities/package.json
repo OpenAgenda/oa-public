@@ -7,7 +7,7 @@
     "build": "babel --root-mode upward -d dist src",
     "test": "jest --forceExit --detectOpenHandles",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
-    "lint": "eslint -c .eslintrc '**/*.js'"
+    "lint": "eslint -c .eslintrc --cache '**/*.js'"
   },
   "husky": {
     "hooks": {

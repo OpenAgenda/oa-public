@@ -8,7 +8,6 @@ const getEntity = {
   user: uid => ( { uid } )
 };
 
-
 module.exports = {
   mysql: {
     host: '127.0.0.1',
