@@ -27,6 +27,14 @@ const defaultConfig = {
   }
 }
 
+const aValidMember = {
+  name: 'Gaetan Latouche',
+  phone: '+33 (0)6 50 91 00 12',
+  email: 'gaetan@cibul.net',
+  position: 'Test user',
+  organisation: 'OpenAgenda Corp.'
+}
+
 module.exports = [ {
   // we set the agenda base data to describe scenario guidelines
   agenda: {
@@ -191,13 +199,7 @@ module.exports = [ {
     },
     locationUid: 50148047
   },
-  member: {
-    name: 'Gaetan Latouche',
-    phone: '+33 (0)6 50 91 00 12',
-    email: 'gaetan@cibul.net',
-    position: 'Test user',
-    organisation: 'OpenAgenda Corp.'
-  }
+  member: aValidMember
 }, {
   link: '/edit-a-draft-event-without-member/contribute/event/903/draft',
   agenda: {
@@ -226,4 +228,43 @@ module.exports = [ {
     phone: '+33 (0)6 50 91 00 12',
     organisation: 'OpenAgenda Corp.'
   }
+}, {
+  link: '/an-event-form-with-custom-fields/contribute/event',
+  agenda: {
+    title: 'A contribute app with custom fields',
+    description: 'From the agenda and from a network of agendas',
+    slug: 'an-event-form-with-custom-fields',
+    uid: 193820139,
+    id: 202021
+  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/an-event-form-with-custom-fields/contribute',
+    schemaExtensions: [ {
+      fields: [ {
+        fieldType: 'abstract',
+        field: 'title',
+        label: 'Le nom de l\'événement'
+      }, {
+        fieldType: 'abstract',
+        field: 'description'
+      }, {  
+        fieldType: 'text',
+        field: 'networkfield',
+        label: 'Un champ de réseau',
+        placeholder: 'Biiiim',
+        max: 123456789,
+        sub: 'Et ouais'
+      } ]
+    }, {
+      fields: [ {
+        fieldType: 'text',
+        field: 'agendafield',
+        label: 'Un champ d\'agenda',
+        placeholder: 'Bim',
+        max: 10,
+        min: 2
+      } ]
+    } ]
+  } ),
+  member: aValidMember
 } ];
