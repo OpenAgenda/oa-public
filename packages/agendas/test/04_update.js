@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const config = require( '../testconfig' );
 
 const mysql = require( 'mysql' );
@@ -62,6 +60,9 @@ describe( 'agendas - functional (server): set (update)', function() {
           },
           mailing: {
             eventAggregation: false
+          },
+          tracking: {
+            googleAnalytics: null
           },
           contribution: {
             allowLocationCreate: true,
@@ -261,6 +262,9 @@ describe( 'agendas - functional (server): set (update)', function() {
             },
             mailing: {
               eventAggregation: false
+            },
+            tracking: {
+              googleAnalytics: null
             },
             contribution: {
               allowLocationCreate: true,

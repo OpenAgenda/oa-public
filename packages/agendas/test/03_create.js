@@ -1,12 +1,10 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
+const _ = require( 'lodash' );
 const should = require( 'should' );
 
-const svc = require( '../' );
-
 const config = require( '../testconfig' );
+const svc = require( '../' );
 
 describe( 'agendas - functional (server): set (create)', function() {
 
@@ -43,62 +41,13 @@ describe( 'agendas - functional (server): set (create)', function() {
 
       should( err ).equal( null );
 
-      result.should.eql( {
-        agenda: { 
-          slug: 'hello-world',
-          image: null,
-          uid: result.agenda.uid, // that 
-          title: 'Hello World',
-          description: 'This is necessary',
-          url: null,
-          settings: {
-            inbox: {
-              mailto: {
-                enabled: false,
-                email: null,
-                subject: null,
-                body: null
-              }
-            },
-            mailing: {
-              eventAggregation: false
-            },
-            contribution: {
-              allowLocationCreate: true,
-              defaultLang: null,
-              defaultState: 2,
-              message: null,
-              messages: {
-                instructions: null,
-                complete: null,
-                publication: null
-              },
-              messages: {
-              instructions: null,
-              complete: null,
-              publication: null
-            },
-              type: 2,
-              useFields: false,
-              authorizedIPAddresses: [],
-              canPublish: [ 'administrators', 'moderators' ],
-              moderateOnChangeBy: [],
-              survey: false
-            },
-            translation: {
-              enabled: false,
-              sets: [],
-              options: null,
-              service: 'reverso',
-              source: 'fr'
-            }
-          },
-          official: 0,
-          private: 0,
-          indexed: 1,
-          createdAt: result.agenda.createdAt,
-          updatedAt: result.agenda.updatedAt
-        },
+      _.pick( result.agenda, [ 'slug', 'image', 'title' ] ).should.eql( {
+        slug: 'hello-world',
+        image: null,
+        title: 'Hello World'
+      } );
+
+      _.pick( result, [ 'valid', 'success', 'errors' ] ).should.eql( {
         valid: true,
         success: true,
         errors: [] 
@@ -156,60 +105,10 @@ describe( 'agendas - functional (server): set (create)', function() {
 
       should( err ).equal( null );
 
-      result.should.eql( { 
-        agenda: {
-          slug: 'courbevoie',
-          uid: result.agenda.uid,
-          title: 'Courbevoie',
-          description: 'Que faire à Courbevoie',
-          url: 'http://www.ville-courbevoie.fr/lagenda-de-vos-evenements.htm',
-          settings: {
-            inbox: {
-              mailto: {
-                enabled: false,
-                email: null,
-                subject: null,
-                body: null
-              }
-            },
-            mailing: {
-              eventAggregation: false
-            },
-            contribution: {
-              allowLocationCreate: true,
-              defaultLang: null,
-              defaultState: 2,
-              message: null,
-              messages: {
-                instructions: null,
-                complete: null,
-                publication: null
-              },
-              type: 2,
-              useFields: false,
-              authorizedIPAddresses: [],
-              canPublish: [ 'administrators', 'moderators' ],
-              moderateOnChangeBy: [],
-              survey: false
-            },
-            translation: {
-              enabled: false,
-              sets: [],
-              options: null,
-              service: 'reverso',
-              source: 'fr'
-            }
-          },
-          image: null,
-          official: 0,
-          private: 0,
-          indexed: 1,
-          createdAt: result.agenda.createdAt,
-          updatedAt: result.agenda.updatedAt
-        },
-        valid: true,
-        success: true,
-        errors: [] 
+      _.pick( result.agenda, [ 'slug', 'title', 'description' ] ).should.eql( {
+        slug: 'courbevoie',
+        title: 'Courbevoie',
+        description: 'Que faire à Courbevoie'
       } );
 
       done();
@@ -238,7 +137,6 @@ describe( 'agendas - functional (server): set (create)', function() {
 
   it( 'set in create mode calls onCreate callback with created agenda including internal values', done => {
 
-
     svc.init( Object.assign( {}, config, {
       interfaces: {
         onCreate: ( agenda ) => {
@@ -257,7 +155,7 @@ describe( 'agendas - functional (server): set (create)', function() {
       ownerId: 1,
       title: 'Niargl',
       description: 'Blotock'
-    }, () => {} )
+    }, () => {} );
 
   } );
 
@@ -272,82 +170,7 @@ describe( 'agendas - functional (server): set (create)', function() {
 
       should( err ).equal( null );
 
-      result.should.eql( {
-        agenda: { 
-          id: result.agenda.id,
-          ownerId: 1,
-          formSchemaId: null,
-          networkUid: null,
-          slug: 'seconde-guerre-punique',
-          uid: result.agenda.uid,
-          title: 'Seconde guerre punique',
-          description: 'Evénements d\'une rando en Espagne/France/Italie',
-          url: null,
-          image: null,
-          official: 0,
-          officializedAt: null,
-          private: 0,
-          indexed: 1,
-          settings: {
-            inbox: {
-              mailto: {
-                enabled: false,
-                email: null,
-                subject: null,
-                body: null
-              }
-            },
-            mailing: {
-              eventAggregation: false
-            },
-            contribution: {
-              allowLocationCreate: true,
-              defaultLang: null,
-              defaultState: 2,
-              message: null,
-              messages: {
-                instructions: null,
-                complete: null,
-                publication: null
-              },
-              type: 2,
-              useFields: false,
-              authorizedIPAddresses: [],
-              canPublish: [ 'administrators', 'moderators' ],
-              moderateOnChangeBy: [],
-              survey: false
-            },
-            translation: {
-              enabled: false,
-              sets: [],
-              options: null,
-              service: 'reverso',
-              source: 'fr'
-            }
-          },
-          credentials: {
-            useContributeApp: false,
-            activatingInvitations: false,
-            emailstrategie: false,
-            moderators: false,
-            tags: false,
-            indesign: false,
-            embedsHead: false,
-            embedsTemplates: false,
-            aggregator: false,
-            prioritizedAggregator: false,
-            invitationMessage: false,
-            calendarView: false,
-            docxExport: false,
-            eventOwnershipTransfer: false
-          },
-          createdAt: result.agenda.createdAt,
-          updatedAt: result.agenda.updatedAt
-        },
-        valid: true,
-        success: true,
-        errors: [] 
-      } );
+      _.isObject( _.get( result, 'agenda.credentials' ) ).should.equal( true );
 
       done();
 

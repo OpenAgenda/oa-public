@@ -50,6 +50,9 @@ describe( 'agendas - unit (server): validate', () => {
           mailing: {
             eventAggregation: false
           },
+          tracking: {
+            googleAnalytics: null
+          },
           contribution: {
             allowLocationCreate: true,
             defaultLang: null,
@@ -187,6 +190,9 @@ describe( 'agendas - unit (server): validate', () => {
         formSchemaId: null,
         networkUid: null,
         settings: {
+          tracking: {
+            googleAnalytics: null
+          },
           inbox: {
             mailto: {
               enabled: false,
