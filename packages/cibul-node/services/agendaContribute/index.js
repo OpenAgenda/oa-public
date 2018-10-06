@@ -38,8 +38,9 @@ module.exports = _.extend( ( parentApp, path ) => {
     } ),
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup` ) ),
-    middlewares.member
-  ] ); 
+    middlewares.member,
+    middlewares.schemaExtensions
+  ] );
 
   parentApp.all( [
     '/:agendaSlug/contribute/event/:eventUid',

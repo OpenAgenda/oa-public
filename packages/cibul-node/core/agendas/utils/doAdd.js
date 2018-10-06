@@ -63,7 +63,10 @@ module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
 
   if ( networkFormSchemaId && clean.networkCustom ) {
 
-    const result = await setCustom( networkFormSchemaId, eventUid, clean.networkCustom, { draft } );
+    const result = await setCustom( networkFormSchemaId, eventUid, clean.networkCustom, {
+      draft,
+      agendaId: clean.agendaId
+    } );
 
     if ( result.errors.length ) {
 

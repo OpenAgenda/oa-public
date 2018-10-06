@@ -4,7 +4,7 @@ const log = require( '@openagenda/logs' )( 'services/agendaContribute/middleware
 
 const core = require( '../../../core' );
 
-module.exports = function( req, res, next ) {
+module.exports = ( req, res, next ) => {
 
   core.agendas( req.agenda.uid ).events.get( req.params.eventUid ).then( event => {
 

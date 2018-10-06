@@ -283,11 +283,9 @@ module.exports = function ( enabledTypes, options, cb ) {
 
 
         if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
-          /*require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => {
-
-            console.log( 'FINI', err, res );
-
-          } );*/
+          
+          //require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => console.log( 'FINI', err, res ); } );
+          
         }
 
         // require( './services/agendaStatistics' ).task.resyncLegacySearch();

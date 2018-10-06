@@ -3,5 +3,6 @@
 module.exports = {
   agenda: require( './agenda' ),
   member: require( './member' ),
-  event: require( './event' )
+  event: require( './event' ),
+  schemaExtensions: require( './schemaExtensions' )
 }
