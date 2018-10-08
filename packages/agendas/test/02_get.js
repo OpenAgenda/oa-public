@@ -34,6 +34,18 @@ describe( 'agendas - functional (server): get', function() {
   before( () => {
     svc.init( config );
   } );
+
+  it( 'get works on promise', async () => {
+
+    const agenda = await svc.get( 4875 );
+
+    _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
+      slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
+      uid: 52084961,
+      title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
+    } );
+
+  } );
   
   it( 'get gets an agenda by id', done => {
 
