@@ -184,6 +184,7 @@ function set( data, settings, cb ) {
     indexedLocation: false,
     settings: Object.assign( {
       forceTags: false, // for private scripts
+      forceIndexCreate: false
     }, settings )
   } )
 
@@ -299,11 +300,13 @@ function set( data, settings, cb ) {
 
     if ( v.errors.length ) return v;
 
-    log( 'indexing location %s - ( %s )', v.location.uid, v.create ? 'create' : 'update' );
+    const indexOperation = v.create || v.settings.forceIndexCreate ? 'create' : 'update';
+
+    log( 'indexing location %s - ( %s )', v.location.uid, indexOperation );
 
     const d = w.defer();
 
-    search[ v.create ? 'create' : 'update' ]( v.location, { refresh: !!v.create }, ( err, indexedLocation ) => {
+    search[ indexOperation ]( v.location, { refresh: indexOperation === 'create' }, ( err, indexedLocation ) => {
 
       if ( err ) return d.reject( err );
 
@@ -326,7 +329,7 @@ function set( data, settings, cb ) {
       valid: !v.errors.length,
       location: v.indexedLocation,
       errors: v.errors,
-      instance: v.location ? instanciate( v.location, { set: set } ) : false
+      instance: v.location ? instanciate( v.location, { set } ) : false
     } );
 
   }, cb );
