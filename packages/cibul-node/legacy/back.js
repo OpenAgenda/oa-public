@@ -25,6 +25,8 @@ const modLib = require( '../lib/moduleLib' );
 const notificationMail = require( '../services/notification/mail' );
 const legacyEvents = require( '../services/events' ).legacy;
 
+const agendaLocations = require( '@openagenda/agenda-locations' );
+
 const logRequests = require( '../services/logRequests' );
 
 const routes = {
@@ -51,6 +53,10 @@ const routes = {
 
     legacyApi: [ 'get', '/api', [
       api
+    ] ],
+
+    legacyApiLocationSync: [ 'get', '/api/agendas/:agendaUid/locations/:locationUid/sync', [
+      locationSync
     ] ],
 
     legacyApiGetCached: [ 'get', '/api/cache', [ apiGetCached ] ],
@@ -253,6 +259,35 @@ function referencesSave( req, res, next ) {
       req.log( 'references for event %s set: %s', req.event.id, refIds.join( ', ' ) );
 
       res.send( 'ok' );
+
+    } );
+
+  } );
+
+}
+
+
+function locationSync( req, res ) {
+
+  agendaLocations.get( { uid: req.params.locationUid }, { instanciate: false }, ( err, location ) => {
+
+    if ( err ) {
+
+      return req.log( 'error', 'locationSync.get', req.params.locationUid, err );
+
+    }
+
+    if ( !location ) {
+
+      return req.log( 'error', 'locationSync.get', req.params.locationUid, 'no location found' );
+
+    }
+
+    agendaLocations.set( location, { forceIndexCreate: true }, ( err, result ) => {
+
+      if ( err ) return req.log( 'error', 'locationSync.set', req.params.locationUid, err );
+
+      req.log( 'info', 'locationSync done for location %s', req.params.locationUid );
 
     } );
 
