@@ -238,33 +238,33 @@ module.exports = [ {
     id: 202021
   },
   config: _.assign( {}, defaultConfig, {
-    base: '/an-event-form-with-custom-fields/contribute',
-    schemaExtensions: [ {
-      fields: [ {
-        fieldType: 'abstract',
-        field: 'title',
-        label: 'Le nom de l\'événement'
-      }, {
-        fieldType: 'abstract',
-        field: 'description'
-      }, {  
-        fieldType: 'text',
-        field: 'networkfield',
-        label: 'Un champ de réseau',
-        placeholder: 'Biiiim',
-        max: 123456789,
-        sub: 'Et ouais'
-      } ]
-    }, {
-      fields: [ {
-        fieldType: 'text',
-        field: 'agendafield',
-        label: 'Un champ d\'agenda',
-        placeholder: 'Bim',
-        max: 10,
-        min: 2
-      } ]
-    } ]
+    base: '/an-event-form-with-custom-fields/contribute'
   } ),
-  member: aValidMember
+  member: aValidMember,
+  schemaExtensions: [ {
+    fields: [ {
+      fieldType: 'abstract',
+      field: 'title',
+      label: 'Le nom de l\'événement'
+    }, {
+      fieldType: 'abstract',
+      field: 'description'
+    }, {  
+      fieldType: 'text',
+      field: 'networkfield',
+      label: 'Un champ de réseau',
+      placeholder: 'Biiiim',
+      max: 123456789,
+      sub: 'Et ouais'
+    } ]
+  }, {
+    fields: [ {
+      fieldType: 'text',
+      field: 'agendafield',
+      label: 'Un champ d\'agenda',
+      placeholder: 'Bim',
+      max: 10,
+      min: 2
+    } ]
+  } ]
 } ];
