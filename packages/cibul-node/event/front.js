@@ -521,11 +521,23 @@ function _appendEventTransferCredential( req, res, next ) {
 }
 
 
+
+
+
 function _appendSettings( req, res, next ) {
 
   if ( !req.agenda ) return next();
 
-  agendaSvc.get( { uid: req.agenda.uid }, { private: null, internal: true }, ( err, agenda ) => {
+  const agendaUid = _.get( req, 'agenda.uid' );
+  const originAgendaUid = _.get( req, 'event.origin.uid' );
+
+  const agendaUids = [ agendaUid ];
+
+  if ( originAgendaUid ) agendaUids.push( originAgendaUid );  
+
+  agendaSvc.list( { uid: agendaUids }, 0, 2, { private: null, internal: true, includeFields: [ 'settings', 'indexed', 'private', 'credentials' ] }, ( err, agendas ) => {
+
+    const agenda = _.first( agendas.filter( a => a.uid === agendaUid ) );
 
     if ( err ) return next( err );
 
@@ -544,8 +556,8 @@ function _appendSettings( req, res, next ) {
       useContributeApp: {
         $set: _.get( agenda, 'credentials.useContributeApp', false )
       },
-      googleAnalytics: {
-        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
+      bottom: {
+        scripts: { $push: [ cmn.extractGoogleAnalytics( agendas ) ] }
       }
     } );
 

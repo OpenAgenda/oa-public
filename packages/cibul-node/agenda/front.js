@@ -305,14 +305,14 @@ function show( req, res ) {
       },
       mailto: {
         $set: cmn.agendaMailTo( agenda )
-      },
-      googleAnalytics: {
-        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
       }
     } );
 
     req.baseData = ih( req.baseData, { 
-      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  }
+      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  },
+      bottom: {
+        scripts: { $push: [ cmn.extractGoogleAnalytics( agenda ) ] }
+      }
     } );
 
     cmn.render( req, res, 'agenda/show', req.templateData );

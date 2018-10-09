@@ -130,7 +130,24 @@ module.exports = {
   ifIs: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? fn( req, res, next ) : next(),
   ifIsNot: ( path, fn ) => ( req, res, next ) => _.get( req, path, false ) ? next() : fn( req, res, next ),
 
-  lang
+  lang,
+
+  extractGoogleAnalytics
+
+}
+
+
+function extractGoogleAnalytics( agendas ) {
+
+  return [].concat( agendas ).map( ( a, i ) => { 
+
+    const gaCode = _.get( a, 'settings.tracking.googleAnalytics' );
+
+    if ( !gaCode ) return;
+
+    return `ga( 'create', '${gaCode}', 'auto', 'clientTracker-${i}' ); ga('clientTracker-${i}.send', 'pageview');`;
+
+  } ).filter( g => !!g ).join( '\n' );
 
 }
 
@@ -744,18 +761,21 @@ function loadBaseData( func, cssFile ) {
 
     }
 
+    baseData.bottom.scripts.push(`
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    `);
+
     if ( config.env == 'production' ) {
 
       const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
 
-      baseData.bottom.scripts.push( 'var _gaq = _gaq || [];var pluginUrl =\'//www.google-analytics.com/plugins/ga/inpage_linkid.js\';_gaq.push([\'_require\', \'inpage_linkid\', pluginUrl]);_gaq.push([\'_setAccount\', \'' + googleAnalyticsId + '\']);_gaq.push([\'_trackPageview\']);(function() {var ga = document.createElement(\'script\'); ga.type = \'text/javascript\'; ga.async = true;ga.src = (\'https:\' == document.location.protocol ? \'https://ssl\' : \'http://www\') + \'.google-analytics.com/ga.js\';var s = document.getElementsByTagName(\'script\')[0]; s.parentNode.insertBefore(ga, s);})();' );
-      baseData.bottom.scripts.push( `var errorsTrackingConfig = ${JSON.stringify( config.logger.errorsTracking )}` );
-
-    }
-
-    if ( req.agenda && req.agenda.hasChatbox && req.agenda.hasChatbox() ) {
-
-      baseData.bottom.scripts.push( 'CRISP_WEBSITE_ID = "-KC1cwSWCMI3qYiWHBSI";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();' );
+      if ( googleAnalyticsId ) baseData.bottom.scripts.push( `
+        ga('create', '${googleAnalyticsId}', 'auto');
+        ga('send', 'pageview');
+      ` );
 
     }
 
