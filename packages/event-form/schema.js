@@ -12,7 +12,7 @@ const eventValidators = {
   languages: require( './validators/languages' )
 }
 
-const merge = require( '@openagenda/form-schemas/iso/merge' );
+const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
 module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => {
 
