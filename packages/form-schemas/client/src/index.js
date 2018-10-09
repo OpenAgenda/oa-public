@@ -9,7 +9,7 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
 
-import FormSchema from '../../iso/FormSchema';
+import FormSchema from './iso/FormSchema';
 
 import { flatten } from './lib/helpers';
 import submit from './lib/submit';
