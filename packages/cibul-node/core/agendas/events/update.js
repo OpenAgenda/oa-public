@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 const VError = require( 'verror' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
@@ -68,8 +69,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( !draft && clean.agendaEvent ) {
     
-    result = await agendaEvents( agendaUid ).set( updated.event.uid, clean.agendaEvent, { 
-      transferToLegacy: true, 
+    result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
+      create: {
+        $set: { canEdit: true }
+      }
+    } ), { 
+      transferToLegacy: true,
       context: { legacy: false }
     } );
 
