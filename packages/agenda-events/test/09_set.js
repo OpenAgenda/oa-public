@@ -48,7 +48,7 @@ describe( 'agendaEvents - 09 - functional (server): set', function() {
 
     ae.created.state.should.equal( 2 );
 
-    await svc( 1234 ).set( 9999, { state: 1 } );  
+    await svc( 1234 ).set( 9999, { state: 1 } );
 
     const updated = await svc( 1234 ).get( 9999 );
 
@@ -58,6 +58,20 @@ describe( 'agendaEvents - 09 - functional (server): set', function() {
     } );
 
   } );
+
+
+  it( 'set can take operation-specific options', async () => {
+
+    await svc( 1234 ).set( 38473, { state: 1, create: {
+      state: 2
+    } } );
+
+    const ae = await svc( 1234 ).get( 38473 );
+
+    ae.state.should.equal( 2 );
+
+  } );
+
 
   it( 'set item is returned in set key of result', async () => {
 
