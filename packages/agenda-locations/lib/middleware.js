@@ -492,6 +492,8 @@ function getMiddleware( idRef ) {
 
     service.list( query, offset, limit, async ( err, locations, total ) => {
 
+      if ( err ) return next( err );
+
       const counts = [];
 
       const agendaId = _extractRefValue( idRef, req );
@@ -509,8 +511,6 @@ function getMiddleware( idRef ) {
       }
 
       const locationsWithEventCounts = locations.map( l => _.extend( l, { eventCount: _.get( _.first( counts.filter( c => c.uid === l.uid ) ), 'count' ) } ) );
-
-      if ( err ) return next( err );
 
       log( 'retrieved %s items for offset %s, %s successfully. Total is %s', locations.length, offset, limit, total );
 
