@@ -4,13 +4,12 @@
 <script type="text/javascript" src="<%= src %>"></script>
 <% } ); %>
 <% } %>
-<% if ( bottom.scripts ) { %>
+<% if ( bottom.scripts ) { %>
 <% bottom.scripts.forEach( function( script ) { %>
 <script type="text/javascript"><%- script %></script>
 <% }); %>
 <% } %>
 <% } %>
 <% include ../layout/js.part.ejs %>
-<% include ../layout/tracking.part.ejs %>
   </body>
 </html>
