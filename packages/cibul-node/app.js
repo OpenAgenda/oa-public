@@ -37,8 +37,6 @@ module.exports = function ( enabledTypes, options, cb ) {
 
       if ( err ) {
 
-        console.log( err );
-
         return log( 'error', 'could not load app: %s', err );
 
       }
