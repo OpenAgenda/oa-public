@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 
-const eventSchema = require( '@openagenda/event-form/schema' );
+const eventSchema = require( '@openagenda/event-form/src/schema' );
 const formSchemaMw = require( '@openagenda/form-schemas/server/middleware' );
 const logger = require( '@openagenda/logs' );
 
