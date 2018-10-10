@@ -1,20 +1,20 @@
 "use strict";
 
-var utils = require( '@openagenda/utils' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const moment = require( 'moment-timezone' );
+const phpJs = require( 'phpjs' );
 
-store = require( './store' ),
+const log = require( '@openagenda/logs' )( 'services/agenda/controlData' );
+const utils = require( '@openagenda/utils' );
 
-logger = require( '@openagenda/logger' ), log,
+const model = require( '../../../model' );
+const p = require( '../../../../lib/promises' );
+const store = require( './store' );
 
-moment = require( 'moment-timezone' ),
+const config = require( '../../../../config' );
 
-async = require( 'async' ),
-
-model = require( '../../../model' ),
-
-p = require( '../../../../lib/promises' ),
-
-svc, eventSvc;
+let svc, eventSvc;
 
 module.exports = function( data, cb ) {
 
@@ -58,6 +58,8 @@ function _update( data, cb ) {
   } )
 
   .then( _loadAgenda )
+
+  .then( _assessEventSlugRequirement )
 
   .then( _getControlData )
 
@@ -104,6 +106,8 @@ function _insert( data, cb ) {
   } )
 
   .then( _loadAgenda )
+
+  .then( _assessEventSlugRequirement )
 
   .then( _getControlData )
 
@@ -182,7 +186,6 @@ function _reset( data, cb ) {
   log( 'resetting control data of agenda %s', data.id, data );
 
   p.w( {
-    useEventSlug: data.useEventSlug,
     agendaId: data.id,
     dbInstance: false, // model instance
     agenda: false,     // service instance
@@ -190,6 +193,8 @@ function _reset( data, cb ) {
   } )
 
   .then( _loadAgenda )
+
+  .then( _assessEventSlugRequirement )
 
   .then( _loadBase ) // init ctlData
 
@@ -318,6 +323,37 @@ function _loadAgenda( v ) {
     } );
 
   });
+
+}
+
+function _assessEventSlugRequirement( v ) {
+
+  return config.knex( 'review_embed' )
+    .select( 'store' )
+    .where( 'review_id', v.agenda.id )
+    .then( embeds => {
+
+      try {
+
+        if ( embeds
+          .map( embed => phpJs.unserialize( embed.store ) )
+          .filter( store => _.get( store, 'layout.use_event_slug' ) )
+          .length
+        ) {
+
+          v.useEventSlug = true;
+
+        }
+
+      } catch ( e ) {
+
+        log( 'error', 'failed to parse embed store for agenda %s', v.agenda.id );
+
+      }
+
+      return v;
+
+    } );
 
 }
 
@@ -510,7 +546,5 @@ function loadServices() {
   svc = require( '../../' );
 
   eventSvc = require( '../../../event' );
-
-  if ( !log ) log = logger( 'services/agenda/controlData', { lib: 'build' } );
 
 }
