@@ -124,7 +124,7 @@ describe( 'schema validator', () => {
           url: null,
         } );
 
-      } catch( e ) { errors = e };
+      } catch( e ) { errors = e };
 
       errors.length.should.equal( 0 );
 

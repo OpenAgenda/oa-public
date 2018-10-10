@@ -7,14 +7,14 @@ const _ = {
 
 module.exports = {
   registerValidators,
-  getFlat,
+  mapValuesToValidators,
   getDefault
 }
 
 const registeredValidators = {};
 
 
-function getFlat( fields, values ) {
+function mapValuesToValidators( fields, values ) {
 
   const result =  _.keys( fields ).map( f => {
 
