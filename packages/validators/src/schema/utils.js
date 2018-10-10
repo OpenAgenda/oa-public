@@ -16,7 +16,7 @@ const registeredValidators = {};
 
 function getFlat( fields, values ) {
 
-  return _.keys( fields ).map( f => {
+  const result =  _.keys( fields ).map( f => {
 
     const fieldOptions = fields[ f ];
 
@@ -29,6 +29,8 @@ function getFlat( fields, values ) {
     }
 
   } );
+
+  return result;
 
 }
 
