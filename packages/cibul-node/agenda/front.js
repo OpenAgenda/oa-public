@@ -563,7 +563,8 @@ function _formatEventItem( event, req, cb ) {
       organization: organization ? organization.label : null
     },
     category: false,
-    favorite: cmn.favoriteLinkHTML( inst.uid )
+    favorite: cmn.favoriteLinkHTML( inst.uid ),
+    location: _.mapValues( _.first( inst.locations ), value => _.isObject( value ) ? _.get( value, req.lang ) : value )
   } );
 
   inst.getAgendaCategory( function( err, c ) {

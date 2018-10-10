@@ -45,6 +45,18 @@
       "name": "City"
     },
     {
+      "mapTo" : "location.description",
+      "name" : "LocationDescription"
+    },
+    {
+      "mapTo" : "location.phone",
+      "name" : "LocationPhone"
+    },
+    {
+      "mapTo" : "location.website",
+      "name" : "LocationWebsite"
+    },
+    {
       "mapTo": "dateRange",
       "name": "DateRange"
     },
@@ -97,7 +109,7 @@
       "mapTo" : "contributor.organization"
     }
   ],
-  "children": [ 
+  "children": [
     {
       "name" : "Keywords",
       "mapTo" : "keywordList",
