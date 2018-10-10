@@ -23,7 +23,7 @@ const eventFormComponents = {
   accessibility: require( './components/Accessibility' )
 }
 
-const eventSchema = require( '../schema' );
+const eventSchema = require( './schema' );
 
 export default class EventForm extends Component {
 
