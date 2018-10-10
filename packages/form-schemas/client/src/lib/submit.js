@@ -17,7 +17,13 @@ export default ( { res, values, files, query } ) => {
 
   if ( !hasFiles ) {
 
-    return req.send( { data: JSON.stringify( values ) } );
+    return new Promise( ( rs, rj ) => {
+
+      req.send( { 
+        data: JSON.stringify( values ) 
+      } ).end( ( err, res ) => err ? rj( err ) : rs( res ) );
+
+    } );
 
   }
 
