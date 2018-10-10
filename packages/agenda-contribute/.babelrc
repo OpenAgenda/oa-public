@@ -3,6 +3,7 @@
     [ "env", {
         "targets": {
           "browsers": [
+            ">0.25%",
             "Explorer 11",
             "Firefox >= 24",
             "Chrome >= 33",
