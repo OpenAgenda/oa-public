@@ -1,5 +1,7 @@
 "use strict";
 
+require( 'babel-polyfill' );
+
 import _ from 'lodash';
 
 import React, { Component } from 'react';
