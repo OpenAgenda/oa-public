@@ -2,13 +2,12 @@
 
 require( 'source-map-support' ).install();
 
-const validators = require( '../src' ),
+const should = require( 'should' );
+const utils = require( '@openagenda/utils' );
 
-schema = require( '../src/schema' ),
+const validators = require( '../src' );
 
-should = require( 'should' ),
-
-utils = require( '@openagenda/utils' );
+const schema = require( '../src/schema' );
 
 describe( 'schema validator', () => {
 

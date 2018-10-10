@@ -4,7 +4,7 @@ import extend from 'lodash/extend';
 import isArray from 'lodash/isArray';
 import utils from '@openagenda/utils';
 import listify from '../listify';
-import r from './root';
+import schemaUtils from './utils';
 import cleanSchema from './clean';
 
 const defaults = {
@@ -41,7 +41,7 @@ function schema( options ) {
 
   }
 
-  const defaultValue = r.getDefault( params.fields );
+  const defaultValue = schemaUtils.getDefault( params.fields );
 
   /**
    * exposed endpoints
@@ -57,7 +57,7 @@ function schema( options ) {
 
   function validate( value ) {
 
-    const flattened = r.getFlat( params.fields, value );
+    const flattened = schemaUtils.getFlat( params.fields, value );
 
     let errors = [], clean = {};
 
@@ -173,6 +173,6 @@ function register( v ) {
 
   } );
 
-  r.registerValidators( registeredValidators );
+  schemaUtils.registerValidators( registeredValidators );
 
 }
