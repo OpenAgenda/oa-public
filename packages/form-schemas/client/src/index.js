@@ -113,7 +113,7 @@ export default class FormSchemaComponent extends Component {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
 
-        return this.props.onSubmitSuccess( this.get( 'values' ), res );
+        this.props.onSubmitSuccess( this.get( 'values' ), res );
 
       } else if ( res.statusCode === 200 ) {
 
@@ -126,9 +126,9 @@ export default class FormSchemaComponent extends Component {
 
       }
 
-    }, err => {
+    } ).catch( err => {
 
-      throw err;
+      console.log( 'form-schemas: there was an error during submit', err );
 
     } );
 
