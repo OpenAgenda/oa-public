@@ -179,7 +179,7 @@ function _remove( data, cb ) {
 
 function _reset( data, cb ) {
 
-  log( 'resetting control data of agenda %s', data.id );
+  log( 'resetting control data of agenda %s', data.id, data );
 
   p.w( {
     useEventSlug: data.useEventSlug,
@@ -392,11 +392,11 @@ function _appendEvent( v, event ) {
 
   }
 
-  let eInst = eventSvc.instanciate( event ),
+  const eInst = eventSvc.instanciate( event );
 
-  l = _extractLocation( eInst ),
+  const l = _extractLocation( eInst );
 
-  e = _extractEvent( v.agenda, eInst, v );
+  const e = _extractEvent( v.agenda, eInst, v );
 
   if ( v.ctlData.ev.map( ev => ev.u ).indexOf( e.u ) == -1 ) {
 
@@ -417,9 +417,9 @@ function _appendEvent( v, event ) {
 
 function _removeEvent( v ) {
 
-  let eInst = eventSvc.instanciate( v.event ),
+  const eInst = eventSvc.instanciate( v.event );
 
-  locationUid = eInst.getLocationUid();
+  const locationUid = eInst.getLocationUid();
 
   // pop event from list
   
