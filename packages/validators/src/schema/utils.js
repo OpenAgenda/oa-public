@@ -2,7 +2,8 @@
 
 const _ = {
   extend: require( 'lodash/extend' ),
-  keys: require( 'lodash/keys' )
+  keys: require( 'lodash/keys' ),
+  get: require( 'lodash/get' )
 }
 
 module.exports = {
@@ -16,21 +17,15 @@ const registeredValidators = {};
 
 function mapValuesToValidators( fields, values ) {
 
-  const result =  _.keys( fields ).map( f => {
-
-    const fieldOptions = fields[ f ];
-
-    const type = _extractType( fieldOptions );
-
-    return {
-      field: f,
-      validator: _makeValidator( type, f, fieldOptions ),
-      value: ( values || {} )[ f ]
-    }
-
-  } );
-
-  return result;
+  return _.keys( fields ).map( fieldName => ( {
+    field: fieldName,
+    validator: _makeValidator(
+      _extractType( _.get( fields, fieldName ) ),
+      fieldName,
+      _.get( fields, fieldName ) // options
+    ),
+    value: _.get( values, fieldName )
+  } ) );
 
 }
 

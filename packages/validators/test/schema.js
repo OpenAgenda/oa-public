@@ -164,7 +164,7 @@ describe( 'schema validator', () => {
     } );
 
 
-    it( 'validates an object with a deep schema', () => {
+    it( 'shallow-maps deeper schemas', () => {
 
       validate( {
         title: 'Testing',
