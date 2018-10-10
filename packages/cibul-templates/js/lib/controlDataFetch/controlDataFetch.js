@@ -8,7 +8,7 @@ remote = require( '../remote/remote.mod.js' ),
 
 res = {
   production: {
-    agenda : '//' + domain + '/agendas/{uid}/controldata',
+    agenda : '/agendas/{uid}/controldata',
     embed : '//' + domain + '/agendas/{uid}/embeds/{embedUid}/controldata'
   },
   development: {
