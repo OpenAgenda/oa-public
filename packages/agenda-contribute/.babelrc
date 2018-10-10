@@ -4,6 +4,9 @@
         "targets": {
           "browsers": [
             "Explorer 11",
+            "Firefox >= 24",
+            "Chrome >= 33",
+            "Safari >= 9",
             "last 4 Edge versions"
           ]
         },
