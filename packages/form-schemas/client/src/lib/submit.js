@@ -19,9 +19,25 @@ export default ( { res, values, files, query } ) => {
 
     return new Promise( ( rs, rj ) => {
 
+      console.log( 'inside promise' );
+
       req.send( { 
         data: JSON.stringify( values ) 
-      } ).end( ( err, res ) => err ? rj( err ) : rs( res ) );
+      } ).end( ( err, res ) => {
+
+        if ( err ) {
+
+          console.log( 'erred', err );
+
+          return rj( err );
+
+        }
+
+        console.log( 'did not err' );
+
+        return rs( res );
+
+      } );
 
     } );
 
