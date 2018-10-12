@@ -145,7 +145,7 @@ function extractGoogleAnalytics( agendas ) {
 
     if ( !gaCode ) return;
 
-    return `ga( 'create', '${gaCode}', 'auto', 'clientTracker-${i}' ); ga('clientTracker-${i}.send', 'pageview');`;
+    return `ga( 'create', '${gaCode}', 'auto', 'clientTracker${i}' ); ga('clientTracker${i}.send', 'pageview');`;
 
   } ).filter( g => !!g ).join( '\n' );
 
