@@ -237,13 +237,30 @@ function _timings( v ) {
 
   const _t = timeHelper( { lang: v.req.lang } );
 
-  v.formatted.timings = v.req.event.getTimings().map( t => {
+  const now = new Date();
+
+  const timings = v.req.event.getTimings();
+
+  v.formatted.timings = timings.map( t => {
 
     t.label = v._t( t.start, 'dddd Do - HH:mm', v.formatted.timezone );
 
     return t;
 
   } );
+
+  if ( timings.length ) {
+
+    const jsonLdTiming = _.first( timings.filter( t => new Date( t.start ) > now ) ) || _.last( timings );
+
+    v.formatted.jsonLdTiming = {
+      start: jsonLdTiming.start,
+      end: jsonLdTiming.end,
+      startStr: _t( jsonLdTiming.start, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone ),
+      endStr: _t( jsonLdTiming.end, 'YYYY-MM-DDTHH:mm:ss', v.formatted.timezone )
+    };
+
+  }
 
   return v;
 
