@@ -231,7 +231,13 @@ function loadAdminLayout( req, res, next ) {
 
           }
 
-          return _.extend( {}, tab, {
+          if ( tab.res ) {
+
+            tab.res = tab.res.replace( ':slug', req.agenda.slug );
+
+          }
+
+          return _.assign( {}, tab, {
             badge: badge || undefined,
             label,
             call: credentials.includes( tab.requiredCred ) ? null : tab.call

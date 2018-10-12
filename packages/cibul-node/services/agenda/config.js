@@ -24,7 +24,7 @@ module.exports = {
     section : 'manage',
     key : 'sources',
     label : 'Sources',
-    uri : 'aggregatorSourcesApp',
+    res : '/:slug/admin/sources',
     access: 'administrator',
     requiredCred: 'aggregator',
     call: {
