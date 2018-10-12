@@ -1,25 +1,25 @@
-const abilities = require( '../src' );
-const config = require( '../src/config' );
-const testconfig = require( '../testconfig' );
-const db = require( './utils/db' );
+import abilities from '../src/service';
+import testconfig from '../testconfig';
+import db from './utils/db';
 
 const database = `${testconfig.mysql.database}_can`;
+testconfig.mysql.database = database;
 
 beforeAll( async () => {
-  await db.create( { ...testconfig.mysql, database } );
+  await db.create( testconfig.mysql );
 
-  abilities.init( db.getConfig( testconfig, database ) );
+  abilities.init( testconfig );
 
-  await abilities.db.migrate();
+  await abilities.config.migrate();
 } );
 
 beforeEach( async () => {
-  await abilities.db.seed( 'firstTest' );
+  await abilities.config.seed( 'firstTest' );
 } );
 
 afterAll( async () => {
-  await config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
-  await config.knex.destroy();
+  await abilities.config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
+  await abilities.config.knex.destroy();
 } );
 
 describe( 'can', () => {

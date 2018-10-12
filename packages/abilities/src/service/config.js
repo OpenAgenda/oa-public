@@ -1,8 +1,7 @@
-const path = require( 'path' );
-const _ = require( 'lodash' );
-const knexLib = require( 'knex' );
-
-const logs = require( '@openagenda/logs' );
+import path from 'path';
+import knexLib from 'knex';
+import _ from 'lodash';
+import logs from '@openagenda/logs';
 
 const config = {};
 
@@ -30,34 +29,41 @@ function getKnexConfig( c ) {
     knexConfig.migrations = {
       ...( c.knex ? c.knex.client.config.migrations : {} ),
       ...c.migrations,
-      directory: path.join( __dirname, '..', 'migrations' )
+      directory: path.join( __dirname, '..', '..', 'migrations' )
     };
   }
 
   return knexConfig;
 }
 
-async function init( c = {} ) {
+export function init( c = {} ) {
   if ( c.logger ) {
     logs.setModuleConfig( c.logger );
   }
 
   config.knex = knexLib( getKnexConfig( c ) );
 
-  _.extend( config, _.pick( c, [ 'mysql', 'schemas', 'migrations', 'interfaces', 'editableRules' ] ) );
+  _.extend( config, _.pick( c, [
+    'mysql',
+    'schemas',
+    'migrations',
+    'interfaces',
+    'entityMapping',
+    'editableRules'
+  ] ) );
 }
 
-function migrate( options ) {
+export function migrate( options ) {
   return config.knex.migrate.latest( {
-    directory: path.join( __dirname, '..', 'migrations' ),
+    directory: path.join( __dirname, '..', '..', 'migrations' ),
     ...options
   } );
 }
 
-function seed( options ) {
+export function seed( options ) {
   const directory = typeof options === 'string'
-    ? path.join( __dirname, '..', 'seeds', options )
-    : path.join( __dirname, '..', 'seeds', options && options.scenarioName ? options.scenarioName : '' );
+    ? path.join( __dirname, '..', '..', 'seeds', options )
+    : path.join( __dirname, '..', '..', 'seeds', options && options.scenarioName ? options.scenarioName : '' );
 
   return config.knex.seed.run( {
     directory,
@@ -65,9 +71,11 @@ function seed( options ) {
   } );
 }
 
-module.exports = _.extend( config, {
+_.extend( config, {
   init,
   migrate,
   seed,
   getConfig: () => config
 } );
+
+export default config;

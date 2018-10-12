@@ -7,8 +7,13 @@
 //
 // global.jestExpect = global.expect;
 
-// eslint-disable-next-line no-global-assign
 import Promise from 'bluebird';
+import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+
+registerRequireContextHook();
+
+// eslidsqnt-disable-next-line no-global-assign
+global.Promise = Promise;
 
 Promise.config( {
   longStackTraces: true

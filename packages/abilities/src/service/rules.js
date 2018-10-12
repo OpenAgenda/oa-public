@@ -1,6 +1,6 @@
-const _ = require( 'lodash' );
-const { AbilityBuilder } = require( '@casl/ability' );
-const config = require( './config' );
+import _ from 'lodash';
+import { AbilityBuilder } from '@casl/ability';
+import config from './config';
 
 const joinIfArray = ( value, delimiter = '|' ) => ( Array.isArray( value ) ? value.join( delimiter ) : value );
 const splitIfNeeded = ( value, delimiter = '|' ) => {
@@ -15,7 +15,7 @@ const splitIfNeeded = ( value, delimiter = '|' ) => {
   return value;
 };
 
-function format( rules ) {
+export function format( rules ) {
   const _format = rule => ( {
     id: rule.id || null,
     entity_name: rule.entityName || null,
@@ -31,7 +31,7 @@ function format( rules ) {
   return Array.isArray( rules ) ? rules.map( _format ) : _format( rules );
 }
 
-function parse( rules ) {
+export function parse( rules ) {
   const _parse = rule => ( {
     id: rule.id || null,
     entityName: rule.entityName || null,
@@ -47,7 +47,7 @@ function parse( rules ) {
   return Array.isArray( rules ) ? rules.map( _parse ) : _parse( rules );
 }
 
-async function list( entityName, identifier ) {
+export async function list( entityName, identifier ) {
   if ( !_.isString( entityName ) ) {
     throw new TypeError( '`entityName` should be a string' );
   }
@@ -72,7 +72,7 @@ async function list( entityName, identifier ) {
   return parse( rules );
 }
 
-function getDefaultFor( entityName ) {
+export function getDefaultFor( entityName ) {
   const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
   const builder = AbilityBuilder.extract();
 
@@ -89,10 +89,3 @@ function getDefaultFor( entityName ) {
 
   return defaultForFn ? parse( defaultForFn( builder ) ) : [];
 }
-
-module.exports = {
-  list,
-  format,
-  parse,
-  getDefaultFor
-};

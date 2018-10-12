@@ -1,21 +1,22 @@
-import _ from 'lodash';
 import { readFile } from 'fs';
 import { promisify } from 'util';
 import mysql from 'mysql';
 
-async function create( config ) {
-  const conn = mysql.createConnection( _.pick( config, [ 'user', 'password' ] ) );
+async function create( { user, password, database } ) {
+  const conn = mysql.createConnection( { user, password } );
 
-  await promisify( conn.query ).call( conn, `DROP DATABASE IF EXISTS ${config.database}` );
-  await promisify( conn.query ).call( conn, `CREATE DATABASE IF NOT EXISTS ${config.database}` );
+  await promisify( conn.query ).call( conn, `DROP DATABASE IF EXISTS ${database}` );
+  await promisify( conn.query ).call( conn, `CREATE DATABASE IF NOT EXISTS ${database}` );
 
   conn.destroy();
 }
 
-async function fixtures( config, schemas ) {
+async function fixtures( { user, password, database }, schemas ) {
   const conn = mysql.createConnection( {
     multipleStatements: true,
-    ..._.pick( config, [ 'user', 'password', 'database' ] )
+    user,
+    password,
+    database
   } );
 
   for ( const [ schema, path ] of Object.entries( schemas ) ) {
@@ -27,16 +28,7 @@ async function fixtures( config, schemas ) {
   conn.destroy();
 }
 
-function getConfig( config, database, key = 'mysql.database' ) {
-  const newConfig = _.cloneDeep( config );
-
-  _.set( newConfig, key, database );
-
-  return newConfig;
-}
-
 module.exports = {
   create,
-  fixtures,
-  getConfig
+  fixtures
 };

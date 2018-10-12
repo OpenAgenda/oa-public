@@ -1,8 +1,11 @@
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:jest/recommended"
+  ],
   "plugins": [
-    "import",
-    "jest"
+    "react",
+    "import"
   ],
   "env": {
     "browser": true,
@@ -51,20 +54,56 @@
       "error",
       "always"
     ],
+    "import/no-unresolved": "error",
+    "import/named": "error",
+    "import/namespace": "error",
+    "import/default": "error",
+    "import/export": "error",
+    "import/no-named-as-default": "warn",
+    "import/no-named-as-default-member": "off",
+    "import/no-duplicates": "warn",
     "import/no-extraneous-dependencies": [
       "error",
       {
         "devDependencies": [
-          "test/setup.js",
-          "**/*.{test,spec}.js"
+          ".babelrc.js",
+          ".storybook/**/*.js",
+          "server.dev.js",
+          "test/**/*.js"
         ]
       }
-    ]
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "parent",
+          "sibling",
+          "index"
+        ]
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/jsx-one-expression-per-line": "off"
   },
   "overrides": [
     {
-      "files": "{src,test}/**/*.js",
-      "env":  {
+      "files": [
+        "{src,.storybook}/**/*.js",
+        "server.dev.js",
+        "test/**/*.js"
+      ],
+      "env": {
         "es6": true
       },
       "parser": "babel-eslint",
@@ -77,8 +116,8 @@
     },
     {
       "files": "**/*.{test,spec}.js",
-      "env": {
-        "jest":  true
+      "rules": {
+        "import/default": "off"
       }
     }
   ]

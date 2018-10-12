@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable global-require */
+
 module.exports = api => {
   const presets = [
     require( '@babel/preset-react' ),
@@ -34,7 +36,8 @@ module.exports = api => {
       }
     ],
     require( '@babel/plugin-proposal-class-properties' ),
-    require( '@babel/plugin-proposal-object-rest-spread' )
+    require( '@babel/plugin-proposal-object-rest-spread' ),
+    require( '@babel/plugin-proposal-export-namespace-from' )
   ];
 
   const config = {
@@ -44,10 +47,12 @@ module.exports = api => {
 
   if ( api.env( [ 'development', 'test' ] ) ) {
     config.sourceMaps = 'both';
+
+    plugins.push( require( '@babel/plugin-transform-react-jsx-source' ) );
   }
 
-  if ( api.env( 'development' ) ) {
-    plugins.push( require( '@babel/plugin-transform-react-jsx-source' ) );
+  if ( api.env( 'test' ) ) {
+    plugins.push( require( 'babel-plugin-require-context-hook' ) );
   }
 
   return config;

@@ -1,166 +1,267 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`getFormIndex simple getFormIndex for a user 1`] = `
-Object {
-  "member": Object {
-    "60815": Array [
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "event",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "eventCreation",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": -1,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 0,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 1,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 2,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": Object {
-          "actions": "receive",
-          "conditions": null,
-          "entityName": "member",
-          "fields": null,
-          "id": 2,
-          "identifier": 60815,
-          "inverted": true,
-          "reason": null,
-          "subject": "eventUpdate",
-        },
-        "subject": "eventUpdate",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "eventAggregation",
-      },
-    ],
+Array [
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "notificationsSummary",
   },
-  "user": Object {
-    "99999999": Array [
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "notificationsSummary",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "event",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "eventCreation",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": -1,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 0,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 1,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "conditions": Object {
-          "state": 2,
-        },
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "stateChange",
-      },
-      Object {
-        "action": "receive",
-        "inverted": false,
-        "relevantRule": Object {
-          "actions": "receive",
-          "conditions": null,
-          "entityName": "user",
-          "fields": null,
-          "id": 1,
-          "identifier": 99999999,
-          "inverted": false,
-          "reason": null,
-          "subject": "eventUpdate",
-        },
-        "subject": "eventUpdate",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "eventAggregation",
-      },
-      Object {
-        "action": "receive",
-        "inverted": true,
-        "relevantRule": null,
-        "subject": "invitation",
-      },
-    ],
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "event",
   },
-}
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventCreation",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": -1,
+    },
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 0,
+    },
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 1,
+    },
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 2,
+    },
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": false,
+    "relevantRule": Object {
+      "actions": "receive",
+      "conditions": null,
+      "entityName": "user",
+      "fields": null,
+      "id": 1,
+      "identifier": 99999999,
+      "inverted": false,
+      "reason": null,
+      "subject": "eventUpdate",
+    },
+    "subject": "eventUpdate",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventAggregation",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "user",
+    "identifier": 99999999,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "invitation",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "event",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventCreation",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": -1,
+    },
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 0,
+    },
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 1,
+    },
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 2,
+    },
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": Object {
+      "actions": "receive",
+      "conditions": null,
+      "entityName": "member",
+      "fields": null,
+      "id": 2,
+      "identifier": 60815,
+      "inverted": true,
+      "reason": null,
+      "subject": "eventUpdate",
+    },
+    "subject": "eventUpdate",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "member",
+    "identifier": 60815,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventAggregation",
+  },
+]
+`;
+
+exports[`getFormIndex simple getFormIndex for an agenda 1`] = `
+Array [
+  Object {
+    "action": "receive",
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventCreation",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": -1,
+    },
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 0,
+    },
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 1,
+    },
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "conditions": Object {
+      "state": 2,
+    },
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "stateChange",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventUpdate",
+  },
+  Object {
+    "action": "receive",
+    "entityName": "agenda",
+    "identifier": 48959239,
+    "inverted": true,
+    "relevantRule": null,
+    "subject": "eventAggregation",
+  },
+]
 `;

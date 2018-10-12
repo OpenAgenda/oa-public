@@ -1,6 +1,6 @@
 'use strict';
 
-const abilities = require( './src' );
+const abilities = require( './src/service' );
 
 const getEntity = {
   agenda: uid => ( { uid } ),

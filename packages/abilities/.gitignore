@@ -6,6 +6,6 @@ yarn-error.log
 coverage/
 
 .cache/
-.eslintcache
 testconfig.js
-dist/
+build/
+storybook-static/
