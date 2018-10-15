@@ -3,10 +3,7 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const deepExtend = require( 'deep-extend' );
-const { promisify } = require( 'util' );
-
-const core = require( '../core' );
-const redirectTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/redirect.tpl', 'utf-8' ) );
+const { promisify } = require( 'util' )
 
 const agendaSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
@@ -20,6 +17,8 @@ const embedSvc = require( '../services/embed' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const modLib = require( '../lib/moduleLib' );
+
+const redirectMiddelware = require( './redirect.middleware' )( config );
 
 const middlewares = {
   agendaEventShow: [
@@ -52,58 +51,10 @@ const middlewares = {
 const routes = {
 
   agendaEventShowShare: [ 'get', '/agendas/:agendaUid/events/:eventUid/share', [
-    ( req, res, next ) => {
-
-      core.agendas( req.params.agendaUid ).events.get( req.params.eventUid, { lang: req.lang } ).then( event => {
-
-        if ( !event ) return next( 404 );
-
-        req.agenda = _.get( event, 'agenda' );
-
-        req.event = _.omit( event, [ 'agenda' ] );
-
-        req.redirect = req.agenda.url ? req.agenda.url + '?oaq[uid][]=' + req.event.uid : `/${req.agenda.slug}/events/${req.event.slug}`;
-
-        req.metas = [ {
-          property: 'og:title', content: _.escape( req.event.title )
-        }, {
-          property: 'og:description', content: _.escape( req.event.description )
-        }, {
-          property: 'og:locale', content: req.lang
-        }, {
-          property: 'og:url', content: config.root + `/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`
-        } ];
-
-        if ( _.get( req, 'event.image.filename' ) ) {
-
-          req.metas.push( {
-            property: 'og:image',
-            content: _.get( req, 'event.image.base' ).replace( 'cibuldev', 'cibul' ) + _.get( req, 'event.image.filename' )
-          } );
-
-        }
-
-        next();
-
-      }, err => {
-
-        req.log( 'error', err );
-
-        next( { code: _.get( err, 'message' ).indexOf( 'not found' ) === -1 ? 500 : 404 } );
-
-      } );
-
-    },
-    ( req, res, next ) => {
-
-      res.send( redirectTemplate( {
-        metas: req.metas,
-        agenda: req.agenda,
-        event: req.event,
-        redirect: req.redirect
-      } ) );
-
-    }
+    redirectMiddelware.loadEvent,
+    redirectMiddelware.loadSiteURL,
+    redirectMiddelware.loadFacebookMetas,
+    redirectMiddelware.render
   ] ],
 
   agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
@@ -684,15 +635,13 @@ function _formatSocialLinks( req, res, next ) {
 
     }
 
-    fbAppId = req.embed.getFacebookAppId();
-
   }
 
   deepExtend( req.formatted, eventSvc.share.getSocialLinks( req.event, eventUrl, siteUrl ) );
 
-  if ( fbAppId ) {
+  if ( req.embed ) {
 
-    req.formatted.facebookShare = eventSvc.share.getFacebookFeedLink( req.formatted, eventUrl, fbAppId );
+    req.formatted.facebookShare = 'https://www.facebook.com/sharer.php?u=' + encodeURIComponent( `${config.root}/agendas/${req.agenda.uid}/events/${req.event.uid}/share` );
 
   }
 
@@ -707,8 +656,6 @@ function _formatEmbedHeadLinks( req, res, next ) {
     slug: req.agenda.slug,
     eventSlug: req.event.slug
   }, { protocol: 'https://' } );
-
-
   req.formatted.actionLabel = getLabel( 'export', req.lang );
 
   next();
