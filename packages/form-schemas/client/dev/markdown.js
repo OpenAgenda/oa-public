@@ -25,6 +25,12 @@ class Main extends Component {
       },
       schema: {
         "fields" : [ {
+          "field" : "simpletextfield",
+          "fieldType" : "text",
+          "label" : {
+            "fr" : "C'est un champ basique"
+          }
+        }, {
           "field" : "singlelangfield",
           "fieldType" : "markdown",
           "label" : {

@@ -22,7 +22,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   const fields = await interfaces.getFormSchemaFields( formSchemaId );  
 
-  log( 'info', 'fetched form schema fields', fields );
+  log( 'info', 'fetched form schema fields', fields.map( f => f.field ).join( ', ' ) );
 
   let aId = agendaId;
 

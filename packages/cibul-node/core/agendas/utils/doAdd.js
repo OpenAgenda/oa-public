@@ -4,14 +4,15 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
-const custom = require( '@openagenda/custom' );
+const setCustom = require( '../utils/setCustom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
-module.exports = async ( agendaUid, eventUid, clean, options ) => {
+module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
 
-  const { draft, formSchemaId } = _.assign( {
+  const { draft, formSchemaId, networkFormSchemaId } = _.assign( {
     formSchemaId: null,
+    networkFormSchemaId: null,
     draft: false
   }, _.isObject( options ) ? options : { formSchemaId: options } );
 
@@ -42,27 +43,38 @@ module.exports = async ( agendaUid, eventUid, clean, options ) => {
   }
 
   // create custom data
-  if ( clean.custom ) {
+  if ( formSchemaId && clean.custom ) {
 
-    try {
+    const result = await setCustom( formSchemaId, eventUid, clean.custom, {
+      draft,
+      agendaId: clean.agendaId
+    } );
 
-      const { success, custom: created } = await custom( formSchemaId ).create( eventUid, clean.custom, {
-        transferToLegacy: !draft,
-        agendaId: clean.agendaId,
-        draft
-      } );
+    if ( result.errors.length ) {
 
-      if ( success ) {
-
-        added.custom = created;
-
-      }
-
-    } catch ( e ) {
-
-      log( 'error', 'did not sync legacy on custom create %s.%s: %s', formSchemaId, eventUid, e );
+      log( 'error', 'could not set custom data', result.errors );
 
     }
+
+    added.custom = result.custom;
+
+  }
+
+
+  if ( networkFormSchemaId && clean.networkCustom ) {
+
+    const result = await setCustom( networkFormSchemaId, eventUid, clean.networkCustom, {
+      draft,
+      agendaId: clean.agendaId
+    } );
+
+    if ( result.errors.length ) {
+
+      log( 'error', 'could not set network custom data', result.errors );
+
+    }
+
+    added.networkCustom = result.custom;
 
   }
 

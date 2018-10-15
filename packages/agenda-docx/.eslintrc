@@ -1,0 +1,18 @@
+{
+  "globals": {},
+  "sourceType" : "module",
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "rules": {
+    "no-var" : [ "error" ],
+    "prefer-const" : [ "error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": false
+    } ],
+    "object-shorthand" : [ "error" ]
+  }
+}

@@ -1,11 +1,14 @@
 "use strict";
 
-import extend from 'lodash/extend';
-import isArray from 'lodash/isArray';
 import utils from '@openagenda/utils';
 import listify from '../listify';
-import r from './root';
+import schemaUtils from './utils';
 import cleanSchema from './clean';
+
+const _ = {
+  assign: require( 'lodash/assign' ),
+  isArray: require( 'lodash/isArray' )
+}
 
 const defaults = {
   fields: {}
@@ -13,7 +16,7 @@ const defaults = {
 
 let registeredValidators = { schema };
 
-module.exports = extend( schema, { register } );
+module.exports = _.assign( schema, { register } );
 
 function schema( options ) {
 
@@ -23,7 +26,7 @@ function schema( options ) {
 
   }
 
-  const params = extend(
+  const params = _.assign(
     { field: null, list: false },
     defaults,
     options.fields ? options : { fields: options, root: true }
@@ -31,22 +34,22 @@ function schema( options ) {
 
   if ( params.root ) {
 
-    extend( params, cleanSchema( params.fields ) );
+    _.assign( params, cleanSchema( params.fields ) );
 
   }
 
   if ( params.field ) {
 
-    extend( validate, { field: params.field } );
+    _.assign( validate, { field: params.field } );
 
   }
 
-  const defaultValue = r.getDefault( params.fields );
+  const defaultValue = schemaUtils.getDefault( params.fields );
 
   /**
    * exposed endpoints
    */
-  return extend( params.list ? listify( validate, params ) : validate, {
+  return _.assign( params.list ? listify( validate, params ) : validate, {
     part,
     defaultValue, // .default is not tolerated by ie8
     default: defaultValue,
@@ -57,7 +60,7 @@ function schema( options ) {
 
   function validate( value ) {
 
-    const flattened = r.getFlat( params.fields, value );
+    const flattened = schemaUtils.mapValuesToValidators( params.fields, value );
 
     let errors = [], clean = {};
 
@@ -69,7 +72,7 @@ function schema( options ) {
 
       } catch ( errs ) {
 
-        if ( !isArray( errs ) ) {
+        if ( !_.isArray( errs ) ) {
 
           throw errs;
 
@@ -77,7 +80,7 @@ function schema( options ) {
 
         errors = errors.concat( errs.map( e => {
 
-          return params.field ? extend( {}, e, { field: params.field + '.' + e.field } ) : e;
+          return params.field ? _.assign( {}, e, { field: params.field + '.' + e.field } ) : e;
 
         } ) );
 
@@ -98,7 +101,7 @@ function schema( options ) {
 
   function part( path, value ) {
 
-    if ( isArray( path ) ) {
+    if ( _.isArray( path ) ) {
 
       return parts( path, value );
 
@@ -131,7 +134,7 @@ function schema( options ) {
 
     }
 
-    let validator = registeredValidators[ type ]( cursor );
+    const validator = registeredValidators[ type ]( cursor );
 
     return validator( value );
 
@@ -173,6 +176,6 @@ function register( v ) {
 
   } );
 
-  r.registerValidators( registeredValidators );
+  schemaUtils.registerValidators( registeredValidators );
 
 }

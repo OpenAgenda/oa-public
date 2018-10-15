@@ -16,6 +16,28 @@ class Main extends Component {
     return <div className="container top-margined col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 oa-col-canvas">
       <div className="row margin-v-md margin-h-sm">
         <EventForm
+          schemaExtensions={[ {
+            fields: [ {
+              field: 'networkfield',
+              label: {
+                fr: 'Champ de réseau',
+                en: 'Network field'
+              },
+              fieldType: 'text'
+            } ]
+          }, {
+            fields: [ {
+              field: 'title',
+              fieldType: 'abstract'
+            }, {
+              field: 'agendafield',
+              label: {
+                fr: 'Champ d\'agenda',
+                en: 'Agenda field'
+              },
+              fieldType: 'text'
+            } ]
+          } ]}
           locationRes={{
             index: '/locations',
             geocode: '/locations/geocode',

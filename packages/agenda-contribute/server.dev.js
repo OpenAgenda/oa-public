@@ -69,7 +69,8 @@ dev.all(
   ],
   require( './dev/loadUserMw' ),
   require( './dev/loadAgendaMw' ),
-  require( './dev/loadMemberMw' )
+  require( './dev/loadMemberMw' ),
+  require( './dev/loadSchemasMw' )
 );
 
 dev.all( [ 

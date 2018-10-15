@@ -200,7 +200,7 @@ describe( 'agenda location service', function () {
 
     it( 'simple location copy creates location with new uid', done => {
 
-      let uid = 38584748;
+      const uid = 38584748;
 
       svc.copy( 123, 456, { uid }, ( err, result ) => {
 

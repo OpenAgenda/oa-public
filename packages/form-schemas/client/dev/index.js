@@ -62,6 +62,16 @@ const devApps = [ {
   link: '/html',
   group: 'types'
 }, {
+  name: 'A radio field',
+  description: 'A set of single choice options',
+  link: '/radio',
+  group: 'types'
+}, {
+  name: 'Checkboxes',
+  description: 'Sometimes more than one choice is allowed',
+  link: '/checkbox',
+  group: 'types'
+}, {
   name: 'A markdown field',
   description: 'A field that outputs a markdown string',
   link: '/markdown',
@@ -96,6 +106,10 @@ const devApps = [ {
   name: 'Stateless',
   description: 'Because sometimes you may want to handle the state in the parent component',
   link: '/stateless'
+}, {
+  name: 'conditional',
+  description: 'A field can be enabled when another field is set',
+  link: '/conditional'
 } ];
 
 if ( module.hot ) module.hot.accept();

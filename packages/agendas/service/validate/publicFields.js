@@ -31,6 +31,12 @@ module.exports = {
     default: false
   },
   settings: {
+    tracking: {
+      googleAnalytics: {
+        type: 'text',
+        max: 255
+      }
+    },
     inbox: {
       mailto: {
         // if mailto is enabled, inbox is not used

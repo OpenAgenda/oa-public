@@ -1,7 +1,5 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
-
 const config = require( '../testconfig' );
 
 const mysql = require( 'mysql' );
@@ -17,7 +15,7 @@ describe( 'agendas - functional (server): set (update)', function() {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../agenda.sql',
+      __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql',
@@ -62,6 +60,9 @@ describe( 'agendas - functional (server): set (update)', function() {
           },
           mailing: {
             eventAggregation: false
+          },
+          tracking: {
+            googleAnalytics: null
           },
           contribution: {
             allowLocationCreate: true,
@@ -239,6 +240,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           id: 4887,
           ownerId: 7388,
           formSchemaId: null,
+          networkUid: null,
           slug: 'agenda-culturel-auvergne',
           uid: 65903437,
           official: 0,
@@ -260,6 +262,9 @@ describe( 'agendas - functional (server): set (update)', function() {
             },
             mailing: {
               eventAggregation: false
+            },
+            tracking: {
+              googleAnalytics: null
             },
             contribution: {
               allowLocationCreate: true,

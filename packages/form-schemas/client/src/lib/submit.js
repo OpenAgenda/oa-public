@@ -7,7 +7,8 @@ export default ( { res, values, files, query } ) => {
 
   const hasFiles = _.keys( files ).length;
 
-  const req = sa.post( res );
+  // IE11 does not like empty strings;
+  const req = sa.post( res || _.get( window, 'location.href' ) );
 
   if ( _.isObject( query ) ) {
 
@@ -17,7 +18,9 @@ export default ( { res, values, files, query } ) => {
 
   if ( !hasFiles ) {
 
-    return req.send( { data: JSON.stringify( values ) } );
+    return req.send( { 
+      data: JSON.stringify( values ) 
+    } )
 
   }
 

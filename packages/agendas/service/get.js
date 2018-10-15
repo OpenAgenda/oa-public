@@ -1,20 +1,24 @@
 "use strict";
 
-const w = require( 'when' ),
+const  _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const utils = require( '@openagenda/utils' );
 
-  utils = require( '@openagenda/utils' ),
+const { promisify } = require( 'util' );
 
-  details = require( './details' ),
+const details = require( './details' );
 
-  map = require( './databaseFieldMap' ),
+const map = require( './databaseFieldMap' );
 
-  dbParse = require( '@openagenda/mysql-utils/mapper' )( map ),
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
-  validate = require( './validate' ),
+const validate = require( './validate' );
 
-  sUtils = require( './lib/utils' );
+const validateOptions = require( './validate/getOptions' );
+
+const sUtils = require( './lib/utils' );
+
+const loadDetails = promisify( details.load );
 
 let knex, service, schemas, imagePath;
 
@@ -49,60 +53,71 @@ function findOne( search, options, cb ) {
 
 }
 
-function get( identifiers, options, cb ) {
+function get( i, o, c ) {
 
-  if ( arguments.length === 2 ) {
+  const { identifiers, options, cb } = _parseGetArguments( i, o, c );  
 
-    cb = options;
-    options = {};
+  const p = promise( identifiers, options );
+
+  if ( cb ) return p.then(  agenda => cb( null, agenda ), cb );
+
+  return p;
+
+}
+
+async function promise( identifiers, options = {} ) {
+
+  const filtered = {};
+
+  if ( !_.keys( identifiers ).length ) {
+
+    throw new Error( 'No known identifiers specified for get: ' + JSON.stringify( identifiers ) );
 
   }
 
-  w( utils.extend( {
-    identifiers: sUtils.identifiers.clean( identifiers ),
-    detailed: false,
-    internal: false,
-    instanciate: false,
-    includeImagePath: false,
-    useDefaultImage: false,
-    private: false,
-    includeRestricted: false
-  }, options, {
-    entry: null, 
-    data: null,
-    filtered: null
-  } ) )
+  const k = knex( schemas.agenda )
+    .first( dbParse.fields( 'db', options.internal, [ 'id' ] ) )
+    .where( identifiers );
 
-  .then( sUtils.identifiers.check )
+  if ( options.private !== null ) k.andWhere( 'private', options.private );
 
-  .then( _get )
+  const rawAgenda = await k.then( result => result ? _applyDefaults( dbParse.toObj( result ) ) : null );
 
-  .then( _transform )
+  if ( !rawAgenda ) return null;  
 
-  .then( _detailed )
+  if ( options.detailed ) {
 
-  .then( _filterInternals )
+    await _.assign( rawAgenda, await loadDetails( rawAgenda, options ) );
 
-  .done( v => {
+  }
 
-    if ( !v.filtered ) return cb( null, null );
+  const agenda = _.keys( rawAgenda ).reduce( ( filtered, field ) => {
 
-    if ( v.includeImagePath && v.filtered.image ) {
+    if ( options.internal || !dbParse.is( 'obj', field, 'internal' ) ) {
 
-      v.filtered.image = imagePath + v.filtered.image;
-
-    } else if ( v.useDefaultImage && !v.filtered.image )  {
-
-      v.filtered.image = service.getConfig().defaultImagePath;
+      filtered[ field ] = rawAgenda[ field ];
 
     }
 
-    cb( null, v.instanciate ? new service.Agenda( v.filtered ) : v.filtered );
+    return filtered;
 
-  }, cb );
+  }, {} );
 
+  if ( options.includeImagePath && agenda.image ) {
+
+    agenda.image = imagePath + agenda.image;
+
+  } else if ( options.useDefaultImage && !agenda.image ) {
+
+    agenda.image = service.getConfig().defaultImagePath;
+
+  }
+
+  return options.instanciate ? new service.Agenda( agenda ) : agenda;
 
 }
+
+
 
 
 /**
@@ -168,6 +183,13 @@ function _applyDefaults( data ) {
 }
 
 
+function _detailed( agenda, includeRestricted ) {
+
+
+
+}
+
+
 function _detailed( v ) {
 
   if ( !v.detailed || !v.data ) return v;
@@ -221,5 +243,32 @@ function init( svc, k ) {
   imagePath = service.getConfig().imagePath;
 
   knex = k;
+
+}
+
+
+function _parseGetArguments( identifiers, options, cb ) {
+
+  if ( typeof cb === 'function' ) return { 
+    identifiers: sUtils.identifiers.clean( identifiers ),
+    options: validateOptions( options ),
+    cb 
+  }
+
+  if ( typeof options === 'function' ) {
+
+    return {
+      identifiers: sUtils.identifiers.clean( identifiers ),
+      options: validateOptions(),
+      cb: options
+    }
+
+  }
+
+  return {
+    identifiers: sUtils.identifiers.clean( identifiers ),
+    options: validateOptions( options ),
+    cb: null
+  }
 
 }

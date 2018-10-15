@@ -284,7 +284,6 @@ module.exports = class SlateField extends Component {
 
   }
 
-
   render() {
 
     const labels = flatten( richTextLabels, this.props.lang ); 

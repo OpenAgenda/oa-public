@@ -47,9 +47,7 @@ function instanciate( data ) {
 
       if ( err ) return cb( err );
 
-      a.getControlData( {
-        useEventSlug: instance.getUseEventSlug()
-      }, ( err, ctlData ) => {
+      a.getControlData( ( err, ctlData ) => {
 
         instance.decorateAgendaControlData( ctlData, cb ); 
 

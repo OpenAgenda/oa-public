@@ -1,0 +1,51 @@
+{
+  "extends": "airbnb-base",
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "no-restricted-syntax": "off",
+    "no-continue": "off",
+    "no-await-in-loop": "off",
+    "consistent-return": "off",
+    "space-in-parens": [
+      "error",
+      "always"
+    ],
+    "max-len": [
+      "warn",
+      120
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "comma-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "computed-property-spacing": [
+      "error",
+      "always"
+    ],
+    "array-bracket-spacing": [
+      "error",
+      "always"
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "server.dev.js",
+          "**/*.test.js",
+          "**/*.spec.js"
+        ]
+      }
+    ]
+  },
+  "env": {
+    "jest/globals": true
+  }
+}

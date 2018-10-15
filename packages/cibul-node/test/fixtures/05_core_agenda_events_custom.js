@@ -6,6 +6,7 @@ const knex = require( 'knex' )( { client: 'mysql' } );
 const raw = [
   'reset.sql',
   'agenda.create.sql',
+  'network.create.sql',
   'user.create.sql',
   'formSchema.create.sql',
   'member.create.sql',
@@ -25,18 +26,18 @@ const raw = [
   'legacyAgendaCategory.create.sql',
   'legacyAgendaTag.create.sql',
   'legacyTagSet.create.sql'
-].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;$/, '' ) );
+].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
 
 
-raw.push( knex( 'agenda' ).insert( {
+raw.push( knex( 'agenda' ).insert( [ {
   id: 13901,
   title: 'Custom fielded agenda',
+  slug: 'custom_fielded_agenda',
   owner_id: 1,
   uid: 60934473,
   form_schema_id: 26,
   store: JSON.stringify( `{
-  "customFields": [
-    {
+    "customFields": [ {
       "name": "cle_session",
       "label": {
         "fr": "Clé session",
@@ -49,9 +50,39 @@ raw.push( knex( 'agenda' ).insert( {
       "fieldType": "integer",
       "optional": true,
       "type": "private"
-    }
-  ]
-}` )
+    } ]
+  }` )
+}, {
+  id: 13902,
+  title: 'Custom fielded agenda with network',
+  slug: 'custom_fielded_agenda_with_network',
+  owner_id: 1,
+  uid: 60935574,
+  form_schema_id: 26,
+  network_uid: 1,
+  store: JSON.stringify( `{
+    "customFields": [ {
+      "name": "cle_session",
+      "label": {
+        "fr": "Clé session",
+        "en": "Clé session"
+      },
+      "info": {
+        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
+        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
+      },
+      "fieldType": "integer",
+      "optional": true,
+      "type": "private"
+    } ]
+  }` )
+} ] ) );
+
+raw.push( knex( 'network' ).insert( {
+  id: 1,
+  uid: 1,
+  title: 'My very first network',
+  form_schema_id: 27
 } ) );
 
 raw.push( knex( 'user' ).insert( {
@@ -224,7 +255,22 @@ raw.push( knex( 'tag_set' ).insert( {
   store: `{"groups":[{"name":"Thématiques Métropolitaines","info":"","tags":[{"id":27855,"label":"Toutes","slug":"toutes"},{"id":27854,"label":"Culture","slug":"culture"},{"id":27856,"label":"Déchets recyclage","slug":"dechets-recyclage"},{"id":27857,"label":"Economie - Innovation","slug":"economie-innovation"},{"id":27858,"label":"Éducation","slug":"education"},{"id":27859,"label":"International","slug":"international"},{"id":27860,"label":"Loisirs","slug":"loisirs"},{"id":27861,"label":"Nature - Environnement","slug":"nature-environnement"},{"id":27862,"label":"Patrimoine","slug":"patrimoine"},{"id":27863,"label":"Santé","slug":"sante"},{"id":27864,"label":"Solidarité","slug":"solidarite"},{"id":27865,"label":"Sports","slug":"sports"},{"id":27867,"label":"Transports - Déplacements","slug":"transports-deplacements"},{"id":27866,"label":"Urbanisme","slug":"urbanisme"}],"access":"public","required":true,"unique":false},{"name":"Types d'événements","info":"","tags":[{"id":27868,"label":"Tous","slug":"tous"},{"id":27869,"label":"Conférence","slug":"conference"},{"id":27870,"label":"Congrès - Colloque","slug":"congres-colloque"},{"id":27871,"label":"Conseil de la métropole","slug":"conseil-de-la-metropole"},{"id":27872,"label":"Événement sportif","slug":"evenement-sportif"},{"id":27873,"label":"Exposition","slug":"exposition"},{"id":27874,"label":"Foire - Salon","slug":"foire-salon"},{"id":27875,"label":"Fête - Festival","slug":"fete-festival"},{"id":27876,"label":"Réunion publique","slug":"reunion-publique"},{"id":27878,"label":"Spectacle","slug":"spectacle"},{"id":27877,"label":"Stage - Atelier","slug":"stage-atelier"}],"access":"public","required":true,"unique":false},{"name":"Public","info":"","tags":[{"id":27879,"label":"Tout Public","slug":"tout-public"},{"id":27880,"label":"Adulte","slug":"adulte"},{"id":27881,"label":"Jeune Public","slug":"jeune-public"},{"id":27882,"label":"Personne en situation de handicap","slug":"personne-en-situation-de-handicap"},{"id":27883,"label":"Professionnel","slug":"professionnel"}],"access":"public","required":true,"unique":false},{"name":"Organisateur","info":"","tags":[{"id":27884,"label":"Collectivité","slug":"collectivite"},{"id":27885,"label":"Association","slug":"association"},{"id":27886,"label":"Partenaire","slug":"partenaire"},{"id":27887,"label":"Particulier","slug":"particulier"}],"access":"public","required":true,"unique":false},{"name":"","info":"Participation","tags":[{"id":27888,"label":"Entrée Libre","slug":"entree-libre"}],"access":"public","required":false,"unique":true}]}`
 } ) );
 
-raw.push( knex( 'form_schema' ).insert( {
+raw.push( knex( 'form_schema' ).insert( [ {
+  id: 27,
+  store: `{
+    "nextOptionId": 1,
+    "fields": [ {
+      "field" : "edition",
+      "label" : {
+        "fr" : "Edition",
+        "en" : "Edition"
+      },
+      "info": null,
+      "optional" : true,
+      "fieldType" : "text"
+    } ]
+  }`
+}, {
   id: 26,
   store: `{
   "nextOptionId": 37,
@@ -650,6 +696,6 @@ raw.push( knex( 'form_schema' ).insert( {
     }
   ]
 }`
-} ) );
+} ] ) );
 
 module.exports = raw.join( ';\n' ) + ';';

@@ -20,6 +20,12 @@ module.exports = class MarkdownField extends Component {
 
   }
 
+  shouldComponentUpdate( nextProps, nextState ) {
+
+    return this.props.value !== nextProps.value;
+
+  }
+
   render() {
 
     return <SlateField {...ih( this.props, {

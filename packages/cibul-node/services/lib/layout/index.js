@@ -14,7 +14,8 @@ module.exports = ( req, content ) => {
   return layout( {
     agenda: req.agenda, 
     labels: flattenLabels( headerLabels, req.lang ), 
-    lang: req.lang
+    lang: req.lang,
+    metas: _.get( req, 'metas', [] )
   } ).replace( '{content}', content );
 
 }

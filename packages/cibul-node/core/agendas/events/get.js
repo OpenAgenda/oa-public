@@ -1,5 +1,8 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
+
 const agendas = require( '@openagenda/agendas' );
 const custom = require( '@openagenda/custom' );
 const events = require( '@openagenda/events' );
@@ -8,30 +11,51 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/get' );
 
 const getAgenda = require( '../utils/getAgenda' );
 
-module.exports = async ( agendaUid, eventUid ) => {
+module.exports = async ( agendaUid, eventUid, options = {} ) => {
 
-  // evaluating that the event is actually reffed in the agenda
-  // here can't hurt
+  const cleanOptions = _.assign( { lang: null }, options );
+
+  const agenda = await getAgenda( agendaUid );
 
   const {
     formSchemaId,
+    networkUid,
     id: agendaId
-  } = await getAgenda( agendaUid );
+  } = agenda;
 
-  const event = await events.get( { uid: eventUid } );
+  const fetchedEvent = await events.get( { uid: eventUid } );
 
-  if ( formSchemaId ) {
+  if ( fetchedEvent && formSchemaId ) {
 
     const customData = await custom( formSchemaId ).get( eventUid );
 
     if ( customData ) {
 
-      _.assign( event, customData );
+      _.assign( fetchedEvent, customData );
 
     }
 
   }
 
-  return event;
+  return _.set( 
+    cleanOptions.lang ? _flatten( fetchedEvent, cleanOptions.lang ) : fetchedEvent, 
+    'agenda', 
+    _.pick( agenda, [ 'uid', 'slug', 'title', 'description', 'image', 'url' ] ) 
+  );
+
+}
+
+
+function _flatten( event, lang ) {
+
+  return ih( event, [
+    'title',
+    'description',
+    'keywords',
+    'longDescription',
+    'conditions'
+  ].reduce( ( flattened, field ) => _.set( flattened, field, {
+    $set: _.get( event, [ field, lang ] , _.get( event, [ field, _.first( _.keys( event[ field ] ) ) ] ) )
+  } ), {} ) );
 
 }

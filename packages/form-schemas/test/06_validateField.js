@@ -6,7 +6,7 @@ const iso = require( '../iso' );
 
 const customValidator = require( './custom/wigglypoof.validator.js' );
 
-describe( 'validateField', () => {
+describe( 'form-schemas -06- validateField', () => {
 
   describe( 'simple cases', () => {
 
@@ -32,7 +32,8 @@ describe( 'validateField', () => {
         max: null,
         sub: null,
         fieldType: 'text',
-        origin: null
+        origin: null,
+        enableWith : null
       } );
         
     } );
@@ -61,7 +62,8 @@ describe( 'validateField', () => {
         min: null,
         max: null,
         sub: null,
-        fieldType: 'text' 
+        fieldType: 'text' ,
+        enableWith : null
       } );
 
     } );
@@ -96,8 +98,40 @@ describe( 'validateField', () => {
         ],
         fieldType: 'radio',
         sub: null,
-        origin: null
+        origin: null,
+        enableWith : null
       } );
+
+    } );
+
+
+    it( 'radio field definition can be monolingual', () => {
+
+      iso.validateField( {
+        field: 'anoptionlist',
+        fieldType: 'radio',
+        label: 'Choix multiples',
+        options: [ {
+          id: 1,
+          value: '1',
+          label: 'Un'
+        }, {
+          id: 2,
+          value: '2',
+          label: 'Deux'
+        } ],
+        origin: null
+      } ).options.should.eql( [ {
+          id: 1,
+          value: '1',
+          legacyId: null,
+          label: { en: 'Un' }
+        }, {
+          id: 2,
+          value: '2',
+          legacyId: null,
+          label: { en: 'Deux' }
+        } ] );
 
     } );
 
@@ -126,7 +160,8 @@ describe( 'validateField', () => {
         max: 10,
         fieldType: 'textarea',
         sub: null,
-        origin: null
+        origin: null,
+        enableWith : null
       } );
 
     } );
@@ -156,7 +191,8 @@ describe( 'validateField', () => {
         origin: null,
         fieldType: 'someCustomType',
         min: null,
-        max: null
+        max: null,
+        enableWith : null
       } );
 
     } );

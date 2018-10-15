@@ -1,8 +1,15 @@
 {
   "presets" : [
-    "babel-preset-env",
-    "babel-preset-react",
-    "babel-preset-es2015",
-    "babel-preset-stage-0"
+    [ "env", {
+        "targets": {
+          "browsers": [
+            "Explorer 11",
+            "last 4 Edge versions"
+          ]
+        },
+        "useBuiltIns": true
+    } ],
+    "react",
+    "stage-0"
   ]
 }

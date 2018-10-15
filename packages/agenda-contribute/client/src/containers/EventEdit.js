@@ -61,6 +61,7 @@ class EventEdit extends Component {
             <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
             <div className="wsq">
               <EventForm 
+                schemaExtensions={config.schemaExtensions}
                 withErrors={false}
                 fileStore={config.fileStore}
                 locationRes={config.locationRes}

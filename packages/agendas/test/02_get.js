@@ -2,6 +2,8 @@
 
 process.env.NODE_ENV = 'test';
 
+const _ = require( 'lodash' );
+
 const async = require( 'async' );
 const should = require( 'should' );
 
@@ -16,7 +18,7 @@ describe( 'agendas - functional (server): get', function() {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../agenda.sql',
+      __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql'
@@ -32,6 +34,18 @@ describe( 'agendas - functional (server): get', function() {
   before( () => {
     svc.init( config );
   } );
+
+  it( 'get works on promise', async () => {
+
+    const agenda = await svc.get( 4875 );
+
+    _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
+      slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
+      uid: 52084961,
+      title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
+    } );
+
+  } );
   
   it( 'get gets an agenda by id', done => {
 
@@ -39,57 +53,12 @@ describe( 'agendas - functional (server): get', function() {
 
       should( err ).equal( null );
 
-      agenda.should.eql( {
+      _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
         slug: 'programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016',
         uid: 52084961,
-        title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016',
-        description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
-        url: 'http://www.salon-fromage.com/',
-        image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
-        settings: {
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
-            }
-          },
-          mailing: {
-            eventAggregation: false
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            message: null,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null
-            },
-            type: 2,
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
-            moderateOnChangeBy: [],
-            survey: false
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
-          }
-        },
-        createdAt: agenda.createdAt,
-        updatedAt: agenda.updatedAt,
-        official: 0,
-        private: 0,
-        indexed: 1
+        title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
       } );
-
+       
       done();
 
     } );
@@ -159,55 +128,10 @@ describe( 'agendas - functional (server): get', function() {
 
       should( err ).equal( null );
 
-      agenda.should.eql( { 
+      _.pick( agenda, [ 'slug', 'uid', 'title' ] ).should.eql( {
         slug: 'epn-espace-torcy',
         uid: 94345899,
-        title: 'EPN "Espace Torcy"',
-        description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
-        url: 'http://www.ensparis.fr',
-        settings: {
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
-            }
-          },
-          mailing: {
-            eventAggregation: false
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            message: null,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null
-            },
-            type: 2,
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
-            moderateOnChangeBy: [],
-            survey: false
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
-          }
-        },
-        image: 'review_epn-espace-torcy_00.jpg',
-        createdAt: agenda.createdAt,
-        updatedAt: agenda.updatedAt,
-        official: 0,
-        private: 0,
-        indexed: 1
+        title: 'EPN "Espace Torcy"'
       } );
 
       done();
@@ -253,6 +177,19 @@ describe( 'agendas - functional (server): get', function() {
     } );
 
   } );
+
+
+  it( 'standard get does not include credentials', done => {
+
+    svc.get( { uid: 94345899 }, ( err, agenda ) => {
+
+      should( _.get( agenda, 'credentials' ) ).equal( undefined );
+
+      done();
+
+    } );
+
+  } );
   
 
   it( 'get with internal option gets internal data like credentials and id', done => {
@@ -261,75 +198,21 @@ describe( 'agendas - functional (server): get', function() {
 
       should( err ).equal( null );
 
-      agenda.should.eql( {
-        id: 4830,
-        ownerId: 7228,
-        slug: 'epn-espace-torcy',
-        uid: 94345899,
-        title: 'EPN "Espace Torcy"',
-        description: 'Agenda de l\'EPN "Espace Torcy"\r\n2 rue de Torcy 75018 Paris\r\nTél : 01 40 38 67 00\r\nEmail : epn@ensparis.fr',
-        formSchemaId: null,
-        url: 'http://www.ensparis.fr',
-        image: 'review_epn-espace-torcy_00.jpg',
-        settings: {
-          inbox: {
-            mailto: {
-              enabled: false,
-              email: null,
-              subject: null,
-              body: null
-            }
-          },
-          mailing: {
-            eventAggregation: false
-          },
-          contribution: {
-            allowLocationCreate: true,
-            defaultLang: null,
-            defaultState: 2,
-            message: null,
-            messages: {
-              instructions: null,
-              complete: null,
-              publication: null
-            },
-            type: 2,
-            useFields: false,
-            authorizedIPAddresses: [],
-            canPublish: [ 'administrators', 'moderators' ],
-            moderateOnChangeBy: [],
-            survey: false
-          },
-          translation: {
-            enabled: false,
-            sets: [],
-            options: null,
-            service: 'reverso',
-            source: 'fr'
-          }
-        },
-        credentials: {
-          useContributeApp: false,
-          activatingInvitations: false,
-          emailstrategie: false,
-          embedsHead: false,
-          embedsTemplates: false,
-          indesign: false,
-          moderators: false,
-          tags: false,
-          aggregator: false,
-          prioritizedAggregator: false,
-          invitationMessage: false,
-          calendarView: false,
-          docxExport: false,
-          eventOwnershipTransfer: false
-        },
-        createdAt: agenda.createdAt,
-        updatedAt: agenda.updatedAt,
-        official: 0,
-        officializedAt: null, 
-        private: 0,
-        indexed: 1
+      _.get( agenda, 'credentials' ).should.eql( {
+        useContributeApp: false,
+        activatingInvitations: false,
+        emailstrategie: false,
+        embedsHead: false,
+        embedsTemplates: false,
+        indesign: false,
+        moderators: false,
+        tags: false,
+        aggregator: false,
+        prioritizedAggregator: false,
+        invitationMessage: false,
+        calendarView: false,
+        docxExport: false,
+        eventOwnershipTransfer: false
       } );
 
       done();

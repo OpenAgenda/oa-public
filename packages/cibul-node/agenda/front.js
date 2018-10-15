@@ -300,7 +300,7 @@ function show( req, res ) {
           isEmpty: req.agenda.isEmpty,
           importUri: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } ),
           showCalendar: _.get( agenda, 'credentials.calendarView', false ),
-          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false )
+          useContributeApp: _.get( agenda, 'credentials.useContributeApp', false ),
         }
       },
       mailto: {
@@ -309,7 +309,10 @@ function show( req, res ) {
     } );
 
     req.baseData = ih( req.baseData, { 
-      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  }
+      indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  },
+      bottom: {
+        scripts: { $push: [ cmn.extractGoogleAnalytics( agenda ) ] }
+      }
     } );
 
     cmn.render( req, res, 'agenda/show', req.templateData );
@@ -338,22 +341,38 @@ function redirect( req, res, next ) {
 
 function embedShow( req, res ) {
 
-  lib.extend( req.templateData, {
-    agenda: {
-      uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
-      isEmpty: req.agenda.isEmpty,  
-    },
-    renders: req.renders,
-    pager: {
-      base: { uid: req.agenda.uid },
-      routeName: 'agendaEmbedShow',
-      current: req.templateData.page,
-      total: req.total,
-      perPage
-    }
-  } );
+  agendas.get( { 
+    uid: req.agenda.uid
+  }, { 
+    private: null,
+    internal: true
+  }, ( err, agenda ) => {
 
-  cmn.render( req, res, 'agenda/embedShow', req.templateData );
+    cmn.render( req, res, 'agenda/embedShow', ih( req.templateData, {
+      agenda: {
+        $set: {
+          uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
+          isEmpty: req.agenda.isEmpty,  
+        }
+      },
+      googleAnalytics: {
+        $set: _.get( agenda, 'settings.tracking.googleAnalytics' )
+      },
+      renders: {
+        $set: req.renders
+      },
+      pager: {
+        $set: {
+          base: { uid: req.agenda.uid },
+          routeName: 'agendaEmbedShow',
+          current: req.templateData.page,
+          total: req.total,
+          perPage
+        }
+      }
+    } ) );
+
+  } );
 
 }
 
@@ -459,7 +478,7 @@ function _format( req, res, next ) {
 
     next();
 
-  });
+  } );
 
 }
 
@@ -544,7 +563,8 @@ function _formatEventItem( event, req, cb ) {
       organization: organization ? organization.label : null
     },
     category: false,
-    favorite: cmn.favoriteLinkHTML( inst.uid )
+    favorite: cmn.favoriteLinkHTML( inst.uid ),
+    location: _.mapValues( _.first( inst.locations ), value => _.isObject( value ) ? _.get( value, req.lang ) : value )
   } );
 
   inst.getAgendaCategory( function( err, c ) {

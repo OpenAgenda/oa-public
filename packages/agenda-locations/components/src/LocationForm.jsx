@@ -28,7 +28,7 @@ import CountryField from './CountryField';
 import LocationMap from './LocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers.js';
-import validate from '../../lib/validate';
+import validate from './validate';
 
 const _ = {
   assign: require( 'lodash/assign' ),

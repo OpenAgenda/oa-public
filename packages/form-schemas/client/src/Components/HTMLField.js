@@ -16,6 +16,12 @@ module.exports = class HTMLField extends Component {
 
   }
 
+  shouldComponentUpdate( nextProps, nextState ) {
+
+    return this.props.value !== nextProps.value;
+
+  }
+
   render() {
 
     return <SlateField {...ih( this.props, {

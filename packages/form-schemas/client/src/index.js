@@ -9,10 +9,11 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
 
-import FormSchema from '../../iso/FormSchema';
+import FormSchema from './iso/FormSchema';
 
-import { flatten } from './lib/helpers';
+import flatten from './lib/flatten';
 import submit from './lib/submit';
+import getRelatedFieldValues from './lib/getRelatedFieldValues';
 
 const Field = require( './Components/Field' );
 
@@ -113,7 +114,7 @@ export default class FormSchemaComponent extends Component {
 
       if ( res.statusCode === 200 && this.props.onSubmitSuccess ) {
 
-        return this.props.onSubmitSuccess( this.get( 'values' ), res );
+        this.props.onSubmitSuccess( this.get( 'values' ), res );
 
       } else if ( res.statusCode === 200 ) {
 
@@ -126,9 +127,9 @@ export default class FormSchemaComponent extends Component {
 
       }
 
-    }, err => {
+    } ).catch( err => {
 
-      throw err;
+      console.log( 'form-schemas: there was an error during submit', err );
 
     } );
 
@@ -251,6 +252,7 @@ export default class FormSchemaComponent extends Component {
             key={'field' + i}
             field={f}
             value={_.get( values, f.field, null )}
+            relatedValues={getRelatedFieldValues( f, values )}
             error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
             onChange={this.onChange.bind( this, f.field )}
           />

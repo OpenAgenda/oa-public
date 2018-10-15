@@ -2,13 +2,12 @@
 
 require( 'source-map-support' ).install();
 
-const validators = require( '../src' ),
+const should = require( 'should' );
+const utils = require( '@openagenda/utils' );
 
-schema = require( '../src/schema' ),
+const validators = require( '../src' );
 
-should = require( 'should' ),
-
-utils = require( '@openagenda/utils' );
+const schema = require( '../src/schema' );
 
 describe( 'schema validator', () => {
 
@@ -125,7 +124,7 @@ describe( 'schema validator', () => {
           url: null,
         } );
 
-      } catch( e ) { errors = e };
+      } catch( e ) { errors = e };
 
       errors.length.should.equal( 0 );
 
@@ -165,7 +164,7 @@ describe( 'schema validator', () => {
     } );
 
 
-    it( 'validates an object with a deep schema', () => {
+    it( 'shallow-maps deeper schemas', () => {
 
       validate( {
         title: 'Testing',

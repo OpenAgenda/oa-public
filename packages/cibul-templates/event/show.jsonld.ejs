@@ -8,10 +8,10 @@
 <% if ( event.image ) { %>
   "image" : "<%= _i( event.image ) %>",
 <% } %>
-<% if ( event.timings.length ) { %>   
-  "startDate" : "<%= _t( event.timings[ 0 ].start, 'YYYY-MM-DDThh:mm' ) %>",
-  "endDate" : "<%= _t( event.timings[ event.timings.length - 1 ].start, 'YYYY-MM-DDThh:mm' ) %>",
-  "duration" : "<%= _t.diff( event.timings[ 0 ].start, event.timings[ 0 ].end ) %>",
+<% if ( event.jsonLdTiming ) { %>
+  "startDate" : "<%= event.jsonLdTiming.startStr %>",
+  "endDate" : "<%= event.jsonLdTiming.endStr %>",
+  "duration" : "<%= _t.diff( event.jsonLdTiming.start, event.jsonLdTiming.end ) %>",
 <% } %>
   "location" : {
     "@type" : "Place",

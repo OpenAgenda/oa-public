@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 
-const eventSchema = require( '@openagenda/event-form/schema' );
+const eventSchema = require( '@openagenda/event-form/src/schema' );
 const formSchemaMw = require( '@openagenda/form-schemas/server/middleware' );
 const logger = require( '@openagenda/logs' );
 
@@ -45,7 +45,7 @@ function init( c ) {
     log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
 
     const frontAppInit = {
-      config: req.config,
+      config: _.set( req.config, 'schemaExtensions', _.get( req, 'schemaExtensions', [] ) ),
       state: {
         member: req.member,
         event: req.event
@@ -91,59 +91,59 @@ function init( c ) {
     '/event/:eventUid/draft' 
   ], bodyParser.json(), ( req, res, next ) => {
 
-      // would be nice to know here which 
-      // langauges are required
-      req.schema = eventSchema( {
-        locationRes: '#',
-        languages: [],
-        store: null
-      } ); 
+    // would be nice to know here which 
+    // langauges are required
+    req.schema = eventSchema( {
+      schemaExtensions: _.get( req, 'schemaExtensions', [] ),
+      locationRes: '#',
+      languages: [],
+      store: null
+    } ); 
 
-      req.draft = [ 'true', '1' ].includes( _.get( req, 'query.draft', '0' ) );
+    req.draft = [ 'true', '1' ].includes( _.get( req, 'query.draft', '0' ) );
 
-      if ( _.get( req, 'event.fileKey' ) ) {
+    if ( _.get( req, 'event.fileKey' ) ) {
 
-        req.fileKey = req.event.fileKey;
+      req.fileKey = req.event.fileKey;
 
-        return next();
+      return next();
 
-      }
+    }
 
-      config.interfaces.generateUniqueFileKey().then( fileKey => {
+    config.interfaces.generateUniqueFileKey().then( fileKey => {
 
-        req.fileKey = fileKey;
+      req.fileKey = fileKey;
 
-        next();
+      next();
 
-      } );
+    } );
 
-    },
-    formSchemaMw.files.putInTemporary.bind( null, {} ),
-    formSchemaMw.files.cleanFileValues.bind( null, {} ),
-    formSchemaMw.schema.clean.bind( null, {} ),
-    ( req, res ) => {
+  },
+  formSchemaMw.files.putInTemporary.bind( null, {} ),
+  formSchemaMw.files.cleanFileValues.bind( null, {} ),
+  formSchemaMw.schema.clean.bind( null, {} ),
+  ( req, res ) => {
 
-      log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
+    log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-      config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues, {
-        draft: req.draft
-      } )
+    config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues, {
+      draft: req.draft
+    } )
 
-      .then( ( { event } ) => {
+    .then( ( { event } ) => {
 
-        res.json( { event } );
+      res.json( { event } );
 
-      }, error => {
+    }, error => {
 
-        log( 'error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error );
+      log( 'error', 'could not set event for agenda %s', _.get( req, 'agenda.slug' ), error );
 
-        res.status( 400 );
+      res.status( 400 );
 
-      } );
+    } );
 
 
-    } 
-  );
+  } );
 
 }
 

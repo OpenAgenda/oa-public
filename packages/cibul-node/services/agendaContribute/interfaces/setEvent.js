@@ -51,28 +51,30 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
 
   // event state is dictated by agenda settings
-  transforms[ 'state' ] = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+  transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+
+  transforms.image = { credits: { $set: _.get( data, 'imageCredits' ) } };
 
   const transformed = ih( data, transforms );
 
-  if ( !current ) {
+  try {
 
-    log( draft ? 'creating draft' : 'creating event' );
+    if ( !current ) {
 
-    const result = await core.agendas( agenda.uid ).events.create( transformed, {
-      draft,
-      context: {
-        userUid: user.uid
-      }
-    } );
+      log( draft ? 'creating draft' : 'creating event' );
 
-    return { event: result.created.event };
+      const result = await core.agendas( agenda.uid ).events.create( transformed, {
+        draft,
+        context: {
+          userUid: user.uid
+        }
+      } );
 
-  } else {
+      return { event: result.created.event };
 
-    log( draft ? 'updating draft' : 'updating event' );
+    } else {
 
-    try {
+      log( draft ? 'updating draft' : 'updating event' );
 
       const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, { 
         draft,
@@ -83,24 +85,27 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
       return { event: result.updated.event };
 
-    } catch ( e ) {
+    }
 
-      //IAMHERE, validation errors should be array! see notes.txt for more things
+  } catch ( e ) {
 
-      if ( _.isArray( e ) ) {
+    if ( e.name === 'validationError' ) {
 
-        log( 'error', 'validation errors', e );
-
-      } else {
-
-        log( 'error', e.valueOf );
-
-      }
+      log( 'error', 'validation errors', e.jse_info.errors );
 
       return {
+        success: false,
+        errors: e.jse_info.errors,
         event: null
       }
 
+    };
+
+    log( 'error', e );
+
+    return {
+      success: false,
+      event: null
     }
 
   }

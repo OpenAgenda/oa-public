@@ -26,6 +26,7 @@ export default connect(
   
   <EventForm 
     withErrors={false}
+    schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
     locationRes={config.locationRes}
     lang={config.lang} 

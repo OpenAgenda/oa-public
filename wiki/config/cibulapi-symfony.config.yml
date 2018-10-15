@@ -1,0 +1,111 @@
+all: #search for config
+
+  check_key: true
+  node_port: 8901
+
+  redis_host: '127.0.0.1'
+  redis_port: 6379
+  redis_background_main_channel: 'maindev'
+
+  event_index_max: 100
+
+  #from cibul project
+  main_host: openagenda.com
+  full_main_host: openagenda.com
+  active_storage: aws
+
+  aws_static_path: //cibulstatic.s3.amazonaws.com/
+  aws_key: KEY #config
+  aws_secret_key: fdssqfdsq #config
+  aws_account_id: 93 #config
+
+  upload_dir: /uploads/
+  static_path: /images/
+  tmp_dir: /var/tmp
+
+  event_title_max_length: 140
+  event_description_max_length: 200
+  event_free_text_max_length: 6000
+  event_tags_max_length: 255
+
+  solr_max_results: 2000 #unused
+
+  solr_event_host: localhost #unused
+  solr_event_port: 8983 #unused
+  solr_review_host: localhost #unused
+  solr_review_port: 8984 #unused
+  solr_user_host: localhost #unused
+  solr_user_port: 8985 #unused
+
+  .arrays:
+    language_list: { fr: français, en: english, es: español, de: deutsch, it: italiano, ne: nederlands, pt: português, ar: العربية, is: íslenska }
+
+    event_search_testers: [ 1, 2, 1428, 1535, 1511, 1315, 1342, 1571, 1576, 1645, 1654, 1432, 1864, 1891, 1933, 2112, 2162, 2193, 1654, 1713, 2827, 2957, 2803, 3140, 3282, 5527, 5649, 4964, 5858, 5117, 16437, 28025, 27408, 28923, 27326, 35522, 44909, 45368, 46734, 45366, 50580 ]
+
+  user_thumb_prefix: urtb
+  review_thumb_prefix: rwtb
+
+
+  event_width: 600
+  event_height: 2000
+  event_image_max_size: 12000000
+  event_thumb_height: 160
+  event_thumb_prefix: evtb
+  event_thumb_width: 120
+
+  event_full_prefix: evf
+
+  token_life: 3600
+  cibul_secret: Booyaaah
+
+
+  #api limitations
+  api_max_occurrences_per_event: 300
+  api_max_locations_per_event: 50
+
+
+  event_search_max_results: 4000
+
+
+dev:
+
+  check_key: true
+
+  dev_homepage: 'http://ddevelopers.openagenda.com'
+
+  #from cibul
+  aws_bucket: cibultest
+  aws_path: //cibultest.s3.amazonaws.com/
+
+  api_max_event_published: 1000  
+
+test: 
+
+  aws_bucket: cibultest
+  aws_path: //cibultest.s3.amazonaws.com/
+
+  api_max_event_published: 1000  
+
+odev:
+  
+  dev_homepage: 'http://ddevelopers.openagenda.com'
+
+  #from cibul
+  aws_bucket: cibultest
+  aws_path: //cibultest.s3.amazonaws.com/
+
+  api_max_event_published: 1000
+
+prod:
+
+  dev_homepage: 'http://developers.openagenda.com'
+  
+  #from cibul
+  aws_bucket: cibul
+  aws_path: //cibul.s3.amazonaws.com/
+
+  api_max_event_published: 100
+
+  redis_background_main_channel: 'main'
+  redis_host: 'redishost.url.com' #config
+  redis_port: 6379

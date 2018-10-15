@@ -17,7 +17,7 @@ describe( 'agendas - functional (server): list', function () {
     mysql: config.mysql,
     files: [
       __dirname + '/fixtures/resetDb.sql',
-      __dirname + '/../agenda.sql',
+      __dirname + '/../model.sql',
       __dirname + '/fixtures/agenda.data.sql',
       __dirname + '/fixtures/agendaEvent.data.sql',
       __dirname + '/fixtures/occurrence.data.sql'

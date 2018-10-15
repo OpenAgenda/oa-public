@@ -1,0 +1,29 @@
+{
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "Firefox >= 24",
+            "Chrome >= 33",
+            "Safari >= 9",
+            "IE >= 10"
+          ],
+          "node": "6"
+        }
+      }
+    ],
+    "stage-0"
+  ],
+  "plugins": [
+    "lodash",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-async-to-bluebird",
+    "transform-promise-to-bluebird",
+    "transform-runtime",
+    "add-module-exports"
+  ]
+}
