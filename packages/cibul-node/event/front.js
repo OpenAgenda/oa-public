@@ -5,9 +5,8 @@ const ih = require( 'immutability-helper' );
 const deepExtend = require( 'deep-extend' );
 const { promisify } = require( 'util' );
 
-const layout = require( '../services/lib/layout' );
 const core = require( '../core' );
-const eventTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/event.tpl', 'utf-8' ) );
+const redirectTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/redirect.tpl', 'utf-8' ) );
 
 const agendaSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
@@ -63,10 +62,12 @@ const routes = {
 
         req.event = _.omit( event, [ 'agenda' ] );
 
+        req.redirect = req.agenda.url ? req.agenda.url + '?oaq[uid][]=' + req.event.uid : `/${req.agenda.slug}/events/${req.event.slug}`;
+
         req.metas = [ {
-          property: 'og:title', content: encodeURIComponent( req.event.title )
+          property: 'og:title', content: _.escape( req.event.title )
         }, {
-          property: 'og:description', content: encodeURIComponent( req.event.description )
+          property: 'og:description', content: _.escape( req.event.description )
         }, {
           property: 'og:locale', content: req.lang
         }, {
@@ -84,15 +85,23 @@ const routes = {
 
         next();
 
+      }, err => {
+
+        req.log( 'error', err );
+
+        next( { code: _.get( err, 'message' ).indexOf( 'not found' ) === -1 ? 500 : 404 } );
+
       } );
 
     },
     ( req, res, next ) => {
 
-      res.send( layout( req, eventTemplate( {
+      res.send( redirectTemplate( {
+        metas: req.metas,
+        agenda: req.agenda,
         event: req.event,
-        redirect: req.query.r
-      } ) ) );
+        redirect: req.redirect
+      } ) );
 
     }
   ] ],
