@@ -169,7 +169,8 @@
         }
       ],
       "fieldType": "radio",
-      "origin" : "custom"
+      "origin" : "custom",
+      "enableWith" : null
     }
   ]
 }

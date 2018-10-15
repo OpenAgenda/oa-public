@@ -223,6 +223,12 @@ function buildFieldSchema( type, options = {} ) {
       default: null,
       unique: true,
       options: [ 'tags', 'categories', 'custom' ]
+    },
+
+    // other field that defines if this field should be enabled
+    enableWith: {
+      type: 'text',
+      default: null
     }
 
   };

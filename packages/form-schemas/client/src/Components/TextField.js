@@ -28,7 +28,7 @@ module.exports = class TextField extends Component {
       fieldType
     } = this.props.field;
 
-    const { value, onChange } = this.props;
+    const { value, onChange, enabled } = this.props;
 
     const fieldProps = {
       name,
@@ -36,7 +36,8 @@ module.exports = class TextField extends Component {
       className: 'form-control',
       value: value || '',
       placeholder,
-      onChange: this.onChange
+      onChange: this.onChange,
+      disabled: !enabled
     }
    
     return fieldType === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />

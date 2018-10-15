@@ -6,7 +6,7 @@ const iso = require( '../iso' );
 
 const customValidator = require( './custom/wigglypoof.validator.js' );
 
-describe( 'validateField', () => {
+describe( 'form-schemas -06- validateField', () => {
 
   describe( 'simple cases', () => {
 
@@ -32,7 +32,8 @@ describe( 'validateField', () => {
         max: null,
         sub: null,
         fieldType: 'text',
-        origin: null
+        origin: null,
+        enableWith : null
       } );
         
     } );
@@ -61,7 +62,8 @@ describe( 'validateField', () => {
         min: null,
         max: null,
         sub: null,
-        fieldType: 'text' 
+        fieldType: 'text' ,
+        enableWith : null
       } );
 
     } );
@@ -96,7 +98,8 @@ describe( 'validateField', () => {
         ],
         fieldType: 'radio',
         sub: null,
-        origin: null
+        origin: null,
+        enableWith : null
       } );
 
     } );
@@ -157,7 +160,8 @@ describe( 'validateField', () => {
         max: 10,
         fieldType: 'textarea',
         sub: null,
-        origin: null
+        origin: null,
+        enableWith : null
       } );
 
     } );
@@ -187,7 +191,8 @@ describe( 'validateField', () => {
         origin: null,
         fieldType: 'someCustomType',
         min: null,
-        max: null
+        max: null,
+        enableWith : null
       } );
 
     } );
