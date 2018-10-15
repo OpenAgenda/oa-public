@@ -51,7 +51,9 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
 
   // event state is dictated by agenda settings
-  transforms[ 'state' ] = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+  transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+
+  transforms.image = { credits: { $set: _.get( data, 'imageCredits' ) } };
 
   const transformed = ih( data, transforms );
 

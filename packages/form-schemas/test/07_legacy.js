@@ -10,7 +10,7 @@ const config = require( '../testconfig' );
 
 const knex = require( 'knex' );
 
-describe( 'form-schemas - functional (server): legacy', function() {
+describe( 'form-schemas -07- functional (server): legacy', function() {
 
   this.timeout( 5000 );
 
