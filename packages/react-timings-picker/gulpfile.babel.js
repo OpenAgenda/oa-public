@@ -5,7 +5,6 @@ import browserSync from 'browser-sync';
 import del from 'del';
 import {stream as wiredep} from 'wiredep';
 import browserify from 'browserify';
-import reactify from 'reactify';
 import buffer from 'vinyl-buffer';
 import source from 'vinyl-source-stream';
 
@@ -97,13 +96,6 @@ gulp.task('images', () =>
 		.pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('fonts', () =>
-{
-	return gulp.src(require('main-bower-files')({ filter: '**/*.{eot,svg,ttf,woff,woff2}' }).concat('app/fonts/**/*'))
-		.pipe(gulp.dest('.tmp/fonts'))
-		.pipe(gulp.dest('dist/fonts'));
-});
-
 gulp.task('react', ["react:lib"], () => {
 	return browserify("lib/scripts/main.js", { debug: true })
 		.bundle()
@@ -134,7 +126,7 @@ gulp.task("react:lib", () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist', "lib"]));
 
-gulp.task('serve', ['styles', 'fonts', 'react', 'react:dist'], () =>
+gulp.task('serve', ['styles', 'react', 'react:dist'], () =>
 {
 	browserSync({
 		notify: false,
@@ -152,14 +144,12 @@ gulp.task('serve', ['styles', 'fonts', 'react', 'react:dist'], () =>
 		'app/*.html',
 		'app/scripts/**/*.js',
 		'app/images/**/*',
-		'.tmp/fonts/**/*',
 		'app/scripts/**/*.jsx'
 	]).on('change', reload);
 
 	gulp.watch('app/styles/**/*.scss', ['styles']);
-	gulp.watch('app/fonts/**/*', ['fonts']);
 	gulp.watch(['app/scripts/**/*.jsx', 'app/scripts/**/*.js'], ['react:lib', 'react:dist','react']);
-	gulp.watch('bower.json', ['wiredep', 'fonts']);
+	gulp.watch('bower.json', ['wiredep']);
 });
 
 gulp.task('serve:dist', () =>
@@ -205,12 +195,12 @@ gulp.task('wiredep', () =>
 		.pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'styles', 'react'], () =>
+gulp.task('build', ['lint', 'html', 'images', 'styles', 'react'], () =>
 {
 	return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('build:dist', ['lint', 'html', 'images', 'fonts', 'styles:dist', 'react:dist'], () =>
+gulp.task('build:dist', ['lint', 'html', 'images', 'styles:dist', 'react:dist'], () =>
 {
 	return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }));
 });

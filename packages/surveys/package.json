@@ -11,7 +11,8 @@
   "scripts": {
     "dist": "webpack --config webpack.dist.js",
     "start": "nodemon server.dev.js",
-    "test": "jest --forceExit"
+    "test": "jest --forceExit",
+    "prepublish": "yarn dist"
   },
   "dependencies": {
     "@openagenda/form-schemas": "^1.1.21",
