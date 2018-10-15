@@ -66,9 +66,11 @@ module.exports = class ImageField extends Component {
           <img className="padding-all-sm" src={this.state.preview} />
         }
         { !this.state.preview &&
-          <button className="btn btn-primary">
-            <label>{labels.upload}</label>
-          </button> 
+          <div className="center-button margin-bottom-sm">
+            <button className="btn btn-primary">
+              <label>{labels.upload}</label>
+            </button> 
+          </div>
         }
         <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
       </Dropzone>
