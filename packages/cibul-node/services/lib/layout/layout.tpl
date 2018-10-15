@@ -3,6 +3,9 @@
   <head>
     <title><%= agenda.title %></title>
     <link rel="stylesheet" href="/css/oasfmain.css?v=1"/>
+<% for ( meta of metas ) { %>
+    <meta property="<%= meta.property %>" content="<%= meta.content %>" />
+<% } %>
   </head>
   <body>
     <nav class="oa-page-header navbar navbar-default navbar-static-top js_top_nav" id="nav">

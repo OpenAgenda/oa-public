@@ -5,6 +5,10 @@ const ih = require( 'immutability-helper' );
 const deepExtend = require( 'deep-extend' );
 const { promisify } = require( 'util' );
 
+const layout = require( '../services/lib/layout' );
+const core = require( '../core' );
+const eventTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/event.tpl', 'utf-8' ) );
+
 const agendaSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const sessions = require( '@openagenda/sessions' );
@@ -47,6 +51,51 @@ const middlewares = {
 };
 
 const routes = {
+
+  agendaEventShowShare: [ 'get', '/agendas/:agendaUid/events/:eventUid/share', [
+    ( req, res, next ) => {
+
+      core.agendas( req.params.agendaUid ).events.get( req.params.eventUid, { lang: req.lang } ).then( event => {
+
+        if ( !event ) return next( 404 );
+
+        req.agenda = _.get( event, 'agenda' );
+
+        req.event = _.omit( event, [ 'agenda' ] );
+
+        req.metas = [ {
+          property: 'og:title', content: encodeURIComponent( req.event.title )
+        }, {
+          property: 'og:description', content: encodeURIComponent( req.event.description )
+        }, {
+          property: 'og:locale', content: req.lang
+        }, {
+          property: 'og:url', content: config.root + `/agendas/${req.params.agendaUid}/events/${req.params.eventUid}/share`
+        } ];
+
+        if ( _.get( req, 'event.image.filename' ) ) {
+
+          req.metas.push( {
+            property: 'og:image',
+            content: _.get( req, 'event.image.base' ).replace( 'cibuldev', 'cibul' ) + _.get( req, 'event.image.filename' )
+          } );
+
+        }
+
+        next();
+
+      } );
+
+    },
+    ( req, res, next ) => {
+
+      res.send( layout( req, eventTemplate( {
+        event: req.event,
+        redirect: req.query.r
+      } ) ) );
+
+    }
+  ] ],
 
   agendaEventShowPrivate: [ 'get', '/:slug.prv/events/:eventSlug', [
     cmn.https,
