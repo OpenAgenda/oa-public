@@ -1,12 +1,13 @@
 // generated on 2015-06-27 using generator-gulp-webapp 1.0.2
-import gulp from 'gulp';
-import gulpLoadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync';
-import del from 'del';
-import {stream as wiredep} from 'wiredep';
-import browserify from 'browserify';
-import buffer from 'vinyl-buffer';
-import source from 'vinyl-source-stream';
+const gulp = require( 'gulp' );
+const gulpLoadPlugins = require( 'gulp-load-plugins' );
+const cleanCSS = require('gulp-clean-css');
+const browserSync = require( 'browser-sync' );
+const del = require( 'del' );
+const { stream: wiredep } = require( 'wiredep' );
+const browserify = require( 'browserify' );
+const buffer = require( 'vinyl-buffer' );
+const source = require( 'vinyl-source-stream' );
 
 const webServerPort = 9000;
 
@@ -45,7 +46,7 @@ gulp.task('styles:dist', () =>
 		.pipe($.sourcemaps.write())
 		.pipe($.concat("react-timings-picker.css"))
 		.pipe(gulp.dest('dist/styles'))
-		.pipe($.minifyCss({ compatibility: '*' }))
+		.pipe(cleanCSS({ compatibility: '*' }))
 		.pipe($.rename({ suffix: '.min' }))
 		.pipe(gulp.dest('dist/styles'));
 });
@@ -72,7 +73,7 @@ gulp.task('html', ['styles'], () =>
 	return gulp.src('app/*.html')
 		.pipe(assets)
 		.pipe($.if('*.js', $.uglify()))
-		.pipe($.if('*.css', $.minifyCss({ compatibility: '*' })))
+		.pipe($.if('*.css', cleanCSS({ compatibility: '*' })))
 		.pipe(assets.restore())
 		.pipe($.useref())
 		.pipe($.if('*.html', $.minifyHtml({ conditionals: true, loose: true })))
