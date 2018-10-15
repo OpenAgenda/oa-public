@@ -3,7 +3,8 @@
 const _ = {
   extend: require( 'lodash/extend' ),
   keys: require( 'lodash/keys' ),
-  get: require( 'lodash/get' )
+  get: require( 'lodash/get' ),
+  pick: require( 'lodash/pick' )
 }
 
 module.exports = {
@@ -24,8 +25,19 @@ function mapValuesToValidators( fields, values ) {
       fieldName,
       _.get( fields, fieldName ) // options
     ),
-    value: _.get( values, fieldName )
+    value: _extractValue( _.get( values, fieldName ), values, fields[ fieldName ] )
   } ) );
+
+}
+
+
+function _extractValue( value, values, fieldOptions = {} ) {
+
+  if ( !_.get( fieldOptions, 'enableWith' ) ) return value;
+
+  if ( _.get( values, _.get( fieldOptions, 'enableWith' ) ) ) return value;
+
+  return null;
 
 }
 
@@ -49,7 +61,7 @@ function getDefault( fields ) {
 
   let clean = {};
 
-  Object.keys( fields ).forEach( k => {
+  _.keys( fields ).forEach( k => {
 
     if ( fields[ k ].type === 'schema' ) {
 

@@ -2,12 +2,99 @@
 
 configurable validators that couple up validation with data sanitizing. A configured validator throws errors in arrays in case of invalid data and return sanitized value when the input is valid.
 
+## INstallation
+
+    yarn
 
 ## Running the tests
 
-Run:
+    yarn test
 
-    npm test
+
+# Basic validation
+
+Each function returns a configured validate fonction. The following initializes a simple email validate fonction that doubles as a sanitizer:
+
+    const emailValidator = require( '@openagenda/validators/email' );
+
+    const validate = emailValidators();
+
+    // returns my@email.com
+    const cleanEmail = validate( 'my@email.com' );
+
+
+# Schema validation
+
+A schema is composed of validators. These need to be registered ( loaded ) before they can be used through a 'register' function.
+
+Defining a schema consists in dispatching each validator configuration in an object representing the schema.
+
+    const schema = require( '@openagenda/validators/schema' );
+
+    schema.register( {
+      text: require( '@openagenda/validators/text' ),
+      email: require( '@openagenda/validators/email' )
+    } );
+
+    const mySchema = schema( {
+      name: {
+        type: 'text'
+      },
+      email {
+        type: 'email'
+      }
+    } );
+
+    const clean = schema( {
+      name: 'Gaetan',
+      email: 'support@openagenda.com'
+    } );
+
+
+## Enabling fields based on submitted values
+
+The validation of a field in the schema can be conditioned by the validation of another field in the schema. For example, if your object to be validated has an image and a image credit, the image credit is useful only when the image field is defined
+
+    const images = schema( {
+      name: {
+        type: 
+      },
+      image: {
+        type: 'text'
+      },
+      credits: {
+        type: 'text',
+        optional: false,
+        enableWith: 'image'
+      }
+    } );
+
+    // { name: 'Gaetan', image: null, credits: null }
+    const without = images( {
+      name: 'Gaetan',
+      credits: 'There is something here anyways'
+    } );
+
+    // { name: 'Gaetan', image: 'image.png', credits: 'This is validated' }
+    const with = image( {
+      name: 'Gaetan',
+      image: 'image.png',
+      credits: 'This is validated'
+    } );
+
+    try {
+
+      image( {
+        name: 'Gaetan',
+        image: 'image.png'
+      } )
+
+    } catch ( errors ) {
+
+      // this will crash as image is specified and enabled credits is not optional
+
+    }
+
 
 
 # Validating a single value
@@ -71,7 +158,7 @@ error arises, or return an array of { field: , value: } pairs if no error was fo
 
     try {
 
-      validateSet( [ {
+      validateSet( [ {
         field: 'name',
         value: 'Toto'
       }, {

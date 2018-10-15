@@ -42,6 +42,24 @@ describe( 'schema functions ( unit tests )', () => {
 
     } );
 
+    it( 'flatten filters out fields that are enabled only with values submitted for other fields', () => {
+
+      const flattened = utils.mapValuesToValidators( {
+        name: { type: 'text' },
+        image: { type: 'text' },
+        credits: { type: 'text', enableWith: 'image' }
+      }, {
+        name: 'Jeff',
+        image: null,
+        credits: 'Nobody'
+      } );
+
+      flattened.length.should.equal( 3 );
+
+      flattened.map( f => f.value ).should.eql( [ 'Jeff', null, null ] );
+
+    } );
+
     it( 'flattens deep schemas', () => {
 
       const flattened = utils.mapValuesToValidators(
