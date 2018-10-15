@@ -21,13 +21,15 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
   // image  
 
+  transforms.image = { 
+    $set: {
+      credits: _.get( data, 'imageCredits' )
+    }
+  };
+
   if ( _.get( files, 'image.path' ) ) { // this cannot work if image is not provided in files.
 
-    transforms.image = { 
-      $set: { 
-        path: _.get( files, 'image.path' )
-      } 
-    };
+    transforms.image[ '$set' ].path = _.get( files, 'image.path' );
 
   } else {
 
@@ -52,8 +54,6 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
 
   // event state is dictated by agenda settings
   transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
-
-  transforms.image = { credits: { $set: _.get( data, 'imageCredits' ) } };
 
   const transformed = ih( data, transforms );
 
