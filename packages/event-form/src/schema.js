@@ -33,6 +33,15 @@ module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => 
       "extensions" : [ "jpg", "bmp", "png", "jpeg" ],
       "store" : fileStore
     }, {
+      "field" : "imageCredits",
+      "fieldType" : "text",
+      "optional" : true,
+      "label" : {
+        fr : 'Crédits de l\'image',
+        en: 'Image credits'
+      },
+      "enableWith" : "image"
+    }, {
       "field" : "languages",
       "fieldType" : "languages",
       "label" : {
