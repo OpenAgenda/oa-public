@@ -106,6 +106,10 @@ const devApps = [ {
   name: 'Stateless',
   description: 'Because sometimes you may want to handle the state in the parent component',
   link: '/stateless'
+}, {
+  name: 'conditional',
+  description: 'A field can be enabled when another field is set',
+  link: '/conditional'
 } ];
 
 if ( module.hot ) module.hot.accept();

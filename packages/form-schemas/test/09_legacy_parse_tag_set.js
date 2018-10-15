@@ -4,7 +4,7 @@ const should = require( 'should' );
 
 const parseTagSet = require( '../server/legacy/parseTagSet' );
 
-describe( 'form-schemas - unit (server): legacy tag sets', function() {
+describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
 
   it( 'takes a form schema, a tag set and returns a form schema with the tag set groups added as fields', () => {
 
@@ -109,7 +109,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
           } ],
           fieldType: "checkbox",
           "placeholder" : null,
-          "origin" : "tags"
+          "origin" : "tags",
+          enableWith : null
         },
         {
           "field": "style-musical",
@@ -149,7 +150,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
             }
           ],
           "fieldType": "radio",
-          "origin" : "tags"
+          "origin" : "tags",
+          enableWith : null
         }
       ],
       custom: null
@@ -223,7 +225,8 @@ describe( 'form-schemas - unit (server): legacy tag sets', function() {
         ],
         "fieldType": "radio",
         "origin" : "categories",
-        "sub" : null
+        "sub" : null,
+        enableWith : null
       } ]
     } );
 

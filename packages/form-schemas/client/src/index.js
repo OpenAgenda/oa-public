@@ -11,8 +11,9 @@ import flattenLabels from '@openagenda/labels/flatten';
 
 import FormSchema from './iso/FormSchema';
 
-import { flatten } from './lib/helpers';
+import flatten from './lib/flatten';
 import submit from './lib/submit';
+import getRelatedFieldValues from './lib/getRelatedFieldValues';
 
 const Field = require( './Components/Field' );
 
@@ -251,6 +252,7 @@ export default class FormSchemaComponent extends Component {
             key={'field' + i}
             field={f}
             value={_.get( values, f.field, null )}
+            relatedValues={getRelatedFieldValues( f, values )}
             error={ _.get( _.first( _.filter( this.get( 'errors', [] ), e => e.field === f.field ) ), 'label' )}
             onChange={this.onChange.bind( this, f.field )}
           />

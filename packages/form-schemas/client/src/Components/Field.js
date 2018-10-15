@@ -8,7 +8,8 @@ import classNames from 'classnames';
 import FieldCounter from './FieldCounter';
 import Sub from './Sub';
 
-const flattenFieldLabels = require( '../lib/helpers' ).flatten;
+const flattenFieldLabels = require( '../lib/flatten' );
+const isFieldEnabled = require( '../lib/isFieldEnabled' );
 
 const FieldComponents = {
   multilingual: require( './Multilingual' ),
@@ -45,10 +46,14 @@ module.exports = class Field extends Component {
       error,
       labels,
       lang,
-      className
+      className,
+      relatedValues
     } = this.props;
 
+    const isEnabled = isFieldEnabled( field, relatedValues );
+
     return <div className={className + ' ' + classNames( {
+      disabled : !isEnabled,
       'has-error' : !!error,
       'multilingual-input-field' : isMultilingual
     } ) } key={field.field}>
@@ -59,6 +64,7 @@ module.exports = class Field extends Component {
       })}>{'( ' + labels.required + ' )'}</span>}
       {field.info?<div>{field.info}</div>:null}
       <Component
+        enabled={isEnabled}
         lang={lang}
         field={field}
         value={value}

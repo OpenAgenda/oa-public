@@ -2,15 +2,13 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' );
-
-const config = require( '../testconfig' );
-
+const fs = require( 'fs' );
 const should = require( 'should' );
 
-const fs = require( 'fs' );
+const config = require( '../testconfig' );
+const svc = require( './service' );
 
-describe( 'get', () => {
+describe( 'form-schemas -04- get', () => {
 
   let id,
 

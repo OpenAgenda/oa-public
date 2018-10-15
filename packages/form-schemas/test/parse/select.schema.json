@@ -54,7 +54,8 @@
           "legacyId": null
         }
       ],
-      "fieldType": "radio"
+      "fieldType": "radio",
+      "enableWith" : null
     }
   ]
 }

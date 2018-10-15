@@ -3,11 +3,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-module.exports = {
-  flatten
-}
-
-function flatten( field, lang ) {
+module.exports = ( field, lang ) => {
 
   const update = {};
 

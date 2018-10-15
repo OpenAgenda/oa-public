@@ -2,19 +2,16 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const _ = require( 'lodash' );
+const fs = require( 'fs' );
+const knex = require( 'knex' );
+const should = require( 'should' );
 
-  _ = require( 'lodash' ),
+const svc = require( './service' );
 
-  config = require( '../testconfig' ),
+const config = require( '../testconfig' );
 
-  should = require( 'should' ),
-
-  fs = require( 'fs' ),
-
-  knex = require( 'knex' );
-
-describe( 'form-schemas - functional (server): remove', () => {
+describe( 'form-schemas -03- functional (server): remove', () => {
 
   before( done => {
 

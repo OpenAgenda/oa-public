@@ -5,7 +5,7 @@ const should = require( 'should' );
 const customValidator = require( './custom/wigglypoof.validator' );
 const FormSchema = require( '../iso/FormSchema.js' );
 
-describe( 'FormSchema', () => {
+describe( 'form-schemas -05- FormSchema', () => {
 
   describe( 'getting started', () => {
 
