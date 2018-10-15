@@ -26,7 +26,7 @@ module.exports = class MultilingualField extends Component {
 
   renderField( l ) {
 
-    const { field, error } = this.props;
+    const { field, error, enabled } = this.props;
 
     const Component = this.props.component || FieldComponents[ field.fieldType ];
 
@@ -34,6 +34,7 @@ module.exports = class MultilingualField extends Component {
       <Component
         lang={this.props.lang}
         field={field}
+        enabled={enabled}
         value={_.get( this.props.value, l )}
         onChange={this.onChange.bind( this, l )} />
       {field.max?<FieldCounter value={_.get( this.props.value, l )} max={field.max}/>:null}
