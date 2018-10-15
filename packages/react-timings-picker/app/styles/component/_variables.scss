@@ -1,0 +1,101 @@
+/* #region absolute colors*/
+
+$white: #fff;
+$xlightGray: #eee;
+$lightGray: #ccc;
+$gray: #aaa;
+$darkGray: #666;
+$xdarkGray: #333;
+$black: #000;
+
+$xlightBlue: #E3F2FF;
+$lightBlue: #42B0E1;
+$darkblue: #3367C0;
+$green: #1A9E1F;
+$red: #E23737;
+
+/* #endregion absolute colors*/
+
+/* #region screen widths*/
+
+$large: 960px;
+$medium: 768px;
+$small: 640px;
+$xsmall: 480px;
+$xxsmall: 400px;
+
+/* #endregion screen widths*/
+
+/* #region font sizes*/
+
+$xlageFonts: 24px;
+$largeFonts: 20px;
+$normalFont: 18px;
+$mediumFont: 14px;
+$smallFont: 12px;
+$xsmallFont: 10px;
+
+/* #endregion font sizes*/
+
+/* #region timetable widths*/
+
+$timetableWidth: 50px;
+$timetableSmallWidth: 40px;
+$timetableMinWidth: 35px;
+$timetableMinSmallWidth: 30px;
+
+/* #endregion timetable widths*/
+
+/* #region cells heights*/
+
+$dayHeaderHeight: 25px;
+$dayCellHeight: 40px;
+
+/* #endregion cells heights */
+
+/* #region colors */
+
+$primaryColor: #6c6c6c;
+$secondaryColor: #ddd;
+$reverseColor: $white;
+$success: $green;
+$success-bg: lighten($green, 25%);
+$error: $red;
+$error-bg: lighten($red, 25%);
+
+$calendarBorderColor: #dcdcdc;
+$calendarBackColor: #fff;
+
+$headerPrimaryColor: $primaryColor;
+$headerSecondaryColor: $secondaryColor;
+
+$schedulerHeaderColor: $reverseColor;
+$schedulerHeaderBackColor: $lightBlue;
+$schedulerHeaderTodayColor: $primaryColor;
+$schedulerHeaderTodayBackColor: $white;
+$schedulerDayBorderColor: $white;
+
+$oddRowBackColor: $xlightGray;
+$evenRowBackColor: $white;
+
+$eventBackColor: $lightGray;
+
+$datepickerSelectedBackColor: $lightBlue;
+$datepickerTodayBackColor: $xlightBlue;
+$datepickerHoverBackColor: $xlightGray;
+
+$linkDefaultColor: #165979;
+
+/* #endregion colors*/
+
+/* #region scheduler */
+
+$dayInWeek: 7;
+
+/* #endregion scheduler */
+
+/* #region common measurments */
+
+$scrollWidth: 17px; //the most standart scroll width. works in latest versions of Chrome, FF, Opera and ie9+
+
+/* #endregion common measurments */
