@@ -7,12 +7,7 @@
   },
   "scripts": {
     "build": "gulp build:dist",
-    "version": "npm run build && git add -A lib",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "babel": "^6.23.0",
@@ -43,8 +38,8 @@
     "gulp-useref": "^1.1.1",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -65,5 +60,9 @@
     "react-onclickoutside": "^4.5.0",
     "react-select": "^1.0.0-rc.4",
     "tether": "^1.1.1"
+  },
+  "peerDependencies": {
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }

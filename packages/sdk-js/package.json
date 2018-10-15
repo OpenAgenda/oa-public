@@ -2,7 +2,7 @@
   "name": "@openagenda/sdk-js",
   "version": "1.1.2",
   "main": "dist/index.js",
-  "repository": "https://github.com/Oagenda/sdk-js.git",
+  "repository": "git+ssh://git@bitbucket.org/openagenda/oa.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -10,15 +10,7 @@
     "test": "jest --coverage",
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "precommit": "yarn build && git add -A",
-    "postmerge": "yarn build && git add -A",
-    "preversion": "yarn test",
-    "version": "yarn build",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "yarn publish --new-version patch",
-    "release:minor": "yarn publish --new-version minor",
-    "release:major": "yarn publish --new-version major",
-    "release:next": "yarn publish --new-version prerelease --tag next"
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
