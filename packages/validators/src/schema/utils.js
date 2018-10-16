@@ -52,7 +52,15 @@ function _makeValidator( type, field, options ) {
 
   }
 
-  return registeredValidators[ type ]( validatorOptions );
+  const validate = registeredValidators[ type ]( validatorOptions );
+
+  if ( typeof validate !== 'function' ) {
+
+    throw new Error( 'There is no registered validator for field type ' + type );
+
+  }
+
+  return validate;
 
 }
 
