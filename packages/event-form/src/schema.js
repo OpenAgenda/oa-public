@@ -9,7 +9,8 @@ const eventValidators = {
   keywords: require( './validators/keywords' ),
   timings: require( './validators/timings' ),
   locationUid: require( './validators/locationUid' ),
-  languages: require( './validators/languages' )
+  languages: require( './validators/languages' ),
+  references: require( './validators/references' )
 }
 
 const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );

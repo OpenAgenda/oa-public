@@ -7,6 +7,8 @@ if ( module.hot ) module.hot.accept();
 
 import EventForm from './';
 
+import eventReferences from './fields/references';
+
 console.log( '***** CHANGE ******' );
 
 class Main extends Component {
@@ -36,7 +38,12 @@ class Main extends Component {
                 en: 'Agenda field'
               },
               fieldType: 'text'
-            } ]
+            }, eventReferences( { 
+              res: {
+                suggestions: '/suggestions',
+                events: '/events'
+              } 
+            } ) ]
           } ]}
           locationRes={{
             index: '/locations',

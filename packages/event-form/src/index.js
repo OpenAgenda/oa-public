@@ -20,7 +20,8 @@ const eventFormComponents = {
   timings: require( './components/Timings' ),
   locationUid: require( './components/Location' ),
   languages: require( './components/Languages' ),
-  accessibility: require( './components/Accessibility' )
+  accessibility: require( './components/Accessibility' ),
+  references: require( './components/References' )
 }
 
 const eventSchema = require( './schema' );
@@ -88,6 +89,7 @@ export default class EventForm extends Component {
   buildEventSchema() {
 
     return eventSchema( {
+      referencesRes: this.props.referencesRes,
       locationRes: this.props.locationRes,
       languages: this.state.values.languages,
       fileStore: this.props.fileStore,

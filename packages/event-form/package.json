@@ -13,6 +13,7 @@
     "@openagenda/form-schemas": "^1.1.23",
     "@openagenda/labels": "^2.0.81",
     "@openagenda/react-components": "^2.0.8",
+    "@openagenda/react-form-components": "^2.0.16",
     "@openagenda/validators": "^2.0.8",
     "express": "^4.16.2",
     "jest": "^23.5.0",
