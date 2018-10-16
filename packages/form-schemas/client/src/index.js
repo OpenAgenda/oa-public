@@ -169,6 +169,8 @@ export default class FormSchemaComponent extends Component {
 
     } catch ( errors ) {
 
+      if ( !_.isArray( errors ) ) throw errors;
+
       // simpler to always keep errors as arrays.
       return { 
         clean: null, 
