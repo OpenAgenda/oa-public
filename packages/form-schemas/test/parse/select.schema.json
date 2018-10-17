@@ -55,7 +55,8 @@
         }
       ],
       "fieldType": "radio",
-      "enableWith" : null
+      "enableWith" : null,
+      "related" : []
     }
   ]
 }

@@ -18,6 +18,7 @@
     "read": null,
     "write": "contributor",
     "origin" : "custom",
-    "enableWith" : null
+    "enableWith" : null,
+    "related" : []
   } ]
 }

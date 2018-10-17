@@ -165,7 +165,8 @@
       ],
       "fieldType": "checkbox",
       "origin" : "custom",
-      "enableWith" : null
+      "enableWith" : null,
+      "related" : []
     }
   ]
 }

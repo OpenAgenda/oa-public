@@ -88,6 +88,15 @@ function validate( value, options = {} ) {
 
   }
 
+
+  // enableWith tells validator it is active if field specified has a value.
+  // if set, the field must be part of related fields
+  if ( clean.enableWith && !clean.related.includes( clean.enableWith ) ) {
+
+    clean.related.push( clean.enableWith );
+
+  }
+
   // if is custom field, do not filter out remaining values
   if ( isCustomField ) {
 
@@ -229,6 +238,12 @@ function buildFieldSchema( type, options = {} ) {
     enableWith: {
       type: 'text',
       default: null
+    },
+
+    related: {
+      type: 'text',
+      default: [],
+      list: true
     }
 
   };

@@ -18,6 +18,7 @@
     "placeholder" : null,
     "sub" : null,
     "origin" : "custom",
-    "enableWith" : null
+    "enableWith" : null,
+    "related" : []
   } ]
 }

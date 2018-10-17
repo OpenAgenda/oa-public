@@ -170,7 +170,8 @@
       ],
       "fieldType": "radio",
       "origin" : "custom",
-      "enableWith" : null
+      "enableWith" : null,
+      "related" : []
     }
   ]
 }

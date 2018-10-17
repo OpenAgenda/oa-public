@@ -33,7 +33,8 @@ describe( 'form-schemas -06- validateField', () => {
         sub: null,
         fieldType: 'text',
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
         
     } );
@@ -63,7 +64,8 @@ describe( 'form-schemas -06- validateField', () => {
         max: null,
         sub: null,
         fieldType: 'text' ,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -99,7 +101,8 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'radio',
         sub: null,
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -161,7 +164,8 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'textarea',
         sub: null,
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -192,7 +196,8 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'someCustomType',
         min: null,
         max: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -211,6 +216,32 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+
+    it( 'a field with an enableWith value set will have the value added to the related fields list', () => {
+
+      iso.validateField( {
+        field: 'afield',
+        fieldType: 'text',
+        label: 'A label',
+        enableWith: 'anotherfield'
+      } ).should.eql( { 
+        field: 'afield',
+        label: { en: 'A label' },
+        info: null,
+        sub: null,
+        placeholder: null,
+        write: null,
+        read: null,
+        optional: true,
+        origin: null,
+        enableWith: 'anotherfield',
+        related: [ 'anotherfield' ],
+        min: null,
+        max: null,
+        fieldType: 'text' 
+      } );
+
+    } );
     
 
   } );
