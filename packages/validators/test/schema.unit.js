@@ -60,6 +60,32 @@ describe( 'schema functions ( unit tests )', () => {
 
     } );
 
+    it( 'flatten renders optional fields that were required but are not enabled', () => {
+
+      const flattened = utils.mapValuesToValidators( {
+        image: { type: 'text' },
+        credits: { type: 'text', enableWith: 'image', optional: false }
+      }, {
+        image: null,
+        credits: 'meh' 
+      } );
+
+      let errored = false;
+
+      try {
+
+        flattened[ 1 ].validator();
+
+      } catch ( e ) {
+
+        errored = true;
+
+      }
+
+      errored.should.equal( false );
+
+    } );
+
     it( 'flattens deep schemas', () => {
 
       const flattened = utils.mapValuesToValidators(

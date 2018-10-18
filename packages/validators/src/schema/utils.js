@@ -23,7 +23,8 @@ function mapValuesToValidators( fields, values ) {
     validator: _makeValidator(
       _extractType( _.get( fields, fieldName ) ),
       fieldName,
-      _.get( fields, fieldName ) // options
+      _.get( fields, fieldName ), // options
+      values
     ),
     value: _extractValue( _.get( values, fieldName ), values, fields[ fieldName ] )
   } ) );
@@ -42,13 +43,19 @@ function _extractValue( value, values, fieldOptions = {} ) {
 }
 
 
-function _makeValidator( type, field, options ) {
+function _makeValidator( type, field, options, values ) {
 
   let validatorOptions = _.extend( { field }, options );
 
   if ( type === 'list' ) {
 
     validatorOptions.validators = registeredValidators;
+
+  }
+
+  if ( validatorOptions.enableWith && _.get( values, validatorOptions.enableWith ) === null ) {
+
+    validatorOptions.optional = true;
 
   }
 
