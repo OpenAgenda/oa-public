@@ -111,6 +111,10 @@ const devApps = [ {
   description: 'A field can be enabled when another field is set',
   link: '/conditional'
 }, {
+  name: 'requiredconditional',
+  description: 'A required field is only required if it is enabled',
+  link: '/requiredconditional'
+}, {
   name: 'hidden',
   description: 'if "display" setting of field is specified as falsy, the field is not displayed',
   link: '/hidden'
