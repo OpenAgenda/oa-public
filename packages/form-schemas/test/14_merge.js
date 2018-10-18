@@ -153,6 +153,35 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
   } ); 
 
+  it( 'merge can render optional field non-optional', () => {
+
+    const schema = {
+      fields: [ {
+        "field" : "image",
+        "fieldType" : "text",
+        "label" : "Image",
+        "optional" : true
+      }, {
+        "field" : "imageCredits",
+        "fieldType" : "text",
+        "optional" : true,
+        "label" : "Image credits",
+        "enableWith" : "image"
+      } ]
+    };
+
+    const abstract = {
+      fields: [ {
+        "field" : "imageCredits",
+        "fieldType" : "abstract",
+        "optional" : false
+      } ]
+    };
+
+    merge( schema, abstract ).fields.filter( f => f.field === 'imageCredits' )[ 0 ].optional.should.equal( false );
+
+  } );
+
   it( 'merge can relabel fields', () => {
 
     const schema = {

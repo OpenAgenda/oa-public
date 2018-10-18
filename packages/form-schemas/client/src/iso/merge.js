@@ -45,6 +45,12 @@ function _mergeField( field, mergeWithField ) {
     .filter( f => mergeWithField[ f ] )
     .reduce( ( c, f ) => _.set( c, f, { $set: mergeWithField[ f ] } ), {} );
 
+  if ( field.optional && mergeWithField.optional === false ) {
+
+    update.optional = { $set: false }
+
+  }
+
   if ( !_.keys( update ).length ) return field;
 
   return ih( field, update );
