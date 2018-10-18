@@ -8,7 +8,6 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 
-
 module.exports = class LocationComponent extends Component {
 
   constructor( props ) {

@@ -1,0 +1,19 @@
+[
+  {
+    "uid": 35527593,
+    "title": {
+      "fr": "un événement sportif"
+    },
+    "description": {
+      "fr": "affinez et musclez vous! "
+    },
+    "location": {
+      "name": "Immeuble DSIC",
+      "address": "25 rue du stand geneve"
+    },
+    "dateRange": {
+      "fr": "Samedi 23 février 2019, 12h00",
+      "en": "Saturday 23 February 2019, 12:00"
+    }
+  }
+]

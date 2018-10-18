@@ -39,10 +39,7 @@ class Main extends Component {
               },
               fieldType: 'text'
             }, eventReferences( { 
-              res: {
-                suggestions: '/suggestions',
-                events: '/events'
-              } 
+              res: '/references'
             } ) ]
           } ]}
           locationRes={{

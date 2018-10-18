@@ -10,7 +10,8 @@ module.exports = ( { res } ) => {
     },
     fieldType: 'references',
     suggest: true,
-    res: res || {}
+    related: [ 'title', 'description' ],
+    res: res || '/references'
   }
 
 }
