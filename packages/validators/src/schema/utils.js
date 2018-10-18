@@ -53,7 +53,7 @@ function _makeValidator( type, field, options, values ) {
 
   }
 
-  if ( validatorOptions.enableWith && _.get( values, validatorOptions.enableWith ) === null ) {
+  if ( validatorOptions.enableWith && [ undefined, null ].includes( _.get( values, validatorOptions.enableWith ) ) ) {
 
     validatorOptions.optional = true;
 

@@ -67,7 +67,7 @@ describe( 'schema functions ( unit tests )', () => {
         credits: { type: 'text', enableWith: 'image', optional: false }
       }, {
         image: null,
-        credits: 'meh' 
+        credits: null
       } );
 
       let errored = false;

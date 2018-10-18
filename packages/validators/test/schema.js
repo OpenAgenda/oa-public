@@ -1098,6 +1098,38 @@ describe( 'schema validator', () => {
     } );
 
 
+    it( 'when enableWith is used on a required field, it can only be required if related field is set', () => {
+
+      const validator = schema( { 
+        image: {
+          field: 'image', 
+          type: 'text' 
+        },
+        imageCredits: { 
+          field: 'imageCredits',
+          optional: false,
+          enableWith: 'image',
+          type: 'text' 
+        } 
+      } );
+
+      let errored = false;
+
+      try {
+
+        validator( {} );
+
+      } catch ( e ) {
+
+        errored = true;
+
+      }
+
+      errored.should.equal( false );
+
+    } );
+
+
     it( 'if object is specified in schema and submitted value is not an object', () => {
 
       let validator = schema( {
