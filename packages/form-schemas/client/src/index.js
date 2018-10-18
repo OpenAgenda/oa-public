@@ -135,7 +135,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldErrors( field, value ) {
+  getFieldErrors( field, value, impactedFields = [] ) {
 
     const values = {};
 
@@ -143,7 +143,9 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.sanitize( values );
 
-    return errors.filter( e => e.field === field );
+    const keepFields = impactedFields.concat( field );
+
+    return errors.filter( e => keepFields.includes( e.field ) );
 
   }
 
@@ -204,9 +206,11 @@ export default class FormSchemaComponent extends Component {
 
     updateValues[ field ] = { $set: value };
 
+    const impactedFields = this._getFormSchema().getFields().filter( f => f.enableWith === field ).map( f => f.field );
+
     const updatedErrors = this.get( 'errors', [] )
-      .filter( e => e.field !== field )
-      .concat( this.getFieldErrors( field, value ) );
+      .filter( e => !impactedFields.concat( field ).includes( e.field ) ) // keep other errors
+      .concat( this.getFieldErrors( field, value, impactedFields ) )
 
     const isFileField = this._getFormSchema().getFileFields().map( f => f.field ).includes( field );
 
