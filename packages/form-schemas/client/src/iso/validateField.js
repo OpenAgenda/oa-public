@@ -226,6 +226,11 @@ function buildFieldSchema( type, options = {} ) {
       default: true
     },
 
+    display: {
+      type: 'boolean',
+      default: true
+    },
+
     // when the field was defined elsewhere ( tag, category or custom )
     origin: {
       type: 'choice',

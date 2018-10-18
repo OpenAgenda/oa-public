@@ -110,6 +110,10 @@ const devApps = [ {
   name: 'conditional',
   description: 'A field can be enabled when another field is set',
   link: '/conditional'
+}, {
+  name: 'hidden',
+  description: 'if "display" setting of field is specified as falsy, the field is not displayed',
+  link: '/hidden'
 } ];
 
 if ( module.hot ) module.hot.accept();

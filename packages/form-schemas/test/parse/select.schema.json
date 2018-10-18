@@ -15,6 +15,7 @@
       "write": "contributor",
       "read": "moderator",
       "optional": true,
+      "display" : true,
       "origin": "custom",
       "options": [
         {

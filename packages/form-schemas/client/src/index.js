@@ -241,7 +241,7 @@ export default class FormSchemaComponent extends Component {
 
     return <div className="oa-form">
       <div className={_.get( classNames, 'fieldsCanvas', '' ) }>
-        {this._getFormSchema().getFields().map( ( f, i ) => {
+        {this._getFormSchema().getFields().filter( f => f.display ).map( ( f, i ) => {
 
           const flatLabels = flatten( formSchemaLabels, lang );
 

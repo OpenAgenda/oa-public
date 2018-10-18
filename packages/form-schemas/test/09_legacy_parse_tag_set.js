@@ -73,6 +73,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           write: 'contributor',
           read: null,
           optional: false,
+          display: true,
           min: null,
           max: null,
           options: [ {
@@ -124,6 +125,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           "write": 'contributor',
           "read": null,
           "optional": true,
+          display: true,
           "options": [
             {
               "id": 5,
@@ -199,6 +201,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         "write": "contributor",
         "read": null,
         "optional": false,
+        display: true,
         "options": [
           {
             "id": 1,

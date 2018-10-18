@@ -5,6 +5,7 @@
   "fields": [ {
     "field": "pi",
     "optional": true,
+    "display" : true,
     "fieldType": "number",
     "read": "moderator",
     "write": "contributor",
