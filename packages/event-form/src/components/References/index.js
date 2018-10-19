@@ -11,6 +11,7 @@ import flatten from '@openagenda/labels/flatten';
 
 import SearchField from '@openagenda/react-form-components/build/SearchField';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import Modal from '@openagenda/react-components/build/Modal';
 
 import EventItem from './EventItem';
 
@@ -24,6 +25,7 @@ export default class References extends Component {
       labels: flatten( labels, props.lang ),
       loading: false,
       events: [],
+      modal: null,
       search: {
         show: false,
         loading: false,
@@ -37,9 +39,33 @@ export default class References extends Component {
 
   }
 
+  componentDidMount() {
+
+    if ( !this.props.value || !this.props.value.length ) return;
+
+    this.setState( { loading: true } );
+
+    this.get( { uid: this.props.value } ).then( events => {
+
+      this.setState( {
+        loading: false,
+        events
+      } );
+
+    } );
+    
+  }
+
   search( query, suggested = false ) {
 
-    this.setState( { search: _.set( this.state.search, 'loading', true ) } );
+    const update = {
+      loading: { $set: true },
+      query: { $set: query.search }
+    };
+
+    this.setState( {
+      search: ih( this.state.search, update )
+    } );
 
     this.get( query ).then( events => {
 
@@ -66,7 +92,9 @@ export default class References extends Component {
 
   get( query ) {
 
-    return sa.get( `${this.props.field.res}`, query ).then( res => _.get( res, 'body' ) );
+    return sa.get( `${this.props.field.res}`, ih( query, {
+      exclude: { $set: this.state.events.map( e => e.uid ) }
+    } ) ).then( res => _.get( res, 'body' ) )
 
   }
 
@@ -74,10 +102,15 @@ export default class References extends Component {
 
     if ( ( input || '' ).length > 2 ) return;
 
-    this.search( { sample: this.props.relatedValues }, true );
+    if ( !this.hasRelatedValues() ) return;
+
+    this.search( { 
+      sample: this.props.relatedValues
+    }, true );
+
   }
 
-  onSearchChange( input ) {
+  onSearchChange( name, input ) {
 
     this.search( { search: input } );
 
@@ -91,10 +124,68 @@ export default class References extends Component {
 
   }
 
+  hasRelatedValues() {
+
+    return !!_.keys( this.props.relatedValues ).filter( field => !!this.props.relatedValues[ field ] ).length;
+
+  }
+
+  onSuggestEvents() {
+
+    if ( !this.hasRelatedValues() ) {
+
+      return this.setState( {
+        modal: 'nothingToSuggest'
+      } );
+
+    }
+
+    this.setState( { loading: true } );
+
+    this.get( {
+      sample: this.props.relatedValues
+    } ).then( events => {
+
+      if ( !events.length && this.state.events.length ) {
+
+        this.setState( {
+          loading: false,
+          modal: 'noOtherSuggestions'
+        } );
+
+      } else if ( !events.length ) {
+
+        this.setState( {
+          loading: false,
+          modal: 'noSuggestions'
+        } );
+
+      } else {
+
+        this.setState( {
+          loading: false,
+          events: this.state.events.concat( events )
+        } );
+
+      }
+
+    } );
+
+  }
+
+  onCloseModal() {
+
+    this.setState( {
+      modal: null
+    } );
+
+  }
+
   onSelectEvent( event ) {
 
     this.setState( {
       search: ih( this.state.search, {
+        query: { $set: null },
         show: { $set: false },
         events: { $set: []},
         dropdown: { $set: false }
@@ -116,6 +207,7 @@ export default class References extends Component {
 
     this.setState( {
       search: ih( this.state.search, {
+        query: { $set: null },
         show: { $set: false },
         events: { $set: [] },
         loading: { $set: false },
@@ -137,7 +229,7 @@ export default class References extends Component {
         <span className="margin-h-sm">{labels.addEventOr}</span>
         <a 
           disabled={false}
-          className="btn margin-right-sm">{labels.addEventSuggest}</a>
+          className="btn margin-right-sm" onClick={this.onSuggestEvents.bind( this )}>{labels.addEventSuggest}</a>
       </span> : null }
     </div>
 
@@ -156,7 +248,7 @@ export default class References extends Component {
         label={ labels.search }
         placeholder={ labels.search }
         onFocus={this.onSearchFocus.bind( this )}
-        onChange={ () => {} }
+        onChange={ this.onSearchChange.bind( this ) }
       />
       { search.dropdown ? <div className="dropdown-menu">
         { search.loading ? <ul className="list-unstyled">
@@ -182,21 +274,36 @@ export default class References extends Component {
 
   }
 
+  renderModal() {
+
+    return <Modal
+      title={_.get( this.state.labels, this.state.modal + 'Title' )}
+      onClose={this.onCloseModal.bind( this )}
+      disableBodyScroll >
+      <p>{_.get( this.state.labels, this.state.modal )}</p>
+    </Modal>
+
+  }
+
   render() {
     
-    const { labels, search, events } = this.state;
+    const { labels, search, events, loading } = this.state;
 
     const { suggest } = this.props.field;
 
     return <div className="event-references">
+      {this.state.modal ? this.renderModal() : null }
       <div className="configure">
-        { events.length ? <ul className="list-unstyled references">
-          { events.map( e => <li key={'event-reference-' + e.uid}>
-            <EventItem event={e} onRemove={this.onRemoveEvent.bind(this)} />
-          </li> ) }
-        </ul> : <ul className="list-unstyled references">
-          <li><span className="empty">{labels.emptyReferences}</span></li>
-        </ul> }
+        { loading ? <Spinner/> : null }
+        <div className="references">
+          { events.length ? <ul className="list-unstyled">
+            { events.map( e => <li key={'event-reference-' + e.uid}>
+              <EventItem event={e} onRemove={this.onRemoveEvent.bind(this)} />
+            </li> ) }
+          </ul> : <ul className="list-unstyled">
+            <li><span className="empty">{labels.emptyReferences}</span></li>
+          </ul> }
+        </div>
         { search.show ? this.renderSearch() : this.renderActions() }
       </div>
     </div>

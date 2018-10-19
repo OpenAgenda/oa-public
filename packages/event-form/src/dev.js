@@ -59,7 +59,8 @@ class Main extends Component {
               fr: 'Inauguration d\'un formulaire'
             },
             locationUid: 93105902,
-            accessibility: { hi: true, sl: true }
+            accessibility: { hi: true, sl: true },
+            references: [ 45527593 ]
           }}
         />
       </div>

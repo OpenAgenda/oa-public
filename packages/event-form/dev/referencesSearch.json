@@ -15,5 +15,22 @@
       "fr": "Samedi 23 février 2019, 12h00",
       "en": "Saturday 23 February 2019, 12:00"
     }
+  },
+  {
+    "uid": 45527593,
+    "title": {
+      "fr": "un événement moins sportif"
+    },
+    "description": {
+      "fr": "affinez et musclez vous moins! "
+    },
+    "location": {
+      "name": "Immeuble DSIC",
+      "address": "25 rue du stand geneve"
+    },
+    "dateRange": {
+      "fr": "Samedi 23 février 2019, 12h00",
+      "en": "Saturday 23 February 2019, 12:00"
+    }
   }
 ]
