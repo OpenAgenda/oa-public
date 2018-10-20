@@ -29,6 +29,10 @@ module.exports = {
     fr: 'Mettre à jour le brouillon',
     en: 'Update draft'
   },
+  deleteDraft: {
+    fr: 'Supprimer le brouillon',
+    en: 'Delete the draft'
+  },
   undraft: {
     fr: 'Créer l\'événement',
     en: 'Create the event'
