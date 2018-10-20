@@ -128,7 +128,7 @@ module.exports = class LocationComponent extends Component {
 
     }
 
-    return <div className={this.state.mode === 'show' ? 'margin-v-xs' : ''}>
+    return <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
       {this.renderSelector()}
     </div>
 

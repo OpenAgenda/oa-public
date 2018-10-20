@@ -118,7 +118,7 @@ export default class EventForm extends Component {
       onChange={this.onChange}
       schema={this.buildEventSchema()}
       classNames={ih( classNames, {
-        field: { $set: 'padding-v-sm' }
+        field: { $set: 'padding-v-sm form-group' }
       } )}
       actionComponents={actionComponents}
       onSubmitSuccess={onSubmitSuccess}
