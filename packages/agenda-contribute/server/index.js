@@ -17,6 +17,8 @@ const serviceName = JSON.parse(
   require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )
 ).name.split( '/' ).pop();
 
+const parse = require( './parse' );
+
 module.exports = {
   app,
   init,
@@ -48,7 +50,7 @@ function init( c ) {
       config: _.set( req.config, 'schemaExtensions', _.get( req, 'schemaExtensions', [] ) ),
       state: {
         member: req.member,
-        event: req.event
+        event: parse.fromEventServiceFormat( req.event )
       }
     };
 
@@ -126,7 +128,7 @@ function init( c ) {
 
     log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-    config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues, {
+    config.interfaces.setEvent( req.agenda, req.user, req.event, parse.toEventServiceFormat( req.clean, req.fileFieldValues ), {
       draft: req.draft
     } )
 
