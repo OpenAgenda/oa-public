@@ -19,7 +19,7 @@ module.exports = {
 
 function fromEventServiceFormat( eventServiceEvent ) {
 
-  if ( !eventServiceEvent ) return null;
+  if ( !eventServiceEvent ) return {};
 
   const update = {
     image: { $unset: [ 'credits' ] }

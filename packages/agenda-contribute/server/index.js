@@ -86,6 +86,16 @@ function init( c ) {
     }
   );
 
+  app.delete( '/event/:eventUid/draft', ( req, res, next ) => {
+
+    config.interfaces.deleteDraftEvent( req.agenda, req.user, req.event ).then( () => {
+
+      res.status( 200 ).send( 'ok' );
+
+    } );
+
+  } );
+
 
   app.post( [
     '/event',
