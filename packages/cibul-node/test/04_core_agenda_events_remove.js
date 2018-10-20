@@ -154,4 +154,43 @@ describe( 'core - functional ( server ): agenda event remove', function() {
 
   } );
 
+
+  describe( 'successful draft remove', () => {
+
+    let event, result;
+
+    before( async () => {
+
+      const result = await core.agendas( 17026855 ).events.create( {
+        title: {
+          fr: 'Un événement brouillon'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      }, { draft: true } );
+
+      event = result.created.event;
+
+    } );
+
+    before( async () => {
+
+      result = await core.agendas( 17026855 ).events.remove( event.uid );
+
+    } );
+
+    it( 'the draft event is removed', async () => {
+
+      result.success.should.equal( true );
+
+      result.removed.event.should.be.ok;
+
+    } );
+
+  } );
+
 } );
