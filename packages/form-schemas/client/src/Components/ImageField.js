@@ -25,6 +25,16 @@ module.exports = class ImageField extends Component {
 
   }
 
+  onRemove() {
+
+    this.setState( {
+      preview: null
+    } );
+
+    this.props.onChange( null );
+
+  }
+
   onDrop( acceptedFiles, rejectedFiles ) {
 
     this.setState( {
@@ -72,8 +82,14 @@ module.exports = class ImageField extends Component {
             </button> 
           </div>
         }
-        <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
+        <span className="accepted-image-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
       </Dropzone>
+      { this.props.value ? <a
+        onClick={this.onRemove.bind( this )} 
+        className="btn btn-danger margin-all-sm remove-file"
+        title={labels.remove} >
+        <i className="fa fa-trash"></i>
+      </a> : null }
     </div>
 
   }

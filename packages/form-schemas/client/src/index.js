@@ -216,8 +216,20 @@ export default class FormSchemaComponent extends Component {
 
     const currentFiles = this.get( 'files', {} );
 
+    const filesUpdate = {};
+
+    if ( isFileField && value ) {
+
+      filesUpdate[ field ] = { $set: files };
+
+    } else if ( isFileField ) {
+
+      filesUpdate[ '$unset' ] = [ field ];
+
+    } 
+
     this.set( {
-      files: isFileField ? _.set( currentFiles, field, files ) : currentFiles,
+      files: ih( currentFiles, filesUpdate ),
       values: ih( this.get( 'values', {} ) || {}, updateValues ),
       errors: updatedErrors
     } );
