@@ -18,6 +18,9 @@
     "name" : "ImageUrl",
     "mapTo" : "image"
   }, {
+    "name" : "ImageCredits",
+    "mapTo" : "credits"
+  }, {
     "name" : "PricingInfo",
     "mapTo" : "pricingInfo"
   }, {
@@ -92,6 +95,9 @@
   }, {
     "name" : "LocationImageUrl",
     "mapTo" : "location.image"
+  }, {
+    "name" : "LocationImageCredits",
+    "mapTo" : "location.imageCredits"
   }, {
     "name" : "ShareUrl",
     "mapTo" : "actionLink"
