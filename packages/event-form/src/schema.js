@@ -15,7 +15,15 @@ const eventValidators = {
 
 const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
-module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => {
+const eventReferencesField = require( './fields/references' );
+
+module.exports = ( {
+  locationRes, 
+  referencesRes,
+  languages, 
+  fileStore, 
+  schemaExtensions 
+} ) => {
 
   const eventSchema = {
     custom: eventValidators,
@@ -205,6 +213,19 @@ module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => 
 
   if ( !_.isArray( schemaExtensions ) ) return eventSchema;
 
+  if ( _hasReferencesField( schemaExtensions ) ) {
+
+    eventSchema.fields.push( eventReferencesField( { res: referencesRes } ) );
+
+  }
+
   return merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+
+}
+
+function _hasReferencesField( schemaExtensions ) {
+
+  return !!_.flatten( schemaExtensions.map( s => s.fields ) )
+    .filter( f => f.field === 'references' ).length;
 
 }

@@ -39,9 +39,10 @@ class Main extends Component {
                 en: 'Agenda field'
               },
               fieldType: 'text'
-            }, eventReferences( { 
-              res: '/references'
-            } ) ]
+            }, {
+              field: 'references',
+              fieldType: 'abstract'
+            } ]
           } ]}
           locationRes={{
             index: '/locations',
@@ -49,6 +50,7 @@ class Main extends Component {
             set: '/locations',
             remove: '/locations/remove'
           }}
+          referencesRes="/references"
           lang="fr"
           classNames={{
             fieldsCanvas: 'padding-all-md wsq',
