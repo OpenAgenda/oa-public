@@ -44,12 +44,7 @@ class Main extends Component {
               fieldType: 'abstract'
             } ]
           } ]}
-          locationRes={{
-            index: '/locations',
-            geocode: '/locations/geocode',
-            set: '/locations',
-            remove: '/locations/remove'
-          }}
+          locationRes="locations"
           referencesRes="/references"
           lang="fr"
           classNames={{
@@ -61,7 +56,9 @@ class Main extends Component {
             title: {
               fr: 'Inauguration d\'un formulaire'
             },
-            locationUid: 93105902,
+            location: {
+              uid: 93105902
+            },
             accessibility: { hi: true, sl: true },
             references: [ 45527593 ]
           }}

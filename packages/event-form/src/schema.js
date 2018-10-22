@@ -8,7 +8,7 @@ const eventValidators = {
   accessibility: require( './validators/accessibility' ),
   keywords: require( './validators/keywords' ),
   timings: require( './validators/timings' ),
-  locationUid: require( './validators/locationUid' ),
+  location: require( './validators/location' ),
   languages: require( './validators/languages' ),
   references: require( './validators/references' )
 }
@@ -174,8 +174,8 @@ module.exports = ( {
         en: 'Accessibility'
       }
     }, {
-      field: 'locationUid',
-      fieldType: 'locationUid',
+      field: 'location',
+      fieldType: 'location',
       optional: false,
       label: {
         fr: 'Lieu',
@@ -189,13 +189,7 @@ module.exports = ( {
         fr: 'Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur \'Créer un lieu\'',
         en: 'If no location matches the name, add a new location by clicking on \'Create a new location\''
       },
-      res: _.assign( {
-        index: '#locations',
-        geocode: '#locations/geocode',
-        insee: '#locations/insee',
-        set: '#locations',
-        remove: '#locations/remove'
-      }, locationRes || {} )
+      res: locationRes
     }, {
       field: 'timings',
       fieldType: 'timings',

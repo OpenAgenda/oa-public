@@ -18,7 +18,7 @@ const eventFormComponents = {
   registration: require( './components/Registration' ),
   keywords: require( './components/Keywords' ),
   timings: require( './components/Timings' ),
-  locationUid: require( './components/Location' ),
+  location: require( './components/Location' ),
   languages: require( './components/Languages' ),
   accessibility: require( './components/Accessibility' ),
   references: require( './components/References' )
