@@ -5,6 +5,8 @@ import extractLanguages from './extractLanguages';
 
 module.exports = ( before, after ) => {
 
+  if ( !after ) return [];
+
   const addedLanguages = _.difference( after, before );
 
   return {

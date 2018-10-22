@@ -49,10 +49,10 @@ export default class EventForm extends Component {
 
     const updates = {};
 
-    const changedLanguages = values ? identifyLanguageChanges( 
-      this.state.values.languages,
-      values.languages
-    ).changedLanguages : [];
+    const changedLanguages = identifyLanguageChanges(
+      _.get( this.state, 'values.languages' ), // before
+      _.get( values, 'languages' ) // now
+    );
 
     if ( changedLanguages.length ) {
 

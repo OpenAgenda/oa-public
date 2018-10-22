@@ -22,9 +22,10 @@ class Main extends Component {
             fields: [ {
               field: 'networkfield',
               label: {
-                fr: 'Champ de réseau',
-                en: 'Network field'
+                fr: 'Champ multilingue de réseau',
+                en: 'Multilingual Network field'
               },
+              languages: true,
               fieldType: 'text'
             } ]
           }, {
