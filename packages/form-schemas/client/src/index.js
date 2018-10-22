@@ -180,6 +180,14 @@ export default class FormSchemaComponent extends Component {
 
           const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
 
+          if ( !field ) {
+
+            console.log( e );
+
+            throw new Error( 'did not find field matching validation error', e );
+
+          }
+
           return ih( e, {
             label: { $set: _.get( this.state.labels.errors, e.code, e.message ) },
             fieldLabel: { $set: _.get( field.label, this.props.lang ) }
