@@ -27,6 +27,16 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'only location uid is referenced in locationUid key', () => {
+
+      expect( parse.toEventServiceFormat( {
+        location: {
+          uid: 123
+        }
+      } ).locationUid ).toBe( 123 );
+
+    } );
+
   } );
 
   describe( 'fromEventServiceFormat', () => {

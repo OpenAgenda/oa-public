@@ -22,7 +22,8 @@ function fromEventServiceFormat( eventServiceEvent ) {
   if ( !eventServiceEvent ) return {};
 
   const update = {
-    image: { $unset: [ 'credits' ] }
+    image: { $unset: [ 'credits' ] },
+    $unset: [ 'locationUid' ]
   };
 
   if ( _.get( eventServiceEvent, 'image.credits' ) ) {
@@ -37,6 +38,12 @@ function fromEventServiceFormat( eventServiceEvent ) {
 
   }
 
+  if ( eventServiceEvent.locationUid ) {
+
+    update.location = { $set: { uid: eventServiceEvent.locationUid } };
+
+  }
+
   return ih( eventServiceEvent, update );
 
 }
@@ -46,7 +53,7 @@ function toEventServiceFormat( formSchemaEvent, files = {} ) {
   if ( !formSchemaEvent ) return null;
 
   const update = { 
-    '$unset': [ 'imageCredits' ] 
+    '$unset': [ 'imageCredits', 'locationUid' ] 
   };
 
 
@@ -71,6 +78,8 @@ function toEventServiceFormat( formSchemaEvent, files = {} ) {
     update.image = { credits: { $set: _.get( formSchemaEvent, 'imageCredits' ) } };
 
   }
+
+  update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
 
   return ih( formSchemaEvent, update );
 
