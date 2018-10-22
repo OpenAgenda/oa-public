@@ -241,4 +241,38 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
   } );
 
+
+  it( 'an abstract field is maintained as abstract as long as no field with the same name is added to the merge', () => {
+
+    const schema = {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    }
+
+    const abstract = {
+      fields: [ {
+        field: 'references',
+        fieldType: 'abstract',
+        label: 'Références'
+      } ]
+    };
+
+    merge( schema, abstract ).should.eql( { 
+      fields: [ { 
+        field: 'references',
+        fieldType: 'abstract',
+        label: 'Références' 
+      }, {
+        field: 'title', 
+        fieldType: 'text',
+        label: 'Titre' 
+      } ] 
+    } );
+
+
+  } );
+
 } );
