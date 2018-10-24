@@ -65,6 +65,7 @@ class EventEdit extends Component {
                 withErrors={false}
                 fileStore={config.fileStore}
                 locationRes={config.locationRes}
+                referencesRes={config.referencesRes}
                 lang={config.lang} 
                 values={event}
                 onSubmitSuccess={onUpdateSuccess}

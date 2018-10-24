@@ -30,6 +30,7 @@ export default connect(
     schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
     locationRes={config.locationRes}
+    referencesRes={config.referencesRes}
     lang={config.lang} 
     values={event}
     onSubmitSuccess={onCreateSuccess}
