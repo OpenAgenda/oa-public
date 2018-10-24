@@ -9,7 +9,7 @@ module.exports = ( { res } ) => {
       en: 'Related events'
     },
     fieldType: 'references',
-    suggest: true,
+    suggest: false,
     related: [ 'title', 'description', 'location' ],
     res: res || '/references'
   }
