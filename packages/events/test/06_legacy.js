@@ -82,6 +82,7 @@ describe( 'events - functional (server): legacy bridge', function() {
           'email@website.com',
           '0123456789'
         ],
+        references: [],
         accessibility: {
           hi: true,
           mi: true,

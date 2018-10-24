@@ -19,6 +19,7 @@ CREATE TABLE `${schema}` (
   accessibility VARCHAR( 100 ),
   age VARCHAR( 50 ),
   registration VARCHAR(2000),
+  `references` VARCHAR(2000),
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,
