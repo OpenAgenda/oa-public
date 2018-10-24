@@ -272,6 +272,44 @@ describe( 'unit - assigning schema properties to another schema', function() {
       } ] 
     } );
 
+  } );
+
+
+  it( 'all values of an abstract field trickle down to merge', () => {
+
+    const schema = {
+      "fields": [
+        {
+          field: 'references',
+          label: 'Evénements liés',
+          fieldType: 'references',
+          suggest: false,
+          related: [ 'title', 'description', 'location' ],
+          res: '/references'
+        }
+      ]
+    };
+
+    const abstract = {
+      fields: [
+        {
+          field : 'references',
+          fieldType: 'abstract',
+          suggest : true
+        }
+      ]
+    };
+
+    merge( schema, abstract ).should.eql( {
+      fields: [ {
+        field: 'references',
+        label: 'Evénements liés',
+        fieldType: 'references',
+        suggest: true,
+        related: [ 'title', 'description', 'location' ],
+        res: '/references' 
+      } ] 
+    } );
 
   } );
 
