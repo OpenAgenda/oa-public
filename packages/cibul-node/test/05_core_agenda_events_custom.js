@@ -43,6 +43,7 @@ const testConfig = {
     eventLocationTranslation: 'legacy_event_location_translation',
     eventEditor: 'legacy_event_editor',
     agendaEvent: 'legacy_agenda_event',
+    eventReferences: 'legacy_agenda_event_reference',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',
@@ -62,6 +63,14 @@ const testConfig = {
     index: 'locations',
     apiVersion: '1.3',
     timeout: 30000
+  },
+  es: {
+    host: process.env.ELASTICSEARCH_134_DEV_HOST,
+    port: process.env.ELASTICSEARCH_134_DEV_PORT
+  },
+  es53: {
+    host: process.env.ELASTICSEARCH_533_DEV_HOST,
+    port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
   getLogConfig: () => null
 };

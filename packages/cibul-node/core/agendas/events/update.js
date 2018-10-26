@@ -18,89 +18,100 @@ const validate = require( './validate' );
 
 module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
-  log( 'processing', { agendaUid, eventUid, options } );
+  try {
 
-  const { draft } = _.assign( {
-    draft: false
-  }, options || {} );
+    log( 'processing', { agendaUid, eventUid, options } );
 
-  const {
-    networkFormSchemaId,
-    formSchemaId,
-    networkUid,
-    id: agendaId
-  } = await getAgenda( agendaUid );
+    const { draft } = _.assign( {
+      draft: false
+    }, options || {} );
 
-  const network = await getNetwork( networkUid );
+    const {
+      formSchemaId,
+      networkUid,
+      id: agendaId
+    } = await getAgenda( agendaUid );
 
-  const updated = {};
+    const networkFormSchemaId = _.get( networkUid ? await getNetwork( networkUid ) : {}, 'formSchemaId' );
 
-  // pre-validate data
-  const clean = await validate.loaded( { 
-    formSchemaId,
-    networkFormSchemaId: _.get( network, 'formSchemaId' )
-  }, data, { draft } );
+    const updated = {};
 
-  // update the event
-  let result = await events.update( { uid: eventUid }, clean.event, { 
-    context: {
-      agendaUid,
-      userUid: _.get( options, 'context.userUid', null ),
-      updateSearchIndex: false
-    },
-    transferToLegacy: !draft,
-    draft
-  } );
+    // pre-validate data
+    const clean = await validate.loaded( { 
+      formSchemaId,
+      networkFormSchemaId
+    }, data, { draft } );
 
-  if ( !result.valid ) {
-
-    throw new VError( {
-      name: 'validationError',
-      info: {
-        errors: result.errors
-      }
+    // update the event
+    let result = await events.update( { uid: eventUid }, clean.event, { 
+      context: {
+        agendaUid,
+        userUid: _.get( options, 'context.userUid', null ),
+        updateSearchIndex: false
+      },
+      transferToLegacy: !draft,
+      draft
     } );
 
-  } else {
+    if ( !result.valid ) {
 
-    updated.event = result.event;
+      throw new VError( {
+        name: 'validationError',
+        info: {
+          errors: result.errors
+        }
+      } );
 
-  }
+    } else {
 
-  if ( !draft && clean.agendaEvent ) {
-    
-    result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
-      create: {
-        $set: { canEdit: true }
-      }
-    } ), { 
-      transferToLegacy: true,
-      context: { legacy: false }
-    } );
+      updated.event = result.event;
 
-    updated.agendaEvent = result.set;
+    }
 
-  }
+    if ( !draft && clean.agendaEvent ) {
+      
+      result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
+        create: {
+          $set: { canEdit: true }
+        }
+      } ), { 
+        transferToLegacy: true,
+        context: { legacy: false }
+      } );
 
-  if ( formSchemaId && clean.custom ) {
+      updated.agendaEvent = result.set;
 
-    const result = await setCustom( formSchemaId, updated.event.uid, clean.custom, { draft, agendaId } );
+    }
 
-    if ( result.success ) updated.custom = result.custom;
+    if ( formSchemaId && clean.custom ) {
 
-  }
+      const result = await setCustom( formSchemaId, updated.event.uid, clean.custom, { draft, agendaId } );
 
-  if ( networkFormSchemaId && clean.networkCustom ) {
+      if ( result.success ) updated.custom = result.custom;
 
-    const result = await setCustom( networkFormSchemaId, updated.event.uid, clean.networkCustom, { draft } );
+    }
 
-    if ( result.success ) updated.networkCustom = result.custom;
+    if ( networkFormSchemaId && clean.networkCustom ) {
 
-  }
+      const result = await setCustom( networkFormSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId } );
 
-  return {
-    success: true,
-    updated
+      if ( result.success ) updated.networkCustom = result.custom;
+
+    }
+
+    return {
+      success: true,
+      updated
+    }
+
+  } catch ( e ) {
+
+    log( 'error', 'could not update event %s.%s', agendaUid, eventUid, e );
+
+    return {
+      success: false
+    }
+
   }
 
 }

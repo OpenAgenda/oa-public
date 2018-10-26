@@ -63,7 +63,10 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
         }
       } );
 
-      return { event: result.updated.event };
+      return { 
+        event: _.get( result, 'updated.event' ),
+        success: result.success
+      };
 
     }
 

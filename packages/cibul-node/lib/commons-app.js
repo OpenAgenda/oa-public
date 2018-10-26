@@ -920,7 +920,7 @@ function requireAdmin( req, res, next ) {
 
     if ( err ) return next( err );
 
-    let id = session.id;
+    const id = session.id;
 
     if ( [ 1, 2, 11258, 15453, 34577 ].indexOf( parseInt( id ) ) !== -1 ) {
 

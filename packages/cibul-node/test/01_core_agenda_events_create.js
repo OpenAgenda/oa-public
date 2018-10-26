@@ -43,6 +43,7 @@ const testConfig = {
     eventLocationTranslation: 'legacy_event_location_translation',
     eventEditor: 'legacy_event_editor',
     agendaEvent: 'legacy_agenda_event',
+    eventReferences: 'legacy_agenda_event_reference',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',
@@ -70,8 +71,8 @@ const testConfig = {
     }
   },
   es53: {
-    host: 'http://ns397902.ip-151-80-41.eu',
-    port: 9205
+    host: process.env.ELASTICSEARCH_533_DEV_HOST,
+    port: process.env.ELASTICSEARCH_533_DEV_PORT
   }
 };
 

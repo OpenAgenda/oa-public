@@ -42,6 +42,7 @@ const testConfig = {
     eventLocation: 'legacy_event_location',
     eventLocationTranslation: 'legacy_event_location_translation',
     agendaEvent: 'legacy_agenda_event',
+    eventReferences: 'legacy_agenda_event_reference',
     eventEditor: 'legacy_event_editor',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
@@ -55,6 +56,10 @@ const testConfig = {
     secretAccessKey: config.aws.secretAccessKey,
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
+  },
+  es53: {
+    host: process.env.ELASTICSEARCH_533_DEV_HOST,
+    port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
   getLogConfig: () => null
 };

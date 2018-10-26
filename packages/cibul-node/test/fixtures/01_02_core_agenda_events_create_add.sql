@@ -222,6 +222,7 @@ CREATE TABLE `event_2` (
   slug VARCHAR(255) NOT NULL UNIQUE,
   title VARCHAR(2000) NOT NULL,
   description VARCHAR(2000) NOT NULL,
+  `references` VARCHAR(2000),
   long_description TEXT,
   keywords VARCHAR(2000),
   conditions VARCHAR(2000),
@@ -382,6 +383,15 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
   `state` tinyint(4) DEFAULT NULL,
   `featured` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=887122 DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS `legacy_agenda_event_reference` (
+  id BIGINT, 
+  agenda_id BIGINT, 
+  event_id BIGINT, 
+  ref_event_id BIGINT, 
+  PRIMARY KEY(id)
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
 
 
