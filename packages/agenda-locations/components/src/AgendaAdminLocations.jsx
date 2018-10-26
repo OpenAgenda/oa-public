@@ -41,6 +41,7 @@ module.exports = createReactClass( {
   getDefaultProps() {
 
     return {
+      enableGeocode: true,
       settings: {}
     }
 

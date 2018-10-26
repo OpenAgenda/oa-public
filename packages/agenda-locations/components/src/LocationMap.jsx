@@ -83,11 +83,11 @@ module.exports = createReactClass( {
 
     if ( this.isGeolocated() ) {
 
-      this.map = L.map( this.mapRef, mapOptions ).setView( pos, defaults.focusedZoom );
+      this.map = L.map( this.mapRef, mapOptions ).setView( pos, this.props.defaultZoom || defaults.focusedZoom );
 
     } else {
 
-      this.map = L.map( this.mapRef, mapOptions ).setView( defaults.pos, defaults.zoom );
+      this.map = L.map( this.mapRef, mapOptions ).setView( defaults.pos, this.props.defaultZoom || defaults.zoom );
 
     }
 
@@ -113,7 +113,9 @@ module.exports = createReactClass( {
 
     this.marker.setLatLng( pos );
 
-    this.map.setZoom( this.props.resetZoom ? defaults.focusedZoom : this.map.getZoom() );
+    const defaultZoom = this.props.defaultZoom || defaults.focusedZoom;
+
+    this.map.setZoom( this.props.resetZoom ? defaultZoom : this.map.getZoom() );
 
     this.map.setView( pos );
 
@@ -135,7 +137,7 @@ module.exports = createReactClass( {
       draggable: this.props.enabled
     } ).addTo( this.map );
 
-    if ( !this.props.draggableMarker || !this.props.enabled ) return;
+    if ( !this.props.draggableMarker || !this.props.enabled ) return;
 
     this.marker.on( 'dragend', function( e ) {
 
