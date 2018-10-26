@@ -577,6 +577,7 @@ function EventFormFactory() {
         { this.props.configuration.field( 'location' ).info && ( this.state.locationMode !== 'create' ) ?
         <p>{ this.props.configuration.field( 'location' ).info[ this.props.lang ] }</p> : null }
         <LocationSelector
+          enableGeocode={_.get( this.props.enableGeocode, true ) }
           allowCreate={this.props.contributionConfiguration.allowLocationCreate}
           settings={settings}
           mode={this.state.locationMode}
