@@ -1,6 +1,6 @@
 {
   "name": "cibulNode",
-  "version": "0.0.167",
+  "version": "0.0.168",
   "private": true,
   "description": "OpenAgenda main app",
   "scripts": {
