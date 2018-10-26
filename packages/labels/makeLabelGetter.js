@@ -1,5 +1,8 @@
 "use strict";
 
+var IntlMessageFormat = require( 'intl-messageformat' );
+var parser = require( 'intl-messageformat-parser' );
+
 /**
  * provide a labels getter that will
  * give back labels fed at init
@@ -35,6 +38,19 @@ module.exports = function( labels, defaultLang ) {
     }
 
     var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    var parsedAST = parser.parse( str );
+    var isICU = parsedAST.elements.some( function ( v ) {
+      return v.type === 'argumentElement';
+    } );
+
+    // ICU message
+    if ( isICU ) {
+
+      return new IntlMessageFormat( parsedAST ).format( values );
+
+    }
+
+    // Old API - if ( str.match( /%\w+%/ ) ) {}
 
     if ( values ) {
 

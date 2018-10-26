@@ -162,7 +162,8 @@ const config = {
       conversation: 'inboxes_conversation',
       inboxConversation: 'inboxes_inbox_conversation',
       message: 'inboxes_message',
-      messageAttachment: 'inboxes_message_attachment'
+      messageAttachment: 'inboxes_message_attachment',
+      rule: 'rule'
     },
     auth: {
       local: {
@@ -561,7 +562,7 @@ const config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         enable: 'oa:*'
-        
+
         //enable: 'oa:services/agenda/dispatcher'
         //enable: 'oa:*,svc:*',
         //enable: 'events/interfaces/legacy',

@@ -161,6 +161,7 @@ module.exports = function ( enabledTypes, options, cb ) {
         require( './services/surveys' )( app, '' );
         require( './services/agendaContribute' )( app, '' );
         require( './services/users' )( app, '/users' );
+        require( './services/abilities' )( app, '/abilities' );
 
         require( './event/files' )( app, '/' );
 
@@ -281,9 +282,9 @@ module.exports = function ( enabledTypes, options, cb ) {
 
 
         if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
-          
+
           //require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => console.log( 'FINI', err, res ) );
-          
+
         }
 
         // require( './services/agendaStatistics' ).task.resyncLegacySearch();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { withOptions } from '@storybook/addon-options';
-import { checkA11y } from '@storybook/addon-a11y';
+import { checkA11y, configureA11y } from '@storybook/addon-a11y';
+import { getRules } from 'axe-core';
 
 function importAll( req ) {
   req.keys()
@@ -18,12 +18,11 @@ if ( process.env.NODE_ENV === 'development' ) {
   whyDidYouUpdate( React );
 }
 
-addDecorator( checkA11y );
+configureA11y( {
+  rules: getRules( [ 'wcag2a', 'section508', 'best-practice' ] ).map( v => ( { id: v.ruleId, ...v } ) ),
+  disableOtherRules: true
+} );
 
-addDecorator(
-  withOptions( {
-    selectedAddonPanel: 'storybook/stories/stories-panel'
-  } )
-);
+addDecorator( checkA11y );
 
 configure( loadStories, module );

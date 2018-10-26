@@ -1,96 +1,163 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
-import axios from 'axios';
-import { shouldUpdate, shallowEqual } from 'recompose';
-import withFetcher from './withFetcher';
+import { FormSpy } from 'react-final-form';
+import { FormattedMessage } from 'react-intl';
+import RuleCheckbox from './RuleCheckbox';
+import isIndeterminate from './isIndeterminate';
 
-// preload abilities from API
 
-@withFetcher(
-  'abilities',
-  async ( { res, entityName, identifier } ) => axios.get( res.getFormIndex, {
-    params: {
+function getEntityTitle( ability ) {
+  switch ( ability.entityName ) {
+    case 'user':
+      return ability.entity.fullName;
+    case 'agenda':
+      return ability.entity.title;
+    case 'member':
+      return ability.entity.agendaTitle;
+    default:
+      return ability.identifier;
+  }
+}
+
+class AbilitiesForm extends Component {
+  componentDidMount() {
+    // calculate `indeterminate` props
+    const {
+      rules,
+      form,
       entityName,
       identifier
-    }
-  } )
-    .then( ( { data } ) => data ),
-  { fetchOnMount: true }
-)
-@shouldUpdate(
-  ( props, nextProps ) => (
-    !shallowEqual(
-      _.pick( props, [ 'entityName', 'identifier' ] ),
-      _.pick( nextProps, [ 'entityName', 'identifier' ] )
-    )
-    || !shallowEqual( props.abilitiesFetcher, nextProps.abilitiesFetcher )
-  )
-)
-class AbilitiesForm extends Component {
-  render() {
-    const { entityName, identifier, abilitiesFetcher: { loading, data, error } } = this.props;
+    } = this.props;
 
-    console.log( {
+    const { mutators: { setFieldData }, batch } = form;
+    const formState = form.getState();
+    const allValues = formState.values;
+
+    const [ firstEntityRules, otherRules ] = _.partition( rules, _.matches( {
+      entityName,
+      identifier
+    } ) );
+
+    batch( () => {
+      for ( const rule of firstEntityRules ) {
+        const relatedRules = _.filter( otherRules, _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) ) );
+
+        setFieldData( rule.key, {
+          indeterminate: isIndeterminate( allValues, rule, relatedRules )
+        } );
+      }
+    } );
+  }
+
+  render() {
+    const {
       entityName,
       identifier,
-      loading,
-      data,
-      error
-    } );
+      rules,
+      handleSubmit,
+      form
+    } = this.props;
 
-    if ( loading ) {
-      return (
-        <p>Chargement en cours...</p>
-      );
-    }
+    const rulesPerEntity = rules.reduce( ( result, rule ) => {
+      const entityProps = _.pick( rule, [ 'entityName', 'identifier', 'entity' ] );
+      const found = _.find( result, entityProps );
 
-    if ( error ) {
-      return (
-        <p>Il y a eu une erreur</p>
-      );
-    }
+      if ( found ) {
+        found.rules.push( rule );
+      } else {
+        result.push( {
+          ...entityProps,
+          rules: [ rule ]
+        } );
+      }
 
-    const entityRules = _.find( data, { entityName, identifier } );
+      return result;
+    }, [] );
 
-    console.log(
-      data.reduce( ( result, rule ) => {
-        const entityProps = _.pick( rule, [ 'entityName', 'identifier' ] );
-        const found = _.find( result, entityProps );
-
-        if ( found ) {
-          found.rules.push( rule );
-        } else {
-          result.push( { ...entityProps, rules: [ rule ] } );
-        }
-
-        return result;
-      }, [] )
-    );
-
-    if ( entityRules.length ) {
-      return data.map( rule => (
-        <p key={rule.index}>{JSON.stringify( rule )}</p>
-      ) );
-    }
+    const firstEntityAbility = _.find( rulesPerEntity, { entityName, identifier } );
+    const othersAbilities = _.groupBy( _.reject( rulesPerEntity, { entityName, identifier } ), 'entityName' );
 
     return (
-      <div className="container">
-        <p>
-          error: {JSON.stringify( error )}
-        </p>
-        <p>
-          loading: {JSON.stringify( loading )}
-        </p>
-        <dl>
-          {_.entries( data )
-            .map( ( [ key, value ] ) => (
-              <React.Fragment key={key}>
-                <dt>{key}</dt>
-                <dd>{JSON.stringify( value )}</dd>
-              </React.Fragment>
+      <form onSubmit={handleSubmit}>
+        {firstEntityAbility && firstEntityAbility.rules.length && firstEntityAbility.rules.length
+          ? (
+            <Fragment>
+              <div className="margin-bottom-md">
+                {firstEntityAbility.rules.map( rule => (
+                  <RuleCheckbox
+                    key={rule.key}
+                    rule={rule}
+                  />
+                ) )}
+              </div>
+            </Fragment>
+          )
+          : null}
+
+        {Object.keys( othersAbilities ).map( name => (
+          <Fragment key={name}>
+            {Object.values( othersAbilities[ name ] ).map( entityAbility => (
+              <Fragment key={`${name}.${entityAbility.identifier}`}>
+                <p><b>{getEntityTitle( entityAbility )}</b></p>
+
+                <div className="margin-bottom-md">
+                  {entityAbility.rules.map( rule => (
+                    <RuleCheckbox
+                      key={rule.key}
+                      rule={rule}
+                    />
+                  ) )}
+                </div>
+              </Fragment>
             ) )}
-        </dl>
-      </div>
+          </Fragment>
+        ) )}
+
+        <button type="submit" className="btn btn-primary">
+          <FormattedMessage
+            id="Abilities.AbilitiesForm.save"
+            defaultMessage="Save"
+          />
+        </button>
+
+        <FormSpy
+          subscription={{ values: true, data: true }}
+          onChange={formState => {
+            const { mutators: { setFieldData }, batch, getFieldState } = form;
+            const [ firstEntityRules, otherRules ] = _.partition( rules, _.matches( {
+              entityName,
+              identifier
+            } ) );
+            const allValues = formState.values;
+
+            console.log( formState );
+
+            // calculate indeterminates
+            const indeterminates = firstEntityRules.reduce( ( result, rule ) => {
+              const relatedRules = _.filter( otherRules, _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) ) );
+              const fieldState = getFieldState( rule.key );
+              const indeterminate = isIndeterminate( allValues, rule, relatedRules );
+
+              if ( fieldState.data.indeterminate === indeterminate ) {
+                return result;
+              }
+
+              return {
+                ...result,
+                [ rule.key ]: indeterminate
+              };
+            }, {} );
+
+            // set indeterminate prop for each field
+            batch( () => {
+              _.forEach(
+                indeterminates,
+                ( indeterminate, key ) => setFieldData( key, { indeterminate } )
+              );
+            } )
+          }}
+        />
+      </form>
     );
   }
 }

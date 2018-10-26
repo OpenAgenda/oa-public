@@ -40,7 +40,7 @@ module.exports = paths => ( {
   },
   resolve: {
     symlinks: false,
-    extensions: [ '.js', '.jsx' ],
+    extensions: [ '.js', '.jsx', '.json' ],
     alias: {
       'react': require.resolve( 'react' ),
     }

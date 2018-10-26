@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import camelCase from 'lodash/camelCase';
+import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
 
 const ucfirst = str => str.slice( 0, 1 ).toUpperCase() + str.slice( 1 );
 
 @connect(
   state => ({
     unsubscriptions: state.userSettings.unsubscriptions,
+    user: state.userSettings.user,
     prefix: state.app.appSettings.prefix
   }),
   { push }
@@ -21,14 +23,15 @@ export default class UnsubscribedSettings extends Component {
   };
 
   static contextTypes = {
+    lang: PropTypes.string,
     getLabels: PropTypes.func
   };
 
   render() {
 
-    const { getLabels } = this.context;
+    const { getLabels, lang } = this.context;
 
-    const { activeTab, push, unsubscriptions, removeUnsubscription, prefix } = this.props;
+    const { activeTab, push, unsubscriptions, removeUnsubscription, prefix, user } = this.props;
 
     return (
       <tr
@@ -61,6 +64,16 @@ export default class UnsubscribedSettings extends Component {
               ) )}
 
               {(!unsubscriptions || !unsubscriptions.length) && <p>{getLabels( 'noUnsubscription' )}</p>}
+
+              <AbilitiesEditor
+                locale={lang}
+                entityName="user"
+                identifier={user.uid}
+                res={{
+                  // get + patch
+                  formIndex: '/abilities/form-index'
+                }}
+              />
             </div>
           </div>
         </td> : <td style={{ cursor: 'pointer' }}></td>}

@@ -31,7 +31,41 @@ export function getFormIndex( options ) {
     const formIndex = await ability.getFormIndex();
 
     res.send( formIndex );
+  } );
+}
 
-    next();
+export function updateFormIndex( options ) {
+  const { namespaces } = _.merge( {
+    namespaces: {
+      entityName: 'query.entityName',
+      identifier: 'query.identifier',
+      data: 'body'
+    }
+  }, options );
+
+  return wrap( async ( req, res, next ) => {
+    const entityName = _.get( req, namespaces.entityName, null );
+    const identifier = _.toNumber( _.get( req, namespaces.identifier, null ) );
+    const data = _.get( req, namespaces.data, null );
+
+    if ( !_.isString( entityName ) ) {
+      res.status( 400 );
+      throw new Error( 'entityName should be a string' );
+    }
+
+    if ( !identifier ) {
+      res.status( 400 );
+      throw new Error( 'identifier should be a number' );
+    }
+
+    if ( !_.isObject( data ) ) {
+      res.status( 400 );
+      throw new Error( 'data should be an object' );
+    }
+
+    const ability = await service.get( entityName, identifier );
+    const formIndex = await ability.updateFormIndex( data );
+
+    res.send( formIndex );
   } );
 }

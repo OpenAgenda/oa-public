@@ -1,0 +1,16 @@
+{
+  "Abilities.AbilitiesEditor.loading": "Chargement",
+  "Abilities.AbilitiesEditor.error": "Il y a eu une erreur.",
+  "Abilities.AbilitiesForm.save": "Sauvegarder",
+  "Abilities.RulesCheckbox.states.refused": "refusé",
+  "Abilities.RulesCheckbox.states.toControl": "à controller",
+  "Abilities.RulesCheckbox.states.controlled": "prêt à publier",
+  "Abilities.RulesCheckbox.states.published": "publié",
+  "Abilities.RulesCheckbox.rules.receiveInvitation": "Recevoir les invitations",
+  "Abilities.RulesCheckbox.rules.receiveStateChange": "Recevoir les changements de status vers {state}",
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": "Recevoir les résumés notifications",
+  "Abilities.RulesCheckbox.rules.receiveEvent": "Recevoir les événements envoyés par d'autres utilisateurs",
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": "Recevoir les créations d'événements",
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": "Recevoir les mises à jour d'événements",
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements"
+}

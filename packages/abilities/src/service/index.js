@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import createAbility from './createAbility';
+import createAbility, { SUBJECT_NAME } from './createAbility';
 import createBuilder from './createBuilder';
 import * as rulesLib from './rules';
 import * as middleware from './middleware';
@@ -14,13 +14,30 @@ function getEditableRules( ability ) {
   }
 
   return _.get( config, `editableRules.${entityName}`, [] ).map( rule => {
-    const relevantRule = ability.relevantRuleFor( rule.action, rule.subject, rule.conditions );
+    const subject = Object.assign( {}, rule.conditions, { [ SUBJECT_NAME ]: rule.subject } );
+    const relevantRule = ability.relevantRuleFor( rule.actions, subject );
+
     const isAble = !!relevantRule && !relevantRule.inverted;
 
-    return _.assign( {}, rule, {
+    return _.assign( {}, rulesLib.parse( rule ), {
       inverted: !isAble,
       relevantRule: relevantRule ? rulesLib.parse( relevantRule ) : relevantRule
     } );
+  } );
+}
+
+function batchUpdate( { table, column }, collection ) {
+  return config.knex.transaction( trx => {
+    const queries = collection.map(
+      item => config.knex( table )
+        .where( column, item[ column ] )
+        .update( item )
+        .transacting( trx )
+    );
+
+    return Promise.all( queries )
+      .then( trx.commit )
+      .catch( trx.rollback );
   } );
 }
 
@@ -29,7 +46,9 @@ export async function getFormIndex( ability, options = {} ) {
     && config.interfaces.completeFormIndex
     && config.interfaces.completeFormIndex[ ability.entityName ];
 
-  const neededEntities = _.isFunction( completeFormFn ) ? await completeFormFn( ability, options ) : {};
+  const neededEntities = _.isFunction( completeFormFn )
+    ? await completeFormFn( ability, options )
+    : { [ability.entityName]: ability.identifier };
   const entities = {};
   const entitiesRules = [];
 
@@ -44,7 +63,7 @@ export async function getFormIndex( ability, options = {} ) {
       }
 
       if ( !_.isFunction( listEntitiesFn ) ) {
-        throw new Error( `Missing interface \`getEntity.${entityName}\`` );
+        throw new Error( `Missing interface \`listEntities.${entityName}\`` );
       }
 
       entities[ entityName ] = await listEntitiesFn( neededEntities[ entityName ] );
@@ -63,20 +82,21 @@ export async function getFormIndex( ability, options = {} ) {
           async ( result2, identifier ) => {
             result2 = await result2;
 
-            const found = _.find( result2, { entityName, identifier } );
-
-            if ( found ) {
-              return result2;
-            }
+            // const found = _.find( result2, { entityName, identifier } );
+            //
+            // if ( found ) {
+            //   return result2;
+            // }
 
             const defineFn = config.interfaces
               && config.interfaces.defineFor
               && config.interfaces.defineFor[ entityName ];
 
-            const entityRules = _.remove( entitiesRules, {
+            const entityRules = _.filter( entitiesRules, {
               entityName,
               identifier
             } );
+
 
             const entity = _.find( entities[ entityName ], { [ config.entityMapping[ entityName ] ]: identifier } );
             const builder = createBuilder( entityName, identifier );
@@ -86,9 +106,10 @@ export async function getFormIndex( ability, options = {} ) {
             return result2.concat(
               getEditableRules( entityAbility )
                 .map( rule => ( {
+                  ..._.omit( rule, 'id' ),
                   entityName,
                   identifier,
-                  ...rule
+                  entity
                 } ) )
             );
           },
@@ -100,6 +121,52 @@ export async function getFormIndex( ability, options = {} ) {
   );
 
   return formIndex;
+}
+
+async function updateFormIndex( ability, data ) {
+  const formIndex = await ability.getFormIndex();
+  const matchesRule = test => _.matches( _.pick(
+    test,
+    'entityName',
+    'identifier',
+    'actions',
+    'subject',
+    'conditions'
+  ) );
+
+  const { toCreate, toUpdate } = formIndex.reduce( ( result, rule ) => {
+    const dataRule = _.find( data, matchesRule( rule ) );
+
+    if ( !dataRule ) {
+      return result;
+    }
+
+    if ( rule.relevantRule && matchesRule( rule )( rule.relevantRule ) ) {
+      result.toUpdate.push( {
+        ...rule,
+        id: rule.relevantRule.id,
+        inverted: !!dataRule.inverted
+      } );
+    } else {
+      result.toCreate.push( {
+        ...rule,
+        inverted: !!dataRule.inverted
+      } );
+    }
+
+    return result;
+  }, { toCreate: [], toUpdate: [] } );
+
+  if ( toCreate.length ) {
+    await config.knex.batchInsert( config.schemas.rule, rulesLib.format( toCreate ) )
+      .returning( 'id' );
+  }
+
+  if ( toUpdate.length ) {
+    await batchUpdate( { table: config.schemas.rule, column: 'id' }, rulesLib.format( toUpdate ) );
+  }
+
+  return ability.getFormIndex();
 }
 
 export async function get( entityName, identifier, options = {} ) {
@@ -129,24 +196,20 @@ export async function get( entityName, identifier, options = {} ) {
 
   ability.entity = entity;
   ability.getFormIndex = getFormIndex.bind( null, ability );
+  ability.updateFormIndex = updateFormIndex.bind( null, ability );
 
   return ability;
 }
-
-/*
-* const ability = await abilities.get( 'user', user );
-*
-* if ( ability.can( 'receive', 'Activity', activity ) ) {
-*   // activities...
-* }
-* */
 
 const service = {
   init,
   config,
   get,
   getFormIndex,
+  updateFormIndex,
   rules: rulesLib,
+  createAbility,
+  createBuilder,
   middleware
 };
 
@@ -154,3 +217,5 @@ export default service;
 export { default as config, init } from './config';
 export * as rules from './rules';
 export * as middleware from './middleware';
+export createAbility from './createAbility';
+export createBuilder from './createBuilder';

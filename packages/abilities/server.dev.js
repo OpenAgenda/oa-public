@@ -11,10 +11,15 @@ const server = http.createServer( app );
 
 app.server = server;
 
-// ** Run `yarn knex migrate:latest` and `yarn knex seed:run` before run the dev server **
+/*
+ * Run `yarn knex migrate:latest` and `yarn knex seed:run` before run the dev server
+ * */
 
 if ( process.env.NODE_ENV !== 'test' ) {
   abilitiesSvc.init( testconfig );
+}
+
+if ( [ 'development', 'test' ].includes( process.env.NODE_ENV ) ) {
   app.use( morgan( 'dev' ) );
 }
 
@@ -22,11 +27,20 @@ app.use( cors() );
 app.use( express.json() );
 app.use( express.urlencoded( { extended: true } ) );
 
-// http://localhost:3000/abilities/form-index?entityName=user&identifier=99999999
+// GET http://localhost:3000/abilities/form-index?entityName=user&identifier=99999999
 app.get( '/abilities/form-index', abilitiesSvc.middleware.getFormIndex( {
   namespaces: {
     entityName: 'query.entityName',
     identifier: 'query.identifier'
+  }
+} ) );
+
+// PATCH http://localhost:3000/abilities/form-index?entityName=user&identifier=99999999
+app.patch( '/abilities/form-index', abilitiesSvc.middleware.updateFormIndex( {
+  namespaces: {
+    entityName: 'query.entityName',
+    identifier: 'query.identifier',
+    data: 'body'
   }
 } ) );
 

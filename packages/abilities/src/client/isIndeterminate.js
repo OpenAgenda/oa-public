@@ -1,0 +1,4 @@
+export default ( values, rule, relatedRules ) => (
+  ( !values[ rule.key ] && relatedRules.some( v => values[ v.key ] ) )
+  || ( values[ rule.key ] && relatedRules.some( v => !values[ v.key ] ) )
+);

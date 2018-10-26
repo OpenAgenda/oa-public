@@ -139,7 +139,7 @@ module.exports = {
 
 function extractGoogleAnalytics( agendas ) {
 
-  return [].concat( agendas ).map( ( a, i ) => { 
+  return [].concat( agendas ).map( ( a, i ) => {
 
     const gaCode = _.get( a, 'settings.tracking.googleAnalytics' );
 
@@ -624,7 +624,7 @@ function render( req, res, templatePath, data, maintain ) {
 
       } catch ( e ) {
 
-        log.error( new VError( e, `Error in the render of the template ${templatePath}` ) );
+        req.log( 'error', new VError( e, `Error in the render of the template ${templatePath}` ) );
 
       }
 

@@ -2,7 +2,6 @@ import {
   compose,
   withStateHandlers,
   withHandlers,
-  mapProps,
   lifecycle
 } from 'recompose';
 import _ from 'lodash';
@@ -55,11 +54,11 @@ function withFetcher(
           );
       }
     } ),
-    mapProps( props => _.omit( props, [
-      `receive${_.upperFirst( name )}Data`,
-      `receive${_.upperFirst( name )}Error`,
-      `start${_.upperFirst( name )}Fetch`
-    ] ) ),
+    // mapProps( props => _.omit( props, [
+    //   `receive${_.upperFirst( name )}Data`,
+    //   `receive${_.upperFirst( name )}Error`,
+    //   `start${_.upperFirst( name )}Fetch`
+    // ] ) ),
     fetchOnMount
       ? lifecycle( {
         componentDidMount() {

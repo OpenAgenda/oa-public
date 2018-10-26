@@ -46,6 +46,16 @@ exports.seed = async knex => {
       conditions: '{"verb":"agenda.eventPublished"}',
       fields: null,
       reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60815,
+      actions: 'receive',
+      subject: 'eventAggregation',
+      inverted: false,
+      conditions: null,
+      fields: null,
+      reason: null
     }
   ] );
 };

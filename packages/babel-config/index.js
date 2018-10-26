@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = api => {
-  api.cache.using( () => process.env.NODE_ENV );
-
   const presets = [
     '@babel/preset-react',
     [
@@ -30,16 +28,25 @@ module.exports = api => {
         corejs: 2
       }
     ],
+    '@babel/plugin-proposal-object-rest-spread',
+
+    // Stage 0
+    "@babel/plugin-proposal-function-bind",
+
+    // Stage 1
+    "@babel/plugin-proposal-export-default-from",
+
+    // Stage 2
     [
       '@babel/plugin-proposal-decorators',
       {
         legacy: true
       }
     ],
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-proposal-object-rest-spread',
-    '@babel/plugin-proposal-export-default-from',
-    '@babel/plugin-proposal-export-namespace-from'
+    '@babel/plugin-proposal-export-namespace-from',
+
+    // Stage 3
+    '@babel/plugin-proposal-class-properties'
   ];
 
   if ( api.env( [ 'development', 'test' ] ) ) {
@@ -53,6 +60,6 @@ module.exports = api => {
   return {
     presets,
     plugins,
-    sourceMaps: api.env( [ 'development', 'test' ] )
+    sourceMaps: api.env( [ 'development', 'test' ] ) ? 'both' : false
   };
 };

@@ -11,6 +11,7 @@
     "fixtures": "node test/app/fixtures"
   },
   "dependencies": {
+    "@openagenda/abilities": "^1.0.0",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/image-upload": "^1.0.7",
     "@openagenda/labels": "^2.0.79",

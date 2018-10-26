@@ -94,12 +94,34 @@
         ]
       }
     ],
-    "react/jsx-one-expression-per-line": "off"
+    "react/jsx-one-expression-per-line": "off",
+    "jsx-a11y/label-has-for": [
+      "error",
+      {
+        "required": "id"
+      }
+    ],
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": [
+          "label"
+        ],
+        "labelAttributes": [
+          "htmlFor"
+        ],
+        "controlComponents": [
+          "Field",
+          "input"
+        ]
+      }
+    ]
   },
   "overrides": [
     {
       "files": [
-        "{src,.storybook}/**/*.js",
+        "src/**/*.js",
+        ".storybook/**/*.js",
         "server.dev.js",
         "test/**/*.js"
       ],
