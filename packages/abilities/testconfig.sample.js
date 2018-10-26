@@ -5,143 +5,143 @@ const abilities = require( './src/service' );
 const editableRules = {
   agenda: [
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventCreation'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: -1 // refused
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 0 // tocontrol
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 1 // controlled
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 2 // published
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventUpdate'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventAggregation'
     }
   ],
   user: [
     {
-      action: 'receive',
+      actions: 'receive',
+      subject: 'invitation'
+    },
+    {
+      actions: 'receive',
       subject: 'notificationsSummary'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'event'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventCreation'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: -1 // refused
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 0 // tocontrol
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 1 // controlled
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 2 // published
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventUpdate'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventAggregation'
-    },
-    {
-      action: 'receive',
-      subject: 'invitation'
     }
   ],
   member: [
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'event'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventCreation'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: -1 // refused
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 0 // tocontrol
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 1 // controlled
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'stateChange',
       conditions: {
         state: 2 // published
       }
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventUpdate'
     },
     {
-      action: 'receive',
+      actions: 'receive',
       subject: 'eventAggregation'
     }
   ]
@@ -165,28 +165,44 @@ module.exports = {
   },
   interfaces: {
     getEntity: {
-      agenda: uid => ( { uid } ),
-      member: id => ( {
+      agenda: uid => ( {
+        uid,
+        title: 'Titre de l\'agenda'
+      } ),
+      member: id => ( { // needs agendaTitle
         id,
         agendaUid: 456789,
+        agendaTitle: 'Titre de l\'agenda',
+        crendential: 1,
         userUid: 99999999
       } ),
-      user: uid => ( { uid } )
+      user: uid => ( {
+        uid,
+        fullName: 'Bertho'
+      } )
     },
     listEntities: {
-      agenda: uids => uids.map( uid => ( { uid } ) ),
-      member: ids => ids.map( id => ( {
+      agenda: uids => uids.map( uid => ( {
+        uid,
+        title: 'Titre de l\'agenda'
+      } ) ),
+      member: ids => ids.map( id => ( { // needs all agendaTitle
         id,
         agendaUid: 456789,
+        agendaTitle: 'Titre de l\'agenda',
+        crendential: 1,
         userUid: 99999999
       } ) ),
-      user: uids => uids.map( uid => ( { uid } ) )
+      user: uids => uids.map( uid => ( {
+        uid,
+        fullName: 'Bertho'
+      } ) )
     },
     defaultFor: {
       user( { can, cannot, rules } ) {
-        can( 'create', 'event' );
-        can( 'receive', 'activity' );
-        cannot( 'receive', 'activity', { verb: 'spam' } );
+        // can( 'create', 'event' );
+        // can( 'receive', 'activity' );
+        // cannot( 'receive', 'activity', { verb: 'spam' } );
 
         return rules;
       }
