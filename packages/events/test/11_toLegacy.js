@@ -26,7 +26,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
       config.legacy.schemas.eventLocation,
       config.legacy.schemas.eventLocationTranslation,
       config.legacy.schemas.agendaEvent,
-      config.legacy.schemas.agendaEventReferences,
+      config.legacy.schemas.eventReferences,
       config.legacy.schemas.user,
       config.legacy.schemas.agenda,
       config.legacy.schemas.deleted
@@ -111,9 +111,9 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     it( 'event references are added to legacy table', async () => {
 
-      const entries = await knex( config.legacy.schemas.agendaEventReferences ).select( 'event_id', 'agenda_id', 'ref_event_id' ).where( 'event_id', result.inserted.event.id );
+      const entries = await knex( config.legacy.schemas.eventReferences ).select( 'event_id', 'agenda_id', 'ref_event_id' ).where( 'event_id', result.inserted.event.id );
 
-      entries.should.eql( _.get( result, 'inserted.agendaEventReferences' ) );
+      entries.should.eql( _.get( result, 'inserted.eventReferences' ) );
 
     } );
 
@@ -222,7 +222,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       await svc.legacy.update( { uid } );
 
-      const agendaEventReferences = await knex( config.legacy.schemas.agendaEventReferences )
+      const agendaEventReferences = await knex( config.legacy.schemas.eventReferences )
         .select( 'agenda_id', 'event_id', 'ref_event_id' )
         .where( 'event_id', eventId );
 

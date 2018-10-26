@@ -22,7 +22,7 @@ describe( 'events - functional (server): legacy bridge', function() {
       config.legacy.schemas.eventLocation,
       config.legacy.schemas.eventLocationTranslation,
       config.legacy.schemas.agendaEvent,
-      config.legacy.schemas.agendaEventReferences,
+      config.legacy.schemas.eventReferences,
       config.legacy.schemas.user,
       config.legacy.schemas.agenda
     ], { reset: true }, done );

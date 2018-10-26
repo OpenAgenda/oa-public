@@ -126,7 +126,7 @@ async function update( identifiers, options ) {
         updated_at: event.updatedAt
       }
     } ),
-    agendaEventReferences: agendaId ? legacyEventReferenceIds.map( id => ( {
+    eventReferences: agendaId ? legacyEventReferenceIds.map( id => ( {
       event_id: 'TBD',
       agenda_id: agendaId,
       ref_event_id: id
@@ -276,7 +276,7 @@ function get( identifiers, options, cb ) {
       location: [ 'id', 'uid', 'store' ],
       user: [ 'uid' ],
       agendaEvents: [ 'review_id' ],
-      agendaEventReferences: [ 'ref_event_id' ],
+      eventReferences: [ 'ref_event_id' ],
       agendas: [ 'uid', 'private' ],
       occurrences: [ 'date', 'time_start', 'time_end' ]
     },
@@ -621,8 +621,8 @@ function _getAgendaEventReferences( v ) {
 
   if ( !v.entries.event ) return v;
 
-  return knex( schemas.agendaEventReferences )
-    .select( v.fields.agendaEventReferences )
+  return knex( schemas.eventReferences )
+    .select( v.fields.eventReferences )
     .where( 'event_id', v.entries.event.id )
     .then( rows => {
       
@@ -862,9 +862,13 @@ async function _updateLegacy( eventId, entries ) {
 
   await knex( schemas.event ).update( entries.event ).where( 'id', eventId );
 
+  log( 'updated event %s', eventId );
+
   const languages = entries.eventTranslations.map( t => t.lang );
 
   let eventLocation = await _assembleEventLocation( eventId, entries.eventLocation );
+
+  log( 'updated eventLocation for %s', eventId );
 
   // delete languages that are not anymore set
 
@@ -873,6 +877,8 @@ async function _updateLegacy( eventId, entries ) {
     .where( 'id', eventId )
     .whereNotIn( 'lang', languages );
   
+  log( 'removed previous event translation entries for %s', eventId );
+
   for ( const entry of entries.eventTranslations ) {
 
     const insert = _.extend( entry, { id: eventId } );
@@ -896,10 +902,16 @@ async function _updateLegacy( eventId, entries ) {
 
   }
 
+  log( 'inserted new event translation entries for %s', eventId );
+
   // delete all occurrences
   removed.occurrences = await knex( schemas.occurrence ).delete().where( 'event_id', eventId );
 
+  log( 'removed previous occurrences for event %s', eventId );
+
   inserted.occurrences = await _insertOccurrences( eventId, entries.occurrences );
+
+  log( 'inserted occurrence replacements for event %s', eventId );
 
 
   // event location is updated
@@ -913,15 +925,23 @@ async function _updateLegacy( eventId, entries ) {
 
     eventLocation = _.extend( { id: eventLocation.id }, entries.eventLocation );
 
+    log( 'updated eventLocation for event %s', eventId );
+
   } else {
 
     eventLocation = await _insertEventLocation( eventId, entries.eventLocation );
+
+    log( 'inserted eventLocation ref for event %s', eventId );
 
   }
 
   await _insertEventLocationTranslations( eventLocation.id, entries.eventLocationTranslations );
 
-  await _updateAgendaEventReferences( eventId, entries.agendaEventReferences );
+  log( 'inserted eventLocation translation entries for event %s', eventId );
+
+  await _updateAgendaEventReferences( eventId, entries.eventReferences );
+
+  log( 'updated agenda event references for event %s', eventId );
 
   return {
     inserted,
@@ -1000,7 +1020,7 @@ async function _createLegacy( entries ) {
 
   inserted.eventLocationTranslations = await _insertEventLocationTranslations( inserted.eventLocation.id, entries.eventLocationTranslations );
 
-  inserted.agendaEventReferences = await _updateAgendaEventReferences( insertedId, entries.agendaEventReferences );
+  inserted.eventReferences = await _updateAgendaEventReferences( insertedId, entries.eventReferences );
 
   return {
     success: true,
@@ -1013,12 +1033,12 @@ async function _createLegacy( entries ) {
 async function _updateAgendaEventReferences( eventId, entries ) {
 
   // delete previous
-  await knex( schemas.agendaEventReferences ).delete().where( 'event_id', eventId );
+  await knex( schemas.eventReferences ).delete().where( 'event_id', eventId );
 
   const inserted = entries.map( e => _.set( e, 'event_id', eventId ) );
 
   // insert new
-  const result = await knex( schemas.agendaEventReferences ).insert( inserted );
+  const result = await knex( schemas.eventReferences ).insert( inserted );
 
   return inserted;
 
