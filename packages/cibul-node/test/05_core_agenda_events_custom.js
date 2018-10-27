@@ -76,7 +76,7 @@ const testConfig = {
 };
 
 
-describe( 'core - functional ( server ): agenda event create with custom data', function() {
+describe( 'core - functional ( server ): agenda event with custom data', function() {
 
   this.timeout( 20000 );
 
@@ -242,7 +242,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
   } );
 
 
-  describe( 'with network', function() {
+  describe( 'create with network', function() {
 
     const networkEventData = ih( eventData, {
       edition: { $set: 'Dernier trimestre 2018' }
@@ -286,6 +286,35 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
     } );
 
   } );
+
+
+  describe( 'update with network', function() {
+
+    const networkEventData = ih( eventData, {
+      edition: { $set: 'Dernier trimestre 2018' }
+    } );
+
+    const networkUpdatedData = ih( eventData, {
+      edition: { $set: 'Premier trimestre 2019' }
+    } );
+
+    const result = {};
+
+    before( async () => {
+
+      const { created } = await core.agendas( 60935574 ).events.create( networkEventData );
+
+      _.assign( result, await core.agendas( 60935574 ).events.update( created.event.uid, networkUpdatedData ) );
+
+    } );
+
+    it( 'update returns network custom data in networkCustom key', async () => {
+
+      result.updated.networkCustom.should.eql( { edition: 'Premier trimestre 2019' } );
+
+    } );
+
+  } ); 
 
 
 } );
