@@ -10,6 +10,8 @@ module.exports = () => {
 
   if ( !el ) return;
 
+  if ( el.innerHTML.trim().length ) return;
+
   new Spinner( {
     width: 1,
     length: 6,
