@@ -56,9 +56,9 @@ function init( c ) {
 
     res.send( config.layout( req, 
       `<div>
-        <div id="app"></div>
+        <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
-        <script type="text/javascript" src="${_getClientAppPath()}"></script>
+        <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
       </div>` ) );
 
   } );
