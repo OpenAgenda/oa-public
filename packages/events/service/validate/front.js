@@ -16,7 +16,8 @@ schema.register( {
   multilingual: require( '@openagenda/validators/multilingual' ),
   list: require( '@openagenda/validators/list' ),
   phone: require( '@openagenda/validators/phone' ),
-  email: require( '@openagenda/validators/email' )
+  email: require( '@openagenda/validators/email' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 const frontFields = require( './frontFields' );

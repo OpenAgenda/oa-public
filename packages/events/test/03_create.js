@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
@@ -30,7 +31,7 @@ describe( 'events - functional (server): create', function() {
 
   } )
 
-  beforeEach( done => {
+  before( done => {
 
     // image files is an independent service
     // that formats and loads given images on
@@ -51,248 +52,229 @@ describe( 'events - functional (server): create', function() {
 
   } );
 
-  afterEach( svc.shutdown );
+  after( svc.shutdown );
 
-  it( 'create empty draft event', async () => {
+  describe( 'draft', () => {
 
-    const { success } = await svc.create( {}, { draft: true } );
+    it( 'create empty draft', async () => {
 
-    success.should.equal( true );
+      const { success } = await svc.create( {}, { draft: true } );
 
-  } );
+      success.should.equal( true );
 
-  it( 'create the simplest draft event', done => {
+    } );
 
-    svc.create( {}, { draft: true }, ( err, result ) => {
+    it( 'create the simplest draft event', done => {
 
-      should( err ).equal( null );
+      svc.create( {}, { draft: true }, ( err, result ) => {
 
-      result.should.eql( {
-        event: {
-          slug: result.event.slug,
-          uid: result.event.uid,
-          title: {},
-          description: {},
-          longDescription: {},
-          conditions: {},
-          keywords: {},
-          image: {
-            filename: null,
-            credits: null,
-            base: '//openagendatst.s3.amazonaws.com/',
-            size: {
-              width: null,
-              height: null
-            }, variants: [],
+        should( err ).equal( null );
+
+        result.should.eql( {
+          event: {
+            slug: result.event.slug,
+            uid: result.event.uid,
+            title: {},
+            description: {},
+            longDescription: {},
+            conditions: {},
+            keywords: {},
+            image: {
+              filename: null,
+              credits: null,
+              base: '//openagendatst.s3.amazonaws.com/',
+              size: {
+                width: null,
+                height: null
+              }, variants: [],
+            },
+            draft: 1,
+            private: 0,
+            references: [],
+            timezone: 'Europe/Paris',
+            timings: [],
+            updatedAt: result.event.updatedAt,
+            createdAt: result.event.createdAt,
+            locationUid: null,
+            agendaUid: null,
+            accessibility: {
+              mi: false,
+              hi: false,
+              pi: false,
+              vi: false,
+              sl: false
+            },
+            age: {
+              min: null,
+              max: null
+            },
+            registration: [],
+            links: [],
+            references: [],
+            fileKey: null
           },
-          draft: 1,
-          private: 0,
-          references: [],
-          timezone: 'Europe/Paris',
-          timings: [],
-          updatedAt: result.event.updatedAt,
-          createdAt: result.event.createdAt,
-          locationUid: null,
-          agendaUid: null,
-          accessibility: {
-            mi: false,
-            hi: false,
-            pi: false,
-            vi: false,
-            sl: false
-          },
-          age: {
-            min: null,
-            max: null
-          },
-          registration: [],
-          references: [],
-          fileKey: null
-        },
-        valid: true,
-        success: true,
-        errors: [] ,
-        transferedToLegacy: false
+          valid: true,
+          success: true,
+          errors: [] ,
+          transferedToLegacy: false
+        } );
+
+        done();
+
       } );
 
-      done();
+    } );
+
+    it( 'create the simplest draft event with image provided as url', async () => {
+
+      const { event } = await svc.create( {
+        image: {
+          url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
+        }
+      }, { draft: true } );
+
+      event.image.size.should.eql( { width: 600, height: 600 } );
+
+      /* {
+        filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
+        size: { width: 600, height: 600 },
+        variants: 
+         [ { filename: '636eaeeeb44243e4a76a3c12b8928045.full.image.jpg',
+             type: 'full',
+             size: [Object] },
+           { filename: '636eaeeeb44243e4a76a3c12b8928045.thumb.image.jpg',
+             type: 'thumbnail',
+             size: [Object] } ],
+        credits: null,
+        base: '//openagendatst.s3.amazonaws.com/' 
+      } */
+
+    } );
+
+    it( 'create the simplest draft event with image as local path', async () => {
+
+      const { event } = await svc.create( {
+        image: {
+          path: __dirname + '/service/tmp.png',
+          credits: 'Cé moi kai pri la foto'
+        }
+      }, { draft: true } );
+
+      event.image.size.should.eql( { width: 600, height: 913 } );
+
+      event.image.variants.map( v => v.type ).should.eql( [ 'full', 'thumbnail' ] );
+
+      /*{
+        "filename": "c3adffbad2d848d3b747ba7878d9f160.base.image.jpg",
+        "size": {
+          "width": 600,
+          "height": 913
+        },
+        "variants": [
+          {
+            "filename": "c3adffbad2d848d3b747ba7878d9f160.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 449,
+              "height": 683
+            }
+          },
+          {
+            "filename": "c3adffbad2d848d3b747ba7878d9f160.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "Cé moi kai pri la foto"
+      }*/
+
+    } );
+
+
+    it( 'when create is not protected, updatedAt and createdAt timestamps can be explicited', async () => {
+
+      const createdAt = new Date( '1981-02-28T03:00:00.000Z' );
+
+      const updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
+
+      let result = await svc.create( {
+        createdAt,
+        updatedAt
+      }, { draft: true, protected: false } );
+
+      result.event.createdAt.getTime().should.equal( createdAt.getTime() );
+
+      result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
 
     } );
 
   } );
 
+  describe( 'simple event', () => {
 
-  it( 'create the simplest draft event with image provided as url', async () => {
-
-    const { event } = await svc.create( {
-      image: {
-        url: 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png'
-      }
-    }, { draft: true } );
-
-    event.image.size.should.eql( { width: 600, height: 600 } );
-
-    /* {
-      filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
-      size: { width: 600, height: 600 },
-      variants: 
-       [ { filename: '636eaeeeb44243e4a76a3c12b8928045.full.image.jpg',
-           type: 'full',
-           size: [Object] },
-         { filename: '636eaeeeb44243e4a76a3c12b8928045.thumb.image.jpg',
-           type: 'thumbnail',
-           size: [Object] } ],
-      credits: null,
-      base: '//openagendatst.s3.amazonaws.com/' 
-    } */
-
-  } );
-
-
-  it( 'create the simplest draft event with image as local path', async () => {
-
-    const { event } = await svc.create( {
-      image: {
-        path: __dirname + '/service/tmp.png',
-        credits: 'Cé moi kai pri la foto'
-      }
-    }, { draft: true } );
-
-    event.image.size.should.eql( { width: 600, height: 913 } );
-
-    event.image.variants.map( v => v.type ).should.eql( [ 'full', 'thumbnail' ] );
-
-    /*{
-      "filename": "c3adffbad2d848d3b747ba7878d9f160.base.image.jpg",
-      "size": {
-        "width": 600,
-        "height": 913
-      },
-      "variants": [
-        {
-          "filename": "c3adffbad2d848d3b747ba7878d9f160.full.image.jpg",
-          "type": "full",
-          "size": {
-            "width": 449,
-            "height": 683
-          }
-        },
-        {
-          "filename": "c3adffbad2d848d3b747ba7878d9f160.thumb.image.jpg",
-          "type": "thumbnail",
-          "size": {
-            "width": 200,
-            "height": 200
-          }
-        }
-      ],
-      "credits": "Cé moi kai pri la foto"
-    }*/
-
-  } );
-
-
-  it( 'created event always lists timings in chronological order', async () => {
-
-    let times = {
+    const times = {
       monday: new Date( '2017-07-03T11:00' ),
       tuesday: new Date( '2017-07-04T12:00' ),
       wednesday: new Date( '2017-07-05T12:00' )
     };
 
-    try {
-
-      let result = await svc.create( {
-        title: {
-          fr: 'Un événement'
-        },
-        timings: [ {
-          begin: times.wednesday,
-          end: times.wednesday
-        }, {
-          begin: times.monday,
-          end: times.monday
-        }, {
-          begin: times.tuesday,
-          end: times.tuesday
-        } ]
-      } );
-
-      ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
-
-        .should.equal( times.monday.getTime() );
-
-      ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
-
-        .should.equal( times.wednesday.getTime() );
-
-    } catch ( e ) {
-
-      console.log( e );
-
-      should().ok();
-
-    }
-
-  } );
-
-
-  it( 'create the simplest published event', done => {
-
-    svc.create( {
+    const eventData = {
       title: {
-        fr: 'My first event'
+        fr: 'Un événement'
       },
       timings: [ {
-        begin: new Date(),
-        end: new Date()
+        begin: times.wednesday,
+        end: times.wednesday
+      }, {
+        begin: times.monday,
+        end: times.monday
+      }, {
+        begin: times.tuesday,
+        end: times.tuesday
       } ]
-    }, ( err, result ) => {
+    };
 
-      result.should.eql( {
-        valid: true,
-        success: true,
-        errors: [],
-        transferedToLegacy: false,
-        event: { 
-          slug: 'my-first-event',
-          uid: result.event.uid,
-          title: { fr: 'My first event' },
-          description: {},
-          longDescription: {},
-          conditions: {},
-          keywords: {},
-          draft: 0,
-          private: 0,
-          registration: [],
-          references: [],
-          image: {
-            filename: null,
-            credits: null,
-            base: '//openagendatst.s3.amazonaws.com/',
-            size: {
-              height: null,
-              width: null
-            },
-            variants: []
-          },
-          keywords: {},
-          timezone: 'Europe/Paris',
-          timings: result.event.timings,
-          updatedAt: result.event.updatedAt,
-          createdAt: result.event.createdAt,
-          locationUid: null,
-          agendaUid: null,
-          accessibility: {
-            hi: false, mi: false, pi: false, sl: false, vi: false
-          },
-          fileKey: null,
-          age: {
-            min: null,
-            max: null
-          }
-        }
-      } );
+    let result;
+
+    before( async () => {
+
+      result = await svc.create( eventData );
+
+    } );
+
+
+    it( 'timings are stored in chronological order', () => {
+
+      try {
+
+        ( new Date( result.event.timings[ 0 ].begin ) ).getTime()
+
+          .should.equal( times.monday.getTime() );
+
+        ( new Date( result.event.timings[ 2 ].begin ) ).getTime()
+
+          .should.equal( times.wednesday.getTime() );
+
+      } catch ( e ) {
+
+        console.log( e );
+
+        should().ok();
+
+      }
+
+    } );
+
+    it( 'result contains valid, success, errors, transferedToLegacy and event keys', () => {
+
+      _.keys( result ).should.eql( [ 'event', 'valid', 'success', 'errors', 'transferedToLegacy' ] );
+
+    } );
+
+    it( 'an entry is added to db', done => {
 
       const con = mysql.createConnection( config.mysql );
 
@@ -303,21 +285,40 @@ describe( 'events - functional (server): create', function() {
         new Date( rows[ 0 ].updated_at ).toString().should.equal( result.event.updatedAt.toString() );
         new Date( rows[ 0 ].created_at ).toString().should.equal( result.event.createdAt.toString() );
 
+        con.end();
+
         done();
 
       } );
 
     } );
 
+    it( 'create can be done with callback response', done => {
+
+      svc.create( eventData, ( err, result ) => {
+
+        result.success.should.equal( true );
+
+        done();
+
+      } );
+
+    } );
+
+    it( 'if not provided links is an empty array', () => {
+
+      result.event.links.should.eql( [] );
+
+    } );
+
   } );
 
-  it( 'create the most complete event', done => {
+  describe( 'fully defined event', () => {
 
-    svc.create( {
+    const eventData = {
       title: {
         fr : 'Un titre'
       },
-      slug: 'un-titre',
       ownerUid: 123,
       locationUid: 789,
       draft: false,
@@ -362,16 +363,33 @@ describe( 'events - functional (server): create', function() {
       age: {
         min: 2,
         max:76
-      }
-    }, ( err, result ) => {
+      },
+      links: [ {
+        type: 'oembed',
+        link: 'https://someoembeddablelink.com',
+        data: {
+          anything: 'goes here'
+        }
+      } ]
+    };
 
-      should( err ).equal( null );
+    let result;
 
-      result.success.should.equal( true );
+    before( async () => {
 
-      result.event.should.eql( {
-        slug: 'un-titre',
-        uid: result.event.uid,
+      result = await svc.create( eventData );
+
+    } );
+
+    it( 'slug is derived from title', () => {
+
+      result.event.slug.should.equal( 'un-titre' );
+
+    } );
+
+    it( 'title, description, longDescription, conditions, keywords of event are given in response', () => {
+
+      _.pick( result.event, [ 'title', 'description', 'longDescription', 'conditions', 'keywords' ] ).should.eql( {
         title: {
           fr: 'Un titre'
         },
@@ -386,204 +404,60 @@ describe( 'events - functional (server): create', function() {
         },
         keywords: { 
           fr: [ 'Des', 'mots', 'clés' ]
-        },
-        image: {
-          filename: 'image.jpg',
-          credits: 'Cé moi kai pri la foto',
-          base: '//openagendatst.s3.amazonaws.com/',
-          size: {
-            height: null,
-            width: null
-          },
-          variants: []
-        },
-        draft: 0,
-        private: 0,
-        references: [ 1, 2, 3 ],
-        timezone: 'Europe/Paris',
-        timings: [ {
-          begin: result.event.timings[ 0 ].begin,
-          end: result.event.timings[ 0 ].begin,
-        } ],
-        updatedAt: result.event.updatedAt,
-        createdAt: result.event.createdAt,
-        locationUid: 789,
-        agendaUid: null,
-        accessibility: {
-          mi: true,
-          hi: true,
-          pi: false,
-          vi: false,
-          sl: false
-        },
-        fileKey: null,
-        age: {
-          min: 2,
-          max: 76
-        },
-        registration: [
-          '018436269',
-          'email@site.com',
-          'https://website.com'
-        ]
+        }
       } );
-
-      done();
 
     } );
 
-  } );
 
-  it( 'create the most complete event and include internal data in result', done => {
+    it( 'accessibility is a set of booleans', () => {
 
-    svc.create( {
-      title: {
-        fr : 'Un titre'
-      },
-      slug: 'un-titre',
-      ownerUid: 123,
-      creatorUid: 456,
-      agendaUid: 789,
-      locationUid: 101112,
-      draft: false,
-      description: {
-        fr: 'Une description'
-      },
-      longDescription: {
-        fr: 'Une description longue'
-      },
-      keywords: {
-        fr: [ 'Des', 'mots', 'clés' ]
-      },
-      conditions: {
-        fr: 'Etre vivant'
-      },
-      registration: [
-        '018436269',
-        'email@site.com',
-        'https://website.com'
-      ],
-      image: {
-        filename: 'image.jpg',
-        credits: 'Cé moi kai pri la foto',
-        base: '//openagendatst.s3.amazonaws.com/',
-        size: {
-          height: null,
-          width: null
-        },
-        variants: []
-      },
-      accessibility: {
+      result.event.accessibility.should.eql( {
         mi: true,
-        hi: true
-      },
-      fileKey: null,
-      timezone: 'Europe/Paris',
-      timings: [ {
-        begin: new Date(),
-        end: new Date()
-      } ],
-      age: {
-        min: 2,
-        max:76
-      }
-    }, { internal: true }, ( err, result ) => {
-
-      should( err ).equal( null );
-
-      result.success.should.equal( true );
-
-      result.event.should.eql( {
-        id: 1, // this is an internal field
-        slug: 'un-titre',
-        uid: result.event.uid,
-        ownerUid: 123, // this too
-        creatorUid: 456, // and this
-        agendaUid: 789,
-        title: {
-          fr: 'Un titre'
-        },
-        description: {
-          fr: 'Une description'
-        },
-        longDescription: {
-          fr: 'Une description longue'
-        },
-        keywords: { 
-          fr: [ 'Des', 'mots', 'clés' ]
-        },
-        conditions: {
-          fr: 'Etre vivant'
-        },
-        image: {
-          filename: 'image.jpg',
-          credits: 'Cé moi kai pri la foto',
-          base: '//openagendatst.s3.amazonaws.com/',
-          size: {
-            height: null,
-            width: null
-          },
-          variants: []
-        },
-        draft: 0,
-        private: 0,
-        references: [],
-        timezone: 'Europe/Paris',
-        timings: [ {
-          begin: result.event.timings[ 0 ].begin,
-          end: result.event.timings[ 0 ].begin,
-        } ],
-        updatedAt: result.event.updatedAt,
-        createdAt: result.event.createdAt,
-        deletedAt: null,
-        locationUid: 101112,
-        accessibility: {
-          mi: true,
-          hi: true,
-          pi: false,
-          vi: false,
-          sl: false
-        },
-        fileKey: null,
-        age: {
-          min: 2,
-          max: 76
-        },
-        registration: [
-          '018436269',
-          'email@site.com',
-          'https://website.com'
-        ]
+        hi: true,
+        pi: false,
+        vi: false,
+        sl: false
       } );
-
-      done();
 
     } );
 
-  } );
+    it( 'by default, event is public', () => {
 
-  it( 'can return a promise if no callback is fed', async () => {
+      result.event.private.should.equal( 0 );
 
-    let result = await svc.create( {}, { draft: true } );
+    } );
 
-    result.event.draft.should.equal( 1 );
+    it( 'by default, event is non-draft', () => {
 
-  } );
+      result.event.draft.should.equal( 0 );
 
-  it( 'when create is not protected, updatedAt and createdAt timestamps can be explicited', async () => {
+    } );
 
-    const createdAt = new Date( '1981-02-28T03:00:00.000Z' );
+    it( 'if specified in options, internal evnt data is provided in response', async () => {
 
-    const updatedAt = new Date( '2017-07-02T13:29:00.000Z' );
+      const nonInternalFields = _.keys( result.event );
 
-    let result = await svc.create( {
-      createdAt,
-      updatedAt
-    }, { draft: true, protected: false } );
+      const resultWithInternal = await svc.create( eventData, { internal: true } );
 
-    result.event.createdAt.getTime().should.equal( createdAt.getTime() );
+      const withInternal = _.keys( resultWithInternal.event );
 
-    result.event.updatedAt.getTime().should.equal( updatedAt.getTime() );
+      _.difference( withInternal, nonInternalFields ).should.eql( [ 
+        'id', 'ownerUid', 'creatorUid', 'deletedAt'
+      ] );
+
+    } );
+
+
+    it( 'links is returned in response as a list of objects', () => {
+
+      result.event.links.should.eql( [ { 
+        link: 'https://someoembeddablelink.com',
+        data: { anything: 'goes here' },
+        type: 'oembed' 
+      } ] );
+
+    } );
 
   } );
 

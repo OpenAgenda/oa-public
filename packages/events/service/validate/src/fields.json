@@ -162,6 +162,24 @@
       "max" : 122
     }
   },
+  "links" : {
+    "list" : true,
+    "fields" : {
+      "link" : {
+        "type" : "link",
+        "optional" : false
+      },
+      "data" : {
+        "type" : "pass"
+      },
+      "type" : {
+        "type" : "choice",
+        "options" : [ "oembed" ],
+        "optional" : false,
+        "unique" : true
+      }
+    }
+  },
   "updatedAt" : {
     "type" : "date",
     "optional" : false,

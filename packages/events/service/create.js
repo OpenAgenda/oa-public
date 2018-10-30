@@ -64,6 +64,8 @@ async function createPromise( data, options ) {
 
   const cleanOptions = cleanCreateOptions( options );
 
+  if ( !config ) throw new Error( 'Service has not been initialized' );
+
   const { interfaces } = config;
 
   // clean given data
