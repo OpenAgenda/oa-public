@@ -118,7 +118,14 @@ module.exports = [
   {
     db: 'references',
     obj: 'references',
-    type: 'json'
+    type: 'json',
+    list: false
+  },
+  {
+    db: 'links',
+    obj: 'links',
+    type: 'json',
+    list: false
   },
   {
     db: 'file_key',

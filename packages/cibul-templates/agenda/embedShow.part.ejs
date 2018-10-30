@@ -1,8 +1,8 @@
 <% if ( !total ) { %>
 <% if ( ( passed === true ) && !hasSearchQuery ) { %>
-    <p class="text-center"><%- __( 'There are no upcoming events published in this agenda.' ) %></p>
+    <p class="text-center"><%- __( 'noResultForSearch' ) %></p>
 <% } else { %>
-    <p class="text-center"><%= __( 'There are no matching events. Please widen your search.' ) %></p>
+    <p class="text-center"><%= __( 'noResultForSearchPleaseWiden' ) %></p>
 <% } %>
 <% } else { %>
 

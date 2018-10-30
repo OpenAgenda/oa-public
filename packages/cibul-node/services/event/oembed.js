@@ -67,7 +67,7 @@ function _processLinks( id, cb ) {
 
   cbm.events().get( { id }, function( err, event ) {
 
-    if ( err || !event ) {
+    if ( err || !event ) {
 
       log( 'error', err || 'no event could be loaded' );
 
@@ -111,7 +111,7 @@ function _processLink( links ) {
 
   return function( processedLink, cb ) {
 
-    var res, linksItem;
+    let res, linksItem;
 
     if ( _isImage( processedLink.link ) ) {
 
@@ -131,7 +131,7 @@ function _processLink( links ) {
 
     }
 
-    if ( processedLink.code ) {
+    if ( processedLink.code ) {
 
       log( 'code is already in hand, bypassing request');
 

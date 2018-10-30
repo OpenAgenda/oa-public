@@ -15,6 +15,10 @@ function mergeAll( ...args ) {
 
 function merge( mergedIn, mergeWith ) {
 
+  if ( !_.get( mergeWith, 'fields' ) ) return mergedIn;
+
+  if ( !_.get( mergedIn, 'fields' ) ) return mergeWith;
+
   return _.assign( {}, mergedIn, { 
     fields: mergeWith.fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
 

@@ -313,4 +313,33 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
   } );
 
+
+  it( 'null schemas are ignored', () => {
+
+    const schema = {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    }
+
+    merge( null, schema ).should.eql( {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    } );
+
+    merge( schema, null ).should.eql( {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    } );
+
+  } );
+
 } );

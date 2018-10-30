@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
@@ -19,7 +21,7 @@ module.exports = async ( agenda, user, current, posted ) => {
    * This is why member is first created when needed with the email of the user account.
    */
 
-   try {
+  try {
 
     const agendaMembers = {
       get: promisify( members( agenda.id ).get ),
@@ -35,7 +37,9 @@ module.exports = async ( agenda, user, current, posted ) => {
 
     if ( !isMember ) {
 
-      await agendaMembers.create( _.set( stakeholderData, { email: { $set: req.user.email } } ) );
+      await agendaMembers.create( ih( stakeholderData, { email: { 
+        $set: user.email 
+      } } ) );
 
     }
 

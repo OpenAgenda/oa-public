@@ -1,5 +1,6 @@
 {
   "layout" : "embedLayout/main",
+  "labels": "event/show",
   
   "oaeCss" : {
     "event-embed" : "css/embed-style.scss",

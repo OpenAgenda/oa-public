@@ -12,16 +12,16 @@
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content">
         <div class="row filters cbpgft" data-cbctl="<%= agenda.uid %><% if (typeof embedUid !== 'undefined') { %>/<%= embedUid %><% } %>|<%= lang %><%- fb ? '|bs' : '' %>"></div>
 <% if ( total === 1 ) { %>
-        <p class="total-count text-center"><%= __( '1 event' ) %></p>
+        <p class="total-count text-center"><%= __( 'countEvent' ) %></p>
 <% } else if ( total > 1 ) { %>
-        <p class="total-count text-center"><%= __( '%total% events', { '%total%' : total } ) %></p>
+        <p class="total-count text-center"><%= __( 'countEvents', { '%total%' : total } ) %></p>
 <% } %>
       </section>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content js_list_content">
         <% include ./embedShow.part.ejs %>
       </section>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content text-center">
-        <span class="load-next js_load_next"><%= __( 'load more' ) %></span>
+        <span class="load-next js_load_next"><%= __( 'loadMore' ) %></span>
       </section>
     </div>
   </div>

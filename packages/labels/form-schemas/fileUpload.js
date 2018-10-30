@@ -21,10 +21,6 @@ module.exports = {
     en: 'Upload ongoing',
     fr: 'Chargement en cours'
   },
-  remove: {
-    en: 'Remove the file',
-    fr: 'Supprimer le fichier'
-  },
   or: {
     en: 'OR',
     fr: 'OU'
