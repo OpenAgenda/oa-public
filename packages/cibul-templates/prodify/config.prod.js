@@ -54,9 +54,7 @@ module.exports = ( { entry, output } ) => ( {
         cache: true,
         parallel: true,
         uglifyOptions: {
-          compress: {
-            warnings: false
-          },
+          compress: false,
           mangle: true,
           fromString: true
         }
