@@ -1,14 +1,14 @@
 "use strict";
 
-const c = require( './contributionTypes' );
+var c = require( './contributionTypes' );
 
-const s = require( './eventStates' );
+var s = require( './eventStates' );
 
 module.exports = {
-  title: { 
-    type: 'text', 
+  title: {
+    type: 'text',
     min: 2,
-    max: 255, 
+    max: 255,
     optional: false
   },
   description: {

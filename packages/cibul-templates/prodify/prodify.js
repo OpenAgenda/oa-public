@@ -4,6 +4,8 @@ var ugly = require( 'uglify-js' ),
 
   path = require( 'path' ),
 
+  util = require( 'util' ),
+
   files = require( './files.js' ).files, // ye olde prodify reference
 
   destPath = require( './files.js' ).destPath,
@@ -50,8 +52,6 @@ var ugly = require( 'uglify-js' ),
 
   webpackConfigDev = require( './config.dev.js' ),
 
-  browserify = require( 'browserify' ),
-
   buildFilter = [],
 
   browserified = [],
@@ -71,7 +71,6 @@ var ugly = require( 'uglify-js' ),
       async.apply( prodifyCss, map, 'oaetCss', destOAETCssPath )
     ].concat( onlyCss ? [] : [
       async.apply( prodifyPublicTemplates, map ),
-      async.apply( prodifyTemplateJs, map ),
       async.apply( prodifyJs, map )
     ] ).concat( onlyCss ? _copyBsCss : [
       _copyBsCss,
@@ -419,7 +418,6 @@ var ugly = require( 'uglify-js' ),
 
     } );
 
-
   },
 
 
@@ -427,57 +425,78 @@ var ugly = require( 'uglify-js' ),
    * read template config, get js file if any, browserify, minify, write to prod folder
    */
 
-  prodifyTemplateJs = function ( map, cb ) {
-
-    if ( onlyCss ) return cb();
-
-    async.eachSeries( map, function ( mapItem, scb ) {
-
-      var templateName = typeof mapItem == 'string' ? mapItem : mapItem.uri;
-
-      if ( !templateName ) return scb();
-
-      getTemplateFilesToBrowserify( templateName, function ( err, toBrowserify ) {
-
-        if ( err ) return scb( err );
-
-        async.eachSeries( toBrowserify, _browserify, scb );
-
-      } );
-
-    }, cb );
-
-  },
-
   prodifyJs = function ( map, cb ) {
 
     if ( onlyCss ) return cb();
 
-    async.eachSeries( map, function ( mapItem, scb ) {
+    const jsEntries = map.reduce( ( result, item ) => {
 
-      if ( !mapItem.js || !mapItem.prod ) {
+      if ( !item.js || !item.prod ) {
+        return result;
+      }
 
-        return scb();
+      if ( buildFilter.length && !buildFilter.some( v => path.basename( item.prod, '.js' ).includes( v ) ) ) {
+        return result;
+      }
+
+      result[ path.basename( item.prod, '.js' ) ] = path.join( __dirname, '..', item.js );
+
+      return result;
+
+    }, {} );
+
+    async.reduce( map, jsEntries, ( result, item, rcb ) => {
+
+      const templateName = typeof item == 'string' ? item : item.uri;
+
+      if ( !templateName ) {
+        return rcb( null, result );
+      }
+
+      getTemplateFilesToBrowserify( templateName, function ( err, toBrowserify ) {
+
+        if ( err ) return rcb( err );
+
+        toBrowserify.forEach( template => {
+
+          if (
+            buildFilter.length
+            && !buildFilter.some( v => path.basename( template.dest.name, '.js' ).includes( v ) )
+          ) {
+            return;
+          }
+
+          result[ path.basename( template.dest.name, '.js' ) ] = path.join(
+            __dirname,
+            template.src.path,
+            template.src.name
+          );
+
+        } );
+
+        rcb( null, result );
+
+      } );
+
+    }, ( err, entry ) => {
+
+      if ( err ) {
+
+        return cb( err );
 
       }
 
-      var paths = { src: {}, dest: {} },
+      log( 'browserificationization', entry );
 
-        path = mapItem.js.split( '/' );
+      _build( {
+        entry,
+        output: {
+          filename: '[name].js',
+          path: destPath
+        }
+      }, cb );
 
-      paths.dest.path = mapItem.prod.split( '/' );
-
-      paths.src.name = path.pop();
-
-      paths.src.path = '../' + path.join( '/' );
-
-      paths.dest.name = paths.dest.path.pop();
-
-      paths.dest.path = destPath + paths.dest.path.join( '/' );
-
-      _browserify( paths, scb );
-
-    }, cb );
+    } );
 
   },
 
@@ -505,28 +524,9 @@ var ugly = require( 'uglify-js' ),
 
   },
 
-  _browserify = function ( paths, cb ) {
+  _build = function ( options, cb ) {
 
-    if ( browserified.indexOf( paths.dest.path + paths.dest.name ) !== -1 ) {
-
-      return cb();
-
-    }
-
-    if ( buildFilter.length && !buildFilter.some( v => paths.dest.name.indexOf( v ) !== -1 ) ) {
-
-      return cb();
-
-    }
-
-    browserified.push( paths.dest.path + paths.dest.name );
-
-
-    log( 'browserificationization %s', path.join( paths.dest.path, paths.dest.name ) );
-
-    // run webpack
-
-    var compiler = webpack( production ? webpackConfigProd( paths ) : webpackConfigDev( paths ) );
+    var compiler = webpack( production ? webpackConfigProd( options ) : webpackConfigDev( options ) );
 
     const compileFn = watch ? compiler.watch.bind( compiler, {} ) : compiler.run.bind( compiler );
 
@@ -550,14 +550,13 @@ var ugly = require( 'uglify-js' ),
 
     } );
 
-
   },
 
   _templateJsPath = function ( name ) {
 
     var paths = {
       src: {},
-      dest: { path: destPath }
+      dest: { path: path.join( destPath ) }
     };
 
     // determine name of template js file
