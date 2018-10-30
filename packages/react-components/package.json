@@ -1,14 +1,13 @@
 {
   "name": "@openagenda/react-components",
-  "version": "2.0.8",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "prepublish": "yarn build",
     "build": "rimraf build && babel components -d build -s",
     "preserve": "yarn build",
-    "serve": "node test/app",
-    "start": "nodemon --ignore build --ext js,jsx --exec 'npm run serve'"
+    "start": "start-storybook -p 3000 -c .storybook"
   },
   "author": "",
   "license": "ISC",
@@ -26,7 +25,7 @@
   },
   "devDependencies": {
     "@openagenda/bs-templates": "^2.0.78",
-    "@openagenda/test-app": "^2.0.2",
+    "@storybook/react": "^3.4.11",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.14.0",
     "babel-loader": "^6.2.4",

@@ -7,6 +7,8 @@ if ( module.hot ) module.hot.accept();
 
 import EventForm from './';
 
+import eventReferences from './fields/references';
+
 console.log( '***** CHANGE ******' );
 
 class Main extends Component {
@@ -20,9 +22,10 @@ class Main extends Component {
             fields: [ {
               field: 'networkfield',
               label: {
-                fr: 'Champ de réseau',
-                en: 'Network field'
+                fr: 'Champ multilingue de réseau',
+                en: 'Multilingual Network field'
               },
+              languages: true,
               fieldType: 'text'
             } ]
           }, {
@@ -36,14 +39,13 @@ class Main extends Component {
                 en: 'Agenda field'
               },
               fieldType: 'text'
+            }, {
+              field: 'references',
+              fieldType: 'abstract'
             } ]
           } ]}
-          locationRes={{
-            index: '/locations',
-            geocode: '/locations/geocode',
-            set: '/locations',
-            remove: '/locations/remove'
-          }}
+          locationRes="locations"
+          referencesRes="/references"
           lang="fr"
           classNames={{
             fieldsCanvas: 'padding-all-md wsq',
@@ -54,8 +56,11 @@ class Main extends Component {
             title: {
               fr: 'Inauguration d\'un formulaire'
             },
-            locationUid: 93105902,
-            accessibility: { hi: true, sl: true }
+            location: {
+              uid: 93105902
+            },
+            accessibility: { hi: true, sl: true },
+            references: [ 45527593 ]
           }}
         />
       </div>

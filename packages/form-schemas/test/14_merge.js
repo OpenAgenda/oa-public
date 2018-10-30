@@ -153,6 +153,35 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
   } ); 
 
+  it( 'merge can render optional field non-optional', () => {
+
+    const schema = {
+      fields: [ {
+        "field" : "image",
+        "fieldType" : "text",
+        "label" : "Image",
+        "optional" : true
+      }, {
+        "field" : "imageCredits",
+        "fieldType" : "text",
+        "optional" : true,
+        "label" : "Image credits",
+        "enableWith" : "image"
+      } ]
+    };
+
+    const abstract = {
+      fields: [ {
+        "field" : "imageCredits",
+        "fieldType" : "abstract",
+        "optional" : false
+      } ]
+    };
+
+    merge( schema, abstract ).fields.filter( f => f.field === 'imageCredits' )[ 0 ].optional.should.equal( false );
+
+  } );
+
   it( 'merge can relabel fields', () => {
 
     const schema = {
@@ -208,6 +237,78 @@ describe( 'unit - assigning schema properties to another schema', function() {
         "placeholder" : null,
         "sub" : null
       } ]
+    } );
+
+  } );
+
+
+  it( 'an abstract field is maintained as abstract as long as no field with the same name is added to the merge', () => {
+
+    const schema = {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    }
+
+    const abstract = {
+      fields: [ {
+        field: 'references',
+        fieldType: 'abstract',
+        label: 'Références'
+      } ]
+    };
+
+    merge( schema, abstract ).should.eql( { 
+      fields: [ { 
+        field: 'references',
+        fieldType: 'abstract',
+        label: 'Références' 
+      }, {
+        field: 'title', 
+        fieldType: 'text',
+        label: 'Titre' 
+      } ] 
+    } );
+
+  } );
+
+
+  it( 'all values of an abstract field trickle down to merge', () => {
+
+    const schema = {
+      "fields": [
+        {
+          field: 'references',
+          label: 'Evénements liés',
+          fieldType: 'references',
+          suggest: false,
+          related: [ 'title', 'description', 'location' ],
+          res: '/references'
+        }
+      ]
+    };
+
+    const abstract = {
+      fields: [
+        {
+          field : 'references',
+          fieldType: 'abstract',
+          suggest : true
+        }
+      ]
+    };
+
+    merge( schema, abstract ).should.eql( {
+      fields: [ {
+        field: 'references',
+        label: 'Evénements liés',
+        fieldType: 'references',
+        suggest: true,
+        related: [ 'title', 'description', 'location' ],
+        res: '/references' 
+      } ] 
     } );
 
   } );

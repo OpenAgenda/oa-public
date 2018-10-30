@@ -123,17 +123,19 @@ module.exports = createReactClass({
           multiple={false}
           name={ this.props.name }
           onDrop={ this.onUploadStart } >
-          <button className={ this.state.loading ? 'btn btn-primary loading-file' : 'btn btn-primary' }>
-            <label>{ !this.props.value || this.state.error ? labels.upload[ this.props.lang ] : labels.replace[ this.props.lang ] }</label>
-            { this.state.loading ? <Spinner mode="inline" options={{
-              color: '#fff',
-              width: 2,
-              length: 2,
-              radius: 5
-            }} /> : null }
-          </button>
-          <div className="margin-v-xs">
-            <label className="control-label">{this.getBottomLabel()}</label>
+          <div className="margin-top-lg">
+            <button className={ this.state.loading ? 'btn btn-primary loading-file' : 'btn btn-primary' }>
+              <label>{ !this.props.value || this.state.error ? labels.upload[ this.props.lang ] : labels.replace[ this.props.lang ] }</label>
+              { this.state.loading ? <Spinner mode="inline" options={{
+                color: '#fff',
+                width: 2,
+                length: 2,
+                radius: 5
+              }} /> : null }
+            </button>
+            <div className="margin-v-xs">
+              <label className="control-label">{this.getBottomLabel()}</label>
+            </div>
           </div>
         </Dropzone>
         <span>Fichiers acceptés: { '.' + [].concat( this.props.extension ).join( ', .' ) }</span>

@@ -32,5 +32,9 @@ module.exports = {
   acceptedExtensions: {
     fr: 'Fichiers acceptés',
     en: 'Accepted files'
+  },
+  remove: {
+    fr: 'Supprimer',
+    en: 'Delete'
   }
 }

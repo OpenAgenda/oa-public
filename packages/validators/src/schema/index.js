@@ -72,11 +72,7 @@ function schema( options ) {
 
       } catch ( errs ) {
 
-        if ( !_.isArray( errs ) ) {
-
-          throw errs;
-
-        }
+        if ( !_.isArray( errs ) ) throw errs;
 
         errors = errors.concat( errs.map( e => {
 

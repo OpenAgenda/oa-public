@@ -76,6 +76,7 @@ window.oaEventForm = function( options ) {
       custom= {params.custom}
       customRes={params.customRes}
       locationRes={params.locationRes}
+      enableGeocode={params.enableGeocode}
       referenceRes={params.referenceRes}
       categories={params.categories}
       categorySet={params.categorySet}

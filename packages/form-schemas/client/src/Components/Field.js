@@ -70,6 +70,7 @@ module.exports = class Field extends Component {
         value={value}
         error={error}
         onChange={onChange}
+        relatedValues={relatedValues}
       />
       {hasMaxCounter ? <FieldCounter value={value} max={field.max}/> : null }
       { !isMultilingual ? <Sub label={field.sub} error={error}/> : null }

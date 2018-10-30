@@ -25,3 +25,7 @@ In a bootstrap environment, lightbox display is handled by the bsLayout/modalPar
 
     mp( elem, { html: 'fdqfdsq' } ); // if you know what to load in the modal
 
+
+## Pre-load spin
+
+Wherever layout.js is executed, add a `js_preload_spin` class to a div to load it with a spinner. This is useful to bridge the gap between the moment a canvas is loaded and the moment the app that is then loaded comes to occupy it.

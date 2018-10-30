@@ -44,5 +44,29 @@ module.exports = {
   suggestionResultTitle: {
     fr: 'Suggestions d\'événements similaires',
     en: 'Suggested similar events'
+  },
+  nothingToSuggestTitle: {
+    fr: 'Evénements similaires',
+    en: 'Similar events'
+  },
+  nothingToSuggest: {
+    fr: 'Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!',
+    en: 'Similar events can only be loaded if you have already filled the event form'
+  },
+  noSuggestionsTitle: {
+    fr: 'Evénements similaires',
+    en: 'Similar events'
+  },
+  noSuggestions: {
+    fr: 'Aucun événement similaire n\'a été trouvé',
+    en: 'No similar event was found'
+  },
+  noOtherSuggestionsTitle: {
+    fr: 'Evénements similaires',
+    en: 'Similar events'
+  },
+  noOtherSuggestions: {
+    fr: 'Aucun autre événement similaire n\'a été trouvé',
+    en: 'No other similar event was found'
   }
 }

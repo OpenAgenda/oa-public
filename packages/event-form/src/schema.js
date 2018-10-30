@@ -8,13 +8,22 @@ const eventValidators = {
   accessibility: require( './validators/accessibility' ),
   keywords: require( './validators/keywords' ),
   timings: require( './validators/timings' ),
-  locationUid: require( './validators/locationUid' ),
-  languages: require( './validators/languages' )
+  location: require( './validators/location' ),
+  languages: require( './validators/languages' ),
+  references: require( './validators/references' )
 }
 
 const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
-module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => {
+const eventReferencesField = require( './fields/references' );
+
+module.exports = ( {
+  locationRes, 
+  referencesRes,
+  languages, 
+  fileStore, 
+  schemaExtensions 
+} ) => {
 
   const eventSchema = {
     custom: eventValidators,
@@ -165,8 +174,8 @@ module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => 
         en: 'Accessibility'
       }
     }, {
-      field: 'locationUid',
-      fieldType: 'locationUid',
+      field: 'location',
+      fieldType: 'location',
       optional: false,
       label: {
         fr: 'Lieu',
@@ -180,13 +189,7 @@ module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => 
         fr: 'Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur \'Créer un lieu\'',
         en: 'If no location matches the name, add a new location by clicking on \'Create a new location\''
       },
-      res: _.assign( {
-        index: '#locations',
-        geocode: '#locations/geocode',
-        insee: '#locations/insee',
-        set: '#locations',
-        remove: '#locations/remove'
-      }, locationRes || {} )
+      res: locationRes
     }, {
       field: 'timings',
       fieldType: 'timings',
@@ -204,6 +207,19 @@ module.exports = ( { locationRes, languages, fileStore, schemaExtensions } ) => 
 
   if ( !_.isArray( schemaExtensions ) ) return eventSchema;
 
+  if ( _hasReferencesField( schemaExtensions ) ) {
+
+    eventSchema.fields.push( eventReferencesField( { res: referencesRes } ) );
+
+  }
+
   return merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+
+}
+
+function _hasReferencesField( schemaExtensions ) {
+
+  return !!_.flatten( schemaExtensions.map( s => s.fields ) )
+    .filter( f => f.field === 'references' ).length;
 
 }

@@ -23,7 +23,8 @@ function mapValuesToValidators( fields, values ) {
     validator: _makeValidator(
       _extractType( _.get( fields, fieldName ) ),
       fieldName,
-      _.get( fields, fieldName ) // options
+      _.get( fields, fieldName ), // options
+      values
     ),
     value: _extractValue( _.get( values, fieldName ), values, fields[ fieldName ] )
   } ) );
@@ -42,7 +43,7 @@ function _extractValue( value, values, fieldOptions = {} ) {
 }
 
 
-function _makeValidator( type, field, options ) {
+function _makeValidator( type, field, options, values ) {
 
   let validatorOptions = _.extend( { field }, options );
 
@@ -52,7 +53,21 @@ function _makeValidator( type, field, options ) {
 
   }
 
-  return registeredValidators[ type ]( validatorOptions );
+  if ( validatorOptions.enableWith && [ undefined, null ].includes( _.get( values, validatorOptions.enableWith ) ) ) {
+
+    validatorOptions.optional = true;
+
+  }
+
+  const validate = registeredValidators[ type ]( validatorOptions );
+
+  if ( typeof validate !== 'function' ) {
+
+    throw new Error( 'There is no registered validator for field type ' + type );
+
+  }
+
+  return validate;
 
 }
 

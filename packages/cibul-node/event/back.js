@@ -92,11 +92,11 @@ const routes = {
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     legacyAgendaSvc.mw.load( 'uid' ),
     ( req, res, next ) => {
-
+      
       req.agendaId = req.agenda.id;
-
+    
       next();
-
+    
     },
     _loadAdminOrModerator,
     eventReferences.mw.events,

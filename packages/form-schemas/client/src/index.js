@@ -135,7 +135,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldErrors( field, value ) {
+  getFieldErrors( field, value, impactedFields = [] ) {
 
     const values = {};
 
@@ -143,7 +143,9 @@ export default class FormSchemaComponent extends Component {
 
     const { clean, errors } = this.sanitize( values );
 
-    return errors.filter( e => e.field === field );
+    const keepFields = impactedFields.concat( field );
+
+    return errors.filter( e => keepFields.includes( e.field ) );
 
   }
 
@@ -169,12 +171,22 @@ export default class FormSchemaComponent extends Component {
 
     } catch ( errors ) {
 
+      if ( !_.isArray( errors ) ) throw errors;
+
       // simpler to always keep errors as arrays.
       return { 
         clean: null, 
         errors: errors.map( e => {
 
           const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
+
+          if ( !field ) {
+
+            console.log( e );
+
+            throw new Error( 'did not find field matching validation error', e );
+
+          }
 
           return ih( e, {
             label: { $set: _.get( this.state.labels.errors, e.code, e.message ) },
@@ -202,16 +214,30 @@ export default class FormSchemaComponent extends Component {
 
     updateValues[ field ] = { $set: value };
 
+    const impactedFields = this._getFormSchema().getFields().filter( f => f.enableWith === field ).map( f => f.field );
+
     const updatedErrors = this.get( 'errors', [] )
-      .filter( e => e.field !== field )
-      .concat( this.getFieldErrors( field, value ) );
+      .filter( e => !impactedFields.concat( field ).includes( e.field ) ) // keep other errors
+      .concat( this.getFieldErrors( field, value, impactedFields ) )
 
     const isFileField = this._getFormSchema().getFileFields().map( f => f.field ).includes( field );
 
     const currentFiles = this.get( 'files', {} );
 
+    const filesUpdate = {};
+
+    if ( isFileField && value ) {
+
+      filesUpdate[ field ] = { $set: files };
+
+    } else if ( isFileField ) {
+
+      filesUpdate[ '$unset' ] = [ field ];
+
+    } 
+
     this.set( {
-      files: isFileField ? _.set( currentFiles, field, files ) : currentFiles,
+      files: ih( currentFiles, filesUpdate ),
       values: ih( this.get( 'values', {} ) || {}, updateValues ),
       errors: updatedErrors
     } );
@@ -239,7 +265,7 @@ export default class FormSchemaComponent extends Component {
 
     return <div className="oa-form">
       <div className={_.get( classNames, 'fieldsCanvas', '' ) }>
-        {this._getFormSchema().getFields().map( ( f, i ) => {
+        {this._getFormSchema().getFields().filter( f => f.display ).map( ( f, i ) => {
 
           const flatLabels = flatten( formSchemaLabels, lang );
 

@@ -21,6 +21,7 @@ const raw = [
   'legacyOccurrence.create.sql',
   'legacyEventEditor.create.sql',
   'legacyAgendaEvent.create.sql',
+  'legacyEventReference.create.sql',
   'legacyAgendaEventTag.create.sql',
   'legacyDeleted.create.sql',
   'legacyAgendaCategory.create.sql',

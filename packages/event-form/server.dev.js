@@ -9,6 +9,7 @@ const compiler = webpack( webpackConfig );
 const dev = express();
 
 const locationApp = require( './dev/locationApp' );
+const referencesApp = require( './dev/referencesApp' );
 
 const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
 
@@ -37,6 +38,8 @@ dev.get( '/', ( req, res ) => {
 } );
 
 dev.use( '/locations', locationApp );
+
+dev.use( '/references', referencesApp );
 
 dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
 

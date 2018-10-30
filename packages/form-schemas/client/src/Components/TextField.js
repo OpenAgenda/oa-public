@@ -1,5 +1,6 @@
 "use strict";
 
+import _ from 'lodash';
 import React, { Component } from 'react';
 
 module.exports = class TextField extends Component {
@@ -12,11 +13,13 @@ module.exports = class TextField extends Component {
 
   }
 
-  onChange( e, value ) {
+  onChange( e ) {
 
     e.preventDefault();
-    
-    this.props.onChange( e.target.value );
+
+    const value = e.target.value;
+
+    this.props.onChange( _.isString( value ) && !value.length ? null : value );
 
   }
 

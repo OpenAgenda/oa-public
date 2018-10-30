@@ -9,6 +9,8 @@ const agendaTags = require( '@openagenda/agenda-tags' );
 
 const ih = require( 'immutability-helper' );
 
+const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
+
 const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -551,6 +553,7 @@ function _formatEventItem( event, req, cb ) {
     city: inst.getCity().label,
     pricingInfo: inst.getPricingInfo(),
     ticketLink: inst.getTicketLink(),
+    registration: registration( inst.getTicketLink( true ) ),
     ticketLabel: getEventLabel( 'ticketingLink', req.lang ),
     interfaceLang: req.lang,
     actionLink: req.genUrl( 'agendaEventActionShow', {

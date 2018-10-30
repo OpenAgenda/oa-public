@@ -4,7 +4,7 @@ Project for sassing openagenda styles.
 
 To get started, run server.js, a tiny express server to serve rendered styles.
 
-so:
+So:
 
 npm install
 ln -s node_modules/font-awesome/fonts fonts

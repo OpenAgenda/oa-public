@@ -1,0 +1,258 @@
+[
+  {
+    "accessibility": {
+      "hi": true,
+      "mi": true,
+      "pi": true,
+      "sl": true,
+      "vi": true
+    },
+    "age": {
+      "max": null,
+      "min": null
+    },
+    "agenda": {
+      "createdAt": "2017-04-25T16:16:50.000Z",
+      "description": "Agenda des services de la ville de Genève",
+      "image": null,
+      "indexed": 0,
+      "official": 0,
+      "private": 0,
+      "slug": "agenda-test-vdg-services-ville",
+      "title": "Agenda Test - VdG - Services Ville",
+      "uid": 59896613,
+      "updatedAt": "2018-09-17T18:09:25.000Z",
+      "url": null
+    },
+    "agendaUid": 59896613,
+    "conditions": {},
+    "contributor": {
+      "name": "Laurent Baud",
+      "organization": "vdg",
+      "uid": 11374889
+    },
+    "country": {
+      "en": "Switzerland",
+      "fr": "Suisse"
+    },
+    "createdAt": "2018-08-22T15:37:38.000Z",
+    "dateRange": {
+      "ar": "الأحد ٢٦ أغسطس, 09:00",
+      "en": "Sunday 26 August, 09:00",
+      "fr": "Dimanche 26 août, 09h00"
+    },
+    "description": {
+      "fr": "cccc"
+    },
+    "draft": 0,
+    "fileKey": "87a3055f313546a197436aef895b78d5",
+    "html": {
+      "fr": "<p>sdfsdfsdfsfsf</p>\n"
+    },
+    "image": {
+      "base": "https://cibul.s3.amazonaws.com/",
+      "credits": null,
+      "filename": "event_titre-lb-test-sv_720727.jpg",
+      "size": {
+        "height": null,
+        "width": null
+      },
+      "variants": [
+        {
+          "filename": "evfevent_titre-lb-test-sv_720727.jpg",
+          "size": {
+            "height": null,
+            "width": null
+          },
+          "type": "full"
+        },
+        {
+          "filename": "evtbevent_titre-lb-test-sv_720727.jpg",
+          "size": {
+            "height": null,
+            "width": null
+          },
+          "type": "thumbnail"
+        }
+      ]
+    },
+    "keywords": {
+      "fr": []
+    },
+    "location": {
+      "access": {},
+      "address": "1203",
+      "city": "Geneva",
+      "countryCode": "CH",
+      "department": "Genève",
+      "description": {},
+      "district": null,
+      "image": null,
+      "imageCredits": null,
+      "insee": null,
+      "latitude": 46.205998,
+      "links": [],
+      "longitude": 6.121901,
+      "name": "Parc des Franchises",
+      "phone": null,
+      "postalCode": "1203",
+      "region": "Geneva",
+      "slug": "parc-des-franchises247",
+      "state": 1,
+      "timezone": "Europe/Zurich",
+      "uid": 75593357,
+      "updatedAt": "2017-12-13T08:40:31.000Z"
+    },
+    "locationUid": 75593357,
+    "longDescription": {
+      "fr": "sdfsdfsdfsfsf"
+    },
+    "private": 0,
+    "registration": [],
+    "slug": "titre-lb-test-sv",
+    "state": {
+      "code": 0,
+      "featured": false
+    },
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2018-08-26T07:00:00.000Z",
+        "end": "2018-08-26T10:00:00.000Z"
+      }
+    ],
+    "title": {
+      "fr": "titre LB test sv"
+    },
+    "uid": 87992346,
+    "updatedAt": "2018-08-22T15:37:40.000Z"
+  },
+  {
+    "accessibility": {
+      "hi": true,
+      "mi": true,
+      "pi": true,
+      "sl": true,
+      "vi": true
+    },
+    "age": {
+      "max": null,
+      "min": null
+    },
+    "agenda": {
+      "createdAt": "2017-04-25T16:16:50.000Z",
+      "description": "Agenda des services de la ville de Genève",
+      "image": null,
+      "indexed": 0,
+      "official": 0,
+      "private": 0,
+      "slug": "agenda-test-vdg-services-ville",
+      "title": "Agenda Test - VdG - Services Ville",
+      "uid": 59896613,
+      "updatedAt": "2018-09-17T18:09:25.000Z",
+      "url": null
+    },
+    "agendaUid": 59896613,
+    "conditions": {
+      "fr": "15 CHF : billet plein tarif / 10 CHF POUR: AVS, Chômage, Étudiants, Abonnés du Théâtre de Carouge / GRATUIR POUR : moins de 16 ans, Geneva pass, carte Raiffeisen, PMS, AMS, DIP Genevois, presse, ICOM, Résidents colognotes, etc.."
+    },
+    "contributor": {
+      "uid": 74295965
+    },
+    "country": {
+      "en": "Switzerland",
+      "fr": "Suisse"
+    },
+    "createdAt": "2017-09-18T15:22:22.000Z",
+    "dateRange": {
+      "ar": "السبت ٢٠ أكتوبر, 10:00",
+      "en": "Saturday 20 October, 10:00",
+      "fr": "Samedi 20 octobre, 10h00"
+    },
+    "description": {
+      "fr": "L'exposition marron"
+    },
+    "draft": 0,
+    "fileKey": null,
+    "html": {
+      "fr": "<p>blablabla</p>\n"
+    },
+    "image": {
+      "base": "https://cibul.s3.amazonaws.com/",
+      "credits": null,
+      "filename": "event_chauds-les-marrons_72550.jpg",
+      "size": {
+        "height": null,
+        "width": null
+      },
+      "variants": [
+        {
+          "filename": "evfevent_chauds-les-marrons_72550.jpg",
+          "size": {
+            "height": null,
+            "width": null
+          },
+          "type": "full"
+        },
+        {
+          "filename": "evtbevent_chauds-les-marrons_72550.jpg",
+          "size": {
+            "height": null,
+            "width": null
+          },
+          "type": "thumbnail"
+        }
+      ]
+    },
+    "keywords": {
+      "fr": []
+    },
+    "location": {
+      "access": {},
+      "address": "Rue des Rois 13, Genève",
+      "city": "Genève-Plainpalais",
+      "countryCode": "CH",
+      "department": "Genève",
+      "description": {},
+      "district": null,
+      "image": null,
+      "imageCredits": null,
+      "insee": null,
+      "latitude": 46.202419,
+      "links": [],
+      "longitude": 6.138002,
+      "name": "Cocott' Café - Semaine du Goût",
+      "phone": null,
+      "postalCode": "1204",
+      "region": "Genève",
+      "slug": "cocott-cafe-semaine-du-gout136_9170",
+      "state": 1,
+      "timezone": "Europe/Paris",
+      "uid": 3045038,
+      "updatedAt": "2017-05-25T14:17:21.000Z"
+    },
+    "locationUid": 3045038,
+    "longDescription": {
+      "fr": "blablabla"
+    },
+    "private": 0,
+    "registration": [],
+    "slug": "chauds-les-marrons",
+    "state": {
+      "code": 1,
+      "featured": false
+    },
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2018-10-20T08:00:00.000Z",
+        "end": "2018-10-20T11:00:00.000Z"
+      }
+    ],
+    "title": {
+      "fr": "chauds les marrons ! je modifie le titre 3"
+    },
+    "uid": 54191963,
+    "updatedAt": "2018-07-24T09:10:23.000Z"
+  }
+]

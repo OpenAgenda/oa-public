@@ -73,6 +73,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           write: 'contributor',
           read: null,
           optional: false,
+          display: true,
           min: null,
           max: null,
           options: [ {
@@ -110,7 +111,8 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           fieldType: "checkbox",
           "placeholder" : null,
           "origin" : "tags",
-          enableWith : null
+          enableWith : null,
+          related: []
         },
         {
           "field": "style-musical",
@@ -123,6 +125,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           "write": 'contributor',
           "read": null,
           "optional": true,
+          display: true,
           "options": [
             {
               "id": 5,
@@ -151,7 +154,8 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           ],
           "fieldType": "radio",
           "origin" : "tags",
-          enableWith : null
+          enableWith : null,
+          related: []
         }
       ],
       custom: null
@@ -197,6 +201,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         "write": "contributor",
         "read": null,
         "optional": false,
+        display: true,
         "options": [
           {
             "id": 1,
@@ -226,7 +231,8 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         "fieldType": "radio",
         "origin" : "categories",
         "sub" : null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } ]
     } );
 

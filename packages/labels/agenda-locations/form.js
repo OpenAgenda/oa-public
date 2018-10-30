@@ -41,6 +41,10 @@ module.exports = {
     fr: 'Annuler',
     en: 'Cancel'
   },
+  disabledGeocode: {
+    fr: 'La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte.',
+    en: 'The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.'
+  },
   name: {
     fr: 'Nom du lieu',
     en: 'Name of the location'

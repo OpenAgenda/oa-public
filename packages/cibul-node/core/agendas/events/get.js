@@ -10,6 +10,7 @@ const formSchemas = require( '@openagenda/form-schemas' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/get' );
 
 const getAgenda = require( '../utils/getAgenda' );
+const getNetwork = require( '../utils/getNetwork' );
 
 module.exports = async ( agendaUid, eventUid, options = {} ) => {
 
@@ -37,10 +38,24 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
 
   }
 
+  if ( networkUid ) {
+
+    const network = await getNetwork( networkUid );
+
+    const customData = await custom( _.get( network, 'formSchemaId' ) ).get( eventUid ); 
+
+    if ( customData ) {
+
+      _.assign( fetchedEvent, customData );
+
+    }
+
+  }
+
   return _.set( 
     cleanOptions.lang ? _flatten( fetchedEvent, cleanOptions.lang ) : fetchedEvent, 
     'agenda', 
-    _.pick( agenda, [ 'uid', 'slug', 'title', 'description', 'image', 'url' ] ) 
+    _.pick( agenda, [ 'uid', 'slug', 'title', 'description', 'image', 'url' ].concat( cleanOptions.internal ? [ 'id' ] : [] ) ) 
   );
 
 }

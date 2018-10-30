@@ -28,6 +28,7 @@ service.init( {
   interfaces: {
     setMember: require( './dev/setMember' ),
     setEvent: require( './dev/setEvent' ),
+    deleteDraftEvent: require( './dev/deleteDraftEvent' ),
     generateUniqueFileKey: require( './dev/generateUniqueFileKey' )
   }
 } )

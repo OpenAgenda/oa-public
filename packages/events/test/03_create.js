@@ -87,6 +87,7 @@ describe( 'events - functional (server): create', function() {
           },
           draft: 1,
           private: 0,
+          references: [],
           timezone: 'Europe/Paris',
           timings: [],
           updatedAt: result.event.updatedAt,
@@ -105,6 +106,7 @@ describe( 'events - functional (server): create', function() {
             max: null
           },
           registration: [],
+          references: [],
           fileKey: null
         },
         valid: true,
@@ -263,6 +265,7 @@ describe( 'events - functional (server): create', function() {
           draft: 0,
           private: 0,
           registration: [],
+          references: [],
           image: {
             filename: null,
             credits: null,
@@ -335,6 +338,7 @@ describe( 'events - functional (server): create', function() {
         'email@site.com',
         'https://website.com'
       ],
+      references: [ 1, 2, 3 ],
       image: {
         filename: 'image.jpg',
         credits: 'Cé moi kai pri la foto',
@@ -395,6 +399,7 @@ describe( 'events - functional (server): create', function() {
         },
         draft: 0,
         private: 0,
+        references: [ 1, 2, 3 ],
         timezone: 'Europe/Paris',
         timings: [ {
           begin: result.event.timings[ 0 ].begin,
@@ -522,6 +527,7 @@ describe( 'events - functional (server): create', function() {
         },
         draft: 0,
         private: 0,
+        references: [],
         timezone: 'Europe/Paris',
         timings: [ {
           begin: result.event.timings[ 0 ].begin,

@@ -18,9 +18,10 @@ export default connect(
   dispatch => ( {
     onCreateSuccess: ( values, response ) => dispatch( reducers.event.created( values, response ) ),
     onDidMount: () => dispatch( reducers.landing.evaluate( 'event' ) ),
-    onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) )
+    onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) ),
+    onDraftDelete: () => dispatch( reducers.event.deleteDraft() )
   } )
-)( ( { config, event, onCreateSuccess, onDidMount, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
+)( ( { config, event, onCreateSuccess, onDidMount, onDraftDelete, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
   
   <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
   
@@ -29,6 +30,7 @@ export default connect(
     schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
     locationRes={config.locationRes}
+    referencesRes={config.referencesRes}
     lang={config.lang} 
     values={event}
     onSubmitSuccess={onCreateSuccess}
@@ -39,6 +41,7 @@ export default connect(
     actionComponents={[ {
       position: 'bottom',
       Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
+        { _.get( event, 'draft' ) ? <button onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
         <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get( event, 'draft' ) ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
         <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
       </div>

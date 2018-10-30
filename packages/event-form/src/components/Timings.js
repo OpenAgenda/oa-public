@@ -20,13 +20,16 @@ module.exports = class TimingsComponent extends Component {
 
     return <TimingsPicker
         info={labels.noTiming}
-        lang={({ fr: 'fr-FR', en: 'en-US' })[ lang ]}
+        lang={({
+            fr: 'fr-FR', 
+            en: 'en-US' 
+        })[ lang ]}
         startTime="7:00"
         timings={(this.props.value || [] ).map( t => ( { start: t.begin, end: t.end } ) )}
         endTime="7:00"
         activeDays={[]}
         weekStartDay={1}
-        defaultDisplayWeekDay={new Date()}
+        defaultDisplayWeekDay={null}
         onTimingsChange={ timings => this.props.onChange( timings.map( t => ( { begin: t.start, end: t.end } ) ) )}
         readOnly={false}
         additionalLanguages={[]}

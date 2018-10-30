@@ -1,22 +1,20 @@
 "use strict";
 
-var express = require( 'express' );
+const express = require( 'express' );
+const fs = require( 'fs' );
+const reload = require( 'reload' );
 
-const app = express(),
+const app = express();
 
-  server = require( 'http' ).createServer( app ),
+const server = require( 'http' ).createServer( app );
 
-  templatesBase = __dirname + '/templates',
+const templatesBase = __dirname + '/templates';
 
-  recursiveListPaths = require( './scripts/recursiveListPaths' ),
+const recursiveListPaths = require( './scripts/recursiveListPaths' );
 
-  reload = require( 'reload' ),
+const renderEjs = require( './scripts/renderEjs' );
 
-  renderEjs = require( './scripts/renderEjs' ),
-
-  sassify = require( './scripts/sassify' ),
-
-  fs = require( 'fs' );
+const sassify = require( './scripts/sassify' );
 
 
 /**

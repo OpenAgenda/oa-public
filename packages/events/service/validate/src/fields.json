@@ -53,6 +53,10 @@
     "default" : [],
     "types" : [ "phone", "link", "email" ]
   },
+  "references" : {
+    "type" : "integer",
+    "list" : true
+  },
   "conditions" : {
     "type" : "multilingual",
     "max" : 255

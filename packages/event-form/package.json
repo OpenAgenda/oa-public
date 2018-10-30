@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-form",
-  "version": "1.1.20",
+  "version": "1.1.26",
   "main": "client/build/index.js",
   "scripts": {
     "start": "nodemon server.dev",
@@ -13,6 +13,7 @@
     "@openagenda/form-schemas": "^1.1.23",
     "@openagenda/labels": "^2.0.81",
     "@openagenda/react-components": "^2.0.8",
+    "@openagenda/react-form-components": "^2.0.16",
     "@openagenda/validators": "^2.0.8",
     "express": "^4.16.2",
     "jest": "^23.5.0",
@@ -20,6 +21,7 @@
     "lodash": "^4.17.10",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-click-outside": "tj/react-click-outside",
     "react-dom": "^16.2.0",
     "react-select": "^1.2.1",
     "react-tagsinput": "^3.19.0",
@@ -31,6 +33,7 @@
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.1",
     "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-lodash": "^3.3.2",
     "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
     "babel-plugin-transform-es3-property-literals": "^6.22.0",

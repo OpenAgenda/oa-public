@@ -137,10 +137,10 @@ const EditorComponent = createReactClass( {
 
         { search.display ? 
 
-            <div className={ displayDropdown ? 'search dropdown open' : 'search dropdown' }>
+            <div className={ displayDropdown ? 'search dropdown open' : 'search dropdown' }>
 
               <SearchField
-                loading={ search.searching }
+                loading={ search.searching }
                 threshold={ 3 }
                 value={ search.query }
                 name="search"
