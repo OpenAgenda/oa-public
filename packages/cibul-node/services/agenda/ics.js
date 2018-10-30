@@ -1,18 +1,18 @@
 "use strict";
 
-var eventSvc = require( '../event' ),
+const eventSvc = require( '../event' );
 
-limit = 600000;
+const limit = 600000;
 
 module.exports = streamIcsEvents;
 
 function streamIcsEvents( req, res, next ) {
 
-  var stream = req.agenda.searchStream( req.query.oaq ),
+  let stream = req.agenda.searchStream( req.query.oaq );
 
-  renderedHeader = false,
+  let renderedHeader = false;
 
-  size = 0;
+  let size = 0;
 
   res.writeHead( 200, {
     'Content-Type': 'text/calendar'
@@ -20,7 +20,7 @@ function streamIcsEvents( req, res, next ) {
 
   stream.on( 'data', data => {
 
-    var chunk = '';
+    let chunk = '';
 
     if ( !renderedHeader )  {
 
