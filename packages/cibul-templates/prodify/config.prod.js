@@ -1,8 +1,10 @@
 "use strict";
 
+
 const webpack = require( 'webpack' );
 const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
+const getCacheDir = require( './getCacheDir' );
 const ourOwnModules = require( './ourOwnModules.json' );
 
 module.exports = ( { entry, output } ) => ( {
@@ -22,7 +24,7 @@ module.exports = ( { entry, output } ) => ( {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: true,
+            cacheDirectory: getCacheDir( 'babel-loader' ),
             forceEnv: 'production'
           }
         }
@@ -51,12 +53,12 @@ module.exports = ( { entry, output } ) => ( {
   optimization: {
     minimizer: [
       new UglifyJsPlugin( {
-        cache: true,
-        parallel: true,
+        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
+        // parallel: true,
         uglifyOptions: {
-          compress: false,
+          compress: true,
           mangle: true,
-          fromString: true
+          // fromString: true
         }
       } )
     ]

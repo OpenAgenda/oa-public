@@ -8,4 +8,4 @@ coverage/
 .cache/
 
 /index.js
-/dist/index.js
+/client/dist/index.js

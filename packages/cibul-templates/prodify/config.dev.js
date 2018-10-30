@@ -2,6 +2,7 @@
 
 const webpack = require( 'webpack' );
 const ProgressBar = require( 'webpackbar' );
+const getCacheDir = require( './getCacheDir' );
 const ourOwnModules = require( './ourOwnModules.json' );
 
 
@@ -25,7 +26,7 @@ module.exports = ( { entry, output } ) => {
           use: {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
+              cacheDirectory: getCacheDir( 'babel-loader' ),
               forceEnv: 'development'
             }
           }
