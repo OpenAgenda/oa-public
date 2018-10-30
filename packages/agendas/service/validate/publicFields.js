@@ -1,7 +1,7 @@
 "use strict";
 
+// "var" is used here because this validator is required in front-end
 var c = require( './contributionTypes' );
-
 var s = require( './eventStates' );
 
 module.exports = {
