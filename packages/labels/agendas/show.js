@@ -71,6 +71,10 @@ module.exports = {
     en: 'There are no results for this search',
     fr: 'Pas de résultat pour cette recherche'
   },
+  noResultForSearchPleaseWiden: {
+    en: 'There are no matching events. Please widen your search.',
+    fr: 'Aucun événement trouvé. Veuillez élargir votre recherche.'
+  },
   noResultForSearchWithLink: {
     en: 'There are no results for this search. You can make a site-wide search from the page header, or %page%',
     fr: 'Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%'
@@ -110,6 +114,10 @@ module.exports = {
   countEvents: {
     en: '%count% events',
     fr: '%count% événements'
+  },
+  countEvent: {
+    en: '1 eveent',
+    fr: '1 événement'
   },
   countUpcomingEvents: {
     en: '%count% upcoming events',
