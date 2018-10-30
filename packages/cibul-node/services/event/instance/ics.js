@@ -1,14 +1,12 @@
 "use strict";
 
-const genUrl = require( '../../genUrl' ),
+const moment = require( 'moment' );
+const utils = require( '@openagenda/utils' );
 
-i18n = require( '../../../i18n/i18n' ),
+const genUrl = require( '../../genUrl' );
+const i18n = require( '../../../i18n/i18n' );
+const esc = utils.escape;
 
-utils = require( '@openagenda/utils' ),
-
-moment = require( 'moment' ),
-
-esc = utils.escape;
 
 module.exports = function( agenda, eData /* event data */, ev /* event instance */, lang, timingIndex ) {
 
