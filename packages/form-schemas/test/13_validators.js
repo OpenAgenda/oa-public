@@ -50,6 +50,42 @@ describe( 'deriving validators', () => {
 
   } );
 
+
+  it( 'FormScehma getSchema takes into account enableWith when defined', () => {
+
+    const fields = [ {
+      field: 'image',
+      label: 'Champ image',
+      fieldType: 'text'
+    }, {
+      field: 'imageCredits',
+      label: 'Crédits image',
+      fieldType: 'text',
+      enableWith: 'image',
+      optional: false
+    } ];
+
+    const s = getSchema( fields );
+
+    let errored = false;
+
+    try {
+
+      s();
+
+    } catch ( e ) {
+
+      console.log( e );
+
+      errored = true;
+
+    }
+
+    errored.should.equal( false );
+
+  } );
+
+
   it( 'FormSchema builds a schema based on list of field configurations', () => {
 
     const fields = [ {

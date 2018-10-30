@@ -5,6 +5,7 @@
   "fields": [ {
     "field": "pi",
     "optional": true,
+    "display" : true,
     "fieldType": "number",
     "read": "moderator",
     "write": "contributor",
@@ -18,6 +19,7 @@
     "placeholder" : null,
     "sub" : null,
     "origin" : "custom",
-    "enableWith" : null
+    "enableWith" : null,
+    "related" : []
   } ]
 }

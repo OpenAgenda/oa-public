@@ -40,7 +40,8 @@ module.exports = createReactClass( {
 
     return <LocationForm
       Header={this.renderHeader( formState.location ) }
-      location={ formState.location }
+      location={formState.location}
+      enableGeocode={this.props.enableGeocode}
       labels={ updateLabels }
       showToggler={ true }
       res={ this.props.res }

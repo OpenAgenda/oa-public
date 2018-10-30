@@ -18,6 +18,8 @@ module.exports = createReactClass( {
 
     location: PropTypes.object,
 
+    enableGeocode: PropTypes.bool,
+
     // agenda-specific settings for selector
     settings: PropTypes.object,
 
@@ -42,6 +44,7 @@ module.exports = createReactClass( {
 
     return {
       mode: 'create',
+      enableGeocode: true,
       settings: {
         eventForm: {
           detailed: false
@@ -160,6 +163,7 @@ module.exports = createReactClass( {
       settings={this.props.settings}
       detailedInfo={this.props.settings.eventForm && this.props.settings.eventForm.detailed}
       res={this.props.res}
+      enableGeocode={this.props.enableGeocode}
       lang={this.props.lang}
       onCancel={this.switchToSearch}
       onSuccess={this.onCreateSuccess}

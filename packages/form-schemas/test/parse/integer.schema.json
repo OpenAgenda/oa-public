@@ -5,6 +5,7 @@
   "fields": [ {
     "field": "participants",
     "optional": true,
+    "display" : true,
     "fieldType": "integer",
     "read": "moderator",
     "write": "contributor",
@@ -21,6 +22,7 @@
     "placeholder" : null,
     "sub" : null,
     "origin" : "custom",
-    "enableWith" : null
+    "enableWith" : null,
+    "related" : []
   } ]
 }

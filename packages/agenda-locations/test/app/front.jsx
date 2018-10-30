@@ -40,7 +40,8 @@ Wrapper = createReactClass( {
         region: 'Champagne-Ardenne',
         department: 'Aube'
       },
-      allowCreate: true
+      allowCreate: true,
+      //enableGeocode: true
     }
 
   },
@@ -122,6 +123,7 @@ Wrapper = createReactClass( {
       lang="fr"
       allowCreate={this.state.allowCreate}
       res={this.props.res}
+      enableGeocode={this.state.enableGeocode}
       onChange={this.onLocationChange}
       onChangeMode={this.onChangeLocationMode}
       disableChange={false} />
@@ -172,6 +174,7 @@ Wrapper = createReactClass( {
         detailedInfo={true}
         settings= {agendaTestSettings}
         lang="fr"
+        enableGeocode={this.state.enableGeocode}
         res={this.props.res} />
       </div>
 

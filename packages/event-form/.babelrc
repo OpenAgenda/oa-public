@@ -11,5 +11,8 @@
     } ],
     "react",
     "stage-0"
+  ],
+  "plugins" : [
+    "add-module-exports"
   ]
 }

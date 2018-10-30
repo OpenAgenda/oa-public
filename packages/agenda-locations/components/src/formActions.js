@@ -80,11 +80,12 @@ function actions( options ) {
 
 function initialize( props ) {
 
-  let state = {
+  const state = {
     location: {},
     autoGeocode: true,
     showGeocodeLink: false,
     geocodeLoading: false,
+    enableGeocode: props.enableGeocode,
     loadingError: false,
     errors: false,
     geocodeError: false,
@@ -96,7 +97,7 @@ function initialize( props ) {
 
   state.location = {};
 
-  for( let f in props.location ) {
+  for( const f in props.location ) {
 
     state.location[ f ] = props.location[ f ];
 
@@ -105,6 +106,13 @@ function initialize( props ) {
   if ( !state.location.countryCode ) {
 
     state.location.countryCode = props.settings && props.settings.defaultCountryCode ? props.settings.defaultCountryCode : 'FR';
+
+  }
+
+  if ( !state.enableGeocode && !state.location.latitude) {
+
+    state.location.latitude = 40.844954;
+    state.location.longitude = 4.289467;
 
   }
 
@@ -143,7 +151,7 @@ function initialize( props ) {
 
         if ( props.alternatives[ loadIndex ][ f ] !== 'undefined' ) {
 
-          state.activeAlternatives[ f ] = loadIndex;
+          state.activeAlternatives[ f ] = loadIndex;
 
           state.location[ f ] = props.alternatives[ loadIndex ].location[ f ];
 

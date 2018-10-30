@@ -18,9 +18,10 @@ const eventFormComponents = {
   registration: require( './components/Registration' ),
   keywords: require( './components/Keywords' ),
   timings: require( './components/Timings' ),
-  locationUid: require( './components/Location' ),
+  location: require( './components/Location' ),
   languages: require( './components/Languages' ),
-  accessibility: require( './components/Accessibility' )
+  accessibility: require( './components/Accessibility' ),
+  references: require( './components/References' )
 }
 
 const eventSchema = require( './schema' );
@@ -48,10 +49,10 @@ export default class EventForm extends Component {
 
     const updates = {};
 
-    const changedLanguages = values ? identifyLanguageChanges( 
-      this.state.values.languages,
-      values.languages
-    ).changedLanguages : [];
+    const changedLanguages = identifyLanguageChanges(
+      _.get( this.state, 'values.languages' ), // before
+      _.get( values, 'languages' ) // now
+    );
 
     if ( changedLanguages.length ) {
 
@@ -88,6 +89,7 @@ export default class EventForm extends Component {
   buildEventSchema() {
 
     return eventSchema( {
+      referencesRes: this.props.referencesRes,
       locationRes: this.props.locationRes,
       languages: this.state.values.languages,
       fileStore: this.props.fileStore,
@@ -116,7 +118,7 @@ export default class EventForm extends Component {
       onChange={this.onChange}
       schema={this.buildEventSchema()}
       classNames={ih( classNames, {
-        field: { $set: 'padding-v-sm' }
+        field: { $set: 'padding-v-sm form-group' }
       } )}
       actionComponents={actionComponents}
       onSubmitSuccess={onSubmitSuccess}

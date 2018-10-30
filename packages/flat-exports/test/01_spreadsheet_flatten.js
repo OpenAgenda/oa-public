@@ -13,7 +13,7 @@ describe( 'flat-exports - unit - spreadsheet_flatten', () => {
       lang: 'fr',
       languages: [ 'fr', 'en', 'it' ],
       labels
-    } );
+    } );
 
     event.should.be.ok;
 

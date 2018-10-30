@@ -21,7 +21,7 @@ module.exports = {
   // defaults at true 
   optimization: { minimize: true },
   entry: [
-    'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
+    //'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
     './client/src/index.js'
   ],
   output: {

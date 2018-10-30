@@ -88,6 +88,15 @@ function validate( value, options = {} ) {
 
   }
 
+
+  // enableWith tells validator it is active if field specified has a value.
+  // if set, the field must be part of related fields
+  if ( clean.enableWith && !clean.related.includes( clean.enableWith ) ) {
+
+    clean.related.push( clean.enableWith );
+
+  }
+
   // if is custom field, do not filter out remaining values
   if ( isCustomField ) {
 
@@ -217,6 +226,11 @@ function buildFieldSchema( type, options = {} ) {
       default: true
     },
 
+    display: {
+      type: 'boolean',
+      default: true
+    },
+
     // when the field was defined elsewhere ( tag, category or custom )
     origin: {
       type: 'choice',
@@ -229,6 +243,12 @@ function buildFieldSchema( type, options = {} ) {
     enableWith: {
       type: 'text',
       default: null
+    },
+
+    related: {
+      type: 'text',
+      default: [],
+      list: true
     }
 
   };

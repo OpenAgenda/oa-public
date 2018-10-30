@@ -67,6 +67,7 @@ describe( 'events - unit (iso): validation', () => {
         variants: []
       },
       registration: [],
+      references: [],
       timezone: 'Europe/Paris',
       locationUid: null,
       private: false,
@@ -182,6 +183,7 @@ describe( 'events - unit (iso): validation', () => {
         end: d
       } ],
       registration: [],
+      references: [],
       age: {
         min: null,
         max: null

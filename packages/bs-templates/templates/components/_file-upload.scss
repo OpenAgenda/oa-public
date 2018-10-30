@@ -11,10 +11,7 @@
     border-color: $oa-gray-light;
     border-width: 1px;
     border-style: dashed;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 
   }
 
@@ -27,6 +24,13 @@
     img {
 
       max-width: 100%;
+      padding-bottom: 20px;
+
+    }
+
+    &:hover {
+
+      background: rgba( $oa-white, 0.1 );
 
     }
 
@@ -35,18 +39,20 @@
   .center-button {
 
     position: absolute;
-    height: 100%;
-    width: 100%;
     text-align: center;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    top: 50%;
+    left: 50%;
+    height: 33px;
+    margin: 0;
 
-    &:hover {
+    button {
 
-      background: rgba( $oa-white, 0.1 );
+      margin: -20% 0 0 -100%;
+
+      label {
+        cursor: pointer;
+      }
 
     }
 
@@ -108,7 +114,14 @@
     bottom: 3px;
     right: 6px;
 
-  }
+  }  
 
+  .accepted-image-info {
+
+    position: absolute;
+    bottom: 0;
+    right: 12px;
+
+  }
 
 }

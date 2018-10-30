@@ -13,6 +13,8 @@ const config = require( './config' );
 
 module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
+  log( 'setting custom data for %s.%s', formSchemaId, identifier );
+
   const { knex, schemas, interfaces } = config;
 
   const operation = ( await get( formSchemaId, identifier ) ) ? 'update' : 'create';

@@ -93,7 +93,7 @@ function _location( v ) {
 
   v.formatted.location = v.req.event.getLocationDetails( v.req.lang, true );
 
-  if ( v.formatted.location && v.formatted.location.description ) {
+  if ( _.get( v, 'formatted.location.description' ) ) {
 
     v.formatted.location.description = du.nl2br( v.formatted.location.description, true, false );
 

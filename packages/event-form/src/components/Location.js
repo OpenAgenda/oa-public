@@ -8,7 +8,6 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 
-
 module.exports = class LocationComponent extends Component {
 
   constructor( props ) {
@@ -20,8 +19,7 @@ module.exports = class LocationComponent extends Component {
     if ( !props.value ) {
 
       this.state = {
-        mode: 'search',
-        location: null
+        mode: 'search'
       }
 
       return;
@@ -38,50 +36,47 @@ module.exports = class LocationComponent extends Component {
 
   loadLocation() {
 
-    sa.get( this.props.field.res.index + '?uids[]=' + this.props.value ).then( res => {
-
-      if ( !res.body.items.length ) {
-
-        this.setState( {
-          initing: false,
-          location: null,
-          mode: 'search'
-        } );
-
-        return;
-
-      }
+    sa.get( this.props.field.res + '?uids[]=' + _.get( this.props.value, 'uid' ) ).then( res => {
 
       this.setState( {
         initing: false,
-        location: res.body.items[ 0 ],
-        mode: 'show'
+        mode: res.body.items.length ? 'show' : 'search'
       } );
+
+      this.props.onChange( _.first( res.body.items ) );
 
     } );
 
   }
 
+  detailedRes() {
+
+    const { res } = this.props.field;
+
+    return {
+      index: `${res}`,
+      geocode: `${res}/geocode`,
+      insee: `${res}/insee`,
+      set: `${res}`,
+      remove: `${res}/remove`
+    }
+
+  }
+
   onChange( caller, mode, location ) {
 
-    this.setState( {
-      mode,
-      location
-    } );
+    this.setState( { mode } );
 
-    this.props.onChange( _.get( location, 'uid', null ) );
+    this.props.onChange( location );
 
   }
 
   renderSelector() {
 
     const {
-      lang
+      lang,
+      value
     } = this.props;
-
-    const {
-      res
-    } = this.props.field;
 
     return <LocationSelector
       allowCreate={true}
@@ -91,9 +86,9 @@ module.exports = class LocationComponent extends Component {
         input: ''
       }}
       onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
-      location={this.state.location}
+      location={value}
       lang={this.props.lang}
-      res={res}
+      res={this.detailedRes()}
       onChange={( location, mode ) => this.onChange( 'onChange', mode, location )}
     />
 
@@ -129,7 +124,7 @@ module.exports = class LocationComponent extends Component {
 
     }
 
-    return <div className={this.state.mode === 'show' ? 'margin-v-xs' : ''}>
+    return <div className={this.state.mode === 'show' ? 'padding-v-sm padding-h-xs' : ''}>
       {this.renderSelector()}
     </div>
 

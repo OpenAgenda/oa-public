@@ -15,6 +15,7 @@
       "write": "contributor",
       "read": null,
       "optional": false,
+      "display" : true,
       "min": null,
       "max": null,
       "options": [
@@ -165,7 +166,8 @@
       ],
       "fieldType": "checkbox",
       "origin" : "custom",
-      "enableWith" : null
+      "enableWith" : null,
+      "related" : []
     }
   ]
 }

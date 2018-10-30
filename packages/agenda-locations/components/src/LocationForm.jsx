@@ -53,6 +53,9 @@ module.exports = createReactClass( {
     // server endpoints for set, merge and geocode
     res: PropTypes.object,
 
+    // enable geocoder
+    enableGeocode: PropTypes.bool,
+
     // show verified toggler
     showToggler: PropTypes.bool,
 
@@ -86,6 +89,7 @@ module.exports = createReactClass( {
     return {
       cancel: false, // cancel link if different
       showToggler: false,
+      enableGeocode: true,
       detailedInfo: false,
       settings: {},
       labels: {},
@@ -492,6 +496,8 @@ module.exports = createReactClass( {
       }
     } ) );
 
+    if ( !this.state.enableGeocode ) return;
+
     this.updateLocationReverseGeocode( pos.latitude, pos.longitude );
 
   },
@@ -501,7 +507,7 @@ module.exports = createReactClass( {
    */
   onAddressChange( name, value ) {
 
-    if ( !this.state.autoGeocode ) {
+    if ( !this.state.autoGeocode || !this.state.enableGeocode ) {
 
       return this.setState( update( this.state, {
         showGeocodeLink: { $set: true },
@@ -1078,7 +1084,15 @@ module.exports = createReactClass( {
 
   renderGeoData() {
 
-    const geo = _.pick( this.state.location, [ 'region', 'department', 'city', 'postalCode' ] );
+    const geo = {};// _.pick( this.state.location,  );
+
+    [ 'region', 'department', 'city', 'postalCode' ].forEach( field => {
+
+      if ( this.state.enableGeocode && !_.get( this.state, [ 'location', field ] ) ) return;
+
+      geo[ field ] = _.get( this.state, [ 'location', field ] );
+
+    } );
 
     if ( 
       _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' 
@@ -1120,25 +1134,6 @@ module.exports = createReactClass( {
         </a>
       </li> )}
     </ul>
-
-    /*<ul class="list-inline margin-v-sm padding-bottom-xs">
-        <li> 
-          <a class="badge badge-default">
-            <span>Région: Nouvelle aquitaine&nbsp;</span><i class="fa fa-pencil"></i>
-          </a>
-          <a class="badge badge-default">
-            <span>Ville: Bordeaux&nbsp;</span>
-            <i class="fa fa-pencil"></i>
-          </a>
-        </li>
-      </ul>
-      <div class="form-inline margin-top-xs">
-        <div class="form-group">
-          <input class="form-control" placeholder="Région" type="text"/>
-          <button class="btn btn-primary">Enregistrer</button>
-          <button class="btn btn-default">Annuler</button>
-        </div>
-      </div>*/
 
   },
 
@@ -1183,18 +1178,24 @@ module.exports = createReactClass( {
         lang={this.props.lang}
         getLabel={this.getLabel}
         groupClassName="margin-bottom-xs"
-        className="input-group"
+        className={this.state.enableGeocode ? 'input-group' : 'form-group'}
         errors={this.state.geocodeError ? [ { code: 'geocodeError' } ] : false}
-        renderButton={this.renderGeocodeButton}
+        renderButton={this.state.enableGeocode ? this.renderGeocodeButton : false}
         bottom={this.renderAlternative( 'address', [ 'address', 'countryCode', 'latitude', 'longitude', 'region', 'department', 'city', 'postalCode', 'timezone' ] )}
         autoFocus={!!this.state.location.name} />
 
       {this.renderGeoData()}
 
+      { !this.state.enableGeocode ? 
+        <div className="alert alert-warning" role="alert">{this.getLabel( 'disabledGeocode' )}</div> 
+      : null }
+
+
       <div className={this.isFieldEnabled( 'latitude' ) ? 'form-group' : 'form-group disabled'}>
         <LocationMap
           enabled={this.isFieldEnabled( 'latitude' )}
           resetZoom={this.state.autoGeocode}
+          defaultZoom={this.props.enableGeocode ? null : 3}
           location={this.state.location}
           draggableMarker={true}
           onMarkerDragged={this.onMarkerDragged}

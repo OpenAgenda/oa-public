@@ -43,6 +43,7 @@ const testConfig = {
     eventLocationTranslation: 'legacy_event_location_translation',
     eventEditor: 'legacy_event_editor',
     agendaEvent: 'legacy_agenda_event',
+    eventReferences: 'legacy_agenda_event_reference',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',
@@ -63,11 +64,19 @@ const testConfig = {
     apiVersion: '1.3',
     timeout: 30000
   },
+  es: {
+    host: process.env.ELASTICSEARCH_134_DEV_HOST,
+    port: process.env.ELASTICSEARCH_134_DEV_PORT
+  },
+  es53: {
+    host: process.env.ELASTICSEARCH_533_DEV_HOST,
+    port: process.env.ELASTICSEARCH_533_DEV_PORT
+  },
   getLogConfig: () => null
 };
 
 
-describe( 'core - functional ( server ): agenda event create with custom data', function() {
+describe( 'core - functional ( server ): agenda event with custom data', function() {
 
   this.timeout( 20000 );
 
@@ -233,7 +242,7 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
   } );
 
 
-  describe( 'with network', function() {
+  describe( 'create with network', function() {
 
     const networkEventData = ih( eventData, {
       edition: { $set: 'Dernier trimestre 2018' }
@@ -277,6 +286,35 @@ describe( 'core - functional ( server ): agenda event create with custom data', 
     } );
 
   } );
+
+
+  describe( 'update with network', function() {
+
+    const networkEventData = ih( eventData, {
+      edition: { $set: 'Dernier trimestre 2018' }
+    } );
+
+    const networkUpdatedData = ih( eventData, {
+      edition: { $set: 'Premier trimestre 2019' }
+    } );
+
+    const result = {};
+
+    before( async () => {
+
+      const { created } = await core.agendas( 60935574 ).events.create( networkEventData );
+
+      _.assign( result, await core.agendas( 60935574 ).events.update( created.event.uid, networkUpdatedData ) );
+
+    } );
+
+    it( 'update returns network custom data in networkCustom key', async () => {
+
+      result.updated.networkCustom.should.eql( { edition: 'Premier trimestre 2019' } );
+
+    } );
+
+  } ); 
 
 
 } );

@@ -1,0 +1,7 @@
+{
+  "layout" : "bsLayout/main",
+  "bsCss" : {
+    "main" : "/../bs-templates/compiled/main.css"
+  },
+  "base" : {}
+}

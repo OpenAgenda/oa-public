@@ -13,9 +13,7 @@ module.exports = ( req, res, next ) => {
 
     if ( !event ) return next( 404 );
 
-    req.event = ih( event, {
-      imageCredits: { $set: _.get( event, 'image.credits' ) }
-    } );
+    req.event = event;
 
     next();
 

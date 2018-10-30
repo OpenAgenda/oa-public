@@ -25,6 +25,7 @@ describe( 'events - functional (server): transfer legacy data', function() {
       config.legacy.schemas.eventLocation,
       config.legacy.schemas.eventLocationTranslation,
       config.legacy.schemas.agendaEvent,
+      config.legacy.schemas.eventReferences,
       config.legacy.schemas.user,
       config.legacy.schemas.agenda,
       config.legacy.schemas.deleted

@@ -58,12 +58,8 @@ module.exports = _.extend( ( parentApp, path ) => {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
       edit: _.get( req, 'event' ) && !_.get( req, 'event.draft' ),
-      locationRes: {
-        index: `/${req.agenda.slug}/locations`,
-        insee: `/${req.agenda.slug}/locations/insee`,
-        geocode: `/${req.agenda.slug}/locations/geocode`,
-        set: `/${req.agenda.slug}/locations`
-      },
+      locationRes: `/${req.agenda.slug}/locations`,
+      referencesRes: `/agendas/${req.agenda.uid}/events`,
       fileStore: {
         type: 's3',
         bucket

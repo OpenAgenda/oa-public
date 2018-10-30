@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import ih from 'immutability-helper';
+import sa from 'superagent';
 
 import { push } from 'react-router-redux';
 
@@ -10,7 +11,8 @@ const UPDATE = 'agenda-contribute/event/UPDATE';
 
 module.exports = _.extend( reducer, {
   created,
-  updated
+  updated,
+  deleteDraft
 } );
 
 
@@ -29,6 +31,21 @@ function reducer( state = {}, action = {} ) {
   }
 
   return state;
+
+}
+
+
+function deleteDraft() {
+
+  return ( dispatch, getState ) => {
+
+    sa.delete( '' ).then( () => {
+
+      window.location.href = _.get( getState(), 'config.redirects.draft' );
+
+    } );
+
+  }
 
 }
 

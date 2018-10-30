@@ -35,11 +35,7 @@ module.exports = {
     key : 'inbox',
     label : 'Inbox',
     uri : 'agendaAdminInbox',
-    access: 'moderator',
-    badge: {
-      link: '#',
-      label: 'newTab'
-    }
+    access: 'moderator'
   }, {
     section : 'manage',
     key : 'activities',

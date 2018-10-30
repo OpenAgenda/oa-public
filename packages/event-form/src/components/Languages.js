@@ -81,7 +81,6 @@ module.exports = class Languages extends Component {
 
     const labels = flattenLabels( languageLabels, this.props.lang );
 
-
     return <div className="language-bar">
       { !this.state.changing ? <ul>
         {pickedLanguages.map( l => <li key={'language-' + l} onClick={this.onChangeStart.bind( this )}>

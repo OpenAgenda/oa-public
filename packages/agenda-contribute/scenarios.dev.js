@@ -4,12 +4,7 @@ const _ = require( 'lodash' );
 
 const defaultConfig = {
   lang: 'fr',
-  locationRes: {
-    index: '/locations',
-    geocode: '/locations/geocode',
-    set: '/locations',
-    remove: '/locations/remove'
-  },
+  locationRes: '/locations',
   redirects: {
     updated: '/?redirect.updated=:eventUid',
     seeEvent: '/?redirect.eventCreated=:eventUid',
@@ -173,7 +168,7 @@ module.exports = [ {
       fr: 'Une petite description',
       en: 'A wee description'
     },
-    locationUid: 50148047
+    location: { uid: 50148047 }
   }
 }, {
   link: '/edit-a-draft-event/contribute/event/902/draft',
@@ -197,7 +192,7 @@ module.exports = [ {
     description: {
       fr: 'Une petite description'
     },
-    locationUid: 50148047
+    location: { uid: 50148047 }
   },
   member: aValidMember
 }, {
@@ -222,7 +217,7 @@ module.exports = [ {
     description: {
       fr: 'Une petite description'
     },
-    locationUid: 50148047
+    location: { uid: 50148047 }
   },
   member: {
     phone: '+33 (0)6 50 91 00 12',

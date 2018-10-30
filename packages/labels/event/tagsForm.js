@@ -9,7 +9,7 @@ module.exports = {
     fr: 'Il y a eu un problème lors du chargement des données. Rechargez la page dans un instant.',
     en: 'There was a problem while loading the data. Please refresh the page.'
   },
-  invalidError: {
+  invalidError: {
     fr: 'Certains champs contiennent des valeurs non valides. Corrigez-les avant de retenter une soumission.',
     en: 'Some fields contain invalid data. Please correct them before submitting the form.'
   },

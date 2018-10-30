@@ -28,12 +28,14 @@ describe( 'form-schemas -06- validateField', () => {
         read: null,
         write: null,
         optional: true,
+        display: true,
         min: null,
         max: null,
         sub: null,
         fieldType: 'text',
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
         
     } );
@@ -57,13 +59,15 @@ describe( 'form-schemas -06- validateField', () => {
         write: null,
         read: null,
         optional: true,
+        display: true,
         origin: null,
         languages: [ 'fr', 'en', 'it' ],
         min: null,
         max: null,
         sub: null,
         fieldType: 'text' ,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -92,6 +96,7 @@ describe( 'form-schemas -06- validateField', () => {
         read: null,
         write: null,
         optional: true,
+        display: true,
         options: [
           { id: null, legacyId: null, value: '1', label: { fr: 'Un' } },
           { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } } 
@@ -99,7 +104,8 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'radio',
         sub: null,
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -156,12 +162,14 @@ describe( 'form-schemas -06- validateField', () => {
         read: null,
         write: null,
         optional: true,
+        display: true,
         min: 3,
         max: 10,
         fieldType: 'textarea',
         sub: null,
         origin: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -188,11 +196,13 @@ describe( 'form-schemas -06- validateField', () => {
         write: null,
         read: null,
         optional: true,
+        display: true,
         origin: null,
         fieldType: 'someCustomType',
         min: null,
         max: null,
-        enableWith : null
+        enableWith : null,
+        related: []
       } );
 
     } );
@@ -211,6 +221,33 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+
+    it( 'a field with an enableWith value set will have the value added to the related fields list', () => {
+
+      iso.validateField( {
+        field: 'afield',
+        fieldType: 'text',
+        label: 'A label',
+        enableWith: 'anotherfield'
+      } ).should.eql( { 
+        field: 'afield',
+        label: { en: 'A label' },
+        info: null,
+        sub: null,
+        placeholder: null,
+        write: null,
+        read: null,
+        optional: true,
+        display: true,
+        origin: null,
+        enableWith: 'anotherfield',
+        related: [ 'anotherfield' ],
+        min: null,
+        max: null,
+        fieldType: 'text' 
+      } );
+
+    } );
     
 
   } );

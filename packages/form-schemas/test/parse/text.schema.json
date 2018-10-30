@@ -12,12 +12,14 @@
     "sub" : null,
     "info": null,
     "optional": false,
+    "display" : true,
     "fieldType": "text",
     "min": 3,
     "max": 50,
     "read": null,
     "write": "contributor",
     "origin" : "custom",
-    "enableWith" : null
+    "enableWith" : null,
+    "related" : []
   } ]
 }

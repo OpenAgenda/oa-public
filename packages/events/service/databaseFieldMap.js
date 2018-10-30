@@ -116,6 +116,11 @@ module.exports = [
     type: 'json'
   },
   {
+    db: 'references',
+    obj: 'references',
+    type: 'json'
+  },
+  {
     db: 'file_key',
     obj: 'fileKey',
     protected: true,

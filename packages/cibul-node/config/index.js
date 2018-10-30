@@ -607,14 +607,14 @@ const config = {
       }
     },
     es: {
-      host: process.env.LEGACY_ES_HOST || 'localhost',
-      port: 9200,
+      host: process.env.ELASTICSEARCH_134_DEV_HOST || 'localhost',
+      port: process.env.ELASTICSEARCH_134_DEV_PORT || 9200,
       indexName: 'cibuldev',
       channel: 'maindev'
     },
     es53: {
-      host: 'localhost',
-      port: 9205
+      host: process.env.ELASTICSEARCH_533_DEV_HOST || 'localhost',
+      port: process.env.ELASTICSEARCH_533_DEV_PORT || 9205
     },
     redis: {
       host: 'localhost',

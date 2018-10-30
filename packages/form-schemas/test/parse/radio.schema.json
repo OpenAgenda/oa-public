@@ -14,6 +14,7 @@
       "write": "contributor",
       "read": null,
       "optional": false,
+      "display" : true,
       "options": [
         {
           "id": 1,
@@ -170,7 +171,8 @@
       ],
       "fieldType": "radio",
       "origin" : "custom",
-      "enableWith" : null
+      "enableWith" : null,
+      "related" : []
     }
   ]
 }

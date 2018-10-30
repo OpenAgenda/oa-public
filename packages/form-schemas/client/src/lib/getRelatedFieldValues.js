@@ -4,8 +4,8 @@ import _ from 'lodash';
 
 export default ( field, values ) => {
 
-  if ( !field.enableWith ) return {};
+  if ( !field.related.length ) return {};
 
-  return _.pick( values, [ field.enableWith ] );
+  return _.pick( values, [].concat( field.related ) );
 
 }

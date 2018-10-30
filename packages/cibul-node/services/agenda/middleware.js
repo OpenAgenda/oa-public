@@ -231,13 +231,8 @@ function loadAdminLayout( req, res, next ) {
 
           }
 
-          if ( tab.res ) {
-
-            tab.res = tab.res.replace( ':slug', req.agenda.slug );
-
-          }
-
           return _.assign( {}, tab, {
+            res: tab.res ? tab.res.replace( ':slug', req.agenda.slug ) : null,
             badge: badge || undefined,
             label,
             call: credentials.includes( tab.requiredCred ) ? null : tab.call
@@ -312,7 +307,7 @@ function searchEvents( limit, showAll ) {
 
   return function( req, res, next ) {
 
-    var pagination = {};
+    const pagination = {};
 
     if ( req.query.offset ) {
 
@@ -330,7 +325,7 @@ function searchEvents( limit, showAll ) {
     req.agenda.search( req.query.oaq, {
       limit: req.limit,
       offset: req.offset,
-      showAll: showAll
+      showAll
     }, ( err, data ) => {
 
       if ( err ) return next( err );

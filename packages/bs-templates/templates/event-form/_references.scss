@@ -60,6 +60,8 @@
 
   .configure {
 
+    position: relative;
+
     a {
 
       cursor: pointer;
@@ -127,6 +129,10 @@
       .dropdown-menu {
       
         width: 100%;
+
+        li {
+          margin: 0;
+        }
 
       }
 

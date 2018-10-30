@@ -17,6 +17,8 @@ const serviceName = JSON.parse(
   require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )
 ).name.split( '/' ).pop();
 
+const parse = require( './parse' );
+
 module.exports = {
   app,
   init,
@@ -48,15 +50,15 @@ function init( c ) {
       config: _.set( req.config, 'schemaExtensions', _.get( req, 'schemaExtensions', [] ) ),
       state: {
         member: req.member,
-        event: req.event
+        event: parse.fromEventServiceFormat( req.event )
       }
     };
 
     res.send( config.layout( req, 
       `<div>
-        <div id="app"></div>
+        <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
-        <script type="text/javascript" src="${_getClientAppPath()}"></script>
+        <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
       </div>` ) );
 
   } );
@@ -83,6 +85,16 @@ function init( c ) {
 
     }
   );
+
+  app.delete( '/event/:eventUid/draft', ( req, res, next ) => {
+
+    config.interfaces.deleteDraftEvent( req.agenda, req.user, req.event ).then( () => {
+
+      res.status( 200 ).send( 'ok' );
+
+    } );
+
+  } );
 
 
   app.post( [
@@ -126,7 +138,7 @@ function init( c ) {
 
     log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-    config.interfaces.setEvent( req.agenda, req.user, req.event, req.clean, req.fileFieldValues, {
+    config.interfaces.setEvent( req.agenda, req.user, req.event, parse.toEventServiceFormat( req.clean, req.fileFieldValues ), {
       draft: req.draft
     } )
 
