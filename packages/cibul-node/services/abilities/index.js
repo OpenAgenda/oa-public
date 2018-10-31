@@ -2,11 +2,13 @@
 
 const express = require( 'express' );
 const morgan = require( 'morgan' );
+const async = require( 'async' );
 const abilitiesSvc = require( '@openagenda/abilities' );
 const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const usersSvc = require( '@openagenda/users' );
 const editableRules = require( './editableRules' );
+const cmn = require( '../../lib/commons-app' );
 
 const app = express();
 
@@ -18,27 +20,59 @@ if ( process.env.NODE_ENV === 'development' ) {
   app.use( morgan( 'dev' ) );
 }
 
+const secureMw = ( req, res, next ) => {
+  switch( req.query.entityName ) {
+    case 'user':
+      if ( !req.user || !req.user.uid || parseInt( req.query.identifier ) !== req.user.uid ) {
+        res.status( 403 );
+        throw new Error( 'You cannot get this rules index' );
+      }
+      return next();
+    case 'agenda':
+      return async.applyEachSeries( [
+        agendasSvc.middleware.load( {
+          private: null,
+          internal: true,
+          namespaces: {
+            identifiers: {
+              uid: 'query.identifier'
+            }
+          }
+        } ),
+        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next )
+      ], req, res, next );
+    default:
+      next();
+  }
+};
+
 module.exports = ( parentApp, path ) => {
   app.use( sessions.middleware.load( { detailed: true } ) );
 
-  // TODO add security check
   // GET https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999
-  app.get( '/form-index', abilitiesSvc.middleware.getFormIndex( {
-    namespaces: {
-      entityName: 'query.entityName',
-      identifier: 'query.identifier'
-    }
-  } ) );
+  app.get(
+    '/form-index',
+    secureMw,
+    abilitiesSvc.middleware.getFormIndex( {
+      namespaces: {
+        entityName: 'query.entityName',
+        identifier: 'query.identifier'
+      }
+    } )
+  );
 
-  // TODO add security check
   // PATCH https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999
-  app.patch( '/form-index', abilitiesSvc.middleware.updateFormIndex( {
-    namespaces: {
-      entityName: 'query.entityName',
-      identifier: 'query.identifier',
-      data: 'body'
-    }
-  } ) );
+  app.patch(
+    '/form-index',
+    secureMw,
+    abilitiesSvc.middleware.updateFormIndex( {
+      namespaces: {
+        entityName: 'query.entityName',
+        identifier: 'query.identifier',
+        data: 'body'
+      }
+    } )
+  );
 
   parentApp.use( path, app );
 };
@@ -64,6 +98,7 @@ module.exports.init = async config => {
       member: 'id',
       user: 'uid'
     },
+
     interfaces: {
       getEntity: {
         agenda: uid => agendasSvc.get( { uid }, { private: null } ),
@@ -74,6 +109,22 @@ module.exports.init = async config => {
         agenda: uids => agendasSvc.list( { uid: uids }, { private: null } ),
         member: ids => memberRequest().whereIn( `${config.schemas.stakeholder}.id`, ids ),
         user: uids => usersSvc.find( { query: { uid: { $in: uids } } } )
+      },
+      defaultFor: {
+        user( { can, cannot, rules } ) {
+          can( 'receive', 'invitation' );
+          can( 'receive', 'notificationsSummary' );
+          can( 'receive', 'event' );
+          can( 'receive', 'eventCreation' );
+          can( 'receive', 'stateChange', { state: -1 } );
+          can( 'receive', 'stateChange', { state: 0 } );
+          can( 'receive', 'stateChange', { state: 1 } );
+          can( 'receive', 'stateChange', { state: 2 } );
+          can( 'receive', 'eventUpdate' );
+          can( 'receive', 'eventAggregation' );
+
+          return rules;
+        }
       },
       defineFor: {
         // agenda = agenda

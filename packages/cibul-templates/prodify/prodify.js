@@ -4,8 +4,6 @@ var ugly = require( 'uglify-js' ),
 
   path = require( 'path' ),
 
-  util = require( 'util' ),
-
   files = require( './files.js' ).files, // ye olde prodify reference
 
   destPath = require( './files.js' ).destPath,
@@ -546,7 +544,9 @@ var ugly = require( 'uglify-js' ),
         warnings: false
       } ) );
 
-      cb();
+      if ( !watch ) {
+        cb();
+      }
 
     } );
 

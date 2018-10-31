@@ -7,6 +7,7 @@ import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import localeEn from '../locales/en';
 import localeFr from '../locales/fr';
 import AbilitiesForm from './AbilitiesForm';
@@ -128,10 +129,9 @@ class AbilitiesEditor extends Component {
 
     if ( loading ) {
       return (
-        <FormattedMessage
-          id="Abilities.AbilitiesEditor.loading"
-          defaultMessage="Loading..."
-        />
+        <div style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
       );
     }
 

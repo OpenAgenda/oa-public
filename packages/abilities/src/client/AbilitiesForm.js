@@ -2,8 +2,15 @@ import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 import { FormSpy } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
+import Collapse from 'rc-collapse';
+import { shouldUpdate, shallowEqual } from 'recompose';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
+
+
+const Panel = shouldUpdate(
+  ( props, nextProps ) => !shallowEqual( _.omit( props, 'onItemClick' ), _.omit( nextProps, 'onItemClick' ) )
+)( Collapse.Panel );
 
 
 function getEntityTitle( ability ) {
@@ -82,7 +89,7 @@ class AbilitiesForm extends Component {
         {firstEntityAbility && firstEntityAbility.rules.length && firstEntityAbility.rules.length
           ? (
             <Fragment>
-              <div className="margin-bottom-md">
+              <div className="margin-bottom-sm">
                 {firstEntityAbility.rules.map( rule => (
                   <RuleCheckbox
                     key={rule.key}
@@ -96,20 +103,23 @@ class AbilitiesForm extends Component {
 
         {Object.keys( othersAbilities ).map( name => (
           <Fragment key={name}>
-            {Object.values( othersAbilities[ name ] ).map( entityAbility => (
-              <Fragment key={`${name}.${entityAbility.identifier}`}>
-                <p><b>{getEntityTitle( entityAbility )}</b></p>
-
-                <div className="margin-bottom-md">
-                  {entityAbility.rules.map( rule => (
-                    <RuleCheckbox
-                      key={rule.key}
-                      rule={rule}
-                    />
-                  ) )}
-                </div>
-              </Fragment>
-            ) )}
+            <Collapse className="margin-bottom-md">
+              {Object.values( othersAbilities[ name ] ).map( entityAbility => (
+                <Panel
+                  key={`${name}.${entityAbility.identifier}`}
+                  header={<b>{getEntityTitle( entityAbility )}</b>}
+                >
+                  <div className="margin-bottom-md">
+                    {entityAbility.rules.map( rule => (
+                      <RuleCheckbox
+                        key={rule.key}
+                        rule={rule}
+                      />
+                    ) )}
+                  </div>
+                </Panel>
+              ) )}
+            </Collapse>
           </Fragment>
         ) )}
 
@@ -129,8 +139,6 @@ class AbilitiesForm extends Component {
               identifier
             } ) );
             const allValues = formState.values;
-
-            console.log( formState );
 
             // calculate indeterminates
             const indeterminates = firstEntityRules.reduce( ( result, rule ) => {

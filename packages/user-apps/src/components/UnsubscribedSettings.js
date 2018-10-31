@@ -65,15 +65,17 @@ export default class UnsubscribedSettings extends Component {
 
               {(!unsubscriptions || !unsubscriptions.length) && <p>{getLabels( 'noUnsubscription' )}</p>}
 
-              <AbilitiesEditor
-                locale={lang}
-                entityName="user"
-                identifier={user.uid}
-                res={{
-                  // get + patch
-                  formIndex: '/abilities/form-index'
-                }}
-              />
+              <div className="margin-top-md">
+                <AbilitiesEditor
+                  locale={lang}
+                  entityName="user"
+                  identifier={user.uid}
+                  res={{
+                    // get + patch
+                    formIndex: '/abilities/form-index'
+                  }}
+                />
+              </div>
             </div>
           </div>
         </td> : <td style={{ cursor: 'pointer' }}></td>}
