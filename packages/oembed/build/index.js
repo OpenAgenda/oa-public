@@ -94,11 +94,11 @@ var OEmbed = function () {
             switch (_context3.prev = _context3.next) {
               case 0:
                 cleanOptions = cleanFromMarkdownOptions(options);
-                urls = mdExtractor(md).filter(function (link) {
+                urls = _.uniq(mdExtractor(md).filter(function (link) {
                   return !!_this.params.filters.filter(function (filter) {
                     return filter.test(link);
                   }).length;
-                });
+                }));
                 _context3.next = 4;
                 return Promise.all(urls.map(function () {
                   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(url) {
@@ -189,7 +189,7 @@ module.exports.init = function (config) {
 
   if (_.get(config, 'logger')) {
 
-    logger.setLogger(_.get(config, 'logger'));
+    logger.setModuleConfig(_.get(config, 'logger'));
   }
 
   if (_.get(config, 'options')) {
