@@ -14,7 +14,7 @@
 <% if ( total === 1 ) { %>
         <p class="total-count text-center"><%= __( 'countEvent' ) %></p>
 <% } else if ( total > 1 ) { %>
-        <p class="total-count text-center"><%= __( 'countEvents', { '%total%' : total } ) %></p>
+        <p class="total-count text-center"><%= __( 'countEvents', { 'total' : total } ) %></p>
 <% } %>
       </section>
       <section class="<% if ( layoutMode=='standard') { %>col-xs-8 col-xs-offset-2 <% } %>col-lg-6 col-lg-offset-3 main-content js_list_content">
