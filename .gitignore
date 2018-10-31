@@ -1,6 +1,10 @@
 /.idea/
 /.vscode/
-/node_modules/
 /npm-debug.log
 /yarn-error.log
 /lerna-debug.log
+node_modules/
+coverage/
+
+secrets.tar
+

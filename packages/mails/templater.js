@@ -2,13 +2,14 @@ const fs = require( 'fs' );
 const path = require( 'path' );
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
-const mjml2html = require( 'mjml' );
+const mjml = require( 'mjml' );
 const ejs = require( 'ejs' );
 const VError = require( 'verror' );
 const LRU = require( 'lru-cache' );
 const log = require( '@openagenda/logs' )( 'mails/templater' );
 const config = require( './config' );
 
+const mjml2html = mjml.__esModule ? mjml.default : mjml;
 const cache = LRU();
 const readFile = promisify( fs.readFile );
 
