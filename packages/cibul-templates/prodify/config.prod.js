@@ -24,7 +24,7 @@ module.exports = ( { entry, output } ) => ( {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: getCacheDir( 'babel-loader' ),
+            cacheDirectory: getCacheDir( 'babel-loader-prod' ),
             forceEnv: 'production'
           }
         }
