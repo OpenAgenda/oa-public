@@ -43,14 +43,17 @@ export function init( c = {} ) {
 
   config.knex = knexLib( getKnexConfig( c ) );
 
-  _.extend( config, _.pick( c, [
-    'mysql',
-    'schemas',
-    'migrations',
-    'interfaces',
-    'entityMapping',
-    'editableRules'
-  ] ) );
+  _.extend(
+    config,
+    _.pick( c, [
+      'mysql',
+      'schemas',
+      'migrations',
+      'interfaces',
+      'entityMapping',
+      'editableRules'
+    ] )
+  );
 }
 
 export function migrate( options ) {
@@ -63,7 +66,13 @@ export function migrate( options ) {
 export function seed( options ) {
   const directory = typeof options === 'string'
     ? path.join( __dirname, '..', '..', 'seeds', options )
-    : path.join( __dirname, '..', '..', 'seeds', options && options.scenarioName ? options.scenarioName : '' );
+    : path.join(
+      __dirname,
+      '..',
+      '..',
+      'seeds',
+      options && options.scenarioName ? options.scenarioName : ''
+    );
 
   return config.knex.seed.run( {
     directory,

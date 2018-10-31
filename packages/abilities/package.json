@@ -15,7 +15,7 @@
     "lint": "eslint -c .eslintrc '**/*.js' .storybook",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
     "build": "rimraf build && babel --copy-files --root-mode upward -d build src",
-    "translate": "node scripts/translate.js",
+    "extract-messages": "node scripts/extract-messages.js",
     "prepublish": "yarn build"
   },
   "husky": {
@@ -42,6 +42,7 @@
     "knex": "^0.15.2",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
+    "prop-types": "^15.6.2",
     "rc-collapse": "^1.10.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",

@@ -24,9 +24,11 @@ const devApp = require( '../server.dev' ).default;
 // For this test to be meaningful, you must build the static version of the storybook *before* running this test suite.
 const pathToStorybookStatic = path.join( __dirname, '../', 'storybook-static' );
 
-
 beforeAll( async () => {
-  await promisify( devApp.server.listen ).call( devApp.server, process.env.STORYBOOK_API_PORT || 3302 );
+  await promisify( devApp.server.listen ).call(
+    devApp.server,
+    process.env.STORYBOOK_API_PORT || 3302
+  );
 
   process.env.STORYBOOK_API_PORT = devApp.server.address().port;
 
@@ -48,12 +50,11 @@ afterAll( async () => {
   await abilities.config.knex.destroy();
 } );
 
-
 if ( !fs.existsSync( pathToStorybookStatic ) ) {
   // eslint-disable-next-line no-console
   console.error(
     'You are running image snapshots without having the static build of storybook.'
-    + ' Please run "yarn build-storybook" before running tests.'
+      + ' Please run "yarn build-storybook" before running tests.'
   );
 } else {
   initStoryshots( {
@@ -65,10 +66,10 @@ if ( !fs.existsSync( pathToStorybookStatic ) ) {
       storybookUrl: `file://${pathToStorybookStatic}`,
       getMatchOptions: () => ( {
         failureThreshold: 0.02, // 2% threshold,
-        failureThresholdType: 'percent',
+        failureThresholdType: 'percent'
       } ),
       getGotoOptions: ( /* { context, url } */ ) => ( {
-        waitUntil: 'networkidle0',
+        waitUntil: 'networkidle0'
       } )
     } )
   } );

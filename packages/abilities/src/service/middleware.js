@@ -6,14 +6,17 @@ function wrap( fn ) {
 }
 
 export function getFormIndex( options ) {
-  const { namespaces } = _.merge( {
-    namespaces: {
-      entityName: 'query.entityName',
-      identifier: 'query.identifier'
-    }
-  }, options );
+  const { namespaces } = _.merge(
+    {
+      namespaces: {
+        entityName: 'query.entityName',
+        identifier: 'query.identifier'
+      }
+    },
+    options
+  );
 
-  return wrap( async ( req, res, next ) => {
+  return wrap( async ( req, res ) => {
     const entityName = _.get( req, namespaces.entityName, null );
     const identifier = _.toNumber( _.get( req, namespaces.identifier, null ) );
 
@@ -35,15 +38,18 @@ export function getFormIndex( options ) {
 }
 
 export function updateFormIndex( options ) {
-  const { namespaces } = _.merge( {
-    namespaces: {
-      entityName: 'query.entityName',
-      identifier: 'query.identifier',
-      data: 'body'
-    }
-  }, options );
+  const { namespaces } = _.merge(
+    {
+      namespaces: {
+        entityName: 'query.entityName',
+        identifier: 'query.identifier',
+        data: 'body'
+      }
+    },
+    options
+  );
 
-  return wrap( async ( req, res, next ) => {
+  return wrap( async ( req, res ) => {
     const entityName = _.get( req, namespaces.entityName, null );
     const identifier = _.toNumber( _.get( req, namespaces.identifier, null ) );
     const data = _.get( req, namespaces.data, null );

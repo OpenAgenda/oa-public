@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { FormSpy } from 'react-final-form';
 import { FormattedMessage } from 'react-intl';
 import Collapse from 'rc-collapse';
@@ -7,11 +8,12 @@ import { shouldUpdate, shallowEqual } from 'recompose';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
 
-
 const Panel = shouldUpdate(
-  ( props, nextProps ) => !shallowEqual( _.omit( props, 'onItemClick' ), _.omit( nextProps, 'onItemClick' ) )
+  ( props, nextProps ) => !shallowEqual(
+    _.omit( props, 'onItemClick' ),
+    _.omit( nextProps, 'onItemClick' )
+  )
 )( Collapse.Panel );
-
 
 function getEntityTitle( ability ) {
   switch ( ability.entityName ) {
@@ -27,27 +29,47 @@ function getEntityTitle( ability ) {
 }
 
 class AbilitiesForm extends Component {
+  static propTypes = {
+    rules: PropTypes.arrayOf( PropTypes.object ),
+    form: PropTypes.objectOf( PropTypes.any ),
+    entityName: PropTypes.string.isRequired,
+    identifier: PropTypes.number.isRequired,
+    handleSubmit: PropTypes.func
+  };
+
+  static defaultProps = {
+    rules: null,
+    form: null,
+    handleSubmit: null
+  };
+
   componentDidMount() {
     // calculate `indeterminate` props
     const {
-      rules,
-      form,
-      entityName,
-      identifier
+      rules, form, entityName, identifier
     } = this.props;
 
-    const { mutators: { setFieldData }, batch } = form;
+    const {
+      mutators: { setFieldData },
+      batch
+    } = form;
     const formState = form.getState();
     const allValues = formState.values;
 
-    const [ firstEntityRules, otherRules ] = _.partition( rules, _.matches( {
-      entityName,
-      identifier
-    } ) );
+    const [ firstEntityRules, otherRules ] = _.partition(
+      rules,
+      _.matches( {
+        entityName,
+        identifier
+      } )
+    );
 
     batch( () => {
       for ( const rule of firstEntityRules ) {
-        const relatedRules = _.filter( otherRules, _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) ) );
+        const relatedRules = _.filter(
+          otherRules,
+          _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
+        );
 
         setFieldData( rule.key, {
           indeterminate: isIndeterminate( allValues, rule, relatedRules )
@@ -58,11 +80,7 @@ class AbilitiesForm extends Component {
 
   render() {
     const {
-      entityName,
-      identifier,
-      rules,
-      handleSubmit,
-      form
+      entityName, identifier, rules, handleSubmit, form
     } = this.props;
 
     const rulesPerEntity = rules.reduce( ( result, rule ) => {
@@ -81,25 +99,28 @@ class AbilitiesForm extends Component {
       return result;
     }, [] );
 
-    const firstEntityAbility = _.find( rulesPerEntity, { entityName, identifier } );
-    const othersAbilities = _.groupBy( _.reject( rulesPerEntity, { entityName, identifier } ), 'entityName' );
+    const firstEntityAbility = _.find( rulesPerEntity, {
+      entityName,
+      identifier
+    } );
+    const othersAbilities = _.groupBy(
+      _.reject( rulesPerEntity, { entityName, identifier } ),
+      'entityName'
+    );
 
     return (
       <form onSubmit={handleSubmit}>
-        {firstEntityAbility && firstEntityAbility.rules.length && firstEntityAbility.rules.length
-          ? (
-            <Fragment>
-              <div className="margin-bottom-sm">
-                {firstEntityAbility.rules.map( rule => (
-                  <RuleCheckbox
-                    key={rule.key}
-                    rule={rule}
-                  />
-                ) )}
-              </div>
-            </Fragment>
-          )
-          : null}
+        {firstEntityAbility
+        && firstEntityAbility.rules.length
+        && firstEntityAbility.rules.length ? (
+          <Fragment>
+            <div className="margin-bottom-sm">
+              {firstEntityAbility.rules.map( rule => (
+                <RuleCheckbox key={rule.key} rule={rule} />
+              ) )}
+            </div>
+          </Fragment>
+          ) : null}
 
         {Object.keys( othersAbilities ).map( name => (
           <Fragment key={name}>
@@ -111,10 +132,7 @@ class AbilitiesForm extends Component {
                 >
                   <div className="margin-bottom-md">
                     {entityAbility.rules.map( rule => (
-                      <RuleCheckbox
-                        key={rule.key}
-                        rule={rule}
-                      />
+                      <RuleCheckbox key={rule.key} rule={rule} />
                     ) )}
                   </div>
                 </Panel>
@@ -133,18 +151,32 @@ class AbilitiesForm extends Component {
         <FormSpy
           subscription={{ values: true, data: true }}
           onChange={formState => {
-            const { mutators: { setFieldData }, batch, getFieldState } = form;
-            const [ firstEntityRules, otherRules ] = _.partition( rules, _.matches( {
-              entityName,
-              identifier
-            } ) );
+            const {
+              mutators: { setFieldData },
+              batch,
+              getFieldState
+            } = form;
+            const [ firstEntityRules, otherRules ] = _.partition(
+              rules,
+              _.matches( {
+                entityName,
+                identifier
+              } )
+            );
             const allValues = formState.values;
 
             // calculate indeterminates
             const indeterminates = firstEntityRules.reduce( ( result, rule ) => {
-              const relatedRules = _.filter( otherRules, _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) ) );
+              const relatedRules = _.filter(
+                otherRules,
+                _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
+              );
               const fieldState = getFieldState( rule.key );
-              const indeterminate = isIndeterminate( allValues, rule, relatedRules );
+              const indeterminate = isIndeterminate(
+                allValues,
+                rule,
+                relatedRules
+              );
 
               if ( fieldState.data.indeterminate === indeterminate ) {
                 return result;
@@ -158,11 +190,8 @@ class AbilitiesForm extends Component {
 
             // set indeterminate prop for each field
             batch( () => {
-              _.forEach(
-                indeterminates,
-                ( indeterminate, key ) => setFieldData( key, { indeterminate } )
-              );
-            } )
+              _.forEach( indeterminates, ( indeterminate, key ) => setFieldData( key, { indeterminate } ) );
+            } );
           }}
         />
       </form>

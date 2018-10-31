@@ -4,7 +4,6 @@ import { Field } from 'react-final-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { shouldUpdate, shallowEqual } from 'recompose';
 
-
 const stateMessages = defineMessages( {
   '-1': {
     id: 'Abilities.RulesCheckbox.states.refused',
@@ -55,13 +54,15 @@ const rulesMessages = defineMessages( {
   }
 } );
 
-const RuleLabel = shouldUpdate( ( props, nextProps ) => {
-  return !shallowEqual( props.rule, nextProps.rule );
-} )( ( { rule } ) => {
+const RuleLabel = shouldUpdate(
+  ( props, nextProps ) => !shallowEqual( props.rule, nextProps.rule )
+)( ( { rule } ) => {
   const values = {};
 
   if ( rule.actions === 'receive' && rule.subject === 'stateChange' ) {
-    values.state = <FormattedMessage {...stateMessages[ rule.conditions.state ]} />;
+    values.state = (
+      <FormattedMessage {...stateMessages[ rule.conditions.state ]} />
+    );
   }
 
   return (
@@ -91,8 +92,8 @@ export default ( { rule } ) => (
               }
             }}
             {...input}
-          />
-          {' '}<RuleLabel rule={rule} />
+          />{' '}
+          <RuleLabel rule={rule} />
         </label>
       </div>
     )}

@@ -1491,12 +1491,22 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
           startAbilitiesFetch={[Function]}
         >
           <IntlProvider
-            key="fr"
             locale="fr"
             messages={
               Object {
-                "AbilitiesEditor.error": "Il y a eu une erreur.",
-                "AbilitiesEditor.loading": "Chargement...",
+                "Abilities.AbilitiesEditor.error": "Il y a eu une erreur.",
+                "Abilities.AbilitiesForm.save": "Sauvegarder",
+                "Abilities.RulesCheckbox.rules.receiveEvent": "Recevoir les événements envoyés par d'autres utilisateurs",
+                "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements",
+                "Abilities.RulesCheckbox.rules.receiveEventCreation": "Recevoir les créations d'événements",
+                "Abilities.RulesCheckbox.rules.receiveEventUpdate": "Recevoir les mises à jour d'événements",
+                "Abilities.RulesCheckbox.rules.receiveInvitation": "Recevoir les invitations",
+                "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": "Recevoir les résumés notifications",
+                "Abilities.RulesCheckbox.rules.receiveStateChange": "Recevoir les changements de status vers {state}",
+                "Abilities.RulesCheckbox.states.controlled": "prêt à publier",
+                "Abilities.RulesCheckbox.states.published": "publié",
+                "Abilities.RulesCheckbox.states.refused": "refusé",
+                "Abilities.RulesCheckbox.states.toControl": "à controller",
               }
             }
           >
@@ -2255,8 +2265,10 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                 ]
               }
               startAbilitiesFetch={[Function]}
+              subscription={Object {}}
+              validateOnBlur={true}
             >
-              <lifecycle(Component)
+              <AbilitiesForm
                 __versions={
                   Object {
                     "final-form": "4.8.1",
@@ -2627,11 +2639,7 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                     [Function],
                   ]
                 }
-                dirty={false}
-                dirtyFields={Object {}}
-                dirtySinceLastSubmit={false}
                 entityName="user"
-                errors={Object {}}
                 fetchAbilities={[Function]}
                 focus={[Function]}
                 form={
@@ -2658,40 +2666,14 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                   }
                 }
                 handleSubmit={[Function]}
-                hasSubmitErrors={false}
-                hasValidationErrors={false}
                 identifier={99999999}
-                initialValues={
-                  Object {
-                    "rule10": false,
-                    "rule11": true,
-                    "rule12": false,
-                    "rule13": false,
-                    "rule14": false,
-                    "rule15": false,
-                    "rule16": false,
-                    "rule17": false,
-                    "rule18": false,
-                    "rule19": false,
-                    "rule20": false,
-                    "rule3": false,
-                    "rule4": false,
-                    "rule5": false,
-                    "rule6": false,
-                    "rule7": false,
-                    "rule8": false,
-                    "rule9": false,
-                  }
-                }
                 initialize={[Function]}
-                invalid={false}
                 locale="fr"
                 mutators={
                   Object {
                     "setFieldData": [Function],
                   }
                 }
-                pristine={true}
                 receiveAbilitiesData={[Function]}
                 receiveAbilitiesError={[Function]}
                 res={
@@ -3053,46 +3035,15 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                   ]
                 }
                 startAbilitiesFetch={[Function]}
-                submitFailed={false}
-                submitSucceeded={false}
-                submitting={false}
-                touched={Object {}}
-                valid={true}
-                validating={false}
-                values={
-                  Object {
-                    "rule10": false,
-                    "rule11": true,
-                    "rule12": false,
-                    "rule13": false,
-                    "rule14": false,
-                    "rule15": false,
-                    "rule16": false,
-                    "rule17": false,
-                    "rule18": false,
-                    "rule19": false,
-                    "rule20": false,
-                    "rule3": false,
-                    "rule4": false,
-                    "rule5": false,
-                    "rule6": false,
-                    "rule7": false,
-                    "rule8": false,
-                    "rule9": false,
-                  }
-                }
-                visited={Object {}}
               >
-                <Component
-                  __versions={
-                    Object {
-                      "final-form": "4.8.1",
-                      "react-final-form": "3.6.0",
-                    }
-                  }
-                  abilitiesFetcher={
-                    Object {
-                      "data": Array [
+                <form
+                  onSubmit={[Function]}
+                >
+                  <div
+                    className="margin-bottom-sm"
+                  >
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3108,7 +3059,97 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "invitation",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule3"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule3"
+                          >
+                            <input
+                              checked={false}
+                              id="rule3"
+                              name="rule3"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule3",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "invitation",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule3",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "invitation",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive invitations"
+                                  id="Abilities.RulesCheckbox.rules.receiveInvitation"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les invitations
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3124,7 +3165,97 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "notificationsSummary",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule4"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule4"
+                          >
+                            <input
+                              checked={false}
+                              id="rule4"
+                              name="rule4"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule4",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "notificationsSummary",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule4",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "notificationsSummary",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive summaries of notifications"
+                                  id="Abilities.RulesCheckbox.rules.receiveNotificationsSummary"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les résumés notifications
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3140,7 +3271,97 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "event",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule5"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule5"
+                          >
+                            <input
+                              checked={false}
+                              id="rule5"
+                              name="rule5"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule5",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "event",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule5",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "event",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive events sent by other users"
+                                  id="Abilities.RulesCheckbox.rules.receiveEvent"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les événements envoyés par d'autres utilisateurs
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3156,7 +3377,97 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "eventCreation",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule6"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule6"
+                          >
+                            <input
+                              checked={false}
+                              id="rule6"
+                              name="rule6"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule6",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "eventCreation",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule6",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "eventCreation",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive event creations"
+                                  id="Abilities.RulesCheckbox.rules.receiveEventCreation"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les créations d'événements
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": Object {
@@ -3174,7 +3485,118 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "stateChange",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule7"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule7"
+                          >
+                            <input
+                              checked={false}
+                              id="rule7"
+                              name="rule7"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": Object {
+                                    "state": -1,
+                                  },
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule7",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "stateChange",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": Object {
+                                      "state": -1,
+                                    },
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule7",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "stateChange",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive states changes for {state}"
+                                  id="Abilities.RulesCheckbox.rules.receiveStateChange"
+                                  values={
+                                    Object {
+                                      "state": <FormattedMessage
+                                        defaultMessage="refused"
+                                        id="Abilities.RulesCheckbox.states.refused"
+                                        values={Object {}}
+                                      />,
+                                    }
+                                  }
+                                >
+                                  <span>
+                                    Recevoir les changements de status vers 
+                                    <FormattedMessage
+                                      defaultMessage="refused"
+                                      id="Abilities.RulesCheckbox.states.refused"
+                                      values={Object {}}
+                                    >
+                                      <span>
+                                        refusé
+                                      </span>
+                                    </FormattedMessage>
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": Object {
@@ -3192,7 +3614,118 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "stateChange",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule8"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule8"
+                          >
+                            <input
+                              checked={false}
+                              id="rule8"
+                              name="rule8"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": Object {
+                                    "state": 0,
+                                  },
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule8",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "stateChange",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": Object {
+                                      "state": 0,
+                                    },
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule8",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "stateChange",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive states changes for {state}"
+                                  id="Abilities.RulesCheckbox.rules.receiveStateChange"
+                                  values={
+                                    Object {
+                                      "state": <FormattedMessage
+                                        defaultMessage="to control"
+                                        id="Abilities.RulesCheckbox.states.toControl"
+                                        values={Object {}}
+                                      />,
+                                    }
+                                  }
+                                >
+                                  <span>
+                                    Recevoir les changements de status vers 
+                                    <FormattedMessage
+                                      defaultMessage="to control"
+                                      id="Abilities.RulesCheckbox.states.toControl"
+                                      values={Object {}}
+                                    >
+                                      <span>
+                                        à controller
+                                      </span>
+                                    </FormattedMessage>
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": Object {
@@ -3210,7 +3743,118 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "stateChange",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule9"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule9"
+                          >
+                            <input
+                              checked={false}
+                              id="rule9"
+                              name="rule9"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": Object {
+                                    "state": 1,
+                                  },
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule9",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "stateChange",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": Object {
+                                      "state": 1,
+                                    },
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule9",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "stateChange",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive states changes for {state}"
+                                  id="Abilities.RulesCheckbox.rules.receiveStateChange"
+                                  values={
+                                    Object {
+                                      "state": <FormattedMessage
+                                        defaultMessage="controlled"
+                                        id="Abilities.RulesCheckbox.states.controlled"
+                                        values={Object {}}
+                                      />,
+                                    }
+                                  }
+                                >
+                                  <span>
+                                    Recevoir les changements de status vers 
+                                    <FormattedMessage
+                                      defaultMessage="controlled"
+                                      id="Abilities.RulesCheckbox.states.controlled"
+                                      values={Object {}}
+                                    >
+                                      <span>
+                                        prêt à publier
+                                      </span>
+                                    </FormattedMessage>
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": Object {
@@ -3228,7 +3872,118 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "stateChange",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule10"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule10"
+                          >
+                            <input
+                              checked={false}
+                              id="rule10"
+                              name="rule10"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": Object {
+                                    "state": 2,
+                                  },
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule10",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "stateChange",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": Object {
+                                      "state": 2,
+                                    },
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule10",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "stateChange",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive states changes for {state}"
+                                  id="Abilities.RulesCheckbox.rules.receiveStateChange"
+                                  values={
+                                    Object {
+                                      "state": <FormattedMessage
+                                        defaultMessage="published"
+                                        id="Abilities.RulesCheckbox.states.published"
+                                        values={Object {}}
+                                      />,
+                                    }
+                                  }
+                                >
+                                  <span>
+                                    Recevoir les changements de status vers 
+                                    <FormattedMessage
+                                      defaultMessage="published"
+                                      id="Abilities.RulesCheckbox.states.published"
+                                      values={Object {}}
+                                    >
+                                      <span>
+                                        publié
+                                      </span>
+                                    </FormattedMessage>
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3254,7 +4009,117 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                             "subject": "eventUpdate",
                           },
                           "subject": "eventUpdate",
-                        },
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule11"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule11"
+                          >
+                            <input
+                              checked={true}
+                              id="rule11"
+                              name="rule11"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={true}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": false,
+                                  "key": "rule11",
+                                  "reason": null,
+                                  "relevantRule": Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "id": 1,
+                                    "identifier": 99999999,
+                                    "inverted": false,
+                                    "reason": null,
+                                    "subject": "eventUpdate",
+                                  },
+                                  "subject": "eventUpdate",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": false,
+                                    "key": "rule11",
+                                    "reason": null,
+                                    "relevantRule": Object {
+                                      "actions": "receive",
+                                      "conditions": null,
+                                      "entityName": "user",
+                                      "fields": null,
+                                      "id": 1,
+                                      "identifier": 99999999,
+                                      "inverted": false,
+                                      "reason": null,
+                                      "subject": "eventUpdate",
+                                    },
+                                    "subject": "eventUpdate",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive event updates"
+                                  id="Abilities.RulesCheckbox.rules.receiveEventUpdate"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les mises à jour d'événements
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                    <_default
+                      rule={
                         Object {
                           "actions": "receive",
                           "conditions": null,
@@ -3270,1674 +4135,233 @@ exports[`Storyshots AbilitiesEditor for a user 1`] = `
                           "reason": null,
                           "relevantRule": null,
                           "subject": "eventAggregation",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule13",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "event",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule14",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "eventCreation",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": Object {
-                            "state": -1,
-                          },
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule15",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "stateChange",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": Object {
-                            "state": 0,
-                          },
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule16",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "stateChange",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": Object {
-                            "state": 1,
-                          },
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule17",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "stateChange",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": Object {
-                            "state": 2,
-                          },
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule18",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "stateChange",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule19",
-                          "reason": null,
-                          "relevantRule": Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entityName": "member",
-                            "fields": null,
-                            "id": 2,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "reason": null,
-                            "subject": "eventUpdate",
-                          },
-                          "subject": "eventUpdate",
-                        },
-                        Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entity": Object {
-                            "agendaTitle": "Titre de l'agenda",
-                            "agendaUid": 456789,
-                            "crendential": 1,
-                            "id": 60815,
-                            "userUid": 99999999,
-                          },
-                          "entityName": "member",
-                          "fields": null,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "key": "rule20",
-                          "reason": null,
-                          "relevantRule": null,
-                          "subject": "eventAggregation",
-                        },
-                      ],
-                      "error": null,
-                      "loading": false,
-                    }
-                  }
-                  batch={[Function]}
-                  blur={[Function]}
-                  change={[Function]}
-                  decorators={
-                    Array [
-                      [Function],
-                    ]
-                  }
-                  dirty={false}
-                  dirtyFields={Object {}}
-                  dirtySinceLastSubmit={false}
-                  entityName="user"
-                  errors={Object {}}
-                  fetchAbilities={[Function]}
-                  focus={[Function]}
-                  form={
-                    Object {
-                      "batch": [Function],
-                      "blur": [Function],
-                      "change": [Function],
-                      "focus": [Function],
-                      "getFieldState": [Function],
-                      "getRegisteredFields": [Function],
-                      "getState": [Function],
-                      "initialize": [Function],
-                      "isValidationPaused": [Function],
-                      "mutators": Object {
-                        "setFieldData": [Function],
-                      },
-                      "pauseValidation": [Function],
-                      "registerField": [Function],
-                      "reset": [Function],
-                      "resumeValidation": [Function],
-                      "setConfig": [Function],
-                      "submit": [Function],
-                      "subscribe": [Function],
-                    }
-                  }
-                  handleSubmit={[Function]}
-                  hasSubmitErrors={false}
-                  hasValidationErrors={false}
-                  identifier={99999999}
-                  initialValues={
-                    Object {
-                      "rule10": false,
-                      "rule11": true,
-                      "rule12": false,
-                      "rule13": false,
-                      "rule14": false,
-                      "rule15": false,
-                      "rule16": false,
-                      "rule17": false,
-                      "rule18": false,
-                      "rule19": false,
-                      "rule20": false,
-                      "rule3": false,
-                      "rule4": false,
-                      "rule5": false,
-                      "rule6": false,
-                      "rule7": false,
-                      "rule8": false,
-                      "rule9": false,
-                    }
-                  }
-                  initialize={[Function]}
-                  invalid={false}
-                  locale="fr"
-                  mutators={
-                    Object {
-                      "setFieldData": [Function],
-                    }
-                  }
-                  pristine={true}
-                  receiveAbilitiesData={[Function]}
-                  receiveAbilitiesError={[Function]}
-                  res={
-                    Object {
-                      "formIndex": "http://localhost:3301/abilities/form-index",
-                    }
-                  }
-                  reset={[Function]}
-                  rules={
-                    Array [
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule3",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "invitation",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule4",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "notificationsSummary",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule5",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "event",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule6",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "eventCreation",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": -1,
-                        },
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule7",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 0,
-                        },
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule8",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 1,
-                        },
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule9",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 2,
-                        },
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule10",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": false,
-                        "key": "rule11",
-                        "reason": null,
-                        "relevantRule": Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entityName": "user",
-                          "fields": null,
-                          "id": 1,
-                          "identifier": 99999999,
-                          "inverted": false,
-                          "reason": null,
-                          "subject": "eventUpdate",
-                        },
-                        "subject": "eventUpdate",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "fullName": "Bertho",
-                          "uid": 99999999,
-                        },
-                        "entityName": "user",
-                        "fields": null,
-                        "identifier": 99999999,
-                        "inverted": true,
-                        "key": "rule12",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "eventAggregation",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule13",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "event",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule14",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "eventCreation",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": -1,
-                        },
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule15",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 0,
-                        },
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule16",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 1,
-                        },
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule17",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": Object {
-                          "state": 2,
-                        },
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule18",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "stateChange",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule19",
-                        "reason": null,
-                        "relevantRule": Object {
-                          "actions": "receive",
-                          "conditions": null,
-                          "entityName": "member",
-                          "fields": null,
-                          "id": 2,
-                          "identifier": 60815,
-                          "inverted": true,
-                          "reason": null,
-                          "subject": "eventUpdate",
-                        },
-                        "subject": "eventUpdate",
-                      },
-                      Object {
-                        "actions": "receive",
-                        "conditions": null,
-                        "entity": Object {
-                          "agendaTitle": "Titre de l'agenda",
-                          "agendaUid": 456789,
-                          "crendential": 1,
-                          "id": 60815,
-                          "userUid": 99999999,
-                        },
-                        "entityName": "member",
-                        "fields": null,
-                        "identifier": 60815,
-                        "inverted": true,
-                        "key": "rule20",
-                        "reason": null,
-                        "relevantRule": null,
-                        "subject": "eventAggregation",
-                      },
-                    ]
-                  }
-                  startAbilitiesFetch={[Function]}
-                  submitFailed={false}
-                  submitSucceeded={false}
-                  submitting={false}
-                  touched={Object {}}
-                  valid={true}
-                  validating={false}
-                  values={
-                    Object {
-                      "rule10": false,
-                      "rule11": true,
-                      "rule12": false,
-                      "rule13": false,
-                      "rule14": false,
-                      "rule15": false,
-                      "rule16": false,
-                      "rule17": false,
-                      "rule18": false,
-                      "rule19": false,
-                      "rule20": false,
-                      "rule3": false,
-                      "rule4": false,
-                      "rule5": false,
-                      "rule6": false,
-                      "rule7": false,
-                      "rule8": false,
-                      "rule9": false,
-                    }
-                  }
-                  visited={Object {}}
-                >
-                  <form
-                    onSubmit={[Function]}
+                        }
+                      }
+                    >
+                      <Field
+                        format={[Function]}
+                        name="rule12"
+                        parse={[Function]}
+                        render={[Function]}
+                        subscription={
+                          Object {
+                            "data": true,
+                            "value": true,
+                          }
+                        }
+                        type="checkbox"
+                        validateFields={Array []}
+                      >
+                        <div
+                          className="checkbox"
+                        >
+                          <label
+                            htmlFor="rule12"
+                          >
+                            <input
+                              checked={false}
+                              id="rule12"
+                              name="rule12"
+                              onBlur={[Function]}
+                              onChange={[Function]}
+                              onFocus={[Function]}
+                              type="checkbox"
+                              value={false}
+                            />
+                             
+                            <shouldUpdate(Component)
+                              rule={
+                                Object {
+                                  "actions": "receive",
+                                  "conditions": null,
+                                  "entity": Object {
+                                    "fullName": "Bertho",
+                                    "uid": 99999999,
+                                  },
+                                  "entityName": "user",
+                                  "fields": null,
+                                  "identifier": 99999999,
+                                  "inverted": true,
+                                  "key": "rule12",
+                                  "reason": null,
+                                  "relevantRule": null,
+                                  "subject": "eventAggregation",
+                                }
+                              }
+                            >
+                              <Component
+                                rule={
+                                  Object {
+                                    "actions": "receive",
+                                    "conditions": null,
+                                    "entity": Object {
+                                      "fullName": "Bertho",
+                                      "uid": 99999999,
+                                    },
+                                    "entityName": "user",
+                                    "fields": null,
+                                    "identifier": 99999999,
+                                    "inverted": true,
+                                    "key": "rule12",
+                                    "reason": null,
+                                    "relevantRule": null,
+                                    "subject": "eventAggregation",
+                                  }
+                                }
+                              >
+                                <FormattedMessage
+                                  defaultMessage="Receive event aggregations"
+                                  id="Abilities.RulesCheckbox.rules.receiveEventAggregation"
+                                  values={Object {}}
+                                >
+                                  <span>
+                                    Recevoir les agrégations d'événements
+                                  </span>
+                                </FormattedMessage>
+                              </Component>
+                            </shouldUpdate(Component)>
+                          </label>
+                        </div>
+                      </Field>
+                    </_default>
+                  </div>
+                  <Collapse
+                    accordion={false}
+                    className="margin-bottom-md"
+                    destroyInactivePanel={false}
+                    onChange={[Function]}
+                    prefixCls="rc-collapse"
                   >
-                    <p>
-                      Bertho
-                      :
-                    </p>
                     <div
-                      className="margin-bottom-md"
+                      className="rc-collapse margin-bottom-md"
+                      role={null}
                     >
-                      <_default
-                        key="rule3"
-                        rule={
+                      <shouldUpdate(CollapsePanel)
+                        accordion={false}
+                        destroyInactivePanel={false}
+                        header={
+                          <b>
+                            Titre de l'agenda
+                          </b>
+                        }
+                        isActive={false}
+                        onItemClick={[Function]}
+                        openAnimation={
                           Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule3",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "invitation",
+                            "enter": [Function],
+                            "leave": [Function],
                           }
                         }
+                        prefixCls="rc-collapse"
                       >
-                        <Field
-                          format={[Function]}
-                          key="rule3"
-                          name="rule3"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule3"
-                            >
-                              <input
-                                checked={false}
-                                id="rule3"
-                                name="rule3"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive invitation
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule4"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule4",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "notificationsSummary",
+                        <CollapsePanel
+                          accordion={false}
+                          destroyInactivePanel={false}
+                          forceRender={false}
+                          header={
+                            <b>
+                              Titre de l'agenda
+                            </b>
                           }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule4"
-                          name="rule4"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule4"
-                            >
-                              <input
-                                checked={false}
-                                id="rule4"
-                                name="rule4"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive notificationsSummary
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule5"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule5",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "event",
+                          headerClass=""
+                          isActive={false}
+                          onItemClick={[Function]}
+                          openAnimation={
+                            Object {
+                              "enter": [Function],
+                              "leave": [Function],
+                            }
                           }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule5"
-                          name="rule5"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
+                          prefixCls="rc-collapse"
+                          showArrow={true}
                         >
                           <div
-                            className="checkbox"
+                            className="rc-collapse-item"
                           >
-                            <label
-                              htmlFor="rule5"
+                            <div
+                              aria-expanded="false"
+                              className="rc-collapse-header"
+                              onClick={[Function]}
+                              onKeyPress={[Function]}
+                              role="button"
+                              tabIndex={0}
                             >
-                              <input
-                                checked={false}
-                                id="rule5"
-                                name="rule5"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
+                              <i
+                                className="arrow"
                               />
-                               
-                              receive event
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule6"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule6",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "eventCreation",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule6"
-                          name="rule6"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule6"
+                              <b>
+                                Titre de l'agenda
+                              </b>
+                            </div>
+                            <Animate
+                              animation={
+                                Object {
+                                  "enter": [Function],
+                                  "leave": [Function],
+                                }
+                              }
+                              component=""
+                              componentProps={Object {}}
+                              exclusive={true}
+                              onAppear={[Function]}
+                              onEnd={[Function]}
+                              onEnter={[Function]}
+                              onLeave={[Function]}
+                              showProp="isActive"
+                              transitionAppear={false}
+                              transitionEnter={true}
+                              transitionLeave={true}
                             >
-                              <input
-                                checked={false}
-                                id="rule6"
-                                name="rule6"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive eventCreation
-                               
-                            </label>
+                              <AnimateChild
+                                animation={
+                                  Object {
+                                    "enter": [Function],
+                                    "leave": [Function],
+                                  }
+                                }
+                                transitionAppear={false}
+                                transitionEnter={true}
+                                transitionLeave={true}
+                              >
+                                <PanelContent
+                                  destroyInactivePanel={false}
+                                  forceRender={false}
+                                  isActive={false}
+                                  prefixCls="rc-collapse"
+                                  role={null}
+                                />
+                              </AnimateChild>
+                            </Animate>
                           </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule7"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": -1,
-                            },
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule7",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule7"
-                          name="rule7"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule7"
-                            >
-                              <input
-                                checked={false}
-                                id="rule7"
-                                name="rule7"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour -1
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule8"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 0,
-                            },
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule8",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule8"
-                          name="rule8"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule8"
-                            >
-                              <input
-                                checked={false}
-                                id="rule8"
-                                name="rule8"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 0
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule9"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 1,
-                            },
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule9",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule9"
-                          name="rule9"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule9"
-                            >
-                              <input
-                                checked={false}
-                                id="rule9"
-                                name="rule9"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 1
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule10"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 2,
-                            },
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule10",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule10"
-                          name="rule10"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule10"
-                            >
-                              <input
-                                checked={false}
-                                id="rule10"
-                                name="rule10"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 2
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule11"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": false,
-                            "key": "rule11",
-                            "reason": null,
-                            "relevantRule": Object {
-                              "actions": "receive",
-                              "conditions": null,
-                              "entityName": "user",
-                              "fields": null,
-                              "id": 1,
-                              "identifier": 99999999,
-                              "inverted": false,
-                              "reason": null,
-                              "subject": "eventUpdate",
-                            },
-                            "subject": "eventUpdate",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule11"
-                          name="rule11"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule11"
-                            >
-                              <input
-                                checked={true}
-                                id="rule11"
-                                name="rule11"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={true}
-                              />
-                               
-                              receive eventUpdate
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule12"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "fullName": "Bertho",
-                              "uid": 99999999,
-                            },
-                            "entityName": "user",
-                            "fields": null,
-                            "identifier": 99999999,
-                            "inverted": true,
-                            "key": "rule12",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "eventAggregation",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule12"
-                          name="rule12"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule12"
-                            >
-                              <input
-                                checked={false}
-                                id="rule12"
-                                name="rule12"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive eventAggregation
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
+                        </CollapsePanel>
+                      </shouldUpdate(CollapsePanel)>
                     </div>
-                    <p>
-                      <b>
-                        Member
-                      </b>
-                    </p>
-                    <p>
-                      Titre de l'agenda
-                    </p>
-                    <div
-                      className="margin-bottom-md"
+                  </Collapse>
+                  <button
+                    className="btn btn-primary"
+                    type="submit"
+                  >
+                    <FormattedMessage
+                      defaultMessage="Save"
+                      id="Abilities.AbilitiesForm.save"
+                      values={Object {}}
                     >
-                      <_default
-                        key="rule13"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule13",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "event",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule13"
-                          name="rule13"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule13"
-                            >
-                              <input
-                                checked={false}
-                                id="rule13"
-                                name="rule13"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive event
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule14"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule14",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "eventCreation",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule14"
-                          name="rule14"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule14"
-                            >
-                              <input
-                                checked={false}
-                                id="rule14"
-                                name="rule14"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive eventCreation
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule15"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": -1,
-                            },
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule15",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule15"
-                          name="rule15"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule15"
-                            >
-                              <input
-                                checked={false}
-                                id="rule15"
-                                name="rule15"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour -1
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule16"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 0,
-                            },
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule16",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule16"
-                          name="rule16"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule16"
-                            >
-                              <input
-                                checked={false}
-                                id="rule16"
-                                name="rule16"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 0
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule17"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 1,
-                            },
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule17",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule17"
-                          name="rule17"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule17"
-                            >
-                              <input
-                                checked={false}
-                                id="rule17"
-                                name="rule17"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 1
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule18"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": Object {
-                              "state": 2,
-                            },
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule18",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "stateChange",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule18"
-                          name="rule18"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule18"
-                            >
-                              <input
-                                checked={false}
-                                id="rule18"
-                                name="rule18"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              Changement d'état pour 2
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule19"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule19",
-                            "reason": null,
-                            "relevantRule": Object {
-                              "actions": "receive",
-                              "conditions": null,
-                              "entityName": "member",
-                              "fields": null,
-                              "id": 2,
-                              "identifier": 60815,
-                              "inverted": true,
-                              "reason": null,
-                              "subject": "eventUpdate",
-                            },
-                            "subject": "eventUpdate",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule19"
-                          name="rule19"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule19"
-                            >
-                              <input
-                                checked={false}
-                                id="rule19"
-                                name="rule19"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive eventUpdate
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                      <_default
-                        key="rule20"
-                        rule={
-                          Object {
-                            "actions": "receive",
-                            "conditions": null,
-                            "entity": Object {
-                              "agendaTitle": "Titre de l'agenda",
-                              "agendaUid": 456789,
-                              "crendential": 1,
-                              "id": 60815,
-                              "userUid": 99999999,
-                            },
-                            "entityName": "member",
-                            "fields": null,
-                            "identifier": 60815,
-                            "inverted": true,
-                            "key": "rule20",
-                            "reason": null,
-                            "relevantRule": null,
-                            "subject": "eventAggregation",
-                          }
-                        }
-                      >
-                        <Field
-                          format={[Function]}
-                          key="rule20"
-                          name="rule20"
-                          parse={[Function]}
-                          render={[Function]}
-                          type="checkbox"
-                        >
-                          <div
-                            className="checkbox"
-                          >
-                            <label
-                              htmlFor="rule20"
-                            >
-                              <input
-                                checked={false}
-                                id="rule20"
-                                name="rule20"
-                                onBlur={[Function]}
-                                onChange={[Function]}
-                                onFocus={[Function]}
-                                type="checkbox"
-                                value={false}
-                              />
-                               
-                              receive eventAggregation
-                               
-                            </label>
-                          </div>
-                        </Field>
-                      </_default>
-                    </div>
-                    <button
-                      className="btn btn-primary"
-                      type="submit"
-                    >
-                      Sauvegarder
-                    </button>
-                  </form>
-                </Component>
-              </lifecycle(Component)>
+                      <span>
+                        Sauvegarder
+                      </span>
+                    </FormattedMessage>
+                  </button>
+                  <FormSpy
+                    onChange={[Function]}
+                    subscription={
+                      Object {
+                        "data": true,
+                        "values": true,
+                      }
+                    }
+                  />
+                </form>
+              </AbilitiesForm>
             </ReactFinalForm>
           </IntlProvider>
         </AbilitiesEditor>

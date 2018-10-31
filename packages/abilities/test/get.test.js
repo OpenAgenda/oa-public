@@ -30,6 +30,8 @@ describe( 'get', () => {
   } );
 
   test( 'get with a bad identifier object should throw an error', async () => {
-    await expect( abilities.get( 'user', {} ) ).rejects.toThrow( '`identifier` should be a number' );
+    await expect( abilities.get( 'user', {} ) ).rejects.toThrow(
+      '`identifier` should be a number'
+    );
   } );
 } );

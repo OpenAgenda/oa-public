@@ -4,7 +4,9 @@
 
 import path from 'path';
 import { promisify } from 'util';
-import initStoryshots, { Stories2SnapsConverter } from '@storybook/addon-storyshots';
+import initStoryshots, {
+  Stories2SnapsConverter
+} from '@storybook/addon-storyshots';
 import { mount, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
@@ -19,9 +21,11 @@ const devApp = require( '../server.dev' ).default;
 
 configure( { adapter: new Adapter() } );
 
-
 beforeAll( async () => {
-  await promisify( devApp.server.listen ).call( devApp.server, process.env.STORYBOOK_API_PORT || 3301 );
+  await promisify( devApp.server.listen ).call(
+    devApp.server,
+    process.env.STORYBOOK_API_PORT || 3301
+  );
 
   process.env.STORYBOOK_API_PORT = devApp.server.address().port;
 
@@ -42,7 +46,6 @@ afterAll( async () => {
   await abilities.config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
   await abilities.config.knex.destroy();
 } );
-
 
 initStoryshots( {
   suite: 'Storyshots',
@@ -65,8 +68,9 @@ initStoryshots( {
 
     setTimeout( () => {
       if ( snapshotFilename ) {
-        expect( toJson( wrapper.update() ) )
-          .toMatchSpecificSnapshot( snapshotFilename );
+        expect(
+          toJson( wrapper.update(), { noKey: true } )
+        ).toMatchSpecificSnapshot( snapshotFilename );
       }
 
       done();

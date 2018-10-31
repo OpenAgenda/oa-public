@@ -56,7 +56,9 @@ module.exports = ( { entry, output } ) => ( {
         cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
         // parallel: true,
         uglifyOptions: {
-          compress: true,
+          compress: {
+            collapse_vars: false
+          },
           mangle: true,
           // fromString: true
         }

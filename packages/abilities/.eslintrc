@@ -35,8 +35,8 @@
       "always"
     ],
     "max-len": [
-      "warn",
-      120
+      "off",
+      80
     ],
     "arrow-parens": [
       "error",

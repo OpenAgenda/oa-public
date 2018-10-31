@@ -39,7 +39,10 @@ export function parse( rules ) {
     actions: splitIfNeeded( rule.actions || rule.action ),
     subject: splitIfNeeded( rule.subject ),
     inverted: !!rule.inverted,
-    conditions: typeof rule.conditions === 'string' ? JSON.parse( rule.conditions ) : rule.conditions || null,
+    conditions:
+      typeof rule.conditions === 'string'
+        ? JSON.parse( rule.conditions )
+        : rule.conditions || null,
     fields: splitIfNeeded( rule.fields ) || null,
     reason: rule.reason || null
   } );
@@ -52,8 +55,15 @@ export async function list( entityName, identifier ) {
     throw new TypeError( '`entityName` should be a string' );
   }
 
-  if ( !( _.isNumber( identifier ) || ( Array.isArray( identifier ) && _.every( identifier, _.isNumber ) ) ) ) {
-    throw new TypeError( '`identifier` should be a number or an array of numbers' );
+  if (
+    !(
+      _.isNumber( identifier )
+      || ( Array.isArray( identifier ) && _.every( identifier, _.isNumber ) )
+    )
+  ) {
+    throw new TypeError(
+      '`identifier` should be a number or an array of numbers'
+    );
   }
 
   const request = config
@@ -73,7 +83,9 @@ export async function list( entityName, identifier ) {
 }
 
 export function getDefaultFor( entityName ) {
-  const defaultForFn = config.interfaces && config.interfaces.defaultFor && config.interfaces.defaultFor[ entityName ];
+  const defaultForFn = config.interfaces
+    && config.interfaces.defaultFor
+    && config.interfaces.defaultFor[ entityName ];
   const builder = AbilityBuilder.extract();
 
   function wrapper( func, ...args ) {

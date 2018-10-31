@@ -14,9 +14,9 @@ import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
 
-if ( process.env.NODE_ENV !== 'production' ) {
+if ( process.env.NODE_ENV === 'development' ) {
   // eslint-disable-next-line
-  const { whyDidYouUpdate } = require( 'why-did-you-update' );
+  const { whyDidYouUpdate } = require('why-did-you-update');
   whyDidYouUpdate( React );
 }
 
@@ -28,32 +28,32 @@ const localeData = {
 addLocaleData( [ ...en, ...fr ] );
 
 function getInitialValues( rules ) {
-  return rules.reduce( ( result, rule ) => ( {
-    ...result,
-    [ rule.key ]: rule.inverted === undefined ? true : !rule.inverted
-  } ), {} );
+  return rules.reduce(
+    ( result, rule ) => ( {
+      ...result,
+      [ rule.key ]: rule.inverted === undefined ? true : !rule.inverted
+    } ),
+    {}
+  );
 }
-
 
 @withFetcher(
   'abilities',
-  async ( { res, entityName, identifier } ) => axios.get( res.formIndex, {
-    params: {
-      entityName,
-      identifier
-    }
-  } )
+  async ( { res, entityName, identifier } ) => axios
+    .get( res.formIndex, {
+      params: {
+        entityName,
+        identifier
+      }
+    } )
     .then( ( { data } ) => data.map( v => ( { ...v, key: `rule${_.uniqueId()}` } ) ) ),
   { fetchOnMount: true }
 )
 @shouldUpdate(
-  ( props, nextProps ) => (
-    !shallowEqual(
-      _.pick( props, [ 'entityName', 'identifier', 'locale' ] ),
-      _.pick( nextProps, [ 'entityName', 'identifier', 'locale' ] )
-    )
-    || !shallowEqual( props.abilitiesFetcher, nextProps.abilitiesFetcher )
-  )
+  ( props, nextProps ) => !shallowEqual(
+    _.pick( props, [ 'entityName', 'identifier', 'locale' ] ),
+    _.pick( nextProps, [ 'entityName', 'identifier', 'locale' ] )
+  ) || !shallowEqual( props.abilitiesFetcher, nextProps.abilitiesFetcher )
 )
 class AbilitiesEditor extends Component {
   static defaultProps = {
@@ -67,14 +67,14 @@ class AbilitiesEditor extends Component {
 
     this.handleSubmit = ::this.handleSubmit;
 
-    this.childCheckboxDecorator = getChildCheckboxDecorator( ( {
+    this.childCheckboxDecorator = getChildCheckboxDecorator( {
       entityName,
       identifier,
       getRules: () => {
         const { abilitiesFetcher } = this.props;
         return abilitiesFetcher.data;
       }
-    } ) );
+    } );
   }
 
   async handleSubmit( values, form ) {
@@ -85,9 +85,7 @@ class AbilitiesEditor extends Component {
       identifier,
       receiveAbilitiesData,
       receiveAbilitiesError,
-      abilitiesFetcher: {
-        data: rules
-      }
+      abilitiesFetcher: { data: rules }
     } = this.props;
 
     const formIndex = rules.map( rule => ( {
@@ -125,7 +123,9 @@ class AbilitiesEditor extends Component {
   }
 
   renderContent() {
-    const { abilitiesFetcher: { loading, data: rules, error } } = this.props;
+    const {
+      abilitiesFetcher: { loading, data: rules, error }
+    } = this.props;
 
     if ( loading ) {
       return (
@@ -165,11 +165,7 @@ class AbilitiesEditor extends Component {
     const messages = localeData[ locale ] || localeData.en;
 
     return (
-      <IntlProvider
-        locale={locale}
-        key={locale}
-        messages={messages}
-      >
+      <IntlProvider locale={locale} key={locale} messages={messages}>
         {this.renderContent()}
       </IntlProvider>
     );

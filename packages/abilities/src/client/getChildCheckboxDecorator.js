@@ -1,18 +1,20 @@
 import _ from 'lodash';
 import createDecorator from 'final-form-calculate';
 
-export default function ( {
-  entityName,
-  identifier,
-  getRules
-} ) {
+export default function ( { entityName, identifier, getRules } ) {
   return form => {
-    const { mutators: { setFieldData }, getFieldState } = form;
+    const {
+      mutators: { setFieldData },
+      getFieldState
+    } = form;
     const rules = getRules();
-    const [ firstEntityRules, otherRules ] = _.partition( rules, _.matches( {
-      entityName,
-      identifier
-    } ) );
+    const [ firstEntityRules, otherRules ] = _.partition(
+      rules,
+      _.matches( {
+        entityName,
+        identifier
+      } )
+    );
 
     return createDecorator( {
       field: /rule\d+/,
@@ -26,17 +28,21 @@ export default function ( {
         const fieldState = getFieldState( field );
 
         if ( _.isMatch( concernedRule, { entityName, identifier } ) ) {
-          if ( fieldState.data.indeterminate ) { // when UNcheck an indeterminate checkbox
-            return relatedRules.reduce( ( result, rule ) => {
-              if ( allValues[ rule.key ] === false ) {
-                return result;
-              }
+          if ( fieldState.data.indeterminate ) {
+            // when UNcheck an indeterminate checkbox
+            return relatedRules.reduce(
+              ( result, rule ) => {
+                if ( allValues[ rule.key ] === false ) {
+                  return result;
+                }
 
-              return {
-                ...result,
-                [ rule.key ]: false
-              };
-            }, { [ field ]: false } );
+                return {
+                  ...result,
+                  [ rule.key ]: false
+                };
+              },
+              { [ field ]: false }
+            );
           }
 
           if ( value ) {
@@ -68,4 +74,4 @@ export default function ( {
       }
     } )( form );
   };
-};
+}

@@ -1,17 +1,10 @@
 import {
-  compose,
-  withStateHandlers,
-  withHandlers,
-  lifecycle
+  compose, withStateHandlers, withHandlers, lifecycle
 } from 'recompose';
 import _ from 'lodash';
 
 // Handle Rest API
-function withFetcher(
-  name,
-  fetch,
-  { fetchOnMount = false } = {}
-) {
+function withFetcher( name, fetch, { fetchOnMount = false } = {} ) {
   return compose(
     withStateHandlers(
       {
@@ -29,14 +22,18 @@ function withFetcher(
             error: null
           }
         } ),
-        [ `receive${_.upperFirst( name )}Error` ]: ( { [ `${name}Fetcher` ]: { data } } ) => error => ( {
+        [ `receive${_.upperFirst( name )}Error` ]: ( {
+          [ `${name}Fetcher` ]: { data }
+        } ) => error => ( {
           [ `${name}Fetcher` ]: {
             data,
             loading: false,
             error: error || true
           }
         } ),
-        [ `start${_.upperFirst( name )}Fetch` ]: ( { [ `${name}Fetcher` ]: prevState } ) => () => ( {
+        [ `start${_.upperFirst( name )}Fetch` ]: ( {
+          [ `${name}Fetcher` ]: prevState
+        } ) => () => ( {
           [ `${name}Fetcher` ]: {
             ...prevState,
             loading: true
@@ -47,11 +44,10 @@ function withFetcher(
     withHandlers( {
       [ `fetch${_.upperFirst( name )}` ]: props => () => {
         props[ `start${_.upperFirst( name )}Fetch` ]();
-        fetch( props )
-          .then(
-            props[ `receive${_.upperFirst( name )}Data` ],
-            props[ `receive${_.upperFirst( name )}Error` ]
-          );
+        fetch( props ).then(
+          props[ `receive${_.upperFirst( name )}Data` ],
+          props[ `receive${_.upperFirst( name )}Error` ]
+        );
       }
     } ),
     // mapProps( props => _.omit( props, [

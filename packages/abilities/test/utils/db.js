@@ -6,7 +6,10 @@ async function create( { user, password, database } ) {
   const conn = mysql.createConnection( { user, password } );
 
   await promisify( conn.query ).call( conn, `DROP DATABASE IF EXISTS ${database}` );
-  await promisify( conn.query ).call( conn, `CREATE DATABASE IF NOT EXISTS ${database}` );
+  await promisify( conn.query ).call(
+    conn,
+    `CREATE DATABASE IF NOT EXISTS ${database}`
+  );
 
   conn.destroy();
 }

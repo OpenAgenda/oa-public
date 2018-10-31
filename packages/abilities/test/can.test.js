@@ -49,7 +49,9 @@ describe( 'can', () => {
 
     expect( ability.can( 'receive', 'activity' ) ).toBe( true );
     expect( ability.can( 'receive', 'activity', { verb: 'spam' } ) ).toBe( false );
-    expect( ability.can( 'receive', 'mail', { verb: 'agenda.eventPublished' } ) ).toBe( true );
+    expect(
+      ability.can( 'receive', 'mail', { verb: 'agenda.eventPublished' } )
+    ).toBe( true );
   } );
 
   test( 'check abilities that have opposed rules but the same user entity', async () => {

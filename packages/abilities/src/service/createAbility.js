@@ -3,7 +3,9 @@ import { Ability } from '@casl/ability';
 import Rule from './Rule';
 import * as rulesLib from './rules';
 
-export const SUBJECT_NAME = Symbol( '@openagenda/abilities/Ability:SUBJECT_NAME' );
+export const SUBJECT_NAME = Symbol(
+  '@openagenda/abilities/Ability:SUBJECT_NAME'
+);
 
 function getSubjectName( subject ) {
   if ( subject && subject[ SUBJECT_NAME ] ) {

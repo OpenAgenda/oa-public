@@ -167,12 +167,13 @@ module.exports = {
     getEntity: {
       agenda: uid => ( {
         uid,
-        title: 'Titre de l\'agenda'
+        title: "Titre de l'agenda"
       } ),
-      member: id => ( { // needs agendaTitle
+      member: id => ( {
+        // needs agendaTitle
         id,
         agendaUid: 456789,
-        agendaTitle: 'Titre de l\'agenda',
+        agendaTitle: "Titre de l'agenda",
         crendential: 1,
         userUid: 99999999
       } ),
@@ -184,12 +185,13 @@ module.exports = {
     listEntities: {
       agenda: uids => uids.map( uid => ( {
         uid,
-        title: 'Titre de l\'agenda'
+        title: "Titre de l'agenda"
       } ) ),
-      member: ids => ids.map( id => ( { // needs all agendaTitle
+      member: ids => ids.map( id => ( {
+        // needs all agendaTitle
         id,
         agendaUid: 456789,
-        agendaTitle: 'Titre de l\'agenda',
+        agendaTitle: "Titre de l'agenda",
         crendential: 1,
         userUid: 99999999
       } ) ),
@@ -200,9 +202,9 @@ module.exports = {
     },
     defaultFor: {
       user( { can, cannot, rules } ) {
-        // can( 'create', 'event' );
-        // can( 'receive', 'activity' );
-        // cannot( 'receive', 'activity', { verb: 'spam' } );
+        can( 'create', 'event' );
+        can( 'receive', 'activity' );
+        cannot( 'receive', 'activity', { verb: 'spam' } );
 
         return rules;
       }
@@ -231,7 +233,8 @@ module.exports = {
       async member( member, builder, options = {} ) {
         const defaultRules = abilities.rules.getDefaultFor( 'member' );
         const memberRules = options.rules || ( await abilities.rules.list( 'member', member.id ) );
-        const agendaRules = ( await abilities.get( 'agenda', member.agendaUid ) ).rules;
+        const agendaRules = ( await abilities.get( 'agenda', member.agendaUid ) )
+          .rules;
         const userRules = ( await abilities.get( 'user', member.userUid ) ).rules;
 
         // if ( isAdmin( user ) {
