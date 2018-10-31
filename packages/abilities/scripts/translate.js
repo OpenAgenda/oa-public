@@ -41,8 +41,6 @@ function extractLang( lang ) {
   fs.writeFileSync( `${LOCALE_DIR}${lang}.json`, JSON.stringify( messages, null, 2 ) + '\n' );
 }
 
-LANGS.forEach( lang => {
-  extractLang( lang );
-} );
+LANGS.forEach( extractLang );
 
 // TODO extract only 'en' in src and wait the other languages from PR (via crowdin, POEditor or other)
