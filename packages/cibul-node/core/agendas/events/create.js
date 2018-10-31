@@ -11,6 +11,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
 const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
 const getNetwork = require( '../utils/getNetwork' );
+const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
 module.exports = async ( agendaUid, data, options = {} ) => {
@@ -36,6 +37,18 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     formSchemaId,
     networkFormSchemaId: _.get( network, 'formSchemaId' )
   }, data, { draft } );
+
+  try {
+
+    clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+
+    log( 'retrieved %s links', clean.event.links.length );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not retrieve oembeds', e );
+
+  }
 
   log( 'pre-validation done', { agendaUid } );
 

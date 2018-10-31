@@ -60,6 +60,7 @@
     "@openagenda/member-apps": "^1.0.39",
     "@openagenda/networks": "^1.0.2",
     "@openagenda/newsletter": "^2.0.1",
+    "@openagenda/oembed": "^1.0.0",
     "@openagenda/pdf": "^0.1.0",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/registration": "^1.1.1",
