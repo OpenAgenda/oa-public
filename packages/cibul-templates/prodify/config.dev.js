@@ -26,7 +26,7 @@ module.exports = ( { entry, output } ) => {
           use: {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: getCacheDir( 'babel-loader-dev' ),
+              cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-dev' ),
               forceEnv: 'development'
             }
           }
@@ -53,7 +53,7 @@ module.exports = ( { entry, output } ) => {
       maxAssetSize: 20000000
     },
     plugins: [
-      new ProgressBar(),
+      new ProgressBar( { minimal: false } ),
       new webpack.DefinePlugin( {
         'process.env.NODE_ENV': '"development"',
         __CLIENT__: true,

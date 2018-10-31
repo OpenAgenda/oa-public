@@ -612,11 +612,16 @@ for ( var i = 2; i < process.argv.length; i++ ) {
       break;
     default:
       buildFilter.push( process.argv[ i ] );
+
   }
 }
 
 if ( process.env.NODE_ENV === 'development' ) {
   production = false;
+}
+
+if ( buildFilter.length ) {
+  process.env.DISABLE_WEBPACK_CACHE = true;
 }
 
 run();

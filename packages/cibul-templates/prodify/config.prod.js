@@ -24,7 +24,7 @@ module.exports = ( { entry, output } ) => ( {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: getCacheDir( 'babel-loader-prod' ),
+            cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-prod' ),
             forceEnv: 'production'
           }
         }
@@ -53,7 +53,7 @@ module.exports = ( { entry, output } ) => ( {
   optimization: {
     minimizer: [
       new UglifyJsPlugin( {
-        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
+        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'uglifyjs-webpack-plugin' ),
         // parallel: true,
         uglifyOptions: {
           compress: {
@@ -66,7 +66,7 @@ module.exports = ( { entry, output } ) => ( {
     ]
   },
   plugins: [
-    new ProgressBar(),
+    new ProgressBar( { minimal: false } ),
     new webpack.DefinePlugin( {
       'process.env.NODE_ENV': '"production"',
       __CLIENT__: true,
