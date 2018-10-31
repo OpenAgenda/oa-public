@@ -116,7 +116,7 @@ module.exports = {
     fr: '%count% événements'
   },
   countEvent: {
-    en: '1 eveent',
+    en: '1 event',
     fr: '1 événement'
   },
   countUpcomingEvents: {
