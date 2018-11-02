@@ -1,17 +1,18 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const facebook = require( '@openagenda/facebook' );
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
-  facebook.init( {
+  await promisify( facebook.init )( {
     app: config.auth.facebook,
     routes: {
       tabRedirect: config.root + '/facebook/tab/create/:state'
     },
     query: _query,
     db: config.db
-  }, cb );
+  } );
 
   function _query( queryStr, values, cb ) {
 
