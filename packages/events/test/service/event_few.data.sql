@@ -20,7 +20,7 @@ CREATE TABLE `${schema}` (
   age VARCHAR( 50 ),
   registration VARCHAR(2000),
   `references` VARCHAR(2000),
-  links VARCHAR(2000),
+  links TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,

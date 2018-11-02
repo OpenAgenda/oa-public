@@ -89,22 +89,20 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     it( 'created legacy event store keeps image details', () => {
 
-      JSON.parse( _.get( result, 'inserted.event.store' ) ).should.eql( { 
-        images: {
-          filename: 'event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg',
-          credits: null,
-          size: { height: null, width: null },
-          variants: [ {
-            "type":"full",
-            "filename":"evfevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg",
-            "size":{"height":null,"width":null}
-          },{
-            "type":"thumbnail",
-            "filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg",
-            "size":{"height":null,"width":null}
-          } ],
-          base: '//openagendatst.s3.amazonaws.com/' 
-        } 
+      JSON.parse( _.get( result, 'inserted.event.store' ) ).images.should.eql( { 
+        filename: 'event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg',
+        credits: null,
+        size: { height: null, width: null },
+        variants: [ {
+          "type":"full",
+          "filename":"evfevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg",
+          "size":{"height":null,"width":null}
+        },{
+          "type":"thumbnail",
+          "filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg",
+          "size":{"height":null,"width":null}
+        } ],
+        base: '//openagendatst.s3.amazonaws.com/' 
       } );
 
     } );
@@ -169,7 +167,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       eventEntry.slug.should.equal( 'a-new-slug' );
 
-    } ); 
+    } );
 
     it( 'transfer to legacy structure updates keywords', async () => {
 
@@ -230,6 +228,40 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
         { event_id: 146447, agenda_id: 4917, ref_event_id: 147274 },
         { event_id: 146447, agenda_id: 4917, ref_event_id: 147289 } 
       ] );
+
+    } );
+
+    it( 'update pushes links to legacy store', async () => {
+
+      await svc.update( { uid }, { 
+        links: [ {
+          link: "https://www.youtube.com/watch?v=c1kNwDfBrLY",
+          data:{
+            url:"https://www.youtube.com/watch?v=c1kNwDfBrLY",
+            type: "video",
+            version:"1.0",
+            title:"Ultra Vomit - ÉVIER METAL - [Clip Eau-fficiel / Water-ficial Video]",
+            author:"Ultra Vomit",
+            author_url: "https://www.youtube.com/channel/UCT-_mRYXh-Kubtu_3WTXYhQ",
+            provider_name:"YouTube",
+            description:"Un évier légendaire. Une quête périlleuse. Un jeu de mot tout pourri. Le nouveau clip d'Ultra Vomit est là !\n\nExtrait de l'album \"Panzer Surprise !\" : http://ultravomit.lnk.to/PanzerSurprise\n\nOlympia COMPLET le 13 octobre 2018 ! \n\nPoke Ultra Vomit ici : http://www.facebook.com/ultravomitofficiel\n\nRetrouvez la version karaoké de ce tube de légende ici : https://youtu.be/YFT_yxtDsus\n\n*************************\n\nLes paroles :\n\nLe robinet\nFait couler l'eau\nL'évacuation\nÉvacue l'eau\nS'brosser les dents\nFaire sa toilette\nPisser dedans\nAvec sa quéquette\n\nAu beau milieu de la nuit\nQuand j'me réveille\nEt que j'veux boire\nIl est toujours là pour moi\nPour étancher mon désespoir\n\nIl m'éclaire quand il brille dans la nuit\nÉvier métal !\n\nIl m'éclaire quand il brille dans la nuit\n(Oooohooooohoooo)\nMon évier de minuit\n(Oooohooooohoooo)\n\nAu beau milieu de la nuit\nQuand j'me réveille et que j'veux boire\nIl est toujours là pour moi\nPour étancher mon désespoir\n\nAu beau milieu de la nuit\nQuand j'me réveille et que j'veux boire\nIl est toujours là pour moi\nÉvier métal\n\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier… métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier… métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier… métal\nÉvier métal\nÉvier métal\nÉvier…\n\nMétal !\n\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier mét… hé merde !\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\nÉvier métal\n…\n\nwww.ultra-vomit.com",
+            thumbnail_url:"https://i.ytimg.com/vi/c1kNwDfBrLY/maxresdefault.jpg",
+            thumbnail_width: 1280,
+            thumbnail_height:720,
+            html:"<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"https://www.youtube.com/embed/c1kNwDfBrLY?rel=0&amp;showinfo=0\" style=\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\" allowfullscreen scrolling=\"no\"></iframe></div>",
+            cache_age:86400
+          }, 
+          type:"oembed"
+        } ]
+      } ); 
+
+      await svc.legacy.update( { uid } );
+
+      const eventEntry = await knex( config.legacy.schemas.event ).first( 'store' ).where( { uid } );
+
+      _.get( JSON.parse( eventEntry.store ).links, '0.link' ).should.equal( 'https://www.youtube.com/watch?v=c1kNwDfBrLY' );
+
+      _.get( JSON.parse( eventEntry.store ).links, '0.code' ).should.equal( '<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"https://www.youtube.com/embed/c1kNwDfBrLY?rel=0&amp;showinfo=0\" style=\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\" allowfullscreen scrolling=\"no\"></iframe></div>' );
 
     } );
 

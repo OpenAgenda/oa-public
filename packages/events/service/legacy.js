@@ -92,7 +92,14 @@ async function update( identifiers, options ) {
         origin_uid: event.agendaUid,
         owner_id: userId,
         accessibility: _updateLegacyAccessibility( event.accessibility ),
-        store: JSON.stringify( { images: event.image } )
+        store: JSON.stringify( { 
+          images: event.image,
+          links: _.get( event, 'links', [] )
+            .map( ( { link, data } ) => ( { 
+              link, 
+              code: _.get( data, 'html' ) 
+            } ) )
+        } )
       }
     ),
     eventTranslations: _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) ).map( lang => ( {
@@ -838,6 +845,19 @@ function _getEvent( v ) {
         } );
 
       } catch( e ) {}
+
+    }
+
+    try {
+
+      v.data.links = JSON.parse( _.get( v, 'entries.event.store' ) )
+        .links
+        .filter( link => link.code )
+        .map( ( { link, code } ) => ( { type: 'oembed', link, data: { html: code, url: link } } ) );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not parse links from legacy store', e );
 
     }
 

@@ -216,7 +216,7 @@ async function createPromise( data, options ) {
 
       transferedToLegacy = !!result.success;
 
-      if ( !transferToLegacy ) log( 'error', 'could not transfer event to legacy', createdId );
+      if ( !transferedToLegacy ) log( 'error', 'could not transfer event to legacy', createdId );
 
     } catch ( e ) {
 

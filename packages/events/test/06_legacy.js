@@ -148,6 +148,19 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     } );
 
+    it( 'oembed links are assembled', () => {
+
+      event.links.should.eql( [ { 
+        link: 'http://vimeo.com/24043834',
+        data: {
+          html: '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.6669%;"><iframe src="https://player.vimeo.com/video/24043834?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no"></iframe></div>',
+          url: 'http://vimeo.com/24043834' 
+        },
+        type: 'oembed' 
+      } ] );
+
+    } );
+
   } );
 
 

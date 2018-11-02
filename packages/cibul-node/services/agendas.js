@@ -9,11 +9,14 @@ const keys = require( '@openagenda/keys' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
-const config = require( '../config' );
 
+let config;
 let log = console.log;
 
-module.exports.init = config => {
+
+module.exports.init = c => {
+
+  config = c;
 
   agendas.init( {
     mysql: config.db,
