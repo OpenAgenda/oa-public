@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "nodemon server.dev.js -w $MAILS_TEMPLATES_DIR",
-    "test": "jest --forceExit",
+    "test": "jest --forceExit --detectOpenHandles",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
     "lint": "eslint -c .eslintrc '**/*.js'"
   },

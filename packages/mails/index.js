@@ -56,26 +56,26 @@ async function sendMail( options = {} ) {
 
     try {
       if ( compiled ) {
-        const labels = ( config.translations.labels || {} )[ options.template ] || {};
+        const labels = ( config.translations.labels || {} )[ params.template ] || {};
         templateData.__ = config.translations.makeLabelGetter( labels, lang );
 
-        if ( !options.disableHtml && compiled.html ) {
-          options.html = compiled.html( templateData );
+        if ( !params.disableHtml && compiled.html ) {
+          params.html = compiled.html( templateData );
         }
 
-        if ( !options.disableText && compiled.text ) {
-          options.text = compiled.text( templateData );
+        if ( !params.disableText && compiled.text ) {
+          params.text = compiled.text( templateData );
         }
 
-        if ( !options.disableSubject && compiled.subject ) {
-          options.subject = compiled.subject( templateData );
+        if ( !params.disableSubject && compiled.subject ) {
+          params.subject = compiled.subject( templateData );
         }
       }
 
-      const method = options.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
+      const method = params.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
 
-      if ( typeof options.filter === 'function' ) {
-        const allowed = await options.filter( params );
+      if ( typeof params.filter === 'function' ) {
+        const allowed = await params.filter( params );
 
         if ( !allowed ) {
           log.info( 'Sending filtered for this recipient', params );

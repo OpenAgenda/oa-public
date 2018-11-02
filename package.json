@@ -13,7 +13,8 @@
     "prepublish": "lerna run prepublish",
     "start": "yarn workspace cibulNode start",
     "release": "lerna publish",
-    "mails-editor": "yarn workspace cibulNode mails-editor"
+    "mails-editor": "yarn workspace cibulNode mails-editor",
+    "test": "jest --forceExit --detectOpenHandles"
   },
   "workspaces": {
     "packages": [
@@ -30,7 +31,10 @@
   },
   "devDependencies": {
     "lerna": "^2.9.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "codecov": "^3.1.0",
+    "jest": "^23.6.0",
+    "lerna": "^2.11.0",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0"
   }
 }
