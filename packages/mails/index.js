@@ -36,15 +36,16 @@ async function sendMail( options = {} ) {
   for ( const recipient of recipients ) {
     const lang = recipient.lang || defaultLang;
     const templateData = Object.assign( { lang }, options.data, recipient.data, config.defaults.data );
+    const params = {
+      ...options,
+      to: recipient,
+      data: templateData
+    };
 
     if ( !isEmail.validate( recipient.address ) ) {
       const error = new VError(
         {
-          info: {
-            ...options,
-            to: recipient,
-            data: templateData
-          }
+          info: params
         },
         'Invalid email address'
       );
@@ -73,21 +74,22 @@ async function sendMail( options = {} ) {
 
       const method = options.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
 
-      const result = await method( {
-        ...options,
-        to: recipient,
-        data: templateData
-      } );
+      if ( typeof options.filter === 'function' ) {
+        const allowed = await options.filter( params );
+
+        if ( !allowed ) {
+          log.info( 'Sending filtered for this recipient', params );
+          continue;
+        }
+      }
+
+      const result = await method( params );
 
       results.push( result );
     } catch ( error ) {
       const wrappedError = new VError(
         {
-          info: {
-            ...options,
-            to: recipient,
-            data: templateData
-          },
+          info: params,
           cause: error
         },
         'Error on sending mail'
