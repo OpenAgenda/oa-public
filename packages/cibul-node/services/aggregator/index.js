@@ -30,6 +30,7 @@ const pQ = queue( config.queues.aggregator + ':priority', {
 
 module.exports = {
   isAggregator,
+  notify: aggregators.notify, // experimental use.
   notifyPublish: notify.publish,
   notifyUnpublish: notify.unpublish,
   sourceAdd: sources.add,

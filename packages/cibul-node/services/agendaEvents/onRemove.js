@@ -18,16 +18,25 @@ module.exports = async ( ae, context ) => {
   // use context.userUid. will be null if nothing was specified at remove
   
   eventSearch.agendas( ae.agendaUid ).remove( ae );
-
-  if ( context.legacy ) return;
-
-  /**
-   * Anything happening hear should not be triggered elsewhere by legacy parts of app
-   */
   
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
+
+
+  // currently for logging only. Not used yet for actual aggregation
+  aggregator.notify( 'remove', {
+    event,
+    agendaEvent: ae,
+    agenda
+  } );
+
+
+  /**
+   * Anything happening hear should not be triggered elsewhere by legacy parts of app
+   */
+
+  if ( context.legacy ) return;
 
   if ( !event ) {
 
@@ -45,6 +54,7 @@ module.exports = async ( ae, context ) => {
     }
   } );
 
+  
   aggregator.notifyUnpublish( event.id, agenda.id );
 
 }

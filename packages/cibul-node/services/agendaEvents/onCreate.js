@@ -63,7 +63,7 @@ module.exports = async ( ae, context ) => {
   if ( !context.legacy ) {
 
     /**
-     * Anything happening hear should NOT be triggered elsewhere by legacy parts of app
+     * Anything happening here should NOT be triggered elsewhere by legacy parts of app
      */
 
     coms.publish( config.mainChannel, {
@@ -97,6 +97,17 @@ module.exports = async ( ae, context ) => {
   }
 
   _addToSearchIndex( ae );
+
+  // currently for logging only. Not used yet for actual aggregation
+  if ( ae.state === 2 ) {
+
+    eventAggregation.notify( 'create', {
+      event,
+      agendaEvent: ae,
+      agenda
+    } );
+
+  }
 
 
   try {
