@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const log = require( '@openagenda/logs' )( 'resync' );;
+const log = require( '@openagenda/logs' )( 'resync' );
 
 const aggregators = require( './aggregators' );
 const config = require( './config' );
