@@ -1,14 +1,14 @@
 "use strict";
 
-const c = require( './contributionTypes' );
-
-const s = require( './eventStates' );
+// "var" is used here because this validator is required in front-end
+var c = require( './contributionTypes' );
+var s = require( './eventStates' );
 
 module.exports = {
-  title: { 
-    type: 'text', 
+  title: {
+    type: 'text',
     min: 2,
-    max: 255, 
+    max: 255,
     optional: false
   },
   description: {

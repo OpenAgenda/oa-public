@@ -1,15 +1,16 @@
 "use strict";
 
-const path = require( 'path' );
+
 const webpack = require( 'webpack' );
+const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
+const ProgressBar = require( 'webpackbar' );
+const getCacheDir = require( './getCacheDir' );
 const ourOwnModules = require( './ourOwnModules.json' );
 
-module.exports = paths => ( {
-  entry: path.join( __dirname, paths.src.path, paths.src.name ),
-  output: {
-    path: paths.dest.path,
-    filename: paths.dest.name
-  },
+module.exports = ( { entry, output } ) => ( {
+  mode: 'production',
+  entry,
+  output,
   module: {
     rules: [
       {
@@ -23,14 +24,14 @@ module.exports = paths => ( {
         use: {
           loader: 'babel-loader',
           options: {
-            cacheDirectory: true,
+            cacheDirectory: getCacheDir( 'babel-loader' ),
             forceEnv: 'production'
           }
         }
       },
       {
         test: /\.ejs$/,
-        loader: 'ejs-compiled-loader',
+        loader: 'ejs-compiled-loader-webpack4',
       },
       {
         test: /\.(css|html|tblr)$/,
@@ -40,7 +41,7 @@ module.exports = paths => ( {
   },
   resolve: {
     symlinks: false,
-    extensions: [ '.js', '.jsx' ],
+    extensions: [ '.js', '.jsx', '.json' ],
     alias: {
       'react': require.resolve( 'react' ),
     }
@@ -49,7 +50,21 @@ module.exports = paths => ( {
     hints: false,
     maxAssetSize: 2000000
   },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin( {
+        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
+        // parallel: true,
+        uglifyOptions: {
+          compress: true,
+          mangle: true,
+          // fromString: true
+        }
+      } )
+    ]
+  },
   plugins: [
+    new ProgressBar(),
     new webpack.DefinePlugin( {
       'process.env.NODE_ENV': '"production"',
       __CLIENT__: true,
@@ -57,14 +72,6 @@ module.exports = paths => ( {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false
     } ),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin( {
-      compress: {
-        warnings: false
-      },
-      mangle: true,
-      fromString: true
-    } )
   ],
   node: {
     fs: 'empty'

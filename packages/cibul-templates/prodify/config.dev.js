@@ -1,19 +1,18 @@
 "use strict";
 
-const path = require( 'path' );
 const webpack = require( 'webpack' );
+const ProgressBar = require( 'webpackbar' );
+const getCacheDir = require( './getCacheDir' );
 const ourOwnModules = require( './ourOwnModules.json' );
 
 
-module.exports = ( paths ) => {
+module.exports = ( { entry, output } ) => {
 
   return {
+    mode: 'development',
     devtool: 'eval-source-map',
-    entry: path.join( __dirname, paths.src.path, paths.src.name ),
-    output: {
-      path: paths.dest.path,
-      filename: paths.dest.name
-    },
+    entry,
+    output,
     module: {
       rules: [
         {
@@ -27,14 +26,14 @@ module.exports = ( paths ) => {
           use: {
             loader: 'babel-loader',
             options: {
-              cacheDirectory: true,
+              cacheDirectory: getCacheDir( 'babel-loader' ),
               forceEnv: 'development'
             }
           }
         },
         {
           test: /\.ejs$/,
-          loader: 'ejs-compiled-loader',
+          loader: 'ejs-compiled-loader-webpack4',
         },
         {
           test: /\.(css|html|tblr)$/,
@@ -44,7 +43,7 @@ module.exports = ( paths ) => {
     },
     resolve: {
       symlinks: false,
-      extensions: [ '.js', '.jsx' ],
+      extensions: [ '.js', '.jsx', '.json' ],
       alias: {
         'react': require.resolve( 'react' ),
       }
@@ -54,6 +53,7 @@ module.exports = ( paths ) => {
       maxAssetSize: 20000000
     },
     plugins: [
+      new ProgressBar(),
       new webpack.DefinePlugin( {
         'process.env.NODE_ENV': '"development"',
         __CLIENT__: true,
