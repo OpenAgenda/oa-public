@@ -51,7 +51,7 @@ class Main extends Component {
               fieldType: 'abstract'
             } ]
           } ]}
-          locationRes="locations"
+          locationRes="/locations"
           referencesRes="/references"
           lang="fr"
           classNames={{
