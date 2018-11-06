@@ -163,7 +163,8 @@ const config = {
       inboxConversation: 'inboxes_inbox_conversation',
       message: 'inboxes_message',
       messageAttachment: 'inboxes_message_attachment',
-      rule: 'rule'
+      rule: 'rule',
+      unsubscriptionLink: 'unsubscription_link'
     },
     auth: {
       local: {
@@ -231,7 +232,7 @@ const config = {
     },
     mails: {
       defaults: {
-        from: 'no-reply@openagenda.com',
+        from: 'OpenAgenda <no-reply@openagenda.com>',
         replyTo: 'admin@openagenda.com'
       }
     },
