@@ -101,7 +101,7 @@ module.exports = async ( ae, context ) => {
   // currently for logging only. Not used yet for actual aggregation
   if ( ae.state === 2 ) {
 
-    eventAggregation.notify( 'create', {
+    aggregator.notify( 'create', {
       event,
       agendaEvent: ae,
       agenda
