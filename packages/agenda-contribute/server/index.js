@@ -103,12 +103,31 @@ function init( c ) {
     '/event/:eventUid/draft' 
   ], bodyParser.json(), ( req, res, next ) => {
 
+    const languages = [];
+
+    try {
+
+      JSON.parse( req.body.data ).languages.forEach( l => languages.push( l ) );
+
+    } catch ( e ) {
+
+      return res.json( {
+        event: null,
+        success: false, 
+        errors: [ {
+          code: 'languages.required',
+          message: 'languages could not be extracted'
+        } ]
+      } );
+
+    }
+
     // would be nice to know here which 
     // langauges are required
     req.schema = eventSchema( {
       schemaExtensions: _.get( req, 'schemaExtensions', [] ),
       locationRes: '#',
-      languages: [],
+      languages,
       store: null
     } ); 
 
@@ -142,9 +161,9 @@ function init( c ) {
       draft: req.draft
     } )
 
-    .then( ( { event } ) => {
+    .then( ( { event, success, errors } ) => {
 
-      res.json( { event } );
+      res.json( { event, success, errors } );
 
     }, error => {
 

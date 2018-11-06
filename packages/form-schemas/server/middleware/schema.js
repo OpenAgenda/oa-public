@@ -21,7 +21,7 @@ function clean( ns, req, res, next ) {
     fileFieldValues: 'fileFieldValues',
     clean: 'clean',
     errors: 'errors'
-  }, ns );
+  }, ns || {} );
 
   const values = {}; // values received in json bundle
   const decoratedValues = {}; // values decorated with processed field values received as multipart

@@ -169,19 +169,18 @@ async function createPromise( data, options ) {
 
   }
 
-
-  if ( !errors.length && ( _.get( data, 'image.path' ) || _.get( data, 'image.url' ) ) ) {
+  if ( !errors.length && processImage.hasImage( data ) ) {
 
     try {
 
-      cleanEvent.image = await _processImage( _.get( data, 'image.url' ), _.get( data, 'image.path' ), {
+      cleanEvent.image = await processImage( config, _.get( data, 'image.url' ), _.get( data, 'image.path' ), {
         image: _.get( data, 'image' ),
         filePath: _.get( data, 'fileKey' )
       } );
 
     } catch ( e ) {
 
-      errors.push( { step: 'image', caught: e } );
+      errors.push( { step: 'image', code: _.get( e, 'code' ), caught: e } );
 
     }
 
@@ -272,23 +271,6 @@ async function createPromise( data, options ) {
   }
 
 }
-
-
-async function _processImage( url, path, event ) {
-
-  const fileKey = _.get( event, 'fileKey' ) || uuidV4().replace( /\-/g, '' );
-
-  return _.assign( await processImage(
-    config.interfaces.imageFilesLoad,
-    config.image.formats,
-    fileKey,
-    { url, path },
-  ), {
-    credits: _.get( event, 'image.credits' )
-  } );
-
-}
-
 
 async function _defineUnique( field, generator  ) {
 

@@ -35,6 +35,4 @@ describe( 'event-form eventSchema', () => {
 
   } );
 
-
-
 } );

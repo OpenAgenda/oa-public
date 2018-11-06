@@ -96,7 +96,7 @@ function changeStates( req, res, next ) {
 
     if ( err ) return next( err );
 
-    req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
+    req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
     sessions.setFlash( req, res, l.a( 'actionsInProcess', { 
       oldstate : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',

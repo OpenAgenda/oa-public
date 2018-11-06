@@ -2,6 +2,8 @@
 
 process.env.NODE_ENV = 'test';
 
+const _ = require( 'lodash' );
+
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
@@ -11,7 +13,7 @@ const svc = require( './service' );
 
 const imageFiles = require( '@openagenda/image-files' );
 
-describe( 'events - functional (server): update', function() {
+describe( 'events -04- functional (server): update', function() {
 
   this.timeout( 30000 );
 
@@ -141,7 +143,7 @@ describe( 'events - functional (server): update', function() {
 
       result.event.timings.length.should.equal( 1 );  
 
-      JSON.stringify( result.event.timings[ 0 ].begin )
+      JSON.stringify( result.event.timings[ 0 ].begin )
         .should.equal( '"2017-10-24T20:00:00.000Z"' );
 
     } );
@@ -241,7 +243,27 @@ describe( 'events - functional (server): update', function() {
         conditions : 'Its free!'
       }, { context: { userUid: 12 } }, ( err, result ) => {} );
 
-    } );
+    } );
+
+  } );
+
+  describe( 'invalid updates', () => {
+
+    it( 'invalid image return unsuccessful result with error code and step', async () => {
+
+      const result = await svc.update( id, {
+        image: {
+          url: 'https://some.rand.om/invalid.imagepath.jpg'
+        }
+      } );
+
+      result.valid.should.equal( false );
+
+      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );   
+
+    } );
 
   } );
 

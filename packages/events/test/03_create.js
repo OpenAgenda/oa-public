@@ -13,7 +13,7 @@ const config = require( '../testconfig' );
 
 const imageFiles = require( '@openagenda/image-files' );
 
-describe( 'events - functional (server): create', function() {
+describe( 'events -03- functional (server): create', function() {
 
   this.timeout( 30000 );
 
@@ -29,7 +29,7 @@ describe( 'events - functional (server): create', function() {
 
       } );
 
-  } )
+  } );
 
   before( done => {
 
@@ -461,6 +461,32 @@ describe( 'events - functional (server): create', function() {
 
   } );
 
+  describe( 'invalid creates', () => {
+
+    it( 'invalid image returns unsuccessful result with error code and step', async () => {
+
+      const result = await svc.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date(),
+          end: new Date()
+        } ],
+        image: {
+          url: 'https://some.rand.om/invalid.imagepath.jpg'
+        }
+      } );
+
+      result.valid.should.equal( false );
+
+      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );      
+
+    } );
+
+  } );
 
   describe( 'interfaces', () => {
 
