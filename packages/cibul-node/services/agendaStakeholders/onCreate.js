@@ -13,9 +13,12 @@ let log = console.log;
 
 module.exports = function ( stakeholder, context ) {
 
-  log( 'processing invitation for member %s', stakeholder.id );
+  log( 'processing invitation for member %j', stakeholder );
 
-  agendas.get( { id: stakeholder.agendaId }, { private: null, includeImagePath: true }, ( err, agenda ) => {
+  agendas.get( { id: stakeholder.agendaId }, { 
+    private: null, 
+    includeImagePath: true
+  }, ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
 
@@ -78,7 +81,7 @@ module.exports = function ( stakeholder, context ) {
                 store: {
                   labels: {
                     actor: context.invitationSender.name || senderUser.fullName,
-                    object: stakeholder.custom.contactName || user.fullName,
+                    object: _.get( stakeholder, 'custom.contactName' ) || user.fullName,
                     target: agenda.title
                   },
                   credential: stakeholder.credential

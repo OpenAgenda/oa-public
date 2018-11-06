@@ -20,6 +20,8 @@ const stats = require( './stats' );
 const transferEvent = require( './transferEvent' );
 const update = require( './update' );
 
+const validateInteger = require( '@openagenda/validators/integer' )( { optional: false } );
+
 const log = logger( 'index' );
 
 let knex, config, schemas;
@@ -35,7 +37,10 @@ module.exports = Object.assign( agenda, {
   types: require( '../iso/credentialTypes' )
 } );
 
-function agenda( agendaId ) {
+
+function agenda( aId ) {
+
+  let agendaId;
 
   if ( !config ) {
 
@@ -43,7 +48,11 @@ function agenda( agendaId ) {
 
   }
 
-  if ( !Number.isInteger(agendaId) ) {
+  try {
+
+    agendaId = validateInteger( aId );
+
+  } catch( e ) {
 
     throw new Error( 'agendaId is not a number' );
 

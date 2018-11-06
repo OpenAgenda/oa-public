@@ -12,6 +12,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 
 const getAgenda = require( '../utils/getAgenda' );
 const getNetwork = require( '../utils/getNetwork' );
+const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
 const validate = require( './validate' );
 
@@ -41,6 +42,18 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       formSchemaId,
       networkFormSchemaId
     }, data, { draft } );
+
+    try {
+
+      clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+
+      log( 'retrieved %s links', clean.event.links.length );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not retrieve oembeds', e );
+
+    }
 
     // update the event
     let result = await events.update( { uid: eventUid }, clean.event, { 

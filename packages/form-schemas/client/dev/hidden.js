@@ -31,6 +31,12 @@ class Main extends Component {
           field: 'third',
           fieldType: 'text',
           label: 'Field three'
+        }, {
+          field: 'four',
+          fieldType: 'text',
+          label: 'Field four',
+          display: false,
+          languages: [ 'it', 'fr' ]
         } ]
       }
     }

@@ -58,20 +58,41 @@ module.exports = async ( before, after, context ) => {
 
   }
 
-  
-  if ( context.legacy ) return;
+  if ( before.state === after.state ) {
 
-  if ( before.state === after.state ) return;
+    // currently for logging only. Not used yet for actual aggregation
+    aggregator.notify( 'update', {
+      event,
+      agendaEvent: after,
+      agenda
+    } );
 
-  if ( after.state === 2 ) {
+  } else if ( after.state === 2 ) {
 
-    aggregator.notifyPublish( event.id, agenda.id );
+    if ( !context.legacy ) aggregator.notifyPublish( event.id, agenda.id );
+
+    // currently for logging only. Not used yet for actual aggregation
+    aggregator.notify( 'update', {
+      event,
+      agendaEvent: after,
+      agenda
+    } );
 
   } else if ( before.state === 2 ) {
 
-    aggregator.notifyUnpublish( event.id, agenda.id );
+    if ( !context.legacy ) aggregator.notifyUnpublish( event.id, agenda.id );
+
+    // currently for logging only. Not used yet for actual aggregation
+    aggregator.notify( 'remove', {
+      event,
+      agendaEvent: after,
+      agenda
+    } );
 
   }
+
+  
+  
 
 }
 

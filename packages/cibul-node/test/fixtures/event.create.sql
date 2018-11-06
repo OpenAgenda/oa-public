@@ -9,6 +9,7 @@ CREATE TABLE `event_2` (
   title VARCHAR(2000) NOT NULL,
   description VARCHAR(2000) NOT NULL,
   `references` VARCHAR(2000),
+  links VARCHAR(2000),
   long_description TEXT,
   keywords VARCHAR(2000),
   conditions VARCHAR(2000),

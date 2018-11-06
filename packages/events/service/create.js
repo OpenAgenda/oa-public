@@ -64,6 +64,8 @@ async function createPromise( data, options ) {
 
   const cleanOptions = cleanCreateOptions( options );
 
+  if ( !config ) throw new Error( 'Service has not been initialized' );
+
   const { interfaces } = config;
 
   // clean given data
@@ -214,7 +216,7 @@ async function createPromise( data, options ) {
 
       transferedToLegacy = !!result.success;
 
-      if ( !transferToLegacy ) log( 'error', 'could not transfer event to legacy', createdId );
+      if ( !transferedToLegacy ) log( 'error', 'could not transfer event to legacy', createdId );
 
     } catch ( e ) {
 

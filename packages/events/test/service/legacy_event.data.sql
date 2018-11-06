@@ -25,7 +25,20 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO `${schema}` (`id`, `slug`, `url`, `image`, `background_image`, `background_color`, `owner_id`, `is_published`, `is_new`, `created_at`, `updated_at`, `uid`, `store`, `eve_id`, `custom_fields`, `age_min`, `age_max`, `accessibility`, `type`, `origin_uid`, `file_key`, `image_credits` ) VALUES
-(147621, 'indoor-de-paris-cso-pro-1', NULL, 'event_indoor-de-paris-cso-pro-1_563851.jpg', NULL, NULL, 27645, 1, 0, '2016-10-14 15:01:00', '2016-10-14 15:01:01', 27434489, 'a:3:{s:10:"imageThumb";s:46:"evtbevent_indoor-de-paris-cso-pro-1_563851.jpg";s:9:"imageFull";s:45:"evfevent_indoor-de-paris-cso-pro-1_563851.jpg";s:5:"links";s:2:"[]";}', NULL, NULL, NULL, NULL, '["mi","hi","sl"]', NULL, 48959239, 'reai4iufo57yuqo3fdy6qqoi5fy3iqo', '@gaetan 2017' ),
+(147621, 
+  'indoor-de-paris-cso-pro-1', 
+  NULL, 
+  'event_indoor-de-paris-cso-pro-1_563851.jpg', 
+  NULL, 
+  NULL, 
+  27645, 
+  1, 
+  0, 
+  '2016-10-14 15:01:00', 
+  '2016-10-14 15:01:01', 
+  27434489, 
+  '{"links":[{"link":"http://vimeo.com/24043834","code":"<div style=\\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.6669%;\\"><iframe src=\\"https://player.vimeo.com/video/24043834?byline=0&amp;badge=0&amp;portrait=0&amp;title=0\\" style=\\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\\" allowfullscreen scrolling=\\"no\\"></iframe></div>"}]}',
+  NULL, NULL, NULL, NULL, '["mi","hi","sl"]', NULL, 48959239, 'reai4iufo57yuqo3fdy6qqoi5fy3iqo', '@gaetan 2017' ),
 (147620, 'indoor-de-paris-pro-3', NULL, 'event_indoor-de-paris-pro-3_625276.jpg', NULL, NULL, 27645, 1, 0, '2016-10-14 14:48:53', '2016-10-14 14:49:25', 31259734, 'a:3:{s:10:"imageThumb";s:42:"evtbevent_indoor-de-paris-pro-3_625276.jpg";s:9:"imageFull";s:41:"evfevent_indoor-de-paris-pro-3_625276.jpg";s:5:"links";s:2:"[]";}', NULL, '', NULL, NULL, '', '', 48959239, NULL, NULL ),
 (147619, 'loto-intergenerationnel', NULL, 'event_loto-intergenerationnel_933467.jpg', NULL, NULL, 27735, 1, 0, '2016-10-14 14:29:55', '2016-10-14 14:29:55', 955726, 'a:3:{s:10:"imageThumb";s:44:"evtbevent_loto-intergenerationnel_933467.jpg";s:9:"imageFull";s:43:"evfevent_loto-intergenerationnel_933467.jpg";s:5:"links";s:2:"[]";}', NULL, NULL, NULL, NULL, NULL, NULL, 48959239, NULL, NULL ),
 (196601, 'visite-commentee-de-la-bibliotheque-universitaire-du-havre', NULL, 'event_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg', NULL, NULL, 23807, 0, 0, '2017-05-29 15:58:16', '2017-05-29 15:58:17', 17909604, 'a:3:{s:10:"imageThumb";s:79:"evtbevent_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg";s:9:"imageFull";s:78:"evfevent_visite-commentee-de-la-bibliotheque-universitaire-du-havre_929160.jpg";s:5:"links";s:2:"[]";}', NULL, '{"creditsimage":"Direction de la Communication de l\'universit\\u00e9 du Havre"}', 0, 99, NULL, NULL, 66056061, NULL, NULL );

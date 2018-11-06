@@ -15,6 +15,10 @@ function mergeAll( ...args ) {
 
 function merge( mergedIn, mergeWith ) {
 
+  if ( !_.get( mergeWith, 'fields' ) ) return mergedIn;
+
+  if ( !_.get( mergedIn, 'fields' ) ) return mergeWith;
+
   return _.assign( {}, mergedIn, { 
     fields: mergeWith.fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
 
@@ -45,7 +49,7 @@ function _mergeField( field, mergeWithField ) {
 
   const update = _.keys( mergeWithField )
     .filter( k => !protectedKeys.includes( k ) )
-    .filter( f => mergeWithField[ f ] )
+    .filter( f => mergeWithField[ f ] !== undefined  )
     .reduce( ( c, f ) => _.set( c, f, { $set: mergeWithField[ f ] } ), {} );
 
   if ( field.optional && mergeWithField.optional === false ) {

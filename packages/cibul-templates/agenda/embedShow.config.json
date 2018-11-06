@@ -1,6 +1,8 @@
 {
   "layout" : "embedLayout/main",
 
+  "labels": "agendas/show",
+
   "oaeCss" : {
     "agenda-base" : "../node_modules/@openagenda/bs-templates/templates/agenda/_base.scss",
     "agenda-embed" : "css/embed-style.scss",

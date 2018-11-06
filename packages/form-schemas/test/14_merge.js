@@ -110,6 +110,12 @@ describe( 'unit - assigning schema properties to another schema', function() {
         fieldType: "integer",
         label: "Participants",
         info: "Combien de participants"
+      }, { 
+        field: 'keywords',
+        fieldType: 'keywords',
+        optional: true,
+        max: 255,
+        label: 'Mots clés'
       } ]
     };
 
@@ -119,6 +125,10 @@ describe( 'unit - assigning schema properties to another schema', function() {
         optional: false,
         fieldType: 'text',
         label: 'Organizer'
+      }, { 
+        field: 'keywords',
+        fieldType: 'abstract',
+        display: false
       } ]
     };
 
@@ -138,16 +148,23 @@ describe( 'unit - assigning schema properties to another schema', function() {
         fieldType: 'text',
         label: 'Budget' 
       }, { 
-         field: 'organizer',
-         optional: false,
-         fieldType: 'text',
-         label: 'Organizer' 
-      }, { 
-         field: 'participants',
-         optional: false,
-         fieldType: 'integer',
-         label: 'Participants',
-         info: 'Combien de participants' 
+        field: 'organizer',
+        optional: false,
+        fieldType: 'text',
+        label: 'Organizer' 
+      }, {
+        field: 'keywords',
+        fieldType: 'keywords',
+        label: 'Mots clés',
+        max: 255,
+        optional: true,
+        display: false
+      }, {
+        field: 'participants',
+        optional: false,
+        fieldType: 'integer',
+        label: 'Participants',
+        info: 'Combien de participants' 
       } ] 
     } );
 
@@ -309,6 +326,35 @@ describe( 'unit - assigning schema properties to another schema', function() {
         related: [ 'title', 'description', 'location' ],
         res: '/references' 
       } ] 
+    } );
+
+  } );
+
+
+  it( 'null schemas are ignored', () => {
+
+    const schema = {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    }
+
+    merge( null, schema ).should.eql( {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
+    } );
+
+    merge( schema, null ).should.eql( {
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre"
+      } ]
     } );
 
   } );
