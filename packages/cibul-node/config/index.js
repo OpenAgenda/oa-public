@@ -230,8 +230,8 @@ const config = {
     },
     mails: {
       defaults: {
-        from: 'no-reply@openagenda.com',
-        replyTo: 'admin@openagenda.com'
+        from: '"OpenAgenda" <no-reply@openagenda.com>',
+        replyTo: '"OpenAgenda" <admin@openagenda.com>'
       }
     },
     api: {
@@ -561,7 +561,7 @@ const config = {
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
         enable: 'oa:*'
-        
+
         //enable: 'oa:services/agenda/dispatcher'
         //enable: 'oa:*,svc:*',
         //enable: 'events/interfaces/legacy',
