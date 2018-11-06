@@ -322,15 +322,15 @@ async function activate( req, res ) {
 
     const user = await usersSvc.activate( 0, { token: req.params.token }, { optionals } );
 
-    if ( !req.query || !req.query.invitation ) {
+    if ( !req.query || !req.query.invitation ) {
 
-      return auth.signin( { req, res, user } );
+      return auth.signin( { req, res, user } );
 
     }
 
     invitationsSvc.get( { token: req.query.invitation }, { includeProcessed: true }, ( err, { invitation } ) => {
 
-      if ( err || !invitation ) return auth.signin( { req, res, user } );
+      if ( err || !invitation ) return auth.signin( { req, res, user } );
 
       const actions = invitation.data.actions.filter( v => v.name === 'linkStakeholder' );
 
@@ -350,13 +350,13 @@ async function activate( req, res ) {
 
           }
 
-          auth.signin( { req, res, user } );
+          auth.signin( { req, res, user } );
 
         } );
 
       }
 
-      return auth.signin( { req, res, user } );
+      return auth.signin( { req, res, user } );
 
     } );
 
