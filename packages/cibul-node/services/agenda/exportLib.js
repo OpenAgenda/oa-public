@@ -340,9 +340,9 @@ function _addContributorInfo( v ) {
 
 function _addCustomFields( v ) {
 
-  let d = w.defer(),
+  const d = w.defer();
 
-  customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
+  const customFieldsGetter = v.includePrivateData ? v.agenda.getEventCustom : v.agenda.getEventPublicCustomData;
 
   customFieldsGetter( v.event, v.lang, ( err, custom, privateExists ) => {
 
