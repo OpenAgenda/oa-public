@@ -30,17 +30,27 @@ async function set( formSchemaId, identifier, data, options = {} ) {
 
   log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
 
-  try {
+  const customFields = fields.filter( f => f.origin === 'custom' );
 
-    await custom( 
-      eventId,
-      fields.filter( f => f.origin === 'custom' ), 
-      data
-    );
+  if ( !customFields.length ) {
 
-  } catch ( e ) {
+    log( 'info', 'no values are to be transfered to legacy custom' );
 
-    log( 'error', 'could not set legacy custom data', e );
+  } else {
+
+    try {
+
+      await custom( 
+        eventId,
+        customFields,
+        data
+      );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not set legacy custom data', e );
+
+    }
 
   }
 
