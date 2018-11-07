@@ -437,7 +437,7 @@ var ugly = require( 'uglify-js' ),
         return result;
       }
 
-      result[ path.basename( item.prod, '.js' ) ] = path.join( __dirname, '..', item.js );
+      result[ item.prod.slice( 0, -3 ) ] = path.join( __dirname, '..', item.js );
 
       return result;
 
@@ -464,7 +464,7 @@ var ugly = require( 'uglify-js' ),
             return;
           }
 
-          result[ path.basename( template.dest.name, '.js' ) ] = path.join(
+          result[ template.dest.name.slice( 0, -3 ) ] = path.join(
             __dirname,
             template.src.path,
             template.src.name
