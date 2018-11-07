@@ -28,6 +28,14 @@ async function set( formSchemaId, identifier, data, options = {} ) {
     agendaEventId
   } = await load( formSchemaId, identifier, { insertIfNotExists: true, agendaId: options.agendaId } );
 
+  if ( !fields.filter( f => !!f.origin ).length ) {
+
+    log( 'warn', 'no origin is defined for fields of schema %s', formSchemaId, { formSchemaId, identifier } );
+
+    return;
+
+  }
+
   log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
 
   const customFields = fields.filter( f => f.origin === 'custom' );
