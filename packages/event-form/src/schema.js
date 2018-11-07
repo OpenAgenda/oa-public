@@ -58,7 +58,7 @@ module.exports = ( {
         "en" : "Pick a language"
       }
     }, {
-      languages,
+      languages: [],
       "field" : "title",
       "fieldType" : "text",
       "optional" : false,
@@ -76,7 +76,7 @@ module.exports = ( {
         "en" : ""
       }
     }, {
-      languages,
+      languages: [],
       "field" : "description",
       "fieldType" : "text",
       "optional" : false,
@@ -94,7 +94,7 @@ module.exports = ( {
         "en" : ""
       }
     }, {
-      languages,
+      languages: [],
       field: 'keywords',
       fieldType: 'keywords',
       optional: true,
@@ -112,7 +112,7 @@ module.exports = ( {
         "en" : "Keywords are useful for search features"
       }
     }, {
-      languages,
+      languages: [],
       "field" : "longDescription",
       "fieldType" : "markdown",
       "label" : {
@@ -129,7 +129,7 @@ module.exports = ( {
         "en" : "Make things pretty"
       }
     }, {
-      languages,
+      languages: [],
       "field" : "conditions",
       "fieldType" : "text",
       "label" : {
@@ -205,7 +205,11 @@ module.exports = ( {
     } ]
   }
 
-  if ( !_.isArray( schemaExtensions ) ) return eventSchema;
+  if ( !_.isArray( schemaExtensions ) ) {
+
+    return _setLanguages( eventSchema, languages );
+
+  }
 
   if ( _hasReferencesField( schemaExtensions ) ) {
 
@@ -213,7 +217,17 @@ module.exports = ( {
 
   }
 
-  return merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+  const merged = merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+
+  return _setLanguages( merged, languages );
+
+}
+
+function _setLanguages( schema, languages ) {
+
+  return _.set( schema, 'fields', schema.fields
+    .map( field => field.languages ? _.set( field, 'languages', languages ) : field )
+  );
 
 }
 

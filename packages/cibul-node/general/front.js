@@ -293,7 +293,7 @@ function newsletterSubscribe( req, res ) {
       res.redirect( 302, req.genUrl( 'corpoHome' ) );
 
       mails( {
-        to: [ 'romain@cibul.net', 'kaore@cibul.net' ],
+        to: 'admin@openagenda.com',
         subject: 'Nouvel inscrit à la newsletter',
         text: `"${req.body.email}" a été ajouté à la newsletter.`
       } );

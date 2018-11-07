@@ -53,12 +53,19 @@ module.exports = ( { entry, output } ) => ( {
   optimization: {
     minimizer: [
       new UglifyJsPlugin( {
+<<<<<<< HEAD
         cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'uglifyjs-webpack-plugin' ),
         // parallel: true,
         uglifyOptions: {
           compress: {
             collapse_vars: false
           },
+=======
+        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
+        // parallel: true,
+        uglifyOptions: {
+          compress: true,
+>>>>>>> master
           mangle: true,
           // fromString: true
         }

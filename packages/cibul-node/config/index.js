@@ -232,8 +232,8 @@ const config = {
     },
     mails: {
       defaults: {
-        from: 'OpenAgenda <no-reply@openagenda.com>',
-        replyTo: 'admin@openagenda.com'
+        from: '"OpenAgenda" <no-reply@mail.openagenda.com>',
+        replyTo: '"OpenAgenda" <admin@openagenda.com>'
       }
     },
     api: {

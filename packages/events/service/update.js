@@ -25,7 +25,7 @@ module.exports = _.extend( ( i, d, o, c ) => {
 
   const { identifiers, data, options, cb } = cleanUpdateArgs( i, d, o, c );
 
-  const p = promiseUpdate( identifiers, data, options );
+  const p = updatePromise( identifiers, data, options );
 
   if ( cb === null ) return p;
 
@@ -48,7 +48,7 @@ module.exports = _.extend( ( i, d, o, c ) => {
 } );
 
 
-async function promiseUpdate( identifiers, data, options ) {
+async function updatePromise( identifiers, data, options ) {
 
   let cleanOptions;
 
@@ -72,31 +72,48 @@ async function promiseUpdate( identifiers, data, options ) {
     transferedToLegacy: false
   } ) )
 
-    .then( get( {
-      log,
-      get: service.get,
-      target: 'current',
-      internal: true
-    } ) )
+  .then( get( {
+    log,
+    get: service.get,
+    target: 'current',
+    internal: true
+  } ) )
 
-    .then( _merge )
+  .then( _merge )
 
-    .then( now.setTo( 'merged', 'updatedAt', cleanOptions.protected ) )
+  .then( now.setTo( 'merged', 'updatedAt', cleanOptions.protected ) )
 
-    .then( draft( 'merged' ) )
+  .then( draft( 'merged' ) )
 
-    .then( validate( { target: 'merged', log } ) )
+  .then( validate( { target: 'merged', log } ) )
 
-    .then( _filterProtected( 'clean' ) )
+  .then( _filterProtected( 'clean' ) )
 
-    .then( unique.verify( {
-      mysql: config.mysql, 
-      table: schemas.event, 
-      field: 'slug',
-      log 
-    } ) );
+  .then( unique.verify( {
+    mysql: config.mysql, 
+    table: schemas.event, 
+    field: 'slug',
+    log 
+  } ) );
 
-  _.extend( v, await processImage.w( config, v ) );
+  const { errors } = v;
+
+  if ( !errors.length && processImage.hasImage( data ) ) {
+
+    try {
+
+      v.clean.image = await processImage( config, _.get( data, 'image.url' ), _.get( data, 'image.path' ), {
+        image: _.get( data, 'image' ),
+        filePath: _.get( data, 'fileKey' )
+      } );
+
+    } catch ( e ) {
+
+      v.errors.push( { step: 'image', code: _.get( e, 'code' ), caught: e } );
+
+    }
+
+  }
 
   return w( v ).then( _doUpdate )
 

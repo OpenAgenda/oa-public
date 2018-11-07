@@ -25,13 +25,20 @@ class Main extends Component {
                 fr: 'Champ multilingue de réseau',
                 en: 'Multilingual Network field'
               },
-              languages: true,
+              languages: [],
               fieldType: 'text'
             } ]
           }, {
             fields: [ {
+              field: 'languages',
+              fieldType: 'abstract'
+            }, {
               field: 'title',
               fieldType: 'abstract'
+            }, {
+              field: 'keywords',
+              fieldType: 'abstract',
+              display: false
             }, {
               field: 'agendafield',
               label: {
@@ -44,7 +51,7 @@ class Main extends Component {
               fieldType: 'abstract'
             } ]
           } ]}
-          locationRes="locations"
+          locationRes="/locations"
           referencesRes="/references"
           lang="fr"
           classNames={{
