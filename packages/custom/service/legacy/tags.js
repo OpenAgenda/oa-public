@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'legacy/tags' );
 
 const config = require( '../config' );
 
@@ -28,7 +29,17 @@ function parse( fields, legacyTags ) {
 
   fields.forEach( field => {
 
-    const matchingOptions = field.options.filter( o => legacyTags.includes( _.isObject( o.label ) ? _.get( o.label, 'fr' ) : o.label ) );
+    const options = _.get( field, 'options', null );
+
+    if ( !_.isArray( options ) ) {
+
+      log( 'warn', 'There are no options defined for field', field );
+
+      return;
+
+    }
+
+    const matchingOptions = options.filter( o => legacyTags.includes( _.isObject( o.label ) ? _.get( o.label, 'fr' ) : o.label ) );
 
     if ( !matchingOptions.length ) return;
 
