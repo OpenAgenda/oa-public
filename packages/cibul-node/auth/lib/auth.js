@@ -393,7 +393,7 @@ function signin( values ) {
 
   sessions.open( req, res, user, async ( err, session ) => {
 
-    if ( err ) req.log( 'error', { message: 'could not open session', error: err } );
+    if ( err ) req.log( 'error', { message: 'could not open session', error: err } );
 
     let redirectUrl;
 
@@ -402,7 +402,7 @@ function signin( values ) {
     } )
       .catch( err => {
 
-        if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
+        if ( err ) req.log( 'error', { message: 'could not refresh lastSignin', error: err } );
 
       } );
 
