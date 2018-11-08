@@ -96,74 +96,29 @@ function init( c ) {
 
   } );
 
-
-  app.post( [
-    '/event',
-    '/event/:eventUid',
-    '/event/:eventUid/draft' 
-  ], bodyParser.json(), ( req, res, next ) => {
-
-    const languages = [];
-
-    try {
-
-      JSON.parse( req.body.data ).languages.forEach( l => languages.push( l ) );
-
-    } catch ( e ) {
-
-      return res.json( {
-        event: null,
-        success: false, 
-        errors: [ {
-          code: 'languages.required',
-          message: 'languages could not be extracted'
-        } ]
-      } );
-
-    }
-
-    // would be nice to know here which 
-    // langauges are required
-    req.schema = eventSchema( {
-      schemaExtensions: _.get( req, 'schemaExtensions', [] ),
-      locationRes: '#',
-      languages,
-      store: null
-    } ); 
-
-    req.draft = [ 'true', '1' ].includes( _.get( req, 'query.draft', '0' ) );
-
-    if ( _.get( req, 'event.fileKey' ) ) {
-
-      req.fileKey = req.event.fileKey;
-
-      return next();
-
-    }
-
-    config.interfaces.generateUniqueFileKey().then( fileKey => {
-
-      req.fileKey = fileKey;
-
-      next();
-
-    } );
-
-  },
-  formSchemaMw.files.putInTemporary.bind( null, {} ),
-  formSchemaMw.files.cleanFileValues.bind( null, {} ),
-  formSchemaMw.schema.clean.bind( null, {} ),
+  app.post( 
+    [ '/event', '/event/:eventUid', '/event/:eventUid/draft' ], 
+    bodyParser.json(), 
+    _defineEventFileKey,
+    _loadEventSchema,
+    _readRequestedDraftState,
+    formSchemaMw.files.putInTemporary.bind( null, {} ),
+    formSchemaMw.files.cleanFileValues.bind( null, {} ),
   ( req, res ) => {
+
+    const postedWithFiles = _.assign( JSON.parse( req.body.data ), req.fileFieldValues || {} );
 
     log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
 
-    config.interfaces.setEvent( req.agenda, req.user, req.event, parse.toEventServiceFormat( req.clean, req.fileFieldValues ), {
+    config.interfaces.setEvent( req.agenda, req.user, req.event, postedWithFiles, {
       draft: req.draft
-    } )
+    } ).then( result => {
 
-    .then( ( { event, success, errors } ) => {
-
-      res.json( { event, success, errors } );
+      res.json( _.pick( result, [
+        'event',
+        'success', 
+        'errors'
+      ] ) );
 
     }, error => {
 
@@ -173,6 +128,55 @@ function init( c ) {
 
     } );
 
+  } );
+
+}
+
+
+function _readRequestedDraftState( req, res, next ) {
+
+  log( 'reading requested draft state for event' );
+
+  req.draft = [ 'true', '1' ].includes( _.get( req, 'query.draft', '0' ) );
+
+  next();
+
+}
+
+
+function _loadEventSchema( req, res, next ) {
+
+  log( 'loading event schema with extensions' );
+
+  req.schema = eventSchema( {
+    schemaExtensions: _.get( req, 'schemaExtensions', [] ),
+    locationRes: '#',
+    languages: true, // language validation is not necessary as validation is done by cibulNode/core
+    store: null
+  } ); 
+
+  next();
+
+}
+
+
+function _defineEventFileKey( req, res, next ) {
+
+  log( 'defining event file key' );
+
+  if ( _.get( req, 'event.fileKey' ) ) {
+
+    req.fileKey = req.event.fileKey;
+
+    return next();
+
+  }
+
+  config.interfaces.generateUniqueFileKey().then( fileKey => {
+
+    req.fileKey = fileKey;
+
+    next();
 
   } );
 
