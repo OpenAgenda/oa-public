@@ -16,7 +16,7 @@ module.exports = async ( req, res, next ) => {
 
     res.json( {
       success: true,
-      event: result.updated.event
+      event: _.get( result, 'updated.event' )
     } );
 
   } catch( e ) {
