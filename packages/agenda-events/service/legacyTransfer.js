@@ -59,6 +59,8 @@ async function toLegacy( ae ) {
 
   if ( legacyId ) {
 
+    log( 'legacy agenda-event reference found, updating' );
+
     eventId = legacyId.split( '.' )[ 1 ];
     agendaId = legacyId.split( '.' )[ 0 ];
 
@@ -68,6 +70,8 @@ async function toLegacy( ae ) {
     } );
 
   } else {
+
+    log( 'legacy agenda-event reference not found, creating' );
 
     eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
     agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' );
