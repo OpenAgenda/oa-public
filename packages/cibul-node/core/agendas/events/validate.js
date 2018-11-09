@@ -22,12 +22,13 @@ module.exports = async ( agendaUid, data ) => {
 
 module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
 
-  const { draft, evaluateEvent } = _.assign( {
+  const { draft, evaluateEvent, formSchemaDataFormat } = _.assign( {
     evaluateEvent: true,
-    draft: false
+    draft: false,
+    formSchemaDataFormat: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
-  log( 'validating full agenda event data' );
+  log( 'validating full agenda event data in %s format', formSchemaDataFormat ? 'form schema format' : 'event service format' );
 
   const errors = [];
 
@@ -41,14 +42,13 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
     log( 'evaluating event data' );
 
     clean.event = null;
+
+    const eventServiceFormattedData = formSchemaDataFormat ? toEventServiceFormat( data ) : data;
     
     // clean event
     try {
 
-      validate[ draft ? 'draft' : 'front' ]( 
-        _isFormSchemaFormat( data ) ? toEventServiceFormat( data ) : data, 
-        { optionalSlug: true } 
-      );
+      validate[ draft ? 'draft' : 'front' ]( eventServiceFormattedData, { optionalSlug: true } );
 
     } catch( eventValidationErrors ) {
 
@@ -58,7 +58,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     }
 
-    clean.event = data;
+    clean.event = eventServiceFormattedData;
 
   }
 
@@ -142,11 +142,5 @@ async function _evaluateCustom( formSchemaId, data, options ) {
     return { clean: null, errors }
 
   }  
-
-}
-
-function _isFormSchemaFormat( data ) {
-
-  return _.keys( data ).includes( 'imageCredits' );
 
 }

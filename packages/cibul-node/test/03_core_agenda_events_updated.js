@@ -218,6 +218,61 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
   } );
 
+  describe( 'other', () => {
+
+    const agendaUid = 17026855;
+
+    let eventUid;
+
+    const errors = [];
+
+    let result;
+
+    before( async () => {
+
+      const result = await core.agendas( agendaUid ).events.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+      eventUid = result.created.event.uid;
+
+    } );
+
+    before( async () => {
+
+      result = await core.agendas( agendaUid ).events.update( eventUid, {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        location: {
+          uid: 123
+        },
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      }, { formSchemaDataFormat: true } );
+
+    } );
+
+    it( 'event can be updated using form schema data format', () => {
+
+      result.updated.event.locationUid.should.equal( 123 );
+
+    } );
+
+  } );
+
   describe( 'draft', () => {
 
     const agendaUid = 17026855;
@@ -245,7 +300,7 @@ describe( 'core - functional ( server ): agenda event update', function() {
       const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
         title: {
           fr: 'Un événement mis à jour'
-        },
+        }
       }, { draft: true } );
 
       result.updated.event.draft.should.ok();

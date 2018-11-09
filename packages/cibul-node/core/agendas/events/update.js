@@ -21,8 +21,9 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
-  const { draft } = _.assign( {
-    draft: false
+  const { draft, formSchemaDataFormat } = _.assign( {
+    draft: false,
+    formSchemaDataFormat: false
   }, options || {} );
 
   const {
@@ -39,7 +40,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   const clean = await validate.loaded( { 
     formSchemaId,
     networkFormSchemaId
-  }, data, { draft } );
+  }, data, { draft, formSchemaDataFormat } );
 
   try {
 

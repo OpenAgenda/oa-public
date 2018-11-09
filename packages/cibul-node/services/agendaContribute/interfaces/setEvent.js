@@ -45,6 +45,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
       const result = await core.agendas( agenda.uid ).events.create( transformed, {
         draft,
+        formSchemaDataFormat: true,
         context: {
           userUid: user.uid
         }
@@ -58,6 +59,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
       const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, { 
         draft,
+        formSchemaDataFormat: true,
         context: {
           userUid: user.uid
         }
