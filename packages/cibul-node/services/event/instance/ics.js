@@ -10,20 +10,20 @@ const esc = utils.escape;
 
 module.exports = function( agenda, eData /* event data */, ev /* event instance */, lang, timingIndex ) {
 
-  let l = ev.getLocationDetails(),
+  const l = ev.getLocationDetails();
 
-  repeated, icaled = [],
 
-  today = new Date(),
-
-  url = genUrl( 'agendaEventShow', { 
+  const url = genUrl( 'agendaEventShow', { 
     slug: agenda.slug,
     eventSlug: ev.slug
-  }, { protocol: 'https://' } ),
+  }, { protocol: 'https://' } );
 
-  truncatedDescription = _esc( utils.truncate( ev.getFreeText(), 30, '...' ) ),
+  const truncatedDescription = _esc( utils.truncate( ev.getFreeText(), 30, '...' ) );
 
-  timings = ev.getTimings();
+  const timings = ev.getTimings();
+
+  let icaled = [];
+  let today = new Date();
 
   if ( timingIndex === undefined ) {
 
@@ -45,7 +45,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
   ev.switchLanguage( lang );
 
-  repeated = [
+  const repeated = [
     'DTSTAMP:' + _date(),
     'TZID:' + l.timezone.replace( '/', '-' ) ,
     'SUMMARY:' + _esc( ev.getTitle() ),
@@ -70,7 +70,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
     }
 
-    return i <= 10 || t.start.split( 'T' )[ 0 ] >= today;
+    return i <= 10 || t.start.split( 'T' )[ 0 ] >= today;
 
   } )
 
@@ -93,7 +93,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 }
 
 
-module.exports.head = function( agenda, lang ) {
+module.exports.head = function( agenda, lang = 'fr' ) {
 
   return [ 
     'BEGIN:VCALENDAR',
