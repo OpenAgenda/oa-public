@@ -34,8 +34,7 @@
         "label": {
           "fr": "Événement d'intérêt intercommunal",
           "en": "Event of inter-municipal interest"
-        },
-        "legacyId": null
+        }
       }
     ],
     "fieldType": "checkbox"
@@ -60,8 +59,7 @@
         "label": {
           "fr": "Événement récurrent",
           "en": "Recurring Event"
-        },
-        "legacyId": null
+        }
       }
     ],
     "fieldType": "checkbox"
@@ -84,312 +82,273 @@
         "value": "administration",
         "label": {
           "fr": "Administration"
-        },
-        "legacyId": 9661
+        }
       },
       {
         "id": 4,
         "value": "aeronautique",
         "label": {
           "fr": "Aéronautique"
-        },
-        "legacyId": 9662
+        }
       },
       {
         "id": 5,
         "value": "agroalimentaire",
         "label": {
           "fr": "Agroalimentaire"
-        },
-        "legacyId": 9663
+        }
       },
       {
         "id": 6,
         "value": "archeologie-preventive",
         "label": {
           "fr": "Archéologie préventive"
-        },
-        "legacyId": 9664
+        }
       },
       {
         "id": 7,
         "value": "citoyennete",
         "label": {
           "fr": "Citoyenneté"
-        },
-        "legacyId": 9665
+        }
       },
       {
         "id": 8,
         "value": "consommation-denergie",
         "label": {
           "fr": "Consommation d’énergie"
-        },
-        "legacyId": 9666
+        }
       },
       {
         "id": 9,
         "value": "culture",
         "label": {
           "fr": "Culture"
-        },
-        "legacyId": 9667
+        }
       },
       {
         "id": 10,
         "value": "dechets-recyclage",
         "label": {
           "fr": "Déchets - Recyclage"
-        },
-        "legacyId": 9668
+        }
       },
       {
         "id": 11,
         "value": "developpement-durable",
         "label": {
           "fr": "Développement durable"
-        },
-        "legacyId": 9669
+        }
       },
       {
         "id": 12,
         "value": "eau-et-assainissement",
         "label": {
           "fr": "Eau et assainissement"
-        },
-        "legacyId": 9670
+        }
       },
       {
         "id": 13,
         "value": "economie",
         "label": {
           "fr": "Économie"
-        },
-        "legacyId": 9671
+        }
       },
       {
         "id": 14,
         "value": "education-enseignement",
         "label": {
           "fr": "Éducation - Enseignement"
-        },
-        "legacyId": 9672
+        }
       },
       {
         "id": 15,
         "value": "emploi",
         "label": {
           "fr": "Emploi"
-        },
-        "legacyId": 9673
+        }
       },
       {
         "id": 16,
         "value": "enfance",
         "label": {
           "fr": "Enfance"
-        },
-        "legacyId": 9674
+        }
       },
       {
         "id": 17,
         "value": "environnement",
         "label": {
           "fr": "Environnement"
-        },
-        "legacyId": 9675
+        }
       },
       {
         "id": 18,
         "value": "finances",
         "label": {
           "fr": "Finances"
-        },
-        "legacyId": 9676
+        }
       },
       {
         "id": 19,
         "value": "grand-projet",
         "label": {
           "fr": "Grand projet"
-        },
-        "legacyId": 9677
+        }
       },
       {
         "id": 20,
         "value": "habitat",
         "label": {
           "fr": "Habitat"
-        },
-        "legacyId": 9678
+        }
       },
       {
         "id": 21,
         "value": "innovation",
         "label": {
           "fr": "Innovation"
-        },
-        "legacyId": 9679
+        }
       },
       {
         "id": 22,
         "value": "international",
         "label": {
           "fr": "International"
-        },
-        "legacyId": 9680
+        }
       },
       {
         "id": 23,
         "value": "loisirs",
         "label": {
           "fr": "Loisirs"
-        },
-        "legacyId": 9681
+        }
       },
       {
         "id": 24,
         "value": "metropole",
         "label": {
           "fr": "Métropole"
-        },
-        "legacyId": 9682
+        }
       },
       {
         "id": 25,
         "value": "nature",
         "label": {
           "fr": "Nature"
-        },
-        "legacyId": 9683
+        }
       },
       {
         "id": 26,
         "value": "nautisme-garonne",
         "label": {
           "fr": "Nautisme - Garonne"
-        },
-        "legacyId": 9684
+        }
       },
       {
         "id": 27,
         "value": "numerique",
         "label": {
           "fr": "Numérique"
-        },
-        "legacyId": 9685
+        }
       },
       {
         "id": 28,
         "value": "oim",
         "label": {
           "fr": "OIM"
-        },
-        "legacyId": 9686
+        }
       },
       {
         "id": 29,
         "value": "participation",
         "label": {
           "fr": "Participation"
-        },
-        "legacyId": 9687
+        }
       },
       {
         "id": 30,
         "value": "patrimoine",
         "label": {
           "fr": "Patrimoine"
-        },
-        "legacyId": 9688
+        }
       },
       {
         "id": 31,
         "value": "politique",
         "label": {
           "fr": "Politique"
-        },
-        "legacyId": 9689
+        }
       },
       {
         "id": 32,
         "value": "sante",
         "label": {
           "fr": "Santé"
-        },
-        "legacyId": 9690
+        }
       },
       {
         "id": 33,
         "value": "solidarite",
         "label": {
           "fr": "Solidarité"
-        },
-        "legacyId": 9691
+        }
       },
       {
         "id": 34,
         "value": "sport",
         "label": {
           "fr": "Sport"
-        },
-        "legacyId": 9692
+        }
       },
       {
         "id": 35,
         "value": "tertiaire",
         "label": {
           "fr": "Tertiaire"
-        },
-        "legacyId": 9693
+        }
       },
       {
         "id": 36,
         "value": "tourisme",
         "label": {
           "fr": "Tourisme"
-        },
-        "legacyId": 9694
+        }
       },
       {
         "id": 37,
         "value": "tramway",
         "label": {
           "fr": "Tramway"
-        },
-        "legacyId": 9695
+        }
       },
       {
         "id": 38,
         "value": "transports-deplacements",
         "label": {
           "fr": "Transports - Déplacements"
-        },
-        "legacyId": 9696
+        }
       },
       {
         "id": 39,
         "value": "travaux-chantiers",
         "label": {
           "fr": "Travaux - chantiers"
-        },
-        "legacyId": 9697
+        }
       },
       {
         "id": 40,
         "value": "urbanisme",
         "label": {
           "fr": "Urbanisme"
-        },
-        "legacyId": 9698
+        }
       },
       {
         "id": 41,
         "value": "vie-associative",
         "label": {
           "fr": "Vie associative"
-        },
-        "legacyId": 9699
+        }
       }
     ],
     "fieldType": "checkbox"
@@ -425,152 +384,133 @@
         "value": "animation-loto",
         "label": {
           "fr": "Animation - Loto"
-        },
-        "legacyId": 3454
+        }
       },
       {
         "id": 43,
         "value": "atelier",
         "label": {
           "fr": "Atelier"
-        },
-        "legacyId": 3455
+        }
       },
       {
         "id": 44,
         "value": "ceremonie",
         "label": {
           "fr": "Cérémonie"
-        },
-        "legacyId": 3456
+        }
       },
       {
         "id": 45,
         "value": "cinema-projection",
         "label": {
           "fr": "Cinéma - Projection"
-        },
-        "legacyId": 3457
+        }
       },
       {
         "id": 46,
         "value": "concert",
         "label": {
           "fr": "Concert"
-        },
-        "legacyId": 3458
+        }
       },
       {
         "id": 47,
         "value": "conference-rencontre",
         "label": {
           "fr": "Conférence - Rencontre"
-        },
-        "legacyId": 3459
+        }
       },
       {
         "id": 48,
         "value": "congres-colloque",
         "label": {
           "fr": "Congrès - Colloque"
-        },
-        "legacyId": 3460
+        }
       },
       {
         "id": 49,
         "value": "conseil-de-metropole",
         "label": {
           "fr": "Conseil de métropole"
-        },
-        "legacyId": 3461
+        }
       },
       {
         "id": 50,
         "value": "conseil-municipal",
         "label": {
           "fr": "Conseil municipal"
-        },
-        "legacyId": 3462
+        }
       },
       {
         "id": 51,
         "value": "evenement-sportif",
         "label": {
           "fr": "Événement sportif"
-        },
-        "legacyId": 3463
+        }
       },
       {
         "id": 52,
         "value": "exposition",
         "label": {
           "fr": "Exposition"
-        },
-        "legacyId": 3464
+        }
       },
       {
         "id": 53,
         "value": "fete-festival",
         "label": {
           "fr": "Fête - Festival"
-        },
-        "legacyId": 3465
+        }
       },
       {
         "id": 54,
         "value": "foire-salon",
         "label": {
           "fr": "Foire - Salon"
-        },
-        "legacyId": 3466
+        }
       },
       {
         "id": 55,
         "value": "inauguration",
         "label": {
           "fr": "Inauguration"
-        },
-        "legacyId": 3467
+        }
       },
       {
         "id": 56,
         "value": "lecture",
         "label": {
           "fr": "Lecture"
-        },
-        "legacyId": 3468
+        }
       },
       {
         "id": 57,
         "value": "marche-brocante-vide-grenier",
         "label": {
           "fr": "Marché-Brocante - Vide grenier"
-        },
-        "legacyId": 3469
+        }
       },
       {
         "id": 58,
         "value": "reunion-publique",
         "label": {
           "fr": "Réunion publique"
-        },
-        "legacyId": 3470
+        }
       },
       {
         "id": 59,
         "value": "spectacle",
         "label": {
           "fr": "Spectacle"
-        },
-        "legacyId": 3471
+        }
       },
       {
         "id": 60,
         "value": "visite-balade",
         "label": {
           "fr": "Visite - Balade"
-        },
-        "legacyId": 3472
+        }
       }
     ],
     "fieldType": "radio"

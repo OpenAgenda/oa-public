@@ -49,10 +49,39 @@ async function set( agendaEventId, fields, data ) {
 
   const chosenOption = _.head( f.options.filter( o => o.id === id ) );
 
-  if ( !chosenOption ) return;
+  const chosenOptionLabels = chosenOption ? 
+    _.keys( chosenOption.label ).map( lang => chosenOption.label[ lang ] )
+    : [];
+
+  let legacyId = null;
+  
+  if ( chosenOptionLabels.length ) {
+
+    // fetch agenda id
+
+    const legacyAgendaEvent = await knex( schemas.agendaEvent )
+      .first( 'review_id' )
+      .where( 'id', agendaEventId );
+
+    if ( !legacyAgendaEvent ) {
+
+      throw new VError( 'could not retrieve legacy agenda event', agendaEventId );
+
+    }
+
+    const { review_id: agendaId } = legacyAgendaEvent;
+
+    const matchingCategory = await knex( schemas.agendaCategory )
+      .first( 'id' )
+      .where( 'review_id', agendaId )
+      .whereIn( 'category', chosenOptionLabels );
+
+    if ( matchingCategory ) legacyId = matchingCategory.id;
+
+  }
 
   await knex( schemas.agendaEvent )
-    .update( { category_id: chosenOption.legacyId } )
+    .update( { category_id: legacyId } )
     .where( { id: agendaEventId } );
 
 }

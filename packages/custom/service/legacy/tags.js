@@ -62,17 +62,42 @@ async function set( agendaEventId, fields, data ) {
   const { knex } = config;
   const { schemas } = config.legacy;
 
-  const legacyTagIds = fields.reduce( ( tagIds, f ) => {
+  // get labels that were picked
 
-    if ( !data[ f.field ] ) return tagIds;
+  const pickedLabels = fields.reduce( ( picked, field ) => {
 
-    return tagIds.concat( [].concat( data[ f.field ] ).map( id => {
+    const selectedOptionIds = _.get( data, field.field );
 
-      return _.head( f.options.filter( o => o.id === id ).map( o => o.legacyId ) );
+    const matchingLabels = field.options
+      .filter( o => selectedOptionIds.includes( o.id ) )
+      .map( o => o.label )
+      .map( label => _.keys( label ).map( lang => label[ lang ] ) );
 
-    } ).filter( tId => !!tId ) );
+    return picked.concat( _.flatten( matchingLabels ) );
 
   }, [] );
+
+
+  // fetch agenda id
+
+  const legacyAgendaEvent = await knex( schemas.agendaEvent )
+    .first( 'review_id' )
+    .where( 'id', agendaEventId );
+
+  if ( !legacyAgendaEvent ) {
+
+    throw new VError( 'could not retrieve legacy agenda event', agendaEventId );
+
+  }
+
+  const { review_id: agendaId } = legacyAgendaEvent;
+
+  // retrieve legacy tags matching labels
+  
+  const matchingLegacyTags = await knex( schemas.agendaTag )
+    .select( 'id' )
+    .where( 'review_id', agendaId )
+    .whereIn( 'tag', pickedLabels );
 
   await knex( schemas.agendaEventTag ).delete().where( {
     review_article_id: agendaEventId
@@ -80,11 +105,11 @@ async function set( agendaEventId, fields, data ) {
 
   let inserts = 0;
 
-  for ( const tagId of legacyTagIds ) {
+  for ( const { id } of matchingLegacyTags ) {
 
     await knex( schemas.agendaEventTag ).insert( {
       review_article_id: agendaEventId,
-      review_tag_id: tagId,
+      review_tag_id: id,
       updated_at: new Date
     } );
 
