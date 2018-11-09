@@ -65,6 +65,10 @@ async function update( identifiers, options ) {
 
   }
 
+  log( 'fetched references required for legacy syncing',
+    _.pick( event, [ 'ownerUid', 'agendaUid', 'locationUid', 'references', 'uid' ] )
+  );
+
   const userId = _.get( await knex( schemas.user ).first( 'id' ).where( 'uid', event.ownerUid ), 'id' );
 
   const agendaId = _.get( await knex( schemas.agenda ).first( 'id' ).where( 'uid', event.agendaUid ), 'id' );
@@ -76,6 +80,10 @@ async function update( identifiers, options ) {
   const legacyEventId = _.get( legacyEventRecords.filter( r => r.uid  === event.uid ), '0.id' );
 
   const legacyEventReferenceIds = legacyEventRecords.map( r => r.id ).filter( id => id !== legacyEventId );
+
+  log( 'syncing legacy event', {
+    identifiers, userId, agendaId, locationId, legacyEventId, legacyEventReferenceIds
+  } );
 
   const entries = {
     event: _.extend(
@@ -142,9 +150,13 @@ async function update( identifiers, options ) {
 
   if ( legacyEventId ) {
 
+    log( 'legacy event found, updating', legacyEventId );
+
     return _updateLegacy( legacyEventId, entries );
 
   } else {
+
+    log( 'legacy event not found, creating' );
 
     return _createLegacy( entries );
 
