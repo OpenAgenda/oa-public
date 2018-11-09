@@ -15,7 +15,8 @@ module.exports = async ( formSchemaId, eventUid, data, { draft, agendaId } ) => 
     const options = {
       transferToLegacy: !draft, 
       context: { legacy: false },
-      draft
+      draft,
+      validate: false
     }
 
     if ( agendaId ) options.agendaId = agendaId;

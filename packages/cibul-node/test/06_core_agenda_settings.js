@@ -36,6 +36,8 @@ const testConfig = {
     agendaEvent: 'legacy_agenda_event',
     eventReferences: 'legacy_agenda_event_reference',
     agendaEventTag: 'legacy_agenda_event_tag',
+    agendaCategory: 'legacy_agenda_category',
+    agendaTag: 'legacy_agenda_tag',
     user: 'user',
     stakeholder: 'member',
     stakeholderSettings: 'member_settings'
