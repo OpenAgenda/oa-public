@@ -62,11 +62,19 @@ async function set( agendaEventId, fields, data ) {
   const { knex } = config;
   const { schemas } = config.legacy;
 
+  // get all labels of custom set
+  const labels = fields
+    .reduce( ( labels, field ) => labels.concat( 
+      _.flatten( 
+        field.options.map( o => _.keys( o.label ).map( k => o.label[ k ] ) )
+      )
+    ), [] );
+
   // get labels that were picked
 
   const pickedLabels = fields.reduce( ( picked, field ) => {
 
-    const selectedOptionIds = _.get( data, field.field );
+    const selectedOptionIds = [].concat( _.get( data, field.field, [] ) );
 
     const matchingLabels = field.options
       .filter( o => selectedOptionIds.includes( o.id ) )
@@ -76,7 +84,6 @@ async function set( agendaEventId, fields, data ) {
     return picked.concat( _.flatten( matchingLabels ) );
 
   }, [] );
-
 
   // fetch agenda id
 
@@ -92,26 +99,33 @@ async function set( agendaEventId, fields, data ) {
 
   const { review_id: agendaId } = legacyAgendaEvent;
 
-  // retrieve legacy tags matching labels
+  // retrieve legacy tags specific to custom set
   
-  const matchingLegacyTags = await knex( schemas.agendaTag )
-    .select( 'id' )
+  const legacyTags = await knex( schemas.agendaTag )
+    .select( [ 'id', 'review_id', 'tag' ] )
     .where( 'review_id', agendaId )
-    .whereIn( 'tag', pickedLabels );
+    .whereIn( 'tag', labels );
 
-  await knex( schemas.agendaEventTag ).delete().where( {
-    review_article_id: agendaEventId
-  } );
+  const pickedLegacyTags = legacyTags.filter( lt => pickedLabels.includes( lt.tag ) );
+
+  const toBeRemovedLegacyTags = legacyTags.filter( lt => !pickedLabels.includes( lt.tag ) )
+
+
+  await knex( schemas.agendaEventTag ).delete()
+    .where( 'review_article_id', agendaEventId )
+    .whereIn( 'review_tag_id', toBeRemovedLegacyTags.map( t => t.id ) );
 
   let inserts = 0;
 
-  for ( const { id } of matchingLegacyTags ) {
+  for ( const { id } of pickedLegacyTags ) {
 
-    await knex( schemas.agendaEventTag ).insert( {
+    const q = knex( schemas.agendaEventTag ).insert( {
       review_article_id: agendaEventId,
       review_tag_id: id,
       updated_at: new Date
     } );
+
+    const insertResult = await q;
 
     inserts++;
 

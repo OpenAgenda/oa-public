@@ -22,23 +22,25 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
     throw new Error( 'getValidator interface is required at service init' );
 
   }
+
+  let clean = data;
+
+  if ( cleanOptions.validate ) {
   
-  const validate = await interfaces.getValidator( formSchemaId, cleanOptions );
+    const validate = await interfaces.getValidator( formSchemaId, cleanOptions );
 
-  // clean
+    try {
 
-  let clean;
+      clean = validate( data );
 
-  try {
+    } catch ( validationErrors ) {
 
-    clean = validate( data );
+      return {
+        success: false,
+        valid: false,
+        errors: validationErrors
+      }
 
-  } catch ( validationErrors ) {
-
-    return {
-      success: false,
-      valid: false,
-      errors: validationErrors
     }
 
   }
