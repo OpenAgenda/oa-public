@@ -60,6 +60,31 @@ describe( 'images - functional (server): main function', function() {
   });
 
 
+  it( 'not an image', done => {
+
+    imageSvc( {
+      url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/notanimage.txt',
+      name: 'testprocessedimage',
+      format: {
+        crop: true,
+        width: 200,
+        height: 200
+      }
+    }, err => {
+
+      err.should.eql( {
+        format: 'txt',
+        message: 'unhandled image format', 
+        code: 'invalid.format'
+      } );
+
+      done();
+
+    });
+
+  } );
+
+
   it( 'process images from wobbly url', done => {
 
     imageSvc.multi( {

@@ -79,7 +79,7 @@ describe( 'images - unit (server): size', function() {
 
     }).catch( function( e ) {
 
-      e.should.equal( 'image is too small: 271000' );
+      e.message.should.equal( 'minimum size not met' );
 
       done();
 
@@ -101,7 +101,7 @@ describe( 'images - unit (server): size', function() {
 
     }).catch( function( e ) {
 
-      e.should.equal( 'image is too big: 271000' );
+      e.message.should.equal( 'maximum size exceeded' );
 
       done();
 

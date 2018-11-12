@@ -43,19 +43,44 @@ describe( 'images - unit (server): download', function() {
   } );
 
 
-  it( 'should send max size error', function( done ) {
+  it( 'should send max size error', done => {
 
     imageSvc.init( _.extend( {}, testconfig, { maxSize: 1 } ) );
 
-    imageSvc.test._download( { url: imageSrc } ).done( null, function( err ) {
+    imageSvc.test._download( { url: imageSrc } ).done( null, err => {
 
-      err.should.equal( 'maximum size exceeded' );
+      err.should.eql( {
+        code: 'image.toobig', 
+        max: 1, 
+        message: 'maximum size exceeded' 
+      } );
 
       done();
 
     });
 
   });
+
+
+  it( 'should send error with wrong status code', done => {
+
+    imageSvc.init( testconfig );
+
+    imageSvc.test._download( { 
+      url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/myevents.jpg' 
+    } ).done( null, err => {
+
+      err.should.eql( { 
+        code: 'invalid.status',
+        message: 'invalid status code', 
+        statusCode: 403 
+      } );
+
+      done();
+
+    } );
+
+  } );
 
 
   it( 'should load image content', function( done ) {
