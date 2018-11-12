@@ -28,7 +28,7 @@ module.exports.hasImage = event => {
 async function _process( load, formats, fileKey, urlOrPath ) {
 
   const namedFormats = ih( formats, formats.map( f => ( { name: { $set: f.name.replace( '{fileKey}', fileKey ) } } ) ) );
-
+  
   const { uploadedPaths, infos } = await load( ih( urlOrPath, { preSave: { $set: true }, formats: { $set: namedFormats } } ) );
 
   // dispatch image sizes in format object

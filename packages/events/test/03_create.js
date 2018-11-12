@@ -486,6 +486,73 @@ describe( 'events -03- functional (server): create', function() {
 
     } );
 
+
+    it( 'invalid, returns unsuccessful result with error code and step', async () => {
+
+      const result = await svc.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date(),
+          end: new Date()
+        } ],
+        image: {
+          url: 'https://some.rand.om/invalid.imagepath.jpg'
+        }
+      } );
+
+      result.valid.should.equal( false );
+
+      _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
+
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );      
+
+    } );
+
+    it( '403 image', async () => {
+
+      const result = await svc.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date(),
+          end: new Date()
+        } ],
+        image: {
+          url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/myevents.jpg'
+        }
+      } );
+
+      result.valid.should.equal( false );
+
+      _.get( result, 'errors.0.code' ).should.equal( 'invalid.status' );
+
+    } );
+
+
+    it( 'not an image', async () => {
+
+      const result = await svc.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        timings: [ {
+          begin: new Date(),
+          end: new Date()
+        } ],
+        image: {
+          url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/notanimage.txt'
+        }
+      } );
+
+      result.valid.should.equal( false );
+
+      _.get( result, 'errors.0.code' ).should.equal( 'invalid.format' );
+
+    } );
+
   } );
 
   describe( 'interfaces', () => {
