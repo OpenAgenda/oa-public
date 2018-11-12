@@ -18,15 +18,18 @@ CREATE TABLE `${schema}` (
   timings TEXT,
   accessibility VARCHAR( 100 ),
   age VARCHAR( 50 ),
-  file_key varchar(32),
   registration VARCHAR(2000),
+  `references` VARCHAR(2000),
+  links TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,
+  file_key varchar(32),
   UNIQUE INDEX id_idx (id),
   UNIQUE INDEX uid_idx (uid),
   UNIQUE INDEX slug_idx (slug),
   INDEX agenda_uid_idx (agenda_uid),
+  INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
