@@ -12,7 +12,7 @@ const config = require( '../testconfig.js' );
 
 describe( 'images - unit (server): use cases', function() {
 
-  this.timeout( 30000 );
+  this.timeout( 40000 );
 
   before( () => imageSvc.init( config ) );
 

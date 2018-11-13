@@ -61,7 +61,6 @@ describe( 'images - unit (server): download', function() {
 
   });
 
-
   it( 'should send error with wrong status code', done => {
 
     imageSvc.init( testconfig );

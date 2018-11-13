@@ -493,6 +493,9 @@ function _download( values ) {
       agentOptions: {
         rejectUnauthorized: false
       },
+      headers: {
+        'User-Agent': 'OA'
+      },
       timeout: config.timeout
     } )
 
