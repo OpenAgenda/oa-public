@@ -7,7 +7,7 @@
  * needs to be ES5 or cibul-templates uglify will throw errors
  */
 
-module.exports = function( labels, defaultLang ) {
+module.exports = function( labels, defaultLang, fallbackLang ) {
 
   if ( typeof defaultLang === 'undefined' ) {
 
@@ -34,7 +34,19 @@ module.exports = function( labels, defaultLang ) {
       return null;
     }
 
-    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : null;
+
+    if ( fallbackLang && !str ) {
+
+      str = labels[ name ][ fallbackLang ];
+
+    }
+
+    if ( !str ) {
+
+      str = name;
+
+    }
 
     if ( values ) {
 
