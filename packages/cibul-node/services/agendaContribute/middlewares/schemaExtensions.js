@@ -10,7 +10,7 @@ module.exports = async ( req, res, next ) => {
 
   req.schemaExtensions = [];
 
-  if ( !_.get( req, 'agenda.networkUid' ) ) {
+  if ( _.get( req, 'agenda.networkUid' ) ) {
 
     const network = await networks.get( _.get( req, 'agenda.networkUid' ) );
 
