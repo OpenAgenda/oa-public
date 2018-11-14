@@ -431,7 +431,7 @@ function _addState( v ) {
 
   if ( !v.includePrivateData ) return v;
 
-  let d = w.defer();
+  const d = w.defer();
 
   v.event.getState( ( err, state ) => {
 
