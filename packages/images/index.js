@@ -494,7 +494,9 @@ function _download( values ) {
         rejectUnauthorized: false
       },
       headers: {
-        'User-Agent': 'OA'
+        'User-Agent': 'OA',
+        'Accept-Charset' : '*',
+        'Accept': '*/*'
       },
       timeout: config.timeout
     } )
