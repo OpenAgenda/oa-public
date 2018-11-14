@@ -265,12 +265,26 @@ describe( 'event search - functional: more like this', function() {
         location: {
           department: 'Finistère'
         }
-      } );
+      }, { boost: { keywords : 10, 'location.department' : 20 } } );
 
-      events.map( e => e.slug ).sort().should.eql( [ 'finger_event_2', 'shop_event_2' ] );
+      events.map( e => e.slug ).should.eql( [ 'finger_event_2', 'shop_event_2' ] );
 
     } );
 
+    it( 'mlt on department with title in different department with different boost', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        keywords: {
+          fr: [ 'janine' ]
+        },
+        location: {
+          department: 'Finistère'
+        }
+      }, { boost: { keywords : 20, 'location.department' : 10 } } );
+
+      events.map( e => e.slug ).should.eql( [ 'shop_event_2', 'finger_event_2' ] );
+
+    } );
 
   } );
 
