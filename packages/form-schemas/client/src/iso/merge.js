@@ -58,6 +58,16 @@ function _mergeField( field, mergeWithField ) {
 
   }
 
+  if ( _.get( mergeWithField, 'allowedOptions' ) ) {
+
+    update.options = {
+      $set: _.get( field, 'options' ).filter( o => mergeWithField.allowedOptions.includes( o.id ) )
+    };
+
+    update[ '$unset' ] = [ 'allowedOptions' ];
+
+  }
+
   if ( !_.keys( update ).length ) return field;
 
   return ih( field, update );
