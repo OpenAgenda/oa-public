@@ -5,7 +5,14 @@ const validate = require( './validate' );
 const derelativize = require( '../helpers/derelativize' );
 const validateExtension = require( './validateExtension' );
 
-const { getQuery, getSort, getSource, getNav, getMoreLikeThis } = require( '../helpers/dsl' );
+const {
+  getQuery, 
+  getSort, 
+  getSource, 
+  getNav, 
+  getMoreLikeThis,
+  wrapInMoreLikeThis 
+} = require( '../helpers/dsl' );
 
 module.exports = _.extend( queryToDsl, { 
   inflate,
@@ -49,18 +56,11 @@ function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) 
 
 }
 
-function moreLikeThis( mltQuery, query = {} ) {
+function moreLikeThis( mltQuery, mltOptions, query = {} ) {
 
   const cleanQuery = validate( inflate( query ) );
 
-  const mlt = getMoreLikeThis( mltQuery );
-
-  const dsl = {
-    query: getQuery( cleanQuery, {}, { mlt } ),
-    _source: getSource()
-  }
-
-  return dsl;
+  return wrapInMoreLikeThis( mltQuery, mltOptions, cleanQuery );
 
 }
 

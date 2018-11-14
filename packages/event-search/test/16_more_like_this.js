@@ -165,6 +165,27 @@ describe( 'event search - functional: more like this', function() {
 
     } );
 
+    it( 'mlt on title and keywords with boosts', async () => {
+
+      const mltRequest = {
+        title: {
+          fr: 'Les doigts de la main'
+        },
+        keywords: {
+          fr: [ 'doigts' ]
+        }
+      };
+
+      ( await service( 'simple_search' ).moreLikeThis( mltRequest, { 
+        boost: { title: 20, keywords: 30 }
+      } ) ).events.map( e => e.uid ).should.eql( [ 157, 132 ] );
+
+      ( await service( 'simple_search' ).moreLikeThis( mltRequest, { 
+        boost: { title: 50, keywords: 30 }
+      } ) ).events.map( e => e.uid ).should.eql( [ 132, 157 ] );
+
+    } );
+
     it( 'mlt on nothing should return empty result', async () => {
 
       const { total, events } = await service( 'simple_search' ).moreLikeThis( {} );
@@ -249,6 +270,7 @@ describe( 'event search - functional: more like this', function() {
       events.map( e => e.slug ).sort().should.eql( [ 'finger_event_2', 'shop_event_2' ] );
 
     } );
+
 
   } );
 

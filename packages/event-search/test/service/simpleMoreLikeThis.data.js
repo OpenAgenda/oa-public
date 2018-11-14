@@ -22,15 +22,15 @@ module.exports = [ {
   category: 'plant',
   tags: [ 'tree', 'itch', 'indians' ],
   place: {
-    name: 'Masdar'
+    name: 'masdar'
   }
-}, {
+}, {
   id: 4,
   note: 'To end up yup with a working query for the working event mapping',
   category: 'plant',
   tags: [ 'wall', 'wet', 'bottle' ],
   place: {
-    name: 'Masdar'
+    name: 'masdar'
   }
 }, {
   id: 5,

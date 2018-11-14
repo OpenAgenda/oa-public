@@ -12,10 +12,9 @@ const fieldMap = {
 
 const getMLTField = field => _.get( fieldMap, field );
 
-const getMLTLocationValue = location => [ 'address', 'city', 'department', 'region' ]
-  .filter( f => !!location[ f ] )
-  .map( f => location[ f ] )
-  .join( ' ' );
+const getMLTLocationValue = location => [ 
+  'address', 'city', 'department', 'region'
+].filter( f => !!location[ f ] ).map( f => location[ f ] ).join( ' ' );
 
 /**
  * keywords -> generic 'like' on search_internals_keywords
