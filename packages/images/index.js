@@ -489,7 +489,7 @@ function _download( values ) {
     aborted = false,
 
     req = request.get( {
-      url: src,
+      url: encodeURI( src ),
       agentOptions: {
         rejectUnauthorized: false
       },
