@@ -67,7 +67,7 @@ export default class References extends Component {
       search: ih( this.state.search, update )
     } );
 
-    this.get( query ).then( events => {
+    this.get( query, suggested ).then( events => {
 
       this.setState( {
         search: ih( this.state.search, {
@@ -90,9 +90,9 @@ export default class References extends Component {
 
   }
 
-  get( query ) {
+  get( query, suggestion = false ) {
 
-    return sa.get( `${this.props.field.res}`, ih( query, {
+    return sa.get( `${this.props.field.res}${suggestion?'/suggestions':''}`, ih( query, {
       exclude: { $set: this.state.events.map( e => e.uid ) }
     } ) ).then( res => _.get( res, 'body' ) )
 
@@ -104,9 +104,7 @@ export default class References extends Component {
 
     if ( !this.hasRelatedValues() ) return;
 
-    this.search( { 
-      sample: this.props.relatedValues
-    }, true );
+    this.search( this.getSuggestQuery(), true );
 
   }
 
@@ -130,6 +128,22 @@ export default class References extends Component {
 
   }
 
+  getSuggestQuery() {
+
+    const q = {
+      sample: this.props.relatedValues
+    }
+
+    if ( this.props.field.boost ) {
+
+      q.boost = this.props.field.boost;
+
+    }
+
+    return q;
+
+  }
+
   onSuggestEvents() {
 
     if ( !this.hasRelatedValues() ) {
@@ -142,9 +156,7 @@ export default class References extends Component {
 
     this.setState( { loading: true } );
 
-    this.get( {
-      sample: this.props.relatedValues
-    } ).then( events => {
+    this.get( this.getSuggestQuery(), true ).then( events => {
 
       if ( !events.length && this.state.events.length ) {
 
