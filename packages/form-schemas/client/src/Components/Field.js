@@ -15,6 +15,7 @@ const FieldComponents = {
   multilingual: require( './Multilingual' ),
   text: require( './TextField' ),
   integer: require( './TextField' ),
+  number: require( './TextField' ),
   textarea: require( './TextField' ),
   html: require( './HTMLField' ),
   markdown: require( './MarkdownField' ),
@@ -24,7 +25,7 @@ const FieldComponents = {
   date: require( './DateField' ),
   file: require( './FileField' ),
   image: require( './ImageField' )
-}
+};
 
 module.exports = class Field extends Component {
 
