@@ -67,7 +67,7 @@ module.exports = async ( alias, options ) => {
 
       }
 
-      log( 'bulk indexed offset %s, took %s', offset, ( bulkResult.took / 1000 ) + 's' );
+      log( 'info', 'bulk indexed offset %s on index %s, took %s', offset, index, ( bulkResult.took / 1000 ) + 's' );
 
       if ( bulkResult.errors ) {
 
@@ -85,7 +85,7 @@ module.exports = async ( alias, options ) => {
 
   } catch ( e ) {
 
-    log( 'warn', 'index rebuild failed - deleting, not reassigning' );
+    log( 'error', 'index rebuild failed - deleting, not reassigning', e );
 
     await config.client.indices.delete( { index } );
 
@@ -93,7 +93,7 @@ module.exports = async ( alias, options ) => {
 
   }
 
-  log( 'reassign alias, remove previous indices, refresh new index' );
+  log( 'info', 'reassign alias, %s, remove previous indices, refresh new index', alias );
 
   // Wrap up: re-assign alias, remove previous indices, refresh new index
 
@@ -110,14 +110,13 @@ module.exports = async ( alias, options ) => {
     name: alias
   } );
 
-
-  log( 'updated alias' );
-
   while ( previousIndices.length ) {
 
     await config.client.indices.delete( { index: previousIndices.pop() } );
 
   }
+
+  log( 'info', 'updated alias %s, removed %s previously associated indices', alias, previousIndices.length );
 
   await config.client.indices.refresh( { index } );
 
