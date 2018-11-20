@@ -71,7 +71,7 @@
 
           <mj-markdown><%- message %></mj-markdown>
 
-          <% if ( senderName ) { %>
+          <% if ( typeof senderName !== 'undefined' ) { %>
             <mj-text padding-top="0" font-style="italic" align="right">
               <%- __( 'sentBy', { senderName } ) %>
             </mj-text>
