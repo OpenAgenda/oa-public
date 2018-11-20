@@ -24,7 +24,7 @@ module.exports = declare( ( api, options ) => {
             'Chrome >= 33',
             'Safari >= 9',
             'IE >= 11',
-            "last 4 Edge versions"
+            'last 4 Edge versions'
           ],
           node: '8'
         }
