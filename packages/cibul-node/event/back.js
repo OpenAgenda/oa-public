@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const w = require( 'when' );
 
+const core = require( '../core' );
+
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
@@ -106,23 +108,11 @@ const routes = {
 
   agendaEventReferenceSuggestion: [ 'get', '/agendas/:uid/events/suggestions', [
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    agendaSvc.middleware.load( {
-      namespaces: {
-        identifiers: {
-          uid: 'params.uid'
-        },
-        result: 'agenda'
-      },
-      internal: true,
-      private: null
-    } ),
     ( req, res, next ) => {
 
-      ( req.agenda.formSchemaId
-        ? formSchemas.get( req.agenda.formSchemaId )
-        : formSchemas.legacy.get( req.agenda.id ) ).then( fs => {
+      core.agendas( req.params.uid ).settings.get().then( settings => {
 
-        req.formSchemaFields = _.get( fs, 'fields', [] );
+        req.formSchemaFields = _.get( settings, 'fields', [] );
 
         next();
 

@@ -60,10 +60,10 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 }
 
 
-module.exports.moreLikeThis = async ( searchIndex, agendaUid, sample ) => {
+module.exports.moreLikeThis = async ( searchIndex, sample, options ) => {
 
   // do it on keywords, title, custom ids, custom text.
-  return searchIndex.moreLikeThis( sample );
+  return searchIndex.moreLikeThis( sample, options );
 
 }
 
@@ -136,7 +136,7 @@ async function _loadCustomDataParser( agendaUid, { agenda } ) {
 
   if ( !agenda ) {
 
-    agenda = await _getAgenda( agendaUid );
+    agenda = await agendas.get( { uid: agendaUid }, { internal: true } );
 
   }
 
@@ -169,22 +169,5 @@ async function _loadCustomDataParser( agendaUid, { agenda } ) {
   const decorate = getDecorate( formSchema.fields );
 
   return e => e.custom ? ih( e, { custom: { $set: decorate( e.custom ) } } ) : e;
-
-}
-
-
-function _getAgenda( agendaUid ) {
-
-  return new Promise( ( rs, rj ) => {
-
-    agendas.get( { uid: agendaUid }, { internal: true }, ( err, agenda ) => {
-
-      if ( err ) return rj( err );
-
-      rs( agenda );
-
-    } );
-
-  } );
 
 }

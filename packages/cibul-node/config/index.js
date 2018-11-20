@@ -203,6 +203,9 @@ const config = {
       apiVersion: '1.3',
       timeout: 30000
     },
+    esEvents: {
+      maxIndexableTimingCount: 3000
+    },
     redis: {
       host: prod.redis.host,
       port: prod.redis.port

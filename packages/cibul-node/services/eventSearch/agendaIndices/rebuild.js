@@ -55,7 +55,7 @@ module.exports = async ( searchIndex, uid ) => {
   // track which events could not be assembled
   let missingEvents = [];
 
-  return searchIndex.rebuild( {
+  const result = await searchIndex.rebuild( {
     eventsList: async ( offset, limit ) => {
 
       const aes = await agendaEvents( uid ).list( offset, limit ).then( r => r.items );
@@ -70,13 +70,9 @@ module.exports = async ( searchIndex, uid ) => {
 
     },
     extensions
-  } ).then( result => {
-
-    return _.extend( result, {
-      missingEvents
-    } );
-
   } );
+
+  return _.assign( result, { missingEvents } );
 
 }
 
