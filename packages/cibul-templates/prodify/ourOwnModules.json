@@ -8,11 +8,9 @@
   "react-form-components",
   "react-timings-picker",
   "spinner",
-  "translators",
   "agenda-stakeholders",
   "activities/format",
   "activity-apps/notifications",
-  "translators",
 
   "@openagenda/agenda-locations",
   "@openagenda/admin-agendas",
@@ -24,9 +22,7 @@
   "@openagenda/react-form-components",
   "@openagenda/react-timings-picker",
   "@openagenda/spinner",
-  "@openagenda/translators",
   "@openagenda/agenda-stakeholders",
   "@openagenda/activities/format",
-  "@openagenda/activity-apps/notifications",
-  "@openagenda/translators"
+  "@openagenda/activity-apps/notifications"
 ]

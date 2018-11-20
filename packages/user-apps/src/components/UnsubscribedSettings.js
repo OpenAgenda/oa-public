@@ -38,7 +38,7 @@ class UnsubscribedSettings extends Component {
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabels( 'emailUnsubscription' )}
+          {getLabels( 'emails' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
