@@ -5,6 +5,7 @@ const _ = require( 'lodash' );
 const defaultConfig = {
   lang: 'fr',
   locationRes: '/locations',
+  referencesRes: '/refs',
   redirects: {
     updated: '/?redirect.updated=:eventUid',
     seeEvent: '/?redirect.eventCreated=:eventUid',
@@ -251,6 +252,15 @@ module.exports = [ {
       placeholder: 'Biiiim',
       max: 123456789,
       sub: 'Et ouais'
+    }, {
+      fieldType: 'abstract',
+      field: 'references',
+      suggest: true,
+      related: [ 'title', 'networkfield' ],
+      boost: {
+        title: 20,
+        networkfield: 10
+      }
     } ]
   }, {
     fields: [ {
