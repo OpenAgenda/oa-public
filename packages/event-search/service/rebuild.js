@@ -49,13 +49,29 @@ module.exports = async ( alias, options ) => {
 
       log( 'bulk indexing from offset %s %s events ( total of %d timings )', offset, events.length, events.reduce( ( t, e ) => t + e.timings.length, 0 ) );
 
-      let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
+      let bulkResult = {
+        took: 0,
+        errors: null,
+        items: []
+      };
+
+      let bulkJob = h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
+
+      if ( bulkJob ) {
+
+        bulkResult = await bulkJob;
+
+      } else {
+
+        log( 'nothing to index in bulk job: all items were filtered out' );
+
+      }
 
       log( 'bulk indexed offset %s, took %s', offset, ( bulkResult.took / 1000 ) + 's' );
 
       if ( bulkResult.errors ) {
 
-        console.log( JSON.stringify( bulkResult, null, 4 ) );
+        log( 'error', 'bulk index returned errors', bulkResult );
 
       } else {
 

@@ -21,12 +21,23 @@ module.exports = {
 
 function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 
-  const body = _.flatten( parsedEvents.map( e => [ {
+  let filteredEvents = parsedEvents; 
+
+  // should make events expire when events are passed, so only index upcoming
+  if ( expire ) { 
+
+    filteredEvents = parsedEvents.filter( e => e.timings && ( lastTimingEndsIn( e ) > 0 ) );
+
+  }
+
+  if ( !filteredEvents.length ) return null;
+
+  const body = _.flatten( filteredEvents.map( e => [ {
     index: {
       _index: indexName,
       _type: type,
       _id: e.uid,
-      _ttl: expire && e.timings ? lastTimingEndsIn( e.timings ) + 'd': undefined
+      _ttl: expire && e.timings ? lastTimingEndsIn( e ) + 'd': undefined
     }
   }, e ] ) );
   
