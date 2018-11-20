@@ -301,6 +301,8 @@ const config = {
         "youtu",
         "calameo",
         "allocine",
+        "weezevent",
+        "eventbrite"
       ],
     },
     newsletter: {
