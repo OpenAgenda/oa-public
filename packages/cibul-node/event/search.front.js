@@ -16,8 +16,7 @@ module.exports = ( parentApp, path ) => {
 }
 
 app.get( '/*', [
-  sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-  cmn.requireAdmin
+  sessions.middleware.ifUnlogged( cmn.redirectTo() )
 ] );
 
 app.get( '/', ( req, res, next ) => {
@@ -44,7 +43,9 @@ app.get( '/aggs', ( req, res, next ) => {
 
 } );
 
-app.get( '/rebuild', ( req, res, next ) => {
+app.get( '/rebuild', 
+  cmn.requireAdmin, 
+  ( req, res, next ) => {
 
   search.rebuild().then( () => { console.log( 'done' ); } );
 
