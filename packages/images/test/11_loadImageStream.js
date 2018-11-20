@@ -58,7 +58,7 @@ describe( 'images - unit (server): loadImageStream', function() {
 
     } catch ( err ) {
 
-      err.should.equal( 'invalid image' );
+      err.message.should.equal( 'unhandled image format' );
 
     }
 

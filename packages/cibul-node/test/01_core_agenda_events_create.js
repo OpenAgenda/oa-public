@@ -44,6 +44,8 @@ const testConfig = {
     eventEditor: 'legacy_event_editor',
     agendaEvent: 'legacy_agenda_event',
     eventReferences: 'legacy_agenda_event_reference',
+    agendaCategory: 'legacy_agenda_category',
+    agendaTag: 'legacy_agenda_tag',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',
@@ -397,7 +399,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
   } );
 
 
-  describe( 'successful create wizout slug', () => {
+  describe( 'other', () => {
 
     let event;
 
@@ -421,17 +423,27 @@ describe( 'core - functional ( server ): agenda event create', function() {
           fr: [ 'un', 'deux', 'trois' ]
         },
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
+        'thematiques-bordeaux-metropole' : [ 3, 4 ],
+        location: {
+          uid: 123
+        }
+      }, { formSchemaDataFormat: true } );
 
     } );
 
 
-    it( 'successful', () => {
+    it( 'slug was derived from title', () => {
 
       const slug = 'un-evenement';
 
       result.created.event.slug.substr( 0, slug.length ).should.equal( slug );
+
+    } );
+
+
+    it( 'event was created from a form-schema data format', () => {
+
+      result.created.event.locationUid = 123;
 
     } );
 

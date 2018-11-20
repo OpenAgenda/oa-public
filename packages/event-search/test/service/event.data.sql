@@ -18,15 +18,18 @@ CREATE TABLE `${schema}` (
   timings TEXT,
   accessibility VARCHAR( 100 ),
   age VARCHAR( 50 ),
-  file_key varchar(32),
   registration VARCHAR(2000),
+  `references` VARCHAR(2000),
+  links TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   deleted_at DATETIME,
+  file_key varchar(32),
   UNIQUE INDEX id_idx (id),
   UNIQUE INDEX uid_idx (uid),
   UNIQUE INDEX slug_idx (slug),
   INDEX agenda_uid_idx (agenda_uid),
+  INDEX owner_uid_idx (owner_uid),
   INDEX location_uid_idx (location_uid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -267,7 +270,7 @@ INSERT INTO `${schema}` (
 (
   22, 22, 65570947, 21475128, 8896048, 
   'new_york_event',
-  '{"fr":"Other_Timezone_Horaires: un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', 
+  '{"fr":"OtherTimezoneHoraires: un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', '{"fr":"un truc à New York", "en":"A thing in New York"}', 
   '{"fr" : [ "lieu" ], "en" : [] }',
   NULL, '{}', 0, 0, 'America/New_York', 
   '[{"begin":"2016-10-24T12:00:00.000Z","end":"2016-10-24T13:00:00.000Z"}]', 
@@ -343,6 +346,14 @@ INSERT INTO `${schema}` (
 ( 41, 41, 789114, 7678678, 1,
   'date_2',
   '{"fr":"Un événement le 14 juillet à Paris"}','{"fr":"Un événement le 14 juillet à Paris"}','{"fr":"Un événement le 14 juillet à Paris"}', '{"fr":["date_event"]}',
+  NULL, '{}', 0, 0, 'Europe/Paris',
+  '[{"begin":"2017-07-14T11:03:00.000Z", "end":"2017-07-14T11:03:00.000Z"}]',
+  '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL
+),
+
+( 42, 42, 789115, 7678678, 1,
+  'apostrophe',
+  '{"fr":"C\'est franchement l\'horreur."}','{"fr":"Poltergeist"}','{"fr":"This is a story"}', '{"fr":["apostrophe_event"]}',
   NULL, '{}', 0, 0, 'Europe/Paris',
   '[{"begin":"2017-07-14T11:03:00.000Z", "end":"2017-07-14T11:03:00.000Z"}]',
   '{}', '{"min":8,"max":17}', '[]', '2016-11-04 09:18:42', '2016-11-04 09:18:42', NULL

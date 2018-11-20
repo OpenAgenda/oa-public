@@ -11,6 +11,8 @@ describe( 'event-search - functional: rebuild', function() {
 
   describe( 'basic usage', function() {
 
+    let totalEvents;
+
     this.timeout( 10000 );
 
     async function eventsList( offset, limit ) {
@@ -28,7 +30,15 @@ describe( 'event-search - functional: rebuild', function() {
       events.initAndLoad( config.eventService, [ {
         table: 'event',
         src: __dirname + '/service/event.data.sql' 
-      } ], { reset: true }, done );
+      } ], { reset: true }, async () => {
+
+        const result = await events.list( {}, 0, 1, { total: true } );
+
+        totalEvents = result.total;
+
+        done();
+
+      } );
 
     } );
 
@@ -94,7 +104,7 @@ describe( 'event-search - functional: rebuild', function() {
 
         let result = await service( 'test_alias' ).rebuild( { eventsList } );
 
-        result.counts.indexed.should.equal( 29 );
+        result.counts.indexed.should.equal( totalEvents );
 
       } );
 

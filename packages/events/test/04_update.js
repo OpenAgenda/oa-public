@@ -83,7 +83,6 @@ describe( 'events -04- functional (server): update', function() {
 
   } );
 
-
   it( 'absent title is considered invalid for non draft event', done => {
 
     svc.update( id, { title: {} }, { draft: false }, ( err, result ) => {

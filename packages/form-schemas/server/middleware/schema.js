@@ -12,7 +12,8 @@ const FormSchema = require( '../../iso/FormSchema' );
 
 module.exports = {
   clean
-} 
+}
+
 
 function clean( ns, req, res, next ) {
 

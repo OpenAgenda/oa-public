@@ -156,7 +156,27 @@ function processImage( options, cb ) {
 
     cb( null, values.returnValues ? values : values.dstPath );
 
-  }, cb );
+  }, err => {
+
+    if ( _.get( err, 'path' ) && _.get( options, 'clear' ) ) {
+
+      fs.unlink( _.get( err, 'path' ), () => {
+
+        cb( _.omit( err, [ 'path' ] ) );
+
+      } );
+
+    } else if ( _.isObject( err ) ) {
+
+      cb( _.omit( err, [ 'path' ] ) );
+
+    } else {
+
+      cb( err );
+
+    }
+
+  } );
 
 }
 
@@ -215,11 +235,21 @@ function _checkSize( values ) {
 
     if ( imageBytes < values.sizeLimits[ 0 ] ) {
 
-      return rj( 'image is too small: ' + imageBytes );
+      return rj( {
+        code: 'image.toosmall',
+        min: values.sizeLimits[ 0 ],
+        message: 'minimum size not met',
+        path: values.path
+      } );
 
     } else if ( imageBytes > values.sizeLimits[ 1 ] ) {
 
-      return rj( 'image is too big: ' + imageBytes );
+      return rj( {
+        code: 'image.toobig',
+        max: values.sizeLimits[ 1 ],
+        message: 'maximum size exceeded',
+        path: values.path
+      } );
 
     }
 
@@ -413,9 +443,25 @@ async function _loadImageStream( values ) {
 
   } catch ( err ) {
 
+    if ( err.toString().indexOf( 'no decode delegate for this image format' ) !== -1 ) {
+
+      const format = ( _.get( values, 'url', null ) || _.get( values, 'url', '' ) || '' ).split( '.' ).pop();
+
+      throw {
+        path: _.get( values, 'path' ),
+        format,
+        message: 'unhandled image format',
+        code: 'invalid.format'
+      }
+
+    }
+
     log( 'error', 'invalid image: %j', err );
 
-    throw 'invalid image';
+    throw {
+      path: _.get( values, 'path' ),
+      message: 'invalid image'
+    }
 
   }
 
@@ -443,11 +489,30 @@ function _download( values ) {
     aborted = false,
 
     req = request.get( {
-      url: src,
+      url: encodeURI( src ),
       agentOptions: {
         rejectUnauthorized: false
       },
+      headers: {
+        'User-Agent': 'OA',
+        'Accept-Charset' : '*',
+        'Accept': '*/*'
+      },
       timeout: config.timeout
+    } )
+
+    .on( 'response', res => {
+
+      if ( res.statusCode < 200 || res.statusCode > 300 ) {
+
+        _downloadAbort( req, path, {
+          code: 'invalid.status',
+          message: 'invalid status code', 
+          statusCode: res.statusCode 
+        }, rj );
+
+      }
+
     } )
 
     .on( 'error', err => {
@@ -462,7 +527,11 @@ function _download( values ) {
 
       if ( downloadedSize > config.maxSize ) {
 
-        _downloadAbort( req, path, 'maximum size exceeded', rj );
+        _downloadAbort( req, path, {
+          code: 'image.toobig',
+          message: 'maximum size exceeded',
+          max: config.maxSize
+        }, rj );
 
         aborted = true;
 
@@ -495,7 +564,7 @@ function _download( values ) {
 }
 
 
-function _downloadAbort( req, path, errorMessage, cb ) {
+function _downloadAbort( req, path, error, cb ) {
 
   req.abort();
 
@@ -507,7 +576,7 @@ function _downloadAbort( req, path, errorMessage, cb ) {
 
     }
 
-    cb( errorMessage );
+    cb( error );
 
   });
 

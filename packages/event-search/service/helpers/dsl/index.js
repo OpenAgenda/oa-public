@@ -5,5 +5,6 @@ module.exports = {
   getQuery: require( './getQuery' ),
   getSort: require( './getSort' ),
   getSource: require( './getSource' ),
-  getMoreLikeThis: require( './getMoreLikeThis' )
+  getMoreLikeThis: require( './getMoreLikeThis' ),
+  wrapInMoreLikeThis: require( './wrapInMoreLikeThis' )
 }

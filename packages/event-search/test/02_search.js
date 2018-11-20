@@ -173,6 +173,19 @@ describe( 'event search - functional: search', function() {
 
     } );
 
+    it( 'search on word with apostrophe', async () => {
+
+      /**
+       * the simple analyzer breaks words with apostrophe
+       * https://www.elastic.co/guide/en/elasticsearch/reference/5.3/analysis-analyzers.html
+       */
+
+      let { events, total } = await service( 'simple_search' ).search( { search: 'Horreur' } );
+
+      total.should.equal( 1 );
+
+    } );
+
 
     it( 'open search on a city name', async () => {
 

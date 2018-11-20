@@ -36,13 +36,13 @@ function _getQueryFilterParts( cleanQuery ) {
 
   const parts = [];
 
-  if ( cleanQuery.localTime.gte || cleanQuery.localTime.lte ) {
+  if ( _.get( cleanQuery, 'localTime.gte' ) || _.get( cleanQuery, 'localTime.lte' ) ) {
 
     parts.push( _localTime( cleanQuery.localTime ) );
 
   }
 
-  if ( cleanQuery.date.gte || cleanQuery.date.lte ) {
+  if ( _.get( cleanQuery, 'date.gte' ) || _.get( cleanQuery, 'date.lte' ) ) {
 
     parts.push( _dateExcludingOngoing( cleanQuery.date ) );
 
@@ -79,13 +79,13 @@ function _getQueryMustParts( cleanQuery, extensionQueries = {} ) {
 
       and = _.isArray( field ) ? field[ 2 ] : false;
 
-    if ( cleanQuery[ fromField ].length > 1 && !and ) {
+    if ( _.get( cleanQuery, fromField, [] ).length > 1 && !and ) {
 
       parts.push( _mustPart( 'in', toField, cleanQuery[ fromField ] ) );
 
     } else {
 
-      cleanQuery[ fromField ]
+      _.get( cleanQuery, fromField, [] )
         .map( _mustPart.bind( null, 'term', toField ) )
         .forEach( p => parts.push( p ) );
       
@@ -96,10 +96,10 @@ function _getQueryMustParts( cleanQuery, extensionQueries = {} ) {
 
   // add bounds constraints
   if ( 
-    cleanQuery.geo.northEast.lat
-    && cleanQuery.geo.northEast.lng 
-    && cleanQuery.geo.southWest.lat 
-    && cleanQuery.geo.southWest.lng
+    _.get( cleanQuery, 'geo.northEast.lat' )
+    && _.get( cleanQuery, 'geo.northEast.lng' )
+    && _.get( cleanQuery, 'geo.southWest.lat' )
+    && _.get( cleanQuery, 'geo.southWest.lng' )
   ) {
 
     parts.push( _geoBounds( cleanQuery.geo ) );

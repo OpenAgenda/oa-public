@@ -165,6 +165,27 @@ describe( 'event search - functional: more like this', function() {
 
     } );
 
+    it( 'mlt on title and keywords with boosts', async () => {
+
+      const mltRequest = {
+        title: {
+          fr: 'Les doigts de la main'
+        },
+        keywords: {
+          fr: [ 'doigts' ]
+        }
+      };
+
+      ( await service( 'simple_search' ).moreLikeThis( mltRequest, { 
+        boost: { title: 20, keywords: 30 }
+      } ) ).events.map( e => e.uid ).should.eql( [ 157, 132 ] );
+
+      ( await service( 'simple_search' ).moreLikeThis( mltRequest, { 
+        boost: { title: 50, keywords: 30 }
+      } ) ).events.map( e => e.uid ).should.eql( [ 132, 157 ] );
+
+    } );
+
     it( 'mlt on nothing should return empty result', async () => {
 
       const { total, events } = await service( 'simple_search' ).moreLikeThis( {} );
@@ -244,9 +265,24 @@ describe( 'event search - functional: more like this', function() {
         location: {
           department: 'Finistère'
         }
-      } );
+      }, { boost: { keywords : 10, 'location.department' : 20 } } );
 
-      events.map( e => e.slug ).sort().should.eql( [ 'finger_event_2', 'shop_event_2' ] );
+      events.map( e => e.slug ).should.eql( [ 'finger_event_2', 'shop_event_2' ] );
+
+    } );
+
+    it( 'mlt on department with title in different department with different boost', async () => {
+
+      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+        keywords: {
+          fr: [ 'janine' ]
+        },
+        location: {
+          department: 'Finistère'
+        }
+      }, { boost: { keywords : 20, 'location.department' : 10 } } );
+
+      events.map( e => e.slug ).should.eql( [ 'shop_event_2', 'finger_event_2' ] );
 
     } );
 

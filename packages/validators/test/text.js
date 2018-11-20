@@ -122,13 +122,23 @@ describe( 'text validator', () => {
 
   describe( 'optional', () => {
 
-    it( 'undefined or null cleans to null', () => {
+    it( 'undefined cleans to null', () => {
 
       let validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
       should( validate() )
 
-      .equal( null );
+        .equal( null );
+
+    } );
+
+    it( 'null cleans to null', () => {
+
+      let validate = validators.text( { field: 'text', min: 3, max: 10 } );
+
+      should( validate( null ) )
+
+        .equal( null );
 
     } );
 

@@ -21,5 +21,10 @@ module.exports = schema( {
     type: 'boolean',
     optional: true,
     default: false
+  },
+  validate: {
+    type: 'boolean',
+    optional: true,
+    default: true
   }
 } );

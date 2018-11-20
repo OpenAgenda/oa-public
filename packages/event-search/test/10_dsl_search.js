@@ -265,7 +265,7 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'Other_Timezone_Horaires'
+            search_internals_title: 'OtherTimezoneHoraires'
           }
         }
       };
@@ -291,7 +291,7 @@ describe( 'event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               match: {
-                search_internals_title: 'Other_Timezone_Horaires'
+                search_internals_title: 'OtherTimezoneHoraires'
               },
             }, ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html

@@ -35,7 +35,7 @@ module.exports = agendaUid => {
     exists: searchIndex.exists,
     stream: _stream.bind( null, searchIndex, agendaUid ),
     search: _search.bind( null, searchIndex, agendaUid ),
-    moreLikeThis: search.moreLikeThis.bind( null, searchIndex, agendaUid ),
+    moreLikeThis: search.moreLikeThis.bind( null, searchIndex ),
     rebuild: rebuild.bind( null, searchIndex, agendaUid ),
     add: _add.bind( null, searchIndex, agendaUid ),
     update: _update.bind( null, searchIndex, agendaUid ),

@@ -22,22 +22,26 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   }
 
-  const validate = await interfaces.getValidator( formSchemaId );
+  let clean = data;
 
-  // clean
+  if ( cleanOptions.validate ) {
 
-  let clean;
+    const validate = await interfaces.getValidator( formSchemaId );
 
-  try {
+    // clean
 
-    clean = validate( data );
+    try {
 
-  } catch ( validationErrors ) {
+      clean = validate( data );
 
-    return {
-      success: false,
-      valid: false,
-      errors: validationErrors
+    } catch ( validationErrors ) {
+
+      return {
+        success: false,
+        valid: false,
+        errors: validationErrors
+      }
+
     }
 
   }

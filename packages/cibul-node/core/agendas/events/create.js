@@ -18,8 +18,9 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, options } );
 
-  const { draft } = _.assign( {
-    draft: false
+  const { draft, formSchemaDataFormat } = _.assign( {
+    draft: false,
+    formSchemaDataFormat: false
   }, options || {} );
 
   const {
@@ -36,7 +37,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
   const clean = await validate.loaded( { 
     formSchemaId,
     networkFormSchemaId: _.get( network, 'formSchemaId' )
-  }, data, { draft } );
+  }, data, { draft, formSchemaDataFormat } );
 
   try {
 
@@ -51,6 +52,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
   }
 
   log( 'pre-validation done', { agendaUid } );
+
 
   // create the event
   const result = await events.create( clean.event, {

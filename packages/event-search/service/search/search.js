@@ -51,7 +51,6 @@ module.exports = async ( alias, query, nav = {}, options = {} ) => {
 
   // sorting and _source added after
 
-
   if ( cleanOptions.aggregations ) {
 
     cleanDsl.aggregations = buildAggregationDsl( cleanOptions.aggregations, config.predefinedAggregations, query );

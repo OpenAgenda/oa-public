@@ -149,7 +149,7 @@ function _loadTranslator( data, cb ) {
   let templateLabelsPath = data.layoutConfig && data.layoutConfig.labels || null;
   let templateLabels = templateLabelsPath ? _getLabels( templateLabelsPath ) : {};
 
-  let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ) );
+  let getLabel = makeLabelGetter( Object.assign( {}, labels, templateLabels ), 'en', 'en' );
 
   data.__ = ( label, values = {} ) => {
 

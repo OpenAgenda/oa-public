@@ -44,6 +44,8 @@ const testConfig = {
     agendaEvent: 'legacy_agenda_event',
     eventReferences: 'legacy_agenda_event_reference',
     eventEditor: 'legacy_event_editor',
+    agendaCategory: 'legacy_agenda_category',
+    agendaTag: 'legacy_agenda_tag',
     agendaEventTag: 'legacy_agenda_event_tag',
     user: 'user',
     stakeholder: 'member',

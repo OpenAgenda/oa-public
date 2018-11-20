@@ -62,6 +62,11 @@ const devApps = [ {
   link: '/html',
   group: 'types'
 }, {
+  name: 'A set of number fields',
+  description: 'A field for typing a number or an integer',
+  link: '/number',
+  group: 'types'
+}, {
   name: 'A radio field',
   description: 'A set of single choice options',
   link: '/radio',

@@ -1,4 +1,4 @@
-<% if ( actions.indexOf( 'calendars' ) !== -1 ) { %>
+<% if ( actions.indexOf( 'calendars' ) !== -1 ) { /* calendar shares are displayed */ %>
 <p class="legend"><%= __('Import in a personal calendar') %></p>
 
 <div class="btn-adds">
@@ -10,32 +10,33 @@
   <p class="text-center"><%= __('There are no timings available for this event') %></p>
 <% } %>
 </div>
-<% } %>
-<% if ( ( actions.indexOf( 'agendas' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
+<% } /* end of calendar shares */ %>
+
+<% if ( ( actions.indexOf( 'agendas' ) !== -1 ) && ( !agenda || !agenda.private ) ) { /* OA agenda shares are displayed */ %>
 <p class="legend"><%= __('Import in OpenAgenda') %></p>
 <% if ( logged ) { %>
 
-<% if ( agendas.length ) { %>
+<% if ( agendas.length ) { /* OA agenda shares are displayed */ %>
 <div class="btn-adds">
 
-<% agendas.forEach( function( a ) { %>
-<% if ( a.sharing ) { %>
-  <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
-<% } else { %>
-  <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
-<% } %>
-<% }); %>
+  <% agendas.forEach( function( a ) {  %>
+  <% if ( a.sharing ) { %>
+    <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaEventRemove', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+  <% } else { %>
+    <a class="btn btn-default" href="<%= genUrl( 'agendaEventAdd', { slug: a.slug, eventUid: event.uid, redirect: a.redirect, sourceAgendaUid: agenda.uid } ) %>"><%= a.title %></a>
+  <% } %>
+  <% }); %>
 
+</div>
 <% } else { %>
 
-  <div class="prompt text-center">
-    <p><%= __( 'You do not own any OpenAgenda yet' ) %></p>
-    <a class="btn green" href="<%= genUrl( 'agendaNew' ) %>"><%= __( 'Create an agenda' ) %></a>
-  </div>
+<div class="prompt text-center">
+  <p><%= __( 'You do not own any OpenAgenda yet' ) %></p>
+  <a class="btn green" href="<%= genUrl( 'agendaNew' ) %>"><%= __( 'Create an agenda' ) %></a>
+</div>
   
 <% } %>
 
-</div>
 
 <% } else { %>
 
@@ -46,7 +47,7 @@
 
 <% } %>
 
-<% } %>
+<% } /* End of OA agenda shares are displayed */ %>
 
 <% if ( ( actions.indexOf( 'email' ) !== -1 ) && ( !agenda || !agenda.private ) ) { %>
 

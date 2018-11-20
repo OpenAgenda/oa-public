@@ -22,7 +22,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
 
-let knex;
+let knex, maxIndexableTimingCount;
 
 module.exports = {
   list,
@@ -31,6 +31,8 @@ module.exports = {
   init: c => {
 
     knex = c.knex;
+
+    maxIndexableTimingCount = c.esEvents.maxIndexableTimingCount;
 
   }
 }
@@ -55,11 +57,17 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
 
     if ( !event ) {
 
-      log( 'warning', 'agendaEvent ref %s.%s does not have a matching non-draft event', ae.agendaUid, ae.eventUid );
+      log( 'warn', 'agendaEvent ref %s.%s does not have a matching non-draft event', ae.agendaUid, ae.eventUid );
 
       missing.push( ae.eventUid );
 
       return null;
+
+    } else if ( event.timings.length > maxIndexableTimingCount ) {
+
+      log( 'warn', 'max indexable timings is reached, filtering from %s to %s', event.timings.length, maxIndexableTimingCount );
+
+      event.timings = event.timings.slice( 0, maxIndexableTimingCount );
 
     }
 

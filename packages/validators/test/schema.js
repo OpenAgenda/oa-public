@@ -1100,13 +1100,11 @@ describe( 'schema validator', () => {
 
     it( 'when enableWith is used on a required field, it can only be required if related field is set', () => {
 
-      const validator = schema( { 
+      const validate = schema( { 
         image: {
-          field: 'image', 
           type: 'text' 
         },
         imageCredits: { 
-          field: 'imageCredits',
           optional: false,
           enableWith: 'image',
           type: 'text' 
@@ -1117,7 +1115,7 @@ describe( 'schema validator', () => {
 
       try {
 
-        validator( {} );
+        validate( {} );
 
       } catch ( e ) {
 

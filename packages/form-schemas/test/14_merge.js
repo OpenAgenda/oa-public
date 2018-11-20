@@ -359,4 +359,42 @@ describe( 'unit - assigning schema properties to another schema', function() {
 
   } );
 
+
+  it( 'options can be limited to allowed set through a schema merge', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'chooseyouravatar',
+        fieldType: 'radio',
+        optional: true,
+        options: [ {
+          label: 'Retarded cat',
+          id: 1
+        }, {
+          label: 'Phteven',
+          id: 2
+        } ]
+      } ]
+    };
+
+    const restrictiveSchema = {
+      fields: [ {
+        field: 'chooseyouravatar',
+        fieldType: 'abstract',
+        allowedOptions: [ 2 ]
+      } ]
+    }
+
+    merge( schema, restrictiveSchema ).fields.should.eql( [ {
+      field: 'chooseyouravatar',
+      fieldType: 'radio',
+      optional: true,
+      options: [ {
+        label: 'Phteven',
+        id: 2
+      } ]
+    } ] );
+
+  } );
+
 } );

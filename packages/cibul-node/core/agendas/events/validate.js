@@ -8,6 +8,8 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
 const validate = require( '@openagenda/events/service/validate' );
 const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
+const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
+
 const getAgenda = require( '../utils/getAgenda' );
 
 module.exports = async ( agendaUid, data ) => {
@@ -20,14 +22,15 @@ module.exports = async ( agendaUid, data ) => {
 
 module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
 
-  const { draft, evaluateEvent } = _.assign( {
+  const { draft, evaluateEvent, formSchemaDataFormat } = _.assign( {
     evaluateEvent: true,
-    draft: false
+    draft: false,
+    formSchemaDataFormat: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
-  log( 'validating full agenda event data' );
+  log( 'validating full agenda event data in %s format', formSchemaDataFormat ? 'form schema format' : 'event service format' );
 
-  let errors = [];
+  const errors = [];
 
   const clean = {
     custom: null,
@@ -39,23 +42,23 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
     log( 'evaluating event data' );
 
     clean.event = null;
+
+    const eventServiceFormattedData = formSchemaDataFormat ? toEventServiceFormat( data ) : data;
     
     // clean event
     try {
 
-      validate[ draft ? 'draft' : 'front' ]( data, { optionalSlug: true } );
+      validate[ draft ? 'draft' : 'front' ]( eventServiceFormattedData, { optionalSlug: true } );
 
     } catch( eventValidationErrors ) {
 
       log( 'info', 'received event validation errors', eventValidationErrors );
 
-      errors = errors.concat( eventValidationErrors );
-
-      log( 'received validation errors for event data', { count: eventValidationErrors.length } );
+      eventValidationErrors.forEach( err => errors.push( _.set( err, 'step', 'event data validation' ) ) );
 
     }
 
-    clean.event = data;
+    clean.event = eventServiceFormattedData;
 
   }
 
@@ -68,7 +71,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     clean.custom = result.clean;
 
-    errors = errors.concat( result.errors ); 
+    result.errors.forEach( err => errors.push( _.set( err, 'step', 'agenda custom data validation' ) ) );
 
   }
 
@@ -82,7 +85,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     clean.networkCustom = result.clean;
 
-    errors = errors.concat( result.errors );
+    result.errors.forEach( err => errors.push( _.set( err, 'step', 'network custom data validation' ) ) );
 
   }
 
@@ -104,7 +107,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     errors = errors.concat( agendaEventErrors );
 
-    log( 'received validation errors for agenda-event reference data', { count: agendaEventErrors.length } );
+    agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
 
   }
 

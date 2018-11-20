@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 module.exports = ( { res } ) => {
 
   return {
@@ -10,7 +12,8 @@ module.exports = ( { res } ) => {
     },
     fieldType: 'references',
     suggest: false,
-    related: [ 'title', 'description', 'location' ],
+    boost: null, // could be { title: 30, description: 20, location: 10 }. Defined through schema extension
+    related: [ 'title', 'description', 'location' ], // this is customizable through schema extension
     res: res || '/references'
   }
 

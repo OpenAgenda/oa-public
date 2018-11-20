@@ -60,9 +60,9 @@ module.exports = function ( options ) {
     inbox
   }
 
-  function load( agendaUid, eventUid ) {
+  function load( agendaUid, eventUid, lang ) {
 
-    var res = _defineRes( agendaUid, eventUid );
+    var res = _defineRes( agendaUid, eventUid, lang );
 
     _fetch( res, function ( err, data ) {
 
@@ -263,12 +263,14 @@ module.exports = function ( options ) {
 
   }
 
-  function _defineRes( agendaUid, eventUid ) {
+  function _defineRes( agendaUid, eventUid, lang ) {
 
     var res = params.url[ params.env ];
 
     res = res.replace( '{eventUid}', eventUid )
       .replace( '{agendaUid}', agendaUid );
+
+    if ( lang ) res += '?lang=' + lang;
 
     return res;
 

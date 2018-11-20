@@ -9,6 +9,7 @@ const should = require( 'should' );
 
 const service = require( '../' );
 const getMoreLikeThis = require( '../service/helpers/dsl/getMoreLikeThis' );
+const wrapInMoreLikeThis = require( '../service/helpers/dsl/wrapInMoreLikeThis' );
 
 const dslSearch = require( '../service/search' ).dsl;
 const moreLikeThisData = require( './service/simpleMoreLikeThis.data' );
@@ -271,6 +272,43 @@ describe( 'event-search - unit: more like this search', function() {
 
       } );
 
+      it( 'boosting terms in mlt', async () => {
+
+        const mltQuery = {
+          query: {
+            dis_max: {
+              queries: [ {
+                mlt: {
+                  fields: [ 'note' ],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: 'masdar'
+                }
+              }, {
+                mlt: {
+                  boost: 20,
+                  fields: [ 'place.name' ],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: 'masdar'
+                }
+              }, {
+                mlt: {
+                  boost: 30,
+                  fields: [ 'tags' ],
+                  min_term_freq: 1,
+                  min_doc_freq: 1,
+                  like: 'masdar'
+                }
+              } ]
+            }
+          }
+        };
+
+        _getIds( await _searchNotes( mltQuery ) ).should.eql( [ 2, 4, 3, 1 ] );
+
+      } );
+
 
       it( 'mlt query can be filtered', async () => {
 
@@ -338,6 +376,7 @@ describe( 'event-search - unit: more like this search', function() {
         } ) ).length.should.equal( 10 );
 
       } );
+
 
 
       it( 'mlt can be filtered', async () => {
@@ -671,28 +710,29 @@ describe( 'event-search - unit: more like this search', function() {
 
   } );
 
-
   describe( 'getMoreLikeThis parsing function', () => {
 
     it( 'keywords search maps to search_internals_keywords_text', () => {
 
       const mlt = getMoreLikeThis( {
         keywords: {
-          fr: [ 'vin chaud' ],
-          en: []
+          fr: [ 'vin chaud' ]
         }
       } );
 
-      mlt.fields.should.eql( [
-        'search_internals_keywords_text'
-      ] );
-
-      mlt.like.should.eql( [ {
-        doc: { search_internals_keywords_text: 'vin chaud' }
-      } ] );
+      mlt.should.eql( {
+        fields: [ 'search_internals_keywords_text' ],
+        min_word_length: 3,
+        min_term_freq: 1,
+        min_doc_freq: 1,
+        like: [ {
+          doc: {
+            search_internals_keywords_text: 'vin chaud'
+          }
+        } ]
+      } );
 
     } );
-
 
     it( 'custom optioned data maps to a single array of internal custom keywords or text fields', () => {
 
@@ -717,9 +757,7 @@ describe( 'event-search - unit: more like this search', function() {
             "doc": {
               "custom": {
                 "search_internals_keywords": [
-                  'key12',
-                  'key13',
-                  'key4'
+                  'key12', 'key13', 'key4'
                 ],
                 "sometextfield": "compteur de flotte numérique"
               }
@@ -744,6 +782,7 @@ describe( 'event-search - unit: more like this search', function() {
 
     } );
 
+
     it( 'department distributes over all likes', () => {
 
       const mlt = getMoreLikeThis( {
@@ -764,6 +803,7 @@ describe( 'event-search - unit: more like this search', function() {
 
     } );
 
+
     it( 'location fields pile up in same like field', () => {
 
       const mlt = getMoreLikeThis( {
@@ -775,6 +815,167 @@ describe( 'event-search - unit: more like this search', function() {
       } );
 
       mlt.like[ 0 ].doc.search_internals_full_address_text.should.equal( 'Verdun Meuse Grand Est' );
+
+    } );
+
+  } );
+
+
+  describe( 'wrapInMoreLikeThis parsing function', () => {
+
+    it( 'keywords search maps to search_internals_keywords_text', () => {
+
+      const dsl = wrapInMoreLikeThis( {
+        keywords: {
+          fr: [ 'vin chaud' ],
+          en: []
+        }
+      } );
+
+      dsl.query.should.eql( {
+        mlt: {
+          fields: [ 'search_internals_keywords_text' ],
+          min_word_length: 3,
+          min_term_freq: 1,
+          min_doc_freq: 1,
+          like: [ {
+            doc: {
+              search_internals_keywords_text: 'vin chaud'
+            }
+          } ]
+        }
+      } );
+
+    } );
+
+
+    it( 'custom optioned data maps to a single array of internal custom keywords or text fields', () => {
+
+      const dsl = wrapInMoreLikeThis( {
+        custom: {
+          multichoicefield: [ 12, 13 ],
+          singlechoicefield: 4,
+          sometextfield: 'compteur de flotte numérique'
+        }
+      } );
+
+      dsl.query.should.eql( {
+        mlt: {
+          fields: [
+            "custom.search_internals_keywords",
+            "custom.sometextfield"
+          ],
+          "min_word_length": 3,
+          "min_term_freq": 1,
+          "min_doc_freq": 1,
+          "like": [
+            {
+              "doc": {
+                "custom": {
+                  "search_internals_keywords": [
+                    'key12', 'key13', 'key4'
+                  ],
+                  "sometextfield": "compteur de flotte numérique"
+                }
+              }
+            }
+          ]
+        }
+      } );
+
+    } );
+
+    it( 'custom optioned data with field boost spreads query on a dis_max', () => {
+
+      const dsl = wrapInMoreLikeThis( {
+        custom: {
+          multichoicefield: [ 12, 13 ],
+          singlechoicefield: 4,
+          sometextfield: 'compteur de flotte numérique'
+        }
+      }, {
+        boost: {
+          "custom.multichoicefield": 10,
+          "custom.singlechoicefield": 20
+        }
+      }, {} );
+
+      dsl.query.should.eql( {
+        "dis_max": {
+          "queries": [
+            {
+              "mlt": {
+                "fields": [
+                  "custom.multichoicefield"
+                ],
+                "min_word_length": 3,
+                "min_term_freq": 1,
+                "min_doc_freq": 1,
+                "like": [
+                  {
+                    "doc": {
+                      "custom": {
+                        "search_internals_keywords": [
+                          "key12",
+                          "key13"
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "boost": 10
+              }
+            },
+            {
+              "mlt": {
+                "fields": [
+                  "custom.singlechoicefield"
+                ],
+                "min_word_length": 3,
+                "min_term_freq": 1,
+                "min_doc_freq": 1,
+                "like": [
+                  {
+                    "doc": {
+                      "custom": {
+                        "search_internals_keywords": [
+                          "key4"
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "boost": 20
+                }
+              },
+              {
+                "mlt": {
+                  "fields": [
+                    "custom.search_internals_keywords",
+                    "custom.sometextfield"
+                  ],
+                  "min_word_length": 3,
+                  "min_term_freq": 1,
+                  "min_doc_freq": 1,
+                  "like": [
+                    {
+                      "doc": {
+                        "custom": {
+                          "search_internals_keywords": [
+                            "key12",
+                            "key13",
+                            "key4"
+                          ],
+                          "sometextfield": "compteur de flotte numérique"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+      } );
 
     } );
 

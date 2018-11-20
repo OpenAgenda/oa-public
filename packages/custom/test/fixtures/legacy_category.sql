@@ -7,4 +7,5 @@ CREATE TABLE IF NOT EXISTS `legacy_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 insert into `legacy_category` ( id, review_id, category, slug ) values
-( 123, 15387, 'Une catégorie', 'une-categorie' );
+( 123, 15387, 'Une catégorie', 'une-categorie' ),
+( 3457, 1010101, 'Cinéma - Projection', 'cinema-projection' );

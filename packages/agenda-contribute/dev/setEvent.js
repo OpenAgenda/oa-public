@@ -4,9 +4,9 @@ const _ = require( 'lodash' );
 
 const pickScenario = require( './pickScenario' );
 
-module.exports = async ( agenda, user, current, data, files, options = {} ) => {
+module.exports = ( agenda, user, current, data, options = {} ) => {
 
-  console.log( 'setEvent interface received data for agenda %s and user %s', agenda.slug, user.name, data, files );
+  console.log( 'setEvent interface received data for agenda %s and user %s', agenda.slug, user.name, data );
 
   // will need this when there is a scenario that fails
   const scenario = pickScenario( { agenda } );
@@ -17,7 +17,9 @@ module.exports = async ( agenda, user, current, data, files, options = {} ) => {
       uid: 123456,
       slug: 'a-new-event',
       draft: !!options.draft
-    } )
+    } ),
+    success: true,
+    errors: []
   } ) );
 
 }

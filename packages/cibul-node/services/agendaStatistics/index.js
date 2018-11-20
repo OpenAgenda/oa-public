@@ -176,7 +176,9 @@ async function _resyncLegacySearch( agendaUid ) {
 
   log( 'info', 'resyncing agenda %d - legacy search index rebuild', agendaUid );
 
-  const agendaId = await config.knex( 'review' ).first( 'id' ).where( 'uid', agendaUid ).then( result => result.id );
+  const agendaId = await config.knex( 'review' ).first( 'id' )
+    .where( 'uid', agendaUid )
+    .then( result => result.id );
 
   const result = await legacySearch.resync( agendaId );
 
@@ -188,8 +190,16 @@ async function _resyncSearch( agendaUid ) {
 
   log( 'info', 'resyncing agenda %d - new search index rebuild', agendaUid );
 
-  const result = await search.agendas( agendaUid ).rebuild();
+  try {
 
-  log( 'info', 'agenda %d, resynced search index', agendaUid, result );
+    const result = await search.agendas( agendaUid ).rebuild();
+
+    log( 'info', 'agenda %d, resynced search index', agendaUid, result );
+
+  } catch ( e ) {
+
+    log( 'error', 'agenda %d, resync failed', agendaUid, e );
+
+  }
 
 }

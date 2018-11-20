@@ -119,7 +119,7 @@ window.asap( options => {
 
     if ( roles.length && params.hasCustomFields ) {
 
-      prv.load( params.agendaUid, params.uid );
+      prv.load( params.agendaUid, params.uid, params.lang );
 
     }
 

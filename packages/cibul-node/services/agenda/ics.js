@@ -8,7 +8,7 @@ module.exports = streamIcsEvents;
 
 function streamIcsEvents( req, res, next ) {
 
-  let stream = req.agenda.searchStream( req.query.oaq );
+  const stream = req.agenda.searchStream( req.query.oaq );
 
   let renderedHeader = false;
 
