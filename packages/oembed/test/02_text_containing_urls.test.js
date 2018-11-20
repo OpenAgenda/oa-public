@@ -5,9 +5,9 @@ const fs = require( 'fs' );
 
 const options = require( '../testconfig' );
 
-const OEmbed = require( '../' );
+const OEmbed = require( '../src' );
 
-const IFRAMELY_OBJECT_KEYS = [ 
+const IFRAMELY_OBJECT_KEYS = [
   'url',
   'type',
   'version',

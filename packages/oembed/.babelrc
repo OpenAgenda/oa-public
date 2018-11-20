@@ -1,19 +1,5 @@
 {
-  "presets" : [
-    [ "env", {
-        "targets": {
-          "browsers": [
-            ">0.25%",
-            "Explorer 11",
-            "Firefox >= 24",
-            "Chrome >= 33",
-            "Safari >= 9",
-            "last 4 Edge versions"
-          ]
-        },
-        "useBuiltIns": true
-    } ],
-    "react",
-    "stage-0"
+  "presets": [
+    "openagenda"
   ]
 }

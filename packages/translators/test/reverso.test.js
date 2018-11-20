@@ -2,23 +2,23 @@
 
 const should = require( 'should' );
 
-const reverso = require( '../src/reverso' );
+const reversoTest = require( '../src/reverso' );
 
 const config = require( '../testconfig' );
 
 describe( 'reverso', function() {
 
-  this.timeout( 30000 );
+  jest.setTimeout( 30000 );
 
-  describe( 'successful requests', function( done ) {
+  describe( 'successful requests', () => {
 
-    this.timeout( 10000 );
+    jest.setTimeout( 10000 );
 
     let r;
 
-    before( () => {
+    beforeAll( () => {
 
-      r = reverso( config.reverso );
+      r = reversoTest( config.reverso );
 
     } );
 
@@ -112,7 +112,7 @@ describe( 'reverso', function() {
 
         should( err ).equal( null );
 
-        translations.should.eql( { 
+        translations.should.eql( {
           en: 'The socks of the archduchess are dry or extremely - sandbanks',
           es: 'Los calcetines de la archiduquesa son secos o archi-secos'
         } );
@@ -184,14 +184,14 @@ describe( 'reverso', function() {
 
         should( err ).equal( null );
 
-        translatedObject.should.eql( { 
-          title: { 
-            en: 'The fork(range)', 
+        translatedObject.should.eql( {
+          title: {
+            en: 'The fork(range)',
             es: 'El tenedor'
           },
           description: {
             en: 'The fork(range) is a place setting of table or an utensil of cooking(kitchen) allowing to catch food, without affecting(touching) them directly with fingers.',
-            es: 'El tenedor es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.' 
+            es: 'El tenedor es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.'
           }
         } );
 
@@ -218,9 +218,9 @@ describe( 'reverso', function() {
 
   } );
 
-  describe( 'timeouts', done => {
+  describe( 'timeouts', () => {
 
-    let r = reverso( Object.assign( {
+    let r = reversoTest( Object.assign( {
       timeout: 1
     }, config.reverso ) );
 
@@ -263,7 +263,7 @@ describe( 'reverso', function() {
 
         translations.should.eql( {} );
 
-        timeoutErrors.should.eql( [ 
+        timeoutErrors.should.eql( [
           { lang: 'es' },
           { lang: 'de' }
         ] );

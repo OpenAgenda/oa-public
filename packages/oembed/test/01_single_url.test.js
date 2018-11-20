@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 const options = require( '../testconfig' );
 
-const OEmbed = require( '../' );
+const OEmbed = require( '../src' );
 
 const urls = {
   calameo: [
@@ -20,7 +20,7 @@ describe( 'parsing urls', () => {
 
     const result = await oe.get( urls.calameo[ 0 ] );
 
-    expect( _.keys( result ) ).toEqual( [ 
+    expect( _.keys( result ) ).toEqual( [
       'url',
       'type',
       'version',
