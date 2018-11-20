@@ -18,7 +18,8 @@ function suggestions( req, res, next ) {
 
   config.interfaces.suggestions( req.agendaUid, _.get( req.query, 'sample', {} ), {
     showAll: !!req.access, 
-    exclude: req.query.exclude 
+    exclude: req.query.exclude,
+    boost: req.query.boost
   }, _respond.bind( null, req, res, next ) );
 
 }
