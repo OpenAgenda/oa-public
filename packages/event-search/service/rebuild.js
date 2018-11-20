@@ -47,7 +47,7 @@ module.exports = async ( alias, options ) => {
 
     while ( ( events = await params.eventsList( offset, limit ) ).length ) {
 
-      log( 'bulk indexing from offset %s %s events ( total of %d timings )', offset, events.length, events.reduce( ( t, e ) => t + e.timings.length, 0 ) );
+      log( 'bulk indexing from offset %s %s events ( total of %d timings )', offset, events.length, events.reduce( ( t, e ) => t + _.get( e, 'timings', [] ).length, 0 ) );
 
       let bulkResult = {
         took: 0,
