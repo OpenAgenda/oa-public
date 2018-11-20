@@ -5,6 +5,9 @@ const h = require( './helpers' );
 const _ = require( 'lodash' );
 const preParse = require( './index/preParse' );
 const parseExtension = require( './extensions/parse' );
+const log = require( '@openagenda/logs' )( 'rebuild' );
+
+const limit = 10;
 
 const defaultExtensions = {
   contributor: require( './extensions/contributor.fields.js' ),
@@ -22,9 +25,7 @@ module.exports = async ( alias, options ) => {
 
   _.extend( params.extensions, defaultExtensions );
 
-  let offset = 0, 
-
-    limit = 5, 
+  let offset = 0,
 
     extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) ),
 
@@ -38,28 +39,45 @@ module.exports = async ( alias, options ) => {
 
   const index = await h.createUniqueIndex( config.client, alias, extendedSettings );
 
-
   // Populate: use list func to populate new index
 
-  while ( ( events = await params.eventsList( offset, limit ) ).length ) {
+  log( 'start populating new index' );
 
-    let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
+  try {
 
-    if ( bulkResult.errors ) {
+    while ( ( events = await params.eventsList( offset, limit ) ).length ) {
 
-      console.log( 'woot' );
-      console.log( JSON.stringify( bulkResult, null, 4 ) );
+      log( 'bulk indexing from offset %s %s events ( total of %d timings )', offset, events.length, events.reduce( ( t, e ) => t + e.timings.length, 0 ) );
 
-    } else {
+      let bulkResult = await h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
 
-      counts.indexed += bulkResult.items.length;
+      log( 'bulk indexed offset %s, took %s', offset, ( bulkResult.took / 1000 ) + 's' );
+
+      if ( bulkResult.errors ) {
+
+        console.log( JSON.stringify( bulkResult, null, 4 ) );
+
+      } else {
+
+        counts.indexed += bulkResult.items.length;
+
+      }
+
+      offset += limit;
 
     }
 
-    offset += limit;
+  } catch ( e ) {
+
+    log( 'warn', 'index rebuild failed - deleting, not reassigning' );
+
+    await config.client.indices.delete( { index } );
+
+    throw e;
 
   }
 
+  log( 'reassign alias, remove previous indices, refresh new index' );
 
   // Wrap up: re-assign alias, remove previous indices, refresh new index
 
@@ -76,7 +94,10 @@ module.exports = async ( alias, options ) => {
     name: alias
   } );
 
-  while( previousIndices.length ) {
+
+  log( 'updated alias' );
+
+  while ( previousIndices.length ) {
 
     await config.client.indices.delete( { index: previousIndices.pop() } );
 

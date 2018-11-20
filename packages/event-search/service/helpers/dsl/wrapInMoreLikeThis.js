@@ -41,7 +41,7 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
 
     const fieldValue = _.get( mltRequest, scoredField );
 
-    if ( fieldValue === null ) return null;
+    if ( [ undefined, null ].includes( fieldValue ) ) return null;
 
     return getQuery( baseQuery, {}, {
       mlt: ih( getMoreLikeThis( _.set( {}, scoredField, fieldValue ) ), {

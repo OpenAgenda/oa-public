@@ -1,4 +1,8 @@
 {
+  "analysis" : {
+    "analyser" : {},
+    "filter" : {}
+  },
   "mappings" : {
     "event" : {
       "_all" : {
@@ -54,7 +58,8 @@
           "type" : "keyword"
         },
         "search_internals_title" : {
-          "type" : "text"
+          "type" : "text",
+          "analyzer" : "simple"
         },
         "search_internals_description" : {
           "type" : "text"

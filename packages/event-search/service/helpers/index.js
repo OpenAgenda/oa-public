@@ -19,7 +19,7 @@ module.exports = {
   removeTimingsAndTimezone: require( './removeTimingsAndTimezone' )
 }
 
-async function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
+function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 
   const body = _.flatten( parsedEvents.map( e => [ {
     index: {
@@ -29,8 +29,11 @@ async function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
       _ttl: expire && e.timings ? lastTimingEndsIn( e.timings ) + 'd': undefined
     }
   }, e ] ) );
-
-  return await client.bulk( { body } );
+  
+  return client.bulk( {
+    body,
+    //requestTimeout: 60000 // ms
+  } );
 
 }
 
