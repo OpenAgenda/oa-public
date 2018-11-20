@@ -1,6 +1,6 @@
 # docker stack deploy -c docker-compose.dev.yml oadev
 # or
-# docker-compose -f docker-compose.dev.yml up
+# docker-compose -f docker-compose.dev.yml up -d
 version: '3'
 services:
   elasticsearch134:

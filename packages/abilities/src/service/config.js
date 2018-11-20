@@ -45,14 +45,7 @@ export function init( c = {} ) {
 
   _.extend(
     config,
-    _.pick( c, [
-      'mysql',
-      'schemas',
-      'migrations',
-      'interfaces',
-      'entityMapping',
-      'editableRules'
-    ] )
+    _.pick( c, [ 'mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping' ] )
   );
 }
 

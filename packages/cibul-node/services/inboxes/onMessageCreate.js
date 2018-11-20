@@ -158,7 +158,10 @@ async function sendMail( { inboxUser, conversation, message } ) {
 
   return mails( {
     template: 'inboxMessage',
-    to: user.email,
+    to: {
+      address: user.email,
+      memberId: stakeholder && stakeholder.id
+    },
     data: {
       subject,
       logo,

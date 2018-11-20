@@ -47,6 +47,12 @@ module.exports = () => {
     time: '03:00'
   } );
 
+  tfy( require( './services/mails/unsubscription' ).task, {
+    period: 'weekly',
+    day: 'saturday',
+    time: '03:00'
+  } );
+
   require( '@openagenda/agenda-docx' ).task();
 
   require( './general/mainLogger.task' )();
@@ -73,9 +79,12 @@ module.exports = () => {
 
   require( '@openagenda/mails' ).task();
 
-  /*require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => {
-    console.log( 'FINI', err, res );
-  } );*/
+
+  if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
+
+    // require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => console.log( 'FINI', err, res ) );
+
+  }
 
   // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 

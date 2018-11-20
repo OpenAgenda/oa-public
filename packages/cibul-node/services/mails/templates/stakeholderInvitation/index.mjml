@@ -30,6 +30,14 @@
       .center {
         text-align: center;
       }
+
+      .grey-link {
+        color: #555555;
+      }
+
+      a .grey-link:hover {
+        color: #41ACDD;
+      }
     </mj-style>
   </mj-head>
 
@@ -45,6 +53,7 @@
           src="<%= logo.src %>"
           href="<%= link %>"
           padding="0"
+          alt="logo"
         />
       </mj-column>
     </mj-section>
@@ -89,7 +98,24 @@
             src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
             href="<%= root %>"
             padding="0"
+            alt="footer icon"
           />
+
+          <mj-text align="center">
+            <div>
+              <a href="<%= unsubscribeLink %>" class="grey-link">
+                <%= __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>
+              </a>
+            </div>
+
+            <% if ( isRegisteredUser ) { %>
+            <div>
+              <a href="<%= emailSettingsLink %>" class="grey-link">
+                <%= __( 'changeEmailSettings' ) %>
+              </a>
+            </div>
+            <% } %>
+          </mj-text>
         </mj-column>
       </mj-section>
     </mj-wrapper>

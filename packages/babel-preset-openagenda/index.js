@@ -1,11 +1,21 @@
 'use strict';
 
-module.exports = api => {
+const { declare } = require( '@babel/helper-plugin-utils' );
+
+
+module.exports = declare( ( api, options ) => {
+  api.assertVersion( 7 );
+
+  const debug = typeof options.debug === 'boolean' ? options.debug : false;
+  const development = typeof options.development === 'boolean'
+    ? options.development
+    : api.cache( () => process.env.NODE_ENV !== 'production' );
+
   const presets = [
-    '@babel/preset-react',
     [
       '@babel/preset-env',
       {
+        debug,
         targets: {
           browsers: [
             '> 0.25%',
@@ -17,6 +27,12 @@ module.exports = api => {
           ],
           node: '8'
         }
+      }
+    ],
+    [
+      '@babel/preset-react',
+      {
+        development
       }
     ]
   ];
@@ -46,20 +62,16 @@ module.exports = api => {
     '@babel/plugin-proposal-export-namespace-from',
 
     // Stage 3
-    '@babel/plugin-proposal-class-properties'
+    [
+      '@babel/plugin-proposal-class-properties',
+      {
+        loose: true
+      }
+    ]
   ];
-
-  if ( api.env( [ 'development', 'test' ] ) ) {
-    plugins.push( '@babel/plugin-transform-react-jsx-source' );
-  }
-
-  if ( api.env( 'test' ) ) {
-    plugins.push( 'babel-plugin-require-context-hook' );
-  }
 
   return {
     presets,
-    plugins,
-    sourceMaps: api.env( [ 'development', 'test' ] ) ? 'both' : false
+    plugins
   };
-};
+} );

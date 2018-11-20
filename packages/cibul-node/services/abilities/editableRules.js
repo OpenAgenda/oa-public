@@ -1,146 +1,240 @@
 'use strict';
 
 module.exports = {
-  agenda: [
+  agenda: () => [
     {
       actions: 'receive',
-      subject: 'eventCreation'
+      subject: 'myEventChangeState',
+      tag: 'contributor'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
+      subject: 'myEventUpdate',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
+      subject: 'myEventAggregation',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventCreation',
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventChangeState',
       conditions: {
         state: -1 // refused
-      }
+      },
+      tag: 'adminmod'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
+      subject: 'eventChangeState',
       conditions: {
         state: 0 // tocontrol
-      }
+      },
+      tag: 'adminmod'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
+      subject: 'eventChangeState',
       conditions: {
         state: 1 // controlled
-      }
+      },
+      tag: 'adminmod'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
+      subject: 'eventChangeState',
       conditions: {
         state: 2 // published
-      }
+      },
+      tag: 'adminmod'
     },
     {
       actions: 'receive',
-      subject: 'eventUpdate'
+      subject: 'eventUpdate',
+      tag: 'adminmod'
     },
     {
       actions: 'receive',
-      subject: 'eventAggregation'
+      subject: 'eventAggregation',
+      tag: 'adminmod'
     }
   ],
-  user: [
+  user: () => [
     {
       actions: 'receive',
-      subject: 'invitation'
+      subject: 'invitation',
+      tag: 'user'
     },
     {
       actions: 'receive',
-      subject: 'notificationsSummary'
+      subject: 'notificationsSummary',
+      tag: 'user'
     },
     {
       actions: 'receive',
-      subject: 'event'
+      subject: 'inboxMessage',
+      tag: 'user'
     },
     {
       actions: 'receive',
-      subject: 'eventCreation'
+      subject: 'event',
+      tag: 'user'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: -1 // refused
-      }
+      subject: 'memberMessage',
+      tag: 'contributor'
     },
     {
       actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 0 // tocontrol
-      }
+      subject: 'myEventChangeState',
+      tag: 'contributor'
     },
+    // {
+    //   actions: 'receive',
+    //   subject: 'myEventUpdate',
+    //   tag: 'contributor'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'myEventAggregation',
+    //   tag: 'contributor'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventCreation',
+    //   tag: 'adminmod'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventChangeState',
+    //   conditions: {
+    //     state: -1 // refused
+    //   },
+    //   tag: 'adminmod'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventChangeState',
+    //   conditions: {
+    //     state: 0 // tocontrol
+    //   },
+    //   tag: 'adminmod'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventChangeState',
+    //   conditions: {
+    //     state: 1 // controlled
+    //   },
+    //   tag: 'adminmod'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventChangeState',
+    //   conditions: {
+    //     state: 2 // published
+    //   },
+    //   tag: 'adminmod'
+    // },
+    // {
+    //   actions: 'receive',
+    //   subject: 'eventUpdate',
+    //   tag: 'adminmod'
+    // },
     {
       actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 1 // controlled
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 2 // published
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'eventUpdate'
-    },
-    {
-      actions: 'receive',
-      subject: 'eventAggregation'
+      subject: 'eventAggregation',
+      tag: 'adminmod'
     }
   ],
-  member: [
-    {
-      actions: 'receive',
-      subject: 'event'
-    },
-    {
-      actions: 'receive',
-      subject: 'eventCreation'
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: -1 // refused
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 0 // tocontrol
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 1 // controlled
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'stateChange',
-      conditions: {
-        state: 2 // published
-      }
-    },
-    {
-      actions: 'receive',
-      subject: 'eventUpdate'
-    },
-    {
-      actions: 'receive',
-      subject: 'eventAggregation'
+  member: ( ability, member ) => {
+    const contributorRules = [
+      {
+        actions: 'receive',
+        subject: 'memberMessage',
+        tag: 'contributor'
+      },
+      {
+        actions: 'receive',
+        subject: 'myEventChangeState',
+        tag: 'contributor'
+      },
+      // {
+      //   actions: 'receive',
+      //   subject: 'myEventUpdate',
+      //   tag: 'contributor'
+      // },
+      // {
+      //   actions: 'receive',
+      //   subject: 'myEventAggregation',
+      //   tag: 'contributor'
+      // }
+    ];
+
+    if ( [ 2, 3 ].includes( member.credential ) ) {
+      return contributorRules.concat( [
+        {
+          actions: 'receive',
+          subject: 'inboxMessage',
+          tag: 'adminmod'
+        },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventCreation',
+        //   tag: 'adminmod'
+        // },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventChangeState',
+        //   conditions: {
+        //     state: -1 // refused
+        //   },
+        //   tag: 'adminmod'
+        // },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventChangeState',
+        //   conditions: {
+        //     state: 0 // tocontrol
+        //   },
+        //   tag: 'adminmod'
+        // },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventChangeState',
+        //   conditions: {
+        //     state: 1 // controlled
+        //   },
+        //   tag: 'adminmod'
+        // },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventChangeState',
+        //   conditions: {
+        //     state: 2 // published
+        //   },
+        //   tag: 'adminmod'
+        // },
+        // {
+        //   actions: 'receive',
+        //   subject: 'eventUpdate',
+        //   tag: 'adminmod'
+        // },
+        {
+          actions: 'receive',
+          subject: 'eventAggregation',
+          tag: 'adminmod'
+        }
+      ] );
     }
-  ]
+
+    return contributorRules;
+  }
 };

@@ -22,7 +22,7 @@ function flattenRecipients( recipients ) {
 
 async function sendMail( options = {} ) {
   const defaultLang = options.lang || config.defaults.lang;
-  const compiled = options.template
+  const compiled = options.template && options.queue === false
     ? await templater.compile( options.template, {
       ..._.pick( options, 'disableHtml', 'disableText', 'disableSubject' ),
       lang: defaultLang
@@ -34,18 +34,12 @@ async function sendMail( options = {} ) {
   const errors = [];
 
   for ( const recipient of recipients ) {
-    const lang = recipient.lang || defaultLang;
-    const templateData = Object.assign( { lang }, options.data, recipient.data, config.defaults.data );
-    const params = {
-      ...options,
-      to: recipient,
-      data: templateData
-    };
-
     if ( !isEmail.validate( recipient.address ) ) {
       const error = new VError(
         {
-          info: params
+          info: {
+            address: recipient.address
+          }
         },
         'Invalid email address'
       );
@@ -54,35 +48,51 @@ async function sendMail( options = {} ) {
       continue;
     }
 
+    const params = {
+      ...options,
+      to: recipient,
+      data: {
+        lang: recipient.lang || defaultLang,
+        ...options.data,
+        ...recipient.data,
+        ...config.defaults.data
+      }
+    };
+
     try {
-      if ( compiled ) {
-        const labels = ( config.translations.labels || {} )[ params.template ] || {};
-        templateData.__ = config.translations.makeLabelGetter( labels, lang );
+      if ( params.queue === false ) {
+        if ( typeof config.sendFilter === 'function' ) {
+          const allowed = await config.sendFilter( params );
 
-        if ( !params.disableHtml && compiled.html ) {
-          params.html = compiled.html( templateData );
+          if ( !allowed ) {
+            log.info( 'Sending filtered', { recipient, template } );
+            continue;
+          }
         }
 
-        if ( !params.disableText && compiled.text ) {
-          params.text = compiled.text( templateData );
+        if ( typeof config.beforeSend === 'function' ) {
+          await config.beforeSend( params );
         }
 
-        if ( !params.disableSubject && compiled.subject ) {
-          params.subject = compiled.subject( templateData );
+        if ( compiled ) {
+          const labels = ( config.translations.labels || {} )[ params.template ] || {};
+          params.data.__ = config.translations.makeLabelGetter( labels, params.data.lang );
+
+          if ( !params.disableHtml && compiled.html ) {
+            params.html = compiled.html( params.data );
+          }
+
+          if ( !params.disableText && compiled.text ) {
+            params.text = compiled.text( params.data );
+          }
+
+          if ( !params.disableSubject && compiled.subject ) {
+            params.subject = compiled.subject( params.data );
+          }
         }
       }
 
       const method = params.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
-
-      if ( typeof params.filter === 'function' ) {
-        const allowed = await params.filter( params );
-
-        if ( !allowed ) {
-          log.info( 'Sending filtered for this recipient', params );
-          continue;
-        }
-      }
-
       const result = await method( params );
 
       results.push( result );

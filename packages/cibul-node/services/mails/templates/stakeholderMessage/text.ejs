@@ -3,3 +3,7 @@
 <%- message %>
 
 <%- __( 'actionDescription' ) %>: <%- link %>
+<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
+<%- __( 'memberUnsubscribe' ) %>: <%- memberUnsubscribeLink %><% } %>
+<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
+<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>

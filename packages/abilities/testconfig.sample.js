@@ -3,7 +3,7 @@
 const abilities = require( './src/service' );
 
 const editableRules = {
-  agenda: [
+  agenda: () => [
     {
       actions: 'receive',
       subject: 'eventCreation'
@@ -45,7 +45,7 @@ const editableRules = {
       subject: 'eventAggregation'
     }
   ],
-  user: [
+  user: () => [
     {
       actions: 'receive',
       subject: 'invitation'
@@ -99,7 +99,7 @@ const editableRules = {
       subject: 'eventAggregation'
     }
   ],
-  member: [
+  member: () => [
     {
       actions: 'receive',
       subject: 'event'
@@ -157,7 +157,6 @@ module.exports = {
   schemas: {
     rule: 'rule'
   },
-  editableRules,
   entityMapping: {
     agenda: 'uid',
     member: 'id',
@@ -269,6 +268,7 @@ module.exports = {
         };
       },
       agenda: async ability => ( { agenda: ability.identifier } )
-    }
+    },
+    editableRules
   }
 };

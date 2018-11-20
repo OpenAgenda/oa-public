@@ -1,0 +1,20 @@
+{
+  "presets": [
+    "openagenda"
+  ],
+  "plugins": [
+    [
+      "react-intl",
+      {
+        "messagesDir": "./build/messages/"
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "babel-plugin-require-context-hook"
+      ]
+    }
+  }
+}

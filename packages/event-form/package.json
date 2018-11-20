@@ -9,7 +9,7 @@
     "build": "rm -rf build && mkdir build && babel src --out-dir build --source-maps"
   },
   "dependencies": {
-    "@openagenda/agenda-locations": "^1.0.50",
+    "@openagenda/agenda-locations": "^1.0.57",
     "@openagenda/form-schemas": "^1.1.23",
     "@openagenda/labels": "^2.0.81",
     "@openagenda/react-components": "^2.0.8",

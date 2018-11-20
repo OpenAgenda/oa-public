@@ -3,3 +3,7 @@
 <%- __( 'body', { event, sourceAgenda, state: __( state ) } ) %>
 
 <%- __( 'actionDescription' ) %>: <%- link %>
+<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
+<%- __( 'memberUnsubscribe' ) %>: <%- memberUnsubscribeLink %><% } %>
+<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
+<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>

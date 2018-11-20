@@ -8,6 +8,7 @@ const logger = require( '@openagenda/logger' );
 const cmn = require( './lib/commons-app' );
 const errorLogger = require( './services/00_errors' );
 const genUrl = require( './services/genUrl' ).getSingleton();
+
 const admin = require( './admin' );
 const web = require( './web' );
 const webAndTask = [
@@ -65,6 +66,7 @@ if ( WEB ) {
 
 if ( TASK || WEB ) {
   webAndTask.forEach( m => m.load( app ) );
+
   // delegate more to repo-ed services
   require( './general/unsubscribed.front' )( app, '/unsubscribe' );
   require( './agenda/json.export' )( app, '/' );

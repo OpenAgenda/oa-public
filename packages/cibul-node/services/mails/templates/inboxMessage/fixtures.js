@@ -26,13 +26,9 @@ module.exports = {
     '\n' +
     'Bien cordialement\n',
   senderName: 'Jean-Edouard-Jacques',
-  footerActions: [ {
-    link: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
-    text: 'Se désinscrire de gna gna gna'
-  }, {
-    link: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
-    text: 'Se désinscrire de gni gni gni'
-  } ]
+  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/inboxMessage' );

@@ -1,11 +1,10 @@
 "use strict";
 
-const { callbackify, promisify } = require( 'util' );
+const { callbackify } = require( 'util' );
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const mails = require( '@openagenda/mails' );
 const users = require( '@openagenda/users' );
-const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const genUrl = require( '../genUrl' );
 const config = require( '../../config' );
 
@@ -28,21 +27,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
         },
         detailed: true
       } )
-        .then( async user => {
-          if ( await promisify( unsubscribedSvc( user.uid ).is )( {
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } ) ) {
-            return cb();
-          }
-
-          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
-            userUid: user.uid,
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } );
+        .then( () => {
 
           const lang = context.lang || 'fr';
 
@@ -56,8 +41,8 @@ module.exports = ( stakeholder, message, context, cb ) => {
               message,
               recipient: stakeholder.custom.email,
               replyTo: context.replyTo,
-              lang,
-              unsubscribeLink
+              member: stakeholder,
+              lang
             },
             cb
           );
@@ -65,31 +50,16 @@ module.exports = ( stakeholder, message, context, cb ) => {
 
     } else if ( stakeholder.userId ) {
 
-      // User without custom.email
+      // Member without custom.email
       users.findOne( {
         query: {
           id: stakeholder.userId
         },
         detailed: true
       } )
-        .then( async user => {
+        .then( user => {
 
           if ( !user ) return cb();
-
-          if ( await promisify( unsubscribedSvc( user.uid ).is )( {
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } ) ) {
-            return cb();
-          }
-
-          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
-            userUid: user.uid,
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } );
 
           const lang = context.lang || 'fr';
 
@@ -100,8 +70,8 @@ module.exports = ( stakeholder, message, context, cb ) => {
               message,
               recipient: user.email,
               replyTo: context.replyTo,
-              lang,
-              unsubscribeLink
+              member: stakeholder,
+              lang
             },
             cb
           );
@@ -117,28 +87,13 @@ module.exports = ( stakeholder, message, context, cb ) => {
 
       // Invited
       invitations.get( { email: stakeholder.custom.email } )
-        .then( async ( { invitation } ) => {
+        .then( ( { invitation } ) => {
 
           if ( !invitation ) {
 
             return cb();
 
           }
-
-          if ( await promisify( unsubscribedSvc( 0 ).is )( {
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } ) ) {
-            return cb();
-          }
-
-          const unsubscribeLink = unsubscribedSvc.app.genUrl( 'add', {
-            userUid: 0,
-            type: 'message',
-            subject: 'stakeholder',
-            identifier: stakeholder.id
-          } );
 
           const action = invitation.data.actions.find( v => v.name === 'linkStakeholder' );
           const contextInvitation = action.params[ 1 ] || context;
@@ -161,8 +116,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
               message,
               recipient: stakeholder.custom.email,
               replyTo: context.replyTo,
-              lang,
-              unsubscribeLink
+              lang
             },
             cb
           );
@@ -178,7 +132,7 @@ module.exports = ( stakeholder, message, context, cb ) => {
 module.exports.setLog = l => log = l;
 
 
-function _sendMessageEmail( { agenda, url, unsubscribeLink, message, recipient, lang, replyTo }, cb ) {
+function _sendMessageEmail( { agenda, url, message, recipient, lang, replyTo, member }, cb ) {
 
   const logo = agenda.image
     ? {
@@ -192,13 +146,15 @@ function _sendMessageEmail( { agenda, url, unsubscribeLink, message, recipient, 
 
   callbackify( mails ).call( mails, {
     template: 'stakeholderMessage',
-    to: recipient,
+    to: {
+      address: recipient,
+      memberId: member && member.id
+    },
     data: {
       logo,
       agenda: agenda.title,
       link: url,
-      message,
-      unsubscribeLink: config.root + unsubscribeLink
+      message
     },
     lang
   }, cb );

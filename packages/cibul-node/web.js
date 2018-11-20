@@ -48,12 +48,11 @@ module.exports = app => {
   require( './services/agendaContribute' )( app, '' );
   require( './services/users' )( app, '/users' );
   require( './services/abilities' )( app, '/abilities' );
+  require( './services/mails/unsubscription' )( app, '/' );
 
   require( './event/files' )( app, '/' );
 
   require( './services/agendaDocx' )( app, '/docx' );
-
-  require( './api' );
 
   // /:agendaSlug/calendar
   require( './services/agendaCalendar' )( app, '' );

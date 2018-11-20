@@ -6,6 +6,7 @@ const fs = require('fs');
 const _ = require('lodash');
 const { sync: globSync } = require('glob');
 
+const DEFAULT_LANG = 'en';
 const LANGS = ['en', 'fr'];
 
 const MESSAGES_PATTERN = './build/messages/**/*.json';
@@ -37,7 +38,7 @@ function extractLang(lang) {
   );
 
   const messages = _.merge(
-    _.clone(defaultMessages),
+    lang === DEFAULT_LANG ? _.clone(defaultMessages) : _.mapValues(defaultMessages, () => ''),
     _.pick(existantLocales, _.keysIn(defaultMessages))
   );
   fs.writeFileSync(

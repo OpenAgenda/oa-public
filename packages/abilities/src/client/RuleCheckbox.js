@@ -23,22 +23,42 @@ const stateMessages = defineMessages( {
   }
 } );
 
-const rulesMessages = defineMessages( {
+const ruleMessages = defineMessages( {
   receiveInvitation: {
     id: 'Abilities.RulesCheckbox.rules.receiveInvitation',
     defaultMessage: 'Receive invitations'
-  },
-  receiveStateChange: {
-    id: 'Abilities.RulesCheckbox.rules.receiveStateChange',
-    defaultMessage: 'Receive states changes for {state}'
   },
   receiveNotificationsSummary: {
     id: 'Abilities.RulesCheckbox.rules.receiveNotificationsSummary',
     defaultMessage: 'Receive summaries of notifications'
   },
+  receiveMemberMessage: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMemberMessage',
+    defaultMessage: 'Receive messages sent via the "Write to them" feature'
+  },
+  receiveInboxMessage: {
+    id: 'Abilities.RulesCheckbox.rules.receiveInboxMessage',
+    defaultMessage: 'Receive messages from the inbox'
+  },
   receiveEvent: {
     id: 'Abilities.RulesCheckbox.rules.receiveEvent',
     defaultMessage: 'Receive events sent by other users'
+  },
+  receiveMyEventChangeState: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMyEventChangeState',
+    defaultMessage: 'Receive notifications when someone change state of my events'
+  },
+  receiveMyEventUpdate: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMyEventUpdate',
+    defaultMessage: 'Receive notifications when someone update my events'
+  },
+  receiveMyEventAggregation: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMyEventAggregation',
+    defaultMessage: 'Receive notifications when someone aggregate my events'
+  },
+  receiveEventChangeState: {
+    id: 'Abilities.RulesCheckbox.rules.receiveEventChangeState',
+    defaultMessage: 'Receive states changes for {state}'
   },
   receiveEventCreation: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventCreation',
@@ -59,18 +79,19 @@ const RuleLabel = shouldUpdate(
 )( ( { rule } ) => {
   const values = {};
 
-  if ( rule.actions === 'receive' && rule.subject === 'stateChange' ) {
+  if ( rule.actions === 'receive' && rule.subject === 'eventChangeState' ) {
     values.state = (
       <FormattedMessage {...stateMessages[ rule.conditions.state ]} />
     );
   }
 
-  return (
-    <FormattedMessage
-      {...rulesMessages[ `${rule.actions}${_.upperFirst( rule.subject )}` ]}
-      values={values}
-    />
-  );
+  const messageKey = `${rule.actions}${_.upperFirst( rule.subject )}`;
+
+  if ( !ruleMessages[ messageKey ] ) {
+    return messageKey;
+  }
+
+  return <FormattedMessage {...ruleMessages[ messageKey ]} values={values} />;
 } );
 
 export default ( { rule } ) => (

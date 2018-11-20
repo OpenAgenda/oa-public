@@ -11,7 +11,10 @@ module.exports = {
   agenda: 'test zi',
   message: 'Hmm\n\n**OK** !',
   isStakeholder: true,
-  credential: 'contributor'
+  isRegisteredUser: true,
+  credential: 'contributor',
+  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/stakeholderInvitation' );

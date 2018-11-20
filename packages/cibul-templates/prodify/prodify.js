@@ -24,7 +24,7 @@ var ugly = require( 'uglify-js' ),
 
   sass = require( 'node-sass' ),
 
-  map = JSON.parse( fs.readFileSync( __dirname + '/../map.json', "utf8" ) ),
+  map = require( '../map' ),
 
   cn = require( '../js/lib/common/common.mod.js' ),
 

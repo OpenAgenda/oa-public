@@ -52,15 +52,17 @@ describe( 'sendMail', () => {
         to: [
           'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
           { address: '"Kaoré" <kaore@openagenda.com>', data: { username: 'kaore' } }
-        ]
+        ],
+        queue: false
       } );
 
       expect( results ).toHaveLength( 3 );
       expect( errors ).toHaveLength( 0 );
 
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.bertho@gmail.com mail' );
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.berthommier@openagenda.com mail' );
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kaore@openagenda.com mail' );
+      expect( results.map( v =>
+        _.omit( JSON.parse( v.message ), 'envelopeTime', 'messageId', 'messageTime', 'response' ) )
+      )
+        .toMatchSnapshot();
     } );
 
     it( 'send a mail to an invalid email returns with errors', async () => {

@@ -2,9 +2,10 @@ import React, { Component, Fragment } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { FormSpy } from 'react-final-form';
-import { FormattedMessage } from 'react-intl';
 import Collapse from 'rc-collapse';
 import { shouldUpdate, shallowEqual } from 'recompose';
+import { defineMessages, FormattedMessage } from 'react-intl';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
 
@@ -14,6 +15,29 @@ const Panel = shouldUpdate(
     _.omit( nextProps, 'onItemClick' )
   )
 )( Collapse.Panel );
+
+const descriptionMessages = defineMessages( {
+  firstEntityUser: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser',
+    defaultMessage: 'Your global settings:'
+  },
+  firstEntityContributor: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor',
+    defaultMessage: 'Your contributor settings:'
+  },
+  firstEntityAdminmod: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod',
+    defaultMessage: 'Your administrator or moderator settings:'
+  },
+  childEntityContributor: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor',
+    defaultMessage: 'Contributor settings:'
+  },
+  childEntityAdminmod: {
+    id: 'Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod',
+    defaultMessage: 'Administrator or moderator settings:'
+  }
+} );
 
 function getEntityTitle( ability ) {
   switch ( ability.entityName ) {
@@ -115,9 +139,23 @@ class AbilitiesForm extends Component {
         && firstEntityAbility.rules.length ? (
           <Fragment>
             <div className="margin-bottom-sm">
-              {firstEntityAbility.rules.map( rule => (
-                <RuleCheckbox key={rule.key} rule={rule} />
-              ) )}
+              {Object.entries( _.groupBy( firstEntityAbility.rules, 'tag' )).map( ([ key, rules ]) => {
+                const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( key )}` ];
+
+                return (
+                  <div key={key}>
+                    {headerMessage ? (
+                      <b>
+                        <FormattedMessage {...descriptionMessages[ `firstEntity${_.upperFirst( key )}` ]} />
+                      </b>
+                    ) : null}
+
+                    {rules.map( rule => (
+                      <RuleCheckbox key={rule.key} rule={rule} />
+                    ) )}
+                  </div>
+                );
+              } )}
             </div>
           </Fragment>
           ) : null}
@@ -130,23 +168,50 @@ class AbilitiesForm extends Component {
                   key={`${name}.${entityAbility.identifier}`}
                   header={<b>{getEntityTitle( entityAbility )}</b>}
                 >
-                  <div className="margin-bottom-md">
-                    {entityAbility.rules.map( rule => (
-                      <RuleCheckbox key={rule.key} rule={rule} />
-                    ) )}
-                  </div>
+                  {Object.entries( _.groupBy( entityAbility.rules, 'tag' )).map( ([ key, rules ]) => {
+                    const headerMessage = descriptionMessages[ `childEntity${_.upperFirst( key )}` ];
+
+                    return (
+                      <div key={key}>
+                        {headerMessage ? (
+                          <b>
+                            <FormattedMessage {...descriptionMessages[ `childEntity${_.upperFirst( key )}` ]} />
+                          </b>
+                        ) : null}
+
+                        {rules.map( rule => (
+                          <RuleCheckbox key={rule.key} rule={rule} />
+                        ) )}
+                      </div>
+                    );
+                  } )}
+                  {/*<div className="margin-bottom-md">*/}
+                    {/*{entityAbility.rules.map( rule => (*/}
+                      {/*<RuleCheckbox key={rule.key} rule={rule} />*/}
+                    {/*) )}*/}
+                  {/*</div>*/}
                 </Panel>
               ) )}
             </Collapse>
           </Fragment>
         ) )}
 
-        <button type="submit" className="btn btn-primary">
-          <FormattedMessage
-            id="Abilities.AbilitiesForm.save"
-            defaultMessage="Save"
-          />
-        </button>
+        <FormSpy
+          subscription={{ pristine: true, submitting: true }}
+        >
+          {({ submitting, pristine }) => (
+            <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
+              <FormattedMessage
+                id="Abilities.AbilitiesForm.save"
+                defaultMessage="Save"
+              />
+
+              {submitting && <span className="margin-h-sm">
+                <Spinner mode="inline" />
+              </span>}
+            </button>
+          )}
+        </FormSpy>
 
         <FormSpy
           subscription={{ values: true, data: true }}

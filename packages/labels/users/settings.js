@@ -191,13 +191,9 @@ module.exports = {
     en: 'Email unsubscriptions',
     fr: 'Désabonnements email'
   },
-  yourUnsubscriptions: {
-    en: 'Here is the list of your unsubscriptions.',
-    fr: 'Voici la liste de vos désabonnements.'
-  },
-  noUnsubscription: {
-    en: 'No unsubscription.',
-    fr: 'Aucun désabonnement.'
+  emails: {
+    en: 'Emails',
+    fr: 'Emails'
   },
   allNotifications: {
     en: 'All notifications',

@@ -16,7 +16,7 @@ import getChildCheckboxDecorator from './getChildCheckboxDecorator';
 
 if ( process.env.NODE_ENV === 'development' ) {
   // eslint-disable-next-line
-  const { whyDidYouUpdate } = require('why-did-you-update');
+  const { whyDidYouUpdate } = require( 'why-did-you-update' );
   whyDidYouUpdate( React );
 }
 
@@ -129,7 +129,7 @@ class AbilitiesEditor extends Component {
 
     if ( loading ) {
       return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', height: '50px' }}>
           <Spinner />
         </div>
       );

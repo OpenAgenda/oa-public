@@ -5,22 +5,36 @@ import * as rulesLib from './rules';
 import * as middleware from './middleware';
 import config, { init } from './config';
 
-function getEditableRules( ability ) {
+function getEditableRules( ability, entity ) {
   const { entityName } = ability;
 
   if ( !entityName ) {
     return [];
   }
 
-  return _.get( config, `editableRules.${entityName}`, [] ).map( rule => {
+  const editableRulesGetter = _.get(
+    config,
+    `interfaces.editableRules.${entityName}`
+  );
+
+  if ( !_.isFunction( editableRulesGetter ) ) {
+    throw new Error( `Missing interface \`editableRules.${entityName}\`` );
+  }
+
+  const editableRules = editableRulesGetter( ability, entity );
+
+  return editableRules.map( rule => {
     const subject = Object.assign( {}, rule.conditions, {
       [ SUBJECT_NAME ]: rule.subject
     } );
-    const relevantRule = ability.relevantRuleFor( rule.actions, subject );
+    const relevantRule = ability.relevantRuleFor(
+      rule.actions || rule.action,
+      subject
+    );
 
     const isAble = !!relevantRule && !relevantRule.inverted;
 
-    return _.assign( {}, rulesLib.parse( rule ), {
+    return _.assign( _.pick( rule, 'tag' ), rulesLib.parse( rule ), {
       inverted: !isAble,
       relevantRule: relevantRule ? rulesLib.parse( relevantRule ) : relevantRule
     } );
@@ -42,10 +56,10 @@ function batchUpdate( { table, column }, collection ) {
 }
 
 export async function getFormIndex( ability, options = {} ) {
-  const completeFormFn = config.interfaces
-    && config.interfaces.completeFormIndex
-    && config.interfaces.completeFormIndex[ ability.entityName ];
-
+  const completeFormFn = _.get(
+    config,
+    `interfaces.completeFormIndex.${ability.entityName}`
+  );
   const neededEntities = _.isFunction( completeFormFn )
     ? await completeFormFn( ability, options )
     : { [ ability.entityName ]: ability.identifier };
@@ -54,9 +68,10 @@ export async function getFormIndex( ability, options = {} ) {
 
   for ( const entityName in neededEntities ) {
     if ( Object.prototype.hasOwnProperty.call( neededEntities, entityName ) ) {
-      const listEntitiesFn = config.interfaces
-        && config.interfaces.listEntities
-        && config.interfaces.listEntities[ entityName ];
+      const listEntitiesFn = _.get(
+        config,
+        `interfaces.listEntities.${entityName}`
+      );
 
       if ( !_.isArray( neededEntities[ entityName ] ) ) {
         neededEntities[ entityName ] = [ neededEntities[ entityName ] ];
@@ -91,10 +106,10 @@ export async function getFormIndex( ability, options = {} ) {
             //   return result2;
             // }
 
-            const defineFn = config.interfaces
-              && config.interfaces.defineFor
-              && config.interfaces.defineFor[ entityName ];
-
+            const defineFn = _.get(
+              config,
+              `interfaces.defineFor.${entityName}`
+            );
             const entityRules = _.filter( entitiesRules, {
               entityName,
               identifier
@@ -110,7 +125,7 @@ export async function getFormIndex( ability, options = {} ) {
             const entityAbility = createAbility( entityName, identifier, rules );
 
             return result2.concat(
-              getEditableRules( entityAbility ).map( rule => ( {
+              getEditableRules( entityAbility, entity ).map( rule => ( {
                 ..._.omit( rule, 'id' ),
                 entityName,
                 identifier,
@@ -128,7 +143,7 @@ export async function getFormIndex( ability, options = {} ) {
   return formIndex;
 }
 
-async function updateFormIndex( ability, data ) {
+export async function updateFormIndex( ability, data ) {
   const formIndex = await ability.getFormIndex();
   const matchesRule = test => _.matches(
     _.pick(
@@ -192,12 +207,8 @@ export async function get( entityName, identifier, options = {} ) {
     throw new TypeError( '`identifier` should be a number' );
   }
 
-  const getEntityFn = config.interfaces
-    && config.interfaces.getEntity
-    && config.interfaces.getEntity[ entityName ];
-  const defineFn = config.interfaces
-    && config.interfaces.defineFor
-    && config.interfaces.defineFor[ entityName ];
+  const getEntityFn = _.get( config, `interfaces.getEntity.${entityName}` );
+  const defineFn = _.get( config, `interfaces.defineFor.${entityName}` );
 
   if ( !_.isFunction( getEntityFn ) ) {
     throw new Error( `Missing interface \`getEntity.${entityName}\`` );

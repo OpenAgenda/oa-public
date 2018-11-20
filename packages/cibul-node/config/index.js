@@ -278,6 +278,10 @@ const config = {
       apiSecret: prod.mailjet.apiSecret,
       contactsListId: prod.mailjet.contactsListId
     },
+    mailgun: {
+      domain: prod.mailgun.domain,
+      apiKey: prod.mailgun.apiKey
+    },
     oembed: {
       res: 'https://iframe.ly/api/oembed',
       //key: '044c4cbd91d65eab056738',

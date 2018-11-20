@@ -2,7 +2,7 @@
 
 
 const webpack = require( 'webpack' );
-const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
+const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
 const ourOwnModules = require( './ourOwnModules.json' );
@@ -13,11 +13,6 @@ module.exports = ( { entry, output } ) => ( {
   output,
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        enforce: 'pre',
-        loader: 'source-map-loader'
-      },
       {
         test: /\.jsx?$/,
         exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
@@ -52,23 +47,9 @@ module.exports = ( { entry, output } ) => ( {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin( {
-<<<<<<< HEAD
-        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'uglifyjs-webpack-plugin' ),
-        // parallel: true,
-        uglifyOptions: {
-          compress: {
-            collapse_vars: false
-          },
-=======
-        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
-        // parallel: true,
-        uglifyOptions: {
-          compress: true,
->>>>>>> master
-          mangle: true,
-          // fromString: true
-        }
+      new TerserPlugin( {
+        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
+        // parallel: true
       } )
     ]
   },

@@ -4,10 +4,7 @@ const _ = require( 'lodash' );
 const moment = require( 'moment' );
 const mails = require( '@openagenda/mails' );
 const notificationFormatMaker = require( '@openagenda/activities/dist/formatNotification' );
-const makeLabelGetter = require( '@openagenda/labels' );
 const notiflabels = require( '@openagenda/labels/activities/notifications' );
-const emailLabels = require( '@openagenda/labels/mails/notificationsSummary' );
-const unsubscribed = require( '@openagenda/unsubscribed' );
 const log = require( '@openagenda/logs' )( 'services/activities/sendSummary' );
 const config = require( '../../config' );
 
@@ -42,7 +39,6 @@ module.exports = async function sendSummary( { user, notifications } ) {
     const url = notificationFormatMaker.defaultGetUrl( ...args );
     return url ? config.root + url : null
   }, notiflabels, user.uid );
-  const getLabel = makeLabelGetter( emailLabels, lang );
 
   const message = notifications.map(
     v => {
@@ -70,15 +66,7 @@ module.exports = async function sendSummary( { user, notifications } ) {
         logo: {
           src: `${config.root}/images/openagenda.png`,
           width: '300px'
-        },
-        footerActions: [ {
-          link: config.root + unsubscribed.app.genUrl( 'add', {
-            userUid: user.uid,
-            subject: 'notifications',
-            type: 'notifications_summary'
-          } ),
-          text: getLabel( 'unsubsribe', lang )
-        } ]
+        }
       }
     } );
 

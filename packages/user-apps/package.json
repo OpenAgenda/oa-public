@@ -11,6 +11,8 @@
     "fixtures": "node test/app/fixtures"
   },
   "dependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
     "@openagenda/abilities": "^1.0.0",
     "@openagenda/dom-utils": "^2.1.11",
     "@openagenda/image-upload": "^1.0.7",
@@ -32,13 +34,11 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
-    "@openagenda/babel-preset-oa": "^1.0.0",
     "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "@openagenda/unsubscribed": "^2.0.4",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
+    "babel-preset-openagenda": "^1.0.0",
     "concurrently": "^3.5.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",

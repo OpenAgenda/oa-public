@@ -3,8 +3,8 @@
  */
 
 /* This test needs the static build of the storybook to run.
-* `yarn image-snapshots` generates the static build & uses the image snapshots behavior of storyshots.
-* */
+ * `yarn image-snapshots` generates the static build & uses the image snapshots behavior of storyshots.
+ * */
 import { promisify } from 'util';
 import path from 'path';
 import fs from 'fs';

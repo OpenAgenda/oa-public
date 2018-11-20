@@ -39,10 +39,18 @@ const secureMw = ( req, res, next ) => {
             }
           }
         } ),
-        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next )
+        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next ),
+        ( req, res, next ) => {
+          if ( ![ 'moderator', 'administrator' ].includes( req.role ) ) {
+            res.status( 403 );
+            throw new Error( 'You cannot get this rules index' );
+          }
+          next();
+        }
       ], req, res, next );
     default:
-      next();
+      res.status( 403 );
+      throw new Error( 'You cannot get this rules index' );
   }
 };
 
@@ -92,7 +100,6 @@ module.exports.init = async config => {
     knex: config.knex,
     mysql: config.db,
     schemas: config.schemas,
-    editableRules,
     entityMapping: {
       agenda: 'uid',
       member: 'id',
@@ -114,14 +121,16 @@ module.exports.init = async config => {
         user( { can, cannot, rules } ) {
           can( 'receive', 'invitation' );
           can( 'receive', 'notificationsSummary' );
+          can( 'receive', 'memberMessage' );
+          can( 'receive', 'inboxMessage' );
           can( 'receive', 'event' );
           can( 'receive', 'eventCreation' );
-          can( 'receive', 'stateChange', { state: -1 } );
-          can( 'receive', 'stateChange', { state: 0 } );
-          can( 'receive', 'stateChange', { state: 1 } );
-          can( 'receive', 'stateChange', { state: 2 } );
+          can( 'receive', 'eventChangeState' );
           can( 'receive', 'eventUpdate' );
           can( 'receive', 'eventAggregation' );
+          can( 'receive', 'myEventChangeState' );
+          can( 'receive', 'myEventUpdate' );
+          can( 'receive', 'myEventAggregation' );
 
           return rules;
         }
@@ -188,7 +197,8 @@ module.exports.init = async config => {
             member: members.map( v => v.id )
           };
         }
-      }
+      },
+      editableRules
     }
   } );
 

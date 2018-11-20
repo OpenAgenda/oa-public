@@ -27,18 +27,18 @@ export default function createAbility( entityName, identifier, rules ) {
     RuleType: Rule
   } );
 
-  function checkWrapper( func, action, subjectName, subject, field ) {
-    const haveSubjectProp = subject && !!subject[ SUBJECT_NAME ];
-    const isObject = _.isObject( subject );
+  function checkWrapper( func, action, subjectName, conditionsOrSubject, field ) {
+    const haveSubjectProp = conditionsOrSubject && !!conditionsOrSubject[ SUBJECT_NAME ];
+    const isObject = _.isObject( conditionsOrSubject );
 
     if ( !haveSubjectProp && isObject ) {
-      subject[ SUBJECT_NAME ] = subjectName;
+      conditionsOrSubject[ SUBJECT_NAME ] = subjectName;
     }
 
-    const result = func( action, subject || subjectName, field );
+    const result = func( action, conditionsOrSubject || subjectName, field );
 
     if ( !haveSubjectProp && isObject ) {
-      delete subject[ SUBJECT_NAME ];
+      delete conditionsOrSubject[ SUBJECT_NAME ];
     }
 
     return result;

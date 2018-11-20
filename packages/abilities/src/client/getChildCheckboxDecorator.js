@@ -7,18 +7,18 @@ export default function ( { entityName, identifier, getRules } ) {
       mutators: { setFieldData },
       getFieldState
     } = form;
-    const rules = getRules();
-    const [ firstEntityRules, otherRules ] = _.partition(
-      rules,
-      _.matches( {
-        entityName,
-        identifier
-      } )
-    );
 
     return createDecorator( {
       field: /rule\d+/,
       updates: ( value, field, allValues ) => {
+        const rules = getRules();
+        const [ firstEntityRules, otherRules ] = _.partition(
+          rules,
+          _.matches( {
+            entityName,
+            identifier
+          } )
+        );
         const concernedRule = rules.find( v => v.key === field );
         const relatedRules = _.filter(
           otherRules,
