@@ -137,7 +137,7 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
 
       log( 'fetched %s events', events.length );
 
-      return events.map( dbParse.toObj )
+      return events.map( e => dbParse.toObj( e, true ) )
 
         .map( event => {
 
