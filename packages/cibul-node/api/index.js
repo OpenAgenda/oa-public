@@ -1,6 +1,5 @@
 "use strict";
 
-
 const log = require( '@openagenda/logs' )( 'api' );
 
 const logRequests = require( '../services/logRequests' );
@@ -27,8 +26,11 @@ const handleError = require( '../services/00_errors' ).bind( null, 'api' );
 
 app.use( logRequests.middleware );
 
+
 // should only apply to create and upload really
 app.post( /^\/v2.+/, upload.single( 'image' ) );
+
+app.post( /^\/v2.+/, mw.parseBodyData );
 
 // access token control and user load
 app.post( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
@@ -45,10 +47,6 @@ app.param( 'eventUid', mw.loadEvent );
 // control all the things
 app.post( '/v2/agendas/:agendaUid/events', mw.verifyMember );
 
-app.post( [
-  '/v2/agendas/:agendaUid/events',
-  '/v2/agendas/:agendaUid/events/:eventUid'
-], mw.parseBodyData );
 
 app.post( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights );
 
