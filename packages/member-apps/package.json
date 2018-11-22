@@ -43,32 +43,19 @@
     "redux-form": "^6.5.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
     "@openagenda/agendas": "^1.0.23",
     "@openagenda/bs-templates": "^2.0.78",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-5",
     "@openagenda/users": "^2.0.11",
-    "babel-cli": "^6.18.0",
-    "babel-loader": "^6.2.10",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-react-transform": "^2.0.2",
-    "babel-plugin-transform-async-to-generator": "^6.24.1",
-    "babel-plugin-transform-class-properties": "^6.19.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-export-extensions": "^6.8.0",
-    "babel-plugin-transform-function-bind": "^6.8.0",
-    "babel-plugin-transform-object-rest-spread": "^6.20.2",
-    "babel-plugin-transform-react-display-name": "^6.8.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
+    "babel-preset-openagenda": "^1.0.0",
     "concurrently": "^3.5.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-transform-catch-errors": "^1.0.2",
-    "redbox-react": "^1.3.3"
+    "react-dom": "^16.0.0"
   }
 }

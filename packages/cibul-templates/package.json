@@ -47,7 +47,6 @@
     "@openagenda/react-form-components": "^2.0.15",
     "@openagenda/registration": "^1.1.1",
     "@openagenda/sessions": "^3.0.5",
-    "@openagenda/spinner": "^2.0.1",
     "@openagenda/sync-button": "^0.0.7",
     "@openagenda/translators": "^1.0.13",
     "@openagenda/tumblr-parser": "^0.1.2",

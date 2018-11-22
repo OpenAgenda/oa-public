@@ -16,6 +16,7 @@ module.exports = declare( ( api, options ) => {
       '@babel/preset-env',
       {
         debug,
+        useBuiltIns: 'usage',
         targets: {
           browsers: [
             '> 0.25%',
@@ -69,7 +70,9 @@ module.exports = declare( ( api, options ) => {
       {
         loose: true
       }
-    ]
+    ],
+
+    'add-module-exports'
   ];
 
   return {

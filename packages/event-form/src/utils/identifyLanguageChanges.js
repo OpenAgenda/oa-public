@@ -1,9 +1,6 @@
-"use strict";
-
 import _ from 'lodash';
-import extractLanguages from './extractLanguages';
 
-module.exports = ( before, after ) => {
+export default function ( before, after ) {
 
   if ( !after ) return [];
 

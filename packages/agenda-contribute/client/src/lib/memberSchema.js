@@ -2,7 +2,7 @@
 
 const labels = require( '@openagenda/labels/agenda-contribute/member' );
 
-module.exports = {
+export default {
   fields: [ {
     field: 'organisation',
     label: labels.organisation,

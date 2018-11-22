@@ -1,6 +1,6 @@
 "use strict";
 
-require( '../../components/build/verifiedLocationsCounter' );
+require( '../../components/src/verifiedLocationsCounter' );
 
 var React = require( 'react' ),
 
@@ -8,13 +8,13 @@ ReactDom = require( 'react-dom' ),
 
 createReactClass = require( 'create-react-class' ),
 
-AdminApp = require( '../../components/build/AgendaAdminLocations' ),
+AdminApp = require( '../../components/src/AgendaAdminLocations' ),
 
-SelectorApp = require( '../../components/build/LocationSelector' ),
+SelectorApp = require( '../../components/src/LocationSelector' ),
 
-TermApp = require( '../../components/build/TermSelector' ),
+TermApp = require( '../../components/src/TermSelector' ),
 
-TermPickerApp = require( '../../components/build/TermSelectorPicker' ),
+TermPickerApp = require( '../../components/src/TermSelectorPicker' ),
 
 agendaTestSettings = require( '../fixtures/agendaTestSettings.js' ),
 
@@ -49,9 +49,9 @@ Wrapper = createReactClass( {
   getDefaultProps: function() {
 
     return {
-      res: { 
-        index: '/', 
-        geocode: '/geocode', 
+      res: {
+        index: '/',
+        geocode: '/geocode',
         reverseGeocode: '/geocode/reverse',
         insee: '/insee',
         get: '/:locationUid',
@@ -140,7 +140,7 @@ Wrapper = createReactClass( {
         res="/terms"
         value={this.state.term}
         onChange={this.onChangeTerm} />
-      
+
       <div className="separator" style={{marginTop: '1em', marginBottom: '1em'}}></div>
 
       <TermPickerApp

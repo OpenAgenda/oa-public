@@ -61,7 +61,7 @@
     "@storybook/addon-actions": "^4.0.0-rc.0",
     "@storybook/addon-knobs": "^v4.0.0-rc.2",
     "@storybook/addon-options": "^4.0.0-rc.0",
-    "@storybook/addon-storyshots": "^4.0.0-rc.0",
+    "@storybook/addon-storyshots": "^4.0.8",
     "@storybook/addon-storyshots-puppeteer": "^4.0.0-rc.0",
     "@storybook/addon-storysource": "^4.0.0-rc.0",
     "@storybook/react": "^4.0.0-rc.0",
@@ -95,6 +95,7 @@
     "prettier-eslint-cli": "^4.7.1",
     "react-test-renderer": "^16.5.2",
     "rimraf": "^2.6.2",
+    "webpack": "^4.26.0",
     "why-did-you-update": "^1.0.6"
   }
 }

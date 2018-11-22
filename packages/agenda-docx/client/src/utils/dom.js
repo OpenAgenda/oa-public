@@ -1,31 +1,13 @@
 "use strict";
 
-module.exports = {
-  el,
-  els,
-  addEvent,     // add an event to an element 
-  removeEvent,
-  hasClass,
-  addClass,
-  removeClass,
-  forEach,
-  childObject,
-  preventDefault,
-  isElement,
-  getScrollOffsets,
-  windowInnerHeight,
-  isSafari,
-  scrollTo
-}
-
-function isSafari() {
+export function isSafari() {
 
   return navigator.vendor && navigator.vendor.indexOf('Apple') > -1 &&
     navigator.userAgent && !navigator.userAgent.match('CriOS');
 
 }
 
-function isElement( o ) {
+export function isElement( o ) {
 
   return (
     typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
@@ -34,13 +16,13 @@ function isElement( o ) {
 
 }
 
-function preventDefault( event ) {
+export function preventDefault( event ) {
 
   event.preventDefault ? event.preventDefault() : event.returnValue = false;
 
 };
 
-function childObject( elem, index ) {
+export function childObject( elem, index ) {
 
   var i = 0, realI = 0;
 
@@ -62,19 +44,19 @@ function childObject( elem, index ) {
 }
 
 
-function hasClass( element, cls ) {
+export function hasClass( element, cls ) {
 
   return ( ' ' + element.className + ' ').indexOf( ' ' + cls + ' ' ) > -1;
 
 }
 
-function addClass( element, className ) {
+export function addClass( element, className ) {
 
   if ( !hasClass( element, className ) ) element.className = element.className + ' ' + className;
 
 }
 
-function removeClass( element, cls ) {
+export function removeClass( element, cls ) {
 
   if ( hasClass( element, cls ) ) {
 
@@ -87,7 +69,7 @@ function removeClass( element, cls ) {
 }
 
 
-function els( node, selector ) {
+export function els( node, selector ) {
 
   if ( typeof node == 'string' ) {
 
@@ -130,7 +112,7 @@ function els( node, selector ) {
 
 };
 
-function el( node, selector ) {
+export function el( node, selector ) {
 
   var results = els( node, selector );
 
@@ -139,7 +121,7 @@ function el( node, selector ) {
 }
 
 
-function whenReady( cb ) {
+export function whenReady( cb ) {
 
   if ( document.readyState === 'complete' ) {
 
@@ -153,7 +135,7 @@ function whenReady( cb ) {
 
 }
 
-function asapReady( selector, timeout, cb ) {
+export function asapReady( selector, timeout, cb ) {
 
   if ( arguments.length == 1 ) {
 
@@ -186,7 +168,7 @@ function asapReady( selector, timeout, cb ) {
  * cross browser add event
  */
 
-function addEvent( elem, types, eventHandle ) {
+export function addEvent( elem, types, eventHandle ) {
 
   if ( elem == null || elem == undefined ) return;
 
@@ -213,7 +195,7 @@ function addEvent( elem, types, eventHandle ) {
 }
 
 
-function removeEvent( elem, types, eventHandle ) {
+export function removeEvent( elem, types, eventHandle ) {
 
   if ( elem === null || elem === undefined ) return;
 
@@ -240,7 +222,7 @@ function removeEvent( elem, types, eventHandle ) {
 };
 
 
-function forEach( array, action ) {
+export function forEach( array, action ) {
 
   for ( var i = 0; i < array.length; i++ ) {
 
@@ -250,7 +232,7 @@ function forEach( array, action ) {
 
 }
 
-function getElementsByClassName( node, className ) {
+export function getElementsByClassName( node, className ) {
 
   if ( typeof node == 'string' ) {
 
@@ -280,7 +262,7 @@ function getElementsByClassName( node, className ) {
 }
 
 
-function windowInnerHeight( w, d ) {
+export function windowInnerHeight( w, d ) {
 
   if ( !w ) {
     w = window;
@@ -291,7 +273,7 @@ function windowInnerHeight( w, d ) {
 
 }
 
-function scrollTo( elem, position ) {
+export function scrollTo( elem, position ) {
 
   if ( arguments.length === 1 ) {
 
@@ -310,7 +292,7 @@ function scrollTo( elem, position ) {
 
     switch ( position ) {
 
-      case 'top': 
+      case 'top':
 
         position = 0;
         break;
@@ -328,9 +310,9 @@ function scrollTo( elem, position ) {
 
 }
 
-function getScrollOffsets( w ) {
+export function getScrollOffsets( w ) {
 
-  // Use the specified window or the current window if no argument 
+  // Use the specified window or the current window if no argument
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before

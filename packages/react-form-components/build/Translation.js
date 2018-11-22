@@ -1,52 +1,50 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _extends2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/extends"));
 
-var _react2 = _interopRequireDefault(_react);
+var _react = _interopRequireDefault(require("react"));
 
-var _createReactClass = require('create-react-class');
+var _createReactClass = _interopRequireDefault(require("create-react-class"));
 
-var _createReactClass2 = _interopRequireDefault(_createReactClass);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _propTypes = require('prop-types');
+var _languages = _interopRequireDefault(require("languages"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _reactSelect = _interopRequireDefault(require("react-select"));
 
-var _languages = require('languages');
-
-var _languages2 = _interopRequireDefault(_languages);
-
-var _reactSelect = require('react-select');
-
-var _reactSelect2 = _interopRequireDefault(_reactSelect);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _jsxFileName = "/home/bertho/oa/packages/react-form-components/components/Translation.jsx";
 
 var Translation = function Translation(props) {
-  return _react2.default.createElement(TranslationComponent, props);
+  return _react.default.createElement(TranslationComponent, (0, _extends2.default)({}, props, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: this
+  }));
 };
 
-exports.default = Translation;
-
-
+var _default = Translation;
+exports.default = _default;
 Translation.propTypes = {
-  source: _propTypes2.default.string,
-  languages: _propTypes2.default.array,
-  labels: _propTypes2.default.object,
-  checked: _propTypes2.default.array,
-  check: _propTypes2.default.func,
-  uncheck: _propTypes2.default.func,
-  helpLink: _propTypes2.default.string
+  source: _propTypes.default.string,
+  languages: _propTypes.default.array,
+  labels: _propTypes.default.object,
+  checked: _propTypes.default.array,
+  check: _propTypes.default.func,
+  uncheck: _propTypes.default.func,
+  helpLink: _propTypes.default.string
 };
-
-var TranslationComponent = (0, _createReactClass2.default)({
-  displayName: 'TranslationComponent',
+var TranslationComponent = (0, _createReactClass.default)({
+  displayName: "TranslationComponent",
   getDefaultProps: function getDefaultProps() {
-
     return {
       source: 'fr',
       sets: [{
@@ -69,133 +67,193 @@ var TranslationComponent = (0, _createReactClass2.default)({
     };
   },
   getInitialState: function getInitialState() {
-
     return {
       editingSource: false
     };
   },
   sourceChange: function sourceChange(e) {
-
     e.preventDefault();
-
-    this.setState({ editingSource: true });
+    this.setState({
+      editingSource: true
+    });
   },
   updateSource: function updateSource(newSource) {
-
     this.setState({
       editingSource: false
     });
-
     this.props.sourceChange(newSource.value);
   },
   render: function render() {
     var _this = this;
 
     var labels = this.props.labels;
-
-    return _react2.default.createElement(
-      'div',
-      { className: 'form-group translation-form' },
-      _react2.default.createElement(
-        'a',
-        { className: 'pull-right help', target: '_blank', href: this.props.helpLink },
-        _react2.default.createElement('i', { className: 'fa fa-question-circle' }),
-        _react2.default.createElement(
-          'label',
-          { style: { display: 'none' } },
-          labels.translationHelp
-        )
-      ),
-      _react2.default.createElement(
-        'label',
-        null,
-        labels.translationTitle
-      ),
-      labels.info ? _react2.default.createElement(
-        'div',
-        { className: 'margin-bottom-sm' },
-        labels.info
-      ) : null,
-      _react2.default.createElement(
-        'div',
-        { className: 'form-inline row' },
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-6' },
-          _react2.default.createElement(
-            'label',
-            null,
-            labels.sourceLanguage
-          ),
-          this.state.editingSource ? _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(_reactSelect2.default, {
-              value: this.props.source,
-              options: this.props.sets.map(function (s) {
-                return {
-                  value: s.source,
-                  label: _languages2.default.getLanguageInfo(s.source).nativeName
-                };
-              }),
-              onChange: this.updateSource,
-              clearable: false })
-          ) : _react2.default.createElement(
-            'div',
-            { className: 'line' },
-            _react2.default.createElement(
-              'span',
-              { className: 'disabled' },
-              _languages2.default.getLanguageInfo(this.props.source).nativeName
-            ),
-            this.props.sets.length > 1 ? _react2.default.createElement(
-              'span',
-              null,
-              ' - ',
-              _react2.default.createElement(
-                'a',
-                { href: '#', onClick: this.sourceChange },
-                labels.sourceChange
-              )
-            ) : null
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-6' },
-          _react2.default.createElement(
-            'label',
-            null,
-            labels.targetLanguages
-          ),
-          _react2.default.createElement(
-            'ul',
-            { className: 'list-unstyled line' },
-            this.props.sets.filter(function (s) {
-              return s.source === _this.props.source;
-            }).map(function (s) {
-              return s.target.map(function (l) {
-                return _react2.default.createElement(
-                  'li',
-                  { key: l, className: 'checkbox margin-right-sm' },
-                  _react2.default.createElement(
-                    'label',
-                    null,
-                    _react2.default.createElement('input', {
-                      type: 'checkbox',
-                      onChange: function onChange(e) {
-                        return s.checked.indexOf(l) !== -1 ? _this.props.uncheck(s.source, l) : _this.props.check(s.source, l);
-                      },
-                      checked: s.checked.indexOf(l) !== -1 }),
-                    l.toUpperCase()
-                  )
-                );
-              });
-            })
-          )
-        )
-      )
-    );
+    return _react.default.createElement("div", {
+      className: "form-group translation-form",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 83
+      },
+      __self: this
+    }, _react.default.createElement("a", {
+      className: "pull-right help",
+      target: "_blank",
+      href: this.props.helpLink,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 84
+      },
+      __self: this
+    }, _react.default.createElement("i", {
+      className: "fa fa-question-circle",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 85
+      },
+      __self: this
+    }), _react.default.createElement("label", {
+      style: {
+        display: 'none'
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 86
+      },
+      __self: this
+    }, labels.translationHelp)), _react.default.createElement("label", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 88
+      },
+      __self: this
+    }, labels.translationTitle), labels.info ? _react.default.createElement("div", {
+      className: "margin-bottom-sm",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 89
+      },
+      __self: this
+    }, labels.info) : null, _react.default.createElement("div", {
+      className: "form-inline row",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 90
+      },
+      __self: this
+    }, _react.default.createElement("div", {
+      className: "col-sm-6",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 91
+      },
+      __self: this
+    }, _react.default.createElement("label", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 92
+      },
+      __self: this
+    }, labels.sourceLanguage), this.state.editingSource ? _react.default.createElement("div", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 94
+      },
+      __self: this
+    }, _react.default.createElement(_reactSelect.default, {
+      value: this.props.source,
+      options: this.props.sets.map(function (s) {
+        return {
+          value: s.source,
+          label: _languages.default.getLanguageInfo(s.source).nativeName
+        };
+      }),
+      onChange: this.updateSource,
+      clearable: false,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 95
+      },
+      __self: this
+    })) : _react.default.createElement("div", {
+      className: "line",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 104
+      },
+      __self: this
+    }, _react.default.createElement("span", {
+      className: "disabled",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 105
+      },
+      __self: this
+    }, _languages.default.getLanguageInfo(this.props.source).nativeName), this.props.sets.length > 1 ? _react.default.createElement("span", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 107
+      },
+      __self: this
+    }, " - ", _react.default.createElement("a", {
+      href: "#",
+      onClick: this.sourceChange,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 107
+      },
+      __self: this
+    }, labels.sourceChange)) : null)), _react.default.createElement("div", {
+      className: "col-sm-6",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 110
+      },
+      __self: this
+    }, _react.default.createElement("label", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 111
+      },
+      __self: this
+    }, labels.targetLanguages), _react.default.createElement("ul", {
+      className: "list-unstyled line",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 112
+      },
+      __self: this
+    }, this.props.sets.filter(function (s) {
+      return s.source === _this.props.source;
+    }).map(function (s) {
+      return s.target.map(function (l) {
+        return _react.default.createElement("li", {
+          key: l,
+          className: "checkbox margin-right-sm",
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 114
+          },
+          __self: this
+        }, _react.default.createElement("label", {
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 115
+          },
+          __self: this
+        }, _react.default.createElement("input", {
+          type: "checkbox",
+          onChange: function onChange(e) {
+            return s.checked.indexOf(l) !== -1 ? _this.props.uncheck(s.source, l) : _this.props.check(s.source, l);
+          },
+          checked: s.checked.indexOf(l) !== -1,
+          __source: {
+            fileName: _jsxFileName,
+            lineNumber: 116
+          },
+          __self: this
+        }), l.toUpperCase()));
+      });
+    })))));
   }
 });
-module.exports = exports['default'];
+module.exports = exports["default"];
+//# sourceMappingURL=Translation.js.map

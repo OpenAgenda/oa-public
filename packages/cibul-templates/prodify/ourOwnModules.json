@@ -1,28 +1,4 @@
 [
-  "admin-agendas",
-  "agenda-categories",
-  "agenda-search",
-  "agenda-tags",
-  "agenda-settings",
-  "react-components",
-  "react-form-components",
-  "react-timings-picker",
-  "spinner",
-  "agenda-stakeholders",
-  "activities/format",
-  "activity-apps/notifications",
-
-  "@openagenda/agenda-locations",
-  "@openagenda/admin-agendas",
   "@openagenda/agenda-categories",
-  "@openagenda/agenda-search",
-  "@openagenda/agenda-tags",
-  "@openagenda/agenda-settings",
-  "@openagenda/react-components",
-  "@openagenda/react-form-components",
-  "@openagenda/react-timings-picker",
-  "@openagenda/spinner",
-  "@openagenda/agenda-stakeholders",
-  "@openagenda/activities/format",
-  "@openagenda/activity-apps/notifications"
+  "@openagenda/agenda-tags"
 ]

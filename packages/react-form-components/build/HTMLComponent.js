@@ -1,50 +1,53 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
+var _interopRequireWildcard = require("@babel/runtime-corejs2/helpers/interopRequireWildcard");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
+exports.default = void 0;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+require("core-js/modules/es6.regexp.constructor");
 
-var _class, _temp;
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/classCallCheck"));
 
-var _react = require('react');
+var _createClass2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/createClass"));
 
-var _react2 = _interopRequireDefault(_react);
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/possibleConstructorReturn"));
 
-var _propTypes = require('prop-types');
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/getPrototypeOf"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _inherits2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/inherits"));
 
-var _utils = require('@openagenda/utils');
+var _assertThisInitialized2 = _interopRequireDefault(require("@babel/runtime-corejs2/helpers/assertThisInitialized"));
 
-var _utils2 = _interopRequireDefault(_utils);
+var _react = _interopRequireWildcard(require("react"));
 
-var _uniqueLoad = require('../lib/uniqueLoad');
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _uniqueLoad2 = _interopRequireDefault(_uniqueLoad);
+var _utils = _interopRequireDefault(require("@openagenda/utils"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _uniqueLoad = _interopRequireDefault(require("../lib/uniqueLoad"));
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+var _jsxFileName = "/home/bertho/oa/packages/react-form-components/components/HTMLComponent.jsx";
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var HTMLComponent = (_temp = _class = function (_Component) {
-  _inherits(HTMLComponent, _Component);
+var HTMLComponent =
+/*#__PURE__*/
+function (_Component) {
+  (0, _inherits2.default)(HTMLComponent, _Component);
 
   function HTMLComponent(props) {
-    _classCallCheck(this, HTMLComponent);
+    var _this;
 
-    var _this = _possibleConstructorReturn(this, (HTMLComponent.__proto__ || Object.getPrototypeOf(HTMLComponent)).call(this, props));
+    (0, _classCallCheck2.default)(this, HTMLComponent);
+    _this = (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(HTMLComponent).call(this, props));
 
-    _utils2.default.extend(_this, {
-      loadTinyMce: _this.loadTinyMce.bind(_this),
-      initializeTinyMceEditor: _this.initializeTinyMceEditor.bind(_this),
-      updateTinyMceEditor: _this.updateTinyMceEditor.bind(_this)
+    _utils.default.extend((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)), {
+      loadTinyMce: _this.loadTinyMce.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this))),
+      initializeTinyMceEditor: _this.initializeTinyMceEditor.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this))),
+      updateTinyMceEditor: _this.updateTinyMceEditor.bind((0, _assertThisInitialized2.default)((0, _assertThisInitialized2.default)(_this)))
     });
 
     _this.state = {
@@ -52,74 +55,74 @@ var HTMLComponent = (_temp = _class = function (_Component) {
       editorId: null,
       uniqueClassName: _this.props.uniqueClassName || 'js_' + generateUniqueIdentifier()
     };
-
     if (!_this.state.tinyMceReady && typeof document !== 'undefined') _this.loadTinyMce();
-
     return _this;
   }
 
-  _createClass(HTMLComponent, [{
-    key: 'componentWillUnmount',
+  (0, _createClass2.default)(HTMLComponent, [{
+    key: "componentWillUnmount",
     value: function componentWillUnmount() {
-
       if (!this.state.editorId) return console.log('not loaded');
-
       tinymce.get(this.state.editorId).remove();
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
-
       if (!this.state.tinyMceReady) return null;
 
       if (!this.state.editorId) {
-
         setTimeout(this.initializeTinyMceEditor);
       } else {
-
         setTimeout(this.updateTinyMceEditor);
       }
 
-      var _props = this.props,
-          className = _props.className,
-          placeholder = _props.placeholder,
-          label = _props.label,
-          value = _props.value;
-
-
-      return _react2.default.createElement(
-        'div',
-        { className: className },
-        label && _react2.default.createElement(
-          'label',
-          null,
-          label
-        ),
-        _react2.default.createElement('textarea', {
-          placeholder: placeholder,
-          className: this.state.uniqueClassName,
-          value: value || '',
-          style: { minHeight: '200px', visibility: 'hidden' },
-          onChange: function onChange() {}
-        })
-      );
+      var _this$props = this.props,
+          className = _this$props.className,
+          placeholder = _this$props.placeholder,
+          label = _this$props.label,
+          value = _this$props.value;
+      return _react.default.createElement("div", {
+        className: className,
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 81
+        },
+        __self: this
+      }, label && _react.default.createElement("label", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 82
+        },
+        __self: this
+      }, label), _react.default.createElement("textarea", {
+        placeholder: placeholder,
+        className: this.state.uniqueClassName,
+        value: value || '',
+        style: {
+          minHeight: '200px',
+          visibility: 'hidden'
+        },
+        onChange: function onChange() {},
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 83
+        },
+        __self: this
+      }));
     }
   }, {
-    key: 'updateTinyMceEditor',
+    key: "updateTinyMceEditor",
     value: function updateTinyMceEditor() {
-
       var editor = tinymce.get(this.state.editorId);
-
       if (!editor) return;
 
       if (this.state.html !== this.props.value) {
-
         // value in editor has diverged from value given in props. Needs to be updated
         tinymce.get(this.state.editorId).setContent(this.props.value || '');
       }
     }
   }, {
-    key: 'initializeTinyMceEditor',
+    key: "initializeTinyMceEditor",
     value: function initializeTinyMceEditor() {
       var _this2 = this;
 
@@ -140,18 +143,14 @@ var HTMLComponent = (_temp = _class = function (_Component) {
         link_assume_external_targets: false,
         // pasted iframe are not converted in editor
         invalid_elements: 'iframe',
-
         setup: function setup(editor) {
-
           _this2.setState({
             editorId: editor.id,
             html: _this2.props.value
           });
 
           makeUrlConverter(editor);
-
           editor.on('change', function (e) {
-
             var html = e.target.getContent();
 
             _this2.setState({
@@ -161,43 +160,42 @@ var HTMLComponent = (_temp = _class = function (_Component) {
             _this2.props.onChange(html);
           });
         },
-
         paste_postprocess: function paste_postprocess(pl, o) {
-
           // paste from word-type processors insert a mess of tags
           // in the html; these must be cleaned
           o.node = cleanNode(o.node);
         }
-
       });
     }
   }, {
-    key: 'loadTinyMce',
+    key: "loadTinyMce",
     value: function loadTinyMce() {
       var _this3 = this;
 
-      (0, _uniqueLoad2.default)(this.props.tinyMceUrl, function (err, script) {
-
+      (0, _uniqueLoad.default)(this.props.tinyMceUrl, function (err, script) {
         _this3.setState({
           tinyMceReady: true
         });
       });
     }
   }]);
-
   return HTMLComponent;
-}(_react.Component), _class.propTypes = {
-  tinymceUrl: _propTypes2.default.string,
-  className: _propTypes2.default.string,
-  value: _propTypes2.default.string,
-  label: _propTypes2.default.string,
-  placeholder: _propTypes2.default.string,
-  onChange: _propTypes2.default.func,
-  tinyMceOptions: _propTypes2.default.object,
-  uniqueClassName: _propTypes2.default.string,
-  lang: _propTypes2.default.string,
-  loadComponent: _propTypes2.default.node
-}, _class.defaultProps = {
+}(_react.Component);
+
+exports.default = HTMLComponent;
+HTMLComponent.propTypes = {
+  tinymceUrl: _propTypes.default.string,
+  className: _propTypes.default.string,
+  value: _propTypes.default.string,
+  label: _propTypes.default.string,
+  placeholder: _propTypes.default.string,
+  onChange: _propTypes.default.func,
+  tinyMceOptions: _propTypes.default.object,
+  uniqueClassName: _propTypes.default.string,
+  lang: _propTypes.default.string,
+  loadComponent: _propTypes.default.node
+};
+HTMLComponent.defaultProps = {
   className: 'form-group',
   value: '',
   tinyMceUrl: '/js/tinymce/tinymce.min.js',
@@ -207,31 +205,23 @@ var HTMLComponent = (_temp = _class = function (_Component) {
   uniqueClassName: null,
   lang: 'fr',
   loadComponent: null
-}, _temp);
-exports.default = HTMLComponent;
-
+};
 
 function generateUniqueIdentifier() {
-
   return Math.ceil(Math.random() * 100000000);
 }
 
 function flattenChildren(node) {
-
   var flattened = '';
 
   if (!node.childNodes.length) {
-
     return getCleanTextContent(node);
   }
 
   for (var i = 0; i < node.childNodes.length; i++) {
-
     if (node.childNodes[i].childNodes.length) {
-
       flattened += flattenChildren(node.childNodes[i]);
     } else {
-
       flattened += node.childNodes[i].nodeValue || '';
     }
   }
@@ -240,28 +230,21 @@ function flattenChildren(node) {
 }
 
 function cleanNode(node) {
-
   var clean = document.createElement(node.nodeName),
-      cleanChild = void 0,
-      i = void 0,
-      type = void 0,
-      child = void 0,
-      cleanType = void 0;
+      cleanChild,
+      i,
+      type,
+      child,
+      cleanType;
 
   for (i = 0; i < node.childNodes.length; i++) {
-
     child = node.childNodes[i];
-
     type = child.nodeName.toLowerCase();
-
     cleanType = ['p', 'h1', 'h2', 'h3'].indexOf(type) !== -1 ? type : 'p';
-
     cleanChild = document.createElement(cleanType);
-
     cleanChild.innerHTML = flattenChildren(child);
 
     if (cleanChild.innerHTML.length) {
-
       clean.appendChild(cleanChild);
     }
   }
@@ -270,27 +253,25 @@ function cleanNode(node) {
 }
 
 function makeUrlConverter(editor) {
-
   var fn = editor.convertURL;
-
   editor.convertURL = convertURL_;
 
   function convertURL_(url, name, elm) {
-
     fn.apply(this, arguments);
-
     var regex = new RegExp("(http:|https:)?\/\/");
+
     if (!regex.test(url)) {
       return url = "http://" + url;
     }
+
     return url;
   }
 }
 
 function getCleanTextContent(elem) {
-
   var attr = 'innerText' in elem ? 'innerText' : 'textContent';
-
-  return _utils2.default.cleanString(elem[attr] || '').trim();
+  return _utils.default.cleanString(elem[attr] || '').trim();
 }
-module.exports = exports['default'];
+
+module.exports = exports["default"];
+//# sourceMappingURL=HTMLComponent.js.map

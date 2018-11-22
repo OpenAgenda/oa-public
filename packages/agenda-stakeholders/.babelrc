@@ -1,14 +1,5 @@
 {
   "presets": [
-    "es2015"
-  ],
-  "plugins": [
-    "add-module-exports",
-    "transform-decorators-legacy",
-
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "transform-export-extensions",
-    "transform-function-bind"
+    "openagenda"
   ]
 }
