@@ -7,6 +7,6 @@ npm-debug.log
 yarn-error.log
 
 # sources are useless in npm package
-components/src/
+components/
 .babelrc
 test/
