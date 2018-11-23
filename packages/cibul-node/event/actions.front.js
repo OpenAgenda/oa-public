@@ -242,7 +242,13 @@ async function eventMailSend( req, res, next ) {
 
     await mails( {
       template: 'event',
-      to: emails,
+      to: emails.map( email => ( {
+        address: email,
+        unsubscriptions: [ {
+          rule: [ 'receive', 'event' ],
+          dataPath: 'unsubscribeLink'
+        } ]
+      } ) ),
       data: {
         logo,
         link,

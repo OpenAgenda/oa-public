@@ -1,9 +1,14 @@
-exports.addZero = function(number) {
+"use strict";
+
+
+module.exports = {};
+
+module.exports.addZero = function(number) {
   return (parseInt(number, 10)<10?'0':'') + number;
 };
 
 /* Object.size */
-exports.size = function(obj) {
+module.exports.size = function(obj) {
   var size = 0, key;
   for (key in obj) {
       if (obj.hasOwnProperty(key)) size++;
@@ -12,7 +17,7 @@ exports.size = function(obj) {
 };
 
 /* extend */
-exports.extend = function(){
+module.exports.extend = function(){
   for(var i=1; i<arguments.length; i++)
       for(var key in arguments[i])
           if(arguments[i].hasOwnProperty(key))
@@ -22,7 +27,7 @@ exports.extend = function(){
 
 
 /*contains*/
-exports.contains = function(a, obj) {
+module.exports.contains = function(a, obj) {
   var i = a.length;
   while (i--) {
      if (a[i] === obj) {
@@ -33,7 +38,7 @@ exports.contains = function(a, obj) {
 };
 
 
-exports.toCamelCase = function toCamelCase( input ) {
+module.exports.toCamelCase = function toCamelCase( input ) {
 
   if ( typeof input == 'object' ) {
 
@@ -44,7 +49,7 @@ exports.toCamelCase = function toCamelCase( input ) {
       if ( !contains(['parse', '_typeCast'], key)) {
 
         camelCased[toCamelCase(key)] = input[key];
-        
+
       }
 
     }
@@ -63,11 +68,11 @@ exports.toCamelCase = function toCamelCase( input ) {
 
 
 
-exports.isArray = function(obj) {
+module.exports.isArray = function(obj) {
   return Object.prototype.toString.call(obj) === '[object Array]';
 };
 
-exports.removeValueFromArray = function(arr) {
+module.exports.removeValueFromArray = function(arr) {
     var what, a = arguments, L = a.length, ax;
     while (L > 1 && arr.length) {
         what = a[--L];
@@ -78,7 +83,7 @@ exports.removeValueFromArray = function(arr) {
     return arr;
 };
 
-exports.unpack = function(encoded) {
+module.exports.unpack = function(encoded) {
   return JSON.parse(encoded);
 };
 
@@ -86,13 +91,13 @@ var hasClass = function(element, cls) { return (' ' + element.className + ' ').i
 var addClass = function(element, className) { if (!hasClass(element, className)) element.className = element.className + ' ' + className; };
 var removeClass = function(element, cls) { if (hasClass(element, cls)) { var regex = new RegExp(cls, 'g'); element.className = element.className.replace(regex,''); } };
 
-exports.hasClass = hasClass;
-exports.addClass = addClass;
-exports.removeClass = removeClass;
+module.exports.hasClass = hasClass;
+module.exports.addClass = addClass;
+module.exports.removeClass = removeClass;
 
 
 
-exports.removeEvent = function(elem,types,eventHandle) {
+module.exports.removeEvent = function(elem,types,eventHandle) {
   if (elem === null || elem === undefined) return;
   if (typeof types == 'string') types = [types];
   forEach(types, function(type) {
@@ -106,7 +111,7 @@ exports.removeEvent = function(elem,types,eventHandle) {
   });
 };
 
-exports.addEvent = function(elem, types, eventHandle) {
+module.exports.addEvent = function(elem, types, eventHandle) {
   if (elem == null || elem == undefined) return;
   if (typeof types == 'string') types = [types];
   forEach(types, function(type){
@@ -116,15 +121,15 @@ exports.addEvent = function(elem, types, eventHandle) {
         elem.attachEvent( "on" + type, eventHandle );
     } else {
         elem["on"+type]=eventHandle;
-    }  
+    }
   });
 };
 
-exports.preventDefault = function(event) {
+module.exports.preventDefault = function(event) {
   event.preventDefault ? event.preventDefault() : event.returnValue = false;
 };
 
-var getElementsByClassName = exports.getElementsByClassName = function( node, classname ) {
+var getElementsByClassName = module.exports.getElementsByClassName = function( node, classname ) {
   if (typeof node == 'string') {
     classname = node;
     node = document;
@@ -139,7 +144,7 @@ var getElementsByClassName = exports.getElementsByClassName = function( node, cl
 
 
 
-var els = exports.els = function( node, selector ) {
+var els = module.exports.els = function( node, selector ) {
 
   if (typeof node == 'string') {
     selector = node;
@@ -164,7 +169,7 @@ var els = exports.els = function( node, selector ) {
 
 };
 
-exports.el = function( node, selector ) {
+module.exports.el = function( node, selector ) {
 
   var results = els(node, selector);
 
@@ -175,7 +180,7 @@ exports.el = function( node, selector ) {
 
 /* previousObject, nextObject, childObject, getChildIndex v0.1 */
 var previousObject = function( elem ) {
-  
+
   elem = elem.previousSibling;
 
   while (elem && elem.nodeType != 1)
@@ -185,9 +190,9 @@ var previousObject = function( elem ) {
 
 };
 
-exports.previousObject = previousObject;
+module.exports.previousObject = previousObject;
 
-exports.nextObject = function(elem) {
+module.exports.nextObject = function(elem) {
 
   elem = elem.nextSibling;
 
@@ -197,7 +202,7 @@ exports.nextObject = function(elem) {
   return elem;
 };
 
-exports.childObject = function(elem, index) {
+module.exports.childObject = function(elem, index) {
 
   var i = 0, realI = 0;
 
@@ -218,7 +223,7 @@ exports.childObject = function(elem, index) {
 
 };
 
-exports.getChildIndex = function(child) {
+module.exports.getChildIndex = function(child) {
 
   var i = 0;
 
@@ -233,14 +238,14 @@ var forEach = function(array, action) {
     action(array[i]);
 };
 
-exports.forEach = forEach;
+module.exports.forEach = forEach;
 
 
-exports.asymDiff = function(a, b) {
+module.exports.asymDiff = function(a, b) {
 
   if (typeof dSuffix != 'string') dSuffix = '';
   var diff = {};
-  
+
   for (var pName in a) {
       if (typeof b[pName] != 'undefined') {
           if (b[pName] !== a[pName]) diff[pName] = a[pName];
@@ -248,11 +253,11 @@ exports.asymDiff = function(a, b) {
           diff[pName] = a[pName];
       }
   }
-  
+
   return diff;
 };
 
-exports.arrDiff = function( a, b ) {
+module.exports.arrDiff = function( a, b ) {
 
   var diff = [];
 
@@ -316,9 +321,9 @@ if (typeof HTMLElement != "undefined" && !HTMLElement.prototype.insertAdjacentEl
 }
 
 
-exports.getScrollOffsets = function(w){
+module.exports.getScrollOffsets = function(w){
 
-  // Use the specified window or the current window if no argument 
+  // Use the specified window or the current window if no argument
   w = w || window;
 
   // This works for all browsers except IE versions 8 and before
@@ -343,7 +348,7 @@ exports.getScrollOffsets = function(w){
   };
 };
 
-exports.windowInnerHeight = function( w, d ) {
+module.exports.windowInnerHeight = function( w, d ) {
 
   if ( !w ) {
     w = window;
@@ -354,7 +359,7 @@ exports.windowInnerHeight = function( w, d ) {
 
 };
 
-exports.triggerEvent = function(elem, name) {
+module.exports.triggerEvent = function(elem, name) {
 
   var e;
 
@@ -376,7 +381,7 @@ exports.triggerEvent = function(elem, name) {
 
 };
 
-exports.isElement = function(o){
+module.exports.isElement = function(o){
   return (
     typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
     o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
@@ -390,7 +395,7 @@ if(typeof String.prototype.trim !== 'function') {
   };
 }
 
-exports.removeProperty = function(obj, name) {
+module.exports.removeProperty = function(obj, name) {
 
   if (typeof obj.removeProperty !== 'undefined') return obj.removeProperty(name);
 

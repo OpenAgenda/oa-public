@@ -92,7 +92,14 @@ function _sendEmail( member, agenda, sourceAgenda, event, state ) {
     template: 'eventAggregation',
     to: {
       address: member.user.email,
-      memberId: member.id
+      unsubscriptions: [ {
+        rule: [ 'receive', 'eventAggregation' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( member && member.id ? [ {
+        memberId: member.id,
+        rule: [ 'receive', 'eventAggregation' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] )
     },
     lang,
     data: {

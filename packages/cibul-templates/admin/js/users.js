@@ -1,8 +1,7 @@
-var userApp = require( './userApp' );
+import userApp from './userApp';
 
-window.hook( function( ) {
+window.hook( function() {
 
   userApp( document.getElementsByClassName('app')[0] );
-
 
 } );

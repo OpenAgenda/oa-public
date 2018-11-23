@@ -162,7 +162,14 @@ async function sendMail( { inboxUser, conversation, message } ) {
     template: 'inboxMessage',
     to: {
       address: user.email,
-      memberId: stakeholder && stakeholder.id
+      unsubscriptions: [ {
+        rule: [ 'receive', 'inboxMessage' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( stakeholder && stakeholder.id ? [ {
+        memberId: stakeholder.id,
+        rule: [ 'receive', 'inboxMessage' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] )
     },
     data: {
       subject,

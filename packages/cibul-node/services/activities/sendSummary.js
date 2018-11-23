@@ -56,7 +56,13 @@ module.exports = async function sendSummary( { user, notifications } ) {
 
     await mails( {
       template: 'notificationsSummary',
-      to: user.email,
+      to: {
+        address: user.email,
+        unsubscriptions: [ {
+          rule: [ 'receive', 'notificationsSummary' ],
+          dataPath: 'unsubscribeLink'
+        } ]
+      },
       lang,
       data: {
         message,

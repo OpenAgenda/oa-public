@@ -80,7 +80,14 @@ function _sendPublicationMail( v ) {
     template: 'eventPublishContributor',
     to: {
       address: v.contributor.email,
-      memberId: v.member && v.member.id
+      unsubscriptions: [ {
+        rule: [ 'receive', 'myEventChangeState' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( v.member && v.member.id ? [ {
+        memberId: v.member.id,
+        rule: [ 'receive', 'myEventChangeState' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] )
     },
     lang: v.contributor.lang,
     data: {

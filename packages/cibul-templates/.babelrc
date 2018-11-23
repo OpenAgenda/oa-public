@@ -3,6 +3,7 @@
     [
       "openagenda",
       {
+        "modules": "commonjs",
         "useBuiltIns": "entry"
       }
     ]
