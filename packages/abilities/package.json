@@ -14,7 +14,7 @@
     "do-image-snapshots": "STORYBOOK_API_PORT=3302 jest image-snapshots",
     "lint": "eslint -c .eslintrc '**/*.js' .storybook",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
-    "build": "rimraf build && babel --copy-files --root-mode upward -d build src -s",
+    "build": "rimraf build && babel --copy-files -d build src -s",
     "extract-messages": "node scripts/extract-messages.js",
     "prepublish": "yarn build"
   },

@@ -53,10 +53,11 @@ module.exports = declare( ( api, options ) => {
     '@babel/plugin-proposal-object-rest-spread',
 
     // Stage 0
-    "@babel/plugin-proposal-function-bind",
+    '@babel/plugin-proposal-function-bind',
 
     // Stage 1
-    "@babel/plugin-proposal-export-default-from",
+    '@babel/plugin-proposal-export-default-from',
+    '@babel/plugin-proposal-do-expressions',
 
     // Stage 2
     [
@@ -66,6 +67,7 @@ module.exports = declare( ( api, options ) => {
       }
     ],
     '@babel/plugin-proposal-export-namespace-from',
+    '@babel/plugin-proposal-throw-expressions',
 
     // Stage 3
     [
