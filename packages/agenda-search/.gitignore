@@ -4,4 +4,4 @@ npm-debug.log
 yarn-error.log
 testconfig.js
 
-components/build/
+components/lib/

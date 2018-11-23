@@ -1,11 +1,10 @@
 "use strict";
 
-
 const webpack = require( 'webpack' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
-const ourOwnModules = require( './ourOwnModules.json' );
+
 
 module.exports = ( { entry, output } ) => ( {
   mode: 'production',
@@ -15,13 +14,10 @@ module.exports = ( { entry, output } ) => ( {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-prod' ),
-            forceEnv: 'production'
-          }
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-prod' )
         }
       },
       {

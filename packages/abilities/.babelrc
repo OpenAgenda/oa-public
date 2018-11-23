@@ -16,5 +16,6 @@
         "babel-plugin-require-context-hook"
       ]
     }
-  }
+  },
+  "sourceType": "unambiguous"
 }

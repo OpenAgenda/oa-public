@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import update from 'immutability-helper';
 
-import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
+import CategorySelector from '@openagenda/agenda-categories/build/CategorySelector';
 import categorySetLabels from '@openagenda/labels/agenda-categories/selector';
 import du from '@openagenda/dom-utils';
 import genLabelGet from '@openagenda/labels';
@@ -15,7 +15,7 @@ import labels from '@openagenda/labels/event/tagsForm';
 import Modal from '@openagenda/react-components/build/Modal';
 import post from '@openagenda/utils/post';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
+import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
 import tagSetLabels from '@openagenda/labels/agenda-tags/selector';
 import utils from '@openagenda/utils';
 
@@ -110,8 +110,8 @@ App = createReactClass( {
         changes.customSetErrors = { $set: errors }
 
       } else {
-        
-        changes.event[ type ] = { 
+
+        changes.event[ type ] = {
           $set: values
         };
 
@@ -155,7 +155,7 @@ App = createReactClass( {
     this.setState( {
       saving: true
     } );
-    
+
     post( this.props.res, { event: this.state.event }, ( err, result ) => {
 
       if ( err || !result.success ) {
@@ -192,7 +192,7 @@ App = createReactClass( {
         <h2>{this.getTitle()}</h2>
         <p>{getLabel( 'description', this.props.lang )}</p>
       </div>
-      { this.state.categorySet.categories.length ? <CategorySelector 
+      { this.state.categorySet.categories.length ? <CategorySelector
         lang={this.props.lang}
         set={this.state.categorySet}
         selection={this.state.event.category}
@@ -217,14 +217,14 @@ App = createReactClass( {
           languages={this.state.languages}
           lang={this.props.lang}
           onChange={ this.onCustomChange.bind( null, field.name ) }
-        /> 
+        />
       ) : null }
       { this.hasValidationErrors() ? <p className="error bg-danger margin-v-md padding-v-sm padding-h-sm">{getLabel( 'invalidError', this.props.lang )}</p> : null }
       <a href="#" className="text-danger" onClick={this.onCancel}>{getLabel( 'cancel', this.props.lang )}</a>
       { this.state.saving ? <button className="btn btn-primary pull-right" style={{position: 'relative'}}>{getLabel( 'submit', this.props.lang )} <Spinner spinner={{color: '#666', width: 1, length: 3, radius: 6}} /></button> : null }
       { !this.state.saving && !this.state.saveSuccess ? <button onClick={this.submit} className="btn btn-primary pull-right">{getLabel( 'submit', this.props.lang )}</button> : null }
       { this.state.saveSuccess ? <button className="btn btn-success pull-right">{getLabel( 'submitted', this.props.lang )} <i className="fa fa-check"></i></button> : null }
-      { this.state.saveError ? <Modal 
+      { this.state.saveError ? <Modal
         title={getLabel( 'saveErrorTitle', this.props.lang )}
         onClose={() => { this.setState( { saveError: false } ) } }>
         <p>{ getLabel( 'saveError', this.props.lang ) }</p>

@@ -7,6 +7,7 @@ module.exports = declare( ( api, options ) => {
   api.assertVersion( 7 );
 
   const debug = typeof options.debug === 'boolean' ? options.debug : false;
+  const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : false;
   const development = typeof options.development === 'boolean'
     ? options.development
     : api.cache( () => process.env.NODE_ENV !== 'production' );
@@ -16,7 +17,7 @@ module.exports = declare( ( api, options ) => {
       '@babel/preset-env',
       {
         debug,
-        useBuiltIns: 'usage',
+        useBuiltIns,
         targets: {
           browsers: [
             '> 0.25%',
@@ -41,6 +42,8 @@ module.exports = declare( ( api, options ) => {
 
   const plugins = [
     'lodash',
+    'add-module-exports',
+
     [
       '@babel/plugin-transform-runtime',
       {
@@ -70,9 +73,7 @@ module.exports = declare( ( api, options ) => {
       {
         loose: true
       }
-    ],
-
-    'add-module-exports'
+    ]
   ];
 
   return {

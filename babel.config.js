@@ -10,5 +10,6 @@ module.exports = {
   ],
   presets: [
     'openagenda'
-  ]
+  ],
+  sourceType: 'unambiguous'
 };
