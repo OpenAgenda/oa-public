@@ -1,5 +1,3 @@
-"use strict";
-
 import searchActions from './search';
 import eventActions from './events';
 import suggestionActions from './suggestions';

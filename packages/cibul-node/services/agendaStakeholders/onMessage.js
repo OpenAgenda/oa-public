@@ -148,6 +148,14 @@ function _sendMessageEmail( { agenda, url, message, recipient, lang, replyTo, me
     template: 'stakeholderMessage',
     to: {
       address: recipient,
+      unsubscriptions: [ {
+        rule: [ 'receive', 'memberMessage' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( member && member.id ? [ {
+        memberId: member.id,
+        rule: [ 'receive', 'memberMessage' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] ),
       memberId: member && member.id
     },
     data: {

@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import utils from '@openagenda/utils';
@@ -86,7 +84,7 @@ export default class HTMLComponent extends Component {
           value={ value || '' }
           style={{ minHeight: '200px', visibility: 'hidden' }}
           onChange={() => {
-            
+
           }}
         >
         </textarea>
@@ -106,7 +104,7 @@ export default class HTMLComponent extends Component {
       // value in editor has diverged from value given in props. Needs to be updated
       tinymce.get( this.state.editorId ).setContent( this.props.value || '' );
 
-    }    
+    }
 
   }
 

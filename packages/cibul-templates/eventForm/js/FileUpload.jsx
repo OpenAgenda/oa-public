@@ -1,5 +1,3 @@
-"use strict";
-
 import Dropzone from 'react-dropzone';
 import createReactClass from 'create-react-class';
 import React from 'react';
@@ -7,7 +5,7 @@ import sa from 'superagent';
 import labels from '@openagenda/labels/form-schemas/fileUpload';
 import Spinner from '@openagenda/react-components/build/Spinner';
 
-module.exports = createReactClass({
+export default createReactClass({
 
   getInitialState: function() {
 
@@ -82,7 +80,7 @@ module.exports = createReactClass({
     this.setState( {
       loading: true
     } );
-    
+
     req.end( ( err, res ) => {
 
       const error = err ? labels.error[ this.props.lang ] : false;
@@ -139,10 +137,10 @@ module.exports = createReactClass({
           </div>
         </Dropzone>
         <span>Fichiers acceptés: { '.' + [].concat( this.props.extension ).join( ', .' ) }</span>
-        { this.props.value ? <a 
+        { this.props.value ? <a
           href="#"
           onClick={this.onRemove}
-          className="btn btn-danger margin-left-xs remove-file" 
+          className="btn btn-danger margin-left-xs remove-file"
           title={labels.remove[ this.props.lang ]}>
           <i className="fa fa-trash"></i>
         </a> : null }

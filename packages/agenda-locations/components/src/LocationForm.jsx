@@ -1,5 +1,3 @@
-"use strict";
-
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -398,8 +396,8 @@ module.exports = createReactClass( {
 
       log( 'retrieved insee: %j', result );
 
-      this.setState( { 
-        location: _.assign( this.state.location, { insee: _.get( result, 'code' ) } ) 
+      this.setState( {
+        location: _.assign( this.state.location, { insee: _.get( result, 'code' ) } )
       } );
 
     } );
@@ -1094,8 +1092,8 @@ module.exports = createReactClass( {
 
     } );
 
-    if ( 
-      _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR' 
+    if (
+      _.upperCase( _.get( this.state, 'location.countryCode' ) ) === 'FR'
       && _.get( this.state, 'location.latitude' )
     ) {
 
@@ -1107,22 +1105,22 @@ module.exports = createReactClass( {
 
       return <div className="form-inline margin-v-xs">
         <div className="form-group">
-          <input 
-            className="form-control margin-right-xs" 
-            placeholder={this.getLabel(this.state.geocodeEdit)} 
-            type="text" 
+          <input
+            className="form-control margin-right-xs"
+            placeholder={this.getLabel(this.state.geocodeEdit)}
+            type="text"
             onChange={e => this.editGeocode( this.state.geocodeEdit, e.target.value) }
             value={this.state.geocodeEditValue} />
-          <button 
+          <button
             className="btn btn-primary margin-right-xs"
             onClick={() => this.setGeocodeFieldValue( this.state.geocodeEdit, this.state.geocodeEditValue )}
           >{this.getLabel('geocodeFieldSave')}</button>
-          <button 
+          <button
             className="btn btn-default"
             onClick={() => this.cancelEditGeocode()}
           >{this.getLabel('geocodeFieldCancel')}</button>
         </div>
-      </div>      
+      </div>
 
     }
 
@@ -1186,8 +1184,8 @@ module.exports = createReactClass( {
 
       {this.renderGeoData()}
 
-      { !this.state.enableGeocode ? 
-        <div className="alert alert-warning" role="alert">{this.getLabel( 'disabledGeocode' )}</div> 
+      { !this.state.enableGeocode ?
+        <div className="alert alert-warning" role="alert">{this.getLabel( 'disabledGeocode' )}</div>
       : null }
 
 

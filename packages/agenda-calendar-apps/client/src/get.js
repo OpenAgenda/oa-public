@@ -1,5 +1,3 @@
-"use strict";
-
 import request from 'superagent';
 
 export default ( res, agendaUid, query ) => {

@@ -1,5 +1,3 @@
-"use strict";
-
 import update from 'immutability-helper';
 
 import { excludeEventsWithUids, formatEventItem } from './helpers';

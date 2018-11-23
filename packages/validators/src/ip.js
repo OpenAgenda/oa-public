@@ -1,5 +1,3 @@
-"use strict";
-
 import listify from './listify';
 import extend from 'lodash/extend';
 import isIP from 'validator/lib/isIP';
@@ -22,7 +20,7 @@ export default config => {
 
   function validate( value ) {
 
-    let clean = null, 
+    let clean = null,
 
       error = {
         origin: value,
@@ -35,7 +33,7 @@ export default config => {
 
     } else if ( value === undefined ) {
 
-      throw [ extend( error, { 
+      throw [ extend( error, {
         code: 'ip.required',
         message: 'an ip address is required'
       } ) ];

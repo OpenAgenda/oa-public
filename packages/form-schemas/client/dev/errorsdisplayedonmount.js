@@ -1,5 +1,3 @@
-"use strict";
-
 import ih from 'immutability-helper';
 
 import PropTypes from 'prop-types';
@@ -42,7 +40,7 @@ class Main extends Component {
     // here the grouped error component is defined outside of the FormSchemaComponent
 
     const exteriorGroupedErrorsProps = ih( props, {
-      classNames: { 
+      classNames: {
         $set: {
           fieldsCanvas: 'wsq padding-all-sm',
           bottomActionsCanvas: 'wsq padding-all-sm padding-top-md'
@@ -51,7 +49,7 @@ class Main extends Component {
       errorComponents: {
         $set: [ {
           position: 'bottom',
-          Component: ( { errors } ) => 
+          Component: ( { errors } ) =>
             <div className="error-summary padding-v-sm padding-h-sm">
               <div className="padding-bottom-sm">Oh no's! Cannot submit!:</div>
               <ul className="list-unstyled">

@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import React, { Component } from 'react';
 
@@ -24,9 +22,9 @@ module.exports = class TextField extends Component {
   }
 
   render() {
-    
+
     const {
-      field: name, 
+      field: name,
       placeholder,
       fieldType
     } = this.props.field;
@@ -42,7 +40,7 @@ module.exports = class TextField extends Component {
       onChange: this.onChange,
       disabled: !enabled
     }
-   
+
     return fieldType === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
 
   }

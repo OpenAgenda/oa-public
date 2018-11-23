@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react'
 import { Provider } from 'react-redux'
 import editorApp from './reducers'

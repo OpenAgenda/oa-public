@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import sa from 'superagent';
 
@@ -18,8 +16,8 @@ export default ( { res, values, files, query } ) => {
 
   if ( !hasFiles ) {
 
-    return req.send( { 
-      data: JSON.stringify( values ) 
+    return req.send( {
+      data: JSON.stringify( values )
     } )
 
   }

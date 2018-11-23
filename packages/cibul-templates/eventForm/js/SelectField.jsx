@@ -1,10 +1,8 @@
-"use strict";
-
 import React from 'react';
 import RadioTypeField from './RadioTypeField.jsx';
 import Select from 'react-select';
 
-module.exports = RadioTypeField( {
+export default RadioTypeField( {
 
   getOptions: function() {
 

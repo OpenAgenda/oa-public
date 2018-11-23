@@ -70,9 +70,10 @@ module.exports.init = async config => {
 
     // Unsubscription
     sendFilter: async params => {
-      const abilityArgs = templateAbilities[ params.template ];
+      const unsubscriptions = params.to.unsubscriptions;
+      const abilityArgs = _.find( unsubscriptions, 'memberId' ) || unsubscriptions[ unsubscriptions.length - 1 ];
       const email = params.to.address;
-      const memberId = params.to.memberId;
+      const { memberId, rule } = abilityArgs;
 
       if ( !abilityArgs ) {
         return true;
@@ -97,21 +98,18 @@ module.exports.init = async config => {
 
       // member
       if ( memberId ) {
-        return !( await isUnsubscribed( { entityName: 'member', identifier: memberId }, ...abilityArgs ) );
+        return !( await isUnsubscribed( { entityName: 'member', identifier: memberId }, ...rule ) );
       }
 
       return !( await isUnsubscribed( email, ...abilityArgs ) );
     },
     beforeSend: async params => {
-      const abilityArgs = templateAbilities[ params.template ];
-      const unsubscribeLinkPath = unsubscribeLinkPaths[ params.template ];
-      const memberUnsubscribeLinkPath = memberUnsubscribeLinkPaths[ params.template ];
       const {
-        address: email,
-        memberId
+        unsubscriptions,
+        address: email
       } = params.to;
 
-      if ( !abilityArgs || !unsubscribeLinkPath ) {
+      if ( !unsubscriptions ) {
         return;
       }
 
@@ -119,28 +117,40 @@ module.exports.init = async config => {
       const user = await usersSvc.findOne( { query: { email } } );
       const firstEntity = user ? { entityName: 'user', identifier: user.uid } : { email };
 
-      const unsubscribeToken = await createToken( firstEntity, ...abilityArgs );
-      const unsubscribeLink = `https://${config.domain}/unsubscribe/${unsubscribeToken}`;
-      _.set( params.data, unsubscribeLinkPath, unsubscribeLink );
+      params.data.isRegisteredUser = !!user;
 
-      // member
-      if ( memberId ) {
-        const memberUnsubscribeToken = await createToken(
-          { entityName: 'member', identifier: memberId },
-          ...abilityArgs
-        );
-        const memberUnsubscribeLink = `https://${config.domain}/unsubscribe/${memberUnsubscribeToken}`;
-        _.set( params.data, memberUnsubscribeLinkPath, memberUnsubscribeLink );
+      for ( const unsubscription of unsubscriptions ) {
+        const { memberId, rule, dataPath } = unsubscription;
+        const entity = memberId ? { entityName: 'member', identifier: memberId } : firstEntity;
+
+        const unsubscribeToken = await createToken( entity, ...rule );
+        const unsubscribeLink = `https://${config.domain}/unsubscribe/${unsubscribeToken}`;
+
+        _.set( params.data, dataPath, unsubscribeLink );
+
+        if ( !params.list || !params.list.unsubscribe ) {
+          params.list = Object.assign( {}, params.list, {
+            unsubscribe: [
+              unsubscribeLink,
+              'support@openagenda.com'
+            ]
+          } );
+        }
       }
 
-      params.data.isRegisteredUser = [ 'user', 'member' ].includes( firstEntity.entityName );
-
-      params.list = Object.assign( {}, params.list, {
-        unsubscribe: [
-          unsubscribeLink,
-          'support@openagenda.com'
-        ]
-      } );
+      // const unsubscribeToken = await createToken( firstEntity, ...abilityArgs );
+      // const unsubscribeLink = `https://${config.domain}/unsubscribe/${unsubscribeToken}`;
+      // _.set( params.data, unsubscribeLinkPath, unsubscribeLink );
+      //
+      // // member
+      // if ( memberId ) {
+      //   const memberUnsubscribeToken = await createToken(
+      //     { entityName: 'member', identifier: memberId },
+      //     ...abilityArgs
+      //   );
+      //   const memberUnsubscribeLink = `https://${config.domain}/unsubscribe/${memberUnsubscribeToken}`;
+      //   _.set( params.data, memberUnsubscribeLinkPath, memberUnsubscribeLink );
+      // }
     }
   } );
 

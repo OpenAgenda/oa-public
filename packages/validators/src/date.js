@@ -1,5 +1,3 @@
-"use strict";
-
 import utils from '@openagenda/utils'
 
 const defaults = {
@@ -94,7 +92,7 @@ module.exports = config => {
 
 
     // if is bounded, test bounds
-    
+
     if ( clean && params.min && clean < params.min ) {
 
       throw [ utils.extend( {

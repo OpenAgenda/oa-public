@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 
 import PropTypes from 'prop-types';
@@ -27,7 +25,7 @@ class Main extends Component {
     };
 
     return <div className="container top-margined">
-      <div className="row">        
+      <div className="row">
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An image upload field.</p>

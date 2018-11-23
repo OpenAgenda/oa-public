@@ -1,5 +1,3 @@
-"use strict";
-
 import createReactClass from 'create-react-class';
 import omitBy from 'lodash/omitBy';
 import React from 'react';

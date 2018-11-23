@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 
 import TimingsPicker from 'react-timings-picker';
@@ -21,8 +19,8 @@ module.exports = class TimingsComponent extends Component {
     return <TimingsPicker
         info={labels.noTiming}
         lang={({
-            fr: 'fr-FR', 
-            en: 'en-US' 
+            fr: 'fr-FR',
+            en: 'en-US'
         })[ lang ]}
         startTime="7:00"
         timings={(this.props.value || [] ).map( t => ( { start: t.begin, end: t.end } ) )}

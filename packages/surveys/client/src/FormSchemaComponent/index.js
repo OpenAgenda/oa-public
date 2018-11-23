@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
@@ -73,9 +71,9 @@ export default class FormSchemaComponent extends Component {
     return _.get( errors, field, null );
 
   }
-  
+
   validate( values ) {
-    
+
     try {
 
       const validate = ( new FormSchema( this.props.schema ) ).getValidate();

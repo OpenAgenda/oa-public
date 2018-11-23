@@ -1,5 +1,3 @@
-"use strict";
-
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -24,8 +22,6 @@ import CustomField from './CustomField.jsx';
 import EventKeywordsField from './EventKeywordsField.jsx';
 import languageUtils from './legacy/languageUtils';
 import MultilingualTextField from './MultilingualTextField.jsx';
-import SelectField from './SelectField.jsx';
-import TextField from './TextField.jsx';
 import TimingsPicker from './TimingsPicker.jsx';
 import translator from './translator.js';
 import Wysiwyg from './Wysiwyg.jsx';
@@ -44,9 +40,9 @@ let formErrors = {},
 
   EventForm = EventFormFactory();
 
-module.exports = EventForm;
+export default EventForm;
 
-module.exports.actionables = {
+export const actionables = {
 
   beforeSubmit: function ( cb ) {
 

@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
@@ -151,12 +149,12 @@ export default class FormSchemaComponent extends Component {
 
   _getFormSchema() {
 
-    return new FormSchema( ih( this.props.schema, { 
-      defaultLabelLanguage: { $set: this.props.lang } 
+    return new FormSchema( ih( this.props.schema, {
+      defaultLabelLanguage: { $set: this.props.lang }
     } ) );
 
   }
-  
+
 
   sanitize( values, options ) {
 
@@ -174,8 +172,8 @@ export default class FormSchemaComponent extends Component {
       if ( !_.isArray( errors ) ) throw errors;
 
       // simpler to always keep errors as arrays.
-      return { 
-        clean: null, 
+      return {
+        clean: null,
         errors: errors.map( e => {
 
           const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
@@ -234,7 +232,7 @@ export default class FormSchemaComponent extends Component {
 
       filesUpdate[ '$unset' ] = [ field ];
 
-    } 
+    }
 
     this.set( {
       files: ih( currentFiles, filesUpdate ),

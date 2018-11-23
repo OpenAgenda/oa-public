@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 
 import React, { Component } from 'react';
@@ -27,8 +25,8 @@ module.exports = class KeywordsComponent extends Component {
     const preCleaned = preClean( value, l );
 
     return <div>
-      <TagsInput 
-        value={preCleaned} 
+      <TagsInput
+        value={preCleaned}
         onChange={this.onChange.bind(this, l)}
         inputProps={{
           placeholder: field.placeholder,

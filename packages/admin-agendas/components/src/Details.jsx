@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
@@ -220,7 +218,7 @@ module.exports = createReactClass( {
     const credentials = _.get( agenda, 'config.credentials', {} );
 
     return <ul className="list-unstyled">{_.keys( credentials ).map( c =>
-      <li key={c} className="margin-v-sm"> 
+      <li key={c} className="margin-v-sm">
         <Switch
           className="rc-switch"
           checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}

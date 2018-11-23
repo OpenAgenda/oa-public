@@ -6,7 +6,7 @@ const ReactDom = require( 'react-dom' );
 
 const du = require( '@openagenda/dom-utils' );
 
-const AdminEventsHeader = require( './AdminEventsHeader.jsx' );
+const AdminEventsHeader = require( './AdminEventsHeader' );
 const removeEventWarning = require( './removeEventWarning' );
 
 const spreadsheet = require( '../../agenda/js/spreadsheet' );
@@ -79,10 +79,5 @@ function _toggler( link, body ) {
     } );
 
   } );
-
-}
-
-
-function _removeEvent( elems ) {
 
 }

@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import React, { Component } from 'react';
@@ -22,7 +20,7 @@ module.exports = class FileField extends Component {
     acceptedFiles.forEach( file => {
 
       try {
-        
+
         window.URL.revokeObjectURL( file.preview );
 
       } catch ( e ) {
@@ -42,9 +40,9 @@ module.exports = class FileField extends Component {
   render() {
 
     const labels = flattenLabels( multilingualLabels, this.props.lang );
-    
+
     const {
-      field: name, 
+      field: name,
       placeholder,
       extensions,
       store
@@ -72,7 +70,7 @@ module.exports = class FileField extends Component {
         <span className="accepted-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
       </Dropzone>
       { this.props.value ? <a
-        onClick={this.onRemove.bind( this )} 
+        onClick={this.onRemove.bind( this )}
         className="btn btn-danger margin-left-xs remove-file"
         title={labels.remove} >
         <i className="fa fa-trash"></i>

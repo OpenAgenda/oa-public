@@ -1,0 +1,7 @@
+<%- __( 'titleText', { agenda, event, beforeState: __( beforeState ), afterState: __( afterState ) } ) %>
+
+<%- __( 'actionDescription' ) %>: <%- link %>
+<% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
+<%- __( 'memberUnsubscribe' ) %>: <%- memberUnsubscribeLink %><% } %>
+<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
+<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>

@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -132,7 +130,7 @@ class Main extends Component {
   render() {
 
     return <div className="margin-top-lg container col-lg-offset-1 col-lg-10">
-      
+
       <div className="row margin-v-lg">
         <h1>Development pages index</h1>
       </div>
@@ -140,7 +138,7 @@ class Main extends Component {
       { _.uniq( devApps.map( a => a.group ) ).map( g => <div>
         <h2>{g ? _.get( groups.filter( group => g === group.slug ), '0.label' ) : 'Other' }</h2>
         {_.chunk( devApps.filter( a => a.group === g ), 4 ).map( chunk => <div className="row margin-top-md">
-          {chunk.map( app => 
+          {chunk.map( app =>
             <div className="col-lg-3" key={app.link.substr( 1 )}>
               <div className="wsq padding-v-sm padding-h-md">
                 <label>{app.name}</label>

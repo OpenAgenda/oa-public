@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -14,9 +12,9 @@ const _ = {
   get: require( 'lodash/get' )
 }
 
-const Editor = props => ( 
+const Editor = props => (
 
-  <EditorComponent {...props} /> 
+  <EditorComponent {...props} />
 
 )
 
@@ -100,17 +98,17 @@ const EditorComponent = createReactClass( {
 
   render() {
 
-    const { 
-      onShow, 
-      onSearch, 
+    const {
+      onShow,
+      onSearch,
       onSearchFocus,
-      onEventRemove, 
-      onEventAdd, 
+      onEventRemove,
+      onEventAdd,
       onSuggestionsAdd,
-      search, 
-      events, 
-      loading, 
-      getLabel, 
+      search,
+      events,
+      loading,
+      getLabel,
       info,
       suggest,
       loadingSuggestions
@@ -123,19 +121,19 @@ const EditorComponent = createReactClass( {
     return <div className="event-references">
 
       <div className="configure">
-        
+
         <label>{getLabel( 'editorTitle' )}</label>
 
         { info ? <div className="margin-bottom-sm">{ info }</div> : null }
 
         <ul className="list-unstyled references">
-          { loading ? <Spinner/> : ( 
+          { loading ? <Spinner/> : (
             events.length ? events.map( e => <li key={e.uid}><EventItem event={e} onRemove={onEventRemove} /></li> )
             : <li><span className="empty">{getLabel( 'emptyReferences' )}</span></li> )
           }
         </ul>
 
-        { search.display ? 
+        { search.display ?
 
             <div className={ displayDropdown ? 'search dropdown open' : 'search dropdown' }>
 
@@ -158,7 +156,7 @@ const EditorComponent = createReactClass( {
           <a className="btn btn-primary margin-right-sm" onClick={onShow}>{getLabel( 'addEvent' )}</a>
           { suggest ? <span>
             <span className="margin-h-sm">{getLabel( 'addEventOr' )}</span>
-            <a 
+            <a
               disabled={ disabledAddSuggestions }
               className={ disabledAddSuggestions ? 'btn margin-right-sm text-muted' : 'btn margin-right-sm' }
               onClick={onSuggestionsAdd}>{getLabel( 'addEventSuggest' )}</a>

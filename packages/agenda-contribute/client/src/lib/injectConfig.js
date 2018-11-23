@@ -1,5 +1,3 @@
-"use strict";
-
 import ih from 'immutability-helper';
 
 

@@ -1,5 +1,3 @@
-"use strict";
-
 import get from '@openagenda/utils/get'
 import clickTracker from '../../clickTracker'
 

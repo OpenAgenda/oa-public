@@ -1,19 +1,17 @@
-"use strict";
-
 import utils from '@openagenda/utils';
 
 module.exports = clean;
 
 function clean( schema ) {
-  
+
   if ( _isLeaf( schema ) ) {
 
     return utils.extend( {}, schema );
 
   }
 
-  let cleanSchema = { 
-    fields: {}, 
+  let cleanSchema = {
+    fields: {},
     list: false,
     type: 'schema'
   },

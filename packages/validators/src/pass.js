@@ -1,5 +1,3 @@
-"use strict";
-
 import extend from 'lodash/extend';
 import listify from './listify';
 
@@ -17,7 +15,7 @@ export default config => {
     field: params.field
   } );
 
-  return params.list ? listify( validator, params ) : validator;  
+  return params.list ? listify( validator, params ) : validator;
 
   function validate( v ) {
 

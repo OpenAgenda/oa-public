@@ -1,5 +1,3 @@
-"use strict";
-
 import utils from '@openagenda/utils';
 import listify from './listify';
 
@@ -38,7 +36,7 @@ module.exports = function( options, validators ) {
       let matchingValue = ( values || [] ).filter( v => v.field === validator.field );
 
       matchingValue = matchingValue.length ? matchingValue[ 0 ] : {
-        field: validator.field, 
+        field: validator.field,
         value: validator.type === 'object' ? [] : undefined
       };
 
@@ -70,7 +68,7 @@ module.exports = function( options, validators ) {
 
         try {
 
-          clean = clean.concat( 
+          clean = clean.concat(
 
             validator( matchingValue.value ).map( c => utils.extend( c, {
               field: matchingValue.field + '.' + c.field
@@ -80,7 +78,7 @@ module.exports = function( options, validators ) {
 
         } catch ( e ) {
 
-          errors = errors.concat( 
+          errors = errors.concat(
 
             e.map( objErr => utils.extend( objErr, {
               field: matchingValue.field + '.' + objErr.field

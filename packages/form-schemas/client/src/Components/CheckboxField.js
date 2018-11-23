@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Fragment } from 'react';
 
 module.exports = props => {

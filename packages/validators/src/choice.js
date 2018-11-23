@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash/core';
 
 export default config => {
@@ -60,9 +58,9 @@ export default config => {
 
     return clean;
 
-  }, { 
+  }, {
     type: 'choice',
-    field: params.field 
+    field: params.field
   } );
 
 }
@@ -73,7 +71,7 @@ function _getError( params, origin, error ) {
     origin
   }, params.field ? { field: params.field } : {}, error );
 
-} 
+}
 
 function _getMinMaxError( params, origin, code ) {
 

@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
@@ -56,8 +54,8 @@ function evaluate( step, requested = false ) {
 
     if ( !memberConfig.dataIsRequired || isMemberValid( state.member ) ) {
 
-      authorizedRoutes.push( base + ( 
-        draftEvent ? `/event/${_.get( state, 'event.uid' )}/draft` : '/event' 
+      authorizedRoutes.push( base + (
+        draftEvent ? `/event/${_.get( state, 'event.uid' )}/draft` : '/event'
       ) );
 
     }

@@ -540,8 +540,13 @@ var ugly = require( 'uglify-js' ),
         colors: true,
         reasons: true,
         modules: false,
+        moduleTrace: true,
         errorDetails: true,
-        warnings: false
+        warnings: true,
+        warningsFilter: [
+          /ejs\/lib\/ejs/,
+          /jsondiffpatch/
+        ]
       } ) );
 
       if ( !watch ) {

@@ -1,5 +1,3 @@
-"use strict";
-
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
 

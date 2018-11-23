@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 
 module.exports = class WigglyPoofComponent extends Component {
@@ -15,15 +13,15 @@ module.exports = class WigglyPoofComponent extends Component {
   onChange( e, value ) {
 
     e.preventDefault();
-    
+
     this.props.onChange( e.target.value );
 
   }
 
   render() {
-    
+
     const {
-      field: name, 
+      field: name,
       placeholder
     } = this.props.field;
 
@@ -37,7 +35,7 @@ module.exports = class WigglyPoofComponent extends Component {
       placeholder,
       onChange: this.onChange
     }
-   
+
     return <input { ...fieldProps } />
 
   }
