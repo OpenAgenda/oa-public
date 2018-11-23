@@ -18,7 +18,7 @@ module.exports = {
   // better to have a dist file in dev mode for local troubleshooting
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   context: __dirname,
-  // defaults at true 
+  // defaults at true
   optimization: { minimize: true },
   entry: [
     //'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
@@ -60,13 +60,7 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader',
-        options: {
-          plugins: [
-            'lodash'
-          ],
-          babelrc: true
-        }
+        loader: 'babel-loader'
       }
     }, {
       test: /\.css$/,

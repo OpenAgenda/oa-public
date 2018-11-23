@@ -1,14 +1,11 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
+const logger = require( '@openagenda/logger' );
+const appServiceAgendas = require( './agenda' );
 
-const appServiceAgendas = require( './agenda' ),
-
-  _ = require( 'lodash' ),
-
-  logger = require( '@openagenda/logger' );
-
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
   function _query( queryStr, values, cb ) {
 
@@ -31,7 +28,7 @@ module.exports.init = ( config, cb ) => {
 
   }
 
-  agendaCategories.init( {
+  await promisify( agendaCategories.init )( {
     store: {
       query: _query
     },
@@ -40,6 +37,6 @@ module.exports.init = ( config, cb ) => {
     },
     logger,
     interfaces: appServiceAgendas.tagsAndCategories
-  }, cb );
+  } );
 
 }

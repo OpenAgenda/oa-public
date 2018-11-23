@@ -34,37 +34,12 @@ function userSettings( state = initialState, action ) {
         ...state,
         successMessagesDisplayed: { ...state.successMessagesDisplayed, [action.name]: action.visible }
       }
-    case types.LIST_UNSUBSCRIPTIONS:
-      return listUnsubscriptions( state, action.status, action.data );
-    case types.REMOVE_UNSUBSCRIPTION:
-      return removeUnsubscription( state, action.status, action.data );
     default:
       return state;
   }
 
 }
 
-
-function removeUnsubscription( state, status, data = {} ) {
-  switch ( status ) {
-    case 'response':
-      return {
-        ...state,
-        unsubscriptions: state.unsubscriptions.filter( v => v.id !== data.unsubscription.id )
-      };
-    default:
-      return state;
-  }
-}
-
-function listUnsubscriptions( state, status, data = {} ) {
-  switch ( status ) {
-    case 'response':
-      return { ...state, unsubscriptions: data.unsubscriptions };
-    default:
-      return state;
-  }
-}
 
 function getMe( state, status, data = {} ) {
   switch ( status ) {

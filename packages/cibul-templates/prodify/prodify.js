@@ -4,8 +4,6 @@ var ugly = require( 'uglify-js' ),
 
   path = require( 'path' ),
 
-  util = require( 'util' ),
-
   files = require( './files.js' ).files, // ye olde prodify reference
 
   destPath = require( './files.js' ).destPath,
@@ -26,7 +24,7 @@ var ugly = require( 'uglify-js' ),
 
   sass = require( 'node-sass' ),
 
-  map = JSON.parse( fs.readFileSync( __dirname + '/../map.json', "utf8" ) ),
+  map = require( '../map' ),
 
   cn = require( '../js/lib/common/common.mod.js' ),
 
@@ -546,7 +544,9 @@ var ugly = require( 'uglify-js' ),
         warnings: false
       } ) );
 
-      cb();
+      if ( !watch ) {
+        cb();
+      }
 
     } );
 
@@ -612,11 +612,16 @@ for ( var i = 2; i < process.argv.length; i++ ) {
       break;
     default:
       buildFilter.push( process.argv[ i ] );
+
   }
 }
 
 if ( process.env.NODE_ENV === 'development' ) {
   production = false;
+}
+
+if ( buildFilter.length ) {
+  process.env.DISABLE_WEBPACK_CACHE = true;
 }
 
 run();

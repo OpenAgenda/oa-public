@@ -6,6 +6,8 @@ import OaSdk from '../src';
 import testconfig from '../testconfig';
 
 describe( 'connection', () => {
+  jest.setTimeout(10000);
+
   it( 'simple connect', async () => {
     const oa = new OaSdk( { secretKey: testconfig.secretKey } );
     await oa.connect();

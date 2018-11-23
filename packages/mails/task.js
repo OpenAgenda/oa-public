@@ -1,14 +1,42 @@
+const _ = require( 'lodash' );
 const logs = require( '@openagenda/logs' );
+const templater = require( './templater' );
 const config = require( './config' );
 
 const log = logs( 'mails/task' );
 
 // single sending
-async function sendMail( data ) {
+async function sendMail( params ) {
   try {
-    await config.transporter.sendMail( data );
+    if ( typeof config.sendFilter === 'function' ) {
+      const allowed = await config.sendFilter( params );
+
+      if ( !allowed ) {
+        log.info( 'Sending filtered', { recipient: params.to, template: params.template } );
+        return;
+      }
+    }
+
+    if ( typeof config.beforeSend === 'function' ) {
+      await config.beforeSend( params );
+    }
+
+    const labels = ( config.translations.labels || {} )[ params.template ] || {};
+    params.data.__ = config.translations.makeLabelGetter( labels, params.data.lang );
+
+    Object.assign( params.data, config.defaults.data );
+
+    const defaultLang = params.lang || config.defaults.lang;
+    const result = await templater.render( params.template, params.data, {
+      ..._.pick( params, 'disableHtml', 'disableText', 'disableSubject' ),
+      lang: defaultLang
+    } );
+
+    Object.assign( params, result );
+
+    await config.transporter.sendMail( params );
   } catch ( error ) {
-    log.error( 'Error on sending email', { data, error } );
+    log.error( 'Error on sending email', { params, error } );
   }
 }
 

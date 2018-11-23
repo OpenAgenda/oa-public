@@ -1,12 +1,12 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const aggregatorSources = require( '@openagenda/aggregator-sources' );
-
 const agendas = require( '@openagenda/agendas' );
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
-  aggregatorSources.init( {
+  await promisify( aggregatorSources.init )( {
     mysql: config.db,
     schemas: config.schemas,
     image: {
@@ -23,6 +23,6 @@ module.exports.init = ( config, cb ) => {
 
       }
     }
-  }, cb );
+  } );
 
 }

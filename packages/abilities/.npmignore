@@ -1,0 +1,14 @@
+.idea/
+.npmignore
+node_modules/
+package-lock.json
+yarn.lock
+npm-debug.log
+yarn-error.log
+
+.cache/
+testconfig.js
+test/
+src/
+.storybook/
+storybook-static/

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import update from 'immutability-helper';
 
-import CategorySelector from '@openagenda/agenda-categories/lib/CategorySelector.jsx';
+import CategorySelector from '@openagenda/agenda-categories/build/CategorySelector';
 import flattenLabels from '@openagenda/labels/flatten';
 import formLabels from '@openagenda/labels/event/form';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
@@ -14,7 +14,7 @@ import Modal from '@openagenda/react-components/build/Modal';
 import References from '@openagenda/agenda-event-references/react/build/Editor';
 import Registration from '@openagenda/registration/lib/Registration.js';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import TagSelector from '@openagenda/agenda-tags/lib/TagSelector.jsx';
+import TagSelector from '@openagenda/agenda-tags/build/TagSelector';
 import Translation from '@openagenda/react-form-components/build/Translation'; // suspected missing key prop
 import translationLabels from '@openagenda/labels/event/translation';
 
@@ -150,7 +150,7 @@ function EventFormFactory() {
       return '\n' + progress.map( lang => ( {
         en: 'English',
         fr: 'Français',
-        it: 'Italiano', 
+        it: 'Italiano',
         es: 'Español',
         de: 'Deutsch'
       } )[ lang ] ).join( ' → ' )
@@ -736,7 +736,7 @@ function EventFormFactory() {
 
           return renderTranslator();
 
-        } 
+        }
 
         if ( o.field === 'conditions' ) {
 

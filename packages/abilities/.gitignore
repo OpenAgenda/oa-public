@@ -1,0 +1,11 @@
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
+yarn-error.log
+coverage/
+
+.cache/
+testconfig.js
+build/
+storybook-static/

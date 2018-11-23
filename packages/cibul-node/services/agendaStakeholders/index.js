@@ -1,10 +1,10 @@
 "use strict";
 
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
+const { promisify } = require( 'util' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const logger = require( '@openagenda/logger' );
 
-  logger = require( '@openagenda/logger' ),
-
-  interfaces = {
+const interfaces = {
     onMessage: require( './onMessage' ),
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
@@ -16,14 +16,14 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
     getEventCount: require( './getEventCount' )
   }
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
   // set interface log functions
   Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces/' + k ) ) );
 
   require( './lib/sendStakeholderInvitation' ).setLog( logger( 'agendaStakeholders/sendStakeholderInvitation' ) );
 
-  agendaStakeholders.init( {
+  await promisify( agendaStakeholders.init )( {
     queue: {
       names: {
         bulk: config.queues.stakeholderCreate,
@@ -36,6 +36,6 @@ module.exports.init = ( config, cb ) => {
     mysql: config.db,
     logger: config.getLogConfig( 'svc', 'agendaStakeholders' ),
     interfaces
-  }, cb );
+  } );
 
 }

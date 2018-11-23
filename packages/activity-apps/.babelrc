@@ -1,37 +1,6 @@
 {
   "presets": [
-    "react",
-    "es2015"
+    "openagenda"
   ],
-  "plugins": [
-    "transform-runtime",
-    "add-module-exports",
-    "transform-decorators-legacy",
-    "transform-react-display-name",
-
-    "transform-object-rest-spread",
-    "transform-class-properties",
-    "transform-export-extensions",
-    "transform-function-bind"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        [
-          "react-transform",
-          {
-            "transforms": [
-              {
-                "transform": "react-transform-catch-errors",
-                "imports": [
-                  "react",
-                  "redbox-react"
-                ]
-              }
-            ]
-          }
-        ]
-      ]
-    }
-  }
+  "sourceType": "unambiguous"
 }

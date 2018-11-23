@@ -2,7 +2,7 @@
 
 var should = require( 'should' ),
 
-actions = require( '../components/build/actions' );
+actions = require( '../components/src/actions' );
 
 describe( 'actions', function() {
 
@@ -11,7 +11,7 @@ describe( 'actions', function() {
     actions.tests.addLocation( {
       locations: [
         { name: 'second' },
-        { name: 'third' } 
+        { name: 'third' }
       ]
     }, { name: 'first' } )
 
@@ -24,7 +24,7 @@ describe( 'actions', function() {
       ]
     } );
 
-  } );  
+  } );
 
   it( 'updateEditedLocation - updates one location and closes form', () => {
 
@@ -41,7 +41,7 @@ describe( 'actions', function() {
     } );
 
   } );
-  
+
 
   it( 'updateEditedLocation - updates one location in list', () => {
 
@@ -139,6 +139,6 @@ describe( 'actions', function() {
     .should.eql( { random: 0 } );
 
   } );
-  
+
 
 } );

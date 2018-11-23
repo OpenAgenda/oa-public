@@ -1,19 +1,8 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import moment from 'moment';
 
-module.exports = {
-  pickLang,
-  getTimeBrackets,
-  getMonth,
-  spreadEventsOnDateTimings,
-  flattenTargetedLabels,
-  appendMoreItem
-}
-
-function appendMoreItem( labels, eventItems, view ) {
+export function appendMoreItem( labels, eventItems, view ) {
 
   return eventItems.sort( ( e1, e2 ) => e1.begin > e2.begin ).concat( {
     type: 'more',
@@ -26,7 +15,7 @@ function appendMoreItem( labels, eventItems, view ) {
 
 }
 
-function flattenTargetedLabels( keys, targetLang, obj ) {
+export function flattenTargetedLabels( keys, targetLang, obj ) {
 
   return _.keys( obj ).reduce( ( flatObj, key ) => {
 
@@ -46,7 +35,7 @@ function flattenTargetedLabels( keys, targetLang, obj ) {
 
 }
 
-function pickLang( multi, preferredLang ) {
+export function pickLang( multi, preferredLang ) {
 
   if ( multi[ preferredLang ] ) return multi[ preferredLang ];
 
@@ -54,7 +43,7 @@ function pickLang( multi, preferredLang ) {
 
 }
 
-function getMonth( d ) {
+export function getMonth( d ) {
 
   if ( !d ) d = new Date();
 
@@ -62,7 +51,7 @@ function getMonth( d ) {
 
 }
 
-function getWeekBrackets( d ) {
+export function getWeekBrackets( d ) {
 
   const end = new Date( d );
 
@@ -77,14 +66,14 @@ function getWeekBrackets( d ) {
   end.setDate( begin.getDate() + 6 );
 
 
-  return [ 
-    getDateString( begin ), 
+  return [
+    getDateString( begin ),
     getDateString( end )
   ]
 
 }
 
-function getTimeBrackets( type, d ) {
+export function getTimeBrackets( type, d ) {
 
   if ( ![ 'week', 'month' ].includes( type ) ) {
 
@@ -98,7 +87,7 @@ function getTimeBrackets( type, d ) {
 
 }
 
-function getMonthBrackets( d ) {
+export function getMonthBrackets( d ) {
 
   const begin = getMonth( d ) + '-01';
 
@@ -112,19 +101,19 @@ function getMonthBrackets( d ) {
 
 }
 
-function getDateString( d ) {
+export function getDateString( d ) {
 
   return [ d.getFullYear(), fZ( d.getMonth()+1 ), fZ( d.getDate() ) ].join( '-' );
 
 }
 
-function spreadEventsOnDateTimings( events, targetDate /*YYYY-MM-DD*/ ) {
+export function spreadEventsOnDateTimings( events, targetDate /*YYYY-MM-DD*/ ) {
 
   return events.reduce( ( processed, event ) => {
 
     const timelessEvent = _.omit( event, [ 'timings' ] );
 
-    return processed.concat( 
+    return processed.concat(
       event.timings.filter( t => moment( t.begin ).format( 'YYYY-MM-DD' ) === targetDate )
       .map( t => ih( timelessEvent, {
         key: { $set: timelessEvent.uid + '/' + targetDate },
@@ -134,11 +123,11 @@ function spreadEventsOnDateTimings( events, targetDate /*YYYY-MM-DD*/ ) {
       } ) )
     );
 
-  }, [] );   
+  }, [] );
 
 }
 
-function fZ( n ) {
+export function fZ( n ) {
 
   return n < 10 ? '0' + n : n;
 

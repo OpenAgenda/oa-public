@@ -88,6 +88,8 @@ async function getSenderName( { inboxUser, conversation, message } ) {
     } )).title;
   } else if ( msg.data.inbox.type === 'user' ) {
     return (await usersSvc.get( msg.data.inbox.identifier, { removed: false, detailed: true } )).fullName;
+  } else if ( msg.data.inbox.type === 'support' ) {
+    return 'Support - OpenAgenda';
   }
 }
 
@@ -158,7 +160,10 @@ async function sendMail( { inboxUser, conversation, message } ) {
 
   return mails( {
     template: 'inboxMessage',
-    to: user.email,
+    to: {
+      address: user.email,
+      memberId: stakeholder && stakeholder.id
+    },
     data: {
       subject,
       logo,

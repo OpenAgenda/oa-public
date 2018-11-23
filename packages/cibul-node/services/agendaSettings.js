@@ -1,20 +1,18 @@
 "use strict";
-
+const { promisify } = require( 'util' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
+const agendas = require( '@openagenda/agendas' );
+const logger = require( '@openagenda/logger' );
 
-const agendas = require( '@openagenda/agendas' ),
+module.exports.init = async config => {
 
-  logger = require( '@openagenda/logger' );
-
-module.exports.init = ( config, cb ) => {
-
-  agendaSettings.init( {
+  await promisify( agendaSettings.init )( {
     services: {
       agendas
     },
     mysql: config.db,
     schemas: config.schemas,
     logger
-  }, cb );
+  } );
 
 }

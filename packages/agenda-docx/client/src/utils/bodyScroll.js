@@ -2,13 +2,9 @@
 
 const du = require( './dom' );
 
-module.exports = {
-  enable,
-  disable
-}
 
 // remove overflow:hidden from body
-function enable() {
+export function enable() {
 
   const bodyElem = du.el( 'body' );
 
@@ -23,7 +19,7 @@ function enable() {
 }
 
 // add overflow:hidden to body
-function disable() {
+export function disable() {
 
   const bodyElem = du.el( 'body' );
 
@@ -38,7 +34,7 @@ function disable() {
 }
 
 function _stringifyStyle( style ) {
-  
+
   return Object.keys( style ).filter( k => !!k.length ).map( k => k + ':' + style[ k ] ).join( ';' );
 
 }

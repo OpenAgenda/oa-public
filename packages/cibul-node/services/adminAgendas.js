@@ -1,18 +1,15 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const adminAgendas = require( '@openagenda/admin-agendas' );
-
-const logger = require( '@openagenda/logger' ),
-
-  agendaStakeholders = require( '@openagenda/agenda-stakeholders' ),
-
-  agendas = require( '@openagenda/agendas' );
-
+const logger = require( '@openagenda/logger' );
+const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const agendas = require( '@openagenda/agendas' );
 const credentials = require( '@openagenda/agendas/service/validate/privateFields' ).credentials;
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
-  adminAgendas.init( {
+  await promisify( adminAgendas.init )( {
     services: {
       agendas,
       agendaStakeholders
@@ -23,6 +20,6 @@ module.exports.init = ( config, cb ) => {
     mysql: config.db,
     schemas: config.schemas,
     logger
-  }, cb );
+  } );
 
-}
+};

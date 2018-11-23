@@ -162,7 +162,9 @@ const config = {
       conversation: 'inboxes_conversation',
       inboxConversation: 'inboxes_inbox_conversation',
       message: 'inboxes_message',
-      messageAttachment: 'inboxes_message_attachment'
+      messageAttachment: 'inboxes_message_attachment',
+      rule: 'rule',
+      unsubscriptionLink: 'unsubscription_link'
     },
     auth: {
       local: {
@@ -278,6 +280,10 @@ const config = {
       apiKey: prod.mailjet.apiKey,
       apiSecret: prod.mailjet.apiSecret,
       contactsListId: prod.mailjet.contactsListId
+    },
+    mailgun: {
+      domain: prod.mailgun.domain,
+      apiKey: prod.mailgun.apiKey
     },
     oembed: {
       res: 'https://iframe.ly/api/oembed',

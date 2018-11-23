@@ -1,11 +1,10 @@
 "use strict";
 
-
 const webpack = require( 'webpack' );
-const UglifyJsPlugin = require( 'uglifyjs-webpack-plugin' );
+const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
-const ourOwnModules = require( './ourOwnModules.json' );
+
 
 module.exports = ( { entry, output } ) => ( {
   mode: 'production',
@@ -15,18 +14,10 @@ module.exports = ( { entry, output } ) => ( {
     rules: [
       {
         test: /\.jsx?$/,
-        enforce: 'pre',
-        loader: 'source-map-loader'
-      },
-      {
-        test: /\.jsx?$/,
-        exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: getCacheDir( 'babel-loader' ),
-            forceEnv: 'production'
-          }
+        loader: 'babel-loader',
+        exclude: /node_modules/,
+        options: {
+          cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-prod' )
         }
       },
       {
@@ -52,19 +43,14 @@ module.exports = ( { entry, output } ) => ( {
   },
   optimization: {
     minimizer: [
-      new UglifyJsPlugin( {
-        cache: getCacheDir( 'uglifyjs-webpack-plugin' ),
-        // parallel: true,
-        uglifyOptions: {
-          compress: true,
-          mangle: true,
-          // fromString: true
-        }
+      new TerserPlugin( {
+        cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
+        // parallel: true
       } )
     ]
   },
   plugins: [
-    new ProgressBar(),
+    new ProgressBar( { minimal: false } ),
     new webpack.DefinePlugin( {
       'process.env.NODE_ENV': '"production"',
       __CLIENT__: true,

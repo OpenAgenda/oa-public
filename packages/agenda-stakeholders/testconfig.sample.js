@@ -23,7 +23,7 @@ module.exports = {
       cb( null, {
         id: identifiers.id || 123,
         uid: 128492293,
-        user_name: 'Zorg',
+        fullName: 'Zorg',
         email: identifiers.email || 'zorg@galactic.uv'
       } );
 

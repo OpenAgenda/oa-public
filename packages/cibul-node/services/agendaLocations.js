@@ -1,5 +1,7 @@
 "use strict";
 
+const { promisify } = require( 'util' );
+
 const _ = require( 'lodash' );
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
@@ -10,13 +12,11 @@ const agendas = require( '@openagenda/agendas' );
 
 const logger = require( '@openagenda/logger' );
 
-const { promisify } = require( 'util' );
-
 const agendaGet = promisify( agendas.get );
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
-  agendaLocations.init( {
+  await promisify( agendaLocations.init )( {
     geocodefarm: config.geocodeFarm,
     redis: config.redis,
     elasticsearch: {
@@ -72,7 +72,7 @@ module.exports.init = ( config, cb ) => {
       }
     }, internalEventSvc.locations ),
     logger
-  }, cb );
+  } );
 
 }
 

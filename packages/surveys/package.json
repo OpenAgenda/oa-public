@@ -17,7 +17,7 @@
   "dependencies": {
     "@openagenda/form-schemas": "^1.1.21",
     "@openagenda/labels": "^2.0.79",
-    "babel-plugin-lodash": "^3.3.2",
+    "babel-core": "^7.0.0-bridge.0",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
     "express": "^4.16.2",
@@ -30,29 +30,24 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
     "@openagenda/bs-templates": "^2.0.78",
-    "babel-core": "^6.26.0",
-    "babel-jest": "^22.4.1",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-lodash": "^3.3.2",
-    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
-    "babel-plugin-transform-es3-property-literals": "^6.22.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-minify": "^0.3.0",
-    "babel-preset-react": "^6.24.1",
+    "babel-jest": "^23.6.0",
+    "babel-loader": "^8.0.4",
+    "babel-preset-openagenda": "^1.0.0",
     "compression-webpack-plugin": "^1.1.11",
     "jest": "^22.0.6",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.15.0",
     "webpack": "^4.5.0",
-    "webpack-cli": "^2.1.3",
+    "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^2.0.5",
     "webpack-hot-middleware": "^2.21.0",
     "webpack-s3-plugin": "^1.0.0-rc.0"
   },
   "jest": {
+    "testURL": "http://localhost/",
     "testMatch": [
       "<rootDir>/test/*.js"
     ]

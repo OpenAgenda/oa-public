@@ -83,6 +83,7 @@ app.get( '/', async ( req, res, next ) => {
     res.send(
       [
         '<html>',
+        '<head><title>Mails Editor 🎉</title></head>',
         '<body>',
         '<h1>Templates list</h1>',
         '<ul>',
@@ -149,8 +150,10 @@ app.get( /.mjml$/, async ( req, res, next ) => {
       return res.send( req.query.ignoreReload ? html : withReload( html ) );
     }
     case 'text': {
-      const textPage = `<html><body>${text}</body></html>`;
-      return res.send( req.query.ignoreReload ? textPage : withReload( textPage ) );
+      const textPage = `<html><body><pre>${text}</pre></body></html>`;
+      return res.send(
+        (req.query.ignoreReload ? textPage : withReload( textPage ) )
+      );
     }
     case 'subject': {
       const subjectPage = `<html><body>${subject}</body></html>`;
@@ -170,7 +173,9 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   iframeSrc.searchParams.set( 'ignoreReload', '1' );
 
   const initialHtml = [
-    '<html><body style="margin: 0">',
+    '<html>',
+    '<head><title>Mails Editor 🎉</title></head>',
+    '<body style="margin: 0">',
     '<script>',
     '  function resizeIframe( obj ) {',
     "    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';",

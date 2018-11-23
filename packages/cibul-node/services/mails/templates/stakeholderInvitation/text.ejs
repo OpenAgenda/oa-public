@@ -9,3 +9,7 @@
   : __( 'description', { agenda, credential: __( credential ) } ) %>
 
 <%- __( isStakeholder ? 'showAgenda' : 'signup' ) %>: <%- link %>
+
+<%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
+<% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>
+

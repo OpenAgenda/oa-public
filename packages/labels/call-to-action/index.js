@@ -71,7 +71,7 @@ module.exports = {
   },
   requestMessageAdvancedEmbed: {
     fr: 'Vous voulez un contrôle complet sur la présentation de votre agenda intégré?\n\nLa personnalisation des gabarits vous permettra de définir vous-même les éléments à afficher ainsi que leurs agencement.\n\nNous pouvons également vous proposer une prestation d\'intégration de votre agenda en marque blanche sur votre site\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !',
-    en: 'Do you need complete control over the presentation of your integrated agenda?\n\nTemplate customization will give you the tools to define precisely what to display and where to display it.\n\nOur team can also offer to integrate your agenda according to your requirements.\n\nGive us details on your requirements and we\'ll get back to you shortly!'    
+    en: 'Do you need complete control over the presentation of your integrated agenda?\n\nTemplate customization will give you the tools to define precisely what to display and where to display it.\n\nOur team can also offer to integrate your agenda according to your requirements.\n\nGive us details on your requirements and we\'ll get back to you shortly!'
   },
 
   requestTitlePublicAgenda: {
@@ -116,8 +116,8 @@ module.exports = {
   },
 
   requestTitleWriteToAll: {
-    fr: 'Demande d\'activation de la fonction "écrire à tous"',
-    en: 'Request to activate the "write to all" function'
+    fr: 'Demande d\'activation de la fonction "Leur écrire"',
+    en: 'Request to activate the "Write to them" function'
   },
   requestMessageWriteToAll: {
     fr: 'Envoyez un message à tous les membres de votre agenda ou envoyez une relance personnalisée à tous les membres n\'ayant pas encore contribué.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !',

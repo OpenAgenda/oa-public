@@ -7,15 +7,12 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
 } );
 
 const _ = require( 'lodash' );
-const isEmail = require( 'isemail' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const mails = require( '@openagenda/mails' );
 const sessions = require( '@openagenda/sessions' );
 const formSchemasSvc = require( '@openagenda/form-schemas' );
 const customSvc = require( '@openagenda/custom' );
 const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
-const unsubscribedSvc = require( '@openagenda/unsubscribed' );
-
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
@@ -223,16 +220,7 @@ async function eventMailSend( req, res, next ) {
       }
     }
 
-    const extractedEmails = _extractEmails( req.body.mailsend );
-    const unsubscribedEmails = ( await unsubscribedSvc( 0 )
-      .list( {
-        type: 'eventEmail',
-        subject: 'email',
-        identifier: extractedEmails,
-      } ) )
-      .unsubscriptions
-      .map( _.property( 'identifier' ) );
-    const emails = _.difference( extractedEmails, unsubscribedEmails );
+    const emails = ( typeof req.body.mailsend === 'string' ? req.body.mailsend : '' ).split( /[\s;,\n\r]+/ );
 
     req.log( 'will send event as email to %s', emails.join( ', ' ) );
 
@@ -254,22 +242,18 @@ async function eventMailSend( req, res, next ) {
 
     await mails( {
       template: 'event',
-      to: emails.map( address => ({
-        address,
-        data: {
-          unsubscribeLink: config.root + unsubscribedSvc.app.genUrl( 'add', {
-            userUid: 0,
-            type: 'eventEmail',
-            subject: 'email',
-            identifier: address
-          } )
-        }
-      }) ),
+      to: emails,
       data: {
         logo,
         link,
         agendaTitle: req.agenda.title,
-        event: req.formatted,
+        event: {
+          ...req.formatted,
+          ..._.mapValues(
+            _.pick( req.formatted, 'placeName', 'address', 'region', 'city', 'postalCode' ),
+            v => v.toString()
+          )
+        },
         customData,
         map: {
           name: req.formatted.placeName,
@@ -400,19 +384,5 @@ function _emailAction( req, res, next ) {
   }
 
   next();
-
-}
-
-function _extractEmails( emailsString ) {
-
-  if ( typeof emailsString !== 'string' ) {
-
-    throw 'arg must be a string containing emails';
-
-  }
-
-  return emailsString
-    .split( /[\s;,\n\r]+/ )
-    .filter( v => isEmail.validate( v ) );
 
 }

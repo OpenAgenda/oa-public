@@ -1,0 +1,36 @@
+language: node_js
+
+node_js:
+  - '10'
+  - '8'
+
+sudo: false
+
+install: yarn
+
+before_install:
+  - openssl aes-256-cbc -k "$secret_password" -in secrets.tar.enc -out secrets.tar -d
+  - tar xvf secrets.tar
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
+
+cache:
+  yarn: true
+  directories:
+    - 'node_modules'
+
+services:
+  - redis-server
+
+script:
+  - yarn test --runInBand
+
+after_success:
+  - yarn codecov
+
+notifications:
+  email: false
+
+env:
+  global:
+    secure: n8wvYFm1rONsjOlc7C7GJ50Tciho+kcr4XILe/y+cLipVYGYUP4tsMKe4taXRWfpyZszCmOHGlyx/1WjqdSeYMZPNoVgy/DnQRhMyT63TlF9j8y9aZG9mvMmdtmLEcblZP6nDu0a0m5flvYMzUQ1UAZ7SJ3FFKkTTZvBjPZVyAogdaI9MxbFP6++7yfuYCuu3VKmYLqIjUXXKT/mo5Y+rBRiQkGxwGLfQ9OSzMRfP6Mf3iTazOHHI451B2k2MAOsPsO88j6QOTyUC7Ly7bz0e7VXrncJghaNDncrJhoYnmoY/U/FBDVshtsa7L2x2Wbv2OCINQ/t0yce18AhqvWR7ZEBeswvDmszqFLZtg3aG9Pmdq/LWmGdU9KmocN9KRyzH9Qe+8gx/lkx6eGnxih4MUxBm/YU8QJFae4q+ixR0hshIu7Tj+Fm5zVHwpmPLywc/D8vYXBlTYknMpAPSGETtYv/l7PyzmR3AI2iFEKqDaEFNNlFy8PnwWPyYCfNKLmlG2s3/iv2ZrVMLeEStOSKUQa+/t95eqBLKxWaieXSst2SD9r4lyzI3W2bS/A87vm9EotqMwDL4FDGrglAu1Vf0cPbqUWkZZ9vNZ2KfdbEVF8Gkg3GXu/1TENFphfo+6CcAfKE1UbuPHCOYa9ljKMWr5JdUO6XXBaStJ7g62PVAfc=

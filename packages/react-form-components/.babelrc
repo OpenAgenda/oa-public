@@ -1,12 +1,6 @@
 {
   "presets": [
-    "react",
-    "es2015"
+    "openagenda"
   ],
-  "plugins": [
-    "add-module-exports",
-    "transform-decorators-legacy",
-    "transform-react-display-name",
-    "transform-class-properties"
-  ]
+  "sourceType": "unambiguous"
 }

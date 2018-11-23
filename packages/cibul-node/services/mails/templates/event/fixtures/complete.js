@@ -60,9 +60,10 @@ module.exports = {
     zoom : 14,
     accessToken : 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow'
   },
-
   link: 'https://d.openagenda.com/test-zi/events/atelier-de-fabrication-de-bombe-pour-enfant',
-  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/email/i/kevin.bertho@gmail.com/t/eventEmail'
+  isRegisteredUser: true,
+  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/email/i/kevin.bertho@gmail.com/t/eventEmail',
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/event' );
