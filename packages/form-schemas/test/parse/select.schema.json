@@ -57,7 +57,8 @@
       ],
       "fieldType": "radio",
       "enableWith" : null,
-      "related" : []
+      "related" : [],
+      "default" : null
     }
   ]
 }

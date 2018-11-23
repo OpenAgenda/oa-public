@@ -96,6 +96,7 @@ describe( 'deriving validators', () => {
       field: 'anotherfield',
       label: { fr: 'Un nombre' },
       fieldType: 'number',
+      default: 13,
       min: 2
     }, {
       field: 'andanotherfield',
@@ -118,13 +119,12 @@ describe( 'deriving validators', () => {
 
     const clean = s( {
       atextfield: 'Some text',
-      anotherfield: 12,
       andanotherfield: 1
     } );
 
     clean.should.eql( {
       atextfield: 'Some text',
-      anotherfield: 12,
+      anotherfield: 13,
       andanotherfield: 1
     } );
 

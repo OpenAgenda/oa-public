@@ -24,6 +24,20 @@ class Main extends Component {
           "optional" : false,
           "languages" : [ "fr" ],
           "label" : "N'importe quoi en français"
+        }, {
+          "field": "amultilfieldwithdefault",
+          "fieldType" : "text",
+          "optional" : false,
+          "languages" : [ "fr", "en" ],
+          "default" : "William",
+          "label" : "La même valeur par défaut pour toutes les langues"
+        }, {
+          "field": "amultilfieldwithmultidefault",
+          "fieldType" : "text",
+          "optional" : false,
+          "languages" : [ "fr", "en", "it" ],
+          "default" : { "en" : "William", "fr" : "Guillaume" },
+          "label" : "Une valeur par défaut par langue"
         } ]
       }
     }

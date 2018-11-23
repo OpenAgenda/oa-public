@@ -6,7 +6,7 @@ const should = require( 'should' );
 
 const parseCustomFields = require( '../server/legacy/parseCustomFields' );
 
-describe( 'form-schemas - unit (server): legacy custom fields', function() {
+describe( 'form-schemas -08- unit (server): legacy custom fields', function() {
 
   it( 'text custom field to schema', () => {
 

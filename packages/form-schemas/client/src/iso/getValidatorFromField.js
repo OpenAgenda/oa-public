@@ -76,6 +76,8 @@ module.exports = ( field, options = {} ) => {
 
   const validatorOptions = _.assign( _.pick( field, [ 'field', 'optional', 'enableWith' ] ), draft ? { optional: true , type } : { type } );
 
+  validatorOptions.default = _.get( field, 'default', null );
+
   if ( !matchingMapItem ) {
 
     if ( !_.get( customValidators, field.fieldType ) && !validators[ field.fieldType ] ) throw new Error( 'Unknown field type' );

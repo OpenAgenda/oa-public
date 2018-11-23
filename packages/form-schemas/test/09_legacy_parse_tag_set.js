@@ -112,7 +112,8 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           "placeholder" : null,
           "origin" : "tags",
           enableWith : null,
-          related: []
+          related: [],
+          default: null
         },
         {
           "field": "style-musical",
@@ -155,7 +156,8 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           "fieldType": "radio",
           "origin" : "tags",
           enableWith : null,
-          related: []
+          related: [],
+          default: null
         }
       ],
       custom: null
@@ -232,6 +234,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         "origin" : "categories",
         "sub" : null,
         enableWith : null,
+        default: null,
         related: []
       } ]
     } );

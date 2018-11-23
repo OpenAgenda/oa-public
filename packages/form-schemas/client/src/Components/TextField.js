@@ -28,7 +28,8 @@ module.exports = class TextField extends Component {
     const {
       field: name, 
       placeholder,
-      fieldType
+      fieldType,
+      default: defaultValue
     } = this.props.field;
 
     const { value, onChange, enabled } = this.props;
@@ -37,7 +38,7 @@ module.exports = class TextField extends Component {
       name,
       rows: 3,
       className: 'form-control',
-      value: value || '',
+      value: value || defaultValue || '',
       placeholder,
       onChange: this.onChange,
       disabled: !enabled

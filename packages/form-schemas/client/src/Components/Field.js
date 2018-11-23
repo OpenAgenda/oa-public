@@ -52,7 +52,7 @@ module.exports = class Field extends Component {
     } = this.props;
 
     const isEnabled = isFieldEnabled( field, relatedValues );
-
+    
     return <div className={className + ' ' + classNames( {
       disabled : !isEnabled,
       'has-error' : !!error,

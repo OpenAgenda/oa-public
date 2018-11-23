@@ -45,11 +45,12 @@ module.exports.categories = ( formSchema, c ) => {
 
 function _parseGroup( g, i, type = 'tag' ) {
 
-  const field = g.name ? slug( g.name, { lower: true } ) : type + '-group' + ( i ? '-' + i : '' );
+  const field = g.name ? slug( g.name, { lower: true } ) : type + '-group' + ( i ? '-' + i : '' );
 
   return _.extend( {
     field,
     optional: !g.required,
+    default: null,
     origin: type === 'tag' ? 'tags' : 'categories',
     label: {
       fr: g.name || 'Tags'

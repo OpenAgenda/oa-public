@@ -23,8 +23,13 @@ const devApps = [ {
   group: 'getting-started'
 }, {
   name: 'Simple with a constraint',
-  description: 'To troubleshoot errors',
+  description: 'A min and max',
   link: '/simplewithconstraint',
+  group: 'getting-started'
+}, {
+  name: 'Simple with a default value',
+  description: 'A default value can be defined',
+  link: '/simplewithdefault',
   group: 'getting-started'
 }, {
   name: 'A form',
