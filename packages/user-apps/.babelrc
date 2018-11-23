@@ -1,5 +1,6 @@
 {
   "presets": [
-    "@openagenda/oa"
-  ]
+    "openagenda"
+  ],
+  "sourceType": "unambiguous"
 }

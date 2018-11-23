@@ -1,5 +1,3 @@
-"use strict";
-
 import update from 'immutability-helper';
 import utils from '@openagenda/utils';
 import dl from '@openagenda/dom-utils/documentLocation';
@@ -50,7 +48,7 @@ function actions( options ) {
   }, options );
 
   return {
-    
+
     // not actually an action
     getState,
 
@@ -84,7 +82,7 @@ function actions( options ) {
    * input function by prepending current state
    * and applies value as new state
    */
-  
+
   function assign( fn ) {
 
     return function( ...args ) {
@@ -110,7 +108,7 @@ function removedLocation( state, index ) {
 
   return update( state, {
     locations: { $splice: [[ index, 1 ]] },
-    modal: { 
+    modal: {
       data: {
         isRemoved: { $set: true }
       }
@@ -251,7 +249,7 @@ function launchMerge( state, mergedLocations ) {
     merge: {
       $set: state.merge || true
     },
-    form: { 
+    form: {
       $set: {
         location: mergedLocations[ 0 ],
         alternatives: mergedLocations.map( ( l, i ) => ( {

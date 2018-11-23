@@ -1,5 +1,3 @@
-"use strict";
-
 import update from 'immutability-helper'
 
 export default ( state = {}, action ) => {
@@ -87,7 +85,7 @@ export default ( state = {}, action ) => {
         }
       } );
 
-    default: 
+    default:
 
       return state;
 

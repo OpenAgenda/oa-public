@@ -20,5 +20,17 @@ module.exports = {
   reply: {
     fr: 'Répondre',
     en: 'Reply'
+  },
+  unsubscribe: {
+    fr: 'Ne plus recevoir les messages de la messagerie',
+    en: 'Stop receiving inbox messages'
+  },
+  memberUnsubscribe: {
+    fr: 'Ne plus recevoir les messages de la messagerie de cet agenda',
+    en: 'Stop receiving inbox messages from this agenda'
+  },
+  changeEmailSettings: {
+    fr: 'Modifier mes paramètres d\'envoi d\'emails',
+    en: 'Change my email sending settings'
   }
 };

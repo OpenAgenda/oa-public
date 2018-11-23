@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import Dropzone from 'react-dropzone';
 import React, { Component } from 'react';
@@ -50,9 +48,9 @@ module.exports = class ImageField extends Component {
   render() {
 
     const labels = flattenLabels( multilingualLabels, this.props.lang );
-    
+
     const {
-      field: name, 
+      field: name,
       placeholder,
       extensions,
       store
@@ -79,13 +77,13 @@ module.exports = class ImageField extends Component {
           <div className="center-button margin-bottom-sm">
             <button className="btn btn-primary">
               <label>{labels.upload}</label>
-            </button> 
+            </button>
           </div>
         }
         <span className="accepted-image-info">{labels.acceptedExtensions}:&nbsp; .{[].concat( extensions ).join( ', .' )}</span>
       </Dropzone>
       { this.props.value ? <a
-        onClick={this.onRemove.bind( this )} 
+        onClick={this.onRemove.bind( this )}
         className="btn btn-danger margin-all-sm remove-file"
         title={labels.remove} >
         <i className="fa fa-trash"></i>

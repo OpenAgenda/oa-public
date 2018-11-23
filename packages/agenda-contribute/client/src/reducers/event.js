@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';

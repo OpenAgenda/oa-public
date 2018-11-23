@@ -1,5 +1,3 @@
-"use strict";
-
 import utils from '@openagenda/utils';
 import listify from '../listify';
 import schemaUtils from './utils';

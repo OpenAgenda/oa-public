@@ -16,4 +16,5 @@
 
 <%- event.freeText %>
 
-<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
+<%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
+<% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>

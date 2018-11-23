@@ -1,5 +1,3 @@
-"use strict";
-
 import { asyncConnect } from 'redux-connect';
 import classNames from 'classnames';
 import Collapse from 'react-bootstrap/lib/Collapse';
@@ -87,7 +85,7 @@ export default class App extends Component {
         <div className="row">
           <div className="col-sm-8 col-sm-offset-2">
             <ul className="home-nav list-inline">
-              <MenuItem 
+              <MenuItem
                 linkTo={{ pathname: prefix || '/', query: { search: agendasSearch || undefined } }}
                 active={tab === 'agendas'}>
                 {getLabel( 'myAgendas' )}
@@ -105,7 +103,7 @@ export default class App extends Component {
         </div>
       </div>
     );
-    
+
   }
 
 }

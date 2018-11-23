@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import sa from 'superagent';
 import React, { Component } from 'react';

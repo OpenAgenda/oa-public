@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -100,7 +98,7 @@ module.exports = createReactClass( {
 
       clean[ f ] = ( value || {} )[ f ] || '';
 
-    } ); 
+    } );
 
     this.props.onChange( clean );
 

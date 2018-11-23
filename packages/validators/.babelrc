@@ -1,10 +1,6 @@
 {
   "presets": [
-    "es2015"
+    "openagenda"
   ],
-  "plugins": [
-    "add-module-exports",
-    "transform-es3-member-expression-literals",
-    "transform-es3-property-literals"
-  ]
+  "sourceType": "unambiguous"
 }

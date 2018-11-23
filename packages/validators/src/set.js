@@ -1,5 +1,3 @@
-"use strict";
-
 import utils from '@openagenda/utils'
 
 export default ( validators, options ) => {

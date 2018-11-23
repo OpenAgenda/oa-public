@@ -203,7 +203,7 @@ module.exports = ( parentApp, mountpath ) => {
 
 };
 
-module.exports.init = async function init( config ) {
+module.exports.init = async config => {
 
   await users.init( {
     paginate: {

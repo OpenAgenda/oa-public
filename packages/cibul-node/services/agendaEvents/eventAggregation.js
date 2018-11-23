@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholders = require( '@openagenda/agenda-stakeholders' );
 const eventSvc = require( '@openagenda/events' );
-const usersSvc = require( '@openagenda/users' );
 const mails = require( '@openagenda/mails' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'services/agendaEvents/eventAggregation' );
@@ -34,26 +33,20 @@ module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state
       stakeholders( aggregatorAgenda.id ).list,
       { credentials: [ 'administrator', 'moderator' ] },
       0,
-      100
+      100,
+      { detailed: true }
     ) )[ 0 ];
 
-    const users = (await usersSvc.find( {
-      query: {
-        id: {
-          $in: members.map( m => m.userId )
-        },
-        $limit: 100
-      },
-      detailed: true
-    } ) )
-      .data
-      .filter( u => !!u.email );
+    log(
+      'sending mails to %s adminmods to notify aggregation %s -> %s',
+      members.length,
+      sourceAgenda.title,
+      aggregatorAgenda.title
+    );
 
-    log( 'sending mails to %s adminmods to notify aggregation %s -> %s', users.length, sourceAgenda.title, aggregatorAgenda.title )
+    for ( let member of members ) {
 
-    for ( let user of users ) {
-
-      await _sendEmail( user, aggregatorAgenda, sourceAgenda, event, state );
+      await _sendEmail( member, aggregatorAgenda, sourceAgenda, event, state );
 
     }
 
@@ -66,11 +59,11 @@ module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state
 }
 
 
-function _sendEmail( user, agenda, sourceAgenda, event, state ) {
+function _sendEmail( member, agenda, sourceAgenda, event, state ) {
 
   let stateLabel;
 
-  const lang = user.culture || 'fr';
+  const lang = member.user.culture || 'fr';
 
   const eventTitle = event.title[ lang ] || _.find( event.title );
 
@@ -97,7 +90,17 @@ function _sendEmail( user, agenda, sourceAgenda, event, state ) {
 
   return mails( {
     template: 'eventAggregation',
-    to: user.email,
+    to: {
+      address: member.user.email,
+      unsubscriptions: [ {
+        rule: [ 'receive', 'eventAggregation' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( member && member.id ? [ {
+        memberId: member.id,
+        rule: [ 'receive', 'eventAggregation' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] )
+    },
     lang,
     data: {
       logo,

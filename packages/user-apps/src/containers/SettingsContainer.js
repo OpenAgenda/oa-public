@@ -8,7 +8,6 @@ const { connect } = require( 'react-redux' );
 const { routerActions } = require( 'react-router-redux' );
 const { change: changeFieldValue, reset: resetForm } = require( 'redux-form' );
 const request = require( 'superagent' );
-const get = require( '@openagenda/utils/get' );
 const Spinner = require( '@openagenda/react-form-components/build/Spinner' );
 const Modal = require( '@openagenda/react-components/build/Modal' );
 const actions = require( '../actions' );
@@ -31,7 +30,6 @@ const SettingsContainer = createReactClass( {
   componentWillMount() {
 
     this.props.getMe()
-      .then( () => this.props.listUnsubscriptions() )
       .then(
         () => this.props.setLoading( false ),
         () => this.props.setLoading( false )
@@ -53,8 +51,7 @@ const SettingsContainer = createReactClass( {
         changeEmail: emailMessageDisplayed,
         changePassword: passwordMessageDisplayed
       },
-      onChangeProfileImage,
-      removeUnsubscription
+      onChangeProfileImage
     } = this.props;
 
     return (
@@ -101,7 +98,6 @@ const SettingsContainer = createReactClass( {
 
             <UnsubscribedSettings
               activeTab={activeTab == 'unsubscribed'}
-              removeUnsubscription={removeUnsubscription}
             />
 
             </tbody>
@@ -155,9 +151,7 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
     changePassword,
     generateApiKey,
     displayModal,
-    deleteAccount,
-    listUnsubscriptions,
-    removeUnsubscription
+    deleteAccount
   };
 
   return Object.assign( {}, ownProps, stateProps, mapDispatchToProps );
@@ -314,50 +308,6 @@ function mergeProps( stateProps, dispatchProps, ownProps ) {
           window.location.href = res.body.redirectTo || '/signout';
         }
       } );
-  }
-
-  function listUnsubscriptions() {
-    dispatch( actions.listUnsubscriptions( 'request' ) );
-
-    return new Promise( ( resolve, reject ) => {
-
-      request.get( appSettings.urls[ 'listUnsubscriptions' ].replace( ':userUid', stateProps.user.uid ) )
-        .end( ( err, result ) => {
-          if ( err ) return reject( err );
-          dispatch( actions.listUnsubscriptions( 'response', result.body ) );
-          resolve( result.body.unsubscriptions );
-        } );
-
-    } );
-  }
-
-  function removeUnsubscription( unsubscription ) {
-    dispatch( actions.removeUnsubscription( 'request' ) );
-
-    return new Promise( ( resolve, reject ) => {
-
-      let url = appSettings.urls[ 'removeUnsubscription' ]
-        .replace( ':userUid', stateProps.user.uid )
-        .replace( ':subject', unsubscription.subject )
-        .replace( '.:identifier', unsubscription.identifier ? '.' + unsubscription.identifier : '' )
-        .replace( ':type', unsubscription.type );
-
-      if ( unsubscription.type === null ) {
-        url = url.replace( '/t/null', '' );
-      }
-
-      if ( unsubscription.type === undefined ) {
-        url = url.replace( '/t/undefined', '' );
-      }
-
-      request.get( url )
-        .end( ( err, result ) => {
-          if ( err ) return reject( err );
-          dispatch( actions.removeUnsubscription( 'response', Object.assign( result.body, { unsubscription } ) ) );
-          resolve( result.body );
-        } );
-
-    } );
   }
 
   function getUrl( name ) {

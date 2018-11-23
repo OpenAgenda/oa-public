@@ -1,13 +1,8 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
-module.exports = {
-  flatten
-}
 
-function flatten( field, lang ) {
+export function flatten( field, lang ) {
 
   const update = {};
 

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get simple get for a user 1`] = `
+Array [
+  Object {
+    "actions": "create",
+    "conditions": null,
+    "entityName": "user",
+    "fields": null,
+    "id": null,
+    "identifier": null,
+    "inverted": false,
+    "reason": null,
+    "subject": "event",
+  },
+  Object {
+    "actions": "receive",
+    "conditions": null,
+    "entityName": "user",
+    "fields": null,
+    "id": null,
+    "identifier": null,
+    "inverted": false,
+    "reason": null,
+    "subject": "activity",
+  },
+  Object {
+    "actions": "receive",
+    "conditions": Object {
+      "verb": "spam",
+    },
+    "entityName": "user",
+    "fields": null,
+    "id": null,
+    "identifier": null,
+    "inverted": true,
+    "reason": null,
+    "subject": "activity",
+  },
+  Object {
+    "actions": "receive",
+    "conditions": null,
+    "entityName": "user",
+    "fields": null,
+    "id": 1,
+    "identifier": 99999999,
+    "inverted": false,
+    "reason": null,
+    "subject": "eventUpdate",
+  },
+]
+`;

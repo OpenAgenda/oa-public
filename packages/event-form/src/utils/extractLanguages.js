@@ -1,8 +1,6 @@
-"use strict";
+import _ from 'lodash';
 
-const _ = require( 'lodash' );
-
-module.exports = ( values, defaultLang ) => {
+export default ( values, defaultLang ) => {
 
   if ( !_.isObject( values ) ) {
 
@@ -10,15 +8,15 @@ module.exports = ( values, defaultLang ) => {
 
   }
 
-  const languages = _.uniq( [ 
-    'title', 
-    'description', 
-    'keywords', 
-    'conditions' 
+  const languages = _.uniq( [
+    'title',
+    'description',
+    'keywords',
+    'conditions'
   ].reduce( ( languages, field ) => {
 
-    return _.isObject( values[ field ] ) 
-      ? languages.concat( _.keys( values[ field ] ) ) 
+    return _.isObject( values[ field ] )
+      ? languages.concat( _.keys( values[ field ] ) )
       : languages;
 
   } , []) );

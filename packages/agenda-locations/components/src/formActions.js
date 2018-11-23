@@ -1,5 +1,3 @@
-"use strict";
-
 import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
@@ -26,12 +24,12 @@ function actions( options ) {
   }, options );
 
   return {
-    
+
     // not actually an action
     getState,
 
     initialize,
-    
+
     loadAlternative: assign( loadAlternative ),
 
     loadTagAlternative: assign( loadTagAlternative ),
@@ -60,7 +58,7 @@ function actions( options ) {
    * input function by prepending current state
    * and applies value as new state
    */
-  
+
   function assign( fn ) {
 
     return function( ...args ) {
@@ -191,7 +189,7 @@ function loadTagAlternative( state, tag, check ) {
     changes.location = {
       tags: {
         $set: state.location.tags.filter( t => t.id !== tag.id )
-      }      
+      }
     }
 
   }
@@ -288,7 +286,7 @@ function sourceLanguageChange( state ) {
 
 /**
  * load suggestion in current location value
- * 
+ *
  * @param object state              the current state
  * @param object alternatives       alternatives to current value
  * @param string fieldName          currently processed field name
@@ -311,11 +309,11 @@ function loadAlternative( state, alternatives, fieldName, alternativeIndex, lang
   };
 
   // update active suggestion index
-  
+
   updated.activeAlternatives[ fieldName ] = {
     $set: alternativeIndex
   }
-  
+
 
   // update loaded values
 

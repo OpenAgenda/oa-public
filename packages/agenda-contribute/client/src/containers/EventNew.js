@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -22,16 +20,16 @@ export default connect(
     onDraftDelete: () => dispatch( reducers.event.deleteDraft() )
   } )
 )( ( { config, event, onCreateSuccess, onDidMount, onDraftDelete, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
-  
+
   <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
-  
-  <EventForm 
+
+  <EventForm
     withErrors={false}
     schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
     locationRes={config.locationRes}
     referencesRes={config.referencesRes}
-    lang={config.lang} 
+    lang={config.lang}
     values={event}
     onSubmitSuccess={onCreateSuccess}
     classNames={{
@@ -47,5 +45,5 @@ export default connect(
       </div>
     } ]}
   />
-  
+
 </Canvas> );

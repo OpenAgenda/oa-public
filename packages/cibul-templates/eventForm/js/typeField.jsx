@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import ReactDom from 'react-dom';
 import createReactClass from 'create-react-class';
@@ -88,7 +86,7 @@ var TypeField = createReactClass({
 
     return this.types.map( function( m ) {
 
-      return { 
+      return {
         label: m.label[ self.props.lang ],
         value: m.code
       }

@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 
 module.exports = class TextField extends Component {
@@ -15,13 +13,13 @@ module.exports = class TextField extends Component {
   onChange( e, value ) {
 
     e.preventDefault();
-    
+
     this.props.onChange( e.target.value );
 
   }
 
   render() {
-    
+
     const { field: name } = this.props.field;
 
     const { value, onChange, type } = this.props;
@@ -33,7 +31,7 @@ module.exports = class TextField extends Component {
       value: value || '',
       onChange: this.onChange
     }
-   
+
     return type === 'textarea' ? <textarea {...fieldProps}></textarea> : <input { ...fieldProps } />
 
   }

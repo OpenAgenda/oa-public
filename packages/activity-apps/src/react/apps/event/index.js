@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import labels from '@openagenda/labels/activities/event';
 import { ActivityItem } from '../../components';

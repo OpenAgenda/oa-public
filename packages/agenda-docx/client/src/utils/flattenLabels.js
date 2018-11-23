@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = ( labels, lang ) => {
+export default ( labels, lang ) => {
 
   return Object.keys( labels ).reduce( ( flat, key ) => {
 

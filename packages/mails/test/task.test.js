@@ -1,13 +1,19 @@
+const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
 const mails = require( '../index' );
 const config = require( '../config' );
 
+const templatesDir = path.join( __dirname, '..', 'templates' );
+
 describe( 'task', () => {
+  jest.setTimeout( 30000 );
+
   beforeAll( async () => {
     const account = await nodemailer.createTestAccount();
 
     await config.init( {
+      templatesDir,
       transport: {
         pool: true,
         host: 'smtp.ethereal.email',

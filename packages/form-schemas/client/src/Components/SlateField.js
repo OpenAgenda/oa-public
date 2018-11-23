@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 
 import React, { Component } from 'react';
@@ -80,8 +78,8 @@ module.exports = class SlateField extends Component {
 
     } else if ( value.isExpanded ) {
 
-      const href = window.prompt( 'Enter the URL of the link:' ); 
-      
+      const href = window.prompt( 'Enter the URL of the link:' );
+
       change.wrapInline( {
         type: 'link',
         data: { href }
@@ -188,7 +186,7 @@ module.exports = class SlateField extends Component {
   }
 
   hasBlock( type ) {
-    
+
     return this.state.value.blocks.some( node => node.type === type );
 
   }
@@ -223,7 +221,7 @@ module.exports = class SlateField extends Component {
 
     const isActive = this.state.value.activeMarks.some( mark => mark.type === type );
 
-    return <a 
+    return <a
       className={classNames( {
         btn: true,
         'btn-default' : !isActive,
@@ -286,7 +284,7 @@ module.exports = class SlateField extends Component {
 
   render() {
 
-    const labels = flatten( richTextLabels, this.props.lang ); 
+    const labels = flatten( richTextLabels, this.props.lang );
 
     return <div className="rich-textarea margin-top-xs">
       <div className="toolbar">

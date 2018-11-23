@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 
 import languages from 'languages';
@@ -85,7 +83,7 @@ module.exports = class Languages extends Component {
       { !this.state.changing ? <ul>
         {pickedLanguages.map( l => <li key={'language-' + l} onClick={this.onChangeStart.bind( this )}>
           <div className="language-item">
-            <span>{languages.getLanguageInfo( l ).nativeName}</span> 
+            <span>{languages.getLanguageInfo( l ).nativeName}</span>
             {pickedLanguages.length > 1 && <span className="remove" onClick={this.onRemove.bind( this, l )}>&#10005;</span>}
             {pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down"></i></span>}
           </div>
@@ -102,7 +100,7 @@ module.exports = class Languages extends Component {
         />
       </span> }
       { this.state.changing && <Select
-        value={_.first( 
+        value={_.first(
           languageCodesAndLabels
             .filter( c => _.first( pickedLanguages ) === c.value )
         ) }

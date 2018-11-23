@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -31,7 +29,7 @@ module.exports = createReactClass( {
 
     if ( !complete ) {
 
-      this.props.actions.updateEditedLocation( location );    
+      this.props.actions.updateEditedLocation( location );
 
     } else {
 

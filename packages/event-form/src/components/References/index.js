@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
@@ -53,7 +51,7 @@ export default class References extends Component {
       } );
 
     } );
-    
+
   }
 
   search( query, suggested = false ) {
@@ -239,7 +237,7 @@ export default class References extends Component {
       <a className="btn btn-primary margin-right-sm" onClick={this.onAddEvent.bind( this )}>{labels.addEvent}</a>
       { suggest ? <span>
         <span className="margin-h-sm">{labels.addEventOr}</span>
-        <a 
+        <a
           disabled={false}
           className="btn margin-right-sm" onClick={this.onSuggestEvents.bind( this )}>{labels.addEventSuggest}</a>
       </span> : null }
@@ -298,7 +296,7 @@ export default class References extends Component {
   }
 
   render() {
-    
+
     const { labels, search, events, loading } = this.state;
 
     const { suggest } = this.props.field;

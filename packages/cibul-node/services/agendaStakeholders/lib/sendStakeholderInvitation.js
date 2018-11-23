@@ -66,7 +66,13 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   mails( {
     template: 'stakeholderInvitation',
-    to: stakeholder.custom.email,
+    to: {
+      address: stakeholder.custom.email,
+      unsubscriptions: [ {
+        rule: [ 'receive', 'invitation' ],
+        dataPath: 'unsubscribeLink'
+      } ]
+    },
     data: {
       logo,
       link,

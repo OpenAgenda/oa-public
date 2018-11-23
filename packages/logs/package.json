@@ -3,7 +3,7 @@
   "version": "1.0.19",
   "license": "MIT",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
     "debug": "^2.2.0",
@@ -12,8 +12,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "mocha": "^5.1.1",
-    "should": "^11.2.1",
+    "jest": "^23.6.0",
     "sinon": "^3.2.1"
   }
 }

@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const should = require( 'should' ),
 
-actions = require( '../components/build/formActions' );
+actions = require( '../components/src/formActions' );
 
 describe( 'form actions', () => {
 
@@ -38,7 +38,7 @@ describe( 'form actions', () => {
           name: 'La tambouille',
           address: '31 passage du Ponceau',
           latitude: 16,
-          longitude: 17  
+          longitude: 17
         }
       }, {
         location: {
@@ -50,7 +50,7 @@ describe( 'form actions', () => {
       } ]
     } )
 
-    .should.eql( { 
+    .should.eql( {
       location: {
         uid: 12345,
         name: 'Le Bocal',
@@ -92,7 +92,7 @@ describe( 'form actions', () => {
 
     it( 'swap currently loaded value with alternative', () => {
 
-      let newState = actions.tests.loadAlternative( { 
+      let newState = actions.tests.loadAlternative( {
         location: {
           uid: 12345,
           name: 'La tambouille',
@@ -123,7 +123,7 @@ describe( 'form actions', () => {
           website: 1,
           latitude: 1,
           longitude: 1,
-          countryCode: 1 
+          countryCode: 1
         }
       }, [ {
         location: {
@@ -137,7 +137,7 @@ describe( 'form actions', () => {
           name: 'Le Scorbut',
           address: '31 passage du Ponceau',
           latitude: 16,
-          longitude: 17  
+          longitude: 17
         }
       }, {
         location: {
@@ -237,7 +237,7 @@ describe( 'form actions', () => {
       } );
 
     } );
-    
+
     it( 'stop page spin', () => {
 
       actions.tests.stopPageSpin( {

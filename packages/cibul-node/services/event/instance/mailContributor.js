@@ -1,9 +1,11 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
 const agendasSvc = require( '@openagenda/agendas' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/event/mailContributor' );
 const genUrl = require( '../../genUrl' );
 const { ife } = require( '../../../lib/promises' );
@@ -38,6 +40,8 @@ module.exports = function ( instance, agenda ) {
 
     .then( ife( { firstPublicationFlag: false }, _checkAdmin ) )
 
+    .then( ife( { firstPublicationFlag: false }, _addContributorInfo ) )
+
     .then( ife( { firstPublicationFlag: false }, _retrieveAgendaCustomMessage ) )
 
     .then( ife( { firstPublicationFlag: false }, _sendPublicationMail ) )
@@ -68,9 +72,23 @@ function _sendPublicationMail( v ) {
       width: '300px'
     };
 
+  if ( !v.contributor.email ) {
+    return;
+  }
+
   return mails( {
     template: 'eventPublishContributor',
-    to: v.contributor.email,
+    to: {
+      address: v.contributor.email,
+      unsubscriptions: [ {
+        rule: [ 'receive', 'myEventChangeState' ],
+        dataPath: 'unsubscribeLink'
+      } ].concat( v.member && v.member.id ? [ {
+        memberId: v.member.id,
+        rule: [ 'receive', 'myEventChangeState' ],
+        dataPath: 'memberUnsubscribeLink'
+      } ] : [] )
+    },
     lang: v.contributor.lang,
     data: {
       logo,
@@ -162,6 +180,19 @@ function _retrieveContributor( v ) {
   } );
 
   return d.promise;
+
+}
+
+
+async function _addContributorInfo( v ) {
+
+  const sh = await promisify( stakeholdersSvc.agenda( v.agenda.id ).get )( { userId: v.contributor.id } );
+
+  if ( sh ) {
+    v.member = sh;
+  }
+
+  return v;
 
 }
 

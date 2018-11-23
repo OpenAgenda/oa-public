@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 import classNames from 'classnames';
 
@@ -13,8 +11,8 @@ module.exports = class Sub extends Component {
     } = this.props;
 
     return <div className={classNames({
-      sub : true, 
-      error: !!error 
+      sub : true,
+      error: !!error
     })}>{error || label }</div>
 
   }

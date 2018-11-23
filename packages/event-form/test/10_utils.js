@@ -1,8 +1,6 @@
-"use strict";
-
-const getMultilingualFieldNames = require( '../src/utils/getMultilingualFieldNames' );
-const transferMultilingualValues = require( '../src/utils/transferMultilingualValues' );
-const identifyLanguageChanges = require( '../src/utils/identifyLanguageChanges' );
+import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames';
+import transferMultilingualValues from '../src/utils/transferMultilingualValues';
+import identifyLanguageChanges from '../src/utils/identifyLanguageChanges';
 
 describe( 'event-form utils unit tests', () => {
 

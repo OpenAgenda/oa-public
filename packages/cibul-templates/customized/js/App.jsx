@@ -1,14 +1,12 @@
-"use strict";
-
 import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
 
 const React = require( 'react' ),
 
   createReactClass = require( 'create-react-class' ),
 
-  TagEditor = require( '@openagenda/agenda-tags/lib/TagEditor.jsx' ),
+  TagEditor = require( '@openagenda/agenda-tags/build/TagEditor' ),
 
-  CategoryEditor = require( '@openagenda/agenda-categories/lib/CategoryEditor.jsx' ),
+  CategoryEditor = require( '@openagenda/agenda-categories/build/CategoryEditor' ),
 
   SyncButton = require( '@openagenda/sync-button' ),
 
@@ -81,7 +79,7 @@ module.exports = createReactClass( {
       <div className="tc-edge">
         <button
           className="btn btn-default pull-right"
-          onClick={() => openRequestForm( { 
+          onClick={() => openRequestForm( {
             subject: 'customFields',
             lang: this.props.lang
           } )}
@@ -95,8 +93,8 @@ module.exports = createReactClass( {
           onResponse={this.onResponse}
           synced={this.state.synced}
           syncError={this.state.syncError}
-          data={ { 
-            tagSet: this.state.tagSet, 
+          data={ {
+            tagSet: this.state.tagSet,
             categorySet: this.state.categorySet
           } } />
       </div>
@@ -116,7 +114,7 @@ module.exports = createReactClass( {
           syncError={this.state.syncError}
           data={ {
             tagSet: this.state.tagSet,
-            categorySet: this.state.categorySet 
+            categorySet: this.state.categorySet
           } } />
       </div>
       <Spinner loading={this.state.loading} />

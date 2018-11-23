@@ -1,5 +1,3 @@
-"use strict";
-
 import createReactClass from 'create-react-class';
 import React from 'react';
 import Select from 'react-select';

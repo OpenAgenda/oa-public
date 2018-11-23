@@ -3,7 +3,6 @@
 const webpack = require( 'webpack' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
-const ourOwnModules = require( './ourOwnModules.json' );
 
 
 module.exports = ( { entry, output } ) => {
@@ -22,13 +21,10 @@ module.exports = ( { entry, output } ) => {
         },
         {
           test: /\.jsx?$/,
-          exclude: new RegExp( 'node_modules\\/(?!' + ourOwnModules.join( '|' ) + ')' ),
-          use: {
-            loader: 'babel-loader',
-            options: {
-              cacheDirectory: getCacheDir( 'babel-loader' ),
-              forceEnv: 'development'
-            }
+          loader: 'babel-loader',
+          exclude: /node_modules/,
+          options: {
+            cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-dev' )
           }
         },
         {
@@ -53,7 +49,7 @@ module.exports = ( { entry, output } ) => {
       maxAssetSize: 20000000
     },
     plugins: [
-      new ProgressBar(),
+      new ProgressBar( { minimal: false } ),
       new webpack.DefinePlugin( {
         'process.env.NODE_ENV': '"development"',
         __CLIENT__: true,

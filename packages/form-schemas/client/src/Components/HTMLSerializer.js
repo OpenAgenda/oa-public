@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import React from 'react';
 import Serializer from 'slate-html-serializer';
@@ -36,7 +34,7 @@ const BLOCK_TAGS = {
 
 const TAG_BLOCKS = _.keys( BLOCK_TAGS ).reduce( ( carry, key ) => _.set( carry, BLOCK_TAGS[ key ], key ), {} );
 
-const RULES = [ 
+const RULES = [
   {
     serialize( obj, children ) {
 

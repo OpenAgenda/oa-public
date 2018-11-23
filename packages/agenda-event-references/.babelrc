@@ -1,9 +1,6 @@
 {
   "presets": [
-    "react",
-    "es2015"
+    "openagenda"
   ],
-  "plugins": [
-    "add-module-exports"
-  ]
+  "sourceType": "unambiguous"
 }

@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import utils from '@openagenda/utils';
@@ -89,7 +87,7 @@ export default class MarkdownComponent extends Component {
           value={ marked( value ) }
           style={{ minHeight: '200px', visibility: 'hidden' }}
           onChange={() => {
-            
+
           }}
         >
         </textarea>
@@ -109,7 +107,7 @@ export default class MarkdownComponent extends Component {
       // value in editor has diverged from value given in props. Needs to be updated
       tinymce.get( this.state.editorId ).setContent( marked( this.props.value ) );
 
-    }    
+    }
 
   }
 

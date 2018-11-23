@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import Select from 'react-select';
 import createReactClass from 'create-react-class';
@@ -10,7 +8,7 @@ const limits = {
   max: 120
 };
 
-module.exports = createReactClass({
+export default createReactClass({
 
   getInitialState: function() {
 
@@ -118,7 +116,7 @@ module.exports = createReactClass({
   /**
    * get or build select menu options based on propped language
    */
-  
+
   getSelectOptions: function( minValue ) {
 
     this.selectOptions = [];
@@ -132,7 +130,7 @@ module.exports = createReactClass({
     for ( var i=0; i<limits.max; i++ ) {
 
       if ( minValue <= i ) {
-      
+
         this.selectOptions.push( {
           value: i + '',
           label: i + ' ' + ( i < 2 ? labels.year : labels.years )[ this.props.labelsLang ]
@@ -162,16 +160,16 @@ module.exports = createReactClass({
 
     }
 
-    return ( 
+    return (
       <div className="target-age margin-v-md">
         <label className="checkbox-inline">
-          <input type="checkbox" name="age" checked={this.state.enabled} onChange={this.onEnabled(!this.state.enabled )} /> 
+          <input type="checkbox" name="age" checked={this.state.enabled} onChange={this.onEnabled(!this.state.enabled )} />
           <span>{this.props.label[this.props.labelsLang]}</span>
           {this.props.info ? <span> - {this.props.info}</span> : null }
         </label>
         <div className="age-inputs">
           <span> - </span>
-          <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label> 
+          <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label>
           <Select
             name="minage"
             value={min}
@@ -182,7 +180,7 @@ module.exports = createReactClass({
             onBlur={this.onChange( 'min' )}
             placeholder={labels.select[this.props.labelsLang]}
           />
-          <label className="margin-h-sm" htmlFor="maxage">{labels.max[this.props.labelsLang]}</label> 
+          <label className="margin-h-sm" htmlFor="maxage">{labels.max[this.props.labelsLang]}</label>
           <Select
             name="maxage"
             value={max}

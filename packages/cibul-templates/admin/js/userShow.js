@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 import Switch from 'rc-switch';
 import List from '@openagenda/react-components/build/List';

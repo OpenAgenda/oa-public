@@ -1,12 +1,10 @@
-"use strict";
-
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Picker from 'react-timings-picker';
 import transform from './timingsTransform';
 import _get from 'lodash/get';
 
-module.exports = createReactClass( {
+export default createReactClass( {
 
   getDefaultProps: function() {
 

@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import createReactClass from 'create-react-class';
 import languages from 'languages';
@@ -28,7 +26,7 @@ module.exports = createReactClass( {
 
   sortLanguageCodes: function() {
 
-    return languages.getAllLanguageCode().map( function( c ) { 
+    return languages.getAllLanguageCode().map( function( c ) {
 
       return {
         code: c,
@@ -102,7 +100,7 @@ module.exports = createReactClass( {
 
     languageItem = function( l ) {
 
-      return <LanguageItem 
+      return <LanguageItem
         code={l}
         languages={self.props.languages}
         onRemove={self.onRemove} />
@@ -120,7 +118,7 @@ module.exports = createReactClass( {
           onChange={this.languageAdd}
           clearable={false} /> : <a className="url" onClick={this.showSelect}>{this.props.labels.addLanguage}</a> }
         </span>
-        
+
       </div>
     );
 
@@ -150,7 +148,7 @@ var LanguageItem = createReactClass( {
 
     return <li>
       <span>{lInfo.nativeName}</span>
-      
+
       { this.props.languages.length > 1 ? removeCross() : null }
     </li>;
 

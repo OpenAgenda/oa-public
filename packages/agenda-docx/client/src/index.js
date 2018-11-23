@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import React, { Component, Fragment } from 'react';

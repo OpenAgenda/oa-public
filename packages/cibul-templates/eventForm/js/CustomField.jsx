@@ -1,5 +1,3 @@
-"use strict";
-
 import createReactClass from 'create-react-class';
 import React from 'react';
 import Wysiwyg from './Wysiwyg.jsx';
@@ -13,7 +11,7 @@ import HTMLComponent from '@openagenda/react-form-components/build/HTMLComponent
 import FileUpload from './FileUpload.jsx';
 import classNames from 'classnames';
 
-module.exports = createReactClass({
+export default createReactClass({
 
   render: function() {
 
@@ -33,12 +31,12 @@ module.exports = createReactClass({
         } )}>
           <MultilingualTextField
             name={ field.name }
-            constraints= { field } 
+            constraints= { field }
             label= { field.label }
             info= { field.info }
             optional= { field.optional }
-            lang= { this.props.lang } 
-            type= { field.fieldType } 
+            lang= { this.props.lang }
+            type= { field.fieldType }
             value= { this.props.value ? this.props.value : {} }
             error= { this.props.error || false }
             languages= { this.props.languages }
@@ -51,14 +49,14 @@ module.exports = createReactClass({
           'margin-v-md' : true,
           'display-none' : field.hidden
         } )}>
-          <TextField 
+          <TextField
             name= { field.name }
             constraints= { field }
             label= { field.label }
-            info= { field.info } 
+            info= { field.info }
             placeholder = { field.placeholder }
             optional= { field.optional }
-            lang= { this.props.lang } 
+            lang= { this.props.lang }
             type= { field.fieldType }
             enriched= { !!field.enriched }
             value= { this.props.value ? this.props.value : '' }
@@ -110,7 +108,7 @@ module.exports = createReactClass({
         <CheckboxField
         name= { field.name }
         field= { field }
-        lang= { this.props.lang } 
+        lang= { this.props.lang }
         value= { this.props.value ? this.props.value : '' }
         label= { field.label }
         handleUpdate= { this.props.onChange } /></div>;
@@ -126,7 +124,7 @@ module.exports = createReactClass({
           type= "radio"
           field= { field }
           lang= { this.props.lang }
-          info= { field.info } 
+          info= { field.info }
           value= { this.props.value ? this.props.value : '' }
           error= { this.props.error || false }
           label= { field.label }
@@ -143,7 +141,7 @@ module.exports = createReactClass({
           name= { field.name }
           field= { field }
           lang= { this.props.lang }
-          info= { field.info } 
+          info= { field.info }
           value= { this.props.value ? this.props.value : '' }
           error= { this.props.error || false }
           label= { field.label }
@@ -161,7 +159,7 @@ module.exports = createReactClass({
           type= "checkbox"
           field= { field }
           lang= { this.props.lang }
-          info= { field.info } 
+          info= { field.info }
           value= { this.props.value ? this.props.value : '' }
           error= { this.props.error || false }
           label= { field.label }
@@ -207,7 +205,7 @@ module.exports = createReactClass({
           upload={ this.props.res.upload.replace( '{field}', field.name ) }
           remove={ this.props.res.remove.replace( '{field}', field.name ) }
           extension={ field.extension }
-        />  
+        />
       </div>
 
     } else {
@@ -216,7 +214,7 @@ module.exports = createReactClass({
 
     }
 
-    
+
 
   }
 

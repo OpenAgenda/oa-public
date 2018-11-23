@@ -1,17 +1,6 @@
 {
   "presets": [
-    "react",
-    "es2015"
+    "openagenda"
   ],
-  "plugins": [
-    "lodash",
-    "add-module-exports",
-    "transform-decorators-legacy",
-    "transform-react-display-name",
-
-    "babel-plugin-transform-object-rest-spread",
-    "babel-plugin-transform-class-properties",
-    "babel-plugin-transform-export-extensions",
-    "babel-plugin-transform-function-bind"
-  ]
+  "sourceType": "unambiguous"
 }

@@ -1,11 +1,9 @@
-"use strict";
-
 import update from 'immutability-helper';
 
 import { excludeEventsWithUids, formatEventItem } from './helpers';
 
 export default ( state = {}, action ) => {
-  
+
   switch ( action.type ) {
 
     case 'SEARCH_REQUEST':
@@ -32,7 +30,7 @@ export default ( state = {}, action ) => {
         search: {
           searching: { $set: false },
           query: { $set: action.query },
-          events: { $set: 
+          events: { $set:
             action.events
               .filter( excludeEventsWithUids.bind( null, state.events.map( e => e.uid ) ) )
               .map( formatEventItem.bind( null, state.lang ) )
@@ -59,7 +57,7 @@ export default ( state = {}, action ) => {
     default:
 
       return state;
-      
+
   }
 
 }

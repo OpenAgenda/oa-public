@@ -1,3 +1,9 @@
-node_modules
+.idea/
+.vscode/
+node_modules/
+npm-debug.log
+yarn-error.log
+coverage/
+
 testconfig.js
-build
+build/

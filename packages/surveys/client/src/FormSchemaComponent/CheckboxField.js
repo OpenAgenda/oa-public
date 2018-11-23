@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component, Fragment } from 'react';
 
 module.exports = class CheckboxField extends Component {

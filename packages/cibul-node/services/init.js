@@ -4,16 +4,16 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-const _ = require( 'lodash' );
-const async = require( 'async' );
+const path = require( 'path' );
 const fs = require( 'fs' );
+const async = require( 'async' );
 const VError = require( 'verror' );
 const w = require( 'when' );
-
 const logs = require( '@openagenda/logs' );
 const logger = require( '@openagenda/logger' );
-const validators = require( '@openagenda/validators' );
 const schema = require( '@openagenda/validators/schema' );
+
+const SERVICES_PATH = __dirname;
 
 schema.register( {
   pass: require( '@openagenda/validators/pass' )
@@ -66,7 +66,7 @@ module.exports = function ( config, options, cb ) {
 
   // init services
 
-  fs.readdir( __dirname, ( err, services ) => {
+  fs.readdir( SERVICES_PATH, ( err, services ) => {
 
     if ( err ) return cb( err );
 
@@ -74,7 +74,7 @@ module.exports = function ( config, options, cb ) {
 
       if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
 
-      log( 'info', 'ok %s', ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
+      log( 'info', 'ok %s', ( new Date().getTime() - t.getTime() ) + 'ms' );
 
       cb();
 
@@ -93,8 +93,7 @@ function _init( config, options, fileOrFolderName, cb ) {
   const t = new Date();
 
   const name = fileOrFolderName.split( '.' )[ 0 ];
-
-  const service = require( __dirname + '/' + name );
+  const service = require( path.join( SERVICES_PATH, name ) );
 
   if ( options.enabled.length && !options.enabled.includes( name ) ) {
 
@@ -119,25 +118,14 @@ function _init( config, options, fileOrFolderName, cb ) {
 
   log( 'info', '%s: initializing', name );
 
-  if ( service.init.length === 1 ) {
+  const cbWithLog = err => {
 
-    const cb2 = err => {
-      log( 'info', '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
-      cb( err );
-    }
+    log( 'info', `${name}: ${err ? 'NOK' : 'ok'} ${new Date().getTime() - t.getTime()}ms` );
 
-    w( service.init( config ) ).done( () => cb2(), cb2 );
+    return cb( err );
 
-  } else {
+  };
 
-    service.init( config, err => {
-
-      log( 'info', err ? '%s: NOK' : '%s: ok %s', name, ( ( new Date ).getTime() - t.getTime() ) + 'ms' );
-
-      cb( err );
-
-    } );
-
-  }
+  w( service.init( config ) ).done( () => cbWithLog(), cbWithLog );
 
 }

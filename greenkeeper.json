@@ -1,0 +1,15 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/agenda-docx/package.json",
+        "packages/logs/package.json",
+        "packages/mails/package.json",
+        "packages/queues/package.json",
+        "packages/react-timings-picker/package.json",
+        "packages/sdk-js/package.json"
+      ]
+    }
+  }
+}

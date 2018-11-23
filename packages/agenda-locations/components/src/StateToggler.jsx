@@ -1,5 +1,3 @@
-"use strict";
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -8,7 +6,7 @@ import Switch from 'rc-switch';
 module.exports = createReactClass( {
 
   propTypes: {
-    
+
     // current location state
     locationState: PropTypes.number,
     // state setter

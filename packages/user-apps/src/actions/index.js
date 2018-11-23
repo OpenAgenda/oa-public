@@ -13,8 +13,5 @@ module.exports = {
   generateApiKey: ( status = 'request', data ) => ({ type: types.GENERATE_APIKEY, status, data }),
   displayModal: data => ({ type: types.DISPLAY_MODAL, data }),
   deleteAccount: ( status = 'request' ) => ({ type: types.DELETE_ACCOUNT, status }),
-  displayMessage: ( name, visible ) => ({ type: types.DISPLAY_MESSAGE, name, visible }),
-
-  listUnsubscriptions: ( status = 'request', data ) => ({ type: types.LIST_UNSUBSCRIPTIONS, status, data }),
-  removeUnsubscription: ( status = 'request', data ) => ({ type: types.REMOVE_UNSUBSCRIPTION, status, data })
+  displayMessage: ( name, visible ) => ({ type: types.DISPLAY_MESSAGE, name, visible })
 };

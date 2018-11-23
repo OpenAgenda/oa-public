@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -117,7 +115,7 @@ class Main extends Component {
     const win = window.open(
       this.props.res.event
       .replace( '{agendaUid}', this.props.agendaUid )
-      .replace( '{eventUid}', event.uid ), 
+      .replace( '{eventUid}', event.uid ),
       '_blank'
     );
 
@@ -167,7 +165,7 @@ class Main extends Component {
         <Spinner name="cube-grid" color="#2494c7" fadeIn="quarter" />
       </div> : null }
       </div>
-    
+
   }
 
 }

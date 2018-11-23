@@ -40,5 +40,17 @@ module.exports = {
   reader: {
     fr: 'lecteur',
     en: 'reader'
+  },
+  unsubscribe: {
+    fr: 'Ne plus recevoir les invitations',
+    en: 'Stop receiving invitations'
+  },
+  unsubscribeGuest: {
+    fr: 'Ne plus recevoir les emails d\'OpenAgenda',
+    en: 'Stop receiving emails from OpenAgenda'
+  },
+  changeEmailSettings: {
+    fr: 'Modifier mes paramètres d\'envoi d\'emails',
+    en: 'Change my email sending settings'
   }
 };

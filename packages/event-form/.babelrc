@@ -1,18 +1,6 @@
 {
   "presets" : [
-    [ "env", {
-        "targets": {
-          "browsers": [
-            "Explorer 11",
-            "last 4 Edge versions"
-          ]
-        },
-        "useBuiltIns": true
-    } ],
-    "react",
-    "stage-0"
+    "openagenda"
   ],
-  "plugins" : [
-    "add-module-exports"
-  ]
+  "sourceType": "unambiguous"
 }

@@ -1,5 +1,3 @@
-"use strict";
-
 import React, { Component } from 'react';
 import moment from 'moment';
 import activityFormatMaker from '@openagenda/activities/dist/formatActivity';

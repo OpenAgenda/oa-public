@@ -1,5 +1,3 @@
-"use strict";
-
 import numberValidator from './number';
 import extend from 'lodash/extend';
 import listify from './listify';

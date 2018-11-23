@@ -1,8 +1,11 @@
+const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
 const mails = require( '../index' );
 const config = require( '../config' );
 const makeLabelGetter = require( '../utils/makeLabelGetter' );
+
+const templatesDir = path.join( __dirname, '..', 'templates' );
 
 let account;
 const getEtherealTransport = () => ( {
@@ -20,9 +23,12 @@ beforeAll( async () => {
 } );
 
 describe( 'sendMail', () => {
+  jest.setTimeout( 30000 );
+
   describe( 'JSON transport', () => {
     beforeAll( async () => {
       await config.init( {
+        templatesDir,
         transport: {
           jsonTransport: true
         },
@@ -46,15 +52,17 @@ describe( 'sendMail', () => {
         to: [
           'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
           { address: '"Kaoré" <kaore@openagenda.com>', data: { username: 'kaore' } }
-        ]
+        ],
+        queue: false
       } );
 
       expect( results ).toHaveLength( 3 );
       expect( errors ).toHaveLength( 0 );
 
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.bertho@gmail.com mail' );
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kevin.berthommier@openagenda.com mail' );
-      expect( await config.queue.waitAndPop() ).toMatchSnapshot( 'kaore@openagenda.com mail' );
+      expect( results.map( v =>
+        _.omit( JSON.parse( v.message ), 'envelopeTime', 'messageId', 'messageTime', 'response' ) )
+      )
+        .toMatchSnapshot();
     } );
 
     it( 'send a mail to an invalid email returns with errors', async () => {
@@ -95,6 +103,7 @@ describe( 'sendMail', () => {
   describe( 'Euthreal transport', () => {
     beforeAll( async () => {
       await config.init( {
+        templatesDir,
         transport: getEtherealTransport(),
         defaults: {
           from: 'no-reply@openagenda.com',
@@ -163,7 +172,10 @@ describe( 'sendMail', () => {
   describe( 'translations', () => {
     it( 'take a default lang', async () => {
       await config.init( {
-        transport: getEtherealTransport(),
+        templatesDir,
+        transport: {
+          jsonTransport: true
+        },
         defaults: {
           data: {
             domain: 'https://openagenda.com'
@@ -200,17 +212,18 @@ describe( 'sendMail', () => {
       expect( errors ).toHaveLength( 0 );
       expect( results ).toHaveLength( 1 );
 
-      for ( const result of results ) {
-        console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
-        expect( result.response ).toContain( '250' );
-      }
-
-      expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
+      expect( results.map( v => {
+        v.message = JSON.parse( v.message );
+        return _.omit( v, 'messageId', 'message.messageId' );
+      } ) ).toMatchSnapshot();
     } );
 
     it( 'choose a lang per recipient', async () => {
       await config.init( {
-        transport: getEtherealTransport(),
+        templatesDir,
+        transport: {
+          jsonTransport: true
+        },
         defaults: {
           data: {
             domain: 'https://openagenda.com'
@@ -248,12 +261,10 @@ describe( 'sendMail', () => {
       expect( errors ).toHaveLength( 0 );
       expect( results ).toHaveLength( 1 );
 
-      for ( const result of results ) {
-        console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
-        expect( result.response ).toContain( '250' );
-      }
-
-      expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
+      expect( results.map( v => {
+        v.message = JSON.parse( v.message );
+        return _.omit( v, 'messageId', 'message.messageId' );
+      } ) ).toMatchSnapshot();
     } );
   } );
 } );

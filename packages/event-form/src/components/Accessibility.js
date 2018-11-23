@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import React, { Component } from 'react';
 
@@ -79,7 +77,7 @@ module.exports = class AccessibilityComponent extends Component {
       }</div> }
     </div>
 
-  } 
+  }
 
 }
 

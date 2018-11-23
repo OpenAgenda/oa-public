@@ -1,5 +1,6 @@
 "use strict";
 
+const { promisify } = require( 'util' );
 const homeMw = require( '@openagenda/home/middleware' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
@@ -8,9 +9,9 @@ const eventsSvc = require( '@openagenda/events' );
 const cmn = require( '../lib/commons-app' );
 
 
-module.exports.init = ( config, cb ) => {
+module.exports.init = async config => {
 
-  homeMw.init( {
+  await promisify( homeMw.init )( {
     mysql: config.db,
     schemas: config.schemas,
     image: {
@@ -32,6 +33,6 @@ module.exports.init = ( config, cb ) => {
         list: eventsSvc.list
       }
     }
-  }, cb );
+  } );
 
 }

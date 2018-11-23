@@ -9,8 +9,16 @@ module.exports = {
     fr: 'Voir l\'agenda',
     en: 'Show agenda'
   },
-  unsubscribeAgenda: {
-    fr: 'Ne plus recevoir les messages de cet agenda',
-    en: 'Stop receiving messages from this agenda'
+  unsubscribe: {
+    fr: 'Ne plus recevoir les messages de la fonction "Leur écrire"',
+    en: 'Stop receiving messages from the "Write to them" feature'
+  },
+  memberUnsubscribe: {
+    fr: 'Ne plus recevoir les messages de la fonction "Leur écrire" de cet agenda',
+    en: 'Stop receiving messages from the "Write to them" feature of this agenda'
+  },
+  changeEmailSettings: {
+    fr: 'Modifier mes paramètres d\'envoi d\'emails',
+    en: 'Change my email sending settings'
   }
 };

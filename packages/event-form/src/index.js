@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
@@ -33,10 +31,10 @@ export default class EventForm extends Component {
     super( props );
 
     this.state = {
-      values: ih( this.props.values, { 
-        languages: { 
+      values: ih( this.props.values, {
+        languages: {
           $set: extractLanguages( this.props.values, this.props.lang )
-        } 
+        }
       } ),
       files: []
     };
@@ -59,9 +57,9 @@ export default class EventForm extends Component {
       // need to update multilingual values AND languages field
 
       this.setState( {
-        values: ih( transferMultilingualValues( 
+        values: ih( transferMultilingualValues(
           this.state.values,
-          getMultilingualFieldNames( eventSchema( { 
+          getMultilingualFieldNames( eventSchema( {
             languages: true
           } ) ),
           _.get( this, 'state.values.languages.0' ),
@@ -70,7 +68,7 @@ export default class EventForm extends Component {
           languages: {
             $set: [ changedLanguages[ 0 ] ]
           }
-        } ), 
+        } ),
         errors
       } );
 
@@ -93,7 +91,7 @@ export default class EventForm extends Component {
       locationRes: this.props.locationRes,
       languages: this.state.values.languages,
       fileStore: this.props.fileStore,
-      schemaExtensions: this.props.schemaExtensions 
+      schemaExtensions: this.props.schemaExtensions
     } );
 
   }

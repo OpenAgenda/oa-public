@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 
 module.exports = config => {

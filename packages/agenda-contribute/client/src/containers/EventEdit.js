@@ -1,5 +1,3 @@
-"use strict";
-
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -60,13 +58,13 @@ class EventEdit extends Component {
             </div>
             <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
             <div className="wsq">
-              <EventForm 
+              <EventForm
                 schemaExtensions={config.schemaExtensions}
                 withErrors={false}
                 fileStore={config.fileStore}
                 locationRes={config.locationRes}
                 referencesRes={config.referencesRes}
-                lang={config.lang} 
+                lang={config.lang}
                 values={event}
                 onSubmitSuccess={onUpdateSuccess}
                 classNames={{
@@ -83,7 +81,7 @@ class EventEdit extends Component {
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
 
   }

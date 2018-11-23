@@ -1,5 +1,3 @@
-"use strict";
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
@@ -22,7 +20,7 @@ class Main extends Component {
       },
       lang: 'fr',
       components: {
-        wigglypoof: WigglyPoofComponent 
+        wigglypoof: WigglyPoofComponent
       },
       values: {
         title: {

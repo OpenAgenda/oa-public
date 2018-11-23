@@ -13,8 +13,12 @@ module.exports = {
     fr: 'Aller sur OpenAgenda',
     en: 'Go to OpenAgenda'
   },
-  unsubsribe: {
+  unsubscribe: {
     fr: 'Ne plus recevoir de résumé quotidien des notifications',
-    en: 'No longer receiving a daily summary of notifications'
+    en: 'Stop receiving daily summary of notifications'
+  },
+  changeEmailSettings: {
+    fr: 'Modifier mes paramètres d\'envoi d\'emails',
+    en: 'Change my email sending settings'
   }
 };

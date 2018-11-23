@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import ReactTable from 'react-table';
@@ -6,7 +7,6 @@ import UserSearch from './userSearch';
 import UserPagination from './userPagination';
 import UserShow from './userShow';
 import remote from '../../js/lib/remote/remote.mod';
-import cn from '../../js/lib/common/common.mod';
 
 const defaults = {
   all: {
@@ -26,7 +26,9 @@ const defaults = {
   }
 };
 
-const config = ( [ 'tpl' ].indexOf( window.env ) !== 1 ) ? cn.extend( {}, defaults.all, defaults[ window.env ] ) : defaults.all;
+const config = ( [ 'tpl' ].indexOf( window.env ) !== 1 )
+  ? _.assign( {}, defaults.all, defaults[ window.env ] )
+  : defaults.all;
 
 class UserApp extends Component {
 
@@ -274,7 +276,7 @@ class UserApp extends Component {
   }
 }
 
-module.exports = canvasElem => {
+export default canvasElem => {
 
   ReactDom.render( <UserApp />, canvasElem );
 

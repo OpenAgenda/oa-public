@@ -22,15 +22,7 @@ module.exports = {
       test: /\.js$/,
       exclude: /node_modules/,
       use: {
-        loader: 'babel-loader',
-        options: {
-          presets: [
-            'babel-preset-env',
-            'babel-preset-react',
-            'babel-preset-es2015',
-            'babel-preset-stage-0'
-          ]
-        }
+        loader: 'babel-loader'
       }
     }, {
       test: /\.css$/,

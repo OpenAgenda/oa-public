@@ -1,5 +1,8 @@
 "use strict";
 
+var IntlMessageFormat = require( 'intl-messageformat' );
+var parser = require( 'intl-messageformat-parser' );
+
 /**
  * provide a labels getter that will
  * give back labels fed at init
@@ -7,7 +10,7 @@
  * needs to be ES5 or cibul-templates uglify will throw errors
  */
 
-module.exports = function( labels, defaultLang, fallbackLang ) {
+module.exports = function( labels, defaultLang ) {
 
   if ( typeof defaultLang === 'undefined' ) {
 
@@ -34,19 +37,20 @@ module.exports = function( labels, defaultLang, fallbackLang ) {
       return null;
     }
 
-    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : null;
+    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    var parsedAST = parser.parse( str );
+    var isICU = parsedAST.elements.some( function ( v ) {
+      return v.type === 'argumentElement';
+    } );
 
-    if ( fallbackLang && !str ) {
+    // ICU message
+    if ( isICU ) {
 
-      str = labels[ name ][ fallbackLang ];
+      return new IntlMessageFormat( parsedAST ).format( values );
 
     }
 
-    if ( !str ) {
-
-      str = name;
-
-    }
+    // Old API - if ( str.match( /%\w+%/ ) ) {}
 
     if ( values ) {
 

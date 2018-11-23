@@ -22,17 +22,17 @@ module.exports = {
     '\n' +
     'Ce questionnaire d\'information est accompagné en barre latérale d\'une fiche de recommandation et de conseils pratiques qui peuvent être fortement utiles aux responsables des sites organisateurs.\n' +
     '\n' +
+    '```' +
+    '<iframe style="width:100%;" frameborder="0" scrolling="no" allowtransparency="allowtransparency" class="cibulFrame cbpgbdy" data-oabdy src="//openagenda.com/agendas/48959239/embeds/46744426/events?lang=fr"></iframe><script type="text/javascript" src="//openagenda.com/js/embed/cibulBodyWidget.js"></script>' +
+    '```' +
+    '\n' +
     'Ce formulaire ayant été mis en ligne après l\'ouverture de la base open agenda, les sites inscrits avant le 24 mai ne l\'ont pas vu et n\'ont donc pas pu le remplir.\n' +
     '\n' +
     'Bien cordialement\n',
   senderName: 'Jean-Edouard-Jacques',
-  footerActions: [ {
-    link: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
-    text: 'Se désinscrire de gna gna gna'
-  }, {
-    link: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
-    text: 'Se désinscrire de gni gni gni'
-  } ]
+  unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/inboxMessage' );

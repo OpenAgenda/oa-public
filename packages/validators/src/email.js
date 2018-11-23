@@ -1,5 +1,3 @@
-"use strict";
-
 import extend from 'lodash/extend';
 import listify from './listify';
 
@@ -41,9 +39,9 @@ export default config => {
         code: params.error.code,
         message: params.error.message,
         origin: value
-      } ];      
+      } ];
 
-    } 
+    }
 
     if ( clean.split( '@' ).length > 2 ) {
 
