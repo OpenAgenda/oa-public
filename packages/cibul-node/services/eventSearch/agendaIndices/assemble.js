@@ -32,7 +32,7 @@ module.exports = {
 
     knex = c.knex;
 
-    maxIndexableTimingCount = c.esEvents.maxIndexableTimingCount;
+    maxIndexableTimingCount = _.get( c, 'esEvents.maxIndexableTimingCount', 1000 );
 
   }
 }
