@@ -7,7 +7,7 @@
   "scripts": {
     "prepublish": "yarn build",
     "test": "jest",
-    "build": "rimraf build && babel --root upward src -d build -s"
+    "build": "rimraf build && babel src -d build -s"
   },
   "dependencies": {
     "@openagenda/logs": "^1.0.19",

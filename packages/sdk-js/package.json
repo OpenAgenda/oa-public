@@ -6,7 +6,7 @@
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf lib && babel --root-mode upward src -d dist -s",
+    "build": "rimraf lib && babel src -d dist -s",
     "test": "jest --coverage",
     "test:watch": "yarn test --watch",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
