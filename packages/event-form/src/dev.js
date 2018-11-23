@@ -47,6 +47,11 @@ class Main extends Component {
             }, {
               field: 'references',
               fieldType: 'abstract'
+            }, {
+              field: 'location',
+              fieldType: 'abstract',
+              default: { uid: 14840617 },
+              allowCreate: false
             } ]
           } ]}
           locationRes="/locations"
@@ -60,9 +65,6 @@ class Main extends Component {
           values={{
             title: {
               fr: 'Inauguration d\'un formulaire'
-            },
-            location: {
-              uid: 93105902
             },
             accessibility: { hi: true, sl: true },
             references: [ 45527593 ]

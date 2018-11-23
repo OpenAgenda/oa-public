@@ -26,12 +26,18 @@ module.exports = class MultilingualField extends Component {
 
     const { field, error, enabled } = this.props;
 
-    const Component = this.props.component || FieldComponents[ field.fieldType ];
+    const Component = _.get( this.props, 'component', FieldComponents[ field.fieldType ] );
+
+    const languageField = ih( field, {
+      default: { $set: _.get( field, [ 'default', l ], 
+        _.isObject( field.default ) ? null : field.default 
+      ) }
+    } );
 
     return <div>
       <Component
         lang={this.props.lang}
-        field={field}
+        field={languageField}
         enabled={enabled}
         value={_.get( this.props.value, l )}
         onChange={this.onChange.bind( this, l )} />

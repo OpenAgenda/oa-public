@@ -181,6 +181,11 @@ function buildFieldSchema( type, options = {} ) {
       defaultLanguage: defaultLabelLanguage
     },
 
+    default: {
+      type: 'pass', // dependent on type of field
+      optional: true
+    },
+
     // an informative text can be added adjacent to the form item
     info: {
       type: 'multilingual',

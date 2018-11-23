@@ -2,6 +2,7 @@
   "field": "animator",
   "optional": false,
   "type": "text",
+  "default": null,
   "min": 3,
   "max": 50
 }

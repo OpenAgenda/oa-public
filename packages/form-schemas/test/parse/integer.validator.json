@@ -1,5 +1,6 @@
 {
   "field": "participants",
   "type": "integer",
+  "default" : null,
   "optional": true
 }

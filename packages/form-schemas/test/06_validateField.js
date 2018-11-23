@@ -35,7 +35,8 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'text',
         origin: null,
         enableWith : null,
-        related: []
+        related: [],
+        default: undefined
       } );
         
     } );
@@ -67,7 +68,8 @@ describe( 'form-schemas -06- validateField', () => {
         sub: null,
         fieldType: 'text' ,
         enableWith : null,
-        related: []
+        related: [],
+        default: undefined
       } );
 
     } );
@@ -105,7 +107,8 @@ describe( 'form-schemas -06- validateField', () => {
         sub: null,
         origin: null,
         enableWith : null,
-        related: []
+        related: [],
+        default: undefined
       } );
 
     } );
@@ -169,7 +172,8 @@ describe( 'form-schemas -06- validateField', () => {
         sub: null,
         origin: null,
         enableWith : null,
-        related: []
+        related: [],
+        default: undefined
       } );
 
     } );
@@ -202,7 +206,8 @@ describe( 'form-schemas -06- validateField', () => {
         min: null,
         max: null,
         enableWith : null,
-        related: []
+        related: [],
+        default: undefined
       } );
 
     } );
@@ -244,7 +249,8 @@ describe( 'form-schemas -06- validateField', () => {
         related: [ 'anotherfield' ],
         min: null,
         max: null,
-        fieldType: 'text' 
+        fieldType: 'text' ,
+        default: undefined
       } );
 
     } );

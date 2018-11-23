@@ -3,5 +3,6 @@
   "type" : "choice",
   "unique" : true,
   "optional": true,
+  "default" : null,
   "options": [ 1, 2, 3, 4 ]
 }

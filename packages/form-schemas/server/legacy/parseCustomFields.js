@@ -30,7 +30,8 @@ module.exports = ( formSchema, customFields ) => {
     if ( !parse ) return;
 
     const parsed = _.extend( parse( f ), {
-      origin: 'custom'
+      origin: 'custom',
+      default: null
     } );
 
     fs.addField( parsed );

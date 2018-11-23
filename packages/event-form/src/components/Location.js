@@ -1,12 +1,13 @@
 import _ from 'lodash';
 import sa from 'superagent';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
 
-module.exports = class LocationComponent extends Component {
+class LocationComponent extends Component {
 
   constructor( props ) {
 
@@ -14,7 +15,9 @@ module.exports = class LocationComponent extends Component {
 
     let location = null;
 
-    if ( !props.value ) {
+    const locationUid = _.get( props, 'value.uid' ) || _.get( props, 'field.default.uid' );
+
+    if ( !locationUid ) {
 
       this.state = {
         mode: 'search'
@@ -28,13 +31,13 @@ module.exports = class LocationComponent extends Component {
       initing: true
     }
 
-    this.loadLocation();
+    this.loadLocation( locationUid );
 
   }
 
-  loadLocation() {
+  loadLocation( locationUid ) {
 
-    sa.get( this.props.field.res + '?uids[]=' + _.get( this.props.value, 'uid' ) ).then( res => {
+    sa.get( this.props.field.res + '?uids[]=' + locationUid ).then( res => {
 
       this.setState( {
         initing: false,
@@ -77,9 +80,9 @@ module.exports = class LocationComponent extends Component {
     } = this.props;
 
     return <LocationSelector
-      allowCreate={true}
+      allowCreate={_.get( this.props, 'field.allowCreate' )}
       mode={this.state.mode}
-      disableChange={false}
+      disableChange={_.get( this.props, 'field.disableChange' )}
       classNames={{
         input: ''
       }}
@@ -129,3 +132,21 @@ module.exports = class LocationComponent extends Component {
   }
 
 }
+
+
+LocationComponent.propTypes = {
+  value: PropTypes.object, // the location
+  lang: PropTypes.string,
+  disableChange: PropTypes.bool,
+  allowCreate: PropTypes.bool
+};
+
+LocationComponent.defaultProps = {
+  location: null,
+  lang: 'en',
+  disableChange: false,
+  allowCreate: true
+};
+
+
+module.exports = LocationComponent;

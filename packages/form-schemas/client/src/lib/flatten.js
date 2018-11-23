@@ -24,7 +24,7 @@ module.exports = ( field, lang ) => {
     }, [] );
 
   }
-
+  
   return ih( field, update );
 
 }
