@@ -1,6 +1,4 @@
-"use strict";
-
-require( 'babel-polyfill' );
+if ( !window._babelPolyfill ) require( '@babel/polyfill' );
 
 import _ from 'lodash';
 
