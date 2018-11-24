@@ -2,7 +2,20 @@
 
 const getLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/agendas/activeFilters' ) );
 
-const months = [ 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december' ];
+const months = [ 
+  'january', 
+  'february', 
+  'march', 
+  'april', 
+  'may', 
+  'june', 
+  'july', 
+  'august', 
+  'september', 
+  'october', 
+  'november', 
+  'december'
+];
 
 exports.setOnReady = setOnReady;
 
@@ -15,8 +28,6 @@ wLib = require(  '../lib/widgetLib' ),
 debug = require( 'debug' ),
 
 domLib = require( './dom' ),
-
-config = require( './config' ),
 
 onReady;
 
@@ -99,7 +110,7 @@ var widget = function( elem, options ) {
 
       newFilters.push({
         type: 'geo',
-        label: _label( 'map' ),
+        label: getLabel( 'map', lang ),
         keys: [ 'neLat', 'neLng', 'swLat', 'swLng' ]
       });
 
@@ -171,7 +182,7 @@ var widget = function( elem, options ) {
 
       newFilters.push({
         type: 'geo',
-        label: config.labels[ lang ].location,
+        label: getLabel( 'location', lang ),
         keys: [ 'location' ]
       });
 
@@ -191,7 +202,7 @@ var widget = function( elem, options ) {
 
       newFilters.push({
         type: 'time',
-        label: config.labels[ lang ].passed,
+        label: getLabel( 'passed', lang ),
         keys: [ 'passed' ]
       });
 
@@ -205,25 +216,11 @@ var widget = function( elem, options ) {
 
   function _render() {
 
-    dom.render({ filters: activeFilters, enabled: enabled });
+    dom.render({ filters: activeFilters, enabled });
 
   }
 
-  function _label( type, values ) {
-
-    if ( typeof values == 'undefined' ) values = {};
-
-    return _format( config.labels[ lang ][ type ], values );
-
-  }
-
-  function _format(tpl, ctx) {
-
-    return tpl.replace(/\{\{([a-zA-Z ]*)\}\}/g, function(m, g) {
-        return ctx[g.trim()] || '';
-    });
-
-  }
+  
 
   function _indexLabels( data ) {
 
