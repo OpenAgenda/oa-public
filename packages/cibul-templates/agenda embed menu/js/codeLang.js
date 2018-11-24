@@ -28,7 +28,7 @@ module.exports = function( options ) {
 
     if ( iframeMode ) {
 
-      _updateFrameSrc( codeField, lang );      
+      _updateFrameLang( codeField, lang );      
 
     } else {
 
@@ -44,13 +44,15 @@ module.exports = function( options ) {
 
 }
 
-var _updateFrameSrc = function( codeElem, lang ) {
+var _updateFrameLang = function( codeElem, lang ) {
 
   var src = _extractCodeAttribute(codeElem, 'iframe', 'src'),
 
-  newSrc = urlStr.addUrlParameters(src, {lang: lang});
+  newSrc = urlStr.addUrlParameters(src, { lang } );
 
   _insertCodeAttribute(codeElem, 'iframe', 'src', newSrc);
+
+  _insertCodeAttribute(codeElem, 'iframe', 'data-lang', lang);
 
 },
 
