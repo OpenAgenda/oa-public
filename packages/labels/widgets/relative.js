@@ -1,24 +1,24 @@
 "use strict";
 
 module.exports = {
-  today: {
-    fr: 'Aujourd\'hui',
-    en: 'Today'
+  "today": {
+    "fr": "Aujourd'hui",
+    "en": "Today"
   },
-  tomorrow: {
-    fr: 'Demain',
-    en: 'Tomorrow'
+  "tomorrow": {
+    "fr": "Demain",
+    "en": "Tomorrow"
   },
-  thisWeekend: {
-    fr: 'Ce week-end',
-    en: 'This Weekend'
+  "thisWeekend": {
+    "fr": "Ce week-end",
+    "en": "This Weekend"
   },
-  thisWeek: {
-    fr: 'Cette semaine',
-    en: 'This week'
+  "thisWeek": {
+    "fr": "Cette semaine",
+    "en": "This week"
   },
-  thisMonth: {
-    fr: 'Ce mois-ci',
-    en: 'This month'
+  "thisMonth": {
+    "fr": "Ce mois-ci",
+    "en": "This month"
   }
 }
