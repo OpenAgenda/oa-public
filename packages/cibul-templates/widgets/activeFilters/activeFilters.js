@@ -289,8 +289,6 @@ var widget = function( elem, options ) {
 
   function renderDate( d ) {
 
-    console.log('????????????,', lang);
-
     let date = new Date( d ),
 
       now = new Date(),
