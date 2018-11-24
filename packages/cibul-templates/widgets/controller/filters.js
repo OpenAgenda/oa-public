@@ -35,7 +35,7 @@ function passed( item, reqParams ) {
 
   today = today.getFullYear() + '-' + _fZ( today.getMonth() + 1 ) + '-' + _fZ( today.getDate() );
 
-  if ( !reqParams.passed && !reqParams.from ) {
+  if ( !reqParams.passed && !reqParams.from ) {
 
     for ( var i in item.d ) {
 

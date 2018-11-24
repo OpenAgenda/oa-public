@@ -1,3 +1,9 @@
+"use strict";
+
+const getLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/agendas/activeFilters' ) );
+
+const months = [ 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december' ];
+
 exports.setOnReady = setOnReady;
 
 var UID = 0, LANG = 1, MODE = 2,
@@ -11,8 +17,6 @@ debug = require( 'debug' ),
 domLib = require( './dom' ),
 
 config = require( './config' ),
-
-dateLabels = require( './dateLabels' ),
 
 onReady;
 
@@ -44,13 +48,11 @@ var widget = function( elem, options ) {
 
   return ( function() {
 
+    lang = options.anchorConfig[ LANG ];
+
     var uid = options.anchorConfig[ UID ],
 
-    lang = options.anchorConfig[ LANG ],
-
-    log = debug( 'activeFilters widget ' + uid );
-
-    dateLabels.setLang( lang );
+    log = debug( 'activeFilters widget ' + uid + ', lang ' + lang );
 
     if ( options.anchorConfig[ MODE ] ) {
 
@@ -109,7 +111,7 @@ var widget = function( elem, options ) {
 
         newFilters.push({
           type: 'time',
-          label: dateLabels( reqParams.from, reqParams.to ),
+          label: renderLabel( reqParams.from, reqParams.to ),
           keys: [ 'from', 'to' ]
         });
 
@@ -117,7 +119,7 @@ var widget = function( elem, options ) {
 
         newFilters.push({
           type: 'time',
-          label: dateLabels( reqParams.from ),
+          label: renderLabel( reqParams.from ),
           keys: [ 'from', 'to' ]
         });
 
@@ -268,6 +270,34 @@ var widget = function( elem, options ) {
     } );
 
     controller.update( 'activeFilters', keysToRemove );
+
+  }
+
+  function renderLabel( start, end ) {
+
+    if ( end ) {
+
+      return getLabel( 'fromTo', lang, { start, end } );
+
+    } else {
+
+      return renderDate( start );
+
+    }
+
+  }
+
+  function renderDate( d ) {
+
+    console.log('????????????,', lang);
+
+    let date = new Date( d ),
+
+      now = new Date(),
+
+      displayYear = date.getFullYear() !== now.getFullYear();
+
+    return date.getDate() + ' ' + getLabel( months[ date.getMonth() ], lang ) + ( displayYear ? ' ' + date.getFullYear() : '' );
 
   }
 
