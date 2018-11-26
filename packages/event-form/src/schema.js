@@ -22,7 +22,9 @@ module.exports = ( {
   referencesRes,
   languages, 
   fileStore, 
-  schemaExtensions 
+  schemaExtensions,
+  draft,
+  excludeEventFields
 } ) => {
 
   const eventSchema = {
@@ -218,6 +220,14 @@ module.exports = ( {
   }
 
   const merged = merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+
+  if ( excludeEventFields ) {
+
+    const eventSchemaFields = eventSchema.fields.map( f => f.field );
+
+    merged.fields = merged.fields.filter( f => !eventSchemaFields.includes( f.field ) );
+
+  }
 
   return _setLanguages( merged, languages );
 

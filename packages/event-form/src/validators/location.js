@@ -30,7 +30,13 @@ const validate = schema( {
   }
 } );
 
-module.exports = () => value => {
+module.exports = options => value => {
+
+  if ( _.get( options, 'optional' ) && !value ) {
+
+    return _.get( options, 'default' );
+
+  }
 
   try {
 

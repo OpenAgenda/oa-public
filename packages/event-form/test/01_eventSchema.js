@@ -6,6 +6,29 @@ const eventSchema = require( '../src/schema' );
 
 describe( 'event-form eventSchema', () => {
 
+  test( 'event schema fields can be excluded altogether', () => {
+
+    const es = eventSchema( {
+      excludeEventFields: true,
+      schemaExtensions: [ {
+        fields: [ {
+          field: 'title',
+          fieldType: 'abstract',
+          label: 'Nom de l\'événement'
+        }, {
+          field: 'exhibitors',
+          fieldType: 'integer',
+          label: 'Exposants'
+        } ]
+      } ]
+    } );
+
+    expect( es.fields.map( f => f.field ) ).toEqual( [
+      'exhibitors'
+    ] );
+
+  } );
+
   test( 'event schema generator requires languages to be specified for multilingual fields', () => {
 
     const es = eventSchema( {
