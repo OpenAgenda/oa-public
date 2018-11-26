@@ -59,7 +59,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
 
-    const consolidatedClean = validate( data );
+    const consolidatedClean = validate( formSchemaData );
 
     _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
