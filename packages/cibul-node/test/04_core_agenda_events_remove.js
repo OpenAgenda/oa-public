@@ -129,6 +129,12 @@ describe( 'core - functional ( server ): agenda event remove', function() {
         title: {
           fr: 'Un événement'
         },
+        description: {
+          fr: 'Une desc'
+        },
+        location: {
+          uid: 123
+        },
         timings: [ {
           begin: new Date,
           end: new Date

@@ -141,6 +141,12 @@ describe( 'core - functional ( server ): agenda event update', function() {
         title: {
           fr: 'Un événement'
         },
+        description: {
+          fr: 'Une description'
+        },
+        location: {
+          uid: 123
+        },
         timings: [ {
           begin: new Date,
           end: new Date
@@ -158,10 +164,16 @@ describe( 'core - functional ( server ): agenda event update', function() {
       await core.agendas( 17026855 ).events.update( event.uid, {
         state: 0,
         featured: true,
-        slug: 'un-event-maj',
         title: {
           fr: 'Un événement mis à jour',
           en: 'An updated event'
+        },
+        description: {
+          fr: 'Une description',
+          en: 'A desc'
+        },
+        location: {
+          uid: 123
         },
         timings: [ {
           begin: new Date,
@@ -179,9 +191,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     it( 'the core event was updated', async () => {
 
-      ( await events.get( { uid: event.uid } ) )
+      _.pick( await events.get( { uid: event.uid } ), [ 'title' ] )
         .should.match( {
-          slug: 'un-event-maj',
           title: {
             fr: 'Un événement mis à jour',
             en: 'An updated event'
@@ -236,6 +247,12 @@ describe( 'core - functional ( server ): agenda event update', function() {
         title: {
           fr: 'Un événement'
         },
+        description: {
+          fr: 'Une desc'
+        },
+        location: {
+          uid: 123
+        },
         timings: [ {
           begin: new Date,
           end: new Date
@@ -253,6 +270,12 @@ describe( 'core - functional ( server ): agenda event update', function() {
       result = await core.agendas( agendaUid ).events.update( eventUid, {
         title: {
           fr: 'Un événement'
+        },
+        description: {
+          fr: 'Une desc'
+        },
+        location: {
+          uid: 123
         },
         timings: [ {
           begin: new Date,
@@ -318,6 +341,12 @@ describe( 'core - functional ( server ): agenda event update', function() {
       const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
         title: {
           fr: 'La mort.'
+        },
+        description: {
+          fr: 'Une desc'
+        },
+        location: {
+          uid: 123
         },
         timings: [ {
           begin: new Date,
