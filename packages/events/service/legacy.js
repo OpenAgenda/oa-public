@@ -862,7 +862,7 @@ function _getEvent( v ) {
 
     try {
 
-      v.data.links = JSON.parse( _.get( v, 'entries.event.store' ) )
+      v.data.links = JSON.parse( _.get( v, 'entries.event.store', '{}' ) )
         .links
         .filter( link => link.code )
         .map( ( { link, code } ) => ( { type: 'oembed', link, data: { html: code, url: link } } ) );
