@@ -51,7 +51,7 @@ describe( 'deriving validators', () => {
   } );
 
 
-  it( 'FormScehma getSchema takes into account enableWith when defined', () => {
+  it( 'FormSchema getSchema takes into account enableWith when defined', () => {
 
     const fields = [ {
       field: 'image',
