@@ -79,7 +79,11 @@ class Main extends Component {
               fr: 'Inauguration d\'un formulaire'
             },
             accessibility: { hi: true, sl: true },
-            references: [ 45527593 ]
+            references: [ 45527593 ],
+            timings: [ {
+              begin: new Date( '2018-11-27T15:13:00' ),
+              end: new Date( '2018-11-27T16:16:00' ),
+            } ]
           }}
         />
       </div>

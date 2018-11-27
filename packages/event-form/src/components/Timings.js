@@ -12,11 +12,10 @@ module.exports = class TimingsComponent extends Component {
 
   loadTimings() {
 
-    return _.get( 
-      this.props, 
-      'values', 
-      _.get( this.props, 'field.default', [] ) 
-    ).map( t => ( { start: t.begin, end: t.end } ) );
+    const value = _.get( this.props, 'value' );
+
+    return ( value || _.get( this.props, 'field.default', [] ) )
+      .map( t => ( { start: t.begin, end: t.end } ) );
 
   }
 
