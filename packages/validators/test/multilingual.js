@@ -139,7 +139,8 @@ describe( 'multilingual validator', () => {
 
       should( clean ).eql( { fr: 'Un super validateur', en: 'Un super validateur' } );
 
-    } )
+    } );
+
 
     it( 'a non optional validator returns required errors on omitted languages', () => {
 
@@ -207,6 +208,30 @@ describe( 'multilingual validator', () => {
       } );
 
       should( validate() ).equal( null );
+
+    } );
+
+    it( 'corresponding default language value is used when available', () => {
+
+      const validate = multilingual( { 
+        type: 'multilingual',
+        default: { fr: 'Une desc', en: 'A desc' },
+        languages: [ 'fr' ]
+      } );
+
+      validate().should.eql( { fr: 'Une desc' } )
+
+    } );
+
+    it( 'corresponding default value is used for any language when provided as string', () => {
+
+      const validate = multilingual( { 
+        type: 'multilingual',
+        default: 'Une desc',
+        languages: [ 'fr' ]
+      } );
+
+      validate().should.eql( { fr: 'Une desc' } )
 
     } );
 

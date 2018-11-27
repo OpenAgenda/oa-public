@@ -5,9 +5,11 @@ const DEFAULT_LANGUAGE = 'en';
 const _ = {
   assign: require( 'lodash/assign' ),
   get: require( 'lodash/get' ),
+  set: require( 'lodash/set' ),
   keys: require( 'lodash/keys' ),
   isArray: require( 'lodash/isArray' ),
-  isString: require( 'lodash/isString' )
+  isString: require( 'lodash/isString' ),
+  omit: require( 'lodash/omit' )
 };
 
 const text = require( './text' );
@@ -28,9 +30,8 @@ module.exports = ( config = {} )=> {
 
   function validate( origin ) { 
 
-    const clean = {}, tmp = {};
 
-    const validateText = text( params );
+    const clean = {}, tmp = {};
 
     let errors = [];
 
@@ -83,8 +84,6 @@ module.exports = ( config = {} )=> {
 
     }
 
-
-
     if ( !_.keys( value ).length && typeof params.default !== 'undefined' ) {
 
       return params.default;
@@ -102,6 +101,16 @@ module.exports = ( config = {} )=> {
       }
 
       try {
+
+        const defaultValue = _.isString( _.get( params, 'default' ) )
+          ? _.get( params, 'default' )
+          : _.get( params, [ 'default', l ] );
+
+        const validateText = text( _.set( 
+          _.omit( params, [ 'default' ] ), 
+          'default',
+          defaultValue || null
+        ) );
 
         clean[ l ] = validateText( langValue );
 
