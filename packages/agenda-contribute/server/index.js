@@ -106,6 +106,7 @@ function init( c ) {
     formSchemaMw.files.cleanFileValues.bind( null, {} ),
   ( req, res ) => {
 
+    // this does not transform other fields than file fields
     const postedWithFiles = _.assign( JSON.parse( req.body.data ), req.fileFieldValues || {} );
 
     log( 'info', 'setting event on agenda %s', _.get( req, 'agenda.slug' ) );
@@ -149,10 +150,7 @@ function _loadEventSchema( req, res, next ) {
   log( 'loading event schema with extensions' );
 
   req.schema = eventSchema( {
-    schemaExtensions: _.get( req, 'schemaExtensions', [] ),
-    locationRes: '#',
-    languages: true, // language validation is not necessary as validation is done by cibulNode/core
-    store: null
+    schemaExtensions: _.get( req, 'schemaExtensions', [] )
   } ); 
 
   next();
