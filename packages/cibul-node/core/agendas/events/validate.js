@@ -38,8 +38,17 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   const schemaExtensions = await _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } );
 
+  // Define which languages should be included. Should depend on 
+  //  * agenda setting ( if set ) ( not yet coded )
+  //  * submitted language keys in languages field
+  //  * default language
+
+  const languages = _.get( data, 'languages' ) || extractLanguages( data, defaultLang );
+
+  log( 'processed languages: %j', languages );
+
   const consolidatedSchema = eventSchema( {
-    languages: extractLanguages( data, defaultLang ),
+    languages,
     schemaExtensions: _asArray( schemaExtensions ),
     excludeEventFields: !evaluateEvent
   } );
