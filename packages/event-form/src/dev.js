@@ -32,7 +32,8 @@ class Main extends Component {
               fieldType: 'abstract'
             }, {
               field: 'title',
-              fieldType: 'abstract'
+              fieldType: 'abstract',
+              default: 'Le titre de l\'événement'
             }, {
               field: 'keywords',
               fieldType: 'abstract',
@@ -52,6 +53,17 @@ class Main extends Component {
               fieldType: 'abstract',
               default: { uid: 14840617 },
               allowCreate: false
+            }, {
+              field: 'timings',
+              fieldType: 'abstract',
+              default: [ {
+                begin: new Date( '2018-11-27T10:00' ),
+                end: new Date( '2018-11-27T11:00' )
+              } ],
+              enabledRanges: [ {
+                begin: '2018-11-27',
+                end: '2018-11-29'
+              } ]
             } ]
           } ]}
           locationRes="/locations"
