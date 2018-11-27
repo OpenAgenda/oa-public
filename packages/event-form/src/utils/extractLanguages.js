@@ -1,10 +1,10 @@
 import _ from 'lodash';
 
-export default ( values, defaultLang ) => {
+export default ( values, defaultLang = null ) => {
 
   if ( !_.isObject( values ) ) {
 
-    return [ defaultLang ];
+    return defaultLang ? [ defaultLang ] : [];
 
   }
 
