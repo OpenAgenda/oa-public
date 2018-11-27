@@ -1,5 +1,6 @@
 "use strict";
 
+const VError = require( 'verror' );
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );

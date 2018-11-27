@@ -18,7 +18,7 @@ module.exports = {
     en: 'See the event'
   },
   tocontrol: {
-    fr: 'à controller',
+    fr: 'à contrôler',
     en: 'to be controlled'
   },
   controlled: {

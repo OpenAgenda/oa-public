@@ -46,7 +46,9 @@ module.exports.init = async config => {
     // Unsubscription
     sendFilter: async params => {
       const unsubscriptions = params.to.unsubscriptions;
-      const abilityArgs = _.find( unsubscriptions, 'memberId' ) || unsubscriptions[ unsubscriptions.length - 1 ];
+      const abilityArgs = unsubscriptions && unsubscriptions.length
+        ? _.find( unsubscriptions, 'memberId' ) || unsubscriptions[ unsubscriptions.length - 1 ]
+        : null;
       const email = params.to.address;
 
       if ( !abilityArgs || !abilityArgs.rule ) {
