@@ -47,13 +47,13 @@ describe( 'Message', () => {
 
       const conversation = await Inboxes( 1 ).conversations.get( 1 );
       const message = await conversation.messages.create( {
-        body: 'Salut toi, mets moi admin, et vite !',
+        body: 'Salut toi, mets moi admin, et vite ! 🎉',
         userUid: 23456789
       } );
 
       expect( _.omit( message.toJSON(), 'createdAt', 'id' ) ).eql( {
         conversationId: 1,
-        body: 'Salut toi, mets moi admin, et vite !',
+        body: 'Salut toi, mets moi admin, et vite ! 🎉',
         attachments: [],
         inboxUser: {
           id: 1,

@@ -3,70 +3,11 @@
     <mj-title><%= event.title %></mj-title>
     <mj-preview><%= event.title %> - <%= event.description %></mj-preview>
 
-    <mj-attributes>
-      <mj-all
-        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-        line-height="22px"
-      />
-    </mj-attributes>
-
-    <mj-style>
-      h1 {
-        font-size: 22px;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1.4em;
-        letter-spacing: normal;
-      }
-
-      .header-link {
-        text-decoration: none;
-      }
-
-      .header-link:hover {
-        text-decoration: none;
-      }
-
-      .grey-link {
-        color: #555555;
-      }
-
-      a .grey-link:hover {
-        color: #41ACDD;
-      }
-
-      .black-link {
-        color: #000000;
-      }
-
-      a .black-link:hover {
-        color: #41ACDD;
-      }
-
-      .center {
-        text-align: center;
-      }
-    </mj-style>
+    <%- include( '../partials/defaultStyle.mjml' ) %>
   </mj-head>
 
-  <mj-body
-    background-color="#f4f4f4"
-  >
-    <!-- Header -->
-    <mj-section padding="15px 0">
-      <mj-column>
-        <mj-image
-          width="<%= logo.width || '300px' %>"
-          src="<%= logo.src %>"
-          padding="0"
-          alt="logo"
-        />
-
-        <mj-text>
-          <h2 class="center" style="margin: 0"><%= agendaTitle %></h2>
-        </mj-text>
-      </mj-column>
-    </mj-section>
+  <mj-body>
+    <%- include( '../partials/header.mjml' ) %>
 
     <mj-wrapper padding="0" border="1px solid #eeeeee">
       <!-- Event title + description -->
@@ -76,7 +17,7 @@
       >
         <mj-column>
           <mj-text>
-            <a href="<%= link %>" target="_blank" class="header-link">
+            <a href="<%= link %>" target="_blank" class="no-text-deco">
               <h2 class="grey-link"><%= event.title %></h2>
               <span class="black-link">
                 <%- _.escape( event.description ).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
@@ -165,7 +106,7 @@
       >
         <mj-column>
           <mj-text padding-bottom="0">
-            <a href="<%= link %>" target="_blank" class="header-link">
+            <a href="<%= link %>" target="_blank" class="no-text-deco">
               <h2 class="black-link"><%= event.placeName %></h2>
               <h3 class="grey-link"><%= event.address %></h3>
             </a>
@@ -211,35 +152,8 @@
           </mj-button>
         </mj-column>
       </mj-section>
-
-      <!-- Footer -->
-      <mj-section padding="15px 0">
-        <mj-column>
-          <mj-image
-            width="40px"
-            src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
-            href="<%= root %>"
-            padding="0"
-            alt="footer icon"
-          />
-
-          <mj-text align="center">
-            <div>
-              <a href="<%= unsubscribeLink %>" class="grey-link">
-                <%= __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>
-              </a>
-            </div>
-
-            <% if ( isRegisteredUser ) { %>
-            <div>
-              <a href="<%= emailSettingsLink %>" class="grey-link">
-                <%= __( 'changeEmailSettings' ) %>
-              </a>
-            </div>
-            <% } %>
-          </mj-text>
-        </mj-column>
-      </mj-section>
     </mj-wrapper>
+
+    <%- include( '../partials/footer.mjml' ) %>
   </mj-body>
 </mjml>

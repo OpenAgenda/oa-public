@@ -119,7 +119,8 @@ const config = {
       user: prod.db.user,
       password: prod.db.password,
       cache: true,
-      timezone: 'UTC'
+      timezone: 'UTC',
+      charset: 'utf8mb4'
     },
     schemas: {
       activity: 'activity',

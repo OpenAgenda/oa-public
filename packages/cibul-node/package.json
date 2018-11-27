@@ -8,7 +8,7 @@
     "start": "TZ=Etc/UTC node server.js web admin task",
     "watch": "nodemon --ignore node_modules --exec 'yarn start'",
     "background": "nohup npm start >/dev/null 2>&1 &",
-    "mails-editor": "oa-mails-editor services/mails/templates -w ../labels"
+    "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
   },
   "dependencies": {
     "@feathersjs/errors": "^3.3.0",

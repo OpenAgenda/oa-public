@@ -78,7 +78,8 @@ app.use(
 
 app.get( '/', async ( req, res, next ) => {
   try {
-    const paths = await recursiveListPaths( config.templatesDir, 'directory', /^((?!fixtures).)*$/ );
+    const paths = (await recursiveListPaths( config.templatesDir, 'directory', /^((?!fixtures).)*$/ ))
+      .filter( filepath => fs.existsSync( path.join( config.templatesDir, filepath, 'index.mjml' ) ) );
 
     res.send(
       [
@@ -131,7 +132,9 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   const labels = data.$labels || {};
   const langs = getLangsFromLabels( labels );
   const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
-  const __ = config.translations.makeLabelGetter( labels, lang );
+  const __ = ( data.$makeLabelGetter || config.translations.makeLabelGetter )( labels, lang );
+
+  console.log( 'LANG', lang );
 
   let html;
   let text;
@@ -150,7 +153,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
       return res.send( req.query.ignoreReload ? html : withReload( html ) );
     }
     case 'text': {
-      const textPage = `<html><body><pre>${text}</pre></body></html>`;
+      const textPage = `<html><body><pre>${_.escape( text )}</pre></body></html>`;
       return res.send(
         (req.query.ignoreReload ? textPage : withReload( textPage ) )
       );
@@ -201,7 +204,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
       ? [
         '<div style="margin: 0 auto">',
         `<h2 style="text-align: center">Text version <small>(<a href="${getRawUrl( 'text' )}">raw</a>)</small></h2>`,
-        `<div style="max-width: 600px; margin: 0 auto;">${text.replace( /(?:\r\n|\r|\n)/g, '<br>' )}</div>`,
+        `<div style="max-width: 600px; margin: 0 auto;">${_.escape( text ).replace( /(?:\r\n|\r|\n)/g, '<br>' )}</div>`,
         '</div>'
       ]
       : [] ),

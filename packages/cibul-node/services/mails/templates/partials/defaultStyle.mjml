@@ -1,0 +1,78 @@
+<mj-attributes>
+  <mj-body background-color="#f4f4f4" />
+  <mj-all
+    font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
+    line-height="22px"
+  />
+</mj-attributes>
+
+<mj-style inline="inline">
+  h1 {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.4em;
+    letter-spacing: normal;
+  }
+
+  h2 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.4em;
+    letter-spacing: normal;
+  }
+
+  .no-text-deco {
+    text-decoration: none;
+  }
+
+  .title {
+    margin-top: 0;
+  }
+
+  .logo {
+    max-width: 300px;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .grey-link {
+    color: #555555;
+  }
+
+  .black-link {
+    color: #000000;
+  }
+
+  .center {
+    text-align: center;
+  }
+
+  .content-wrapper {
+    border-left: 1px solid #eeeeee;
+    border-right: 1px solid #eeeeee;
+  }
+
+  pre code {
+    display: inline-block;
+    word-break: break-word;
+    white-space: pre-wrap;
+  }
+</mj-style>
+
+<mj-style>
+  .no-text-deco:hover {
+    text-decoration: none;
+  }
+
+  .grey-link:hover {
+    color: #41ACDD;
+  }
+
+  .black-link:hover {
+    color: #41ACDD;
+  }
+</mj-style>

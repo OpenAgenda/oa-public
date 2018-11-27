@@ -40,10 +40,9 @@ class MjMarkdown extends BodyComponent {
   render() {
     return `
       <div ${this.htmlAttributes( { // this.htmlAttributes() is the recommended way to pass attributes to html tags
-          class: this.getAttribute( 'css-class' ),
-          style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
-        } )}
-      >
+        class: this.getAttribute( 'css-class' ),
+        style: 'wrapperDiv', // This will add the 'wrapperDiv' attributes from getStyles() as inline style
+      } )}>
         ${marked( this.getContent(), { breaks: this.getAttribute( 'breaks' ) } )}
       </div>
     `;

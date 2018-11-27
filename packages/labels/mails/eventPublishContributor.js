@@ -11,11 +11,11 @@ module.exports = {
   },
   unsubscribe: {
     fr: 'Ne plus recevoir les changements de statut de mes événements',
-    en: 'Stop receiving status changes from my events'
+    en: 'Stop receiving state changes from my events'
   },
   memberUnsubscribe: {
     fr: 'Ne plus recevoir les changements de statut de mes événements sur cet agenda',
-    en: 'Stop receiving status changes from my events on this agenda'
+    en: 'Stop receiving state changes from my events on this agenda'
   },
   changeEmailSettings: {
     fr: 'Modifier mes paramètres d\'envoi d\'emails',

@@ -74,10 +74,10 @@ function _sendEmail( member, agenda, sourceAgenda, event, state ) {
 
   switch ( state ) {
     case agendaEventStates.TOCONTROL:
-      stateLabel = 'toBeControlled';
+      stateLabel = 'tocontrol';
       break;
     case agendaEventStates.CONTROLLED:
-      stateLabel = 'readyToPublish';
+      stateLabel = 'controlled';
       break;
     case agendaEventStates.PUBLISHED:
       stateLabel = 'published';

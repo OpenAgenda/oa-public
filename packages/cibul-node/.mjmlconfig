@@ -1,5 +1,6 @@
 {
   "packages": [
-    "./services/mails/components/MjMarkdown.js"
+    "./services/mails/components/MjMarkdown.js",
+    "./services/mails/components/MjContent.js"
   ]
 }
