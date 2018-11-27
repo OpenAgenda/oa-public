@@ -22,8 +22,6 @@ module.exports = class TimingsComponent extends Component {
 
   render() {
 
-    console.log( this.props );
-
     const {
       lang,
       field
