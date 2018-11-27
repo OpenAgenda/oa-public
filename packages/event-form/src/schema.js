@@ -20,12 +20,13 @@ const eventReferencesField = require( './fields/references' );
 module.exports = ( {
   locationRes, 
   referencesRes,
-  languages, 
+  languages: givenLanguages, 
   fileStore, 
   schemaExtensions,
-  draft,
   excludeEventFields
 } ) => {
+
+  const languages = ( givenLanguages || [] ).filter( l => !!l );
 
   const eventSchema = {
     custom: eventValidators,
