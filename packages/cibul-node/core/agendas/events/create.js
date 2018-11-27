@@ -62,7 +62,10 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
 
   // create the event
-  const result = await events.create( toEventServiceFormat( clean.event ), {
+  const result = await events.create( _.assign( 
+    toEventServiceFormat( clean.event ),
+    _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
+  ), {
     context: {
       userUid: _.get( options, 'context.userUid', null )
     },

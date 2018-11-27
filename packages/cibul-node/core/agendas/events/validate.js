@@ -65,8 +65,6 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   } catch( consolidatedErrors ) {
 
-    console.log(consolidatedErrors);
-
     consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
 
   }
