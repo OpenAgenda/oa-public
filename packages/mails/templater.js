@@ -74,7 +74,10 @@ async function compile( templateName, opts = {} ) {
 
     if ( rawHtml !== null ) {
       compiled.html = data => {
-        const preHtml = ejs.render( rawHtml, data, opts );
+        const preHtml = ejs.render( rawHtml, data, {
+          ...opts,
+          filename: path.join( config.templatesDir || '', templateName, 'index.mjml' )
+        } );
         const { html, errors } = mjml2html( preHtml );
 
         if ( errors && errors.length ) {
@@ -101,7 +104,10 @@ async function compile( templateName, opts = {} ) {
     }
 
     if ( rawText !== null ) {
-      compiled.text = ejs.compile( rawText, opts );
+      compiled.text = ejs.compile( rawText, {
+        ...opts,
+        filename: path.join( config.templatesDir || '', templateName, 'text.ejs' )
+      } );
     }
   }
 
@@ -115,7 +121,10 @@ async function compile( templateName, opts = {} ) {
     }
 
     if ( rawSubject !== null ) {
-      compiled.subject = ejs.compile( rawSubject, opts );
+      compiled.subject = ejs.compile( rawSubject, {
+        ...opts,
+        filename: path.join( config.templatesDir || '', templateName, 'subject.ejs' )
+      } );
     }
   }
 
@@ -177,7 +186,10 @@ async function render( templateName, data = {}, opts = {} ) {
     }
 
     if ( rawHtml !== null ) {
-      const preHtml = ejs.render( rawHtml, templateData, opts );
+      const preHtml = ejs.render( rawHtml, templateData, {
+        ...opts,
+        filename: path.join( config.templatesDir || '', templateName, 'index.mjml' )
+      } );
       const { html: renderedHtml, errors } = mjml2html( preHtml );
 
       if ( errors && errors.length ) {
@@ -204,7 +216,10 @@ async function render( templateName, data = {}, opts = {} ) {
     }
 
     if ( rawText !== null ) {
-      text = ejs.render( rawText, templateData, opts );
+      text = ejs.render( rawText, templateData, {
+        ...opts,
+        filename: path.join( config.templatesDir || '', templateName, 'text.ejs' )
+      } );
     }
   }
 
@@ -219,7 +234,10 @@ async function render( templateName, data = {}, opts = {} ) {
     }
 
     if ( rawSubject !== null ) {
-      subject = ejs.render( rawSubject, templateData, opts );
+      subject = ejs.render( rawSubject, templateData, {
+        ...opts,
+        filename: path.join( config.templatesDir || '', templateName, 'subject.ejs' )
+      } );
     }
   }
 

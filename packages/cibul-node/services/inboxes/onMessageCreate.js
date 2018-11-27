@@ -2,18 +2,15 @@
 
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
-const wn = require( 'when/node' );
 const { Inbox, InboxUsers } = require( '@openagenda/inboxes' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const mails = require( '@openagenda/mails' );
-const unsubscribed = require( '@openagenda/unsubscribed' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const getInboxLabel = makeLabelGetter( require( '@openagenda/labels/inboxes/mail' ) );
 const log = require( '@openagenda/logs' )( 'services/inboxes/onMessageCreate' );
 const genUrl = require( '../genUrl' );
-const config = require( '../../config' );
 
 module.exports = async ( conversation, message ) => {
 
@@ -121,23 +118,6 @@ async function sendMail( { inboxUser, conversation, message } ) {
       { private: null, includeImagePath: true, internal: true }
     ) : null;
 
-  // check if is unsubscribed
-  const isUnsubscribed = await wn.call(
-    unsubscribed( user.uid ).is,
-    agenda ? {
-      subject: 'agenda',
-      type: 'inbox',
-      identifier: agenda.uid
-    } : {
-      subject: 'home',
-      type: 'inbox'
-    }
-  );
-
-  if ( isUnsubscribed ) {
-    return;
-  }
-
   const subject = getSubjectLabel( { conversation, agenda, lang } );
 
   const logo = agenda && agenda.image
@@ -156,77 +136,34 @@ async function sendMail( { inboxUser, conversation, message } ) {
 
   const senderName = await getSenderName( { inboxUser, conversation, message } );
 
-  const footerActions = getFooterActions( { agenda, stakeholder, user, lang } );
+  const unsubscriptions = agenda
+    ? [ {
+      rule: [ 'receive', 'agendaInboxMessage' ],
+      dataPath: 'unsubscribeLink'
+    } ].concat( stakeholder && stakeholder.id ? [ {
+      memberId: stakeholder.id,
+      rule: [ 'receive', 'agendaInboxMessage' ],
+      dataPath: 'memberUnsubscribeLink'
+    } ] : [] )
+    : [ {
+      rule: [ 'receive', 'userInboxMessage' ],
+      dataPath: 'unsubscribeLink'
+    } ];
 
   return mails( {
     template: 'inboxMessage',
     to: {
       address: user.email,
-      unsubscriptions: [ {
-        rule: [ 'receive', 'inboxMessage' ],
-        dataPath: 'unsubscribeLink'
-      } ].concat( stakeholder && stakeholder.id ? [ {
-        memberId: stakeholder.id,
-        rule: [ 'receive', 'inboxMessage' ],
-        dataPath: 'memberUnsubscribeLink'
-      } ] : [] )
+      unsubscriptions
     },
     data: {
       subject,
       logo,
-      agenda,
       link,
       senderName,
-      footerActions,
+      agenda: agenda ? agenda.title : null,
       message: message.body
     },
     lang
   } );
-}
-
-function getFooterActions( { agenda, stakeholder, user, lang } ) {
-  if ( agenda && stakeholder ) {
-    return [ {
-      text: getInboxLabel( 'unsubscribeInboxAgenda', lang ),
-      link: config.root + unsubscribed.app.genUrl( 'add', {
-        userUid: user.uid,
-        subject: 'agenda',
-        type: 'inbox',
-        identifier: agenda.uid
-      } )
-    }, {
-      text: getInboxLabel( 'unsubscribeAgenda', lang ),
-      link: config.root + unsubscribed.app.genUrl( 'add', {
-        userUid: user.uid,
-        subject: 'agenda',
-        identifier: agenda.uid
-      } )
-    } ];
-  } else if ( agenda ) {
-    return [ {
-      text: getInboxLabel( 'unsubscribeInboxAgenda', lang ),
-      link: config.root + unsubscribed.app.genUrl( 'add', {
-        userUid: user.uid,
-        subject: 'agenda',
-        type: 'inbox',
-        identifier: agenda.uid
-      } )
-    }, {
-      text: getInboxLabel( 'unsubscribeInboxHome', lang ),
-      link: config.root + unsubscribed.app.genUrl( 'add', {
-        userUid: user.uid,
-        subject: 'home',
-        type: 'inbox'
-      } )
-    } ];
-  } else {
-    return [ {
-      text: getInboxLabel( 'unsubscribeInboxHome', lang ),
-      link: config.root + unsubscribed.app.genUrl( 'add', {
-        userUid: user.uid,
-        subject: 'home',
-        type: 'inbox'
-      } )
-    } ];
-  }
 }

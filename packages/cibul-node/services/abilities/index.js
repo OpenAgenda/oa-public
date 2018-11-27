@@ -122,12 +122,14 @@ module.exports.init = async config => {
           can( 'receive', 'invitation' );
           can( 'receive', 'notificationsSummary' );
           can( 'receive', 'memberMessage' );
-          can( 'receive', 'inboxMessage' );
+          can( 'receive', 'userInboxMessage' );
+          can( 'receive', 'agendaInboxMessage' );
           can( 'receive', 'event' );
           can( 'receive', 'eventCreation' );
           can( 'receive', 'eventChangeState' );
           can( 'receive', 'eventUpdate' );
           can( 'receive', 'eventAggregation' );
+          can( 'receive', 'myEventCreation' );
           can( 'receive', 'myEventChangeState' );
           can( 'receive', 'myEventUpdate' );
           can( 'receive', 'myEventAggregation' );

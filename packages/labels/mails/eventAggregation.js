@@ -13,17 +13,21 @@ module.exports = {
     fr: 'Voir l\'événement',
     en: 'See the event'
   },
-  toBeControlled: {
+  tocontrol: {
     fr: 'à controller',
     en: 'to be controlled'
   },
-  readyToPublish: {
+  controlled: {
     fr: 'prêt à être publié',
     en: 'ready to publish'
   },
   published: {
     fr: 'publié',
     en: 'published'
+  },
+  refused: {
+    fr: 'refusé',
+    en: 'refused'
   },
   unsubscribe: {
     fr: 'Ne plus recevoir les agrégations d\'événement',

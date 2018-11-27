@@ -10,6 +10,8 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const oldEventSvc = require( '../event' );
+const sendEventUpdate = require( './sendEventUpdate' );
+const sendEventChangeState = require( './sendEventChangeState' );
 
 const controlData = require( '../agenda/controlData' );
 
@@ -91,8 +93,24 @@ module.exports = async ( before, after, context ) => {
 
   }
 
-  
-  
+  // Send emails
+  if ( before.state === after.state ) {
+    // eventUpdate
+    // myEventUpdate
+    try {
+      await sendEventUpdate( { agenda, event, agendaEvent: after, before } );
+    } catch ( error ) {
+      log.error( new VError( error, 'Cannot send event update emails' ) )
+    }
+  } else {
+    // eventChangeState
+    // myEventChangeState
+    try {
+      await sendEventChangeState( { agenda, event, agendaEvent: after, before } );
+    } catch ( error ) {
+      log.error( new VError( error, 'Cannot send event change state emails' ) )
+    }
+  }
 
 }
 

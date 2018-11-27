@@ -2,6 +2,7 @@
 
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 
@@ -17,6 +18,7 @@ const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const mailContributor = require( '../event/instance/mailContributor' );
 const eventAggregation = require( './eventAggregation' );
+const sendEventCreation = require( './sendEventCreation' );
 const oldEventSvc = require( '../event' );
 
 const controlData = require( '../agenda/controlData' );
@@ -30,6 +32,29 @@ module.exports = async ( ae, context ) => {
   const agenda = await promisify( agendasSvc.get )( { uid: ae.agendaUid }, { internal: true, private: null } );
   const event = await promisify( oldEventSvc.get )( { uid: ae.eventUid, reviewId: agenda.id } );
   let user;
+
+  if ( context && context.userUid ) {
+    if ( !context.agendaUid || context.agendaUid === ae.agendaUid ) {
+      // Creation
+      try {
+        await sendEventCreation( { agenda, event, agendaEvent: ae } );
+      } catch ( error ) {
+        log.error( new VError( error, 'Cannot send event creation emails' ) )
+      }
+    } else {
+      // Sharing
+      console.log( '==================' );
+      console.log( 'send mail SHARING' );
+      //   myEventShare to creator                  [ 'receive', 'myEventShare' ]
+      //   eventShare to adminmods (- creator)      [ 'receive', 'eventShare' ]
+    }
+  } else if ( context && !context.userUid && context.agendaUid !== ae.agendaUid ) {
+    // Aggregation
+    console.log( '==================' );
+    console.log( 'send mail AGGREGATION' );
+    //   myEventAggregation to creator              [ 'receive', 'myEventAggregation' ]
+    // x eventAggregation to adminmods (- creator)  [ 'receive', 'eventAggregation' ]
+  }
 
   if ( ae.state === 2 ) {
 
@@ -57,7 +82,7 @@ module.exports = async ( ae, context ) => {
     // this happens after llegacy reference was added
     await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
 
-  } 
+  }
 
 
   if ( !context.legacy ) {
@@ -82,11 +107,11 @@ module.exports = async ( ae, context ) => {
 
   }
 
-  
+
   /**
    * control data is used for didsplaying widget data
    */
-  
+
   if ( ae.state === 2 && agenda && event ) {
 
     controlData.queue( agenda.id, {

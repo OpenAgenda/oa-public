@@ -34,13 +34,10 @@ const _ = {
 }
 
 const textFields = [ 'title', 'description', 'freeText', 'keywords', 'conditions' ];
+let formErrors = {};
 
+const EventForm = EventFormFactory();
 
-let formErrors = {},
-
-  EventForm = EventFormFactory();
-
-export default EventForm;
 
 export const actionables = {
 
@@ -53,7 +50,12 @@ export const actionables = {
   onSubmit: function () {
   }
 
-}
+};
+
+EventForm.actionables = actionables;
+
+export default EventForm;
+
 
 function EventFormFactory() {
 
@@ -119,7 +121,7 @@ function EventFormFactory() {
 
       }
 
-      module.exports.actionables.onSubmit = this.onSubmitSpin;
+      actionables.onSubmit = this.onSubmitSpin;
 
       return state;
 

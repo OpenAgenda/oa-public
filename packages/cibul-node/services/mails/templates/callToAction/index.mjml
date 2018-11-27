@@ -3,80 +3,27 @@
     <mj-title>Demande d'activation: <%= subject %></mj-title>
     <mj-preview><%= message %></mj-preview>
 
-    <mj-attributes>
-      <mj-all
-        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-        line-height="22px"
-      />
-    </mj-attributes>
-
-    <mj-style inline="inline">
-      h1 {
-        font-size: 22px;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1.4em;
-        letter-spacing: normal;
-      }
-
-      .title {
-        margin-top: 0;
-      }
-
-      .center {
-        text-align: center;
-      }
-    </mj-style>
+    <%- include( '../partials/defaultStyle.mjml' ) %>
   </mj-head>
 
-  <mj-body
-    background-color="#f4f4f4"
-  >
-    <!-- Header -->
-    <mj-section padding="15px 0">
+  <mj-body>
+    <%- include( '../partials/header.mjml' ) %>
+
+    <mj-content>
       <mj-column>
-        <mj-image
-          width="300px"
-          src="https://openagenda.com/images/openagenda.png"
-          href="<%= root %>"
-          padding="0"
-          alt="logo"
-        />
+        <mj-text>
+          <h1 class="title">Demande d'activation: <%= subject %></h1>
+          User: <%= user && user.email %><%= user && user.uid ? ` (${user.uid})` : '' %><br />
+          Url: <%= url %><br />
+          Agenda: <%= agenda %>
+          <% if ( message ) { %><br />Message de l'utilisateur:<br />
+          <br />
+          <%= message %>
+          <% } %>
+        </mj-text>
       </mj-column>
-    </mj-section>
+    </mj-content>
 
-    <mj-wrapper padding="0" border="1px solid #eeeeee">
-      <!-- Content -->
-      <mj-section
-        background-color="#ffffff"
-        padding="20px 40px"
-      >
-        <mj-column>
-          <mj-text>
-            <h1 class="title">Demande d'activation: <%= subject %></h1>
-            User: <%= user && user.email %><%= user && user.uid ? ` (${user.uid})` : '' %><br />
-            Url: <%= url %><br />
-            Agenda: <%= agenda %>
-            <% if ( message ) { %><br />Message de l'utilisateur:<br />
-            <br />
-            <%= message %>
-            <% } %>
-          </mj-text>
-        </mj-column>
-      </mj-section>
-
-      <!-- Footer -->
-      <mj-section padding="15px 0">
-        <mj-column>
-          <mj-image
-            width="40px"
-            src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
-            href="<%= root %>"
-            padding="0"
-            alt="footer icon"
-          />
-        </mj-column>
-      </mj-section>
-    </mj-wrapper>
+    <%- include( '../partials/footer.mjml' ) %>
   </mj-body>
 </mjml>

@@ -1,127 +1,39 @@
 <mjml>
   <mj-head>
-    <mj-title><%= agenda ? __( 'titleWithAgenda', { agenda: agenda.title } ) : __( 'title' ) %></mj-title>
+    <mj-title><%= agenda ? __( 'titleWithAgenda', { agenda } ) : __( 'title' ) %></mj-title>
     <mj-preview><%= message %></mj-preview>
 
-    <mj-attributes>
-      <mj-all
-        font-family="'Helvetica Neue',Helvetica,Arial,sans-serif"
-        line-height="22px"
-      />
-    </mj-attributes>
-
-    <mj-style inline="inline">
-      h1 {
-        font-size: 22px;
-        font-style: normal;
-        font-weight: normal;
-        line-height: 1.4em;
-        letter-spacing: normal;
-      }
-
-      .title {
-        margin-top: 0;
-      }
-
-      .logo {
-        max-width: 300px;
-      }
-
-      .center {
-        text-align: center;
-      }
-
-      .grey-link {
-        color: #555555;
-      }
-
-      a .grey-link:hover {
-        color: #41ACDD;
-      }
-    </mj-style>
+    <%- include( '../partials/defaultStyle.mjml' ) %>
   </mj-head>
 
-  <mj-body
-    background-color="#f4f4f4"
-  >
-    <!-- Header -->
-    <mj-section padding="15px 0">
+  <mj-body>
+    <%- include( '../partials/header.mjml' ) %>
+
+    <mj-content>
       <mj-column>
-        <mj-image
-          css-class="logo"
-          width="<%= logo.width || '300px' %>"
-          src="<%= logo.src %>"
+        <mj-text>
+          <h1 class="title"><%= agenda ? __( 'titleWithAgenda', { agenda } ) : __( 'title' ) %></h1>
+        </mj-text>
+
+        <mj-markdown><%- message %></mj-markdown>
+
+        <% if ( typeof senderName !== 'undefined' ) { %>
+          <mj-text padding-top="0" font-style="italic" align="right">
+            <%- __( 'sentBy', { senderName } ) %>
+          </mj-text>
+        <% } %>
+
+        <mj-button
+          background-color="#41acdd"
+          color="white"
+          align="center"
           href="<%= link %>"
-          padding="0"
-          alt="logo"
-        />
+        >
+          <%= __( 'reply' ) %>
+        </mj-button>
       </mj-column>
-    </mj-section>
+    </mj-content>
 
-    <mj-wrapper padding="0" border="1px solid #eeeeee">
-      <!-- Content -->
-      <mj-section
-        background-color="#ffffff"
-        padding="20px 40px"
-      >
-        <mj-column>
-          <mj-text>
-            <h1 class="title"><%= agenda ? __( 'titleWithAgenda', { agenda: agenda.title } ) : __( 'title' ) %></h1>
-          </mj-text>
-
-          <mj-markdown><%- message %></mj-markdown>
-
-          <% if ( typeof senderName !== 'undefined' ) { %>
-            <mj-text padding-top="0" font-style="italic" align="right">
-              <%- __( 'sentBy', { senderName } ) %>
-            </mj-text>
-          <% } %>
-
-          <mj-button
-            background-color="#41acdd"
-            color="white"
-            align="center"
-            href="<%= link %>"
-          >
-            <%= __( 'reply' ) %>
-          </mj-button>
-        </mj-column>
-      </mj-section>
-
-      <!-- Footer -->
-      <mj-section padding="15px 0">
-        <mj-column>
-          <mj-image
-            width="40px"
-            src="https://s3.eu-central-1.amazonaws.com/oastatic/avatar40.png"
-            href="<%= root %>"
-            padding="0"
-            alt="footer icon"
-          />
-
-          <mj-text align="center">
-            <% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-            <div>
-              <a href="<%= memberUnsubscribeLink %>" class="grey-link">
-                <%= __( 'memberUnsubscribe' ) %>
-              </a>
-            </div>
-            <% } %>
-
-            <div>
-              <a href="<%= unsubscribeLink %>" class="grey-link">
-                <%= __( 'unsubscribe' ) %>
-              </a>
-            </div>
-
-            <div>
-              <a href="<%= emailSettingsLink %>" class="grey-link">
-                <%= __( 'changeEmailSettings' ) %>
-              </a>
-            </div>
-          </mj-text>
-        </mj-column>
-      </mj-section>
-    </mj-wrapper>
+    <%- include( '../partials/footer.mjml' ) %>
   </mj-body>
 </mjml>

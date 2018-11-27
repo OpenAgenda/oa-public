@@ -15,7 +15,9 @@ function recipientToArray( recipient ) {
 
 function flattenRecipients( recipients ) {
   return ( Array.isArray( recipients ) ? recipients : [ recipients ] ).reduce(
-    ( result, recipient ) => result.concat( typeof recipient === 'string' ? addressParser( recipient ) : recipientToArray( recipient ) ),
+    ( result, recipient ) => result.concat( typeof recipient === 'string'
+      ? addressParser( recipient )
+      : recipientToArray( recipient ) ),
     []
   );
 }

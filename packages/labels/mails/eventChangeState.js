@@ -3,7 +3,7 @@
 module.exports = {
   subject: {
     fr: '%agenda%: %event% a changé de statut',
-    en: 'The event %event% changed from %beforeState% status to %afterState% status'
+    en: '%agenda%: %event% changed status'
   },
   title: {
     fr: 'L\'événement **%event%** est passé du statut **%beforeState%** au statut **%afterState%** sur l\'agenda **%agenda%**.',
@@ -34,12 +34,12 @@ module.exports = {
     en: 'refused'
   },
   unsubscribe: {
-    fr: 'Ne plus recevoir les changements de statut d\'événement',
-    en: 'Stop receiving event status changes'
+    fr: 'Ne plus recevoir les changements de statut d\'événement vers "{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}"',
+    en: 'Stop receiving event state changes to "{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}"'
   },
   memberUnsubscribe: {
-    fr: 'Ne plus recevoir les changements de statut d\'événement de cet agenda',
-    en: 'Stop receiving event status changes of this agenda'
+    fr: 'Ne plus recevoir les changements de statut d\'événement de cet agenda vers "{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}"',
+    en: 'Stop receiving event state changes to "{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}" on this agenda'
   },
   changeEmailSettings: {
     fr: 'Modifier mes paramètres d\'envoi d\'emails',

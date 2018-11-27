@@ -4,6 +4,11 @@ module.exports = {
   agenda: () => [
     {
       actions: 'receive',
+      subject: 'myEventCreation',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
       subject: 'myEventChangeState',
       tag: 'contributor'
     },
@@ -78,7 +83,7 @@ module.exports = {
     },
     {
       actions: 'receive',
-      subject: 'inboxMessage',
+      subject: 'userInboxMessage',
       tag: 'user'
     },
     {
@@ -89,6 +94,11 @@ module.exports = {
     {
       actions: 'receive',
       subject: 'memberMessage',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
+      subject: 'myEventCreation',
       tag: 'contributor'
     },
     {
@@ -106,43 +116,48 @@ module.exports = {
     //   subject: 'myEventAggregation',
     //   tag: 'contributor'
     // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventCreation',
-    //   tag: 'adminmod'
-    // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventChangeState',
-    //   conditions: {
-    //     state: -1 // refused
-    //   },
-    //   tag: 'adminmod'
-    // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventChangeState',
-    //   conditions: {
-    //     state: 0 // tocontrol
-    //   },
-    //   tag: 'adminmod'
-    // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventChangeState',
-    //   conditions: {
-    //     state: 1 // controlled
-    //   },
-    //   tag: 'adminmod'
-    // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventChangeState',
-    //   conditions: {
-    //     state: 2 // published
-    //   },
-    //   tag: 'adminmod'
-    // },
+    {
+      actions: 'receive',
+      subject: 'agendaInboxMessage',
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventCreation',
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventChangeState',
+      conditions: {
+        state: -1 // refused
+      },
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventChangeState',
+      conditions: {
+        state: 0 // tocontrol
+      },
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventChangeState',
+      conditions: {
+        state: 1 // controlled
+      },
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventChangeState',
+      conditions: {
+        state: 2 // published
+      },
+      tag: 'adminmod'
+    },
     // {
     //   actions: 'receive',
     //   subject: 'eventUpdate',
@@ -159,6 +174,11 @@ module.exports = {
       {
         actions: 'receive',
         subject: 'memberMessage',
+        tag: 'contributor'
+      },
+      {
+        actions: 'receive',
+        subject: 'myEventCreation',
         tag: 'contributor'
       },
       {
@@ -182,46 +202,46 @@ module.exports = {
       return contributorRules.concat( [
         {
           actions: 'receive',
-          subject: 'inboxMessage',
+          subject: 'agendaInboxMessage',
           tag: 'adminmod'
         },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventCreation',
-        //   tag: 'adminmod'
-        // },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventChangeState',
-        //   conditions: {
-        //     state: -1 // refused
-        //   },
-        //   tag: 'adminmod'
-        // },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventChangeState',
-        //   conditions: {
-        //     state: 0 // tocontrol
-        //   },
-        //   tag: 'adminmod'
-        // },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventChangeState',
-        //   conditions: {
-        //     state: 1 // controlled
-        //   },
-        //   tag: 'adminmod'
-        // },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventChangeState',
-        //   conditions: {
-        //     state: 2 // published
-        //   },
-        //   tag: 'adminmod'
-        // },
+        {
+          actions: 'receive',
+          subject: 'eventCreation',
+          tag: 'adminmod'
+        },
+        {
+          actions: 'receive',
+          subject: 'eventChangeState',
+          conditions: {
+            state: -1 // refused
+          },
+          tag: 'adminmod'
+        },
+        {
+          actions: 'receive',
+          subject: 'eventChangeState',
+          conditions: {
+            state: 0 // tocontrol
+          },
+          tag: 'adminmod'
+        },
+        {
+          actions: 'receive',
+          subject: 'eventChangeState',
+          conditions: {
+            state: 1 // controlled
+          },
+          tag: 'adminmod'
+        },
+        {
+          actions: 'receive',
+          subject: 'eventChangeState',
+          conditions: {
+            state: 2 // published
+          },
+          tag: 'adminmod'
+        },
         // {
         //   actions: 'receive',
         //   subject: 'eventUpdate',

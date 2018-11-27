@@ -15,7 +15,9 @@ module.exports = {
   afterState: 'tocontrol',
   unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
   memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
-  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
+  emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
+  isRegisteredUser: true
 };
 
 module.exports.$labels = require( '@openagenda/labels/mails/eventChangeState' );
+module.exports.$makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );

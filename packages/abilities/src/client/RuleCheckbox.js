@@ -36,9 +36,13 @@ const ruleMessages = defineMessages( {
     id: 'Abilities.RulesCheckbox.rules.receiveMemberMessage',
     defaultMessage: 'Receive messages sent via the "Write to them" feature'
   },
-  receiveInboxMessage: {
-    id: 'Abilities.RulesCheckbox.rules.receiveInboxMessage',
-    defaultMessage: 'Receive messages from the inbox'
+  receiveUserInboxMessage: {
+    id: 'Abilities.RulesCheckbox.rules.receiveUserInboxMessage',
+    defaultMessage: 'Receive messages from my inbox'
+  },
+  receiveAgendaInboxMessage: {
+    id: 'Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage',
+    defaultMessage: 'Receive messages from agenda inbox'
   },
   receiveEvent: {
     id: 'Abilities.RulesCheckbox.rules.receiveEvent',
@@ -59,6 +63,10 @@ const ruleMessages = defineMessages( {
   receiveEventChangeState: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventChangeState',
     defaultMessage: 'Receive states changes for {state}'
+  },
+  receiveMyEventCreation: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMyEventCreation',
+    defaultMessage: 'Receive event creation confirmations'
   },
   receiveEventCreation: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventCreation',

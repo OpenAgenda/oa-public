@@ -22,12 +22,12 @@ module.exports = {
     en: 'Reply'
   },
   unsubscribe: {
-    fr: 'Ne plus recevoir les messages de la messagerie',
-    en: 'Stop receiving inbox messages'
+    fr: 'Ne plus recevoir les messages {agenda, select, null {de ma messagerie} other {des messageries des agendas}}',
+    en: 'Stop receiving messages {agenda, select, null {from my inbox} other {from inboxes of agendas}}'
   },
   memberUnsubscribe: {
     fr: 'Ne plus recevoir les messages de la messagerie de cet agenda',
-    en: 'Stop receiving inbox messages from this agenda'
+    en: 'Stop receiving messages from the inbox of this agenda'
   },
   changeEmailSettings: {
     fr: 'Modifier mes paramètres d\'envoi d\'emails',
