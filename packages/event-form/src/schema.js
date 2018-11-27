@@ -26,7 +26,9 @@ module.exports = ( {
   excludeEventFields
 } ) => {
 
-  const languages = ( givenLanguages || [] ).filter( l => !!l );
+  const languages = givenLanguages === true 
+    ? [] 
+    : ( givenLanguages || [] ).filter( l => !!l );
 
   const eventSchema = {
     custom: eventValidators,

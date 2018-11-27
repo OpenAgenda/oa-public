@@ -6,7 +6,20 @@ const eventSchema = require( '../src/schema' );
 
 describe( 'event-form eventSchema', () => {
 
-  test( 'when no language is specified, empty array is set', () => {
+  test( 'languages set to true equates no languages', () => {
+
+    const es = eventSchema( {
+      languages: true
+    } );
+
+    expect(
+      es.fields.filter( f => f.field === 'description' )[ 0 ].languages
+    ).toEqual( [] );
+
+
+  } );
+
+  test( 'null languages are filtered out', () => {
 
     const es = eventSchema( {
       languages: [ null ], // last time I checked, null is not a language.
