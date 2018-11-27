@@ -20,10 +20,15 @@ const eventReferencesField = require( './fields/references' );
 module.exports = ( {
   locationRes, 
   referencesRes,
-  languages, 
+  languages: givenLanguages, 
   fileStore, 
-  schemaExtensions 
+  schemaExtensions,
+  excludeEventFields
 } ) => {
+
+  const languages = givenLanguages === true 
+    ? [] 
+    : ( givenLanguages || [] ).filter( l => !!l );
 
   const eventSchema = {
     custom: eventValidators,
@@ -218,6 +223,14 @@ module.exports = ( {
   }
 
   const merged = merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+
+  if ( excludeEventFields ) {
+
+    const eventSchemaFields = eventSchema.fields.map( f => f.field );
+
+    merged.fields = merged.fields.filter( f => !eventSchemaFields.includes( f.field ) );
+
+  }
 
   return _setLanguages( merged, languages );
 

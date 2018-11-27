@@ -22,6 +22,7 @@ class Main extends Component {
           fieldType: 'checkbox',
           label: 'Make a choice',
           optional: false,
+          default: [ 2, 3 ],
           options: [ {
             id: 1,
             value: 'option-one',

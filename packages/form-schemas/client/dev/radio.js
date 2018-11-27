@@ -22,6 +22,7 @@ class Main extends Component {
           fieldType: 'radio',
           label: 'Make a choice',
           optional: false,
+          default: 2,
           options: [ {
             id: 1,
             value: 'option-one',

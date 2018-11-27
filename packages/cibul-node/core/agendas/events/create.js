@@ -7,6 +7,7 @@ const VError = require( 'verror' );
 const events = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
+const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
@@ -14,13 +15,19 @@ const getNetwork = require( '../utils/getNetwork' );
 const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
+
 module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, options } );
 
-  const { draft, formSchemaDataFormat } = _.assign( {
+  const {
+    draft,
+    formSchemaDataFormat,
+    defaultLang
+  } = _.assign( {
     draft: false,
-    formSchemaDataFormat: false
+    formSchemaDataFormat: false,
+    defaultLang: 'en'
   }, options || {} );
 
   const {
@@ -55,7 +62,10 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
 
   // create the event
-  const result = await events.create( clean.event, {
+  const result = await events.create( _.assign( 
+    toEventServiceFormat( clean.event ),
+    _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
+  ), {
     context: {
       userUid: _.get( options, 'context.userUid', null )
     },

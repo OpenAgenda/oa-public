@@ -4,11 +4,15 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
 const formSchemas = require( '@openagenda/form-schemas' );
+const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
+
 const log = require( '@openagenda/logs' )( 'core/agendas/events/validate' );
 const validate = require( '@openagenda/events/service/validate' );
 const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
-const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
+const eventSchema = require( '@openagenda/event-form/build/schema' );
+const extractLanguages = require( '@openagenda/event-form/build/utils/extractLanguages' );
+const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgenda = require( '../utils/getAgenda' );
 
@@ -22,70 +26,55 @@ module.exports = async ( agendaUid, data ) => {
 
 module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
 
-  const { draft, evaluateEvent, formSchemaDataFormat } = _.assign( {
+  const { draft, evaluateEvent, formSchemaDataFormat, defaultLang } = _.assign( {
+    defaultLang: null,
     evaluateEvent: true,
     draft: false,
     formSchemaDataFormat: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
-  log( 'validating full agenda event data in %s format', formSchemaDataFormat ? 'form schema format' : 'event service format' );
+  // api provides event data in event service format ( deep image object that includes credits )
+  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data );
+
+  const schemaExtensions = await _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } );
+
+  // Define which languages should be included. Should depend on 
+  //  * agenda setting ( if set ) ( not yet coded )
+  //  * submitted language keys in languages field
+  //  * default language
+
+  const languages = _.get( data, 'languages' ) || extractLanguages( data, defaultLang );
+
+  log( 'processed languages: %j', languages );
+
+  const consolidatedSchema = eventSchema( {
+    languages,
+    schemaExtensions: _asArray( schemaExtensions ),
+    excludeEventFields: !evaluateEvent
+  } );
+
+  const clean = {
+    event: null,
+    custom: null,
+    networkCustom: null,
+    agendaEvent: null
+  };
 
   const errors = [];
 
-  const clean = {
-    custom: null,
-    agendaEvent: null
-  }
-
-  if ( evaluateEvent ) {
-
-    log( 'evaluating event data' );
-
-    clean.event = null;
-
-    const eventServiceFormattedData = formSchemaDataFormat ? toEventServiceFormat( data ) : data;
-    
-    // clean event
-    try {
-
-      validate[ draft ? 'draft' : 'front' ]( eventServiceFormattedData, { optionalSlug: true } );
-
-    } catch( eventValidationErrors ) {
-
-      log( 'info', 'received event validation errors', eventValidationErrors );
-
-      eventValidationErrors.forEach( err => errors.push( _.set( err, 'step', 'event data validation' ) ) );
-
-    }
-
-    clean.event = eventServiceFormattedData;
-
-  }
-
-
-  if ( formSchemaId ) {
-
-    log( 'evaluating custom data' );
-
-    const result = await _evaluateCustom( formSchemaId, data, { draft } );
-
-    clean.custom = result.clean;
-
-    result.errors.forEach( err => errors.push( _.set( err, 'step', 'agenda custom data validation' ) ) );
-
-  }
-
-  // clean network custom data
+  // clean consolidated schemas data
   
-  if ( networkFormSchemaId ) {
+  try {
 
-    log( 'evaluating network custom data' );
+    const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
 
-    const result = await _evaluateCustom( networkFormSchemaId, data, { draft } );
+    const consolidatedClean = validate( formSchemaData );
 
-    clean.networkCustom = result.clean;
+    _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
-    result.errors.forEach( err => errors.push( _.set( err, 'step', 'network custom data validation' ) ) );
+  } catch( consolidatedErrors ) {
+
+    consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
 
   }
 
@@ -142,5 +131,72 @@ async function _evaluateCustom( formSchemaId, data, options ) {
     return { clean: null, errors }
 
   }  
+
+}
+
+
+async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
+
+  const schemas = {
+    network: null, 
+    agenda: null
+  };
+
+  if ( formSchemaId ) {
+
+    log( 'loading agenda form schema' );
+
+    schemas.agenda = await formSchemas.get( formSchemaId );
+
+  }
+
+  // clean network custom data
+  
+  if ( networkFormSchemaId ) {
+
+    log( 'loading network form schema' );
+
+    schemas.network = await formSchemas.get( networkFormSchemaId );
+
+  }
+
+  return schemas;
+
+}
+
+
+function _distributeCleanData( consolidatedClean, schemaExtensions ) {
+
+  const fieldsPerSchema = {
+    agenda: schemaExtensions.agenda ? schemaExtensions.agenda.fields.filter( f => f.fieldType && f.fieldType !== 'abstract' ).map( f => f.field ) : [],
+    network: schemaExtensions.network ? schemaExtensions.network.fields.filter( f => f.fieldType && f.fieldType !== 'abstract' ).map( f => f.field ) : [],
+    event: []
+  };
+
+  fieldsPerSchema.event = _.keys( consolidatedClean ).filter( field => !fieldsPerSchema.agenda.includes( field ) && !fieldsPerSchema.network.includes( field ) );
+  
+  return {
+    custom: _.pick( consolidatedClean, fieldsPerSchema.agenda ),
+    networkCustom: _.pick( consolidatedClean, fieldsPerSchema.network ),
+    event: _.pick( consolidatedClean, fieldsPerSchema.event )
+  }
+
+}
+
+
+function _consolidatedValidate( schema, data, { draft } ) {
+
+  const fs = new FormSchema( schema );
+
+  const validate = fs.getValidate( { draft } );
+
+  return validate( data );
+
+}
+
+
+function _asArray( obj ) {
+
+  return _.keys( obj ).map( k => obj[ k ] ).filter( s => !!s )
 
 }

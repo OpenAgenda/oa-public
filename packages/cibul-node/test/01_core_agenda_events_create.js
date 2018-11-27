@@ -162,12 +162,18 @@ describe( 'core - functional ( server ): agenda event create', function() {
         title: {
           fr: 'Un événement'
         },
+        description: {
+          fr: 'Un tout petit événement'
+        },
         timings: [ {
           begin: new Date,
           end: new Date
         } ],
         keywords: {
           fr: [ 'un', 'deux', 'trois' ]
+        },
+        location: {
+          uid: 123
         },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ],
@@ -414,6 +420,9 @@ describe( 'core - functional ( server ): agenda event create', function() {
       result = await core.agendas( 17026855 ).events.create( {
         title: {
           fr: 'Un événement'
+        },
+        description: {
+          fr: 'Quelques détails'
         },
         timings: [ {
           begin: new Date,

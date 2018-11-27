@@ -1,10 +1,14 @@
 import _ from 'lodash';
 
-export default ( values, defaultLang ) => {
+/**
+ * derive defined languages from current form data
+ */
+
+export default ( values, defaultLang = null ) => {
 
   if ( !_.isObject( values ) ) {
 
-    return [ defaultLang ];
+    return defaultLang ? [ defaultLang ] : [];
 
   }
 

@@ -87,6 +87,9 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
       fr: 'Rugissant / Trésor de la guerre d\'Espagne et autres textes de Serge Pey'
     },
     description: { fr: "Culture" },
+    location: {
+      uid: 123
+    },
     longDescription: {
       fr:
         "#### Lecture musicale / Poésie / Serge Pey\n\n   \n\nLa Poésie c’est le pied ! c’est **une semaine consacrée à la poésie contemporaine** dans ce qu’elle a de plus divers, en invitant à la fois des poètes·ses et des comédien·nes qui donnent voix aux poètes·ses.\n\nCatherine Vaniscotte s’empare du **_Trésor de la guerre d’Espagne_** et de _**La Boîte aux lettres du cimetière**_.\n\n« Les personnages de ses nouvelles souvent inspirées d’histoires vraies racontent leur combat pour la liberté, la résistance contre l’oppression, l’exil et la fraternité. Ces écrits de **Serge Pey**, très intenses, étrangement drôles, parfois cruels ou tendres me touchent, me bousculent, me donnent envie de partager « à voix haute » ses pensées, ses interrogations, et cette volonté de vivre libre. Nous serons en duo avec **Frédéric Cavallin**, musicien, qui accompagnera les mots, leur donnera du relief et des paysages sonores. » Catherine Vaniscotte.\n\n   \n\nDurée : 45 min."

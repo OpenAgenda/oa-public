@@ -9,7 +9,9 @@ module.exports = props => {
 
   const { value, onChange } = props;
 
-  const checked = [].concat( value || [] );
+  const defaultChecked = [].concat( props.field.default || [] );
+
+  const checked = [].concat( value || defaultChecked );
 
   return <Fragment>
     {options.map( o => <div
