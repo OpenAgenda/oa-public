@@ -4,7 +4,9 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 [ 'web', 'admin', 'task' ].forEach( argItem => {
 
-  process.env[ argItem.toUpperCase() ] = process.argv ? process.argv.includes( argItem ) : false;
+  const envEnabled =  process.argv ? process.argv.includes( argItem ) : '';
+
+  process.env[ argItem.toUpperCase() ] = envEnabled;
 
 } );
 
