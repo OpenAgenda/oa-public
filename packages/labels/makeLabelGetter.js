@@ -10,11 +10,17 @@ var parser = require( 'intl-messageformat-parser' );
  * needs to be ES5 or cibul-templates uglify will throw errors
  */
 
-module.exports = function( labels, defaultLang ) {
+module.exports = function( labels, defaultLang, fallbackLang ) {
 
   if ( typeof defaultLang === 'undefined' ) {
 
     defaultLang = 'en';
+
+  }
+
+  if ( typeof fallbackLang === 'undefined' ) {
+
+    fallbackLang = 'en';
 
   }
 
@@ -37,7 +43,20 @@ module.exports = function( labels, defaultLang ) {
       return null;
     }
 
-    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : name;
+    var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : null;
+
+    if ( fallbackLang && !str ) {
+
+      str = labels[ name ][ fallbackLang ];
+
+    }
+
+    if ( !str ) {
+
+      str = name;
+
+    }
+
     var parsedAST = parser.parse( str );
     var isICU = parsedAST.elements.some( function ( v ) {
       return v.type === 'argumentElement';
