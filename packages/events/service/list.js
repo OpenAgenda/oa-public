@@ -41,7 +41,7 @@ function list( query, offset, limit, options, cb ) {
 
     let total, events = [], cleanOptions;
 
-    try { 
+    try {
 
       cleanOptions = validateOptions( params.options );
 
@@ -132,7 +132,6 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
     .select.apply( knex, listFields )
     .limit( limit || 0 )
     .offset( offset || 0 )
-     
     .then( events => {
 
       log( 'fetched %s events', events.length );
@@ -144,7 +143,7 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
           event.image = decorateImage( event.image, {
             imagePath: config.image.base,
             useDefaultPath: useDefaultImage,
-            defaultPath: config.image.default 
+            defaultPath: config.image.default
           } );
 
           return event;

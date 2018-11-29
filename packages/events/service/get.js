@@ -3,7 +3,6 @@
 const w = require( 'when' );
 const _ = require( 'lodash' );
 const validate = require( './validate' );
-const logger = require( '@openagenda/logs' );
 const sUtils = require( '@openagenda/service-utils' );
 const getConfig = require( './getConfig' );
 const map = require( './databaseFieldMap' );
@@ -13,9 +12,11 @@ const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 const decorateImage = require( './lib/decorateImage' );
 const cleanGetOptions = require( './validate/getOptions' );
 
+const log = require( '@openagenda/logs' )( 'get' );
+
 module.exports = _.extend( get, { init } );
 
-let knex, schemas, service, log, config;
+let knex, schemas, service, config;
 
 function get( i, o, c ) {
 
@@ -122,9 +123,19 @@ function _transform( v ) {
 
   if ( !v.entry ) return v;
 
+  try {
+
   let parsed = dbParse.toObj( v.entry, false );
 
   v.data = _applyDefaults( parsed );
+
+  } catch( e ) {
+
+    log( 'error', 'event %j has invalid JSON', v.identifiers, e );
+
+    throw new VError( 'corrupt JSON in event field', e );
+
+  }
 
   if ( v.html ) {
 
@@ -178,7 +189,5 @@ function init( svc, c ) {
   schemas = c.schemas;
 
   service = svc;
-
-  log = logger( 'events service/get' );
 
 }
