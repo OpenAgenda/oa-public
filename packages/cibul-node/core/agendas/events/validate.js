@@ -38,7 +38,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   const schemaExtensions = await _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } );
 
-  // Define which languages should be included. Should depend on 
+  // Define which languages should be included. Should depend on
   //  * agenda setting ( if set ) ( not yet coded )
   //  * submitted language keys in languages field
   //  * default language
@@ -63,7 +63,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
   const errors = [];
 
   // clean consolidated schemas data
-  
+
   try {
 
     const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
@@ -74,12 +74,18 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   } catch( consolidatedErrors ) {
 
+    if ( !_.isArray( consolidatedErrors ) ) {
+
+      log( 'error', 'exception during validation', consolidatedErrors );
+
+    }
+
     consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
 
   }
 
   // clean agenda-event data
-  
+
   try {
 
     log( 'evaluating agenda-event reference data' );
@@ -130,7 +136,7 @@ async function _evaluateCustom( formSchemaId, data, options ) {
 
     return { clean: null, errors }
 
-  }  
+  }
 
 }
 
@@ -138,7 +144,7 @@ async function _evaluateCustom( formSchemaId, data, options ) {
 async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
 
   const schemas = {
-    network: null, 
+    network: null,
     agenda: null
   };
 
@@ -151,7 +157,7 @@ async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
   }
 
   // clean network custom data
-  
+
   if ( networkFormSchemaId ) {
 
     log( 'loading network form schema' );
@@ -174,7 +180,7 @@ function _distributeCleanData( consolidatedClean, schemaExtensions ) {
   };
 
   fieldsPerSchema.event = _.keys( consolidatedClean ).filter( field => !fieldsPerSchema.agenda.includes( field ) && !fieldsPerSchema.network.includes( field ) );
-  
+
   return {
     custom: _.pick( consolidatedClean, fieldsPerSchema.agenda ),
     networkCustom: _.pick( consolidatedClean, fieldsPerSchema.network ),
