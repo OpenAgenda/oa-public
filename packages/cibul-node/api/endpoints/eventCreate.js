@@ -16,7 +16,7 @@ module.exports = async ( req, res, next ) => {
     _.set( req.parsedData, 'image.path', _.get( req, 'file.path', undefined ) );
 
   }
-  
+
   try {
 
     const result = await core.agendas( req.agenda.uid ).events.create( ih( req.parsedData, {

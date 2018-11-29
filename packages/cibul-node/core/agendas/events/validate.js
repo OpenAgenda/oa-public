@@ -63,7 +63,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
   const errors = [];
 
   // clean consolidated schemas data
-  
+
   try {
 
     const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
@@ -79,7 +79,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
   }
 
   // clean agenda-event data
-  
+
   try {
 
     log( 'evaluating agenda-event reference data' );
