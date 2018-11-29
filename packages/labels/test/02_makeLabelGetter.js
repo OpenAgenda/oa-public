@@ -50,4 +50,12 @@ describe( 'makeLabelGetter - functional', () => {
 
   } );
 
+  it( 'fallback language', () => {
+
+    getLabel( 'yourPhotos', { numPhotos: 0 }, 'it' ).should.equal( 'You have no photos.' );
+    getLabel( 'yourPhotos', { numPhotos: 1 }, 'it' ).should.equal( 'You have one photo.' );
+    getLabel( 'yourPhotos', { numPhotos: 42 }, 'it' ).should.equal( 'You have 42 photos.' );
+
+  } );
+
 } );
