@@ -59,10 +59,10 @@ function list( query, offset, limit, options, cb ) {
 
       }
 
-      events = await _list( knexQuery, params.limit, params.offset, { 
-        order: cleanQuery.order, 
-        internal: cleanOptions.internal, 
-        detailed: cleanOptions.detailed, 
+      events = await _list( knexQuery, params.limit, params.offset, {
+        order: cleanQuery.order,
+        internal: cleanOptions.internal,
+        detailed: cleanOptions.detailed,
         useDefaultImage: params.options.useDefaultImage,
         includePrivate,
         includeDraft: cleanQuery.draft || cleanQuery.draft === null
@@ -79,16 +79,16 @@ function list( query, offset, limit, options, cb ) {
       return rj( e );
 
     }
-      
+
     rs( _.pick( { events, total }, cleanOptions.total ? [ 'events', 'total' ] : [ 'events' ] ) );
 
   } );
 
   if ( !params.cb ) return p;
 
-  w( p ).done( result => process.nextTick( () => { 
+  w( p ).done( result => process.nextTick( () => {
 
-    params.cb( null, result.events, result.total ); 
+    params.cb( null, result.events, result.total );
 
   } ), params.cb );
 
@@ -206,12 +206,12 @@ function _detailed( events, options ) {
 
         }
 
-        rs( detailedEvents.map( e => _.extend( e, 
+        rs( detailedEvents.map( e => _.extend( e,
           {
             location: _.find( locations, l => l.uid === e.locationUid ) || null,
           },
           options.html ? {
-            html: _.mapValues( e.longDescription, parseMarkdown ) 
+            html: _.mapValues( e.longDescription, parseMarkdown )
           } : {}
         ) ) );
 
@@ -273,7 +273,7 @@ function _addWheres( knex, query, options ) {
 
     knex.where( 'updated_at', '>=', query.updatedAt );
 
-  }  
+  }
 
   if ( query.search !== null ) {
 
