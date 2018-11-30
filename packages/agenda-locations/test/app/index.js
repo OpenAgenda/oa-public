@@ -5,7 +5,9 @@ const app = require( '@openagenda/test-app' )( {
   excludeDefaultStyles: true,
   styles: [
     __dirname + '/../../../../node_modules/@openagenda/bs-templates/compiled/main.css'
-  ]
+  ],
+  webpack: true,
+  babelServer: true
 } );
 
 const fixtures = require( '../fixtures' );
@@ -98,7 +100,7 @@ app.post( '/image/remove', mw.newImageRemove );
 app.get( '/:locationUid/suggestion*', ( req, res, next ) => {
 
   // preload stakeholderId
-  
+
   req.stakeholderId = 456;
 
   next();

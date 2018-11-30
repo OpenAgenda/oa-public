@@ -59,7 +59,7 @@
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
-    "@openagenda/test-app": "^2.0.3",
+    "@openagenda/test-app": "^2.0.7",
     "babel-preset-openagenda": "^1.1.0",
     "body-parser": "1.14.1",
     "mocha": "^4.0.1",
