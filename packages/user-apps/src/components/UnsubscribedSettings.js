@@ -51,10 +51,19 @@ class UnsubscribedSettings extends Component {
                   // get + patch
                   formIndex: '/abilities/form-index'
                 }}
+                HeaderComponent={( { saveButton } ) => (
+                  <div className="clearfix margin-bottom-sm">
+                    <div className="pull-right">
+                      {saveButton}
+                    </div>
+
+                    <p>{getLabels( 'chooseEmailsSent' )}</p>
+                  </div>
+                )}
               />
             </div>
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}></td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'chooseEmailsSent' )}</td>}
       </tr>
     );
 
