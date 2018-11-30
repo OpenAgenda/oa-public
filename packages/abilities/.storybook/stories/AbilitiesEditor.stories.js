@@ -31,4 +31,18 @@ storiesOf( 'AbilitiesEditor', module )
         formIndex: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}/abilities/form-index`
       }}
     />
+  ) )
+  .add( 'with HeaderComponent', () => withJestSleep( 1500 )(
+    <AbilitiesEditor
+      locale={select( 'Locale', { Français: 'fr', English: 'en' }, 'fr' )}
+      entityName="user"
+      identifier={99999999}
+      res={{
+        // get + patch
+        formIndex: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}/abilities/form-index`
+      }}
+      HeaderComponent={() => (
+        <div>Un header bidon</div>
+      )}
+    />
   ) );

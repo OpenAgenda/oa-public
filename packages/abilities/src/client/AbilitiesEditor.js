@@ -124,7 +124,8 @@ class AbilitiesEditor extends Component {
 
   renderContent() {
     const {
-      abilitiesFetcher: { loading, data: rules, error }
+      abilitiesFetcher: { loading, data: rules, error },
+      HeaderComponent
     } = this.props;
 
     if ( loading ) {
@@ -156,6 +157,7 @@ class AbilitiesEditor extends Component {
         mutators={{ setFieldData: setFieldDataMutator }}
         component={AbilitiesForm}
         rules={rules}
+        HeaderComponent={HeaderComponent}
       />
     );
   }

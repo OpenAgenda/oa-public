@@ -5,6 +5,7 @@ import { FormSpy } from 'react-final-form';
 import Collapse from 'rc-collapse';
 import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
+import cn from 'classnames';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
@@ -58,13 +59,15 @@ class AbilitiesForm extends Component {
     form: PropTypes.objectOf( PropTypes.any ),
     entityName: PropTypes.string.isRequired,
     identifier: PropTypes.number.isRequired,
-    handleSubmit: PropTypes.func
+    handleSubmit: PropTypes.func,
+    HeaderComponent: PropTypes.oneOfType( [ PropTypes.node, PropTypes.func ] )
   };
 
   static defaultProps = {
     rules: null,
     form: null,
-    handleSubmit: null
+    handleSubmit: null,
+    HeaderComponent: null
   };
 
   componentDidMount() {
@@ -104,7 +107,7 @@ class AbilitiesForm extends Component {
 
   render() {
     const {
-      entityName, identifier, rules, handleSubmit, form
+      entityName, identifier, rules, handleSubmit, form, HeaderComponent
     } = this.props;
 
     const rulesPerEntity = rules.reduce( ( result, rule ) => {
@@ -132,6 +135,35 @@ class AbilitiesForm extends Component {
       'entityName'
     );
 
+    const saveButton = (
+      <FormSpy
+        subscription={{ submitting: true, pristine: true, submitSucceeded: true }}
+      >
+        {({ submitting, pristine, submitSucceeded }) => (
+          <button
+            type="submit"
+            className={cn(
+              'btn',
+              {
+                'btn-primary': !submitSucceeded,
+                'btn-success': submitSucceeded
+              }
+            )}
+            disabled={submitting || pristine}
+          >
+            <FormattedMessage
+              id="Abilities.AbilitiesForm.save"
+              defaultMessage="Save"
+            />
+
+            {submitting && <span className="margin-h-sm">
+                <Spinner mode="inline" />
+              </span>}
+          </button>
+        )}
+      </FormSpy>
+    );
+
     return (
       <form onSubmit={handleSubmit}>
         {firstEntityAbility
@@ -139,6 +171,8 @@ class AbilitiesForm extends Component {
         && firstEntityAbility.rules.length ? (
           <Fragment>
             <div className="margin-bottom-sm">
+              {HeaderComponent ? React.createElement( HeaderComponent, { saveButton } ) : null}
+
               {Object.entries( _.groupBy( firstEntityAbility.rules, 'tag' )).map( ([ key, rules ]) => {
                 const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( key )}` ];
 
@@ -196,22 +230,7 @@ class AbilitiesForm extends Component {
           </Fragment>
         ) )}
 
-        <FormSpy
-          subscription={{ pristine: true, submitting: true }}
-        >
-          {({ submitting, pristine }) => (
-            <button type="submit" className="btn btn-primary" disabled={submitting || pristine}>
-              <FormattedMessage
-                id="Abilities.AbilitiesForm.save"
-                defaultMessage="Save"
-              />
-
-              {submitting && <span className="margin-h-sm">
-                <Spinner mode="inline" />
-              </span>}
-            </button>
-          )}
-        </FormSpy>
+        {saveButton}
 
         <FormSpy
           subscription={{ values: true, data: true }}
