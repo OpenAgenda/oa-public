@@ -40,8 +40,8 @@ const initState = _.get( init, 'state' );
 
 const config = _.get( init, 'config' );
 
-const store = createStore( combineReducers( { 
-  ...reducers, 
+const store = createStore( combineReducers( {
+  ...reducers,
   routing: routerReducer,
   config: () => config,
 } ), initState, applyMiddleware(
