@@ -261,7 +261,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       const hasOtherLanguages = !!languages.filter( l => l !== 'fr' ).length;
 
-      return [ 'uid' ].concat( _textFields( [ 
+      return [ 'uid' ].concat( _textFields( [
         'title', 'description', 'longDescription', 'conditions', 'html', 'keywords'
       ], languages ), [
         'image',
@@ -296,7 +296,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
       'lastDate',
       'lastTimeStart',
       'lastTimeEnd',
-      { 
+      {
         sourceField: 'category',
         destField: categorySet && categorySet.name ? categorySet.name : 'category',
         fn: _extractCategory
