@@ -4,10 +4,10 @@ const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const qs = require( 'qs' );
 
-module.exports = [ 
+module.exports = [
   bodyParser.raw( {
-    inflate: true, 
-    limit: '500kb', 
+    inflate: true,
+    limit: '500kb',
     type: 'text/plain'
   } ),
   ( req, res, next ) => {

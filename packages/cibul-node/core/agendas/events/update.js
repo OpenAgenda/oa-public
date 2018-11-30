@@ -62,7 +62,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   }
 
   // update the event
-  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event ), {
+  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, data ), {
     context: {
       agendaUid,
       userUid: _.get( options, 'context.userUid', null ),

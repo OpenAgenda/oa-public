@@ -8,8 +8,8 @@ module.exports = async ( req, res, next ) => {
 
   try {
 
-    req.user = await accessTokens.getUser( 
-      _.get( req, 'body.access_token' ), 
+    req.user = await accessTokens.getUser(
+      _.get( req, 'body.access_token' ),
       _.get( req, 'body.nonce' )
     );
 
