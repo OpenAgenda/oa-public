@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-components",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/dom-utils": "^2.0.3",
+    "@openagenda/dom-utils": "^2.2.0",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.5.8",
     "react-bootstrap": "^0.31.0",
@@ -22,10 +22,10 @@
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
-    "@openagenda/bs-templates": "^2.0.78",
+    "@openagenda/bs-templates": "^2.2.0",
     "@storybook/react": "^3.4.11",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.0.0",
+    "babel-preset-openagenda": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reactify": "1.1.1",

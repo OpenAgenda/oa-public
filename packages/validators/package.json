@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/validators",
-  "version": "2.0.19",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "watch": {
@@ -27,7 +27,7 @@
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@babel/register": "^7.0.0",
-    "babel-preset-openagenda": "^1.0.0",
+    "babel-preset-openagenda": "^1.1.0",
     "mocha": "^5.2.0",
     "npm-watch": "^0.1.5",
     "should": "^8.2.1",
