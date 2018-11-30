@@ -7,6 +7,7 @@ const morgan = require( 'morgan' );
 const reload = require( 'reload' );
 const walk = require( 'walk' );
 const VError = require( 'verror' );
+const htmlToText = require( 'html-to-text' );
 const config = require( './config' );
 const { render } = require( './' );
 
@@ -134,8 +135,6 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   const lang = req.query.lang || config.defaults.lang || langs[ 0 ];
   const __ = ( data.$makeLabelGetter || config.translations.makeLabelGetter )( labels, lang );
 
-  console.log( 'LANG', lang );
-
   let html;
   let text;
   let subject;
@@ -171,9 +170,13 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     url.searchParams.set( 'raw', type );
     return url;
   };
-
   const iframeSrc = getRawUrl( 'html' );
   iframeSrc.searchParams.set( 'ignoreReload', '1' );
+
+  const preview = htmlToText.fromString( html, { ignoreHref: true, ignoreImage: true } )
+    .trim()
+    .slice( 0, 160 )
+    .replace( /\n/g, ' ' );
 
   const initialHtml = [
     '<html>',
@@ -188,8 +191,9 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     ...( fixturesPaths.length ? [ renderFixturesList( fixturesPaths, req.query ), '<hr style="max-width: 600px" />' ] : [] ),
     ...( subject !== null
       ? [
-        `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl( 'subject' )}">raw</a>)</small>:</b> `,
+        `<div style="text-align: center"><b>Subject <small>(<a href="${getRawUrl( 'subject' )}">raw</a>)</small>:</b>`,
         subject,
+        `<p><small>${preview}</small></p>`,
         '</div>',
         '<hr style="max-width: 600px" />'
       ]
