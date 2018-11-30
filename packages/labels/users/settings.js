@@ -198,5 +198,9 @@ module.exports = {
   allNotifications: {
     en: 'All notifications',
     fr: 'Toutes les notifications'
+  },
+  chooseEmailsSent: {
+    en: 'Choose the emails that OpenAgenda sends me',
+    fr: 'Choisir les emails qu\'OpenAgenda m\'envoie'
   }
 };
