@@ -94,7 +94,8 @@ module.exports.init = async config => {
       `${config.schemas.user}.uid as userUid`
     )
     .join( config.schemas.user, `${config.schemas.user}.id`, '=', `${config.schemas.stakeholder}.user_id` )
-    .join( config.schemas.agenda, `${config.schemas.agenda}.id`, '=', `${config.schemas.stakeholder}.review_id` );
+    .join( config.schemas.agenda, `${config.schemas.agenda}.id`, '=', `${config.schemas.stakeholder}.review_id` )
+    .orderBy( `${config.schemas.agenda}.updated_at`, 'desc' );
 
   abilitiesSvc.init( {
     knex: config.knex,
@@ -113,7 +114,7 @@ module.exports.init = async config => {
         user: uid => usersSvc.get( uid )
       },
       listEntities: {
-        agenda: uids => agendasSvc.list( { uid: uids }, { private: null } ),
+        agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
         member: ids => memberRequest().whereIn( `${config.schemas.stakeholder}.id`, ids ),
         user: uids => usersSvc.find( { query: { uid: { $in: uids } } } )
       },
