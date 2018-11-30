@@ -1,16 +1,20 @@
 "use strict";
 
-const w = require( 'when' );
 const _ = require( 'lodash' );
-const validate = require( './validate' );
+const w = require( 'when' );
+const VError = require( 'verror' );
+
 const sUtils = require( '@openagenda/service-utils' );
+
+const validate = require( './validate' );
 const getConfig = require( './getConfig' );
 const map = require( './databaseFieldMap' );
 const cleanArgs = require( './lib/cleanArgs' );
 const parseMarkdown = require( './lib/parseMarkdown' );
-const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 const decorateImage = require( './lib/decorateImage' );
 const cleanGetOptions = require( './validate/getOptions' );
+
+const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 const log = require( '@openagenda/logs' )( 'get' );
 
@@ -77,7 +81,7 @@ function _cleanResult( v ) {
     defaultPath: config.defaultImagePath
   } );
 
-  return v.filtered;  
+  return v.filtered;
 
 }
 

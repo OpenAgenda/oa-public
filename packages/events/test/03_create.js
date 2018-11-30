@@ -138,7 +138,7 @@ describe( 'events -03- functional (server): create', function() {
       /* {
         filename: '636eaeeeb44243e4a76a3c12b8928045.base.image.jpg',
         size: { width: 600, height: 600 },
-        variants: 
+        variants:
          [ { filename: '636eaeeeb44243e4a76a3c12b8928045.full.image.jpg',
              type: 'full',
              size: [Object] },
@@ -146,7 +146,7 @@ describe( 'events -03- functional (server): create', function() {
              type: 'thumbnail',
              size: [Object] } ],
         credits: null,
-        base: '//openagendatst.s3.amazonaws.com/' 
+        base: '//openagendatst.s3.amazonaws.com/'
       } */
 
     } );
@@ -368,7 +368,7 @@ describe( 'events -03- functional (server): create', function() {
         type: 'oembed',
         link: 'https://someoembeddablelink.com',
         data: {
-          anything: 'goes here'
+          description: "« CEINTURE NOIRE » 🥋\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
         }
       } ]
     };
@@ -402,7 +402,7 @@ describe( 'events -03- functional (server): create', function() {
         conditions: {
           fr: 'Etre vivant'
         },
-        keywords: { 
+        keywords: {
           fr: [ 'Des', 'mots', 'clés' ]
         }
       } );
@@ -442,7 +442,7 @@ describe( 'events -03- functional (server): create', function() {
 
       const withInternal = _.keys( resultWithInternal.event );
 
-      _.difference( withInternal, nonInternalFields ).should.eql( [ 
+      _.difference( withInternal, nonInternalFields ).should.eql( [
         'id', 'ownerUid', 'creatorUid', 'deletedAt'
       ] );
 
@@ -451,10 +451,12 @@ describe( 'events -03- functional (server): create', function() {
 
     it( 'links is returned in response as a list of objects', () => {
 
-      result.event.links.should.eql( [ { 
+      result.event.links.should.eql( [ {
         link: 'https://someoembeddablelink.com',
-        data: { anything: 'goes here' },
-        type: 'oembed' 
+        data: {
+          description: "« CEINTURE NOIRE » ?\nNouvel Album maintenant disponible :\nhttps://maitregims.lnk.to/CeintureNoire\n\nEn tournée dans toute la France et au Stade de France le 28/09/2019\nBilletterie sur www.FuegoTour.com\n--\nFacebook : https://www.facebook.com/maitregimsoff\nInstagram : https://instagram.com/maitregims\nTwitter : https://twitter.com/maitregims\nSnapchat : Warano75\n--\nAbonne-toi à la chaîne : http://bit.ly/2q6P6Ni"
+        },
+        type: 'oembed'
       } ] );
 
     } );
@@ -482,7 +484,7 @@ describe( 'events -03- functional (server): create', function() {
 
       _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
 
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );      
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );
 
     } );
 
@@ -506,7 +508,7 @@ describe( 'events -03- functional (server): create', function() {
 
       _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
 
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );      
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );
 
     } );
 

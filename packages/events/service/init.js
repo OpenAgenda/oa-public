@@ -8,20 +8,29 @@ const log = logger( 'init' );
 
 module.exports = endpoints => {
 
-  let config = {}
+  const config = {}
 
   function init( c ) {
 
-    _.extend( config, {
-      knex: knex( {
+    _.assign( config, c );
+
+    if ( !config.knex ) {
+
+      config.knex = knex( {
         client: 'mysql',
         connection: c.mysql
-      } ),
-      legacyKnex: knex( {
+      } );
+
+    }
+
+    if ( !config.legacyKnex ) {
+
+      config.legacyKnex = knex( {
         client: 'mysql',
         connection: c.legacy.mysql
-      } )
-    }, c );
+      } );
+
+    }
 
     if ( config.logger ) {
 
@@ -41,9 +50,19 @@ module.exports = endpoints => {
 
   function shutdown( cb ) {
 
+    if ( !config.knex ) return cb();
+
     config.knex.destroy( () => {
 
-      config.legacyKnex.destroy( cb );
+      config.knex = null;
+
+      config.legacyKnex.destroy( err => {
+
+        config.legacyKnex = null;
+
+        cb( err );
+
+      } );
 
     } );
 

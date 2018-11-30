@@ -6,7 +6,8 @@ module.exports = {
     host : '127.0.0.1',
     database : 'oatest_event',
     password : 'grut',
-    user : 'root'
+    user : 'root',
+    charset: 'utf8mb4'
   },
 
   schemas: {
@@ -43,7 +44,8 @@ module.exports = {
       host : '127.0.0.1',
       database : 'oatest_event',
       password : 'grut',
-      user : 'root'
+      user : 'root',
+      charset: 'utf8mb4'
     },
     schemas: {
       event: 'legacy_event',

@@ -63,7 +63,7 @@ async function updatePromise( identifiers, data, options ) {
     data,
     id: false,
     filteredData: null, // filtered out data as per 'protected' option
-    current: false, // as currently is 
+    current: false, // as currently is
     merged: false, // merge of db and input prior to validation
     clean: null, // validated clean data after merge
     updated: null, // get from db after update
@@ -90,10 +90,10 @@ async function updatePromise( identifiers, data, options ) {
   .then( _filterProtected( 'clean' ) )
 
   .then( unique.verify( {
-    mysql: config.mysql, 
-    table: schemas.event, 
+    mysql: config.mysql,
+    table: schemas.event,
     field: 'slug',
-    log 
+    log
   } ) );
 
   const { errors } = v;

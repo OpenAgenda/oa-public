@@ -95,7 +95,7 @@ async function createPromise( data, options ) {
 
     } else {
 
-      preCleanEvent = _.assign( validate.front( data, { 
+      preCleanEvent = _.assign( validate.front( data, {
         optionalSlug: true,
         legacy: cleanOptions.legacy
       } ), { draft: false } );
@@ -158,7 +158,7 @@ async function createPromise( data, options ) {
     }
 
     try {
-      
+
       cleanEvent = ( cleanOptions.draft ? validate.draft : validate )( _.omit( _.assign( {}, data, preCleanEvent ), [ 'id' ]  ) );
 
     } catch ( validationErrors ) {
