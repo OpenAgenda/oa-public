@@ -1447,6 +1447,26 @@
     watchify "^3.7.0"
     webpack "^1.14.0"
 
+"@openagenda/test-app@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.7.tgz#06e1976db59ae53910a507fc0b3b778f25818f0c"
+  integrity sha512-R4V4vs/wL4qYvxwRPNrf5UDeuxmrk7XgKfk6WG73G+2vTXYZMPeqtZyFa3X1+rPnDf4Py40gETFnl1A6BKLugw==
+  dependencies:
+    "@babel/core" "^7.1.6"
+    "@babel/register" "^7.0.0"
+    "@openagenda/utils" "^1.0.1"
+    babel-preset-openagenda "^1.1.0"
+    babelify "^10.0.0"
+    bootstrap "3.3.5"
+    browserify "12.0.1"
+    express "^4.13.3"
+    font-awesome "4.3.0"
+    node-sass "^4.5.2"
+    node-watch "^0.3.5"
+    tmp "^0.0.28"
+    watchify "^3.7.0"
+    webpack "^1.14.0"
+
 "@openagenda/test-app@^3.0.1-3", "@openagenda/test-app@^3.0.1-5":
   version "3.0.1-5"
   resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-3.0.1-5.tgz#9f8d12937bf9946877c83465167fbae8f7981d48"
@@ -4800,6 +4820,11 @@ babel-types@^6.0.0, babel-types@^6.18.0, babel-types@^6.19.0, babel-types@^6.24.
     esutils "^2.0.2"
     lodash "^4.17.4"
     to-fast-properties "^1.0.3"
+
+babelify@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.npmjs.org/babelify/-/babelify-10.0.0.tgz#fe73b1a22583f06680d8d072e25a1e0d1d1d7fb5"
+  integrity sha512-X40FaxyH7t3X+JFAKvb1H9wooWKLRCi8pg3m8poqtdZaIng+bjzp9RvKQCvRjF9isHiPkXspbbXT/zwXLtwgwg==
 
 babelify@^7.3.0:
   version "7.3.0"
