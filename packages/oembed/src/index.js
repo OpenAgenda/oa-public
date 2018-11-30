@@ -36,7 +36,7 @@ class OEmbed {
     log( 'getting data for %s', url );
 
     const result = _.get( await axios.get( this.params.iframely.res, {
-      params: { 
+      params: {
         api_key: this.params.iframely.key,
         url
       }
@@ -53,8 +53,8 @@ class OEmbed {
     const cleanOptions = cleanFromMarkdownOptions( options );
 
     const urls = _.uniq( mdExtractor( md )
-      .filter( link => !!this.params.filters.filter( 
-        filter => filter.test( link ) 
+      .filter( link => !!this.params.filters.filter(
+        filter => filter.test( link )
       ).length
     ) );
 
@@ -69,7 +69,7 @@ class OEmbed {
       try {
 
         result = {
-          link: url,
+          link: _.unescape( url ),
           data: await this.get( url )
         };
 
@@ -92,7 +92,7 @@ module.exports = OEmbed;
 module.exports.init = config => {
 
   if ( _.get( config, 'logger' ) ) {
-    
+
     logger.setModuleConfig( _.get( config, 'logger' ) );
 
   }

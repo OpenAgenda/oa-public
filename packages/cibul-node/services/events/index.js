@@ -24,6 +24,7 @@ module.exports = {
 function init( config ) {
 
   events.init( {
+    knex: config.knex,
     mysql: config.db,
     redis: config.redis,
     logger: config.getLogConfig( 'svc', 'events' ),
