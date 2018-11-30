@@ -27,6 +27,20 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'places image url in url sub key', () => {
+
+      const url = 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg';
+      const credits = 'Me';
+
+      expect( parse.toEventServiceFormat( {
+        image: null,
+        imageCredits: credits
+      }, null, {
+        image: { url }
+      } ).image ).toEqual( { url, credits } );
+
+    } );
+
     test( 'only location uid is referenced in locationUid key', () => {
 
       expect( parse.toEventServiceFormat( {
@@ -59,6 +73,20 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
         }
       } ) ).toEqual( {
         image: null
+      } );
+
+    } );
+
+    test( 'keep image as url if url is provided', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        image: {
+          url: 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg'
+        }
+      } ) ).toEqual( {
+        image: {
+          url: 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg'
+        }
       } );
 
     } );

@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
+const validateLink = require( '@openagenda/validators/link' )( { optional: false } );
 
 /**
  * Event service follows a deep schema that form-schema cannot emulate. 
@@ -32,7 +33,13 @@ function fromEventServiceFormat( eventServiceEvent ) {
 
   }
 
-  if ( !_.get( eventServiceEvent, 'image.filename' ) ) {
+  if ( _.get( eventServiceEvent, 'image.url' ) ) {
+
+    update[ 'image' ] = { $set: {
+      url: _.get( eventServiceEvent, 'image.url' )
+    } };
+
+  } else if ( !_.get( eventServiceEvent, 'image.filename' ) ) {
 
     update[ 'image' ] = { $set: null };
 
@@ -48,12 +55,12 @@ function fromEventServiceFormat( eventServiceEvent ) {
 
 }
 
-function toEventServiceFormat( formSchemaEvent, files = {} ) {
+function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
   if ( !formSchemaEvent ) return null;
 
-  const update = { 
-    '$unset': [ 'imageCredits', 'locationUid' ] 
+  const update = {
+    '$unset': [ 'imageCredits', 'locationUid' ]
   };
 
 
@@ -63,6 +70,15 @@ function toEventServiceFormat( formSchemaEvent, files = {} ) {
     update.image = {
       $set: {
         path: _.get( files, 'image.path' ),
+        credits: _.get( formSchemaEvent, 'imageCredits' )
+      }
+    };
+
+  } else if ( _isURL( _.get( rawData, 'image.url' ) ) ) {
+
+    update.image = {
+      $set: {
+        url: _.get( rawData, 'image.url' ),
         credits: _.get( formSchemaEvent, 'imageCredits' )
       }
     };
@@ -82,5 +98,20 @@ function toEventServiceFormat( formSchemaEvent, files = {} ) {
   update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
 
   return ih( formSchemaEvent, update );
+
+}
+
+
+function _isURL( value ) {
+
+  try {
+
+    validateLink( value );
+
+    return true;
+
+  } catch ( e ) {}
+
+  return false;
 
 }

@@ -52,9 +52,9 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
 
   }
 
-  return _.set( 
+  return _.set(
     cleanOptions.lang ? _flatten( fetchedEvent, cleanOptions.lang ) : fetchedEvent, 
-    'agenda', 
+    'agenda',
     _.pick( agenda, [ 'uid', 'slug', 'title', 'description', 'image', 'url' ].concat( cleanOptions.internal ? [ 'id' ] : [] ) ) 
   );
 

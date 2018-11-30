@@ -43,7 +43,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   const updated = {};
 
   // pre-validate data
-  const clean = await validate.loaded( { 
+  const clean = await validate.loaded( {
     formSchemaId,
     networkFormSchemaId,
     defaultLang
@@ -62,7 +62,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   }
 
   // update the event
-  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event ), { 
+  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event ), {
     context: {
       agendaUid,
       userUid: _.get( options, 'context.userUid', null ),
@@ -90,12 +90,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   }
 
   if ( !draft && clean.agendaEvent ) {
-    
+
     result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
       create: {
         $set: { canEdit: true }
       }
-    } ), { 
+    } ), {
       transferToLegacy: true,
       context: { legacy: false }
     } );
