@@ -74,6 +74,12 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   } catch( consolidatedErrors ) {
 
+    if ( !_.isArray( consolidatedErrors ) ) {
+
+      log( 'error', 'exception during validation', consolidatedErrors );
+
+    }
+
     consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
 
   }
@@ -155,7 +161,7 @@ function _distributeCleanData( consolidatedClean, schemaExtensions ) {
   };
 
   fieldsPerSchema.event = _.keys( consolidatedClean ).filter( field => !fieldsPerSchema.agenda.includes( field ) && !fieldsPerSchema.network.includes( field ) );
-  
+
   return {
     custom: _.pick( consolidatedClean, fieldsPerSchema.agenda ),
     networkCustom: _.pick( consolidatedClean, fieldsPerSchema.network ),
