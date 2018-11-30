@@ -42,7 +42,7 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
 
     const network = await getNetwork( networkUid );
 
-    const customData = await custom( _.get( network, 'formSchemaId' ) ).get( eventUid ); 
+    const customData = await custom( _.get( network, 'formSchemaId' ) ).get( eventUid );
 
     if ( customData ) {
 
@@ -53,7 +53,7 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
   }
 
   return _.set(
-    cleanOptions.lang ? _flatten( fetchedEvent, cleanOptions.lang ) : fetchedEvent, 
+    cleanOptions.lang ? _flatten( fetchedEvent, cleanOptions.lang ) : fetchedEvent,
     'agenda',
     _.pick( agenda, [ 'uid', 'slug', 'title', 'description', 'image', 'url' ].concat( cleanOptions.internal ? [ 'id' ] : [] ) ) 
   );
