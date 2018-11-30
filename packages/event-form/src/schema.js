@@ -18,16 +18,16 @@ const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 const eventReferencesField = require( './fields/references' );
 
 module.exports = ( {
-  locationRes, 
+  locationRes,
   referencesRes,
-  languages: givenLanguages, 
-  fileStore, 
+  languages: givenLanguages,
+  fileStore,
   schemaExtensions,
   excludeEventFields
 } ) => {
 
-  const languages = givenLanguages === true 
-    ? [] 
+  const languages = givenLanguages === true
+    ? []
     : ( givenLanguages || [] ).filter( l => !!l );
 
   const eventSchema = {
