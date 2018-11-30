@@ -272,4 +272,38 @@ module.exports = [ {
       min: 2
     } ]
   } ]
+}, {
+  link: '/slow-network-and-error/contribute/event/123',
+  agenda: {
+    title: 'Errors and delays',
+    description: 'Yes.',
+    slug: 'slow-network-and-error',
+    uid: 121011101013,
+    id: 8989
+  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/slow-network-and-error/contribute',
+    edit: true,
+    event: {
+      message: '*Instructions appear in edition too*'
+    }
+  } ),
+  event: {
+    uid: 123,
+    slug: 'an-existing-event',
+    title: {
+      fr: 'Un événement qui existe pour de vrai',
+      en: 'An existing event for real'
+    },
+    description: {
+      fr: 'Une petite description',
+      en: 'A wee description'
+    },
+    timings: [ {
+      begin: new Date( '2018-11-28T10:00:00' ),
+      end: new Date( '2018-11-28T11:00:00' )
+    } ],
+    location: { uid: 50148047 },
+  },
+  delay: 3000
 } ];

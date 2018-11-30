@@ -12,6 +12,7 @@
     "@openagenda/labels": "^2.0.81",
     "@openagenda/logs": "^1.0.18",
     "@openagenda/react-components": "^2.0.8",
+    "@openagenda/validators": "^2.0.1",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.6",
     "express": "^4.16.2",
