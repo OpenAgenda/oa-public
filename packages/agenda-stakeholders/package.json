@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-stakeholders",
-  "version": "2.0.11",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/service/index.js",
   "scripts": {
@@ -12,13 +12,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/logs": "^1.0.4",
+    "@openagenda/logs": "^1.1.0",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/process-service": "^2.0.0",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.2",
-    "@openagenda/validators": "^2.0.1",
+    "@openagenda/validators": "^2.1.0",
     "async": "^1.5.2",
     "knex": "^0.10.0",
     "lodash": "^4.17.3",
@@ -32,7 +32,7 @@
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
     "@openagenda/fixtures": "^2.0.1",
-    "babel-preset-openagenda": "^1.0.0",
+    "babel-preset-openagenda": "^1.1.0",
     "express": "^4.14.0",
     "mocha": "^4.0.1",
     "redis": "^2.6.5",

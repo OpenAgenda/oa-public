@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/oembed",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "index.js",
   "license": "MIT",
   "author": "Kaoré",
@@ -10,8 +10,8 @@
     "build": "rimraf build && babel src -d build -s"
   },
   "dependencies": {
-    "@openagenda/logs": "^1.0.19",
-    "@openagenda/validators": "^2.0.17",
+    "@openagenda/logs": "^1.1.0",
+    "@openagenda/validators": "^2.1.0",
     "axios": "^0.18.0",
     "lodash": "^4.17.11",
     "markdown-link-extractor": "^1.2.0",
@@ -22,7 +22,7 @@
     "@babel/core": "^7.1.6",
     "babel-core": "^7.0.0-bridge",
     "babel-jest": "^23.6.0",
-    "babel-preset-openagenda": "^1.0.0",
+    "babel-preset-openagenda": "^1.1.0",
     "jest": "^23.6.0",
     "rimraf": "^2.6.2"
   }

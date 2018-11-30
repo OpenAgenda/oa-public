@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/call-to-action",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "main": "index.js",
   "scripts": {
     "clean": "rimraf react/dist",
@@ -23,11 +23,11 @@
   },
   "description": "",
   "dependencies": {
-    "@openagenda/dom-utils": "^2.0.4",
-    "@openagenda/labels": "^2.0.88",
-    "@openagenda/logs": "^1.0.15",
-    "@openagenda/react-components": "^2.0.2",
-    "@openagenda/react-form-components": "^2.0.1",
+    "@openagenda/dom-utils": "^2.2.0",
+    "@openagenda/labels": "^2.1.0",
+    "@openagenda/logs": "^1.1.0",
+    "@openagenda/react-components": "^2.2.0",
+    "@openagenda/react-form-components": "^2.1.0",
     "@openagenda/react-utils": "^2.0.1",
     "@openagenda/sessions": "^3.0.2",
     "body-parser": "^1.16.0",
@@ -41,9 +41,9 @@
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
-    "@openagenda/bs-templates": "^2.0.2",
+    "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/test-app": "^2.0.3",
-    "babel-preset-openagenda": "^1.0.0",
+    "babel-preset-openagenda": "^1.1.0",
     "morgan": "^1.8.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
