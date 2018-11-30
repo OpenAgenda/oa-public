@@ -32,7 +32,11 @@ module.exports = async ( before, after, context ) => {
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
 
-  const agenda = await wn.call( agendasSvc.get, { uid: after.agendaUid }, { internal: true, private: null } );
+  const agenda = await wn.call( agendasSvc.get, { uid: after.agendaUid }, {
+    internal: true,
+    private: null,
+    includeImagePath: true
+  } );
 
   const event = await wn.call( oldEventSvc.get, { uid: after.eventUid, reviewId: agenda.id } );
 

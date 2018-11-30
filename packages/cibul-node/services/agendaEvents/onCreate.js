@@ -29,7 +29,10 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const agenda = await promisify( agendasSvc.get )( { uid: ae.agendaUid }, { internal: true, private: null } );
+  const agenda = await promisify( agendasSvc.get )(
+    { uid: ae.agendaUid },
+    { internal: true, private: null, includeImagePath: true }
+    );
   const event = await promisify( oldEventSvc.get )( { uid: ae.eventUid, reviewId: agenda.id } );
   let user;
 
