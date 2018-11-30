@@ -7,7 +7,8 @@ import abilitiesSvc from './src/service';
 import testconfig from './testconfig';
 
 const app = express();
-const server = http.createServer( app );
+
+export const server = http.createServer( app );
 
 app.server = server;
 

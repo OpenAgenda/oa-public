@@ -13,21 +13,17 @@ import toJson from 'enzyme-to-json';
 import abilities from '../src/service';
 import testconfig from '../testconfig';
 import db from './utils/db';
+import { server } from '../server.dev';
 
 const database = `${testconfig.mysql.database}_storyshots`;
 testconfig.mysql.database = database;
 
-const devApp = require( '../server.dev' ).default;
-
 configure( { adapter: new Adapter() } );
 
 beforeAll( async () => {
-  await promisify( devApp.server.listen ).call(
-    devApp.server,
-    process.env.STORYBOOK_API_PORT || 3301
-  );
+  await promisify( server.listen ).call( server, process.env.STORYBOOK_API_PORT || 3301 );
 
-  process.env.STORYBOOK_API_PORT = devApp.server.address().port;
+  process.env.STORYBOOK_API_PORT = server.address().port;
 
   await db.create( testconfig.mysql );
 
@@ -41,7 +37,7 @@ beforeEach( async () => {
 } );
 
 afterAll( async () => {
-  devApp.server.close();
+  server.close();
 
   await abilities.config.knex.raw( `DROP DATABASE IF EXISTS ${database}` );
   await abilities.config.knex.destroy();
