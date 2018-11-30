@@ -38,7 +38,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
   const schemaExtensions = await _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } );
 
-  // Define which languages should be included. Should depend on 
+  // Define which languages should be included. Should depend on
   //  * agenda setting ( if set ) ( not yet coded )
   //  * submitted language keys in languages field
   //  * default language
@@ -116,29 +116,10 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 }
 
 
-async function _evaluateCustom( formSchemaId, data, options ) {
-
-  const validateCustom = await formSchemas.getValidator( formSchemaId, options );
-
-  try {
-
-    const clean = validateCustom( data );
-
-    return { clean, errors: [] }
-
-  } catch( errors ) {
-
-    return { clean: null, errors }
-
-  }  
-
-}
-
-
 async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
 
   const schemas = {
-    network: null, 
+    network: null,
     agenda: null
   };
 
@@ -151,7 +132,7 @@ async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
   }
 
   // clean network custom data
-  
+
   if ( networkFormSchemaId ) {
 
     log( 'loading network form schema' );

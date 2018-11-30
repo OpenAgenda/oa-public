@@ -41,7 +41,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
   const created = {};
 
   // pre-validate data
-  const clean = await validate.loaded( { 
+  const clean = await validate.loaded( {
     formSchemaId,
     networkFormSchemaId: _.get( network, 'formSchemaId' )
   }, data, { draft, formSchemaDataFormat } );
@@ -60,10 +60,9 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'pre-validation done', { agendaUid } );
 
-
   // create the event
-  const result = await events.create( _.assign( 
-    toEventServiceFormat( clean.event ),
+  const result = await events.create( _.assign(
+    toEventServiceFormat( clean.event, null, data ),
     _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
   ), {
     context: {
@@ -94,7 +93,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     },
     // required for custom legacy sync only.
     agendaId: { $set: agendaId }
-  } ), { 
+  } ), {
     formSchemaId,
     networkFormSchemaId: _.get( network, 'formSchemaId' ),
     draft

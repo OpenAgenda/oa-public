@@ -27,8 +27,8 @@ function init( config ) {
     },
 
     predefinedAggregations: {
-      
-      keywords: { 
+
+      keywords: {
         type: 'terms',
         field: 'search_internals_keywords',
         destination: 'keywords'
@@ -67,7 +67,7 @@ function init( config ) {
         field: 'search_internals_agenda',
         destination: 'agendas'
       }
-      
+
     },
 
     logger: config.getLogConfig( 'svc', 'eventSearch' ),
