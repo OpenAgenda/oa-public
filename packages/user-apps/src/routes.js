@@ -21,7 +21,7 @@ module.exports = store => {
       <Route path="email" component={SettingsContainer} activeTab="email"/>
       <Route path="password" component={SettingsContainer} activeTab="password"/>
       <Route path="apiKey" component={SettingsContainer} activeTab="apiKey"/>
-      <Route path="unsubscribed" component={SettingsContainer} activeTab="unsubscribed"/>
+      <Route path="emails" component={SettingsContainer} activeTab="unsubscribed"/>
     </Route>
   );
 

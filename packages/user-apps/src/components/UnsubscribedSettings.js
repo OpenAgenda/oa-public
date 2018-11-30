@@ -30,7 +30,7 @@ class UnsubscribedSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => push( prefix + '/unsubscribed' ) : null}
+        onClick={!activeTab ? () => push( prefix + '/emails' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
