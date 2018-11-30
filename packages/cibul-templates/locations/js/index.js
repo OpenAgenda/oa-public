@@ -27,11 +27,12 @@ window.hook( function( options ) {
   deepExtend( params, options );
 
   ReactDom.render( <LocactionsAdmin
+    enableGeocode={params.enableGeocode}
     agenda={params.agenda}
     settings={params.settings}
     lang={params.lang}
     detailedInfo={params.detailedInfo}
-    res={params.res} />, 
+    res={params.res} />,
   du.el( params.selectors.canvas ) );
 
 } );

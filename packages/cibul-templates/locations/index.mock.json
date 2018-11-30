@@ -14,7 +14,8 @@
       },
       "agenda" : {
         "slug" : "theagendaslug"
-      }
+      },
+      "enableGeocode": false
     }
 
   }
