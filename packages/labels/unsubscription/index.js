@@ -5,8 +5,12 @@ module.exports = {
     en: 'Unsubscription token is not found.',
     fr: 'Le jeton de désabonnement est introuvable.'
   },
+  tokenAlreadyUsed: {
+    en: 'Unsubscription token was already used.',
+    fr: 'Le lien n\'est plus valide. Il a probablement déjà été utilisé.'
+  },
   tokenMalformed: {
-    en: 'Unsubscription token is malformed.',
+    en: 'The link is no longer valid. It has probably already been used.',
     fr: 'Le jeton de désabonnement est mal formé.'
   },
   unsubscriptionSucceed: {

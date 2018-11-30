@@ -76,6 +76,10 @@ async function processToken( token ) {
     throw new Error( 'Unsubscription token is not found' );
   }
 
+  if ( row.processed_at !== null ) {
+    throw new Error( 'Unsubscription token already used' );
+  }
+
   const unsubscription = {
     id: row.id,
     token,
@@ -115,7 +119,9 @@ async function processToken( token ) {
   }
 
   await knex( schemas.unsubscriptionLink )
-    .delete()
+    .update( {
+      processed_at: new Date()
+    } )
     .where( { token } );
 
   return unsubscription;
@@ -192,6 +198,12 @@ module.exports = ( parentApp, path = '/' ) => {
         res.redirect( 302, req.user ? '/home' : '/' );
       } )
       .catch( err => {
+        if ( err.message === 'Unsubscription token already used' ) {
+          sessions.setFlash( req, res, getLabel( 'tokenAlreadyUsed', req.lang ) );
+
+          return res.redirect( 302, req.user ? '/home' : '/' );
+        }
+
         if ( err.message === 'Unsubscription token is not found' ) {
           sessions.setFlash( req, res, getLabel( 'tokenNotFound', req.lang ) );
 
