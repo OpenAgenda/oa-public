@@ -1,7 +1,9 @@
 <mjml>
   <mj-head>
     <mj-title><%= __( 'title', { agenda, event } ) %></mj-title>
-    <mj-preview><%= __( 'title', { agenda, event } ) %></mj-preview>
+    <mj-preview>
+      <%= __( 'titleText', { agenda, event, beforeState: __( beforeState ), afterState: __( afterState ) } ) %>
+    </mj-preview>
 
     <%- include( '../partials/defaultStyle.mjml' ) %>
   </mj-head>
@@ -12,7 +14,12 @@
     <mj-content>
       <mj-column>
         <mj-markdown align="center">
-          ## <%- __( 'title', { agenda, event, beforeState: __( beforeState ), afterState: __( afterState ) } ) %>
+          ## <%- __( 'title', {
+            agenda: _.escape( agenda ),
+            event: _.escape( event ),
+            beforeState: __( beforeState ),
+            afterState: __( afterState ) } )
+          %>
         </mj-markdown>
 
         <mj-button

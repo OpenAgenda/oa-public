@@ -1,6 +1,9 @@
 'use strict';
 
+const _ = require( 'lodash' );
+
 module.exports = {
+  _,
   root: 'https://d.openagenda.com',
   logo: {
     src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
@@ -19,6 +22,5 @@ module.exports = {
   isRegisteredUser: true
 };
 
-module.exports.__ = require( '@openagenda/labels/makeLabelGetter' )(
-  require( '@openagenda/labels/mails/myEventChangeState' )
-);
+module.exports.$labels = require( '@openagenda/labels/mails/myEventChangeState' );
+module.exports.$makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );

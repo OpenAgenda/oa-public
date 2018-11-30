@@ -1,6 +1,9 @@
 'use strict';
 
+const _ = require( 'lodash' );
+
 module.exports = {
+  _,
   root: 'https://d.openagenda.com',
   logo: {
     src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',
@@ -8,7 +11,7 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi/events/rando-a-gnagnaville',
   agenda: 'test zi',
-  event: 'Rando à Gnagnaville',
+  event: 'fcds<fdwf',
   state: 'published',
   unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',
   memberUnsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder.106830/t/message',

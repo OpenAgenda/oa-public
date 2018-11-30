@@ -2,6 +2,6 @@
 
 <%- __( 'actionDescription' ) %>: <%- link %>
 <% if ( typeof memberUnsubscribeLink !== 'undefined' ) { %>
-<%- __( 'memberUnsubscribe' ) %>: <%- memberUnsubscribeLink %><% } %>
-<%- __( 'unsubscribe' ) %>: <%- unsubscribeLink %>
-<%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %>
+<%- __( 'memberUnsubscribe', locals ) %>: <%- memberUnsubscribeLink %><% } %>
+<%- __( 'unsubscribe', locals ) %>: <%- unsubscribeLink %>
+<%- __( 'changeEmailSettings', locals ) %>: <%- emailSettingsLink %>

@@ -15,7 +15,7 @@
           <h1 class="title"><%= __( 'title', { agenda, event } ) %></h1>
         </mj-text>
 
-        <mj-markdown><%- __( 'body', { agenda, event, state: __( state ) } ) %></mj-markdown>
+        <mj-markdown><%- __( 'body', { agenda: _.escape( agenda ), event: _.escape( event ), state: __( state ) } ) %></mj-markdown>
 
         <mj-button
           background-color="#41acdd"

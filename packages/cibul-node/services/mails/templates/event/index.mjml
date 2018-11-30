@@ -56,7 +56,7 @@
         <mj-column>
           <% if ( event.freeText ) { %>
             <mj-text>
-              <%- event.freeText %>
+              <%= event.freeText %>
             </mj-text>
           <% } %>
 
