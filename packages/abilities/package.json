@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/abilities",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "main": "build/service/index.js",
   "scripts": {

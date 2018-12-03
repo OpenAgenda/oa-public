@@ -14,6 +14,7 @@
   "dependencies": {
     "@openagenda/dom-utils": "^2.2.0",
     "create-react-class": "^15.5.3",
+    "lerna": "^3.5.1",
     "prop-types": "^15.5.8",
     "react-bootstrap": "^0.31.0",
     "recompose": "^0.26.0",
@@ -28,7 +29,6 @@
     "babel-preset-openagenda": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "reactify": "1.1.1",
     "rimraf": "^2.6.2",
     "should": "^7.1.1"
   },
