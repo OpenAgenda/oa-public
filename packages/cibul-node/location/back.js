@@ -189,7 +189,7 @@ function show( req, res ) {
       detailedInfo: req.settings.admin && req.settings.admin.detailed !== undefined ? req.settings.admin.detailed : true,
       settings: req.settings,
       lang: req.lang,
-      enableGeocode: false,
+      enableGeocode: true,
       agenda: {
         slug: req.agenda.slug,
         title: req.agenda.title,
