@@ -28,8 +28,11 @@ export default function ( { entityName, identifier, getRules } ) {
         const fieldState = getFieldState( field );
 
         if ( _.isMatch( concernedRule, { entityName, identifier } ) ) {
-          if ( fieldState.data.indeterminate ) {
-            // when UNcheck an indeterminate checkbox
+          // when UNcheck an indeterminate checkbox OR all related rules are checked
+          if (
+            fieldState.data.indeterminate
+            || ( relatedRules.length && relatedRules.every( rule => allValues[ rule.key ] === true ) )
+          ) {
             return relatedRules.reduce(
               ( result, rule ) => {
                 if ( allValues[ rule.key ] === false ) {
