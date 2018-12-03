@@ -8,6 +8,8 @@ export default ( { res, values, files, query } ) => {
   // IE11 does not like empty strings;
   const req = sa.post( res || _.get( window, 'location.href' ) );
 
+  req.ok( res => res.status < 500 );
+
   if ( _.isObject( query ) ) {
 
     req.query( query );
@@ -18,7 +20,7 @@ export default ( { res, values, files, query } ) => {
 
     return req.send( {
       data: JSON.stringify( values )
-    } )
+    } );
 
   }
 
