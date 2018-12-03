@@ -8,13 +8,13 @@ module.exports = {
   mode: 'development',
   context: __dirname,
   // in dev environment, entries are files in dev apps path
-  entry: fs.readdirSync( __dirname + '/client/dev' ).reduce( ( entry, file ) => {
+  entry: fs.readdirSync( __dirname + '/dev/client' ).reduce( ( entry, file ) => {
 
     if ( file.split( '.' ).pop() !== 'js' ) return entry; // only js files are interesting
 
     return _.set( entry, file.split( '.' ).shift(), [
       'webpack-hot-middleware/client',
-      __dirname + '/client/dev/' + file
+      __dirname + '/dev/client/' + file
     ] );
 
   }, {} ),

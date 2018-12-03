@@ -9,7 +9,7 @@ const _ = require( 'lodash/core' );
 _.extend( _, {
   assign: require( 'lodash/assign' ),
   includes: require( 'lodash/includes' ),
-  get: require( 'lodash/get' ) 
+  get: require( 'lodash/get' )
 } );
 
 const choice = require( '@openagenda/validators/choice' );
@@ -121,7 +121,7 @@ function validate( value, options = {} ) {
       } );
 
     }
-  
+
   }
 
   // validate any

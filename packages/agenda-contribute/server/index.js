@@ -54,7 +54,7 @@ function init( c ) {
       }
     };
 
-    res.send( config.layout( req, 
+    res.send( config.layout( req,
       `<div>
         <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
@@ -117,7 +117,7 @@ function init( c ) {
 
       res.json( _.pick( result, [
         'event',
-        'success', 
+        'success',
         'errors'
       ] ) );
 
@@ -151,7 +151,7 @@ function _loadEventSchema( req, res, next ) {
 
   req.schema = eventSchema( {
     schemaExtensions: _.get( req, 'schemaExtensions', [] )
-  } ); 
+  } );
 
   next();
 
@@ -193,7 +193,7 @@ function _getClientAppPath() {
   if ( process.env.NODE_ENV === 'development' ) return '/js/app.js';
 
   return [
-    config.CDNPath + serviceName, 
+    config.CDNPath + serviceName,
     distFileName
   ].join( '/' );
 

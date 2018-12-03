@@ -75,6 +75,11 @@ module.exports = {
   'choice.required' : {
     fr: 'Requis',
     en: 'Required'
+  },
+
+  serverException: {
+    fr: 'Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant',
+    en: 'There was trouble while saving the data, try again in a short while'
   }
 
 }

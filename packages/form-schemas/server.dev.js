@@ -12,6 +12,8 @@ const compiler = webpack( webpackConfig );
 const filesMw = require( './server/middleware/files' );
 const schemaMw = require( './server/middleware/schema' );
 
+const devMw = require( './dev/middleware' );
+
 const config = require( './testconfig' );
 
 // normally done through init of service
@@ -20,21 +22,14 @@ filesMw.init( {
   s3: _.pick( config.s3, [ 'accessKeyId', 'secretAccessKey', 'region', 'bucket' ] )
 } );
 
-const devScenarios = {
-  fileupload: require( './dev/fileupload' ),
-  imageupload: require( './dev/imageupload' ),
-  simplest: require( './dev/simplest' )
-}
+const devSchemas = require( './dev/schemas' );
 
 const dev = express();
-
-// the service cou
-
 
 const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
-  noInfo: true, 
+  noInfo: true,
   publicPath: '/js'
 } ) );
 
@@ -48,7 +43,7 @@ dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts
 
 dev.get( '/:page', ( req, res ) => res.send( render( req.params.page ) ) );
 
-dev.post( '/:page', 
+dev.post( '/:page',
   bodyParser.json(),
   ( req, res, next ) => {
 
@@ -56,7 +51,7 @@ dev.post( '/:page',
     // created or yet to be created, the server
     // should know what schema is being created
 
-    const { schema, values, fileKey } = _.get( devScenarios, req.params.page );
+    const { schema, values, fileKey } = _.get( devSchemas, req.params.page );
 
     req.schema = schema;
     req.values = values; // these are the current values
@@ -69,6 +64,7 @@ dev.post( '/:page',
   filesMw.uploadFilesToS3.bind( null, { /* defaults */ } ),
   filesMw.cleanFileValues.bind( null, {} ),
   schemaMw.clean.bind( null, {} ),
+  devMw,
   ( req, res, next ) => {
 
     // this here should include file values
@@ -83,7 +79,7 @@ dev.post( '/:page',
       message: 'ok, ' + req.params.page
     } );
 
-  } 
+  }
 );
 
 dev.listen( 3000 );

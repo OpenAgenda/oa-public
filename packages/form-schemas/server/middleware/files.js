@@ -19,7 +19,7 @@ module.exports = {
   putInTemporary,
   uploadFilesToS3,
   cleanFileValues
-} 
+}
 
 function putInTemporary( ns, req, res, next ) {
 

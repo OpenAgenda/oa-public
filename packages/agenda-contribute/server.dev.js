@@ -34,7 +34,7 @@ service.init( {
 } )
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
-  noInfo: true, 
+  noInfo: true,
   publicPath: '/js'
 } ) );
 
@@ -52,8 +52,8 @@ dev.get( '/', ( req, res ) => {
             <a href="${scenario.link || '/' + scenario.agenda.slug + '/contribute'}">Open</a>
           </div>
         </div>
-      ` ).join( '' ) + 
-    '</div>' ).join( '' ) + '</div>' 
+      ` ).join( '' ) +
+    '</div>' ).join( '' ) + '</div>'
   ) );
 
 } );
@@ -61,10 +61,10 @@ dev.get( '/', ( req, res ) => {
 
 dev.use( '/locations', locationApp );
 
-dev.all( 
-  [ 
-    '/:agendaSlug/contribute', 
-    '/:agendaSlug/contribute/:step', 
+dev.all(
+  [
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft',
   ],
@@ -72,10 +72,11 @@ dev.all(
   require( './dev/loadAgendaMw' ),
   require( './dev/loadMemberMw' ),
   require( './dev/loadSchemasMw' ),
-  require( './dev/delayMw' )
+  require( './dev/delayMw' ),
+  require( './dev/errorMw' )
 );
 
-dev.all( [ 
+dev.all( [
   '/:agendaSlug/contribute/event/:eventUid',
   '/:agendaSlug/contribute/event/:eventUid/draft'
 ], require( './dev/loadEventMw' ) );
@@ -89,8 +90,8 @@ dev.all( [
 
 
 // useful only if frontAppPath is given to service at init
-dev.use( '/dist', 
-  service.dist, 
+dev.use( '/dist',
+  service.dist,
   ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
 );
 

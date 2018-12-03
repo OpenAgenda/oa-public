@@ -6,6 +6,7 @@ import formSchemaLabels from '@openagenda/labels/form-schemas';
 
 import errorLabels from '@openagenda/labels/errors';
 import flattenLabels from '@openagenda/labels/flatten';
+import Spinner from '@openagenda/react-components/build/Spinner';
 
 import FormSchema from './iso/FormSchema';
 
@@ -35,6 +36,7 @@ export default class FormSchemaComponent extends Component {
 
       init.values = values;
       init.errors = [];
+      init.loading = false;
 
     }
 
@@ -102,6 +104,8 @@ export default class FormSchemaComponent extends Component {
 
     }
 
+    this.set( { loading: true } );
+
     submit( {
       res: _.get( this.props.res, 'post', '' ),
       formSchema: this._getFormSchema(),
@@ -116,12 +120,16 @@ export default class FormSchemaComponent extends Component {
 
       } else if ( res.statusCode === 200 ) {
 
-        this.setState( { submitted: true } );
+        this.set( {
+          submitted: true,
+          globalError: null,
+          errors: [],
+          loading: false
+        } );
 
       } else {
 
-        console.log( 'response status code is %s', res.statusCode );
-        console.log( res );
+        this.onServerError( res );
 
       }
 
@@ -129,6 +137,37 @@ export default class FormSchemaComponent extends Component {
 
       console.log( 'form-schemas: there was an error during submit', err );
 
+    } );
+
+  }
+
+  onServerError( res ) {
+
+    console.log( 'evaluating server error', res.body );
+
+    const errors = _.get( res, 'body.errors' );
+
+    if ( _.isArray( errors ) && errors.length ) {
+
+      this.set( {
+        globalError: null,
+        errors,
+        loading: false
+      } );
+
+    } else {
+
+      this.onServerException();
+
+    }
+
+  }
+
+  onServerException( err ) {
+
+    this.set( {
+      globalError: _.get( this, 'state.labels.errors.serverException' ),
+      loading: false
     } );
 
   }
@@ -249,6 +288,7 @@ export default class FormSchemaComponent extends Component {
     const { submitted } = this.state;
 
     const values = this.get( 'values' );
+    const loading = this.get( 'loading' );
 
     if ( submitted ) {
 
@@ -268,6 +308,7 @@ export default class FormSchemaComponent extends Component {
           const flatLabels = flatten( formSchemaLabels, lang );
 
           return <Field
+            disabled={loading}
             className={_.get( classNames, 'field', 'form-group' ) }
             customComponents={this.props.components}
             lang={this.props.lang}
@@ -293,7 +334,9 @@ export default class FormSchemaComponent extends Component {
 
     const errors = this.get( 'errors', [] );
 
-    if ( !errors.length ) return null;
+    const globalError = this.get( 'globalError' );
+
+    if ( !errors.length && !globalError ) return null;
 
     const matching = _.first( _.get( this.props, 'errorComponents', [] ).filter( a => a.position === 'bottom' ) );
 
@@ -301,18 +344,23 @@ export default class FormSchemaComponent extends Component {
 
       const { Component } = matching;
 
-      return <Component errors={errors} />
+      return <Component errors={errors} global={globalError} />
 
     }
 
     return <div className={_.get( this.props, 'classNames.bottomErrorsCanvas' ) || 'error-summary boxed padding-v-sm padding-h-sm margin-v-md'}>
-      <div className="padding-bottom-sm">{this.state.labels.main.groupErrorHeader}:</div>
-      <ul className="list-unstyled margin-left-xs">
-      {errors.map( ( e, i ) => <li key={'error-' + i}>
-        <label>{e.fieldLabel}</label>:&nbsp;
-        <span>{e.label}</span>
-      </li> )}
-      </ul>
+      { errors.length ? <div>
+        <div className="padding-bottom-sm">{this.state.labels.main.groupErrorHeader}:</div>
+        <ul className="list-unstyled margin-left-xs">
+        {errors.map( ( e, i ) => <li key={'error-' + i}>
+          <label>{e.fieldLabel}</label>:&nbsp;
+          <span>{e.label}</span>
+        </li> )}
+        </ul>
+      </div> : null }
+      { globalError ? <div className="text-center padding-top-xs">
+        <label>{globalError}</label>
+      </div>: null }
     </div>
 
   }
@@ -321,16 +369,19 @@ export default class FormSchemaComponent extends Component {
 
     const matching = _.first( _.get( this.props, 'actionComponents', [] ).filter( a => a.position === 'bottom' ) );
 
+    const loading = this.get( 'loading' );
+
     if ( matching ) {
 
       const { Component } = matching;
 
-      return <Component onSubmit={this.onSubmit} />
+      return <Component onSubmit={this.onSubmit} loading={loading} />
 
     }
 
-    return <div className={_.get( this.props, 'classNames.bottomActionsCanvas' ) || 'form-group'}>
-      <button className="btn btn-primary" type="submit" onClick={this.onSubmit}>{this.state.labels.main.submit}</button>
+    return <div style={{position: 'relative'}} className={_.get( this.props, 'classNames.bottomActionsCanvas' ) || 'form-group'}>
+      <button className={loading ? 'btn btn-default' : 'btn btn-primary' } type="submit" disabled={loading} onClick={this.onSubmit}>{this.state.labels.main.submit }</button>
+      {loading && <span className="margin-left-sm"><Spinner mode="inline" /></span>}
     </div>
 
   }
