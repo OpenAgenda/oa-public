@@ -68,9 +68,9 @@ const  modLib = require( '../lib/moduleLib' ),
       _formatShowLinks,
       showXhr( 'agenda/show' ),
       cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
-      show 
+      show
     ],
-    embedShow: [ 
+    embedShow: [
       _loadTagGroups,
       _format,
       _formatEmbedHeadLinks,
@@ -87,15 +87,15 @@ const  modLib = require( '../lib/moduleLib' ),
 
   routes = {
 
-    embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [ 
+    embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       embedSvc.mw.load( 'embedUid', 'uid' ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       embedSvc.mw.browserCacheControlData,
       controlData
     ] ],
-    
-    controlData: [ 'get', '/agendas/:uid/controldata', [ 
+
+    controlData: [ 'get', '/agendas/:uid/controldata', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       agendaSvc.mw.browserCacheControlData,
@@ -119,7 +119,7 @@ const  modLib = require( '../lib/moduleLib' ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
       _redirectToEmbed
     ]],
-    
+
     agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'uid', { cache: true } ),
@@ -137,7 +137,7 @@ const  modLib = require( '../lib/moduleLib' ),
       cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
       embedShow
     ] ],
-    
+
     customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'uid', { cache: true } ),
@@ -191,7 +191,7 @@ const  modLib = require( '../lib/moduleLib' ),
         msg: {
           $raw: 'limitedAccessAgenda'
         },
-        redirect: { 
+        redirect: {
           $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
         }
       } ) ),
@@ -199,7 +199,7 @@ const  modLib = require( '../lib/moduleLib' ),
       stakeholderMw.agenda().get(),
       cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
     ].concat( middlewares.show ) ],
-    
+
     agendaShow: [ 'get', '/:slug', [
       cmn.https,
       cmn.redirectLegacySearch,
@@ -211,7 +211,7 @@ const  modLib = require( '../lib/moduleLib' ),
     agendaUnauthorized: [ 'get', '/:slug/unauthorized/ip', [
       cmn.loadBaseData( 'oasfmain.css' ),
       agendaSvc.mw.load( 'slug', { cache: true } ),
-      unauthorizedIP 
+      unauthorizedIP
     ] ]
 
   };
@@ -262,7 +262,7 @@ function showXhr( template ) {
 
     lib.extend( req.templateData, {
       agenda: {
-        slug: req.agenda.slug  
+        slug: req.agenda.slug
       }
     } );
 
@@ -310,7 +310,7 @@ function show( req, res ) {
       }
     } );
 
-    req.baseData = ih( req.baseData, { 
+    req.baseData = ih( req.baseData, {
       indexed: { $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  },
       bottom: {
         scripts: { $push: [ cmn.extractGoogleAnalytics( agenda ) ] }
@@ -343,9 +343,9 @@ function redirect( req, res, next ) {
 
 function embedShow( req, res ) {
 
-  agendas.get( { 
+  agendas.get( {
     uid: req.agenda.uid
-  }, { 
+  }, {
     private: null,
     internal: true
   }, ( err, agenda ) => {
@@ -354,7 +354,7 @@ function embedShow( req, res ) {
       agenda: {
         $set: {
           uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
-          isEmpty: req.agenda.isEmpty,  
+          isEmpty: req.agenda.isEmpty,
         }
       },
       googleAnalytics: {
@@ -428,7 +428,7 @@ function controlData( req, res ) {
     req.log( 'error', err );
 
     if ( res.headersSent ) return;
-    
+
     cmn.renderJson( req, res, {
       success: false,
       error: err
@@ -494,7 +494,7 @@ function _appendFacebookParams( req, res, next ) {
     facebook: true,
     fbAppId: config.auth.facebook.id
   }
-  
+
   next();
 
 }
@@ -605,10 +605,10 @@ function _formatShowLinks( req, res, next ) {
 
   req.templateData.events.forEach(  e => {
 
-    const params = { 
+    const params = {
       slug: req.agenda.slug,
       eventSlug : e.slug,
-      lang : req.lang 
+      lang : req.lang
     };
 
     if ( req.query.oaq ) params.search = req.query.oaq;
@@ -645,7 +645,7 @@ function _formatEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( e => {
 
-    const params = { 
+    const params = {
       uid: req.agenda.uid,
       eventUid: e.uid,
       lang: req.lang
@@ -778,7 +778,7 @@ function _layoutData( req, res ) {
 
   const data = {
     agenda: {
-      theme: req.agenda.getTheme(),  
+      theme: req.agenda.getTheme(),
     },
     queryLang: req.query.lang ? req.query.lang : false,
     scriptParams: {
