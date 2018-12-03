@@ -36,16 +36,15 @@ export default class EventForm extends Component {
           $set: extractLanguages( this.props.values, this.props.lang )
         }
       } ),
-      files: []
+      files: [],
+      loading: false
     };
 
     this.onChange = this.onChange.bind( this );
 
   }
 
-  onChange( { values, errors, files } ) {
-
-    const updates = {};
+  onChange( { values, errors, files, loading, globalError } ) {
 
     const changedLanguages = identifyLanguageChanges(
       _.get( this.state, 'values.languages' ), // before
@@ -57,6 +56,7 @@ export default class EventForm extends Component {
       // need to update multilingual values AND languages field
 
       this.setState( {
+        loading: false,
         values: ih( transferMultilingualValues(
           this.state.values,
           getMultilingualFieldNames( eventSchema( {
@@ -69,16 +69,17 @@ export default class EventForm extends Component {
             $set: [ changedLanguages[ 0 ] ]
           }
         } ),
-        errors
+        errors,
+        globalError
       } );
 
     } else if ( !values ) {
 
-      this.setState( { errors, files } );
+      this.setState( { errors, files, loading, globalError } );
 
     } else {
 
-      this.setState( { values, errors, files } );
+      this.setState( { values, errors, files, loading, globalError } );
 
     }
 
@@ -112,6 +113,8 @@ export default class EventForm extends Component {
       components={eventFormComponents}
       values={this.state.values}
       errors={this.state.errors}
+      globalError={this.state.globalError}
+      loading={this.state.loading}
       files={this.state.files}
       onChange={this.onChange}
       schema={this.buildEventSchema()}
