@@ -7,6 +7,7 @@ import EventForm from '@openagenda/event-form/build';
 import labels from '@openagenda/labels/agenda-contribute/event';
 
 import Instructions from '../components/Instructions';
+import ButtonSpinner from '../components/ButtonSpinner';
 
 import reducers from '../reducers';
 
@@ -73,8 +74,9 @@ class EventEdit extends Component {
                 }}
                 actionComponents={[ {
                   position: 'bottom',
-                  Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
-                    <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
+                  Component: ( { onSubmit, loading } ) => <div className="wsq padding-all-md">
+                    <button disabled={loading} onClick={onSubmit} className="btn btn-primary btn-block">{labels.update[ config.lang ]}</button>
+                    { loading && <ButtonSpinner /> }
                   </div>
                 } ]}
               />

@@ -245,7 +245,7 @@ module.exports = [ {
     }, {
       fieldType: 'abstract',
       field: 'description'
-    }, {  
+    }, {
       fieldType: 'text',
       field: 'networkfield',
       label: 'Un champ de réseau',
@@ -305,5 +305,6 @@ module.exports = [ {
     } ],
     location: { uid: 50148047 },
   },
-  delay: 3000
+  delay: 3000,
+  globalError: true
 } ];

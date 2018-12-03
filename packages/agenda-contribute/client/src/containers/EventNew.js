@@ -3,10 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import EventForm from '@openagenda/event-form/build';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import labels from '@openagenda/labels/agenda-contribute/event';
 
 import Canvas from '../components/Canvas';
 import Instructions from '../components/Instructions';
+import ButtonSpinner from '../components/ButtonSpinner';
 import reducers from '../reducers';
 
 import deduceSteps from '../lib/deduceSteps';
@@ -38,10 +40,11 @@ export default connect(
     }}
     actionComponents={[ {
       position: 'bottom',
-      Component: ( { onSubmit } ) => <div className="wsq padding-all-md">
-        { _.get( event, 'draft' ) ? <button onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
-        <button onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get( event, 'draft' ) ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
-        <button onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
+      Component: ( { onSubmit, loading } ) => <div className="wsq padding-all-md">
+        { _.get( event, 'draft' ) ? <button disabled={loading} onClick={ e => onDraftDelete() } className="btn btn-danger btn-block margin-bottom-md">{labels.deleteDraft[ config.lang ]}</button> : null }
+        <button disabled={loading} onClick={ e => onSubmit( e, { draft: true } )} className="btn btn-default btn-block margin-bottom-md">{labels[ _.get( event, 'draft' ) ? 'updateDraft' : 'draft' ][ config.lang ]}</button>
+        <button disabled={loading} onClick={onSubmit} className="btn btn-primary btn-block">{labels.create[ config.lang ]}</button>
+        { loading && <ButtonSpinner /> }
       </div>
     } ]}
   />
