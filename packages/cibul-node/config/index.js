@@ -765,6 +765,7 @@ currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
 currentConfig.knex = knexLib( {
   client: 'mysql',
   connection: currentConfig.db,
+  pool: { min: 2, max: 20 }
 } );
 
 currentConfig.logger.debug.enable = process.env.DEBUG || currentConfig.logger.debug.enable;
