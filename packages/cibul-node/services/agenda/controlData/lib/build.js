@@ -35,7 +35,7 @@ module.exports = function( data, cb ) {
 
       return _update( data, cb );
 
-    default: 
+    default:
 
       _reset( data, cb );
 
