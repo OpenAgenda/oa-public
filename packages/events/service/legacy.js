@@ -281,10 +281,10 @@ function get( identifiers, options, cb ) {
     identifiers
   }, options, {
     fields: {
-      event: [ 
-        'id', 'uid', 'slug', 
-        'created_at', 'updated_at', 
-        'age_min', 'age_max', 'image', 
+      event: [
+        'id', 'uid', 'slug',
+        'created_at', 'updated_at',
+        'age_min', 'age_max', 'image',
         'accessibility', 'is_published',
         'store', 'owner_id', 'origin_uid',
         'file_key', 'image_credits'
@@ -862,8 +862,7 @@ function _getEvent( v ) {
 
     try {
 
-      v.data.links = JSON.parse( _.get( v, 'entries.event.store', '{}' ) )
-        .links
+      v.data.links = _.get( JSON.parse( _.get( v, 'entries.event.store', '{}' ) ), 'links', [] )
         .filter( link => link.code )
         .map( ( { link, code } ) => ( { type: 'oembed', link, data: { html: code, url: link } } ) );
 
