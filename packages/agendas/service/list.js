@@ -46,7 +46,7 @@ async function promise( query, offset, limit, options = {} ) {
 
   const cleanQuery = validateQuery( query );
 
-  if ( !knex ) throw new Error( 'service is not initialized' );  
+  if ( !knex ) throw new Error( 'service is not initialized' );
 
   const k = _search( knex( schemas.agenda ), cleanQuery, cleanOptions );
 
@@ -55,7 +55,7 @@ async function promise( query, offset, limit, options = {} ) {
   if ( cleanQuery.order ) {
 
     k.orderBy.apply( k, cleanQuery.order.split( '.' ).map( _.snakeCase ) );
-    
+
   } else {
 
     k.orderBy( 'updated_at', 'desc' );

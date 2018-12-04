@@ -46,7 +46,7 @@ describe( 'agendas - functional (server): get', function() {
     } );
 
   } );
-  
+
   it( 'get gets an agenda by id', done => {
 
     svc.get( 4875, ( err, agenda ) => {
