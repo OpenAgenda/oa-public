@@ -20,6 +20,8 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, options } );
 
+  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+
   const {
     draft,
     formSchemaDataFormat,
@@ -66,7 +68,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
   ), {
     context: {
-      userUid: _.get( options, 'context.userUid', null )
+      userUid: contextUserUid
     },
     transferToLegacy: !draft,
     draft
@@ -96,7 +98,10 @@ module.exports = async ( agendaUid, data, options = {} ) => {
   } ), {
     formSchemaId,
     networkFormSchemaId: _.get( network, 'formSchemaId' ),
-    draft
+    draft,
+    context: {
+      userUid: contextUserUid
+    }
   } );
 
   return {

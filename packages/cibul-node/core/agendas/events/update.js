@@ -22,6 +22,8 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
+  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+
   const {
     draft,
     formSchemaDataFormat,
@@ -65,7 +67,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, data ), {
     context: {
       agendaUid,
-      userUid: _.get( options, 'context.userUid', null ),
+      userUid: contextUserUid,
       updateSearchIndex: false
     },
     transferToLegacy: !draft,
@@ -97,7 +99,10 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       }
     } ), {
       transferToLegacy: true,
-      context: { legacy: false }
+      context: {
+        legacy: false,
+        userUid: contextUserUid
+      }
     } );
 
     updated.agendaEvent = result.set;

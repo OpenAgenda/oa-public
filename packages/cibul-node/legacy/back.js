@@ -29,6 +29,11 @@ const agendaLocations = require( '@openagenda/agenda-locations' );
 
 const logRequests = require( '../services/logRequests' );
 
+const logger = require( '@openagenda/logs' );
+
+const apiLog = logger( 'legacyApi' );
+const log = logger( 'legacy' );
+
 const routes = {
 
     /**
@@ -182,9 +187,6 @@ const routes = {
 
   };
 
-
-let apiLog, log;
-
 module.exports = function ( path ) {
 
   const router = modLib.Router( routes );
@@ -193,10 +195,6 @@ module.exports = function ( path ) {
     cmn.loadLogger( 'legacy' ),
     _checkLocalhost
   ] );
-
-  apiLog = require( '@openagenda/logger' )( 'legacyApi' );
-
-  log = require( '@openagenda/logs' )( 'legacy' );
 
   return {
     load: router.load( path ),
