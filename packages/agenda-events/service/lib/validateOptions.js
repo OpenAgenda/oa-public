@@ -5,7 +5,8 @@ const _ = require( 'lodash' );
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  boolean: require( '@openagenda/validators/boolean' )
+  boolean: require( '@openagenda/validators/boolean' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 module.exports = ( values, operation = 'default' ) => {
@@ -56,6 +57,18 @@ const base = {
         type: 'boolean',
         optional: true,
         default: false
+      },
+      // if event is in hand, it can be added to context to avoid multiple loads
+      event: {
+        type: 'pass',
+        optional: true,
+        default: null
+      },
+      // if agenda is in hand, it can be added to context to avoid multiple loads
+      agenda: {
+        type: 'pass',
+        optional: true,
+        default: null
       }
     }
   }

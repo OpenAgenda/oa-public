@@ -21,7 +21,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
     svc.initAndLoad( config, done );
 
   } );
- 
+
   beforeEach( done => {
 
     queue( 'agendaEventInterfaces', { redis: config.redis } ).test.clear( done );
@@ -64,7 +64,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
     before.should.not.equal( null );
 
-    should( after ).equal( null );    
+    should( after ).equal( null );
 
   } );
 
@@ -81,7 +81,7 @@ describe( 'agendaEvents - functional (server): remove', function() {
 
     before.should.not.equal( null );
 
-    should( after ).equal( null ); 
+    should( after ).equal( null );
 
   } );
 
@@ -139,6 +139,8 @@ describe( 'agendaEvents - functional (server): remove', function() {
             context.should.eql( {
               userUid: 111,
               agendaUid: null,
+              agenda: null,
+              event: null,
               transferToLegacy: false,
               legacy: true,
               deletion: false
