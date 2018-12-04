@@ -199,7 +199,7 @@ describe( 'agendas - functional (server): set (update)', function() {
       credentials: {
         aggregator: true
       }
-    }, { 
+    }, {
       internal: true,
       protected: false
     }, ( err, result ) => {
