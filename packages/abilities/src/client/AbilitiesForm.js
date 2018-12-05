@@ -71,7 +71,7 @@ function getEntityTitle( ability ) {
   }
 }
 
-const FilterInput = ( { value, onChange } ) => (
+const FilterInput = ( { value, onChange, placeholder } ) => (
   <div className="form-group search">
     <div className="input-icon-right">
       <input
@@ -80,6 +80,7 @@ const FilterInput = ( { value, onChange } ) => (
         className="form-control"
         value={value}
         onChange={onChange}
+        placeholder={placeholder}
       />
       <button type="submit" className="btn">
         <i className="fa fa-search" aria-hidden="true" />
@@ -154,7 +155,8 @@ class AbilitiesForm extends Component {
     identifier: PropTypes.number.isRequired,
     handleSubmit: PropTypes.func,
     HeaderComponent: PropTypes.oneOfType( [ PropTypes.node, PropTypes.func ] ),
-    searchChildKey: PropTypes.string
+    searchChildKey: PropTypes.string,
+    filterInputPlaceholder: PropTypes.string
   };
 
   static defaultProps = {
@@ -162,7 +164,8 @@ class AbilitiesForm extends Component {
     form: null,
     handleSubmit: null,
     HeaderComponent: null,
-    searchChildKey: null
+    searchChildKey: null,
+    filterInputPlaceholder: ''
   };
 
   static getDerivedStateFromProps( nextProps, prevState ) {
@@ -325,7 +328,12 @@ class AbilitiesForm extends Component {
   };
 
   render() {
-    const { handleSubmit, HeaderComponent, searchChildKey } = this.props;
+    const {
+      handleSubmit,
+      HeaderComponent,
+      searchChildKey,
+      filterInputPlaceholder
+    } = this.props;
     const {
       firstEntityAbility,
       childAbilities,
@@ -347,14 +355,10 @@ class AbilitiesForm extends Component {
 
     const childAbilitiesLength = _.reduce( childAbilities, ( result, value ) => result + value.length, 0 );
 
-    const filterInput = (
-      <FilterInput value={search} onChange={this.handleSearchChange} />
-    );
-
     return (
       <>
         {HeaderComponent
-          ? React.createElement( HeaderComponent, { saveButton, filterInput } )
+          ? React.createElement( HeaderComponent, { saveButton } )
           : null}
 
         <form onSubmit={handleSubmit}>
@@ -369,7 +373,13 @@ class AbilitiesForm extends Component {
           ) : null}
 
           {searchChildKey && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH  ? (
-            <div className="margin-v-md">{filterInput}</div>
+            <div className="margin-v-md">
+              <FilterInput
+                value={search}
+                onChange={this.handleSearchChange}
+                placeholder={filterInputPlaceholder}
+              />
+            </div>
           ) : null}
 
           {Object.keys( childAbilities ).map( name => {

@@ -58,7 +58,8 @@ function getInitialValues( rules ) {
 class AbilitiesEditor extends Component {
   static defaultProps = {
     locale: 'en',
-    filterInput: false
+    filterInput: false,
+    filterInputPlaceholder: ''
   };
 
   constructor( props ) {
@@ -127,7 +128,8 @@ class AbilitiesEditor extends Component {
     const {
       abilitiesFetcher: { loading, data: rules, error },
       HeaderComponent,
-      searchChildKey
+      searchChildKey,
+      filterInputPlaceholder
     } = this.props;
 
     if ( loading ) {
@@ -161,6 +163,7 @@ class AbilitiesEditor extends Component {
         rules={rules}
         HeaderComponent={HeaderComponent}
         searchChildKey={searchChildKey}
+        filterInputPlaceholder={filterInputPlaceholder}
       />
     );
   }

@@ -202,5 +202,9 @@ module.exports = {
   chooseEmailsSent: {
     en: 'Choose the emails that OpenAgenda sends me',
     fr: 'Choisir les emails qu\'OpenAgenda m\'envoie'
+  },
+  filterInputPlaceholder: {
+    en: 'Search an agenda',
+    fr: 'Rechercher un agenda'
   }
 };

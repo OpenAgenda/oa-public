@@ -52,6 +52,7 @@ class UnsubscribedSettings extends Component {
                   formIndex: '/abilities/form-index'
                 }}
                 searchChildKey="entity.agendaTitle"
+                filterInputPlaceholder={getLabels( 'filterInputPlaceholder' )}
                 HeaderComponent={( { filterInput, saveButton } ) => (
                   <div className="clearfix margin-bottom-sm">
                     <div className="pull-right">
