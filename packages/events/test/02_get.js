@@ -1,14 +1,14 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
+
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' ),
+const svc = require( './service' );
 
-  config = require( '../testconfig' ),
-
-  should = require( 'should' ),
-
-  mysql = require( 'mysql' );
+const config = require( '../testconfig' );
 
 describe( 'events - functional (server): get', function () {
 
@@ -34,6 +34,7 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+
   it( 'a get by uid', done => {
 
     svc.get( { uid: 3564473 }, ( err, event ) => {
@@ -45,6 +46,7 @@ describe( 'events - functional (server): get', function () {
     } );
 
   } );
+
 
   it( 'it is not possible to get a deleted event', done => {
 
@@ -58,6 +60,7 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+
   it( 'a private event is not accessible with default get', done => {
 
     svc.get( 146007, ( err, event ) => {
@@ -69,6 +72,7 @@ describe( 'events - functional (server): get', function () {
     } );
 
   } );
+
 
   it( 'a public event is not accessible if private option is set to true', done => {
 
@@ -82,6 +86,7 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+
   it( 'a private event is accessible if private option is set to true', done => {
 
     svc.get( 146007, { private: true }, ( err, event ) => {
@@ -94,6 +99,7 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+
   it( 'a private event is accessible if private option is set to null', done => {
 
     svc.get( 146007, { private: null }, ( err, event ) => {
@@ -105,6 +111,7 @@ describe( 'events - functional (server): get', function () {
     } );
 
   } );
+
 
   it( 'a public event is accessible if private option is set to null', done => {
 
@@ -132,6 +139,7 @@ describe( 'events - functional (server): get', function () {
     } );
 
   } );
+
 
   it( 'get a deleted event without deleted option', done => {
 
@@ -186,6 +194,15 @@ describe( 'events - functional (server): get', function () {
       done();
 
     } );
+
+  } );
+
+
+  it( 'get with location', async () => {
+
+    const event = await svc.get( { uid: 1517683 }, { detailed: true } );
+
+    _.get( event, 'location.name' ).should.equal( 'La case de Janine' );
 
   } );
 
