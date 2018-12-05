@@ -36,7 +36,7 @@ async function toLegacy( ae ) {
 
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  const legacyState = toLegacyState( ae.state ); 
+  const legacyState = toLegacyState( ae.state );
 
   const data = {
     state: legacyState.state,
@@ -81,7 +81,7 @@ async function toLegacy( ae ) {
       event_id: eventId,
       created_at: new Date
     }, data ) );
-    
+
   }
 
   const hasLegacyEventEditorRef = !!( await knex( config.legacy.schemas.eventEditor ).first( 'event_id' ).where( { event_id: eventId, review_id: agendaId } ) );
