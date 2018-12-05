@@ -29,11 +29,12 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const agenda = await promisify( agendasSvc.get )(
-    { uid: ae.agendaUid },
-    { internal: true, private: null, includeImagePath: true }
-    );
+  const agenda = await promisify( agendasSvc.get )( {
+    uid: ae.agendaUid
+  }, { internal: true, private: null, includeImagePath: true } );
+
   const event = await promisify( oldEventSvc.get )( { uid: ae.eventUid, reviewId: agenda.id } );
+
   let user;
 
   if ( context && context.userUid ) {
@@ -119,7 +120,7 @@ module.exports = async ( ae, context ) => {
 
     controlData.queue( agenda.id, {
       type: 'eventUpdate',
-      eventId: event.id
+      eventId: event.id,
     } );
 
   }

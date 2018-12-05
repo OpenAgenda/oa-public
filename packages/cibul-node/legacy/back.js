@@ -17,7 +17,8 @@ const referencesSvc = require( '@openagenda/agenda-event-references' );
 const sCache = require( '@openagenda/simple-cache' );
 const utils = require( '@openagenda/utils' );
 
-const agendaSvc = require( '../services/agenda' );
+const agendaSvc = require( '@openagenda/agendas' );
+const legacyAgendaSvc = require( '../services/agenda' );
 const legacyEventSvc = require( '../services/event' );
 const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
@@ -40,7 +41,7 @@ const routes = {
      * provide to sf the html of the head section of an agenda
      */
     headPart: [ 'get', '/:slug/head', [
-      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       head
     ] ],
 
@@ -52,6 +53,7 @@ const routes = {
     ] ],
 
     eventUpdate: [ 'get', '/events/:eventUid/update', [
+      _loadOptionalAgenda,
       _loadEventByUid,
       eventUpdate
     ] ],
@@ -74,7 +76,7 @@ const routes = {
      * process a save for event references
      */
     eventReferencesSave: [ 'post', '/:slug/events/:eventUid/references', [
-      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       _loadEventByUid,
       bodyParser.json(),
       referencesSave
@@ -112,12 +114,12 @@ const routes = {
     ] ],
 
     formOrder: [ 'get', '/:slug/form-order', [
-      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       formOrderMw
     ] ],
 
     legacyFormFieldsByUser: [ 'get', '/:slug/form-fields/:userUid', [
-      agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       formFieldsByUser
     ] ],
 
@@ -506,7 +508,7 @@ function eventDelete( req, res, next ) {
 
     async.eachSeries( agendas, ( a, ecb ) => {
 
-      agendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
+      legacyAgendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
 
         agenda.removeEvent( req.event, ecb );
 
@@ -557,7 +559,11 @@ function eventUpdate( req, res, next ) {
 
   req.log( 'event %s ( %s ) was updated', req.event.uid, req.event.slug );
 
-  legacyEvents.onUpdate( req.event, { userUid: req.query.userUid || null, agendaUid: req.query.agendaUid || null } );
+  legacyEvents.onUpdate( req.event, {
+    userUid: req.query.userUid || null,
+    agendaUid: req.query.agendaUid || null,
+    agenda: req.agenda
+  } );
 
 }
 
@@ -568,30 +574,20 @@ function eventCreate( req, res, next ) {
 
   res.send( 'ok' );
 
-  legacyEvents.onCreate( req.event, { userUid: req.query.userUid || null, agendaUid: req.query.agendaUid || null } );
+  legacyEvents.onCreate( req.event, {
+    userUid: req.query.userUid || null,
+    agendaUid: req.query.agendaUid || null,
+    agenda: req.agenda
+  } );
 
   if ( !req.agenda ) return;
 
   req.event.loadAgendaCustomContext( {
     uid: req.agenda.uid,
-    customFields: req.agenda.getCustomFieldsConfig()
+    customFields: _.get( req, 'agenda.legacyStore.customFields', [] )
   } );
 
-  req.event.evaluateCustomImageDuplication( err => {
-
-    if ( err ) req.log( 'error', err );
-
-    activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).create( ( err, eventFeed ) => {
-
-      if ( err ) {
-
-        return next( new VError( err, 'could not create feed for event of uid %s', req.event.uid ) );
-
-      }
-
-    } );
-
-  } );
+  req.event.evaluateCustomImageDuplication( err => err ? req.log( 'error', err ) : null )
 
 }
 
@@ -747,7 +743,7 @@ function _loadOptionalAgenda( req, res, next ) {
 
   if ( !req.query.agendaUid ) return next();
 
-  agendaSvc.get( { uid: req.query.agendaUid }, { instanciate: true }, ( err, agenda ) => {
+  agendaSvc.get( { uid: req.query.agendaUid }, { internal: true, private: null }, ( err, agenda ) => {
 
     if ( err ) return next( err );
 

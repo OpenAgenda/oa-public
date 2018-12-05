@@ -15,12 +15,11 @@ module.exports = {
   clearQueue: clearQueue                    // (name, cb) clears the queue
 }
 
+const log = require( '@openagenda/logs' )( 'coms' );
 
 var redis = require( 'redis' ),
 
 config = require( '../config' ).redis,
-
-log = require( '@openagenda/logger' )( 'coms' ),
 
 qPrefix = 'queues',
 

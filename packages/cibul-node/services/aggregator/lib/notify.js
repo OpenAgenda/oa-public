@@ -49,7 +49,7 @@ function unpublish( eventId, agendaId, cb ) {
 
   .then( aggUtils.loadEvent )
 
-  .then( _retrieveAgendaIdsFromSources ) 
+  .then( _retrieveAgendaIdsFromSources )
 
   .then( _dispatch( 'evaluate.unpublish' ) )
 
@@ -73,7 +73,7 @@ function publish( eventId, agendaId, mute, cb ) {
     cb = mute;
     mute = false;
 
-  } 
+  }
 
   log( 'publish event %s on source %s', eventId, agendaId );
 

@@ -19,7 +19,8 @@ module.exports.init = c => {
   config = c;
 
   agendas.init( {
-    mysql: config.db,
+    knex: config.knex,
+    mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
     files: {
       tmpPath: config.tmpFolderPath,

@@ -34,11 +34,13 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     defaultLang: 'en'
   }, options || {} );
 
+  const agenda = await getAgenda( agendaUid );
+
   const {
     formSchemaId,
     networkUid,
     id: agendaId
-  } = await getAgenda( agendaUid );
+  } = agenda;
 
   const networkFormSchemaId = _.get( networkUid ? await getNetwork( networkUid ) : {}, 'formSchemaId' );
 
@@ -101,7 +103,9 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       transferToLegacy: true,
       context: {
         legacy: false,
-        userUid: contextUserUid
+        userUid: contextUserUid,
+        event: updated.event,
+        agenda
       }
     } );
 

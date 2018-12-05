@@ -5,7 +5,6 @@ const async = require( 'async' );
 const agendaLocations = require( '@openagenda/agenda-locations' );
 const agendaSearch = require( '@openagenda/agenda-search' );
 const agendas = require( '@openagenda/agendas' );
-const logger = require( '@openagenda/logger' );
 
 module.exports.init = config => {
 
@@ -45,15 +44,15 @@ module.exports.init = config => {
 
               } );
 
-            }, ecb );            
+            }, ecb );
 
           }, err => {
 
             cb( null, agendas );
 
-          } );        
+          } );
 
-        } ); 
+        } );
 
       }
     },

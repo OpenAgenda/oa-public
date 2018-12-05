@@ -11,17 +11,19 @@ module.exports = {
   onRemove: _legacyRemove
 }
 
-function _transfer( event, context, cb ) {
+function _transfer( legacyEvent, context, cb ) {
 
-  events.legacy.transfer( event, { context }, ( err, result ) => {
+  log( 'transferring legacy event %s', legacyEvent.id, context );
+
+  events.legacy.transfer( legacyEvent, { context }, ( err, result ) => {
 
     if ( err ) {
 
-      log( 'error', 'event %s transfer failed: %s', event.uid, err );
+      log( 'error', 'event %s transfer failed: %s', legacyEvent.uid, err );
 
     } else if ( !result.transferred ) {
 
-      log( 'error', 'event %s could not be transferred: %j', event.uid, _.get( result, 'errors' ) );
+      log( 'error', 'event %s could not be transferred: %j', legacyEvent.uid, _.get( result, 'errors' ) );
 
     } else if ( result.event.draft ) {
 

@@ -32,11 +32,13 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     defaultLang: 'en'
   }, options || {} );
 
+  const agenda = await getAgenda( agendaUid );
+
   const {
     formSchemaId,
     networkUid,
     id: agendaId
-  } = await getAgenda( agendaUid );
+  } = agenda;
 
   const network = await getNetwork( networkUid );
 
@@ -100,7 +102,9 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     networkFormSchemaId: _.get( network, 'formSchemaId' ),
     draft,
     context: {
-      userUid: contextUserUid
+      userUid: contextUserUid,
+      event: created.event,
+      agenda
     }
   } );
 

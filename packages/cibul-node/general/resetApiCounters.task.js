@@ -1,8 +1,8 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'daily task' ),
+const log = require( '@openagenda/logs' )( 'daily task' );
 
-config = require( '../config' ),
+var config = require( '../config' ),
 
 model = require( '../services/model' ),
 
