@@ -3,6 +3,7 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
+const agendasSvc = require( '@openagenda/agendas' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
@@ -11,8 +12,14 @@ const genUrl = require( '../genUrl' );
 
 module.exports = async ( { agenda, event, agendaEvent, context } ) => {
 
+  const sourceAgenda = await promisify( agendasSvc.get )( {
+    uid: context.agendaUid
+  }, { internal: true, private: null, includeImagePath: true } );
+
+  console.log( 'UUIIDD', context.event.creatorUid );
+
   const creatorUser = await usersSvc.findOne( { query: { uid: context.event.creatorUid } } );
-  const creator = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } );
+  const creator = await promisify( membersSvc.agenda( sourceAgenda.id ).get )( { userId: creatorUser.id } );
   const creatorLang = creatorUser.culture || 'fr';
 
   let stateLabel;
@@ -40,31 +47,34 @@ module.exports = async ( { agenda, event, agendaEvent, context } ) => {
 
   const members = await listAdminmods( { agenda } );
 
-  await mails( {
-    template: 'myEventCreation',
-    to: {
-      address: creatorUser.email,
-      unsubscriptions: [ {
-        rule: [ 'receive', 'myEventCreation' ],
-        dataPath: 'unsubscribeLink'
-      }, {
-        memberId: creator.id,
-        rule: [ 'receive', 'myEventCreation' ],
-        dataPath: 'memberUnsubscribeLink'
-      } ]
-    },
-    data: {
-      event: event.title[ creatorLang ] || _.find( event.title ),
-      agenda: agenda.title,
-      state: stateLabel,
-      logo,
-      link
-    },
-    lang: creatorLang
-  } );
+  if ( !agenda.private ) {
+    await mails( {
+      template: 'myEventAggregation',
+      to: {
+        address: creatorUser.email,
+        unsubscriptions: [ {
+          rule: [ 'receive', 'myEventAggregation' ],
+          dataPath: 'unsubscribeLink'
+        }, {
+          memberId: creator.id,
+          rule: [ 'receive', 'myEventAggregation' ],
+          dataPath: 'memberUnsubscribeLink'
+        } ]
+      },
+      data: {
+        event: event.title[ creatorLang ] || _.find( event.title ),
+        agenda: agenda.title,
+        state: stateLabel,
+        logo,
+        link,
+        sourceAgenda: sourceAgenda.title
+      },
+      lang: creatorLang
+    } );
+  }
 
   await mails( {
-    template: 'eventCreation',
+    template: 'eventAggregation',
     to: members
       .filter( member => member.id !== creator.id )
       .map( member => {
@@ -75,11 +85,11 @@ module.exports = async ( { agenda, event, agendaEvent, context } ) => {
           address: member.user.email,
           lang: member.user.culture,
           unsubscriptions: [ {
-            rule: [ 'receive', 'eventCreation' ],
+            rule: [ 'receive', 'eventAggregation' ],
             dataPath: 'unsubscribeLink'
           }, {
             memberId: member.id,
-            rule: [ 'receive', 'eventCreation' ],
+            rule: [ 'receive', 'eventAggregation' ],
             dataPath: 'memberUnsubscribeLink'
           } ],
           data: {
@@ -91,7 +101,8 @@ module.exports = async ( { agenda, event, agendaEvent, context } ) => {
       agenda: agenda.title,
       state: stateLabel,
       logo,
-      link
+      link,
+      sourceAgenda: sourceAgenda.title
     }
   } );
 

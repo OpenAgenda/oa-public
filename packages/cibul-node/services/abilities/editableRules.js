@@ -111,11 +111,11 @@ module.exports = {
     //   subject: 'myEventUpdate',
     //   tag: 'contributor'
     // },
-    // {
-    //   actions: 'receive',
-    //   subject: 'myEventAggregation',
-    //   tag: 'contributor'
-    // },
+    {
+      actions: 'receive',
+      subject: 'myEventAggregation',
+      tag: 'contributor'
+    },
     {
       actions: 'receive',
       subject: 'agendaInboxMessage',
@@ -191,11 +191,11 @@ module.exports = {
       //   subject: 'myEventUpdate',
       //   tag: 'contributor'
       // },
-      // {
-      //   actions: 'receive',
-      //   subject: 'myEventAggregation',
-      //   tag: 'contributor'
-      // }
+      {
+        actions: 'receive',
+        subject: 'myEventAggregation',
+        tag: 'contributor'
+      }
     ];
 
     if ( [ 2, 3 ].includes( member.credential ) ) {

@@ -21,6 +21,7 @@ const mailContributor = require( '../event/instance/mailContributor' );
 const oldEventSvc = require( '../event' );
 const queueForControlData = require( './queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
+const sendEventAggregation = require( './sendEventAggregation' );
 
 module.exports = async ( ae, context ) => {
 
@@ -40,7 +41,7 @@ module.exports = async ( ae, context ) => {
     if ( !context.agendaUid || context.agendaUid === ae.agendaUid ) {
       // Creation
       try {
-        await sendEventCreation( { agenda, event, agendaEvent: ae } );
+        await sendEventCreation( { agenda, event, agendaEvent: ae, context } );
       } catch ( error ) {
         log.error( new VError( error, 'Cannot send event creation emails' ) )
       }
@@ -53,10 +54,11 @@ module.exports = async ( ae, context ) => {
     }
   } else if ( context && !context.userUid && context.agendaUid !== ae.agendaUid ) {
     // Aggregation
-    console.log( '==================' );
-    console.log( 'send mail AGGREGATION' );
-    //   myEventAggregation to creator              [ 'receive', 'myEventAggregation' ]
-    // x eventAggregation to adminmods (- creator)  [ 'receive', 'eventAggregation' ]
+    try {
+      await sendEventAggregation( { agenda, event, agendaEvent: ae, context } );
+    } catch ( error ) {
+      log.error( new VError( error, 'Cannot send event aggregation emails' ) )
+    }
   }
 
   if ( ae.state === 2 ) {

@@ -1,0 +1,39 @@
+<mjml>
+  <mj-head>
+    <mj-title><%= __( 'title', { agenda, event } ) %></mj-title>
+    <mj-preview><%= __( 'title', { agenda, event } ) %></mj-preview>
+
+    <%- include( '../partials/defaultStyle.mjml' ) %>
+  </mj-head>
+
+  <mj-body>
+    <%- include( '../partials/header.mjml' ) %>
+
+    <mj-content>
+      <mj-column>
+        <mj-text>
+          <h1 class="title"><%= __( 'title', { agenda, event } ) %></h1>
+        </mj-text>
+
+        <mj-markdown>
+          <%- __( 'body', {
+            event: _.escape( event ),
+            sourceAgenda: _.escape( sourceAgenda ),
+            state: __( state )
+          } ) %>
+        </mj-markdown>
+
+        <mj-button
+          background-color="#41acdd"
+          color="white"
+          align="center"
+          href="<%= link %>"
+        >
+          <%= __( 'actionDescription' ) %>
+        </mj-button>
+      </mj-column>
+    </mj-content>
+
+    <%- include( '../partials/footer.mjml' ) %>
+  </mj-body>
+</mjml>
