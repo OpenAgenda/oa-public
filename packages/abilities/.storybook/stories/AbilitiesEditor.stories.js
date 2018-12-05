@@ -45,4 +45,19 @@ storiesOf( 'AbilitiesEditor', module )
         <div>Un header bidon</div>
       )}
     />
+  ) )
+  .add( 'with filter input', () => withJestSleep( 1500 )(
+    <AbilitiesEditor
+      locale={select( 'Locale', { Français: 'fr', English: 'en' }, 'fr' )}
+      entityName="user"
+      identifier={99999999}
+      res={{
+        // get + patch
+        formIndex: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}/abilities/form-index`
+      }}
+      searchChildKey="entity.agendaTitle"
+      HeaderComponent={( { filterInput } ) => (
+        <div>{filterInput}</div>
+      )}
+    />
   ) );

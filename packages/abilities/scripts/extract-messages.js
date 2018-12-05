@@ -38,7 +38,9 @@ function extractLang(lang) {
   );
 
   const messages = _.merge(
-    lang === DEFAULT_LANG ? _.clone(defaultMessages) : _.mapValues(defaultMessages, () => ''),
+    lang === DEFAULT_LANG
+      ? _.clone(defaultMessages)
+      : _.mapValues(defaultMessages, () => ''),
     _.pick(existantLocales, _.keysIn(defaultMessages))
   );
   fs.writeFileSync(

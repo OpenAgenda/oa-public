@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import _ from 'lodash';
 import { Field } from 'react-final-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
@@ -50,7 +50,8 @@ const ruleMessages = defineMessages( {
   },
   receiveMyEventChangeState: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventChangeState',
-    defaultMessage: 'Receive notifications when someone change state of my events'
+    defaultMessage:
+      'Receive notifications when someone change state of my events'
   },
   receiveMyEventUpdate: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventUpdate',
@@ -102,14 +103,11 @@ const RuleLabel = shouldUpdate(
   return <FormattedMessage {...ruleMessages[ messageKey ]} values={values} />;
 } );
 
-export default ( { rule } ) => (
-  <Field
-    key={rule.key}
-    name={rule.key}
-    type="checkbox"
-    subscription={{ value: true, data: true }}
-    validateFields={[]}
-    render={( { input, meta } ) => (
+export default class RuleCheckbox extends PureComponent {
+  renderField = ( { input, meta } ) => {
+    const { rule } = this.props;
+
+    return (
       <div className="checkbox">
         <label htmlFor={rule.key}>
           <input
@@ -125,6 +123,21 @@ export default ( { rule } ) => (
           <RuleLabel rule={rule} />
         </label>
       </div>
-    )}
-  />
-);
+    );
+  };
+
+  render() {
+    const { rule } = this.props;
+
+    return (
+      <Field
+        key={rule.key}
+        name={rule.key}
+        type="checkbox"
+        subscription={{ value: true, data: true }}
+        validateFields={[]}
+        render={this.renderField}
+      />
+    );
+  }
+}

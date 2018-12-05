@@ -16,7 +16,7 @@ import getChildCheckboxDecorator from './getChildCheckboxDecorator';
 
 if ( process.env.NODE_ENV === 'development' ) {
   // eslint-disable-next-line
-  const { whyDidYouUpdate } = require( 'why-did-you-update' );
+  const { whyDidYouUpdate } = require('why-did-you-update');
   whyDidYouUpdate( React );
 }
 
@@ -57,7 +57,8 @@ function getInitialValues( rules ) {
 )
 class AbilitiesEditor extends Component {
   static defaultProps = {
-    locale: 'en'
+    locale: 'en',
+    filterInput: false
   };
 
   constructor( props ) {
@@ -125,7 +126,8 @@ class AbilitiesEditor extends Component {
   renderContent() {
     const {
       abilitiesFetcher: { loading, data: rules, error },
-      HeaderComponent
+      HeaderComponent,
+      searchChildKey
     } = this.props;
 
     if ( loading ) {
@@ -158,6 +160,7 @@ class AbilitiesEditor extends Component {
         component={AbilitiesForm}
         rules={rules}
         HeaderComponent={HeaderComponent}
+        searchChildKey={searchChildKey}
       />
     );
   }

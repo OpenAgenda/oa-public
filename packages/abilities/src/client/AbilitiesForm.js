@@ -1,21 +1,39 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { FormSpy } from 'react-final-form';
-import Collapse from 'rc-collapse';
+import * as RRF from 'react-final-form';
+import RCCollapse from 'rc-collapse';
 import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
+import Fuse from 'fuse.js';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import RuleCheckbox from './RuleCheckbox';
 import isIndeterminate from './isIndeterminate';
+
+const MINLEN_REQUIRED_FOR_SEARCH = 8;
+
+const FormSpy = shouldUpdate(
+  ( props, nextProps ) => !shallowEqual(
+    _.omit( props, 'subscription' ),
+    _.omit( nextProps, 'subscription' )
+  )
+)( RRF.FormSpy );
+
+const Collapse = shouldUpdate(
+  ( props, nextProps ) => !shallowEqual( _.omit( props, 'children' ), _.omit( nextProps, 'children' ) )
+    || !_.isEqual(
+      props.children.map( v => v.key ),
+      nextProps.children.map( v => v.key )
+    )
+)( RCCollapse );
 
 const Panel = shouldUpdate(
   ( props, nextProps ) => !shallowEqual(
     _.omit( props, 'onItemClick' ),
     _.omit( nextProps, 'onItemClick' )
   )
-)( Collapse.Panel );
+)( RCCollapse.Panel );
 
 const descriptionMessages = defineMessages( {
   firstEntityUser: {
@@ -53,22 +71,173 @@ function getEntityTitle( ability ) {
   }
 }
 
+const FilterInput = ( { value, onChange } ) => (
+  <div className="form-group search">
+    <div className="input-icon-right">
+      <input
+        name="filter"
+        type="text"
+        className="form-control"
+        value={value}
+        onChange={onChange}
+      />
+      <button type="submit" className="btn">
+        <i className="fa fa-search" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
+);
+
+const SaveButton = ( {
+  submit, submitting, pristine, submitSucceeded
+} ) => (
+  <button
+    type="submit"
+    onClick={submit}
+    className={cn( 'btn', {
+      'btn-primary': !submitSucceeded,
+      'btn-success': submitSucceeded
+    } )}
+    disabled={submitting || pristine}
+  >
+    <FormattedMessage id="Abilities.AbilitiesForm.save" defaultMessage="Save" />
+
+    {submitting && (
+      <span className="margin-h-sm">
+        <Spinner mode="inline" />
+      </span>
+    )}
+  </button>
+);
+
+const FirstEntityRule = ( { ruleName, rules } ) => {
+  const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( ruleName )}` ];
+
+  return (
+    <div>
+      {headerMessage ? (
+        <b>
+          <FormattedMessage {...headerMessage} />
+        </b>
+      ) : null}
+
+      {rules.map( rule => (
+        <RuleCheckbox key={rule.key} rule={rule} />
+      ) )}
+    </div>
+  );
+};
+
+const ChildEntityRule = ( { ruleName, rules } ) => {
+  const headerMessage = descriptionMessages[ `childEntity${_.upperFirst( ruleName )}` ];
+
+  return (
+    <div>
+      {headerMessage ? (
+        <b>
+          <FormattedMessage {...headerMessage} />
+        </b>
+      ) : null}
+
+      {rules.map( rule => (
+        <RuleCheckbox key={rule.key} rule={rule} />
+      ) )}
+    </div>
+  );
+};
+
 class AbilitiesForm extends Component {
   static propTypes = {
-    rules: PropTypes.arrayOf( PropTypes.object ),
     form: PropTypes.objectOf( PropTypes.any ),
+    rules: PropTypes.arrayOf( PropTypes.object ),
     entityName: PropTypes.string.isRequired,
     identifier: PropTypes.number.isRequired,
     handleSubmit: PropTypes.func,
-    HeaderComponent: PropTypes.oneOfType( [ PropTypes.node, PropTypes.func ] )
+    HeaderComponent: PropTypes.oneOfType( [ PropTypes.node, PropTypes.func ] ),
+    searchChildKey: PropTypes.string
   };
 
   static defaultProps = {
     rules: null,
     form: null,
     handleSubmit: null,
-    HeaderComponent: null
+    HeaderComponent: null,
+    searchChildKey: null
   };
+
+  static getDerivedStateFromProps( nextProps, prevState ) {
+    const {
+      entityName, identifier, rules, searchChildKey
+    } = nextProps;
+    const ruleKeys = rules.map( rule => rule.key );
+
+    if ( !_.isEqual( prevState.ruleKeys, ruleKeys ) ) {
+      const rulesPerEntity = rules.reduce( ( result, rule ) => {
+        const entityProps = _.pick( rule, [
+          'entityName',
+          'identifier',
+          'entity'
+        ] );
+        const found = _.find( result, entityProps );
+
+        if ( found ) {
+          found.rules.push( rule );
+        } else {
+          result.push( {
+            ...entityProps,
+            rules: [ rule ]
+          } );
+        }
+
+        return result;
+      }, [] );
+
+      const firstEntityAbility = _.find( rulesPerEntity, {
+        entityName,
+        identifier
+      } );
+      const childAbilities = _.groupBy(
+        _.reject( rulesPerEntity, { entityName, identifier } ),
+        'entityName'
+      );
+
+      const fuseChildAbilities = searchChildKey
+        ? _.mapValues(
+          childAbilities,
+          childAbility => new Fuse( childAbility, {
+            shouldSort: true,
+            threshold: 0.3,
+            location: 0,
+            distance: 100,
+            maxPatternLength: 32,
+            minMatchCharLength: 1,
+            keys: [ searchChildKey ]
+          } )
+        )
+        : null;
+
+      return {
+        ruleKeys,
+        firstEntityAbility,
+        childAbilities,
+        fuseChildAbilities
+      };
+    }
+
+    return null;
+  }
+
+  state = {
+    ruleKeys: null,
+    firstEntityAbility: null,
+    childAbilities: null,
+    search: '',
+    debouncedSearch: ''
+  };
+
+  debouncedSearch = _.debounce( value => {
+    this.setState( { debouncedSearch: value } );
+  }, 500 );
 
   componentDidMount() {
     // calculate `indeterminate` props
@@ -105,180 +274,139 @@ class AbilitiesForm extends Component {
     } );
   }
 
-  render() {
+  handleSearchChange = e => {
+    const { value } = e.target;
+
+    this.setState( { search: value } );
+    this.debouncedSearch( value );
+  };
+
+  onFormValueChange = formState => {
     const {
-      entityName, identifier, rules, handleSubmit, form, HeaderComponent
+      entityName, identifier, rules, form
     } = this.props;
+    const {
+      mutators: { setFieldData },
+      batch,
+      getFieldState
+    } = form;
+    const [ firstEntityRules, otherRules ] = _.partition(
+      rules,
+      _.matches( {
+        entityName,
+        identifier
+      } )
+    );
+    const allValues = formState.values;
 
-    const rulesPerEntity = rules.reduce( ( result, rule ) => {
-      const entityProps = _.pick( rule, [ 'entityName', 'identifier', 'entity' ] );
-      const found = _.find( result, entityProps );
+    // calculate indeterminates
+    const indeterminates = firstEntityRules.reduce( ( result, rule ) => {
+      const relatedRules = _.filter(
+        otherRules,
+        _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
+      );
+      const fieldState = getFieldState( rule.key );
+      const indeterminate = isIndeterminate( allValues, rule, relatedRules );
 
-      if ( found ) {
-        found.rules.push( rule );
-      } else {
-        result.push( {
-          ...entityProps,
-          rules: [ rule ]
-        } );
+      if ( fieldState.data.indeterminate === indeterminate ) {
+        return result;
       }
 
-      return result;
-    }, [] );
+      return {
+        ...result,
+        [ rule.key ]: indeterminate
+      };
+    }, {} );
 
-    const firstEntityAbility = _.find( rulesPerEntity, {
-      entityName,
-      identifier
+    // set indeterminate prop for each field
+    batch( () => {
+      _.forEach( indeterminates, ( indeterminate, key ) => setFieldData( key, { indeterminate } ) );
     } );
-    const othersAbilities = _.groupBy(
-      _.reject( rulesPerEntity, { entityName, identifier } ),
-      'entityName'
-    );
+  };
+
+  render() {
+    const { handleSubmit, HeaderComponent, searchChildKey } = this.props;
+    const {
+      firstEntityAbility,
+      childAbilities,
+      fuseChildAbilities,
+      search,
+      debouncedSearch
+    } = this.state;
 
     const saveButton = (
       <FormSpy
-        subscription={{ submitting: true, pristine: true, submitSucceeded: true }}
-      >
-        {({ submitting, pristine, submitSucceeded }) => (
-          <button
-            type="submit"
-            className={cn(
-              'btn',
-              {
-                'btn-primary': !submitSucceeded,
-                'btn-success': submitSucceeded
-              }
-            )}
-            disabled={submitting || pristine}
-          >
-            <FormattedMessage
-              id="Abilities.AbilitiesForm.save"
-              defaultMessage="Save"
-            />
+        subscription={{
+          submitting: true,
+          pristine: true,
+          submitSucceeded: true
+        }}
+        component={SaveButton}
+      />
+    );
 
-            {submitting && <span className="margin-h-sm">
-                <Spinner mode="inline" />
-              </span>}
-          </button>
-        )}
-      </FormSpy>
+    const childAbilitiesLength = _.reduce( childAbilities, ( result, value ) => result + value.length, 0 );
+
+    const filterInput = (
+      <FilterInput value={search} onChange={this.handleSearchChange} />
     );
 
     return (
-      <form onSubmit={handleSubmit}>
-        {firstEntityAbility
-        && firstEntityAbility.rules.length
-        && firstEntityAbility.rules.length ? (
-          <Fragment>
+      <>
+        {HeaderComponent
+          ? React.createElement( HeaderComponent, { saveButton, filterInput } )
+          : null}
+
+        <form onSubmit={handleSubmit}>
+          {firstEntityAbility && firstEntityAbility.rules.length ? (
             <div className="margin-bottom-sm">
-              {HeaderComponent ? React.createElement( HeaderComponent, { saveButton } ) : null}
-
-              {Object.entries( _.groupBy( firstEntityAbility.rules, 'tag' )).map( ([ key, rules ]) => {
-                const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( key )}` ];
-
-                return (
-                  <div key={key}>
-                    {headerMessage ? (
-                      <b>
-                        <FormattedMessage {...descriptionMessages[ `firstEntity${_.upperFirst( key )}` ]} />
-                      </b>
-                    ) : null}
-
-                    {rules.map( rule => (
-                      <RuleCheckbox key={rule.key} rule={rule} />
-                    ) )}
-                  </div>
-                );
-              } )}
+              {Object.entries( _.groupBy( firstEntityAbility.rules, 'tag' ) ).map(
+                ( [ key, rules ] ) => (
+                  <FirstEntityRule key={key} ruleName={key} rules={rules} />
+                )
+              )}
             </div>
-          </Fragment>
           ) : null}
 
-        {Object.keys( othersAbilities ).map( name => (
-          <Fragment key={name}>
-            <Collapse className="margin-bottom-md">
-              {Object.values( othersAbilities[ name ] ).map( entityAbility => (
-                <Panel
-                  key={`${name}.${entityAbility.identifier}`}
-                  header={<b>{getEntityTitle( entityAbility )}</b>}
-                >
-                  {Object.entries( _.groupBy( entityAbility.rules, 'tag' )).map( ([ key, rules ]) => {
-                    const headerMessage = descriptionMessages[ `childEntity${_.upperFirst( key )}` ];
+          {searchChildKey && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH  ? (
+            <div className="margin-v-md">{filterInput}</div>
+          ) : null}
 
-                    return (
-                      <div key={key}>
-                        {headerMessage ? (
-                          <b>
-                            <FormattedMessage {...descriptionMessages[ `childEntity${_.upperFirst( key )}` ]} />
-                          </b>
-                        ) : null}
+          {Object.keys( childAbilities ).map( name => {
+            const abilities = fuseChildAbilities && debouncedSearch
+              ? fuseChildAbilities[ name ].search( debouncedSearch )
+              : childAbilities[ name ];
 
-                        {rules.map( rule => (
-                          <RuleCheckbox key={rule.key} rule={rule} />
-                        ) )}
-                      </div>
-                    );
-                  } )}
-                  {/*<div className="margin-bottom-md">*/}
-                    {/*{entityAbility.rules.map( rule => (*/}
-                      {/*<RuleCheckbox key={rule.key} rule={rule} />*/}
-                    {/*) )}*/}
-                  {/*</div>*/}
-                </Panel>
-              ) )}
-            </Collapse>
-          </Fragment>
-        ) )}
-
-        {saveButton}
-
-        <FormSpy
-          subscription={{ values: true, data: true }}
-          onChange={formState => {
-            const {
-              mutators: { setFieldData },
-              batch,
-              getFieldState
-            } = form;
-            const [ firstEntityRules, otherRules ] = _.partition(
-              rules,
-              _.matches( {
-                entityName,
-                identifier
-              } )
+            return (
+              <Collapse key={name} className="margin-bottom-md">
+                {abilities.map( entityAbility => (
+                  <Panel
+                    key={`${name}.${entityAbility.identifier}`}
+                    header={<b>{getEntityTitle( entityAbility )}</b>}
+                  >
+                    {Object.entries( _.groupBy( entityAbility.rules, 'tag' ) ).map(
+                      ( [ key, rules ] ) => (
+                        <ChildEntityRule
+                          key={key}
+                          ruleName={key}
+                          rules={rules}
+                        />
+                      )
+                    )}
+                  </Panel>
+                ) )}
+              </Collapse>
             );
-            const allValues = formState.values;
+          } )}
 
-            // calculate indeterminates
-            const indeterminates = firstEntityRules.reduce( ( result, rule ) => {
-              const relatedRules = _.filter(
-                otherRules,
-                _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
-              );
-              const fieldState = getFieldState( rule.key );
-              const indeterminate = isIndeterminate(
-                allValues,
-                rule,
-                relatedRules
-              );
+          {saveButton}
 
-              if ( fieldState.data.indeterminate === indeterminate ) {
-                return result;
-              }
-
-              return {
-                ...result,
-                [ rule.key ]: indeterminate
-              };
-            }, {} );
-
-            // set indeterminate prop for each field
-            batch( () => {
-              _.forEach( indeterminates, ( indeterminate, key ) => setFieldData( key, { indeterminate } ) );
-            } );
-          }}
-        />
-      </form>
+          <FormSpy
+            subscription={{ values: true, data: true }}
+            onChange={this.onFormValueChange}
+          />
+        </form>
+      </>
     );
   }
 }

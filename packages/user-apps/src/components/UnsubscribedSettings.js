@@ -51,13 +51,16 @@ class UnsubscribedSettings extends Component {
                   // get + patch
                   formIndex: '/abilities/form-index'
                 }}
-                HeaderComponent={( { saveButton } ) => (
+                searchChildKey="entity.agendaTitle"
+                HeaderComponent={( { filterInput, saveButton } ) => (
                   <div className="clearfix margin-bottom-sm">
                     <div className="pull-right">
                       {saveButton}
                     </div>
 
                     <p>{getLabels( 'chooseEmailsSent' )}</p>
+
+                    {/*<div className="margin-top-md">{filterInput}</div>*/}
                   </div>
                 )}
               />

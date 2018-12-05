@@ -31,7 +31,8 @@ export default function ( { entityName, identifier, getRules } ) {
           // when UNcheck an indeterminate checkbox OR all related rules are checked
           if (
             fieldState.data.indeterminate
-            || ( relatedRules.length && relatedRules.every( rule => allValues[ rule.key ] === true ) )
+            || ( relatedRules.length
+              && relatedRules.every( rule => allValues[ rule.key ] === true ) )
           ) {
             return relatedRules.reduce(
               ( result, rule ) => {

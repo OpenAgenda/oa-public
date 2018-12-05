@@ -12,8 +12,8 @@ import Adapter from 'enzyme-adapter-react-16';
 import toJson from 'enzyme-to-json';
 import abilities from '../src/service';
 import testconfig from '../testconfig';
-import db from './utils/db';
 import { server } from '../server.dev';
+import db from './utils/db';
 
 const database = `${testconfig.mysql.database}_storyshots`;
 testconfig.mysql.database = database;
@@ -21,7 +21,10 @@ testconfig.mysql.database = database;
 configure( { adapter: new Adapter() } );
 
 beforeAll( async () => {
-  await promisify( server.listen ).call( server, process.env.STORYBOOK_API_PORT || 3301 );
+  await promisify( server.listen ).call(
+    server,
+    process.env.STORYBOOK_API_PORT || 3301
+  );
 
   process.env.STORYBOOK_API_PORT = server.address().port;
 

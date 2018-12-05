@@ -40,6 +40,7 @@
     "final-form": "^4.10.0",
     "final-form-calculate": "^1.2.1",
     "final-form-set-field-data": "^1.0.1",
+    "fuse.js": "^3.3.0",
     "knex": "^0.15.2",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
