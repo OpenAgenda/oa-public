@@ -171,10 +171,10 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
 
   knex( schemas.stakeholder )
 
-    .update( _.extend( 
+    .update( _.extend(
       format.objToDb( toUpdate, true ), options.deletedUser === true ? {
         user_id: null
-      } : {} ) 
+      } : {} )
     )
 
     .where( {
