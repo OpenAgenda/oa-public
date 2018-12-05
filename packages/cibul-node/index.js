@@ -10,7 +10,6 @@ module.exports = {
     event: require( './services/event' ),
     agenda: require( './services/agenda' ),
     embed: require( './services/embed' ),
-    nominatim: require( './services/nominatim' ),
     agendas: require( '@openagenda/agendas' ),
     categories: require( '@openagenda/agenda-categories' ),
     locations: require( '@openagenda/agenda-locations' ),

@@ -1,12 +1,12 @@
-var cluster = require( 'cluster' ),
+"use strict";
 
-logger = require( '@openagenda/logger' ),
+const log = require( '@openagenda/logs' )( 'supervisor' );
 
-config = require( '../config' ),
+const cluster = require( 'cluster' );
 
-log = logger( 'supervisor' ),
+const config = require( '../config' );
 
-lastCrashTime;
+let lastCrashTime;
 
 
 /**
@@ -18,7 +18,7 @@ module.exports = function( job ) {
 
   // mocha does not handle clusters well
   if ( process.env.NODE_ENV == 'test' ) {
-    
+
     return job( true );
 
   }

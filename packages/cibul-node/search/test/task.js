@@ -6,9 +6,9 @@
 
 process.env.NODE_ENV = 'test';
 
-var config = require( '../../config' ),
+const log = require( '@openagenda/logs' )( 'search sync tests' );
 
-log = require( '@openagenda/logger' )( 'search sync tests' ),
+var config = require( '../../config' ),
 
 should = require( 'should' ),
 
@@ -39,7 +39,7 @@ describe( 'search index sync', function() {
     init.agendaLocations( {}, done );
 
   } );
-  
+
   before( function( done ) {
 
     // prepare db test data ( one review & 3 events )
@@ -50,7 +50,7 @@ describe( 'search index sync', function() {
       task();
 
       // rebuild index
-      
+
       task.setOnComplete( done );
 
       bogusComs.publish( config.es.channel, { name: 'index.resync', values: { reset: true } } );

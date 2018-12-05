@@ -1,13 +1,13 @@
 "use strict";
 
 /**
- * task that syncs elasticsearch index 
+ * task that syncs elasticsearch index
  * as events and reviews are modified/added/deleted
  */
 
 
 const async = require( 'async' );
-const log = require( '@openagenda/logger' )( 'search task' );
+const log = require( '@openagenda/logs' )( 'search task' );
 
 const agendaSvc = require( '../services/agenda' );
 const coms = require( '../lib/coms' );
@@ -69,7 +69,7 @@ function run() {
   log( 'debug', 'running' );
 
   running = true;
-  
+
   coms.subscribe( config.es.channel, _handleJob );
 
 }
