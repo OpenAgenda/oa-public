@@ -481,7 +481,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     if ( [ 401, 403, 404, 413 ].indexOf( error.code ) == -1 ) {
 
-      req.log.load( { errorStack: error.stack } );
+      req.log.loadMetadata( { errorStack: error.stack } );
 
       req.log( 'error', 'received error: %j', error );
 
@@ -1062,7 +1062,7 @@ function loadLogger( name ) {
 
     req.log = logger( 'req' );
 
-    req.log.load( {
+    req.log.loadMetadata( {
       module: name ? name : 'unknown',
       url: req.originalUrl,
       ip: ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' ).shift()
