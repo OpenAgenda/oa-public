@@ -185,8 +185,8 @@ describe( 'events - functional (server): list', function() {
 
     svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
 
-      events[ 0 ].keywords.should.eql( { 
-        fr: [ 'famille', 'animation', 'enfant', 'monument' ] 
+      events[ 0 ].keywords.should.eql( {
+        fr: [ 'famille', 'animation', 'enfant', 'monument' ]
       } );
 
       done();
@@ -199,7 +199,7 @@ describe( 'events - functional (server): list', function() {
 
     svc.list( 0, 1, { detailed: true }, ( err, events ) => {
 
-      Object.keys( events[ 0 ] ).should.eql( [ 
+      Object.keys( events[ 0 ] ).should.eql( [
         'slug',
         'uid',
         'title',
@@ -239,7 +239,7 @@ describe( 'events - functional (server): list', function() {
 
       done();
 
-    } );    
+    } );
 
   } );
 

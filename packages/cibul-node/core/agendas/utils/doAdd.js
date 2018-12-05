@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 const VError = require( 'verror' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
@@ -10,10 +11,11 @@ const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
 module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
 
-  const { draft, formSchemaId, networkFormSchemaId } = _.assign( {
+  const { draft, formSchemaId, networkFormSchemaId, context } = _.assign( {
     formSchemaId: null,
     networkFormSchemaId: null,
-    draft: false
+    draft: false,
+    context: {}
   }, _.isObject( options ) ? options : { formSchemaId: options } );
 
   const added = {
@@ -24,12 +26,10 @@ module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
   if ( !draft ) {
 
     try {
-    
+
       const { created } = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
-        context: {
-          legacy: false // indication that context of operation is not legacy
-        }
+        context: ih( context, { legacy: { $set: false } } )
       } );
 
       added.agendaEvent = created;

@@ -199,7 +199,7 @@ describe( 'agendas - functional (server): set (update)', function() {
       credentials: {
         aggregator: true
       }
-    }, { 
+    }, {
       internal: true,
       protected: false
     }, ( err, result ) => {
@@ -235,8 +235,8 @@ describe( 'agendas - functional (server): set (update)', function() {
 
       should( err ).equal( null )
 
-      result.should.eql( { 
-        agenda: { 
+      result.should.eql( {
+        agenda: {
           id: 4887,
           ownerId: 7388,
           formSchemaId: null,
@@ -308,11 +308,15 @@ describe( 'agendas - functional (server): set (update)', function() {
             calendarView: false,
             docxExport: false,
             eventOwnershipTransfer: false
-          } 
+          },
+          legacyStore: {
+            moderated: false,
+            order: 'relative'
+          }
         },
         valid: true,
         success: true,
-        errors: [] 
+        errors: []
       } );
 
 

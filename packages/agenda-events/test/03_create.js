@@ -95,6 +95,8 @@ describe( 'agendaEvents - functional (server): create', function() {
               userUid: 111,
               agendaUid: null,
               transferToLegacy: false,
+              agenda: null,
+              event: null,
               legacy: true
             } );
 
@@ -123,6 +125,8 @@ describe( 'agendaEvents - functional (server): create', function() {
               userUid: null,
               agendaUid: null,
               transferToLegacy: false,
+              agenda: null,
+              event: null,
               legacy: true
             } );
 

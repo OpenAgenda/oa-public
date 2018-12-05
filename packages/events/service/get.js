@@ -16,6 +16,8 @@ const cleanGetOptions = require( './validate/getOptions' );
 
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
+const { promisify } = require( 'util' );
+
 const log = require( '@openagenda/logs' )( 'get' );
 
 module.exports = _.extend( get, { init } );
@@ -33,7 +35,6 @@ function get( i, o, c ) {
     cleanOptions = cleanGetOptions( options );
 
   } catch( e ) {};
-
 
   const p = w( _.extend( {
     identifiers,
@@ -55,7 +56,15 @@ function get( i, o, c ) {
 
     .then( _filterInternals )
 
-    .then( _cleanResult );
+    .then( _cleanResult )
+
+    .then( async event => {
+
+      if ( !cleanOptions.detailed || !event ) return event;
+
+      return _decorateWithLocation( event, cleanOptions );
+
+    } );
 
 
   if ( cb === null ) return p;
@@ -119,6 +128,28 @@ function _get( v ) {
     return v;
 
   } );
+
+}
+
+
+async function _decorateWithLocation( event, options = {} ) {
+
+  try {
+
+    const location = _.first( await promisify( config.interfaces.getLocations )(
+      [ event.locationUid ],
+      _.pick( options, [ 'internal' ] )
+    ) );
+
+    return _.set( event, 'location', location );
+
+  } catch ( e ) {
+
+    console.log( e );
+
+    throw new VError( 'failed to add location to event', e );
+
+  }
 
 }
 

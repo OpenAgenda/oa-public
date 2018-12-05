@@ -187,7 +187,7 @@ async function eventMailSend( req, res, next ) {
   req.formatted.uriParams = req.eventUriParams;
 
   try {
-    const { formSchemaId } = req.agenda;
+    const formSchemaId = _.get( req, 'agenda.formSchemaId' );
     let customData = null;
 
     if ( formSchemaId ) {

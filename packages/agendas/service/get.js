@@ -55,7 +55,7 @@ function findOne( search, options, cb ) {
 
 function get( i, o, c ) {
 
-  const { identifiers, options, cb } = _parseGetArguments( i, o, c );  
+  const { identifiers, options, cb } = _parseGetArguments( i, o, c );
 
   const p = promise( identifiers, options );
 
@@ -83,7 +83,7 @@ async function promise( identifiers, options = {} ) {
 
   const rawAgenda = await k.then( result => result ? _applyDefaults( dbParse.toObj( result ) ) : null );
 
-  if ( !rawAgenda ) return null;  
+  if ( !rawAgenda ) return null;
 
   if ( options.detailed ) {
 

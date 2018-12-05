@@ -1,8 +1,8 @@
 "use strict";
 
-var config = require( '../config' ),
+const log = require( '@openagenda/logs' )( 'admin/agendas.back' );
 
-  log = require( '@openagenda/logger' )( 'admin/agendas.back' ),
+var config = require( '../config' ),
 
   modLib = require( '../lib/moduleLib.js' ),
 

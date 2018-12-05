@@ -22,6 +22,8 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
+  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+
   const {
     draft,
     formSchemaDataFormat,
@@ -32,11 +34,13 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     defaultLang: 'en'
   }, options || {} );
 
+  const agenda = await getAgenda( agendaUid );
+
   const {
     formSchemaId,
     networkUid,
     id: agendaId
-  } = await getAgenda( agendaUid );
+  } = agenda;
 
   const networkFormSchemaId = _.get( networkUid ? await getNetwork( networkUid ) : {}, 'formSchemaId' );
 
@@ -65,9 +69,10 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, data ), {
     context: {
       agendaUid,
-      userUid: _.get( options, 'context.userUid', null ),
+      userUid: contextUserUid,
       updateSearchIndex: false
     },
+    detailed: true,
     transferToLegacy: !draft,
     draft
   } );
@@ -97,7 +102,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       }
     } ), {
       transferToLegacy: true,
-      context: { legacy: false }
+      context: {
+        legacy: false,
+        userUid: contextUserUid,
+        event: updated.event,
+        agenda
+      }
     } );
 
     updated.agendaEvent = result.set;

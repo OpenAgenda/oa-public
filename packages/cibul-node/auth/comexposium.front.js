@@ -1,5 +1,7 @@
 "use strict";
 
+const log = require( '@openagenda/logs' )( 'auth/comexposium' );
+
 const modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -7,8 +9,6 @@ const modLib = require( '../lib/moduleLib' ),
   w = require( 'when' ),
 
   auth = require( './lib/auth' ),
-
-  log = require( '@openagenda/logger' )( 'auth/local' ),
 
   config = require( '../config' ),
 

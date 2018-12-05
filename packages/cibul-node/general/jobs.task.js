@@ -6,10 +6,9 @@
  * listens to coms service queue
  */
 
+const log = require( '@openagenda/logs' )( 'jobs' );
 
-var log = require( '@openagenda/logger' )( 'jobs' ),
-
-lib = require( '../lib/lib' ),
+var lib = require( '../lib/lib' ),
 
 config = require( '../config' ),
 

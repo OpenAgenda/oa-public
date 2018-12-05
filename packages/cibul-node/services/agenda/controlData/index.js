@@ -32,6 +32,8 @@ module.exports.task = task;
 
 module.exports.queue = ( agenda, options, cb ) => {
 
+  // agenda is an id, options { type: 'eventUpdate', eventId }
+
   if ( arguments.length === 2 && typeof options === 'function') {
 
     cb = options;

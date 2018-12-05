@@ -10,7 +10,7 @@ const core = require( '../../../core' );
 const config = require( '../../../config' );
 
 module.exports = async ( agenda, user, current, data, options = {} ) => {
-  
+
   const { draft } = _.assign( {
     draft: false
   }, options );
@@ -18,7 +18,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
   log( 'current is %s', current ? 'set, this is an update.' : 'not set, this is a create' );
 
   const transforms = { '$unset': [] };
-  
+
   // for a new event, the owner and origin agenda must be specified
 
   if ( !current || current.draft ) {
@@ -57,7 +57,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
       log( draft ? 'updating draft' : 'updating event' );
 
-      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, { 
+      const result = await core.agendas( agenda.uid ).events.update( current.uid, transformed, {
         draft,
         formSchemaDataFormat: true,
         context: {
@@ -65,7 +65,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
         }
       } );
 
-      return { 
+      return {
         event: _.get( result, 'updated.event' ),
         success: result.success
       };

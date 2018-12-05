@@ -2,6 +2,7 @@
 
 const agendaEvents = require( '@openagenda/agenda-events' );
 const events = require( '@openagenda/events' );
+const agendas = require( '@openagenda/agendas' );
 const remove = require( '@openagenda/agenda-events/service/remove' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
@@ -22,21 +23,30 @@ function task() {
   q.setConsumer( evaluate.bind( null, null ) );
 
   q.launch( { interval: 1000 } );
-  
+
 }
 
 async function evaluate( err, action ) {
 
   if ( err ) return log( 'error', 'coms subscribe error', err );
 
-  log( 'evaluating action %s', action.name );
+  log( 'evaluating action %j', action );
 
   let result = null;
 
+  const eventId = action.values.id;
+
   try {
 
+    const {
+      agendaUid,
+      eventUid
+    } = await _loadAgendaEventUids( action.name, action.values.id );
+
+    const event = await events.get( { uid: eventUid }, { private: null, internal: true, detailed: true } );
+
     // if event is not present in events service, do nothing.
-    if ( action.name === 'review.article_create' && !await _eventExists( action.values.id ) ) {
+    if ( action.name === 'review.article_create' && !event ) {
 
       action.increment = ( action.increment || 0 );
 
@@ -55,24 +65,32 @@ async function evaluate( err, action ) {
       result = { queued: true, action };
 
     } else if ( action.name === 'review.article_create' ) {
-      
+
+      log( 'transfer of a create' );
+
       result = await agendaEvents.legacyTransfer( action.values.id, {
-        context: { 
-          userUid: action.values.user_uid 
-        } 
+        context: {
+          userUid: action.values.user_uid,
+          event,
+          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true } )
+        }
       } );
 
     } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 
-      result = await agendaEvents.legacyTransfer( { 
+      log( 'transfer of an update' );
+
+      result = await agendaEvents.legacyTransfer( {
         eventId: action.values.id,
         agendaId: action.values.agendaId || action.values.review_id
       }, {
         force: _.get( action, 'values.force' ),
-        context: { 
+        context: {
+          event,
           userUid: action.values.user_uid,
-          agendaUid: action.values.sourceAgendaUid || null
-        } 
+          agendaUid: action.values.sourceAgendaUid || null,
+          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true } )
+        }
       } );
 
     } else if ( action.name === 'event.remove' ) {
@@ -99,18 +117,14 @@ async function evaluate( err, action ) {
 
 }
 
+async function _loadAgendaEventUids( name, id ) {
 
-async function _eventExists( articleId ) {
-
-
-  const event = await config.knex( 'event as e' ).first( [ 'uid' ] )
-    .leftJoin( 'review_article as ra', 'ra.event_id', 'e.id' )
-    .where( { 'ra.id': articleId } );
-
-  if ( !event ) return false;
-
-  const newEvent = await events.get( { uid: event.uid }, { private: null } );
-
-  return !!newEvent;
+  return config.knex
+    .first( [ 'e.uid as eventUid', 'r.uid as agendaUid' ] )
+    .from( 'review_article as ra' )
+    .leftJoin( 'review as r', 'ra.review_id', 'r.id' )
+    .leftJoin( 'event as e', 'ra.event_id', 'e.id' )
+    .where( name === 'review.article_create' ? 'ra.id' : 'ra.event_id', id )
+    .then( result => result || { eventUid: null, agendaUid: null } );
 
 }

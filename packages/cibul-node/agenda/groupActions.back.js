@@ -87,18 +87,18 @@ function changeStates( req, res, next ) {
 
   }
 
-  req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], { 
+  req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], {
     context: {
       userUid: req.user.uid,
       agendaUid: req.agenda.uid
-    } 
+    }
   }, err => {
 
     if ( err ) return next( err );
 
     req.log( 'info', 'changing state of agenda events from %s to %s', labels[ stateSwitch[ 0 ] ], labels[ stateSwitch[ 1 ] ] );
 
-    sessions.setFlash( req, res, l.a( 'actionsInProcess', { 
+    sessions.setFlash( req, res, l.a( 'actionsInProcess', {
       oldstate : '<strong>' + l.s( labels[ stateSwitch[ 0 ] ], req.lang ) + '</strong>',
       newstate : '<strong>' + l.s( labels[ stateSwitch[ 1 ] ], req.lang ) + '</strong>'
     }, req.lang ) );

@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 
 const imageFiles = require( '@openagenda/image-files' );
@@ -49,7 +50,7 @@ function init( c ) {
 
   config = c;
 
-  knex = knexLib( {
+  knex = _.get( c, 'knex' ) || knexLib( {
     client: 'mysql',
     connection: c.mysql
   } );

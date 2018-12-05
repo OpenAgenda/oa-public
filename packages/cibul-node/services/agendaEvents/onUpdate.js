@@ -11,6 +11,7 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const oldEventSvc = require( '../event' );
+const queueForControlData = require( './queueForControlData' );
 const sendEventUpdate = require( './sendEventUpdate' );
 const sendEventChangeState = require( './sendEventChangeState' );
 
@@ -49,19 +50,13 @@ module.exports = async ( before, after, context ) => {
   } );
 
 
-  if ( after.state === 2 && agenda && event ) {
+  if ( after.state === 2 ) {
 
-    controlData.queue( agenda.id, {
-      type: 'eventUpdate',
-      eventId: event.id
-    } );
+    queueForControlData( 'agendaEvent.onUpdate', { agenda, event }, context );
 
   } else if ( agenda && event ) {
 
-    controlData.queue( agenda.id, {
-      type: 'eventRemove',
-      eventId: event.id
-    } );
+    queueForControlData.remove( 'agendaEvent.onUpdate', { agenda, event }, context );
 
   }
 

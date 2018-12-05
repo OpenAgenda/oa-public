@@ -72,7 +72,7 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
-  } catch( consolidatedErrors ) {
+  } catch ( consolidatedErrors ) {
 
     if ( !_.isArray( consolidatedErrors ) ) {
 

@@ -6,9 +6,9 @@ process.env.NODE_ENV = 'test';
  * test syncing of elasticsearch
  */
 
-var config = require( '../../config' ),
+const log = require( '@openagenda/logs' )( 'resetApiCounter tests' );
 
-log = require( '@openagenda/logger' )( 'resetApiCounter tests' ),
+var config = require( '../../config' ),
 
 should = require( 'should' ),
 
@@ -24,17 +24,13 @@ fixtureSets = require( 'cibulModel/test/fixtures/sets' )( cbm ),
 
 cli,
 
-debug = require( 'debug' ),
-
-log;
+debug = require( 'debug' );
 
 describe( 'resetApiCounter', function() {
 
   var user = {};
 
   //debug.enable( '*' );
-
-  log = debug( 'resetApiCounters tests' );
 
   beforeEach( function() {
 
