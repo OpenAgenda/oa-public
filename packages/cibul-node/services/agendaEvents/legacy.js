@@ -43,7 +43,7 @@ async function evaluate( err, action ) {
       eventUid
     } = await _loadAgendaEventUids( action.name, action.values.id );
 
-    const event = await events.get( { uid: eventUid }, { private: null, internal: true } );
+    const event = await events.get( { uid: eventUid }, { private: null, internal: true, detailed: true } );
 
     // if event is not present in events service, do nothing.
     if ( action.name === 'review.article_create' && !event ) {

@@ -15,13 +15,12 @@ const usersSvc = require( '@openagenda/users' );
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
+const eventAggregation = require( './eventAggregation' );
 const eventSearch = require( '../eventSearch' );
 const mailContributor = require( '../event/instance/mailContributor' );
-const eventAggregation = require( './eventAggregation' );
-const sendEventCreation = require( './sendEventCreation' );
 const oldEventSvc = require( '../event' );
-
-const controlData = require( '../agenda/controlData' );
+const queueForControlData = require( './queueForControlData' );
+const sendEventCreation = require( './sendEventCreation' );
 
 module.exports = async ( ae, context ) => {
 
@@ -116,14 +115,7 @@ module.exports = async ( ae, context ) => {
    * control data is used for didsplaying widget data
    */
 
-  if ( ae.state === 2 && agenda && event ) {
-
-    controlData.queue( agenda.id, {
-      type: 'eventUpdate',
-      eventId: event.id,
-    } );
-
-  }
+   if ( ae.state === 2 ) queueForControlData( 'agendaEvent.onCreate', { agenda, event }, context );
 
   _addToSearchIndex( ae );
 

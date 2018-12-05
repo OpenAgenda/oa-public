@@ -72,6 +72,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       userUid: contextUserUid,
       updateSearchIndex: false
     },
+    detailed: true,
     transferToLegacy: !draft,
     draft
   } );

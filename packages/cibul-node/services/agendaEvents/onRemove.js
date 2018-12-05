@@ -16,9 +16,9 @@ module.exports = async ( ae, context ) => {
   log( 'removed agenda-event %j', ae, { context } );
 
   // use context.userUid. will be null if nothing was specified at remove
-  
+
   eventSearch.agendas( ae.agendaUid ).remove( ae );
-  
+
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
@@ -45,7 +45,7 @@ module.exports = async ( ae, context ) => {
     return;
 
   }
-  
+
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.remove',
     values: {
@@ -54,7 +54,7 @@ module.exports = async ( ae, context ) => {
     }
   } );
 
-  
+
   aggregator.notifyUnpublish( event.id, agenda.id );
 
 }

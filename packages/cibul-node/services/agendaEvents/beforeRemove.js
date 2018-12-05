@@ -9,8 +9,7 @@ const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
-const controlData = require( '../agenda/controlData' );
-
+const queueForControlData = require( './queueForControlData' );
 
 module.exports = async ( ae, context ) => {
 
@@ -21,23 +20,20 @@ module.exports = async ( ae, context ) => {
   let event;
 
   try {
-    agenda = await promisify( agendasSvc.get )( { uid: ae.agendaUid }, { private: null } );
+    agenda = await agendasSvc.get( { uid: ae.agendaUid }, { private: null, internal: true } );
   } catch ( e ) {
     return log( 'error', new VError( e, 'Error to get agenda %s', ae.agendaUid ) );
   }
 
   try {
-    event = await eventsSvc.get( { uid: ae.eventUid }, { deleted: null } );
+    event = await eventsSvc.get( { uid: ae.eventUid }, { private: null, deleted: null, internal: true } );
   } catch ( e ) {
     return log( 'error', new VError( e, 'Error to get event %s', ae.eventUid ) );
   }
 
   if ( agenda && event ) {
 
-    controlData.queue( agenda.id, {
-      type: 'eventRemove',
-      eventId: event.id
-    } );
+    queueForControlData.remove( 'agendaEvent.beforeRemove', null, { agenda, event } );
 
   }
 
