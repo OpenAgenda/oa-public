@@ -6,7 +6,6 @@ const agendasSvc = require( '@openagenda/agendas' );
 
 
 module.exports = function beforeCreate() {
-  // TODO if invited by an official agenda: set isActivated to true
   return async context => {
     const { data } = context;
 
