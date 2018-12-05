@@ -60,7 +60,7 @@ function get( i, o, c ) {
 
     .then( async event => {
 
-      if ( !cleanOptions.detailed ) return event;
+      if ( !cleanOptions.detailed || !event ) return event;
 
       return _decorateWithLocation( event, cleanOptions );
 
