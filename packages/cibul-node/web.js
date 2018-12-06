@@ -12,7 +12,6 @@ const webModules = [
   require( './event/back' )( '' ),
   require( './event/front' )( '' ),
   require( './event/actions.front' )( '' ),
-  require( './auth/comexposium.front' )( '' ),
   require( './auth/facebook.front' )( '' ),
   require( './auth/twitter.front' )( '' ),
   require( './auth/google.front' )( '' ),
