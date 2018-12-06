@@ -43,11 +43,6 @@ const base = {
         type: 'integer',
         default: null
       },
-      // agenda at the origin of the operation
-      agendaUid: {
-        type: 'integer',
-        default: null
-      },
       // if operation was done through legacy app
       legacy: {
         type: 'boolean',
@@ -68,6 +63,15 @@ const base = {
       agenda: {
         type: 'pass',
         optional: true,
+        default: null
+      },
+      aggregated: {
+        type: 'boolean',
+        default: false
+      },
+      // if ref was added by aggregation, source agenda can be provided by context
+      sourceAgenda: {
+        type: 'pass',
         default: null
       }
     }
