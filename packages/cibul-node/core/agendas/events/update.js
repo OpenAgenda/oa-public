@@ -104,6 +104,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     } ), {
       transferToLegacy: true,
       context: {
+        aggregated: false,
         legacy: false,
         userUid: contextUserUid,
         event: updated.event,

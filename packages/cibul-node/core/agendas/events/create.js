@@ -104,6 +104,7 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     networkFormSchemaId: _.get( network, 'formSchemaId' ),
     draft,
     context: {
+      aggregated: false,
       userUid: contextUserUid,
       event: created.event,
       agenda

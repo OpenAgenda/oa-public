@@ -11,6 +11,12 @@ const _ = require( 'lodash' );
 const q = require( '@openagenda/queue' )( 'agendaEventsLegacy', { redis: config.redis } );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/legacy' );
 
+const agendaGetOptions = {
+  private: null,
+  internal: true,
+  includeImagePath: true
+};
+
 module.exports = {
   task,
   evaluate: evaluate.bind( null, null )
@@ -45,6 +51,11 @@ async function evaluate( err, action ) {
 
     const event = await events.get( { uid: eventUid }, { private: null, internal: true, detailed: true } );
 
+    const sourceAgenda = _.get( action, 'values.sourceAgendaUid' )
+      ? await agendas.get( { uid: _.get( action, 'values.sourceAgendaUid' ) }, agendaGetOptions )
+      : null;
+
+
     // if event is not present in events service, do nothing.
     if ( action.name === 'review.article_create' && !event ) {
 
@@ -70,9 +81,11 @@ async function evaluate( err, action ) {
 
       result = await agendaEvents.legacyTransfer( action.values.id, {
         context: {
+          aggregated: !!sourceAgenda,
           userUid: action.values.user_uid,
           event,
-          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true, includeImagePath: true } )
+          sourceAgenda,
+          agenda: await agendas.get( { uid: agendaUid }, agendaGetOptions )
         }
       } );
 
@@ -86,10 +99,12 @@ async function evaluate( err, action ) {
       }, {
         force: _.get( action, 'values.force' ),
         context: {
+          aggregated: !!sourceAgenda,
           event,
           userUid: action.values.user_uid,
-          agendaUid: action.values.sourceAgendaUid || null,
-          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true, includeImagePath: true } )
+          agendaUid,
+          sourceAgenda,
+          agenda: await agendas.get( { uid: agendaUid }, agendaGetOptions )
         }
       } );
 
