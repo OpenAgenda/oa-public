@@ -37,11 +37,11 @@ module.exports = async ( ae, context ) => {
 
   let user;
 
-  if ( context && context.userUid ) {
-    if ( !context.agendaUid || context.agendaUid === ae.agendaUid ) {
+  if ( context && !context.aggregated ) {
+    if ( ae.agendaUid === context.event.agendaUid ) {
       // Creation
       try {
-        await sendEventCreation( { agenda, event, agendaEvent: ae, context } );
+        await sendEventCreation( { agendaEvent: ae, context } );
       } catch ( error ) {
         log.error( new VError( error, 'Cannot send event creation emails' ) )
       }
@@ -52,10 +52,10 @@ module.exports = async ( ae, context ) => {
       //   myEventShare to creator                  [ 'receive', 'myEventShare' ]
       //   eventShare to adminmods (- creator)      [ 'receive', 'eventShare' ]
     }
-  } else if ( context && !context.userUid && context.agendaUid !== ae.agendaUid ) {
+  } else if ( context && context.aggregated ) {
     // Aggregation
     try {
-      await sendEventAggregation( { agenda, event, agendaEvent: ae, context } );
+      await sendEventAggregation( { agendaEvent: ae, context } );
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event aggregation emails' ) )
     }
@@ -68,14 +68,14 @@ module.exports = async ( ae, context ) => {
   }
 
   // if reference was created through aggregation, email administrators
-  if ( context && context.agendaUid && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
+  if ( context && context.aggregated && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
 
     log( 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
 
     eventAggregation( {
       eventUid: event.uid,
       aggregatorAgendaUid: agenda.uid,
-      sourceAgendaUid: context.agendaUid,
+      sourceAgendaUid: context.sourceAgenda.uid,
       state: ae.state
     } ).catch( error => log.error( 'Error on sending \'eventAggregation\' email', error ) );
 
@@ -178,11 +178,11 @@ module.exports = async ( ae, context ) => {
     }
 
     // If it's a real creation, not an agregation
-    if ( context.userUid && !context.agendaUid ) {
+    if ( context.userUid && !context.aggregated ) {
 
       await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
 
-    } else if ( !context.userUid && context.agendaUid ) {
+    } else if ( !context.userUid && context.aggregated ) {
 
       await _addAggregateEventActivity( eventFeed, { agenda, event }, context );
 
@@ -235,10 +235,10 @@ async function _addCreateEventActivity( eventFeed, { agenda, event, user }, cont
 async function _addAggregateEventActivity( eventFeed, { agenda, event }, context ) {
 
   // aggregatorAgendaUid: agenda.uid,
-  // sourceAgendaUid: context.agendaUid
+  // sourceAgendaUid: context.sourceAgenda.uid
 
   const sourceAgenda = await promisify( agendasSvc.get )(
-    { uid: context.agendaUid },
+    { uid: context.sourceAgenda.uid },
     { internal: true, private: null }
   );
 

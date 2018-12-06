@@ -10,18 +10,9 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { agenda, event, agendaEvent, context } ) => {
+module.exports = async ( { agendaEvent, context } ) => {
 
-  const sourceAgenda = await promisify( agendasSvc.get )( {
-    uid: context.agendaUid
-  }, { internal: true, private: null, includeImagePath: true } );
-
-  console.log( 'UUIIDD', context.event.creatorUid );
-
-  const creatorUser = await usersSvc.findOne( { query: { uid: context.event.creatorUid } } );
-  const creator = await promisify( membersSvc.agenda( sourceAgenda.id ).get )( { userId: creatorUser.id } );
-  const creatorLang = creatorUser.culture || 'fr';
-
+  const { sourceAgenda, agenda, event } = context;
   let stateLabel;
 
   const link = genUrl( 'agendaEventShow', {
@@ -46,6 +37,13 @@ module.exports = async ( { agenda, event, agendaEvent, context } ) => {
     : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
   const members = await listAdminmods( { agenda } );
+
+  const originAgenda = await promisify( agendasSvc.get )( {
+    uid: event.agendaUid
+  }, { internal: true, private: null, includeImagePath: true } );
+  const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
+  const creator = await promisify( membersSvc.agenda( originAgenda.id ).get )( { userId: creatorUser.id } );
+  const creatorLang = creatorUser.culture || 'fr';
 
   if ( !agenda.private ) {
     await mails( {

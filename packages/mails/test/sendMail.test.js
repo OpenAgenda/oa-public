@@ -78,6 +78,15 @@ describe( 'sendMail', () => {
       expect( errors ).toMatchSnapshot();
     } );
 
+    it( 'send a mail with an error don\'t send anything', async () => {
+      const { errors } = await mails( {
+        template: 'helloWorld',
+        to: 'kevin.bertho@@gmail'
+      } );
+
+      expect( errors ).toMatchSnapshot();
+    } );
+
     it( 'sendMail can not override the defaults', async () => {
       const { results } = await mails( {
         template: 'helloWorld',

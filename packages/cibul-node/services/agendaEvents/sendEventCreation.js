@@ -9,9 +9,10 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { agenda, event, agendaEvent, context } ) => {
+module.exports = async ( { agendaEvent, context } ) => {
 
-  const creatorUser = await usersSvc.findOne( { query: { uid: context.event.creatorUid } } );
+  const { agenda, event } = context;
+  const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
   const creator = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } );
   const creatorLang = creatorUser.culture || 'fr';
 

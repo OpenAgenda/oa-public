@@ -52,7 +52,7 @@ module.exports = async ( ae, context ) => {
     }
 
     try {
-      if ( context.deletion && agenda.uid === context.agendaUid ) {
+      if ( context.deletion && agenda.uid === context.agenda.uid ) {
         await activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
           actor: 'user:' + user.uid,
           verb: 'event.delete',

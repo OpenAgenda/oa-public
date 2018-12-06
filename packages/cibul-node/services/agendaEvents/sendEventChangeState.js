@@ -9,12 +9,9 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { agenda, event, agendaEvent, before } ) => {
+module.exports = async ( { agendaEvent, before, context } ) => {
 
-  const contributorUser = await usersSvc.findOne( { query: { uid: agendaEvent.userUid } } );
-  const contributor = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } );
-  const conributorLang = contributorUser.culture || 'fr';
-
+  const { agenda, event } = context;
   const afterStateLabel = getStateLabel( agendaEvent.state );
   const beforeStateLabel = getStateLabel( before.state );
 
@@ -29,31 +26,35 @@ module.exports = async ( { agenda, event, agendaEvent, before } ) => {
 
   const members = await listAdminmods( { agenda } );
 
-  console.log( 'beforeState', beforeStateLabel );
+  const contributorUser = await usersSvc.findOne( { query: { uid: agendaEvent.userUid } } );
+  const contributor = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } );
+  const conributorLang = contributorUser.culture || 'fr';
 
-  await mails( {
-    template: 'myEventChangeState',
-    to: {
-      address: contributorUser.email,
-      unsubscriptions: [ {
-        rule: [ 'receive', 'myEventChangeState' ],
-        dataPath: 'unsubscribeLink'
-      }, {
-        memberId: contributor.id,
-        rule: [ 'receive', 'myEventChangeState' ],
-        dataPath: 'memberUnsubscribeLink'
-      } ]
-    },
-    data: {
-      event: event.title[ conributorLang ] || _.find( event.title ),
-      agenda: agenda.title,
-      beforeState: beforeStateLabel,
-      afterState: afterStateLabel,
-      logo,
-      link
-    },
-    lang: conributorLang
-  } );
+  if ( agendaEvent.agendaUid === event.agendaUid ) {
+    await mails( {
+      template: 'myEventChangeState',
+      to: {
+        address: contributorUser.email,
+        unsubscriptions: [ {
+          rule: [ 'receive', 'myEventChangeState' ],
+          dataPath: 'unsubscribeLink'
+        }, {
+          memberId: contributor.id,
+          rule: [ 'receive', 'myEventChangeState' ],
+          dataPath: 'memberUnsubscribeLink'
+        } ]
+      },
+      data: {
+        event: event.title[ conributorLang ] || _.find( event.title ),
+        agenda: agenda.title,
+        beforeState: beforeStateLabel,
+        afterState: afterStateLabel,
+        logo,
+        link
+      },
+      lang: conributorLang
+    } );
+  }
 
   await mails( {
     template: 'eventChangeState',

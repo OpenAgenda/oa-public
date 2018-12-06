@@ -15,8 +15,6 @@ const queueForControlData = require( './queueForControlData' );
 const sendEventUpdate = require( './sendEventUpdate' );
 const sendEventChangeState = require( './sendEventChangeState' );
 
-const controlData = require( '../agenda/controlData' );
-
 module.exports = async ( before, after, context ) => {
 
   log( 'updated agenda-event from %j to %j', before, after, { context } );
@@ -98,7 +96,7 @@ module.exports = async ( before, after, context ) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate( { agenda, event, agendaEvent: after, before } );
+      await sendEventUpdate( { agendaEvent: after, before, context } );
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event update emails' ) )
     }
@@ -106,7 +104,7 @@ module.exports = async ( before, after, context ) => {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState( { agenda, event, agendaEvent: after, before } );
+      await sendEventChangeState( { agendaEvent: after, before, context } );
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event change state emails' ) )
     }
