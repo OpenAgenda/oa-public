@@ -1,16 +1,14 @@
 "use strict";
 
 const VError = require( 'verror' );
-const wn = require( 'when/node' );
-
 const agendasSvc = require( '@openagenda/agendas' );
+const eventsSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
-const oldEventSvc = require( '../event' );
 const queueForControlData = require( './queueForControlData' );
 const sendEventUpdate = require( './sendEventUpdate' );
 const sendEventChangeState = require( './sendEventChangeState' );
@@ -31,13 +29,14 @@ module.exports = async ( before, after, context ) => {
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
 
-  const agenda = await wn.call( agendasSvc.get, { uid: after.agendaUid }, {
+  // Note pour Kaoré, producteur de bugs: J'ai attendu mon contexte toute la journée,
+  // j'ai fini par me débrouiller seul comme un (presque) grand
+  const agenda = await agendasSvc.get( { uid: after.agendaUid }, {
     internal: true,
     private: null,
     includeImagePath: true
   } );
-
-  const event = await wn.call( oldEventSvc.get, { uid: after.eventUid, reviewId: agenda.id } );
+  const event = await eventsSvc.get( { uid: after.eventUid }, { private: null, deleted: null, internal: true } );
 
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.update',
@@ -96,7 +95,7 @@ module.exports = async ( before, after, context ) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate( { agendaEvent: after, before, context } );
+      await sendEventUpdate( { agendaEvent: after, before, context, agenda, event } );
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event update emails' ) )
     }
@@ -104,7 +103,7 @@ module.exports = async ( before, after, context ) => {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState( { agendaEvent: after, before, context } );
+      await sendEventChangeState( { agendaEvent: after, before, context, agenda, event } );
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event change state emails' ) )
     }

@@ -106,11 +106,11 @@ module.exports = {
       subject: 'myEventChangeState',
       tag: 'contributor'
     },
-    // {
-    //   actions: 'receive',
-    //   subject: 'myEventUpdate',
-    //   tag: 'contributor'
-    // },
+    {
+      actions: 'receive',
+      subject: 'myEventUpdate',
+      tag: 'contributor'
+    },
     {
       actions: 'receive',
       subject: 'myEventAggregation',
@@ -158,11 +158,11 @@ module.exports = {
       },
       tag: 'adminmod'
     },
-    // {
-    //   actions: 'receive',
-    //   subject: 'eventUpdate',
-    //   tag: 'adminmod'
-    // },
+    {
+      actions: 'receive',
+      subject: 'eventUpdate',
+      tag: 'adminmod'
+    },
     {
       actions: 'receive',
       subject: 'eventAggregation',
@@ -186,11 +186,11 @@ module.exports = {
         subject: 'myEventChangeState',
         tag: 'contributor'
       },
-      // {
-      //   actions: 'receive',
-      //   subject: 'myEventUpdate',
-      //   tag: 'contributor'
-      // },
+      {
+        actions: 'receive',
+        subject: 'myEventUpdate',
+        tag: 'contributor'
+      },
       {
         actions: 'receive',
         subject: 'myEventAggregation',
@@ -242,11 +242,11 @@ module.exports = {
           },
           tag: 'adminmod'
         },
-        // {
-        //   actions: 'receive',
-        //   subject: 'eventUpdate',
-        //   tag: 'adminmod'
-        // },
+        {
+          actions: 'receive',
+          subject: 'eventUpdate',
+          tag: 'adminmod'
+        },
         {
           actions: 'receive',
           subject: 'eventAggregation',

@@ -9,11 +9,11 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { agendaEvent, context } ) => {
+module.exports = async ( { agendaEvent, context, agenda, event } ) => {
 
   let stateLabel;
 
-  const { agenda, event } = context;
+  // const { agenda, event } = context;
   const link = genUrl( 'agendaEventShow', {
     slug: agenda.slug,
     eventSlug: event.slug

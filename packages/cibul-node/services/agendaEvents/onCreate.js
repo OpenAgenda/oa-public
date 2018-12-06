@@ -7,7 +7,6 @@ const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
 
 const activitiesSvc = require( '@openagenda/activities' );
-const agendasSvc = require( '@openagenda/agendas' );
 const custom = require( '@openagenda/custom' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
@@ -17,8 +16,6 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
 const eventSearch = require( '../eventSearch' );
-const mailContributor = require( '../event/instance/mailContributor' );
-const oldEventSvc = require( '../event' );
 const queueForControlData = require( './queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
@@ -29,12 +26,7 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const agenda = await promisify( agendasSvc.get )( {
-    uid: ae.agendaUid
-  }, { internal: true, private: null, includeImagePath: true } );
-
-  const event = await promisify( oldEventSvc.get )( { uid: ae.eventUid, reviewId: agenda.id } );
-
+  const { agenda, event } = context;
   let user;
 
   if ( context && !context.aggregated ) {
@@ -59,12 +51,6 @@ module.exports = async ( ae, context ) => {
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event aggregation emails' ) )
     }
-  }
-
-  if ( ae.state === 2 ) {
-
-    mailContributor( event, agenda );
-
   }
 
   // if reference was created through aggregation, email administrators
@@ -234,13 +220,7 @@ async function _addCreateEventActivity( eventFeed, { agenda, event, user }, cont
 
 async function _addAggregateEventActivity( eventFeed, { agenda, event }, context ) {
 
-  // aggregatorAgendaUid: agenda.uid,
-  // sourceAgendaUid: context.sourceAgenda.uid
-
-  const sourceAgenda = await promisify( agendasSvc.get )(
-    { uid: context.sourceAgenda.uid },
-    { internal: true, private: null }
-  );
+  const { sourceAgenda } = context;
 
   await activitiesSvc.feed( eventFeed ).activities.add( {
     actor: 'agenda:' + sourceAgenda.uid,

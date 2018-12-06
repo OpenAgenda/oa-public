@@ -9,9 +9,9 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = async ( { agendaEvent, before, context } ) => {
+module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
-  const { agenda, event } = context;
+  // const { agenda, event } = context;
   const afterStateLabel = getStateLabel( agendaEvent.state );
   const beforeStateLabel = getStateLabel( before.state );
 
@@ -30,7 +30,7 @@ module.exports = async ( { agendaEvent, before, context } ) => {
   const contributor = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } );
   const conributorLang = contributorUser.culture || 'fr';
 
-  if ( agendaEvent.agendaUid === event.agendaUid ) {
+  if ( agendaEvent.agendaUid ===  event.agendaUid ) {
     await mails( {
       template: 'myEventChangeState',
       to: {
