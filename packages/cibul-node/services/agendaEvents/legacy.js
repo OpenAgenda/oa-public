@@ -41,7 +41,7 @@ async function evaluate( err, action ) {
     const {
       agendaUid,
       eventUid
-    } = await _loadAgendaEventUids( action.name, action.values.id );
+    } = await _loadAgendaEventUids( action.name, action.values );
 
     const event = await events.get( { uid: eventUid }, { private: null, internal: true, detailed: true } );
 
@@ -117,14 +117,28 @@ async function evaluate( err, action ) {
 
 }
 
-async function _loadAgendaEventUids( name, id ) {
+async function _loadAgendaEventUids( name, values ) {
 
-  return config.knex
+  const { id } = values;
+
+  const eventId = name !== 'review.article_create' ? values.id : null;
+
+  const articleId = name === 'review.article_create' ? values.id : null;
+
+  const agendaId = _.get( values, 'agendaId' );
+
+  const q = config.knex
     .first( [ 'e.uid as eventUid', 'r.uid as agendaUid' ] )
     .from( 'review_article as ra' )
     .leftJoin( 'review as r', 'ra.review_id', 'r.id' )
     .leftJoin( 'event as e', 'ra.event_id', 'e.id' )
-    .where( name === 'review.article_create' ? 'ra.id' : 'ra.event_id', id )
-    .then( result => result || { eventUid: null, agendaUid: null } );
+    .orderBy( 'ra.id', 'desc' );
 
+  if ( eventId ) q.where( 'ra.event_id', eventId );
+
+  if ( articleId ) q.where( 'ra.id', articleId );
+
+  if ( agendaId ) q.where( 'ra.review_id', agendaId );
+
+  return q.then( result => result || { eventUid: null, agendaUid: null } );
 }
