@@ -73,6 +73,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       updateSearchIndex: false
     },
     detailed: true,
+    internal: true,
     transferToLegacy: !draft,
     draft
   } );
