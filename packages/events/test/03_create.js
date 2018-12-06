@@ -378,19 +378,13 @@ describe( 'events -03- functional (server): create', function() {
 
     before( async () => {
 
-      result = await svc.create( eventData, { internal: true } );
+      result = await svc.create( eventData );
 
     } );
 
     it( 'slug is derived from title', () => {
 
       result.event.slug.should.equal( 'un-titre' );
-
-    } );
-
-    it( 'creatorUid is provided in response if internal option is set to true', () => {
-
-      result.event.creatorUid.should.equal( 456 );
 
     } );
 
@@ -441,7 +435,7 @@ describe( 'events -03- functional (server): create', function() {
 
     } );
 
-    it( 'if specified in options, internal evnt data is provided in response', async () => {
+    it( 'if specified in options, internal event data is provided in response', async () => {
 
       const nonInternalFields = _.keys( result.event );
 
