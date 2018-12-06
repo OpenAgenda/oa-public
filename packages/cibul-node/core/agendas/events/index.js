@@ -10,7 +10,7 @@ const validate = require( './validate' );
 module.exports = agendaUid => {
 
   return {
-    get: get.bind( null, agendaUid ),    
+    get: get.bind( null, agendaUid ),
     create: create.bind( null, agendaUid ),
     add: add.bind( null, agendaUid ),
     remove: remove.bind( null, agendaUid ),

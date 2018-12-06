@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
+const log = require( '@openagenda/logs' )( 'core/agendas/events/add' );
 
 const doAdd = require( '../utils/doAdd' );
 const getAgenda = require( '../utils/getAgenda' );
@@ -11,6 +12,8 @@ const getNetwork = require( '../utils/getNetwork' );
 const validate = require( './validate' );
 
 module.exports = async ( agendaUid, eventUid, data ) => {
+
+  log( 'processing', { agendaUid, eventUid } );
 
   const {
     formSchemaId,
@@ -24,7 +27,7 @@ module.exports = async ( agendaUid, eventUid, data ) => {
   // pre-validate data
   const clean = await validate.loaded( { formSchemaId, networkFormSchemaId }, data, false );
 
-  // if event is already referenced on agenda, this fails  
+  // if event is already referenced on agenda, this fails
   if ( await agendaEvents( agendaUid ).get( eventUid ) ) {
 
     throw new VError( 'event %s is already referenced by agenda %s', eventUid, agendaUid );
