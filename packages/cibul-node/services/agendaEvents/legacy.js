@@ -72,7 +72,7 @@ async function evaluate( err, action ) {
         context: {
           userUid: action.values.user_uid,
           event,
-          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true } )
+          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true, includeImagePath: true } )
         }
       } );
 
@@ -89,7 +89,7 @@ async function evaluate( err, action ) {
           event,
           userUid: action.values.user_uid,
           agendaUid: action.values.sourceAgendaUid || null,
-          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true } )
+          agenda: await agendas.get( { uid: agendaUid }, { private: null, internal: true, includeImagePath: true } )
         }
       } );
 

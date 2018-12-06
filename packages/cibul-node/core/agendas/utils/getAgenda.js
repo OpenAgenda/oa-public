@@ -11,7 +11,8 @@ module.exports = async agendaUid => {
 
   const agenda = await getAgenda( { uid: agendaUid }, {
     internal: true,
-    private: null
+    private: null,
+    includeImagePath: true
   } );
 
   if ( !agenda ) {
