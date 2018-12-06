@@ -247,20 +247,20 @@ describe( 'events - functional (server): list', function() {
 
     svc.list( { uid: [ 1517683 ] }, 0, 1, { detailed: true }, ( err, events ) => {
 
-      _.pick( events[ 0 ], [ 'location', 'agenda' ] ).should.eql( { 
-        location: { 
+      _.pick( events[ 0 ], [ 'location', 'agenda' ] ).should.eql( {
+        location: {
           name: 'La case de Janine',
           uid: 25756772,
           latitude: 48.8674277,
           longitude: 2.350881,
           address: '1 passage du ponceau, Paris'
         },
-        agenda: { 
+        agenda: {
           uid: 27545135,
           title: 'La Gargouille',
           image: null,
-          offical: true 
-        } 
+          offical: true
+        }
       } );
 
       done();
