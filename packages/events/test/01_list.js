@@ -81,7 +81,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'search by uids', async () => {
 
-    const result = await svc.list( { uid: [ 68645096, 74935370, 18957259 ] }, 0, 20 );
+    const result = await svc.list( { uid: [ 68645096, 74935370, 18957259 ] }, 0, 20 );
 
     result.events.map( e => e.uid ).should.eql( [ 18957259, 68645096, 74935370 ] );
 
@@ -90,7 +90,7 @@ describe( 'events - functional (server): list', function() {
 
   it( 'retrieve events created after a given date', async () => {
 
-    const result = await svc.list( { 
+    const result = await svc.list( {
       createdAt: new Date( '2017-01-01' ),
       uid: [ 68645096, 74935370, 18957259 ]
     }, 0, 20 );

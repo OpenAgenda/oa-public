@@ -320,6 +320,7 @@ describe( 'events -03- functional (server): create', function() {
         fr : 'Un titre'
       },
       ownerUid: 123,
+      creatorUid: 456,
       locationUid: 789,
       draft: false,
       description: {
@@ -377,13 +378,19 @@ describe( 'events -03- functional (server): create', function() {
 
     before( async () => {
 
-      result = await svc.create( eventData );
+      result = await svc.create( eventData, { internal: true } );
 
     } );
 
     it( 'slug is derived from title', () => {
 
       result.event.slug.should.equal( 'un-titre' );
+
+    } );
+
+    it( 'creatorUid is provided in response if internal option is set to true', () => {
+
+      result.event.creatorUid.should.equal( 456 );
 
     } );
 
