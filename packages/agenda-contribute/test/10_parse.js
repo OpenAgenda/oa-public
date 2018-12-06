@@ -19,7 +19,7 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
       expect( parse.toEventServiceFormat( {
         image: 'path.jpg'
-      }, {
+      }, null, {
         image: {
           path: '/the/full/path.jpg'
         }

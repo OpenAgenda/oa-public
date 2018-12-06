@@ -65,11 +65,11 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
 
   // new image is loaded
-  if ( _.get( files, 'image.path' ) ) {
+  if ( _.get( rawData, 'image.path' ) ) {
 
     update.image = {
       $set: {
-        path: _.get( files, 'image.path' ),
+        path: _.get( rawData, 'image.path' ),
         credits: _.get( formSchemaEvent, 'imageCredits' )
       }
     };
