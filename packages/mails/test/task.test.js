@@ -85,4 +85,17 @@ describe( 'task', () => {
     expect( results ).toHaveLength( 9 );
     expect( errors ).toHaveLength( 0 );
   } );
+
+  it( 'send a mail with an error don\'t send anything', async () => {
+    const spy = jest.spyOn( config.transporter, 'sendMail' );
+
+    const { results, errors } = await mails( {
+      template: 'helloWorld',
+      to: 'kevin.bertho@@gmail'
+    } );
+
+    expect( spy.mock.calls.length ).toBe( 0 );
+    expect( results ).toHaveLength( 0 );
+    expect( errors ).toHaveLength( 1 );
+  } );
 } );

@@ -1,10 +1,8 @@
 "use strict";
 
 const logger = require( '@openagenda/logger' );
-const utils = require( '@openagenda/utils' );
 const config = require( '../../../config' );
 const coms = require( '../../../lib/coms' );
-const mailContributor = require( './mailContributor' );
 
 /**
  * handles callbacks and events when changes occur in event
@@ -59,8 +57,6 @@ module.exports = function( loaded, instance ) {
           type: 'event.publish'
         }
       } );
-
-      mailContributor( instance, instance.agenda );
 
     } else if ( oldState == 'published' ) {
 

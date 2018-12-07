@@ -68,6 +68,12 @@ Array [
 ]
 `;
 
+exports[`sendMail JSON transport send a mail with an error don't send anything 1`] = `
+Array [
+  [VError: Invalid email address],
+]
+`;
+
 exports[`sendMail JSON transport send email - helloWorld template 1`] = `
 Array [
   Object {
