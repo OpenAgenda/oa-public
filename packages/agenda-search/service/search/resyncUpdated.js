@@ -22,7 +22,7 @@ module.exports = async ( { obj, config, getClient }, since = null ) => {
 
   const updatedAtGreaterThan = _clean( since );
 
-  log( 'info' 'launching update from %s', updatedAtGreaterThan );
+  log( 'info', 'launching update from %s', updatedAtGreaterThan );
 
   const { interfaces } = config;
 
