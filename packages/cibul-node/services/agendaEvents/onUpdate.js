@@ -1,21 +1,20 @@
 "use strict";
 
 const VError = require( 'verror' );
-const agendasSvc = require( '@openagenda/agendas' );
-const eventsSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
 
 const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
+const fallbackContextGet = require( './lib/fallbackContextGet' );
 const queueForControlData = require( './queueForControlData' );
 const sendEventUpdate = require( './sendEventUpdate' );
 const sendEventChangeState = require( './sendEventChangeState' );
 
 module.exports = async ( before, after, context ) => {
 
-  log( 'updated agenda-event from %j to %j', before, after, { context } );
+  log( 'updated agenda-event from %j to %j', before, after );
 
   try {
 
@@ -29,14 +28,7 @@ module.exports = async ( before, after, context ) => {
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
 
-  // Note pour Kaoré, producteur de bugs: J'ai attendu mon contexte toute la journée,
-  // j'ai fini par me débrouiller seul comme un (presque) grand
-  const agenda = await agendasSvc.get( { uid: after.agendaUid }, {
-    internal: true,
-    private: null,
-    includeImagePath: true
-  } );
-  const event = await eventsSvc.get( { uid: after.eventUid }, { private: null, deleted: null, internal: true } );
+  const { agenda, event } = await fallbackContextGet( 'onUpdate', context );
 
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.update',

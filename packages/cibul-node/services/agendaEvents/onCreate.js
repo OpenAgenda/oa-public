@@ -16,17 +16,19 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
 const eventSearch = require( '../eventSearch' );
+const fallbackContextGet = require( './lib/fallbackContextGet' );
 const queueForControlData = require( './queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
 
 module.exports = async ( ae, context ) => {
 
-  log( 'created agenda-event %j', ae, { context } );
+  log( 'created agenda-event %j', ae );
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const { agenda, event } = context;
+  const { agenda, event } = await fallbackContextGet( 'onCreate', context );
+
   let user;
 
   if ( context && !context.aggregated ) {
