@@ -55,7 +55,7 @@ function init( c ) {
     };
 
     res.send( config.layout( req,
-      `<div>
+      `<div class="agenda-body">
         <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
         <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
@@ -96,9 +96,9 @@ function init( c ) {
 
   } );
 
-  app.post( 
-    [ '/event', '/event/:eventUid', '/event/:eventUid/draft' ], 
-    bodyParser.json(), 
+  app.post(
+    [ '/event', '/event/:eventUid', '/event/:eventUid/draft' ],
+    bodyParser.json(),
     _defineEventFileKey,
     _loadEventSchema,
     _readRequestedDraftState,

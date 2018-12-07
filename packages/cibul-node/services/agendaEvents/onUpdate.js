@@ -28,7 +28,7 @@ module.exports = async ( before, after, context ) => {
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
 
-  const { agenda, event } = await fallbackContextGet( 'onUpdate', context );
+  const { agenda, event } = await fallbackContextGet( 'onUpdate', after, context );
 
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.update',

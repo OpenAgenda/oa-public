@@ -71,7 +71,7 @@
             <a href="/<%= agenda.slug %>">
               <div class="agenda-title">
                 <h1><%= agenda.title %></h1>
-              </div> 
+              </div>
               <p><%= agenda.description %></p>
             </a>
           </div>

@@ -4,7 +4,7 @@ const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/fallbackCont
 
 const _ = require( 'lodash' );
 
-module.exports = async ( interfaceName, context ) => {
+module.exports = async ( interfaceName, ref, context ) => {
 
   let event = _.get( context, 'event' );
 
@@ -12,9 +12,9 @@ module.exports = async ( interfaceName, context ) => {
 
   if ( !event ) {
 
-    log( 'warn', 'event is missing in context', after );
+    log( 'warn', 'event is missing in context', ref );
 
-    event = await eventsSvc.get( { uid: after.eventUid }, { private: null, deleted: null, internal: true } );
+    event = await eventsSvc.get( { uid: ref.eventUid }, { private: null, deleted: null, internal: true } );
 
   } else {
 
@@ -24,9 +24,9 @@ module.exports = async ( interfaceName, context ) => {
 
   if ( !agenda ) {
 
-    log( 'warn', 'agenda is missing in context', after );
+    log( 'warn', 'agenda is missing in context', ref );
 
-    agenda = await agendasSvc.get( { uid: after.agendaUid }, {
+    agenda = await agendasSvc.get( { uid: ref.agendaUid }, {
       internal: true,
       private: null,
       includeImagePath: true

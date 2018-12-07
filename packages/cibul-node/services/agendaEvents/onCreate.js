@@ -27,7 +27,7 @@ module.exports = async ( ae, context ) => {
 
   // use context.userUid. will be null when nothing was specified at create
 
-  const { agenda, event } = await fallbackContextGet( 'onCreate', context );
+  const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
 
   let user;
 
