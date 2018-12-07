@@ -94,16 +94,16 @@ const routes = {
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     legacyAgendaSvc.mw.load( 'uid' ),
     ( req, res, next ) => {
-      
+
       req.agendaId = req.agenda.id;
-    
+
       next();
-    
+
     },
     _loadAdminOrModerator,
     eventReferences.mw.events,
     ( req, res ) => res.json( req.events )
-    
+
   ] ],
 
   agendaEventReferenceSuggestion: [ 'get', '/agendas/:uid/events/suggestions', [
@@ -160,7 +160,7 @@ const routes = {
         if ( !data ) return res.json( {} );
 
         feed.activities.list( req.query.fromId || 0, limit )
-        
+
           .then( activities => {
 
             const lastPage = activities.length < limit;
@@ -228,7 +228,7 @@ function getPrivateEventData( req, res, next ) {
         tags: g.tags.filter( t => tags.map( t => t.id ).includes( t.id ) )
       } ) ).filter( _filterByRole.bind( null, req.role ) );
 
-      return v;            
+      return v;
 
     } )
 
@@ -366,14 +366,6 @@ function _changeStateCredential( req, res, next ) {
 function _changeState( req, res, next ) {
 
   req.log( 'updating state to %s', req.params.type );
-
-  agendaEvents( req.agenda.uid ).update( req.event.uid, {
-    state: req.params.type
-  }, {
-    context: {
-      userUid: req.user.uid
-    }
-  } );
 
   req.event.setState( req.params.type, function ( err, result, { oldState, newState } ) {
 
