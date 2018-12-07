@@ -22,11 +22,13 @@ module.exports = async ( { obj, config, getClient }, since = null ) => {
 
   const updatedAtGreaterThan = _clean( since );
 
-  log( 'update from %s', updatedAtGreaterThan );
+  log( 'info' 'launching update from %s', updatedAtGreaterThan );
 
   const { interfaces } = config;
 
   const agendas = await interfaces.list( { updatedAtGreaterThan }, 0, 20, { detailed: true } );
+
+  log( 'info', '%s agendas to update since %s', agendas.length, updatedAtGreaterThan );
 
   if ( !agendas.length ) return { updated, indexed };
 
