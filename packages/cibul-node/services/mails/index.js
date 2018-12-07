@@ -24,7 +24,7 @@ module.exports.init = async config => {
       data: {
         _,
         root: config.root,
-        emailSettingsLink: `https://${config.domain}/settings/unsubscribed`
+        emailSettingsLink: `https://${config.domain}/settings/emails`
       }
     },
 
