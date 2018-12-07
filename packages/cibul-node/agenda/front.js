@@ -622,7 +622,7 @@ function _formatShowLinks( req, res, next ) {
 
     e.importUri = req.genUrl( 'eventActionShow', {
       eventSlug: e.slug,
-      back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ]) 
+      back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ])
     } );
 
   });

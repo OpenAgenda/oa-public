@@ -1,7 +1,8 @@
 "use strict";
 
-const tfy = require( './lib/taskify' );
+const agendaSearch = require( '@openagenda/agenda-search' );
 
+const tfy = require( './lib/taskify' );
 
 module.exports = () => {
 
@@ -15,7 +16,15 @@ module.exports = () => {
 
   tfy( require( './services/notification/remove.task' ), { period: 'daily', time: '03:00' } );
 
-  tfy( require( '@openagenda/agenda-search' ).rebuild, { period: 'daily', time: '01:00' } );
+  tfy( agendaSearch.rebuild, {
+    period: 'weekly',
+    day: 'sunday',
+    time: '01:00'
+  } );
+
+  tfy( agendaSearch.resyncUpdated, {
+    period: 'hourly'
+  } );
 
   //tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, { bootOffset: 5000 } );
   tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, {

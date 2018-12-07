@@ -22,6 +22,12 @@ module.exports = function ( run, options ) {
 
   }
 
+  if ( params.period === 'hourly' ) {
+
+    params.period = 60000 * 60;
+
+  }
+
   if ( params.period === 'daily' ) {
 
     params.period = 60000 * 60 * 24;
@@ -33,6 +39,7 @@ module.exports = function ( run, options ) {
     params.period = 60000 * 60 * 24 * 7;
 
   }
+
 
   setTimeout( function () {
 
@@ -51,6 +58,8 @@ module.exports = function ( run, options ) {
 function _setBootOffset( params ) {
 
   const { period, day, time } = params;
+
+  if ( !time ) return 0;
 
   const [ hour, minute ] = time.split( ':' );
 
