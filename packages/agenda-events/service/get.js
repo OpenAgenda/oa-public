@@ -6,7 +6,7 @@ const _ = require( 'lodash' ),
 
 let config, knex;
 
-module.exports = _.extend( get, { 
+module.exports = _.extend( get, {
   init: ( c, k ) => { config = c; knex = k },
   byLegacyId
 } );
@@ -33,7 +33,7 @@ async function _get( where ) {
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   const ref = await knex( config.schemas.agendaEvent )
-    .first( [ 
+    .first( [
       'agenda_uid',
       'event_uid',
       'user_uid',
@@ -42,7 +42,7 @@ async function _get( where ) {
       'featured',
       'created_at',
       'updated_at',
-      'legacy_id' 
+      'legacy_id'
     ] )
     .where( where );
 

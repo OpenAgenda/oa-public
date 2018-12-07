@@ -55,7 +55,7 @@ async function toLegacy( ae ) {
 
   const legacyId = await _getLegacyId( ae );
 
-  let eventId, agendaId;
+  let eventId, agendaId, result;
 
   if ( legacyId ) {
 
@@ -64,7 +64,7 @@ async function toLegacy( ae ) {
     eventId = legacyId.split( '.' )[ 1 ];
     agendaId = legacyId.split( '.' )[ 0 ];
 
-    q.update( data ).where( {
+    result = await q.update( data ).where( {
       event_id: eventId,
       review_id: agendaId
     } );
@@ -76,11 +76,19 @@ async function toLegacy( ae ) {
     eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
     agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' );
 
-    q.insert( _.extend( {
+    result = await q.insert( _.extend( {
       review_id: agendaId,
       event_id: eventId,
       created_at: new Date
     }, data ) );
+
+    if ( result.length ) {
+
+      await knex( config.schemas.agendaEvent ).update( {
+        legacy_id: [ agendaId, eventId ].join( '.' )
+      } ).where( { agenda_uid: ae.agendaUid, event_uid: ae.eventUid } );
+
+    }
 
   }
 
@@ -103,7 +111,7 @@ async function toLegacy( ae ) {
 
   }
 
-  return q;
+  return result;
 
 }
 
@@ -119,7 +127,7 @@ async function _getLegacyId( ae ) {
   return _.get( await knex( config.legacy.schemas.agendaEvent ).first( 'id' ).where( {
     event_id: eventId,
     review_id: agendaId
-  } ), 'id' ) ? agendaId + '.' + eventId : null;  
+  } ), 'id' ) ? agendaId + '.' + eventId : null;
 
 }
 
@@ -138,16 +146,16 @@ async function legacyTransfer( origin, options = {} ) {
 
   let where = typeof origin === 'object' ? {
     'ra.review_id': origin.agendaId,
-    'ra.event_id': origin.eventId 
+    'ra.event_id': origin.eventId
   } : { 'ra.id': origin };
 
   let data = await knex( config.legacy.schemas.agendaEvent )
     .first( [
-      'a.uid as agendaUid', 
+      'a.uid as agendaUid',
       'e.uid as eventUid',
       'a.id as agendaId',
       'e.id as eventId',
-      'ra.is_published as isPublished', 
+      'ra.is_published as isPublished',
       'ra.state as state',
       'ra.featured as featured',
       'ra.updated_at as updatedAt',
@@ -180,6 +188,7 @@ async function legacyTransfer( origin, options = {} ) {
       canEdit: data.canEdit,
       updatedAt: data.updatedAt
     };
+
 
   if ( !data && current ) {
 

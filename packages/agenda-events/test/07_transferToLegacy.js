@@ -28,26 +28,69 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   } );
 
-  it( 'creates record when not existing', async () => {
+  describe( 'creating a legacy record', () => {
 
-    const { created } = await svc( 62792452 /* id: 4608 */ ).create( 43393864 /* id: 190092 */ );
+    const agenda = { uid: 62792452, id: 4608 };
+    const event = { uid: 43393864, id: 190092 };
 
-    const before = await knex( 'legacy_agenda_event' ).first( 'id' ).where( { event_id: 190092, review_id: 4608 } );
+    let beforeCreate, afterCreate, ae;
 
-    await svc.legacyTransfer.to( created );
+    before( async () => {
 
-    const after = await knex( 'legacy_agenda_event' ).first().where( { event_id: 190092, review_id: 4608 } );
+      ae = ( await svc( agenda.uid ).create( event.uid ) ).created;
 
-    should( before ).not.ok;
+      beforeCreate = await knex( 'legacy_agenda_event' )
+        .first( 'id' ).where( {
+          event_id: event.id,
+          review_id: agenda.id
+        } );
 
-    after.should.be.ok;
-
-    _.pick( after, [ 'state', 'is_published' ] ).should.eql( {
-      state: 2,
-      is_published: 1
     } );
 
+    before( async () => {
+
+      await svc.legacyTransfer.to( ae );
+
+    } );
+
+    before( async () => {
+
+      afterCreate = await knex( 'legacy_agenda_event' )
+        .first().where( {
+          event_id: event.id,
+          review_id: agenda.id
+        } );
+
+    } );
+
+    it( 'creates legacy record when not previously existing', () => {
+
+      should( beforeCreate ).not.ok;
+
+      afterCreate.should.be.ok;
+
+    } );
+
+    it( 'legacy record is marked as published if ae is published', () => {
+
+      _.pick( afterCreate, [ 'state', 'is_published' ] ).should.eql( {
+        state: 2,
+        is_published: 1
+      } );
+
+    } );
+
+    it( 'agenda_event reference stores legacy id', async () => {
+
+      const updatedRef = await svc( agenda.uid ).get( event.uid );
+
+      updatedRef.legacyId.should.equal( agenda.id + '.' + event.id );
+
+    } );
+
+
   } );
+
 
 
   it( 'adds user reference when specified', async () => {
@@ -69,7 +112,7 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
     const before = await knex( 'legacy_agenda_event' ).first().where( { event_id: 81631, review_id: 4608 } );
 
-    await svc.legacyTransfer.to( updated );    
+    await svc.legacyTransfer.to( updated );
 
     const after = await knex( 'legacy_agenda_event' ).first().where( { event_id: 81631, review_id: 4608 } );
 
@@ -117,15 +160,15 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
     await svc.legacyTransfer.to( created );
 
-    const after = await knex( 'legacy_event_editor' ).first().where( { 
-      event_id: 190093, 
-      review_id: 4608 
+    const after = await knex( 'legacy_event_editor' ).first().where( {
+      event_id: 190093,
+      review_id: 4608
     } );
 
     after.should.eql( {
       type: 1,
-      event_id: 190093, 
-      review_id: 4608 
+      event_id: 190093,
+      review_id: 4608
     } );
 
   } );
@@ -136,9 +179,9 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
     await svc.legacyTransfer.to( updated );
 
-    const after = await knex( 'legacy_event_editor' ).first().where( { 
-      event_id: 81824, 
-      review_id: 4608 
+    const after = await knex( 'legacy_event_editor' ).first().where( {
+      event_id: 81824,
+      review_id: 4608
     } );
 
     should( after ).equal( undefined );
