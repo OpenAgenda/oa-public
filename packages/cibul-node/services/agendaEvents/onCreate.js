@@ -31,7 +31,7 @@ module.exports = async ( ae, context ) => {
 
   let user;
 
-  if ( context && !context.aggregated ) {
+  if ( !context.aggregated ) {
     if ( ae.agendaUid === context.event.agendaUid ) {
       // Creation
       try {
@@ -46,7 +46,7 @@ module.exports = async ( ae, context ) => {
       //   myEventShare to creator                  [ 'receive', 'myEventShare' ]
       //   eventShare to adminmods (- creator)      [ 'receive', 'eventShare' ]
     }
-  } else if ( context && context.aggregated ) {
+  } else if ( context.aggregated ) {
     // Aggregation
     try {
       await sendEventAggregation( { agendaEvent: ae, context } );
@@ -56,7 +56,7 @@ module.exports = async ( ae, context ) => {
   }
 
   // if reference was created through aggregation, email administrators
-  if ( context && context.aggregated && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
+  if ( context.aggregated && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
 
     log( 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
 
@@ -166,11 +166,19 @@ module.exports = async ( ae, context ) => {
     }
 
     // If it's a real creation, not an agregation
-    if ( context.userUid && !context.aggregated ) {
+    if ( !context.aggregated ) {
 
-      await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
+      if ( ae.agendaUid === context.event.agendaUid ) {
 
-    } else if ( !context.userUid && context.aggregated ) {
+        await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
+
+      } else {
+
+        console.log( 'CREATE SHARING ACTIVITY' );
+
+      }
+
+    } else if ( context.aggregated ) {
 
       await _addAggregateEventActivity( eventFeed, { agenda, event }, context );
 

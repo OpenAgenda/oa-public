@@ -15,18 +15,18 @@ module.exports = ( before, after, context ) => {
   log( 'info', 'updated event %s', after.uid, { context } );
 
   if ( !after.draft ) {
-    
+
     eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
 
-    _registerActivity( before, after, context );
-    
-  }
+    _addActivity( before, after, context )
+      .catch( err => log.error( new VError( err, 'Could not add activity' ) ) );
 
+  }
 
 }
 
 
-async function _registerActivity( before, after, context ) {
+async function _addActivity( before, after, context ) {
 
   let user;
   let agenda;
