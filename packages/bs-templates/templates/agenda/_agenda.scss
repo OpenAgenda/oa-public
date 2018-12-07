@@ -1,3 +1,7 @@
+.agenda-body {
+  position: relative;
+}
+
 #agenda {
 
   background-color: $oa-gray-lighter;
@@ -52,7 +56,7 @@
   }
 
   .col-aside {
-  
+
     font-weight: 300;
 
     @media (min-width: 1200px) {
@@ -103,7 +107,7 @@
           border: 5px solid $oa-white;
         }
       }
-      
+
       &.selected {
         color: $oa-blue;
 
