@@ -33,7 +33,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
       labelized: true
     }, options );
 
-    if ( !instance.isInAgendaContext() ) { 
+    if ( !instance.isInAgendaContext() ) {
 
       return cb( null, instance.getIsDraft() ? 'draft' : _labelize( TYPES.PUBLISHED ) );
 
@@ -64,7 +64,14 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
   }
 
 
-  function setState( newState, cb ) {
+  function setState( newState, user, cb ) {
+
+    if ( arguments.length === 2 ) {
+
+      cb = user;
+      user = null;
+
+    }
 
     getState( { labelized: false }, function( err, oldState ) {
 
@@ -87,7 +94,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
         if ( err ) return cb( err );
 
-        if ( onStateChange ) onStateChange( _labelize( oldState ), _labelize( newState ) );
+        if ( onStateChange ) onStateChange( _labelize( oldState ), _labelize( newState ), user );
 
         cb( null, result, { oldState, newState } );
 

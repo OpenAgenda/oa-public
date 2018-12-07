@@ -55,9 +55,8 @@ async function evaluate( err, action ) {
       ? await agendas.get( { uid: _.get( action, 'values.sourceAgendaUid' ) }, agendaGetOptions )
       : null;
 
-
     // if event is not present in events service, do nothing.
-    if ( action.name === 'review.article_create' && !event ) {
+    if ( !event ) {
 
       action.increment = ( action.increment || 0 );
 

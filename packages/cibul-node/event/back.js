@@ -367,7 +367,7 @@ function _changeState( req, res, next ) {
 
   req.log( 'updating state to %s', req.params.type );
 
-  req.event.setState( req.params.type, function ( err, result, { oldState, newState } ) {
+  req.event.setState( req.params.type, req.user, function ( err, result, { oldState, newState } ) {
 
     if ( err ) {
 

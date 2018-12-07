@@ -1,6 +1,8 @@
 "use strict";
 
-const logger = require( '@openagenda/logger' );
+const _ = require( 'lodash' );
+
+const log = require( '@openagenda/logs' )( 'services/event/instance/dispatcher' )
 const config = require( '../../../config' );
 const coms = require( '../../../lib/coms' );
 
@@ -9,10 +11,6 @@ const coms = require( '../../../lib/coms' );
  */
 
 module.exports = function( loaded, instance ) {
-
-  var log = logger( 'services/event/instance/dispatcher' );
-
-  log.load( 'eventId', instance.id );
 
   return {
     stateChange,
@@ -34,7 +32,7 @@ module.exports = function( loaded, instance ) {
   }
 
 
-  function stateChange( oldState, newState ) {
+  function stateChange( oldState, newState, user ) {
 
     log( 'stateChange from %s to %s', oldState, newState );
 
@@ -47,26 +45,24 @@ module.exports = function( loaded, instance ) {
       return;
     }
 
+    const values = {
+      user_uid : _.get( user, 'uid' ),
+      id: instance.id,
+      agendaId: agenda.id
+    };
+
     if ( newState == 'published' )  {
 
       coms.publish( config.mainChannel, {
         name: 'event.update',
-        values: {
-          id: instance.id,
-          agendaId: agenda.id,
-          type: 'event.publish'
-        }
+        values: _.set( values, 'type', 'event.publish' )
       } );
 
     } else if ( oldState == 'published' ) {
 
       coms.publish( config.mainChannel, {
         name: 'event.update',
-        values: {
-          id: instance.id,
-          agendaId: agenda.id,
-          type: 'event.unpublish'
-        }
+        values: _.set( values, 'type', 'event.unpublish' )
       } );
 
     }
