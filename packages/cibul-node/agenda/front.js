@@ -132,7 +132,7 @@ const  modLib = require( '../lib/moduleLib' ),
       _formatEmbedLinks,
       embedSvc.mw.renderEventItems,
       embedSvc.mw.renderHeader,
-      showXhr( 'agenda/embedShow' ), 
+      showXhr( 'agenda/embedShow' ),
       cmn.useEmbedGoogleAnalytics,
       cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
       embedShow
@@ -169,7 +169,12 @@ const  modLib = require( '../lib/moduleLib' ),
 
     agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
       agendaSearch.mw.rebuild,
-      agendaSearchRebuildRedirect
+      agendaSearchRedirect.bind( null, 'rebuilding agenda search index' )
+    ] ],
+
+    agendaSearchUpdate: [ 'get', '/agendas/update', [
+      agendaSearch.mw.update,
+      agendaSearchRedirect.bind( null, 'updating agenda search index ( with agendas updated less than 1 hour ago )' )
     ] ],
 
     agendaRedirect: [ 'get', '/agendas/:uid', [
@@ -186,7 +191,7 @@ const  modLib = require( '../lib/moduleLib' ),
       cmn.redirectLegacySearch,
       agendaSvc.mw.load( 'slug', { cache: true } ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
-      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', { 
+      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
         slug: 'slug',
         msg: {
           $raw: 'limitedAccessAgenda'
@@ -398,9 +403,9 @@ function agendaSearchPage( req, res, next ) {
 }
 
 
-function agendaSearchRebuildRedirect( req, res, next ) {
+function agendaSearchRedirect( message, req, res, next ) {
 
-  sessions.setFlash( req, res, 'rebuilding agenda search index' );
+  sessions.setFlash( req, res, message );
 
   res.redirect( 302, req.genUrl( 'agendaSearch' ) );
 
