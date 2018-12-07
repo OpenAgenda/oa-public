@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const http = require( 'http' );
 const express = require( 'express' );
 const sessions = require( '@openagenda/sessions' );
-const logger = require( '@openagenda/logger' );
+const logger = require( '@openagenda/logs' );
 const cmn = require( './lib/commons-app' );
 const errorLogger = require( './services/00_errors' );
 const genUrl = require( './services/genUrl' ).getSingleton();
@@ -40,9 +40,13 @@ app.use( ( req, res, next ) => {
 } );
 
 app.use( ( req, res, next ) => {
+
   req.log = logger( 'req' );
-  req.log.load( { url: req.originalUrl } );
+
+  req.log.loadMetadata( { url: req.originalUrl } );
+
   next();
+
 } );
 
 app.use( cmn.lang );
