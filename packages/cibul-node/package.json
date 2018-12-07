@@ -32,7 +32,7 @@
     "@openagenda/aggregator-sources": "^1.1.1",
     "@openagenda/aggregators": "^1.1.0",
     "@openagenda/call-to-action": "^2.2.0",
-    "@openagenda/cibul-model": "^0.1.22",
+    "@openagenda/cibul-model": "^0.1.23",
     "@openagenda/cibul-templates": "^1.1.0",
     "@openagenda/custom": "^1.2.0",
     "@openagenda/date-range": "^2.1.0",
