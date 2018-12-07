@@ -1,43 +1,37 @@
 "use strict";
 
-const utils = require( '@openagenda/utils' ),
+const _ = require( 'lodash' );
 
-  _ = require( 'lodash' ),
+const utils = require( '@openagenda/utils' );
 
-  validate = require( '../../validators/query' ),
+const validate = require( '../../../validators/query' );
 
-  obj = {
+const obj = {
 
-    // index name
-    alias: 'agenda',
+  // index name
+  alias: 'agenda',
 
-    type: 'agenda',
+  type: 'agenda',
 
-    // used at index creation
-    indexBody: getIndexSettings(),
+  // used at index creation
+  indexBody: getIndexSettings(),
 
-    // prepare dsl query
-    query,
+  // prepare dsl query
+  query,
 
-    // clean items before being put to index
-    clean,
+  // clean items before being put to index
+  clean,
 
-    // process items read from index
-    parse,
+  // process items read from index
+  parse,
 
-    mappings: getMappings()
+  mappings: getMappings()
 
-  }
+}
 
 
 
 module.exports = obj;
-
-module.exports.init = function( cfg ) {
-
-  if ( cfg && cfg.alias ) obj.alias = cfg.alias;
-
-}
 
 /**
  * build dsl query for fetching agendas

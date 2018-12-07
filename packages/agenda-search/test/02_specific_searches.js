@@ -2,15 +2,15 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
+const config = require( '../testconfig' );
 
-  searchLib = require( '../service/search' ),
+const searchLib = require( '../service/search' );
 
-  agendas = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/agendas.json', 'utf-8' ) ),
+const agendas = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/agendas.json', 'utf-8' ) );
 
-  ih = require( 'immutability-helper' );
+const ih = require( 'immutability-helper' );
 
 let search;
 
@@ -20,11 +20,11 @@ describe( 'specific searches', function() {
 
   before( () => {
 
-    search = searchLib( {}, ih( config, { interfaces : {
+    search = searchLib( ih( config, { interfaces : {
       $set: {
-        agendasList: ( offset, limit, cb ) => {
+        list: async ( query, offset, limit, { detailed } ) => {
 
-          cb( null, agendas.slice( offset, offset + limit ) );
+          return agendas.slice( offset, offset + limit );
 
         }
       } }
@@ -32,7 +32,7 @@ describe( 'specific searches', function() {
 
   } );
 
-  before( done => search.rebuild( done ) );
+  before( () => search.rebuild() );
 
   it( 'fetch all', done => {
 

@@ -1,36 +1,55 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
+const _ = require( 'lodash' );
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-config = require( '../testconfig' ),
+const config = require( '../testconfig' );
 
-searchLib = require( '../service/search' ), search,
+const searchLib = require( '../service/search' );
 
-agendaTestService = require( './app/agendaTestService' );
+const listInterface = require( './app/listInterface' );
+
+let search;
 
 describe( 'search', function() {
 
-  this.timeout( 20000 );
+  this.timeout( 30000 );
 
   before( () => {
 
-    search = searchLib( agendaTestService, config );
+    search = searchLib( _.assign( {
+      interfaces: {
+        list: listInterface.bind( null, 100 )
+      }
+    }, config ) );
 
   } );
 
-  before( done => search.rebuild( done ) );
+  before( () => search.rebuild() );
 
   it( 'list', done => {
 
     search.list( {}, 0, 10, ( err, agendas, total ) => {
 
-      total.should.equal( 980 );
+      total.should.equal( 101 );
 
       done();
 
     } );
+
+  } );
+
+  it( 'updates agenda items after given updatedAt', async () => {
+
+    const before = new Date();
+
+    before.setHours( before.getHours() - 1 );
+
+    const result = await search.resyncUpdated( before );
+
+    // capped at 20
+    result.should.eql( { indexed: 0, updated: 20 } );
 
   } );
 

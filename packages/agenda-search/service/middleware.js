@@ -19,29 +19,45 @@ let service, config;
 module.exports = {
   init,
   rebuild,
+  update,
   list
 }
 
 
-function rebuild( req, res, next ) {
+async function rebuild( req, res, next ) {
 
-  if ( req.log ) req.log( 'info', 'starting agenda search index rebuild' );
+  if ( req.log ) log( 'info', 'starting agenda search index rebuild' );
 
-  service.rebuild( err => {
+  next();
 
-    if ( err ) {
+  service.rebuild().then( () => {
 
-      req.log( 'error', 'errored during agenda search rebuild: %s', JSON.stringify( err ) );
+    log( 'info', 'completed agenda search index rebuild' )
 
-    } else {
+  }, err => {
 
-      req.log( 'info', 'completed agenda search index rebuild' );
-
-    }
+    log( 'error', 'errored during agenda search rebuild', err );
 
   } );
 
+}
+
+
+async function update( req, res, next ) {
+
+  if ( req.log ) log( 'info', 'starting agenda search index update' );
+
   next();
+
+  service.resyncUpdated().then( ( { indexed, updated } ) => {
+
+    log( 'info', 'completed agenda search index update with %s updates and %s indexes', updated, indexed );
+
+  }, err => {
+
+    log( 'error', 'errored during agenda search update', err );
+
+  } );
 
 }
 
@@ -134,7 +150,7 @@ function _renderRss( req, res ) {
   res.set( 'Content-Type', 'application/rss+xml' );
 
   res.send( feed.xml() );
-  
+
 }
 
 

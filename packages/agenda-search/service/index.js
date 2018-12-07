@@ -13,7 +13,8 @@ let log, search, config;
 module.exports = {
   init,
   list,
-  rebuild,
+  rebuild: () => search.rebuild(),
+  resyncUpdated: since => search.resyncUpdated( since ),
   mw,
   getClient: () => {
 
@@ -42,11 +43,12 @@ function init( c ) {
 
   }
 
-  search = searchLib( config.services.agendas, config );
+  search = searchLib( config );
 
   mw.init( {
     list,
-    rebuild
+    rebuild: search.rebuild,
+    resyncUpdated: search.resyncUpdated
   }, config );
 
 }
@@ -64,25 +66,5 @@ function list( query, offset, limit, cb ) {
   }
 
   search.list( query, offset, limit, cb );
-
-}
-
-
-/**
- * rebuild the search index based on data provided by agenda service
- */
-function rebuild( cb ) {
-
-  if ( !search ) {
-
-    return cb( 'search has not been initialized' );
-
-  }
-
-  search.rebuild( err => {
-
-    if ( cb ) cb( err );
-
-  } );
 
 }
