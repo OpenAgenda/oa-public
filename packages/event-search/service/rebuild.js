@@ -29,7 +29,7 @@ module.exports = async ( alias, options ) => {
 
     extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) ),
 
-    events = [], 
+    events = [],
 
     counts = { indexed: 0 };
 
