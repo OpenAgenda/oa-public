@@ -17877,6 +17877,15 @@ node-fetch@^2.2.0:
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
   integrity sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
 
+node-geocoder@^3.22.0:
+  version "3.22.0"
+  resolved "https://registry.npmjs.org/node-geocoder/-/node-geocoder-3.22.0.tgz#af82277d3ceceb1f225ea81c3cabc726b4ff7e81"
+  integrity sha512-w7ew1vH6IjkhexoxcJ2aFBMMHdfS/VY5xiJ29jd6ml3l5nitySLeJ2vc5IxEfhgq2sZvh7mBk9dJlMqKEKBqJg==
+  dependencies:
+    bluebird "^3.4.6"
+    request "^2.74.0"
+    request-promise "^4.1.1"
+
 node-gyp@^3.3.1, node-gyp@^3.8.0:
   version "3.8.0"
   resolved "https://registry.npmjs.org/node-gyp/-/node-gyp-3.8.0.tgz#540304261c330e80d0d5edce253a68cb3964218c"
@@ -22082,6 +22091,16 @@ request-promise-native@^1.0.5:
     stealthy-require "^1.1.0"
     tough-cookie ">=2.3.3"
 
+request-promise@^4.1.1:
+  version "4.2.2"
+  resolved "https://registry.npmjs.org/request-promise/-/request-promise-4.2.2.tgz#d1ea46d654a6ee4f8ee6a4fea1018c22911904b4"
+  integrity sha1-0epG1lSm7k+O5qT+oQGMIpEZBLQ=
+  dependencies:
+    bluebird "^3.5.0"
+    request-promise-core "1.1.1"
+    stealthy-require "^1.1.0"
+    tough-cookie ">=2.3.3"
+
 request@2.65.0:
   version "2.65.0"
   resolved "http://registry.npmjs.org/request/-/request-2.65.0.tgz#cc1a3bc72b96254734fc34296da322f9486ddeba"
@@ -22135,7 +22154,7 @@ request@2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-request@^2.61.0, request@^2.78.0, request@^2.79.0, request@^2.81.0, request@^2.87.0, request@^2.88.0:
+request@^2.61.0, request@^2.74.0, request@^2.78.0, request@^2.79.0, request@^2.81.0, request@^2.87.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.npmjs.org/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
