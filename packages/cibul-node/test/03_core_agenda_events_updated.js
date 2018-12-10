@@ -85,8 +85,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
   before( async () => {
 
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), { 
-      multipleStatements: true 
+    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+      multipleStatements: true
     } ) );
 
     const query = promisify( con.query.bind( con ) );
@@ -127,7 +127,7 @@ describe( 'core - functional ( server ): agenda event update', function() {
       agendas.get( { uid: 17026855 }, { internal: true }, ( err, a ) => {
 
         agenda = a;
-        
+
         done();
 
       } );

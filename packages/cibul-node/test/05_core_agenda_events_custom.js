@@ -273,7 +273,7 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
       const networkCustomData = await custom( 27 ).get( result.created.event.uid );
 
-      agendaCustomData.should.eql( { 
+      agendaCustomData.should.eql( {
         entreelibre: [],
         'thematiques-metropolitaines': [ 3 ],
         'types-devenements': [ 25 ],
@@ -281,7 +281,7 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
         organisateur: [ 32 ],
         'tag-group-4': 36,
         cle_session: 1928391,
-        'category-group': null 
+        'category-group': null
       } );
 
       networkCustomData.should.eql( {
@@ -319,7 +319,7 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
     } );
 
-  } ); 
+  } );
 
 
 } );

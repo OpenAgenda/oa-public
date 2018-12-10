@@ -61,8 +61,14 @@ async function toLegacy( ae ) {
 
     log( 'legacy agenda-event reference found, updating' );
 
-    eventId = legacyId.split( '.' )[ 1 ];
-    agendaId = legacyId.split( '.' )[ 0 ];
+    agendaId = _.get( legacyId.split( '.' ), '0' );
+    eventId = _.get( legacyId.split( '.' ), '1' );
+
+    if ( !agendaId || !eventId ) {
+
+      throw new VError( 'legacyId for ref %s.%s is incomplete', ae.agendaUid, ae.eventUid, legacyId );
+
+    }
 
     try {
 
