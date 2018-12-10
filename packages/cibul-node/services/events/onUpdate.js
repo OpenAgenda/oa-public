@@ -15,11 +15,11 @@ module.exports = ( before, after, context ) => {
   log( 'info', 'updated event %s', after.uid, { context } );
 
   if ( !after.draft ) {
-    
+
     eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
 
     _registerActivity( before, after, context );
-    
+
   }
 
 
