@@ -107,6 +107,12 @@ describe( 'sendMail', () => {
 
       expect( message.data.domain ).toBe( 'https://openagenda.com' );
     } );
+
+    it( 'sendMail with a missing template throw an error', () => expect( mails( {
+      template: 'unknow',
+      to: 'kevin.bertho@gmail.com',
+      queue: false
+    } ) ).rejects.toThrow( 'Email template \'unknow\' does not exist' ) );
   } );
 
   describe( 'Euthreal transport', () => {

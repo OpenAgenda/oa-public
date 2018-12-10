@@ -1054,6 +1054,30 @@
     redis "^2.7.1"
     verror "^1.10.0"
 
+"@openagenda/agenda-search@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-search/-/agenda-search-0.1.4.tgz#a7120fe878fd5982d6e3363e902cc49bc71b1292"
+  integrity sha512-qk8+kS69w+czOHuIfdRIJIsf/v98o8rIihA9DrJ95JWzqdn23lvH8cXlJk8kKvRBvKkiJQfgroQz605xPSWSZA==
+  dependencies:
+    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/dom-utils" "^2.1.0"
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/react-components" "^2.0.3"
+    "@openagenda/react-form-components" "^2.0.8"
+    "@openagenda/utils" "^1.0.2"
+    "@openagenda/validators" "^2.0.1"
+    async "^1.5.2"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.1"
+    elasticsearch "^13.3.1"
+    immutability-helper "^2.3.1"
+    knex "^0.9.0"
+    prop-types "^15.5.8"
+    qs "^6.1.0"
+    rss "^1.2.1"
+    when "^3.7.7"
+    xhr "^2.2.0"
+
 "@openagenda/agenda-tags@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-1.0.2.tgz#5ca20bcb15042ee2cfc657fd4320464236047af0"
@@ -1101,10 +1125,10 @@
   resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
   integrity sha512-pgqIk32OQ9ynxUjQBf/kOKpS7nVDfq5FOmOTRHAqVux4RC03Sz9dd2URexXtSxngicA9xBlyNnUqG4HK29VX5w==
 
-"@openagenda/cibul-model@^0.1.22":
-  version "0.1.22"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.22.tgz#9b243496c3b2381d47da58fe9c83d636336d0aa9"
-  integrity sha512-7trvswIifU0pg9k+iqclY71eHUI47rVar4pn95wLeAcfvsgWKiyFAbWhAGY0PDusKYkEV5Hg8K15RsILaem89A==
+"@openagenda/cibul-model@^0.1.23":
+  version "0.1.23"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.23.tgz#97c92a591a944eec9d446bc78331b47b6aa98995"
+  integrity sha512-ZsPZ/KBbDupBPDVUSrtElLbqqSX/PIwigBBzzNO3A+M8yNJvLdxB3X2+SoWTlRb6YjUqAsj3LBpvI7+trlQJYQ==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"

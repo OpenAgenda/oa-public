@@ -1,3 +1,5 @@
+const fs = require( 'fs' );
+const path = require( 'path' );
 const _ = require( 'lodash' );
 const addressParser = require( 'nodemailer/lib/addressparser' );
 const isEmail = require( 'isemail' );
@@ -23,6 +25,14 @@ function flattenRecipients( recipients ) {
 }
 
 async function sendMail( options = {} ) {
+  if ( options.template ) {
+    const templateDir = path.join( config.templatesDir || '', options.template );
+
+    if ( !fs.existsSync( templateDir ) ) {
+      throw new Error( `Email template '${options.template}' does not exist` );
+    }
+  }
+
   const defaultLang = options.lang || config.defaults.lang;
   const compiled = options.template && options.queue === false
     ? await templater.compile( options.template, {
