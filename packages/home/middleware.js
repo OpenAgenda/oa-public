@@ -47,7 +47,7 @@ function agendasList( req, res, next ) {
     agendaMailTo
   } = config.interfaces;
 
-  const offset = (req.query.page - 1) * config.mw.limit;
+  const offset = (( req.query.page || 1 ) - 1) * config.mw.limit;
   const limit = config.mw.limit;
 
   stakeholdersList( req.user.id, 0, 500, /* hmmmm.. */ ( err, stakeholders ) => {
@@ -57,19 +57,19 @@ function agendasList( req, res, next ) {
     agendasList( {
       ids: stakeholders.map( s => s.agendaId ),
       search: req.query.search
-    }, offset, limit, { 
+    }, offset, limit, {
       includeImagePath: true,
-      private: null, 
-      total: true, 
-      useDefaultImage: true, 
-      includeFields: [ 'settings', 'credentials' ] 
+      private: null,
+      total: true,
+      useDefaultImage: true,
+      includeFields: [ 'settings', 'credentials' ]
     }, ( err, reviews, total ) => {
 
       if ( err ) return next( err );
 
       res.send( {
         total,
-        reviews: reviews.map( review => _.assign( _.omit( review, [ 'credentials' ] ), { 
+        reviews: reviews.map( review => _.assign( _.omit( review, [ 'credentials' ] ), {
           stakeholder: stakeholders.find( s => s.agendaId === review.id ),
           useContributeApp: _.get( review, 'credentials.useContributeApp', false ),
           mailto: agendaMailTo( review ) // hacky. Ideally, the full list should be in integrating app
@@ -87,7 +87,7 @@ function eventsList( req, res, next ) {
     events: { list: eventsList }
   } = config.interfaces;
 
-  const offset = (req.query.page - 1) * config.mw.limit;
+  const offset = (( req.query.page || 1 ) - 1) * config.mw.limit;
   const limit = config.mw.limit;
 
   req.log( 'fetching events owned by user %s', req.user.uid );
@@ -101,7 +101,7 @@ function eventsList( req, res, next ) {
 
       if ( err ) return next( err );
 
-      req.log( 'fetched %s of %s events owned by user %s', events.length, total, req.user.uid ); 
+      req.log( 'fetched %s of %s events owned by user %s', events.length, total, req.user.uid );
 
       res.send( {
         total,
