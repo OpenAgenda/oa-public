@@ -64,10 +64,18 @@ async function toLegacy( ae ) {
     eventId = legacyId.split( '.' )[ 1 ];
     agendaId = legacyId.split( '.' )[ 0 ];
 
-    result = await q.update( data ).where( {
-      event_id: eventId,
-      review_id: agendaId
-    } );
+    try {
+
+      result = await q.update( data ).where( {
+        event_id: eventId,
+        review_id: agendaId
+      } );
+
+    } catch ( e ) {
+
+      throw new VError( e, 'failed to update %s.%s based on legacy id %s', ae.agendaUid, ae.eventUid, legacyId );
+
+    }
 
   } else {
 
@@ -188,7 +196,6 @@ async function legacyTransfer( origin, options = {} ) {
       canEdit: data.canEdit,
       updatedAt: data.updatedAt
     };
-
 
   if ( !data && current ) {
 

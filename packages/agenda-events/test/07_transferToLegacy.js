@@ -128,6 +128,14 @@ describe( 'transferLegacyData - transfer to legacy', function() {
 
   } );
 
+  it( 'updates record when existing and has legacy id', async () => {
+
+    const { updated } = await svc( 62792452 ).update( 10974548, { featured: 1 } );
+
+    updated.featured.should.equal( true );
+
+  } );
+
   it( 'removes record', async () => {
 
     const before = await knex( 'legacy_agenda_event' ).first().where( { event_id: 81631, review_id: 4608 } );
