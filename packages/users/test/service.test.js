@@ -248,13 +248,13 @@ describe( 'clearImageProfile', () => {
 describe( 'create', () => {
   it( 'create a user with an already taken email', async () => {
     await expect(
-      usersSvc.create( { email: 'gaetan@cibul.net', password: 'pa**word' } )
+      usersSvc.create( { fullName: 'Jean-Eude', email: 'gaetan@cibul.net', password: 'pa**word' } )
     ).to.be.rejectedWith( Error, 'Already exist' );
   } );
 
   it( 'create an activated user', async () => {
     const user = await usersSvc.create(
-      { email: 'jean-eude@oa.com', password: 'pa**word', isActivated: true },
+      { fullName: 'Jean-Eude', email: 'jean-eude@oa.com', password: 'pa**word', isActivated: true },
       { detailed: true }
     );
 
@@ -265,7 +265,7 @@ describe( 'create', () => {
     const password = 'pa**word';
 
     const user = await usersSvc.create(
-      { email: 'jean-eude@oa.com', password },
+      { fullName: 'Jean-Eude', email: 'jean-eude@oa.com', password },
       { detailed: true, internal: true }
     );
 
@@ -275,7 +275,7 @@ describe( 'create', () => {
   it( 'create a user and an activation token', async () => {
     const email = 'jean-eude@oa.com';
     const user = await usersSvc.create(
-      { email, password: 'pa**word' },
+      { fullName: 'Jean-Eude', email, password: 'pa**word' },
       { detailed: true }
     );
 
@@ -287,7 +287,7 @@ describe( 'create', () => {
   it( 'doesn\'t create an activation token for an activated user', async () => {
     const email = 'jean-eude@oa.com';
     const user = await usersSvc.create(
-      { email, password: 'pa**word', isActivated: true },
+      { fullName: 'Jean-Eude', email, password: 'pa**word', isActivated: true },
       { detailed: true }
     );
 

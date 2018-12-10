@@ -9,7 +9,6 @@ const {
   some,
   keep,
   discardQuery,
-  existsByDot,
   fastJoin,
   paramsFromClient,
   disallow,
@@ -149,7 +148,7 @@ module.exports = {
           }
         } : {}),
         // Allow password to be optional for a twitter registration
-        ...(context.data.twitterId ? {
+        ...([ 'twitterId', 'googleId', 'facebookUid' ].some( key => _.get( context.data, key ) ) ? {
           password: {
             type: 'text',
             min: 4,
@@ -159,12 +158,12 @@ module.exports = {
       } )( context ),
       checkUnicity( 'email' ),
       generateUid(),
+      generateHash( 'salt' ),
       iff(
-        context => existsByDot( context.data, 'password' ),
-        generateHash( 'salt' ),
+        context => _.get( context.data, 'password' ),
         hashPassword( 'data.password', 'data.salt' )
       ),
-      setNow('createdAt', 'updatedAt'),
+      setNow( 'createdAt', 'updatedAt' ),
       callInterface( 'beforeCreate' ),
       formatStore(),
       softDelete(),
