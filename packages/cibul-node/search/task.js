@@ -193,7 +193,7 @@ function _sync( job, cb ) {
 
       async.whilst( function() { return hasMore; }, function( wcb ) {
 
-        agenda.events.list( { 
+        agenda.events.list( {
           offset,
           limit: 1,
           isPublished: null
@@ -230,10 +230,10 @@ function _sync( job, cb ) {
             log( 'info', 'sending event.update for event %s', id );
 
             coms.publish( config.mainChannel, {
-              name: 'event.update', 
-              values: { id } 
+              name: 'event.update',
+              values: { id }
             } );
-            
+
           } catch( e ) {
 
             log( 'error', e );
@@ -290,7 +290,7 @@ function _publish( schema ) {
 
         // for events, detailed location data must be fetched
         // via agenda-location service.
-        
+
         if ( err ) {
 
           log( 'error', 'could not load detailed location data in event %s', obj.id );
@@ -303,7 +303,7 @@ function _publish( schema ) {
 
             log( 'error', 'could not load reference data in event %s', obj.id );
 
-          }          
+          }
 
           _doPublish( schema, obj, cb );
 
@@ -359,7 +359,7 @@ function _update( schema ) {
 
           // for events, detailed location data must be fetched
           // via agenda-location service.
-          
+
           if ( err ) {
 
             log( 'error', 'could not load detailed location data in event %s', obj.id );
