@@ -33,7 +33,7 @@ function init( s, c ) {
 
 function list( req, res ) {
 
-  const offset = (req.query.page - 1) * config.mw.limit;
+  const offset = (( req.query.page || 1 ) - 1) * config.mw.limit;
   const limit = config.mw.limit;
 
   service( req.agenda.id ).list( { search: req.query.search }, offset, limit, { total: true } )
