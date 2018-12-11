@@ -2,7 +2,6 @@
 
 const { promisify } = require( 'util' );
 const agendaTags = require( '@openagenda/agenda-tags' );
-const logger = require( '@openagenda/logger' );
 const appServiceAgendas = require( './agenda' );
 
 module.exports.init = async config => {
@@ -35,7 +34,7 @@ module.exports.init = async config => {
     legacy: {
       query: _query
     },
-    logger,
+    logger: config.getLogConfig( 'svc', 'agenda-tags' ),
     interfaces: appServiceAgendas.tagsAndCategories
   } );
 
