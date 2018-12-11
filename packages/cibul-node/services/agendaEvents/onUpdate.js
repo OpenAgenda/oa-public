@@ -87,9 +87,9 @@ module.exports = async ( before, after, context ) => {
     // eventUpdate
     // myEventUpdate
     try {
-      //await sendEventUpdate( { agendaEvent: after, before, context, agenda, event } );
+      await sendEventUpdate( { agendaEvent: after, before, context, agenda, event } );
     } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event update emails' ) )
+      log.error( new VError( error, 'Cannot send event update emails' ) );
     }
   } else {
     // eventChangeState
@@ -97,7 +97,7 @@ module.exports = async ( before, after, context ) => {
     try {
       await sendEventChangeState( { agendaEvent: after, before, context, agenda, event } );
     } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event change state emails' ) )
+      log.error( new VError( error, 'Cannot send event change state emails' ) );
     }
   }
 

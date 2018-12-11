@@ -90,11 +90,11 @@ const FilterInput = ( { value, onChange, placeholder } ) => (
 );
 
 const SaveButton = ( {
-  submit, submitting, pristine, submitSucceeded
+  form, submitting, pristine, submitSucceeded
 } ) => (
   <button
     type="submit"
-    onClick={submit}
+    onClick={form.submit}
     className={cn( 'btn', {
       'btn-primary': !submitSucceeded,
       'btn-success': submitSucceeded
