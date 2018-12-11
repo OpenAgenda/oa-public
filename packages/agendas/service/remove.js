@@ -26,7 +26,7 @@ module.exports = Object.assign( ( identifiers, cb ) => {
   .then( _doRemove )
 
   .done( v => {
-    
+
     if ( v.success && interfaces && interfaces.onRemove ) {
 
       interfaces.onRemove( v.agenda );
@@ -88,7 +88,7 @@ function _doRemove( v ) {
 
 function _before( v ) {
 
-  if ( !interfaces || !interfaces.beforeRemove || !v.agenda ) {
+  if ( !interfaces || !interfaces.beforeRemove || !v.agenda ) {
 
     return v;
 
