@@ -29,7 +29,7 @@ function loadAgendaDetails( agenda, options, cb ) {
 
   }
 
-  
+
 
   getAgendaDetails( agenda.id,  ( err, details ) => {
 
@@ -66,7 +66,7 @@ function getAgendaDetails( agendaId, cb ) {
 
     cb( null, v.details );
 
-  }, cb );  
+  }, cb );
 
 }
 

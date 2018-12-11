@@ -147,7 +147,7 @@ async function _total( k ) {
 
   const result = await knex.transaction( trx => k.clone()
     .count( 'id as total' )
-    .transacting( trx ) 
+    .transacting( trx )
   );
 
   return _.get( result, '0.total' );

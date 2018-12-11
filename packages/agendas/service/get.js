@@ -249,10 +249,10 @@ function init( svc, k ) {
 
 function _parseGetArguments( identifiers, options, cb ) {
 
-  if ( typeof cb === 'function' ) return { 
+  if ( typeof cb === 'function' ) return {
     identifiers: sUtils.identifiers.clean( identifiers ),
     options: validateOptions( options ),
-    cb 
+    cb
   }
 
   if ( typeof options === 'function' ) {

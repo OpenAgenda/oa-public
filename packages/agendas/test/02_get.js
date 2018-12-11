@@ -58,7 +58,7 @@ describe( 'agendas - functional (server): get', function() {
         uid: 52084961,
         title: 'Programme des animations du Salon du Fromage et des Produits Laitiers 2016'
       } );
-       
+
       done();
 
     } );
