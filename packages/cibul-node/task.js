@@ -64,8 +64,6 @@ module.exports = () => {
 
   require( '@openagenda/agenda-docx' ).task();
 
-  require( './general/mainLogger.task' )();
-
   require( './services/agenda/task' )();
 
   require( './services/aggregator' ).task();
