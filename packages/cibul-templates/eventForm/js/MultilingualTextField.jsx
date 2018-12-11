@@ -74,7 +74,7 @@ module.exports = createReactClass({
 
       var value = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
-      value[ l ] = e.target.value.trimLeft();
+      value[ l ] = e.target.value.trimStart();
 
       self.setState( { userHasTyped: true } );
 
@@ -92,10 +92,10 @@ module.exports = createReactClass({
 
     if ( this.props.type !== 'textarea' ) {
 
-      return <input 
+      return <input
         placeholder={ this.props.placeholder ? this.props.placeholder[ this.props.lang ] : '' }
         name={name}
-        type="text" 
+        type="text"
         value={ value }
         className="form-control"
         onChange={ this.onChange( l ) } />
@@ -110,7 +110,7 @@ module.exports = createReactClass({
         className="form-control"
         onChange={ this.onChange( l ) } />
 
-    }    
+    }
 
   },
 
