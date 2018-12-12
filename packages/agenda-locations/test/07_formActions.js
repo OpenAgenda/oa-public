@@ -64,6 +64,7 @@ describe( 'form actions', () => {
         website: undefined
       },
       autoGeocode: true,
+      enableGeocode: undefined,
       showGeocodeLink: false,
       geocodeLoading: false,
       loadingError: false,

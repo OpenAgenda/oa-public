@@ -1,12 +1,12 @@
 "use strict";
 
+const log = require( '@openagenda/logs' )( 'associateFreeLocations' );
+
 var db = require( '../lib/db' ),
 
 search = require( '../lib/search' ),
 
-async = require( 'async' ),
-
-logger = require( '@openagenda/basic-logger' );
+async = require( 'async' );
 
 /**
  * go through all db locations where no agenda_id is set, and evaluate for each location
@@ -15,8 +15,6 @@ logger = require( '@openagenda/basic-logger' );
  */
 
 module.exports = function( cb ) {
-
-  var log = logger( 'associateFreeLocations' );
 
   if ( !db.isReady() || !search.isReady() ) {
 
@@ -29,7 +27,7 @@ module.exports = function( cb ) {
     let con = db.getConnection();
 
     con.query( `
-      select distinct a.id from review as a 
+      select distinct a.id from review as a
       left join review_article as ra on ra.review_id=a.id
       left join event_location as el on el.event_id=ra.event_id
       left join location as l on el.location_id=l.id
@@ -53,7 +51,7 @@ module.exports = function( cb ) {
           db.get( { uid: location.uid }, ( err, location ) => {
 
             // attempt search index update
-            
+
             search.update( location, err => {
 
               if ( !err ) {
@@ -89,7 +87,7 @@ module.exports = function( cb ) {
       }
 
     } );
-    
+
   } );
 
 }

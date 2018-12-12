@@ -1,8 +1,8 @@
 'use strict';
 
-var utils = require( '@openagenda/utils' ),
+const log = require( '@openagenda/logs' )( 'location type' );
 
-log = require( '@openagenda/basic-logger' )( 'location type' ),
+var utils = require( '@openagenda/utils' ),
 
 states = require( '../states' ),
 
@@ -183,7 +183,7 @@ module.exports.query = function( q, offset, limit ) {
 
       if ( q.updatedAt[ op ] !== undefined ) {
 
-        rangeFilter[ op.substr( 1 ) ] = q.updatedAt[ op ];
+        rangeFilter[ op.substr( 1 ) ] = q.updatedAt[ op ];
 
       }
 
@@ -219,7 +219,7 @@ module.exports.query = function( q, offset, limit ) {
 
   if ( q.box ) {
 
-    if ( typeof q.box !== 'object' || !q.box.topLeft || !q.box.bottomRight ) {
+    if ( typeof q.box !== 'object' || !q.box.topLeft || !q.box.bottomRight ) {
 
       log( 'error', 'missing corners for bounding box search' );
 
@@ -280,7 +280,7 @@ module.exports.query = function( q, offset, limit ) {
  */
 module.exports.parse = function( l ) {
 
-  try {
+  try {
 
     l.description = l.description ? JSON.parse( l.description ) : null;
 

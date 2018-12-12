@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const logger = require( '@openagenda/basic-logger' );
+const log = require( '@openagenda/logs' )( 'agenda-locations/middleware' );
 const iuMw = require( '@openagenda/image-upload/lib/middleware' );
 const utils = require( '@openagenda/utils' );
 
@@ -10,7 +10,7 @@ const states = require( './states' );
 
 const retrieveInsee = require( '../utils/insee' );
 
-let log, service, config;
+let service, config;
 
 module.exports = _.extend( getMiddleware, {
   init: ( s, c ) => { service = s; config = c; },
@@ -20,8 +20,6 @@ module.exports = _.extend( getMiddleware, {
 
 
 function getMiddleware( idRef ) {
-  
-  log = logger( 'agenda-locations/middleware' );
 
   if ( arguments.length == 0 ) {
 
@@ -74,7 +72,7 @@ function getMiddleware( idRef ) {
       req.location = location;
 
       next();
-      
+
     } );
 
   }
@@ -260,7 +258,7 @@ function getMiddleware( idRef ) {
 
     if ( !agendaId ) {
 
-      return next( { 
+      return next( {
         code: 404,
         message: 'no agenda defined'
       } );
@@ -279,7 +277,7 @@ function getMiddleware( idRef ) {
 
     if ( !agendaId ) {
 
-      return next( { 
+      return next( {
         code: 404,
         message: 'no agenda defined'
       } );
@@ -301,7 +299,7 @@ function getMiddleware( idRef ) {
 
   }
 
-  
+
   /**
    * middleware only allows remove if there are no events linked to
    * the location.
@@ -354,7 +352,7 @@ function getMiddleware( idRef ) {
 
   }
 
-  
+
   function set( req, res, next ) {
 
     const data = _validateAndExtractData( req, res, next );
@@ -422,7 +420,7 @@ function getMiddleware( idRef ) {
 
     } );
 
-  }  
+  }
 
 
   function listTerms( req, res, next ) {
@@ -593,9 +591,9 @@ function getMiddleware( idRef ) {
 
     if ( !results.length ) {
 
-      log( 'info', 
-        'geocode farm did not find any result for address "%s" in country "%s"', 
-        _.get( req, 'query.address' ), 
+      log( 'info',
+        'geocode farm did not find any result for address "%s" in country "%s"',
+        _.get( req, 'query.address' ),
         _.get( req, 'query.countryCode' )
       );
 

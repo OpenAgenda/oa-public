@@ -7,28 +7,28 @@ const slug = require( 'slug' );
 const w = require( 'when' );
 
 const countries = require( '@openagenda/countries' );
-const logger = require( '@openagenda/basic-logger' );
+const log = require( '@openagenda/logs' )( 'db' );
 
 const helpers = require( './mysqlHelpers' );
 const states = require( './states' );
 const validate = require( './validate' );
 
-const fields = [ 
-  'id', 'uid', { obj: 'eveId', db: 'eve_id' }, { obj: 'agendaId', db: 'agenda_id' }, 'slug', { obj: 'name', db: 'placename'}, 
+const fields = [
+  'id', 'uid', { obj: 'eveId', db: 'eve_id' }, { obj: 'agendaId', db: 'agenda_id' }, 'slug', { obj: 'name', db: 'placename'},
   'address', 'city', 'region', 'department', { obj: 'postalCode', 'db': 'postal_code' }, 'insee', { obj: 'countryCode', db: 'country' },
   { obj: 'district', db: 'city_district' }, 'latitude', 'longitude', { obj: 'updatedAt', db: 'updated_at' }, 'store'
 ];
 
 const storeFields = [ // fields kept in store column in schema
-  'image', 'description', 'tags', 
-  'website', 'phone', 'links', 'access', 
+  'image', 'description', 'tags',
+  'website', 'phone', 'links', 'access',
   'state', 'timezone', 'imageCredits'
 ];
 
 // field used to retrieve aggregates of values for filtering
 const termFields = [ 'name', 'city', 'region', 'department', 'country' ];
 
-let config, log;
+let config;
 
 let con;
 
@@ -525,7 +525,7 @@ function remove( identifiers, cb ) {
 
 
 /**
- * no offset and no limit for this guy. 
+ * no offset and no limit for this guy.
  * he is expected to fetch all values.
  */
 function listTerms( fields, wheres, cb ) {
@@ -574,8 +574,6 @@ function listTerms( fields, wheres, cb ) {
 
 
 function init( cfg, cb ) {
-
-  log = logger( 'db' );
 
   w( {
     config: _.extend( {
@@ -857,7 +855,7 @@ function _defineTermsQuery( v ) {
 
   if ( log ) log( 'terms query: %s', v.query );
 
-  return v;    
+  return v;
 
 }
 
@@ -1005,7 +1003,7 @@ function _fromDbFields( values ) {
 
       objData[ f ] = store[ f ];
 
-    } ); 
+    } );
 
   }
 
@@ -1268,7 +1266,7 @@ function _determineCreateOrUpdate( v ) {
   }
 
   // optionally add agenda constraint if specified
-  
+
   if ( v.data.agendaId ) {
 
     identifiers.agendaId = v.data.agendaId;
@@ -1298,7 +1296,7 @@ function _determineCreateOrUpdate( v ) {
   } );
 
   return d.promise;
-  
+
 }
 
 
@@ -1372,7 +1370,7 @@ function _validate( v ) {
     return v;
 
   }
-  
+
   if ( !v.location.store ) v.location.store = {};
 
   storeFields.forEach( f => {
@@ -1420,12 +1418,12 @@ postal_code VARCHAR(20),
 insee VARCHAR(10),
 eve_id VARCHAR(100) UNIQUE,
 created_at DATETIME NOT NULL,
-updated_at DATETIME NOT NULL, 
-UNIQUE INDEX slug_idx (slug), 
+updated_at DATETIME NOT NULL,
+UNIQUE INDEX slug_idx (slug),
 INDEX latlng_idx (latitude, longitude),
 INDEX owner_id_idx (owner_id),
-PRIMARY KEY(id)) DEFAULT CHARACTER 
-SET utf8 COLLATE utf8_general_ci ENGINE = INNODB; 
+PRIMARY KEY(id)) DEFAULT CHARACTER
+SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 CREATE TABLE IF NOT EXISTS ${v.config.agendaSettingsTableName}
 (agenda_id BIGINT UNIQUE NOT NULL,
 store LONGTEXT,

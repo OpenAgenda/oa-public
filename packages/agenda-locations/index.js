@@ -9,7 +9,7 @@ const countries = require( '@openagenda/countries' );
 const files = require( '@openagenda/files' );
 const geocodeFarm = require( '@openagenda/geocode-farm' );
 const images = require( '@openagenda/images' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const utils = require( '@openagenda/utils' );
 
 const db = require( './lib/db' );
@@ -90,7 +90,7 @@ function init( c, cb ) {
 
   if ( config.logger ) {
 
-    logger.setLogger( config.logger );
+    logger.setModuleConfig( config.logger );
 
   }
 
@@ -152,7 +152,7 @@ function getSettings( agendaId, cb ) {
 
       if ( agendaSettings && agendaSettings.translation ) {
 
-        return cb( null, utils.extend( {}, settings, { 
+        return cb( null, utils.extend( {}, settings, {
           translation: agendaSettings.translation
         } ) );
 
@@ -436,7 +436,7 @@ function merge( data, identifiers, cb ) {
 
       if ( err ) return d.reject( err );
 
-      d.resolve( v );      
+      d.resolve( v );
 
     } );
 
@@ -548,7 +548,7 @@ function remove( identifiers, options, cb ) {
       } );
 
     } );
-    
+
   } );
 
 }
@@ -582,7 +582,7 @@ function list( query, offset, limit, options, cb ) {
 
   }
 
-  const params = utils.extend( { 
+  const params = utils.extend( {
     keepId: false,
     fromDb: false,
     internal: true, // should be false in new service. true here for backward compatibility
@@ -657,7 +657,7 @@ function get( identifiers, options, cb ) {
     const d = w.defer();
 
     ( v.params.fromDb ? db : search ).get( identifiers, ( err, l ) => {
-    
+
       if ( err ) return d.reject( err );
 
       v.location = l;

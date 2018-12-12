@@ -22,7 +22,6 @@
     "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve"
   },
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.2.0",
@@ -31,6 +30,7 @@
     "@openagenda/image-upload": "^1.0.1",
     "@openagenda/images": "^1.1.0",
     "@openagenda/labels": "^2.1.0",
+    "@openagenda/logs": "^1.1.0",
     "@openagenda/react-components": "^2.2.0",
     "@openagenda/react-form-components": "^2.1.0",
     "@openagenda/translators": "^1.1.0",

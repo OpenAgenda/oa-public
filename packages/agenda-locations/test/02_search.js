@@ -39,7 +39,9 @@ describe( 'search - init', () => {
 } );
 
 
-describe( 'search - rebuild', () => {
+describe( 'search - rebuild', function() {
+
+  this.timeout( 10000 );
 
   before( done => fixtures( 123, done ) );
 
@@ -253,7 +255,7 @@ describe( 'search - search', function() {
 
 describe( 'search - create, update, remove', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 60000 );
 
   before( done => {
 
@@ -277,7 +279,7 @@ describe( 'search - create, update, remove', function() {
 
   beforeEach( ( done ) => {
 
-    search.rebuild( ( err ) => {
+    search.rebuild( err => {
 
       done();
 
