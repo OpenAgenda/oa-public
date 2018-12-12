@@ -81,6 +81,15 @@ const creationSchema = {
     type: 'text',
     min: 4,
     optional: false
+  },
+  twitterId: {
+    type: 'text'
+  },
+  googleId: {
+    type: 'text'
+  },
+  facebookUid: {
+    type: 'text'
   }
 };
 
