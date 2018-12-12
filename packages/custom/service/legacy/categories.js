@@ -49,12 +49,20 @@ async function set( agendaEventId, fields, data ) {
 
   const chosenOption = _.head( f.options.filter( o => o.id === id ) );
 
-  const chosenOptionLabels = chosenOption ? 
-    _.keys( chosenOption.label ).map( lang => chosenOption.label[ lang ] )
-    : [];
+  const chosenOptionLabels = [];
+
+  if ( chosenOption && _.isString( chosenOption.label ) ) {
+
+    chosenOptionLabels.push( chosenOption.label );
+
+  } else if ( chosenOption ) {
+
+    _.keys( chosenOption.label ).forEach( lang => chosenOptionLabels.push( chosenOption.label[ lang ] ) );
+
+  }
 
   let legacyId = null;
-  
+
   if ( chosenOptionLabels.length ) {
 
     // fetch agenda id

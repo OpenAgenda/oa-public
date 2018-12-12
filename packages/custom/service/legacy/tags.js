@@ -64,9 +64,12 @@ async function set( agendaEventId, fields, data ) {
 
   // get all labels of custom set
   const labels = fields
-    .reduce( ( labels, field ) => labels.concat( 
-      _.flatten( 
-        field.options.map( o => _.keys( o.label ).map( k => o.label[ k ] ) )
+    .reduce( ( labels, field ) => labels.concat(
+      _.flatten(
+        field.options.map( o => _.isString( o.label ) // sometimes isn't multilingual
+          ? o.label
+          : _.keys( o.label ).map( k => o.label[ k ] )
+        )
       )
     ), [] );
 
@@ -79,7 +82,10 @@ async function set( agendaEventId, fields, data ) {
     const matchingLabels = field.options
       .filter( o => selectedOptionIds.includes( o.id ) )
       .map( o => o.label )
-      .map( label => _.keys( label ).map( lang => label[ lang ] ) );
+      .map( label => _.isString( label ) // sometimes isn't multilingual
+        ? [ label ]
+        : _.keys( label ).map( lang => label[ lang ] )
+      );
 
     return picked.concat( _.flatten( matchingLabels ) );
 
@@ -100,7 +106,7 @@ async function set( agendaEventId, fields, data ) {
   const { review_id: agendaId } = legacyAgendaEvent;
 
   // retrieve legacy tags specific to custom set
-  
+
   const legacyTags = await knex( schemas.agendaTag )
     .select( [ 'id', 'review_id', 'tag' ] )
     .where( 'review_id', agendaId )
