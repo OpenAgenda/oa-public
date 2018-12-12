@@ -97,8 +97,6 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( !draft && clean.agendaEvent ) {
 
-    console.log( clean.agendaEvent );
-
     result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
       create: {
         $set: { canEdit: true }
