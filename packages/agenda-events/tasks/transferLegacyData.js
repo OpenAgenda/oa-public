@@ -11,7 +11,7 @@ const getLegacyState = require( '../service/lib/getLegacyState' );
 module.exports = _.extend( run, {
   init: ( c, k, s ) => {
 
-    config = c; 
+    config = c;
     svc = s;
 
     q = queue( 'agendaEventTransfer', { redis: config.redis } );
@@ -47,7 +47,7 @@ async function run( options = {} ) {
 
   let offset = 0, agendaEvents = [],
 
-    legacyQuery = [ 
+    legacyQuery = [
       `select a.id as agendaId, e.id as eventId, a.uid as agendaUid, e.uid as eventUid, ra.is_published, ra.state, ra.featured, ra.updated_at as updatedAt, ra.created_at as createdAt, u.uid as userUid`,
       `from ${config.legacy.schemas.agendaEvent} as ra`,
       `left join ${config.legacy.schemas.agenda} as a on a.id=ra.review_id`,
@@ -77,7 +77,7 @@ async function run( options = {} ) {
       agendaEvents.forEach( ae => {
 
         q( {
-          operation: 'transfer', 
+          operation: 'transfer',
           legacy: ae,
           force: params.force
         } );
@@ -97,7 +97,7 @@ async function run( options = {} ) {
   }
 
   // queue deletes to do
-  
+
   offset = 0;
 
   legacyQuery = [
@@ -124,7 +124,7 @@ async function run( options = {} ) {
 
       if ( !( await _query( `select ae.id from ${config.legacy.schemas.agendaEvent} as ae
         left join ${config.legacy.schemas.event} as e on e.id=ae.event_id
-        left join ${config.legacy.schemas.agenda} as a on a.id=ae.review_id 
+        left join ${config.legacy.schemas.agenda} as a on a.id=ae.review_id
         where a.uid = ? and e.uid = ?`, [ ref.agendaUid, ref.eventUid ] ) ).length ) {
 
         q( {
