@@ -6,7 +6,7 @@ const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const genUrl = require( '../genUrl' );
+const genUrl = require( '../../genUrl' );
 
 
 module.exports = async ( { agendaEvent, context, agenda, event } ) => {

@@ -9,8 +9,8 @@ const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const queueForControlData = require( './queueForControlData' );
-const sendEventUpdate = require( './sendEventUpdate' );
-const sendEventChangeState = require( './sendEventChangeState' );
+const sendEventUpdate = require( './lib/sendEventUpdate' );
+const sendEventChangeState = require( './lib/sendEventChangeState' );
 
 module.exports = async ( before, after, context ) => {
 

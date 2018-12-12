@@ -1,12 +1,15 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
+const VError = require( 'verror' );
+
+const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const genUrl = require( '../genUrl' );
+
+const genUrl = require( '../../genUrl' );
 
 
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
@@ -27,6 +30,13 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
   const members = await listAdminmods( { agenda } );
 
   const contributorUser = await usersSvc.findOne( { query: { uid: agendaEvent.userUid } } );
+
+  if ( !contributorUser ) {
+
+    throw new VError( 'User matching agendaEvent.userUid %s was not found', _.get( agendaEvent, 'userUid' ) );
+
+  }
+
   const contributor = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } );
   const conributorLang = contributorUser.culture || 'fr';
 
