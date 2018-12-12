@@ -149,7 +149,10 @@ function init( service ) {
 
     if ( !values.profile ) {
 
-      values.req.log( '%s profile data is not in hand, aborting attemptCreate', service );
+      values.req.log( 'profile data is not in hand, aborting attemptCreate', {
+        service,
+        values
+      } );
 
       if ( !values.data ) values.data = {};
 
@@ -161,7 +164,10 @@ function init( service ) {
 
     if ( service === 'facebook' && !values.profile.email ) {
 
-      values.req.log( '%s profile email is not in hand, aborting attemptCreate', service );
+      values.req.log( 'profile email is not in hand, aborting attemptCreate', {
+        service,
+        values
+      } );
 
       if ( !values.data ) values.data = {};
 

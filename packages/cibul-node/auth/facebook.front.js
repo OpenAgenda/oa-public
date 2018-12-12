@@ -14,8 +14,6 @@ const modLib = require( '../lib/moduleLib' ),
 
   auth = require( './lib/auth' )( 'facebook' ),
 
-  w = require( 'when' ),
-
   genUrl = require( '../services/genUrl' ),
 
   agendaSvc = require( '../services/agenda' ),
@@ -45,7 +43,7 @@ module.exports = function( path ) {
     load: load( router, path ),
     paths: modLib.getPaths( path, routes )
   }
-  
+
 }
 
 
@@ -54,8 +52,8 @@ function load( router, path ) {
   const facebookOptions = {
     clientID: _.get( config, 'auth.facebook.id' ),
     clientSecret: _.get( config, 'auth.facebook.secret' ),
-    passReqToCallback: true,
-    authorizationURL: "https://www.facebook.com/v2.0/dialog/oauth"
+    scope: [ 'email', 'public_profile' ],
+    profileFields: ['id', 'email', 'name' ]
   };
 
   return function( app ) {
@@ -89,11 +87,7 @@ function signin( req, res, next ) {
 
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
-  pLib.authenticate( 'facebook-signin', {
-    scope: 'email',
-    profileFields: ['id', 'email', 'name' ],
-    callbackURL: genUrl.abs( 'facebookSigninCallback' )
-  } )( req, res, next );
+  pLib.authenticate( 'facebook-signin' )( req, res, next );
 
 }
 
@@ -102,16 +96,12 @@ function signup( req, res, next ) {
 
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
-  pLib.authenticate( 'facebook-signup', {
-    scope: 'email',
-    profileFields: ['id', 'email', 'name' ],
-    callbackURL: genUrl.abs( 'facebookSignupCallback' )
-  } )( req, res, next );
+  pLib.authenticate( 'facebook-signup' )( req, res, next );
 
 }
 
 
-function _loadFacebookProfile( req, token, refreshToken, profile, done ) {
+function _loadFacebookProfile( accessToken, refreshToken, profile, done ) {
 
   var extracted = {
     id: profile.id,
