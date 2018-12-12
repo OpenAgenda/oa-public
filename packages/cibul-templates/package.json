@@ -35,7 +35,7 @@
     "@openagenda/agenda-search": "^0.1.4",
     "@openagenda/agenda-settings": "^1.1.0",
     "@openagenda/agenda-tags": "^1.0.2",
-    "@openagenda/aggregator-sources": "^1.1.1",
+    "@openagenda/aggregator-sources": "^1.1.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/call-to-action": "^2.2.0",
     "@openagenda/dom-utils": "^2.2.0",

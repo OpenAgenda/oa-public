@@ -74,7 +74,7 @@ module.exports = createReactClass({
 
       var value = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
-      value[ l ] = ( e.target.value || '' ).replace( /^\s+/, '' );
+      value[ l ] = e.target.value.trimStart();
 
       self.setState( { userHasTyped: true } );
 
