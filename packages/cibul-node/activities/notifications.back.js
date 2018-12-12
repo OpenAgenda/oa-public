@@ -1,6 +1,5 @@
 "use strict";
 
-const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const modLib = require( '../lib/moduleLib.js' );
@@ -23,8 +22,7 @@ module.exports = path => {
   router.pre( [
     cmn.loadLogger( 'notifications' ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
-    sessions.middleware.load( { detailed: true } ),
-    bodyParser.json()
+    sessions.middleware.load( { detailed: true } )
   ] );
 
   return {

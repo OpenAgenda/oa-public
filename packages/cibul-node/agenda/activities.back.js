@@ -2,7 +2,6 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const config = require( '../config' );
@@ -62,7 +61,6 @@ module.exports = path => {
     cmn.loadLogger( 'agendaActivities' ),
     sessions.middleware.ifUnlogged( cmn.redirectTo() ),
     sessions.middleware.load( { detailed: true } ),
-    bodyParser.json(),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdminOrModerator
   ] );

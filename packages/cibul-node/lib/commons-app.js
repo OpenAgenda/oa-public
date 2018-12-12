@@ -6,7 +6,6 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const deepExtend = require( 'deep-extend' );
 const hsts = require( 'hsts' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
@@ -648,7 +647,7 @@ function render( req, res, templatePath, data, maintain ) {
 
 function renderTemplate( req, templatePath, data, maintain, cb ) {
 
-  const compiledData = deepExtend( {},
+  const compiledData = _.merge( {},
     req.baseData ? req.baseData : {},
     data ? data : {}
   );
@@ -749,13 +748,13 @@ function loadBaseData( func, cssFile ) {
 
     if ( func ) {
 
-      deepExtend( baseData, func( req, res ) );
+      _.merge( baseData, func( req, res ) );
 
     }
 
     if ( req.layoutData ) {
 
-      deepExtend( baseData, req.layoutData );
+      _.merge( baseData, req.layoutData );
 
     }
 
@@ -777,7 +776,7 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    req.baseData = deepExtend( req.baseData || {}, baseData );
+    req.baseData = _.merge( req.baseData || {}, baseData );
 
     next();
 

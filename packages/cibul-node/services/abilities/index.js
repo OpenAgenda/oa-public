@@ -12,10 +12,6 @@ const cmn = require( '../../lib/commons-app' );
 
 const app = express();
 
-app
-  .use( express.json() )
-  .use( express.urlencoded( { extended: true } ) );
-
 if ( process.env.NODE_ENV === 'development' ) {
   app.use( morgan( 'dev' ) );
 }

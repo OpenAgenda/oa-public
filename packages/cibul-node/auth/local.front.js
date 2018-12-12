@@ -8,7 +8,6 @@ const bodyMw = require( 'body-parser' ).urlencoded( {
 const https = require( 'https' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const deepExtend = require( 'deep-extend' );
 const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const invitationsSvc = require( '@openagenda/invitations' );
@@ -157,7 +156,7 @@ function signinSubmit( req, res, next ) {
 
         }
 
-        deepExtend( v.data, v.req.body );
+        _.merge( v.data, v.req.body );
 
         return auth.renderSignin( v );
 
@@ -420,7 +419,7 @@ function _loadCaptcha( req, res, next ) {
 
     if ( !req.baseData ) req.baseData = {};
 
-    deepExtend( req.baseData, {
+    _.merge( req.baseData, {
       head: {
         js: {
           captcha: {

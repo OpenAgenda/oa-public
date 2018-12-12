@@ -1,10 +1,10 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 var config = require( '../../config' ),
 
 es = require( './es' )( config.es ),
-
-deepExtend = require( 'deep-extend' ),
 
 moment = require( 'moment' ),
 
@@ -19,10 +19,10 @@ module.exports = {
 
 
 /**
- * 
+ *
  * get stats info on indexed events: updated events aggregated
  * over weeks
- * 
+ *
  */
 
 function getIndexedEventsByWeek( options, cb ) {
@@ -41,7 +41,7 @@ function getIndexedEventsByWeek( options, cb ) {
 
   }
 
-  deepExtend( params, options );
+  _.merge( params, options );
 
   dsl = {
     query: {
@@ -89,7 +89,7 @@ function getIndexedEventsByWeek( options, cb ) {
 
 
 /**
- * get difference count between db and search index 
+ * get difference count between db and search index
  */
 
 function getIndexDiff( cb ) {
@@ -102,7 +102,7 @@ function getIndexDiff( cb ) {
       'from event as e left join review_article as ra on ra.event_id=e.id and ra.state=2',
       'where e.is_published = 1 and e.is_new = 0',
       'group by e.id having count( ra.id ) = 0',
-    ') as x' 
+    ') as x'
   ].join( ' ' );
 
   const referencedQuery = [

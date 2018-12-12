@@ -4,10 +4,8 @@ const config = require( '../config' );
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const bodyParser = require( 'body-parser' );
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
-const VError = require( 'verror' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
@@ -27,8 +25,6 @@ const notificationMail = require( '../services/notification/mail' );
 const legacyEvents = require( '../services/events' ).legacy;
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
-
-const logRequests = require( '../services/logRequests' );
 
 const logger = require( '@openagenda/logs' );
 
@@ -68,9 +64,9 @@ const routes = {
 
     legacyApiGetCached: [ 'get', '/api/cache', [ apiGetCached ] ],
 
-    legacyApiPostCached: [ 'post', '/api/cache', [ bodyParser.json(), apiPostCached ] ],
+    legacyApiPostCached: [ 'post', '/api/cache', [ apiPostCached ] ],
 
-    legacyApiSystem: [ 'post', '/api/system', [ bodyParser.json(), apiSystem ] ],
+    legacyApiSystem: [ 'post', '/api/system', [ apiSystem ] ],
 
     /**
      * process a save for event references
@@ -78,7 +74,6 @@ const routes = {
     eventReferencesSave: [ 'post', '/:slug/events/:eventUid/references', [
       legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       _loadEventByUid,
-      bodyParser.json(),
       referencesSave
     ] ],
 
@@ -109,7 +104,6 @@ const routes = {
      * log sf messages
      */
     log: [ 'post', '/log', [
-      bodyParser.json(),
       logController
     ] ],
 
@@ -128,12 +122,10 @@ const routes = {
      * send mails on behalf of sf
      */
     mail: [ 'post', '/mail', [
-      bodyParser.json(),
       mail
     ] ],
 
     notifications: [ 'post', '/notifications', [
-      bodyParser.json(),
       ( req, res, next ) => {
 
         cmn.renderJson( req, res, { success: true } );
@@ -150,7 +142,6 @@ const routes = {
     ] ],
 
     verifyContributorIP: [ 'post', '/contributor/ip', [
-      bodyParser.json(),
       ( req, res, next ) => {
 
         agendas.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {

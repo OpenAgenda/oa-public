@@ -2,15 +2,9 @@
 
 const log = require( '@openagenda/logs' )( 'admin/agendas.back' );
 
-var config = require( '../config' ),
-
-  modLib = require( '../lib/moduleLib.js' ),
+var modLib = require( '../lib/moduleLib.js' ),
 
   cmn = require( '../lib/commons-app' ),
-
-  bodyParser = require( 'body-parser' ),
-
-  moment = require( 'moment' ),
 
   sessions = require( '@openagenda/sessions' ),
 
@@ -21,7 +15,6 @@ var config = require( '../config' ),
     adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
     adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
     adminAgendasSetRes: [ 'post', '/:uid', [
-      bodyParser.json(),
       ( req, res, next ) => {
         req.context = { user: req.user };
         next();
@@ -46,8 +39,6 @@ var config = require( '../config' ),
 module.exports = function ( path ) {
 
   var router = modLib.Router( routes );
-
-  moment.locale( 'fr' );
 
   router.pre( [
     cmn.loadBaseData( 'compiledAdmin.css' ),

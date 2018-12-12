@@ -2,7 +2,6 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const bodyParser = require( 'body-parser' );
 const _ = require( 'lodash' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const mw = require( '@openagenda/member-apps/middleware' );
@@ -106,7 +105,6 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'members' ),
-    bodyParser.json(),
     sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     agendasMw.load( {

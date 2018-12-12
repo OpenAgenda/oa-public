@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require( 'express' );
-const bodyParser = require( 'body-parser' );
 const morgan = require( 'morgan' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
@@ -23,8 +22,6 @@ const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
   sessions.middleware.load( { detailed: true } ),
-  bodyParser.urlencoded( { extended: true } ),
-  bodyParser.json(),
   ( req, res, next ) => {
     req.type = 'user';
     req.creatorInboxUser = { userUid: req.user.uid };

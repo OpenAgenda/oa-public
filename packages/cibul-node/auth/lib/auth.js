@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
-const deepExtend = require( 'deep-extend' );
 
 const labels = require( '@openagenda/labels/auth/messages' );
 const emailValidator = require( '@openagenda/validators/email' )();
@@ -80,7 +79,7 @@ function init( service ) {
   const authenticate = serviceAuthenticate( authenticateFields[ service ] );
   const create = serviceCreate( createFields[ service ], service !== 'twitter' );
 
-  return deepExtend( {
+  return _.merge( {
     create,
     authenticate,
     attemptAuth,
@@ -130,7 +129,7 @@ function init( service ) {
 
         }
 
-        if ( data ) deepExtend( values.data, data );
+        if ( data ) _.merge( values.data, data );
 
         resolve( values );
 
@@ -216,7 +215,7 @@ function init( service ) {
 
         if ( data ) {
 
-          values.data = deepExtend( values.data ? values.data : {}, data );
+          values.data = _.merge( values.data ? values.data : {}, data );
 
         }
 
@@ -496,7 +495,7 @@ function _render( template, defaults ) {
 
     res = asPromise ? values.res : arguments[ 1 ],
 
-    data = deepExtend( {}, defaults );
+    data = _.merge( {}, defaults );
 
     if ( req.agenda ) {
 
@@ -514,13 +513,13 @@ function _render( template, defaults ) {
 
       values.resolved = true;
 
-      if ( values.err ) deepExtend( data, values.err );
+      if ( values.err ) _.merge( data, values.err );
 
-      data = deepExtend( data, values.data ? values.data : {} );
+      data = _.merge( data, values.data ? values.data : {} );
 
     } else {
 
-      deepExtend( data, arguments.length === 3 ? arguments[ 2 ] : {} );
+      _.merge( data, arguments.length === 3 ? arguments[ 2 ] : {} );
 
     }
 

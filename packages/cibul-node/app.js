@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const http = require( 'http' );
 const express = require( 'express' );
+const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const logger = require( '@openagenda/logs' );
 const cmn = require( './lib/commons-app' );
@@ -22,9 +23,11 @@ const server = http.createServer( app );
 
 app.server = server;
 
-app.set( 'trust proxy', 'loopback' );
-
-app.use( sessions.middleware );
+app
+  .set( 'trust proxy', 'loopback' )
+  .use( bodyParser.json( { limit: '5mb' } ) )
+  .use( bodyParser.urlencoded( { limit: '500kb', extended: true } ) )
+  .use( sessions.middleware );
 
 app.use( ( req, res, next ) => {
   res.setHeader( 'X-Powered-By', 'OpenAgenda' );

@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
-const deepExtend = require( 'deep-extend' );
 const { promisify } = require( 'util' )
 
 const agendaSvc = require( '@openagenda/agendas' );
@@ -542,7 +541,7 @@ function _appendSettings( req, res, next ) {
 
   const agendaUids = [ agendaUid ];
 
-  if ( originAgendaUid ) agendaUids.push( originAgendaUid );  
+  if ( originAgendaUid ) agendaUids.push( originAgendaUid );
 
   agendaSvc.list( { uid: agendaUids }, 0, 2, { private: null, internal: true, includeFields: [ 'settings', 'indexed', 'private', 'credentials' ] }, ( err, agendas ) => {
 
@@ -550,9 +549,9 @@ function _appendSettings( req, res, next ) {
 
     if ( err ) return next( err );
 
-    req.baseData = ih( req.baseData, { 
-      indexed: { 
-        $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )  
+    req.baseData = ih( req.baseData, {
+      indexed: {
+        $set: _.get( agenda, 'indexed', true ) && !_.get( agenda, 'private', false )
       },
       scriptParams: {
         moderatorCanPublish: {
@@ -637,7 +636,7 @@ function _formatSocialLinks( req, res, next ) {
 
   }
 
-  deepExtend( req.formatted, eventSvc.share.getSocialLinks( req.event, eventUrl, siteUrl ) );
+  _.merge( req.formatted, eventSvc.share.getSocialLinks( req.event, eventUrl, siteUrl ) );
 
   if ( req.embed ) {
 
