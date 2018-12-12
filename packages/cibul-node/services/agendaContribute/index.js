@@ -17,13 +17,13 @@ let bucket;
 
 module.exports = _.extend( ( parentApp, path ) => {
 
-  parentApp.use( '/dist/contribute', 
-    contribute.dist, 
+  parentApp.use( '/dist/contribute',
+    contribute.dist,
     ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
   );
 
-  parentApp.all( [ 
-    '/:agendaSlug/contribute', 
+  parentApp.all( [
+    '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
@@ -48,12 +48,12 @@ module.exports = _.extend( ( parentApp, path ) => {
   ], middlewares.event );
 
   parentApp.all( [
-    '/:agendaSlug/contribute', 
+    '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], ( req, res, next ) => {
-    
+
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
