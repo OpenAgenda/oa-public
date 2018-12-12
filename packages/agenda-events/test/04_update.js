@@ -30,121 +30,154 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
-  it( 'simple update', async () => {
+  describe( 'handling protected values', () => {
 
-    let result = await svc( 62792452 ).update( 10974548, { featured: true, state: 1 } );
+    let protectedRef, unprotectedRef;
 
-    result.success.should.equal( true );
+    const forcedDate = new Date( '2018-02-28T08:00:00.000Z' );
 
-  } );
+    before( async () => {
 
-  it( 'simple update cleans state given as string', async () => {
+      await svc( 1 ).create( 11, { userUid: 1 } );
 
-    let result = await svc( 62792452 ).update( 10974548, { featured: true, state: '1' } );
+      await svc( 1 ).create( 12, { userUid: 2 } );
 
-    result.updated.state.should.equal( 1 );
-
-  } );
-
-  it( 'update userUid is possible through second argument', async () => {
-
-    let result = await svc( 62792452 ).update( 10974548, {
-      userUid: 989898
     } );
 
-    result.updated.userUid.should.equal( 989898 );
+    before( async () => {
 
-  } );
+      await svc( 1 ).update( 11, {
+        userUid: 3,
+        createdAt: forcedDate
+      } );
 
-  it( 'simple update to refused state', async () => {
+      await svc( 1 ).update( 12, {
+        userUid: 3,
+        createdAt: forcedDate
+      }, { protected: false } );
 
-    const result = await svc( 62792452 ).update( 10974548, {
-      state: -1
+      protectedRef = await svc( 1 ).get( 11 );
+
+      unprotectedRef = await svc( 1 ).get( 12 );
+
     } );
 
-    result.updated.state.should.equal( -1 );
+    it( 'protected ref userUid is unchanged', async () => {
 
-  } );
+      protectedRef.userUid.should.equal( 1 );
 
-  it( 'simple update to canEdit set to true', async () => {
-
-    const result = await svc( 62792452 ).update( 10974548, {
-      canEdit: true
     } );
 
-    result.updated.canEdit.should.equal( true );
+    it( 'protected ref createdAt timestamp is unchanged', async () => {
 
-  } );
+      protectedRef.createdAt.should.not.eql( forcedDate );
 
-  it( 'update is part update', async () => {
-
-
-    await svc( 62792452 ).update( 10974548, {
-      canEdit: true
     } );
 
-    const result = await svc( 62792452 ).update( 10974548, {
-      state: -1
+    it( 'unprotected ref userUid is changed', async () => {
+
+      unprotectedRef.userUid.should.equal( 3 );
+
     } );
 
-    result.updated.canEdit.should.equal( true );
+    it( 'unprotected ref createdAt timestamp is changed', async () => {
+
+      unprotectedRef.createdAt.should.eql( forcedDate );
+
+    } );
 
   } );
 
-  it( 'simple update forcing timestamp values', async () => {
+  describe( 'other', () => {
 
-    let createdAt = new Date( '2017-02-28T08:00:00.000Z' );
+    it( 'simple update', async () => {
 
-    let updatedAt = new Date( '2017-03-28T08:00:00.000Z' );
+      let result = await svc( 62792452 ).update( 10974548, { featured: true, state: 1 } );
 
-    let result = await svc( 62792452 ).update( 10974548, {
-      featured: true,
-      state: 2,
-      createdAt,
-      updatedAt
-    }, { protected: false } );
+      result.success.should.equal( true );
 
-    result.updated.createdAt.toString().should.equal( createdAt.toString() );
+    } );
 
-    result.updated.updatedAt.toString().should.equal( updatedAt.toString() );
+    it( 'simple update cleans state given as string', async () => {
 
-  } );
+      let result = await svc( 62792452 ).update( 10974548, { featured: true, state: '1' } );
+
+      result.updated.state.should.equal( 1 );
+
+    } );
+
+    it( 'simple update to refused state', async () => {
+
+      const result = await svc( 62792452 ).update( 10974548, {
+        state: -1
+      } );
+
+      result.updated.state.should.equal( -1 );
+
+    } );
+
+    it( 'simple update to canEdit set to true', async () => {
+
+      const result = await svc( 62792452 ).update( 10974548, {
+        canEdit: true
+      } );
+
+      result.updated.canEdit.should.equal( true );
+
+    } );
+
+    it( 'update is part update', async () => {
 
 
-  it( 'context can be passed in options to be transfered to onUpdate interface', done => {
+      await svc( 62792452 ).update( 10974548, {
+        canEdit: true
+      } );
 
-    svc.init( im( config, {
-      interfaces: {
-        onUpdate: {
-          $set: ( before, after, context ) => {
+      const result = await svc( 62792452 ).update( 10974548, {
+        state: -1
+      } );
 
-            context.should.eql( {
-              userUid: 111,
-              aggregated: false,
-              sourceAgenda: null,
-              transferToLegacy: false,
-              agenda: null,
-              event: null,
-              legacy: true
-            } );
+      result.updated.canEdit.should.equal( true );
 
-            done();
+    } );
 
+
+    it( 'context can be passed in options to be transfered to onUpdate interface', done => {
+
+      svc.init( im( config, {
+        interfaces: {
+          onUpdate: {
+            $set: ( before, after, context ) => {
+
+              context.should.eql( {
+                userUid: 111,
+                aggregated: false,
+                sourceAgenda: null,
+                transferToLegacy: false,
+                agenda: null,
+                event: null,
+                legacy: true
+              } );
+
+              done();
+
+            }
           }
         }
-      }
-    } ) );
+      } ) );
 
-    svc( 62792452 ).update( 10974548, { featured: true }, {
-      context: {
-        userUid: 111,
-        aggregated: false,
-        sourceAgenda: null,
-        transferToLegacy: false,
-        agenda: null,
-        event: null,
-        legacy: true
-      }
+      svc( 62792452 ).update( 10974548, { featured: true }, {
+        context: {
+          userUid: 111,
+          aggregated: false,
+          sourceAgenda: null,
+          transferToLegacy: false,
+          agenda: null,
+          event: null,
+          legacy: true
+        }
+      } );
+
     } );
 
   } );
