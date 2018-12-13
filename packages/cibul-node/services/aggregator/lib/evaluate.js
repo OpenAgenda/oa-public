@@ -117,7 +117,7 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
       log( 'info', 'publish - nothing done for event %s of source %s to aggregating agenda %s', eventId, sourceId, aggregatingAgendaId );
 
     }
- 
+
     cb( null, {
       alreadyReferenced: v.referenced,
       added: v.added
@@ -382,11 +382,11 @@ function _removeSourceReference( v ) {
   }, err => {
 
     if ( err ) return d.reject( err );
-    
+
     v.event.getSources( function( err, sources ) {
 
       if ( err ) return d.reject( err );
-      
+
       v.hasRemainingReferences = !!sources.length;
 
       log( 'has remaining references? %s', v.hasRemainingReferences ? 'yes' : 'no' );
@@ -409,7 +409,7 @@ function _removeSourceReference( v ) {
 function _removeFromAggregator( v ) {
 
   return p.w.promise( function( rs, rj ) {
-    
+
     v.aggregatingAgenda.removeEvent( v.event, {
       refresh: !v.mute
     }, ( err, result ) => {
@@ -494,7 +494,7 @@ function _loadAgendaCategories( agendaIdNamespace, destNamespace ) {
     } );
 
     return d.promise;
-    
+
   }
 
 }
