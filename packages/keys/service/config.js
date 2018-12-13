@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const path = require( 'path' );
 const knexLib = require( 'knex' );
 const redis = require( 'redis' );
-const logger = require( '@openagenda/basic-logger' );
+const logs = require( '@openagenda/logs' );
 const promisifyRedis = require( '@openagenda/service-utils/promisifyRedis' );
 
 const config = {
@@ -18,7 +18,9 @@ module.exports = _.extend( config, { init } );
 
 async function init( c ) {
 
-  if ( c.logger ) logger.setLogger( c.logger );
+  if ( c.logger ) {
+    logs.setModuleConfig( c.logger );
+  }
 
   _.merge( config, _.pick( c, [
     'mysql',

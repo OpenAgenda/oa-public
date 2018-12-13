@@ -1,11 +1,10 @@
-const logger = require( '@openagenda/basic-logger' );
+const logs = require( '@openagenda/logs' );
 const knexLib = require( 'knex' );
 const mw = require( '../middleware' );
 const aggregatorSources = require( './aggregatorSources' );
 
 let config;
 let knex;
-let log;
 
 module.exports = Object.assign( service, {
   init,
@@ -22,11 +21,9 @@ function init( c, cb ) {
 
       if ( c.logger ) {
 
-        logger.setLogger( c.logger );
+        logs.setModuleConfig( c.logger );
 
       }
-
-      log = logger( 'aggregator-sources' );
 
     } )
 

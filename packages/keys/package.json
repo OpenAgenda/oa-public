@@ -14,7 +14,7 @@
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/keys",
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^1.2.14",

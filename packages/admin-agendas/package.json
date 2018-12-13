@@ -21,9 +21,9 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/admin-agendas",
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.0",
     "@openagenda/react-form-components": "^2.1.0",
     "@openagenda/utils": "^1.0.2",

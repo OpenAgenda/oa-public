@@ -1,27 +1,23 @@
 "use strict";
 
-const logger = require( '@openagenda/basic-logger' );
-
 const _ = require( 'lodash' );
 const async = require( 'async' );
-
 const ReactDOMServer = require( 'react-dom/server' );
 
 const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
 const createStore = require( '@openagenda/react-utils/dist/createStore' );
 const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
+const logs = require( '@openagenda/logs' );
 
 const getAdminRoutes = require( './react/apps/admin/routes' );
 const getAgendaRoutes = require( './react/apps/agenda/routes' );
 const getUserRoutes = require( './react/apps/user/routes' );
 const reducer = require( './react/redux/reducer' );
-
 const notificationsApp = require( './react/apps/notifications' );
+const log = logs( 'activity-apps/middleware' );;
 
 let activitiesSvc;
-
 let config;
-let log;
 
 module.exports = {
   matchAdminApp: matchAppMw( createStore( reducer ), getAdminRoutes, ApiClient ),
@@ -46,11 +42,9 @@ function init( c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logs.setModuleConfig( c.logger );
 
   }
-
-  log = logger( 'activity-apps/middleware' );
 
 }
 

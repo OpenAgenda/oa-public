@@ -1,5 +1,5 @@
 const React = require( 'react' );
-const logger = require( '@openagenda/basic-logger' );
+const logs = require( '@openagenda/logs' );
 const mwUploadImage = require( '@openagenda/image-upload/lib/middleware' );
 const createHistory = require( 'react-router/lib/createMemoryHistory' );
 const { Provider } = require( 'react-redux' );
@@ -11,7 +11,7 @@ const { ReduxAsyncConnect, loadOnServer } = require( 'redux-connect' );
 const createRoutes = require( './react/createRoutes' );
 const editRoutes = require( './react/editRoutes' );
 
-let service, config, log;
+let service, config;
 let agendasSvc;
 
 module.exports = {
@@ -35,11 +35,9 @@ function init( s, c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logs.setModuleConfig( c.logger );
 
   }
-
-  log = logger( 'agenda-settings' );
 
   agendasSvc = config.services.agendas;
 

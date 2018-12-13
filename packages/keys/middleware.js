@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 const VError = require( 'verror' );
-const log = require( '@openagenda/basic-logger' )( 'keys/middleware' );
+const log = require( '@openagenda/logs' )( 'keys/middleware' );
 const service = require( './service' );
 
 module.exports = {

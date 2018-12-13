@@ -1,5 +1,4 @@
-const logger = require( '@openagenda/basic-logger' );
-
+const logs = require( '@openagenda/logs' );
 const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
 const createStore = require( '@openagenda/react-utils/dist/createStore' );
 const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
@@ -7,7 +6,7 @@ const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
 const getRoutes = require( './react/dist/routes' );
 const reducer = require( './react/dist/redux/reducer' );
 
-let service, config, log;
+let service, config;
 
 module.exports = {
   init,
@@ -23,11 +22,9 @@ function init( s, c ) {
 
   if ( c.logger ) {
 
-    logger.setLogger( c.logger );
+    logs.setModuleConfig( c.logger );
 
   }
-
-  log = logger( 'aggregator-sources' );
 
 }
 
@@ -53,7 +50,6 @@ function remove( req, res ) {
       res.send( result );
     } )
     .catch( err => {
-      console.log( err );
       res.status( 400 ).send( err );
     } );
 

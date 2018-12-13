@@ -20,7 +20,6 @@ export function createAggregator() {
   return {
     types: [ CREATE_AGG, CREATE_AGG_SUCCESS, CREATE_AGG_FAIL ],
     promise: ( client, { res, agenda } ) => {
-      console.log( res.createAggregator.replace( ':uid', agenda.uid ) );
       return client.get( res.createAggregator.replace( ':uid', agenda.uid ) )
     }
   }

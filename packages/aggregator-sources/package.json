@@ -21,8 +21,8 @@
     "react-dom": "15 || 16"
   },
   "dependencies": {
-    "@openagenda/basic-logger": "^2.0.0",
     "@openagenda/dom-utils": "^2.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.0.3",
     "@openagenda/react-form-components": "^2.0.8",
     "@openagenda/react-utils": "^2.0.2",

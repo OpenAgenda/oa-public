@@ -1,10 +1,9 @@
 "use strict";
 
 const knexLib = require( 'knex' );
+const logs = require( '@openagenda/logs' );
 
-var logger = require( '@openagenda/basic-logger' ), log,
-
-  mw = require( './middleware' ),
+var mw = require( './middleware' ),
 
   agendaStakeholders,
 
@@ -34,7 +33,7 @@ function init( c, cb ) {
 
     if ( c.logger ) {
 
-      logger.setLogger( c.logger );
+      logs.setModuleConfig( c.logger );
 
     }
 
@@ -56,8 +55,6 @@ function init( c, cb ) {
   } )
 
   .done( () => {
-
-    log = logger( 'admin' );
 
     if ( cb ) {
       cb();
