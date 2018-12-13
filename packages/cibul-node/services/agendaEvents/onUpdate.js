@@ -33,7 +33,7 @@ module.exports = async ( before, after, context ) => {
   coms.publish( config.mainChannel, {
     name: 'legacy.es.event.update',
     values: {
-      id: event.id,
+      uid: event.uid,
       type: 'update'
     }
   } );
