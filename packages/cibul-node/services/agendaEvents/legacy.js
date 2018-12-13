@@ -17,6 +17,8 @@ const agendaGetOptions = {
   includeImagePath: true
 };
 
+const monitored = [ 'event.update', 'review.article_create', 'event.remove' ];
+
 module.exports = {
   task,
   evaluate: evaluate.bind( null, null )
@@ -36,7 +38,15 @@ async function evaluate( err, action ) {
 
   if ( err ) return log( 'error', 'coms subscribe error', err );
 
-  log( 'evaluating action %j', action );
+  if ( monitored.includes( action.name ) ) {
+
+    log( 'evaluating action %j', action );
+
+  } else {
+
+    return log( 'ignoring action %s', action.name );
+
+  }
 
   let result = null;
 
@@ -142,11 +152,11 @@ async function _loadAgendaEventUids( name, values ) {
 
   const agendaId = _.get( values, 'agendaId' );
 
-  if ( values.type !== 'event.remove' ) {
+  if ( values.type === 'event.remove' ) {
 
-    const eventUid = eventId ? _.get( await config.knex.first( 'uid' ).from( 'event' ).where( 'id', eventId ), 'id' ) : null;
+    const eventUid = eventId ? _.get( await config.knex.first( 'uid' ).from( 'event' ).where( 'id', eventId ), 'uid' ) : null;
 
-    const agendaUid = agendaId ? _.get( await config.knex.first( 'uid' ).from( 'review' ).where( 'id', agendaId ), 'id' ) : null;
+    const agendaUid = agendaId ? _.get( await config.knex.first( 'uid' ).from( 'review' ).where( 'id', agendaId ), 'uid' ) : null;
 
     return { agendaUid, eventUid };
 
