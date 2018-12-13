@@ -64,6 +64,7 @@
     "d3": "3.5.6",
     "debug": "^3.2.6",
     "deep-extend": "0.6.0",
+    "dom4": "^2.1.4",
     "ejs": "2.4.2",
     "ejs-compiled-loader": "^2.2.0",
     "ejs-compiled-loader-webpack4": "^2.2.0",
