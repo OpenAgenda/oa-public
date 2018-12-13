@@ -11,19 +11,17 @@
  */
 
 
+const log = require( '@openagenda/logs' )( 'setLocationTimezones' );
+
 var db = require( '../lib/db' ),
 
 async = require( 'async' ),
 
 gf = require( '@openagenda/geocode-farm' ),
 
-logger = require( '@openagenda/basic-logger' ), log,
-
 utils = require( '@openagenda/utils' );
 
 module.exports = function( cb ) {
-
-  log = logger( 'setLocationTimezones' );
 
   if ( !db.isReady() ) {
 

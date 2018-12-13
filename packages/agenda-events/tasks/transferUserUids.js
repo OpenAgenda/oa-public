@@ -37,7 +37,7 @@ async function run( options, cb ) {
 
         try {
 
-          let result = await update( ref.agendaUid, ref.eventUid, { userUid } );
+          let result = await update( ref.agendaUid, ref.eventUid, { userUid }, { protected: false } );
 
           if ( result.updated ) {
 
@@ -72,7 +72,7 @@ async function _fetchLegacy( con, ref ) {
   return new Promise( ( rs, rj ) => {
 
     con.query( `select u.uid as userUid
-      from ${config.legacy.schemas.agendaEvent} as ra 
+      from ${config.legacy.schemas.agendaEvent} as ra
       left join ${config.legacy.schemas.agenda} as a on a.id=ra.review_id
       left join ${config.legacy.schemas.event} as e on e.id=ra.event_id
       left join ${config.legacy.schemas.user} as u on u.id=ra.user_id

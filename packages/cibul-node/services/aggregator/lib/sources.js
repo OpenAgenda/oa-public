@@ -60,7 +60,7 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
       }, sourceId, aggregatorAgendaId );
 
       notify.newSource( {
-        sourceId, 
+        sourceId,
         aggregatorAgendaId
       } );
 
@@ -230,7 +230,7 @@ function _streamEvaluates( v ) {
     log( 'streaming events of source agenda id %s to add to aggregating agenda id %s', v.sourceAgenda.id, v.aggregatorAgendaId );
 
     const stream = v.sourceAgenda.searchStream( { passed: !v.upcomingOnly } );
-    
+
     stream.on( 'data', eventData => {
 
       stream.pause();

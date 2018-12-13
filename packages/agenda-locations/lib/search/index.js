@@ -1,10 +1,10 @@
 "use strict";
 
+const log = require( '@openagenda/logs' )( 'search' );
+
 var elastic = require( 'elasticsearch' ),
 
 utils = require( '@openagenda/utils' ),
-
-logger = require( '@openagenda/basic-logger' ), log,
 
 w = require( 'when' ),
 
@@ -153,7 +153,7 @@ function list( query, offset, limit, cb ) {
 
   client.search( {
     index: config.index,
-    body: dsl 
+    body: dsl
   }, ( err, result ) => {
 
     if ( err ) return cb( err );
@@ -284,8 +284,6 @@ function init( cfg, cb ) {
     index: false
   }, cfg );
 
-  log = logger( 'search' );
-
   client = new elastic.Client( {
     host: config.host,
     index: config.index
@@ -403,7 +401,7 @@ function _cleanIdentifiers( v ) {
 
   v.identifiers = cleanIds;
 
-  return v; 
+  return v;
 
 }
 
@@ -498,7 +496,7 @@ function _clearGhosts( v ) {
 
         if ( err ) return ecb( err );
 
-        db.exists( { uid: location.uid }, ( err, exists ) => {
+        db.exists( { uid: location.uid }, ( err, exists ) => {
 
           if ( !exists ) ghosts.push( location.uid );
 
@@ -652,7 +650,7 @@ function _bulkInsert( v, locations, cb ) {
 
   var bulked = [];
 
-  locations.forEach( l => { 
+  locations.forEach( l => {
 
     // action description
     bulked.push( { index: {
@@ -665,7 +663,7 @@ function _bulkInsert( v, locations, cb ) {
 
   } );
 
-  if ( !bulked.length ) return cb( null, { items: [] } );
+  if ( !bulked.length ) return cb( null, { items: [] } );
 
   v.client.bulk( {
     body: bulked

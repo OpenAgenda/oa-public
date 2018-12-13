@@ -8,7 +8,7 @@ const countries = require( '@openagenda/countries' );
 const files = require( '@openagenda/files' );
 const geocodeFarm = require( '@openagenda/geocode-farm' );
 const images = require( '@openagenda/images' );
-const logger = require( '@openagenda/basic-logger' );
+const logger = require( '@openagenda/logs' );
 const utils = require( '@openagenda/utils' );
 
 const db = require( './lib/db' );
@@ -89,7 +89,7 @@ function init( c, cb ) {
 
   if ( config.logger ) {
 
-    logger.setLogger( config.logger );
+    logger.setModuleConfig( config.logger );
 
   }
 

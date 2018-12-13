@@ -26,7 +26,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   let clean = data;
 
   if ( cleanOptions.validate ) {
-  
+
     const validate = await interfaces.getValidator( formSchemaId, cleanOptions );
 
     try {
@@ -46,7 +46,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   }
 
   // verify pre-existing
-  
+
   if ( await get( formSchemaId, identifier ) ) {
 
     throw new VError( 'entry already exists for %s / %s', formSchemaId, identifier );
@@ -55,7 +55,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
 
   // insert
-  
+
   try {
 
     log( 'info', 'creating custom entry with %j', clean, { formSchemaId, identifier } );

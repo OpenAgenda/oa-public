@@ -65,6 +65,13 @@ module.exports = function( loaded, instance ) {
         values: _.set( values, 'type', 'event.unpublish' )
       } );
 
+    } else {
+
+      coms.publish( config.mainChannel, {
+        name: 'event.update',
+        values: _.set( values, 'type', 'event.' + newState )
+      } );
+
     }
 
   }

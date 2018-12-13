@@ -10,8 +10,6 @@ const internalEventSvc = require( './event' );
 
 const agendas = require( '@openagenda/agendas' );
 
-const logger = require( '@openagenda/logger' );
-
 const agendaGet = promisify( agendas.get );
 
 module.exports.init = async config => {
@@ -71,7 +69,7 @@ module.exports.init = async config => {
 
       }
     }, internalEventSvc.locations ),
-    logger
+    logger: config.getLogConfig( 'svc', 'locations' )
   } );
 
 }

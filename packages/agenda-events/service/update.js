@@ -48,12 +48,13 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
     const values = _.extend( {}, current, data || {}, {
       updatedAt: new Date(),
-      createdAt: current.createdAt
+      createdAt: current.createdAt,
+      userUid: current.userUid
     } );
 
     if ( !params.protected ) {
 
-      [ 'updatedAt', 'createdAt' ].forEach( f => {
+      [ 'updatedAt', 'createdAt', 'userUid' ].forEach( f => {
 
         if ( data[ f ] ) values[ f ] = data[ f ];
 

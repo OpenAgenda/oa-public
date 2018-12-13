@@ -28,7 +28,7 @@ describe( 'custom - functional (server): transfer from legacy', function() {
         }
       },
       interfaces: {
-        getValidator: { 
+        getValidator: {
           $set: formSchemaId => {
 
             return v => v; // its all good for these tests

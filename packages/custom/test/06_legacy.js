@@ -61,7 +61,7 @@ describe( 'custom - functional (server): legacy', function() {
     JSON.parse( custom_fields ).should.eql( {
       custom_description: 'Une description personnalisée',
       intermunicipal_interest: true,
-      recurring: true 
+      recurring: true
     } );
 
   } );

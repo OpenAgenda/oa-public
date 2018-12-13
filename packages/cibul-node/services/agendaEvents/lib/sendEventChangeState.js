@@ -1,12 +1,15 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
+const VError = require( 'verror' );
+
+const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const genUrl = require( '../genUrl' );
+
+const genUrl = require( '../../genUrl' );
 
 
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
@@ -27,10 +30,19 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
   const members = await listAdminmods( { agenda } );
 
   const contributorUser = await usersSvc.findOne( { query: { uid: agendaEvent.userUid } } );
-  const contributor = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } );
-  const conributorLang = contributorUser.culture || 'fr';
 
-  if ( agendaEvent.agendaUid ===  event.agendaUid ) {
+  const contributor = contributorUser ? await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } ) : null;
+
+  if ( agendaEvent.agendaUid === event.agendaUid ) {
+
+    if ( !contributorUser ) {
+
+      throw new VError( 'User matching agendaEvent.userUid %s was not found', _.get( agendaEvent, 'userUid' ) );
+
+    }
+
+    const conributorLang = contributorUser.culture || 'fr';
+
     await mails( {
       template: 'myEventChangeState',
       to: {
@@ -54,12 +66,13 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
       },
       lang: conributorLang
     } );
+
   }
 
   await mails( {
     template: 'eventChangeState',
     to: members
-      .filter( member => member.id !== contributor.id )
+      .filter( member => member.id !== _.get( contributor, 'id' ) )
       .map( member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
