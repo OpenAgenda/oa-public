@@ -661,7 +661,8 @@ function _announceUpdate( v ) {
 
   v.aggregatingAgenda.announceEventUpdate( v.event, {
     refresh: !v.mute,
-    sourceAgendaUid: v.sourceAgenda.uid
+    sourceAgendaUid: v.sourceAgenda.uid,
+    type: v.state === 2 ? 'event.publish' : null
   } );
 
   return v;
