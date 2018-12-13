@@ -87,7 +87,7 @@ module.exports = async ( ae, context ) => {
     coms.publish( config.mainChannel, {
       name: 'legacy.es.event.create',
       values: {
-        id: event.id,
+        uid: event.uid,
         type: 'create'
       }
     } );

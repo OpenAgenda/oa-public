@@ -78,7 +78,7 @@ function _onAgendaActivity( action ) {
         agenda.refreshUpdatedAt();
 
     }
-    
+
 
   });
 

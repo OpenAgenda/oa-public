@@ -6,6 +6,7 @@
  */
 
 
+const _ = require( 'lodash' );
 const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'search task' );
 
@@ -258,15 +259,18 @@ function _publish( schema ) {
 
   return ( job, cb ) => {
 
-    log( 'info', 'publishing/creating %s %s', job.type, job.id );
+    const identifiers = job.uid ? { uid: job.uid } : { id: job.id };
 
-    if ( job.id === undefined ) {
+    log( 'info', 'publishing/creating %s %s %j', schema, job.type, identifiers );
 
-      return cb( 'job ' + job.jobName + ' id is not defined' );
+    if ( !identifiers.uid && !identifiers.id ) {
+
+      return cb( 'job ' + job.jobName + ' identifiers are not defined' );
 
     }
 
-    model[ schema ]().get( { id : job.id }, function( err, obj ) {
+
+    model[ schema ]().get( identifiers, function( err, obj ) {
 
       if ( err ) {
 
@@ -276,7 +280,7 @@ function _publish( schema ) {
 
       if ( obj === undefined ) {
 
-        return cb( 'event of id ' + job.id + ' was not found' );
+        return cb( 'event of id ' + JSON.stringify( identifiers ) + ' was not found' );
 
       }
 
@@ -471,7 +475,7 @@ function _parseJob( job ) {
 
   }
 
-  return {
+  return _.assign( {
 
     jobName: data.name,
 
@@ -479,10 +483,12 @@ function _parseJob( job ) {
 
     name: data.name.split('.').pop(),
 
-    id: data.values ? data.values.id : null,
-
     values: data.values
 
-  };
+  }, _.get( data, 'values.uid' ) ? {
+    uid: data.values.uid
+  } : {
+    id: _.get( data, 'values.id', null )
+  } );
 
 }
