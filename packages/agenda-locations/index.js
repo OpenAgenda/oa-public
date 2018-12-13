@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const deepExtend = require( 'deep-extend' );
 const w = require( 'when' );
 
 const countries = require( '@openagenda/countries' );
@@ -62,7 +61,7 @@ module.exports = service;
 
 function init( c, cb ) {
 
-  config = deepExtend( {
+  config = _.merge( {
     mysql: {},
     logger: null,
     maxLimit: 50,
@@ -152,7 +151,7 @@ function getSettings( agendaId, cb ) {
 
       if ( agendaSettings && agendaSettings.translation ) {
 
-        return cb( null, utils.extend( {}, settings, { 
+        return cb( null, utils.extend( {}, settings, {
           translation: agendaSettings.translation
         } ) );
 
@@ -436,7 +435,7 @@ function merge( data, identifiers, cb ) {
 
       if ( err ) return d.reject( err );
 
-      d.resolve( v );      
+      d.resolve( v );
 
     } );
 
@@ -548,7 +547,7 @@ function remove( identifiers, options, cb ) {
       } );
 
     } );
-    
+
   } );
 
 }
@@ -582,7 +581,7 @@ function list( query, offset, limit, options, cb ) {
 
   }
 
-  const params = utils.extend( { 
+  const params = utils.extend( {
     keepId: false,
     fromDb: false,
     internal: true, // should be false in new service. true here for backward compatibility
@@ -657,7 +656,7 @@ function get( identifiers, options, cb ) {
     const d = w.defer();
 
     ( v.params.fromDb ? db : search ).get( identifiers, ( err, l ) => {
-    
+
       if ( err ) return d.reject( err );
 
       v.location = l;

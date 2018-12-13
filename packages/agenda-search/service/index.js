@@ -1,6 +1,6 @@
 "use strict";
 
-const deepExtend = require( 'deep-extend' );
+const _ = require( 'lodash' );
 
 const logger = require( '@openagenda/logs' );
 
@@ -31,7 +31,7 @@ module.exports = {
  */
 function init( c ) {
 
-  config = deepExtend( {
+  config = _.merge( {
     services: {
       agendas: false
     }

@@ -30,7 +30,7 @@
     "ajv-errors": "^1.0.0",
     "ajv-keywords": "^2.1.0",
     "axios": "^0.18.0",
-    "knex": "^0.14.6",
+    "knex": "^0.16.2",
     "lodash": "^4.17.4",
     "mime-types": "^2.1.18",
     "mysql": "^2.14.1",

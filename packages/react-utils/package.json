@@ -16,7 +16,6 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "deep-extend": "^0.4.1",
     "history": "^3.3.0",
     "lodash": "^4.17.4",
     "react-redux": "^5.0.4",
