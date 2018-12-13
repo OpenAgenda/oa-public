@@ -1,5 +1,7 @@
 "use strict";
 
+const pickEventImage = require( './lib/pickImage' );
+
 const _ = require( 'lodash' ),
 
   async = require( 'async' ),
@@ -77,27 +79,6 @@ module.exports = service => {
 }
 
 
-/**
- * images set through core app or api v2 will have a specific image format
- */
-function _pickImageFromStore( e, type, defaultValue ) {
-
-  try {
-
-    const images = _.get( _.isObject( e.store ) ? e.store : JSON.parse( e.store ), 'images' );
-
-    const match = _.first( _.get( images, 'variants' ).filter( v => v.type === type ) );
-
-    if ( !match ) return defaultValue;
-
-    return config.aws.imageBucketPath + match.filename;
-
-  } catch ( e ) {}
-
-  return defaultValue;
-
-}
-
 function cleanEvent( eInst, options, cb ) {
 
   if ( arguments.length === 2 ) {
@@ -120,8 +101,8 @@ function cleanEvent( eInst, options, cb ) {
     keywords: _extractKeywords( eInst ),
     html: eInst.getEnrichedFreeText( { allLanguages: true, includeLinks: options.includeEmbedded } ),
     image: eInst.getImage(),
-    thumbnail: _pickImageFromStore( eInst, 'thumbnail', eInst.getThumbnail() ),
-    originalImage: _pickImageFromStore( eInst, 'full', eInst.getFullImage() ),
+    thumbnail: pickEventImage( config, eInst, 'thumbnail' ),
+    originalImage: pickEventImage( config, eInst, 'full' ),
     age: eInst.getAge(),
     accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
@@ -134,7 +115,7 @@ function cleanEvent( eInst, options, cb ) {
   const l = eInst.locations.length ? eInst.locations[ 0 ] : false;
 
   if ( c.image ) {
-    
+
     c.imageCredits = eInst.imageCredits || null;
 
   }
@@ -219,7 +200,7 @@ function _inject( c, l, map ) {
     c[ f ] = null;
 
     if ( l[ map[ f ] ] ) {
-      
+
       c[ f ] = l[ map[ f ] ];
 
     }

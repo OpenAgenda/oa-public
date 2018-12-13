@@ -258,7 +258,7 @@ function _publish( schema ) {
 
   return ( job, cb ) => {
 
-    log( 'info', 'publishing/creating %s %s', job.type, job.id );
+    log( 'info', 'publishing/creating %s %s %s', schema, job.type, job.id );
 
     if ( job.id === undefined ) {
 
