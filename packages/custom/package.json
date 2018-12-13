@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/custom",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Stores event extended data and associated event and form_schema references. Form schema dictates the structure of the extended data, the event is the one to which the data is associated.",
   "main": "index.js",
   "directories": {
@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/logs": "^1.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/queues": "^1.1.0",
     "@openagenda/validators": "^2.1.0",
     "immutability-helper": "^2.2.3",

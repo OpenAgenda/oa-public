@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/users",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,9 +18,9 @@
     "@feathersjs/errors": "^3.3.0",
     "@feathersjs/express": "^1.2.2",
     "@feathersjs/feathers": "^3.1.4",
-    "@openagenda/image-files": "^1.1.0",
+    "@openagenda/image-files": "^1.1.1",
     "@openagenda/image-upload": "^1.0.7",
-    "@openagenda/logs": "^1.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.0",
     "debug": "^4.1.0",
     "feathers-hooks-common": "^4.11.1",
@@ -34,7 +34,7 @@
   "devDependencies": {
     "@openagenda/files": "^2.0.6",
     "@openagenda/fixtures": "^2.0.1",
-    "@openagenda/keys": "^2.1.0",
+    "@openagenda/keys": "^2.1.1",
     "axios": "^0.18.0",
     "bluebird": "^3.5.1",
     "chai": "^4.1.2",

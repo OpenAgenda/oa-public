@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-search",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -17,7 +17,7 @@
   "dependencies": {
     "@openagenda/countries": "^0.1.1",
     "@openagenda/date-range": "^2.1.0",
-    "@openagenda/logs": "^1.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.0",
     "async": "^2.2.0",
     "elasticsearch": "^13.2.0",
@@ -28,7 +28,7 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@openagenda/events": "^1.4.0",
+    "@openagenda/events": "^1.4.4",
     "mocha": "^4.0.1",
     "moment": "^2.20.1",
     "should": "^11.2.1"
