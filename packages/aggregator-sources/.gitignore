@@ -1,8 +1,9 @@
-yarn.lock
-yarn-error.log
-.idea
-node_modules
+.idea/
+.vscode/
+node_modules/
 npm-debug.log
-testconfig.js
+yarn-error.log
+coverage/
 
+testconfig.js
 react/dist/

@@ -7,11 +7,12 @@
     "build": "babel react/src -d react/dist -s",
     "preserve": "npm run build",
     "serve": "node test/app",
-    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'"
+    "start": "nodemon --ext js,jsx --ignore react/dist --exec 'npm run serve'",
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/aggregator-sources.git"
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "author": "",
   "license": "ISC",
