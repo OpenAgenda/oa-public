@@ -25,10 +25,10 @@ function query( sql, dirtyArgs = [], cb ) {
 
   log( 'running \'%s\' with values [%s]', sql, [].concat( arr ).join( ',' ) );
 
-  const p = config.knex.raw.apply( null, arr.length ? [ sql, arr ] : [ sql ] );
+  const p = config.knex.raw.apply( config.knex, arr.length ? [ sql, arr ] : [ sql ] );
 
-  w( p ).done( 
-    result => cb( null, result[ 0 ] ), 
+  w( p ).done(
+    result => cb( null, result[ 0 ] ),
     err => {
 
       onError( err );
