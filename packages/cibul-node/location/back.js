@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const bodyParser = require( 'body-parser' );
 const http = require( 'http' );
 const ih = require( 'immutability-helper' );
 
@@ -9,7 +8,6 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const modLib = require( '../lib/moduleLib' );
 
-const agendas = require( '@openagenda/agendas' );
 const mw = require( '@openagenda/agenda-locations' ).mw();
 const sessions = require( '@openagenda/sessions' );
 
@@ -46,7 +44,6 @@ const routes = {
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
       checkLogging,
-      bodyParser.json(),
       _checkCreate,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.setToValidate
@@ -55,7 +52,6 @@ const routes = {
     agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
       checkLogging,
       cmn.verifyIPMiddleware,
-      bodyParser.json(),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.set
     ] ],
@@ -64,7 +60,6 @@ const routes = {
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
-      bodyParser.json(),
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.remove
     ] ],
@@ -73,7 +68,6 @@ const routes = {
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
-      bodyParser.json(),
       mw.merge
     ] ],
 

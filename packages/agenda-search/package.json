@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-search",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -17,17 +17,17 @@
   "dependencies": {
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
-    "@openagenda/logs": "^1.1.0",
+    "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.0",
     "@openagenda/react-form-components": "^2.1.0",
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.1.0",
     "async": "^1.5.2",
     "create-react-class": "^15.5.2",
-    "deep-extend": "^0.4.1",
     "elasticsearch": "^13.3.1",
     "immutability-helper": "^2.3.1",
     "knex": "^0.9.0",
+    "lodash": "^4.17.11",
     "mysql": "^2.16.0",
     "prop-types": "^15.5.8",
     "qs": "^6.1.0",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
-    "@openagenda/agendas": "^1.1.0",
+    "@openagenda/agendas": "^1.1.3",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/test-app": "^2.0.3",
     "babel-preset-openagenda": "^1.1.0",

@@ -5,10 +5,8 @@ const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const bodyParser = require( 'body-parser' );
 const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
 const aggregatorSvc = require( '../services/aggregator' );
-const model = require( '../services/model' );
 const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
 const sessions = require( '@openagenda/sessions' );
@@ -56,8 +54,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'aggregatorSources' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    bodyParser.json()
+    sessions.middleware.ifUnlogged( cmn.redirectTo() )
   ] );
 
   return {

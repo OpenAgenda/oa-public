@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const { promisify } = require( 'util' );
@@ -29,8 +28,7 @@ module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 const preMw = [
   cmn.loadLogger( 'inboxes/front' ),
   sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-  sessions.middleware.load( { detailed: true } ),
-  bodyParser.urlencoded( { extended: true } )
+  sessions.middleware.load( { detailed: true } )
 ];
 
 if ( __DEVELOPMENT__ ) {

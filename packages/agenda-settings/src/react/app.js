@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
@@ -7,11 +8,10 @@ import createHistory from 'history/lib/createBrowserHistory';
 import { ReduxAsyncConnect } from 'redux-connect';
 import createStore from './redux/create';
 import ApiClient from '../helpers/ApiClient';
-import deepExtend from 'deep-extend';
 
 export default function ( options, routes, fn ) {
 
-  const params = deepExtend( {
+  const params = _.merge( {
     state: {
       settings: {
         lang: 'fr',

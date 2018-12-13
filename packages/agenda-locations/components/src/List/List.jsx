@@ -10,7 +10,7 @@ get = require( '@openagenda/utils/get' ),
 
 monitorBottomHit = require( './lib/monitorBottomHit' ),
 
-deepExtend = require( 'deep-extend' ),
+_ = require( 'lodash' ),
 
 update = require( 'immutability-helper' ),
 
@@ -134,7 +134,7 @@ module.exports = createReactClass( {
 
     }
 
-    get( this.props.res, deepExtend( {
+    get( this.props.res, _.merge( {
       offset: ( page - 1 ) * this.props.limit,
       limit: this.props.limit
     }, this.props.query ), ( err, result ) => {
@@ -219,7 +219,7 @@ module.exports = createReactClass( {
   },
 
   renderBottom() {
- 
+
     if ( this.state.hasNext || !this.props.renderBottom ) return '';
 
     return this.props.renderBottom();

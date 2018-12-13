@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
-import { shouldUpdate, shallowEqual } from 'recompose';
+import { shouldUpdate, shallowEqual, pure } from 'recompose';
 import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage, addLocaleData } from 'react-intl';
@@ -36,6 +36,8 @@ function getInitialValues( rules ) {
     {}
   );
 }
+
+const PureSpinner = pure( Spinner );
 
 @withFetcher(
   'abilities',
@@ -135,7 +137,7 @@ class AbilitiesEditor extends Component {
     if ( loading ) {
       return (
         <div style={{ position: 'relative', height: '50px' }}>
-          <Spinner />
+          <PureSpinner />
         </div>
       );
     }

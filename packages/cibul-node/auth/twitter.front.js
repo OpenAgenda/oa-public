@@ -18,8 +18,6 @@ sessions = require( '@openagenda/sessions' ),
 
 usersSvc = require( '@openagenda/users' ),
 
-deepExtend = require( 'deep-extend' ),
-
 genUrl = require( '../services/genUrl' ),
 
 agendaSvc = require( '../services/agenda' ),
@@ -269,7 +267,7 @@ function _attemptUsernameLoad( values ) {
 
       if ( user ) values.user = user;
 
-      if ( data ) deepExtend( values.data, data );
+      if ( data ) _.merge( values.data, data );
 
       // do this while you are at it
       if ( values.user && values.profile ) {

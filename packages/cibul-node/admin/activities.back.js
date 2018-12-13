@@ -2,10 +2,8 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
-const _ = require( 'lodash' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
@@ -32,7 +30,6 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'activities' ),
-    bodyParser.json(),
     sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     cmn.requireAdmin

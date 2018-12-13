@@ -3,7 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as RRF from 'react-final-form';
 import RCCollapse from 'rc-collapse';
-import { shouldUpdate, shallowEqual } from 'recompose';
+import { pure, shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
@@ -34,6 +34,8 @@ const Panel = shouldUpdate(
     _.omit( nextProps, 'onItemClick' )
   )
 )( RCCollapse.Panel );
+
+const PureSpinner = pure( Spinner );
 
 const descriptionMessages = defineMessages( {
   firstEntityUser: {
@@ -71,7 +73,7 @@ function getEntityTitle( ability ) {
   }
 }
 
-const FilterInput = ( { value, onChange, placeholder } ) => (
+const FilterInput = pure( ( { value, onChange, placeholder } ) => (
   <div className="form-group search">
     <div className="input-icon-right">
       <input
@@ -87,9 +89,9 @@ const FilterInput = ( { value, onChange, placeholder } ) => (
       </button>
     </div>
   </div>
-);
+) );
 
-const SaveButton = ( {
+const SaveButton = pure( ( {
   form, submitting, pristine, submitSucceeded
 } ) => (
   <button
@@ -105,11 +107,11 @@ const SaveButton = ( {
 
     {submitting && (
       <span className="margin-h-sm">
-        <Spinner mode="inline" />
+        <PureSpinner mode="inline" />
       </span>
     )}
   </button>
-);
+) );
 
 const FirstEntityRule = ( { ruleName, rules } ) => {
   const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( ruleName )}` ];

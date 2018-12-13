@@ -1,12 +1,8 @@
 "use strict";
 
-var deepExtend = require( 'deep-extend' ),
-
-  log = require( 'debug' )( 'genUrl' ),
-
-  _ = require( 'lodash' ),
-
-  qs = require( 'qs' );
+const _ = require( 'lodash' );
+const qs = require( 'qs' );
+const log = require( 'debug' )( 'genUrl' );
 
 module.exports = function( options ) {
 
@@ -16,7 +12,7 @@ module.exports = function( options ) {
 
 function instanciate( options ) {
 
-  var defaults = deepExtend( {
+  var defaults = _.merge( {
     domain: false, // required ( for absolute urls )
     protocol: 'http://', // or https:// or //
     abs: false,
@@ -26,7 +22,7 @@ function instanciate( options ) {
 
   paths = defaults.paths,
 
-  preloaded = deepExtend( {}, defaults.preloaded );
+  preloaded = _.merge( {}, defaults.preloaded );
 
   return _.extend( genUrl, {
     load,
@@ -35,10 +31,10 @@ function instanciate( options ) {
     copy,
     preload
   } );
-  
+
   function genUrl( name, values, options ) {
 
-    var genParams = deepExtend( {}, defaults, options ? options : {} ),
+    var genParams = _.merge( {}, defaults, options ? options : {} ),
 
     uri = paths[ name ],
 
@@ -68,7 +64,7 @@ function instanciate( options ) {
 
     }
 
-    cleanValues = deepExtend( {}, preloaded, _clean( values ) );
+    cleanValues = _.merge( {}, preloaded, _clean( values ) );
 
     try {
 
@@ -106,7 +102,7 @@ function instanciate( options ) {
 
   function load( p ) {
 
-    deepExtend( paths, p );
+    _.merge( paths, p );
 
   }
 
@@ -124,9 +120,9 @@ function instanciate( options ) {
 
   function copy() {
 
-    var copyOptions = deepExtend( {}, options ? options : {}, {
+    var copyOptions = _.merge( {}, options ? options : {}, {
       paths: paths,
-      preloaded: preloaded 
+      preloaded: preloaded
     });
 
     return instanciate( copyOptions );
@@ -135,7 +131,7 @@ function instanciate( options ) {
 
   function preload( values ) {
 
-    deepExtend( preloaded, values );
+    _.merge( preloaded, values );
 
   }
 
@@ -199,7 +195,7 @@ function _loadQueryValues( uri, values ) {
 
 function _getUriParamNames( uri, stripped ) {
 
-  // param names start with :, 
+  // param names start with :,
   // are smallcase and contain only letters from a to z
   return ( uri.match( /\:([a-z]|[A-Z])+/g ) || [] ).map( function( name ) {
 
@@ -225,13 +221,13 @@ function _clean( values ) {
 
     values.forEach( function( valueSet ) {
 
-      deepExtend( clean, {}, valueSet );
+      _.merge( clean, {}, valueSet );
 
     });
 
   } else {
 
-    deepExtend( clean, {}, values );
+    _.merge( clean, {}, values );
 
   }
 

@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const bodyParser = require( 'body-parser' );
 
 const callToActionMw = require( '@openagenda/call-to-action/middleware' );
 const { Inbox } = require( '@openagenda/inboxes' );
@@ -15,7 +14,6 @@ const routes = {
 
   request: [ 'post', '/request', [
     cmn.loadLogger( 'request' ),
-    bodyParser.json(),
     sessions.middleware.load( { detailed: true } ),
     _loadUser.bind( null, false ),
     callToActionMw.request()

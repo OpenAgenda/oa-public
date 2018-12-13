@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const deepExtend = require( 'deep-extend' );
 const w = require( 'when' );
 
 const countries = require( '@openagenda/countries' );
@@ -62,7 +61,7 @@ module.exports = service;
 
 function init( c, cb ) {
 
-  config = deepExtend( {
+  config = _.merge( {
     mysql: {},
     logger: null,
     maxLimit: 50,

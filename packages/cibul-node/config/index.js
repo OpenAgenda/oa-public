@@ -1,6 +1,6 @@
 "use strict";
 
-const deepExtend = require( 'deep-extend' );
+const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 
 const prod = require( './prod' );
@@ -758,7 +758,7 @@ currentConfig.loadEnv = _loadEnv;
  * emailstrategie database configuration
  */
 
-currentConfig.emailStrategieDb = deepExtend( {}, currentConfig.db, {
+currentConfig.emailStrategieDb = _.merge( {}, currentConfig.db, {
   database: 'emailStrategie' + (process.env.NODE_ENV !== 'production' ? process.env.NODE_ENV : '')
 } );
 
@@ -787,6 +787,6 @@ module.exports = currentConfig;
 
 function _loadEnv( env ) {
 
-  return deepExtend( currentConfig ? currentConfig : {}, config.all, config[ env ] );
+  return _.merge( currentConfig ? currentConfig : {}, config.all, config[ env ] );
 
 }

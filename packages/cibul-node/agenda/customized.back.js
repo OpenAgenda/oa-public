@@ -2,21 +2,13 @@
 
 const sessions = require( '@openagenda/sessions' ),
 
-  config = require( '../config' ),
-
   labels = require( '@openagenda/labels/agenda-tags/editor' );
 
 var modLib = require( '../lib/moduleLib' ),
 
 cmn = require( '../lib/commons-app' ),
 
-coms = require( '../lib/coms' ),
-
 agendaSvc = require( '../services/agenda' ),
-
-genUrl = require( '../services/genUrl' ),
-
-bodyParser = require( 'body-parser' ),
 
 tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' ),
 
@@ -44,13 +36,12 @@ routes = {
   ] ) ],
 
   customizedUpdate: [ 'post', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
-    bodyParser.json(),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdministrator(),
     tagMw.set,
     categoryMw.set,
     updateResponse
-  ] ) ]  
+  ] ) ]
 
 }
 

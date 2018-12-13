@@ -5,7 +5,6 @@ const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const bodyParser = require( 'body-parser' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
 const mw = agendaSettings.mw;
 const agendaSvc = require( '../services/agenda' );
@@ -167,8 +166,7 @@ module.exports = path => {
   router.pre( [
     cmn.loadLogger( 'agendaSettings' ),
     sessions.middleware.load( { detailed: true } ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    bodyParser.json()
+    sessions.middleware.ifUnlogged( cmn.redirectTo() )
   ] );
 
   return {

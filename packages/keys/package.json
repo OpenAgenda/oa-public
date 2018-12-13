@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/keys",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^1.2.14",
-    "knex": "^0.13.0",
+    "knex": "^0.16.2",
     "lodash": "^4.17.4",
     "redis": "^2.8.0",
     "uuid": "^3.1.0",

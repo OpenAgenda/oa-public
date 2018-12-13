@@ -1,5 +1,5 @@
+const _ = require( 'lodash' );
 const superagent = require( 'superagent' );
-const deepExtend = require( 'deep-extend' );
 
 const methods = [ 'get', 'post', 'put', 'patch', 'del' ];
 
@@ -24,7 +24,7 @@ class ApiClient {
 
     methods.forEach( method => {
       this[ method ] = ( path, options ) => new Promise( ( resolve, reject ) => {
-        const { query, data, headers, files, fields } = deepExtend( {}, defaultOptions, options );
+        const { query, data, headers, files, fields } = _.merge( {}, defaultOptions, options );
 
         const request = superagent[ method ]( this.formatUrl( path ) );
 

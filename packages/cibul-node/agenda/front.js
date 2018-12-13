@@ -44,13 +44,9 @@ const  modLib = require( '../lib/moduleLib' ),
 
   perPage = 20,
 
-  deepExtend = require( 'deep-extend' ),
-
   wn = require( 'when/node' ),
 
   async = require( 'async' ),
-
-  timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
 
   fb = require( '@openagenda/facebook' ),
 

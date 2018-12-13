@@ -16,15 +16,13 @@ const modLib = require( '../lib/moduleLib' ),
 
   eventSvc = require( '../services/event' ),
 
-  bodyParser = require( 'body-parser' ),
-
   _ = require( 'lodash' ),
 
   getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) ),
 
   routes = {
 
-    agendaEventTagsForm: [ 'get', '/', [ 
+    agendaEventTagsForm: [ 'get', '/', [
       _loadTagSet,
       _loadTags,
       _loadCategorySet,
@@ -41,7 +39,6 @@ const modLib = require( '../lib/moduleLib' ),
       _loadTagSet,
       _loadCategorySet,
       _loadCustomSet,
-      bodyParser.json(),
       _validateTags,
       _validateCategories,
       _updateCustom,
@@ -190,7 +187,7 @@ function xhrGet( req, res, next ) {
     categorySet: req.categorySet,
     tagSet: req.tagSet,
     customSet: req.customSet
-  } ); 
+  } );
 
 }
 
