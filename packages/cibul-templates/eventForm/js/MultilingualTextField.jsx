@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 var React = require( 'react' ),
 
 createReactClass = require( 'create-react-class' ),
@@ -74,7 +76,7 @@ module.exports = createReactClass({
 
       var value = JSON.parse( JSON.stringify( self.props.value || {} ) );
 
-      value[ l ] = e.target.value.trimStart();
+      value[ l ] = _.trimStart( e.target.value );
 
       self.setState( { userHasTyped: true } );
 
