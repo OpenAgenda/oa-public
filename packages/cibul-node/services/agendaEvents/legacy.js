@@ -60,7 +60,7 @@ async function evaluate( err, action ) {
 
       action.increment = ( action.increment || 0 );
 
-      log( 'info', 'new event was not yet created for article id %s', action.values.id );
+      log( 'info', 'new event was not found for eventUid %s, %j', eventUid, action.values );
 
       if ( action.increment < 10 ) {
 
@@ -131,6 +131,7 @@ async function evaluate( err, action ) {
 
 }
 
+
 async function _loadAgendaEventUids( name, values ) {
 
   const { id } = values;
@@ -140,6 +141,16 @@ async function _loadAgendaEventUids( name, values ) {
   const articleId = name === 'review.article_create' ? values.id : null;
 
   const agendaId = _.get( values, 'agendaId' );
+
+  if ( values.type !== 'event.remove' ) {
+
+    const eventUid = eventId ? _.get( await config.knex.first( 'uid' ).from( 'event' ).where( 'id', eventId ), 'id' ) : null;
+
+    const agendaUid = agendaId ? _.get( await config.knex.first( 'uid' ).from( 'review' ).where( 'id', agendaId ), 'id' ) : null;
+
+    return { agendaUid, eventUid };
+
+  }
 
   const q = config.knex
     .first( [ 'e.uid as eventUid', 'r.uid as agendaUid' ] )
@@ -155,4 +166,5 @@ async function _loadAgendaEventUids( name, values ) {
   if ( agendaId ) q.where( 'ra.review_id', agendaId );
 
   return q.then( result => result || { eventUid: null, agendaUid: null } );
+
 }
