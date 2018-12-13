@@ -6,11 +6,11 @@ const w = require( 'when' );
 const wn = require( 'when/node' );
 
 const agendaCategories = require( '@openagenda/agenda-categories' );
-const agendaTags = require( '@openagenda/agenda-tags' );
 const log = require( '@openagenda/logs' )( 'services/aggregator/evaluate' );
 const rules = require( '@openagenda/aggregators' ).utils.rules;
 
 const aggUtils = require( './aggUtils' );
+const loadAgendaTags = require( './utils/loadAgendaTags' );
 const interfaces = require( '../interfaces' );
 const p = require( '../../../lib/promises' );
 
@@ -60,7 +60,13 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( aggUtils.loadAgenda( 'aggregatingAgenda', 'aggregatingAgendaId' ) )
 
-  .then( _loadAgendaTags( 'aggregatingAgendaId', 'aggregatorTags' ) )
+  .then( async v => {
+
+    v.aggregatorTags = await loadAgendaTags( aggregatingAgendaId );
+
+    return v;
+
+  } )
 
   .then( aggUtils.loadRules.bind( null, {
     db: config.db,
@@ -434,40 +440,6 @@ function _removeFromAggregator( v ) {
 
 }
 
-
-function _loadAgendaTags( agendaIdNamespace, destNamespace ) {
-
-  return v => {
-
-    let d = p.w.defer();
-
-    log( 'agenda tags load for %s', agendaIdNamespace );
-
-    agendaTags.get( v[ agendaIdNamespace ], ( err, set ) => {
-
-      if ( err ) return d.reject( err );
-
-      if ( !set ) {
-
-        log( 'there are no tags associated with agenda %s %s', agendaIdNamespace, v[ agendaIdNamespace ] );
-
-        return d.resolve( v );
-
-      }
-
-      v[ destNamespace ] = set.groups.reduce( ( tags, group ) => tags.concat( group.tags ), [] );
-
-      log( 'loaded %s tags', v[ destNamespace ].length );
-
-      d.resolve( v );
-
-    } );
-
-    return d.promise;
-
-  }
-
-}
 
 function _loadAgendaCategories( agendaIdNamespace, destNamespace ) {
 
