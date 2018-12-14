@@ -76,7 +76,7 @@ module.exports = _.extend( ( parentApp, path ) => {
         message: _.get( req, 'agenda.settings.contribution.messages.instructions' )
       },
       confirmation: {
-        message: _.get( req, 'agenda.settings.contribution.messages.complete' )
+        message: _.get( req, 'agenda.settings.contribution.messages.complete' ),
         state: _.get( req, 'agenda.settings.contribution.defaultState', 2 )
       }
     }
