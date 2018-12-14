@@ -2,26 +2,21 @@
 
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
-
 const agendaEventReferences = require( '@openagenda/agenda-event-references' );
-const logger = require( '@openagenda/logger' );
-
 const internalEventSvc = require( './event' );
 const internalAgendaSvc = require( './agenda' );
 const search = require( './eventSearch' );
+const config = require( '../config' );
 
 module.exports.init = async config => {
 
   await promisify( agendaEventReferences.init )( {
     schema: config.schemas.eventReferences,
     mysql: config.db,
-    logger,
+    logger: config.getLogConfig( 'svc', 'agenda-event-references', false ),
     interfaces: {
-
       events,
-
       suggestions
-
     }
   } );
 

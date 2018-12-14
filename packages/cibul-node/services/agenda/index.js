@@ -2,7 +2,7 @@
 
 const cache = require( '../cache' );
 const config = require( '../../config' );
-const log = require( '@openagenda/logger' )( 'agenda service' );
+const log = require( '@openagenda/logs' )( 'agenda service' );
 const es = require( '../elasticsearch' );
 const model = require( '../model' );
 
@@ -16,7 +16,7 @@ module.exports = {
 
 module.exports.mw = require( './middleware' )( module.exports );
 
-module.exports.exports = require( './exportLib' )( module.exports ); 
+module.exports.exports = require( './exportLib' )( module.exports );
 
 module.exports.tagsAndCategories = require( './tagsAndCategories' )( module.exports );
 

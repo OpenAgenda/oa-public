@@ -14,7 +14,7 @@ const config = require( '../../../config' ),
 
   utils = require( '@openagenda/utils' ),
 
-  log = require( '@openagenda/logger' )( 'groupactions - tasks' ),
+  log = require( '@openagenda/logs' )( 'groupactions - tasks' ),
 
   w = require( 'when' ),
 
@@ -89,7 +89,7 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
     log( 'dispatchChangeEventStates: starting dispatch' );
 
     // a stream is wasteful; a query on review_article is sufficient.
-    
+
     async.whilst( () => hasMore, wcb => {
 
       let query = {
@@ -132,7 +132,7 @@ function dispatchChangeEventStates( agendaId, oldState, newState, options, cb ) 
 
         }, wcb );
 
-      } );      
+      } );
 
     }, err => {
 

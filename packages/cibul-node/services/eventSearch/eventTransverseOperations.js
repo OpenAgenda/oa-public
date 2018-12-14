@@ -1,7 +1,6 @@
 "use strict"
 
 const _ = require( 'lodash' );
-const logger = require( '@openagenda/logger' );
 const events = require( '@openagenda/events' );
 const eventSearch = require( '@openagenda/event-search' );
 const agendaEvents = require( '@openagenda/agenda-events' );
@@ -102,7 +101,7 @@ async function batch( method, event, context = {}) {
   if ( agendaUid && updateEventSearchIndex ) {
 
     const ae = await agendaEvents( agendaUid ).get( event.uid );
-    
+
     if ( ae ) {
 
       await agendaIndices( agendaUid )[ method ]( ae );

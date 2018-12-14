@@ -12,10 +12,10 @@
  *
  * example: a new contributor in an agenda generates one notification
  * for each administrator of the agenda.
- * 
+ *
  */
 
-var log = require( '@openagenda/logger' )( 'notification-service' ),
+var log = require( '@openagenda/logs' )( 'notification-service' ),
 
 coms = require( '../../lib/coms' ),
 
@@ -173,7 +173,7 @@ function _notify( type ) {
 
       data.userId = false;
 
-    }    
+    }
 
     model.notifications().cleanAndValidate[ type ]( data, false, ( err, result ) => {
 

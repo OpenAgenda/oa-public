@@ -18,7 +18,7 @@ var model = require( '../../model' ),
 
   async = require( 'async' ),
 
-  logger = require( '@openagenda/logger' ), log,
+  log = require( '@openagenda/logs' )( 'services/agenda/instance' ),
 
   cache = require( '../../cache' ),
 
@@ -43,8 +43,6 @@ module.exports.test = {
 }
 
 function instanciate( data ) {
-
-  _init();
 
   var instance = model.agendas().instance( data ),
 
@@ -421,14 +419,5 @@ function _checkIsStakeholder( v ) {
   } );
 
   return d.promise;
-
-}
-
-
-function _init() {
-
-  if ( log ) return;
-
-  log = logger( 'services/agenda/instance' );
 
 }

@@ -6,7 +6,7 @@ lib, // to be set
 
 async = require( 'async' ),
 
-log = require( '@openagenda/logger' )( 'services/elasticsearch/refresh' ),
+log = require( '@openagenda/logs' )( 'services/elasticsearch/refresh' ),
 
 model = require( '../../model' );
 
@@ -82,9 +82,9 @@ function _loopThroughUpcoming( cb, done ) {
 
   async.doWhilst( ( wcb ) => {
 
-    lib.events().search( { 
+    lib.events().search( {
       requireRefresh: true,
-      options: { 
+      options: {
         from: offset,
         size: limit
       }

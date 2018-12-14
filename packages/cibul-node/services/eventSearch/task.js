@@ -8,11 +8,9 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 
 const events = require( './eventTransverseOperations' );
 
-const logger = require( '@openagenda/logger' );
+const logs = require( '@openagenda/logs' )( 'services/eventSearch/task' );
 
 module.exports = () => {
-
-  let log = logger( 'services/eventSearch/task' );
 
   q.setConsumer( async data => {
 

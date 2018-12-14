@@ -11,7 +11,7 @@ async = require( 'async' ),
 
 redisConfig,
 
-log = require( '@openagenda/logger' )( 'services/agenda/controlData', { lib: 'store' } ),
+log = require( '@openagenda/logs' )( 'services/agenda/controlData', { lib: 'store' } ),
 
 namespace, bufferNamespace;
 

@@ -1,6 +1,6 @@
 "use strict";
 
-const logger = require( '@openagenda/logger' ),
+const log = require( '@openagenda/logs' )( 'services/event/oembed' ),
 
   lib = require( '../../lib/lib' ),
 
@@ -19,16 +19,13 @@ const logger = require( '@openagenda/logger' ),
   q = require( '@openagenda/queue' )( config.queues.oembed, { redis: config.redis } );
 
 
-let log = console.log;
-
-
 module.exports = {
   task,
-  process: function( v, cb ) { 
+  process: function( v, cb ) {
 
     log( 'info', 'dud process for %s', JSON.stringify( v ) );
 
-    cb(); 
+    cb();
 
   }
 }
@@ -36,8 +33,6 @@ module.exports = {
 
 
 function task() {
-
-  log = logger( 'services/event/oembed' );
 
   coms.subscribe( config.mainChannel, function( err, action ) {
 

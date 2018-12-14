@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'embed service' ),
+var log = require( '@openagenda/logs' )( 'embed service' ),
 
 model = require( '../model' ),
 
@@ -49,7 +49,7 @@ function instanciate( data ) {
 
       a.getControlData( ( err, ctlData ) => {
 
-        instance.decorateAgendaControlData( ctlData, cb ); 
+        instance.decorateAgendaControlData( ctlData, cb );
 
       } );
 

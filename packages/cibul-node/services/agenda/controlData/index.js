@@ -10,7 +10,7 @@ utils = require( '@openagenda/utils' ),
 
 config = require( '../../../config' ),
 
-log = require( '@openagenda/logger' )( 'services/agenda/controlData', { lib: 'index' } ),
+log = require( '@openagenda/logs' )( 'services/agenda/controlData', { lib: 'index' } ),
 
 q = require( '@openagenda/queue' )( config.queues.controlData + ':queue', { redis: config.redis } ),
 

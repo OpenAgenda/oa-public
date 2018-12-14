@@ -4,7 +4,7 @@ var utils = require( '../../../lib/utils' ),
 
 lib = require( './lib' ),
 
-log = require( '@openagenda/logger' )( 'instance cache' );
+log = require( '@openagenda/logs' )( 'instance cache' );
 
 /**
  * @param { string }    type       type of the instance ( ex user, agenda, event )
@@ -102,7 +102,7 @@ module.exports = function( type, instance, methods, clearers ) {
 
       }
 
-      _log( methodName, 'is cacheable' ); 
+      _log( methodName, 'is cacheable' );
 
       _validTimestamp( function( err, isValid ) {
 
@@ -222,5 +222,5 @@ function _stringifyTimestamp( t ) {
   if ( typeof t == 'object' ) t = JSON.parse( JSON.stringify( t ) );
 
   return t;
-  
+
 }

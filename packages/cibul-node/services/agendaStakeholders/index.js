@@ -2,7 +2,7 @@
 
 const { promisify } = require( 'util' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const logger = require( '@openagenda/logger' );
+const logs = require( '@openagenda/logs' );
 
 const interfaces = {
     onMessage: require( './onMessage' ),
@@ -19,9 +19,9 @@ const interfaces = {
 module.exports.init = async config => {
 
   // set interface log functions
-  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logger( 'agendaStakeholders/interfaces/' + k ) ) );
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logs( 'agendaStakeholders/interfaces/' + k ) ) );
 
-  require( './lib/sendStakeholderInvitation' ).setLog( logger( 'agendaStakeholders/sendStakeholderInvitation' ) );
+  require( './lib/sendStakeholderInvitation' ).setLog( logs( 'agendaStakeholders/sendStakeholderInvitation' ) );
 
   await promisify( agendaStakeholders.init )( {
     queue: {
