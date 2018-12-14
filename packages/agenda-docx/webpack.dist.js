@@ -1,6 +1,5 @@
 "use strict";
 
-const webpack = require( 'webpack' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 
 module.exports = {
@@ -15,7 +14,7 @@ module.exports = {
     path: __dirname + '/client/dist'
   },
   plugins: [
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin()
   ],
   module: {
     rules: [ {

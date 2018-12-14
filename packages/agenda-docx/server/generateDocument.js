@@ -66,9 +66,23 @@ module.exports = async ( {
   expressions.filters.upperFirst = input => _.upperFirst( input );
 
   const parser = tag => ( {
-    get: tag === '.'
-      ? s => s
-      : s => expressions.compile( tag.replace( /(’|“|”)/g, '\'' ) )( s )
+    get( scope, context ) {
+      if ( tag === '.' ) {
+        return scope;
+      }
+
+      const indexes = context.scopePathItem;
+
+      if ( tag === '$index' ) {
+        return indexes[ indexes.length - 1 ];
+      }
+
+      return expressions.compile(
+        tag
+          .replace( /\$index/g, indexes[ indexes.length - 1 ] )
+          .replace( /(‘|’|“|”)/g, '\'' )
+      )( scope );
+    }
   } );
 
   doc.setOptions( { parser } );
