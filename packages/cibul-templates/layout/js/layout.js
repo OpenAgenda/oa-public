@@ -2,7 +2,7 @@
 
 if ( !window._babelPolyfill ) require( '@babel/polyfill' );
 
-require( '@openagenda/dom-utils/polyfill' );
+require( 'dom4' );
 
 var cn = require( '../../js/lib/common/common.mod.js' );
 

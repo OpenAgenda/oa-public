@@ -4,7 +4,7 @@
       "openagenda",
       {
         "modules": "commonjs",
-        "useBuiltIns": "entry"
+        "useBuiltIns": "usage"
       }
     ]
   ],

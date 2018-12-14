@@ -22,7 +22,7 @@
     "@openagenda/image-upload": "^1.0.7",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.0",
-    "debug": "^4.1.0",
+    "debug": "^3.2.6",
     "feathers-hooks-common": "^4.11.1",
     "feathers-knex": "^3.1.0",
     "knex": "^0.16.2",
