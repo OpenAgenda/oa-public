@@ -14,7 +14,6 @@ const labels = require( '@openagenda/labels/users/settings' );
 const getLabels = require( '@openagenda/labels/makeLabelGetter' )( labels );
 const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
 const update = require( 'immutability-helper' );
-const config = require( '../../config' );
 const beforeCreate = require( './beforeCreate' );
 const beforeRemove = require( './beforeRemove' );
 const onCreate = require( './onCreate' );
