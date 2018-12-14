@@ -26,10 +26,17 @@ const validateTiming = schema( {
 module.exports = ( options = {} ) => value => {
 
   const params = _.assign( {
-    optional: false
+    optional: false,
+    default: null
   }, options || {} );
 
-  if ( ( !_.isArray( value ) || !value.length ) && !params.optional ) {
+  const isEmpty = !_.isArray( value ) || !value.length;
+
+  if ( isEmpty && params.default ) {
+
+    return params.default;
+
+  } else if ( isEmpty && !params.optional ) {
 
     throw [ {
       code: 'timings.empty',
@@ -37,7 +44,7 @@ module.exports = ( options = {} ) => value => {
       field: 'timings'
     } ];
 
-  } else if ( !_.isArray( value ) || !value.length ) {
+  } else if ( isEmpty ) {
 
     return [];
 
