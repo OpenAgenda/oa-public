@@ -1,7 +1,7 @@
 "use strict";
 
 // middleware to be given to service so session can be loaded
-// 
+//
 module.exports = ( req, res, next ) => {
 
   req.user = {
@@ -10,7 +10,7 @@ module.exports = ( req, res, next ) => {
     id: 12
   }
 
-  console.log( 'loading user' )  
+  console.log( 'loading user' );
 
   next();
 

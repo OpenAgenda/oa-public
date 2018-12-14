@@ -1,0 +1,58 @@
+{
+  "fields" : [ {
+    "field" : "title",
+    "fieldType" : "abstract",
+    "default" : "Un titre"
+  }, {
+    "field" : "description",
+    "fieldType" : "abstract",
+    "default" : "Une description courte"
+  }, {
+    "fieldType" : "abstract",
+    "field" : "location",
+    "default" : { "uid" : 50148047 }
+  }, {
+    "field" : "timings",
+    "fieldType" : "abstract",
+    "default" : [ {
+      "begin" : "2018-12-14T10:00:00.000+0400",
+      "end" : "2018-12-14T12:00:00.000+0400"
+    } ]
+  }, {
+    "field" : "image",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "imageCredits",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "registration",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "keywords",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "longDescription",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "conditions",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "age",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "accessibility",
+    "fieldType" : "abstract",
+    "display" : false
+  }, {
+    "field" : "languages",
+    "fieldType" : "abstract",
+    "display" : false
+  } ]
+}

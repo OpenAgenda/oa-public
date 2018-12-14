@@ -5,7 +5,7 @@ const ih = require( 'immutability-helper' );
 const validateLink = require( '@openagenda/validators/link' )( { optional: false } );
 
 /**
- * Event service follows a deep schema that form-schema cannot emulate. 
+ * Event service follows a deep schema that form-schema cannot emulate.
  * In particular, image information is stored in an image key in the event service event
  * whereas it is dispatched at the root of the object for the form schema event
  *

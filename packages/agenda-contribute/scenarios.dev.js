@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 
 const defaultConfig = {
+  base: null, // required. base route for app.
   lang: 'fr',
   locationRes: '/locations',
   referencesRes: '/refs',
@@ -23,13 +24,12 @@ const defaultConfig = {
   }
 }
 
-const aValidMember = {
-  name: 'Gaetan Latouche',
-  phone: '+33 (0)6 50 91 00 12',
-  email: 'gaetan@cibul.net',
-  position: 'Test user',
-  organisation: 'OpenAgenda Corp.'
-}
+const anExistingEvent = require( './dev/fixtures/event.json' );
+const aValidMember = require( './dev/fixtures/member.json' );
+const anIncompleteMember = require( './dev/fixtures/incompleteMember' );
+const simpleSchemaExtensions = require( './dev/fixtures/simpleSchemaExtensions' );
+const defaultValuesSchemaExtension = require( './dev/fixtures/defaultValuesSchemaExtension' );
+
 
 module.exports = [ {
   // we set the agenda base data to describe scenario guidelines
@@ -77,13 +77,7 @@ module.exports = [ {
   config: _.assign( {}, defaultConfig, {
     base: '/member-with-incomplete-data/contribute'
   } ),
-  member: {
-    name: 'Gaetan Latouche',
-    phone: '+33 (0)6 50 91 00 12',
-    email: null,
-    position: null,
-    organisation: 'OpenAgenda Corp.'
-  }
+  member: anIncompleteMember
 }, {
   agenda: {
     title: 'Valid member data means the user can directly start with the event form',
@@ -95,18 +89,12 @@ module.exports = [ {
   config: _.assign( {}, defaultConfig, {
     base: '/member-with-complete-data/contribute',
   } ),
-  member: {
-    name: 'Gaetan Latouche',
-    phone: '+33 (0)6 50 91 00 12',
-    email: 'gaetan@cibul.net',
-    position: 'Test user',
-    organisation: 'OpenAgenda Corp.'
-  }
+  member: aValidMember
 }, {
   link: '/bypass-attempt-to-event/contribute/event',
   agenda: {
     title: 'User attempts to load event form when he is not a valid member',
-    description: 'When mounted, the event app does the necessary checks and re-routes user to member form if required',
+    description: 'When mounted, the event app does the necessary checks and re-routes user to member form if required. The link here points to the event form',
     slug: 'bypass-attempt-to-event',
     uid: 891391,
     id: 5
@@ -114,18 +102,22 @@ module.exports = [ {
   config: _.assign( {}, defaultConfig, {
     base: '/bypass-attempt-to-event/contribute',
   } ),
-  member: {} // nothing!
+  member: anIncompleteMember
 }, {
-  link: '/confirmation/contribute/confirmation',
+  link: '/confirmation/contribute',
   agenda: {
-    title: 'Show confirmation page directly (custom)',
-    description: 'This is a shortcut page to a confirmation page with custom message',
+    title: 'Confirmation page with a custom message',
+    description: 'Default values are typed in to allow you to quickly go to the confirmation page',
     slug: 'confirmation',
     uid: 1234321,
     id: 6
   },
+  member: aValidMember,
+  event: anExistingEvent,
+  schemaExtensions: [ defaultValuesSchemaExtension ],
   config: _.assign( {}, defaultConfig, {
     base: '/confirmation/contribute',
+    member: { dataIsRequired: false },
     confirmation: {
       message: 'This is a message from *Agenda administrators*'
     },
@@ -237,41 +229,7 @@ module.exports = [ {
     base: '/an-event-form-with-custom-fields/contribute'
   } ),
   member: aValidMember,
-  schemaExtensions: [ {
-    fields: [ {
-      fieldType: 'abstract',
-      field: 'title',
-      label: 'Le nom de l\'événement'
-    }, {
-      fieldType: 'abstract',
-      field: 'description'
-    }, {
-      fieldType: 'text',
-      field: 'networkfield',
-      label: 'Un champ de réseau',
-      placeholder: 'Biiiim',
-      max: 123456789,
-      sub: 'Et ouais'
-    }, {
-      fieldType: 'abstract',
-      field: 'references',
-      suggest: true,
-      related: [ 'title', 'networkfield' ],
-      boost: {
-        title: 20,
-        networkfield: 10
-      }
-    } ]
-  }, {
-    fields: [ {
-      fieldType: 'text',
-      field: 'agendafield',
-      label: 'Un champ d\'agenda',
-      placeholder: 'Bim',
-      max: 10,
-      min: 2
-    } ]
-  } ]
+  schemaExtensions: simpleSchemaExtensions
 }, {
   link: '/slow-network-and-error/contribute/event/123',
   agenda: {
@@ -288,23 +246,7 @@ module.exports = [ {
       message: '*Instructions appear in edition too*'
     }
   } ),
-  event: {
-    uid: 123,
-    slug: 'an-existing-event',
-    title: {
-      fr: 'Un événement qui existe pour de vrai',
-      en: 'An existing event for real'
-    },
-    description: {
-      fr: 'Une petite description',
-      en: 'A wee description'
-    },
-    timings: [ {
-      begin: new Date( '2018-11-28T10:00:00' ),
-      end: new Date( '2018-11-28T11:00:00' )
-    } ],
-    location: { uid: 50148047 },
-  },
+  event: anExistingEvent,
   delay: 3000,
   globalError: true
 } ];

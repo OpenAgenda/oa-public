@@ -1,0 +1,17 @@
+{
+  "uid": 123,
+  "slug": "an-existing-event",
+  "title": {
+    "fr": "Un événement qui existe pour de vrai",
+    "en": "An existing event for real"
+  },
+  "description": {
+    "fr": "Une petite description",
+    "en": "A wee description"
+  },
+  "timings": [ {
+    "begin": "2018-11-28T10:00:00.000Z",
+    "end": "2018-11-28T10:00:00.000Z"
+  } ],
+  "location": { "uid": 50148047 }
+}
