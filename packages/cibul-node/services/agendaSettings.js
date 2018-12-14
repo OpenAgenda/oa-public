@@ -2,7 +2,6 @@
 const { promisify } = require( 'util' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
 const agendas = require( '@openagenda/agendas' );
-const config = require( '../config' );
 
 module.exports.init = async config => {
 

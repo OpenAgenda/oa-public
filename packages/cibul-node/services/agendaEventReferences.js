@@ -6,7 +6,6 @@ const agendaEventReferences = require( '@openagenda/agenda-event-references' );
 const internalEventSvc = require( './event' );
 const internalAgendaSvc = require( './agenda' );
 const search = require( './eventSearch' );
-const config = require( '../config' );
 
 module.exports.init = async config => {
 

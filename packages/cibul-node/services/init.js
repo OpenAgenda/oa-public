@@ -10,7 +10,6 @@ const async = require( 'async' );
 const VError = require( 'verror' );
 const w = require( 'when' );
 const logs = require( '@openagenda/logs' );
-const logger = require( '@openagenda/logger' );
 const schema = require( '@openagenda/validators/schema' );
 
 const SERVICES_PATH = __dirname;
@@ -56,8 +55,6 @@ module.exports = function ( config, options, cb ) {
   const cleanOptions = validateOptions( options );
 
   // init logger
-
-  if ( config.logger ) logger.init( config.logger );
 
   logs.init( config.logger || config.getLogConfig( 'oa', 'oa', false ) );
 

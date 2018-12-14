@@ -1,16 +1,11 @@
 "use strict";
 
-const agendaMonitor = require( '@openagenda/agenda-monitor' );
-
-const agendas = require( '@openagenda/agendas' );
-
-const es = require( './elasticsearch' );
-
 const _ = require( 'lodash' );
-
-const logger = require( '@openagenda/logger' );
-
 const VError = require( 'verror' );
+
+const agendaMonitor = require( '@openagenda/agenda-monitor' );
+const agendas = require( '@openagenda/agendas' );
+const es = require( './elasticsearch' );
 
 module.exports.init = config => {
 
@@ -26,7 +21,7 @@ module.exports.init = config => {
       agendaSearchStats,
       agendaSearchResync
     },
-    logger
+    logger: config.getLogConfig( 'svc', 'agenda-monitor', false )
   } );
 
 }

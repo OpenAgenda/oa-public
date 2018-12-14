@@ -33,7 +33,7 @@ module.exports = {
     new LodashModuleReplacementPlugin( { paths: true } ),
     new CleanWebpackPlugin( localDistPath ),
     new WebpackAssetsManifest( {
-      output: __dirname + '/client/manifest.json'
+      output: __dirname + '/client/dist/manifest.json'
     } )
   ].concat(
     pushToCDN ? [

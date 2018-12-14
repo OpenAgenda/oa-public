@@ -11,7 +11,7 @@ const logger = require( '@openagenda/logs' );
 const app = express();
 const log = logger( 'index' );
 
-const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/manifest.json', 'utf-8' ) );
+const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/dist/manifest.json', 'utf-8' ) );
 
 const serviceName = JSON.parse(
   require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )

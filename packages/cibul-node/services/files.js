@@ -1,7 +1,6 @@
 "use strict";
 
 const files = require( '@openagenda/files' );
-const config = require( '../config' );
 
 module.exports.init = config => {
 
