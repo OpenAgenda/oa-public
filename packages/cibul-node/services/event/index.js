@@ -2,7 +2,7 @@
 
 const config = require( '../../config' );
 
-const log = require( '@openagenda/logger' )( 'service:event' );
+const log = require( '@openagenda/logs' )( 'services/event' );
 
 const model = require( '../model' );
 

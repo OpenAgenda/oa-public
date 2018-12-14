@@ -4,7 +4,7 @@ var coms = require( '../../lib/coms' ),
 
 config = require( '../../config' ),
 
-logger = require( '@openagenda/logger' ), log,
+log = require( '@openagenda/logs' )( 'services/agenda/tagsAndCategories' ),
 
 eventSvc = require( '../event' ),
 
@@ -29,8 +29,6 @@ module.exports = function( s ) {
 function changed( object ) {
 
   return ( agendaId, changes, cb ) => {
-
-    log = logger( 'services/agenda/tagsAndCategories' );
 
     log( 'processing change in %s for agenda %s', object, agendaId );
 

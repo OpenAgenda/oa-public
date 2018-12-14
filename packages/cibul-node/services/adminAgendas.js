@@ -2,10 +2,10 @@
 
 const { promisify } = require( 'util' );
 const adminAgendas = require( '@openagenda/admin-agendas' );
-const logger = require( '@openagenda/logger' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const agendas = require( '@openagenda/agendas' );
 const credentials = require( '@openagenda/agendas/service/validate/privateFields' ).credentials;
+const config = require( '../config' );
 
 module.exports.init = async config => {
 
@@ -19,7 +19,7 @@ module.exports.init = async config => {
     },
     mysql: config.db,
     schemas: config.schemas,
-    logger
+    logger: config.getLogConfig( 'svc', 'admin-agendas', false )
   } );
 
 };

@@ -10,8 +10,8 @@ const request = require( 'request' );
 const url = require( 'url' );
 const VError = require( 'verror' );
 
-const logger = require( '@openagenda/logs' );
-const log = require( '@openagenda/logs' )( 'images' );
+const logs = require( '@openagenda/logs' );
+const log = logs( 'images' );
 
 const p = require( './lib/promises' );
 const { w, wn } = p;
@@ -41,7 +41,7 @@ function init( cfg ) {
 
   if ( config.logger ) {
 
-    logger.setModuleConfig( config.logger );
+    logs.setModuleConfig( config.logger );
 
   }
 
@@ -112,7 +112,7 @@ function processImageMulti( srcOptions, destOptions, cb ) {
 
 
 /**
- * handle one image from url fetch or src file 
+ * handle one image from url fetch or src file
  * to tmp formatted saved image
  */
 
@@ -377,7 +377,7 @@ function _crop( values ) {
   return w.promise( function( rs, rj ) {
 
     // crop if ratio is different
-    
+
     var srcRatio = values.info.size.width / values.info.size.height,
 
     dstRatio = values.format.width / values.format.height,
@@ -397,7 +397,7 @@ function _crop( values ) {
     } else if ( srcRatio > dstRatio ) {
 
       // crop in width
-      
+
       newWidth = values.info.size.height * dstRatio;
 
       values.image.crop( newWidth, values.info.size.height, ( values.info.size.width - newWidth ) / 2, 0 );
@@ -429,7 +429,7 @@ async function _loadImageStream( values ) {
   try {
 
     const size = await promisify( image.size.bind( image ) )();
-  
+
     const filesize = await promisify( image.filesize.bind( image ) )();
 
     values.info = {
@@ -507,8 +507,8 @@ function _download( values ) {
 
         _downloadAbort( req, path, {
           code: 'invalid.status',
-          message: 'invalid status code', 
-          statusCode: res.statusCode 
+          message: 'invalid status code',
+          statusCode: res.statusCode
         }, rj );
 
       }

@@ -8,19 +8,17 @@ const async = require( 'async' ),
 
   utils = require( '@openagenda/utils' ),
 
-  logger = require( '@openagenda/logger' ),
+  log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' ),
 
   loadDetailedLocation = require( './loadDetailedLocation' ),
 
   loadEventReferences = require( './loadEventReferences' );
 
-let lib, log;
+let lib;
 
 module.exports = ( options, cb ) => {
 
   var params, operations = [];
-
-  log = logger( 'services/elasticsearch/resync' );
 
   if ( arguments.length == 1 ) {
 
@@ -112,7 +110,7 @@ function _update( type, query ) {
 
       // events type need to have detailed location fed by location service
       // before being indexed.
-      
+
       loadDetailedLocation( dbRef, err => {
 
         if ( err ) log( 'error', 'could not load detailed location data in event %s', dbRef.id );
@@ -131,7 +129,7 @@ function _update( type, query ) {
 
       if ( err ) log( 'error', err );
 
-      _logUpdates( type, count );      
+      _logUpdates( type, count );
 
       cb( err );
 
@@ -205,7 +203,7 @@ function _removeZombies( type, params ) {
   return cb => {
 
     const count = { processed: 0, removed: 0, errors: 0 };
-    
+
     log( 'info', 'removing %s zombies', type );
 
     _loopThroughIndex( type, params, ( obj, next ) => {
@@ -266,7 +264,7 @@ function _delay( sleep, next ) {
 
     }, sleep );
 
-  } 
+  }
 
 }
 

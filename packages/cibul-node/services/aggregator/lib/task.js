@@ -8,9 +8,9 @@ const utils = require( '@openagenda/utils' ),
     sources: require( './sources' )
   },
 
-  logger = require( '@openagenda/logger' );
+  log = require( '@openagenda/logs' )( 'services/aggregator/task' );
 
-let q, pQ, log;
+let q, pQ;
 
 module.exports = utils.extend( launch, {
   set,
@@ -18,8 +18,6 @@ module.exports = utils.extend( launch, {
 });
 
 function launch() {
-
-  log = logger( 'services/aggregator/task' );
 
   if ( !q || !pQ ) return _err( 'aggregator has not been initialized' );
 

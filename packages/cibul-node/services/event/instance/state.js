@@ -4,7 +4,7 @@ var model = require( '../../model' ),
 
 async = require( 'async' ),
 
-log = require( '@openagenda/logger' )( 'event state' ),
+log = require( '@openagenda/logs' )( 'event state' ),
 
 utils = require( '@openagenda/utils' ),
 

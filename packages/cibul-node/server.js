@@ -16,9 +16,7 @@ supervisor( loadTasks => {
 
   require( './services/init' )( err => {
 
-    const logger = require( '@openagenda/logger' );
-
-    const log = logger( 'server' );
+    const log = require( '@openagenda/logs' )( 'server' );
 
     if ( err ) {
 

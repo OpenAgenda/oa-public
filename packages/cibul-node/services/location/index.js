@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'location service' ),
+var log = require( '@openagenda/logs' )( 'location service' ),
 
 config = require( '../../config' ),
 
@@ -65,7 +65,7 @@ function listSimilar( name, latitude, longitude, options, cb ) {
 
     } ) );
 
-  });  
+  });
 
 }
 

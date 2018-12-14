@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'event share service' ),
+var log = require( '@openagenda/logs' )( 'event share service' ),
 
 config = require( '../../config' ),
 
@@ -33,7 +33,7 @@ function getFacebookFeedLink( event, eventUrl, appId ) {
   }
 
   return link;
-  
+
 }
 
 function getSocialLinks( event, eventUrl, siteUrl ) {
@@ -43,7 +43,7 @@ function getSocialLinks( event, eventUrl, siteUrl ) {
     siteUrl = config.root;
 
   }
-  
+
   return {
     facebookShare: _facebookShare( event, eventUrl ),
     twitterShare: _twitterShare( event, eventUrl ),
@@ -53,7 +53,7 @@ function getSocialLinks( event, eventUrl, siteUrl ) {
     tumblrShare: _tumblrShare( event, eventUrl ),
     emailShare: _emailShare( event )
   }
-  
+
 }
 
 function addCalendarLinks( event, eventUrl, agenda ) {
@@ -183,7 +183,7 @@ function _pinterestShare( event, eventUrl ) {
 
 function _tumblrShare( event, eventUrl ) {
 
-  return 'http://tumblr.com/share?s=&v=3&u=' 
+  return 'http://tumblr.com/share?s=&v=3&u='
 
   + encodeURIComponent( eventUrl )
 

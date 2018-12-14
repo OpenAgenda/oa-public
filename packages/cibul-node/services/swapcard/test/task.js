@@ -3,13 +3,13 @@
  */
 
 // admin@cibul.net
-// 
+//
 
 process.env.NODE_ENV = 'test';
 
 var config = require( '../../../config' ),
 
-log = require( '@openagenda/logger' )( 'events sync tests' ),
+log = require( '@openagenda/logs' )( 'events sync tests' ),
 
 should = require( 'should' ),
 
@@ -33,7 +33,7 @@ tokens = {
 };
 
 describe( 'events services sync', function() {
-  
+
   before( function( done ) {
 
     this.timeout( 5000 );

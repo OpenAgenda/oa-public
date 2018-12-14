@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'swapcard' ),
+var log = require( '@openagenda/logs' )( 'swapcard' ),
 
 https = require( 'https' ),
 
@@ -26,7 +26,7 @@ lib = require( '../../lib/lib' );
 
 module.exports = function ( model, config ) {
 
-  var oauth2 = new OAuth2( config.bridges.swapcard.clientID, 
+  var oauth2 = new OAuth2( config.bridges.swapcard.clientID,
     config.bridges.swapcard.clientSecret,
     config.bridges.swapcard.baseSite,
     config.bridges.swapcard.authorizePath,
@@ -57,8 +57,8 @@ module.exports = function ( model, config ) {
 
     log( 'info', {
       message: 'createOrPatch values %s',
-      agendaId: values.agendaId, 
-      eventId: values.eventId 
+      agendaId: values.agendaId,
+      eventId: values.eventId
     }, JSON.stringify( values ) );
 
     w( {
@@ -122,7 +122,7 @@ module.exports = function ( model, config ) {
 
     offset = 0;
 
-    async.whilst( 
+    async.whilst(
       function( ) { return total == 40 },
 
       function( callback ) {
@@ -144,7 +144,7 @@ module.exports = function ( model, config ) {
           } );
 
         });
-                
+
       },
 
       function( err ) {
@@ -162,7 +162,7 @@ module.exports = function ( model, config ) {
   /**
    * link an account or an agenda to an other application's account
    */
-  
+
   function connectService( req, res ) {
 
     var stateObj = {
@@ -232,7 +232,7 @@ module.exports = function ( model, config ) {
 
     offset = 0;
 
-    async.whilst( 
+    async.whilst(
       function( ) { return total == 40 },
 
       function( callback ) {
@@ -266,7 +266,7 @@ module.exports = function ( model, config ) {
           } );
 
         });
-                
+
       },
 
       function( err ) {
@@ -341,9 +341,9 @@ module.exports = function ( model, config ) {
 
     return w.promise( function( rs, rj ) {
 
-      _request( v.method, v.route, { 
-        'Authorization': 'Bearer ' + v.agendaScConfig.access, 
-        'Content-Type': 'application/json', 
+      _request( v.method, v.route, {
+        'Authorization': 'Bearer ' + v.agendaScConfig.access,
+        'Content-Type': 'application/json',
         'Accept-Language': 'fr,eng'
       }, v.scEvent, function( err, result ) {
 
@@ -580,7 +580,7 @@ module.exports = function ( model, config ) {
           try {
 
             result = JSON.parse( response );
-            
+
           } catch( e ) {
 
             log( 'error', 'Invalid JSON response' );
@@ -638,13 +638,13 @@ module.exports = function ( model, config ) {
     } else if ( values.statusCode == 404 ) {
 
       if ( method == 'update' ) {
-       
+
         return exposed[ 'publish' ]( { eventId: values.instance.id, agendaId: values.agenda.id, type: 'swapcard' }, cb );
 
       } else {
 
         return cb();
-        
+
       }
 
     } else {

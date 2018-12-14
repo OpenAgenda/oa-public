@@ -11,7 +11,6 @@
  */
 
 const _ = require( 'lodash' );
-const logger = require( '@openagenda/logger' );
 const VError = require( 'verror' );
 const custom = require( '@openagenda/custom' );
 const agendas = require( '@openagenda/agendas' );

@@ -6,9 +6,9 @@ const aggUtils = require( './aggUtils' ),
 
   notify = require( '../../notification' ).notify,
 
-  logger = require( '@openagenda/logger' );
+  log = require( '@openagenda/logs' )( 'services/aggregator/sources' );
 
-let log, q, pQ;
+let q, pQ;
 
 module.exports = {
   add,
@@ -23,8 +23,6 @@ module.exports = {
 
 
 function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
-
-  _init();
 
   p.w( {
     sourceId,
@@ -77,8 +75,6 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
 
 function remove( sourceId, aggregatorAgendaId, cb ) {
 
-  _init();
-
   p.w( {
     sourceId,
     aggregatorAgendaId,
@@ -114,8 +110,6 @@ function remove( sourceId, aggregatorAgendaId, cb ) {
 
 function process( sourceId, aggregatorAgendaId, upcomingOnly, mute, cb ) {
 
-  _init();
-
   p.w( {
     sourceId,
     aggregatorAgendaId,
@@ -147,8 +141,6 @@ function process( sourceId, aggregatorAgendaId, upcomingOnly, mute, cb ) {
 }
 
 function complete( agendaId, cb ) {
-
-  _init();
 
   log( 'info', { message: 'triggering refresh for agenda id %s', agendaId: agendaId }, agendaId );
 
@@ -362,15 +354,5 @@ function _dispatchProcessComplete( v ) {
   } );
 
   return d.promise;
-
-}
-
-
-
-function _init() {
-
-  if ( log ) return;
-
-  log = logger( 'services/aggregator/sources' );
 
 }

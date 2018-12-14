@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'agenda event search' ),
+var log = require( '@openagenda/logs' )( 'agenda event search' ),
 
 es = require( '../../elasticsearch' ),
 
@@ -27,8 +27,8 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
       log( 'info', {
         action: 'resync.complete',
-        agendaId: instance.id, 
-        message : 'resynced agenda' 
+        agendaId: instance.id,
+        message : 'resynced agenda'
       } );
 
       loaded.refresh( cb );

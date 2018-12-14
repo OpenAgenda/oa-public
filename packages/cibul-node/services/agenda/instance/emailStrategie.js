@@ -1,6 +1,6 @@
 "use strict";
 
-var log = require( '@openagenda/logger' )( 'EmailStrategie' ),
+var log = require( '@openagenda/logs' )( 'EmailStrategie' ),
 
 emailStrat = require( '@openagenda/email-strategie' ),
 
@@ -54,7 +54,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       url: loaded.getUrl()
     } )
 
-    
+
 
     // get account & list
     .then( function( obj ) {
@@ -100,7 +100,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           obj.emailStrategieCount = count;
 
-          rs( obj );            
+          rs( obj );
 
         });
 
@@ -245,7 +245,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
             });
 
           } );
-          
+
         } );
 
       } else {
@@ -333,7 +333,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
           // here stream should be given params
           _streamEvents( {
-            state: 'sending', 
+            state: 'sending',
             list: list,
             useExternalUrl: params.useExternalUrl,
             filters: params.filters
@@ -387,7 +387,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
       } else {
 
         _streamEvents( {
-          state: 'sending', 
+          state: 'sending',
           list: list
         }, cb );
 
@@ -480,7 +480,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         } );
 
       } );
-      
+
     } );
 
   }

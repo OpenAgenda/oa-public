@@ -5,7 +5,7 @@ const config = require( '../../config' );
 const users = require( '@openagenda/users' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
-const logger = require( '@openagenda/logger' );
+const log = require( '@openagenda/logs' )( 'services/notification/mail' );
 const agendas = require( '@openagenda/agendas' );
 const events = require( '../event' );
 const genUrl = require( '../genUrl' );
@@ -76,8 +76,6 @@ const types = {
 }
 
 module.exports = ( notifications, cb ) => {
-
-  let log = logger( 'services/notification/mail' );
 
   async.mapLimit( notifications, 5, ( n, mcb ) => {
 
@@ -217,7 +215,7 @@ function _genLinked( label, route, params ) {
 
   return `[${label}](${link})`;
 
-} 
+}
 
 function _getLang( obj, lang ) {
 

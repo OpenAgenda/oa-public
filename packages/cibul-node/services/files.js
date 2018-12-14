@@ -1,8 +1,7 @@
 "use strict";
 
-const files = require( '@openagenda/files' ),
-
-  logger = require( '@openagenda/logger' );
+const files = require( '@openagenda/files' );
+const config = require( '../config' );
 
 module.exports.init = config => {
 
@@ -10,7 +9,7 @@ module.exports.init = config => {
     bucket: config.aws.bucket,
     accessKeyId: config.aws.accessKeyId, // required
     secretAccessKey: config.aws.secretAccessKey, // required too
-    logger
+    logger: config.getLogConfig( 'svc', 'files', false )
   } );
 
 }
