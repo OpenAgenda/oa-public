@@ -47,9 +47,6 @@ module.exports = [ {
     },
     event: {
       message: 'Do not take **all day**'
-    },
-    confirmation: {
-      message: 'This is a message written by *Agenda administrators*'
     }
   } )
 }, {
@@ -104,6 +101,37 @@ module.exports = [ {
   } ),
   member: anIncompleteMember
 }, {
+  link: '/confirmation-default/contribute',
+  agenda: {
+    title: 'Default confirmation page',
+    description: 'Shows the default confirmation screen when the event is saved. It says the event is published.',
+    slug: 'confirmation-default',
+    uid: 1234321,
+    id: 7
+  },
+  member: aValidMember,
+  schemaExtensions: [ defaultValuesSchemaExtension ], // make it simple to reach next step
+  config: _.assign( {}, defaultConfig, {
+    base: '/confirmation-default/contribute'
+  } )
+}, {
+  link: '/confirmation-moderated/contribute',
+  agenda: {
+    title: 'Confirmation page for moderated event',
+    description: 'Shows the default confirmation screen when the event is saved. It says the event is published.',
+    slug: 'confirmation-moderated',
+    uid: 1234321,
+    id: 7
+  },
+  member: aValidMember,
+  schemaExtensions: [ defaultValuesSchemaExtension ], // make it simple to reach next step
+  config: _.assign( {}, defaultConfig, {
+    base: '/confirmation-moderated/contribute',
+    confirmation: {
+      state: 0
+    }
+  } )
+}, {
   link: '/confirmation/contribute',
   agenda: {
     title: 'Confirmation page with a custom message',
@@ -113,26 +141,12 @@ module.exports = [ {
     id: 6
   },
   member: aValidMember,
-  event: anExistingEvent,
-  schemaExtensions: [ defaultValuesSchemaExtension ],
+  schemaExtensions: [ defaultValuesSchemaExtension ], // make it simple to reach next step
   config: _.assign( {}, defaultConfig, {
     base: '/confirmation/contribute',
-    member: { dataIsRequired: false },
     confirmation: {
       message: 'This is a message from *Agenda administrators*'
-    },
-  } )
-}, {
-  link: '/confirmation-default/contribute/confirmation',
-  agenda: {
-    title: 'Show confirmation page directly (default)',
-    description: 'This is a shortcut page to a confirmation page with default message',
-    slug: 'confirmation-default',
-    uid: 1234321,
-    id: 7
-  },
-  config: _.assign( {}, defaultConfig, {
-    base: '/confirmation-default/contribute'
+    }
   } )
 }, {
   link: '/edit-an-event/contribute/event/123',
