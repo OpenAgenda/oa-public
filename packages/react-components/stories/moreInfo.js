@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import ReactMarkdown from 'react-markdown';
 import MoreInfo from '../components/MoreInfo';
 import Decorator from './helpers/Decorator';
 
@@ -41,6 +42,16 @@ storiesOf( 'MoreInfo', module )
     <MoreInfo
       id="fourth-popover"
       content="Ce badge est un badge !"
+    >
+      <div className="badge">Un badge !</div>
+    </MoreInfo>
+
+  ) )
+  .add( 'With markdown content', () => (
+
+    <MoreInfo
+      id="fourth-popover"
+      content={<ReactMarkdown source={"***Ce badge est un badge !***"} />}
     >
       <div className="badge">Un badge !</div>
     </MoreInfo>
