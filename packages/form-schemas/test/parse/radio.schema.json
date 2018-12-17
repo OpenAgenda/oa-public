@@ -11,6 +11,8 @@
       "info": null,
       "placeholder" : null,
       "sub" : null,
+      "help" : null,
+      "helpLink" : null,
       "write": "contributor",
       "read": null,
       "optional": false,

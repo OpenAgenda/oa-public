@@ -32,13 +32,15 @@ describe( 'form-schemas -06- validateField', () => {
         min: null,
         max: null,
         sub: null,
+        help : null,
+        helpLink : null,
         fieldType: 'text',
         origin: null,
         enableWith : null,
         related: [],
         default: undefined
       } );
-        
+
     } );
 
     it( 'validates a multilingual text field definition', () => {
@@ -57,6 +59,9 @@ describe( 'form-schemas -06- validateField', () => {
         label: { fr: 'Un champ texte multilingue' },
         info: null,
         placeholder: null,
+        sub: null,
+        help : null,
+        helpLink : null,
         write: null,
         read: null,
         optional: true,
@@ -65,7 +70,6 @@ describe( 'form-schemas -06- validateField', () => {
         languages: [ 'fr', 'en', 'it' ],
         min: null,
         max: null,
-        sub: null,
         fieldType: 'text' ,
         enableWith : null,
         related: [],
@@ -75,7 +79,7 @@ describe( 'form-schemas -06- validateField', () => {
     } );
 
     it( 'validates a radio field definition', () => {
-      
+
       iso.validateField( {
         field: 'anoptionlist',
         fieldType: 'radio',
@@ -95,16 +99,18 @@ describe( 'form-schemas -06- validateField', () => {
         label: { fr: 'Choix multiples' },
         info: null,
         placeholder: null,
+        sub: null,
+        help : null,
+        helpLink : null,
         read: null,
         write: null,
         optional: true,
         display: true,
         options: [
           { id: null, legacyId: null, value: '1', label: { fr: 'Un' } },
-          { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } } 
+          { id: null, legacyId: null, value: '2', label: { fr: 'Deux' } }
         ],
         fieldType: 'radio',
-        sub: null,
         origin: null,
         enableWith : null,
         related: [],
@@ -157,11 +163,14 @@ describe( 'form-schemas -06- validateField', () => {
         origin: null
       } )
 
-      .should.eql( { 
+      .should.eql( {
         field: 'atextfield',
         label: { fr: 'Un champ de texte libre' },
         info: { fr: 'Avec un détail explicatif' },
         placeholder : null,
+        sub: null,
+        help : null,
+        helpLink : null,
         read: null,
         write: null,
         optional: true,
@@ -169,7 +178,6 @@ describe( 'form-schemas -06- validateField', () => {
         min: 3,
         max: 10,
         fieldType: 'textarea',
-        sub: null,
         origin: null,
         enableWith : null,
         related: [],
@@ -197,6 +205,8 @@ describe( 'form-schemas -06- validateField', () => {
         info: null,
         placeholder: null,
         sub: null,
+        help : null,
+        helpLink : null,
         write: null,
         read: null,
         optional: true,
@@ -234,12 +244,14 @@ describe( 'form-schemas -06- validateField', () => {
         fieldType: 'text',
         label: 'A label',
         enableWith: 'anotherfield'
-      } ).should.eql( { 
+      } ).should.eql( {
         field: 'afield',
         label: { en: 'A label' },
         info: null,
         sub: null,
         placeholder: null,
+        help : null,
+        helpLink : null,
         write: null,
         read: null,
         optional: true,
@@ -254,7 +266,7 @@ describe( 'form-schemas -06- validateField', () => {
       } );
 
     } );
-    
+
 
   } );
 

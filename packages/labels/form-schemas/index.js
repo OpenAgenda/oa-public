@@ -12,5 +12,9 @@ module.exports = {
   submit: {
     fr: 'Enregistrer',
     en: 'Submit'
+  },
+  help: {
+    fr: 'Aide',
+    en: 'Help'
   }
 }

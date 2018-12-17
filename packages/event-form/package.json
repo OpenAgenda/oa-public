@@ -1,9 +1,9 @@
 {
   "name": "@openagenda/event-form",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "main": "client/build/index.js",
   "scripts": {
-    "start": "nodemon server.dev",
+    "start": "nodemon dev/server",
     "test": "jest --forceExit --detectOpenHandles",
     "prepublish": "yarn build",
     "build": "rimraf build && babel src -d build -s"
@@ -41,6 +41,9 @@
     "jest": "^23.6.0",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.17.3",
+    "react-json-editor-ajrm": "^2.5.9",
+    "store": "^2.0.12",
+    "verror": "^1.10.0",
     "webpack": "^4.1.1",
     "webpack-assets-manifest": "^3.0.1",
     "webpack-cli": "^3.1.2",

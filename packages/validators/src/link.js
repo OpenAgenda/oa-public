@@ -1,18 +1,17 @@
 "use strict";
 
-const rgx = require( './regex' ),
+const _ = {
+  assign: require( 'lodash/assign' ),
+  isString: require( 'lodash/isString' )
+};
+const isURL = require( 'validator/lib/isURL' );
 
-  emailValidator = require( './email' )(),
-
-  isURL = require( 'validator/lib/isURL' ),
-
-  _ = {
-    extend: require( 'lodash/extend' )
-  }
+const rgx = require( './regex' );
+const emailValidator = require( './email' )();
 
 module.exports = config => {
 
-  let params = _.extend( {
+  const params = _.assign( {
     field: undefined,
     error: {
       code: 'link.invalid',
@@ -20,31 +19,31 @@ module.exports = config => {
     },
     type: 'link',
     optional: true
-  }, config || {} ),
+  }, config || {} );
 
-  shouldntMatch = [
+  const shouldntMatch = [
     /\s/,
     /\/:/,
     /;/
-  ],
+  ];
 
-  validator = function( value ) {
+  function validator( value ) {
 
-    var templateError = {
+    const templateError = {
       field: validator.field,
       code: 'link.invalid',
       message: 'value is not a link'
-    },
+    };
 
-    clean = value,
+    let clean = value;
 
-    isEmail = true,
+    let isEmail = true;
 
-    error = [ _.extend( {
+    const error = [ _.assign( {
       origin: value
     }, templateError ) ];
 
-    if ( value ) {
+    if ( _.isString( value ) ) {
 
       clean = value.trim();
 
@@ -52,7 +51,7 @@ module.exports = config => {
 
     if ( ( !value || !value.length ) && params.optional ) {
 
-      return value;
+      return params.default !== undefined ? params.default : clean;
 
     }
 

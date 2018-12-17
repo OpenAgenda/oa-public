@@ -69,7 +69,9 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
             fr: 'Niveau scolaire'
           },
           info: null,
-          "sub" : null,
+          sub : null,
+          help: null,
+          helpLink: null,
           write: 'contributor',
           read: null,
           optional: false,
@@ -116,15 +118,17 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           default: null
         },
         {
-          "field": "style-musical",
-          "label": {
+          field: "style-musical",
+          label: {
             "fr": "Style musical"
           },
-          "info": null,
-          "placeholder" : null,
-          "sub" : null,
-          "write": 'contributor',
-          "read": null,
+          info: null,
+          placeholder : null,
+          sub : null,
+          help: null,
+          helpLink: null,
+          write: 'contributor',
+          read: null,
           "optional": true,
           display: true,
           "options": [
@@ -164,7 +168,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
     } );
 
   } );
-  
+
 
   it( 'takes a form schema, a category set and returns a form schema with the category set added as fields', () => {
 
@@ -232,7 +236,9 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         ],
         "fieldType": "radio",
         "origin" : "categories",
-        "sub" : null,
+        sub : null,
+        help: null,
+        helpLink: null,
         enableWith : null,
         default: null,
         related: []

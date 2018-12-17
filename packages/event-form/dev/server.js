@@ -3,18 +3,18 @@
 const express = require( 'express' );
 const webpack = require( 'webpack' );
 
-const webpackConfig = require( './webpack.dev' );
+const webpackConfig = require( './webpack' );
 const compiler = webpack( webpackConfig );
 
 const dev = express();
 
-const locationApp = require( './dev/locationApp' );
-const referencesApp = require( './dev/referencesApp' );
+const locationApp = require( './locationApp' );
+const referencesApp = require( './referencesApp' );
 
 const style = require( '@openagenda/bs-templates' ).getCss( 'main' );
 
 dev.use( require( 'webpack-dev-middleware' )( compiler, {
-  noInfo: true, 
+  noInfo: true,
   publicPath: '/js'
 } ) );
 
@@ -43,6 +43,6 @@ dev.use( '/references', referencesApp );
 
 dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
 
-dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
+dev.use( '/fonts', express.static( __dirname + '/../../bs-templates/templates/fonts' ) );
 
 dev.listen( 3000 );

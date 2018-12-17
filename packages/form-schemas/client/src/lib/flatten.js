@@ -5,7 +5,7 @@ module.exports = ( field, lang ) => {
 
   const update = {};
 
-  [ 'label', 'info', 'placeholder', 'sub' ].forEach( f => {
+  [ 'label', 'info', 'placeholder', 'sub', 'help' ].forEach( f => {
 
     if ( !field[ f ] ) return;
 
@@ -24,7 +24,7 @@ module.exports = ( field, lang ) => {
     }, [] );
 
   }
-  
+
   return ih( field, update );
 
 }

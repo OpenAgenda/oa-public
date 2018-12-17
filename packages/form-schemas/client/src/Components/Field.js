@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import FieldCounter from './FieldCounter';
+import Help from './Help';
+import Info from './Info';
 import Sub from './Sub';
 
 const flattenFieldLabels = require( '../lib/flatten' );
@@ -56,12 +58,16 @@ module.exports = class Field extends Component {
       'has-error' : !!error,
       'multilingual-input-field' : isMultilingual
     } ) } key={field.field}>
-      {field.label ? <label className="control-label">{field.label}</label> : null}
+      {field.label ? <label className={classNames({
+        'control-label' : true,
+        'margin-right-xs' : !field.optional || field.help || field.helpLink
+      })}>{field.label}</label> : null}
       {field.optional ? '' : <span className={classNames({
-        'margin-left-xs' : true,
+        'margin-right-xs' : field.help || field.helpLink,
         error: !!error
       })}>{'( ' + labels.required + ' )'}</span>}
-      {field.info?<div>{field.info}</div>:null}
+      {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
+      <Info value={field.info}/>
       <Component
         enabled={isEnabled}
         lang={lang}
