@@ -3,7 +3,7 @@
   "version": "1.2.4",
   "main": "client/build/index.js",
   "scripts": {
-    "start": "nodemon server.dev",
+    "start": "nodemon dev/server",
     "test": "jest --forceExit --detectOpenHandles",
     "prepublish": "yarn build",
     "build": "rimraf build && babel src -d build -s"
