@@ -53,17 +53,15 @@ const routes = {
     _loadCategorySet,
     _loadEmbedUids,
     locationMw.loadSettings( 'locationSettings', true ),
-    ( req, res ) => cmn.renderJson( req, res, {
-      title: req.agenda.title,
-      description: req.agenda.description,
-      url: req.agenda.url,
-      tagSet: req.tagSet,
-      categorSet: req.categorySet,
-      locationSet: req.locationSettings,
-      customSet: req.agenda.getCustomFieldsConfig(),
-      embeds: req.embeds
-    } )
-  ] ],
+    ( req, res ) => cmn.renderJson( req, res, _.assign( _.pick( req.agenda, [
+      'title', 'description', 'slug', 'url'
+    ], {
+    tagSet: req.tagSet,
+    categorSet: req.categorySet,
+    locationSet: req.locationSettings,
+    customSet: req.agenda.getCustomFieldsConfig(),
+    embeds: req.embeds
+  } ) ) ) ] ],
 
   agendaCsvEvents: [ 'get', '/events.csv', [
     agendaSvc.mw.load( 'uid' ),
