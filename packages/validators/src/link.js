@@ -1,7 +1,8 @@
 "use strict";
 
 const _ = {
-  assign: require( 'lodash/assign' )
+  assign: require( 'lodash/assign' ),
+  isString: require( 'lodash/isString' )
 };
 const isURL = require( 'validator/lib/isURL' );
 
@@ -42,7 +43,7 @@ module.exports = config => {
       origin: value
     }, templateError ) ];
 
-    if ( value ) {
+    if ( _.isString( value ) ) {
 
       clean = value.trim();
 
@@ -50,7 +51,7 @@ module.exports = config => {
 
     if ( ( !value || !value.length ) && params.optional ) {
 
-      return value;
+      return params.default !== undefined ? params.default : clean;
 
     }
 

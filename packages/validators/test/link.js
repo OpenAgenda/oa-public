@@ -1,8 +1,8 @@
 "use strict";
 
-var should = require( 'should' ),
+const should = require( 'should' );
 
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'link validator', () => {
 
@@ -49,7 +49,7 @@ describe( 'link validator', () => {
 
     it( 'redos! - your processor did not sink', () => {
 
-      [ 
+      [
         'http://www.scenesetcines.fr/index.php?id=68&no_cache=1&tx_xmloparser_pi1%5Bitem%5D=30002746&tx_xmloparser_pi1%5BbackPid%5D=2&PHPSESSID=11a611c62b026547e8de23e6d6576907, http://www.artefact-lab.com/',
         'https://www.facebook.com/events/1876712549261961/?acontext=%7B%22source%22%3A5%2C%22page_id_source%22%3A1916781171902508%2C%22action_history%22%3A[%7B%22surface%22%3A%22page%22%2C%22mechanism%22%3A%22main_list%22%2C%22extra_data%22%3A%22%7B%5C%22page_id%5'
       ].forEach( l => {
@@ -66,7 +66,7 @@ describe( 'link validator', () => {
         }
 
       } );
-      
+
     } );
 
     it( 'http is added if missing', () => {
@@ -77,7 +77,7 @@ describe( 'link validator', () => {
 
     } );
 
-    
+
     it( 'are links', () => {
 
       let errors = false,
@@ -173,13 +173,19 @@ describe( 'link validator', () => {
 
   describe( 'optional', () => {
 
-    var validate = validators.link( { field: 'link', optional: true } );
+    const validate = validators.link( { field: 'link', optional: true } );
 
     it( 'empty input is ignored', () => {
 
-      should( validate() )
+      should( validate() ).equal( undefined );
 
-      .equal( undefined );
+    } );
+
+    it( 'if default is provided, default is used', () => {
+
+      const validate = validators.link( { field: 'link', optional: true, default: null } );
+
+      should( validate() ).equal( null );
 
     } );
 
