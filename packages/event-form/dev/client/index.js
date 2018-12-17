@@ -3,9 +3,9 @@ import { render } from 'react-dom';
 
 if ( module.hot ) module.hot.accept();
 
-import EventForm from './';
+import EventForm from '../../src';
 
-import eventReferences from './fields/references';
+import eventReferences from '../../src/fields/references';
 
 console.log( '***** CHANGE ******' );
 
