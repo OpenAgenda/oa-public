@@ -125,6 +125,10 @@
     "prod" : "embed/cibulMapWidget.js"
   },
   {
+    "js" : "widgets/activeFilters/activeFilters.js",
+    "prod" : "embed/oaActiveFilters.js"
+  },
+  {
     "js" : "widgets/form/form.js",
     "prod" : "embed/cibulFormWidget.js"
   },
