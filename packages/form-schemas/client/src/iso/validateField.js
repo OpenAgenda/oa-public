@@ -47,7 +47,7 @@ function validateType( value, custom = {} ) {
 
   if ( custom && _.keys( custom ).includes( dirtyType ) ) {
 
-    return dirtyType; 
+    return dirtyType;
 
   }
 
@@ -157,7 +157,7 @@ function validate( value, options = {} ) {
 
 function buildFieldSchema( type, options = {} ) {
 
-  const { 
+  const {
     languages,
     defaultLabelLanguage,
   } = _.assign( {
@@ -179,6 +179,20 @@ function buildFieldSchema( type, options = {} ) {
       type: 'multilingual',
       optional: false,
       defaultLanguage: defaultLabelLanguage
+    },
+
+    // the optional help text
+    help: {
+      type: 'multilingual',
+      optional: true,
+      default: null,
+      defaultLanguage: defaultLabelLanguage
+    },
+
+    helpLink: {
+      type: 'link',
+      optional: true,
+      default: null
     },
 
     default: {

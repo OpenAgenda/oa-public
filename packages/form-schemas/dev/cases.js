@@ -24,7 +24,12 @@ module.exports = {
   }, {
     name: 'Simple with a default value',
     description: 'A default value can be defined',
-    link: '/simplewithdefault',
+    link: 'simplewithdefault',
+    group: 'getting-started'
+  }, {
+    name: 'Help link',
+    description: 'A help link can be set. It presents some context help when clicked on',
+    link: '/simplewithhelp',
     group: 'getting-started'
   }, {
     name: 'A form',

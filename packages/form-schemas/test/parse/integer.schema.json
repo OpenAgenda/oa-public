@@ -19,6 +19,8 @@
       "fr": "Combien de participants",
       "en": "How many participants"
     },
+    "help" : null,
+    "helpLink" : null,
     "placeholder" : null,
     "sub" : null,
     "origin" : "custom",

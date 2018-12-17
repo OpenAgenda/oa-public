@@ -11,6 +11,8 @@
     "placeholder" : null,
     "sub" : null,
     "info": null,
+    "help" : null,
+    "helpLink" : null,
     "optional": false,
     "display" : true,
     "fieldType": "text",
