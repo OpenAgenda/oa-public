@@ -12,6 +12,7 @@
     "build": "babel react/src -d react/build -s"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/labels": "^2.1.0",

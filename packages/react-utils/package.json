@@ -16,6 +16,7 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "history": "^3.3.0",
     "lodash": "^4.17.4",
     "react-redux": "^5.0.4",

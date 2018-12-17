@@ -21,6 +21,7 @@
     "react-dom": "15 || 16"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.0.3",

@@ -10,6 +10,7 @@
     "build": "rimraf build && babel src -d build -s"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.0",
     "axios": "^0.18.0",

@@ -9,6 +9,7 @@
     "dist": "webpack --config webpack.dist.js"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/labels": "^2.1.0",
     "css-loader": "^0.28.7",
     "immutability-helper": "^2.6.4",

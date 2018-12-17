@@ -22,6 +22,7 @@
     "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.2.0",

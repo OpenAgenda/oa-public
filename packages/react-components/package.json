@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/dom-utils": "^2.2.0",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.5.8",

@@ -23,6 +23,7 @@
     "react-dom": "15 || 16"
   },
   "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/agenda-stakeholders": "^2.1.1",
     "@openagenda/call-to-action": "^2.2.1",
     "@openagenda/dom-utils": "^2.2.0",
