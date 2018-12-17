@@ -26,7 +26,9 @@
       "**/react-dom",
       "**/react-dom/**",
       "**/prettier-eslint",
-      "**/prettier-eslint-cli"
+      "**/prettier-eslint-cli",
+      "**/babel-core",
+      "**/babel-register"
     ]
   },
   "devDependencies": {
@@ -37,5 +39,8 @@
     "lerna": "^2.11.0",
     "react": "^16.6.1",
     "react-dom": "^16.6.1"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.2.0"
   }
 }

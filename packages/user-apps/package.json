@@ -37,7 +37,7 @@
   "devDependencies": {
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/keys": "^2.1.1",
-    "@openagenda/test-app": "^3.0.1-5",
+    "@openagenda/test-app": "^3.0.1-6",
     "@openagenda/unsubscribed": "^2.1.1",
     "babel-preset-openagenda": "^1.1.1",
     "concurrently": "^3.5.1",
