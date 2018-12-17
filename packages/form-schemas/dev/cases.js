@@ -27,6 +27,11 @@ module.exports = {
     link: 'simplewithdefault',
     group: 'getting-started'
   }, {
+    name: 'Info text',
+    description: 'An info text can be placed between the label and the field',
+    link: 'simplewithinfo',
+    group: 'getting-started'
+  }, {
     name: 'Help link',
     description: 'A help link can be set. It presents some context help when clicked on',
     link: '/simplewithhelp',

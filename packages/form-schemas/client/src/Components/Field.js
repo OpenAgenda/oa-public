@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import FieldCounter from './FieldCounter';
 import Help from './Help';
+import Info from './Info';
 import Sub from './Sub';
 
 const flattenFieldLabels = require( '../lib/flatten' );
@@ -66,7 +67,7 @@ module.exports = class Field extends Component {
         error: !!error
       })}>{'( ' + labels.required + ' )'}</span>}
       {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
-      {field.info?<div>{field.info}</div>:null}
+      <Info value={field.info}/>
       <Component
         enabled={isEnabled}
         lang={lang}
