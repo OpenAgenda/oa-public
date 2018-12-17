@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/translators",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Provides iso functions to fetch translated content",
   "keywords": [],
   "author": "",
@@ -35,7 +35,7 @@
     "@openagenda/test-app": "^2.0.4",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
-    "babel-preset-openagenda": "^1.1.0",
+    "babel-preset-openagenda": "^1.1.1",
     "jest": "^23.6.0",
     "should": "^11.1.1"
   }

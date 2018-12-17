@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-components",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "@storybook/addon-actions": "^4.0.11",
     "@storybook/react": "^4.0.11",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.0",
+    "babel-preset-openagenda": "^1.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rimraf": "^2.6.2",

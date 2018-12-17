@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-calendar-apps",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Calendar views for an agenda",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -30,7 +30,7 @@
     "@babel/core": "^7.1.6",
     "@openagenda/bs-templates": "^2.2.0",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.0",
+    "babel-preset-openagenda": "^1.1.1",
     "compression-webpack-plugin": "^1.1.11",
     "eslint": "^4.19.1",
     "lodash-webpack-plugin": "^0.11.5",

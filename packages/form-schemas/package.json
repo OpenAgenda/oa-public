@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -19,8 +19,8 @@
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-table-store": "^1.0.0",
-    "@openagenda/react-components": "^2.2.0",
-    "@openagenda/validators": "^2.1.0",
+    "@openagenda/react-components": "^2.2.1",
+    "@openagenda/validators": "^2.1.3",
     "aws-sdk": "^2.306.0",
     "body-parser": "^1.18.3",
     "immutability-helper": "^2.3.0",
@@ -43,7 +43,7 @@
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.0",
+    "babel-preset-openagenda": "^1.1.1",
     "lodash-webpack-plugin": "^0.11.5",
     "mocha": "^4.0.1",
     "multer": "^1.3.1",
