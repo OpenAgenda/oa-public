@@ -1,91 +1,115 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import store from 'store';
+import VError from 'verror';
 
 if ( module.hot ) module.hot.accept();
 
-import EventForm from '../../src';
+import EventForm from './EventForm';
+import SchemaEditorComponent from './SchemaEditorComponent';
+import validateFormField from '@openagenda/form-schemas/iso/validateField';
 
-import eventReferences from '../../src/fields/references';
+const storeKey = 'eventFormSandbox';
 
 console.log( '***** CHANGE ******' );
 
 class Main extends Component {
 
+  constructor( props ) {
+
+    super( props );
+
+    const stored = store.get( storeKey );
+
+    if ( _.isObject( stored ) ) {
+
+      this.state = stored;
+
+    }
+
+  }
+
+  getValidatErrors( schemas ) {
+
+    try {
+
+      schemas.forEach( schema => {
+
+        // form schema needs better validation
+
+        if ( !_.isArray( schema.fields ) ) throw new Error( 'schema is missing fields list' );
+
+        schema.fields.forEach( field => {
+
+          try {
+
+            validateFormField( field )
+
+          } catch ( e ) {
+
+            throw new VError( e, 'field %s failed', field.field || 'nameless ( field missing )' );
+
+          }
+
+        } );
+
+      } );
+
+      return []
+
+    } catch ( e ) {
+
+      return [ e ];
+
+    }
+
+  }
+
+  updateSchemas( update ) {
+
+    const schemas = [].concat( update );
+
+    const errors = this.getValidatErrors( schemas );
+
+    if ( errors.length ) {
+
+      console.error( 'not valid', errors );
+
+      return;
+
+    }
+
+    console.log( 'valid' );
+
+    this.setState( { schemas } );
+
+    store.set( storeKey, { schemas } );
+
+  }
+
+  onJSONChange( { jsObject } ) {
+
+    if ( jsObject ) this.updateSchemas( jsObject );
+
+  }
+
   render() {
 
-    return <div className="container top-margined col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-12 oa-col-canvas">
-      <div className="row margin-v-md margin-h-sm">
-        <EventForm
-          schemaExtensions={[ {
-            fields: [ {
-              field: 'networkfield',
-              label: {
-                fr: 'Champ multilingue de réseau',
-                en: 'Multilingual Network field'
-              },
-              languages: [],
-              fieldType: 'text'
-            } ]
-          }, {
-            fields: [ {
-              field: 'languages',
-              fieldType: 'abstract'
-            }, {
-              field: 'title',
-              fieldType: 'abstract',
-              default: 'Le titre de l\'événement'
-            }, {
-              field: 'keywords',
-              fieldType: 'abstract',
-              display: false
-            }, {
-              field: 'agendafield',
-              label: {
-                fr: 'Champ d\'agenda',
-                en: 'Agenda field'
-              },
-              fieldType: 'text'
-            }, {
-              field: 'references',
-              fieldType: 'abstract'
-            }, {
-              field: 'location',
-              fieldType: 'abstract',
-              default: { uid: 14840617 },
-              allowCreate: false
-            }, {
-              field: 'timings',
-              fieldType: 'abstract',
-              default: [ {
-                begin: new Date( '2018-11-27T10:00' ),
-                end: new Date( '2018-11-27T11:00' )
-              } ],
-              enabledRanges: [ {
-                begin: '2018-11-27',
-                end: '2018-11-29'
-              } ]
-            } ]
-          } ]}
-          locationRes="/locations"
-          referencesRes="/references"
-          lang="fr"
-          classNames={{
-            fieldsCanvas: 'padding-all-md wsq',
-            bottomErrorsCanvas: 'error-summary padding-all-md',
-            bottomActionsCanvas: 'padding-all-md wsq'
-          }}
-          values={{
-            title: {
-              fr: 'Inauguration d\'un formulaire'
-            },
-            accessibility: { hi: true, sl: true },
-            references: [ 45527593 ],
-            timings: [ {
-              begin: new Date( '2018-11-27T15:13:00' ),
-              end: new Date( '2018-11-27T16:16:00' ),
-            } ]
-          }}
-        />
+    const schemas = _.get( this, 'state.schemas', null );
+
+    return <div className="container-fluid top-margined">
+      <div className="row">
+        <div className="col-sm-6">
+          <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
+        </div>
+        <div className="col-sm-6">
+          <div className="row">
+            <div className="col-md-10 col-md-offset-1">
+              <EventForm schemaExtensions={schemas}/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
