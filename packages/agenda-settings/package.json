@@ -27,7 +27,7 @@
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",
-    "@openagenda/image-upload": "^1.0.7",
+    "@openagenda/image-upload": "^1.0.8",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.1",

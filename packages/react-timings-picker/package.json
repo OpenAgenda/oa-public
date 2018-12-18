@@ -6,13 +6,14 @@
     "node": ">=0.12.0"
   },
   "scripts": {
+    "dev": "gulp serve",
     "build": "gulp build:dist",
     "prepublish": "yarn build"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "babel-preset-openagenda": "^1.1.1",
     "browser-sync": "^2.2.1",
     "browserify": "^11.0.1",
     "browserify-shim": "^3.8.10",
@@ -53,6 +54,7 @@
     "react-onclickoutside": "global:onClickOutside"
   },
   "dependencies": {
+    "babel-preset-openagenda": "^1.1.1",
     "create-react-class": "^15.5.3",
     "date-format-lite": "^0.7.4",
     "lodash": "^3.10.1",
