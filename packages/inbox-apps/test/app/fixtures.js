@@ -1,6 +1,6 @@
 "use strict";
 
-require( 'babel-register' )
+require( '@babel/register' )
 
 const wn = require( 'when/node' );
 // const path = require( 'path' );

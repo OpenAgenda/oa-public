@@ -115,7 +115,15 @@ export default class ConversationCreate extends Component {
           ? <div className="margin-bottom-xs" dangerouslySetInnerHTML={{ __html: belowMessageDesc }}/>
           : null}
 
-        <button type="submit" className="btn btn-primary margin-top-xs">{getLabel( 'send' )}</button>
+        <button type="submit" className="btn btn-primary margin-top-xs">
+          {getLabel( 'send' )}
+
+          {submitting && (
+            <span className="margin-h-sm">
+              <Spinner mode="inline" />
+            </span>
+          )}
+        </button>
       </form>
     );
   }

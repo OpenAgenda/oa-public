@@ -168,6 +168,12 @@ export default class Conversation extends Component {
               className="btn btn-primary margin-top-xs"
             >
               {getLabel( messages && messages.length ? 'reply' : 'submit' )}
+
+              {submitting && (
+                <span className="margin-h-sm">
+                  <Spinner mode="inline" />
+                </span>
+              )}
             </button>
           </form>
         </div>

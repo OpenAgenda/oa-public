@@ -30,6 +30,7 @@
     "babel-preset-openagenda": "^1.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-markdown": "^4.0.4",
     "rimraf": "^2.6.2",
     "should": "^7.1.1"
   },
