@@ -17,9 +17,6 @@ export default class DevEventForm extends Component {
         bottomActionsCanvas: 'padding-all-md wsq'
       }}
       values={{
-        title: {
-          fr: 'Inauguration d\'un formulaire'
-        },
         accessibility: { hi: true, sl: true },
         references: [ 45527593 ],
         timings: [ {

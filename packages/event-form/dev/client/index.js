@@ -44,7 +44,8 @@ class Main extends Component {
 
           try {
 
-            validateFormField( field )
+            //schema needs to be merged before field can be validated.
+            //validateFormField( field )
 
           } catch ( e ) {
 
@@ -107,6 +108,7 @@ class Main extends Component {
           <div className="row">
             <div className="col-md-10 col-md-offset-1">
               <EventForm schemaExtensions={schemas}/>
+              <div>{JSON.stringify( schemas, null, 2 ) }</div>
             </div>
           </div>
         </div>
