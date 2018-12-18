@@ -50,7 +50,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.1",
-    "jest": "^22.4.3",
+    "jest": "^23.6.0",
     "reload": "^2.2.2",
     "sinon": "^4.0.1"
   }

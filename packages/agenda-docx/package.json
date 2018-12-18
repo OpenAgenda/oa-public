@@ -43,7 +43,7 @@
     "babel-preset-openagenda": "^1.1.1",
     "eslint": "^4.19.1",
     "express": "^4.16.3",
-    "jest": "^22.4.3",
+    "jest": "^23.6.0",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.17.3",
     "webpack": "^4.1.1",
