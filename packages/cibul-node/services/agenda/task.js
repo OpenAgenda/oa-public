@@ -95,6 +95,8 @@ function _onEventActivity( action ) {
 
     if ( err ) return log( 'error', 'could not fetch event %s', action.values.id );
 
+    if ( !event ) return log( 'error', 'did not find any event for legacy id %s', action.values.id );
+
     _forEachRelatedAgenda( event, action.values.agendaId, ( err, agenda, agendaEvent, ecb ) => {
 
       if ( err ) {
