@@ -20,7 +20,7 @@
             <a href="<%= link %>" target="_blank" class="no-text-deco">
               <h2 class="grey-link"><%= event.title %></h2>
               <span class="black-link">
-                <%- event.description.replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+                <%= event.description.replace(/(?:\r\n|\r|\n)/g, '<br />') %>
               </span>
             </a>
           </mj-text>
@@ -56,7 +56,7 @@
         <mj-column>
           <% if ( event.freeText ) { %>
             <mj-text>
-              <%= event.freeText %>
+              <%- event.freeText %>
             </mj-text>
           <% } %>
 
