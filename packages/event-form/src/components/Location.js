@@ -37,14 +37,14 @@ class LocationComponent extends Component {
 
   loadLocation( locationUid ) {
 
-    sa.get( this.props.field.res + '?uids[]=' + locationUid ).then( res => {
+    sa.get( this.props.field.res + '/' + locationUid ).then( res => {
 
       this.setState( {
         initing: false,
-        mode: res.body.items.length ? 'show' : 'search'
+        mode: res.body ? 'show' : 'search'
       } );
 
-      this.props.onChange( _.first( res.body.items ) );
+      this.props.onChange( res.body );
 
     } );
 
