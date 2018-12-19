@@ -28,7 +28,7 @@ app.get( '/', ( req, res ) => {
 
     const cleanUids = req.query.uids.map( u => parseInt( u ) );
 
-    res.json( _.set( fixtures.index, 'items', 
+    res.json( _.set( fixtures.index, 'items',
       fixtures.index.items.filter( l => cleanUids.includes( l.uid ) )
     ) );
 
@@ -43,6 +43,14 @@ app.get( '/', ( req, res ) => {
 app.get( '/geocode', ( req, res ) => {
 
   res.json( fixtures.geocode );
+
+} );
+
+app.get( '/:uid', ( req, res ) => {
+
+  const uid = parseInt( req.params.uid );
+
+  res.json( _.first( fixtures.index.items.filter( l => l.uid === uid ) ) );
 
 } );
 

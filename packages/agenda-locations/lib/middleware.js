@@ -29,7 +29,7 @@ function getMiddleware( idRef ) {
 
   return {
     loadSettings,
-    list: utils.extend( list, {
+    list: _.assign( list, {
       terms: listTerms
     } ),
     load,
@@ -51,7 +51,7 @@ function getMiddleware( idRef ) {
 
   function load( req, res, next ) {
 
-    const query = _validateAndExtractData( req, res, next );
+    const query = _validateAndExtractData( req, res, next, false );
 
     if ( !query ) return;
 
@@ -98,7 +98,7 @@ function getMiddleware( idRef ) {
 
     return ( req, res, next ) => {
 
-      service.getSettings( _extractRefValue( idRef, req ), ( err, settings ) => {
+      service.getSettings(_.get( req, idRef, null ), ( err, settings ) => {
 
         if ( err ) return next( err );
 
@@ -254,7 +254,7 @@ function getMiddleware( idRef ) {
 
   function resync( req, res, next ) {
 
-    const agendaId = _extractRefValue( idRef, req );
+    const agendaId =_.get( req, idRef, null );
 
     if ( !agendaId ) {
 
@@ -273,7 +273,7 @@ function getMiddleware( idRef ) {
 
   function getUnverifiedCount( req, res, next ) {
 
-    const agendaId = _extractRefValue( idRef, req );
+    const agendaId =_.get( req, idRef, null );
 
     if ( !agendaId ) {
 
@@ -357,7 +357,7 @@ function getMiddleware( idRef ) {
 
     const data = _validateAndExtractData( req, res, next );
 
-    const agendaId = _extractRefValue( idRef, req );
+    const agendaId =_.get( req, idRef, null );
 
     const options = {};
 
@@ -428,7 +428,7 @@ function getMiddleware( idRef ) {
     const fields = req.query.field.split( ',' );
 
     const query = {
-      agendaId: _extractRefValue( idRef, req )
+      agendaId:_.get( req, idRef, null )
     };
 
     let err = null;
@@ -463,7 +463,7 @@ function getMiddleware( idRef ) {
   function list( req, res, next ) {
 
     const query = {
-      agendaId: _extractRefValue( idRef, req )
+      agendaId:_.get( req, idRef, null )
     };
 
     let limit = config.defaultLimit;
@@ -494,7 +494,7 @@ function getMiddleware( idRef ) {
 
       const counts = [];
 
-      const agendaId = _extractRefValue( idRef, req );
+      const agendaId =_.get( req, idRef, null );
 
       const locationUids = locations.map( l => l.uid );
 
@@ -608,7 +608,7 @@ function getMiddleware( idRef ) {
   }
 
 
-  function _validateAndExtractData( req, res, next ) {
+  function _validateAndExtractData( req, res, next, agendaRequired = true ) {
 
     const data = req.body || {};
 
@@ -620,13 +620,17 @@ function getMiddleware( idRef ) {
 
     }
 
-    if ( !( data.agendaId = _extractRefValue( idRef, req ) ) )  {
+    const agendaId = _.get( req, idRef, null );
+
+    if ( agendaRequired && !agendaId ) {
 
       next( 'missing agenda reference' );
 
       return false;
 
     }
+
+    if ( agendaId ) data.agendaId = agendaId;
 
     if ( req.userUid ) {
 
@@ -668,21 +672,6 @@ function get( req, res, next ) {
     next();
 
   } )
-
-}
-
-
-function _extractRefValue( idRef, req ) {
-
-  let refValue = req;
-
-  idRef.split( '.' ).forEach( ( part ) => {
-
-    refValue = refValue[ part ];
-
-  } );
-
-  return refValue;
 
 }
 

@@ -18,6 +18,7 @@ const config = require( '../config' );
 const routes = {
 
     locationIndex: [ 'get', '/:slug/locations', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.list,
@@ -25,6 +26,7 @@ const routes = {
     ] ],
 
     agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -36,6 +38,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationsCsv: [ 'get', '/:slug/admin/locations/exports.csv', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -43,6 +46,7 @@ const routes = {
     ] ],
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       _checkCreate,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -50,6 +54,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -57,6 +62,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -65,6 +71,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -72,6 +79,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -79,6 +87,7 @@ const routes = {
     ] ],
 
     locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.checkAdminOrModerator,
@@ -94,48 +103,56 @@ const routes = {
     ] ],
 
     locationGeocode: [ 'get', '/:slug/locations/geocode', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.geocode
     ] ],
 
     locationINSEE: [ 'get', '/:slug/locations/insee', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.insee
     ] ],
 
     locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.reverseGeocode
     ] ],
 
     locationResync: [ 'get', '/:slug/admin/locations/resync', [
+      agendaSvc.mw.load( 'slug' ),
       cmn.verifyIPMiddleware,
       mw.resync,
       _resyncSuccess
     ] ],
 
     locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.checkAdminOrModerator,
       mw.getUnverifiedCount
     ] ],
 
     locationNewImageUpload: [ 'post', '/:slug/locations/image', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageUpload
     ] ],
 
     locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageRemove
     ] ],
 
     locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.checkAdminOrModerator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -143,6 +160,7 @@ const routes = {
     ] ],
 
     locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
+      agendaSvc.mw.load( 'slug' ),
       checkLogging,
       cmn.checkAdminOrModerator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -162,8 +180,8 @@ module.exports = function( path ) {
   const router = modLib.Router( routes );
 
   router.pre( [
-    sessions.middleware.load(),
-    agendaSvc.mw.load( 'slug' )
+    sessions.middleware.load()
+    // agenda must not be preloaded as location get must work as transverse
   ] );
 
   return {

@@ -37,14 +37,14 @@ class LocationComponent extends Component {
 
   loadLocation( locationUid ) {
 
-    sa.get( this.props.field.res + '?uids[]=' + locationUid ).then( res => {
+    sa.get( this.props.field.res + '/' + locationUid ).then( res => {
 
       this.setState( {
         initing: false,
-        mode: res.body.items.length ? 'show' : 'search'
+        mode: res.body ? 'show' : 'search'
       } );
 
-      this.props.onChange( _.first( res.body.items ) );
+      this.props.onChange( res.body );
 
     } );
 
@@ -59,7 +59,13 @@ class LocationComponent extends Component {
       geocode: `${res}/geocode`,
       insee: `${res}/insee`,
       set: `${res}`,
-      remove: `${res}/remove`
+      remove: `${res}/remove`,
+      image: {
+        newUpload: `${res}/image`,
+        newRemove: `${res}/image/remove`,
+        upload: `${res}/:locationUid/image`,
+        remove: `${res}/:locationUid/image/remove`
+      }
     }
 
   }
@@ -88,7 +94,8 @@ class LocationComponent extends Component {
       }}
       onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
       location={value}
-      lang={this.props.lang}
+      lang={lang}
+      settings={_.get( this.props, 'field.legacy', {} )}
       res={this.detailedRes()}
       onChange={( location, mode ) => this.onChange( 'onChange', mode, location )}
     />
@@ -138,14 +145,16 @@ LocationComponent.propTypes = {
   value: PropTypes.object, // the location
   lang: PropTypes.string,
   disableChange: PropTypes.bool,
-  allowCreate: PropTypes.bool
+  allowCreate: PropTypes.bool,
+  legacy: PropTypes.object
 };
 
 LocationComponent.defaultProps = {
   location: null,
   lang: 'en',
   disableChange: false,
-  allowCreate: true
+  allowCreate: true,
+  legacy: {}
 };
 
 
