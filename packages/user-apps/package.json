@@ -16,7 +16,7 @@
     "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/abilities": "^1.1.3",
     "@openagenda/dom-utils": "^2.2.0",
-    "@openagenda/image-upload": "^1.0.7",
+    "@openagenda/image-upload": "^1.0.8",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",

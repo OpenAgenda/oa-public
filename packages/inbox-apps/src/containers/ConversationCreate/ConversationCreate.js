@@ -97,7 +97,7 @@ export default class ConversationCreate extends Component {
     }
   }
 
-  FromWrapper( { handleSubmit, children, error } ) {
+  FromWrapper( { handleSubmit, children, submitting, error } ) {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
