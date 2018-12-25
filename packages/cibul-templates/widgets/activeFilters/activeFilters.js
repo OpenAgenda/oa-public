@@ -2,18 +2,18 @@
 
 const getLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/agendas/activeFilters' ) );
 
-const months = [ 
-  'january', 
-  'february', 
-  'march', 
-  'april', 
-  'may', 
-  'june', 
-  'july', 
-  'august', 
-  'september', 
-  'october', 
-  'november', 
+const months = [
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
   'december'
 ];
 
@@ -220,7 +220,7 @@ var widget = function( elem, options ) {
 
   }
 
-  
+
 
   function _indexLabels( data ) {
 
@@ -274,7 +274,7 @@ var widget = function( elem, options ) {
 
     if ( end ) {
 
-      return getLabel( 'fromTo', lang, { start, end } );
+      return getLabel( 'fromTo', { start, end }, lang );
 
     } else {
 
