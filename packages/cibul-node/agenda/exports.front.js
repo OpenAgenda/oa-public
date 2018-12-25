@@ -48,22 +48,26 @@ const routes = {
     ( req, res ) => cmn.renderJson( req, res, req.locations )
   ] ],
 
-  agendaJsonSettings: [ 'get', '/settings.json', [
-    agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-    _loadTagSet,
-    _loadCategorySet,
-    _loadEmbedUids,
-    locationMw.loadSettings( 'locationSettings', true ),
-    ( req, res ) => cmn.renderJson( req, res, _.assign( _.pick( req.agenda, [
-      'title', 'description', 'slug', 'url'
-    ], {
-    tagSet: req.tagSet,
-    categorSet: req.categorySet,
-    locationSet: req.locationSettings,
-    customSet: req.agenda.getCustomFieldsConfig(),
-    embeds: req.embeds
-  } ) ) ) ] ],
+  agendaJsonSettings: [
+    'get', '/settings.json', [
+      agendaSvc.mw.load( 'uid' ),
+      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+      _loadTagSet,
+      _loadCategorySet,
+      _loadEmbedUids,
+      locationMw.loadSettings( 'locationSettings', true ),
+      ( req, res ) => cmn.renderJson( req, res, _.assign(
+        _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
+        {
+          tagSet: req.tagSet,
+          categorSet: req.categorySet,
+          locationSet: req.locationSettings,
+          customSet: req.agenda.getCustomFieldsConfig(),
+          embeds: req.embeds
+        }
+      ) )
+    ]
+  ],
 
   agendaCsvEvents: [ 'get', '/events.csv', [
     agendaSvc.mw.load( 'uid' ),
