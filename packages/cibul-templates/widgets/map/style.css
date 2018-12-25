@@ -1,11 +1,11 @@
 .cibulMap { width: 100%; }
-.cibulMap .map-canvas { min-height: 300px; 100%; }
+.cibulMap .map-canvas { min-height: 300px; width: 100%; }
 .cibulMap .map-sync { text-align: right; }
 .cibulMap .map-sync > * { vertical-align: middle; }
 .cibulMap .map-location .count { display: none; }
 .cibulMap .map-location > span, .map-location > img { display: inline-block; }
 
-.cibulMap .oa-location-image img { 
+.cibulMap .oa-location-image img {
   width: 100%;
   max-width: 180px!important;
   padding: 1em 0 0.4em 0;
