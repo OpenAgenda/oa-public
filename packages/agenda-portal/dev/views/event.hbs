@@ -1,0 +1,34 @@
+{{>layout.top}}
+{{>head tagName="h2"}}
+<div class="container">
+  <div class="row py-4">
+    <div class="col-sm-4 order-sm-12">
+      {{>event/map}}
+      {{>event/timings}}
+    </div>
+    <div class="col-sm-8 order-sm-1">
+      <div class="row">
+        <div class="col-md-2 text-center">
+          {{>event/share}}
+        </div>
+        <div class="col-md-10">
+          <div class="wbg p-4">
+            <h1>{{event.title}}</h1>
+            <p>{{event.description}}</p>
+          </div>
+          {{#if event.image}}
+          <div class="wbg text-center">
+            <img class="img-fluid" src="{{event.image}}" alt="{{event.description}}" />
+          </div>
+          {{/if}}
+          {{#if event.html}}
+          <div class="wbg p-4">
+          {{{event.html}}}
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{>layout.bottom}}

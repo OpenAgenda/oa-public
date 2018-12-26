@@ -1,0 +1,47 @@
+"use strict";
+
+const _ = require( 'lodash' );
+
+process.env.DEBUG = 'test';
+
+const log = require( '@openagenda/logs' )( 'test' );
+
+const Portal = require( '../' );
+
+Portal( {
+  // used in a non development environment
+  root: 'https://somewhere.com',
+  // agenda uid
+  uid: 50522407,
+  // site language
+  lang: 'fr',
+  // associated OA account key
+  key: 'Mb0toI8hAhFOm1iegPC1Vg136af8N9au',
+  // views folder
+  views: __dirname + '/views',
+  // sass: __dirname + '/sass/main.scss'
+  assets: __dirname + '/assets',
+
+  // map tiles
+  map: {
+    tiles: {
+      link: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    },
+    center: {
+      latitude: 43.597198,
+      longitude: 1.441136
+    },
+    zoom: 12
+  },
+  eventParser
+} ).then( app => app.launch( 3000 ) );
+
+
+function eventParser( event, { lang, moment } ) {
+
+  //log( event );
+
+  return event;
+
+}
