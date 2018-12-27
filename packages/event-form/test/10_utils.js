@@ -2,6 +2,7 @@ import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames';
 import transferMultilingualValues from '../src/utils/transferMultilingualValues';
 import identifyLanguageChanges from '../src/utils/identifyLanguageChanges';
 import getTimingsSpan from '../src/utils/getTimingsSpan';
+import flattenLocationTagSet from '../src/utils/flattenLocationTagSet';
 
 
 describe( 'event-form utils unit tests', () => {
@@ -68,6 +69,45 @@ describe( 'event-form utils unit tests', () => {
     } ] );
 
     expect( ms / 1000 / 60 / 60 / 24 ).toEqual( 7.5 );
+
+  } );
+
+
+  test( 'Location legacy settings can contain tag sets. Function takes tag set labels and flattens them', () => {
+
+    const flattened = flattenLocationTagSet( {
+      groups: [ {
+        name: {
+          fr : 'Un label',
+          en : 'A Label'
+        },
+        info: null,
+        tags: [ {
+          id: 50,
+          label: 'Architecture'
+        }, {
+          id: 38,
+          label: {
+            fr: 'Jardin',
+            en: 'Garden'
+          }
+        } ]
+      } ]
+    }, 'fr' );
+
+    expect( flattened ).toEqual( {
+      groups: [ {
+        name: 'Un label',
+        info: null,
+        tags: [ {
+          id: 50,
+          label: 'Architecture'
+        }, {
+          id: 38,
+          label: 'Jardin'
+        } ]
+      } ]
+    } );
 
   } );
 

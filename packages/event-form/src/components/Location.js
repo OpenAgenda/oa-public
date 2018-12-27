@@ -1,11 +1,14 @@
 import _ from 'lodash';
+import ih from 'immutability-helper';
 import sa from 'superagent';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import LocationSelector from '@openagenda/agenda-locations/components/build/LocationSelector';
+
+import flattenLocationTagSet from '../utils/flattenLocationTagSet';
 
 class LocationComponent extends Component {
 
@@ -70,6 +73,22 @@ class LocationComponent extends Component {
 
   }
 
+  getSettings() {
+
+    const settings = _.get( this.props, 'field.legacy', {} );
+
+    if ( settings.tagSet ) {
+
+      return ih( settings, {
+        tagSet: { $set: flattenLocationTagSet( settings.tagSet, this.props.lang ) }
+      } );
+
+    }
+
+    return settings;
+
+  }
+
   onChange( caller, mode, location ) {
 
     this.setState( { mode } );
@@ -95,7 +114,7 @@ class LocationComponent extends Component {
       onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
       location={value}
       lang={lang}
-      settings={_.get( this.props, 'field.legacy', {} )}
+      settings={this.getSettings()}
       res={this.detailedRes()}
       onChange={( location, mode ) => this.onChange( 'onChange', mode, location )}
     />
