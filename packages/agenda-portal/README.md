@@ -5,7 +5,9 @@ This library provides functionalities to build a fully customizable events websi
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
 [Sass](https://sass-lang.com/) for styling. The default template uses [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
 
-# Getting started
+# Quick start
+
+Here is a quick procedure to get you started on your agenda portal.
 
 Create a new project and agenda-portal in your dependencies:
 
@@ -16,9 +18,29 @@ To get your project quickly operational, copy the contents of the dev folder of 
 
     cp -R node_modules/@openagenda/agenda-portal/dev/* ./
 
-Last step, add the launch command to a scripts section of your `package.json` file
+Next step:: add the launch command to a scripts section of your `package.json` file
 
     "scripts" : {
-      "start": "NODE_ENV=development browser-refresh dev/server"
+      "start": "NODE_ENV=development browser-refresh server"
     }
+
+Open the `server.js` file. You'll find here a few parameters to tweak when the portal is created:
+
+ * **uid**: the unique identifier of the agenda the portal will get its events from
+ * **lang**: the main language of your portal
+ * **key**: your OpenAgenda account public key ( available in your user settings )
+
+Still in the same file, a final tweak to fix the reference to the portal library. Change:
+
+    const Portal = require( '../' );
+
+With:
+
+    const Portal = require( '@openagenda/agenda-portal' );
+
+... and your portal should be ready. Launch it with:
+
+    yarn start
+
+See it on your browser on port 3000 if you haven't changed the default port in `server.js`: [localhost:3000](localhost:3000)
 

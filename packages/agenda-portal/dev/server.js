@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const fs = require( 'fs' );
 
 process.env.DEBUG = 'test';
 
@@ -16,7 +17,7 @@ Portal( {
   // site language
   lang: 'fr',
   // associated OA account key
-  key: 'Mb0toI8hAhFOm1iegPC1Vg136af8N9au',
+  key: fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
   // views folder
   views: __dirname + '/views',
   // sass: __dirname + '/sass/main.scss'
