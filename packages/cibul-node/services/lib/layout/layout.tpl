@@ -73,6 +73,9 @@
                 <h1><%= agenda.title %></h1>
               </div>
               <p><%= agenda.description %></p>
+              <% if ( agenda.url ) { %>
+              <a href="<%= agenda.url %>" target="_blank"><%= agenda.url %></a>
+              <% } %>
             </a>
           </div>
         </div>
