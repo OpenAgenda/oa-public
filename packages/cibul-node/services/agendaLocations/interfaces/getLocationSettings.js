@@ -3,11 +3,12 @@
 const _ = require( 'lodash' );
 
 const agendas = require( '@openagenda/agendas' );
+const flattenLocationTagSet = require( '@openagenda/event-form/build/utils/flattenLocationTagSet' );
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/interfaces/getAgendaLocations' );
 
 const core = require( '../../../core' );
 
-module.exports = async ( agendaId, cb ) => {
+module.exports = async ( agendaId, options, cb ) => {
 
   const agenda = await agendas.get( { id: agendaId }, { private: null } );
 
@@ -19,6 +20,16 @@ module.exports = async ( agendaId, cb ) => {
 
   const locationField = _.first( schema.fields.filter( f => f.field === 'location' ) );
 
-  cb( null, _.get( locationField, 'legacy', null ) );
+  const legacy = _.get( locationField, 'legacy', null );
+
+  if ( !legacy ) return cb();
+
+  if ( legacy.tagSet ) {
+
+    legacy.tagSet = flattenLocationTagSet( legacy.tagSet, _.get( options, 'lang', 'en' ) );
+
+  }
+
+  cb( null, legacy );
 
 }
