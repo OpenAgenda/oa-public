@@ -1,17 +1,21 @@
-**Create**  
-```bash
-git remote add opensource git@github.com:bertho-zero/double-1.git
-git fetch opensource
-git checkout --orphan opensource
-# (update .gitignore if needed)
-git rm -rf --cached .
-git add -A
-# (git diff --cached)
-git commit -am '<message>'
-git push opensource HEAD:master
-```
+# Overview
 
-**master -> opensource**
+Open sourced packages are tracked in a separate repository that needs to be maintained and syncronised in parallel of the main OpenAgenda repository. This makes the OpenSource repository a subset of the main repository.
+
+Packages can be maintained either on the main repository, either on the open source repository or the main one and be then syncronized to the other. These procedures are detailed in their respective sections:
+
+ * Master -> Open Source: procedure to sync a package maintained on the main repo to the open source repo
+ * Open Source -> Master: procedure to sync a package maintained on the open source repo to the main repo.
+
+**Important note**: it is imperative that non-open sourced packages be gitignored in the opensource repo.
+
+
+2 remote sur oa.
+
+# Main repo to Open Source repo procedure
+
+Prerequis: le repo ne doit rien avoir de pas tracké et pas commité
+
 ```bash
 git fetch opensource
 git checkout opensource/master
@@ -28,7 +32,7 @@ git commit -am '<message>'
 git push opensource HEAD:master
 ```
 
-**opensource -> master**
+# Open Source repo to Main repo procedure
 ```bash
 git checkout master
 git fetch opensource
@@ -76,3 +80,22 @@ On met à jour le `.gitignore` si besoin, on enlève tout de git avec `git rm -r
 pour tout ajouter avec `git add -A`, ca permet d'enlever les fichiers supprimés.
 
 On commit et on push.
+
+
+# Annex
+
+## Creating the mirror repo
+
+Useful to get a repo started. Already done for archival purposes:
+
+```bash
+git remote add opensource git@github.com:Oagenda/oa.git
+git fetch opensource
+git checkout --orphan opensource
+# (update .gitignore if needed)
+git rm -rf --cached .
+git add -A
+# (git diff --cached)
+git commit -am '<message>'
+git push opensource HEAD:master
+```
