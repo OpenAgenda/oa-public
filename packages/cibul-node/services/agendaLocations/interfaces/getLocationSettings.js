@@ -15,7 +15,7 @@ module.exports = async ( agendaId, cb ) => {
 
   const schema = await core.agendas( agenda.uid ).settings.get();
 
-  if ( !schema ) return cb();
+  if ( !schema || !_.isArray( schema.fields ) ) return cb();
 
   const locationField = _.first( schema.fields.filter( f => f.field === 'location' ) );
 
