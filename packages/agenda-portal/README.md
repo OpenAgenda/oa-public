@@ -17,6 +17,7 @@ Create a new project and agenda-portal in your dependencies:
 To get your project quickly operational, copy the contents of the dev folder of the agenda-portal library to your project directory. This will allow you to get a site to run at the launch of a command
 
     cp -R node_modules/@openagenda/agenda-portal/dev/* ./
+    cp -R node_modules/@openagenda/agenda-portal/dev/.browser-refresh-ignore ./
 
 Next step:: add the launch command to a scripts section of your `package.json` file
 

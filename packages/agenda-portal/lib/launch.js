@@ -36,7 +36,7 @@ function _development( app, port ) {
 
 function _production( app, port ) {
 
-  if ( !app.locals.config.root ) throw new Error( 'app root is not set' );
+  if ( !app.locals.root ) throw new Error( 'app root is not set' );
 
   const { sass, assets } = app.locals;
 
@@ -52,6 +52,6 @@ function _setRoot( app, port ) {
 
   }
 
-  return app.locals.config.root;
+  return app.locals.root;
 
 }
