@@ -79,7 +79,9 @@ function init( c, cb ) {
       // get stakeholder data
       getStakeholder: ( stakeholderId, cb ) => { cb() },
       // get agenda settings
-      getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) }
+      getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) },
+      // get location settings
+      getLocationSettings: ( agendaId, cb ) => { cb( null, null ) },
 
     }
   }, c );
@@ -93,7 +95,7 @@ function init( c, cb ) {
 
   }
 
-  db.init( config.mysql, () => {
+  db.init( config.mysql, config.interfaces, () => {
 
     search.setPrimaryDb( db );
 
@@ -141,7 +143,7 @@ function getSettings( agendaId, cb ) {
 
     if ( !service.interfaces || !service.interfaces.getAgendaSettings ) {
 
-      cb( null, settings );
+      return cb( null, settings );
 
     }
 

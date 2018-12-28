@@ -29,6 +29,7 @@ module.exports = function( cb ) {
 
   }
 
+
   // loop through locations where timezone is not set
   _loopUnsetTimezone( ( lEntry, con, lcb ) => {
 
@@ -128,7 +129,7 @@ module.exports.init = function( config, cb ) {
 
   gf.init( config.geocodefarm );
 
-  db.init( config.mysql, cb );
+  db.init( config.mysql, {}, cb );
 
 }
 
