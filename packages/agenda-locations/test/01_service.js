@@ -51,7 +51,7 @@ describe( 'agenda location service', function () {
     } );
 
 
-    it( 'unlink remvoes the location from search', done => {
+    it( 'unlink removes the location from search', done => {
 
       let uid = 66638019;
 
@@ -238,7 +238,7 @@ describe( 'agenda location service', function () {
 
             done();
 
-          } );  
+          } );
 
         } );
 
@@ -266,9 +266,9 @@ describe( 'agenda location service', function () {
       svc.merge( {
         name: 'Merged',
         address: 'the merged address'
-      }, { 
-        agendaId: 123, 
-        uids: mergeUids 
+      }, {
+        agendaId: 123,
+        uids: mergeUids
       }, ( err, result ) => {
 
         should( err ).equal( null );
@@ -309,7 +309,7 @@ describe( 'agenda location service', function () {
 
       svc.list( {}, 0, 10, { fromDb: true, keepId: true }, ( err, items, total ) => {
 
-        Object.keys( items[ 0 ] ).should.eql( [ 
+        Object.keys( items[ 0 ] ).should.eql( [
           'id',
           'uid',
           'eveId',
@@ -337,7 +337,7 @@ describe( 'agenda location service', function () {
           'access',
           'state',
           'timezone',
-          'imageCredits' 
+          'imageCredits'
         ] );
 
         done();
@@ -351,7 +351,7 @@ describe( 'agenda location service', function () {
 
       svc.list( {}, 0, 10, { internal: false, fromDb: true }, ( err, items, total ) => {
 
-        Object.keys( items[ 0 ] ).should.eql( [ 
+        Object.keys( items[ 0 ] ).should.eql( [
           'uid',
           'slug',
           'name',
@@ -375,7 +375,7 @@ describe( 'agenda location service', function () {
           'access',
           'state',
           'timezone',
-          'imageCredits' 
+          'imageCredits'
         ] );
 
         done();
@@ -389,7 +389,7 @@ describe( 'agenda location service', function () {
 
       svc.list( {}, 0, 10, { detailed: false, fromDb: true }, ( err, items, total ) => {
 
-        Object.keys( items[ 0 ] ).should.eql( [ 
+        Object.keys( items[ 0 ] ).should.eql( [
           'uid',
           'eveId',
           'agendaId',
@@ -403,7 +403,7 @@ describe( 'agenda location service', function () {
           'latitude',
           'longitude',
           'image',
-          'timezone' 
+          'timezone'
         ] );
 
         done();

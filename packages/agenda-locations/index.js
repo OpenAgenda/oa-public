@@ -81,7 +81,7 @@ function init( c, cb ) {
       // get agenda settings
       getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) },
       // get location settings
-      getLocationSettings: ( agendaId, cb ) => { cb( null, null ) },
+      getLocationSettings: ( agendaId, options, cb ) => { cb( null, null ) },
 
     }
   }, c );
@@ -135,9 +135,16 @@ function init( c, cb ) {
 }
 
 
-function getSettings( agendaId, cb ) {
+function getSettings( agendaId, options, cb ) {
 
-  db.getSettings( agendaId, ( err, settings ) => {
+  if ( cb === undefined ) {
+
+    cb = options;
+    options = {};
+
+  }
+
+  db.getSettings( agendaId, options, ( err, settings ) => {
 
     if ( err ) return cb( err );
 

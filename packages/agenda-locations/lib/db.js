@@ -116,11 +116,11 @@ function resync( agendaId, cb ) {
 }
 
 
-function getLocationSettingsFromInterface( agendaId, cb ) {
+function getLocationSettingsFromInterface( agendaId, options, cb ) {
 
   if ( interfaces.getLocationSettings ) {
 
-    interfaces.getLocationSettings( agendaId, cb );
+    interfaces.getLocationSettings( agendaId, options, cb );
 
   } else {
 
@@ -134,7 +134,14 @@ function getLocationSettingsFromInterface( agendaId, cb ) {
  * get agenda location data settings
  */
 
-function getSettings( agendaId, cb ) {
+function getSettings( agendaId, options, cb ) {
+
+  if ( cb === undefined ) {
+
+    cb = options;
+    options = {};
+
+  }
 
   if ( !config || !config.agendaSettingsTableName ) {
 
@@ -142,7 +149,7 @@ function getSettings( agendaId, cb ) {
 
   }
 
-  getLocationSettingsFromInterface( agendaId, ( err, settings ) => {
+  getLocationSettingsFromInterface( agendaId, options, ( err, settings ) => {
 
     if ( err ) return cb( err );
 
