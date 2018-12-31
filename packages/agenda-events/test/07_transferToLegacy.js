@@ -173,7 +173,7 @@ describe( 'transferLegacyData - transfer to legacy', function() {
       review_id: 4608
     } );
 
-    after.should.eql( {
+    _.omit( after, [] ).should.eql( {
       type: 1,
       event_id: 190093,
       review_id: 4608

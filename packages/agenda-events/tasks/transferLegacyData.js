@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'tasks/transferLegacyData' );
 const queue = require( '@openagenda/queue' );
 const async = require( 'async' );
-const mysql = require( 'mysql' );
 const getLegacyState = require( '../service/lib/getLegacyState' );
 
 module.exports = _.extend( run, {
