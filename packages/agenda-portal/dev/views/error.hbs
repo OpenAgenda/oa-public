@@ -6,9 +6,13 @@
       <h2>Il y a eu un souci avec le serveur!</h2>
     </div>
   </div>
-  <div class="row text-center">
-    <div class="col-md-12">
-      <p>Rechargez le site dans quelques instants</p>
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      {{#if message}}
+      <pre><code>{{message}}</code></pre>
+      {{else}}
+      <p class="text-center">Rechargez le site dans quelques instants</p>
+      {{/if}}
     </div>
   </div>
 </div>
