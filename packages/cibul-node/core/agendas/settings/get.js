@@ -18,10 +18,20 @@ module.exports = async agendaUid => {
 
   const network = await getNetwork( networkUid );
 
-  const formSchema =  await ( formSchemaId ? formSchemas.get( formSchemaId ) : formSchemas.legacy.transfer( agendaId ) );
+  const formSchema = await _loadFormSchema( agendaId, formSchemaId, !!_.get( network, 'formSchemaId' ) );
 
-  const networkSchema = network ? await formSchemas.get( _.get( network, 'formSchemaId' ) ) : null
+  const networkSchema = network ? await formSchemas.get( _.get( network, 'formSchemaId' ) ) : null;
 
   return mergeSchemas( formSchema, networkSchema );
+
+}
+
+function _loadFormSchema( agendaId, formSchemaId, hasNetworkSchema = false ) {
+
+  if ( formSchemaId ) return formSchemas.get( formSchemaId );
+
+  if ( hasNetworkSchema ) return null;
+
+  return formSchemas.legacy.transfer( agendaId );
 
 }
