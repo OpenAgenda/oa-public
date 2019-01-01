@@ -51,7 +51,7 @@ module.exports = function( loaded, instance ) {
       agendaId: agenda.id
     };
 
-    if ( newState == 'published' )  {
+    if ( newState == 'published' ) {
 
       coms.publish( config.mainChannel, {
         name: 'event.update',
