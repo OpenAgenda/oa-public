@@ -17,7 +17,7 @@ const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
-const queueForControlData = require( './queueForControlData' );
+const queueForControlData = require( './lib/queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
 
@@ -105,7 +105,7 @@ module.exports = async ( ae, context ) => {
    * control data is used for didsplaying widget data
    */
 
-   if ( ae.state === 2 ) queueForControlData( 'agendaEvent.onCreate', { agenda, event }, context );
+   if ( ae.state === 2 ) queueForControlData( 'agendaEvent.onCreate', agenda, event );
 
   _addToSearchIndex( ae );
 
