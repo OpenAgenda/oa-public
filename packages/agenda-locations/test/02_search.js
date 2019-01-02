@@ -45,7 +45,7 @@ describe( 'search - rebuild', function() {
 
   before( done => fixtures( 123, done ) );
 
-  before( done => db.init( config.mysql, done ) );
+  before( done => db.init( config.mysql, {}, done ) );
 
   beforeEach( ( done ) => {
 
@@ -94,7 +94,7 @@ describe( 'search - search', function() {
 
   before( done => {
 
-    db.init( config.mysql, done );
+    db.init( config.mysql, {}, done );
 
   } );
 
@@ -156,7 +156,7 @@ describe( 'search - search', function() {
 
       locations[ 0 ].updatedAt = soon;
 
-      search.update( locations[ 0 ], { refreshUpdatedAt: false, refresh: true }, ( err, l ) => {
+      search.update( locations[ 0 ], { refreshUpdatedAt: false, refresh: true }, ( err, l ) => {
 
         let nowish = new Date();
 
@@ -190,7 +190,7 @@ describe( 'search - search', function() {
 
   it( 'total on uids query', done => {
 
-    search.count( { uids: [ 38584748, 20507930, 79938559 ] }, ( err, total ) => {
+    search.count( { uids: [ 38584748, 20507930, 79938559 ] }, ( err, total ) => {
 
       should( err ).equal( null );
 
@@ -265,7 +265,7 @@ describe( 'search - create, update, remove', function() {
 
   before( done => {
 
-    db.init( config.mysql, done );
+    db.init( config.mysql, {}, done );
 
   } );
 
@@ -389,7 +389,7 @@ describe( 'search - create, update, remove', function() {
 
         [ 'id', 'uid', 'name', 'address', 'city', 'latitude', 'longitude' ].forEach( f => {
 
-          l[ f ].should.equal( newLocation[ f ] );
+          l[ f ].should.equal( newLocation[ f ] );
 
         } );
 
@@ -451,7 +451,7 @@ function _clearIndex( done ) {
   var connect = JSON.parse( JSON.stringify( {
     host: config.elasticsearch.host,
     port: config.elasticsearch.port,
-    log: [ {
+    log: [ {
       type: 'stdio',
       level: [ 'error', 'warning' ]
     } ]

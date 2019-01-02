@@ -9,7 +9,7 @@ const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
-const queueForControlData = require( './queueForControlData' );
+const queueForControlData = require( './lib/queueForControlData' );
 
 module.exports = async ( ae, context ) => {
 
@@ -33,7 +33,7 @@ module.exports = async ( ae, context ) => {
 
   if ( agenda && event ) {
 
-    queueForControlData.remove( 'agendaEvent.beforeRemove', null, { agenda, event } );
+    queueForControlData.remove( 'agendaEvent.beforeRemove', agenda, event );
 
   }
 

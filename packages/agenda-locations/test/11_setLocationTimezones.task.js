@@ -42,7 +42,7 @@ describe( 'setLocationTimezones', function() {
 
             if ( storesBefore[ uid ] && !storesBefore[ uid ].timezone ) {
 
-              _keysDiff( storesBefore[ uid ], storesAfter[ uid ] ).should.eql( [ 'timezone' ] );
+              _keysDiff( storesBefore[ uid ], storesAfter[ uid ] ).should.eql( [ 'timezone' ] );
 
             }
 

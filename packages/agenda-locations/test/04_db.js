@@ -79,9 +79,9 @@ describe( 'agenda-location db unit', () => {
 
     db.test._filterWheres( { wheres } )
 
-    .should.eql( { 
+    .should.eql( {
       wheres: { fsdq: 'fdqs', rezar: 'erae', agendaId: 2, name: 12 },
-      filteredWheres: { name: 12, agendaId: 2 } 
+      filteredWheres: { name: 12, agendaId: 2 }
     } );
 
   } );
@@ -174,7 +174,7 @@ describe( 'agenda-location db', function() {
 
     db.init( {
       host: '123.456.34.2'
-    }, err => {
+    }, {}, err => {
 
       err.code.should.equal( 'ENOTFOUND' );
 
@@ -191,7 +191,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), ( err ) => {
+    }, dbConfig ), {}, err => {
 
       con.query( 'show databases', ( err, result ) => {
 
@@ -203,7 +203,7 @@ describe( 'agenda-location db', function() {
 
       });
 
-    } ); 
+    } );
 
   });
 
@@ -212,7 +212,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), ( err ) => {
+    }, dbConfig ), {}, err => {
 
       const con = mysql.createConnection( utils.extend( {
         database: dbName
@@ -226,7 +226,7 @@ describe( 'agenda-location db', function() {
 
         done();
 
-      });        
+      });
 
     } );
 
@@ -237,7 +237,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.set( {
         agendaId: 12,
@@ -280,7 +280,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.set( {
         agendaId: 12,
@@ -329,7 +329,7 @@ describe( 'agenda-location db', function() {
 
     db.init( _.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.set( {
         agendaId: 12,
@@ -368,7 +368,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.getSettings( 123, ( err, settings ) => {
 
@@ -389,7 +389,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       var con = db.getConnection();
 
@@ -426,7 +426,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       var con = db.getConnection();
 
@@ -459,7 +459,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       var con = db.getConnection();
 
@@ -488,7 +488,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -511,7 +511,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -536,7 +536,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -560,7 +560,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -585,7 +585,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -602,7 +602,7 @@ describe( 'agenda-location db', function() {
             con.query( `select * from ${table} where uid = ?`, toUnlinkUid, ( err, rows ) => {
 
               should( err ).equal( null );
-              
+
               rows.length.should.equal( 1 );
 
               should( rows[ 0 ].agenda_id ).equal( null );
@@ -628,7 +628,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -671,7 +671,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), ( err ) => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, ( err ) => {
 
@@ -694,7 +694,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -719,7 +719,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -748,9 +748,9 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), ( err ) => {
+    }, dbConfig ), {}, err => {
 
-      let settings = { 
+      let settings = {
         tagSet: {
           groups: [ {
             name: 'Label',
@@ -794,15 +794,15 @@ describe( 'agenda-location db', function() {
 
             decorated.length.should.equal( 1 );
 
-            decorated[ 0 ].tags.should.eql( [ 
+            decorated[ 0 ].tags.should.eql( [
               { id: 38, label: 'Jardin Remarquable' },
-              { id: 40, label: 'Musée de France' } 
+              { id: 40, label: 'Musée de France' }
             ] );
 
             done();
 
           } );
-          
+
         } );
 
       } );
@@ -816,7 +816,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       async.eachSeries( locationFixtures, db.set, err => {
 
@@ -843,7 +843,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.set( {
         agendaId: 12,
@@ -876,7 +876,7 @@ describe( 'agenda-location db', function() {
 
     db.init( utils.extend( {
       database: dbName
-    }, dbConfig ), err => {
+    }, dbConfig ), {}, err => {
 
       db.set( {
         agendaId: 12,

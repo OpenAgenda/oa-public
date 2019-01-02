@@ -11,10 +11,18 @@ module.exports = async ( req, res, next ) => {
 
   if ( !event ) return next();
 
-  res.render( 'event', _.assign( req.data, {
+  _.assign( req.data, {
     event: parsers.detailedEvent(
       parsers.event( event )
     )
-  } ) );
+  } );
+
+  if ( req.query.data !== undefined && process.env.NODE_ENV === 'development' ) {
+
+    return res.json( _.assign( req.data, req.app.locals ) );
+
+  }
+
+  res.render( 'event', req.data );
 
 }

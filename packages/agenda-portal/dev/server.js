@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const fs = require( 'fs' );
 
-process.env.DEBUG = 'test';
+process.env.DEBUG = 'test, middleware/*';
 
 const log = require( '@openagenda/logs' )( 'test' );
 

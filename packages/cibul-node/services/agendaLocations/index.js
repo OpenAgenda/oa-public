@@ -6,11 +6,13 @@ const _ = require( 'lodash' );
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
-const internalEventSvc = require( './event' );
+const internalEventSvc = require( '../event' );
 
 const agendas = require( '@openagenda/agendas' );
 
 const agendaGet = promisify( agendas.get );
+
+const getLocationSettings = require( './interfaces/getLocationSettings' );
 
 module.exports.init = async config => {
 
@@ -47,6 +49,7 @@ module.exports.init = async config => {
         agendas.get( agendaId, ( err, agenda ) => cb( err, agenda ? agenda.settings : {} ) )
 
       },
+      getLocationSettings,
       getEventCounts: async ( agendaIdentifiers, locationUids ) => {
 
         const agenda = await agendaGet( agendaIdentifiers, {

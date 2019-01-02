@@ -13,6 +13,7 @@ const Proxy = require( './lib/proxy' );
 const launch = require( './lib/launch' );
 
 const mw = {
+  index: require( './middleware/renderIndex' ),
   error: require( './middleware/error' ),
   get: require( './middleware/getEvent' ),
   list: require( './middleware/listEvents' ),
@@ -60,8 +61,8 @@ module.exports = async config => {
 
   if ( assets ) app.use( express.static( assets ) );
 
-  app.get( '/', mw.pageGlobals, mw.list, ( req, res ) => res.render( 'index', req.data ) );
-  app.get( '/p/:page', mw.pageGlobals, mw.list, ( req, res ) => res.render( 'index', req.data ) );
+  app.get( '/', mw.pageGlobals, mw.list, mw.index );
+  app.get( '/p/:page', mw.pageGlobals, mw.list, mw.index );
 
   app.get( '/events/p/:page', mw.list, mw.renderList );
   app.get( '/events', mw.list, mw.renderList );

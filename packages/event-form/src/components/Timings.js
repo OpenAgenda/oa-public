@@ -7,6 +7,10 @@ import TimingsPicker from 'react-timings-picker';
 import timingsLabels from '@openagenda/labels/event/timings';
 import flattenLabels from '@openagenda/labels/flatten';
 
+import getTimingsSpan from '../utils/getTimingsSpan';
+
+const sevenDays = 604800000; // 7*24*60*60*1000
+
 
 module.exports = class TimingsComponent extends Component {
 
@@ -44,6 +48,7 @@ module.exports = class TimingsComponent extends Component {
         readOnly={false}
         additionalLanguages={[]}
         timingStep={30}
+        displayRecurrencer={!field.enabledRanges || ( getTimingsSpan( field.enabledRanges ) > sevenDays ) }
       />
 
   }

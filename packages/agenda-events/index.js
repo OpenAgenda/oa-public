@@ -48,7 +48,7 @@ module.exports.init = c => {
     interfaces: queueLib( config.queueNames.interfaces, { redis: config.redis } )
   };
 
-  const client = knex( {
+  const client = config.knex || knex( {
     client: 'mysql',
     connection: config.mysql
   } );
