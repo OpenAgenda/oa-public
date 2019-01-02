@@ -1,4 +1,4 @@
-CREATE TABLE `${schema}` (
+CREATE TABLE IF NOT EXISTS `${schema}` (
   id bigint(20) AUTO_INCREMENT,
   uid BIGINT NOT NULL UNIQUE,
   owner_uid bigint(20),
