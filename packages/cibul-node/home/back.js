@@ -1,11 +1,13 @@
 "use strict";
 
+
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const homeMw = require( '@openagenda/home/middleware' );
+const homeMw = require( '@openagenda/home/dist/middleware' );
+const createApp = require( '@openagenda/home/dist/client/app' );
 const sessions = require( '@openagenda/sessions' );
 const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
 
@@ -49,80 +51,81 @@ module.exports = path => {
 
 }
 
-
-function getApp( req, res, next, { store, component } = {} ) {
-
-  const state = store ? store.getState() : {};
+async function matchApp( req, res, next ) {
   const lang = req.lang || 'fr';
-
-  const content = component ? ReactDOM.renderToString( component ) : '';
-
-  cmn.render( req, res, 'home/index', { scriptParams: { state }, lang, content } );
-
-}
-
-function matchApp( req, res, next ) {
-
-  const prefix = req.genUrl( 'homeShow' ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-
-  homeMw.matchApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: homeMw.getConfig().mw.limit,
-          isNew: req.user.isNew,
-          displayLegacyMessageTab: false,
-          userId: req.user.id,
-          userUid: req.user.uid
+  const { element, triggerHooks, store, context } = createApp( {
+    req,
+    initialState: {
+      settings: {
+        prefix: '/home',
+        lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: homeMw.getConfig().mw.limit,
+        isNew: req.user.isNew,
+        displayLegacyMessageTab: false,
+        userId: req.user.id,
+        userUid: req.user.uid
+      },
+      res: {
+        agendas: {
+          contribute: '/:slug/contribute',
+          create: req.genUrl( 'agendaSettingsCreateApp' ),
+          list: req.genUrl( 'homeShowList' ),
+          show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
+          showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
+          addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
+          moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
+          contact: '/:slug/contact'
         },
-        res: {
-          agendas: {
-            contribute: '/:slug/contribute',
-            create: req.genUrl( 'agendaSettingsCreateApp' ),
-            list: req.genUrl( 'homeShowList' ),
-            show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
-            showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
-            addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
-            moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
-            contact: '/:slug/contact'
-          },
-          events: {
-            list: req.genUrl( 'homeEventsList' ),
-            show: req.genUrl.getPath( 'agendaEventShow' ),
-            showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' ),
-            showWithoutAgenda: req.genUrl.getPath( 'eventShow' ),
-            edit: req.genUrl.getPath( 'agendaEventEdit' )
-          },
-          messages: req.genUrl( 'homeMessages' ),
-          notifs: req.genUrl( 'homeNotifications' ),
-          search: req.genUrl( 'agendaSearch' )
-        }
+        events: {
+          list: req.genUrl( 'homeEventsList' ),
+          show: req.genUrl.getPath( 'agendaEventShow' ),
+          showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' ),
+          showWithoutAgenda: req.genUrl.getPath( 'eventShow' ),
+          edit: req.genUrl.getPath( 'agendaEventEdit' )
+        },
+        messages: req.genUrl( 'homeMessages' ),
+        notifs: req.genUrl( 'homeNotifications' ),
+        search: req.genUrl( 'agendaSearch' )
       }
-    },
-    prefix,
-    getApp
-  )( req, res, next );
+    }
+  } );
 
+  try {
+    await triggerHooks();
+
+    const state = store.getState();
+    const content = ReactDOM.renderToString( element );
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    cmn.render( req, res, 'home/index', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
+  } catch ( e ) {
+    next( e );
+  }
 }
 
 function getUserActivitiesApp( req, res, next, { store, component } = {} ) {
-
   const state = store ? store.getState() : {};
   const lang = req.lang || 'fr';
 
   const content = component ? ReactDOM.renderToString( component ) : '';
 
   cmn.render( req, res, 'activities/user', { scriptParams: { state }, lang, content } );
-
 }
 
 
 function matchUserActivitiesApp( req, res, next ) {
-
   const prefix = req.genUrl( 'homeActivities' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
@@ -143,5 +146,4 @@ function matchUserActivitiesApp( req, res, next ) {
     prefix,
     getUserActivitiesApp
   )( req, res, next );
-
 }
