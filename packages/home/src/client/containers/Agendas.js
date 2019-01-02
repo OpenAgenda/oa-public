@@ -1,21 +1,23 @@
-"use strict";
-
-const _ = {
-  get: require( 'lodash/get' )
-}
-
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import { setTab } from '../redux/modules/menu';
 import { AgendasSearch, Welcome } from '../components';
 
+@provideHooks({
+  fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
+})
 @connect( state => ({
   res: state.res,
   isNew: state.settings.isNew,
   loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
-  total: state.agendas.homeAgendas.total
+  total: state.agendas.homeAgendas && state.agendas.homeAgendas.total
 }) )
+@withRouter
 export default class Agendas extends Component {
 
   constructor( props ) {
@@ -25,8 +27,7 @@ export default class Agendas extends Component {
   }
 
   static contextTypes = {
-    getLabel: PropTypes.func,
-    router: PropTypes.object
+    getLabel: PropTypes.func
   };
 
   renderHeader() {
@@ -84,7 +85,7 @@ export default class Agendas extends Component {
   }
 
   render() {
-    const { isNew, loading, location: { query }, res, total } = this.props;
+    const { isNew, loading, location: { query = {} }, res, total, history } = this.props;
 
     if ( isNew && !total ) {
       return <Welcome />
@@ -95,23 +96,25 @@ export default class Agendas extends Component {
     }
 
     return (
-      <AgendasSearch
-        id="homeAgendas"
-        destroyOnUnmount={false}
-        initialValues={{ search: query.search || '' }}
-        fieldIsVisible={() => query.search}
-        onSearch={values => {
-          this.context.router.push( {
-            ...this.props.location,
-            query: { ...this.props.location.query, search: values.search || undefined }
-          } );
-        }}
-        getTitleLink={agenda =>
-          (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
-        }
-        Header={this.renderHeader}
-        AgendaActionsComponent={this.renderAgendaActions}
-      />
+      <div className="content">
+        <AgendasSearch
+          id="homeAgendas"
+          destroyOnUnmount={false}
+          initialValues={{ search: query.search || '' }}
+          fieldIsVisible={() => query.search}
+          onSearch={values => {
+            history.push( {
+              ...this.props.location,
+              query: { ...this.props.location.query, search: values.search || undefined }
+            } );
+          }}
+          getTitleLink={agenda =>
+            (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
+          }
+          Header={this.renderHeader}
+          AgendaActionsComponent={this.renderAgendaActions}
+        />
+      </div>
     );
   }
 

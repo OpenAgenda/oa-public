@@ -93,14 +93,22 @@ export function isLoaded( globalState ) {
 export function load( query ) {
   return {
     types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( client, { res } ) => client.get( res.events.list, { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.events.list, { params: query } );
+    }
   };
 }
 
 export function list( query ) {
   return {
     types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( client, { res } ) => client.get( res.events.list, { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.events.list, { params: query } );
+    }
   }
 }
 
@@ -108,6 +116,10 @@ export function nextPage( query, page ) {
   return {
     types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
     page,
-    promise: ( client, { res, events } ) => client.get( res.events.list, { query: { ...query, page } } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.events.list, { params: { ...query, page } } );
+    }
   }
 }

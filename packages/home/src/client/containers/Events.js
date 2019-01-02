@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { asyncConnect } from 'redux-connect';
+import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { replace } from 'react-router-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
@@ -13,16 +13,32 @@ import Image from '@openagenda/react-components/build/Image';
 import * as agendasActions from '../redux/modules/agendas';
 import * as eventsActions from '../redux/modules/events';
 import * as modalsActions from '../redux/modules/modals';
+import { setTab } from '../redux/modules/menu';
 import { SearchInput, AgendasSearch } from '../components';
 
 const selector = formValueSelector( 'homeEvents' );
 
-@asyncConnect( [ {
-  deferred: !__CLIENT__,
-  promise: ( { store: { dispatch, getState } } ) => {
+// @asyncConnect( [ {
+//   deferred: !__CLIENT__,
+//   promise: ( { store: { dispatch, getState } } ) => {
+//     const state = getState();
+//     const query = state.routing.locationBeforeTransitions.query;
+//     const promises = [];
+//
+//     if ( !eventsActions.isLoaded( state ) ) {
+//       promises.push( dispatch( eventsActions.load( query ) ) );
+//     }
+//
+//     return Promise.all( __CLIENT__ ? [] : promises );
+//   }
+// } ] )
+@provideHooks( {
+  fetch: async ( { store: { dispatch, getState } } ) => {
     const state = getState();
-    const query = state.routing.locationBeforeTransitions.query;
-    const promises = [];
+    const query = state.router.location.query;
+    const promises = [
+      dispatch( setTab( 'events' ) )
+    ];
 
     if ( !eventsActions.isLoaded( state ) ) {
       promises.push( dispatch( eventsActions.load( query ) ) );
@@ -30,11 +46,11 @@ const selector = formValueSelector( 'homeEvents' );
 
     return Promise.all( __CLIENT__ ? [] : promises );
   }
-} ] )
+} )
 @connect(
   ( state, props ) => ({
     initialValues: {
-      search: props.location.query.search || ''
+      search: props.location.query && props.location.query.search ? props.location.query.search : ''
     },
     res: state.res,
     events: state.events.data,
@@ -151,7 +167,7 @@ export default class Events extends Component {
   render() {
     const {
       res, handleSubmit, events, loading, listLoading, nextLoading,
-      search, perPageLimit, total, location: { query },
+      search, perPageLimit, total, location: { query = {} },
       showModal, closeModal, modals, agendasLoad
     } = this.props;
     const { getLabel } = this.context;
@@ -159,7 +175,7 @@ export default class Events extends Component {
     const selectAgendasModal = modals.selectAgenda || {};
 
     if ( loading ) {
-      return <Spinner/>;
+      return <Spinner />;
     }
 
     return (

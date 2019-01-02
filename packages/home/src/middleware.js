@@ -1,24 +1,16 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const range = require( '@openagenda/date-range' );
-
-const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
-const createStore = require( '@openagenda/react-utils/dist/createStore' );
-const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
-
-const getRoutes = require( './react/dist/routes' );
-const reducer = require( './react/dist/redux/reducer' );
 
 require( 'moment/locale/fr' );
 
 let config;
 
+
 module.exports = {
   init,
   getConfig: () => config,
-  matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
   agendas: {
     list: agendasList
   },

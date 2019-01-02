@@ -119,7 +119,11 @@ export function load( key, query ) {
   return {
     key,
     types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( client, { res } ) => client.get( res.agendas.list, { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.agendas.list, { params: query } );
+    }
   };
 }
 
@@ -127,7 +131,11 @@ export function list( key, query ) {
   return {
     key,
     types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( client, { res } ) => client.get( res.agendas.list, { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.agendas.list, { params: query } );
+    }
   }
 }
 
@@ -136,6 +144,10 @@ export function nextPage( key, query, page ) {
     key,
     page,
     types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
-    promise: ( client, { res, agendas } ) => client.get( res.agendas.list, { query: { ...query, page } } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.agendas.list, { params: { ...query, page } } );
+    }
   }
 }

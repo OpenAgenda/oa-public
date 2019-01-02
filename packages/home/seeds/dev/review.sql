@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `${schema}` (
   `contribution_info` text,
   `official` tinyint(1) DEFAULT NULL,
   `private` tinyint(1) DEFAULT '0',
+  `indexed` tinyint(1) DEFAULT '1',
   `settings` text,
   `contribution` text,
   `credentials` text,
