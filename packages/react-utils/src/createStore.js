@@ -1,80 +1,47 @@
-import { createStore, compose, applyMiddleware } from 'redux';
-import { routerMiddleware } from 'react-router-redux';
+import { combineReducers, createStore } from 'redux';
 
-export default function ( reducers ) {
-
-  return ( history, client, state = {} ) => {
-
-    let enhancer;
-    const middleware = applyMiddleware( routerMiddleware( history ), funcMiddleware(), promiseMiddleware( client ) );
-
-    if ( process.env.NODE_ENV === 'development' && typeof window !== 'undefined' ) {
-      const { persistState } = require( 'redux-devtools' );
-      const { composeWithDevTools } = require( 'redux-devtools-extension' );
-
-      enhancer = composeWithDevTools({})( middleware, persistState( getDebugSessionKey() ) );
-    } else {
-      enhancer = compose( middleware );
+function inject( store, getReducers, newReducers ) {
+  Object.entries( newReducers ).forEach( ( [ name, reducer ] ) => {
+    if ( store.asyncReducers[ name ] ) {
+      return;
     }
 
-    return createStore( reducers, state, enhancer );
+    store.asyncReducers[ name ] = reducer.__esModule ? reducer.default : reducer;
+  } );
 
-  };
-
+  store.replaceReducer( combineReducers( getReducers( store.asyncReducers ) ) );
 }
 
-function getDebugSessionKey() {
-  // You can write custom logic here!
-  // By default we try to read the key from ?debug_session=<key> in the address bar
-  const matches = window.location.href.match( /[?&]debug_session=([^&#]+)\b/ );
-  return (matches && matches.length > 0) ? matches[ 1 ] : null;
+function getNoopReducers( reducers, data ) {
+  if ( !data ) {
+    return {};
+  }
+
+  return Object.keys( data ).reduce(
+    ( prev, next ) => {
+      if ( reducers[ next ] ) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        [ next ]: ( state = {} ) => state
+      };
+    },
+    {}
+  );
 }
 
-function funcMiddleware() {
 
-  return store => next => action => {
+export default function ( getReducers, initialState, enhancer ) {
+  const reducers = getReducers();
+  const noopReducers = getNoopReducers( reducers, initialState );
+  const rootReducer = combineReducers( { ...noopReducers, ...reducers } );
 
-    if ( typeof action !== 'function' ) return next( action );
+  const store = createStore( rootReducer, initialState, enhancer );
 
-    return next( action( store ) );
+  store.asyncReducers = {};
+  store.inject = inject.bind( store, getReducers );
 
-  };
-
-}
-
-function promiseMiddleware( client ) {
-
-  return store => next => action => {
-
-    const { promise, types, ...rest } = action;
-
-    if ( !promise ) {
-      return next( action );
-    }
-
-    const [ REQUEST, SUCCESS, FAILURE ] = types;
-
-    next( { ...rest, type: REQUEST } );
-
-    try {
-
-      const actionPromise = promise( client, store.getState() );
-
-      actionPromise.then(
-        result => next( { ...rest, result, type: SUCCESS } ),
-        error => next( { ...rest, error, type: FAILURE } )
-      );
-
-      return actionPromise;
-
-    } catch ( error ) {
-
-      console.error( 'MIDDLEWARE ERROR:', error );
-
-      return Promise.reject( next( { ...rest, error, type: FAILURE } ) );
-
-    }
-
-  };
-
-}
+  return store;
+};

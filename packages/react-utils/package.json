@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-utils",
-  "version": "3.1.2",
+  "version": "4.0.0",
   "description": "",
   "repository": {
     "type": "git",
@@ -17,20 +17,9 @@
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.1.2",
-    "history": "^3.3.0",
+    "axios": "^0.18.0",
     "lodash": "^4.17.4",
-    "react-redux": "^5.0.4",
-    "react-router": "^3.0.0",
-    "react-router-redux": "^4.0.8",
-    "react-router-scroll": "^0.4.2",
-    "redux": "^3.6.0",
-    "redux-connect": "^5.1.0",
-    "redux-devtools": "^3.4.0",
-    "redux-devtools-dock-monitor": "^1.1.2",
-    "redux-devtools-extension": "^2.13.2",
-    "redux-devtools-inspector": "^0.11.3",
-    "redux-form": "^7.2.0",
-    "superagent": "^3.8.3",
+    "redial": "^0.5.0",
     "verror": "^1.10.0"
   },
   "devDependencies": {
@@ -39,10 +28,16 @@
     "babel-preset-openagenda": "^1.1.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router": "^4.3.1",
+    "react-router-config": "^1.0.0-beta.4",
+    "redux": "^4.0.1",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
     "react": "15 || 16",
-    "react-dom": "15 || 16"
+    "react-dom": "15 || 16",
+    "react-router": "4",
+    "react-router-config": "^1.0.0-beta.4",
+    "redux": "4"
   }
 }
