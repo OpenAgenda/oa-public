@@ -13,7 +13,7 @@ export const server = http.createServer( app );
 app.server = server;
 
 /*
- * Run `yarn knex migrate:latest` and `yarn knex seed:run` before run the dev server
+ * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
  * */
 
 if ( process.env.NODE_ENV !== 'test' ) {

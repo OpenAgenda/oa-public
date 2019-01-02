@@ -23,7 +23,7 @@
     "classnames": "^2.2.5",
     "express": "^4.16.2",
     "immutability-helper": "^2.6.5",
-    "knex": "^0.14.3",
+    "knex": "^0.16.2",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

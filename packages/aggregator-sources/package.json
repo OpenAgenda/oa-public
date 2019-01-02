@@ -29,7 +29,7 @@
     "@openagenda/react-utils": "^2.0.2",
     "@openagenda/service-utils": "^2.0.0",
     "async": "^2.1.4",
-    "knex": "^0.12.6",
+    "knex": "^0.16.2",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "mysql": "^2.12.0",

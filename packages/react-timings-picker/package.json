@@ -57,7 +57,7 @@
     "babel-preset-openagenda": "^1.1.1",
     "create-react-class": "^15.5.3",
     "date-format-lite": "^0.7.4",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.11",
     "prop-types": "^15.5.8",
     "react-onclickoutside": "^4.5.0",
     "react-select": "^1.0.0-rc.4",

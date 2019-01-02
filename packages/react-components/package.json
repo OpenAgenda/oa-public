@@ -6,7 +6,6 @@
   "scripts": {
     "prepublish": "yarn build",
     "build": "rimraf build && babel components -d build -s",
-    "preserve": "yarn build",
     "start": "start-storybook -p 3000 -c .storybook"
   },
   "author": "",
