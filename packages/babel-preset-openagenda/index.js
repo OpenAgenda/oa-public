@@ -15,7 +15,7 @@ module.exports = declare( ( api, options ) => {
 
   const presets = [
     [
-      '@babel/preset-env',
+      require( '@babel/preset-env' ).default,
       {
         debug,
         useBuiltIns,
@@ -35,7 +35,7 @@ module.exports = declare( ( api, options ) => {
       }
     ],
     [
-      '@babel/preset-react',
+      require( '@babel/preset-react' ).default,
       {
         development
       }
@@ -43,37 +43,37 @@ module.exports = declare( ( api, options ) => {
   ];
 
   const plugins = [
-    'lodash',
-    'add-module-exports',
+    require( 'babel-plugin-lodash' ),
+    require( 'babel-plugin-add-module-exports' ),
     [
-      '@babel/plugin-transform-runtime',
+      require( '@babel/plugin-transform-runtime' ).default,
       {
         corejs: 2
       }
     ],
 
-    '@babel/plugin-proposal-object-rest-spread',
+    require( '@babel/plugin-proposal-object-rest-spread' ).default,
 
     // Stage 0
-    '@babel/plugin-proposal-function-bind',
+    require( '@babel/plugin-proposal-function-bind' ).default,
 
     // Stage 1
-    '@babel/plugin-proposal-export-default-from',
-    '@babel/plugin-proposal-do-expressions',
+    require( '@babel/plugin-proposal-export-default-from' ).default,
+    require( '@babel/plugin-proposal-do-expressions' ).default,
 
     // Stage 2
     [
-      '@babel/plugin-proposal-decorators',
+      require( '@babel/plugin-proposal-decorators' ).default,
       {
         legacy: true
       }
     ],
-    '@babel/plugin-proposal-export-namespace-from',
-    '@babel/plugin-proposal-throw-expressions',
+    require( '@babel/plugin-proposal-export-namespace-from' ).default,
+    require( '@babel/plugin-proposal-throw-expressions' ).default,
 
     // Stage 3
     [
-      '@babel/plugin-proposal-class-properties',
+      require( '@babel/plugin-proposal-class-properties' ).default,
       {
         loose: true
       }
