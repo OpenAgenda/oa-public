@@ -36,13 +36,13 @@
     ]
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "codecov": "^3.1.0",
     "jest": "^23.6.0",
     "lerna": "^2.11.0",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.2.0"
