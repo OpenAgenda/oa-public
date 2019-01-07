@@ -3,7 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, select } from '@storybook/addon-knobs';
 // import { action } from '@storybook/addon-actions';
 
-import AbilitiesEditor from '../../src/client/AbilitiesEditor';
+import AbilitiesEditor from '../src/client/AbilitiesEditor';
+
+import '@openagenda/bs-templates/compiled/main.css';
 
 
 function withJestSleep( ms = 1 ) {
