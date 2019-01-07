@@ -11,7 +11,7 @@
     "prepublish": "yarn build"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
+    "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "babel-preset-openagenda": "^1.1.1",
     "browser-sync": "^2.2.1",
@@ -39,8 +39,8 @@
     "gulp-useref": "^1.1.1",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -64,7 +64,7 @@
     "tether": "^1.1.1"
   },
   "peerDependencies": {
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }

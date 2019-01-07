@@ -57,18 +57,18 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/test-app": "^2.0.7",
     "babel-preset-openagenda": "^1.1.1",
     "body-parser": "1.14.1",
     "mocha": "^4.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "should": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }

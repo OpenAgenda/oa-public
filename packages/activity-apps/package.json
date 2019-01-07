@@ -48,8 +48,8 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/test-app": "^3.0.1-6",
@@ -59,7 +59,7 @@
     "mocha": "^5.0.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }

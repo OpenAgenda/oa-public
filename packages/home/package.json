@@ -23,8 +23,8 @@
     "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
-    "react": "16 || 15",
-    "react-dom": "16 || 15"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.1.2",
@@ -36,7 +36,7 @@
     "classnames": "^2.2.5",
     "connected-react-router": "^6.1.0",
     "history": "^4.7.2",
-    "knex": "^0.16.2",
+    "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "mysql": "^2.11.1",
@@ -48,11 +48,11 @@
     "react-waypoint": "^7.1.0",
     "redial": "^0.5.0",
     "redux": "^4.0.1",
-    "redux-form": "^8.0.4"
+    "redux-form": "^8.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agendas": "^1.1.4",
@@ -65,11 +65,13 @@
     "@storybook/react": "^4.1.2",
     "babel-loader": "^8.0.4",
     "babel-preset-openagenda": "^1.1.1",
+    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
+    "nodemon": "^1.18.9",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "redux-devtools": "^3.5.0",

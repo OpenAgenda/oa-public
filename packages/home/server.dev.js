@@ -1,5 +1,3 @@
-"use strict";
-
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
@@ -16,7 +14,7 @@ import cors from 'cors';
 import errorHandler from 'errorhandler';
 import testconfig from './testconfig';
 
-const homeMw = require( './src/middleware' );
+const mw = require( './src/middleware' );
 const app = express();
 
 export const server = http.createServer( app );
@@ -28,7 +26,7 @@ app.server = server;
  * */
 
 if ( process.env.NODE_ENV !== 'test' ) {
-  homeMw.init( testconfig );
+  mw.init( testconfig );
   fixtures.init( testconfig );
   agendasSvc.init( _.merge( {}, testconfig, testconfig.services.agendas ) );
   stakeholdersSvc.init( _.merge( {}, testconfig, testconfig.services.agendaStakeholders ) );
@@ -54,8 +52,8 @@ app.use( ( req, res, next ) => {
   next();
 } );
 
-app.get( '/agendas.json', homeMw.agendas.list );
-app.get( '/events.json', homeMw.events.list );
+app.get( '/agendas.json', mw.agendas.list );
+app.get( '/events.json', mw.events.list );
 
 app.use( errorHandler( { log: true } ) );
 
