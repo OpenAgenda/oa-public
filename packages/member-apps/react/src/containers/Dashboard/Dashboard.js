@@ -42,7 +42,6 @@ const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
     initialValues: {
       search: props.location.query.search || ''
     },
-    agenda: state.agenda,
     res: state.res,
     credentials: state.agenda.credentials,
     userShId: state.stakeholder.id,
