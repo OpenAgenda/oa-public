@@ -1,4 +1,4 @@
-import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
+import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
 
 const React = require( 'react' ),
 

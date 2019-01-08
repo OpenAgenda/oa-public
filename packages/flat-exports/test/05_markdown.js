@@ -33,7 +33,7 @@ https://openagenda.com/la-gargouille
     test( 'text event', () => {
 
       const markdownEventItem = md.parseEvent( 'txt', { lang: 'fr', genUrl: e => '#' + e.uid }, event, { previous: event } );
-      
+
       expect( markdownEventItem ).toBe(
 `Accès libre
 #48919824
@@ -49,7 +49,7 @@ l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
 
 Réservation: 0145707532
 
-Accessibilité: handicap auditif, handicap psychique, langue des signes, handicap moteur
+Accessibilité: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 -----------------------------
 `    )
 
@@ -61,7 +61,7 @@ Accessibilité: handicap auditif, handicap psychique, langue des signes, handica
 
     test( 'markdown event', () => {
 
-      const markdownEventItem = md.parseEvent( 'md', { 
+      const markdownEventItem = md.parseEvent( 'md', {
         lang: 'fr',
         genUrl: e => '#' + e.uid,
         section: null
@@ -80,7 +80,7 @@ l'accès libre est gratuit sous conditions de reservation. 12 postes disponibles
 
 **Réservation**: 0145707532
 
-**Accessibilité**: handicap auditif, handicap psychique, langue des signes, handicap moteur
+**Accessibilité**: Handicap auditif, Handicap psychique, Langue des signes, Handicap moteur
 
 ---
 

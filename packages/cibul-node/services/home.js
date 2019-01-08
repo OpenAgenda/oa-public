@@ -1,7 +1,7 @@
 "use strict";
 
 const { promisify } = require( 'util' );
-const homeMw = require( '@openagenda/home/middleware' );
+const homeMw = require( '@openagenda/home/dist/middleware' );
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const eventsSvc = require( '@openagenda/events' );

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const callToActionMw = require( '@openagenda/call-to-action/middleware' );
+const callToActionMw = require( '@openagenda/call-to-action/dist/middleware' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sessions = require( '@openagenda/sessions' );
 const users = require( '@openagenda/users' );

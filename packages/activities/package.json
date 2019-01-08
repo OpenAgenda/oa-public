@@ -28,14 +28,14 @@
     "async": "^2.3.0",
     "caporal": "^0.4.1",
     "is-promise": "^2.1.0",
-    "knex": "^0.14.6",
+    "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "verror": "^1.10.0",
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/fixtures": "^2.0.1",
     "mocha": "^5.0.1",
     "should": "^11.2.1",

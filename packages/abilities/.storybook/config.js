@@ -9,7 +9,7 @@ function importAll( req ) {
 }
 
 function loadStories() {
-  importAll( require.context( './stories', true, /\.stories\.js$/ ) );
+  importAll( require.context( '../stories', true, /\.stories\.js$/ ) );
 }
 
 if ( process.env.NODE_ENV === 'development' ) {

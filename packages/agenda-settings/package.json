@@ -19,8 +19,8 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react": "15 || 16",
-    "react-dom": "15 || 16"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.1.2",
@@ -35,7 +35,7 @@
     "classnames": "^2.2.5",
     "history": "^3.3.0",
     "immutability-helper": "^2.7.1",
-    "knex": "^0.16.2",
+    "knex": "^0.16.3",
     "lodash": "^4.17.10",
     "mysql": "^2.11.1",
     "prop-types": "^15.5.8",
@@ -54,8 +54,8 @@
     "superagent": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@babel/register": "^7.0.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
@@ -69,8 +69,8 @@
     "mocha": "^4.1.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "rimraf": "^2.6.2",
     "should": "^11.1.0"
   }

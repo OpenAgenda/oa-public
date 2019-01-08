@@ -14,8 +14,6 @@ const labels = require( '@openagenda/labels/users/settings' );
 const getLabels = require( '@openagenda/labels' )( labels );
 const actions = require( './actions' );
 const RelayContainer = require( './containers/RelayContainer' );
-const App = require( './containers/App' );
-const SettingsContainer = require( './containers/SettingsContainer' );
 const DevTools = require( './containers/DevTools' );
 
 

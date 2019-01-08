@@ -31,7 +31,7 @@
     "ajv-errors": "^1.0.0",
     "ajv-keywords": "^2.1.0",
     "axios": "^0.18.0",
-    "knex": "^0.16.2",
+    "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "mime-types": "^2.1.18",
     "mysql": "^2.14.1",
@@ -41,8 +41,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/fixtures": "^2.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
