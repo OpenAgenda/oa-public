@@ -146,7 +146,7 @@ function widget( elem, options ) {
     }
 
     controller.getControlData( function( data ) {
-      
+
       log( 'control data fetched' );
 
       if ( !data.ebd || data.ebd.dcss.map ) styler( style );
@@ -186,13 +186,13 @@ function widget( elem, options ) {
 
     } );
 
-    
+
   } )();
 
 
   /**
    * extract optional map init data
-   * 
+   *
    * if tiles & coords are set as widget attributes
    * they can be used for initing the map
    * before the control data is available
@@ -294,10 +294,10 @@ function widget( elem, options ) {
 
       // if is not a map filter change, reset cluster
       if ( _nonMapQueryChange( reqParams ) ) return true;
-      
+
     }
 
-    
+
     // if it is a lateral movement of map, must be reset
     // else, it means bits of maps are now shown that were not shown before.
 
@@ -459,7 +459,7 @@ function widget( elem, options ) {
     return utils.size( reqParams ) == 1 && reqParams.passed !== undefined;
 
   }
-  
+
 
   function _openPopup( l ) {
 
@@ -524,7 +524,7 @@ function widget( elem, options ) {
     for ( var l in locations ) {
 
       locations[ l ].count = 0;
-    
+
     }
 
   }
@@ -624,7 +624,7 @@ function widget( elem, options ) {
         }
 
       }
-      
+
       if ( !selectedLocation && ( activeLocations.indexOf( location.uid ) == -1 ) ) {
 
         // if location is not in active locactions,
@@ -708,7 +708,7 @@ function widget( elem, options ) {
     log( 'refreshing map: %s', enabled ? 'enabled' : 'not enabled' );
 
     if ( selectedLocation ) {
-          
+
       activeLocations = [ selectedLocation.uid ];
 
       m.setCenter( map, selectedLocation.coords );
@@ -757,7 +757,7 @@ function widget( elem, options ) {
     var extract = markers.splice( 0, 4000 );
 
     try {
-        
+
       m.addClusterLayers( clusterGroup, extract );
 
     } catch( e ) {
@@ -777,7 +777,7 @@ function widget( elem, options ) {
   function setOnBoundsChange( cb ) {
 
     log( 'setting onboundschange callback' );
-        
+
     onBoundsChangeCallback = cb;
 
   }
@@ -795,29 +795,6 @@ function widget( elem, options ) {
     location.marker.options.count = active ? 1 : 0;
 
     return location.marker;
-
-  }
-
-
-  function _initTiles( data ) {
-
-    if ( data.tiles ) {
-
-      config.tiles = data.tiles;
-
-      return;
-
-    }
-
-    if ( !data.ebd || !data.ebd.mt ) {
-
-      log( 'using default tiles' );
-
-      return;
-
-    }
-
-    config.tiles = data.ebd.mt;
 
   }
 
@@ -842,7 +819,7 @@ function widget( elem, options ) {
     if (typeof document.createStyleSheet == "undefined") {
 
       var link = document.createElement( 'link' );
-      
+
       link.setAttribute( 'rel', 'stylesheet' );
       link.setAttribute( 'type', 'text/css' );
       link.setAttribute( 'href', '//s3-eu-west-1.amazonaws.com/cibulstatic/leaflet-0.6.4.css');
@@ -950,7 +927,7 @@ function widget( elem, options ) {
   }
 
 
-  
+
   // define initial bounds to have them include all upcoming
   // markers. Or all markers if agenda is fully passed
 
@@ -998,7 +975,7 @@ function widget( elem, options ) {
 
 
     // if bounds is still not defined, just pick first location
-    
+
     if ( typeof baseBounds == 'undefined' ) {
 
       for ( l in locations ) break;
@@ -1073,7 +1050,7 @@ function widget( elem, options ) {
     var center = [ 48.8705187, 2.3821144 ];
 
     if ( locations && utils.size( locations ) ) {
-      
+
       for ( var s in locations ) break;
 
       center = locations[ s ].coords;
@@ -1175,7 +1152,7 @@ function widget( elem, options ) {
       if ( bounds ) _fitBounds( bounds );
 
       // takes a while for map to adjust
-      
+
       setTimeout(function() {
 
         _unfreezeAuto();
@@ -1188,14 +1165,14 @@ function widget( elem, options ) {
 
   }
 
-  
+
   // default bounds encapsulate all the locations
   function _setMapToBaseBounds() {
 
     log( 'setting map to base bounds: %s', JSON.stringify( baseBounds ) );
 
     if ( !baseBounds ) return;
-    
+
     _fitBounds( baseBounds );
 
   }
@@ -1205,7 +1182,7 @@ function widget( elem, options ) {
    * avoid auto panning sync issues
    * by temporarily preventing it during updates
    */
-  
+
   function _freezeAuto() {
 
     frozenAuto = true;
@@ -1239,7 +1216,7 @@ function widget( elem, options ) {
       setTimeout( function() {
 
         _fitBounds( bounds, ignoreZoomLimit );
-        
+
       }, 500 );
 
     }
@@ -1363,22 +1340,22 @@ function widget( elem, options ) {
     log( 'found %d neighbors', nCount );
 
     return bounds;
-    
+
   }
 
 
   function _distance( lat1, lon1, lat2, lon2 ) {
-  
+
     var radlat1 = Math.PI * lat1 / 180,
-    
+
     radlat2 = Math.PI * lat2 / 180,
-    
+
     radlon1 = Math.PI * lon1 / 180,
-    
+
     radlon2 = Math.PI * lon2 / 80,
-    
+
     radtheta = Math.PI * (lon1-lon2)/180;
-    
+
     return 60 * 1.1515 * 1609.344 * 180/Math.PI * Math.acos(Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta));
 
   };
@@ -1389,7 +1366,7 @@ function _isIn( l, reqParams ) {
 
   if ( reqParams.neLat && reqParams.neLng && reqParams.swLat && reqParams.swLng ) {
 
-    var ne = [ parseFloat(reqParams.neLat), parseFloat(reqParams.neLng) ], 
+    var ne = [ parseFloat(reqParams.neLat), parseFloat(reqParams.neLng) ],
 
     sw = [parseFloat(reqParams.swLat), parseFloat(reqParams.swLng)],
 

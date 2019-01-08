@@ -20,7 +20,7 @@ describe( 'associateFreeLocations', function() {
 
   before( done => fixtures( 456, done ) );
 
-  before( done => db.init( config.mysql, done ) );
+  before( done => db.init( config.mysql, {}, done ) );
 
   before( done => {
 

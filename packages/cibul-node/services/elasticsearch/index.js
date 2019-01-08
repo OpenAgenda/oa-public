@@ -153,9 +153,9 @@ function search( query, options, cb ) {
 
       if ( err ) return cb( err );
 
-      cb( null, { 
-        total: result.total, 
-        events: result.data 
+      cb( null, {
+        total: result.total,
+        events: result.data
       } );
 
     } );
@@ -167,7 +167,7 @@ function search( query, options, cb ) {
 
 function _prepare( query, options, cb ) {
 
-  const params = lib.extend( { 
+  const params = lib.extend( {
     limit: LIMIT,
     agendaId: false,
     showAll: false
@@ -175,7 +175,7 @@ function _prepare( query, options, cb ) {
 
   const esQuery = _buildESQuery(
     _clean( query, params ),
-    params.limit, 
+    params.limit,
     params.agendaId,
     params.showAll
   );
@@ -210,11 +210,12 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   }
 
-  [ 
+  [
     'tags',
     'category',
     'org',
     'what',
+    'slug',
     'scope',
     'countryCode',
     'type',
@@ -261,7 +262,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
 
   // where
-  
+
   if ( query.location ) {
 
     esQuery.location = query.location;
@@ -289,7 +290,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
 
   // then "order"
-  
+
   if ( query.order ) {
 
     esQuery.options.order = [ query.order ];
@@ -297,7 +298,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
   }
 
   // show all events or not
-  
+
   esQuery.showAll = !!showAll;
 
   return esQuery;
@@ -326,7 +327,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope' ].forEach( k => {
+  [ 'what', 'type', 'age', 'scope', 'slug' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 
@@ -412,9 +413,9 @@ function _clean( query, params ) {
 
   }
 
-  [ 
-    'neLat', 'neLng', 'swLat', 'swLng', 
-    'category', 'location', 'org', 
+  [
+    'neLat', 'neLng', 'swLat', 'swLng',
+    'category', 'location', 'org',
     'countryCode'
   ].forEach( function( name ) {
 
@@ -448,7 +449,7 @@ function _validLongitude( lng ) {
   if ( parseFloat( lng ) < -180 ) return false;
 
   return true;
-  
+
 }
 
 function _validCoord( coord ) {

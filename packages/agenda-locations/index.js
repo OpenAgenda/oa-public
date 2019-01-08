@@ -79,7 +79,9 @@ function init( c, cb ) {
       // get stakeholder data
       getStakeholder: ( stakeholderId, cb ) => { cb() },
       // get agenda settings
-      getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) }
+      getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) },
+      // get location settings
+      getLocationSettings: ( agendaId, options, cb ) => { cb( null, null ) },
 
     }
   }, c );
@@ -93,7 +95,7 @@ function init( c, cb ) {
 
   }
 
-  db.init( config.mysql, () => {
+  db.init( config.mysql, config.interfaces, () => {
 
     search.setPrimaryDb( db );
 
@@ -133,15 +135,22 @@ function init( c, cb ) {
 }
 
 
-function getSettings( agendaId, cb ) {
+function getSettings( agendaId, options, cb ) {
 
-  db.getSettings( agendaId, ( err, settings ) => {
+  if ( cb === undefined ) {
+
+    cb = options;
+    options = {};
+
+  }
+
+  db.getSettings( agendaId, options, ( err, settings ) => {
 
     if ( err ) return cb( err );
 
     if ( !service.interfaces || !service.interfaces.getAgendaSettings ) {
 
-      cb( null, settings );
+      return cb( null, settings );
 
     }
 

@@ -100,7 +100,7 @@ describe( 'transferLegacyData - sample', function() {
 
       } );
 
-    } );  
+    } );
 
   } );
 
@@ -140,7 +140,7 @@ describe( 'transferLegacyData - sample', function() {
     setTimeout( () => {
 
       const con = mysql.createConnection( config.mysql );
-      
+
       con.query( `delete from ${config.legacy.schemas.agendaEvent} limit 1`, err => {
 
         svc.tasks.transferLegacyData( { total: 19, interval: 0 } );
@@ -176,7 +176,7 @@ describe( 'transferLegacyData - sample', function() {
               con.end();
 
               done();
-              
+
             } );
 
           } );

@@ -353,6 +353,8 @@ function _update( schema ) {
 
       if ( err ) return cb( err );
 
+      if ( !obj ) return cb( 'no event was found for id ' + job.id );
+
       if ( schema === 'reviews' ) {
 
         _updateES( obj, cb )

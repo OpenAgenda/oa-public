@@ -136,7 +136,7 @@ Add webpack and the webpack config file references:
 Set the dev app to use the webpack development middleware, and the hot reload module:
 
     dev.use( require( 'webpack-dev-middleware' )( compiler, {
-      noInfo: true, 
+      noInfo: true,
       publicPath: '/js'
     } ) );
 
@@ -256,7 +256,7 @@ The server index can be used as the repo endpoint in the package.json file:
     "main" : "server/index.js"
 
 And use the server service app for everything coming to the /app route:
-    
+
     const service = require( './' );
 
     dev.use( '/app', service.app );
@@ -266,7 +266,7 @@ If you yarn start at this point, you'll see the redirection take place and the s
 Most of the time, the integrating application, simulated here with server.dev.js will be responsible for providing a layout to the global page, including things like general styling references and a website header. This can be achieved by providing the service with a layout function which will be given the service rendered page and return the page rapped up with a layout.
 
 The layout function can be simulated in server.dev.js as follows:
-  
+
     const layoutStr = `<!DOCTYPE html>
       <html>
         <head>

@@ -28,9 +28,7 @@ const storeFields = [ // fields kept in store column in schema
 // field used to retrieve aggregates of values for filtering
 const termFields = [ 'name', 'city', 'region', 'department', 'country' ];
 
-let config;
-
-let con;
+let config, interfaces, con;
 
 module.exports = {
   isReady: () => !!config,
@@ -117,11 +115,33 @@ function resync( agendaId, cb ) {
 
 }
 
+
+function getLocationSettingsFromInterface( agendaId, options, cb ) {
+
+  if ( interfaces.getLocationSettings ) {
+
+    interfaces.getLocationSettings( agendaId, options, cb );
+
+  } else {
+
+    cb( null, null );
+
+  }
+
+}
+
 /**
  * get agenda location data settings
  */
 
-function getSettings( agendaId, cb ) {
+function getSettings( agendaId, options, cb ) {
+
+  if ( cb === undefined ) {
+
+    cb = options;
+    options = {};
+
+  }
 
   if ( !config || !config.agendaSettingsTableName ) {
 
@@ -129,19 +149,27 @@ function getSettings( agendaId, cb ) {
 
   }
 
-  _query( `select store from ${config.agendaSettingsTableName} where agenda_id = ?`, agendaId, ( err, rows ) => {
+  getLocationSettingsFromInterface( agendaId, options, ( err, settings ) => {
 
     if ( err ) return cb( err );
 
-    let settings = {};
+    if ( settings ) return cb( null, settings );
 
-    try {
+    _query( `select store from ${config.agendaSettingsTableName} where agenda_id = ?`, agendaId, ( err, rows ) => {
 
-      if ( rows.length ) settings = JSON.parse( rows[ 0 ].store );
+      if ( err ) return cb( err );
 
-    } catch( e ) {};
+      let settings = {};
 
-    cb( null, settings );
+      try {
+
+        if ( rows.length ) settings = JSON.parse( rows[ 0 ].store );
+
+      } catch( e ) {};
+
+      cb( null, settings );
+
+    } );
 
   } );
 
@@ -573,16 +601,17 @@ function listTerms( fields, wheres, cb ) {
 }
 
 
-function init( cfg, cb ) {
+function init( cfg, itf, cb ) {
 
   w( {
-    config: _.extend( {
+    config: _.assign( {
       host: 'localhost',
       database: 'agenda_locations',
       user: 'root',
       password: false,
       table: 'location'
     }, cfg ),
+    interfaces: itf,
     noLoadDatabase: true
   } )
 
@@ -595,6 +624,8 @@ function init( cfg, cb ) {
     log( 'init complete' );
 
     config = v.config;
+
+    interfaces = v.interfaces;
 
     if ( cb ) cb( null );
 

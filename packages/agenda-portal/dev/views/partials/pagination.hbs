@@ -1,0 +1,12 @@
+<ul class="pagination">
+  {{#each pages}}
+  <li class="page-item {{#if previous}}previous{{/if}} {{#if next}}next{{/if}} {{#if current}}active{{else}}js_trigger_spin{{/if}}">
+    <a class="page-link" href="/p/{{page}}?{{../searchString}}">
+      {{#if previous}}précédent
+      {{else if next }}suivant
+      {{else}}{{page}}
+      {{/if}}
+    </a>
+  </li>
+  {{/each}}
+</ul>

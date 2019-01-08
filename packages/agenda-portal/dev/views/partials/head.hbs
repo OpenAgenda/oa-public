@@ -1,0 +1,23 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="row py-4">
+          <div class="offset-md-2 col-md-8">
+            <{{tagName}}><a href="/">{{agenda.title}}</a></{{tagName}}>
+            <p>{{head.description}}</p>
+            <a target="_blank" href="{{agenda.url}}">{{agenda.url}}</a>
+            <div>
+              <a href="/whereis404">404 page</a> -
+              <a href="/error">error page</a> -
+              <a href="/about">static page</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 py-5 text-center">
+        {{>contribute}}
+      </div>
+    </div>
+  </div>
+</header>

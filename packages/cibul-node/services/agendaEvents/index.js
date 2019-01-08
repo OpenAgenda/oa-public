@@ -20,13 +20,13 @@ function init( config ) {
 
   agendaEvents.init( {
     mysql: config.db,
+    knex: config.knex,
     redis: config.redis,
     logger: config.getLogConfig( 'svc', 'agendaEvents' ),
     schemas: {
       agendaEvent: config.schemas.agendaEventService
     },
     legacy: {
-      mysql: config.db,
       schemas: {
         agendaEvent: config.schemas.agendaEvent,
         eventEditor: config.schemas.eventEditor,

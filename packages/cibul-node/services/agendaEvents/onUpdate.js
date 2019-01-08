@@ -8,7 +8,7 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
-const queueForControlData = require( './queueForControlData' );
+const queueForControlData = require( './lib/queueForControlData' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 
@@ -41,11 +41,11 @@ module.exports = async ( before, after, context ) => {
 
   if ( after.state === 2 ) {
 
-    queueForControlData( 'agendaEvent.onUpdate', { agenda, event }, context );
+    queueForControlData( 'agendaEvent.onUpdate', agenda, event );
 
-  } else if ( agenda && event ) {
+  } else if ( before.state === 2 ) {
 
-    queueForControlData.remove( 'agendaEvent.onUpdate', { agenda, event }, context );
+    queueForControlData.remove( 'agendaEvent.onUpdate', agenda, event );
 
   }
 

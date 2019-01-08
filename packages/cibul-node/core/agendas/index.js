@@ -6,5 +6,5 @@ module.exports = agendaUid => {
     events: require( './events' )( agendaUid ),
     settings: require( './settings' )( agendaUid )
   }
-  
+
 }

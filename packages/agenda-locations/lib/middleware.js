@@ -98,7 +98,7 @@ function getMiddleware( idRef ) {
 
     return ( req, res, next ) => {
 
-      service.getSettings(_.get( req, idRef, null ), ( err, settings ) => {
+      service.getSettings(_.get( req, idRef, null ), { lang: req.lang }, ( err, settings ) => {
 
         if ( err ) return next( err );
 
