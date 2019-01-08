@@ -1,6 +1,6 @@
 "use strict";
 
-const openRequestForm = require( '@openagenda/call-to-action/react/dist/openRequestForm' );
+const openRequestForm = require( '@openagenda/call-to-action/dist/client/openRequestForm' );
 
 // import ie8 from 'dom-utils/ie8'; // useful for ie11 too
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too
@@ -42,7 +42,7 @@ var utils = require( '@openagenda/utils' ),
 
   Raven = require( 'raven-js' ),
 
-  callToAction = require( '@openagenda/call-to-action/react/dist' ),
+  callToAction = require( '@openagenda/call-to-action/dist/client' ),
 
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 

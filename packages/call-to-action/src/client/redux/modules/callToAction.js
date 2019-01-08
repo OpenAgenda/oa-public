@@ -50,6 +50,10 @@ export function closeRequestForm() {
 export function sendRequestForm( data ) {
   return {
     types: [ SEND_REQUEST, SEND_REQUEST_SUCCESS, SEND_REQUEST_FAIL ],
-    promise: ( client, { res } ) => client.post( res.request, { data } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.post( res.request, data );
+    }
   }
 }

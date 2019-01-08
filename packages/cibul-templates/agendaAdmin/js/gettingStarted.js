@@ -6,7 +6,7 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import makeGetterLabel from '@openagenda/labels';
 import ImageUpload from '@openagenda/image-upload';
 import labels from '@openagenda/labels/agenda-admin/gettingStarted';
-import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
+import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
 
 
 const defaults = {
