@@ -1,106 +1,109 @@
+"use strict";
+
 module.exports = {
-  myAgendas: {
-    fr: 'Mes agendas',
-    en: 'My agendas'
+  "myAgendas": {
+    "fr": "Mes agendas",
+    "en": "My agendas",
+    "de": "Meine Kalender"
   },
-  createAgenda: {
-    fr: 'Créer un agenda',
-    en: 'Create an agenda'
+  "createAgenda": {
+    "fr": "Créer un agenda",
+    "en": "Create an agenda"
   },
-  searchAgenda: {
-    fr: 'Rechercher un agenda',
-    en: 'Search an agenda'
+  "searchAgenda": {
+    "fr": "Rechercher un agenda",
+    "en": "Search an agenda"
   },
-  myEvents: {
-    fr: 'Mes événements',
-    en: 'My events'
+  "myEvents": {
+    "fr": "Mes événements",
+    "en": "My events"
   },
-  messages: {
-    fr: 'Messages',
-    en: 'Messages'
+  "messages": {
+    "fr": "Messages",
+    "en": "Messages"
   },
-  notifications: {
-    fr: 'Notifications',
-    en: 'Notifications'
+  "notifications": {
+    "fr": "Notifications",
+    "en": "Notifications"
   },
-  addAnEvent: {
-    fr: 'Ajouter un événement',
-    en: 'Add an event'
+  "addAnEvent": {
+    "fr": "Ajouter un événement",
+    "en": "Add an event"
   },
-  manage: {
-    fr: 'Gérer',
-    en: 'Manage'
+  "manage": {
+    "fr": "Gérer",
+    "en": "Manage"
   },
-  moderate: {
-    fr: 'Modérer',
-    en: 'Moderate'
+  "moderate": {
+    "fr": "Modérer",
+    "en": "Moderate"
   },
-  officialAgenda: {
-    fr: 'Agenda officiel',
-    en: 'Official agenda'
+  "officialAgenda": {
+    "fr": "Agenda officiel",
+    "en": "Official agenda"
   },
-  welcome: {
-    fr: 'Bienvenue sur votre compte OpenAgenda!',
-    en: 'Welcome to your OpenAgenda account!'
+  "welcome": {
+    "fr": "Bienvenue sur votre compte OpenAgenda!",
+    "en": "Welcome to your OpenAgenda account!"
   },
-  orContributeToExisting: {
-    fr: 'Ou contribuez à un agenda existant',
-    en: 'Or contribute to an existing agenda'
+  "orContributeToExisting": {
+    "fr": "Ou contribuez à un agenda existant",
+    "en": "Or contribute to an existing agenda"
   },
-  noResult: {
-    fr: 'Aucun résultat trouvé',
-    en: 'No result found'
+  "noResult": {
+    "fr": "Aucun résultat trouvé",
+    "en": "No result found"
   },
-  createEvent: {
-    fr: 'Créer un événement',
-    en: 'Create an event'
+  "createEvent": {
+    "fr": "Créer un événement",
+    "en": "Create an event"
   },
-  searchEvent: {
-    fr: 'Rechercher un événement',
-    en: 'Search an event'
+  "searchEvent": {
+    "fr": "Rechercher un événement",
+    "en": "Search an event"
   },
-  selectAgenda: {
-    fr: 'Sélectionner l\'agenda dans lequel créer l\'événement',
-    en: 'Select an agenda in which to create the event'
+  "selectAgenda": {
+    "fr": "Sélectionner l'agenda dans lequel créer l'événement",
+    "en": "Select an agenda in which to create the event"
   },
-  privateAgenda: {
-    fr: 'Agenda privé',
-    en: 'Private agenda'
+  "privateAgenda": {
+    "fr": "Agenda privé",
+    "en": "Private agenda"
   },
-  privateEvent: {
-    fr: 'Événement privé',
-    en: 'Private event'
+  "privateEvent": {
+    "fr": "Événement privé",
+    "en": "Private event"
   },
-  draft: {
-    fr: 'Brouillon',
-    en: 'Draft'
+  "draft": {
+    "fr": "Brouillon",
+    "en": "Draft"
   },
-  contact: {
-    fr: 'Contacter',
-    en: 'Contact'
+  "contact": {
+    "fr": "Contacter",
+    "en": "Contact"
   },
-  see: {
-    fr: 'Voir',
-    en: 'See'
+  "see": {
+    "fr": "Voir",
+    "en": "See"
   },
-  support: {
-    fr: 'Support',
-    en: 'Support'
+  "support": {
+    "fr": "Support",
+    "en": "Support"
   },
-  modify: {
-    fr: 'Modifier',
-    en: 'Modify'
+  "modify": {
+    "fr": "Modifier",
+    "en": "Modify"
   },
-  noTitle: {
-    fr: 'Titre non défini',
-    en: 'Title not defined'
+  "noTitle": {
+    "fr": "Titre non défini",
+    "en": "Title not defined"
   },
-  noLocation: {
-    fr: 'Lieu non défini',
-    en: 'Location not defined'
+  "noLocation": {
+    "fr": "Lieu non défini",
+    "en": "Location not defined"
   },
-  noEventsCreated: {
-    fr: 'Vous n\'avez encore créé aucun événement',
-    en: 'You haven\'t created any event yet'
+  "noEventsCreated": {
+    "fr": "Vous n'avez encore créé aucun événement",
+    "en": "You haven't created any event yet"
   }
-};
+}
