@@ -32,7 +32,10 @@ import reducers from './reducers';
 
 reducers.router = routerReducer;
 
-const init = JSON.parse( document.getElementById( 'init' ).innerHTML );
+const init = JSON.parse(
+  document.getElementById( 'init' ).innerHTML,
+  ( k, v ) => _.isString( v ) ? v.replace( '<CLOSINGSCRIPTTAG>', '</script>' ) : v
+);
 
 const loggerMiddleware = createLogger();
 

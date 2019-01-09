@@ -81,6 +81,6 @@ This is useful if you need to specify additional account keys, such as google an
 
 ## Displaying raw data
 
-For index and event pages. If you want insight on the data your are handling, add ?data to your URL. The call will load a json view of the data as given to the template.
+For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
 
 Use JSON viewer plugin such as [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)

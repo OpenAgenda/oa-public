@@ -54,10 +54,17 @@ function init( c ) {
       }
     };
 
+    // stringified json is placed inside of application/json script tag
+    const stringified = JSON.stringify(
+      frontAppInit,
+      ( k, v ) => _.isString( v ) ? v.replace( '</script>', '<CLOSINGSCRIPTTAG>' ) : v,
+      2
+    );
+
     res.send( config.layout( req,
       `<div class="agenda-body">
         <div class="js_preload_spin" id="app"></div>
-        <script type="application/json" id="init">${JSON.stringify( frontAppInit, null, 2 )}</script>
+        <script type="application/json" id="init">${stringified}</script>
         <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
       </div>` ) );
 

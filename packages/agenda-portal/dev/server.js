@@ -20,7 +20,7 @@ Portal( {
   key: fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
   // views folder
   views: __dirname + '/views',
-  // sass: __dirname + '/sass/main.scss'
+  sass: __dirname + '/sass/main.scss',
   assets: __dirname + '/assets',
 
   // map tiles

@@ -57,7 +57,7 @@ module.exports = async config => {
 
   }
 
-  app.use( express.static( 'assets' ) );
+  app.use( express.static( __dirname + '/assets' ) );
 
   if ( assets ) app.use( express.static( assets ) );
 

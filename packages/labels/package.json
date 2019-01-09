@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/labels",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "The OpenAgenda labels lib. This works both for server and front labels. Label files are independent from each other and can be loaded independently - so things can remain lightweight on the front side.",
   "keywords": [],
   "author": "",
@@ -19,7 +19,10 @@
     "should": "^13.2.1"
   },
   "dependencies": {
+    "immutability-helper": "^2.3.0",
     "intl-messageformat": "^2.2.0",
-    "intl-messageformat-parser": "^1.4.0"
+    "intl-messageformat-parser": "^1.4.0",
+    "prompt-confirm": "^2.0.4",
+    "prompt-input": "^3.0.0"
   }
 }
