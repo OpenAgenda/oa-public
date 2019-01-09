@@ -21,6 +21,8 @@ const queueForControlData = require( './lib/queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
 
+const legacyPackageControlData = require( '../legacy' ).controlData;
+
 module.exports = async ( ae, context ) => {
 
   log( 'created agenda-event %j', ae );
@@ -32,7 +34,7 @@ module.exports = async ( ae, context ) => {
   let user;
 
   if ( !context.aggregated ) {
-    if ( ae.agendaUid === context.event.agendaUid ) {
+    if ( ae.agendaUid === event.agendaUid ) {
       // Creation
       try {
         await sendEventCreation( { agendaEvent: ae, context } );
@@ -105,7 +107,12 @@ module.exports = async ( ae, context ) => {
    * control data is used for didsplaying widget data
    */
 
-   if ( ae.state === 2 ) queueForControlData( 'agendaEvent.onCreate', agenda, event );
+  if ( ae.state === 2 ) {
+
+    //queueForControlData( 'agendaEvent.onCreate', agenda, event );
+    _controlDataSet( ae, event );
+
+  }
 
   _addToSearchIndex( ae );
 
@@ -168,7 +175,7 @@ module.exports = async ( ae, context ) => {
     // If it's a real creation, not an agregation
     if ( !context.aggregated ) {
 
-      if ( ae.agendaUid === context.event.agendaUid ) {
+      if ( ae.agendaUid === event.agendaUid ) {
 
         await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
 
@@ -187,6 +194,20 @@ module.exports = async ( ae, context ) => {
   } catch ( e ) {
 
     log( 'error', e );
+
+  }
+
+}
+
+async function _controlDataSet( ae, event ) {
+
+  try {
+
+    await legacyPackageControlData.set( ae, event );
+
+  } catch ( e ) {
+
+    log( 'error', 'control data set failed', e );
 
   }
 
