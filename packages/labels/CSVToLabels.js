@@ -11,7 +11,7 @@ const { term } = require( './lib/prompt' );
 
   try {
 
-    const labelsBasePath = __dirname + '../';
+    const labelsBasePath = __dirname + '/';
 
     const inputFilePath = await term( 'Where is the csv file?' );
 
@@ -80,7 +80,7 @@ function _distributePerFilePaths( baseLabelPath, translatedLabels ) {
 
   return translatedLabels.reduce( ( grouped, labelSet ) => {
 
-    const path = baseLabelPath + '/' + labelSet.group.replace( '.', '/' ) + '.js';
+    const path = baseLabelPath + labelSet.group.replace( '.', '/' ) + '.js';
 
     const index = _.findIndex( grouped, [ 'path', path ] );
 
