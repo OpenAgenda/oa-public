@@ -263,4 +263,29 @@ module.exports = [ {
   event: anExistingEvent,
   delay: 3000,
   globalError: true
+}, {
+  link: '/an-event-with-embed-codes/contribute/event/123',
+  agenda: {
+    title: 'Embed codes are properly escaped',
+    description: 'Because if they are not, things may not go well',
+    slug: 'an-event-with-embed-codes',
+    uid: 7878979,
+    id: 9093
+  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/an-event-with-embed-codes/contribute',
+    edit: true,
+    event: {
+      message: '*Instructions appear in edition too*'
+    }
+  } ),
+  event: _.assign( {}, defaultConfig, {
+    links: [ {
+      link: 'https://www.youtube.com/channel/UCNJxVQDB5OkF-Y0NFLQBwHw',
+      data: {
+        url: 'https://www.youtube.com/channel/UCNJxVQDB5OkF-Y0NFLQBwHw',
+        html: '<div class="iframely-embed"><div class="iframely-responsive" style="height: 168px; padding-bottom: 0;"><a href="https://www.youtube.com/channel/UCNJxVQDB5OkF-Y0NFLQBwHw" data-iframely-url="//cdn.iframe.ly/api/iframe?url=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCNJxVQDB5OkF-Y0NFLQBwHw&amp;key=7db9d78bdbb5e7d79acb1240cae64b0e"></a></div></div><script async src="//cdn.iframe.ly/embed.js" charset="utf-8"></script>'
+      }
+    } ]
+  } )
 } ];
