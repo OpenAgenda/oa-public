@@ -1,6 +1,6 @@
 "use strict";
 
-const callToActionMw = require( '@openagenda/call-to-action/middleware' );
+const callToActionMw = require( '@openagenda/call-to-action/dist/middleware' );
 const mails = require( '@openagenda/mails' );
 
 module.exports.init = config => {

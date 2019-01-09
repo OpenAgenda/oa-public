@@ -25,7 +25,7 @@
     "debug": "^3.2.6",
     "feathers-hooks-common": "^4.11.1",
     "feathers-knex": "^3.1.0",
-    "knex": "^0.16.2",
+    "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "mysql": "^2.15.0",
     "uberproto": "^2.0.3",

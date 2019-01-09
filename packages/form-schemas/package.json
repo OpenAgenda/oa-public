@@ -25,7 +25,7 @@
     "body-parser": "^1.18.3",
     "immutability-helper": "^2.3.0",
     "immutable": "^3.8.2",
-    "knex": "^0.13.0",
+    "knex": "^0.16.3",
     "lodash": "^4.16.6",
     "marked": "^0.4.0",
     "react-dropzone": "^5.0.1",
@@ -38,8 +38,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "babel-loader": "^8.0.4",

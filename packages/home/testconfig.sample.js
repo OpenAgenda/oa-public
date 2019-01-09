@@ -13,7 +13,8 @@ module.exports = {
   schemas: {
     agenda: 'review',
     stakeholder: 'reviewer',
-    event: 'event'
+    event: 'event',
+    stakeholderSettings: 'stakeholder_settings'
   },
 
   files: {
@@ -38,7 +39,9 @@ module.exports = {
 
     events: {
       list: eventsSvc.list
-    }
+    },
+
+    agendaMailTo: () => 'mailto:kevin.bertho@gmail.com'
   },
 
 };
@@ -133,7 +136,7 @@ module.exports.services = {
       },
       onRemove: event => {
       },
-      getOriginAgendas: ( uids, cb ) => {
+      getOriginAgendas: ( uids, options, cb ) => {
 
         cb( null, uids.map( uid => ( {
           uid,

@@ -26,7 +26,7 @@
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.13",
     "rss": "^1.2.2",
-    "xlsx-writestream": "^0.4.0"
+    "xlsx-writestream": "^0.5.1"
   },
   "devDependencies": {
     "@openagenda/labels": "^2.1.0",

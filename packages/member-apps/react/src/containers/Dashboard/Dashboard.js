@@ -13,7 +13,7 @@ import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import openRequestForm from '@openagenda/call-to-action/react/dist/openRequestForm';
+import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
@@ -42,7 +42,6 @@ const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
     initialValues: {
       search: props.location.query.search || ''
     },
-    agenda: state.agenda,
     res: state.res,
     credentials: state.agenda.credentials,
     userShId: state.stakeholder.id,

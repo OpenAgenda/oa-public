@@ -420,7 +420,7 @@ var ugly = require( 'uglify-js' ),
 
 
   /**
-   * read template config, get js file if any, browserify, minify, write to prod folder
+   * read template config, get js file if any, webpackify, minify, write to prod folder
    */
 
   prodifyJs = function ( map, cb ) {
@@ -451,11 +451,11 @@ var ugly = require( 'uglify-js' ),
         return rcb( null, result );
       }
 
-      getTemplateFilesToBrowserify( templateName, function ( err, toBrowserify ) {
+      getTemplateFilesToWebpackify( templateName, function ( err, toWebpackify ) {
 
         if ( err ) return rcb( err );
 
-        toBrowserify.forEach( template => {
+        toWebpackify.forEach( template => {
 
           if (
             buildFilter.length
@@ -484,7 +484,7 @@ var ugly = require( 'uglify-js' ),
 
       }
 
-      log( 'browserificationization', entry );
+      log( 'browserificationization\n%O', entry );
 
       _build( {
         entry,
@@ -498,23 +498,23 @@ var ugly = require( 'uglify-js' ),
 
   },
 
-  getTemplateFilesToBrowserify = function ( templateName, cb ) {
+  getTemplateFilesToWebpackify = function ( templateName, cb ) {
 
-    var toBrowserify = [];
+    var toWebpackify = [];
 
     readTemplateConfig( templateName, function ( err, config ) {
 
-      if ( config.js === true ) toBrowserify.push( _templateJsPath( templateName ) );
+      if ( config.js === true ) toWebpackify.push( _templateJsPath( templateName ) );
 
-      if ( !config.layout ) return cb( null, toBrowserify );
+      if ( !config.layout ) return cb( null, toWebpackify );
 
       if ( config.layout ) readTemplateConfig( config.layout, function ( err, layoutConfig ) {
 
         if ( err ) return cb( err );
 
-        if ( layoutConfig.js === true ) toBrowserify.push( _templateJsPath( config.layout ) );
+        if ( layoutConfig.js === true ) toWebpackify.push( _templateJsPath( config.layout ) );
 
-        cb( null, toBrowserify );
+        cb( null, toWebpackify );
 
       } );
 

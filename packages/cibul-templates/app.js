@@ -28,12 +28,6 @@ var http = require( 'http' ),
 
   webpackConfigDev = require( './prodify/config.dev' ),
 
-  browserify = require( 'browserify' ),
-
-  stringify = require( 'stringify' ),
-
-  reactify = require( 'reactify' ),
-
   fs = require( 'fs' ),
 
   debug = require( 'debug' ),
@@ -86,11 +80,11 @@ function _prepareRender( v ) {
   // load layout mock data
   .then( p.ifl( { 'config.layout': true }, _load( 'layoutData', 'config.layout', '.mock.json', true ) ) )
 
-  // browserify js data
-  .then( p.ifl( { 'config.js': true }, _browserifyFiles( 'uri', 'config.js' ) ) )
+  // webpackify js data
+  .then( p.ifl( { 'config.js': true }, _webpackifyFiles( 'uri', 'config.js' ) ) )
 
-  // browserify layout js data
-  .then( p.ifl( { 'layoutConfig.js': true }, _browserifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
+  // webpackify layout js data
+  .then( p.ifl( { 'layoutConfig.js': true }, _webpackifyFiles( 'config.layout', 'layoutConfig.js' ) ) )
 
   // compile template data
   .then( _compileTemplateData )
@@ -226,7 +220,7 @@ function _jsIncludeMainPath( uri ) {
 }
 
 
-function _browserifyFiles( pathKey, fileObjPath ) {
+function _webpackifyFiles( pathKey, fileObjPath ) {
 
   return function ( v ) {
 
@@ -260,7 +254,7 @@ function _browserifyFiles( pathKey, fileObjPath ) {
         return path.dest.name;
       } ).concat( v.js );
 
-      async.each( jsPaths, _browserify, function ( err ) {
+      async.each( jsPaths, _webpackify, function ( err ) {
 
         if ( err ) return rj( err );
 
@@ -607,7 +601,7 @@ function _jsIncludePath( name ) {
 }
 
 
-function _browserify( paths, cb ) {
+function _webpackify( paths, cb ) {
 
   log( 'browserificationization' );
 
@@ -620,15 +614,11 @@ function _browserify( paths, cb ) {
   compiler.run( function ( err, stats ) {
     if ( err ) cb( err );
 
-    var msg = stats.toString( {
-        hash: false,
-        chunks: false,
-        colors: true
-      } ),
-
-      shownMsg = ~msg.indexOf( 'WARNING' ) ? msg.substring( 0, msg.indexOf( 'WARNING' ) - 11 ) : msg;
-
-    console.log( shownMsg );
+    console.log( stats.toString( {
+      hash: false,
+      chunks: false,
+      colors: true
+    } ) );
 
     cb();
   } );

@@ -7,7 +7,7 @@ var Popover = require("./popover");
 var Calendar = require("./calendar");
 var DateInput = require("./date-input");
 var propTypes = require("../../utils/propTypes");
-var isEqual = require("lodash/lang/isEqual");
+var isEqual = require("lodash/isEqual");
 require("date-format-lite");
 
 var DatePicker = createReactClass({

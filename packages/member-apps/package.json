@@ -19,8 +19,8 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react": "15 || 16",
-    "react-dom": "15 || 16"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.1.2",
@@ -44,8 +44,8 @@
     "redux-form": "^6.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.1.5",
-    "@babel/core": "^7.1.6",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
@@ -56,7 +56,7 @@
     "concurrently": "^3.5.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   }
 }
