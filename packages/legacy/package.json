@@ -1,7 +1,7 @@
 {
   "name": "@openagenda/legacy",
-  "version": "1.0.0",
-  "description" : "handle refactored legacy operations",
+  "version": "1.0.1",
+  "description": "handle refactored legacy operations",
   "main": "index.js",
   "license": "MIT",
   "author": "Kaoré",
@@ -18,7 +18,7 @@
     "@openagenda/logs": "^1.1.1",
     "immutability-helper": "^2.3.0",
     "lodash": "^4.17.10",
-    "verror": "^1.9.0",
-    "moment-timezone": "^0.5.13"
+    "moment-timezone": "^0.5.13",
+    "verror": "^1.9.0"
   }
 }
