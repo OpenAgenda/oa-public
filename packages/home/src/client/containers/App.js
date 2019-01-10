@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router';
+import { Link } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { formValueSelector } from 'redux-form';
 import classNames from 'classnames';
@@ -13,22 +13,6 @@ import * as agendasActions from '../redux/modules/agendas';
 
 const selector = formValueSelector( 'homeAgendas' );
 
-const ucfirst = txt => txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
-
-// @asyncConnect( [ {
-//   deferred: !__CLIENT__,
-//   promise: ( { store: { dispatch, getState } } ) => {
-//     const state = getState();
-//     const query = state.routing.locationBeforeTransitions.query;
-//     const promises = [];
-//
-//     if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
-//       promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
-//     }
-//
-//     return Promise.all( __CLIENT__ ? [] : promises );
-//   }
-// } ] )
 @provideHooks( {
   fetch: async ( { store: { dispatch, getState } } ) => {
     const state = getState();
@@ -53,7 +37,6 @@ const ucfirst = txt => txt.charAt( 0 ).toUpperCase() + txt.slice( 1 );
     total: state.agendas.homeAgendas && state.agendas.homeAgendas.total
   })
 )
-@withRouter
 export default class App extends Component {
 
   static childContextTypes = {

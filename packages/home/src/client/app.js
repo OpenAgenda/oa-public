@@ -15,16 +15,6 @@ import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
 
-let ReduxDevTools;
-let persistState;
-
-if ( __CLIENT__ && __DEVELOPMENT__ ) {
-  ReduxDevTools = require( './components/ReduxDevTools' );
-
-  ({ persistState } = ReduxDevTools);
-  ReduxDevTools = ReduxDevTools.__esModule ? ReduxDevTools.default : ReduxDevTools;
-}
-
 function getDefaultHistory( req ) {
   return req
     ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
@@ -46,10 +36,9 @@ export default function ( options ) {
         clientMiddleware( { client } )
         // ... other middlewares ... (like redux-logger)
       ),
-      ...(__CLIENT__ && __DEVELOPMENT__ ? [
-        window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : ReduxDevTools.instrument(),
-        persistState
-      ] : [])
+      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
+        ? window.__REDUX_DEVTOOLS_EXTENSION__()
+        : v => v
     )
   );
   const helpers = { client, store };
@@ -76,7 +65,6 @@ export default function ( options ) {
             ) : content}
         </ScrollToTop>
       </ConnectedRouter>
-      {__CLIENT__ && __DEVELOPMENT__ && !window.__REDUX_DEVTOOLS_EXTENSION__ ? <ReduxDevTools /> : null}
     </Provider>
   );
 
