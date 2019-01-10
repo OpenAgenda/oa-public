@@ -115,14 +115,22 @@ export function isLoaded( globalState ) {
 export function load( query ) {
   return {
     types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( client, { res, agenda } ) => client.get( res.list.replace( ':slug', agenda.slug ), { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda } = getState();
+
+      return client.get( res.list.replace( ':slug', agenda.slug ), { params: query } );
+    }
   };
 }
 
 export function list( query ) {
   return {
     types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( client, { res, agenda } ) => client.get( res.list.replace( ':slug', agenda.slug ), { query } )
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda } = getState();
+
+      return client.get( res.list.replace( ':slug', agenda.slug ), { params: query } );
+    }
   }
 }
 
@@ -130,12 +138,16 @@ export function nextPage( query, page ) {
   return {
     types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
     page,
-    promise: ( client, { res, agenda } ) => client.get( res.list.replace( ':slug', agenda.slug ), {
-      query: {
-        ...query,
-        page
-      }
-    } )
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda } = getState();
+
+      return client.get( res.list.replace( ':slug', agenda.slug ), {
+        params: {
+          ...query,
+          page
+        }
+      } );
+    }
   }
 }
 
@@ -143,10 +155,14 @@ export function remove( uid ) {
   return {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
     uid,
-    promise: ( client, { res, agenda } ) => client.get( res.remove.replace( ':slug', agenda.slug ), {
-      query: {
-        uid
-      }
-    } )
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda } = getState();
+
+      return client.get( res.remove.replace( ':slug', agenda.slug ), {
+        params: {
+          uid
+        }
+      } );
+    }
   }
 }

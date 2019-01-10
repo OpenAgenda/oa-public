@@ -1,16 +1,9 @@
 const logs = require( '@openagenda/logs' );
-const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
-const createStore = require( '@openagenda/react-utils/dist/createStore' );
-const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
-
-const getRoutes = require( './react/dist/routes' );
-const reducer = require( './react/dist/redux/reducer' );
 
 let service, config;
 
 module.exports = {
   init,
-  matchApp: matchAppMw( createStore( reducer ), getRoutes, ApiClient ),
   list,
   remove
 };

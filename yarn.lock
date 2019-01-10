@@ -1830,18 +1830,6 @@
     react-lifecycles-compat "^3.0.4"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-links@^4.1.2":
-  version "4.1.2"
-  resolved "https://registry.npmjs.org/@storybook/addon-links/-/addon-links-4.1.2.tgz#f5fce2a96b86574a4f8d3195dc249093dafe4055"
-  integrity sha512-/nmFJ+85/K0jS+9mQyWjGYNO4J/n6dK/J5ks6gMn8xXU4iys1l2vHEJupUHq5nERuLANYxJGogzko1kgvqIiCg==
-  dependencies:
-    "@storybook/addons" "4.1.2"
-    "@storybook/components" "4.1.2"
-    "@storybook/core-events" "4.1.2"
-    core-js "^2.5.7"
-    global "^4.3.2"
-    prop-types "^15.6.2"
-
 "@storybook/addon-options@^4.1.2":
   version "4.1.4"
   resolved "https://registry.npmjs.org/@storybook/addon-options/-/addon-options-4.1.4.tgz#58765a50d7cf8c1b1ff1cf9e257ce29f8b47912e"
@@ -11926,15 +11914,6 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.1.0"
     debug "^3.1.0"
 
-husky@^0.14.3:
-  version "0.14.3"
-  resolved "https://registry.npmjs.org/husky/-/husky-0.14.3.tgz#c69ed74e2d2779769a17ba8399b54ce0b63c12c3"
-  integrity sha512-e21wivqHpstpoiWA/Yi8eFti8E+sQDSS53cpJsPptPs295QTOQR0ZwnHo2TXy1XOpZFD9rPOd3NpmqTK6uMLJA==
-  dependencies:
-    is-ci "^1.0.10"
-    normalize-path "^1.0.0"
-    strip-indent "^2.0.0"
-
 husky@^1.0.0-rc.10, husky@^1.1.2:
   version "1.2.1"
   resolved "https://registry.npmjs.org/husky/-/husky-1.2.1.tgz#33628f7013e345c1790a4dbe4642ad047f772dee"
@@ -17143,11 +17122,6 @@ normalize-package-data@^2.3.0, normalize-package-data@^2.3.2, normalize-package-
     semver "2 || 3 || 4 || 5"
     validate-npm-package-license "^3.0.1"
 
-normalize-path@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-1.0.0.tgz#32d0e472f91ff345701c15a8311018d3b0a90379"
-  integrity sha1-MtDkcvkf80VwHBWoMRAY07CpA3k=
-
 normalize-path@^2.0.0, normalize-path@^2.0.1, normalize-path@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/normalize-path/-/normalize-path-2.1.1.tgz#1ab28b556e198363a8c1a6f7e6fa20137fe6aed9"
@@ -20617,7 +20591,7 @@ redux-devtools-themes@^1.0.0:
   dependencies:
     base16 "^1.0.0"
 
-redux-devtools@^3.3.1, redux-devtools@^3.4.0, redux-devtools@^3.4.1, redux-devtools@^3.5.0:
+redux-devtools@^3.3.1, redux-devtools@^3.4.0, redux-devtools@^3.4.1:
   version "3.5.0"
   resolved "https://registry.npmjs.org/redux-devtools/-/redux-devtools-3.5.0.tgz#d69ab76d4f0f8abdf6d24bcf5954d7a1aa2b6827"
   integrity sha512-pGU8TZNvWxPaCCE432AGm6H6alQbAz80gQM5CzM3SjX9/oSNu/HPF17xFdPQJOXasqyih1Gv167kZDTRe7r0iQ==
@@ -20638,7 +20612,7 @@ redux-form@^5.2.3:
     prop-types "^15.5.8"
     react-lazy-cache "^3.0.1"
 
-redux-form@^6.2.0, redux-form@^6.5.0, redux-form@^6.6.2, redux-form@^6.6.3:
+redux-form@^6.5.0, redux-form@^6.6.2, redux-form@^6.6.3:
   version "6.8.0"
   resolved "https://registry.npmjs.org/redux-form/-/redux-form-6.8.0.tgz#ff1b590b59f987d7e3ff080d752f7120bfe42af3"
   integrity sha512-rISN+EERGB8nAS/LDnOSQaTf0f+QreXEq+7pRVvBFzmH5vIsYRwVpBtYA8UsibGzO+0BL1bl5L5bxdrNwxI+sA==

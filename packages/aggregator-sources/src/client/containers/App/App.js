@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/aggregators/sources';
 
@@ -11,7 +12,6 @@ import labels from '@openagenda/labels/aggregators/sources';
   })
 )
 export default class App extends Component {
-
   static childContextTypes = {
     lang: PropTypes.string,
     getLabel: PropTypes.func
@@ -31,13 +31,12 @@ export default class App extends Component {
   }
 
   render() {
+    const { route } = this.props;
 
     return (
       <div className="aggregator-sources">
-        {this.props.children}
+        {renderRoutes( route.routes )}
       </div>
     );
-
   }
-
 }

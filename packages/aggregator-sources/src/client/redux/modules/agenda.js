@@ -19,7 +19,9 @@ export default function reducer( state = initialState, action ) {
 export function createAggregator() {
   return {
     types: [ CREATE_AGG, CREATE_AGG_SUCCESS, CREATE_AGG_FAIL ],
-    promise: ( client, { res, agenda } ) => {
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda } = getState();
+
       return client.get( res.createAggregator.replace( ':uid', agenda.uid ) )
     }
   }

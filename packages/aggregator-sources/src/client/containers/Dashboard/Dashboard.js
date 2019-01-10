@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { asyncConnect } from 'redux-connect';
+import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
-import debounce from 'lodash.debounce';
-import throttle from 'lodash.throttle';
+import { debounce, throttle } from 'lodash';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
@@ -21,19 +20,23 @@ const searchSpinner = {
 };
 
 
-@asyncConnect( [ {
-    promise: ( { store: { dispatch, getState } } ) => {
-      const state = getState();
-      const query = state.routing.locationBeforeTransitions.query;
+@provideHooks( {
+  fetch: async ( { store: { dispatch, getState } } ) => {
+    const state = getState();
+    const query = state.router.location.query;
+    const promises = [];
 
-      if ( !sourcesActions.isLoaded( state ) ) {
-        return dispatch( sourcesActions.load( query ) );
-      }
+    if ( !sourcesActions.isLoaded( state ) ) {
+      promises.push( dispatch( sourcesActions.load( query ) ) );
     }
-  } ],
+
+    return Promise.all( __CLIENT__ ? [] : promises );
+  }
+} )
+@connect(
   ( state, props ) => ({
     initialValues: {
-      search: props.location.query.search || ''
+      search: props.location.query && props.location.query.search ? props.location.query.search : ''
     },
     res: state.res,
     agendas: state.sources.data,
@@ -144,7 +147,7 @@ export default class Dashboard extends Component {
     const {
       res, handleSubmit, agendas, total, loading, nextLoading,
       showModal, closeModal, modals, remove, createAggregator,
-      search, agenda, perPageLimit, location: { query }
+      search, agenda, perPageLimit, location: { query = {} }
     } = this.props;
     const { getLabel } = this.context;
 
