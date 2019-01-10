@@ -136,7 +136,7 @@ async function createPromise( data, options ) {
 
     const title = preCleanEvent.title[ _.keys( preCleanEvent.title )[ 0 ] ];
 
-    preCleanEvent.slug = await _defineUnique( 'slug', prev => [ 
+    preCleanEvent.slug = await _defineUnique( 'slug', prev => [
       title ? slugs.generate( title ) : null,
       prev || !title ? Math.ceil( Math.random()*1000 ) : null
     ].filter( v => !!v ).join( '_' ) );
@@ -232,7 +232,8 @@ async function createPromise( data, options ) {
       created = await service.get( { id: createdId }, {
         internal: true,
         private: null,
-        includeImagePath: cleanOptions.includeImagePath
+        includeImagePath: cleanOptions.includeImagePath,
+        detailed: cleanOptions.detailed
       } );
 
     } catch ( e ) {
@@ -251,7 +252,7 @@ async function createPromise( data, options ) {
   if ( created && _.get( interfaces, 'onCreate' ) ) {
 
     try {
-      
+
       interfaces.onCreate( created, cleanOptions.context );
 
     } catch ( e ) {

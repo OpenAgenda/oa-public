@@ -34,6 +34,10 @@ const validate = schema( {
     type: 'boolean',
     default: false
   },
+  detailed: {
+    type: 'boolean',
+    default: false
+  },
   // if creation of event comes from legacy, this should be true
   legacy: {
     type: 'boolean',

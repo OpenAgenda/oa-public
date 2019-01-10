@@ -125,7 +125,8 @@ async function updatePromise( identifiers, data, options ) {
       target: 'updated',
       internal: true,
       prerequisite: v => v.success && !v.errors.length,
-      includeImagePath: cleanOptions.includeImagePath
+      includeImagePath: cleanOptions.includeImagePath,
+      detailed: cleanOptions.detailed
     } ) )
 
     .then( _cleanResult );
@@ -185,7 +186,7 @@ function _filterProtected( namespace ) {
 
     return v;
 
-  }  
+  }
 
 }
 

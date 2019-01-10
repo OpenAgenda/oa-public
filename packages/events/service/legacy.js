@@ -247,7 +247,8 @@ function transfer( identifiers, options, cb ) {
       protected: false,
       context: v.context,
       evaluateLegacyIdentifiers: false,
-      legacy: true
+      legacy: true,
+      detailed: true
     }, ( err, r ) => {
 
       if ( err ) return cb( err );

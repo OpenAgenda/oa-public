@@ -12,6 +12,7 @@ module.exports = options => {
     clean: false,
     target: 'event',
     internal: false,
+    detailed: false,
     prerequisite: () => true
   }, options );
 
@@ -30,7 +31,8 @@ module.exports = options => {
     params.get( v.id ? { id: v.id } : v.identifiers, {
       internal: params.internal,
       private: null,
-      includeImagePath: params.includeImagePath
+      includeImagePath: params.includeImagePath,
+      detailed: params.detailed
     }, ( err, data ) => {
 
       if ( err ) return d.reject( err );

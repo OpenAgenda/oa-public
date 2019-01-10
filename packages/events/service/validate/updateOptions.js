@@ -28,6 +28,10 @@ const validate = schema( {
     type: 'boolean',
     default: false
   },
+  detailed: {
+    type: 'boolean',
+    default: false
+  },
   context: {
     transferToLegacy: {
       type: 'boolean',
