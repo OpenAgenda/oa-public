@@ -38,8 +38,8 @@ module.exports = {
     fr: 'Les tags forment une ou plusieurs listes à choix'
   },
   compulsory : {
-    en: 'Compulsory field',
-    fr: 'Champ obligatoire'
+    en: 'compulsory field',
+    fr: 'champ obligatoire'
   },
   listName : {
     en: 'Name of the list',
