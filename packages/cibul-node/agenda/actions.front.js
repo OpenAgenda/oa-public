@@ -303,20 +303,24 @@ function eventAdd( req, res ) {
 
       }
 
-      agendaEvents( req.agenda.uid ).create( req.event.uid, {
-        state: contributionSettings.defaultState
+      agendaEvents.legacyTransfer( {
+        eventId: req.event.id,
+        agendaId: req.agenda.id
       }, {
         context: {
+          aggregated: false,
           userUid: req.user.uid,
-          agendaUid: req.query.sourceAgendaUid
+          agendaUid: req.agendaUid
         }
-      } );
+      } ).then( () => {
 
-      req.log( 'info', {
-        message: 'eventAdd added to agenda',
-        user: req.user,
-        eventUid: req.event.uid,
-        agendaUid: req.agenda.uid
+        req.log( 'info', {
+          message: 'eventAdd added to agenda',
+          user: req.user,
+          eventUid: req.event.uid,
+          agendaUid: req.agenda.uid
+        } );
+
       } );
 
       return _onActionComplete( req, res, true, getActionLabel( contributionSettings.defaultState === 2 ? 'agendaSharePublished' : 'agendaShareToControl', { agenda: req.agenda.title }, req.lang ) );

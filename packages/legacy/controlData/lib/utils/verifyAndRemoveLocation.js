@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'controlData/utils/verifyAndRemoveLocation' );
+
 /**
  * verify if location associated to event of index eventIndex is referenced
  * by other event. If it is not, remove it from location list

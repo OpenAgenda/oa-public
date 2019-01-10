@@ -17,7 +17,12 @@ module.exports = async ( interfaceName, ref, context ) => {
 
     log( 'warn', 'event is missing in context', ref );
 
-    event = await eventsSvc.get( { uid: ref.eventUid }, { private: null, deleted: null, internal: true } );
+    event = await eventsSvc.get( { uid: ref.eventUid }, {
+      private: null,
+      deleted: null,
+      internal: true,
+      detailed: true
+    } );
 
   } else {
 

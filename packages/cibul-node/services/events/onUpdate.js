@@ -9,18 +9,23 @@ const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onUpdate' );
 const eventSearch = require( '../eventSearch' );
+const controlDataSvc = require( '../legacy' ).controlData;
 
-module.exports = ( before, after, context ) => {
+module.exports = async ( before, after, context ) => {
 
   log( 'info', 'updated event %s', after.uid, { context } );
 
-  if ( !after.draft ) {
+  if ( after.draft ) return;
 
-    eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
+  eventSearch.events.batch.update( after, context ); // context should have agendaUid && updateSearchIndex options
 
-    _addActivity( before, after, context )
-      .catch( err => log.error( new VError( err, 'Could not add activity' ) ) );
+  _addActivity( before, after, context )
+    .catch( err => log.error( new VError( err, 'Could not add activity' ) ) );
 
+  try {
+    await controlDataSvc.batch( after );
+  } catch ( e ) {
+    log( 'error', 'failed batch update of control data', e );
   }
 
 }
