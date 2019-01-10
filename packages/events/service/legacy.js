@@ -100,12 +100,12 @@ async function update( identifiers, options ) {
         origin_uid: event.agendaUid,
         owner_id: userId,
         accessibility: _updateLegacyAccessibility( event.accessibility ),
-        store: JSON.stringify( { 
+        store: JSON.stringify( {
           images: event.image,
           links: _.get( event, 'links', [] )
-            .map( ( { link, data } ) => ( { 
-              link, 
-              code: _.get( data, 'html' ) 
+            .map( ( { link, data } ) => ( {
+              link,
+              code: _.get( data, 'html' )
             } ) )
         } )
       }
@@ -220,7 +220,7 @@ function transfer( identifiers, options, cb ) {
         created: false,
         legacy: v.legacy,
         event: v.event
-      } );      
+      } );
 
     }
 
@@ -243,8 +243,8 @@ function transfer( identifiers, options, cb ) {
     }
 
     set( v.legacy.event, {
-      draft: v.legacy.event.draft, 
-      protected: false, 
+      draft: v.legacy.event.draft,
+      protected: false,
       context: v.context,
       evaluateLegacyIdentifiers: false,
       legacy: true
@@ -406,12 +406,12 @@ function _revalidate( v ) {
     redo = true;
 
     v.data.registration = [];
-    
+
   }
 
 
   if ( redo ) {
-    
+
     return _revalidate( v );
 
   }
@@ -644,7 +644,7 @@ function _getAgendaEventReferences( v ) {
     .select( v.fields.eventReferences )
     .where( 'event_id', v.entries.event.id )
     .then( rows => {
-      
+
       // get uid
       return knex( schemas.event )
         .select( 'uid' )
@@ -689,7 +689,7 @@ function _getEventLocationTranslations( v ) {
 
     } );
 
-    return v;  
+    return v;
 
   } );
 
@@ -907,7 +907,7 @@ async function _updateLegacy( eventId, entries ) {
     .delete()
     .where( 'id', eventId )
     .whereNotIn( 'lang', languages );
-  
+
   log( 'removed previous event translation entries for %s', eventId );
 
   for ( const entry of entries.eventTranslations ) {
@@ -1033,8 +1033,8 @@ async function _createLegacy( entries ) {
     occurrences: []
   }
 
-  
-  
+
+
   for ( const entry of entries.eventTranslations ) {
 
     const insert = _.extend( entry, { id: insertedId } );
