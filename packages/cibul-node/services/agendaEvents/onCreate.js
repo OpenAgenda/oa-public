@@ -17,11 +17,10 @@ const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
-const queueForControlData = require( './lib/queueForControlData' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
 
-const legacyPackageControlData = require( '../legacy' ).controlData;
+const controlDataSvc = require( '../legacy' ).controlData;
 
 module.exports = async ( ae, context ) => {
 
@@ -104,13 +103,16 @@ module.exports = async ( ae, context ) => {
 
 
   /**
-   * control data is used for didsplaying widget data
+   * control data is used for displaying widget data
    */
 
   if ( ae.state === 2 ) {
 
-    //queueForControlData( 'agendaEvent.onCreate', agenda, event );
-    _controlDataSet( ae, event );
+    try {
+      await controlDataSvc.set( ae, event );
+    } catch ( e ) {
+      log( 'error', 'control data set failed', e );
+    }
 
   }
 
@@ -194,20 +196,6 @@ module.exports = async ( ae, context ) => {
   } catch ( e ) {
 
     log( 'error', e );
-
-  }
-
-}
-
-async function _controlDataSet( ae, event ) {
-
-  try {
-
-    await legacyPackageControlData.set( ae, event );
-
-  } catch ( e ) {
-
-    log( 'error', 'control data set failed', e );
 
   }
 

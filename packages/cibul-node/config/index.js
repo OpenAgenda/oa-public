@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
+const redis = require( 'redis' );
 
 const prod = require( './prod' );
 
@@ -767,6 +768,8 @@ currentConfig.knex = knexLib( {
   connection: currentConfig.db,
   pool: { min: 2, max: 20 }
 } );
+
+currentConfig.redisClient = redis.createClient( currentConfig.redis.port, currentConfig.redis.host );
 
 currentConfig.logger.debug.enable = process.env.DEBUG || currentConfig.logger.debug.enable;
 

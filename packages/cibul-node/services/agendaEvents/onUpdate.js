@@ -8,13 +8,14 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
-const queueForControlData = require( './lib/queueForControlData' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 
+const controlDataSvc = require( '../legacy' ).controlData;
+
 module.exports = async ( before, after, context ) => {
 
-  log( 'updated agenda-event from %j to %j', before, after );
+  log( 'updated agenda-event from %j to %j', before, after, context );
 
   try {
 
@@ -41,11 +42,19 @@ module.exports = async ( before, after, context ) => {
 
   if ( after.state === 2 ) {
 
-    queueForControlData( 'agendaEvent.onUpdate', agenda, event );
+    try {
+      await controlDataSvc.set( after, event );
+    } catch ( e ) {
+      log( 'error', 'control data set failed', e );
+    }
 
   } else if ( before.state === 2 ) {
 
-    queueForControlData.remove( 'agendaEvent.onUpdate', agenda, event );
+    try {
+      await controlDataSvc.remove( before );
+    } catch ( e ) {
+      log( 'error', 'control data remove failed', e );
+    }
 
   }
 
