@@ -9,7 +9,8 @@ const rawSQL = [
   'review_article.create.sql',
   'review_category.create.sql',
   'review_tag_article.create.sql',
-  'review_tag.create.sql'
+  'review_tag.create.sql',
+  'agenda_event.create.sql'
 ].map( fx => fs.readFileSync( __dirname + '/sql/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
 
 rawSQL.push( knex( 'review' ).insert( [ {
@@ -23,6 +24,13 @@ rawSQL.push( knex( 'review_article' ).insert( [ {
   review_id: 2,
   event_id: 3,
   category_id: 2
+} ] ) );
+
+rawSQL.push( knex( 'agenda_event' ).insert( [ {
+  event_uid: 4,
+  agenda_uid: 456,
+  legacy_id: '2.3',
+  state: 2
 } ] ) );
 
 rawSQL.push( knex( 'review_category' ).insert( [ {

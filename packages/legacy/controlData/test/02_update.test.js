@@ -85,5 +85,39 @@ describe( '02 - control data - update', () => {
 
   } );
 
+  describe( 'batch update', () => {
+
+    let result, updatedCtlData;
+
+    beforeAll( async () => {
+
+      result = await service.batch( {
+        uid: 4,
+        slug: 'an-updated-event',
+        timezone: 'Europe/Paris',
+        locationUid: 2,
+        location: {
+          uid: 2,
+          latitude: 44.854797,
+          longitude: -0.568099
+        },
+        timings: [ {
+          begin: new Date( '2019-01-10T10:15:00+0400' ),
+          end: new Date( '2019-01-10T12:00:00+0400' )
+        } ]
+      } );
+
+      updatedCtlData = JSON.parse( await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '456' ) );
+
+    } );
+
+    test( 'batch result contains updated event', () => {
+
+      expect( result[ 0 ].event.u ).toBe( 4 );
+
+    } );
+
+  } );
+
 
 } );
