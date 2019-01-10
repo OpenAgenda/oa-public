@@ -26,7 +26,7 @@ describe( 'events -07- unit (iso): validation', () => {
         updatedAt: d,
         createdAt: d
       } )
-      
+
     } catch ( e ) {
 
       errors = e;
@@ -111,7 +111,7 @@ describe( 'events -07- unit (iso): validation', () => {
 
     } catch ( errors ) {
 
-      errors.filter( e => e.field === 'slug' ).length.should.equal( 0 );      
+      errors.filter( e => e.field === 'slug' ).length.should.equal( 0 );
 
     }
 
@@ -160,7 +160,7 @@ describe( 'events -07- unit (iso): validation', () => {
 
     errors.length.should.equal( 0 );
 
-    clean.should.eql( { 
+    clean.should.eql( {
       slug: 'un-titre',
       locationUid: null,
       title: {

@@ -65,7 +65,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       const updatedLegacyRecord = await knex( config.legacy.schemas.event ).first( 'uid' ).where( 'uid', 2875149 );
 
-      should( updatedLegacyRecord ).eql( { uid: 2875149 } )
+      updatedLegacyRecord.uid.should.equal( 2875149 );
 
     } );
 
@@ -89,7 +89,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
     it( 'created legacy event store keeps image details', () => {
 
-      JSON.parse( _.get( result, 'inserted.event.store' ) ).images.should.eql( { 
+      JSON.parse( _.get( result, 'inserted.event.store' ) ).images.should.eql( {
         filename: 'event_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg',
         credits: null,
         size: { height: null, width: null },
@@ -102,7 +102,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
           "filename":"evtbevent_decouverte-du-pavillon-pedagogique-energies-renouvelables-du-rsma_877473.jpg",
           "size":{"height":null,"width":null}
         } ],
-        base: '//openagendatst.s3.amazonaws.com/' 
+        base: '//openagendatst.s3.amazonaws.com/'
       } );
 
     } );
@@ -111,7 +111,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       const entries = await knex( config.legacy.schemas.eventReferences ).select( 'event_id', 'agenda_id', 'ref_event_id' ).where( 'event_id', result.inserted.event.id );
 
-      entries.should.eql( _.get( result, 'inserted.eventReferences' ) );
+      entries.map( e => _.omit( e, [] ) ).should.eql( _.get( result, 'inserted.eventReferences' ) );
 
     } );
 
@@ -199,7 +199,7 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       const result = await svc.legacy.update( { uid } );
 
-      const occurrenceEntries = await knex( config.legacy.schemas.occurrence ).where( { event_id: eventId } ); 
+      const occurrenceEntries = await knex( config.legacy.schemas.occurrence ).where( { event_id: eventId } );
 
       occurrenceEntries.length.should.equal( 1 );
 
@@ -224,16 +224,16 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
         .select( 'agenda_id', 'event_id', 'ref_event_id' )
         .where( 'event_id', eventId );
 
-      agendaEventReferences.should.eql( [ 
+      agendaEventReferences.map( r => _.omit( r, [] ) ).should.eql( [
         { event_id: 146447, agenda_id: 4917, ref_event_id: 147274 },
-        { event_id: 146447, agenda_id: 4917, ref_event_id: 147289 } 
+        { event_id: 146447, agenda_id: 4917, ref_event_id: 147289 }
       ] );
 
     } );
 
     it( 'update pushes links to legacy store', async () => {
 
-      await svc.update( { uid }, { 
+      await svc.update( { uid }, {
         links: [ {
           link: "https://www.youtube.com/watch?v=c1kNwDfBrLY",
           data:{
@@ -250,10 +250,10 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
             thumbnail_height:720,
             html:"<div style=\"left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.2493%;\"><iframe src=\"https://www.youtube.com/embed/c1kNwDfBrLY?rel=0&amp;showinfo=0\" style=\"border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;\" allowfullscreen scrolling=\"no\"></iframe></div>",
             cache_age:86400
-          }, 
+          },
           type:"oembed"
         } ]
-      } ); 
+      } );
 
       await svc.legacy.update( { uid } );
 

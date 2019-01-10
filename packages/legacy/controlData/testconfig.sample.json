@@ -1,0 +1,8 @@
+{
+  "mysql" : {
+    "user" : "root",
+    "password" : "grut",
+    "database" : "oatest_controldata"
+  },
+  "redisPrefix" : "testControlData:"
+}

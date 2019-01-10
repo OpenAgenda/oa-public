@@ -55,7 +55,7 @@ function _areIdentifiers( identifiers ) {
     return true;
 
   }
-    
+
   let otherKeys = [], idKeys = [];
 
   Object.keys( identifiers ).forEach( k => {
