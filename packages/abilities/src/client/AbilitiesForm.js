@@ -21,11 +21,13 @@ const FormSpy = shouldUpdate(
 )( RRF.FormSpy );
 
 const Collapse = shouldUpdate(
-  ( props, nextProps ) => !shallowEqual( _.omit( props, 'children' ), _.omit( nextProps, 'children' ) )
-    || !_.isEqual(
-      props.children.map( v => v.key ),
-      nextProps.children.map( v => v.key )
-    )
+  ( props, nextProps ) => (
+    !shallowEqual( _.omit( props, 'children' ), _.omit( nextProps, 'children' ) )
+    || props.abilities.every( entityAbility => !shallowEqual(
+      entityAbility.rules.map( v => v.key ),
+      nextProps.abilities[ entityAbility ].rules.map( v => v.key )
+    ) )
+  )
 )( RCCollapse );
 
 const Panel = shouldUpdate(
@@ -390,9 +392,10 @@ class AbilitiesForm extends Component {
               : childAbilities[ name ];
 
             return (
-              <Collapse key={name} className="margin-bottom-md">
+              <Collapse key={name} className="margin-bottom-md" abilities={abilities}>
                 {abilities.map( entityAbility => (
                   <Panel
+                    rules={entityAbility.rules}
                     key={`${name}.${entityAbility.identifier}`}
                     header={<b>{getEntityTitle( entityAbility )}</b>}
                   >

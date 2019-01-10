@@ -32,7 +32,8 @@
       "**/prettier-eslint",
       "**/prettier-eslint-cli",
       "**/babel-core",
-      "**/babel-register"
+      "**/babel-register",
+      "**/@storybook/**"
     ]
   },
   "devDependencies": {

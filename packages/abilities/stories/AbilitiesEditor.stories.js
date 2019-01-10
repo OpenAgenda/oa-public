@@ -58,8 +58,8 @@ storiesOf( 'AbilitiesEditor', module )
         formIndex: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}/abilities/form-index`
       }}
       searchChildKey="entity.agendaTitle"
-      HeaderComponent={( { filterInput } ) => (
-        <div>{filterInput}</div>
+      HeaderComponent={() => (
+        <div>Bon là on ne voit pas le champ de recherche parce qu'il faut au minimum 8 agendas...</div>
       )}
     />
   ) );

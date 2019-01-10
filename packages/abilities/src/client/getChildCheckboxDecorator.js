@@ -5,6 +5,7 @@ export default function ( { entityName, identifier, getRules } ) {
   return form => {
     const {
       mutators: { setFieldData },
+      getState,
       getFieldState
     } = form;
 
@@ -25,9 +26,10 @@ export default function ( { entityName, identifier, getRules } ) {
           _.matches( _.pick( concernedRule, 'actions', 'subject', 'conditions' ) )
         );
 
+        const formState = getState();
         const fieldState = getFieldState( field );
 
-        if ( fieldState.initial ) {
+        if ( formState.pristine && fieldState.initial && fieldState.dirtySinceLastSubmit ) {
           return {};
         }
 
