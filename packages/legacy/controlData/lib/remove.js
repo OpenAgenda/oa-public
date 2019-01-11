@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 
 const loadControlData = require( './utils/loadControlData' );
 const verifyAndRemoveLocation = require( './utils/verifyAndRemoveLocation' );
+const refreshTimestamp = require( './utils/refreshTimestamp' );
 
 const log = require( '@openagenda/logs' )( 'controlData/remove' );
 
@@ -28,6 +29,8 @@ module.exports = async ( { prefix, redis }, agendaEvent ) => {
     const eventRef = _.first( ctlData.ev.splice( eventIndex, 1 ) );
 
     await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
+
+    await refreshTimestamp( prefix, redis, agendaUid );
 
     return eventRef;
 

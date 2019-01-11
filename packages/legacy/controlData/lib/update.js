@@ -6,6 +6,7 @@ const VError = require( 'verror' );
 const loadControlData = require( './utils/loadControlData' );
 const loadReviewArticleData = require( './utils/loadReviewArticleData' );
 const parseEvent = require( './utils/parseEvent' );
+const refreshTimestamp = require( './utils/refreshTimestamp' );
 const setLocationReference = require( './utils/setLocationReference' );
 const updateLastOccurrence = require( './utils/updateLastOccurrence' );
 
@@ -30,6 +31,8 @@ module.exports = async ( { prefix, knex, redis, index, loadedCtlData }, agendaEv
   updateLastOccurrence( ctlData, data.timings );
 
   await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
+
+  await refreshTimestamp( prefix, redis, agendaUid );
 
   return parsed;
 
