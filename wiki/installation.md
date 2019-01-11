@@ -41,7 +41,7 @@ These are not necessary but provide useful features to the platform users and ad
  * **Logentries**: ( Monthly cost: ~ 40€ ) For logs. Provides a powerful logs search engine. [website](https://docs.logentries.com/docs/security)
  * **Sentry**: ( Low usage. Free ) For client logs. [website](https://sentry.io/privacy/)
  * **Pipedrive**: ( N/A ) For sales.
- * **Google analytics**: ( Basic usage. Free ) Site traffic statistics 
+ * **Google analytics**: ( Basic usage. Free ) Site traffic statistics
  * **Google apps**: ( Basic usage. Free ) Used for authentication through a google account.
  * **Facebook app**: ( Basic usage. Free ) Used for authentication through a facebook account.
  * **Sendinblue**: ( 19€/month ) Tool for sending newsletters. Integration allows the integration of a newsletter input field for new subscribers
@@ -131,7 +131,6 @@ Connect to mysql and create the database. We'll name it oa_geneve.
     mysql> exit
 
     mysql -uroot -p oa_geneve < oa.dump
-
 
 ### Elasticsearch 1.3
 
@@ -252,12 +251,12 @@ Clone cibul-node, cibul-symfony and cibul-templates repos
     git clone git@bitbucket.org:openagenda/cibulapi-symfony.git
     git clone git@bitbucket.org:openagenda/build.git
     git clone git@bitbucket.org:openagenda/oa.git
-    
+
     mkdir tmp
     mv oa/packages/cibul-node ./
     mkdir tmp/front && mv oa/packages/cibul-templates tmp/front/cibul-templates
     rm -rf oa
-    
+
 
 Install node projects dependencies
 
@@ -371,7 +370,7 @@ At this stage configure your dns zone file so that they point to the IP of the s
 
 ### Defining super-administrators
 
-Superadministrators are users that can do management operations from a specific administration UI, found at /admin/agendas and /admin/users 
+Superadministrators are users that can do management operations from a specific administration UI, found at /admin/agendas and /admin/users
 
 To change them, pick the id references in the user table of the database, set them in the `lib/common-apps.js` file, in the requireAdmin function.
 
@@ -414,22 +413,22 @@ replace:
 
 with
 
-      logger:  
-        class: sfAggregateLogger  
-        param:  
-          level: debug  
-          loggers:  
-            sf_web_debug:  
-              class: sfWebDebugLogger  
-              param:  
-                level: debug  
-                condition:       %SF_WEB_DEBUG%  
-                xdebug_logging:  true  
-                web_debug_class: sfWebDebug  
-            sf_file_debug:  
-              class: sfFileLogger  
-              param:  
-                level: debug  
+      logger:
+        class: sfAggregateLogger
+        param:
+          level: debug
+          loggers:
+            sf_web_debug:
+              class: sfWebDebugLogger
+              param:
+                level: debug
+                condition:       %SF_WEB_DEBUG%
+                xdebug_logging:  true
+                web_debug_class: sfWebDebug
+            sf_file_debug:
+              class: sfFileLogger
+              param:
+                level: debug
                 file: %SF_LOG_DIR%/%SF_APP%_%SF_ENVIRONMENT%.log
 
 and set `debug_enabled` to true in `frontend/config/settings.yml`

@@ -9,6 +9,7 @@ Packages can be maintained either on the main repository, either on the open sou
 
 **Important note**: it is imperative that non-open sourced packages be gitignored in the opensource repo.
 
+**Important note**: newly open-sourced package can be set to public on the oa npm account ( gaetanlatouche )
 
 2 remote sur oa.
 
@@ -16,8 +17,13 @@ Packages can be maintained either on the main repository, either on the open sou
 
 Prerequis: le repo ne doit rien avoir de pas tracké et pas commité
 
+Le repo:
+
+git remote add opensource git@github.com:Oagenda/oa.git
+
 ```bash
 git fetch opensource
+# on se met sur sur opensoure
 git checkout opensource/master
 git merge --no-commit --squash origin/master
 git checkout --ours -- .gitignore LICENSE
