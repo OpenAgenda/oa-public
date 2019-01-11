@@ -9,6 +9,8 @@ import { Value } from 'slate';
 import richTextLabels from '@openagenda/labels/form-schemas/richText';
 import flatten from '@openagenda/labels/flatten';
 
+import nl2br from '@openagenda/react-utils/dist/nl2br';
+
 const DEFAULT_NODE = 'paragraph';
 
 const DEFAULT_DOC = {
@@ -282,6 +284,34 @@ module.exports = class SlateField extends Component {
 
   }
 
+  isEmpty() {
+
+    let empty = false;
+
+    try {
+
+      const nodes = _.get( this.state.value, 'document.nodes' );
+
+      if ( !nodes.size ) {
+
+        empty = true;
+
+      } else if ( nodes.size === 1 && !nodes.get( 0 ).text.length ) {
+
+        empty = true;
+
+      }
+
+    } catch ( e ) {
+
+      console.error( e );
+
+    }
+
+    return empty;
+
+  }
+
   render() {
 
     const labels = flatten( richTextLabels, this.props.lang );
@@ -296,8 +326,10 @@ module.exports = class SlateField extends Component {
         {this.renderBlockButton( 'link', <i className="fa fa-link"></i> )}
       </div>
       <div className="textarea-canvas">
+        { this.isEmpty() && this.props.field.placeholder ? <div className="textarea-placeholder">
+          {nl2br( this.props.field.placeholder )}
+        </div> : null }
         <Editor
-          placeholder={this.props.field.placeholder}
           spellCheck={false}
           value={this.state.value}
           renderMark={this.renderMark}
@@ -309,3 +341,4 @@ module.exports = class SlateField extends Component {
   }
 
 }
+/*placeholder={this.props.field.placeholder}*/

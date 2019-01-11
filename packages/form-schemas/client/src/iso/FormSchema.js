@@ -161,7 +161,7 @@ function validate( data, client = false ) {
     'id',
     'nextOptionId',
     'res',
-    'custom', 
+    'custom',
     'defaultLabelLanguage'
   ] );
 
@@ -192,7 +192,7 @@ function validate( data, client = false ) {
     throw errors;
 
   }
-  
+
   let biggestId = clean.fields
 
     // consider fields with options only
