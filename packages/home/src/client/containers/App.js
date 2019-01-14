@@ -68,7 +68,7 @@ export default class App extends Component {
           <div className="col-sm-8 col-sm-offset-2">
             <div className="row wsq">
               <div className="content">
-                {this.props.children}
+                {renderRoutes( route.routes )}
               </div>
             </div>
           </div>
