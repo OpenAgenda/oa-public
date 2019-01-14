@@ -54,6 +54,16 @@ class Main extends Component {
           "sub" : {
             "fr" : "Le texte dessous"
           }
+        }, {
+          "field" : "emptyfieldwithlongplaceholder",
+          "fieldType" : "slate",
+          "label" : {
+            "fr" : "C'est un champ avec un gros placeholder"
+          },
+          "info" : "Le placeholder s'étale sur plusieurs lignes",
+          "placeholder" : {
+            "fr" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nSed non risus.\nSuspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.\nCras elementum ultrices diam.\nMaecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie"
+          }
         } ]
       }
     }

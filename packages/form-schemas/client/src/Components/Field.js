@@ -65,7 +65,7 @@ module.exports = class Field extends Component {
       {field.optional ? '' : <span className={classNames({
         'margin-right-xs' : field.help || field.helpLink,
         error: !!error
-      })}>{'( ' + labels.required + ' )'}</span>}
+      })}>{'(' + labels.required + ')'}</span>}
       {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
       <Info value={field.info}/>
       <Component

@@ -1,5 +1,7 @@
 "use strict";
 
+const logger = require( '@openagenda/logs' );
+
 const promisifyRedis = require( './lib/utils/promisifyRedis' );
 
 const batch = require( './lib/batch' );
@@ -8,6 +10,8 @@ const insert = require( './lib/insert' );
 const remove = require( './lib/remove' );
 const set = require( './lib/set' );
 const update = require( './lib/update' );
+const queue = require( './lib/queue' );
+const task = require( './lib/task' );
 
 module.exports = ( { knex, redis, prefix } ) => {
 
@@ -24,7 +28,15 @@ module.exports = ( { knex, redis, prefix } ) => {
     update: update.bind( null, config ),
     remove: remove.bind( null, config ),
     batch: batch.bind( null, config ),
-    batchRemove: batchRemove.bind( null, config )
+    batchRemove: batchRemove.bind( null, config ),
+    queue: queue.bind( null, config ),
+    task: task.bind( null, config )
   };
+
+}
+
+module.exports.updateLoggerConfig = config => {
+
+  logger.setModuleConfig( config );
 
 }

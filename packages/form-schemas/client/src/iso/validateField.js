@@ -86,6 +86,8 @@ function validate( value, options = {} ) {
 
     errors = e;
 
+    console.log( e );
+
   }
 
 

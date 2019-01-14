@@ -11,14 +11,22 @@
     }
 
   }
-  
+
   .textarea-canvas {
 
     border: 1px solid $oa-gray-light;
     padding: 1em;
+    overflow: hidden;
 
     > div {
       min-height: 120px;
+    }
+
+    .textarea-placeholder {
+      color: $oa-gray-light;
+      display: block;
+      min-height: 0;
+      height: 0;
     }
 
   }
