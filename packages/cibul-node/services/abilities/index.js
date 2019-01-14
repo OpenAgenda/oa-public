@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require( 'lodash' );
 const express = require( 'express' );
 const morgan = require( 'morgan' );
 const async = require( 'async' );
@@ -112,7 +113,7 @@ module.exports.init = async config => {
       listEntities: {
         agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
         member: ids => memberRequest().whereIn( `${config.schemas.stakeholder}.id`, ids ),
-        user: uids => usersSvc.find( { query: { uid: { $in: uids } } } )
+        user: async uids => (await usersSvc.find( { query: { uid: { $in: uids } } } )).data
       },
       defaultFor: {
         user( { can, cannot, rules } ) {
@@ -141,7 +142,9 @@ module.exports.init = async config => {
 
         async agenda( agenda, builder, options = {} ) {
           const defaultRules = abilitiesSvc.rules.getDefaultFor( 'agenda' );
-          const agendaRules = options.rules || ( await abilitiesSvc.rules.list( 'agenda', agenda.uid ) );
+          const agendaRules = options.rules
+            ? _.filter( options.rules, { entityName: 'agenda', identifier: agenda.id } )
+            : ( await abilitiesSvc.rules.list( 'agenda', agenda.uid ) );
 
           return defaultRules
             .concat( builder.rules ) // the rules defined with can/cannot in this block
@@ -149,7 +152,9 @@ module.exports.init = async config => {
         },
         async user( user, builder, options = {} ) {
           const defaultRules = abilitiesSvc.rules.getDefaultFor( 'user' );
-          const userRules = options.rules || ( await abilitiesSvc.rules.list( 'user', user.uid ) );
+          const userRules = options.rules
+            ? _.filter( options.rules, { entityName: 'user', identifier: user.uid } )
+            : ( await abilitiesSvc.rules.list( 'user', user.uid ) );
 
           return defaultRules
             .concat( builder.rules ) // the rules defined with can/cannot in this block
@@ -159,24 +164,22 @@ module.exports.init = async config => {
           const defineForFns = abilitiesSvc.config.interfaces.defineFor;
 
           const defaultRules = abilitiesSvc.rules.getDefaultFor( 'member' );
-          const memberRules = options.rules || ( await abilitiesSvc.rules.list( 'member', member.id ) );
+          const memberRules = options.rules
+            ? _.filter( options.rules, { entityName: 'member', identifier: member.id } )
+            : ( await abilitiesSvc.rules.list( 'member', member.id ) );
 
           // const agendaRules = ( await abilitiesSvc.get( 'agenda', member.agendaUid ) ).rules;
           // const userRules = ( await abilitiesSvc.get( 'user', member.userUid ) ).rules;
           const agendaRules = await defineForFns.agenda(
             { uid: member.agendaUid },
-            abilitiesSvc.createBuilder( 'agenda', member.agendaUid )
+            abilitiesSvc.createBuilder( 'agenda', member.agendaUid ),
+            options
           );
           const userRules = await defineForFns.user(
             { uid: member.userUid },
-            abilitiesSvc.createBuilder( 'user', member.userUid )
+            abilitiesSvc.createBuilder( 'user', member.userUid ),
+            options
           );
-
-          // if ( isAdmin( user ) {
-          //   can( ... );
-          // } else {
-          //   cannot( ... );
-          // }
 
           return agendaRules
             .concat( userRules )

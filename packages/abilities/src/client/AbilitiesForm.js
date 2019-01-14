@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as RRF from 'react-final-form';
-import RCCollapse from 'rc-collapse';
-import { pure, shouldUpdate, shallowEqual } from 'recompose';
+import Collapse from 'rc-collapse';
+import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
@@ -19,25 +19,6 @@ const FormSpy = shouldUpdate(
     _.omit( nextProps, 'subscription' )
   )
 )( RRF.FormSpy );
-
-const Collapse = shouldUpdate(
-  ( props, nextProps ) => (
-    !shallowEqual( _.omit( props, 'children' ), _.omit( nextProps, 'children' ) )
-    || props.abilities.every( entityAbility => !shallowEqual(
-      entityAbility.rules.map( v => v.key ),
-      nextProps.abilities[ entityAbility ].rules.map( v => v.key )
-    ) )
-  )
-)( RCCollapse );
-
-const Panel = shouldUpdate(
-  ( props, nextProps ) => !shallowEqual(
-    _.omit( props, 'onItemClick' ),
-    _.omit( nextProps, 'onItemClick' )
-  )
-)( RCCollapse.Panel );
-
-const PureSpinner = pure( Spinner );
 
 const descriptionMessages = defineMessages( {
   firstEntityUser: {
@@ -75,7 +56,7 @@ function getEntityTitle( ability ) {
   }
 }
 
-const FilterInput = pure( ( { value, onChange, placeholder } ) => (
+const FilterInput = ( { value, onChange, placeholder } ) => (
   <div className="form-group search">
     <div className="input-icon-right">
       <input
@@ -91,9 +72,9 @@ const FilterInput = pure( ( { value, onChange, placeholder } ) => (
       </button>
     </div>
   </div>
-) );
+);
 
-const SaveButton = pure( ( {
+const SaveButton = ( {
   form, submitting, pristine, submitSucceeded
 } ) => (
   <button
@@ -109,11 +90,11 @@ const SaveButton = pure( ( {
 
     {submitting && (
       <span className="margin-h-sm">
-        <PureSpinner mode="inline" />
+        <Spinner mode="inline" />
       </span>
     )}
   </button>
-) );
+);
 
 const FirstEntityRule = ( { ruleName, rules } ) => {
   const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( ruleName )}` ];
@@ -304,18 +285,17 @@ class AbilitiesForm extends Component {
         identifier
       } )
     );
-    const allValues = formState.values;
 
     // calculate indeterminates
     const indeterminates = firstEntityRules.reduce( ( result, rule ) => {
-      const relatedRules = _.filter(
+      const relatedRules = _.remove(
         otherRules,
         _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
       );
       const fieldState = getFieldState( rule.key );
-      const indeterminate = isIndeterminate( allValues, rule, relatedRules );
+      const indeterminate = isIndeterminate( formState.values, rule, relatedRules );
 
-      if ( fieldState.data.indeterminate === indeterminate ) {
+      if ( !!fieldState.data.indeterminate === !!indeterminate ) {
         return result;
       }
 
@@ -394,7 +374,7 @@ class AbilitiesForm extends Component {
             return (
               <Collapse key={name} className="margin-bottom-md" abilities={abilities}>
                 {abilities.map( entityAbility => (
-                  <Panel
+                  <Collapse.Panel
                     rules={entityAbility.rules}
                     key={`${name}.${entityAbility.identifier}`}
                     header={<b>{getEntityTitle( entityAbility )}</b>}
@@ -408,7 +388,7 @@ class AbilitiesForm extends Component {
                         />
                       )
                     )}
-                  </Panel>
+                  </Collapse.Panel>
                 ) )}
               </Collapse>
             );

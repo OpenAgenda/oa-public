@@ -44,7 +44,6 @@
     "@storybook/react": "^4.1.2",
     "babel-loader": "^8.0.4",
     "babel-preset-openagenda": "^1.1.1",
-    "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",

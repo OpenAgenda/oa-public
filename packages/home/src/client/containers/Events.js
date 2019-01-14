@@ -18,20 +18,6 @@ import { SearchInput, AgendasSearch } from '../components';
 
 const selector = formValueSelector( 'homeEvents' );
 
-// @asyncConnect( [ {
-//   deferred: !__CLIENT__,
-//   promise: ( { store: { dispatch, getState } } ) => {
-//     const state = getState();
-//     const query = state.routing.locationBeforeTransitions.query;
-//     const promises = [];
-//
-//     if ( !eventsActions.isLoaded( state ) ) {
-//       promises.push( dispatch( eventsActions.load( query ) ) );
-//     }
-//
-//     return Promise.all( __CLIENT__ ? [] : promises );
-//   }
-// } ] )
 @provideHooks( {
   fetch: async ( { store: { dispatch, getState } } ) => {
     const state = getState();

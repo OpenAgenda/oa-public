@@ -4,13 +4,11 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 import http from 'http';
 import agendasSvc from '@openagenda/agendas';
-import stakeholdersSvc from '@openagenda/agenda-stakeholders';
-import eventsSvc from '@openagenda/events/test/service';
-import _ from 'lodash';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
+import aggregatorSourcesSvc from './src/service';
 import testconfig from './testconfig';
 
 const mw = require( './src/middleware' );
@@ -25,10 +23,8 @@ app.server = server;
  * */
 
 if ( process.env.NODE_ENV !== 'test' ) {
-  mw.init( testconfig );
-  agendasSvc.init( _.merge( {}, testconfig, testconfig.services.agendas ) );
-  stakeholdersSvc.init( _.merge( {}, testconfig, testconfig.services.agendaStakeholders ) );
-  eventsSvc.init( _.merge( {}, testconfig, testconfig.services.events ) );
+  agendasSvc.init( testconfig );
+  aggregatorSourcesSvc.init( testconfig );
 }
 
 if ( [ 'development', 'test' ].includes( process.env.NODE_ENV ) ) {
@@ -40,18 +36,13 @@ app.use( express.json() );
 app.use( express.urlencoded( { extended: true } ) );
 
 app.use( ( req, res, next ) => {
-  req.log = console.log;
-  req.user = {
-    // id: 27696,
-    // uid: 15723194
-    id: 2,
-    uid: 99999999
-  };
+  req.user = { id: 2 };
+  req.agenda = { id: 3480 };
   next();
 } );
 
-app.get( '/agendas.json', mw.agendas.list );
-app.get( '/events.json', mw.events.list );
+app.get( '/sources.json', mw.list );
+app.get( '/remove', mw.remove );
 
 app.use( errorHandler( { log: true } ) );
 

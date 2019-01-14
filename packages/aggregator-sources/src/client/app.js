@@ -22,6 +22,7 @@ function getDefaultHistory( req ) {
 }
 
 export default function ( options ) {
+
   const { initialState, req } = options;
   const { apiRoot, prefix } = initialState.settings;
 

@@ -6,4 +6,4 @@ yarn-error.log
 coverage/
 
 testconfig.js
-react/dist/
+dist/

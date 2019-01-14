@@ -1,7 +1,5 @@
 import { promisify } from 'util';
-import _ from 'lodash';
 import fixtures from '@openagenda/fixtures';
-import eventsSvc from '@openagenda/events/test/service';
 
 exports.seed = async knex => {
   const { testconfig, schemas } = knex.client.config;
@@ -12,12 +10,11 @@ exports.seed = async knex => {
     table: schemas.agenda,
     src: __dirname + '/review.sql'
   }, {
-    table: schemas.stakeholder,
-    src: __dirname + '/reviewer.sql'
+    table: schemas.aggregator,
+    src: __dirname + '/aggregator.sql'
+  }, {
+    table: schemas.aggregatorSource,
+    src: __dirname + '/aggregator_source.sql'
   } ] );
-
-  await promisify( eventsSvc.initAndLoad )( _.merge( {}, testconfig, testconfig.services.events ), [
-    'event'
-  ], { reset: false } );
 
 };
