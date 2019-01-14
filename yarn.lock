@@ -14189,7 +14189,7 @@ knex@^0.12.5, knex@^0.12.6:
     uuid "^3.0.0"
     v8flags "^2.0.2"
 
-knex@^0.16.3:
+knex@^0.16.2, knex@^0.16.3:
   version "0.16.3"
   resolved "https://registry.npmjs.org/knex/-/knex-0.16.3.tgz#ca9effd4973655f42b42132b9019b0bc6bd20644"
   integrity sha512-jGTOBW8b7exaBPfCKJSlv5q320IvWw9hEdtnURtbb0k3HusfZrR4UYiEewem8Nl7VqJILoCj99SjCK3W54UNPg==
@@ -18918,7 +18918,7 @@ prompt-actions@^3.0.2:
   dependencies:
     debug "^2.6.8"
 
-prompt-base@^4.0.2:
+prompt-base@^4.0.1, prompt-base@^4.0.2:
   version "4.1.0"
   resolved "https://registry.npmjs.org/prompt-base/-/prompt-base-4.1.0.tgz#7b88e4c01b096c83d2f4e501a7e85f0d369ecd1f"
   integrity sha512-svGzgLUKZoqomz9SGMkf1hBG8Wl3K7JGuRCXc/Pv7xw8239hhaTBXrmjt7EXA9P/QZzdyT8uNWt9F/iJTXq75g==
@@ -18954,6 +18954,14 @@ prompt-choices@^4.0.5:
     strip-color "^0.1.0"
     terminal-paginator "^2.0.2"
     toggle-array "^1.0.1"
+
+prompt-confirm@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/prompt-confirm/-/prompt-confirm-2.0.4.tgz#42c06907333e876f2ae8867281e0b9521a4796ca"
+  integrity sha512-X5lzbC8/kMNHdPOqQPfMKpH4VV2f7v2OTRJoN69ZYBirSwTeQaf9ZhmzPEO9ybMA0YV2Pha5MV27u2/U4ahWfg==
+  dependencies:
+    ansi-cyan "^0.1.1"
+    prompt-base "^4.0.1"
 
 prompt-input@^3.0.0:
   version "3.0.0"

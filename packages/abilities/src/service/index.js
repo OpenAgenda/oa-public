@@ -110,23 +110,20 @@ export async function getFormIndex( ability, options = {} ) {
               config,
               `interfaces.defineFor.${entityName}`
             );
-            const entityRules = _.filter( entitiesRules, {
-              entityName,
-              identifier
-            } );
 
             const entity = _.find( entities[ entityName ], {
               [ config.entityMapping[ entityName ] ]: identifier
             } );
             const builder = createBuilder( entityName, identifier );
             const rules = await defineFn( entity, builder, {
-              rules: entityRules
+              rules: entitiesRules
             } );
             const entityAbility = createAbility( entityName, identifier, rules );
 
             return result2.concat(
               getEditableRules( entityAbility, entity ).map( rule => ( {
-                ..._.omit( rule, 'id' ),
+                ...rule,
+                id: undefined,
                 entityName,
                 identifier,
                 entity
@@ -165,11 +162,13 @@ export async function updateFormIndex( ability, data ) {
       }
 
       if ( rule.relevantRule && matchesRule( rule )( rule.relevantRule ) ) {
-        result.toUpdate.push( {
-          ...rule,
-          id: rule.relevantRule.id,
-          inverted: !!dataRule.inverted
-        } );
+        if ( dataRule.inverted !== rule.relevantRule.inverted ) {
+          result.toUpdate.push( {
+            ...rule,
+            id: rule.relevantRule.id,
+            inverted: !!dataRule.inverted
+          } );
+        }
       } else {
         result.toCreate.push( {
           ...rule,
@@ -182,18 +181,19 @@ export async function updateFormIndex( ability, data ) {
     { toCreate: [], toUpdate: [] }
   );
 
-  if ( toCreate.length ) {
-    await config.knex
-      .batchInsert( config.schemas.rule, rulesLib.format( toCreate ) )
-      .returning( 'id' );
-  }
-
-  if ( toUpdate.length ) {
-    await batchUpdate(
+  await Promise.all( [
+    toUpdate.length
+      ? batchUpdate(
       { table: config.schemas.rule, column: 'id' },
       rulesLib.format( toUpdate )
-    );
-  }
+      )
+      : null,
+    toCreate.length
+      ? config.knex
+        .batchInsert( config.schemas.rule, rulesLib.format( toCreate ) )
+        .returning( 'id' )
+      : null
+  ] );
 
   return ability.getFormIndex();
 }
