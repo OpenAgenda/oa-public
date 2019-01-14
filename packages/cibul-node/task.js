@@ -86,6 +86,8 @@ module.exports = () => {
 
   require( '@openagenda/mails' ).task();
 
+  require( './services/legacy' ).controlData.task();
+
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 

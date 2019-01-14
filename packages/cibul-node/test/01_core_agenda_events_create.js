@@ -114,6 +114,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
         'agendas',
         'agendaEvents',
         'agendaStakeholders',
+        'agendaLocations',
         'formSchemas',
         'custom',
         'eventSearch'
@@ -315,13 +316,13 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
         const data = await custom( 2 ).get( eventUid );
 
-        data.should.eql( { 
+        data.should.eql( {
           custom_description: null,
           intermunicipal_interest: [],
           recurring: [],
           'thematiques-bordeaux-metropole': [],
           'bordeaux-metropole': [],
-          'categories-agenda-metropolitain': null 
+          'categories-agenda-metropolitain': null
         } );
 
       } );

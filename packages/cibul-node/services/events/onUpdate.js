@@ -23,7 +23,7 @@ module.exports = async ( before, after, context ) => {
     .catch( err => log.error( new VError( err, 'Could not add activity' ) ) );
 
   try {
-    await controlDataSvc.batch( after );
+    await controlDataSvc.queue( 'batch', after );
   } catch ( e ) {
     log( 'error', 'failed batch update of control data', e );
   }
