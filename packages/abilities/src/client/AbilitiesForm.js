@@ -3,7 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import * as RRF from 'react-final-form';
 import Collapse from 'rc-collapse';
-import { pure, shouldUpdate, shallowEqual } from 'recompose';
+import { shouldUpdate, shallowEqual } from 'recompose';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import Fuse from 'fuse.js';
@@ -19,8 +19,6 @@ const FormSpy = shouldUpdate(
     _.omit( nextProps, 'subscription' )
   )
 )( RRF.FormSpy );
-
-const PureSpinner = pure( Spinner );
 
 const descriptionMessages = defineMessages( {
   firstEntityUser: {
@@ -58,7 +56,7 @@ function getEntityTitle( ability ) {
   }
 }
 
-const FilterInput = pure( ( { value, onChange, placeholder } ) => (
+const FilterInput = ( { value, onChange, placeholder } ) => (
   <div className="form-group search">
     <div className="input-icon-right">
       <input
@@ -74,9 +72,9 @@ const FilterInput = pure( ( { value, onChange, placeholder } ) => (
       </button>
     </div>
   </div>
-) );
+);
 
-const SaveButton = pure( ( {
+const SaveButton = ( {
   form, submitting, pristine, submitSucceeded
 } ) => (
   <button
@@ -92,11 +90,11 @@ const SaveButton = pure( ( {
 
     {submitting && (
       <span className="margin-h-sm">
-        <PureSpinner mode="inline" />
+        <Spinner mode="inline" />
       </span>
     )}
   </button>
-) );
+);
 
 const FirstEntityRule = ( { ruleName, rules } ) => {
   const headerMessage = descriptionMessages[ `firstEntity${_.upperFirst( ruleName )}` ];
