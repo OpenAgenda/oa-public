@@ -205,10 +205,7 @@ function _emailShare( event ) {
 
   } else {
 
-    return genUrl( 'eventActionShow', {
-      eventSlug: event.slug,
-      action: 'email'
-    } );
+    return '#';
 
   }
 

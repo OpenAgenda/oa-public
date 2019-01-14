@@ -479,7 +479,8 @@ function _onActionComplete( req, res, success, message ) {
 
   }
 
-  res.redirect( 302, req.genUrl( 'eventActionShow', {
+  res.redirect( 302, req.genUrl( 'agendaEventActionShow', {
+    slug: req.agenda.slug,
     eventSlug: req.event.slug
   } ) );
 

@@ -616,7 +616,8 @@ function _formatShowLinks( req, res, next ) {
 
     e.link = req.genUrl( 'agendaEventShow', params );
 
-    e.importUri = req.genUrl( 'eventActionShow', {
+    e.importUri = req.genUrl( 'agendaEventActionShow', {
+      slug: req.agenda.slug,
       eventSlug: e.slug,
       back: req.genUrl( 'agendaShow', [ { slug: req.agenda.slug }, req.query || {} ])
     } );

@@ -151,12 +151,6 @@ function _importUri( v ) {
       eventSlug: v.req.event.slug
     } );
 
-  } else {
-
-    v.formatted.importUri = v.req.genUrl( 'eventActionShow', {
-      eventSlug: v.req.event.slug
-    } );
-
   }
 
   return v;
