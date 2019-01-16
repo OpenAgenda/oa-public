@@ -8,6 +8,8 @@ const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 
+const controlDataSvc = require( '../legacy' ).controlData;
+
 let log = console.log;
 
 module.exports = function ( stakeholder ) {
@@ -30,6 +32,8 @@ module.exports = function ( stakeholder ) {
         if ( !user ) return log( 'error', 'user %s not found', stakeholder.userId );
 
         log( 'unfollowing agenda for user uid %s', user.uid );
+
+        controlDataSvc.memberRemove( { agendaUid: agenda.uid, userUid: user.uid } );
 
         activities.feed( { entityType: 'user', entityUid: user.uid } )
           .unfollow( { entityType: 'agenda', entityUid: agenda.uid } );

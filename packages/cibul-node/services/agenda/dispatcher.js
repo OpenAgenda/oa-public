@@ -10,8 +10,6 @@ const config = require( '../../config' );
 
 let aggregator, // loaded through require
 
-  controlData,
-
   eventSvc;
 
 module.exports = agenda => {
@@ -23,19 +21,7 @@ module.exports = agenda => {
     onEventFeaturedChange,
     onEventPublish,
     onEventUnpublish,
-    onEventUpdate,
-    onSetStakeholder
-  }
-
-  function onSetStakeholder( userId, action ) {
-
-    log( 'dispatching agenda id %s, for stakeholder %s set to %s', agenda.id, userId, action );
-
-    controlData.queue( agenda.id, {
-      type: 'stakeholderSet',
-      userId
-    } );
-
+    onEventUpdate
   }
 
 
@@ -94,10 +80,6 @@ module.exports = agenda => {
 
     log('agenda.%s.onRefresh', agenda.id );
 
-    controlData.queue( agenda.id, {
-      type: 'reset',
-    } );
-
     _legacyCredCacheClear( agenda.id );
 
     agenda.refreshUpdatedAt();
@@ -141,12 +123,6 @@ function _requires() { // me no liky circular dependency
   if ( !aggregator ) {
 
     aggregator = require( '../aggregator' );
-
-  }
-
-  if ( !controlData ) {
-
-    controlData = require( './controlData' );
 
   }
 

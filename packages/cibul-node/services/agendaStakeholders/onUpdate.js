@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const users = require( '@openagenda/users' );
 const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
@@ -47,6 +48,8 @@ module.exports = function ( before, stakeholder, context ) {
             await users.setNewFlag( user.uid, false );
 
           }
+
+          controlData.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
 
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )

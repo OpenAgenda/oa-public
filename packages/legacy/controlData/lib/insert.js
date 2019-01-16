@@ -9,7 +9,7 @@ const parseEvent = require( './utils/parseEvent' );
 const refreshTimestamp = require( './utils/refreshTimestamp' );
 const setLocationReference = require( './utils/setLocationReference' );
 
-module.exports = async ( { prefix, knex, redis, loadedCtlData }, agendaEvent, data ) => {
+module.exports = async ( { prefix, knex, redis, loadedCtlData, skipSave }, agendaEvent, data ) => {
 
   const { agendaUid, legacyId } = agendaEvent;
 
@@ -25,9 +25,13 @@ module.exports = async ( { prefix, knex, redis, loadedCtlData }, agendaEvent, da
 
   updateLastOccurrence( ctlData, data.timings );
 
-  await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
+  if ( !skipSave ) {
 
-  await refreshTimestamp( prefix, redis, agendaUid );
+    await redis.set( prefix + agendaUid, JSON.stringify( ctlData ) );
+
+    await refreshTimestamp( prefix, redis, agendaUid );
+
+  }
 
   return parsed;
 

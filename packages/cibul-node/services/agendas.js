@@ -10,6 +10,8 @@ const { Inbox } = require( '@openagenda/inboxes' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
 
+const controlDataSvc = require( './legacy' ).controlData;
+
 let config;
 let log = console.log;
 
@@ -96,6 +98,10 @@ function onCreate( channel, agenda, cb ) {
 
         }
 
+        controlDataSvc.rebuild( agenda.uid ).then( () => {
+          controlDataSvc.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: 2 } );
+        } );
+
         agendaStakeholders( agenda.id ).create( {
           email: user.email
         }, {
@@ -150,6 +156,8 @@ function onCreate( channel, agenda, cb ) {
 
 
 function beforeRemove( agenda, cb ) {
+
+  controlDataSvc.clear( agenda.uid );
 
   model.lib.query(
     `DELETE FROM ${config.schemas.conversationReviewerRequestInfo} WHERE review_id = ?`,

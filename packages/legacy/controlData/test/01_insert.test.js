@@ -166,6 +166,16 @@ describe( '01 - control data - insert', () => {
 
     } );
 
+    test( 'clear removes control data from redis', async () => {
+
+      await service.clear( 123 );
+
+      const data = await promisify( redisClient.get ).bind( redisClient )( config.redisPrefix + '123' );
+
+      expect( data ).toBe( null );
+
+    } );
+
   } );
 
 

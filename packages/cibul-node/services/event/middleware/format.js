@@ -144,16 +144,12 @@ function _uri( v ) {
 
 function _importUri( v ) {
 
+  v.formatted.importUri = '#';
+
   if ( v.req.agenda ) {
 
     v.formatted.importUri = v.req.genUrl( 'agendaEventActionShow', {
       slug: v.req.agenda.slug,
-      eventSlug: v.req.event.slug
-    } );
-
-  } else {
-
-    v.formatted.importUri = v.req.genUrl( 'eventActionShow', {
       eventSlug: v.req.event.slug
     } );
 

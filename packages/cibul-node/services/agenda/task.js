@@ -61,12 +61,6 @@ function _onAgendaActivity( action ) {
 
     switch ( ( action.values.type || '' ).split( '.' )[ 0 ] ) {
 
-      case 'contributor':
-      case 'moderator':
-      case 'administrator':
-
-        return dsp.onSetStakeholder( action.values.userId, action.values.type );
-
       case 'contribution':
       case 'credentials':
       case 'refresh':

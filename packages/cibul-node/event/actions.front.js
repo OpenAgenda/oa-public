@@ -22,14 +22,6 @@ const modLib = require( '../lib/moduleLib' );
 
 const routes = {
 
-  eventActionShow: [ 'get', '/events/:eventSlug/action', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
-    actionShow
-  ] ],
-
   eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
@@ -356,9 +348,7 @@ function _agendasAction( req, res, next ) {
           slug: a.slug,
           title: a.title,
           sharing: agendasSharing.map( a => a.id ).indexOf( a.id ) !== -1,
-          redirect: req.agenda ?
-            new Buffer( req.genUrl( 'agendaEventActionShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) ).toString( 'base64' )
-            : new Buffer( req.genUrl( 'eventActionShow', { eventSlug: req.event.slug } ) ).toString( 'base64' )
+          redirect: new Buffer( req.genUrl( 'agendaEventActionShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) ).toString( 'base64' )
         } ) );
 
         next();
