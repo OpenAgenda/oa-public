@@ -11,7 +11,7 @@ module.exports = ( controlData, timings = [] ) => {
     end: new Date( controlData.lo.end )
   } : null;
 
-  if ( !current || controlData.lo.start < new Date( lastTimings.begin ) ) {
+  if ( !current || current.start < new Date( lastTimings.begin ) ) {
 
     controlData.lo = {
       start: lastTimings.begin,
