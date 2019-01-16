@@ -46,7 +46,7 @@ describe( '04 - control data - rebuild', () => {
     const data = await service.rebuild( 83549053 );
 
     expect( JSON.stringify( data, null, 2 ) ).toEqual(
-      fs.readFileSync( __dirname + '/fixtures/redis/bordeaux-metropole.rebuilt.json', 'utf-8' )
+      fs.readFileSync( __dirname + '/fixtures/redis/bordeaux-metropole.rebuilt.json', 'utf-8' ).trim( '\n' )
     );
 
   } );
