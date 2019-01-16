@@ -7,6 +7,8 @@ const promisifyRedis = require( './lib/utils/promisifyRedis' );
 const batch = require( './lib/batch' );
 const batchRemove = require( './lib/batchRemove' );
 const insert = require( './lib/insert' );
+const memberRemove = require( './lib/memberRemove' );
+const memberSet = require( './lib/memberSet' );
 const queue = require( './lib/queue' );
 const remove = require( './lib/remove' );
 const rebuild = require( './lib/rebuild' );
@@ -32,7 +34,9 @@ module.exports = ( { knex, redis, prefix } ) => {
     batch: batch.bind( null, config ),
     batchRemove: batchRemove.bind( null, config ),
     queue: queue.bind( null, config ),
-    task: task.bind( null, config )
+    task: task.bind( null, config ),
+    memberSet: memberSet.bind( null, config ),
+    memberRemove: memberRemove.bind( null, config )
   };
 
 }

@@ -15,6 +15,8 @@ const log = require( '@openagenda/logs' )( 'controlData/rebuild' );
 
 module.exports = async ( { prefix, knex, redis }, uid ) => {
 
+  const startTime = new Date();
+
   const ctl = {
     ev: [], // list of events
     l: [], // list of locations referenced by events
@@ -51,6 +53,8 @@ module.exports = async ( { prefix, knex, redis }, uid ) => {
   await setMembers( ctl, knex, agenda.id );
 
   let lastId = 0, agendaEvent;
+
+  let count = 0;
 
   while( agendaEvent = await knex( 'agenda_event' )
     .first( 'id', 'event_uid as eventUid', 'legacy_id as legacyId' )
@@ -96,7 +100,7 @@ module.exports = async ( { prefix, knex, redis }, uid ) => {
         _.assign( event, { location, timings: JSON.parse( event.timings ) } )
       );
 
-      log( 'inserted event %s to agenda %s', agendaEvent.eventUid, uid );
+      log( '%s: inserted event %s to agenda %s', ++count, agendaEvent.eventUid, uid );
 
     } catch ( e ) {
 
@@ -106,7 +110,7 @@ module.exports = async ( { prefix, knex, redis }, uid ) => {
 
   }
 
-  log( 'info', 'rebuild complete for %s with %s events', uid, ctl.ev.length );
+  log( 'info', 'rebuild complete for %s with %s events in %s s', uid, ctl.ev.length, ( ( new Date() ).getTime() - startTime.getTime() ) / 1000 );
 
   await redis.set( prefix + uid, JSON.stringify( ctl ) );
 

@@ -5,11 +5,7 @@ const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'controlData/utils/setTags' );
 
-const credKeys = {
-  1: 'e',
-  2: 'adm',
-  3: 'mod'
-}
+const roles = require( './roles' );
 
 module.exports = async ( ctl, knex, agendaId ) => {
 
@@ -21,7 +17,7 @@ module.exports = async ( ctl, knex, agendaId ) => {
 
   members.forEach( m => {
 
-    ctl[ credKeys[ m.credential ] ].push( m.uid );
+    ctl[ roles[ m.credential ] ].push( m.uid );
 
   } );
 
