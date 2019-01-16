@@ -37,8 +37,6 @@ module.exports = config => {
 
     let clean = value;
 
-    let isEmail = true;
-
     const error = [ _.assign( {
       origin: value
     }, templateError ) ];
@@ -55,21 +53,17 @@ module.exports = config => {
 
     }
 
-    try {
+    if ( /^mailto\:/.test( clean ) && _isEmail( clean.replace( /^mailto\:/, '' ) ) ) {
 
-      emailValidator( value );
-
-    } catch( e ) {
-
-      isEmail = false;
+      return clean;
 
     }
 
-    if ( isEmail ) throw error;
+    if ( _isEmail( clean ) ) throw error;
 
 
     // add http:// if link is like www.google.com ( protocol missing )
-    if ( !/^(http(s|):|)\/\//.test( clean ) ) {
+    if ( !/^((http(s|):|)\/\/|mailto\:)/.test( clean ) ) {
 
       clean = 'http://' + clean;
 
@@ -97,7 +91,6 @@ module.exports = config => {
 
     } );
 
-
     if ( !isURL( clean, {
       allow_protocol_relative_urls: true
     } ) ) {
@@ -115,5 +108,23 @@ module.exports = config => {
   validator.field = params.field;
 
   return validator;
+
+}
+
+
+
+function _isEmail( v ) {
+
+  try {
+
+    emailValidator( v );
+
+  } catch( e ) {
+
+    return false;
+
+  }
+
+  return true;
 
 }

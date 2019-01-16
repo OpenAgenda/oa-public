@@ -29,6 +29,15 @@ describe( 'link validator', () => {
     } );
 
 
+    it( 'an email prefixed with mailto: is a link', () => {
+
+      const clean = validate( 'mailto:email@gmail.com' );
+
+      clean.should.equal( 'mailto:email@gmail.com' );
+
+    } );
+
+
     it( 'an empty input is not a link', () => {
 
       let errors = [];
