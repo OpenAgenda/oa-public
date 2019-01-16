@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const redis = require( 'redis' );
+const debug = require('debug');
 
 const prod = require( './prod' );
 
@@ -771,7 +772,12 @@ currentConfig.knex = knexLib( {
 
 currentConfig.redisClient = redis.createClient( currentConfig.redis.port, currentConfig.redis.host );
 
-currentConfig.logger.debug.enable = process.env.DEBUG || currentConfig.logger.debug.enable;
+if ( process.env.DEBUG ) {
+  currentConfig.logger.debug.enable = process.env.DEBUG;
+}
+
+debug.disable();
+debug.enable( currentConfig.logger.debug.enable );
 
 currentConfig.getLogConfig = ( prefix, key, keyInPrefix = true ) => ( {
   debug: {
@@ -779,10 +785,6 @@ currentConfig.getLogConfig = ( prefix, key, keyInPrefix = true ) => ( {
   },
   token: process.env.NODE_ENV !== 'production' ? null : prod.insightOps[ key ]
 } );
-
-if ( process.env.NODE_ENV === 'development' ) {
-  process.env.DEBUG = currentConfig.logger.debug.enable;
-}
 
 
 module.exports = currentConfig;

@@ -21,7 +21,7 @@ class DebugTransport extends winston.Transport {
 
     const debugName = (params.prefix || '') + (params.namespace || '');
 
-    if ( params.enable && !debug.enabled( debugName ) ) {
+    if ( !process.env.DEBUG && params.enable && !debug.enabled( debugName ) ) {
       debug.names.push( new RegExp( '^' + debugName.replace( /\*/g, '.*?' ) + '$' ) );
     }
 
