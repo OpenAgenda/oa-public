@@ -4,12 +4,16 @@ const log = require( '@openagenda/logs' )( 'legacy/controlData/queue' );
 
 const promisifyRedis = require( './utils/promisifyRedis' );
 const queuables = {
-  set: require( './set' ),
-  insert: require( './insert' ),
-  update: require( './update' ),
-  remove: require( './remove' ),
   batch: require( './batch' ),
-  batchRemove: require( './batchRemove' )
+  batchRemove: require( './batchRemove' ),
+  clear: require( './clear' ),
+  insert: require( './insert' ),
+  memberSet: require( './memberSet' ),
+  memberRemove: require( './memberRemove' ),
+  update: require( './update' ),
+  rebuild: require( './rebuild' ),
+  remove: require( './remove' ),
+  set: require( './set' )
 };
 
 module.exports = async config => {
