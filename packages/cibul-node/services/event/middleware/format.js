@@ -144,6 +144,8 @@ function _uri( v ) {
 
 function _importUri( v ) {
 
+  v.formatted.importUri = '#';
+
   if ( v.req.agenda ) {
 
     v.formatted.importUri = v.req.genUrl( 'agendaEventActionShow', {
