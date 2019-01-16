@@ -14,6 +14,7 @@ const logs = require( '@openagenda/logs' );
 
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const db = require( './lib/db' );
 const legacySearch = require( './lib/legacySearch' );
 const custom = require( './lib/custom' );
@@ -43,7 +44,8 @@ module.exports = async agendaUid => {
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
       resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`,
-      resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`
+      resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
+      resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`
     }
   }
 
@@ -72,6 +74,11 @@ module.exports.task = () => {
     if ( data.operation !== 'resync' ) return cb();
 
     switch ( data.type ) {
+
+      case 'controlData' :
+
+        controlDataSvc.rebuild( data.agendaUid );
+        break;
 
       case 'custom' :
 

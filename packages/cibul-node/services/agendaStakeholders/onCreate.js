@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const agendas = require( '@openagenda/agendas' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const users = require( '@openagenda/users' );
 const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
@@ -15,8 +16,8 @@ module.exports = function ( stakeholder, context ) {
 
   log( 'processing invitation for member %j', stakeholder );
 
-  agendas.get( { id: stakeholder.agendaId }, { 
-    private: null, 
+  agendas.get( { id: stakeholder.agendaId }, {
+    private: null,
     includeImagePath: true
   }, ( err, agenda ) => {
 
@@ -41,6 +42,8 @@ module.exports = function ( stakeholder, context ) {
             await users.setNewFlag( user.uid, false );
 
           }
+
+          controlDataSvc.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
 
           // Create inboxUser, only for moderator or more
           if (
