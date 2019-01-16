@@ -12,7 +12,7 @@ const fixtures = require( './fixtures/03.data.js' );
 
 const Service = require( '../' );
 
-describe( '01 - control data - remove', () => {
+describe( '03 - control data - remove', () => {
 
   let redisClient, knex, service;
 

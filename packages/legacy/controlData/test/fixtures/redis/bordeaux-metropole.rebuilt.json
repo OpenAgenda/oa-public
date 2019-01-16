@@ -1,0 +1,887 @@
+{
+  "ev": [
+    {
+      "u": 31456359,
+      "l": 21844015,
+      "s": "rugby-barbarians-vs-tonga",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-10"
+      ],
+      "c": "evenement-sportif",
+      "t": [
+        "sport"
+      ]
+    },
+    {
+      "u": 64701540,
+      "l": 46243197,
+      "s": "festival-toutes-latitudes_886",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-07",
+        "2018-11-08",
+        "2018-11-09",
+        "2018-11-10",
+        "2018-11-11"
+      ],
+      "c": "fete-festival",
+      "t": []
+    },
+    {
+      "u": 47822540,
+      "l": 17300204,
+      "s": "tour-de-l-ess-bordeaux-metropole-a-la-rencontre-des-entrepreneurs",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-09",
+        "2018-11-16"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 53802870,
+      "l": 46525525,
+      "s": "tour-de-l-ess-bordeaux-metropole-dans-les-fourneaux-de-la-boulangerie-pain-et-partage",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-10",
+        "2018-12-01"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 81984716,
+      "l": 70080285,
+      "s": "tour-de-l-ess-bordeaux-metropole-decouverte-d-une-recyclerie-creative",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-12"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 58763744,
+      "l": 94995190,
+      "s": "tour-de-l-ess-bordeaux-metropole-la-seconde-vie-de-vos-appareils-electromenagers",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-08",
+        "2018-12-06"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 41216217,
+      "l": 21203011,
+      "s": "tour-de-l-ess-bordeaux-metropole-l-atelier-de-torrefaction-cafe-michel",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-20",
+        "2018-11-20"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 44182266,
+      "l": 32219870,
+      "s": "tour-de-l-ess-bordeaux-metropole-la-seconde-vie-de-vos-vetements",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-13",
+        "2018-11-21",
+        "2018-11-29"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 66442726,
+      "l": 72152241,
+      "s": "semaine-de-la-citoyennete_948",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-11",
+        "2018-11-12",
+        "2018-11-13",
+        "2018-11-14",
+        "2018-11-15",
+        "2018-11-16",
+        "2018-11-16",
+        "2018-11-17"
+      ],
+      "c": "fete-festival",
+      "t": []
+    },
+    {
+      "u": 98565093,
+      "l": 99111770,
+      "s": "tour-de-l-ess-bordeaux-metropole-la-valorisation-de-nos-dechets",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-28",
+        "2018-12-05"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 9493086,
+      "l": 96389346,
+      "s": "tour-de-l-ess-bordeaux-metropole-decouverte-d-un-nid-de-startup-innovantes",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-07",
+        "2018-12-04"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 29701043,
+      "l": 5217664,
+      "s": "tour-de-l-ess-bordeaux-metropole-le-livre-vert-donne-du-sens-a-vos-livres",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-14",
+        "2018-12-05"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 37986461,
+      "l": 52839978,
+      "s": "tour-de-l-ess-bordeaux-metropole-le-tiers-lieu-du-textile-engage",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-10",
+        "2018-11-17",
+        "2018-11-24"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 18786810,
+      "l": 40689858,
+      "s": "tour-de-l-ess-bordeaux-metropole-quand-votre-supermarche-devient-participatif",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-15",
+        "2018-11-17"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 32210907,
+      "l": 11763396,
+      "s": "tour-de-l-ess-bordeaux-metropole-une-autre-vision-de-l-institut-de-beaute",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-24",
+        "2018-11-27"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 48271345,
+      "l": 4877795,
+      "s": "ma-renov-au-salon-vivons",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-10-31",
+        "2018-11-01",
+        "2018-11-02",
+        "2018-11-03",
+        "2018-11-04"
+      ],
+      "c": "foire-salon",
+      "t": [
+        "consommation-denergie",
+        "habitat"
+      ]
+    },
+    {
+      "u": 72725557,
+      "l": 23450112,
+      "s": "reunion-publique-sur-la-modification-des-limites-du-site-patrimonial-remarquable-de-bordeaux",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-05"
+      ],
+      "c": "reunion-publique",
+      "t": [
+        "participation",
+        "patrimoine"
+      ]
+    },
+    {
+      "u": 2663392,
+      "l": 37835657,
+      "s": "meetup-open-transport-bordeaux",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-07"
+      ],
+      "c": "conference-rencontre",
+      "t": [
+        "innovation",
+        "transports-deplacements"
+      ]
+    },
+    {
+      "u": 43911213,
+      "l": 57296366,
+      "s": "1er-carrefour-emploi-bordeaux-metropole",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-04"
+      ],
+      "c": "foire-salon",
+      "t": [
+        "emploi"
+      ]
+    },
+    {
+      "u": 34913716,
+      "l": 17425946,
+      "s": "une-poule-sur-un-mur-qui-attend_927",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-11"
+      ],
+      "c": "spectacle",
+      "t": []
+    },
+    {
+      "u": 43359432,
+      "l": 17425946,
+      "s": "trahisons_807",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-29",
+        "2018-11-30",
+        "2018-12-01",
+        "2018-12-02"
+      ],
+      "c": "spectacle",
+      "t": []
+    },
+    {
+      "u": 16834493,
+      "l": 98185394,
+      "s": "concert-solidaire_346",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-07"
+      ],
+      "c": "concert",
+      "t": []
+    },
+    {
+      "u": 36149692,
+      "l": 81575697,
+      "s": "marche-de-noel_364",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-08"
+      ],
+      "c": null,
+      "t": []
+    },
+    {
+      "u": 13255687,
+      "l": 41513709,
+      "s": "laure-sanchez-trio",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-08"
+      ],
+      "c": "concert",
+      "t": []
+    },
+    {
+      "u": 40571070,
+      "l": 71073133,
+      "s": "gala-de-boxe_612",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-08"
+      ],
+      "c": "evenement-sportif",
+      "t": []
+    },
+    {
+      "u": 73460278,
+      "l": 41513709,
+      "s": "madame-magarotto",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-15"
+      ],
+      "c": "spectacle",
+      "t": []
+    },
+    {
+      "u": 28397303,
+      "l": 78163590,
+      "s": "cyclocross-ufolep",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-16"
+      ],
+      "c": "evenement-sportif",
+      "t": []
+    },
+    {
+      "u": 67649118,
+      "l": 64215784,
+      "s": "les-blesses-de-la-grande-guerre",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-13",
+        "2018-11-14",
+        "2018-11-15",
+        "2018-11-16",
+        "2018-11-17",
+        "2018-11-18",
+        "2018-11-18",
+        "2018-11-19",
+        "2018-11-20",
+        "2018-11-21",
+        "2018-11-22",
+        "2018-11-23",
+        "2018-11-24",
+        "2018-11-25",
+        "2018-11-25",
+        "2018-11-26",
+        "2018-11-27"
+      ],
+      "c": "exposition",
+      "t": [
+        "culture"
+      ]
+    },
+    {
+      "u": 93619255,
+      "l": 41513709,
+      "s": "noel-rock",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-19"
+      ],
+      "c": "spectacle",
+      "t": []
+    },
+    {
+      "u": 21319556,
+      "l": 98185394,
+      "s": "concert-de-noel-par-les-orchestres-de-l-ecole-municipale-de-musique-dominique-boudot",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-12-21"
+      ],
+      "c": "concert",
+      "t": []
+    },
+    {
+      "u": 32319522,
+      "l": 29289901,
+      "s": "michael-hirsch-pourquoi_979",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-10"
+      ],
+      "c": "spectacle",
+      "t": []
+    },
+    {
+      "u": 24629021,
+      "l": 88524565,
+      "s": "l-appart-zero-dechet",
+      "tz": "Europe/Paris",
+      "d": [
+        "2018-11-18",
+        "2018-11-20",
+        "2018-11-25"
+      ],
+      "c": null,
+      "t": [
+        "dechets-recyclage",
+        "developpement-durable",
+        "environnement"
+      ]
+    }
+  ],
+  "l": [
+    {
+      "u": 21844015,
+      "lt": 44.828467,
+      "lg": -0.598927
+    },
+    {
+      "u": 46243197,
+      "lt": 44.862437,
+      "lg": -0.523789
+    },
+    {
+      "u": 17300204,
+      "lt": 44.840735,
+      "lg": -0.59244
+    },
+    {
+      "u": 46525525,
+      "lt": 44.857735,
+      "lg": -0.667481
+    },
+    {
+      "u": 70080285,
+      "lt": 44.872735,
+      "lg": -0.562189
+    },
+    {
+      "u": 94995190,
+      "lt": 44.778734,
+      "lg": -0.658951
+    },
+    {
+      "u": 21203011,
+      "lt": 44.783734,
+      "lg": -0.646031
+    },
+    {
+      "u": 32219870,
+      "lt": 44.875735,
+      "lg": -0.553999
+    },
+    {
+      "u": 72152241,
+      "lt": 44.876385,
+      "lg": -0.523632
+    },
+    {
+      "u": 99111770,
+      "lt": 44.856273,
+      "lg": -0.548889
+    },
+    {
+      "u": 96389346,
+      "lt": 44.849735,
+      "lg": -0.561249
+    },
+    {
+      "u": 5217664,
+      "lt": 44.890735,
+      "lg": -0.541169
+    },
+    {
+      "u": 52839978,
+      "lt": 44.802734,
+      "lg": -0.557999
+    },
+    {
+      "u": 40689858,
+      "lt": 44.814734,
+      "lg": -0.554289
+    },
+    {
+      "u": 11763396,
+      "lt": 44.864735,
+      "lg": -0.566219
+    },
+    {
+      "u": 4877795,
+      "lt": 44.89285,
+      "lg": -0.572233
+    },
+    {
+      "u": 23450112,
+      "lt": 44.837937,
+      "lg": -0.579609
+    },
+    {
+      "u": 37835657,
+      "lt": 44.840735,
+      "lg": -0.570539
+    },
+    {
+      "u": 57296366,
+      "lt": 44.849856,
+      "lg": -0.569428
+    },
+    {
+      "u": 17425946,
+      "lt": 44.857664,
+      "lg": -0.530037
+    },
+    {
+      "u": 98185394,
+      "lt": 44.876738,
+      "lg": -0.524924
+    },
+    {
+      "u": 81575697,
+      "lt": 44.872547,
+      "lg": -0.514928
+    },
+    {
+      "u": 41513709,
+      "lt": 44.876601,
+      "lg": -0.524356
+    },
+    {
+      "u": 71073133,
+      "lt": 44.867737,
+      "lg": -0.524569
+    },
+    {
+      "u": 78163590,
+      "lt": 44.878529,
+      "lg": -0.504727
+    },
+    {
+      "u": 64215784,
+      "lt": 44.899297,
+      "lg": -0.516538
+    },
+    {
+      "u": 29289901,
+      "lt": 44.843083,
+      "lg": -0.784648
+    },
+    {
+      "u": 88524565,
+      "lt": 44.838557,
+      "lg": -0.567339
+    }
+  ],
+  "e": [
+    12302905,
+    72836167,
+    28072727,
+    14570431,
+    45511282,
+    49059471,
+    53281895,
+    78721068,
+    57875754,
+    77202014,
+    85984528,
+    65539533,
+    8316304,
+    20609331,
+    76240901,
+    7874099,
+    46498053,
+    69673893,
+    2943028,
+    34944025
+  ],
+  "adm": [
+    7339049,
+    89522188,
+    90774245,
+    33925676,
+    61733542,
+    19502811,
+    45778055,
+    75052324,
+    72447836,
+    99999999
+  ],
+  "mod": [],
+  "c": 0,
+  "ct": [
+    {
+      "s": "animation-loto",
+      "c": "Animation - Loto"
+    },
+    {
+      "s": "atelier",
+      "c": "Atelier"
+    },
+    {
+      "s": "ceremonie",
+      "c": "Cérémonie"
+    },
+    {
+      "s": "cinema-projection",
+      "c": "Cinéma - Projection"
+    },
+    {
+      "s": "concert",
+      "c": "Concert"
+    },
+    {
+      "s": "conference-rencontre",
+      "c": "Conférence - Rencontre"
+    },
+    {
+      "s": "congres-colloque",
+      "c": "Congrès - Colloque"
+    },
+    {
+      "s": "conseil-de-metropole",
+      "c": "Conseil de métropole"
+    },
+    {
+      "s": "conseil-municipal",
+      "c": "Conseil municipal"
+    },
+    {
+      "s": "evenement-sportif",
+      "c": "Événement sportif"
+    },
+    {
+      "s": "exposition",
+      "c": "Exposition"
+    },
+    {
+      "s": "fete-festival",
+      "c": "Fête - Festival"
+    },
+    {
+      "s": "foire-salon",
+      "c": "Foire - Salon"
+    },
+    {
+      "s": "inauguration",
+      "c": "Inauguration"
+    },
+    {
+      "s": "lecture",
+      "c": "Lecture"
+    },
+    {
+      "s": "marche-brocante-vide-grenier",
+      "c": "Marché-Brocante - Vide grenier"
+    },
+    {
+      "s": "reunion-publique",
+      "c": "Réunion publique"
+    },
+    {
+      "s": "spectacle",
+      "c": "Spectacle"
+    },
+    {
+      "s": "visite-balade",
+      "c": "Visite - Balade"
+    }
+  ],
+  "tg": [
+    "Thématiques Bordeaux Métropole",
+    "Bordeaux Métropole"
+  ],
+  "prv": false,
+  "t": [
+    {
+      "s": "administration",
+      "t": "Administration",
+      "g": 0
+    },
+    {
+      "s": "aeronautique",
+      "t": "Aéronautique",
+      "g": 0
+    },
+    {
+      "s": "agroalimentaire",
+      "t": "Agroalimentaire",
+      "g": 0
+    },
+    {
+      "s": "archeologie-preventive",
+      "t": "Archéologie préventive",
+      "g": 0
+    },
+    {
+      "s": "citoyennete",
+      "t": "Citoyenneté",
+      "g": 0
+    },
+    {
+      "s": "consommation-denergie",
+      "t": "Consommation d’énergie",
+      "g": 0
+    },
+    {
+      "s": "culture",
+      "t": "Culture",
+      "g": 0
+    },
+    {
+      "s": "dechets-recyclage",
+      "t": "Déchets - Recyclage",
+      "g": 0
+    },
+    {
+      "s": "developpement-durable",
+      "t": "Développement durable",
+      "g": 0
+    },
+    {
+      "s": "eau-et-assainissement",
+      "t": "Eau et assainissement",
+      "g": 0
+    },
+    {
+      "s": "economie",
+      "t": "Économie",
+      "g": 0
+    },
+    {
+      "s": "education-enseignement",
+      "t": "Éducation - Enseignement",
+      "g": 0
+    },
+    {
+      "s": "emploi",
+      "t": "Emploi",
+      "g": 0
+    },
+    {
+      "s": "enfance",
+      "t": "Enfance",
+      "g": 0
+    },
+    {
+      "s": "environnement",
+      "t": "Environnement",
+      "g": 0
+    },
+    {
+      "s": "finances",
+      "t": "Finances",
+      "g": 0
+    },
+    {
+      "s": "grand-projet",
+      "t": "Grand projet",
+      "g": 0
+    },
+    {
+      "s": "habitat",
+      "t": "Habitat",
+      "g": 0
+    },
+    {
+      "s": "innovation",
+      "t": "Innovation",
+      "g": 0
+    },
+    {
+      "s": "international",
+      "t": "International",
+      "g": 0
+    },
+    {
+      "s": "loisirs",
+      "t": "Loisirs",
+      "g": 0
+    },
+    {
+      "s": "metropole",
+      "t": "Métropole",
+      "g": 0
+    },
+    {
+      "s": "nature",
+      "t": "Nature",
+      "g": 0
+    },
+    {
+      "s": "nautisme-garonne",
+      "t": "Nautisme - Garonne",
+      "g": 0
+    },
+    {
+      "s": "numerique",
+      "t": "Numérique",
+      "g": 0
+    },
+    {
+      "s": "oim",
+      "t": "OIM",
+      "g": 0
+    },
+    {
+      "s": "participation",
+      "t": "Participation",
+      "g": 0
+    },
+    {
+      "s": "patrimoine",
+      "t": "Patrimoine",
+      "g": 0
+    },
+    {
+      "s": "politique",
+      "t": "Politique",
+      "g": 0
+    },
+    {
+      "s": "sante",
+      "t": "Santé",
+      "g": 0
+    },
+    {
+      "s": "solidarite",
+      "t": "Solidarité",
+      "g": 0
+    },
+    {
+      "s": "sport",
+      "t": "Sport",
+      "g": 0
+    },
+    {
+      "s": "tertiaire",
+      "t": "Tertiaire",
+      "g": 0
+    },
+    {
+      "s": "tourisme",
+      "t": "Tourisme",
+      "g": 0
+    },
+    {
+      "s": "tramway",
+      "t": "Tramway",
+      "g": 0
+    },
+    {
+      "s": "transports-deplacements",
+      "t": "Transports - Déplacements",
+      "g": 0
+    },
+    {
+      "s": "travaux-chantiers",
+      "t": "Travaux - chantiers",
+      "g": 0
+    },
+    {
+      "s": "urbanisme",
+      "t": "Urbanisme",
+      "g": 0
+    },
+    {
+      "s": "vie-associative",
+      "t": "Vie associative",
+      "g": 0
+    }
+  ],
+  "lo": {
+    "start": "2018-11-10T15:00:00.000Z",
+    "end": "2018-11-10T17:00:00.000Z"
+  },
+  "sh": true
+}
