@@ -28,8 +28,6 @@ var model = require( '../../model' ),
 
   groupActions = require( './groupActions' ),
 
-  controlData = require( '../controlData' ),
-
   coms = require( '../../../lib/coms' ),
 
   config = require( '../../../config' ),
@@ -91,10 +89,6 @@ function instanciate( data ) {
 
   groupActions( svcInstance, instance, [
     'changeEventStates'
-  ] );
-
-  controlData( svcInstance, instance, [
-    'getControlData'
   ] );
 
   return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );

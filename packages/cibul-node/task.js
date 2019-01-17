@@ -70,8 +70,6 @@ module.exports = () => {
 
   require( '@openagenda/email-strategie' ).task();
 
-  require( './services/agenda/controlData' ).task();
-
   require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
 
   require( '@openagenda/agenda-stakeholders' ).tasks.message();

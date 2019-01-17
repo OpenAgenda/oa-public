@@ -11,6 +11,8 @@ const ih = require( 'immutability-helper' );
 
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
+const controlDataSvc = require( '../services/legacy' ).controlData;
+
 const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -85,25 +87,21 @@ const  modLib = require( '../lib/moduleLib' ),
 
     embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      embedSvc.mw.browserCacheControlData,
-      controlData
+      controlDataSvc.middleware
     ] ],
 
     controlData: [ 'get', '/agendas/:uid/controldata', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      agendaSvc.mw.browserCacheControlData,
-      controlData
+      controlDataSvc.middleware
     ] ],
 
     controlDataPrivate: [ 'get', '/agendas/:uid/controldata.prv', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
       cmn.checkStakeholder,
-      agendaSvc.mw.browserCacheControlData,
-      controlData
+      controlDataSvc.middleware
     ] ],
 
     agendaFacebook: [ 'post', '/facebook/tab', [
@@ -406,39 +404,6 @@ function agendaSearchRedirect( message, req, res, next ) {
   res.redirect( 302, req.genUrl( 'agendaSearch' ) );
 
 }
-
-
-function controlData( req, res ) {
-
-  req.log( 'retrieving %s control data', req.embed ? 'embed' : 'agenda' );
-
-  wn.call( ( req.embed ? req.embed : req.agenda ).getControlData )
-
-  .then( function( controlData ) {
-
-    cmn.renderJson( req, res, {
-      success: true,
-      code: 200,
-      data: controlData
-    });
-
-  } )
-
-  .catch( function( err ) {
-
-    req.log( 'error', err );
-
-    if ( res.headersSent ) return;
-
-    cmn.renderJson( req, res, {
-      success: false,
-      error: err
-    });
-
-  } );
-
-}
-
 
 
 /**

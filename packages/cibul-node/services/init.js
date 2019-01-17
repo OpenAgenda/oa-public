@@ -60,7 +60,6 @@ module.exports = function ( config, options, cb ) {
 
   log = logs( 'services/init' );
 
-
   // init services
 
   fs.readdir( SERVICES_PATH, ( err, services ) => {
