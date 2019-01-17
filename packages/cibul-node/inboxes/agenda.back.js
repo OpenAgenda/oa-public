@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require( 'express' );
-const morgan = require( 'morgan' );
 const VError = require( 'verror' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
@@ -15,11 +14,6 @@ const config = require( '../config' );
 const agendaRouter = express.Router( { mergeParams: true } );
 
 module.exports = agendaRouter;
-
-
-if ( __DEVELOPMENT__ ) {
-  agendaRouter.use( morgan( 'dev' ) );
-}
 
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),

@@ -38,7 +38,7 @@ supervisor( loadTasks => {
 
     app.server.listen( config.port, () => {
 
-      log( 'info', '-- Server listening on port %s --', config.port );
+      console.log( `-- Server listening on port ${config.port} --` );
 
     } );
 
