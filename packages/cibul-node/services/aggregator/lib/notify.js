@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'services/aggregator/notify' );
+const log = require( '@openagenda/logs' )( 'aggregator/notify' );
 
 // transitional external aggregator service
 const svc = require( '@openagenda/aggregators' );

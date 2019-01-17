@@ -8,13 +8,8 @@ const clearReferences = require( '../event/clearReferences' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 
-let aggregator, // loaded through require
-
-  eventSvc;
 
 module.exports = agenda => {
-
-  _requires();
 
   return {
     onRefresh,
@@ -41,8 +36,6 @@ module.exports = agenda => {
     // legacy
     log( 'agenda.%s.onEventPublish.%s' , agenda.id, event.id );
 
-    aggregator.notifyPublish( event.id, agenda.id, !params.refresh /* mute */ );
-
     if ( !params.refresh ) return;
 
     agenda.refreshUpdatedAt();
@@ -59,8 +52,6 @@ module.exports = agenda => {
     log( 'agenda.%s.onEventUnpublish.%s', agenda.id, event.id );
 
     clearReferences( agenda.id, event.id );
-
-    aggregator.notifyUnpublish( event.id, agenda.id );
 
     if ( !params.refresh ) return;
 
@@ -114,28 +105,5 @@ function _legacyCredCacheClear( agendaId ) {
     cli.quit();
 
   } );
-
-}
-
-
-function _requires() { // me no liky circular dependency
-
-  if ( !aggregator ) {
-
-    aggregator = require( '../aggregator' );
-
-  }
-
-  if ( !eventSvc ) {
-
-    eventSvc = require( '../event' );
-
-  }
-
-  if ( !log ) {
-
-    log = logger( 'services/agenda/dispatcher' );
-
-  }
 
 }

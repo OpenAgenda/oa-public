@@ -6,7 +6,7 @@ const aggUtils = require( './aggUtils' ),
 
   notify = require( '../../notification' ).notify,
 
-  log = require( '@openagenda/logs' )( 'services/aggregator/sources' );
+  log = require( '@openagenda/logs' )( 'aggregator/sources' );
 
 let q, pQ;
 

@@ -3,7 +3,7 @@
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
 
-const aggregator = require( '../aggregator' );
+const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventSearch = require( '../eventSearch' );
@@ -58,38 +58,7 @@ module.exports = async ( before, after, context ) => {
 
   }
 
-  if ( before.state === after.state ) {
-
-    // currently for logging only. Not used yet for actual aggregation
-    aggregator.notify( 'update', {
-      event,
-      agendaEvent: after,
-      agenda
-    } );
-
-  } else if ( after.state === 2 ) {
-
-    if ( !context.legacy ) aggregator.notifyPublish( event.id, agenda.id );
-
-    // currently for logging only. Not used yet for actual aggregation
-    aggregator.notify( 'update', {
-      event,
-      agendaEvent: after,
-      agenda
-    } );
-
-  } else if ( before.state === 2 ) {
-
-    if ( !context.legacy ) aggregator.notifyUnpublish( event.id, agenda.id );
-
-    // currently for logging only. Not used yet for actual aggregation
-    aggregator.notify( 'remove', {
-      event,
-      agendaEvent: after,
-      agenda
-    } );
-
-  }
+  aggregatorNotify.update( { agenda, event, before, after } );
 
   // Send emails
   if ( before.state === after.state ) {

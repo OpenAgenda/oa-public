@@ -3,13 +3,13 @@
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const aggregator = require( '../aggregator' );
+const aggregatorNotify = require( './lib/aggregatorNotify' );
 const eventSearch = require( '../eventSearch' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const oldEventSvc = require( '../event' );
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onRemove' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/onRemove' );
 
 module.exports = async ( ae, context ) => {
 
@@ -22,15 +22,6 @@ module.exports = async ( ae, context ) => {
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
-
-
-  // currently for logging only. Not used yet for actual aggregation
-  aggregator.notify( 'remove', {
-    event,
-    agendaEvent: ae,
-    agenda
-  } );
-
 
   /**
    * Anything happening hear should not be triggered elsewhere by legacy parts of app
@@ -54,7 +45,6 @@ module.exports = async ( ae, context ) => {
     }
   } );
 
-
-  aggregator.notifyUnpublish( event.id, agenda.id );
+  aggregatorNotify.remove( { agenda, event } );
 
 }

@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
-const log = require( '@openagenda/logs' )( 'services/aggregator/utils/loadAgendaCategories' );
+const log = require( '@openagenda/logs' )( 'aggregator/utils/loadAgendaCategories' );
 
 const agendaCategoriesGet = promisify( require( '@openagenda/agenda-categories' ).get );
 
