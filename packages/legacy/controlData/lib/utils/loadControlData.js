@@ -1,27 +1,47 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const initializeControlData = require( './initializeControlData' );
 
 const log = require( '@openagenda/logs' )( 'controlData/loadAgendaControlData' );
 
-module.exports = async ( redis, prefix, agendaUid ) => {
+module.exports = async ( redis, prefix, agendaUid, options = {} ) => {
+
+  const {
+    parse,
+    initialize
+  } = _.assign( { parse: true, initialize: false }, options );
 
   const ctlDataStr = await redis.get( prefix + agendaUid );
 
-  if ( ctlDataStr ) {
+  if ( !ctlDataStr && !initialize ) {
 
-    try {
+    return null;
 
-      return JSON.parse( ctlDataStr );
+  } else if ( !ctlDataStr && !parse ) {
 
-    } catch ( e ) {
+    return JSON.stringify( initializeControlData() );
 
-      log( 'error', 'could not parse control data of agenda %s: %s', agendaUid, ctlDataStr );
+  } else if ( !ctlDataStr ) {
 
-    }
+    return initializeControlData();
+
+  } else if ( !parse ) {
+
+    return ctlDataStr;
+
+  }
+
+  try {
+
+    return JSON.parse( ctlDataStr );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not parse control data of agenda %s: %s', agendaUid, ctlDataStr );
 
   }
 
   return initializeControlData();
-
 }

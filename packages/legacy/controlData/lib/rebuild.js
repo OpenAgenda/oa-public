@@ -13,7 +13,22 @@ const setSettings = require( './utils/setSettings' );
 
 const log = require( '@openagenda/logs' )( 'controlData/rebuild' );
 
-module.exports = async ( { prefix, knex, redis }, uid ) => {
+module.exports = _.assign( rebuild, {
+  isRebuilding
+} );
+
+function isRebuilding( redis, prefix, uid ) {
+
+  return redis.get( prefix + uid + ':rebuild' ).then( result => !!result );
+
+}
+
+
+async function rebuild( { prefix, knex, redis }, uid ) {
+
+  log( 'rebuilding agenda %s', uid );
+
+  await redis.set( prefix + uid + ':rebuild', 1, 'EX', 600 );
 
   const startTime = new Date();
 
@@ -113,6 +128,8 @@ module.exports = async ( { prefix, knex, redis }, uid ) => {
   log( 'info', 'rebuild complete for %s with %s events in %s s', uid, ctl.ev.length, ( ( new Date() ).getTime() - startTime.getTime() ) / 1000 );
 
   await redis.set( prefix + uid, JSON.stringify( ctl ) );
+
+  await redis.del( prefix + uid + ':rebuild' );
 
   await refreshTimestamp( prefix, redis, uid );
 
