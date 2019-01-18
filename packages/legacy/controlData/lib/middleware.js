@@ -26,7 +26,7 @@ module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
 
     if ( ctlDataStr ) {
 
-      return _sendResult( res, agendaUid, ctlDataStr );
+      return _sendResult( req, res, agendaUid, ctlDataStr );
 
     }
 
@@ -34,7 +34,7 @@ module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
 
     if ( ( await _getPublishedEventsCount( knex, agendaUid ) ) < 300 ) {
 
-      return _sendResult( res, agendaUid, JSON.stringify(
+      return _sendResult( req, res, agendaUid, JSON.stringify(
         await rebuild( { prefix, knex, redis }, agendaUid )
       ) );
 
@@ -46,7 +46,7 @@ module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
 
     }
 
-    res.json( {
+    ( req.query.callback ? res.jsonp : res.json )( {
       rebuilding: true
     } );
 
@@ -71,7 +71,7 @@ function _getPublishedEventsCount( knex, agendaUid ) {
 
 }
 
-function _sendResult( res, agendaUid, ctlDataStr ) {
+function _sendResult( req, res, agendaUid, ctlDataStr ) {
 
   log( 'retrieved control data for agenda %s', agendaUid );
 
@@ -79,6 +79,10 @@ function _sendResult( res, agendaUid, ctlDataStr ) {
     'Content-Type': 'application/json',
     'Content-Length': ctlDataStr.length
   } );
+
+  https://openagenda.com/agendas/50522407/embeds/80717033/controldata?callback=cb5052240780717033
+
+  if ( req.query.callback ) return res.send( req.query.callback + '({"success":true,"code":200,"data":' + ctlDataStr + '})' );
 
   res.send( '{"success":true,"code":200,"data":' + ctlDataStr + '}' );
 
