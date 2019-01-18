@@ -59,6 +59,17 @@ const testConfig = {
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
+  geocodeFarm: { key: 123 },
+  esLocation: {
+    //log: [  ],
+    index: 'locations',
+    apiVersion: '1.3',
+    timeout: 30000
+  },
+  es: {
+    host: process.env.ELASTICSEARCH_134_DEV_HOST,
+    port: process.env.ELASTICSEARCH_134_DEV_PORT
+  },
   es53: {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
@@ -85,8 +96,8 @@ describe( 'core - functional ( server ): agenda event remove', function() {
 
   before( async () => {
 
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), { 
-      multipleStatements: true 
+    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+      multipleStatements: true
     } ) );
 
     const query = promisify( con.query.bind( con ) );
@@ -104,6 +115,7 @@ describe( 'core - functional ( server ): agenda event remove', function() {
         'events',
         'agendas',
         'agendaEvents',
+        'agendaLocations',
         'agendaStakeholders',
         'formSchemas',
         'custom'
