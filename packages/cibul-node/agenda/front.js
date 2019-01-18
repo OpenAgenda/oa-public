@@ -88,6 +88,7 @@ const  modLib = require( '../lib/moduleLib' ),
     embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [
       agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
       cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+      controlDataSvc.embedMiddleware,
       controlDataSvc.middleware
     ] ],
 
