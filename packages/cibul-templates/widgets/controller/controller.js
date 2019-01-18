@@ -121,7 +121,7 @@ module.exports = function( uid ) {
         _init();
 
       }
-      
+
     });
 
     return {
@@ -151,7 +151,7 @@ module.exports = function( uid ) {
     ready = true;
 
     // hack to allow some widgets to run getControlData callback once all
-    // is declared ready, 
+    // is declared ready,
     _processWidgetCtlRequests( true );
 
     log( 'controller will sync with href ? %s', syncHref ? 'yes' : 'no' );
@@ -250,7 +250,7 @@ module.exports = function( uid ) {
   /**
    * hand over control data when ready.
    */
-  
+
   function getControlData( postReady, cb ) {
 
     if ( !cb ) {
@@ -317,10 +317,10 @@ module.exports = function( uid ) {
 
   /**
    * controller
-   * 
+   *
    * called by widget when some agenda request parameters were updated
    */
-  
+
   function update( originWidget, updatedParams ) {
 
     if ( arguments.length == 1 ) {
@@ -333,7 +333,7 @@ module.exports = function( uid ) {
 
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
-    var newParams = _clean( cn.extend( {}, currentRequestParams, { 
+    var newParams = _clean( cn.extend( {}, currentRequestParams, {
       uid: null,
       event: null
     }, updatedParams ) );
@@ -377,7 +377,7 @@ module.exports = function( uid ) {
 
   function _fetchWhatUids( cb ) {
 
-    if ( what === currentRequestParams.what 
+    if ( what === currentRequestParams.what
 
     && scope === currentRequestParams.scope
 
@@ -399,11 +399,11 @@ module.exports = function( uid ) {
 
     if ( passed ) searchQuery.passed = passed;
 
-    remote.getJsonp( 
+    remote.getJsonp(
       params.search.replace( '{uid}', uid ) +
       '?' + qs.stringify( { oaq: searchQuery } ), {
-      data: {}, 
-      timeout: 10000 
+      data: {},
+      timeout: 10000
     }, function( responseType, data ) {
 
       if ( responseType == 'success' ) {
@@ -422,7 +422,7 @@ module.exports = function( uid ) {
   /**
    * disable all widgets except caller
    */
-  
+
   function requestModal( name, cb ) {
 
     modalTaken = true;
@@ -439,7 +439,7 @@ module.exports = function( uid ) {
   /**
    * re-enables all widgets
    */
-  
+
   function releaseModal() {
 
     modalTaken = false;
@@ -521,7 +521,7 @@ module.exports = function( uid ) {
   /**
    * run method of each widget at the optional exception of...
    */
-  
+
   function _forEachWidget( methodName, methodParams, except ) {
 
     if ( ( arguments.length == 2 ) && ( typeof methodParams == 'string' ) ) {
@@ -559,7 +559,7 @@ module.exports = function( uid ) {
         }
 
       }
-    
+
     }
 
   }
@@ -630,7 +630,7 @@ module.exports = function( uid ) {
       // append is passed info
 
       e.p = true;
-      
+
       for (var i = e.d.length - 1; i >= 0; i--) {
 
         if ( e.d[ i ] >= today ) {
@@ -669,7 +669,7 @@ module.exports = function( uid ) {
    * uses the control data ( agenda js data ) to determine which
    * events are included and which are not
    */
-  
+
   function sweep( originWidget ) {
 
     var includedCount = 0;
@@ -730,7 +730,7 @@ module.exports = function( uid ) {
         _include( ctl.ev[i], currentRequestParams, targetWidget );
 
       }
-    
+
     }
 
     return counter;
@@ -741,7 +741,7 @@ module.exports = function( uid ) {
   /**
    * have there been any changes in parameters?
    */
-  
+
   function isDifferent( data ) {
 
     for ( var i in currentRequestParams ) {
@@ -766,7 +766,7 @@ module.exports = function( uid ) {
   /**
    * as part of sweep, tell widgets event item passed through filters
    */
-  
+
   function _include( item, p, targetWidget ) {
 
     if ( targetWidget ) {
@@ -779,7 +779,7 @@ module.exports = function( uid ) {
 
         if ( widgets[ i ].include ) {
 
-          widgets[i].include( item, p );  
+          widgets[i].include( item, p );
 
         }
 
@@ -790,7 +790,7 @@ module.exports = function( uid ) {
 
   }
 
-  
+
   function _applyFilters( item, reqParams ) {
 
     for ( var i in filters ) {
@@ -862,7 +862,7 @@ module.exports = function( uid ) {
     var today = _stringifyDate( new Date() );
 
     for ( var i = eItem.d.length - 1; i >= 0; i-- ) {
-      
+
       if ( eItem.d[ i ] >= today ) return false;
 
     };
@@ -892,7 +892,7 @@ module.exports = function( uid ) {
     } else {
 
       query = _readHrefQuery();
-      
+
       if ( cn.size( updatedQuery ) ) {
 
         query.oaq = updatedQuery;
@@ -918,10 +918,10 @@ module.exports = function( uid ) {
       if ( ( typeof window.history !== 'undefined' ) && ( typeof window.history.pushState !== 'undefined' ) ) {
 
         window.history.pushState( updatedQuery, null, href );
-        
+
       }
 
-      
+
     }
 
   }
