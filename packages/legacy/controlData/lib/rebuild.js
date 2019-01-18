@@ -48,6 +48,10 @@ async function rebuild( { prefix, knex, redis }, uid ) {
       start: null,
       end: null
     },
+    ebd: {
+      dcss: {},
+      sh: {}
+    },
     sh: true // sync with href
   }
 
