@@ -80,8 +80,6 @@ function _sendResult( req, res, agendaUid, ctlDataStr ) {
     'Content-Length': ctlDataStr.length
   } );
 
-  https://openagenda.com/agendas/50522407/embeds/80717033/controldata?callback=cb5052240780717033
-
   if ( req.query.callback ) return res.send( req.query.callback + '({"success":true,"code":200,"data":' + ctlDataStr + '})' );
 
   res.send( '{"success":true,"code":200,"data":' + ctlDataStr + '}' );
