@@ -18,7 +18,7 @@ const set = require( './lib/set' );
 const task = require( './lib/task' );
 const update = require( './lib/update' );
 
-module.exports = ( { knex, redis, prefix } ) => {
+module.exports = ( { knex, redis, prefix, imagePath } ) => {
 
   const config = {
     knex,
@@ -35,6 +35,7 @@ module.exports = ( { knex, redis, prefix } ) => {
     memberRemove: memberRemove.bind( null, config ),
     memberSet: memberSet.bind( null, config ),
     middleware: middleware.bind( null, config ),
+    embedMiddleware: middleware.embed.bind( null, { knex, redis, prefix, imagePath } ),
     queue: queue.bind( null, config ),
     rebuild: rebuild.bind( null, config ),
     remove: remove.bind( null, config ),

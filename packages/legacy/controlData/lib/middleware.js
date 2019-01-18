@@ -3,13 +3,38 @@
 const _ = require( 'lodash' );
 
 const loadControlData = require( './utils/loadControlData' );
+const loadEmbedControlData = require( './utils/loadEmbedControlData' );
 const { isRebuilding } = require( './rebuild' );
 const rebuild = require( './rebuild' );
 const queue = require( './queue' );
 
 const log = require( '@openagenda/logs' )( 'controlData/middleware' );
 
-module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
+module.exports = _.assign( main, { embed } );
+
+
+async function embed( { prefix, knex, redis, imagePath }, req, res, next ) {
+
+  const embedUid = _.get( req, 'params.embedUid' );
+
+  log( 'fetching control data for embed %s', embedUid );
+
+  try {
+
+    req.embedControlDataStr = await loadEmbedControlData( { prefix, knex, redis, imagePath }, embedUid );
+
+  } catch ( e ) {
+
+    log( 'error', 'could not load embed %s', embedUid, e );
+
+  }
+
+  next();
+
+}
+
+
+async function main( { prefix, knex, redis }, req, res, next ) {
 
   const agendaUid = _.get( req, 'agenda.uid' );
 
@@ -19,14 +44,14 @@ module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
 
   try {
 
-    const ctlDataStr = await loadControlData( redis, prefix, agendaUid, {
+    let ctlDataStr = await loadControlData( redis, prefix, agendaUid, {
       parse: false,
       initialize: false
     } );
 
     if ( ctlDataStr ) {
 
-      return _sendResult( req, res, agendaUid, ctlDataStr );
+      return _sendResult( req, res, agendaUid, ctlDataStr, req.embedControlDataStr );
 
     }
 
@@ -36,7 +61,7 @@ module.exports = async ( { prefix, knex, redis }, req, res, next ) => {
 
       return _sendResult( req, res, agendaUid, JSON.stringify(
         await rebuild( { prefix, knex, redis }, agendaUid )
-      ) );
+      ), req.embedControlDataStr );
 
     }
 
@@ -71,17 +96,31 @@ function _getPublishedEventsCount( knex, agendaUid ) {
 
 }
 
-function _sendResult( req, res, agendaUid, ctlDataStr ) {
+function _sendResult( req, res, agendaUid, ctlDataStr, embedCtlDataStr ) {
 
   log( 'retrieved control data for agenda %s', agendaUid );
 
+  let body = ctlDataStr;
+
+  if ( embedCtlDataStr ) {
+
+    body = body.replace( /}$/, ',"ebd" : ' + embedCtlDataStr + '}' );
+
+  }
+
+  body = '{"success":true,"code":200,"data":' + body + '}';
+
+  if ( req.query.callback ) {
+
+    body = req.query.callback + '(' + body + ')';
+
+  }
+
   res.set( {
     'Content-Type': 'application/json',
-    'Content-Length': ctlDataStr.length
+    'Content-Length': body.length
   } );
 
-  if ( req.query.callback ) return res.send( req.query.callback + '({"success":true,"code":200,"data":' + ctlDataStr + '})' );
-
-  res.send( '{"success":true,"code":200,"data":' + ctlDataStr + '}' );
+  res.send( body );
 
 }
