@@ -7,6 +7,7 @@ const promisifyRedis = require( './lib/utils/promisifyRedis' );
 const batch = require( './lib/batch' );
 const batchRemove = require( './lib/batchRemove' );
 const clear = require( './lib/clear' );
+const embedClear = require( './lib/embedClear' );
 const insert = require( './lib/insert' );
 const memberRemove = require( './lib/memberRemove' );
 const memberSet = require( './lib/memberSet' );
@@ -36,6 +37,7 @@ module.exports = ( { knex, redis, prefix, imagePath } ) => {
     memberSet: memberSet.bind( null, config ),
     middleware: middleware.bind( null, config ),
     embedMiddleware: middleware.embed.bind( null, { knex, redis, prefix, imagePath } ),
+    embedClear: embedClear.bind( null, config ),
     queue: queue.bind( null, config ),
     rebuild: rebuild.bind( null, config ),
     remove: remove.bind( null, config ),
