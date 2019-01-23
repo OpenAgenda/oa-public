@@ -149,11 +149,31 @@ describe( 'events - functional (server): legacy reverse bridge', function() {
 
       await svc.legacy.update( { uid } );
 
-      const eventTranslations = await knex( config.legacy.schemas.eventTranslation ).select().where( { id: legacyEventRecord.id } );
+      const afterTranslations = await knex( config.legacy.schemas.eventTranslation ).select().where( { id: legacyEventRecord.id } );
 
-      eventTranslations.length.should.equal( 2 );
+      afterTranslations.length.should.equal( 2 );
 
-      _.head( eventTranslations.filter( t => t.lang === 'en' ) ).title.should.equal( 'A new title' );
+      _.head( afterTranslations.filter( t => t.lang === 'en' ) ).title.should.equal( 'A new title' );
+
+    } );
+
+    it( 'unset multilingual fields trigger the removal of corresponding event_translation records', async () => {
+
+      await svc.update( { uid }, {
+        title: {
+          fr: 'Un nouveau titre',
+          en: 'A new title'
+        },
+        longDescription: {
+          fr: null
+        }
+      } );
+
+      await svc.legacy.update( { uid } );
+
+      const afterTranslations = await knex( config.legacy.schemas.eventTranslation ).select().where( { id: legacyEventRecord.id } );
+
+      should( _.first( afterTranslations.filter( t => t.lang === 'fr' ) ).free_text ).equal( null );
 
     } );
 
