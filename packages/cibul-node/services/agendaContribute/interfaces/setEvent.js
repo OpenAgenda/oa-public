@@ -32,8 +32,12 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
   }
 
-  // event state is dictated by agenda settings
-  transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+
+  const newState = _defineEventState( agenda, current );
+
+  // This should be handled in core lib by looking at
+  // member role as behavior should be same as with API
+  if ( newState !== null ) transforms.state = { $set: newState };
 
   const transformed = ih( data, transforms );
 
@@ -94,5 +98,35 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
     }
 
   }
+
+}
+
+
+/*
+  from agenda contribution settings:
+
+  moderateOnChangeBy: {
+    type: 'choice',
+    default: [],
+    options: [
+      'administrators',
+      'moderators',
+      'contributors'
+    ]
+  }
+*/
+function _defineEventState( agenda, current = null ) {
+
+  const isEventNew = !current;
+
+  if ( isEventNew ) return _.get( agenda, 'settings.contribution.defaultState' );
+
+  if ( !isEventNew && _.get( agenda, 'settings.contribution.moderateOnChangeBy', [] ).length ) {
+
+    return 0;
+
+  }
+
+  return null;
 
 }
