@@ -24,6 +24,8 @@ module.exports = async ( interfaceName, ref, context ) => {
       detailed: true
     } );
 
+    if ( !event ) log( 'error', 'event of uid %s could not be retrieved', _.get( ref, 'uid' ), ref );
+
   } else {
 
     log( 'event %s, %s is in context', event.uid, event.slug );
