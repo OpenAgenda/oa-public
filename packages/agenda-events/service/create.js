@@ -32,7 +32,7 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
   let clean;
 
   let success = false;
-  
+
   let created = null;
 
   try {
@@ -92,9 +92,11 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
     try {
 
-     const result = await legacyTransfer.to( created );
+     const updatedRef = await legacyTransfer.to( created );
 
-     log( 'info', 'successfully transferred to legacy', result );
+     log( 'info', 'successfully transferred to legacy', updatedRef );
+
+     created.legacyId = updatedRef.legacyId;
 
     } catch ( e ) {
 

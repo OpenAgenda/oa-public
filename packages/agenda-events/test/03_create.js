@@ -57,7 +57,7 @@ describe( 'agendaEvents - functional (server): create', function() {
 
     const createdAt = new Date( '2017-02-28T08:00:00.000Z' );
 
-    const updatedAt = new Date( '2017-03-28T08:00:00.000Z' ); 
+    const updatedAt = new Date( '2017-03-28T08:00:00.000Z' );
 
     const result = await svc( 62792452 ).create( 3333, {
       featured: true,

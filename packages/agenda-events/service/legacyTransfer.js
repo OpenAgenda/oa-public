@@ -55,7 +55,9 @@ async function toLegacy( ae ) {
 
   const legacyId = await _getLegacyId( ae );
 
-  let eventId, agendaId, result;
+  const updatedAgendaEvent = _.assign( {}, ae );
+
+  let eventId, agendaId;
 
   if ( legacyId ) {
 
@@ -72,7 +74,7 @@ async function toLegacy( ae ) {
 
     try {
 
-      result = await q.update( data ).where( {
+      await q.update( data ).where( {
         event_id: eventId,
         review_id: agendaId
       } );
@@ -90,7 +92,7 @@ async function toLegacy( ae ) {
     eventId = _.get( await knex( config.legacy.schemas.event ).first( 'id' ).where( 'uid', ae.eventUid ), 'id' );
     agendaId = _.get( await knex( config.legacy.schemas.agenda ).first( 'id' ).where( 'uid', ae.agendaUid ), 'id' );
 
-    result = await q.insert( _.extend( {
+    const result = await q.insert( _.extend( {
       review_id: agendaId,
       event_id: eventId,
       created_at: new Date
@@ -98,9 +100,13 @@ async function toLegacy( ae ) {
 
     if ( result.length ) {
 
+      const newLegacyId = [ agendaId, eventId ].join( '.' );
+
       await knex( config.schemas.agendaEvent ).update( {
-        legacy_id: [ agendaId, eventId ].join( '.' )
+        legacy_id: newLegacyId
       } ).where( { agenda_uid: ae.agendaUid, event_uid: ae.eventUid } );
+
+      updatedAgendaEvent.legacyId = newLegacyId;
 
     }
 
@@ -125,7 +131,7 @@ async function toLegacy( ae ) {
 
   }
 
-  return result;
+  return updatedAgendaEvent;
 
 }
 
