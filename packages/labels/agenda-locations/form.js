@@ -164,5 +164,17 @@ module.exports = {
   cityDistrict: {
     fr: 'Quartier',
     en: 'District'
+  },
+  extId: {
+    fr: 'Identifiant externe',
+    en: 'External Identifier'
+  },
+  extIdInfo: {
+    fr: 'Optionnellement, précisez un identifiant unique pour ce lieu',
+    en: 'Optionnally, specify a unique identifier for this location'
+  },
+  extIdLink: {
+    fr: 'Définir un identifiant unique pour ce lieu',
+    en: 'Define a unique identifier for this location'
   }
 }
