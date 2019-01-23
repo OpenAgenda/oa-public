@@ -12,7 +12,8 @@ module.exports.tests = {
   loadTagAlternative,
   checkLanguage,
   startPageSpin,
-  stopPageSpin
+  stopPageSpin,
+  showExtId
 }
 
 
@@ -48,7 +49,9 @@ function actions( options ) {
 
     setErrorResponse: assign( setErrorResponse ),
 
-    setSuccess: assign( setSuccess )
+    setSuccess: assign( setSuccess ),
+
+    showExtId: assign( showExtId )
 
   }
 
@@ -89,7 +92,8 @@ function initialize( props ) {
     geocodeError: false,
     activeAlternatives: {},
     translation: {},
-    pageSpin: null
+    pageSpin: null,
+    showExtIdInput: false
   }
 
 
@@ -262,6 +266,11 @@ function stopPageSpin( state ) {
 
   return { pageSpin: false };
 
+}
+
+function showExtId() {
+
+  return { showExtIdInput: true };
 }
 
 

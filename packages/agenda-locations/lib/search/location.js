@@ -75,6 +75,11 @@ module.exports.mapping = {
       analyzer: 'custom'
     },
 
+    extId: {
+      type: 'string',
+      analyzer: 'custom'
+    },
+
     district: {
       type: 'string',
       analyzer: 'custom'
@@ -211,7 +216,7 @@ module.exports.query = function( q, offset, limit ) {
         'name', 'address', 'city',
         'countryCode', 'region',
         'department', 'district',
-        'postalCode'
+        'postalCode', 'extId'
       ]
     }
 
@@ -314,6 +319,7 @@ module.exports.clean = function( l, refreshUpdatedAt ) {
     countryCode: l.countryCode || l.country,
     region: l.region,
     department: l.department,
+    extId: l.extId,
     district: l.district,
     postalCode: l.postalCode,
     website: l.website,
