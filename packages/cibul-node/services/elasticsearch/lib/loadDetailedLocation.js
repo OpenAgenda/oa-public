@@ -10,9 +10,9 @@ const al = require( '@openagenda/agenda-locations' );
  */
 module.exports = function( data, cb ) {
 
-  if ( !data 
+  if ( !data
 
-  || typeof data !== 'object' 
+  || typeof data !== 'object'
 
   || !utils.isArray( data.locations )
 
@@ -23,7 +23,7 @@ module.exports = function( data, cb ) {
     decorate: true,
     fullImagePath: true
   }, ( err, location ) => {
-    
+
     if ( err ) return cb( err );
 
     for( let k in location ) {

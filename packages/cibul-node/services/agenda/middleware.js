@@ -85,7 +85,7 @@ function loadAgenda( paramName, fieldName, options ) {
     const getParams = {};
 
     getParams[ fieldName ] = req.params[ paramName ];
-    
+
     if ( !loadOptions.required && req.params[ paramName ] === undefined ) {
 
       return next();
@@ -196,7 +196,7 @@ function loadAdminLayout( req, res, next ) {
 
         } )
 
-        // filter out tabs not matching adequate version 
+        // filter out tabs not matching adequate version
         .filter( tab => {
 
           if ( !tab.version ) {
@@ -269,7 +269,7 @@ function _getCredentialList( agenda, cb ) {
   }
 
   // new service
-  
+
   setImmediate( () => {
 
     cb( null, _.keys( _.pickBy( agenda.credentials, v => !!v ) ) );
@@ -507,7 +507,7 @@ function buildXlsx( includePrivateData ) {
       if ( err ) return next( err );
 
       const stream = req.agenda.searchStream( req.query.oaq, {
-        showAll: includePrivateData 
+        showAll: includePrivateData
       } ),
 
       xlsxStream = new xlsx(),
@@ -528,7 +528,7 @@ function buildXlsx( includePrivateData ) {
           req.agenda.slug,
           '.', _stringifiedNow(),
           '.xlsx\"' ].join('')
-      } ); 
+      } );
 
       stream.on( 'data', eventData => {
 
@@ -613,7 +613,7 @@ function buildCsv( includePrivateData ) {
       if ( err ) return next( err );
 
       const stream = req.agenda.searchStream( req.query.oaq, {
-        showAll: includePrivateData 
+        showAll: includePrivateData
       } );
 
       const csvStream = csv.createWriteStream( {
@@ -645,7 +645,7 @@ function buildCsv( includePrivateData ) {
           req.agenda.slug,
           '.', _stringifiedNow(),
           '.csv\"' ].join('')
-      } ); 
+      } );
 
       stream.on( 'data', eventData => {
 
@@ -769,11 +769,11 @@ function _cleanXlsxRow( row ) {
     } else if ( utils.isArray( row[ c ] ) ) {
 
       clean[ c ] = row[ c ].join( ', ' ) + '';
-      
+
     } else {
 
       clean[ c ] = row[ c ] + '';
-    
+
     }
 
   }

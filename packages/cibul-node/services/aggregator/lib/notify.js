@@ -27,6 +27,16 @@ function unpublish( eventId, agendaId, cb ) {
 
   log( 'unpublish event %s from source %s', eventId, agendaId );
 
+  if ( !eventId ) {
+
+    log( 'error', 'missing event id, cannot unpublish', agendaId );
+
+    if ( cb ) cb();
+
+    return;
+
+  }
+
   if ( !cb ) {
 
     log( 'queueing' );
@@ -72,6 +82,16 @@ function publish( eventId, agendaId, mute, cb ) {
   }
 
   log( 'publish event %s on source %s', eventId, agendaId );
+
+  if ( !eventId ) {
+
+    log( 'error', 'missing event id, cannot unpublish', agendaId );
+
+    if ( cb ) cb();
+
+    return;
+
+  }
 
   if ( !cb ) {
 
