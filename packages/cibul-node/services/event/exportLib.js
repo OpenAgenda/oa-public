@@ -62,7 +62,8 @@ const _ = require( 'lodash' ),
     phone: 'phone',
     tags: 'tags',
     timezone: 'timezone',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    extId: 'extId'
   }
 
 let svc;
