@@ -6,9 +6,9 @@ module.exports = {
     keys: [ 'dsqfdsq', 'fdqfdsqfdsf', 'dsfdss' ],
     maxAge: 1000 * 60 * 60 * 48, // 2 days
     signed: true,
-    secure: false,
-    httpOnly: false // make cookie available to client Javascript
+    secure: false
   },
+  expire: 60*60*48,
   writableCookie: {
     maxAge: 1000 * 60 * 60 * 48,
     name: 'oa.rw' // overriden by iso configuration
@@ -16,7 +16,7 @@ module.exports = {
   redis: {
     host: 'localhost',
     port: 6379,
-    hash: 'sessionstest'
+    prefix: 'sessionstest'
   },
   interfaces: {
     getUser: ( query, cb ) => {
@@ -24,6 +24,7 @@ module.exports = {
       cb( null, {
         id: 1,
         uid: 12345678,
+        isNew: false,
         name: 'Gaetan Latouche',
         thumbnail: '//graph.facebook.com/100002280111541/picture',
         email: 'gaetan@cibul.net',
