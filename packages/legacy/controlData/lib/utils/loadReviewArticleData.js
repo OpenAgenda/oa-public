@@ -14,7 +14,7 @@ module.exports = async ( knex, legacyRefId ) => {
 
   if ( !_.isString( legacyRefId ) || ( legacyRefId.split( '.' ).length !== 2 ) ) {
 
-    throw new VError( 'no valid legacy id was provided', legacyRefId );
+    throw new VError( 'no valid legacy id was provided; %s', legacyRefId );
 
   }
 
