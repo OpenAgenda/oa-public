@@ -27,6 +27,6 @@ async function sync( request ) {
 
   }
 
-  return await open.promise( request, { uid: user.uid } );
+  return await open.promise( request, null, { uid: user.uid } );
 
 }
