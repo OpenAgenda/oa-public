@@ -26,11 +26,12 @@ module.exports = async ( agendaUid, data ) => {
 
 module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
 
-  const { draft, evaluateEvent, formSchemaDataFormat, defaultLang } = _.assign( {
+  const { draft, evaluateEvent, formSchemaDataFormat, defaultLang, optionalState } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
-    formSchemaDataFormat: false
+    formSchemaDataFormat: false,
+    optionalState: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits )
@@ -96,11 +97,9 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
 
     }
 
-    clean.agendaEvent = validateAgendaEvent( data );
+    clean.agendaEvent = validateAgendaEvent( data, { optionalState } );
 
   } catch( agendaEventErrors ) {
-
-    errors = errors.concat( agendaEventErrors );
 
     agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
 

@@ -46,12 +46,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   const updated = {};
 
-  // pre-validate data
+  // pre-validate data. if state is not specified, it should not be forced.
   const clean = await validate.loaded( {
     formSchemaId,
     networkFormSchemaId,
     defaultLang
-  }, data, { draft, formSchemaDataFormat } );
+  }, data, { draft, formSchemaDataFormat, optionalState: true } );
 
   try {
 

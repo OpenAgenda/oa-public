@@ -239,7 +239,28 @@ describe( 'core - functional ( server ): agenda event update', function() {
     } );
 
 
-    it( 'if only agendaEvent & custom data are provided, event does not require update' );
+
+    it( 'if update does not specify state, state should be unchanged', async () => {
+
+      ( await agendaEvents( 17026855 ).get( event.uid ) ).state.should.equal( 0 );
+
+      await core.agendas( 17026855 ).events.update( event.uid, {
+        title: {
+          fr: 'Un événement remis à jour'
+        },
+        description: {
+          fr: 'Une description'
+        },
+        location: { uid: 123 },
+        timings: [ { begin: new Date, end: new Date } ],
+        'custom_description' : 'Meh',
+        'categories-agenda-metropolitain': 43,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+      ( await agendaEvents( 17026855 ).get( event.uid ) ).state.should.equal( 0 );
+
+    } );
 
   } );
 
