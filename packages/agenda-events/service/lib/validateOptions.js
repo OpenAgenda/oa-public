@@ -19,12 +19,6 @@ module.exports = ( values, operation = 'default' ) => {
 
 }
 
-function validate( values, type = 'base' ) {
-
-
-
-}
-
 const base = {
   protected: {
     type: 'boolean',

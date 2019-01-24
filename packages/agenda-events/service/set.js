@@ -21,8 +21,8 @@ async function set( agendaUid, eventUid, data = {}, options = {} ) {
 
   if ( await get( agendaUid, eventUid ) ) {
 
-    const result = await update( agendaUid, eventUid, 
-      _merge( data, 'update' ),  
+    const result = await update( agendaUid, eventUid,
+      _merge( data, 'update' ),
       _merge( options, 'update' )
     );
 
@@ -34,9 +34,9 @@ async function set( agendaUid, eventUid, data = {}, options = {} ) {
 
   }
 
-  const result = await create( agendaUid, eventUid, 
-    _merge( data, 'create' ), 
-    _merge( options, 'create' ) 
+  const result = await create( agendaUid, eventUid,
+    _merge( data, 'create' ),
+    _merge( options, 'create' )
   );
 
   if ( !result.success ) return result;
