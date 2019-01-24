@@ -35,7 +35,7 @@ var sync = function () {
 
           case 5:
             _context.next = 7;
-            return open.promise(request, { uid: user.uid });
+            return open.promise(request, null, { uid: user.uid });
 
           case 7:
             return _context.abrupt('return', _context.sent);
