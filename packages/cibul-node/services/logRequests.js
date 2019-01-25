@@ -62,7 +62,7 @@ const middleware = morgan(
 
 
     return morgan.compile( withColor(
-      '":method :url HTTP/:http-version" :remote-addr :query '
+      `":method ${colored( ':url', 1 )} HTTP/:http-version" :remote-addr :query `
       + `${colored( ':status', color )} :content-length ~ :response-time ms`
     ) )( tokens, req, res );
   },
