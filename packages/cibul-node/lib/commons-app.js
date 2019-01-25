@@ -470,8 +470,6 @@ function errorResponse( req, res, error, jsonResponse ) {
 
   lang( req, res, () => {
 
-    req.log( 'preparing error response' );
-
     if ( jsonResponse === undefined ) {
 
       jsonResponse = /\.json$/.test( req.path );
@@ -726,8 +724,6 @@ function loadBaseData( func, cssFile ) {
   cssFile += '?v=' + config.cssVersion;
 
   return ( req, res, next ) => {
-
-    req.log( 'loading base data' );
 
     const baseData = {
       head: {

@@ -35,7 +35,7 @@ function Router( routes ) {
 
     for ( var r in routes ) {
 
-      router[ routes[ r ][ 0 ] ]( routes[ r ][ 1 ], [ _log( r ) ].concat( preMiddlewares, routes[ r ][ 2 ] ) );
+      router[ routes[ r ][ 0 ] ]( routes[ r ][ 1 ], [].concat( preMiddlewares, routes[ r ][ 2 ] ) );
 
     }
 
@@ -61,18 +61,5 @@ function getPaths( basePath, routes ) {
   }
 
   return paths;
-
-}
-
-
-function _log( r ) {
-
-  return function( req, res, next ) {
-
-    req.log( r );
-
-    next();
-
-  }
 
 }
