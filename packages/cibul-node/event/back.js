@@ -26,18 +26,11 @@ const activitiesSvc = require( '@openagenda/activities' );
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
 const routes = {
-  eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
-    legacyAgendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.checkEventEditor,
-    _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
-    _changeState,
-    _redirect
-  ] ],
 
   agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
+    cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
     _changeStateCredential,
     _changeState,
