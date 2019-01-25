@@ -1,10 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
 import { getContext } from 'recompose';
 import cn from 'classnames';
 import { LinkContainer } from '../';
 
-class Breadcrumb extends Component {
+@getContext( {
+  getLabel: PropTypes.func
+} )
+@withRouter
+export default class Breadcrumb extends Component {
   renderParts() {
     const { breadParts } = this.props;
 
@@ -28,7 +33,7 @@ class Breadcrumb extends Component {
   }
 
   render() {
-    const { getLabel, breadParts, disableFirstPartLink, router } = this.props;
+    const { getLabel, breadParts, disableFirstPartLink, history } = this.props;
 
     const noParts = !breadParts || !breadParts.length;
 
@@ -39,7 +44,7 @@ class Breadcrumb extends Component {
           {path => (
             <a
               role="button"
-              onClick={() => router.push( { pathname: path, state: { showListAllowed: true } } )}
+              onClick={() => history.push( { pathname: path, state: { showListAllowed: true } } )}
             >
               {getLabel( 'inbox' )}
             </a>
@@ -55,8 +60,3 @@ class Breadcrumb extends Component {
     );
   }
 }
-
-export default getContext( {
-  getLabel: PropTypes.func,
-  router: PropTypes.object
-} )( Breadcrumb );

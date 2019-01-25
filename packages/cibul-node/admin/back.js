@@ -1,6 +1,6 @@
 "use strict";
 
-const { promisify, callbackify } = require( 'util' );
+const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
 const bodyMw = require( 'body-parser' ).urlencoded( {
@@ -21,7 +21,7 @@ const adminSvc = require( '../services/admin/admin' );
 const usersSvc = require( '@openagenda/users' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const agendasSvc = require( '@openagenda/agendas' );
-const inboxAppsMw = require( '@openagenda/inbox-apps/dist/middleware' );
+const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
 
 const routes = {
   adminIndex: [ 'get', '/', index ],
@@ -44,40 +44,68 @@ const routes = {
   eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
   eventsDiff: [ 'get', '/eventsdiff', eventsDiff ],
   adminSupport: [ 'get', '/support/?*?', [
-    ( req, res, next ) => {
-      const prefix = '/admin/support';
-
-      inboxAppsMw.matchApp(
-        {
-          state: {
-            user: req.user,
-            settings: {
-              context: 'user',
-              prefix,
-              lang: req.lang,
-              apiRoot: `http://localhost:${config.port}`,
-              perPageLimit: 20
+    async ( req, res, next ) => {
+      const lang = req.lang || 'fr';
+      const { element, triggerHooks, store, context } = createInboxApp( {
+        req,
+        initialState: {
+          settings: {
+            context: 'user',
+            prefix: '/admin/support',
+            lang: req.lang,
+            apiRoot: `http://localhost:${config.port}`,
+            perPageLimit: 20
+          },
+          res: {
+            author: '/admin/support/author.json',
+            conversations: {
+              create: '/admin/support/conversations.json',
+              list: '/admin/support/conversations.json',
+              action: '/admin/support/conversations/:conversationId/action/:code.json',
+              resume: '/admin/support/conversations/:conversationId/resume.json'
             },
-            res: {
-              author: '/admin/support/author.json',
-              conversations: {
-                create: '/admin/support/conversations.json',
-                list: '/admin/support/conversations.json',
-                action: '/admin/support/conversations/:conversationId/action/:code.json',
-                resume: '/admin/support/conversations/:conversationId/resume.json'
-              },
-              messages: {
-                list: '/admin/support/conversations/:conversationId/messages.json',
-                create: '/admin/support/conversations/:conversationId/messages.json',
-                prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-                addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
-              }
+            messages: {
+              list: '/admin/support/conversations/:conversationId/messages.json',
+              create: '/admin/support/conversations/:conversationId/messages.json',
+              prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
+              addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
             }
           }
-        },
-        prefix,
-        renderSupportApp()
-      )( req, res, next );
+        }
+      } );
+
+      try {
+        await triggerHooks();
+
+        const content = ReactDOM.renderToString( element );
+
+        const state = store.getState();
+
+        // Remove apiRoot used only on server side
+        state.settings.apiRoot = '';
+
+        if ( context.status === 404 ) {
+          return next();
+        }
+
+        if ( context.url ) {
+          return res.redirect( 301, context.url );
+        }
+
+        const { pathname, search } = state.router.location;
+        if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+          return res.redirect( 301, pathname );
+        }
+
+        res.send( supportTemplate( {
+          scriptParams: { initialState:state },
+          lang,
+          content,
+          preloaded: true
+        } ) );
+      } catch ( e ) {
+        next( e );
+      }
     }
   ] ]
 };
@@ -561,18 +589,3 @@ var _layoutData = function ( totals, totalsWeek, totalsMonth ) {
   };
 
 };
-
-function renderSupportApp() {
-  return ( req, res, next, { store, component } ) => {
-    const state = store ? store.getState() : {};
-    const lang = req.lang;
-
-    const content = component ? ReactDOM.renderToString( component ) : '';
-
-    res.send( supportTemplate( {
-      scriptParams: { state },
-      lang,
-      content
-    } ) );
-  };
-}

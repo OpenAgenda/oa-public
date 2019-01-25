@@ -17,10 +17,6 @@ const agendaRouter = express.Router( { mergeParams: true } );
 module.exports = agendaRouter;
 
 
-if ( __DEVELOPMENT__ ) {
-  agendaRouter.use( morgan( 'dev' ) );
-}
-
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
@@ -218,6 +214,6 @@ function errorHandler( err, req, res, next ) {
       return next( err );
     }
     errorLogger( 'middleware', err );
-    res.status( 500 ).json( err );
+    res.status( res.statusCode || 500 ).json( err );
   }
 }

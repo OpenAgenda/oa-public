@@ -1,39 +1,63 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import _ from 'lodash';
-import { bindActionCreators } from 'redux';
+import { createMemoryHistory } from 'history';
+import { applyMiddleware, compose, bindActionCreators } from 'redux';
 import { Provider } from 'react-redux';
-import createHistory from 'history/lib/createBrowserHistory';
+import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
-import ApiClient from '@openagenda/react-utils/dist/ApiClient';
+import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
 import du from '@openagenda/dom-utils';
-import reducer from '../../redux/reducer';
+import getReducers from '../../redux/reducer';
 import { ConversationFormApp } from '../../containers';
 import { onReady } from './openConversationForm';
 import * as actions from '../../redux/modules/conversationForm';
 
-export default function createApp( options ) {
+function parseJsonField( value ) {
+  try {
+    return JSON.parse( value );
+  } catch ( e ) {
+    return value;
+  }
+}
 
-  const params = _.merge( {
-    state: {
-      settings: {
-        lang: 'fr',
-        prefix: '',
-        apiRoot: ''
-      },
-      res: {
-        conversations: {
-          create: '/user/conversations'
-        }
-      }
+const defaults = {
+  initialState: {
+    settings: {
+      lang: 'fr',
+      prefix: '',
+      apiRoot: ''
     },
-    selector: '.js_conversation_form',
-    appDestClassName: 'js_conversation_form_canvas'
-  }, options );
+    res: {
+      conversations: {
+        create: '/user/conversations'
+      }
+    }
+  },
+  selector: '.js_conversation_form',
+  appDestClassName: 'js_conversation_form_canvas'
+};
 
-  const client = new ApiClient( params.state.settings.apiRoot );
-  const browserHistory = createHistory();
-  const store = createStore( reducer )( browserHistory, client, params.state );
+export default function ( options = {} ) {
+  const { initialState, req, selector, appDestClassName } = _.merge( {}, defaults, options );
+  const { apiRoot } = initialState.settings;
+
+  const client = apiClient( apiRoot, req );
+  const history = options.history || createMemoryHistory();
+  const store = createStore(
+    getReducers.bind( null, history ),
+    initialState,
+    compose(
+      applyMiddleware(
+        clientMiddleware( { client } )
+        // ... other middlewares ... (like redux-logger)
+      ),
+      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
+        ? window.__REDUX_DEVTOOLS_EXTENSION__()
+        : v => v
+    )
+  );
+
 
   const openConversationForm = bindActionCreators( data => {
     if ( data instanceof Event ) {
@@ -51,29 +75,26 @@ export default function createApp( options ) {
 
   window.openConversationForm = openConversationForm;
 
-  if ( params.selector ) {
-    du.els( params.selector ).map( el => du.addEvent( el, 'click', openConversationForm ) );
+  if ( selector ) {
+    du.els( selector ).map( el => du.addEvent( el, 'click', openConversationForm ) );
   }
 
   if ( onReady ) openConversationForm( onReady );
 
   const appDest = document.createElement( 'div' );
-  appDest.className = params.appDestClassName;
+  appDest.className = appDestClassName;
   window.document.body.insertAdjacentElement( 'beforeend', appDest );
 
-  return ReactDOM.render(
+  const element = (
     <Provider store={store} key="provider">
       <ConversationFormApp />
-    </Provider>,
-    du.el( `.${params.appDestClassName}` )
+    </Provider>
   );
 
-}
+  ReactDOM.render( element, du.el( `.${appDestClassName}` ) );
 
-function parseJsonField( value ) {
-  try {
-    return JSON.parse( value );
-  } catch (e) {
-    return value;
-  }
-}
+  return {
+    store,
+    element
+  };
+};

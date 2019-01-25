@@ -3,26 +3,14 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const ReactDOMServer = require( 'react-dom/server' );
-
-const matchAppMw = require( '@openagenda/react-utils/dist/matchAppMw' );
-const createStore = require( '@openagenda/react-utils/dist/createStore' );
-const ApiClient = require( '@openagenda/react-utils/dist/ApiClient' );
+const notificationsApp = require( './client/apps/notifications' );
 const logs = require( '@openagenda/logs' );
-
-const getAdminRoutes = require( './react/apps/admin/routes' );
-const getAgendaRoutes = require( './react/apps/agenda/routes' );
-const getUserRoutes = require( './react/apps/user/routes' );
-const reducer = require( './react/redux/reducer' );
-const notificationsApp = require( './react/apps/notifications' );
-const log = logs( 'activity-apps/middleware' );;
+const log = logs( 'activity-apps/middleware' );
 
 let activitiesSvc;
 let config;
 
 module.exports = {
-  matchAdminApp: matchAppMw( createStore( reducer ), getAdminRoutes, ApiClient ),
-  matchAgendaApp: matchAppMw( createStore( reducer ), getAgendaRoutes, ApiClient ),
-  matchUserApp: matchAppMw( createStore( reducer ), getUserRoutes, ApiClient ),
   init,
   list,
   notifications: {

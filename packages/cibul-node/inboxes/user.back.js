@@ -207,8 +207,7 @@ function errorHandler( err, req, res, next ) {
       res.status( err.code );
       return next( err );
     }
-    console.log( err );
     errorLogger( 'middleware', err );
-    res.status( 500 ).json( err );
+    res.status( res.statusCode || 500 ).json( err );
   }
 }

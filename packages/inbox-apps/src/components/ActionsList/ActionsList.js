@@ -4,16 +4,11 @@ import { getContext } from 'recompose';
 import cn from 'classnames';
 
 class ActionsList extends Component {
-  constructor( props ) {
-    super( props );
-    this.triggerAction = ::this.triggerAction;
-  }
-
   static contextTypes = {
     lang: PropTypes.string
   };
 
-  getActionLabel( action ) {
+  getActionLabel = action => {
     const { lang } = this.context;
 
     if ( action.label[ lang ] ) {
@@ -23,7 +18,7 @@ class ActionsList extends Component {
     return action.label[ Object.keys( action.label )[ 0 ] ];
   }
 
-  triggerAction( action ) {
+  triggerAction = action => {
     const { onAction, showModal } = this.props;
 
     if ( action.code === 'default' ) {

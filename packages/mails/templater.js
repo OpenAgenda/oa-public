@@ -10,7 +10,7 @@ const log = require( '@openagenda/logs' )( 'mails/templater' );
 const config = require( './config' );
 
 const mjml2html = mjml.__esModule ? mjml.default : mjml;
-const cache = LRU();
+const cache = new LRU();
 const readFile = promisify( fs.readFile );
 
 function getCompiledRenderer( compiled, type, templateName, opts ) {

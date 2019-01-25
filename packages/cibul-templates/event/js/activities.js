@@ -8,7 +8,7 @@ const layout = require( './activities.ejs' );
 
 const labels = require( '@openagenda/labels/event/show' );
 
-const activitiesEventApp = require( '@openagenda/activity-apps/dist/react/apps/event' );
+const activitiesEventApp = require( '@openagenda/activity-apps/dist/client/apps/event' );
 
 
 module.exports = ( { canvas, fetch, res, lang } ) => {

@@ -1,5 +1,4 @@
 import update from 'immutability-helper';
-import { push } from 'react-router-redux';
 
 const LOAD = 'inbox-apps/conversation/LOAD';
 const LOAD_SUCCESS = 'inbox-apps/conversation/LOAD_SUCCESS';
@@ -159,23 +158,23 @@ export function isLoaded( globalState ) {
 }
 
 export function load( conversationId, query ) {
-  return ( { getState } ) => {
-    const state = getState();
+  return ( { getState, dispatch } ) => {
+    const { res, agenda, event, settings: { perPageLimit } } = getState();
 
-    return {
+    return dispatch( {
       types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
       query,
-      perPageLimit: state.settings.perPageLimit,
-      promise: ( client, { res, agenda, event } ) =>
+      perPageLimit,
+      promise: ( { client } ) =>
         client.get(
           res.messages.list
             .replace( ':slug', agenda && agenda.slug )
             .replace( ':agendaUid', agenda && agenda.uid )
             .replace( ':eventUid', event && event.uid )
             .replace( ':conversationId', conversationId ),
-          { query }
+          { params: query }
         )
-    };
+    } );
   };
 }
 
@@ -186,23 +185,27 @@ export function isAuthorLoaded( globalState ) {
 export function loadAuthor() {
   return {
     types: [ LOAD_AUTHOR, LOAD_AUTHOR_SUCCESS, LOAD_AUTHOR_FAIL ],
-    promise: ( client, { res, agenda, event } ) => client.get(
-      res.author
-        .replace( ':slug', agenda && agenda.slug )
-        .replace( ':agendaUid', agenda && agenda.uid )
-        .replace( ':eventUid', event && event.uid )
-    )
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda, event } = getState();
+
+      return client.get(
+        res.author
+          .replace( ':slug', agenda && agenda.slug )
+          .replace( ':agendaUid', agenda && agenda.uid )
+          .replace( ':eventUid', event && event.uid )
+      )
+    }
   };
 }
 
 export function nextPage( conversationId ) {
-  return ( { getState } ) => {
-    const state = getState();
+  return ( { getState, dispatch } ) => {
+    const { res, agenda, event, conversation, settings: { perPageLimit } } = getState();
 
-    return {
+    return dispatch( {
       types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
-      perPageLimit: state.settings.perPageLimit,
-      promise: ( client, { res, agenda, event } ) =>
+      perPageLimit,
+      promise: ( { client } ) =>
         client.get(
           res.messages.list
             .replace( ':slug', agenda && agenda.slug )
@@ -210,69 +213,74 @@ export function nextPage( conversationId ) {
             .replace( ':eventUid', event && event.uid )
             .replace( ':conversationId', conversationId ),
           {
-            query: {
-              ...state.conversation.query,
-              page: state.conversation.page + 1
+            params: {
+              ...conversation.query,
+              page: conversation.page + 1
             }
           }
         )
-    };
+    } );
   };
 }
 
 export function sendMessage( conversationId, data ) {
   return {
     types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
-    promise: ( client, { res, agenda, event } ) =>
-      client.post(
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda, event } = getState();
+
+      return client.post(
         res.messages.create
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid )
           .replace( ':conversationId', conversationId ),
-        { data }
+        data
       )
+    }
   };
 }
 
 export function triggerAction( conversationId, code ) {
   return ( { getState, dispatch } ) => {
-    const { settings, conversation } = getState();
+    const { settings, conversation, res, agenda, event } = getState();
 
-    return {
+    return dispatch( {
       types: [ TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL ],
-      promise: ( client, { res, agenda, event } ) =>
-        client.get(
-          res.conversations.action
-            .replace( ':slug', agenda && agenda.slug )
-            .replace( ':agendaUid', agenda && agenda.uid )
-            .replace( ':eventUid', event && event.uid )
-            .replace( ':conversationId', conversationId )
-            .replace( ':code', code )
-        )
-          .then( result =>  {
-            if ( code === 'removeTechnicalSupport' ) {
-              dispatch( push( settings.prefix ) );
-              return { conversation: conversation.data };
-            }
+      promise: ( { client, history } ) => client.get(
+        res.conversations.action
+          .replace( ':slug', agenda && agenda.slug )
+          .replace( ':agendaUid', agenda && agenda.uid )
+          .replace( ':eventUid', event && event.uid )
+          .replace( ':conversationId', conversationId )
+          .replace( ':code', code )
+      )
+        .then( result => {
+          if ( code === 'removeTechnicalSupport' ) {
+            history.push( settings.prefix );
+            return { conversation: conversation.data };
+          }
 
-            return result;
-          } )
-    };
+          return result;
+        } )
+    } );
   };
 }
 
 export function resume( conversationId ) {
   return {
     types: [ RESUME, RESUME_SUCCESS, RESUME_FAIL ],
-    promise: ( client, { res, agenda, event } ) =>
-      client.get(
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda, event } = getState();
+
+      return client.get(
         res.conversations.resume
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid )
           .replace( ':conversationId', conversationId )
-      )
+      );
+    }
   };
 }
 
@@ -280,20 +288,23 @@ export function attachFileToMessage( conversationId, messageId, file ) {
   return {
     types: [ ATTACH_FILE_TO_MESSAGE, ATTACH_FILE_TO_MESSAGE_SUCCESS, ATTACH_FILE_TO_MESSAGE_FAIL ],
     messageId,
-    promise: ( client, { res, agenda, event } ) =>
-      client.get(
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda, event } = getState();
+
+      return client.get(
         res.messages.addAttachment
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid )
           .replace( ':conversationId', conversationId ),
         {
-          query: {
+          params: {
             messageId,
             filename: file.meta.key,
             originalName: file.name
           }
         }
-      )
+      );
+    }
   };
 }

@@ -127,10 +127,17 @@ module.exports = ( parentApp, mountpath ) => {
   app.patch(
     path.join( mountpath, '/:__feathersId' ),
     ( req, res, next ) => {
-      return _.flow(
-        sessions.middleware.open( 'user', 'sessionResult' ),
-        res.data ? sessions.middleware.sync( 'syncResult' ) : ( req, res, next ) => next(),
-      )( req, req, next );
+      req.userIdentifier = req.user.uid;
+
+      next();
+    },
+    sessions.middleware.open( 'userIdentifier', 'sessionResult' ),
+    ( req, res, next ) => {
+      if ( !res.data ) {
+        return next();
+      }
+
+      sessions.middleware.sync( 'syncResult' )( req, res, next );
     }
   );
 
@@ -212,6 +219,7 @@ module.exports.init = async config => {
     knex: config.knex,
     mysql: config.db,
     schemas: config.schemas,
+    imagePath: config.aws.imageBucketPath,
     files: {
       bucket: config.aws.bucket,
       accessKeyId: config.aws.accessKeyId, // required

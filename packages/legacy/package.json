@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
-    "immutability-helper": "^2.3.0",
+    "immutability-helper": "^3.0.0",
     "lodash": "^4.17.10",
     "moment-timezone": "^0.5.13",
     "verror": "^1.9.0"

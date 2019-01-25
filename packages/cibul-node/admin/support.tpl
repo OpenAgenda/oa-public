@@ -68,6 +68,9 @@
 </div>
 
 <script type="text/javascript">window.templates = 'bs'</script>
+<% if ( typeof preloaded !== 'undefined' ) { %>
+<script type="text/javascript">window.__PRELOADED__=<%= preloaded %>;</script>
+<% } %>
 <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
 <script type="text/javascript" src="/js/inboxesUser.js"></script>
 </body>

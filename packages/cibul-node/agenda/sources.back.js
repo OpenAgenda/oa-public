@@ -112,11 +112,16 @@ async function matchApp( req, res, next ) {
   try {
     await triggerHooks();
 
-    const state = store.getState();
     const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
 
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
 
     if ( context.url ) {
       return res.redirect( 301, context.url );

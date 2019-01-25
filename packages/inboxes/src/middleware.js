@@ -2,6 +2,7 @@ import _ from 'lodash';
 import uppy from 'uppy-server';
 import axios from 'axios';
 import mime from 'mime-types';
+import VError from 'verror';
 import Inboxes from './';
 import Conversations from './Conversations';
 import { aws, knex, schemas } from './config';
@@ -413,7 +414,7 @@ export const messages = {
       }
     }, options );
 
-    return wrap( async ( req, res ) => {
+    return wrap( async ( req, res, next ) => {
       const filename = _.get( req, namespaces.filename, null );
 
       const attachment = await knex( schemas.messageAttachment )
@@ -425,26 +426,35 @@ export const messages = {
         } )
         .then( v => _.mapKeys( v, ( value, key ) => _.camelCase( key ) ) );
 
-      if ( attachment ) {
+      try {
 
-        res.set( 'Content-Type', mime.contentType( filename ) || 'application/octet-stream' );
+        const { data, headers } = await axios( {
+          method: 'get',
+          url: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${filename}`,
+          responseType: 'stream'
+        } );
+
+        res.set(
+          'Content-Type',
+          headers[ 'content-type' ] || mime.contentType( filename ) || 'application/octet-stream'
+        );
 
         res.set(
           'Content-Disposition',
-          /\.(jpeg|jpg|gif|png|svg|bmp)$/.test( filename )
+          /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test( filename )
             ? 'inline'
-            : `attachment; filename=${attachment.originalName}`
+            : `attachment; filename=${attachment ? attachment.originalName : filename}`
         );
 
+        data.pipe( res );
+
+      } catch ( error ) {
+
+        res.status( 403 );
+
+        next( new VError( error.response || error, 'Cannot download the attachment' ) );
+
       }
-
-      const { data } = await axios( {
-        method: 'get',
-        url: `https://s3.${aws.region}.amazonaws.com/${aws.bucket}/${filename}`,
-        responseType: 'stream'
-      } );
-
-      data.pipe( res );
     } );
   }
 };

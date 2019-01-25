@@ -23,6 +23,9 @@ module.exports = {
     message: 'message',
     messageAttachment: 'message_attachment'
   },
+  aws: {
+    defaultImagePath: `//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png`
+  },
   types: {
     contribution_request: {
       description: {

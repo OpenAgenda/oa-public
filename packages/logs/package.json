@@ -13,6 +13,7 @@
   },
   "devDependencies": {
     "jest": "^23.6.0",
+    "should": "^13.2.3",
     "sinon": "^3.2.1"
   }
 }

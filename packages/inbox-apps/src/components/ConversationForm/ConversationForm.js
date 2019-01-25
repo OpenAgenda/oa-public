@@ -1,7 +1,7 @@
 import React, { Component, createElement, Fragment } from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-import { getContext } from 'recompose';
+import { mapProps, getContext } from 'recompose';
 import { Field, reduxForm, SubmissionError } from 'redux-form';
 import superagent from 'superagent';
 import Uppy from 'uppy/lib/core';
@@ -12,10 +12,29 @@ import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';
 
+
+function parseJsonValue( value ) {
+  try {
+    return JSON.parse( value );
+  } catch ( e ) {
+    return value;
+  }
+}
+
+
 @reduxForm( {
   form: 'conversation',
   validate
 } )
+@mapProps( props => (props.initialValues ? {
+  ...props,
+  initialValues: {
+    ...props.initialValues,
+    destinationInbox: parseJsonValue( props.initialValues.destinationInbox ),
+    type: props.initialValues.type,
+    params: parseJsonValue( props.initialValues.params )
+  }
+} : props) )
 @getContext( {
   getLabel: PropTypes.func,
   lang: PropTypes.string,
@@ -79,13 +98,13 @@ export default class ConversationForm extends Component {
     this.setState( {
       modalOpen: true
     } );
-  }
+  };
 
   handleClose = () => {
     this.setState( {
       modalOpen: false
     } )
-  }
+  };
 
   handleSubmit = this.props.handleSubmit( async data => {
     const { reset, onSubmit, onConversationCreate, onFileUploaded, getLabel } = this.props;
@@ -133,18 +152,6 @@ export default class ConversationForm extends Component {
     }
   } );
 
-  formatJsonValue( value ) {
-    return _.isObject( value ) ? JSON.stringify( value ) : value;
-  }
-
-  parseJsonValue( value ) {
-    try {
-      return JSON.parse( value );
-    } catch ( e ) {
-      return value;
-    }
-  }
-
   render() {
     const { getLabel, initialValues, submitting, Wrapper, error, lang } = this.props;
 
@@ -158,8 +165,6 @@ export default class ConversationForm extends Component {
           name="destinationInbox"
           component="input"
           type="hidden"
-          format={this.formatJsonValue}
-          parse={this.parseJsonValue}
         />
         <Field
           name="type"
@@ -170,8 +175,6 @@ export default class ConversationForm extends Component {
           name="params"
           component="input"
           type="hidden"
-          format={this.formatJsonValue}
-          parse={this.parseJsonValue}
         />
         <Field
           component={renderTextarea}
@@ -235,4 +238,4 @@ export default class ConversationForm extends Component {
       </Fragment>
     );
   }
-}
+};

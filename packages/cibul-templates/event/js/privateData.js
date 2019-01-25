@@ -176,7 +176,7 @@ module.exports = function ( options ) {
     loadInbox( {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
-      state: {
+      initialState: {
         user,
         settings: {
           context: 'event',

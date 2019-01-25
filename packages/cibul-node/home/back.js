@@ -3,30 +3,37 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
+const sessions = require( '@openagenda/sessions' );
+const homeMw = require( '@openagenda/home/dist/middleware' );
+const createApp = require( '@openagenda/home/dist/client/app' );
+const createActivitiesApp = require( '@openagenda/activity-apps/dist/client/apps/user' );
+const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const homeMw = require( '@openagenda/home/dist/middleware' );
-const createApp = require( '@openagenda/home/dist/client/app' );
-const sessions = require( '@openagenda/sessions' );
-const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
 
 
 module.exports = path => {
 
   const routes = {
-    homeShow: [ 'get', '', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchApp
-    ] ],
-    homeEvents: [ 'get', '/events', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchApp
-    ] ],
-    homeActivities: [ 'get', '/activities', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchUserActivitiesApp
-    ] ],
+    homeShow: [
+      'get', '/', [
+        cmn.loadBaseData( 'oasfmain.css' ),
+        matchApp
+      ]
+    ],
+    homeEvents: [
+      'get', '/events', [
+        cmn.loadBaseData( 'oasfmain.css' ),
+        matchApp
+      ]
+    ],
+    homeActivities: [
+      'get', '/activities', [
+        cmn.loadBaseData( 'oasfmain.css' ),
+        matchUserActivitiesApp
+      ]
+    ],
 
     homeShowList: [ 'get', '/agendas', homeMw.agendas.list ],
     homeEventsList: [ 'get', '/events.json', homeMw.events.list ],
@@ -94,11 +101,16 @@ async function matchApp( req, res, next ) {
   try {
     await triggerHooks();
 
-    const state = store.getState();
     const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
 
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
 
     if ( context.url ) {
       return res.redirect( 301, context.url );
@@ -115,35 +127,56 @@ async function matchApp( req, res, next ) {
   }
 }
 
-function getUserActivitiesApp( req, res, next, { store, component } = {} ) {
-  const state = store ? store.getState() : {};
-  const lang = req.lang || 'fr';
 
-  const content = component ? ReactDOM.renderToString( component ) : '';
-
-  cmn.render( req, res, 'activities/user', { scriptParams: { state }, lang, content } );
-}
-
-
-function matchUserActivitiesApp( req, res, next ) {
+async function matchUserActivitiesApp( req, res, next ) {
   const prefix = req.genUrl( 'homeActivities' ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
-  activitiesMw.matchUserApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: homeMw.getConfig().mw.limit
-        },
-        res: {
-          list: req.genUrl( 'homeActivitiesList' )
-        }
+  const { element, triggerHooks, store, context } = createActivitiesApp( {
+    req,
+    initialState: {
+      settings: {
+        prefix,
+        lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: homeMw.getConfig().mw.limit
+      },
+      res: {
+        list: req.genUrl( 'homeActivitiesList' )
       }
-    },
-    prefix,
-    getUserActivitiesApp
-  )( req, res, next );
+    }
+  } );
+
+  try {
+    await triggerHooks();
+
+    const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    cmn.render(
+      req,
+      res,
+      'activities/user',
+      { scriptParams: { initialState: state }, lang, content, preloaded: true }
+    );
+  } catch ( e ) {
+    next( e );
+  }
 }

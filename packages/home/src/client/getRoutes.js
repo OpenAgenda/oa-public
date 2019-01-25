@@ -7,7 +7,13 @@ export default function ( prefix = '' ) {
       component: App,
       routes: [
         { path: `${prefix}/`, exact: true, component: Agendas },
-        { path: `${prefix}/events`, component: Events }
+        { path: `${prefix}/events`, component: Events },
+        {
+          component: ( { staticContext = {} } ) => {
+            staticContext.status = 404;
+            return null;
+          }
+        }
       ]
     }
   ];

@@ -100,18 +100,12 @@ class AbilitiesEditor extends Component {
     }
 
     try {
-      let data;
-
-      if ( typeof onSubmit === 'function' ) {
-        data = await onSubmit( formIndex );
-      } else {
-        ( { data } = await axios.patch( res.formIndex, formIndex, {
-          params: {
-            entityName,
-            identifier
-          }
-        } ) );
-      }
+      let { data } = await axios.patch( res.formIndex, formIndex, {
+        params: {
+          entityName,
+          identifier
+        }
+      } );
 
       if ( _.isArray( data ) ) {
         data = data.map( v => ( { ...v, key: `rule${_.uniqueId()}` } ) );

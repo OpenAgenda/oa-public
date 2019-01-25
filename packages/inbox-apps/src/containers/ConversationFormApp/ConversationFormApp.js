@@ -31,11 +31,6 @@ import { ConversationForm } from '../../components';
   getLabel: PropTypes.func
 } )
 export default class ConversationModal extends Component {
-  constructor( props ) {
-    super( props );
-    this.FormWrapper = ::this.FormWrapper;
-  }
-
   state = {
     confirmationMessage: null
   };
@@ -46,8 +41,9 @@ export default class ConversationModal extends Component {
     } );
   }
 
-  FormWrapper( { children, handleSubmit, error } ) {
+  FormWrapper = ( { children, handleSubmit, error } ) => {
     const { getLabel } = this.props;
+
     return (
       <form onSubmit={handleSubmit} className="conversation-form">
         <div className="margin-v-md">
@@ -67,7 +63,7 @@ export default class ConversationModal extends Component {
   }
 
   render() {
-    const { opened, createConversation, getLabel, initialValues } = this.props;
+    const { opened, createConversation, closeConversationForm, getLabel, initialValues } = this.props;
     const { confirmationMessage } = this.state;
 
     if ( !opened ) {
@@ -85,7 +81,7 @@ export default class ConversationModal extends Component {
           title={getLabel( 'newConversation' )}
           onClose={() => {
             this.setState( { confirmationMessage: null } );
-            this.props.closeConversationForm();
+            closeConversationForm();
           }}
           classNames={{ overlay: 'popup-overlay big' }}
         >
@@ -100,7 +96,7 @@ export default class ConversationModal extends Component {
       <Modal
         title={modalTitle || getLabel( 'newConversation' )}
         visible={opened}
-        onClose={() => this.props.closeConversationForm()}
+        onClose={() => closeConversationForm()}
         classNames={{ overlay: 'popup-overlay big' }}
       >
         {modalDescription && <p dangerouslySetInnerHTML={{ __html: modalDescription.replace( /\n/g, '<br />' ) }}></p>}

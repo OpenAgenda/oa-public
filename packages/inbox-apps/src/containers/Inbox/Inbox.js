@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { asyncConnect } from 'redux-connect';
+import { withRouter } from 'react-router';
+import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
 import Waypoint from 'react-waypoint';
 import Spinner from '@openagenda/react-components/build/Spinner';
@@ -15,9 +16,9 @@ import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import setFlashMessage from '../../utils/setFlashMessage';
 
-function asyncLoad( { store: { getState, dispatch }, redirect } ) {
+function asyncLoad( { store: { getState, dispatch }, history } ) {
   const state = getState();
-  const location = state.routing.locationBeforeTransitions;
+  const { location } = state.router;
 
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
@@ -36,32 +37,29 @@ function asyncLoad( { store: { getState, dispatch }, redirect } ) {
       }
 
       if ( (hideEmptyList) && result.conversations && !result.conversations.length ) {
-        return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+        return history.replace( prefix + '/conversation/create' );
       }
 
       if ( focusFistConversation ) {
         if ( result.conversations && !result.conversations.length ) {
-          return redirect( removeTrailingSlash( prefix ) + '/conversation/create' );
+          return history.replace( prefix + '/conversation/create' );
         } else if ( result.conversations && result.conversations.length && !result.conversations[ 0 ].closedAt ) {
-          return redirect( `${removeTrailingSlash( prefix )}/conversation/${result.conversations[ 0 ].id}` );
+          return history.replace( `${prefix}/conversation/${result.conversations[ 0 ].id}` );
         }
       }
-
-      return true;
-
     } );
 }
 
-@asyncConnect( [ {
-  key: 'asyncConnectInbox',
-  promise: ( { store, helpers: { redirect } } ) => {
-    if ( !__SERVER__ ) return { needLoad: true };
-    return asyncLoad( { store, redirect } );
+@provideHooks( {
+  fetch: async ( { store, history } ) => {
+    const promise = asyncLoad( { store, history } );
+
+    return Promise.resolve( __CLIENT__ ? null : promise );
   }
-} ] )
+} )
 @connect(
   ( state, props ) => ({
-    initialValues: props.location.query.origin
+    initialValues: props.location.query && props.location.query.origin
       ? _.merge( state.settings.defaultQuery, { params: { origin: props.location.query.origin } } )
       : state.settings.defaultQuery,
     settings: state.settings,
@@ -71,6 +69,7 @@ function asyncLoad( { store: { getState, dispatch }, redirect } ) {
     totalOpened: state.inbox.totalOpened,
     totalClosed: state.inbox.totalClosed,
     loading: state.inbox.loading,
+    loaded: state.inbox.loaded,
     nextLoading: state.inbox.nextLoading,
     lastPage: state.inbox.lastPage,
     author: state.conversation.author,
@@ -83,47 +82,9 @@ function asyncLoad( { store: { getState, dispatch }, redirect } ) {
   getLabel: PropTypes.func,
   store: PropTypes.object
 } )
+@withRouter
 export default class Inbox extends Component {
-  constructor( props ) {
-    super( props );
-    this.FromWrapper = ::this.FromWrapper;
-    this.renderCreationButton = ::this.renderCreationButton;
-  }
-
-  state = {
-    loading: false,
-    loaded: this.props.asyncConnectInbox ? !this.props.asyncConnectInbox.needLoad : false,
-    error: null
-  };
-
-  componentDidMount() {
-    const { store, router } = this.props;
-
-    if ( !this.state.loaded && !this.state.loading ) {
-      this.setState( {
-        loading: true,
-        loaded: false,
-        error: null
-      } );
-
-      asyncLoad( { store, redirect: router.replace } )
-        .then( () => {
-          this.setState( {
-            loading: false,
-            loaded: true,
-            error: null
-          } );
-        }, error => {
-          this.setState( {
-            loading: false,
-            loaded: false,
-            error
-          } );
-        } );
-    }
-  }
-
-  FromWrapper( { handleSubmit, error, children } ) {
+  FromWrapper = ( { handleSubmit, error, children } ) => {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
@@ -164,8 +125,8 @@ export default class Inbox extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  renderCreationButton( { unclosedConvs } ) {
-    const { settings, router, getLabel } = this.props;
+  renderCreationButton = ( { unclosedConvs } ) => {
+    const { settings, history, getLabel } = this.props;
     const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
 
     const creationButton = (
@@ -173,7 +134,7 @@ export default class Inbox extends Component {
         {path => (
           <button
             className="btn btn-info btn-creation pull-right"
-            onClick={() => router.push( path )}
+            onClick={() => history.push( path )}
           >
             {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
           </button>
@@ -190,7 +151,8 @@ export default class Inbox extends Component {
 
   render() {
     const {
-      conversations, nextLoading, router, getLabel, showModal,
+      loading, loaded,
+      conversations, nextLoading, history, getLabel, showModal,
       createConversation, author, initialValues, settings, user,
       attachFileToMessage, res, agenda, totalOpened, totalClosed
     } = this.props;
@@ -204,9 +166,9 @@ export default class Inbox extends Component {
 
     const [ unclosedConvs, closedConvs ] = _.partition( conversations, o => !o.closedAt );
 
-    const content = this.state.loading || !this.state.loaded
+    const content = loading || !loaded
       ? <div className="text-center padding-v-md">
-        <Spinner loading={this.state.loading} mode="inline" options={{
+        <Spinner loading={loading} mode="inline" options={{
           width: 1,
           length: 6,
           radius: 10,
@@ -265,7 +227,7 @@ export default class Inbox extends Component {
                       window.location.href = onConversationCreateRedirect;
                     } else {
                       const url = removeTrailingSlash( prefix ) + `/conversation/${conversation.id}`;
-                      router.push( url );
+                      history.push( url );
 
                       if ( onConversationCreateFlash ) {
                         showModal( 'messageSent', { message: onConversationCreateFlash } );

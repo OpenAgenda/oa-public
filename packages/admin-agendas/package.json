@@ -21,7 +21,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/admin-agendas",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.1.2",
+    "@babel/runtime-corejs2": "^7.3.1",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -32,7 +32,7 @@
     "async": "^2.1.4",
     "body-parser": "^1.15.2",
     "create-react-class": "^15.5.2",
-    "immutability-helper": "^2.2.0",
+    "immutability-helper": "^3.0.0",
     "knex": "^0.16.3",
     "lodash": "^4.17.5",
     "mysql": "^2.10.2",

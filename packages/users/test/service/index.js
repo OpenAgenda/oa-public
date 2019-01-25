@@ -17,7 +17,7 @@ async function initAndLoad( config, files, options ) {
     'user',
     'key',
     'user_token'
-  ]
+  ];
 
   if ( arguments.length === 2 && Array.isArray( arguments[ 1 ] ) ) {
 

@@ -50,6 +50,7 @@ async function init( c ) {
     } );
   }
 
+
   if ( knex.client.config.migrations ) {
     await knex.migrate.latest();
   }

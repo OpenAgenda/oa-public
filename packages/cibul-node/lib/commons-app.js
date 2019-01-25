@@ -478,7 +478,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     }
 
-    if ( [ 401, 403, 404, 413 ].indexOf( error.code ) == -1 ) {
+    if ( [ 401, 403, 404, 413 ].indexOf( error.code ) === -1 ) {
 
       req.log.loadMetadata( { errorStack: error.stack } );
 

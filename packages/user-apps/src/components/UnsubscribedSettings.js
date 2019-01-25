@@ -1,44 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { withRouter } from 'react-router';
 import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor';
 
-@connect(
-  state => ({
-    user: state.userSettings.user,
-    prefix: state.app.appSettings.prefix
-  }),
-  { push }
-)
-class UnsubscribedSettings extends Component {
 
-  static propTypes = {
-    push: PropTypes.func
-  };
-
+@connect( state => ({
+  user: state.userSettings.user,
+  prefix: state.settings.prefix
+}) )
+@withRouter
+export default class UnsubscribedSettings extends Component {
   static contextTypes = {
     lang: PropTypes.string,
-    getLabels: PropTypes.func
+    getLabel: PropTypes.func
   };
 
   render() {
-
-    const { getLabels, lang } = this.context;
-
-    const { activeTab, push, prefix, user } = this.props;
+    const { getLabel, lang } = this.context;
+    const { activeTab, history, prefix, user } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? () => push( prefix + '/emails' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/emails' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabels( 'emails' )}
+          {getLabel( 'emails' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
@@ -52,14 +44,14 @@ class UnsubscribedSettings extends Component {
                   formIndex: '/abilities/form-index'
                 }}
                 searchChildKey="entity.agendaTitle"
-                filterInputPlaceholder={getLabels( 'filterInputPlaceholder' )}
+                filterInputPlaceholder={getLabel( 'filterInputPlaceholder' )}
                 HeaderComponent={( { filterInput, saveButton } ) => (
                   <div className="clearfix margin-bottom-sm">
                     <div className="pull-right">
                       {saveButton}
                     </div>
 
-                    <p>{getLabels( 'chooseEmailsSent' )}</p>
+                    <p>{getLabel( 'chooseEmailsSent' )}</p>
 
                     {/*<div className="margin-top-md">{filterInput}</div>*/}
                   </div>
@@ -67,12 +59,8 @@ class UnsubscribedSettings extends Component {
               />
             </div>
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'chooseEmailsSent' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'chooseEmailsSent' )}</td>}
       </tr>
     );
-
   }
-
 }
-
-module.exports = UnsubscribedSettings ;
