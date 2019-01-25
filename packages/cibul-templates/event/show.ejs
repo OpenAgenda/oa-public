@@ -13,7 +13,6 @@
 
   }
 %>
-<% if ( !loner ) { %>
 <header class="agenda-header">
   <div class="container">
     <div class="row">
@@ -29,7 +28,6 @@
     </div>
   </div>
 </header>
-<% } %>
 <div id="content" class="js_page_body">
   <div class="container">
     <div class="row">
@@ -64,7 +62,7 @@
               <i class="fa fa-plus-circle"></i><%= __( 'addToAgenda' ) %>
             </a>
           </p>
-          <% if ( loner || !private ) { %>
+          <% if ( !private && ( event.currentState === 'published' ) ) { %>
           <p class="share">
             <%= __('share') %>&nbsp;:
             <a href="<%= event.facebookShare %>" target="_blank" class="fb" rel="nofollow"><i class="fa fa-facebook"></i></a>
@@ -142,7 +140,7 @@
 
 
 
-<% if ( event.agendaReferences.length > ( loner ? 0 : 1 ) ) { %>
+<% if ( event.agendaReferences.length > 1 ) { %>
         <div class="sharers">
           <ul><!--
 <% event.agendaReferences.forEach( function( ref ) { %>
@@ -246,13 +244,13 @@
       <div class="event-content">
 
         <div class="location-head">
-<% if ( !loner ) { %>
+
         <% if ( event.location.agendaId === agendaId ) { %>
           <div class="display-none js_role_agenda_moderator js_role_agenda_admin pull-right">
             <a class="btn btn-default" rel="nofollow" href="<%= genUrl( 'agendaAdminLocations', { uids: [event.location.uid], slug: slug } ) %>"><%= __( 'editLocation' ) %></a>
           </div>
         <% } %>
-<% } %>
+
           <label>
             <%- event.location.name %>
           </label>
