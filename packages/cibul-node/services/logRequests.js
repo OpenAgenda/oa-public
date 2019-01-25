@@ -60,10 +60,10 @@ const middleware = morgan(
     } else {
       const { method, url, httpVersion, ip, status, contentLength, responseTime } = data;
 
-      log.info(
+      log.info( withColor(
         `"${method} ${colored( url, 1 )} HTTP/${httpVersion}"`
         + ` ${ip} ${colored( status, color )} ${contentLength || '-'} ~ ${responseTime}ms`
-      );
+      ) );
     }
 
     return;
