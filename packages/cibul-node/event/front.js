@@ -6,6 +6,7 @@ const { promisify } = require( 'util' )
 
 const agendaSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
+const errorLabels = require( '@openagenda/labels/errors' );
 const sessions = require( '@openagenda/sessions' );
 const stakeholderSvc = require( '@openagenda/agenda-stakeholders' );
 const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
@@ -150,13 +151,11 @@ const routes = {
         return redirect( req, res, next );
       }
 
-      next();
-    },
-    eventSvc.mw.format,
-    eventSvc.mw.components,
-    _formatSocialLinks,
-    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-    show
+      next( {
+        code: 403,
+        message: _.get( errorLabels, [ 'noOrigin', req.lang ], 'noOrigin.en' )
+      } );
+    }
   ] ],
 
   eventShowByUid: [ 'get', '/events/:eventUid', [
