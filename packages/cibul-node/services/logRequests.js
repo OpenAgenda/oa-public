@@ -57,19 +57,18 @@ const middleware = morgan(
 
     if ( process.env.NODE_ENV === 'production' ) {
       log.info( data );
-      return;
+    } else {
+      const { method, url, httpVersion, ip, status, contentLength, responseTime } = data;
+
+      log.info(
+        `"${method} ${colored( url, 1 )} HTTP/${httpVersion}"`
+        + ` ${ip} ${colored( status, color )} ${contentLength || '-'} ~ ${responseTime}ms`
+      );
     }
 
-
-    return morgan.compile( withColor(
-      `":method ${colored( ':url', 1 )} HTTP/:http-version" :remote-addr :query `
-      + `${colored( ':status', color )} :content-length ~ :response-time ms`
-    ) )( tokens, req, res );
+    return;
   },
   {
-    stream: {
-      write: str => log( str.slice( 0, -1 ) )
-    },
     skip: req => blacklist.some( regexp => regexp.test( req.originalUrl ) )
   }
 );
