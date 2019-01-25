@@ -22,7 +22,7 @@ const fields = [
 const storeFields = [ // fields kept in store column in schema
   'image', 'description', 'tags',
   'website', 'phone', 'links', 'access',
-  'state', 'timezone', 'imageCredits'
+  'state', 'timezone', 'imageCredits', 'extId'
 ];
 
 // field used to retrieve aggregates of values for filtering

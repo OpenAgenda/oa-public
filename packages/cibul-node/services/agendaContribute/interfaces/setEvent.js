@@ -15,13 +15,16 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
     draft: false
   }, options );
 
-  log( 'current is %s', current ? 'set, this is an update.' : 'not set, this is a create' );
+  const isNew = !current;
+  const isDraft = _.get( current, 'draft', false );
+
+  log( isNew ? 'this is a create' : 'this is an update.' );
 
   const transforms = { '$unset': [] };
 
   // for a new event, the owner and origin agenda must be specified
 
-  if ( !current || current.draft ) {
+  if ( isNew || isDraft ) {
 
     _.assign( transforms, {
       ownerUid: { $set: user.uid },
@@ -32,8 +35,27 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
   }
 
-  // event state is dictated by agenda settings
-  transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+  // define which state the event should take
+
+  if ( !isNew && !isDraft && _.get( agenda, 'settings.contribution.moderateOnChangeBy', [] ).length ) {
+
+    log( 'event is not new and not a draft and should be moderated on change' );
+
+    transforms.state = { $set: 0 };
+
+  } else if ( isNew ) {
+
+    log( 'event is new, it should take the state requested by the agenda' );
+
+    transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
+
+  } else {
+
+    log( 'event is not new or is a draft. State should not be set' );
+
+    transforms[ '$unset' ].push( 'state' );
+
+  }
 
   const transformed = ih( data, transforms );
 
@@ -96,3 +118,4 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
   }
 
 }
+

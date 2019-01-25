@@ -11,7 +11,8 @@ module.exports.init = config => {
   Object.assign( module.exports.controlData, ControlData( {
     knex: config.knex,
     redis: config.redisClient,
-    prefix: 'agendaControlData:'
+    prefix: 'agendaControlData:',
+    imagePath: config.aws.imageBucketPath
   } ) );
 
 }

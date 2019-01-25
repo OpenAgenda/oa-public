@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'services/aggregator/notify' );
+const log = require( '@openagenda/logs' )( 'aggregator/notify' );
 
 // transitional external aggregator service
 const svc = require( '@openagenda/aggregators' );
@@ -26,6 +26,16 @@ module.exports = {
 function unpublish( eventId, agendaId, cb ) {
 
   log( 'unpublish event %s from source %s', eventId, agendaId );
+
+  if ( !eventId ) {
+
+    log( 'error', 'missing event id, cannot unpublish', agendaId );
+
+    if ( cb ) cb();
+
+    return;
+
+  }
 
   if ( !cb ) {
 
@@ -72,6 +82,16 @@ function publish( eventId, agendaId, mute, cb ) {
   }
 
   log( 'publish event %s on source %s', eventId, agendaId );
+
+  if ( !eventId ) {
+
+    log( 'error', 'missing event id, cannot unpublish', agendaId );
+
+    if ( cb ) cb();
+
+    return;
+
+  }
 
   if ( !cb ) {
 

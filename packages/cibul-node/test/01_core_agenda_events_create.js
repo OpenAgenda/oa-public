@@ -72,6 +72,17 @@ const testConfig = {
       enable: false
     }
   },
+  geocodeFarm: { key: 123 },
+  esLocation: {
+    //log: [  ],
+    index: 'locations',
+    apiVersion: '1.3',
+    timeout: 30000
+  },
+  es: {
+    host: process.env.ELASTICSEARCH_134_DEV_HOST,
+    port: process.env.ELASTICSEARCH_134_DEV_PORT
+  },
   es53: {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT

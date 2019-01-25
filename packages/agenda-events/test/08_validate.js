@@ -37,4 +37,27 @@ describe( 'agendaEvents - functional (server): validation', function() {
 
   } );
 
+  it( 'validate endpoint assigns default state value when it is unspecified', () => {
+
+    svc.validate( {
+      featured: true
+    } ).should.eql( {
+      state: 2,
+      featured: true,
+      userUid: null
+    } );
+
+  } );
+
+  it( 'validate endpoint does not include state if not provided and optional state option is set', () => {
+
+    svc.validate( {
+      featured: true
+    }, { optionalState: true } ).should.eql( {
+      featured: true,
+      userUid: null
+    } );
+
+  } );
+
 } );

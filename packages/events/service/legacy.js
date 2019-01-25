@@ -85,6 +85,8 @@ async function update( identifiers, options ) {
     identifiers, userId, agendaId, locationId, legacyEventId, legacyEventReferenceIds
   } );
 
+  const eventLanguages = _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) );
+
   const entries = {
     event: _.extend(
       // always applies
@@ -110,12 +112,12 @@ async function update( identifiers, options ) {
         } )
       }
     ),
-    eventTranslations: _.uniq( _.keys( event.title ).concat( _.keys( event.description ) ).concat( _.keys( event.longDescription ) ) ).map( lang => ( {
+    eventTranslations: eventLanguages.map( lang => ( {
       id: 'TBD',
       lang,
       title: _.get( event.title, lang ),
       description: _.get( event.description, lang ),
-      free_text: _.get( event.longDescription, lang ),
+      free_text: _.get( event.longDescription, lang, null ),
       tags: _.get( event.keywords, lang, [] ).join( ', ' )
     } ) ),
     eventLocation: {
@@ -147,6 +149,7 @@ async function update( identifiers, options ) {
       ref_event_id: id
     } ) ) : []
   }
+
 
   if ( legacyEventId ) {
 

@@ -1,14 +1,14 @@
 "use strict"
 
-const utils = require( '@openagenda/utils' ),
+const utils = require( '@openagenda/utils' );
 
-  libs = {
-    notify: require( './notify' ),
-    evaluate: require( './evaluate' ),
-    sources: require( './sources' )
-  },
+const libs = {
+  notify: require( './notify' ),
+  evaluate: require( './evaluate' ),
+  sources: require( './sources' )
+};
 
-  log = require( '@openagenda/logs' )( 'services/aggregator/task' );
+const log = require( '@openagenda/logs' )( 'aggregator/task' );
 
 let q, pQ;
 

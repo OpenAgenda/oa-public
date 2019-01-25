@@ -10,6 +10,26 @@ if ( module.hot ) module.hot.accept();
 
 class Main extends Component {
 
+  emptyPTag() {
+
+    window.location.href = window.location.href.split( '?' ).shift() + '?v=<p></p>';
+
+  }
+
+  extractValueFromQuery( defaultValue ) {
+
+    const parts = window.location.href.split( '?v=' );
+
+    if ( parts.length === 2 ) {
+
+      return decodeURIComponent( parts.pop() );
+
+    }
+
+    return defaultValue;
+
+  }
+
   render() {
 
     const props = {
@@ -19,7 +39,7 @@ class Main extends Component {
       },
       lang: 'fr',
       values: {
-        singlelangfield: '<p>Et boum</p>',
+        singlelangfield: this.extractValueFromQuery( '<p>Et boum</p>' ),
       },
       schema: {
         "fields" : [ {
@@ -41,6 +61,7 @@ class Main extends Component {
 
     return <div className="container top-margined">
       <div className="row">
+        <button className="btn btn-primary" onClick={this.emptyPTag.bind( this )}>Load empty p tag</button>
         <div className="wsq col-lg-5 col-lg-offset-1">
           <div className="margin-v-md margin-h-sm">
             <p>An HTML field.</p>

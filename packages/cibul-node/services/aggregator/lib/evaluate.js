@@ -5,7 +5,7 @@ const async = require( 'async' );
 const w = require( 'when' );
 const wn = require( 'when/node' );
 
-const log = require( '@openagenda/logs' )( 'services/aggregator/evaluate' );
+const log = require( '@openagenda/logs' )( 'aggregator/evaluate' );
 const rules = require( '@openagenda/aggregators' ).utils.rules;
 
 const aggUtils = require( './aggUtils' );

@@ -19,7 +19,7 @@ const validators = {
 
 const STATES = {
   tocontrol: 0,
-  validated: 1  
+  validated: 1
 };
 
 const utils = require( '@openagenda/utils' );
@@ -43,6 +43,7 @@ const baseValidators = [
   validators.multilingual( { field: 'description', max: 5000, optional: true, defaultLanguage: 'fr' } ),
   validators.multilingual( { field: 'access', max: 1000, optional: true, defaultLanguage: 'fr' } ),
   validators.link( { field: 'website', min: 0, optional: true } ),
+  validators.text( { field: 'extId', min: 0, max: 255, optional: true } ),
   validators.text( { field: 'timezone', min: 0, optional: true } ),
   validators.phone( { field: 'phone', min: 0, max: 42, optional: true } ),
   validators.latitude( { field: 'latitude', optional: true } ),
@@ -51,7 +52,7 @@ const baseValidators = [
   validators.list( { field: 'links', optional: true }, [
     validators.link()
   ] ),
-  
+
   // suggestions are validated individually as partial locations
   validators.pass( { field: 'suggestions' } )
 ];
@@ -66,7 +67,7 @@ function validate( data, settings, partial ) {
   let locationValidators = [];
 
   // clean arguments
-  
+
   if ( arguments.length === 2 && typeof settings === 'boolean' ) {
 
     partial = settings;
@@ -115,7 +116,7 @@ function validate( data, settings, partial ) {
 
 function field( name ) {
 
-  return baseValidators.filter( function( v ) { 
+  return baseValidators.filter( function( v ) {
 
     return v.field === name;
 
@@ -138,7 +139,7 @@ function _getValidators( settings ) {
     locationValidators.push( validators.pass( { field: 'tags' } ) );
 
   } else if ( settings.tagSet ) {
-    
+
     locationValidators.push( validators.groupTags( utils.extend( { field: 'tags' }, settings.tagSet ) ) )
 
   }

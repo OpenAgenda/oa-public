@@ -200,7 +200,8 @@ module.exports = class SlateField extends Component {
     if ( type === 'bulleted-list' ) {
 
       const { value } = this.state;
-      const parent = value.document.getParent( value.blocks.first().key );
+
+      const parent = value.blocks.size && value.document.getParent( value.blocks.first().key );
 
       isActive = this.hasBlock( 'list-item' ) && parent && parent.type === type;
 

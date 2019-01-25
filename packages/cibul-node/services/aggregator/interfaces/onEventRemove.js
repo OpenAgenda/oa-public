@@ -2,7 +2,7 @@
 
 const agendaEvents = require( '@openagenda/agenda-events' );
 
-const log = require( '@openagenda/logs' )( 'services/aggregator/onEventRemove' );
+const log = require( '@openagenda/logs' )( 'aggregator/onEventRemove' );
 
 module.exports = ( eventUid, sourceUid, aggregatorUid ) => {
 

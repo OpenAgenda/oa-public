@@ -10,6 +10,7 @@ const qs = require( 'qs' );
 const activitiesSvc = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
+const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
 const sCache = require( '@openagenda/simple-cache' );
@@ -116,6 +117,22 @@ const routes = {
       legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
       formFieldsByUser
     ] ],
+
+    embedClear: [ 'get', '/embeds/:embedUid/clear', ( req, res, next ) => {
+
+      res.send( 'ok' );
+
+      controlDataSvc.embedClear( req.params.embedUid ).then( () => {
+
+        req.log( 'embed ctl data clear complete' );
+
+      }, err => {
+
+        req.log( 'error', 'embed ctl data clear failed', err );
+
+      } );
+
+    } ],
 
 
     /**

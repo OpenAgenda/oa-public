@@ -4,14 +4,14 @@ const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onCreate' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/onCreate' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const custom = require( '@openagenda/custom' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 
-const aggregator = require( '../aggregator' );
+const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
@@ -24,7 +24,7 @@ const controlDataSvc = require( '../legacy' ).controlData;
 
 module.exports = async ( ae, context ) => {
 
-  log( 'created agenda-event %j', ae );
+  log( 'created agenda-event %j', ae, _.pick( context, [ 'legacy' ] ) );
 
   // use context.userUid. will be null when nothing was specified at create
 
@@ -95,11 +95,7 @@ module.exports = async ( ae, context ) => {
 
   }
 
-  if ( !context.legacy && ae.state === 2 ) {
-
-    aggregator.notifyPublish( event.id, agenda.id );
-
-  }
+  aggregatorNotify.create( { agenda, event, agendaEvent: ae } );
 
 
   /**
@@ -117,17 +113,6 @@ module.exports = async ( ae, context ) => {
   }
 
   _addToSearchIndex( ae );
-
-  // currently for logging only. Not used yet for actual aggregation
-  if ( ae.state === 2 ) {
-
-    aggregator.notify( 'create', {
-      event,
-      agendaEvent: ae,
-      agenda
-    } );
-
-  }
 
 
   try {

@@ -938,7 +938,7 @@ module.exports = createReactClass( {
 
     }
 
-    return <div>
+    return <div className="form-group">
 
       <div className={this.isFieldEnabled( 'image' ) ? 'form-group' : 'form-group disabled'}>
 
@@ -1060,7 +1060,6 @@ module.exports = createReactClass( {
           value={this.state.location.tags || []}/>
 
         : null}
-
 
     </div>
 
@@ -1213,6 +1212,20 @@ module.exports = createReactClass( {
             info: _.get( this.props, 'settings.labels.translationInfo', translationLabels.translationInfo )
           } ), this.props.lang )}
         /> : null}
+
+      { this.props.detailedInfo && ( this.state.location.extId || this.state.showExtIdInput ? <InputField
+        name='extId'
+        enabled={this.isFieldEnabled( 'extId' )}
+        value={this.state.location.extId}
+        getLabel={this.getLabel}
+        lang={this.props.lang}
+        info="extIdInfo"
+        placeholder="extIdplaceholder"
+        onChange={this.onChange}
+        validator={validate.field( 'extId' )} />
+      : <div className="form-group">
+        <a className="muted" href="#" onClick={e=>{ e.preventDefault(); this.actions.showExtId() } }>{this.getLabel( 'extIdLink' )}</a>
+      </div> ) }
 
       {this.state.loadingError ? <div className="error">{this.state.loadingError}</div> : ''}
 

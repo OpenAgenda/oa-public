@@ -41,14 +41,14 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
       legacy( 4878 ).loadFromLegacy( ( err, data ) => {
 
-        data.should.eql( { 
+        data.should.eql( {
           settings: {
             contribution: {
               type: 0,
               moderateOnChangeBy: [],
               defaultState: 2,
               message: null
-            } 
+            }
           },
           credentials: {
             indesign: 0,
@@ -64,50 +64,6 @@ describe( 'agendas - unit (server): legacy bridging', function() {
         } );
 
         done();
-
-      } );
-
-    } );
-
-    it( 'loads contribution information from legacy data structure', done => {
-
-      legacy( 4832 ).loadFromLegacy( ( err, data ) => {
-
-        data.should.eql( { 
-          settings: {
-            contribution: {
-              type: 2,
-              moderateOnChangeBy: [],
-              defaultState: 2,
-              message: null
-            }
-          }
-        } );
-
-        let con = mysql.createConnection( config.mysql );
-
-        con.query( 'update agenda set contribution_type = ?, contribution_info = ?, store = ? where id = ?', [ 1, 'lol.', '{"moderated":true}', 4832 ], ( err ) => {
-
-          con.end();
-
-          legacy( 4832 ).loadFromLegacy( ( err, data ) => {
-
-            data.should.eql( {
-              settings: { 
-                contribution: { 
-                  type: 1,
-                  moderateOnChangeBy: [],
-                  defaultState: 0, 
-                  message: 'lol.'
-                } 
-              }
-            } );
-
-            done();
-
-          } );
-
-        } );
 
       } );
 
@@ -181,76 +137,6 @@ describe( 'agendas - unit (server): legacy bridging', function() {
 
     } );
 
-
-    it( 'contribution message of a clean agenda data set is written in contribution_info column', done => {
-
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( 'select contribution_type from agenda where id = 4818', ( err, rows ) => {
-
-        should( rows[ 0 ].contribution_info ).equal( undefined );
-
-        legacy( 4818 ).applyToLegacy( {
-          settings: {
-            contribution: {
-              message: 'rentre chez toi'
-            }
-          }
-        }, err => {
-
-          con.query( 'select contribution_info from agenda where id = 4818', ( err, rows ) => {
-
-            con.end();
-
-            rows[ 0 ].contribution_info.should.equal( 'rentre chez toi' );
-
-            done();
-
-          } );          
-
-        } );
-
-      } );
-
-    } );
-    
-
-    it( 'contribution type of a clean agenda data set is written in legacy contribution_type column', done => {
-
-      let con = mysql.createConnection( config.mysql );
-
-      con.query( 'select contribution_type from agenda where id = 4818', ( err, rows ) => {
-
-        con.end();
-
-        rows[ 0 ].contribution_type.should.equal( 2 );
-
-        legacy( 4818 ).applyToLegacy( {
-          settings: {
-            contribution: {
-              type: 0
-            }
-          }
-        }, ( err, result ) => {
-
-          let con = mysql.createConnection( config.mysql );
-
-          con.query( 'select contribution_type from agenda where id = 4818', ( err, rows ) => {
-
-            con.end();
-
-            rows[ 0 ].contribution_type.should.equal( 0 );
-
-            done();
-
-          } );
-
-        } );
-
-      } );
-
-
-    } );
 
   } )
 

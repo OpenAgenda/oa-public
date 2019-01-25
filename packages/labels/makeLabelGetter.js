@@ -35,13 +35,7 @@ module.exports = function( labels, defaultLang, fallbackLang ) {
 
     if ( !lang ) lang = defaultLang;
 
-    if ( !labels[ name ] ) {
-      if (process && process.env && process.env.NODE_ENV === 'development') {
-        console.warn( 'Missing label: %s', name );
-      }
-
-      return null;
-    }
+    if ( !labels[ name ] ) return null;
 
     var str = [ undefined, null ].indexOf( labels[ name ][ lang ] ) === -1 ? labels[ name ][ lang ] : null;
 

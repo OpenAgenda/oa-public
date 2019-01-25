@@ -267,6 +267,10 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
     esQuery.location = query.location;
 
+  } else if ( query.locationExtId ) {
+
+    esQuery.locationExtId = query.locationExtId;
+
   } else if ( query.lat && query.lng && query.radius ) {
 
     esQuery.where = {
@@ -415,7 +419,7 @@ function _clean( query, params ) {
 
   [
     'neLat', 'neLng', 'swLat', 'swLng',
-    'category', 'location', 'org',
+    'category', 'location', 'locationExtId', 'org',
     'countryCode'
   ].forEach( function( name ) {
 

@@ -14,7 +14,7 @@ mysql = require( 'mysql' );
 
 describe( 'agenda location service', function () {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   describe( 'remove', () => {
 
@@ -337,7 +337,8 @@ describe( 'agenda location service', function () {
           'access',
           'state',
           'timezone',
-          'imageCredits'
+          'imageCredits',
+          'extId'
         ] );
 
         done();
@@ -375,7 +376,8 @@ describe( 'agenda location service', function () {
           'access',
           'state',
           'timezone',
-          'imageCredits'
+          'imageCredits',
+          'extId'
         ] );
 
         done();
@@ -403,7 +405,8 @@ describe( 'agenda location service', function () {
           'latitude',
           'longitude',
           'image',
-          'timezone'
+          'timezone',
+          'extId'
         ] );
 
         done();

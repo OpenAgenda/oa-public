@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/events",
-  "version": "1.4.6",
+  "version": "1.4.7",
   "description": "handle core event data",
   "author": "Kaoré",
   "repository": {

@@ -12,8 +12,8 @@ const store = require( './store' );
 
 let schemas, knex;
 
-module.exports = Object.assign( agenda, { 
-  init: ( s, k ) => { 
+module.exports = Object.assign( agenda, {
+  init: ( s, k ) => {
 
     schemas = s;
     knex = k;
@@ -38,11 +38,7 @@ function agenda( agendaId ) {
 
     w( { agendaId, data, loaded: {} } )
 
-    .then( _updateContributionType )
-
     .then( _updateDefaultState )
-
-    .then( _updateContributionMessage )
 
     .then( _updateCredentials )
 
@@ -59,66 +55,20 @@ function agenda( agendaId ) {
     w( { agendaId, loaded: {
       settings: {
         contribution: {
-          moderateOnChangeBy: []
+          message: null,
+          moderateOnChangeBy: [],
+          type: 0
         }
       }
     } } )
 
-    .then( _loadContributionType )
-
     .then( _loadDefaultState )
-
-    .then( _loadContributionMessage )
 
     .then( _loadCredentials )
 
     .done( v => cb( null, v.loaded ), cb );
 
   }
-
-}
-
-
-function _updateContributionType( v ) {
-
-  log( 'updating contribution type' );
-
-  let type = utils.deep( v.data, 'settings.contribution.type' );
-
-  if ( type === undefined ) return v;
-
-  let d = w.defer();
-
-  column( v.agendaId, 'contribution_type', type, err => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-
-function _updateContributionMessage( v ) {
-
-  log( 'updating contribution message' );
-
-  const message = _.get( v.data, 'settings.contribution.messages.instructions' ) || _.get( v.data, 'settings.contribution.message', '' );
-
-  const d = w.defer();
-
-  column( v.agendaId, 'contribution_info', message, err => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
 
 }
 
@@ -223,7 +173,7 @@ function _updateCredentials( v ) {
     .insert( Object.assign( {
       updated_at: new Date(),
       created_at: new Date(),
-      review_id: vv.agendaId 
+      review_id: vv.agendaId
     }, vv.values ) )
 
     .then( () => vv );
@@ -258,25 +208,6 @@ function _updateDefaultState( v ) {
 }
 
 
-function _loadContributionType( v ) {
-
-  let d = w.defer();
-
-  column.get( v.agendaId, 'contribution_type', ( err, value ) => {
-
-    if ( err ) return d.reject( v );
-
-    utils.deep.set( v.loaded, 'settings.contribution.type', value );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-
 function _loadDefaultState( v ) {
 
   let d = w.defer();
@@ -286,25 +217,6 @@ function _loadDefaultState( v ) {
     if ( err ) return d.reject( v );
 
     utils.deep.set( v.loaded, 'settings.contribution.defaultState', value ? 0 : 2 );
-
-    d.resolve( v );
-
-  } );
-
-  return d.promise;
-
-}
-
-
-function _loadContributionMessage( v ) {
-
-  let d = w.defer();
-
-  column.get( v.agendaId, 'contribution_info', ( err, value ) => {
-
-    if ( err ) return d.reject( v );
-
-    utils.deep.set( v.loaded, 'settings.contribution.message', value || null );
 
     d.resolve( v );
 

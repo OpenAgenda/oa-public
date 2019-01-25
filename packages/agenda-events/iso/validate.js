@@ -6,7 +6,10 @@ const _ = {
   extend: require( 'lodash/extend' ),
   keys: require( 'lodash/keys' ),
   isObject: require( 'lodash/isObject' ),
-  pick: require( 'lodash/pick' )
+  pick: require( 'lodash/pick' ),
+  assign: require( 'lodash/assign' ),
+  omit: require( 'lodash/omit' ),
+  get: require( 'lodash/get' )
 }
 
 schema.register( {
@@ -23,11 +26,21 @@ module.exports = _.extend( v => {
 
   if ( !validate ) throw new Error( 'validate not initialized' );
 
-  return validate( _preClean( v )  );
+  return validate( _preClean( v ) );
 
-}, { 
-  init, 
-  validateData: v => validateData( _preClean( v ) )
+}, {
+  init,
+  validateData: ( v, options = {} ) => {
+
+    const {
+      optionalState
+    } = _.assign( { optionalState: false }, options );
+
+    const clean = validateData( _preClean( v ) );
+
+    return  _postClean( v, clean, { optionalState } );
+
+  }
 });
 
 
@@ -80,6 +93,16 @@ function init( { eventStates } ) {
 
 }
 
+
+function _postClean( v, c, { optionalState } ) {
+
+  if ( !optionalState ) return c;
+
+  if ( _.get( v, 'state', null ) === null ) return _.omit( c, [ 'state' ] );
+
+  return c;
+
+}
 
 function _preClean( v ) {
 
