@@ -14,10 +14,6 @@ const supportRouter = express.Router( { mergeParams: true } );
 module.exports = supportRouter;
 
 
-if ( __DEVELOPMENT__ ) {
-  supportRouter.use( morgan( 'dev' ) );
-}
-
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),

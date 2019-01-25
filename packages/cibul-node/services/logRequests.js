@@ -1,49 +1,105 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const path = require( 'path' );
+const morgan = require( 'morgan' );
+const log = require( '@openagenda/logs' )( 'incoming' );
 
-const logger = require( '@openagenda/logs' );
-
-let log;
-
-module.exports = {
-  init,
-  middleware
-}
 
 const blacklist = [
   /^\/legacy/
 ];
 
-function init( config ) {
+morgan.token( 'path', req => req.path );
 
-  log = logger( 'incoming' );
+morgan.token( 'key', req => req.query.key );
+
+morgan.token( 'query', req => JSON.stringify( req.query ) );
+
+morgan.token( 'content-length', ( req, res ) => res[ 'content-length' ] && humanSize( res[ 'content-length' ], 2 ) );
+
+morgan.token( 'extension', req => path.extname( req.originalUrl ) );
+
+
+function init( config ) {
 
   log.setConfig( config.getLogConfig( 'oa', 'requests' ) );
 
 }
 
-function middleware( req, res, next ) {
+const middleware = morgan(
+  ( tokens, req, res ) => {
+    const statusCode = headersSent( res )
+      ? res.statusCode
+      : undefined
 
-  if ( blacklist.filter( b => b.test( req.path ) ).length ) {
+    // get status color
+    const color = statusCode >= 500 ? 31 // red
+      : statusCode >= 400 ? 33 // yellow
+        : statusCode >= 300 ? 36 // cyan
+          : statusCode >= 200 ? 32 // green
+            : 0 // no color
 
-    return next();
+    const query = tokens.query( req, res );
 
+    const data = {
+      ip: tokens[ 'remote-addr' ]( req, res ),
+      method: tokens.method( req, res ),
+      path: tokens.path( req, res ),
+      url: tokens.url( req, res ),
+      httpVersion: tokens[ 'http-version' ]( req, res ),
+      query,
+      key: query.key || null,
+      extension: tokens.extension( req, res ),
+      status: parseInt( tokens.status( req, res ) ),
+      contentLength: tokens[ 'content-length' ]( req, res ),
+      responseTime: tokens[ 'response-time' ]( req, res )
+    };
+
+    if ( process.env.NODE_ENV === 'production' ) {
+      log.info( data );
+      return;
+    }
+
+
+    return morgan.compile( withColor(
+      '":method :url HTTP/:http-version" :remote-addr :query '
+      + `${colored( ':status', color )} :content-length ~ :response-time ms`
+    ) )( tokens, req, res );
+  },
+  {
+    stream: {
+      write: str => log( str.slice( 0, -1 ) )
+    },
+    skip: req => blacklist.some( regexp => regexp.test( req.originalUrl ) )
   }
+);
 
-  if ( !blacklist.includes( req.path.split( '/' )[ 0 ] ) ) {
-
-    log( 'info', {
-      key: _.get( req, 'query.key', null ),
-      path: req.path,
-      query: req.query,
-      extension: req.path.split( '.' ).pop(),
-      url: req.originalUrl,
-      ip: ( req.header( 'x-forwarded-for' ) || '' ).split( ', ' ).shift()
-    } );
-
-  }
-
-  next();
-
+function headersSent( res ) {
+  return typeof res.headersSent !== 'boolean'
+    ? Boolean( res._header )
+    : res.headersSent
 }
+
+function withColor( txt ) {
+  return process.env.NODE_ENV === 'development' ? `\x1b[0m${txt}\x1b[0m` : txt;
+}
+
+function colored( txt, color = 0 ) {
+  return process.env.NODE_ENV === 'development' ? `\x1b[${color}m${txt}\x1b[0m` : txt;
+}
+
+const mags = ' KMGTPEZY';
+
+function humanSize( bytes, precision ) {
+  const magnitude = Math.min( Math.log( bytes ) / Math.log( 1024 ) | 0, mags.length - 1 );
+  const result = bytes / Math.pow( 1024, magnitude );
+  const suffix = mags[ magnitude ].trim() + 'B';
+
+  return result.toFixed( precision ) + suffix;
+}
+
+
+module.exports = {
+  init,
+  middleware
+};

@@ -629,8 +629,6 @@ function render( req, res, templatePath, data, maintain ) {
 
       res.end();
 
-      req.log( 'info', { code: statusCode, message: 'response sent' } );
-
     } else {
 
       renderJson( req, res, {
@@ -1038,8 +1036,6 @@ function renderJson( req, res, data, options ) {
   res.write( body );
 
   res.end();
-
-  req.log( 'info', 'sent json response >>>' );
 
 }
 

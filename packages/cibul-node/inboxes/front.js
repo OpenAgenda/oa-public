@@ -31,10 +31,6 @@ const preMw = [
   sessions.middleware.load( { detailed: true } )
 ];
 
-if ( __DEVELOPMENT__ ) {
-  preMw.push( morgan( 'dev' ) );
-}
-
 app.use(
   '/home/inbox',
   preMw,
