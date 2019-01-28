@@ -1,11 +1,12 @@
 "use strict";
 
-const formSchemas = require( '@openagenda/form-schemas' );
+const { promisify } = require( 'util' );
+
 const agendaTags = require( '@openagenda/agenda-tags' );
 const config = require( '../../../config' );
 const generateTagSet = require( '@openagenda/form-schemas/server/legacy/generateTagSet' );
 
-const { promisify } = require( 'util' );
+const getMergedSchema = require( './getMergedSchema' );
 
 const setAgendaTags = promisify( agendaTags.set );
 const getAgendaTags = promisify( agendaTags.get );
@@ -16,10 +17,9 @@ module.exports = async ( agenda, force = false ) => {
 
   log( 'transferring from form-schema to tag-set and custom fields', agenda.uid );
 
-  // get the merged one.
-  const schema = await formSchemas.get( agenda.formSchemaId );
+  const schema = await getMergedSchema( agenda );
 
-  if ( !schema ) return { message: `No form schema was found for agenda ${agenda.uid}` };
+  if ( !schema ) return { message: `No schema was found for agenda ${agenda.uid}` };
 
   const tagSet = generateTagSet( schema );
 

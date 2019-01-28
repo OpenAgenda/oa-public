@@ -2,9 +2,9 @@
 
 const _ = require( 'lodash' );
 
-const formSchemas = require( '@openagenda/form-schemas' );
 const config = require( '../../../config' );
 const generateCustomFields = require( '@openagenda/form-schemas/server/legacy/generateCustomFields' );
+const getMergedSchema = require( './getMergedSchema' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics/formSchemaToCustom' );
 
@@ -13,7 +13,7 @@ module.exports = async ( agenda, force ) => {
   log( 'transferring from form-schema to custom fields', agenda.uid );
 
   // get the merged one.
-  const schema = await formSchemas.get( agenda.formSchemaId );
+  const schema = await getMergedSchema( agenda );
 
   if ( !schema ) return { message: `No form schema was found for agenda ${agenda.uid}` };
 
