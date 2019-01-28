@@ -9,14 +9,12 @@ const setCustom = require( '../utils/setCustom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
-module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
+module.exports = async ( agenda, eventUid, clean, options = {} ) => {
 
-  const { draft, formSchemaId, networkFormSchemaId, context } = _.assign( {
-    formSchemaId: null,
-    networkFormSchemaId: null,
+  const { draft, context } = _.assign( {
     draft: false,
     context: {}
-  }, _.isObject( options ) ? options : { formSchemaId: options } );
+  }, options );
 
   const added = {
     agendaEvent: null,
@@ -27,7 +25,7 @@ module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
 
     try {
 
-      const { created } = await agendaEvents( agendaUid ).create( eventUid, clean.agendaEvent, {
+      const { created } = await agendaEvents( agenda.uid ).create( eventUid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
         context: ih( context, { legacy: { $set: false } } )
       } );
@@ -36,16 +34,16 @@ module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
 
     } catch ( e ) {
 
-      throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agendaUid, eventUid );
+      throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, eventUid );
 
     }
 
   }
 
   // create custom data
-  if ( formSchemaId && clean.custom ) {
+  if ( agenda.formSchemaId && clean.custom ) {
 
-    const result = await setCustom( formSchemaId, eventUid, clean.custom, {
+    const result = await setCustom( agenda.formSchemaId, eventUid, clean.custom, {
       draft,
       agendaId: clean.agendaId
     } );
@@ -61,9 +59,9 @@ module.exports = async ( agendaUid, eventUid, clean, options = {} ) => {
   }
 
 
-  if ( networkFormSchemaId && clean.networkCustom ) {
+  if ( _.get( agenda, 'network.formSchemaId' ) && clean.networkCustom ) {
 
-    const result = await setCustom( networkFormSchemaId, eventUid, clean.networkCustom, {
+    const result = await setCustom( agenda.network.formSchemaId, eventUid, clean.networkCustom, {
       draft,
       agendaId: clean.agendaId
     } );

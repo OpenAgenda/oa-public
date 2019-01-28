@@ -10,8 +10,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const doAdd = require( '../utils/doAdd' );
-const getAgenda = require( '../utils/getAgenda' );
-const getNetwork = require( '../utils/getNetwork' );
+const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
@@ -32,22 +31,20 @@ module.exports = async ( agendaUid, data, options = {} ) => {
     defaultLang: 'en'
   }, options || {} );
 
-  const agenda = await getAgenda( agendaUid );
+  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
 
   const {
+    network,
     formSchemaId,
-    networkUid,
     id: agendaId
   } = agenda;
-
-  const network = await getNetwork( networkUid );
 
   const created = {};
 
   // pre-validate data
   const clean = await validate.loaded( {
-    formSchemaId,
-    networkFormSchemaId: _.get( network, 'formSchemaId' )
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get( agenda, 'network.formSchema' ),
   }, data, { draft, formSchemaDataFormat } );
 
   try {
@@ -93,15 +90,13 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   }
 
-  const addResult = await doAdd( agendaUid, created.event.uid, ih( clean, {
+  const addResult = await doAdd( agenda, created.event.uid, ih( clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
     // required for custom legacy sync only.
     agendaId: { $set: agendaId }
   } ), {
-    formSchemaId,
-    networkFormSchemaId: _.get( network, 'formSchemaId' ),
     draft,
     context: {
       aggregated: false,

@@ -13,7 +13,7 @@ module.exports = async ( formSchemaId, eventUid, data, { draft, agendaId } ) => 
   try {
 
     const options = {
-      transferToLegacy: !draft, 
+      transferToLegacy: !draft,
       context: { legacy: false },
       draft,
       validate: false
