@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.3.6",
+  "version": "1.4.0",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -14,7 +14,8 @@
     "start": "nodemon server.dev",
     "build": "rimraf client/build && babel client/src -d client/build -s"
   },
-  "dependencies": {    "@babel/runtime-corejs2": "^7.1.2",
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.1.2",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-table-store": "^1.0.0",
