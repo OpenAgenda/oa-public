@@ -15,15 +15,17 @@ module.exports = async ( redis, prefix, agendaUid, options = {} ) => {
 
   const ctlDataStr = await redis.get( prefix + agendaUid );
 
-  if ( !ctlDataStr && !initialize ) {
+  const isNotDefined = !ctlDataStr || ctlDataStr === 'null';
+
+  if ( isNotDefined && !initialize ) {
 
     return null;
 
-  } else if ( !ctlDataStr && !parse ) {
+  } else if ( isNotDefined && !parse ) {
 
     return JSON.stringify( initializeControlData() );
 
-  } else if ( !ctlDataStr ) {
+  } else if ( isNotDefined ) {
 
     return initializeControlData();
 
