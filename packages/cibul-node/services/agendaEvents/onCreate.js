@@ -42,8 +42,8 @@ module.exports = async ( ae, context ) => {
       }
     } else {
       // Sharing
-      console.log( '==================' );
-      console.log( 'send mail SHARING' );
+      log( '==================' );
+      log( 'send mail SHARING' );
       //   myEventShare to creator                  [ 'receive', 'myEventShare' ]
       //   eventShare to adminmods (- creator)      [ 'receive', 'eventShare' ]
     }
@@ -168,7 +168,7 @@ module.exports = async ( ae, context ) => {
 
       } else {
 
-        console.log( 'CREATE SHARING ACTIVITY' );
+        log( 'CREATE SHARING ACTIVITY' );
 
       }
 
