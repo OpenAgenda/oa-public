@@ -45,7 +45,10 @@ module.exports = async agendaUid => {
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
       resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`,
       resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
-      resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`
+      resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
+      legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,
+      formSchemaToTagSet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-tagset`,
+      formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
     }
   }
 
@@ -61,11 +64,14 @@ module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaU
 
 module.exports.transferFormSchema = agenda => {
 
-  log( 'transfering form schema from legacy to form schema db for agenda %d', agenda.uid );
+  log( 'transferring form schema from legacy to form schema db for agenda %d', agenda.uid );
 
   return formSchemas.legacy.transfer( agenda.id );
 
 }
+
+module.exports.formSchemaToTagSet = require( './lib/formSchemaToTagSet' );
+module.exports.formSchemaToCustom = require( './lib/formSchemaToCustom' );
 
 module.exports.task = () => {
 
