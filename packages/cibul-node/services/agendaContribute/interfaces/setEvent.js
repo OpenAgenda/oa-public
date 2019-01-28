@@ -17,6 +17,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
   const isNew = !current;
   const isDraft = _.get( current, 'draft', false );
+  const isUndrafted = isDraft && !draft;
 
   log( isNew ? 'this is a create' : 'this is an update.' );
 
@@ -43,9 +44,9 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
 
     transforms.state = { $set: 0 };
 
-  } else if ( isNew ) {
+  } else if ( isNew || isUndrafted ) {
 
-    log( 'event is new, it should take the state requested by the agenda' );
+    log( 'event is new or undrafted; it should take the state requested by the agenda' );
 
     transforms.state = { $set: _.get( agenda, 'settings.contribution.defaultState' ) };
 
