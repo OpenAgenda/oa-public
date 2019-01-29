@@ -1,68 +1,56 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const cmn = require( '../lib/commons-app' );
+const agendaSvc = require( '../services/agenda' );
 
-cmn = require( '../lib/commons-app' ),
+const preMw = [
+  cmn.loadLogger( 'search front' ),
+  cmn.redirectLegacySearch,
+  _maintain( [ 'page', 'search' ] ),
+];
 
-perPage = 20,
 
-lib = require( '../lib/lib' ),
+module.exports = app => {
 
-wn = require( 'when/node' ),
-
-async = require( 'async' ),
-
-model = require( '../services/model' ),
-
-agendaSvc = require( '../services/agenda' ),
-
-eventSvc = require( '../services/event' ),
-
-routes = {
-
-  searchEvents: [ 'get', '/events/search', [
+  app.get(
+    '/events/search',
+    preMw,
     searchEvents
-  ] ],
+  );
 
-  widgetSearchEvents: [ 'get', '/widgets/:uid/search', [
-    agendaSvc.mw.load( 'uid', { cache: true } ),
-    agendaSvc.mw.browserCache,
-    widgetSearchEvents
-  ] ],
-
-  widgetEmbedSearchEvents: [ 'get', '/widgets/:uid/:embedUid/search', [
+  app.get(
+    '/widgets/:uid/search',
+    preMw,
     agendaSvc.mw.load( 'uid', { cache: true } ),
     agendaSvc.mw.browserCache,
     widgetSearchEvents
-  ] ],
+  );
 
-  searchAgendas: [ 'get', '/agendas/search', [
+  app.get(
+    '/widgets/:uid/:embedUid/search',
+    preMw,
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    agendaSvc.mw.browserCache,
+    widgetSearchEvents
+  );
+
+  app.get(
+    '/agendas/search',
+    preMw,
     searchAgendas
-  ] ],
+  );
 
-  latestEvents: [ 'get', '/events/latest', [
+  app.get(
+    '/events/latest',
+    preMw,
     latestEvents
-  ] ],
+  );
 
-  latestAgendas: [ 'get', '/agendas/latest', [
+  app.get(
+    '/agendas/latest',
+    preMw,
     latestAgendas
-  ] ]
-};
-
-module.exports = function( p ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'search front' ),
-    cmn.redirectLegacySearch,
-    _maintain( [ 'page', 'search' ] ),
-  ] );
-
-  return {
-    load: router.load( p ),
-    paths: modLib.getPaths( p, routes )
-  }
+  );
 
 }
 
@@ -79,7 +67,7 @@ function searchEvents( req, res, next ) {
 
     req.log( 'info', 'request received for searchEvents with no params.' );
 
-    return res.redirect( 302, req.genUrl( 'latestEvents' ) );
+    return res.redirect( 302, '/events/latest' );
 
   }
 
@@ -118,7 +106,7 @@ function searchAgendas( req, res ) {
 
     req.log( 'info', 'request received for searchAgendas with no params.' );
 
-    return res.redirect( 302, req.genUrl( 'latestAgendas' ) );
+    return res.redirect( 302, '/agendas/latest' );
 
   }
 
@@ -157,57 +145,5 @@ function _maintain( queryNames ) {
     next();
 
   };
-
-}
-
-
-/**
- * controller helpers
- */
-
-function _error( req, res ) {
-
-  return function( err ) {
-
-    if ( typeof err === 'string' ) err = { message: err };
-
-    cmn.errorResponse( req, res, err );
-
-  };
-
-}
-
-
-function _pager( req, routeName, totalItems ) {
-
-  return {
-    pager: {
-      base: { oaq: req.cleanSearch },
-      routeName: routeName,
-      current: req.query.page || 1,
-      total: totalItems,
-      perPage: perPage
-    }
-  };
-
-}
-
-
-function _cleanEvents( events ) {
-
-  return events.map( function( e ) {
-
-    var inst = eventSvc.instanciate( e );
-
-    return {
-      slug: e.slug,
-      title: inst.getTitle(),
-      description: inst.getDescription(),
-      dateRange: inst.getRange(),
-      thumbnail: inst.getThumbnail( false ),
-      placeName: inst.getLocationName().label
-    }
-
-  });
 
 }

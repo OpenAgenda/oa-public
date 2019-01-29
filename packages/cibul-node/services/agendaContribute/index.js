@@ -15,7 +15,7 @@ const interfaces = require( './interfaces' );
 
 let bucket;
 
-module.exports = _.extend( ( parentApp, path ) => {
+module.exports = _.extend( ( parentApp, path = '' ) => {
 
   parentApp.use( '/dist/contribute',
     contribute.dist,
@@ -28,7 +28,6 @@ module.exports = _.extend( ( parentApp, path ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    sessions.middleware.load(),
     agendas.middleware.load( {
       namespaces: {
         identifiers: { slug: 'params.agendaSlug' }

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
 import { getContext, withContext } from 'recompose';
 import moment from 'moment';
 import cn from 'classnames';
@@ -41,7 +42,7 @@ export default class App extends Component {
   render() {
     const {
       modals, closeModal, lang,
-      settings: { Wrapper }, children, getLabel
+      settings: { Wrapper }, route, getLabel
     } = this.props;
 
     const messageSentModal = modals && modals.messageSent || {};
@@ -50,7 +51,7 @@ export default class App extends Component {
 
     const content = (
       <Fragment>
-        {children}
+        {renderRoutes( route.routes )}
 
         {messageSentModal.visible ? <Modal
           title={getLabel( 'messageSent' )}

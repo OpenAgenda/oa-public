@@ -1,11 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
-import ReactDom from 'react-dom';
-import App from '@openagenda/activity-apps/dist/react/apps/admin';
-import deepExtend from 'deep-extend';
+import ReactDOM from 'react-dom';
+import createApp from '@openagenda/activity-apps/dist/client/apps/admin';
 import du from '@openagenda/dom-utils';
 
 
-const params = {
+const defaults = {
   state: {
     settings: {
       lang: 'fr',
@@ -20,9 +20,10 @@ const params = {
 };
 
 window.hook( options => {
+  const { initialState } = _.merge( {}, defaults, options );
+  const { element, triggerHooks } = createApp( { initialState } );
 
-  deepExtend( params, options );
+  triggerHooks();
 
-  ReactDom.render( App( params ), du.el( '.js_canvas' ) );
-
+  ReactDOM.render( element, du.el( '.js_canvas' ) );
 } );

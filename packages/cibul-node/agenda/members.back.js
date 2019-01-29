@@ -4,12 +4,12 @@ const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const _ = require( 'lodash' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
-const mw = require( '@openagenda/member-apps/middleware' );
+const createApp = require( '@openagenda/member-apps/dist/app' );
+const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 
 
@@ -105,7 +105,6 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'members' ),
-    sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     agendasMw.load( {
       namespaces: {
@@ -161,60 +160,78 @@ module.exports = path => {
 
 };
 
-
-function getApp( req, res, next, { store, component } = {} ) {
-
-  const state = store ? store.getState() : {};
-  const lang = req.lang || 'fr';
-
-  const content = component ? ReactDOM.renderToString( component ) : '';
-  const tab = 'members';
-
-  cmn.render( req, res, 'members/index', { scriptParams: { state }, lang, content, tab } );
-
-}
-
-function matchApp( req, res, next ) {
+async function matchApp( req, res, next ) {
 
   const prefix = req.genUrl( 'agendaAdminMembers', { slug: req.params.slug } ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
 
-  mw.matchApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: 20
-        },
-        res: {
-          app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
-          list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
-          update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
-          remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
-          invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
-          stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
-          showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
-          writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
-          exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
-          exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
-          sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
-        },
-        agenda: {
-          uid: req.agenda.uid,
-          slug: req.agenda.slug,
-          title: req.agenda.title,
-          ownerId: req.agenda.ownerId,
-          credentials: req.agendaInstance.data.credentials,
-          roles: req.agendaRoles
-        },
-        stakeholder: req.stakeholder
-      }
-    },
-    prefix,
-    getApp
-  )( req, res, next );
+  const { element, triggerHooks, store, context } = createApp( {
+    req,
+    initialState: {
+      settings: {
+        prefix,
+        lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: 20
+      },
+      res: {
+        app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
+        list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
+        update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
+        remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
+        invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
+        stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
+        showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
+        writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
+        exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
+        exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
+        sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
+      },
+      agenda: {
+        uid: req.agenda.uid,
+        slug: req.agenda.slug,
+        title: req.agenda.title,
+        ownerId: req.agenda.ownerId,
+        credentials: req.agendaInstance.data.credentials,
+        roles: req.agendaRoles
+      },
+      stakeholder: req.stakeholder
+    }
+  } );
+
+  try {
+    await triggerHooks();
+
+    const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    cmn.render( req, res, 'members/index', {
+      scriptParams: { initialState: state },
+      preloaded: true,
+      lang,
+      content,
+      tab: 'members'
+    } );
+  } catch ( e ) {
+    next( e );
+  }
 
 }
 

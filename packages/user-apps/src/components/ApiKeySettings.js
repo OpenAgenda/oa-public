@@ -1,108 +1,89 @@
-"use strict";
-
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  { reduxForm } = require( 'redux-form' ),
-
-  { push } = require( 'react-router-redux' ),
-
-  { connect } = require( 'react-redux' );
-
-const domOnlyProps = ( {
-                         initialValue, autofill, onUpdate, valid, invalid, dirty,
-                         pristine, active, touched, visited, autofilled,
-                         ...domProps
-                       } ) => domProps;
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { connect } from 'react-redux';
 
 
-const ApiKeySettings = createReactClass( {
-
-  displayName: 'ApiKeySettings',
-
-  propTypes: {
+@connect( state => ({
+  prefix: state.settings.prefix,
+  user: state.userSettings.user
+}) )
+@withRouter
+export default class ApiKeySettings extends Component {
+  static propTypes = {
     activeTab: PropTypes.bool
-  },
+  };
 
-  contextTypes: {
-    getLabels: PropTypes.func
-  },
+  static contextTypes = {
+    getLabel: PropTypes.func
+  };
 
-  render: function () {
+  render() {
+    const { getLabel } = this.context;
+    const { activeTab, displayModal, user, generateApiKey, prefix, history } = this.props;
 
-    const { getLabels } = this.context;
-
-    const { activeTab, dispatch, fields: { apiKey, apiSecret }, displayModal, generateApiKey, prefix } = this.props;
-
-    const generateApiKeyModal = ( secret = 0 ) => ({
+    const generateApiKeyModal = ( secret = false ) => ({
       visible: true,
-      title: getLabels( 'generateNewApiKey' ),
-      content: <p>{getLabels( 'generateNewApiKeyModalText' )}</p>,
+      title: getLabel( 'generateNewApiKey' ),
+      content: <p>{getLabel( 'generateNewApiKeyModalText' )}</p>,
       action: () => generateApiKey( secret ),
-      actionText: getLabels( 'generateNewApiKeyModalButton' ),
+      actionText: getLabel( 'generateNewApiKeyModalButton' ),
       buttonClass: 'btn btn-primary'
     });
 
     return (
       <tr
-        onClick={!activeTab ? dispatch.bind( this, push( prefix + '/apiKey' ) ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/apiKey' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabels( 'apiKeys' )}
+          {getLabel( 'apiKeys' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
-            <p>{getLabels( 'apiKeyInformation' )}</p>
+            <p>{getLabel( 'apiKeyInformation' )}</p>
 
             <p>
               <a href="//openagenda.zendesk.com/hc/fr/sections/201090781-The-API-documentation-in-english-">
-                {getLabels( 'showDocumentation' )}
+                {getLabel( 'showDocumentation' )}
               </a>
             </p>
 
             <div className="form-group">
-              <label htmlFor="apiKey">{getLabels( 'publicKey' )}</label>
+              <label htmlFor="apiKey">{getLabel( 'publicKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="apiKey" readOnly {...domOnlyProps( apiKey )} />
+                <input type="text" className="form-control" name="apiKey" value={user.apiKey || ''} readOnly />
                 <span className="input-group-btn">
-                  <button className="btn btn-default" type="button"
-                    onClick={() => displayModal( generateApiKeyModal() )}>
+                  <button
+                    className="btn btn-default"
+                    type="button"
+                    onClick={() => displayModal( generateApiKeyModal() )}
+                  >
                     <i className="fa fa-refresh" aria-hidden="true"></i>
                   </button>
                 </span>
               </div>
             </div>
 
-            {apiSecret.value && <div className="form-group">
-              <label htmlFor="apiSecret">{getLabels( 'secretKey' )}</label>
+            {user.apiSecret && <div className="form-group">
+              <label htmlFor="apiSecret">{getLabel( 'secretKey' )}</label>
               <div className="input-group">
-                <input type="text" className="form-control" name="apiSecret" readOnly {...domOnlyProps( apiSecret )} />
+                <input type="text" className="form-control" name="apiSecret" value={user.apiSecret || ''} readOnly />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="button"
-                    onClick={() => displayModal( generateApiKeyModal( 1 ) )}>
+                          onClick={() => displayModal( generateApiKeyModal( true ) )}>
                     <i className="fa fa-refresh" aria-hidden="true"></i>
                   </button>
                 </span>
               </div>
             </div>}
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'showApiKeys' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'showApiKeys' )}</td>}
       </tr>
     );
-
   }
-
-} );
-
-module.exports = reduxForm( {
-  form: 'apiKeySettings',
-  fields: [ 'apiKey', 'apiSecret' ]
-} )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( ApiKeySettings ) );
+}

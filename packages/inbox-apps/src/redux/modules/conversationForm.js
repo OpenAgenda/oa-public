@@ -44,13 +44,16 @@ export function closeConversationForm() {
 export function createConversation( data ) {
   return {
     types: [ CREATE_CONVERSATION, CREATE_CONVERSATION_SUCCESS, CREATE_CONVERSATION_FAIL ],
-    promise: ( client, { res, agenda, event } ) =>
-      client.post(
+    promise: ( { client }, { getState } ) => {
+      const { res, agenda, event } = getState();
+
+      return client.post(
         res.conversations.create
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid ),
-        { data }
-      )
+        data
+      );
+    }
   };
 }

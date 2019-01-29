@@ -58,7 +58,7 @@
                 <div class="media">
                     <article class="media-body media-middle">
                         <h2 class="media-heading">
-                            <a href="<%= genUrl( 'discover', { lang: lang, page: 'basic-agenda' } ) %>">
+                            <a href="/discover/basic-agenda?lang=<%= lang %>">
                                 <%- __( 'function1Head' ) %>
                             </a>
                         </h2>
@@ -83,7 +83,7 @@
                     </figure>
                     <article class="media-body media-middle">
                         <h2 class="media-heading">
-                            <a href="<%= genUrl( 'discover', { lang: lang, page: 'collaborative-agenda' } ) %>">
+                            <a href="/discover/collaborative-agenda?lang=<%= lang %>">
                                 <%- __( 'function2Head' ) %>
                             </a>
                         </h2>
@@ -100,7 +100,7 @@
                 <div class="media">
                     <article class="media-body media-middle">
                         <h2 class="media-heading">
-                            <a href="<%= genUrl( 'discover', { lang: lang, page: 'build-your-network' } ) %>">
+                            <a href="/discover/build-your-network?lang=<%= lang %>">
                                 <%- __( 'function3Head' ) %>
                             </a>
                         </h2>
@@ -121,13 +121,14 @@
                 <div class="media">
                     <figure class="media-left media-middle">
                         <img src="https://s3.eu-central-1.amazonaws.com/oastatic/Export sans moustaches.jpg"
-                                width="256" class="shadow">
+                             width="256" class="shadow">
                     </figure>
                     <article class="media-body media-middle">
-                        <h2 class="media-heading"><a href="<%= genUrl( 'discover', {
-                                lang: lang,
-                                page: 'broadcast-your-events'
-                            } ) %>"><%- __( 'function4Head' ) %></a></h2>
+                        <h2 class="media-heading">
+                            <a href="/discover/broadcast-your-events?lang=<%= lang %>">
+                                <%- __( 'function4Head' ) %>
+                            </a>
+                        </h2>
                         <p><%- __( 'function4Description' ) %></p>
                     </article>
                 </div>
@@ -193,10 +194,9 @@
                 <% }); %>
             </ul>
             <p class="text-center">
-                <a class="btn btn-link btn-lg" href="<%= genUrl( 'discover', {
-                    lang: lang,
-                    page: 'testimonies'
-                } ) %>"><%= __( 'seeMoreTestimonies' ) %></a>
+                <a class="btn btn-link btn-lg" href="/discover/testimonies?lang=<%= lang %>">
+                    <%= __( 'seeMoreTestimonies' ) %>
+                </a>
             </p>
         </div>
     </div>
@@ -209,7 +209,7 @@
             <div class="pricing">
                 <ul>
                     <li class="unit price-success">
-                        <a href="<%= genUrl( 'discover', { lang: lang, page: 'basic-agenda' } ) %>">
+                        <a href="/discover/basic-agenda?lang=<%= lang %>">
                             <div class="price-title">
                                 <h3><%= __( 'standardCalendar' ) %></h3>
                             </div>
@@ -231,7 +231,7 @@
                         </div>
                     </li>
                     <li class="unit price-primary">
-                        <a href="<%= genUrl( 'discover', { lang: lang, page: 'premium-agenda' } ) %>">
+                        <a href="/discover/premium-agenda?lang=<%= lang %>">
                             <div class="price-title">
                                 <h3><%= __( 'premiumCalendar' ) %></h3>
                             </div>
@@ -252,15 +252,13 @@
                             </div>
                         </a>
                         <div class="price-foot">
-                            <a class="btn btn-primary"
-                                    href="<%= genUrl( 'discover', { lang: lang, page: 'contact-us' } ) %>"
-                                    rel="nofollow">
+                            <a class="btn btn-primary" href="/discover/contact-us?lang=<%= lang %>" rel="nofollow">
                                 <%= __( 'contactUs' ) %>
                             </a>
                         </div>
                     </li>
                     <li class="unit price-primary">
-                        <a href="<%= genUrl( 'discover', { lang: lang, page: 'network-of-agendas' } ) %>">
+                        <a href="/discover/network-of-agendas?lang=<%= lang %>">
                             <div class="price-title">
                                 <h3><%= __( 'networkCalendar' ) %></h3>
                             </div>
@@ -276,16 +274,14 @@
                                 </ul>
                             </div>
                             <div class="price-foot">
-                                <a class="btn btn-primary"
-                                        href="<%= genUrl( 'discover', { lang: lang, page: 'contact-us' } ) %>"
-                                        rel="nofollow">
+                                <a class="btn btn-primary" href="/discover/contact-us?lang=<%= lang %>" rel="nofollow">
                                     <%= __( 'contactUs' ) %>
                                 </a>
                             </div>
                         </a>
                     </li>
                     <li class="unit price-primary">
-                        <a href="<%= genUrl( 'discover', { lang: lang, page: 'a-tailored-offer' } ) %>">
+                        <a href="/discover/a-tailored-offer?lang=<%= lang %>">
                             <div class="price-title">
                                 <h3><%= __( 'tailored' ) %></h3>
                             </div>
@@ -305,9 +301,7 @@
                             </div>
                         </a>
                         <div class="price-foot">
-                            <a class="btn btn-primary"
-                                    href="<%= genUrl( 'discover', { lang: lang, page: 'contact-us' } ) %>"
-                                    rel="nofollow">
+                            <a class="btn btn-primary" href="/discover/contact-us?lang=<%= lang %>" rel="nofollow">
                                 <%= __( 'contactUs' ) %>
                             </a>
                         </div>
@@ -398,7 +392,7 @@
                         </ul>
                     </li>
                     <li>
-                        <form action="<%= genUrl( 'newsletterSubscribe' ) %>" method="post">
+                        <form action="/newsletter/subscribe" method="post">
                             <div class="input-group">
                                 <input type="email" name="email" placeholder="<%= __( 'email' ) %>"
                                         class="form-control">

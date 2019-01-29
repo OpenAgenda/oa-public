@@ -4,7 +4,7 @@
       <div class="col-sm-offset-3 col-sm-6">
         <div class="page">
           <h1><%= __( 'Unsubscribe' ) %></h1>
-          <form method="post" action="<%= genUrl( 'emailUnsubscribeSubmit' ) %>">
+          <form method="post" action="/emailunsubscribe">
             <div class="form-group <% if ( error ) { %>has-error<% } %>">
               <label for="email"><%= __( 'submit your email to stop receiving event emails' ) %></label>
               <input name="email" type="text" class="form-control" value="<%= email %>" />

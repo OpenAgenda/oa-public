@@ -1,55 +1,64 @@
 "use strict";
 
-
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const config = require( '../config' );
-const modLib = require( '../lib/moduleLib.js' );
-const cmn = require( '../lib/commons-app' );
+const sessions = require( '@openagenda/sessions' );
 const homeMw = require( '@openagenda/home/dist/middleware' );
 const createApp = require( '@openagenda/home/dist/client/app' );
-const sessions = require( '@openagenda/sessions' );
+const createActivitiesApp = require( '@openagenda/activity-apps/dist/client/apps/user' );
 const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
+const config = require( '../config' );
+const cmn = require( '../lib/commons-app' );
 
 
-module.exports = path => {
+const preMw = [
+  cmn.loadLogger( 'home' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
+];
 
-  const routes = {
-    homeShow: [ 'get', '', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchApp
-    ] ],
-    homeEvents: [ 'get', '/events', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchApp
-    ] ],
-    homeActivities: [ 'get', '/activities', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchUserActivitiesApp
-    ] ],
+module.exports = app => {
 
-    homeShowList: [ 'get', '/agendas', homeMw.agendas.list ],
-    homeEventsList: [ 'get', '/events.json', homeMw.events.list ],
-    homeActivitiesList: [
-      'get', '/activities/list',
-      ( req, res ) => activitiesMw.list( { entityType: 'user', entityUid: req.user.uid } )( req, res )
-    ]
-  };
+  app.get(
+    '/home',
+    preMw,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    matchApp
+  );
 
-  const router = modLib.Router( routes );
+  app.get(
+    '/home/events',
+    preMw,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    matchApp
+  );
 
-  router.pre( [
-    cmn.loadLogger( 'home' ),
-    sessions.middleware.load(),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() )
-  ] );
+  app.get(
+    '/home/activities',
+    preMw,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    matchUserActivitiesApp
+  );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.get(
+    '/home/agendas',
+    preMw,
+    homeMw.agendas.list
+  );
+
+  app.get(
+    '/home/events.json',
+    preMw,
+    homeMw.events.list
+  );
+
+  app.get(
+    '/home/activities/list',
+    preMw,
+    ( req, res ) => activitiesMw.list( { entityType: 'user', entityUid: req.user.uid } )( req, res )
+  );
 
 }
+
 
 async function matchApp( req, res, next ) {
   const lang = req.lang || 'fr';
@@ -69,24 +78,24 @@ async function matchApp( req, res, next ) {
       res: {
         agendas: {
           contribute: '/:slug/contribute',
-          create: req.genUrl( 'agendaSettingsCreateApp' ),
-          list: req.genUrl( 'homeShowList' ),
-          show: req.genUrl( 'agendaShow', { slug: ':slug' } ),
-          showPrivate: req.genUrl.getPath( 'agendaShowPrivate' ),
-          addEvent: req.genUrl( 'agendaEventNew', { slug: ':slug' } ),
-          moderate: req.genUrl( 'agendaAdminShow', { slug: ':slug' } ),
+          create: '/new',
+          list: '/home/agendas',
+          show: '/:slug',
+          showPrivate: '/:slug.prv',
+          addEvent: '/:slug/addevent',
+          moderate: '/:slug/admin',
           contact: '/:slug/contact'
         },
         events: {
-          list: req.genUrl( 'homeEventsList' ),
-          show: req.genUrl.getPath( 'agendaEventShow' ),
-          showPrivate: req.genUrl.getPath( 'agendaEventShowPrivate' ),
-          showWithoutAgenda: req.genUrl.getPath( 'eventShow' ),
-          edit: req.genUrl.getPath( 'agendaEventEdit' )
+          list: '/home/events.json',
+          show: '/:slug/events/:eventSlug',
+          showPrivate: '/:slug.prv/events/:eventSlug',
+          showWithoutAgenda: '/events/:eventSlug',
+          edit: '/:slug/event/:eventSlug/edit'
         },
-        messages: req.genUrl( 'homeMessages' ),
-        notifs: req.genUrl( 'homeNotifications' ),
-        search: req.genUrl( 'agendaSearch' )
+        messages: '/home/messages',
+        notifs: '/home/notifications',
+        search: '/agendas'
       }
     }
   } );
@@ -94,11 +103,16 @@ async function matchApp( req, res, next ) {
   try {
     await triggerHooks();
 
-    const state = store.getState();
     const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
 
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
 
     if ( context.url ) {
       return res.redirect( 301, context.url );
@@ -115,35 +129,56 @@ async function matchApp( req, res, next ) {
   }
 }
 
-function getUserActivitiesApp( req, res, next, { store, component } = {} ) {
-  const state = store ? store.getState() : {};
+
+async function matchUserActivitiesApp( req, res, next ) {
+  const prefix = '/home/activities';
   const lang = req.lang || 'fr';
 
-  const content = component ? ReactDOM.renderToString( component ) : '';
-
-  cmn.render( req, res, 'activities/user', { scriptParams: { state }, lang, content } );
-}
-
-
-function matchUserActivitiesApp( req, res, next ) {
-  const prefix = req.genUrl( 'homeActivities' ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-
-  activitiesMw.matchUserApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: homeMw.getConfig().mw.limit
-        },
-        res: {
-          list: req.genUrl( 'homeActivitiesList' )
-        }
+  const { element, triggerHooks, store, context } = createActivitiesApp( {
+    req,
+    initialState: {
+      settings: {
+        prefix,
+        lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: homeMw.getConfig().mw.limit
+      },
+      res: {
+        list: '/home/activities/list'
       }
-    },
-    prefix,
-    getUserActivitiesApp
-  )( req, res, next );
+    }
+  } );
+
+  try {
+    await triggerHooks();
+
+    const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    cmn.render(
+      req,
+      res,
+      'activities/user',
+      { scriptParams: { initialState: state }, lang, content, preloaded: true }
+    );
+  } catch ( e ) {
+    next( e );
+  }
 }

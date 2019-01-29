@@ -15,8 +15,6 @@ const TOKEN_REGEX = new RegExp(`^${TOKEN_REGEX_STRING}$`);
 const getLabel = makeLabelGetter( labels );
 const app = express();
 
-app.use( sessions.middleware.load( { detailed: true } ) );
-
 
 function getTarget( entity ) {
   if ( typeof entity === 'string' ) {
@@ -174,7 +172,7 @@ function task() {
 }
 
 
-module.exports = ( parentApp, path = '/' ) => {
+module.exports = ( parentApp, path = '' ) => {
   app.use( `/unsubscribe/:token(${TOKEN_REGEX_STRING})`, ( req, res, next ) => {
     const { token } = req.params;
 

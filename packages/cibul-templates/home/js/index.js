@@ -1,7 +1,7 @@
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import createApp from '@openagenda/home/dist/client/app';
-import deepExtend from 'deep-extend';
 import du from '@openagenda/dom-utils';
 
 const defaults = {
@@ -27,7 +27,7 @@ const defaults = {
 };
 
 window.hook( options => {
-  const { initialState } = deepExtend( {}, defaults, options );
+  const { initialState } = _.merge( {}, defaults, options );
   const { element, triggerHooks } = createApp( { initialState } );
 
   triggerHooks();

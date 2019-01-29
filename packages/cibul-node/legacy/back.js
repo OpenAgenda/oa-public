@@ -21,8 +21,6 @@ const legacyAgendaSvc = require( '../services/agenda' );
 const legacyEventSvc = require( '../services/event' );
 const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
-const modLib = require( '../lib/moduleLib' );
-const notificationMail = require( '../services/notification/mail' );
 const legacyEvents = require( '../services/events' ).legacy;
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
@@ -32,93 +30,134 @@ const logger = require( '@openagenda/logs' );
 const apiLog = logger( 'legacyApi' );
 const log = logger( 'legacy' );
 
-const routes = {
 
-    /**
-     * provide to sf the html of the head section of an agenda
-     */
-    headPart: [ 'get', '/:slug/head', [
-      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-      head
-    ] ],
+const preMw = [
+  cmn.loadLogger( 'legacy' ),
+  _checkLocalhost
+];
 
 
-    eventCreate: [ 'get', '/events/:eventUid/create', [
-      _loadOptionalAgenda,
-      _loadEventByUid,
-      eventCreate
-    ] ],
+module.exports = app => {
 
-    eventUpdate: [ 'get', '/events/:eventUid/update', [
-      _loadOptionalAgenda,
-      _loadEventByUid,
-      eventUpdate
-    ] ],
+  /**
+   * provide to sf the html of the head section of an agenda
+   */
+  app.get(
+    '/legacy/:slug/head',
+    preMw,
+    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    head
+  );
 
-    legacyApi: [ 'get', '/api', [
-      api
-    ] ],
+  app.get(
+    '/legacy/events/:eventUid/create',
+    preMw,
+    _loadOptionalAgenda,
+    _loadEventByUid,
+    eventCreate
+  );
 
-    legacyApiLocationSync: [ 'get', '/api/agendas/:agendaUid/locations/:locationUid/sync', [
-      locationSync
-    ] ],
+  app.get(
+    '/legacy/events/:eventUid/update',
+    preMw,
+    _loadOptionalAgenda,
+    _loadEventByUid,
+    eventUpdate
+  );
 
-    legacyApiGetCached: [ 'get', '/api/cache', [ apiGetCached ] ],
+  app.get(
+    '/legacy/api',
+    preMw,
+    api
+  );
 
-    legacyApiPostCached: [ 'post', '/api/cache', [ apiPostCached ] ],
+  app.get(
+    '/legacy/api/agendas/:agendaUid/locations/:locationUid/sync',
+    preMw,
+    locationSync
+  );
 
-    legacyApiSystem: [ 'post', '/api/system', [ apiSystem ] ],
+  app.get(
+    '/legacy/api/cache',
+    preMw,
+    apiGetCached
+  );
 
-    /**
-     * process a save for event references
-     */
-    eventReferencesSave: [ 'post', '/:slug/events/:eventUid/references', [
-      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-      _loadEventByUid,
-      referencesSave
-    ] ],
+  app.post(
+    '/legacy/api/cache',
+    preMw,
+    apiPostCached
+  );
 
+  app.post(
+    '/legacy/api/system',
+    preMw,
+    apiSystem
+  );
 
-    /**
-     * process an event delete
-     */
-    eventDelete: [ 'get', '/events/:eventUid/delete', [
-      _loadEventByUid,
-      eventDelete
-    ] ],
+  /**
+   * process a save for event references
+   */
+  app.post(
+    '/legacy/:slug/events/:eventUid/references',
+    preMw,
+    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    _loadEventByUid,
+    referencesSave
+  );
 
-    legacyAgendaCredentials: [ 'get', '/:slug/credentials', [
-      ( req, res, next ) => {
+  /**
+   * process an event delete
+   */
+  app.get(
+    '/legacy/events/:eventUid/delete',
+    preMw,
+    _loadEventByUid,
+    eventDelete
+  );
 
-        agendas.get( { slug: req.params.slug }, { private: null, internal: true }, ( err, agenda ) => {
+  app.get(
+    '/legacy/:slug/credentials',
+    preMw,
+    ( req, res, next ) => {
 
-          if ( err ) return next( err );
+      agendas.get( { slug: req.params.slug }, { private: null, internal: true }, ( err, agenda ) => {
 
-          res.json( agenda.credentials );
+        if ( err ) return next( err );
 
-        } );
+        res.json( agenda.credentials );
 
-      }
-    ] ],
+      } );
 
-    /**
-     * log sf messages
-     */
-    log: [ 'post', '/log', [
-      logController
-    ] ],
+    }
+  );
 
-    formOrder: [ 'get', '/:slug/form-order', [
-      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-      formOrderMw
-    ] ],
+  /**
+   * log sf messages
+   */
+  app.post(
+    '/legacy/log',
+    logController
+  );
 
-    legacyFormFieldsByUser: [ 'get', '/:slug/form-fields/:userUid', [
-      legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-      formFieldsByUser
-    ] ],
+  app.get(
+    '/legacy/:slug/form-order',
+    preMw,
+    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    formOrderMw
+  );
 
-    embedClear: [ 'get', '/embeds/:embedUid/clear', ( req, res, next ) => {
+  app.get(
+    '/legacy/:slug/form-fields/:userUid',
+    preMw,
+    legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+    formFieldsByUser
+  );
+
+  app.get(
+    '/legacy/embeds/:embedUid/clear',
+    preMw,
+    ( req, res, next ) => {
 
       res.send( 'ok' );
 
@@ -132,84 +171,70 @@ const routes = {
 
       } );
 
-    } ],
+    }
+  );
 
+  /**
+   * send mails on behalf of sf
+   */
+  app.post(
+    '/legacy/mail',
+    preMw,
+    mail
+  );
 
-    /**
-     * send mails on behalf of sf
-     */
-    mail: [ 'post', '/mail', [
-      mail
-    ] ],
+  app.post(
+    '/legacy/notifications',
+    preMw,
+    ( req, res ) => {
 
-    notifications: [ 'post', '/notifications', [
-      ( req, res, next ) => {
+      cmn.renderJson( req, res, { success: true } );
 
-        cmn.renderJson( req, res, { success: true } );
+    }
+  );
 
-        notificationMail( req.body, ( err, mails ) => {
+  app.post(
+    '/legacy/contributor/ip',
+    preMw,
+    ( req, res, next ) => {
 
-          if ( err ) return next( err );
+      agendas.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {
 
-          // mails.forEach( mailer );
+        if ( err ) return next( err );
 
+        if ( !agenda ) return next( new Error( 'Agenda not found: ' + req.body.agendaUid ) );
+
+        const authorizedIPs = agenda.settings.contribution.authorizedIPAddresses;
+
+        if ( !authorizedIPs || !authorizedIPs.length || (req.body.ip === '127.0.0.1' && process.env.NODE_ENV === 'development') ) {
+
+          return res.json( { authorized: true } );
+
+        }
+
+        if ( authorizedIPs.filter( ip => req.body.ip === ip ).length ) {
+
+          return res.json( { authorized: true } );
+
+        }
+
+        res.json( {
+          authorized: false
         } );
 
-      }
-    ] ],
+      } );
 
-    verifyContributorIP: [ 'post', '/contributor/ip', [
-      ( req, res, next ) => {
+    }
+  );
 
-        agendas.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {
-
-          if ( err ) return next( err );
-
-          if ( !agenda ) return next( new Error( 'Agenda not found: ' + req.body.agendaUid ) );
-
-          const authorizedIPs = agenda.settings.contribution.authorizedIPAddresses;
-
-          if ( !authorizedIPs || !authorizedIPs.length || ( req.body.ip === '127.0.0.1' && process.env.NODE_ENV === 'development' ) ) {
-
-            return res.json( { authorized: true } );
-
-          }
-
-          if ( authorizedIPs.filter( ip => req.body.ip === ip ).length ) {
-
-            return res.json( { authorized: true } );
-
-          }
-
-          res.json( {
-            authorized: false
-          } );
-
-        } );
-
-      }
-    ] ],
-
-    /**
-     * provide session data to sf
-     */
-    session: [ 'get', '/session', session ]
-
-  };
-
-module.exports = function ( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'legacy' ),
-    _checkLocalhost
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  /**
+   * provide session data to sf
+   */
+  app.get(
+    '/legacy/session',
+    preMw,
+    session
+  );
 
 }
 
@@ -376,7 +401,6 @@ function apiGetCached( req, res, next ) {
   }
 
 
-
 }
 
 
@@ -418,11 +442,11 @@ async function apiSystem( req, res, next ) {
 
     }
 
- } catch ( e ) {
+  } catch ( e ) {
 
-  req.log( 'error', 'api system message fail', e );
+    req.log( 'error', 'api system message fail', e );
 
- }
+  }
 
   res.send( null );
 
@@ -431,7 +455,7 @@ async function apiSystem( req, res, next ) {
 
 function apiPostCached( req, res, next ) {
 
-  const cleanUri = _cleanApiUri( req ), ttl = 60*60;
+  const cleanUri = _cleanApiUri( req ), ttl = 60 * 60;
 
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
@@ -487,7 +511,6 @@ function _getAgendaUidFromAgendaEventsApiUri( uri ) {
   return parseInt( uri.split( '?' )[ 0 ].match( /[^\/][0-9]+[^\/]/ ) );
 
 }
-
 
 
 function session( req, res, next ) {

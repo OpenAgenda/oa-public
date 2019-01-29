@@ -12,9 +12,6 @@ const genUrl = require( './services/genUrl' ).getSingleton();
 
 const admin = require( './admin' );
 const web = require( './web' );
-const webAndTask = [
-  require( './legacy/back' )( '/legacy' )
-];
 
 const { ADMIN, WEB, TASK } = process.env;
 
@@ -27,7 +24,8 @@ app
   .set( 'trust proxy', 'loopback' )
   .use( bodyParser.json( { limit: '5mb' } ) )
   .use( bodyParser.urlencoded( { limit: '500kb', extended: true } ) )
-  .use( sessions.middleware );
+  .use( sessions.middleware )
+  .use( sessions.middleware.load( { detailed: true } ) );
 
 app.use( ( req, res, next ) => {
   res.setHeader( 'X-Powered-By', 'OpenAgenda' );
@@ -57,8 +55,6 @@ app.use( cmn.lang );
 cmn.loadLegacyRoutes( genUrl );
 
 web.webModules
-  .concat( admin.webModules )
-  .concat( webAndTask )
   .forEach( m => genUrl.load( m.paths ) );
 
 // run 'admin' type modules
@@ -72,12 +68,10 @@ if ( WEB ) {
 }
 
 if ( TASK || WEB ) {
-  webAndTask.forEach( m => m.load( app ) );
-
-  // delegate more to repo-ed services
-  require( './general/unsubscribed.front' )( app, '/unsubscribe' );
-  require( './agenda/json.export' )( app, '/' );
-  require( './agenda/exports' )( app, '/' );
+  require( './legacy/back' )( app );
+  require( './general/unsubscribed.front' )( app );
+  require( './agenda/json.export' )( app );
+  require( './agenda/exports' )( app );
 }
 
 app.use( ( req, res, next ) => {

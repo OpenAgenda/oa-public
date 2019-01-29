@@ -54,7 +54,7 @@
     "react-onclickoutside": "global:onClickOutside"
   },
   "dependencies": {
-    "babel-preset-openagenda": "^1.1.1",
+    "@babel/runtime-corejs2": "^7.3.1",
     "create-react-class": "^15.5.3",
     "date-format-lite": "^0.7.4",
     "lodash": "^4.17.11",

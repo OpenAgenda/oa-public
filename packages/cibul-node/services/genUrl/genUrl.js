@@ -34,19 +34,11 @@ function instanciate( options ) {
 
   function genUrl( name, values, options ) {
 
-    var genParams = _.merge( {}, defaults, options ? options : {} ),
+    const genParams = _.merge( {}, defaults, options ? options : {} );
+    const uri = paths[ name ];
 
-    uri = paths[ name ],
-
-    paramNames = [],
-
-    cleanValues = {},
-
-    query = {},
-
-    relativeUrl,
-
-    url;
+    let relativeUrl;
+    let url;
 
     // if protocol is explicitely passed,
     // caller wants an absolute url
@@ -64,7 +56,7 @@ function instanciate( options ) {
 
     }
 
-    cleanValues = _.merge( {}, preloaded, _clean( values ) );
+    const cleanValues = _.merge( {}, preloaded, _clean( values ) );
 
     try {
 
@@ -88,7 +80,7 @@ function instanciate( options ) {
 
     }
 
-    query = _loadQueryValues( uri, cleanValues );
+    const query = _loadQueryValues( uri, cleanValues );
 
     if ( query ) {
 
@@ -144,7 +136,7 @@ function instanciate( options ) {
 
 function _loadParamValues( uri, values ) {
 
-  var url = uri;
+  let url = uri;
 
   _getUriParamNames( uri ).forEach( function( paramName ) {
 

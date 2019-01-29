@@ -1,25 +1,35 @@
-"use strict";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { renderRoutes } from 'react-router-config';
+import makeGetterLabel from '@openagenda/labels';
+import labels from '@openagenda/labels/users/settings';
 
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  { connect } = require( 'react-redux' );
+const getLabel = makeGetterLabel( labels );
 
 
-const App = createReactClass( {
+@connect(
+  state => ({
+    lang: state.settings.lang
+  })
+)
+export default class App extends Component {
+  static childContextTypes = {
+    lang: PropTypes.string,
+    getLabel: PropTypes.func
+  };
 
-  displayName: 'App',
+  getChildContext() {
+    const { lang } = this.props;
 
-  contextTypes: {
-    getLabels: PropTypes.func
-  },
+    return {
+      lang,
+      getLabel: (label, values = {}) => getLabel( label, values, lang )
+    };
+  }
 
   render() {
-
-    const { getLabels } = this.context;
+    const { lang, route } = this.props;
 
     return (
       <div className="container user-settings">
@@ -28,11 +38,10 @@ const App = createReactClass( {
             <div className="top-margined wsq">
               <div className="content">
                 <div className="header">
-                  <h2>{getLabels( 'accountParameters' )}</h2>
+                  <h2>{getLabel( 'accountParameters', lang )}</h2>
                 </div>
 
-                {this.props.children}
-
+                {renderRoutes( route.routes )}
               </div>
             </div>
           </div>
@@ -40,13 +49,4 @@ const App = createReactClass( {
       </div>
     );
   }
-
-} );
-
-function mapStateToProps( { app: { loading } } ) {
-
-  return { loading };
-
 }
-
-module.exports = connect( mapStateToProps )( App );

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { compose, mapProps, componentFromProp } from 'recompose';
-import { Link as RouterLink } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 
 const Link = compose(

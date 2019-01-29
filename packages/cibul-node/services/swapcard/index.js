@@ -14,13 +14,9 @@ moment = require( 'moment' ),
 
 OAuth2 = require( 'oauth' ).OAuth2,
 
-notification,
-
 w = require( 'when' ),
 
 wn = require( 'when/node' ),
-
-querystring = require( 'querystring' ),
 
 lib = require( '../../lib/lib' );
 
@@ -32,9 +28,7 @@ module.exports = function ( model, config ) {
     config.bridges.swapcard.authorizePath,
     config.bridges.swapcard.accessTokenPath,
     null
-  ),
-
-  notification = require( '../notification' );
+  );
 
   moment.lang( 'fr' );
 
@@ -306,7 +300,7 @@ module.exports = function ( model, config ) {
 
           if ( err && err.statusCode == 400 ) {
 
-            notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
+            // notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
 
           }
 
@@ -615,7 +609,7 @@ module.exports = function ( model, config ) {
 
         if ( err && err.statusCode == 400 ) {
 
-          notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
+          // notification.notify.expiredSwapcard( { agendaId: values.agenda.id } );
 
         }
 

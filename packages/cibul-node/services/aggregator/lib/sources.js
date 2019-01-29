@@ -4,8 +4,6 @@ const aggUtils = require( './aggUtils' ),
 
   p = require( '../../../lib/promises' ),
 
-  notify = require( '../../notification' ).notify,
-
   log = require( '@openagenda/logs' )( 'aggregator/sources' );
 
 let q, pQ;
@@ -56,11 +54,6 @@ function add( sourceId, aggregatorAgendaId, upcomingOnly, cb ) {
         aggregatorAgendaId,
         upcomingOnly
       }, sourceId, aggregatorAgendaId );
-
-      notify.newSource( {
-        sourceId,
-        aggregatorAgendaId
-      } );
 
     }
 

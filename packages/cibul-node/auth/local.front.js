@@ -1,10 +1,5 @@
 "use strict";
 
-const bodyMw = require( 'body-parser' ).urlencoded( {
-  extended: true,
-  limit: 500000
-} );
-
 const https = require( 'https' );
 const _ = require( 'lodash' );
 const w = require( 'when' );
@@ -25,7 +20,7 @@ const config = require( '../config' );
 const routes = {
 
   signin: [ 'get', '/signin', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     _presetEmail,
     auth.renderSignin
   ] ],
@@ -37,7 +32,7 @@ const routes = {
   ] ],
 
   signinSubmit: [ 'post', '/signin', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     signinSubmit
   ] ],
 
@@ -47,7 +42,7 @@ const routes = {
   ] ],
 
   signup: [ 'get', '/signup', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -61,7 +56,7 @@ const routes = {
   ] ],
 
   signupSubmit: [ 'post', '/signup', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     signupSubmit
   ] ],
 
@@ -71,7 +66,7 @@ const routes = {
   ] ],
 
   signupComplete: [ 'get', '/signup/complete', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     signupComplete
   ] ],
 
@@ -81,7 +76,7 @@ const routes = {
   ] ],
 
   activateResend: [ 'get', '/activate/resend', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     activateResend
   ] ],
 
@@ -91,7 +86,7 @@ const routes = {
   ] ],
 
   activate: [ 'get', '/activate/:token', [
-    sessions.middleware.ifLogged( cmn.redirectTo() ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
     activate
   ] ],
 
@@ -122,8 +117,7 @@ module.exports = function ( path ) {
   router.pre( [
     cmn.https,
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oasfmain.css' ),
-    bodyMw
+    cmn.loadBaseData( auth.layoutData, 'oasfmain.css' )
   ] );
 
   return {

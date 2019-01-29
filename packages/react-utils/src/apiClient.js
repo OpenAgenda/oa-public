@@ -1,4 +1,5 @@
 import axios from 'axios';
+import qs from 'qs';
 
 export default function apiClient( baseURL, req ) {
   const isServer = typeof window === 'undefined';
@@ -8,7 +9,8 @@ export default function apiClient( baseURL, req ) {
     baseURL,
     headers: {
       'X-Requested-With': 'XMLHttpRequest'
-    }
+    },
+    paramsSerializer: qs.stringify
   } );
 
   instance.setJwtToken = newToken => {

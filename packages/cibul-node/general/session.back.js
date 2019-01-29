@@ -1,45 +1,35 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' );
+const agendas = require( '@openagenda/agendas' );
+const stakeholders = require( '@openagenda/agenda-stakeholders' );
+const credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/credentialTypes' );
+const cmn = require( '../lib/commons-app' );
 
-  modLib = require( '../lib/moduleLib' ),
+const preMw = [
+  cmn.loadLogger( 'session' )
+];
 
-  agendas = require( '@openagenda/agendas' ),
 
-  cmn = require( '../lib/commons-app' ),
+module.exports = app => {
 
-  stakeholders = require( '@openagenda/agenda-stakeholders' ),
+  app.get(
+    '/session',
+    preMw,
+    sessions.middleware.ifUnlogged( ( req, res ) => res.send( null ) ),
+    ( req, res, next ) => { req.query.detailed ? _loadDetailed( req, res, next ) : next() },
+    ( req, res ) => res.send( req.user )
+  );
 
-  credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/credentialTypes' ),
+  app.get(
+    '/session/agendas/:agendaUid/role',
+    preMw,
+    agendaLoad,
+    role
+  );
 
-  routes = {
-    session: [ 'get', '/', [
-      sessions.middleware.ifUnlogged( ( req, res, next ) => { res.send( null ) } ),
-      sessions.middleware.load(),
-      ( req, res, next ) => { req.query.detailed ? _loadDetailed( req, res, next ) : next() },
-      ( req, res, next ) => { res.send( req.user ); } 
-    ] ],
-    sessionMemberRole: [ 'get', '/agendas/:agendaUid/role', [
-      agendaLoad,
-      sessions.middleware.load( { detailed: true } ),
-      role
-    ] ]
-  };
+};
 
-module.exports = p => {
-
-  let router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'session' )
-  ] );
-
-  return {
-    load: router.load( p ),
-    paths: modLib.getPaths( p, routes )
-  }
-
-}
 
 // agendas service middleware will replace this
 // middleware from service/agenda/middleware

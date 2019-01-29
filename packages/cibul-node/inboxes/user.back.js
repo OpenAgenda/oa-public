@@ -14,14 +14,9 @@ const userRouter = express.Router( { mergeParams: true } );
 module.exports = userRouter;
 
 
-if ( __DEVELOPMENT__ ) {
-  userRouter.use( morgan( 'dev' ) );
-}
-
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
-  sessions.middleware.load( { detailed: true } ),
   ( req, res, next ) => {
     req.type = 'user';
     req.creatorInboxUser = { userUid: req.user.uid };
@@ -207,8 +202,7 @@ function errorHandler( err, req, res, next ) {
       res.status( err.code );
       return next( err );
     }
-    console.log( err );
     errorLogger( 'middleware', err );
-    res.status( 500 ).json( err );
+    res.status( res.statusCode || 500 ).json( err );
   }
 }

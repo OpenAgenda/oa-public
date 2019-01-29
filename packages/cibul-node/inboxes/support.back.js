@@ -14,14 +14,9 @@ const supportRouter = express.Router( { mergeParams: true } );
 module.exports = supportRouter;
 
 
-if ( __DEVELOPMENT__ ) {
-  supportRouter.use( morgan( 'dev' ) );
-}
-
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
-  sessions.middleware.load( { detailed: true } ),
   ( req, res, next ) => {
     req.type = 'support';
     req.identifier = 1;
@@ -192,6 +187,6 @@ function errorHandler( err, req, res, next ) {
       return next( err );
     }
     errorLogger( 'middleware', err );
-    res.status( 500 ).json( err );
+    res.status( res.statusCode || 500 ).json( err );
   }
 }

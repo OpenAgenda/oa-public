@@ -1,45 +1,37 @@
-"use strict";
-
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  ImageUpload = require( '@openagenda/image-upload/components/build/ImageUploader' ),
-
-  { connect } = require( 'react-redux' );
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 
 
-const ProfileSettings = createReactClass( {
-
-  displayName: 'ImageSettings',
-
-  propTypes: {
+@connect( state => ({
+  prefix: state.settings.prefix,
+  apiRoot: state.settings.apiRoot
+}) )
+export default class ImageSettings extends Component {
+  static propTypes = {
     activeTab: PropTypes.bool
-  },
+  };
 
-  contextTypes: {
+  static contextTypes = {
     lang: PropTypes.string,
-    getLabels: PropTypes.func
-  },
+    getLabel: PropTypes.func
+  };
 
-  render: function () {
-
-    const { lang, getLabels } = this.context;
-
-    const { activeTab, routerActions, uploadImageRes, removeImageRes, onUpdate, image, prefix } = this.props;
+  render() {
+    const { lang, getLabel } = this.context;
+    const { activeTab, history, uploadImageRes, removeImageRes, onUpdate, image, prefix, apiRoot } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? routerActions.push.bind( null, prefix + '/image' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/image' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? routerActions.push.bind( null, prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
           className="col-md-3" style={{ cursor: 'pointer' }}
         >
-          {getLabels( 'profileImage' )}
+          {getLabel( 'profileImage' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
@@ -47,16 +39,12 @@ const ProfileSettings = createReactClass( {
               lang={lang}
               value={image}
               handleUpdate={onUpdate}
-              upload={uploadImageRes}
-              remove={removeImageRes}
+              upload={apiRoot + uploadImageRes}
+              remove={apiRoot + removeImageRes}
             />
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}>{getLabels( 'modify' )}</td>}
+        </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'modify' )}</td>}
       </tr>
     );
-
   }
-
-} );
-
-module.exports = connect( state => ({ prefix: state.app.appSettings.prefix }) )( ProfileSettings );
+}

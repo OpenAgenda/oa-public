@@ -7,7 +7,7 @@ export default function loadApp( options, cb ) {
     functionName: '',
     selector: '.js_inbox_event',
     jsFilePath: '/js/inboxEvent.js',
-    state: {
+    initialState: {
       settings: {
         prefix: '/',
         lang: 'fr',

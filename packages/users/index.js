@@ -48,7 +48,7 @@ app
 
 let usersSvcInstance = null;
 
-function exposeApp( parentApp, mountpath ) {
+function exposeApp( parentApp, mountpath = '/' ) {
   const mw = require( './middleware' );
 
   log( 'expose app' );

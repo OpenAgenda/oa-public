@@ -69,7 +69,7 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
   await mails( {
     template: 'eventUpdate',
     to: members
-      .filter( member => member.id !== creator.id )
+      .filter( member => member.user && member.id !== creator.id )
       .map( member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
@@ -98,8 +98,8 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
     }
   } );
 
-
 };
+
 
 async function listAdminmods( { agenda } ) {
   let offset = 0;

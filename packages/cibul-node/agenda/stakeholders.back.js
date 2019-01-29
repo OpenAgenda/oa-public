@@ -62,7 +62,6 @@ const sessions = require( '@openagenda/sessions' ),
 
     eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
       eventSvc.mw.load( 'eventSlug', 'slug' ),
-      sessions.middleware.load( { detailed: true } ),
       _checkAdminOrModeratorOrEventOwner,
       cmn.checkCredential( 'eventTransfer' ),
       stakeholdersMw.agenda().load(),

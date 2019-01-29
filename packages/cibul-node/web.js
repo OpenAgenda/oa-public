@@ -1,16 +1,6 @@
 "use strict";
 
 const webModules = [
-  require( './home/back' )( '/home' ),
-  require( './user/settings.front' )( '/settings' ),
-  require( './general/front' )( '' ),
-  require( './general/session.back' )( '/session' ),
-  require( './general/back' )( '' ),
-  require( './search/front' )( '' ),
-  require( './event/form.back' )( '' ),
-  require( './event/tagsForm.back' )( '/:slug/events/:eventSlug/tagcat' ),
-  require( './event/back' )( '' ),
-  require( './event/front' )( '' ),
   require( './event/actions.front' )( '' ),
   require( './auth/facebook.front' )( '' ),
   require( './auth/twitter.front' )( '' ),
@@ -39,22 +29,28 @@ const webModules = [
 
 module.exports = app => {
 
-  require( './event/search.front' )( app, '/events/search' );
+  require( './event/search.front' )( app );
   require( './agenda/back' )( app );
   require( './inboxes/back' )( app );
   require( './inboxes/front' )( app );
-  require( './services/surveys' )( app, '' );
-  require( './services/agendaContribute' )( app, '' );
-  require( './services/users' )( app, '/users' );
-  require( './services/abilities' )( app, '/abilities' );
-  require( './services/mails/unsubscription' )( app, '/' );
-
-  require( './event/files' )( app, '/' );
-
-  require( './services/agendaDocx' )( app, '/docx' );
-
-  // /:agendaSlug/calendar
-  require( './services/agendaCalendar' )( app, '' );
+  require( './services/surveys' )( app );
+  require( './services/agendaContribute' )( app );
+  require( './services/users' )( app );
+  require( './services/abilities' )( app );
+  require( './services/mails/unsubscription' )( app );
+  require( './event/files' )( app );
+  require( './services/agendaDocx' )( app );
+  require( './services/agendaCalendar' )( app );
+  require( './home/back' )( app );
+  require( './user/settings.front' )( app );
+  require( './general/front' )( app );
+  require( './general/session.back' )( app );
+  require( './general/back' )( app );
+  require( './search/front' )( app );
+  require( './event/form.back' )( app );
+  require( './event/tagsForm.back' )( app );
+  require( './event/back' )( app );
+  require( './event/front' )( app );
 
   webModules.forEach( m => m.load( app ) );
 

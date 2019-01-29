@@ -8,7 +8,7 @@
         <div class="content">
           <h2><%= __('checkEmail') %></h2>
           <p><%= __('checkEmailInstruction') %></p>
-          <p><%- __( 'didNotReceive', { 
+          <p><%- __( 'didNotReceive', {
             resend : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __( 'resend' )  + '</a>',
             support : '<a class="url" href="mailto:support@openagenda.com">support@openagenda.com</a>'
           } ) %></p>
@@ -28,7 +28,7 @@
             </a>
           </div>
           <div class="form-group">
-            <form method="post" action="<%= genUrl( 'newsletterSubscribe' ) %>">
+            <form method="post" action="/newsletter/subscribe">
               <label for="email"><%= __( 'getOurNewsletter' ) %></label>
               <div class="input-group">
                 <input class="form-control" type="text" name="email" placeholder="<%= __( 'yourEmail' ) %>">

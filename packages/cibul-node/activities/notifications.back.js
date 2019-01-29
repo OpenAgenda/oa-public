@@ -21,8 +21,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'notifications' ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
-    sessions.middleware.load( { detailed: true } )
+    sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
   ] );
 
   return {

@@ -71,50 +71,49 @@ export function isLoaded( globalState ) {
 }
 
 export function load( query ) {
-  return ( { getState } ) => {
+  return ( { getState, dispatch } ) => {
     const state = getState();
+    const { res, agenda, event, settings: { perPageLimit, defaultQuery } } = state;
 
-    const { defaultQuery } = state.settings;
-
-    return {
+    return dispatch( {
       types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
       query,
-      perPageLimit: state.settings.perPageLimit,
-      promise: ( client, { res, agenda, event } ) => client.get(
+      perPageLimit,
+      promise: ( { client } ) => client.get(
         res.conversations.list
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid ),
         {
-          query: {
+          params: {
             ..._.pick( defaultQuery, 'type', 'typeIdentifier' ),
             ...query,
           }
         }
       )
-    };
+    } );
   };
 }
 
 export function nextPage() {
-  return ( { getState } ) => {
-    const state = getState();
+  return ( { getState, dispatch } ) => {
+    const { res, inbox, agenda, event, settings: { perPageLimit } } = getState();
 
-    return {
+    return dispatch( {
       types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
-      perPageLimit: state.settings.perPageLimit,
-      promise: ( client, { res, agenda, event } ) => client.get(
+      perPageLimit,
+      promise: ( { client } ) => client.get(
         res.conversations.list
           .replace( ':slug', agenda && agenda.slug )
           .replace( ':agendaUid', agenda && agenda.uid )
           .replace( ':eventUid', event && event.uid ),
         {
-          query: {
-            ...state.inbox.query,
-            page: state.inbox.page + 1
+          params: {
+            ...inbox.query,
+            page: inbox.page + 1
           }
         }
       )
-    };
+    } );
   };
 }

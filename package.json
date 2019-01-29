@@ -29,6 +29,8 @@
       "**/react-redux/**",
       "**/redux-connect",
       "**/redux-connect/**",
+      "**/redux-form",
+      "**/redux-form/**",
       "**/prettier-eslint",
       "**/prettier-eslint-cli",
       "**/babel-core",
@@ -46,6 +48,6 @@
     "react-dom": "^16.7.0"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.2.0"
+    "@babel/runtime-corejs2": "^7.3.1"
   }
 }

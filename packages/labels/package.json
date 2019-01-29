@@ -19,7 +19,7 @@
     "should": "^13.2.1"
   },
   "dependencies": {
-    "immutability-helper": "^2.3.0",
+    "immutability-helper": "^3.0.0",
     "intl-messageformat": "^2.2.0",
     "intl-messageformat-parser": "^1.4.0",
     "prompt-confirm": "^2.0.4",

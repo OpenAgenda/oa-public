@@ -1,7 +1,5 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const path = require( 'path' );
 const errors = require( '@feathersjs/errors' );
 const users = require( '@openagenda/users' );
 const svcHooks = require( '@openagenda/users/hooks' );
@@ -90,13 +88,11 @@ const hooks = update( svcHooks, {
   }
 } );
 
-module.exports = ( parentApp, mountpath ) => {
+module.exports = app => {
 
-  const { app, exposeApp } = users;
+  const { app: userApp, exposeApp } = users;
 
-  app.use( sessions.middleware.load( { detailed: true } ) );
-
-  app.use( ( req, res, next ) => {
+  userApp.use( ( req, res, next ) => {
 
     req.feathers.user = req.user;
     req.feathers.authenticated = req.authenticated = !!req.user;
@@ -106,7 +102,7 @@ module.exports = ( parentApp, mountpath ) => {
   } );
 
   // transform uid 'me' to the uid of the current user
-  app.param( '__feathersId', ( req, res, next, uid ) => {
+  userApp.param( '__feathersId', ( req, res, next, uid ) => {
     if ( uid !== 'me' ) {
       return next();
     }
@@ -120,23 +116,30 @@ module.exports = ( parentApp, mountpath ) => {
     next();
   } );
 
-  exposeApp( parentApp, mountpath );
+  exposeApp( app, '/users' );
   users.hooks( hooks );
 
   // update session after a user patch
-  app.patch(
-    path.join( mountpath, '/:__feathersId' ),
+  userApp.patch(
+    '/users/:__feathersId',
     ( req, res, next ) => {
-      return _.flow(
-        sessions.middleware.open( 'user', 'sessionResult' ),
-        res.data ? sessions.middleware.sync( 'syncResult' ) : ( req, res, next ) => next(),
-      )( req, req, next );
+      req.userIdentifier = req.user.uid;
+
+      next();
+    },
+    sessions.middleware.open( 'userIdentifier', 'sessionResult' ),
+    ( req, res, next ) => {
+      if ( !res.data ) {
+        return next();
+      }
+
+      sessions.middleware.sync( 'syncResult' )( req, res, next );
     }
   );
 
   // send confirmation email after requestChangeEmail
-  app.patch(
-    path.join( mountpath, '/:__feathersId/requestChangeEmail' ),
+  userApp.patch(
+    '/users/:__feathersId/requestChangeEmail',
     ( req, res, next ) => {
       if ( res.data ) {
 
@@ -171,8 +174,8 @@ module.exports = ( parentApp, mountpath ) => {
   );
 
   // set flash message after confirm change of email
-  app.get(
-    path.join( mountpath, '/:__feathersId/confirmChangeEmail' ),
+  userApp.get(
+    '/users/:__feathersId/confirmChangeEmail',
     ( req, res, next ) => {
       if ( res.data ) {
         sessions.setFlash(
@@ -181,7 +184,7 @@ module.exports = ( parentApp, mountpath ) => {
           getLabels( res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang )
         );
 
-        return res.redirect( req.genUrl( 'homeShow' ) );
+        return res.redirect( '/home' );
       }
 
       next();
@@ -189,8 +192,8 @@ module.exports = ( parentApp, mountpath ) => {
   );
 
   // set flash & redirect message after account deletion
-  app.delete(
-    path.join( mountpath, '/:__feathersId' ),
+  userApp.delete(
+    '/users/:__feathersId',
     ( req, res, next ) => {
       if ( res.data ) {
         sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
@@ -212,6 +215,7 @@ module.exports.init = async config => {
     knex: config.knex,
     mysql: config.db,
     schemas: config.schemas,
+    imagePath: config.aws.imageBucketPath,
     files: {
       bucket: config.aws.bucket,
       accessKeyId: config.aws.accessKeyId, // required

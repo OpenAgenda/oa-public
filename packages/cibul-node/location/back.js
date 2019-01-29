@@ -180,7 +180,6 @@ module.exports = function( path ) {
   const router = modLib.Router( routes );
 
   router.pre( [
-    sessions.middleware.load()
     // agenda must not be preloaded as location get must work as transverse
   ] );
 

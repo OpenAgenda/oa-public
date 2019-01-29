@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { asyncConnect } from 'redux-connect';
+import { withRouter } from 'react-router';
+import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
@@ -26,25 +27,25 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
   if ( !conversationActions.isAuthorLoaded( state ) ) {
     return dispatch( conversationActions.loadAuthor() );
   }
-
-  return true;
 }
 
-@asyncConnect( [ {
-  key: 'asyncConnectConversationCreate',
-  promise: async ( { store } ) => {
-    if ( !__SERVER__ ) return { needLoad: true };
-    return asyncLoad( { store } );
+@provideHooks( {
+  fetch: async ( { store } ) => {
+    const promise = asyncLoad( { store } );
+
+    return Promise.resolve( __CLIENT__ ? null : promise );
   }
-} ] )
+} )
 @connect(
   ( state, props ) => ({
-    initialValues: props.location.query.origin
+    initialValues: props.location.query && props.location.query.origin
       ? _.merge( state.settings.defaultQuery, { params: { origin: props.location.query.origin } } )
       : state.settings.defaultQuery,
     settings: state.settings,
     conversations: state.inbox.data,
     author: state.conversation.author,
+    loading: state.inbox.loading || state.conversation.authorFetching,
+    loaded: state.inbox.loaded && state.conversation.author,
     agenda: state.agenda,
     res: state.res
   }),
@@ -58,46 +59,9 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
   getLabel: PropTypes.func,
   store: PropTypes.object
 } )
+@withRouter
 export default class ConversationCreate extends Component {
-  constructor( props ) {
-    super( props );
-    this.FromWrapper = ::this.FromWrapper;
-  }
-
-  state = {
-    loading: false,
-    loaded: this.props.asyncConnectConversationCreate ? !this.props.asyncConnectConversationCreate.needLoad : false,
-    error: null
-  };
-
-  componentDidMount() {
-    const { store } = this.props;
-
-    if ( !this.state.loaded && !this.state.loading ) {
-      this.setState( {
-        loading: true,
-        loaded: false,
-        error: null
-      } );
-
-      asyncLoad( { store } )
-        .then( () => {
-          this.setState( {
-            loading: false,
-            loaded: true,
-            error: null
-          } );
-        }, error => {
-          this.setState( {
-            loading: false,
-            loaded: false,
-            error
-          } );
-        } );
-    }
-  }
-
-  FromWrapper( { handleSubmit, children, submitting, error } ) {
+  FromWrapper = ( { handleSubmit, children, submitting, error } ) => {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
@@ -130,8 +94,8 @@ export default class ConversationCreate extends Component {
 
   render() {
     const {
-      createConversation, initialValues, getLabel, res,
-      settings, conversations, author, router, showModal,
+      loading, loaded, createConversation, initialValues, getLabel, res,
+      settings, conversations, author, history, showModal,
       attachFileToMessage, agenda
     } = this.props;
 
@@ -141,9 +105,9 @@ export default class ConversationCreate extends Component {
       onConversationCreateRedirect, onConversationCreateFlash
     } = settings;
 
-    const content = this.state.loading || !this.state.loaded
+    const content = loading || !loaded
       ? <div className="text-center padding-v-md">
-        <Spinner loading={this.state.loading} mode="inline" options={{
+        <Spinner loading={loading} mode="inline" options={{
           width: 1,
           length: 6,
           radius: 10,
@@ -194,7 +158,7 @@ export default class ConversationCreate extends Component {
                     window.location.href = onConversationCreateRedirect;
                   } else {
                     const url = removeTrailingSlash( prefix ) + `/conversation/${conversation.id}`;
-                    router.push( url );
+                    history.push( url );
 
                     if ( onConversationCreateFlash ) {
                       showModal( 'messageSent', { message: onConversationCreateFlash } );

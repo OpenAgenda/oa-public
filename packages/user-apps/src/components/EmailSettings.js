@@ -1,100 +1,94 @@
-"use strict";
-
-const React = require( 'react' ),
-
-  createReactClass = require( 'create-react-class' ),
-
-  PropTypes = require( 'prop-types' ),
-
-  { reduxForm } = require( 'redux-form' ),
-
-  { capitalize } = require( '@openagenda/utils' ),
-
-  { push } = require( 'react-router-redux' ),
-
-  { connect } = require( 'react-redux' );
-
-const domOnlyProps = ( {
-                         initialValue, autofill, onUpdate, valid, invalid, dirty,
-                         pristine, active, touched, visited, autofilled,
-                         ...domProps
-                       } ) => domProps;
+import _ from 'lodash';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 
 
-const EmailSettings = createReactClass( {
-
-  displayName: 'EmailSettings',
-
-  propTypes: {
+@reduxForm( {
+  form: 'emailSettings',
+  destroyOnUnmount: false
+} )
+@connect( state => ({
+  prefix: state.settings.prefix,
+  user: state.userSettings.user
+}) )
+@withRouter
+export default class EmailSettings extends Component {
+  static propTypes = {
     activeTab: PropTypes.bool
-  },
+  };
 
-  contextTypes: {
-    getLabels: PropTypes.func
-  },
+  static contextTypes = {
+    getLabel: PropTypes.func
+  };
 
-  render: function () {
+  renderNewEmailInput = field => (
+    <div className="form-group">
+      <label htmlFor="newEmail">{this.context.getLabel( 'email' )} *</label>
+      <input {...field.input} className="form-control" type="text" />
+      {field.meta.touched && field.meta.error && (
+        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
+      )}
+    </div>
+  );
 
-    const { getLabels } = this.context;
+  renderPasswordInput = field => (
+    <div className="form-group">
+      <label htmlFor="password">{this.context.getLabel( 'password' )} *</label>
+      <input {...field.input} className="form-control" type="password" autoComplete="off" />
+      {field.meta.touched && field.meta.error && (
+        <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>
+      )}
+    </div>
+  );
 
+  render() {
+    const { getLabel } = this.context;
     const {
-      activeTab, dispatch, fields: { newEmail, password },
-      handleSubmit, successMessageDisplayed, prefix
+      activeTab,
+      handleSubmit,
+      successMessageDisplayed,
+      prefix,
+      history,
+      user,
+      error
     } = this.props;
 
     return (
       <tr
-        onClick={!activeTab ? dispatch.bind( this, push( prefix + '/email' ) ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/email' ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? dispatch.bind( this, push( prefix + '/' ) ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
-          {getLabels( 'email' )}
+          {getLabel( 'email' )}
         </td>
         {activeTab ? <td>
           <div style={{ padding: '0 5px' }}>
             <form onSubmit={handleSubmit} style={{ paddingBottom: '8px' }}>
-              <div className="form-group">
-                <label htmlFor="newEmail">{getLabels( 'email' )} *</label>
-                <input type="text" className="form-control" name="newEmail" {...domOnlyProps( newEmail )} />
-                {newEmail.touched && newEmail.error &&
-                <div className="text-danger">{capitalize( getLabels( newEmail.error ) )}</div>}
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">{getLabels( 'password' )} *</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  autoComplete="new-email"
-                  {...domOnlyProps( password )}
-                />
-                {password.touched && password.error &&
-                <div className="text-danger">{capitalize( getLabels( password.error ) )}</div>}
-              </div>
+              <Field name="newEmail" component={this.renderNewEmailInput} />
+              <Field name="password" component={this.renderPasswordInput} />
 
               <div className="form-inline pull-left">
-                <button type="submit" className="btn btn-primary">{getLabels( 'save' )}</button>
+                <button type="submit" className="btn btn-primary">{getLabel( 'save' )}</button>
                 {successMessageDisplayed &&
                 <label className="text-success" style={{ marginLeft: '10px' }}>
-                  <b>{getLabels( 'updateEmailSuccess' )}</b>
+                  <b>{getLabel( 'updateEmailSuccess' )}</b>
+                </label>}
+                {error &&
+                <label className="text-danger" style={{ marginLeft: '10px' }}>
+                  <b>{getLabel( 'error' )}</b>
                 </label>}
               </div>
             </form>
           </div>
-        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{newEmail.value}</b></td>}
+        </td> : <td style={{ cursor: 'pointer' }}><b className="text-muted">{user.email}</b></td>}
       </tr>
     );
-
   }
-
-} );
-
-module.exports = reduxForm( {
-  form: 'emailSettings',
-  fields: [ 'newEmail', 'password' ]
-} )( connect( state => ({ prefix: state.app.appSettings.prefix }) )( EmailSettings ) );
+}

@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { asyncConnect } from 'redux-connect';
+import { withRouter } from 'react-router';
+import { provideHooks } from 'redial';
 import { reset as resetForm, SubmissionError } from 'redux-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
@@ -16,7 +17,7 @@ import * as inboxActions from '../../redux/modules/inbox';
 import * as modalActions from '../../redux/modules/modals';
 import showBackLink from '../../utils/showBackLink';
 
-function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
+function asyncLoad( { store: { getState, dispatch }, history, params } ) {
   const state = getState();
   const promises = [];
 
@@ -33,21 +34,21 @@ function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
 
   // if ( !conversationActions.isLoaded( state ) ) {
   promises.push(
-    dispatch( conversationActions.load( router.params.conversationId ) )
-      .catch( () => redirect( prefix ) )
+    dispatch( conversationActions.load( params.conversationId ) )
+      .catch( () => history.replace( prefix ) )
   );
   // }
 
   return Promise.all( promises );
 }
 
-@asyncConnect( [ {
-  key: 'asyncConnectConversation',
-  promise: ( { store, router, helpers: { redirect } } ) => {
-    if ( !__SERVER__ ) return { needLoad: true };
-    return asyncLoad( { store, router, redirect } );
+@provideHooks( {
+  fetch: async ( { store, history, params } ) => {
+    const promise = asyncLoad( { store, history, params } );
+
+    return Promise.resolve( __CLIENT__ ? null : promise );
   }
-} ] )
+} )
 @connect(
   state => ({
     settings: state.settings,
@@ -57,6 +58,7 @@ function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
     conversation: state.conversation.data,
     messages: state.conversation.messages,
     loading: state.conversation.loading,
+    loaded: state.conversation.loaded,
     nextLoading: state.conversation.nextLoading,
     lastPage: state.conversation.lastPage,
     agenda: state.agenda,
@@ -68,49 +70,10 @@ function asyncLoad( { store: { getState, dispatch }, router, redirect } ) {
   getLabel: PropTypes.func,
   store: PropTypes.object
 } )
+@withRouter
 export default class Conversation extends Component {
-  constructor( props ) {
-    super( props );
-    this.FromWrapper = ::this.FromWrapper;
-    this.getClosedLabel = ::this.getClosedLabel;
-    this.TitleEntityComponent = ::this.TitleEntityComponent;
-  }
-
-  state = {
-    loading: false,
-    loaded: this.props.asyncConnectConversation ? !this.props.asyncConnectConversation.needLoad : false,
-    error: null
-  };
-
-  componentDidMount() {
-    const { store, router } = this.props;
-
-    if ( !this.state.loaded && !this.state.loading ) {
-      this.setState( {
-        loading: true,
-        loaded: false,
-        error: null
-      } );
-
-      asyncLoad( { store, router, redirect: router.replace } )
-        .then( () => {
-          this.setState( {
-            loading: false,
-            loaded: true,
-            error: null
-          } );
-        }, error => {
-          this.setState( {
-            loading: false,
-            loaded: false,
-            error
-          } );
-        } );
-    }
-  }
-
   nextPage = () => {
-    const { lastPage, loading, nextLoading, messages, router } = this.props;
+    const { lastPage, loading, nextLoading, messages, match } = this.props;
 
     if (
       !messages || !messages.length
@@ -120,12 +83,12 @@ export default class Conversation extends Component {
       return;
     }
 
-    this.props.nextPage( router.params.conversationId );
+    this.props.nextPage( match.params.conversationId );
   };
 
   sendMessage = data => {
-    const { router, sendMessage, getLabel } = this.props;
-    return sendMessage( router.params.conversationId, data )
+    const { match, sendMessage, getLabel } = this.props;
+    return sendMessage( match.params.conversationId, data )
       .catch( () => {
         throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
       } );
@@ -133,7 +96,7 @@ export default class Conversation extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  FromWrapper( { children, handleSubmit, submitting, error } ) {
+  FromWrapper = ( { children, handleSubmit, submitting, error } ) => {
     const { getLabel, author, messages, conversation } = this.props;
 
     const contextInbox = _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] );
@@ -181,7 +144,7 @@ export default class Conversation extends Component {
     );
   }
 
-  getClosedLabel() {
+  getClosedLabel = () => {
     const { conversation, getLabel } = this.props;
 
     switch ( conversation.type ) {
@@ -204,7 +167,7 @@ export default class Conversation extends Component {
     return getLabel( 'conversationAreResolved' );
   }
 
-  TitleEntityComponent( { children, type, agendaUid, eventUid, locationUid } ) {
+  TitleEntityComponent = ( { children, type, agendaUid, eventUid, locationUid } ) => {
     const { context } = this.props.settings;
 
     switch ( type ) {
@@ -249,6 +212,7 @@ export default class Conversation extends Component {
 
   render() {
     const {
+      loading, loaded,
       conversations, conversation, messages, user,
       inboxLoad, triggerAction, showModal, nextLoading,
       resume, getLabel, settings, res, attachFileToMessage,
@@ -257,9 +221,9 @@ export default class Conversation extends Component {
 
     const { ContentWrapper, focusFistConversation } = settings;
 
-    const content = this.state.loading || !this.state.loaded
+    const content = loading || !loaded
       ? <div className="text-center padding-v-md">
-        <Spinner loading={this.state.loading} mode="inline" options={{
+        <Spinner loading={loading} mode="inline" options={{
           width: 1,
           length: 6,
           radius: 10,

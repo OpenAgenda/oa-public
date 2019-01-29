@@ -1,8 +1,8 @@
 "use strict";
 
 var qs = require( 'qs' ),
-  
-  utils = require( "utils" );
+
+  utils = require( '@openagenda/utils' );
 
 module.exports = function( values ) {
 

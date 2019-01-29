@@ -30,32 +30,28 @@ class Wrapper extends Component {
 
 
 storiesOf( 'Call to action', module )
-  .add( 'data-* attributes', () => {
-    return (
-      <Wrapper>
-        <div className="js_call_to_action btn btn-link" data-subject="aggregator" data-agenda="federation-aqua-poney">
-          Cliquez ici !
-        </div>
-      </Wrapper>
-    );
-  } )
-  .add( 'event listener', () => {
-    return (
-      <Wrapper
-        onDidMount={() => {
-          document
-            .querySelector( '#raw-call-to-action' )
-            .addEventListener( 'click', openRequestForm );
-        }}
+  .add( 'data-* attributes', () => (
+    <Wrapper>
+      <div className="js_call_to_action btn btn-link" data-subject="aggregator" data-agenda="federation-aqua-poney">
+        Cliquez ici !
+      </div>
+    </Wrapper>
+  ) )
+  .add( 'event listener', () => (
+    <Wrapper
+      onDidMount={() => {
+        document
+          .querySelector( '#raw-call-to-action' )
+          .addEventListener( 'click', openRequestForm );
+      }}
+    >
+      <div
+        id="raw-call-to-action"
+        className="btn btn-link"
+        data-subject="raw-request"
+        data-agenda="fete-des-petits-poneys"
       >
-        <div
-          id="raw-call-to-action"
-          className="btn btn-link"
-          data-subject="raw-request"
-          data-agenda="fete-des-petits-poneys"
-        >
-          Brut !
-        </div>
-      </Wrapper>
-    );
-  } );
+        Brut !
+      </div>
+    </Wrapper>
+  ) );

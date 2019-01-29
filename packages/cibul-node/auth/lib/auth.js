@@ -442,7 +442,7 @@ function signin( values ) {
 
     }
 
-    res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : req.genUrl( 'homeShow' ) );
+    res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : '/home' );
 
     d.resolve( values );
 

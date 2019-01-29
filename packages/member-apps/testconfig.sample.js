@@ -27,7 +27,8 @@ module.exports = {
     occurrence: 'occurrence',
     stakeholder: 'stakeholder',
     stakeholderSettings: 'agenda_stakeholder_settings',
-    user: 'user'
+    user: 'user',
+    userToken: 'user_token'
   },
 
   mw: {

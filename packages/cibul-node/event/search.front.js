@@ -1,57 +1,50 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const app = require( 'express' )();
 const ih = require( 'immutability-helper' );
-
 const sessions = require( '@openagenda/sessions' );
-
 const cmn = require( '../lib/commons-app' );
 const search = require( '../services/eventSearch' ).events;
 
-module.exports = ( parentApp, path ) => {
+module.exports = app => {
 
-  parentApp.use( path, app );
+  app.get( '/events/search/?*?', sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ) );
+
+  app.get( '/events/search', ( req, res, next ) => {
+
+    const options = _defineOptions( req.query ); // this is cleaned in search.
+
+    const p = search( req.query, req.query, options );
+
+    p.catch( next );
+
+    p.then( result => cmn.renderJson( req, res, result ) );
+
+  } );
+
+  app.get( '/events/search/aggs', ( req, res, next ) => {
+
+    const options = _defineOptions( req.query, true );
+
+    const p = search( req.query, { size: 0 }, options );
+
+    p.catch( next );
+
+    p.then( result => cmn.renderJson( req, res, result ) );
+
+  } );
+
+  app.get( '/events/search/rebuild',
+    cmn.requireAdmin,
+    ( req, res ) => {
+
+      search.rebuild().then( () => { console.log( 'done' ); } );
+
+      res.send( 'rebuilding' );
+
+    }
+  );
 
 }
-
-app.get( '/*', [
-  sessions.middleware.ifUnlogged( cmn.redirectTo() )
-] );
-
-app.get( '/', ( req, res, next ) => {
-
-  const options = _defineOptions( req.query ); // this is cleaned in search.
-
-  const p = search( req.query, req.query, options );
-
-  p.catch( next );
-
-  p.then( result => cmn.renderJson( req, res, result ) );
-
-} );
-
-app.get( '/aggs', ( req, res, next ) => {
-
-  const options = _defineOptions( req.query, true );
-
-  const p = search( req.query, { size: 0 }, options );
-
-  p.catch( next );
-
-  p.then( result => cmn.renderJson( req, res, result ) );
-
-} );
-
-app.get( '/rebuild', 
-  cmn.requireAdmin, 
-  ( req, res, next ) => {
-
-  search.rebuild().then( () => { console.log( 'done' ); } );
-
-  res.send( 'rebuilding' );
-
-} );
 
 
 function _defineOptions( query, forceAggs = false ) {
@@ -62,7 +55,7 @@ function _defineOptions( query, forceAggs = false ) {
       'agendas',
       'keywords',
       'timingsByMonth',
-      'location.region', 
+      'location.region',
       'location.city',
       'location.name',
     ] } };

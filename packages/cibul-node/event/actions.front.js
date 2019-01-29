@@ -1,11 +1,6 @@
 "use strict";
 
 const async = require( 'async' );
-const bodyMw = require( 'body-parser' ).urlencoded( {
-  extended: true,
-  limit: 500000
-} );
-
 const _ = require( 'lodash' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
 const mails = require( '@openagenda/mails' );
@@ -51,7 +46,6 @@ const routes = {
   ] ],
 
   agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
-    bodyMw,
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -68,7 +62,6 @@ const routes = {
   ] ],
 
   eventMailSend: [ 'post', '/events/:eventSlug/email', [
-    bodyMw,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,

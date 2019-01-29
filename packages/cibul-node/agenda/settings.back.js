@@ -84,7 +84,7 @@ module.exports = path => {
       mw.removeAgenda,
       ( req, res ) => {
         sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
-        res.json( { redirectTo: req.genUrl( 'homeShow' ) } );
+        res.json( { redirectTo: '/home' } );
       }
     ] ],
 
@@ -165,8 +165,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'agendaSettings' ),
-    sessions.middleware.load( { detailed: true } ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() )
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
   ] );
 
   return {

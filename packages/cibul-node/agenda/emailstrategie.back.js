@@ -6,18 +6,11 @@ cmn = require( '../lib/commons-app' ),
 
 agendaSvc = require( '../services/agenda' ),
 
-utils = require( '@openagenda/utils' ),
-
-bodyMw = require( 'body-parser' ).urlencoded( {
-  extended: true,
-  limit: 500000
-} ),
-
 routes = {
   emailStrategieNew: [ 'get', '/new', newShow ],
-  emailStrategieNewSubmit: [ 'post', '/new',[ bodyMw, newSubmit ] ],
+  emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
   emailStrategieShow: [ 'get', '/', show ],
-  emailStrategiePush: [ 'post', '/push', [ bodyMw, push ] ],
+  emailStrategiePush: [ 'post', '/push', push ],
   emailStrategieUnlink: [ 'get', '/unlink', unlink ]
 };
 
@@ -112,7 +105,7 @@ function newSubmit( req, res, next ) {
 
       } else {
 
-        res.redirect( 302, req.genUrl( 'emailStrategieShow', { 
+        res.redirect( 302, req.genUrl( 'emailStrategieShow', {
           slug: req.agenda.slug
         } ) );
 

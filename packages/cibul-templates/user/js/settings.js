@@ -1,23 +1,25 @@
-var App = require( '@openagenda/user-apps/dist' ),
+import _ from 'lodash';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import createApp from '@openagenda/user-apps/dist/app';
+import du from '@openagenda/dom-utils';
 
-  deepExtend = require( 'deep-extend' ),
+const defaults = {
+  initialState: {
+    settings: {
+      prefix: '',
+      lang: 'fr',
+      apiRoot: 'http://localhost:3000'
+    }
+  }
+};
 
-  params = {
-    lang: 'fr',
-    selectors: {
-      canvas: '.js_canvas'
-    },
-    prefix: '/settings' // IMPORTANT url for prefix react router
-  };
 
+window.hook( options => {
+  const { initialState } = _.merge( {}, defaults, options );
+  const { element, triggerHooks } = createApp( { initialState } );
 
-window.hook( function( options ) {
+  triggerHooks();
 
-  deepExtend( params, options );
-
-  App( {
-    canvas: params.selectors.canvas,
-    prefix: params.prefix
-  } );
-
+  ReactDOM.render( element, du.el( '.js_canvas' ) );
 } );

@@ -1,21 +1,12 @@
 'use strict';
 
 const _ = require( 'lodash' );
-const express = require( 'express' );
-const morgan = require( 'morgan' );
 const async = require( 'async' );
 const abilitiesSvc = require( '@openagenda/abilities' );
-const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const usersSvc = require( '@openagenda/users' );
 const editableRules = require( './editableRules' );
 const cmn = require( '../../lib/commons-app' );
-
-const app = express();
-
-if ( process.env.NODE_ENV === 'development' ) {
-  app.use( morgan( 'dev' ) );
-}
 
 const secureMw = ( req, res, next ) => {
   switch( req.query.entityName ) {
@@ -51,12 +42,10 @@ const secureMw = ( req, res, next ) => {
   }
 };
 
-module.exports = ( parentApp, path ) => {
-  app.use( sessions.middleware.load( { detailed: true } ) );
-
+module.exports = app => {
   // GET https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999
   app.get(
-    '/form-index',
+    '/abilities/form-index',
     secureMw,
     abilitiesSvc.middleware.getFormIndex( {
       namespaces: {
@@ -68,7 +57,7 @@ module.exports = ( parentApp, path ) => {
 
   // PATCH https://d.openagenda.com/abilities/form-index?entityName=user&identifier=99999999
   app.patch(
-    '/form-index',
+    '/abilities/form-index',
     secureMw,
     abilitiesSvc.middleware.updateFormIndex( {
       namespaces: {
@@ -78,8 +67,6 @@ module.exports = ( parentApp, path ) => {
       }
     } )
   );
-
-  parentApp.use( path, app );
 };
 
 module.exports.init = async config => {

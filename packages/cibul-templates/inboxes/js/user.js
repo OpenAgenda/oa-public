@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactDom from 'react-dom';
-import App from '@openagenda/inbox-apps/dist/apps/inbox';
+import ReactDOM from 'react-dom';
+import createApp from '@openagenda/inbox-apps/dist/apps/inbox';
 import du from '@openagenda/dom-utils';
 
-const params = {
-  state: {
+const defaults = {
+  initialState: {
     settings: {
       lang: 'fr',
       prefix: '/inboxes/user',
@@ -16,7 +16,10 @@ const params = {
 };
 
 window.hook( options => {
+  const { initialState } = _.merge( {}, defaults, options );
+  const { element, triggerHooks } = createApp( { initialState } );
 
-  ReactDom.render( App( _.merge( params, options ) ), du.el( '.js_canvas' ) );
+  triggerHooks();
 
+  ReactDOM.render( element, du.el( '.js_canvas' ) );
 } );

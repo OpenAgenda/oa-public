@@ -4,8 +4,8 @@ const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
+const createApp = require( '@openagenda/activity-apps/dist/client/apps/admin' );
 const config = require( '../config' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 
 const appMw = [
@@ -13,68 +13,70 @@ const appMw = [
   matchApp
 ];
 
-const routes = {
+const preMw = [
+  cmn.loadLogger( 'activities' ),
+  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
+  cmn.requireAdmin
+];
 
-  adminActivitiesApp: [ 'get', '', appMw ],
-  adminActivitiesSub: [ 'get', '/?*?', appMw ],
 
-  /**********/
+module.exports = app => {
 
-  adminActivitiesList: [ 'get', '/list', mw.list() ]
-
-};
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'activities' ),
-    sessions.middleware.load( { detailed: true } ),
-    sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-    cmn.requireAdmin
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.get( '/admin/activities', preMw, appMw );
+  app.get( '/admin/activities/?*?', preMw, appMw );
+  app.get( '/admin/activities/list', preMw, mw.list() );
 
 };
 
 
-function getApp( req, res, next, { store, component } = {} ) {
-
-  const state = store ? store.getState() : {};
+async function matchApp( req, res, next ) {
+  const prefix = '/admin/activities';
   const lang = req.lang || 'fr';
-
-  const content = component ? ReactDOM.renderToString( component ) : '';
-
-  cmn.render( req, res, 'admin/activities', { scriptParams: { state }, lang, content, key: 'activities' } );
-
-}
-
-function matchApp( req, res, next ) {
-
-  const prefix = req.genUrl( 'adminActivitiesApp' ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-
-  mw.matchAdminApp(
-    {
-      state: {
-        settings: {
-          prefix,
-          lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: 20
-        },
-        res: {
-          list: req.genUrl( 'adminActivitiesList' ),
-        }
+  const { element, triggerHooks, store, context } = createApp( {
+    req,
+    initialState: {
+      settings: {
+        prefix,
+        lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: 20
+      },
+      res: {
+        list: '/admin/activities/list'
       }
-    },
-    prefix,
-    getApp
-  )( req, res, next );
+    }
+  } );
 
+  try {
+    await triggerHooks();
+
+    const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    cmn.render(
+      req,
+      res,
+      'admin/activities',
+      { scriptParams: { initialState: state }, lang, content, preloaded: true, key: 'activities' }
+    );
+  } catch ( e ) {
+    next( e );
+  }
 }

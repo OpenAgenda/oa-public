@@ -36,7 +36,7 @@ module.exports = function( path ) {
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( cmn.redirectTo() )
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
   ] );
 
   return {

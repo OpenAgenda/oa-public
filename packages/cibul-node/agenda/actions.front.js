@@ -23,7 +23,6 @@ const model = require( '../services/model' );
 const routes = {
 
     agendaActionShow: [ 'get', '/', [
-      sessions.middleware.load( { detailed: true } ),
       loadKey(),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       _loadDocxPath,
@@ -32,8 +31,7 @@ const routes = {
 
     agendaEventAdd: [ 'get', '/add/:eventUid', [
       _verifyIP,
-      sessions.middleware.load(),
-      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
       eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
       _getRedirect,
       cmn.checkStakeholder,
@@ -43,8 +41,7 @@ const routes = {
 
     agendaEventRemove: [ 'get', '/remove/:eventUid', [
       _verifyIP,
-      sessions.middleware.load(),
-      sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+      sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
       eventSvc.mw.load( 'eventUid', 'uid' ),
       _getRedirect,
       cmn.checkStakeholder,

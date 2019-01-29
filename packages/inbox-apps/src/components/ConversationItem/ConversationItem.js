@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
@@ -66,7 +65,7 @@ export default class ConversationItem extends Component {
             {destinationInbox.id !== latestMessage.inbox.id
               ? (
                 <Fragment>
-                  <AuthorAvatar author={latestMessage} inline/>{' '}
+                  <AuthorAvatar author={latestMessage} inline />{' '}
                 </Fragment>
               )
               : null}
@@ -132,7 +131,7 @@ export default class ConversationItem extends Component {
                 {...(isImage ? {} : { download: attachment.originalName })}
               >
                 {isImage ?
-                  <img src={link} alt={attachment.filename} className="attachment-image"/> : attachment.originalName}
+                  <img src={link} alt={attachment.filename} className="attachment-image" /> : attachment.originalName}
               </a>
             </Fragment>
           );
@@ -169,7 +168,9 @@ export default class ConversationItem extends Component {
     return (
       <div className="media conversation-item">
         <div className="media-left media-top">
-          <AuthorAvatar author={{ inbox: destinationInbox }}/>
+          {destinationInbox && (
+            <AuthorAvatar author={{ inbox: destinationInbox }} />
+          )}
         </div>
 
         <div className="media-body">

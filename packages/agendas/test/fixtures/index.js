@@ -19,7 +19,10 @@ function build( files, options, cb ) {
 
   fixtures( [ {
     table: config.schemas.agenda,
-    src: [ __dirname + '/../model.sql', __dirname + '/agenda.data.sql' ]
+    src: __dirname + '/../model.sql'
+  },  {
+    table: config.schemas.agenda,
+    src: __dirname + '/agenda.data.sql'
   }, {
     table: config.schemas.agendaEvent,
     src: __dirname + '/agenda_event.data.sql'
@@ -28,7 +31,7 @@ function build( files, options, cb ) {
     src: __dirname + '/occurrence.data.sql'
   }, {
     table: config.schemas.legacyCredentialSet,
-    src: __dirname + '/legacy_credential_set.data.sql'
+    src: __dirname + '/legacyCredentialSet.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), options, cb );
 
 }
