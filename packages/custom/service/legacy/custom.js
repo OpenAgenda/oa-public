@@ -71,7 +71,9 @@ async function set( eventId, fields, data ) {
 
   log( 'info', 'updating legacy event custom_fields', { parsed } );
 
-  const result = await knex( schemas.event ).update( { custom_fields: JSON.stringify( parsed ) } ).where( { id: eventId } );
+  const result = await knex( schemas.event ).update( {
+    custom_fields: JSON.stringify( _.assign( current, parsed ) )
+  } ).where( { id: eventId } );
 
   return !!result;
 

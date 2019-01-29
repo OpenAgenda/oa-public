@@ -20,7 +20,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
 
   const { schemas, interfaces } = config.legacy;
 
-  const fields = await interfaces.getFormSchemaFields( formSchemaId );  
+  const fields = await interfaces.getFormSchemaFields( formSchemaId );
 
   log( 'info', 'fetched form schema fields', fields.map( f => f.field ).join( ', ' ) );
 
