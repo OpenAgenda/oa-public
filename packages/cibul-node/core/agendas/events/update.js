@@ -7,12 +7,10 @@ const VError = require( 'verror' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendas = require( '@openagenda/agendas' );
 const events = require( '@openagenda/events' );
-const formSchemas = require( '@openagenda/form-schemas' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
-const getAgenda = require( '../utils/getAgenda' );
-const getNetwork = require( '../utils/getNetwork' );
+const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
 const validate = require( './validate' );
@@ -34,22 +32,20 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     defaultLang: 'en'
   }, options || {} );
 
-  const agenda = await getAgenda( agendaUid );
+  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
 
   const {
+    network,
     formSchemaId,
-    networkUid,
     id: agendaId
   } = agenda;
-
-  const networkFormSchemaId = _.get( networkUid ? await getNetwork( networkUid ) : {}, 'formSchemaId' );
 
   const updated = {};
 
   // pre-validate data. if state is not specified, it should not be forced.
   const clean = await validate.loaded( {
-    formSchemaId,
-    networkFormSchemaId,
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
   }, data, { draft, formSchemaDataFormat, optionalState: true } );
 
@@ -116,17 +112,17 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   }
 
-  if ( formSchemaId && clean.custom ) {
+  if ( agenda.formSchemaId && clean.custom ) {
 
-    const result = await setCustom( formSchemaId, updated.event.uid, clean.custom, { draft, agendaId } );
+    const result = await setCustom( agenda.formSchemaId, updated.event.uid, clean.custom, { draft, agendaId } );
 
     if ( result.success ) updated.custom = result.custom;
 
   }
 
-  if ( networkFormSchemaId && clean.networkCustom ) {
+  if ( agenda.network && clean.networkCustom ) {
 
-    const result = await setCustom( networkFormSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId } );
+    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId } );
 
     if ( result.success ) updated.networkCustom = result.custom;
 

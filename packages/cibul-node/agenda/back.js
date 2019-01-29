@@ -69,6 +69,20 @@ app.get( '/:agendaSlug/admin/stats/transfer-form-schema', async ( req, res ) => 
 
 } );
 
+app.get( '/:agendaSlug/admin/stats/transfer-to-tagset', async ( req, res ) => {
+
+  res.json( await agendaStatistics.formSchemaToTagSet( req.agenda, !!req.query.force ) );
+
+} );
+
+app.get( '/:agendaSlug/admin/stats/transfer-to-custom', async ( req, res ) => {
+
+  res.json( await agendaStatistics.formSchemaToCustom( req.agenda, !!req.query.force ) );
+
+} );
+
+
+
 
 /**
  * resync what can be

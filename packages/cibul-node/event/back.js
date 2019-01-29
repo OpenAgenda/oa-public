@@ -38,6 +38,7 @@ module.exports = app => {
     '/:slug/events/:eventSlug/state/:type',
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
+    cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
     _changeStateCredential,
     _changeState,

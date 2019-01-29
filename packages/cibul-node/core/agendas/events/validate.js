@@ -14,17 +14,20 @@ const eventSchema = require( '@openagenda/event-form/build/schema' );
 const extractLanguages = require( '@openagenda/event-form/build/utils/extractLanguages' );
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
-const getAgenda = require( '../utils/getAgenda' );
+const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 
 module.exports = async ( agendaUid, data ) => {
 
-  const agenda = await getAgenda( agendaUid );
+  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
 
-  return await loaded( agenda, data );
+  return await loaded( {
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get( agenda, 'network.formSchema' )
+  }, data );
 
 }
 
-module.exports.loaded = async function loaded( { formSchemaId, networkFormSchemaId }, data, options = {} ) {
+module.exports.loaded = async function loaded( { formSchema, networkFormSchema }, data, options = {} ) {
 
   const { draft, evaluateEvent, formSchemaDataFormat, defaultLang, optionalState } = _.assign( {
     defaultLang: null,
@@ -37,7 +40,10 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
   // api provides event data in event service format ( deep image object that includes credits )
   const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data );
 
-  const schemaExtensions = await _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } );
+  const schemaExtensions = {
+    network: networkFormSchema,
+    agenda: formSchema
+  };
 
   // Define which languages should be included. Should depend on
   //  * agenda setting ( if set ) ( not yet coded )
@@ -117,36 +123,6 @@ module.exports.loaded = async function loaded( { formSchemaId, networkFormSchema
   }
 
   return clean;
-
-}
-
-
-async function _loadExtendedSchemas( { formSchemaId, networkFormSchemaId } ) {
-
-  const schemas = {
-    network: null,
-    agenda: null
-  };
-
-  if ( formSchemaId ) {
-
-    log( 'loading agenda form schema' );
-
-    schemas.agenda = await formSchemas.get( formSchemaId );
-
-  }
-
-  // clean network custom data
-
-  if ( networkFormSchemaId ) {
-
-    log( 'loading network form schema' );
-
-    schemas.network = await formSchemas.get( networkFormSchemaId );
-
-  }
-
-  return schemas;
 
 }
 

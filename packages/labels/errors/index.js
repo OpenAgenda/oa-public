@@ -80,6 +80,11 @@ module.exports = {
   serverException: {
     fr: 'Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant',
     en: 'There was trouble while saving the data, try again in a short while'
+  },
+
+  noOrigin: {
+    fr: 'Cet événement est indisponible car il n\'est associé a aucun agenda',
+    en: 'This event is unavailable as it is not associated to any agenda.'
   }
 
 }

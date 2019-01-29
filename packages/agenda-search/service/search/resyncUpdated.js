@@ -40,7 +40,9 @@ module.exports = async ( { obj, config, getClient }, since = null ) => {
     }
   } );
 
-  const uids = _.get( existing, 'docs', [] ).map( item => parseInt( item._id ) );
+  const uids = _.get( existing, 'docs', [] )
+    .filter( item => item.found )
+    .map( item => parseInt( item._id ) );
 
   const {
     toUpdate,
@@ -63,9 +65,9 @@ module.exports = async ( { obj, config, getClient }, since = null ) => {
 
   if ( toIndex.length ) {
 
-    indexed = await bulk( _.assign( { operation: 'index' }, bulkConfig ), toUpdate );
+    indexed = await bulk( _.assign( { operation: 'index' }, bulkConfig ), toIndex );
 
-    log( 'info', 'bulk indexed %s agendas', updated );
+    log( 'info', 'bulk indexed %s agendas', indexed );
 
   }
 

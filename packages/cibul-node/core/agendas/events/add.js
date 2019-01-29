@@ -7,25 +7,20 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/add' );
 
 const doAdd = require( '../utils/doAdd' );
-const getAgenda = require( '../utils/getAgenda' );
-const getNetwork = require( '../utils/getNetwork' );
+const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const validate = require( './validate' );
 
 module.exports = async ( agendaUid, eventUid, data ) => {
 
   log( 'processing', { agendaUid, eventUid } );
 
-  const {
-    formSchemaId,
-    networkUid
-  } = await getAgenda( agendaUid );
-
-  const networkFormSchemaId = _.get( networkUid ? await getNetwork( networkUid ) : {}, 'formSchemaId' );
-
-  const added = {};
+  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
 
   // pre-validate data
-  const clean = await validate.loaded( { formSchemaId, networkFormSchemaId }, data, false );
+  const clean = await validate.loaded( {
+    formSchema: agenda.formSchema,
+    networkFormSchema: _.get( agenda, 'network.formSchema' )
+  }, data, false );
 
   // if event is already referenced on agenda, this fails
   if ( await agendaEvents( agendaUid ).get( eventUid ) ) {
@@ -34,6 +29,6 @@ module.exports = async ( agendaUid, eventUid, data ) => {
 
   }
 
-  return doAdd( agendaUid, eventUid, clean, formSchemaId );
+  return doAdd( agenda, eventUid, clean );
 
 }

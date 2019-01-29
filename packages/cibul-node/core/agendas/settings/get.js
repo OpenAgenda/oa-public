@@ -22,7 +22,8 @@ module.exports = async agendaUid => {
 
   const networkSchema = network ? await formSchemas.get( _.get( network, 'formSchemaId' ) ) : null;
 
-  return mergeSchemas( formSchema, networkSchema );
+  // the network should come first.
+  return mergeSchemas( networkSchema, formSchema );
 
 }
 

@@ -130,7 +130,6 @@ describe( 'core - functional ( server ): settings get', function() {
     const result = await core.agendas( 60935574 ).settings.get();
 
     result.fields.map( f => f.field ).should.eql( [
-      'edition',
       'entreelibre',
       'thematiques-metropolitaines',
       'types-devenements',
@@ -138,7 +137,8 @@ describe( 'core - functional ( server ): settings get', function() {
       'organisateur',
       'tag-group-4',
       'cle_session',
-      'category-group'
+      'category-group',
+      'edition'
     ] );
 
   } );
