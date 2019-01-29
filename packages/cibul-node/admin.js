@@ -1,15 +1,9 @@
 "use strict";
 
-const webModules = [
-  require('./admin/back')('/admin'),
-  require('./admin/agendas.back')('/admin/agendas'),
-  require('./admin/activities.back')('/admin/activities'),
-];
-
 module.exports = app => {
 
-  webModules.forEach( m => m.load( app ) );
+  require( './admin/back' )( app );
+  require( './admin/agendas.back' )( app );
+  require( './admin/activities.back' )( app );
 
 };
-
-module.exports.webModules = webModules;

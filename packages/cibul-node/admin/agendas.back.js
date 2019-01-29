@@ -1,56 +1,46 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'admin/agendas.back' );
+const sessions = require( '@openagenda/sessions' );
+const mw = require( '@openagenda/admin-agendas' ).mw;
+const cmn = require( '../lib/commons-app' );
 
-var modLib = require( '../lib/moduleLib.js' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  sessions = require( '@openagenda/sessions' ),
-
-  mw = require( '@openagenda/admin-agendas' ).mw,
-
-  routes = {
-    adminAgendasIndex: [ 'get', '/', index ],
-    adminAgendasSearchRes: [ 'get', '/search', mw.agendas.list ],
-    adminAgendasGetRes: [ 'get', '/get', mw.agendas.get ],
-    adminAgendasSetRes: [ 'post', '/:uid', [
-      ( req, res, next ) => {
-        req.context = { user: req.user };
-        next();
-      },
-      mw.agendas.set
-    ] ],
-    adminAgendasStakeholdersSearchRes: [ 'get', '/stakeholders/search', [
-      ( req, res, next ) => {
-
-        req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
-
-        req.query.order = 'credential';
-
-        next();
-
-      },
-      mw.stakeholders.list
-    ] ]
-  };
+const preMw = [
+  cmn.loadBaseData( 'compiledAdmin.css' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.requireAdmin
+];
 
 
-module.exports = function ( path ) {
+module.exports = app => {
 
-  var router = modLib.Router( routes );
+  app.get( '/admin/agendas/', preMw, index );
+  app.get( '/admin/agendas/search', preMw, mw.agendas.list );
+  app.get( '/admin/agendas/get', preMw, mw.agendas.get );
 
-  router.pre( [
-    cmn.loadBaseData( 'compiledAdmin.css' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    sessions.middleware.load(),
-    cmn.requireAdmin
-  ] );
+  app.post(
+    '/admin/agendas/:uid',
+    preMw,
+    ( req, res, next ) => {
+      req.context = { user: req.user };
+      next();
+    },
+    mw.agendas.set
+  );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  app.get(
+    '/admin/agendas/stakeholders/search',
+    preMw,
+    ( req, res, next ) => {
+
+      req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
+
+      req.query.order = 'credential';
+
+      next();
+
+    },
+    mw.stakeholders.list
+  );
 
 };
 

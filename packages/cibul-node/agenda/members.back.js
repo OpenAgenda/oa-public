@@ -105,7 +105,6 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'members' ),
-    sessions.middleware.load( { detailed: true } ),
     sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
     agendasMw.load( {
       namespaces: {

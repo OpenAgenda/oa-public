@@ -5,28 +5,21 @@ const ReactDOM = require( 'react-dom/server' );
 const sessions = require( '@openagenda/sessions' );
 const createApp = require( '@openagenda/user-apps/dist/app' );
 const cmn = require( '../lib/commons-app' );
-const modLib = require( '../lib/moduleLib.js' );
 const config = require( '../config' );
 
-const loadSession = sessions.middleware.load( { detailed: true } );
-const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
+const logged = sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) );
 
 
-module.exports = path => {
-  const routes = {
-    userSettingsApp: [ 'get', '*', [ logged, loadSession, matchApp ] ]
-  };
-  const router = modLib.Router( routes );
+module.exports = app => {
 
-  router.pre( [
+  app.get(
+    [ '/settings', '/settings/*' ],
     cmn.loadLogger( 'userSettings' ),
-    cmn.loadBaseData( 'oasfmain.css' )
-  ] );
+    cmn.loadBaseData( 'oasfmain.css' ),
+    logged,
+    matchApp
+  );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
 };
 
 async function matchApp( req, res, next ) {

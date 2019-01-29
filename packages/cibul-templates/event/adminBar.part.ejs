@@ -19,18 +19,18 @@
 <% } %>
       </div>
     </li><!--
-<% } %>  
+<% } %>
     --><li class="edge-item js_toggle w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator js_current_state_control" data-toggle="js_dropdown_menu">
       <span class="edge-selected state <%= event.currentState %>">
         <i class="sticker"></i>
         <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
       </span>
-      <ul class="list-group js_dropdown_menu w380">  
+      <ul class="list-group js_dropdown_menu w380">
 <% for( var i in states ) { %>
 <% if ( !states[ i ].hideAction ) { %>
 <% if ( !loner ) { %>
         <li class="list-group-item js_admin_item <%= states[ i ].classNames %>">
-          <a data-href="<%= states[ i ].type !== null ? genUrl( 'agendaEventChangeState', { slug: slug, eventSlug: event.slug, type: states[ i ].type, redirect: event.uri } ) : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow">
+          <a data-href="<%= states[ i ].type !== null ? `/${slug}/events/${event.slug}/state/${states[ i ].type}?redirect=${event.uri}` : '#' %>" class="item bullet js_change_state_to_<%- states[ i ].type %><% if ( i !== event.currentState ) { %> active<% } %>" rel="nofollow">
             <label><%= __( states[ i ].label ) %></label>
             <span><%= __( states[ i ].label + 'Info' ) %></span>
           </a>
@@ -46,7 +46,7 @@
         <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
       </span>
 <% if ( !loner ) { %>
-      <ul class="list-group js_dropdown_menu w380">  
+      <ul class="list-group js_dropdown_menu w380">
         <li class="list-group-info-item">
           <span><%= __( states[ event.currentState ].label + 'ContributorInfo' ) %></span>
           <div class="margin-top-sm">
@@ -57,7 +57,7 @@
 <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor w25">
-      <% if ( loner ) { } else if ( useContributeApp ) { %> 
+      <% if ( loner ) { } else if ( useContributeApp ) { %>
       <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
       <% } else { %>
       <a class="edge-link" href="<%= genUrl( 'agendaEventEdit', { eventSlug: event.slug, slug: slug } ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
@@ -69,10 +69,10 @@
 <% if ( !loner ) { %>
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
 <% if ( event.featured ) { %>
-          <a class="item starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'notfeatured' } ) %>" rel="nofollow"><span><%= __( 'featured' ) %></span><span class="hovered"><%= __('removeFromFeatured') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
+          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/notfeatured` %>" rel="nofollow"><span><%= __( 'featured' ) %></span><span class="hovered"><%= __('removeFromFeatured') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
 <% } else { %>
-          <a class="item starify active" href="<%= genUrl( 'agendaEventChangeFeatured', { slug: slug, eventSlug: event.slug, type: 'featured' } ) %>" rel="nofollow"><%= __('addToFeatured') %><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i></a>
-<% } %>      
+          <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/featured` %>" rel="nofollow"><%= __('addToFeatured') %><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i></a>
+<% } %>
         </li>
 <% } %>
 <% if ( !loner && hasOwnershipTransfer ) { %>

@@ -392,7 +392,7 @@ const config = {
         },
         agendaEventShow: {
           method: 'get',
-          uri: '/:slug/event/:eSlug'
+          uri: '/:slug/event/:eventSlug'
         },
         agendaFeed: {
           method: 'get',
@@ -481,6 +481,10 @@ const config = {
         agendaAdminInboxConversation: {
           method: 'get',
           uri: '/:slug/admin/inbox/conversation/:conversationId'
+        },
+        eventShow: {
+          method: 'get',
+          uri: '/events/:eventSlug'
         },
         eventShare: {
           method: 'get',

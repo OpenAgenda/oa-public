@@ -19,7 +19,7 @@
 <% } %>
     </div>
     <div class="search">
-      <form class="cform csingle bigger" method="get" action="<%= genUrl( 'searchEvents' ) %>">
+      <form class="cform csingle bigger" method="get" action="/events/search">
         <input type="text" name="search[what]" value="<%= search && ( typeof search.what !== 'undefined' ) ? search.what : '' %>"/>
         <button type="submit">
           <i class="fa fa-search"></i>

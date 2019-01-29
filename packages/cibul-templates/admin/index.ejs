@@ -1,5 +1,5 @@
 <div class="canvas page sadmin">
-  
+
   <article>
 
     <h2><%= __('Totals') %></h2>
@@ -11,7 +11,7 @@
 			<% } %>
 			<% if ( reviews.totalInMonth ) {%><p><%= __('Last month')%> <%= __( '%reviewsMonth% reviews' , {'%reviewsMonth%': reviews.totalInMonth} ) %></p> <% } %>
 	 	</section>
-	 	
+
 	 	<section class="w33">
 	 		<h3><%= __('Events') %></h3>
 	 		<p> <%= __('Number of events created %totalEvents%', {'%totalEvents%': events.total} ) %>  </p>
@@ -28,7 +28,7 @@
 			<% if ( users.totalInMonth ) {%><p><%= __('Last month')%> <%= __( '%usersMonth% users' , {'%usersMonth%': users.totalInMonth} ) %></p> <% } %>
 	 	</section>
 
-	 	<form class="cform js_totals_search" method="get" action="<%= genUrl( 'adminSearch' ) %>" >
+	 	<form class="cform js_totals_search" method="get" action="/admin/search" >
 		  <ul class="line">
 		  	<li>
 					<input type="text" name="begin" class="js_begin" placeholder="Début"/>

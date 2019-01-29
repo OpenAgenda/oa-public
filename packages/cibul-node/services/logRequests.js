@@ -11,12 +11,6 @@ const blacklist = [
 
 morgan.token( 'path', req => req.path );
 
-morgan.token( 'key', req => req.query.key );
-
-morgan.token( 'query', req => JSON.stringify( req.query ) );
-
-morgan.token( 'content-length', ( req, res ) => res[ 'content-length' ] && humanSize( res[ 'content-length' ], 2 ) );
-
 morgan.token( 'extension', req => path.extname( req.originalUrl ) );
 
 
@@ -39,7 +33,7 @@ const middleware = morgan(
           : statusCode >= 200 ? 32 // green
             : 0 // no color
 
-    const query = tokens.query( req, res );
+    const query = tokens.req( req, res, 'query' );
 
     const data = {
       ip: tokens[ 'remote-addr' ]( req, res ),
@@ -48,11 +42,11 @@ const middleware = morgan(
       url: tokens.url( req, res ),
       httpVersion: tokens[ 'http-version' ]( req, res ),
       query,
-      key: query.key || null,
+      key: (query && query.key) || null,
       extension: tokens.extension( req, res ),
       status: parseInt( tokens.status( req, res ) ),
-      contentLength: tokens[ 'content-length' ]( req, res ),
-      responseTime: tokens[ 'response-time' ]( req, res )
+      contentLength: tokens.res( req, res, 'content-length' ),
+      responseTime: tokens[ 'response-time' ]( req, res ) || NaN
     };
 
     if ( process.env.NODE_ENV === 'production' ) {
@@ -61,8 +55,14 @@ const middleware = morgan(
       const { method, url, httpVersion, ip, status, contentLength, responseTime } = data;
 
       log.info( withColor(
-        `"${method} ${colored( url, 1 )} HTTP/${httpVersion}"`
-        + ` ${ip} ${colored( status, color )} ${contentLength || '-'} ~ ${responseTime}ms`
+        [
+          `"${method} ${colored( url, 1 )} HTTP/${httpVersion}"`,
+          ip,
+          colored( colored( status, color ), 1 ),
+          contentLength ? humanSize( contentLength, 2 ) : '-',
+          '~',
+          `${responseTime}ms`
+        ].join( ' ' )
       ) );
     }
 

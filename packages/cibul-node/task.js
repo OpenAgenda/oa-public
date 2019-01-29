@@ -14,8 +14,6 @@ module.exports = () => {
 
   tfy( require( './services/elasticsearch' ).refresh, { period: 'daily', time: '00:00' } );
 
-  tfy( require( './services/notification/remove.task' ), { period: 'daily', time: '03:00' } );
-
   tfy( agendaSearch.rebuild, {
     period: 'weekly',
     day: 'sunday',

@@ -1,22 +1,21 @@
 "use strict";
 
-const _ = require( 'lodash' );
 const agendaDocx = require( '@openagenda/agenda-docx' );
 const cmn = require( '../lib/commons-app' );
 
-module.exports = _.extend( ( parentApp, path ) => {
+module.exports = app => {
 
   // not necessary
-  parentApp.use( path + '/dist', agendaDocx.dist );
+  app.use( '/docx/dist', agendaDocx.dist );
 
-  parentApp.use( path + '/:agendaUid', cmn.verifyAdminModMiddleware( { uid: 'params.agendaUid' } ) );
+  app.use( '/docx/:agendaUid', cmn.verifyAdminModMiddleware( { uid: 'params.agendaUid' } ) );
 
-  parentApp.use( path, agendaDocx.app );
+  app.use( '/docx', agendaDocx.app );
 
-}, { init } );
+};
 
 
-function init( config ) {
+module.exports.init = config => {
 
   agendaDocx.init( {
     s3: {

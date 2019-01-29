@@ -1,69 +1,53 @@
 "use strict";
 
-const modLib = require( '../lib/moduleLib' ),
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const sessions = require( '@openagenda/sessions' );
+const agendaTags = require( '@openagenda/agenda-tags' );
+const agendaCategories = require( '@openagenda/agenda-categories' );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) );
+const cmn = require( '../lib/commons-app' );
+const agendaSvc = require( '../services/agenda' );
+const eventSvc = require( '../services/event' );
 
-  sessions = require( '@openagenda/sessions' ),
+const preMw = [
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+  eventSvc.mw.load( 'eventSlug', 'slug' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.checkAdminOrModerator
+];
 
-  cmn = require( '../lib/commons-app' ),
 
-  async = require( 'async' ),
+module.exports = app => {
 
-  agendaSvc = require( '../services/agenda' ),
+  app.get(
+    '/:slug/events/:eventSlug/tagcat',
+    preMw,
+    _loadTagSet,
+    _loadTags,
+    _loadCategorySet,
+    _loadCategory,
+    _loadCustomSet,
+    _loadCustom,
+    xhrGet,
+    eventSvc.mw.format,
+    cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
+    page
+  );
 
-  agendaTags = require( '@openagenda/agenda-tags' ),
+  app.post(
+    '/:slug/events/:eventSlug/tagcat',
+    preMw,
+    _loadTagSet,
+    _loadCategorySet,
+    _loadCustomSet,
+    _validateTags,
+    _validateCategories,
+    _updateCustom,
+    update
+  );
 
-  agendaCategories = require( '@openagenda/agenda-categories' ),
-
-  eventSvc = require( '../services/event' ),
-
-  _ = require( 'lodash' ),
-
-  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) ),
-
-  routes = {
-
-    agendaEventTagsForm: [ 'get', '/', [
-      _loadTagSet,
-      _loadTags,
-      _loadCategorySet,
-      _loadCategory,
-      _loadCustomSet,
-      _loadCustom,
-      xhrGet,
-      eventSvc.mw.format,
-      cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
-      page
-    ] ],
-
-    agendaEventTagsFormSubmit: [ 'post', '/', [
-      _loadTagSet,
-      _loadCategorySet,
-      _loadCustomSet,
-      _validateTags,
-      _validateCategories,
-      _updateCustom,
-      update
-    ] ]
-
-  }
-
-module.exports = path => {
-
-  let router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    cmn.checkAdminOrModerator
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
+};
 
 
 function _loadTags( req, res, next ) {
@@ -159,7 +143,7 @@ function _loadCategorySet( req, res, next ) {
 }
 
 
-function page( req, res, next ) {
+function page( req, res ) {
 
   cmn.render( req, res, 'eventFormTags/index', {
     agenda: req.agenda,

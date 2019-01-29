@@ -6,7 +6,6 @@ const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const createApp = require( '@openagenda/activity-apps/dist/client/apps/admin' );
 const config = require( '../config' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 
 const appMw = [
@@ -14,37 +13,24 @@ const appMw = [
   matchApp
 ];
 
-const routes = {
+const preMw = [
+  cmn.loadLogger( 'activities' ),
+  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
+  cmn.requireAdmin
+];
 
-  adminActivitiesApp: [ 'get', '', appMw ],
-  adminActivitiesSub: [ 'get', '/?*?', appMw ],
 
-  /**********/
+module.exports = app => {
 
-  adminActivitiesList: [ 'get', '/list', mw.list() ]
-
-};
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'activities' ),
-    sessions.middleware.load( { detailed: true } ),
-    sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-    cmn.requireAdmin
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.get( '/admin/activities', preMw, appMw );
+  app.get( '/admin/activities/?*?', preMw, appMw );
+  app.get( '/admin/activities/list', preMw, mw.list() );
 
 };
+
 
 async function matchApp( req, res, next ) {
-  const prefix = req.genUrl( 'adminActivitiesApp' ).split( '?' )[ 0 ];
+  const prefix = '/admin/activities';
   const lang = req.lang || 'fr';
   const { element, triggerHooks, store, context } = createApp( {
     req,
@@ -56,7 +42,7 @@ async function matchApp( req, res, next ) {
         perPageLimit: 20
       },
       res: {
-        list: req.genUrl( 'adminActivitiesList' )
+        list: '/admin/activities/list'
       }
     }
   } );

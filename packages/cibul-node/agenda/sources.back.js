@@ -55,7 +55,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'aggregatorSources' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() )
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
   ] );
 
   return {

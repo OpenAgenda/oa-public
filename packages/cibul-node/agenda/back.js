@@ -37,7 +37,7 @@ app.use( [
   '/:agendaSlug/admin/getting-started'
 ], [
   cmn.loadLogger( 'agendaBack' ),
-  sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   agendaLoad
 ] );
 
@@ -130,5 +130,5 @@ app.get( '/:agendaSlug/admin/getting-started', [
       }, lang: req.lang || 'fr'
     } );
 
-  } 
+  }
 ] );

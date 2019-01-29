@@ -11,7 +11,7 @@ const legacyAgendaSvc = require( '../services/agenda' );
 
 const { cleanString } = require( '@openagenda/utils' );
 
-module.exports = ( parentApp, path ) => {
+module.exports = ( parentApp, path = '' ) => {
 
   parentApp.use( path, app );
 

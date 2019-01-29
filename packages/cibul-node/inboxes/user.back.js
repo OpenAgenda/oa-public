@@ -17,7 +17,6 @@ module.exports = userRouter;
 const preMw = [
   cmn.loadLogger( 'inboxes/back' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
-  sessions.middleware.load( { detailed: true } ),
   ( req, res, next ) => {
     req.type = 'user';
     req.creatorInboxUser = { userUid: req.user.uid };

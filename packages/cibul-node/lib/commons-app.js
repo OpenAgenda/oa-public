@@ -796,7 +796,7 @@ function assign( source, target ) {
 /**
  * returns middleware that redirects to given route&params ( uses req.genUrl )
  */
-function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
+function redirectTo( route, params = {}, options = {} ) {
 
   const redirectParams = _.extend( {
     code: 302,
@@ -828,7 +828,7 @@ function redirectTo( route = 'corpoHome', params = {}, options = {} ) {
 
         if ( k[ '$base64Route' ] ) {
 
-          v = (new Buffer( v, 'utf-8' )).toString( 'base64' );
+          v = new Buffer( v, 'utf-8' ).toString( 'base64' );
 
         }
 
@@ -879,8 +879,6 @@ function redirectToSignin( req, res, next ) {
 
 function https( req, res, next ) {
 
-  var redirectTo;
-
   if ( req.headers[ 'x-forwarded-proto' ] == 'https' ) {
 
     next();
@@ -889,7 +887,7 @@ function https( req, res, next ) {
 
   }
 
-  redirectTo = 'https://' + req.hostname + req.originalUrl;
+  const redirectTo = 'https://' + req.hostname + req.originalUrl;
 
   req.log( 'forcing https: redirecting to %s', redirectTo );
 
@@ -921,7 +919,7 @@ function requireAdmin( req, res, next ) {
 
       sessions.setFlash( req, res, 'Eerrh nooo, no esta, nooo, bye bye.' );
 
-      res.redirect( 302, req.genUrl( 'corpoHome' ) );
+      res.redirect( 302, '/' );
 
     }
 
@@ -1235,7 +1233,7 @@ function redirectLegacySearch( req, res, next ) {
 
     query.search = undefined;
 
-    res.redirect( 301, req.baseUrl + req.path + '?' + qs.stringify( query ) );
+    res.redirect( 301, req.baseUrl + req.path + qs.stringify( query, { addQueryPrefix: true } ) );
 
     return;
 

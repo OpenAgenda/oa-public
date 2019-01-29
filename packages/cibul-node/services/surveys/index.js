@@ -10,11 +10,11 @@ const { middleware: agendasMw } = require( '@openagenda/agendas' );
 
 const layout = require( '../lib/layout' );
 
-module.exports = _.extend( ( parentApp, path ) => {
+module.exports = _.extend( ( parentApp, path = '' ) => {
 
   parentApp.use( '/dist/surveys', surveys.dist );
 
-  parentApp.use( path, app );  
+  parentApp.use( path, app );
 
 }, { init } )
 
@@ -52,7 +52,7 @@ app.get( '/:agendaSlug/survey/:eventSlug', ( req, res, next ) => {
       }
     },
     agenda: {
-      $set: req.agenda 
+      $set: req.agenda
     },
     lang: {
       $set: req.lang

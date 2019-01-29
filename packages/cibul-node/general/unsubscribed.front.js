@@ -7,8 +7,7 @@ const agendasSvc = require( '@openagenda/agendas' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/home/notifications' ) );
 const cmn = require( '../lib/commons-app' );
 
-const logged = sessions.middleware.ifUnlogged( cmn.redirectTo() );
-const loadSession = sessions.middleware.load( { detailed: true } );
+const logged = sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) );
 
 /**
  * this follows a more classic way of using express.
@@ -16,98 +15,120 @@ const loadSession = sessions.middleware.load( { detailed: true } );
  * another app and puts a bunch of middleware before and after ( optionally )
  */
 
-module.exports = ( parentApp, path ) => {
+module.exports = app => {
 
-  parentApp.get( path + unsubscribed.app.routes.list, [ logged, loadSession, ( req, res, next ) => {
+  app.get(
+    '/unsubscribe' + unsubscribed.app.routes.list,
+    cmn.lang,
+    logged,
+    ( req, res, next ) => {
 
-    if ( req.user.uid !== parseInt( req.params.userUid ) ) {
-      return next( new Error( 'userUid is different of your session' ) );
+      if ( req.user.uid !== parseInt( req.params.userUid ) ) {
+        return next( new Error( 'userUid is different of your session' ) );
+      }
+
+      next();
+
     }
+  );
 
-    next();
+  unsubscribed.app.useBy( app, '/unsubscribe' );
 
-  } ] );
+  app.get(
+    '/unsubscribe' + unsubscribed.app.routes.list,
+    cmn.lang,
+    ( req, res, next ) => {
 
-  unsubscribed.app.useBy( parentApp, path );
+      if ( req.result ) {
 
-  parentApp.use( path, [ cmn.lang ] );
+        if ( req.result.unsubscriptions ) {
 
-  parentApp.get( path + unsubscribed.app.routes.list, ( req, res, next ) => {
+          return async.eachOfSeries( req.result.unsubscriptions, ( item, key, cb ) => {
 
-    if ( req.result ) {
+            if ( item.subject !== 'agenda' ) return cb();
 
-      if ( req.result.unsubscriptions ) {
+            agendasSvc.get( { uid: item.identifier }, { private: null }, ( err, agenda ) => {
 
-        return async.eachOfSeries( req.result.unsubscriptions, ( item, key, cb ) => {
+              if ( err ) return cb( err );
 
-          if ( item.subject !== 'agenda' ) return cb();
+              req.result.unsubscriptions[ key ].agenda = agenda;
 
-          agendasSvc.get( { uid: item.identifier }, { private: null }, ( err, agenda ) => {
+              cb();
 
-            if ( err ) return cb( err );
+            } );
 
-            req.result.unsubscriptions[ key ].agenda = agenda;
+          }, err => {
 
-            cb();
+            if ( err ) return next( err );
+
+            return res.json( req.result );
 
           } );
 
-        }, err => {
-
-          if ( err ) return next( err );
-
-          return res.json( req.result );
-
-        } );
+        }
 
       }
 
-    }
-
-    next();
-
-  } );
-
-  parentApp.get( path + unsubscribed.app.routes.remove, ( req, res ) => {
-
-    if ( req.result ) return res.json( req.result );
-
-    res.status( 400 ).json( null );
-
-  } );
-
-  parentApp.get( path + unsubscribed.app.routes.remove.replace( '/t/:type', '' ), ( req, res ) => {
-
-    if ( req.result ) return res.json( req.result );
-
-    res.status( 400 ).json( null );
-
-  } );
-
-  parentApp.get( path + unsubscribed.app.routes.remove.replace( '.:identifier', '' ), ( req, res ) => {
-
-    if ( req.result ) return res.json( req.result );
-
-    res.status( 400 ).json( null );
-
-  } );
-
-  parentApp.use( path, ( req, res, next ) => {
-
-    if ( req.result && req.result.success ) {
-
-      // do I know the language?
-
-      sessions.setFlash( req, res, getLabel( 'unsubscribedSuccess', req.lang ) );
-
-    } else {
-
-      sessions.setFlash( req, res, getLabel( 'unsubscribedFail', req.lang ) );
+      next();
 
     }
+  );
 
-    res.redirect( '/' );
+  app.get(
+    '/unsubscribe' + unsubscribed.app.routes.remove,
+    cmn.lang,
+    ( req, res ) => {
 
-  } );
+      if ( req.result ) return res.json( req.result );
+
+      res.status( 400 ).json( null );
+
+    }
+  );
+
+  app.get(
+    '/unsubscribe' + unsubscribed.app.routes.remove.replace( '/t/:type', '' ),
+    ( req, res ) => {
+
+      if ( req.result ) return res.json( req.result );
+
+      res.status( 400 ).json( null );
+
+    }
+  );
+
+  app.get(
+    '/unsubscribe' + unsubscribed.app.routes.remove.replace( '.:identifier', '' ),
+    cmn.lang,
+    ( req, res ) => {
+
+      if ( req.result ) return res.json( req.result );
+
+      res.status( 400 ).json( null );
+
+    }
+  );
+
+  app.use(
+    '/unsubscribe',
+    cmn.lang,
+    ( req, res, next ) => {
+
+      if ( req.result && req.result.success ) {
+
+        // do I know the language?
+
+        sessions.setFlash( req, res, getLabel( 'unsubscribedSuccess', req.lang ) );
+
+      } else {
+
+        sessions.setFlash( req, res, getLabel( 'unsubscribedFail', req.lang ) );
+
+      }
+
+      res.redirect( '/' );
+
+    }
+  );
 
 }

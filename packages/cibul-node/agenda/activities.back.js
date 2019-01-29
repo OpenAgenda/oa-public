@@ -60,8 +60,7 @@ module.exports = path => {
 
   router.pre( [
     cmn.loadLogger( 'agendaActivities' ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    sessions.middleware.load( { detailed: true } ),
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     agendaSvc.mw.load( 'slug' ),
     cmn.checkAdminOrModerator
   ] );

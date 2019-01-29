@@ -9,6 +9,8 @@ const agendaTags = require( '@openagenda/agenda-tags' );
 
 const ih = require( 'immutability-helper' );
 
+const qs = require( 'qs' );
+
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
@@ -46,18 +48,11 @@ const  modLib = require( '../lib/moduleLib' ),
 
   perPage = 20,
 
-  wn = require( 'when/node' ),
-
   async = require( 'async' ),
 
   fb = require( '@openagenda/facebook' ),
 
   utils = require( '@openagenda/utils' ),
-
-  bodyMw = require( 'body-parser' ).urlencoded( {
-    extended: true,
-    limit: 500000
-  } ),
 
   middlewares = {
     show: [
@@ -106,7 +101,6 @@ const  modLib = require( '../lib/moduleLib' ),
     ] ],
 
     agendaFacebook: [ 'post', '/facebook/tab', [
-      bodyMw,
       cmn.redirectLegacySearch,
       cmn.useEmbedGoogleAnalytics,
       fb.tab.loadAgendaId,
@@ -195,7 +189,6 @@ const  modLib = require( '../lib/moduleLib' ),
           $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
         }
       } ) ),
-      sessions.middleware.load( { detailed: true } ),
       stakeholderMw.agenda().get(),
       cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
     ].concat( middlewares.show ) ],
@@ -613,17 +606,13 @@ function _formatEmbedLinks( req, res, next ) {
 
   req.templateData.events.forEach( e => {
 
-    const params = {
-      uid: req.agenda.uid,
-      eventUid: e.uid,
-      lang: req.lang
-    };
+    const params = { lang: req.lang };
 
     if ( req.query.fb ) params.fb = 1;
 
     if ( req.query.oaq ) params.search = req.query.oaq;
 
-    e.link = req.genUrl(  'agendaEmbedEventShow', params );
+    e.link = `/agendas/${req.agenda.uid}/embed/events/${e.uid}${qs.stringify( params, { addQueryPrefix: true } )}`;
 
     e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
 
@@ -676,15 +665,15 @@ function _formatCustomEmbedLinks( req, res, next ) {
   req.templateData.events.forEach( e => {
 
     const params = {
-      uid: req.agenda.uid,
-      embedUid: req.embed.uid,
-      eventUid: e.uid,
       lang: req.lang
     };
 
     if ( req.query.oaq ) params.search = req.query.oaq;
 
-    e.link = req.genUrl( req.preview ? 'agendaCustomEmbedEventShowPreview' : 'agendaCustomEmbedEventShow', params );
+    e.link = (req.preview
+      ? `/agendas/${req.agenda.uid}/previewEmbeds/${req.embed.uid}/events/${e.uid}`
+      : `/agendas/${req.agenda.uid}/embeds/${req.embed.uid}/events/${e.uid}`)
+    + qs.stringify( params, { addQueryPrefix: true } );
 
     e.oaLink = '//openagenda.com/agendas/' + req.agenda.uid + '/events/' + e.uid;
 
@@ -830,31 +819,6 @@ function unauthorizedIP( req, res ) {
       label: unauthorizedIpLabel( 'back', req.lang )
     } ]
   } );
-
-}
-
-
-function _error( req, res ) {
-
-  return function( err ) {
-
-    if ( typeof err === 'string' ) err = { message: err };
-
-    var link = false;
-
-    if ( req.agenda ) {
-
-      err.link = {
-        uri: 'homeShow',
-        values: {},
-        label: 'go back to home'
-      };
-
-    }
-
-    cmn.errorResponse( req, res, err );
-
-  };
 
 }
 

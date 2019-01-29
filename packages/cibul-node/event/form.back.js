@@ -2,59 +2,52 @@
 
 const _ = require( 'lodash' );
 const multer = require( 'multer' );
-
 const imageUpload = require( '@openagenda/image-upload/lib/middleware' );
 const sessions = require( '@openagenda/sessions' );
-
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const eventSvc = require( '../services/event' );
-const modLib = require( '../lib/moduleLib' );
 
-const routes = {
+const preMw = [
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.checkContributor,
+  _checkField
+];
 
-  agendaEventNewCustomUpload: [ 'post', '/:slug/events/new/custom/:field/upload/key/:fileKey', [ 
-    sessions.middleware.load(),
+
+module.exports = app => {
+
+  app.post(
+    '/:slug/events/new/custom/:field/upload/key/:fileKey',
+    preMw,
     _loadFieldType,
     agendaEventCustomUpload.bind( null, true )
-  ] ],
+  );
 
-  agendaEventNewCustomRemove: [ 'post', '/:slug/events/new/custom/:field/remove/key/:fileKey', [
-    sessions.middleware.load(),
+  app.post(
+    '/:slug/events/new/custom/:field/remove/key/:fileKey',
+    preMw,
     _loadFieldType,
-    agendaEventNewCustomRemove 
-  ] ],
+    agendaEventNewCustomRemove
+  );
 
-  agendaEventCustomUpload: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/upload/key/:fileKey', [
+  app.post(
+    '/:slug/events/:eventSlug/edit/custom/:field/upload/key/:fileKey',
+    preMw,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _loadFieldType,
     agendaEventCustomUpload.bind( null, false )
-  ] ],
+  );
 
-  agendaEventCustomRemove: [ 'post', '/:slug/events/:eventSlug/edit/custom/:field/remove/key/:fileKey', [
+  app.post(
+    '/:slug/events/:eventSlug/edit/custom/:field/remove/key/:fileKey',
+    preMw,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _loadFieldType,
     agendaEventCustomRemove
-  ] ]
-
-}
-
-module.exports = function( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    cmn.checkContributor,
-    _checkField
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  );
 
 }
 

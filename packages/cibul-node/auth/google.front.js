@@ -38,7 +38,7 @@ module.exports = function( path ) {
   router.pre( [
     agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
     cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( cmn.redirectTo() )
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
   ] );
 
   return {
@@ -63,7 +63,7 @@ function load( router, path ) {
     if ( id ) {
 
       pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
-    
+
       pLib.use( 'google-signin', 'google', _.extend( {
         callbackURL: genUrl.abs( 'googleSigninCallback' )
       }, googleOptions ), _loadGoogleProfile );
@@ -93,7 +93,7 @@ function signin( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signin', {
-    scope: 'email', 
+    scope: 'email',
     callbackURL: genUrl.abs( 'googleSigninCallback' )
   } )( req, res, next );
 
@@ -104,7 +104,7 @@ function signup( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signup', {
-    scope: 'email', 
+    scope: 'email',
     callbackURL: genUrl.abs( 'googleSignupCallback' )
   } )( req, res, next );
 
@@ -149,7 +149,7 @@ function _processSignup( req, res, next ) {
       res: res,
       err: err,
       profile: profile,
-      data: data 
+      data: data
     } )
 
     .then( auth.attemptCreate )

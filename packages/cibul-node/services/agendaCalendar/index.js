@@ -1,34 +1,36 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const service = require( '@openagenda/agenda-calendar-apps' );
-
 const layout = require( '../lib/layout' );
 
-module.exports = _.extend( ( parentApp, path ) => {
+module.exports = _.extend( app => {
 
-  parentApp.use( '/dist/calendar', service.dist );
+  app.use( '/dist/calendar', service.dist );
 
-  parentApp.get( path + '/:agendaSlug/calendar', [ agendasMw.load( {
-    namespaces: {
-      identifiers: {
-        slug: 'params.agendaSlug'
+  app.get(
+    '/:agendaSlug/calendar',
+    agendasMw.load( {
+      namespaces: {
+        identifiers: {
+          slug: 'params.agendaSlug'
+        },
+        result: 'agenda'
       },
-      result: 'agenda'
-    },
-    internal: true,
-    private: null
-  } ), ( req, res, next ) => {
+      internal: true,
+      private: null
+    } ),
+    ( req, res, next ) => {
 
-    req.agendaUid = req.agenda.uid
+      req.agendaUid = req.agenda.uid
 
-    next();
+      next();
 
-  } ] );
+    }
+  );
 
-  parentApp.use( path + '/:agendaSlug/calendar', service.app );
+  app.use( '/:agendaSlug/calendar', service.app );
 
 }, { init } );
 

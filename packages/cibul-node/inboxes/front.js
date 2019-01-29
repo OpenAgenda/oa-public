@@ -27,8 +27,7 @@ module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 
 const preMw = [
   cmn.loadLogger( 'inboxes/front' ),
-  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-  sessions.middleware.load( { detailed: true } )
+  sessions.middleware.ifUnlogged( cmn.redirectToSignin )
 ];
 
 app.use(

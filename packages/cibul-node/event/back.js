@@ -4,38 +4,38 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const w = require( 'when' );
 
-const core = require( '../core' );
-
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
-const formSchemas = require( '@openagenda/form-schemas' );
 const sessions = require( '@openagenda/sessions' );
 const customSvc = require( '@openagenda/custom' );
-
-const modLib = require( '../lib/moduleLib' );
-const cmn = require( '../lib/commons-app' );
+const activitiesSvc = require( '@openagenda/activities' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
+
+const core = require( '../core' );
+const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
 
-const activitiesSvc = require( '@openagenda/activities' );
-
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
-const routes = {
-  eventChangeState: [ 'get', '/events/:eventSlug/state/:type', [
+
+module.exports = app => {
+
+  app.get(
+    '/events/:eventSlug/state/:type',
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.checkEventEditor,
     _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
     _changeState,
     _redirect
-  ] ],
+  );
 
-  agendaEventChangeState: [ 'get', '/:slug/events/:eventSlug/state/:type', [
+  app.get(
+    '/:slug/events/:eventSlug/state/:type',
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
@@ -43,18 +43,20 @@ const routes = {
     _changeState,
     _xhrResponse,
     _redirect
-  ] ],
+  );
 
-  agendaEventChangeFeatured: [ 'get', '/:slug/events/:eventSlug/featured/:type', [
+  app.get(
+    '/:slug/events/:eventSlug/featured/:type',
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     cmn.checkAdminOrModerator,
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured,
     _redirect
-  ] ],
+  );
 
-  agendaEventPrivate: [ 'get', '/agendas/:uid/events/:eventUid/private', [
+  app.get(
+    '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.loadMemberRole.bind( null, 'agenda' ),
@@ -72,9 +74,10 @@ const routes = {
     eventSvc.mw.format,
     legacyAgendaSvc.mw.decorateEvent( true ),
     getPrivateEventData
-  ] ],
+  );
 
-  agendaEventReferences: [ 'get', '/agendas/:uid/events/:eventUid/references', [
+  app.get(
+    '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _loadAdminOrModerator,
@@ -86,12 +89,11 @@ const routes = {
       } );
 
     }
-  ] ],
+  );
 
-  // this name does not imply reference search
-  // suggestions are part of new search in their own file
-  agendaEventReferenceSearch: [ 'get', '/agendas/:uid/events', [
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+  app.get(
+    '/agendas/:uid/events',
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     legacyAgendaSvc.mw.load( 'uid' ),
     ( req, res, next ) => {
 
@@ -103,11 +105,11 @@ const routes = {
     _loadAdminOrModerator,
     eventReferences.mw.events,
     ( req, res ) => res.json( req.events )
+  );
 
-  ] ],
-
-  agendaEventReferenceSuggestion: [ 'get', '/agendas/:uid/events/suggestions', [
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
+  app.get(
+    '/agendas/:uid/events/suggestions',
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     ( req, res, next ) => {
 
       core.agendas( req.params.uid ).settings.get().then( settings => {
@@ -140,9 +142,10 @@ const routes = {
     },
     eventReferences.mw.suggestions,
     ( req, res ) => res.json( req.events )
-  ] ],
+  );
 
-  agendaEventActivities: [ 'get', '/agendas/:uid/events/:eventUid/activities', [
+  app.get(
+    '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     cmn.checkAdminOrModerator,
@@ -168,11 +171,9 @@ const routes = {
             res.json( {
               activities,
               count: activities.length,
-              nextUrl: lastPage ? null : req.genUrl( 'agendaEventActivities', {
-                uid: req.agenda.uid,
-                eventUid: req.event.uid,
-                fromId: activities[ activities.length - 1 ].id
-              } )
+              nextUrl: lastPage
+                ? null
+                : `/agendas/${req.agenda.uid}/events/${req.event.uid}/activities?fromId=${activities[ activities.length - 1 ].id}`
             } );
 
           } )
@@ -182,21 +183,7 @@ const routes = {
       } );
 
     }
-  ] ],
-
-};
-
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  );
 
 }
 

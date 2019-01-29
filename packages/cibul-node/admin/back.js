@@ -3,12 +3,7 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
-const bodyMw = require( 'body-parser' ).urlencoded( {
-  extended: true,
-  limit: 500000
-} );
 const sessions = require( '@openagenda/sessions' );
-const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const moment = require( 'moment' );
@@ -23,115 +18,95 @@ const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const agendasSvc = require( '@openagenda/agendas' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
 
-const routes = {
-  adminIndex: [ 'get', '/', index ],
-  adminSearch: [ 'get', '/search', search ],
-  adminUsers: [ 'get', '/users', getUsers ],
-  adminUserSignInAs: [ 'get', '/users/signin', [
-    _loadUser(),
-    userSignin
-  ] ],
-  adminUserActivate: [ 'get', '/users/activate', [
-    _loadUser(),
-    userActivate
-  ] ],
-  adminUserUpdate: [ 'post', '/users/update', [
-    _loadUser( 'post' ),
-    userUpdate
-  ] ],
-  throwTestError: [ 'get', '/throw', throwTestError ],
-  adminUserChangePassword: [ 'get', '/users/changePassword', userChangePassword ],
-  eventsByWeek: [ 'get', '/eventsbyweek', eventsByWeek ],
-  eventsDiff: [ 'get', '/eventsdiff', eventsDiff ],
-  adminSupport: [ 'get', '/support/?*?', [
-    async ( req, res, next ) => {
-      const lang = req.lang || 'fr';
-      const { element, triggerHooks, store, context } = createInboxApp( {
-        req,
-        initialState: {
-          settings: {
-            context: 'user',
-            prefix: '/admin/support',
-            lang: req.lang,
-            apiRoot: `http://localhost:${config.port}`,
-            perPageLimit: 20
-          },
-          res: {
-            author: '/admin/support/author.json',
-            conversations: {
-              create: '/admin/support/conversations.json',
-              list: '/admin/support/conversations.json',
-              action: '/admin/support/conversations/:conversationId/action/:code.json',
-              resume: '/admin/support/conversations/:conversationId/resume.json'
-            },
-            messages: {
-              list: '/admin/support/conversations/:conversationId/messages.json',
-              create: '/admin/support/conversations/:conversationId/messages.json',
-              prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-              addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
-            }
-          }
-        }
-      } );
-
-      try {
-        await triggerHooks();
-
-        const content = ReactDOM.renderToString( element );
-
-        const state = store.getState();
-
-        // Remove apiRoot used only on server side
-        state.settings.apiRoot = '';
-
-        if ( context.status === 404 ) {
-          return next();
-        }
-
-        if ( context.url ) {
-          return res.redirect( 301, context.url );
-        }
-
-        const { pathname, search } = state.router.location;
-        if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-          return res.redirect( 301, pathname );
-        }
-
-        res.send( supportTemplate( {
-          scriptParams: { initialState:state },
-          lang,
-          content,
-          preloaded: true
-        } ) );
-      } catch ( e ) {
-        next( e );
-      }
-    }
-  ] ]
-};
-
 const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
-module.exports = path => {
+const preMw = [
+  cmn.loadBaseData(),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.requireAdmin
+];
 
-  var router = modLib.Router( routes );
 
-  moment.locale( 'fr' );
+module.exports = app => {
 
-  router.pre( [
-    bodyMw,
-    cmn.loadBaseData(),
-    sessions.middleware.load(),
-    sessions.middleware.ifUnlogged( cmn.redirectTo() ),
-    cmn.requireAdmin
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  app.get( '/admin', preMw, index );
+  app.get( '/admin/search', preMw, search );
+  app.get( '/admin/users', preMw, getUsers );
+  app.get( '/admin/users/signin', preMw, _loadUser(), userSignin );
+  app.get( '/admin/users/activate', preMw, _loadUser(), userActivate );
+  app.get( '/admin/users/update', preMw, _loadUser( 'post' ), userUpdate );
+  app.get( '/admin/throw', preMw, throwTestError );
+  app.get( '/admin/users/changePassword', preMw, userChangePassword );
+  app.get( '/eventsbyweek', preMw, eventsByWeek );
+  app.get( '/admin/eventsdiff', preMw, eventsDiff );
+  app.get( '/admin/support/?*?', preMw, support );
 
 };
+
+
+async function support( req, res, next ) {
+  const lang = req.lang || 'fr';
+  const { element, triggerHooks, store, context } = createInboxApp( {
+    req,
+    initialState: {
+      settings: {
+        context: 'user',
+        prefix: '/admin/support',
+        lang: req.lang,
+        apiRoot: `http://localhost:${config.port}`,
+        perPageLimit: 20
+      },
+      res: {
+        author: '/admin/support/author.json',
+        conversations: {
+          create: '/admin/support/conversations.json',
+          list: '/admin/support/conversations.json',
+          action: '/admin/support/conversations/:conversationId/action/:code.json',
+          resume: '/admin/support/conversations/:conversationId/resume.json'
+        },
+        messages: {
+          list: '/admin/support/conversations/:conversationId/messages.json',
+          create: '/admin/support/conversations/:conversationId/messages.json',
+          prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
+          addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
+        }
+      }
+    }
+  } );
+
+  try {
+    await triggerHooks();
+
+    const content = ReactDOM.renderToString( element );
+
+    const state = store.getState();
+
+    // Remove apiRoot used only on server side
+    state.settings.apiRoot = '';
+
+    if ( context.status === 404 ) {
+      return next();
+    }
+
+    if ( context.url ) {
+      return res.redirect( 301, context.url );
+    }
+
+    const { pathname, search } = state.router.location;
+    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+      return res.redirect( 301, pathname );
+    }
+
+    res.send( supportTemplate( {
+      scriptParams: { initialState:state },
+      lang,
+      content,
+      preloaded: true
+    } ) );
+  } catch ( e ) {
+    next( e );
+  }
+}
 
 
 function index( req, res ) {
@@ -390,7 +365,7 @@ function userSignin( req, res ) {
 
     if ( req.xhr ) return cmn.renderJson( req, res, { success: true } );
 
-    return res.redirect( 302, req.genUrl( 'homeShow' ) );
+    return res.redirect( 302, '/home' );
 
   } );
 
