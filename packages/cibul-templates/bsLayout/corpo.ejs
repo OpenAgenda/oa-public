@@ -48,15 +48,15 @@
             </ul>
 <% } %>
             <ul class="nav navbar-nav navbar-right">
-                <li class="signin"><a href="<%= genUrl( 'start', { a: 'header_signin' } ) %>"><%= __( 'layoutSignin' ) %></a></li>
-                <li class="signup"><a href="<%= genUrl( 'start', { a: 'header_signup' } ) %>"><%= __( 'layoutSignup' ) %></a></li>
+                <li class="signin"><a href="/start?a=header_signin"><%= __( 'layoutSignin' ) %></a></li>
+                <li class="signup"><a href="/start?a=header_signup"><%= __( 'layoutSignup' ) %></a></li>
                 <li class="tel">
                     <p class="navbar-btn">
                         <a href="tel:+33142330509" class="btn btn-default">
                             <i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;+33 1 42 33 05 09
                         </a>
                     </p>
-                </li>          
+                </li>
 <% [ 'fr', 'en' ].forEach( function( l, i ) { %>
                         <% if ( lang == l ) { %>
                         <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
