@@ -62,7 +62,7 @@ function clearImage( cb ) {
 
     if ( err ) return cb( err );
 
-    this.service.set( { uid: this.data.uid }, { image: null }, err => {
+    this.service.set( { uid: this.data.uid }, { image: null }, { private: this.data.private }, err => {
 
       if ( err ) return cb( err );
 

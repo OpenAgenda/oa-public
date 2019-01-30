@@ -518,7 +518,7 @@ function _get( options ) {
 
       if ( err ) return d.reject( err );
 
-      if ( !data ) return d.reject( 'agenda not found' );
+      if ( !data ) return d.reject( new Error( 'agenda not found' ) );
 
       log( 'retrieved agenda of uid %s', data.uid );
 

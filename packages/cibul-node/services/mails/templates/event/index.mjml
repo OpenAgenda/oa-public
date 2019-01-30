@@ -13,7 +13,7 @@
       <!-- Event title + description -->
       <mj-section
         background-color="#ffffff"
-        padding="20px 40px"
+        padding="20px 40px 0 40px"
       >
         <mj-column>
           <mj-text>
@@ -28,30 +28,32 @@
       </mj-section>
 
       <!-- Event image -->
-      <mj-section
-        background-color="#ffffff"
-        padding="10px 0 0 0"
-      >
-        <mj-column>
-          <mj-image
-            src="<%= event.image %>"
-            href="<%= link %>"
-            padding="0"
-            alt="event image"
-          />
+      <% if ( event.image ) { %>
+        <mj-section
+          background-color="#ffffff"
+          padding="20px 0 20px 0"
+        >
+          <mj-column>
+            <mj-image
+              src="<%= event.image %>"
+              href="<%= link %>"
+              padding="0"
+              alt="event image"
+            />
 
-          <% if ( event.credits ) { %>
-            <mj-text padding="0 15px" font-style="italic">
-              <%= event.credits %>
-            </mj-text>
-          <% } %>
-        </mj-column>
-      </mj-section>
+            <% if ( event.credits ) { %>
+              <mj-text padding="0 15px" font-style="italic">
+                <%= event.credits %>
+              </mj-text>
+            <% } %>
+          </mj-column>
+        </mj-section>
+      <% } %>
 
       <!-- Long description + princing info + registration -->
       <mj-section
         background-color="#ffffff"
-        padding="20px 40px"
+        padding="0 40px 20px 40px"
       >
         <mj-column>
           <% if ( event.freeText ) { %>

@@ -1,4 +1,5 @@
 import React from 'react';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import { App, Inbox, Conversation, ConversationCreate } from './containers';
 
 export default function ( prefix = '' ) {
@@ -9,12 +10,7 @@ export default function ( prefix = '' ) {
         { path: `${prefix}/`, exact: true, component: Inbox },
         { path: `${prefix}/conversation/create`, component: ConversationCreate },
         { path: `${prefix}/conversation/:conversationId`, component: Conversation },
-        {
-          component: ( { staticContext = {} } ) => {
-            staticContext.status = 404;
-            return null;
-          }
-        }
+        { component: NotFound }
       ]
     }
   ];

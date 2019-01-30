@@ -1,5 +1,6 @@
 import React from 'react';
 import { hoistStatics, withProps } from 'recompose';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import { App, SettingsContainer } from './containers';
 
 const withActiveTab = activeTab => hoistStatics( withProps( { activeTab } ) );
@@ -16,12 +17,7 @@ export default function ( prefix = '' ) {
         { path: `${prefix}/password`, component: withActiveTab( 'password' )( SettingsContainer ) },
         { path: `${prefix}/apiKey`, component: withActiveTab( 'apiKey' )( SettingsContainer ) },
         { path: `${prefix}/emails`, component: withActiveTab( 'emails' )( SettingsContainer ) },
-        {
-          component: ( { staticContext = {} } ) => {
-            staticContext.status = 404;
-            return null;
-          }
-        }
+        { component: NotFound }
       ]
     }
   ];

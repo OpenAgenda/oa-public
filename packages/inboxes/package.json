@@ -16,7 +16,7 @@
   },
   "scripts": {
     "build": "babel src -d dist -s",
-    "test": "jest --coverage --forceExit",
+    "test": "jest --coverage --forceExit --detectOpenHandles",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
     "prepublish": "yarn build"
   },

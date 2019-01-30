@@ -4,9 +4,8 @@ function getComponents( match, propName = 'preload' ) {
   return match.map( v => v.route.component ).reduce( async ( result, component ) => {
     if ( typeof component[ propName ] === 'function' ) {
       const res = await component[ propName ]();
-      const ret = [ ...(await result), component, ...(res || []) ];
 
-      return ret;
+      return [ ...(await result), component, ...(res || []) ];
     }
 
     return [ ...(await result), component ];

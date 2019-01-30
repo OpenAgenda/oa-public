@@ -604,7 +604,9 @@ function render( req, res, templatePath, data, maintain ) {
 
   renderTemplate( req, templatePath, data, maintain, function ( err, render ) {
 
-    if ( err ) catchError( req, res )( err )
+    if ( err ) {
+      return catchError( req, res )( err );
+    }
 
     const statusCode = res.code ? res.code : 200;
 

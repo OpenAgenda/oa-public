@@ -1,4 +1,5 @@
 import React from 'react';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import { AdminApp, AdminDashboard } from '../../containers';
 
 export default function ( prefix = '' ) {
@@ -7,12 +8,7 @@ export default function ( prefix = '' ) {
       component: AdminApp,
       routes: [
         { path: `${prefix}/`, exact: true, component: AdminDashboard },
-        {
-          component: ( { staticContext = {} } ) => {
-            staticContext.status = 404;
-            return null;
-          }
-        }
+        { component: NotFound }
       ]
     }
   ];

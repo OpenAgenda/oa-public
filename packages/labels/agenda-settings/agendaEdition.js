@@ -161,6 +161,10 @@ module.exports = {
     fr: 'Annuler',
     en: 'Cancel'
   },
+  'description.tooManyLines': {
+    fr: 'La description ne doit pas dépasser 4 lignes',
+    en: 'The description must not exceed 4 lines'
+  },
 
   advanced: {
     fr: 'Avancé',
