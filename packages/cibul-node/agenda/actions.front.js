@@ -371,7 +371,7 @@ function _verifyIP( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !agenda ) return next( 'agenda not found' );
+    if ( !agenda ) return next( new Error( 'agenda not found' ) );
 
     if ( !agenda.settings.contribution.authorizedIpAddresses ) return next();
 
