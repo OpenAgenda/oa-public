@@ -1,4 +1,5 @@
 import React from 'react';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import { App, Agendas, Events } from './containers';
 
 export default function ( prefix = '' ) {
@@ -8,12 +9,7 @@ export default function ( prefix = '' ) {
       routes: [
         { path: `${prefix}/`, exact: true, component: Agendas },
         { path: `${prefix}/events`, component: Events },
-        {
-          component: ( { staticContext = {} } ) => {
-            staticContext.status = 404;
-            return null;
-          }
-        }
+        { component: NotFound }
       ]
     }
   ];

@@ -1,8 +1,9 @@
+import _ from 'lodash';
 import React from 'react';
 import { trigger } from 'redial';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { StaticRouter, Route } from 'react-router-dom';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
@@ -15,6 +16,28 @@ import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
 
+const defaults = {
+  initialState: {
+    settings: {
+      prefix: '',
+      lang: 'fr',
+      apiRoot: 'http://localhost:3000'
+    },
+    res: {
+      list: '/agendas',
+      new: '/new',
+      events: '/home/events',
+      messages: '/home/messages',
+      notifs: '/home/notifications',
+      moderate: '/:slug/admin',
+      show: '/:slug',
+      showPrivate: '/:slug.prv',
+      addEvent: '/:slug/addevent',
+      search: '/agendas'
+    }
+  }
+};
+
 function getDefaultHistory( req ) {
   return req
     ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
@@ -22,7 +45,7 @@ function getDefaultHistory( req ) {
 }
 
 export default function ( options ) {
-  const { initialState, req } = options;
+  const { initialState, req } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
   const client = apiClient( apiRoot, req );
@@ -51,8 +74,8 @@ export default function ( options ) {
     </RouterRedialTrigger>
   );
   const element = (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
+    <Provider store={store} context={ReactReduxContext}>
+      <ConnectedRouter history={history} context={ReactReduxContext}>
         <ScrollToTop>
           {req
             ? (
@@ -74,6 +97,7 @@ export default function ( options ) {
     routes,
     context,
     element,
+    ReactReduxContext,
     triggerHooks: async () => {
       const { components, match, params } = await asyncMatchRoutes(
         routes,
