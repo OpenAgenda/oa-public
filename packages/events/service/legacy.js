@@ -974,9 +974,9 @@ async function _updateLegacy( eventId, entries ) {
 
   log( 'inserted eventLocation translation entries for event %s', eventId );
 
-  await _updateAgendaEventReferences( eventId, entries.eventReferences );
+  const insertedRefs = await _updateAgendaEventReferences( eventId, entries.eventReferences );
 
-  log( 'updated agenda event references for event %s', eventId );
+  log( 'updated %s agenda event references for event %s', insertedRefs.length, eventId );
 
   return {
     inserted,
@@ -1066,6 +1066,8 @@ async function _createLegacy( entries ) {
 
 
 async function _updateAgendaEventReferences( eventId, entries ) {
+
+  log( 'legacy event references: removing previous references and adding %s entries', entries.length );
 
   // delete previous
   await knex( schemas.eventReferences ).delete().where( 'event_id', eventId );
