@@ -1,6 +1,7 @@
 "use strict";
 
 const webpack = require( 'webpack' );
+const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
@@ -8,8 +9,14 @@ const getCacheDir = require( './getCacheDir' );
 
 module.exports = ( { entry, output } ) => ( {
   mode: 'production',
-  entry,
-  output,
+  entry: {
+    ...entry,
+    webapp: path.join( path.dirname( __dirname ), 'webapp/index.js' )
+  },
+  output: {
+    ...output,
+    publicPath: '/js/'
+  },
   module: {
     rules: [
       {
@@ -50,6 +57,7 @@ module.exports = ( { entry, output } ) => ( {
     ]
   },
   plugins: [
+    new ManifestPlugin(),
     new ProgressBar( { minimal: false } ),
     new webpack.DefinePlugin( {
       'process.env.NODE_ENV': '"production"',

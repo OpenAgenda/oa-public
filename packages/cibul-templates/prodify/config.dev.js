@@ -1,6 +1,8 @@
 "use strict";
 
+const path = require( 'path' );
 const webpack = require( 'webpack' );
+const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const ProgressBar = require( 'webpackbar' );
 const getCacheDir = require( './getCacheDir' );
 
@@ -10,8 +12,14 @@ module.exports = ( { entry, output } ) => {
   return {
     mode: 'development',
     devtool: 'eval-source-map',
-    entry,
-    output,
+    entry: {
+      ...entry,
+      homeIndex: path.join( path.dirname( __dirname ), 'webapp/index.js' )
+    },
+    output: {
+      ...output,
+      publicPath: '/js/'
+    },
     module: {
       rules: [
         {
@@ -49,6 +57,7 @@ module.exports = ( { entry, output } ) => {
       maxAssetSize: 20000000
     },
     plugins: [
+      new ManifestPlugin(),
       new ProgressBar( { minimal: false } ),
       new webpack.DefinePlugin( {
         'process.env.NODE_ENV': '"development"',

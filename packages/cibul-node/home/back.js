@@ -123,7 +123,15 @@ async function matchApp( req, res, next ) {
       return res.redirect( 301, pathname );
     }
 
-    cmn.render( req, res, 'home/index', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
+    cmn.render( req, res, 'home/index', {
+      scriptParams: {
+        initialState: state,
+        appName: 'home'
+      },
+      lang,
+      content,
+      preloaded: true
+    } );
   } catch ( e ) {
     next( e );
   }
