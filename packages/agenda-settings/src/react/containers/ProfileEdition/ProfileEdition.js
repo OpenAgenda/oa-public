@@ -10,7 +10,7 @@ import * as modalsActions from '../../redux/modules/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
-const displayInputError = ( { dirty, touched } ) => touched && dirty;
+const displayInputError = ( { touched } ) => touched;
 
 @connect(
   state => {

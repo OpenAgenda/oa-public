@@ -4,14 +4,24 @@ import { checkSlug } from '../../redux/modules/agenda';
 export const schema = agendaSchema.struct;
 
 export function validate( values ) {
+  const errors = {};
+
   try {
 
     agendaSchema( values );
 
   } catch ( e ) {
 
-    return Object.assign( ...e.map( v => ({ [v.field]: v.code }) ) );
+    return Object.assign( errors, ...e.map( v => ({ [v.field]: v.code }) ) );
 
+  }
+
+  if ( values.description && values.description.split( /\r\n|\r|\n/ ).length > 4 ) {
+    errors.description = 'description.tooManyLines';
+  }
+
+  if ( Object.keys( errors ).length ) {
+    return errors;
   }
 
   return true;
