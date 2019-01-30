@@ -15,6 +15,7 @@ const displayInputError = ( { dirty, touched } ) => touched && dirty;
 @connect(
   state => {
     const { uid, title, description, url, slug } = state.agenda.data;
+
     return {
       initialValues: { uid, title, description, url, slug },
       res: state.res,
@@ -43,8 +44,8 @@ export default class ProfileEdition extends Component {
     lang: PropTypes.string
   };
 
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.renderInput = renderInput.bind( this );
     this.renderTextarea = renderTextarea.bind( this );
     this.renderInputGroup = renderInputGroup.bind( this );
@@ -65,7 +66,14 @@ export default class ProfileEdition extends Component {
 
   }
 
-  renderSubmitBtn() {
+  componentDidUpdate( prevProps ) {
+    // Typical usage (don't forget to compare props):
+    if ( this.props.agenda.slug !== prevProps.agenda.slug ) {
+      window.location.replace( window.location.pathname.replace( prevProps.agenda.slug, this.props.agenda.slug ) );
+    }
+  }
+
+  renderSubmitBtn = () => {
     const { dirty, submitting, submitSucceeded, valid, imageChanged } = this.props;
     const { getLabel } = this.context;
 
@@ -74,9 +82,8 @@ export default class ProfileEdition extends Component {
     } else if ( submitting ) {
       return <button type="submit" className="btn btn-primary" disabled>{getLabel( 'saving' )}</button>;
     } else {
-      const disabled = (dirty && valid) || (imageChanged && !dirty) || (imageChanged && dirty && valid);
       return (
-        <button type="submit" className="btn btn-primary"{...{ disabled: disabled ? undefined : true }}>
+        <button type="submit" className="btn btn-primary"{...{ disabled: dirty && valid ? undefined : true }}>
           {getLabel( 'saveModifications' )}
         </button>
       );
