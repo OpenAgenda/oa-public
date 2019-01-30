@@ -1,4 +1,5 @@
 .popup-overlay {
+
   background: rgba(0, 0, 0, 0.62);
   height: 100%;
   left: 0;
@@ -38,7 +39,7 @@
 
       border-radius: inherit;
       color: inherit;
-      
+
     }
 
     section {
@@ -54,7 +55,7 @@
     }
 
     // IE9 - scroll glitch fix
-    @media screen and (min-width:0) and (min-resolution: .001dpcm) { 
+    @media screen and (min-width:0) and (min-resolution: .001dpcm) {
 
       section {
 
@@ -129,6 +130,43 @@
       width: 38.2%;
     }
 
+  }
+
+}
+
+/*
+ if modal appears in erroring form, error should not propagate inside modal
+*/
+.has-error .popup-content {
+
+  .form-control {
+
+    border-color: $oa-gray-light;
+    -webkit-box-shadow: inherit;
+    box-shadow: inherit;
+
+    &:focus {
+
+      border-color: inherit;
+      -webkit-box-shadow: inherit;
+      box-shadow: inherit;
+
+    }
+
+  }
+
+  .input-group-addon {
+    color: inherit;
+    border-color: inherit;
+    background-color: inherit;
+  }
+
+  .form-control-feedback {
+    color: inherit;
+  }
+
+  .checkbox {
+    color: $oa-black;
   }
 
 }
