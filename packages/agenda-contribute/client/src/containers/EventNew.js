@@ -31,6 +31,7 @@ export default connect(
     fileStore={config.fileStore}
     locationRes={config.locationRes}
     referencesRes={config.referencesRes}
+    suggestionsRes={config.suggestionsRes}
     lang={config.lang}
     values={event}
     onSubmitSuccess={onCreateSuccess}
