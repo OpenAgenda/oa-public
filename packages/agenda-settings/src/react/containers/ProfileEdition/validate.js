@@ -12,7 +12,7 @@ export function validate( values ) {
 
   } catch ( e ) {
 
-    return Object.assign( errors, ...e.map( v => ({ [v.field]: v.code }) ) );
+    Object.assign( errors, ...e.map( v => ({ [v.field]: v.code }) ) );
 
   }
 

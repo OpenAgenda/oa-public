@@ -78,7 +78,9 @@ export default class CreationFirstStep extends Component {
             spellCheck={false}
           />
           <div className="pull-right">
-            <button type="submit" className="btn btn-primary">{getLabel( 'next' )}</button>
+            <button type="submit" className="btn btn-primary">
+              {getLabel( 'next' )}
+            </button>
           </div>
         </form>
       </div>
