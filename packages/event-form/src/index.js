@@ -88,6 +88,7 @@ export default class EventForm extends Component {
   buildEventSchema() {
 
     return eventSchema( {
+      suggestionsRes: this.props.suggestionsRes,
       referencesRes: this.props.referencesRes,
       locationRes: this.props.locationRes,
       languages: this.state.values.languages,

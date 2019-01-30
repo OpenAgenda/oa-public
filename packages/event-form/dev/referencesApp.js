@@ -44,6 +44,6 @@ app.get( '/', ( req, res, next ) => {
 
   }
 
-  res.json( events );
+  res.json( { events } );
 
 } );

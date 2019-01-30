@@ -22,6 +22,7 @@ const eventReferencesField = require( './fields/references' );
 module.exports = ( {
   locationRes,
   referencesRes,
+  suggestionsRes,
   languages: givenLanguages,
   fileStore,
   schemaExtensions,
@@ -136,7 +137,12 @@ module.exports = ( {
 
   if ( _hasReferencesField( schemaExtensions ) ) {
 
-    eventSchema.fields.push( eventReferencesField( { res: referencesRes } ) );
+    eventSchema.fields.push( eventReferencesField( {
+      res: {
+        references: referencesRes,
+        suggestions: suggestionsRes
+      }
+    } ) );
 
   }
 
