@@ -734,7 +734,7 @@ describe( 'Conversation', () => {
 
     } );
 
-    test.only( 'list conversations of a user - with total', async () => {
+    test( 'list conversations of a user - with total', async () => {
 
       const conversations = await Inboxes.user( 99999999 ).conversations.list( {}, { total: true } );
 
