@@ -87,7 +87,7 @@ module.exports = app => {
 
       res.json( {
         references: req.referencesRender,
-        events: _monolingual( req.references, [ 'title', 'dateRange', 'description' ], req.lang )
+        events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
       } );
 
     }
