@@ -12,9 +12,10 @@ const qs = require( 'qs' );
 const wn = require( 'when/node' );
 const VError = require( 'verror' );
 
-const agendas = require( '@openagenda/agendas' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const keys = require( '@openagenda/keys' );
+const agendasSvc = require( '@openagenda/agendas' );
+const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const usersSvc = require( '@openagenda/users' );
+const keysSvc = require( '@openagenda/keys' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
 const templater = require( '@openagenda/cibul-templates' );
@@ -35,14 +36,14 @@ const labels = {
 };
 
 const verifyIPMiddleware = [
-  agendas.middleware.load( {
+  agendasSvc.middleware.load( {
     namespaces: {
       identifiers: { slug: 'params.slug' },
       result: 'agendaFromService'
     },
     private: null
   } ),
-  agendas.middleware.evaluateIPAddress( {
+  agendasSvc.middleware.evaluateIPAddress( {
     namespaces: {
       agenda: 'agendaFromService'
     },
@@ -57,7 +58,7 @@ const verifyIPMiddleware = [
 ];
 
 const verifyAdminModMiddleware = agendaIdentifiers => [
-  agendas.middleware.load( {
+  agendasSvc.middleware.load( {
     namespaces: {
       identifiers: agendaIdentifiers || { slug: 'params.slug' },
       result: 'agenda'
@@ -216,13 +217,13 @@ function checkAdministrator( options ) {
 
         // rely on agenda-stakeholders
 
-        return agendaStakeholders( req[ params.name ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
+        return stakeholdersSvc( req[ params.name ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
           if ( !stakeholder ) {
             return _resolve( false );
           }
 
-          const role = agendaStakeholders.types.codes.get( stakeholder.credential );
+          const role = stakeholdersSvc.types.codes.get( stakeholder.credential );
 
           _resolve( role === 'administrator' );
 
@@ -312,7 +313,7 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
 
     if ( err ) return next( err );
 
-    agendaStakeholders( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
+    stakeholdersSvc( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
       if ( !stakeholder ) {
         return next( {
@@ -321,7 +322,7 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
         } );
       }
 
-      req.role = agendaStakeholders.types.codes.get( stakeholder.credential );
+      req.role = stakeholdersSvc.types.codes.get( stakeholder.credential );
 
       next();
 
@@ -391,14 +392,29 @@ function checkAdminOrModeratorOrKey( req, res, next ) {
 
     if ( !err ) return next(); // If admin or moderator
 
-    let key;
+    let agendaKey;
+    let adminmodKey;
 
     try {
-      key = await keys( { type: 'agendaFullRead', identifier: req.agenda.uid, key: req.query.key } ).get();
+      agendaKey = await keysSvc( { type: 'agendaFullRead', identifier: req.agenda.uid, key: req.query.key } ).get();
     } catch ( e ) {
     }
 
-    if ( !key ) {
+    try {
+      adminmodKey = await keysSvc( { type: 'userPublic', key: req.query.key } ).get();
+
+      if ( adminmodKey ) {
+        const user = await usersSvc.findOne( { query: { uid: adminmodKey.identifier }, detailed: true } );
+        const member = await promisify( stakeholdersSvc.user( user.id ).get )();
+
+        if ( !stakeholdersSvc.types.isSuperiorTo( member.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
+          adminmodKey = null;
+        }
+      }
+    } catch ( e ) {
+    }
+
+    if ( !agendaKey && !adminmodKey ) {
 
       return next( {
         message: 'the key is invalid',
