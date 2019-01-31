@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import { trigger } from 'redial';
 import { Provider } from 'react-redux';
+import { withRouter } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { ConnectedRouter } from 'connected-react-router';
 import du from '@openagenda/dom-utils';
@@ -10,17 +11,11 @@ import asyncMatchRoutes from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
-// import NotFound from '@openagenda/react-utils/dist/NotFound';
 import createAppHome from '@openagenda/home/dist/client/app';
-import getRoutesHome from '@openagenda/home/dist/client/getRoutes';
 
 const history = createBrowserHistory();
 
 const { initialState, appName } = JSON.parse( document.querySelector( 'body' ).getAttribute( 'data-options' ) );
-
-const routes = {
-  home: getRoutesHome( '/home' )
-};
 
 // create apps with the good initialState
 const apps = {
@@ -30,24 +25,23 @@ const apps = {
   } )
 };
 
-// All routes without each 404
-// const allRoutes = Object.values( routes )
-//   .map( v => ({
-//     ...v[ 0 ],
-//     routes: v[ 0 ].routes.slice( 0, -1 )
-//   }) );
+const CaptureRouteNotFound = withRouter( ( { children, location } ) => {
+  return location && location.state && location.state.notFoundError ? null : children;
+} );
 
 (async () => {
   let key, components, match, params;
 
-  for ( key in routes ) {
+  for ( key in apps ) {
     ({ components, match, params } = await asyncMatchRoutes(
-      routes[ key ],
+      apps[ key ].routes,
       history.location.pathname
     ));
 
+    const lastMatch = match[ match.length - 1 ];
+
     // Break loop on the first match
-    if ( match.length ) {
+    if ( lastMatch && lastMatch.route.path ) {
       break;
     }
   }
@@ -73,25 +67,30 @@ const apps = {
 
   await trigger( 'defer', components, triggerLocals );
 
-  // TODO without 404
-  // TODO avoid layout repetitions
   ReactDOM.render(
     <>
       {Object.keys( apps )
         .map( appKey => (
           <Provider key={appKey} store={apps[ appKey ].store} context={apps[ appKey ].ReactReduxContext}>
             <ConnectedRouter history={history} context={apps[ appKey ].ReactReduxContext}>
-              <ScrollToTop>
-                <RouterRedialTrigger
-                  routes={routes[ appKey ]}
-                  helpers={{ store: apps[ appName ].store, client }}
-                >
-                    {renderRoutes( routes[ appKey ] )}
-                </RouterRedialTrigger>
-              </ScrollToTop>
+              <CaptureRouteNotFound>
+                <ScrollToTop>
+                  <RouterRedialTrigger routes={apps[ appKey ].routes} helpers={{ store: apps[ appKey ].store, client }}>
+                    {renderRoutes( apps[ appKey ].routes )}
+                  </RouterRedialTrigger>
+                </ScrollToTop>
+              </CaptureRouteNotFound>
             </ConnectedRouter>
           </Provider>
         ) )}
+
+      {Object.values( apps )
+        .filter( app => app.history )
+        .map( app => app.history.location.state )
+        .every( state => state && state.notFoundError )
+        ? (
+          <div>Not Found !</div>
+        ) : null}
     </>,
     du.el( '.js_canvas' )
   );
