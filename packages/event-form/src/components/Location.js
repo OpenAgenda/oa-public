@@ -104,6 +104,10 @@ class LocationComponent extends Component {
       value
     } = this.props;
 
+    const {
+      default: defaultValue
+    } = this.props.field;
+
     return <LocationSelector
       allowCreate={_.get( this.props, 'field.allowCreate' )}
       mode={this.state.mode}
@@ -112,7 +116,7 @@ class LocationComponent extends Component {
         input: ''
       }}
       onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
-      location={value}
+      location={_.assign( {}, defaultValue || {}, value )}
       lang={lang}
       settings={this.getSettings()}
       res={this.detailedRes()}

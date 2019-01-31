@@ -129,7 +129,8 @@ export default class References extends Component {
   getSuggestQuery() {
 
     const q = {
-      sample: this.assignExtraToKey( this.props.relatedValues, [ 'title', 'description', 'location' ], 'custom' )
+      sample: this.assignExtraToKey( this.props.relatedValues, [ 'title', 'description', 'location' ], 'custom' ),
+      limit: _.get( this.props, 'field.limit', 3 )
     }
 
     if ( this.props.field.boost ) {

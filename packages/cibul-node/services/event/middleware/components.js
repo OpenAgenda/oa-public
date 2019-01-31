@@ -40,6 +40,8 @@ function getReferences( req, res, next ) {
 
     req.referencesRender = v.referencesRender;
 
+    req.references = v.references;
+
     next();
 
   } );
@@ -100,11 +102,9 @@ function _references( v ) {
           if ( !v.includeUnpublished && state!==2 ) return ecb();
 
           ev.events.push( ( {
+            uid: e.uid,
             image: e.getThumbnail( false ),
-            link: genUrl( 'agendaEventShow', {
-              slug: v.req.agenda.slug,
-              eventSlug: e.slug
-            } ),
+            link: `/${v.req.agenda.slug}/events/${e.slug}`,
             title: e.title,
             location: {
               name: e.locations[ 0 ].name,
@@ -125,6 +125,8 @@ function _references( v ) {
         if ( err ) return d.reject( err );
 
         v.referencesRender = renderComponent( References, ev );
+
+        v.references = ev.events;
 
         d.resolve( v );
 
