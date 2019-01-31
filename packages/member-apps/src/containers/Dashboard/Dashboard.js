@@ -438,14 +438,19 @@ export default class Dashboard extends Component {
           <EditMemberForm
             stakeholder={editModal.stakeholder}
             onSubmit={( ...params ) => update( editModal.stakeholder.id, ...params )
-              .then( async ( { result } ) => {
-                if ( result.error && result.error instanceof SubmissionError ) {
-                  throw new SubmissionError( result.error.errors );
-                } else {
-                  closeModal( 'editMember' );
-                }
+              .then( async result => {
+                closeModal( 'editMember' );
+
                 await getStats();
+
                 return result;
+              } )
+              .catch( error => {
+                if ( error && error instanceof SubmissionError ) {
+                  throw new SubmissionError( error.errors );
+                }
+
+                throw error;
               } )
             }
           />
@@ -504,13 +509,16 @@ export default class Dashboard extends Component {
               {getLabel( 'membersInvited' )}
             </div>}
           </div> : <InviteMembersForm onSubmit={data => invite( data )
-            .then( async ( { result } ) => {
-              if ( result.error && result.error instanceof SubmissionError ) {
-                throw new SubmissionError( result.error.errors );
-              }
-
+            .then( async result => {
               await this.search( { search } );
-              return getStats();
+              await getStats();
+              return result;
+            } )
+            .catch( error => {
+              if ( error && error instanceof SubmissionError ) {
+                throw new SubmissionError( error.errors );
+              }
+              throw error;
             } )
           }/>}
         </Modal>}
@@ -536,11 +544,11 @@ export default class Dashboard extends Component {
         >
           {!writeToMembersModal.confirmation
             ? <SendMessageForm onSubmit={data => sendMessage( data, writeToMembersModal.query )
-              .then( result => {
-                if ( result.error && result.error instanceof SubmissionError ) {
-                  throw new SubmissionError( result.error.errors );
+              .catch( error => {
+                if ( error && error instanceof SubmissionError ) {
+                  throw new SubmissionError( error.errors );
                 }
-                return result;
+                throw error;
               } )
               .then( () => setModal( 'writeToMembers', { confirmation: true } ) )
             }/>

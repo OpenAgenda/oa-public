@@ -295,14 +295,14 @@ export function update( id, values ) {
 export function invite( data ) {
   return {
     types: [ INVITE, INVITE_SUCCESS, INVITE_FAIL ],
-    promise: ( client, { res } ) => {
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
       const stakeholders = data.emails && data.emails.split( /[\s\n,]+/ ).map( v => v.trim() ).filter( v => !!v )
           .map( email => ({ email }) );
+
       return client.post( res.invite, {
-        data: {
-          stakeholders, credential: data.credential, context: {
-            message: data.message
-          }
+        stakeholders, credential: data.credential, context: {
+          message: data.message
         }
       } );
     }
@@ -312,8 +312,10 @@ export function invite( data ) {
 export function resendInvitation( id ) {
   return {
     types: [ RESEND_INVITATION, RESEND_INVITATION_SUCCESS, RESEND_INVITATION_FAIL ],
-    promise: ( client, { res } ) => {
-      return client.post( res.update.replace( ':id', id ), { data: { fieldValues: {} } } );
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.post( res.update.replace( ':id', id ), { fieldValues: {} } );
     }
   };
 }
@@ -328,14 +330,22 @@ export function remove( id ) {
   return {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
     id,
-    promise: ( client, { res } ) => client.get( res.remove.replace( ':id', id ) )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.get( res.remove.replace( ':id', id ) );
+    }
   };
 }
 
 export function sendMessage( data, query ) {
   return {
     types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
-    promise: ( client, { res } ) => client.post( res.sendMessage, data, { params: query } )
+    promise: ( { client }, { getState } ) => {
+      const { res } = getState();
+
+      return client.post( res.sendMessage, data, { params: query } );
+    }
   };
 }
 
