@@ -10,6 +10,7 @@ const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
 const config = require( '../config' );
 const cmn = require( '../lib/commons-app' );
 
+const phpPrefix = __DEVELOPMENT__ ? '/frontend_dev.php' : '';
 
 const preMw = [
   cmn.loadLogger( 'home' ),
@@ -82,8 +83,8 @@ async function matchApp( req, res, next ) {
           list: '/home/agendas',
           show: '/:slug',
           showPrivate: '/:slug.prv',
-          addEvent: '/:slug/addevent',
-          moderate: '/:slug/admin',
+          addEvent: `${phpPrefix}/:slug/addevent`,
+          moderate: `${phpPrefix}/:slug/admin`,
           contact: '/:slug/contact'
         },
         events: {
