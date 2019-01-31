@@ -42,9 +42,7 @@ app.use( ( req, res, next ) => {
 
 app.use( ( req, res, next ) => {
 
-  req.log = logger( 'req' );
-
-  req.log.loadMetadata( { url: req.originalUrl } );
+  req.log = logger( 'req', { url: req.originalUrl } );
 
   next();
 
