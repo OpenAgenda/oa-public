@@ -201,7 +201,7 @@ async function eventMailSend( req, res, next ) {
                     : getLocaleLabel( value )
               };
             } catch ( error ) {
-              req.log( 'error', 'Cannot retrieve the label for the field:', { key, value, error } );
+              req.log( 'error', 'Cannot retrieve the label for the field:', { agenda, key, value, error } );
 
               return result;
             }
