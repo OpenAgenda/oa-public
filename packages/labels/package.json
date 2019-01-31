@@ -13,8 +13,8 @@
   "main": "makeLabelGetter.js",
   "scripts": {
     "test": "mocha test --exit",
-    "import" : "node CSVToLabels",
-    "export" : "node labelsToCSV"
+    "import-labels" : "node CSVToLabels",
+    "export-labels" : "node labelsToCSV"
   },
   "devDependencies": {
     "mocha": "^5.0.0",
