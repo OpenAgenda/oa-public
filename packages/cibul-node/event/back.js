@@ -93,7 +93,6 @@ module.exports = app => {
     }
   );
 
-
   app.get(
     '/agendas/:uid/events',
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
@@ -111,11 +110,17 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/events/suggestions',
+    [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     ( req, res, next ) => {
 
       req.agendaUid = req.params.uid;
+
+      if ( req.params.eventUid ) {
+
+        req.query.exclude = [ req.params.eventUid ].concat( req.query.exclude || [] );
+
+      }
 
       core.agendas( req.params.uid ).settings.get().then( settings => {
 
@@ -128,7 +133,11 @@ module.exports = app => {
     },
     eventReferences.mw.suggestions,
     ( req, res ) => res.json( {
-      events: _monolingual( req.events, [ 'title', 'dateRange', 'description' ], req.lang )
+      events: _monolingual(
+        req.events.slice( 0, parseInt( _.get( req.query, 'limit', 20 ) ) ),
+        [ 'title', 'dateRange', 'description' ],
+        req.lang
+      )
     } )
   );
 

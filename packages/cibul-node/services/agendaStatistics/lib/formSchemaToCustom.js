@@ -17,7 +17,7 @@ module.exports = async ( agenda, force ) => {
 
   if ( !schema ) return { message: `No form schema was found for agenda ${agenda.uid}` };
 
-  const customFields = generateCustomFields( schema );
+  const { customFields, messages } = generateCustomFields( schema );
 
   const {
     id, store
@@ -39,8 +39,10 @@ module.exports = async ( agenda, force ) => {
     store: JSON.stringify( parsedStore )
   } ).where( 'uid', agenda.uid );
 
+  messages.push( 'generated customFields' );
+
   return {
-    message: 'generated customFields',
+    messages,
     customFields
   }
 

@@ -10,13 +10,13 @@ describe( 'form-schemas -08_2- unit (server): generate legacy custom fields from
 
   it( 'schema to text custom field', () => {
 
-    generateCustomFields( _get( 'text.schema' ) ).should.eql( _get( 'text.custom' ) );
+    generateCustomFields( _get( 'text.schema' ) ).customFields.should.eql( _get( 'text.custom' ) );
 
   } );
 
   it( 'schema to number custom field', () => {
 
-    generateCustomFields( _get( 'number.schema' ) ).should.eql( _get( 'number.custom.fromSchema' ) );
+    generateCustomFields( _get( 'number.schema' ) ).customFields.should.eql( _get( 'number.custom.fromSchema' ) );
 
   } );
 

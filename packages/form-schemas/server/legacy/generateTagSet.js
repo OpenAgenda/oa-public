@@ -11,9 +11,13 @@ module.exports = schema => {
   const tagSettableFields = schema.fields
     .filter( f => includeTypes.includes( f.fieldType ) );
 
+  const messages = tagSettableFields
+    .filter( f => !!f.origin )
+    .map( f => `${f.field}: field origin is not set` );
+
   if ( !tagSettableFields.length ) return null;
 
-  return {
+  const tagSet = {
     groups: tagSettableFields.map( f => ( {
       name: _monoLabel( f.label ),
       required: !f.optional,
@@ -23,6 +27,11 @@ module.exports = schema => {
         slug: o.value
       } ) )
     } ) )
+  }
+
+  return {
+    tagSet,
+    messages
   }
 
 }
