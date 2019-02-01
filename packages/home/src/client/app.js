@@ -5,14 +5,15 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { StaticRouter, Route } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
-import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
 import asyncMatchRoutes from '@openagenda/react-utils/dist/asyncMatchRoutes';
+import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
 
@@ -45,7 +46,7 @@ function getDefaultHistory( req ) {
 }
 
 export default function ( options ) {
-  const { initialState, req } = _.merge( {}, defaults, options );
+  const { initialState, req, notFoundKey = _.uniqueId() } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
   const client = apiClient( apiRoot, req );
@@ -65,9 +66,9 @@ export default function ( options ) {
     )
   );
   const helpers = { client, store };
-  const context = {};
+  const staticContext = {};
 
-  const routes = getRoutes( prefix );
+  const routes = getRoutes( prefix, notFoundKey );
   const content = (
     <RouterRedialTrigger routes={routes} helpers={helpers}>
       {renderRoutes( routes )}
@@ -76,17 +77,13 @@ export default function ( options ) {
   const element = (
     <Provider store={store} context={ReactReduxContext}>
       <ConnectedRouter history={history} context={ReactReduxContext}>
-        <ScrollToTop>
-          {req
-            ? (
-              <Route
-                path={prefix}
-                component={() =>
-                  <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
-                }
-              />
-            ) : content}
-        </ScrollToTop>
+        <NotFound.Capture notFoundkey={notFoundKey}>
+          <ScrollToTop>
+            {req
+              ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
+              : content}
+          </ScrollToTop>
+        </NotFound.Capture>
       </ConnectedRouter>
     </Provider>
   );
@@ -95,9 +92,9 @@ export default function ( options ) {
     store,
     history,
     routes,
-    context,
     element,
-    ReactReduxContext,
+    notFoundKey,
+    staticContext,
     triggerHooks: async () => {
       const { components, match, params } = await asyncMatchRoutes(
         routes,

@@ -62,7 +62,7 @@ module.exports = app => {
 
 async function matchApp( req, res, next ) {
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, context } = createApp( {
+  const { element, triggerHooks, store, staticContext } = createApp( {
     req,
     initialState: {
       settings: {
@@ -110,12 +110,12 @@ async function matchApp( req, res, next ) {
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( context.status === 404 ) {
+    if ( staticContext.status === 404 ) {
       return next();
     }
 
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
+    if ( staticContext.url ) {
+      return res.redirect( 301, staticContext.url );
     }
 
     const { pathname, search } = state.router.location;
@@ -125,8 +125,9 @@ async function matchApp( req, res, next ) {
 
     cmn.render( req, res, 'home/index', {
       scriptParams: {
-        initialState: state,
-        appName: 'home'
+        initialState: {
+          home: state
+        }
       },
       lang,
       content,
