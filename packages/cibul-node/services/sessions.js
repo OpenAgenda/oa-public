@@ -59,7 +59,7 @@ function getUser( imageBucketPath, query, cb ) {
     } )
     .catch( err => {
 
-      log( 'error', new VError( err, 'failed to retrieve user: %j', _.pick( query, 'id', 'uid', 'email' ) );
+      log( 'error', new VError( err, 'failed to retrieve user: %j', _.pick( query, 'id', 'uid', 'email' ) ) );
       cb( err, null );
 
     } );
