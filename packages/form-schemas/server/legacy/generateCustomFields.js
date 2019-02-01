@@ -18,9 +18,17 @@ const schemaToCustom = {
 
 module.exports = schema => {
 
-  return schema.fields
+  const messages = [];
+
+  const customFields = schema.fields
     .filter( f => _.keys( schemaToCustom ).includes( f.fieldType ) )
     .map( f => {
+
+      if ( !f.origin ) {
+
+        messages.push( `${f.field}: field origin is not set` );
+
+      }
 
       const custom = {
         name: f.field,
@@ -37,6 +45,11 @@ module.exports = schema => {
       return custom;
 
     } );
+
+  return {
+    customFields,
+    messages
+  }
 
 }
 

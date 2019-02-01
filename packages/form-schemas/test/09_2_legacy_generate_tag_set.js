@@ -109,7 +109,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
       custom: null
     };
 
-    generateTagSet( schema ).should.eql( {
+    generateTagSet( schema ).tagSet.should.eql( {
       "groups": [ {
         "name": "Niveau scolaire",
         "tags": [
