@@ -110,11 +110,17 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/events/suggestions',
+    [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     ( req, res, next ) => {
 
       req.agendaUid = req.params.uid;
+
+      if ( req.params.eventUid ) {
+
+        req.query.exclude = [ req.params.eventUid ].concat( req.query.exclude || [] );
+
+      }
 
       core.agendas( req.params.uid ).settings.get().then( settings => {
 

@@ -59,7 +59,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
       edit: _.get( req, 'event' ) && !_.get( req, 'event.draft' ),
       locationRes: `/${req.agenda.slug}/locations`,
       referencesRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/references`: null,
-      suggestionsRes: `/agendas/${req.agenda.uid}/events/suggestions`,
+      suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
         //updated: `this should be set when specific redirects are needed on an update`
