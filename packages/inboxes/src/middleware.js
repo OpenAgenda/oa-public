@@ -197,20 +197,26 @@ export const conversations = {
     }, options );
 
     return wrap( async ( req, res ) => {
-      const conversation = await new Conversations( {
-        userUid: parseInt( _.get( req, namespaces.userUid ) ),
-        inbox: new Inboxes( {
-          type: _.get( req, namespaces.type ),
-          identifier: parseInt( _.get( req, namespaces.identifier ) ),
-        } )
-      } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
+      try {
+        const conversation = await new Conversations( {
+          userUid: parseInt( _.get( req, namespaces.userUid ) ),
+          inbox: new Inboxes( {
+            type: _.get( req, namespaces.type ),
+            identifier: parseInt( _.get( req, namespaces.identifier ) ),
+          } )
+        } ).get( parseInt( _.get( req, namespaces.conversationId ) ) );
 
-      await conversation.action(
-        _.get( req, namespaces.code ),
-        { userUid: parseInt( _.get( req, namespaces.userUid ) ) }
-      );
+        await conversation.action(
+          _.get( req, namespaces.code ),
+          { userUid: parseInt( _.get( req, namespaces.userUid ) ) }
+        );
 
-      res.send( { conversation } );
+        return res.send( { conversation } );
+      } catch ( e ) {
+        if ( e.message === 'You cannot resolve a conversation two times' ) {
+          return res.status( 403 ).send( e );
+        }
+      }
     } );
   },
 

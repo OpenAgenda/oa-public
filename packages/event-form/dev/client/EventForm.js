@@ -10,6 +10,7 @@ export default class DevEventForm extends Component {
       schemaExtensions={this.props.schemaExtensions}
       locationRes="/locations"
       referencesRes="/references"
+      suggestionsRes="/references"
       lang="fr"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',

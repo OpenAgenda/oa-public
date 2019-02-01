@@ -122,12 +122,7 @@ module.exports = app => {
   // update session after a user patch
   userApp.patch(
     '/users/:__feathersId',
-    ( req, res, next ) => {
-      req.userIdentifier = req.user.uid;
-
-      next();
-    },
-    sessions.middleware.open( 'userIdentifier', 'sessionResult' ),
+    sessions.middleware.open( 'user', 'sessionResult' ),
     ( req, res, next ) => {
       if ( !res.data ) {
         return next();

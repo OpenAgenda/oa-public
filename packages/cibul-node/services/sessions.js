@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
 const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
@@ -35,7 +36,16 @@ function getUser( imageBucketPath, query, cb ) {
   usersSvc.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
     .then( user => {
 
+      if ( !user ) {
+        const  error = new VError( 'failed to retrieve user: %s', _.pick( query, 'id', 'uid', 'email' ) );
+
+        log( 'error', error );
+
+        return cb( error );
+      }
+
       log( 'info', 'retrieved user %j', user );
+
       cb( null, {
         id: user.id,
         uid: user.uid,
@@ -49,7 +59,7 @@ function getUser( imageBucketPath, query, cb ) {
     } )
     .catch( err => {
 
-      log( 'error', 'failed to retrieve user: %s', JSON.stringify( err ) );
+      log( 'error', new VError( err, 'failed to retrieve user: %j', _.pick( query, 'id', 'uid', 'email' ) ) );
       cb( err, null );
 
     } );

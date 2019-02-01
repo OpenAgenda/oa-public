@@ -1,44 +1,64 @@
 "use strict";
 
 module.exports = {
-  title: {
-    fr: 'Bienvenue !',
-    en: 'Welcome !'
+  "title": {
+    "fr": "Bienvenue !",
+    "en": "Welcome !",
+    "it": "Benvenuta !",
+    "de": "Willkommen!"
   },
-  subtitle: {
-    fr: 'Présentez-vous avant de saisir vos événements',
-    en: 'Present yourself before starting to type in your events'
+  "subtitle": {
+    "fr": "Présentez-vous avant de saisir vos événements",
+    "en": "Present yourself before starting to type in your events",
+    "it": "Presentatevi prima di aggiungere i vostri eventi",
+    "de": "Stellen Sie sich vor, bevor Sie Ihre Veranstaltungen hinfügen."
   },
-  description: {
-    fr: 'Vos informations personnelles ne seront visibles que par l\'équipe de l\'agenda. Seul le nom de votre organisation pourra être public.',
-    en: 'Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.'
+  "description": {
+    "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
+    "en": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
+    "it": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
+    "de": "Deine persönlichen Daten sind nur für das Agenda-Mannschaft sichtbar. Nur der Name Ihrer Organisation kann öffentlich sein."
   },
-  organisation: {
-    fr: 'Organisation',
-    en: 'Organisation'
+  "organisation": {
+    "fr": "Organisation",
+    "en": "Organisation",
+    "it": "Organizzazione",
+    "de": "Unternehmen"
   },
-  phone: {
-    fr: 'Téléphone',
-    en: 'Telephone'
+  "phone": {
+    "fr": "Téléphone",
+    "en": "Telephone",
+    "it": "Telefono",
+    "de": "Telefon-Nummer"
   },
-  phoneSub: {
-    fr: 'Caractères autorisés: chiffres, espace, -, + ou ()',
-    en: 'Valid characters: digits, space, -, + ou ()'
+  "phoneSub": {
+    "fr": "Caractères autorisés: chiffres, espace, -, + ou ()",
+    "en": "Valid characters: digits, space, -, + ou ()",
+    "it": "Carattere autorizzati : ciffri, spazio, -, + o ()",
+    "de": "Erlaubte Zeichen: Zahlen, Leerzeichen, -, -, + oder ()"
   },
-  name: {
-    fr: 'Prénom Nom',
-    en: 'Name Surname'
+  "name": {
+    "fr": "Prénom Nom",
+    "en": "Name Surname",
+    "it": "Nome e cognome",
+    "de": "Vorname Nachname"
   },
-  position: {
-    fr: 'Fonction',
-    en: 'Position in the organization'
+  "position": {
+    "fr": "Fonction",
+    "en": "Position in the organization",
+    "it": "Posizione lavorativa",
+    "de": "Funktion"
   },
-  email: {
-    fr: 'Email',
-    en: 'Email'
+  "email": {
+    "fr": "Email",
+    "en": "Email",
+    "it": "Email",
+    "de": "E-Mail"
   },
-  submit: {
-    fr: 'Valider',
-    en: 'Submit'
+  "submit": {
+    "fr": "Valider",
+    "en": "Submit",
+    "it": "Validare",
+    "de": "Validieren"
   }
 }

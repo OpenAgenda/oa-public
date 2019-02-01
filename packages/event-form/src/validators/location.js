@@ -8,7 +8,7 @@ schema.register( {
   text: require( '@openagenda/validators/text' ),
   integer: require( '@openagenda/validators/integer' ),
   latitude: require( '@openagenda/validators/latitude' ),
-  longitude: require( '@openagenda/validators/longitude' )  
+  longitude: require( '@openagenda/validators/longitude' )
 } );
 
 const validate = schema( {

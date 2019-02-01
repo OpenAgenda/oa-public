@@ -13,8 +13,9 @@ module.exports = ( { res } ) => {
     fieldType: 'references',
     suggest: false,
     boost: null, // could be { title: 30, description: 20, location: 10 }. Defined through schema extension
+    limit: 3, // limit suggestions load count
     related: [ 'title', 'description', 'location' ], // this is customizable through schema extension
-    res: res || '/references'
+    res
   }
 
 }

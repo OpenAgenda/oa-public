@@ -90,9 +90,9 @@ export default class References extends Component {
 
   get( query, suggestion = false ) {
 
-    return sa.get( `${this.props.field.res}${suggestion?'/suggestions':''}`, ih( query, {
+    return sa.get( this.props.field.res[ suggestion ? 'suggestions' : 'references' ], ih( query, {
       exclude: { $set: this.state.events.map( e => e.uid ) }
-    } ) ).then( res => _.get( res, 'body' ) )
+    } ) ).then( res => _.get( res, 'body' ).events )
 
   }
 
@@ -129,7 +129,8 @@ export default class References extends Component {
   getSuggestQuery() {
 
     const q = {
-      sample: this.props.relatedValues
+      sample: this.assignExtraToKey( this.props.relatedValues, [ 'title', 'description', 'location' ], 'custom' ),
+      limit: _.get( this.props, 'field.limit', 3 )
     }
 
     if ( this.props.field.boost ) {
@@ -139,6 +140,26 @@ export default class References extends Component {
     }
 
     return q;
+
+  }
+
+  assignExtraToKey( values, baseFields, extraKey ) {
+
+    return _.keys( values ).reduce( ( obj, key ) => {
+
+      if ( baseFields.includes( key ) ) {
+
+        obj[ key ] = values[ key ];
+
+      } else {
+
+        obj[ extraKey ] = _.set( obj[ extraKey ] || {}, key, values[ key ] );
+
+      }
+
+      return obj;
+
+    }, {} );
 
   }
 
@@ -154,16 +175,16 @@ export default class References extends Component {
 
     this.setState( { loading: true } );
 
-    this.get( this.getSuggestQuery(), true ).then( events => {
+    this.get( this.getSuggestQuery(), true ).then( additionalEvents => {
 
-      if ( !events.length && this.state.events.length ) {
+      if ( !additionalEvents.length && this.state.events.length ) {
 
         this.setState( {
           loading: false,
           modal: 'noOtherSuggestions'
         } );
 
-      } else if ( !events.length ) {
+      } else if ( !additionalEvents.length ) {
 
         this.setState( {
           loading: false,
@@ -172,10 +193,11 @@ export default class References extends Component {
 
       } else {
 
-        this.setState( {
-          loading: false,
-          events: this.state.events.concat( events )
-        } );
+        const events = this.state.events.concat( additionalEvents );
+
+        this.setState( { loading: false, events } );
+
+        this.props.onChange( events.map( e => e.uid ) );
 
       }
 
@@ -193,6 +215,8 @@ export default class References extends Component {
 
   onSelectEvent( event ) {
 
+    const events = this.state.events.concat( event );
+
     this.setState( {
       search: ih( this.state.search, {
         query: { $set: null },
@@ -200,16 +224,20 @@ export default class References extends Component {
         events: { $set: []},
         dropdown: { $set: false }
       } ),
-      events: this.state.events.concat( event )
+      events
     } );
+
+    this.props.onChange( events.map( e => e.uid ) );
 
   }
 
   onRemoveEvent( event ) {
 
-    this.setState( {
-      events: ih( this.state.events, { $splice: [ [ this.state.events.map( e => e.uid ).indexOf( event.uid ), 1 ] ] } )
-    } );
+    const events = ih( this.state.events, { $splice: [ [ this.state.events.map( e => e.uid ).indexOf( event.uid ), 1 ] ] } );
+
+    this.setState( { events } );
+
+    this.props.onChange( events.map( e => e.uid ) );
 
   }
 

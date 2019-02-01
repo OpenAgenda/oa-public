@@ -69,7 +69,6 @@ export default function reducer( state = initialState, action = {} ) {
     case EDIT_SUCCESS:
       return {
         ...state,
-        imageChanged: false,
         data: action.result.agenda
       };
     default:

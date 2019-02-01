@@ -87,12 +87,12 @@ module.exports = function( path ) {
 function actionShow( req, res ) {
 
   var loaders = {
-    calendars: _calendarAction,
-    agendas: _agendasAction,
-    email: _emailAction
-  },
+      calendars: _calendarAction,
+      agendas: _agendasAction,
+      email: _emailAction
+    },
 
-  actions = [ 'calendars', 'agendas', 'email' ];
+    actions = [ 'calendars', 'agendas', 'email' ];
 
   if ( req.query.action && actions.indexOf( req.query.action ) !== -1 ) {
 
@@ -187,18 +187,24 @@ async function eventMailSend( req, res, next ) {
               return result;
             }
 
-            const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
-            const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
-            const label = getLocaleLabel( fieldSchema );
+            try {
+              const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
+              const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
+              const label = getLocaleLabel( fieldSchema );
 
-            return {
-              ...result,
-              [ label ]: typeof value !== 'object'
-                ? value
-                : Array.isArray( value )
-                  ? value.map( getLocaleLabel )
-                  : getLocaleLabel( value )
-            };
+              return {
+                ...result,
+                [ label ]: typeof value !== 'object'
+                  ? value
+                  : Array.isArray( value )
+                    ? value.map( getLocaleLabel )
+                    : getLocaleLabel( value )
+              };
+            } catch ( error ) {
+              req.log( 'error', 'Cannot retrieve the label for the field:', { agenda, key, value, error } );
+
+              return result;
+            }
           },
           {}
         );
@@ -283,9 +289,9 @@ function _calendarAction( req, res, next ) {
 
   var timings = req.event.getTimings(),
 
-  multipleTimings = timings.length > 1,
+    multipleTimings = timings.length > 1,
 
-  datesUri = req.agenda ? 'agendaEventActionDatesShow' : 'eventActionDatesShow';
+    datesUri = req.agenda ? 'agendaEventActionDatesShow' : 'eventActionDatesShow';
 
   if ( req.agenda ) {
 

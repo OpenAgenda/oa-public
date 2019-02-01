@@ -8,6 +8,7 @@ import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
 import Modal from '@openagenda/react-components/build/Modal';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import * as modalActions from '../../redux/modules/modals';
 
 import 'moment/locale/fr';
@@ -16,7 +17,8 @@ import 'moment/locale/fr';
   state => ({
     res: state.res,
     settings: state.settings,
-    modals: state.modals
+    modals: state.modals,
+    actionLoading: state.conversation.actionLoading
   }),
   { ...modalActions }
 )
@@ -42,7 +44,7 @@ export default class App extends Component {
   render() {
     const {
       modals, closeModal, lang,
-      settings: { Wrapper }, route, getLabel
+      settings: { Wrapper }, route, getLabel, actionLoading
     } = this.props;
 
     const messageSentModal = modals && modals.messageSent || {};
@@ -85,6 +87,12 @@ export default class App extends Component {
               closeModal( 'closeConfirmation' );
             }}>
               {getLabel( 'close' )}
+
+              {actionLoading && (
+                <span className="margin-h-sm">
+                  <Spinner mode="inline" />
+                </span>
+              )}
             </button>
           </div>
         </Modal> : null}
@@ -109,6 +117,12 @@ export default class App extends Component {
               }}
             >
               {getLabel( 'confirm' )}
+
+              {actionLoading && (
+                <span className="margin-h-sm">
+                  <Spinner mode="inline" />
+                </span>
+              )}
             </button>
           </div>
         </Modal> : null}

@@ -108,5 +108,9 @@ module.exports = {
   'slug.invalid': {
     fr: 'Seuls les lettres minuscules, les chiffres et les tirets (-) sont autorisés',
     en: 'Only lowercase letters, digits and dashes (-) are allowed'
+  },
+  'description.tooManyLines': {
+    fr: 'La description ne doit pas dépasser 4 lignes',
+    en: 'The description must not exceed 4 lines'
   }
 };

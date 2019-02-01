@@ -329,21 +329,6 @@ export default class ContributionEdition extends Component {
                 </a>
               </div>
 
-              <div className="form-group">
-                <p><b>{getLabel( 'customMessage' )}</b></p>
-                <a
-                  className="margin-right-sm"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => openFormRequest( {
-                    lang,
-                    agenda: agenda.slug,
-                    subject: 'customMessage',
-                  } )}
-                >
-                  {getLabel( 'requestCustomMessage' )}
-                </a>
-              </div>
-
               <div className="text-right">
                 {this.renderSubmitBtn()}
               </div>

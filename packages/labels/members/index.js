@@ -273,7 +273,7 @@ module.exports = {
   },
   writeToHim: {
     fr: 'Lui écrire',
-    en: 'Write to him'
+    en: 'Write to member'
   },
   writeToThem: {
     fr: 'Leur écrire',

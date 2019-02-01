@@ -419,16 +419,18 @@ export default class Conversation {
       ? this.inbox
       : await new Inbox( conversation.inboxContextId ).get();
 
-    const actions = conversation.closedAt ? [] : await _.get( types, [ conversation.type, 'actions' ], [] )
-      .reduce( async ( result, action ) => {
-        const keep = await interfaces.filterAction( inbox.data, conversation, action );
+    const actions = conversation.closedAt || conversation.store.resolvedWith
+      ? []
+      : await _.get( types, [ conversation.type, 'actions' ], [] )
+        .reduce( async ( result, action ) => {
+          const keep = await interfaces.filterAction( inbox.data, conversation, action );
 
-        if ( !keep ) {
-          return result;
-        }
+          if ( !keep ) {
+            return result;
+          }
 
-        return [ ...await result, action ];
-      }, [] );
+          return [ ...await result, action ];
+        }, [] );
 
     if ( !actions.filter( v => v.resolve !== false ).length && !conversation.closedAt ) {
       return [ ...actions, defaultAction ];

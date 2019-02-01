@@ -86,7 +86,8 @@ module.exports = app => {
     ( req, res, next ) => {
 
       res.json( {
-        references: req.referencesRender
+        references: req.referencesRender,
+        events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
       } );
 
     }
@@ -109,9 +110,17 @@ module.exports = app => {
   );
 
   app.get(
-    '/agendas/:uid/events/suggestions',
+    [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     ( req, res, next ) => {
+
+      req.agendaUid = req.params.uid;
+
+      if ( req.params.eventUid ) {
+
+        req.query.exclude = [ req.params.eventUid ].concat( req.query.exclude || [] );
+
+      }
 
       core.agendas( req.params.uid ).settings.get().then( settings => {
 
@@ -122,27 +131,14 @@ module.exports = app => {
       }, next );
 
     },
-    ( req, res, next ) => {
-
-      req.agendaUid = req.params.uid;
-
-      const custom = customSvc.parseLegacy( req.formSchemaFields, {
-        custom: _.get( req, 'query.sample.custom', null ),
-        tags: _.get( req, 'query.sample.tags', [] ).map( t => t.label ),
-        category: _.get( req, 'query.sample.category.label', null )
-      } );
-
-      req.query.sample = _.assignIn( _.omit( req.query.sample, [
-        'custom',
-        'tags',
-        'category'
-      ] ), { custom } );
-
-      next();
-
-    },
     eventReferences.mw.suggestions,
-    ( req, res ) => res.json( req.events )
+    ( req, res ) => res.json( {
+      events: _monolingual(
+        req.events.slice( 0, parseInt( _.get( req.query, 'limit', 20 ) ) ),
+        [ 'title', 'dateRange', 'description' ],
+        req.lang
+      )
+    } )
   );
 
   app.get(
@@ -185,6 +181,18 @@ module.exports = app => {
 
     }
   );
+
+}
+
+
+
+function _monolingual( events, multilingualFields, preferredLang = 'en' ) {
+
+  return events.map( ev => _.keys( ev )
+    .reduce( ( e, k ) => _.set( e, k, multilingualFields.includes( k ) ?
+      _.get( ev, [ k, preferredLang ], ev[ k ][ _.first( _.keys( ev[ k ] ) ) ] )
+      : ev[ k ] )
+    , {} ) );
 
 }
 
