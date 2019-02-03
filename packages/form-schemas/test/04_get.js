@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const should = require( 'should' );
 
@@ -32,7 +33,7 @@ describe( 'form-schemas -04- get', () => {
 
   it( 'simple get', async () => {
 
-    ( await svc.get( id ) ).should.eql( formSchema );
+    ( await svc.get( id ) ).should.eql( _.assign( {}, formSchema, { id } ) );
 
   } );
 
