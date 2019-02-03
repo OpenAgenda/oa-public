@@ -9,15 +9,13 @@ const { term } = require( './lib/prompt' );
 
 ( async () => {
 
-  const labelsBasePath = __dirname + '../';
+  const labelsBasePath = __dirname;
 
   const files = await listAllLabelFiles( labelsBasePath );
 
   const rows = [];
 
   for ( const file of files ) {
-
-    console.log(file);
 
     const labelSet = {
       key: file.key,
