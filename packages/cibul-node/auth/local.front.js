@@ -20,7 +20,7 @@ const config = require( '../config' );
 const routes = {
 
   signin: [ 'get', '/signin', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     _presetEmail,
     auth.renderSignin
   ] ],
@@ -32,7 +32,7 @@ const routes = {
   ] ],
 
   signinSubmit: [ 'post', '/signin', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signinSubmit
   ] ],
 
@@ -42,7 +42,7 @@ const routes = {
   ] ],
 
   signup: [ 'get', '/signup', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -56,7 +56,7 @@ const routes = {
   ] ],
 
   signupSubmit: [ 'post', '/signup', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signupSubmit
   ] ],
 
@@ -66,7 +66,7 @@ const routes = {
   ] ],
 
   signupComplete: [ 'get', '/signup/complete', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     signupComplete
   ] ],
 
@@ -76,7 +76,7 @@ const routes = {
   ] ],
 
   activateResend: [ 'get', '/activate/resend', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     activateResend
   ] ],
 
@@ -86,7 +86,7 @@ const routes = {
   ] ],
 
   activate: [ 'get', '/activate/:token', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     activate
   ] ],
 
