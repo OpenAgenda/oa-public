@@ -7,7 +7,7 @@ export default class NotFoundDisplayer extends Component {
       state: (app.history.location.state || {}),
       notFoundKey: app.notFoundKey
     }) )
-    .every( ( { state, notFoundKey } ) => (state.notFoundErrors && state.notFoundErrors[ notFoundKey ]) );
+    .every( ( { state, notFoundKey } ) => (state.notFound && state.notFound[ notFoundKey ]) );
 
   state = {
     display: this.isNotFound()
@@ -32,9 +32,9 @@ export default class NotFoundDisplayer extends Component {
   }
 
   render() {
-    const { Page } = this.props;
+    const { children } = this.props;
     const { display } = this.state;
 
-    return display ? <Page /> : null;
+    return display && children ? children : null;
   }
 }

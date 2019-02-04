@@ -40,7 +40,7 @@ function getFormFirstErrors( validatorErrors ) {
 }
 
 const initialState = {
-  loading: false,
+  loading: true,
   loaded: false,
   user: null,
   modal: {},

@@ -5,6 +5,24 @@ import { trigger } from 'redial';
 // import NProgress from 'nprogress';
 import asyncMatchRoutes from './asyncMatchRoutes';
 
+async function triggerLocation( { location, history, routes, helpers } ) {
+  // load data while the old screen remains
+  const { components, match, params } = await asyncMatchRoutes( routes, location.pathname );
+  const triggerLocals = {
+    ...helpers,
+    match,
+    params,
+    history,
+    location
+  };
+
+  await trigger( 'fetch', components, triggerLocals );
+
+  if ( typeof window !== 'undefined' ) {
+    await trigger( 'defer', components, triggerLocals );
+  }
+};
+
 @withRouter
 class RouterRedialTrigger extends PureComponent {
   static propTypes = {
@@ -14,44 +32,96 @@ class RouterRedialTrigger extends PureComponent {
   };
 
   state = {
+    needTrigger: false,
+    location: null,
     previousLocation: null
   };
+
+  static getDerivedStateFromProps( props, state ) {
+    const { location, needTrigger } = state;
+
+    if ( needTrigger ) {
+      return null;
+    }
+
+    const {
+      location: { pathname, search }
+    } = props;
+
+    const navigated = !location || `${pathname}${search}` !== `${location.pathname}${location.search}`;
+
+    console.log( 'NEW PROPS', props, state );
+    console.log( '=> navigated', navigated );
+
+    if ( navigated ) {
+      return {
+        needTrigger: true,
+        location: props.location,
+        previousLocation: props.location
+      };
+    }
+
+    return null;
+  }
+
+  componentDidMount() {
+    const { location, history, routes, helpers } = this.props;
+
+    this.setState( {
+      ...this.state,
+      needTrigger: false
+    } );
+
+    if ( this.state.needTrigger ) {
+      console.log( 'NEED TRIGGER', this.props.location, this.state );
+
+      triggerLocation( { location, history, routes, helpers } )
+        .catch( () => null )
+        .then( () => {
+          // clear previousLocation so the next screen renders
+          this.setState( { ...this.state, previousLocation: null, needTrigger: false } );
+        } );
+    }
+  }
+
+  componentDidUpdate( prevProps, prevState ) {
+    const { location, history, routes, helpers } = this.props;
+
+    if ( this.state.needTrigger ) {
+      console.log( prevProps, prevState );
+      console.log( 'NEED TRIGGER', this.props.location, this.state );
+
+      triggerLocation( { location, history, routes, helpers } )
+        .catch( () => null )
+        .then( () => {
+          // clear previousLocation so the next screen renders
+          this.setState( { ...this.state, previousLocation: null, needTrigger: false } );
+        } )
+    }
+  }
 
   // componentWillMount() {
   //   NProgress.configure( { trickleSpeed: 200 } );
   // }
 
   async componentWillReceiveProps( nextProps ) {
-    const {
-      history, location, routes, helpers
-    } = this.props;
+    const { location } = this.props;
     const {
       location: { pathname, search }
     } = nextProps;
-    const navigated = `${pathname}${search}` !== `${location.pathname}${location.search}`;
 
-    if ( navigated ) {
+    const navigated = `${pathname}${search}` !== `${location.pathname}${location.search}`;
+    // const notFoundRetrieved = !(this.props.location.state || {}).notFound && (nextProps.location.state || {}).notFound;
+
+    if ( navigated /* || (!navigated && notFoundRetrieved) */ ) {
       // save the location so we can render the old screen
       // NProgress.start();
-      this.setState( { previousLocation: location } );
+      this.setState( { ...this.state, previousLocation: location } );
 
-      // load data while the old screen remains
-      const { components, match, params } = await asyncMatchRoutes( routes, nextProps.location.pathname );
-      const triggerLocals = {
-        ...helpers,
-        match,
-        params,
-        history,
-        location: nextProps.location
-      };
-
-      await trigger( 'fetch', components, triggerLocals );
-      if ( typeof window !== 'undefined' ) {
-        await trigger( 'defer', components, triggerLocals );
-      }
+      await triggerLocation( nextProps.location ).catch( () => null );
 
       // clear previousLocation so the next screen renders
-      this.setState( { previousLocation: null } );
+      this.setState( { ...this.state, previousLocation: null } );
       // NProgress.done();
     }
   }

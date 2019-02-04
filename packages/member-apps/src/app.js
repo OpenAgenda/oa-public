@@ -4,13 +4,13 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { StaticRouter, Route } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
-import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
 import asyncMatchRoutes from '@openagenda/react-utils/dist/asyncMatchRoutes';
+import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
@@ -55,14 +55,8 @@ export default function ( options ) {
       <ConnectedRouter history={history}>
         <ScrollToTop>
           {req
-            ? (
-              <Route
-                path={prefix}
-                component={() =>
-                  <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
-                }
-              />
-            ) : content}
+            ? <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
+            : content}
         </ScrollToTop>
       </ConnectedRouter>
     </Provider>

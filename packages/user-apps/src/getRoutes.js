@@ -5,7 +5,7 @@ import { App, SettingsContainer } from './containers';
 
 const withActiveTab = activeTab => hoistStatics( withProps( { activeTab } ) );
 
-export default function ( prefix = '' ) {
+export default function ( prefix = '', notFoundkey = 'userSettings' ) {
   return [
     {
       component: App,
@@ -17,7 +17,7 @@ export default function ( prefix = '' ) {
         { path: `${prefix}/password`, component: withActiveTab( 'password' )( SettingsContainer ) },
         { path: `${prefix}/apiKey`, component: withActiveTab( 'apiKey' )( SettingsContainer ) },
         { path: `${prefix}/emails`, component: withActiveTab( 'emails' )( SettingsContainer ) },
-        { component: NotFound }
+        { component: NotFound, notFoundkey }
       ]
     }
   ];

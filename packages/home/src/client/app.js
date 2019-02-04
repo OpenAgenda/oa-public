@@ -46,7 +46,11 @@ function getDefaultHistory( req ) {
 }
 
 export default function ( options ) {
-  const { initialState, req, notFoundKey = _.uniqueId() } = _.merge( {}, defaults, options );
+  const {
+    initialState,
+    req,
+    notFoundKey = _.uniqueId( 'home' )
+  } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
   const client = apiClient( apiRoot, req );

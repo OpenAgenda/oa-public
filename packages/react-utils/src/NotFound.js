@@ -5,8 +5,8 @@ const NotFound = ( { staticContext = {}, route, location } ) => {
   const locationState = location.state || {};
   const newLocationState = {
     ...locationState,
-    notFoundErrors: {
-      ...locationState.notFoundErrors,
+    notFound: {
+      ...locationState.notFound,
       [ route.notFoundkey ]: true
     }
   };
@@ -17,7 +17,7 @@ const NotFound = ( { staticContext = {}, route, location } ) => {
 };
 
 NotFound.Capture = withRouter( ( { children, location, notFoundkey } ) => {
-  return location && location.state && location.state.notFoundErrors && location.state.notFoundErrors[ notFoundkey ]
+  return location && location.state && location.state.notFound && location.state.notFound[ notFoundkey ]
     ? null
     : children;
 } );
