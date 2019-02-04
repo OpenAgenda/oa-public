@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 import openFormRequest from '@openagenda/call-to-action/dist/client/openRequestForm';
 import Modal from '@openagenda/react-components/build/Modal';
-import { KeysManager } from '../../components';
+import { KeysManager, InboxSettingsForm, TrackingSettingsForm } from '../../components';
 import * as  agendaActions from '../../redux/modules/agenda';
 import * as  modalsActions from '../../redux/modules/modals';
 import * as  keysActions from '../../redux/modules/keys';
@@ -195,6 +195,20 @@ export default class ContributionEdition extends Component {
                   {getLabel( 'requestBottomDescription' )}
                 </a>
               </div>
+            )}
+
+            {this.renderTableRow(
+              'inbox',
+              <b>{getLabel( 'inbox' )}</b>,
+              getLabel( 'inboxTabDescription' ),
+              <InboxSettingsForm onSubmit={data => editAgenda( { settings: { inbox: { mailto: data } } } )} />
+            )}
+
+            {this.renderTableRow(
+              'analytics',
+              <b>{getLabel( 'stats' )}</b>,
+              getLabel( 'statsTabDescription' ),
+              <TrackingSettingsForm onSubmit={data => editAgenda( { settings: { tracking: data } } )} />
             )}
             </tbody>
           </table>

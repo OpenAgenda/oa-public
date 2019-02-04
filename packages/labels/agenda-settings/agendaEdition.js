@@ -89,6 +89,10 @@ module.exports = {
     fr: 'Seuls les lettres minuscules, les chiffres et les tirets (-) sont autorisés',
     en: 'Only lowercase letters, digits and dashes (-) are allowed'
   },
+  'email.invalid': {
+    fr: 'L\'adresse email n\'est pas valide',
+    en: 'Invalid email address'
+  },
   saveModifications: {
     fr: 'Sauvegarder les modifications',
     en: 'Save changes'
@@ -310,4 +314,56 @@ module.exports = {
     fr: 'Envoyé au contributeur lorsque son événement a été publié',
     en: 'Sent to the contributor when his event has been published'
   },
+  inbox: {
+    fr: 'Messagerie',
+    en: 'Inbox'
+  },
+  inboxTabDescription: {
+    fr: 'Paramètres de la messagerie',
+    en: 'Messaging settings'
+  },
+  enableMailtoDesc: {
+    fr: 'Désactiver la messagerie: Remplacer les liens de la messagerie par un envoi par email',
+    en: 'Disable email: Replace inbox links with email'
+  },
+  mailtoEmailDesc: {
+    fr: 'Un lien "mailto" pointant sur cet email sera présent sur les pages de l\'agenda.',
+    en: 'A link "mailto" pointing to this email will be present on the pages of the agenda.'
+  },
+  receptionEmail: {
+    fr: 'Email de réception',
+    en: 'Reception email'
+  },
+  emailPlaceholder: {
+    fr: 'votre@email.com',
+    en: 'your@email.com'
+  },
+  update: {
+    fr: 'Mettre à jour',
+    en: 'Update'
+  },
+  subjectLabel: {
+    fr: 'Objet par défaut',
+    en: 'Default subject'
+  },
+  subjectDesc: {
+    fr: 'Message envoyé depuis l\'agenda \'La semaine de l\'industrie\'',
+    en: 'Message sent from \'Industry Week\' agenda'
+  },
+  googleAnalyticsId: {
+    fr: 'Identifiant de suivi Google Analytics',
+    en: 'Google Analytics Tracking ID'
+  },
+  stats: {
+    fr: 'Statistiques',
+    en: 'Statistics'
+  },
+  statsTabDescription: {
+    fr: 'Paramètrez votre identifiant de suivi Google Analytics',
+    en: 'Set your Google Analytics Tracking ID'
+  },
+  statsDescription: {
+    fr: 'Suivez l\'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com',
+    en: 'Follow the crowds of visitors on the public pages of your agenda on openagenda.com'
+  }
 };
