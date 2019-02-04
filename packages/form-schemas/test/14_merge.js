@@ -173,6 +173,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     };
 
     merge( s1, s2, s3 ).should.eql( {
+      custom: {},
       fields: [ {
         field: 'budget',
         optional: false,
@@ -274,6 +275,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     };
 
     merge( schema, abstract ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "participants",
         "optional": true,
@@ -318,6 +320,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     };
 
     merge( schema, abstract ).should.eql( {
+      custom: {},
       fields: [ {
         field: 'references',
         fieldType: 'abstract',
@@ -358,6 +361,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     };
 
     merge( schema, abstract ).should.eql( {
+      custom: {},
       fields: [ {
         field: 'references',
         label: 'Evénements liés',
@@ -384,6 +388,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     }
 
     merge( null, schema ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "title",
         "fieldType": "text",
@@ -393,6 +398,7 @@ describe( 'unit - assigning schema properties to another schema', () => {
     } );
 
     merge( schema, null ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "title",
         "fieldType": "text",

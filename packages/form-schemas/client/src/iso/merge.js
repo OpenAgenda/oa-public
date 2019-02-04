@@ -83,6 +83,7 @@ function _mergeField( field, mergeWithField ) {
 function _assignSchemaIdToNonAbstractFields( schema ) {
 
   return {
+    custom: _.get( schema, 'custom', {} ),
     fields: _.get( schema, 'fields', [] ).map( f => _.assign( {}, f, {
       schemaId: _isAbstract( f ) ? null : _.get( schema, 'id', null )
     } ) )
