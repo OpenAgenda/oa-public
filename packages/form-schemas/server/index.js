@@ -41,9 +41,11 @@ async function get( id, options = {} ) {
 
   let parsed = JSON.parse( store );
 
+  parsed.id = id;
+
   if ( options.instanciate ) {
 
-    return new FormSchema( _.extend( parsed, { id } ) );
+    return new FormSchema( _.assign( parsed, { id } ) );
 
   }
 

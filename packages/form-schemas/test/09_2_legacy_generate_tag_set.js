@@ -9,6 +9,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
   it( 'takes a form schema and returns a matching tag set', () => {
 
     const schema = {
+      id: 1,
       nextOptionId: 8,
       "defaultLabelLanguage": null,
       fields: [
@@ -115,19 +116,23 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
         "tags": [
           {
             "label": "Niveau scolaire: Ecole",
-            "slug": "ecole"
+            "slug": "ecole",
+            "schemaOptionId" : "1.1"
           },
           {
             "label": "Niveau scolaire: Collège",
-            "slug": "college"
+            "slug": "college",
+            "schemaOptionId" : "1.2"
           },
           {
             "label": "Niveau scolaire: Lycée",
-            "slug": "lycee"
+            "slug": "lycee",
+            "schemaOptionId" : "1.3"
           },
           {
             "label": "Niveau scolaire: Autre",
-            "slug": "autre"
+            "slug": "autre",
+            "schemaOptionId" : "1.4"
           }
         ],
         "required": true,
@@ -137,15 +142,18 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
         "tags": [
           {
             "label": "Style musical : A cappella",
-            "slug": "a-cappella"
+            "slug": "a-cappella",
+            "schemaOptionId" : "1.5"
           },
           {
             "label": "Style musical : Afrique",
-            "slug": "afrique"
+            "slug": "afrique",
+            "schemaOptionId" : "1.6"
           },
           {
             "label": "Style musical : Baroque",
-            "slug": "baroque"
+            "slug": "baroque",
+            "schemaOptionId" : "1.7"
           }
         ],
         "required": false,

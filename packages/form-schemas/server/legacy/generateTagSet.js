@@ -24,7 +24,8 @@ module.exports = schema => {
       unique: uniques.includes( f.fieldType ),
       tags: f.options.map( o => ( {
         label: _monoLabel( o.label ),
-        slug: o.value
+        slug: o.value,
+        schemaOptionId: [ f.schemaId || schema.id, o.id ].join( '.' )
       } ) )
     } ) )
   }
