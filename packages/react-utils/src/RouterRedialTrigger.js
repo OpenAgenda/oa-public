@@ -50,9 +50,6 @@ class RouterRedialTrigger extends PureComponent {
 
     const navigated = !location || `${pathname}${search}` !== `${location.pathname}${location.search}`;
 
-    console.log( 'NEW PROPS', props, state );
-    console.log( '=> navigated', navigated );
-
     if ( navigated ) {
       return {
         needTrigger: true,
@@ -67,20 +64,15 @@ class RouterRedialTrigger extends PureComponent {
   componentDidMount() {
     const { location, history, routes, helpers } = this.props;
 
-    this.setState( {
-      ...this.state,
-      needTrigger: false
-    } );
-
     if ( this.state.needTrigger ) {
-      console.log( 'NEED TRIGGER', this.props.location, this.state );
-
-      triggerLocation( { location, history, routes, helpers } )
-        .catch( () => null )
-        .then( () => {
-          // clear previousLocation so the next screen renders
-          this.setState( { ...this.state, previousLocation: null, needTrigger: false } );
-        } );
+      this.setState( { needTrigger: false }, () => {
+        triggerLocation( { location, history, routes, helpers } )
+          .catch( () => null )
+          .then( () => {
+            // clear previousLocation so the next screen renders
+            this.setState( { previousLocation: null } );
+          } );
+      } );
     }
   }
 
@@ -88,43 +80,20 @@ class RouterRedialTrigger extends PureComponent {
     const { location, history, routes, helpers } = this.props;
 
     if ( this.state.needTrigger ) {
-      console.log( prevProps, prevState );
-      console.log( 'NEED TRIGGER', this.props.location, this.state );
-
-      triggerLocation( { location, history, routes, helpers } )
-        .catch( () => null )
-        .then( () => {
-          // clear previousLocation so the next screen renders
-          this.setState( { ...this.state, previousLocation: null, needTrigger: false } );
-        } )
+      this.setState( { needTrigger: false }, () => {
+        triggerLocation( { location, history, routes, helpers } )
+          .catch( () => null )
+          .then( () => {
+            // clear previousLocation so the next screen renders
+            this.setState( { previousLocation: null } );
+          } );
+      } );
     }
   }
 
   // componentWillMount() {
   //   NProgress.configure( { trickleSpeed: 200 } );
   // }
-
-  async componentWillReceiveProps( nextProps ) {
-    const { location } = this.props;
-    const {
-      location: { pathname, search }
-    } = nextProps;
-
-    const navigated = `${pathname}${search}` !== `${location.pathname}${location.search}`;
-    // const notFoundRetrieved = !(this.props.location.state || {}).notFound && (nextProps.location.state || {}).notFound;
-
-    if ( navigated /* || (!navigated && notFoundRetrieved) */ ) {
-      // save the location so we can render the old screen
-      // NProgress.start();
-      this.setState( { ...this.state, previousLocation: location } );
-
-      await triggerLocation( nextProps.location ).catch( () => null );
-
-      // clear previousLocation so the next screen renders
-      this.setState( { ...this.state, previousLocation: null } );
-      // NProgress.done();
-    }
-  }
 
   render() {
     const { children, location } = this.props;
