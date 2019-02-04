@@ -16,7 +16,14 @@ async function triggerLocation( { location, history, routes, helpers } ) {
     location
   };
 
-  await trigger( 'fetch', components, triggerLocals );
+  // Don't fetch data for initial route, server has already done the work:
+  if ( typeof window !== 'undefined' && window.__PRELOADED__ ) {
+    // Delete initial data so that subsequent data fetches can occur:
+    delete window.__PRELOADED__;
+  } else {
+    // Fetch mandatory data dependencies for 2nd route change onwards:
+    await trigger( 'fetch', components, triggerLocals );
+  }
 
   if ( typeof window !== 'undefined' ) {
     await trigger( 'defer', components, triggerLocals );
@@ -61,10 +68,10 @@ class RouterRedialTrigger extends PureComponent {
     return null;
   }
 
-  componentDidMount() {
+  trigger = () => {
     const { location, history, routes, helpers } = this.props;
 
-    if ( this.state.needTrigger ) {
+    if ( this.state.needTrigger && typeof window !== 'undefined' ) {
       this.setState( { needTrigger: false }, () => {
         triggerLocation( { location, history, routes, helpers } )
           .catch( () => null )
@@ -76,19 +83,12 @@ class RouterRedialTrigger extends PureComponent {
     }
   }
 
-  componentDidUpdate( prevProps, prevState ) {
-    const { location, history, routes, helpers } = this.props;
+  componentDidMount() {
+    this.trigger();
+  }
 
-    if ( this.state.needTrigger ) {
-      this.setState( { needTrigger: false }, () => {
-        triggerLocation( { location, history, routes, helpers } )
-          .catch( () => null )
-          .then( () => {
-            // clear previousLocation so the next screen renders
-            this.setState( { previousLocation: null } );
-          } );
-      } );
-    }
+  componentDidUpdate( prevProps, prevState ) {
+    this.trigger();
   }
 
   // componentWillMount() {

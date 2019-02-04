@@ -113,7 +113,7 @@ export default function ( options ) {
       };
 
       // Don't fetch data for initial route, server has already done the work:
-      if ( !req && typeof window !== 'undefined' && window.__PRELOADED__ ) {
+      if ( typeof window !== 'undefined' && window.__PRELOADED__ ) {
         // Delete initial data so that subsequent data fetches can occur:
         delete window.__PRELOADED__;
       } else {
@@ -121,7 +121,7 @@ export default function ( options ) {
         await trigger( 'fetch', components, triggerLocals );
       }
 
-      if ( !req ) {
+      if ( typeof window !== 'undefined' ) {
         await trigger( 'defer', components, triggerLocals );
       }
     }
