@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { formValueSelector } from 'redux-form';
 import classNames from 'classnames';
+import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import MenuItem from '../components/MenuItem';
@@ -14,9 +15,9 @@ import * as agendasActions from '../redux/modules/agendas';
 const selector = formValueSelector( 'homeAgendas' );
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
-    const query = state.router.location.query;
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
 
     if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
@@ -82,7 +83,7 @@ export default class App extends Component {
           <div className="col-sm-8 col-sm-offset-2">
             <ul className="home-nav list-inline">
               <MenuItem
-                linkTo={{ pathname: prefix || '/', query: { search: agendasSearch || undefined } }}
+                linkTo={{ pathname: prefix || '/', search: qs.stringify( { search: agendasSearch || undefined } ) }}
                 active={tab === 'agendas'}>
                 {getLabel( 'myAgendas' )}
               </MenuItem>

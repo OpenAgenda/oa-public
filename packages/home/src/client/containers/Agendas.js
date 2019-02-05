@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
+import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import { setTab } from '../redux/modules/menu';
 import { AgendasSearch, Welcome } from '../components';
@@ -11,7 +12,8 @@ import { AgendasSearch, Welcome } from '../components';
 @provideHooks({
   fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
 })
-@connect( state => ({
+@connect( ( state, props ) => ({
+  query: qs.parse( props.search, { ignoreQueryPrefix: true } ),
   res: state.res,
   isNew: state.settings.isNew,
   loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
@@ -85,7 +87,7 @@ export default class Agendas extends Component {
   }
 
   render() {
-    const { isNew, loading, location: { query = {} }, res, total, history } = this.props;
+    const { isNew, loading, query, res, total, history } = this.props;
 
     if ( isNew && !total ) {
       return <Welcome />
@@ -105,7 +107,7 @@ export default class Agendas extends Component {
           onSearch={values => {
             history.push( {
               ...this.props.location,
-              query: { ...this.props.location.query, search: values.search || undefined }
+              search: qs.stringify( { ...query, search: values.search || undefined } )
             } );
           }}
           getTitleLink={agenda =>
