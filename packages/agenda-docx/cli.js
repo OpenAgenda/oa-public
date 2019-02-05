@@ -84,9 +84,7 @@ const reducer = undefined;
     console.log( 'generating output...' );
 
     const {
-      outputPath,
-      agenda,
-      events
+      outputPath
     } = await generateDocument( {
       agendaUid,
       localTmpPath,
@@ -98,8 +96,6 @@ const reducer = undefined;
         // to: '2018-12-31T22:59:59.999Z'
       }
     } );
-
-    fs.writeFileSync( localTmpPath + '/' + agendaUid + '.formatted.json', JSON.stringify( events, null, 2 ), 'utf-8' );
 
     console.log( 'output generated at %s', outputPath );
 
