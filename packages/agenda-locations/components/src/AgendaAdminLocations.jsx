@@ -206,7 +206,7 @@ module.exports = createReactClass( {
         query={this.actions.getQuery()}
         getLabel={this.getLabel}
         onQueryChange={this.actions.queryChange} /> : null }
-      { this.state.total ? <p>{this.getLabel( 'total', { '%count%': this.state.total } )}</p> : null }
+      { this.state.total ? <p>{this.getLabel( 'total', { count: this.state.total } )}</p> : null }
       { this.state.total === 0 ? <p>{this.getLabel( 'totalzero' ) }</p> : null }
     </div>
 
@@ -253,7 +253,7 @@ module.exports = createReactClass( {
             return <div>
               <p className="text-center">{this.getLabel( 'cannotRemove', { '%eventCount%': eventCount } )}</p>
               <div className="text-center">
-                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeevents' )}</a>
+                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeEvents' )}</a>
               </div>
             </div>
 
@@ -277,7 +277,7 @@ module.exports = createReactClass( {
 
       { this.state.merge.locationUids.length
         ? <span className="info">
-          {this.getLabel( 'mergeselection', { '%count%': this.state.merge.locationUids.length } ) }
+          {this.getLabel( 'mergeselection', { count: this.state.merge.locationUids.length } ) }
           <a
             onClick={this.onSearchChange.bind( null, 'uids', this.state.merge.locationUids ) }>{this.getLabel( 'seemergelist' )}</a>
         </span>
