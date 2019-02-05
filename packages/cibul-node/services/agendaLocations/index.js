@@ -13,6 +13,8 @@ const agendas = require( '@openagenda/agendas' );
 const agendaGet = promisify( agendas.get );
 
 const getLocationSettings = require( './interfaces/getLocationSettings' );
+const locationsWillMerge = require( './interfaces/locationsWillMerge' );
+const locationWillRemove = require( './interfaces/locationWillRemove' );
 
 module.exports.init = async config => {
 
@@ -71,7 +73,10 @@ module.exports.init = async config => {
         } ) );
 
       }
-    }, internalEventSvc.locations ),
+    }, internalEventSvc.locations, {
+      locationsWillMerge,
+      locationWillRemove
+    } ),
     logger: config.getLogConfig( 'svc', 'locations' )
   } );
 
