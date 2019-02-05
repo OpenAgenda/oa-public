@@ -65,6 +65,14 @@ function getMiddleware( idRef ) {
       stakeholderId: req.stakeholderId || null
     }, ( err, location ) => {
 
+      if ( err === 'unknown location' ) {
+
+        return next( {
+          code: 404
+        } );
+
+      }
+
       if ( err ) return next( err );
 
       if ( !location ) return next( 'unknown location' );
