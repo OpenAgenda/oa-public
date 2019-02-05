@@ -8,6 +8,7 @@ import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import update from 'immutability-helper';
 import Select from 'react-select';
 import moment from 'moment';
+import qs from 'qs';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import * as activitiesActions from '../../redux/modules/activities';
 import { renderField, renderSelect, renderInput } from '../../utils/form';
@@ -19,36 +20,43 @@ moment.locale( 'fr' );
 const dashboardValuesSelector = getFormValues( 'activityAppsAdminDashboard' );
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
-    const query = state.router.location.query || {};
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
 
     if ( !activitiesActions.isLoaded( state ) ) {
       promises.push( dispatch( activitiesActions.load( query ) ) );
     }
 
-    promises.push( dispatch( initialize( 'activityAppsAdminDashboard', {
-      actor: query.actor || undefined,
-      verb: query.verb || undefined,
-      object: query.object || undefined,
-      target: query.target || undefined,
-      datetimeRange: query.datetimeRange || undefined
-    } ) ) );
+    if ( !_.get( state, 'form.activityAppsAdminDashboard.initial' ) ) {
+      promises.push( dispatch( initialize( 'activityAppsAdminDashboard', {
+        actor: query.actor || undefined,
+        verb: query.verb || undefined,
+        object: query.object || undefined,
+        target: query.target || undefined,
+        datetimeRange: query.datetimeRange || undefined
+      } ) ) );
+    }
 
     return Promise.all( __CLIENT__ ? [] : promises );
   }
 } )
 @connect(
-  ( state, props ) => ({
-    res: state.res,
-    activities: state.activities.data,
-    fromId: state.activities.fromId,
-    loading: state.activities.loading,
-    nextLoading: state.activities.nextLoading,
-    lastPage: state.activities.lastPage,
-    query: dashboardValuesSelector( state, 'actor', 'verb', 'object', 'target', 'datetimeRange' )
-  }),
+  ( state, props ) => {
+    const locationQuery = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      res: state.res,
+      activities: state.activities.data,
+      fromId: state.activities.fromId,
+      loading: state.activities.loading,
+      nextLoading: state.activities.nextLoading,
+      lastPage: state.activities.lastPage,
+      query: dashboardValuesSelector( state, 'actor', 'verb', 'object', 'target', 'datetimeRange' ),
+      locationQuery
+    }
+  },
   { ...activitiesActions }
 )
 @reduxForm( {
@@ -86,23 +94,24 @@ export default class AdminDashboard extends Component {
   }
 
   state = {
-    filters: this.getFilters( _.pick( this.props.location.query, [ 'actor', 'verb', 'object', 'target' ] ) )
+    filters: this.getFilters( _.pick( this.props.locationQuery, [ 'actor', 'verb', 'object', 'target' ] ) )
   };
 
   search = values => this.props.list( values )
     .then( () => {
       const newQuery = _.pick( values, [ 'actor', 'verb', 'object', 'target', 'datetimeRange' ] );
+
       this.props.history.push( {
         ...this.props.location,
-        query: {
-          ...this.props.location.query,
+        search: qs.stringify( {
+          ...this.props.locationQuery,
           actor: undefined,
           verb: undefined,
           object: undefined,
           target: undefined,
           datetimeRange: undefined,
           ...newQuery
-        }
+        } )
       } );
     } );
 
@@ -140,8 +149,8 @@ export default class AdminDashboard extends Component {
     return (
       <DateTimePicker
         handleEvent={handleEvent}
-        startValue={startValue}
-        endValue={endValue}
+        startValue={moment( startValue || undefined )}
+        endValue={moment( endValue || undefined )}
       />
     );
 
@@ -149,7 +158,7 @@ export default class AdminDashboard extends Component {
 
   onActivityClick( e ) {
 
-    const { history, location, query, list } = this.props;
+    const { history, location, locationQuery, query, list } = this.props;
 
     if (
       !e.target.hasAttribute( 'data-filtertype' )
@@ -173,15 +182,15 @@ export default class AdminDashboard extends Component {
         }
       }
     } ), () => {
-      list( { ...query, [ type ]: value } ).then( this.updateMonitorBottomHit )
+      list( { ...query, [ type ]: value } )
     } );
 
     history.replace( {
       ...location,
-      query: {
-        ...location.query,
+      search: qs.stringify( {
+        ...locationQuery,
         [ type ]: value
-      }
+      } )
     } );
   };
 
@@ -212,7 +221,7 @@ export default class AdminDashboard extends Component {
   }
 
   removeFilter( type ) {
-    const { history, location, list, query } = this.props;
+    const { history, location, locationQuery, list, query } = this.props;
 
     this.setState( update( this.state, {
       filters: {
@@ -224,10 +233,10 @@ export default class AdminDashboard extends Component {
 
     history.replace( {
       ...location,
-      query: {
-        ...location.query,
+      search: qs.stringify( {
+        ...locationQuery,
         [ type ]: undefined
-      }
+      } )
     } );
   }
 
