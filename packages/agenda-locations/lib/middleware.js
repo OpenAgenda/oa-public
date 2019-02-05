@@ -316,6 +316,8 @@ function getMiddleware( idRef ) {
 
     const data = _validateAndExtractData( req, res, next );
 
+    console.log( data );
+
     service.get( { uid: data.uid }, ( err, location ) => {
 
       if ( err ) return next( err );
