@@ -17,10 +17,8 @@ import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import setFlashMessage from '../../utils/setFlashMessage';
 
-function asyncLoad( { store: { getState, dispatch }, history } ) {
+function asyncLoad( { store: { getState, dispatch }, location, history } ) {
   const state = getState();
-  const { location } = history;
-
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
 
