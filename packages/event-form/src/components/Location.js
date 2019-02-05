@@ -49,6 +49,16 @@ class LocationComponent extends Component {
 
       this.props.onChange( res.body );
 
+    }, err => {
+
+      console.log( 'could not load %s', locationUid );
+      console.log( err );
+
+      this.setState( {
+        initing: false,
+        mode: 'search'
+      } );
+
     } );
 
   }
