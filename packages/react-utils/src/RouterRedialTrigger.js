@@ -1,34 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Route } from 'react-router';
-import { trigger } from 'redial';
 // import NProgress from 'nprogress';
-import asyncMatchRoutes from './asyncMatchRoutes';
-
-async function triggerLocation( { location, history, routes, helpers } ) {
-  // load data while the old screen remains
-  const { components, match, params } = await asyncMatchRoutes( routes, location.pathname );
-  const triggerLocals = {
-    ...helpers,
-    match,
-    params,
-    history,
-    location
-  };
-
-  // Don't fetch data for initial route, server has already done the work:
-  if ( typeof window !== 'undefined' && window.__PRELOADED__ ) {
-    // Delete initial data so that subsequent data fetches can occur:
-    delete window.__PRELOADED__;
-  } else {
-    // Fetch mandatory data dependencies for 2nd route change onwards:
-    await trigger( 'fetch', components, triggerLocals );
-  }
-
-  if ( typeof window !== 'undefined' ) {
-    await trigger( 'defer', components, triggerLocals );
-  }
-};
 
 @withRouter
 class RouterRedialTrigger extends PureComponent {
@@ -36,6 +9,10 @@ class RouterRedialTrigger extends PureComponent {
     children: PropTypes.node.isRequired,
     history: PropTypes.objectOf( PropTypes.any ).isRequired,
     location: PropTypes.objectOf( PropTypes.any ).isRequired
+  };
+
+  static defaultProps = {
+    trigger: () => {}
   };
 
   state = {
@@ -69,11 +46,12 @@ class RouterRedialTrigger extends PureComponent {
   }
 
   trigger = () => {
-    const { location, history, routes, helpers } = this.props;
+    const { trigger } = this.props;
+    const { needTrigger } = this.state;
 
-    if ( this.state.needTrigger && typeof window !== 'undefined' ) {
+    if ( needTrigger ) {
       this.setState( { needTrigger: false }, () => {
-        triggerLocation( { location, history, routes, helpers } )
+        trigger()
           .catch( () => null )
           .then( () => {
             // clear previousLocation so the next screen renders

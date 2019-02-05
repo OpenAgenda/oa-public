@@ -6,6 +6,7 @@ import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
 import Waypoint from 'react-waypoint';
+import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
 import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
@@ -16,10 +17,8 @@ import * as modalActions from '../../redux/modules/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import setFlashMessage from '../../utils/setFlashMessage';
 
-function asyncLoad( { store: { getState, dispatch }, history } ) {
+function asyncLoad( { store: { getState, dispatch }, location, history } ) {
   const state = getState();
-  const { location } = state.router;
-
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
 
@@ -58,24 +57,28 @@ function asyncLoad( { store: { getState, dispatch }, history } ) {
   }
 } )
 @connect(
-  ( state, props ) => ({
-    initialValues: props.location.query && props.location.query.origin
-      ? _.merge( state.settings.defaultQuery, { params: { origin: props.location.query.origin } } )
-      : state.settings.defaultQuery,
-    settings: state.settings,
-    user: state.user,
-    conversations: state.inbox.data,
-    total: state.inbox.total,
-    totalOpened: state.inbox.totalOpened,
-    totalClosed: state.inbox.totalClosed,
-    loading: state.inbox.loading,
-    loaded: state.inbox.loaded,
-    nextLoading: state.inbox.nextLoading,
-    lastPage: state.inbox.lastPage,
-    author: state.conversation.author,
-    agenda: state.agenda,
-    res: state.res
-  }),
+  ( state, props ) => {
+    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      initialValues: query.origin
+        ? _.merge( state.settings.defaultQuery, { params: { origin: query.origin } } )
+        : state.settings.defaultQuery,
+      settings: state.settings,
+      user: state.user,
+      conversations: state.inbox.data,
+      total: state.inbox.total,
+      totalOpened: state.inbox.totalOpened,
+      totalClosed: state.inbox.totalClosed,
+      loading: state.inbox.loading,
+      loaded: state.inbox.loaded,
+      nextLoading: state.inbox.nextLoading,
+      lastPage: state.inbox.lastPage,
+      author: state.conversation.author,
+      agenda: state.agenda,
+      res: state.res
+    };
+  },
   { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions }
 )
 @getContext( {

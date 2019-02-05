@@ -9,18 +9,18 @@ function mergeAll( ...args ) {
 
   if ( args.length === 1 ) return _.first( args );
 
-  return args.slice( 1 ).reduce( merge, args[ 0 ] );
+  return args.slice( 1 ).reduce( reduceFields, _assignSchemaIdToNonAbstractFields( args[ 0 ] ) );
 
 }
 
-function merge( mergedIn, mergeWith ) {
+function reduceFields( mergedIn, mergeWith ) {
 
   if ( !_.get( mergeWith, 'fields' ) ) return mergedIn;
 
   if ( !_.get( mergedIn, 'fields' ) ) return mergeWith;
 
-  return _.assign( {}, mergedIn, { 
-    fields: mergeWith.fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
+  return _.assign( {}, mergedIn, {
+    fields: _assignSchemaIdToNonAbstractFields( mergeWith ).fields.concat( mergedIn.fields ).reduce( ( fields, field ) => {
 
       const index = fields.map( f => f.field ).indexOf( field.field );
 
@@ -68,8 +68,31 @@ function _mergeField( field, mergeWithField ) {
 
   }
 
+  if ( field.schemaId ) {
+
+    update[ 'schemaId' ] = { $set: field.schemaId };
+
+  }
+
   if ( !_.keys( update ).length ) return field;
 
   return ih( field, update );
+
+}
+
+function _assignSchemaIdToNonAbstractFields( schema ) {
+
+  return {
+    custom: _.get( schema, 'custom', {} ),
+    fields: _.get( schema, 'fields', [] ).map( f => _.assign( {}, f, {
+      schemaId: _isAbstract( f ) ? null : _.get( schema, 'id', null )
+    } ) )
+  }
+
+}
+
+function _isAbstract( field ) {
+
+  return _.get( field, 'fieldType', 'abstract' ) === 'abstract'
 
 }

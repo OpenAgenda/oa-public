@@ -90,12 +90,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
@@ -167,12 +167,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
@@ -242,12 +242,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       cmn.render(
@@ -350,12 +350,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -493,12 +493,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -621,12 +621,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -750,12 +750,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -879,12 +879,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -1000,12 +1000,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -1123,12 +1123,12 @@ app.use(
       }
 
       if ( context.url ) {
-        return res.redirect( 301, context.url );
+        return res.redirect( 302, context.url );
       }
 
       const { pathname, search } = state.router.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {

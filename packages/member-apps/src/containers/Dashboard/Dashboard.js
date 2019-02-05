@@ -8,8 +8,9 @@ import classNames from 'classnames';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import upperFirst from 'lodash/upperFirst';
-import { ButtonGroup, Button, DropdownButton, MenuItem } from 'react-bootstrap';
+import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
+import qs from 'qs';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
@@ -25,9 +26,9 @@ import { renderField, renderSearchInput } from '../../utils/form';
 const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
-    const query = state.router.location.query;
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
 
     if ( !membersActions.isLoaded( state ) ) {
@@ -39,29 +40,34 @@ const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
   }
 } )
 @connect(
-  ( state, props ) => ({
-    initialValues: {
-      search: (props.location.query || {}).search || ''
-    },
-    res: state.res,
-    credentials: state.agenda.credentials,
-    userShId: state.stakeholder.id,
-    userCredential: state.stakeholder.credential,
-    stakeholders: state.members.data,
-    page: state.members.page,
-    total: state.members.total,
-    loading: state.members.loading,
-    nextLoading: state.members.nextLoading,
-    credFilters: state.members.credFilters,
-    showInviteResult: state.members.showInviteResult,
-    inviteError: state.members.inviteError,
-    stats: state.members.stats || {},
-    search: dashboardValuesSelector( state, 'search' ),
-    agenda: state.agenda,
-    perPageLimit: state.settings.perPageLimit,
-    modals: state.modals,
-    roles: state.agenda.roles
-  }),
+  ( state, props ) => {
+    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      initialValues: {
+        search: query.search || ''
+      },
+      query,
+      res: state.res,
+      credentials: state.agenda.credentials,
+      userShId: state.stakeholder.id,
+      userCredential: state.stakeholder.credential,
+      stakeholders: state.members.data,
+      page: state.members.page,
+      total: state.members.total,
+      loading: state.members.loading,
+      nextLoading: state.members.nextLoading,
+      credFilters: state.members.credFilters,
+      showInviteResult: state.members.showInviteResult,
+      inviteError: state.members.inviteError,
+      stats: state.members.stats || {},
+      search: dashboardValuesSelector( state, 'search' ),
+      agenda: state.agenda,
+      perPageLimit: state.settings.perPageLimit,
+      modals: state.modals,
+      roles: state.agenda.roles
+    }
+  },
   { ...membersActions, ...modalsActions }
 )
 @reduxForm( {
@@ -114,7 +120,7 @@ export default class Dashboard extends Component {
     const query = { search: search || undefined, credentials: credFilters };
 
     return list( query )
-      .then( () => history.push( { ...location, query } ) );
+      .then( () => history.push( { ...location, search: qs.stringify( query, { arrayFormat: 'brackets' } ) } ) );
   }
 
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
@@ -309,10 +315,9 @@ export default class Dashboard extends Component {
       res, handleSubmit, stakeholders, total, loading, nextLoading, stats, search, getStats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage, credFilters,
       showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
-      location = {}
+      query
     } = this.props;
     const { getLabel, lang } = this.context;
-    const { query = {} } = location;
 
     const {
       administrator: totalAdministrator,

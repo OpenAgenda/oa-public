@@ -71,7 +71,7 @@ function _loadTagSet( v ) {
 
 function decorateEvent( agenda, event, toDecorate, options, cb ) {
 
-  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', { 
+  toDecorate.canonicalUrl = genUrl( 'agendaEventShow', {
     slug: agenda.slug,
     eventSlug: event.slug
   }, { protocol: 'https://' } );
@@ -174,7 +174,7 @@ function _addFreeTextSuffixes( v ) {
 
     } );
 
-    
+
   }
 
   return v;
@@ -215,14 +215,18 @@ function _addTagGroups( v ) {
     name: g.name,
     access: g.access || 'public',
     slug: g.name ? slugs.generate( g.name ) : null,
-    tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => { return { label: t.label, slug: t.slug, id: t.id } } )
+    tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => ( _.assign( {
+      label: t.label,
+      slug: t.slug,
+      id: t.id
+    }, t.schemaOptionId ? { schemaOptionId: t.schemaOptionId } : {} ) ) )
   } ) )
 
   .filter( g => {
 
     if ( v.includePrivateData ) return true;
 
-    return _.get( g, 'access', 'public' ) === 'public' 
+    return _.get( g, 'access', 'public' ) === 'public'
 
   } )
 

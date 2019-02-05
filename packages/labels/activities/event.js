@@ -18,8 +18,8 @@ module.exports = {
     fr: '%user% a retiré %event% de %agenda%.'
   },
   'agenda.aggregateEvent': {
-    en: '%agenda% aggregated l\'événement from %sourceAgenda%.',
-    fr: '%agenda% a agrégé l\'événement à partir de %sourceAgenda%.'
+    en: '%agenda% aggregated %event% from %sourceAgenda%.',
+    fr: '%agenda% a agrégé %event% à partir de %sourceAgenda%.'
   },
   'event.create': {
     en: '%user% created %event% in the agenda %agenda%.',

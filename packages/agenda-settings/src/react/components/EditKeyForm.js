@@ -12,8 +12,8 @@ export default class EditKeyForm extends Component {
     lang: PropTypes.string
   };
 
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.renderField = renderField.bind( this );
     this.renderInput = renderInput.bind( this );
     this.renderTextarea = renderTextarea.bind( this );

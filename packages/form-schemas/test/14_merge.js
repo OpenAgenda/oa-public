@@ -1,61 +1,89 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const should = require( 'should' );
 
 const merge = require( '../iso/merge' );
 
-describe( 'unit - assigning schema properties to another schema', function() {
+describe( 'unit - assigning schema properties to another schema', () => {
 
-  it( 'ids of options of merged schemas are no longer unique', () => {
+  describe( 'simple merge', () => {
 
-    const agendaSchema = {
-      fields: [ {
-        field: 'someagendafield',
-        fieldType: 'radio',
-        options: [ {
-          id: 1,
-          value: 'clubs',
-          label: 'Clubs'
-        }, {
-          id: 2,
-          value: 'comite',
-          label: 'Comités'
+    let merged;
+
+    before( () => {
+
+      const networkSchema = {
+        id: 1,
+        fields: [ {
+          field: 'somenetworkfield',
+          fieldType: 'checkbox',
+          options: [ {
+            id: 1,
+            value: 'dogs',
+            label: 'Dogs'
+          }, {
+            id: 2,
+            value: 'tics',
+            label: 'Tics'
+          } ]
         } ]
-      } ]
-    };
+      };
 
-    const networkSchema = {
-      fields: [ {
-        field: 'somenetworkfield',
-        fieldType: 'checkbox',
-        options: [ {
-          id: 1,
-          value: 'dogs',
-          label: 'Dogs'
-        }, {
-          id: 2,
-          value: 'tics',
-          label: 'Tics'
+      const agendaSchema = {
+        id: 2,
+        fields: [ {
+          field: 'someagendafield',
+          fieldType: 'radio',
+          options: [ {
+            id: 1,
+            value: 'clubs',
+            label: 'Clubs'
+          }, {
+            id: 2,
+            value: 'comite',
+            label: 'Comités'
+          } ]
         } ]
-      } ]
-    };
+      };
 
-    merge( networkSchema, agendaSchema ).fields.map( f => f.options )
-      .should.eql( [ 
-        [ 
-          { id: 1, value: 'clubs', label: 'Clubs' },
-          { id: 2, value: 'comite', label: 'Comités' } 
-        ], [ 
-          { id: 1, value: 'dogs', label: 'Dogs' },
-          { id: 2, value: 'tics', label: 'Tics' }
-        ] 
-      ] );
+      merged = merge( networkSchema, agendaSchema );
+
+    } );
+
+    it( 'ids of options of merged schemas are no longer unique', () => {
+
+      merged.fields.map( f => f.options )
+        .should.eql( [
+          [
+            { id: 1, value: 'clubs', label: 'Clubs' },
+            { id: 2, value: 'comite', label: 'Comités' }
+          ], [
+            { id: 1, value: 'dogs', label: 'Dogs' },
+            { id: 2, value: 'tics', label: 'Tics' }
+          ]
+        ] );
+
+    } );
+
+    it( 'in-field identifier of schema shows where field was defined', () => {
+
+      merged.fields.map( f => _.pick( f, [ 'field', 'schemaId' ] ) )
+        .should.eql( [ {
+          field: 'someagendafield',
+          schemaId: 2
+        }, {
+          field: 'somenetworkfield',
+          schemaId: 1
+        } ] );
+
+    } );
 
   } );
 
   // ids will need to be prefixed by formschema id before they can make sense
-  
+
   it( 'order of fields is dictated by outer-most schema', () => {
 
     const eventSchema = {
@@ -104,13 +132,14 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'merge extends schemas', () => {
 
     const s1 = {
+      id: 1,
       fields: [ {
         field: "participants",
         optional: false,
         fieldType: "integer",
         label: "Participants",
         info: "Combien de participants"
-      }, { 
+      }, {
         field: 'keywords',
         fieldType: 'keywords',
         optional: true,
@@ -120,12 +149,13 @@ describe( 'unit - assigning schema properties to another schema', function() {
     };
 
     const s2 = {
+      id: 2,
       fields: [ {
         field: 'organizer',
         optional: false,
         fieldType: 'text',
         label: 'Organizer'
-      }, { 
+      }, {
         field: 'keywords',
         fieldType: 'abstract',
         display: false
@@ -133,6 +163,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     };
 
     const s3 = {
+      id: 3,
       fields: [ {
         field: 'budget',
         optional: false,
@@ -141,34 +172,39 @@ describe( 'unit - assigning schema properties to another schema', function() {
       } ]
     };
 
-    merge( s1, s2, s3 ).should.eql( { 
-      fields: [ { 
+    merge( s1, s2, s3 ).should.eql( {
+      custom: {},
+      fields: [ {
         field: 'budget',
         optional: false,
         fieldType: 'text',
-        label: 'Budget' 
-      }, { 
+        label: 'Budget',
+        schemaId: 3
+      }, {
         field: 'organizer',
         optional: false,
         fieldType: 'text',
-        label: 'Organizer' 
+        label: 'Organizer',
+        schemaId: 2
       }, {
         field: 'keywords',
         fieldType: 'keywords',
         label: 'Mots clés',
         max: 255,
         optional: true,
-        display: false
+        display: false,
+        schemaId: 1
       }, {
         field: 'participants',
         optional: false,
         fieldType: 'integer',
         label: 'Participants',
-        info: 'Combien de participants' 
-      } ] 
+        info: 'Combien de participants',
+        schemaId: 1
+      } ]
     } );
 
-  } ); 
+  } );
 
   it( 'merge can render optional field non-optional', () => {
 
@@ -202,6 +238,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'merge can relabel fields', () => {
 
     const schema = {
+      id: 1,
       fields: [ {
         "field": "participants",
         "optional": true,
@@ -222,6 +259,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     }
 
     const abstract = {
+      id: 2,
       fields: [ {
         field: 'participants',
         fieldType: 'abstract',
@@ -237,6 +275,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     };
 
     merge( schema, abstract ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "participants",
         "optional": true,
@@ -252,7 +291,8 @@ describe( 'unit - assigning schema properties to another schema', function() {
           en: 'How many people'
         },
         "placeholder" : null,
-        "sub" : null
+        "sub" : null,
+        schemaId: 1
       } ]
     } );
 
@@ -262,6 +302,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'an abstract field is maintained as abstract as long as no field with the same name is added to the merge', () => {
 
     const schema = {
+      id: 1,
       fields: [ {
         "field": "title",
         "fieldType": "text",
@@ -270,6 +311,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     }
 
     const abstract = {
+      id: 2,
       fields: [ {
         field: 'references',
         fieldType: 'abstract',
@@ -277,16 +319,19 @@ describe( 'unit - assigning schema properties to another schema', function() {
       } ]
     };
 
-    merge( schema, abstract ).should.eql( { 
-      fields: [ { 
+    merge( schema, abstract ).should.eql( {
+      custom: {},
+      fields: [ {
         field: 'references',
         fieldType: 'abstract',
-        label: 'Références' 
+        label: 'Références',
+        schemaId: null
       }, {
-        field: 'title', 
+        field: 'title',
         fieldType: 'text',
-        label: 'Titre' 
-      } ] 
+        label: 'Titre',
+        schemaId: 1
+      } ]
     } );
 
   } );
@@ -295,37 +340,37 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'all values of an abstract field trickle down to merge', () => {
 
     const schema = {
-      "fields": [
-        {
-          field: 'references',
-          label: 'Evénements liés',
-          fieldType: 'references',
-          suggest: false,
-          related: [ 'title', 'description', 'location' ],
-          res: '/references'
-        }
-      ]
+      id: 1,
+      fields: [ {
+        field: 'references',
+        label: 'Evénements liés',
+        fieldType: 'references',
+        suggest: false,
+        related: [ 'title', 'description', 'location' ],
+        res: '/references'
+      } ]
     };
 
     const abstract = {
-      fields: [
-        {
-          field : 'references',
-          fieldType: 'abstract',
-          suggest : true
-        }
-      ]
+      id: 2,
+      fields: [ {
+        field : 'references',
+        fieldType: 'abstract',
+        suggest : true
+      } ]
     };
 
     merge( schema, abstract ).should.eql( {
+      custom: {},
       fields: [ {
         field: 'references',
         label: 'Evénements liés',
         fieldType: 'references',
         suggest: true,
         related: [ 'title', 'description', 'location' ],
-        res: '/references' 
-      } ] 
+        res: '/references',
+        schemaId: 1
+      } ]
     } );
 
   } );
@@ -334,6 +379,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'null schemas are ignored', () => {
 
     const schema = {
+      id: 1,
       fields: [ {
         "field": "title",
         "fieldType": "text",
@@ -342,20 +388,59 @@ describe( 'unit - assigning schema properties to another schema', function() {
     }
 
     merge( null, schema ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "title",
         "fieldType": "text",
-        "label": "Titre"
+        "label": "Titre",
+        schemaId: 1
       } ]
     } );
 
     merge( schema, null ).should.eql( {
+      custom: {},
       fields: [ {
         "field": "title",
         "fieldType": "text",
-        "label": "Titre"
+        "label": "Titre",
+        schemaId: 1
       } ]
     } );
+
+  } );
+
+  it( 'origin value is maintained when present', () => {
+
+    const schema = {
+      id: 1,
+      fields: [ {
+        field: 'chooseyouravatar',
+        fieldType: 'radio',
+        optional: true,
+        origin: 'tags',
+        options: [ {
+          label: 'Retarded cat',
+          id: 1
+        }, {
+          label: 'Phteven',
+          id: 2
+        } ]
+      } ]
+    };
+
+    const otherSchema = {
+      id: 1,
+      fields: [ {
+        "field": "title",
+        "fieldType": "text",
+        "label": "Titre",
+        origin: 'custom'
+      } ]
+    }
+
+    const merged = merge( schema, otherSchema );
+
+    merged.fields.map( f => f.origin ).should.eql( [ 'custom', 'tags' ] );
 
   } );
 
@@ -363,6 +448,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
   it( 'options can be limited to allowed set through a schema merge', () => {
 
     const schema = {
+      id: 1,
       fields: [ {
         field: 'chooseyouravatar',
         fieldType: 'radio',
@@ -378,6 +464,7 @@ describe( 'unit - assigning schema properties to another schema', function() {
     };
 
     const restrictiveSchema = {
+      id: 2,
       fields: [ {
         field: 'chooseyouravatar',
         fieldType: 'abstract',
@@ -392,7 +479,8 @@ describe( 'unit - assigning schema properties to another schema', function() {
       options: [ {
         label: 'Phteven',
         id: 2
-      } ]
+      } ],
+      schemaId: 1
     } ] );
 
   } );

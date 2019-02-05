@@ -6,7 +6,7 @@ import createAppHome from '@openagenda/home/dist/client/app';
 import createAppUserSettings from '@openagenda/user-apps/dist/app';
 import NotFoundDisplayer from './NotFoundDisplayer';
 
-const history = window.masterHistory = createBrowserHistory();
+const history = createBrowserHistory();
 const { initialState } = JSON.parse( document.querySelector( 'body' ).getAttribute( 'data-options' ) );
 
 // create apps with the good initialState

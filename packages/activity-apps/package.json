@@ -44,6 +44,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.24.0",
     "prop-types": "^15.5.8",
+    "qs": "^6.6.0",
     "react-bootstrap": "^0.31.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",

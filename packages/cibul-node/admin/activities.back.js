@@ -62,12 +62,12 @@ async function matchApp( req, res, next ) {
     }
 
     if ( context.url ) {
-      return res.redirect( 301, context.url );
+      return res.redirect( 302, context.url );
     }
 
     const { pathname, search } = state.router.location;
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 301, pathname );
+      return res.redirect( 302, pathname );
     }
 
     cmn.render(

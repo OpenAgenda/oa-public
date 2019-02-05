@@ -88,6 +88,7 @@
     "feathers-authentication-hooks": "^0.3.0",
     "feathers-hooks-common": "^4.20.2",
     "gm": "^1.23.1",
+    "history": "^4.7.2",
     "hsts": "^2.1.0",
     "immutability-helper": "^3.0.0",
     "isemail": "^3.1.2",

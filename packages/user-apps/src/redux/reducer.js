@@ -1,9 +1,7 @@
 import { reducer as form } from 'redux-form';
-import { connectRouter } from 'connected-react-router';
 import userSettings from './modules/userSettings';
 
-export default ( history, asyncReducers ) => ({
-  router: connectRouter( history ),
+export default asyncReducers => ({
   form,
   userSettings,
   res: ( s = {} ) => s,

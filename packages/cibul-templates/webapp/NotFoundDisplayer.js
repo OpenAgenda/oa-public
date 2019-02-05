@@ -23,7 +23,7 @@ export default class NotFoundDisplayer extends Component {
     if ( display !== this.props.display ) {
       this.setState( { display } );
     }
-  }
+  };
 
   unlisten = this.props.history.listen( this.handleLocationChange );
 

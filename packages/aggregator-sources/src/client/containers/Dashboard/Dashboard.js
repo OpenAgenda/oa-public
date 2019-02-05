@@ -4,6 +4,7 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { debounce, throttle } from 'lodash';
+import qs from 'qs';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
@@ -21,9 +22,9 @@ const searchSpinner = {
 
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
-    const query = state.router.location.query;
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
 
     if ( !sourcesActions.isLoaded( state ) ) {
@@ -34,21 +35,26 @@ const searchSpinner = {
   }
 } )
 @connect(
-  ( state, props ) => ({
-    initialValues: {
-      search: props.location.query && props.location.query.search ? props.location.query.search : ''
-    },
-    res: state.res,
-    agendas: state.sources.data,
-    page: state.sources.page,
-    total: state.sources.total,
-    loading: state.sources.loading,
-    nextLoading: state.sources.nextLoading,
-    search: selector( state, 'search' ),
-    agenda: state.agenda,
-    perPageLimit: state.settings.perPageLimit,
-    modals: state.modals
-  }),
+  ( state, props ) => {
+    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      initialValues: {
+        search: query.search || ''
+      },
+      query,
+      res: state.res,
+      agendas: state.sources.data,
+      page: state.sources.page,
+      total: state.sources.total,
+      loading: state.sources.loading,
+      nextLoading: state.sources.nextLoading,
+      search: selector( state, 'search' ),
+      agenda: state.agenda,
+      perPageLimit: state.settings.perPageLimit,
+      modals: state.modals
+    };
+  },
   { ...sourcesActions, ...modalsActions, ...agendaActions }
 )
 @reduxForm( {
@@ -73,7 +79,6 @@ export default class Dashboard extends Component {
   };
 
   static contextTypes = {
-    router: PropTypes.object,
     getLabel: PropTypes.func
   };
 
@@ -120,9 +125,9 @@ export default class Dashboard extends Component {
 
   search = values => this.props.list( values )
     .then( () => {
-      this.context.router.push( {
+      this.props.history.push( {
         ...this.props.location,
-        query: { ...this.props.location.query, search: values.search || undefined }
+        search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
       } );
     } );
 
@@ -147,7 +152,7 @@ export default class Dashboard extends Component {
     const {
       res, handleSubmit, agendas, total, loading, nextLoading,
       showModal, closeModal, modals, remove, createAggregator,
-      search, agenda, perPageLimit, location: { query = {} }
+      search, agenda, perPageLimit, query
     } = this.props;
     const { getLabel } = this.context;
 

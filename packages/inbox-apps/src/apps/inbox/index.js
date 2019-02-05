@@ -41,7 +41,12 @@ export default function ( options ) {
         : v => v
     )
   );
-  const helpers = { client, store };
+  const helpers = {
+    client,
+    store,
+    history,
+    location: history.location
+  };
   const context = {};
 
   const routes = getRoutes( prefix );
@@ -77,9 +82,7 @@ export default function ( options ) {
       const triggerLocals = {
         ...helpers,
         match,
-        params,
-        history,
-        location: history.location
+        params
       };
 
       // Don't fetch data for initial route, server has already done the work:

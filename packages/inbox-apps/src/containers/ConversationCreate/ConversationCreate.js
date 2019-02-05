@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
+import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
 import * as conversationFormActions from '../../redux/modules/conversationForm';
@@ -37,18 +38,22 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
   }
 } )
 @connect(
-  ( state, props ) => ({
-    initialValues: props.location.query && props.location.query.origin
-      ? _.merge( state.settings.defaultQuery, { params: { origin: props.location.query.origin } } )
-      : state.settings.defaultQuery,
-    settings: state.settings,
-    conversations: state.inbox.data,
-    author: state.conversation.author,
-    loading: state.inbox.loading || state.conversation.authorFetching,
-    loaded: state.inbox.loaded && state.conversation.author,
-    agenda: state.agenda,
-    res: state.res
-  }),
+  ( state, props ) => {
+    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      initialValues: query.origin
+        ? _.merge( state.settings.defaultQuery, { params: { origin: query.origin } } )
+        : state.settings.defaultQuery,
+      settings: state.settings,
+      conversations: state.inbox.data,
+      author: state.conversation.author,
+      loading: state.inbox.loading || state.conversation.authorFetching,
+      loaded: state.inbox.loaded && state.conversation.author,
+      agenda: state.agenda,
+      res: state.res
+    };
+  },
   {
     ...conversationFormActions,
     ...modalActions,

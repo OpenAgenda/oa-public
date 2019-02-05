@@ -59,7 +59,6 @@ export default class AgendasSearch extends Component {
   };
 
   static contextTypes = {
-    router: PropTypes.object,
     getLabel: PropTypes.func
   };
 
