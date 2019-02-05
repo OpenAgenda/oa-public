@@ -158,7 +158,7 @@ export default class Events extends Component {
   render() {
     const {
       res, handleSubmit, events, loading, listLoading, nextLoading,
-      search, perPageLimit, total, history, query,
+      search, perPageLimit, total, query,
       showModal, closeModal, modals, agendasLoad
     } = this.props;
     const { getLabel } = this.context;

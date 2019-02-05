@@ -13,7 +13,7 @@ import { AgendasSearch, Welcome } from '../components';
   fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
 })
 @connect( ( state, props ) => ({
-  query: qs.parse( props.search, { ignoreQueryPrefix: true } ),
+  query: qs.parse( props.location.search, { ignoreQueryPrefix: true } ),
   res: state.res,
   isNew: state.settings.isNew,
   loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
