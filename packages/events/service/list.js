@@ -257,6 +257,12 @@ function _addWheres( knex, query, options ) {
 
   }
 
+  if ( query.locationUid !== null ) {
+
+    wheres.location_uid = query.locationUid;
+
+  }
+
   if ( Object.keys( wheres ).length ) {
 
     knex.where( wheres );

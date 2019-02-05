@@ -87,6 +87,14 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
+  it( 'search by location uid', async () => {
+
+    const { total } = await svc.list( { locationUid: 27085826 }, 0, 20, { total: true } );
+
+    total.should.equal( 9 );
+
+  } );
+
 
   it( 'retrieve events created after a given date', async () => {
 
@@ -159,7 +167,7 @@ describe( 'events - functional (server): list', function() {
 
     svc.list( 0, 1, ( err, events ) => {
 
-      Object.keys( events[ 0 ] ).should.eql( [ 
+      Object.keys( events[ 0 ] ).should.eql( [
         'slug',
         'uid',
         'title',
@@ -172,7 +180,7 @@ describe( 'events - functional (server): list', function() {
         'locationUid',
         'accessibility',
         'age',
-        'registration' 
+        'registration'
       ] );
 
       done();
