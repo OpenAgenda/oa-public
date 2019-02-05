@@ -7,6 +7,7 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import Waypoint from 'react-waypoint';
+import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
@@ -19,9 +20,9 @@ import { SearchInput, AgendasSearch } from '../components';
 const selector = formValueSelector( 'homeEvents' );
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
-    const query = state.router.location.query;
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [
       dispatch( setTab( 'events' ) )
     ];
@@ -34,22 +35,27 @@ const selector = formValueSelector( 'homeEvents' );
   }
 } )
 @connect(
-  ( state, props ) => ({
-    initialValues: {
-      search: props.location.query && props.location.query.search ? props.location.query.search : ''
-    },
-    res: state.res,
-    events: state.events.data,
-    page: state.events.page,
-    total: state.events.total,
-    loading: state.events.loading,
-    listLoading: state.events.listLoading,
-    nextLoading: state.events.nextLoading,
-    search: selector( state, 'search' ),
-    perPageLimit: state.settings.perPageLimit,
-    lang: state.settings.lang,
-    modals: state.modals
-  }),
+  ( state, props ) => {
+    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+
+    return {
+      initialValues: {
+        search: query.search || ''
+      },
+      query,
+      res: state.res,
+      events: state.events.data,
+      page: state.events.page,
+      total: state.events.total,
+      loading: state.events.loading,
+      listLoading: state.events.listLoading,
+      nextLoading: state.events.nextLoading,
+      search: selector( state, 'search' ),
+      perPageLimit: state.settings.perPageLimit,
+      lang: state.settings.lang,
+      modals: state.modals
+    };
+  },
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load, replace }
 )
 @reduxForm( {
@@ -75,15 +81,14 @@ export default class Events extends Component {
   };
 
   static contextTypes = {
-    router: PropTypes.object,
     getLabel: PropTypes.func
   };
 
   search = values => this.props.list( values )
     .then( () => {
-      this.context.router.push( {
+      this.props.history.push( {
         ...this.props.location,
-        query: { ...this.props.location.query, search: values.search || undefined }
+        search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
       } );
     } );
 
@@ -153,7 +158,7 @@ export default class Events extends Component {
   render() {
     const {
       res, handleSubmit, events, loading, listLoading, nextLoading,
-      search, perPageLimit, total, location: { query = {} },
+      search, perPageLimit, total, query,
       showModal, closeModal, modals, agendasLoad
     } = this.props;
     const { getLabel } = this.context;
@@ -193,7 +198,7 @@ export default class Events extends Component {
         </form>
         <div className="clearfix"></div>
         <ul className="list-unstyled padding-top-sm">
-          {events && events.map( ( event, i ) => (
+          {events && events.map( event => (
           <li key={event.uid} className={'event-item media' + (event.draft ? ' draft' : '')}>
             <div className="padding-all-md">
               <div className="media-left">
