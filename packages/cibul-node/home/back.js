@@ -6,6 +6,7 @@ const ReactDOM = require( 'react-dom/server' );
 const sessions = require( '@openagenda/sessions' );
 const homeMw = require( '@openagenda/home/dist/middleware' );
 const { createMemoryHistory } = require( 'history' );
+const asyncMatchRoutes = require( '@openagenda/react-utils/dist/asyncMatchRoutes' );
 const createHomeApp = require( '@openagenda/home/dist/client/app' );
 const createUserSettingsApp = require( '@openagenda/user-apps/dist/app' );
 const createActivitiesApp = require( '@openagenda/activity-apps/dist/client/apps/user' );
@@ -23,7 +24,7 @@ const preMw = [
 module.exports = app => {
 
   app.get(
-    [ '/*' ],
+    [ '/home', '/home/events', '/settings/?*?' ],
     preMw,
     cmn.loadBaseData( 'oasfmain.css' ),
     matchApp
@@ -123,14 +124,20 @@ async function matchApp( req, res, next ) {
       } )
     };
 
-    // First render for trigger 404
-    // TODO filter visible apps without double render
-    ReactDOM.renderToString( Object.values( apps ).map( ( { element } ) => element ) );
+    const visibleApps = await Object.entries( apps )
+      .reduce( async ( result, [ key, app ] ) => {
+        const { components } = await asyncMatchRoutes( app.routes, req.originalUrl );
 
-    const visibleApps = _.pickBy( apps, app => {
-      const locationState = _.get( app, 'staticContext.location.state' );
-      return !locationState || !_.get( locationState, `notFound.${app.notFoundKey}` );
-    } );
+        if ( !components.some( v => (v && v.isNotFound) ) ) {
+
+          return {
+            ...await result,
+            [ key ]: app
+          }
+        }
+
+        return result;
+      }, {} );
 
     // Triggers hooks
     await Promise.all(
@@ -139,8 +146,8 @@ async function matchApp( req, res, next ) {
         .map( v => v.triggerHooks().catch( () => null ) )
     );
 
-    // Second render: content to render
-    const content = ReactDOM.renderToString( Object.values( visibleApps ).map( ( { element } ) => element ) );
+    // Render all visible apps
+    const content = ReactDOM.renderToString( Object.values( visibleApps ).map( v => v.element ) );
 
     // Avoid all settings.apiRoot
     const initialState = _.mapValues( apps, app => {
@@ -158,8 +165,6 @@ async function matchApp( req, res, next ) {
       return next();
     }
 
-    const { pathname, search } = history.location;
-
     // Check if <Redirect /> is used
     for ( const appName in visibleApps ) {
       const app = apps[ appName ];
@@ -172,6 +177,8 @@ async function matchApp( req, res, next ) {
         return res.redirect( app.staticContext.status || 302, app.staticContext.url );
       }
     }
+
+    const { pathname, search } = history.location;
 
     // Check if location change anywhere else
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {

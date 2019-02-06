@@ -13,9 +13,6 @@ const NotFound = ( { staticContext, route, history, location } ) => {
 
   if ( staticContext ) {
     staticContext.status = 404;
-    history.replace( { state: newLocationState } );
-
-    return null;
   }
 
   return <Redirect to={{ state: newLocationState }} />;

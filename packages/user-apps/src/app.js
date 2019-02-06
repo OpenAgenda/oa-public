@@ -66,13 +66,13 @@ export default function ( options ) {
   const routes = getRoutes( prefix, notFoundKey );
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
-    <RouterRedialTrigger trigger={triggerHooks}>
-      <NotFound.Capture notFoundkey={notFoundKey}>
-          <Provider store={store} context={ReactReduxContext}>
-            {renderRoutes( routes )}
-          </Provider>
-      </NotFound.Capture>
-    </RouterRedialTrigger>
+    <NotFound.Capture notFoundkey={notFoundKey}>
+      <RouterRedialTrigger trigger={triggerHooks}>
+        <Provider store={store} context={ReactReduxContext}>
+          {renderRoutes( routes )}
+        </Provider>
+      </RouterRedialTrigger>
+    </NotFound.Capture>
   );
 
   const element = (
