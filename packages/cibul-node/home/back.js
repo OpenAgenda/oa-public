@@ -23,14 +23,7 @@ const preMw = [
 module.exports = app => {
 
   app.get(
-    '/home',
-    preMw,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    matchApp
-  );
-
-  app.get(
-    '/home/events',
+    [ '/*' ],
     preMw,
     cmn.loadBaseData( 'oasfmain.css' ),
     matchApp
@@ -62,14 +55,6 @@ module.exports = app => {
   );
 
 }
-
-const isNotFound = apps => Object.values( apps )
-  .filter( app => app.history )
-  .map( app => ({
-    state: (app.history.location.state || {}),
-    notFoundKey: app.notFoundKey
-  }) )
-  .every( ( { state, notFoundKey } ) => (state.notFound && state.notFound[ notFoundKey ]) );
 
 async function matchApp( req, res, next ) {
   try {
@@ -138,18 +123,24 @@ async function matchApp( req, res, next ) {
       } )
     };
 
-    // Triggers all hooks
+    // First render for trigger 404
+    // TODO filter visible apps without double render
+    ReactDOM.renderToString( Object.values( apps ).map( ( { element } ) => element ) );
+
+    const visibleApps = _.pickBy( apps, app => {
+      const locationState = _.get( app, 'staticContext.location.state' );
+      return !locationState || !_.get( locationState, `notFound.${app.notFoundKey}` );
+    } );
+
+    // Triggers hooks
     await Promise.all(
-      Object.values( apps )
+      Object.values( visibleApps )
         .filter( v => v.triggerHooks )
         .map( v => v.triggerHooks().catch( () => null ) )
     );
 
-    // Render all apps
-    const content = ReactDOM.renderToString(
-      Object.entries( apps ).map( ( [ key, { element } ] ) =>
-        React.cloneElement( element, { key, ...element.props } ) )
-    );
+    // Second render: content to render
+    const content = ReactDOM.renderToString( Object.values( visibleApps ).map( ( { element } ) => element ) );
 
     // Avoid all settings.apiRoot
     const initialState = _.mapValues( apps, app => {
@@ -163,24 +154,24 @@ async function matchApp( req, res, next ) {
     } );
 
     // Check if it's not found
-    if ( isNotFound( apps ) ) {
+    if ( !Object.keys( visibleApps ).length ) {
       return next();
     }
 
     const { pathname, search } = history.location;
 
     // Check if <Redirect /> is used
-    // for ( const appName in apps ) {
-    //   const app = apps[ appName ];
-    //
-    //   if (
-    //     app.staticContext
-    //     && app.staticContext.url
-    //     && !_.get( app, `history.location.state.${app.notFoundKey}` )
-    //   ) {
-    //     return res.redirect( app.staticContext.status || 302, app.staticContext.url );
-    //   }
-    // }
+    for ( const appName in visibleApps ) {
+      const app = apps[ appName ];
+
+      if (
+        app.staticContext
+        && app.staticContext.url
+        && !_.get( app, `staticContext.location.state.${app.notFoundKey}` )
+      ) {
+        return res.redirect( app.staticContext.status || 302, app.staticContext.url );
+      }
+    }
 
     // Check if location change anywhere else
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter, Redirect } from 'react-router';
 
-const NotFound = ( { staticContext = {}, route, location } ) => {
+const NotFound = ( { staticContext, route, history, location } ) => {
   const locationState = location.state || {};
   const newLocationState = {
     ...locationState,
@@ -11,7 +11,12 @@ const NotFound = ( { staticContext = {}, route, location } ) => {
     }
   };
 
-  staticContext.status = 404;
+  if ( staticContext ) {
+    staticContext.status = 404;
+    history.replace( { state: newLocationState } );
+
+    return null;
+  }
 
   return <Redirect to={{ state: newLocationState }} />;
 };
