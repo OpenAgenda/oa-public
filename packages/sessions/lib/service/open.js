@@ -65,7 +65,7 @@ var open = function () {
             _context.t0 = _context['catch'](10);
 
 
-            log('error', 'user validation failed on %j', user);
+            log('error', 'user validation failed on %j', user, _context.t0);
 
             return _context.abrupt('return', { errors: _context.t0, success: false });
 

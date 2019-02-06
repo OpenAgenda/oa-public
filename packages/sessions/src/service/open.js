@@ -57,7 +57,7 @@ async function open( request, response, identifier ) {
 
   } catch ( errors ) {
 
-    log( 'error', 'user validation failed on %j', user );
+    log( 'error', 'user validation failed on %j', user, errors );
 
     return { errors, success: false }
 
