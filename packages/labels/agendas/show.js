@@ -129,7 +129,10 @@ module.exports = {
   },
   "noResultForSearchPleaseWiden": {
     "en": "There are no matching events. Please widen your search.",
-    "fr": "Aucun événement trouvé. Veuillez élargir votre recherche."
+    "fr": "Aucun événement trouvé. Veuillez élargir votre recherche.",
+    "it": "Non ci sono eventi corrispondenti. Si prega di ampliare la ricerca.",
+    "de": "Es gibt keine passenden Veranstaltungen. Bitte erweitern Sie Ihre Suche.",
+    "pl": "Nie ma pasujących zdarzeń. Proszę rozszerzyć zakres wyszukiwania."
   },
   "noResultForSearchWithLink": {
     "en": "There are no results for this search. You can make a site-wide search from the page header, or %page%",
@@ -203,7 +206,10 @@ module.exports = {
   },
   "countEvent": {
     "en": "1 event",
-    "fr": "1 événement"
+    "fr": "1 événement",
+    "it": "1 evento",
+    "de": "1 Veranstaltung",
+    "pl": "1 wydarzenie"
   },
   "countUpcomingEvents": {
     "en": "%count% upcoming events",
