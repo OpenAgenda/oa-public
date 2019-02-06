@@ -6,6 +6,8 @@ const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );
 
 const agendaSvc = require( '@openagenda/agendas' );
+const core = require( '../core' );
+
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const errorLabels = require( '@openagenda/labels/errors' );
 const sessions = require( '@openagenda/sessions' );
@@ -19,17 +21,21 @@ const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const redirectMiddelware = require( './redirect.middleware' )( config );
 
+const log = require( '@openagenda/logs' )( 'event/front' );
+
 const middlewares = {
   agendaEventShow: [
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.components,
+    _loadAgendaCoreSettings,
     _formatAgendaLinks( 'agendaShow', [ 'slug' ] ),
     legacyAgendaSvc.mw.decorateEvent( false ),
     _formatSocialLinks,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oasfmain.css' ),
     _appendEventTransferCredential,
     _appendSettings,
+    _decorateLocation,
     wrap( agendaEventShow )
   ],
   customEmbedEventShow: [
@@ -703,5 +709,66 @@ function _googleMapsLink( lat, lng ) {
 function wrap( fn ) {
 
   return ( req, res, next ) => fn( req, res, next ).catch( next );
+
+}
+
+function _loadAgendaCoreSettings( req, res, next ) {
+
+  core.agendas( req.agenda.uid ).settings.get().then( settings => {
+
+    req.agendaSettings = settings;
+
+    next();
+
+  }, err => {
+
+    if ( err ) {
+
+      log( 'error', 'failed to load core settings for %s', req.originalUrl );
+
+    }
+
+    next();
+
+  } );
+
+}
+
+function _decorateLocation( req, res, next ) {
+
+  const locationTags = _.get( req, 'formatted.location.tags', [] );
+
+  if ( !locationTags.length ) return next();
+
+  const locationField = _.first(
+    _.get( req, 'agendaSettings.fields', [] )
+      .filter( f => f.field === 'location' )
+  );
+
+  if ( !locationField ) return next();
+
+  try {
+
+    const tags = _.get( locationField, 'legacy.tagSet.groups', [] )
+      .reduce( ( tags, g ) => tags.concat( g.tags ), [] );
+
+    req.formatted.location.tags = locationTags
+      .map( t => {
+
+        const matching = _.first( tags.filter( tag => tag.id === t.id ) );
+
+        t.label = _.get( matching, [ 'label', req.lang ] ) || t.label;
+
+        return t;
+
+      } );
+
+  } catch ( e ) {
+
+    log( 'error', 'failed to use schema tags for location of event %s', _.get( req, 'formatted.event.uid' ), e );
+
+  }
+
+  next();
 
 }
