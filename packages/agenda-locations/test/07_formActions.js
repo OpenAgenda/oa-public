@@ -84,6 +84,7 @@ describe( 'form actions', () => {
         countryCode: 1
       } ,
       pageSpin: null,
+      showExtIdInput: false,
       translation: {}
     } );
 

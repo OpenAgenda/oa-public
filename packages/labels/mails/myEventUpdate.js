@@ -6,11 +6,11 @@ module.exports = {
     en: 'Your event %event% has been changed on %agenda%'
   },
   body: {
-    fr: 'Votre événement **%event%** a bien été modifié sur l\'agenda **%agenda%**.',
+    fr: 'Votre événement **%event%** a été modifié sur l\'agenda **%agenda%**.',
     en: 'Your event **%event%** has been changed on the agenda **%agenda%**.'
   },
   bodyText: {
-    fr: 'Votre événement %event% a bien été modifié sur l\'agenda %agenda%.',
+    fr: 'Votre événement %event% a été modifié sur l\'agenda %agenda%.',
     en: 'Your event %event% has been changed on the agenda %agenda%.'
   },
   actionDescription: {

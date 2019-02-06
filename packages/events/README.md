@@ -34,10 +34,10 @@ id & deletedAt are not mentionned here as their use is strictly internal
 | keywords             |             |              |      x       | list of texts         |    []         | keywords of the event
 | registration         |             |              |              | list of url/txt/phone |    []         | registration urls, phone numbers or emails
 | conditions           |             |              |      x       | text                  |               | condtions of access to the event ( rsvp required, free access... )
-| image                |             |              |              | object                |               | 
-| image.filename       |      x      |      x       |              | text                  |               | name of the image file  
+| image                |             |              |              | object                |               |
+| image.filename       |      x      |      x       |              | text                  |               | name of the image file
 | image.credits        |             |              |              | text                  |               | image credits
-| image.size           |      x      |              |              | object                |               | 
+| image.size           |      x      |              |              | object                |               |
 | image.size.width     |      x      |      x       |              | integer               |               | width of the image in pixels
 | image.size.height    |      x      |      x       |              | integer               |               | height of the image in pixels
 | image.variants       |             |              |              | list of objects       |               | variants of the image.
@@ -47,10 +47,10 @@ id & deletedAt are not mentionned here as their use is strictly internal
 | accessibility        |             |              |              | list of codes         |    []         | applicable accessibility during the event ( visually impaired, psychic impairment... )
 | timezone             |      x      |              |              | text                  |               | timezone of reference ( required event for online events )
 | accessTiming*        |             |              |              | text ( code )         |               | describes when, relative to timings, the event can be accessed: 'punctual' or 'flexible'
-| timings              |      x      |              |              | list of objects       |               | 
+| timings              |      x      |              |              | list of objects       |               |
 | timings.begin        |      x      |              |              | datetime              |               | time when the event begins
 | timings.end          |      x      |              |              | datetime              |               | time when the event ends
-| age                  |             |              |              | object                |               |   
+| age                  |             |              |              | object                |               |
 | age.min              |             |              |              | integer               |               | minimum age for intended public
 | age.max              |             |              |              | integer               |               | maximum age for intended public
 | updatedAt            |      x      |       x      |              | datetime              |               | when the event was last updated
@@ -84,9 +84,9 @@ List events
  * **query**: filter and sort lists
  * **offset & limit**: offset & limit
  * **options**: see below
- 
+
 ###Query
- 
+
  * **order**: possible values are updatedAt.desc, createdAt.desc, updatedAt.asc, updatedAt.desc
  * **draft**: list draft events in results. Defaults at false. null if draft & non-draft are to be listed, true for drafts only
  * **private**: works like draft but for private events
@@ -115,11 +115,11 @@ Get detailed data on a specific event
 
 Create an event.
 
-    await service.create( identifiers, data, [ options ]);
+    await service.create( data, [ options ]);
 
 or
 
-    service.create( identifiers, data, [ options ], ( err, result ) => {} );
+    service.create( data, [ options ], ( err, result ) => {} );
 
 When successful, returns an object iwith the following keys:
 
@@ -142,14 +142,31 @@ When successful, returns an object iwith the following keys:
  * **internal**: if true, internal values are included in result
  * **includeImagePath**: if true, includes image path in result
  * **draft**: if true, validates and sets a draft event. If false, validates and sets a published event. If null, draft value is deduced from data completeness. Default is true.
- * **transferToLegacy**: if true, replicates data in legacy tables
+ * **transferToLegacy**: defaults at false. If true, replicates data in legacy tables
+
+
+## Update
+
+Update an event.
+
+    await service.update( identifiers, data, [ options ]);
+
+or
+
+    service.update( identifiers, data, [ options ], ( err, result ) => {} );
+
+### Options
+
+ * **transferToLegacy**: defaults at false. If true, replicates data in legacy tables
+
+
 
 ## Set - deprecated
 Create or update an event
 
     svc.set( [ identifiers ], data, [ options ], ( err, result ) => {
 
-      /* 
+      /*
         result looks like this {
           event, // updated or created event.. or null
           valid, // validity of input data
@@ -159,7 +176,7 @@ Create or update an event
       */
 
     } );
- 
+
 
 
 
@@ -171,11 +188,11 @@ Delete an event ( soft delete, sets deleted_at field to now  )
       // result contains success: { success: true }
 
     } );
- 
+
 ### Arguments
 
 Just the identifier of the event to remove. id or { id ] or { uid } or { slug }
- 
+
 ## Deleted
 
 Lists the deleted event uids with deletion date, latest deleted first
@@ -213,9 +230,9 @@ Legacy events have an is_published field as part of their schema. The new schema
 New event service does soft remove, so the correct count verification query should be the following:
 
 Check that events in legacy are also in new service:
-  
+
     select e.uid, count(e2.uid) as matches from event as e left join event_2 as e2 on e2.uid =e.uid group by e.uid having matches=0;
 
 Check that non-deleted events of new service are also in legacy event table
-  
+
     select e2.uid, count(e.uid) as matches from event_2 as e2 left join event as e on e2.uid=e.uid where e2.deleted_at is null group by e2.uid having matches=0;
