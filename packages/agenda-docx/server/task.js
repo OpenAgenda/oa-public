@@ -8,16 +8,22 @@ const defaultState = require( './defaultState' );
 const generateDocument = require( './generateDocument' );
 const queue = require( './queue' );
 
-module.exports = () => {
+module.exports = async () => {
 
-  loop();
+  // loop( await queue.waitAndPop() );
+
+  let data;
+
+  while ( data = await queue.waitAndPop().catch( _.noop ) ) {
+
+    await loop( data ).catch( _.noop );
+
+  }
 
 }
 
 
-async function loop() {
-
-  const data = await queue.waitAndPop();
+async function loop( data ) {
 
   const files = agendaFiles( {
     s3: config.s3,
@@ -79,7 +85,5 @@ async function loop() {
   state.queued = false
 
   await files.setJSON( 'state.json', state );
-
-  loop();
 
 }
