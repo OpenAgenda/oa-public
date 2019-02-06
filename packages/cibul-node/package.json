@@ -65,7 +65,7 @@
     "@openagenda/pdf": "^0.1.0",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/registration": "^1.1.1",
-    "@openagenda/sessions": "^3.0.12",
+    "@openagenda/sessions": "^3.0.13",
     "@openagenda/shares": "^0.1.0",
     "@openagenda/simple-cache": "^1.2.0",
     "@openagenda/slugs": "^1.1.0",

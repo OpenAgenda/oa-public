@@ -26,7 +26,8 @@
     "lang" : "fr",
     "langLabels" : {
       "fr" : "français",
-      "en" : "english"
+      "en" : "english",
+      "de": "deutsch"
     }
   },
 

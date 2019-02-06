@@ -20,7 +20,8 @@
     "lang": "fr",
     "langLabels": {
       "fr": "Français",
-      "en": "English"
+      "en": "English",
+      "de": "Deutsch"
     }
   },
   "js": true
