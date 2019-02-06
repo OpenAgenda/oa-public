@@ -109,7 +109,7 @@ module.exports = createReactClass( {
 
       for ( k in values ) {
 
-        str = str.replace( k, values[ k ] );
+        str = str.replace( '%' + k + '%', values[ k ] );
 
       }
 
