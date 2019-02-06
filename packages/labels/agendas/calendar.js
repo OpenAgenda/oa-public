@@ -1,52 +1,52 @@
 "use strict";
 
 module.exports = {
-  allDay: {
-    en: 'All day',
-    fr: 'Toute la journée'
+  "allDay": {
+    "en": "All day",
+    "fr": "Toute la journée"
   },
-  previous: {
-    en: 'Previous',
-    fr: 'Précédent'
+  "previous": {
+    "en": "Previous",
+    "fr": "Précédent"
   },
-  next: {
-    en: 'Next',
-    fr: 'Suivant'
+  "next": {
+    "en": "Next",
+    "fr": "Suivant"
   },
-  today: {
-    en: 'Today',
-    fr: 'Aujourd\'hui'
+  "today": {
+    "en": "Today",
+    "fr": "Aujourd'hui"
   },
-  month: {
-    en: 'Month',
-    fr: 'Mois'
+  "month": {
+    "en": "Month",
+    "fr": "Mois"
   },
-  week: {
-    en: 'Week',
-    fr: 'Semaine'
+  "week": {
+    "en": "Week",
+    "fr": "Semaine"
   },
-  day: {
-    en: 'Day',
-    fr: 'Jour'
+  "day": {
+    "en": "Day",
+    "fr": "Jour"
   },
-  agenda: {
-    en: 'Agenda',
-    fr: 'Journal'
+  "agenda": {
+    "en": "Agenda",
+    "fr": "Journal"
   },
-  date: {
-    en: 'Date',
-    fr: 'Date'
+  "date": {
+    "en": "Date",
+    "fr": "Date"
   },
-  time: {
-    en: 'Time',
-    fr: 'Heure'
+  "time": {
+    "en": "Time",
+    "fr": "Heure"
   },
-  event: {
-    en: 'Event',
-    fr: 'Evénement'
+  "event": {
+    "en": "Event",
+    "fr": "Evénement"
   },
-  more: {
-    en: 'See all events',
-    fr: 'Voir tous les événements'
+  "more": {
+    "en": "See all events",
+    "fr": "Voir tous les événements"
   }
 }

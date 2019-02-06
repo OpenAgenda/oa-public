@@ -1,40 +1,40 @@
 "use strict";
 
 module.exports = {
-  myProfile: {
-    en: 'My profile',
-    fr: 'Mon profile'
+  "myProfile": {
+    "en": "My profile",
+    "fr": "Mon profile"
   },
-  myEvents: {
-    en: 'My events',
-    fr: 'Mes événements'
+  "myEvents": {
+    "en": "My events",
+    "fr": "Mes événements"
   },
-  settings: {
-    en: 'Settings',
-    fr: 'Paramètres'
+  "settings": {
+    "en": "Settings",
+    "fr": "Paramètres"
   },
-  signout: {
-    en: 'Sign out',
-    fr: 'Déconnexion'
+  "signout": {
+    "en": "Sign out",
+    "fr": "Déconnexion"
   },
-  myAgendas: {
-    en: 'My Agendas',
-    fr: 'Mes Agendas'
+  "myAgendas": {
+    "en": "My Agendas",
+    "fr": "Mes Agendas"
   },
-  searchAgendas: {
-    en: 'Search agenda',
-    fr: 'Chercher un agenda'
+  "searchAgendas": {
+    "en": "Search agenda",
+    "fr": "Chercher un agenda"
   },
-  createAgenda: {
-    en: 'Create an agenda',
-    fr: 'Créer un agenda'
+  "createAgenda": {
+    "en": "Create an agenda",
+    "fr": "Créer un agenda"
   },
-  general: {
-    en: 'General',
-    fr: 'Général'
+  "general": {
+    "en": "General",
+    "fr": "Général"
   },
-  agendasTitle: {
-    en: 'Agendas',
-    fr: 'Agendas'
+  "agendasTitle": {
+    "en": "Agendas",
+    "fr": "Agendas"
   }
-};
+}
