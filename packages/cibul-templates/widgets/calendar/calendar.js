@@ -47,11 +47,7 @@ var widget = function( elem, options ) {
 
   selection = false,
 
-  firstEnable = true,
-
-  isReady = false,
-
-  queuedEnableQuery = null;
+  firstEnable = true;
 
   // init settings, register widget, fetch control data, create calendar
 
@@ -100,22 +96,12 @@ var widget = function( elem, options ) {
 
       }
 
-      isReady = true;
-
-      if ( queuedEnableQuery ) enable( queuedEnableQuery );
-
     });
 
   } )();
 
 
   function enable( reqParams ) {
-
-    if ( !isReady ) {
-
-      return queuedEnableQuery = reqParams;
-
-    }
 
     log( 'enabling' );
 
