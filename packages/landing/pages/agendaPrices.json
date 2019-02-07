@@ -3,6 +3,8 @@
     "lang" : "en", "key" : "agenda-pricing"
   }, {
     "lang" : "fr", "key" : "tarifs-agenda"
+  }, {
+    "lang" : "de", "key" : "agenda-preisgestaltung"
   } ],
   "head" : {
     "title" : "agendaPricingTitle",

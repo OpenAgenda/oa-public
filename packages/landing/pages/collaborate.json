@@ -1,7 +1,8 @@
 {
   "keys": [
     { "lang" : "fr", "key" : "agenda-collaboratif" },
-    { "lang" : "en", "key" : "collaborative-agenda" }
+    { "lang" : "en", "key" : "collaborative-agenda" },
+    { "lang" : "de", "key" : "kollaborative-agenda" }
   ],
   "head" : {
     "title" : "collaborateHeadTitle",

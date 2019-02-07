@@ -5,6 +5,9 @@
   }, {
     "lang" : "fr",
     "key" : "agenda-basique"
+  }, {
+    "lang" : "de",
+    "key" : "grundagenda"
   } ],
   "head" : {
     "title" : "basicOfferHeadTitle",
@@ -22,7 +25,7 @@
     "key": "opendata",
     "background": "white"
   }, {
-    "key" : "multimedia", 
+    "key" : "multimedia",
     "background" : "dark-purple"
   }, {
     "key" : "broadcast",

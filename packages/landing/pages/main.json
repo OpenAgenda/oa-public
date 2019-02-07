@@ -5,6 +5,9 @@
   }, {
     "lang" : "fr",
     "key" : "root"
+  }, {
+    "lang" : "de",
+    "key" : "de"
   } ],
   "head" : {
     "title" : "OpenAgenda",
@@ -19,7 +22,7 @@
   "agendaSearch" : "mainAgendaSearch",
   "agendaCreate" : "mainAgendaCreate",
   "layout": "layoutPrimary",
-  "segments": [ 
+  "segments": [
     {
       "key" : "network",
       "rightImage" : "//s3.eu-central-1.amazonaws.com/oastatic/landing/organisation.jpg",
@@ -75,6 +78,6 @@
         "link" : "#network-pricing"
       }
     },
-    "footer" 
+    "footer"
   ]
 }

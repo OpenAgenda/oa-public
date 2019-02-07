@@ -3,6 +3,8 @@
     "lang" : "en", "key" : "broadcast-your-events"
   }, {
     "lang" : "fr", "key" : "diffusez-vos-evenements"
+  }, {
+    "lang" : "de", "key" : "sende-deine-ereignisse"
   } ],
   "head" : {
     "title" : "broadcastHeadTitle",

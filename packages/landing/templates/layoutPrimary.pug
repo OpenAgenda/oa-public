@@ -13,10 +13,10 @@
 
     .row.spaced
       .col-md-3.col-md-offset-3.text-center
-        a.btn.btn-primary.btn-lg.margin-bottom-md(href='/agendas')!=agendaSearch
+        a.btn.btn-primary.btn-lg.margin-bottom-md(href='/agendas?lang=' + lang)!=agendaSearch
 
       .col-md-3.text-center
-        a.btn.btn-primary.btn-lg.margin-bottom-md(href='/signup')!=agendaCreate
+        a.btn.btn-primary.btn-lg.margin-bottom-md(href='/signup?lang=' + lang)!=agendaCreate
 
 
 #functions!=content

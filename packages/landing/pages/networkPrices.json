@@ -3,6 +3,8 @@
     "lang" : "en", "key" : "network-pricing"
   }, {
     "lang" : "fr", "key" : "tarifs-reseaux"
+  }, {
+    "lang" : "de", "key" : "netzwerkpreise"
   } ],
   "head" : {
     "title" : "networkPricingTitle",
