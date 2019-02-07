@@ -64,6 +64,7 @@ const  modLib = require( '../lib/moduleLib' ),
       show
     ],
     embedShow: [
+      _optionalClearCookie,
       _loadTagGroups,
       _format,
       _formatEmbedHeadLinks,
@@ -224,6 +225,27 @@ module.exports = function( path ) {
 
 }
 
+
+/**
+ * Requested by Education Nationale for RGPD compliance
+ */
+function _optionalClearCookie( req, res, next ) {
+
+  if ( !_.get( req, 'query.disableCookies' ) ) return next();
+
+  for ( const name in req.cookies ) {
+
+    if ( req.cookies.hasOwnProperty( name ) ) {
+
+      res.cookie( name, '', { expires: new Date( 0 ) } );
+
+    }
+
+  }
+
+  next();
+
+}
 
 
 function _loadTagGroups( req, res, next ) {
