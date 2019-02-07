@@ -24,7 +24,7 @@ function makeFlatten( lang, defaultLang ) {
 
     if ( label[ lang ] ) return label[ lang ];
 
-    if ( label[ defaultLang ] ) return label[ defaulLang ];
+    if ( label[ defaultLang ] ) return label[ defaultLang ];
 
     return label[ _.first( _.keys( label ) ) ];
 
