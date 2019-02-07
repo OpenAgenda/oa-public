@@ -81,17 +81,15 @@ export default function renderApp( options = {} ) {
   const element = (
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        {/*<ScrollToTop>*/}
-          {req
-            ? (
-              <Route
-                path={prefix}
-                component={() =>
-                  <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
-                }
-              />
-            ) : content}
-        {/*</ScrollToTop>*/}
+        {req
+          ? (
+            <Route
+              path={prefix}
+              component={() =>
+                <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
+              }
+            />
+          ) : content}
       </ConnectedRouter>
     </Provider>
   );
@@ -121,7 +119,7 @@ export default function renderApp( options = {} ) {
     }
   };
 
-  ReactDOM.hydrate( element, du.el( selector ) );
+  ReactDOM.render( element, du.el( selector ) );
 
   triggerHooks()
     .catch( () => null );
