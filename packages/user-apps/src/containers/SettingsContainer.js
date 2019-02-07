@@ -17,12 +17,17 @@ import {
 
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  fetch: async ( { store: { dispatch, getState }, history } ) => {
     const state = getState();
     const promises = [];
 
     if ( !userSettingsActions.isLoaded( state ) ) {
-      promises.push( dispatch( userSettingsActions.load() ) );
+      promises.push(
+        dispatch( userSettingsActions.load() )
+          .catch( () => {
+            history.replace( '/' );
+          } )
+      );
     }
 
     return Promise.all( __CLIENT__ ? [] : promises );

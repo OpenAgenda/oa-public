@@ -15,10 +15,14 @@ import * as agendasActions from '../redux/modules/agendas';
 const selector = formValueSelector( 'homeAgendas' );
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState }, location } ) => {
+  fetch: async ( { store: { dispatch, getState }, history, location } ) => {
     const state = getState();
     const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
+
+    if ( !state.settings.userUid ) {
+      return history.replace( '/' );
+    }
 
     if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
       promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
@@ -33,6 +37,7 @@ const selector = formValueSelector( 'homeAgendas' );
     res: state.res,
     lang: state.settings.lang,
     isNew: state.settings.isNew,
+    userUid: state.settings.userUid,
     prefix: state.settings.prefix,
     tab: state.menu.tab,
     total: state.agendas.homeAgendas && state.agendas.homeAgendas.total

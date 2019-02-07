@@ -25,6 +25,15 @@ module.exports = app => {
 
 };
 
+function redirectIfNeeded( req, res, history ) {
+  const { pathname, search } = history.location;
+
+  if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+    res.redirect( 302, pathname + search );
+    return true;
+  }
+}
+
 async function matchApp( req, res, next ) {
   try {
     const lang = req.lang || 'fr';
@@ -40,10 +49,10 @@ async function matchApp( req, res, next ) {
             lang,
             apiRoot: '',
             perPageLimit: homeMw.getConfig().mw.limit,
-            isNew: req.user.isNew,
+            isNew: _.get( req, 'user.isNew' ),
             displayLegacyMessageTab: false,
-            userId: req.user.id,
-            userUid: req.user.uid
+            userId: _.get( req, 'user.id' ),
+            userUid: _.get( req, 'user.uid' )
           },
           res: {
             agendas: {
@@ -114,19 +123,13 @@ async function matchApp( req, res, next ) {
         .map( v => v.triggerHooks().catch( () => null ) )
     );
 
+    // Check if redirect in hooks
+    if ( redirectIfNeeded( req, res, history ) ) {
+      return;
+    };
+
     // Render all visible apps
     const content = ReactDOM.renderToString( Object.values( visibleApps ).map( v => v.element ) );
-
-    // Avoid all settings.apiRoot
-    const initialState = _.mapValues( apps, app => {
-      const state = app.store.getState();
-
-      if ( _.get( state, 'settings.apiRoot' ) ) {
-        _.set( state, 'settings.apiRoot', '' );
-      }
-
-      return state;
-    } );
 
     // Check if it's not found
     if ( !Object.keys( visibleApps ).length ) {
@@ -146,12 +149,21 @@ async function matchApp( req, res, next ) {
       }
     }
 
-    const { pathname, search } = history.location;
-
     // Check if location change anywhere else
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 302, pathname + search );
-    }
+    if ( redirectIfNeeded( req, res, history ) ) {
+      return;
+    };
+
+    // Avoid all settings.apiRoot
+    const initialState = _.mapValues( apps, app => {
+      const state = app.store.getState();
+
+      if ( _.get( state, 'settings.apiRoot' ) ) {
+        _.set( state, 'settings.apiRoot', '' );
+      }
+
+      return state;
+    } );
 
     cmn.render( req, res, 'home/index', {
       scriptParams: {
