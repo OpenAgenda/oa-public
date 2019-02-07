@@ -315,7 +315,7 @@ module.exports = class SlateField extends Component {
 
   render() {
 
-    const labels = flatten( richTextLabels, this.props.lang );
+    const labels = flatten( richTextLabels, this.props.lang, true );
 
     return <div className="rich-textarea margin-top-xs">
       <div className="toolbar">
