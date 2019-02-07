@@ -11,7 +11,13 @@ module.exports = ( field, lang ) => {
 
     if ( _.isString( field[ f ] ) ) return field[ f ];
 
-    update[ f ] = { $set: _.get( field[ f ], lang ) };
+    update[ f ] = {
+      $set: _.get(
+        field[ f ],
+        lang,
+        field[ f ][ _.first( _.keys( field[ f ] ) ) ]
+      )
+    };
 
   } );
 

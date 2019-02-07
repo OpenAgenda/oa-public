@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -103,7 +104,11 @@ module.exports = createReactClass( {
 
   getLabel( name, values ) {
 
-    var str = labels[ name ][ this.props.lang ], k;
+    const label = labels[ name ];
+
+    let str = _.get( label, this.props.lang, label[ _.first( _.keys( label ) ) ] );
+
+    let k;
 
     if ( values ) {
 

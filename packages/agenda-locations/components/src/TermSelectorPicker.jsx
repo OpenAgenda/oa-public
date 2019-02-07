@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -71,9 +72,11 @@ module.exports = createReactClass( {
 
     .map( function( f ) {
 
+      let label = self.props.labels[ f ];
+
       return {
         value: f,
-        label: self.props.labels[ f ][ self.props.lang ]
+        label: _.get( label, self.props.lang, label[ _.first( _.keys( label ) ) ] )
       }
 
     } )

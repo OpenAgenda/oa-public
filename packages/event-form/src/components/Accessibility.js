@@ -58,7 +58,7 @@ module.exports = class AccessibilityComponent extends Component {
 
     const { value, lang } = this.props;
 
-    const labels = flatten( mLabels, lang );
+    const labels = flatten( mLabels, lang, true );
 
     return <div className="accessibility form-group">
       <div className="checkbox">

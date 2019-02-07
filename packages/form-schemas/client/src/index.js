@@ -26,8 +26,8 @@ export default class FormSchemaComponent extends Component {
 
     const init = {
       labels: {
-        errors: flattenLabels( _.assign( {}, errorLabels, _.get( labels, 'errors', {} ) ), lang ),
-        main: flattenLabels( formSchemaLabels, lang )
+        errors: flattenLabels( _.assign( {}, errorLabels, _.get( labels, 'errors', {} ) ), lang, true ),
+        main: flattenLabels( formSchemaLabels, lang, true )
       },
       defaultLabelLanguage: this.props.lang
     }

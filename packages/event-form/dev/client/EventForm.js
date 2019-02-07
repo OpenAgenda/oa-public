@@ -11,7 +11,7 @@ export default class DevEventForm extends Component {
       locationRes="/locations"
       referencesRes="/references"
       suggestionsRes="/references"
-      lang="fr"
+      lang="de"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',
         bottomErrorsCanvas: 'error-summary padding-all-md',
