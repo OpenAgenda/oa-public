@@ -13,10 +13,9 @@ const getUid = str => str.split( ':' )[ 1 ];
 const eventStateCodeToLabel = code => [
   'refused',
   'tocontrol',
-  'tobecontrolled',
   'controlled',
   'published'
-][ code ];
+][ code + 1 ];
 
 module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
