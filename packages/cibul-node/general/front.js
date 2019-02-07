@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const { callbackify } = require( 'util' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/newsletter/subscribe' ) );
 const files = require( '@openagenda/files' );
@@ -11,7 +13,8 @@ const config = require( '../config' );
 
 const landingPages = landing( {
   en: config.root + '/discover',
-  fr: config.root + '/decouvrir'
+  fr: config.root + '/decouvrir',
+  de: config.root + '/entdecken'
 } );
 
 const legacyPages = {
@@ -33,23 +36,18 @@ const preMw = [
   cmn.loadBaseData( 'oa.css' )
 ];
 
-const corpoMw = [
-  cmn.https,
-  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-  _cache,
-  cmn.loadBaseData( 'oasfmain.css' ),
-  _setLang,
-  _counters,
-  corpo
-];
-
-
 module.exports = app => {
 
   app.get(
-    [ '/', '/en' ],
+    [ '/', '/en', '/de' ],
     preMw,
-    corpoMw
+    cmn.https,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    _cache,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    _setLang,
+    _counters,
+    corpo
   );
 
   app.get(
@@ -91,7 +89,7 @@ module.exports = app => {
   );
 
   app.get(
-    [ '/decouvrir/:page', '/discover/:page' ],
+    [ '/decouvrir/:page', '/discover/:page', '/entdecken/:page' ],
     preMw,
     cmn.https,
     _corpoBrowserCache,
@@ -166,7 +164,15 @@ function _counters( req, res, next ) {
 
 function _setLang( req, res, next ) {
 
-  req.lang = req.url === '/' ? 'fr' : 'en';
+  if ( req.query.lang ) return res.redirect( 301, '/' + req.query.lang );
+
+  req.lang = _.get( {
+    '/' : 'fr',
+    '/en' : 'en',
+    '/de' : 'de'
+  }, req.url, null );
+
+  if ( !req.lang ) return res.redirect( 302, '/' );
 
   next();
 
@@ -175,7 +181,7 @@ function _setLang( req, res, next ) {
 
 function corpo( req, res, next ) {
 
-  const pageName = req.params.page || ( req.lang === 'fr' ? '' : 'en' );
+  const pageName = req.params.page || req.url.substr( 1 );
 
   let page = landingPages( pageName );
 
@@ -344,15 +350,15 @@ function _redirectLegacyLinks( req, res, next ) {
 function start( req, res, next ) {
 
   const actions = {
-    header_signin: req.genUrl( 'signin' ),
-    header_signup: req.genUrl( 'signup' ),
+    header_signin: '/signin?lang=' + req.lang,
+    header_signup: '/signup?lang=' + req.lang,
     header_phone: 'ok',
-    main: req.genUrl( 'signup' ),
-    pricing_free: req.genUrl( 'signup' ),
+    main: '/signup?lang=' + req.lang,
+    pricing_free: '/signup?lang=' + req.lang,
     pricing_custom: config.contactResource,
     pricing_premium: config.contactResource,
     pricing_tailored: config.contactResource,
-    bottom: req.genUrl( 'signup' ),
+    bottom: '/signup?lang=' + req.lang,
     newsletter: '/home'
   }
 
