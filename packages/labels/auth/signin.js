@@ -32,7 +32,7 @@ module.exports = {
   "password": {
     "fr": "Mot de passe",
     "en": "Password",
-    "it": "parola d'accesso ",
+    "it": "Parola d'accesso",
     "de": "Passwort",
     "pl": "Hasło"
   },
