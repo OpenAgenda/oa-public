@@ -138,5 +138,9 @@ module.exports = {
     name: 'hidden',
     description: 'if "display" setting of field is specified as falsy, the field is not displayed',
     link: '/hidden'
+  }, {
+    name: 'missinglanguage',
+    description: 'if requested language is not defined in label, other language is used for labels',
+    link: '/missinglanguage'
   } ]
 }
