@@ -54,7 +54,9 @@ describe( 'session - functional (client): session', () => {
 
   } )
 
-  describe( '.isLogged', () => {
+  describe( '.isLogged', function() {
+
+    this.timeout( 30000 );
 
     it( 'returns true if user is logged', done => {
 
