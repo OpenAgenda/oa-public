@@ -42,7 +42,6 @@ module.exports = app => {
   require( './services/agendaDocx' )( app );
   require( './services/agendaCalendar' )( app );
   require( './home/back' )( app );
-  require( './user/settings.front' )( app );
   require( './general/front' )( app );
   require( './general/session.back' )( app );
   require( './general/back' )( app );
@@ -51,6 +50,8 @@ module.exports = app => {
   require( './event/tagsForm.back' )( app );
   require( './event/back' )( app );
   require( './event/front' )( app );
+
+  require( './webapp' )( app );
 
   webModules.forEach( m => m.load( app ) );
 
