@@ -282,5 +282,9 @@ module.exports = {
   sendOnlyToInactives: {
     fr: "Envoyer seulement aux utilisateurs inactifs",
     en: "Send only to inactive members"
+  },
+  export: {
+    fr: 'Exporter',
+    en: 'Export'
   }
 };
