@@ -1,25 +1,9 @@
 {
-  "presets": [
-    "stage-0",
+  "presets" : [
     [
-      "env",
-      {
-        "targets": {
-          "browsers": [
-            "last 2 versions",
-            "Firefox >= 24",
-            "Chrome >= 33",
-            "Safari >= 9",
-            "IE >= 10"
-          ],
-          "node": "6"
-        }
-      }
+      "openagenda",
+      { "modules": "commonjs" }
     ]
   ],
-  "plugins": [
-    "lodash",
-    "transform-runtime",
-    "add-module-exports"
-  ]
+  "sourceType": "unambiguous"
 }
