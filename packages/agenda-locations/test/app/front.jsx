@@ -31,6 +31,7 @@ Wrapper = createReactClass( {
   getInitialState: function() {
 
     return {
+      lang: 'de',
       display: 'admin', // suggestion, admin, selector
       location: undefined,
       initSelectorMode: 'create',
@@ -120,7 +121,7 @@ Wrapper = createReactClass( {
       location={this.state.location}
       requestChangeMode={this.onRequestChangeMode}
       mode={this.state.mode}
-      lang="fr"
+      lang={this.state.lang}
       allowCreate={this.state.allowCreate}
       res={this.props.res}
       enableGeocode={this.state.enableGeocode}
@@ -135,7 +136,7 @@ Wrapper = createReactClass( {
     return <div>
 
       <TermApp
-        lang="fr"
+        lang={this.state.lang}
         field="region,country"
         res="/terms"
         value={this.state.term}
@@ -144,7 +145,7 @@ Wrapper = createReactClass( {
       <div className="separator" style={{marginTop: '1em', marginBottom: '1em'}}></div>
 
       <TermPickerApp
-        lang="fr"
+        lang={this.state.lang}
         fields={{
           region: 'region,country',
           department: 'department,region',
@@ -173,7 +174,7 @@ Wrapper = createReactClass( {
         }}
         detailedInfo={true}
         settings= {agendaTestSettings}
-        lang="fr"
+        lang={this.state.lang}
         enableGeocode={this.state.enableGeocode}
         res={this.props.res} />
       </div>

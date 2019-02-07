@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -153,7 +154,7 @@ module.exports = createReactClass( {
       // country is specific as it is multilingual
       if ( field == 'country' ) {
 
-        labelParts.push( term.country[ self.props.lang ] );
+        labelParts.push( _.get( term.country, self.props.lang, term.country[ _.first( _.keys( term.country ) ) ] ) );
 
       } else {
 
