@@ -26,7 +26,6 @@ styler = require( '../lib/widgetStyler' ),
 
 onReady;
 
-
 if ( cn.contains( [ 'tpl', 'development' ], window.env ) ) debug.enable( '*' );
 
 
@@ -48,7 +47,11 @@ var widget = function( elem, options ) {
 
   selection = false,
 
-  firstEnable = true;
+  firstEnable = true,
+
+  isReady = false,
+
+  queuedEnableQuery = null;
 
   // init settings, register widget, fetch control data, create calendar
 
@@ -91,7 +94,15 @@ var widget = function( elem, options ) {
 
       controller.onWidgetReady( 'calendar', { uid } );
 
-      if ( onReady ) onReady();
+      if ( onReady ) {
+
+        onReady();
+
+      }
+
+      isReady = true;
+
+      if ( queuedEnableQuery ) enable( queuedEnableQuery );
 
     });
 
@@ -99,6 +110,12 @@ var widget = function( elem, options ) {
 
 
   function enable( reqParams ) {
+
+    if ( !isReady ) {
+
+      return queuedEnableQuery = reqParams;
+
+    }
 
     log( 'enabling' );
 
@@ -150,8 +167,10 @@ var widget = function( elem, options ) {
   function include( eventItem ) {
 
     for ( var i = eventItem.d.length - 1; i >= 0; i-- ) {
-      
+
       if ( !cn.contains( activeDates, eventItem.d[ i ]) ) {
+
+        if ( eventItem.d[ i ] === 'Invalid date' ) continue;
 
         activeDates.push( eventItem.d[ i ] );
 
@@ -176,7 +195,7 @@ var widget = function( elem, options ) {
   function _onSelect( newSelection ) {
 
     // filter out unique date selection only
-    
+
     var newRange = {
       from: _dStringify( newSelection.begin ),
       to: _dStringify( newSelection.end )
@@ -290,7 +309,7 @@ var widget = function( elem, options ) {
 
   function _filterCalendar( date, classes ) {
 
-    var formattedDate = [ 
+    var formattedDate = [
 
       date.getFullYear(),
 
@@ -334,7 +353,7 @@ var widget = function( elem, options ) {
     }
 
     // TWEAK - to force refresh on selection - this should be corrected at the calendar level
-    
+
     if ( !selection ) {
 
       calendar.showNext();
