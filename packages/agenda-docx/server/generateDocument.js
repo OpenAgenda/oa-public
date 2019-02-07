@@ -98,14 +98,13 @@ module.exports = async ( {
 
   doc.render();
 
-  await writeFile(
-    outputPath,
-    doc.getZip()
-      .generate( {
-        type: 'nodebuffer',
-        compression: 'DEFLATE'
-      } )
-  );
+  const buf = doc.getZip()
+    .generate( {
+      type: 'nodebuffer',
+      // compression: 'DEFLATE'
+    } );
+
+  await writeFile( outputPath, buf );
 
   return {
     outputPath,

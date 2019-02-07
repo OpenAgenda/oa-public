@@ -317,7 +317,7 @@ function newsletterSubscribe( req, res ) {
 
 function _redirectLang( req, res, next ) {
 
-  if ( req.query && req.query.lang && [ 'fr', 'en' ].indexOf( req.query.lang ) === -1 ) {
+  if ( req.query && req.query.lang && [ 'fr', 'en', 'de' ].indexOf( req.query.lang ) === -1 ) {
 
     return res.redirect( 301, `/discover/${req.params.page}?lang=en` );
 

@@ -50,8 +50,8 @@ function asyncLoad( { store: { getState, dispatch }, location, history } ) {
 }
 
 @provideHooks( {
-  fetch: async ( { store, history } ) => {
-    const promise = asyncLoad( { store, history } );
+  fetch: async ( { store, history, location } ) => {
+    const promise = asyncLoad( { store, history, location } );
 
     return Promise.resolve( __CLIENT__ ? null : promise );
   }

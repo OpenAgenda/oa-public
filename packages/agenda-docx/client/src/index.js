@@ -11,8 +11,7 @@ import flattenLabels from './utils/flattenLabels';
 const locales = {
   fr: require( 'date-fns/locale/fr' ),
   en: require( 'date-fns/locale/en' )
-}
-
+};
 
 if ( module.hot ) module.hot.accept();
 
@@ -21,9 +20,7 @@ import Modal from './Modal';
 const anchor = _.first( document.getElementsByClassName( 'js_oa_docx_anchor' ) );
 
 class Main extends Component {
-
   constructor( props ) {
-
     super( props );
 
     this.state = {
@@ -32,45 +29,38 @@ class Main extends Component {
       loading: false,
       labels: flattenLabels( this.props.labels, this.props.locale ),
       limitDates: false
-    }
+    };
 
-    this.dateToString = date => distanceInWordsToNow( date, { locale: locales[ this.props.locale ] } );
+    this.dateToString = date =>
+      distanceInWordsToNow( date, { locale: locales[ this.props.locale ] } );
 
     this.open = this.open.bind( this );
     this.queue = this.queue.bind( this );
     this.send = this.send.bind( this );
     this.renderGenerateForm = this.renderGenerateForm.bind( this );
     this.renderQueueControl = this.renderQueueControl.bind( this );
-
   }
 
   open() {
-
     this.send( 'get', '/state' ).then( body => {
-
       this.setState( { service: body, open: true } );
-
     } );
-
   }
 
   queue( data ) {
-
     this.send( 'post', '/queue', data ).then( body => {
-
       this.setState( { service: body } );
-
     } );
-
   }
 
   send( method, res, data = {} ) {
-
     const { templateName, from, to } = data;
 
     this.setState( { loading: true } );
 
-    const request = sa[ method ]( this.props.res + '/' + this.props.agendaUid + res );
+    const request = sa[ method ](
+      this.props.res + '/' + this.props.agendaUid + res
+    );
 
     if ( templateName ) {
       request.query( { templateName } );
@@ -84,17 +74,15 @@ class Main extends Component {
       request.query( { to: to.toISOString() } );
     }
 
-    return request
-      .then( ( { body } ) =>
+    return request.then(
+      ( { body } ) =>
         new Promise( resolve =>
           this.setState( { loading: false }, () => resolve( body ) )
         )
-      );
-
+    );
   }
 
   renderGenerateForm() {
-
     const { locale } = this.props;
     const { labels, service, limitDates } = this.state;
 
@@ -102,17 +90,21 @@ class Main extends Component {
       <Form
         onSubmit={this.queue}
         initialValues={{
-          templateName: service.templates && service.templates.length ? service.templates[ 0 ].name : undefined
+          templateName:
+            service.templates && service.templates.length
+              ? service.templates[ 0 ].name
+              : undefined
         }}
-        render={({ handleSubmit, invalid }) => (
+        render={( { handleSubmit, invalid } ) => (
           <form onSubmit={handleSubmit}>
-
             <div className="checkbox">
               <label style={{ color: 'inherit' }}>
                 <input
                   type="checkbox"
                   checked={limitDates}
-                  onChange={e => this.setState( { limitDates: e.target.checked } )}
+                  onChange={e =>
+                    this.setState( { limitDates: e.target.checked } )
+                  }
                 />
                 {labels.limitDates}
               </label>
@@ -130,7 +122,7 @@ class Main extends Component {
                     }
                   }}
                 >
-                  {({ input, meta }) => (
+                  {( { input, meta } ) => (
                     <div className="form-group margin-all-sm">
                       {labels.from}{' '}
                       <div style={{ display: 'inline-block' }}>
@@ -138,12 +130,22 @@ class Main extends Component {
                           {...input}
                           locale={locale}
                           className="form-control"
-                          selected={input.value ? moment( input.value ) : input.value}
-                          value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                          selected={
+                            input.value ? moment( input.value ) : input.value
+                          }
+                          value={
+                            input.value
+                              ? moment( input.value )
+                                .locale( locale )
+                                .format( 'LL' )
+                              : input.value
+                          }
                           autoComplete="off"
                         />
                       </div>
-                      {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                      {meta.touched && meta.error && (
+                        <div className="text-danger">{meta.error}</div>
+                      )}
                     </div>
                   )}
                 </Field>
@@ -158,7 +160,7 @@ class Main extends Component {
                     }
                   }}
                 >
-                  {({ input, meta }) => (
+                  {( { input, meta } ) => (
                     <div className="form-group margin-bottom-sm margin-h-sm">
                       {labels.to}{' '}
                       <div style={{ display: 'inline-block' }}>
@@ -166,12 +168,22 @@ class Main extends Component {
                           {...input}
                           locale={locale}
                           className="form-control"
-                          selected={input.value ? moment( input.value ) : input.value}
-                          value={input.value ? moment( input.value ).locale( locale ).format( 'LL' ) : input.value}
+                          selected={
+                            input.value ? moment( input.value ) : input.value
+                          }
+                          value={
+                            input.value
+                              ? moment( input.value )
+                                .locale( locale )
+                                .format( 'LL' )
+                              : input.value
+                          }
                           autoComplete="off"
                         />
                       </div>
-                      {meta.touched && meta.error && <div className="text-danger">{meta.error}</div>}
+                      {meta.touched && meta.error && (
+                        <div className="text-danger">{meta.error}</div>
+                      )}
                     </div>
                   )}
                 </Field>
@@ -186,8 +198,12 @@ class Main extends Component {
                   {service.templates.map( ( template, index ) => (
                     <div className="radio" key={index}>
                       <label style={{ color: 'inherit' }}>
-                        <Field name="templateName" component="input" type="radio" value={template.name} />
-                        {' '}
+                        <Field
+                          name="templateName"
+                          component="input"
+                          type="radio"
+                          value={template.name}
+                        />{' '}
                         {template.name}
                       </label>
                     </div>
@@ -197,24 +213,24 @@ class Main extends Component {
             ) : null}
 
             <div>
-              <button type="submit" className="btn btn-primary" disabled={invalid}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={invalid}
+              >
                 {labels.generate}
               </button>
             </div>
-
           </form>
         )}
       />
     );
-
   }
 
   renderQueueControl( asPrimary = false ) {
-
     const { labels } = this.state;
 
     if ( asPrimary ) {
-
       return (
         <div className="text-center margin-v-md">
           <div>{labels.launch}</div>
@@ -222,22 +238,21 @@ class Main extends Component {
           {this.renderGenerateForm()}
         </div>
       );
-
     }
 
     return (
       <div className="text-center">
-        <div className="margin-bottom-sm label-or"><label>{labels.or}</label></div>
+        <div className="margin-bottom-sm label-or">
+          <label>{labels.or}</label>
+        </div>
         <div>{labels.launch}</div>
 
         {this.renderGenerateForm()}
       </div>
     );
-
   }
 
   render() {
-
     const { labels } = this.state;
 
     const hasFile = this.state.service && this.state.service.file.name;
@@ -246,7 +261,6 @@ class Main extends Component {
     const svcState = _.get( this.state, 'service', {} );
 
     if ( !this.state.open ) {
-
       return (
         <div>
           <a href="#docx" onClick={() => this.open()}>
@@ -254,37 +268,50 @@ class Main extends Component {
           </a>
         </div>
       );
-
     }
 
-    return <Modal
-      title={labels.modalTitle}
-      onClose={()=> this.setState( { open: false } )}
-    >
-      <div className="text-center margin-v-md">
-      { hasFile ? <div>
-          <div>
-            <a className="btn btn-primary" href={svcState.file.path} target="_blank">{labels.download} <sup>(1)</sup></a>
-          </div>
-          <small>{labels.lastUpdate}: {this.dateToString( svcState.file.createdAt)}</small>
+    return (
+      <Modal
+        title={labels.modalTitle}
+        onClose={() => this.setState( { open: false } )}
+      >
+        <div className="text-center margin-v-md">
+          {hasFile ? (
+            <div>
+              <div>
+                <a
+                  className="btn btn-primary"
+                  href={svcState.file.path}
+                  target="_blank"
+                >
+                  {labels.download}
+                  <sup>(1)</sup>
+                </a>
+              </div>
+              <small>
+                {labels.lastUpdate}:{' '}
+                {this.dateToString( svcState.file.createdAt )}
+              </small>
+            </div>
+          ) : (
+            <p>{labels.noFileAvailable}</p>
+          )}
         </div>
-      : <p>{labels.noFileAvailable}</p>
-       }
-      </div>
-      { isQueued ?
-        <p>{labels.queued}</p>
-       : this.renderQueueControl(!hasFile) }
-      { hasFile ? <div className="margin-top-md">
-        <sup>(1)</sup> : <span>{labels.downloadInfo}</span>
-      </div> : null }
-    </Modal>
-
+        {isQueued ? <p>{labels.queued}</p> : this.renderQueueControl( !hasFile )}
+        {!isQueued ? (
+          <span>{labels.eventsLimit}</span>
+        ) : null}
+        {hasFile ? (
+          <div className="margin-top-md">
+            <sup>(1)</sup> : <span>{labels.downloadInfo}</span>
+          </div>
+        ) : null}
+      </Modal>
+    );
   }
-
 }
 
 Main.defaultProps = {
-
   labels: {
     modalLink: {
       en: 'Microsoft Word',
@@ -304,11 +331,13 @@ Main.defaultProps = {
     },
     noFileAvailable: {
       en: 'No file is available for download yet',
-      fr: 'Aucun fichier n\'est encore disponible au téléchargement'
+      fr: "Aucun fichier n'est encore disponible au téléchargement"
     },
     queued: {
-      en: 'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
-      fr: 'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.'
+      en:
+        'Your request has been queued and your file will be available shortly. Please check this menu again in a short while',
+      fr:
+        'Votre demande est en cours de traitement. Rechargez ce menu dans quelques instants.'
     },
     launch: {
       en: 'Generate a new word file',
@@ -319,8 +348,10 @@ Main.defaultProps = {
       fr: 'Générez un nouveau fichier word à partir du gabarit :'
     },
     downloadInfo: {
-      en: 'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
-      fr: 'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"'
+      en:
+        'Update the table of content the first time you open the file with a right click on the table of content segment followed with a click on "Update"',
+      fr:
+        'Mettez à jour le sommaire lors de la première ouverture du fichier en cliquant-droit dessus puis en selectionnant "Mettre à jour l\'index"'
     },
     or: {
       en: 'Or',
@@ -353,17 +384,19 @@ Main.defaultProps = {
     limitDates: {
       en: 'Limit dates',
       fr: 'Limiter les dates'
+    },
+    eventsLimit: {
+      en: 'The export can include a maximum of 1000 events per document.',
+      fr: 'L\'export peut intégrer au maximum 1000 événements par document.'
     }
   }
-
-}
-
+};
 
 const props = {
   locale: anchor.getAttribute( 'data-locale' ) || 'fr',
   agendaUid: anchor.getAttribute( 'data-agenda-uid' ),
   labels: anchor.getAttribute( 'data-labels' ) || undefined,
   res: anchor.getAttribute( 'data-res' ) || '#res'
-}
+};
 
 render( <Main {...props} />, anchor );

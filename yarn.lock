@@ -1530,10 +1530,10 @@
     redis-commands "^1.3.1"
     when "^3.7.7"
 
-"@openagenda/sessions@^3.0.12":
-  version "3.0.12"
-  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.12.tgz#f3dc146c23f193862060b6ffa23415ce1104563d"
-  integrity sha512-zq2ubcNHr7k9Ac8uodtpy9p3ftsHPEkSnjlxVl32cwTJkIrvHDUR1LhZmlx2A9+dc3wO0gDtNmAlq9xqEREv2Q==
+"@openagenda/sessions@^3.0.13":
+  version "3.0.13"
+  resolved "https://registry.npmjs.org/@openagenda/sessions/-/sessions-3.0.13.tgz#5e7d8f2a5cd0bc05d8dd29784c50e798999e717a"
+  integrity sha512-p2BdMM2AnVv5+9jDYtC6rEUbchzvG4ErwxmulWelaN+6qTDj9Huu8Cxl46xueT43vZ5+L0YDX/22ZMjEMU3GGw==
   dependencies:
     "@openagenda/logs" "^1.0.0"
     "@openagenda/service-utils" "^2.0.0"
