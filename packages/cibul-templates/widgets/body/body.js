@@ -454,7 +454,7 @@ function widget( elem, options ) {
 
   function _allowCookies() {
 
-    if ( elem.hasAttribute( 'src' ) && elem.hasAttribute( 'src' ).indexOf( 'disableCookies' ) !== 1 ) {
+    if ( elem.hasAttribute( 'src' ) && elem.getAttribute( 'src' ).indexOf( 'disableCookies' ) !== 1 ) {
 
       return false;
 
