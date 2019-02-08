@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const moment = require( 'moment-timezone' );
 const ih = require( 'immutability-helper' );
 const validateLink = require( '@openagenda/validators/link' )( { optional: false } );
 
@@ -51,6 +52,15 @@ function fromEventServiceFormat( eventServiceEvent ) {
 
   }
 
+  const timezone = _.get( eventServiceEvent, 'timezone', 'Europe/Paris' );
+
+  update.timings = {
+    $set: _.get( eventServiceEvent, 'timings', [] ).map( t => ( {
+      begin: _transformTimingToFormSchema( t.begin, timezone ),
+      end: _transformTimingToFormSchema( t.end, timezone )
+    } ) )
+  };
+
   return ih( eventServiceEvent, update );
 
 }
@@ -97,7 +107,55 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
   update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
 
+  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone', 'Europe/Paris' )
+
+  update.timezone = {
+    $set: _.get( formSchemaEvent, 'location.timezone' )
+  };
+
+  update.timings = {
+    $set: _.get( formSchemaEvent, 'timings', [] ).map( t => ( {
+      begin: _transformFormSchemaTimingsToService( t.begin, timezone ),
+      end: _transformFormSchemaTimingsToService( t.end, timezone )
+    } ) )
+  }
+
   return ih( formSchemaEvent, update );
+
+}
+
+
+function _transformFormSchemaTimingsToService( t, timezone ) {
+
+  return moment.tz(
+    t.date + ' ' + _fZ( t.hours ) + ':' + _fZ( t.minutes ),
+    timezone
+  ).format();
+
+}
+
+function _fZ( n ) {
+
+  return ( ( n + '' ).length === 1 ? '0' : '' ) + n;
+
+}
+
+
+/**
+ * timings is set as entered by the user in the timezone of the browser
+ * yet those timings should apply for timezone of the location rather.
+ *
+ * This function transforms the timings
+ */
+function _transformTimingToFormSchema( d, timezone ) {
+
+  const tz = moment( d ).tz( timezone );
+
+  return {
+    date: tz.format( 'YYYY-MM-DD' ),
+    hours: tz.format( 'HH' ),
+    minutes: tz.format( 'mm' )
+  }
 
 }
 

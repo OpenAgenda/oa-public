@@ -51,6 +51,53 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'timings are converted to date format in default timezone', () => {
+
+      expect( parse.toEventServiceFormat( {
+        timezone: 'Europe/Paris',
+        timings: [ {
+          begin: {
+            date: '2019-02-08',
+            hours: '19',
+            minutes: '25'
+          },
+          end: {
+            date: '2019-02-08',
+            hours: '21',
+            minutes: '00'
+          }
+        } ]
+      } ).timings ).toEqual( [ {
+        begin: '2019-02-08T19:25:00+01:00',
+        end: '2019-02-08T21:00:00+01:00'
+      } ] );
+
+    } );
+
+
+    test( 'timings are converted to date format in other timezone', () => {
+
+      expect( parse.toEventServiceFormat( {
+        timezone: 'Asia/Dubai',
+        timings: [ {
+          begin: {
+            date: '2019-02-08',
+            hours: '19',
+            minutes: '25'
+          },
+          end: {
+            date: '2019-02-08',
+            hours: '21',
+            minutes: '00'
+          }
+        } ]
+      } ).timings ).toEqual( [ {
+        begin: '2019-02-08T19:25:00+04:00',
+        end: '2019-02-08T21:00:00+04:00'
+      } ] );
+
+    } );
+
   } );
 
   describe( 'fromEventServiceFormat', () => {
@@ -71,9 +118,7 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
         image: {
           filename: null
         }
-      } ) ).toEqual( {
-        image: null
-      } );
+      } ).image ).toEqual( null );
 
     } );
 
@@ -83,11 +128,55 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
         image: {
           url: 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg'
         }
-      } ) ).toEqual( {
-        image: {
-          url: 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg'
-        }
+      } ).image ).toEqual( {
+        url: 'https://zenith-toulousemetropole.com/images/stories/manifestations/affiche-event-goya19.jpg'
       } );
+
+    } );
+
+    test( 'timings are converted to timezone-less format', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timezone: 'Europe/Paris',
+        timings: [ {
+          begin: new Date( '2019-02-08T19:25:00+0100' ),
+          end: new Date( '2019-02-08T21:00:00+0100' )
+        } ]
+      } ).timings ).toEqual( [ {
+        begin: {
+          date: '2019-02-08',
+          hours: '19',
+          minutes: '25'
+        },
+        end: {
+          date: '2019-02-08',
+          hours: '21',
+          minutes: '00'
+        }
+      } ] );
+
+    } );
+
+    test( 'timings defined for other timezone are set in other timezone', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timezone: 'Asia/Dubai',
+        timings: [ {
+          begin: new Date( '2019-02-08T19:25:00+0100' ),
+          end: new Date( '2019-02-08T21:00:00+0100' )
+        } ]
+      } ).timings ).toEqual( [ {
+        begin: {
+          date: '2019-02-08',
+          hours: '22',
+          minutes: '25'
+        },
+        end: {
+          date: '2019-02-09',
+          hours: '00',
+          minutes: '00'
+        }
+      } ] );
 
     } );
 
