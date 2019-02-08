@@ -21,8 +21,16 @@ export default class DevEventForm extends Component {
         accessibility: { hi: true, sl: true },
         references: [ 45527593 ],
         timings: [ {
-          begin: new Date( '2018-11-27T15:13:00' ),
-          end: new Date( '2018-11-27T16:16:00' ),
+          begin: {
+            date: '2018-11-27',
+            hours: 10,
+            minutes: 10
+          },
+          end: {
+            date: '2018-11-27',
+            hours: 16,
+            minutes: 16
+          }
         } ]
       }}
     />

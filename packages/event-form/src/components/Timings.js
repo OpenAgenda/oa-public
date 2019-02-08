@@ -19,7 +19,27 @@ module.exports = class TimingsComponent extends Component {
     const value = _.get( this.props, 'value' );
 
     return ( value || _.get( this.props, 'field.default', [] ) )
-      .map( t => ( { start: t.begin, end: t.end } ) );
+      .map( t => ( {
+        start: new Date( `${t.begin.date}T${t.begin.hours}:${t.begin.minutes}` ),
+        end: new Date( `${t.end.date}T${t.end.hours}:${t.end.minutes}` )
+      } ) );
+
+  }
+
+  onTimingsChange( timings = [] ) {
+
+     this.props.onChange( timings.map( t => ( {
+      begin: {
+        date: _extractDateString( t.start ),
+        hours: _fZ( t.start.getHours() ),
+        minutes: _fZ( t.start.getMinutes() )
+      },
+      end: {
+        date: _extractDateString( t.end ),
+        hours: _fZ( t.end.getHours() ),
+        minutes: _fZ( t.end.getMinutes() )
+      }
+    } ) ) );
 
   }
 
@@ -36,15 +56,16 @@ module.exports = class TimingsComponent extends Component {
         info={labels.noTiming}
         lang={({
             fr: 'fr-FR',
-            en: 'en-US'
+            en: 'en-US',
+            de: 'de-DE'
         })[ lang ]}
-        startTime="7:00"
+        startTime="6:00"
         timings={this.loadTimings()}
-        endTime="7:00"
+        endTime="6:00"
         activeDays={_.get( field, 'enabledRanges', [] ).map( r => ( { startDate: r.begin, endDate: r.end } ) )}
         weekStartDay={1}
         defaultDisplayWeekDay={null}
-        onTimingsChange={ timings => this.props.onChange( timings.map( t => ( { begin: t.start, end: t.end } ) ) )}
+        onTimingsChange={timings => this.onTimingsChange( timings )}
         readOnly={false}
         additionalLanguages={[]}
         timingStep={30}
@@ -52,5 +73,22 @@ module.exports = class TimingsComponent extends Component {
       />
 
   }
+
+}
+
+
+function _extractDateString( d ) {
+
+  return [
+    d.getFullYear(),
+    _fZ( d.getMonth() + 1 ),
+    _fZ( d.getDate() )
+  ].join( '-' );
+
+}
+
+function _fZ( n ) {
+
+  return ( ( n + '' ).length === 1 ? '0' : '' ) + n;
 
 }

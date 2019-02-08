@@ -59,7 +59,26 @@
       "latitude": 48.689671,
       "agendaId": 123,
       "city": "Nancy"
+    },
+    {
+      "image": null,
+      "address": "Masdar, Abu Dhabi",
+      "city": "Abu Dhabi",
+      "timezone": "Asia/Dubai",
+      "latitude": 24.426674,
+      "postalCode": null,
+      "imageCredits": null,
+      "description": {},
+      "tags": [],
+      "uid": 87334575,
+      "countryCode": "AE",
+      "name": "Masdar",
+      "links": [],
+      "region": "Abu Dhabi",
+      "department": null,
+      "longitude": 54.614989,
+      "updatedAt": "2018-02-13T13:39:53.000Z"
     }
   ],
-  "total": 4
-} 
+  "total": 5
+}

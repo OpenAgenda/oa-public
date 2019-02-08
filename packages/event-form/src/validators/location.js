@@ -27,6 +27,9 @@ const validate = schema( {
   },
   longitude: {
     type: 'longitude'
+  },
+  timezone: {
+    type: 'text'
   }
 } );
 
