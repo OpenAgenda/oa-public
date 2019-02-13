@@ -17,6 +17,8 @@
     "build-fields": "node tasks/makeValidatorFields.js"
   },
   "dependencies": {
+    "@openagenda/files": "^2.0.7",
+    "@openagenda/images": "^1.1.1",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/queue": "^1.0.0",
