@@ -79,6 +79,17 @@ You can access the value in a template like this:
 
 This is useful if you need to specify additional account keys, such as google analytics for example, or a facebook page url...
 
+
+## Front javascript widgets
+
+Look for the widgets folder in the sample partial templates for an example of implementation. These widgets provide navigation features:
+
+ * **Map widget**: Placed next to the main event list, this widget allows filtering the events dynamically by navigating in the map.
+ * **Calendar widget**: Placed next to the main event list, this widget provides date and date range filtering.
+ * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering.
+ * **Search**: Placed next to the main event list, this widget provides text search filtering.
+ * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
+
 ## Displaying raw data
 
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.

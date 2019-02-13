@@ -18,6 +18,7 @@ const mw = {
   get: require( './middleware/getEvent' ),
   list: require( './middleware/listEvents' ),
   pageGlobals: require( './middleware/pageGlobals' ),
+  redirectLegacyEventQuery: require( './middleware/redirectLegacyEventQuery' ),
   renderList: require( './middleware/renderList' ),
   redirect: require( './middleware/redirectToEvent' ),
   showPage: require( './middleware/showPage' )
@@ -61,7 +62,7 @@ module.exports = async config => {
 
   if ( assets ) app.use( express.static( assets ) );
 
-  app.get( '/', mw.pageGlobals, mw.list, mw.index );
+  app.get( '/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index );
   app.get( '/p/:page', mw.pageGlobals, mw.list, mw.index );
 
   app.get( '/events/p/:page', mw.list, mw.renderList );
