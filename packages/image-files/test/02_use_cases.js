@@ -9,13 +9,24 @@ const config = require( '../testconfig' );
 
 const svc = require( '../' );
 
+const images = require( '@openagenda/images' );
+const files = require( '@openagenda/files' );
+
 describe( 'image-files - functional: use cases', function() {
 
-  this.timeout( 20000 );
+  this.timeout( 30000 );
 
   before( () => {
 
-    svc.init( config );
+    files.init( config.files );
+
+    images.init( {
+      tmpPath: config.files.tmpPath
+    } );
+
+    svc.init( {
+      images, files
+    } );
 
   } );
 
