@@ -321,6 +321,7 @@ const config = {
     twitter: {
       name: prod.twitter.name
     },
+    imageSizeLimits: [ 2000, 30000000 ],
     bridges: {
       swapcard: {
         redirect: null, // deprecated
