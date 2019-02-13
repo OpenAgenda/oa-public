@@ -1368,19 +1368,6 @@
     mysql "2.8.0"
     should "~4.0"
 
-"@openagenda/files@^2.0.5", "@openagenda/files@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@openagenda/files/-/files-2.0.6.tgz#f3397a5423234427849fe174b5a3f5d5498122f2"
-  integrity sha1-8zl6VCMjRCeEn+F0taP11UmBIvI=
-  dependencies:
-    "@openagenda/logs" "^1.0.1"
-    async "^1.5.0"
-    aws-sdk "^2.145.0"
-    knox-s3 "^0.9.3"
-    lodash "^4.17.4"
-    mime "^1.4.1"
-    uuid "^3.1.0"
-
 "@openagenda/fixtures@^2.0.1":
   version "2.0.1"
   resolved "https://registry.npmjs.org/@openagenda/fixtures/-/fixtures-2.0.1.tgz#880f0bd8ba3bcbf2fd0edf33eb9d3682a8b99b61"
