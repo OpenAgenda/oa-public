@@ -48,12 +48,13 @@ module.exports = ( timings = [], timezone = 'Europe/Paris', locale = 'en' ) => {
     months: {}
   } );
 
-
   const months = [];
   const today = _getKeys( new Date(), timezone );
   let dayCursor = keyedTimings.first;
 
-  while ( tz( dayCursor, timezone ).format( 'YYYY-MM' ) <= tz( keyedTimings.last, timezone ).format( 'YYYY-MM' ) ) {
+  const last = tz( keyedTimings.last, timezone ).format( 'YYYY-MM' );
+
+  while ( tz( dayCursor, timezone ).format( 'YYYY-MM' ) <= last ) {
 
     const keys = _getKeys( dayCursor, timezone );
 
