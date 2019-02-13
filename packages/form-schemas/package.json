@@ -9,7 +9,7 @@
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/form-schemas",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha --compilers js:@babel/register --exit",
     "prepublish": "yarn build",
     "start": "nodemon server.dev",
     "build": "rimraf client/build && babel client/src -d client/build -s"
@@ -27,8 +27,10 @@
     "immutability-helper": "^3.0.0",
     "immutable": "^3.8.2",
     "knex": "^0.16.3",
+    "languages": "^0.1.3",
     "lodash": "^4.16.6",
     "marked": "^0.4.0",
+    "react-beautiful-dnd": "^10.0.4",
     "react-dropzone": "^5.0.1",
     "slate": "^0.34.7",
     "slate-html-serializer": "^0.6.13",

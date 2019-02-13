@@ -10,6 +10,9 @@ module.exports = {
   }, {
     label: 'Displaying errors',
     slug: 'errors'
+  }, {
+    label: 'Form builder',
+    slug: 'builder'
   } ],
   cases: [ {
     name: 'The simplest empty form',
@@ -142,5 +145,10 @@ module.exports = {
     name: 'missinglanguage',
     description: 'if requested language is not defined in label, other language is used for labels',
     link: '/missinglanguage'
+  }, {
+    group: 'builder',
+    name: 'formbuilder',
+    description: 'A form builder',
+    link: '/formbuilder'
   } ]
 }
