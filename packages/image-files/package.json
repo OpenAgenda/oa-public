@@ -12,11 +12,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --exit",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",
