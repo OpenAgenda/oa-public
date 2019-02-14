@@ -57,6 +57,19 @@ When working on your portal, you should only really need to edit files that are 
  * In your views folder for templating
  * In your assets folder for static assets such as images or javascripts
 
+
+## Displaying a total
+
+When the list is filtered, a javascript can update the displayed total dynamically. A hook class must be used on the element in which the total should go: `js_total`.
+
+The default index template provides an example:
+
+    <span
+      class="js_total mr-2"
+      data-total="{{total}}"
+      data-label-none="Aucun événement ne correspond à cette recherche"
+      data-label-one="1 événement" data-label-plural="%total% événements"></span>
+
 # Miscellaneous
 
 ## Static pages

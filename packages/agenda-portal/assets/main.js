@@ -55,6 +55,8 @@ function spin() {
 
 function updateTotal( total ) {
 
+  if ( !$( '.js_total' ).length ) return;
+
   if ( typeof total === 'undefined' ) total = parseInt( $( '.js_total' ).attr( 'data-total' ) );
 
   $( '.js_total' ).html(
