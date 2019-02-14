@@ -108,3 +108,45 @@ Look for the widgets folder in the sample partial templates for an example of im
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
 
 Use JSON viewer plugin such as [JSON Formatter](https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
+
+
+## Customizing event data
+
+You may want to make some changes to the event data before it is provided to the template. This is achievable by providing an event item transform function when declaring the Portal:
+
+    Portal( {
+      ...
+      eventParser: ( event, { lang, moment } ) => {
+
+        // do things to event here
+
+        return event;
+
+      }
+      ...
+    } );
+
+For example, you may want to display the tags of a single tag group. You can target its tags by filtering on the tag group slug:
+
+    const _ = require( 'lodash' );
+
+    Portal( {
+      ...
+      eventParser: ( event, { lang, moment } ) => {
+
+        event.categoryTags = _.get(
+          event.tagGroups.filter( g => g.slug === 'categories' ),
+          '0.tags'
+        );
+
+        return event;
+
+      }
+      ...
+    } );
+
+It is then possible in an event item or page to target the group like this:
+
+    {{#each categoryTags}}
+      <a href="?oaq[tags][]={{slug}}">{{label}}</span>
+    {{/each}}
