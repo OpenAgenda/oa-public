@@ -94,6 +94,7 @@ module.exports = ( {
       "fieldType" : "text",
       "label" : labels.conditions,
       "max" : 255,
+      "placeholder" : labels.conditionsPlaceholder,
       "sub" : labels.conditionsSub
     }, {
       field: 'age',
@@ -105,6 +106,7 @@ module.exports = ( {
       fieldType: 'registration',
       optional: true,
       label: labels.registration,
+      info: labels.registrationInfo,
       placeholder: labels.registrationPlaceholder,
       sub: labels.registrationSub
     }, {

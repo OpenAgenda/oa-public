@@ -101,11 +101,11 @@ module.exports = {
     fr: 'Outils d\'inscription',
     en: 'Registration'
   },
-  registrationPlaceholder: {
+  registrationSub: {
     fr: 'Séparez les items par des tabulation ou des virgules',
     en: 'Separate each item with tabs or commas'
   },
-  registrationSub: {
+  registrationInfo: {
     fr: 'Liens, emails ou numéros de téléphone',
     en: 'Links, emails or phone numbers'
   },
