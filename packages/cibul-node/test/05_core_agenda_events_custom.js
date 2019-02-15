@@ -52,6 +52,7 @@ const testConfig = {
     stakeholderSettings: 'member_settings'
   },
   tmpFolderPath: '/var/tmp/',
+  imageSizeLimits: [ 2000, 10000000 ],
   aws: {
     bucket: 'openagendatst',
     accessKeyId: config.aws.accessKeyId,
@@ -152,6 +153,9 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
     await core.init( testConfig, {
       enabled: [
+        'images',
+        'files',
+        'imageFiles',
         'events',
         'agendas',
         'agendaEvents',

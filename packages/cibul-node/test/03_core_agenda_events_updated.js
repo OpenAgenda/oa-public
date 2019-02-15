@@ -311,8 +311,16 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: {
+            date: '2019-02-15',
+            hours: 12,
+            minutes: 39
+          },
+          end: {
+            date: '2019-02-15',
+            hours: 12,
+            minutes: 50
+          }
         } ],
         location: {
           uid: 123

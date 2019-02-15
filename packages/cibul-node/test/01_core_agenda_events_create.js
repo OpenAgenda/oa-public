@@ -437,8 +437,16 @@ describe( 'core - functional ( server ): agenda event create', function() {
           fr: 'Quelques détails'
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: {
+            date: '2019-02-15',
+            hours: 12,
+            minutes: 39
+          },
+          end: {
+            date: '2019-02-15',
+            hours: 12,
+            minutes: 50
+          }
         } ],
         keywords: {
           fr: [ 'un', 'deux', 'trois' ]
