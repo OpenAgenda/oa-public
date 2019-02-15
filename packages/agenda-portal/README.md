@@ -103,6 +103,8 @@ Look for the widgets folder in the sample partial templates for an example of im
  * **Search**: Placed next to the main event list, this widget provides text search filtering.
  * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
 
+*Important note*: OpenAgenda provides the same widgets for iframe integration. The iframe variants of the widgets are not directly compatible with this library. Use the codes as provided in the sample templates, under the `widgets` folder.
+
 ## Displaying raw data
 
 For index and event pages. If you want insight on the data your are handling, add `?data` to your URL. The call will load a json view of the data as given to the template.
