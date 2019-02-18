@@ -1,0 +1,42 @@
+.form-schema-builder {
+
+  .field-preview {
+
+    &.editing {
+
+      .field-edit .form-group {
+
+        padding: 0 12px;
+        border-left: 3px solid $oa-blue;
+
+      }
+
+
+    }
+
+    &.disabled {
+
+      background: $oa-gray-lightest;
+
+      label, span {
+        color: $oa-gray;
+      }
+
+    }
+
+    .list-inline {
+
+      margin-bottom: 0;
+
+    }
+
+    .field-actions {
+
+      margin-left: -18px;
+
+    }
+
+  }
+
+
+}
