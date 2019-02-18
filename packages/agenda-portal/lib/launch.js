@@ -42,6 +42,8 @@ function _production( app, port ) {
 
   buildCss( sass || __dirname + '/../sass/main.scss', assets || __dirname + '/../assets' );
 
+  process.send( 'ready' ); // used by PM2 https://pm2.io/doc/en/runtime/best-practices/graceful-shutdown/#graceful-start
+
 }
 
 function _setRoot( app, port ) {
