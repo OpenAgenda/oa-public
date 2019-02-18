@@ -54,7 +54,7 @@ export default class FormSchemaComponent extends Component {
 
       this.state.errors = errors;
 
-    } else if ( errors ) {
+    } else if ( errors && errors.length ) {
 
       this.set( { errors } );
 
