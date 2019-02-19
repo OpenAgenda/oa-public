@@ -23,6 +23,9 @@ Portal( {
   sass: __dirname + '/sass/main.scss',
   assets: __dirname + '/assets',
 
+  // number of events to be loaded in an event index page
+  eventsPerPage: 20,
+
   // map tiles
   map: {
     tiles: {

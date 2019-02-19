@@ -49,6 +49,22 @@ With:
 
 See it on your browser on port 3000 if you haven't changed the default port in `server.js`: [localhost:3000](localhost:3000)
 
+
+# Options
+
+These define general portal settings. Default options set in your `server.js` file are a good baseline.
+
+ * **root**: website root. Used in production
+ * **uid**: UID of the agenda
+ * **lang**: main portal language
+ * **key**: OpenAgenda account public key
+ * **views**: path to the handlebar views folder
+ * **sass**: path to the sass folder
+ * **assets**: path to the assets folder
+ * **eventsPerPage**: number of events to be loaded in the event list view. 20 is the default value
+ * **map**: map filter widget settings ( tiles, default center ... )
+ * **eventParser**: event item parse function. Useful to transform event item data before it reaches the template
+
 # Templates and style
 
 When working on your portal, you should only really need to edit files that are either:

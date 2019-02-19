@@ -35,10 +35,11 @@ module.exports = async config => {
     key, // public key of OA account
     views, // path to views folder
     assets, // optional path to assets folder
-    sass // optional path to sass file
+    sass, // optional path to sass file
+    eventsPerPage // optional number of events to load per page
   } = config;
 
-  const proxy = Proxy( { uid, key } );
+  const proxy = Proxy( { uid, key, eventsPerPage } );
 
   app.locals.agenda = await proxy.head();
 

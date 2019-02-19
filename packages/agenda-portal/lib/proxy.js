@@ -4,7 +4,9 @@ const _ = require( 'lodash' );
 const axios = require( 'axios' );
 const qs = require( 'qs' );
 
-module.exports = ( { uid, key } ) => {
+module.exports = ( { uid, key, eventsPerPage } ) => {
+
+  const limit = eventsPerPage || 20;
 
   const cached = _.memoize( _fetch, ( res, query ) => [ res, qs.stringify( query ) ].join( '|' ) );
 
@@ -33,9 +35,11 @@ module.exports = ( { uid, key } ) => {
     const oaq = _.get( query, 'oaq' );
     const page = _.get( query, 'page', 1 );
 
+    const offset = ( parseInt( page ) - 1 ) * limit;
+
     return axios
       .get( `https://openagenda.com/agendas/${uid}/${res}`, {
-        params: { key, oaq, page },
+        params: { key, oaq, limit, offset },
         paramsSerializer: params => qs.stringify( params, { arrayFormat: 'brackets' } )
       } ).then( res => res.data );
 
