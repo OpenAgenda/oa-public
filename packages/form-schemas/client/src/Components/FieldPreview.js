@@ -17,6 +17,7 @@ export default class FieldPreview extends Component {
     const {
       field,
       lang,
+      labelLanguages,
       editing,
       disabled,
       onSave,
@@ -39,17 +40,13 @@ export default class FieldPreview extends Component {
           <li>
             <span>{getFieldTypeLabel( field, lang )}</span>
           </li>
-          { fieldLanguages( field ).map( l => (
-          <li key={`field-lang-${l}`}>
-            <span className="badge badge-default">{l}</span>
-          </li>
-          ) ) }
         </ul>
       </div>
       { editing ?
         <FieldEdit
           field={field}
           lang={lang}
+          labelLanguages={labelLanguages}
           onSave={onSave}
           onCancel={onCancel}
         /> : <ul className="field-actions list-inline padding-h-sm">

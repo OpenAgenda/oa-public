@@ -13,9 +13,46 @@ module.exports = {
   fieldPlaceholderPlaceholder: { fr: 'S\'affiche à l\'intérieur (comme ceci)', en: 'Is displayed inside the field (like this)' },
   fieldSub: { fr: 'Label de sous-champ', en: 'Sub info label' },
   fieldSubSub: { fr: 'S\'affiche sous le champ (comme ceci)', en: 'Is displayed below the field (like this)' },
-  monolingualLabels: { fr: 'Les labels de ce champ sont monolingues', en: 'Labels of this field are monolingual' },
   addLanguages: { fr: 'Ajouter des langues', en: 'Add languages' },
+
+  monolingualLabels: {
+    fr: 'Les labels de ce formulaire sont monolingues',
+    en: 'Labels of this form are monolingual'
+  },
+
+  multilingualLabels: {
+    fr: 'Langues des labels',
+    en: 'Label languages'
+  },
+
+  editLabelLanguages: {
+    fr: 'Editer',
+    en: 'Edit'
+  },
+
+  editLabelLanguagesInfo: {
+    fr: 'Listez les langues dans lesquelles devront être déclinées les labels du formulaire',
+    en: 'List the languages in which the labels of the form will be available'
+  },
+
+  addLabelLanguages: {
+    fr: 'Définir des langues',
+    en: 'Define languages'
+  },
+
+  submitLabelLanguages: {
+    fr: 'Valider',
+    en: 'Submit'
+  },
+
+  removeLabelLanguages: {
+    fr: 'Retirer les langues',
+    en: 'Clear languages'
+  },
+
+  // DEPR
   fieldLabelLanguages: { fr: 'Langues des labels', en: 'Label languages' },
+
   textFieldType: { fr : 'texte', en : 'Text' },
   textMultilingualFieldType: { fr: 'Text multilingue', en: 'Multilingual text' },
   imageFieldType: { fr: 'Image', en : 'Image' },
@@ -26,5 +63,8 @@ module.exports = {
   registrationFieldType: { fr: 'Liens, téléphone, email', en: 'Link, phone, email' },
   locationFieldType: { fr: 'Choix du lieu', en: 'Location selection' },
   accessibilityFieldType: { fr: 'Choix accessibilité', en: 'Accessibility selection' },
-  timingsFieldType: { fr: 'Sélection des horaires', en: 'Timings selection' }
+  timingsFieldType: { fr: 'Sélection des horaires', en: 'Timings selection' },
+  buttonSave: { fr: 'Enregistrer', en: 'Save' },
+  buttonSaved: { fr: 'Enregistré', en: 'Saved' },
+  buttonError: { fr: 'Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant', en: 'There was a problem during save. Try again shortly' }
 }

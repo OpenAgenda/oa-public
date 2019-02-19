@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 import FormSchemaComponent from '../';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import labels from '../lib/builderLabels';
-import fieldLanguages from '../lib/fieldLanguages';
 import updateSchemaFieldLanguages from '../lib/updateSchemaFieldLanguages';
 import unflattenLabels from '../lib/unflattenLabels';
-import Languages from '../Components/Languages';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -16,7 +14,7 @@ export default class FieldEdit extends Component {
 
     super( props );
 
-    const labelLanguages = fieldLanguages( this.props.field, this.props.lang );
+    const { labelLanguages } = props;
 
     this.state = {
       addLabelLanguages: false,
@@ -76,24 +74,6 @@ export default class FieldEdit extends Component {
 
   }
 
-  renderLanguageMenu() {
-
-    const { lang } = this.props;
-
-    const { labelLanguages } = this.state;
-
-    return <div className="margin-bottom-sm">
-      <label className="control-label">{getLabel( 'fieldLabelLanguages', lang )}</label>
-      <Languages
-        className="language-bar thin"
-        lang={lang}
-        value={labelLanguages}
-        onChange={this.onLabelLanguagesChange.bind( this )}
-      />
-    </div>
-
-  }
-
   render() {
 
     const { lang } = this.props;
@@ -103,7 +83,6 @@ export default class FieldEdit extends Component {
     const showLanguageBar = labelLanguages.length > 1 || addLabelLanguages;
 
     return <div className="field-edit margin-v-sm">
-      {showLanguageBar ? this.renderLanguageMenu() : null}
       <FormSchemaComponent
         stateless={true}
         onChange={this.onChange.bind( this )}

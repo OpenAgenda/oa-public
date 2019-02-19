@@ -15,9 +15,14 @@ import {
 import extractSchemaInfo from './lib/extractSchemaInfo';
 import insertMissingAbstractFields from './lib/insertMissingAbstractFields';
 import reorderSchemaFields from './lib/reorderSchemaFields';
+import saveStates from './lib/saveStates';
 import updateSchemaField from './lib/updateSchemaField';
+import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
+import submit from './lib/submit';
 
 import FieldPreview from './Components/FieldPreview';
+import LabelLanguages from './Components/LabelLanguages';
+import SaveButton from './Components/SaveButton';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -27,11 +32,15 @@ export default class FormSchemaComponent extends Component {
 
     super( props );
 
+    const mergedSchema = this.generateMergedSchemas( props.schema, props.extendedFrom );
+
     const initState = {
-      changedSinceLastSave: false,
+      schema: props.schema,
+      labelLanguages: extractSchemaLabelLanguages( mergedSchema ),
+      saveState: saveStates.UNCHANGED,
       editedField: null,
-      mergedSchema: this.generateMergedSchemas( props ),
-      labels//: flattenLabels( labels, props.lang, true )
+      mergedSchema,
+      labels
     }
 
     if ( props.devState ) {
@@ -54,7 +63,37 @@ export default class FormSchemaComponent extends Component {
       destination.index
     );
 
-    this.props.onUpdate( insertMissingAbstractFields( this.props.schema, reorderedSchema ) );
+    this.updateSchema( insertMissingAbstractFields( this.state.schema, reorderedSchema ) );
+
+  }
+
+  updateSchema( schema ) {
+
+    this.setState( {
+      schema,
+      mergedSchema: this.generateMergedSchemas( schema, this.props.extendedFrom ),
+      saveState: saveStates.CHANGED
+    } );
+
+    this.props.onUpdate( schema );
+
+  }
+
+  onSave() {
+
+    this.setState( { saveState: saveStates.LOADING } );
+
+    submit( { values: this.state.schema } ).then( () => {
+
+      this.setState( { saveState: saveStates.SAVED } );
+
+    }, err => {
+
+      console.error( error );
+
+      this.setState( { saveState: saveStates.ERROR } );
+
+    } );
 
   }
 
@@ -74,23 +113,15 @@ export default class FormSchemaComponent extends Component {
 
     this.setState( { editedField: null } );
 
-    const schema = insertMissingAbstractFields( this.props.schema, this.state.mergedSchema );
+    const schema = insertMissingAbstractFields( this.state.schema, this.state.mergedSchema );
 
-    this.props.onUpdate( updateSchemaField( schema, updatedField ) );
-
-  }
-
-  componentWillReceiveProps( props ) {
-
-    this.setState( {
-      mergedSchema: this.generateMergedSchemas( props )
-    } );
+    this.updateSchema( updateSchemaField( schema, updatedField ) );
 
   }
 
-  generateMergedSchemas( props ) {
+  generateMergedSchemas( schema, extensions ) {
 
-    return merge.apply( null, props.extendedFrom.map( e => e.schema ).concat( props.schema ) );
+    return merge.apply( null, extensions.map( e => e.schema ).concat( schema ) );
 
   }
 
@@ -98,64 +129,77 @@ export default class FormSchemaComponent extends Component {
 
     const {
       addEnabled,
-      extendedFrom
+      extendedFrom,
+      lang
     } = this.props;
 
     const {
       labels,
+      labelLanguages,
       editedField,
       mergedSchema,
-      changedSinceLastSave
+      saveState
     } = this.state;
+
+    const disabled = saveState === saveStates.LOADING;
 
     return <div className="form-schema-builder">
       <div className="margin-bottom-sm">
         <div className="wsq padding-v-sm padding-h-sm">
+          <h2 className="padding-bottom-sm">Paramètres généraux</h2>
+          {<LabelLanguages lang={lang} labelLanguages={labelLanguages} onUpdate={labelLanguages => this.setState( { labelLanguages } ) }/>}
           <p>Les champs sont triables. Glissez-déposez chaque champ dans l'emplacement désiré</p>
-          <button className="btn btn-primary">Enregistrer</button>
+          <SaveButton lang={lang} onClick={() => this.onSave() } saveState={saveState} />
         </div>
-        <DragDropContext
-          onDragEnd={this.onDragEnd.bind( this )}>
-          <Droppable droppableId="droppable">
-            {( provided, snapshot ) => (
-              <div
-                className="field-preview-canvas wsq"
-                ref={provided.innerRef}
-                style={getDraggableListStyle(snapshot.isDraggingOver)}
-              >
-                {_.get( mergedSchema, 'fields', [] ).map( ( field, index ) => (
-                  <Draggable
-                    key={field.field}
-                    draggableId={field.field}
-                    index={index}>
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getDraggableListItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )} >
-                        <FieldPreview
-                          disabled={editedField && ( editedField !== field.field )}
-                          editing={editedField===field.field}
-                          field={field}
-                          schemaInfo={extractSchemaInfo( field, extendedFrom )}
-                          lang={this.props.lang}
-                          onCancel={this.onFieldEditCancel.bind( this )}
-                          onEdit={this.onFieldEdit.bind( this, field )}
-                          onSave={field=> this.onFieldEditSave( field )}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <div>
+          <div className="wsq padding-v-xs padding-h-sm">
+            <h2>Champs du formulaire</h2>
+          </div>
+          <DragDropContext
+            onDragEnd={this.onDragEnd.bind( this )}>
+            <Droppable droppableId="droppable">
+              {( provided, snapshot ) => (
+                <div
+                  className="field-preview-canvas wsq"
+                  ref={provided.innerRef}
+                  style={getDraggableListStyle(snapshot.isDraggingOver)}
+                >
+                  {_.get( mergedSchema, 'fields', [] ).map( ( field, index ) => (
+                    <Draggable
+                      key={field.field}
+                      draggableId={field.field}
+                      isDragDisabled={disabled}
+                      index={index}>
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getDraggableListItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )} >
+                          <FieldPreview
+                            disabled={disabled || ( editedField && ( editedField !== field.field ) )}
+                            editing={editedField===field.field}
+                            field={field}
+                            schemaInfo={extractSchemaInfo( field, extendedFrom )}
+                            lang={this.props.lang}
+                            labelLanguages={labelLanguages}
+                            onCancel={this.onFieldEditCancel.bind( this )}
+                            onEdit={this.onFieldEdit.bind( this, field )}
+                            onSave={field=> this.onFieldEditSave( field )}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
+        </div>
       </div>
       { addEnabled ?
         <button className="btn btn-primary">{getLabel( 'addField', this.props.lang )}</button>
