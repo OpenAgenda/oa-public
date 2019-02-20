@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const uuidV4 = require( 'uuid/v4' );
 
+const log = require( '@openagenda/logs' )( 'processImage' );
+
 module.exports = async function( config, url, path, event ) {
 
   const fileKey = _.get( event, 'fileKey' ) || uuidV4().replace( /\-/g, '' );
@@ -27,17 +29,26 @@ module.exports.hasImage = event => {
 
 async function _process( load, formats, fileKey, urlOrPath ) {
 
-  const namedFormats = ih( formats, formats.map( f => ( { name: { $set: f.name.replace( '{fileKey}', fileKey ) } } ) ) );
-  
-  const { uploadedPaths, infos } = await load( ih( urlOrPath, { preSave: { $set: true }, formats: { $set: namedFormats } } ) );
+  const namedFormats = ih( formats, formats.map( f => ( {
+    name: { $set: f.name.replace( '{fileKey}', fileKey ) }
+  } ) ) );
+
+  log( 'loading images for key %s', fileKey, namedFormats );
+
+  const { uploadedPaths, infos } = await load( ih( urlOrPath, {
+    preSave: { $set: true },
+    formats: { $set: namedFormats }
+  } ) );
 
   // dispatch image sizes in format object
-  
+
   const variants = namedFormats.map( ( f, i ) => ( {
     filename: f.name,
     type: f.variant,
     size: infos[ i ].size
   } ) );
+
+  log( 'processed image variants for key %s', fileKey, variants );
 
   return _.extend( _.omit( variants.shift(), [ 'type' ] ), { variants } );
 
