@@ -101,7 +101,11 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
   // image is maintained
   } else {
 
-    update.image = { credits: { $set: _.get( formSchemaEvent, 'imageCredits' ) } };
+    update.image = {
+      credits: { $set: _.get( formSchemaEvent, 'imageCredits' ) },
+      variants: { $set: _.get( rawData, 'image.variants' ) },
+      size: { $set: _.get( rawData, 'image.size' ) }
+    };
 
   }
 

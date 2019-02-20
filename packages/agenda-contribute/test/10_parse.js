@@ -41,6 +41,26 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'maintains preexisting image data in image key', () => {
+
+      expect( parse.toEventServiceFormat( {
+        image: { filename: 'something' },
+      }, null, {
+        image: {
+          credits: 'the credits',
+          filename: 'something',
+          variants: [],
+          size: { width: 12, height: 12 }
+        }
+      } ).image ).toEqual( {
+        filename: 'something',
+        size: { width: 12, height: 12 },
+        variants: [],
+        creits: undefined
+      } );
+
+    } );
+
     test( 'only location uid is referenced in locationUid key', () => {
 
       expect( parse.toEventServiceFormat( {
