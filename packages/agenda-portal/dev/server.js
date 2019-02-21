@@ -11,13 +11,13 @@ const Portal = require( '../' );
 
 Portal( {
   // used in a non development environment
-  root: 'https://somewhere.com',
+  root: process.env.PORTAL_ROOT || 'https://somewhere.com',
   // agenda uid
   uid: 50522407,
   // site language
   lang: 'fr',
   // associated OA account key
-  key: fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
+  key: process.env.PORTAL_KEY || fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
   // views folder
   views: __dirname + '/views',
   sass: __dirname + '/sass/main.scss',
