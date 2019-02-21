@@ -9,7 +9,7 @@ const qs = require( 'qs' );
 const log = require( '@openagenda/logs' )( 'index' );
 
 const paginate = require( './lib/paginate' );
-const Proxy = require( './lib/proxy' );
+const Proxy = require( './lib/Proxy' );
 const launch = require( './lib/launch' );
 const tasks = require( './tasks' );
 
