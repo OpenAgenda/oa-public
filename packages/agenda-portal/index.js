@@ -11,6 +11,7 @@ const log = require( '@openagenda/logs' )( 'index' );
 const paginate = require( './lib/paginate' );
 const Proxy = require( './lib/proxy' );
 const launch = require( './lib/launch' );
+const tasks = require( './tasks' );
 
 const mw = {
   index: require( './middleware/renderIndex' ),
@@ -38,6 +39,7 @@ module.exports = async config => {
     sass, // optional path to sass file
     eventsPerPage, // optional number of events to load per page
     defaultFilter, // optional: filter that applies when no other filter is set
+    cache
   } = config;
 
   const proxy = Proxy( { uid, key, eventsPerPage, defaultFilter } );
@@ -80,6 +82,8 @@ module.exports = async config => {
   app.use( mw.error );
 
   app.launch = launch.bind( null, app );
+
+  tasks( { config, proxy } );
 
   return app;
 

@@ -14,6 +14,7 @@ module.exports = ( { uid, key, eventsPerPage, defaultFilter } ) => {
   return {
     head: () => cached( 'settings.json' ).then( result => _.set( result, 'uid', uid ) ),
     list: cached.bind( null, 'events.json' ), // call comes with a query
+    clearCache: () => cached.cache.clear(),
     get
   }
 

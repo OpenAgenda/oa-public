@@ -52,19 +52,26 @@ See it on your browser on port 3000 if you haven't changed the default port in `
 
 # Options
 
+## General options
+
 These define general portal settings. Default options set in your `server.js` file are a good baseline.
 
- * **root**: website root. Used in production
- * **uid**: UID of the agenda
- * **lang**: main portal language
- * **key**: OpenAgenda account public key
- * **views**: path to the handlebar views folder
- * **sass**: path to the sass folder
  * **assets**: path to the assets folder
- * **eventsPerPage**: number of events to be loaded in the event list view. 20 is the default value
- * **map**: map filter widget settings ( tiles, default center ... )
- * **eventParser**: event item parse function. Useful to transform event item data before it reaches the template
+ * **cache**: Optional. Cache management related options. See below for details
  * **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
+ * **eventsPerPage**: Optional. Number of events to be loaded in the event list view. 20 is the default value
+ * **eventParser**: Optional. event item parse function. Useful to transform event item data before it reaches the template
+ * **key**: Required. OpenAgenda account public key
+ * **lang**: Optional. Main portal language
+ * **map**: map filter widget settings ( tiles, default center ... )
+ * **root**: Required. website root. Used in production
+ * **sass**: path to the sass folder
+ * **uid**: Required. UID of the agenda
+ * **views**: Required. Path to the handlebar views folder
+
+## Cache options
+
+ * **refreshInterval**: interval at which the cache is cleared. Every hour by default.
 
 # Templates and style
 
