@@ -15,7 +15,7 @@ module.exports = {
 
 function buildCss( sassFile, cssDestinationFolder ) {
 
-  return _cssify( sassFile, _cssName( sassFile ) );
+  return _cssify( sassFile, cssDestinationFolder + '/' + _cssName( sassFile ) );
 
 }
 
