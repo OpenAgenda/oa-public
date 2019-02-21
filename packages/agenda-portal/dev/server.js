@@ -5,7 +5,7 @@ const fs = require( 'fs' );
 
 process.env.DEBUG = 'test, middleware/*';
 
-const log = require( '@openagenda/logs' )( 'test' );
+const log = require( '../lib/Log' )( 'test' );
 
 const Portal = require( '../' );
 

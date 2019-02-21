@@ -6,7 +6,7 @@ const express = require( 'express' );
 const hbs = require( 'hbs' );
 const qs = require( 'qs' );
 
-const log = require( '@openagenda/logs' )( 'index' );
+const log = require( './lib/Log' )( 'index' );
 
 const paginate = require( './lib/paginate' );
 const Proxy = require( './lib/Proxy' );
@@ -26,6 +26,8 @@ const mw = {
 }
 
 module.exports = async config => {
+
+  log( 'booting' );
 
   const app = express();
 

@@ -3,7 +3,7 @@
 const sass = require( 'node-sass' );
 const { promisify } = require( 'util' );
 
-const log = require( '@openagenda/logs' )( 'lib/css' );
+const log = require( './Log' )( 'lib/css' );
 
 const writeFile = promisify( require( 'fs' ).writeFile );
 const render = promisify( sass.render );
@@ -30,6 +30,8 @@ function appendCssBuildMiddleware( app, sassFile, cssDestinationFolder ) {
 
 async function _cssify( src, dst ) {
 
+  log( 'creating css %s from %s', dst, src );
+
   const { css } = await render( { file: src } );
 
   await writeFile( dst, css );
@@ -37,8 +39,6 @@ async function _cssify( src, dst ) {
 }
 
 function _middleware( { from, to }, req, res, next ) {
-
-  log( 'build css from %s to %s', from, to );
 
   _cssify( from, to ).then( next );
 
