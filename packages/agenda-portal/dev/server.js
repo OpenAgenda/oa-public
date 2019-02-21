@@ -24,7 +24,10 @@ Portal( {
   assets: __dirname + '/assets',
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
-
+  // filter that applies when no other filter is specified
+  defaultFilter: {
+    featured: 0
+  },
   // map tiles
   map: {
     tiles: {

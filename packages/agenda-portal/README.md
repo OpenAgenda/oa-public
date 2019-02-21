@@ -64,6 +64,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **eventsPerPage**: number of events to be loaded in the event list view. 20 is the default value
  * **map**: map filter widget settings ( tiles, default center ... )
  * **eventParser**: event item parse function. Useful to transform event item data before it reaches the template
+ * **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
 
 # Templates and style
 

@@ -36,10 +36,11 @@ module.exports = async config => {
     views, // path to views folder
     assets, // optional path to assets folder
     sass, // optional path to sass file
-    eventsPerPage // optional number of events to load per page
+    eventsPerPage, // optional number of events to load per page
+    defaultFilter, // optional: filter that applies when no other filter is set
   } = config;
 
-  const proxy = Proxy( { uid, key, eventsPerPage } );
+  const proxy = Proxy( { uid, key, eventsPerPage, defaultFilter } );
 
   app.locals.agenda = await proxy.head();
 
