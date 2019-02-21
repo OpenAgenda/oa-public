@@ -13,7 +13,7 @@ Portal( {
   // used in a non development environment
   root: process.env.PORTAL_ROOT || 'https://somewhere.com',
   // agenda uid
-  uid: 50522407,
+  uid: 48353388,
   // site language
   lang: 'fr',
   // associated OA account key
@@ -22,7 +22,6 @@ Portal( {
   views: __dirname + '/views',
   sass: __dirname + '/sass/main.scss',
   assets: __dirname + '/assets',
-
   // number of events to be loaded in an event index page
   eventsPerPage: 20,
 
@@ -32,10 +31,10 @@ Portal( {
       link: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     },
-    center: {
+    /*center: {
       latitude: 43.597198,
       longitude: 1.441136
-    },
+    },*/
     zoom: 12
   },
   eventParser
