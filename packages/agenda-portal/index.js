@@ -22,7 +22,8 @@ const mw = {
   redirectLegacyEventQuery: require( './middleware/redirectLegacyEventQuery' ),
   renderList: require( './middleware/renderList' ),
   redirect: require( './middleware/redirectToEvent' ),
-  showPage: require( './middleware/showPage' )
+  showPage: require( './middleware/showPage' ),
+  navigationLinks: require( './middleware/navigationLinks' )
 }
 
 module.exports = async config => {
@@ -74,7 +75,7 @@ module.exports = async config => {
   app.get( '/events/p/:page', mw.list, mw.renderList );
   app.get( '/events', mw.list, mw.renderList );
 
-  app.get( '/events/:slug', mw.pageGlobals, mw.get );
+  app.get( '/events/:slug', mw.pageGlobals, mw.navigationLinks, mw.get );
   app.get( '/permalinks/events/:uid', mw.redirect );
 
   app.get( '/:page', mw.pageGlobals, mw.showPage );

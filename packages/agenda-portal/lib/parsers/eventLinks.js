@@ -1,8 +1,13 @@
 "use strict";
 
-module.exports = ( event, { lang, root, agenda } ) => {
+const _ = require( 'lodash' );
+const navigation = require( '../navigation' );
 
-  event.link = `${root}/events/${event.slug}`;
+module.exports = ( event, { lang, root, agenda, req } ) => {
+
+  const nav = req ? navigation.listQuery( req ) : null;
+
+  event.link = `${root}/events/${event.slug}${nav ? '?' + nav : '' }`;
   event.permalink = `${root}/permalinks/events/${event.uid}`;
 
   const encodedLink = encodeURIComponent( event.permalink );

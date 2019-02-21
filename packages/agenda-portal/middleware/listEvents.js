@@ -17,7 +17,7 @@ module.exports = ( req, res, next ) => {
       query: req.query,
       searchString: qs.stringify( req.query ),
       total: total,
-      events: events.map( parsers.event ),
+      events: events.map( e => parsers.event( e, req ) ),
       pages: paginate( { offset, limit, total } )
     } );
 
