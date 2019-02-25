@@ -2,7 +2,7 @@
 
 This library provides functionalities to build a fully customizable events website that relies on an OpenAgenda JSON export as its events data source. Good working knowledge of sass, css and html is sufficient to get a customized website running.
 
-Here is a website running on this library: [https://agenda.albi.fr](https://agenda.albi.fr)
+Here is a website built with this library: [https://agenda.albi.fr](https://agenda.albi.fr)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
 [Sass](https://sass-lang.com/) for styling. The default template uses [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
