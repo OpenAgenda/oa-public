@@ -3,14 +3,17 @@
 module.exports = {
   signin: {
     fr: 'Se connecter',
-    en: 'Sign in'
+    en: 'Sign in',
+    de: 'Einloggen'
   },
   search: {
     fr: 'Rechercher',
-    en: 'Search'
+    en: 'Search',
+    de: 'Suchen'
   },
   help: {
     fr: 'Aide',
-    en: 'Help'
+    en: 'Help',
+    de: 'Hilfe'
   }
 }
