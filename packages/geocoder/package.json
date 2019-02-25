@@ -1,14 +1,14 @@
 {
   "name": "@openagenda/geocoder",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
-  "scripts" : {
-    "test" : "mocha"
+  "scripts": {
+    "test": "mocha"
   },
-  "dependencies" : {
-    "lodash": "^4.17.4",
-    "axios" : "^0.18.0"
+  "dependencies": {
+    "axios": "^0.18.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
