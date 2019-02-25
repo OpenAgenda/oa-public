@@ -12,10 +12,18 @@ const layout = _.template( layoutTemplate );
 module.exports = ( req, content ) => {
 
   return layout( {
-    agenda: req.agenda, 
-    labels: flattenLabels( headerLabels, req.lang ), 
+    head: {
+      title: req.agenda ? req.agenda.title : 'OpenAgenda'
+    },
+    agenda: req.agenda,
+    labels: flattenLabels( headerLabels, req.lang ),
     lang: req.lang,
-    metas: _.get( req, 'metas', [] )
+    querySearch: _.get( req, 'query.search', '' ),
+    metas: _.get( req, 'metas', [] ),
+    bodyAttributes: _.get( req, 'bodyAttributes', [] ),
+    scripts: _.get( req, 'scripts', {
+      bottom: []
+    } )
   } ).replace( '{content}', content );
 
 }
