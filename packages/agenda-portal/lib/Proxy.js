@@ -6,9 +6,7 @@ const qs = require( 'qs' );
 const parseSearchQuery = require( './parsers/searchQuery' );
 const log = require( './Log' )( 'proxy' );
 
-module.exports = ( { uid, key, eventsPerPage, defaultFilter } ) => {
-
-  const limit = eventsPerPage || 20;
+module.exports = ( { uid, key, defaultLimit, defaultFilter } ) => {
 
   const cached = _.memoize( _fetch, ( res, query ) => [ res, qs.stringify( query ) ].join( '|' ) );
 
@@ -16,7 +14,8 @@ module.exports = ( { uid, key, eventsPerPage, defaultFilter } ) => {
     head: () => cached( 'settings.json' ).then( result => _.set( result, 'uid', uid ) ),
     list: cached.bind( null, 'events.json' ), // call comes with a query
     clearCache,
-    get
+    get,
+    defaultLimit
   }
 
   function clearCache() {
@@ -44,17 +43,19 @@ module.exports = ( { uid, key, eventsPerPage, defaultFilter } ) => {
   function _fetch( res, query, forcedLimit = null ) {
 
     const oaq = parseSearchQuery( _.get( query, 'oaq' ), { defaultFilter } );
-    const page = _.get( query, 'page', 1 );
 
-    const appliedLimit = forcedLimit || limit;
+    const limit = forcedLimit || defaultLimit;
 
-    const offset = ( parseInt( page ) - 1 ) * limit;
+    const offset = parseInt( _.get( query, 'offset',
+      // if page is given rather than offset, use that.
+      ( parseInt( _.get( query, 'page', 1 ) ) - 1 ) * limit
+    ) );
 
-    log( 'fetching', { res, oaq, offset, limit: appliedLimit })
+    log( 'fetching', { res, oaq, offset, limit })
 
     return axios
       .get( `https://openagenda.com/agendas/${uid}/${res}`, {
-        params: { key, oaq, limit: appliedLimit, offset },
+        params: { key, oaq, limit, offset },
         paramsSerializer: params => qs.stringify( params, { arrayFormat: 'brackets' } )
       } ).then( res => res.data );
 

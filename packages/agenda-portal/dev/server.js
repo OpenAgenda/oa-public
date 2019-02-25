@@ -51,7 +51,7 @@ Portal( {
 
 function eventParser( event, { lang, moment } ) {
 
-  //log( event );
+  //log( JSON.stringify( event, null, 2 ) );
 
   return event;
 

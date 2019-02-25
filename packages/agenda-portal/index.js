@@ -17,20 +17,25 @@ const mw = {
   index: require( './middleware/renderIndex' ),
   error: require( './middleware/error' ),
   get: require( './middleware/getEvent' ),
+  redirectToNeighbor: require( './middleware/eventNavigation' ).redirectToNeighbor,
   list: require( './middleware/listEvents' ),
   pageGlobals: require( './middleware/pageGlobals' ),
   redirectLegacyEventQuery: require( './middleware/redirectLegacyEventQuery' ),
   renderList: require( './middleware/renderList' ),
   redirect: require( './middleware/redirectToEvent' ),
   showPage: require( './middleware/showPage' ),
-  navigationLinks: require( './middleware/navigationLinks' )
+  navigationLinks: require( './middleware/eventNavigation' ).navigationLinks
 }
 
-module.exports = async config => {
+module.exports = async options => {
 
   log( 'booting' );
 
   const app = express();
+
+  const config = _.assign( {
+    eventsPerPage: 20
+  }, options );
 
   const {
     eventParser,
@@ -45,7 +50,7 @@ module.exports = async config => {
     cache
   } = config;
 
-  const proxy = Proxy( { uid, key, eventsPerPage, defaultFilter } );
+  const proxy = Proxy( { uid, key, defaultLimit: eventsPerPage, defaultFilter } );
 
   app.locals.agenda = await proxy.head();
 
@@ -75,6 +80,7 @@ module.exports = async config => {
   app.get( '/events/p/:page', mw.list, mw.renderList );
   app.get( '/events', mw.list, mw.renderList );
 
+  app.get( '/events/nav/:direction', mw.redirectToNeighbor );
   app.get( '/events/:slug', mw.pageGlobals, mw.navigationLinks, mw.get );
   app.get( '/permalinks/events/:uid', mw.redirect );
 
