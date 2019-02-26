@@ -41,6 +41,17 @@ describe( 'opencage', () => {
 
     } );
 
+    it( 'Sarzeau is not in Morbihan according to OpenCage', async () => {
+
+      ( await geocode( 'Sarzeau', {
+        countryCode: 'FR',
+        language: 'fr',
+        first: true,
+        raw: true
+      } ) ).department.should.eql( 'Vannes' );
+
+    } );
+
   } );
 
   describe( 'reverse', () => {
