@@ -15,7 +15,6 @@ const genUrl = require( '../../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/sendEventChangeState' );
 
-
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
   // const { agenda, event } = context;
@@ -65,7 +64,17 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
     template: 'eventChangeState',
     to: members
       .filter( member => member.id !== _.get( contributor, 'id' ) )
+      .filter( member => {
+
+        if ( !member.user ) {
+          log( 'warn', 'no user was found matching member %s', member.id );
+        }
+
+        return !!member.user;
+
+      } )
       .map( member => {
+
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
 
