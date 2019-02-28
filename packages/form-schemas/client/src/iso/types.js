@@ -13,5 +13,6 @@ module.exports = {
   html: 'text',
   image: 'pass',
   file: 'pass',
-  date: 'date'
+  date: 'date',
+  boolean: 'boolean'
 }

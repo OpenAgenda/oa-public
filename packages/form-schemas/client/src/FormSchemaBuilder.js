@@ -22,7 +22,9 @@ import submit from './lib/submit';
 
 import FieldPreview from './Components/FieldPreview';
 import LabelLanguages from './Components/LabelLanguages';
+import FieldOrder from './Components/FieldOrder';
 import SaveButton from './Components/SaveButton';
+import AddField from './Components/AddField';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -39,6 +41,7 @@ export default class FormSchemaComponent extends Component {
       labelLanguages: extractSchemaLabelLanguages( mergedSchema ),
       saveState: saveStates.UNCHANGED,
       editedField: null,
+      ordering: false,
       mergedSchema,
       labels
     }
@@ -79,6 +82,21 @@ export default class FormSchemaComponent extends Component {
 
   }
 
+  onStartOrder() {
+
+    this.setState( { ordering: true } );
+
+  }
+
+  onCancelOrder( previousOrder ) {
+
+    this.setState( {
+      ordering: false,
+      mergedSchema: reorderSchemaFields.applyOrder( this.state.mergedSchema, previousOrder )
+    } );
+
+  }
+
   onSave() {
 
     this.setState( { saveState: saveStates.LOADING } );
@@ -100,6 +118,8 @@ export default class FormSchemaComponent extends Component {
   onFieldEdit( field ) {
 
     this.setState( { editedField: field.field } );
+
+    setTimeout( () => window.location.href = window.location.href.split( '#' )[ 0 ] + '#field-preview-'+field.field, 10 );
 
   }
 
@@ -138,7 +158,8 @@ export default class FormSchemaComponent extends Component {
       labelLanguages,
       editedField,
       mergedSchema,
-      saveState
+      saveState,
+      ordering
     } = this.state;
 
     const disabled = saveState === saveStates.LOADING;
@@ -147,9 +168,25 @@ export default class FormSchemaComponent extends Component {
       <div className="margin-bottom-sm">
         <div className="wsq padding-v-sm padding-h-sm">
           <h2 className="padding-bottom-sm">Paramètres généraux</h2>
-          {<LabelLanguages lang={lang} labelLanguages={labelLanguages} onUpdate={labelLanguages => this.setState( { labelLanguages } ) }/>}
-          <p>Les champs sont triables. Glissez-déposez chaque champ dans l'emplacement désiré</p>
-          <SaveButton lang={lang} onClick={() => this.onSave() } saveState={saveState} />
+          <LabelLanguages
+            disabled={disabled}
+            lang={lang}
+            labelLanguages={labelLanguages}
+            onUpdate={labelLanguages => this.setState( { labelLanguages } ) }
+          />
+          <FieldOrder
+            disabled={disabled}
+            fields={mergedSchema.fields}
+            ordering={ordering}
+            lang={lang}
+            onStartOrder={()=>{ this.setState( { ordering: true } )}}
+            onFinishOrder={()=>{ this.setState( { ordering: false } )}}
+            onCancel={initialOrder=>this.onCancelOrder( initialOrder )}
+          />
+          <div className="margin-top-sm">
+            <SaveButton lang={lang} onClick={() => this.onSave() } saveState={saveState} />
+            <AddField lang={lang} />
+          </div>
         </div>
         <div>
           <div className="wsq padding-v-xs padding-h-sm">
@@ -160,7 +197,7 @@ export default class FormSchemaComponent extends Component {
             <Droppable droppableId="droppable">
               {( provided, snapshot ) => (
                 <div
-                  className="field-preview-canvas wsq"
+                  className={'field-preview-canvas wsq' + ( editedField ? ' editing' : '' )}
                   ref={provided.innerRef}
                   style={getDraggableListStyle(snapshot.isDraggingOver)}
                 >
@@ -168,7 +205,7 @@ export default class FormSchemaComponent extends Component {
                     <Draggable
                       key={field.field}
                       draggableId={field.field}
-                      isDragDisabled={disabled}
+                      isDragDisabled={!ordering}
                       index={index}>
                       {(provided, snapshot) => (
                         <div
@@ -181,6 +218,7 @@ export default class FormSchemaComponent extends Component {
                           )} >
                           <FieldPreview
                             disabled={disabled || ( editedField && ( editedField !== field.field ) )}
+                            ordering={ordering}
                             editing={editedField===field.field}
                             field={field}
                             schemaInfo={extractSchemaInfo( field, extendedFrom )}

@@ -5,6 +5,7 @@ import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import labels from '../lib/builderLabels';
 import updateSchemaFieldLanguages from '../lib/updateSchemaFieldLanguages';
 import unflattenLabels from '../lib/unflattenLabels';
+import labelsSchema from '../lib/labelsSchema';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -16,37 +17,12 @@ export default class FieldEdit extends Component {
 
     const { labelLanguages } = props;
 
+    console.log(labelLanguages);
+    console.log(props.field);
+    console.log(unflattenLabels( props.field, labelLanguages ));
+
     this.state = {
-      addLabelLanguages: false,
-      labelLanguages,
-      field: unflattenLabels( props.field, labelLanguages ),
-      schema: {
-        fields: [ {
-          field: 'label',
-          fieldType: 'text',
-          optional: false,
-          languages: labelLanguages,
-          label: labels.fieldLabel
-        }, {
-          field: 'info',
-          fieldType: 'text',
-          languages: labelLanguages,
-          label: labels.fieldInfo,
-          info: labels.fieldInfoInfo
-        }, {
-          field: 'placeholder',
-          fieldType: 'text',
-          languages: labelLanguages,
-          label: labels.fieldPlaceholder,
-          placeholder: labels.fieldPlaceholderPlaceholder
-        }, {
-          field: 'sub',
-          fieldType: 'text',
-          languages: labelLanguages,
-          label: labels.fieldSub,
-          sub: labels.fieldSubSub
-        } ]
-      }
+      field: unflattenLabels( props.field, labelLanguages )
     }
 
   }
@@ -57,46 +33,30 @@ export default class FieldEdit extends Component {
 
   }
 
-  onDefineLabelLanguages( e ) {
-
-    e.preventDefault();
-
-    this.setState( { addLabelLanguages: true } );
-
-  }
-
   onLabelLanguagesChange( newLanguages ) {
 
     this.setState( {
-      labelLanguages: newLanguages,
-      schema: updateSchemaFieldLanguages( this.state.schema, newLanguages )
+      labelLanguages: newLanguages
     } );
 
   }
 
   render() {
 
-    const { lang } = this.props;
+    const { lang, labelLanguages } = this.props;
 
-    const { field, schema, labelLanguages, addLabelLanguages } = this.state;
+    const { field, schema, addLabelLanguages } = this.state;
 
-    const showLanguageBar = labelLanguages.length > 1 || addLabelLanguages;
-
-    return <div className="field-edit margin-v-sm">
+    return <div className="field-edit margin-v-md">
       <FormSchemaComponent
         stateless={true}
         onChange={this.onChange.bind( this )}
         values={field}
         lang={lang}
-        schema={schema}
+        schema={labelsSchema( { labelLanguages } )}
         actionComponents={[ {
           position: 'bottom',
-          Component: ( { onSubmit } ) => <div className="padding-top-sm padding-h-sm">
-            <div>
-              {!showLanguageBar ?
-                <a href="#" onClick={this.onDefineLabelLanguages.bind( this )}>{getLabel( 'addLanguages', lang )}</a>
-                : null }
-            </div>
+          Component: ( { onSubmit } ) => <div className="padding-v-sm padding-h-sm">
             <div className="margin-v-sm">
               <button onClick={this.props.onCancel} className="btn btn-default">{getLabel( 'editFieldCancel', lang )}</button>
               <button onClick={() => this.props.onSave( this.state.field )} className="btn btn-primary pull-right">{getLabel( 'editFieldSave', lang )}</button>

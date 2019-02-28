@@ -95,6 +95,11 @@ module.exports = {
     link: '/checkbox',
     group: 'types'
   }, {
+    name: 'A boolean ( unique checkbox )',
+    description: 'When it is a yes or no question',
+    link: '/boolean',
+    group: 'types'
+  }, {
     name: 'A markdown field',
     description: 'A field that outputs a markdown string',
     link: '/markdown',
@@ -150,5 +155,10 @@ module.exports = {
     name: 'formbuilder',
     description: 'A form builder',
     link: '/formbuilder'
+  }, {
+    group: 'builder',
+    name: 'textfieldedit',
+    description: 'A text field',
+    link: '/textfieldedit'
   } ]
 }

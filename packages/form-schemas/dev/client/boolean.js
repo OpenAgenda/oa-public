@@ -18,31 +18,22 @@ class Main extends Component {
       lang: 'fr',
       schema: {
         fields: [ {
-          field: 'aradiofield',
-          fieldType: 'checkbox',
-          label: 'Make a choice',
-          optional: false,
-          default: [ 2, 3 ],
-          options: [ {
-            id: 1,
-            value: 'option-one',
-            label: 'Option one'
-          }, {
-            id: 2,
-            value: 'option-two',
-            label: 'Option two'
-          }, {
-            id: 3,
-            value: 'option-three',
-            label: 'Option three'
-          } ]
+          field: 'ayesorno',
+          fieldType: 'boolean',
+          label: 'Well ok',
+          optional: false
         } ]
+      },
+      onChange: ( { values } ) => {
+
+        console.log( values);
+
       }
     }
 
     return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
-        <p>A multiple choice field</p>
+        <p>A boolean field</p>
         <FormSchemaComponent { ...props } />
       </div>
     </div>

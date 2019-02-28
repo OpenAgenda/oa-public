@@ -33,6 +33,9 @@ const map = [ {
   parser: convertTo,
   type: 'date'
 }, {
+  field: 'boolean',
+  type: 'boolean'
+}, {
   field: 'checkbox',
   parser: convertToChoice.bind( null, { unique: false } ),
   type: 'choice'
@@ -84,7 +87,7 @@ module.exports = ( field, options = {} ) => {
 
     convertTo( validatorOptions, field );
 
-  } else {
+  } else if ( matchingMapItem.parser ) {
 
     matchingMapItem.parser( validatorOptions, field );
 

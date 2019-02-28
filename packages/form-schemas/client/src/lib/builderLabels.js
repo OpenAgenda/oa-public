@@ -1,13 +1,39 @@
 "use strict";
 
 module.exports = {
-  addField: { fr: 'Ajouter un champ', en: 'Add a field' },
-  draggableField: { fr: 'Glisser-déposer pour trier', en: 'Drag and drop to sort' },
-  editField: { fr: 'Editer les labels', en: 'Edit labels' },
-  editFieldSave: { fr: 'Enregistrer', en: 'Save' },
-  editFieldCancel: { fr : 'Annuler', en: 'Cancel' },
-  fieldLabel: { fr: 'Titre du champ', en: 'Field title' },
-  fieldInfo: { fr: 'Information complémentaire', en: 'Additional information' },
+  addField: {
+    fr: 'Ajouter un champ',
+    en: 'Add a field'
+  },
+  draggableField: {
+    fr: 'Glisser-déposer pour trier',
+    en: 'Drag and drop to sort'
+  },
+
+  editField: {
+    fr: 'Editer les labels',
+    en: 'Edit labels'
+  },
+  editFieldSave: {
+    fr: 'Enregistrer',
+    en: 'Save'
+  },
+  editFieldCancel: {
+    fr : 'Annuler',
+    en: 'Cancel'
+  },
+  orderField: {
+    fr: 'Glisser / déposer',
+    en: 'Drag and drop'
+  },
+  fieldLabel: {
+    fr: 'Titre du champ',
+    en: 'Field title'
+  },
+  fieldInfo: {
+    fr: 'Information complémentaire',
+    en: 'Additional information'
+  },
   fieldInfoInfo: { fr: 'S\'affiche sous le titre (comme ceci)', en: 'Displayed below the title (like this)' },
   fieldPlaceholder: { fr: 'Substitut de champ', en: 'Placeholder' },
   fieldPlaceholderPlaceholder: { fr: 'S\'affiche à l\'intérieur (comme ceci)', en: 'Is displayed inside the field (like this)' },
@@ -66,5 +92,41 @@ module.exports = {
   timingsFieldType: { fr: 'Sélection des horaires', en: 'Timings selection' },
   buttonSave: { fr: 'Enregistrer', en: 'Save' },
   buttonSaved: { fr: 'Enregistré', en: 'Saved' },
-  buttonError: { fr: 'Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant', en: 'There was a problem during save. Try again shortly' }
+  buttonError: { fr: 'Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant', en: 'There was a problem during save. Try again shortly' },
+
+  orderCancel: {
+    fr: 'Annuler',
+    en: 'Cancel'
+  },
+  orderEdit: {
+    fr: 'Modifier',
+    en: 'Edit'
+  },
+  orderInstruction: {
+    fr: 'Glissez-déposez chaque champ dans l\'emplacement désiré',
+    en: 'Drag and drop fields to the desired position'
+  },
+  orderSave: {
+    fr: 'Appliquer le nouvel ordre',
+    en: 'Apply the new order'
+  },
+  orderTitle: {
+    fr: 'Ordre des champs',
+    en: 'Field order'
+  },
+
+  fieldFormOptional: {
+    fr: 'Ce champ est facultatif',
+    en: 'This field is optional'
+  },
+
+  fieldFormMaxTextLength: {
+    fr: 'Longueur maximale du texte saisi',
+    en: 'Maximum length of the typed text'
+  },
+
+  fieldFormMinTextLength: {
+    fr: 'Longueur minimal du texte saisi',
+    en: 'Minimum length of the typed text'
+  }
 }

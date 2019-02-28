@@ -1,42 +1,53 @@
 .form-schema-builder {
 
-  .field-preview {
+  .field-preview-canvas {
 
     &.editing {
 
-      .field-edit .form-group {
+      background: #f9f9f9;
 
-        padding: 0 12px;
-        border-left: 3px solid $oa-blue;
+    }
+
+    .field-preview {
+
+      &.editing {
+
+        background: $oa-white;
+
+        .field-edit .form-group {
+
+          padding: 0 12px;
+          border-left: 3px solid $oa-blue;
+
+        }
+
 
       }
 
+      &.disabled {
 
-    }
+        background: $oa-gray-lightest;
 
-    &.disabled {
+        label, span {
+          color: $oa-gray;
+        }
 
-      background: $oa-gray-lightest;
-
-      label, span {
-        color: $oa-gray;
       }
 
-    }
+      .list-inline {
 
-    .list-inline {
+        margin-bottom: 0;
 
-      margin-bottom: 0;
+      }
 
-    }
+      .field-actions {
 
-    .field-actions {
+        margin-left: -18px;
 
-      margin-left: -18px;
+      }
 
     }
 
   }
-
 
 }

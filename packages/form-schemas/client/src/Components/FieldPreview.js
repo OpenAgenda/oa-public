@@ -22,10 +22,13 @@ export default class FieldPreview extends Component {
       disabled,
       onSave,
       onCancel,
-      schemaInfo
+      schemaInfo,
+      ordering
     } = this.props;
 
-    return <div title={!disabled && !editing ? getLabel( 'draggableField', lang ) : null} className={classNames( {
+    return <div
+      id={'field-preview-' + field.field}
+      className={classNames( {
       'field-preview' : true,
       'padding-top-xs' : true,
       disabled,
@@ -50,12 +53,13 @@ export default class FieldPreview extends Component {
           onSave={onSave}
           onCancel={onCancel}
         /> : <ul className="field-actions list-inline padding-h-sm">
-          <li><a
+          { ordering ? <li>
+            <span className="btn btn-link">{getLabel( 'orderField', lang )}</span>
+          </li> : <li><button
             onClick={()=>disabled ? ()=>{} : this.props.onEdit()}
             className="btn btn-link"
-            disabled={disabled}
-            href="#">{getLabel( 'editField', lang )}</a>
-          </li>
+            disabled={disabled}>{getLabel( 'editField', lang )}</button>
+          </li> }
         </ul>
       }
     </div>

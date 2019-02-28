@@ -5,6 +5,4 @@ export default ( schema, extendedFrom ) => _.uniq(
       extendedFrom.map( e => e.fields )
     ).map( f => f.field )
   ).filter( field => !schema.fields.includes( field ) )
-    .map( field => ( { field, fieldType: 'abstract' } ) )
-
-}
+    .map( field => ( { field, fieldType: 'abstract' } ) );
