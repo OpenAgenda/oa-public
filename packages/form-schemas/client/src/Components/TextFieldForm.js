@@ -36,37 +36,27 @@ const textFieldSchema = {
   } ]
 }
 
-export default class TextFieldForm extends Component {
+export default ( {
+  lang,
+  labelLanguages,
+  actionComponent,
+  onChange,
+  values,
+  errors
+} ) => {
 
-  constructor( props ) {
+  const schema = merge( labelsSchema( { labelLanguages } ), textFieldSchema )
 
-    super( props );
-
-  }
-
-  render() {
-
-    const { lang, labelLanguages } = this.props;
-
-    const schema = merge( labelsSchema( { labelLanguages } ), textFieldSchema )
-
-    return <div>
-      <FormSchemaComponent
-        stateless={true}
-        values={{}}
-        lang={lang}
-        schema={schema}
-        actionComponents={[ {
-          position: 'bottom',
-          Component: ( { onSubmit } ) => <div className="padding-v-sm padding-h-sm">
-            <div className="margin-v-sm">
-              <div>Boop</div>
-            </div>
-          </div>
-        } ]}
-      />
-    </div>
-
-  }
-
+  return <FormSchemaComponent
+    stateless={true}
+    values={values}
+    errors={errors}
+    onChange={onChange}
+    lang={lang}
+    schema={schema}
+    actionComponents={[ {
+      position: 'bottom',
+      Component: actionComponent
+    } ]}
+  />
 }

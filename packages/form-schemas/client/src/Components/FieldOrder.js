@@ -40,7 +40,9 @@ export default class FieldOrder extends Component {
     return <div className="text-center padding-top-sm">
       <p>{getLabel( 'orderInstruction', lang )}</p>
       <button className="btn btn-link" onClick={() => onFinishOrder() }>{getLabel( 'orderSave', lang )}</button>
-      <button className="btn btn-link" onClick={() => this.onCancel()}>{getLabel( 'orderCancel', lang )}</button>
+      <button className="btn btn-link" onClick={() => this.onCancel()}>
+        <span className="text-danger">{getLabel( 'orderCancel', lang )}</span>
+      </button>
     </div>
 
   }

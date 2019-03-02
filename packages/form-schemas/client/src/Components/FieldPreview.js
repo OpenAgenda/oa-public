@@ -6,7 +6,7 @@ import labels from '../lib/builderLabels';
 import fieldLanguages from '../lib/fieldLanguages';
 import getFieldTypeLabel from '../lib/getFieldTypeLabel';
 import getPreferredLang from '../lib/getPreferredLang';
-import FieldEdit from './FieldEdit';
+import EditFieldLabels from './EditFieldLabels';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -17,13 +17,10 @@ export default class FieldPreview extends Component {
     const {
       field,
       lang,
-      labelLanguages,
-      editing,
       disabled,
-      onSave,
-      onCancel,
       schemaInfo,
-      ordering
+      ordering,
+      isOwnField
     } = this.props;
 
     return <div
@@ -31,8 +28,7 @@ export default class FieldPreview extends Component {
       className={classNames( {
       'field-preview' : true,
       'padding-top-xs' : true,
-      disabled,
-      editing
+      disabled
     } )}>
       <div className="padding-h-sm">
         <label className="margin-right-xs">{getPreferredLang( field.label, lang )}</label>
@@ -44,24 +40,20 @@ export default class FieldPreview extends Component {
             <span>{getFieldTypeLabel( field, lang )}</span>
           </li>
         </ul>
-      </div>
-      { editing ?
-        <FieldEdit
-          field={field}
-          lang={lang}
-          labelLanguages={labelLanguages}
-          onSave={onSave}
-          onCancel={onCancel}
-        /> : <ul className="field-actions list-inline padding-h-sm">
-          { ordering ? <li>
-            <span className="btn btn-link">{getLabel( 'orderField', lang )}</span>
-          </li> : <li><button
+        { ordering ? <ul className="field-actions list-inline">
+          <li><span className="btn btn-link">{getLabel( 'orderField', lang )}</span></li>
+        </ul> : <div className="field-actions padding-h-xs">
+          <button
             onClick={()=>disabled ? ()=>{} : this.props.onEdit()}
             className="btn btn-link"
             disabled={disabled}>{getLabel( 'editField', lang )}</button>
-          </li> }
-        </ul>
-      }
+          { isOwnField ? <button
+            onClick={()=>disabled ? ()=>{} : this.props.onRemove()}
+            className="btn btn-link">
+            <span className="text-danger">{getLabel( 'removeField', lang )}</span>
+          </button> : null }
+        </div> }
+      </div>
     </div>
 
   }

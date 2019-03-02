@@ -86,7 +86,7 @@ export default class FormSchemaComponent extends Component {
 
   onSubmit( e, options = {} ) {
 
-    e.preventDefault();
+    if ( e ) e.preventDefault();
 
     const { draft } = _.assign( {
       draft: false

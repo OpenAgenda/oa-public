@@ -6,6 +6,7 @@ import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import labels from './lib/builderLabels';
 
 import isEmptySchema from './lib/isEmptySchema';
+import isOwnField from './lib/isOwnField';
 import merge from './iso/merge';
 import {
   getDraggableListStyle,
@@ -17,6 +18,8 @@ import insertMissingAbstractFields from './lib/insertMissingAbstractFields';
 import reorderSchemaFields from './lib/reorderSchemaFields';
 import saveStates from './lib/saveStates';
 import updateSchemaField from './lib/updateSchemaField';
+import addSchemaField from './lib/addSchemaField';
+import removeSchemaField from './lib/removeSchemaField';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
 import submit from './lib/submit';
 
@@ -25,6 +28,7 @@ import LabelLanguages from './Components/LabelLanguages';
 import FieldOrder from './Components/FieldOrder';
 import SaveButton from './Components/SaveButton';
 import AddField from './Components/AddField';
+import EditField from './Components/EditField';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -34,7 +38,7 @@ export default class FormSchemaComponent extends Component {
 
     super( props );
 
-    const mergedSchema = this.generateMergedSchemas( props.schema, props.extendedFrom );
+    const mergedSchema = this.getMergedSchema( props );
 
     const initState = {
       schema: props.schema,
@@ -42,7 +46,6 @@ export default class FormSchemaComponent extends Component {
       saveState: saveStates.UNCHANGED,
       editedField: null,
       ordering: false,
-      mergedSchema,
       labels
     }
 
@@ -61,7 +64,7 @@ export default class FormSchemaComponent extends Component {
     if ( !destination ) return;
 
     const reorderedSchema = reorderSchemaFields(
-      this.state.mergedSchema,
+      this.getMergedSchema(),
       source.index,
       destination.index
     );
@@ -74,7 +77,6 @@ export default class FormSchemaComponent extends Component {
 
     this.setState( {
       schema,
-      mergedSchema: this.generateMergedSchemas( schema, this.props.extendedFrom ),
       saveState: saveStates.CHANGED
     } );
 
@@ -92,7 +94,7 @@ export default class FormSchemaComponent extends Component {
 
     this.setState( {
       ordering: false,
-      mergedSchema: reorderSchemaFields.applyOrder( this.state.mergedSchema, previousOrder )
+      mergedSchema: reorderSchemaFields.applyOrder( this.getMergedSchema(), previousOrder )
     } );
 
   }
@@ -117,9 +119,15 @@ export default class FormSchemaComponent extends Component {
 
   onFieldEdit( field ) {
 
-    this.setState( { editedField: field.field } );
+    this.setState( { editedField: field } );
 
-    setTimeout( () => window.location.href = window.location.href.split( '#' )[ 0 ] + '#field-preview-'+field.field, 10 );
+  }
+
+  onFieldRemove( field ) {
+
+    this.setState( {
+      schema: removeSchemaField( this.state.schema, field )
+    } );
 
   }
 
@@ -129,19 +137,30 @@ export default class FormSchemaComponent extends Component {
 
   }
 
+  onFieldAdd( field ) {
+
+    const schema = addSchemaField( this.state.schema, field );
+
+    this.setState( { schema } );
+
+  }
+
   onFieldEditSave( updatedField ) {
 
     this.setState( { editedField: null } );
 
-    const schema = insertMissingAbstractFields( this.state.schema, this.state.mergedSchema );
+    const schema = insertMissingAbstractFields( this.state.schema, this.getMergedSchema() );
 
     this.updateSchema( updateSchemaField( schema, updatedField ) );
 
   }
 
-  generateMergedSchemas( schema, extensions ) {
+  getMergedSchema( props ) {
 
-    return merge.apply( null, extensions.map( e => e.schema ).concat( schema ) );
+    const currentSchema = props ? props.schema : this.state.schema;
+    const extensions = props ? props.extendedFrom : this.props.extendedFrom;
+
+    return merge.apply( null, extensions.map( e => e.schema ).concat( currentSchema ) );
 
   }
 
@@ -157,10 +176,12 @@ export default class FormSchemaComponent extends Component {
       labels,
       labelLanguages,
       editedField,
-      mergedSchema,
       saveState,
-      ordering
+      ordering,
+      schema
     } = this.state;
+
+    const mergedSchema = this.getMergedSchema();
 
     const disabled = saveState === saveStates.LOADING;
 
@@ -184,9 +205,17 @@ export default class FormSchemaComponent extends Component {
             onCancel={initialOrder=>this.onCancelOrder( initialOrder )}
           />
           <div className="margin-top-sm">
+            <AddField labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
             <SaveButton lang={lang} onClick={() => this.onSave() } saveState={saveState} />
-            <AddField lang={lang} />
           </div>
+          { editedField ? <EditField
+            isOwnField={isOwnField( schema, editedField )}
+            field={editedField}
+            labelLanguages={labelLanguages}
+            lang={lang}
+            onSave={this.onFieldEditSave.bind( this )}
+            onCancel={this.onFieldEditCancel.bind( this )}
+          /> : null }
         </div>
         <div>
           <div className="wsq padding-v-xs padding-h-sm">
@@ -219,14 +248,13 @@ export default class FormSchemaComponent extends Component {
                           <FieldPreview
                             disabled={disabled || ( editedField && ( editedField !== field.field ) )}
                             ordering={ordering}
-                            editing={editedField===field.field}
                             field={field}
+                            isOwnField={isOwnField( schema, field )}
                             schemaInfo={extractSchemaInfo( field, extendedFrom )}
                             lang={this.props.lang}
                             labelLanguages={labelLanguages}
-                            onCancel={this.onFieldEditCancel.bind( this )}
                             onEdit={this.onFieldEdit.bind( this, field )}
-                            onSave={field=> this.onFieldEditSave( field )}
+                            onRemove={this.onFieldRemove.bind( this, field )}
                           />
                         </div>
                       )}

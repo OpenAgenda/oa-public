@@ -9,20 +9,16 @@ import labelsSchema from '../lib/labelsSchema';
 
 const getLabel = makeLabelGetter( labels );
 
-export default class FieldEdit extends Component {
+export default class EditFieldLabels extends Component {
 
   constructor( props ) {
 
     super( props );
 
-    const { labelLanguages } = props;
-
-    console.log(labelLanguages);
-    console.log(props.field);
-    console.log(unflattenLabels( props.field, labelLanguages ));
+    const { labelLanguages, field } = props;
 
     this.state = {
-      field: unflattenLabels( props.field, labelLanguages )
+      field: unflattenLabels( field, labelLanguages )
     }
 
   }
@@ -33,21 +29,14 @@ export default class FieldEdit extends Component {
 
   }
 
-  onLabelLanguagesChange( newLanguages ) {
-
-    this.setState( {
-      labelLanguages: newLanguages
-    } );
-
-  }
-
   render() {
 
     const { lang, labelLanguages } = this.props;
 
-    const { field, schema, addLabelLanguages } = this.state;
+    const { field, schema } = this.state;
 
-    return <div className="field-edit margin-v-md">
+    return <div>
+      <h3>{getLabel( 'editFieldLabels', lang )}</h3>
       <FormSchemaComponent
         stateless={true}
         onChange={this.onChange.bind( this )}
@@ -63,8 +52,8 @@ export default class FieldEdit extends Component {
             </div>
           </div>
         } ]}
-      />
-    </div>
+        />
+      </div>
 
   }
 

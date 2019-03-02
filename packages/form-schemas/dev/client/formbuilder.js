@@ -6,7 +6,11 @@ import FormSchemaBuilder from '../../client/src/FormSchemaBuilder'
 if ( module.hot ) module.hot.accept();
 
 const schema = {
-  fields:[]
+  fields:[ {
+    field: 'myfield',
+    fieldType: 'text',
+    label: 'Mon champ'
+  } ]
 };
 
 const extensions = [ {

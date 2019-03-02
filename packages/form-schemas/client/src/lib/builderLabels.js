@@ -1,19 +1,32 @@
 "use strict";
 
 module.exports = {
+
   addField: {
     fr: 'Ajouter un champ',
     en: 'Add a field'
   },
+
   draggableField: {
     fr: 'Glisser-déposer pour trier',
     en: 'Drag and drop to sort'
   },
 
   editField: {
+    fr: 'Editer',
+    en: 'Edit'
+  },
+
+  removeField: {
+    fr: 'Supprimer',
+    en: 'Delete'
+  },
+
+  editFieldLabels: {
     fr: 'Editer les labels',
     en: 'Edit labels'
   },
+
   editFieldSave: {
     fr: 'Enregistrer',
     en: 'Save'
@@ -128,5 +141,41 @@ module.exports = {
   fieldFormMinTextLength: {
     fr: 'Longueur minimal du texte saisi',
     en: 'Minimum length of the typed text'
+  },
+
+  chooseFieldType: {
+    fr: 'Sélection du type du champ',
+    en: 'Select the type of the field'
+  },
+
+  textFieldType: {
+    fr: 'Champ texte',
+    en: 'Text field'
+  },
+
+  confirmFieldType: {
+    fr: 'Configurer le champ',
+    en: 'Configure the field'
+  },
+
+  confirmFieldCreate: {
+    fr: 'Créer le champ',
+    en: 'Create the field'
+  },
+
+  confirmFieldUpdate: {
+    fr: 'Mettre à jour',
+    en: 'Update'
+  },
+
+  backToFieldType: {
+    fr: 'Retour au choix du type',
+    en: 'Back to field type'
+  },
+
+  cancelFieldEdit: {
+    fr: 'Annuler',
+    en: 'Cancel'
   }
+
 }
