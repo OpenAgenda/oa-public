@@ -68,7 +68,13 @@ export default class AddField extends Component {
 
   render() {
 
-    const { lang } = this.props;
+    const { lang, disabled } = this.props;
+
+    if ( disabled ) {
+
+      return <button disabled className="btn btn-primary pull-right">{getLabel( 'addField', lang )}</button>
+
+    }
 
     if ( !this.state.adding ) {
 

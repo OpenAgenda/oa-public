@@ -1,5 +1,12 @@
 .form-schema-builder {
 
+  .border-v-blue {
+
+    border-top: 2px solid $oa-blue;
+    border-bottom: 2px solid $oa-blue;
+
+  }
+
   .field-preview-canvas {
 
     &.editing {

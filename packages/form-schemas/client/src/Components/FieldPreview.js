@@ -6,7 +6,6 @@ import labels from '../lib/builderLabels';
 import fieldLanguages from '../lib/fieldLanguages';
 import getFieldTypeLabel from '../lib/getFieldTypeLabel';
 import getPreferredLang from '../lib/getPreferredLang';
-import EditFieldLabels from './EditFieldLabels';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -24,7 +23,6 @@ export default class FieldPreview extends Component {
     } = this.props;
 
     return <div
-      id={'field-preview-' + field.field}
       className={classNames( {
       'field-preview' : true,
       'padding-top-xs' : true,

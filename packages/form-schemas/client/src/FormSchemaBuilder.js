@@ -26,13 +26,21 @@ import submit from './lib/submit';
 import FieldPreview from './Components/FieldPreview';
 import LabelLanguages from './Components/LabelLanguages';
 import FieldOrder from './Components/FieldOrder';
+import FieldOrderActions from './Components/FieldOrderActions';
 import SaveButton from './Components/SaveButton';
 import AddField from './Components/AddField';
 import EditField from './Components/EditField';
 
+
 const getLabel = makeLabelGetter( labels );
 
-export default class FormSchemaComponent extends Component {
+const modes = {
+  ORDERING: 1,
+  EDITLABELLANGUAGES: 2,
+  ADDFIELD: 3
+}
+
+export default class FormSchemaBuilder extends Component {
 
   constructor( props ) {
 
@@ -45,7 +53,7 @@ export default class FormSchemaComponent extends Component {
       labelLanguages: extractSchemaLabelLanguages( mergedSchema ),
       saveState: saveStates.UNCHANGED,
       editedField: null,
-      ordering: false,
+      mode: null,
       labels
     }
 
@@ -84,16 +92,10 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  onStartOrder() {
-
-    this.setState( { ordering: true } );
-
-  }
-
   onCancelOrder( previousOrder ) {
 
     this.setState( {
-      ordering: false,
+      mode: null,
       mergedSchema: reorderSchemaFields.applyOrder( this.getMergedSchema(), previousOrder )
     } );
 
@@ -125,9 +127,7 @@ export default class FormSchemaComponent extends Component {
 
   onFieldRemove( field ) {
 
-    this.setState( {
-      schema: removeSchemaField( this.state.schema, field )
-    } );
+    this.updateSchema( removeSchemaField( this.state.schema, field ) );
 
   }
 
@@ -139,9 +139,7 @@ export default class FormSchemaComponent extends Component {
 
   onFieldAdd( field ) {
 
-    const schema = addSchemaField( this.state.schema, field );
-
-    this.setState( { schema } );
+    this.updateSchema( addSchemaField( this.state.schema, field ) );
 
   }
 
@@ -164,6 +162,21 @@ export default class FormSchemaComponent extends Component {
 
   }
 
+  isDisabled( actionName ) {
+
+    const {
+      mode,
+      saveState
+    } = this.state;
+
+    if ( saveState === saveStates.LOADING ) return true;
+
+    if ( mode && mode !== actionName ) return true;
+
+    return false;
+
+  }
+
   render() {
 
     const {
@@ -177,7 +190,7 @@ export default class FormSchemaComponent extends Component {
       labelLanguages,
       editedField,
       saveState,
-      ordering,
+      mode,
       schema
     } = this.state;
 
@@ -190,23 +203,19 @@ export default class FormSchemaComponent extends Component {
         <div className="wsq padding-v-sm padding-h-sm">
           <h2 className="padding-bottom-sm">Paramètres généraux</h2>
           <LabelLanguages
-            disabled={disabled}
+            disabled={this.isDisabled( modes.EDITLABELLANGUAGES )}
             lang={lang}
             labelLanguages={labelLanguages}
             onUpdate={labelLanguages => this.setState( { labelLanguages } ) }
           />
           <FieldOrder
-            disabled={disabled}
-            fields={mergedSchema.fields}
-            ordering={ordering}
+            disabled={mode === modes.ORDERING || this.isDisabled( modes.ORDERING )}
             lang={lang}
-            onStartOrder={()=>{ this.setState( { ordering: true } )}}
-            onFinishOrder={()=>{ this.setState( { ordering: false } )}}
-            onCancel={initialOrder=>this.onCancelOrder( initialOrder )}
+            onStartOrder={()=>{ this.setState( { mode: modes.ORDERING } )}}
           />
           <div className="margin-top-sm">
-            <AddField labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
-            <SaveButton lang={lang} onClick={() => this.onSave() } saveState={saveState} />
+            <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
+            <SaveButton disabled={mode} lang={lang} onClick={() => this.onSave() } saveState={saveState} />
           </div>
           { editedField ? <EditField
             isOwnField={isOwnField( schema, editedField )}
@@ -221,6 +230,12 @@ export default class FormSchemaComponent extends Component {
           <div className="wsq padding-v-xs padding-h-sm">
             <h2>Champs du formulaire</h2>
           </div>
+          { mode === modes.ORDERING ? <FieldOrderActions
+            lang={lang}
+            fields={mergedSchema.fields}
+            onFinishOrder={()=>{ this.setState( { mode: null } )}}
+            onCancel={this.onCancelOrder.bind( this )}
+          /> : null }
           <DragDropContext
             onDragEnd={this.onDragEnd.bind( this )}>
             <Droppable droppableId="droppable">
@@ -234,7 +249,7 @@ export default class FormSchemaComponent extends Component {
                     <Draggable
                       key={field.field}
                       draggableId={field.field}
-                      isDragDisabled={!ordering}
+                      isDragDisabled={mode !== modes.ORDERING}
                       index={index}>
                       {(provided, snapshot) => (
                         <div
@@ -247,7 +262,7 @@ export default class FormSchemaComponent extends Component {
                           )} >
                           <FieldPreview
                             disabled={disabled || ( editedField && ( editedField !== field.field ) )}
-                            ordering={ordering}
+                            ordering={mode === modes.ORDERING}
                             field={field}
                             isOwnField={isOwnField( schema, field )}
                             schemaInfo={extractSchemaInfo( field, extendedFrom )}

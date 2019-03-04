@@ -83,26 +83,20 @@ export default class LabelLanguages extends Component {
 
   render() {
 
-    const { labelLanguages, lang } = this.props;
+    const { labelLanguages, lang, disabled } = this.props;
 
-    return <div>{ labelLanguages.length ?
-      <div>
-        <ul className="list-inline margin-v-xs">
-          <li key="field-lang-label"><label>{getLabel( 'multilingualLabels', lang )}</label></li>
-          { labelLanguages.map( l => (
-          <li key={`field-lang-${l}`}>
-            <span className="badge badge-default">{_.toUpper(l)}</span>
-          </li>
-          ) ) }
-          <li key="field-lang-edit">
-            <a href="#" onClick={this.onEdit.bind( this )}>{getLabel( 'editLabelLanguages', lang )}</a>
-          </li>
-        </ul>
+
+    return <div>
+      <div className="margin-v-xs">
+        <label className="margin-right-sm">{getLabel( 'multilingualLabels', lang )}</label>
+        { labelLanguages.length ? labelLanguages.map( l => (
+          <span key={`field-lang-${l}`} className="badge badge-default margin-right-xs">{_.toUpper(l)}</span>
+        ) ) : <span>{getLabel( 'monolingualLabels', lang )}</span> }
+        { disabled ?
+          <button disabled className="btn btn-link">{getLabel( 'editLabelLanguages', lang )}</button>
+          : <button className="btn btn-link" onClick={this.onEdit.bind( this )} >{getLabel( 'editLabelLanguages', lang )}</button>
+        }
       </div>
-    : <div>
-        <span>{getLabel( 'monolingualLabels', lang )}</span>
-        <button className="btn btn-link" onClick={this.onEdit.bind( this )}>{getLabel( 'editLabelLanguages', lang )}</button>
-      </div> }
       { this.state.editedLanguages ? <Modal
         title={getLabel( 'editLabelLanguages', lang )}
         onClose={()=>this.setState( { editedLanguages: null } )} >

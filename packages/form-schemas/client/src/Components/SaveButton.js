@@ -8,7 +8,7 @@ import saveStates from '../lib/saveStates';
 
 const getLabel = makeLabelGetter( labels );
 
-export default ( { saveState, lang, onClick } ) => {
+export default ( { saveState, lang, onClick, disabled } ) => {
 
   if ( saveState === saveStates.SAVED ) {
 
@@ -23,7 +23,7 @@ export default ( { saveState, lang, onClick } ) => {
       <Spinner mode="inline"/>
     </div>
 
-  } else if ( saveState === saveStates.CHANGED ) {
+  } else if ( !disabled && saveState === saveStates.CHANGED ) {
 
     return <div className="form-inline">
       <button
@@ -33,7 +33,7 @@ export default ( { saveState, lang, onClick } ) => {
       >{getLabel( 'buttonSave', lang )}</button>
     </div>
 
-  } else if ( saveState === saveStates.ERROR ) {
+  } else if ( !disabled && saveState === saveStates.ERROR ) {
 
     return <div className="form-inline has-error">
       <button

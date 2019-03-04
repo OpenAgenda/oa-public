@@ -31,7 +31,7 @@ describe( 'list validator', () => {
       clean.should.eql( [ 'contact@email.com', '06' ] );
 
     } );
-    
+
 
     it( 'undefined input is handled as empty list', () => {
 

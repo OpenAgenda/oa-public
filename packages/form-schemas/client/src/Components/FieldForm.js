@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
-import TextFieldForm from './TextFieldForm';
 
-import generateFieldName from '../lib/generateFieldName';
+import slugFromLabel from '../lib/slugFromLabel';
+import fg from '../lib/fieldGroups';
+import merge from '../iso/merge';
+import flattenLabels from '../lib/flatten';
 import unflattenLabels from '../lib/unflattenLabels';
 
-const fieldForms = {
-  text: TextFieldForm
-};
+import FormSchemaComponent from '../';
+
+const fieldOrder = order => ( { fields: order.map( f => ( { field: f, fieldType: 'abstract' } ) ) } );
+
+const schemas= {
+  labels: ( { labelLanguages } ) => fg.labels( { labelLanguages } ),
+  text: ( { labelLanguages } ) => merge(
+    fg.labels( { labelLanguages } ),
+    fg.minMax( { min: 0, max: 255 } ),
+    fg.optional(),
+    fieldOrder( [ 'label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub' ] )
+  ),
+  checkbox: ( { labelLanguages } ) => merge(
+    fg.labels( { labelLanguages } ),
+    fg.optional(),
+    fg.options()
+  )
+}
 
 export default class FieldForm extends Component {
 
@@ -14,10 +31,10 @@ export default class FieldForm extends Component {
 
     super( props );
 
-    const { labelLanguages, field } = props;
+    const { labelLanguages, field, lang } = props;
 
     this.state = {
-      values: unflattenLabels( field, labelLanguages ),
+      values: labelLanguages.length ? unflattenLabels( field, labelLanguages ) : flattenLabels( field, lang ),
       errors: []
     }
 
@@ -39,7 +56,7 @@ export default class FieldForm extends Component {
 
     this.props.onSubmit( _.assign( values, {
       fieldType,
-      field: _.get( field, 'field', generateFieldName( values.label, lang ) )
+      field: _.get( field, 'field', slugFromLabel( values.label, lang ) )
     } ) );
 
   }
@@ -53,17 +70,21 @@ export default class FieldForm extends Component {
       actionComponent
     } = this.props;
 
-    const FormComponent = fieldForms[ fieldType ];
+    const schema = schemas[ fieldType ]( { labelLanguages } );
 
-    return <FormComponent
-      lang={lang}
-      labelLanguages={labelLanguages}
+    return <FormSchemaComponent
+      stateless={true}
       values={this.state.values}
       errors={this.state.errors}
       onChange={this.onChange.bind( this )}
-      actionComponent={() => actionComponent( {
-        onSubmit: this.onSubmit.bind( this )
-      } )}
+      lang={lang}
+      schema={schema}
+      actionComponents={[ {
+        position: 'bottom',
+        Component: () => actionComponent( {
+          onSubmit: this.onSubmit.bind( this )
+        } )
+      } ]}
     />
 
   }

@@ -47,6 +47,12 @@ module.exports = {
     fr: 'Information complémentaire',
     en: 'Additional information'
   },
+
+  fieldOptions: {
+    fr: 'Valeurs possibles',
+    en: 'Possible values'
+  },
+
   fieldInfoInfo: { fr: 'S\'affiche sous le titre (comme ceci)', en: 'Displayed below the title (like this)' },
   fieldPlaceholder: { fr: 'Substitut de champ', en: 'Placeholder' },
   fieldPlaceholderPlaceholder: { fr: 'S\'affiche à l\'intérieur (comme ceci)', en: 'Is displayed inside the field (like this)' },
@@ -55,8 +61,8 @@ module.exports = {
   addLanguages: { fr: 'Ajouter des langues', en: 'Add languages' },
 
   monolingualLabels: {
-    fr: 'Les labels de ce formulaire sont monolingues',
-    en: 'Labels of this form are monolingual'
+    fr: 'Monolingue',
+    en: 'Monolingual'
   },
 
   multilingualLabels: {
@@ -176,6 +182,31 @@ module.exports = {
   cancelFieldEdit: {
     fr: 'Annuler',
     en: 'Cancel'
+  },
+
+  optionAdd: {
+    fr: 'Ajouter une valeur',
+    en: 'Add a value'
+  },
+
+  optionAddAction: {
+    fr: 'Ajouter',
+    en: 'Add'
+  },
+
+  optionEdit: {
+    fr: 'Modifier',
+    en: 'Edit'
+  },
+
+  optionDuplicateError: {
+    fr: 'Cette valeur est déjà existante',
+    en: 'This value already exists'
+  },
+
+  requiredError: {
+    fr: 'Tous les champs sont requis',
+    en: 'All fields are required'
   }
 
 }
