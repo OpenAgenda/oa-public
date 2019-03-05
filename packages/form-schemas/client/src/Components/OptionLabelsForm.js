@@ -14,14 +14,19 @@ export default class OptionAdd extends Component {
 
     super( props );
 
-    this.state = { values: {}, error: null }
+    this.state = {
+      option: this.isEdit() ? {
+        label: props.option.label
+      } : {},
+      error: null
+    }
 
   }
 
   onChange( { values, errors } ) {
 
     this.setState( {
-      values,
+      option: values,
       error: errors.length ? this.getErrorLabel( _.first( errors ).code ) : null
     } );
 
@@ -29,9 +34,11 @@ export default class OptionAdd extends Component {
 
   getErrorLabel( errorCode ) {
 
+    const { lang } = this.props;
+
     if ( labels[ errorCode + 'Error' ] ) {
 
-      return getLabel( errorCode + 'Error', this.props.lang );
+      return getLabel( errorCode + 'Error', lang );
 
     }
 
@@ -43,15 +50,27 @@ export default class OptionAdd extends Component {
 
     if ( this.state.error ) return;
 
-    const optionLabel = this.state.values.option;
+    const optionLabel = _.get( this, 'state.option.label' );
+
+    const isEmpty = (
+      _.isString( optionLabel ) && !optionLabel.length
+    ) || (
+      _.keys( optionLabel ).filter( k => optionLabel[ k ].length ).length !== _.keys( optionLabel ).length
+    );
 
     // add option must be unique
-    const newOption = {
+    const option = isEmpty ? null : {
       value: slugFromLabel( optionLabel, this.props.lang ),
       label: optionLabel
     };
 
-    if ( this.props.current.filter( o => o.value === newOption.value ).length ) {
+    if ( isEmpty ) {
+
+      this.setState( {
+        error: this.getErrorLabel( 'optionEmpty' )
+      } );
+
+    } else if ( this.props.otherOptions.filter( o => o.value === option.value ).length ) {
 
       this.setState( {
         error: this.getErrorLabel( 'optionDuplicate' )
@@ -59,11 +78,17 @@ export default class OptionAdd extends Component {
 
     } else {
 
-      this.props.onAdd( newOption );
+      this.props.onSubmit( option );
 
-      this.setState( { values: null, globalError: null } );
+      this.setState( { option: null, error: null } );
 
     }
+
+  }
+
+  isEdit() {
+
+    return !!this.props.option;
 
   }
 
@@ -71,27 +96,28 @@ export default class OptionAdd extends Component {
 
     const { languages, lang } = this.props;
 
-    console.log( this.state );
-
     return <FormSchemaComponent
       stateless={true}
       onChange={this.onChange.bind( this )}
       globalError={this.state.error}
-      values={this.state.values}
+      values={this.state.option}
       lang={this.lang}
       schema={{
         fields: [ {
-          label: labels.optionAdd,
-          field: 'option',
+          label: this.isEdit() ? labels.optionEdit : labels.optionAdd,
+          field: 'label',
           fieldType: 'text',
-          languages,
-          optional: false
+          languages
         } ]
+      }}
+      classNames={{
+        field: '',
+        bottomErrorsCanvas: 'error margin-bottom-sm'
       }}
       actionComponents={[ {
         position: 'bottom',
         Component: () => (
-          <button className="btn btn-primary" onClick={this.onSubmit.bind( this )}>{getLabel( 'optionAddAction', lang )}</button>
+          <button className="btn btn-primary" onClick={this.onSubmit.bind( this )}>{getLabel( this.isEdit() ? 'optionUpdateAction' : 'optionAddAction', lang )}</button>
         )
       } ]}
     />

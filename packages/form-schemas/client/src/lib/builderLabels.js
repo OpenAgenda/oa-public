@@ -194,14 +194,34 @@ module.exports = {
     en: 'Add'
   },
 
+  optionUpdateAction: {
+    fr: 'Mettre à jour',
+    en: 'Update'
+  },
+
   optionEdit: {
     fr: 'Modifier',
     en: 'Edit'
   },
 
+  optionDrag: {
+    fr: 'Trier',
+    en: 'Sort'
+  },
+
+  emptyOptions: {
+    fr: 'Aucune valeur n\'est encore définie',
+    en: 'No option is defined yet'
+  },
+
   optionDuplicateError: {
     fr: 'Cette valeur est déjà existante',
     en: 'This value already exists'
+  },
+
+  optionEmptyError: {
+    fr: 'Les valeurs ne doivent pas être vides',
+    en: 'Values cannot be empty'
   },
 
   requiredError: {
