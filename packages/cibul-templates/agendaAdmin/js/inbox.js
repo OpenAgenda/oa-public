@@ -17,9 +17,7 @@ const defaults = {
 
 window.hook( options => {
   const { initialState } = _.merge( {}, defaults, options );
-  const { element, triggerHooks } = createApp( { initialState } );
-
-  triggerHooks();
+  const { element } = createApp( { initialState } );
 
   ReactDOM.render( element, du.el( '.js_canvas' ) );
 } );

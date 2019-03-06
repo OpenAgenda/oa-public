@@ -39,8 +39,8 @@
     "gulp-useref": "^1.1.1",
     "main-bower-files": "^2.5.0",
     "opn": "^1.0.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "reactify": "^1.1.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
@@ -64,7 +64,7 @@
     "tether": "^1.1.1"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   }
 }

@@ -1,20 +1,22 @@
 import _ from 'lodash';
 import React from 'react';
-import { trigger } from 'redial';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Router, StaticRouter } from 'react-router-dom';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
-import asyncMatchRoutes from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
+import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
+import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
+
+const { Context: LoadableContext } = LoadableSecret;
 
 const defaults = {
   initialState: {
@@ -47,8 +49,12 @@ function getDefaultHistory( req ) {
 export default function ( options ) {
   const {
     initialState,
+    Header,
     req,
-    notFoundKey = _.uniqueId( 'home' )
+    extractor,
+    notFoundKey = _.uniqueId( 'home' ),
+    onLocationChangeStart,
+    onLocationChangeFinish
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
@@ -78,23 +84,31 @@ export default function ( options ) {
   const routes = getRoutes( prefix, notFoundKey );
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
-    <NotFound.Capture notFoundkey={notFoundKey}>
-      <RouterRedialTrigger trigger={triggerHooks}>
+    <NotFound.Capture notFoundKey={notFoundKey}>
+      <RouterTrigger
+        trigger={() => triggerHooks( {
+          onStart: onLocationChangeStart,
+          onFinish: onLocationChangeFinish
+        } )}
+      >
         <Provider store={store} context={ReactReduxContext}>
+          {Header ? <Header history={history} /> : null}
           {renderRoutes( routes )}
         </Provider>
-      </RouterRedialTrigger>
+      </RouterTrigger>
     </NotFound.Capture>
   );
 
   const element = (
-    <Router history={history}>
-      <ScrollToTop>
-        {req
-          ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
-          : content}
-      </ScrollToTop>
-    </Router>
+    <LoadableContext.Provider value={extractor} key={notFoundKey}>
+      <Router history={history}>
+        <ScrollToTop>
+          {req
+            ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
+            : content}
+        </ScrollToTop>
+      </Router>
+    </LoadableContext.Provider>
   );
 
   return {
@@ -105,33 +119,5 @@ export default function ( options ) {
     notFoundKey,
     staticContext,
     triggerHooks
-  };
-}
-
-function makeTriggerHooks( { routes, history, helpers, req } ) {
-  return async () => {
-    const { components, match, params } = await asyncMatchRoutes(
-      routes,
-      req ? req.originalUrl : history.location.pathname
-    );
-
-    const triggerLocals = {
-      ...helpers,
-      match,
-      params
-    };
-
-    // Don't fetch data for initial route, server has already done the work:
-    if ( typeof window !== 'undefined' && window.__PRELOADED__ ) {
-      // Delete initial data so that subsequent data fetches can occur:
-      delete window.__PRELOADED__;
-    } else {
-      // Fetch mandatory data dependencies for 2nd route change onwards:
-      await trigger( 'fetch', components, triggerLocals );
-    }
-
-    if ( typeof window !== 'undefined' ) {
-      await trigger( 'defer', components, triggerLocals );
-    }
   };
 }

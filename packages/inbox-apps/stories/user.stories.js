@@ -32,12 +32,10 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
 
 storiesOf( 'App', module )
   .add( 'all', () => {
-    const { element, triggerHooks } = createApp( {
+    const { element } = createApp( {
       history: createMemoryHistory(),
       initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
     } );
-
-    triggerHooks();
 
     return (
       <div className="container top-margined">

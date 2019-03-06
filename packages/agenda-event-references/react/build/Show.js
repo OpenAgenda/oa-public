@@ -1,54 +1,39 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _propTypes = require('prop-types');
+var _createReactClass = _interopRequireDefault(require("create-react-class"));
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _EventItem = _interopRequireDefault(require("./components/EventItem"));
 
-var _createReactClass = require('create-react-class');
+var _references = _interopRequireDefault(require("@openagenda/labels/event/references"));
 
-var _createReactClass2 = _interopRequireDefault(_createReactClass);
+var _labels = _interopRequireDefault(require("@openagenda/labels"));
 
-var _EventItem = require('./components/EventItem');
+var _jsxFileName = "/home/bertho/oa/packages/agenda-event-references/react/src/Show.js";
+var getLabel = (0, _labels.default)(_references.default);
 
-var _EventItem2 = _interopRequireDefault(_EventItem);
-
-var _references = require('@openagenda/labels/event/references');
-
-var _references2 = _interopRequireDefault(_references);
-
-var _labels = require('@openagenda/labels');
-
-var _labels2 = _interopRequireDefault(_labels);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var getLabel = (0, _labels2.default)(_references2.default);
-
-exports.default = (0, _createReactClass2.default)({
-  displayName: 'Show',
-
-
+var _default = (0, _createReactClass.default)({
+  displayName: "Show",
   propTypes: {
-    events: _propTypes2.default.array,
-    lang: _propTypes2.default.string
+    events: _propTypes.default.array,
+    lang: _propTypes.default.string
   },
-
   getDefaultProps: function getDefaultProps() {
-
     return {
       lang: 'fr'
     };
   },
   cleanEvent: function cleanEvent(event) {
-
     return {
       title: event.title[this.props.lang],
       link: event.link || '#',
@@ -63,22 +48,40 @@ exports.default = (0, _createReactClass2.default)({
   render: function render() {
     var _this = this;
 
-    return _react2.default.createElement(
-      'div',
-      { className: 'event-references show' },
-      _react2.default.createElement(
-        'h3',
-        null,
-        getLabel('showTitle', this.props.lang)
-      ),
-      _react2.default.createElement(
-        'div',
-        { className: 'wsq' },
-        this.props.events.map(function (e) {
-          return _react2.default.createElement(_EventItem2.default, { key: e.uid, event: _this.cleanEvent(e) });
-        })
-      )
-    );
+    return _react.default.createElement("div", {
+      className: "event-references show",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 42
+      },
+      __self: this
+    }, _react.default.createElement("h3", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 44
+      },
+      __self: this
+    }, getLabel('showTitle', this.props.lang)), _react.default.createElement("div", {
+      className: "wsq",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 46
+      },
+      __self: this
+    }, this.props.events.map(function (e) {
+      return _react.default.createElement(_EventItem.default, {
+        key: e.uid,
+        event: _this.cleanEvent(e),
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 48
+        },
+        __self: this
+      });
+    })));
   }
 });
-module.exports = exports['default'];
+
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=Show.js.map

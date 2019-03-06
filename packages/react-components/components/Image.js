@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { setPropTypes, withState, lifecycle, mapProps, compose } from 'recompose';
+import { setPropTypes, withState, lifecycle, mapProps, compose, pure } from 'recompose';
 
 // checks for svg if last 4 characters === '.svg'
 function srcRepresentsSvgFile( src ) {
@@ -8,6 +8,7 @@ function srcRepresentsSvgFile( src ) {
 }
 
 @compose(
+  pure,
   // make sure we recieved original image src prop
   setPropTypes( { src: PropTypes.string.isRequired, fallbackSrc: PropTypes.string } ),
   // track original image src and current image src
@@ -34,8 +35,8 @@ function srcRepresentsSvgFile( src ) {
   } )
 )
 export default class Image extends Component {
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.assignImageRef = this.assignImageRef.bind( this );
   }
 

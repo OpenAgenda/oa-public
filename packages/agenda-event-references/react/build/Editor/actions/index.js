@@ -1,28 +1,23 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _search = require('./search');
+var _search = _interopRequireDefault(require("./search"));
 
-var _search2 = _interopRequireDefault(_search);
+var _events = _interopRequireDefault(require("./events"));
 
-var _events = require('./events');
+var _suggestions = _interopRequireDefault(require("./suggestions"));
 
-var _events2 = _interopRequireDefault(_events);
+var _utils = _interopRequireDefault(require("@openagenda/utils"));
 
-var _suggestions = require('./suggestions');
+var actions = _utils.default.extend({}, _search.default, _events.default, _suggestions.default);
 
-var _suggestions2 = _interopRequireDefault(_suggestions);
-
-var _utils = require('@openagenda/utils');
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var actions = _utils2.default.extend({}, _search2.default, _events2.default, _suggestions2.default);
-
-exports.default = actions;
-module.exports = exports['default'];
+var _default = actions;
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=index.js.map

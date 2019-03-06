@@ -52,7 +52,7 @@ var utils = require( '@openagenda/utils' ),
 
   params = {};
 
-window.IScroll = require( 'iscroll/build/iscroll' );
+window.IScroll = require( 'iscroll' );
 
 du.asapReady( function () {
 

@@ -24,12 +24,10 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
 storiesOf( 'User', module )
   .addDecorator( PageDecorator )
   .add( 'app', () => {
-    const { element, triggerHooks } = createApp( {
+    const { element } = createApp( {
       history: createMemoryHistory(),
       initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
     } );
-
-    triggerHooks();
 
     return element;
   } );

@@ -11,12 +11,6 @@ class Wrapper extends Component {
   componentDidMount() {
     const { onDidMount } = this.props;
 
-    const canvas = document.querySelector( '.js_call_to_action_canvas' );
-
-    if ( canvas ) {
-      canvas.remove();
-    }
-
     if ( onDidMount ) {
       onDidMount();
     }
@@ -32,6 +26,12 @@ storiesOf( 'Notifications', module )
   .add( 'app', () => (
     <Wrapper
       onDidMount={() => {
+        const canvas = document.querySelector( '.js_call_to_action_canvas' );
+
+        if ( canvas ) {
+          canvas.remove();
+        }
+
         notificationsHandler( {
           res: {
             getCounter: `${apiRoot}/notifications/count`,

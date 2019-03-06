@@ -1,33 +1,26 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _get = require('@openagenda/utils/get');
-
-var _get2 = _interopRequireDefault(_get);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _get = _interopRequireDefault(require("@openagenda/utils/get"));
 
 var _ = {
   isArray: require('lodash/isArray')
 };
-
-exports.default = {
-
+var _default = {
   suggest: suggest,
-
   suggestionsAdd: suggestionsAdd,
-
   resetSuggestions: resetSuggestions
-
 };
-
+exports.default = _default;
 
 function getSuggestions(res, reference, excludedEvents, cb) {
-
-  (0, _get2.default)(res, {
+  (0, _get.default)(res, {
     sample: reference,
     exclude: excludedEvents.map(function (e) {
       return e.uid;
@@ -36,7 +29,6 @@ function getSuggestions(res, reference, excludedEvents, cb) {
 }
 
 function suggestionsAdd() {
-
   return function (dispatch, getState) {
     var _getState = getState(),
         uid = _getState.uid,
@@ -46,25 +38,29 @@ function suggestionsAdd() {
         search = _getState.search;
 
     if (!sample) return;
-
     if (search.suggestions && !search.suggestions.length) return;
-
-    dispatch({ type: 'SUGGESTION_REQUEST' });
-
-    getSuggestions(res.suggestions, sample, events.concat(uid ? [{ uid: uid }] : []), function (error, suggestions) {
-
+    dispatch({
+      type: 'SUGGESTION_REQUEST'
+    });
+    getSuggestions(res.suggestions, sample, events.concat(uid ? [{
+      uid: uid
+    }] : []), function (error, suggestions) {
       if (error) {
-
-        return dispatch({ type: 'SUGGESTION_REQUEST_FAILED', error: error });
+        return dispatch({
+          type: 'SUGGESTION_REQUEST_FAILED',
+          error: error
+        });
       }
 
-      dispatch({ type: 'SUGGESTION_REQUEST_ADD_SUCCESS', suggestions: suggestions });
+      dispatch({
+        type: 'SUGGESTION_REQUEST_ADD_SUCCESS',
+        suggestions: suggestions
+      });
     });
   };
 }
 
 function resetSuggestions(newSuggestFrom) {
-
   return {
     type: 'SUGGESTION_RESET',
     sample: newSuggestFrom
@@ -72,7 +68,6 @@ function resetSuggestions(newSuggestFrom) {
 }
 
 function suggest() {
-
   return function (dispatch, getState) {
     var _getState2 = getState(),
         res = _getState2.res,
@@ -81,20 +76,25 @@ function suggest() {
         search = _getState2.search;
 
     if (!sample) return;
-
     if (search.suggestions && !search.suggestions.length) return;
-
-    dispatch({ type: 'SUGGESTION_REQUEST' });
-
+    dispatch({
+      type: 'SUGGESTION_REQUEST'
+    });
     getSuggestions(res.suggestions, sample, events, function (error, suggestions) {
-
       if (error) {
-
-        return dispatch({ type: 'SUGGESTION_REQUEST_FAILED', error: error });
+        return dispatch({
+          type: 'SUGGESTION_REQUEST_FAILED',
+          error: error
+        });
       }
 
-      dispatch({ type: 'SUGGESTION_REQUEST_SUCCESS', suggestions: _.isArray(suggestions) ? suggestions : [] });
+      dispatch({
+        type: 'SUGGESTION_REQUEST_SUCCESS',
+        suggestions: _.isArray(suggestions) ? suggestions : []
+      });
     });
   };
 }
-module.exports = exports['default'];
+
+module.exports = exports.default;
+//# sourceMappingURL=suggestions.js.map

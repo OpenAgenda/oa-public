@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Route } from 'react-router';
-// import NProgress from 'nprogress';
 
 @withRouter
-class RouterRedialTrigger extends PureComponent {
+class RouterTrigger extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
     history: PropTypes.objectOf( PropTypes.any ).isRequired,
-    location: PropTypes.objectOf( PropTypes.any ).isRequired
+    location: PropTypes.objectOf( PropTypes.any ).isRequired,
+    trigger: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -50,28 +50,47 @@ class RouterRedialTrigger extends PureComponent {
     const { needTrigger } = this.state;
 
     if ( needTrigger ) {
-      this.setState( { needTrigger: false }, () => {
+      this.safeSetState( { needTrigger: false }, () => {
         trigger()
-          .catch( () => null )
+          .catch( err => console.log( 'Failure in RouterTrigger:', err ) )
           .then( () => {
             // clear previousLocation so the next screen renders
-            this.setState( { previousLocation: null } );
+            this.safeSetState( { previousLocation: null } );
           } );
       } );
     }
   }
 
   componentDidMount() {
+    this.mounted = true;
+
     this.trigger();
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
   }
 
   componentDidUpdate( prevProps, prevState ) {
     this.trigger();
   }
 
-  // componentWillMount() {
-  //   NProgress.configure( { trickleSpeed: 200 } );
-  // }
+  shouldComponentUpdate( nextProps, nextState ) {
+    if (
+      (this.state.previousLocation || this.props.location)
+      !== (nextState.previousLocation || nextProps.location)
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  safeSetState( nextState, callback ) {
+    if ( this.mounted ) {
+      this.setState( nextState, callback )
+    }
+  }
 
   render() {
     const { children, location } = this.props;
@@ -83,4 +102,4 @@ class RouterRedialTrigger extends PureComponent {
   }
 }
 
-export default RouterRedialTrigger;
+export default RouterTrigger;

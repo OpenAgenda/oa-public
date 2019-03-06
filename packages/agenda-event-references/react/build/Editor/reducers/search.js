@@ -1,49 +1,56 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _immutabilityHelper = require('immutability-helper');
+var _immutabilityHelper = _interopRequireDefault(require("immutability-helper"));
 
-var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
+var _helpers = require("./helpers");
 
-var _helpers = require('./helpers');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
+var _default = function _default() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
+  var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-
     case 'SEARCH_REQUEST':
-
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
-          searching: { $set: true },
-          query: { $set: action.query }
+          searching: {
+            $set: true
+          },
+          query: {
+            $set: action.query
+          }
         }
       });
 
     case 'SEARCH_FAILED':
-
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
-          searching: { $set: false },
-          error: { $set: action.error }
+          searching: {
+            $set: false
+          },
+          error: {
+            $set: action.error
+          }
         }
       });
 
     case 'SEARCH_SUCCESS':
-
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
-          searching: { $set: false },
-          query: { $set: action.query },
-          events: { $set: action.events.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
+          searching: {
+            $set: false
+          },
+          query: {
+            $set: action.query
+          },
+          events: {
+            $set: action.events.filter(_helpers.excludeEventsWithUids.bind(null, state.events.map(function (e) {
               return e.uid;
             }))).map(_helpers.formatEventItem.bind(null, state.lang))
           }
@@ -51,26 +58,28 @@ exports.default = function () {
       });
 
     case 'SEARCH_SHOW':
-
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
-          display: { $set: true }
+          display: {
+            $set: true
+          }
         }
       });
 
     case 'SEARCH_HIDE':
-
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
-          display: { $set: false }
+          display: {
+            $set: false
+          }
         }
       });
 
     default:
-
       return state;
-
   }
 };
 
-module.exports = exports['default'];
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=search.js.map

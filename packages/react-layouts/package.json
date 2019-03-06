@@ -1,0 +1,35 @@
+{
+  "name": "@openagenda/react-layouts",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "yarn clean && yarn build",
+    "build": "babel src -d dist -s",
+    "clean": "rimraf build"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.3.1",
+    "@openagenda/activity-apps": "^1.1.2",
+    "@openagenda/react-utils": "^4.0.0",
+    "react-helmet": "^5.2.0",
+    "react-outside-click-handler": "^1.2.2",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "babel-preset-openagenda": "^1.1.1",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
+    "rimraf": "^2.6.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}

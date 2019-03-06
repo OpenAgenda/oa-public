@@ -1,19 +1,33 @@
+import _ from 'lodash';
 import React from 'react';
-import { trigger } from 'redial';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { StaticRouter } from 'react-router-dom';
-import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
+import { Router, StaticRouter } from 'react-router-dom';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
-import asyncMatchRoutes from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import RouterRedialTrigger from '@openagenda/react-utils/dist/RouterRedialTrigger';
+import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
+import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
+import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getReducers from '../../redux/reducer';
 import getRoutes from './getRoutes';
+
+const defaults = {
+  state: {
+    settings: {
+      lang: 'fr',
+      prefix: '/admin/activities',
+      apiRoot: `localhost:${process.env.PORT || 3000}`,
+      perPageLimit: 20
+    },
+    res: {
+      list: '/list'
+    }
+  }
+};
 
 function getDefaultHistory( req ) {
   return req
@@ -22,17 +36,21 @@ function getDefaultHistory( req ) {
 }
 
 export default function ( options ) {
-  const { initialState, req } = options;
+  const {
+    initialState,
+    Header,
+    req,
+    notFoundKey = _.uniqueId( 'activityAppsAdmin' )
+  } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
   const client = apiClient( apiRoot, req );
   const history = options.history || getDefaultHistory( req );
   const store = createStore(
-    getReducers.bind( null, history ),
+    getReducers,
     initialState,
     compose(
       applyMiddleware(
-        routerMiddleware( history ),
         clientMiddleware( { client } )
         // ... other middlewares ... (like redux-logger)
       ),
@@ -47,55 +65,37 @@ export default function ( options ) {
     history,
     location: history.location
   };
-  const context = {};
+  const staticContext = {};
 
-  const routes = getRoutes( prefix );
+  const routes = getRoutes( prefix, notFoundKey );
+  const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
-    <RouterRedialTrigger routes={routes} helpers={helpers}>
-      {renderRoutes( routes )}
-    </RouterRedialTrigger>
+    <NotFound.Capture notFoundKey={notFoundKey}>
+      <RouterTrigger trigger={triggerHooks}>
+        <Provider store={store} context={ReactReduxContext}>
+          {Header ? <Header history={history} /> : null}
+          {renderRoutes( routes )}
+        </Provider>
+      </RouterTrigger>
+    </NotFound.Capture>
   );
   const element = (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <ScrollToTop>
-          {req
-            ? <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
-            : content}
-        </ScrollToTop>
-      </ConnectedRouter>
-    </Provider>
+    <Router history={history}>
+      <ScrollToTop>
+        {req
+          ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
+          : content}
+      </ScrollToTop>
+    </Router>
   );
 
   return {
     store,
     history,
     routes,
-    context,
     element,
-    triggerHooks: async () => {
-      const { components, match, params } = await asyncMatchRoutes(
-        routes,
-        req ? req.originalUrl : history.location.pathname
-      );
-      const triggerLocals = {
-        ...helpers,
-        match,
-        params
-      };
-
-      // Don't fetch data for initial route, server has already done the work:
-      if ( !req && typeof window !== 'undefined' && window.__PRELOADED__ ) {
-        // Delete initial data so that subsequent data fetches can occur:
-        delete window.__PRELOADED__;
-      } else {
-        // Fetch mandatory data dependencies for 2nd route change onwards:
-        await trigger( 'fetch', components, triggerLocals );
-      }
-
-      if ( !req ) {
-        await trigger( 'defer', components, triggerLocals );
-      }
-    }
+    notFoundKey,
+    staticContext,
+    triggerHooks
   };
 };

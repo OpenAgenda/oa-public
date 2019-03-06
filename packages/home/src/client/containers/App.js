@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { formValueSelector } from 'redux-form';
 import classNames from 'classnames';

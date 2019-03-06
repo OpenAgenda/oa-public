@@ -2,9 +2,14 @@
 
 const { declare } = require( '@babel/helper-plugin-utils' );
 
+function isBabelLoader( caller ) {
+  return !!(caller && caller.name === 'babel-loader');
+}
 
 module.exports = declare( ( api, options ) => {
   api.assertVersion( 7 );
+
+  const isWebpack = api.caller( isBabelLoader );
 
   const debug = typeof options.debug === 'boolean' ? options.debug : false;
   const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : false;
@@ -51,7 +56,10 @@ module.exports = declare( ( api, options ) => {
         corejs: 2
       }
     ],
-
+    require( '@babel/plugin-syntax-dynamic-import' ).default,
+    isWebpack
+      ? null
+      : require( 'babel-plugin-dynamic-import-node' ),
     require( '@babel/plugin-proposal-object-rest-spread' ).default,
 
     // Stage 0
@@ -78,7 +86,8 @@ module.exports = declare( ( api, options ) => {
         loose: true
       }
     ]
-  ];
+  ]
+    .filter( Boolean );
 
   return {
     presets,

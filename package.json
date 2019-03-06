@@ -44,8 +44,8 @@
     "codecov": "^3.1.0",
     "jest": "^23.6.0",
     "lerna": "^2.11.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1"

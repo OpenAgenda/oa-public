@@ -31,6 +31,13 @@ export default class NotFoundDisplayer extends Component {
     this.unlisten();
   }
 
+  shouldComponentUpdate( nextProps, nextState, nextContext ) {
+    if ( this.state.display !== nextState.display ) {
+      return true;
+    }
+    return false
+  }
+
   render() {
     const { children } = this.props;
     const { display } = this.state;

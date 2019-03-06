@@ -48,7 +48,7 @@ async function matchUserActivitiesApp( req, res, next ) {
   const prefix = '/home/activities';
   const lang = req.lang || 'fr';
 
-  const { element, triggerHooks, store, staticContext } = createActivitiesApp( {
+  const { element, triggerHooks, store, staticContext, history } = createActivitiesApp( {
     req,
     initialState: {
       settings: {
@@ -81,7 +81,7 @@ async function matchUserActivitiesApp( req, res, next ) {
       return res.redirect( 302, staticContext.url );
     }
 
-    const { pathname, search } = state.router.location;
+    const { pathname, search } = history.location;
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
       return res.redirect( 302, pathname );
     }

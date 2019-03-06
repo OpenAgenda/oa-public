@@ -94,15 +94,15 @@
     "morgan": "^1.9.1",
     "nodemon": "^1.18.4",
     "prettier-eslint-cli": "^4.7.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-test-renderer": "^16.5.2",
     "rimraf": "^2.6.2",
     "webpack": "^4.26.0",
     "why-did-you-update": "^1.0.6"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   }
 }

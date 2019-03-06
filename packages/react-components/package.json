@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prepublish": "yarn build",
-    "build": "rimraf build && babel components -d build -s",
+    "prepublish": "yarn clean && yarn build",
+    "build": "babel components -d build -s",
+    "clean": "rimraf build",
     "start": "start-storybook -p 3000 -c .storybook"
   },
   "author": "",
@@ -27,14 +28,14 @@
     "@storybook/react": "^4.1.11",
     "babel-loader": "^8.0.4",
     "babel-preset-openagenda": "^1.1.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "react-markdown": "^4.0.4",
     "rimraf": "^2.6.2",
     "should": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   }
 }

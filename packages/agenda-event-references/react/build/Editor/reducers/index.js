@@ -1,39 +1,29 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _search = require('./search');
+var _search = _interopRequireDefault(require("./search"));
 
-var _search2 = _interopRequireDefault(_search);
+var _events = _interopRequireDefault(require("./events"));
 
-var _events = require('./events');
+var _suggestions = _interopRequireDefault(require("./suggestions"));
 
-var _events2 = _interopRequireDefault(_events);
+var _immutabilityHelper = _interopRequireDefault(require("immutability-helper"));
 
-var _suggestions = require('./suggestions');
-
-var _suggestions2 = _interopRequireDefault(_suggestions);
-
-var _immutabilityHelper = require('immutability-helper');
-
-var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
+var _default = function _default() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
-
-  var newState = (0, _search2.default)(state, action);
-
-  newState = (0, _events2.default)(newState, action);
-
-  newState = (0, _suggestions2.default)(newState, action);
-
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  var newState = (0, _search.default)(state, action);
+  newState = (0, _events.default)(newState, action);
+  newState = (0, _suggestions.default)(newState, action);
   return newState;
 };
 
-module.exports = exports['default'];
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=index.js.map

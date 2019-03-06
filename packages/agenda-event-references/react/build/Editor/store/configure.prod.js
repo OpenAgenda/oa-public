@@ -1,20 +1,20 @@
-'use strict';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _redux = require('redux');
+var _redux = require("redux");
 
-var _reducers = require('../reducers');
+var _reducers = _interopRequireDefault(require("../reducers"));
 
-var _reducers2 = _interopRequireDefault(_reducers);
+var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
 
-var _reduxThunk = require('redux-thunk');
+var _default = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk.default));
 
-var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default));
-module.exports = exports['default'];
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=configure.prod.js.map

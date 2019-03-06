@@ -44,12 +44,12 @@
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/test-app": "^2.0.3",
     "babel-preset-openagenda": "^1.1.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "should": "^8.2.0"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   }
 }

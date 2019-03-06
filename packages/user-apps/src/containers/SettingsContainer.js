@@ -48,9 +48,9 @@ export default class SettingsContainer extends Component {
   render() {
     const {
       history,
+      route,
       res,
       loading,
-      activeTab,
       user,
       updateUser,
       deleteAccount,
@@ -69,12 +69,16 @@ export default class SettingsContainer extends Component {
     return (
       <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
         {loading
-          ? <Spinner />
+          ? (
+            <div style={{ margin: '150px 0' }}>
+              <Spinner />
+            </div>
+          )
           : (
             <table className="table">
               <tbody>
               <ProfileSettings
-                activeTab={activeTab === 'profile'}
+                activeTab={route.activeTab === 'profile'}
                 onSubmit={updateUser}
                 initialValues={_.pick( user, 'fullName', 'culture' )}
                 deleteAccount={deleteAccount}
@@ -83,7 +87,7 @@ export default class SettingsContainer extends Component {
               />
 
               <ImageSettings
-                activeTab={activeTab === 'image'}
+                activeTab={route.activeTab === 'image'}
                 history={history}
                 onUpdate={image => updateUser( { image } )}
                 uploadImageRes={res.uploadProfileImage}
@@ -92,25 +96,25 @@ export default class SettingsContainer extends Component {
               />
 
               <EmailSettings
-                activeTab={activeTab === 'email'}
+                activeTab={route.activeTab === 'email'}
                 onSubmit={changeEmail}
                 successMessageDisplayed={emailMessageDisplayed}
               />
 
               <PasswordSettings
-                activeTab={activeTab === 'password'}
+                activeTab={route.activeTab === 'password'}
                 onSubmit={changePassword}
                 successMessageDisplayed={passwordMessageDisplayed}
               />
 
               <ApiKeySettings
-                activeTab={activeTab === 'apiKey'}
+                activeTab={route.activeTab === 'apiKey'}
                 generateApiKey={generateApiKey}
                 displayModal={displayModal}
               />
 
               <UnsubscribedSettings
-                activeTab={activeTab === 'emails'}
+                activeTab={route.activeTab === 'emails'}
               />
               </tbody>
             </table>

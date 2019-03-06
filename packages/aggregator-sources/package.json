@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1",
@@ -31,7 +31,6 @@
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/service-utils": "^2.0.0",
-    "connected-react-router": "^6.2.2",
     "history": "^4.7.2",
     "knex": "^0.16.3",
     "lodash": "^4.17.11",
@@ -62,8 +61,8 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "nodemon": "^1.18.9",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "rimraf": "^2.6.2"
   }
 }

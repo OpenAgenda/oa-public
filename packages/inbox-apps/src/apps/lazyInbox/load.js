@@ -9,7 +9,7 @@ export default function loadApp( options, cb ) {
     jsFilePath: '/js/inboxEvent.js',
     initialState: {
       settings: {
-        prefix: '/',
+        prefix: '',
         lang: 'fr',
         perPageLimit: 20
       },

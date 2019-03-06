@@ -32,7 +32,7 @@ module.exports = app => {
 async function matchApp( req, res, next ) {
   const prefix = '/admin/activities';
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, context } = createApp( {
+  const { element, triggerHooks, store, staticContext, history } = createApp( {
     req,
     initialState: {
       settings: {
@@ -57,15 +57,15 @@ async function matchApp( req, res, next ) {
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( context.status === 404 ) {
+    if ( staticContext.status === 404 ) {
       return next();
     }
 
-    if ( context.url ) {
-      return res.redirect( 302, context.url );
+    if ( staticContext.url ) {
+      return res.redirect( 302, staticContext.url );
     }
 
-    const { pathname, search } = state.router.location;
+    const { pathname, search } = history.location;
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
       return res.redirect( 302, pathname );
     }

@@ -36,6 +36,10 @@ module.exports = function ( templateName, data, cb ) {
     const templateBottom = results.config.base && results.config.base.bottom || {};
     const dataBottom = data.bottom || {};
 
+    const layoutTop = results.layoutConfig && results.layoutConfig.base && results.layoutConfig.base.top || {};
+    const templateTop = results.config.base && results.config.base.top || {};
+    const dataTop = data.top || {};
+
     data.bottom = {
       scripts: [
         ...layoutBottom.scripts || [],
@@ -46,6 +50,19 @@ module.exports = function ( templateName, data, cb ) {
         ...layoutBottom.scriptSources || [],
         ...templateBottom.scriptSources || [],
         ...dataBottom.scriptSources || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i ),
+      scriptTags: [
+        ...layoutBottom.scriptTags || [],
+        ...templateBottom.scriptTags || [],
+        ...dataBottom.scriptTags || []
+      ].filter( ( v, i, a ) => a.indexOf( v ) === i )
+    };
+
+    data.top = {
+      linkTags: [
+        ...layoutTop.linkTags || [],
+        ...templateTop.linkTags || [],
+        ...dataTop.linkTags || []
       ].filter( ( v, i, a ) => a.indexOf( v ) === i )
     };
 

@@ -4,9 +4,7 @@ import createApp from '@openagenda/user-apps/dist/app';
 import du from '@openagenda/dom-utils';
 
 window.hook( options => {
-  const { element, triggerHooks } = createApp( options );
-
-  triggerHooks();
+  const { element } = createApp( options );
 
   ReactDOM.render( element, du.el( '.js_canvas' ) );
 } );

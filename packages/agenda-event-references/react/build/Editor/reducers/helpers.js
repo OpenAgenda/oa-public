@@ -3,19 +3,18 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
+exports.default = void 0;
+var _default = {
   excludeEventsWithUids: excludeEventsWithUids,
   formatEventItem: formatEventItem
 };
-
+exports.default = _default;
 
 function excludeEventsWithUids(excludedUids, event) {
-
   return !(excludedUids || []).includes(event.uid);
 }
 
 function formatEventItem(lang, event) {
-
   return {
     uid: event.uid,
     title: event.title[lang],
@@ -26,4 +25,6 @@ function formatEventItem(lang, event) {
     }
   };
 }
-module.exports = exports["default"];
+
+module.exports = exports.default;
+//# sourceMappingURL=helpers.js.map

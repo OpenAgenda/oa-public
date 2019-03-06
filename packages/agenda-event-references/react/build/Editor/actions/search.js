@@ -1,21 +1,17 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _get = require('@openagenda/utils/get');
+var _get = _interopRequireDefault(require("@openagenda/utils/get"));
 
-var _get2 = _interopRequireDefault(_get);
+var _clickTracker = _interopRequireDefault(require("../../clickTracker"));
 
-var _clickTracker = require('../../clickTracker');
-
-var _clickTracker2 = _interopRequireDefault(_clickTracker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-
+var _default = {
   // the async search
   search: search,
   searchShow: searchShow,
@@ -23,26 +19,22 @@ exports.default = {
   searchRequest: searchRequest,
   searchSuccess: searchSuccess,
   searchFailed: searchFailed
-
 };
-
+exports.default = _default;
 
 function searchHide() {
-
   return {
     type: 'SEARCH_HIDE'
   };
 }
 
 function searchShow() {
-
   return {
     type: 'SEARCH_SHOW'
   };
 }
 
 function searchRequest(query) {
-
   return {
     type: 'SEARCH_REQUEST',
     query: query
@@ -53,8 +45,7 @@ function searchSuccess(_ref) {
   var events = _ref.events,
       query = _ref.query;
 
-
-  _clickTracker2.default.switchOff('search');
+  _clickTracker.default.switchOff('search');
 
   return {
     type: 'SEARCH_SUCCESS',
@@ -64,8 +55,7 @@ function searchSuccess(_ref) {
 }
 
 function searchFailed(error) {
-
-  _clickTracker2.default.switchOff('search');
+  _clickTracker.default.switchOff('search');
 
   return {
     type: 'SEARCH_FAILED',
@@ -74,27 +64,26 @@ function searchFailed(error) {
 }
 
 function search(query) {
-
   return function (dispatch, getState) {
-
     var state = getState();
-
     dispatch(searchRequest(query));
-
-    (0, _get2.default)(state.res.events, {
+    (0, _get.default)(state.res.events, {
       search: query,
       exclude: state.events.map(function (e) {
         return e.uid;
       })
     }, function (err, events) {
-
       if (err) {
-
         return dispatch(searchFailed(err));
       }
 
-      dispatch(searchSuccess({ events: events, query: query }));
+      dispatch(searchSuccess({
+        events: events,
+        query: query
+      }));
     });
   };
 }
-module.exports = exports['default'];
+
+module.exports = exports.default;
+//# sourceMappingURL=search.js.map

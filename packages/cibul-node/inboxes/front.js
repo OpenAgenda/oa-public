@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const express = require( 'express' );
-const morgan = require( 'morgan' );
 const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
 
@@ -44,7 +43,7 @@ app.use(
   },
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -85,15 +84,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -111,7 +110,7 @@ app.use(
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -162,15 +161,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -195,7 +194,7 @@ app.use(
   } ),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -237,15 +236,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -283,7 +282,7 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -345,15 +344,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -427,7 +426,7 @@ app.use(
     const resPrefix = shIsAdminmod ? '/home' : `/agendas/${req.agenda.uid}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -488,15 +487,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -549,7 +548,7 @@ app.use(
     const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -616,15 +615,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -678,7 +677,7 @@ app.use(
     const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -745,15 +744,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -807,7 +806,7 @@ app.use(
     const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -874,15 +873,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -931,7 +930,7 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -995,15 +994,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
@@ -1052,7 +1051,7 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -1118,15 +1117,15 @@ app.use(
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 302, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
+      const { pathname, search } = history.location;
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }

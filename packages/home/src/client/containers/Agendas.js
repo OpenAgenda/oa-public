@@ -86,8 +86,19 @@ export default class Agendas extends Component {
     );
   }
 
+  onAgendaSearch = values => {
+    this.props.history.push( {
+      ...this.props.location,
+      search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
+    } );
+  };
+
+  getAgendaTitleLink = agenda => {
+    return this.props.res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug );
+  };
+
   render() {
-    const { isNew, loading, query, res, total, history } = this.props;
+    const { isNew, loading, query, total } = this.props;
 
     if ( isNew && !total ) {
       return <Welcome />
@@ -104,15 +115,8 @@ export default class Agendas extends Component {
           destroyOnUnmount={false}
           initialValues={{ search: query.search || '' }}
           fieldIsVisible={() => query.search}
-          onSearch={values => {
-            history.push( {
-              ...this.props.location,
-              search: qs.stringify( { ...query, search: values.search || undefined } )
-            } );
-          }}
-          getTitleLink={agenda =>
-            (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
-          }
+          onSearch={this.onAgendaSearch}
+          getTitleLink={this.getAgendaTitleLink}
           Header={this.renderHeader}
           AgendaActionsComponent={this.renderAgendaActions}
         />

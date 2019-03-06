@@ -1,13 +1,17 @@
 "use strict";
 
+const path = require( 'path' );
 const webpack = require( 'webpack' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
+const LoadablePlugin = require( '@loadable/webpack-plugin' );
 const getCacheDir = require( './getCacheDir' );
+const getBabelRule = require( './getBabelRule' );
+const getBabelModuleRules = require( './getBabelModuleRules' );
 
 
-module.exports = ( { entry, output } ) => ( {
+module.exports = ( { entry, output } ) => ({
   mode: 'production',
   entry: {
     ...entry,
@@ -15,18 +19,19 @@ module.exports = ( { entry, output } ) => ( {
   },
   output: {
     ...output,
-    publicPath: '/js/'
+    publicPath: '/js/',
+    filename: mod => (mod.chunk.name === 'webapp'
+      ? '[name].[chunkhash:8].js'
+      : '[name].js'),
+    chunkFilename: '[id].[chunkhash:8].chunk.js'
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-prod' )
-        }
-      },
+      getBabelRule( path.join( __dirname, '..' ) ),
+      ...getBabelModuleRules( [
+        '@openagenda/home',
+        '@openagenda/user-apps'
+      ] ),
       {
         test: /\.ejs$/,
         loader: 'ejs-compiled-loader-webpack4',
@@ -38,7 +43,7 @@ module.exports = ( { entry, output } ) => ( {
     ]
   },
   resolve: {
-    symlinks: false,
+    // symlinks: false,
     extensions: [ '.js', '.jsx', '.json' ],
     alias: {
       'react': require.resolve( 'react' ),
@@ -49,6 +54,9 @@ module.exports = ( { entry, output } ) => ( {
     maxAssetSize: 2000000
   },
   optimization: {
+    splitChunks: {
+      chunks: 'async'
+    },
     minimizer: [
       new TerserPlugin( {
         cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
@@ -66,8 +74,10 @@ module.exports = ( { entry, output } ) => ( {
       __DEVELOPMENT__: false,
       __DEVTOOLS__: false
     } ),
+    new LoadablePlugin(),
+    new webpack.HashedModuleIdsPlugin()
   ],
   node: {
     fs: 'empty'
   }
-} );
+});

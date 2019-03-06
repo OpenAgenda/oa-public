@@ -3,20 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
+
 var utils = require('@openagenda/utils');
+
 var du = require('@openagenda/dom-utils');
 
-exports.default = utils.extend(create, {
-  switchOn: switchOn, switchOff: switchOff, handler: handler
+var _default = utils.extend(create, {
+  switchOn: switchOn,
+  switchOff: switchOff,
+  handler: handler
 });
 
-
+exports.default = _default;
 var trackers = []; // { name: 'search', 'selector': '.search', bodyEvent: null, elemEvent: null }
 
 function switchOn(name) {
-
   if (typeof document == 'undefined') return;
-
   trackers.filter(function (t) {
     return t.name === name;
   }).forEach(function (t) {
@@ -25,27 +28,20 @@ function switchOn(name) {
         elem = _getElems2.elem;
 
     switchOff(name);
-
     if (!body || !elem) return;
 
     t.onElemClick = function (e) {
-
       t.clicked = true;
     };
 
     t.onBodyClick = function (e) {
-
       if (t.clicked) {
-
         t.clicked = false;
-
         return;
       }
 
       t.clicked = false;
-
       switchOff(name);
-
       t.handler ? t.handler() : null;
     };
 
@@ -55,9 +51,7 @@ function switchOn(name) {
 }
 
 function switchOff(name) {
-
   if (typeof document == 'undefined') return;
-
   trackers.filter(function (t) {
     return t.name === name;
   }).forEach(function (t) {
@@ -66,7 +60,6 @@ function switchOff(name) {
         elem = _getElems3.elem;
 
     if (!elem) return;
-
     du.removeEvent(body, 'click', t.onBodyClick);
     du.removeEvent(elem, 'click', t.onElemClick);
   });
@@ -74,18 +67,13 @@ function switchOff(name) {
 
 function create(name, selector) {
   var handler = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-
   var matches = trackers.filter(function (t) {
     return t.name === name;
   });
 
   if (matches.length) {
-
     matches[0].selector = selector;
-
     switchOn(name);
-
     return;
   }
 
@@ -96,25 +84,23 @@ function create(name, selector) {
     onElemClick: null,
     handler: handler
   });
-
   switchOn(name);
 }
 
 function handler(name, handler) {
-
   trackers.filter(function (t) {
     return t.name === name;
   }).forEach(function (t) {
-
     t.handler = handler;
   });
 }
 
 function _getElems(selector) {
-
   return {
     body: document.querySelector('body'),
     elem: document.querySelector(selector)
   };
 }
-module.exports = exports['default'];
+
+module.exports = exports.default;
+//# sourceMappingURL=clickTracker.js.map

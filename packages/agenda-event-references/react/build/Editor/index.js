@@ -1,50 +1,36 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _react = require('react');
+var _react = _interopRequireDefault(require("react"));
 
-var _react2 = _interopRequireDefault(_react);
+var _reactRedux = require("react-redux");
 
-var _reactRedux = require('react-redux');
+var _reducers = _interopRequireDefault(require("./reducers"));
 
-var _reducers = require('./reducers');
+var _containers = _interopRequireDefault(require("./containers"));
 
-var _reducers2 = _interopRequireDefault(_reducers);
+var _utils = _interopRequireDefault(require("@openagenda/utils"));
 
-var _containers = require('./containers');
+var _redux = require("redux");
 
-var _containers2 = _interopRequireDefault(_containers);
+var _actions = _interopRequireDefault(require("./actions"));
 
-var _utils = require('@openagenda/utils');
+var _configure = _interopRequireDefault(require("./store/configure"));
 
-var _utils2 = _interopRequireDefault(_utils);
+var _clickTracker = _interopRequireDefault(require("../clickTracker"));
 
-var _redux = require('redux');
+var _jsxFileName = "/home/bertho/oa/packages/agenda-event-references/react/src/Editor/index.js";
+var store;
 
-var _actions = require('./actions');
-
-var _actions2 = _interopRequireDefault(_actions);
-
-var _configure = require('./store/configure');
-
-var _configure2 = _interopRequireDefault(_configure);
-
-var _clickTracker = require('../clickTracker');
-
-var _clickTracker2 = _interopRequireDefault(_clickTracker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var store = void 0;
-
-exports.default = function (options) {
-
+var _default = function _default(options) {
   if (!store) {
-
-    var initialState = _utils2.default.extend({
+    var initialState = _utils.default.extend({
       uid: null,
       initUids: [],
       lang: 'fr',
@@ -54,7 +40,8 @@ exports.default = function (options) {
       },
       loading: false,
       loadingSuggestions: false,
-      sample: null, // suggest events feature
+      sample: null,
+      // suggest events feature
       error: false,
       info: null,
       events: [],
@@ -68,34 +55,39 @@ exports.default = function (options) {
     }, options || {}),
         onChange = options.onChange;
 
-    store = (0, _redux.createStore)(_reducers2.default, initialState, _configure2.default);
-
-    store.dispatch(_actions2.default.eventsLoad());
-
-    (0, _clickTracker2.default)('search', '.search', function () {
-
-      store.dispatch(_actions2.default.searchHide());
+    store = (0, _redux.createStore)(_reducers.default, initialState, _configure.default);
+    store.dispatch(_actions.default.eventsLoad());
+    (0, _clickTracker.default)('search', '.search', function () {
+      store.dispatch(_actions.default.searchHide());
     });
 
     if (onChange) {
-
       store.subscribe(function () {
-
         onChange(store.getState().events.map(function (e) {
           return e.uid;
         }));
       });
     }
   } else if (options.sample) {
-
-    store.dispatch(_actions2.default.resetSuggestions(options.sample));
+    store.dispatch(_actions.default.resetSuggestions(options.sample));
   }
 
-  return _react2.default.createElement(
-    _reactRedux.Provider,
-    { store: store },
-    _react2.default.createElement(_containers2.default, null)
-  );
+  return _react.default.createElement(_reactRedux.Provider, {
+    store: store,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 70
+    },
+    __self: this
+  }, _react.default.createElement(_containers.default, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 71
+    },
+    __self: this
+  }));
 };
 
-module.exports = exports['default'];
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=index.js.map

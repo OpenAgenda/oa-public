@@ -180,7 +180,7 @@ module.exports = function ( options ) {
         user,
         settings: {
           context: 'event',
-          prefix: window.location.pathname,
+          prefix: '',
           focusFistConversation: [ 'contributor', 'simpleUser' ].includes( userRole ), // force to display the first conversation if exists
           hideEmptyList: true, // redirect on creation if the list is empty
           allowCreateConversation: true, // display (or not) creation button

@@ -1,36 +1,35 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime-corejs2/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = void 0;
 
-var _immutabilityHelper = require('immutability-helper');
+var _immutabilityHelper = _interopRequireDefault(require("immutability-helper"));
 
-var _immutabilityHelper2 = _interopRequireDefault(_immutabilityHelper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
+var _default = function _default() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
+  var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-
     case 'EVENTS_REQUEST':
-
-      return (0, _immutabilityHelper2.default)(state, {
-        loading: { $set: true },
+      return (0, _immutabilityHelper.default)(state, {
+        loading: {
+          $set: true
+        },
         events: []
       });
-
       break;
 
     case 'EVENTS_SUCCESS':
-
-      return (0, _immutabilityHelper2.default)(state, {
-        loading: { $set: false },
-        events: { $set: action.events.map(function (e) {
+      return (0, _immutabilityHelper.default)(state, {
+        loading: {
+          $set: false
+        },
+        events: {
+          $set: action.events.map(function (e) {
             return {
               uid: e.uid,
               title: e.title[state.lang],
@@ -40,49 +39,51 @@ exports.default = function () {
                 address: e.location.address
               }
             };
-          }) },
-        error: { $set: false }
+          })
+        },
+        error: {
+          $set: false
+        }
       });
-
       break;
 
     case 'EVENTS_FAILED':
-
-      return (0, _immutabilityHelper2.default)(state, {
-        loading: { $set: false },
-        events: { $set: [] },
-        error: { $set: action.error }
+      return (0, _immutabilityHelper.default)(state, {
+        loading: {
+          $set: false
+        },
+        events: {
+          $set: []
+        },
+        error: {
+          $set: action.error
+        }
       });
-
       break;
 
     case 'EVENT_REMOVE':
-
       var removedEventIndex = state.events.map(function (e) {
         return e.uid;
       }).indexOf(action.eventUid);
 
       if (removedEventIndex == -1) {
-
         return state;
       }
 
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         events: {
           $splice: [[removedEventIndex, 1]]
         }
       });
 
     case 'EVENT_ADD':
-
       if (state.events.map(function (e) {
         return e.uid;
       }).indexOf(action.event.uid) !== -1) {
-
         return state;
       }
 
-      return (0, _immutabilityHelper2.default)(state, {
+      return (0, _immutabilityHelper.default)(state, {
         search: {
           searching: {
             $set: false
@@ -103,10 +104,10 @@ exports.default = function () {
       });
 
     default:
-
       return state;
-
   }
 };
 
-module.exports = exports['default'];
+exports.default = _default;
+module.exports = exports.default;
+//# sourceMappingURL=events.js.map

@@ -21,8 +21,8 @@
     "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1",
@@ -35,7 +35,6 @@
     "@openagenda/react-utils": "^4.0.0",
     "async": "^2.1.4",
     "classnames": "^2.2.5",
-    "connected-react-router": "^6.2.2",
     "history": "^4.7.2",
     "js-base64": "^2.5.1",
     "knex": "^0.16.3",
@@ -69,8 +68,8 @@
     "express": "^4.16.4",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "rimraf": "^2.6.2"
   }
 }
