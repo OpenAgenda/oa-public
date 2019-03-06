@@ -33,9 +33,9 @@ module.exports = createReactClass( {
 
     return <div className="checkbox">
       <label>
-        <input 
+        <input
           ref={r => this.checkbox = r}
-          type="checkbox" 
+          type="checkbox"
           checked={this.isInMergeSelection()} />
       </label>
     </div>
@@ -62,23 +62,23 @@ module.exports = createReactClass( {
 
     return <div className={className.join( ' ' )} key={l.uid} onClick={this.props.onSelect}>
       { this.props.merge ? this.renderMergeCheckbox() : null }
-      { !this.props.merge ? 
+      { !this.props.merge ?
       <div className="actions btn-group">
-        <button 
-          className="btn btn-default" 
+        <button
+          className="btn btn-default"
           aria-label={this.props.getLabel( 'remove' )}
           onClick={this.onRemove}>
           <i className="fa fa-trash"></i>
         </button>
-        <button 
-          className="btn btn-default" 
+        <button
+          className="btn btn-default"
           aria-label={this.props.getLabel('edit')}
           onClick={this.props.onEdit}>
           <i className="fa fa-edit"></i>
         </button>
       </div> : null }
       <div className="item-body">
-        <div className="title">{l.name}</div> 
+        <div className="title">{l.name}</div>
         <div>{l.address}</div>
         <div className="text-muted">
           {l.department ? l.department : null}
@@ -90,7 +90,7 @@ module.exports = createReactClass( {
           <i className={l.description ? "fa fa-file-text-o " : "fa fa-file-text-o disabled"}></i>
           { l.state===0 ? <span className="badge badge-warning">{this.props.getLabel( 'verify' )}</span> : null }
           { l.eventCount ?
-            <a onClick={this.seeEvents}>{this.props.getLabel( l.eventCount === 1 ? 'seeEvent' : 'seeEvents', { '%count%': l.eventCount } )}</a>
+            <a onClick={this.seeEvents}>{this.props.getLabel( l.eventCount === 1 ? 'seeEvent' : 'seeEvents', { count: l.eventCount } )}</a>
           : <span className="text-muted">{this.props.getLabel( 'noEvent' )}</span> }
         </div>
       </div>

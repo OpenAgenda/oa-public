@@ -22,7 +22,8 @@ $theme-colors: (
   "danger": $oa-red
 );
 
-@import "node_modules/bootstrap/scss/bootstrap";
+/*@import "../node_modules/bootstrap/scss/bootstrap";*/
+@import "../../node_modules/bootstrap/scss/bootstrap";
 
 body {
   min-height: 100%;
@@ -51,6 +52,7 @@ a:hover {
 @import './widgets/tags';
 @import './widgets/calendar';
 @import './widgets/relative';
+@import './widgets/preview';
 
 header {
   background-color: $oa-dark-purple;

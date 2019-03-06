@@ -46,9 +46,16 @@ module.exports = async ( {
 
   doc.loadZip( new JSZip( content ) );
 
-  const formattedEvents = events.map( e => formatEvent( e, { lang: language, from: query.from, to: query.to } ) );
+  let formattedEvents = events.map( e => formatEvent( e, { lang: language, from: query.from, to: query.to } ) );
+  let reduced = reduceByDeep( formattedEvents, reducer );
 
-  const reduced = reduceByDeep( formattedEvents, reducer );
+  // fs.writeFileSync(
+  //   localTmpPath + '/' + agendaUid + '.formatted.json',
+  //   JSON.stringify( formattedEvents, null, 2 ),
+  //   'utf-8'
+  // );
+
+  formattedEvents = null;
 
   doc.setData( {
     agenda: {
@@ -58,6 +65,8 @@ module.exports = async ( {
     },
     ...reduced
   } );
+
+  reduced = null;
 
   expressions.filters.join = ( input, delimiter ) => input.join( delimiter );
   expressions.filters.map = ( input, propName ) => _.map( input, propName );
@@ -89,18 +98,16 @@ module.exports = async ( {
 
   doc.render();
 
-  await writeFile(
-    outputPath,
-    doc.getZip()
-      .generate( {
-        type: 'nodebuffer',
-        compression: 'DEFLATE'
-      } )
-  );
+  const buf = doc.getZip()
+    .generate( {
+      type: 'nodebuffer',
+      // compression: 'DEFLATE'
+    } );
+
+  await writeFile( outputPath, buf );
 
   return {
     outputPath,
-    events: formattedEvents,
     agenda: {
       title,
       description,

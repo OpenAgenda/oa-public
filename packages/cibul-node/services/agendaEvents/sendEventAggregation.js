@@ -9,6 +9,7 @@ const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
+const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAggregation' );
 
 module.exports = async ( { agendaEvent, context } ) => {
 
@@ -75,6 +76,15 @@ module.exports = async ( { agendaEvent, context } ) => {
     template: 'eventAggregation',
     to: members
       .filter( member => member.id !== creator.id )
+      .filter( member => {
+
+        if ( !member.user ) {
+          log( 'warn', 'no user was found matching member %s', member.id );
+        }
+
+        return !!member.user;
+
+      } )
       .map( member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );

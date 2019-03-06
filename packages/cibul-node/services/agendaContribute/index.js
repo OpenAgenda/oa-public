@@ -13,6 +13,8 @@ const cmn = require( '../../lib/commons-app' );
 const middlewares = require( './middlewares' );
 const interfaces = require( './interfaces' );
 
+const base64 = require( '@openagenda/utils/base64' );
+
 let bucket;
 
 module.exports = _.extend( ( parentApp, path = '' ) => {
@@ -36,7 +38,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
       internal: true // required for stakeholders service
     } ),
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup` ) ),
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
     middlewares.member,
     middlewares.schemaExtensions
   ] );
@@ -66,7 +68,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         seeAllEvents: `/home/events`,
-        contactAdministrators: `/agendas/${req.agenda.uid}/events/:eventUid/contact`,
+        contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
         draft: `/home/events`
       },
       member: {

@@ -1,0 +1,25 @@
+{
+  "name": "@openagenda/files",
+  "version": "2.0.7",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "@openagenda/logs": "^1.0.1",
+    "async": "^1.5.0",
+    "aws-sdk": "^2.145.0",
+    "knox-s3": "^0.9.3",
+    "lodash": "^4.17.4",
+    "mime": "^1.4.1",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.4",
+    "should": "^8.0.1"
+  }
+}

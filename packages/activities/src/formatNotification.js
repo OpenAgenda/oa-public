@@ -13,10 +13,11 @@ const credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/crede
 const groupBy = require( './service/notifications/lib/groupBy' );
 
 const eventStateCodeToLabel = code => [
+  'refused',
   'tocontrol',
   'controlled',
   'published'
-][ code ];
+][ code + 1 ];
 
 const defaultGetUrl = ( notification, subjects, userUid, labelSuffix ) => {
 

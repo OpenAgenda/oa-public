@@ -23,8 +23,9 @@
     },
     "lang" : "fr",
     "langLabels" : {
-      "fr" : "français",
-      "en" : "english"
+      "fr": "Français",
+      "en": "English",
+      "de": "Deutsch"
     }
   },
   "helpers" : {

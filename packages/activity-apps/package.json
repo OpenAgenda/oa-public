@@ -32,7 +32,7 @@
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
-    "@openagenda/sessions": "^3.0.12",
+    "@openagenda/sessions": "^3.0.13",
     "@openagenda/utils": "^1.0.2",
     "async": "^2.1.4",
     "bootstrap-daterangepicker": "^2.1.25",

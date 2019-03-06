@@ -5,17 +5,28 @@ const should = require( 'should' );
 
 const config = require( '../testconfig' );
 
+const images = require( '@openagenda/images' );
+const files = require( '@openagenda/files' );
+
 const svc = require( '../' );
 
 describe( 'image-files - functional - load', function() {
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   const testImageUrl = 'https://s3.eu-central-1.amazonaws.com/openagendatest/rainfrog.jpg';
 
   before( () => {
 
-    svc.init( config );
+    files.init( config.files );
+
+    images.init( {
+      tmpPath: config.files.tmpPath
+    } );
+
+    svc.init( {
+      images, files
+    } );
 
   } );
 

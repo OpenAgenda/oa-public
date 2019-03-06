@@ -114,6 +114,9 @@ const config = {
     geocodeFarm: {
       key: prod.geocodeFarm.key
     },
+    opencage: {
+      key: prod.opencage.key
+    },
     db: {
       database: prod.db.name,
       host: prod.db.host,
@@ -321,6 +324,7 @@ const config = {
     twitter: {
       name: prod.twitter.name
     },
+    imageSizeLimits: [ 2000, 30000000 ],
     bridges: {
       swapcard: {
         redirect: null, // deprecated

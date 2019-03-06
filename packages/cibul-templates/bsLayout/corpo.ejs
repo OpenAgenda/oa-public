@@ -48,8 +48,8 @@
             </ul>
 <% } %>
             <ul class="nav navbar-nav navbar-right">
-                <li class="signin"><a href="/start?a=header_signin"><%= __( 'layoutSignin' ) %></a></li>
-                <li class="signup"><a href="/start?a=header_signup"><%= __( 'layoutSignup' ) %></a></li>
+                <li class="signin"><a href="/start?a=header_signin&lang=<%= lang %>"><%= __( 'layoutSignin' ) %></a></li>
+                <li class="signup"><a href="/start?a=header_signup&lang=<%= lang %>"><%= __( 'layoutSignup' ) %></a></li>
                 <li class="tel">
                     <p class="navbar-btn">
                         <a href="tel:+33142330509" class="btn btn-default">
@@ -57,7 +57,7 @@
                         </a>
                     </p>
                 </li>
-<% [ 'fr', 'en' ].forEach( function( l, i ) { %>
+<% [ 'fr', 'en', 'de' ].forEach( function( l, i ) { %>
                         <% if ( lang == l ) { %>
                         <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected">
                             <%= l.toUpperCase() %>
@@ -68,7 +68,7 @@
                             <%= l.toUpperCase() %>
                         </a></li>
                         <% } %>
-                        <% if ( i === 0 ) { %>
+                        <% if ( i < 2 ) { %>
                         <li><a>|</a></li>
                         <% } %>
 <% } ); %>

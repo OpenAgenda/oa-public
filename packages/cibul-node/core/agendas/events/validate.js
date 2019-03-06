@@ -37,7 +37,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
     optionalState: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
-  // api provides event data in event service format ( deep image object that includes credits )
+  // api provides event data in event service format ( deep image object that includes credits and variants )
   const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data );
 
   const schemaExtensions = {

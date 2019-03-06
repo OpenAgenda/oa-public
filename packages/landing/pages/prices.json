@@ -3,6 +3,8 @@
     "lang" : "en", "key" : "pricing"
   }, {
     "lang" : "fr", "key" : "tarifs"
+  }, {
+    "lang" : "de", "key" : "preisgestaltung"
   } ],
   "head" : {
     "title" : "pricingTitle",

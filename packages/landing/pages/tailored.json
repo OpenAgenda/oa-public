@@ -1,7 +1,8 @@
 {
   "keys" : [
     { "lang" : "en", "key" : "a-tailored-offer" },
-    { "lang" : "fr", "key" : "une-offre-sur-mesure" }
+    { "lang" : "fr", "key" : "une-offre-sur-mesure" },
+    { "lang" : "de", "key" : "ein-massgeschneidertes-angebot" }
   ],
   "head" : {
     "title" : "tailoredHeadTitle",
@@ -10,8 +11,8 @@
   "title": "tailoredTitle",
   "description": "tailoredDescription",
   "layout": "layout",
-  "segments": [ "expertise", { 
-    "key" : "portalwebsite", 
+  "segments": [ "expertise", {
+    "key" : "portalwebsite",
     "background" : "gray"
   }, "karine", {
     "key" : "contact",

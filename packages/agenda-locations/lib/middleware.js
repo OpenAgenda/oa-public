@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 
 const log = require( '@openagenda/logs' )( 'agenda-locations/middleware' );
 const iuMw = require( '@openagenda/image-upload/lib/middleware' );
+const OpenCage = require( '@openagenda/geocoder/Opencage' );
+const AdresseDataGouvFR = require( '@openagenda/geocoder/AdresseDataGouvFR' );
 const utils = require( '@openagenda/utils' );
 
 const states = require( './states' );
@@ -26,6 +28,9 @@ function getMiddleware( idRef ) {
     idRef = 'agenda.id';
 
   }
+
+  const ocGeocoder = OpenCage( config.opencage || { key: null } );
+  const dgGeocoder = AdresseDataGouvFR();
 
   return {
     loadSettings,
@@ -64,6 +69,14 @@ function getMiddleware( idRef ) {
     _get( query, {
       stakeholderId: req.stakeholderId || null
     }, ( err, location ) => {
+
+      if ( err === 'unknown location' ) {
+
+        return next( {
+          code: 404
+        } );
+
+      }
 
       if ( err ) return next( err );
 
@@ -540,7 +553,7 @@ function getMiddleware( idRef ) {
 
   function geocode( req, res, next ) {
 
-    log( 'retrieving geocodes for %s', req.query.address );
+    log( 'retrieving geocodes', _.pick( req.query, [ 'address', 'countryCode' ] ) );
 
     service.utils.geocode( {
       address: req.query.address,
@@ -579,6 +592,8 @@ function getMiddleware( idRef ) {
 
   async function _handleGeocodeResponse( req, res, err, results ) {
 
+    log( 'info', 'received geocodefarm response', results, _.pick( req.query, [ 'address', 'countryCode' ] ) );
+
     if ( err ) {
 
       log( 'error', 'geocode farm error: ' + err );
@@ -591,19 +606,57 @@ function getMiddleware( idRef ) {
 
     if ( !results.length ) {
 
-      log( 'info',
-        'geocode farm did not find any result for address "%s" in country "%s"',
-        _.get( req, 'query.address' ),
-        _.get( req, 'query.countryCode' )
-      );
+      log( 'info', 'geocode farm did not find any result', _.pick( req.query, [ 'address', 'countryCode' ] ) );
 
-      return res.json( {
-        results: []
-      } );
+      _dataGouvGeocode( req, res );
 
     }
 
     res.json( { results } );
+
+  }
+
+
+  function _openCageGeocode( req, res ) {
+
+    ocGeocoder( _.get( req, 'query.address' ), {
+      countryCode: _.get( req, 'query.countryCode' ),
+      language: req.lang
+    } ).then( results => {
+
+      res.send( { results } );
+
+    }, err => {
+
+      log( 'error', 'OpenCage error: ' + err );
+
+      res.statusCodde = 502;
+
+      res.send( 'nok' );
+
+    } );
+
+  }
+
+  function _dataGouvGeocode( req, res ) {
+
+    log( 'info', 'querying datagouv', _.pick( req.query, [ 'address', 'countryCode' ] ) );
+
+    dgGeocoder.detailed( _.get( req, 'query.address' ) ).then( result => {
+
+      log( 'info', 'received datagouv response', result, _.pick( req.query, [ 'address', 'countryCode' ] ) );
+
+      res.send( { results: result ? [ result ] : [] } );
+
+    }, err => {
+
+      log( 'error', 'DataGouvGeocode error: ' + err );
+
+      res.statusCodde = 502;
+
+      res.send( 'nok' );
+
+    } );
 
   }
 

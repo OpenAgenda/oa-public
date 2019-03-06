@@ -15,7 +15,9 @@ const { term } = require( './lib/prompt' );
 
     const inputFilePath = await term( 'Where is the csv file?' );
 
-    const translatedLabels = await loadCSVData( inputFilePath, { delimiter: ';' } );
+    const delimiter = await term( 'What is the delimiter?', { default: ';' } );
+
+    const translatedLabels = await loadCSVData( inputFilePath, { delimiter } );
 
     const perFilePaths = _distributePerFilePaths( labelsBasePath, translatedLabels );
 

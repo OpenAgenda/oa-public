@@ -888,7 +888,18 @@ function widget( elem, options ) {
 
     if (data.ebd && data.ebd.mp) mode = data.ebd.mp;
 
-    if ( ( mode == 'manual' ) && data.ebd.mc && data.ebd.mc.neLat ) {
+    if ( ( mode === 'manual' ) && data.ebd && ( typeof data.ebd.mc === 'string' ) ) {
+
+      const embedBounds = data.ebd.mc.split( '|' );
+
+      return _initManualBounds( {
+        neLat: embedBounds[ 0 ],
+        neLng: embedBounds[ 1 ],
+        swLat: embedBounds[ 2 ],
+        swLng: embedBounds[ 3 ]
+      } );
+
+    } else if ( ( mode === 'manual' ) && data.ebd && data.ebd.mc && data.ebd.mc.neLat ) {
 
       return _initManualBounds( data.ebd.mc );
 

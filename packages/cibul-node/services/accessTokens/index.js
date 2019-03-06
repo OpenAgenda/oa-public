@@ -20,7 +20,13 @@ module.exports = {
   getUserFromKey
 }
 
-async function getUserFromKey( keyString ) {
+async function getUserFromKey( keyString = null ) {
+
+  if ( !keyString ) {
+
+    throw new VError( 'key is required' );
+
+  }
 
   const apiKeySet = await knex( 'api_key_set' ).first( 'user_id' ).where( {
     api_key: keyString
@@ -28,7 +34,7 @@ async function getUserFromKey( keyString ) {
 
   if ( !apiKeySet ) {
 
-    throw new VError( 'could not find api key set matching key', { key: keyString } );
+    throw new VError( 'no user found for given key', { key: keyString } );
 
   }
 

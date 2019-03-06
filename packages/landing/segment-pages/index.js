@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
 const pug = require( 'pug' );
 const mark = require( './mark' );
 
@@ -131,7 +132,19 @@ module.exports = config => {
 
     let data = _reduceLabels( pageParams, renderParams.lang, params.labels );
 
-    return pug.render( params.templates[ pageParams.layout ], _.assign( { content }, data, renderParams ) );
+    const template = params.templates[ pageParams.layout ];
+
+    const merged = _.assign( { content }, data, renderParams );
+
+    try {
+
+      return pug.render( template, merged );
+
+    } catch ( e ) {
+
+      throw new VError( 'Failed to render template \n%s\nwith data\n%j', template, merged, e );
+
+    }
 
   }
 

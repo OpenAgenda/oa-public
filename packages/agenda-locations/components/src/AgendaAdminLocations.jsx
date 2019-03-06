@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -103,13 +104,17 @@ module.exports = createReactClass( {
 
   getLabel( name, values ) {
 
-    var str = labels[ name ][ this.props.lang ], k;
+    const label = labels[ name ];
+
+    let str = _.get( label, this.props.lang, label[ _.first( _.keys( label ) ) ] );
+
+    let k;
 
     if ( values ) {
 
       for ( k in values ) {
 
-        str = str.replace( k, values[ k ] );
+        str = str.replace( '%' + k + '%', values[ k ] );
 
       }
 
@@ -206,7 +211,7 @@ module.exports = createReactClass( {
         query={this.actions.getQuery()}
         getLabel={this.getLabel}
         onQueryChange={this.actions.queryChange} /> : null }
-      { this.state.total ? <p>{this.getLabel( 'total', { '%count%': this.state.total } )}</p> : null }
+      { this.state.total ? <p>{this.getLabel( 'total', { count: this.state.total } )}</p> : null }
       { this.state.total === 0 ? <p>{this.getLabel( 'totalzero' ) }</p> : null }
     </div>
 
@@ -253,7 +258,7 @@ module.exports = createReactClass( {
             return <div>
               <p className="text-center">{this.getLabel( 'cannotRemove', { '%eventCount%': eventCount } )}</p>
               <div className="text-center">
-                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeevents' )}</a>
+                <a className="btn btn-primary" href={seeEventsLink}>{this.getLabel( 'seeEvents' )}</a>
               </div>
             </div>
 
@@ -277,7 +282,7 @@ module.exports = createReactClass( {
 
       { this.state.merge.locationUids.length
         ? <span className="info">
-          {this.getLabel( 'mergeselection', { '%count%': this.state.merge.locationUids.length } ) }
+          {this.getLabel( 'mergeselection', { count: this.state.merge.locationUids.length } ) }
           <a
             onClick={this.onSearchChange.bind( null, 'uids', this.state.merge.locationUids ) }>{this.getLabel( 'seemergelist' )}</a>
         </span>

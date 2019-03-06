@@ -1,8 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const isStaticFilePath = require( '../lib/isStaticFilePath' );
 
 module.exports = ( req, res, next ) => {
+
+  if ( isStaticFilePath( req ) ) return next();
 
   res.render( 'pages/' + req.params.page, req.data, ( err, html ) => {
 

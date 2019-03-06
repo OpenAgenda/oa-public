@@ -402,7 +402,7 @@ function _changeState( req, res, next ) {
 
       } );
 
-    } else {
+    } else if ( newState !== oldState ) {
 
       activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).activities.add( {
         actor: 'user:' + req.user.uid,

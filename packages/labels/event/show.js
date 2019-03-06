@@ -117,7 +117,7 @@ module.exports = {
     "en": "Created by %owner%",
     "fr": "Créé par %owner%",
     "it": "Creato da %owner%",
-    "de": "erstellt von %Besitzer%",
+    "de": "erstellt von %owner%",
     "pl": "Utworzone przez %owner%"
   },
   "pastEvent": {

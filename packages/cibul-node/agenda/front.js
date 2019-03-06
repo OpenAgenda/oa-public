@@ -15,6 +15,8 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
 
+const layoutSvc = require( '../services/lib/layout' );
+
 const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -64,6 +66,7 @@ const  modLib = require( '../lib/moduleLib' ),
       show
     ],
     embedShow: [
+      _optionalClearCookie,
       _loadTagGroups,
       _format,
       _formatEmbedHeadLinks,
@@ -225,6 +228,27 @@ module.exports = function( path ) {
 }
 
 
+/**
+ * Requested by Education Nationale for RGPD compliance
+ */
+function _optionalClearCookie( req, res, next ) {
+
+  if ( !_.get( req, 'query.disableCookies' ) ) return next();
+
+  for ( const name in req.cookies ) {
+
+    if ( req.cookies.hasOwnProperty( name ) ) {
+
+      res.cookie( name, '', { expires: new Date( 0 ) } );
+
+    }
+
+  }
+
+  next();
+
+}
+
 
 function _loadTagGroups( req, res, next ) {
 
@@ -376,17 +400,22 @@ function agendaSearchPage( req, res, next ) {
 
   if ( req.xhr ) return next();
 
-  cmn.render( req, res, 'agendaSearch/index', {
-    search: req.query && req.query.search ? req.query.search : '',
-    content: req.content,
-    scriptParams: {
+  req.bodyAttributes = [ {
+    name: 'data-options',
+    value: JSON.stringify( {
       lang: req.lang,
       canvas: '.js_search_canvas',
       agendas: req.data.agendas,
       total: req.data.total,
       res: req.genUrl( 'agendaSearchFormats', { format: 'json' } )
-    }
-  } );
+    } )
+  } ];
+
+  req.scripts = {
+    bottom: [ { path: '/js/agendaSearchIndex.js' } ]
+  };
+
+  res.send( layoutSvc( req, `<div class="js_search_canvas">${req.content}</div>`) );
 
 }
 

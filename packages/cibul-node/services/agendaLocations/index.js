@@ -13,10 +13,13 @@ const agendas = require( '@openagenda/agendas' );
 const agendaGet = promisify( agendas.get );
 
 const getLocationSettings = require( './interfaces/getLocationSettings' );
+const locationsWillMerge = require( './interfaces/locationsWillMerge' );
+const locationWillRemove = require( './interfaces/locationWillRemove' );
 
 module.exports.init = async config => {
 
   await promisify( agendaLocations.init )( {
+    opencage: config.opencage,
     geocodefarm: config.geocodeFarm,
     redis: config.redis,
     elasticsearch: {
@@ -71,8 +74,11 @@ module.exports.init = async config => {
         } ) );
 
       }
-    }, internalEventSvc.locations ),
-    logger: config.getLogConfig( 'svc', 'locations' )
+    }, internalEventSvc.locations, {
+      locationsWillMerge,
+      locationWillRemove
+    } ),
+    logger: config.getLogConfig( 'svc', 'agendaLocations' )
   } );
 
 }

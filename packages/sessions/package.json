@@ -1,0 +1,41 @@
+{
+  "name": "@openagenda/sessions",
+  "version": "3.0.13",
+  "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "main": "lib/service/index.js",
+  "scripts": {
+    "build": "rimraf lib && babel src -d lib -s",
+    "test": "mocha --exit"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs2": "^7.3.1",
+    "@openagenda/logs": "^1.0.0",
+    "@openagenda/service-utils": "^2.0.0",
+    "@openagenda/utils": "^1.0.1",
+    "@openagenda/validators": "^2.0.0",
+    "babel-runtime": "^6.26.0",
+    "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-alpha.2",
+    "cookies-js": "^1.2.3",
+    "lodash": "^4.17.4",
+    "redis": "^2.6.3",
+    "verror": "^1.10.0",
+    "when": "^3.7.7"
+  },
+  "devDependencies": {
+    "async": "^2.1.4",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "babel-preset-openagenda": "^1.1.1",
+    "express": "^4.14.0",
+    "immutability-helper": "^2.3.0",
+    "jsdom": "^9.9.1",
+    "mocha": "^5.2.0",
+    "rimraf": "^2.6.2",
+    "should": "^11.1.2",
+    "superagent": "^3.3.1"
+  }
+}

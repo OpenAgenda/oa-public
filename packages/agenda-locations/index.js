@@ -71,11 +71,11 @@ function init( c, cb ) {
       // get count of events associated with given location
       getEventCount: ( l, cb ) => { cb() },
       // signal location deletion
-      locationWillRemove: ( lId, cb ) => { cb() },
+      locationWillRemove: ( l, cb ) => { cb() },
       // signal location update
       locationDidUpdate: ( lId, cb ) => { if ( cb ) cb() },
       // signal location merge
-      locationsWillMerge: ( mergeInLocationId, locationIds, cb ) => { cb(); },
+      locationsWillMerge: ( mergeInLocation, location, cb ) => { cb(); },
       // get stakeholder data
       getStakeholder: ( stakeholderId, cb ) => { cb() },
       // get agenda settings
@@ -400,11 +400,11 @@ function merge( data, identifiers, cb ) {
 
     data.id = v.merged.id;
 
-    set( data, ( err, location ) => {
+    set( data, ( err, result ) => {
 
       if ( err ) return d.reject( err );
 
-      v.merged = location;
+      v.merged = result;
 
       v.merged.id = data.id;
 
@@ -421,7 +421,7 @@ function merge( data, identifiers, cb ) {
 
     const d = w.defer();
 
-    config.interfaces.locationsWillMerge( v.merged.id, v.locations.map( l => l.id ), err => {
+    config.interfaces.locationsWillMerge( _.get( v, 'merged.location' ), v.locations, err => {
 
       if ( err ) return d.reject( err );
 
@@ -534,7 +534,7 @@ function remove( identifiers, options, cb ) {
 
     if ( !location ) return cb( { code: 404, message: 'location not found' } );
 
-    config.interfaces.locationWillRemove( location.id, () => {
+    config.interfaces.locationWillRemove( location, () => {
 
       db.remove( { id: location.id }, ( err, removedLocation ) => {
 

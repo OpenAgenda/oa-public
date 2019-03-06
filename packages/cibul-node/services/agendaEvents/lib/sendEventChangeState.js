@@ -9,8 +9,11 @@ const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 
+const marked = require( 'marked' );
+
 const genUrl = require( '../../genUrl' );
 
+const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/sendEventChangeState' );
 
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
@@ -39,33 +42,21 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
       throw new VError( 'User matching agendaEvent.userUid %s was not found', _.get( agendaEvent, 'userUid' ) );
 
-    }
+    } else {
 
-    const conributorLang = contributorUser.culture || 'fr';
-
-    await mails( {
-      template: 'myEventChangeState',
-      to: {
-        address: contributorUser.email,
-        unsubscriptions: [ {
-          rule: [ 'receive', 'myEventChangeState' ],
-          dataPath: 'unsubscribeLink'
-        }, {
-          memberId: contributor.id,
-          rule: [ 'receive', 'myEventChangeState' ],
-          dataPath: 'memberUnsubscribeLink'
-        } ]
-      },
-      data: {
-        event: event.title[ conributorLang ] || _.find( event.title ),
-        agenda: agenda.title,
-        beforeState: beforeStateLabel,
-        afterState: afterStateLabel,
+      await _sendToContributor( {
+        contributor,
+        contributorUser,
+        agendaEvent,
+        agenda,
+        event,
         logo,
-        link
-      },
-      lang: conributorLang
-    } );
+        link,
+        beforeStateLabel,
+        afterStateLabel
+      } );
+
+    }
 
   }
 
@@ -73,7 +64,17 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
     template: 'eventChangeState',
     to: members
       .filter( member => member.id !== _.get( contributor, 'id' ) )
+      .filter( member => {
+
+        if ( !member.user ) {
+          log( 'warn', 'no user was found matching member %s', member.id );
+        }
+
+        return !!member.user;
+
+      } )
       .map( member => {
+
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
 
@@ -104,6 +105,76 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
 
 };
+
+
+async function _sendToContributor( {
+  contributor,
+  contributorUser,
+  agendaEvent,
+  agenda,
+  event,
+  logo,
+  link,
+  beforeStateLabel,
+  afterStateLabel
+} ) {
+
+  const conributorLang = contributorUser.culture || 'fr';
+
+  const sendAgendaPublicationMessage = (
+    agendaEvent.state === agendaEventStates.PUBLISHED
+  ) && _.get( agenda, 'settings.contribution.messages.publication' );
+
+  const to = {
+    address: contributorUser.email,
+    unsubscriptions: [ {
+      rule: [ 'receive', 'myEventChangeState' ],
+      dataPath: 'unsubscribeLink'
+    }, {
+      memberId: contributor.id,
+      rule: [ 'receive', 'myEventChangeState' ],
+      dataPath: 'memberUnsubscribeLink'
+    } ]
+  };
+
+  const eventTitle = event.title[ conributorLang ] || _.find( event.title );
+
+  const agendaTitle = agenda.title;
+
+  if ( sendAgendaPublicationMessage ) {
+
+    await mails( {
+      template: 'eventPublishContributor',
+      to,
+      data: {
+        eventTitle,
+        agendaTitle,
+        logo,
+        link,
+        message: marked( _.get( agenda, 'settings.contribution.messages.publication' ) )
+      },
+      lang: conributorLang
+    } );
+
+  } else {
+
+    await mails( {
+      template: 'myEventChangeState',
+      to,
+      data: {
+        event: eventTitle,
+        agenda: agendaTitle,
+        beforeState: beforeStateLabel,
+        afterState: afterStateLabel,
+        logo,
+        link
+      },
+      lang: conributorLang
+    } );
+
+  }
+
+}
 
 async function listAdminmods( { agenda } ) {
   let offset = 0;

@@ -223,16 +223,20 @@ module.exports = createReactClass( {
 
   getLabel( name, values ) {
 
-    var str, k;
+    let str, k;
 
     // see if label is defined in agenda settings
     if ( this.props.settings && this.props.settings.labels && this.props.settings.labels[ name ] ) {
 
-      str = this.props.settings.labels[ name ][ this.props.lang ];
+      let l = this.props.settings.labels[ name ];
+
+      str = _.get( l, this.props.lang, l[ _.first( _.keys( l ) ) ] );
 
     } else if ( this.props.labels[ name ] || labels[ name ] ) {
 
-      str = ( this.props.labels[ name ] || labels[ name ] )[ this.props.lang ];
+      let l = ( this.props.labels[ name ] || labels[ name ] );
+
+      str = _.get( l, this.props.lang, l[ _.first( _.keys( l ) ) ] );
 
     }
 

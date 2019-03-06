@@ -1,6 +1,6 @@
 "use strict";
 
-
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -66,7 +66,11 @@ module.exports = createReactClass( {
 
   getLabel: function( name, values ) {
 
-    var str = labels[ name ][ this.props.lang ], k;
+    const label = labels[ name ];
+
+    let str = _.get( label, this.props.lang, label[ _.first( _.keys( label ) ) ] );
+
+    let k;
 
     if ( values ) {
 

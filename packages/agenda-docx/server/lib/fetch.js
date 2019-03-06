@@ -38,7 +38,7 @@ async function fetchAndStoreEvents( destFolder, agendaUid, query ) {
   const limit = 100;
   let offset = 0, fetched = [], events = [];
 
-  while( ( fetched = await _fetch( agendaUid, offset, limit, query ) ).length ) {
+  while( ( fetched = await _fetch( agendaUid, offset, limit, query ) ).length && offset + limit <= 1000 ) {
 
     events = events.concat( fetched );
     offset += limit;

@@ -32,6 +32,13 @@ module.exports = ( rules, event, key = 'value' ) => {
 
     }
 
+    if ( r.truthy ) {
+
+      // passes if all keys in set are truthy
+      passes = r.truthy.filter( field => _.isArray( event[ field ] ) ? !!event[ field ].length : !!event[ field ] ).length === r.truthy.length;
+
+    }
+
     return passes;
 
   } ).map( r => _.get( r, key, null ) );

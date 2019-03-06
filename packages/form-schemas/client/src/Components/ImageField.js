@@ -47,7 +47,7 @@ module.exports = class ImageField extends Component {
 
   render() {
 
-    const labels = flattenLabels( multilingualLabels, this.props.lang );
+    const labels = flattenLabels( multilingualLabels, this.props.lang, true );
 
     const {
       field: name,

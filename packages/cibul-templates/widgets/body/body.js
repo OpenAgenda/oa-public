@@ -25,7 +25,7 @@ let UID = 0;
 let config = {
   all: {
     heightOffset: 40,
-    res: {  
+    res: {
       agenda: '//' + domain + '/agendas/:uid/embed/events',
       customAgenda: '//' + domain + '/agendas/:uid/embeds/:embedUid/events',
       event: '//' + domain + '/agendas/:uid/embed/events/:eventUid',
@@ -33,7 +33,7 @@ let config = {
     }
   },
   development: {
-    res: {  
+    res: {
       agenda: '//d.openagenda.com/agendas/:uid/embed/events',
       customAgenda: '//d.openagenda.com/agendas/:uid/embeds/:embedUid/events',
       event: '//d.openagenda.com/agendas/:uid/embed/events/:eventUid',
@@ -49,7 +49,7 @@ let config = {
     }
   },
   tpl: {
-    res: {  
+    res: {
       agenda: 'http://localhost:3000/agenda/embedShow',
       customAgenda: 'http://localhost:3000/agenda/embedShow',
       event: 'http://localhost:3000/event/embedShow',
@@ -64,7 +64,7 @@ let config = {
  */
 
 require( '../lib/loader' )( {
-  selector: '.cbpgbdy', 
+  selector: '.cbpgbdy',
   backup: { // drupal removes classes
     selector: '[data-oabdy]',
     classNames: 'cibulFrame'
@@ -95,6 +95,8 @@ function widget( elem, options ) {
 
   var lang;
 
+  var allowCookies = true;
+
   var log = debug( 'body' ),
 
   controller,
@@ -104,10 +106,12 @@ function widget( elem, options ) {
   ( function() {
 
     log( 'initing' );
-    
+
     var uid = _loadFromUidAttribute( elem.getAttribute( 'data-uid' ) ) || _loadRes( options.anchorConfig[ 0 ] );
 
     controller = options.register( wLib.interface( 'body', uid, { change  } ));
+
+    allowCookies = _allowCookies();
 
     styler( style );
 
@@ -127,7 +131,7 @@ function widget( elem, options ) {
           controller.releaseModal();
 
         }, 30 );
-        
+
         bottomHit.enable( elem, function() {
 
           sendFunc( { bottom: true } );
@@ -149,7 +153,7 @@ function widget( elem, options ) {
         }
 
       } );
-      
+
     });
 
 
@@ -212,7 +216,7 @@ function widget( elem, options ) {
           hrefQuery.event = slug;
 
         } else {
-          
+
           hrefQuery.uid = eventUid;
 
         }
@@ -251,7 +255,7 @@ function widget( elem, options ) {
 
         return _goToFrameTop();
 
-      } 
+      }
 
       if ( _isAgendaLink( message.load ) ) {
 
@@ -316,7 +320,7 @@ function widget( elem, options ) {
     return eventRes.replace( ':eventUid', uid );
 
   }
-  
+
 
   function _getEventUid( href ) {
 
@@ -346,7 +350,7 @@ function widget( elem, options ) {
 
     var parts = href.split( '?' ),
 
-    path = parts[ 0 ], 
+    path = parts[ 0 ],
 
     query = qs.parse( parts.length > 1 ? parts[ 1 ] : {} ),
 
@@ -354,6 +358,9 @@ function widget( elem, options ) {
 
     // insert language
     if ( lang ) query.lang = lang;
+
+    // if not allowed, disable cookie
+    if ( !allowCookies ) query.disableCookies = '1';
 
     src = path + '?' + qs.stringify( query );
 
@@ -445,9 +452,26 @@ function widget( elem, options ) {
   }
 
 
+  function _allowCookies() {
+
+    if (
+      env !== 'preview' &&
+      elem.hasAttribute( 'src' ) &&
+      ( elem.getAttribute( 'src' ).indexOf( 'disableCookies' ) !== 1 )
+    ) {
+
+      return false;
+
+    }
+
+    return true;
+
+  }
+
+
   function _loadFromUidAttribute( uid ) {
 
-    if ( !uid ) return null; 
+    if ( !uid ) return null;
 
     _initAgendaRes( uid.split( '/' ) );
 
@@ -507,7 +531,7 @@ function widget( elem, options ) {
     });
 
     _initAgendaRes( uids );
-    
+
     return uids.join('/');
 
   }
@@ -523,7 +547,7 @@ function widget( elem, options ) {
 
   function _goToFrameTop() {
 
-    window.scrollTo( 0, _findPos( elem ).top - 40 );  
+    window.scrollTo( 0, _findPos( elem ).top - 40 );
 
   }
 

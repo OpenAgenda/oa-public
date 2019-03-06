@@ -3,17 +3,15 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 
-const files = require( '@openagenda/files' );
-const images = require( '@openagenda/images' );
 const logger = require( '@openagenda/logs' );
 
-let config, log;
+let log, images, files;
 
 module.exports = {
   load,
   init,
-  clear: files.s3.remove,
-  getBucketPath: files.s3.getBucketPath
+  clear: ( filenames, cb ) => files.s3.remove( filenames, cb ),
+  getBucketPath: bucket => files.s3.getBucketPath( bucket )
 }
 
 
@@ -41,7 +39,7 @@ function load( options, cb = null ) {
     p.then( result => {
 
       setTimeout( () => cb( null, result ), 0 );
-      
+
     } );
 
     p.catch( cb );
@@ -55,24 +53,18 @@ function load( options, cb = null ) {
 }
 
 
-function init( c ) {
+function init( config ) {
 
-  config = c;
+  if ( config.logger ) {
 
-  if ( c.logger ) {
-
-    logger.setModuleConfig( c.logger );
+    logger.setModuleConfig( config.logger );
 
   }
 
+  files = config.files;
+  images = config.images;
+
   log = logger( 'index' );
-
-  files.init( Object.assign( {}, c.files, { logger } ) );
-
-  images.init( { 
-    tmpPath: config.files.tmpPath, 
-    logger 
-  } );
 
 }
 

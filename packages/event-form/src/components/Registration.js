@@ -2,7 +2,8 @@
 
 const _ = {
   get: require( 'lodash/get' ),
-  keys: require( 'lodash/keys' )
+  keys: require( 'lodash/keys' ),
+  uniq: require( 'lodash/uniq' )
 };
 
 const validates = {
@@ -15,6 +16,8 @@ import ih from 'immutability-helper';
 import React, { Component } from 'react';
 import TagsInput from 'react-tagsinput';
 
+const separatorRegex = /;|,|\|/;
+
 const iconClasses = {
   link: 'fa fa-link',
   phone: 'fa fa-phone',
@@ -24,6 +27,16 @@ const iconClasses = {
 
 
 module.exports = class RegistrationComponent extends Component {
+
+  constructor( props ) {
+
+    super( props );
+
+    this.state = {
+      inputValue: ''
+    };
+
+  }
 
   renderTag( t ) {
 
@@ -57,6 +70,46 @@ module.exports = class RegistrationComponent extends Component {
 
   }
 
+  onInputChange( e ) {
+
+    const parts = e.target.value.split( separatorRegex );
+
+    if ( parts.length <= 1 ) {
+
+      return this.setState( {
+        inputValue: e.target.value
+      } );
+
+    }
+
+    this.appendValue( parts[ 0 ] );
+
+  }
+
+  onInputBlur( e ) {
+
+    if ( !e.target.value.length ) return;
+
+    this.appendValue( e.target.value );
+
+  }
+
+  onChange( value ) {
+
+    this.setState( { inputValue: '' } );
+
+    this.props.onChange( _.uniq( value ) );
+
+  }
+
+  appendValue( item ) {
+
+    this.setState( { inputValue: '' } );
+
+    this.props.onChange( _.uniq( ( this.props.value || [] ).concat( item ) ) );
+
+  }
+
   render() {
 
     const field = this.props.field;
@@ -67,12 +120,17 @@ module.exports = class RegistrationComponent extends Component {
 
     return (
       <div className="registration">
-        <TagsInput 
+        <TagsInput
           value={values}
-          onChange={this.props.onChange}
+          onChange={this.onChange.bind( this )}
+          onlyUnique={true}
           renderTag={this.renderTag.bind( this )}
+          addOnBlur={true}
           inputProps={{
+            value: this.state.inputValue,
+            onChange: this.onInputChange.bind( this ),
             placeholder: field.placeholder,
+            onBlur: this.onInputBlur.bind( this ),
             style: !values.length ? { width: '630px' } : null
           }}
         />

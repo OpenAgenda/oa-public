@@ -1,6 +1,8 @@
 "use strict";
 
-module.exports = ( event, { lang, root, agenda } ) => {
+const _ = require( 'lodash' );
+
+module.exports = ( event, { lang, root, agenda, req, index } ) => {
 
   event.link = `${root}/events/${event.slug}`;
   event.permalink = `${root}/permalinks/events/${event.uid}`;

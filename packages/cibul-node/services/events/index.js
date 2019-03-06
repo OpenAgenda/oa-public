@@ -37,14 +37,17 @@ function init( config ) {
       formats: [ {
         name: '{fileKey}.base.image.jpg',
         format: { width: 600 },
-        variant: 'base'
+        variant: 'base',
+        sizeLimits: config.imageSizeLimits
       }, {
         name: '{fileKey}.full.image.jpg',
-        variant: 'full'
+        variant: 'full',
+        sizeLimits: config.imageSizeLimits
       }, {
         name: '{fileKey}.thumb.image.jpg',
         format: { width: 200, height: 200, crop: true },
-        variant: 'thumbnail'
+        variant: 'thumbnail',
+        sizeLimits: config.imageSizeLimits
       } ]
     },
     legacy: {

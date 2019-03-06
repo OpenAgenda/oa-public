@@ -8,6 +8,9 @@ const _ = require( 'lodash' );
 
 const labels = require( '@openagenda/labels/corpo/pages' );
 
+// let german be english when undefined
+_.keys( labels ).forEach( k => labels[ k ].de = labels[ k ].de || labels[ k ].en );
+
 module.exports = function( basePath ) {
 
   const params = {
@@ -31,7 +34,7 @@ module.exports = function( basePath ) {
     fs.readdirSync( __dirname + '/' + namespace ).map( p => {
 
       params[ namespace ].push( _.assign( {
-        key: p.split( '.' )[ 0 ]
+        key: p.split( '.' )[ 0 ]
       }, JSON.parse( fs.readFileSync( __dirname + '/' + namespace + '/' + p, 'utf-8' ) ) ) );
 
     } );

@@ -60,9 +60,9 @@
               </div>
             </li>
             <li class="js_toggle language-menu js_not_logged js_language_menu" data-toggle="js_languages_menu">
-              <a href="#"><% if ( lang === 'fr' ) { %>fr<% } else { %>en<% } %></a>
+              <a href="#"><%= lang %></a>
               <ul class="dropdown-menu js_languages_menu collapse">
-<% [ 'fr', 'en' ].forEach( function( l ) { %>
+<% Object.keys( langLabels ).forEach( function( l ) { %>
 <% if ( lang==l ) { %>
                 <li><a href="?lang=<%= l %>" hreflang="<%= l %>" class="selected"><%= langLabels[ l ] %></a></li>
 <% } else { %>

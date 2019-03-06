@@ -7,9 +7,9 @@ const stakeholders = require( '@openagenda/agenda-stakeholders' );
 const eventSvc = require( '@openagenda/events' );
 const mails = require( '@openagenda/mails' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const log = require( '@openagenda/logs' )( 'services/agendaEvents/eventAggregation' );
 const genUrl = require( '../genUrl' );
 
+const log = require( '@openagenda/logs' )( 'services/agendaEvents/eventAggregation' );
 
 module.exports = async ( { eventUid, aggregatorAgendaUid, sourceAgendaUid, state } ) => {
 

@@ -11,7 +11,7 @@ const should = require( 'should' );
 const svc = require( './service' );
 const config = require( '../testconfig' );
 
-const imageFiles = require( '@openagenda/image-files' );
+const externalServices = require( './service/externalServices' );
 
 describe( 'events -03- functional (server): create', function() {
 
@@ -23,26 +23,18 @@ describe( 'events -03- functional (server): create', function() {
 
       .pipe( fs.createWriteStream( __dirname + '/service/tmp.png' ) )
 
-      .on( 'close', () => {
-
-        done ()
-
-      } );
+      .on( 'close', () => done() );
 
   } );
 
   before( done => {
 
-    // image files is an independent service
-    // that formats and loads given images on
-    // s3. The event service calls it when
-    // it is given images as local paths or urls
-    imageFiles.init( config.tests.imageFiles );
+    externalServices.init( config.tests );
 
     svc.initAndLoad( ih( config, {
       interfaces: {
         imageFilesLoad: {
-          $set: imageFiles.load
+          $set: externalServices.imageFiles.load
         }
       }
     } ), [

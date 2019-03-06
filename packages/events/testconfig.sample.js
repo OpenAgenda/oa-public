@@ -6,6 +6,7 @@ module.exports = {
     host : '127.0.0.1',
     database : 'oatest_event',
     password : 'grut',
+    timezone: 'utc',
     user : 'root',
     charset: 'utf8mb4'
   },
@@ -55,6 +56,7 @@ module.exports = {
       eventLocation: 'legacy_event_location',
       eventLocationTranslation: 'legacy_event_location_translation',
       agendaEvent: 'legacy_agenda_event',
+      eventReferences: 'legacy_agenda_event_references',
       user: 'legacy_user',
       agenda: 'legacy_agenda',
       deleted: 'legacy_deleted'
@@ -63,15 +65,16 @@ module.exports = {
 
   tests: {
 
-    imageFiles: {
-      files: {
-        tmpPath: '/var/tmp/',
-        bucket: 'openagendatst',
-        accessKeyId: '-----',
-        secretAccessKey: '-----'
-      }
-    }
+    files: {
+      tmpPath: '/var/tmp/',
+      bucket: 'openagendatst',
+      accessKeyId: '',
+      secretAccessKey: ''
+    },
 
+    images: {
+      tmpPath: '/var/tmp/'
+    }
   },
 
   interfaces: {

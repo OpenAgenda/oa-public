@@ -43,16 +43,16 @@ module.exports = async ( { knex, imagePath }, embedUid ) => {
     classes: _.get( store, 'layout.catClasses', {} )
   };
 
-  if ( store.mapIcons ) {
+  if ( _.get( store, 'layout.mapIcons' ) ) {
 
     ebd.mi = {
-      a: _.get( 'layout.mapIcons.active' ) ? imagePath + _.get( 'layout.mapIcons.active' ) : false,
-      i: _.get( 'layout.mapIcons.inactive' ) ? imagePath + _.get( 'layout.mapIcons.inactive' ) : false
+      a: _.get( store, 'layout.mapIcons.active' ) ? imagePath + _.get( store, 'layout.mapIcons.active' ) : false,
+      i: _.get( store, 'layout.mapIcons.inactive' ) ? imagePath + _.get( store, 'layout.mapIcons.inactive' ) : false
     };
 
     ebd.ms = {
-      a: _.get( 'layout.mapIconSizes.active', false ),
-      i: _.get( 'layout.mapIconSizes.inactive', false )
+      a: _.get( store, 'layout.mapIconSizes.active', false ),
+      i: _.get( store, 'layout.mapIconSizes.inactive', false )
     };
 
   }

@@ -339,7 +339,7 @@ export default class Dashboard extends Component {
 
           <div className="pull-right">
             <div className="btn-group">
-              <DropdownButton title="Exporter" id="nested-export-dropdown">
+              <DropdownButton title={getLabel( 'export' )} id="nested-export-dropdown">
                 <MenuItem href={res.exportToXlsx}>XLSX</MenuItem>
                 <MenuItem href={res.exportToCsv}>CSV</MenuItem>
               </DropdownButton>

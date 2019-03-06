@@ -8,17 +8,49 @@ const _ = {
 }
 
 schema.register( {
-  date: require( '@openagenda/validators/date' )
+  date: require( '@openagenda/validators/date' ),
+  regex: require( '@openagenda/validators/regex' ),
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 const validateTiming = schema( {
   begin: {
-    type: 'date',
-    optional: false
+    date: {
+      type: 'regex',
+      regex: /^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-3][0-9]$/,
+      optional: false
+    },
+    hours: {
+      type: 'integer',
+      min: 0,
+      max: 23,
+      optional: false
+    },
+    minutes: {
+      type: 'integer',
+      min: 0,
+      max: 59,
+      optional: false
+    }
   },
   end: {
-    type: 'date',
-    optional: false
+    date: {
+      type: 'regex',
+      regex: /^[0-9][0-9][0-9][0-9]\-[0-9][0-9]\-[0-3][0-9]$/,
+      optional: false
+    },
+    hours: {
+      type: 'integer',
+      min: 0,
+      max: 23,
+      optional: false
+    },
+    minutes: {
+      type: 'integer',
+      min: 0,
+      max: 59,
+      optional: false
+    }
   }
 } );
 
@@ -55,12 +87,6 @@ module.exports = ( options = {} ) => value => {
     try {
 
       const cleanTiming = validateTiming( value );
-
-      if ( cleanTiming.end < cleanTiming.begin ) throw [ {
-        code: 'timings.invalid',
-        message: 'end cannot happen earlier than begin',
-        field: 'timings'
-      } ]
 
       carry.clean.push( value );
 

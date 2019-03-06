@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const log = require( '@openagenda/logs' )( 'middleware/error' );
+const log = require( '../lib/Log' )( 'middleware/error' );
 
 const pageGlobals = require( './pageGlobals' );
 
