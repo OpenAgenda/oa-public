@@ -80,7 +80,12 @@ export default class OptionAdd extends Component {
 
       this.props.onSubmit( option );
 
-      this.setState( { option: null, error: null } );
+      this.setState( {
+        option: null,
+        error: null
+      } );
+
+      this.focusOnFirstInput()
 
     }
 
@@ -89,6 +94,20 @@ export default class OptionAdd extends Component {
   isEdit() {
 
     return !!this.props.option;
+
+  }
+
+  focusOnFirstInput() {
+
+    try {
+
+      document.querySelector( '.js_add_option_input input' ).focus();
+
+    } catch ( e ) {
+
+      console.log( e );
+
+    }
 
   }
 
@@ -111,7 +130,7 @@ export default class OptionAdd extends Component {
         } ]
       }}
       classNames={{
-        field: '',
+        field: 'js_add_option_input',
         bottomErrorsCanvas: 'error margin-bottom-sm'
       }}
       actionComponents={[ {

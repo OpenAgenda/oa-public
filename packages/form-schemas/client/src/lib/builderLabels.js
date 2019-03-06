@@ -185,8 +185,8 @@ module.exports = {
   },
 
   optionAdd: {
-    fr: 'Ajouter une valeur',
-    en: 'Add a value'
+    fr: 'Ajouter des valeurs',
+    en: 'Add values'
   },
 
   optionAddAction: {
@@ -207,6 +207,21 @@ module.exports = {
   optionDrag: {
     fr: 'Trier',
     en: 'Sort'
+  },
+
+  optionOrder: {
+    fr: 'Trier',
+    en: 'Change order'
+  },
+
+  optionRemove: {
+    fr: 'Supprimer',
+    en: 'Remove'
+  },
+
+  optionOrderEndAction: {
+    fr: 'Terminer le tri',
+    en: 'End re-ordering'
   },
 
   emptyOptions: {
