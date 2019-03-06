@@ -1,7 +1,7 @@
 "use strict";
 
 const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/onUpdate' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
@@ -15,7 +15,7 @@ const controlDataSvc = require( '../legacy' ).controlData;
 
 module.exports = async ( before, after, context ) => {
 
-  log( 'updated agenda-event from %j to %j', before, after, context );
+  log( 'updated agenda-event from %j to %j', before, after );
 
   try {
 
@@ -48,7 +48,7 @@ module.exports = async ( before, after, context ) => {
       log( 'error', 'control data set failed', e );
     }
 
-  } else if ( before.state === 2 ) {
+  } else if ( ( before.state === 2 ) && ( after.state !== 2 ) ) {
 
     try {
       await controlDataSvc.remove( before );
