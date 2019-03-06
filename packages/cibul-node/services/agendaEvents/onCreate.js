@@ -200,7 +200,7 @@ async function _addToSearchIndex( ae ) {
 
   if ( !_.get( result, 'success' ) ) {
 
-    log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
+    log( 'warn', 'could not index event in agenda index (%s.%s)', ae.agendaUid, ae.eventUid );
 
   }
 
