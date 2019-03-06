@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const should = require( 'should' );
 const validate = require( '../service/validate' );
 const frontValidate = require( '../service/validate/front' );
@@ -204,4 +205,48 @@ describe( 'events -07- unit (iso): validation', () => {
 
   } );
 
+
+  it( 'timings does not validate if there are more than 800 timings', () => {
+
+    try {
+
+      frontValidate( {
+        title: {
+          fr: 'Un titre'
+        },
+        timings: _timings( new Date, 801 )
+      }, { optionalSlug: true } );
+
+    } catch ( errors ) {
+
+      errors.length.should.equal( 1 );
+      _.get( errors, '0.message' ).should.equal( 'list is too long' );
+      _.get( errors, '0.field' ).should.equal( 'timings' );
+
+    }
+
+  } )
+
 } );
+
+
+function _timings( start, count ) {
+
+  const timings = [];
+
+  let cursor = start;
+
+  for ( let i = 0; i<count; i++ ) {
+
+    timings.push( {
+      begin: cursor,
+      end: cursor
+    } );
+
+    cursor.setDate( cursor.getDate() + 1 );
+
+  }
+
+  return timings;
+
+}
