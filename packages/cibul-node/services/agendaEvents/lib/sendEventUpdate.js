@@ -69,7 +69,8 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
   await mails( {
     template: 'eventUpdate',
     to: members
-      .filter( member => member.user && member.id !== creator.id )
+      .filter( member => !!member.user )
+      .filter( member => !creator || ( member.id !== creator.id ) )
       .map( member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
