@@ -10,7 +10,7 @@ const rules = require( '@openagenda/aggregators' ).utils.rules;
 
 const aggUtils = require( './aggUtils' );
 const loadAgendaCategories = require( './utils/loadAgendaCategories' );
-const loadAgendaTags = require( './utils/loadAgendaTags' );
+const associateSameTags = require( './utils/associateSameTags' );
 const interfaces = require( '../interfaces' );
 const p = require( '../../../lib/promises' );
 
@@ -60,14 +60,6 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( aggUtils.loadAgenda( 'aggregatingAgenda', 'aggregatingAgendaId' ) )
 
-  .then( async v => {
-
-    v.aggregatorTags = await loadAgendaTags( aggregatingAgendaId );
-
-    return v;
-
-  } )
-
   .then( aggUtils.loadRules.bind( null, {
     db: config.db,
     log
@@ -98,7 +90,23 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
   .then( p.ife( { referenced: false, shouldAggregate: true }, _addEventToAggregator ) )
 
-  .then( p.ife( { referencedOrAdded: true }, _associateSameTags ) )
+  .then( p.ife( { referencedOrAdded: true }, async v => {
+
+    if ( !v.eventSourceTags.length ) return v;
+
+    try {
+
+      const inserted = await associateSameTags( config.knex, aggregatingAgendaId, v.event, v.eventSourceTags );
+
+      log( 'associated %s tags', inserted.length );
+
+    } catch( e ) {
+      log( 'error', 'failed to associate matching tags to aggregator event ref', e )
+    }
+
+    return v;
+
+  } ) )
 
   // this is useless as long as custom_fields are directly stored in event schema!
   // .then( p.ife( { referencedOrAdded: true }, _associateSameCustomFields ) )
@@ -479,35 +487,6 @@ function _loadEventSourceTagsAndCustomFields( v ) {
     } )
 
     .then( () => v );
-
-}
-
-
-
-function _associateSameTags( v ) {
-
-  log( 'checking for tags association' );
-
-  if ( !v.eventSourceTags.length || !v.aggregatorTags.length ) return v;
-
-  return w().then( () => {
-
-    // match to aggregator tags
-    return v.eventSourceTags
-
-      .filter( t => v.aggregatorTags.filter( at => at.label === t.label ).length )
-
-      .map( t => v.aggregatorTags.filter( at => at.label === t.label )[ 0 ] );
-
-  } )
-
-  .then( aTags => p.w.map( aTags, aTag => {
-
-    return wn.call( v.aggregatingAgenda.assignTag, aTag, v.event );
-
-  } ) )
-
-  .then( () => v );
 
 }
 
