@@ -50,7 +50,6 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     sourceCategories: [],
     eventSourceTags: [],
     eventSourceCustomFields: null,
-    aggregatorTags: [],
     aggregatorCategories: [],
     eventTags: null,
     eventCategory: null
