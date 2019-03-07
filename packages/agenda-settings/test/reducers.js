@@ -1,6 +1,6 @@
 import should from 'should';
 import { change, reducer as formReducer } from 'redux-form';
-import { formPlugin as agendaFormPlugin } from '../src/react/redux/modules/agenda';
+import { formPlugin as agendaFormPlugin } from '../src/client/redux/modules/agenda';
 
 describe( 'reducers', () => {
 
