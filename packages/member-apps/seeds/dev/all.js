@@ -7,15 +7,13 @@ import agendasFixtures from '@openagenda/agendas/test/fixtures/load';
 const agendasSvcRoot = path.dirname( require.resolve( '@openagenda/agendas/package.json' ) );
 
 exports.seed = async knex => {
-  const { testconfig, schemas } = knex.client.config;
+  const { testconfig } = knex.client.config;
 
   fixtures.init( testconfig );
 
-  stakeholdersSvc.init( testconfig, () => {
+  await promisify( stakeholdersSvc.init )( testconfig );
 
-    stakeholdersSvc.tasks.message();
-
-  } );
+  stakeholdersSvc.tasks.message();
 
   await agendasFixtures( {
     mysql: testconfig.mysql,
