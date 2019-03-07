@@ -1,4 +1,3 @@
-import React from 'react';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
 import loadable from './loadable';
 
