@@ -8,6 +8,12 @@
 
   }
 
+  .title {
+
+    a { color: inherit; }
+
+  }
+
   .media-body {
 
     overflow: visible;
@@ -22,7 +28,6 @@
 
   a {
 
-    color: inherit;
     text-decoration: none;
     display: block;
 
