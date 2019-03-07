@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import loadScript from 'load-script';
+import ReactDOM from 'react-dom';
+import du from '@openagenda/dom-utils';
 
 export default function loadApp( options, cb ) {
 
@@ -24,7 +26,9 @@ export default function loadApp( options, cb ) {
     }
 
     if ( window[ params.functionName ] ) {
-      window[ params.functionName ]( params );
+      const { element } = window[ params.functionName ]( params );
+
+      ReactDOM.render( element, du.el( params.selector ) );
     }
 
     if ( cb ) {

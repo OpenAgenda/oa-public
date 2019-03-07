@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
@@ -13,7 +12,6 @@ import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
 import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 // import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
-import du from '@openagenda/dom-utils';
 import getReducers from '../../redux/reducer';
 import getRoutes from '../../getRoutes';
 
@@ -43,12 +41,11 @@ const defaults = {
   }
 };
 
-export default function renderApp( options = {} ) {
+export default function app( options = {} ) {
   const {
     initialState,
     req,
-    notFoundKey = _.uniqueId( 'lazyInbox' ),
-    selector
+    notFoundKey = _.uniqueId( 'lazyInbox' )
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
@@ -95,8 +92,6 @@ export default function renderApp( options = {} ) {
     </Router>
   );
 
-  ReactDOM.render( element, du.el( selector ) );
-
   return {
     store,
     history,
@@ -110,6 +105,6 @@ export default function renderApp( options = {} ) {
 
 export function expose( name ) {
 
-  window[ name ] = renderApp;
+  window[ name ] = app;
 
 }
