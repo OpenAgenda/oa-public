@@ -21,9 +21,9 @@ module.exports = ( { entry, output } ) => ({
     ...output,
     publicPath: '/js/',
     filename: mod => (mod.chunk.name === 'webapp'
-      ? '[name].[chunkhash:8].js'
+      ? '[name].[contenthash:8].js'
       : '[name].js'),
-    chunkFilename: '[id].[chunkhash:8].chunk.js'
+    chunkFilename: '[id].[contenthash:8].chunk.js'
   },
   module: {
     rules: [
