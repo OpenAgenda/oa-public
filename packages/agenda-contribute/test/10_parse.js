@@ -200,6 +200,30 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'when timezone is not specified in event data, it can be read from provided location', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timings: [ {
+          begin: new Date( '2019-02-08T19:25:00+0400' ),
+          end: new Date( '2019-02-08T21:00:00+0400' )
+        } ]
+      }, {
+        location: { timezone: 'Asia/Dubai' }
+      } ).timings ).toEqual( [ {
+        begin: {
+          date: '2019-02-08',
+          hours: '19',
+          minutes: '25'
+        },
+        end: {
+          date: '2019-02-08',
+          hours: '21',
+          minutes: '00'
+        }
+      } ] );
+
+    } );
+
   } );
 
 } );
