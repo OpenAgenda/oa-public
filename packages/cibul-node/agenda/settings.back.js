@@ -162,11 +162,6 @@ module.exports = path => {
 
     /**********/
 
-    agendaSettingsCreateApp: [ 'get', '/new', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchNewApp
-    ] ],
-
     agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', cmn.verifyIPMiddleware.concat( [
       agendaSvc.mw.load( 'slug' ),
       cmn.checkAdministrator(),
@@ -197,59 +192,6 @@ module.exports = path => {
   };
 
 };
-
-async function matchNewApp( req, res, next ) {
-  const prefix = req.genUrl( 'agendaSettingsCreateApp' ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, staticContext, history } = createApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix,
-        lang,
-        apiRoot: `http://localhost:${config.port}`
-      },
-      res: {
-        create: '/new',
-        slugAvailable: '/agendas/slugs/available',
-        onCreated: '/:slug/admin/getting-started'
-      }
-    }
-  } );
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( element );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname, search } = history.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 302, pathname );
-    }
-
-    cmn.render( req, res, 'agendaSettings/new', {
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true
-    } );
-  } catch ( e ) {
-    next( e );
-  }
-}
 
 async function matchEditApp( req, res, next ) {
   const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];

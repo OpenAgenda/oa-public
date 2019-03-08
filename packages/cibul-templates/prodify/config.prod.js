@@ -30,6 +30,7 @@ module.exports = ( { entry, output } ) => ({
     rules: [
       getBabelRule( path.join( __dirname, '..' ) ),
       ...getBabelModuleRules( [
+        '@openagenda/agenda-settings',
         '@openagenda/home',
         '@openagenda/user-apps'
       ] ),

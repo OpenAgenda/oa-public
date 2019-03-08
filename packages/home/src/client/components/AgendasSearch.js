@@ -93,13 +93,7 @@ export default class AgendasSearch extends Component {
 
     return (
       <div>
-        <div className="header hidden-xs">
-          <div className="pull-right margin-bottom-md">
-            <a href={res.agendas.create} className="btn btn-primary create-agenda">
-              {getLabel( 'createAgenda' )}
-            </a>
-          </div>
-        </div>
+        {Header ? <Header /> : null}
         {clearfixAfterButton && <div className="clearfix"></div>}
         <form onSubmit={handleSubmit( this.search )}>
           <Field

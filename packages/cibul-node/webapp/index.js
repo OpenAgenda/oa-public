@@ -10,6 +10,7 @@ const asyncMatchRoutes = require( '@openagenda/react-utils/dist/asyncMatchRoutes
 const homeMw = require( '@openagenda/home/dist/middleware' );
 const createHomeApp = require( '@openagenda/home/dist/client/app' );
 const createUserSettingsApp = require( '@openagenda/user-apps/dist/app' );
+const createAgendaSettingsNewApp = require( '@openagenda/agenda-settings/dist/client/createApp' );
 const { Html, HeaderManager, Header } = require( '@openagenda/react-layouts' );
 const activitiesSvc = require( '@openagenda/activities' );
 const { Inbox } = require( '@openagenda/inboxes' );
@@ -25,7 +26,7 @@ const statsFile = path.resolve( '../../../cibul-symfony/web/js/loadable-stats.js
 module.exports = app => {
 
   app.get(
-    [ '/home', '/home/events', '/settings/?*?' ],
+    [ '/home', '/home/events', '/settings/?*?', '/new' ],
     cmn.loadLogger( 'webapp' ),
     cmn.loadBaseData( 'oasfmain.css' ),
     matchApp
@@ -110,6 +111,23 @@ async function matchApp( req, res, next ) {
             generateApiKey: '/users/me/generateApiKey',
             uploadProfileImage: '/users/me/setImageProfile',
             removeProfileImage: '/users/me/clearImageProfile'
+          }
+        }
+      } ),
+      agendaSettingsNew: createAgendaSettingsNewApp( {
+        req,
+        extractor,
+        history,
+        initialState: {
+          settings: {
+            prefix: '/new',
+            apiRoot,
+            lang
+          },
+          res: {
+            create: '/new',
+            slugAvailable: '/agendas/slugs/available',
+            onCreated: '/:slug/admin/getting-started'
           }
         }
       } )

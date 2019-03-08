@@ -1,7 +1,14 @@
 import NotFound from '@openagenda/react-utils/dist/NotFound';
-import { CreationApp, AgendaCreation } from './containers';
+import loadable from './loadable';
 
-export default function ( prefix = '', notFoundKey = 'agendaSettingsCreate' ) {
+const CreationApp = loadable( () =>
+  import( /* webpackChunkName: "agendaSettings-CreationApp" */ './containers/CreationApp/CreationApp' )
+);
+const AgendaCreation = loadable( () =>
+  import( /* webpackChunkName: "agendaSettings-AgendaCreation" */ './containers/AgendaCreation/AgendaCreation' )
+);
+
+export default function ( prefix = '', notFoundKey = 'agendaSettingsNew' ) {
   return [
     {
       component: CreationApp,

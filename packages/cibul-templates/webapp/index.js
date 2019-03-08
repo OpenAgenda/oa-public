@@ -5,9 +5,10 @@ import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import du from '@openagenda/dom-utils';
 import { loadableReady } from '@loadable/component';
-import { HeaderManager, HeaderSelector, Header, MainHeader } from '@openagenda/react-layouts';
+import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
+import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import getNotFoundState from './utils/getNotFoundState';
 import historyActionMaker from './utils/historyActionMaker';
@@ -33,6 +34,10 @@ const apps = {
   } ),
   userSettings: createAppUserSettings( {
     initialState: initialState.userSettings,
+    ...sharedAppOptions
+  } ),
+  agendaSettingsNew: createAgendaSettingsNewApp( {
+    initialState: initialState.agendaSettingsNew,
     ...sharedAppOptions
   } )
 };

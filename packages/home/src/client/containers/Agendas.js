@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import qs from 'qs';
@@ -36,14 +37,16 @@ export default class Agendas extends Component {
     const { res } = this.props;
     const { getLabel } = this.context;
 
-    return <div className="header">
-      <h2 className="hidden-xs">{getLabel( 'myAgendas' )}</h2>
-      <div className="hidden-xs pull-right">
-        <a href={res.agendas.create} className="btn btn-primary" type="button">
-          {getLabel( 'createAgenda' )}
-        </a>
+    return (
+      <div className="header">
+        <h2 className="hidden-xs">{getLabel( 'myAgendas' )}</h2>
+        <div className="hidden-xs pull-right">
+          <Link to={res.agendas.create} className="btn btn-primary" type="button">
+            {getLabel( 'createAgenda' )}
+          </Link>
+        </div>
       </div>
-    </div>;
+    );
   }
 
   renderAgendaActions( { agenda } ) {

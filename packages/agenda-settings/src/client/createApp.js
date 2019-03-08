@@ -5,6 +5,7 @@ import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { Router, StaticRouter } from 'react-router-dom';
+import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED as LoadableSecret } from '@loadable/component';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
@@ -14,6 +15,8 @@ import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getReducers from './redux/reducer';
 import getRoutes from './createRoutes';
+
+const { Context: LoadableContext } = LoadableSecret;
 
 const defaults = {
   initialState: {
@@ -40,7 +43,10 @@ export default function ( options ) {
     initialState,
     Header,
     req,
-    notFoundKey = _.uniqueId( 'inbox' )
+    extractor,
+    notFoundKey = _.uniqueId( 'agendaSettingsNew' ),
+    onLocationChangeStart,
+    onLocationChangeFinish
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
@@ -71,7 +77,12 @@ export default function ( options ) {
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
     <NotFound.Capture notFoundKey={notFoundKey}>
-      <RouterTrigger trigger={triggerHooks}>
+      <RouterTrigger
+        trigger={() => triggerHooks( {
+          onStart: onLocationChangeStart,
+          onFinish: onLocationChangeFinish
+        } )}
+      >
         <Provider store={store} context={ReactReduxContext}>
           {Header ? <Header history={history} /> : null}
           {renderRoutes( routes )}
@@ -81,13 +92,15 @@ export default function ( options ) {
   );
 
   const element = (
-    <Router history={history}>
-      <ScrollToTop>
-        {req
-          ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
-          : content}
-      </ScrollToTop>
-    </Router>
+    <LoadableContext.Provider value={extractor} key={notFoundKey}>
+      <Router history={history}>
+        <ScrollToTop>
+          {req
+            ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
+            : content}
+        </ScrollToTop>
+      </Router>
+    </LoadableContext.Provider>
   );
 
   return {
