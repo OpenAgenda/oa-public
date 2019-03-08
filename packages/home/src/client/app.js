@@ -27,7 +27,7 @@ const defaults = {
     },
     res: {
       list: '/agendas',
-      new: '/new',
+      create: '/new',
       events: '/home/events',
       messages: '/home/messages',
       notifs: '/home/notifications',
