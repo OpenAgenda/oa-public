@@ -1,5 +1,5 @@
 import { actionTypes as formActionTypes, SubmissionError } from 'redux-form';
-import { generate as generateSlug } from '@openagenda/agendas/service/slugs';
+import slug from 'speakingurl';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
 const LOAD_SUCCESS = 'agenda-settings/agenda/LOAD_SUCCESS';
@@ -24,7 +24,7 @@ const initialState = {
 
 const catchValidation = res => {
   if ( res.errors ) {
-    throw new SubmissionError( Object.assign( ...res.errors.map( v => ({ [v.field]: v.message }) ) ) );
+    throw new SubmissionError( Object.assign( ...res.errors.map( v => ({ [ v.field ]: v.message }) ) ) );
   }
   if ( res.response && res.response.error && res.response.error.message ) {
     throw new SubmissionError( { _error: res.response.error.message } );
@@ -97,7 +97,7 @@ export function formPlugin( state = {}, action ) {
         ...state,
         values: {
           ...state.values,
-          slug: generateSlug( action.payload )
+          slug: slug( action.payload, { lower: true } )
         }
       };
     default:

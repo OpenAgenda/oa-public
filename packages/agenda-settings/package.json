@@ -57,6 +57,7 @@
     "redux-connect": "^5.1.0",
     "redux-form": "^8.1.0",
     "reselect": "^3.0.1",
+    "speakingurl": "^14.0.1",
     "superagent": "^2.2.0"
   },
   "devDependencies": {

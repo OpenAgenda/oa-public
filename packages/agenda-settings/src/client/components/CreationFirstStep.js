@@ -25,8 +25,8 @@ export default class CreationFirstStep extends Component {
     getLabel: PropTypes.func
   };
 
-  constructor() {
-    super();
+  constructor( props ) {
+    super( props );
     this.renderInput = renderInput.bind( this );
     this.renderTextarea = renderTextarea.bind( this );
     this.renderInputGroup = renderInputGroup.bind( this );
