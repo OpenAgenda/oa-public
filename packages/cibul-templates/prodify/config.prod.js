@@ -3,8 +3,9 @@
 const path = require( 'path' );
 const webpack = require( 'webpack' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
-const TerserPlugin = require( 'terser-webpack-plugin' );
 const ProgressBar = require( 'webpackbar' );
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const TerserPlugin = require( 'terser-webpack-plugin' );
 const LoadablePlugin = require( '@loadable/webpack-plugin' );
 const getCacheDir = require( './getCacheDir' );
 const getBabelRule = require( './getBabelRule' );
@@ -67,6 +68,9 @@ module.exports = ( { entry, output } ) => ({
   plugins: [
     new ManifestPlugin(),
     new ProgressBar( { minimal: false } ),
+    new CleanWebpackPlugin( {
+      cleanOnceBeforeBuildPatterns: [ '**/*.chunk.js', '**/webapp*.js' ]
+    } ),
     new webpack.DefinePlugin( {
       'process.env.NODE_ENV': '"production"',
       __CLIENT__: true,
