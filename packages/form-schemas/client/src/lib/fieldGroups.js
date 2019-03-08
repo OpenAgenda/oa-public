@@ -39,13 +39,15 @@ function labels( { labelLanguages } ) {
 
 }
 
-function options() {
+function options( { labelLanguages } ) {
 
   return {
     fields: [ {
+      optional: false,
       field: 'options',
       fieldType: 'options',
-      label: l.fieldOptions
+      label: l.fieldOptions,
+      languages: labelLanguages
     } ]
   }
 

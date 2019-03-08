@@ -15,7 +15,15 @@ const fieldTypeChoices = [ {
   id: 1,
   value: 'text',
   label: labels.textFieldType
-} ]
+}, {
+  id: 2,
+  value: 'radio',
+  label: labels.radioFieldType
+}, {
+  id: 3,
+  value: 'checkbox',
+  label: labels.checkboxFieldType
+} ];
 
 export default class AddField extends Component {
 

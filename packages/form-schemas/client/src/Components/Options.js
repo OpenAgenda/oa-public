@@ -46,7 +46,7 @@ export default class OptionsField extends Component {
 
   addOption( newOption ) {
 
-    this.props.onChange( ( this.props.value || [] ).concat( newOption ) );
+    this.props.onChange( ( this.getOptions() ).concat( newOption ) );
 
   }
 
@@ -141,7 +141,7 @@ export default class OptionsField extends Component {
 
     if ( this.state.mode === modes.EDITING ) return true;
 
-    if ( this.props.value.length < 2 ) return true
+    if ( this.getOptions().length < 2 ) return true
 
   }
 
@@ -153,6 +153,7 @@ export default class OptionsField extends Component {
       option={option}
       otherOptions={this.props.value.filter( ( o, i ) => i !== index )}
       onSubmit={this.updateOption.bind( this, index )}
+      onCancel={()=>{this.setState( { mode: null } );}}
       lang={lang}
       languages={field.languages}
     />
@@ -178,7 +179,7 @@ export default class OptionsField extends Component {
 
       return <div className="margin-top-md">
         <OptionLabelsForm
-          otherOptions={this.props.value}
+          otherOptions={this.getOptions()}
           onSubmit={this.addOption.bind( this )}
           lang={lang}
           languages={field.languages}

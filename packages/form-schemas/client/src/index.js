@@ -219,8 +219,6 @@ export default class FormSchemaComponent extends Component {
 
           if ( !field ) {
 
-            console.log( e );
-
             throw new Error( 'did not find field matching validation error', e );
 
           }
@@ -375,7 +373,7 @@ export default class FormSchemaComponent extends Component {
 
       const { Component } = matching;
 
-      return <Component onSubmit={this.onSubmit} loading={loading} />
+      return <Component onSubmit={this.onSubmit} loading={loading} sanitize={this.sanitize.bind( this )} />
 
     }
 

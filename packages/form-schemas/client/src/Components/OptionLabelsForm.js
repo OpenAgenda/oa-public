@@ -52,10 +52,9 @@ export default class OptionAdd extends Component {
 
     const optionLabel = _.get( this, 'state.option.label' );
 
-    const isEmpty = (
-      _.isString( optionLabel ) && !optionLabel.length
-    ) || (
-      _.keys( optionLabel ).filter( k => optionLabel[ k ].length ).length !== _.keys( optionLabel ).length
+    const isEmpty = !optionLabel || (
+      _.isString( optionLabel ) ? !optionLabel.length
+      : _.keys( optionLabel ).filter( k => _.isString( optionLabel[ k ] ) && optionLabel[ k ].length ).length !== _.keys( optionLabel ).length
     );
 
     // add option must be unique
@@ -113,7 +112,7 @@ export default class OptionAdd extends Component {
 
   render() {
 
-    const { languages, lang } = this.props;
+    const { languages, lang, onCancel } = this.props;
 
     return <FormSchemaComponent
       stateless={true}
@@ -135,8 +134,10 @@ export default class OptionAdd extends Component {
       }}
       actionComponents={[ {
         position: 'bottom',
-        Component: () => (
-          <button className="btn btn-primary" onClick={this.onSubmit.bind( this )}>{getLabel( this.isEdit() ? 'optionUpdateAction' : 'optionAddAction', lang )}</button>
+        Component: () => ( <div>
+            <button className="btn btn-primary" onClick={this.onSubmit.bind( this )}>{getLabel( this.isEdit() ? 'optionUpdateAction' : 'optionAddAction', lang )}</button>
+            { onCancel ? <button className="btn btn-default pull-right" onClick={this.props.onCancel}>{getLabel( 'optionEditCancel', lang )}</button> : null }
+          </div>
         )
       } ]}
     />

@@ -100,6 +100,8 @@ module.exports = {
 
   textFieldType: { fr : 'texte', en : 'Text' },
   textMultilingualFieldType: { fr: 'Text multilingue', en: 'Multilingual text' },
+  checkboxFieldType: { fr: 'Selection à choix multiples', en: 'Multiple choice selection' },
+  radioFieldType: { fr: 'Sélection à choix unique', en: 'Single choice selection' },
   imageFieldType: { fr: 'Image', en : 'Image' },
   unknownFieldType: { fr: 'Type inconnu', en: 'Unknown type' },
   languagesFieldType: { fr: 'Langues de saisie', en: 'Input languages' },
@@ -202,6 +204,11 @@ module.exports = {
   optionEdit: {
     fr: 'Modifier',
     en: 'Edit'
+  },
+
+  optionEditCancel: {
+    fr: 'Annuler',
+    en: 'Cancel'
   },
 
   optionDrag: {

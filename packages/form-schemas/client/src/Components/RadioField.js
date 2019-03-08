@@ -18,7 +18,7 @@ module.exports = props => {
           type="radio"
           name={name}
           onChange={onChange.bind( null, o.id )}
-          checked={o.id===value||props.field.default} />
+          checked={o.id===(value||props.field.default)} />
         {o.label}
       </label>
     </div> )}
