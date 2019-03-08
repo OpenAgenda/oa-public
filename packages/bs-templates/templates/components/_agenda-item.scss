@@ -1,5 +1,11 @@
 .agenda-item {
 
+  & > a {
+
+    color: inherit;
+
+  }
+
   overflow: visible;
 
   .media-left, .media-body {
