@@ -293,7 +293,11 @@ class AbilitiesForm extends Component {
         _.matches( _.pick( rule, 'actions', 'subject', 'conditions' ) )
       );
       const fieldState = getFieldState( rule.key );
-      const indeterminate = isIndeterminate( formState.values, rule, relatedRules );
+      const indeterminate = isIndeterminate(
+        formState.values,
+        rule,
+        relatedRules
+      );
 
       if ( !!fieldState.data.indeterminate === !!indeterminate ) {
         return result;
@@ -337,7 +341,11 @@ class AbilitiesForm extends Component {
       />
     );
 
-    const childAbilitiesLength = _.reduce( childAbilities, ( result, value ) => result + value.length, 0 );
+    const childAbilitiesLength = _.reduce(
+      childAbilities,
+      ( result, value ) => result + value.length,
+      0
+    );
 
     return (
       <>
@@ -356,7 +364,8 @@ class AbilitiesForm extends Component {
             </div>
           ) : null}
 
-          {searchChildKey && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH  ? (
+          {searchChildKey
+          && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH ? (
             <div className="margin-v-md">
               <FilterInput
                 value={search}
@@ -364,7 +373,7 @@ class AbilitiesForm extends Component {
                 placeholder={filterInputPlaceholder}
               />
             </div>
-          ) : null}
+            ) : null}
 
           {Object.keys( childAbilities ).map( name => {
             const abilities = fuseChildAbilities && debouncedSearch
@@ -372,7 +381,11 @@ class AbilitiesForm extends Component {
               : childAbilities[ name ];
 
             return (
-              <Collapse key={name} className="margin-bottom-md" abilities={abilities}>
+              <Collapse
+                key={name}
+                className="margin-bottom-md"
+                abilities={abilities}
+              >
                 {abilities.map( entityAbility => (
                   <Collapse.Panel
                     rules={entityAbility.rules}
