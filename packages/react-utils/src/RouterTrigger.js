@@ -22,11 +22,7 @@ class RouterTrigger extends Component {
   };
 
   static getDerivedStateFromProps( props, state ) {
-    const { location, needTrigger } = state;
-
-    if ( needTrigger ) {
-      return null;
-    }
+    const { location } = state;
 
     const {
       location: { pathname, search }
@@ -38,7 +34,7 @@ class RouterTrigger extends Component {
       return {
         needTrigger: true,
         location: props.location,
-        previousLocation: props.location
+        previousLocation: location || props.location
       };
     }
 
@@ -46,29 +42,23 @@ class RouterTrigger extends Component {
   }
 
   trigger = () => {
-    const { trigger } = this.props;
+    const { trigger, location } = this.props;
     const { needTrigger } = this.state;
 
     if ( needTrigger ) {
-      this.safeSetState( { needTrigger: false }, () => {
-        trigger()
+      this.setState( { needTrigger: false }, () => {
+        trigger( location.pathname )
           .catch( err => console.log( 'Failure in RouterTrigger:', err ) )
           .then( () => {
             // clear previousLocation so the next screen renders
-            this.safeSetState( { previousLocation: null } );
+            this.setState( { previousLocation: null } );
           } );
       } );
     }
   }
 
   componentDidMount() {
-    this.mounted = true;
-
     this.trigger();
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
   }
 
   componentDidUpdate( prevProps, prevState ) {
@@ -76,20 +66,7 @@ class RouterTrigger extends Component {
   }
 
   shouldComponentUpdate( nextProps, nextState ) {
-    if (
-      (this.state.previousLocation || this.props.location)
-      !== (nextState.previousLocation || nextProps.location)
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  safeSetState( nextState, callback ) {
-    if ( this.mounted ) {
-      this.setState( nextState, callback )
-    }
+    return nextState.previousLocation !== this.state.previousLocation;
   }
 
   render() {
