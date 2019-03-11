@@ -10,9 +10,9 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import { setTab } from '../redux/modules/menu';
 import { AgendasSearch, Welcome } from '../components';
 
-@provideHooks({
+@provideHooks( {
   fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
-})
+} )
 @connect( ( state, props ) => ({
   query: qs.parse( props.location.search, { ignoreQueryPrefix: true } ),
   res: state.res,
@@ -68,7 +68,10 @@ export default class Agendas extends Component {
           {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
         </a>}
         {[ 1, 2, 3 ].includes( agenda.stakeholder.credential ) && <a
-          href={( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug )}
+          href={(agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent).replace(
+            ':slug',
+            agenda.slug
+          )}
           className="text-muted"
         >
           {getLabel( 'addAnEvent' )}

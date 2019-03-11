@@ -3,17 +3,28 @@ import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { formValueSelector } from 'redux-form';
+import { formValueSelector, reducer as formReducer } from 'redux-form';
 import classNames from 'classnames';
 import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import MenuItem from '../components/MenuItem';
+import menuReducer from '../redux/modules/menu';
 import * as agendasActions from '../redux/modules/agendas';
+import * as eventsActions from '../redux/modules/events';
+import * as modalsActions from '../redux/modules/modals';
 
 const selector = formValueSelector( 'homeAgendas' );
 
+
 @provideHooks( {
+  inject: ( { store } ) => store.inject( {
+    menu: menuReducer,
+    form: formReducer,
+    events: eventsActions.default,
+    agendas: agendasActions.default,
+    modals: modalsActions.default
+  } ),
   fetch: async ( { store: { dispatch, getState }, history, location } ) => {
     const state = getState();
     const query = qs.parse( location.search, { ignoreQueryPrefix: true } );

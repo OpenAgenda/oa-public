@@ -28,7 +28,7 @@
     "@babel/core": "^7.2.2",
     "@babel/polyfill": "^7.2.5",
     "@babel/runtime-corejs2": "^7.3.1",
-    "@loadable/component": "^5.6.0",
+    "@loadable/component": "^5.6.1",
     "@loadable/webpack-plugin": "^5.5.0",
     "@openagenda/activity-apps": "^1.1.2",
     "@openagenda/admin-agendas": "^1.1.2",

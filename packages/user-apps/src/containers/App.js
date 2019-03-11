@@ -2,12 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import { provideHooks } from 'redial';
+import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/users/settings';
+import * as userSettingsActions from '../redux/modules/userSettings';
 
 const getLabel = makeGetterLabel( labels );
 
-
+@provideHooks( {
+  inject: ( { store } ) => store.inject( {
+    form: formReducer,
+    userSettings: userSettingsActions.default
+  } )
+} )
 @connect(
   state => ({
     lang: state.settings.lang
