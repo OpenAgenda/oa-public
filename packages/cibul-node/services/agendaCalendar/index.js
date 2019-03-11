@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const service = require( '@openagenda/agenda-calendar-apps' );
-const layout = require( '../lib/layout' );
+const layout = require( '../lib/layouts' ).agenda;
 
 module.exports = _.extend( app => {
 
@@ -44,7 +44,7 @@ function init( config ) {
       search: `${config.root}/agendas/{agendaUid}/events.v2.json`,
       event: `${config.root}/agendas/{agendaUid}/events/{eventUid}`
     },
-    layout
+    layout: ( req, content ) => layout( content, req )
   } );
 
 }

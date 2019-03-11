@@ -6,7 +6,7 @@ const agendas = require( '@openagenda/agendas' );
 const contribute = require( '@openagenda/agenda-contribute' );
 const sessions = require( '@openagenda/sessions' );
 
-const layout = require( '../lib/layout' );
+const layout = require( '../lib/layouts' ).agenda;
 
 const cmn = require( '../../lib/commons-app' );
 

@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+node_modules/
+client/build
+client/dist
+npm-debug.log
+yarn-error.log
+testconfig.js
+coverage/
+.cache/
