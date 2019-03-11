@@ -1,8 +1,12 @@
 import { trigger } from 'redial';
 import asyncMatchRoutes from './asyncMatchRoutes';
 
+function haveHooks( hooks, components ) {
+  return hooks.some( hook => components.some( v => v[ '@@redial-hooks' ] && v[ '@@redial-hooks' ][ hook ] ) );
+}
+
 export default function makeTriggerHooks( { routes, history, helpers, req } ) {
-  return async ( { onStart, onFinish } = {} ) => {
+  return async ( { pathname, hooks = [ 'inject', 'fetch', 'defer' ], onStart, onFinish } = {} ) => {
     let notFound = null;
     let isStarted = false;
     let isFinished = false;
@@ -16,7 +20,7 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
 
     const { components, match, params } = await asyncMatchRoutes(
       routes,
-      req ? req.originalUrl : history.location.pathname,
+      pathname || (req ? req.originalUrl : history.location.pathname),
       {
         skipPreload: comps => {
           notFound = comps.some( v => (v && v.isNotFound) );
@@ -38,10 +42,9 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
       }
     );
 
-    if (
-      typeof onStart === 'function'
-      && components.some( v => v[ '@@redial-hooks' ] )
-    ) {
+    const compsHaveHooks = haveHooks( hooks, components );
+
+    if ( typeof onStart === 'function' && compsHaveHooks ) {
       isStarted = true;
       start();
     }
@@ -52,26 +55,26 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
       params
     };
 
+    if ( hooks.includes( 'inject' ) ) {
+      await trigger( 'inject', components, triggerLocals );
+    }
+
     // Don't fetch data for initial route, server has already done the work:
     if ( typeof window !== 'undefined' && window.__PRELOADED__ ) {
       // Delete initial data so that subsequent data fetches can occur:
       delete window.__PRELOADED__;
-    } else {
+    } else if ( hooks.includes( 'fetch' ) ) {
       // Fetch mandatory data dependencies for 2nd route change onwards:
       await trigger( 'fetch', components, triggerLocals );
     }
 
-    if ( typeof window !== 'undefined' ) {
+    if ( typeof window !== 'undefined' && hooks.includes( 'defer' ) ) {
       await trigger( 'defer', components, triggerLocals );
     }
 
     isFinished = true;
 
-    if (
-      isStarted
-      && typeof onFinish === 'function'
-      && components.some( v => v[ '@@redial-hooks' ] )
-    ) {
+    if ( isStarted && typeof onFinish === 'function' && compsHaveHooks ) {
       setTimeout( () => onFinish() );
     }
   };
