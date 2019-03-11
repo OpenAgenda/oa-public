@@ -49,6 +49,7 @@ module.exports = ( { entry, output } ) => ({
     extensions: [ '.js', '.jsx', '.json' ],
     alias: {
       'react': require.resolve( 'react' ),
+      'react-dom': require.resolve( 'react-dom' )
     }
   },
   performance: {
@@ -56,9 +57,6 @@ module.exports = ( { entry, output } ) => ({
     maxAssetSize: 2000000
   },
   optimization: {
-    splitChunks: {
-      chunks: 'async'
-    },
     minimizer: [
       new TerserPlugin( {
         cache: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'terser-webpack-plugin' ),
@@ -67,6 +65,7 @@ module.exports = ( { entry, output } ) => ({
     ]
   },
   plugins: [
+    // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
     new ManifestPlugin(),
     new ProgressBar( { minimal: false } ),
     new CleanWebpackPlugin( {

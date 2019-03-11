@@ -51,16 +51,12 @@ module.exports = ( { entry, output } ) => ({
     extensions: [ '.js', '.jsx', '.json' ],
     alias: {
       'react': require.resolve( 'react' ),
+      'react-dom': require.resolve( 'react-dom' )
     }
   },
   performance: {
     hints: false,
     maxAssetSize: Infinity
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'async'
-    },
   },
   plugins: [
     new ManifestPlugin(),
