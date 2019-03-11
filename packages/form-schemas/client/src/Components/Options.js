@@ -4,14 +4,12 @@ import ih from 'immutability-helper';
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+
 import getPreferredLang from '../lib/getPreferredLang';
 import labels from '../lib/builderLabels';
 import OptionLabelsForm from './OptionLabelsForm';
-
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-
-const getDraggableListItemStyle = ( isDragging, draggableStyle ) => draggableStyle;
-const getDraggableListStyle = isDraggingOver => isDraggingOver ? { background: '#f9f9f9' } : {};
+import OptionItem from './OptionItem';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -90,31 +88,6 @@ export default class OptionsField extends Component {
 
   }
 
-  renderOption( index, option ) {
-
-    const { lang } = this.props;
-
-    const isEdited = ( this.state.mode === modes.EDITING ) && ( index === this.state.editedIndex );
-
-    return <div>
-      { isEdited ? null : <label className="margin-v-xs">{getPreferredLang( option.label, lang )}</label> }
-      { isEdited ? null : <div className="pull-right">
-        <button
-          disabled={!this.isOptionActionable()}
-          onClick={this.editOption.bind( this, index )}
-          className="btn btn-link">{getLabel( 'optionEdit', lang )}</button>
-        <button
-          disabled={!this.isOptionActionable()}
-          onClick={this.removeOption.bind( this, index )}
-          className="btn btn-link">
-          <span className="text text-danger">{getLabel( 'optionRemove', lang )}</span>
-        </button>
-      </div> }
-      { isEdited ? this.renderEdit( index, option ) : null }
-    </div>
-
-  }
-
   renderOrder() {
 
     const { lang } = this.props;
@@ -142,21 +115,6 @@ export default class OptionsField extends Component {
     if ( this.state.mode === modes.EDITING ) return true;
 
     if ( this.getOptions().length < 2 ) return true
-
-  }
-
-  renderEdit( index, option ) {
-
-    const { field, lang } = this.props;
-
-    return <OptionLabelsForm
-      option={option}
-      otherOptions={this.props.value.filter( ( o, i ) => i !== index )}
-      onSubmit={this.updateOption.bind( this, index )}
-      onCancel={()=>{this.setState( { mode: null } );}}
-      lang={lang}
-      languages={field.languages}
-    />
 
   }
 
@@ -214,6 +172,7 @@ export default class OptionsField extends Component {
 
   renderDraggableOptions() {
 
+    const { field, value, lang } = this.props;
     const { mode } = this.state;
 
     return <DragDropContext
@@ -222,28 +181,30 @@ export default class OptionsField extends Component {
         {( provided, snapshot ) => (
           <ul
             ref={provided.innerRef}
-            style={getDraggableListStyle(snapshot.isDraggingOver)}
+            style={snapshot.isDraggingOver ? { background: '#f9f9f9' } : {} }
             className="list-group margin-v-sm">
-            { this.getOptions().map( ( o, i ) => (
+            { this.getOptions().map( ( option, index ) => (
               <Draggable
-                index={i}
+                index={index}
                 isDragDisabled={mode !== modes.ORDERING}
-                draggableId={o.value}
-                key={o.value}>
+                draggableId={option.value}
+                key={option.value}>
                 {(provided, snapshot) => (
-                  <li
-                    className={classNames({
-                      'list-group-item' : true,
-                      disabled: this.isOptionDisabled( i )
-                    })}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getDraggableListItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
-                  >{this.renderOption( i, o )}</li>
+                  <OptionItem
+                    lang={lang}
+                    field={field}
+                    option={option}
+                    otherOptions={value.filter( ( o, i ) => i !== index )}
+                    index={index}
+                    isEdited={( this.state.mode === modes.EDITING ) && ( index === this.state.editedIndex )}
+                    actionable={this.isOptionActionable()}
+                    disabled={this.isOptionDisabled( index )}
+                    onEdit={this.editOption.bind( this, index )}
+                    onEditCancel={() => this.setState( { mode: null } )}
+                    onRemove={this.removeOption.bind( this, index )}
+                    onUpdate={this.updateOption.bind( this, index )}
+                    provided={provided}
+                    snapshot={snapshot} />
                 )}</Draggable> ) ) }
             {provided.placeholder}
           </ul>

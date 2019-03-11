@@ -38,7 +38,8 @@ export default class AddField extends Component {
     const fieldType = _.get( this, 'state.fieldType', 1 );
 
     this.props.onChooseType( _.get( _.find(
-      fieldTypeChoices, { id :fieldType }
+      fieldTypeChoices,
+      choice => choice.id === fieldType
     ), 'value', null ) );
 
   }

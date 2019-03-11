@@ -49,7 +49,7 @@ export default class FormSchemaBuilder extends Component {
     const mergedSchema = this.getMergedSchema( props );
 
     const initState = {
-      schema: props.schema,
+      schema: _.get( props, 'schema', { fields: [] } ),
       labelLanguages: extractSchemaLabelLanguages( mergedSchema ),
       saveState: saveStates.UNCHANGED,
       editedField: null,
@@ -77,7 +77,7 @@ export default class FormSchemaBuilder extends Component {
       destination.index
     );
 
-    this.updateSchema( insertMissingAbstractFields( this.state.schema, reorderedSchema ) );
+    this.updateSchema( insertMissingAbstractFields( this.getSchema(), reorderedSchema ) );
 
   }
 
@@ -105,7 +105,7 @@ export default class FormSchemaBuilder extends Component {
 
     this.setState( { saveState: saveStates.LOADING } );
 
-    submit( { values: this.state.schema } ).then( () => {
+    submit( { values: this.getSchema() } ).then( () => {
 
       this.setState( { saveState: saveStates.SAVED } );
 
@@ -127,7 +127,7 @@ export default class FormSchemaBuilder extends Component {
 
   onFieldRemove( field ) {
 
-    this.updateSchema( removeSchemaField( this.state.schema, field ) );
+    this.updateSchema( removeSchemaField( this.getSchema(), field ) );
 
   }
 
@@ -137,9 +137,15 @@ export default class FormSchemaBuilder extends Component {
 
   }
 
+  getSchema() {
+
+    return this.state.schema || { fields: [] };
+
+  }
+
   onFieldAdd( field ) {
 
-    this.updateSchema( addSchemaField( this.state.schema, field ) );
+    this.updateSchema( addSchemaField( this.getSchema(), field ) );
 
   }
 
@@ -147,7 +153,7 @@ export default class FormSchemaBuilder extends Component {
 
     this.setState( { editedField: null } );
 
-    const schema = insertMissingAbstractFields( this.state.schema, this.getMergedSchema() );
+    const schema = insertMissingAbstractFields( this.getSchema(), this.getMergedSchema() );
 
     this.updateSchema( updateSchemaField( schema, updatedField ) );
 
@@ -155,7 +161,7 @@ export default class FormSchemaBuilder extends Component {
 
   getMergedSchema( props ) {
 
-    const currentSchema = props ? props.schema : this.state.schema;
+    const currentSchema = props ? props.schema : this.getSchema();
     const extensions = props ? props.extendedFrom : this.props.extendedFrom;
 
     return merge.apply( null, extensions.map( e => e.schema ).concat( currentSchema ) );

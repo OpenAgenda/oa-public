@@ -95,11 +95,6 @@ module.exports = {
     link: '/checkbox',
     group: 'types'
   }, {
-    name: 'Options',
-    description: 'For when you need to type in multiple values',
-    link: '/options',
-    group: 'types'
-  }, {
     name: 'A boolean ( unique checkbox )',
     description: 'When it is a yes or no question',
     link: '/boolean',
@@ -162,8 +157,8 @@ module.exports = {
     link: '/formbuilder'
   }, {
     group: 'builder',
-    name: 'textfieldedit',
-    description: 'A text field',
-    link: '/textfieldedit'
+    name: 'Options',
+    description: 'For when you need to type in values for checkbox or radio lists',
+    link: '/options'
   } ]
 }

@@ -3,6 +3,8 @@ import ih from 'immutability-helper';
 
 module.exports = ( field, lang ) => {
 
+  if ( !field ) return null;
+
   const update = {};
 
   [ 'label', 'info', 'placeholder', 'sub', 'help' ].forEach( f => {

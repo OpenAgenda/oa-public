@@ -6,7 +6,7 @@ export default ( schema, updatedMerge ) => {
   return ih( schema, { fields: {
     $set: updatedMerge.fields.map( f => {
 
-      const fieldIndex = _.findIndex( schema.fields, { field: f.field } );
+      const fieldIndex = _.findIndex( schema.fields, sf => sf.field === f.field );
 
       if ( fieldIndex === -1 ) return {
         field: f.field,

@@ -3,7 +3,7 @@ import ih from 'immutability-helper';
 
 export default ( schema, field ) => {
 
-  const fieldIndex = _.findIndex( schema.fields, _.pick( field, 'field' ) );
+  const fieldIndex = _.findIndex( schema.fields, sf => sf.field === field.field );
 
   if ( fieldIndex === -1 ) {
 
