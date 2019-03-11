@@ -1,8 +1,6 @@
 const webpack = require( 'webpack' );
 
 module.exports = function ( baseConfig, env, defaultConfig ) {
-  defaultConfig.target
-
   defaultConfig.plugins.push(
     new webpack.DefinePlugin( {
       __CLIENT__: true,
