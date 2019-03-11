@@ -122,7 +122,7 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
   update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
 
-  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone', 'Europe/Paris' );
+  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone' ) || 'Europe/Paris';
 
   update.timezone = {
     $set: timezone

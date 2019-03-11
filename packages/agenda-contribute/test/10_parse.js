@@ -56,7 +56,7 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
         filename: 'something',
         size: { width: 12, height: 12 },
         variants: [],
-        creits: undefined
+        credits: undefined
       } );
 
     } );
@@ -74,7 +74,10 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
     test( 'timings are converted to date format in default timezone', () => {
 
       expect( parse.toEventServiceFormat( {
-        timezone: 'Europe/Paris',
+        timezone: null,
+        location: {
+          timezone: null
+        },
         timings: [ {
           begin: {
             date: '2019-02-08',
