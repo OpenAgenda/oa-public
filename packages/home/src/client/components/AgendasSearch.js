@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
@@ -93,7 +93,7 @@ export default class AgendasSearch extends Component {
 
     return (
       <div>
-        {Header ? <Header /> : null}
+        {Header ? React.createElement( Header ) : null}
         {clearfixAfterButton && <div className="clearfix"></div>}
         <form onSubmit={handleSubmit( this.search )}>
           <Field
