@@ -621,7 +621,7 @@ function getMiddleware( idRef ) {
 
     ocGeocoder( _.get( req, 'query.address' ), {
       countryCode: _.get( req, 'query.countryCode' ),
-      language: req.lang
+      language: _.get( req, 'lang', 'fr' )
     } ).then( results => {
 
       res.send( { results } );
@@ -641,7 +641,7 @@ function getMiddleware( idRef ) {
   function _opencageReverse( req, res ) {
 
     ocGeocoder.reverse( req.query.latitude, req.query.longitude, {
-      language: req.lang
+      language: _.get( req, 'lang', 'fr' )
     } ).then( results => {
 
       res.send( { results } );
