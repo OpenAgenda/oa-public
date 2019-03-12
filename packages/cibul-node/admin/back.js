@@ -34,7 +34,7 @@ module.exports = app => {
   app.get( '/admin/users', preMw, getUsers );
   app.get( '/admin/users/signin', preMw, _loadUser(), userSignin );
   app.get( '/admin/users/activate', preMw, _loadUser(), userActivate );
-  app.get( '/admin/users/update', preMw, _loadUser( 'post' ), userUpdate );
+  app.post( '/admin/users/update', preMw, _loadUser( 'post' ), userUpdate );
   app.get( '/admin/throw', preMw, throwTestError );
   app.get( '/admin/users/changePassword', preMw, userChangePassword );
   app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
