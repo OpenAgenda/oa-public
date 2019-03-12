@@ -555,10 +555,7 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving geocodes', _.pick( req.query, [ 'address', 'countryCode' ] ) );
 
-    service.utils.geocode( {
-      address: req.query.address,
-      countryCode: req.query.countryCode
-    }, _handleGeocodeResponse.bind( null, req, res ) );
+    _openCageGeocode( req, res )
 
   }
 
@@ -630,7 +627,7 @@ function getMiddleware( idRef ) {
 
       log( 'error', 'OpenCage error: ' + err );
 
-      res.statusCodde = 502;
+      res.statusCode = 502;
 
       res.send( 'nok' );
 
