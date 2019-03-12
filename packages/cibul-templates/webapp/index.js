@@ -9,6 +9,7 @@ import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import du from '@openagenda/dom-utils';
 import { loadableReady } from '@loadable/component';
+import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
@@ -65,7 +66,29 @@ history.replace = historyActionCreator( oldHistoryReplace );
 
 const headerStore = HeaderManager.createStore( initialState.header );
 
-loadableReady( () => {
+loadableReady( async () => {
+  const componentsPerApps = Object.values( apps )
+    .map( app =>
+      app.routes
+      && matchRoutes( app.routes, history.location.pathname ).map( v => v.route.component )
+    );
+
+  const { visibleApps /* , notFoundApps */ } = Object.values( apps )
+    .reduce( ( result, app, key ) => {
+      if ( componentsPerApps[ key ].some( v => (v && v.isNotFound) ) ) {
+        result.notFoundApps.push( app );
+      } else {
+        result.visibleApps.push( app );
+      }
+
+      return result;
+    }, { visibleApps: [], notFoundApps: [] } );
+
+  // Trigger 'inject' before render, needed for the first render (in @connect)
+  await Promise.all(
+    Object.values( visibleApps ).map( app => app.triggerHooks( { hooks: [ 'inject' ] } ) )
+  );
+
   const canvas = du.el( '#root' );
   const element = (
     <HeaderManager store={headerStore}>
