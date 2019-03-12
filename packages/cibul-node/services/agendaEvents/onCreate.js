@@ -30,6 +30,14 @@ module.exports = async ( ae, context ) => {
 
   const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
 
+  if ( !event ) {
+
+    log( 'error', 'could not retrieve event', ae );
+
+    return;
+
+  }
+
   let user;
 
   if ( !context.aggregated ) {
