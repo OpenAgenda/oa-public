@@ -8,7 +8,11 @@ module.exports = ( req, res, next ) => {
 
   console.log( 'loading event %s', req.params.eventUid );
 
-  req.event = scenario.event;
+  if ( scenario.event ) {
+
+    req.event = scenario.event;
+
+  }
 
   next();
 

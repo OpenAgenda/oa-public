@@ -40,7 +40,8 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
     middlewares.member,
-    middlewares.schemaExtensions
+    middlewares.schemaExtensions,
+    middlewares.duplicateFromEvent
   ] );
 
   parentApp.all( [
@@ -58,7 +59,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     req.config = {
       lang: req.lang,
       base: `/${req.agenda.slug}/contribute`,
-      edit: _.get( req, 'event' ) && !_.get( req, 'event.draft' ),
+      edit: _.get( req, 'event.uid' ) && !_.get( req, 'event.draft' ),
       locationRes: `/${req.agenda.slug}/locations`,
       referencesRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/references`: null,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,

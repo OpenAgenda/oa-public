@@ -231,6 +231,24 @@ module.exports = [ {
     organisation: 'OpenAgenda Corp.'
   }
 }, {
+  link: '/a-new-event-with-preloaded-data/contribute/event',
+  agenda: {
+    title: 'A new event with preloaded data',
+    description: 'Okay.',
+    slug: 'a-new-event-with-preloaded-data',
+    uid: 123987,
+    id: 202022
+  },
+  config: _.assign( {}, defaultConfig, {
+    base: '/a-new-event-with-preloaded-data/contribute',
+  } ),
+  event: {
+    title: {
+      fr: 'Un titre pré-chargé'
+    }
+  },
+  member: aValidMember
+}, {
   link: '/an-event-form-with-custom-fields/contribute/event',
   agenda: {
     title: 'A contribute app with custom fields',
