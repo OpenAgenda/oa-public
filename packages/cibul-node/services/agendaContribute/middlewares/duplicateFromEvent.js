@@ -24,7 +24,7 @@ module.exports = async ( req, res, next ) => {
   }
 
   // location cannot be used as is.
-  req.event = ih( event, { $unset: [ 'agenda', 'slug', 'uid', 'locationUid', 'fileKey', 'state' ] } );
+  req.event = ih( event, { $unset: [ 'agenda', 'slug', 'uid', 'locationUid', 'fileKey', 'state', 'timings' ] } );
 
   next();
 
