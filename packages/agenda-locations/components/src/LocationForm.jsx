@@ -35,7 +35,8 @@ const _ = {
   first: require( 'lodash/first' ),
   keys: require( 'lodash/keys' ),
   pick: require( 'lodash/pick' ),
-  upperCase: require( 'lodash/upperCase' )
+  upperCase: require( 'lodash/upperCase' ),
+  isString: require( 'lodash/isString' )
 }
 
 const alternativeMaxLength = 50;

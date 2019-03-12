@@ -549,10 +549,7 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving reverse geocodes for %s,%s', req.query.latitude, req.query.longitude );
 
-    service.geocode.reverse( {
-      latitude: req.query.latitude,
-      longitude: req.query.longitude
-    }, _handleGeocodeResponse.bind( null, req, res ) );
+    _opencageReverse( req, res );
 
   }
 
@@ -561,7 +558,7 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving geocodes', _.pick( req.query, [ 'address', 'countryCode' ] ) );
 
-    _openCageGeocode( req, res )
+    _opencageGeocode( req, res )
 
   }
 
@@ -620,10 +617,30 @@ function getMiddleware( idRef ) {
   }
 
 
-  function _openCageGeocode( req, res ) {
+  function _opencageGeocode( req, res ) {
 
     ocGeocoder( _.get( req, 'query.address' ), {
       countryCode: _.get( req, 'query.countryCode' ),
+      language: req.lang
+    } ).then( results => {
+
+      res.send( { results } );
+
+    }, err => {
+
+      log( 'error', 'OpenCage error: ' + err );
+
+      res.statusCode = 502;
+
+      res.send( 'nok' );
+
+    } );
+
+  }
+
+  function _opencageReverse( req, res ) {
+
+    ocGeocoder.reverse( req.query.latitude, req.query.longitude, {
       language: req.lang
     } ).then( results => {
 
