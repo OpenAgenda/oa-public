@@ -41,6 +41,29 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Courbevoie', async () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Courbevoie', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true
+        } );
+
+      } );
+
+      it( 'it is in Hauts de Seine', async () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
+
+
+    } );
+
     describe( 'Sarzeau', async () => {
 
       let result;
@@ -75,12 +98,51 @@ describe( 'opencage', () => {
 
   describe( 'reverse', () => {
 
-    it( 'In Paris', async () => {
+    describe( 'Paris', () => {
 
-      ( await geocode.reverse( 48.867638, 2.352172, {
-        first: true,
-        language: 'fr'
-      } ) ).city.should.equal( 'Paris' );
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.867638, 2.352172, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'city is Paris', () => {
+
+        result.city.should.equal( 'Paris' );
+
+      } );
+
+      it( 'department is Paris', () => {
+
+        result.department.should.equal( 'Paris' );
+
+      } );
+
+    } );
+
+    describe( 'Courbevoie', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.8953328, 2.2561602, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'department is Hauts-de-Seine', () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
 
     } );
 
