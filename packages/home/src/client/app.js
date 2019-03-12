@@ -36,7 +36,9 @@ const defaults = {
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
       search: '/agendas'
-    }
+    },
+    menu: {},
+    agendas: {}
   }
 };
 
