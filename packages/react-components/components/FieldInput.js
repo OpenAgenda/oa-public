@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const Field = ( {
-                        content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
-                        errorOnDirty, meta: { touched, error, dirty }
-                      } ) => {
+const FieldInput = ( {
+  content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
+  errorOnDirty, meta: { touched, error, dirty }
+} ) => {
   const displayError = errorOnDirty ? dirty || touched : touched;
 
-  if ( !visible ) return <div></div>;
+  if ( !visible ) return null;
 
   return (
     <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
-      {label && <label htmlFor={name}>{label}</label>}
-      {subLabel}
+      {label ? <label htmlFor={name}>{label}</label> : null}
+      {subLabel ? subLabel : null}
       {content}
       {displayError && error && <span className="form-control-feedback">
           <i className="fa fa-times" aria-hidden="true"></i>
@@ -26,4 +26,4 @@ const Field = ( {
   );
 }
 
-export default Field;
+export default FieldInput;

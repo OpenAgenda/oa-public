@@ -258,7 +258,9 @@ async function agendaEventShow( req, res, next ) {
 
     cmn.render( req, res, 'event/show', {
       scriptParams: {
-        contributor
+        contributor,
+        agendaSlug: req.agenda.slug,
+        agendaImage: req.agenda.image || config.aws.defaultImagePath
       },
       agendaId: req.agenda.id,
       private: req.agenda.private,

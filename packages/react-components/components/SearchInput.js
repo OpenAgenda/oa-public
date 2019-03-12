@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import Field from './Field';
+import FieldInput from './FieldInput';
 
 const searchSpinner = {
   width: 1,
@@ -12,7 +12,9 @@ const SearchInput = ( { type, placeholder, className, spellCheck, action, loadin
   const inputAttrs = { type, placeholder, className, spellCheck };
   const onChange = e => {
     props.input.onChange( e.target.value );
-    action();
+    if ( typeof action === 'function' ) {
+      action( e.target.value );
+    }
   };
 
   const content = <div className="input-icon-right">
@@ -22,7 +24,7 @@ const SearchInput = ( { type, placeholder, className, spellCheck, action, loadin
     </button>
   </div>;
 
-  return <Field content={content} {...props} />;
+  return <FieldInput content={content} {...props} />;
 };
 
 export default SearchInput;
