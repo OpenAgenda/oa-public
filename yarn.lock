@@ -10139,6 +10139,11 @@ fuse.js@^3.0.1, fuse.js@^3.3.0:
   resolved "https://registry.npmjs.org/fuse.js/-/fuse.js-3.4.0.tgz#29b655e3ef648f80818255c9dd9fc58d53dbb584"
   integrity sha512-ajS2eW11qX4O74sk/JgDO6EnyxU8p38ON3+WK3aTW5DvRFjTVx6v8w0DhwInzPzlCqzWkOWOwUzgYu8s1LJ1QA==
 
+fuse.js@^3.4.4:
+  version "3.4.4"
+  resolved "https://registry.npmjs.org/fuse.js/-/fuse.js-3.4.4.tgz#f98f55fcb3b595cf6a3e629c5ffaf10982103e95"
+  integrity sha512-pyLQo/1oR5Ywf+a/tY8z4JygnIglmRxVUOiyFAbd11o9keUDpUJSMGRWJngcnkURj30kDHPmhoKY8ChJiz3EpQ==
+
 gauge@~1.2.5:
   version "1.2.7"
   resolved "https://registry.npmjs.org/gauge/-/gauge-1.2.7.tgz#e9cec5483d3d4ee0ef44b60a7d99e4935e136d93"
