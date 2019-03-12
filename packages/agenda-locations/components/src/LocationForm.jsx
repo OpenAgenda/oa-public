@@ -429,7 +429,7 @@ module.exports = createReactClass( {
 
     if ( item.countryCode && item.countryCode !== this.state.location.countryCode ) {
 
-      decoration.countryCode = { $set: item.countryCode };
+      decoration.countryCode = { $set: _.isString( item.countryCode ) ? item.countryCode.toUpperCase() : null };
 
     }
 

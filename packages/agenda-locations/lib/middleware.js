@@ -12,10 +12,17 @@ const states = require( './states' );
 
 const retrieveInsee = require( '../utils/insee' );
 
-let service, config;
+let service, config, ocGeocoder;
 
 module.exports = _.extend( getMiddleware, {
-  init: ( s, c ) => { service = s; config = c; },
+  init: ( s, c ) => {
+
+    service = s;
+    config = c;
+
+    ocGeocoder = OpenCage( config.opencage || { key: null } );
+
+  },
   get
 } );
 
@@ -29,7 +36,6 @@ function getMiddleware( idRef ) {
 
   }
 
-  const ocGeocoder = OpenCage( config.opencage || { key: null } );
   const dgGeocoder = AdresseDataGouvFR();
 
   return {
