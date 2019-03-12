@@ -183,21 +183,6 @@ export default class ContributionEdition extends Component {
             )}
 
             {this.renderTableRow(
-              'personalization',
-              <b>{getLabel( 'personalization' )}</b>,
-              getLabel( 'editEventsDescription' ),
-              <div>
-                <a
-                  className="margin-right-sm"
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => openFormRequest( { lang, agenda: agenda.slug, subject: 'bottomDescription' } )}
-                >
-                  {getLabel( 'requestBottomDescription' )}
-                </a>
-              </div>
-            )}
-
-            {this.renderTableRow(
               'inbox',
               <b>{getLabel( 'inbox' )}</b>,
               getLabel( 'inboxTabDescription' ),
