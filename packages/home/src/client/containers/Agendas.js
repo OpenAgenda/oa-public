@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import { setTab } from '../redux/modules/menu';
-import { AgendasSearch, Welcome } from '../components';
+import { Welcome } from '../components';
+import AgendasSearch from './AgendasSearch';
 
 @provideHooks({
   fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
@@ -81,6 +82,17 @@ export default class Agendas extends Component {
     );
   }
 
+  onAgendaSearch = value => {
+    this.props.history.push( {
+      ...this.props.location,
+      search: qs.stringify( { ...this.props.query, search: value !== '' ? value : undefined } )
+    } );
+  };
+
+  getAgendaTitleLink = agenda => {
+    return this.props.res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug );
+  };
+
   render() {
     const { isNew, loading, query, res, total, history } = this.props;
 
@@ -96,20 +108,12 @@ export default class Agendas extends Component {
       <div className="content">
         <AgendasSearch
           id="homeAgendas"
-          destroyOnUnmount={false}
-          initialValues={{ search: query.search || '' }}
           fieldIsVisible={() => query.search}
-          onSearch={values => {
-            history.push( {
-              ...this.props.location,
-              search: qs.stringify( { ...query, search: values.search || undefined } )
-            } );
-          }}
-          getTitleLink={agenda =>
-            (res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug ))
-          }
+          getTitleLink={this.getAgendaTitleLink}
           Header={this.renderHeader}
           AgendaActionsComponent={this.renderAgendaActions}
+          initialValues={{ search: query.search || '' }}
+          onSearch={this.onAgendaSearch}
         />
       </div>
     );

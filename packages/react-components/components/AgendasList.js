@@ -1,4 +1,4 @@
-import React, { Component, createElement } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Image from '@openagenda/react-components/build/Image';
 
@@ -30,7 +30,7 @@ export default class AgendasList extends Component {
     const { WrapperComponent, ActionsComponent, agendas, getTitleLink } = this.props;
     const { getLabel } = this.context;
 
-    return createElement(
+    return React.createElement(
       WrapperComponent,
       {},
       agendas && agendas.map( ( agenda, i ) => (
@@ -65,7 +65,7 @@ export default class AgendasList extends Component {
                 </div>
               </div>}
             </div>
-            {createElement( ActionsComponent, { agenda } )}
+            {React.createElement( ActionsComponent, { agenda } )}
           </div>
         </div>
       ) )

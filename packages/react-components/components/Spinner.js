@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import bodyScroll from './body-scroll';
 import spin from 'spin.js';
 
