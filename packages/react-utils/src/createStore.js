@@ -27,7 +27,7 @@ function getNoopReducers( reducers, data ) {
 
       return {
         ...accu,
-        [ key ]: ( state = {} ) => state
+        [ key ]: ( state = data[ key ] ) => state
       };
     }, {} );
 }
